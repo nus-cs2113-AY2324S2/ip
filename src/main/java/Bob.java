@@ -7,5 +7,9 @@ public class Bob {
                     + "|____/ \\__,_|_\\__/\n";
         System.out.println("Hello from\n" + logo);
 
+        System.out.println("Hello! I'm Bob");
+        System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!");
+
     }
 }
