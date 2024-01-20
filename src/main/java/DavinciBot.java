@@ -1,0 +1,17 @@
+public class DavinciBot {
+        public static void main(String[] args) {
+            /**
+             String logo = " ____        _        \n"
+             + "|  _ \\ _   _| | _____ \n"
+             + "| | | | | | | |/ / _ \\\n"
+             + "| |_| | |_| |   <  __/\n"
+             + "|____/ \\__,_|_|\\_\\___|\n";
+             System.out.println("Hello from\n" + logo);
+             */
+            System.out.println(
+                    "Hello! I'm DavinciBot! \n" +
+                            "I would love to help you but it seems that I have no functionalities yet. \n" +
+                            "Bye. Hope to see you again soon! \n"
+            );
+    }
+}
