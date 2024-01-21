@@ -8,5 +8,7 @@ public class Duke {
                 " \\____| |_| |_|/_/      \\_\\|_|   \\_\\|______||_||_____|\n";
 
         System.out.println("Hello! I'm Charlie!\n" + logo);
+        System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
