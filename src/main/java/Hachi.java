@@ -5,7 +5,7 @@ public class Hachi {
                 + "| |_| |  | |_| |  | |      | |_| |  | |\n"
                 + "| ._. |  | ._. |  | |___   |  _  |  | |\n"
                 + "|_| |_|  |_| |_|  |_____|  |_| |_|  |_|\n";
-        System.out.println("Hey, Hachi Here!\n" + logo + "\n"
+        System.out.println("Hey, Hachi Here!\n" + logo
                             + "How can I assist you today?\n");
         spacerInsert("medium");
     }
@@ -25,8 +25,13 @@ public class Hachi {
         }
         System.out.println(spacer);
     }
+    public static void goodbye(){
+        System.out.println("Goodbye! Hope you have a marvelous day.");
+        spacerInsert("medium");
+    }
     public static void main(String[] args) {
         spacerInsert("medium");
         greet();
+        goodbye();
     }
 }
