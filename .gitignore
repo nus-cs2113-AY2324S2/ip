@@ -15,3 +15,14 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+#self added
+*.class*.[oa]
+*~
+# binary files
+*.class
+*.jar
+*.exe
+# temp files
+temp/*.tmp
+
