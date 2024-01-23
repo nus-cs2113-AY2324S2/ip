@@ -1,4 +1,4 @@
-public class Duke {
+public class Cody {
     public static void main(String[] args) {
         String greeting = " ____________________________________________________________\n" +
                 " Hello! I'm Cody\n" +
