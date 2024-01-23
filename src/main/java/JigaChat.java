@@ -1,2 +1,7 @@
-package PACKAGE_NAME;public class JigaChat {
+public class JigaChat {
+    public static void main(String[] args) {
+        System.out.println("Hello! I'm JigaChat");
+        System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!");
+    }
 }
