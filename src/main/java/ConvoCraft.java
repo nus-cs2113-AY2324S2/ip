@@ -4,6 +4,7 @@ public class ConvoCraft {
         System.out.println("Hello! I'm ConvoCraft");
         System.out.println("What can I do for you?");
         HorizontalGenerator.printHorizontal();
+        EchoMachine.echo();
         HorizontalGenerator.printHorizontal();
         System.out.println("Bye. Hope to see you again soon!");
         HorizontalGenerator.printHorizontal();
