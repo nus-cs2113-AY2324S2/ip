@@ -1,12 +1,12 @@
-public class Duke {
+public class BobBot {
 
     public static void drawLine() {
         System.out.println("__________________________________________");
     }
 
-    public static void greet(String botName) {
+    public static void greet() {
         drawLine();
-        System.out.println("Hello! I'm " + botName);
+        System.out.println("Hello! I'm BobBot");
         System.out.println("What can I do for you?");
 
         drawLine();
@@ -15,7 +15,6 @@ public class Duke {
         drawLine();
     }
     public static void main(String[] args) {
-        String botName = "BobBot";
-        greet(botName);
+        greet();
     }
 }
