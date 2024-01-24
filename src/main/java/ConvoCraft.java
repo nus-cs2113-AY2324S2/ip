@@ -1,13 +1,11 @@
 public class ConvoCraft {
-    public static void printHorizontal() {
-        System.out.println("-----------------------------------------------");
-    }
     public static void main(String[] args) {
-        printHorizontal();
+        HorizontalGenerator.printHorizontal();
         System.out.println("Hello! I'm ConvoCraft");
         System.out.println("What can I do for you?");
-        printHorizontal();
+        HorizontalGenerator.printHorizontal();
+        HorizontalGenerator.printHorizontal();
         System.out.println("Bye. Hope to see you again soon!");
-        printHorizontal();
+        HorizontalGenerator.printHorizontal();
     }
 }
