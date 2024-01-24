@@ -15,6 +15,6 @@ public class Dobby {
                       + "                          |___/ \n";
         System.out.println(logo);
         System.out.println("Hello! I'm Dobby");
-        System.out.println("What can I do for you?\n");
+        System.out.println("How can I help you?\n");
     }
 }
