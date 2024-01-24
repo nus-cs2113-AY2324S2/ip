@@ -14,10 +14,10 @@ public class Ui {
     }
 
     void generateUi() {
-        System.out.println(separator);
-        System.out.println(welcome);
-        System.out.println(separator);
-        System.out.println(exit);
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
+        System.out.println(WELCOME);
+        System.out.println(SEPARATOR);
+        System.out.println(EXIT);
+        System.out.println(SEPARATOR);
     }
 }
