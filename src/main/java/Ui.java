@@ -1,7 +1,7 @@
 public class Ui {
-    private static final String welcome = " Hello! I'm Bob\n What can I do for you?";
-    private static final String exit = " Bye. Hope to see you again soon!";
-    private static final String separator = "____________________________________________________________";
+    private static final String WELCOME = " Hello! I'm Bob\n What can I do for you?";
+    private static final String EXIT = " Bye. Hope to see you again soon!";
+    private static final String SEPARATOR = "____________________________________________________________";
 
     void printOldWelcome() {
         // Method to print old welcome message
