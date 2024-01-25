@@ -7,9 +7,9 @@ public class Soot {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
 
-        System.out.println("Hello! I'm Soot");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello! I'm Soot, your personal chatbot companion :)");
+        System.out.println("What can I help you with?");
 
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye! Till the next time we meet...");
     }
 }
