@@ -5,6 +5,15 @@ public class Nehsik {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        printLine();
+        System.out.println("Hello! I'm Nehsik");
+        System.out.println("What can I do for you?");
+        printLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        printLine();
+    }
+
+    public static void printLine() {
+        System.out.println("____________________________________________________________");
     }
 }
