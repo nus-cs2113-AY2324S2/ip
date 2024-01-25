@@ -9,5 +9,7 @@ public class Soot {
 
         System.out.println("Hello! I'm Soot");
         System.out.println("What can I do for you?");
+
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
