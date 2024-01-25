@@ -10,6 +10,16 @@ public class Alexis {
                 + "  |  | |  | |      |  |  `---. /  .''  \\(_|  |   \\       / \n"
                 + "  `--' `--' `------'  `------''--'   '--' `--'    `-----'  \n";
 
-        System.out.println("Hello from\n" + name);
+        String greeting = "____________________________________________________________\n"
+                + "Hello, I'm Alexis.\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________";
+
+        String goodbye = "Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________\n";
+
+        System.out.println(name);
+        System.out.println(greeting);
+        System.out.println(goodbye);
     }
 }
