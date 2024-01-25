@@ -1,9 +1,9 @@
 public class Yeos {
     public static void main(String[] args) {
-        String greeting = "Hello! I'm Yeos!\n"
-                + "What can I do for your?\n\n"
-                + "Bye. Hope to see you again soon!\n";
-        System.out.println(greeting);
+        String greeting = "Hello! I'm Yeos, your personal chatbot!\n"
+                + "What can I do for you today?\n";
         String bye = "Bye. Hope to see you again soon!\n";
+        String line = "_____________________________________________________________________\n";
+        System.out.println(line + greeting + line + bye);
     }
 }
