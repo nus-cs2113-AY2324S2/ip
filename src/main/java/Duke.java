@@ -1,10 +1,24 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String lineBreak = "----------------------------------------------------------";
+        String idle = "       █████████████    \n"
+                    + "      ██           ██   \n"
+                    + "      ██   █████   ██   \n"
+                    + "      ██   █████   ██   \n"
+                    + "      ██           ██   \n"
+                    + "       █████████████    \n"
+                    + "   ██                  ██\n"
+                    + "     ██████████████████ \n\n";
+
+        String happy= "            ███         \n"
+                    + "          ███████       \n"
+                    + "         ████ ████      \n"
+                    + "        ███     ███     \n"
+                    + "       ██         ██    \n"
+                    + "   ██                 ██\n"
+                    + "    ███             ███ \n"
+                    + "      ███████████████   \n\n";
+        System.out.println(idle + "Hello, Im Pythia, how may I help you today?\n"+lineBreak);
+        System.out.println(happy+"Happy to help, have a great day.\n"+lineBreak);
     }
 }
