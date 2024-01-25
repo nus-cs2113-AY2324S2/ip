@@ -1,10 +1,20 @@
 public class Helpy {
+    public static void greetUser() {
+        String horizontalLine = "______________________";
+        String name = "░▒█░▒█░▒█▀▀▀░▒█░░░░▒█▀▀█░▒█░░▒█\n" +
+                "░▒█▀▀█░▒█▀▀▀░▒█░░░░▒█▄▄█░▒▀▄▄▄▀\n" +
+                "░▒█░▒█░▒█▄▄▄░▒█▄▄█░▒█░░░░░░▒█░░\n";
+        System.out.println(horizontalLine
+                + "\nGreetings, I am\n" + name);
+        System.out.println("How can I help you?\n" + horizontalLine);
+    }
+    public static void goodbyeUser() {
+        String horizontalLine = "______________________\n";
+        System.out.println("Goodbye, see you next time!");
+        System.out.print(horizontalLine);
+    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        greetUser();
+        goodbyeUser();
     }
 }
