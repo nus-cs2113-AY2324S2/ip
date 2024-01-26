@@ -14,27 +14,28 @@ public class KuroBot {
         System.out.println("Hello! I'm KuroBot\n" + "What can I do for you?");
         System.out.println(line);
 
-        String[] lists = new String[100];
-        int i = 0;
+        Task t = new Task();
         Scanner in = new Scanner(System.in);
         while(true){
             String input = in.nextLine();
             if(input.equals("bye")){
                 break;
-            } else if (input.equals("list")){
-                String[] validList = Arrays.copyOf(lists,i);
-                int j = 1;
+            } else if (input.equals("list")) {
                 System.out.println(line);
-                for(String item: validList){
-                    System.out.println(j + ". " + item);
-                    j ++;
-                }
+                t.printTasks();
                 System.out.println(line);
-            } else {
+            } else if (input.startsWith("mark")){
                 System.out.println(line);
-                System.out.println("added: " + input);
+                t.markTask(input);
                 System.out.println(line);
-                lists[i++] = input;
+            } else if (input.startsWith("unmark")){
+                System.out.println(line);
+                t.unmarkTask(input);
+                System.out.println(line);
+            }else {
+                System.out.println(line);
+                t.addTask(input);
+                System.out.println(line);
             }
         }
 
