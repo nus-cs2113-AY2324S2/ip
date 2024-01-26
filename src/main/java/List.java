@@ -15,7 +15,7 @@ public class List {
             System.out.println("You KAIBAI-ing");
             return;
         }
-        
+
         System.out.println("Yay! List!");
         for (int i = 0; i < size; i++) {
             System.out.print(i + 1 + ". ");
@@ -27,7 +27,8 @@ public class List {
     /**
      * Adds a task to the list.
      * 
-     * @param taskName The item to be added.
+     * @param taskName
+     *            The item to be added.
      * @return None
      */
     public void addItem(String taskName) {
@@ -37,6 +38,10 @@ public class List {
     }
 
     public void setItemStatus(int index, boolean status) {
-        list.get(index - 1).setStatus(status);
+        try {
+            list.get(index - 1).setStatus(status);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Huhhhhhhh? I cannot find!");
+        }
     }
 }
