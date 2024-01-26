@@ -1,24 +1,48 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Gab {
+    private static ArrayList<String> taskList = new ArrayList<>();
 
     public static String getTask() {
         String task;
         Scanner in = new Scanner(System.in);
         System.out.println("\tEnter your new task: ");
         task = in.nextLine();
+        taskList.add(task);
         return task;
     }
 
+    public static void listTask() {
+        for (int i = 0; i < taskList.size(); i++) {
+            String displayList = taskList.get(i);
+            System.out.println((i + 1) + ". " + displayList);
+        }
+        displayTask(getTask());
+    }
+
+    public static void checkKeywords (String keywords) {
+        final String exitCode = "bye";
+        final String displayCode = "list";
+        keywords = keywords.toLowerCase();
+        switch (keywords) {
+            case exitCode:
+                System.out.println("I hope you complete them!");
+                break;
+            case displayCode:
+                Gab.listTask();
+                break;
+            default:
+                Gab.displayTask(getTask());
+                break;
+        }
+    }
     public static void displayTask(String task) {
         String exitCode = "Bye";
         System.out.println("_____________");
-        System.out.println("\t" + task);
+        System.out.println("\tadded: " + task);
         System.out.println("_____________");
-        if (task.equalsIgnoreCase(exitCode)) {
-            System.out.println("I hope you complete them!");
-        } else {
-            displayTask(getTask());
-        }
+        checkKeywords(task);
     }
 
 
@@ -37,7 +61,7 @@ public class Gab {
 
         String task = Gab.getTask();
         Gab.displayTask(task);
-        
+
     }
 
 
