@@ -44,8 +44,6 @@ public class Uwunzhe {
         System.out.print("HELLO MY POSITIVE MENTALITY FLEN!! MY NAME IS ");
         System.out.println(botName.toUpperCase() + "!!!");
         System.out.println("Actually uh... What even do you want me to do?");
-
-        addLineBreak();
     }
 
     /**
@@ -60,6 +58,7 @@ public class Uwunzhe {
         List taskList = new List();
 
         while (isRunning) {
+            addLineBreak();
             System.out.print(": ");
             String input = sc.nextLine();
             addLineBreak();
@@ -68,10 +67,23 @@ public class Uwunzhe {
                 // Exit if input is "bye"
                 isRunning = false;
                 continue;
+
             } else if (input.equalsIgnoreCase("list")) {
                 // Print the list if input is "list"
                 taskList.printList();
-                addLineBreak();
+                continue;
+
+            } else if (input.startsWith("mark")) {
+                // Mark a task as done if input is "mark"
+                String[] splitInput = input.split(" ");
+                int index = Integer.parseInt(splitInput[1]);
+                taskList.setItemStatus(index, true);
+                continue;
+            } else if (input.startsWith("unmark")) {
+                // Mark a task as not done if input is "unmark"
+                String[] splitInput = input.split(" ");
+                int index = Integer.parseInt(splitInput[1]);
+                taskList.setItemStatus(index, false);
                 continue;
             }
             
@@ -80,7 +92,6 @@ public class Uwunzhe {
             System.out.println(input);
             // Add task to the list
             taskList.addItem(input);
-            addLineBreak();
         }
 
         sc.close();
