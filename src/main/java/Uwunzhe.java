@@ -57,23 +57,33 @@ public class Uwunzhe {
     public static void loop() {
         boolean isRunning = true;
         Scanner sc = new Scanner(System.in);
+        List taskList = new List();
 
         while (isRunning) {
             System.out.print(": ");
             String input = sc.nextLine();
             addLineBreak();
 
-            // Exit if input is "bye"
             if (input.equalsIgnoreCase("bye")) {
+                // Exit if input is "bye"
                 isRunning = false;
-                sc.close();
-                return;
+                continue;
+            } else if (input.equalsIgnoreCase("list")) {
+                // Print the list if input is "list"
+                taskList.printList();
+                addLineBreak();
+                continue;
             }
             
             // Echo the input if not exiting
+            System.out.print("added: ");
             System.out.println(input);
+            // Add task to the list
+            taskList.addItem(input);
             addLineBreak();
         }
+
+        sc.close();
     }
 
     /**

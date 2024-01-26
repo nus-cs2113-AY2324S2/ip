@@ -11,6 +11,11 @@ public class List {
      * @return None
      */
     public void printList() {
+        if (size == 0) {
+            System.out.println("You KAIBAI-ing");
+            return;
+        }
+
         for (int i = 0; i < size; i++) {
             System.out.println(i + 1 + ". " + list.get(i));
         }
