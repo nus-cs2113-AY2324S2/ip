@@ -1,10 +1,10 @@
-public class ToDoTask {
+public class Task {
     private boolean isMark;
-    private String task;
+    private String description;
 
-    public ToDoTask(String task) {
+    public Task(String task) {
         this.isMark = false;
-        this.task = task;
+        this.description = task;
     }
 
     public void setMark() {
@@ -20,7 +20,8 @@ public class ToDoTask {
     }
 
     public String getTask() {
-        return task;
+        return description;
     }
 }
+
 

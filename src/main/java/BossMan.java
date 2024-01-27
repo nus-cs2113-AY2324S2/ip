@@ -3,11 +3,11 @@ import java.util.Scanner;
 public class BossMan {
     private final Scanner scanner;
     private final String sep = "____________________________________________________________";
-    private final ToDoList toDoList;
+    private final TaskList taskList;
 
     public BossMan() {
         this.scanner = new Scanner(System.in);
-        this.toDoList = new ToDoList();
+        this.taskList = new TaskList();
     }
 
     public void greetUser() {
@@ -34,21 +34,22 @@ public class BossMan {
 
             if (parts[0].equalsIgnoreCase("mark")) {
                 int number = Integer.parseInt(parts[1]);
-                toDoList.markTask(number);
+                taskList.markTask(number);
             } else if (parts[0].equalsIgnoreCase("unmark")) {
                 int number = Integer.parseInt(parts[1]);
-                toDoList.unmarkTask(number);
+                taskList.unmarkTask(number);
             } else if (userInput.equalsIgnoreCase("list")) {
                 // Print the updated to-do list
-                toDoList.printTasks();
+                taskList.printTasks();
             } else if (!userInput.equalsIgnoreCase("bye")) {
                 // Add user input to the to-do list
-                toDoList.addTask(userInput);
+                taskList.addTask(userInput);
                 System.out.println("Added: " + userInput + "\n" + sep);
             }
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 }
+
 
 
 
