@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
-        Task taskList = new Task();
+        TaskList taskList = new TaskList(100);
         String line;
         Scanner in = new Scanner(System.in);
         boolean userSaidBye = false;
@@ -18,7 +18,8 @@ public class Duke {
                 taskList.listTasks();
                 System.out.println("    ____________________________________________________________");
             } else {
-                taskList.addTask(line);
+                Task newTask = new Task(line);
+                taskList.addTask(newTask);
                 System.out.println("    ____________________________________________________________");
                 System.out.println("    " + " added: " + line);
                 System.out.println("    ____________________________________________________________");
