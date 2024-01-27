@@ -1,7 +1,7 @@
 public class ConvoCraft {
-    private static int LIST_SIZE = 100;
+    private static int MAX_NUM_OF_TASKS = 100;
     public static void main(String[] args) {
-        ListKeeper listKeeper = new ListKeeper(LIST_SIZE);
+        ListKeeper listKeeper = new ListKeeper(MAX_NUM_OF_TASKS);
         HorizontalGenerator.printHorizontal();
         System.out.println("Hello! I'm ConvoCraft");
         System.out.println("What can I do for you?");

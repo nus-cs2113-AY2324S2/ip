@@ -1,17 +1,17 @@
 public class Task {
-    private final String task;
+    private final String taskName;
     private boolean isCompleted;
 
-    public Task(String task) {
-        this.task = task;
+    public Task(String taskName) {
+        this.taskName = taskName;
         this.isCompleted = false;
     }
 
     public void printTask() {
         if (this.isCompleted) {
-            System.out.println("[X] " + this.task );
+            System.out.println("[X] " + this.taskName);
         } else {
-            System.out.println("[] " + this.task );
+            System.out.println("[] " + this.taskName);
         }
     }
 
