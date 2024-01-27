@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import ToDoListFeature.ToDoItem;
+import ToDoListFeature.ToDoList;
 
 public class ChatBBT {
 
@@ -16,16 +18,25 @@ public class ChatBBT {
         greetingMessage();
         Scanner input = new Scanner(System.in);
         boolean isFinished = false;
+        ToDoList newToDoList = new ToDoList();
 
         while(!isFinished) {
             String inputText = input.nextLine();
-            if (inputText.equals("bye")) {
+            switch (inputText) {
+            case "bye":
                 exitMessage();
                 isFinished = true;
-            } else {
-                System.out.println(inputText);
+                break;
+            case "list":
+                System.out.println(newToDoList.toString());
+                System.out.println("------------------------------------------");
+                break;
+            default:
+                newToDoList.addItem(new ToDoItem(inputText));
+                System.out.println("added: " + inputText);
                 System.out.println("------------------------------------------");
             }
+
         }
 
     }
