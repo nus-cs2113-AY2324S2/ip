@@ -9,24 +9,31 @@ public class GeePee {
         System.out.println("    ________________________________________________\n");
     }
 
-    public static void echoInput(String input) {
+    public static void exitMessage() {
         System.out.println("    ________________________________________________");
-        if (input.equals("bye")) {
-            System.out.println("    Bye! Hope to see you again soon!");
-        } else {
-            System.out.println("    " + input);
-        }
+        System.out.println("    Bye! Hope to see you again soon!");
         System.out.println("    ________________________________________________\n");
+    }
+
+    public static void loop() {
+        List list = new List();
+        String line = "";
+        Scanner in = new Scanner(System.in);
+        while (!(line.equals("bye"))) {
+            line = in.nextLine().trim();
+            if (line.equals("") || line.equals("bye")) {
+                continue;
+            } else if (line.equals("list")) {
+                list.printList();
+            } else {
+                list.addItem(line);
+            }
+        }
     }
 
     public static void main(String[] args) {
         greetUser();
-        String line = "";
-        Scanner in = new Scanner(System.in);
-        while (!(line.equals("bye"))) {
-            line = in.nextLine();
-            if (line.trim().equals("")) continue;
-            echoInput(line);
-        }
+        loop();
+        exitMessage();
     }
 }
