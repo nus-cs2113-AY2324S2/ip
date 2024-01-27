@@ -1,30 +1,30 @@
 import java.util.Scanner;
 public class JunBot {
 
-    public static void printList(String[] tasks, int tasksCount){
+    public static void printList(Task[] tasks, int tasksCount){
         int taskNumber = 1;
         String divider = "____________________________________________________________";
 
         System.out.println(divider);
         for(int i = 0; i < tasksCount; i++){
-            System.out.println( taskNumber + ". " + tasks[i]);
+            System.out.println( taskNumber + ". " + tasks[i].description);
             taskNumber += 1;
         }
         System.out.println(divider+"\n");
     }
 
-    public static void addToList(String task, String[] tasks, int listPosition){
+    public static void addToList(String description, Task[] tasks, int listPosition){
         String divider = "____________________________________________________________\n";
-        tasks[listPosition] = task;
-        System.out.println(divider + "added: " + task + "\n" + divider);
+        Task userTask = new Task(description);
+        tasks[listPosition] = userTask;
+        System.out.println(divider + "added: " + userTask.description + "\n" + divider);
     }
 
     public static void main(String[] args) {
         String divider = "____________________________________________________________\n";
         String greeting = "Hello! I'm JunBot\nWhat can I do for you?\n";
         String goodbye = "Bye. Hope to see you again soon!\n";
-        String[] userInputsList = new String[100];
-
+        Task[] userInputsList = new Task[100];
 
         System.out.println(divider + greeting + divider);
 
