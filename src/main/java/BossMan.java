@@ -1,23 +1,24 @@
 import java.util.Scanner;
 
 public class BossMan {
-
     private final Scanner scanner;
     private final String sep = "____________________________________________________________";
-    private final String botName = "BossMan";
+    private final ToDoList toDoList;
 
     public BossMan() {
         this.scanner = new Scanner(System.in);
+        this.toDoList = new ToDoList();
     }
 
-    public void greetUser(){
+    public void greetUser() {
+        String botName = "BossMan";
         String greet = "Hello! I'm " + botName;
         String offerService = "What can I do for you?";
         System.out.println(sep + "\n" + greet);
         System.out.println(offerService + "\n" + sep);
     }
 
-    public void endChat(){
+    public void endChat() {
         String exit = "Bye. Hope to see you again soon!";
         System.out.println(exit + "\n" + sep);
     }
@@ -28,9 +29,17 @@ public class BossMan {
         do {
             System.out.print("You: ");
             userInput = scanner.nextLine();
-            System.out.println(botName + ": " + userInput + "\n" + sep);
+            if (userInput.equalsIgnoreCase("list")) {
+                // Print the updated to-do list
+                toDoList.printTasks();
+            } else if (!userInput.equalsIgnoreCase("bye")) {
+                // Add user input to the to-do list
+                toDoList.addTask(userInput);
+                System.out.println("Added: " + userInput);
+            }
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 }
+
 
 
