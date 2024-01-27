@@ -7,15 +7,10 @@ public class Binks {
     public static void lineSpacing(){
         System.out.println("____________________________________________________________");
     }
-
-    public static void exitChatbot(){
-        System.out.println("Bye. Hope to see you again soon");
-    }
     public static void main(String[] args) {
         lineSpacing();
         greetUser();
         lineSpacing();
-        exitChatbot();
-        lineSpacing();
+        Echo.main(args);
     }
 }
