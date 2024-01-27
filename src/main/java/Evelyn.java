@@ -1,5 +1,21 @@
 import java.util.Scanner;
 public class Evelyn {
+
+    public static String[] tasks;
+    public static int indexOfTask = 0;
+    public static void printList(String[] args){
+        int index = 1;
+        for (String task : tasks){
+            if(task == null){
+                printLine();
+                break;
+            }
+            else {
+                System.out.println(index + ". " + task);
+                index++;
+            }
+        }
+    }
     public  static void echo(){
         String line;
         System.out.println("type your command: ");
@@ -9,8 +25,14 @@ public class Evelyn {
         if(line.equals("bye")){
             return;
         }
+        else if(line.equals("list")){
+            printList(tasks);
+            echo();
+        }
         else {
-            System.out.println("this is your command: " + line);
+            tasks[indexOfTask] = line;
+            indexOfTask++;
+            System.out.println("added: " + line);
             printLine();
             echo();
         }
@@ -30,6 +52,7 @@ public class Evelyn {
     }
     public static void main(String[] args) {
         greeting();
+        tasks = new String[100];
         echo();
         end();
     }
