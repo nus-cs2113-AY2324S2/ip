@@ -14,12 +14,26 @@ public class Yuki {
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        printLine();
-        if (line.equals("bye")) {
-            System.out.println("Bye! See you again.");
-        } else {
-            System.out.println("You said:" + line);
+        String[] tasks = new String[100];
+        int count = 0;
+
+        while (!line.equals("bye")) {
+            printLine();
+            if (line.equals("list")) {
+                for (int i = 0; i < count; i++) {
+                    System.out.println(Integer.toString(i+1) + ". " + tasks[i]);
+                }
+            } else {
+                tasks[count] = line;
+                System.out.println("added: " + line);
+                count++;
+            }
+            printLine();
+            line = in.nextLine();
         }
+
+        printLine();
+        System.out.println("Bye bye!");
         printLine();
 
     }
