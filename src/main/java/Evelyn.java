@@ -1,17 +1,33 @@
 import java.util.Scanner;
 public class Evelyn {
 
-    public static String[] tasks;
+    public static Task[] tasks;
     public static int indexOfTask = 0;
-    public static void printList(String[] args){
+    public static void markTask(int index, boolean done) {
+        if (index >= 0 && index < indexOfTask) {
+            if (done) {
+                tasks[index].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+            } else {
+                tasks[index].markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+            }
+            System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].description);
+            printLine();
+        } else {
+            System.out.println("Invalid task index. Please try again.");
+            printLine();
+        }
+    }
+    public static void printList(Task[] tasks){
         int index = 1;
-        for (String task : tasks){
+        for (Task task : tasks){
             if(task == null){
                 printLine();
                 break;
             }
             else {
-                System.out.println(index + ". " + task);
+                System.out.println(index + ". " + tasks[index - 1].getStatusIcon() + tasks[index - 1].description);
                 index++;
             }
         }
@@ -29,8 +45,19 @@ public class Evelyn {
             printList(tasks);
             echo();
         }
+        else if(line.startsWith("mark")){
+            int index = Integer.parseInt(line.substring(5).trim()) - 1;
+            markTask(index,true);
+            echo();
+        }
+        else if(line.startsWith("unmark")) {
+            int index = Integer.parseInt(line.substring(7).trim()) - 1;
+            markTask(index,false);
+            echo();
+
+        }
         else {
-            tasks[indexOfTask] = line;
+            tasks[indexOfTask] = new Task(line);
             indexOfTask++;
             System.out.println("added: " + line);
             printLine();
@@ -52,7 +79,7 @@ public class Evelyn {
     }
     public static void main(String[] args) {
         greeting();
-        tasks = new String[100];
+        tasks = new Task[100];
         echo();
         end();
     }
