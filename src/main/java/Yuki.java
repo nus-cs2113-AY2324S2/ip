@@ -6,26 +6,35 @@ public class Yuki {
     }
     public static void main(String[] args) {
         printLine();
-        System.out.println("Hello! I am Yuki, your personal chat bot.");
-        System.out.println("What can I do for you?");
+        System.out.println("I am Yuki, your personal chat bot and your evil twin.");
+        System.out.println("Time to get grinding.");
         printLine();
 
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int count = 0;
 
         while (!line.equals("bye")) {
             printLine();
             if (line.equals("list")) {
+                System.out.println("Wake up your idea and do these tasks:");
                 for (int i = 0; i < count; i++) {
-                    System.out.println(Integer.toString(i+1) + ". " + tasks[i]);
+                    System.out.println(Integer.toString(i + 1)
+                            + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
                 }
+            } else if (line.split(" ")[0].equals("mark")){
+                int index = Integer.parseInt(line.split(" ")[1]) - 1;
+                tasks[index].markAsDone();
+            } else if (line.split(" ")[0].equals("unmark")) {
+                int index = Integer.parseInt(line.split(" ")[1]) - 1;
+                tasks[index].markAsUndone();
             } else {
-                tasks[count] = line;
-                System.out.println("added: " + line);
+                Task t = new Task(line);
+                tasks[count] = t;
+                System.out.println("new task for you: " + t.description);
                 count++;
             }
             printLine();
@@ -33,7 +42,7 @@ public class Yuki {
         }
 
         printLine();
-        System.out.println("Bye bye!");
+        System.out.println("Breaks are only for the weak.");
         printLine();
 
     }
