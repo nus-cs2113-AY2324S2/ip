@@ -8,10 +8,21 @@ public class ChatBBT {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    public static void messageDivider() {
+        System.out.println("------------------------------------------");
+    }
+
     public static void greetingMessage() {
         System.out.println("Hello! I'm ChatBBT");
         System.out.println("What can I do for you?");
-        System.out.println("------------------------------------------");
+        messageDivider();
+    }
+
+    public static void featureIntroMessage() {
+        System.out.println("[list] Enter Todo List feature");
+        System.out.println("[bye] Quit");
+        System.out.println("Please enter a command:");
+        messageDivider();
     }
 
     public static void main(String[] args) {
@@ -21,20 +32,19 @@ public class ChatBBT {
         ToDoList newToDoList = new ToDoList();
 
         while(!isFinished) {
+            featureIntroMessage();
             String inputText = input.nextLine();
             switch (inputText) {
             case "bye":
                 exitMessage();
                 isFinished = true;
+                input.close();
                 break;
             case "list":
-                System.out.println(newToDoList.toString());
-                System.out.println("------------------------------------------");
+                newToDoList.execute(input);
                 break;
             default:
-                newToDoList.addItem(new ToDoItem(inputText));
-                System.out.println("added: " + inputText);
-                System.out.println("------------------------------------------");
+                System.out.println("Invalid command");
             }
 
         }
