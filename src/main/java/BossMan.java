@@ -29,17 +29,27 @@ public class BossMan {
         do {
             System.out.print("You: ");
             userInput = scanner.nextLine();
-            if (userInput.equalsIgnoreCase("list")) {
+
+            String[] parts = userInput.trim().split("\\s+");
+
+            if (parts[0].equalsIgnoreCase("mark")) {
+                int number = Integer.parseInt(parts[1]);
+                toDoList.markTask(number);
+            } else if (parts[0].equalsIgnoreCase("unmark")) {
+                int number = Integer.parseInt(parts[1]);
+                toDoList.unmarkTask(number);
+            } else if (userInput.equalsIgnoreCase("list")) {
                 // Print the updated to-do list
                 toDoList.printTasks();
             } else if (!userInput.equalsIgnoreCase("bye")) {
                 // Add user input to the to-do list
                 toDoList.addTask(userInput);
-                System.out.println("Added: " + userInput);
+                System.out.println("Added: " + userInput + "\n" + sep);
             }
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 }
+
 
 
 
