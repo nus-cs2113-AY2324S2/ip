@@ -5,6 +5,7 @@ public class Zap {
                 + "   / /  / _ \\| | | |_) |\n"
                 + "  / /_ / ___ \\ | |  __/\n"
                 + " /____/_/   \\_\\_| |_|";
+
         System.out.println("Hello from\n" + logo);
     }
 }
