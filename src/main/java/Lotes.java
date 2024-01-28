@@ -1,10 +1,15 @@
+import java.util.Scanner;
 public class Lotes {
     public static void main(String[] args) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Lotes");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        String underscore = "    ____________________________________________________________\n";
+        System.out.println(underscore + "    Hello! I'm Lotes\n" + "    What can I do for you?\n" + underscore);
+
+        String userInput;
+        while(true){
+            Scanner in = new Scanner(System.in);
+            userInput = in.nextLine();
+
+            System.out.print(underscore + "     " + userInput + "\n" + underscore);
+        }
     }
 }
