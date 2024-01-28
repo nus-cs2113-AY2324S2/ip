@@ -33,7 +33,7 @@ public class Jeff {
             } else if (line.startsWith("mark ")) {
                 try {
                     Task currentTask = tasks[Integer.parseInt(line.substring(5)) - 1];
-                    currentTask.markTask();
+                    currentTask.mark();
                     printDivider();
                     printIndented("Nice! I've marked this task as done:");
                     printIndented("  [X] " + currentTask.getDescription());
@@ -46,7 +46,7 @@ public class Jeff {
             } else if (line.startsWith("unmark ")) {
                 try {
                     Task currentTask = tasks[Integer.parseInt(line.substring(7)) - 1];
-                    currentTask.unmarkTask();
+                    currentTask.unmark();
                     printDivider();
                     printIndented("OK, I've marked this task as not done yet:");
                     printIndented("  [ ] " + currentTask.getDescription());
