@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
 public class Jeff {
-    private static int totalTasks = 0;
-
     private static void printIndented(String s) {
         System.out.println("     " + s);
     }
@@ -14,6 +12,7 @@ public class Jeff {
 
     public static void main(String[] args) {
         Task[] tasks = new Task[100];
+        int totalTasks = 0;
         Scanner in = new Scanner(System.in);
 
         printDivider();
