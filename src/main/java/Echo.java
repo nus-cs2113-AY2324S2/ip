@@ -7,14 +7,14 @@ public class Echo {
             System.out.println(" ");
             line = in.nextLine();
             if (line.equalsIgnoreCase("bye")) {
-                Binks.lineSpacing();
+                Binks.createLineSpacing();
                 System.out.println("Bye. Hope to see you again soon!");
-                Binks.lineSpacing();
+                Binks.createLineSpacing();
                 break;
             }
-            Binks.lineSpacing();
+            Binks.createLineSpacing();
             System.out.println(line);
-            Binks.lineSpacing();
+            Binks.createLineSpacing();
 
         }
     }
