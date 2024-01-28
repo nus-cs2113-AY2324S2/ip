@@ -4,8 +4,7 @@ public class Quill {
         String horizontalLine = "\n____________________________________________________________\n";
         String name = "Quill";
         String line;
-        String[] texts = new String[100];
-        int totalTexts = 0;
+        Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
 
         System.out.println(horizontalLine + "Hello! I'm " + name + ".\nWhat can i do for you?" + horizontalLine);
@@ -13,16 +12,15 @@ public class Quill {
         line = in.nextLine();
         while (!line.equals("bye")) {
             if (line.equals("list")) {
-                System.out.println((horizontalLine));
-                for (int i = 0; i < totalTexts; i++) {
-                    System.out.println(i + 1 + ". " + texts[i]);
+                System.out.println(horizontalLine + "Here are the tasks in your list:\n");
+                for (int i = 0; i < Task.getTotalTasks(); i++) {
+                    System.out.println(i + 1 + ". " + tasks[i].description);
                 }
                 System.out.println(horizontalLine);
                 line = in.nextLine();
             } else {
                 System.out.println(horizontalLine + "Added: " + line + horizontalLine);
-                texts[totalTexts] = line;
-                totalTexts++;
+                tasks[Task.getTotalTasks()] = new Task(line);
                 line = in.nextLine();
             }
         }
