@@ -4,41 +4,69 @@ public class Jeff {
     private static int totalTasks = 0;
 
     private static void printIndented(String s) {
-        System.out.println("    " + s);
+        System.out.println("     " + s);
+    }
+
+    private static void printDivider() {
+        String divider = "    ____________________________________________________________";
+        System.out.println(divider);
     }
 
     public static void main(String[] args) {
-        String[] tasks = new String[100];
-        String divider = "____________________________________________________________";
+        Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
 
-        printIndented(divider);
+        printDivider();
         printIndented("Hello! I'm Jeff");
         printIndented("What can I do for you?");
-        printIndented(divider);
+        printDivider();
 
         while (true) {
             String line = in.nextLine();
-            switch (line) {
-            case "list":
-                printIndented(divider);
+            if (line.equals("list")) {
+                printDivider();
+                printIndented("Here are the tasks in your list:");
                 for (int i = 0; i < totalTasks; i++) {
-                    printIndented(" " + (i + 1) + ". " + tasks[i]);
+                    printIndented((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
                 }
-                printIndented(divider);
-                break;
-            case "bye":
-                printIndented(divider);
+                printDivider();
+            } else if (line.startsWith("mark ")) {
+                try {
+                    Task currentTask = tasks[Integer.parseInt(line.substring(5)) - 1];
+                    currentTask.markTask();
+                    printDivider();
+                    printIndented("Nice! I've marked this task as done:");
+                    printIndented("  [X] " + currentTask.getDescription());
+                    printDivider();
+                } catch (Exception e) {
+                    printDivider();
+                    printIndented("Invalid input.");
+                    printDivider();
+                }
+            } else if (line.startsWith("unmark ")) {
+                try {
+                    Task currentTask = tasks[Integer.parseInt(line.substring(7)) - 1];
+                    currentTask.unmarkTask();
+                    printDivider();
+                    printIndented("OK, I've marked this task as not done yet:");
+                    printIndented("  [ ] " + currentTask.getDescription());
+                    printDivider();
+                } catch (Exception e) {
+                    printDivider();
+                    printIndented("Invalid input.");
+                    printDivider();
+                }
+            } else if (line.equals("bye")) {
+                printDivider();
                 printIndented("Bye. Hope to see you again soon!");
-                printIndented(divider);
+                printDivider();
                 return;
-            default:
-                printIndented(divider);
-                printIndented(" added: " + line);
-                printIndented(divider);
-                tasks[totalTasks] = line;
+            } else {
+                printDivider();
+                printIndented("added: " + line);
+                printDivider();
+                tasks[totalTasks] = new Task(line);
                 totalTasks++;
-                break;
             }
         }
     }
