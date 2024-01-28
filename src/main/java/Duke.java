@@ -5,11 +5,22 @@ public class Duke {
         System.out.println("\t________________________________");
     }
     public static void communicate(){
+        String[] list = new String[100];
+        int index = 0;
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while(!line.equals("bye")){
             dividingLine();
-            System.out.println("\t" + line);
+            if(!line.equals("list")) {
+                list[index] = line;
+                index++;
+                System.out.println("\tadded: " + line);
+            }
+            else{
+                for(int i = 0; i < index; i++){
+                    System.out.println((i + 1) + ". " + list[i]);
+                }
+            }
             dividingLine();
             line = in.nextLine();
         }
@@ -26,6 +37,6 @@ public class Duke {
         dividingLine();
     }
     public static void main(String[] args) {
-       startConversation();
+        startConversation();
     }
 }
