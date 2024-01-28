@@ -9,7 +9,13 @@ public class Duke {
         while(true){
             Scanner userInput = new Scanner(System.in);
             String names = userInput.nextLine();
-
+            if(names.equals("bye")){
+                System.out.println(
+                        "_________________________\n"
+                        + "Bye. Hope to see you again soon!\n"
+                        + "_________________________\n");
+                return;
+            }
             System.out.println(
                     "_________________________\n"
                     + "    " + names
