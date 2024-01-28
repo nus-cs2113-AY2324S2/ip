@@ -10,20 +10,28 @@ public class Quill {
         System.out.println(horizontalLine + "Hello! I'm " + name + ".\nWhat can i do for you?" + horizontalLine);
 
         line = in.nextLine();
-        while (!line.equals("bye")) {
-            if (line.equals("list")) {
+        while(true) {
+            switch(line) {
+            case "bye":
+                System.out.println(horizontalLine + "Bye! Hope to see you again soon!" + horizontalLine);
+                return;
+            case "list":
                 System.out.println(horizontalLine + "Here are the tasks in your list:\n");
                 for (int i = 0; i < Task.getTotalTasks(); i++) {
                     System.out.println(i + 1 + ". " + tasks[i].description);
                 }
                 System.out.println(horizontalLine);
-                line = in.nextLine();
-            } else {
+                break;
+            case "mark":
+                break;
+            case "unmark":
+                break;
+            default:
                 System.out.println(horizontalLine + "Added: " + line + horizontalLine);
                 tasks[Task.getTotalTasks()] = new Task(line);
-                line = in.nextLine();
+                break;
             }
+            line = in.nextLine();
         }
-        System.out.println(horizontalLine + "Bye! Hope to see you again soon!" + horizontalLine);
     }
 }
