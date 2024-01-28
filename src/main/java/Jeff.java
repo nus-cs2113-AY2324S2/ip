@@ -1,10 +1,14 @@
 import java.util.Scanner;
 
 public class Jeff {
+    private static int totalTasks = 0;
+
     private static void printIndented(String s) {
         System.out.println("    " + s);
     }
+
     public static void main(String[] args) {
+        String[] tasks = new String[100];
         String divider = "____________________________________________________________";
         Scanner in = new Scanner(System.in);
 
@@ -18,12 +22,9 @@ public class Jeff {
             switch (line) {
             case "list":
                 printIndented(divider);
-                printIndented("list");
-                printIndented(divider);
-                break;
-            case "blah":
-                printIndented(divider);
-                printIndented("blah");
+                for (int i = 0; i < totalTasks; i++) {
+                    printIndented(" " + (i + 1) + ". " + tasks[i]);
+                }
                 printIndented(divider);
                 break;
             case "bye":
@@ -33,8 +34,10 @@ public class Jeff {
                 return;
             default:
                 printIndented(divider);
-                printIndented("Invalid command.");
+                printIndented(" added: " + line);
                 printIndented(divider);
+                tasks[totalTasks] = line;
+                totalTasks++;
                 break;
             }
         }
