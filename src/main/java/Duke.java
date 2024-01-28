@@ -6,10 +6,12 @@ public class Duke {
                 + "What can I do for you?\n"
                 + "_________________________";
         System.out.println(chatBot);
+        String[] userCommands = new String[100];
+        int count = 0;
         while(true){
             Scanner userInput = new Scanner(System.in);
-            String names = userInput.nextLine();
-            if(names.equals("bye")){
+            userCommands[count] = userInput.nextLine();
+            if(userCommands[count].equals("bye")){
                 System.out.println(
                         "_________________________\n"
                         + "Bye. Hope to see you again soon!\n"
@@ -18,9 +20,10 @@ public class Duke {
             }
             System.out.println(
                     "_________________________\n"
-                    + "    " + names
+                    + "    added: " + userCommands[count]
                     + "\n"
                     + "_________________________\n");
+            count++;
         }
 
     }
