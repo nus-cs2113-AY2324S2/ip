@@ -4,5 +4,7 @@ public class Duke {
         System.out.println("Hello! I'm Lotes");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
     }
 }
