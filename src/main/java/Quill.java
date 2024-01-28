@@ -7,7 +7,8 @@ public class Quill {
         Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
 
-        System.out.println(horizontalLine + "Hello! I'm " + name + ".\nWhat can i do for you?" + horizontalLine);
+        System.out.println(horizontalLine + "Hello! I'm " + name + ".");
+        System.out.println("What can i do for you?" + horizontalLine);
 
         line = in.nextLine();
 
@@ -35,12 +36,14 @@ public class Quill {
             case "mark":
                 tasks[taskNumber].markAsDone();
                 System.out.println(horizontalLine + "Nice! I've marked this task as done:");
-                System.out.println(tasks[taskNumber].getStatusIcon() + " " + tasks[taskNumber].description + horizontalLine);
+                System.out.print(tasks[taskNumber].getStatusIcon() + " ");
+                System.out.println(tasks[taskNumber].description + horizontalLine);
                 break;
             case "unmark":
                 tasks[taskNumber].markAsNotDone();
                 System.out.println(horizontalLine + "OK, I've marked this task as not done yet:");
-                System.out.println(tasks[taskNumber].getStatusIcon() + " " + tasks[taskNumber].description + horizontalLine);
+                System.out.print(tasks[taskNumber].getStatusIcon() + " ");
+                System.out.println(tasks[taskNumber].description + horizontalLine);
                 break;
             default:
                 System.out.println(horizontalLine + "Added: " + line + horizontalLine);
