@@ -30,6 +30,7 @@ public class Zap {
         Scanner scanner = new Scanner(System.in);
         String userCommand;
 
+        //Level 1: Echo
         do {
             System.out.print("Enter a command: ");
             userCommand = scanner.nextLine();
