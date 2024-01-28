@@ -8,7 +8,10 @@ public class Lotes {
         while(true){
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
-
+            if(userInput.contains("bye")){
+                System.out.println(underscore + "    Bye. Hope to see you again soon!\n" + underscore);
+                break;
+            }
             System.out.print(underscore + "     " + userInput + "\n" + underscore);
         }
     }
