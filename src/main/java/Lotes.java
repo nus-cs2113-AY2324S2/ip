@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 public class Lotes {
     public static void main(String[] args) {
         String underscore = "    ____________________________________________________________\n";
@@ -8,7 +9,7 @@ public class Lotes {
         while(true){
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
-            if(userInput.contains("bye")){
+            if(userInput.equals("bye")){
                 System.out.println(underscore + "    Bye. Hope to see you again soon!\n" + underscore);
                 break;
             }
