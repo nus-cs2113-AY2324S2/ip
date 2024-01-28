@@ -17,12 +17,20 @@ public class Duke {
                         + "Bye. Hope to see you again soon!\n"
                         + "_________________________\n");
                 return;
+            } else if(userCommands[count].equals("list")){
+                System.out.println("_________________________");
+                for(int i = 0; i < count; i++){
+                    System.out.println("    " + (i+1) + ". "
+                            + userCommands[i]);
+                }
+                System.out.println("_________________________");
+            }else{
+                System.out.println(
+                        "_________________________\n"
+                        + "    added: " + userCommands[count]
+                        + "\n"
+                        + "_________________________\n");
             }
-            System.out.println(
-                    "_________________________\n"
-                    + "    added: " + userCommands[count]
-                    + "\n"
-                    + "_________________________\n");
             count++;
         }
 
