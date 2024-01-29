@@ -2,14 +2,26 @@ import java.util.Scanner;
 
 public class Ruby {
     public static void main(String[] args) {
-        greet();
-
         String userInput;
         Scanner in = new Scanner(System.in);
-        userInput = in.nextLine();
+        String[] taskList = new String[100];
+        int taskNo = 0;
 
+        greet();
+        userInput = in.nextLine();
         while (!userInput.toLowerCase().equals("bye")){
-            print(userInput);
+
+            if (userInput.toLowerCase().equals("list")){
+                System.out.println("    " + "--------------");
+                for (int i=0; i<taskNo;i++){
+                    System.out.println("    " + (i+1) + ". "+ taskList[i]);
+                }
+                System.out.println("    " + "--------------");
+            }else{
+                taskList[taskNo] = userInput;
+                print("added: "+userInput);
+                taskNo++;
+            }
             userInput = in.nextLine();
         }
         exit();
