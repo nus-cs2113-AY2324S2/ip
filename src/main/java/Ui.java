@@ -14,11 +14,21 @@ public class Ui {
         System.out.print(bobAsciiLogo);
     }
 
-    void generateUi() {
+    void generateWelcome() {
         System.out.println(SEPARATOR);
         System.out.println(WELCOME);
         System.out.println(SEPARATOR);
+    }
+
+    void generateExit() {
+        System.out.println(SEPARATOR);
         System.out.println(EXIT);
+        System.out.println(SEPARATOR);
+    }
+
+    void echoCommand(String command) {
+        System.out.println(SEPARATOR);
+        System.out.println(command);
         System.out.println(SEPARATOR);
     }
 }
