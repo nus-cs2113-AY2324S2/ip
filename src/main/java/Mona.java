@@ -1,10 +1,11 @@
-public class Duke {
+public class Mona {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "___  ___                  \n"
+                + "|  \\/  |                  \n"
+                + "| .  . | ___  _ __   __ _ \n"
+                + "| |\\/| |/ _ \\| '_ \\ / _` |\n"
+                + "| |  | | (_) | | | | (_| |\n"
+                + "\\_|  |_/\\___/|_| |_|\\__,_|\n";
         System.out.println("Hello from\n" + logo);
 
         for (int i = 0; i < 59; i++) {
@@ -12,7 +13,7 @@ public class Duke {
         }
         System.out.println("_");
 
-        System.out.println("Hello! I'm Nanalan");
+        System.out.println("Hello! I'm Mona");
         System.out.println("What can I do for you?");
 
         for (int i = 0; i < 59; i++) {
