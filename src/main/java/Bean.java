@@ -5,8 +5,8 @@ public class Bean {
     public static void printList(Task[] list){
         int numItems = 1;
 
-        for(Task item : list){
-            System.out.print(numItems + ": ");
+        for (Task item : list) {
+            System.out.print(numItems + ".");
             item.printTask();
             numItems += 1;
         }
@@ -24,9 +24,25 @@ public class Bean {
         Task[] list = new Task[100];
         int numItems = 0;
         while(!line.equals("bye")) {
+
             if(line.equals("list")){
                 printList(Arrays.copyOf(list, numItems));
             }
+
+            else if (line.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(line.substring(5)) - 1;
+                if (taskIndex >= 0 & taskIndex < numItems) {
+                    list[taskIndex].setDone();
+                }
+            }
+
+            else if (line.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(line.substring(7)) - 1;
+                if (taskIndex >= 0 & taskIndex < numItems) {
+                    list[taskIndex].setUndone();
+                }
+            }
+
             else {
                 System.out.println("    added: " + line);
                 System.out.println(separator);

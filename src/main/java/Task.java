@@ -8,7 +8,11 @@ public class Task {
     }
 
     public void printTask() {
-        System.out.println(description);
+        char checkBox = ' ';
+        if(isDone) {
+            checkBox = 'X';
+        }
+        System.out.println("["+ checkBox + "] " + description);
     }
 
     public String getDescription() {
@@ -25,9 +29,13 @@ public class Task {
 
     public void setDone() {
         isDone = true;
+        System.out.println("Hey, looks like you're done with this task:");
+        printTask();
     }
 
     public void setUndone() {
         isDone = false;
+        System.out.println("Oops, looks like this task's still not done:");
+        printTask();
     }
 }
