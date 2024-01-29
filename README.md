@@ -1,6 +1,6 @@
 # Lotes project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a project template for a greenfield Java project. It's named after the Java mascot _Lotes_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -15,4 +15,10 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/Lotes.java` file, right-click it, and choose `Run Lotes.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
-   Hello from Lotes
+   Hello from
+   #        ####  ##### ######  ####
+   #       #    #   #   #      #
+   #       #    #   #   #####   ####
+   #       #    #   #   #           #
+   #######  ####    #   ######  ####
+   ```
