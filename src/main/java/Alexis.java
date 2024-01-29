@@ -22,12 +22,16 @@ public class Alexis {
         System.out.println(greeting);
         System.out.println(lineBreak);
 
-
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        System.out.println(lineBreak);
-        System.out.println(line);
-        System.out.println(lineBreak);
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            String line = in.nextLine();
+            System.out.println(lineBreak);
+            System.out.println(line);
+            System.out.println(lineBreak);
+            if (line.equals("bye")) {
+                break;
+            }
+        }
 
         System.out.println(goodbye);
         System.out.println(lineBreak);
