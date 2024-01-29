@@ -5,6 +5,11 @@ public class Suv {
         String name = "Suv";
         Scanner in = new Scanner(System.in);
 
+        System.out.println("____________________________________________________________\n" +
+                " Hello! I'm " + name + "\n" +
+                " What can I do for you?\n" +
+                "____________________________________________________________\n");
+
         while(true) {
             String input = in.nextLine();
             if(!input.equals("bye")){
