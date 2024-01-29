@@ -1,8 +1,9 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Kobot {
     public static void printDashes() {
-        System.out.println("------------------------------------");
+        System.out.println("-------------------------------------------");
     }
     public static void printHelloMessage() {
         String logo = "#########################################\n"
@@ -31,12 +32,19 @@ public class Kobot {
     }
 
     public static void main(String[] args) {
-        printHelloMessage();
+        TaskList taskList = new TaskList();
         Scanner in = new Scanner(System.in);
-        String command = receiveInput(in);
 
-        while (!command.matches("bye")) {
-            System.out.println(command);
+        printHelloMessage();
+
+        String command = receiveInput(in);
+        while (!command.toLowerCase().matches("bye")) {
+            if (command.toLowerCase().matches("list")) {
+                taskList.printTaskList();
+            } else {
+                taskList.addTask(command);
+            }
+
             command = receiveInput(in);
         }
 
