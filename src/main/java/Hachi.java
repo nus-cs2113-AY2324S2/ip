@@ -1,3 +1,7 @@
+import java.sql.SQLOutput;
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * This program currently starts the chatbot with a greeting,
  * and ends off the program with a goodbye message.
@@ -18,7 +22,7 @@ public class Hachi {
                 + "|_| |_|  |_| |_|  |_____|  |_| |_|  |_|\n";
 
         System.out.println("Hey, Hachi Here!\n" + logo + "How can I assist you today?\n");
-        spacerInsert("medium");
+        spacerInsert("medium", false);
     }
 
     /**
@@ -26,8 +30,11 @@ public class Hachi {
      *
      * @param length The desired length of the spacer line. Medium is chosen by default.
      */
-    public static void spacerInsert(String length) {
+    public static void spacerInsert(String length, boolean hasTab) {
         String spacer;
+        if (hasTab) {
+            System.out.print("    ");
+        }
         switch (length) {
         case "small": // 20 tildes
             spacer = "~~~~~~~~~~~~~~~~~~~~";
@@ -47,8 +54,8 @@ public class Hachi {
      * Prints to the console a goodbye message for the user.
      */
     public static void goodbye() {
-        System.out.println("Goodbye! Hope you have a marvelous day.");
-        spacerInsert("medium");
+        System.out.println("    Goodbye! Hope you have a marvelous day.");
+        spacerInsert("medium", true);
     }
 
     /**
@@ -57,9 +64,24 @@ public class Hachi {
      *
      * @param args Command line arguments - not used.
      */
+
     public static void main(String[] args) {
-        spacerInsert("medium");
+        spacerInsert("medium", false);
+        boolean isBye = false;
+
         greet();
-        goodbye();
+        while (!isBye) {
+            Scanner in = new Scanner(System.in);
+            String line = in.nextLine();
+            if (line.equals("bye")) {
+                goodbye();
+                isBye = true;
+            } else {
+                spacerInsert("medium", true);
+                System.out.print("    ");
+                System.out.println(line);
+                spacerInsert("medium", true);
+            }
+        }
     }
 }
