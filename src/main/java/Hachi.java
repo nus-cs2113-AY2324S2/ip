@@ -29,6 +29,7 @@ public class Hachi {
      * Prints to the console a spacer line made of tildes.
      *
      * @param length The desired length of the spacer line. Medium is chosen by default.
+     * @param hasTab Whether the spacer line has a 4-space indent.
      */
     public static void spacerInsert(String length, boolean hasTab) {
         String spacer;
@@ -50,6 +51,24 @@ public class Hachi {
         System.out.println(spacer);
     }
 
+    public static void retrieveList(Task[] listOfTasks) {
+        int numTasks = Task.getTotalNumTasks();
+        spacerInsert("medium", true);
+        System.out.println("    The following tasks are in your to-do:");
+        for (int i = 0; i < numTasks; i++) {
+            System.out.print(i + ": ");
+            System.out.println(listOfTasks[i].getName());
+        }
+    }
+
+    public static void addTask(String name, Task[] listOfTasks) {
+        int numTasks = Task.getTotalNumTasks();
+        Task toAdd = new Task(name);
+        listOfTasks[numTasks] = toAdd;
+
+        System.out.println("Task added to list: " + name);
+    }
+
     /**
      * Prints to the console a goodbye message for the user.
      */
@@ -68,19 +87,24 @@ public class Hachi {
     public static void main(String[] args) {
         spacerInsert("medium", false);
         boolean isBye = false;
+        Task[] listOfTasks = new Task[100];
 
         greet();
         while (!isBye) {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
-            if (line.equals("bye")) {
-                goodbye();
+            String cleanedInput = line.toUpperCase().trim();
+            switch (cleanedInput){
+            case "BYE":
                 isBye = true;
-            } else {
-                spacerInsert("medium", true);
-                System.out.print("    ");
-                System.out.println(line);
-                spacerInsert("medium", true);
+                goodbye();
+                break;
+            case "LIST":
+                retrieveList(listOfTasks);
+                break;
+            default:
+                addTask(line, listOfTasks);
+                break;
             }
         }
     }
