@@ -3,14 +3,15 @@ public class Ui {
     private static final String EXIT = " Bye. Hope to see you again soon!";
     private static final String SEPARATOR = "____________________________________________________________";
 
-    void printOldWelcome() {
-        // Method to print old welcome message
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+    void printLogo() {
+        String bobAsciiLogo = " ____        _     \n"
+               + "|  _ \\      | |\n"
+               + "| |_) | ___ | |__\n"
+               + "|  _ < / _ \\| '_ \\\n"
+               + "| |_) | (_) | |_) |\n"
+               + "|____/ \\___/|_.__/\n";
+
+        System.out.print(bobAsciiLogo);
     }
 
     void generateUi() {
