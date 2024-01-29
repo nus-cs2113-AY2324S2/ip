@@ -9,12 +9,21 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         // Chatbot functionality
-        String horLines = "-------------------------------------";
-        System.out.println(horLines);
+        greetUser();
+        sayGoodbye();
+    }
+
+    private static final String messageDivider = "-------------------------------------";
+
+    private static void greetUser() {
+        System.out.println(messageDivider);
         System.out.println("Hello! I'm Carrot!");
         System.out.println("What can I do for you?");
-        System.out.println(horLines);
+        System.out.println(messageDivider);
+    }
+
+    private static void sayGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(horLines);
+        System.out.println(messageDivider);
     }
 }
