@@ -2,11 +2,12 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Bean {
-    public static void printList(String[] list){
+    public static void printList(Task[] list){
         int numItems = 1;
 
-        for(String item : list){
-            System.out.println(numItems + ": " + item);
+        for(Task item : list){
+            System.out.print(numItems + ": ");
+            item.printTask();
             numItems += 1;
         }
     }
@@ -20,7 +21,7 @@ public class Bean {
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int numItems = 0;
         while(!line.equals("bye")) {
             if(line.equals("list")){
@@ -29,7 +30,7 @@ public class Bean {
             else {
                 System.out.println("    added: " + line);
                 System.out.println(separator);
-                list[numItems] = line;
+                list[numItems] = new Task(line);
                 numItems += 1;
             }
             line = in.nextLine();
