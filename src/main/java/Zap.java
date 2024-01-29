@@ -1,6 +1,8 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
+import java.util.List;
 public class Zap {
+    private static final List<String> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = """
               _____   _   _   ____
@@ -30,7 +32,6 @@ public class Zap {
         Scanner scanner = new Scanner(System.in);
         String userCommand;
 
-        //Level 1: Echo
         do {
             System.out.print("Enter a command: ");
             userCommand = scanner.nextLine();
@@ -39,15 +40,42 @@ public class Zap {
                 scanner.close();
                 break;
             } else if (userCommand.equalsIgnoreCase("hi")) {
-                System.out.println("Hello! I am ZAP and I will just repeat everything you say!");
+                System.out.println("Hello! I am ZAP and I am at your service!");
             } else if (userCommand.equalsIgnoreCase("bye")) {
                 System.out.println("You should say thank you, then say bye.");
+            } else if (userCommand.equalsIgnoreCase("list")) {
+                displayTasks();
             } else {
                 System.out.println(userCommand);
+                addTask(userCommand);
             }
         } while (true);
         scanner.close();
     }
+
+    //Add tasks
+    private static void addTask(String task) {
+        tasks.add(task);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Zap has Added: " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void displayTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" There are no inputted tasks.");
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Tasks:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+            }
+            System.out.println("____________________________________________________________");
+        }
+    }
+
     // Exit Chatbot
     private static void exit() {
         System.out.println("Bye! See you again next time :)");
