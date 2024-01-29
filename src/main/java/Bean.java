@@ -2,11 +2,11 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Bean {
-    public static void printList(Task[] list){
+    public static void printList(Task[] list) {
         int numItems = 1;
 
         for (Task item : list) {
-            System.out.print(numItems + ".");
+            System.out.print("  " + numItems + ".");
             item.printTask();
             numItems += 1;
         }
@@ -25,8 +25,9 @@ public class Bean {
         int numItems = 0;
         while(!line.equals("bye")) {
 
-            if(line.equals("list")){
+            if (line.equals("list")) {
                 printList(Arrays.copyOf(list, numItems));
+                System.out.println(separator);
             }
 
             else if (line.startsWith("mark")) {
@@ -34,6 +35,7 @@ public class Bean {
                 if (taskIndex >= 0 & taskIndex < numItems) {
                     list[taskIndex].setDone();
                 }
+                System.out.println(separator);
             }
 
             else if (line.startsWith("unmark")) {
@@ -41,6 +43,7 @@ public class Bean {
                 if (taskIndex >= 0 & taskIndex < numItems) {
                     list[taskIndex].setUndone();
                 }
+                System.out.println(separator);
             }
 
             else {
@@ -53,5 +56,6 @@ public class Bean {
         }
 
         System.out.println("Bean will take a nap now. Bye!");
+        System.out.println(separator);
     }
 }

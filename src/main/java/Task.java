@@ -29,13 +29,13 @@ public class Task {
 
     public void setDone() {
         isDone = true;
-        System.out.println("Hey, looks like you're done with this task:");
+        System.out.print("    Hey, looks like you're done with this task:\n   ");
         printTask();
     }
 
     public void setUndone() {
         isDone = false;
-        System.out.println("Oops, looks like this task's still not done:");
+        System.out.print("    Oops, looks like this task's still not done:\n    ");
         printTask();
     }
 }
