@@ -19,7 +19,7 @@ public class Duke {
         System.out.println("What can I do for you?\n");
 
         Scanner in = new Scanner(System.in);
-        String[] userCommands = new String[100];
+        Task[] userCommands = new Task[100];
         String command;
         int count = 0;
 
@@ -30,13 +30,33 @@ public class Duke {
             }
             if (command.equals("list")) {
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < count; i++) {
-                    System.out.println("\t" + Integer.toString(i + 1) + ". " + userCommands[i]);
+                    System.out.println("\t" + Integer.toString(i + 1) + ".[" + userCommands[i].getStatusIcon() + "] " + userCommands[i].description);
                 }
                 System.out.println("____________________________________________________________");
                 continue;
             }
-            userCommands[count] = command;
+            if (command.split(" ")[0].contains("mark")) {
+                String[] markCommand = command.split(" ");
+                if (markCommand[0].equals("mark")) {
+                    userCommands[Integer.parseInt(markCommand[1]) - 1].markAsDone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("\t" + "[" + userCommands[Integer.parseInt(markCommand[1]) - 1].getStatusIcon() + "] " + userCommands[Integer.parseInt(markCommand[1]) - 1].description);
+                    System.out.println("____________________________________________________________");
+                }
+                else if (markCommand[0].equals("unmark")){
+                    userCommands[Integer.parseInt(markCommand[1]) - 1].markAsUndone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("\t" + "[" + userCommands[Integer.parseInt(markCommand[1]) - 1].getStatusIcon() + "] " + userCommands[Integer.parseInt(markCommand[1]) - 1].description);
+                    System.out.println("____________________________________________________________");
+                }
+                continue;
+            }
+            Task t = new Task(command);
+            userCommands[count] = t;
             count++;
             System.out.println("____________________________________________________________");
             System.out.println("\t" + "added: " + command);
