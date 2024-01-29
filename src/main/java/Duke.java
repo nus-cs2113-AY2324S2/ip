@@ -3,45 +3,42 @@ import java.util.Scanner;
 public class Duke {
 
     public static void inputChecker() {
-        Scanner in = new Scanner(System.in); //declared a scanner object
-        String line; //declared a string object to take in user input
+        Scanner in = new Scanner(System.in); // declared a scanner object
+        String line; // declared a string object to take in user input
 
-        Task[] list; //declare a list with string data type
-        list = new Task[100]; //create a list of 100 elements
+        Task[] list; // declare a list with string data type
+        list = new Task[100]; // create a list of 100 elements
         int counter = 0;
-        //int index = 1;
         int index;
         Task t;
 
-//start of user input
+        // start of user input
         while (true) {
             line = in.nextLine(); //takes in user input
 
             boolean mark = line.trim().toLowerCase().startsWith("mark");
             boolean unmark = line.trim().toLowerCase().startsWith("unmark");
 
-            //when user exits
+            // when user exits
             if (line.equals("bye")) {
                 System.out.println("Bye human. Come back soon !");
                 break;
             }
-            //if user wants to display a list
+            // if user wants to display a list
             else if (line.equalsIgnoreCase("list")) {
                 for (Task task : list) {
                     if (task == null){
                         break;
                     }
-                    //check ifDone();
                     System.out.println(task.index + ".[" + task.getStatusIcon() + "] " + task.description);
-                    //index += 1;
+
                 }
                 System.out.println("____________________________________________________________");
-                //index = 1;
                 continue;
             }
 
             else if (mark || unmark) {
-                //to mark
+                // to mark
                 if (mark) {
                      index = Integer.parseInt(line.substring(5));
                      t = list[index - 1];
@@ -52,7 +49,7 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                 }
 
-                //to unmark
+                // to unmark
                 else {
                     index = Integer.parseInt(line.substring(7));
                     t = list[index - 1];
@@ -64,7 +61,7 @@ public class Duke {
                 continue;
             }
 
-            //user adds in Task elements
+            // user adds in Task elements
             System.out.println("added: " + line);
             System.out.println("____________________________________________________________");
             t = new Task(line, counter+1); //put task in

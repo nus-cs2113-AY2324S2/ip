@@ -1,9 +1,10 @@
 public class Task {
+    // 3 class attributes
     protected String description;
     protected boolean isDone;
     protected int index;
 
-    //constructor
+    // constructor
     public Task(String description, int index) {
         setDescription(description);
         setDone();
@@ -11,6 +12,7 @@ public class Task {
 
     }
 
+    // 3 setter
     public void setDescription(String description) {
         this.description = description;
     }
