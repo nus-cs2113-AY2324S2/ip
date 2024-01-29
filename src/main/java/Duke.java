@@ -30,22 +30,47 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String userInput;
 
+        // List items
+        String[] listOfTasks = new String[100];
+        int taskCount = 0;
+
         while (true) {
-            userInput = in.nextLine();
-            if (userInput.toLowerCase().equals("bye")) {
+            userInput = in.nextLine().trim();
+            if (userInput.equalsIgnoreCase("bye")) {
                 break;
+            } else if (userInput.equals("")) {
+                continue;
+            } else if (userInput.equalsIgnoreCase("list")) {
+                echoListItems(listOfTasks, taskCount);
+            } else {
+                addTaskToList(userInput, listOfTasks, taskCount);
+                taskCount++;
             }
-            echoUserCommand(userInput);
         }
     }
 
-    private static void echoUserCommand(String userInput) {
+    private static void addTaskToList(String userInput, String[] listOfTasks, int index) {
+        listOfTasks[index] = userInput;
+
         System.out.println(messageDivider);
-        System.out.println(userInput);
+        System.out.println("added: " + userInput);
+        System.out.println(messageDivider);
+    }
+
+    private static void echoListItems(String[] listOfTasks, int taskCount) {
+        System.out.println(messageDivider);
+        if (taskCount == 0) {
+            System.out.println("No tasks added");
+        } else {
+            for (int i = 0; listOfTasks[i] != null; i++) {
+                System.out.printf("%d. %s%n", i+1, listOfTasks[i]);
+            }
+        }
         System.out.println(messageDivider);
     }
 
     private static void sayGoodbye() {
+        System.out.println(messageDivider);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(messageDivider);
     }
