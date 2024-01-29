@@ -31,7 +31,6 @@ public class Duke {
                 }
                 continue;
             }
-            System.out.println(Arrays.asList(task_list).contains(instruction));
             if(Arrays.asList(task_list).contains(instruction))  //add the task if not exist
             {
                 System.out.println(prefix+"The task "+ instruction + " already exist!");
