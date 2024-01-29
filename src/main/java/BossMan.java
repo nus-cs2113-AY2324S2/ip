@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class BossMan {
-    private final Scanner scanner;
-    private final String sep = "____________________________________________________________";
-    private final TaskList taskList;
+    private Scanner scanner;
+    private final String SEP = "____________________________________________________________";
+    private TaskList taskList;
 
     public BossMan() {
         this.scanner = new Scanner(System.in);
@@ -14,13 +14,13 @@ public class BossMan {
         String botName = "BossMan";
         String greet = "Hello! I'm " + botName;
         String offerService = "What can I do for you?";
-        System.out.println(sep + "\n" + greet);
-        System.out.println(offerService + "\n" + sep);
+        System.out.println(SEP + "\n" + greet);
+        System.out.println(offerService + "\n" + SEP);
     }
 
     public void endChat() {
         String exit = "Bye. Hope to see you again soon!";
-        System.out.println(exit + "\n" + sep);
+        System.out.println(exit + "\n" + SEP);
     }
 
     public void startChat() {
@@ -44,7 +44,7 @@ public class BossMan {
             } else if (!userInput.equalsIgnoreCase("bye")) {
                 // Add user input to the to-do list
                 taskList.addTask(userInput);
-                System.out.println("Added: " + userInput + "\n" + sep);
+                System.out.println("Added: " + userInput + "\n" + SEP);
             }
         } while (!userInput.equalsIgnoreCase("bye"));
     }
