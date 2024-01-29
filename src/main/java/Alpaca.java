@@ -27,24 +27,46 @@ public class Alpaca {
                 String line;
                 Scanner in = new Scanner(System.in);
                 line = in.nextLine();
+                String tempLine;
 
                 while (!line.equals("bye")) {
-                        switch (line) {
-                        case "list":
+
+                        if (line.equals("list")) {
                                 System.out.print(HORIZONTAL_LINE);
+                                System.out.println("Here are the tasks in your list:");
                                 for (int i = 0; i < listCount; i++) {
-                                        System.out.println((i + 1) + ". " + list[i]);
+                                        System.out.println((i + 1) + "." + list[i]);
                                 }
                                 System.out.print(HORIZONTAL_LINE);
-                                break;
-                        default:
+                        }
+                        else if (line.length() >= 4 && line.substring(0, 4).equals("mark")) {
+                                tempLine = line.substring(5);
+                                int index = Integer.parseInt(tempLine) - 1;
+                                list[index] = list[index].replace("[ ]", "[X]");
+                                System.out.print(HORIZONTAL_LINE);
+                                System.out.println("Nice! I've marked this task as done:");
+                                System.out.println(list[index]);
+                                System.out.print(HORIZONTAL_LINE);
+                        }
+                        else if (line.length() >= 6 && line.substring(0, 6).equals("unmark")) {
+
+                                tempLine = line.substring(7);
+                                int index = Integer.parseInt(tempLine) - 1;
+                                list[index] = list[index].replace("[X]", "[ ]");
+                                System.out.print(HORIZONTAL_LINE);
+                                System.out.println("OK, I've marked this task as not done yet:");
+                                System.out.println(list[index]);
+                                System.out.print(HORIZONTAL_LINE);
+                        }
+                        else {
                                 System.out.print(HORIZONTAL_LINE);
                                 System.out.print("added: ");
                                 System.out.println(line);
                                 System.out.print(HORIZONTAL_LINE);
-                                list[listCount] = line;
+                                tempLine = "[ ] " + line;
+                                list[listCount] = tempLine;
+                                listCount++;
                         }
-                        listCount++;
                         line = in.nextLine();
                 }
 
