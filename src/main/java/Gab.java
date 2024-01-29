@@ -53,18 +53,18 @@ public class Gab {
             getTask();
         } else {
             switch (task) {
-                case exitCode:
-                    System.out.println("I hope you complete them!");
-                    System.exit(0);
-                    break;
-                case displayCode:
-                    listTask();
-                    getTask();
-                    break;
-                default:
-                    displayTask(task);
-                    getTask();
-                    break;
+            case exitCode:
+                System.out.println("I hope you complete them!");
+                System.exit(0);
+                break;
+            case displayCode:
+                listTask();
+                getTask();
+                break;
+            default:
+                displayTask(task);
+                getTask();
+                break;
             }
         }
     }
