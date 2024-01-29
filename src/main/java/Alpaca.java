@@ -1,17 +1,23 @@
-public class Alpaca
-{
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Alpaca");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
-    }
+public class Alpaca {
+        private static final String LOGO = "           _      _____        _____          \n" +
+                "     /\\   | |    |  __ \\ /\\   / ____|   /\\    \n" +
+                "    /  \\  | |    | |__) /  \\ | |       /  \\   \n" +
+                "   / /\\ \\ | |    |  ___/ /\\ \\| |      / /\\ \\  \n" +
+                "  / ____ \\| |____| |  / ____ \\ |____ / ____ \\ \n" +
+                " /_/    \\_\\______|_| /_/    \\_\\_____/_/    \\_\\\n" +
+                "                                              \n" +
+                "                                              ";
+
+        private static final String HORIZONTAL_LINE =  "_____________" +
+                "_______________________________________________\n";
+
+        private static final String GREET = "Hello! I'm Alpaca\n"
+                + "What can I do for you?\n";
+        private static final String EXIT = "Bye. Hope to see you again soon!\n";
+
+        public static void main(String[] args) {
+                System.out.print(LOGO);
+                System.out.print(HORIZONTAL_LINE + GREET + HORIZONTAL_LINE);
+                System.out.print(EXIT + HORIZONTAL_LINE);
+        }
 }
