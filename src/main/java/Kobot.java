@@ -37,15 +37,26 @@ public class Kobot {
 
         printHelloMessage();
 
-        String command = receiveInput(in);
-        while (!command.toLowerCase().matches("bye")) {
-            if (command.toLowerCase().matches("list")) {
-                taskList.printTaskList();
-            } else {
-                taskList.addTask(command);
-            }
+        Command command = new Command(receiveInput(in));
 
-            command = receiveInput(in);
+        while (!command.getCommand().matches("bye")) {
+            switch (command.getCommand()) {
+            case "list":
+                taskList.printTaskList();
+                break;
+
+            case "mark":
+                taskList.markTask(Integer.parseInt(command.getArgument()) - 1);
+                break;
+
+            case "unmark":
+                taskList.unmarkTask(Integer.parseInt(command.getArgument()) - 1);
+                break;
+
+            default:
+                taskList.addTask(command.getCommand());
+            }
+            command.parseCommand(receiveInput(in));
         }
 
         printGoodbyeMessage();
