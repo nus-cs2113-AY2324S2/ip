@@ -1,14 +1,38 @@
+import java.util.Scanner;
+
 public class Cody {
-    public static void main(String[] args) {
-        String greeting = " ____________________________________________________________\n" +
+
+    private static void echo() {
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        while (!input.equals("bye")) {
+            System.out.println("____________________________________________________________\n" +
+                    " " + input + "\n" +
+                    "_____________________________________________________________");
+            input = in.nextLine();
+        }
+    }
+
+    private static void greet() {
+        String greet = " ____________________________________________________________\n" +
                 " Hello! I'm Cody\n" +
                 " What can I do for you?\n" +
                 "_____________________________________________________________\n";
-        String goodbye = "____________________________________________________________\n" +
+        System.out.println(greet);
+    }
+
+    private static void exit() {
+        String exit = "____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
                 "_____________________________________________________________";
+        System.out.println(exit);
+    }
 
-        System.out.println(greeting);
-        System.out.println(goodbye);
+
+    public static void main(String[] args) {
+        greet();
+        echo();
+        exit();
     }
 }
+
