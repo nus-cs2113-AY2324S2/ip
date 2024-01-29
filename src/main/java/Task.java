@@ -11,11 +11,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public boolean getStatus() {
-        return isDone;
-    }
-
     public void setStatus(boolean mark) {
         isDone = mark;
+    }
+
+    public void printTaskInfo() {
+        System.out.println("[" + getStatusIcon() + "] " + description);
     }
 }

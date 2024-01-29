@@ -31,39 +31,83 @@ public class Duke {
         String userInput;
 
         // List items
-        String[] listOfTasks = new String[100];
+        Task[] listOfTasks = new Task[100];
         int taskCount = 0;
 
+        // Chat input and response Loop
         while (true) {
             userInput = in.nextLine().trim();
-            if (userInput.equalsIgnoreCase("bye")) {
-                break;
-            } else if (userInput.equals("")) {
+
+            switch (userInput.toLowerCase()) {
+            case "":
                 continue;
-            } else if (userInput.equalsIgnoreCase("list")) {
+            case "bye":
+                return;
+            case "list":
                 echoListItems(listOfTasks, taskCount);
-            } else {
+                break;
+            default:
+                if (handleMarkUnmarkTask(userInput, listOfTasks, taskCount)) {
+                    break;
+                }
                 addTaskToList(userInput, listOfTasks, taskCount);
                 taskCount++;
+                break;
             }
         }
     }
 
-    private static void addTaskToList(String userInput, String[] listOfTasks, int index) {
-        listOfTasks[index] = userInput;
+    private static boolean handleMarkUnmarkTask(String userInput, Task[] listOfTasks, int taskCount) {
+        if (userInput.toLowerCase().startsWith("mark") || userInput.toLowerCase().startsWith("unmark")) {
+            String command = userInput.toLowerCase().startsWith("mark") ? "mark" : "unmark";
+            String numberPart = userInput.substring(command.length()).trim();
+            try {
+                int taskIndex = Integer.parseInt(numberPart);
+                changeTaskStatus(command.equals("mark"), taskIndex, listOfTasks);
+            } catch (NumberFormatException e) {
+                System.out.println(messageDivider);
+                System.out.println("ERROR: Invalid task index, usage \"" + command + " (taskIndex)\"");
+                System.out.println(messageDivider);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(messageDivider);
+                System.out.println("ERROR: Index out of bounds, usage \"" + command + " (taskIndex)\"");
+                System.out.println(messageDivider);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static void changeTaskStatus(boolean checkmark, int taskIndex, Task[] listOfTasks) {
+        // listOfTasks is indexed from 0
+        listOfTasks[taskIndex - 1].setStatus(checkmark);
+
+        System.out.println(messageDivider);
+        if (checkmark == true) {
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        listOfTasks[taskIndex - 1].printTaskInfo();
+        System.out.println(messageDivider);
+    }
+
+    private static void addTaskToList(String userInput, Task[] listOfTasks, int index) {
+        listOfTasks[index] = new Task(userInput);
 
         System.out.println(messageDivider);
         System.out.println("added: " + userInput);
         System.out.println(messageDivider);
     }
 
-    private static void echoListItems(String[] listOfTasks, int taskCount) {
+    private static void echoListItems(Task[] listOfTasks, int taskCount) {
         System.out.println(messageDivider);
         if (taskCount == 0) {
             System.out.println("No tasks added");
         } else {
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; listOfTasks[i] != null; i++) {
-                System.out.printf("%d. %s%n", i+1, listOfTasks[i]);
+                System.out.printf("%d. [%s] %s%n", i+1, listOfTasks[i].getStatusIcon(), listOfTasks[i].description);
             }
         }
         System.out.println(messageDivider);
