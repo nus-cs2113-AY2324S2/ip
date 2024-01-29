@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.lang.String;
 
 public class Gab {
 
@@ -16,7 +17,7 @@ public class Gab {
             return description;
         }
 
-        public void markAsDone() {
+        public void markAsDone() { //need to choose which task to mark as done
             isDone = true;
         }
 
@@ -27,55 +28,79 @@ public class Gab {
 
     private static ArrayList<Task> taskList = new ArrayList<>(); //array of Task instances
 
-    public static Task getTask() {
+    public static void getTask() {
         String taskDescription;
         Scanner in = new Scanner(System.in);
-        System.out.println("\tEnter your new task: ");
+        System.out.println("\tWhat do you want to do?: ");
         taskDescription = in.nextLine();
-        checkKeywords(taskDescription);
+        checkKeywords(taskDescription); //check if its un mark/mark/exit/list
+        //return taskDescription;
+    }
+
+        /*checkKeywords(taskDescription);
         Task newTask = new Task(taskDescription);
         taskList.add(newTask); //adding the instances of the new task to the array
         getTask();
         return newTask; //create new instance of the task class
+
+         */
+
+    public static void addToList(String taskName) { //only add to list if it is a valid task
+        Task newTask = new Task(taskName);
+        taskList.add(newTask);
     }
 
-    public static void checkKeywords (String task) {
+    public static void checkKeywords (String task) { //going to input task description from getTask here
         final String exitCode = "bye";
         final String displayCode = "list";
-        switch (task) {
-            case exitCode:
-                System.out.println("I hope you complete them!");
-                System.exit(0);
-                break;
-            case displayCode:
-                listTask();
-                break;
-            default:
-                displayTask(task);
-                break;
+        final String markCommand = "mark";
+        if (task.startsWith(markCommand)) {
+            markTask(task);
+            getTask();
+        } else {
+            switch (task) {
+                case exitCode:
+                    System.out.println("I hope you complete them!");
+                    System.exit(0);
+                    break;
+                case displayCode:
+                    listTask();
+                    getTask();
+                    break;
+                default:
+                    displayTask(task);
+                    getTask();
+                    break;
+            }
         }
     }
-
-
 
     public static void listTask() { //using the array to list the tasks
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i); //instance of task in the display list
             String taskName = task.getDescription();
             String status = task.getStatusIcon(); //getting the status from the instance
-            System.out.println((i + 1) + ". " + status + taskName);
+            System.out.println((i + 1) + ". " + status + " " + taskName);
         }
-        getTask();
     }
 
     public static void displayTask(String task) {
-        //String exitCode = "Bye";
+        addToList(task);
         System.out.println("_____________");
         System.out.println("\tadded: " + task);
         System.out.println("_____________");
-        //checkKeywords();
     }
 
+    public static void markTask (String taskToMark) {
+        String taskIndex = taskToMark.substring(5); //getting the index of task
+        int index = Integer.parseInt(taskIndex) - 1;
+        Task taskToMarkAsDone = taskList.get(index);
+        String taskName = taskToMarkAsDone.getDescription();
+        taskToMarkAsDone.markAsDone();
+        String status = taskToMarkAsDone.getStatusIcon();
+        System.out.println("Ok! One task down!");
+        System.out.println(status + " " + taskName);
+    }
 
     public static void main(String[] args) {
         String logo =
@@ -90,8 +115,7 @@ public class Gab {
         System.out.println("\tI am Gab the Bot! Nice to meet you!");
         System.out.println("\tAnything I can help you with?");
 
-
-        Task task = Gab.getTask();
+        Gab.getTask();
         //Gab.checkKeywords(task);
 
     }
