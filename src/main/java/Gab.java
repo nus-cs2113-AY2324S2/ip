@@ -21,6 +21,8 @@ public class Gab {
             isDone = true;
         }
 
+        public void markAsNotDone() { isDone = false; }
+
         public String getStatusIcon() { //if it is done mark as [X]
             return (isDone ? "[X]" : "[ ]");
         }
@@ -34,16 +36,7 @@ public class Gab {
         System.out.println("\tWhat do you want to do?: ");
         taskDescription = in.nextLine();
         checkKeywords(taskDescription); //check if its un mark/mark/exit/list
-        //return taskDescription;
     }
-
-        /*checkKeywords(taskDescription);
-        Task newTask = new Task(taskDescription);
-        taskList.add(newTask); //adding the instances of the new task to the array
-        getTask();
-        return newTask; //create new instance of the task class
-
-         */
 
     public static void addToList(String taskName) { //only add to list if it is a valid task
         Task newTask = new Task(taskName);
@@ -54,7 +47,8 @@ public class Gab {
         final String exitCode = "bye";
         final String displayCode = "list";
         final String markCommand = "mark";
-        if (task.startsWith(markCommand)) {
+        final String unMarkCommand = "unmark";
+        if (task.startsWith(markCommand) || task.startsWith(unMarkCommand)) {
             markTask(task);
             getTask();
         } else {
@@ -91,14 +85,20 @@ public class Gab {
         System.out.println("_____________");
     }
 
-    public static void markTask (String taskToMark) {
-        String taskIndex = taskToMark.substring(5); //getting the index of task
+    public static void markTask (String tasks) {
+        String[] task = tasks.split(" ");
+        String taskIndex = task[1]; //getting the task to mark or un mark
         int index = Integer.parseInt(taskIndex) - 1;
-        Task taskToMarkAsDone = taskList.get(index);
-        String taskName = taskToMarkAsDone.getDescription();
-        taskToMarkAsDone.markAsDone();
-        String status = taskToMarkAsDone.getStatusIcon();
-        System.out.println("Ok! One task down!");
+        Task taskToMark = taskList.get(index);
+        String taskName = taskToMark.getDescription();
+        if (task[0].equals("mark")) {
+            taskToMark.markAsDone();
+            System.out.println("Ok! One task down!");
+        } else {
+            taskToMark.markAsNotDone();
+            System.out.println("Oh no! More tasks!");
+        }
+        String status = taskToMark.getStatusIcon();
         System.out.println(status + " " + taskName);
     }
 
@@ -117,9 +117,7 @@ public class Gab {
 
         Gab.getTask();
         //Gab.checkKeywords(task);
-
     }
-
 }
 
 
