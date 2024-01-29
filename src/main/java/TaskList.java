@@ -20,8 +20,8 @@ public class TaskList {
         System.out.println("Todo List:");
         for (int i = 0; i < tasks.size(); i++) {
             boolean isMark = tasks.get(i).getMark();
-            String MarkSymbol = isMark ? "[x] " : "[ ] ";
-            System.out.println((i + 1) + ". " + MarkSymbol + tasks.get(i).getTask());
+            String markSymbol = isMark ? "[x] " : "[ ] ";
+            System.out.println((i + 1) + ". " + markSymbol + tasks.get(i).getTask());
         }
         System.out.println(SEP);
     }
