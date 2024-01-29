@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Alexis {
-    //Declares array of size 100 to store list
+    //Declares array list of size 100 to store list
     public static String[] list = new String[100];
     public static int listIndex = 0;
 
@@ -9,7 +9,17 @@ public class Alexis {
         list[listIndex] = input;
         listIndex++;
     }
-
+    public static void printList(){
+        int i = 0;
+        int itemIndex = 1;
+        for (String item: list) {
+            if (item != null) {
+                System.out.printf("%d. %s\n", itemIndex, list[i]);
+                i++;
+                itemIndex++;
+            }
+        }
+    }
     public static void main(String[] args) {
         String name = "   ('-.                 ('-.  ) (`-.               .-')    \n"
                 + "  ( OO ).-.           _(  OO)  ( OO ).            ( OO ).  \n"
@@ -26,13 +36,13 @@ public class Alexis {
                 + "What can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
 
-        //Prints name and greeting
+        //Prints name and greeting.
         System.out.println(name);
         System.out.println(lineBreak);
         System.out.println(greeting);
         System.out.println(lineBreak);
 
-        //Loops the echo so users can input multiple lines. Breaks when users enter `bye`
+        //Loops the echo so users can input multiple lines. Breaks when users enter `bye`.
         while (true) {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
@@ -42,7 +52,13 @@ public class Alexis {
                 break;
             }
 
-            //Adds the input to the list and informs user
+            //Prints list on command `list`
+            else if (line.equals("list")) {
+                System.out.println(lineBreak);
+                printList();
+                System.out.println(lineBreak);
+            }
+
             else {
                 addToList(line);
                 System.out.println(lineBreak);
@@ -51,7 +67,7 @@ public class Alexis {
             }
         }
 
-        //Prints goodbye message before terminating
+        //Prints goodbye message before terminating.
         System.out.println(lineBreak);
         System.out.println(goodbye);
         System.out.println(lineBreak);
