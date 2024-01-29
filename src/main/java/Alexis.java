@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Alexis {
     public static void main(String[] args) {
         String name = "   ('-.                 ('-.  ) (`-.               .-')    \n"
@@ -10,16 +12,24 @@ public class Alexis {
                 + "  |  | |  | |      |  |  `---. /  .''  \\(_|  |   \\       / \n"
                 + "  `--' `--' `------'  `------''--'   '--' `--'    `-----'  \n";
 
-        String greeting = "____________________________________________________________\n"
-                + "Hello, I'm Alexis.\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________";
-
-        String goodbye = "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
+        String lineBreak = "____________________________________________________________";
+        String greeting = "Hello, I'm Alexis.\n"
+                + "What can I do for you?";
+        String goodbye = "Bye. Hope to see you again soon!";
 
         System.out.println(name);
+        System.out.println(lineBreak);
         System.out.println(greeting);
+        System.out.println(lineBreak);
+
+
+        Scanner in = new Scanner(System.in);
+        String line = in.nextLine();
+        System.out.println(lineBreak);
+        System.out.println(line);
+        System.out.println(lineBreak);
+
         System.out.println(goodbye);
+        System.out.println(lineBreak);
     }
 }
