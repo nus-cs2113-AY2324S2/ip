@@ -5,7 +5,6 @@ public class Lotes {
     public static String lineSeparator = System.lineSeparator();
     public static String underscore = "    ____________________________________________________________";
     public static void printUserList(List<String> list){
-        //System.out.println("List: " + list.get(0));
         System.out.println(underscore);
         if(list.isEmpty()){
             System.out.println("    List is empty, please enter some text to add to list.");
@@ -18,7 +17,13 @@ public class Lotes {
         System.out.println(underscore);
     }
     public static void main(String[] args) {
-        System.out.println(underscore + lineSeparator + "    Hello! I'm Lotes" + lineSeparator +
+        String logo = "  #        ####  ##### ######  ####\n" +
+                "                #       #    #   #   #      #\n" +
+                "                #       #    #   #   #####   ####\n" +
+                "                #       #    #   #   #           #\n" +
+                "                #######  ####    #   ######  ####";
+
+        System.out.println(underscore + lineSeparator + "    Hello! I'm" + logo + lineSeparator +
                 "    What can I do for you?" + lineSeparator + underscore);
         String userInput;
 
