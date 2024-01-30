@@ -26,17 +26,37 @@ public class Jarvas {
         int taskCounter = 0;
 
         while (true) {
-            switch(userInput){
-            case "bye":
+            if (userInput.equals("bye")) {
                 return;
-            case "list":
+            } else if (userInput.startsWith("mark")) {
                 System.out.println(partitionLine);
+                String index = userInput.substring(5); // obtain value after mark
+
+                int i = Integer.parseInt(index) - 1; // convert to int
+                tasks[i].setCompletedTrue();
+
+                System.out.println("Nice! I've marked this task as done:");
+                tasks[i].printTask();
+                System.out.println(partitionLine);
+            } else if (userInput.startsWith("unmark")) {
+                System.out.println(partitionLine);
+                String index = userInput.substring(7); // obtain value after unmark
+
+                int i = Integer.parseInt(index) - 1; // convert to int
+                tasks[i].setCompletedFalse();
+
+                System.out.println("Okay, I've marked this task as not done yet:");
+                tasks[i].printTask();
+                System.out.println(partitionLine);
+            } else if (userInput.equals("list")) {
+                System.out.println(partitionLine);
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i+1) + ". " + tasks[i].label);
+                    System.out.print((i + 1) + ".");
+                    tasks[i].printTask();
                 }
                 System.out.println(partitionLine);
-                break;
-            default:
+            } else {
                 System.out.println(partitionLine);
                 System.out.print("added: ");
                 System.out.println(userInput);
@@ -45,7 +65,6 @@ public class Jarvas {
                 Task task = new Task(userInput);
                 tasks[taskCounter] = task;
                 taskCounter++;
-                break;
             }
             userInput = in.nextLine();
         }
