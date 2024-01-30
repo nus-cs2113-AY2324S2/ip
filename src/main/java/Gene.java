@@ -1,12 +1,11 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Gene {
     private static final String botName = "Gene";
     private final Scanner scanner = new Scanner(System.in);
-    private ArrayList<String> toDoList = new ArrayList<>();
+    private TaskList taskList = new TaskList();
 
-    private void printLineSeparation() {
+    public static void printLineSeparation() {
         for (int i = 0; i < 29; i++) {
             System.out.print("__");
         }
@@ -29,31 +28,44 @@ public class Gene {
                 break;
             }
 
-            // Print out all list items if user types "list"
-            if (userInput.equalsIgnoreCase("list")) {
-                printListItems();
-                continue;
-            }
-
-            // Add items into list
-            addItem(userInput);
+            processCommand(userInput);
         }
     }
 
-    private void addItem(String command) {
-        toDoList.add(command);
-        printLineSeparation();
-        System.out.println("added: " + command);
-        printLineSeparation();
+    public boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
-    private void printListItems() {
-        printLineSeparation();
-        System.out.println("Here are the items in your list:");
-        for (int i = 0; i < toDoList.size(); i++) {
-            System.out.println((i + 1) + ". " + toDoList.get(i));
+    private void processCommand(String command) {
+        String[] parts = command.split(" ");
+        String action = parts[0].toLowerCase();
+
+        switch (action) {
+            case "list":
+                taskList.printListItems();
+                break;
+            case "mark":
+                if (parts.length > 1 && isNumeric(parts[1])) {
+                    taskList.markTaskAsDone(Integer.parseInt(parts[1]));
+                } else {
+                    System.out.println("Please provide a valid task number to mark as done.");
+                }
+                break;
+            case "unmark":
+                if (parts.length > 1 && isNumeric(parts[1])) {
+                    taskList.markTaskAsNotDone(Integer.parseInt(parts[1]));
+                } else {
+                    System.out.println("Please provide a valid task number to mark as not done.");
+                }
+                break;
+            default:
+                taskList.addTask(command);
         }
-        printLineSeparation();
     }
 
     public void endChat() {
