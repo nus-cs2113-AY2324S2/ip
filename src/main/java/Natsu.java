@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Natsu {
 
     private static final String NAME = "Natsu";
 
