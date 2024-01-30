@@ -6,7 +6,7 @@ public class Soot {
         String line;
         String lowerCase;
         Scanner in = new Scanner(System.in);
-        String[] list = new String[100];
+        ListItem[] list = new ListItem[100];
 
         boolean isBye = false;
 
@@ -23,7 +23,7 @@ public class Soot {
         }
     }
 
-    public static boolean verifyInput(String[] list, String input) {
+    public static boolean verifyInput(ListItem[] list, String input) {
         String lowerCase = input.toLowerCase();
 
         switch (lowerCase) {
@@ -31,17 +31,19 @@ public class Soot {
             byeGreeting();
             return true;
         case "list":
-            System.out.println(list);
+            for (int i = 0; i < listCounter; i++)
+                list[i].printItem();
+            drawLine();
+            break;
         default:
             System.out.println("added: " + input);
             drawLine();
 
-            list[listCounter] = input;
+            list[listCounter] = new ListItem(input, listCounter);
             listCounter++;
         }
         return false;
     }
-
     public static void drawLine() {
         int length = 60;
         for (int i = 0; i < length; i++) {
