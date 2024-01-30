@@ -5,10 +5,10 @@ public class Duke {
     private static final String NAME = "Natsu";
 
     private static void printGreeting() {
-        System.out.println("    ____________________________________________________________");
+        printLine();
         System.out.println("    Hello! I'm " + NAME);
         System.out.println("    What can I do for you?");
-        System.out.println("    ____________________________________________________________");
+        printLine();
     }
 
     private static void echoCommands() {
@@ -21,17 +21,21 @@ public class Duke {
                 isExit = true;
                 printExitMessage();
             } else {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("    " + userInput);
-            System.out.println("    ____________________________________________________________");
+                printLine();
+                System.out.println("    " + userInput);
+                printLine();
             }
         }
     }
 
+    private static void printLine() {
+        System.out.println("    ____________________________________________________________");
+    }
+
     private static void printExitMessage() {
-        System.out.println("    ____________________________________________________________");
+        printLine();
         System.out.println("    Bye. Hope to see you again soon!");
-        System.out.println("    ____________________________________________________________");
+        printLine();
     }
 
     public static void main(String[] args) {
