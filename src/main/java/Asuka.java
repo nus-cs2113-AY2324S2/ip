@@ -8,9 +8,21 @@ public class Asuka {
         System.out.println("____________________________________________________________");
         Scanner myObj = new Scanner(System.in);
         String command = myObj.nextLine();
-        while (!command.equals("bye")) {
+        String[] list = new String[100];
+        int count = 0;
+        while (!command.equals("bye")){
             System.out.println("____________________________________________________________");
-            System.out.println(command);
+            if (!command.equals("list")){
+                System.out.println("added: " + command);
+                list[count] = command;
+                count++;
+            }
+            else{
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < count; i++){
+                    System.out.println(i+1 + ". " + list[i]);
+                }
+            }
             System.out.println("____________________________________________________________");
             command = myObj.nextLine();
         };
