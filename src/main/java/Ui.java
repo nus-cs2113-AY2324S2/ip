@@ -31,4 +31,10 @@ public class Ui {
         System.out.println(command);
         System.out.println(SEPARATOR);
     }
+
+    void printResult(String result) {
+        System.out.println(SEPARATOR);
+        System.out.println(result);
+        System.out.println(SEPARATOR);
+    }
 }
