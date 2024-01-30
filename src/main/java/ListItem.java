@@ -24,4 +24,10 @@ public class ListItem {
         System.out.println("good job! this task is marked as done now: ");
         System.out.println(" > " + this.task);
     }
+
+    public void markUndone() {
+        this.isDone = false;
+        System.out.println("This task is now marked undone: ");
+        System.out.println(" > " + this.task);
+    }
 }

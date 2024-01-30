@@ -27,6 +27,8 @@ public class Soot {
         String lowerCase = input.toLowerCase();
         if (lowerCase.startsWith("done")) {
             lowerCase = "done";
+        } else if (lowerCase.startsWith("unmark")) {
+            lowerCase = "unmark";
         }
 
         switch (lowerCase) {
@@ -43,6 +45,12 @@ public class Soot {
             String taskNumber = input.substring(5);
             int listIndex = Integer.parseInt(taskNumber) - 1;
             list[listIndex].markDone();
+            drawLine();
+            break;
+        case "unmark":
+            taskNumber = input.substring(7);
+            listIndex = Integer.parseInt(taskNumber) - 1;
+            list[listIndex].markUndone();
             drawLine();
             break;
         default:
