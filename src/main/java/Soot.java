@@ -10,14 +10,16 @@ public class Soot {
         System.out.println("What can I help you with?");
         drawLine();
 
-        line = in.nextLine(); //user input
-        drawLine();
+        do {
+            line = in.nextLine(); //user input
+            drawLine();
 
-        System.out.println(line);
-        drawLine();
+            System.out.println(line);
+            drawLine();
 
-        System.out.println("Bye! Till the next time we meet...");
-        drawLine();
+        } while (!line.contains("bye"));
+
+        byeGreeting();
     }
 
     public static void drawLine() {
@@ -26,5 +28,10 @@ public class Soot {
             System.out.print("_");
         }
         System.out.println("");
+    }
+
+    public static void byeGreeting() {
+        System.out.println("Bye! Till the next time we meet...");
+        drawLine();
     }
 }
