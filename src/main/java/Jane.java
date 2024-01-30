@@ -26,22 +26,22 @@ public class Jane {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.count; i++) {
                     currentTask = taskList.list[i];
-                    System.out.println(currentTask.getIndex() + "." + currentTask.getStatusIcon() + currentTask.getDescription());
+                    System.out.println(currentTask.getIndex() + "." +
+                            currentTask.getStatusIcon() + currentTask.getDescription());
                 }
-            }
-            else if (input.startsWith("mark")) {
+            } else if (input.startsWith("mark")) {
                 input = input.replace("mark ", "");
                 currentTask = taskList.list[Integer.parseInt(input)-1];
                 currentTask.isDone("mark");
-                System.out.println("Nice! I've marked this task as done:\n" + currentTask.getStatusIcon() + currentTask.getDescription());
-            }
-            else if (input.startsWith("unmark")) {
+                System.out.println("Nice! I've marked this task as done:\n" +
+                        currentTask.getStatusIcon() + currentTask.getDescription());
+            } else if (input.startsWith("unmark")) {
                 input = input.replace("unmark ", "");
                 currentTask = taskList.list[Integer.parseInt(input)-1];
                 currentTask.isDone("unmark");
-                System.out.println("OK, I've marked this task as not done yet:\n" + currentTask.getStatusIcon() + currentTask.getDescription());
-            }
-            else {
+                System.out.println("OK, I've marked this task as not done yet:\n" +
+                        currentTask.getStatusIcon() + currentTask.getDescription());
+            } else {
                 taskList.addTask(t);
                 System.out.println("added: " + t.getDescription());
             }
