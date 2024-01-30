@@ -28,4 +28,8 @@ public class Task {
     public Task completeTask() {
         return new Task(this.taskName, this.taskId, true);
     }
+
+    public Task uncompleteTask() {
+        return new Task(this.taskName, this.taskId, false);
+    }
 }
