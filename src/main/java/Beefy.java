@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Beefy {
     private static final String BOTNAME = "BEEFY";
     private Scanner userInput = new Scanner(System.in);
+    private ArrayList<String> tasks = new ArrayList<String>();
 
     /**
      * Prints a separation row of n "-", where n = WIDTH
@@ -17,15 +19,29 @@ public class Beefy {
     public void startChat() {
         String userLine;
         printSeparation();
-        System.out.println(BOTNAME + ": Hello! I'm " + BOTNAME);
-        System.out.println(BOTNAME + ": What can I do for you?");
+        System.out.println(BOTNAME);
+        System.out.println("Hello! I'm " + BOTNAME);
+        System.out.println("What can I do for you?");
         printSeparation();
         do {
-            System.out.print("You: ");
+            System.out.println("You");
             userLine = userInput.nextLine();
             printSeparation();
-            if (!userLine.equalsIgnoreCase("bye")) {
-                System.out.println(BOTNAME + ": " + userLine);
+            if (userLine.equalsIgnoreCase("bye")) {
+                break;
+            }
+            else if (userLine.equalsIgnoreCase("list")) {
+                System.out.println(BOTNAME);
+                System.out.println("Here are the things you said so far:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
+                }
+                printSeparation();
+            }
+            else {
+                tasks.add(userLine);
+                System.out.println(BOTNAME);
+                System.out.println( "---" + userLine + " has been added to task list!---");
                 printSeparation();
             }
         } while(!userLine.equalsIgnoreCase("bye"));
