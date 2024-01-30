@@ -4,28 +4,29 @@ public class Duke {
     public static void main(String[] args) {
         Ui userInterface = new Ui();
         userInterface.printLogo();
-        userInterface.generateWelcome();
+        userInterface.printWelcome();
 
         TaskManager manager = new TaskManager();
-
         Scanner sc = new Scanner(System.in);
-        boolean hasMoreInput = true;
 
-        do {
-            String userCommand = sc.nextLine();
+        while (true) {
+            String userCommand = sc.next();
+            String result;
 
             if (userCommand.equals("bye")) {
-                hasMoreInput = false;
-            } else if (userCommand.equals("list")){
-                String result = manager.listTasks();
-                userInterface.printResult(result);
+                break;
+            } else if (userCommand.equals("list")) {
+                result = manager.listTasks();
+            } else if (userCommand.equals("mark") || userCommand.equals("unmark")) {
+                int taskId = sc.nextInt();
+                result = manager.updateTaskProgress(taskId, userCommand);
             } else {
-                String result = manager.addTask(userCommand);
-                userInterface.printResult(result);
+                userCommand += sc.nextLine(); // Restore input as one line
+                result = manager.addTask(userCommand);
             }
+            userInterface.print(result);
+        }
 
-        } while (hasMoreInput);
-
-        userInterface.generateExit();
+        userInterface.printExit();
     }
 }
