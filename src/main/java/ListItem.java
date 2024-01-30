@@ -26,6 +26,10 @@ public class ListItem {
     }
 
     public void markUndone() {
+        if (!isDone) {
+            System.out.println("hm, this task (" + this.task + ") had not been done yet. wrong one?");
+            return;
+        }
         this.isDone = false;
         System.out.println("This task is now marked undone: ");
         System.out.println(" > " + this.task);
