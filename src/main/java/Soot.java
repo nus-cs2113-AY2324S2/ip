@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Soot {
     public static void main(String[] args) {
         String line;
+        String lowerCase;
         Scanner in = new Scanner(System.in);
 
         drawLine(); //initial greeting
@@ -12,12 +13,15 @@ public class Soot {
 
         line = in.nextLine(); //user input
         drawLine();
-        while (!line.contains("bye")) {
+        lowerCase = line.toLowerCase();
+
+        while (!lowerCase.contains("bye")) {
             System.out.println(line);
             drawLine();
 
             line = in.nextLine(); //user input
             drawLine();
+            lowerCase = line.toLowerCase();
         }
         byeGreeting();
     }
