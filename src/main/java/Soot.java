@@ -25,6 +25,9 @@ public class Soot {
 
     public static boolean verifyInput(ListItem[] list, String input) {
         String lowerCase = input.toLowerCase();
+        if (lowerCase.startsWith("done")) {
+            lowerCase = "done";
+        }
 
         switch (lowerCase) {
         case "bye":
@@ -34,6 +37,12 @@ public class Soot {
             System.out.println("tasks to be done!");
             for (int i = 0; i < listCounter; i++)
                 list[i].printItem();
+            drawLine();
+            break;
+        case "done":
+            String taskNumber = input.substring(5);
+            int listIndex = Integer.parseInt(taskNumber) - 1;
+            list[listIndex].markDone();
             drawLine();
             break;
         default:
