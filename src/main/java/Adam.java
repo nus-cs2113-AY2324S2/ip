@@ -1,57 +1,39 @@
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class Adam {
-    static final String HORIZONTAL_LINE = "_____________________________"
-            + "_______________________________\n";
-
-    private static String greeting() {
-        String logo = "              _                 \n"
-                + "     /\\      | |                \n"
-                + "    /  \\   __| | __ _ _ __ ___  \n"
-                + "   / /\\ \\ / _` |/ _` | '_ ` _ \\ \n"
-                + "  / ____ \\ (_| | (_| | | | | | |\n"
-                + " /_/    \\_\\__,_|\\__,_|_| |_| |_|\n";
-
-        String greeting = HORIZONTAL_LINE
-                + "Hello! I'm Adam\n"
-                + "What can I do for you?\n"
-                + HORIZONTAL_LINE;
-
-        return "Hello from\n" + logo + greeting;
-    }
-
     public static void main(String[] args) {
-        System.out.println(greeting());
+        System.out.println(Messages.GREETING_MESSAGE);
 
         Scanner sc = new Scanner(System.in);
+        TaskList tasks = new TaskList();
         String input;
-        ArrayList<String> tasks = new ArrayList<String>();
+        Command command;
 
-        while (true) {
+        while (sc.hasNextLine()) {
             input = sc.nextLine();
-            System.out.print(HORIZONTAL_LINE);
+            System.out.print(Messages.HORIZONTAL_LINE);
 
             switch (input) {
             case "bye":
-                System.out.println("Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE);
+                command = new ExitCommand();
                 sc.close();
-                return;
+                break;
 
             case "list":
-                IntStream.rangeClosed(1, tasks.size())
-                        .mapToObj(x -> x + ". " + tasks.get(x - 1))
-                        .forEach(x -> System.out.println(x));
+                command = new ListCommand();
                 break;
 
             default:
-                tasks.add(input);
-                System.out.println("added: " + input);
+                if (input.matches("^(mark [0-9]|unmark [0-9]).*")) {
+                    command = new ToggleStatusCommand(input);
+                } else {
+                    command = new AddTaskCommand(input);
+                }
                 break;
             }
 
-            System.out.println(HORIZONTAL_LINE);
+            command.execute(tasks);
+            System.out.println(Messages.HORIZONTAL_LINE);
         }
 
     }
