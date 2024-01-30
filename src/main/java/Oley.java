@@ -14,30 +14,43 @@ public class Oley {
         lineBreaker();
 
     }
-    public static void echo(){
+    public static void exist(){
         Scanner in = new Scanner(System.in);
         String message;
         message = in.nextLine();
         lineBreaker();
-        while (message != null){
-            if (message.equals("bye")){
-                System.out.println("Bye~ Feel free to talk to me anytime. I will always be here waiting for you. ฅʕ•̫͡•");
-                lineBreaker();
-                return;
-            } else {
-                System.out.println(message + " ʕง•ᴥ•ʔง");
-                lineBreaker();
-                message = in.nextLine();
-                lineBreaker();
-            }
+        if (message.equals("bye")) {
+            System.out.println("Bye~ Feel free to talk to me anytime. I will always be here waiting for you. ฅʕ•̫͡•");
+            lineBreaker();
         }
     }
     public static void lineBreaker(){
         System.out.println(" ");
         System.out.println("~~~~~♥~~~~~♥~~~~~♥~~~~~♥~~~~~");
     }
+
+    public static void addTask(){
+        Scanner in = new Scanner(System.in);
+        String message;
+        message = in.nextLine();
+        lineBreaker();
+        while (message != null){
+            if (message.equals("list")){
+                Task.printTask();
+                lineBreaker();
+                return;
+            } else {
+                new Task(message);
+                System.out.println("added: " + message);
+                lineBreaker();
+                message = in.nextLine();
+                lineBreaker();
+            }
+        }
+    }
     public static void main(String[] args) {
         initialise();
-        echo();
+        addTask();
+        exist();
     }
 }
