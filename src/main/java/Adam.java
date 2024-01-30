@@ -1,5 +1,7 @@
+import java.util.Scanner;
+
 public class Adam {
-    private static final String HORIZONTAL_LINE = "_____________________________"
+    static final String HORIZONTAL_LINE = "_____________________________"
             + "_______________________________\n";
 
     public static void main(String[] args) {
@@ -15,7 +17,24 @@ public class Adam {
                 + "What can I do for you?\n"
                 + HORIZONTAL_LINE;
 
-        System.out.print("Hello from\n" + logo + greeting);
-        System.out.print("Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE);
+        System.out.println("Hello from\n" + logo + greeting);
+
+        Scanner sc = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            input = sc.nextLine();
+            System.out.print(HORIZONTAL_LINE);
+
+            if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE);
+                break;
+            }
+
+            System.out.println(input + "\n" + HORIZONTAL_LINE);
+        }
+
+        sc.close();
     }
+
 }
