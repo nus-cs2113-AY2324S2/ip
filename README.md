@@ -2,6 +2,15 @@
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
+# User Guide
+Don't ask me anything. I am just a noob. 
+
+## Features 
+Whatever you ask, Hiko will reply you.
+
+## Usage
+Useless
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
