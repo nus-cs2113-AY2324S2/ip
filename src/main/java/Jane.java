@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Jane {
     public static void main(String[] args) {
         String logo = " _____    _____    ____ _    _____ \n" +
@@ -12,6 +13,15 @@ public class Jane {
 
         System.out.print(logo + horizontalLine);
         System.out.print(greetMessage + horizontalLine);
-        System.out.print(exitMessage + horizontalLine);
+
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        while (!input.equals("bye")) {
+            System.out.println("Jane's reply: " + input);
+            System.out.print(horizontalLine);
+            input = in.nextLine();
+        }
+
+        System.out.print(horizontalLine + exitMessage + horizontalLine);
     }
 }
