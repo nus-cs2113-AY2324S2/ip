@@ -16,12 +16,25 @@ public class Jane {
 
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
+        String[] textList = new String[100];
+        int textCount = 0;
+
         while (!input.equals("bye")) {
-            System.out.println("Jane's reply: " + input);
+            if (input.equals("list")) {
+                for (int i = 1; i <= textCount; i++) {
+                    System.out.println(i + ". " + textList[i - 1]);
+                }
+            }
+            else {
+                textList[textCount] = input;
+                textCount++;
+                System.out.println("Jane: " + "added: " + input);
+            }
             System.out.print(horizontalLine);
             input = in.nextLine();
         }
 
         System.out.print(horizontalLine + exitMessage + horizontalLine);
+
     }
 }
