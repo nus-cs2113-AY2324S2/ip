@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Gene {
-    private static String botName = "Gene";
-    private Scanner scanner = new Scanner(System.in);
+    private static final String botName = "Gene";
+    private final Scanner scanner = new Scanner(System.in);
+    private ArrayList<String> toDoList = new ArrayList<>();
 
     private void printLineSeparation() {
         for (int i = 0; i < 29; i++) {
@@ -27,12 +29,31 @@ public class Gene {
                 break;
             }
 
-            // Echo user input
-            printLineSeparation();
-            System.out.println(userInput);
-            printLineSeparation();
+            // Print out all list items if user types "list"
+            if (userInput.equalsIgnoreCase("list")) {
+                printListItems();
+                continue;
+            }
 
+            // Add items into list
+            addItem(userInput);
         }
+    }
+
+    private void addItem(String command) {
+        toDoList.add(command);
+        printLineSeparation();
+        System.out.println("added: " + command);
+        printLineSeparation();
+    }
+
+    private void printListItems() {
+        printLineSeparation();
+        System.out.println("Here are the items in your list:");
+        for (int i = 0; i < toDoList.size(); i++) {
+            System.out.println((i + 1) + ". " + toDoList.get(i));
+        }
+        printLineSeparation();
     }
 
     public void endChat() {
