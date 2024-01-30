@@ -6,16 +6,22 @@ public class Duke {
         userInterface.printLogo();
         userInterface.generateWelcome();
 
+        TaskManager manager = new TaskManager();
+
         Scanner sc = new Scanner(System.in);
         boolean hasMoreInput = true;
 
         do {
-            String userCommand = sc.next();
+            String userCommand = sc.nextLine();
 
             if (userCommand.equals("bye")) {
                 hasMoreInput = false;
+            } else if (userCommand.equals("list")){
+                String result = manager.listTasks();
+                userInterface.printResult(result);
             } else {
-                userInterface.echoCommand(userCommand);
+                String result = manager.addTask(userCommand);
+                userInterface.printResult(result);
             }
 
         } while (hasMoreInput);
