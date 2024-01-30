@@ -1,10 +1,14 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+
 public class Beefy {
     private static final String BOTNAME = "BEEFY";
-    private Scanner userInput = new Scanner(System.in);
-    private ArrayList<String> tasks = new ArrayList<String>();
+    private Scanner userInput;
+    private TaskList userTasks;
 
+    public Beefy() {
+        userInput = new Scanner(System.in);
+        userTasks = new TaskList();
+    }
     /**
      * Prints a separation row of n "-", where n = WIDTH
      */
@@ -16,6 +20,15 @@ public class Beefy {
         System.out.println("_");
     }
 
+    private boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public void startChat() {
         String userLine;
         printSeparation();
@@ -25,23 +38,29 @@ public class Beefy {
         printSeparation();
         do {
             System.out.println("You");
-            userLine = userInput.nextLine();
+            userLine = userInput.nextLine().trim();
+            String[] userWords = userLine.split("\\s+");
             printSeparation();
             if (userLine.equalsIgnoreCase("bye")) {
                 break;
-            }
-            else if (userLine.equalsIgnoreCase("list")) {
+            } else if (userLine.equalsIgnoreCase("list")) {
                 System.out.println(BOTNAME);
-                System.out.println("Here are the things you said so far:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
-                }
+                userTasks.listOut();
                 printSeparation();
-            }
-            else {
-                tasks.add(userLine);
+            } else if (userWords[0].equalsIgnoreCase("mark") && userWords.length == 2
+                    && isInteger(userWords[1])) {
                 System.out.println(BOTNAME);
-                System.out.println( "---" + userLine + " has been added to task list!---");
+                userTasks.markTask(Integer.parseInt(userWords[1]));
+                printSeparation();
+            } else if (userWords[0].equalsIgnoreCase("unmark") && userWords.length == 2
+                    && isInteger(userWords[1])){
+                System.out.println(BOTNAME);
+                userTasks.unmarkTask(Integer.parseInt(userWords[1]));
+                printSeparation();
+            } else {
+                Task userTask = new Task(userLine);
+                System.out.println(BOTNAME);
+                userTasks.addTask(userTask);
                 printSeparation();
             }
         } while(!userLine.equalsIgnoreCase("bye"));
@@ -51,4 +70,5 @@ public class Beefy {
         System.out.println(BOTNAME + ": Bye. Hope to see you again soon!");
         printSeparation();
     }
+
 }
