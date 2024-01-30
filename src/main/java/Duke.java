@@ -14,13 +14,22 @@ public class Duke {
     private static void echoCommands() {
         Scanner input = new Scanner(System.in);
         boolean isExit = false;
+        String[] list = new String[100];
+        int index = 0;
         while (!isExit) {
             String userInput = input.nextLine();
             if (userInput.equals("bye")) {
                 input.close();
                 isExit = true;
                 printExitMessage();
+            } else if (userInput.equals("list")) {
+                printLine();
+                for (int i = 0; i < index; i++) {
+                    System.out.println("    " + (i + 1) + ". " + list[i]);
+                }
+                printLine();
             } else {
+                list[index++] = userInput;
                 printLine();
                 System.out.println("    " + userInput);
                 printLine();
