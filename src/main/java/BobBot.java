@@ -1,20 +1,40 @@
 import java.util.Scanner;
 
 public class BobBot {
-
-    private static String[] allTasks = new String[100];
+    
+    private static Task[] allTasks = new Task[100];
     private static int numTasks = 0;
+    
+    private static void mark(String line) {
+        int taskNumToMark = Integer.parseInt(line.substring(4).trim())-1;
+        allTasks[taskNumToMark].markAsDone();
+        drawLine(true);
+        System.out.println("\tGot it! Marking this task as done:");
+        System.out.printf("\t[%s] %s\n", allTasks[taskNumToMark].getStatusIcon(), line);
+        drawLine(true);
+    }
+    
+    private static void unmark(String line) {
+        int taskNumToUnmark = Integer.parseInt(line.substring(6).trim())-1;
+        allTasks[taskNumToUnmark].markAsUndone();
+        drawLine(true);
+        System.out.println("\tAlright! Unmarking this task:");
+        System.out.printf("\t[%s] %s\n", allTasks[taskNumToUnmark].getStatusIcon(), line);
+        drawLine(true);
+    }
 
     private static void listItems() {
         drawLine(true);
         for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
-            System.out.printf("\t%d. %s\n", taskIndex+1, allTasks[taskIndex]);
+            //TODO add icon
+            System.out.printf("\t%d.[%s] %s\n", taskIndex+1, allTasks[taskIndex].getStatusIcon(), allTasks[taskIndex].getDescription());
         }
         drawLine(true);
     }
 
-    public static void addTask(String newTask) {
-        allTasks[numTasks] = newTask;
+    public static void addTask(String line) {
+        Task newTask = new Task(line);
+        allTasks[numTasks] = newTask;        
         numTasks += 1;
     }
 
@@ -53,6 +73,10 @@ public class BobBot {
             
             if (line.equalsIgnoreCase("list")) {
                 listItems();
+            } else if (line.startsWith("mark")) {
+                mark(line);
+            } else if (line.startsWith("unmark")) {
+                unmark(line);
             } else {
                 echoCommand(line);
                 addTask(line);
@@ -65,6 +89,5 @@ public class BobBot {
         System.out.println("\tBye. Hope to see you again soon!");
         drawLine(true);
     }
-
-    
 }
+
