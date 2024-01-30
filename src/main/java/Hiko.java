@@ -17,7 +17,7 @@ public class Hiko {
         Scanner scanner = new Scanner(System.in);
         System.out.println("What can I do for you?");
         String input = scanner.nextLine();
-        System.out.println("Thank you and goodbye " );
+        System.out.println("Kkkkkk thanks bye " );
         scanner.close();
 
     }
