@@ -5,20 +5,20 @@ public class Soot {
         String line;
         Scanner in = new Scanner(System.in);
 
-        drawLine();
+        drawLine(); //initial greeting
         System.out.println("Hello! I'm Soot, your personal chatbot companion :)");
         System.out.println("What can I help you with?");
         drawLine();
 
-        do {
-            line = in.nextLine(); //user input
-            drawLine();
-
+        line = in.nextLine(); //user input
+        drawLine();
+        while (!line.contains("bye")) {
             System.out.println(line);
             drawLine();
 
-        } while (!line.contains("bye"));
-
+            line = in.nextLine(); //user input
+            drawLine();
+        }
         byeGreeting();
     }
 
