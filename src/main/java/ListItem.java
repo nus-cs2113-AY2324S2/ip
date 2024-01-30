@@ -5,6 +5,7 @@ public class ListItem {
     public ListItem(String line, int counter) {
         this.task = line;
         this.index = counter + 1;
+        this.isDone = false;
     }
     public void printCheckbox() {
         if (isDone) {
