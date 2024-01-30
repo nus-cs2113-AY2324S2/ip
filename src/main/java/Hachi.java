@@ -56,6 +56,8 @@ public class Hachi {
         spacerInsert("medium", true);
         System.out.println("    The following tasks are in your to-do:");
         for (int i = 0; i < numTasks; i++) {
+            String statusIcon = listOfTasks[i].getStatusIcon();
+            System.out.print("    [" + statusIcon + "] ");
             System.out.print(i + ": ");
             System.out.println(listOfTasks[i].getName());
         }
@@ -66,7 +68,15 @@ public class Hachi {
         Task toAdd = new Task(name);
         listOfTasks[numTasks] = toAdd;
 
-        System.out.println("Task added to list: " + name);
+        System.out.println("    Task added to list: " + name);
+    }
+
+    public static void markTask(int index, Task[] listOfTasks) {
+        listOfTasks[index].setCompleteness(true);
+    }
+
+    public static void unmarkTask(int index, Task[] listOfTasks) {
+        listOfTasks[index].setCompleteness(false);
     }
 
     /**
@@ -94,17 +104,28 @@ public class Hachi {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
             String cleanedInput = line.toUpperCase().trim();
-            switch (cleanedInput){
-            case "BYE":
-                isBye = true;
-                goodbye();
-                break;
-            case "LIST":
-                retrieveList(listOfTasks);
-                break;
-            default:
-                addTask(line, listOfTasks);
-                break;
+
+            if (cleanedInput.contains("MARK")) {
+                int indexOfTask = cleanedInput.indexOf("MARK") + 4; // find index of task number
+                int taskNumber = Integer.parseInt(cleanedInput.substring(indexOfTask).trim()); // parse string to int
+                if (cleanedInput.contains("UNMARK")) {
+                    unmarkTask(taskNumber, listOfTasks);
+                } else {
+                    markTask(taskNumber, listOfTasks);
+                }
+            } else {
+                switch (cleanedInput) {
+                case "BYE":
+                    isBye = true;
+                    goodbye();
+                    break;
+                case "LIST":
+                    retrieveList(listOfTasks);
+                    break;
+                default:
+                    addTask(line, listOfTasks);
+                    break;
+                }
             }
         }
     }

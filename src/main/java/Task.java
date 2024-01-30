@@ -28,4 +28,8 @@ public class Task {
     public static int getTotalNumTasks() {
         return totalNumTasks;
     }
+
+    public String getStatusIcon() {
+        return (isCompleted ? "X" : " ");
+    }
 }
