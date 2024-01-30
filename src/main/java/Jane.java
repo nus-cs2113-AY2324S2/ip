@@ -6,6 +6,12 @@ public class Jane {
                 " _  | |  |  _  |  | |  | |  |  ___|\n" +
                 "| |_| |  | | | |  | |  | |  | |___ \n" +
                 "|_____|  |_| |_|  |_| ___|  |_____|\n";
-        System.out.println("Hello from\n" + logo);
+        String horizontalLine = "____________________________________________________________\n";
+        String greetMessage = "Hello! I am Jane.\nWhat can I do for you?\n";
+        String exitMessage = "Bye. Hope to see you again soon!\n";
+
+        System.out.print(logo + horizontalLine);
+        System.out.print(greetMessage + horizontalLine);
+        System.out.print(exitMessage + horizontalLine);
     }
 }
