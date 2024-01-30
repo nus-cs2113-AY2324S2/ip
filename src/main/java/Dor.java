@@ -6,7 +6,6 @@ public class Dor {
         Task currTask;
         int counter = 0;
         int whichToChange = 0;
-        System.out.println("test");
         Scanner in = new Scanner(System.in);
         System.out.println("Hello! I'm Dor");
         System.out.println("What can I do for you?");

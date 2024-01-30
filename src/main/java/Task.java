@@ -25,7 +25,6 @@ public class Task {
         if (isDone) {
             return "X";
         }
-        System.out.println("d");
         return " ";
     }
 
