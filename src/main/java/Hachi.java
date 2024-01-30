@@ -1,5 +1,3 @@
-import java.sql.SQLOutput;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -7,13 +5,15 @@ import java.util.Scanner;
  * and ends off the program with a goodbye message.
  *
  * @author clarencepohh
- * @version 23/01/2024
+ * @version 30/01/2024
  */
+
 public class Hachi {
     /**
      * Prints a greeting to the user in the console
      * with the bot's name, Hachi.
      */
+
     public static void greet() {
         String logo = "._. ._.  ._____.  ._____.  ._. ._.  ._.\n"
                 + "| | | |  | ._. |  |  ___|  | | | |  | |\n"
@@ -27,10 +27,13 @@ public class Hachi {
 
     /**
      * Prints to the console a spacer line made of tildes.
+     * Function call has option to choose length of the spacer,
+     * as well as whether there is a 4-space indent before the spacer.
      *
      * @param length The desired length of the spacer line. Medium is chosen by default.
      * @param hasTab Whether the spacer line has a 4-space indent.
      */
+
     public static void spacerInsert(String length, boolean hasTab) {
         String spacer;
         if (hasTab) {
@@ -51,6 +54,13 @@ public class Hachi {
         System.out.println(spacer);
     }
 
+    /**
+     * Retrieves the current list of tasks and prints it to
+     * the console for the user to see.
+     *
+     * @param listOfTasks The Task[] array that contains the list of tasks.
+     */
+
     public static void retrieveList(Task[] listOfTasks) {
         int numTasks = Task.getTotalNumTasks();
         spacerInsert("medium", true);
@@ -63,6 +73,14 @@ public class Hachi {
         }
     }
 
+    /**
+     * Given a task's name and the list of tasks,
+     * add a new task into the list.
+     *
+     * @param name Name of the task to be added.
+     * @param listOfTasks The Task[] array that the new task will be added to.
+     */
+
     public static void addTask(String name, Task[] listOfTasks) {
         int numTasks = Task.getTotalNumTasks();
         Task toAdd = new Task(name);
@@ -70,6 +88,13 @@ public class Hachi {
 
         System.out.println("    Task added to list: " + name);
     }
+
+    /**
+     * Given a task's index and the list of tasks,
+     * mark that task as complete.
+     * @param index Index of the task to be marked.
+     * @param listOfTasks The Task[] array that contains the list of tasks.
+     */
 
     public static void markTask(int index, Task[] listOfTasks) {
         listOfTasks[index].setCompleteness(true);
@@ -79,6 +104,14 @@ public class Hachi {
         System.out.print(index + ": ");
         System.out.println(listOfTasks[index].getName());
     }
+
+    /**
+     * Given a task's index and the list of tasks,
+     * mark that task as incomplete.
+     *
+     * @param index Index of the task to be marked.
+     * @param listOfTasks The Task[] array that contains the list of tasks.
+     */
 
     public static void unmarkTask(int index, Task[] listOfTasks) {
         listOfTasks[index].setCompleteness(false);
@@ -92,14 +125,22 @@ public class Hachi {
     /**
      * Prints to the console a goodbye message for the user.
      */
+
     public static void goodbye() {
         System.out.println("    Goodbye! Hope you have a marvelous day.");
         spacerInsert("medium", true);
     }
 
     /**
-     * The main program that starts and ends the chatbot.
+     * The main program that starts the chatbot.
      * Prints to the console for the user to read its messages.
+     * Greets the user and awaits user input.
+     * <p>
+     * Chatbot can:
+     * <p>1. retrieve list of tasks with user input "list"
+     * <p>2. add tasks to the list with user input "#taskname"
+     * <p>3. mark or unmark tasks complete with user input "mark #tasknumber"
+     * <p>4. say goodbye to the user with user input "bye" or "goodbye"
      *
      * @param args Command line arguments - not used.
      */
@@ -126,6 +167,7 @@ public class Hachi {
             } else {
                 switch (cleanedInput) {
                 case "BYE":
+                case "GOODBYE":
                     isBye = true;
                     goodbye();
                     break;
