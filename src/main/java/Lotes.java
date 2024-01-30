@@ -50,6 +50,17 @@ public class Lotes {
                 catch (NumberFormatException e){
                     System.out.println("     Invalid integer input");
                 }
+            }else if (userInput.startsWith("unmark ")){
+                try {
+                    int number = Integer.parseInt(userInput.substring(7)) - 1;
+                    taskList.get(number).setDone(false);
+                    System.out.print(underscore + lineSeparator + "     OK, I've marked this task as not done yet:" +
+                            lineSeparator + "     [" + taskList.get(number).getStatusIcon() + "] " +
+                            taskList.get(number).getDescription() + lineSeparator + underscore + lineSeparator);
+                }
+                catch (NumberFormatException e){
+                    System.out.println("     Invalid integer input");
+                }
             }else{
                 Task newTask = new Task(userInput);
                 taskList.add(newTask);
