@@ -31,6 +31,7 @@ public class Soot {
             byeGreeting();
             return true;
         case "list":
+            System.out.println("tasks to be done!");
             for (int i = 0; i < listCounter; i++)
                 list[i].printItem();
             drawLine();
