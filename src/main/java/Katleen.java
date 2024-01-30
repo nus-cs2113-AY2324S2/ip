@@ -13,16 +13,30 @@ public class Katleen {
         Scanner in = new Scanner(System.in);
         String text = in.nextLine();
         while (!text.equals("bye")) {
-            switch (text) {
-            case "list":
+            if (text.contains("mark")) {
+                String index = text.substring(5);
+                System.out.println("TEST " + index);
+                if (text.contains("unmark")) {
+                    index = text.substring(7);
+                }
+                int i = Integer.parseInt(index);
+                System.out.print(i);
+                tasks[i].toggleDone();
+                if (tasks[i].isDone) {
+                    System.out.println("Well done! This task is marked as done:");
+                } else {
+                    System.out.println("This task is marked as undone:");
+                }
+                tasks[i].printTask();
+            } else if (text.equals("list")) {
                 System.out.println(line);
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < count; i++) {
-                    System.out.print(i+1);
-                    System.out.println(". " + tasks[i].description);
+                    System.out.print(i + 1 + ". ");
+                    tasks[i].printTask();
                 }
                 System.out.println(line);
-                break;
-            default:
+            } else {
                 System.out.println(line);
                 System.out.print("added: ");
                 System.out.println(text);
@@ -30,16 +44,14 @@ public class Katleen {
                 tasks[count] = task;
                 count++;
                 System.out.println(line);
-                break;
             }
             text = in.nextLine();
             if (text.equals("bye")) {
                 System.out.println(line);
                 System.out.println("Bye, have a nice day!");
                 System.out.println(line);
+                return;
             }
         }
-
-        return;
     }
 }
