@@ -73,10 +73,20 @@ public class Hachi {
 
     public static void markTask(int index, Task[] listOfTasks) {
         listOfTasks[index].setCompleteness(true);
+        System.out.println("    Sure, I've marked this task as done:");
+        String statusIcon = listOfTasks[index].getStatusIcon();
+        System.out.print("    [" + statusIcon + "] ");
+        System.out.print(index + ": ");
+        System.out.println(listOfTasks[index].getName());
     }
 
     public static void unmarkTask(int index, Task[] listOfTasks) {
         listOfTasks[index].setCompleteness(false);
+        System.out.println("    Okay, marking this task as incomplete now:");
+        String statusIcon = listOfTasks[index].getStatusIcon();
+        System.out.print("    [" + statusIcon + "] ");
+        System.out.print(index + ": ");
+        System.out.println(listOfTasks[index].getName());
     }
 
     /**
