@@ -32,13 +32,13 @@ public class Jane {
             } else if (input.startsWith("mark")) {
                 input = input.replace("mark ", "");
                 currentTask = taskList.list[Integer.parseInt(input)-1];
-                currentTask.isDone("mark");
+                currentTask.isDone(true);
                 System.out.println("Nice! I've marked this task as done:\n" +
                         currentTask.getStatusIcon() + currentTask.getDescription());
             } else if (input.startsWith("unmark")) {
                 input = input.replace("unmark ", "");
                 currentTask = taskList.list[Integer.parseInt(input)-1];
-                currentTask.isDone("unmark");
+                currentTask.isDone(false);
                 System.out.println("OK, I've marked this task as not done yet:\n" +
                         currentTask.getStatusIcon() + currentTask.getDescription());
             } else {

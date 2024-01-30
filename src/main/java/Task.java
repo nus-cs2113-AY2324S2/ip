@@ -20,13 +20,8 @@ public class Task {
         return description;
     }
 
-    public void isDone(String status) {
-        if (status.equals("mark")) {
-            this.isDone = true;
-        }
-        else if (status.equals("unmark")) {
-            this.isDone = false;
-        }
+    public void isDone(Boolean status) {
+        this.isDone = status;
     }
 
 }
