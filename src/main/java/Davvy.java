@@ -1,22 +1,29 @@
 import java.util.Scanner;
 public class Davvy {
+    private static String[] inputList = new String[100];
+    private static int i = 0; // counter variable to help iterate through array as input is stored
     private static void printLine() {
         System.out.println("____________________________________________________________");
     }
 
     private static void printStatement(String statementType) {
         printLine();
-        if (statementType.equals("greetings")) {
+        switch (statementType) {
+        case "greetings":
             System.out.println(" Hello! I'm Davvy\n" + " What can I do for you?");
-        } else if (statementType.equals("goodbye")) {
+            break;
+        case "goodbye":
             System.out.println(" Bye. Hope to see you again soon!");
+            break;
+        case "add":
+            System.out.println(" added: " + inputList[i]);
+            break;
+        case "list":
+            for (int x = 0 ; x < i ; x++) {
+                System.out.println(" " + (x+1) + ". " + inputList[x]);
+            }
+            break;
         }
-        printLine();
-    }
-
-    private static void echoUserInput(String userInput) {
-        printLine();
-        System.out.println(" " + userInput);
         printLine();
     }
 
@@ -27,7 +34,13 @@ public class Davvy {
         String userInput = in.nextLine();
 
         while (!userInput.equals("bye")) {
-            echoUserInput(userInput);
+            inputList[i] = userInput;
+            if (userInput.equals("list")) {
+                printStatement("list");
+            } else {
+                printStatement("add");
+                i++;
+            }
             userInput = in.nextLine();
         }
 
