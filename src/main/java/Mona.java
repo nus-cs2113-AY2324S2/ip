@@ -1,32 +1,27 @@
+import java.util.Scanner;
 public class Mona {
 
-    public static void greet() {
-        for (int i = 0; i < 59; i++) {
-            System.out.print("_");
-        }
-        System.out.println("_");
-
-        System.out.println("Hello! I'm Mona");
-        System.out.println("What can I do for you?");
-
+    public static void printHorizontalLine() {
         for (int i = 0; i < 59; i++) {
             System.out.print("_");
         }
         System.out.println("_");
     }
+    public static void greet() {
+        printHorizontalLine();
+
+        System.out.println("Hello! I'm Mona");
+        System.out.println("What can I do for you?");
+
+        printHorizontalLine();
+    }
 
     public static void exit() {
-        for (int i = 0; i < 59; i++) {
-            System.out.print("_");
-        }
-        System.out.println("_");
+        printHorizontalLine();
 
         System.out.println("Bye. Hope to see you again soon!");
 
-        for (int i = 0; i < 59; i++) {
-            System.out.print("_");
-        }
-        System.out.println("_");
+        printHorizontalLine();
     }
     public static void main(String[] args) {
         String logo = "___  ___                  \n"
@@ -39,6 +34,18 @@ public class Mona {
 
         greet();
 
-        exit();
+        Scanner in = new Scanner(System.in);
+        String line = in.nextLine();
+
+        while (true) {
+            if (line.equals("bye")) {
+                exit();
+                break;
+            }
+            printHorizontalLine();
+            System.out.println(line);
+            printHorizontalLine();
+            line = in.nextLine();
+        }
     }
 }
