@@ -34,6 +34,20 @@ public class Kyrene {
             Task.printTaskList();
             System.out.println(DIVIDER);
         }
+        else if(sentence.startsWith("mark ")){
+            int taskNumber = Integer.parseInt(sentence.substring(5));
+            if(taskNumber > 0){
+                Task.markDone(taskNumber - 1, true);
+                System.out.println(DIVIDER);
+            }
+        }
+        else if(sentence.startsWith("unmark ")){
+            int taskNumber = Integer.parseInt(sentence.substring(7));
+            if(taskNumber > 0){
+                Task.markDone(taskNumber - 1, false);
+                System.out.println(DIVIDER);
+            }
+        }
         else{
             Task newTask = new Task(sentence);
             System.out.println("    Task has been added: " + sentence);
