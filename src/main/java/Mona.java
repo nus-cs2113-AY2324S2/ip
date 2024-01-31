@@ -1,6 +1,29 @@
 import java.util.Scanner;
 public class Mona {
 
+    public static int noOfTasks; //static variable storing the number of tasks present in list
+
+    public static void addTask(String task, String[] list) {
+        list[noOfTasks] = task;
+        noOfTasks += 1;
+
+        printHorizontalLine();
+        System.out.println("added: " + task);
+        printHorizontalLine();
+    }
+    public static void printList(String[] list) {
+        printHorizontalLine();
+
+        int index = 1;
+        for (String task: list) {
+            if (task != null) {
+                System.out.println(Integer.toString(index) + ". " + task);
+                index += 1;
+            }
+        }
+
+        printHorizontalLine();
+    }
     public static void printHorizontalLine() {
         for (int i = 0; i < 59; i++) {
             System.out.print("_");
@@ -15,7 +38,6 @@ public class Mona {
 
         printHorizontalLine();
     }
-
     public static void exit() {
         printHorizontalLine();
 
@@ -34,17 +56,23 @@ public class Mona {
 
         greet();
 
+        String[] list = new String[100];
+        noOfTasks = 0;
+
         Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
+        String line = in.nextLine();         // read in 1st command from user
 
         while (true) {
-            if (line.equals("bye")) {
-                exit();
+            switch(line){
+            case ("list"):
+                printList(list);
                 break;
+            case ("bye"):
+                exit();
+                return;
+            default:
+                addTask(line, list);
             }
-            printHorizontalLine();
-            System.out.println(line);
-            printHorizontalLine();
             line = in.nextLine();
         }
     }
