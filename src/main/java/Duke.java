@@ -15,7 +15,21 @@ public class Duke {
                 userSaidBye = true;
             } else if(line.equals("list")) {
                 System.out.println("    ____________________________________________________________");
+                System.out.println("     Here are the tasks in your list:");
                 taskList.listTasks();
+                System.out.println(" ");
+                System.out.println("    ____________________________________________________________");
+            } else if (line.startsWith("mark")){
+                String[] sentence = line.split(" ");
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Nice! I've marked this task as done:");
+                taskList.checkTask(Integer.parseInt(sentence[1]));
+                System.out.println(" ");
+                System.out.println("    ____________________________________________________________");
+            } else if (line.startsWith("unmark")){
+                String[] sentence = line.split(" ");
+                System.out.println("     OK, I've marked this task as not done yet:");
+                taskList.uncheckTask(Integer.parseInt(sentence[1]));
                 System.out.println("    ____________________________________________________________");
             } else {
                 Task newTask = new Task(line);

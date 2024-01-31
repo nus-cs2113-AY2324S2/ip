@@ -10,6 +10,16 @@ public class TaskList {
         noOfTasks++;
     }
 
+    public void checkTask(int taskNumber){
+        tasks[taskNumber-1].setTaskStatus(true);
+        System.out.printf("      %s %s", tasks[taskNumber-1].getTaskStatus(), tasks[taskNumber-1].getTask());
+    }
+
+    public void uncheckTask(int taskNumber){
+        tasks[taskNumber-1].setTaskStatus(false);
+        System.out.printf("      %s %s", tasks[taskNumber-1].getTaskStatus(), tasks[taskNumber-1].getTask());
+    }
+
     public void listTasks(){
         int taskCount = 0;
         for (Task task: tasks) {
@@ -17,8 +27,10 @@ public class TaskList {
                 break;
             }
             taskCount++;
-            System.out.printf("     %d. %s", taskCount, task.getTask());
+            System.out.printf("     %d. %s %s", taskCount, task.getTaskStatus(),task.getTask());
             System.out.println(" ");
         }
     }
+
+
 }
