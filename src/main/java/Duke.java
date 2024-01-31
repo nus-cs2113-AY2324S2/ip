@@ -13,7 +13,7 @@ public class Duke {
     public static void main(String[] args) {
         String welcome = "Hello! I'm Misty\n"
                 + "\tWhat can I do for you?";
-        String bye = "Bye. Hope to see you again soon!";
+        String bye = "Bye! Hope to see you again soon!";
 
         printReply(welcome);
 
@@ -26,6 +26,7 @@ public class Duke {
             switch (input) {
             case "list":
                 printBorder();
+                System.out.println("\tHere are the tasks in your list:");
                 itemList.listAll();
                 printBorder();
                 break;
@@ -33,9 +34,20 @@ public class Duke {
                 break;
             default:
                 printBorder();
-                itemList.add(input);
+                if (input.contains("unmark")) {
+                    int index;
+                    index = Integer.parseInt(input.substring(7));
+                    itemList.unmark(index);
+                } else if (input.contains("mark")) {
+                    int index;
+                    index = Integer.parseInt(input.substring(5));
+                    itemList.mark(index);
+                } else {
+                    itemList.add(input);
+                    printBorder();
+                    break;
+                }
                 printBorder();
-                break;
             }
 
             if (input.equals("bye")) {
