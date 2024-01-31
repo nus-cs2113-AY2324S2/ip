@@ -2,8 +2,10 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private static final String LINE_SEPARATOR = "____________________________________________________________";
+
     public static void main(String[] args) {
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(LINE_SEPARATOR + "\n" +
                 "Hello! I'm Duck\n" +
                 "What can I do for you?\n" +
                 "  _____  _    _  _____ _  __\n" +
@@ -24,31 +26,43 @@ public class Duke {
                     String icon = tasks[i].getStatusIcon();
                     System.out.println(i+1 + ". ["  + icon + "] " + tasks[i].getDescription());
                 }
-                System.out.println("____________________________________________________________\n");
+                System.out.println(LINE_SEPARATOR + "\n");
             } else if(userInput.startsWith("mark ")) {
                 String[] split = userInput.split(" ");
                 int number = Integer.parseInt(split[1]);
                 if (number <= index) {
                     tasks[number - 1].setDone(true);
-                    System.out.println("____________________________________________________________");
+                    System.out.println(LINE_SEPARATOR);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("[X] " + tasks[number-1].getDescription());
-                    System.out.println("____________________________________________________________\n");
+                    System.out.println(LINE_SEPARATOR + "\n");
                 } else {
-                    System.out.println("Task does not exist yet!");
+                    System.out.println("Task does not exist yet!\n" + LINE_SEPARATOR);
+                }
+            } else if(userInput.startsWith("unmark ")) {
+                String[] split = userInput.split(" ");
+                int number = Integer.parseInt(split[1]);
+                if (number <= index) {
+                    tasks[number - 1].setDone(false);
+                    System.out.println(LINE_SEPARATOR);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("[ ] " + tasks[number-1].getDescription());
+                    System.out.println(LINE_SEPARATOR + "\n");
+                } else {
+                    System.out.println("Task does not exist yet!\n" + LINE_SEPARATOR);
                 }
             } else if (!userInput.equals("bye")) {
                 tasks[index] = new Task(userInput);
                 index++;
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE_SEPARATOR);
                 System.out.println("added: " + userInput);
-                System.out.println("____________________________________________________________\n");
+                System.out.println(LINE_SEPARATOR + "\n");
             }
 
         } while (!userInput.equals("bye"));
 
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(LINE_SEPARATOR + "\n" +
                 "Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________");
+                LINE_SEPARATOR);
     }
 }
