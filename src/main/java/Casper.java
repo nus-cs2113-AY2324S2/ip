@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Casper {
     private static final String separator = "\t_____________________________________________";
+    private static String[] taskList = new String[100];
+    private static int noOfTasks = 0;
     private static void wrapEchoMessage(String message){
         System.out.println(separator);
         System.out.println(message);
@@ -15,23 +17,35 @@ public class Casper {
                 + "\t               | |              \n"
                 + "\t               |_|               ";
         System.out.println("\tStarting\n" + logo);
-        wrapEchoMessage("\tBoo! I'm Casper!\n\tWhat can I do for you?");
+        wrapEchoMessage("\t Boo! I'm Casper!\n\t What can I do for you?");
     }
     private static void handleQueries(){
         Scanner inputScanner = new Scanner(System.in);
         String userInput;
-        boolean isRunning = true;
-        while(isRunning){
+        while(true){
             userInput = inputScanner.nextLine();
-            if(!userInput.equals("bye")){
-                wrapEchoMessage("\t" + userInput);
+            if(userInput.equals("bye")){
+                break;
             }
-            isRunning = !userInput.equals("bye");
+            if(userInput.equals("list")){
+                echoTaskList();
+            }else{
+                taskList[noOfTasks] = userInput;
+                noOfTasks++;
+                wrapEchoMessage("\t added: "+userInput);
+            }
         }
+    }
+    private static void echoTaskList(){
+        System.out.println(separator);
+        for(int i=1;i<=noOfTasks;i++){
+            System.out.println("\t "+i+". "+taskList[i-1]);
+        }
+        System.out.println(separator);
     }
     public static void main(String[] args) {
         echoGreetings();
         handleQueries();
-        wrapEchoMessage("\tAlright, see you around!");
+        wrapEchoMessage("\t Alright, see you around!");
     }
 }
