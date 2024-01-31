@@ -10,5 +10,7 @@ public class Duke {
         System.out.println("Hello! I'm Sebastian, your humble butler\n" +
                            "What can I do for you?");
         System.out.println("Bye. Hope to see you again soon!");
+        }
     }
+
 }
