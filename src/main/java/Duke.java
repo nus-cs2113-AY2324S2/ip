@@ -16,7 +16,6 @@ public class Duke {
 
             if ("bye".equalsIgnoreCase(userInput)) {
                 break;
-                break; // Exit the loop if the user types "bye"
             }
 
             System.out.println("____________________________________________________________");
