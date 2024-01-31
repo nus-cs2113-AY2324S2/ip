@@ -1,8 +1,8 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Burger {
-    static final String CHATBOT_NAME = "Burger";
+    static final String CHATBOT_NAME = "忍野 忍";
+    static final String HORIZONTAL_LINE = "---------------------------------";
 
     public static void main(String[] args) {
         printLine();
@@ -10,23 +10,30 @@ public class Burger {
         System.out.println("What can I do for you?");
         printLine();
         Scanner input = new Scanner(System.in);
-        while (true) {
+        Todo myTodoList = new Todo();
+        boolean poll = true;
+        while (poll) {
             String text = input.nextLine();
-            if (text.equalsIgnoreCase("bye")) {
+            switch (text.trim().toLowerCase()){
+            case "bye": poll = false;
                 break;
+            case "list": myTodoList.printTodo();
+                break;
+            case "": break;
+            default: myTodoList.addList(text);
+                printAddTask(text);
             }
-            echo(text);
         }
         goodbye();
     }
 
     public static void printLine() {
-        System.out.println("---------------------------------");
+        System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void echo(String text) {
+    public static void printAddTask(String text) {
         printLine();
-        System.out.println(text);
+        System.out.println("added: " + text);
         printLine();
     }
 
