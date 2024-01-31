@@ -9,7 +9,7 @@ public class Ma {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
 
         String logo = "🐎  __  __    _    🐎\n"
                 + "   |  \\/  |  / \\   \n"
@@ -31,13 +31,27 @@ public class Ma {
                 printLine();
                 break;
             } else if ("list".equalsIgnoreCase(userInput)) {
-                printLine();
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(" " + (i + 1) + ". " + list.get(i));
+                    System.out.println(" " + (i + 1) + ". " + list.get(i).toString());
                 }
                 printLine();
-            } else {
-                list.add(userInput);
+            } else if (userInput.startsWith("mark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]) - 1; // 获取任务编号
+                Task task = list.get(index);
+                task.markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n  " + task);
+                printLine();
+            }else if (userInput.startsWith("unmark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]) - 1; // 获取任务编号
+                Task task = list.get(index);
+                task.markAsUnDone();
+                System.out.println("OK, I've marked this task as not done yet:\n  " + task);
+                printLine();
+            }
+            else {
+                Task newTask = new Task(userInput);
+                list.add(newTask);
                 printLine();
                 System.out.println("added: " + userInput);
                 printLine();
