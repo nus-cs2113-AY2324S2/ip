@@ -1,5 +1,7 @@
+import java.util.Scanner;
 public class Sebastian {
     public static void main(String[] args) {
+        Scanner myScanner = new Scanner(System.in);
         String logo = " ____       _               _   _ \n" +
                 "/ ___|  ___| |__   __ _ ___| |_(_) __ _ _ __ \n" +
                 "\\___ \\ / _ \\ '_ \\ / _` / __| __| |/ _` | '_ \\ \n" +
@@ -9,7 +11,13 @@ public class Sebastian {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Sebastian, your humble butler\n" +
                 "What can I do for you?");
+
+        //echo functionality
+        String userInput = myScanner.nextLine();
+        while (!userInput.equals("bye")) {
+            System.out.println(userInput);
+            userInput = myScanner.nextLine();
+        }
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("Test for new git folder");
     }
 }
