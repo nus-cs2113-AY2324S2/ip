@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
     public static String chatbotName = "Noriaki";
@@ -54,9 +52,34 @@ public class Duke {
         }
     }
 
+    public static void printList(List<Task> taskList){
+        printLine();
+        for(int i = 0; i < taskList.size(); i++){
+            System.out.println((i + 1) + ". " + taskList.get(i));
+        }
+        printLine();
+    }
+
+    public static void addToList(List<Task> taskList, String description){
+        Task newTask = new Task(description);
+        taskList.add(newTask);
+        printMessage("added: " + description);
+    }
+
+    public static void startList(){
+        List<Task> taskList = new ArrayList<Task>();
+        while(true){
+            String input = readInput();
+
+            if(input.toLowerCase().equals("bye")) return;
+            if(input.toLowerCase().equals("list")) printList(taskList);
+            else addToList(taskList, input);
+        }
+    }
+
     public static void main(String[] args) {
         greet();
-        echo();
+        startList();
         goodbye();
     }
 }

@@ -26,4 +26,8 @@ public class Task {
     public void setDone(boolean done) {
         this.isDone = done;
     }
+    @Override
+    public String toString() {
+        return this.description;
+    }
 }
