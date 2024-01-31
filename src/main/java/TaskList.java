@@ -19,7 +19,7 @@ public class TaskList {
 
     public void displayAll() {
         IntStream.rangeClosed(1, tasks.size())
-                .mapToObj(index -> index + getTask(index).toString())
+                .mapToObj(index -> index + "." + getTask(index).toString())
                 .forEach(System.out::println);
     }
 }

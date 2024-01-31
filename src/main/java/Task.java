@@ -7,13 +7,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return isDone ? "X" : " ";
-    }
-
     @Override
     public String toString() {
-        return (isDone ? ".[X] " : ".[ ] ") + this.description; // mark done task with X
+        return (isDone ? "[X] " : "[ ] ") + this.description;
     }
 
     public void toggleIsDone() {

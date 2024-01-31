@@ -14,14 +14,9 @@ public class ToggleStatusCommand implements Command {
     private String toggleMessage(Task task) {
         String message = "";
 
-        if (task.isDone) {
-            message += "Nice! I've marked this task as done:\n";
-        } else {
-            message += "OK, I've marked this task as not done yet:\n";
-        }
-        message += "   [" + task.getStatusIcon() + "] ";
-        message += task.description;
-
+        message += task.isDone ? Messages.MARK_MESSAGE : Messages.UNMARK_MESSAGE;
+        message += "   " + task;
+        
         return message;
     }
 }
