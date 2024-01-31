@@ -19,7 +19,7 @@ public class JingHao {
 
         while (true) {
             // Reads user input
-            line = in.nextLine();
+            line = in.nextLine().toLowerCase();
             System.out.println(divider);
             // Check if the user wants to exit
             if (line.equalsIgnoreCase("bye")) {
@@ -31,6 +31,26 @@ public class JingHao {
                 } else {
                     for (int i = 0; i < numberOfTask; i++) {
                         System.out.println(i+1 + ".[" +list[i].getStatusIcon()+ "] " + list[i].description);
+                    }
+                }
+            }
+            else if(line.startsWith("mark") || line.startsWith("unmark")){
+                String[] words = line.split(" ");
+                int index = Integer.parseInt(words[1]);
+                if(index > numberOfTask || index < 1){
+                    System.out.println("Unable to mark due to invalid index");
+                }
+                else{
+                    index -= 1;
+                    if(line.startsWith("mark")) {
+                        list[index].check();
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("  [" + list[index].getStatusIcon() + "] " + list[index].description);
+                    }
+                    else{
+                        list[index].uncheck();
+                        System.out.println("OK, I've marked this task as not done yet::");
+                        System.out.println("  [" + list[index].getStatusIcon() + "] " + list[index].description);
                     }
                 }
             }

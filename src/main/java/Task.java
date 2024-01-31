@@ -15,4 +15,9 @@ public class Task {
         this.isDone = true;
     }
 
+    public void uncheck(){
+        this.isDone = false;
+    }
+
+
 }
