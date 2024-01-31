@@ -1,7 +1,7 @@
 # User guide of chatbot Noob
 
-Hi, this chatbot is still a Noob.
-***Need upgrade.......***
+Hi, this chatbot is still a Noob.  
+***Need upgrade.......***    
 He has following features:
 
 ## Feature: Echo
