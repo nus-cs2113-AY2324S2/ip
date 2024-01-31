@@ -25,7 +25,9 @@ public class GeePee {
         Scanner in = new Scanner(System.in);
         while (!(line.equals("bye"))) {
             line = in.nextLine();
-            if (line.trim().equals("")) continue;
+            if (line.trim().equals("")) {
+                continue;
+            }
             echoInput(line);
         }
     }
