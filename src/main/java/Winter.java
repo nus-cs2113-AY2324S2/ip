@@ -54,30 +54,104 @@ public class Winter {
     private static void addTasks() {
         String line = "-----------------------------------\n";
         String indent = "   ";
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int taskIndex = 0;
         Scanner input = new Scanner(System.in);
 
         while (true) {
             String command = input.nextLine();
-            if(command.equals("bye") || command.equals("Bye") || command.equals("BYE")) {
+            Task newTask = new Task(taskIndex+1,false,command);
+            taskList[taskIndex] = newTask;
+            switch(command) {
+            case "bye":
                 break;
+            case "Bye":
+                break;
+            case "BYE":
+                break;
+            case "list":
+                displayList(taskList,taskIndex);
+                continue;
+            case "List":
+                displayList(taskList,taskIndex);
+                continue;
+            case "LIST":
+                displayList(taskList,taskIndex);
+                continue;
+
             }
-            else if (command.equals("list") || command.equals("List") || command.equals("LIST")) {
-                for (int i = 0; i < taskIndex; i++) {
-                    System.out.print(indent);
-                    System.out.println(taskList[i]);
-                }
-                System.out.print(line);
+            switch(command.substring(0,command.indexOf(" "))) {
+            case "mark":
+                taskList[Integer.parseInt(command.substring(5,command.length()))-1].mark();
+                continue;
+            case "unmark":
+                taskList[Integer.parseInt(command.substring(7,command.length()))-1].unmark();
                 continue;
             }
-            taskList[taskIndex] = Integer.toString(taskIndex+1) + ". " + command;
+
             taskIndex++;
             System.out.print(line);
             System.out.print(indent);
             System.out.println("added: " + command);
             System.out.print(line);
 
+        }
+    }
+    private static void displayList(Task[] taskList, int taskIndex) {
+        String line = "-----------------------------------\n";
+        String indent = "   ";
+        for (int i = 0; i < taskIndex; i++) {
+            String status;
+            if (taskList[i].isMarked()) {
+                status = "[X]";
+            }
+            else {
+                status = "[ ]";
+            }
+            System.out.print(indent);
+            System.out.println(taskList[i].getOrder() + ". " + status + " " + taskList[i].getTaskName());
+        }
+        System.out.print(line);
+    }
+    private static class Task {
+        boolean marked;
+        int order;
+        String taskName;
+
+        Task(int order ,boolean marked,String taskName) {
+            this.order = order;
+            this.marked = marked;
+            this.taskName = taskName;
+        }
+        private void mark() {
+            String line = "-----------------------------------\n";
+            String indent = "   ";
+            this.marked = true;
+            System.out.println("Woohoo! I've marked this task as done:");
+            System.out.print(indent);
+            System.out.println("[X] "+ this.taskName);
+            System.out.print(line);
+        }
+        private void unmark() {
+            String line = "-----------------------------------\n";
+            String indent = "   ";
+            this.marked = false;
+            System.out.println("Alright! I've marked this task as incomplete:");
+            System.out.print(indent);
+            System.out.println("[ ] "+ this.taskName);
+            System.out.print(line);
+        }
+
+        public int getOrder() {
+            return order;
+        }
+
+        public String getTaskName() {
+            return taskName;
+        }
+
+        public boolean isMarked() {
+            return marked;
         }
     }
 }
