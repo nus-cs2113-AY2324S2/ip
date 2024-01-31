@@ -10,9 +10,6 @@ public class Task {
     public String getStatusIcon() {
         return (isCompleted ? "X" : " "); // mark done task with X
     }
-    public void toggleCompleted() {
-        this.isCompleted = !this.isCompleted;
-    }
 
     public void setCompletedTrue() {
         this.isCompleted = true;
