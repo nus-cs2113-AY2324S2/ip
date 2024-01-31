@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ma {
     private static void printLine() {
@@ -7,6 +8,8 @@ public class Ma {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
+
+        ArrayList<String> list = new ArrayList<>();
 
         String logo = "🐎  __  __    _    🐎\n"
                 + "   |  \\/  |  / \\   \n"
@@ -27,8 +30,16 @@ public class Ma {
                 System.out.println("Bye. Hope to see you again soon!");
                 printLine();
                 break;
+            } else if ("list".equalsIgnoreCase(userInput)) {
+                printLine();
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println(" " + (i + 1) + ". " + list.get(i));
+                }
+                printLine();
             } else {
-                System.out.println(userInput);
+                list.add(userInput);
+                printLine();
+                System.out.println("added: " + userInput);
                 printLine();
             }
         }
