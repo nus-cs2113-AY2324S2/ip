@@ -2,15 +2,18 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void addList(){
-
-    }
     public static void main(String[] args) {
         System.out.println("____________________________________________________________\n" +
                 "Hello! I'm Duck\n" +
-                "What can I do for you?");
+                "What can I do for you?\n" +
+                "  _____  _    _  _____ _  __\n" +
+                " |  __ \\| |  | |/ ____| |/ /\n" +
+                " | |  | | |  | | |    | ' / \n" +
+                " | |  | | |  | | |    |  <  \n" +
+                " | |__| | |__| | |____| . \\ \n" +
+                " |_____/ \\____/ \\_____|_|\\_\\");
 
-        String[] texts = new String[100]; //stores user inputs into array called texts
+        Task[] tasks = new Task[100]; //stores Tasks in array called tasks
         String userInput;
         int index = 0; //index of where the userInput is stored in texts
         do {
@@ -18,11 +21,24 @@ public class Duke {
             userInput = in.nextLine();
             if (userInput.equals("list")) {
                 for (int i = 0; i < index; i++) {
-                    System.out.println(i+1 + ". " + texts[i]);
+                    String icon = tasks[i].getStatusIcon();
+                    System.out.println(i+1 + ". ["  + icon + "] " + tasks[i].getDescription());
                 }
                 System.out.println("____________________________________________________________\n");
-            } else if (!userInput.equals("bye")){
-                texts[index] = userInput;
+            } else if(userInput.startsWith("mark ")) {
+                String[] split = userInput.split(" ");
+                int number = Integer.parseInt(split[1]);
+                if (number <= index) {
+                    tasks[number - 1].setDone(true);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[X] " + tasks[number-1].getDescription());
+                    System.out.println("____________________________________________________________\n");
+                } else {
+                    System.out.println("Task does not exist yet!");
+                }
+            } else if (!userInput.equals("bye")) {
+                tasks[index] = new Task(userInput);
                 index++;
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + userInput);
