@@ -35,3 +35,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 |__|__||____||__|\_| \___/
 
    ```
+
+# Update
+31/01/2024: Updated new function 'task recording'. Now whatever you type will be recorded as task.
+However, this created a new bug: task number be random number. Not solved yet.
