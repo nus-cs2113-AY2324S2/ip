@@ -1,10 +1,13 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static void printBorder() {
+        System.out.println("\t--------------------------------------------------");
+    }
     public static void printReply (String input) {
-        System.out.println("\t--------------------------------------------------");
+        printBorder();
         System.out.println("\t" + input);
-        System.out.println("\t--------------------------------------------------");
+        printBorder();
     }
 
     public static void main(String[] args) {
@@ -14,16 +17,30 @@ public class Duke {
 
         printReply(welcome);
 
+        List itemList = new List();
+
         String input;
         Scanner in = new Scanner(System.in);
         while (true) {
             input = in.nextLine();
+            switch (input) {
+            case "list":
+                printBorder();
+                itemList.listAll();
+                printBorder();
+                break;
+            case "bye":
+                break;
+            default:
+                printBorder();
+                itemList.add(input);
+                printBorder();
+                break;
+            }
 
             if (input.equals("bye")) {
                 printReply(bye);
                 break;
-            } else {
-                printReply(input);
             }
         }
     }
