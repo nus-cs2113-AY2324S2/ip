@@ -1,4 +1,5 @@
 public class Task {
+
     private String name;
     private boolean isDone;
 
@@ -18,5 +19,4 @@ public class Task {
     public String getName() {
         return name;
     }
-
 }
