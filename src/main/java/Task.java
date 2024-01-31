@@ -6,6 +6,7 @@ public class Task {
         this.name = name;
         isDone = false;
     }
+
     public String getName() {
         return name;
     }

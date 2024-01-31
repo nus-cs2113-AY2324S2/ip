@@ -6,6 +6,7 @@ public class List {
         itemCount = 0;
         list = new Task[100];
     }
+
     public void add (String input) {
         Task newTask = new Task(input);
         list[itemCount] = newTask;
