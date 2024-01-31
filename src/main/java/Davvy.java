@@ -1,7 +1,5 @@
 import java.util.Scanner;
 public class Davvy {
-    private static String[] inputList = new String[100];
-    private static int i = 0; // counter variable to help iterate through array as input is stored
     private static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -15,35 +13,84 @@ public class Davvy {
         case "goodbye":
             System.out.println(" Bye. Hope to see you again soon!");
             break;
-        case "add":
-            System.out.println(" added: " + inputList[i]);
-            break;
         case "list":
-            for (int x = 0 ; x < i ; x++) {
-                System.out.println(" " + (x+1) + ". " + inputList[x]);
+            System.out.println(" Here are the tasks in your list:");
+            for (int i = 0; i < TaskList.listLength(); i++) {
+                System.out.print(" " + (i + 1) + ".");
+                System.out.println(" [" + TaskList.getTask(i).getStatusIcon() + "] " +
+                        TaskList.getTask(i).description);
             }
+            break;
+        case "add":
+            System.out.println(" added: " + TaskList.getTask(TaskList.listLength()-1).description);
+            break;
+        default:
             break;
         }
         printLine();
     }
 
-    public static void main(String[] args) {
+    private static void printStatement(String statementType, int taskNumber) {
+        printLine();
+        switch (statementType) {
+        case "mark":
+            System.out.println(" Nice! I've marked this task as done:");
+            break;
+        case "unmark":
+            System.out.println(" OK, I've marked this task as not done yet:");
+            break;
+        }
+        System.out.println(" [" + TaskList.getTask(taskNumber).getStatusIcon() + "] " +
+                TaskList.getTask(taskNumber).description);
+        printLine();
+    }
+
+    public void startChat() {
         printStatement("greetings");
 
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
 
-        while (!userInput.equals("bye")) {
-            inputList[i] = userInput;
-            if (userInput.equals("list")) {
+        while (!userInput.equalsIgnoreCase("bye")) {
+            int taskNumber;
+            if (userInput.equalsIgnoreCase("list")) {
                 printStatement("list");
+            } else if (userInput.toLowerCase().contains("unmark")) {
+                try {
+                    taskNumber = Integer.parseInt(userInput.replaceAll("[^0-9]", "")) - 1;
+                    TaskList.getTask(taskNumber).markNotDone();
+                    printStatement("unmark", taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Exception thrown: " + e);
+                    System.out.println("Please Enter A Valid Number");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Exception thrown: " + e);
+                    System.out.println("There is no such task!");
+                }
+
+            } else if (userInput.toLowerCase().contains("mark")) {
+                try {
+                    taskNumber = Integer.parseInt(userInput.replaceAll("[^0-9]", "")) - 1;
+                    TaskList.getTask(taskNumber).markDone();
+                    printStatement("mark", taskNumber);
+                } catch (NumberFormatException e) {
+                    System.out.println("Exception thrown: " + e);
+                    System.out.println("Please Enter A Valid Number");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Exception thrown: " + e);
+                    System.out.println("There is no such task!");
+                }
+
             } else {
+                Task inputTask = new Task(userInput);
+                TaskList.addTask(inputTask);
                 printStatement("add");
-                i++;
             }
             userInput = in.nextLine();
         }
+    }
 
+    public void endChat() {
         printStatement("goodbye");
     }
 }
