@@ -39,7 +39,7 @@ public class Chris {
                 String index = split[1];
                 int i = Integer.parseInt(index);
                 if (option.startsWith("un")) {
-                    listCommands.unbox(i);
+                    listCommands.unBox(i);
                 } else {
                     listCommands.box(i);
                 }
