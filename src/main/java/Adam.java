@@ -11,7 +11,7 @@ public class Adam {
 
         while (sc.hasNextLine()) {
             input = sc.nextLine();
-            System.out.print(Messages.HORIZONTAL_LINE);
+            System.out.print(Messages.DELIMITER);
 
             if (input.equals("bye")) {
                 command = new ExitCommand();
@@ -25,7 +25,7 @@ public class Adam {
             }
 
             command.execute(tasks);
-            System.out.println(Messages.HORIZONTAL_LINE);
+            System.out.println(Messages.DELIMITER);
         }
 
     }
