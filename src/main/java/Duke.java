@@ -19,8 +19,9 @@ public class Duke {
                 return;
             } else if(task.equals("list")){
                 System.out.println("_________________________");
+                System.out.println("\tYour List:");
                 for(int i = 0; i < count; i++){
-                    System.out.println("    " + (i+1) + ". "
+                    System.out.println("\t" + (i+1) + ". "
                             + userCommands[i]);
                 }
                 System.out.println("_________________________");
@@ -28,7 +29,7 @@ public class Duke {
                 userCommands[count] = task;
                 System.out.println(
                         "_________________________\n"
-                        + "    added: " + userCommands[count]
+                        + "\tadded: " + userCommands[count]
                         + "\n"
                         + "_________________________\n");
                 count++;
