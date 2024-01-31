@@ -1,71 +1,107 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Lotes {
-    public static String lineSeparator = System.lineSeparator();
-    public static String underscore = "    ____________________________________________________________";
-    public static void printUserList(ArrayList<Task> tasks){
-        System.out.println(underscore);
-        if(tasks.isEmpty()){
-            System.out.println("    List is empty, please enter some text to add to list.");
-        }else{
+    private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static final String lineSeparator = System.lineSeparator();
+    private static final String horizontalLine = "    _________________________"
+                                                + "___________________________";
+
+    private static void printTasksList() {
+        System.out.println(horizontalLine);
+
+        if (taskList.isEmpty()) {
+            System.out.println("     List is empty, please enter some text to add to list.");
+        } else {
             System.out.println("     Here are the tasks in your list:");
+
             int index = 0;
-            for(Task task : tasks){
+            for (Task task : taskList) {
                 index++;
-                System.out.print("     " + index + ".[" + task.getStatusIcon() +
-                        "] " + task.getDescription() + lineSeparator);
+                System.out.print("     " + index + ".[" + task.getStatusIcon()
+                                + "] " + task.getDescription() + lineSeparator);
             }
         }
-        System.out.println(underscore);
+        System.out.println(horizontalLine);
     }
+
+    private static void markTask(String userInput) {
+        try {
+            int number = Integer.parseInt(userInput.substring(5))
+                    - 1;
+
+            taskList.get(number).setDone(true);
+
+            System.out.print(horizontalLine + lineSeparator
+                    + "     Nice! I've marked this task as done:"
+                    + lineSeparator + "     [" + taskList.get(number).getStatusIcon()
+                    + "] " + taskList.get(number).getDescription()
+                    + lineSeparator + horizontalLine + lineSeparator);
+
+        } catch (IndexOutOfBoundsException | NumberFormatException s) {
+            System.out.println("     Invalid integer input");
+            printTasksList();
+        }
+    }
+
+    private static void unMarkTask(String userInput) {
+        try {
+            int taskListIndex = (Integer.parseInt(userInput.substring(7))
+                    - 1);
+
+            taskList.get(taskListIndex).setDone(false);
+
+            System.out.print(horizontalLine + lineSeparator
+                    + "     OK, I've marked this task as not done yet:" + lineSeparator
+                    + "     [" + taskList.get(taskListIndex).getStatusIcon() + "] "
+                    + taskList.get(taskListIndex).getDescription() + lineSeparator
+                    + horizontalLine + lineSeparator);
+
+        } catch (IndexOutOfBoundsException | NumberFormatException s) {
+            System.out.println("     Invalid integer input");
+            printTasksList();
+        }
+    }
+
+    private static void addTask(String description){
+        Task newTask = new Task(description);
+        taskList.add(newTask);
+
+        System.out.print(horizontalLine + lineSeparator
+                + "     added: " + description + lineSeparator
+                + horizontalLine + lineSeparator);
+    }
+
     public static void main(String[] args) {
-        String logo = "  #        ####  ##### ######  ####\n" +
-                "                #       #    #   #   #      #\n" +
-                "                #       #    #   #   #####   ####\n" +
-                "                #       #    #   #   #           #\n" +
-                "                #######  ####    #   ######  ####";
+        String logo = "  #        ####  ##### ######  ####\n"
+                + "                #       #    #   #   #      #\n"
+                + "                #       #    #   #   #####   ####\n"
+                + "                #       #    #   #   #           #\n"
+                + "                #######  ####    #   ######  ####";
 
-        System.out.println(underscore + lineSeparator + "    Hello! I'm" + logo +
-                lineSeparator + "    What can I do for you?" + lineSeparator + underscore);
-        String userInput;
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        System.out.println(horizontalLine + lineSeparator
+                + "    Hello! I'm" + logo + lineSeparator
+                + "    What can I do for you?" + lineSeparator
+                + horizontalLine);
 
-        while(true){
-            Scanner in = new Scanner(System.in);
-            userInput = in.nextLine();
-            if(userInput.equals("bye")){
-                System.out.println(underscore + lineSeparator
-                        + "    Bye. Hope to see you again soon!\n" + underscore);
-                break;
-            }else if(userInput.equals("list")){
-                printUserList(taskList);
-            }else if (userInput.startsWith("mark ")){
-                try {
-                    int number = Integer.parseInt(userInput.substring(5)) - 1;
-                    taskList.get(number).setDone(true);
-                    System.out.print(underscore + lineSeparator + "     Nice! I've marked this task as done:" +
-                            lineSeparator + "     [" + taskList.get(number).getStatusIcon() + "] " +
-                            taskList.get(number).getDescription() + lineSeparator + underscore + lineSeparator);
-                }
-                catch (NumberFormatException e){
-                    System.out.println("     Invalid integer input");
-                }
-            }else if (userInput.startsWith("unmark ")){
-                try {
-                    int number = Integer.parseInt(userInput.substring(7)) - 1;
-                    taskList.get(number).setDone(false);
-                    System.out.print(underscore + lineSeparator + "     OK, I've marked this task as not done yet:" +
-                            lineSeparator + "     [" + taskList.get(number).getStatusIcon() + "] " +
-                            taskList.get(number).getDescription() + lineSeparator + underscore + lineSeparator);
-                }
-                catch (NumberFormatException e){
-                    System.out.println("     Invalid integer input");
-                }
-            }else{
-                Task newTask = new Task(userInput);
-                taskList.add(newTask);
-                System.out.print(underscore + lineSeparator + "     added: " + userInput
-                        + lineSeparator + underscore + lineSeparator);
+        Scanner inputCommand = new Scanner(System.in); // Prompt for continuous user input.
+
+        while (true) {
+            String userInput = inputCommand.nextLine();
+
+            if (userInput.equals("bye")) {
+                System.out.println(horizontalLine + lineSeparator
+                        + "    Bye. Hope to see you again soon!\n" + horizontalLine);
+                break; // Exit the program
+            } else if (userInput.equals("list")) {
+                printTasksList();
+            } else if (userInput.startsWith("mark ")) {
+                markTask(userInput);
+            } else if (userInput.startsWith("unmark ")) {
+                unMarkTask(userInput);
+            } else if (!userInput.isEmpty()) {
+                addTask(userInput); // Automatically add user input to tasks
+            } else {
+                System.out.println("Enter something to add to your task list");
             }
         }
     }
