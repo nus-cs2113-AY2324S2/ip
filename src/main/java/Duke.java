@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     private static String username;
     public static final Scanner scan = new Scanner(System.in);
-    public static String[] listData = new String[100];
+    public static Task[] taskList = new Task[100];
     public static int listCount = 0;
 
     public static void printBanner() {
@@ -35,8 +35,11 @@ public class Duke {
         }
 
         System.out.println("[Artemis]: Your list is as such:");
-        for (int index=0; index<listCount; index++) {
-            System.out.printf("%d. %s\n", index+1, listData[index]);
+        for (int index = 0; index < listCount; index++) {
+            Task currentTask = taskList[index];
+            String doneStatus = currentTask.getStatusIcon();
+            String taskName = currentTask.getTaskName();
+            System.out.printf("%d. [%s] %s\n", index+1, doneStatus, taskName);
         }
     }
 
@@ -50,20 +53,36 @@ public class Duke {
 
         for (;;) {
             System.out.printf("[%s]: ", username);
-            userInput = scan.nextLine();
+            userInput = scan.nextLine().toLowerCase();
 
-            if (userInput.equalsIgnoreCase("bye")) {
+            if (userInput.equals("bye")) {
                 break;
-            }
-
-            if (userInput.equalsIgnoreCase("list")) {
+            } else if (userInput.equals("list")) {
                 printList();
+                continue;
+            } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
+                String[] markList = userInput.split(" ");
+                if (markList.length != 2) {
+                    System.out.println("please enter \"mark/unmark <list item number>\".");
+                    continue;
+                }
+                int markItem = Integer.parseInt(markList[1]) - 1;
+                if (markItem > listCount) {
+                    System.out.println("list item number given is invalid!");
+                    continue;
+                }
+
+                String markAction = markList[0];
+                taskList[markItem].markAsDone(markAction.equals("mark"));
+
+                System.out.printf("alright! i have set \"%s\" as %s\n", taskList[markItem].getTaskName(), markAction.equals("mark") ? "complete" : "incomplete");
+
                 continue;
             }
 
-            listData[listCount] = userInput;
+            Task newTask = new Task(userInput);
+            taskList[listCount] = newTask;
             listCount++;
-
 
             System.out.printf("[artemis]: you have added %s to the list\n", userInput);
         }
