@@ -1,24 +1,33 @@
 import java.util.Scanner;
 
 public class Duke {
-//    public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
-//    }
+
+    public static void addList(){
+
+    }
     public static void main(String[] args) {
         System.out.println("____________________________________________________________\n" +
                 "Hello! I'm Duck\n" +
                 "What can I do for you?");
 
+        String[] texts = new String[100]; //stores user inputs into array called texts
         String userInput;
+        int index = 0; //index of where the userInput is stored in texts
         do {
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
-            System.out.println(userInput);
+            if (userInput.equals("list")) {
+                for (int i = 0; i < index; i++) {
+                    System.out.println(i+1 + ". " + texts[i]);
+                }
+                System.out.println("____________________________________________________________\n");
+            } else if (!userInput.equals("bye")){
+                texts[index] = userInput;
+                index++;
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + userInput);
+                System.out.println("____________________________________________________________\n");
+            }
 
         } while (!userInput.equals("bye"));
 
