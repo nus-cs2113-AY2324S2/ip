@@ -12,8 +12,11 @@ public class Task {
         return (isDone ? "[X] " : "[ ] ") + this.description;
     }
 
-    public void toggleIsDone() {
-        this.isDone = !this.isDone;
+    public void setIsDone(boolean newStatus) {
+        this.isDone = newStatus;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
 }

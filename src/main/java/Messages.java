@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Messages {
-    public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====> \n";
+    public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====>\n";
 
     private static final String LOGO_DEFAULT = "              _                 \n"
             + "     /\\      | |                \n"
@@ -31,11 +31,9 @@ public class Messages {
             + "Let's dive into the adventure!\n"
             + DELIMITER;
 
-    private static final String[] LOGOS = new String[]{LOGO_DEFAULT, LOGO_BOLD, LOGO_3D};
+    private static final String[] LOGOS = {LOGO_DEFAULT, LOGO_BOLD, LOGO_3D};
 
-    private static final Random random = new Random();
-
-    public static final String GREETING_MESSAGE = "Hello from\n" + LOGOS[random.nextInt(3)] + GREETING;
+    public static final String GREETING_MESSAGE = "Hello from\n" + LOGOS[new Random().nextInt(3)] + GREETING;
 
     public static final String EXIT_MESSAGE = "Farewell, adventurer! Until our paths cross again!\n" + DELIMITER;
 
