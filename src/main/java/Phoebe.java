@@ -1,9 +1,27 @@
+import java.util.Scanner;
+
+
 public class Phoebe {
     public static void main(String[] args) {
-        String greet = "Hello! I'm Phoebe! What can I do for you?";
-        String exit = "Bye. Hope to see you again soon!";
+        String greet = "\n" +
+                "█▀█ █░█ █▀█ █▀▀ █▄▄ █▀▀\n" +
+                "█▀▀ █▀█ █▄█ ██▄ █▄█ ██▄\n" + "HELLOOOO WHATCHA DOING???????";
+        String exit = "byebye\n" + "ฅ^•ﻌ•^ฅ";
         System.out.println(greet);
-        System.out.println(exit);
 
+        String echo;
+        Scanner in  = new Scanner(System.in);
+        while (true) {
+            echo = in.nextLine();
+
+            if (echo.equalsIgnoreCase("bye")) {
+                System.out.println(exit);
+                break;
+            } else {
+                System.out.println(echo + "\n");
+            }
+        }
     }
 }
+
+
