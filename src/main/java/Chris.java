@@ -16,8 +16,7 @@ public class Chris {
 
         Scanner sc = new Scanner(System.in);
         String command = "";
-        String[] listCommands = new String[100];
-        int count = 0;
+        TaskLists listCommands = new TaskLists();
         System.out.println("____________________________________________________________\n" +
                 "Hello, I'm Chris\n" +
                 "What can I do for you?\n" +
@@ -31,19 +30,27 @@ public class Chris {
                 break;
             } else if (command.equals("list")) {
                 System.out.println("____________________________________________________________");
-                for (int i = 0; i < count; i++) {
-                    System.out.println(i + 1 + ". " + listCommands[i]);
-                }
+                System.out.println("Here are the tasks in your list");
+                listCommands.printTasks();
                 System.out.println("____________________________________________________________");
+            } else if (command.matches("^(mark [0-9]|unmark [0-9])")) {
+                String[] split = command.split(" ");
+                String option = split[0];
+                String index = split[1];
+                int i = Integer.parseInt(index);
+                if (option.startsWith("un")) {
+                    listCommands.unbox(i);
+                } else {
+                    listCommands.box(i);
+                }
             } else {
                 System.out.println("____________________________________________________________\n" +
                         "added: " + command + "\n" +
                         "____________________________________________________________");
-                listCommands[count] = command;
-                count += 1;
+                Tasks record = new Tasks(command);
+                listCommands.addTask(record);
             }
         }
         sc.close();
-
     }
 }
