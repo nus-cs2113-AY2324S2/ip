@@ -28,7 +28,7 @@ public class Task { //each task represent one instance of this class
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + description; //will be over ride by subclass
+        return getStatusIcon() + " " + description; //will be over ride by subclass
     }
 }
 
