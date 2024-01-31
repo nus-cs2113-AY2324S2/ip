@@ -60,7 +60,7 @@ public class Conversation {
     }
     public void startConversation(){
         dividingLine();
-        System.out.println("\tHello!, I'm 'Noooob'");
+        System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
         describeFunctionality();
         dividingLine();
