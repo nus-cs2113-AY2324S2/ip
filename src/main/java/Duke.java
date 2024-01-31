@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static String username;
+    public static final Scanner scan = new Scanner(System.in);
+    public static String[] listData = new String[100];
+    public static int listCount = 0;
+
     public static void printBanner() {
         String logo = "  __ _ _ __| |_ ___ _ __ ___ (_)___ \n" +
                 " / _` | '__| __/ _ \\ '_ ` _ \\| / __|\n" +
@@ -11,17 +16,37 @@ public class Duke {
         System.out.println(logo);
     }
 
-    public static void main(String[] args) {
-        printBanner();
+    public static void printGoodbye() {
+        System.out.println("======================================\n");
+        System.out.println("goodbye! hope to see you again soon!\n");
+        System.out.println("======================================\n");
+    }
 
-        Scanner scan = new Scanner(System.in);
-        String username;
+    public static void requestUsername() {
+        System.out.println("hello! i'm artemis. what is your name?\n");
+        System.out.print("[unknown user]: ");
+        username = scan.nextLine();
+    }
+
+    public static void printList() {
+        if (listCount == 0) {
+            System.out.println("[Artemis]: Your list is empty!");
+            return;
+        }
+
+        System.out.println("[Artemis]: Your list is as such:");
+        for (int index=0; index<listCount; index++) {
+            System.out.printf("%d. %s\n", index+1, listData[index]);
+        }
+    }
+
+    public static void listHandler() {
         String userInput;
 
-        System.out.println("Hello! I'm Artemis. What is your name?\n");
-        System.out.print("[User]: ");
-        username = scan.nextLine();
-        System.out.printf("What can I do for you, %s?\n", username);
+        System.out.printf("welcome to your personal list, %s!\n", username);
+        System.out.println("enter any item to be added to the list.");
+        System.out.println("you may also enter \"list\" to see your current list.");
+        System.out.println("you may also exit by entering \"bye\".");
 
         for (;;) {
             System.out.printf("[%s]: ", username);
@@ -30,11 +55,24 @@ public class Duke {
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             }
-            System.out.printf("[Artemis]: %s\n", userInput);
-        }
 
-        System.out.println("======================================\n");
-        System.out.println("Bye. Hope to see you again soon!\n");
-        System.out.println("======================================\n");
+            if (userInput.equalsIgnoreCase("list")) {
+                printList();
+                continue;
+            }
+
+            listData[listCount] = userInput;
+            listCount++;
+
+
+            System.out.printf("[artemis]: you have added %s to the list\n", userInput);
+        }
+    }
+
+    public static void main(String[] args) {
+        printBanner();
+        requestUsername();
+        listHandler();
+        printGoodbye();
     }
 }
