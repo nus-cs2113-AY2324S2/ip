@@ -21,7 +21,14 @@ public class Greet {
         printHyphen();
     }
 
-
-
+    public void printList(String[] list, int length) {
+        printHyphen();
+        System.out.println();
+        for(int i = 0; i < length; i++) {
+            System.out.print(i+1 + ". ");
+            System.out.println(list[i]);
+        }
+        printHyphen();
+        System.out.println();
+    }
 }
-
