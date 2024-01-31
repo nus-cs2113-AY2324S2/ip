@@ -24,7 +24,7 @@ public class Echo {
 
                 for (int i = 0; i < count; i++) {
                     String statusIcon = list[i].getStatusIcon();
-                    System.out.println(" " + (i + 1) + ".["+statusIcon+"]" + list[i]);
+                    System.out.println(" " + (i + 1) + ".[" + statusIcon + "]" + list[i]);
                 }
                 System.out.println(break_line);
                 break;
@@ -49,7 +49,8 @@ public class Echo {
                         list[taskNumber].markAsDone();
                         System.out.println("Yo I have marked task" + (taskNumber + 1) + " as done.");
                         System.out.println(break_line);
-;                    } else {
+                        ;
+                    } else {
                         System.out.println("Invalid task number.");
                         System.out.println(break_line);
                     }
@@ -61,7 +62,7 @@ public class Echo {
                     int taskNumber = Integer.parseInt(parts[1]) - 1;
                     if (taskNumber >= 0 && taskNumber < count) {
                         list[taskNumber].unmarkAsDone();
-                        System.out.println("Yo I have unmarked task" + (taskNumber + 1) );
+                        System.out.println("Yo I have unmarked task" + (taskNumber + 1));
                         System.out.println(break_line);
                     } else {
                         System.out.println("Invalid task number.");
@@ -73,14 +74,13 @@ public class Echo {
             case "help":
                 System.out.println(break_line);
                 System.out.println("'bye' to exit ");
-                System.out.println("'list' to display the list" );
+                System.out.println("'list' to display the list");
                 System.out.println("'clearlist' to clear the list ");
                 System.out.println("'mark' plus a number to mark that task as done");
                 System.out.println("'unmark' plus a number to unmark that task.");
                 System.out.println("'help' for list of instructions.");
                 System.out.println(break_line);
                 break;
-
 
 
             default:
@@ -96,7 +96,4 @@ public class Echo {
         }
     }
 
-    public static void main(String[] args) {
-        new Echo().startEchoing();
-    }
 }
