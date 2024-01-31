@@ -16,6 +16,8 @@ public class Chris {
 
         Scanner sc = new Scanner(System.in);
         String command = "";
+        String[] listCommands = new String[100];
+        int count = 0;
         System.out.println("____________________________________________________________\n" +
                 "Hello, I'm Chris\n" +
                 "What can I do for you?\n" +
@@ -25,12 +27,20 @@ public class Chris {
             if (command.equals("bye")) {
                 System.out.println("____________________________________________________________\n" +
                         "Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________\n");
+                        "____________________________________________________________");
                 break;
+            } else if (command.equals("list")) {
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < count; i++) {
+                    System.out.println(i + 1 + ". " + listCommands[i]);
+                }
+                System.out.println("____________________________________________________________");
             } else {
                 System.out.println("____________________________________________________________\n" +
-                        command + "\n" +
-                        "____________________________________________________________\n");
+                        "added: " + command + "\n" +
+                        "____________________________________________________________");
+                listCommands[count] = command;
+                count += 1;
             }
         }
         sc.close();
