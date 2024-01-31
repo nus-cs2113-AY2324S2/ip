@@ -4,6 +4,15 @@ public class Zuke {
     private static final String INDENTATION_LINE =
             "____________________________________________________________\n";
 
+    private static boolean isNumeric(String string) {
+        for (char c : string.toCharArray()) {
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         String logo =
                 "███████╗██╗   ██╗██╗  ██╗███████╗\n" +
@@ -13,8 +22,8 @@ public class Zuke {
                 "███████╗╚██████╔╝██║  ██╗███████╗\n" +
                 "╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝\n";
         String receivedMessage;
-        int numberOfTask = 0;
-        String[] tasks = new String[100];
+        String markIndex;
+        TaskList taskList = new TaskList();
 
         System.out.println("Hello from\n" + logo);
         System.out.println(INDENTATION_LINE +
@@ -26,26 +35,53 @@ public class Zuke {
         while (userInput.hasNextLine()) {
             receivedMessage = userInput.nextLine();
             System.out.println(INDENTATION_LINE);
+            String command = receivedMessage.split(" ")[0];
 
-            if (receivedMessage.equals("bye")) {
+            switch(command) {
+            case "bye":
                 System.out.println("Bye. Hope to see you again soon!\n" +
                         INDENTATION_LINE);
-                break;
-            }
+                userInput.close();
+                return;
 
-            if (receivedMessage.equals("list")) {
-                for (int i = 0; i < numberOfTask; i++) {
-                    System.out.println(i + 1 + ". " + tasks[i]);
-                }
+            case "list":
+                taskList.listTasks();
                 System.out.println(INDENTATION_LINE);
-            } else {
-                tasks[numberOfTask] = receivedMessage;
-                numberOfTask++;
+                break;
+
+            case "mark" :
+                markIndex = receivedMessage.substring(4).trim();
+                if (isNumeric(markIndex)) {
+                    taskList.markTask(Integer.parseInt(markIndex));
+                    System.out.println(INDENTATION_LINE);
+                } else {
+                    taskList.add(new Task(receivedMessage));
+                    System.out.println("added: " +
+                            receivedMessage + "\n" +
+                            INDENTATION_LINE);
+                }
+                break;
+
+            case "unmark" :
+                markIndex = receivedMessage.substring(6).trim();
+                if (isNumeric(markIndex)) {
+                    taskList.unmarkTask(Integer.parseInt(markIndex));
+                    System.out.println(INDENTATION_LINE);
+                } else {
+                    taskList.add(new Task(receivedMessage));
+                    System.out.println("added: " +
+                            receivedMessage + "\n" +
+                            INDENTATION_LINE);
+                }
+                break;
+
+            default:
+                taskList.add(new Task(receivedMessage));
                 System.out.println("added: " +
                         receivedMessage + "\n" +
                         INDENTATION_LINE);
+                break;
             }
         }
-        userInput.close();
     }
 }
