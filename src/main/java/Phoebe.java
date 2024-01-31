@@ -9,18 +9,18 @@ public class Phoebe {
         String exit = "byebye\n" + "ฅ^•ﻌ•^ฅ";
         System.out.println(greet);
 
-        String echo;
+        String echo;                                            ////////////////////////////////////////////
         Scanner in  = new Scanner(System.in);
         while (true) {
             echo = in.nextLine();
 
-            if (echo.equalsIgnoreCase("bye")) {
+            if (echo.equalsIgnoreCase("bye")) {     ///// level1echo/////////
                 System.out.println(exit);
                 break;
             } else {
                 System.out.println(echo + "\n");
             }
-        }
+        }                                                       /////////////////////////////////////////////
     }
 }
 
