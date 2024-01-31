@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Chris {
     public static void main(String[] args) {
         String logo = "      ___           ___           ___                       ___     \n" +
@@ -12,12 +13,27 @@ public class Chris {
                 "    \\:\\__\\         /:/  /       |:|  |       \\/__/        \\::/  /   \n" +
                 "     \\/__/         \\/__/         \\|__|                     \\/__/    ";
         System.out.println("Hello from\n" + logo );
+
+        Scanner sc = new Scanner(System.in);
+        String command = "";
         System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Chris \n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
+                "Hello, I'm Chris\n" +
+                "What can I do for you?\n" +
                 "____________________________________________________________\n");
+        while (sc.hasNextLine()) {
+            command = sc.nextLine();
+            if (command.equals("bye")) {
+                System.out.println("____________________________________________________________\n" +
+                        "Bye. Hope to see you again soon!\n" +
+                        "____________________________________________________________\n");
+                break;
+            } else {
+                System.out.println("____________________________________________________________\n" +
+                        command + "\n" +
+                        "____________________________________________________________\n");
+            }
+        }
+        sc.close();
 
     }
 }
