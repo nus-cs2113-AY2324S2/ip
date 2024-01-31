@@ -34,7 +34,7 @@ public class JunBot {
             tasks[i].printTask();
             taskNumber += 1;
         }
-        System.out.println(divider+"\n");
+        System.out.println(divider + "\n");
     }
 
     public static void addToList(String description, Task[] tasks, int listPosition){
