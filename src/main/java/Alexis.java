@@ -1,25 +1,6 @@
 import java.util.Scanner;
 
 public class Alexis {
-    //Declares array list of size 100 to store list
-    public static String[] list = new String[100];
-    public static int listIndex = 0;
-
-    public static void addToList(String input){
-        list[listIndex] = input;
-        listIndex++;
-    }
-    public static void printList(){
-        int i = 0;
-        int itemIndex = 1;
-        for (String item: list) {
-            if (item != null) {
-                System.out.printf("%d. %s\n", itemIndex, list[i]);
-                i++;
-                itemIndex++;
-            }
-        }
-    }
     public static void main(String[] args) {
         String name = "   ('-.                 ('-.  ) (`-.               .-')    \n"
                 + "  ( OO ).-.           _(  OO)  ( OO ).            ( OO ).  \n"
@@ -35,6 +16,8 @@ public class Alexis {
         String greeting = "Hello, I'm Alexis.\n"
                 + "What can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
+
+        TaskList tasks = new TaskList();
 
         //Prints name and greeting.
         System.out.println(name);
@@ -55,17 +38,25 @@ public class Alexis {
             //Prints list on command `list`
             else if (line.equals("list")) {
                 System.out.println(lineBreak);
-                printList();
+                tasks.printTasks();
                 System.out.println(lineBreak);
             }
 
             else {
-                addToList(line);
                 System.out.println(lineBreak);
-                System.out.printf("Added: %s\n", line);
+                if (line.startsWith("mark")) {
+                    tasks.markTask(line);
+                }
+                else if (line.startsWith("unmark")) {
+                    tasks.unmarkTask(line);
+                }
+                else {
+                    tasks.addTask(line);
+                }
                 System.out.println(lineBreak);
+
             }
-        }
+            }
 
         //Prints goodbye message before terminating.
         System.out.println(lineBreak);
