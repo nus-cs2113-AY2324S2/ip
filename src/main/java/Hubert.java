@@ -16,12 +16,29 @@ public class Hubert {
         System.out.println(horizontal);
 
         //echo
+        //add task
+        String exitWord = "bye";
+        String displayList = "list";
         Scanner in = new Scanner(System.in);
         String line;
-        String exitWord = "bye";
         line = in.nextLine();
+
+        //store in array
+        String[] tasks = new String[100];
+        int indexTask = 0;
+
+        //check for exit word
         while (!line.equalsIgnoreCase(exitWord)) {
-            System.out.println(line);
+            //print list if called
+            if (line.equalsIgnoreCase(displayList)) {
+                for (int i = 0; i < indexTask; i++) {
+                    System.out.println((i+1) + ". " + tasks[i]);
+                }
+            } else {
+                System.out.println("added: " + line);
+                tasks[indexTask] = line;
+                indexTask++;
+            }
             System.out.println(horizontal);
             line = in.nextLine();
         }
