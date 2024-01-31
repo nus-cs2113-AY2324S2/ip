@@ -13,7 +13,9 @@ public class TaskList {
         return numberOfTasks;
     }
 
-    public void addTask(Task userTask) {
+
+    public void addTask(String taskDescription) {
+        Task userTask = new Task(taskDescription);
         tasks.add(userTask);
         numberOfTasks++;
         System.out.println( "---" + userTask.getDescription() + " has been added to task list!---");

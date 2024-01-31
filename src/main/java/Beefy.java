@@ -9,9 +9,7 @@ public class Beefy {
         userInput = new Scanner(System.in);
         userTasks = new TaskList();
     }
-    /**
-     * Prints a separation row of n "-", where n = WIDTH
-     */
+
     private void printSeparation() {
         int WIDTH = 59;
         for (int i = 0; i < WIDTH; i++) {
@@ -58,9 +56,8 @@ public class Beefy {
                 userTasks.unmarkTask(Integer.parseInt(userWords[1]));
                 printSeparation();
             } else {
-                Task userTask = new Task(userLine);
                 System.out.println(BOTNAME);
-                userTasks.addTask(userTask);
+                userTasks.addTask(userLine);
                 printSeparation();
             }
         } while(!userLine.equalsIgnoreCase("bye"));
