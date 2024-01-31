@@ -7,5 +7,6 @@ public class Humi {
 //                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello! I'm Humi");
         System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
