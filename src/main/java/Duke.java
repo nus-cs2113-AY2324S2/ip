@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String logo = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
@@ -8,11 +10,28 @@ public class Duke {
                 "╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░";
         System.out.println("Hello from\n" + logo);
 
-        System.out.println("____________________________________________________________\n" +
+        System.out.println("------------------------------------------------------------\n" +
                 " Hello! I'm Schmidt\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
+                "------------------------------------------------------------");
+
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("\t -> ");
+
+            String input = sc.nextLine();
+
+            if (input.equals("bye")) {
+                System.out.println("------------------------------------------------------------\n" +
+                        " Bye. Hope to see you again soon!\n" +
+                        "------------------------------------------------------------");
+                break;
+            } else {
+                System.out.println("------------------------------------------------------------\n" +
+                        " " + input + "\n" +
+                        "------------------------------------------------------------");
+            }
+        }
     }
 }
