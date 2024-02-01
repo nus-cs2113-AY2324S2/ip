@@ -9,22 +9,43 @@ public class Ava {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         greet();
-        echo();
+        addCommand();
         exit();
     }
 
-    public static void echo() {
-        String command;
+    public static void addCommand() {
+        String[] commands = new String[100];
         Scanner in = new Scanner(System.in);
-        command = in.nextLine();
-        if (command.equals("bye")) {
+        int commandCount = 0;
+        commands[commandCount] = in.nextLine();
+        if (commands[commandCount].equals("bye")) {
             return;
         }
-        while (!command.equals("bye")) {
-            printLine();
-            System.out.println(command);
-            printLine();
-            command = in.nextLine();
+        while (!commands[commandCount].equals("bye")) {
+            if (commands[commandCount].equals("list")) {
+                commandCount += 1;
+                printLine();
+                listCommand(commands, commandCount);
+                printLine();
+            } else {
+                printLine();
+                System.out.println("added: " + commands[commandCount]);
+                printLine();
+                commandCount += 1;
+            }
+            commands[commandCount] = in.nextLine();
+        }
+    }
+
+    public static void listCommand(String[] commands, int commandCount) {
+        int noOfCommand = 1;
+        int listedCommands = 0;
+        while (noOfCommand < commandCount) {
+            if (!commands[noOfCommand - 1].equals("list")) {
+                System.out.println((listedCommands + 1) + ". " + commands[noOfCommand - 1]);
+                listedCommands += 1;
+            }
+            noOfCommand += 1;
         }
     }
 
