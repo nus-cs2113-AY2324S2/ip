@@ -28,6 +28,7 @@ public class Duke {
             userInput = in.nextLine();
             switch (userInput) {
             case "bye":
+                printGoodbye();
                 return;
             case "list":
                 System.out.println(SECTION_BAR);
@@ -62,18 +63,18 @@ public class Duke {
      * Prints goodbye message.
      */
     private static void printGoodbye() {
-        System.out.println("Bye. See ya!");
+        System.out.println(SECTION_BAR);
+        System.out.println("See ya!");
         System.out.println(SECTION_BAR);
     }
 
     /**
-     * Greets the user and exits.
+     * Greets the user and process user inputs.
      *
-     * @param args List of command-line arguments
+     * @param args List of command-line arguments.
      */
     public static void main(String[] args) {
         printGreetings();
         parseUserInputs();
-        printGoodbye();
     }
 }
