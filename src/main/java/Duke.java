@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     public static String chatbotName = "Noriaki";
@@ -47,7 +49,7 @@ public class Duke {
         boolean isRunning = true;
         while(isRunning){
             String input = readInput();
-            if(input.toLowerCase().equals("bye")) isRunning = false;
+            if(input.equalsIgnoreCase("bye")) isRunning = false;
             else printMessage(input);
         }
     }
@@ -67,13 +69,16 @@ public class Duke {
     }
 
     public static void startList(){
-        List<Task> taskList = new ArrayList<Task>();
+        List<Task> taskList = new ArrayList<>();
         while(true){
             String input = readInput();
 
-            if(input.toLowerCase().equals("bye")) return;
-            if(input.toLowerCase().equals("list")) printList(taskList);
-            else addToList(taskList, input);
+            if (input.equalsIgnoreCase("bye")) return;
+            if (input.equalsIgnoreCase("list")) {
+                printList(taskList);
+            } else {
+                addToList(taskList, input);
+            }
         }
     }
 
