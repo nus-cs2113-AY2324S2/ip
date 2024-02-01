@@ -2,12 +2,6 @@ import java.util.Scanner;
 
 public class Ava {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
         greet();
         addTask();
         exit();
@@ -25,10 +19,7 @@ public class Ava {
         }
         while (!description.equals("bye")) {
             if (description.equals("list")) {
-                printLine();
-                System.out.println("Here are the tasks in your list:");
                 listTask(tasks, taskCount);
-                printLine();
             } else if (description.contains("mark")) {
                 markTask(tasks, description);
             } else {
@@ -65,12 +56,15 @@ public class Ava {
         }
     }
     public static void listTask(Task[] tasks, int taskCount) {
-        int noOftask = 0;
-        while (noOftask < taskCount) {
-            System.out.println((noOftask + 1) + ".[" + tasks[noOftask].getStatusIcon()
-                    + "] " + tasks[noOftask].getDescription());
-            noOftask += 1;
+        printLine();
+        System.out.println("Here are the tasks in your list:");
+        int noOfTask = 0;
+        while (noOfTask < taskCount) {
+            System.out.println((noOfTask + 1) + ".[" + tasks[noOfTask].getStatusIcon()
+                    + "] " + tasks[noOfTask].getDescription());
+            noOfTask += 1;
         }
+        printLine();
     }
 
     public static void printLine() {
