@@ -20,6 +20,7 @@ public class QueryManager {
     public int executeQuery(Query q, TasksList list){
         inputQuery(q);
         String command = q.getCommand();
+        String argument = q.getArgument();
         switch (command) {
             default:
                 // adding task to tasks list
@@ -31,13 +32,19 @@ public class QueryManager {
             case "list":
                 list.show();
                 return -1;
+            case "mark":
+                //list.markAsDone(argument);
+                list.markAsDone(Integer.parseInt(argument));
+                return -1;
+            case "unmark":
+                list.markAsNotDone(Integer.parseInt(argument));
+                return -1;
             case "bye":
                 System.out.println("Sankyuuu! BYE (^ _^ )");
                 return 0;
             case "echo":
                 System.out.println("Can I double check that you said: " + currentQuery.getArgument());
                 return -1;
-
         }
     }
 
