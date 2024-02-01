@@ -22,9 +22,9 @@ public class Duke {
             System.out.println("____________________________________________________________");
             if (line.equals("list")) {
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i] + "\n"
-                            + "____________________________________________________________");
+                    System.out.println((i + 1) + ". " + tasks[i]);
                 }
+                System.out.println("____________________________________________________________");
             } else {
                 tasks[taskCount] = line;
                 System.out.println("added: " + line + "\n"
