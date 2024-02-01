@@ -26,6 +26,8 @@ public class Task {
     public void setDone(boolean done) {
         isDone = done;
     }
+
+
 //...
 }
 

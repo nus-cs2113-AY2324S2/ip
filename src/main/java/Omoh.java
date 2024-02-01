@@ -36,6 +36,14 @@ public class Omoh {
             if (line.equalsIgnoreCase("list")) {
                 printAllTasks();
                 line = in.nextLine();
+            } else if (line.startsWith("mark")) {
+                int taskNumber = extractTaskNumber(line);
+                //only executes if taskNumber is valid
+                if (taskNumber != -1) {
+                    List.markAsDone(taskNumber);
+                    List.printMarkAsDone(taskNumber);
+                    line = in.nextLine();
+                }
             } else {
                 myTaskList.addTask(line);
                 myTaskList.printAddedTask();
@@ -71,5 +79,22 @@ public class Omoh {
         printHorizontalLine();
         System.out.println("     Bye. Hope to see you again soon!");
         printHorizontalLine();
+    }
+
+    public static int extractTaskNumber(String input) {
+        String keyword = "mark";
+        //checks if theres even characters after mark
+        if (input.length() > keyword.length()) {
+            String numberString = input.substring(keyword.length()).trim();
+            int taskNumber = Integer.parseInt(numberString);
+            //checks if taskNumber is valid
+            if (taskNumber <= 0) {
+                return -1;
+            } else {
+                return taskNumber;
+            }
+        } else {
+            return -1;
+        }
     }
 }

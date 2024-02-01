@@ -1,6 +1,6 @@
 public class List {
     //array of 100 size
-    protected Task[] tasks;
+    protected static Task[] tasks;
 
     public static int totalTasks = 0;
 
@@ -9,10 +9,12 @@ public class List {
     }
 
     public void getAllTasks() {
+        System.out.print("     ");
+        System.out.println("Here are the tasks in your list:");
         int serialNumber = 1;
         for (int i = 0; i < totalTasks; i++) {
             System.out.print("     ");
-            System.out.println(serialNumber + ". " + tasks[i].getDescription());
+            System.out.println(serialNumber + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
             serialNumber += 1;
         }
         return;
@@ -30,5 +32,21 @@ public class List {
         Omoh.printHorizontalLine();
     }
 
+    public static void markAsDone(int index) {
+        tasks[index - 1].isDone = true;
+    }
+
+    public void markAsNotDone(int index) {
+        tasks[index - 1].isDone = false;
+    }
+
+    public static void printMarkAsDone(int index) {
+        Omoh.printHorizontalLine();
+        System.out.print("    ");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.print("      ");
+        System.out.println("[" + tasks[index - 1].getStatusIcon() + "] " + tasks[index - 1].description);
+        Omoh.printHorizontalLine();
+    }
 
 }
