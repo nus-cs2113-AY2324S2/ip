@@ -13,16 +13,18 @@ public class Sebastian {
                 "What can I do for you?");
 
         //List adding functionality
-        List list = new List();
+        TaskManager taskManager = new TaskManager();
         String userInput = myScanner.nextLine();
         while (!userInput.equals("bye")) {
             if (userInput.equals("list")) {
-                list.showListContents();
+                taskManager.showListContents();
                 userInput = myScanner.nextLine();
-            }
-            else {
+            } else if (userInput.contains("mark")) {
+                taskManager.changeTaskStatus(userInput);
+                userInput = myScanner.nextLine();
+            } else {
                 System.out.println("added: " + userInput);
-                list.addListContents(userInput);
+                taskManager.addListContents(userInput);
                 userInput = myScanner.nextLine();
             }
         }
