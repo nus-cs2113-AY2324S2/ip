@@ -26,6 +26,12 @@ public class Suv {
                     System.out.println(" " + index + "." + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
                 System.out.println("____________________________________________________________");
+            } else if (input.contains("unmark")){
+                int n = Integer.parseInt(input.split(" ")[1]);
+                tasks[n - 1].unMark();
+                System.out.println("____________________________________________________________\n" +
+                        " OK, I've marked this task as not done yet:\n" + "   [ ] " + tasks[n - 1].getDescription() +
+                        "\n____________________________________________________________\n");
             } else if (input.contains("mark")){
                 int n = Integer.parseInt(input.split(" ")[1]);
                 Task currentTask = tasks[n - 1];
