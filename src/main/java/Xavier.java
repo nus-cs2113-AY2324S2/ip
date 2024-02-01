@@ -3,36 +3,48 @@ import java.util.Scanner;
 public class Xavier {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String[] itemList = new String[100];
+        Task[] itemList = new Task[100];
         int numberOfItems = 0;
 
         System.out.println("---------------------------------------------------------------------");
-        System.out.println("Hello! I'm: " + "Xavier");
+        System.out.println("Hello! I'm " + "Xavier");
         System.out.println("What can I do for you?");
         System.out.println("---------------------------------------------------------------------");
 
         while (true) {
             String command = input.nextLine();
+            String[] stringArray = command.split(" ");
+            System.out.println("---------------------------------------------------------------------");
             if (command.equals("bye")) {
-                System.out.println("---------------------------------------------------------------------");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("---------------------------------------------------------------------");
                 return;
             }
             else if (command.equals("list")) {
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < numberOfItems; i++) {
-                    System.out.println(i+1 + ". " + itemList[i]);
+                    System.out.println(i+1 + "." + "[" + itemList[i].getStatusIcon() + "] " + itemList[i].description);
                 }
-                System.out.println("---------------------------------------------------------------------");
+            }
+            else if (stringArray[0].equals("mark")) {
+                int index = Integer.parseInt(stringArray[1]) - 1;
+                itemList[index].isDone = true;
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[" + itemList[index].getStatusIcon() + "] " + itemList[index].description);
+            }
+            else if (stringArray[0].equals("unmark")) {
+                int index = Integer.parseInt(stringArray[1]) - 1;
+                itemList[index].isDone = false;
+                System.out.println("OK, I've marked this task as not yet done:");
+                System.out.println("[" + itemList[index].getStatusIcon() + "] " + itemList[index].description);
             }
             else {
-                itemList[numberOfItems] = command;
+                Task t = new Task(command);
+                itemList[numberOfItems] = t;
                 numberOfItems += 1;
-                System.out.println("---------------------------------------------------------------------");
                 System.out.println("added: " + command);
-                System.out.println("---------------------------------------------------------------------");
             }
+            System.out.println("---------------------------------------------------------------------");
         }
     }
 }
