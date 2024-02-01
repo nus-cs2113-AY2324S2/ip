@@ -18,5 +18,4 @@ public class Task {
     public void markAsNotDone() {
         isDone = false;
     }
-
 }
