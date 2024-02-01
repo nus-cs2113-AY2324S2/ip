@@ -48,26 +48,54 @@ public class Krot {
         printSeparator();
     }
 
+    public static void printTask(int index) {
+        Task task = tasks.get(index);
+        String cross = " ";
+        if (task.isDone) {
+            cross = "X";
+        }
+        System.out.println("[" + cross + "] " + task.task);
+    }
+
     public static void listTasks() {
         // Prints the list of tasks
-        int i = 1;
         printSeparator();
         printName();
-        for (Task task : tasks) {
-            System.out.println(i + ". " + task.task);
-            i += 1;
+        for (int i = 1; i < tasks.size() + 1; i += 1) {
+            System.out.print(i + ".");
+            printTask(i - 1);
         }
+        printSeparator();
+    }
+
+    public static void markTask(String input) {
+        String[] strArr = input.split(" ");
+        int index = Integer.parseInt(strArr[1]) - 1;
+        Task t = tasks.get(index);
+        t.markDone();
+        printSeparator();
+        printName();
+        if (t.isDone) {
+            System.out.println("Wow good job at clearing a task! I,ve marked this task as done:");
+        } else {
+            System.out.println("More to do? I've marked this task as not done yet:");
+        }
+        printTask(index);
         printSeparator();
     }
 
     public static void checkKey(String key) {
         // Checks the keywords and runs the corresponding responses
-        switch (key.toLowerCase()) {
+        switch (key.split(" ")[0].toLowerCase()) {
         case "bye":
             endChat();
             break;
         case "list":
             listTasks();
+            break;
+        case "mark":
+        case "unmark":
+            markTask(key);
             break;
         default:
             echo(key);
