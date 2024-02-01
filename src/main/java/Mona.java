@@ -1,36 +1,36 @@
 import java.util.Scanner;
 public class Mona {
-    public static void addTask(String description, Task[] listOfTasks) {
+    public static void addTask(String description, Task[] tasks) {
         int index = Task.noOfTasks;
-        listOfTasks[index] = new Task(description);
+        tasks[index] = new Task(description);
 
         printHorizontalLine();
         System.out.println("added: " + description);
         printHorizontalLine();
     }
-    public static void printUnmarkStatement(int index, Task[] listOfTasks) {
+    public static void printUnmarkStatement(int index, Task[] tasks) {
         printHorizontalLine();
 
         System.out.println("OK,  I've marked this as not done yet:");
-        System.out.println("[" + listOfTasks[index].getStatusIcon() + "] "
-                + listOfTasks[index].description);
+        System.out.println("[" + tasks[index].getStatusIcon() + "] "
+                + tasks[index].description);
 
         printHorizontalLine();
     }
-    public static void printMarkStatement(int index, Task[] listOfTasks) {
+    public static void printMarkStatement(int index, Task[] tasks) {
         printHorizontalLine();
 
         System.out.println("Nice! I've marked this as done:");
-        System.out.println("[" + listOfTasks[index].getStatusIcon() + "] "
-                + listOfTasks[index].description);
+        System.out.println("[" + tasks[index].getStatusIcon() + "] "
+                + tasks[index].description);
 
         printHorizontalLine();
     }
-    public static void printList(Task[] listOfTasks) {
+    public static void printList(Task[] tasks) {
         printHorizontalLine();
 
         int index = 1;
-        for (Task task: listOfTasks) {
+        for (Task task: tasks) {
             if (task != null) {
                 System.out.println(Integer.toString(index) + "."
                         + "[" + task.getStatusIcon() + "] "
@@ -73,7 +73,7 @@ public class Mona {
 
         greet();
 
-        Task[] listOfTasks = new Task[100];  //initialize an array of Tasks, to act as a list
+        Task[] tasks = new Task[100];        //initialize an array of Tasks, to act as a list
 
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();         // read in 1st command from user
@@ -81,7 +81,7 @@ public class Mona {
         while (true) {
             switch(line){
             case ("list"):
-                printList(listOfTasks);
+                printList(tasks);
                 break;
             case ("bye"):
                 exit();
@@ -89,15 +89,15 @@ public class Mona {
             default:
                 if (line.startsWith("mark")) {
                     int i = Integer.parseInt(line.substring(5));
-                    listOfTasks[i - 1].markAsDone();
-                    printMarkStatement(i - 1, listOfTasks);
+                    tasks[i - 1].markAsDone();
+                    printMarkStatement(i - 1, tasks);
                 }
                 else if (line.startsWith("unmark")) {
                     int i = Integer.parseInt(line.substring(7));
-                    listOfTasks[i - 1].markAsNotDone();
-                    printUnmarkStatement(i - 1, listOfTasks);
+                    tasks[i - 1].markAsNotDone();
+                    printUnmarkStatement(i - 1, tasks);
                 } else {
-                    addTask(line, listOfTasks); // if command cannot be extracted, add text to list
+                    addTask(line, tasks); // if command cannot be extracted, add text to list
                 }
             }
             line = in.nextLine();
