@@ -11,11 +11,12 @@ public class Duke {
             String line;
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
-
-            switch (line){
+            String firstWord = line.split(" ")[0];
+            int taskIndex;
+            switch (firstWord){
             case "list":
                 for (int i = 0; i < itemsCount; i += 1){
-                    System.out.println((i +1) + ". " + tasks[i].getDescription());
+                    System.out.println((i +1) + ".[" + tasks[i].getStatusIcon() + "]" + tasks[i].getDescription());
                 }
                 break;
 
@@ -23,6 +24,19 @@ public class Duke {
                 isChatting = false;
                 break;
 
+            case "mark":
+                System.out.println("Nice! I've marked this task as done:");
+                taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
+                tasks[taskIndex].markTask();
+                System.out.println("[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
+                break;
+
+            case "unmark":
+                System.out.println("OK, I've marked this task as not done yet: ");
+                taskIndex = Integer.parseInt(line.split(" ")[1]) - 1;
+                tasks[taskIndex].unmarkTask();
+                System.out.println("[" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
+                break;
 
             default:
                 tasks[itemsCount] = new Task(line);
@@ -34,7 +48,5 @@ public class Duke {
         }
 
         System.out.println("Bye. Hope to see you again soon!");
-
-
     }
 }
