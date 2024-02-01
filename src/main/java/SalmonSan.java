@@ -8,8 +8,8 @@ public class SalmonSan {
         Scanner in = new Scanner(System.in);
 
         System.out.print("How can I assist you today? ");
-        query.input = in.nextLine();
+        query.changeInput(in.nextLine());
 
-        System.out.println("Can I double check that you said: " + query.input);
+        System.out.println("Can I double check that you said: " + query.getInput());
     }
 }

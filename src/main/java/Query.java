@@ -1,6 +1,8 @@
 public class Query {
     // attributes of query
-    public String input;
+    // input must always be in lowercase
+    private String rawInput;
+    private String lowercaseInput;
 
     // create constructor
     public Query() {
@@ -8,7 +10,19 @@ public class Query {
     }
 
     public Query(String s){
-        this.input = s;
+        this.changeInput(s);
     }
 
+    public void changeInput(String s) {
+        this.rawInput = s;
+        this.lowercaseInput = s.toLowerCase();
+    }
+
+    public String getInput() {
+        return this.rawInput;
+    }
+
+    public String getLowercaseInput() {
+        return this.lowercaseInput;
+    }
 }
