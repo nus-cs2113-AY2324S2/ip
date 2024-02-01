@@ -8,6 +8,7 @@ public class Vibes {
         String vibesOutput = "";
         boolean isExit = true;
         Scanner in = new Scanner(System.in);
+        List taskList = new List();
 
         System.out.println(line);
         System.out.println("\t Hello! I'm " + name + "\n\t What can I do for you?");
@@ -22,7 +23,8 @@ public class Vibes {
                 isExit = false;
                 break;
             default:
-                vibesOutput = userInput;
+                taskList.addTask(userInput);
+                vibesOutput = "added: " + userInput;
                 break;
             }
             System.out.println(line);
