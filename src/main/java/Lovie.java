@@ -38,7 +38,7 @@ public class Lovie {
                         "~~~~~~~~~~~~~~~\n\n");
             } else if (input.contains("unmark")) {
                 int taskNumber = Integer.parseInt(input.split(" ")[1].toString()) - 1; 
-                if (taskNumber >= tasksList.size()) {
+                if (taskNumber >= tasksList.size() || taskNumber <= 1) {
                     System.out.println("\n\n");
                     System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + 
                             "~~~~~~~~~~~~~~~~~~~~~~~\n\n");
@@ -62,7 +62,7 @@ public class Lovie {
                 }
             } else if (input.contains("mark")) {
                 int taskNumber = Integer.parseInt(input.split(" ")[1].toString()) - 1; 
-                if (taskNumber >= tasksList.size()) {
+                if (taskNumber >= tasksList.size() || taskNumber <= 1) {
                     System.out.println("\n\n");
                     System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + 
                             "~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
