@@ -12,11 +12,19 @@ public class Sebastian {
         System.out.println("Hello! I'm Sebastian, your humble butler\n" +
                 "What can I do for you?");
 
-        //echo functionality
+        //List adding functionality
+        List list = new List();
         String userInput = myScanner.nextLine();
         while (!userInput.equals("bye")) {
-            System.out.println(userInput);
-            userInput = myScanner.nextLine();
+            if (userInput.equals("list")) {
+                list.showListContents();
+                userInput = myScanner.nextLine();
+            }
+            else {
+                System.out.println("added: " + userInput);
+                list.addListContents(userInput);
+                userInput = myScanner.nextLine();
+            }
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
