@@ -3,19 +3,30 @@ import java.util.Scanner;
 
 public class Duke {
     // assume no more than 100 tasks for now
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int numTasks = 0;
-    public static void respond(String query) {
+    private static void respond(String input) {
+        String[] inputWords = input.split(" ");
+        String query = inputWords[0];
         switch (query) {
         case "list":
             for (int i = 0; i < numTasks; i += 1) {
-                System.out.println(Integer.toString(i + 1) + ". " + tasks[i]);
+                System.out.println(Integer.toString(i + 1) + ". " + tasks[i].getDescription() + " [" + tasks[i].getStatusIcon() + "]");
             }
             break;
+        case "mark":
+            int taskIndex = Integer.parseInt(inputWords[1]) - 1;
+            if (taskIndex >= numTasks || taskIndex < 0) {
+                System.out.println("Task not found!");
+                return;
+            }
+            tasks[taskIndex].setDone();
+            System.out.println("Task " + tasks[taskIndex].getDescription() + " marked as done.");
+            break;
         default:
-            tasks[numTasks % 100] = query;
+            tasks[numTasks % 100] = new Task(input);
             numTasks += 1;
-            System.out.println("added: " + query);
+            System.out.println("added: " + input);
         }
     }
     public static void main(String[] args) {
