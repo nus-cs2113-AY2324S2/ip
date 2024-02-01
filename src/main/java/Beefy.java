@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Beefy {
-    private static final String BOTNAME = "BEEFY";
+    private static final String BOT_NAME = "BEEFY";
     private Scanner userInput;
     private TaskList userTasks;
 
@@ -30,8 +30,8 @@ public class Beefy {
     public void startChat() {
         String userLine;
         printSeparation();
-        System.out.println(BOTNAME);
-        System.out.println("Hello! I'm " + BOTNAME);
+        System.out.println(BOT_NAME);
+        System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
         printSeparation();
         do {
@@ -42,21 +42,21 @@ public class Beefy {
             if (userLine.equalsIgnoreCase("bye")) {
                 break;
             } else if (userLine.equalsIgnoreCase("list")) {
-                System.out.println(BOTNAME);
+                System.out.println(BOT_NAME);
                 userTasks.listOut();
                 printSeparation();
             } else if (userWords[0].equalsIgnoreCase("mark") && userWords.length == 2
                     && isInteger(userWords[1])) {
-                System.out.println(BOTNAME);
+                System.out.println(BOT_NAME);
                 userTasks.markTask(Integer.parseInt(userWords[1]));
                 printSeparation();
             } else if (userWords[0].equalsIgnoreCase("unmark") && userWords.length == 2
                     && isInteger(userWords[1])){
-                System.out.println(BOTNAME);
+                System.out.println(BOT_NAME);
                 userTasks.unmarkTask(Integer.parseInt(userWords[1]));
                 printSeparation();
             } else {
-                System.out.println(BOTNAME);
+                System.out.println(BOT_NAME);
                 userTasks.addTask(userLine);
                 printSeparation();
             }
@@ -64,7 +64,7 @@ public class Beefy {
     }
 
     public void endChat() {
-        System.out.println(BOTNAME + ": Bye. Hope to see you again soon!");
+        System.out.println(BOT_NAME + ": Bye. Hope to see you again soon!");
         printSeparation();
     }
 
