@@ -14,13 +14,22 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String line;
+        String[] tasks = new String[100]; 
+        int taskCount = 0; 
 
         do {
             line = in.nextLine();
             System.out.println("____________________________________________________________");
-            if (!line.equals("bye")) {
-                System.out.println(line);
-                System.out.println("____________________________________________________________");
+            if (line.equals("list")) {
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i] + "\n"
+                            + "____________________________________________________________");
+                }
+            } else {
+                tasks[taskCount] = line;
+                System.out.println("added: " + line + "\n"
+                        + "____________________________________________________________");
+                taskCount++;
             }
         } while (!line.equals("bye"));
 
