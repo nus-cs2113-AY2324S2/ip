@@ -51,7 +51,6 @@ public class MyChatBot {
             } else {
                 System.out.println("Invalid task index.");
             }
-            continue;
 
 
         // Check for the unmark command
