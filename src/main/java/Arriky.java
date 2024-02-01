@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 import java.util.ArrayList;
 public class Arriky {
     public static void main(String[] args) {
@@ -12,11 +13,20 @@ public class Arriky {
         while(running) {
             String command = sc.nextLine();
             printSeparation();
-            if(command.equals("bye")) {
+
+            String[] arguments = command.split(" ");
+
+            if (arguments[0].equals("bye")) {
                 endSession();
                 running = false;
-            } else if (command.equals("list")) {
+            } else if (arguments[0].equals("list")) {
                 tl.listTasks();
+                printSeparation();
+            } else if (arguments[0].equals("mark")) {
+                tl.markDone(Integer.parseInt(arguments[1]) - 1);
+                printSeparation();
+            } else if (arguments[0].equals("unmark")) {
+                tl.unmarkDone(Integer.parseInt(arguments[1]) - 1);
                 printSeparation();
             } else {
                 tl.addTask(command);
