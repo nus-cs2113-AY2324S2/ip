@@ -18,20 +18,20 @@ public class Duke {
         String input;
 
         while (true) {
-            input = scanner.nextLine(); // Read user input
+            input = scanner.nextLine(); 
 
             if (input.equalsIgnoreCase("bye")) { // User wants to exit
                 System.out.println("Bye. See ya laterr!\r\n"
                         + "____________________________________________________________\r\n"
                         + "\n" + logo);
-                break; // Exit the loop
+                break;
             }
 
-            // Echo the input back to the user with decoration
+
             System.out.println(input);
             System.out.println("____________________________________________________________");
         }
 
-        scanner.close(); // Close the scanner when done
+        scanner.close();
     }
 }
