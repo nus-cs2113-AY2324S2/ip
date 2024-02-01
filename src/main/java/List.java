@@ -7,4 +7,14 @@ public class List {
         tasksCount++;
         System.out.println("\t added: " + description);
     }
+
+    public void listTasks() {
+        if (tasksCount == 0) {
+            System.out.println("\t You have no tasks added to the list.");
+            return;
+        }
+        for (int i = 0; i < tasksCount; i++) {
+            System.out.println("\t " + (i + 1) + ". " + tasks[i].getDescription());
+        }
+    }
 }

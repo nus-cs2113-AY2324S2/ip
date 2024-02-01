@@ -21,6 +21,9 @@ public class Vibes {
                 System.out.println("\t Bye. Hope to see you again soon!");
                 isExit = false;
                 break;
+            case "list":
+                taskList.listTasks();
+                break;
             default:
                 taskList.addTask(userInput);
                 break;
