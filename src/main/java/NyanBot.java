@@ -1,27 +1,43 @@
 import java.util.Scanner;
 public class NyanBot {
     private static String line = "____________";
-    private static String[] userInput = new String[100];
-    private static int userInputCount = 0;
+    private static Task[] input = new Task[100];
+    private static int inputCount = 0;
 
     private static void echo() {
         Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
+        String[] splitInput = new String[2];
+        String userInput = in.nextLine();
+        splitInput = userInput.split(" ");
 
-        switch(input) {
+        switch(splitInput[0]) {
         case "bye":
             return;
         case "list":
             System.out.println(line);
-            for (int i = 0; i < userInputCount; i++) {
-                System.out.println(i + 1 + ". " + userInput[i]);
+            for (int i = 0; i < inputCount; i++) {
+                System.out.println(i + 1 + ". " +
+                        input[i].getStatusIcon() + " " + input[i].getDescription());
             }
+            break;
+        case "mark":
+            int markIndex = Integer.parseInt(splitInput[1]) - 1;
+            input[markIndex].markAsDone();
+            System.out.println(line);
+            System.out.println("はい、markしました！");
+            break;
+        case "unmark":
+            markIndex = Integer.parseInt(splitInput[1]) - 1;
+            input[markIndex].unmarkAsDone();
+            System.out.println(line);
+            System.out.println("はい、unmarkしました！");
             break;
         default:
             System.out.println(line);
-            userInput[userInputCount] = input;
-            userInputCount++;
-            System.out.println("Added: " + input);
+            Task newTask = new Task(userInput);
+            input[inputCount] = newTask;
+            inputCount++;
+            System.out.println("Added: " + userInput);
         }
         echo();
     }
