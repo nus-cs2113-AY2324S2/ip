@@ -1,19 +1,19 @@
 import java.util.Scanner;
 
 public class Baron {
-    public static void displayCommandsList(String[] commandsList) {
+    public static void displayCommandsList(Task[] commandsList) {
         int listNumber = 1;
-        for (String command: commandsList) {
+        for (Task command: commandsList) {
             if (command == null) {
                 break;
             }
-            System.out.println(listNumber + ". " + command);
+            System.out.println(listNumber + ".[" + command.getStatusIcon() + "] " + command.description);
             listNumber += 1;
         }
     }
 
     public static void main(String[] args) {
-        String[] commandsList = new String[100];
+        Task[] commandsList = new Task[100];
         int numberOfCommands = 0;
         System.out.println("Hello! I'm Baron");
         System.out.println("What can I do for you?\n");
@@ -29,8 +29,20 @@ public class Baron {
                 System.out.println("");
                 continue;
             }
+            else if (input.toLowerCase().startsWith("mark")) {
+                String digits = input.replaceAll("\\D+","");
+                int commandIndex = Integer.parseInt(digits);
+                commandsList[commandIndex - 1].markAsDone();
+                continue;
+            }
+            else if (input.toLowerCase().startsWith("unmark")) {
+                String digits = input.replaceAll("\\D+","");
+                int commandIndex = Integer.parseInt(digits);
+                commandsList[commandIndex - 1].unmarkAsDone();
+                continue;
+            }
             System.out.println("Added: " + input + "\n");
-            commandsList[numberOfCommands] = input;
+            commandsList[numberOfCommands] = new Task(input);
             numberOfCommands += 1;
         }
     }
