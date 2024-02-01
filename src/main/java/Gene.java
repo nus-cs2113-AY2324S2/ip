@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Gene {
-    private static final String botName = "Gene";
+    private static final String BOT_NAME = "Gene";
     private final Scanner scanner = new Scanner(System.in);
     private TaskList taskList = new TaskList();
 
@@ -14,7 +14,7 @@ public class Gene {
 
     public void startChat() {
         printLineSeparation();
-        System.out.println("Hello! I'm " + botName);
+        System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
         printLineSeparation();
 
