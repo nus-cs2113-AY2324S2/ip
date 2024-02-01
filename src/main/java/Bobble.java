@@ -1,4 +1,16 @@
+import java.util.Scanner;
+
 public class Bobble {
+    public static void main(String[] args) {
+        start();
+        Scanner input = new Scanner(System.in);
+        String userCommand = input.nextLine();
+        while (!userCommand.equals("bye")) {
+            echo(userCommand);
+            userCommand = input.nextLine();
+        }
+        goodbye();
+    }
 
     //Greets user
     public static void start(){
@@ -14,8 +26,10 @@ public class Bobble {
                 "____________________________________________________________\n");
     }
 
-    public static void main(String[] args) {
-        start();
-        goodbye();
+    //Echos commands entered by the user
+    public static void echo(String message) {
+        System.out.println("____________________________________________________________\n" +
+                message +
+                "\n____________________________________________________________\n");
     }
 }
