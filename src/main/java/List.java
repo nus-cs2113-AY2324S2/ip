@@ -1,5 +1,4 @@
 public class List {
-    //array of 100 size
     protected static Task[] tasks;
 
     public static int totalTasks = 0;

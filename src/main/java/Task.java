@@ -19,16 +19,6 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
-
-//...
 }
 
 
