@@ -1,20 +1,37 @@
 import java.util.Scanner;
 public class Duke {
-    public static String[] list = new String[100];
-    public static int listLength = 0;
-    /*
-    public static void echo(String input){
-        System.out.println("____________________________________________________________\n"
-                            + input + "\n"
-                            + "____________________________________________________________");
-    }
-    */
-    public static void add(String input){
+    public static Task[] list = new Task[100];
+    public static int taskLength = 0;
+
+    //add a new task
+    public static void add(String input) {
         System.out.println("____________________________________________________________\n"
                 + "added: " + input + "\n"
                 + "____________________________________________________________");
-        list[listLength] = input;
-        listLength++;
+        Task newTask = new Task(input);
+        list[taskLength] = newTask;
+        taskLength++;
+    }
+
+    //show current tasks
+    public static void showTasks() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Your current tasks");
+        for (int i = 0; i < taskLength; i++){
+            System.out.print((i + 1) + ". ");
+            list[i].showTask();
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void mark(int taskNumber){
+        System.out.println("Good job! I've marked task " + taskNumber + " as done");
+        list[taskNumber - 1].markAsDone();
+    }
+
+    public static void unMark(int taskNumber){
+        System.out.println("I've marked task " + taskNumber + " as not done");
+        list[taskNumber - 1].markNotDone();
     }
     public static void main(String[] args) {
         String chat_name = "Sigma";
@@ -23,23 +40,47 @@ public class Duke {
                 + " What can I do for you?\n"
                 +"____________________________________________________________\n";
         System.out.println(output);
-        String line;
         while (true) {
             Scanner in = new Scanner(System.in);
-            line = in.nextLine();
-            if (line.equals("bye")) {
+            String input = in.nextLine();
+            if (input.equals("bye")) {
                 break;
             }
-            if (line.equals("list")) {
-                System.out.println("____________________________________________________________");
-                for (int i = 0; i < listLength; i++){
-                    System.out.print(i + ". ");
-                    System.out.println(list[i] + '.');
-                }
-                System.out.println("____________________________________________________________");
+            else if (input.equals("list")) {
+                showTasks();
             }
+            else if (input.startsWith("mark ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    if (taskNumber > 0 && taskNumber <= taskLength ) {
+                        mark(taskNumber);
+                    }
+                    else {
+                        System.out.println("Out of bounds!");
+                    }
+                }
+                catch (Exception e){
+                    System.out.println("Error marking task :/");
+                }
+            }
+
+            else if (input.startsWith("unmark ")) {
+                try {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    if (taskNumber > 0 && taskNumber <= taskLength ) {
+                        unMark(taskNumber);
+                    }
+                    else {
+                        System.out.println("Out of bounds!");
+                    }
+                }
+                catch (Exception e){
+                    System.out.println("Error marking task :/");
+                }
+            }
+
             else {
-                add(line);
+                add(input);
             }
         }
         System.out.println("____________________________________________________________\n"
