@@ -35,7 +35,7 @@ public class MyChatBot {
             if (userInput.equalsIgnoreCase("list")){
                 System.out.println("__________________________________________");
                 for (int i = 0 ; i < taskCount ; i ++){
-                    System.out.println(" ") + ( i + 1) +". " + tasks[i];
+                    System.out.println(" " + ( i + 1) +". " + tasks[i]);
                 }
                 System.out.println("__________________________________________");
                 continue ;
