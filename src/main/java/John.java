@@ -62,7 +62,6 @@ public class John {
         String userInput = in.next();
 
         while (!userInput.equalsIgnoreCase("bye")) {
-
             parseInput(userInput);
             userInput = in.next();
         }

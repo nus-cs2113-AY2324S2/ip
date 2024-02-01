@@ -1,7 +1,8 @@
 public class Task {
 
     private String name;
-    private boolean completed = false;
+    private boolean isCompleted
+ = false;
 
     public Task() {
         name = "Unnamed";
@@ -20,19 +21,20 @@ public class Task {
     }
 
     public boolean getCompletedStatus() {
-        return completed;
+        return isCompleted
+;
     }
 
     public void markCompleted() {
-        completed = true;
+        isCompleted = true;
     }
 
     public void markUncompleted() {
-        completed = false;
+        isCompleted = false;
     }
 
     public void printBox() {
-        if (completed) {
+        if (isCompleted) {
             System.out.print("[X]");
         } else {
             System.out.print("[ ]");
