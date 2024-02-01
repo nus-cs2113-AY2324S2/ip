@@ -4,7 +4,7 @@ public class Suv {
     public static void main(String[] args) {
         String name = "Suv";
         Scanner in = new Scanner(System.in);
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskIndex = 0;
 
         System.out.println("____________________________________________________________\n" +
@@ -20,14 +20,22 @@ public class Suv {
                         "____________________________________________________________\n");
                 break;
             }else if (input.equals("list")){
-                System.out.println("____________________________________________________________");
+                System.out.println("____________________________________________________________\n" + " Here are the tasks in your list:");
                 for(int i = 0; i < taskIndex; i++){
                     int index = i + 1;
-                    System.out.println(" " + index + ". " + tasks[i]);
+                    System.out.println(" " + index + "." + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
                 System.out.println("____________________________________________________________");
+            } else if (input.contains("mark")){
+                int n = Integer.parseInt(input.split(" ")[1]);
+                Task currentTask = tasks[n - 1];
+                currentTask.mark();
+                System.out.println("____________________________________________________________\n" +
+                        " Nice! I've marked this task as done:\n" + "   [X] " + currentTask.getDescription() +
+                        "\n____________________________________________________________\n");
             } else {
-                tasks[taskIndex++] = input;
+                Task newTask = new Task(input);
+                tasks[taskIndex++] = newTask;
                 System.out.println("____________________________________________________________\n" +
                         " added: " + input +
                         "\n____________________________________________________________\n");
