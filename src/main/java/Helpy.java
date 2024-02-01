@@ -31,7 +31,8 @@ public class Helpy {
         String horizontalLine = "______________________\n";
 
         System.out.print(horizontalLine);
-        System.out.println("Invalid task number. Please check the task number again.");
+        System.out.println("Invalid task number. "
+                + "Please check the task number again.");
         System.out.println(horizontalLine);
     }
 
@@ -70,6 +71,7 @@ public class Helpy {
             markTask(taskList.get(taskIndex));
             return;
         }
+
         if (command.startsWith("unmark ")) {
             String taskNum = command.substring(7);
             taskNum = taskNum.trim();
@@ -106,7 +108,7 @@ public class Helpy {
 
         Scanner in = new Scanner(System.in);
         String command = "";
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
         while (!command.equals("bye")) {
             command = in.nextLine();
