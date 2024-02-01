@@ -5,11 +5,17 @@ public class SalmonSan {
         System.out.println("Salmon-San desu! Yoroshikuonegaishimasu (^.^)/");
 
         Query query = new Query();
+        QueryManager queryManager = new QueryManager();
+
         Scanner in = new Scanner(System.in);
+        int status = -1;
 
-        System.out.print("How can I assist you today? ");
-        query.changeInput(in.nextLine());
+        do {
+            System.out.println("---");
+            System.out.print("How can I assist you today? ");
+            query.changeInput(in.nextLine());
 
-        System.out.println("Can I double check that you said: " + query.getInput());
+            status = queryManager.executeQuery(query);
+        } while (status == -1);
     }
 }
