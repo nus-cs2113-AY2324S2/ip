@@ -15,25 +15,19 @@ public class Task {
         this.name = name;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     public void setDone(boolean done) {
         isDone = done;
     }
 
-    public String getStatusIcon(){
+    public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    public void markAsDone(){
-        isDone = true;
+    public void markAsDone() {
+        setDone(true);
     }
 
-    public void markAsUndone(){
-        isDone = false;
+    public void markAsUndone() {
+        setDone(false);
     }
-
-
 }
