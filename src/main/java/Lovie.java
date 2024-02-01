@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lovie {
     public static void main(String[] args) {
-        Scanner inputGetter = new Scanner(System.in);
-        Boolean isBye = true;   
+        Scanner inputGetter = new Scanner(System.in);   
         String input = new String(); 
+        ArrayList<String> taskList = new ArrayList<String>();   
 
         String logo = 
         "       ██╗░░░░░░█████╗░██╗░░░██╗██╗███████╗ \n" +
@@ -17,16 +18,29 @@ public class Lovie {
         System.out.println("        How can I help you today?\n");
         System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 
-        while (isBye) {
+        while (true) {
             input = inputGetter.nextLine(); 
             if (input.equals("bye")) {
-                isBye = false; 
-            }
+                break; 
+            } 
             else {
-                System.out.println("\n\n");
-                System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-                System.out.println("        " + input + "\n\n"); 
-                System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"); 
+                if (input.equals("list")) {
+                    System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+                    int counter = 0; 
+                    while (counter < taskList.size()) {
+                        String listNumber = Integer.toString(counter+1); 
+                        System.out.println("        " + listNumber + ". " + taskList.get(counter) + "\n\n");
+                        counter += 1; 
+                    }
+                    System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+                }
+                else {
+                    taskList.add(input);
+                    System.out.println("\n\n");
+                    System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+                    System.out.println("        added: " + input + "\n\n"); 
+                    System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"); 
+                }
             }
         } 
         System.out.println("\n\n");
