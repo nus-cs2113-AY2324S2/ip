@@ -31,6 +31,7 @@ public class Jarvas {
             } else if (userInput.startsWith("mark")) {
                 System.out.println(partitionLine);
                 String index = userInput.substring(5); // obtain value after mark
+
                 int i = Integer.parseInt(index) - 1; // convert to int
                 tasks[i].setCompletedTrue();
 
@@ -40,6 +41,7 @@ public class Jarvas {
             } else if (userInput.startsWith("unmark")) {
                 System.out.println(partitionLine);
                 String index = userInput.substring(7); // obtain value after unmark
+
                 int i = Integer.parseInt(index) - 1; // convert to int
                 tasks[i].setCompletedFalse();
 
