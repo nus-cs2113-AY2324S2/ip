@@ -16,9 +16,12 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input;
+        String[] list = new String[100];
+        int num = 0;
 
         while (true) {
-            input = scanner.nextLine(); 
+            input = scanner.nextLine();
+
 
             if (input.equalsIgnoreCase("bye")) { // User wants to exit
                 System.out.println("Bye. See ya laterr!\r\n"
@@ -28,7 +31,21 @@ public class Duke {
             }
 
 
-            System.out.println(input);
+
+            if (input.equalsIgnoreCase("list")) {
+
+                for (int i = 0; i < num; i++) {
+                    System.out.println(i+1 + ":" + list[i]);
+                }
+            } else {
+                System.out.println("added: " + input);
+                list[num] = input;
+                num++;
+
+            }
+
+
+
             System.out.println("____________________________________________________________");
         }
 
