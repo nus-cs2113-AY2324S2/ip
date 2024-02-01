@@ -2,63 +2,93 @@ import java.util.Scanner;
 
 public class Task {
 
-    private String[] tasklist;
-    protected boolean[] taskstatus;
-    private int taskcount;
+    private String[] taskList;
+    private static int MAX_TASKS = 100;
+    protected boolean[] isMarked;
+    private int taskCount;
 
 
     public Task() {
-        this.tasklist = new String[100];
-        this.taskstatus = new boolean[100];
-        this.taskcount = 0;
+        this.taskList = new String[MAX_TASKS];
+        this.isMarked = new boolean[MAX_TASKS];
+        this.taskCount = 0;
     }
 
     /**
      * Adds user input into taskList
+     *
+     * @param task input given by user
      */
     public void addTask(String task) {
-        tasklist[taskcount] = task;
-        taskstatus[taskcount] = false;
-        taskcount += 1;
+        taskList[taskCount] = task;
+        isMarked[taskCount] = false;
+        taskCount += 1;
         System.out.println("added: " + task);
     }
+
     /**
-     * list out current tasks
+     * list out current tasks and displays task status
      */
-    public void listTask() {
-        if (taskcount == 0) {
+    public void listTasks() {
+        if (taskCount == 0) {
             System.out.println("Dobby has no tasks :(");
             return;
         }
         System.out.println("List\n~~~~~~~~~~~~~~~~");
-        for (int i = 0 ; i < taskcount ; i += 1) {
-            System.out.println("  " + (i+1) + ". " + getStatusIcon(i) + " " + tasklist[i]);
+        for (int i = 0 ; i < taskCount ; i += 1) {
+            System.out.println("  " + (i+1) + ". " + getStatusIcon(i) + " " + taskList[i]);
         }
         System.out.println("~~~~~~~~~~~~~~~~");
     }
 
-    public String getStatusIcon(int taskindex) {
-        return (taskstatus[taskindex] ? "[X]" : "[ ]" );
+    /**
+     * returns "[X]" if task is mark done and
+     * "[ ]" if not marked
+     *
+     * @param taskIndex index of task stored in array
+     * @return task status
+     */
+    public String getStatusIcon(int taskIndex) {
+        if (isMarked[taskIndex]) {
+            return "[X]";
+        }
+        return "[ ]";
     }
 
-    public void markTask(int taskindex) {
-        if (taskindex < 1 || taskindex > taskcount) {
+    /**
+     * 1. Checks if user inputs a valid index if valid
+     * marks the stated task and shows which task is marked
+     *
+     * @param taskIndex index of task stored in array
+     */
+    public void markTask(int taskIndex) {
+        if (taskIndex < 1 || taskIndex > taskCount) {
             System.out.println("Invalid number> Please try again");
+        } else if (isMarked[taskIndex-1]) {
+            System.out.println("ERROR: task is already marked");
         } else {
-            taskstatus[taskindex-1] = true;
+            isMarked[taskIndex-1] = true;
             System.out.println("OK, I've marked this task as done:");
-            System.out.println("  " + getStatusIcon(taskindex - 1) + " " + tasklist[taskindex - 1]);
+            System.out.println("  " + getStatusIcon(taskIndex - 1) + " " + taskList[taskIndex - 1]);
             System.out.println("~~~~~~~~~~~~~~~~");
         }
     }
 
-    public void unmarkTask(int taskindex) {
-        if (taskindex < 1 || taskindex > taskcount) {
+    /**
+     * Checks if user inputs a valid index
+     * if valid, unmarks the stated task and shows the unmarked task
+     *
+     * @param taskIndex index of task stored in array
+     */
+    public void unmarkTask(int taskIndex) {
+        if (taskIndex < 1 || taskIndex > taskCount) {
             System.out.println("Invalid number> Please try again");
+        } else if (!isMarked[taskIndex-1]) {
+            System.out.println("The task is already unmarked");
         } else {
-            taskstatus[taskindex-1] = false;
+            isMarked[taskIndex-1] = false;
             System.out.println("OK, I've marked this task as not done:");
-            System.out.println("  " + getStatusIcon(taskindex - 1) + " " + tasklist[taskindex - 1]);
+            System.out.println("  " + getStatusIcon(taskIndex - 1) + " " + taskList[taskIndex - 1]);
             System.out.println("~~~~~~~~~~~~~~~~");
         }
     }
@@ -74,7 +104,7 @@ public class Task {
                 System.out.println("~~~~~~~~~~~~~~~~\nDobby say's BYE!");
                 return;
             case "list":
-                listTask();
+                listTasks();
                 break;
             default:
                 if (command.startsWith("add")) {
@@ -90,28 +120,7 @@ public class Task {
                 }
                 break;
             }
-//            switch (command) {
-//            case "bye": System.out.println("~~~~~~~~~~~~~~~~\nDobby say's BYE!");
-//                break;
-//            case "list": listTask();
-//            case command.starsWith("mark"):
-//                //int taskIndex = Integer.parseInt(command.split(" ")[1]);
-//                markTask(Integer.parseInt(command.split(" ")[1]));
-//            case "unmark":
-//                //int taskIndex = Integer.parseInt(command.split(" ")[1]);
-//                unmarkTask(Integer.parseInt(command.split(" ")[1]));
-//            default: addTask(co);
-//
-//            }
-//            if (command.toLowerCase().equals("bye")) {  //exit dobby
-//                System.out.println("~~~~~~~~~~~~~~~~\nDobby say's BYE!");
-//                break;
-//            }
-//            if (command.toLowerCase().equals("list")) {
-//                listTask();
-//            } else {
-//                addTask(command);
-//            }
+
         }
     }
 
