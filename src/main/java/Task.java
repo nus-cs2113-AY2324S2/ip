@@ -1,5 +1,8 @@
 public class Task {
+
+    /** Description of task */
     protected String description;
+    /** Boolean indicating if task is done */
     protected boolean isDone;
 
     public Task(String description) {
@@ -26,6 +29,7 @@ public class Task {
     public void setDone(boolean done) {
         this.isDone = done;
     }
+
     @Override
     public String toString() {
         return this.description;

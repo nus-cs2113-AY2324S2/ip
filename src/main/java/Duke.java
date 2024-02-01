@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class Duke {
     public static String chatbotName = "Noriaki";
+
+    /**
+     * Prints line of 30 underscores.
+     */
     public static void printLine(){
         int lineUnderscore = 30;
         for(int i = 0; i < lineUnderscore; i++){
@@ -12,12 +16,20 @@ public class Duke {
         System.out.println();
     }
 
+    /**
+     * Prints line, followed by message, followed by line.
+     *
+     * @param message Message to be printed.
+     */
     public static void printMessage(String message){
         printLine();
         System.out.println(message);
         printLine();
     }
 
+    /**
+     * Prints greeting.
+     */
     public static void greet(){
         String greetMessage = "Hello! I'm " + chatbotName + "\nWhat can I do for you?";
         String logo =
@@ -32,12 +44,20 @@ public class Duke {
         printMessage(greetMessage);
     }
 
+    /**
+     * Prints goodbye message.
+     */
     public static void goodbye(){
         String goodbyeMessage = "Bye! Hope to see you again soon! MEGANE!!";
 
         printMessage(goodbyeMessage);
     }
 
+    /**
+     * Reads user input.
+     *
+     * @return String User input.
+     */
     public static String readInput(){
         String line;
         Scanner in = new Scanner(System.in);
@@ -45,15 +65,25 @@ public class Duke {
         return line;
     }
 
+    /**
+     * Reads user input and prints user input.
+     */
     public static void echo(){
         boolean isRunning = true;
         while(isRunning){
             String input = readInput();
-            if(input.equalsIgnoreCase("bye")) isRunning = false;
+            if(input.equalsIgnoreCase("bye")) {
+                isRunning = false;
+            }
             else printMessage(input);
         }
     }
 
+    /**
+     * Prints list of tasks.
+     *
+     * @param taskList List of tasks to be printed.
+     */
     public static void printList(List<Task> taskList){
         printLine();
         for(int i = 0; i < taskList.size(); i++){
@@ -62,12 +92,22 @@ public class Duke {
         printLine();
     }
 
+    /**
+     * Adds a task to list of tasks.
+     *
+     * @param taskList List of tasks to be printed.
+     * @param description description of task to be added.
+     */
     public static void addToList(List<Task> taskList, String description){
         Task newTask = new Task(description);
         taskList.add(newTask);
         printMessage("added: " + description);
     }
 
+    /**
+     * Creates a list that users can add tasks to, read,
+     * and mark tasks as done or undone.
+     */
     public static void startList(){
         List<Task> taskList = new ArrayList<>();
         while(true){
