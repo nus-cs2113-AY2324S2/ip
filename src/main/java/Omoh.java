@@ -26,7 +26,10 @@ public class Omoh {
     }
 
     //Method reads in what user types
-    //If bye is not typed, store it as task
+    //If bye is not typed, we check 2 conditions
+    //if list is typed, list out all tasks
+    //if mark or unmark is typed, mark or unmark the task in tasklist
+    //if none of the above, add the typed input to task list
     //If bye is typed, function exits
     public static void readUserInput() {
         String line;
@@ -36,14 +39,11 @@ public class Omoh {
             if (line.equalsIgnoreCase("list")) {
                 printAllTasks();
                 line = in.nextLine();
-            } else if (line.startsWith("mark")) {
+            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 int taskNumber = extractTaskNumber(line);
-                //only executes if taskNumber is valid
-                if (taskNumber != -1) {
-                    List.markAsDone(taskNumber);
-                    List.printMarkAsDone(taskNumber);
-                    line = in.nextLine();
-                }
+                modifyDoneState(taskNumber, line);
+                List.printMarkTask(taskNumber, line);
+                line = in.nextLine();
             } else {
                 myTaskList.addTask(line);
                 myTaskList.printAddedTask();
@@ -81,9 +81,15 @@ public class Omoh {
         printHorizontalLine();
     }
 
+    //method that extracts the task number to mark or unmark
     public static int extractTaskNumber(String input) {
-        String keyword = "mark";
-        //checks if theres even characters after mark
+        String keyword;
+        if (input.startsWith("mark")) {
+            keyword = "mark";
+        } else {
+            keyword = "unmark";
+        }
+        //checks if theres even characters after mark/unmark
         if (input.length() > keyword.length()) {
             String numberString = input.substring(keyword.length()).trim();
             int taskNumber = Integer.parseInt(numberString);
@@ -95,6 +101,18 @@ public class Omoh {
             }
         } else {
             return -1;
+        }
+    }
+
+    //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
+    public static void modifyDoneState(int taskNumber, String input) {
+        //only executes if taskNumber is valid
+        if (taskNumber != -1) {
+            if (input.startsWith("mark")) {
+                List.markAsDone(taskNumber);
+            } else {
+                List.markAsNotDone(taskNumber);
+            }
         }
     }
 }
