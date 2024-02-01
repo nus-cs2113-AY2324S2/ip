@@ -11,20 +11,38 @@ public class Duke {
     private static final String SECTION_BAR = "____________________________________________________________";
 
     /**
-     * Takes user inputs as commands and echos back the command.
-     * If the command is "bye", exit.
+     * Takes user inputs as commands and process them.
+     * If the input is not one of the supported commands below, the input shall be seen as a new task.
+     * Tasks are NOT saved when the program exits.
+     * Possible commands:
+     * 1. `bye` - Exits the program.
+     * 2. `list` - Lists out all the tasks.
      */
     private static void parseUserInputs() {
         Scanner in = new Scanner(System.in);
         String userInput;
+        String[] tasks = new String[128];
+        int taskCounter = 1;
+
         while (true) {
             userInput = in.nextLine();
-            if (userInput.matches("bye")) { // Strict: Must match exactly (same case and no trailing spaces)
+            switch (userInput) {
+            case "bye":
                 return;
-            } else {
+            case "list":
                 System.out.println(SECTION_BAR);
-                System.out.println(userInput);
+                for (int i = 1; i < taskCounter; i++) {
+                    System.out.format("%d. %s\n", i, tasks[i]);
+                }
                 System.out.println(SECTION_BAR + "\n");
+                break;
+            default:
+                tasks[taskCounter] = userInput;
+                taskCounter++;
+                System.out.println(SECTION_BAR);
+                System.out.println("Added: " + userInput);
+                System.out.println(SECTION_BAR + "\n");
+
             }
         }
     }
