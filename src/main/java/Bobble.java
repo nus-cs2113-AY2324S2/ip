@@ -20,11 +20,17 @@ public class Bobble {
                     System.out.println("____________________________________________________________\n");
                     break;
                 default:
-                    if (userInput.contains("mark")) {
+                    if (userInput.startsWith("unmark")) {
+                        int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+                        tasklist[taskNumber].setDone(false);
+                        System.out.println("OK, I've marked this task as not done yet:\n" +
+                                "  [ ] " + tasklist[taskNumber].getDescription() +
+                                "\n____________________________________________________________\n");
+                    } else if (userInput.startsWith("mark")) {
                         int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
                         tasklist[taskNumber].setDone(true);
                         System.out.println("Nice! I've marked this task as done:\n" +
-                                "[X] " + tasklist[taskNumber].getDescription() +
+                                "  [X] " + tasklist[taskNumber].getDescription() +
                                 "\n____________________________________________________________\n");
                     } else {
                         tasklist[taskCount++] = new Task(userInput);
