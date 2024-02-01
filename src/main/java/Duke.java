@@ -17,7 +17,7 @@ public class Duke {
     }
 
     private static void mimicMessage(){
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int currentIteration = 0;
         Scanner input = new Scanner(System.in);
         boolean canExit = false;
@@ -29,12 +29,24 @@ public class Duke {
             }
             else if (usersInput.equals("list")) {
                 for (int i = 0; i < currentIteration; i ++) {
-                    System.out.println((i + 1) + ". " + list[i]);
+                    System.out.println((i + 1) + ". " + list[i].getStatusIcon() + " " + list[i].description);
                 }
+            }
+            else if (usersInput.startsWith("mark")) {
+                System.out.println("Nice! I've marked this task as done:");
+                int taskIndex = Integer.parseInt(usersInput.substring(5)) - 1;
+                list[taskIndex].isDone = true;
+                System.out.println(list[taskIndex].getStatusIcon() + " " + list[taskIndex].description);
+            }
+            else if (usersInput.startsWith("unmark")) {
+                System.out.println("OK, I've marked this task as not done yet:");
+                int taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
+                list[taskIndex].isDone = false;
+                System.out.println(list[taskIndex].getStatusIcon() + " " + list[taskIndex].description);
             }
             else {
                 System.out.println("added: " + usersInput);
-                list[currentIteration] = usersInput;
+                list[currentIteration] = new Task(usersInput);
                 currentIteration++;
             }
 
