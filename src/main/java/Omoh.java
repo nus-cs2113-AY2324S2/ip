@@ -16,10 +16,8 @@ public class Omoh {
     }
 
     //Method that prints horizontal line using "_" char
-    private static void printHorizontalLine() {
-        for (int j = 0; j < 4; j++) {
-            System.out.print(" ");
-        }
+    public static void printHorizontalLine() {
+        System.out.print("    ");
         for (int i = 0; i < 50; i++) {
             System.out.print("_");
         }
@@ -39,10 +37,8 @@ public class Omoh {
                 printAllTasks();
                 line = in.nextLine();
             } else {
-                printHorizontalLine();
-                System.out.print("     ");
-                myTaskList.setAndPrintTask(line);
-                printHorizontalLine();
+                myTaskList.addTask(line);
+                myTaskList.printAddedTask();
                 line = in.nextLine();
             }
         }
