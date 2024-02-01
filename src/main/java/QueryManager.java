@@ -17,12 +17,19 @@ public class QueryManager {
     }
 
     // input or update query and executes it
-    public int executeQuery(Query q){
+    public int executeQuery(Query q, TasksList list){
         inputQuery(q);
         String command = q.getCommand();
         switch (command) {
             default:
-                System.out.println("NANI? I don't understand");
+                // adding task to tasks list
+                Task task = new Task();
+                task.setDescription(q.getInput());
+                list.addTask(task);
+                System.out.println("added: " + list.getLatestTask().getDescription());
+                return -1;
+            case "list":
+                list.show();
                 return -1;
             case "bye":
                 System.out.println("Sankyuuu! BYE (^ _^ )");
