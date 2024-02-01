@@ -5,7 +5,6 @@ public class Vibes {
         String name = "Vibes";
         String line = "\t---------------------------------------------------------------------------------------";
         String userInput;
-        String vibesOutput = "";
         boolean isExit = true;
         Scanner in = new Scanner(System.in);
         List taskList = new List();
@@ -16,19 +15,16 @@ public class Vibes {
 
         while(isExit){
             userInput = in.nextLine().trim();
-
+            System.out.println(line);
             switch (userInput){
             case "bye":
-                vibesOutput = "Bye. Hope to see you again soon!";
+                System.out.println("\t Bye. Hope to see you again soon!");
                 isExit = false;
                 break;
             default:
                 taskList.addTask(userInput);
-                vibesOutput = "added: " + userInput;
                 break;
             }
-            System.out.println(line);
-            System.out.println("\t " + vibesOutput);
             System.out.println(line);
         }
     }

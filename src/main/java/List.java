@@ -5,5 +5,6 @@ public class List {
     public void addTask(String description) {
         tasks[tasksCount] = new Task(description);
         tasksCount++;
+        System.out.println("\t added: " + description);
     }
 }
