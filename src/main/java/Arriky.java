@@ -1,7 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Arriky {
     public static void main(String[] args) {
+
+        // initialize
         Scanner sc = new Scanner(System.in);
+        TaskList tl = new TaskList();
         greet();
         boolean running = true;
 
@@ -11,8 +15,13 @@ public class Arriky {
             if(command.equals("bye")) {
                 endSession();
                 running = false;
+            } else if (command.equals("list")) {
+                tl.listTasks();
+                printSeparation();
+            } else {
+                tl.addTask(command);
+                printSeparation();
             }
-            echo(command);
 
         }
 
@@ -31,6 +40,7 @@ public class Arriky {
                 " Hello! I'm Arriky\n" +
                 " What can I do for you?"
         );
+        printSeparation();
     }
 
     private static void endSession() {
