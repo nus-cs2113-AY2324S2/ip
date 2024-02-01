@@ -87,7 +87,8 @@ public class Duke {
     public static void printList(List<Task> taskList){
         printLine();
         for(int i = 0; i < taskList.size(); i++){
-            System.out.println((i + 1) + ". " + taskList.get(i));
+            Task task = taskList.get(i);
+            System.out.println((i + 1) + ". [" + task.getStatusIcon() + "] " + task.getDescription());
         }
         printLine();
     }
@@ -105,17 +106,50 @@ public class Duke {
     }
 
     /**
-     * Creates a list that users can add tasks to, read,
-     * and mark tasks as done or undone.
+     * Marks task as done or undone.
+     *
+     * @param taskList List of tasks.
+     * @param instruction User instruction on which task to mark.
+     */
+    public static void markTask(List<Task> taskList, String instruction) {
+        boolean done = true;
+        String message;
+
+        if (instruction.substring(0, 4).equalsIgnoreCase("mark")) {
+            done = true;
+        } else if (instruction.substring(0, 6).equalsIgnoreCase("unmark")) {
+            done = false;
+        }
+
+        int index = (new Scanner(instruction).useDelimiter("\\D+").nextInt()) - 1;
+        message = done ? "Nice! I've marked this task as done:\n" + "   [X] "
+                + taskList.get(index).getDescription() :
+                " OK, I've marked this task as not done yet:\n" + "   [ ] "
+                + taskList.get(index).getDescription();
+
+        try {
+            taskList.get(index).setDone(done);
+            printMessage(message);
+        } catch (Exception e){
+            printMessage("Invalid mark instruction ZENBU FAKE!!");
+        }
+    }
+
+    /**
+     * Creates a list that users can add tasks to, read, and mark tasks as done or undone.
      */
     public static void startList(){
         List<Task> taskList = new ArrayList<>();
         while(true){
             String input = readInput();
 
-            if (input.equalsIgnoreCase("bye")) return;
-            if (input.equalsIgnoreCase("list")) {
+            if (input.equalsIgnoreCase("bye")) {
+                return;
+            } else if (input.equalsIgnoreCase("list")) {
                 printList(taskList);
+            } else if (input.substring(0, 4).equalsIgnoreCase("mark") ||
+                    input.substring(0, 6).equalsIgnoreCase("unmark")) {
+                markTask(taskList, input);
             } else {
                 addToList(taskList, input);
             }
