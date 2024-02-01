@@ -4,6 +4,7 @@ public class Conversation {
         System.out.println("\t________________________________");
     }
     public void communicate(){
+        ExceptionsHandle e = new ExceptionsHandle();
         Task[] list = new Task[100];
         int index = 0;
         Scanner in = new Scanner(System.in);
@@ -15,38 +16,55 @@ public class Conversation {
                 for(int i = 0; i < index; i++) {
                     System.out.println((i + 1) + "." + list[i].getStatusIcon() + " " + list[i].getContent());
                 }
-            }
-            else if(line.contains("unmark")){
+            } else if(line.contains("unmark")){
                 int spaceIndex = line.indexOf(" ");
-                int number = Integer.parseInt(line.substring(spaceIndex + 1));
+                if(spaceIndex == -1){
+                    System.out.println("Please add a spacing between 'unmark' and 'number'");
+                    line = in.nextLine().trim();
+                    continue;
+                }
+                String secondPart = line.substring(spaceIndex + 1);
+                if(e.checkIfStringIsInteger(secondPart) == e.getStringIsNotInteger()){
+                    System.out.println("Please type 'unmark' + 'NUMBER'!");
+                    line = in.nextLine().trim();
+                    continue;
+                }
+                int number = Integer.parseInt(secondPart);
                 if(number > index){
                     System.out.println("Oops, you do not have this task");
-                }
-                else{
+                } else{
                     System.out.println("OK, I've marked this task as not done yet:");
                     list[number - 1].changeStatus(false);
                     System.out.println("\t" + list[number - 1].getStatusIcon() + " " + list[number - 1].getContent());
                 }
-            }
-            else if(line.contains("mark")){
+            } else if(line.contains("mark")){
                 int spaceIndex = line.indexOf(" ");
+                if(spaceIndex == -1){
+                    System.out.println("Please add a spacing between 'mark' and 'number'");
+                    line = in.nextLine().trim();
+                    continue;
+                }
+                String secondPart = line.substring(spaceIndex + 1);
+                if(e.checkIfStringIsInteger(secondPart) == e.getStringIsNotInteger()){
+                    System.out.println("Please type 'mark' + 'NUMBER'!");
+                    line = in.nextLine().trim();
+                    continue;
+                }
                 int number = Integer.parseInt(line.substring(spaceIndex + 1));
                 if(number > index){
                     System.out.println("Oops, you do not have this task");
-                }
-                else{
+                } else{
                     System.out.println("Nice! I've marked this task as done:");
                     list[number - 1].changeStatus(true);
                     System.out.println("\t" + list[number - 1].getStatusIcon() + " " + list[number - 1].getContent());
                 }
-            }
-            else{
+            } else{
                 list[index] = new Task(line);
                 index++;
                 System.out.println("\tadded: " + line);
             }
             dividingLine();
-            line = in.nextLine();
+            line = in.nextLine().trim();
         }
     }
     public void describeFunctionality(){
@@ -59,6 +77,13 @@ public class Conversation {
         System.out.println("\t\t5. Type \"bye\" to say goodbye to me");
     }
     public void startConversation(){
+        String logo =
+                " ___     _   ___   ___   __\n"
+                        + "|   \\   | | |   | |   | |  |\n"
+                        + "| |\\ \\  | | | | | | | | |  |__\n"
+                        + "| | \\ \\_| | | | | | | | | ___ |\n"
+                        + "|_|  \\____| |___| |___| |_____|\n"  ;
+        System.out.println("Hello from\n" + logo);
         dividingLine();
         System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
