@@ -2,12 +2,12 @@ public class Task {
     protected String description;
     protected boolean isDone;
     public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+        this.description = description;// Description of the task
+        this.isDone = false;//Completion status of the task(True: Done, False: Undone)
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");// mark done task with X
+        return (isDone ? "[X]" : "[ ]");// mark tasks that are done with X, else empty space
     }
 
     public void markAsDone() {
@@ -18,7 +18,7 @@ public class Task {
         isDone = false;
     }
 
-    public String toString() {
-        return getStatusIcon() + " " + description;
+    public String combineStatus() {
+        return getStatusIcon() + " " + description; //combine the status and task description for easier listing
     }
 }

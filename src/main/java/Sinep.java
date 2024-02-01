@@ -18,28 +18,33 @@ public class Sinep {
             if (input.equals("bye")) {  // Check if the input is "bye"
                 System.out.println(line + nl + bye + nl + line);
                 break;
-            } else if (input.equals("list")) {
+            } else if (input.equals("list")) { // Check if the input is "list"
                 System.out.println(line);
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println((i + 1) + "." + taskList.get(i).toString());
+                System.out.println("Here are the current tasks in your list:");
+                if (taskList.isEmpty()) {
+                    System.out.println("Great job! You have no tasks!");
+                } else {
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println((i + 1) + "." + taskList.get(i).combineStatus());
+                    }
                 }
                 System.out.println(line);
-            } else if (input.startsWith("mark ")) {
+            } else if (input.startsWith("mark ")) { // Check if the input is "mark"
                 int taskIndex = Integer.parseInt(input.substring(5)) - 1;
                 Task markingTask = taskList.get(taskIndex);
                 markingTask.markAsDone();
                 System.out.println(line + nl + "Got it! Task " + (taskIndex + 1) + " marked as done:");
                 System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + nl + line);
-            } else if (input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark ")) { // Check if the input is "unmark"
                 int taskIndex = Integer.parseInt(input.substring(7)) - 1;
                 Task markingTask = taskList.get(taskIndex);
                 markingTask.unmarkAsDone();
                 System.out.println(line + nl + "Got it! Task " + (taskIndex + 1) + " marked as undone:");
                 System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + nl + line);
             } else {
-                Task newTask = new Task(input);
+                Task newTask = new Task(input); // Add new task into the list
                 taskList.add(newTask);
-                System.out.println(line + nl + "added to task list: " + input + nl + line);
+                System.out.println(line + nl + "Added to task list: " + input + nl + line);
             }
         }
         scanner.close();
