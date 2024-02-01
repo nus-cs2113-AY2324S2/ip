@@ -18,7 +18,7 @@ public class Task {
         isDone = false;
     }
 
-    public String combineStatus() {
+    public String toString() {
         return getStatusIcon() + " " + description; //combine the status and task description for easier listing
     }
 }
