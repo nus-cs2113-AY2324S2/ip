@@ -57,34 +57,25 @@ public class Winter {
     private static void addTasks() {
         String line = "-----------------------------------\n";
         String indent = "   ";
-        Task[] taskList = new Task[100];
+        String[] taskList = new String[100];
         int taskIndex = 0;
         Scanner input = new Scanner(System.in);
 
         while (true) {
             String command = input.nextLine();
+<<<<<<< HEAD
             Task newTask = new Task(taskIndex+1,false,command);
             taskList[taskIndex] = newTask;
 
             switch(command) {
             // Cases include farewell and list commands
             case "bye":
+=======
+            if(command.equals("bye") || command.equals("Bye") || command.equals("BYE")) {
+>>>>>>> c42d0f18454ee2c796b585ca41b0aa9f74b16ba7
                 break;
-            case "Bye":
-                break;
-            case "BYE":
-                break;
-            case "list":
-                displayList(taskList,taskIndex);
-                continue;
-            case "List":
-                displayList(taskList,taskIndex);
-                continue;
-            case "LIST":
-                displayList(taskList,taskIndex);
-                continue;
-
             }
+<<<<<<< HEAD
             switch(command.substring(0,command.indexOf(" "))) {
             // Cases for marking tasks
             case "mark":
@@ -92,9 +83,17 @@ public class Winter {
                 continue;
             case "unmark":
                 taskList[Integer.parseInt(command.substring(7,command.length()))-1].unmark();
+=======
+            else if (command.equals("list") || command.equals("List") || command.equals("LIST")) {
+                for (int i = 0; i < taskIndex; i++) {
+                    System.out.print(indent);
+                    System.out.println(taskList[i]);
+                }
+                System.out.print(line);
+>>>>>>> c42d0f18454ee2c796b585ca41b0aa9f74b16ba7
                 continue;
             }
-
+            taskList[taskIndex] = Integer.toString(taskIndex+1) + ". " + command;
             taskIndex++;
             System.out.print(line);
             System.out.print(indent);
@@ -103,6 +102,7 @@ public class Winter {
 
         }
     }
+<<<<<<< HEAD
     // Method for displaying list
     private static void displayList(Task[] taskList, int taskIndex) {
         String line = "-----------------------------------\n";
@@ -163,4 +163,6 @@ public class Winter {
             return marked;
         }
     }
+=======
+>>>>>>> c42d0f18454ee2c796b585ca41b0aa9f74b16ba7
 }
