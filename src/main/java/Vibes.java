@@ -16,7 +16,7 @@ public class Vibes {
         while(isExit){
             userInput = in.nextLine().trim();
             System.out.println(line);
-            switch (userInput){
+            switch (userInput.toLowerCase()){
             case "bye":
                 System.out.println("\t Bye. Hope to see you again soon!");
                 isExit = false;
@@ -24,7 +24,14 @@ public class Vibes {
             case "list":
                 taskList.listTasks();
                 break;
+            case "mark*" :
+                break;
             default:
+                if (userInput.toLowerCase().startsWith("mark")){
+                    int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
+                    taskList.setAsDone(taskNumber);
+                    break;
+                }
                 taskList.addTask(userInput);
                 break;
             }

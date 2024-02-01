@@ -14,7 +14,13 @@ public class List {
             return;
         }
         for (int i = 0; i < tasksCount; i++) {
-            System.out.println("\t " + (i + 1) + ". " + tasks[i].getDescription());
+            System.out.println("\t " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
         }
+    }
+
+    public void setAsDone(int taskNumber) {
+        tasks[taskNumber].setDone(true);
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.println("\t   [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
     }
 }
