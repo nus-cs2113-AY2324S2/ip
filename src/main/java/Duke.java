@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     // ASCII Art Generated from: https://patorjk.com/software/taag/#p=display&f=Big&t=anonBot
     private static final String LOGO = "                          ____        _   \n"
@@ -7,6 +9,25 @@ public class Duke {
             + " | (_| | | | | (_) | | | | |_) | (_) | |_ \n"
             + "  \\__,_|_| |_|\\___/|_| |_|____/ \\___/ \\__|\n";
     private static final String SECTION_BAR = "____________________________________________________________";
+
+    /**
+     * Takes user inputs as commands and echos back the command.
+     * If the command is "bye", exit.
+     */
+    private static void parseUserInputs() {
+        Scanner in = new Scanner(System.in);
+        String userInput;
+        while (true) {
+            userInput = in.nextLine();
+            if (userInput.matches("bye")) { // Strict: Must match exactly (same case and no trailing spaces)
+                return;
+            } else {
+                System.out.println(SECTION_BAR);
+                System.out.println(userInput);
+                System.out.println(SECTION_BAR + "\n");
+            }
+        }
+    }
 
     /**
      * Prints greeting messages.
@@ -23,7 +44,7 @@ public class Duke {
      * Prints goodbye message.
      */
     private static void printGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. See ya!");
         System.out.println(SECTION_BAR);
     }
 
@@ -34,6 +55,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         printGreetings();
+        parseUserInputs();
         printGoodbye();
     }
 }
