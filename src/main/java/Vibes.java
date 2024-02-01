@@ -30,9 +30,12 @@ public class Vibes {
                 if (userInput.toLowerCase().startsWith("mark")){
                     int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
                     taskList.setAsDone(taskNumber);
-                    break;
+                } else if (userInput.toLowerCase().startsWith("unmark")) {
+                    int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+                    taskList.setAsNotDone(taskNumber);
+                } else {
+                    taskList.addTask(userInput);
                 }
-                taskList.addTask(userInput);
                 break;
             }
             System.out.println(line);

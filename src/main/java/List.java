@@ -23,4 +23,10 @@ public class List {
         System.out.println("\t Nice! I've marked this task as done:");
         System.out.println("\t   [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
     }
+
+    public void setAsNotDone(int taskNumber){
+        tasks[taskNumber].setDone(false);
+        System.out.println("\t OK, I've marked this task as not done yet:");
+        System.out.println("\t   [" + tasks[taskNumber].getStatusIcon() + "] " + tasks[taskNumber].getDescription());
+    }
 }
