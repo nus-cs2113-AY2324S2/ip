@@ -81,6 +81,10 @@ public class Duke {
             System.out.println(MESSAGE_DIVIDER);
             System.out.println("ERROR: Index out of bounds, usage \"" + command + " (taskIndex)\"");
             System.out.println(MESSAGE_DIVIDER);
+        } catch (NullPointerException e) {
+            System.out.println(MESSAGE_DIVIDER);
+            System.out.println("ERROR: Invalid task index (nullptr), usage \"" + command + " (taskIndex)\"");
+            System.out.println(MESSAGE_DIVIDER);
         }
     }
 
