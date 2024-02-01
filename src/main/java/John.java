@@ -25,7 +25,7 @@ public class John {
         case "mark":
             taskID = in.nextInt();
 
-            if (taskID > taskList.size()) {
+            if (taskID > taskList.size() || taskID < 1) {
                 System.out.println("Out of range");
                 break;
             }

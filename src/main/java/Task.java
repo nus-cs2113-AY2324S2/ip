@@ -21,16 +21,15 @@ public class Task {
     }
 
     public boolean getCompletedStatus() {
-        return isCompleted
-;
+        return isCompleted;
     }
 
     public void markCompleted() {
-        isCompleted = true;
+        this.isCompleted = true;
     }
 
     public void markUncompleted() {
-        isCompleted = false;
+        this.isCompleted = false;
     }
 
     public void printBox() {
@@ -42,7 +41,7 @@ public class Task {
     }
 
     public void printName() {
-        System.out.print(name);
+        System.out.print(this.name);
     }
 
     public void printFull() {
