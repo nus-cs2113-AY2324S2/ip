@@ -9,43 +9,67 @@ public class Ava {
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
         greet();
-        addCommand();
+        addTask();
         exit();
     }
 
-    public static void addCommand() {
-        String[] commands = new String[100];
+    public static void addTask() {
+        Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
-        int commandCount = 0;
-        commands[commandCount] = in.nextLine();
-        if (commands[commandCount].equals("bye")) {
+        int taskCount = 0;
+        String task = in.nextLine();
+        tasks[taskCount] = new Task(task);
+        String description = tasks[taskCount].getDescription();
+        if (description.equals("bye")) {
             return;
         }
-        while (!commands[commandCount].equals("bye")) {
-            if (commands[commandCount].equals("list")) {
-                commandCount += 1;
+        while (!description.equals("bye")) {
+            if (description.equals("list")) {
                 printLine();
-                listCommand(commands, commandCount);
+                System.out.println("Here are the tasks in your list:");
+                listTask(tasks, taskCount);
                 printLine();
+            } else if (description.contains("mark")) {
+                markTask(tasks, description);
             } else {
                 printLine();
-                System.out.println("added: " + commands[commandCount]);
+                System.out.println("added: " + tasks[taskCount].getDescription());
                 printLine();
-                commandCount += 1;
+                taskCount += 1;
             }
-            commands[commandCount] = in.nextLine();
+            task = in.nextLine();
+            tasks[taskCount] = new Task(task);
+            description = tasks[taskCount].getDescription();
         }
     }
 
-    public static void listCommand(String[] commands, int commandCount) {
-        int noOfCommand = 1;
-        int listedCommands = 0;
-        while (noOfCommand < commandCount) {
-            if (!commands[noOfCommand - 1].equals("list")) {
-                System.out.println((listedCommands + 1) + ". " + commands[noOfCommand - 1]);
-                listedCommands += 1;
-            }
-            noOfCommand += 1;
+    public static void markTask(Task[] tasks, String command) {
+        if (command.contains("unmark")) {
+            printLine();
+            command = command.replace("unmark ", "");
+            int changedTask = Integer.parseInt(command);
+            tasks[changedTask - 1].markAsNotDone();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("  [" + tasks[changedTask - 1].getStatusIcon() + "] "
+                    + tasks[changedTask - 1].getDescription());
+            printLine();
+        } else {
+            printLine();
+            command = command.replace("mark ", "");
+            int changedTask = Integer.parseInt(command);
+            tasks[changedTask - 1].markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  [" + tasks[changedTask - 1].getStatusIcon() + "] "
+                    + tasks[changedTask - 1].getDescription());
+            printLine();
+        }
+    }
+    public static void listTask(Task[] tasks, int taskCount) {
+        int noOftask = 0;
+        while (noOftask < taskCount) {
+            System.out.println((noOftask + 1) + ".[" + tasks[noOftask].getStatusIcon()
+                    + "] " + tasks[noOftask].getDescription());
+            noOftask += 1;
         }
     }
 
