@@ -11,19 +11,19 @@ public class N {
         printLine();
     }
 
-    public static void printAsList(String[] taskList) {
+    public static void printAsList(Task[] taskList) {
         if (taskList[0] == null) {
             printMessage("no tasks to complete");
         } else {
             printLine();
             for(int i = 0; taskList[i] != null; i++) {
-                System.out.println(i+1 + ". " +taskList[i]);
+                System.out.println(taskList[i].getIndex()+ ". " +taskList[i].getDescription());
             }
             printLine();
         }
     }
 
-    public static void makeTaskList(String[] taskList, int nextIndex) {
+    public static void makeTaskList(Task[] taskList, int nextIndex) {
         Scanner in = new Scanner(System.in);
         String message = in.nextLine();
         if (message.equalsIgnoreCase("bye")) {
@@ -35,7 +35,7 @@ public class N {
         }
         else {
             printMessage("added: " +message.trim());
-            taskList[nextIndex] = message.trim();
+            taskList[nextIndex] = new Task(message, nextIndex);
             makeTaskList(taskList, nextIndex + 1);
         }
     }
@@ -52,7 +52,7 @@ public class N {
         System.out.println("    Hello! I'm N :) \n" + "    What can I do for you? \n");
         printLine();
 
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         makeTaskList(taskList, 0);
     }
 }
