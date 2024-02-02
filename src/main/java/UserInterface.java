@@ -42,6 +42,7 @@ public class UserInterface {
             if (isExitCommandGiven()) {
                 return;
             }
+            currentInput = currentInput.trim();
             logicManager.processCommand(currentInput);
             HorizontalGenerator.printHorizontal();
         }
