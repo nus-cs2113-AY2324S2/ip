@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static final int MAX_SIZE = 100;
+    private static Task[] tasks = new Task[MAX_SIZE];
+    private static int numberOfTasks = 0;
+
     public static void main(String[] args) {
         String logo = "  ____   _   _      __     ______    _       _  _____\n" +
                 " / ___| | | | |    /  \\    |  _  \\  | |     | ||  ___|\n" +
@@ -12,14 +16,10 @@ public class Duke {
         System.out.println("Hello! I'm Charlie!\n" + logo);
         System.out.println("What can I do for you?");
 
-        final int MAX_SIZE = 100;
-        Task[] tasks = new Task[MAX_SIZE];
-        int numberOfTasks = 0;
-
-        readInputAndExecute(tasks, numberOfTasks);
+        readInputAndExecute();
     }
 
-    private static void readInputAndExecute(Task[] tasks, int numberOfTasks) {
+    private static void readInputAndExecute() {
         Scanner in = new Scanner(System.in);
         String line;
         while (true) {
@@ -30,29 +30,41 @@ public class Duke {
             }
 
             if (line.startsWith("list")) {
-                printTaskList(tasks, numberOfTasks);
+                printTaskList();
                 continue;
             }
 
             if (line.startsWith("mark") || line.startsWith("unmark")) {
-                modifyTaskStatus(tasks, line);
+                modifyTaskStatus(line);
                 continue;
             }
 
-            tasks[numberOfTasks] = new Task(line);
-            numberOfTasks++;
-            System.out.println("     added: " + line);
+            addTask(line);
         }
     }
 
-    private static void printTaskList(Task[] tasks, int numberOfTasks) {
-        System.out.println("     Here is your list:");
+    private static void addTask(String line) {
+        if (line.startsWith("todo")) {
+            tasks[numberOfTasks] = new Todo(line);
+        } else if (line.startsWith("deadline")) {
+            tasks[numberOfTasks] = new Deadline(line);
+        } else if (line.startsWith("event")) {
+            tasks[numberOfTasks] = new Event(line);
+        }
+
+        System.out.println("     New task added: " + tasks[numberOfTasks].getDetails());
+        numberOfTasks++;
+        System.out.println("     Current number of tasks: " + numberOfTasks);
+    }
+
+    private static void printTaskList() {
+        System.out.println("     Here is your list of tasks:");
         for (int i = 0; i < numberOfTasks; i++) {
             System.out.println("     " + (i + 1) + "." + tasks[i].getDetails());
         }
     }
 
-    private static void modifyTaskStatus(Task[] tasks, String line) {
+    private static void modifyTaskStatus(String line) {
         if (line.startsWith("mark")) {
             int indexMarked = Integer.parseInt(line.substring(5)) - 1;
             tasks[indexMarked].isDone = true;
