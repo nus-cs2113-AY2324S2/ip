@@ -39,6 +39,72 @@ public class Schmidt {
                 }
 
                 System.out.println("------------------------------------------------------------");
+            } else if (input.startsWith("mark")) {
+                String[] tokens = input.split(" ");
+
+                if (tokens.length != 2) {
+                    System.out.println("------------------------------------------------------------\n" +
+                            " Please specify the task number to mark as done\n" +
+                            "------------------------------------------------------------");
+                    continue;
+                }
+
+                int index;
+                try {
+                    index = Integer.parseInt(tokens[1]) - 1;
+                } catch (NumberFormatException e) {
+                    System.out.println("------------------------------------------------------------\n" +
+                            " Please specify the task number to mark as done\n" +
+                            "------------------------------------------------------------");
+                    continue;
+                }
+
+                if (index < 0 || index >= tasks.size()) {
+                    System.out.println("------------------------------------------------------------\n" +
+                            " Task number out of range\n" +
+                            "------------------------------------------------------------");
+                    continue;
+                }
+
+                tasks.get(index).markAsDone();
+
+                System.out.println("------------------------------------------------------------\n" +
+                        " Nice! I've marked this task as done:\n" +
+                        "   " + tasks.get(index) + "\n" +
+                        "------------------------------------------------------------");
+            } else if (input.startsWith("unmark")) {
+                String[] tokens = input.split(" ");
+
+                if (tokens.length != 2) {
+                    System.out.println("------------------------------------------------------------\n" +
+                            " Please specify the task number to unmark as done\n" +
+                            "------------------------------------------------------------");
+                    continue;
+                }
+
+                int index;
+                try {
+                    index = Integer.parseInt(tokens[1]) - 1;
+                } catch (NumberFormatException e) {
+                    System.out.println("------------------------------------------------------------\n" +
+                            " Please specify the task number to unmark as done\n" +
+                            "------------------------------------------------------------");
+                    continue;
+                }
+
+                if (index < 0 || index >= tasks.size()) {
+                    System.out.println("------------------------------------------------------------\n" +
+                            " Task number out of range\n" +
+                            "------------------------------------------------------------");
+                    continue;
+                }
+
+                tasks.get(index).unmarkAsDone();
+
+                System.out.println("------------------------------------------------------------\n" +
+                        " Nice! I've unmarked this task as done:\n" +
+                        "   " + tasks.get(index) + "\n" +
+                        "------------------------------------------------------------");
             } else {
                 tasks.add(new Task(input));
 
