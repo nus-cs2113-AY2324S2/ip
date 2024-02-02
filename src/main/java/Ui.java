@@ -14,6 +14,9 @@ public class Ui {
         System.out.print(bobAsciiLogo);
     }
 
+    /**
+     * Generic print method for any given input
+     */
     void print(String output) {
         System.out.println(SEPARATOR);
         System.out.println(output);

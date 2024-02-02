@@ -9,9 +9,13 @@ public class TaskManager {
         this.taskCount = 0;
     }
 
+    /**
+     *  Add task to Task array
+     */
     String addTask(String taskName) {
         int currentIndex = nextTaskId - 1;
         Task newTask = new Task(taskName, nextTaskId);
+
         tasks[currentIndex] = newTask;
         nextTaskId++;
         taskCount++;
@@ -19,10 +23,15 @@ public class TaskManager {
         return String.format(" added: %s", taskName);
     }
 
+    /**
+     * List out tasks (completed/uncompleted) in Task array
+     */
     String listTasks() {
         StringBuilder output = new StringBuilder(" Here are the tasks in your list:\n");
+
         for (int i = 0; i < taskCount; i++) {
             Task currentTask = tasks[i];
+
             if (currentTask.isCompleted()) {
                 output.append(String.format(" %d.[X] %s\n", currentTask.getTaskId(), currentTask.getTaskName()));
             } else {
@@ -33,6 +42,9 @@ public class TaskManager {
         return output.toString().stripTrailing();
     }
 
+    /**
+     * Update progress of Task in Task array
+     */
     String updateTaskProgress(int taskId, String command) {
         String output;
         int currentTaskIndex = taskId - 1; // Index in array is ID - 1
@@ -49,7 +61,8 @@ public class TaskManager {
             output += String.format("   [ ] %s", currentTaskName);
         }
 
-        tasks[currentTaskIndex] = currentTask;
+        tasks[currentTaskIndex] = currentTask; // Update array
+
         return output;
     }
 }
