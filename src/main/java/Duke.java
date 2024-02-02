@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 import task.Task;
 
 public class Duke {
@@ -12,26 +13,65 @@ public class Duke {
     private static final String SECTION_BAR = "____________________________________________________________";
 
     /**
+     * Splits the user's command into individual words. Space-delimited.
+     *
+     * @param userInput Command from the user.
+     * @return String array containing space-delimited words.
+     */
+    private static String[] getCommandArguments(String userInput) {
+        return userInput.split(" ");
+    }
+
+    /**
      * Takes user inputs as commands and process them.
      * If the input is not one of the supported commands below, the input shall be seen as a new task.
      * Tasks are NOT saved when the program exits.
      * Possible commands:
-     * 1. `bye` - Exits the program.
+     * 1. `bye`, `exit` - Exits the program.
      * 2. `list` - Lists out all the tasks.
+     * 3. `mark <task_number> - Marks specific task as done.
+     * 4. `unmark` <task_number> - Marks specific task as undone.
      */
     private static void parseUserInputs() {
         Scanner in = new Scanner(System.in);
         String userInput;
+        String[] commands;
+        int taskNumber;
 
         while (true) {
             userInput = in.nextLine();
-            switch (userInput) {
+            commands = getCommandArguments(userInput);
+            switch (commands[0]) {
+            case "exit":
+                // fallthrough
             case "bye":
                 printGoodbye();
                 return;
             case "list":
                 System.out.println(SECTION_BAR);
                 Task.printTaskList();
+                System.out.println(SECTION_BAR + "\n");
+                break;
+            case "mark":
+                System.out.println(SECTION_BAR);
+                if (commands.length >= 2) {
+                    taskNumber = Integer.parseInt(commands[1]);
+                    Task taskToMark = Task.getTask(taskNumber);
+                    if (taskToMark != null) {
+                        taskToMark.markAsDone();
+                    }
+                }
+                System.out.println(SECTION_BAR + "\n");
+                break;
+            case "unmark":
+                System.out.println(SECTION_BAR);
+                if (commands.length >= 2) {
+                    taskNumber = Integer.parseInt(commands[1]);
+                    Task taskToUnmark = Task.getTask(taskNumber);
+                    if (taskToUnmark != null) {
+                        taskToUnmark.markAsUndone();
+                    }
+                }
                 System.out.println(SECTION_BAR + "\n");
                 break;
             default:
