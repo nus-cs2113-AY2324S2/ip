@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Byte {
     private static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
