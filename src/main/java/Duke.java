@@ -7,17 +7,19 @@ public class Duke {
         + "   J    A A   S      O   O  NN  N \n"
         + "   J   AAAAA   SSS   O   O  N N N \n"
         + "J  J  A     A     S  O   O  N  NN \n"
-        + " JJJ  A     A  SSSS   OOO   N   N \n";
-        System.out.println("Hello from Shaivan\r\n"
-        + " Eyy wassup I'm Jason\r\n" 
+        + " JJJ  A     A  SSSS   OOO   N   N \n" +
+                "                 \n";
+        System.out.println(logo + " Eyy wassup I'm Jason\r\n"
+
         + " What can I do for you?\r\n"
-        + logo);
+        );
       
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int num = 0;
+
 
         while (true) {
             input = scanner.nextLine();
@@ -30,20 +32,32 @@ public class Duke {
                 break;
             }
 
+            //split the input
+            String[] parts = input.split(" ");
+            //Check whether input contains "mark" or "unmark"
+            if (parts.length > 1 && parts[0].equalsIgnoreCase("mark")) {
+                int taskNumber = Integer.parseInt(parts[1]) - 1;
+                list[taskNumber].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(list[taskNumber]);
+            } else if (parts.length > 1 && parts[0].equalsIgnoreCase("unmark")) {
+                int taskNumber = Integer.parseInt(parts[1]) - 1;
+                list[taskNumber].markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(list[taskNumber]);
+            }
 
-
-            if (input.equalsIgnoreCase("list")) {
+            else if (input.equalsIgnoreCase("list")) {
 
                 for (int i = 0; i < num; i++) {
                     System.out.println(i+1 + ":" + list[i]);
                 }
             } else {
                 System.out.println("added: " + input);
-                list[num] = input;
+                list[num] = new Task(input);
                 num++;
 
             }
-
 
 
             System.out.println("____________________________________________________________");
