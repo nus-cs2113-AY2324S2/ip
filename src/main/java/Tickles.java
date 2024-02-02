@@ -87,6 +87,6 @@ public class Tickles {
     }
 
     public static void printLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("_____________________________________________________________");
     }
 }
