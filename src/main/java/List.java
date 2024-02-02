@@ -1,26 +1,56 @@
 public class List {
     
-    private String[] items;
+    private Task[] tasks;
     private int size;
 
     public List() {
-        items = new String[100];
+        tasks = new Task[100];
         size = 0;
     }
 
-    public void addItem(String item) {
-        items[size] = item;
+    public void addTask(String name) {
+        tasks[size] = new Task(name);
         size++;
-        System.out.println("    ________________________________________________");
-        System.out.println("    added: " + item);
-        System.out.println("    ________________________________________________\n");
+        printHorizontalLine();
+        System.out.println("    added: " + name);
+        printHorizontalLine();
+    }
+
+    public void changeTaskStatus(int index, boolean isDone) {
+        tasks[index].changeStatus(isDone);
+        printHorizontalLine();
+        if (isDone) {
+            System.out.println("    Nice! I've marked this task as done:");
+        } else {
+            System.out.println("    OK, I've marked this task as not done yet:");
+        }
+        printTask(index);
+        printHorizontalLine();
     }
 
     public void printList() {
-        System.out.println("    ________________________________________________");
+        printHorizontalLine();
+        System.out.println("    Here are the current tasks in your list:");
         for (int i = 0; i < size; i++) {
-            System.out.println("    " + (i + 1) + ". " + items[i]);
+            printTask(i);
         }
-        System.out.println("    ________________________________________________\n");
+        if (size == 0) {
+            System.out.println("    There are no tasks in your list!");
+        }
+        printHorizontalLine();
+    }
+
+    private void printTask(int index) {
+        String taskName = tasks[index].getName();
+        String taskStatus = tasks[index].getStatusIcon();
+        System.out.println("    " + (index + 1) + ".[" + taskStatus + "] " + taskName);
+    }
+
+    private void printHorizontalLine() {
+        System.out.println("    ________________________________________________");
+    }
+
+    public int getSize() {
+        return size;
     }
 }
