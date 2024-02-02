@@ -14,14 +14,25 @@ public class Burger {
         boolean poll = true;
         while (poll) {
             String text = input.nextLine();
-            switch (text.trim().toLowerCase()){
-            case "bye": poll = false;
-                break;
-            case "list": myTodoList.printTodo();
-                break;
-            case "": break;
-            default: myTodoList.addList(text);
-                printAddTask(text);
+            if (text.startsWith("mark")) { // mark
+                int idx = Integer.parseInt(text.split(" ")[1]) - 1;
+                myTodoList.getMarked(idx);
+            } else if (text.startsWith("unmark")) { // unmark
+                int idx = Integer.parseInt(text.split(" ")[1]) - 1;
+                myTodoList.getUnmarked(idx);
+            } else {
+                switch (text.trim().toLowerCase()) {
+                case "bye":
+                    poll = false;
+                    break;
+                case "list":
+                    myTodoList.printTodoList();
+                    break;
+                case "":
+                    break;
+                default:
+                    myTodoList.addTodo(text);
+                }
             }
         }
         goodbye();
@@ -31,16 +42,9 @@ public class Burger {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void printAddTask(String text) {
-        printLine();
-        System.out.println("added: " + text);
-        printLine();
-    }
-
     public static void goodbye() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
-
 }
