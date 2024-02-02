@@ -14,10 +14,10 @@ public class OGF {
         System.out.println("What can I do for you?");
 
 
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int numItems = 0;
         Scanner in = new Scanner(System.in);
-
+        int taskNo;
         while (true) {
             String input = in.nextLine();
             switch (input.split(" ")[0]) {
@@ -27,11 +27,29 @@ public class OGF {
                 case ("list"):
                     System.out.println("Here are your tasks for today: ");
                     for (int i = 0; i < numItems; i++){
-                        System.out.println(i+1 + ". " + list[i]);
+                        System.out.print(i+1 + ". ");
+                        list[i].printTask();
                     }
+                    System.out.println(("____________________________________________________________"));
+                    break;
+                case ("mark"):
+                case ("unmark"):
+                    taskNo = Integer.parseInt(input.split(" ")[1])-1;
+
+                    if (input.split(" ")[0].equals("mark")){
+                        System.out.println("Good Job! I'm setting this task as done: ");
+                        list[taskNo].setDone(true);
+                    }
+                    else{
+                        System.out.println("Oop! I'm setting this task as undone: ");
+                        list[taskNo].setDone(false);
+
+                    }
+                    list[taskNo].printTask();
+                    System.out.println(("____________________________________________________________"));
                     break;
                 default:
-                    list[numItems] = input;
+                    list[numItems] = new Task(input);
                     numItems++;
                     System.out.println("Added: " + input);
                     System.out.println(("____________________________________________________________"));
