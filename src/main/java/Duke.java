@@ -1,5 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke  {
 
@@ -14,27 +15,37 @@ public class Duke  {
         Greet greet = new Greet();
         greet.sayHello();
 
-        String[] list = new String[100];
+        List<Task> taskList = new ArrayList<>();
 
         String line;
         Scanner in = new Scanner(System.in);
-        int listIndex = 0;
         while(true) {
             line = in.nextLine();
             if (line.equals("bye")) {
                 break;
             }
             if(line.equals("list")) {
-                greet.printList(list, listIndex);
+                greet.printList(taskList);
                 continue;
             }
+            if(line.split(" ")[0].equals("mark")) {
+                int indexToPrint = Integer.parseInt(line.split(" ")[1])-1;
+                greet.markTaskAsDone(taskList, indexToPrint);
+                continue;
+            }
+            if(line.split(" ")[0].equals("unmark")) {
+                int indexToPrint = Integer.parseInt(line.split(" ")[1])-1;
+                greet.markTaskAsUndone(taskList, indexToPrint);
+                continue;
+            }
+            Task task = new Task(line);
+            taskList.add(task);
+
             greet.printHyphen();
             System.out.println();
             System.out.println("added: " + line);
             greet.printHyphen();
             System.out.println();
-            list[listIndex] = line;
-            listIndex++;
         }
         greet.sayBye();
 
