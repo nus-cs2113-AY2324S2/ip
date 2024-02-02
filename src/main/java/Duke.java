@@ -8,7 +8,7 @@ public class Duke {
         }
     }
 
-    private static void modifyTaskList(Task[] tasks, int numberOfTasks, String line) {
+    private static void modifyTaskList(Task[] tasks, String line) {
         if (line.startsWith("mark")) {
             int indexMarked = Integer.parseInt(line.substring(5)) - 1;
             tasks[indexMarked].isDone = true;
@@ -35,7 +35,9 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String line;
-        Task[] tasks = new Task[100];
+
+        final int MAX_SIZE = 100;
+        Task[] tasks = new Task[MAX_SIZE];
         int numberOfTasks = 0;
 
         while (true) {
@@ -43,15 +45,21 @@ public class Duke {
             if (line.contains("bye")) {
                 System.out.println("     Bye. Hope to see you again soon!");
                 break;
-            } else if (line.startsWith("list")) {
-                printTaskList(tasks, numberOfTasks);
-            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
-                modifyTaskList(tasks, numberOfTasks, line);
-            } else {
-                tasks[numberOfTasks] = new Task(line);
-                numberOfTasks++;
-                System.out.println("     added: " + line);
             }
+
+            if (line.startsWith("list")) {
+                printTaskList(tasks, numberOfTasks);
+                continue;
+            }
+
+            if (line.startsWith("mark") || line.startsWith("unmark")) {
+                modifyTaskList(tasks, line);
+                continue;
+            }
+
+            tasks[numberOfTasks] = new Task(line);
+            numberOfTasks++;
+            System.out.println("     added: " + line);
         }
     }
 }
