@@ -16,10 +16,10 @@ public class OGF {
 
         Task[] list = new Task[100];
         int numItems = 0;
-        Scanner in = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         int taskNo;
         while (true) {
-            String input = in.nextLine();
+            String input = scanner.nextLine();
             switch (input.split(" ")[0]) {
                 case ("bye"):
                     System.out.println("Bye bye now!");
