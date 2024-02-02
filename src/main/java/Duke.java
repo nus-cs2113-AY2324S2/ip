@@ -1,17 +1,35 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        //System.out.println("Hello from\n" + logo);
 
+        String logo = "  TTTTT  AAAAA  TTTTT  EEEEE\n" +
+                      "    T    A   A    T    E\n" +
+                      "    T    AAAAA    T    EEEE\n" +
+                      "    T    A   A    T    E\n" +
+                      "    T    A   A    T    EEEEE\n";
+        System.out.println("Hello from\n" + logo);
         System.out.println("------------------------------------------------------------");
-        System.out.println("Hello! I'm Tate!");
-        System.out.println("What can I do for you?\n");
+        System.out.println("                Hello! I'm Tate!");
+        System.out.println("                What do you need?\n");
         System.out.println("------------------------------------------------------------");
-        System.out.println("Bye. Hope to see you again soon!");
+
+        String line;
+        Scanner in = new Scanner(System.in);
+
+        while (true) {
+            line = in.nextLine();
+            if (line.equals("bye")) {
+                break;
+            }
+            System.out.println("    ------------------------------------------------------------");
+            System.out.println("    " + line);
+            System.out.println("------------------------------------------------------------");
+
+
+        }
+        System.out.println("------------------------------------------------------------");
+        System.out.println("            Goodbye and Take care, later then!");
         System.out.println("------------------------------------------------------------");
 
 
