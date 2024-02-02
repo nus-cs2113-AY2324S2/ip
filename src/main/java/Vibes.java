@@ -24,8 +24,6 @@ public class Vibes {
             case "list":
                 taskList.listTasks();
                 break;
-            case "mark*" :
-                break;
             default:
                 if (userInput.toLowerCase().startsWith("mark")){
                     int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
