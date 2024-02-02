@@ -17,7 +17,7 @@ public class Duke {
                                 + "Bye. Hope to see you again soon!\n"
                                 + "_________________________\n");
                 return;
-            } else if(task.equals("list")){
+            } else if(task.equals("list")) {
                 System.out.println("_________________________");
                 System.out.println("\tYour List:");
                 for(int i = 0; i < count; i++){
@@ -27,10 +27,14 @@ public class Duke {
                             + toDo[i].description);
                 }
                 System.out.println("_________________________");
-            } else if(task.contains("mark")){
+            } else if(task.contains("mark")) {
                 String[] subCommand = task.split(" ");
                 int num = Integer.parseInt(subCommand[1]);
-                if(subCommand[0].equals("mark")){
+                if(num > count) {
+                    System.out.println("Suggest a number available in the list!");
+                    continue;
+                }
+                if(subCommand[0].equals("mark")) {
                     toDo[num-1].markDone();
                     System.out.println(
                             "_________________________\n"
@@ -38,7 +42,7 @@ public class Duke {
                                     + "[" + toDo[num-1].getStatusIcon() + "] "
                                     + toDo[num-1].description
                                     + "\n_________________________");
-                } else{
+                } else {
                     toDo[num-1].markNotDone();
                     System.out.println(
                             "_________________________\n"
@@ -47,7 +51,7 @@ public class Duke {
                                     + toDo[num-1].description
                                     + "\n_________________________");
                 }
-            } else{
+            } else {
                 Task tasks = new Task(task);
                 toDo[count] = tasks;
                 System.out.println(
