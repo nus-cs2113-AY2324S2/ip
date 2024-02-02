@@ -1,7 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static final String separator = "\t_____________________________________________";
+    private static final String separator = "    _____________________________________________";
     private static void wrapEchoMessage(String message){
         System.out.println(separator);
         System.out.println(message);
@@ -16,10 +16,10 @@ public class Task {
     }
     public void markTask(){
         this.isDone=true;
-        wrapEchoMessage("\t Nice Job! I'll mark this as done: \n\t   [X] "+description);
+        wrapEchoMessage("     Nice Job! I'll mark this as done: \n       [X] "+description);
     }
     public void unMarkTask(){
         this.isDone=false;
-        wrapEchoMessage("\t Noted. Get it done soon.. \n\t   [ ] "+description);
+        wrapEchoMessage("     Noted. Get it done soon.. \n       [ ] "+description);
     }
 }
