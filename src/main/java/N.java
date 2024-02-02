@@ -17,7 +17,7 @@ public class N {
         } else {
             printLine();
             for(int i = 0; taskList[i] != null; i++) {
-                System.out.println(taskList[i].getIndex()+ ". " +taskList[i].getDescription());
+                System.out.println(taskList[i].getIndex()+ ".["+taskList[i].getMark()+"] " +taskList[i].getDescription());
             }
             printLine();
         }
@@ -31,6 +31,18 @@ public class N {
         }
         else if (message.equalsIgnoreCase("list")) {
             printAsList(taskList);
+            makeTaskList(taskList, nextIndex);
+        }
+        else if (message.contains("unmark")) {
+            int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
+            taskList[indexToUnmark - 1].setDone(false);
+            printMessage("Okay, task " +indexToUnmark+ " still needs to be done");
+            makeTaskList(taskList, nextIndex);
+        }
+        else if (message.contains("mark")) {
+            int indexToMark = Integer.parseInt(message.split(" ")[1]);
+            taskList[indexToMark - 1].setDone(true);
+            printMessage("Task " +indexToMark+ " is done, yay! :)");
             makeTaskList(taskList, nextIndex);
         }
         else {
