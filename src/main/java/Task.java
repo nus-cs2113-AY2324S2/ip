@@ -1,8 +1,7 @@
 public class Task {
 
     private String name;
-    private boolean isCompleted
- = false;
+    private boolean isCompleted = false;
 
     public Task() {
         name = "Unnamed";

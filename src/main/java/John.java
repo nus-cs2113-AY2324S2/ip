@@ -12,6 +12,7 @@ public class John {
         int taskID;
 
         switch(input.toLowerCase()) {
+            
         case "list":
             for (int i = 1; i <= taskList.size(); i += 1) {
                 System.out.print(i + ".");
