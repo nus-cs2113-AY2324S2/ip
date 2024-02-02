@@ -13,17 +13,47 @@ public class OGF {
         System.out.println("Welcome! I'm your \n" + logo + "Nice to meet you!");
         System.out.println("What can I do for you?");
 
-        String input;
+
+        Task[] list = new Task[100];
+        int numItems = 0;
+        Scanner in = new Scanner(System.in);
+        int taskNo;
         while (true) {
-            Scanner in = new Scanner(System.in);
-            input = in.nextLine();
-            if (!input.equals("bye")) {
-                System.out.println("You said: " + input);
-                System.out.println("____________________________________________________________");
-                System.out.println("What can I do for you?");
-            } else {
-                System.out.println("Bye bye now!");
-                break;
+            String input = in.nextLine();
+            switch (input.split(" ")[0]) {
+                case ("bye"):
+                    System.out.println("Bye bye now!");
+                    return;
+                case ("list"):
+                    System.out.println("Here are your tasks for today: ");
+                    for (int i = 0; i < numItems; i++){
+                        System.out.print(i+1 + ". ");
+                        list[i].printTask();;
+                    }
+                    System.out.println(("____________________________________________________________"));
+                    break;
+                case ("mark"):
+                case ("unmark"):
+                    taskNo = Integer.parseInt(input.split(" ")[1])-1;
+
+                    if (input.split(" ")[0].equals("mark")){
+                        System.out.println("Good Job! I'm setting this task as done: ");
+                        list[taskNo].setDone(true);
+                    }
+                    else{
+                        System.out.println("Oop! I'm setting this task as undone: ");
+                        list[taskNo].setDone(false);
+
+                    }
+                    list[taskNo].printTask();
+                    System.out.println(("____________________________________________________________"));
+                    break;
+                default:
+                    list[numItems] = new Task(input);
+                    numItems++;
+                    System.out.println("Added: " + input);
+                    System.out.println(("____________________________________________________________"));
+                    break;
             }
         }
 
