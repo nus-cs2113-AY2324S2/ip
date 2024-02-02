@@ -9,7 +9,7 @@ public class Task {
 
     public void printTask() {
         char checkBox = ' ';
-        if(isDone) {
+        if (isDone) {
             checkBox = 'X';
         }
         System.out.println("["+ checkBox + "] " + description);
@@ -23,7 +23,7 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isDone() {
+    public boolean checkDone() {
         return isDone;
     }
 
