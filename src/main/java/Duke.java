@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import task.Task;
 
 public class Duke {
     // ASCII Art Generated from: https://patorjk.com/software/taag/#p=display&f=Big&t=anonBot
@@ -21,8 +22,6 @@ public class Duke {
     private static void parseUserInputs() {
         Scanner in = new Scanner(System.in);
         String userInput;
-        String[] tasks = new String[128];
-        int taskCounter = 1;
 
         while (true) {
             userInput = in.nextLine();
@@ -32,18 +31,14 @@ public class Duke {
                 return;
             case "list":
                 System.out.println(SECTION_BAR);
-                for (int i = 1; i < taskCounter; i++) {
-                    System.out.format("%d. %s\n", i, tasks[i]);
-                }
+                Task.printTaskList();
                 System.out.println(SECTION_BAR + "\n");
                 break;
             default:
-                tasks[taskCounter] = userInput;
-                taskCounter++;
+                new Task(userInput);
                 System.out.println(SECTION_BAR);
                 System.out.println("Added: " + userInput);
                 System.out.println(SECTION_BAR + "\n");
-
             }
         }
     }
