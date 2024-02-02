@@ -3,13 +3,12 @@ import java.util.Arrays;
 
 public class Duke {
     public static void main(String[] args) {
-        String name = "George";
+        String name = "Floda";
         System.out.println("Hello! I'm " + name);
         String[] list = new String[100];
         Boolean[] marked = new Boolean[100];
         Arrays.fill(marked, Boolean.FALSE);
         int taskCounter = 0;
-
         Scanner scanner = new Scanner(System.in);
         String line;
         System.out.println("I can keep track of a to-do list for you! Just type what you want to add to the list.\nType 'list' to see what is in the list so far.\nType 'mark' and 'unmark' followed by the task number to update its status.\nType 'bye' to exit.");
@@ -55,6 +54,7 @@ public class Duke {
         }
         System.out.println("Bye. Hope to see you again soon!");
     }
+
     private static String getStatusIcon(boolean marked) {
         return marked ? "[X]" : "[ ]";
     }
