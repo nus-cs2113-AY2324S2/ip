@@ -5,58 +5,56 @@ import java.util.List;
 
 public class Duke {
 
-    public static void  printTasks(List<StringBuilder> tasks) {
+    public static void  printTasks(List<Task> tasks) {
         for (int i = 0; i < tasks.size(); ++i) {
-            System.out.printf("%s. %s%n",(i + 1),
-                    tasks.get(i).toString());
+            System.out.printf("%s. %s%n",(i + 1), tasks.get(i));
         }
 
     }
     public static void main(String[] args) {
         String chatbot = "Jing Xiang";
-        List<StringBuilder> tasks = new ArrayList<StringBuilder>();
+        List<Task> tasks = new ArrayList<Task>();
         Scanner input = new Scanner(System.in);
         System.out.println("Hello clown I am " + chatbot);
-        String line = input.nextLine();
-        while (!line.equals("bye")) {
-            System.out.println("stop clowning");
+        while (true) {
+            System.out.println("stop clowning and type sth");
+            String line = input.nextLine();
+            if (line.equals("bye")) {
+                break;
+            }
             if (line.isEmpty()) {
-                line =  input.nextLine();
                 continue;
             }
             if (line.equals("list")) {
                 printTasks(tasks);
-                line =  input.nextLine();
                 continue;
             }
+            int listIndex = line.charAt(line.length() - 1) - '0';
             if (line.startsWith("mark")) {
-                int index = line.charAt(line.length() - 1) - '0';
-                if (index > tasks.size()) {
-                    System.out.println("index out of bounds you clown");
-                }
-                else {
-                    tasks.get(index - 1).setCharAt(1,'X');
+                try {
+                    Task markedTask = tasks.get(listIndex - 1).markTask();
+                    tasks.set(listIndex - 1, markedTask);
                     printTasks(tasks);
                 }
-                line =  input.nextLine();
+                catch(IndexOutOfBoundsException e) {
+                    System.out.println(e + " clownnnnn");
+                }
                 continue;
             }
 
             if (line.startsWith("unmark")) {
-                int index = line.charAt(line.length() - 1) - '0';
-                if (index > tasks.size()) {
-                    System.out.println("index out of bounds you clown");
-                }
-                else {
-                    tasks.get(index - 1).setCharAt(1,' ');
+                try {
+                    Task unmarkedTask = tasks.get(listIndex - 1).unmarkTask();
+                    tasks.set(listIndex - 1, unmarkedTask);
                     printTasks(tasks);
                 }
-                line =  input.nextLine();
+                catch(IndexOutOfBoundsException e) {
+                    System.out.println(e + " clownnnnn");
+                }
                 continue;
             }
-            tasks.add(new StringBuilder("[ ] " + line));
+            tasks.add(new Task(line));
             System.out.printf("Added: %s%n",line);
-            line =  input.nextLine();
         }
         System.out.println("Hope to see you soon");
     }
