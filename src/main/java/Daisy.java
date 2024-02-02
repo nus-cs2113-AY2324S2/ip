@@ -1,5 +1,5 @@
-public class Duke {
-    public static void main(String[] a  rgs) {
+public class Daisy {
+    public static void main(String[] args) {
         String INTRO_PROMPT = "Hello! I'm Daisy.\nWhat can I do for you?";
         String EXIT_PROMPT = "Bye. Hope to see you again soon!";
         String LINE_BREAK = "\n____________________________________";
