@@ -1,0 +1,3 @@
+public enum CommandType {
+    ADD, LIST, MARK, UNMARK, INVALID_COMMAND, INVALID_INDEX
+}
