@@ -14,8 +14,8 @@ public class OGF {
         System.out.println("What can I do for you?");
 
 
-        Task[] list = new Task[100];
-        int numItems = 0;
+        Task[] tasks = new Task[100];
+        int numItem = 0;
         Scanner scanner = new Scanner(System.in);
         int taskNo;
         while (true) {
@@ -26,31 +26,30 @@ public class OGF {
                     return;
                 case ("list"):
                     System.out.println("Here are your tasks for today: ");
-                    for (int i = 0; i < numItems; i++){
+                    for (int i = 0; i < numItem; i++){
                         System.out.print(i+1 + ". ");
-                        list[i].printTask();
+                        tasks[i].printTask();
                     }
                     System.out.println(("____________________________________________________________"));
                     break;
                 case ("mark"):
+                //Fallthrough
                 case ("unmark"):
                     taskNo = Integer.parseInt(input.split(" ")[1])-1;
 
                     if (input.split(" ")[0].equals("mark")){
                         System.out.println("Good Job! I'm setting this task as done: ");
-                        list[taskNo].setDone(true);
-                    }
-                    else{
+                        tasks[taskNo].setDone(true);
+                    } else{
                         System.out.println("Oop! I'm setting this task as undone: ");
-                        list[taskNo].setDone(false);
-
+                        tasks[taskNo].setDone(false);
                     }
-                    list[taskNo].printTask();
+                    tasks[taskNo].printTask();
                     System.out.println(("____________________________________________________________"));
                     break;
                 default:
-                    list[numItems] = new Task(input);
-                    numItems++;
+                    tasks[numItem] = new Task(input);
+                    numItem++;
                     System.out.println("Added: " + input);
                     System.out.println(("____________________________________________________________"));
                     break;
