@@ -8,7 +8,6 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> tasks = new ArrayList<>();
         ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
@@ -21,7 +20,6 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
                     Task task = tasks.get(i);
                     System.out.println((i + 1) + ".[" + task.getStatusIcon() + "] " + task.description);
                 }
@@ -34,7 +32,6 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
-                tasks.add(userInput);
                 tasks.add(new Task(userInput));
             }
         }
