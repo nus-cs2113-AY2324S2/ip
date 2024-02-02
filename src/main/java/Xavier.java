@@ -28,13 +28,13 @@ public class Xavier {
             }
             else if (stringArray[0].equals("mark")) {
                 int index = Integer.parseInt(stringArray[1]) - 1;
-                itemList[index].isDone = true;
+                itemList[index].markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("[" + itemList[index].getStatusIcon() + "] " + itemList[index].description);
             }
             else if (stringArray[0].equals("unmark")) {
                 int index = Integer.parseInt(stringArray[1]) - 1;
-                itemList[index].isDone = false;
+                itemList[index].markAsNotDone();
                 System.out.println("OK, I've marked this task as not yet done:");
                 System.out.println("[" + itemList[index].getStatusIcon() + "] " + itemList[index].description);
             }
