@@ -18,7 +18,7 @@ public class Duke {
                 " /    M A V I S'\n" +
                 "^";
         //Store added tasks to an array
-        String[] listOfTasks = new String[100];
+        Task[] listOfTasks = new Task[100];
 
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
@@ -49,11 +49,32 @@ public class Duke {
                 }
 
             }
-            else {
+            else if (Arrays.asList(inputToEcho.split(" ")).contains("mark")) {
+
+                //Extract the index of the task the user wishes to mark
+                String[] splitInput = inputToEcho.split(" ");
+                int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+
+                listOfTasks[taskIndex].markAsCompleted();
+
+                System.out.println("As you wish, good sir. Here is the task you just marked as completed:");
+                listTask(taskIndex, listOfTasks[taskIndex]);
+            } else if (Arrays.asList(inputToEcho.split(" ")).contains("unmark")) {
+
+                //Extract the index of the task the user wishes to mark
+                String[] splitInput = inputToEcho.split(" ");
+                int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+
+                listOfTasks[taskIndex].markAsNotCompleted();
+
+                System.out.println("Reversing the flow of space and time to undo the task...");
+                System.out.println("Here is the task you just marked as not completed:");
+                listTask(taskIndex, listOfTasks[taskIndex]);
+            } else {
 
                 showNewlyAddedTask(inputToEcho);
 
-                listOfTasks[listOfTasksSize] = inputToEcho;
+                listOfTasks[listOfTasksSize] = new Task(inputToEcho);
                 listOfTasksSize += 1;
             }
         }
@@ -64,9 +85,9 @@ public class Duke {
 
     }
 
-    public static void listTask(int currentTaskIndex, String currentTask) {
+    public static void listTask(int currentTaskIndex, Task currentTask) {
         System.out.println("____________________________________________________________");
-        System.out. println((currentTaskIndex + 1) + ". " + currentTask);
+        System.out. println("[" + currentTask.getStatusIcon() + "] " + (currentTaskIndex + 1) + ". " + currentTask.description);
         System.out.println("____________________________________________________________");
     }
 
