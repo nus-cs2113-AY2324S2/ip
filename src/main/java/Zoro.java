@@ -4,12 +4,12 @@ public class Zoro {
     private static final int MAX_TASKS = 100;
     private static final String TAB_SPACE = "    ";
     private static final String LINE = TAB_SPACE + "_____________________________________________________________";
+    private static final String CHATBOT_NAME = "Zoro";
 
     public static void main(String[] args) {
-        String name = "Zoro";
 
         System.out.println(LINE);
-        System.out.println(TAB_SPACE + "Hello I'm " + name);
+        System.out.println(TAB_SPACE + "Hello I'm " + CHATBOT_NAME);
         System.out.println(TAB_SPACE + "What can I do for you?");
         System.out.println(LINE);
 
@@ -17,7 +17,7 @@ public class Zoro {
         int index = 0;
         Scanner in = new Scanner(System.in);
 
-        while (true){
+        while (true) {
             String input;
             input = in.nextLine().trim();
 
@@ -31,7 +31,8 @@ public class Zoro {
                 System.out.println(TAB_SPACE + "Here are the tasks in your list:");
 
                 while (count < MAX_TASKS && taskLists[count] != null) {
-                    System.out.println(TAB_SPACE + (count + 1) + "." + taskLists[count].getStatusIcon() + " " + taskLists[count].description);
+                    System.out.println(TAB_SPACE + (count + 1) + "." + taskLists[count].getStatusIcon() + " "
+                            + taskLists[count].description);
                     count++;
                 }
                 System.out.println(LINE);
@@ -50,7 +51,8 @@ public class Zoro {
                 taskLists[taskIndex].setAsDone();
                 System.out.println(LINE);
                 System.out.println(TAB_SPACE + "Nice! I've marked this task as done:");
-                System.out.println(TAB_SPACE + taskLists[taskIndex].getStatusIcon() + " " + taskLists[taskIndex].description);
+                System.out.println(
+                        TAB_SPACE + taskLists[taskIndex].getStatusIcon() + " " + taskLists[taskIndex].description);
                 System.out.println(LINE);
 
             } else if (input.startsWith("unmark ")) {
@@ -66,15 +68,16 @@ public class Zoro {
 
                 System.out.println(LINE);
                 System.out.println(TAB_SPACE + "OK, I've marked this task as not done yet:");
-                System.out.println(TAB_SPACE + taskLists[taskIndex].getStatusIcon() + " " + taskLists[taskIndex].description);
+                System.out.println(
+                        TAB_SPACE + taskLists[taskIndex].getStatusIcon() + " " + taskLists[taskIndex].description);
                 System.out.println(LINE);
             } else {
-                if (index<MAX_TASKS){
+                if (index < MAX_TASKS) {
                     taskLists[index++] = new Task(input);
                     System.out.println(LINE);
                     System.out.println(TAB_SPACE + "added: " + input);
                     System.out.println(LINE);
-                } else{
+                } else {
                     System.out.println(LINE);
                     System.out.println(TAB_SPACE + "Reached maximum limit for adding tasks");
                     System.out.println(LINE);
