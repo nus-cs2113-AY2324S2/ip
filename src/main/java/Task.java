@@ -7,26 +7,26 @@ public class Task {
         this.isCompleted = false;
     }
 
-    public void printTask() {
+    @Override
+    public String toString() {
         if (this.isCompleted) {
-            System.out.println("[X] " + this.taskName);
-        } else {
-            System.out.println("[] " + this.taskName);
+            return "[X] " + this.taskName;
         }
+        return "[] " + this.taskName;
     }
 
     public void mark() {
         this.isCompleted = true;
+        // Provide feedback to user
         System.out.println("Nice! I've marked this task as done: ");
-        System.out.print("  ");
-        this.printTask();
+        System.out.println("  " + this);
     }
 
     public void unmark() {
         this.isCompleted = false;
+        // Provide feedback to user
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.print("  ");
-        this.printTask();
+        System.out.println("  " + this);
     }
 
 }
