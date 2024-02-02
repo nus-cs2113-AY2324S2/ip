@@ -8,7 +8,7 @@ public class Duke {
         System.out.println(chatBot);
         Task[] toDo = new Task[100];
         int count = 0;
-        while(true){
+        while(true) {
             Scanner userInput = new Scanner(System.in);
             String task = userInput.nextLine();
             if(task.equals("bye")){
@@ -20,7 +20,7 @@ public class Duke {
             } else if(task.equals("list")) {
                 System.out.println("_________________________");
                 System.out.println("\tYour List:");
-                for(int i = 0; i < count; i++){
+                for(int i = 0; i < count; i++) {
                     System.out.println("\t" + (i+1) + ". ["
                             + toDo[i].getStatusIcon()
                             + "] "
