@@ -9,15 +9,16 @@ public class ListKeeper {
         this.tasks = new Task[ListKeeper.MAX_NUM_OF_TASKS];
     }
 
-    public void addToList(String taskName) {
+    public void addToList(Task task) {
         if (this.numTaskAdded == tasks.length) {
             System.out.println("No more tasks can be added");
             return;
         }
-        tasks[this.numTaskAdded] = new Task(taskName);
+        tasks[this.numTaskAdded] = task;
         this.numTaskAdded++;
         // Provide feedback to user
-        System.out.println("added: " + taskName);
+        System.out.println("I have added this task:");
+        System.out.println(task);
     }
 
     public void printList() {
@@ -26,7 +27,7 @@ public class ListKeeper {
         }
     }
 
-    private boolean isOutOfBoundIndex(int inputIndex) {
+    private boolean isIndexOutOfBound(int inputIndex) {
         return inputIndex <= 0 || inputIndex > this.numTaskAdded;
     }
     private void printInvalidTaskIndex() {
@@ -34,7 +35,7 @@ public class ListKeeper {
     }
 
     public void processMark(int inputIndex) {
-        if (isOutOfBoundIndex(inputIndex)) {
+        if (isIndexOutOfBound(inputIndex)) {
             printInvalidTaskIndex();
             return;
         }
@@ -42,7 +43,7 @@ public class ListKeeper {
     }
 
     public void processUnmark(int inputIndex) {
-        if (isOutOfBoundIndex(inputIndex)) {
+        if (isIndexOutOfBound(inputIndex)) {
             printInvalidTaskIndex();
             return;
         }
