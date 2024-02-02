@@ -1,9 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This is the class for Schmidt, a multi-functional chatbot
+ */
 public class Schmidt {
+    /**
+     * This is the main method which makes use of Schmidt class.
+     * @param args Unused.
+     */
     public static void main(String[] args) {
-        String logo = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
+        String LOGO = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
                 "██╔════╝██╔══██╗██║░░██║████╗░████║██║██╔══██╗╚══██╔══╝\n" +
                 "╚█████╗░██║░░╚═╝███████║██╔████╔██║██║██║░░██║░░░██║░░░\n" +
                 "░╚═══██╗██║░░██╗██╔══██║██║╚██╔╝██║██║██║░░██║░░░██║░░░\n" +
@@ -11,7 +18,7 @@ public class Schmidt {
                 "╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░";
         ArrayList<Task> tasks = new ArrayList<Task>();
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + LOGO);
 
         System.out.println("------------------------------------------------------------\n" +
                 " Hello! I'm Schmidt\n" +
@@ -21,7 +28,7 @@ public class Schmidt {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.print("\t -> ");
+            System.out.print("\t-> ");
 
             String input = sc.nextLine();
 
@@ -40,71 +47,9 @@ public class Schmidt {
 
                 System.out.println("------------------------------------------------------------");
             } else if (input.startsWith("mark")) {
-                String[] tokens = input.split(" ");
-
-                if (tokens.length != 2) {
-                    System.out.println("------------------------------------------------------------\n" +
-                            " Please specify the task number to mark as done\n" +
-                            "------------------------------------------------------------");
-                    continue;
-                }
-
-                int index;
-                try {
-                    index = Integer.parseInt(tokens[1]) - 1;
-                } catch (NumberFormatException e) {
-                    System.out.println("------------------------------------------------------------\n" +
-                            " Please specify the task number to mark as done\n" +
-                            "------------------------------------------------------------");
-                    continue;
-                }
-
-                if (index < 0 || index >= tasks.size()) {
-                    System.out.println("------------------------------------------------------------\n" +
-                            " Task number out of range\n" +
-                            "------------------------------------------------------------");
-                    continue;
-                }
-
-                tasks.get(index).markAsDone();
-
-                System.out.println("------------------------------------------------------------\n" +
-                        " Nice! I've marked this task as done:\n" +
-                        "   " + tasks.get(index) + "\n" +
-                        "------------------------------------------------------------");
+                markTaskHelper(tasks, input, true);
             } else if (input.startsWith("unmark")) {
-                String[] tokens = input.split(" ");
-
-                if (tokens.length != 2) {
-                    System.out.println("------------------------------------------------------------\n" +
-                            " Please specify the task number to unmark as done\n" +
-                            "------------------------------------------------------------");
-                    continue;
-                }
-
-                int index;
-                try {
-                    index = Integer.parseInt(tokens[1]) - 1;
-                } catch (NumberFormatException e) {
-                    System.out.println("------------------------------------------------------------\n" +
-                            " Please specify the task number to unmark as done\n" +
-                            "------------------------------------------------------------");
-                    continue;
-                }
-
-                if (index < 0 || index >= tasks.size()) {
-                    System.out.println("------------------------------------------------------------\n" +
-                            " Task number out of range\n" +
-                            "------------------------------------------------------------");
-                    continue;
-                }
-
-                tasks.get(index).unmarkAsDone();
-
-                System.out.println("------------------------------------------------------------\n" +
-                        " Nice! I've unmarked this task as done:\n" +
-                        "   " + tasks.get(index) + "\n" +
-                        "------------------------------------------------------------");
+                markTaskHelper(tasks, input, false);
             } else {
                 tasks.add(new Task(input));
 
@@ -112,6 +57,56 @@ public class Schmidt {
                         "added " + input + "\n" +
                         "------------------------------------------------------------");
             }
+        }
+    }
+
+    /**
+     * This is a helper method to mark or unmark a task as done
+     * @param tasks The list of tasks
+     * @param input The user input
+     * @param isDone A boolean to indicate if the task is done
+     */
+    public static void markTaskHelper(ArrayList<Task> tasks, String input, boolean isDone) {
+        String[] tokens = input.split(" ");
+
+        if (tokens.length != 2) {
+            System.out.println("------------------------------------------------------------\n" +
+                    " Please specify the task number to mark as done\n" +
+                    "------------------------------------------------------------");
+            return;
+        }
+
+        int index;
+        try {
+            index = Integer.parseInt(tokens[1]) - 1;
+        } catch (NumberFormatException e) {
+            System.out.println("------------------------------------------------------------\n" +
+                    " Please specify the task number to mark as done\n" +
+                    "------------------------------------------------------------");
+            return;
+        }
+
+        if (index < 0 || index >= tasks.size()) {
+            System.out.println("------------------------------------------------------------\n" +
+                    " Task number out of range\n" +
+                    "------------------------------------------------------------");
+            return;
+        }
+
+        if (isDone) {
+            tasks.get(index).markAsDone();
+
+            System.out.println("------------------------------------------------------------\n" +
+                    " Nice! I've marked this task as done:\n" +
+                    "   " + tasks.get(index) + "\n" +
+                    "------------------------------------------------------------");
+        } else {
+            tasks.get(index).unmarkAsDone();
+
+            System.out.println("------------------------------------------------------------\n" +
+                    " Nice! I've unmarked this task as done:\n" +
+                    "   " + tasks.get(index) + "\n" +
+                    "------------------------------------------------------------");
         }
     }
 }
