@@ -15,17 +15,34 @@ public class TaskList {
 
 
     public void addTask(String taskDescription) {
-        Task userTask = new Task(taskDescription);
+        ToDo userTask = new ToDo(taskDescription);
         tasks.add(userTask);
         numberOfTasks++;
-        System.out.println( "---" + userTask.getDescription() + " has been added to task list!---");
+        System.out.println( "---" + taskDescription + " has been added to task list!---");
+        System.out.println("---Number of Tasks in List: " + numberOfTasks + "---");
+    }
+
+    public void addTask(String taskDescription, String by) {
+        Deadline userTask = new Deadline(taskDescription, by);
+        tasks.add(userTask);
+        numberOfTasks++;
+        System.out.println( "---" + taskDescription + " has been added to task list!---");
+        System.out.println("---Number of Tasks in List: " + numberOfTasks + "---");
+    }
+
+    public void addTask(String taskDescription, String from, String to) {
+        Event userTask = new Event(taskDescription, from, to);
+        tasks.add(userTask);
+        numberOfTasks++;
+        System.out.println( "---" + taskDescription + " has been added to task list!---");
+        System.out.println("---Number of Tasks in List: " + numberOfTasks + "---");
     }
 
     public void listOut() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < numberOfTasks; i++) {
             Task currTask = tasks.get(i);
-            System.out.println((i + 1) + ". [" + currTask.getStatusIcon() + "]"+ currTask.getDescription());
+            System.out.println((i + 1) + ". " + currTask);
         }
     }
 
@@ -37,7 +54,7 @@ public class TaskList {
             } else {
                 selectedTask.setMark();
                 System.out.println("Well done mate! I've marked this task as done:");
-                System.out.println("[x] " + selectedTask.getDescription());
+                System.out.println(selectedTask);
             }
         } else {
             System.out.println("Can you not do math, mate?");
@@ -52,7 +69,7 @@ public class TaskList {
             } else {
                 selectedTask.setUnmark();
                 System.out.println("WHY?! I've marked this task as not done:");
-                System.out.println("[ ] " + selectedTask.getDescription());
+                System.out.println(selectedTask);
             }
         } else {
             System.out.println("Can you not do math, mate?");
