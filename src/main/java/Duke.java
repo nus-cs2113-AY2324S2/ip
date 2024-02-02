@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    static String[] taskList = new String[100];
+    static Task[] taskList = new Task[100];
 
     // Method to greet the user
     public static void greet() {
@@ -24,11 +24,28 @@ public class Duke {
         System.out.println("------------------------------------------------------------");
     }
 
+    // Method to display marking of tasks
+    public static void displayMarking(int taskNumber, String mark) {
+        String displayString;
+        if (mark.equals("mark")) {
+            displayString = "    Completing tasks like a true Leader \uD83D\uDE01";
+            taskList[taskNumber].markTask();
+        } else {
+            displayString = "    \uD83D\uDE21 Sad reality, you have NOT completed this task";
+            taskList[taskNumber].unmarkTask();
+        }
+        System.out.println("------------------------------------------------------------");
+        System.out.println(displayString);
+        System.out.printf("        [%s] %s%n", taskList[taskNumber].getStatusIcon(), taskList[taskNumber].description);
+        System.out.println("------------------------------------------------------------");
+    }
+
     // Method to display tasks
-    public static void displayTask(int count) {
+    public static void displayTasks(int count) {
         System.out.println("----------------------------------------------------------------");
+        System.out.println("    Your list of Tasks");
         for (int i = 0; i < count; i++) {
-            System.out.println("     " + (i + 1) + ". " + taskList[i]);
+            System.out.printf("     %d. [%s] %s%n", i + 1, taskList[i].getStatusIcon(), taskList[i].description);
         }
         System.out.println("----------------------------------------------------------------");
     }
@@ -44,9 +61,12 @@ public class Duke {
             if (line.equals("bye")) {
                 break;
             } else if (line.equals("list")) {
-                displayTask(count);
+                displayTasks(count);
+            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(line.split(" ")[1]);
+                displayMarking(taskNumber - 1, line.split(" ")[0]);
             } else {
-                taskList[count] = line;
+                taskList[count] = new Task(line);
                 count++;
                 System.out.println("    ------------------------------------------------------------");
                 System.out.println("    " + "added: " + line);
