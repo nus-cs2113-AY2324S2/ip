@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Schmidt {
     public static void main(String[] args) {
         String logo = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
                 "██╔════╝██╔══██╗██║░░██║████╗░████║██║██╔══██╗╚══██╔══╝\n" +
@@ -8,6 +9,8 @@ public class Duke {
                 "░╚═══██╗██║░░██╗██╔══██║██║╚██╔╝██║██║██║░░██║░░░██║░░░\n" +
                 "██████╔╝╚█████╔╝██║░░██║██║░╚═╝░██║██║██████╔╝░░░██║░░░\n" +
                 "╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░";
+        ArrayList<Task> tasks = new ArrayList<Task>();
+
         System.out.println("Hello from\n" + logo);
 
         System.out.println("------------------------------------------------------------\n" +
@@ -27,9 +30,20 @@ public class Duke {
                         " Bye. Hope to see you again soon!\n" +
                         "------------------------------------------------------------");
                 break;
-            } else {
+            } else if (input.equals("list")) {
                 System.out.println("------------------------------------------------------------\n" +
-                        " " + input + "\n" +
+                        " Here are the tasks in your list:");
+
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
+                }
+
+                System.out.println("------------------------------------------------------------");
+            } else {
+                tasks.add(new Task(input));
+
+                System.out.println("------------------------------------------------------------\n" +
+                        "added " + input + "\n" +
                         "------------------------------------------------------------");
             }
         }
