@@ -1,11 +1,11 @@
 import java.util.Scanner;
 public class JingHao {
-    protected Task[] list;
+    protected Task[] taskList;
     protected int numberOfTask;
 
     public JingHao() {
         this.numberOfTask = 0;
-        this.list = new Task[100];
+        this.taskList = new Task[100];
     }
     public void Start(){
         String divider = "____________________________________________________________";
@@ -25,12 +25,12 @@ public class JingHao {
             if (line.equalsIgnoreCase("bye")) {
                 break;
             }
-            else if(line.equalsIgnoreCase("list")) {
+            else if(line.equalsIgnoreCase("taskList")) {
                 if (numberOfTask == 0) {
                     System.out.println("No task");
                 } else {
                     for (int i = 0; i < numberOfTask; i++) {
-                        System.out.println(i+1 + ".[" +list[i].getStatusIcon()+ "] " + list[i].description);
+                        System.out.println(i+1 + ".[" +taskList[i].getStatusIcon()+ "] " + taskList[i].description);
                     }
                 }
             }
@@ -43,20 +43,20 @@ public class JingHao {
                 else{
                     index -= 1;
                     if(line.startsWith("mark")) {
-                        list[index].check();
+                        taskList[index].check();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  [" + list[index].getStatusIcon() + "] " + list[index].description);
+                        System.out.println("  [" + taskList[index].getStatusIcon() + "] " + taskList[index].description);
                     }
                     else{
-                        list[index].uncheck();
+                        taskList[index].uncheck();
                         System.out.println("OK, I've marked this task as not done yet::");
-                        System.out.println("  [" + list[index].getStatusIcon() + "] " + list[index].description);
+                        System.out.println("  [" + taskList[index].getStatusIcon() + "] " + taskList[index].description);
                     }
                 }
             }
             else{
                 Task taskDescription = new Task(line);
-                list[numberOfTask]=taskDescription;
+                taskList[numberOfTask]=taskDescription;
                 numberOfTask++;
                 System.out.println("added: " + line);
                 System.out.println(divider);
