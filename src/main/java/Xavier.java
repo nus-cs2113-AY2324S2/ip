@@ -1,23 +1,24 @@
 import java.util.Scanner;
 
 public class Xavier {
+    public static final String LINE = "_________________________________________________________________";
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Task[] itemList = new Task[100];
         int numberOfItems = 0;
 
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println(LINE);
         System.out.println("Hello! I'm " + "Xavier");
         System.out.println("What can I do for you?");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println(LINE);
 
         while (true) {
             String command = input.nextLine();
             String[] stringArray = command.split(" ");
-            System.out.println("---------------------------------------------------------------------");
+            System.out.println(LINE);
             if (command.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("---------------------------------------------------------------------");
+                System.out.println(LINE);
                 return;
             }
             else if (command.equals("list")) {
@@ -44,7 +45,7 @@ public class Xavier {
                 numberOfItems += 1;
                 System.out.println("added: " + command);
             }
-            System.out.println("---------------------------------------------------------------------");
+            System.out.println(LINE);
         }
     }
 }
