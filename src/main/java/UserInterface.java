@@ -20,6 +20,10 @@ public class UserInterface {
         return currentInput.startsWith("bye");
     }
 
+    private void formatCurrentInput() {
+        currentInput = currentInput.trim();
+    }
+
     private void printCurrentInput() {
         HorizontalGenerator.printHorizontal();
         System.out.println(currentInput);
@@ -42,7 +46,7 @@ public class UserInterface {
             if (isExitCommandGiven()) {
                 return;
             }
-            currentInput = currentInput.trim();
+            formatCurrentInput();
             logicManager.processCommand(currentInput);
             HorizontalGenerator.printHorizontal();
         }

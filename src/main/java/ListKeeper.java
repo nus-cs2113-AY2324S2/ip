@@ -5,16 +5,19 @@ public class ListKeeper {
     private int numTaskAdded = 0;
     private static final int MAX_NUM_OF_TASKS = 100;
 
+    public ListKeeper(int numOfTasks) {
+        this.tasks = new Task[numOfTasks];
+    }
     public ListKeeper() {
-        this.tasks = new Task[ListKeeper.MAX_NUM_OF_TASKS];
+        this(MAX_NUM_OF_TASKS);
     }
 
     public void addToList(Task task) {
-        if (this.numTaskAdded == tasks.length) {
+        if (this.numTaskAdded == this.tasks.length) {
             System.out.println("No more tasks can be added");
             return;
         }
-        tasks[this.numTaskAdded] = task;
+        this.tasks[this.numTaskAdded] = task;
         this.numTaskAdded++;
         // Provide feedback to user
         System.out.println("I have added this task:");
@@ -27,26 +30,15 @@ public class ListKeeper {
         }
     }
 
-    private boolean isIndexOutOfBound(int inputIndex) {
-        return inputIndex <= 0 || inputIndex > this.numTaskAdded;
-    }
-    private void printInvalidTaskIndex() {
-        System.out.println("Task specified does not exist");
+    public boolean isValidTaskIndex(int inputIndex) {
+        return inputIndex >= 1 && inputIndex <= this.numTaskAdded;
     }
 
     public void processMark(int inputIndex) {
-        if (isIndexOutOfBound(inputIndex)) {
-            printInvalidTaskIndex();
-            return;
-        }
         tasks[inputIndex - 1].mark();
     }
 
     public void processUnmark(int inputIndex) {
-        if (isIndexOutOfBound(inputIndex)) {
-            printInvalidTaskIndex();
-            return;
-        }
         tasks[inputIndex - 1].unmark();
     }
 }
