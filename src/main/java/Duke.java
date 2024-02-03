@@ -1,28 +1,28 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void printItems(Task[] tasks, int itemCount) {
+    public static void printTasks(Task[] tasks, int taskCount) {
         System.out.println("Here are the tasks in your list:");
-        int itemNumber = 1;
-        for (int i = 0; i < itemCount; i++) {
-            System.out.print(itemNumber + ".");
+        int taskNumber = 1;
+        for (int i = 0; i < taskCount; i++) {
+            System.out.print(taskNumber + ".");
             tasks[i].printTask();
-            itemNumber++;
+            taskNumber++;
         }
     }
 
-    public static void markTask(Task[] tasks, int itemNumber) {
+    public static void markTask(Task[] tasks, int taskNumber) {
         System.out.println("Nice! I've marked this task as done:");
-        tasks[itemNumber].markAsDone();
+        tasks[taskNumber].markAsDone();
         System.out.print(" ");
-        tasks[itemNumber].printTask();
+        tasks[taskNumber].printTask();
     }
 
-    public static void unmarkTask(Task[] tasks, int itemNumber) {
+    public static void unmarkTask(Task[] tasks, int taskNumber) {
         System.out.println("OK, I've marked this task as not done yet:");
-        tasks[itemNumber].markAsNotDone();
+        tasks[taskNumber].markAsNotDone();
         System.out.print(" ");
-        tasks[itemNumber].printTask();
+        tasks[taskNumber].printTask();
     }
 
     public static void main(String[] args) {
@@ -31,35 +31,35 @@ public class Duke {
 
         String userCommand;
         Task[] tasks = new Task[100];
-        int itemCount = 0;
+        int taskCount = 0;
         Scanner in = new Scanner(System.in);
         userCommand = in.nextLine();
 
         while (!(userCommand.equals("bye"))) {
             if (userCommand.equals("list")) {
-                printItems(tasks, itemCount);
+                printTasks(tasks, taskCount);
                 userCommand = in.nextLine();
                 continue;
             }
 
             if (userCommand.contains("unmark ")) {
-                String number = userCommand.replaceAll("[^0-9]", "");
-                int itemNumber = Integer.valueOf(number);
-                unmarkTask(tasks,itemNumber-1);
+                String numberExtracted = userCommand.replaceAll("[^0-9]", "");
+                int taskNumber = Integer.parseInt(numberExtracted);
+                unmarkTask(tasks,taskNumber-1);
                 userCommand = in.nextLine();
                 continue;
             }
 
             if (userCommand.contains("mark ")) {
-                String number = userCommand.replaceAll("[^0-9]", "");
-                int itemNumber = Integer.parseInt(number);
-                markTask(tasks,itemNumber-1);
+                String numberExtracted = userCommand.replaceAll("[^0-9]", "");
+                int taskNumber = Integer.parseInt(numberExtracted);
+                markTask(tasks,taskNumber-1);
                 userCommand = in.nextLine();
                 continue;
             }
 
-            tasks[itemCount] = new Task(userCommand);
-            itemCount++;
+            tasks[taskCount] = new Task(userCommand);
+            taskCount++;
 
             System.out.println("added: " + userCommand);
             userCommand = in.nextLine();
