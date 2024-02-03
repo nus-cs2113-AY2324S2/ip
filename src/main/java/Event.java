@@ -9,9 +9,7 @@ public class Event extends Task {
     }
 
     public Event(EventArguments eventArguments) {
-        super(eventArguments.taskName);
-        this.start = eventArguments.start;
-        this.end = eventArguments.end;
+        this(eventArguments.taskName, eventArguments.start, eventArguments.end);
     }
 
     @Override

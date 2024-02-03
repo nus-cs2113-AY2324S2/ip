@@ -7,8 +7,7 @@ public class Deadline extends Task {
     }
 
     public Deadline(DeadLineArguments deadLineArguments) {
-        super(deadLineArguments.taskName);
-        this.by = deadLineArguments.by;
+        this(deadLineArguments.taskName, deadLineArguments.by);
     }
 
     @Override
