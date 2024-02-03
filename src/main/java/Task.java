@@ -14,4 +14,8 @@ public class Task {
     public String getDetails() {
         return ("[" + getStatusIcon() + "] " + description);
     }
+
+    public void setDone(boolean newStatus) {
+        isDone = newStatus;
+    }
 }

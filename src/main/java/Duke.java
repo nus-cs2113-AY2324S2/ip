@@ -71,14 +71,14 @@ public class Duke {
 
     private static void markTask(String line) {
         int indexMarked = Integer.parseInt(line.substring(5)) - 1;
-        tasks[indexMarked].isDone = true;
+        tasks[indexMarked].setDone(true);
         System.out.println("     Nice! I've marked this task as done:");
         System.out.println("       " + tasks[indexMarked].getDetails());
     }
 
     private static void unmarkTask(String line) {
         int indexUnmarked = Integer.parseInt(line.substring(7)) - 1;
-        tasks[indexUnmarked].isDone = false;
+        tasks[indexUnmarked].setDone(false);
         System.out.println("     OK, I've marked this task as not done yet:");
         System.out.println("       " + tasks[indexUnmarked].getDetails());
     }
