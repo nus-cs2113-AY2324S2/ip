@@ -1,4 +1,6 @@
+import java.util.Locale;
 import java.util.Random;
+import java.util.Scanner;
 
 public class RecrBad {
     private static void printLine() {
@@ -8,17 +10,8 @@ public class RecrBad {
         }
         System.out.println();
     }
-    public static void main(String[] args) {
-        String logo = " ____   ___    ___   ____    ___   \n"
-                + "| __/  / _ \\  | _ \\  | __|  / _ \\   \n"
-                + "| |    ||_||  | / /  | |_   | | |      \n"
-                + "| |_   | _ |  | _/   |_  /  | | |      \n"
-                + "|___\\  // \\\\  |_|    /__/ . \\___/  \n";
-        System.out.println("Hello! I'm \n" + logo);
-        printLine();
-        System.out.println("What can I do for you?");
-        printLine();
 
+    private static void sayBye() {
         // generating random quote
         Random rand = new Random(); // create instance of class Random
         // quotes inspired by https://wisdomquotes.com/short-quotes/, https://wisdomquotes.com/positive-quotes/
@@ -38,12 +31,36 @@ public class RecrBad {
                 "If you're going through hell, keep going ~Winston Churchill",
                 "Small steps motivate. Big steps overwhelm ~Maxime Lagace",
                 "The difference btwn a good and bad day is your ATTITUDE! ~a magnet",
-                "The less you respond to negative people, the more positive your life will become ~Paulo Coelho"
+                "The less you respond to negative people, the more positive your life will become ~Paulo Coelho",
+                "Always know your goals in life",
+                "Often, the problem is not the lack of time but lack of direction"
         };
         int upperbound = quotes.length;
-        System.out.println(quotes.length);
         int randNum = rand.nextInt(upperbound);
 
         System.out.println("Adios My Friend. Sleep early, study smarter \n" + quotes[randNum]);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String logo = " ____   ___    ___   ____    ___   \n"
+                + "| __/  / _ \\  | _ \\  | __|  / _ \\   \n"
+                + "| |    ||_||  | / /  | |_   | | |      \n"
+                + "| |_   | _ |  | _/   |_  /  | | |      \n"
+                + "|___\\  // \\\\  |_|    /__/ . \\___/  \n";
+
+        System.out.println("Hello! I'm \n" + logo);
+        printLine();
+        System.out.println("What can I do for you?");
+
+        while (true) {
+            printLine();
+            String line = in.nextLine(); // reads input
+            if (line.toUpperCase().equals("BYE")) {
+                sayBye();
+                break;
+            }
+            System.out.println("You said: " + line);
+        }
     }
 }
