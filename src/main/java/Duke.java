@@ -12,6 +12,7 @@ public class Duke {
         return false;
     }
     public static void main(String[] args) {
+        //init the parameters to be used
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -28,10 +29,16 @@ public class Duke {
         int number_of_task = 0;
         Task[] tasks_list = new Task[100];
 
-        while(!instruction.equals("bye")) //main loop of the chat bot
+        while(true) //main loop of the chat bot
         {
             instruction = in.nextLine();
-            String[] split_instruction = instruction.split(" ");
+            String[] split_instruction = instruction.split(" ", 2);
+
+            if(instruction.equals("bye")) //end condition
+            {
+                System.out.println(prefix+"Bye.Hope to see you again soon!");
+                break;
+            }
 
             if(instruction.equals("list")) //list method
             {
@@ -39,7 +46,7 @@ public class Duke {
                 for(Task element:tasks_list){
                     if(element==null)
                         break;
-                    System.out.println("\t"+String.valueOf(order)+"["+element.getStatusIcon()+"] "+element.get_description());
+                    System.out.println("\t"+String.valueOf(order)+"." + element);
                     order++;
                 }
                 continue;
@@ -52,7 +59,7 @@ public class Duke {
                 mark_number--; //fit with start with 1
                 tasks_list[mark_number].mark(true);
                 System.out.println(prefix+"Nice! I've marked this task as done:");
-                System.out.println("\t"+"[X] "+tasks_list[mark_number].get_description());
+                System.out.println("\t"+tasks_list[mark_number]);
                 continue;
             }
 
@@ -62,26 +69,43 @@ public class Duke {
                 mark_number--;
                 tasks_list[mark_number].mark(false);
                 System.out.println(prefix+"OK, I've marked this task as not done yet:");
-                System.out.println("\t"+"[ ] "+tasks_list[mark_number].get_description());
+                System.out.println("\t"+tasks_list[mark_number]);
                 continue;
             }
 
+            //case: the instructions is used to add a new task
+            String tasks_type = split_instruction[0];
+            String task_description = "";
+            if(!instruction.equals("bye"))
+                task_description = split_instruction[1].split("/", 2)[0];
+            System.out.println(prefix+"Got it. I've added this task:");
 
-            if(test_existence(tasks_list, instruction))  //add the task if not exist
+            // add the task
+            if(tasks_type.equals("todo"))
             {
-                System.out.println(prefix+"The task "+ instruction + " already exist!");
-                continue;
+                tasks_list[number_of_task] = new Todo(task_description);
             }
-            else
+            if(tasks_type.equals("deadline"))
             {
-                System.out.println(prefix+"added: "+instruction+"\n");
-                // add the task
-                tasks_list[number_of_task] = new Task(instruction);
-                number_of_task++;
+                String task_date = split_instruction[1].split("/", 2)[1];
+                task_date = task_date.replace("by ","");
+                tasks_list[number_of_task] = new Deadline(task_description, task_date);
             }
+            if(tasks_type.equals("event"))
+            {
+                String task_date = split_instruction[1].split("/", 2)[1];
+                task_date = task_date.replace("/","");
+                task_date = task_date.replace("from ","");
+                tasks_list[number_of_task] = new Event(task_description, task_date);
+            }
+
+            System.out.println(prefix+tasks_list[number_of_task]+"\n");
+            number_of_task++;
+            System.out.println("Now you have "+number_of_task+" tasks in the list. \n");
+
 
 
         }
-        System.out.println(prefix+"Bye.Hope to see you again soon!");
+
     }
 }

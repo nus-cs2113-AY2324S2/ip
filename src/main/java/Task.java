@@ -13,6 +13,9 @@ public class Task {
     public String get_description(){
         return this.description;
     }
+    public String toString(){
+        return "[" +getStatusIcon()+"] "+get_description();
+    }
     public void mark(Boolean i){
         this.isDone = i;
     }
