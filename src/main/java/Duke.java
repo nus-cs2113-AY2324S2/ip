@@ -3,6 +3,9 @@ import java.util.Scanner;
 public class Duke {
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
+    private enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
 
     public static void main(String[] args) {
         String name = "Jonas";
@@ -27,6 +30,19 @@ public class Duke {
                 markTask(userInput);
             } else if (userInput.startsWith("unmark ")) {
                 unmarkTask(userInput);
+            } else if (userInput.startsWith("todo ")) {
+                addTodoTask(userInput.substring(5));
+            } else if (userInput.startsWith("deadline ")) {
+                String[] split = userInput.substring(9).split(" /by ");
+                AddDeadlineTask(split[0], split[1]);
+            } else if (userInput.startsWith("event ")) {
+                String[] split = userInput.substring(6).split(" /from | /to ");
+
+                if (split.length >= 3) {
+                    AddEventTask(split[0], split[1], split[2]);
+                } else {
+                    System.out.println("Invalid input format for event task.");
+                }
             } else {
                 addTask(userInput);
             }
@@ -52,6 +68,45 @@ public class Duke {
         tasks[taskCount++] = new Task(description);
         System.out.println("____________________________________________________________");
         System.out.println("Added: " + description);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void addTodoTask(String description) {
+        if (description.isEmpty()) {
+            System.out.println("Anyhow one...write your task properly leh :(");
+            return;
+        }
+        tasks[taskCount++] = new Todo(description);
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void AddDeadlineTask(String description, String by) {
+        if (description.isEmpty() || by.isEmpty()) {
+            System.out.println("Anyhow one...write your task properly leh :(");
+            return;
+        }
+        tasks[taskCount++] = new Deadline(description, by);
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void AddEventTask(String description, String start, String end) {
+        if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
+            System.out.println("Anyhow one...write your task properly leh :(");
+            return;
+        }
+        tasks[taskCount++] = new Event(description, start, end);
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
