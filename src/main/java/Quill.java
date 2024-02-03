@@ -22,7 +22,7 @@ public class Quill {
 
         while(true) {
             String command;
-            int taskNumber;
+            int taskNumber = Task.getTotalTasks();
             int index;
             if (line.contains(" ")) {
                 index = line.indexOf(" ");
@@ -55,17 +55,14 @@ public class Quill {
                 System.out.println(tasks[taskNumber].toString() + horizontalLine);
                 break;
             case "todo":
-                taskNumber = Task.getTotalTasks();
                 tasks[taskNumber] = new Todo(line);
                 printAddTask(tasks[taskNumber]);
                 break;
             case "deadline":
-                taskNumber = Task.getTotalTasks();
                 tasks[taskNumber] = new Deadline(line);
                 printAddTask(tasks[taskNumber]);
                 break;
             case "event":
-                taskNumber = Task.getTotalTasks();
                 tasks[taskNumber] = new Event(line);
                 printAddTask(tasks[taskNumber]);
                 break;
