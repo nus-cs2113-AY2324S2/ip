@@ -1,5 +1,6 @@
 public class Deadline extends Task {
     private String by;
+
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -9,6 +10,7 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
     public void setBy(String by) {
         this.by = by;
     }

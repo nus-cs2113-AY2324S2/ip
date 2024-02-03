@@ -53,7 +53,7 @@ public class Bean {
         System.out.println(SEPARATOR);
     }
 
-    private static void printGoodbyeMessage(){
+    private static void printGoodbyeMessage() {
         System.out.println("    Bean will take a nap now. Bye!");
         System.out.println(SEPARATOR);
     }
@@ -68,8 +68,7 @@ public class Bean {
             if (taskIndex >= 0 && taskIndex < numItems) {
                 listOfTasks[taskIndex].setDone();
                 printTaskDone(listOfTasks[taskIndex]);
-            }
-            else {
+            } else {
                 printInvalidTaskNo();
             }
 
@@ -78,17 +77,15 @@ public class Bean {
             if (taskIndex >= 0 && taskIndex < numItems) {
                 listOfTasks[taskIndex].setUndone();
                 printTaskUndone(listOfTasks[taskIndex]);
-            }
-            else {
+            } else {
                 printInvalidTaskNo();
             }
 
         } else if (userLine.getCommand().equals("todo")) {
             String description = userLine.getArgument();
-            if(description.isEmpty()) {
+            if (description.isEmpty()) {
                 printNoValueForFields();
-            }
-            else {
+            } else {
                 listOfTasks[numItems] = new ToDo(description);
                 printTaskAdded(listOfTasks[numItems]);
                 numItems += 1;
@@ -99,8 +96,7 @@ public class Bean {
             String by = userLine.getValue("by");
             if (by.isEmpty() || description.isEmpty()) {
                 printNoValueForFields();
-            }
-            else {
+            } else {
                 listOfTasks[numItems] = new Deadline(description, by);
                 printTaskAdded(listOfTasks[numItems]);
                 numItems += 1;
@@ -112,8 +108,7 @@ public class Bean {
             String end = userLine.getValue("end");
             if (start.isEmpty() || end.isEmpty() || description.isEmpty()) {
                 printNoValueForFields();
-            }
-            else {
+            } else {
                 listOfTasks[numItems] = new Event(description, start, end);
                 printTaskAdded(listOfTasks[numItems]);
                 numItems += 1;
