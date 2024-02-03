@@ -5,7 +5,6 @@ public class Duke {
     public static void inputChecker() {
         Scanner in = new Scanner(System.in); // declared a scanner object
         String line; // declared a string object to take in user input
-
         Task[] list; // declare a list with string data type
         list = new Task[100]; // create a list of 100 elements
         int counter = 0;
@@ -31,7 +30,6 @@ public class Duke {
                         break;
                     }
                     System.out.println(task.index + ".[" + task.getStatusIcon() + "] " + task.description);
-
                 }
                 System.out.println("____________________________________________________________");
                 continue;
@@ -61,13 +59,41 @@ public class Duke {
                 continue;
             }
 
-            // user adds in Task elements
-            System.out.println("added: " + line);
+            // user adds in Task elements (old)
+/*            System.out.println("added: " + line);
             System.out.println("____________________________________________________________");
             t = new Task(line, counter+1); //put task in
             list[counter] = t;
-            counter += 1;
+            counter += 1;*/
+
+            //user adds in Task elements, except there are now 3 type of tasks (new)
+            //t = new Task(line, counter+1); // put task in
+
+            // have to check which task is it
+            if (line.startsWith("todo")) {
+               t = new Todo(line, counter+1);
+                list[counter] = t;
+                counter += 1;
+                System.out.println("Now you have " + counter + " tasks in the list.");
+            }
+
+            else if (line.startsWith("deadline")) {
+                t = new Deadline(line, counter+1);
+                list[counter] = t;
+                counter += 1;
+                System.out.println("Now you have " + counter + " tasks in the list.");
+
+            }
+            else if (line.startsWith("event")) {
+                t = new Event(line, counter+1);
+                list[counter] = t;
+                counter += 1;
+                System.out.println("Now you have " + counter + " tasks in the list.");
+            }
+
+
         }
+
     }
 
     public static void main(String[] args) {
