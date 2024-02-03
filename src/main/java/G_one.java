@@ -3,10 +3,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class G_one {
-    private List<String> textList;
+    private List<Task> tasks;
 
     public G_one() {
-        this.textList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     public void start() {
@@ -23,9 +23,13 @@ public class G_one {
             if (userInput.equalsIgnoreCase("bye")) {
                 flag = false;
             } else if (userInput.equalsIgnoreCase("list")) {
-                displayTextList();
+                displayTaskList();
+            } else if (userInput.startsWith("mark")) {
+                markTask(userInput);
+            } else if (userInput.startsWith("unmark")) {
+                unmarkTask(userInput);
             } else {
-                addText(userInput);
+                addTask(userInput);
                 System.out.println("Well...." + userInput);
             }
         }
@@ -34,14 +38,46 @@ public class G_one {
         scanner.close();
     }
 
-    private void addText(String text) {
-        textList.add(text);
+    private void addTask(String description) {
+        Task task = new Task(description);
+        tasks.add(task);
     }
 
-    private void displayTextList() {
-        System.out.println("Your Text List:");
-        for (int i = 0; i < textList.size(); i++) {
-            System.out.println((i + 1) + ". " + textList.get(i));
+    private void displayTaskList() {
+        System.out.println("Your Task List:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.println((i + 1) + "." + task.getStatusIcon() + " " + task.getDescription());
+        }
+    }
+
+    private void markTask(String userInput) {
+        // Extract the task number from the user input
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+        // Mark the task as done
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task task = tasks.get(taskNumber);
+            task.markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  " + task.getStatusIcon() + " " + task.getDescription());
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
+
+    private void unmarkTask(String userInput) {
+        // Extract the task number from the user input
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+        // Unmark the task
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task task = tasks.get(taskNumber);
+            task.unmarkAsDone();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("  " + task.getStatusIcon() + " " + task.getDescription());
+        } else {
+            System.out.println("Invalid task number.");
         }
     }
 
