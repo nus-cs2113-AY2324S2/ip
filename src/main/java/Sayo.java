@@ -32,11 +32,40 @@ public class Sayo {
                     System.out.println("Awesome! I've unmarked this task: ");
                     System.out.println(items[index]);
                 }
-            } else if (!input.equals("bye") && !input.equals("list")) {
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5);
+                items[itemsCount] = new ToDo(description);
+                itemsCount++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + items[itemsCount - 1]);
+                System.out.println("Now you have " + itemsCount + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                int byIndex = input.indexOf("/by");
+                String description = input.substring(9, byIndex).trim();
+                String by = input.substring(byIndex + 4).trim();
+                items[itemsCount] = new Deadline(description, by);
+                itemsCount++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + items[itemsCount - 1]);
+                System.out.println("Now you have " + itemsCount + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                int fromIndex = input.indexOf("/from");
+                int toIndex = input.indexOf("/to");
+                String description = input.substring(6, fromIndex).trim();
+                String start = input.substring(fromIndex + 6, toIndex).trim();
+                String end = input.substring(toIndex + 4).trim();
+                items[itemsCount] = new Event(description, start, end);
+                itemsCount++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + items[itemsCount - 1]);
+                System.out.println("Now you have " + itemsCount + " tasks in the list.");
+            }
+            
+            else if (!input.equals("bye") && !input.equals("list")) {
                 items[itemsCount] = new Task(input);
                 itemsCount++;
                 System.out.println("added: " + input);
-            }
+            } 
 
         } while (!input.equals("bye"));
 
