@@ -9,10 +9,20 @@ public class Duke {
 
         //System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm G.one");
-        System.out.println("What can I do for you?");
-        System.out.println("Bye. Hope to see you again soon!\n");
-
-
-
+        System.out.println("--------------------------------------");
+        Scanner scanner = new Scanner(System.in);
+        boolean flag = true;
+        while (flag){
+            System.out.print("Whats up? ");
+            String userInput = scanner.nextLine();
+            if (userInput.equalsIgnoreCase("bye")){
+                flag = false;
+            }
+            else{
+                System.out.println("Well...." + userInput);
+            }
+        }
+        System.out.println("Goodbye!");
+        scanner.close();
     }
 }
