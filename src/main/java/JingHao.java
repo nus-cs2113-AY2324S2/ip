@@ -1,69 +1,149 @@
 import java.util.Scanner;
 public class JingHao {
+    private static final String LINE_SEP = "____________________________________________________________";
     protected Task[] taskList;
     protected int numberOfTask;
+    protected Scanner in;
 
     public JingHao() {
         this.numberOfTask = 0;
         this.taskList = new Task[100];
+        this.in = new Scanner(System.in);
     }
-    public void Start(){
-        String divider = "____________________________________________________________";
-        String name = "JingHao";
-        String line;
-        Scanner in = new Scanner(System.in);
+    public void start(){
+        greetUser();
+        getUserInput();
+    }
+    private void greetUser(){
+        System.out.println(LINE_SEP + "\nHello! I'm JingHao" );
+        System.out.println("What can I do for you?\n" + LINE_SEP);
+    }
 
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
-        System.out.println(divider);
+    private void getUserInput(){
+        String userInput;
+        do{
+            System.out.print("Input: ");
+            userInput = in.nextLine();
+            handleInput(userInput);
 
-        while (true) {
-            // Reads user input
-            line = in.nextLine().toLowerCase();
-            System.out.println(divider);
-            // Check if the user wants to exit
-            if (line.equalsIgnoreCase("bye")) {
-                break;
+        }
+        while(!userInput.equalsIgnoreCase("bye"));
+    }
+
+    private void handleInput(String userInput){
+        String[] words = userInput.split(" ", 2);
+        String command = words[0].toLowerCase();
+        String description = (words.length == 2) ? words[1] : "";
+        switch (command){
+        case "bye":
+            handleByeCommand();
+            break;
+        case "list":
+            handleListCommand();
+            break;
+        case "mark":
+            handleMarkCommand(description);
+            break;
+        case "unmark":
+            handleUnmarkCommand(description);
+            break;
+        case "todo":
+            handleTodoCommand(description);
+            break;
+        case "deadline":
+            handleDeadlineCommand(description);
+            break;
+        case "event":
+            handleEventCommand(description);
+            break;
+        default:
+            System.out.println("unknown command\n" + LINE_SEP);
+        }
+    }
+
+    private void handleByeCommand(){
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(LINE_SEP);
+    }
+
+    private void handleListCommand(){
+        if (numberOfTask == 0) {
+            System.out.println("You have no task\n"+ LINE_SEP);
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < numberOfTask; i++) {
+                //System.out.println(i+1 + ".[" +taskList[i].getStatusIcon()+ "] " + taskList[i].description);
+                System.out.println(taskList[i]);
             }
-            else if(line.equalsIgnoreCase("taskList")) {
-                if (numberOfTask == 0) {
-                    System.out.println("No task");
-                } else {
-                    for (int i = 0; i < numberOfTask; i++) {
-                        System.out.println(i+1 + ".[" +taskList[i].getStatusIcon()+ "] " + taskList[i].description);
-                    }
-                }
-            }
-            else if(line.startsWith("mark") || line.startsWith("unmark")){
-                String[] words = line.split(" ");
-                int index = Integer.parseInt(words[1]);
-                if(index > numberOfTask || index < 1){
-                    System.out.println("Unable to mark due to invalid index");
-                }
-                else{
-                    index -= 1;
-                    if(line.startsWith("mark")) {
-                        taskList[index].check();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  [" + taskList[index].getStatusIcon() + "] " + taskList[index].description);
-                    }
-                    else{
-                        taskList[index].uncheck();
-                        System.out.println("OK, I've marked this task as not done yet::");
-                        System.out.println("  [" + taskList[index].getStatusIcon() + "] " + taskList[index].description);
-                    }
-                }
-            }
-            else{
-                Task taskDescription = new Task(line);
-                taskList[numberOfTask]=taskDescription;
+            System.out.println(LINE_SEP);
+        }
+    }
+
+    private void handleMarkCommand(String description){
+        try {
+            int index = Integer.parseInt(description)-1;
+            taskList[index].check();
+            System.out.println("Nice! I've marked this task as done:\n  "+ taskList[index]);
+            System.out.println(LINE_SEP);
+        } catch (Exception e){
+            System.out.println("Invalid index. Please try again\n" + LINE_SEP);
+        }
+    }
+    private void handleUnmarkCommand(String description){
+        try {
+            int index = Integer.parseInt(description)-1;
+            taskList[index].uncheck();
+            System.out.println("OK, I've marked this task as not done yet:\n  "+ taskList[index]);
+            System.out.println(LINE_SEP);
+        } catch (Exception e){
+            System.out.println("Invalid index. Please try again\n" + LINE_SEP);
+        }
+    }
+    private void handleTodoCommand(String userInput){
+        Task newTodo = new Todo(userInput);
+        taskList[numberOfTask] = newTodo;
+        numberOfTask++;
+        System.out.println("Got it. I've added this task:\n " + newTodo);
+        printTotalTask();
+        System.out.println(LINE_SEP);
+    }
+    private void handleDeadlineCommand(String userInput){
+        String[] deadlineDescription = userInput.split("/by",2);
+        if(deadlineDescription.length == 2){
+            String description = deadlineDescription[0];
+            String date = deadlineDescription[1];
+            Task newDeadline = new Deadline(description, date);
+            taskList[numberOfTask] = newDeadline;
+            numberOfTask++;
+            System.out.println("Got it. I've added this task:\n " + newDeadline);
+            printTotalTask();
+            System.out.println(LINE_SEP);
+        }
+        else{
+            System.out.println("Invalid deadline command.\n" + LINE_SEP);
+        }
+    }
+    private void handleEventCommand(String userInput){
+        String[] eventDescription = userInput.split("/from",2);
+        if(eventDescription.length == 2){
+            String description = eventDescription[0];
+            String[] eventTime = eventDescription[1].split("/to", 2);
+            if(eventTime.length == 2){
+                String fromDate = eventTime[0];
+                String toDate = eventTime[1];
+                Task newEvent = new Event(description,fromDate,toDate);
+                taskList[numberOfTask] = newEvent;
                 numberOfTask++;
-                System.out.println("added: " + line);
-                System.out.println(divider);
+                System.out.println("Got it. I've added this task:\n " +newEvent);
+                printTotalTask();
+                System.out.println(LINE_SEP);
+                return;
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(divider);
+        System.out.println("Please use the format: deadline (event) /from (Start date) /to (End date)\n" + LINE_SEP);
+    }
+    private void printTotalTask(){
+        System.out.println("Now you have " + numberOfTask + " tasks in the list.");
     }
 
 }
