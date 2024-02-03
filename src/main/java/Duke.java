@@ -18,6 +18,13 @@ public class Duke {
         tasks[itemNumber].printTask();
     }
 
+    public static void unmarkTask(Task[] tasks, int itemNumber) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        tasks[itemNumber].markAsNotDone();
+        System.out.print(" ");
+        tasks[itemNumber].printTask();
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm Ms Chatty :)");
         System.out.println("What can I do for you?");
@@ -31,6 +38,14 @@ public class Duke {
         while (!(userCommand.equals("bye"))) {
             if (userCommand.equals("list")) {
                 printItems(tasks, itemCount);
+                userCommand = in.nextLine();
+                continue;
+            }
+
+            if (userCommand.contains("unmark ")) {
+                String number = userCommand.replaceAll("[^0-9]", "");
+                int itemNumber = Integer.valueOf(number);
+                unmarkTask(tasks,itemNumber-1);
                 userCommand = in.nextLine();
                 continue;
             }
