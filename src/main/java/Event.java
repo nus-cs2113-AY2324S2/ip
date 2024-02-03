@@ -1,5 +1,4 @@
 public class Event extends Task {
-    public static final String TYPE = "E";
     private String from;
     private String to;
 

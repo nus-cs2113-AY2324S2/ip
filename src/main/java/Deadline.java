@@ -1,5 +1,4 @@
 public class Deadline extends Task {
-    public static final String TYPE = "D";
     private String by;
 
     public Deadline(String by) {
