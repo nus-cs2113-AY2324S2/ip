@@ -53,7 +53,7 @@ public class TaskList {
                 System.out.println("Are you blind mate?");
             } else {
                 selectedTask.setMark();
-                System.out.println("Well done mate! I've marked this task as done:");
+                System.out.println("Gnarly mate! I've marked this task as done:");
                 System.out.println(selectedTask);
             }
         } else {

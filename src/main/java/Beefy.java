@@ -41,11 +41,19 @@ public class Beefy {
             break;
         case DEADLINE:
             taskDetails = userWords.trim().split("/by");
-            userTasks.addTask(taskDetails[0].trim(), taskDetails[1].trim());
+            try {
+                userTasks.addTask(taskDetails[0].trim(), taskDetails[1].trim());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Don't be a Drongo mate. Use format:" + System.lineSeparator() + "deadline (Task Description) /by (Date)");
+            }
             break;
         case EVENT:
             taskDetails =  userWords.trim().split("/from|/to");
-            userTasks.addTask(taskDetails[0].trim(), taskDetails[1].trim(), taskDetails[2].trim());
+            try {
+                userTasks.addTask(taskDetails[0].trim(), taskDetails[1].trim(), taskDetails[2].trim());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Don't be a Drongo mate. Use format:" + System.lineSeparator() + "event (Task Description) /from (Date) /to (Date)");
+            }
             break;
         default:
             System.out.println("Crikey Mate! What is this command?");
@@ -67,6 +75,8 @@ public class Beefy {
             System.out.println(BOT_NAME);
             if (userLine.equalsIgnoreCase("bye")) {
                 break;
+            } else if (userLine.isBlank()) {
+                System.out.println("Ya alright mate?");
             } else if (userLine.equalsIgnoreCase("list")) {
                 userTasks.listOut();
             } else if (userWords.length == 2 && isInteger(userWords[1])) {
@@ -89,7 +99,12 @@ public class Beefy {
     }
 
     public void endChat() {
-        System.out.println(BOT_NAME + ": See Ya Mate!");
+        System.out.println(
+
+
+                
+
+                "See Ya Mate!");
         printSeparation();
     }
 
