@@ -1,10 +1,18 @@
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
+        /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+                + "|____/ \\__,_|_|\\_\\___|\n";*/
+
+        //System.out.println("Hello from\n" + logo);
+        System.out.println("Hello! I'm G.one");
+        System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!\n");
+
+
+
     }
 }
