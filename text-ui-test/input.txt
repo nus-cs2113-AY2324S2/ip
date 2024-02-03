@@ -1,0 +1,11 @@
+hello
+todo find a job
+deadline find a job on tuesday 10pm
+deadline find a job /by tuesday 10pm
+event dancing /from mon 2pm /to tuesday 9am
+list
+mark 3
+list
+unmark 3
+list
+bye
