@@ -6,7 +6,7 @@ public class JunBot {
     public static Task[] tasks = new Task[100];
     public static int tasksCount = 0;
 
-    public static void addEvent(String description){
+    public static void addEvent(String description) {
         description = description.replace("event", "").trim();
         if (!description.contains("/from") || !description.contains("/to")) {
             System.out.println("Include a /from and /to for event");
@@ -28,7 +28,7 @@ public class JunBot {
 
     }
 
-    public static void addDeadline(String description){
+    public static void addDeadline(String description) {
         description = description.replace("deadline", "").trim();
         if (!description.contains("/by")) {
             System.out.println("Include a /by for deadline");
@@ -48,7 +48,7 @@ public class JunBot {
 
     }
 
-    public static void addTodo(String description){
+    public static void addTodo(String description) {
         description = description.replace("todo", "").trim();
         Task userTask = new Todo(description);
         tasks[tasksCount] = userTask;
@@ -59,18 +59,48 @@ public class JunBot {
         System.out.println("Now you have " + tasksCount + " tasks in the list\n" + DIVIDER);
     }
 
-    public static void unmarkTaskInList(String command){
-        command = command.replace("unmark", "").trim();
-        int listNumber = Integer.parseInt(command) - 1;
-        tasks[listNumber].unmarkTask();
-    }
-    public static void markTaskInList(String command){
-        command = command.replace("mark", "").trim();
-        int listNumber = Integer.parseInt(command) - 1;
-        tasks[listNumber].markTask();
+    public static boolean isValidListPosition(String command) {
+        if (command == null) {
+            return false;
+        }
+        try {
+            int listPosition = Integer.parseInt(command);
+            return listPosition <= tasksCount && listPosition > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
-    public static String getCommand(String userInput){
+    public static void unmarkTaskInList(String command) {
+        command = command.replace("unmark", "").trim();
+
+        if (!isValidListPosition(command)){
+            System.out.println("Invalid List Number");
+            return;
+        }
+
+        int listNumber = Integer.parseInt(command) - 1;
+        tasks[listNumber].unmarkTask();
+
+        System.out.println(DIVIDER + "Ok, I've marked this task as not done yet:\n");
+        System.out.print(tasks[listNumber] + "\n" + DIVIDER);
+    }
+    public static void markTaskInList(String command) {
+        command = command.replace("mark", "").trim();
+
+        if (!isValidListPosition(command)){
+            System.out.println("Invalid List Number");
+            return;
+        }
+
+        int listNumber = Integer.parseInt(command) - 1;
+        tasks[listNumber].markTask();
+
+        System.out.println(DIVIDER + "Nice! I've marked this task as done:\n");
+        System.out.print(tasks[listNumber] + "\n" + DIVIDER);
+    }
+
+    public static String getCommand(String userInput) {
         int i  = userInput.indexOf(' ');
         String command;
         if ( i != -1 ) {
@@ -81,7 +111,7 @@ public class JunBot {
         return command;
 
     }
-    public static void printList(){
+    public static void printList() {
         int taskNumber = 1;
 
         System.out.println(DIVIDER);
@@ -95,13 +125,13 @@ public class JunBot {
         System.out.println(DIVIDER + "\n");
     }
 
-    public static void addToList(String description){
+    public static void addToList(String description) {
         Task userTask = new Task(description);
         tasks[tasksCount] = userTask;
         System.out.println(DIVIDER + "added: " + userTask.description + "\n" + DIVIDER);
     }
 
-    public static void handleUserInput(){
+    public static void handleUserInput() {
 
         Scanner userInputScanner = new Scanner(System.in);
         String userInput = userInputScanner.nextLine();

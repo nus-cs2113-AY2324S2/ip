@@ -1,7 +1,7 @@
-public class Event extends Todo{
+public class Event extends Todo {
     protected String startDate;
     protected String endDate;
-    public Event(String description, String startDate, String endDate){
+    public Event(String description, String startDate, String endDate) {
         super(description);
         this.tag = "E";
         this.startDate = startDate;
@@ -9,7 +9,7 @@ public class Event extends Todo{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + " (from: " + this.startDate
                 + " to: " + this.endDate + ")";
     }
