@@ -1,13 +1,15 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm LeoDas");
+        System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>();
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -16,9 +18,18 @@ public class Duke {
                 break;
             }
 
-            System.out.println("____________________________________________________________");
-            System.out.println(userInput);
-            System.out.println("____________________________________________________________");
+            if ("list".equalsIgnoreCase(userInput)) {
+                System.out.println("____________________________________________________________");
+                for (int j = 0; j < tasks.size(); j++) {
+                    System.out.println((j + 1) + ". " + tasks.get(j));
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + userInput);
+                System.out.println("____________________________________________________________");
+                tasks.add(userInput);
+            }
         }
 
         System.out.println("____________________________________________________________");
