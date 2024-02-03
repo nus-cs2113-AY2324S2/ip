@@ -1,8 +1,10 @@
 import java.util.Scanner;
+
 public class Evelyn {
 
     public static Task[] tasks;
     public static int indexOfTask = 0;
+
     public static void markTask(int index, boolean done) {
         if (index >= 0 && index < indexOfTask) {
             if (done) {
@@ -19,64 +21,110 @@ public class Evelyn {
             printLine();
         }
     }
-    public static void printList(Task[] tasks){
+
+    public static void printList(Task[] tasks) {
         int index = 1;
-        for (Task task : tasks){
-            if(task == null){
+        for (Task task : tasks) {
+            if (task == null) {
                 printLine();
                 break;
-            }
-            else {
-                System.out.println(index + ". " + tasks[index - 1].getStatusIcon() + tasks[index - 1].description);
+            } else {
+                System.out.println(index + ". " + tasks[index - 1].toString());
                 index++;
             }
         }
     }
-    public  static void echo(){
+
+    public static void echo() {
         String line;
         System.out.println("type your command: ");
         Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        line = in.nextLine().trim();
         printLine();
-        if(line.equals("bye")){
+        if (line.equals("bye")) {
             return;
-        }
-        else if(line.equals("list")){
+        } else if (line.equals("list")) {
+            System.out.println("Here are the tasks in your list:");
             printList(tasks);
             echo();
-        }
-        else if(line.startsWith("mark")){
-            int index = Integer.parseInt(line.substring(5).trim()) - 1;
-            markTask(index,true);
-            echo();
-        }
-        else if(line.startsWith("unmark")) {
+        } else if (line.startsWith("mark")) {
+                int index = Integer.parseInt(line.substring(5).trim()) - 1;
+                markTask(index, true);
+                echo();
+        } else if (line.startsWith("unmark")) {
             int index = Integer.parseInt(line.substring(7).trim()) - 1;
-            markTask(index,false);
+            markTask(index, false);
             echo();
 
-        }
-        else {
-            tasks[indexOfTask] = new Task(line);
+        } else if (line.startsWith("todo")) {
+            tasks[indexOfTask] = new Todos(line.substring(5).trim());
             indexOfTask++;
-            System.out.println("added: " + line);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + tasks[indexOfTask - 1]);
+            System.out.println("Now you have " + indexOfTask + " tasks in the list.");
             printLine();
+            echo();
+        } else if (line.startsWith("deadline")) {
+            boolean haveBy = line.contains("/by");
+            if (haveBy) {
+                String[] parts = line.substring(9).split("/by");
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                tasks[indexOfTask] = new Deadlines(description, by);
+                indexOfTask++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[indexOfTask - 1]);
+                System.out.println("Now you have " + indexOfTask + " tasks in the list.");
+                printLine();
+                echo();
+            }
+            else{
+                System.out.println(" please enter the correct command");
+                echo();
+            }
+        } else if (line.startsWith("event")) {
+            boolean haveFrom = line.contains("/from");
+            boolean haveTo = line.contains("/to");
+            if(haveFrom && haveTo) {
+                String[] parts = line.substring(6).split("/from");
+                String description = parts[0].trim();
+                String[] date = parts[1].trim().split("/to");
+                String from = date[0].trim();
+                String to = date[1].trim();
+                tasks[indexOfTask] = new Events(description, from, to);
+                indexOfTask++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[indexOfTask - 1]);
+                System.out.println("Now you have " + indexOfTask + " tasks in the list.");
+                printLine();
+                echo();
+            }
+            else{
+                System.out.println(" please enter the correct command");
+                echo();
+            }
+        } else {
+            System.out.println(" please enter the correct command");
             echo();
         }
     }
-    public static void printLine(){
+
+    public static void printLine() {
         System.out.print("____________________________________________________________\n");
     }
-    public static void greeting(){
+
+    public static void greeting() {
         printLine();
         System.out.println("Hello! I'm Evelyn");
         System.out.println("What can I do for you?");
         printLine();
     }
-    public static void end(){
+
+    public static void end() {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
+
     public static void main(String[] args) {
         greeting();
         tasks = new Task[100];
