@@ -1,4 +1,4 @@
-public class Event extends Todo{
+public class Event extends Todo {
     private final String TYPE_SYMBOL = "[E]";
     private final String FROM;
     private final String TO;
