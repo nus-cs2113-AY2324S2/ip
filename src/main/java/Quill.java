@@ -15,10 +15,11 @@ public class Quill {
         while(true) {
             String command;
             int taskNumber =  -1;
+            int index = -1;
             if (line.contains(" ")) {
-                int index = line.indexOf(" ");;
+                index = line.indexOf(" ");;
                 command = line.substring(0, index);
-                taskNumber = Integer.parseInt(line.substring(index + 1)) - 1;
+                line = line.substring(index + 1);
             } else {
                 command = line;
             }
@@ -29,25 +30,44 @@ public class Quill {
             case "list":
                 System.out.println(horizontalLine + "Here are the tasks in your list:\n");
                 for (int i = 0; i < Task.getTotalTasks(); i++) {
-                    System.out.println(i + 1 + "." + tasks[i].getStatusIcon() + " " + tasks[i].description);
+                    System.out.println(i + 1 + "." + tasks[i].toString());
                 }
                 System.out.println(horizontalLine);
                 break;
             case "mark":
+                taskNumber = Integer.parseInt(line) - 1;
                 tasks[taskNumber].markAsDone();
                 System.out.println(horizontalLine + "Nice! I've marked this task as done:");
-                System.out.print(tasks[taskNumber].getStatusIcon() + " ");
-                System.out.println(tasks[taskNumber].description + horizontalLine);
+                System.out.println(tasks[taskNumber].toString() + horizontalLine);
                 break;
             case "unmark":
+                taskNumber = Integer.parseInt(line) - 1;
                 tasks[taskNumber].markAsNotDone();
                 System.out.println(horizontalLine + "OK, I've marked this task as not done yet:");
-                System.out.print(tasks[taskNumber].getStatusIcon() + " ");
-                System.out.println(tasks[taskNumber].description + horizontalLine);
+                System.out.println(tasks[taskNumber].toString() + horizontalLine);
+                break;
+            case "todo":
+                taskNumber = Task.getTotalTasks();
+                tasks[taskNumber] = new Todo(line);
+                System.out.println(horizontalLine + "Got it. I've added this task:");
+                System.out.println(tasks[taskNumber].toString());
+                System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
+                break;
+            case "deadline":
+                taskNumber = Task.getTotalTasks();
+                tasks[taskNumber] = new Deadline(line);
+                System.out.println(horizontalLine + "Got it. I've added this task:");
+                System.out.println(tasks[taskNumber].toString());
+                System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
+                break;
+            case "event":
+                taskNumber = Task.getTotalTasks();
+                tasks[taskNumber] = new Event(line);
+                System.out.println(horizontalLine + "Got it. I've added this task:");
+                System.out.println(tasks[taskNumber].toString());
+                System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
                 break;
             default:
-                System.out.println(horizontalLine + "Added: " + line + horizontalLine);
-                tasks[Task.getTotalTasks()] = new Task(line);
                 break;
             }
             line = in.nextLine();
