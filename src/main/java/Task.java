@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType = "";
 
     public Task(String description) {
         this.description = description;
@@ -12,14 +13,17 @@ public class Task {
     }
 
     public void markAsDone() {
-        System.out.println("Good job.");
         isDone = true;
-        System.out.println("[X] " + description);
+        System.out.println("Good job.\n[X]" + taskType + " " + description);
     }
 
     public void markAsUndone() {
-        System.out.println("Lazy. Just simply lazy.");
         isDone = false;
-        System.out.println("[ ] " + description);
+        System.out.println("Lazy. Just simply lazy.\n[ ]" + taskType + " " + description);
+    }
+
+    @Override
+    public String toString() {
+        return "new todo for you:\n[ ]" + taskType + " " + description;
     }
 }

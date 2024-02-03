@@ -1,7 +1,17 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+---------------------------------------------
+I am Yuki, your personal chat bot and your evil twin.
+Time to get grinding.
+---------------------------------------------
+---------------------------------------------
+new todo for you:
+[ ][D] return book  (by:Sunday)
+Now you have 1 tasks in the list.
+---------------------------------------------
+---------------------------------------------
+new todo for you:
+[ ][E] project meeting  (from: Mon 2pm  to: 4pm)
+Now you have 2 tasks in the list.
+---------------------------------------------
+---------------------------------------------
+Breaks are only for the weak.
+---------------------------------------------

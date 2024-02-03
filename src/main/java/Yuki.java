@@ -1,49 +1,87 @@
 import java.util.Scanner;
 public class Yuki {
 
-    public static void printLine() {
-        System.out.println("---------------------------------------------");
-    }
-    public static void main(String[] args) {
-        printLine();
-        System.out.println("I am Yuki, your personal chat bot and your evil twin.");
-        System.out.println("Time to get grinding.");
-        printLine();
+    // create array of Tasks (use of polymorphism)
+    private static Task[] tasks = new Task[100];
+    private static int taskCount = 0;
 
+    public static void addTask(Task t) {
+        tasks[taskCount] = t;
+        taskCount++;
+        System.out.println(t);
+    }
+
+    public static void reportNumberOfTasks() {
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void main(String[] args) {
+        Utils.printWelcomeMessage();
+
+        // accept user input
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        Task[] tasks = new Task[100];
-        int count = 0;
+        // variables for usage in main loop
+        String command;
+        int index_task;
+        String[] data;
+        String description;
 
-        while (!line.equals("bye")) {
-            printLine();
-            if (line.equals("list")) {
+        while (!line.equals("exit")) {
+            Utils.printLine();
+
+            command = line.split(" ")[0];
+
+            switch(command) {
+            case "list":
                 System.out.println("Wake up your idea and do these tasks:");
-                for (int i = 0; i < count; i++) {
-                    System.out.println(Integer.toString(i + 1)
-                            + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] "
+                            + tasks[i].taskType + " " + tasks[i].description);
                 }
-            } else if (line.split(" ")[0].equals("mark")){
-                int index = Integer.parseInt(line.split(" ")[1]) - 1;
-                tasks[index].markAsDone();
-            } else if (line.split(" ")[0].equals("unmark")) {
-                int index = Integer.parseInt(line.split(" ")[1]) - 1;
-                tasks[index].markAsUndone();
-            } else {
-                Task t = new Task(line);
-                tasks[count] = t;
-                System.out.println("new task for you: " + t.description);
-                count++;
+                break;
+
+            case "mark":
+                index_task = Integer.parseInt(line.split(" ")[1]) - 1;
+                tasks[index_task].markAsDone();
+                break;
+
+            case "unmark":
+                index_task = Integer.parseInt(line.split(" ")[1]) - 1;
+                tasks[index_task].markAsUndone();
+                break;
+
+            case "todo":
+                data = Parser.parseInput(line.substring(command.length()));
+                description = data[0];
+                addTask(new Todo(description));
+                reportNumberOfTasks();
+                break;
+
+            case "deadline":
+                data = Parser.parseInput(line.substring(command.length()));
+                description = data[0] + " (by:" + data[1] + ")";
+                addTask(new Deadline(description));
+                reportNumberOfTasks();
+                break;
+
+            case "event":
+                data = Parser.parseInput(line.substring(command.length()));
+                description = data[0] + " (from: " + data[1] + " to: " + data[2] + ")";
+                addTask(new Event(description));
+                reportNumberOfTasks();
+                break;
+
+            default:
+                Utils.printInstructions();
+                break;
             }
-            printLine();
+
+            Utils.printLine();
             line = in.nextLine();
         }
-
-        printLine();
-        System.out.println("Breaks are only for the weak.");
-        printLine();
-
+        Utils.printExitMessage();
     }
 }
