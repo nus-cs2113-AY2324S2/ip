@@ -11,7 +11,7 @@ public class Task {
         this.name = name;
         this.isDone = false;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -29,5 +29,10 @@ public class Task {
 
     public void markNotDone() {
         isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return ("[" + getDoneStatus() + "] " + this.name);
     }
 }
