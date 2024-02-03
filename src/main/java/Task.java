@@ -1,13 +1,11 @@
 public class Task {
     protected String description;
-    protected int listNumber;
     protected boolean isDone;
 
 
-    public Task(String description, int listPosition) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.listNumber = listPosition;
     }
 
     public String getStatusIcon() {
@@ -16,20 +14,22 @@ public class Task {
 
     public void markTask(){
         this.isDone = true;
+
         String divider = "____________________________________________________________";
         System.out.println(divider);
         System.out.println("Nice! I've marked this task as done:");
-        this.printTask();
+        System.out.println(this);
         System.out.println(divider);
 
     }
 
     public void unmarkTask(){
         this.isDone = false;
+
         String divider = "____________________________________________________________";
         System.out.println(divider);
         System.out.println("Ok, I've marked this task as not done yet:");
-        this.printTask();
+        System.out.println(this);
         System.out.println(divider);
 
     }
