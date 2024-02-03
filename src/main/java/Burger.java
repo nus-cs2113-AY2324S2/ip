@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Burger {
-    static final String CHATBOT_NAME = "忍野 忍";
+    static final String CHATBOT_NAME = "Burger";
     static final String HORIZONTAL_LINE = "---------------------------------";
 
     public static void main(String[] args) {
@@ -11,27 +11,30 @@ public class Burger {
         printLine();
         Scanner input = new Scanner(System.in);
         Todo myTodoList = new Todo();
-        boolean poll = true;
-        while (poll) {
+        boolean isPolling = true;
+        while (isPolling) {
             String text = input.nextLine();
-            if (text.startsWith("mark")) { // mark
-                int idx = Integer.parseInt(text.split(" ")[1]) - 1;
-                myTodoList.getMarked(idx);
-            } else if (text.startsWith("unmark")) { // unmark
-                int idx = Integer.parseInt(text.split(" ")[1]) - 1;
-                myTodoList.getUnmarked(idx);
+            String[] textArray = text.split(" ");
+            if (text.startsWith("mark")) { // assume inputs for mark / unmark is correct
+                int idx = Integer.parseInt(textArray[1]) - 1;
+                myTodoList.getMark(idx);
+            } else if (text.startsWith("unmark")) {
+                int idx = Integer.parseInt(textArray[1]) - 1;
+                myTodoList.getUnmark(idx);
             } else {
                 switch (text.trim().toLowerCase()) {
                 case "bye":
-                    poll = false;
+                    isPolling = false;
                     break;
                 case "list":
                     myTodoList.printTodoList();
                     break;
                 case "":
+                    wakeUp();
                     break;
                 default:
                     myTodoList.addTodo(text);
+                    break;
                 }
             }
         }
@@ -41,6 +44,13 @@ public class Burger {
     public static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
+
+    private static void wakeUp() {
+        printLine();
+        System.out.println("Wake Up! Key in something!");
+        printLine();
+    }
+
 
     public static void goodbye() {
         printLine();

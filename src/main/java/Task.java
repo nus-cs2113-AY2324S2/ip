@@ -1,24 +1,24 @@
 public class Task {
 
     private final String name;
-    private boolean done;
+    private boolean hasDone;
     public Task(String task) {
         this.name = task;
-        this.done = false;
+        this.hasDone = false;
     }
     public String getName() {
         return this.name;
     }
     public void markDone() {
-        this.done = true;
+        this.hasDone = true;
     }
 
     public void unmarkDone() {
-        this.done = false;
+        this.hasDone = false;
     }
 
     public String getTick() {
-        return this.done ? "[X] " : "[ ] ";
+        return this.hasDone ? "[X] " : "[ ] ";
     }
 
 }

@@ -5,10 +5,10 @@ public class Todo {
     static final String HORIZONTAL_LINE = "---------------------------------";
     private final ArrayList<Task> todoList;
 
-    public int totalTask;
+    public int totalTasks;
     public Todo() {
         todoList = new ArrayList<>();
-        totalTask = 0;
+        totalTasks = 0;
     }
 
     public Task getTodo(int idx) {
@@ -17,14 +17,14 @@ public class Todo {
     public void addTodo(String task) {
         Task todo = new Task(task);
         this.todoList.add(todo);
-        this.totalTask++;
+        this.totalTasks++;
         printLine();
         System.out.println("added: " + task);
         printLine();
     }
 
-    public void getMarked(int idx) {
-        if (idx < 0 || idx >= totalTask) {
+    public void getMark(int idx) {
+        if (idx < 0 || idx >= totalTasks) {
             System.out.println("OUT OF INDEX!!!");
             return;
         }
@@ -34,11 +34,12 @@ public class Todo {
         printTodo(idx);
     }
 
-    public void getUnmarked(int idx) {
-        if (idx < 0 || idx >= totalTask) {
+    public void getUnmark(int idx) {
+        if (idx < 0 || idx >= totalTasks) {
             System.out.println("OUT OF INDEX!!!");
             return;
         }
+
         System.out.println("OK, I've marked this task as not done yet:");
         Task currTask = getTodo(idx);
         currTask.unmarkDone();
@@ -49,11 +50,13 @@ public class Todo {
         String mark = this.todoList.get(idx).getTick();
         System.out.print(mark);
         System.out.println(task);
+        printLine();
     }
     public void printTodoList() {
         for (int i = 0; i < todoList.size(); i++) {
             System.out.println(i+1 + ". " + todoList.get(i).getTick() + todoList.get(i).getName());
         }
+        printLine();
     }
 
     public static void printLine() {
