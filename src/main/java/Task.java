@@ -1,12 +1,10 @@
 
-//superclass of 3 subclasses: Todo, Deadline and Event
+// Superclass of 3 subclasses: Todo, Deadline and Event
 public class Task {
     // 3 class attributes
     protected String description;
     protected boolean isDone;
     protected int index;
-
-    protected String toString;
 
     // constructor
     public Task(String description, int index) {
@@ -16,33 +14,34 @@ public class Task {
         printHeaders();
     }
 
-    // 3 setter
+    // Set for description attribute
     public void setDescription(String description) {
         this.description = description;
     }
 
-    // set if task is done/undone
+    // Set if task attribute is done/undone
     public void setDone() {
         this.isDone = false;
     }
 
-    //retrieve index of the task
+    // Set index attribute of the task
     public void setCounter(int index) {
         this.index = index;
     }
 
+    // Get status icon
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    // standard 2 lines that will always get printed out
+    // Standard 2 lines that will always get printed out
     public void printHeaders() {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
     }
 
-    // prints from status to end
-    // override the default toString() method
+    // Prints from status to end
+    // Override the default toString() method
     public String toString() {
         String[] splitLine = description.split("\\s+"); // split if there is 1 or more whitespace
         return "[" + this.getStatusIcon() + "] " + splitLine[1] + ' ' + splitLine[2];

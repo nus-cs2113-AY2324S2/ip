@@ -3,28 +3,28 @@ import java.util.Scanner;
 public class Duke {
 
     public static void inputChecker() {
-        Scanner in = new Scanner(System.in); // declared a scanner object
-        String line; // declared a string object to take in user input
-        Task[] list; // declare a list with string data type
-        list = new Task[100]; // create a list of 100 elements
+        Scanner in = new Scanner(System.in); // Declared a scanner object
+        String line; // Declared a string object to take in user input
+        Task[] list; // Declared a list with string data type
+        list = new Task[100]; // created a list of 100 elements
         int counter = 0;
         int index;
         Task t;
 
-        // start of user input
+        // Start of user input
         while (true) {
-            line = in.nextLine(); //takes in user input
+            line = in.nextLine(); // Takes in user input
 
             boolean mark = line.trim().toLowerCase().startsWith("mark");
             boolean unmark = line.trim().toLowerCase().startsWith("unmark");
 
-            // user wants to exit
+            // User wants to exit
             if (line.equals("bye")) {
                 System.out.println("Bye human. Come back soon !");
                 break;
             }
 
-            // user wants to display the list of tasks
+            // User wants to display the list of tasks
             else if (line.equalsIgnoreCase("list")) {
                 for (Task task : list) {
                     if (task == null){
@@ -36,10 +36,10 @@ public class Duke {
                 continue;
             }
 
-            // user wants to mark or unmark tasks
+            // User wants to mark or unmark tasks
             else if (mark || unmark) {
 
-                // to mark
+                // To mark
                 if (mark) {
                      index = Integer.parseInt(line.substring(5));
                      t = list[index - 1];
@@ -47,7 +47,7 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done:");
                 }
 
-                // to unmark
+                // To unmark
                 else {
                     index = Integer.parseInt(line.substring(7));
                     t = list[index - 1];
@@ -60,7 +60,7 @@ public class Duke {
                 continue;
             }
 
-            // checking which type of task the user wants to do
+            // Checks which type of task the user wants to do
                 if (line.startsWith("todo")) {
                    t = new Todo(line, counter+1);
                     list[counter] = t;
