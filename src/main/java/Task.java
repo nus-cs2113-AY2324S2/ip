@@ -21,10 +21,6 @@ public class Task {
         isMark = false;
     }
 
-    public boolean getMark() {
-        return isMark;
-    }
-
     public String getTask() {
         return DESCRIPTION;
     }
