@@ -79,11 +79,21 @@ public class Beefy {
                 System.out.println("Ya alright mate?");
             } else if (userLine.equalsIgnoreCase("list")) {
                 userTasks.listOut();
-            } else if (userWords.length == 2 && isInteger(userWords[1])) {
-                if (userWords[0].equalsIgnoreCase("mark")) {
+            } else if (userWords.length == 2 && userWords[0].equalsIgnoreCase("mark")) {
+                if (isInteger(userWords[1])) {
                     executeCommand(userWords[1], CommandType.MARK);
-                } else if (userWords[0].equalsIgnoreCase("unmark")) {
+                } else {
+                    System.out.println("Don't be a Drongo mate. Use format:"
+                            + System.lineSeparator()
+                            + "mark (taskNo.)");
+                }
+            } else if (userWords.length == 2 && userWords[0].equalsIgnoreCase("unmark")) {
+                if (isInteger(userWords[1])) {
                     executeCommand(userWords[1], CommandType.UNMARK);
+                } else {
+                    System.out.println("Don't be a Drongo mate. Use format:"
+                            + System.lineSeparator()
+                            + "unmark (taskNo.)");
                 }
             } else if (userWords[0].equalsIgnoreCase("todo")){
                 executeCommand(userWords[1], CommandType.TODO);
