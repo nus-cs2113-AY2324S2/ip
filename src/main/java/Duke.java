@@ -34,8 +34,13 @@ public class Duke {
                 continue;
             }
 
-            if (line.startsWith("mark") || line.startsWith("unmark")) {
-                modifyTaskStatus(line);
+            if (line.startsWith("mark")) {
+                markTask(line);
+                continue;
+            }
+
+            if (line.startsWith("unmark")) {
+                unmarkTask(line);
                 continue;
             }
 
@@ -64,17 +69,17 @@ public class Duke {
         }
     }
 
-    private static void modifyTaskStatus(String line) {
-        if (line.startsWith("mark")) {
-            int indexMarked = Integer.parseInt(line.substring(5)) - 1;
-            tasks[indexMarked].isDone = true;
-            System.out.println("     Nice! I've marked this task as done:");
-            System.out.println("       " + tasks[indexMarked].getDetails());
-        } else if (line.startsWith("unmark")) {
-            int indexUnmarked = Integer.parseInt(line.substring(7)) - 1;
-            tasks[indexUnmarked].isDone = false;
-            System.out.println("     OK, I've marked this task as not done yet:");
-            System.out.println("       " + tasks[indexUnmarked].getDetails());
-        }
+    private static void markTask(String line) {
+        int indexMarked = Integer.parseInt(line.substring(5)) - 1;
+        tasks[indexMarked].isDone = true;
+        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("       " + tasks[indexMarked].getDetails());
+    }
+
+    private static void unmarkTask(String line) {
+        int indexUnmarked = Integer.parseInt(line.substring(7)) - 1;
+        tasks[indexUnmarked].isDone = false;
+        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("       " + tasks[indexUnmarked].getDetails());
     }
 }
