@@ -1,10 +1,17 @@
 import java.util.Scanner;
 public class Quill {
+    public static final String horizontalLine = "\n____________________________________________________________\n";
+    public static void printAddTask(Task tasks) {
+        System.out.println(horizontalLine + "Got it. I've added this task:");
+        System.out.println(tasks.toString());
+        System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
+    }
     public static void main(String[] args) {
-        String horizontalLine = "\n____________________________________________________________\n";
         String name = "Quill";
+        final int MAX_TASKS = 100;
+
         String line;
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[MAX_TASKS];
         Scanner in = new Scanner(System.in);
 
         System.out.println(horizontalLine + "Hello! I'm " + name + ".");
@@ -12,12 +19,13 @@ public class Quill {
 
         line = in.nextLine();
 
+
         while(true) {
             String command;
-            int taskNumber =  -1;
-            int index = -1;
+            int taskNumber;
+            int index;
             if (line.contains(" ")) {
-                index = line.indexOf(" ");;
+                index = line.indexOf(" ");
                 command = line.substring(0, index);
                 line = line.substring(index + 1);
             } else {
@@ -49,23 +57,17 @@ public class Quill {
             case "todo":
                 taskNumber = Task.getTotalTasks();
                 tasks[taskNumber] = new Todo(line);
-                System.out.println(horizontalLine + "Got it. I've added this task:");
-                System.out.println(tasks[taskNumber].toString());
-                System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
+                printAddTask(tasks[taskNumber]);
                 break;
             case "deadline":
                 taskNumber = Task.getTotalTasks();
                 tasks[taskNumber] = new Deadline(line);
-                System.out.println(horizontalLine + "Got it. I've added this task:");
-                System.out.println(tasks[taskNumber].toString());
-                System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
+                printAddTask(tasks[taskNumber]);
                 break;
             case "event":
                 taskNumber = Task.getTotalTasks();
                 tasks[taskNumber] = new Event(line);
-                System.out.println(horizontalLine + "Got it. I've added this task:");
-                System.out.println(tasks[taskNumber].toString());
-                System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
+                printAddTask(tasks[taskNumber]);
                 break;
             default:
                 break;
