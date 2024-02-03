@@ -8,7 +8,7 @@ public class Todo extends Task {
         System.out.println(toString());
     }
 
-    // since overriding occurs, toString() of Todo class is called instead
+    // override task's toString() to add [T]
     @Override
     public String toString() {
         return "[T]" + super.toString();

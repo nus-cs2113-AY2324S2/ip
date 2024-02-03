@@ -11,14 +11,14 @@ public class Event extends Task{
         System.out.println(toString());
     }
     public String getFrom() {
-        return splitLine[1].substring(5); // return time
+        return splitLine[1].substring(5); // return starting time
     }
 
     public String getTo() {
-        return splitLine[2].substring(3); // return date
+        return splitLine[2].substring(3); // return ending time
     }
 
-    // since overriding occurs, toString() of Deadline class is called instead
+    // override task's toString() to add [E] and the deadline interval
     @Override
     public String toString() {
         String date = " (from: " + getFrom()  + "to: " + getTo() + ")";

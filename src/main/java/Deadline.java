@@ -13,7 +13,7 @@ public class Deadline extends Task{
         return splitLine[1].substring(3); // return date
     }
 
-    // since overriding occurs, toString() of Deadline class is called instead
+    // override task's toString() to add [D] and the deadline timing
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + getBy() + ")";
