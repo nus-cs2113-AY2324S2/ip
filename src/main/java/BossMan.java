@@ -1,26 +1,22 @@
 import java.util.Scanner;
 
 public class BossMan {
-    private Scanner scanner;
-    private final String SEP = "____________________________________________________________";
-    private TaskList taskList;
+    private static final String SEP = "____________________________________________________________";
+    private final Scanner SCANNER;
+    private final TaskList TASK_LIST;
 
     public BossMan() {
-        this.scanner = new Scanner(System.in);
-        this.taskList = new TaskList();
+        this.SCANNER = new Scanner(System.in);
+        this.TASK_LIST = new TaskList();
     }
 
     public void greetUser() {
-        String botName = "BossMan";
-        String greet = "Hello! I'm " + botName;
-        String offerService = "What can I do for you?";
-        System.out.println(SEP + "\n" + greet);
-        System.out.println(offerService + "\n" + SEP);
+        System.out.println(SEP + "\nHello! I'm BossMan");
+        System.out.println("What can I do for you?\n" + SEP);
     }
 
     public void endChat() {
-        String exit = "Bye. Hope to see you again soon!";
-        System.out.println(exit + "\n" + SEP);
+        System.out.println("Bye. Hope to see you again soon!\n" + SEP);
     }
 
     public void startChat() {
@@ -28,27 +24,122 @@ public class BossMan {
 
         do {
             System.out.print("You: ");
-            userInput = scanner.nextLine();
+            userInput = SCANNER.nextLine();
 
-            String[] parts = userInput.trim().split("\\s+");
+            processUserInput(userInput);
 
-            if (parts[0].equalsIgnoreCase("mark")) {
-                int number = Integer.parseInt(parts[1]);
-                taskList.markTask(number);
-            } else if (parts[0].equalsIgnoreCase("unmark")) {
-                int number = Integer.parseInt(parts[1]);
-                taskList.unmarkTask(number);
-            } else if (userInput.equalsIgnoreCase("list")) {
-                // Print the updated to-do list
-                taskList.printTasks();
-            } else if (!userInput.equalsIgnoreCase("bye")) {
-                // Add user input to the to-do list
-                taskList.addTask(userInput);
-                System.out.println("Added: " + userInput + "\n" + SEP);
-            }
         } while (!userInput.equalsIgnoreCase("bye"));
     }
+
+    private void processUserInput(String userInput) {
+        String[] parts = parseUserInput(userInput);
+
+        if (parts.length == 0) {
+            System.out.println("Unknown command\n" + SEP);
+            return;
+        }
+
+        String commandType = parts[0];
+        String commandArgs = parts.length > 1 ? parts[1] : "";
+
+        switch (commandType.toLowerCase()) {
+        case "mark":
+            handleMarkCommand(commandArgs);
+            break;
+
+        case "unmark":
+            handleUnmarkCommand(commandArgs);
+            break;
+
+        case "list":
+            TASK_LIST.printTasks();
+            break;
+
+        case "todo":
+            handleTodoCommand(commandArgs);
+            break;
+
+        case "deadline":
+            handleDeadlineCommand(commandArgs);
+            break;
+
+        case "event":
+            handleEventCommand(commandArgs);
+            break;
+
+        case "bye":
+            break; // No need to print unknown command for 'bye'
+
+        default:
+            System.out.println("Unknown command\n" + SEP);
+        }
+    }
+
+    private String[] parseUserInput(String userInput) {
+        return userInput.trim().split("\\s+", 2);
+    }
+
+    private void handleMarkCommand(String commandArgs) {
+        try {
+            int number = Integer.parseInt(commandArgs);
+            TASK_LIST.markTask(number);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format\n" + SEP);
+        }
+    }
+
+    private void handleUnmarkCommand(String commandArgs) {
+        try {
+            int number = Integer.parseInt(commandArgs);
+            TASK_LIST.unmarkTask(number);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format\n" + SEP);
+        }
+    }
+
+    private void handleTodoCommand(String commandArgs) {
+        Task todoTask = new Todo(commandArgs);
+        TASK_LIST.addTask(todoTask);
+        echo(todoTask);
+    }
+
+    private void handleDeadlineCommand(String commandArgs) {
+        String[] deadlineArgParts = commandArgs.split("/by", 2);
+        if (deadlineArgParts.length == 2) {
+            String description = deadlineArgParts[0];
+            String deadline = deadlineArgParts[1];
+            Task deadlineTask = new Deadline(description, deadline);
+            TASK_LIST.addTask(deadlineTask);
+            echo(deadlineTask);
+        } else {
+            System.out.println("Invalid deadline command format\n" + SEP);
+        }
+    }
+
+    private void handleEventCommand(String commandArgs) {
+        String[] eventArgParts = commandArgs.split("/from", 2);
+        if (eventArgParts.length == 2) {
+            String description = eventArgParts[0];
+            String[] eventArgTimeParts = eventArgParts[1].split("/to", 2);
+            String from = eventArgTimeParts[0];
+            String to = eventArgTimeParts[1];
+            Task eventTask = new Event(description, from, to);
+            TASK_LIST.addTask(eventTask);
+            echo(eventTask);
+        } else {
+            System.out.println("Invalid event command format\n" + SEP);
+        }
+    }
+
+    private void echo(Task task) {
+        System.out.print("Added:");
+        task.printTask();
+        System.out.println();
+        System.out.println("Now you have " + TASK_LIST.getTaskListSize() + " tasks in the list.");
+        System.out.println(SEP);
+    }
 }
+
 
 
 

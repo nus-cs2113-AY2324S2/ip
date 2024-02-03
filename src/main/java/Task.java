@@ -1,10 +1,16 @@
 public class Task {
     private boolean isMark;
-    private String description;
+    private final String DESCRIPTION;
 
     public Task(String task) {
         this.isMark = false;
-        this.description = task;
+        this.DESCRIPTION = task;
+    }
+
+    public void printTask() {
+        String markSymbol = isMark ? "[x] " : "[ ] ";
+        String taskSymbol = getTypeSymbol();
+        System.out.print(taskSymbol + markSymbol + getTask());
     }
 
     public void setMark() {
@@ -20,8 +26,10 @@ public class Task {
     }
 
     public String getTask() {
-        return description;
+        return DESCRIPTION;
+    }
+
+    public String getTypeSymbol() {
+        return "[ ]";
     }
 }
-
-
