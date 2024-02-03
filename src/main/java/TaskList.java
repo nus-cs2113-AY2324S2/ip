@@ -29,8 +29,7 @@ public class TaskList {
         if (isValidTask(num)) {
             this.TASKS.get(num - 1).setMark();
             System.out.println("Nice! I've marked this task as done:");
-            this.TASKS.get(num - 1).printTask();
-            System.out.println("\n" + SEP);
+            echo(num);
         } else {
             System.out.println("Selected index out of range" + "\n" + SEP);
         }
@@ -40,11 +39,15 @@ public class TaskList {
         if (isValidTask(num)) {
             this.TASKS.get(num - 1).setUnmark();
             System.out.println("OK, I've marked this task as not done yet:");
-            this.TASKS.get(num - 1).printTask();
-            System.out.println("\n" + SEP);
+            echo(num);
         } else {
             System.out.println("Selected index out of range" + "\n" + SEP);
         }
+    }
+
+    private void echo(int num) {
+        this.TASKS.get(num - 1).printTask();
+        System.out.println("\n" + SEP);
     }
 
     public boolean isValidTask(int num) {
