@@ -32,7 +32,7 @@ public class TaskManager {
             System.out.println("ERROR: Invalid input");
             return;
         }
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(Tasks[currIndex]);
         System.out.println("Now you have " + (currIndex+1) + " tasks in the list");
         currIndex++;
