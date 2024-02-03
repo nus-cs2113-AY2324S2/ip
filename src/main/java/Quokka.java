@@ -5,13 +5,50 @@ public class Quokka {
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
-    private static void addTask(String taskDescription) {
+    private static void addTask(Task newTask) {
         if (taskCount < MAX_TASKS) {
-            Task newTask = new Task(taskDescription);
             tasks[taskCount++] = newTask;
-            System.out.println("    added: " + newTask.getDescription());
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + newTask);
+            System.out.println("     Now you have " + taskCount + " tasks in the list.");
         } else {
             System.out.println("    Sorry, the task list is full. You cannot add more tasks.");
+        }
+    }
+
+    private static Todo parseTodoTask(String userInput) {
+        String description = userInput.substring("todo".length()).trim();
+        return new Todo(description);
+    }
+
+    private static Deadline parseDeadlineTask(String userInput) {
+        String[] parts = userInput.split("/by", 2);
+        if (parts.length == 2) {
+            String description = parts[0].substring("deadline".length()).trim();
+            String by = parts[1].trim();
+            return new Deadline(description, by);
+        } else {
+            System.out.println("    Invalid deadline format. Please use: deadline [description] /by [date/time]");
+            return null;
+        }
+    }
+
+    private static Event parseEventTask(String userInput) {
+        String[] parts = userInput.split("/from", 2);
+        if (parts.length == 2) {
+            String description = parts[0].substring("event".length()).trim();
+            String[] dateTimes = parts[1].split("/to", 2);
+            if (dateTimes.length == 2) {
+                String from = dateTimes[0].trim();
+                String to = dateTimes[1].trim();
+                return new Event(description, from, to);
+            } else {
+                System.out.println("    Invalid event format. Please use: event [description] /from [start] /to [end]");
+                return null;
+            }
+        } else {
+            System.out.println("    Invalid event format. Please use: event [description] /from [start] /to [end]");
+            return null;
         }
     }
 
@@ -21,7 +58,7 @@ public class Quokka {
         } else {
             System.out.println("    Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println("    " + (i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                System.out.println("    " + (i + 1) + ". " + tasks[i]);
             }
         }
     }
@@ -41,7 +78,7 @@ public class Quokka {
             if (taskIndex >= 0 && taskIndex < taskCount) {
                 tasks[taskIndex].setStatus(newStatus);
                 System.out.println("    " + statusMessage);
-                System.out.println("      [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].getDescription());
+                System.out.println("      " + tasks[taskIndex]);
             } else {
                 System.out.println("    Invalid task index.");
             }
@@ -70,13 +107,19 @@ public class Quokka {
             if (userInput.equalsIgnoreCase("list")) {
                 displayTasks();
             } else {
-                // Add Task based on input
+                // Handle different types of tasks
                 if (userInput.toLowerCase().startsWith("mark ")) {
                     markTaskAsDone(userInput);
                 } else if (userInput.toLowerCase().startsWith("unmark ")) {
                     markTaskAsNotDone(userInput);
+                } else if (userInput.toLowerCase().startsWith("todo")) {
+                    addTask(parseTodoTask(userInput));
+                } else if (userInput.toLowerCase().startsWith("deadline")) {
+                    addTask(parseDeadlineTask(userInput));
+                } else if (userInput.toLowerCase().startsWith("event")) {
+                    addTask(parseEventTask(userInput));
                 } else {
-                    addTask(userInput);
+                    System.out.println("    I'm sorry, I don't understand that command.");
                 }
             }
         }
