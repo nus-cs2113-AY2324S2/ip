@@ -1,58 +1,84 @@
 import java.util.Scanner;
 
 public class Joe {
-    public static final String H_LINE = "____________________________________________________________\n";
-
-    private static String getCommand(String input) {
-        if (!input.contains(" ")) {
-            return input;
-        }
-        return input.substring(0, input.indexOf(' '));
-    }
-
-    private static int convertMessageToInteger(String message) {
-        int number;
-        try {
-            number = Integer.parseInt(message);
-        } catch (NumberFormatException e) {
-            number = -69;
-        }
-        return number;
-    }
+    protected static final String EXIT_COMMAND = "bye";
+    protected static final String LIST_COMMAND = "list";
+    protected static final String MARK_COMMAND = "mark";
+    protected static final String UNMARK_COMMAND = "unmark";
+    protected static final String NEW_TODO_COMMAND = "todo";
+    protected static final String NEW_DEADLINE_COMMAND = "deadline";
+    protected static final String NEW_EVENT_COMMAND = "event";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.println(H_LINE + "HI I'M JOE\n" + "WHAT CAN I DO FOR YOU\n" + H_LINE);
+        Printer.printGreeting();
 
         TaskManager taskManager = new TaskManager();
         boolean hasExitInput = false;
         while (!hasExitInput) {
             String input = in.nextLine();
             input = input.trim();
-            String inputCommand = getCommand(input);
-            String message = input.replace(inputCommand, "").trim();
-            switch (inputCommand) {
-            case "":
-                System.out.println(H_LINE + "PLEASE ENTER SOMETHING :(" + '\n' + H_LINE);
-                break;
-            case "bye":
+            String command = InputParser.getCommand(input);
+            String message = InputParser.getMessage(input);
+            switch (command) {
+            case EXIT_COMMAND:
+                if (!message.isEmpty()) {
+                    Printer.printDefaultError();
+                    break;
+                }
                 hasExitInput = true;
                 break;
-            case "list":
+            case LIST_COMMAND:
+                if (!message.isEmpty()) {
+                    Printer.printDefaultError();
+                    break;
+                }
                 taskManager.listTasks();
                 break;
-            case "mark":
-            case "unmark":
-                int taskNumber = convertMessageToInteger(message);
-                taskManager.toggleTaskMarkedStatus(taskNumber,inputCommand);
+            case MARK_COMMAND:
+            case UNMARK_COMMAND:
+                int taskNumber = InputParser.convertMessageToInteger(message);
+                taskManager.toggleTaskMarkedStatus(taskNumber, command.equals(MARK_COMMAND));
+                break;
+            case NEW_TODO_COMMAND:
+                if (message.isEmpty()) {
+                    Printer.printToDoEmptyError();
+                    break;
+                }
+                try {
+                    taskManager.addToDo(message);
+                } catch (Exception e) {
+                    Printer.printTaskOvercapacityError();
+                }
+                break;
+            case NEW_DEADLINE_COMMAND:
+                try {
+                    String by = InputParser.getDeadlineTime(message);
+                    String taskName = InputParser.getTaskName(message);
+                    taskManager.addDeadline(taskName, by);
+                } catch (IllegalArgumentException e) {
+                    Printer.printDeadlineInputError();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Printer.printTaskOvercapacityError();
+                }
+                break;
+            case NEW_EVENT_COMMAND:
+                try {
+                    String[] eventDurations = InputParser.getEventTime(message);
+                    String taskName = InputParser.getTaskName(message);
+                    taskManager.addEvent(taskName, eventDurations[0], eventDurations[1]);
+                } catch (IllegalArgumentException e) {
+                    Printer.printEventInputError();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Printer.printTaskOvercapacityError();
+                }
                 break;
             default:
-                taskManager.addTask(input);
-                System.out.println(H_LINE + "ADDED: " + input + '\n' + H_LINE);
+                Printer.printDefaultError();
                 break;
             }
         }
         
-        System.out.println(H_LINE + "GOODBYE. PLEASE COME BACK AGAIN :)\n" + H_LINE);
+        Printer.printExitMessage();
     }
 }

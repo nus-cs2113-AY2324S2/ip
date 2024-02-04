@@ -1,4 +1,6 @@
 public class Task {
+    protected static final String MARKED_STATUS = "[X]";
+    protected static final String UNMARKED_STATUS = "[ ]";
     protected String taskName;
     protected boolean isDone;
 
@@ -8,11 +10,11 @@ public class Task {
     }
 
     public String getTaskStatus() {
-        String statusIcon = isDone ? "[X]" : "[ ]";
+        String statusIcon = isDone ? MARKED_STATUS : UNMARKED_STATUS;
         return statusIcon + " " + taskName;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }
