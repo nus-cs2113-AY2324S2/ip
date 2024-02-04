@@ -1,7 +1,7 @@
 public class Task {
 
-    private String name;
-    private boolean isDone;
+    protected String name;
+    protected boolean isDone;
 
     public Task(String name) {
         this.name = name;
@@ -12,11 +12,11 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : "");
+    protected String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
-    public String getName() {
-        return name;
+    public String toString() {
+        return String.format("[" + getStatusIcon() + "] " + name);
     }
 }

@@ -8,12 +8,22 @@ public class List {
         size = 0;
     }
 
-    public void addTask(String name) {
-        tasks[size] = new Task(name);
+    public void addTodo(String name) {
+        tasks[size] = new Todo(name);
         size++;
-        printHorizontalLine();
-        System.out.println("    added: " + name);
-        printHorizontalLine();
+        printAfterAddingTask(tasks[size - 1]);
+    }
+
+    public void addDeadline(String name, String by) {
+        tasks[size] = new Deadline(name, by);
+        size++;
+        printAfterAddingTask(tasks[size - 1]);
+    }
+
+    public void addEvent(String name, String from, String to) {
+        tasks[size] = new Event(name, from, to);
+        size++;
+        printAfterAddingTask(tasks[size - 1]);
     }
 
     public void changeTaskStatus(int index, boolean isDone) {
@@ -24,15 +34,15 @@ public class List {
         } else {
             System.out.println("    OK, I've marked this task as not done yet:");
         }
-        printTask(index);
+        System.out.println("      " + tasks[index]);
         printHorizontalLine();
     }
 
-    public void printList() {
+    public void printAllTasks() {
         printHorizontalLine();
         System.out.println("    Here are the current tasks in your list:");
         for (int i = 0; i < size; i++) {
-            printTask(i);
+            System.out.println("    " + (i + 1) + "." + tasks[i]);
         }
         if (size == 0) {
             System.out.println("    There are no tasks in your list!");
@@ -40,10 +50,24 @@ public class List {
         printHorizontalLine();
     }
 
-    private void printTask(int index) {
-        String taskName = tasks[index].getName();
-        String taskStatus = tasks[index].getStatusIcon();
-        System.out.println("    " + (index + 1) + ".[" + taskStatus + "] " + taskName);
+    public void printAfterAddingTask(Task task) {
+        printHorizontalLine();
+        printTaskAddedMessage(task);
+        printListSummary();
+        printHorizontalLine();
+    }
+
+    public void printTaskAddedMessage(Task task) {
+        System.out.println("    Got it. I've added this task: ");
+        System.out.println("      " + task);
+    }
+
+    public void printListSummary() {
+        if (size == 1) {
+            System.out.println("    Now you have " + size + " task in the list.");
+        } else {
+            System.out.println("    Now you have " + size + " tasks in the list.");
+        }
     }
 
     private void printHorizontalLine() {

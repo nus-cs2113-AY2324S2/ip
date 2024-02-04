@@ -24,15 +24,28 @@ public class GeePee {
             if (line.equals("") || line.equals("bye")) {
                 continue;
             } else if (line.startsWith("list")) {
-                list.printList();
+                list.printAllTasks();
             } else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 String[] words = line.split(" ");
                 int number = Integer.parseInt(words[1]);
                 if (number >= 0 && number <= list.getSize()) {
                     list.changeTaskStatus(number - 1, (words[0].equals("mark") ? true : false));
                 }
-            } else {
-                list.addTask(line);
+            } else if (line.startsWith("todo")) {
+                String todoName = line.substring(5).trim();
+                list.addTodo(todoName);
+            } else if (line.startsWith("deadline")) {
+                int byIndex = line.indexOf("/");
+                String by = line.substring(byIndex + 4).trim();
+                String deadlineName = line.substring(9, byIndex).trim();
+                list.addDeadline(deadlineName, by);
+            } else if (line.startsWith("event")) {
+                int fromIndex = line.indexOf("/");
+                int toIndex = line.indexOf("/", fromIndex + 1);
+                String from = line.substring(fromIndex + 6, toIndex).trim();
+                String to = line.substring(toIndex + 4).trim();
+                String eventName = line.substring(6, fromIndex).trim();
+                list.addEvent(eventName, from, to);
             }
         }
     }
