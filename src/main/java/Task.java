@@ -1,7 +1,7 @@
 public class Task {
 
-    private String name;
-    private boolean isCompleted = false;
+    protected String name;
+    protected boolean isCompleted = false;
 
     public Task() {
         name = "Unnamed";
@@ -31,23 +31,18 @@ public class Task {
         this.isCompleted = false;
     }
 
-    public void printBox() {
+    @Override
+    public String toString() {
         if (isCompleted) {
-            System.out.print("[X]");
+            return String.format("%s %s", "[X]", this.name);
         } else {
-            System.out.print("[ ]");
+            return String.format("%s %s", "[ ]", this.name);
         }
+
     }
 
     public void printName() {
         System.out.print(this.name);
-    }
-
-    public void printFull() {
-        printBox();
-        System.out.print(" ");
-        printName();
-        System.out.println();
     }
 
 }

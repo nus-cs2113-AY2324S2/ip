@@ -16,7 +16,7 @@ public class John {
         case "list":
             for (int i = 1; i <= taskList.size(); i += 1) {
                 System.out.print(i + ".");
-                taskList.get(i - 1).printFull();
+                System.out.println(taskList.get(i - 1));
             }
             break;
 
@@ -33,7 +33,7 @@ public class John {
 
             taskList.get(taskID - 1).markCompleted();
             System.out.println("Marking as done:");
-            taskList.get(taskID - 1).printFull();
+            System.out.println(taskList.get(taskID - 1));
             break;
 
         case "unmark":
@@ -46,13 +46,31 @@ public class John {
 
             taskList.get(taskID - 1).markUncompleted();
             System.out.println("Marking as undone:");
-            taskList.get(taskID - 1).printFull();
+            System.out.println(taskList.get(taskID - 1));
+            break;
+
+        case "todo": 
+            input = in.next();
+            taskList.add(new ToDo(input));
+            System.out.println("Added ToDo: " + input);
+            break;
+
+        case "deadline":
+            input = in.nextLine();
+            taskList.add(new Deadline(input));
+            System.out.println("Added Deadline: " + taskList.get(taskList.size() - 1).getName());
+            break;
+        
+        case "event":
+            input = in.nextLine();
+            taskList.add(new Event(input));
+            System.out.println("Added Event: " + taskList.get(taskList.size() - 1).getName());
             break;
 
         default:
-            Task task = new Task(input);
+            Task task = new Task(input + in.nextLine());
             taskList.add(task);
-            System.out.println("Added: " + input);
+            System.out.println("Added: " + taskList.get(taskList.size() - 1).getName());
             break;
         }
     }
