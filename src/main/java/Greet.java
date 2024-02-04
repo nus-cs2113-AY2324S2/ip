@@ -1,5 +1,4 @@
 import java.util.List;
-
 public class Greet {
 
     public void printHyphen() {

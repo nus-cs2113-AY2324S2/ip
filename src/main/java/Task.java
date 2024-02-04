@@ -1,7 +1,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    Greet greet = new Greet();
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -20,10 +19,6 @@ public class Task {
 
     public void setIsNotDone() {
         this.isDone = false;
-    }
-
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
