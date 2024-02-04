@@ -21,6 +21,10 @@ public class Duke {
             command = in.nextLine();
             if (command.equals("list")) {
                 System.out.println(LINE);
+                //Edge case: If list empty
+                if (taskCount == 0) {
+                    System.out.println("Nothing added");
+                }
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println(i + 1 + "."  + tasks[i]);
                 }
