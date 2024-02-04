@@ -1,3 +1,5 @@
+package ip.task;
+
 public class Event extends Task {
     private static final int TASK_START_INDEX = 6;
     private String from;
