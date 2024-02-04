@@ -1,16 +1,32 @@
+
+import java.util.Scanner;
+
+
 public class Eln {
+    static String LINE = "____________________________________________________________";
+    private static void echoUser() {
+        Scanner scan = new Scanner(System.in);
+        String input = "";
+
+        while(!input.equals("bye")) {
+            input = scan.nextLine();
+            System.out.println(LINE);
+            System.out.println(input);
+            System.out.println(LINE);
+        }
+    }
     public static void main(String[] args) {
-        /*String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-                */
-        System.out.println("____________________________________________________________");
+
+        System.out.println(LINE);
         System.out.println("Hello! I'm Eln");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+
+        echoUser();
+
+        System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+
     }
 }
