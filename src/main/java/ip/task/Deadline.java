@@ -1,3 +1,5 @@
+package ip.task;
+
 public class Deadline extends Task {
     private static final int TASK_START_INDEX = 9;
     private String by;

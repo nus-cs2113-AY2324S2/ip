@@ -1,4 +1,10 @@
+package ip.main;
+
 import java.util.Scanner;
+import ip.task.Task;
+import ip.task.Todo;
+import ip.task.Deadline;
+import ip.task.Event;
 
 public class Duke {
     private static final int MAX_SIZE = 100;
