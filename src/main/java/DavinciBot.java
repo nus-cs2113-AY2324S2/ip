@@ -8,6 +8,23 @@ import java.util.Scanner;
  */
 public class DavinciBot {
 
+    private static final String LINE_SEPARATOR = "____________________________________________________________";
+
+    /**
+     * Selects the icon corresponding to the type of task inputted by the user.
+     *
+     * @param taskArray Array of tasks.
+     */
+    private static void iconSelector(Task[] taskArray) {
+        for (int i = 0; i < taskArray.length; i++) {
+            String taskType = (taskArray[i] instanceof Deadline) ? "[D]" :
+                    (taskArray[i] instanceof Todo) ? "[T]" : "[E]";
+
+            System.out.println((i + 1) + ". " + taskType +
+                    " [" + taskArray[i].getStatusIcon() + "] " +
+                    taskArray[i].getDescription());
+        }
+    }
     /**
      * Displays the tasks in the user's to-do list.
      *
@@ -18,15 +35,7 @@ public class DavinciBot {
             System.out.println("No tasks entered yet.");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskArray.length; i++) {
-                String taskType = taskArray[i] instanceof Deadline ? "[D]" :
-                        taskArray[i] instanceof Todo ? "[T]" :
-                                taskArray[i] instanceof Event ? "[E]" : "[ ]";
-
-                System.out.println((i + 1) + ". " + taskType +
-                        " [" + taskArray[i].getStatusIcon() + "] " +
-                        taskArray[i].getDescription());
-            }
+            iconSelector(taskArray);
         }
     }
 
@@ -42,11 +51,11 @@ public class DavinciBot {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < taskArray.length) {
                 taskArray[taskIndex].markAsDone();
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE_SEPARATOR);
                 System.out.println("Nice job! I've marked this task as done :D");
                 System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
                         taskArray[taskIndex].getDescription());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE_SEPARATOR);
             } else {
                 System.out.println("Invalid task index.");
             }
@@ -67,11 +76,11 @@ public class DavinciBot {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < taskArray.length) {
                 taskArray[taskIndex].markAsNotDone();
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE_SEPARATOR);
                 System.out.println("OK, I've marked this task as not done, but stop being lazy!");
                 System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
                         taskArray[taskIndex].getDescription());
-                System.out.println("____________________________________________________________");
+                System.out.println(LINE_SEPARATOR);
             } else {
                 System.out.println("Invalid task index.");
             }
@@ -82,7 +91,7 @@ public class DavinciBot {
 
     /**
      * Adds a task to the list in a sequential order, and handles the 3 types of commands,
-     * todo, deadline and event.
+     * todo, deadline, and event.
      *
      * @param userInput User input specifying the task.
      * @param taskArray Array of tasks.
@@ -134,18 +143,18 @@ public class DavinciBot {
      * @param taskArray Array of tasks.
      */
     private static void echoTask(Task[] taskArray) {
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE_SEPARATOR);
         System.out.println("Got it. I've added this task:");
         System.out.println(taskArray[taskArray.length - 1].toString());
         System.out.println("Now you have " + taskArray.length + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**
      * Prints the starting message.
      */
     private static void printStartingMessage() {
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE_SEPARATOR);
         System.out.println("Hello! I'm DavinciBot! I was the smartest man alive, but now I am just a list maker.");
         System.out.println("Enter commands, and I will echo them back to you, as well as add them to your list.");
         System.out.println("Type 'bye' to end the conversation.");
@@ -156,7 +165,7 @@ public class DavinciBot {
         System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
         System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
         System.out.println("See you!");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE_SEPARATOR);
     }
 
     public static void main(String[] args) {
@@ -194,7 +203,3 @@ public class DavinciBot {
         scanner.close();
     }
 }
-
-
-
-
