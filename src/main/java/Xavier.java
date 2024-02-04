@@ -2,15 +2,14 @@ import java.util.Scanner;
 
 public class Xavier {
     public static final String LINE = "_________________________________________________________________";
+    public static final int MAX_ENTRIES = 100;
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Task[] itemList = new Task[100];
+        Task[] itemList = new Task[MAX_ENTRIES];
         int numberOfItems = 0;
 
-        System.out.println(LINE);
-        System.out.println("Hello! I'm " + "Xavier");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        printWelcomeMessage();
 
         while (true) {
             String command = input.nextLine();
@@ -47,6 +46,13 @@ public class Xavier {
             }
             System.out.println(LINE);
         }
+    }
+
+    private static void printWelcomeMessage() {
+        System.out.println(LINE);
+        System.out.println("Hello! I'm " + "Xavier");
+        System.out.println("What can I do for you?");
+        System.out.println(LINE);
     }
 }
 
