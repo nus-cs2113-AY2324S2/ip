@@ -2,8 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ruby {
+    private static final Scanner in  = new Scanner(System.in);
     private static ArrayList<Task> taskList= new ArrayList<Task>();
     private static int taskNo = 0;
+    private static String userInput;
+
 
     public static void main(String[] args) {
         greet();
@@ -20,23 +23,18 @@ public class Ruby {
     }
 
     private static void processor(){
-        String words;
-        Scanner in = new Scanner(System.in);
-        words = in.nextLine();
-        String[] userInputs = words.split(" ");
-        String order=userInputs[0];
+        String [] userInputs = inputCatcher();
 
-        while (!order.toLowerCase().equals("bye")){
-            switch (order.toLowerCase()){
+        while (checkout(userInputs)) {
+            switch (userInputs[0].toLowerCase()){
             case "list":
-                System.out.println("    " + "--------------");
-                System.out.println("    " + "Here are the tasks in your list:");
-                for (Task task:taskList){
-                    task.printTask();
-                }
-                System.out.println("    " + "--------------");
+                showTaskList();
                 break;
             case "mark":
+                if (userInputs.length==1){
+                    print("Incorrect order.");
+                    break;
+                }
                 int n = Integer.parseInt(userInputs[1])-1;
                 if (n >= taskNo){
                     print("Sorry, task unfound.");
@@ -45,6 +43,10 @@ public class Ruby {
                 }
                 break;
             case "unmark":
+                if (userInputs.length==1){
+                    print("Incorrect order.");
+                    break;
+                }
                 int m = Integer.parseInt(userInputs[1])-1;
                 if (m >= taskNo){
                     print("Sorry, task unfound.");
@@ -54,14 +56,30 @@ public class Ruby {
                 break;
             default:
                 taskNo++;
-                taskList.add(new Task(words,taskNo));
-                print("added: " + words);
+                taskList.add(new Task(userInput,taskNo));
+                print("added: " + userInput);
             }
 
-            words = in.nextLine();
-            userInputs = words.split(" ");
-            order=userInputs[0];
+            userInputs = inputCatcher();
         }
+    }
+
+    private static String[] inputCatcher(){
+        userInput = in.nextLine();
+        return userInput.split(" ");
+    }
+
+    private static boolean checkout(String[] userInputs){
+        return !userInputs[0].equalsIgnoreCase("bye");
+    }
+
+    private static void showTaskList() {
+        System.out.println("    " + "--------------");
+        System.out.println("    " + "Here are the tasks in your list:");
+        for (Task task:taskList){
+            task.printTask();
+        }
+        System.out.println("    " + "--------------");
     }
 
     private static void print(String thingToPrint){
