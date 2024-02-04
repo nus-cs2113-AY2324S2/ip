@@ -167,13 +167,14 @@ public class DavinciBot {
         System.out.println("See you!");
         System.out.println(LINE_SEPARATOR);
     }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Task[] taskArray = new Task[0];
-
-        printStartingMessage();
-
+    /**
+     * Reads in the user input and returns a command that corresponds to the input.
+     * Warns the user if the input is invalid
+     *
+     * @param scanner Reads in the input.
+     * @param taskArray Array of tasks.
+     */
+    private static void userCommand(Scanner scanner, Task[] taskArray) {
         while (true) {
             System.out.print("Enter command: ");
             String userInput = scanner.nextLine();
@@ -200,6 +201,14 @@ public class DavinciBot {
                 System.out.println("Unknown command. Please enter a valid command.");
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Task[] taskArray = new Task[0];
+
+        printStartingMessage();
+        userCommand(scanner, taskArray);
         scanner.close();
     }
 }
