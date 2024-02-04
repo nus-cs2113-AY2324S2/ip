@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Artemis {
     private static String username;
     public static final Scanner scan = new Scanner(System.in);
     public static Task[] taskList = new Task[100];
