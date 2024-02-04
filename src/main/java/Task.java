@@ -2,6 +2,7 @@ public class Task {
     private String name;
     private boolean isDone;
 
+
     public Task(String name) {
         this.name = name;
         this.isDone = false;
@@ -23,11 +24,20 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getType(){
+        return "T";
+    }
+
     public void markAsDone() {
         setDone(true);
     }
 
     public void markAsUndone() {
         setDone(false);
+    }
+
+    @Override
+    public String toString(){
+        return "[" + this.getStatusIcon() + "] " + this.getName();
     }
 }
