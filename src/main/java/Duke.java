@@ -26,6 +26,47 @@ class Task {
     }
 }
 
+class ToDo extends Task {
+    public ToDo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.getStatusIcon() + " " + super.getDescription();
+    }
+}
+
+class Deadline extends Task {
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.getStatusIcon() + " " + super.getDescription() + " (by: " + by + ")";
+    }
+}
+
+class Event extends Task {
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.getStatusIcon() + " " + super.getDescription() + " (from: " + from + " to: " + to + ")";
+    }
+}
+
 public class Duke {
     public static void main(String[] args) {
         // Display a greeting message
@@ -57,7 +98,7 @@ public class Duke {
                     System.out.println("No tasks added yet.");
                 } else {
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println(" " + (i + 1) + "." + tasks[i].getStatusIcon() + " " + tasks[i].getDescription());
+                        System.out.println(" " + (i + 1) + "." + tasks[i]);
                     }
                 }
 
@@ -73,10 +114,37 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[taskIndex].getStatusIcon() + " " + tasks[taskIndex].getDescription());
 
-            } else {
-                tasks[taskCount] = new Task(userInput);
+            } else if (userInput.startsWith("todo")) {
+                String description = userInput.substring(5).trim();
+                tasks[taskCount] = new ToDo(description);
                 taskCount++;
-                System.out.println("added: " + userInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+            } else if (userInput.startsWith("deadline")) {
+                String[] parts = userInput.substring(9).split("/by");
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                
+            } else if (userInput.startsWith("event")) {
+                String[] parts = userInput.substring(6).split("/from|/to");
+                String description = parts[0].trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+            } else {
+                System.out.println("Invalid command.");
             }
             System.out.println("____________________________________________________________");
         }
