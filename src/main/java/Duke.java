@@ -38,22 +38,22 @@ public class Duke {
                 //assume syntax of command is correct, the number is within range of list
                 String secondArgument = userInput.substring(userInput.indexOf(' ') + 1);
                 int userSelectedIndex = Integer.parseInt(secondArgument);
-                numberedList[userSelectedIndex-1].markAsDone();
+                numberedList[userSelectedIndex - 1].markAsDone();
 
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.print((userSelectedIndex) + ".");
-                System.out.printf("[%s] ", numberedList[userSelectedIndex-1].getStatusIcon());
-                System.out.println(numberedList[userSelectedIndex-1].description);
+                System.out.printf("[%s] ", numberedList[userSelectedIndex - 1].getStatusIcon());
+                System.out.println(numberedList[userSelectedIndex - 1].description);
             } else if (userInput.startsWith("unmark")) {
                 //assume syntax of command is correct, the number is within range of list
                 String secondArgument = userInput.substring(userInput.indexOf(' ') + 1);
                 int userSelectedIndex = Integer.parseInt(secondArgument);
-                numberedList[userSelectedIndex-1].markAsNotDone();
+                numberedList[userSelectedIndex - 1].markAsNotDone();
 
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.print((userSelectedIndex) + ".");
-                System.out.printf("[%s] ", numberedList[userSelectedIndex-1].getStatusIcon());
-                System.out.println(numberedList[userSelectedIndex-1].description);
+                System.out.printf("[%s] ", numberedList[userSelectedIndex - 1].getStatusIcon());
+                System.out.println(numberedList[userSelectedIndex - 1].description);
             } else {
                 Task newTask = new Task(userInput);
                 numberedList[numberedListIndex++] = newTask;
