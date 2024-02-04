@@ -2,11 +2,50 @@ import java.util.Scanner;
 
 public class Duke {
     final static String APP_NAME = "mimichat";
+    static Task[] taskList = new Task[100];
+    static int numberOfTask = 0;
+
+    static boolean isRunning;
+
+    static Scanner scanner;
+
+
+    public static void main(String[] args) {
+
+        // Initial welcome message
+        startupSequence();
+
+        while (isRunning) {
+            String input = scanner.nextLine();
+            String[] inputs = input.split(" ");
+            switch (inputs[0]) {
+            case "bye":
+                shutdownSequence();
+                break;
+            case "list":
+                listTasks(taskList, numberOfTask);
+                break;
+            case "mark":
+                markTask(taskList, Integer.parseInt(inputs[1])-1);
+                break;
+            case "unmark":
+                unmarkTask(taskList, Integer.parseInt(inputs[1])-1);
+                break;
+            default:
+                // Adds task by default and prints that a task has been added
+                addTask(input);
+                break;
+            }
+        }
+    }
+
     public static void startupSequence() {
         System.out.println("-------------------------------------------");
         System.out.println("Hello! I'm " + APP_NAME);
         System.out.println("What can I do for you?");
         System.out.println("-------------------------------------------");
+        isRunning = true;
+        scanner = new Scanner(System.in);
     }
 
     public static void printDescription(String input) {
@@ -31,6 +70,13 @@ public class Duke {
         System.out.println("-------------------------------------------");
     }
 
+    private static void addTask(String input) {
+        Task newTask = new Task(input);
+        taskList[numberOfTask] = newTask;
+        numberOfTask++;
+        printDescription("added: " + input);
+    }
+
     public static void markTask(Task[] list, int index) {
         list[index].markAsDone();
         System.out.println("-------------------------------------------");
@@ -47,45 +93,10 @@ public class Duke {
         System.out.println("-------------------------------------------");
     }
 
-    public static void main(String[] args) {
-
-        // Initial welcome message
-        startupSequence();
-
-        // Initialise a list of 100 tasks
-        Task[] taskList = new Task[100];
-        int numberOfTask = 0;
-        boolean isRunning = true;
-
-        // Initialise scanner
-        Scanner scanner = new Scanner(System.in);
-
-        while (isRunning) {
-            String input = scanner.nextLine();
-            String[] inputs = input.split(" ");
-            switch (inputs[0]) {
-            case "bye":
-                printDescription("Bye. Hope to see you again soon!");
-                isRunning = false;
-                scanner.close();
-                break;
-            case "list":
-                listTasks(taskList, numberOfTask);
-                break;
-            case "mark":
-                markTask(taskList, Integer.parseInt(inputs[1])-1);
-                break;
-            case "unmark":
-                unmarkTask(taskList, Integer.parseInt(inputs[1])-1);
-                break;
-            default:
-                // Adds task by default and prints that a task has been added
-                Task newTask = new Task(input);
-                taskList[numberOfTask] = newTask;
-                numberOfTask++;
-                printDescription("added: " + input);
-                break;
-            }
-        }
+    private static void shutdownSequence() {
+        printDescription("Bye. Hope to see you again soon!");
+        isRunning = false;
+        scanner.close();
     }
+
 }
