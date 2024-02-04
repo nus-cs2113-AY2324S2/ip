@@ -1,5 +1,6 @@
 import java.util.Scanner;
 public class Davvy {
+    private static final String BOT_NAME = "Davvy";
     private static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -8,7 +9,7 @@ public class Davvy {
         printLine();
         switch (statementType) {
         case "greetings":
-            System.out.println(" Hello! I'm Davvy\n" + " What can I do for you?");
+            System.out.println(" Hello! I'm " + BOT_NAME + "\n" + " What can I do for you?");
             break;
         case "goodbye":
             System.out.println(" Bye. Hope to see you again soon!");
