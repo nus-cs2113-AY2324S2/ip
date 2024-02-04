@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Carrot {
     public static void main(String[] args) {
         String logo = "   _____                     _   \n" +
                         "  / ____|                   | |  \n" +
