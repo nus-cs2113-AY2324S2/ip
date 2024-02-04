@@ -6,5 +6,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+        Bot bot = new Bot();
+        bot.run();
     }
 }
