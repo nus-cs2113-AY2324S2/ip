@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Messages {
+public class Message {
     public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====>\n";
 
     private static final String LOGO_DEFAULT = "              _                 \n"
@@ -33,7 +33,8 @@ public class Messages {
 
     private static final String[] LOGOS = {LOGO_DEFAULT, LOGO_BOLD, LOGO_3D};
 
-    public static final String GREETING_MESSAGE = "Hello from\n" + LOGOS[new Random().nextInt(3)] + GREETING;
+    public static final String GREETING_MESSAGE = "Hello from\n" + LOGOS[new Random().nextInt(LOGOS.length)]
+            + GREETING;
 
     public static final String EXIT_MESSAGE = "Farewell, adventurer! Until our paths cross again!\n" + DELIMITER;
 

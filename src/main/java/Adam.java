@@ -7,11 +7,11 @@ public class Adam {
         String input;
         Command command;
 
-        System.out.println(Messages.GREETING_MESSAGE);
+        System.out.println(Message.GREETING_MESSAGE);
 
         while (sc.hasNextLine()) {
             input = sc.nextLine();
-            System.out.print(Messages.DELIMITER);
+            System.out.print(Message.DELIMITER);
 
             if (input.equals("bye")) {
                 command = new ExitCommand();
@@ -25,7 +25,7 @@ public class Adam {
             }
 
             command.execute(tasks);
-            System.out.println(Messages.DELIMITER);
+            System.out.println(Message.DELIMITER);
         }
 
     }

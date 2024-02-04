@@ -17,7 +17,7 @@ public class ToggleStatusCommand implements Command {
     private String toggleMessage(Task task) {
         String message = "";
 
-        message += task.isDone() ? Messages.MARK_MESSAGE : Messages.UNMARK_MESSAGE;
+        message += task.isDone() ? Message.MARK_MESSAGE : Message.UNMARK_MESSAGE;
         message += "   " + task;
 
         return message;
