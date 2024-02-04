@@ -29,12 +29,7 @@ public class List {
     public void changeTaskStatus(int index, boolean isDone) {
         tasks[index].changeStatus(isDone);
         printHorizontalLine();
-        if (isDone) {
-            System.out.println("    Nice! I've marked this task as done:");
-        } else {
-            System.out.println("    OK, I've marked this task as not done yet:");
-        }
-        System.out.println("      " + tasks[index]);
+        printTaskStatusMessage(index, isDone);
         printHorizontalLine();
     }
 
@@ -50,19 +45,28 @@ public class List {
         printHorizontalLine();
     }
 
-    public void printAfterAddingTask(Task task) {
+    private void printTaskStatusMessage(int index, boolean isDone) {
+        if (isDone) {
+            System.out.println("    Nice! I've marked this task as done:");
+        } else {
+            System.out.println("    OK, I've marked this task as not done yet:");
+        }
+        System.out.println("      " + tasks[index]);
+    }
+
+    private void printAfterAddingTask(Task task) {
         printHorizontalLine();
         printTaskAddedMessage(task);
         printListSummary();
         printHorizontalLine();
     }
 
-    public void printTaskAddedMessage(Task task) {
+    private void printTaskAddedMessage(Task task) {
         System.out.println("    Got it. I've added this task: ");
         System.out.println("      " + task);
     }
 
-    public void printListSummary() {
+    private void printListSummary() {
         if (size == 1) {
             System.out.println("    Now you have " + size + " task in the list.");
         } else {
