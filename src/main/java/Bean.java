@@ -4,23 +4,16 @@ import java.util.Arrays;
 public class Bean {
     private static final String SEPARATOR = "   -------------------------------------------------";
     private static final Scanner SCANNER = new Scanner(System.in);
-
-    private static void printList(Task[] list) {
-        int numItems = 1;
-        System.out.println("    These are the tasks in your list:");
-        for (Task item : list) {
-            System.out.print("    " + numItems + ".");
-            System.out.println(item.toString());
-            numItems += 1;
-        }
-        System.out.println(SEPARATOR);
-    }
-
     private static void printWelcomeMessage() {
         System.out.println("    Hello! I'm Bean.\n    What can I do for you?");
         System.out.println(SEPARATOR);
     }
 
+    private static void printTaskList(TaskList tasks) {
+        System.out.println("    These are the tasks in your list:");
+        System.out.println(tasks.toString());
+        System.out.println(SEPARATOR);
+    }
     private static void printTaskDone(Task task) {
         System.out.print("    Hey, looks like you're done with this task:\n   ");
         System.out.println(task.toString());
@@ -33,8 +26,10 @@ public class Bean {
         System.out.println(SEPARATOR);
     }
 
-    private static void printTaskAdded(Task task) {
+    private static void printTaskAdded(Task task, int numTasks) {
         System.out.println("    Hey, I've added:\n    " + task.toString());
+        String singularOrPlural = numTasks == 1 ? " task."  : " tasks.";
+        System.out.println("    You currently have " + numTasks + singularOrPlural);
         System.out.println(SEPARATOR);
     }
 
@@ -58,25 +53,25 @@ public class Bean {
         System.out.println(SEPARATOR);
     }
 
-    private static int processAndExecute(String line, Task[] listOfTasks, int numItems) {
+    private static void processAndExecute(String line, TaskList listOfTasks) {
         Parser userLine = new Parser(line);
         if (userLine.getCommand().equals("list")) {
-            printList(Arrays.copyOf(listOfTasks, numItems));
+            printTaskList(listOfTasks);
 
         } else if (userLine.getCommand().startsWith("mark")) {
             int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
-            if (taskIndex >= 0 && taskIndex < numItems) {
-                listOfTasks[taskIndex].setDone();
-                printTaskDone(listOfTasks[taskIndex]);
+            if (taskIndex >= 0 && taskIndex < listOfTasks.getNumTasks()) {
+                Task markedTask = listOfTasks.markTask(taskIndex, true);
+                printTaskDone(markedTask);
             } else {
                 printInvalidTaskNo();
             }
 
         } else if (userLine.getCommand().startsWith("unmark")) {
             int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
-            if (taskIndex >= 0 && taskIndex < numItems) {
-                listOfTasks[taskIndex].setUndone();
-                printTaskUndone(listOfTasks[taskIndex]);
+            if (taskIndex >= 0 && taskIndex < listOfTasks.getNumTasks()) {
+                Task unmarkedTask = listOfTasks.markTask(taskIndex, false);
+                printTaskUndone(unmarkedTask);
             } else {
                 printInvalidTaskNo();
             }
@@ -86,9 +81,8 @@ public class Bean {
             if (description.isEmpty()) {
                 printNoValueForFields();
             } else {
-                listOfTasks[numItems] = new ToDo(description);
-                printTaskAdded(listOfTasks[numItems]);
-                numItems += 1;
+                Task newTask = listOfTasks.addTask(description);
+                printTaskAdded(newTask, listOfTasks.getNumTasks());
             }
 
         } else if (userLine.getCommand().equals("deadline")) {
@@ -97,9 +91,8 @@ public class Bean {
             if (by.isEmpty() || description.isEmpty()) {
                 printNoValueForFields();
             } else {
-                listOfTasks[numItems] = new Deadline(description, by);
-                printTaskAdded(listOfTasks[numItems]);
-                numItems += 1;
+                Task newTask = listOfTasks.addTask(description, by);
+                printTaskAdded(newTask, listOfTasks.getNumTasks());
             }
 
         } else if (userLine.getCommand().equals("event")) {
@@ -109,15 +102,13 @@ public class Bean {
             if (start.isEmpty() || end.isEmpty() || description.isEmpty()) {
                 printNoValueForFields();
             } else {
-                listOfTasks[numItems] = new Event(description, start, end);
-                printTaskAdded(listOfTasks[numItems]);
-                numItems += 1;
+                Task newTask = listOfTasks.addTask(description, start, end);
+                printTaskAdded(newTask, listOfTasks.getNumTasks());
             }
 
         } else {
             printNoSuchCommand();
         }
-        return numItems;
     }
 
     private static String getUserInput() {
@@ -133,11 +124,10 @@ public class Bean {
         printWelcomeMessage();
 
         String line = getUserInput();
-        Task[] listOfTasks = new Task[100];
-        int numItems = 0;
+        TaskList listOfTasks = new TaskList();
 
         while (!line.equals("bye")) {
-            numItems = processAndExecute(line, listOfTasks, numItems);
+            processAndExecute(line, listOfTasks);
             line = getUserInput();
         }
 
