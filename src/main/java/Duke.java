@@ -16,11 +16,13 @@ public class Duke {
         String line = in.nextLine();
 
         // Array to store tasks
-        String[] records = new String[100];
+        Task[] records = new Task[100];
         int numItems = 0; // Number of tasks
+        int listIndex; // Index for tasks
 
         // Main loop
         while (!line.equals("bye")) {
+            String[] words = line.split(" ");
             System.out.println("____________________________________________________________");
 
             // Checking user input
@@ -28,10 +30,24 @@ public class Duke {
                 // Listing tasks
                 System.out.println("Here are the tasks in your list:");
                 for (int j = 0; j < numItems; j++) {
-                    System.out.println((j + 1) + "." + records[j]);
+                    System.out.println((j + 1) + "." + "[" + (records[j].isDone ? "X" : " ") + "]"
+                            + records[j].description);
                 }
+            } else if (words[0].equals("mark")) {
+                // Marking a task as done
+                listIndex = Integer.parseInt(words[1]) - 1;
+                records[listIndex].isDone = true;
+                System.out.println("Nice! I've marked this task as done:\n" + "[x]"
+                        + records[listIndex].description);
+            } else if (words[0].equals("unmark")) {
+                // Marking a task as not done
+                listIndex = Integer.parseInt(words[1]) - 1;
+                records[listIndex].isDone = false;
+                System.out.println("OK, I've marked this task as not done yet:\n" + "[ ]"
+                        + records[listIndex].description);
             } else {
-                records[numItems] = line;
+                // Adding a new task
+                records[numItems] = new Task(line);
                 System.out.println(line);
                 numItems++;
             }
@@ -43,3 +59,4 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 }
+
