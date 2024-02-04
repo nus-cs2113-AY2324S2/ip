@@ -48,11 +48,8 @@ public class Duke {
                 System.out.println("     You have provided an index out of bounds");
                 System.out.println("     Please provide a number from 1 to " + numberOfTasks);
                 continue;
-            } catch (StringIndexOutOfBoundsException e) {
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("     Please input the command in the form \'mark/unmark <integer>\'");
-                continue;
-            } catch (NumberFormatException e) {
-                System.out.println("     Please provide an integer");
                 continue;
             }
 
@@ -62,11 +59,26 @@ public class Duke {
 
     private static void addTask(String line) {
         if (line.startsWith("todo")) {
-            tasks[numberOfTasks] = new Todo(line);
+            try {
+                tasks[numberOfTasks] = new Todo(line);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("     Please input in the form \'todo <description>\'");
+                return;
+            }
         } else if (line.startsWith("deadline")) {
-            tasks[numberOfTasks] = new Deadline(line);
+            try {
+                tasks[numberOfTasks] = new Deadline(line);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("     Please input in the form \'deadline <description> /by <when>\'");
+                return;
+            }
         } else if (line.startsWith("event")) {
-            tasks[numberOfTasks] = new Event(line);
+            try {
+                tasks[numberOfTasks] = new Event(line);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("     Please input in the form \'event <description> /from <when> /to <when>\'");
+                return;
+            }
         }
 
         try {
