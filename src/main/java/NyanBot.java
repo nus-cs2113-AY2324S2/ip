@@ -1,8 +1,8 @@
 import java.util.Scanner;
 public class NyanBot {
     private static String line = "____________";
-    private static Task[] input = new Task[100];
-    private static int inputCount = 0;
+    private static Task[] tasks = new Task[100];
+    private static int taskCount = 0;
 
     private static void echo() {
         Scanner in = new Scanner(System.in);
@@ -15,29 +15,41 @@ public class NyanBot {
             return;
         case "list":
             System.out.println(line);
-            for (int i = 0; i < inputCount; i++) {
-                System.out.println(i + 1 + ". " +
-                        input[i].getStatusIcon() + " " + input[i].getDescription());
+
+            for (int i = 0; i < taskCount; i++) {
+                System.out.print(i + 1 + ". " + tasks[i].getStatusIcon() + " ");
+                System.out.println(tasks[i]);
             }
             break;
         case "mark":
             int markIndex = Integer.parseInt(splitInput[1]) - 1;
-            input[markIndex].markAsDone();
+            tasks[markIndex].markAsDone();
             System.out.println(line);
             System.out.println("はい、markしました！");
             break;
         case "unmark":
             markIndex = Integer.parseInt(splitInput[1]) - 1;
-            input[markIndex].unmarkAsDone();
+            tasks[markIndex].unmarkAsDone();
             System.out.println(line);
             System.out.println("はい、unmarkしました！");
             break;
+        case "todo":
+            Todo newTodo = new Todo(userInput.substring(5));
+            addTask(newTodo);
+            break;
+        case "deadline":
+            splitInput = userInput.split("/");
+            Deadline newDeadline = new Deadline(splitInput[0].substring(9), splitInput[1]);
+            addTask(newDeadline);
+            break;
+        case "event":
+            splitInput = userInput.split("/");
+            Event newEvent = new Event(splitInput[0].substring(6), splitInput[1], splitInput[2]);
+            addTask(newEvent);
+            break;
         default:
-            System.out.println(line);
             Task newTask = new Task(userInput);
-            input[inputCount] = newTask;
-            inputCount++;
-            System.out.println("Added: " + userInput);
+            addTask(newTask);
         }
         echo();
     }
@@ -53,5 +65,12 @@ public class NyanBot {
 
         System.out.println(line);
         System.out.println(bye);
+    }
+
+    public static void addTask(Task task) {
+        tasks[taskCount] = task;
+        taskCount++;
+        System.out.println(line);
+        System.out.println("Added " + task);
     }
 }
