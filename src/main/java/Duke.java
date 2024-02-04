@@ -57,9 +57,13 @@ public class Duke {
             tasks[numberOfTasks] = new Event(line);
         }
 
-        System.out.println("     New task added: " + tasks[numberOfTasks].getDetails());
-        numberOfTasks++;
-        System.out.println("     Current number of tasks: " + numberOfTasks);
+        try {
+            System.out.println("     New task added: " + tasks[numberOfTasks].getDetails());
+            numberOfTasks++;
+            System.out.println("     Current number of tasks: " + numberOfTasks);
+        } catch (NullPointerException e) {
+            System.out.println("     Possible commands: bye, list, mark, unmark, todo, deadline, event");
+        }
     }
 
     private static void printTaskList() {
