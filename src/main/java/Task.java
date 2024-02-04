@@ -1,9 +1,12 @@
 public class Task {
     private String description;
-    private boolean isDone;
-    public Task(String description, boolean isDone) {
+    private boolean isDone = false;
+    public Task(String description) {
+        this.description = description.split(" ", 2)[1];
+    }
+
+    public void setDescription(String description) {
         this.description = description;
-        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -18,5 +21,18 @@ public class Task {
     }
     public void markAsNotDone() {
         this.isDone = false;
+    }
+    public String getTypeDisplay() {
+        return "[T]";
+    }
+    public String getMarkDisplay() {
+        if (this.isDone()) {
+            return "[X]";
+        } else {
+            return "[ ]";
+        }
+    }
+    public String getData() {
+        return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription();
     }
 }
