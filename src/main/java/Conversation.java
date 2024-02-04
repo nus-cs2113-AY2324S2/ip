@@ -1,82 +1,47 @@
 import java.util.Scanner;
 public class Conversation {
+    public Conversation(){
+
+    }
     public void dividingLine(){
-        System.out.println("\t________________________________");
+        System.out.println("\t__________________________________________________");
     }
     public void communicate(){
-        ExceptionsHandle e = new ExceptionsHandle();
+        CommunicateCaseHandle cch = new CommunicateCaseHandle();
+        Scanner in = new Scanner(System.in);
+
         Task[] list = new Task[100];
         int index = 0;
-        Scanner in = new Scanner(System.in);
         String line = in.nextLine().trim() ;
+
         while(!line.equals("bye")){
-            dividingLine();
             if(line.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for(int i = 0; i < index; i++) {
-                    System.out.println((i + 1) + "." + list[i].getStatusIcon() + " " + list[i].getContent());
-                }
-            } else if(line.contains("unmark")){
-                int spaceIndex = line.indexOf(" ");
-                if(spaceIndex == -1){
-                    System.out.println("Please add a spacing between 'unmark' and 'number'");
-                    line = in.nextLine().trim();
-                    continue;
-                }
-                String secondPart = line.substring(spaceIndex + 1);
-                if(e.checkIfStringIsInteger(secondPart) == e.getStringIsNotInteger()){
-                    System.out.println("Please type 'unmark' + 'NUMBER'!");
-                    line = in.nextLine().trim();
-                    continue;
-                }
-                int number = Integer.parseInt(secondPart);
-                if(number > index){
-                    System.out.println("Oops, you do not have this task");
-                } else{
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    list[number - 1].changeStatus(false);
-                    System.out.println("\t" + list[number - 1].getStatusIcon() + " " + list[number - 1].getContent());
-                }
-            } else if(line.contains("mark")){
-                int spaceIndex = line.indexOf(" ");
-                if(spaceIndex == -1){
-                    System.out.println("Please add a spacing between 'mark' and 'number'");
-                    line = in.nextLine().trim();
-                    continue;
-                }
-                String secondPart = line.substring(spaceIndex + 1);
-                if(e.checkIfStringIsInteger(secondPart) == e.getStringIsNotInteger()){
-                    System.out.println("Please type 'mark' + 'NUMBER'!");
-                    line = in.nextLine().trim();
-                    continue;
-                }
-                int number = Integer.parseInt(line.substring(spaceIndex + 1));
-                if(number > index){
-                    System.out.println("Oops, you do not have this task");
-                } else{
-                    System.out.println("Nice! I've marked this task as done:");
-                    list[number - 1].changeStatus(true);
-                    System.out.println("\t" + list[number - 1].getStatusIcon() + " " + list[number - 1].getContent());
-                }
+                cch.listHandle(index, list);
+            } else if(line.startsWith("unmark")){
+                cch.unmarkHandle(line, in, index, list);
+            } else if(line.startsWith("mark")){
+                cch.markHandle(line, in, index, list);
             } else{
-                list[index] = new Task(line);
+                cch.taskHandle(line, in, list, index);
                 index++;
-                System.out.println("\tadded: " + line);
             }
-            dividingLine();
             line = in.nextLine().trim();
         }
     }
     public void describeFunctionality(){
-        dividingLine();
         System.out.println("\tI have the following features:");
-        System.out.println("\t\t1. Echo and store whatever task entered by you, my user.");
-        System.out.println("\t\t2. Type \"list\" to see what I have recorded for you.");
-        System.out.println("\t\t3. Type \"mark\" + \"number\" to mark tasks as done");
-        System.out.println("\t\t4. Type \"unmark\" + \"number\" to mark tasks as not done");
-        System.out.println("\t\t5. Type \"bye\" to say goodbye to me");
+        System.out.println("\t\t1. Echo and store three types of tasks: 'todo', 'deadline' and 'event'.");
+        System.out.println("\t\t2. Type \"todo\" + \"taskContent\" to record a 'todo' task");
+        System.out.println("\t\t3. Type \"deadline\" + \"taskContent\" + \"/by\" + \"dates/times\" to record a" +
+                " 'deadline' task");
+        System.out.println("\t\t4. Type \"event\" + \"taskContent\" + \"/from\" + \"dates/times\" + \"/to\" + " +
+                "\"dates/times\" to record a 'event' task");
+        System.out.println("\t\t5. Type \"list\" to see what I have recorded.");
+        System.out.println("\t\t6. Type \"mark\" + \"number\" to mark tasks as done.");
+        System.out.println("\t\t7. Type \"unmark\" + \"number\" to mark tasks as not done.");
+        System.out.println("\t\t8. Type \"bye\" to say goodbye to me.");
     }
-    public void startConversation(){
+    public void startConversationInitiateLogo(){
         String logo =
                 " ___     _   ___   ___   __\n"
                         + "|   \\   | | |   | |   | |  |\n"
@@ -87,6 +52,7 @@ public class Conversation {
         dividingLine();
         System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
+        dividingLine();
         describeFunctionality();
         dividingLine();
 
