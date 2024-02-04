@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
+    private static final String ADDED_MESSAGE = "Got it. I've added this task: \n";
 
     public static void main(String[] args) {
         System.out.println(LINE_SEPARATOR + "\n" +
@@ -51,13 +52,20 @@ public class Duke {
                 } else {
                     System.out.println("Task does not exist yet!\n" + LINE_SEPARATOR);
                 }
-            } else if (!userInput.equals("bye")) {
-                tasks[index] = new Task(userInput);
+            } else if(userInput.startsWith("todo ")) {
+                String split = userInput.substring(5);
+                tasks[index] = new ToDo(split);
                 index++;
                 System.out.println(LINE_SEPARATOR);
-                System.out.println("added: " + userInput);
-                System.out.println(LINE_SEPARATOR + "\n");
+                System.out.println("added: " + tasks[index]);
             }
+//            else if (!userInput.equals("bye")) {
+//                tasks[index] = new Task(userInput);
+//                index++;
+//                System.out.println(LINE_SEPARATOR);
+//                System.out.println("added: " + userInput);
+//                System.out.println(LINE_SEPARATOR + "\n");
+//            }
 
         } while (!userInput.equals("bye"));
 
