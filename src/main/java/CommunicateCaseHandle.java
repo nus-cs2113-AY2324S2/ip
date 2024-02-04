@@ -35,7 +35,7 @@ public class CommunicateCaseHandle{
         dividingLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + t.getIdentity() + t.getStatusIcon() + " " + t.getContent());
-        System.out.println("Now you have " + index +" tasks in the list.");
+        System.out.println("\tNow you have " + index +" tasks in the list.");
         dividingLine();
     }
     public void todoHandle(String line, Task[] list, int index){
