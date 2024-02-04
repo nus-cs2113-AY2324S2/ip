@@ -7,12 +7,28 @@ public class Eln {
     private static void echoUser() {
         Scanner scan = new Scanner(System.in);
         String input = "";
+        String[] list = new String[20];
+        int index = 0;
 
         while(!input.equals("bye")) {
             input = scan.nextLine();
-            System.out.println(LINE);
-            System.out.println(input);
-            System.out.println(LINE);
+
+            if(input.equals("list")) {
+                System.out.println(LINE);
+                if(index == 0) {
+                    System.out.println("list is empty");
+                }
+                for(int i = 0; i < index; i++) {
+                    System.out.println((i+1) + ". " + list[i]);
+                }
+                System.out.println(LINE);
+            } else {
+                list[index] = input;
+                System.out.println(LINE);
+                System.out.println("added: " + input);
+                System.out.println(LINE);
+                index++;
+            }
         }
     }
     public static void main(String[] args) {
@@ -24,7 +40,6 @@ public class Eln {
 
         echoUser();
 
-        System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
 
