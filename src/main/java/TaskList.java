@@ -7,6 +7,10 @@ public class TaskList {
         this.tasks = new Task[100];
     }
 
+    public int getListCount() {
+        return listCount;
+    }
+
     public void add(Task task) {
         tasks[listCount] = task;
         listCount++;

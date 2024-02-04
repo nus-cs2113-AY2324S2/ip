@@ -18,30 +18,48 @@ public class Conversation {
 
     public static void executeTask() {
         TaskList taskList = new TaskList();
-
         Scanner userInput = new Scanner(System.in);
-        String receivedMessage;
-        String receivedCommand;
-        String tempLine;
-        int taskIndex;
 
         while (userInput.hasNextLine()) {
-            receivedMessage = userInput.nextLine();
-            receivedCommand = receivedMessage.split(" ")[0];
+            String receivedMessage = userInput.nextLine().trim();
+            String[] commandParts = receivedMessage.split(" ", 2);
+            String receivedCommand = commandParts[0];
+            String details = commandParts.length > 1 ? commandParts[1] : "";
 
             switch (receivedCommand) {
             case "list":
-                System.out.print(HORIZONTAL_LINE);
+                System.out.println(HORIZONTAL_LINE);
                 taskList.listTasks();
                 System.out.println(HORIZONTAL_LINE);
                 break;
 
+            case "todo":
+                addTask(taskList, new Todo(details));
+                break;
+
+            case "deadline":
+                String[] deadlineParts = details.split(" /by ", 2);
+                if (deadlineParts.length == 2) {
+                    addTask(taskList, new Deadline(deadlineParts[0], deadlineParts[1]));
+                }
+                break;
+
+            case "event":
+                String[] eventParts = details.split(" /from ", 2);
+                if (eventParts.length == 2) {
+                    String[] timeParts = eventParts[1].split(" /to ", 2);
+                    if (timeParts.length == 2) {
+                        addTask(taskList, new Event(eventParts[0], timeParts[0], timeParts[1]));
+                    }
+                }
+                break;
+
             case "mark":
-                tempLine = receivedMessage.substring(5);
-                taskIndex = Integer.parseInt(tempLine) - 1;
-                if (taskList.isCountValid(taskIndex)) {
+                int taskIndexMark = Integer.parseInt(details) - 1;
+
+                if (taskList.isCountValid(taskIndexMark)) {
                     System.out.print(HORIZONTAL_LINE);
-                    taskList.markTask(taskIndex);
+                    taskList.markTask(taskIndexMark);
                     System.out.print(HORIZONTAL_LINE);
                 }
                 else {
@@ -52,11 +70,11 @@ public class Conversation {
                 break;
 
             case "unmark":
-                tempLine = receivedMessage.substring(7);
-                taskIndex = Integer.parseInt(tempLine) - 1;
-                if (taskList.isCountValid(taskIndex)) {
+                int taskIndexUnmark = Integer.parseInt(details) - 1;
+
+                if (taskList.isCountValid(taskIndexUnmark)) {
                     System.out.print(HORIZONTAL_LINE);
-                    taskList.unmarkTask(taskIndex);
+                    taskList.unmarkTask(taskIndexUnmark);
                     System.out.print(HORIZONTAL_LINE);
                 }
                 else {
@@ -67,18 +85,23 @@ public class Conversation {
                 break;
 
             case "bye":
-                System.out.print(HORIZONTAL_LINE);
-                System.out.print(EXIT + HORIZONTAL_LINE);
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println(EXIT);
+                System.out.println(HORIZONTAL_LINE);
                 return;
 
             default:
-                Task newTask = new Task(receivedMessage);
-                taskList.add(newTask);
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("added: " + receivedMessage);
-                System.out.print(HORIZONTAL_LINE);
+                addTask(taskList, new Task(receivedMessage));
             }
         }
+    }
+
+    private static void addTask(TaskList taskList, Task task) {
+        taskList.add(task);
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Got it. I've added this task: " + System.lineSeparator() + task);
+        System.out.println("Now you have " + taskList.getListCount() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void startConversation(){
