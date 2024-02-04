@@ -22,51 +22,57 @@ public class Jeff {
 
         while (true) {
             String line = in.nextLine();
-            if (line.equals("list")) {
-                printDivider();
-                printIndented("Here are the tasks in your list:");
-                for (int i = 0; i < totalTasks; i++) {
-                    printIndented((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
-                }
-                printDivider();
-            } else if (line.startsWith("mark ")) {
-                try {
-                    Task currentTask = tasks[Integer.parseInt(line.substring(5)) - 1];
+            printDivider();
+            try {
+                if (line.equals("list")) {
+                    printIndented("Here are the tasks in your list:");
+                    for (int i = 0; i < totalTasks; i++) {
+                        printIndented((i + 1) + "." + tasks[i]);
+                    }
+                } else if (line.startsWith("todo ") || line.startsWith("deadline ") || line.startsWith("event ")) {
+                    if (line.startsWith("todo ")) {
+                        String description = line.substring(5);
+                        tasks[totalTasks] = new Todo(description);
+                    } else if (line.startsWith("deadline ")) {
+                        int byIndex = line.indexOf("/by ");
+                        String description = line.substring(9, byIndex);
+                        String by = line.substring(byIndex + 4);
+                        tasks[totalTasks] = new Deadline(description, by);
+                    } else {
+                        int fromIndex = line.indexOf("/from ");
+                        int toIndex = line.indexOf("/to ");
+                        String description = line.substring(6, fromIndex);
+                        String from = line.substring(fromIndex + 6, toIndex);
+                        String to = line.substring(toIndex + 4);
+                        tasks[totalTasks] = new Event(description, from, to);
+                    }
+                    printIndented("Got it. I've added this task:");
+                    printIndented("  " + tasks[totalTasks]);
+                    totalTasks++;
+                    printIndented("Now you have " + totalTasks + " tasks in the list.");
+                } else if (line.startsWith("mark ")) {
+                    int currentIndex = Integer.parseInt(line.substring(5)) - 1;
+                    Task currentTask = tasks[currentIndex];
                     currentTask.mark();
-                    printDivider();
                     printIndented("Nice! I've marked this task as done:");
-                    printIndented("  [X] " + currentTask.getDescription());
-                    printDivider();
-                } catch (Exception e) {
-                    printDivider();
-                    printIndented("Invalid input.");
-                    printDivider();
-                }
-            } else if (line.startsWith("unmark ")) {
-                try {
-                    Task currentTask = tasks[Integer.parseInt(line.substring(7)) - 1];
+                    printIndented("  " + currentTask);
+                } else if (line.startsWith("unmark ")) {
+                    int currentIndex = Integer.parseInt(line.substring(7)) - 1;
+                    Task currentTask = tasks[currentIndex];
                     currentTask.unmark();
-                    printDivider();
                     printIndented("OK, I've marked this task as not done yet:");
-                    printIndented("  [ ] " + currentTask.getDescription());
+                    printIndented("  " + currentTask);
+                } else if (line.equals("bye")) {
+                    printIndented("Bye. Hope to see you again soon!");
                     printDivider();
-                } catch (Exception e) {
-                    printDivider();
+                    return;
+                } else {
                     printIndented("Invalid input.");
-                    printDivider();
                 }
-            } else if (line.equals("bye")) {
-                printDivider();
-                printIndented("Bye. Hope to see you again soon!");
-                printDivider();
-                return;
-            } else {
-                printDivider();
-                printIndented("added: " + line);
-                printDivider();
-                tasks[totalTasks] = new Task(line);
-                totalTasks++;
+            } catch (Exception e) {
+                printIndented("Invalid input.");
             }
+            printDivider();
         }
     }
 }
