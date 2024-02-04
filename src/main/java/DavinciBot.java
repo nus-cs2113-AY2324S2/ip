@@ -19,11 +19,20 @@ public class DavinciBot {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskArray.length; i++) {
-                System.out.println((i + 1) + ". [" + taskArray[i].getStatusIcon() + "] " +
+                String taskType = taskArray[i] instanceof Deadline ? "[D]" :
+                        taskArray[i] instanceof Todo ? "[T]" :
+                                taskArray[i] instanceof Event ? "[E]" : "[ ]"; // Default to "[ ]" if unknown type
+
+                System.out.println((i + 1) + ". " + taskType +
+                        " [" + taskArray[i].getStatusIcon() + "] " +
                         taskArray[i].getDescription());
             }
         }
     }
+
+
+
+
 
     /**
      * Marks a specified task as completed.
@@ -113,6 +122,7 @@ public class DavinciBot {
         scanner.close();
     }
 }
+
 
 
 
