@@ -34,13 +34,25 @@ public class Duke {
                 continue;
             }
 
-            if (line.startsWith("mark")) {
-                markTask(line);
-                continue;
-            }
+            try {
+                if (line.startsWith("mark")) {
+                    markTask(line);
+                    continue;
+                }
 
-            if (line.startsWith("unmark")) {
-                unmarkTask(line);
+                if (line.startsWith("unmark")) {
+                    unmarkTask(line);
+                    continue;
+                }
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                System.out.println("     You have provided an index out of bounds");
+                System.out.println("     Please provide a number from 1 to " + numberOfTasks);
+                continue;
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("     Please input the command in the form \'mark/unmark <integer>\'");
+                continue;
+            } catch (NumberFormatException e) {
+                System.out.println("     Please provide an integer");
                 continue;
             }
 
