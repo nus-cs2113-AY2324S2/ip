@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +100,6 @@ public class Zap {
     }
 
     private static void addDeadline(String userCommand) {
-        String[] parts = userCommand.split("\\s+", 3);
         String[] descParts = userCommand.split("deadline");
         String[] deadlineParts = descParts[1].split("/by", 2);
 
