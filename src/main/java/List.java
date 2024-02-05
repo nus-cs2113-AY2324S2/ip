@@ -1,27 +1,16 @@
 public class List {
-    private String[] tasks;
-    private int size;
+    private Task[] tasks;
+    private int size = 0;
 
     public List() {
-        this.tasks = new String[10]; // initial capacity
+        this.tasks = new Task[100]; // initial capacity
         this.size = 0;
     }
 
-    // Dynamically resize the array if needed
-    private void ensureCapacity() {
-        if (size == tasks.length) {
-            String[] newTasks = new String[size * 2];
-            for (int i = 0; i < size; i++) {
-                newTasks[i] = tasks[i];
-            }
-            tasks = newTasks;
-        }
-    }
-
     // Method to add a task to the list
-    public void addTask(String task) {
-        ensureCapacity();
-        tasks[size++] = task;
+    public void addTask(String taskDescription) {
+        tasks[size] = new Task(taskDescription);
+        size++;
     }
 
     // Method to print the last added task
@@ -33,12 +22,24 @@ public class List {
         }
     }
 
+    //Method to toggle check task as done by index
+    public void markDoneByIndex(int index){
+        tasks[index].completeTask();
+    }
+
+    //Method to toggle check task as undone by index
+    public void markUndoneByIndex(int index){
+        tasks[index].completeTask();
+    }
+
     // Method to print all tasks
     public void printAllTasks() {
         if (size > 0) {
             System.out.println("All tasks:");
             for (int i = 0; i < size; i++) {
-                System.out.println(tasks[i]);
+                Task currentTask = tasks[i]; // Assuming tasks[i] is a Task object
+                String statusMark = currentTask.isCompleted() ? "x" : " "; // Mark with 'x' if completed
+                System.out.println((i+1) + ". " + "[" + statusMark + "] " + currentTask.getDescription());
             }
         } else {
             System.out.println("The list is empty.");

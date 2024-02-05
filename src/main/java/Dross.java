@@ -39,6 +39,19 @@ public class Dross {
         drossTaskList.printAllTasks();
         printLine();
     }
+
+    //Method that receives the user input and toggles the check on the task based on index
+    public static void toggleMark(String instruction) {
+        String command = instruction.split(" ")[0];
+        int index = Integer.parseInt(instruction.split(" ")[1]);
+        if (command.equals("mark")){
+            drossTaskList.markDoneByIndex(index);
+        }
+        else{
+            drossTaskList.markUndoneByIndex(index);
+        }
+        listAllTasks();
+    }
     public static void receiveUserInput() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -46,6 +59,10 @@ public class Dross {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 listAllTasks();
+                line = in.nextLine();
+            }
+            else if (line.startsWith("mark") || line.startsWith("unmark")) {
+                toggleMark(line);
                 line = in.nextLine();
             }
             else{
