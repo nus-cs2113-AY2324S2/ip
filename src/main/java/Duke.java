@@ -1,5 +1,6 @@
 public class Duke {
     public static void main(String[] args) {
+	// LOGO
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
