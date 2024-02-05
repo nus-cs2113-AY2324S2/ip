@@ -9,7 +9,7 @@ public class Duke {
             + "| |__| |\\ V  V /| |_| | | | |/ /| | | |  __/\n"
             + " \\____/  \\_/\\_/  \\__,_|_| |_/___|_| |_|\\___|\n";
 
-    private static String lineString = "__________________________________________________________";
+    private static String lineString = "-".repeat(60);
 
     /**
      * Prints the logo of the bot.
@@ -57,22 +57,33 @@ public class Duke {
     public static void loop() {
         boolean isRunning = true;
         Scanner sc = new Scanner(System.in);
+        List taskList = new List();
 
         while (isRunning) {
+            System.out.print(": ");
             String input = sc.nextLine();
             addLineBreak();
 
-            // Exit if input is "bye"
             if (input.equalsIgnoreCase("bye")) {
+                // Exit if input is "bye"
                 isRunning = false;
-                sc.close();
-                return;
+                continue;
+            } else if (input.equalsIgnoreCase("list")) {
+                // Print the list if input is "list"
+                taskList.printList();
+                addLineBreak();
+                continue;
             }
             
             // Echo the input if not exiting
+            System.out.print("added: ");
             System.out.println(input);
+            // Add task to the list
+            taskList.addItem(input);
             addLineBreak();
         }
+
+        sc.close();
     }
 
     /**
