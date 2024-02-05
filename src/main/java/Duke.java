@@ -19,6 +19,7 @@ public class Duke {
      */
     public static void displayLogo() {
         System.out.println(logo);
+        addLineBreak();
     }
 
     /**
@@ -39,11 +40,23 @@ public class Duke {
      */
     public static void initialize() {
         displayLogo();
-        addLineBreak();
-
         System.out.print("HELLO MY POSITIVE MENTALITY FLEN!! MY NAME IS ");
         System.out.println(botName.toUpperCase() + "!!!");
         System.out.println("Actually uh... What even do you want me to do?");
+    }
+
+    /**
+     * Gets user input.
+     * 
+     * @param sc The scanner object to get input from.
+     * @return The user input.
+     */
+    public static String getInput(Scanner sc) {
+        addLineBreak();
+        System.out.print(": ");
+        String input = sc.nextLine();
+        addLineBreak();
+        return input;
     }
 
     /**
@@ -58,10 +71,7 @@ public class Duke {
         List taskList = new List();
 
         while (isRunning) {
-            addLineBreak();
-            System.out.print(": ");
-            String input = sc.nextLine();
-            addLineBreak();
+            String input = getInput(sc);
 
             if (input.equalsIgnoreCase("bye")) {
                 // Exit if input is "bye"
@@ -85,13 +95,11 @@ public class Duke {
                 int index = Integer.parseInt(splitInput[1]);
                 taskList.setItemStatus(index, false);
                 continue;
+
+            } else {
+                taskList.addItem(input);
+                continue;
             }
-            
-            // Echo the input if not exiting
-            System.out.print("added: ");
-            System.out.println(input);
-            // Add task to the list
-            taskList.addItem(input);
         }
 
         sc.close();

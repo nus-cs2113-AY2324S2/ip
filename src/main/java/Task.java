@@ -42,9 +42,9 @@ public class Task {
     public void setStatus(boolean newStatus) {
         String completion = newStatus ? "X" : " ";
         if (newStatus) {
-            System.out.println("Good job team! You did it!");
+            System.out.println("Good job team! We did it!");
         } else {
-            System.out.println("Worryhands! you haven't finished this yet...");
+            System.out.println("Worryhands! You haven't finished this yet...");
         }
 
         System.out.println(" [" + completion + "] " + this.name);
