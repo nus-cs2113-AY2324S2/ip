@@ -11,7 +11,7 @@ public class Dobby {
                 + "                          |___/ \n";
         System.out.println(logo);
         System.out.println("Dobby say's Hello!\nHow can Dobby help?\n");
-        Task taskmanager = new Task();
+        TaskList taskmanager = new TaskList();
         taskmanager.userCommand();
     }
 
