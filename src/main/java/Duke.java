@@ -42,11 +42,14 @@ public class Duke {
             }
 
             else if (inputToEcho.equals("list")) {
+                System.out.println("____________________________________________________________");
 
                 for (int i = 0; (listOfTasks[i] != null); i++) {
 
                     listTask(i, listOfTasks[i]);
                 }
+
+                System.out.println("____________________________________________________________");
 
             }
             else if (Arrays.asList(inputToEcho.split(" ")).contains("mark")) {
@@ -86,9 +89,8 @@ public class Duke {
     }
 
     public static void listTask(int currentTaskIndex, Task currentTask) {
-        System.out.println("____________________________________________________________");
+
         System.out. println("[" + currentTask.getStatusIcon() + "] " + (currentTaskIndex + 1) + ". " + currentTask.description);
-        System.out.println("____________________________________________________________");
     }
 
     public static void showNewlyAddedTask(String input) {
