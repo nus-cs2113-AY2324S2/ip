@@ -1,17 +1,22 @@
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
 public class RecrBad {
+    /**
+     * Prints "*" as line-separator
+     */
     private static void printLine() {
-        int charsForALine = 40;
-        for (int i = 0; i < charsForALine; i++) {
+        int CHARS_IN_LINE = 40;
+        for (int i = 0; i < CHARS_IN_LINE; i++) {
             System.out.print("*");
         }
         System.out.println();
     }
 
+    /**
+     * Prints introductory message
+     */
     private static void sayHi() {
         String logo = " ____   ___    ___   ____    ___   \n"
                 + "| __/  / _ \\  | _ \\  | __|  / _ \\   \n"
@@ -24,6 +29,9 @@ public class RecrBad {
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Prints ending message
+     */
     private static void sayBye() {
         // generating random quote
         Random rand = new Random(); // create instance of class Random
@@ -55,41 +63,67 @@ public class RecrBad {
         printLine();
     }
 
-    private static Task[] addToList(Task[] lines, String line) {
-        // copies and returns longer String[lines.length+1]
-        Task[] moreLines = Arrays.copyOf(lines, lines.length + 1);
-        moreLines[lines.length] = new Task(line); //append at last elem
+    /**
+     * Adds new Task to Tasks array
+     *
+     * @param tasks existing Tasks array
+     * @param line string input from user
+     * @return moreTasks array with added Task
+     */
+    private static Task[] addToList(Task[] tasks, String line) {
+        // copies and returns longer String[tasks.length+1]
+        Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
+        moreTasks[tasks.length] = new Task(line); //append at last elem
 
         printLine();
         System.out.println("You added: " + line);
-        return moreLines;
+        return moreTasks;
     }
 
-    private static void displayList(Task[] lines) {
+    /**
+     * Prints each Task in Task array
+     *
+     * @param tasks Existing Task array
+     */
+    private static void displayList(Task[] tasks) {
         int count = 1;
-        for (Task line : lines) {
+        for (Task line : tasks) {
             System.out.println(count + ".[" + line.getStatus() + "] " + line.description);
             count += 1;
         }
     }
 
-    private static void displayListItem(Task[] lines, int index) {
-            System.out.println("[" + lines[index].getStatus() + "] " + lines[index].description);
+    /**
+     * Prints a specific task in Tasks array
+     *
+     * @param tasks existing Task array
+     * @param index index of specific task
+     */
+    private static void displayListItem(Task[] tasks, int index) {
+        System.out.println("[" + tasks[index].getStatus() + "] " + tasks[index].description);
     }
-    private static void markOperation(Task[] lines, String line, boolean isMark){
+
+    /**
+     * Marks Task as done or not done
+     *
+     * @param tasks existing Tasks array
+     * @param line  String input from user
+     * @param isMark type of operation: mark or unmark
+     */
+    private static void markOperation(Task[] tasks, String line, boolean isMark) {
         String[] req = line.split(" ");
         if (req.length > 1) {
             int taskNum = Integer.parseInt(req[1]);
-            if (lines.length > taskNum - 1) {
+            if (tasks.length > taskNum - 1) {
                 // mark #taskNum as done
                 if (isMark) {
-                    lines[taskNum - 1].markAsDone();
+                    tasks[taskNum - 1].markAsDone();
                     System.out.println("Okie dokie, marked task below:");
                 } else {
-                    lines[taskNum - 1].markAsNotDone();
+                    tasks[taskNum - 1].markAsNotDone();
                     System.out.println("Okie dokie, unmarked task below:");
                 }
-                displayListItem(lines, taskNum - 1);
+                displayListItem(tasks, taskNum - 1);
             } else {
                 System.out.println("No such taskNum");
             }
@@ -98,31 +132,33 @@ public class RecrBad {
         }
     }
 
+    /**
+     * Asks user for input to addToList or displayList or markOperation
+     */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         sayHi();
-        Task[] lines = new Task[]{};
+        Task[] tasks = new Task[]{};
 
         while (true) {
             printLine();
             String line = in.nextLine(); // reads input
 
-            if (line.toUpperCase().equals("BYE")) {
+            if (line.equalsIgnoreCase("BYE")) {
                 sayBye(); // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
                 break;
             }
-            if (line.toUpperCase().equals("LIST")) {
-                displayList(lines);
+            if (line.equalsIgnoreCase("LIST")) {
+                displayList(tasks);
                 continue;
             }
             if (line.toUpperCase().contains("MARK")) { // both unmark & mark contains 'mark'
                 boolean isMark = !line.toUpperCase().contains("UNMARK");
-                markOperation(lines, line, isMark);
+                markOperation(tasks, line, isMark);
                 continue;
             }
 
-            lines = addToList(lines, line);
-//            System.out.println("So far you have: " + Arrays.toString(lines));
+            tasks = addToList(tasks, line);
         }
     }
 }
