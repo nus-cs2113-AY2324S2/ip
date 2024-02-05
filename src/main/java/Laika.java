@@ -55,7 +55,6 @@ public class Laika {
         System.out.println("Laika: Hi! My name is Laika!\n\n" + logo + "Laika: How can I help you?");
 
         while(isConvoOngoing){
-            System.out.print("User: ");
             line = in.nextLine();
             if (line.startsWith("mark") || line.startsWith("unmark")) {
                 modifyTask(taskList,line);
