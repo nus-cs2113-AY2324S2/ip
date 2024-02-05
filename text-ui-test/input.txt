@@ -1,0 +1,6 @@
+todo cs2113t
+list
+mark 1
+deadline do cs2113t /by tmr
+event floorball /from today /to tmr
+bye

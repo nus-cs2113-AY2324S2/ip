@@ -1,7 +1,42 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+  _____           __
+/  ____|         |  |
+|  |  __   ____  |  |__
+|  | |_  |/  _   |  -   \
+|  |__|  |  (_|  | |_)   |
+\_______ |__ ,_ |_.___ /
+
+	I am Gab the Bot! Nice to meet you!
+	Anything I can help you with?
+	What do you want to do?:
+
+_______________________
+Oh no! One new task added...
+[T][ ] cs2113t
+Now you have 1 task(s)
+_______________________
+	What do you want to do?:
+
+All your tasks are here
+1.[T][ ] cs2113t
+	What do you want to do?:
+
+Ok! One task down!
+[T][X] cs2113t
+	What do you want to do?:
+
+_______________________
+Ok! Watch the deadline!
+[D][ ] do cs2113t (by: tmr)
+Now you have 2 task(s)
+_______________________
+	What do you want to do?:
+
+_______________________
+Weehoo! Enjoy the event!
+[E][ ] floorball (from: today to: tmr)
+Now you have 3 task(s)
+_______________________
+	What do you want to do?:
+
+I hope you complete them!
 
