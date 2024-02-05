@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +55,17 @@ public class Zap {
                 markTask(userCommand);
             } else if (userCommand.startsWith("unmark")) {
                 unmarkTask(userCommand);
+            } else if (userCommand.startsWith("todo")) {
+                addTodoTask(userCommand);
+            } else if (userCommand.startsWith("deadline")) {
+                addDeadline(userCommand);
+            } else if (userCommand.startsWith("event")) {
+                addEvent(userCommand);
             } else {
                 System.out.println(userCommand);
                 addTask(userCommand);
             }
         } while (true);
-
         scanner.close();
     }
 
@@ -69,9 +75,86 @@ public class Zap {
      * adds it to the `tasks` list
      */
     private static void addTask(String taskDescription) {
-        tasks.add(new Task(taskDescription));
+        if (taskDescription.isEmpty()) {
+            System.out.println("Woi. You think I robot then can waste my time >:(");
+        } else {
+            tasks.add(new Task(taskDescription));
+            System.out.println("____________________________________________________________");
+            System.out.println(" added: " + taskDescription);
+            System.out.println("____________________________________________________________");
+        }
+    }
+
+    private static void addTodoTask(String userCommand) {
+
+        String taskDescription = userCommand.substring(4).trim();
+        tasks.add(new TodoTask(taskDescription));
         System.out.println("____________________________________________________________");
-        System.out.println(" added: " + taskDescription);
+        System.out.println(" Got it. Zappy boy added this task:");
+        System.out.println("   [T][ ]  " + taskDescription);
+        if (tasks.size() == 1) {
+            System.out.println(" Now you have 1 task in the list.");
+        } else {
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void addDeadline(String userCommand) {
+        String[] parts = userCommand.split("\\s+", 3);
+        String[] descParts = userCommand.split("deadline");
+        String[] deadlineParts = descParts[1].split("/by", 2);
+
+        if (deadlineParts.length != 2) {
+            System.out.println("Invalid deadline format. Please use '/by' to specify day.");
+            return;
+        }
+
+        String description = deadlineParts[0];
+        String deadline = deadlineParts[1].trim();
+
+        tasks.add(new DeadlineTask(description, deadline));
+        System.out.println("____________________________________________________________");
+        System.out.println(" Got it. Zappy boy added this task:");
+        System.out.println("   [D][ ] " + description + " (By: " + deadline + ")");
+        if (tasks.size() == 1) {
+            System.out.println(" Now you have 1 task in the list.");
+        } else {
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void addEvent(String userCommand) {
+
+        String[] descParts = userCommand.split("event");
+        String[] eventParts = descParts[1].split("/from", 2);
+
+        if (eventParts.length != 2) {
+            System.out.println("Invalid event format. Please use '/from' to specify start and end time.");
+            return;
+        }
+
+        String description = eventParts[0].trim();
+        String[] timeParts = eventParts[1].split("/to", 2);
+
+        if (timeParts.length != 2) {
+            System.out.println("Invalid event format. Please use '/to' to specify end time.");
+            return;
+        }
+
+        String startTime = timeParts[0].trim();
+        String endTime = timeParts[1].trim();
+        tasks.add(new EventTask(description, startTime, endTime));
+
+        System.out.println("____________________________________________________________");
+        System.out.println(" Got it. Zappy boy added this task:");
+        System.out.println("   [E][ ] " + description + " (From: " + startTime + " To: " + endTime + ")");
+        if (tasks.size() == 1) {
+            System.out.println(" Now you have 1 task in the list.");
+        } else {
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        }
         System.out.println("____________________________________________________________");
     }
 
@@ -143,7 +226,6 @@ public class Zap {
         }
     }
 
-
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }
@@ -152,31 +234,5 @@ public class Zap {
     private static void exit() {
         System.out.println("Bye! See you again sooooooooon :)");
         System.out.println("____________________________________________________________");
-    }
-}
-
-//A-classes
-class Task {
-    private String description;
-    private boolean done;
-
-    public Task(String description) {
-        this.description = description;
-        this.done = false;
-    }
-
-    public void markAsDone() {
-        this.done = true;
-    }
-
-    public void markAsNotDone() {
-        this.done = false;
-    }
-    public String toString() {
-        if (done) {
-            return "[X] " + description;
-        } else {
-            return "[ ] " + description;
-        }
     }
 }
