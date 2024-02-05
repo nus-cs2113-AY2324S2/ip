@@ -3,13 +3,38 @@ public class TaskList {
     private int taskCount = 0;
 
     /**
-     * Adds a task to the task list.
+     * Adds a to-do item to the task list.
      *
      * @param description Description of the task.
      */
-    public void addTask(String description) {
-        System.out.println("Item has been added to list: " + description);
-        taskList[taskCount] = new Task(description);
+    public void addToDo(String description) {
+        taskList[taskCount] = new ToDo(description);
+        System.out.println("Task has been added to list: \n" + taskList[taskCount]);
+        taskCount++;
+    }
+
+    /**
+     * Adds a task that needs to be done by a specific date/time to the task list.
+     *
+     * @param description Description of the task.
+     * @param by Date/Time that the task has to be completed by.
+     */
+    public void addDeadline(String description, String by) {
+        taskList[taskCount] = new Deadline(description, by);
+        System.out.println("Deadline has been added to list: \n" + taskList[taskCount]);
+        taskCount++;
+    }
+
+    /**
+     * Adds a task that starts and ends at a specific date/time.
+     *
+     * @param description Description of the task.
+     * @param from Date/Time that the task starts.
+     * @param to Date/Time that the task ends.
+     */
+    public void addEvent(String description, String from, String to) {
+        taskList[taskCount] = new Event(description, from, to);
+        System.out.println("Event has been added to list: \n" + taskList[taskCount]);
         taskCount++;
     }
 
@@ -20,8 +45,7 @@ public class TaskList {
         System.out.println("Your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.print(i+1 + ". ");
-            System.out.print(taskList[i].getStatusIcon() + " ");
-            System.out.println(taskList[i].getDescription());
+            System.out.println(taskList[i]);
         }
     }
 
