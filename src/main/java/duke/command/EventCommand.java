@@ -17,17 +17,21 @@ public class EventCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        if (INPUT.isEmpty()) {
-            throw new DukeException("Exceed Charge....\n\t " +
-                    "OOPS!!! The description of an event task cannot be empty.\n\t " +
-                    "event: Adds an event task to task list.\n\t " +
-                    "Parameters: TASK /from START TIME /to END TIME\n\t " +
-                    "Example: event meet friends /from 9pm today /to 11pm today");
+        final String EXCEPTION = "Exceed Charge....\n\t " +
+                "OOPS!!! The description of an event task cannot be empty.\n\t " +
+                "event: Adds an event task to task list.\n\t " +
+                "Parameters: TASK /from START TIME /to END TIME\n\t " +
+                "Example: event meet friends /from 9pm today /to 11pm today";
+
+        String[] details = INPUT.split("/from ");
+        if (INPUT.isEmpty() || details.length != 2 || details[1].isEmpty()) {
+            throw new DukeException(EXCEPTION);
         } else {
-            String[] words = INPUT.split("/");
-            final int FROM_LENGTH = 5;
-            final int TO_LENGTH = 3;
-            Task newEvent = new Event(words[0], words[1].substring(FROM_LENGTH), words[2].substring(TO_LENGTH));
+            String[] times = details[1].split("/to ");
+            if (times.length != 2 || times[1].isEmpty()) {
+                throw new DukeException(EXCEPTION);
+            }
+            Task newEvent = new Event(details[0], times[0], times[1]);
             taskList.add(newEvent);
             String msg = (taskList.size() > 1) ? "tasks" : "task";
             ui.printMessage("Got it. I've added this task: \n\t   " + newEvent

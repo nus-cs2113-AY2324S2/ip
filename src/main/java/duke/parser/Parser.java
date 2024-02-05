@@ -1,14 +1,7 @@
 package duke.parser;
 
 import duke.DukeException;
-import duke.command.ListCommand;
-import duke.command.Command;
-import duke.command.ByeCommand;
-import duke.command.MarkCommand;
-import duke.command.UnmarkCommand;
-import duke.command.TodoCommand;
-import duke.command.DeadlineCommand;
-import duke.command.EventCommand;
+import duke.command.*;
 
 public class Parser {
 
@@ -18,13 +11,20 @@ public class Parser {
         String description = (words.length == 2) ? words[1] : "";
         switch (command) {
         case "bye":
+            //exit
             return new ByeCommand();
         case "list":
+            //list tasks
             return new ListCommand();
         case "mark":
+            //mark task as done
             return new MarkCommand(description);
         case "unmark":
+            //mark task as undone
             return new UnmarkCommand(description);
+        case "delete":
+            //delete task
+            return new DeleteCommand(description);
         case "todo":
             //add todo
             return new TodoCommand(description);
