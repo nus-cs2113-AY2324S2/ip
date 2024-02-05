@@ -3,10 +3,13 @@ public class Task {
     private int index;
     private boolean isDone;
 
+    static int totalTasks = 0;
+
     public Task(String description, int arrayIndex) {
         this.description = description.trim();
         this.index = arrayIndex + 1;
         this.isDone = false;
+        totalTasks ++;
     }
 
     public String getDescription() {
@@ -33,11 +36,10 @@ public class Task {
         isDone = done;
     }
 
-    public String getMark() {
+    public String getCheckMark() {
         if (this.isDone) {
             return "X";
-        }
-        else {
+        } else {
             return " ";
         }
     }
