@@ -4,8 +4,8 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-public class Duke {
-    private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
+public class Nick {
+    private static final Logger LOGGER = Logger.getLogger(Nick.class.getName());
     public static void main(String[] args) {
 
         try {
