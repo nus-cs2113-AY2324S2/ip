@@ -1,10 +1,8 @@
-import java.util.Scanner;
-
-public class HandleCommand {
+public class CommandHandler {
 
     public static void setToDo(String task, Task[] taskList) {
         String todoName = task.substring(5);
-        Todo newToDo = new Todo(todoName);
+        ToDo newToDo = new ToDo(todoName);
         taskList[Task.getTaskCount() - 1] = newToDo; //creating new class(to do) in the array
         Ui.printTodoTask(newToDo.toString());
         Ui.printTaskCount(Task.getTaskCount());
@@ -32,8 +30,8 @@ public class HandleCommand {
         Ui.printTaskCount(Task.getTaskCount());
     }
 
-    public static void markTask (String tasks, Task[] taskList) {
-        String[] task = tasks.split(" ");
+    public static void markTask (String taskDescription, Task[] taskList) {
+        String[] task = taskDescription.split(" ");
         String taskIndex = task[1]; //getting the index task to mark or un mark
         int index = Integer.parseInt(taskIndex) - 1;
 

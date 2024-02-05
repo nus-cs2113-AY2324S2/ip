@@ -12,10 +12,10 @@ public class Ui {
         System.out.println("_______________________");
     }
 
-    public static void printTodoTask (String todoTask) {
+    public static void printTodoTask (String toDoTask) {
         System.out.println("_______________________");
         System.out.println("Oh no! One new task added...");
-        System.out.println(todoTask);
+        System.out.println(toDoTask);
     }
 
     public static void printDeadlineTask (String deadlineTask) {

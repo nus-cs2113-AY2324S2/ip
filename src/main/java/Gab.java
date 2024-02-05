@@ -17,7 +17,7 @@ public class Gab {
         String action = taskAction[0];
 
         if (action.equals("mark") || action.equals("unmark")) {
-            HandleCommand.markTask(task, taskList); //need display as [ ][X] task name
+            CommandHandler.markTask(task, taskList); //need display as [ ][X] task name
             getTask();
         } else {
             switch (action) {
@@ -29,13 +29,13 @@ public class Gab {
                 Ui.listTask(taskList);
                 break;
             case "todo": //need display [T][ ] name
-                HandleCommand.setToDo(task, taskList);
+                CommandHandler.setToDo(task, taskList);
                 break;
             case "deadline":
-                HandleCommand.setDeadline(task, taskList);
+                CommandHandler.setDeadline(task, taskList);
                 break;
             case "event":
-                HandleCommand.setEvent(task, taskList);
+                CommandHandler.setEvent(task, taskList);
                 break;
             }
             getTask();
