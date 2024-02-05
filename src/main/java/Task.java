@@ -7,19 +7,24 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markAsDone() {
+    public void markAsDone(int listNumber) {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t [" + this.getStatusIcon() + "] " + this.description + "\n");
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t\t" + getTaskDetails() + "\n");
     }
 
-    public void unmarkAsDone() {
+    public void unmarkAsDone(int listNumber) {
         this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("\t [" + this.getStatusIcon() + "] " + this.description + "\n");
+        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\t\t" + getTaskDetails() + "\n");
+
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
+    }
+
+    public String getTaskDetails() {
+        return "[T][" + getStatusIcon() + "] " + description;
     }
 }
