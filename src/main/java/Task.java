@@ -15,11 +15,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void markUndone() {
-        this.isDone = false;
+    public void markTask(boolean isDone) {
+        this.isDone = isDone;
     }
 }

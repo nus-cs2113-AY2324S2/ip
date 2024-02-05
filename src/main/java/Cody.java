@@ -1,17 +1,6 @@
 import java.util.Scanner;
 public class Cody {
 
-    private static void echo() {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        while (!input.equals("bye")) {
-            System.out.println("____________________________________________________________\n"
-                    + " " + input + "\n"
-                    + "_____________________________________________________________");
-            input = in.nextLine();
-        }
-    }
-
     private static void createList() {
         Task[] tasks = new Task[100];
         int taskCount = 0;
@@ -25,12 +14,12 @@ public class Cody {
             } else if (input.startsWith("mark")) {
                 String[] words = input.split(" ");
                 int index = Integer.parseInt(words[1]) - 1;
-                tasks[index].markDone();
+                tasks[index].markTask(true);
                 markDone(tasks, index);
             } else if (input.startsWith("unmark")) {
                 String[] words = input.split(" ");
                 int index = Integer.parseInt(words[1]) - 1;
-                tasks[index].markUndone();
+                tasks[index].markTask(false);
                 markUndone(tasks, index);
             } else {
                 Task task = new Task(input);
@@ -74,7 +63,7 @@ public class Cody {
 
     private static void greet() {
         String greet = " ____________________________________________________________\n"
-                + " Hello! I'm Cody\n"
+                + " Hey there! I'm Cody, your personal task manager\n"
                 + " Tell me your tasks and I will create a task list for you\n"
                 + "_____________________________________________________________\n";
         System.out.println(greet);
