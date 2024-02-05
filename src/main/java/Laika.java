@@ -6,13 +6,13 @@ public class Laika {
         Scanner in = new Scanner(System.in);
         Task[] taskList = new Task[100];
         int count = 0;
-        boolean continueConvo = true;
+        boolean isConvoOngoing = true;
         String logo = " ^..^      /\n"
                 + " /_/\\_____/\n"
                 + "    /\\   /\\\n"
                 + "   /  \\ /  \\\n";
         System.out.println("Laika: Hi! My name is Laika!\n\n" + logo + "Laika: How can I help you?");
-        while(continueConvo){
+        while(isConvoOngoing){
             System.out.print("User: ");
             line = in.nextLine();
             if (line.startsWith("mark")){
@@ -38,7 +38,7 @@ public class Laika {
                     }
                     break;
                 case "bye":
-                    continueConvo = false;
+                    isConvoOngoing = false;
                     break;
                 default:
                     taskList[count] = new Task(line);
