@@ -15,10 +15,6 @@ public class Task {
         this.done = false;
     }
 
-    public boolean isDone() {
-        return done;
-    }
-
     @Override
     public String toString() {
         return (done ? "[X] " : "[ ] ") + description;
