@@ -54,6 +54,33 @@ public class Suv {
                         "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper + "in the list." +
                         "\n____________________________________________________________\n"
                 );
+            }else if(input.contains("deadline")){
+                String by = input.split("/by")[1].trim();
+                String description = input.split("/by")[0].substring(8).trim();
+
+                Deadline newTask = new Deadline(description, by);
+                tasks[taskIndex++] = newTask;
+                String helper = (taskIndex > 1) ? "s " : " ";
+                System.out.println("____________________________________________________________\n" +
+                        " Got it. I've added this task:\n" + "  " + newTask +
+                        "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list." +
+                        "\n____________________________________________________________\n"
+                );
+            } else if(input.contains("event")){
+                String from = input.split("/")[1].trim().substring(4).trim();
+                String to = input.split("/")[2].trim().substring(2).trim();
+                String description = input.split("/")[0].substring(5).trim();
+
+                Event newTask = new Event(description, from, to);
+                tasks[taskIndex++] = newTask;
+
+                //If the number of tasks is 1 use the word 'task' instead of 'tasks'
+                String helper = (taskIndex > 1) ? "s " : " ";
+                System.out.println("____________________________________________________________\n" +
+                        " Got it. I've added this task:\n" + "  " + newTask +
+                        "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list." +
+                        "\n____________________________________________________________\n"
+                );
             }
         }
     }
