@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Bart {
     private static final String LINE = "____________________________________________________________";
-    private static Task[] tasksArray = new Task[100];
+    private static final Task[] tasksArray = new Task[100];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -79,9 +79,8 @@ public class Bart {
         System.out.println(LINE);
     }
 
-    public static void byeUser() {
+    private static void byeUser() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
     }
-
 }
