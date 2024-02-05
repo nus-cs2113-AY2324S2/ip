@@ -55,28 +55,53 @@ public class RecrBad {
         printLine();
     }
 
-    private static String[] addToList(String[] lines, String line) {
+    private static Task[] addToList(Task[] lines, String line) {
         // copies and returns longer String[lines.length+1]
-        String[] moreLines = Arrays.copyOf(lines, lines.length + 1);
-        moreLines[lines.length] = line; //append at last elem
+        Task[] moreLines = Arrays.copyOf(lines, lines.length + 1);
+        moreLines[lines.length] = new Task(line); //append at last elem
 
         printLine();
         System.out.println("You added: " + line);
         return moreLines;
     }
 
-    private static void displayList(String[] lines) {
+    private static void displayList(Task[] lines) {
         int count = 1;
-        for (String line : lines) {
-            System.out.println(count + ". " + line);
+        for (Task line : lines) {
+            System.out.println(count + ".[" + line.getStatus() + "] " + line.description);
             count += 1;
+        }
+    }
+
+    private static void displayListItem(Task[] lines, int index) {
+            System.out.println("[" + lines[index].getStatus() + "] " + lines[index].description);
+    }
+    private static void markOperation(Task[] lines, String line, boolean isMark){
+        String[] req = line.split(" ");
+        if (req.length > 1) {
+            int taskNum = Integer.parseInt(req[1]);
+            if (lines.length > taskNum - 1) {
+                // mark #taskNum as done
+                if (isMark) {
+                    lines[taskNum - 1].markAsDone();
+                    System.out.println("Okie dokie, marked task below:");
+                } else {
+                    lines[taskNum - 1].markAsNotDone();
+                    System.out.println("Okie dokie, unmarked task below:");
+                }
+                displayListItem(lines, taskNum - 1);
+            } else {
+                System.out.println("No such taskNum");
+            }
+        } else {
+            System.out.println("invalid mark/ unmark operation");
         }
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         sayHi();
-        String[] lines = new String[]{};
+        Task[] lines = new Task[]{};
 
         while (true) {
             printLine();
@@ -88,6 +113,11 @@ public class RecrBad {
             }
             if (line.toUpperCase().equals("LIST")) {
                 displayList(lines);
+                continue;
+            }
+            if (line.toUpperCase().contains("MARK")) { // both unmark & mark contains 'mark'
+                boolean isMark = !line.toUpperCase().contains("UNMARK");
+                markOperation(lines, line, isMark);
                 continue;
             }
 
