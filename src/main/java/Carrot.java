@@ -16,6 +16,9 @@ public class Carrot {
         sayGoodbye();
     }
 
+    private static Task[] listOfTasks = new Task[100];
+    private static int taskCount = 0;
+
     private static final String MESSAGE_DIVIDER = "-------------------------------------";
 
     private static void greetUser() {
@@ -28,68 +31,61 @@ public class Carrot {
     private static void handleUserInput() {
         // Scanner object for userInput
         Scanner in = new Scanner(System.in);
-        String userInput;
 
-        // List items
-        Task[] listOfTasks = new Task[100];
-        int taskCount = 0;
+        String userInput;
+        CommandType userCommand;
 
         // Chat input and response Loop
         while (true) {
             userInput = in.nextLine().trim();
+            userCommand = CommandManager.getCommandType(userInput);
 
-            if (isMarkUnmarkTask(userInput)) {
-                handleMarkUnmarkTask(userInput, listOfTasks, taskCount);
-                continue;
-            }
-
-            switch (userInput.toLowerCase()) {
-            case "":
-                continue;
-            case "bye":
+            switch (userCommand) {
+            case EXIT:
                 return;
-            case "list":
-                echoListItems(listOfTasks, taskCount);
+            case LIST:
+                echoListItems();
+                break;
+            case MARK:
+            case UNMARK:
+                handleMarkUnmarkTask(userCommand, userInput);
                 break;
             default:
-                addTaskToList(userInput, listOfTasks, taskCount);
+                addTaskToList(userInput);
                 taskCount++;
                 break;
             }
         }
     }
 
-    private static boolean isMarkUnmarkTask(String userInput) {
-        if (userInput.toLowerCase().startsWith("mark")
-                || userInput.toLowerCase().startsWith("unmark")) {
-            return true;
-        }
-        return false;
+    private static void handleInvalidCommand() {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("Invalid command");
+        System.out.println(MESSAGE_DIVIDER);
     }
 
-    private static void handleMarkUnmarkTask(String userInput, Task[] listOfTasks, int taskCount) {
-        String command = userInput.toLowerCase().startsWith("mark") ? "mark" : "unmark";
-        String numberPart = userInput.substring(command.length()).trim();
+    private static void handleMarkUnmarkTask(CommandType command, String userInput) {
+        boolean checkmark = (command == CommandType.MARK);
+
+        String taskIndex = CommandManager.getCommandArguments(command, userInput)[0];
+        int taskIndexInt = Integer.parseInt(taskIndex);
+
         try {
-            int taskIndex = Integer.parseInt(numberPart);
-            changeTaskStatus(command.equals("mark"), taskIndex, listOfTasks);
-        } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_DIVIDER);
-            System.out.println("ERROR: Invalid task index, usage \"" + command + " (taskIndex)\"");
-            System.out.println(MESSAGE_DIVIDER);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(MESSAGE_DIVIDER);
-            System.out.println("ERROR: Index out of bounds, usage \"" + command + " (taskIndex)\"");
-            System.out.println(MESSAGE_DIVIDER);
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_DIVIDER);
-            System.out.println("ERROR: Invalid task index (nullptr), usage \"" + command + " (taskIndex)\"");
-            System.out.println(MESSAGE_DIVIDER);
+            changeTaskStatus(checkmark, taskIndexInt);
+        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
+            handleInvalidTaskIndexError();
         }
     }
 
-    private static void changeTaskStatus(boolean checkmark, int taskIndex, Task[] listOfTasks) {
-        // listOfTasks is indexed from 0
+    private static void handleInvalidTaskIndexError() {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("ERROR: Invalid task index, usage \"mark/unmark <taskIndex>\"");
+        System.out.println(MESSAGE_DIVIDER);
+    }
+
+    private static void changeTaskStatus(boolean checkmark, int taskIndex) {
+        // listOfTasks is indexed from 0.
+        // taskIndex is indexed from 1, as how the user sees the list is ordered
         listOfTasks[taskIndex - 1].setStatus(checkmark);
 
         System.out.println(MESSAGE_DIVIDER);
@@ -102,15 +98,15 @@ public class Carrot {
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    private static void addTaskToList(String userInput, Task[] listOfTasks, int index) {
-        listOfTasks[index] = new Task(userInput);
+    private static void addTaskToList(String userInput) {
+        listOfTasks[taskCount] = new Task(userInput);
 
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("added: " + userInput);
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    private static void echoListItems(Task[] listOfTasks, int taskCount) {
+    private static void echoListItems() {
         System.out.println(MESSAGE_DIVIDER);
         if (taskCount == 0) {
             System.out.println("No tasks added");
