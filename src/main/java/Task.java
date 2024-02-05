@@ -63,12 +63,12 @@ public class Task {
      */
     public void markTask(int taskIndex) {
         if (taskIndex < 1 || taskIndex > taskCount) {
-            System.out.println("Invalid number> Please try again");
+            System.out.println("Invalid number! Please try again");
         } else if (isMarked[taskIndex-1]) {
             System.out.println("ERROR: task is already marked");
         } else {
             isMarked[taskIndex-1] = true;
-            System.out.println("OK, I've marked this task as done:");
+            System.out.println("OK, Dobby has marked this task as done:");
             System.out.println("  " + getStatusIcon(taskIndex - 1) + " " + taskList[taskIndex - 1]);
             System.out.println("~~~~~~~~~~~~~~~~");
         }
@@ -87,7 +87,7 @@ public class Task {
             System.out.println("The task is already unmarked");
         } else {
             isMarked[taskIndex-1] = false;
-            System.out.println("OK, I've marked this task as not done:");
+            System.out.println("OK, Dobby marked this task as not done:");
             System.out.println("  " + getStatusIcon(taskIndex - 1) + " " + taskList[taskIndex - 1]);
             System.out.println("~~~~~~~~~~~~~~~~");
         }
