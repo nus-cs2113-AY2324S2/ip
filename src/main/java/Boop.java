@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
 public class Boop {
-    public static String[] lst = new String[100];
-    public static boolean[] isMarked = new boolean[100];
+    //public static String[] lst = new String[100];
+    //public static boolean[] isMarked = new boolean[100];
+    public static Task[] tasks = new Task[100];
     public static int count = 0;
 
     public static void main(String[] args) {
@@ -22,36 +23,11 @@ public class Boop {
             } else if (curCommand.equals("list")) {
                 printLst();
             } else if (curCommand.equals("mark")) {
-                if (comArr.length < 1) {
-                    System.out.println("Please specify which item to mark");
-                } else {
-                    int markNum = Integer.parseInt(comArr[1]);
-                    if (markNum > 1 && markNum <= count) {
-                        isMarked[markNum - 1] = true;
-                        System.out.println("Nice! I've marked this task as done: ");
-                        System.out.println("[X] " + lst[markNum -1]);
-                    } else {
-                        System.out.println("This number is not on the list");
-                    }
-                }
+                mark(comArr);
             } else if (curCommand.equals("unmark")) {
-                if (comArr.length < 1) {
-                    System.out.println("Please specify which item to unmark");
-                } else {
-                    int markNum = Integer.parseInt(comArr[1]);
-                    if (markNum > 1 && markNum <= count) {
-                        isMarked[markNum - 1] = false;
-                        System.out.println("Ok, I've marked this task as not done yet: ");
-                        System.out.println("[] " + lst[markNum -1]);
-                    } else {
-                        System.out.println("This number is not on the list");
-                    }
-                }
+                unmark(comArr);
             } else {
-                lst[count] = curCommand;
-                count += 1;
-                System.out.println("added: " + curCommand);
-
+                addTask(command);
             }
             System.out.println("____________________________________________________________");
         }
@@ -61,15 +37,57 @@ public class Boop {
     }
 
     public static void printLst() {
-        for(int i = 0; i < count; i+= 1) {
-            String res = "";
-            if (isMarked[i]) {
-                res += "[X] ";
-            } else {
-                res += "[ ] ";
-            }
-            System.out.println("" + (i+1) + "." + res + lst[i]);
+        for(int i = 0; i < count; i += 1) {
+            Task t = tasks[i];
+            String res = "" + (i + 1) + ".[" + t.getStatus() + "] " + t.getDescription();
+            System.out.println(res);
         }
+    }
+
+    public static void mark(String[] arr) {
+        if(arr.length <= 1) {
+            System.out.println("Please specify which item to mark");
+            return;
+        }
+        int markNum;
+        try {
+            markNum = Integer.parseInt(arr[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Please provide a number to mark");
+            return;
+        }
+        if (markNum >= 1 && markNum <= count) {
+            tasks[markNum - 1].markTask();
+        } else {
+            System.out.println("This number is not on the list");
+        }
+    }
+
+    public static void unmark(String[] arr) {
+        if(arr.length <= 1) {
+            System.out.println("Please specify which item to unmark");
+            return;
+        }
+        int markNum;
+        try {
+            markNum = Integer.parseInt(arr[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Please provide a number to unmark");
+            return;
+        }
+        if (markNum >= 1 && markNum <= count) {
+            tasks[markNum - 1].unmarkTask();
+        } else {
+            System.out.println("This number is not on the list");
+        }
+    }
+
+    public static void addTask(String desc) {
+        Task t = new Task(desc);
+        tasks[count] = t;
+        count += 1;
+        System.out.println("added: " + desc);
 
     }
+
 }
