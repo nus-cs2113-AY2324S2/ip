@@ -1,14 +1,18 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Alice {
     public static void main(String[] args) {
 
         // Create scanner object to read input
         Scanner scanner = new Scanner(System.in);
+
         // Create an array to store the tasks entered by the user
-        String[] tasks = new String[100];
+        ArrayList<Task> tasks = new ArrayList<>();
+
         // Create a variable to store the number of tasks so far
         int taskNum = 0;
+
         // Create string to store line separating responses
         String line = "____________________________________________________________";
 
@@ -20,6 +24,7 @@ public class Alice {
 
         // Use a condition that directly checks input
         while (true) {
+
             // Read the user input here
             String input = scanner.nextLine();
 
@@ -32,17 +37,36 @@ public class Alice {
                 System.out.println(line);
 
                 // Print out the whole list of tasks numbered
-                for (int i = 0; i < taskNum; i++){
-                    System.out.println((i + 1) + ". "+ tasks[i]);
+                for (int i = 0; i < tasks.size(); i++){
+                    System.out.println((i + 1) + "." + tasks.get(i).toString());
                 }
                 System.out.println(line);
+            }
+            else if (input.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+                Task task = tasks.get(taskIndex);
+                task.markAsDone();
+                System.out.println(line);
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(task);
+                System.out.println(line);
+            } else if (input.startsWith("unmark ")){
+                int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                Task task = tasks.get(taskIndex);
+                task.markAsUndone();
+                System.out.println(line);
+                System.out.println("OK, I've marked this task as not done yet: ");
+                System.out.println(task);
+                System.out.println(line);
             } else {
-                tasks[taskNum] = input;
+                Task newTask = new Task(input);
+                tasks.add(newTask);
                 System.out.println(line);
                 System.out.println("added: " + input);
                 System.out.println(line);
                 taskNum++;
             }
+
         }
         // Close the scanner after exiting the loop
         scanner.close();
