@@ -49,12 +49,15 @@ public class Duke {
 
         while (!ifExit) {
             String line = in.nextLine();
-            if (line.equals("bye")) { //checks for bye interaction and sets ifExit to true
+            if (line.equals("bye")) {
+                //checks for bye interaction and sets ifExit to true
                 printBye();
                 ifExit = true;
-            } else if (line.equals("list")) { //calls printList and shows list of tasks
+            } else if (line.equals("list")) {
+                //calls printList and shows list of tasks
                 printList(list, listIndex);
-            } else if (line.contains("unmark")) { //checks for "unmark" to unmark a task
+            } else if (line.contains("unmark")) {
+                //checks for "unmark" to unmark a task
                 list[Integer.parseInt(line.substring(7)) - 1].unmarkDone();
                 System.out.println("--------------------------------------");
                 System.out.println("OK, I've marked this task as not done yet:");
@@ -62,7 +65,8 @@ public class Duke {
                         (list[Integer.parseInt(line.substring(7)) - 1].getStatusIcon() + " "
                         + list[Integer.parseInt(line.substring(7)) - 1].description);
                 System.out.println("--------------------------------------");
-            } else if (line.contains("mark")) { //else checks for "mark" to mark a task
+            } else if (line.contains("mark")) {
+                //else checks for "mark" to mark a task
                 list[Integer.parseInt(line.substring(5)) - 1].markAsDone();
                 System.out.println("--------------------------------------");
                 System.out.println("Nice! I've marked this task as done:");
@@ -70,7 +74,8 @@ public class Duke {
                 (list[Integer.parseInt(line.substring(5)) - 1].getStatusIcon() + " "
                         + list[Integer.parseInt(line.substring(5)) - 1].description);
                 System.out.println("--------------------------------------");
-            } else { //else adds a new task and echos task once
+            } else {
+                //else adds a new task and echos task once
                 addList(line);
                 list[listIndex] = new Task(line);
                 listIndex++;
