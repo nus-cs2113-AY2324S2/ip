@@ -3,11 +3,12 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> toDoList = new ArrayList<>();
 
-    public void addTask(String command) {
-        Task newTask = new Task(command);
+    public void addTask(Task newTask) {
         toDoList.add(newTask);
         Gene.printLineSeparation();
-        System.out.println("added: " + newTask.description);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + newTask);
+        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
         Gene.printLineSeparation();
     }
 
@@ -46,7 +47,7 @@ public class TaskList {
         System.out.println("Here are the items in your list:");
         for (int i = 0; i < toDoList.size(); i++) {
             Task task = toDoList.get(i);
-            System.out.println((i + 1) + ". " + task.getStatusIcon() + " " + task.description);
+            System.out.println((i + 1) + ". " + task);
         }
         Gene.printLineSeparation();
     }

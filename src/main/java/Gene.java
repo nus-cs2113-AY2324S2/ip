@@ -63,8 +63,33 @@ public class Gene {
                     System.out.println("Please provide a valid task number to mark as not done.");
                 }
                 break;
+
+            case "todo":
+                String toDoParts = command.replaceFirst("\\S+", "");
+                Todo newToDo = new Todo(toDoParts.trim());
+                taskList.addTask(newToDo);
+                break;
+
+            case "deadline":
+                String[] deadlineParts = command.replaceFirst("\\S+", "").split("/");
+                Deadline newDeadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].replace("by","").trim());
+                taskList.addTask(newDeadline);
+                break;
+
+            case "event":
+                String[] eventParts = command.replaceFirst("\\S+", "").split("/");
+                Event newEvent = new Event(eventParts[0].trim(), eventParts[1].replace("from","").trim(), eventParts[2].replace("to","").trim());
+                taskList.addTask(newEvent);
+                break;
+
             default:
-                taskList.addTask(command);
+                printLineSeparation();
+                System.out.println("Please add a valid command:");
+                System.out.println("- list");
+                System.out.println("- todo");
+                System.out.println("- deadline");
+                System.out.println("- event");
+                printLineSeparation();
         }
     }
 
