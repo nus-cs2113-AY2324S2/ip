@@ -25,7 +25,7 @@ public class Suv {
                 System.out.println("____________________________________________________________\n" + " Here are the tasks in your list:");
                 for(int i = 0; i < taskIndex; i++){
                     int index = i + 1;
-                    System.out.println(" " + index + "." + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    System.out.println(" " + index + "." + tasks[i]);
                 }
                 System.out.println("____________________________________________________________"
                 );
@@ -44,11 +44,14 @@ public class Suv {
                         " Nice! I've marked this task as done:\n" + "   [X] " + currentTask.getDescription() +
                         "\n____________________________________________________________\n"
                 );
-            } else {
-                Task newTask = new Task(input);
+            } else if(input.contains("todo")){
+                Todo newTask = new Todo(input.substring(4).trim());
+
                 tasks[taskIndex++] = newTask;
+                String helper = (taskIndex > 1) ? "s " : " ";
                 System.out.println("____________________________________________________________\n" +
-                        " added: " + input +
+                        " Got it. I've added this task:\n" + "  " + newTask +
+                        "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper + "in the list." +
                         "\n____________________________________________________________\n"
                 );
             }
