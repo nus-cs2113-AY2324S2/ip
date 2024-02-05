@@ -27,6 +27,13 @@ public class Zap {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * main interaction loop of ZAP
+     * continuously prompts the user to enter commands and responds accordingly.
+     * The loop breaks when the user enters "thank you and bye."
+     * handles various commands like listing tasks,
+     * marking tasks as done, unmarking and adding new tasks
+     */
     private static void processCommands() {
         Scanner scanner = new Scanner(System.in);
         String userCommand;
@@ -56,7 +63,11 @@ public class Zap {
         scanner.close();
     }
 
-    //add tasks
+    /**
+     * `addTask` method adds new task to the list of tasks
+     * creates a new `Task` object with description,
+     * adds it to the `tasks` list
+     */
     private static void addTask(String taskDescription) {
         tasks.add(new Task(taskDescription));
         System.out.println("____________________________________________________________");
@@ -64,7 +75,10 @@ public class Zap {
         System.out.println("____________________________________________________________");
     }
 
-    //display all tasks
+    /**
+     * 'displayTasks' method displays all the lists -- marked and unmarked
+     * when the command 'list' is inputted by the user
+     */
     private static void displayTasks() {
         if (tasks.isEmpty()) {
             System.out.println("____________________________________________________________");
@@ -80,7 +94,10 @@ public class Zap {
         }
     }
 
-    //mask tasks as done
+    /**
+     * `markTask` method marks a task as done.
+     * it extracts the task index, and updates the task's status
+     */
     private static void markTask(String userCommand) {
         String[] characters = userCommand.split("\\s+");
 
@@ -102,7 +119,10 @@ public class Zap {
         }
     }
 
-    //unmark tasks that were originally marked
+    /**
+     * `unmarkTask` method unmarks a task that was originally marked as done.
+     * it extracts the task index, and updates the task's status, then prints a confirmation message.
+     */
     private static void unmarkTask(String userCommand) {
         String[] characters = userCommand.split("\\s+");
 
@@ -122,6 +142,7 @@ public class Zap {
             System.out.println("Invalid format. Please check your spelling or punctuation.");
         }
     }
+
 
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
