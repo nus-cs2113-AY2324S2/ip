@@ -7,8 +7,31 @@ public class TaskManager {
         this.taskList = new Task[100];
     }
 
-    public void addListContents(String content) {
-        this.taskList[numItems] = new Task(numItems, content, false);
+    public void addListContents(String userInput) {
+        Parser myParser = new Parser();
+        String[] taskInfomation = myParser.processTaskInformation(userInput);
+        switch (taskInfomation[0]) {
+        case ("todo"):
+            this.taskList[numItems] = new Todo(numItems, taskInfomation[1], false);
+            break;
+
+        case ("deadline"):
+            this.taskList[numItems] = new Deadline(numItems, taskInfomation[1], false, taskInfomation[2]);
+            break;
+
+        case ("event"):
+            this.taskList[numItems] = new Event(numItems, taskInfomation[1], false, taskInfomation[2],
+                    taskInfomation[3]);
+            break;
+
+        case ("error"):
+            System.out.println("Please give a proper input");
+            break;
+
+        default:
+            break;
+        }
+        System.out.println(taskList[numItems]);
         this.numItems += 1;
     }
 
@@ -17,9 +40,8 @@ public class TaskManager {
             System.out.println("List is empty. Please enter something first.");
         }
         for (int i = 0; i < numItems; i += 1) {
-            boolean taskDone = taskList[i].isDone();
-            String checkmark = taskDone ? "X": " ";
-            System.out.println(taskList[i].getId()+1 + ". [" + checkmark + "] " + taskList[i].getContent());
+            System.out.print(taskList[i].getId() + 1 + ". ");
+            System.out.println(taskList[i]);
         }
     }
 
@@ -41,6 +63,7 @@ public class TaskManager {
                     "where x is the task number");
             return;
         }
+
         int id = Integer.parseInt(wordArray[1]) - 1;
         if (userInput.contains("unmark")) {
             taskList[id].setDone(false);
@@ -54,4 +77,6 @@ public class TaskManager {
             System.out.println("[X] " + taskList[id].getContent());
         }
     }
+
+
 }
