@@ -26,7 +26,7 @@ public class Gab {
                 System.exit(0);
                 break;
             case "list":
-                HandleCommand.listTask(taskList);
+                Ui.listTask(taskList);
                 break;
             case "todo": //need display [T][ ] name
                 HandleCommand.setToDo(task, taskList);
