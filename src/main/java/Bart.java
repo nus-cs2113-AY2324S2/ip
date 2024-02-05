@@ -1,9 +1,10 @@
 import java.util.Scanner;
 
-public class Duke {
-    static String LINE = "____________________________________________________________";
-    static Task[] tasksArray = new Task[100];
-    static int taskCount = 0;
+public class Bart {
+    private static final String LINE = "____________________________________________________________";
+    private static Task[] tasksArray = new Task[100];
+    private static int taskCount = 0;
+
     public static void main(String[] args) {
         greetUser();
         manageTask();
@@ -78,8 +79,9 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static void byeUser() {
+    public static void byeUser() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
     }
+
 }
