@@ -19,6 +19,8 @@ text-ui-test/EXPECTED-UNIX.TXT
 #self added
 *.class*.[oa]
 *~
+node_modules
+
 # binary files
 *.class
 *.jar

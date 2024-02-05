@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -9,6 +10,18 @@ public class RecrBad {
             System.out.print("*");
         }
         System.out.println();
+    }
+
+    private static void sayHi() {
+        String logo = " ____   ___    ___   ____    ___   \n"
+                + "| __/  / _ \\  | _ \\  | __|  / _ \\   \n"
+                + "| |    ||_||  | / /  | |_   | | |      \n"
+                + "| |_   | _ |  | _/   |_  /  | | |      \n"
+                + "|___\\  // \\\\  |_|    /__/ . \\___/  \n";
+
+        System.out.println("Hello! I'm \n" + logo);
+        printLine();
+        System.out.println("What can I do for you?");
     }
 
     private static void sayBye() {
@@ -39,28 +52,47 @@ public class RecrBad {
         int randNum = rand.nextInt(upperbound);
 
         System.out.println("Adios My Friend. Sleep early, study smarter \n" + quotes[randNum]);
+        printLine();
+    }
+
+    private static String[] addToList(String[] lines, String line) {
+        // copies and returns longer String[lines.length+1]
+        String[] moreLines = Arrays.copyOf(lines, lines.length + 1);
+        moreLines[lines.length] = line; //append at last elem
+
+        printLine();
+        System.out.println("You added: " + line);
+        return moreLines;
+    }
+
+    private static void displayList(String[] lines) {
+        int count = 1;
+        for (String line : lines) {
+            System.out.println(count + ". " + line);
+            count += 1;
+        }
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String logo = " ____   ___    ___   ____    ___   \n"
-                + "| __/  / _ \\  | _ \\  | __|  / _ \\   \n"
-                + "| |    ||_||  | / /  | |_   | | |      \n"
-                + "| |_   | _ |  | _/   |_  /  | | |      \n"
-                + "|___\\  // \\\\  |_|    /__/ . \\___/  \n";
-
-        System.out.println("Hello! I'm \n" + logo);
-        printLine();
-        System.out.println("What can I do for you?");
+        sayHi();
+        String[] lines = new String[]{};
 
         while (true) {
             printLine();
             String line = in.nextLine(); // reads input
+
             if (line.toUpperCase().equals("BYE")) {
-                sayBye();
+                sayBye(); // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
                 break;
             }
-            System.out.println("You said: " + line);
+            if (line.toUpperCase().equals("LIST")) {
+                displayList(lines);
+                continue;
+            }
+
+            lines = addToList(lines, line);
+//            System.out.println("So far you have: " + Arrays.toString(lines));
         }
     }
 }
