@@ -9,7 +9,7 @@ public class Duke {
             + "| |__| |\\ V  V /| |_| | | | |/ /| | | |  __/\n"
             + " \\____/  \\_/\\_/  \\__,_|_| |_/___|_| |_|\\___|\n";
 
-    private static String lineString = "__________________________________________________________";
+    private static String lineString = "-".repeat(60);
 
     /**
      * Prints the logo of the bot.
@@ -59,6 +59,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         while (isRunning) {
+            System.out.print(": ");
             String input = sc.nextLine();
             addLineBreak();
 
