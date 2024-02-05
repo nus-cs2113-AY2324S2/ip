@@ -72,13 +72,15 @@ public class Gene {
 
             case "deadline":
                 String[] deadlineParts = command.replaceFirst("\\S+", "").split("/");
-                Deadline newDeadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].replace("by","").trim());
+                Deadline newDeadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1]
+                        .replace("by", "").trim());
                 taskList.addTask(newDeadline);
                 break;
 
             case "event":
                 String[] eventParts = command.replaceFirst("\\S+", "").split("/");
-                Event newEvent = new Event(eventParts[0].trim(), eventParts[1].replace("from","").trim(), eventParts[2].replace("to","").trim());
+                Event newEvent = new Event(eventParts[0].trim(), eventParts[1].replace("from", "").trim()
+                        , eventParts[2].replace("to", "").trim());
                 taskList.addTask(newEvent);
                 break;
 
@@ -90,6 +92,7 @@ public class Gene {
                 System.out.println("- deadline");
                 System.out.println("- event");
                 printLineSeparation();
+                break;
         }
     }
 
