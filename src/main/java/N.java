@@ -37,16 +37,21 @@ public class N {
             if (taskList[taskIndex].isDone() == newStatus) {
                 //generate output message based on current task status
                 outputMessage = (newStatus) ?
+                        //output message if task has already been marked done
                         "Task " +taskList[taskIndex].getIndex()+ " is already completed!" :
+                        //output message if task has not been marked done
                         "Task " +taskList[taskIndex].getIndex()+ " is already unmarked, complete other tasks!";
             } else { //handle a change in task status
                 taskList[taskIndex].setDone(newStatus);
                 //generate output message based on new task status
                 outputMessage = (newStatus) ?
+                        //output message when task is marked done
                         "Task " +(taskIndex + 1)+ " marked done, yay! :)" :
-                        "Okay, task " +(taskIndex + 1)+ " unmarked.";
+                        //output message when task is unmarked
+                        "Okay, task " +(taskIndex + 1)+ " unmarked, let's complete it soon ~.o.~";
             }
         } else {
+            //output message when task index given is invalid
             outputMessage = "Task not found :p";
         }
         printMessage(outputMessage);
@@ -84,11 +89,21 @@ public class N {
     }
 
     public static void main(String[] args) {
+        /*
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+         */
+
+        String logo = " ____   ___\n"
+                + "|    \\ |   |\n"
+                + "|     \\|   |\n"
+                + "|          |\n"
+                + "|   |\\     |\n"
+                + "|___| \\____| .chatbot :)\n";
+
         System.out.println("Hello from\n" + logo);
 
         printLine();
