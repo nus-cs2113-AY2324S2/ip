@@ -9,7 +9,7 @@ public class Dross {
         for (int i = 0; i < 55; i++) {
             System.out.print("_");
         }
-        System.out.println("");
+        System.out.println();
     }
 
     //Method that echoes back whatever user typed in provide that it is not "bye"

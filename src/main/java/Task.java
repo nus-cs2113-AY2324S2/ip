@@ -8,10 +8,6 @@ public class Task {
         this.isCompleted = false; // Tasks start as not completed by default
     }
 
-    // Set the task description
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     // Mark the task as completed
     public void completeTask() {

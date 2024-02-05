@@ -1,6 +1,6 @@
 public class List {
     private Task[] tasks;
-    private int size = 0;
+    private int size;
 
     public List() {
         this.tasks = new Task[100]; // initial capacity
@@ -29,7 +29,7 @@ public class List {
 
     //Method to toggle check task as undone by index
     public void markUndoneByIndex(int index){
-        tasks[index].completeTask();
+        tasks[index].uncheckTask();
     }
 
     // Method to print all tasks
