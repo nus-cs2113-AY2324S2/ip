@@ -10,8 +10,16 @@ public class UnmarkCommand implements Command {
 
     private final int INDEX;
 
-    public UnmarkCommand(String index) {
-        this.INDEX = Integer.parseInt(index) - 1;
+    public UnmarkCommand(String index) throws DukeException {
+        if (index.isEmpty()) {
+            throw new DukeException("Exceed Charge....\n\t " +
+                    "OOPS!!! The index of a task to be marked as undone cannot be empty.\n\t " +
+                    "unmark: marks a task in the task list as undone.\n\t " +
+                    "Parameters: INDEX\n\t " +
+                    "Example: unmark 1");
+        } else {
+            this.INDEX = Integer.parseInt(index) - 1;
+        }
     }
 
     @Override
@@ -22,7 +30,7 @@ public class UnmarkCommand implements Command {
         } else {
             Task undoneTask = taskList.get(INDEX);
             undoneTask.markAsUndone();
-            ui.printMessage("Nice! I've marked this task as not done yet:\n\t   " + undoneTask);
+            ui.printMessage("OK, I've marked this task as not done yet:\n\t   " + undoneTask);
         }
     }
 

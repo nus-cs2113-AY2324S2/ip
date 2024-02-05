@@ -10,8 +10,16 @@ public class MarkCommand implements Command {
 
     private final int INDEX;
 
-    public MarkCommand(String index) {
-        this.INDEX = Integer.parseInt(index) - 1;
+    public MarkCommand(String index) throws DukeException {
+        if (index.isEmpty()) {
+            throw new DukeException("Exceed Charge....\n\t " +
+                    "OOPS!!! The index of a task to be marked as done cannot be empty.\n\t " +
+                    "mark: marks a task in the task list as done.\n\t " +
+                    "Parameters: INDEX\n\t " +
+                    "Example: mark 1");
+        } else {
+            this.INDEX = Integer.parseInt(index) - 1;
+        }
     }
 
     @Override

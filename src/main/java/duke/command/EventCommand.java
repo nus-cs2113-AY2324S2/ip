@@ -18,8 +18,11 @@ public class EventCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (INPUT.isEmpty()) {
-            throw new DukeException("Exceed Charge.... \n\t " +
-                    "OOPS!!! The description of an event task cannot be empty.");
+            throw new DukeException("Exceed Charge....\n\t " +
+                    "OOPS!!! The description of an event task cannot be empty.\n\t " +
+                    "event: Adds an event task to task list.\n\t " +
+                    "Parameters: TASK /from START TIME /to END TIME\n\t " +
+                    "Example: event meet friends /from 9pm today /to 11pm today");
         } else {
             String[] words = INPUT.split("/");
             final int FROM_LENGTH = 5;

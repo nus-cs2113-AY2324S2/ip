@@ -18,8 +18,11 @@ public class DeadlineCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (INPUT.isEmpty()) {
-            throw new DukeException("Exceed Charge.... \n\t " +
-                    "OOPS!!! The description of a deadline task cannot be empty.");
+            throw new DukeException("Exceed Charge....\n\t " +
+                    "OOPS!!! The description of a deadline task cannot be empty.\n\t " +
+                    "deadline: Adds a deadline task to task list.\n\t " +
+                    "Parameters: TASK /by DEADLINE\n\t " +
+                    "Example: deadline return book /by saturday");
         } else {
             String[] words = INPUT.split("/by ");
             Task newDeadline = new Deadline(words[0], words[1]);

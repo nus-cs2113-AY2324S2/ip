@@ -11,16 +11,25 @@
 	 Here are the tasks in your list:
 	_____________________________________________________________________
 	_____________________________________________________________________
-	 Exceed Charge.... 
+	 Exceed Charge....
 	 OOPS!!! The description of a todo task cannot be empty.
+	 todo: Adds a todo task to task list.
+	 Parameters: TASK
+	 Example: todo borrow book
 	_____________________________________________________________________
 	_____________________________________________________________________
-	 Exceed Charge.... 
+	 Exceed Charge....
 	 OOPS!!! The description of a deadline task cannot be empty.
+	 deadline: Adds a deadline task to task list.
+	 Parameters: TASK /by DEADLINE
+	 Example: deadline return book /by saturday
 	_____________________________________________________________________
 	_____________________________________________________________________
-	 Exceed Charge.... 
+	 Exceed Charge....
 	 OOPS!!! The description of an event task cannot be empty.
+	 event: Adds an event task to task list.
+	 Parameters: TASK /from START TIME /to END TIME
+	 Example: event meet friends /from 9pm today /to 11pm today
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Got it. I've added this task: 
@@ -70,12 +79,18 @@
 	 A thousand apologies, but I don't know what that means.
 	_____________________________________________________________________
 	_____________________________________________________________________
-	 Exceed Charge.... 
+	 Exceed Charge....
 	 OOPS!!! The index of a task to be marked as done cannot be empty.
+	 mark: marks a task in the task list as done.
+	 Parameters: INDEX
+	 Example: mark 1
 	_____________________________________________________________________
 	_____________________________________________________________________
-	 Exceed Charge.... 
+	 Exceed Charge....
 	 OOPS!!! The index of a task to be marked as undone cannot be empty.
+	 unmark: marks a task in the task list as undone.
+	 Parameters: INDEX
+	 Example: unmark 1
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Reformation.... 

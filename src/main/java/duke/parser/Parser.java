@@ -22,16 +22,8 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            if (description.isEmpty()) {
-                throw new DukeException("Exceed Charge.... \n\t " +
-                        "OOPS!!! The index of a task to be marked as done cannot be empty.");
-            }
             return new MarkCommand(description);
         case "unmark":
-            if (description.isEmpty()) {
-                throw new DukeException("Exceed Charge.... \n\t " +
-                        "OOPS!!! The index of a task to be marked as undone cannot be empty.");
-            }
             return new UnmarkCommand(description);
         case "todo":
             //add todo
