@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,7 +8,6 @@ import java.util.logging.Logger;
 public class Nick {
     private static final Logger LOGGER = Logger.getLogger(Nick.class.getName());
     public static void main(String[] args) {
-
         try {
             String name = new String(Files.readAllBytes(Paths.get("name.txt")));
             System.out.print(name);
@@ -33,7 +33,7 @@ public class Nick {
                 System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("\t" + Integer.toString(i + 1) + ".[" + userTasks[i].getStatusIcon() + "] " + userTasks[i].description);
+                    System.out.println("\t" + Integer.toString(i + 1) + "." + userTasks[i]);
                 }
                 System.out.println("____________________________________________________________");
                 continue;
@@ -55,12 +55,36 @@ public class Nick {
                 }
                 continue;
             }
-            Task task = new Task(command);
-            userTasks[taskCount] = task;
+
+            String taskType = command.split(" ")[0];
+            int taskDescriptionIndex = taskType.length() + 1;
+            int taskDescriptionEndIndex = command.indexOf("/") - 1;
+
+            if (taskType.equals("todo")) {
+                String taskName = command.substring(taskDescriptionIndex);
+                Todo task = new Todo(taskName);
+                userTasks[taskCount] = task;
+            } else if (taskType.equals("deadline")) {
+                int deadlineIndex = command.indexOf("/by") + 4;
+                String taskName = command.substring(taskDescriptionIndex, taskDescriptionEndIndex);
+                String deadline = command.substring(deadlineIndex);
+                Deadline task = new Deadline(taskName, deadline);
+                userTasks[taskCount] = task;
+            } else if (taskType.equals("event")) {
+                int fromIndex = command.indexOf("/from");
+                int toIndex = command.indexOf("/to");
+                String taskName = command.substring(taskDescriptionIndex, taskDescriptionEndIndex);
+                String from = command.substring(fromIndex + 6, toIndex - 1);
+                String to = command.substring(toIndex + 4);
+                Event task = new Event(taskName, from, to);
+                userTasks[taskCount] = task;
+            }
+            System.out.println("____________________________________________________________");
+            System.out.println("\t" + "Got it. I've added this task:");
+            System.out.println("\t" + userTasks[taskCount]);
+            System.out.println("\t" + "Now you have " + (taskCount + 1) + " tasks in the list.");
+            System.out.println("____________________________________________________________");
             taskCount++;
-            System.out.println("____________________________________________________________");
-            System.out.println("\t" + "added: " + command);
-            System.out.println("____________________________________________________________");
         }
         System.out.println("____________________________________________________________");
         System.out.println("\t" + "Bye. Hope to see you again soon!");
