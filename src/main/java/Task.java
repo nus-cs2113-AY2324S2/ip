@@ -1,6 +1,7 @@
 public class Task {
-    private String name;
-    private boolean isDone;
+    protected String name;
+    protected String type;
+    protected boolean isDone;
 
     /**
      * Constructor for Task.
@@ -10,6 +11,7 @@ public class Task {
      */
     public Task(String name) {
         this.name = name;
+        this.type = "";
         this.isDone = false;
     }
 
@@ -49,5 +51,27 @@ public class Task {
 
         System.out.println(" [" + completion + "] " + this.name);
         this.isDone = newStatus;
+    }
+
+    /**
+     * Returns the type of the task.
+     * 
+     * @param None
+     * @return The type of the task.
+     */
+    public String getTaskType() {
+        return this.type;
+    }
+
+    /**
+     * Prints the task and its status in one line.
+     * By default, task type is empty.
+     * Overwrites toString method in Java Object class.
+     * 
+     * @param None
+     * @return String representation of the task.
+     */
+    public String toString() {
+        return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
 }

@@ -96,10 +96,25 @@ public class Duke {
                 taskList.setItemStatus(index, false);
                 continue;
 
-            } else {
-                taskList.addItem(input);
+            }  else if (input.startsWith("todo")) {
+                // Add a todo task if input starts with "todo"
+                String taskName = input.split(" ")[1];
+                taskList.addItem(taskName, "T");
+                continue;
+            } else if (input.startsWith("deadline")) {
+                // Add a deadline task if input starts with "deadline"
+                String taskName = input.split(" ")[1];
+                taskList.addItem(taskName, "D");
+                continue;
+            } else if (input.startsWith("event")) {
+                // Add an event task if input starts with "event"
+                String taskName = input.split(" ")[1];
+                taskList.addItem(taskName, "E");
                 continue;
             }
+            
+            // Add task to the list
+            taskList.addItem(input);
         }
 
         sc.close();
