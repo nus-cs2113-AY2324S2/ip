@@ -5,11 +5,6 @@ public class DeadlineTask extends Task {
         super(description);
         this.deadline = deadline;
     }
-
-    public String getDeadline() {
-        return deadline;
-    }
-
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline + ")";
