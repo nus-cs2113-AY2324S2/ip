@@ -11,16 +11,25 @@ public class Duke {
 }
 
  */
-public class Doraemon {
+
+import java.util.Scanner;
+public class Duke {
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
-    public static void main() {
+    public static void main(String[] args) {
+        String line = " ";
+        Scanner in = new Scanner(System.in);
         printLine();
         System.out.println("Hello! I'm Doraemon!");
         System.out.println("What can I do for you?");
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        while (!line.equals("bye")) {
+            line = in.nextLine();
+            System.out.println(line);
+            printLine();
+        }
+        System.out.println("Bye. Have a great day!");
         printLine();
     }
 }
