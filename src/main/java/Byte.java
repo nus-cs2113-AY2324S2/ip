@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Byte {
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static final Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
 
@@ -19,13 +19,20 @@ public class Byte {
                 printGoodbyeMessage();
                 break;
             } else if (userInput.startsWith("mark ")) {
-                markTask(userInput, true);
+                markTask(userInput.substring(5), true);
             } else if (userInput.startsWith("unmark ")) {
-                markTask(userInput, false);
+                markTask(userInput.substring(7), false);
             } else if (userInput.equals("list")) {
                 listTasks();
-            } else {
-                addTask(userInput);
+            } else if (userInput.startsWith("todo ")){
+                addTask(new ToDo(userInput.substring(5)));
+            }else if(userInput.startsWith("deadline ")){
+                String[] parts = userInput.substring(9).split(" /by ");
+                addTask(new Deadline(parts[0], parts[1]));
+            }else if(userInput.startsWith("event ")){
+                String[] parts = userInput.substring(6).split(" /from ");
+                String[] times = parts[1].split(" /to ");
+                addTask(new Event(parts[0], times[0], times[1]));
             }
         }
 
@@ -44,12 +51,11 @@ public class Byte {
         printLineSeparator();
     }
 
-    private static void addTask(String taskDescription) {
+    private static void addTask(Task task) {
         if (taskCount < MAX_TASKS) {
-            Task newTask = new Task(taskDescription);
-            tasks[taskCount] = newTask;
-            taskCount++;
-            System.out.println("added: " + taskDescription);
+            tasks[taskCount++] = task;
+            System.out.println("Got it. I've added this task:\n " + task);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
         } else {
             System.out.println("Sorry, I can only handle up to " + MAX_TASKS + " tasks!");
         }
@@ -63,18 +69,16 @@ public class Byte {
         printLineSeparator();
     }
 
-    private static void markTask(String userInput, boolean isDone) {
+    private static void markTask(String taskNumberStr, boolean isDone) {
         int taskNumber;
         try {
-            taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            if (taskNumber < 0 || taskNumber >= taskCount) {
-                throw new IndexOutOfBoundsException("Task number is out of range");
-            }
+            taskNumber = Integer.parseInt(taskNumberStr)-1;
+            Task task = tasks[taskNumber];
             if (isDone) {
-                tasks[taskNumber].markAsDone();
+                task.markAsDone();
                 System.out.println("Nice! I've marked this task as done:\n  " + tasks[taskNumber]);
             } else {
-                tasks[taskNumber].markAsNotDone();
+                task.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[taskNumber]);
             }
         } catch (NumberFormatException e) {
