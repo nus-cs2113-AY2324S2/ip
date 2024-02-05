@@ -98,7 +98,7 @@ public class Carrot {
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        listOfTasks[taskIndex - 1].printTaskInfo();
+        System.out.println(listOfTasks[taskIndex - 1]);
         System.out.println(MESSAGE_DIVIDER);
     }
 
@@ -117,7 +117,7 @@ public class Carrot {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; listOfTasks[i] != null; i++) {
-                System.out.printf("%d. [%s] %s%n", i+1, listOfTasks[i].getStatusIcon(), listOfTasks[i].description);
+                System.out.println((i + 1) + ". " + listOfTasks[i]);
             }
         }
         System.out.println(MESSAGE_DIVIDER);
