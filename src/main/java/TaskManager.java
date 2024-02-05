@@ -26,7 +26,7 @@ public class TaskManager {
         }
     }
 
-    private void addTask(Task task) {
+    private void addTask(Task task, String input) {
         if (input.startsWith("todo")) {
             tasks[taskCount] = new Todo(input.substring(5));
         } else if (input.startsWith("deadline")) {
@@ -66,7 +66,7 @@ public class TaskManager {
                 markTask(index, false);
             } else {
                 Task task = new Task(input);
-                addTask(task);
+                addTask(task, input);
                 taskCount++;
             }
         }
