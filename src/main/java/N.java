@@ -30,17 +30,26 @@ public class N {
     }
 
     public static void changeTaskStatus(Task[] taskList, int taskIndex, boolean newStatus) {
+        String outputMessage = "";
+        //check to ensure that task to be marked/unmarked exists in the list
         if (taskIndex < Task.totalTasks) {
-            taskList[taskIndex].setDone(newStatus);
-            if (newStatus) {
-                printMessage("Task " +(taskIndex + 1)+ " is done, yay! :)");
-            } else {
-                printMessage("Okay, task " +(taskIndex + 1)+ " still needs to be done");
+            //when no change in status is required
+            if (taskList[taskIndex].isDone() == newStatus) {
+                //generate output message based on current task status
+                outputMessage = (newStatus) ?
+                        "Task " +taskList[taskIndex].getIndex()+ " is already completed!" :
+                        "Task " +taskList[taskIndex].getIndex()+ " is already unmarked, complete other tasks!";
+            } else { //handle a change in task status
+                taskList[taskIndex].setDone(newStatus);
+                //generate output message based on new task status
+                outputMessage = (newStatus) ?
+                        "Task " +(taskIndex + 1)+ " marked done, yay! :)" :
+                        "Okay, task " +(taskIndex + 1)+ " unmarked.";
             }
         } else {
-            printMessage("task not found :p");
+            outputMessage = "Task not found :p";
         }
-
+        printMessage(outputMessage);
     }
 
     public static void addTask(Task[] taskList, int taskIndex, String taskDescription) {
@@ -61,7 +70,7 @@ public class N {
             handleMessages(taskList, nextIndex);
         } else if (message.contains("unmark")) {
             int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
-            changeTaskStatus(taskList, indexToUnmark - 1, true);
+            changeTaskStatus(taskList, indexToUnmark - 1, false);
             handleMessages(taskList, nextIndex);
         } else if (message.contains("mark")) {
             int indexToMark = Integer.parseInt(message.split(" ")[1]);
