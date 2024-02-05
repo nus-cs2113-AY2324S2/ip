@@ -1,4 +1,4 @@
-package UI;
+package Main;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
@@ -11,21 +11,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MarioUI {
+public class Mario {
     public static final String mario_filename = "MARIO.ser";
     private JFrame frame;
     private JTextArea chatArea;
     private JTextField inputField;
     private JButton sendButton;
-    private Mario mario;
+    private LogicController mario;
     private JScrollPane scrollPane;
     private String fullCommand = "";
     private String response = "";
     private BaseCommand command;
 
-    public MarioUI(String filename) {
+    public Mario(String filename) {
 
-        this.mario = new Mario(filename);
+        this.mario = new LogicController(filename);
         // Create the frame
         frame = new JFrame("Mario");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -120,6 +120,6 @@ public class MarioUI {
     }
 
     public static void main(String[] args) {
-        new MarioUI(mario_filename);
+        new Mario(mario_filename);
     }
 }

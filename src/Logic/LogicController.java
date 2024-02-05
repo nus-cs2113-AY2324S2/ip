@@ -3,13 +3,13 @@ package Logic;
 import java.io.Serializable;
 import Templates.*;
 
-public class Mario implements Serializable {
+public class LogicController implements Serializable {
 
     private TaskList taskList;
     private Storage storage;
     private String filename;
 
-    public Mario(String filename) {
+    public LogicController(String filename) {
         this.storage = new Storage();
         this.taskList = storage.loadMario(filename);
         this.filename = filename;

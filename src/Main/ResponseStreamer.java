@@ -1,4 +1,4 @@
-package UI;
+package Main;
 import javax.swing.*;
 class ResponseStreamer implements Runnable {
     private String response;
