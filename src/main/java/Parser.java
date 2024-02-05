@@ -25,8 +25,40 @@ public class Parser {
         return Integer.parseInt(numberString);
     }
 
-    public static String extractTodoDescription(String userInput){
+    public static String extractDescription(String userInput){
         String[] words = userInput.split(" ");
         return words[1];
+    }
+
+    public static String extractStartTime(String userInput){
+        String[] words = userInput.split(" ");
+        String startTime = null;
+
+        for (String word : words) {
+            if (word.startsWith("/")) {
+                startTime = word;
+                break;
+            }
+        }
+        return startTime.replace("/", "");
+    }
+
+
+    public static String extractEndTime(String userInput) {
+        String[] words = userInput.split(" ");
+        int importantPartsFound = 0;
+        String endTime = null;
+
+
+        for (String word : words) {
+            if (word.startsWith("/")) {
+                importantPartsFound++;
+                if (importantPartsFound == 2) {
+                    endTime = word;
+                    break;
+                }
+            }
+        }
+        return endTime.replace("/", "");
     }
 }

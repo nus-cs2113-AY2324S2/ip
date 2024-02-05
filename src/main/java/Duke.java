@@ -4,6 +4,9 @@ public class Duke {
     public static void main(String[] args) {
         List list = new List();
         list.generateSizeOfList(100);
+        int taskIndex;
+        String description;
+
         System.out.println("Hello! My name is Jeff.");
         System.out.println("What can I do for you?");
 
@@ -12,8 +15,6 @@ public class Duke {
         while (isChatting){
             String userInput = Parser.getUserInput();
             String userFirstWord = Parser.getFirstWord(userInput);
-            int taskIndex;
-
 
             switch (userFirstWord){
             case "list":
@@ -35,21 +36,22 @@ public class Duke {
                 break;
 
             case "deadline":
-                String description = "PLACEHOLDER";
-                list.insertTask(new Deadline(description));
+                description = Parser.extractDescription(userInput);
+                String deadLine = Parser.extractStartTime(userInput);
+                list.insertTask(new Deadline(description, deadLine));
                 break;
 
 
             case "event":
-                String otherDescription = "PLACEHOLDER";
-                String start = "PLACEHOLDER START";
-                String end = "PLACEHOLDER END";
-                list.insertTask(new Event(otherDescription, start, end));
+                description = Parser.extractDescription(userInput);
+                String start = Parser.extractStartTime(userInput);
+                String end = Parser.extractEndTime(userInput);
+                list.insertTask(new Event(description, start, end));
                 break;
 
 
             case "todo":
-                list.insertTask(new Todo(Parser.extractTodoDescription(userInput)));
+                list.insertTask(new Todo(Parser.extractDescription(userInput)));
                 break;
 
             default:
@@ -58,7 +60,6 @@ public class Duke {
                 break;
             }
         }
-
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

@@ -10,6 +10,7 @@ public class List {
         tasks[counter] = task;
         System.out.println("Got it. I've added this task");
         System.out.println(task.getDescription());
+        System.out.println("Now you have " + (counter + 1) + " tasks in the list.");
         counter += 1;
     }
 
