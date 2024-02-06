@@ -30,17 +30,20 @@ public class TaskManager {
 
     private void addTask(Task task, String input) {
         if (input.startsWith("todo")) {
-            tasks[taskCount] = new Todo(input.substring(5));
+            String todoDescription = input.substring(5);
+            tasks[taskCount] = new Todo(todoDescription);
             printTask(tasks[taskCount]);
         } else if (input.startsWith("deadline")) {
-            String[] words = input.split(" /by ");
-            tasks[taskCount] = new Deadline(words[0].substring(9), words[1]);
+            String[] deadlineDetails = input.split(" /by ");
+            String description = deadlineDetails[0].substring(9);
+            String by = (deadlineDetails.length > 1) ? deadlineDetails[1] : "null";
+            tasks[taskCount] = new Deadline(description, by);
             printTask(tasks[taskCount]);
         } else if (input.startsWith("event")) {
             String[] eventDetails = input.split(" /from | /to ");
             String description = eventDetails[0].substring(6);
-            String from = eventDetails[1];
-            String to = eventDetails[2];
+            String from = (eventDetails.length > 1) ? eventDetails[1] : "null";
+            String to = (eventDetails.length > 2) ? eventDetails[2] : "null";
             tasks[taskCount] = new Event(description, from, to);
             printTask(tasks[taskCount]);
         } else {
