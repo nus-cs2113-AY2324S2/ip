@@ -10,7 +10,7 @@ public class BobBot {
         allTasks[taskNumToMark].markAsDone();
         drawLine(true);
         System.out.println("\tGot it! Marking this task as done:");
-        System.out.printf("\t[%s] %s\n", allTasks[taskNumToMark].getStatusIcon(), line);
+        System.out.printf("\t[%s] %s\n", allTasks[taskNumToMark].getStatusIcon(), allTasks[taskNumToMark].getDescription());
         drawLine(true);
     }
     
@@ -19,7 +19,7 @@ public class BobBot {
         allTasks[taskNumToUnmark].markAsUndone();
         drawLine(true);
         System.out.println("\tAlright! Unmarking this task:");
-        System.out.printf("\t[%s] %s\n", allTasks[taskNumToUnmark].getStatusIcon(), line);
+        System.out.printf("\t[%s] %s\n", allTasks[taskNumToUnmark].getStatusIcon(), allTasks[taskNumToUnmark].getDescription());
         drawLine(true);
     }
 
