@@ -1,18 +1,18 @@
 import java.util.Scanner;
 public class Jane {
     public static void main(String[] args) {
-        String logo = " _____    _____    ____ _    _____ \n" +
-                "|____ |  |     |  |    | |  | ____|\n" +
-                "    | |  |  |  |  | |  | |  | |___ \n" +
-                " _  | |  |  _  |  | |  | |  |  ___|\n" +
-                "| |_| |  | | | |  | |  | |  | |___ \n" +
-                "|_____|  |_| |_|  |_| ___|  |_____|\n";
-        String horizontalLine = "____________________________________________________________\n";
-        String greetMessage = "Hello! I am Jane.\nWhat can I do for you?\n";
-        String exitMessage = "Bye. Hope to see you again soon!\n";
+        String LOGO = " _____    _____    ____ _    _____ \n" +
+                      "|____ |  |     |  |    | |  | ____|\n" +
+                      "    | |  |  |  |  | |  | |  | |___ \n" +
+                      " _  | |  |  _  |  | |  | |  |  ___|\n" +
+                      "| |_| |  | | | |  | |  | |  | |___ \n" +
+                      "|_____|  |_| |_|  |_| ___|  |_____|\n";
+        static final String SEPARATOR = "____________________________________________________________\n";
+        static final String GREET_MESSAGE = "Hello! I am Jane.\nWhat can I do for you?\n";
+        static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!\n";
 
-        System.out.print(logo + horizontalLine);
-        System.out.print(greetMessage + horizontalLine);
+        System.out.print(LOGO + SEPARATOR);
+        System.out.print(GREET_MESSAGE + SEPARATOR);
 
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
@@ -20,7 +20,7 @@ public class Jane {
         TaskList taskList = new TaskList();
 
         while (!input.equals("bye")) {
-            System.out.print(horizontalLine);
+            System.out.print(SEPARATOR);
             Task currentTask;
             if (input.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
@@ -45,12 +45,12 @@ public class Jane {
                 taskList.addTask(t);
                 System.out.println("added: " + t.getDescription());
             }
-            System.out.print(horizontalLine);
+            System.out.print(SEPARATOR);
             input = in.nextLine();
             t = new Task(input);
         }
 
-        System.out.print(horizontalLine + exitMessage + horizontalLine);
+        System.out.print(SEPARATOR + EXIT_MESSAGE + SEPARATOR);
 
     }
 }
