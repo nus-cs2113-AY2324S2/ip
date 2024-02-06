@@ -57,6 +57,7 @@ public class Task{
 
     public static void listTasks(Task[] tasks, int index){
         System.out.println(LINE_SEPARATOR);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
             System.out.print(i+1 + ".");
             System.out.println(tasks[i]);

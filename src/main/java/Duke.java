@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
+    private static final int MAX_TASKS = 100;
 
     public static void main(String[] args) {
         System.out.println(LINE_SEPARATOR + "\n" +
@@ -15,7 +16,7 @@ public class Duke {
                 " | |__| | |__| | |____| . \\ \n" +
                 " |_____/ \\____/ \\_____|_|\\_\\");
 
-        Task[] tasks = new Task[100]; //stores Tasks in array called tasks
+        Task[] tasks = new Task[MAX_TASKS]; //stores Tasks in array called tasks
         String userInput;
         int index = 0; //index of where the userInput is stored in texts
         do {
