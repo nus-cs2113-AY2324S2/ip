@@ -4,6 +4,11 @@ public class Byte {
     private static final int MAX_TASKS = 100;
     private static final Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
+    private static final int TODO_COMMAND_LENGTH = "todo ".length();
+    private static final int DEADLINE_COMMAND_LENGTH = "deadline ".length();
+    private static final int EVENT_COMMAND_LENGTH = "event ".length();
+    private static final int MARK_COMMAND_LENGTH = "mark ".length();
+    private static final int UNMARK_COMMAND_LENGTH = "unmark ".length();
 
 
     public static void main(String[] args) {
@@ -19,20 +24,20 @@ public class Byte {
                 printGoodbyeMessage();
                 break;
             } else if (userInput.startsWith("mark ")) {
-                markTask(userInput.substring(5), true);
+                markTask(userInput.substring(MARK_COMMAND_LENGTH), true);
             } else if (userInput.startsWith("unmark ")) {
-                markTask(userInput.substring(7), false);
+                markTask(userInput.substring(UNMARK_COMMAND_LENGTH), false);
             } else if (userInput.equals("list")) {
                 listTasks();
             } else if (userInput.startsWith("todo ")){
-                addTask(new ToDo(userInput.substring(5)));
+                addTask(new ToDo(userInput.substring(TODO_COMMAND_LENGTH)));
             }else if(userInput.startsWith("deadline ")){
-                String[] parts = userInput.substring(9).split(" /by ");
-                addTask(new Deadline(parts[0], parts[1]));
+                String[] deadlineDetails = userInput.substring(DEADLINE_COMMAND_LENGTH).split(" /by ");
+                addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]));
             }else if(userInput.startsWith("event ")){
-                String[] parts = userInput.substring(6).split(" /from ");
-                String[] times = parts[1].split(" /to ");
-                addTask(new Event(parts[0], times[0], times[1]));
+                String[] eventDetails  = userInput.substring(EVENT_COMMAND_LENGTH).split(" /from ");
+                String[] eventTimes  = eventDetails[1].split(" /to ");
+                addTask(new Event(eventDetails[0], eventTimes[0], eventTimes[1]));
             }
         }
 
