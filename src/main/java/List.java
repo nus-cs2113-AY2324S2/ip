@@ -84,36 +84,43 @@ public class List {
      * @return None
      */
     public void addItem(String description, String type) {
-        if (type.equals("T")) {
-            String taskName = description;
-            
-            Todo task = new Todo(taskName);
-            list.add(task);
-            size++;
-        } else if (type.equals("D")) {
+        boolean isValid = true;
+        switch (type) {
+        case "T":
+            list.add(new Todo(description));
+            break;
+
+        case "D":
             String[] nameEnd = description.split(" /by ", 2);
             String taskName = nameEnd[0];
             String taskEnd = nameEnd[1];
 
-            Deadline task = new Deadline(taskName, taskEnd);
-            list.add(task);
-            size++;
-        } else if (type.equals("E")) {
+            list.add(new Deadline(taskName, taskEnd));
+            break;
+
+        case "E":
             String[] nameTimes = description.split(" /from ", 2);
             String times = nameTimes[1];
             String[] startEnd = times.split(" /to ", 2);
-            String taskName = nameTimes[0];
+            taskName = nameTimes[0];
             String taskStart = startEnd[0];
-            String taskEnd = startEnd[1];
+            taskEnd = startEnd[1];
 
-            Event task = new Event(taskName, taskStart, taskEnd);
-            list.add(task);
-            size++;
-        } else {
+            list.add(new Event(taskName, taskStart, taskEnd));
+            break;
+        
+        default:
+            isValid = false;
             System.out.println("HUHHH? What is this even?");
-            return;
+            break;
         }
-
-        this.printSize();
+        
+        if (isValid) {
+            size++;
+            System.out.println("Okey dokey here we go");
+            System.out.print(" ");
+            System.out.println(list.get(size - 1));
+            this.printSize();
+        }
     }
 }
