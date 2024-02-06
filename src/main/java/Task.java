@@ -1,57 +1,51 @@
 public class Task {
-    private String taskName;
-    private static int numTasks = 0;
-    private static final String[] taskList = new String[100];
-    private static final boolean[] doneList = new boolean[100];
+    protected String taskName;
+    protected boolean isDone;
+    protected String doneSymbol;
+    protected String taskType;
 
     public Task(){
         this(null);
     }
 
     public Task(String taskName){
-        if(taskName != null) {
-            setTaskName(taskName);
-            taskList[numTasks] = taskName;
-            numTasks++;
-            markDone(numTasks - 1, false);
+        if(taskName == null) {
+            return;
         }
+        setTaskName(taskName);
+        setDone(false);
+        taskType = null;
     }
 
     public String getTaskName() {
         return taskName;
     }
 
-    public static int getNumTasks() {
-        return numTasks;
-    }
-
-    public static void printTaskList() {
-        System.out.println("    Here is your to-do list:");
-        for(int i = 0; i < numTasks; i++){
-            if(doneList[i]){
-                System.out.print("        " + (i + 1) + ". " + "[√] ");
-            }
-            else{
-                System.out.print("        " + (i + 1) + ". " + "[ ] ");
-            }
-            System.out.println(taskList[i]);
-        }
+    public boolean isDone() {
+        return isDone;
     }
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
 
-    public static void markDone(int index, boolean isDone){
-        if(index < numTasks && index >= 0) {
-            doneList[index] = isDone;
-            if (isDone) {
-                System.out.printf("    Task%d is done!\n", index + 1);
-            }
+    public void setDone(boolean isDone){
+        this.isDone = isDone;
+        if(isDone){
+            doneSymbol = "√";
         }
         else{
-            System.out.printf("    Task%d does not exist.\n", index + 1);
+            doneSymbol = " ";
         }
+    }
+
+    public String getTaskType(){
+        return taskType;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("[%s][%s] %s", taskType, doneSymbol, taskName);
     }
 
 }
