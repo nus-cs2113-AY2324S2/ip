@@ -2,6 +2,8 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    protected String taskType;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -17,5 +19,9 @@ public class Task {
 
     public void markTask(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public String getTaskType() {
+        return taskType;
     }
 }

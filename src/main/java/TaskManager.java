@@ -7,7 +7,9 @@ public class TaskManager {
         System.out.println("______________________________________________________________\n"
                 + " Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+            System.out.println(" " + (i + 1) + ". [" + tasks[i].getTaskType() + "] "
+                    + "[" + tasks[i].getStatusIcon() + "] "
+                    + tasks[i].getDescription());
         }
         System.out.println("_____________________________________________________________");
     }
@@ -29,16 +31,28 @@ public class TaskManager {
     private void addTask(Task task, String input) {
         if (input.startsWith("todo")) {
             tasks[taskCount] = new Todo(input.substring(5));
+            printTask(tasks[taskCount]);
         } else if (input.startsWith("deadline")) {
             String[] words = input.split(" /by ");
             tasks[taskCount] = new Deadline(words[0].substring(9), words[1]);
+            printTask(tasks[taskCount]);
         } else if (input.startsWith("event")) {
-            String[] words = input.split(" /at ");
-            tasks[taskCount] = new Event(words[0].substring(6), words[1]);
+            String[] eventDetails = input.split(" /from | /to ");
+            String description = eventDetails[0].substring(6);
+            String from = eventDetails[1];
+            String to = eventDetails[2];
+            tasks[taskCount] = new Event(description, from, to);
+            printTask(tasks[taskCount]);
+        } else {
+            tasks[taskCount] = task;
+            printTask(tasks[taskCount]);
         }
+    }
+
+    private void printTask(Task task) {
         System.out.println("______________________________________________________________\n"
-                + " Alright. I've added this task to your list:\n"
-                + " [ ] " + task.getDescription() + "\n"
+                + " Got it. I've added this task:\n"
+                + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
                 + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
                 + "_____________________________________________________________");
     }

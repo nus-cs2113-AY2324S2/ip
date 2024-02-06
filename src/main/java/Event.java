@@ -1,20 +1,20 @@
 public class Event extends Task{
-    protected String at;
-
+    protected String from;
     protected String to;
 
-    public Event(String description, String at) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.at = at;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String getDescription() {
-        return description + " (at: " + at + ")";
+        return description + " (from: " + from + " to: " + to + ")";
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + " to: " + to + ")";
+    public String getTaskType() {
+        return "E";
     }
 }
