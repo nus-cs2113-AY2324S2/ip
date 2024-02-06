@@ -52,6 +52,7 @@ public class Jane {
         while (!input.equals("bye")) {
             System.out.print(SEPARATOR);
             processInput(input, taskList);
+            System.out.print(SEPARATOR);
             input = in.nextLine();
         }
 
