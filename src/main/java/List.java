@@ -69,8 +69,9 @@ public class List {
         size++;
 
         // Echo the input
-        System.out.print("added: ");
-        System.out.println(taskName);
+        System.out.println("Okey dokey here we go");
+        System.out.print(" ");
+        System.out.println(list.get(size - 1));
 
         this.printSize();
     }
@@ -85,6 +86,7 @@ public class List {
      */
     public void addItem(String description, String type) {
         boolean isValid = true;
+
         switch (type) {
         case "T":
             list.add(new Todo(description));
