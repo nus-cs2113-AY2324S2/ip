@@ -26,7 +26,7 @@ public class Jane {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.count; i++) {
                     currentTask = taskList.list[i];
-                    System.out.println(currentTask.getIndex() + "." +
+                    System.out.println(currentTask.getSequence() + "." +
                             currentTask.getStatusIcon() + currentTask.getDescription());
                 }
             } else if (input.startsWith("mark")) {

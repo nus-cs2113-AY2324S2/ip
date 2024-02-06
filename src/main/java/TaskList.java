@@ -14,7 +14,7 @@ public class TaskList {
     public void addTask(Task task) {
         this.list[count] = task;
         this.count = count + 1;
-        task.index = count;
+        task.sequence = count;
     }
 
 }
