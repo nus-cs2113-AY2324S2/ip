@@ -41,8 +41,8 @@ public class Bobby {
                 }
                 break;
             case "list":
-                for (int j = 0; j < counter; j += 1) {
-                    System.out.println((j + 1) + "." + tasks[j]);
+                for (int i = 0; i < counter; i += 1) {
+                    System.out.println((i + 1) + "." + tasks[i]);
                 }
                 break;
             case "todo":

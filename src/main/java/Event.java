@@ -7,7 +7,8 @@ public class Event extends Task {
         this.by = by;
         this.from = from;
     }
+
     public String toString() {
-        return "[D]" + super.toString() + " (from: " + from + " to: " + by + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + by + ")";
     }
 }
