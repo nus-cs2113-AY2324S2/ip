@@ -22,4 +22,9 @@ public class Task {
     public void printDescription() {
         System.out.println(description);
     }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
 }
