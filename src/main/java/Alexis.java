@@ -40,7 +40,22 @@ public class Alexis {
                 } else if (line.startsWith("unmark")) {
                     tasks.unmarkTask(line);
                 } else {
-                    tasks.addTask(line);
+                    int firstSpace = line.indexOf(" ");
+                    String firstWord = line.substring(0, firstSpace);
+                    String description = line.substring(firstSpace);
+                    TaskType taskType = TaskType.getTaskType(firstWord);
+                    switch (taskType) {
+                    case TODO:
+                    default:
+                        tasks.addTask(TaskType.TODO, description);
+                        break;
+                    case DEADLINE:
+                        tasks.addTask(TaskType.DEADLINE, description);
+                        break;
+                    case EVENT:
+                        tasks.addTask(TaskType.EVENT, description);
+                        break;
+                    }
                 }
                 System.out.println(lineBreak);
             }
