@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.util.Scanner;
+
 public class Qchat {
 
    static final String  WELCOME_GREETING = new String(
@@ -6,13 +9,43 @@ public class Qchat {
                    +"What can I do for you?\n"
                    +"----------------------------------------------------------------\n") ;
    static final String GOODBYE_GREETING = new String(
-           "goodbye\n"+
-                   "Qchat, your life-long trusted companion\n");
+           "--------------------------------------------------------\n" +
+            "goodbye\n"+ "Qchat, your life-long trusted companion\n");
 
+
+
+
+   static String CommandReader(){
+
+       Scanner in = new Scanner(System.in);
+       String command ;
+       command = in.nextLine();
+
+       switch (command){
+       case "Bye":
+           System.out.print(GOODBYE_GREETING);
+           break;
+       default:
+           System.out.print("---------------------------------------------\n");
+           System.out.print(command+"\n");
+           System.out.print("---------------------------------------------\n");
+           break;
+
+       }
+       return command;
+
+
+
+   }
    public static void main(String[] args) {
 
-        System.out.print(WELCOME_GREETING);
-        System.out.print(GOODBYE_GREETING);
+       System.out.print(WELCOME_GREETING);
+       String command = "" ;
+       while(!command.equals("Bye")){
+
+           command = CommandReader();
+
+       }
 
    }
 
