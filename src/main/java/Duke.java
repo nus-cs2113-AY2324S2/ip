@@ -18,7 +18,7 @@ public class MyChatBot {
             System.out.println("______________");
 
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Byeeeee. Hope to see you again soon!");
+                System.out.println("Byeeeeee. Hope to see you again soon!");
                 break;
             }
 
@@ -28,33 +28,30 @@ public class MyChatBot {
                 } else {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
-                        String status = taskStatus[i] ? "[X]" : "[ ]";
+                        String status;
+                        if (taskStatus[i]) {
+                            status = "[X]";
+                        } else {
+                            status = "[ ]";
+                        }
                         System.out.println((i + 1) + ". " + status + " " + tasks[i]);
                     }
                 }
             } else if (userInput.startsWith("mark ")) {
-                try {
-                    int taskIndex = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        taskStatus[taskIndex] = true;
-                        System.out.println("Good Job ! Task marked as done: [X] " + tasks[taskIndex]);
-                    } else {
-                        System.out.println("Invalid task index.");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid task number.");
+                int taskIndex = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    taskStatus[taskIndex] = true;
+                    System.out.println("Good job ! Task marked as done: [X] " + tasks[taskIndex]);
+                } else {
+                    System.out.println("Invalid task index.");
                 }
             } else if (userInput.startsWith("unmark ")) {
-                try {
-                    int taskIndex = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        taskStatus[taskIndex] = false;
-                        System.out.println("Oh no :( Task marked as not done: [ ] " + tasks[taskIndex]);
-                    } else {
-                        System.out.println("Invalid task index.");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid task number.");
+                int taskIndex = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    taskStatus[taskIndex] = false;
+                    System.out.println("Oh no :( Task marked as not done: [ ] " + tasks[taskIndex]);
+                } else {
+                    System.out.println("Invalid task index.");
                 }
             } else {
                 if (taskCount < tasks.length) {
@@ -72,5 +69,6 @@ public class MyChatBot {
         scanner.close();
     }
 }
+
 
 
