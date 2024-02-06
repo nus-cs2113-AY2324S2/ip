@@ -1,10 +1,12 @@
 public class Task {
     private String taskDescription;
     private Boolean isDone;
+    protected TaskType taskType;
 
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
         this.isDone = false;
+        this.taskType = null;
     }
 
     public String getTaskDescription() {
@@ -21,5 +23,13 @@ public class Task {
 
     public void unmarkAsDone() {
         this.isDone = false;
+    }
+
+    public void printAdd(int todosCount) {
+        System.out.print("");
+    }
+
+    public TaskType getTaskType() {
+        return this.taskType;
     }
 }
