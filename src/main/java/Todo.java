@@ -5,10 +5,7 @@ public class Todo extends Task {
 
     @Override
     public void printRespond() {
-        System.out.println("Okay! i've added to ur tasklist: ");
-        System.out.print(" >> ");
-        printTasktype();
-        super.printCheckbox();
+        super.printRespond();
         System.out.println(" " + this.taskName);
         super.printTaskcount();
     }

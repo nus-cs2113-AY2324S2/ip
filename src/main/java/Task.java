@@ -3,10 +3,6 @@ public class Task {
     protected int index;
     protected boolean isDone;
 
-    public enum taskType {
-        Todo, Deadline, Event
-    }
-
     public Task(String input, int counter) {
         this.taskName = input;
         this.index = counter + 1;
@@ -44,7 +40,11 @@ public class Task {
     }
 
     public void printRespond() {
-        System.out.println("added: " + this.taskName);
+//        System.out.println("added: " + this.taskName);
+        System.out.println("Okay! i've added to ur tasklist: ");
+        System.out.print(" >> ");
+        printTasktype();
+        printCheckbox();
     }
 
     public void printTaskcount() {
