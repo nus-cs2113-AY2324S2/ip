@@ -10,7 +10,7 @@ public class Duke {
 
         Task[] tasks = new Task[100];
 
-        Task.addTask(tasks);
+        AddTask.addTask(tasks);
 
         PrintText.printWithHorizon("Bye. Hope to see you again soon!");
 
