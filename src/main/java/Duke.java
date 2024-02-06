@@ -19,39 +19,13 @@ public class Duke {
         String line;
         line = in.nextLine();
         String[] lineWords;
-        Boolean isDone;
-        TaskType taskType;
-        String taskTypeCode = null;
 
         while (!(line.toUpperCase().contains("BYE"))) {
             lineWords = line.split(" ");
             if (line.equalsIgnoreCase("LIST")) {
                 System.out.println("Here are the tasks in your list:");
                 for(int i = 0; i < todosCount; i += 1) {
-                    isDone = todos[i].getTaskStatus();
-                    taskType = todos[i].getTaskType();
-
-                    switch(taskType) {
-                    case TODO:
-                        taskTypeCode = "T";
-                        break;
-                    case DEADLINE:
-                        taskTypeCode = "D";
-                        break;
-                    case EVENT:
-                        taskTypeCode = "E";
-                        break;
-                    }
-
-                    System.out.println((i + 1)
-                            + "."
-                            + "["
-                            + taskTypeCode
-                            + "]"
-                            + "["
-                            + (isDone ? "X" : " ")
-                            + "] "
-                            + todos[i].getTaskDescription());
+                    todos[i].printTask(i);
                 }
             } else if (lineWords[0].equalsIgnoreCase("MARK")) {
                 todos[Integer.parseInt(lineWords[1]) - 1].markAsDone();
@@ -74,8 +48,12 @@ public class Duke {
                     String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH);
                     todos[todosCount] = new Deadline(deadlineDescription, deadlineBy);
                 } else {
+                    //BUG IN FROM AND TO
                     int fromSlashIndex = line.indexOf("/");
-                    int toSlashIndex = line.length() - line.substring(fromSlashIndex + 1).indexOf("/");
+                    String substringBeforeFrom = line.substring(0, fromSlashIndex + 1);
+
+                    int toSlashIndex = substringBeforeFrom.length()
+                            + line.substring(fromSlashIndex + 1).indexOf("/");
                     String eventDescription = line.substring(EVENT_DESCRIPTION_START_INDEX, fromSlashIndex);
                     String eventFrom = line.substring(fromSlashIndex + EVENT_FROM_SPACE_LENGTH, toSlashIndex);
                     String eventTo = line.substring(toSlashIndex + EVENT_TO_SPACE_LENGTH);
