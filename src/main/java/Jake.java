@@ -49,9 +49,8 @@ public class Jake {
 
 
     public static void main(String[] args) {
-        
-        System.out.println("Hello! I'm Jake\n" + "What can I do for you? \n" + "______________________________________________");
-
+        System.out.println("Hello! I'm Jake\n" + "What can I do for you? \n" + 
+                "______________________________________________");
         Scanner myScanner = new Scanner(System.in);
         Task[] commands = new Task[100];
         int totalCommands = 0;
@@ -65,7 +64,8 @@ public class Jake {
                 listTask(commands, totalCommands);
             } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")){
                 markOrUnmarkTask(commands, totalCommands, userInput);
-            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")){
+            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || 
+                    userInput.startsWith("event")){
                 addTask(commands, totalCommands, userInput);
                 totalCommands++;
             } else {
