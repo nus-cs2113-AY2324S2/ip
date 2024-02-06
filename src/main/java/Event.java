@@ -21,9 +21,9 @@ public class Event extends Task {
         System.out.println("Got it! I've added this task: ");
         System.out.println("  [E][ ] "
                 + this.getTaskDescription()
-                + " (from: "
+                + "(from: "
                 + this.from
-                + " to:"
+                + "to: "
                 + this.to
                 + ")");
         System.out.println("Now you have " + todosCount + " tasks in your list.");
@@ -39,7 +39,7 @@ public class Event extends Task {
                 + this.getTaskDescription()
                 + "(from: "
                 + this.from
-                + " to: "
+                + "to: "
                 + this.to
                 + ")");
     }

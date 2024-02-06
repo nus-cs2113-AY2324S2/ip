@@ -16,7 +16,7 @@ public class Deadline extends Task{
         System.out.println("Got it! I've added this task: ");
         System.out.println("  [D][ ] "
                 + this.getTaskDescription()
-                + " (by: "
+                + "(by: "
                 + this.by
                 + ")");
         System.out.println("Now you have " + todosCount + " tasks in your list.");
