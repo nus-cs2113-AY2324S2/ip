@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    // Print Constants
     private static String botName = "Uwunzhe";
     private static String logo = " _    _                          _          \n"
             + "| |  | |                        | |         \n"
@@ -11,6 +12,9 @@ public class Duke {
 
     private static String lineString = "-".repeat(60);
 
+    // Scanner object to get user input
+    private static Scanner sc = new Scanner(System.in);
+
     /**
      * Prints the logo of the bot.
      * 
@@ -19,6 +23,7 @@ public class Duke {
      */
     public static void displayLogo() {
         System.out.println(logo);
+        addLineBreak();
     }
 
     /**
@@ -39,11 +44,38 @@ public class Duke {
      */
     public static void initialize() {
         displayLogo();
-        addLineBreak();
-
         System.out.print("HELLO MY POSITIVE MENTALITY FLEN!! MY NAME IS ");
         System.out.println(botName.toUpperCase() + "!!!");
         System.out.println("Actually uh... What even do you want me to do?");
+    }
+
+    /**
+     * Gets user input.
+     * 
+     * @param None
+     * @return The user input.
+     */
+    public static String getInput() {
+        addLineBreak();
+        System.out.print(": ");
+        String input = sc.nextLine();
+        addLineBreak();
+        return input;
+    }
+
+    /**
+     * Gets user input.
+     * Overloaded method.
+     * 
+     * @param leadingString The string to print before the user input.
+     * @return The user input.
+     */
+    public static String getInput(String leadingString) {
+        addLineBreak();
+        System.out.print(leadingString);
+        String input = sc.nextLine();
+        addLineBreak();
+        return input;
     }
 
     /**
@@ -54,44 +86,55 @@ public class Duke {
      */
     public static void loop() {
         boolean isRunning = true;
-        Scanner sc = new Scanner(System.in);
         List taskList = new List();
 
         while (isRunning) {
-            addLineBreak();
-            System.out.print(": ");
-            String input = sc.nextLine();
-            addLineBreak();
+            String input = getInput();
+            // TODO: Refactor below into function or improve using enum maybe?
 
-            if (input.equalsIgnoreCase("bye")) {
+            String[] splitInput = input.split(" ", 2);
+            String command = splitInput[0].toLowerCase();
+            String taskString = splitInput.length > 1 ? splitInput[1] : "";
+
+            switch (command) {
+            case "bye":
                 // Exit if input is "bye"
                 isRunning = false;
-                continue;
-
-            } else if (input.equalsIgnoreCase("list")) {
+                break;
+            case "list":
                 // Print the list if input is "list"
                 taskList.printList();
-                continue;
+                break;
 
-            } else if (input.startsWith("mark")) {
+            case "mark":
                 // Mark a task as done if input is "mark"
-                String[] splitInput = input.split(" ");
                 int index = Integer.parseInt(splitInput[1]);
                 taskList.setItemStatus(index, true);
-                continue;
-            } else if (input.startsWith("unmark")) {
+                break;
+            case "unmark":
                 // Mark a task as not done if input is "unmark"
-                String[] splitInput = input.split(" ");
-                int index = Integer.parseInt(splitInput[1]);
+                index = Integer.parseInt(splitInput[1]);
                 taskList.setItemStatus(index, false);
-                continue;
+                break;
+
+            case "todo":
+                // Add a todo task if input starts with "todo"
+                taskList.addItem(taskString, "T");
+                break;
+            case "deadline":
+                // Add a deadline task if input starts with "deadline"
+                taskList.addItem(taskString, "D");
+                break;
+            case "event":
+                // Add an event task if input starts with "event"
+                taskList.addItem(taskString, "E");
+                break;
+
+            default:
+                // Add default task to the list (no type)
+                taskList.addItem(input);
+                break;
             }
-            
-            // Echo the input if not exiting
-            System.out.print("added: ");
-            System.out.println(input);
-            // Add task to the list
-            taskList.addItem(input);
         }
 
         sc.close();

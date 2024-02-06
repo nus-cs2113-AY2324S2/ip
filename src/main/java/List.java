@@ -5,12 +5,44 @@ public class List {
     private int size = 0;
 
     /**
+    * Marks a task as done or not done.
+    * 
+    * @param index The index of the task in the list.
+    * @param status The status of the task.
+    * @return None
+    */
+    public void setItemStatus(int index, boolean status) {
+        try {
+            list.get(index - 1).setStatus(status);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Huhhhhhhh? I cannot find!");
+        }
+    }
+
+    /**
+     * Returns the size of the list.
+     * 
+     * @param None
+     * @return The size of the list.
+     */
+    public int getSize() {
+        return size;
+    }
+
+    public void printSize() {
+        int size = this.getSize();
+        System.out.println("We only have uhhhh " + size
+                + " more thing" + (size > 1 ? "s" : "") + " left to go!");
+    }   
+   
+    /**
      * Prints the list.
      * 
      * @param None
      * @return None
      */
     public void printList() {
+        // Check if list is empty
         if (size == 0) {
             System.out.println("You KAIBAI-ing");
             return;
@@ -18,30 +50,79 @@ public class List {
 
         System.out.println("Yay! List!");
         for (int i = 0; i < size; i++) {
-            System.out.print(i + 1 + ". ");
-            System.out.print("[" + (list.get(i).getStatus() ? "X" : " ") + "] ");
-            System.out.println(list.get(i).getName());
+            Task task = list.get(i);
+            System.out.print(i + 1 + ".");
+            System.out.println(task);
         }
     }
 
     /**
      * Adds a task to the list.
      * 
-     * @param taskName
-     *            The item to be added.
+     * @param taskName The name of the task.
      * @return None
      */
     public void addItem(String taskName) {
+        // Create new task object, add to list and update size
         Task task = new Task(taskName);
         list.add(task);
         size++;
+
+        // Echo the input
+        System.out.println("Okey dokey here we go");
+        System.out.print(" ");
+        System.out.println(list.get(size - 1));
+
+        this.printSize();
     }
 
-    public void setItemStatus(int index, boolean status) {
-        try {
-            list.get(index - 1).setStatus(status);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Huhhhhhhh? I cannot find!");
+    /**
+     * Adds a task of specified type to the list.
+     * Overloaded method.
+     * 
+     * @param taskName
+     * @param type
+     * @return None
+     */
+    public void addItem(String description, String type) {
+        boolean isValid = true;
+
+        switch (type) {
+        case "T":
+            list.add(new Todo(description));
+            break;
+
+        case "D":
+            String[] nameEnd = description.split(" /by ", 2);
+            String taskName = nameEnd[0];
+            String taskEnd = nameEnd[1];
+
+            list.add(new Deadline(taskName, taskEnd));
+            break;
+
+        case "E":
+            String[] nameTimes = description.split(" /from ", 2);
+            String times = nameTimes[1];
+            String[] startEnd = times.split(" /to ", 2);
+            taskName = nameTimes[0];
+            String taskStart = startEnd[0];
+            taskEnd = startEnd[1];
+
+            list.add(new Event(taskName, taskStart, taskEnd));
+            break;
+        
+        default:
+            isValid = false;
+            System.out.println("HUHHH? What is this even?");
+            break;
+        }
+        
+        if (isValid) {
+            size++;
+            System.out.println("Okey dokey here we go");
+            System.out.print(" ");
+            System.out.println(list.get(size - 1));
+            this.printSize();
         }
     }
 }
