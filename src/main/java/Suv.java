@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
+
 public class Suv {
+    final static int DEADLINE_KEYWORD_END_INDEX = 8;
+    final static int TODO_KEYWORD_END_INDEX = 4;
+    final static int EVENT_KEYWORD_END_INDEX = 5;
+    final static int TO_KEYWORD_END_INDEX = 2;
+    final static int FROM_KEYWORD_END_INDEX = 4;
+
     public static void main(String[] args) {
         String name = "Suv";
         Scanner in = new Scanner(System.in);
@@ -45,7 +52,7 @@ public class Suv {
                         "\n____________________________________________________________\n"
                 );
             } else if(input.contains("todo")){
-                Todo newTask = new Todo(input.substring(4).trim());
+                Todo newTask = new Todo(input.substring(TODO_KEYWORD_END_INDEX).trim());
 
                 tasks[taskIndex++] = newTask;
                 String helper = (taskIndex > 1) ? "s " : " ";
@@ -56,7 +63,7 @@ public class Suv {
                 );
             }else if(input.contains("deadline")){
                 String by = input.split("/by")[1].trim();
-                String description = input.split("/by")[0].substring(8).trim();
+                String description = input.split("/by")[0].substring(DEADLINE_KEYWORD_END_INDEX).trim();
 
                 Deadline newTask = new Deadline(description, by);
                 tasks[taskIndex++] = newTask;
@@ -67,9 +74,9 @@ public class Suv {
                         "\n____________________________________________________________\n"
                 );
             } else if(input.contains("event")){
-                String from = input.split("/")[1].trim().substring(4).trim();
-                String to = input.split("/")[2].trim().substring(2).trim();
-                String description = input.split("/")[0].substring(5).trim();
+                String from = input.split("/")[1].trim().substring(FROM_KEYWORD_END_INDEX).trim();
+                String to = input.split("/")[2].trim().substring(TO_KEYWORD_END_INDEX).trim();
+                String description = input.split("/")[0].substring(EVENT_KEYWORD_END_INDEX).trim();
 
                 Event newTask = new Event(description, from, to);
                 tasks[taskIndex++] = newTask;
