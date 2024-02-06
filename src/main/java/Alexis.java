@@ -22,9 +22,9 @@ public class Alexis {
         System.out.println(lineBreak);
 
         TaskList tasks = new TaskList();
+        Scanner in = new Scanner(System.in);
 
         while (true) {
-            Scanner in = new Scanner(System.in);
             String line = in.nextLine();
 
             if (line.equals("bye")) {
