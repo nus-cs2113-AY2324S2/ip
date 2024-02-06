@@ -68,9 +68,9 @@ public class Hachi {
         for (int i = 0; i < numTasks; i++) {
             String taskType = listOfTasks[i].getTaskType();
             String statusIcon = listOfTasks[i].getStatusIcon();
-            System.out.print("    [" + taskType + "] ");
+            System.out.print("    " + i + ": ");
+            System.out.print("[" + taskType + "] ");
             System.out.print("[" + statusIcon + "] ");
-            System.out.print(i + ": ");
             System.out.println(listOfTasks[i].getName());
         }
     }
@@ -79,14 +79,41 @@ public class Hachi {
      * Given a task's name and the list of tasks,
      * add a new task into the list.
      *
-     * @param toAdd Task to be added.
+     * @param taskType Type of task to be added.
      * @param listOfTasks The Task[] array that the new task will be added to.
+     * @param line The name of the task to be added.
      */
 
-    public static void addTask(Task toAdd, Task[] listOfTasks) {
+    public static void addTask(TaskType taskType, Task[] listOfTasks, String line, String cleanInput) {
+        Task toAdd;
+        if (taskType == TaskType.TODO) {
+            int indexOfTodo = cleanInput.indexOf("TODO") + 5;
+            String name = line.substring(indexOfTodo).trim();
+            toAdd = new Todo(name);
+        } else if (taskType == TaskType.DEADLINE) {
+            // parse deadline here
+            int indexOfName = cleanInput.indexOf("DEADLINE") + 9;
+            int indexOfBy = cleanInput.indexOf("/B") + 3;
+
+            String name = line.substring(indexOfName, indexOfBy - 3).trim();
+            String byDate = line.substring(indexOfBy).trim();
+            toAdd = new Deadline(name, byDate);
+        } else if (taskType == TaskType.EVENT) {
+            // parse to and from dates here
+            int indexOfName = cleanInput.indexOf("EVENT") + 6;
+            int indexOfStart = cleanInput.indexOf("/FROM") + 5;
+            int indexOfEnd = cleanInput.indexOf("/TO") + 3;
+
+            String name = line.substring(indexOfName, indexOfStart - 5);
+            String fromDate = line.substring(indexOfStart, indexOfEnd - 3).trim();
+            String toDate = line.substring(indexOfEnd).trim();
+            toAdd = new Event(name, fromDate, toDate);
+        } else {
+            toAdd = new Task(line);
+        }
         int numTasks = Task.getTotalNumTasks();
         listOfTasks[numTasks - 1] = toAdd;
-        System.out.println("    Task added to list: " + toAdd.getName());
+        System.out.println("    Added to list: " + toAdd.getName());
     }
 
     /**
@@ -100,8 +127,8 @@ public class Hachi {
         listOfTasks[index].setCompleteness(true);
         System.out.println("    Sure, I've marked this task as done:");
         String statusIcon = listOfTasks[index].getStatusIcon();
-        System.out.print("    [" + statusIcon + "] ");
-        System.out.print(index + ": ");
+        System.out.print("    " + index + ": ");
+        System.out.print("[" + statusIcon + "] ");
         System.out.println(listOfTasks[index].getName());
     }
 
@@ -117,8 +144,8 @@ public class Hachi {
         listOfTasks[index].setCompleteness(false);
         System.out.println("    Okay, marking this task as incomplete now:");
         String statusIcon = listOfTasks[index].getStatusIcon();
-        System.out.print("    [" + statusIcon + "] ");
-        System.out.print(index + ": ");
+        System.out.print("    " + index + ": ");
+        System.out.print("[" + statusIcon + "] ");
         System.out.println(listOfTasks[index].getName());
     }
 
@@ -149,14 +176,21 @@ public class Hachi {
         spacerInsert("medium", false);
         boolean isBye = false;
         Task[] listOfTasks = new Task[100];
-
         greet();
+
         while (!isBye) {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
             String cleanedInput = line.toUpperCase().trim();
+            int indexOfSpace = cleanedInput.indexOf(" ");
+            String firstWord;
+            if (indexOfSpace == -1) {
+                firstWord = cleanedInput;
+            } else {
+                firstWord = cleanedInput.substring(0, indexOfSpace);
+            }
 
-            if (cleanedInput.contains("MARK")) {
+            if (firstWord.contains("MARK")) {
                 int indexOfTask = cleanedInput.indexOf("MARK") + 4; // find index of task number
                 int taskNumber = Integer.parseInt(cleanedInput.substring(indexOfTask).trim()); // parse string to int
                 if (cleanedInput.contains("UNMARK")) {
@@ -165,24 +199,39 @@ public class Hachi {
                     markTask(taskNumber, listOfTasks);
                 }
             } else {
-                switch (cleanedInput) {
+                switch (firstWord) {
+                case "LIST":
+                    retrieveList(listOfTasks);
+                    break;
+
+                case "TODO":
+                case "EVENT":
+                case "DEADLINE":
+                    TaskType currentTask = TaskType.TASK;
+                    if (cleanedInput.startsWith("TODO")) {
+                        currentTask = TaskType.TODO;
+                    } else if (cleanedInput.startsWith("DEADLINE")) {
+                        currentTask = TaskType.DEADLINE;
+                    } else {
+                        currentTask = TaskType.EVENT;
+                    }
+                    addTask(currentTask, listOfTasks, line, cleanedInput);
+                    break;
+
                 case "BYE":
                 case "GOODBYE":
                     isBye = true;
                     goodbye();
                     break;
-                case "LIST":
-                    retrieveList(listOfTasks);
-                    break;
-                case "TODO":
-                    Todo todoToAdd = new Todo(line);
-                    addTask(todoToAdd, listOfTasks);
+
                 default:
-                    Task taskToAdd = new Task(line);
-                    addTask(taskToAdd, listOfTasks);
+                    // handle invalid case
+                    System.out.println("Invalid command read."); // for testing
                     break;
                 }
             }
+
+
         }
     }
 }

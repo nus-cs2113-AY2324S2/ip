@@ -1,8 +1,5 @@
 public enum TaskType {
-    MARK,
-    UNMARK,
-    LIST,
-    BYE,
+    TASK,
     TODO,
     DEADLINE,
     EVENT,
