@@ -27,7 +27,7 @@ public class Suv {
                     int index = i + 1;
                     System.out.println(" " + index + "." + tasks[i]);
                 }
-                System.out.println("____________________________________________________________"
+                System.out.println("____________________________________________________________\n"
                 );
             } else if (input.contains("unmark")){
                 int n = Integer.parseInt(input.split(" ")[1]);
