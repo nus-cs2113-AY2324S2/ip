@@ -2,19 +2,21 @@ import java.util.Scanner;
 
 /**
  * This program currently starts the chatbot with a greeting,
+ * awaits user input for commands relating to a to-do task manager
  * and ends off the program with a goodbye message.
  *
  * @author clarencepohh
- * @version 30/01/2024
+ * @version 06/02/2024
  */
 
 public class Hachi {
+
     /**
      * Prints a greeting to the user in the console
      * with the bot's name, Hachi.
      */
 
-    public static void greet() {
+    public static void printGreetingMessage() {
         String logo = "._. ._.  ._____.  ._____.  ._. ._.  ._.\n"
                 + "| | | |  | ._. |  |  ___|  | | | |  | |\n"
                 + "| |_| |  | |_| |  | |      | |_| |  | |\n"
@@ -23,6 +25,26 @@ public class Hachi {
 
         System.out.println("Hey, Hachi Here!\n" + logo + "How can I assist you today?\n");
         spacerInsert("medium", false);
+    }
+
+    /**
+     * Prints to the console a help message that details the commands
+     * the user can use for interacting with the chatbot.
+     *
+     */
+
+    private static void printHelpMessage() {
+        spacerInsert("medium", true);
+        System.out.println("You can use the following commands:");
+        System.out.println("    'list' to retrieve your current list of tasks,");
+        System.out.println("    'mark <#>' to mark task number # as complete,");
+        System.out.println("    'unmark <#>' to mark task number # as incomplete,");
+        System.out.println("    'todo <task name>' to create a to-do,");
+        System.out.println("    'deadline <task name> /by <by date>' to create a task with a deadline,");
+        System.out.println("    'event <task name> /from <start> /to <end>' to create an event with a start and end date,");
+        System.out.println("    'bye' to stop chatting :('");
+        System.out.println("    And if you need to see this again, type 'help'!");
+        spacerInsert("medium", true);
     }
 
     /**
@@ -68,7 +90,7 @@ public class Hachi {
         for (int i = 0; i < numTasks; i++) {
             String taskType = listOfTasks[i].getTaskType();
             String statusIcon = listOfTasks[i].getStatusIcon();
-            System.out.print("    " + i + ": ");
+            System.out.print("    " + (i + 1) + ": ");
             System.out.print("[" + taskType + "] ");
             System.out.print("[" + statusIcon + "] ");
             System.out.println(listOfTasks[i].getName());
@@ -76,12 +98,13 @@ public class Hachi {
     }
 
     /**
-     * Given a task's name and the list of tasks,
-     * add a new task into the list.
+     * Given a task's name and the list of tasks, add a new task into the list.
+     * Depending on the user's input, can create subclass of tasks: Todos, Deadlines and Events.
      *
-     * @param taskType Type of task to be added.
+     * @param taskType Type of task to be added. (Todo, Event, Deadline, Task, Invalid)
      * @param listOfTasks The Task[] array that the new task will be added to.
-     * @param line The name of the task to be added.
+     * @param line The line of text given by the user.
+     * @param cleanInput The cleaned line of text that will be used to determine the instruction.
      */
 
     public static void addTask(TaskType taskType, Task[] listOfTasks, String line, String cleanInput) {
@@ -127,7 +150,7 @@ public class Hachi {
         listOfTasks[index].setCompleteness(true);
         System.out.println("    Sure, I've marked this task as done:");
         String statusIcon = listOfTasks[index].getStatusIcon();
-        System.out.print("    " + index + ": ");
+        System.out.print("    " + (index + 1) + ": ");
         System.out.print("[" + statusIcon + "] ");
         System.out.println(listOfTasks[index].getName());
     }
@@ -144,7 +167,7 @@ public class Hachi {
         listOfTasks[index].setCompleteness(false);
         System.out.println("    Okay, marking this task as incomplete now:");
         String statusIcon = listOfTasks[index].getStatusIcon();
-        System.out.print("    " + index + ": ");
+        System.out.print("    " + (index + 1) + ": ");
         System.out.print("[" + statusIcon + "] ");
         System.out.println(listOfTasks[index].getName());
     }
@@ -153,7 +176,7 @@ public class Hachi {
      * Prints to the console a goodbye message for the user.
      */
 
-    public static void goodbye() {
+    public static void printGoodbyeMessage() {
         System.out.println("    Goodbye! Hope you have a marvelous day.");
         spacerInsert("medium", true);
     }
@@ -165,9 +188,12 @@ public class Hachi {
      * <p>
      * Chatbot can:
      * <p>1. retrieve list of tasks with user input "list"
-     * <p>2. add tasks to the list with user input "#taskname"
-     * <p>3. mark or unmark tasks complete with user input "mark #tasknumber"
-     * <p>4. say goodbye to the user with user input "bye" or "goodbye"
+     * <p>2. mark or unmark tasks complete with user input "mark #tasknumber"
+     * <p>3. say goodbye to the user with user input "bye" or "goodbye"
+     * <p>4. add a to-do to the list of task with "todo <event name>"
+     * <p>5. add a deadline to the list of task with "deadline <event name> /by <by date>"
+     * <p>6. add an event to the list of task with "event <event name> /from <start date> /to <end date>"
+     * <p>7. retrieve a list of chatbot commands with "help"
      *
      * @param args Command line arguments - not used.
      */
@@ -176,7 +202,8 @@ public class Hachi {
         spacerInsert("medium", false);
         boolean isBye = false;
         Task[] listOfTasks = new Task[100];
-        greet();
+        printGreetingMessage();
+        printHelpMessage();
 
         while (!isBye) {
             Scanner in = new Scanner(System.in);
@@ -184,7 +211,7 @@ public class Hachi {
             String cleanedInput = line.toUpperCase().trim();
             int indexOfSpace = cleanedInput.indexOf(" ");
             String firstWord;
-            if (indexOfSpace == -1) {
+            if (indexOfSpace == -1) { // check for single-word inputs
                 firstWord = cleanedInput;
             } else {
                 firstWord = cleanedInput.substring(0, indexOfSpace);
@@ -194,9 +221,9 @@ public class Hachi {
                 int indexOfTask = cleanedInput.indexOf("MARK") + 4; // find index of task number
                 int taskNumber = Integer.parseInt(cleanedInput.substring(indexOfTask).trim()); // parse string to int
                 if (cleanedInput.contains("UNMARK")) {
-                    unmarkTask(taskNumber, listOfTasks);
+                    unmarkTask(taskNumber - 1, listOfTasks);
                 } else {
-                    markTask(taskNumber, listOfTasks);
+                    markTask(taskNumber - 1, listOfTasks);
                 }
             } else {
                 switch (firstWord) {
@@ -221,7 +248,11 @@ public class Hachi {
                 case "BYE":
                 case "GOODBYE":
                     isBye = true;
-                    goodbye();
+                    printGoodbyeMessage();
+                    break;
+
+                case "HELP":
+                    printHelpMessage();
                     break;
 
                 default:
@@ -230,8 +261,6 @@ public class Hachi {
                     break;
                 }
             }
-
-
         }
     }
 }
