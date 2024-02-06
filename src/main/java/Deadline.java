@@ -1,13 +1,16 @@
 public class Deadline extends Task {
+    private String end;
+
     /**
      * Constructor for Deadline.
      * 
      * @param name The name of the deadline.
      * @return None
      */
-    public Deadline(String name) {
+    public Deadline(String name, String end) {
         super(name);
         this.type = "D";
+        this.end = end;
     }
 
     /**
@@ -18,6 +21,7 @@ public class Deadline extends Task {
      * @return String representation of the task.
      */
     public String toString() {
-        return "[" + this.type + "]" + "[" + (this.isDone ? "X" : " ") + "] " + this.name;
+        return "[" + this.type + "]" + "[" + (this.isDone ? "X" : " ") + "] " + this.name
+                + " (by: " + this.end + ")";
     }
 }

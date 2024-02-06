@@ -83,17 +83,30 @@ public class List {
      * @param type
      * @return None
      */
-    public void addItem(String taskName, String type) {
+    public void addItem(String description, String type) {
         if (type.equals("T")) {
+            String taskName = description;
+            
             Todo task = new Todo(taskName);
             list.add(task);
             size++;
         } else if (type.equals("D")) {
-            Deadline task = new Deadline(taskName);
+            String[] nameEnd = description.split(" /by ", 2);
+            String taskName = nameEnd[0];
+            String taskEnd = nameEnd[1];
+
+            Deadline task = new Deadline(taskName, taskEnd);
             list.add(task);
             size++;
         } else if (type.equals("E")) {
-            Event task = new Event(taskName);
+            String[] nameTimes = description.split(" /from ", 2);
+            String times = nameTimes[1];
+            String[] startEnd = times.split(" /to ", 2);
+            String taskName = nameTimes[0];
+            String taskStart = startEnd[0];
+            String taskEnd = startEnd[1];
+
+            Event task = new Event(taskName, taskStart, taskEnd);
             list.add(task);
             size++;
         } else {

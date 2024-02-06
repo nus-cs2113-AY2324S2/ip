@@ -65,6 +65,7 @@ public class Duke {
 
     /**
      * Gets user input.
+     * Overloaded method.
      * 
      * @param leadingString The string to print before the user input.
      * @return The user input.
@@ -116,18 +117,18 @@ public class Duke {
 
             }  else if (input.startsWith("todo")) {
                 // Add a todo task if input starts with "todo"
-                String taskName = input.split(" ")[1];
-                taskList.addItem(taskName, "T");
+                String taskString = input.split(" ", 2)[1];
+                taskList.addItem(taskString, "T");
                 continue;
             } else if (input.startsWith("deadline")) {
                 // Add a deadline task if input starts with "deadline"
-                String taskName = input.split(" ")[1];
-                taskList.addItem(taskName, "D");
+                String taskString = input.split(" ", 2)[1];
+                taskList.addItem(taskString, "D");
                 continue;
             } else if (input.startsWith("event")) {
                 // Add an event task if input starts with "event"
-                String taskName = input.split(" ")[1];
-                taskList.addItem(taskName, "E");
+                String taskString = input.split(" ", 2)[1];
+                taskList.addItem(taskString, "E");
                 continue;
             }
             
