@@ -4,15 +4,12 @@ public class Xavier {
     public static final String LINE = "_________________________________________________________________";
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
-
         TaskManager taskManager = new TaskManager();
         printWelcomeMessage();
         while (true) {
             String command = input.nextLine();
             System.out.println(LINE);
             if (command.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println(LINE);
                 exit();
                 return;
             }
@@ -31,6 +28,8 @@ public class Xavier {
     }
 
     private static void exit() {
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(LINE);
         input.close();
     }
 }
