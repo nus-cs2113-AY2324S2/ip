@@ -41,7 +41,7 @@ public class Task {
 
     public void printRespond() {
 //        System.out.println("added: " + this.taskName);
-        System.out.println("Okay! i've added to ur tasklist: ");
+        System.out.println("Okay! i've added to ur tasklist:");
         System.out.print(" >> ");
         printTasktype();
         printCheckbox();

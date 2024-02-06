@@ -49,6 +49,10 @@ public class Soot {
             return true;
         case "list":
             System.out.println("tasks to be done!");
+            if (listCounter == 0) {
+                System.out.println("  >> nothing so far :)");
+                break;
+            }
             for (int i = 0; i < listCounter; i++)
                 taskList[i].printTask();
             drawLine();
