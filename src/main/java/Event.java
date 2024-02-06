@@ -8,7 +8,7 @@ public class Event extends Deadline {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + by + ")";
+        return "[E]" + super.getListItem() + " (from: " + start + " to: " + by + ")";
     }
 
 }
