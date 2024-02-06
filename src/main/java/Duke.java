@@ -6,57 +6,57 @@ public class Duke {
                 + "What can I do for you?\n"
                 + "_________________________";
         System.out.println(chatBot);
-        Task[] toDo = new Task[100];
+        Task[] tasks = new Task[100];
         int count = 0;
         while(true) {
             Scanner userInput = new Scanner(System.in);
-            String task = userInput.nextLine();
-            if(task.equals("bye")){
+            String line = userInput.nextLine();
+            if(line.equals("bye")){
                 System.out.println(
                         "_________________________\n"
                                 + "Bye. Hope to see you again soon!\n"
                                 + "_________________________\n");
                 return;
-            } else if(task.equals("list")) {
+            } else if(line.equals("list")) {
                 System.out.println("_________________________");
                 System.out.println("\tYour List:");
                 for(int i = 0; i < count; i++) {
                     System.out.println("\t" + (i+1) + ". ["
-                            + toDo[i].getStatusIcon()
+                            + tasks[i].getStatusIcon()
                             + "] "
-                            + toDo[i].description);
+                            + tasks[i].description);
                 }
                 System.out.println("_________________________");
-            } else if(task.contains("mark")) {
-                String[] subCommand = task.split(" ");
+            } else if(line.contains("mark")) {
+                String[] subCommand = line.split(" ");
                 int num = Integer.parseInt(subCommand[1]);
                 if(num > count) {
                     System.out.println("Suggest a number available in the list!");
                     continue;
                 }
                 if(subCommand[0].equals("mark")) {
-                    toDo[num-1].markDone();
+                    tasks[num-1].markDone();
                     System.out.println(
                             "_________________________\n"
                                     + "\tNice! I've marked this task as done:\n"
-                                    + "[" + toDo[num-1].getStatusIcon() + "] "
-                                    + toDo[num-1].description
+                                    + "[" + tasks[num-1].getStatusIcon() + "] "
+                                    + tasks[num-1].description
                                     + "\n_________________________");
                 } else {
-                    toDo[num-1].markNotDone();
+                    tasks[num-1].markNotDone();
                     System.out.println(
                             "_________________________\n"
                                     + "\tOK, I've marked this task as not done yet:\n"
-                                    + "[" + toDo[num-1].getStatusIcon() + "] "
-                                    + toDo[num-1].description
+                                    + "[" + tasks[num-1].getStatusIcon() + "] "
+                                    + tasks[num-1].description
                                     + "\n_________________________");
                 }
             } else {
-                Task tasks = new Task(task);
-                toDo[count] = tasks;
+                Task task = new Task(line);
+                tasks[count] = task;
                 System.out.println(
                         "_________________________\n"
-                                + "\tadded: " + task
+                                + "\tadded: " + line
                                 + "\n"
                                 + "_________________________\n");
                 count++;
