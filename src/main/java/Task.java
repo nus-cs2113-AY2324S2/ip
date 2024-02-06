@@ -7,8 +7,8 @@ public class Task {
         Todo, Deadline, Event
     }
 
-    public Task(String line, int counter) {
-        this.taskName = line;
+    public Task(String input, int counter) {
+        this.taskName = input;
         this.index = counter + 1;
         this.isDone = false;
     }

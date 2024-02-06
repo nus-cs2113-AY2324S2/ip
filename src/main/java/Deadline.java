@@ -1,8 +1,8 @@
 public class Deadline extends Task {
     private String dueDate;
 
-    public Deadline(String line, int counter) {
-        super(line, counter);
+    public Deadline(String input, int counter) {
+        super(input, counter);
     }
 //        index = counter + 1;
 //        isDone = false;
