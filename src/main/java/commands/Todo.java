@@ -1,4 +1,6 @@
-public class Todo extends Task{
+package commands;
+
+public class Todo extends Task {
 
     public Todo() {
     }

@@ -1,8 +1,10 @@
+import commands.Deadline;
+import commands.Event;
+import commands.Task;
+import commands.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.Arrays;
 import java.util.List;
 
 public class John {
@@ -58,8 +60,8 @@ public class John {
                     System.out.println(e.getMessage());
                 }
             }
-            //Todo Command
-            else if (input.startsWith("todo") || input.startsWith("Todo")) {
+            //commands.Todo Command
+            else if (input.startsWith("todo") || input.startsWith("commands.Todo")) {
                 try {
                     StringValidator.validateTodoFormat(input);
                     Todo todo = new Todo(Todo.parse(input));
@@ -69,8 +71,8 @@ public class John {
                 }
             }
 
-            //Deadline Command
-            else if (input.startsWith("deadline") || input.startsWith("Deadline")) {
+            //commands.Deadline Command
+            else if (input.startsWith("deadline") || input.startsWith("commands.Deadline")) {
                 try {
                     StringValidator.validateDeadlineFormat(input);
                     Deadline deadline = new Deadline(Deadline.parseName(input), Deadline.parseDate(input));
@@ -80,8 +82,8 @@ public class John {
                 }
             }
 
-            //Event Command
-            else if (input.startsWith("event") || input.startsWith("Event")) {
+            //commands.Event Command
+            else if (input.startsWith("event") || input.startsWith("commands.Event")) {
                 try {
                     StringValidator.validateEventFormat(input);
                     Event event = new Event(Event.parseName(input), Event.parseStart(input), Event.parseEnd(input));
@@ -110,7 +112,7 @@ public class John {
             }
         }
         else{
-            System.out.println("Task number out of bounds: try again");
+            System.out.println("commands.Task number out of bounds: try again");
         }
     }
 }

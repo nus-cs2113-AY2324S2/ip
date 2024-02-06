@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package commands;
+
+public class Deadline extends Task {
     protected String date;
 
     public Deadline(String name) {
