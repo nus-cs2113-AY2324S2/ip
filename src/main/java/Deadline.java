@@ -1,7 +1,16 @@
-public class Todo extends Task {
-    public Todo(String line, int counter) {
+public class Deadline extends Task {
+    private String dueDate;
+
+    public Deadline(String line, int counter) {
         super(line, counter);
     }
+//        index = counter + 1;
+//        isDone = false;
+//
+//        int deadlineIndex = line.indexOf('/');
+//        taskName = line.substring(0, deadlineIndex - 2);
+//        dueDate = line.substring(deadlineIndex + 3);
+//    }
 
     @Override
     public void printRespond() {
@@ -14,6 +23,6 @@ public class Todo extends Task {
     }
     @Override
     public void printTasktype() {
-        System.out.print("[T]");
+        System.out.print("[D]");
     }
 }

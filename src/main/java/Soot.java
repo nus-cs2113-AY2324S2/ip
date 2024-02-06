@@ -24,16 +24,20 @@ public class Soot {
     }
 
     public static boolean verifyInput(Task[] taskList, String input) {
-        String lowerCase = input.toLowerCase();
-        if (lowerCase.startsWith("done")) {
-            lowerCase = "done";
-        } else if (lowerCase.startsWith("unmark")) {
-            lowerCase = "unmark";
-        } else if (lowerCase.startsWith("todo")) {
-            lowerCase = "todo";
+        String inputCommand = input.toLowerCase();
+        String inputTask;
+        if (inputCommand.startsWith("done")) {
+            inputCommand = "done";
+            inputTask = input.substring(5);
+        } else if (inputCommand.startsWith("unmark")) {
+            inputCommand = "unmark";
+        } else if (inputCommand.startsWith("todo")) {
+            inputCommand = "todo";
+        } else if (inputCommand.startsWith("deadline")) {
+            inputCommand = "deadline";
         }
 
-        switch (lowerCase) {
+        switch (inputCommand) {
         case "bye":
             greetGoodbye();
             return true;
@@ -44,8 +48,7 @@ public class Soot {
             drawLine();
             break;
         case "done":
-            String taskNumber = input.substring(5);
-            int listIndex = Integer.parseInt(taskNumber) - 1;
+            int listIndex = Integer.parseInt(inputTask) - 1;
             taskList[listIndex].markDone();
             drawLine();
             break;
@@ -61,7 +64,12 @@ public class Soot {
             drawLine();
             listCounter++;
             break;
-
+        case "deadline":
+            taskList[listCounter] = new Deadline(input, listCounter);
+            taskList[listCounter].printRespond();
+            drawLine();
+            listCounter++;
+            break;
         default:
             System.out.println("added: " + input);
             drawLine();

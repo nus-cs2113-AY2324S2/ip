@@ -1,11 +1,12 @@
 public class Task {
     protected String taskName;
-    private int index;
+    protected int index;
     protected boolean isDone;
 
     public enum taskType {
         Todo, Deadline, Event
     }
+
     public Task(String line, int counter) {
         this.taskName = line;
         this.index = counter + 1;
@@ -20,6 +21,7 @@ public class Task {
     }
     public void printTask() {
         System.out.print(index + ".");
+        printTasktype();
         printCheckbox();
         System.out.println(" " + taskName);
     }
@@ -48,5 +50,9 @@ public class Task {
     public void printTaskcount() {
         int taskCount = Soot.listCounter + 1;
         System.out.println("you now have " + taskCount + " tasks left...");
+    }
+
+    public void printTasktype() {
+        System.out.print("[NA]");
     }
 }
