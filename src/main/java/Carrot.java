@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Carrot {
     public static void main(String[] args) {
@@ -16,10 +17,19 @@ public class Carrot {
         sayGoodbye();
     }
 
-    private static Task[] listOfTasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
     private static final String MESSAGE_DIVIDER = "-------------------------------------";
+    private static final String COMMAND_LIST =
+            "Available Commands:\n" +
+            "1. todo <taskdescription> - Add a new todo task\n" +
+            "2. deadline <taskdescription> /<by> - Add a new task with a deadline <by>\n" +
+            "3. event <taskdescription> /<from> /<to> - Add a new task that starts <from> and ends <to>\n" +
+            "4. mark <taskindex> - Mark a task as done\n" +
+            "5. unmark <taskindex> - Mark a task as not done\n" +
+            "6. list - List all tasks recorded\n" +
+            "7. bye - Exit the program\n" +
+            "8. help - Show available commands";
 
     private static void greetUser() {
         System.out.println(MESSAGE_DIVIDER);
@@ -32,6 +42,10 @@ public class Carrot {
         // Scanner object for userInput
         Scanner in = new Scanner(System.in);
 
+        // Print Command List
+        printHelpCommand();
+
+        // Variables to hold current userInput and associated command
         String userInput;
         CommandType userCommand;
 
@@ -43,77 +57,151 @@ public class Carrot {
             switch (userCommand) {
             case EXIT:
                 return;
+            case INVALID:
+                printInvalidCommand();
+                break;
+            case HELP:
+                printHelpCommand();
+                break;
             case LIST:
-                echoListItems();
+                printListItems();
+                break;
+            case TODO:
+                addTodoToList(userInput);
+                break;
+            case DEADLINE:
+                addDeadlineToList(userInput);
+                break;
+            case EVENT:
+                addEventToList(userInput);
                 break;
             case MARK:
             case UNMARK:
                 handleMarkUnmarkTask(userCommand, userInput);
                 break;
             default:
-                addTaskToList(userInput);
-                taskCount++;
                 break;
             }
         }
     }
 
-    private static void handleInvalidCommand() {
-        System.out.println(MESSAGE_DIVIDER);
-        System.out.println("Invalid command");
-        System.out.println(MESSAGE_DIVIDER);
+    private static void addTodoToList(String userInput) {
+        String[] todoCommandArguments =
+                CommandManager.getCommandArguments(CommandType.TODO, userInput);
+
+        String taskDescription =
+                todoCommandArguments[0];
+
+        Todo task = new Todo(taskDescription);
+
+        listOfTasks.add(task);
+        printAddedTask(task);
+    }
+
+    private static void addDeadlineToList(String userInput) {
+        String[] deadlineCommandArguments =
+                CommandManager.getCommandArguments(CommandType.DEADLINE, userInput);
+
+        String taskDescription =
+                deadlineCommandArguments[0];
+        String by =
+                deadlineCommandArguments[1];
+
+        Deadline task = new Deadline(taskDescription, by);
+
+        listOfTasks.add(task);
+        printAddedTask(task);
+    }
+
+    private static void addEventToList(String userInput) {
+        String[] eventCommandArguments =
+                CommandManager.getCommandArguments(CommandType.EVENT, userInput);
+
+        String taskDescription =
+                eventCommandArguments[0];
+        String from =
+                eventCommandArguments[1];
+        String to =
+                eventCommandArguments[2];
+
+        Event task = new Event(taskDescription, from, to);
+
+        listOfTasks.add(task);
+        printAddedTask(task);
     }
 
     private static void handleMarkUnmarkTask(CommandType command, String userInput) {
-        boolean checkmark = (command == CommandType.MARK);
+        boolean isDone = (command == CommandType.MARK);
 
-        String taskIndex = CommandManager.getCommandArguments(command, userInput)[0];
-        int taskIndexInt = Integer.parseInt(taskIndex);
+        String taskIndex =
+                CommandManager.getCommandArguments(command, userInput)[0];
+        int taskIndexInt =
+                Integer.parseInt(taskIndex);
 
         try {
-            changeTaskStatus(checkmark, taskIndexInt);
+            changeTaskStatus(isDone, taskIndexInt);
         } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
-            handleInvalidTaskIndexError();
+            printInvalidTaskIndexError();
         }
     }
 
-    private static void handleInvalidTaskIndexError() {
+    private static void changeTaskStatus(boolean isDone, int taskIndex) {
+        // listOfTasks is indexed from 0.
+        // taskIndex is indexed from 1, as how the user sees the list is ordered
+        Task task = listOfTasks.get(taskIndex - 1);
+
+        task.setStatus(isDone);
+        printChangedTaskStatus(isDone, task);
+    }
+
+    private static void printHelpCommand() {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println(COMMAND_LIST);
+        System.out.println(MESSAGE_DIVIDER);
+    }
+
+    private static void printInvalidCommand() {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("Invalid command");
+        System.out.println("Type \"help\" to view available commands and syntax");
+        System.out.println(MESSAGE_DIVIDER);
+    }
+
+    private static void printInvalidTaskIndexError() {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("ERROR: Invalid task index, usage \"mark/unmark <taskIndex>\"");
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    private static void changeTaskStatus(boolean checkmark, int taskIndex) {
-        // listOfTasks is indexed from 0.
-        // taskIndex is indexed from 1, as how the user sees the list is ordered
-        listOfTasks[taskIndex - 1].setStatus(checkmark);
-
+    private static void printChangedTaskStatus(boolean isDone, Task task) {
         System.out.println(MESSAGE_DIVIDER);
-        if (checkmark == true) {
+        if (isDone == true) {
             System.out.println("Nice! I've marked this task as done:");
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println(listOfTasks[taskIndex - 1]);
+        System.out.println("\t" + task);
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    private static void addTaskToList(String userInput) {
-        listOfTasks[taskCount] = new Task(userInput);
-
+    private static void printAddedTask(Task task) {
         System.out.println(MESSAGE_DIVIDER);
-        System.out.println("added: " + userInput);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + task);
+        System.out.printf("Now you have %d tasks in the list.%n", listOfTasks.size());
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    private static void echoListItems() {
+    private static void printListItems() {
+        int numberOfTasks = listOfTasks.size();
+
         System.out.println(MESSAGE_DIVIDER);
-        if (taskCount == 0) {
+        if (numberOfTasks == 0) {
             System.out.println("No tasks added");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; listOfTasks[i] != null; i++) {
-                System.out.println((i + 1) + ". " + listOfTasks[i]);
+            for (int i = 1; i <= numberOfTasks; i++) {
+                System.out.println(i + "." + listOfTasks.get(i - 1));
             }
         }
         System.out.println(MESSAGE_DIVIDER);
