@@ -1,49 +1,73 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+class Task {
+    protected String description;
+    protected boolean isDone;
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]");
+    }
+
+    public void markList() {
+        this.isDone = true;
+    }
+
+    public void unmarkList() {
+        this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+
+
+class ToDo extends Task {
+    public ToDo(String description) {
+        super(description);
+    }
+    public String toString() {
+        return "[T]" + super.getStatusIcon() + " " + super.getDescription();
+    }
+}
+
+class Event extends Task {
+    protected String from;
+    protected String to;
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+    public String toString() {
+        return "[E]" + super.getStatusIcon() + " " + super.getDescription() + " (from: " + from + " to: " + to + ")";
+    }
+}
+
+class Deadline extends Task {
+    protected String by;
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+    public String toString() {
+        return "[D]" + super.getStatusIcon() + " " + super.getDescription() + " (by: " + by + ")";
+    }
+}
 
 public class Wongster {
     public static void main(String[] args) {
         String name = "Wongster";
         System.out.println("Hello! I'm " + name + "\nWhat can I do for you?\n");
-        Echo();
+        echo();
     }
 
-    public static void Addlist(List<String> userList, String newItem, List<Boolean> markedList) {
-        userList.add(newItem);
-        markedList.add(false);
-        System.out.println("Added: " + newItem);
-    }
-
-    public static void Printlist(List<String> userList, List<Boolean> markedList) {
-        System.out.println("Here are tasks in your list: \n");
-        for (int i = 0; i < userList.size(); i++) {
-            String marking = markedList.get(i) ? "[x]" : "[ ]";
-            System.out.println((i + 1) + "." + marking + " " + userList.get(i));
-        }
-    }
-
-    public static void Marklist(List<String> userList, List<Boolean> markedList, String indexStr) {
-            int index = Integer.parseInt(indexStr) - 1;
-            if (index >= 0 && index < userList.size()) {
-                markedList.set(index, true);
-                System.out.println("Nice! I've marked this task as done: \n");
-                System.out.println("[X] " + userList.get(index));
-            }
-    }
-
-    public static void Unmarklist(List<String> userList, List<Boolean> markedList, String indexStr) {
-            int index = Integer.parseInt(indexStr) - 1;
-            if (index >= 0 && index < userList.size()) {
-                markedList.set(index, false);
-                System.out.println("OK, I've marked this task as not done yet: \n");
-                System.out.println("[ ] " + userList.get(index));
-            }
-    }
-
-    public static void Echo() {
-        List<String> userList = new ArrayList<>();
-        List<Boolean> markedList = new ArrayList<>();
+    public static void echo() {
+        Task[] userList = new Task[100];
+        int userListItems = 0;
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
@@ -51,16 +75,54 @@ public class Wongster {
                 System.out.println("Bye. Hope to see  you again soon!");
                 break;
             }
-            if (userInput.startsWith("mark") && userInput.length() > 5) {
-                Marklist(userList, markedList, userInput.substring(5));
-            } else if (userInput.startsWith("unmark") && userInput.length() > 7) {
-                Unmarklist(userList, markedList, userInput.substring(7));
+            if (userInput.startsWith("mark")) {
+                int index = Integer.parseInt(userInput.substring(5)) - 1;
+                userList[index].markList();
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println(userList[index].getStatusIcon() + " " + userList[index].getDescription());
+            } else if (userInput.startsWith("unmark")) {
+                int index = Integer.parseInt(userInput.substring(7)) - 1;
+                userList[index].unmarkList();
+                System.out.println("OK, I've marked this task as not done yet: ");
+                System.out.println(userList[index].getStatusIcon() + " " + userList[index].getDescription());
             } else if (userInput.equalsIgnoreCase("list")) {
-                Printlist(userList, markedList);
+                if (userListItems == 0) {
+                    System.out.println("There are no tasks in your list. Please input at least one!");
+                } else {
+                    System.out.println("Here are tasks in your list: \n");
+                    for (int i = 0; i < userListItems; i++) {
+                        System.out.println((i + 1) + "." + userList[i]);
+                    }
+                }
+            } else if(userInput.startsWith("todo")) {
+                String description = userInput.substring(5).trim();
+                userList[userListItems] = new ToDo(description);
+                userListItems++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(userList[userListItems - 1]);
+                System.out.println("Now you have " + userListItems + " tasks in the list.");
+            } else if(userInput.startsWith("deadline")) {
+                String[] parts = userInput.substring(9).split("/by");
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                userList[userListItems] = new Deadline(description, by);
+                userListItems++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(userList[userListItems - 1]);
+                System.out.println("Now you have " + userListItems + " tasks in the list.");
+            } else if(userInput.startsWith("event")) {
+                String[] parts = userInput.substring(6).split("/from|/to");
+                String description = parts[0].trim();
+                String from = parts[1].trim();
+                String to = parts[2].trim();
+                userList[userListItems] = new Event(description, from, to);
+                userListItems++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(userList[userListItems - 1]);
+                System.out.println("Now you have " + userListItems + " tasks in the list.");
             } else {
-                Addlist(userList, userInput, markedList);
+                System.out.println("Invalid Command, please enter a valid command.");
             }
-
         }
         scanner.close();
     }
