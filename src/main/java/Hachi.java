@@ -64,10 +64,12 @@ public class Hachi {
     public static void retrieveList(Task[] listOfTasks) {
         int numTasks = Task.getTotalNumTasks();
         spacerInsert("medium", true);
-        System.out.println("    The following tasks are in your to-do:");
+        System.out.println("    The following are in your list:");
         for (int i = 0; i < numTasks; i++) {
+            String taskType = listOfTasks[i].getTaskType();
             String statusIcon = listOfTasks[i].getStatusIcon();
-            System.out.print("    [" + statusIcon + "] ");
+            System.out.print("    [" + taskType + "] ");
+            System.out.print("[" + statusIcon + "] ");
             System.out.print(i + ": ");
             System.out.println(listOfTasks[i].getName());
         }
@@ -77,16 +79,14 @@ public class Hachi {
      * Given a task's name and the list of tasks,
      * add a new task into the list.
      *
-     * @param name Name of the task to be added.
+     * @param toAdd Task to be added.
      * @param listOfTasks The Task[] array that the new task will be added to.
      */
 
-    public static void addTask(String name, Task[] listOfTasks) {
+    public static void addTask(Task toAdd, Task[] listOfTasks) {
         int numTasks = Task.getTotalNumTasks();
-        Task toAdd = new Task(name);
-        listOfTasks[numTasks] = toAdd;
-
-        System.out.println("    Task added to list: " + name);
+        listOfTasks[numTasks - 1] = toAdd;
+        System.out.println("    Task added to list: " + toAdd.getName());
     }
 
     /**
@@ -174,8 +174,12 @@ public class Hachi {
                 case "LIST":
                     retrieveList(listOfTasks);
                     break;
+                case "TODO":
+                    Todo todoToAdd = new Todo(line);
+                    addTask(todoToAdd, listOfTasks);
                 default:
-                    addTask(line, listOfTasks);
+                    Task taskToAdd = new Task(line);
+                    addTask(taskToAdd, listOfTasks);
                     break;
                 }
             }

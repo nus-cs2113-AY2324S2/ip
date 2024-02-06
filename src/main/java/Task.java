@@ -83,4 +83,8 @@ public class Task {
     public String getStatusIcon() {
         return (isCompleted ? "X" : " ");
     }
+
+    public String getTaskType() {
+        return "?";
+    }
 }
