@@ -9,7 +9,8 @@ public class TaskList {
      */
     public void addToDo(String description) {
         taskList[taskCount] = new ToDo(description);
-        System.out.println("Task has been added to list: \n" + taskList[taskCount]);
+        System.out.println("Task has been added to list:");
+        System.out.println(taskList[taskCount]);
         taskCount++;
     }
 
@@ -21,7 +22,8 @@ public class TaskList {
      */
     public void addDeadline(String description, String by) {
         taskList[taskCount] = new Deadline(description, by);
-        System.out.println("Deadline has been added to list: \n" + taskList[taskCount]);
+        System.out.println("Deadline has been added to list:");
+        System.out.println(taskList[taskCount]);
         taskCount++;
     }
 
@@ -34,7 +36,8 @@ public class TaskList {
      */
     public void addEvent(String description, String from, String to) {
         taskList[taskCount] = new Event(description, from, to);
-        System.out.println("Event has been added to list: \n" + taskList[taskCount]);
+        System.out.println("Event has been added to list:");
+        System.out.println(taskList[taskCount]);
         taskCount++;
     }
 

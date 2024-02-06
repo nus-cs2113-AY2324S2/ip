@@ -1,0 +1,17 @@
+list
+deadline iP week 4 /by Friday
+event CS2113T lecture /from Friday, 4pm /to Friday, 6pm
+todo pack room
+List
+mark 1
+Mark 2
+mArk 3
+MARK 4
+LIST
+unmark 1
+Unmark 2
+uNmark 3
+UNMARK 4
+list
+bleh
+bye
