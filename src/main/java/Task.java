@@ -1,7 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected int index = 0;
+    protected int sequenceNumber = 0;
 
     public Task(String description) {
         this.description = description;
@@ -13,7 +13,7 @@ public class Task {
     }
 
     public int getIndex() {
-        return index;
+        return sequenceNumber;
     }
 
     public String getDescription() {
