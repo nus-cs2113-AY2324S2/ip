@@ -24,7 +24,7 @@ public class Duke {
         System.out.println("Now you have " + length + " tasks in the list.");
     }
     public static void main(String[] args) {
-        System.out.println("Hello! I'm " + chatbotName);
+        System.out.println("Hello! I'm " + chatbotName + ". ");
         System.out.println("What can I do for you? ");
 
         String input;
@@ -35,6 +35,7 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         boolean exitCalled = false;
         do {
+            System.out.println("-------------------");
             //input
             input = in.nextLine();
             String command = input.split(" ", 2)[0];
