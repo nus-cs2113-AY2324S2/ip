@@ -25,10 +25,13 @@ public class Qchat {
        case "Bye":
            System.out.print(GOODBYE_GREETING);
            break;
+       case "list":
+           Todolist.HandleList();
+           break;
+
+
        default:
-           System.out.print("---------------------------------------------\n");
-           System.out.print(command+"\n");
-           System.out.print("---------------------------------------------\n");
+           echo(command);
            break;
 
        }
@@ -37,7 +40,14 @@ public class Qchat {
 
 
    }
-   public static void main(String[] args) {
+
+    private static void echo(String command) {
+        System.out.print("---------------------------------------------\n");
+        System.out.print(command +"\n");
+        System.out.print("---------------------------------------------\n");
+    }
+
+    public static void main(String[] args) {
 
        System.out.print(WELCOME_GREETING);
        String command = "" ;
