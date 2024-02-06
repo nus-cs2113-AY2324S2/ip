@@ -1,78 +1,133 @@
 import java.util.Scanner;
 
 public class Gandalf {
+    public static final String LINE = "____________________________________________________________";
+
     public static void makeList() {
-        //Array of class Task to store all in to do lists
+        makeListWelcomeMessage();
+
         Task[] listTasks = new Task[100];
         Scanner in = new Scanner(System.in);
-        final String line = "____________________________________________________________";
-
-        System.out.println(line);
-        System.out.println("What would you like to be added to the list?");
-        System.out.println(line);
         String text = in.nextLine();
 
         int insertIndex = 0;
 
         while (true) {
             if (text.equals("bye")) {
-                System.out.println(line);
+                System.out.println(LINE);
                 return;
             } else if (text.equals("list")) {
-                System.out.println(line);
+                System.out.println(LINE);
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < listTasks.length; i++) {
                     if (listTasks[i] != null) {
-                        System.out.println((i + 1) + "." + " " + listTasks[i].getStatusIcon() + " " + listTasks[i].getDescription());
+                        System.out.println((i + 1) + ". " + listTasks[i].toString());
                     }
                 }
-                System.out.println(line);
+                System.out.println(LINE);
             } else if (text.startsWith("mark ")) {
                 int indexToMark = Integer.parseInt(text.substring(5).trim());
                 if (indexToMark >= 1 && indexToMark <= listTasks.length && listTasks[indexToMark - 1] != null) {
                     listTasks[indexToMark - 1].markAsDone();
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(listTasks[indexToMark - 1].getStatusIcon() + " " + listTasks[indexToMark - 1].getDescription());
-                    System.out.println(line);
+                    System.out.println(LINE);
                 } else {
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println("Invalid task index. Please try again.");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 }
             } else if (text.startsWith("unmark ")) {
                 int indexToUnmark = Integer.parseInt(text.substring(7).trim());
                 if (indexToUnmark >= 1 && indexToUnmark <= listTasks.length && listTasks[indexToUnmark - 1] != null) {
                     listTasks[indexToUnmark - 1].unmarkAsDone();
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(listTasks[indexToUnmark - 1].getStatusIcon() + " " + listTasks[indexToUnmark - 1].getDescription());
-                    System.out.println(line);
+                    System.out.println(LINE);
                 } else {
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println("Invalid task index. Please try again.");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 }
             } else {
                 if (insertIndex < listTasks.length) {
-                    listTasks[insertIndex] = new Task(text);
-                    insertIndex += 1;
-                    System.out.println(line);
-                    System.out.println("added: " + text);
-                    System.out.println(line);
+                    if (text.startsWith("todo ")) {
+                        String toDoItem = text.substring(4).trim();
+                        listTasks[insertIndex] = new ToDo(toDoItem);
+                        System.out.println(LINE);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + listTasks[insertIndex]);
+                        insertIndex += 1;
+                        System.out.println("Now you have " + insertIndex + " tasks in the list.");
+                        System.out.println(LINE);
+                    }
+                    else if (text.startsWith("deadline ")) {
+                        if (!text.contains("/by")) {
+                            System.out.println("Invalid command.");
+                            System.out.println(LINE);
+                        }
+                        else {
+                            String removeDeadlineString = text.replaceFirst("deadline", "").trim();
+                            String[] parts = removeDeadlineString.split("/by");
+                            String deadlineItem = parts[0];
+                            String dueBy = parts[1];
+                            listTasks[insertIndex] = new Deadline(deadlineItem, dueBy);
+                            System.out.println(LINE);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + listTasks[insertIndex]);
+                            insertIndex += 1;
+                            System.out.println("Now you have " + insertIndex + " tasks in the list.");
+                            System.out.println(LINE);
+                        }
+                    }
+                    else if (text.startsWith("event ")) {
+                        if (!text.contains("/from") || !text.contains("/to")) {
+                            System.out.println("Invalid command.");
+                            System.out.println(LINE);
+                        }
+                        else {
+                            String removeEventString = text.replaceFirst("event", "").trim();
+                            String[] firstPartition = removeEventString.split("/from");
+                            String eventItem = firstPartition[0];
+                            String fromAndToString = firstPartition[1];
+                            String[] secondPartition = fromAndToString.split("/to");
+                            String eventFrom = secondPartition[0];
+                            String eventTo = secondPartition[1];
+
+                            listTasks[insertIndex] = new Event (eventItem, eventFrom, eventTo);
+                            System.out.println(LINE);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + listTasks[insertIndex]);
+                            insertIndex += 1;
+                            System.out.println("Now you have " + insertIndex + " tasks in the list.");
+                            System.out.println(LINE);
+                        }
+                    }
+                    else {
+                        System.out.println("Invalid keyword.");
+                        System.out.println(LINE);
+                    }
+
                 } else {
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println("List is full. Cannot add more items.");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 }
             }
             text = in.nextLine();
         }
     }
 
-    public static void startEcho() {
+    private static void makeListWelcomeMessage() {
+        System.out.println(LINE);
+        System.out.println("What would you like to be added to the list?");
+        System.out.println(LINE);
+    }
+
+    public static void startProgram() {
         Scanner in = new Scanner(System.in);
-        final String line = "____________________________________________________________";
         String byeStatement = "bye";
         String makeListStatement = "make list";
         String text = in.nextLine();
@@ -84,36 +139,45 @@ public class Gandalf {
             return;
         }
         if (text.equals(byeStatement)) {
-            System.out.println(line);
+            System.out.println(LINE);
             return;
         }
 
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println(text);
-        System.out.println(line);
+        System.out.println(LINE);
 
         while (!hasSaidBye) {
             text = in.nextLine();
-            System.out.println(line);
             if (text.equals(byeStatement)) {
                 hasSaidBye = true;
             } else if (text.equals(makeListStatement)) {
                 makeList();
+                return;
             } else {
+                // Echo the message
                 System.out.println(text);
             }
-            System.out.println(line);
+            System.out.println(LINE);
         }
     }
 
     public static void main(String[] args) {
-        final String line = "____________________________________________________________";
-        System.out.println(line);
-        System.out.println("Hello! I'm Gandalf");
-        System.out.println("What can I do for you?");
-        System.out.println(line);
-        startEcho();
+        startMessage();
+        startProgram();
+        endMessage();
+    }
+
+    private static void endMessage() {
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+        System.out.println(LINE);
+    }
+
+    private static void startMessage() {
+        System.out.println(LINE);
+        System.out.println("Hello! I'm Gandalf");
+        System.out.println("What can I do for you? I'll start by repeating your words.");
+        System.out.println("Type (make list) to create a To-Do List.");
+        System.out.println(LINE);
     }
 }
