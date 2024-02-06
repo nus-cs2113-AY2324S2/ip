@@ -26,6 +26,7 @@ public class Tickles {
     public static void promptUser() {
         Scanner in = new Scanner(System.in);
         String prompt = in.nextLine();
+
         if (prompt.equals("bye")) {
             stillGoing = false;
             printThis("Bye. Hope to see you again soon! Mr. Tickles will miss you.");
@@ -40,7 +41,7 @@ public class Tickles {
             }
             if (taskNo <= totalTasks) {
                 list.get(taskNo - 1).markAsUndone();
-                printThis("OK, I've marked this task as not done yet: \n [ ]" + list.get(taskNo - 1).getDescription());
+                printThis("OK, I've marked this task as not done yet: \n [ ] " + list.get(taskNo - 1).getDescription());
             }
         } else if (prompt.length() == 6 && prompt.substring(0,4).equals("mark")) {
             int taskNo;
@@ -52,11 +53,10 @@ public class Tickles {
             if (taskNo <= totalTasks) {
                 list.get(taskNo - 1).markAsDone();
 
-                printThis("Nice! I've marked this task as done: \n [X]" + list.get(taskNo - 1).getDescription());
+                printThis("Nice! I've marked this task as done: \n [X] " + list.get(taskNo - 1).getDescription());
             }
         } else {
             addToList(prompt);
-            printThis("added: " + prompt);
         }
 
     }
@@ -66,17 +66,39 @@ public class Tickles {
         System.out.println("Here are the tasks in your list:");
         int counter = 1;
         for (Task t : list) {
-            System.out.println(counter + ". [" + t.getStatusIcon() + "]" + t.getDescription());
+            System.out.println(counter + "." + t.toString());
             counter += 1;
         }
     }
 
     // Creates a new Task from the inputted string, and adds it to our list.
     public static void addToList(String str) {
-        Task task = new Task(str);
+        Task task;
+        if (str.contains("deadline") && str.contains("/by")) {
+            String[] split = str.substring(9).split(" /by ");
+            task = new Deadline(split[0], split[1]);
+        } else if (str.contains("event") && str.contains("/to") && str.contains("/from")) {
+            String[] split = str.substring(6).split(" /to | /from ");
+            task = new Event(split[0], split[1], split[2]);
+        } else if (str.contains("todo")) {
+            task = new Todo(str.substring(5));
+        } else {
+            task = new Todo(str); //or  new Task(str) not sure whta they want
+        }
         list.add(task);
         totalTasks += 1;
         System.out.println(task.getStatusIcon());
+        printThis("Got it. I've added this task: \n \t" + task.toString() + "\nNow you have " + totalTasks +
+                " task" + pluralChecker() + " in the list.");
+
+    }
+
+    public static String pluralChecker() {
+        if (totalTasks == 1) {
+            return "";
+        } else {
+            return "s";
+        }
     }
 
     // Abstracts out the printing with line breaks.
