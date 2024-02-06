@@ -19,22 +19,30 @@ public class TaskList {
         case "todo":
             addTask(new Task(commandParts[1]));
             break;
-        case "mark":
-            if (commandParts.length > 1) {
-                markTask(Integer.parseInt(commandParts[1]) - 1);
+        case "deadline":
+            String[] deadlineParts = commandParts[1].split("/by" , 2);
+            if (deadlineParts.length != 2) {
+                System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
             } else {
+                addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            }
+            break;
+        case "mark":
+            if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1])-1) ) {
                 System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
+            } else {
+                markTask(Integer.parseInt(commandParts[1]) - 1);
             }
             break;
         case "unmark":
-            if (commandParts.length > 1) {
-                unmarkTask(Integer.parseInt(commandParts[1]) - 1);
+            if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1])-1) ) {
+                System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
             } else {
-                System.out.println("Invalid command format for unmarking a task. Use 'unmark <index>'.");
+                unmarkTask(Integer.parseInt(commandParts[1]) - 1);
             }
             break;
         default:
-            addTask(new Task(command)); // Default to addTask if not recognised
+            System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised
             break;
         }
     }
@@ -61,7 +69,7 @@ public class TaskList {
             }
             System.out.println("List\n~~~~~~~~~~~~~~~~");
             for (int i = 0 ; i < taskCount ; i += 1) {
-                System.out.println("  " + (i+1) + ". " + taskList[i]);
+                System.out.println("  " + (i+1) + ". [" + taskList[i].getType() + "]" + taskList[i]);
             }
             System.out.println("~~~~~~~~~~~~~~~~");
         }
@@ -113,8 +121,9 @@ public class TaskList {
                 String command;
                 Scanner in = new Scanner(System.in);
                 command = in.nextLine().toLowerCase();
+                String[] commandParts = command.split(" ", 2);
 
-                switch (command) {
+                switch (commandParts[0]) {
                 case "bye":
                     System.out.println("~~~~~~~~~~~~~~~~\nDobby say's BYE!");
                     return;
@@ -124,18 +133,6 @@ public class TaskList {
                 default:
                     processTaskCommand(command);
                     break;
-//                if (command.startsWith("add")) {
-//                    addTask(command.substring(4).trim());
-//                } else if (command.startsWith("mark")) {
-//                    int taskIndex = Integer.parseInt(command.split(" ")[1]);
-//                    markTask(taskIndex);
-//                } else if (command.startsWith("unmark")) {
-//                    int taskIndex = Integer.parseInt(command.split(" ")[1]);
-//                    unmarkTask(taskIndex);
-//                } else {
-//                    addTask(command);
-//                }
-//                break;
                 }
 
             }
