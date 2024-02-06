@@ -12,6 +12,6 @@ public class Event extends Task {
 
     public String getData() {
         return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription()
-                + "(from: " + this.startTime + "to: " + this.endTime + ")";
+                + "(from: " + this.startTime + ", to: " + this.endTime + ")";
     }
 }
