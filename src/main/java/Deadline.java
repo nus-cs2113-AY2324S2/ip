@@ -1,16 +1,10 @@
 public class Deadline extends Task {
     private String dueDate;
 
-    public Deadline(String input, int counter) {
-        super(input, counter);
+    public Deadline(String taskName, int counter, String dueDate) {
+        super(taskName, counter);
+        this.dueDate = dueDate;
     }
-//        index = counter + 1;
-//        isDone = false;
-//
-//        int deadlineIndex = line.indexOf('/');
-//        taskName = line.substring(0, deadlineIndex - 2);
-//        dueDate = line.substring(deadlineIndex + 3);
-//    }
 
     @Override
     public void printRespond() {
@@ -18,11 +12,16 @@ public class Deadline extends Task {
         System.out.print(" >> ");
         printTasktype();
         super.printCheckbox();
-        System.out.println(" " + this.taskName);
+        System.out.println(" " + this.taskName + " (by: " + dueDate + "!)");
         super.printTaskcount();
     }
     @Override
     public void printTasktype() {
         System.out.print("[D]");
+    }
+    @Override
+    public void printTask() {
+        super.printTask();
+        System.out.println("    >> by: " + dueDate + "!!");
     }
 }

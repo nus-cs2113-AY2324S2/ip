@@ -67,7 +67,12 @@ public class Soot {
             listCounter++;
             break;
         case "deadline":
-            taskList[listCounter] = new Deadline(inputTask, listCounter);
+            //split taskName and dueDate
+            int deadlineIndex = inputTask.indexOf('/');
+            String taskName = inputTask.substring(0, deadlineIndex - 1);
+            String dueDate = inputTask.substring(deadlineIndex + 4);
+
+            taskList[listCounter] = new Deadline(taskName, listCounter, dueDate);
             taskList[listCounter].printRespond();
             drawLine();
             listCounter++;
