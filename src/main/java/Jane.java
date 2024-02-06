@@ -38,9 +38,9 @@ public class Jane {
                       " _  | |  |  _  |  | |  | |  |  ___|\n" +
                       "| |_| |  | | | |  | |  | |  | |___ \n" +
                       "|_____|  |_| |_|  |_| ___|  |_____|\n";
-        static final String SEPARATOR = "____________________________________________________________\n";
-        static final String GREET_MESSAGE = "Hello! I am Jane.\nWhat can I do for you?\n";
-        static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!\n";
+        String SEPARATOR = "____________________________________________________________\n";
+        String GREET_MESSAGE = "Hello! I am Jane.\nWhat can I do for you?\n";
+        String EXIT_MESSAGE = "Bye. Hope to see you again soon!\n";
 
         System.out.print(LOGO + SEPARATOR);
         System.out.print(GREET_MESSAGE + SEPARATOR);
