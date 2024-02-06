@@ -24,5 +24,10 @@ public class Task {
         this.isDone = status;
     }
 
+    @Override
+    public String toString() {
+        return getStatusIcon() + getDescription());
+    }
+
 }
 
