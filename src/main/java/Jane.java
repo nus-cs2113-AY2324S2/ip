@@ -16,19 +16,52 @@ public class Jane {
 
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-        Task t = new Task(input);
+        String[] inputParts = input.split(" ", 2);
+
         TaskList taskList = new TaskList();
 
+        Task currentTask;
+
+        switch (inputParts[0]) {
+        case "bye":
+            // exit
+            break;
+        case "list":
+            // print out full list
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskList.count; i++) {
+                currentTask = taskList.list[i];
+                System.out.println(currentTask.getSequence() + "." +
+                        currentTask.getStatusIcon() + currentTask.getDescription());
+            }
+            break;
+        case "mark":
+            // mark task as done
+            currentTask = taskList.list[Integer.parseInt(input[1])-1];
+            currentTask.isDone(true);
+            System.out.println("Nice! I've marked this task as done:\n" +
+                    currentTask.getStatusIcon() + currentTask.getDescription());
+            break;
+        case "unmark":
+            // mark task as undone
+            break;
+        default:
+            // adding new task
+            Task t = new Task(input);
+            taskList.addTask(t);
+            System.out.println("added: " + t.getDescription());
+            break;
+        }
         while (!input.equals("bye")) {
             System.out.print(SEPARATOR);
-            Task currentTask;
-            if (input.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
+            /* Task currentTask;
+            /if (input.equals("list")) {
+                //System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.count; i++) {
                     currentTask = taskList.list[i];
                     System.out.println(currentTask.getIndex() + "." +
                             currentTask.getStatusIcon() + currentTask.getDescription());
-                }
+                } */
             } else if (input.startsWith("mark")) {
                 input = input.replace("mark ", "");
                 currentTask = taskList.list[Integer.parseInt(input)-1];
@@ -41,10 +74,10 @@ public class Jane {
                 currentTask.isDone(false);
                 System.out.println("OK, I've marked this task as not done yet:\n" +
                         currentTask.getStatusIcon() + currentTask.getDescription());
-            } else {
+            /*} else {
                 taskList.addTask(t);
                 System.out.println("added: " + t.getDescription());
-            }
+            }*/
             System.out.print(SEPARATOR);
             input = in.nextLine();
             t = new Task(input);
