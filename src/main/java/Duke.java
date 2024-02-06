@@ -91,6 +91,57 @@ public class Duke {
     }
 
     /**
+     * Parses the user input and executes the corresponding command.
+     * 
+     * @param taskList The list of tasks.
+     * @param command The command to execute.
+     * @param taskString The task to execute the command on.
+     * @return None
+     */
+    public static void parseCommand(List taskList, String command, String taskString) {
+        switch (command) {
+        case "bye":
+            // Exit if input is "bye"
+            break;
+
+        case "list":
+            // Print the list if input is "list"
+            taskList.printList();
+            break;
+
+        case "mark":
+            // Mark a task as done if input is "mark"
+            int index = Integer.parseInt(taskString);
+            taskList.setItemStatus(index, true);
+            break;
+        case "unmark":
+            // Mark a task as not done if input is "unmark"
+            index = Integer.parseInt(taskString);
+            taskList.setItemStatus(index, false);
+            break;
+
+        case "todo":
+            // Add a todo task if input starts with "todo"
+            taskList.addItem(taskString, "T");
+            break;
+        case "deadline":
+            // Add a deadline task if input starts with "deadline"
+            taskList.addItem(taskString, "D");
+            break;
+        case "event":
+            // Add an event task if input starts with "event"
+            taskList.addItem(taskString, "E");
+            break;
+
+        default:
+            // TODO: Add support to pass taskString into addItem vs command
+            // Add default task to the list (no type)
+            taskList.addItem(command);
+            break;
+        }
+    }
+
+    /**
      * The main loop of the bot, handles user input.
      * 
      * @param None
@@ -102,51 +153,12 @@ public class Duke {
 
         while (isRunning) {
             String input = getInput();
-            // TODO: Refactor below into function or improve using enum maybe?
 
             String[] splitInput = input.split(" ", 2);
             String command = splitInput[0].toLowerCase();
             String taskString = splitInput.length > 1 ? splitInput[1] : "";
 
-            switch (command) {
-            case "bye":
-                // Exit if input is "bye"
-                isRunning = false;
-                break;
-            case "list":
-                // Print the list if input is "list"
-                taskList.printList();
-                break;
-
-            case "mark":
-                // Mark a task as done if input is "mark"
-                int index = Integer.parseInt(splitInput[1]);
-                taskList.setItemStatus(index, true);
-                break;
-            case "unmark":
-                // Mark a task as not done if input is "unmark"
-                index = Integer.parseInt(splitInput[1]);
-                taskList.setItemStatus(index, false);
-                break;
-
-            case "todo":
-                // Add a todo task if input starts with "todo"
-                taskList.addItem(taskString, "T");
-                break;
-            case "deadline":
-                // Add a deadline task if input starts with "deadline"
-                taskList.addItem(taskString, "D");
-                break;
-            case "event":
-                // Add an event task if input starts with "event"
-                taskList.addItem(taskString, "E");
-                break;
-
-            default:
-                // Add default task to the list (no type)
-                taskList.addItem(input);
-                break;
-            }
+            parseCommand(taskList, command, taskString);
         }
 
         sc.close();
