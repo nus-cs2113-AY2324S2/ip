@@ -2,18 +2,17 @@ import java.util.Scanner;
 
 public class Soot {
     public static int listCounter = 0;
+    static final int LIST_SIZE = 100;
     public static void main(String[] args) {
         String line;
         String lowerCase;
         Scanner in = new Scanner(System.in);
-        Task[] taskList = new Task[100];
+        Task[] taskList = new Task[LIST_SIZE];
 
         boolean isBye = false;
 
         drawLine(); //initial greeting
-        System.out.println("Hello! I'm Soot, your personal chatbot companion :)");
-        System.out.println("What can I help you with?");
-        drawLine();
+        greetUser();
 
         while (!isBye) {
             line = in.nextLine(); //user input
@@ -117,7 +116,11 @@ public class Soot {
         }
         System.out.println("");
     }
-
+    public static void greetUser() {
+        System.out.println("Hello! I'm Soot, your personal chatbot companion :)");
+        System.out.println("What can I help you with?");
+        drawLine();
+    }
     public static void greetGoodbye() {
         System.out.println("Bye! Till the next time we meet...");
         drawLine();
