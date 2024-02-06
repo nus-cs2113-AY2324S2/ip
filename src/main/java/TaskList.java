@@ -47,6 +47,7 @@ public class TaskList {
             Task task = tasks.get(number - 1);
             task.markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
+            System.out.print("\t");
             printTask(task, -1);
         }
     }
@@ -62,9 +63,9 @@ public class TaskList {
 
     public void printTask(Task task, int index) {
         if (index < 0) {
-            System.out.printf("[%s] %s\n", task.getStatusIcon(), task.description);
+            System.out.printf(task.toString());
         } else {
-            System.out.printf("%d.[%s] %s\n", index, task.getStatusIcon(), task.description);
+            System.out.printf("%d.%s", index, task.toString());
         }
     }
 
