@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Jeff {
     public static void main(String[] args) {
         List list = new List();
         list.generateSizeOfList(100);
