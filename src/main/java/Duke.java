@@ -32,19 +32,31 @@ public class Duke {
                     int taskMarkNumber = Integer.parseInt(line.split(" ")[1]) - 1;
                     tasks[taskMarkNumber].markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(tasks[taskMarkNumber] + "\n" + BREAK_LINE);
+                    System.out.println("  " + tasks[taskMarkNumber] + "\n" + BREAK_LINE);
 
                 } else if (line.startsWith("mark")) {
 
                     int taskMarkNumber = Integer.parseInt(line.split(" ")[1]) - 1;
                     tasks[taskMarkNumber].markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(tasks[taskMarkNumber] + "\n" + BREAK_LINE);
+                    System.out.println("  " + tasks[taskMarkNumber] + "\n" + BREAK_LINE);
 
-                } else {
+                } else if (line.startsWith("todo")) {
 
-                    tasks[count] = new Task(line); //Takes in a new line of input.
-                    System.out.println("added: " + line + "\n" + BREAK_LINE);
+                    tasks[count] = new ToDo(line);
+                    tasks[count].print(count);
+                    count++;
+
+                } else if (line.startsWith("deadline")) {
+
+                    tasks[count] = new Deadline(line);
+                    tasks[count].print(count);
+                    count++;
+
+                } else if (line.startsWith("event")) {
+
+                    tasks[count] = new Event(line);
+                    tasks[count].print(count);
                     count++;
                 }
             }

@@ -1,13 +1,14 @@
 public class Task {
     protected String description; //Holds the textual description of the task.
     protected boolean isDone;
+    protected String eventType;
 
     public Task(String description) {
+
         this.description = description;
         this.isDone = false; //Initialize the status of the new task to not done.
-    }
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // Replace tasks that are done with [X].
+        this.eventType = null;
+
     }
 
     public void markAsNotDone() {
@@ -18,8 +19,24 @@ public class Task {
         this.isDone = true;
     }
 
+    public String getTasksIcon() {
+        return eventType;
+    }
+
+    public String getTasksStatus() {
+        return (isDone ? "[X]" : "[ ]");
+    }
+
     @Override
     public String toString() {
-        return getStatusIcon() + " " + this.description;
+        return this.getTasksIcon() + this.getTasksStatus() + " " + this.description;
+    }
+
+    public void print(int count) {
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + toString());
+        System.out.println("Now you have " + (count + 1) + " tasks in the list." + "\n" + "____________________________________________________________");
+
     }
 }
