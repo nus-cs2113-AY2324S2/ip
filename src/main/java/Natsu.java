@@ -53,11 +53,33 @@ public class Natsu {
             System.out.println("       " + list[itemIndex].toString());
             printLine();
         } else {
+            addTask(userInput);
+        }
+    }
+
+    private static void addTask(String userInput) {
+        if (userInput.startsWith("todo " )){
+            list[taskCount++] = new Todo(userInput.substring(5).trim());
+        } else if (userInput.startsWith("deadline ")) {
+            list[taskCount++] = new Deadline(userInput.substring(9, userInput.indexOf("/by")),
+                    userInput.substring(userInput.indexOf("/by") + 4).trim());
+        } else if (userInput.startsWith("event ")) {
+            list[taskCount++] = new Event(
+                    userInput.substring(6, userInput.indexOf("/from")),
+                    userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to")).trim(),
+                    userInput.substring(userInput.indexOf("/to") + 4));
+        } else {
             list[taskCount++] = new Task(userInput);
             printLine();
-            System.out.println("     " + userInput);
+            System.out.println("     added: " + userInput);
             printLine();
+            return;
         }
+        printLine();
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("       " + list[taskCount - 1].toString());
+        System.out.println("     Now you have " + taskCount + " tasks in the list.");
+        printLine();
     }
 
     private static void listTasks() {
