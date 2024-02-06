@@ -29,7 +29,8 @@ public class Kowalski {
                 break;
             } else if (userInput.equals("list")){
                 for (int i = 1; i < counter+1;i++){
-                    System.out.println(i + ".[" + currentTasks[i-1].getStatusIcon() +"] " + currentTasks[i-1].description);
+                    System.out.println(i + ".[" + currentTasks[i-1].getStatusIcon() +"] "
+                            + currentTasks[i-1].description);
                 }
                 System.out.println(dividingLine);
             } else if (userInput.contains("unmark")) {
@@ -39,9 +40,10 @@ public class Kowalski {
 
                 //Checking for valid task number
                 if (taskNumber-1 <= counter){
-                    currentTasks[taskNumber-1].removeDone();
+                    currentTasks[taskNumber-1].markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  [" + currentTasks[taskNumber-1].getStatusIcon() +"] " + currentTasks[taskNumber-1].description);
+                    System.out.println("  [" + currentTasks[taskNumber-1].getStatusIcon() +"] "
+                            + currentTasks[taskNumber-1].description);
                     System.out.println(dividingLine);
                 } else {
                     break;
@@ -54,9 +56,10 @@ public class Kowalski {
 
                 //Checking for valid task number
                 if (taskNumber-1 <= counter){
-                    currentTasks[taskNumber-1].setDone();
+                    currentTasks[taskNumber-1].markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  [" + currentTasks[taskNumber-1].getStatusIcon() +"] " + currentTasks[taskNumber-1].description);
+                    System.out.println("  [" + currentTasks[taskNumber-1].getStatusIcon() +"] "
+                            + currentTasks[taskNumber-1].description);
                     System.out.println(dividingLine);
                 } else {
                     break;
