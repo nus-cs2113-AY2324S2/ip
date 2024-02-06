@@ -10,26 +10,37 @@ public class Miku {
         System.out.println("______________________");
 
         line = in.nextLine();
-        String echo = line;
-        String[] storedList = new String[100];
+        String newItem = line;
+        Task[] storedList = new Task[100];
         int numberOfListItems = 0;
 
         while (!line.equals("bye")) {
+            System.out.println("______________________");
+
             if (line.equals("list")) {
-                System.out.println("______________________");
+                System.out.println("Here are your list items!");
                 for (int i = 0; i < numberOfListItems; i++) {
-                System.out.println(i+1 + ". " + storedList[i] + "\n");
+                    System.out.println(i+1 + ". [" + storedList[i].getStatusIcon() + "] " + storedList[i].description + "\n");
                 }
-                System.out.println("______________________");
+            } else if (line.contains("mark")){
+                boolean isUnmarking = line.contains("unmark");
+                String printedLine = (isUnmarking ? "Aww... I've marked it as undone." : "Good job~! I've marked it as done");
+                System.out.println(printedLine);
+                String[] markList = line.split(" ");
+                String listNumberString = markList[(markList.length - 1)];
+                int listNumberInt = Integer.parseInt(listNumberString);
+                storedList[listNumberInt-1].isDone = (!isUnmarking);
+                System.out.println("[" + storedList[listNumberInt-1].getStatusIcon() + "] " + storedList[listNumberInt-1].description + "\n");
             } else {
-                System.out.println("______________________");
-                System.out.println("added: " + echo);
-                storedList[numberOfListItems] = echo;
-                numberOfListItems++;
-                System.out.println("______________________");
+                    System.out.println("added: " + newItem);
+                    storedList[numberOfListItems] = new Task(newItem);
+                    storedList[numberOfListItems].description = newItem;
+                    numberOfListItems++;
             }
+
+            System.out.println("______________________");
             line = in.nextLine();
-            echo = line;
+            newItem = line;
         }
 
         System.out.println("Bye. Hope to see you again soon!");
