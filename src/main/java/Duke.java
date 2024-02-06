@@ -46,6 +46,10 @@ public class Duke {
                 }
                 break;
             case "todo":
+                if (input.length() < 5 || input.substring(5).trim().isEmpty()) {
+                    System.out.println("Please enter a valid task.");
+                    break;
+                }
                 description = input.substring(5);
                 tasks[counter] = new Todo(description);
                 System.out.println("Okay, added:\n" + tasks[counter]);
@@ -53,6 +57,10 @@ public class Duke {
                 System.out.println("Now you have " + counter + " task(s) in the list.");
                 break;
             case "deadline":
+                if (!input.contains("/by")) {
+                    System.out.println("Please enter a valid deadline.");
+                    break;
+                }
                 description = input.substring(9, input.indexOf("/by") - 1);
                 by = input.substring(input.indexOf("/by") + 4);
                 tasks[counter] = new Deadline(description, by);
@@ -61,6 +69,10 @@ public class Duke {
                 System.out.println("Now you have " + counter + " task(s) in the list.");
                 break;
             case "event":
+                if (!input.contains("/to") || !input.contains("/from")) {
+                    System.out.println("Please enter a valid start and end date.");
+                    break;
+                }
                 description = input.substring(6, input.indexOf("/from") - 1);
                 by = input.substring(input.indexOf("/to") + 4);
                 from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
