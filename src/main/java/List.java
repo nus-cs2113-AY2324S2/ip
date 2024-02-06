@@ -29,6 +29,12 @@ public class List {
         return size;
     }
 
+    /**
+     * Prints the size of the list with flavour text.
+     * 
+     * @param None
+     * @return None
+     */
     public void printSize() {
         int size = this.getSize();
         System.out.println("We only have uhhhh " + size

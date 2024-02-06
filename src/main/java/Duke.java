@@ -21,7 +21,7 @@ public class Duke {
      * @param None
      * @return None
      */
-    public static void displayLogo() {
+    public static void printLogo() {
         System.out.println(logo);
         addLineBreak();
     }
@@ -42,11 +42,23 @@ public class Duke {
      * @param None
      * @return None
      */
-    public static void initialize() {
-        displayLogo();
+    public static void printInitMsg() {
+        printLogo();
         System.out.print("HELLO MY POSITIVE MENTALITY FLEN!! MY NAME IS ");
         System.out.println(botName.toUpperCase() + "!!!");
         System.out.println("Actually uh... What even do you want me to do?");
+    }
+
+    /**
+     * Exits the bot, prints a goodbye message.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void printExitMsg() {
+        System.out.println("Good night my positive mentality flen, "
+                + "it is time for me to take my happy pills. Bye Bye!");
+        addLineBreak();
     }
 
     /**
@@ -140,21 +152,9 @@ public class Duke {
         sc.close();
     }
 
-    /**
-     * Exits the bot, prints a goodbye message.
-     * 
-     * @param None
-     * @return None
-     */
-    public static void exit() {
-        System.out.println("Good night my positive mentality flen, "
-                + "it is time for me to take my happy pills. Bye Bye!");
-        addLineBreak();
-    }
-
     public static void main(String[] args) {
-        initialize();
+        printInitMsg();
         loop();
-        exit();
+        printExitMsg();
     }
 }
