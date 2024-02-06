@@ -16,6 +16,8 @@ public class CommandManager {
             Pattern.compile("deadline (?<taskDescription>.+) /(?<by>.+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern EVENT_PATTERN =
             Pattern.compile("event (?<taskDescription>.+) /(?<from>.+) /(?<to>.+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern HELP_PATTERN =
+            Pattern.compile("help", Pattern.CASE_INSENSITIVE);
     private static final Pattern EXIT_PATTERN =
             Pattern.compile("bye", Pattern.CASE_INSENSITIVE);
 
@@ -25,6 +27,7 @@ public class CommandManager {
         Map<CommandType, Pattern> commandPatternMap = new HashMap<>();
 
         commandPatternMap.put(CommandType.EXIT, EXIT_PATTERN);
+        commandPatternMap.put(CommandType.HELP, HELP_PATTERN);
         commandPatternMap.put(CommandType.MARK, MARK_PATTERN);
         commandPatternMap.put(CommandType.UNMARK, UNMARK_PATTERN);
         commandPatternMap.put(CommandType.LIST, LIST_PATTERN);
