@@ -19,8 +19,14 @@ public class TaskList {
 //            System.out.println("from: "+from +" to: " +to);
             taskList[taskNo]=new Event(name,taskNo+1, from, to);
             break;
+        default:
+            taskList[taskNo]=new Task(userInput,taskNo+1);
+            break;
         }
+        taskAddMessage();
+    }
 
+    private void taskAddMessage() {
         System.out.println("    " + "--------------");
         System.out.println("    Got it. I've added this task:");
         System.out.print("      ");
@@ -55,7 +61,6 @@ public class TaskList {
         }
         System.out.println("    " + "--------------");
     }
-
     private static void print(String thingToPrint){
         System.out.println("    " + "--------------");
         System.out.println("    " + thingToPrint);

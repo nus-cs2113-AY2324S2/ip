@@ -44,6 +44,7 @@ public class Ruby {
                 break;
             default:
                 t1.addTask(userInput);
+                break;
             }
             userInputs = inputCatcher();
         }
@@ -55,6 +56,7 @@ public class Ruby {
     }
 
     private static boolean checkout(String[] userInputs){
+
         return !userInputs[0].equalsIgnoreCase("bye");
     }
 
