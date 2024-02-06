@@ -27,12 +27,22 @@ public class Tickles {
         Scanner in = new Scanner(System.in);
         String prompt = in.nextLine();
 
+//        switch (prompt) {
+//        case "bye":
+//            stillGoing = false;
+//            printThis("Bye. Hope to see you again soon! Mr. Tickles will miss you.");
+//        case "list":
+//            printList();
+//        }
+
         if (prompt.equals("bye")) {
             stillGoing = false;
             printThis("Bye. Hope to see you again soon! Mr. Tickles will miss you.");
         } else if (prompt.equals("list")) {
             printList();
         } else if (prompt.length() == 8 && prompt.substring(0,6).equals("unmark")) {
+            //kind of ugly in my opinion, would like tips on how to avoid repeating code here but can't think of a way that
+            //avoids magic numbers
             int taskNo;
             try {
                 taskNo = Integer.parseInt(prompt.substring(7,8));
@@ -60,6 +70,7 @@ public class Tickles {
         }
 
     }
+
 
     // Prints the tasks in the list as well as their status icon.
     public static void printList() {
