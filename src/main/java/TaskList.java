@@ -2,19 +2,41 @@ import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
+    private int numberOfTasks;
 
-    public void addTask(String input) {
-        Task task = new Task(input);
+    public void addToTaskList(Task task) {
         tasks.add(task);
-        System.out.printf("Added: %s\n", input);
+        numberOfTasks++;
+        System.out.println("Got it. I've added this task:");
+        System.out.print("\t" + task);
+        System.out.printf("Now you have %d tasks in the list.\n", numberOfTasks);
     }
 
+    public void addTask(TaskType taskType, String input) {
+        switch (taskType) {
+        case TODO:
+        default:
+            ToDo toDo = ToDo.getToDo(input);
+            addToTaskList(toDo);
+            break;
+        case DEADLINE:
+            Deadline deadline = Deadline.getDeadline(input);
+            addToTaskList(deadline);
+            break;
+        case EVENT:
+            Event event = Event.getEvent(input);
+            addToTaskList(event);
+            break;
+        }
+    }
+    
     public void markTask(String input) {
         int number = extractInt(input);
         if (number > 0 && number <= tasks.size()) {
             Task task = tasks.get(number - 1);
             task.markAsDone();
             System.out.println("Nice! I've marked this task as done:");
+            System.out.print("\t");
             printTask(task, -1);
         }
     }
