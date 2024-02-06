@@ -18,7 +18,7 @@ public class MyChatBot {
             System.out.println("______________");
 
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("Byeeeee. Hope to see you again soon!");
                 break;
             }
 
@@ -37,7 +37,7 @@ public class MyChatBot {
                     int taskIndex = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
                         taskStatus[taskIndex] = true;
-                        System.out.println("Task marked as done: [X] " + tasks[taskIndex]);
+                        System.out.println("Good Job ! Task marked as done: [X] " + tasks[taskIndex]);
                     } else {
                         System.out.println("Invalid task index.");
                     }
@@ -49,7 +49,7 @@ public class MyChatBot {
                     int taskIndex = Integer.parseInt(userInput.split("\\s+")[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < taskCount) {
                         taskStatus[taskIndex] = false;
-                        System.out.println("Task marked as not done: [ ] " + tasks[taskIndex]);
+                        System.out.println("Oh no :( Task marked as not done: [ ] " + tasks[taskIndex]);
                     } else {
                         System.out.println("Invalid task index.");
                     }
@@ -63,7 +63,7 @@ public class MyChatBot {
                     System.out.println("Task added: " + userInput);
                     taskCount++;
                 } else {
-                    System.out.println("Task list is full. Cannot add more tasks.");
+                    System.out.println("Task list is full. Cannot add more tasks!!");
                 }
             }
             System.out.println("______________");
