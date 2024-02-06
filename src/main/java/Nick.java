@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 public class Nick {
     private static final Logger LOGGER = Logger.getLogger(Nick.class.getName());
     public static void main(String[] args) {
+        //System.out.println(System.getProperty("user.dir"));
         try {
             String name = new String(Files.readAllBytes(Paths.get("name.txt")));
             System.out.print(name);
@@ -24,7 +25,7 @@ public class Nick {
         String command;
         int taskCount = 0;
 
-        while (true) {
+        while (input.hasNextLine()) {
             command = input.nextLine();
             if (command.equals("bye")) {
                 break;
