@@ -4,44 +4,58 @@ public class Byte {
     private static final int MAX_TASKS = 100;
     private static final Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
-    private static final int TODO_COMMAND_LENGTH = "todo ".length();
-    private static final int DEADLINE_COMMAND_LENGTH = "deadline ".length();
-    private static final int EVENT_COMMAND_LENGTH = "event ".length();
-    private static final int MARK_COMMAND_LENGTH = "mark ".length();
-    private static final int UNMARK_COMMAND_LENGTH = "unmark ".length();
 
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        runByte(scanner);
+        scanner.close();
+    }
 
+    public static void runByte(Scanner scanner){
         printWelcomeMessage();
-
-        while (true) {
+        while(true){
             String userInput = scanner.nextLine();
             printLineSeparator();
-
-            if (userInput.equals("bye")) {
-                printGoodbyeMessage();
+            if (processUserInput(userInput)) {
                 break;
-            } else if (userInput.startsWith("mark ")) {
-                markTask(userInput.substring(MARK_COMMAND_LENGTH), true);
-            } else if (userInput.startsWith("unmark ")) {
-                markTask(userInput.substring(UNMARK_COMMAND_LENGTH), false);
-            } else if (userInput.equals("list")) {
-                listTasks();
-            } else if (userInput.startsWith("todo ")){
-                addTask(new ToDo(userInput.substring(TODO_COMMAND_LENGTH)));
-            }else if(userInput.startsWith("deadline ")){
-                String[] deadlineDetails = userInput.substring(DEADLINE_COMMAND_LENGTH).split(" /by ");
-                addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]));
-            }else if(userInput.startsWith("event ")){
-                String[] eventDetails  = userInput.substring(EVENT_COMMAND_LENGTH).split(" /from ");
-                String[] eventTimes  = eventDetails[1].split(" /to ");
-                addTask(new Event(eventDetails[0], eventTimes[0], eventTimes[1]));
             }
         }
+    }
 
-        scanner.close();
+    public static boolean processUserInput(String userInput){
+        if (userInput.equals("bye")) {
+            printGoodbyeMessage();
+            return true;
+        } else if (userInput.startsWith("mark ")) {
+            markTask(userInput.substring("mark ".length()), true);
+        } else if (userInput.startsWith("unmark ")) {
+            markTask(userInput.substring("unmark ".length()), false);
+        } else if (userInput.equals("list")) {
+            listTasks();
+        } else if (userInput.startsWith("todo ")){
+            handleToDoCommand(userInput);
+        }else if(userInput.startsWith("deadline ")){
+            handleDeadlineCommand(userInput);
+        }else if(userInput.startsWith("event ")){
+            handleEventCommand(userInput);
+        }
+        return false;
+    }
+
+    private static void handleToDoCommand(String userInput) {
+        addTask(new ToDo(userInput.substring("todo ".length())));
+    }
+
+    private static void handleDeadlineCommand(String userInput) {
+        String[] deadlineDetails = userInput.substring("deadline ".length()).split(" /by ");
+        addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+    }
+
+    private static void handleEventCommand(String userInput) {
+        String[] eventDetails = userInput.substring("event ".length()).split(" /from ");
+        String[] eventTimes = eventDetails[1].split(" /to ");
+        addTask(new Event(eventDetails[0], eventTimes[0], eventTimes[1]));
     }
 
     private static void printWelcomeMessage() {
