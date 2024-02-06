@@ -41,51 +41,56 @@ public class John {
                 }
             }
             //Mark Command
-            else if (input.contains("unmark ") || input.contains("Unmark ")){
-                mark(input, tasks, false);
+            else if (input.startsWith("unmark") || input.startsWith("Unmark")){
+                try {
+                    StringValidator.validateUnmarkFormat(input);
+                    mark(input, tasks, false);
+                } catch (InvalidFormatException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            else if (input.contains("mark ") || input.contains("Mark ")){
-                mark(input, tasks, true);
+
+            else if (input.startsWith("mark") || input.startsWith("Mark")){
+                try {
+                    StringValidator.validateMarkFormat(input);
+                    mark(input, tasks, true);
+                } catch (InvalidFormatException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             //Todo Command
-            else if (input.contains("todo ") || input.contains("Todo ")) {
-                Todo todo = new Todo(Todo.parse(input));
-                todo.addTo(tasks);
+            else if (input.startsWith("todo") || input.startsWith("Todo")) {
+                try {
+                    StringValidator.validateTodoFormat(input);
+                    Todo todo = new Todo(Todo.parse(input));
+                    todo.addTo(tasks);
+                } catch (InvalidFormatException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            //Deadline Command
-            else if (input.contains("deadline ") || input.contains("Deadline ")) {
-                // Define the regex pattern
-                String regex = "(?i)deadline (.*?) /by\\s+(.*?)";
-                // Compile the pattern
-                Pattern pattern = Pattern.compile(regex);
-                // Create a Matcher object
-                Matcher matcher = pattern.matcher(input);
 
-                if (matcher.matches()) {
+            //Deadline Command
+            else if (input.startsWith("deadline") || input.startsWith("Deadline")) {
+                try {
+                    StringValidator.validateDeadlineFormat(input);
                     Deadline deadline = new Deadline(Deadline.parseName(input), Deadline.parseDate(input));
                     deadline.addTo(tasks);
-                }
-                else {
-                    System.out.println("Please enter deadline in format: deadline [description] /by [date]");
+                } catch (InvalidFormatException e) {
+                    System.out.println(e.getMessage());
                 }
             }
-            //Event Command
-            else if (input.contains("event ") || input.contains("Event ")) {
-                // Define the regex pattern
-                String regex = "(?i)event (.*?) /from\\s+(.*?)\\s/to\\s+(.*?)";
-                // Compile the pattern
-                Pattern pattern = Pattern.compile(regex);
-                // Create a Matcher object
-                Matcher matcher = pattern.matcher(input);
 
-                if (matcher.matches()) {
+            //Event Command
+            else if (input.startsWith("event") || input.startsWith("Event")) {
+                try {
+                    StringValidator.validateEventFormat(input);
                     Event event = new Event(Event.parseName(input), Event.parseStart(input), Event.parseEnd(input));
                     event.addTo(tasks);
-                }
-                else {
-                    System.out.println("Please enter event in format: event [description] /from [time] /to [time]");
+                } catch (InvalidFormatException e) {
+                    System.out.println(e.getMessage());
                 }
             }
+
             //Unknown Command
             else {
                 System.out.println("Unknown Command: " + input);
@@ -94,41 +99,18 @@ public class John {
     }
 
     public static void mark(String command, List<Task> list, Boolean b) {
-        String pattern = "";
-        if (b){
-            pattern = "mark \\d+";
-        }
-        else {
-            pattern = "unmark \\d+";
-        }
-        // Create a Pattern object
-        Pattern regex = Pattern.compile(pattern);
-        // Create a Matcher object for input1
-        Matcher matcher = regex.matcher(command);
-
-        if (matcher.matches()) {
-            int taskNum = Integer.parseInt(command.substring(command.indexOf(" ")+1));
-            if (taskNum <= list.size() && taskNum != 0){
-                list.get(taskNum-1).setDone(b);
-                if (b) {
-                    System.out.println("Nice! I've marked this task as done:\n" + list.get(taskNum-1));
-                }
-                else {
-                    System.out.println("OK, I've marked this task as not done yet:\n" + list.get(taskNum-1));
-                }
-            }
-            else{
-                System.out.println("Task number out of bounds: try again");
-            }
-        }
-        else {
-            if (b){
-                System.out.println("Please enter mark command in following format: mark #");
+        int taskNum = Integer.parseInt(command.substring(command.indexOf(" ")+1));
+        if (taskNum <= list.size() && taskNum != 0){
+            list.get(taskNum-1).setDone(b);
+            if (b) {
+                System.out.println("Nice! I've marked this task as done:\n" + list.get(taskNum-1));
             }
             else {
-                System.out.println("Please enter mark command in following format: unmark #");
+                System.out.println("OK, I've marked this task as not done yet:\n" + list.get(taskNum-1));
             }
-
+        }
+        else{
+            System.out.println("Task number out of bounds: try again");
         }
     }
 }
