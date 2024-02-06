@@ -28,20 +28,45 @@ public class Phoebe {
                 unmarkTask(input);
             } else {
                 addTask(input);
-                System.out.println("added: " + input + "\n");
             }
         }
 
     }
 
-    private static void addTask(String taskDescription) {
-        if (taskCount < MAX_TASKS) {
-            Task newTask = new Task(taskDescription);
-            tasks[taskCount++] = newTask;
-        } else {
+
+
+    private static void addTask(String input) {
+        if (taskCount >= MAX_TASKS) {
             System.out.println("NO MORE I SHORT TERM MMR");
+            return;
+        }
+
+        Task newTask = null;
+        if (input.toLowerCase().startsWith("todo ")) {
+            newTask = new ToDo(input.substring(5).trim(), "");
+        } else if (input.toLowerCase().startsWith("deadline ")) {
+            String[] parts = input.substring(9).split("/by", 2);
+            if (parts.length < 2) return; // simple validation
+            newTask = new Deadline(parts[0].trim(), parts[1].trim());
+        } else if (input.toLowerCase().startsWith("event ")) {
+            String[] parts = input.substring(6).split("/from", 2);
+            if (parts.length < 2) return; // simple validation
+            String[] timeParts = parts[1].trim().split("/to", 2);
+            if (timeParts.length < 2) return; // Simple validation
+            newTask = new Event(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim());
+        }
+
+        if (newTask != null) {
+            tasks[taskCount++] = newTask;
+            System.out.println("OKIE I MEMORISED FOR U:\n  " + newTask);
+            System.out.println("You have " + taskCount + " remaining things to dododo.");
+        } else {
+            System.out.println("you don't make any sense.");
         }
     }
+
+
+
 
 
     private static void displayTasks() {
@@ -50,7 +75,7 @@ public class Phoebe {
         } else {
             System.out.println("Every time need me to remind you...");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                System.out.println(tasks[i]);
             }
         }
     }
