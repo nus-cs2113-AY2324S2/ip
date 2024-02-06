@@ -2,6 +2,8 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    protected String taskType;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -22,4 +24,5 @@ public class Task {
     public void printTask() {
         System.out.println(getStatusIcon() + " " + description);
     }
+
 }
