@@ -11,7 +11,7 @@ public class TaskManager {
             handleMarkAsDone(command);
         }
         else {
-            handleTask(command);
+            handleAddTask(command);
         }
     }
 
@@ -35,7 +35,7 @@ public class TaskManager {
         System.out.println(itemList[index].toString());
     }
     
-    public void handleTask(String command) {
+    public void handleAddTask(String command) {
         if (command.startsWith("todo")){
             String toDoString = command.substring(4);
             Todo toDo = new Todo(toDoString);
