@@ -100,10 +100,6 @@ public class Duke {
      */
     public static void parseCommand(List taskList, String command, String taskString) {
         switch (command) {
-        case "bye":
-            // Exit if input is "bye"
-            break;
-
         case "list":
             // Print the list if input is "list"
             taskList.printList();
@@ -158,6 +154,11 @@ public class Duke {
             String command = splitInput[0].toLowerCase();
             String taskString = splitInput.length > 1 ? splitInput[1] : "";
 
+            if (command.equals("bye")) {
+                // Exit loop if input is "bye"
+                isRunning = false;
+                continue;
+            }
             parseCommand(taskList, command, taskString);
         }
 
