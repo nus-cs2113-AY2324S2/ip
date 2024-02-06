@@ -1,0 +1,9 @@
+todo eat ramen
+deadline 2113T assignment /by next week lecture
+event party /from March 1 3PM /to March 3 12AM
+list
+mark 2
+list
+unmark 2
+list
+bye
