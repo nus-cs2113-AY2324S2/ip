@@ -4,12 +4,12 @@
 	--------------------------------------------------
 	--------------------------------------------------
 	Got it. I've added this task:
-		 [T][ ] eat ramen
+		[T][ ] eat ramen
 	You now have 1 tasks in the list.
 	--------------------------------------------------
 	--------------------------------------------------
 	Got it. I've added this task:
-		 [D][ ] 2113T assignment (by: next week lecture)
+		[D][ ] 2113T assignment (by: next week lecture)
 	You now have 2 tasks in the list.
 	--------------------------------------------------
 	--------------------------------------------------
