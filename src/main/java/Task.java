@@ -1,22 +1,22 @@
 public class Task {
-    private String name;
+    private String description;
     private boolean isDone;
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         isDone = false;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
     public String getStatus() {
         return (isDone ? "[X]" : "[ ]");
     }
-    public void mark() {
+    public void setTaskAsDone() {
         isDone = true;
     }
-    public void unmark() {
+    public void setTaskAsNotDone() {
         isDone = false;
     }
 }
