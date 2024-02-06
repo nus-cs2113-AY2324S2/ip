@@ -9,10 +9,10 @@ public class John {
     public static void main(String[] args) {
         System.out.println("ヽ(•‿•)ノ");
          System.out.println("-----------------------------------");
-         System.out.println("Heya, Im ya Chatbot, call me John!\nWhat Can I do for you today?");
+         System.out.println("Heya, Im ya Chatbot, call me John!\nWhat can I do for you today?");
          // Taking input from the user
          getUserInput();
-         System.out.println("\n-----------------------------------");
+         System.out.println("\n---------------------------------");
          System.out.println("Hope to see you soon Bruda.");
     }
 
