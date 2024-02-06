@@ -10,4 +10,14 @@ public class Todo extends Task {
         System.out.println("  [T][ ] " + this.getTaskDescription());
         System.out.println("Now you have " + todosCount + " tasks in your list.");
     }
+
+    @Override
+    public void printTask(int todoCount) {
+        System.out.println((todoCount + 1)
+                + ".[T]"
+                + "["
+                + (this.getTaskStatus() ? "X" : " ")
+                + "] "
+                + this.getTaskDescription());
+    }
 }

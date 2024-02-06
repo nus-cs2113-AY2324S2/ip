@@ -28,4 +28,19 @@ public class Event extends Task {
                 + ")");
         System.out.println("Now you have " + todosCount + " tasks in your list.");
     }
+
+    @Override
+    public void printTask(int todoCount) {
+        System.out.println((todoCount + 1)
+                + ".[E]"
+                + "["
+                + (this.getTaskStatus() ? "X" : " ")
+                + "] "
+                + this.getTaskDescription()
+                + "(from: "
+                + this.from
+                + " to: "
+                + this.to
+                + ")");
+    }
 }

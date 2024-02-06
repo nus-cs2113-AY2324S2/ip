@@ -29,6 +29,10 @@ public class Task {
         System.out.print("");
     }
 
+    public void printTask(int todoCount) {
+        System.out.print("");
+    }
+
     public TaskType getTaskType() {
         return this.taskType;
     }

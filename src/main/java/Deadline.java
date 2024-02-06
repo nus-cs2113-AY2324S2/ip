@@ -21,4 +21,17 @@ public class Deadline extends Task{
                 + ")");
         System.out.println("Now you have " + todosCount + " tasks in your list.");
     }
+
+    @Override
+    public void printTask(int todoCount) {
+        System.out.println((todoCount + 1)
+                + ".[D]"
+                + "["
+                + (this.getTaskStatus() ? "X" : " ")
+                + "] "
+                + this.getTaskDescription()
+                + "(by: "
+                + this.by
+                + ")");
+    }
 }
