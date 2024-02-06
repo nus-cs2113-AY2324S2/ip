@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    // Print Constants
     private static String botName = "Uwunzhe";
     private static String logo = " _    _                          _          \n"
             + "| |  | |                        | |         \n"
@@ -10,6 +11,9 @@ public class Duke {
             + " \\____/  \\_/\\_/  \\__,_|_| |_/___|_| |_|\\___|\n";
 
     private static String lineString = "-".repeat(60);
+
+    // Scanner object to get user input
+    private static Scanner sc = new Scanner(System.in);
 
     /**
      * Prints the logo of the bot.
@@ -48,12 +52,26 @@ public class Duke {
     /**
      * Gets user input.
      * 
-     * @param sc The scanner object to get input from.
+     * @param None
      * @return The user input.
      */
-    public static String getInput(Scanner sc) {
+    public static String getInput() {
         addLineBreak();
         System.out.print(": ");
+        String input = sc.nextLine();
+        addLineBreak();
+        return input;
+    }
+
+    /**
+     * Gets user input.
+     * 
+     * @param leadingString The string to print before the user input.
+     * @return The user input.
+     */
+    public static String getInput(String leadingString) {
+        addLineBreak();
+        System.out.print(leadingString);
         String input = sc.nextLine();
         addLineBreak();
         return input;
@@ -67,11 +85,11 @@ public class Duke {
      */
     public static void loop() {
         boolean isRunning = true;
-        Scanner sc = new Scanner(System.in);
         List taskList = new List();
 
         while (isRunning) {
-            String input = getInput(sc);
+            String input = getInput();
+            // TODO: Refactor below into function or improve using enum maybe?
 
             if (input.equalsIgnoreCase("bye")) {
                 // Exit if input is "bye"
@@ -113,7 +131,7 @@ public class Duke {
                 continue;
             }
             
-            // Add task to the list
+            // Add default task to the list (no type)
             taskList.addItem(input);
         }
 
