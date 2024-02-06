@@ -3,7 +3,16 @@ import java.util.Scanner;
 public class Natsu {
 
     private static final String NAME = "Natsu";
-    private static final Task[] list = new Task[100];
+    private static final int MAX_TASKS = 100;
+    private static final int MARK_COMMAND_LENGTH = 5;
+    private static final int UNMARK_COMMAND_LENGTH = 7;
+    private static final int TODO_COMMAND_LENGTH = 5;
+    private static final int DEADLINE_COMMAND_PREFIX_LENGTH = 9;
+    private static final int EVENT_COMMAND_PREFIX_LENGTH = 6;
+    private static final String DEADLINE_INDICATOR = "/by";
+    private static final String EVENT_START_INDICATOR = "/from";
+    private static final String EVENT_END_INDICATOR = "/to";
+    private static final Task[] list = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
     private static void printGreeting() {
@@ -39,14 +48,14 @@ public class Natsu {
 
     private static void handleTaskCommands(String userInput) {
         if (userInput.startsWith("mark ")) {
-            int itemIndex = Integer.parseInt(userInput.substring(5)) - 1;
+            int itemIndex = Integer.parseInt(userInput.substring(MARK_COMMAND_LENGTH)) - 1;
             list[itemIndex].markAsDone();
             printLine();
             System.out.println("     Nice! I've marked this task as done:");
             System.out.println("       " + list[itemIndex].toString());
             printLine();
         } else if (userInput.startsWith("unmark ")) {
-            int itemIndex = Integer.parseInt(userInput.substring(7)) - 1;
+            int itemIndex = Integer.parseInt(userInput.substring(UNMARK_COMMAND_LENGTH)) - 1;
             list[itemIndex].markAsUndone();
             printLine();
             System.out.println("     OK, I've marked this task as not done yet:");
@@ -58,29 +67,43 @@ public class Natsu {
     }
 
     private static void addTask(String userInput) {
-        if (userInput.startsWith("todo " )){
-            list[taskCount++] = new Todo(userInput.substring(5).trim());
+        if (userInput.startsWith("todo ")) {
+            String todoDescription = userInput.substring(TODO_COMMAND_LENGTH).trim();
+            list[taskCount++] = new Todo(todoDescription);
         } else if (userInput.startsWith("deadline ")) {
-            list[taskCount++] = new Deadline(userInput.substring(9, userInput.indexOf("/by")),
-                    userInput.substring(userInput.indexOf("/by") + 4).trim());
+            int byIndex = userInput.indexOf(DEADLINE_INDICATOR);
+            String deadlineDescription = userInput.substring(DEADLINE_COMMAND_PREFIX_LENGTH, byIndex).trim();
+            String deadlineBy = userInput.substring(byIndex + DEADLINE_INDICATOR.length() + 1).trim();
+            list[taskCount++] = new Deadline(deadlineDescription, deadlineBy);
         } else if (userInput.startsWith("event ")) {
-            list[taskCount++] = new Event(
-                    userInput.substring(6, userInput.indexOf("/from")),
-                    userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to")).trim(),
-                    userInput.substring(userInput.indexOf("/to") + 4));
+            int fromIndex = userInput.indexOf(EVENT_START_INDICATOR);
+            int toIndex = userInput.indexOf(EVENT_END_INDICATOR);
+            String eventDescription = userInput.substring(EVENT_COMMAND_PREFIX_LENGTH, fromIndex).trim();
+            String eventFrom = userInput.substring(fromIndex + EVENT_START_INDICATOR.length() + 1, toIndex).trim();
+            String eventTo = userInput.substring(toIndex + EVENT_END_INDICATOR.length() + 1).trim();
+            list[taskCount++] = new Event(eventDescription, eventFrom, eventTo);
         } else {
             list[taskCount++] = new Task(userInput);
-            printLine();
-            System.out.println("     added: " + userInput);
-            printLine();
+            printTaskAddedMessage(userInput);
             return;
         }
+        printTaskAddedConfirmation();
+    }
+
+    private static void printTaskAddedMessage(String userInput) {
+        printLine();
+        System.out.println("     added: " + userInput);
+        printLine();
+    }
+
+    private static void printTaskAddedConfirmation() {
         printLine();
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + list[taskCount - 1].toString());
         System.out.println("     Now you have " + taskCount + " tasks in the list.");
         printLine();
     }
+
 
     private static void listTasks() {
         printLine();
