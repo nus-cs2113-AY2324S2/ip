@@ -16,6 +16,16 @@ public class Task {
     }
 
     public void showTask() {
-        System.out.println("[" + (isDone ? "X" : " ") + "] " + this.description);
+        if (this.getClass().toString().equals("class Todo")) {
+            System.out.print("[T]");
+        }
+        else if (this.getClass().toString().equals("class Deadline")) {
+            System.out.print("[D]");
+        }
+        else {
+            System.out.print("[E]");
+        }
+        System.out.println("[" + (isDone ? "X" : " ") + "]" + this.description);
     }
+
 }

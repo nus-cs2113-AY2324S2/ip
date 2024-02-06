@@ -1,16 +1,47 @@
 import java.util.Scanner;
+
 public class Duke {
     public static Task[] list = new Task[100];
     public static int taskLength = 0;
 
     //add a new task
-    public static void add(String input) {
-        System.out.println("____________________________________________________________\n"
-                + "added: " + input + "\n"
-                + "____________________________________________________________");
-        Task newTask = new Task(input);
-        list[taskLength] = newTask;
+    public static void handleTasks(String input) {
+        int index = input.indexOf(" ");
+        String taskType = input.substring(0, index);
+        String taskContent = input.substring(index);
+        String taskFinal = taskContent;
+
+        switch (taskType) {
+        case "deadline":
+            try {
+                String deadlineContent = taskContent.split("/by ")[1];
+                taskFinal = taskContent.split("/")[0] + " (by:" + deadlineContent + ")";
+            }
+            catch (Exception e) {
+                System.out.println("Cannot parse deadline start date! Requires [/by]");
+            }
+            list[taskLength] = new Deadline(taskFinal);
+            break;
+        case "event":
+            try {
+                String eventTiming = taskContent.split("/from ")[1];
+                String eventFrom = eventTiming.split("/to ")[0];
+                String eventTo = eventTiming.split("/to ")[1];
+                taskFinal = taskContent.split("/")[0] + " (from: " + eventFrom + "to: " + eventTo + ")";
+            }
+            catch (Exception e) {
+                System.out.println("Cannot parse event start/end date! Requires [/from /to]");
+            }
+            list[taskLength] = new Event(taskContent);
+            break;
+        default:
+            System.out.println(taskType);
+            list[taskLength] = new Todo(taskContent);
+        }
         taskLength++;
+        System.out.println("____________________________________________________________\n"
+                + "Okay, I've added: " + taskFinal + "\n"
+                + "____________________________________________________________");
     }
 
     //show current tasks
@@ -20,6 +51,7 @@ public class Duke {
         for (int i = 0; i < taskLength; i++){
             System.out.print((i + 1) + ". ");
             list[i].showTask();
+            //System.out.println(list[i].classSpecifics());
         }
         System.out.println("____________________________________________________________");
     }
@@ -79,8 +111,12 @@ public class Duke {
                 }
             }
 
+            else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
+                handleTasks(input);
+            }
+
             else {
-                add(input);
+                System.out.println("Sorry, I don't recognise that input");
             }
         }
         System.out.println("____________________________________________________________\n"
