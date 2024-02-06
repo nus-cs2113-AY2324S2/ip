@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 public class Soot {
-    private static int listCounter = 0;
+    public static int listCounter = 0;
     public static void main(String[] args) {
         String line;
         String lowerCase;
         Scanner in = new Scanner(System.in);
-        ListItem[] items = new ListItem[100];
+        Task[] taskList = new Task[100];
 
         boolean isBye = false;
 
@@ -19,16 +19,18 @@ public class Soot {
             line = in.nextLine(); //user input
             drawLine();
             lowerCase = line.toLowerCase();
-            isBye = verifyInput(items, line);
+            isBye = verifyInput(taskList, line);
         }
     }
 
-    public static boolean verifyInput(ListItem[] list, String input) {
+    public static boolean verifyInput(Task[] taskList, String input) {
         String lowerCase = input.toLowerCase();
         if (lowerCase.startsWith("done")) {
             lowerCase = "done";
         } else if (lowerCase.startsWith("unmark")) {
             lowerCase = "unmark";
+        } else if (lowerCase.startsWith("todo")) {
+            lowerCase = "todo";
         }
 
         switch (lowerCase) {
@@ -38,26 +40,33 @@ public class Soot {
         case "list":
             System.out.println("tasks to be done!");
             for (int i = 0; i < listCounter; i++)
-                list[i].printItem();
+                taskList[i].printTask();
             drawLine();
             break;
         case "done":
             String taskNumber = input.substring(5);
             int listIndex = Integer.parseInt(taskNumber) - 1;
-            list[listIndex].markDone();
+            taskList[listIndex].markDone();
             drawLine();
             break;
         case "unmark":
             taskNumber = input.substring(7);
             listIndex = Integer.parseInt(taskNumber) - 1;
-            list[listIndex].markUndone();
+            taskList[listIndex].markUndone();
             drawLine();
             break;
+        case "todo":
+            taskList[listCounter] = new Todo(input, listCounter);
+            taskList[listCounter].printRespond();
+            drawLine();
+            listCounter++;
+            break;
+
         default:
             System.out.println("added: " + input);
             drawLine();
 
-            list[listCounter] = new ListItem(input, listCounter);
+            taskList[listCounter] = new Task(input, listCounter);
             listCounter++;
             break;
         }
