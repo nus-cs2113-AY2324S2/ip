@@ -10,6 +10,9 @@ public class Duke {
         while (!isExit) {
             String input = in.nextLine();
             String command;
+            String description;
+            String by;
+            String from;
             if (input.indexOf(' ') > 0) {
                 command = input.substring(0, input.indexOf(' '));
             } else {
@@ -39,15 +42,35 @@ public class Duke {
                 break;
             case "list":
                 for (int j = 0; j < counter; j += 1) {
-                    System.out.print((j + 1) + ".[" + tasks[j].getStatusIcon() + "] ");
-                    tasks[j].printDescription();
+                    System.out.println((j + 1) + "." + tasks[j]);
                 }
                 break;
-            default:
-                tasks[counter] = new Task(input);
-                System.out.println("added: " + tasks[counter].description);
+            case "todo":
+                description = input.substring(5);
+                tasks[counter] = new Todo(description);
+                System.out.println("Okay, added:\n" + tasks[counter]);
                 counter += 1;
-                //System.out.println(counter);
+                System.out.println("Now you have " + counter + " task(s) in the list.");
+                break;
+            case "deadline":
+                description = input.substring(9, input.indexOf("/by") - 1);
+                by = input.substring(input.indexOf("/by") + 4);
+                tasks[counter] = new Deadline(description, by);
+                System.out.println("Okay, added:\n" + tasks[counter]);
+                counter += 1;
+                System.out.println("Now you have " + counter + " task(s) in the list.");
+                break;
+            case "event":
+                description = input.substring(6, input.indexOf("/from") - 1);
+                by = input.substring(input.indexOf("/to") + 4);
+                from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+                tasks[counter] = new Event(description, by, from);
+                System.out.println("Okay, added:\n" + tasks[counter]);
+                counter += 1;
+                System.out.println("Now you have " + counter + " task(s) in the list.");
+                break;
+            default:
+                System.out.println("Sorry, I didn't quite understand that.\nPlease input a valid command.");
                 break;
             }
         }

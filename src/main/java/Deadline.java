@@ -6,6 +6,6 @@ public class Deadline extends Task {
         this.by = by;
     }
     public String toString() {
-        return "[D]" + super.toString();
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
