@@ -3,9 +3,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Bob {
-    // todo: better indexing for the list of items
-    // todo: better display of status icon
-
     public static void main(String[] args) {
 
         displayWelcomeMessage();
@@ -75,13 +72,7 @@ public class Bob {
                 displayHorizontalLine();
                 break;
             case "list":
-                displayHorizontalLine();
-                System.out.println("Here are the tasks in your list: ");
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i+1) + "." + list.get(i).toString());
-                }
-
-                displayHorizontalLine();
+                displayList(list);
                 break;
             case "bye":
                 displayExitMessage();
@@ -90,6 +81,16 @@ public class Bob {
                 break;
             }
         }
+    }
+
+    private static void displayList(List<Task> list) {
+        displayHorizontalLine();
+        System.out.println("Here are the tasks in your list: ");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i+1) + "." + list.get(i).toString());
+        }
+
+        displayHorizontalLine();
     }
 
     private static void displayWelcomeMessage() {
