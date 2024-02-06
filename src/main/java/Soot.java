@@ -38,6 +38,9 @@ public class Soot {
         } else if (inputCommand.startsWith("deadline")) {
             inputCommand = "deadline";
             inputTask = input.substring(9);
+        } else if (inputCommand.startsWith("event")) {
+            inputCommand = "event";
+            inputTask = input.substring(6);
         }
 
         switch (inputCommand) {
@@ -73,6 +76,22 @@ public class Soot {
             String dueDate = inputTask.substring(deadlineIndex + 4);
 
             taskList[listCounter] = new Deadline(taskName, listCounter, dueDate);
+            taskList[listCounter].printRespond();
+            drawLine();
+            listCounter++;
+            break;
+        case "event":
+            //split taskName and time frames
+            int startIndex = inputTask.indexOf('/');
+            taskName = inputTask.substring(0, startIndex - 1);
+
+            String timeLine = inputTask.substring(startIndex + 6);
+            int endIndex = timeLine.indexOf('/');
+
+            String startDate = timeLine.substring(0, endIndex - 1);
+            String endDate = timeLine.substring(endIndex + 4);
+
+            taskList[listCounter] = new Event(taskName, listCounter, startDate, endDate);
             taskList[listCounter].printRespond();
             drawLine();
             listCounter++;
