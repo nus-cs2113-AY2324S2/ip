@@ -38,14 +38,54 @@ public class Casper {
                 if (targetTaskNumber != -1) {
                     taskList[targetTaskNumber-1].unMarkTask();
                 }
-            } else {
-                Task newTask = new Task(userInput);
+            } else if (userInput.startsWith("event")){
+                Task newTask = getEvent(userInput);
                 taskList[noOfTasks] = newTask;
                 noOfTasks++;
-                wrapEchoMessage("added: "+userInput);
+                wrapEchoMessage("Got it. I've added this task: \n       "
+                        +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+            }else if(userInput.startsWith("deadline")){
+                Task newTask = getDeadline(userInput);
+                taskList[noOfTasks] = newTask;
+                noOfTasks++;
+                wrapEchoMessage("Got it. I've added this task: \n       "
+                        +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+            }else if(userInput.startsWith("todo")){
+                Task newTask = getTodo(userInput);
+                taskList[noOfTasks] = newTask;
+                noOfTasks++;
+                wrapEchoMessage("Got it. I've added this task: \n       "
+                        +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+            }else{
+                wrapEchoMessage("Pardon? I didn't get your message.");
             }
         }
     }
+
+    private static Task getEvent(String userInput) {
+        int fromIndex = userInput.indexOf("/from") + "/from".length();
+        int toIndex = userInput.indexOf("/to") + "/to".length();
+        int descIndex = userInput.indexOf("event")+"event".length();
+
+        String eventDesc= userInput.substring(descIndex, userInput.indexOf("/from")).trim();
+        String from = userInput.substring(fromIndex, userInput.indexOf("/to")).trim();
+        String to = userInput.substring(toIndex).trim();
+        return new Event(eventDesc, from, to);
+    }
+    private static Task getDeadline(String userInput){
+        int byIndex = userInput.indexOf("/by") + "/by".length();
+        int descIndex = userInput.indexOf("deadline")+"deadline".length();
+
+        String deadlineDesc = userInput.substring(descIndex, userInput.indexOf("/by")).trim();
+        String by = userInput.substring(byIndex).trim();
+        return new Deadline(deadlineDesc, by);
+    }
+    private static Task getTodo(String userInput){
+        int descIndex = userInput.indexOf("todo")+"todo".length();
+        String todoDesc = userInput.substring(descIndex).trim();
+        return new Todo(todoDesc);
+    }
+
     private static void echoTaskList(){
         System.out.println(separator);
         if (noOfTasks==0) {
@@ -53,7 +93,7 @@ public class Casper {
         } else {
             System.out.println("     Here are the tasks in your list:");
             for (int i=1; i<=noOfTasks; i++) {
-                System.out.println("     "+i+".["+taskList[i-1].getStatusIcon()+"] "+taskList[i-1].description);
+                System.out.println("     "+i+". "+taskList[i-1]);
             }
         }
         System.out.println(separator);
