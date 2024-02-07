@@ -1,0 +1,14 @@
+list
+todo something to do
+list
+mark 1
+list
+unmark 1
+list
+deadline more things to do /by the next few weeks...!
+event some event to attend /from whatever date... /to hopefully this event ends soon!!
+mark 3
+list
+todo junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
+list
+bye

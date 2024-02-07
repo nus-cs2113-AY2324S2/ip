@@ -1,7 +1,73 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ ____        _
+|  _ \      | |
+| |_) | ___ | |__
+|  _ < / _ \| '_ \
+| |_) | (_) | |_) |
+|____/ \___/|_.__/
+____________________________________________________________
+ Hello! I'm Bob
+ What can I do for you?
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] something to do
+ Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] something to do
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [T][X] something to do
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][X] something to do
+____________________________________________________________
+____________________________________________________________
+ OK, I've marked this task as not done yet:
+   [T][ ] something to do
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] something to do
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] more things to do (by: the next few weeks...!)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] something to do
+ 2.[D][ ] more things to do (by: the next few weeks...!)
+ 3.[E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
+ Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] something to do
+ 2.[D][ ] more things to do (by: the next few weeks...!)
+ 3.[E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+ 4.[T][ ] junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
+____________________________________________________________
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
