@@ -4,7 +4,7 @@ public class Ui {
     private static final String SEPARATOR = "____________________________________________________________";
 
     void printLogo() {
-        String bobAsciiLogo = " ____        _     \n"
+        String bobAsciiLogo = " ____        _\n"
                + "|  _ \\      | |\n"
                + "| |_) | ___ | |__\n"
                + "|  _ < / _ \\| '_ \\\n"
