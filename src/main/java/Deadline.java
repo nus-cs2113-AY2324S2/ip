@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    private final char badge = 'D';
+    private final static char badge = 'D';
 
     public char getBadge() {
         return badge;
