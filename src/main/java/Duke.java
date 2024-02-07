@@ -1,5 +1,7 @@
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Duke {
     public static void main(String[] args) {
@@ -16,10 +18,23 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         userInput = userInput.toLowerCase();
+        List<String> userInputSaver = new ArrayList<>();
+
         while(!userInput.contains("bye")){
-            System.out.println("____________________________________________________________"
-                    + "\n" + userInput + '\n'
-                    + "____________________________________________________________");
+
+            System.out.println("____________________________________________________________\n");
+
+            if (userInput.contains("list")){
+                for (String Input : userInputSaver) {
+                    int inputIndex = userInputSaver.indexOf(Input)+1;
+                    System.out.println(inputIndex + "." + Input + '\n');
+                }
+            } else{
+                userInputSaver.add(userInput);
+                System.out.println("added: " + userInput );
+            }
+
+            System.out.println("____________________________________________________________\n");
             userInput = scanner.nextLine();
             userInput = userInput.toLowerCase();
         }
