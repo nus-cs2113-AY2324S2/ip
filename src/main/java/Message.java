@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Message {
-    public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====>\n";
+    public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====> >====>\n";
 
     private static final String LOGO_DEFAULT = "              _                 \n"
             + "     /\\      | |                \n"
@@ -44,4 +44,14 @@ public class Message {
 
     public static final String ERROR_MESSAGE = "Oopsie! Looks like I got tangled up in my circuits.\n"
             + "Could you please try again?";
+
+    public static final String ADD_TASK_MESSAGE_FRONT = "Awesome sauce! Task successfully added:\n  ";
+
+    public static final String ADD_TASK_MESSAGE_MIDDLE = "\nYou now have a whopping ";
+
+    public static final String ADD_TASK_MESSAGE_END = " task(s) in the list. Keep 'em coming!";
+
+    public static final String LIST_MESSAGE_FRONT = "Behold, the mighty task(s) in your realm:\n";
+
+    public static final String LIST_MESSAGE_END = "\nThese task(s) await your valiant efforts, noble taskmaster!";
 }
