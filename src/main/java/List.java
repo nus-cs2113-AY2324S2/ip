@@ -79,6 +79,12 @@ public class List {
      * @return None
      */
     public void addItem(String taskName) {
+        // Error if empty string
+        if (taskName.equals("")) {
+            this.addItemError();
+            return;
+        }
+
         // Create new task object, add to list and update size
         Task task = new Task(taskName);
         list.add(task);
@@ -101,11 +107,12 @@ public class List {
      * @return None
      */
     public void addItem(String description, String type) {
+        // Error if empty string
         if (description.equals("")) {
             this.addItemError();
             return;
         }
-        
+
         String taskName, taskStart, taskEnd;
         boolean isValid = true;
 
