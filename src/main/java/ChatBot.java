@@ -5,47 +5,79 @@ import java.util.Scanner;
 public class ChatBot {
     private String chatbotName;
     private List<Task> tasks;
-
-
+    private Scanner in;
 
     public ChatBot(String chatbotName) {
         this.chatbotName = chatbotName;
         this.tasks = new ArrayList<>();
+        this.in = new Scanner(System.in);
     }
 
     public void startChat() {
+        printWelcomeMessage();
 
-        String horizontalLines = "____________________________________________________________";
-        System.out.println(horizontalLines);
-        System.out.println("Hello! I'm " + chatbotName);
-        System.out.println("What can I do for you?");
-        System.out.println(horizontalLines);
-
-        Scanner in = new Scanner(System.in);
         while (true) {
             String command = in.nextLine().trim();
 
             if (command.equalsIgnoreCase("bye")) {
                 printFormattedMessage("Bye. Hope to see you again soon!");
                 break;
-            } else if (command.startsWith("add ")) {
-                addTask(command.substring(4));
             } else if (command.equalsIgnoreCase("list")) {
                 printTaskList();
             } else if (command.startsWith("mark ")) {
                 markTaskAsDone(command.substring(5));
             } else if (command.startsWith("unmark ")) {
                 unmarkTaskAsDone(command.substring(7));
+            } else if (command.startsWith("todo ")) {
+                addTask(command.substring(5), "todo");
+            } else if (command.startsWith("event ")) {
+                addTask(command.substring(6), "event");
+            } else if (command.startsWith("deadline ")) {
+                addTask(command.substring(9), "deadline");
             } else {
-                printFormattedMessage("Unknown command. Please enter 'add', 'list', 'mark', 'unmark', or 'bye'.");
+                printFormattedMessage("Unknown command. Please enter 'todo', 'event', 'deadline', 'list', 'mark', 'unmark', or 'bye'.");
             }
         }
     }
 
-    private void addTask(String taskDescription) {
-        Task newTask = new Task(taskDescription);
+    private void addTask(String taskDescription, String taskType) {
+        Task newTask;
+        if (taskType.equals("todo")) {
+            newTask = new ToDos(taskDescription);
+        } else if (taskType.equals("deadline")) {
+            String[] parts = taskDescription.split(" by ");
+            if (parts.length < 2) {
+                printFormattedMessage("Invalid deadline format. Please use 'deadline <description> by <date>'.");
+                return;
+            }
+            String description = parts[0];
+            String byDate = parts[1];
+            newTask = new Deadlines(description, byDate);
+        } else if (taskType.equals("event")) {
+            String[] parts = taskDescription.split(" from | to ");
+            if (parts.length < 3) {
+                printFormattedMessage("Invalid event format. Please use 'event <description> from <start> to <end>'.");
+                return;
+            }
+            String description = parts[0];
+            String fromDate = parts[1];
+            String toDate = parts[2];
+            newTask = new Events(description, fromDate, toDate);
+        } else {
+            printFormattedMessage("Invalid command.");
+            return;
+        }
+
         tasks.add(newTask);
-        printFormattedMessage("added: " + taskDescription);
+        System.out.println("Got it. I've added this task:");
+        if (newTask instanceof Deadlines) {
+            System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
+        } else if (newTask instanceof Events) {
+            System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
+        } else {
+            System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
+        }
+        printFormattedMessage(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private void printTaskList() {
@@ -105,6 +137,14 @@ public class ChatBot {
         } catch (NumberFormatException e) {
             printFormattedMessage("Invalid command. Please enter a valid task number to unmark.");
         }
+    }
+
+    private void printWelcomeMessage() {
+        String horizontalLines = "____________________________________________________________";
+        System.out.println(horizontalLines);
+        System.out.println("Hello! I'm " + chatbotName);
+        System.out.println("What can I do for you?");
+        System.out.println(horizontalLines);
     }
 
     public static void main(String[] args) {
