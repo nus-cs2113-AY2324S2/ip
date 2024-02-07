@@ -10,7 +10,10 @@ public class TaskManager {
         this.taskCount = 0;
     }
 
-    private String updateTaskList(Task newTask, int taskId) {
+    /**
+     * Add new Task to Task array
+     */
+    private String addNewTask(Task newTask, int taskId) {
         String output = " Got it. I've added this task:\n";
         int currentIndex = taskId - 1;
 
@@ -25,18 +28,18 @@ public class TaskManager {
     }
 
     public String addTodo(String taskName) {
-        Task newTask = new Todo(taskName, nextTaskId);
-        return updateTaskList(newTask, nextTaskId);
+        Task newTodo = new Todo(taskName, nextTaskId);
+        return addNewTask(newTodo, nextTaskId);
     }
 
-    public String addDeadline(String taskName, String endDate) {
-        Task newTask = new Deadline(taskName, nextTaskId, endDate);
-        return updateTaskList(newTask, nextTaskId);
+    public String addDeadline(String taskName, String dueDate) {
+        Task newDeadline = new Deadline(taskName, nextTaskId, dueDate);
+        return addNewTask(newDeadline, nextTaskId);
     }
 
     public String addEvent(String taskName, String startDate, String endDate) {
-        Task newTask = new Event(taskName, nextTaskId, startDate, endDate);
-        return updateTaskList(newTask, nextTaskId);
+        Task newEvent = new Event(taskName, nextTaskId, startDate, endDate);
+        return addNewTask(newEvent, nextTaskId);
     }
 
     /**
