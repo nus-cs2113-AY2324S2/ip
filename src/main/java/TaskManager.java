@@ -2,9 +2,10 @@ public class TaskManager {
     private final Task[] tasks;
     private int nextTaskId;
     private int taskCount;
+    private static final int MAX_TASK_COUNT = 100;
 
     public TaskManager() {
-        this.tasks = new Task[100]; // Assumption that there will never be more than 100 tasks
+        this.tasks = new Task[MAX_TASK_COUNT]; // Assumption that there will never be more than 100 tasks
         this.nextTaskId = 1;
         this.taskCount = 0;
     }
