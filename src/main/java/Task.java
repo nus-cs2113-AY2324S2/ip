@@ -11,12 +11,17 @@ public class Task {
 
     // Method to get the status icon of the task
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // Return "X" if the task is done, otherwise return " "
+        return (isDone ? "[X] " : "[ ] "); // Return "X" if the task is done, otherwise return " "
+    }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + description;
     }
 
     // Method to set the status of the task
     // Takes an integer parameter: 0 for not done, 1 for done
-    public void setStatus(int x){
+    public void setStatus(int x) {
         this.isDone = (x == 0 ? false : true); // Set isDone based on the value of x
     }
 }

@@ -26,30 +26,53 @@ public class Duke {
             System.out.println("____________________________________________________________");
 
             // Checking user input
-            if ("list".equals(line)) {
+            switch (words[0]) {
+            case "list":
                 // Listing tasks
                 System.out.println("Here are the tasks in your list:");
                 for (int j = 0; j < numItems; j++) {
-                    System.out.println((j + 1) + "." + "[" + (records[j].isDone ? "X" : " ") + "]"
-                            + records[j].description);
+                    System.out.println((j + 1) + "." + records[j]);
                 }
-            } else if (words[0].equals("mark")) {
+                System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
+                break;
+            case "mark":
                 // Marking a task as done
                 listIndex = Integer.parseInt(words[1]) - 1;
                 records[listIndex].isDone = true;
-                System.out.println("Nice! I've marked this task as done:\n" + "[x]"
-                        + records[listIndex].description);
-            } else if (words[0].equals("unmark")) {
+                System.out.println("Nice! I've marked this task as done:\n" + records[listIndex]);
+                break;
+            case "unmark":
                 // Marking a task as not done
                 listIndex = Integer.parseInt(words[1]) - 1;
                 records[listIndex].isDone = false;
-                System.out.println("OK, I've marked this task as not done yet:\n" + "[ ]"
-                        + records[listIndex].description);
-            } else {
-                // Adding a new task
-                records[numItems] = new Task(line);
-                System.out.println(line);
+                System.out.println("OK, I've marked this task as not done yet:\n" + records[listIndex]);
+                break;
+            case "todo":
+                // Adding a new todo task
+                String todoDescription = line.substring(5); // Extracting description
+                records[numItems] = new Todo(todoDescription);
+                System.out.println("Got it. I've added this task:\n" + records[numItems]);
                 numItems++;
+                break;
+            case "deadline":
+                // Adding a new deadline task
+                String deadlineDescription = line.substring(9); // Extracting description
+                String[] deadlineParts = deadlineDescription.split(" /by ");
+                records[numItems] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                System.out.println("Got it. I've added this task:\n" + records[numItems]);
+                numItems++;
+                break;
+            case "event":
+                // Adding a new event task
+                String eventDescription = line.substring(6); // Extracting description
+                String[] eventParts = eventDescription.split(" /from | /to ");
+                records[numItems] = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                System.out.println("Got it. I've added this task:\n" + records[numItems]);
+                numItems++;
+                break;
+            default:
+                // Invalid command
+                System.out.println("Sorry, I don't understand that command.");
             }
             System.out.println("____________________________________________________________");
             line = in.nextLine();
@@ -59,4 +82,3 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 }
-
