@@ -1,12 +1,6 @@
 public class TaskList {
     private int numberOfTask;
     private final Task[] tasks;
-    private static final String LIST_TASK_MESSAGE =
-            "Here are the tasks in your list:\n";
-    private static final String UNMARKED_MESSAGE =
-            "OK, I've marked this task as not done yet:\n";
-    private static final String MARKED_MESSAGE =
-            "Nice! I've marked this task as done:\n";
 
     TaskList() {
         this.numberOfTask = 0;
@@ -22,27 +16,30 @@ public class TaskList {
         return numberOfTask;
     }
 
+    public Task getPosAt(int index) {
+        if (index <= 0) {
+            return null;
+        }
+        return tasks[index - 1];
+    }
+
     public void markTask(int taskNum) {
         tasks[taskNum - 1].mark();
-        ResponseManager.indentPrint(MARKED_MESSAGE +
-                tasks[taskNum - 1].toString());
     }
 
     public void unmarkTask(int taskNum) {
         tasks[taskNum - 1].unmark();
-        ResponseManager.indentPrint(UNMARKED_MESSAGE +
-                tasks[taskNum - 1].toString());
     }
 
-    public void listTasks() {
+    public String listTasks() {
+        int index;
         String tasksToBeListed = "";
-        int index = 0;
-        for (int i = 0; i < numberOfTask - 1; i++) {
+
+        for (int i = 0; i < numberOfTask; i++) {
             index = i + 1;
             tasksToBeListed += String.format("%d.%s\n", index, tasks[i].toString());
         }
-        tasksToBeListed += String.format("%d.%s", numberOfTask, tasks[index].toString());
-        ResponseManager.indentPrint(LIST_TASK_MESSAGE + tasksToBeListed);
+        return tasksToBeListed;
     }
 
     public Task showNewlyAddedTask() {

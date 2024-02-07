@@ -48,23 +48,35 @@ public class ZukeLogic {
                 break;
 
             case "mark" :
-                String markIndex = MessageDecoder.removePrefixMark(receivedMessage, "mark").trim();
-                if (markIndex.matches("\\d+") &&
-                        Integer.parseInt(markIndex) <= taskList.getSize()) {
-                    taskList.markTask(Integer.parseInt(markIndex));
-                } else {
+                String markIndexStr =
+                        MessageDecoder.removePrefixMark(receivedMessage, "mark").trim();
+
+                if (!markIndexStr.matches("\\d+") ||
+                        Integer.parseInt(markIndexStr) > taskList.getSize()) {
                     ResponseManager.printErrorMessage("mark");
+                    break;
                 }
+
+                int markIndex = Integer.parseInt(markIndexStr);
+                taskList.markTask(markIndex);
+                ResponseManager.printMarkOrUnMarkTask("mark",
+                        taskList.getPosAt(markIndex).toString());
                 break;
 
             case "unmark" :
-                String unmarkIndex = MessageDecoder.removePrefixMark(receivedMessage, "unmark").trim();
-                if (unmarkIndex.matches("\\d+") &&
-                        Integer.parseInt(unmarkIndex) <= taskList.getSize()) {
-                    taskList.unmarkTask(Integer.parseInt(unmarkIndex));
-                } else {
+                String unmarkIndexStr =
+                        MessageDecoder.removePrefixMark(receivedMessage, "unmark").trim();
+
+                if (!unmarkIndexStr.matches("\\d+") ||
+                        Integer.parseInt(unmarkIndexStr) > taskList.getSize()) {
                     ResponseManager.printErrorMessage("unmark");
+                    break;
                 }
+
+                int unmarkIndex = Integer.parseInt(unmarkIndexStr);
+                taskList.unmarkTask(unmarkIndex);
+                ResponseManager.printMarkOrUnMarkTask("unmark",
+                        taskList.getPosAt(unmarkIndex).toString());
                 break;
 
             default:

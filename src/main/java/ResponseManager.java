@@ -9,25 +9,30 @@ public class ResponseManager {
     private static final String INDENTATION_LINE =
             "____________________________________________________________";
     private static final String BYE_MESSAGE =
-            "Bye. Hope to see you again soon!";
+            "Bye. Hope to see you again soon!\n";
     private static final String TASK_ADDED_MESSAGE =
             "Got it. I've added this task:\n";
     private static final String MARK_ERROR_MESSAGE =
-            "please enter a valid index for mark!";
+            "please enter a valid index for mark!\n";
     private static final String UNMARK_ERROR_MESSAGE =
-            "please enter a valid index for unmark!";
+            "please enter a valid index for unmark!\n";
     private static final String STANDARD_ERROR_MESSAGE =
-            "sorry, I don't get your words :(";
+            "sorry, I don't get your words :(\n";
+    private static final String LIST_TASK_MESSAGE =
+            "Here are the tasks in your list:\n";
+    private static final String UNMARKED_MESSAGE =
+            "OK, I've marked this task as not done yet:\n";
+    private static final String MARKED_MESSAGE =
+            "Nice! I've marked this task as done:\n";
 
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
-        System.out.println(response);
-        System.out.println(INDENTATION_LINE);
+        System.out.println(response + INDENTATION_LINE);
     }
     public static void greet() {
         System.out.println("Hello from\n" + LOGO);
         indentPrint("Hello! I'm Zuke\n" +
-                "What can I do for you?");
+                "What can I do for you?\n");
     }
 
     public static void sayGoodbye() {
@@ -35,13 +40,29 @@ public class ResponseManager {
     }
 
     public static void listTaskToUser(TaskList taskList) {
-        taskList.listTasks();
+        indentPrint(LIST_TASK_MESSAGE + taskList.listTasks());
     }
 
     public static void sendTaskAddedToUser(TaskList taskList) {
         indentPrint(TASK_ADDED_MESSAGE + " " +
                 taskList.showNewlyAddedTask() + "\n" +
-                taskList);
+                taskList + "\n");
+    }
+
+    public static void printMarkOrUnMarkTask(String action, String task) {
+        switch(action) {
+        case "mark":
+            indentPrint(MARKED_MESSAGE + " " + task + "\n");
+            break;
+
+        case "unmark":
+            indentPrint(UNMARKED_MESSAGE + " " + task + "\n");
+            break;
+
+        default:
+            break;
+        }
+
     }
 
     public static void printErrorMessage(String errorType) {
