@@ -38,10 +38,56 @@ public class Chris {
                 String option = split[0];
                 String index = split[1];
                 int i = Integer.parseInt(index);
+                if (i > listCommands.tasksSize()) {
+                    System.out.println("index out of bound");
+                    break;
+                }
                 if (option.startsWith("un")) {
                     listCommands.unBox(i);
                 } else {
                     listCommands.box(i);
+                }
+            } else if (command.matches("todo(.*)")) {
+                Tasks record = new ToDos(command.substring(5));
+                listCommands.addTask(record);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + record);
+                listCommands.taskNum();
+                System.out.println("____________________________________________________________");
+            } else if (command.matches("deadline(.*)")) {
+                String[] deadlines = command.split(" /by ", 2);
+                if (deadlines.length == 2) {
+                    Tasks record = new Deadlines(deadlines[0].substring(9), deadlines[1]);
+                    listCommands.addTask(record);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + record);
+                    listCommands.taskNum();
+                    System.out.println("____________________________________________________________");
+                } else {
+                    System.out.println("wrong input syntax");
+                    break;
+                }
+            } else if (command.matches("event(.*)")) {
+                String[] events = command.split(" /from ", 2);
+                if (events.length == 2) {
+                    String[] times = events[1].split(" /to ", 2);
+                    if (times.length == 2) {
+                        Tasks record = new Events(events[0].substring(6), times[0], times[1]);
+                        listCommands.addTask(record);
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + record);
+                        listCommands.taskNum();
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        System.out.println("wrong input syntax");
+                        break;
+                    }
+                } else {
+                    System.out.println("wrong input syntax");
+                    break;
                 }
             } else {
                 System.out.println("____________________________________________________________\n" +

@@ -50,6 +50,14 @@ public class TaskLists {
         System.out.println("____________________________________________________________");
     }
 
+    public void taskNum() {
+        System.out.println("Now you have " + this.tasksList.size() + " tasks in the list");
+    }
+
+    public int tasksSize() {
+        return this.tasksList.size();
+    }
+
     /**
      * Print all the tasks stored inside the array of the class with their index.
      */
