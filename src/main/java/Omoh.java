@@ -42,9 +42,11 @@ public class Omoh {
                 line = in.nextLine();
             } else if (line.startsWith("deadline")) {
                 myTaskList.addTaskAndDeadline(line);
-
                 line = in.nextLine();
-
+            }
+            else if (line.startsWith("todo")) {
+                myTaskList.addTodo(line);
+                line = in.nextLine();
             }
             else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 int taskNumber = extractTaskNumber(line);
