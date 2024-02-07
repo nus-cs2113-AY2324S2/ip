@@ -33,7 +33,7 @@ public class Echo {
                 Arrays.fill(list, null); // Clearing the list
                 count = 0; // Resetting the count
                 System.out.println(break_line);
-                System.out.println("The List has been cleared.");
+                System.out.println("The List has been cleared!");
                 System.out.println(break_line);
                 break;
 
