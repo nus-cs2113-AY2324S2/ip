@@ -40,11 +40,35 @@ public class Task {
         System.out.println("Got it. I've added this task:");
     }
 
+/*    public void printEnd(Task[] list, int counter, Task t) {
+        list[counter] = t;
+        counter += 1;
+        System.out.println("Now you have " + counter + " tasks in the list.");
+    }*/
+
     // Prints from status to end
     // Override the default toString() method
     public String toString() {
-        String[] splitLine = description.split("\\s+"); // split if there is 1 or more whitespace
-        return "[" + this.getStatusIcon() + "] " + splitLine[1] + ' ' + splitLine[2];
+        String[] original = description.split("/"); // split if there is 1 or more whitespace
+        String value = String.valueOf(original[0]);
+
+        String[] splitLine = value.split("\\s+"); // split if there is 1 or more whitespace
+        StringBuilder output = new StringBuilder();
+
+        if (splitLine.length < 2) {
+            try {
+                throw new DukeException();
+            } catch (DukeException e) {
+                System.out.println("Minimally 2 arguments");
+
+            }
+        }
+
+        for (int i = 1; i < splitLine.length; i += 1) {
+            output.append(splitLine[i]).append(" ");
+        }
+
+        return "[" + this.getStatusIcon() + "] " + output;
     }
 
 }

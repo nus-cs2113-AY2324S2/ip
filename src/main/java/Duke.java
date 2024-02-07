@@ -2,88 +2,114 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void inputChecker() {
+    public static void userMarkOrUnmark(String command, String line, Task[] list, int index, Task t) {
+        // To mark
+        if (command.equals("mark")) {
+            try {
+                index = Integer.parseInt(line.substring(5));
+            } catch (NumberFormatException e) {
+                System.out.println("Task number is not a valid number");
+                return;
+            }
+            t = list[index - 1];
+            t.isDone =  true;
+            System.out.println("Nice! I've marked this task as done:");
+        }
+
+        // To unmark
+        else {
+            try {
+                index = Integer.parseInt(line.substring(7));
+            } catch (NumberFormatException e) {
+                System.out.println("Task number is not a valid number");
+                return;
+            }
+            index = Integer.parseInt(line.substring(7));
+            t = list[index - 1];
+            t.isDone =  false;
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+
+        System.out.println(t);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void userList(String line, Task[] list) {
+            for (Task task : list) {
+                if (task == null){
+                    break;
+                }
+                System.out.println(task.index + ". " + task);
+            }
+            System.out.println("____________________________________________________________");
+    }
+    public static void userBye() {
+        System.out.println("Bye human. Come back soon !");
+    }
+
+    //
+    public static void userInput() {
         Scanner in = new Scanner(System.in); // Declared a scanner object
         String line; // Declared a string object to take in user input
         Task[] list; // Declared a list with string data type
         list = new Task[100]; // created a list of 100 elements
         int counter = 0;
-        int index;
-        Task t;
+        int index = 0;
+        Task t = list[0];
 
         // Start of user input
-        while (true) {
-            line = in.nextLine(); // Takes in user input
 
-            boolean mark = line.trim().toLowerCase().startsWith("mark");
-            boolean unmark = line.trim().toLowerCase().startsWith("unmark");
+        while (true) {
+            line = in.nextLine().toLowerCase(); // Takes in user input
+            String[] splitLine = line.split("\\s+"); // split if there is 1 or more whitespace
+            String command = splitLine[0];
+
 
             // User wants to exit
-            if (line.equals("bye")) {
-                System.out.println("Bye human. Come back soon !");
-                break;
-            }
+            switch (command) {
+                case "bye":
+                    userBye();
+                    break;
 
-            // User wants to display the list of tasks
-            else if (line.equalsIgnoreCase("list")) {
-                for (Task task : list) {
-                    if (task == null){
-                        break;
-                    }
-                    System.out.println(task.index + ". " + task);
-                }
-                System.out.println("____________________________________________________________");
-                continue;
-            }
+                // User wants to display the list of tasks
+                case "list":
+                    userList(line, list);
+                    continue;
 
-            // User wants to mark or unmark tasks
-            else if (mark || unmark) {
+                    // User wants to mark or unmark tasks
+                case "mark":
+                case "unmark":
+                    userMarkOrUnmark(splitLine[0], line, list, index, t);
+                    continue;
 
-                // To mark
-                if (mark) {
-                     index = Integer.parseInt(line.substring(5));
-                     t = list[index - 1];
-                     t.isDone =  true;
-                    System.out.println("Nice! I've marked this task as done:");
-                }
-
-                // To unmark
-                else {
-                    index = Integer.parseInt(line.substring(7));
-                    t = list[index - 1];
-                    t.isDone =  false;
-                    System.out.println("OK, I've marked this task as not done yet:");
-                }
-
-                System.out.println(t);
-                System.out.println("____________________________________________________________");
-                continue;
-            }
-
-            // Checks which type of task the user wants to do
-                if (line.startsWith("todo")) {
-                   t = new Todo(line, counter+1);
+                // Checks which type of task the user wants to do
+                case "todo":
+                    t = new Todo(line, counter + 1);
                     list[counter] = t;
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
-                }
+                    continue;
 
-                else if (line.startsWith("deadline")) {
-                    t = new Deadline(line, counter+1);
+                case "deadline":
+                    t = new Deadline(line, counter + 1);
                     list[counter] = t;
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
+                    continue;
 
-                }
-                else if (line.startsWith("event")) {
-                    t = new Event(line, counter+1);
+                case "event":
+                    t = new Event(line, counter + 1);
                     list[counter] = t;
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
-                }
+                    continue;
 
+                default:
+                    System.out.println("No suitable command found. Please try again!");
+                    continue;
+            }
+            return;
         }
-
     }
 
     public static void main(String[] args) {
@@ -93,8 +119,6 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        inputChecker();
+        userInput();
     }
 }
-
-
