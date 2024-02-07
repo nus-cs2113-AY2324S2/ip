@@ -15,23 +15,56 @@ public class List {
         Binks.createLineSpacing();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++){
-            String taskStatus = list[i].isDone() ? "[X]" : "[ ]";
-            System.out.println( (i + 1) + ". " + taskStatus + " " + list[i].getTaskDescription());
+            System.out.println( (i + 1) + ". " + list[i]);
         }
         Binks.createLineSpacing();
     }
 
     /**
-     * Adds a new item to the list.
+     * Adds the todo task into the task list
      *
-     *  @param task Task to be added to the list.
+     * @param task Todo task that is being added to the task list
      */
-    public void addItem(String task){
+    public void addTodo(String task){
         Binks.createLineSpacing();
-        Task newTask = new Task(task);
-        list[taskCount] = newTask;
+        Todo newTodo = new Todo(task);
+        list[taskCount] = newTodo;
         taskCount++;
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" [T][ ] " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        Binks.createLineSpacing();
+    }
+
+    /**
+     * Adds the deadline task into the task list
+     *
+     * @param task Deadline task that is being added to the task list
+     */
+    public void addDeadline(String task){
+        Binks.createLineSpacing();
+        Deadlines newDeadline = new Deadlines(task);
+        list[taskCount] = newDeadline;
+        taskCount++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" [D][ ] " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        Binks.createLineSpacing();
+    }
+
+    /**
+     * Adds the event task into the task list
+     *
+     * @param task Event task that is being added to the task list
+     */
+    public void addEvent(String task){
+        Binks.createLineSpacing();;
+        Events newEvent = new Events(task);
+        list[taskCount] = newEvent;
+        taskCount++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(" [E][ ] " + task);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
         Binks.createLineSpacing();
     }
 
@@ -45,7 +78,7 @@ public class List {
         if (index > 0 && index <= taskCount){
             list[index - 1].markTaskAsDone();
             System.out.println("Nice! I have marked this task as done:");
-            System.out.println("[X] " + list[index - 1].getTaskDescription());
+            System.out.println(list[index - 1]);
         }
         else {
             System.out.println("This task does not exist");
@@ -64,7 +97,7 @@ public class List {
         if (index > 0 && index <= taskCount){
             list[index - 1].unmarkTaskAsDone();
             System.out.println("OK, I have marked this task as not done yet:");
-            System.out.println("[ ] " + list[index - 1].getTaskDescription());
+            System.out.println(list[index - 1]);
         }
         else {
             System.out.println("This task does not exist");
