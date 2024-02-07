@@ -17,4 +17,7 @@ public class TaskList {
         task.sequence = count;
     }
 
+    public int getCount() {
+        return count;
+    }
 }
