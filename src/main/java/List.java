@@ -63,6 +63,16 @@ public class List {
     }
 
     /**
+     * Prints error message for invalid addItem command.
+     * 
+     * @param None
+     * @return None
+     */
+    public void addItemError() {
+        System.out.println("ACKSHUALLY you are missing something...");
+    }
+
+    /**
      * Adds a task to the list.
      * 
      * @param taskName The name of the task.
@@ -100,6 +110,10 @@ public class List {
 
         case "D":
             String[] nameEnd = description.split(" /by ", 2);
+            if (nameEnd.length < 2) {
+                this.addItemError();
+                return;
+            }
             String taskName = nameEnd[0];
             String taskEnd = nameEnd[1];
 
@@ -108,8 +122,20 @@ public class List {
 
         case "E":
             String[] nameTimes = description.split(" /from ", 2);
+
+            if (nameTimes.length < 2) {
+                this.addItemError();
+                return;
+            }
+
             String times = nameTimes[1];
             String[] startEnd = times.split(" /to ", 2);
+
+            if (startEnd.length < 2) {
+                this.addItemError();
+                return;
+            }
+
             taskName = nameTimes[0];
             String taskStart = startEnd[0];
             taskEnd = startEnd[1];
