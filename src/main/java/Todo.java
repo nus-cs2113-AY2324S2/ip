@@ -5,7 +5,6 @@ public class Todo extends Task {
         this.taskType = "[T]";
     }
 
-
     @Override
     public void printTask() {
         System.out.println(taskType + getStatusIcon() + " " + description);
