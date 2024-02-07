@@ -13,6 +13,9 @@ public class Duke {
     }
     public static void main(String[] args) {
         String chatbot = "Jing Xiang";
+        String todo = "todo";
+        String deadline = "deadline";
+        String event = "event";
         List<Task> tasks = new ArrayList<Task>();
         Scanner input = new Scanner(System.in);
         System.out.println("Hello clown I am " + chatbot);
@@ -29,6 +32,21 @@ public class Duke {
                 printTasks(tasks);
                 continue;
             }
+            if (line.startsWith(todo)) {
+                tasks.add(new ToDo(line.substring(todo.length())));
+                continue;
+            }
+
+            if (line.startsWith(deadline)) {
+                tasks.add(new Deadline(line.substring(deadline.length())));
+                continue;
+            }
+
+            if (line.startsWith(event)) {
+                tasks.add(new Event(line.substring(event.length())));
+                continue;
+            }
+
             int listIndex = line.charAt(line.length() - 1) - '0';
             if (line.startsWith("mark")) {
                 try {
@@ -53,8 +71,6 @@ public class Duke {
                 }
                 continue;
             }
-            tasks.add(new Task(line));
-            System.out.printf("Added: %s%n",line);
         }
         System.out.println("Hope to see you soon");
     }

@@ -1,10 +1,10 @@
 public class Task {
     private final StringBuilder description;
-    private static final int START_INDEX = 1;
-    private static final int END_INDEX = 2;
+    private static final int START_INDEX = 4;
+    private static final int END_INDEX = 5;
 
-    Task(String input) {
-        this.description = new StringBuilder("[ ]" + " " + input);
+    Task(String input, String type) {
+        this.description = new StringBuilder("[" + type + "]" + "[ ] " + input);
     }
 
     Task (StringBuilder description) {
