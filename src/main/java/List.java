@@ -63,12 +63,28 @@ public class List {
     }
 
     /**
+     * Prints error message for invalid addItem command.
+     * 
+     * @param None
+     * @return None
+     */
+    public void addItemError() {
+        System.out.println("ACKSHUALLY you are missing something...");
+    }
+
+    /**
      * Adds a task to the list.
      * 
      * @param taskName The name of the task.
      * @return None
      */
     public void addItem(String taskName) {
+        // Error if empty string
+        if (taskName.equals("")) {
+            this.addItemError();
+            return;
+        }
+
         // Create new task object, add to list and update size
         Task task = new Task(taskName);
         list.add(task);
@@ -91,44 +107,57 @@ public class List {
      * @return None
      */
     public void addItem(String description, String type) {
+        // Error if empty string
+        if (description.equals("")) {
+            this.addItemError();
+            return;
+        }
+
+        String taskName, taskStart, taskEnd;
         boolean isValid = true;
 
-        switch (type) {
-        case "T":
-            list.add(new Todo(description));
-            break;
+        try {
+            switch (type) {
+            case "T":
+                taskName = description;
+                list.add(new Todo(taskName));
+                break;
 
-        case "D":
-            String[] nameEnd = description.split(" /by ", 2);
-            String taskName = nameEnd[0];
-            String taskEnd = nameEnd[1];
+            case "D":
+                String[] nameEnd = description.split(" /by ", 2);
+                taskName = nameEnd[0];
+                taskEnd = nameEnd[1];
 
-            list.add(new Deadline(taskName, taskEnd));
-            break;
+                list.add(new Deadline(taskName, taskEnd));
+                break;
 
-        case "E":
-            String[] nameTimes = description.split(" /from ", 2);
-            String times = nameTimes[1];
-            String[] startEnd = times.split(" /to ", 2);
-            taskName = nameTimes[0];
-            String taskStart = startEnd[0];
-            taskEnd = startEnd[1];
+            case "E":
+                String[] nameTimes = description.split(" /from ", 2);
+                String times = nameTimes[1];
 
-            list.add(new Event(taskName, taskStart, taskEnd));
-            break;
-        
-        default:
-            isValid = false;
-            System.out.println("HUHHH? What is this even?");
-            break;
-        }
-        
-        if (isValid) {
-            size++;
-            System.out.println("Okey dokey here we go");
-            System.out.print(" ");
-            System.out.println(list.get(size - 1));
-            this.printSize();
+                String[] startEnd = times.split(" /to ", 2);
+                taskName = nameTimes[0];
+                taskStart = startEnd[0];
+                taskEnd = startEnd[1];
+
+                list.add(new Event(taskName, taskStart, taskEnd));
+                break;
+            
+            default:
+                isValid = false;
+                System.out.println("HUHHH? What is this even?");
+                break;
+            }
+            
+            if (isValid) {
+                size++;
+                System.out.println("Okey dokey here we go");
+                System.out.print(" ");
+                System.out.println(list.get(size - 1));
+                this.printSize();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.addItemError();
         }
     }
 }
