@@ -1,7 +1,11 @@
 import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
+
 public class Davvy {
     private static final String BOT_NAME = "Davvy";
-    private static void printLine() {
+    private static boolean toEnd;
+    public static void printLine() {
         System.out.println("____________________________________________________________");
     }
 
@@ -14,84 +18,74 @@ public class Davvy {
         case "goodbye":
             System.out.println(" Bye. Hope to see you again soon!");
             break;
-        case "list":
-            System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < TaskList.listLength(); i++) {
-                System.out.print(" " + (i + 1) + ".");
-                System.out.println(" [" + TaskList.getTask(i).getStatusIcon() + "] " +
-                        TaskList.getTask(i).description);
-            }
-            break;
-        case "add":
-            System.out.println(" added: " + TaskList.getTask(TaskList.listLength()-1).description);
-            break;
-        default:
-            break;
         }
-        printLine();
-    }
-
-    private static void printStatement(String statementType, int taskNumber) {
-        printLine();
-        switch (statementType) {
-        case "mark":
-            System.out.println(" Nice! I've marked this task as done:");
-            break;
-        case "unmark":
-            System.out.println(" OK, I've marked this task as not done yet:");
-            break;
-        }
-        System.out.println(" [" + TaskList.getTask(taskNumber).getStatusIcon() + "] " +
-                TaskList.getTask(taskNumber).description);
         printLine();
     }
 
     public void startChat() {
         printStatement("greetings");
-
+        toEnd = false;
         Scanner in = new Scanner(System.in);
-        String userInput = in.nextLine();
-
-        while (!userInput.equalsIgnoreCase("bye")) {
-            int taskNumber;
-            if (userInput.equalsIgnoreCase("list")) {
-                printStatement("list");
-            } else if (userInput.toLowerCase().contains("unmark")) {
-                try {
-                    taskNumber = Integer.parseInt(userInput.replaceAll("[^0-9]", "")) - 1;
-                    TaskList.getTask(taskNumber).markNotDone();
-                    printStatement("unmark", taskNumber);
-                } catch (NumberFormatException e) {
-                    System.out.println("Exception thrown: " + e);
-                    System.out.println("Please Enter A Valid Number");
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Exception thrown: " + e);
-                    System.out.println("There is no such task!");
-                }
-
-            } else if (userInput.toLowerCase().contains("mark")) {
-                try {
-                    taskNumber = Integer.parseInt(userInput.replaceAll("[^0-9]", "")) - 1;
-                    TaskList.getTask(taskNumber).markDone();
-                    printStatement("mark", taskNumber);
-                } catch (NumberFormatException e) {
-                    System.out.println("Exception thrown: " + e);
-                    System.out.println("Please Enter A Valid Number");
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Exception thrown: " + e);
-                    System.out.println("There is no such task!");
-                }
-
-            } else {
-                Task inputTask = new Task(userInput);
-                TaskList.addTask(inputTask);
-                printStatement("add");
-            }
-            userInput = in.nextLine();
+        while (!toEnd) {
+            String[] parsedInput = processInput(in.nextLine());
+            processCommand(parsedInput);
         }
     }
 
     public void endChat() {
         printStatement("goodbye");
+    }
+
+    public String[] processInput (String inputText) {
+        if (inputText.isEmpty()) {
+            printLine();
+            System.out.println("Please type something >:(");
+            printLine();
+            return null;
+        }
+        return inputText.split("\\b", 2);
+    }
+
+    public void processCommand (String[] input) {
+        String commandType = input[0].trim().toLowerCase();
+        String commandArg = input[1].isEmpty() ? "" : input[1];
+
+        switch (commandType) {
+        case "list":
+            TaskList.printList();
+            break;
+        case "mark":
+            try {
+                TaskList.getTask(parseInt(commandArg.trim()) - 1).markDone();
+            } catch (NumberFormatException e) {
+                System.out.println("Exception thrown: " + e);
+                System.out.println("Please Enter A Valid Number");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Exception thrown: " + e);
+                System.out.println("There is no such task!");
+            }
+            break;
+        case "unmark":
+            try {
+                TaskList.getTask(parseInt(commandArg.trim()) - 1).markNotDone();
+            } catch (NumberFormatException e) {
+                System.out.println("Exception thrown: " + e);
+                System.out.println("Please Enter A Valid Number");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Exception thrown: " + e);
+                System.out.println("There is no such task!");
+            }
+            break;
+        case "bye":
+            toEnd = true;
+            break;
+        case "add":
+            Task inputTask = new Task(commandArg);
+            TaskList.addTask(inputTask);
+            break;
+        default:
+            System.out.println("Unknown Command, type something I know please!");
+            break;
+        }
     }
 }
