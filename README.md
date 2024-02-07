@@ -8,7 +8,7 @@ Don't ask me anything. I am just a noob.
 ## Features 
 Whatever you ask, Hiko will reply you.
 
-## Usage
+## Usageh
 Useless
 
 ## Setting up in Intellij
@@ -38,4 +38,4 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 # Updates
 
-31/01/2024: Updated new function 'task recording'. Now whatever you type will be recorded as task.
+31/01/2024: Updated new function 'task recording'. Now whatever you type will be recorded as task..
