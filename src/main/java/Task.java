@@ -1,4 +1,4 @@
-abstract public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -9,7 +9,7 @@ abstract public class Task {
 
     @Override
     public String toString() {
-        return (isDone ? "[X] " : "[ ] ") + this.description;
+        return (this.isDone ? "[X] " : "[ ] ") + this.description;
     }
 
     public void setIsDone(boolean newStatus) {
@@ -17,6 +17,6 @@ abstract public class Task {
     }
 
     public boolean isDone() {
-        return isDone;
+        return this.isDone;
     }
 }
