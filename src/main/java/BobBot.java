@@ -10,8 +10,7 @@ public class BobBot {
         allTasks[taskNumToMark].markAsDone();
         drawLine(true);
         System.out.println("\tGot it! Marking this task as done:");
-        System.out.printf("\t[%s] %s\n", allTasks[taskNumToMark].getStatusIcon(),
-                allTasks[taskNumToMark].getDescription());
+        System.out.println("\t  " + allTasks[taskNumToMark].toString());
         drawLine(true);
     }
 
@@ -20,8 +19,7 @@ public class BobBot {
         allTasks[taskNumToUnmark].markAsUndone();
         drawLine(true);
         System.out.println("\tAlright! Unmarking this task:");
-        System.out.printf("\t[%s] %s\n", allTasks[taskNumToUnmark].getStatusIcon(),
-                allTasks[taskNumToUnmark].getDescription());
+        System.out.println("\t  " + allTasks[taskNumToUnmark].toString());
         drawLine(true);
     }
 
@@ -47,12 +45,12 @@ public class BobBot {
         allTasks[numTasks] = newTask;
         numTasks += 1;
 
-        echoCommand(line);
+        echoCommand(line, newTask);
     }
 
-    public static void echoCommand(String lineString) {
+    public static void echoCommand(String lineString, Task newTask) {
         drawLine(true);
-        System.out.println("\tGot it! I've added this task:\n\t  " + lineString);
+        System.out.println("\tGot it! I've added this task:\n\t  " + newTask.toString());
         System.out.printf("\tNow you have %d tasks in the list\n", numTasks);
         drawLine(true);
         System.out.println();
