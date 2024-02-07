@@ -1,4 +1,4 @@
-public class Duke {
+public class Bob {
     public String executeCommand(Command userCommand, TaskManager manager, Parser inputParser) {
         String commandOutput;
         String taskName;
@@ -28,9 +28,9 @@ public class Duke {
         case EVENT:
             arguments = inputParser.parseArguments(userCommand);
             taskName = arguments[0];
-            String startTime = arguments[1];
-            String endTime = arguments[2];
-            commandOutput = manager.addEvent(taskName, startTime, endTime);
+            String startDate = arguments[1];
+            String endDate = arguments[2];
+            commandOutput = manager.addEvent(taskName, startDate, endDate);
             break;
         default:
             inputParser.clearInput();
