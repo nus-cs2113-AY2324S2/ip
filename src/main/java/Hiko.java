@@ -14,7 +14,7 @@ public class Hiko {
                 "|  |  | |  | |  .  ||     |\n" +
                 "|__|__||____||__|\\_| \\___/ \n" +
                 "                           \n";
-        System.out.println("Hello from \n" + logo);
+        System.out.println("Hello from  \n" + logo);
         // create an instance of Echo and start echoing
         Echo echo = new Echo();
         echo.startEchoing();
