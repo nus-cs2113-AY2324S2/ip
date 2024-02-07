@@ -8,6 +8,10 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    public static int extractNumber(String userCommand) {
+        String numberExtracted = userCommand.replaceAll("[^0-9]", "");
+        return Integer.parseInt(numberExtracted);
+    }
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
