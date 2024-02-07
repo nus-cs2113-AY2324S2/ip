@@ -55,4 +55,8 @@ public class Parser {
         // Force Scanner to jump to next line
         inputReader.nextLine();
     }
+
+    public boolean hasMoreInput() {
+        return inputReader.hasNext();
+    }
 }

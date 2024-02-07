@@ -49,7 +49,7 @@ public class Bob {
         TaskManager manager = new TaskManager();
         Parser inputParser = new Parser();
 
-        while (true) {
+        while (inputParser.hasMoreInput()) {
             Command userCommand = inputParser.parseCommand();
 
             if (inputParser.isDone(userCommand)) {
