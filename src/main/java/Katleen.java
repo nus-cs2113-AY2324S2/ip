@@ -10,37 +10,39 @@ public class Katleen {
         System.out.println(LINE);
 
         Task[] tasks = new Task[100];
-        int count = 0;
 
         Scanner in = new Scanner(System.in);
         String text = in.nextLine();
-
         while (!text.equals("bye")) {
+            String[] textSplit = text.split(" ");
+            String cmdWord = textSplit[0];
             System.out.println(LINE);
-            if (text.contains("mark")) {
-                String index = text.substring(5);
-                if (text.contains("unmark")) {
-                    index = text.substring(7);
-                }
-                int i = Integer.parseInt(index) -1;
-                tasks[i].toggleDone();
-                if (tasks[i].isDone) {
-                    System.out.println("Well done! This task is marked as done:");
-                } else {
-                    System.out.println("This task is marked as undone:");
-                }
+            if (cmdWord.equals("mark")) {
+                String index = textSplit[1];
+                int i = Integer.parseInt(index) - 1;
+                tasks[i].setDone(true);
+                System.out.println("Well done! This task is marked as done:");
                 tasks[i].printTask();
-            } else if (text.equals("list")) {
+            } else if (cmdWord.equals("unmark")) {
+                String index = textSplit[1];
+                int i = Integer.parseInt(index) - 1;
+                tasks[i].setDone(false);
+                System.out.println("This task is marked as undone:");
+                tasks[i].printTask();
+            } else if (cmdWord.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < count; i++) {
-                    System.out.print(i + 1 + ". ");
+                for (int i = 0; i < Task.getTaskCount(); i++) {
+                    System.out.print((i+1) + ". ");
                     tasks[i].printTask();
                 }
+            } else if (cmdWord.equals("todo")) {
+                System.out.println("Added: ");
+                int i = Task.getTaskCount();
+                ToDo task = new ToDo(text);
+                tasks[i] = task;
+                tasks[i].printTask();
             } else {
-                System.out.println("Added: " + text);
-                Task task = new Task(text);
-                tasks[count] = task;
-                count++;
+                System.out.println("Invalid command, please try again");
             }
             System.out.println(LINE);
             text = in.nextLine();
@@ -49,4 +51,5 @@ public class Katleen {
         System.out.println("Bye, have a nice day!");
         System.out.println(LINE);
     }
+
 }

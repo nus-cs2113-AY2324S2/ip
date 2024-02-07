@@ -1,14 +1,16 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    private static int taskCount = 0;
 
     public Task(String desc) {
         this.description = desc;
         this.isDone = false;
+        taskCount++;
     }
 
-    public void toggleDone() {
-        this.isDone = !this.isDone;
+    public void setDone(boolean done) {
+        this.isDone = done;
     }
 
     public void printTask() {
@@ -20,5 +22,9 @@ public class Task {
 
     public String printDone() {
        return (this.isDone ? "X" : " ");
+    }
+
+    public static int getTaskCount() {
+        return taskCount;
     }
 }
