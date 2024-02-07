@@ -5,6 +5,7 @@ public class Deadline extends Task {
         //parent class sets String description and bool isDone
         super(description);
         this.by = by;
+        this.type = "D";
     }
 
     @Override

@@ -13,7 +13,10 @@ public class List {
         int serialNumber = 1;
         for (int i = 0; i < totalTasks; i++) {
             System.out.print("     ");
-            System.out.println(serialNumber + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+            System.out.println(serialNumber
+                    + ".[" + tasks[i].type + "]"
+                    + "[" + tasks[i].getStatusIcon() + "] "
+                    + tasks[i].getDescription());
             serialNumber += 1;
         }
         return;
