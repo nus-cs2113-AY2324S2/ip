@@ -59,21 +59,6 @@ public class Omoh {
         }
     }
 
-    //Method that echoes whatever user types.
-    //Stops when string "bye" is entered.
-    public static void echo() {
-        String line;
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
-        while (!line.equalsIgnoreCase("bye")) {
-            printHorizontalLine();
-            System.out.print("     ");
-            System.out.println(line);
-            printHorizontalLine();
-            line = in.nextLine();
-        }
-    }
-
     //Method that prints all the tasks stored in myTaskList array
     public static void printAllTasks() {
         printHorizontalLine();
