@@ -23,7 +23,7 @@ public class TaskList {
      */
     public void checkTask(int taskNumber){
         tasks[taskNumber-1].setTaskStatus(true);
-        System.out.printf("      %s %s", tasks[taskNumber-1].getTaskStatus(), tasks[taskNumber-1].getTask());
+        System.out.println("      " + tasks[taskNumber-1]);
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskList {
      */
     public void uncheckTask(int taskNumber){
         tasks[taskNumber-1].setTaskStatus(false);
-        System.out.printf("      %s %s", tasks[taskNumber-1].getTaskStatus(), tasks[taskNumber-1].getTask());
+        System.out.println("      " + tasks[taskNumber-1]);
     }
 
     /**
@@ -45,9 +45,17 @@ public class TaskList {
                 break;
             }
             taskCount++;
-            System.out.printf("     %d. %s %s", taskCount, task.getTaskStatus(),task.getTask());
-            System.out.println(" ");
+            System.out.println("     " + taskCount +"." + task);
+
         }
+    }
+
+    /**
+     * returns the number of tasks in the list
+     * @return the number of tasks
+     */
+    public int getNoOfTasks(){
+        return noOfTasks;
     }
 
 

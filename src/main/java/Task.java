@@ -1,5 +1,5 @@
 public class Task {
-   /** Task description*/
+   /** Task description */
     private String task;
     /** Task status */
    private boolean taskIsDone = false;
@@ -7,23 +7,9 @@ public class Task {
        task = line;
    }
 
-    /**
-     * Returns the task description
-     * @return Task description
-     */
-   public String getTask(){
-       return task;
-   }
-
-    /**
-     * Returns the [X] or [] depending on the status of the task
-     * @return [X] or []
-     */
-   public String getTaskStatus(){
-       if(taskIsDone){
-           return "[X]";
-       }
-       return "[ ]";
+   @Override
+   public String toString(){
+       return (taskIsDone? "[X]":"[ ]") + task;
    }
 
     /**
