@@ -6,11 +6,11 @@ public class Todo extends Task {
         super(taskName, taskId, false);
     }
 
-    public Task completeTask() {
+    public Task markTaskAsComplete() {
         return new Todo(this.taskName, this.taskId, true);
     }
 
-    public Task uncompleteTask() {
+    public Task markTaskAsIncomplete() {
         return new Todo(this.taskName, this.taskId, false);
     }
 

@@ -13,11 +13,11 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    public Task completeTask() {
+    public Task markTaskAsComplete() {
         return new Event(this.taskName, this.taskId, true, this.startDate, this.endDate);
     }
 
-    public Task uncompleteTask() {
+    public Task markTaskAsIncomplete() {
         return new Event(this.taskName, this.taskId, false, this.startDate, this.endDate);
     }
 

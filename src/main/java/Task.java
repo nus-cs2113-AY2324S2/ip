@@ -17,9 +17,9 @@ abstract public class Task {
         return taskId;
     }
 
-    abstract public Task completeTask();
+    abstract public Task markTaskAsComplete();
 
-    abstract public Task uncompleteTask();
+    abstract public Task markTaskAsIncomplete();
 
     @Override
     public String toString() {

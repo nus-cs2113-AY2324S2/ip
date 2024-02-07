@@ -10,11 +10,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
-    public Task completeTask() {
+    public Task markTaskAsComplete() {
         return new Deadline(this.taskName, this.taskId, true, this.dueDate);
     }
 
-    public Task uncompleteTask() {
+    public Task markTaskAsIncomplete() {
         return new Deadline(this.taskName, this.taskId, false, this.dueDate);
     }
 
