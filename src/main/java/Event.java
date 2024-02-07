@@ -29,6 +29,9 @@ public class Event extends Task{
         String startTime = line.substring(startDividerIndex + 6, endDividerIndex - 1);
         String endTime = line.substring(endDividerIndex + 4);
         String taskName = line.substring(0, startDividerIndex - 1);
+        setStartTime(startTime);
+        setEndTime(endTime);
+        setTaskName(taskName);
     }
 
     public String getStartTime(){

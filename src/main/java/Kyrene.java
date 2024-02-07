@@ -52,7 +52,7 @@ public class Kyrene {
             System.out.printf("    Now you have %d tasks(including finished ones) in your list.\n\n", taskCount);
         }
         printDivider();
-        
+
     }
 
     public static void markTask(int taskNumber){
