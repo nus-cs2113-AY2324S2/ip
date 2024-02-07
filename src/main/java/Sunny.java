@@ -17,7 +17,7 @@ public class Sunny {
         //Echoes commands after user says bye
         while (true) {
             //Gets user input
-            String command = scanner.nextLine();;
+            String command = scanner.nextLine();
 
             //If the user input is "bye"
             if (command.equalsIgnoreCase("bye")){
