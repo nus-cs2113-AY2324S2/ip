@@ -18,7 +18,7 @@ public class TaskList {
     }
 
     public int size() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
     public void displayAll() {

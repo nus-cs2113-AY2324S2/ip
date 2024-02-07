@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Adam {
@@ -12,9 +13,11 @@ public class Adam {
             input = sc.nextLine();
             System.out.print(Message.DELIMITER);
 
-            if (new CommandGenerator().apply(input).isPresent()) {
-                Command command = new CommandGenerator().apply(input).get();
+            try {
+                Command command = new CommandGenerator().apply(input).orElseThrow();
                 command.execute(tasks);
+            } catch (NoSuchElementException error) {
+                System.out.println(Message.ERROR_MESSAGE);
             }
 
             System.out.println(Message.DELIMITER);
