@@ -16,6 +16,7 @@ public class Katleen {
         while (!text.equals("bye")) {
             String[] textSplit = text.split(" ");
             String cmdWord = textSplit[0];
+            System.out.println("Cmdword is: " + cmdWord);
             System.out.println(LINE);
             if (cmdWord.equals("mark")) {
                 String index = textSplit[1];
@@ -38,21 +39,23 @@ public class Katleen {
             } else if (cmdWord.equals("todo")) {
                 System.out.println("Added: ");
                 int i = Task.getTaskCount();
-                ToDo task = new ToDo(text);
+                ToDo task = new ToDo(text.replace("todo ", "").trim());
                 tasks[i] = task;
                 tasks[i].printTask();
             } else if (cmdWord.equals("deadline")) {
                 System.out.println("Added: ");
                 int i = Task.getTaskCount();
-                String by = text.substring(text.indexOf("/by")).trim();
-                Deadline task = new Deadline(text, by);
+                int by = text.indexOf("/by");
+                Deadline task = new Deadline(text.substring(text.indexOf(cmdWord), by), text.substring(by).trim());
                 tasks[i] = task;
                 tasks[i].printTask();
-            }else {
+            } else if (cmdWord.equals("event")) {
+
+            } else {
                 System.out.println("Invalid command, please try again");
             }
             System.out.println(LINE);
-            text = in.nextLine();
+            text = in.nextLine().trim();
         }
         System.out.println(LINE);
         System.out.println("Bye, have a nice day!");

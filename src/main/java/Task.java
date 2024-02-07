@@ -14,10 +14,7 @@ public class Task {
     }
 
     public void printTask() {
-        System.out.print("[");
-        System.out.print(this.printDone());
-        System.out.print("] ");
-        System.out.println(this.description);
+        System.out.println(this);
     }
 
     public String printDone() {
@@ -26,5 +23,10 @@ public class Task {
 
     public static int getTaskCount() {
         return taskCount;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.printDone() + "] " + this.description;
     }
 }
