@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Duke {
     public static void main(String[] args) {
         Ui userInterface = new Ui();
@@ -7,23 +5,54 @@ public class Duke {
         userInterface.printWelcome();
 
         TaskManager manager = new TaskManager();
-        Scanner sc = new Scanner(System.in);
+        Parser inputParser = new Parser();
 
         while (true) {
-            String userCommand = sc.next();
-            String result;
+            String userCommand = inputParser.parseCommand();
 
             if (userCommand.equals("bye")) {
                 break;
-            } else if (userCommand.equals("list")) {
-                result = manager.listTasks();
-            } else if (userCommand.equals("mark") || userCommand.equals("unmark")) {
-                int taskId = sc.nextInt();
-                result = manager.updateTaskProgress(taskId, userCommand);
-            } else {
-                userCommand += sc.nextLine(); // Restore input as one line
-                result = manager.addTask(userCommand);
             }
+
+            // Initialize variables
+            String result;
+            String[] arguments;
+            String taskName;
+
+            switch (userCommand) {
+            case "list":
+                result = manager.listTasks();
+                break;
+            case "mark":
+            case "unmark":
+                arguments = inputParser.parseArguments(1);
+                int taskId = Integer.parseInt(arguments[0]);
+                result = manager.updateTaskProgress(taskId, userCommand);
+                break;
+            case "todo":
+                arguments = inputParser.parseArguments(1);
+                taskName = arguments[0];
+                result = manager.addTodo(taskName);
+                break;
+            case "deadline":
+                arguments = inputParser.parseArguments(2);
+                taskName = arguments[0];
+                String dueDate = arguments[1];
+                result = manager.addDeadline(taskName, dueDate);
+                break;
+            case "event":
+                arguments = inputParser.parseArguments(3);
+                taskName = arguments[0];
+                String startTime = arguments[1];
+                String endTime = arguments[2];
+                result = manager.addEvent(taskName, startTime, endTime);
+                break;
+            default:
+                inputParser.clearInput();
+                result = "ERROR";
+                break;
+            }
+
             userInterface.print(result);
         }
 
