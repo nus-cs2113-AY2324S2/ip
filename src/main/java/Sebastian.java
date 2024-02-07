@@ -11,7 +11,4 @@ public class Sebastian {
                 "What can I do for you?");
         UserInterface myUserInterface = new UserInterface();
     }
-    // things to do
-    // error checking
-    // printing out number of tasks in list
 }

@@ -33,15 +33,20 @@ public class TaskManager {
         }
         System.out.println(taskList[numItems]);
         this.numItems += 1;
+        String taskPluralString = numItems > 1 ? " tasks" : " task";
+        System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
     }
 
     public void showListContents() {
         if (this.numItems == 0) {
             System.out.println("List is empty. Please enter something first.");
         }
-        for (int i = 0; i < numItems; i += 1) {
-            System.out.print(taskList[i].getId() + 1 + ". ");
-            System.out.println(taskList[i]);
+        else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < numItems; i += 1) {
+                System.out.print(taskList[i].getId() + 1 + ". ");
+                System.out.println(taskList[i]);
+            }
         }
     }
 
