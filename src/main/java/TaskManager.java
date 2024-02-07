@@ -9,34 +9,44 @@ public class TaskManager {
         this.taskCount = 0;
     }
 
-    /**
-     *  Add task to Task array
-     */
-    String addTask(String taskName) {
-        int currentIndex = nextTaskId - 1;
-        Task newTask = new Task(taskName, nextTaskId);
+    private String updateTaskList(Task newTask, int taskId) {
+        String output = " Got it. I've added this task:\n";
+        int currentIndex = taskId - 1;
 
         tasks[currentIndex] = newTask;
         nextTaskId++;
         taskCount++;
 
-        return String.format(" added: %s", taskName);
+        output += String.format("   %s\n", newTask);
+        output += String.format(" Now you have %d tasks in the list.", taskCount);
+
+        return output;
+    }
+
+    public String addTodo(String taskName) {
+        Task newTask = new Todo(taskName, nextTaskId);
+        return updateTaskList(newTask, nextTaskId);
+    }
+
+    public String addDeadline(String taskName, String endDate) {
+        Task newTask = new Deadline(taskName, nextTaskId, endDate);
+        return updateTaskList(newTask, nextTaskId);
+    }
+
+    public String addEvent(String taskName, String startDate, String endDate) {
+        Task newTask = new Event(taskName, nextTaskId, startDate, endDate);
+        return updateTaskList(newTask, nextTaskId);
     }
 
     /**
      * List out tasks (completed/uncompleted) in Task array
      */
-    String listTasks() {
+    public String listTasks() {
         StringBuilder output = new StringBuilder(" Here are the tasks in your list:\n");
 
         for (int i = 0; i < taskCount; i++) {
             Task currentTask = tasks[i];
-
-            if (currentTask.isCompleted()) {
-                output.append(String.format(" %d.[X] %s\n", currentTask.getTaskId(), currentTask.getTaskName()));
-            } else {
-                output.append(String.format(" %d.[ ] %s\n", currentTask.getTaskId(), currentTask.getTaskName()));
-            }
+            output.append(String.format(" %d.%s\n", currentTask.getTaskId(), currentTask));
         }
 
         return output.toString().stripTrailing();
@@ -45,7 +55,7 @@ public class TaskManager {
     /**
      * Update progress of Task in Task array
      */
-    String updateTaskProgress(int taskId, String command) {
+    public String updateTaskProgress(int taskId, String command) {
         String output;
         int currentTaskIndex = taskId - 1; // Index in array is ID - 1
         Task currentTask = tasks[currentTaskIndex];
