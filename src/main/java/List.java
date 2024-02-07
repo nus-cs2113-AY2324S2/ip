@@ -7,16 +7,29 @@ public class List {
         this.tasks = new Task[100];
     }
 
+
+
     public void getAllTasks() {
         System.out.print("     ");
         System.out.println("Here are the tasks in your list:");
         int serialNumber = 1;
         for (int i = 0; i < totalTasks; i++) {
             System.out.print("     ");
-            System.out.println(serialNumber
+            System.out.print(serialNumber
                     + ".[" + tasks[i].type + "]"
                     + "[" + tasks[i].getStatusIcon() + "] "
                     + tasks[i].getDescription());
+
+            if (tasks[i].type.equals("D")) {
+                //type casting required to access by member
+                Deadline deadlineTask = (Deadline) tasks[i];
+                System.out.print(" (by: " + deadlineTask.by + ")");
+            } else if (tasks[i].type.equals("E")) {
+                //type casting required to access from and to members
+                Event eventTask = (Event) tasks[i];
+                System.out.print(" (from: " + eventTask.from + " to: " + eventTask.to + ")");
+            }
+            System.out.println();
             serialNumber += 1;
         }
         return;
@@ -46,9 +59,9 @@ public class List {
         System.out.print("     ");
         System.out.println("Got it. I've added this task:");
         System.out.print("       ");
-        System.out.println("[D][ ]" + description.description + " (by: " + description.by + ")" );
+        System.out.println("[D][ ] " + description.description + " (by: " + description.by + ")" );
         System.out.print("     ");
-        System.out.println("Now you have " + totalTasks + " in the list.");
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
     }
 
@@ -65,9 +78,9 @@ public class List {
         System.out.print("     ");
         System.out.println("Got it. I've added this task:");
         System.out.print("       ");
-        System.out.println("[T][ ]" + description.description);
+        System.out.println("[T][ ] " + description.description);
         System.out.print("     ");
-        System.out.println("Now you have " + totalTasks + " in the list.");
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
     }
 
@@ -84,10 +97,10 @@ public class List {
         System.out.print("     ");
         System.out.println("Got it. I've added this task:");
         System.out.print("       ");
-        System.out.println("[E][ ]" + description.description + " (from: " + description.from
+        System.out.println("[E][ ] " + description.description + " (from: " + description.from
                 + " to: " + description.to + ")" );
         System.out.print("     ");
-        System.out.println("Now you have " + totalTasks + " in the list.");
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
     }
 
