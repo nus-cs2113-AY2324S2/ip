@@ -50,7 +50,7 @@ public class TaskLists {
         System.out.println("____________________________________________________________");
     }
 
-    public void taskNum() {
+    public void taskNumPrint() {
         System.out.println("Now you have " + this.tasksList.size() + " tasks in the list");
     }
 

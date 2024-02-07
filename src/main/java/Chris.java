@@ -53,7 +53,7 @@ public class Chris {
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + record);
-                listCommands.taskNum();
+                listCommands.taskNumPrint();
                 System.out.println("____________________________________________________________");
             } else if (command.matches("deadline(.*)")) {
                 String[] deadlines = command.split(" /by ", 2);
@@ -63,7 +63,7 @@ public class Chris {
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + record);
-                    listCommands.taskNum();
+                    listCommands.taskNumPrint();
                     System.out.println("____________________________________________________________");
                 } else {
                     System.out.println("wrong input syntax");
@@ -79,7 +79,7 @@ public class Chris {
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record);
-                        listCommands.taskNum();
+                        listCommands.taskNumPrint();
                         System.out.println("____________________________________________________________");
                     } else {
                         System.out.println("wrong input syntax");
