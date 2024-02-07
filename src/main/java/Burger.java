@@ -5,40 +5,52 @@ public class Burger {
     static final String HORIZONTAL_LINE = "---------------------------------";
 
     public static void main(String[] args) {
-        printLine();
-        System.out.println("Hello! I'm " + CHATBOT_NAME);
-        System.out.println("What can I do for you?");
-        printLine();
+        welcomeMessage();
         Scanner input = new Scanner(System.in);
-        Todo myTodoList = new Todo();
+        List myList = new List();
         boolean isPolling = true;
         while (isPolling) {
             String text = input.nextLine();
             String[] textArray = text.split(" ");
-            if (text.startsWith("mark")) { // assume inputs for mark / unmark is correct
+            String command = textArray[0];
+            switch (command) { // assume inputs for commands are correct
+            case "mark":
+            case "unmark":
                 int idx = Integer.parseInt(textArray[1]) - 1;
-                myTodoList.getMark(idx);
-            } else if (text.startsWith("unmark")) {
-                int idx = Integer.parseInt(textArray[1]) - 1;
-                myTodoList.getUnmark(idx);
-            } else {
+                myList.getMark(idx, command);
+                break;
+            case "todo":
+                myList.addTodo(textArray);
+                break;
+            case "deadline":
+                myList.addDeadline(textArray);
+                break;
+            case "event":
+                myList.addEvent(textArray);
+                break;
+            default:
                 switch (text.trim().toLowerCase()) {
                 case "bye":
                     isPolling = false;
                     break;
                 case "list":
-                    myTodoList.printTodoList();
-                    break;
-                case "":
-                    wakeUp();
+                    myList.printTodoList();
                     break;
                 default:
-                    myTodoList.addTodo(text);
+                    wakeUp();
                     break;
                 }
+                break;
             }
         }
         goodbye();
+    }
+
+    private static void welcomeMessage() {
+        printLine();
+        System.out.println("Hello! I'm " + CHATBOT_NAME);
+        System.out.println("What can I do for you?");
+        printLine();
     }
 
     public static void printLine() {
@@ -47,7 +59,7 @@ public class Burger {
 
     private static void wakeUp() {
         printLine();
-        System.out.println("Wake Up! Key in something!");
+        System.out.println("Wake Up! Key in something that makes sense!");
         printLine();
     }
 
