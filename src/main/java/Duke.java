@@ -71,17 +71,17 @@ public class Duke {
 
     private static void addTask(String usersInput, Task[] list, int currentIteration) {
         if (usersInput.startsWith("todo")) {
-            list[currentIteration] = new Todo(usersInput, usersInput);
+            list[currentIteration] = new Todo(usersInput.substring(5), usersInput);
         }
         else if (usersInput.startsWith("deadline")) {
             int startingIndex = usersInput.indexOf("/by");
-            list[currentIteration] = new Deadline(usersInput.substring(0, startingIndex - 1),
+            list[currentIteration] = new Deadline(usersInput.substring(9, startingIndex - 1),
                     usersInput.substring(startingIndex + 4));
         }
         else if (usersInput.startsWith("event")) {
             int startIndex = usersInput.indexOf("from");
             int secondIndex = usersInput.indexOf("to");
-            list[currentIteration] = new Event(usersInput.substring(0, startIndex - 2),
+            list[currentIteration] = new Event(usersInput.substring(6, startIndex - 2),
                     "from: " + usersInput.substring(startIndex+ 5, secondIndex - 2) + " " + "to: " + usersInput.substring(secondIndex + 3));
         }
         printAcknowledgementMessage(list, currentIteration);
