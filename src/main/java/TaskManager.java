@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class TaskManager {
     private Task[] tasks;
     private int taskCount;
@@ -23,7 +24,7 @@ public class TaskManager {
         } else {
             System.out.println("______________________________________________________________\n"
                     + " Okay! I've marked this task as not done yet:\n"
-                    + " [ ] " + tasks[index].getDescription() + "\n"
+                    + " [" + tasks[index].getTaskType() + "] " + tasks[index].getDescription() + "\n"
                     + "_____________________________________________________________");
         }
     }
@@ -33,12 +34,14 @@ public class TaskManager {
             String todoDescription = input.substring(5);
             tasks[taskCount] = new Todo(todoDescription);
             printTask(tasks[taskCount]);
+
         } else if (input.startsWith("deadline")) {
             String[] deadlineDetails = input.split(" /by ");
             String description = deadlineDetails[0].substring(9);
             String by = (deadlineDetails.length > 1) ? deadlineDetails[1] : "null";
             tasks[taskCount] = new Deadline(description, by);
             printTask(tasks[taskCount]);
+
         } else if (input.startsWith("event")) {
             String[] eventDetails = input.split(" /from | /to ");
             String description = eventDetails[0].substring(6);
@@ -46,6 +49,7 @@ public class TaskManager {
             String to = (eventDetails.length > 2) ? eventDetails[2] : "null";
             tasks[taskCount] = new Event(description, from, to);
             printTask(tasks[taskCount]);
+
         } else {
             tasks[taskCount] = task;
             printTask(tasks[taskCount]);
@@ -69,18 +73,22 @@ public class TaskManager {
             String input = in.nextLine();
             if (input.equals("bye")) {
                 break;
+
             } else if (input.equals("list")) {
                 printList();
+
             } else if (input.startsWith("mark")) {
                 String[] words = input.split(" ");
                 int index = Integer.parseInt(words[1]) - 1;
                 tasks[index].markTask(true);
                 markTask(index, true);
+
             } else if (input.startsWith("unmark")) {
                 String[] words = input.split(" ");
                 int index = Integer.parseInt(words[1]) - 1;
                 tasks[index].markTask(false);
                 markTask(index, false);
+
             } else {
                 Task task = new Task(input);
                 addTask(task, input);
