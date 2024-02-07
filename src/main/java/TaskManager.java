@@ -3,30 +3,30 @@ import java.util.Scanner;
 public class TaskManager {
     private Task[] tasks;
     private int taskCount;
+    private static final String BORDER = "______________________________________________________________\n";
 
     private void printList() {
-        System.out.println("______________________________________________________________\n"
-                + " Here are the tasks in your list:");
+        System.out.println(BORDER + " Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.println(" " + (i + 1) + ". [" + tasks[i].getTaskType() + "] "
                     + "[" + tasks[i].getStatusIcon() + "] "
                     + tasks[i].getDescription());
         }
-        System.out.println("_____________________________________________________________");
+        System.out.println(BORDER);
     }
 
-    private void markTask(int index, boolean isDone) {
-        if (isDone) {
-            System.out.println("______________________________________________________________\n"
-                    + " Good job! I've marked this task as done:\n"
-                    + " [X] " + tasks[index].getDescription() + "\n"
-                    + "_____________________________________________________________");
-        } else {
-            System.out.println("______________________________________________________________\n"
-                    + " Okay! I've marked this task as not done yet:\n"
-                    + " [" + tasks[index].getTaskType() + "] " + tasks[index].getDescription() + "\n"
-                    + "_____________________________________________________________");
-        }
+    private void markTask(int index) {
+        System.out.println(BORDER + " Good job! I've marked this task as done:\n"
+                    + " [" + tasks[index].getStatusIcon() + "] " + tasks[index].getDescription() + "\n"
+                    + BORDER);
+    }
+
+    private void handleMarking(String input) {
+        String[] parts = input.split(" ");
+        int index = Integer.parseInt(parts[1]) - 1;
+        boolean isDone = input.startsWith("mark");
+        tasks[index].markTask(isDone);
+        markTask(index);
     }
 
     private void addTask(Task task, String input) {
@@ -57,11 +57,10 @@ public class TaskManager {
     }
 
     private void printTask(Task task) {
-        System.out.println("______________________________________________________________\n"
-                + " Got it. I've added this task:\n"
+        System.out.println(BORDER + " Got it. I've added this task:\n"
                 + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + " Now you have " + (taskCount + 1) + " tasks in the list.\n"
-                + "_____________________________________________________________");
+                + " Now you have " + taskCount + " tasks in the list.\n"
+                + BORDER);
     }
 
     public TaskManager() {
@@ -77,17 +76,8 @@ public class TaskManager {
             } else if (input.equals("list")) {
                 printList();
 
-            } else if (input.startsWith("mark")) {
-                String[] words = input.split(" ");
-                int index = Integer.parseInt(words[1]) - 1;
-                tasks[index].markTask(true);
-                markTask(index, true);
-
-            } else if (input.startsWith("unmark")) {
-                String[] words = input.split(" ");
-                int index = Integer.parseInt(words[1]) - 1;
-                tasks[index].markTask(false);
-                markTask(index, false);
+            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+                handleMarking(input);
 
             } else {
                 Task task = new Task(input);
