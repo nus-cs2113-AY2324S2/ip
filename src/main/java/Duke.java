@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class Duke {
     public static void printTasks(Task[] tasks, int taskCount) {
         System.out.println("Here are the tasks in your list:");
@@ -30,9 +29,9 @@ public class Duke {
         System.out.println("Hello! I'm Ms Chatty :)");
         System.out.println("What can I do for you?");
 
-
         String userCommand;
         Task[] tasks = new Task[100];
+        String[] arrayOfCommand = new String[4];
         int taskCount = 0;
         Scanner in = new Scanner(System.in);
         userCommand = in.nextLine();
@@ -42,52 +41,27 @@ public class Duke {
                 printTasks(tasks, taskCount);
                 userCommand = in.nextLine();
                 continue;
-            }
-            else if (userCommand.contains("unmark ")) {
-                String numberExtracted = userCommand.replaceAll("[^0-9]", "");
-                int taskNumber = Integer.parseInt(numberExtracted);
+            } else if (userCommand.contains("unmark ")) {
+                int taskNumber = Task.extractNumber(userCommand);
                 unmarkTask(tasks,taskNumber-1);
                 userCommand = in.nextLine();
                 continue;
-            }
-            else if (userCommand.contains("mark ")) {
-                String numberExtracted = userCommand.replaceAll("[^0-9]", "");
-                int taskNumber = Integer.parseInt(numberExtracted);
+            } else if (userCommand.contains("mark ")) {
+                int taskNumber = Task.extractNumber(userCommand);
                 markTask(tasks,taskNumber-1);
                 userCommand = in.nextLine();
                 continue;
-            }
-            else if (userCommand.contains("todo")) {
-                String[] arrayOfCommand = new String[2];
+            } else if (userCommand.contains("todo")) {
                 arrayOfCommand = userCommand.split(" ", 2);
                 tasks[taskCount] = new Todo(arrayOfCommand[1]);
-                System.out.println("Got it. I've added this task:");
-                tasks[taskCount].printTask();
-            }
-            else if (userCommand.contains("deadline")) {
-                String[] arrayOfCommand = new String[2];
-                String[] tempArray = new String[2];
-                String temp;
-                arrayOfCommand = userCommand.split(" ",2);
-                temp = arrayOfCommand[1];
-                tempArray = temp.split("/by", 2);
-                tasks[taskCount] = new Deadline(tempArray[0], tempArray[1]);
-                System.out.println("Got it. I've added this task:");
-                tasks[taskCount].printTask();
-            }
-            else if (userCommand.contains("event")) {
-                String[] arrayOfCommand = new String[2];
-                String[] tempArray = new String[3];
-                String temp;
-                arrayOfCommand = userCommand.split(" ",2);
-                temp = arrayOfCommand[1];
-                tempArray = temp.split(" /from | /to ");
-                tasks[taskCount] = new Event(tempArray[0], tempArray[1], tempArray[2]);
-                System.out.println("Got it. I've added this task:");
-                tasks[taskCount].printTask();
-            }
+            } else if (userCommand.contains("deadline")) {
+                arrayOfCommand = userCommand.split("deadline | /by");
+                tasks[taskCount] = new Deadline(arrayOfCommand[1], arrayOfCommand[2]);
 
-            else {
+            } else if (userCommand.contains("event")) {
+                arrayOfCommand = userCommand.split("event | /from | /to ");
+                tasks[taskCount] = new Event(arrayOfCommand[1], arrayOfCommand[2], arrayOfCommand[3]);
+            } else {
                 tasks[taskCount] = new Task(userCommand);
                 taskCount++;
                 System.out.println("added: " + userCommand);
@@ -95,11 +69,12 @@ public class Duke {
                 continue;
             }
 
+            System.out.println("Got it. I've added this task:");
+            tasks[taskCount].printTask();
             taskCount++;
             System.out.println("Now you have " + taskCount + " task(s) in the list.");
             userCommand = in.nextLine();
         }
-
 
         System.out.println("Bye! Hope to see you again :)");
     }
