@@ -1,6 +1,4 @@
-
 import java.util.Scanner;
-//import java.util.Arrays;
 
 public class Aragorn {
 
@@ -38,12 +36,16 @@ public class Aragorn {
             if (userInput.contains("unmark")) {
                 index = Integer.parseInt(userInput.substring(7)) - 1;
                 list[index].markAsUndone();
+                System.out.println(LINE + TAB + "OK, I've marked this task as not done yet:\n" + TAB +
+                        "   [ ] " + list[index].getDescription() +"\n" + LINE);
                 continue;
             }
 
             else if (userInput.contains("mark")) {
                 index = Integer.parseInt(userInput.substring(5)) - 1;
                 list[index].markAsDone();
+                System.out.println(LINE + TAB + "Nice! I've marked this task as done:\n" + TAB +
+                        "   [X] " + list[index].getDescription() +"\n" + LINE);
                 continue;
             }
 

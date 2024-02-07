@@ -24,10 +24,6 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public void setDone(boolean done) {
         isDone = done;
     }
