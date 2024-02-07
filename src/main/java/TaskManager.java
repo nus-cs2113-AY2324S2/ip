@@ -29,32 +29,51 @@ public class TaskManager {
         markTask(index);
     }
 
-    private void addTask(Task task, String input) {
-        if (input.startsWith("todo")) {
-            String todoDescription = input.substring(5);
-            tasks[taskCount] = new Todo(todoDescription);
-            printTask(tasks[taskCount]);
-
-        } else if (input.startsWith("deadline")) {
-            String[] deadlineDetails = input.split(" /by ");
-            String description = deadlineDetails[0].substring(9);
-            String by = (deadlineDetails.length > 1) ? deadlineDetails[1] : "null";
-            tasks[taskCount] = new Deadline(description, by);
-            printTask(tasks[taskCount]);
-
-        } else if (input.startsWith("event")) {
-            String[] eventDetails = input.split(" /from | /to ");
-            String description = eventDetails[0].substring(6);
-            String from = (eventDetails.length > 1) ? eventDetails[1] : "null";
-            String to = (eventDetails.length > 2) ? eventDetails[2] : "null";
-            tasks[taskCount] = new Event(description, from, to);
-            printTask(tasks[taskCount]);
-
-        } else {
+    // Adds a task based on the input provided.
+    private void addTask(String input) {
+        Task task = createTaskFromInput(input);
+        if (task != null) {
             tasks[taskCount] = task;
-            printTask(tasks[taskCount]);
+            taskCount++;
+            printTask(task);
+        } else {
+            System.out.println("Unknown task type. Please enter a todo, deadline or event task.");
         }
     }
+
+    private Task createTaskFromInput(String input) {
+        if (input.startsWith("todo")) {
+            return createTodoTask(input);
+        } else if (input.startsWith("deadline")) {
+            return createDeadlineTask(input);
+        } else if (input.startsWith("event")) {
+            return createEventTask(input);
+        }
+        return null; // Return null if the task type is unknown.
+    }
+
+     private Todo createTodoTask(String input) {
+        String description = input.substring(5).trim(); // Removing 'todo ' prefix.
+        return new Todo(description);
+    }
+
+    // Creates a Deadline task from the input.
+    private Deadline createDeadlineTask(String input) {
+        String[] deadlineDetails = input.split(" /by ", 2);
+        String description = deadlineDetails[0].substring(9).trim(); // Removing 'deadline ' prefix.
+        String by = deadlineDetails.length > 1 ? deadlineDetails[1] : "No deadline specified";
+        return new Deadline(description, by);
+    }
+
+    // Creates an Event task from the input.
+    private Event createEventTask(String input) {
+        String[] eventDetails = input.split(" /from | /to ");
+        String description = eventDetails[0].substring(6).trim(); // Removing 'event ' prefix.
+        String from = (eventDetails.length > 1) ? eventDetails[1] : "No start time specified";
+        String to = (eventDetails.length > 2) ? eventDetails[2] : "No end time specified";
+        return new Event(description, from, to);
+    }
+
 
     private void printTask(Task task) {
         System.out.println(BORDER + " Got it. I've added this task:\n"
@@ -81,8 +100,7 @@ public class TaskManager {
 
             } else {
                 Task task = new Task(input);
-                addTask(task, input);
-                taskCount++;
+                addTask(input);
             }
         }
     }
