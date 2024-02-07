@@ -1,70 +1,108 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void printList(Task[] list) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) {
-                System.out.println();
-                return;
-            }
-            System.out.println(Integer.toString(i+1) + ". [" + list[i].getStatusIcon() + "] " + list[i].description);
-        }
-    }
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_MARK= "mark";
+    private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_EXIT = "bye";
 
-    public static void markTask(Task[] list, String line) {
-        int taskNumber = Integer.parseInt(line.substring(5));
-        list[taskNumber-1].markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + list[taskNumber-1].getStatusIcon() + "] " + list[taskNumber-1].description + "\n");
-    }
+    private static final String MESSAGE_ADD = "added: ";
+    private static final String MESSAGE_EMPTY_LIST = "Your list is empty.";
+    private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
+    private static final String MESSAGE_LIST_HEADER = "Here are the tasks in your list:";
+    private static final String MESSAGE_MARK = "Nice! I've marked this task as done:";
+    private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:";
+    private static final String MESSAGE_WELCOME = "Hello! I'm FredBot.\nWhat can I do for you?";
 
-    public static void unmarkTask(Task[] list, String line) {
-        int taskNumber = Integer.parseInt(line.substring(7));
-        list[taskNumber-1].unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + list[taskNumber-1].getStatusIcon() + "] " + list[taskNumber-1].description + "\n");
-    }
+    private static final Scanner SCANNER = new Scanner(System.in);
 
-    public static String readCommand(String line) {
-        if (!line.contains(" ")) {
-            return line;
-        }
-        else {
-            return line.substring(0, line.indexOf(" "));
-        }
-    }
+    private static Task[] allTasks;
+    private static final int TASK_CAPACITY = 100;
+    private static int count;
 
     public static void main(String[] args) {
-        String line;
-        String command;
-        Scanner in = new Scanner(System.in);
-        Task[] list = new Task[100];
-
-        System.out.println("Hello! I'm FredBot.\nWhat can I do for you?\n");
-
-        line = in.nextLine();
-        command = readCommand(line);
-        int i = 0;
-        while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                printList(list);
-            }
-            else if (command.equals("mark")) {
-                markTask(list, line);
-            }
-            else if (command.equals("unmark")) {
-                unmarkTask(list, line);
-            }
-            else {
-                list[i] = new Task(line);
-                i++;
-                System.out.println("added: " + line + "\n");
-            }
-            line = in.nextLine();
-            command = readCommand(line);
+        initTaskList();
+        showWelcomeMessage();
+        while (true) {
+            String command = readUserInput();
+            executeCommand(command);
         }
+    }
 
-        System.out.println("Bye. Hope to see you again soon!");
+    private static void executeList() {
+        if (count == 0) {
+            System.out.println(MESSAGE_EMPTY_LIST);
+            return;
+        }
+        System.out.println(MESSAGE_LIST_HEADER);
+        for (int i = 0; i < count; i++) {
+            System.out.println((i+1) + ". " + allTasks[i].getStatusIcon() + " " + allTasks[i].description);
+        }
+    }
+
+    private static void executeMark(String taskNumber) {
+        int index = Integer.parseInt(taskNumber) - 1;
+        allTasks[index].markAsDone();
+        System.out.println(MESSAGE_MARK);
+        System.out.println(allTasks[index].getStatusIcon() + " " + allTasks[index].description);
+    }
+
+    private static void executeUnmark(String taskNumber) {
+        int index = Integer.parseInt(taskNumber) - 1;
+        allTasks[index].unmarkAsDone();
+        System.out.println(MESSAGE_UNMARK);
+        System.out.println(allTasks[index].getStatusIcon() + " " + allTasks[index].description);
+    }
+
+    private static void executeExit() {
+        System.out.println(MESSAGE_GOODBYE);
+        System.exit(0);
+    }
+
+    private static void executeAdd(String input) {
+        allTasks[count] = new Task(input);
+        count++;
+        System.out.println(MESSAGE_ADD + input);
+    }
+
+    private static void initTaskList() {
+        allTasks = new Task[TASK_CAPACITY];
+        count = 0;
+    }
+
+    private static void showWelcomeMessage() {
+        System.out.println(MESSAGE_WELCOME);
+    }
+
+    private static String readUserInput() {
+        return SCANNER.nextLine();
+    }
+
+    private static void executeCommand(String input) {
+        final String[] commandWordAndArgs = splitCommandWordAndArgs(input);
+        final String commandWord = commandWordAndArgs[0];
+        final String commandArgs = commandWordAndArgs[1];
+        switch (commandWord) {
+            case COMMAND_LIST:
+                executeList();
+                break;
+            case COMMAND_MARK:
+                executeMark(commandArgs);
+                break;
+            case COMMAND_UNMARK:
+                executeUnmark(commandArgs);
+                break;
+            case COMMAND_EXIT:
+                executeExit();
+                break;
+            default:
+                executeAdd(input);
+                break;
+        }
+    }
+
+    private static String[] splitCommandWordAndArgs(String input) {
+        final String[] split = input.split(" ", 2);
+        return split.length == 2 ? split : new String[] { split[0] , "" };
     }
 }
