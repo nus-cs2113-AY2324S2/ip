@@ -7,6 +7,10 @@ public class TaskList {
     public void addToTaskList(Task task) {
         tasks.add(task);
         numberOfTasks++;
+        printAddTaskMessage(task);
+    }
+
+    private void printAddTaskMessage(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.print("\t" + task);
         System.out.printf("Now you have %d tasks in the list.\n", numberOfTasks);
