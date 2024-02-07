@@ -5,6 +5,6 @@ added: the dance of the magpie frings
 1. forage for wood [ ]
 2. start a fire [ ] by: night
 3. the dance of the magpie frings from dusk to dawn
-Invalid action
+I'm sorry. I'm afraid I can't do that.
 Task start a fire marked as done.
-Glad to help. Bye!
+Till we meet again.
