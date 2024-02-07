@@ -1,4 +1,3 @@
-import java.util.List;
 public class Greet {
 
     public void printHyphen() {
@@ -22,41 +21,12 @@ public class Greet {
         printHyphen();
     }
 
-    public void printList(List<Task> taskList) {
-        printHyphen();
-        System.out.println();
-        for(int i = 0; i < taskList.size(); i++) {
-            System.out.print(i+1 + ".");
-            Task task = taskList.get(i);
-            System.out.print("[" + task.getStatusIcon() + "] ");
-            System.out.println(task.getDescription());
+    public void printNumTasks(int numTasks) {
+        if(numTasks == 1) {
+            System.out.println("Now you have " + numTasks + " task in the list.");
+        } else {
+            System.out.println("Now you have " + numTasks + " tasks in the list.");
         }
-        printHyphen();
-        System.out.println();
-    }
-
-    public void markTaskAsDone(List<Task> taskList, int taskNumber) {
-        printHyphen();
-        System.out.println();
-        Task task = taskList.get(taskNumber);
-        task.setIsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.print("[" + task.getStatusIcon() + "] ");
-        System.out.println(taskList.get(taskNumber).getDescription());
-        printHyphen();
-        System.out.println();
-    }
-
-    public void markTaskAsUndone(List<Task> taskList, int taskNumber) {
-        printHyphen();
-        System.out.println();
-        Task task = taskList.get(taskNumber);
-        task.setIsNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.print("[" + task.getStatusIcon() + "] ");
-        System.out.println(taskList.get(taskNumber).getDescription());
-        printHyphen();
-        System.out.println();
     }
 
 }
