@@ -41,7 +41,14 @@ public class Katleen {
                 ToDo task = new ToDo(text);
                 tasks[i] = task;
                 tasks[i].printTask();
-            } else {
+            } else if (cmdWord.equals("deadline")) {
+                System.out.println("Added: ");
+                int i = Task.getTaskCount();
+                String by = text.substring(text.indexOf("/by")).trim();
+                Deadline task = new Deadline(text, by);
+                tasks[i] = task;
+                tasks[i].printTask();
+            }else {
                 System.out.println("Invalid command, please try again");
             }
             System.out.println(LINE);
