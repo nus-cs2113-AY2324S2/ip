@@ -1,16 +1,12 @@
-public class Task {
-    private final String taskName;
-    private final int taskId;
-    private final boolean isCompleted;
+abstract public class Task {
+    protected final String taskName;
+    protected final int taskId;
+    protected final boolean isCompleted;
 
-    private Task(String taskName, int taskId, boolean isCompleted) {
+    protected Task(String taskName, int taskId, boolean isCompleted) {
         this.taskName = taskName;
         this.taskId = taskId;
         this.isCompleted = isCompleted;
-    }
-
-    public Task(String taskName, int taskId) {
-        this(taskName, taskId, false);
     }
 
     public String getTaskName() {
@@ -21,15 +17,12 @@ public class Task {
         return taskId;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
+    abstract public Task completeTask();
 
-    public Task completeTask() {
-        return new Task(this.taskName, this.taskId, true);
-    }
+    abstract public Task uncompleteTask();
 
-    public Task uncompleteTask() {
-        return new Task(this.taskName, this.taskId, false);
+    @Override
+    public String toString() {
+        return (isCompleted) ? String.format("[X] %s", this.taskName) : String.format("[ ] %s", this.taskName);
     }
 }
