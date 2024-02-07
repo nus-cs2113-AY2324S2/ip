@@ -6,13 +6,27 @@ public class Hubert {
         String markIndexChar = line.substring(num, line.length());
         return Integer.parseInt(markIndexChar) - 1;
     }
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
 
+    private static Task addTask(String line) {
+        Task task;
+        int n = line.length();
+        if (line.startsWith("todo")) {
+            task = new Todo(line.substring(5, n));
+        } else if (line.startsWith("deadline")) {
+            String description = line.substring(9, n);
+            String[] deadline = description.split(" /by ");
+            task = new Deadline(deadline[0], deadline[1]);
+        } else if (line.startsWith("event")) {
+            String description = line.substring(6, n);
+            String[] start = description.split(" /from ");
+            String[] end = start[1].split(" /to ");
+            task = new Event(start[0], end[0], end[1]);
+        } else {
+            task = new Task(line);
+        }
+        return task;
+    }
+    public static void main(String[] args) {
         //greetings
         String horizontal = "____________________________________________________________";
         String botName = "Hubert";
@@ -50,8 +64,10 @@ public class Hubert {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[markIndexInt]);
             } else {
-                System.out.println("added: " + line);
-                tasks[indexTask] = new Task(line);
+                tasks[indexTask] = addTask(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[indexTask]);
+                System.out.println("Now you have " + (indexTask + 1) + " tasks in the list.");
                 indexTask++;
             }
             System.out.println(horizontal);
