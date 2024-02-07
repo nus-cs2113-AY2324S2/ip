@@ -1,0 +1,14 @@
+todo homework
+deadline CS2113T assignment /by Thursday
+event Coldplay concert /from 5pm /to 8pm
+list
+mark 1
+todo buy books
+mark 3
+event open house /from friday /to sunday
+mark 4
+list
+unmark 3
+unmark 1
+list
+bye
