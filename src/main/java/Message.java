@@ -41,5 +41,4 @@ public class Message {
     public static final String MARK_MESSAGE = "Ta-da! Task conquered! I've marked this task as done:\n";
 
     public static final String UNMARK_MESSAGE = "Whoopsie-daisy! This task is back in action:\n";
-
 }

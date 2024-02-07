@@ -5,7 +5,6 @@ public class Adam {
         Scanner sc = new Scanner(System.in);
         TaskList tasks = new TaskList();
         String input;
-        Command command;
 
         System.out.println(Message.GREETING_MESSAGE);
 
@@ -13,20 +12,12 @@ public class Adam {
             input = sc.nextLine();
             System.out.print(Message.DELIMITER);
 
-            if (input.equals("bye")) {
-                command = new ExitCommand();
-                sc.close();
-            } else if (input.equals("list")) {
-                command = new ListCommand();
-            } else if (input.matches("^(mark [0-9]|unmark [0-9])")) {
-                command = new ToggleStatusCommand(input);
-            } else {
-                command = new AddTaskCommand(input);
+            if (new CommandGenerator().apply(input).isPresent()) {
+                Command command = new CommandGenerator().apply(input).get();
+                command.execute(tasks);
             }
 
-            command.execute(tasks);
             System.out.println(Message.DELIMITER);
         }
-
     }
 }

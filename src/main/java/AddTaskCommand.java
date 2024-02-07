@@ -1,13 +1,13 @@
 public class AddTaskCommand implements Command {
-    private final String taskDescription;
+    private final String[] taskDescriptions;
 
-    public AddTaskCommand(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public AddTaskCommand(String[] taskDescriptions) {
+        this.taskDescriptions = taskDescriptions;
     }
 
     @Override
     public void execute(TaskList tasks) {
-        tasks.addTask(new Task(this.taskDescription));
-        System.out.println("added: " + this.taskDescription);
+        tasks.addTask(new TaskGenerator().apply(taskDescriptions).orElseThrow());
+        System.out.println("added: " + tasks.getTask(tasks.size()));
     }
 }

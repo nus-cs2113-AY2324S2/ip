@@ -17,6 +17,10 @@ public class TaskList {
         return this.tasks.get(index - 1);
     }
 
+    public int size() {
+        return tasks.size();
+    }
+
     public void displayAll() {
         IntStream.rangeClosed(1, tasks.size())
                 .mapToObj(index -> index + "." + getTask(index))
