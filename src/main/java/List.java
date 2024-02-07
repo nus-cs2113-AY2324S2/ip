@@ -31,6 +31,24 @@ public class List {
         Omoh.printHorizontalLine();
     }
 
+    public void addTaskAndDeadline (String input) {
+        Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
+        tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
+        totalTasks++;
+        printTaskAndDeadline(extractedInfo);
+    }
+
+    public void printTaskAndDeadline(Deadline description) {
+        Omoh.printHorizontalLine();
+        System.out.print("     ");
+        System.out.println("Got it. I've added this task:");
+        System.out.print("       ");
+        System.out.println("[D][ ]" + description.description + " (by: " + description.by + ")" );
+        System.out.print("     ");
+        System.out.println("Now you have " + totalTasks + " in the list.");
+        Omoh.printHorizontalLine();
+    }
+
     public static void markAsDone(int index) {
         tasks[index - 1].isDone = true;
     }

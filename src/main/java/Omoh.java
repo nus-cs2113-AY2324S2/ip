@@ -40,7 +40,13 @@ public class Omoh {
             if (line.equalsIgnoreCase("list")) {
                 printAllTasks();
                 line = in.nextLine();
-            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
+            } else if (line.startsWith("deadline")) {
+                myTaskList.addTaskAndDeadline(line);
+
+                line = in.nextLine();
+
+            }
+            else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 int taskNumber = extractTaskNumber(line);
                 modifyDoneState(taskNumber, line);
                 List.printMarkTask(taskNumber, line);
