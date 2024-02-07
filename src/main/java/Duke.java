@@ -48,7 +48,6 @@ public class Duke {
                     String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH);
                     todos[todosCount] = new Deadline(deadlineDescription, deadlineBy);
                 } else {
-                    //BUG IN FROM AND TO
                     int fromSlashIndex = line.indexOf("/");
                     String substringBeforeFrom = line.substring(0, fromSlashIndex + 1);
 
