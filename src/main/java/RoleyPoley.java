@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class RoleyPoley {
     public static void main(String[] args) {
@@ -49,8 +51,7 @@ public class RoleyPoley {
                         int taskNum = Integer.parseInt(words[1]);
                         if (taskList[taskNum] == null) {
                             System.out.println("Error! Out of Bounds!");
-                        }
-                        else {
+                        } else {
                             taskList[taskNum].markAsDone();
                         }
                         createLine();
@@ -61,7 +62,6 @@ public class RoleyPoley {
                         counter++;
                     }
                 }
-
             } else if (line.startsWith("unmark")) {
                 String[] words = line.split(" ");
                 if (words.length == 2) {
@@ -69,8 +69,7 @@ public class RoleyPoley {
                         int taskNum = Integer.parseInt(words[1]);
                         if (taskList[taskNum] == null) {
                             System.out.println("Error! Out of Bounds!");
-                        }
-                        else {
+                        } else {
                             taskList[taskNum].markAsUndone();
                         }
                         createLine();
