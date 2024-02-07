@@ -1,0 +1,7 @@
+todo forage for wood
+deadline start a fire /by night
+event the dance of the magpie frings /from dusk /to dawn
+list
+build a hut
+mark 2
+bye
