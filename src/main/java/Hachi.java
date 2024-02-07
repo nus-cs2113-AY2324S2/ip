@@ -234,7 +234,7 @@ public class Hachi {
                 case "TODO":
                 case "EVENT":
                 case "DEADLINE":
-                    TaskType currentTask = TaskType.TASK;
+                    TaskType currentTask;
                     if (cleanedInput.startsWith("TODO")) {
                         currentTask = TaskType.TODO;
                     } else if (cleanedInput.startsWith("DEADLINE")) {

@@ -1,0 +1,12 @@
+list
+todo go to school
+list
+event chinese new year /from friday /to 15 days after friday
+list
+deadline project review /by thursday
+list
+mark 1
+mark 2
+list
+unmark 2
+bye
