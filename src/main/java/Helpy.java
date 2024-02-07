@@ -2,21 +2,21 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Helpy {
+    public static final String HORIZONTAL_LINE = "______________________\n";
+
     public static void greetUser() {
-        String horizontalLine = "______________________\n";
         String name = "░▒█░▒█░▒█▀▀▀░▒█░░░░▒█▀▀█░▒█░░▒█\n" +
                 "░▒█▀▀█░▒█▀▀▀░▒█░░░░▒█▄▄█░▒▀▄▄▄▀\n" +
                 "░▒█░▒█░▒█▄▄▄░▒█▄▄█░▒█░░░░░░▒█░░\n";
-        System.out.println(horizontalLine
+        System.out.println(HORIZONTAL_LINE
                 + "Greetings, I am\n" + name);
-        System.out.println("How can I help you?\n" + horizontalLine);
+        System.out.println("How can I help you?\n" + HORIZONTAL_LINE);
     }
 
     public static void listTasks(ArrayList<Task> taskList) {
         int label = 1;
-        String horizontalLine = "______________________\n";
 
-        System.out.print(horizontalLine);
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("These are the tasks in your list:");
         for (Task task : taskList) {
             String statusIcon = task.getStatusIcon();
@@ -24,36 +24,33 @@ public class Helpy {
             System.out.println("." + statusIcon + " " + task.getTaskName());
             label++;
         }
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void printIndexError() {
-        String horizontalLine = "______________________\n";
 
-        System.out.print(horizontalLine);
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("Invalid task number. "
                 + "Please check the task number again.");
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void markTask(Task task) {
         task.setDone(true);
-        String horizontalLine = "______________________\n";
 
-        System.out.print(horizontalLine);
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("Good job! I've marked this task as done:");
         System.out.println("\t[X] " + task.getTaskName());
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void unmarkTask(Task task) {
         task.setDone(false);
-        String horizontalLine = "______________________\n";
 
-        System.out.print(horizontalLine);
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("Ok, this task has been marked as not done yet:");
         System.out.println("\t[ ] " + task.getTaskName());
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void addTask(String command, ArrayList<Task> taskList) {
@@ -90,17 +87,15 @@ public class Helpy {
         Task newTask = new Task(command);
         taskList.add(newTask);
 
-        String horizontalLine = "______________________\n";
-        System.out.print(horizontalLine);
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("I have added: " + command);
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void goodbyeUser() {
-        String horizontalLine = "______________________\n";
-        System.out.print(horizontalLine);
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("Goodbye, see you next time!");
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
