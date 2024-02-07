@@ -199,6 +199,7 @@ public class Hachi {
      */
 
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         spacerInsert("medium", false);
         boolean isBye = false;
         Task[] listOfTasks = new Task[100];
@@ -206,7 +207,6 @@ public class Hachi {
         printHelpMessage();
 
         while (!isBye) {
-            Scanner in = new Scanner(System.in);
             String line = in.nextLine();
             String cleanedInput = line.toUpperCase().trim();
             int indexOfSpace = cleanedInput.indexOf(" ");

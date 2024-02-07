@@ -21,3 +21,31 @@ You can use the following commands:
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     The following are in your list:
+    Added to list: go to school
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    The following are in your list:
+    1: [T] [ ] go to school
+    Added to list: chinese new year (from: friday to: 15 days after friday)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    The following are in your list:
+    1: [T] [ ] go to school
+    2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
+    Added to list: project review (by: thursday)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    The following are in your list:
+    1: [T] [ ] go to school
+    2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
+    3: [D] [ ] project review (by: thursday)
+    Sure, I've marked this task as done:
+    1: [X] go to school
+    Sure, I've marked this task as done:
+    2: [X] chinese new year (from: friday to: 15 days after friday)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    The following are in your list:
+    1: [T] [X] go to school
+    2: [E] [X] chinese new year (from: friday to: 15 days after friday)
+    3: [D] [ ] project review (by: thursday)
+    Okay, marking this task as incomplete now:
+    2: [ ] chinese new year (from: friday to: 15 days after friday)
+    Goodbye! Hope you have a marvelous day.
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
