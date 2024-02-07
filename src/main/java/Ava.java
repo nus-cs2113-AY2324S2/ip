@@ -2,8 +2,6 @@ import java.util.Scanner;
 
 public class Ava {
 
-    private static boolean isExit = false;
-
     public static void main(String[] args) {
         greet();
         mainProcess();
@@ -11,6 +9,7 @@ public class Ava {
     }
 
     public static void mainProcess() {
+        boolean isExit = false;
         Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
         while (!isExit) {
@@ -19,7 +18,7 @@ public class Ava {
                 isExit = true;
                 continue;
             } else if (task.equals("list")) {
-                listTask(tasks, Task.getNumberOfTasks());
+                listTask(tasks);
                 continue;
             } else if (task.contains("mark")) {
                 markTask(tasks, task);
@@ -39,8 +38,8 @@ public class Ava {
     }
 
     public static String[] trimTask(String task, String type) {
-            task = task.replace(type, "");
-            return task.split("/");
+        task = task.replace(type, "");
+        return task.split("/");
     }
 
     public static void addTask(Task[] tasks) {
@@ -56,32 +55,32 @@ public class Ava {
     }
 
     public static void markTask(Task[] tasks, String command) {
+        printLine();
+        boolean isMark = true;
+        int taskChanged = 0;
         if (command.startsWith("unmark")) {
-            printLine();
-            command = command.replace("unmark ", "");
-            int changedTask = Integer.parseInt(command);
-            tasks[changedTask - 1].markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  [" + tasks[changedTask - 1].getStatusIcon() + "] "
-                    + tasks[changedTask - 1].getDescription());
-            printLine();
-        } else {
-            printLine();
-            command = command.replace("mark ", "");
-            int changedTask = Integer.parseInt(command);
-            tasks[changedTask - 1].markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  [" + tasks[changedTask - 1].getStatusIcon() + "] "
-                    + tasks[changedTask - 1].getDescription());
-            printLine();
+            isMark = false;
         }
+        if (isMark) {
+            command = command.replace("mark ", "");
+            taskChanged = Integer.parseInt(command) - 1;
+            tasks[taskChanged].markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            command = command.replace("unmark ", "");
+            taskChanged = Integer.parseInt(command) - 1;
+            tasks[taskChanged].markAsNotDone();
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println(tasks[taskChanged].toString());
+        printLine();
     }
 
-    public static void listTask(Task[] tasks, int taskCount) {
+    public static void listTask(Task[] tasks) {
         printLine();
         System.out.println("Here are the tasks in your list:");
         int noOfTask = 0;
-        while (noOfTask < taskCount) {
+        while (noOfTask < Task.getNumberOfTasks()) {
             System.out.println((noOfTask + 1) + "." + tasks[noOfTask].toString());
             noOfTask += 1;
         }
