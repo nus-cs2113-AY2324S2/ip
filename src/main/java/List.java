@@ -101,60 +101,51 @@ public class List {
      * @return None
      */
     public void addItem(String description, String type) {
+        String taskName, taskStart, taskEnd;
         boolean isValid = true;
 
-        switch (type) {
-        case "T":
-            list.add(new Todo(description));
-            break;
+        try {
+            switch (type) {
+            case "T":
+                taskName = description;
+                list.add(new Todo(taskName));
+                break;
 
-        case "D":
-            String[] nameEnd = description.split(" /by ", 2);
-            if (nameEnd.length < 2) {
-                this.addItemError();
-                return;
+            case "D":
+                String[] nameEnd = description.split(" /by ", 2);
+                taskName = nameEnd[0];
+                taskEnd = nameEnd[1];
+
+                list.add(new Deadline(taskName, taskEnd));
+                break;
+
+            case "E":
+                String[] nameTimes = description.split(" /from ", 2);
+                String times = nameTimes[1];
+
+                String[] startEnd = times.split(" /to ", 2);
+                taskName = nameTimes[0];
+                taskStart = startEnd[0];
+                taskEnd = startEnd[1];
+
+                list.add(new Event(taskName, taskStart, taskEnd));
+                break;
+            
+            default:
+                isValid = false;
+                System.out.println("HUHHH? What is this even?");
+                break;
             }
-            String taskName = nameEnd[0];
-            String taskEnd = nameEnd[1];
-
-            list.add(new Deadline(taskName, taskEnd));
-            break;
-
-        case "E":
-            String[] nameTimes = description.split(" /from ", 2);
-
-            if (nameTimes.length < 2) {
-                this.addItemError();
-                return;
+            
+            if (isValid) {
+                size++;
+                System.out.println("Okey dokey here we go");
+                System.out.print(" ");
+                System.out.println(list.get(size - 1));
+                this.printSize();
             }
-
-            String times = nameTimes[1];
-            String[] startEnd = times.split(" /to ", 2);
-
-            if (startEnd.length < 2) {
-                this.addItemError();
-                return;
-            }
-
-            taskName = nameTimes[0];
-            String taskStart = startEnd[0];
-            taskEnd = startEnd[1];
-
-            list.add(new Event(taskName, taskStart, taskEnd));
-            break;
-        
-        default:
-            isValid = false;
-            System.out.println("HUHHH? What is this even?");
-            break;
-        }
-        
-        if (isValid) {
-            size++;
-            System.out.println("Okey dokey here we go");
-            System.out.print(" ");
-            System.out.println(list.get(size - 1));
-            this.printSize();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.addItemError();
         }
     }
 }
