@@ -10,6 +10,7 @@ public class Nick {
     public static final int FROM_OFFSET_IDX = 6;
     public static final int DEADLINE_OFFSET_IDX = 4;
     private static final Logger LOGGER = Logger.getLogger(Nick.class.getName());
+
     public static void main(String[] args) {
         printIntroName();
         printIntroMsg();
@@ -37,9 +38,11 @@ public class Nick {
             if (hasQuit) {
                 break;
             }
+
             taskExecution(command, commandAction, userTasks);
         }
     }
+
     public static void taskExecution(String command, String taskType, Task[] userTasks) {
         Task task;
         String taskName;
@@ -69,11 +72,14 @@ public class Nick {
             userTasks[taskCount] = task;
             break;
         }
+
         printAddTaskMsg(userTasks[taskCount].toString(), taskCount);
         taskCount++;
     }
+
     public static boolean continueExecution(String command, int taskCount, Task[] userTasks) {
         String commandAction = command.split(" ")[0];
+
         switch (commandAction) {
         case ("bye"):
             printByeMsg();
@@ -101,13 +107,16 @@ public class Nick {
             System.out.println("____________________________________________________________");
             break;
         }
+
         return true;
     }
+
     public static void printByeMsg() {
         System.out.println("____________________________________________________________");
         System.out.println("\t" + "Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
+
     public static void printAddTaskMsg(String taskName, int taskCount) {
         System.out.println("____________________________________________________________");
         System.out.println("\t" + "Got it. I've added this task:");
@@ -115,6 +124,7 @@ public class Nick {
         System.out.println("\t" + "Now you have " + (taskCount + 1) + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
+
     public static void printIntroName() {
         try {
             String name = new String(Files.readAllBytes(Paths.get("name.txt")));
@@ -123,6 +133,7 @@ public class Nick {
             LOGGER.severe(exception.toString());
         }
     }
+
     public static void printIntroMsg() {
         System.out.println("____________________________________________________________");
         System.out.println("Welcome to the Ultimate Nick Bot!");
