@@ -3,12 +3,43 @@ import java.util.Scanner;
 public class PeeKay {
     static String indent = "     ";
     static String line = "    ____________________________________________________________";
+    static Task[] list = new Task[100];
+    static int count = 0;
 
     public static void echo(String input) {
         if (input.equals("bye")) {
             System.out.println(indent + "Bye. Hope to see you again soon!");
         } else {
-            System.out.println(indent + "added: " + input);
+            System.out.println(indent + "Got it. I've added this task: ");
+            System.out.println((indent + "  " + list[count - 1].toString()));
+            String task = count == 1 ? "task " : "tasks ";
+            System.out.println(indent + "Now you have " + count + " " + task + "in the list.");
+        }
+    }
+
+    public static void createTask(String input) {
+        if (input.contains("todo")) {
+            list[count] = new ToDo(input.substring(input.indexOf("todo ") + 5));
+            count ++;
+            echo(input);
+        } else if (input.contains("deadline")) {
+            String Description = input.replaceFirst("deadline ", "");
+            int by = Description.indexOf("/");
+            String Date = Description.substring(by + 4);
+            list[count] = new Deadline(Description.substring(0, by - 1), Date);
+            count++;
+            echo(input);
+        } else if (input.contains("event")){
+            String Description = input.replaceFirst("event ", "");
+            int from = Description.indexOf("/from");
+            int by = Description.indexOf("/to");
+            String startDate = Description.substring(from + 6, by - 1);
+            String endDate = Description.substring(by + 4);
+            list[count] = new Event(Description.substring(0, from - 1), startDate, endDate);
+            count++;
+            echo(input);
+        }else {
+            echo(input);
         }
     }
 
@@ -19,32 +50,26 @@ public class PeeKay {
 
     public static void chat() {
         String input;
-        Task[] list = new Task[100];
-        int count = 0;
         do {
             input = new Scanner(System.in).nextLine();
             System.out.println(line);
             if (input.equals("list")) {
                 System.out.println(indent + "Here are the tasks in your list:");
                 for (int x = 0; x < count; x++) {
-                    System.out.println(indent + " " + (x + 1) + ".[" + (list[x].getStatusIcon()) + "] "
-                            + list[x].getDescription());
+                    System.out.println(indent + " " + (x + 1) + "." + list[x].toString());
                 }
             } else if (input.contains("unmark")) {
                 int idx = mark(input);
                 list[idx].setDone(false);
                 System.out.println(indent + "OK, I've marked this task as not done yet:");
-                System.out.println(indent + "[" + list[idx].getStatusIcon() + "] " + list[idx].getDescription());
+                System.out.println(indent + list[idx].toString());
             } else if (input.contains("mark")) {
                 int idx = mark(input);
                 list[idx].setDone(true);
                 System.out.println(indent + "Nice! I've marked this task as done:");
-                System.out.println(indent + "[" + list[idx].getStatusIcon() + "] " + list[idx].getDescription());
+                System.out.println(indent + list[idx].toString());
             } else {
-                Task t = new Task(input);
-                list[count] = t;
-                count++;
-                echo(input);
+                createTask(input);
             }
             System.out.println(line);
         } while (!input.equals("bye"));
