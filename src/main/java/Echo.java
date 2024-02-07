@@ -29,6 +29,80 @@ public class Echo {
                 System.out.println(break_line);
                 break;
 
+            case "todo":
+                if (parts.length < 2) {
+                    System.out.println("Todo description is missing.");
+                    break;
+                }
+                if (count == list.length) {
+                    list = Arrays.copyOf(list, count * 2);
+                }
+                // Joining all parts of the input after the first part (which is "todo")
+                String todoDescription = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                list[count] = new ToDo(todoDescription);
+                count++;
+                System.out.println(break_line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  [T][ ] " + todoDescription);
+                System.out.println("Now you have " + count + " tasks in the list.");
+                System.out.println(break_line);
+                break;
+
+            case "deadline":
+                if (!input.toLowerCase().startsWith("deadline")) {
+                    // Handle this as a generic task or provide a specific message
+                    System.out.println("Command not recognized. Please use 'deadline' for deadline tasks.");
+                    break;
+                }
+
+                String deadlineInput = input.substring("deadline".length()).trim();
+                if (!deadlineInput.contains("/by ")) {
+                    System.out.println("Deadline time is missing. Please use '/by' to specify the deadline.");
+                    break;
+                }
+
+                String[] deadlineParts = deadlineInput.split(" /by ", 2);
+                if (count == list.length) {
+                    list = Arrays.copyOf(list, count * 2);
+                }
+
+                list[count] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                count++;
+                System.out.println(break_line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  [D][ ] " + deadlineParts[0] + " (by: " + deadlineParts[1] + ")");
+                System.out.println("Now you have " + count + " tasks in the list.");
+                System.out.println(break_line);
+                break;
+
+            case "event":
+                if (!input.toLowerCase().startsWith("event")) {
+                    // Handle this as a generic task or provide a specific message
+                    System.out.println("Command not recognized. Please use 'event' for event tasks.");
+                    break;
+                }
+
+                String eventInput = input.substring("event".length()).trim();
+                if (!eventInput.contains("/from ") || !eventInput.contains("/to ")) {
+                    System.out.println("Event time details are missing. Please use '/from' and '/to' to specify the event timing.");
+                    break;
+                }
+
+                String[] eventParts = eventInput.split(" /from ", 2);
+                String[] timeParts = eventParts[1].split(" /to ", 2);
+                if (count == list.length) {
+                    list = Arrays.copyOf(list, count * 2);
+                }
+
+                list[count] = new Event(eventParts[0], timeParts[0], timeParts[1]);
+                count++;
+                System.out.println(break_line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  [E][ ] " + eventParts[0] + " (from: " + timeParts[0] + " to: " + timeParts[1] + ")");
+                System.out.println("Now you have " + count + " tasks in the list.");
+                System.out.println(break_line);
+                break;
+
             case "clearlist":
                 Arrays.fill(list, null); // Clearing the list
                 count = 0; // Resetting the count
@@ -79,9 +153,11 @@ public class Echo {
                 System.out.println("'mark' plus a number to mark that task as done");
                 System.out.println("'unmark' plus a number to unmark that task.");
                 System.out.println("'help' for list of instructions.");
+                System.out.println("'todo [description]' to add a new ToDo task");
+                System.out.println("'deadline [description] /by [time]' to add a new Deadline");
+                System.out.println("'event [description] /from [start time] /to [end time]' to add a new Event");
                 System.out.println(break_line);
                 break;
-
 
             default:
                 if (count == list.length) {
