@@ -9,10 +9,6 @@ abstract public class Task {
         this.isCompleted = isCompleted;
     }
 
-    public String getTaskName() {
-        return taskName;
-    }
-
     public int getTaskId() {
         return taskId;
     }
