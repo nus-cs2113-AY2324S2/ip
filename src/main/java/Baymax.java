@@ -3,20 +3,23 @@ import java.util.Scanner;
 public class Baymax {
     public static void main(String[] args) {
         String name = "Baymax";
-        System.out.println("Hello! I'm " + name + "\nWhat can I do for you?\n\n");
+        System.out.println("Hello! I'm " + name + ", your personal task manager." + System.lineSeparator() + "What can I do for you today?" + System.lineSeparator() + System.lineSeparator());
 
         Task[] list = new Task[100];
         int num = 0;
+        String text;
 
         while(true) {
-            String text;
 
             Scanner in = new Scanner(System.in);
             text = in.nextLine();
 
+            // "bye" -- terminate
             if (text.equalsIgnoreCase("bye")) {
                 break;
             }
+
+            // "mark" -- mark task
             else if (text.startsWith("mark")) {
                 int position = Integer.parseInt(text.substring(5)) - 1;
                 list[position].markAsDone();
@@ -24,6 +27,7 @@ public class Baymax {
                 System.out.println("[X] " + list[position].description);
             }
 
+            // "unmark" -- unmark task
             else if (text.startsWith("unmark")) {
                 int position = Integer.parseInt(text.substring(7)) - 1;
                 list[position].isDone = false;
@@ -31,24 +35,25 @@ public class Baymax {
                 System.out.println("[ ] " + list[position].description);
             }
 
+            // "list" -- displays tasks
             else if (text.equalsIgnoreCase("list")) {
                 for (int i = 0; i < 100; i++) {
 
                     if(list[i] == null) {
                         break;
                     }
-                    System.out.println(i+1 + ". " + "[" + list[i].getStatusIcon() + "] " + list[i].description);
+                    System.out.println(i+1 + ". " + "[" + list[i].type + "] " + "[" + list[i].getStatusIcon() + "] " + list[i].description);
                 }
             }
-            else {
-                System.out.println("added: " + text);
 
-                list[num] = new Task(text);
-                num++;
+            // "{other words}" -- ADD TASK
+            else {
+                Task.addTask(text, list, num);
+                num++; // need to account for error messages!
             }
         }
 
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("I hope you are satisfied with my service! Goodbye.");
     }
 
 }
