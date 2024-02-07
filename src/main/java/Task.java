@@ -7,6 +7,10 @@ public class Task {
         this.isDone = false;
         noOfTasks += 1;
     }
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); //mark done task with "X"
     }
