@@ -1,40 +1,38 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    // assume no more than 100 tasks for now
-    private static Task[] tasks = new Task[100];
-    private static int numTasks = 0;
-    private static void respond(String input) {
-        String[] inputWords = input.split(" ");
-        String query = inputWords[0];
-        switch (query) {
+    private static void handleLine(String line, TaskManager tmMaster) {
+        String request = line.split(" ")[0];
+        switch (request) {
         case "list":
-            for (int i = 0; i < numTasks; i += 1) {
-                System.out.println(Integer.toString(i + 1) + ". " + tasks[i].getDescription() + " [" + tasks[i].getStatusIcon() + "]");
-            }
+            tmMaster.listTasks();
             break;
         case "mark":
-            int taskIndex = Integer.parseInt(inputWords[1]) - 1;
-            if (taskIndex >= numTasks || taskIndex < 0) {
-                System.out.println("Task not found!");
-                return;
-            }
-            tasks[taskIndex].setDone();
-            System.out.println("Task " + tasks[taskIndex].getDescription() + " marked as done.");
+            tmMaster.markTask(Integer.parseInt(line.substring(5)) - 1);
+            break;
+        case "todo":
+            tmMaster.addTask(line.substring(5));
+            break;
+        case "deadline":
+            int byStringIndex = line.indexOf("/by");
+            tmMaster.addTask(line.substring(9, byStringIndex - 1), line.substring(byStringIndex + 4));
+            break;
+        case "event":
+            int fromStringIndex = line.indexOf("/from");
+            int toStringIndex = line.indexOf("/to");
+            tmMaster.addTask(line.substring(6, fromStringIndex - 1), line.substring(fromStringIndex + 6, toStringIndex - 1), line.substring(toStringIndex + 4));
             break;
         default:
-            tasks[numTasks % 100] = new Task(input);
-            numTasks += 1;
-            System.out.println("added: " + input);
+            System.out.println("Invalid action");
         }
     }
     public static void main(String[] args) {
-        System.out.println("Greetings! I am Blue, your personal chatbot assistant. How may I help you?");
+        System.out.println("Greetings! I'm Blue, your personal chatbot assistant. How may I be of service?");
         Scanner in = new Scanner(System.in);
+        TaskManager tmMaster = new TaskManager();
         for (String line = in.nextLine(); !line.equals("bye"); line = in.nextLine()) {
-            respond(line);
+            handleLine(line, tmMaster);
         }
-        System.out.println("Glad to be of service. Bye!");
+        System.out.println("Glad to help. Bye!");
     }
 }
