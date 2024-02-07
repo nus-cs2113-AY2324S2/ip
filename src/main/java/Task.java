@@ -6,8 +6,8 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-    public void setAsDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setIsDone(boolean status) {
+        this.isDone = status;
     }
 
     public boolean getIsDone() {

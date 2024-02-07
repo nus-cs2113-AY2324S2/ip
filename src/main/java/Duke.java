@@ -10,36 +10,34 @@ public class Duke {
         List inputlist = new List();
         while (true) {
             String x = userInput.nextLine();
-            boolean exit = x.equals("bye");
-            boolean list = x.equals("list");
-            boolean mark = x.startsWith("mark");
-            boolean unmark = x.startsWith("unmark");
-            if (exit) {
+            boolean canExit = x.equals("bye");
+            boolean canList = x.equals("list");
+            boolean canMark = x.startsWith("mark");
+            boolean canUnmark = x.startsWith("unmark");
+            if (canExit) {
+                printOutput("Bye. Hope to see you again soon!");
                 break;
-            } else if (list) {
-
-                printOutput("Here are the tasks in your list:\n" + inputlist.getInputList());
-            } else if (mark) {
+            } else if (canList) {
+                printOutput("Here are the tasks in your list:\n" + inputlist.getList());
+            } else if (canMark) {
                 int taskNum = Integer.parseInt(x.split(" ")[1]);
                 if (taskNum > inputlist.listSize()) {
                     System.out.println("Exceeded existing list size of: " + inputlist.listSize() + ". Please enter a valid number" + "\n");
                 } else {
                     inputlist.markAsDone(taskNum, true);
-                    String message = "Nice! I've marked this task as done: \n" + inputlist.getItemFromList(taskNum);
+                    String message = "Nice! I've marked this task as done: \n" + inputlist.getTask(taskNum);
                     printOutput(message);
                 }
-            } else if (unmark) {
+            } else if (canUnmark) {
                 int itemNo = Integer.parseInt(x.split(" ")[1]);
                 inputlist.markAsDone(itemNo, false);
-                String message = "OK, I've marked this task as not done yet: \n"
-                        + inputlist.getItemFromList(itemNo);
+                String message = "OK, I've marked this task as not done yet: \n" + inputlist.getTask(itemNo);
                 printOutput(message);
             } else {
-                inputlist.setInputList(x);
+                inputlist.addToList(x);
                 printOutput("added: " + x);
             }
         }
-        printOutput("Bye. Hope to see you again soon!");
     }
 
     private static void printOutput(String message) {
