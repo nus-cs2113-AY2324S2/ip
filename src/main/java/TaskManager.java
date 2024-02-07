@@ -56,21 +56,20 @@ public class TaskManager {
     /**
      * Update progress of Task in Task array
      */
-    public String updateTaskProgress(int taskId, String command) {
+    public String updateTaskProgress(int taskId, Command command) {
         String output;
         int currentTaskIndex = taskId - 1; // Index in array is ID - 1
         Task currentTask = tasks[currentTaskIndex];
-        String currentTaskName = currentTask.getTaskName();
 
-        if (command.equals("mark")) {
+        if (command.equals(Command.MARK)) {
             output = " Nice! I've marked this task as done:\n";
-            currentTask = currentTask.completeTask();
-            output += String.format("   [X] %s", currentTaskName);
+            currentTask = currentTask.markTaskAsComplete();
         } else {
             output = " OK, I've marked this task as not done yet:\n";
-            currentTask = currentTask.uncompleteTask();
-            output += String.format("   [ ] %s", currentTaskName);
+            currentTask = currentTask.markTaskAsIncomplete();
         }
+
+        output += String.format("   %s", currentTask);
 
         tasks[currentTaskIndex] = currentTask; // Update array
 
