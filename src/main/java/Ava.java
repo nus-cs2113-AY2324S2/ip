@@ -1,41 +1,62 @@
 import java.util.Scanner;
 
 public class Ava {
+
+    private static boolean isExit = false;
+
     public static void main(String[] args) {
         greet();
-        addTask();
+        mainProcess();
         exit();
     }
 
-    public static void addTask() {
+    public static void mainProcess() {
         Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
-        int taskCount = 0;
-        String task = in.nextLine();
-        tasks[taskCount] = new Task(task);
-        String description = tasks[taskCount].getDescription();
-        if (description.equals("bye")) {
-            return;
-        }
-        while (!description.equals("bye")) {
-            if (description.equals("list")) {
-                listTask(tasks, taskCount);
-            } else if (description.contains("mark")) {
-                markTask(tasks, description);
-            } else {
-                printLine();
-                System.out.println("added: " + tasks[taskCount].getDescription());
-                printLine();
-                taskCount += 1;
+        while (!isExit) {
+            String task = in.nextLine();
+            if (task.equals("bye")) {
+                isExit = true;
+                continue;
+            } else if (task.equals("list")) {
+                listTask(tasks, Task.getNumberOfTasks());
+                continue;
+            } else if (task.contains("mark")) {
+                markTask(tasks, task);
+                continue;
+            } else if (task.startsWith("todo")) {
+                task = task.replace("todo ", "");
+                tasks[Task.getNumberOfTasks()] = new ToDo(task);
+            } else if (task.startsWith("deadline")) {
+                String[] taskAndDate = trimTask(task, "deadline ");
+                tasks[Task.getNumberOfTasks()] = new Deadline(taskAndDate[0], taskAndDate[1]);
+            } else if (task.startsWith("event")) {
+                String[] taskAndDate = trimTask(task, "event ");
+                tasks[Task.getNumberOfTasks()] = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
             }
-            task = in.nextLine();
-            tasks[taskCount] = new Task(task);
-            description = tasks[taskCount].getDescription();
+            addTask(tasks);
         }
     }
 
+    public static String[] trimTask(String task, String type) {
+            task = task.replace(type, "");
+            return task.split("/");
+    }
+
+    public static void addTask(Task[] tasks) {
+        printLine();
+        System.out.println("Got it! I've added this task:");
+        System.out.println(tasks[Task.getNumberOfTasks() - 1].toString());
+        if (Task.getNumberOfTasks() == 1) {
+            System.out.println("Now you have " + 1 + " task in the list~~~");
+        } else {
+            System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list~~~");
+        }
+        printLine();
+    }
+
     public static void markTask(Task[] tasks, String command) {
-        if (command.contains("unmark")) {
+        if (command.startsWith("unmark")) {
             printLine();
             command = command.replace("unmark ", "");
             int changedTask = Integer.parseInt(command);
@@ -55,13 +76,13 @@ public class Ava {
             printLine();
         }
     }
+
     public static void listTask(Task[] tasks, int taskCount) {
         printLine();
         System.out.println("Here are the tasks in your list:");
         int noOfTask = 0;
         while (noOfTask < taskCount) {
-            System.out.println((noOfTask + 1) + ".[" + tasks[noOfTask].getStatusIcon()
-                    + "] " + tasks[noOfTask].getDescription());
+            System.out.println((noOfTask + 1) + "." + tasks[noOfTask].toString());
             noOfTask += 1;
         }
         printLine();
