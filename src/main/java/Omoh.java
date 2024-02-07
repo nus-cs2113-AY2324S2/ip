@@ -48,6 +48,10 @@ public class Omoh {
                 myTaskList.addTodo(line);
                 line = in.nextLine();
             }
+            else if (line.startsWith("event")) {
+                myTaskList.addEvent(line);
+                line = in.nextLine();
+            }
             else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 int taskNumber = extractTaskNumber(line);
                 modifyDoneState(taskNumber, line);

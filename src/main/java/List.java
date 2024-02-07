@@ -68,6 +68,26 @@ public class List {
         Omoh.printHorizontalLine();
     }
 
+    public void addEvent (String input) {
+        Event extractedInfo = Event.extractEvent(input);
+        tasks[totalTasks] = new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to);
+        totalTasks++;
+        addEventMessage(extractedInfo);
+    }
+
+
+    public void addEventMessage (Event description) {
+        Omoh.printHorizontalLine();
+        System.out.print("     ");
+        System.out.println("Got it. I've added this task:");
+        System.out.print("       ");
+        System.out.println("[E][ ]" + description.description + " (from: " + description.from
+                + " to: " + description.to + ")" );
+        System.out.print("     ");
+        System.out.println("Now you have " + totalTasks + " in the list.");
+        Omoh.printHorizontalLine();
+    }
+
     public static void markAsDone(int index) {
         tasks[index - 1].isDone = true;
     }
