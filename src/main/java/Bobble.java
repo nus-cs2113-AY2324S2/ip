@@ -9,51 +9,41 @@ public class Bobble {
         Task[] tasklist = new Task[100];
         int taskCount = 0;
         String command;
-        String description;
 
         while (!userInput.equals("bye")) {
             String[] UserInputs = splitUserInput(userInput);
             command = UserInputs[0];
             switch (command) {
             case "list":
-                System.out.println("____________________________________________________________\n" +
-                        "Here are the tasks in your list:");
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + "." + tasklist[i].toString());
-                }
-                System.out.println("____________________________________________________________\n");
+                listResponse(tasklist, taskCount);
                 break;
             case "todo":
                 tasklist[taskCount] = new ToDo(UserInputs[1]);
-                addTaskResponse(tasklist, taskCount);
+                addTaskResponse(tasklist[taskCount], taskCount);
                 taskCount++;
                 break;
             case "deadline":
                 String[] parts = UserInputs[1].split("/by");
                 tasklist[taskCount] = new Deadline(parts[0], parts[1]);
-                addTaskResponse(tasklist,taskCount);
+                addTaskResponse(tasklist[taskCount],taskCount);
                 taskCount++;
                 break;
             case "event":
                 parts = UserInputs[1].split("/from");
                 String[] duration = parts[1].split("/to");
                 tasklist[taskCount] = new Event(parts[0], duration[0], duration[1]);
-                addTaskResponse(tasklist, taskCount);
+                addTaskResponse(tasklist[taskCount], taskCount);
                 taskCount++;
                 break;
             case "mark":
                 int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
                 tasklist[taskNumber].setDone(true);
-                System.out.println("Nice! I've marked this task as done:\n" +
-                        tasklist[taskNumber].toString() +
-                        "\n____________________________________________________________\n");
+                markResponse(tasklist[taskNumber]);
                 break;
             case "unmark":
                 taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
                 tasklist[taskNumber].setDone(false);
-                System.out.println("OK, I've marked this task as not done yet:\n" +
-                        tasklist[taskNumber].toString() +
-                "\n____________________________________________________________\n");
+                unmarkResponse(tasklist[taskNumber]);
                 break;
             default:
             }
@@ -62,15 +52,36 @@ public class Bobble {
         goodbye();
     }
 
+    private static void listResponse(Task[] tasklist,int taskCount) {
+        System.out.println("____________________________________________________________\n" +
+                "Here are the tasks in your list:");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + "." + tasklist[i].toString());
+        }
+        System.out.println("____________________________________________________________\n");
+    }
+
+    private static void markResponse(Task tasklist) {
+        System.out.println("Nice! I've marked this task as done:\n" +
+                tasklist.toString() +
+                "\n____________________________________________________________\n");
+    }
+
+    private static void unmarkResponse(Task task) {
+        System.out.println("OK, I've marked this task as not done yet:\n" +
+                task.toString() +
+        "\n____________________________________________________________\n");
+    }
+
     public static String[] splitUserInput(String input) {
         String[] userInput = input.split(" ", 2);
         return userInput;
     }
 
-    public static void addTaskResponse(Task[] tasklist, int taskCount) {
+    public static void addTaskResponse(Task task, int taskCount) {
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task: \n  " +
-                tasklist[taskCount].toString() +
+                task.toString() +
                 "\nNow you have " + (taskCount + 1) + " task(s) in the list." +
                 "\n____________________________________________________________\n");
     }
