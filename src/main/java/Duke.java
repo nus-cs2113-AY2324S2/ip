@@ -19,18 +19,34 @@ public class Duke {
         String userInput = scanner.nextLine();
         userInput = userInput.toLowerCase();
         List<String> userInputSaver = new ArrayList<>();
-
+        List<String> statusOfInput = new ArrayList<>();
         while(!userInput.contains("bye")){
 
             System.out.println("____________________________________________________________\n");
-
+            int indexOfMark;
             if (userInput.contains("list")){
-                for (String Input : userInputSaver) {
-                    int inputIndex = userInputSaver.indexOf(Input)+1;
-                    System.out.println(inputIndex + "." + Input + '\n');
+                for (int i = 0; i < userInputSaver.size(); i++) {
+                    int inputIndex = userInputSaver.indexOf(userInputSaver.get(i))+1;
+                    System.out.println(inputIndex + "." + " [" + statusOfInput.get(i) + "] " + userInputSaver.get(i)+ '\n');
                 }
-            } else{
+
+            } else if (userInput.contains("mark")) {
+                if (userInput.contains("unmark")){
+
+                    indexOfMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    statusOfInput.set(indexOfMark, " ");
+                    System.out.println("OK, I've marked this task as not done yet:\n");
+                    System.out.println("[ ] " + userInputSaver.get(indexOfMark) + "\n");
+
+                }else{
+                    indexOfMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    statusOfInput.set(indexOfMark, "X");
+                    System.out.println("Nice! I've marked this task as done:\n");
+                    System.out.println("[X] " + userInputSaver.get(indexOfMark) + "\n");
+                }
+            }else{
                 userInputSaver.add(userInput);
+                statusOfInput.add(" ");
                 System.out.println("added: " + userInput );
             }
 
