@@ -2,3 +2,19 @@ list
 lst
 list
 todo
+todo abc
+todo 123 def 345
+list
+deadline
+deadline qwerty /by 123
+deadline z12cv /by asd 123
+deadline 0000
+list
+event
+event 12ujk /from 123 /to ned
+event pks /from q3a cvse /to ned iho
+event gusf\ /from ;sa!] /to ~./)
+event 7ubj /from /to
+event /from vbj /to
+list
+bye

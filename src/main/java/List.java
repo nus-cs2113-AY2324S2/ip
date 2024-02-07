@@ -101,6 +101,11 @@ public class List {
      * @return None
      */
     public void addItem(String description, String type) {
+        if (description.equals("")) {
+            this.addItemError();
+            return;
+        }
+        
         String taskName, taskStart, taskEnd;
         boolean isValid = true;
 
