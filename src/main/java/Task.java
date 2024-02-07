@@ -26,4 +26,8 @@ public class Task {
         System.out.println("Ok, I've marked this task as not done yet: ");
         System.out.println("[] " + description);
     }
+
+    public String toString() {
+        return "[" + this.getStatus() + "] " + this.getDescription();
+    }
 }

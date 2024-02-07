@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
 public class Boop {
-    //public static String[] lst = new String[100];
-    //public static boolean[] isMarked = new boolean[100];
     public static Task[] tasks = new Task[100];
     public static int count = 0;
 
@@ -27,20 +25,19 @@ public class Boop {
             } else if (curCommand.equals("unmark")) {
                 unmark(comArr);
             } else {
-                addTask(command);
+                addTask(curCommand, command);
             }
             System.out.println("____________________________________________________________");
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
-        //System.out.println("Bye. Hope to see you again soon!");
     }
 
     public static void printLst() {
+        System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < count; i += 1) {
             Task t = tasks[i];
-            String res = "" + (i + 1) + ".[" + t.getStatus() + "] " + t.getDescription();
-            System.out.println(res);
+            System.out.println("" + (i + 1) + ". " + t.toString());;
         }
     }
 
@@ -82,12 +79,28 @@ public class Boop {
         }
     }
 
-    public static void addTask(String desc) {
-        Task t = new Task(desc);
+    public static void addTask(String com, String fullInput) {
+        Task t;
+        if (com.equals("todo")) {
+            String desc = fullInput.substring(5);
+            t = new Todo(desc);
+        }else if (com.equals("deadline")) {
+            String desc = fullInput.substring(9);
+            String[] descArr = desc.split(" /by ");
+            t = new Deadline(descArr[0], descArr[1]);
+        } else if (com.equals("event")) {
+            String desc = fullInput.substring(6);
+            String[] descArr = desc.split(" /");
+            String from = descArr[1].substring(5);
+            String to = descArr[2].substring(3);
+            t = new Event(descArr[0], from, to);
+        } else {
+            t = new Task(fullInput);
+        }
         tasks[count] = t;
         count += 1;
-        System.out.println("added: " + desc);
-
+        System.out.println("Got it. I've added this task:");
+        System.out.println(t.toString());
+        System.out.println("Now you have " + count + " tasks in the list.");
     }
-
 }
