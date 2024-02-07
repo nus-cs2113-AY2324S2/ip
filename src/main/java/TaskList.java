@@ -4,7 +4,9 @@ public class TaskList {
     public static void addTask(Task userTask) {
         list.add(userTask);
         Davvy.printLine();
-        System.out.println(" added: " + userTask.description);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println(" " + userTask);
+        System.out.println(" Now you have " + list.size() + " tasks in the list.");
         Davvy.printLine();
     }
     public static Task getTask(int taskNumber) {
@@ -16,8 +18,9 @@ public class TaskList {
     public static void printList() {
         Davvy.printLine();
         System.out.println(" Here are the tasks in your list:");
-        for (Task task : list) {
-            System.out.println(task);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(" " + (i+1) + ".");
+            System.out.println(list.get(i));
         }
         Davvy.printLine();
     }

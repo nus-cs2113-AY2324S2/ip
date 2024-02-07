@@ -79,9 +79,28 @@ public class Davvy {
         case "bye":
             toEnd = true;
             break;
-        case "add":
-            Task inputTask = new Task(commandArg);
-            TaskList.addTask(inputTask);
+        case "todo":
+            Todo inputTodo = new Todo(commandArg);
+            TaskList.addTask(inputTodo);
+            break;
+        case "deadline":
+            if (commandArg.contains("/by")) {
+                String[] newCommandArg = commandArg.split("/by", 2);
+                Deadline inputDeadline = new Deadline(newCommandArg[0], newCommandArg[1]);
+                TaskList.addTask(inputDeadline);
+            } else {
+                System.out.println("Please put a date!");
+            }
+            break;
+        case "event":
+            if (commandArg.contains("/from") && commandArg.contains("/to")) {
+                String[] newCommandArg = commandArg.split("/from", 2);
+                String[] newCommandArg2 = newCommandArg[1].split("/to", 2);
+                Events inputEvent = new Events(newCommandArg[0], newCommandArg2[0], newCommandArg2[1]);
+                TaskList.addTask(inputEvent);
+            } else {
+                System.out.println("Please put a correct time!");
+            }
             break;
         default:
             System.out.println("Unknown Command, type something I know please!");
