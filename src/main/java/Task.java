@@ -11,6 +11,7 @@ public class Task {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
+
     // Method to mark the tasks as done
     public void markAsDone(){
         this.isDone = true;

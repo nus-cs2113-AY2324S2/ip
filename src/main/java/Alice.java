@@ -3,72 +3,104 @@ import java.util.ArrayList;
 
 public class Alice {
     public static void main(String[] args) {
-
-        // Create scanner object to read input
         Scanner scanner = new Scanner(System.in);
-
-        // Create an array to store the tasks entered by the user
         ArrayList<Task> tasks = new ArrayList<>();
-
-        // Create a variable to store the number of tasks so far
-        int taskNum = 0;
-
-        // Create string to store line separating responses
         String line = "____________________________________________________________";
 
-        // Add starting statement
         System.out.println(line);
-        System.out.println("Hello! I'm Alice");
-        System.out.println("What can I do for you?");
+        System.out.println("yoo i'm alice! ur virtual bestie here to keep track of ur vibes");
+        System.out.println("what's poppin? u can tell me stuff to remember or type 'bye' to dip");
         System.out.println(line);
 
-        // Use a condition that directly checks input
         while (true) {
-
-            // Read the user input here
             String input = scanner.nextLine();
 
             if (input.equals("bye")) {
                 System.out.println(line);
-                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println("bye bestie! catch ya later, and remember to stay hydrated <3");
                 System.out.println(line);
                 break;
-            } else if (input.equals("list")){
+            } else if (input.startsWith("list")) {
                 System.out.println(line);
-
-                // Print out the whole list of tasks numbered
-                for (int i = 0; i < tasks.size(); i++){
-                    System.out.println((i + 1) + "." + tasks.get(i).toString());
+                if (tasks.isEmpty()) {
+                    System.out.println("this list is emptier than my motivation on a monday morning lol");
+                } else {
+                    System.out.println("aight here's what's up:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i).toString());
+                    }
                 }
                 System.out.println(line);
+            } else if (input.startsWith("todo ")) {
+                handleTodo(input, tasks, line);
+            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+                handleMarkUnmark(input, tasks, line);
+            } else if (input.startsWith("deadline ")) {
+                handleDeadline(input, tasks, line);
+            } else if (input.startsWith("event ")) {
+                handleEvent(input, tasks, line);
+            } else {
+                System.out.println(line);
+                System.out.println("Sorry, I didn't understand that. Please try a valid command.");
+                System.out.println(line);
             }
-            else if (input.startsWith("mark ")) {
-                int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-                Task task = tasks.get(taskIndex);
+        }
+        scanner.close();
+    }
+
+    private static void handleTodo(String input, ArrayList<Task> tasks, String line) {
+        String description = input.substring(5);
+        Todo newTask = new Todo(description);
+        tasks.add(newTask);
+        System.out.println(line);
+        System.out.println("aight i gotchu bestie, added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        System.out.println(line);
+    }
+
+    private static void handleMarkUnmark(String input, ArrayList<Task> tasks, String line) {
+        int taskIndex = Integer.parseInt(input.replaceAll("\\D", "")) - 1;
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.get(taskIndex);
+            if (input.startsWith("mark")) {
                 task.markAsDone();
                 System.out.println(line);
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(task);
-                System.out.println(line);
-            } else if (input.startsWith("unmark ")){
-                int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-                Task task = tasks.get(taskIndex);
+                System.out.println("yas queen, marked it off! we are crushing it frfr:");
+            } else {
                 task.markAsUndone();
                 System.out.println(line);
-                System.out.println("OK, I've marked this task as not done yet: ");
-                System.out.println(task);
-                System.out.println(line);
-            } else {
-                Task newTask = new Task(input);
-                tasks.add(newTask);
-                System.out.println(line);
-                System.out.println("added: " + input);
-                System.out.println(line);
-                taskNum++;
+                System.out.println("aight, took a lil step back, unmarked this one:");
             }
-
+            System.out.println(task);
+        } else {
+            System.out.println(line);
+            System.out.println("Oops! That task doesn't exist. Try a valid task number.");
         }
-        // Close the scanner after exiting the loop
-        scanner.close();
+        System.out.println(line);
+    }
+
+    private static void handleDeadline(String input, ArrayList<Task> tasks, String line) {
+        String[] parts = input.substring(9).split(" /by ", 2);
+        Task newTask = new Deadline(parts[0], parts[1]);
+        tasks.add(newTask);
+        System.out.println(line);
+        System.out.println("ooh we're on a deadline kinda vibe? aight added it in:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        System.out.println(line);
+    }
+
+    private static void handleEvent(String input, ArrayList<Task> tasks, String line) {
+        String[] parts = input.substring(6).split(" /from ", 2);
+        String[] timeParts = parts[1].split(" /to ", 2);
+
+        Task newTask = new Event(parts[0], timeParts[0], timeParts[1]);
+        tasks.add(newTask);
+        System.out.println(line);
+        System.out.println("got an event noted down, don't forget:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        System.out.println(line);
     }
 }
