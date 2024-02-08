@@ -3,10 +3,13 @@ public class Task {
     protected boolean isDone;
     protected Integer index;
 
-    public Task(String description, boolean b, int i) {
+    public Task(String description, boolean b) {
         this.description = description;
         this.isDone = b;
-        this.index = i;
+    }
+
+    public Task(String description) {
+        this.description = description;
     }
 
     public String getStatusIcon() {
@@ -18,5 +21,9 @@ public class Task {
     }
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
