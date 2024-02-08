@@ -1,10 +1,11 @@
-import java.util.Objects;
 import java.util.Scanner;
+import java.util.ArrayList;
+
 
 public class Duke {
 
     // Function to mark or unmark tasks
-    public static void userMarkOrUnmark(String command, String line, Task[] list, int index, Task t) {
+    public static void userMarkOrUnmark(String command, String line, ArrayList<Task> list, int index, Task t) {
 
         // User enters Mark, proceed to check if index is valid. If valid, then mark the task number
         if (command.equals("mark")) {
@@ -14,7 +15,7 @@ public class Duke {
                 System.out.println("Task number is not a valid number");
                 return;
             }
-            t = list[index - 1];
+            t = list.get(index - 1);
             t.isDone =  true;
             System.out.println("Nice! I've marked this task as done:");
         }
@@ -27,8 +28,7 @@ public class Duke {
                 System.out.println("Task number is not a valid number");
                 return;
             }
-            index = Integer.parseInt(line.substring(7));
-            t = list[index - 1];
+            t = list.get(index - 1);
             t.isDone =  false;
             System.out.println("OK, I've marked this task as not done yet:");
         }
@@ -38,9 +38,9 @@ public class Duke {
     }
 
     // Function to print the list of tasks
-    public static void userList(String line, Task[] list) {
+    public static void userList(String line, ArrayList<Task> list) {
             for (Task task : list) {
-                if (task == null){
+                if (task == null) {
                     break;
                 }
                 System.out.println(task.index + ". " + task);
@@ -48,7 +48,7 @@ public class Duke {
             System.out.println("____________________________________________________________");
     }
 
-    // Function to print bot's reply
+    // Function to say bye
     public static void userBye() {
         System.out.println("Bye human. Come back soon !");
     }
@@ -66,30 +66,25 @@ public class Duke {
             }
         } catch (DukeException e) {
             System.out.println("Minimally " + number + " arguments, please try again!");
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Start of user input
     public static void userInput() throws DukeException {
-        Scanner in = new Scanner(System.in); // Declared a scanner object
+        Scanner scanner = new Scanner(System.in); // Declared a scanner object
         String line; // Declared a string object to take in user input
-        Task[] list; // Declared a list with string data type
-        list = new Task[100]; // Created a list of 100 elements
+        ArrayList<Task> list = new ArrayList<>(); // Declared a dynamic list with Task data type
         int counter = 0;
         int index = 0;
-        Task t = list[0];
+        Task t = null;
 
         // Start of user input
-
         while (true) {
-            line = in.nextLine().toLowerCase(); // Takes in user input
-
-
+            line = scanner.nextLine().toLowerCase(); // Takes in user input
             String[] splitLine = line.split("\\s+"); // split by whitespaces
             String command = splitLine[0]; //obtain the main command from user, which is the first command
-
 
             switch (command) {
                 // User wants to exit
@@ -116,7 +111,7 @@ public class Duke {
                 case "todo":
 
                     //Check if there is a minimum argument of 2
-                    if (!checkMinimumArguments(splitLine, 2)) {
+                    if (checkMinimumArguments(splitLine, 2)) {
                         continue;
                     }
                     try {
@@ -127,14 +122,14 @@ public class Duke {
                     }
 
                     //t = new Todo(line, counter + 1);
-                    list[counter] = t;
+                    list.add(counter, t);
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
                     continue;
 
                 // User wants a deadline task
                 case "deadline":
-                    if (!checkMinimumArguments(splitLine, 4)) {
+                    if (checkMinimumArguments(splitLine, 4)) {
                         continue;
                     }
                    try {
@@ -144,14 +139,14 @@ public class Duke {
                         continue;
                     }
                     //t = new Deadline(line, counter + 1);
-                    list[counter] = t;
+                    list.add(counter, t);
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
                     continue;
 
                 // User wants an event task
                 case "event":
-                    if (!checkMinimumArguments(splitLine, 8)) {
+                    if (checkMinimumArguments(splitLine, 8)) {
                         continue;
                     }
                     try {
@@ -162,7 +157,7 @@ public class Duke {
                     }
 
                     //t = new Event(line, counter + 1);
-                    list[counter] = t;
+                    list.add(counter, t);
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
                     continue;
@@ -171,6 +166,7 @@ public class Duke {
                     System.out.println("No suitable command found. Please try again!");
                     continue;
             }
+            scanner.close(); // Close scanner after usage
             return;
         }
     }

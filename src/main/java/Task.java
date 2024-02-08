@@ -5,15 +5,11 @@ public class Task {
     protected boolean isDone;
     protected int index;
 
-    boolean errorCheck;
-
     // constructor
     public Task(String description, int index) {
         setDescription(description);
         setDone();
         setCounter(index);
-        //printHeaders();
-
     }
 
     // Set for description attribute
@@ -44,17 +40,17 @@ public class Task {
 
 
     public String toString() {
-        String[] original = description.split("/"); // split if there is 1 or more whitespace
-        String value = String.valueOf(original[0]);
+        String[] original = description.split("/"); // split the original input by /
+        String value = String.valueOf(original[0]); //obtain the task and action
 
-        String[] splitLine = value.split("\\s+");
-        StringBuilder output = new StringBuilder();
+        String[] splitLine = value.split("\\s+"); //split the words by whitespace
+        StringBuilder action = new StringBuilder();
 
+        //obtain the action of the task
         for (int i = 1; i < splitLine.length; i += 1) {
-            output.append(splitLine[i]).append(" ");
+            action.append(splitLine[i]).append(" ");
         }
-
-        return "[" + this.getStatusIcon() + "] " + output;
+        return "[" + this.getStatusIcon() + "] " + action;
     }
 
 }

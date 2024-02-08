@@ -4,17 +4,25 @@ public class Todo extends Task {
     // Constructor
     public Todo(String description, int index) {
         super(description, index);
-
-        System.out.println(toString());
+        toPrint();
     }
 
-    // Override task's toString() to add [T]
     @Override
     public String toString() {
-        if (super.toString() != null) {
-            //printHeaders();
-            return "[T]" + super.toString();
+        String[] splitLine = description.split("\\s+");
+        StringBuilder action = new StringBuilder();
+
+        //obtain the action of the task
+        for (int i = 1; i < splitLine.length; i += 1) {
+            action.append(splitLine[i]).append(" ");
         }
-        return null;
+        return "[T]" + "[" + this.getStatusIcon() + "] " + action;
+    }
+
+    public void toPrint() {
+        printHeaders();
+        System.out.println(this);
     }
 }
+
+
