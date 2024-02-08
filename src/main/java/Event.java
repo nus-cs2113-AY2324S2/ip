@@ -20,4 +20,17 @@ public class Event extends Task {
         eventDetails.to = parts[2].trim();
         return eventDetails;
     }
+
+
+    public static void addEventMessage (Event description) {
+        Omoh.printHorizontalLine();
+        System.out.print("     ");
+        System.out.println("Got it. I've added this task:");
+        System.out.print("       ");
+        System.out.println("[E][ ] " + description.description + " (from: " + description.from
+                + " to: " + description.to + ")" );
+        System.out.print("     ");
+        System.out.println("Now you have " + List.totalTasks + " tasks in the list.");
+        Omoh.printHorizontalLine();
+    }
 }
