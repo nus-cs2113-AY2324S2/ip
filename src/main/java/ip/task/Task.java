@@ -17,7 +17,7 @@ public class Task {
         return ("[" + getStatusIcon() + "] " + description);
     }
 
-    public void setDone(boolean newStatus) {
-        isDone = newStatus;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }

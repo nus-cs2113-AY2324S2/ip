@@ -30,12 +30,12 @@ public class Duke {
         String line;
         while (true) {
             line = in.nextLine();
-            if (line.contains("bye")) {
+            if (line.trim().equals("bye")) {
                 System.out.println("     Bye. Hope to see you again soon!");
                 break;
             }
 
-            if (line.startsWith("list")) {
+            if (line.trim().equals("list")) {
                 printTaskList();
                 continue;
             }
@@ -55,7 +55,7 @@ public class Duke {
                 System.out.println("     Please provide a number from 1 to " + numberOfTasks);
                 continue;
             } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
-                System.out.println("     Please input the command in the form \'mark/unmark <integer>\'");
+                System.out.println("     Please input the command in the form 'mark/unmark <integer>'");
                 continue;
             }
 
@@ -68,21 +68,21 @@ public class Duke {
             try {
                 tasks[numberOfTasks] = new Todo(line);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("     Please input in the form \'todo <description>\'");
+                System.out.println("     Please input in the form 'todo <description>'");
                 return;
             }
         } else if (line.startsWith("deadline")) {
             try {
                 tasks[numberOfTasks] = new Deadline(line);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("     Please input in the form \'deadline <description> /by <when>\'");
+                System.out.println("     Please input in the form 'deadline <description> /by <when>'");
                 return;
             }
         } else if (line.startsWith("event")) {
             try {
                 tasks[numberOfTasks] = new Event(line);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("     Please input in the form \'event <description> /from <when> /to <when>\'");
+                System.out.println("     Please input in the form 'event <description> /from <when> /to <when>'");
                 return;
             }
         }
