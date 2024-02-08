@@ -1,15 +1,19 @@
+import task.Task.TaskType;
 import task.TaskManager;
 
 public class CommandManager {
     /**
      * Takes user inputs as commands and process them.
-     * If the input is not one of the supported commands below, the input shall be seen as a new task.
+     * If the input is not one of the supported commands below, NO new task will be created.
      * Tasks are NOT saved when the program exits.
      * Possible commands:
      * 1. `bye`, `exit` - Exits the program.
      * 2. `list` - Lists out all the tasks.
      * 3. `mark <task_number> - Marks specific task as done.
      * 4. `unmark` <task_number> - Marks specific task as undone.
+     * 5. `todo` <description> - Creates a new todo task.
+     * 6. `deadline` <description> - Creates a new deadline task.
+     * 7. `event` <description> - Creates a new event task.
      */
     public static Status processCommand(String userInput) {
         if (Parser.isUserInputEmpty(userInput)){
@@ -51,10 +55,24 @@ public class CommandManager {
             }
             System.out.println(Ui.SECTION_BAR + "\n");
             return Status.STATUS_OK;
-        default:
-            TaskManager.createNewTask(userInput);
+        case "todo":
             System.out.println(Ui.SECTION_BAR);
-            System.out.println("Added: " + userInput);
+            TaskManager.createNewTask(argument, TaskType.TODO);
+            System.out.println(Ui.SECTION_BAR + "\n");
+            return Status.STATUS_OK;
+        case "deadline":
+            System.out.println(Ui.SECTION_BAR);
+            TaskManager.createNewTask(argument, TaskType.DEADLINE);
+            System.out.println(Ui.SECTION_BAR + "\n");
+            return Status.STATUS_OK;
+        case "event":
+            System.out.println(Ui.SECTION_BAR);
+            TaskManager.createNewTask(argument, TaskType.EVENT);
+            System.out.println(Ui.SECTION_BAR + "\n");
+            return Status.STATUS_OK;
+        default:
+            System.out.println(Ui.SECTION_BAR);
+            System.out.println("Invalid Command.");
             System.out.println(Ui.SECTION_BAR + "\n");
             return Status.STATUS_OK;
         }

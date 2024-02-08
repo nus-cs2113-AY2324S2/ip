@@ -1,9 +1,15 @@
 package task;
 
 public class Task {
+    public enum TaskType {
+        TODO, DEADLINE, EVENT,
+        INVALID
+    }
+
     private String taskDescription;
     private int taskNumber;
     private boolean isTaskDone;
+    private TaskType taskType;
 
     /**
      * Creates a new Task.
@@ -16,6 +22,7 @@ public class Task {
         setTaskDescription(taskDescription);
         setTaskNumber(taskNumber);
         setTaskStatus(false);
+        setTaskType(TaskType.INVALID);
     }
 
     /**
@@ -33,6 +40,25 @@ public class Task {
 
     public boolean isTaskDone() {
         return isTaskDone;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public char getCharRepresentationOfTaskType(){
+        switch (getTaskType()){
+        case TODO:
+            return 'T';
+        case EVENT:
+            return 'E';
+        case DEADLINE:
+            return 'D';
+        case INVALID:
+            return 'I';
+        default:
+            return '?';
+        }
     }
 
     /**
@@ -60,9 +86,14 @@ public class Task {
         this.isTaskDone = isTaskDone;
     }
 
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
     public void printTask() {
-        System.out.format("%d.[%c] %s\n",
+        System.out.format("%d.[%c][%c] %s" + System.lineSeparator(),
                 getTaskNumber(),
+                getCharRepresentationOfTaskType(),
                 isTaskDone() ? 'X' : ' ',
                 getTaskDescription());
     }
@@ -73,7 +104,7 @@ public class Task {
     public void markAsDone() {
         setTaskStatus(true);
         System.out.println("Cool, this task is now done:");
-        System.out.format("    [%c] %s\n", isTaskDone() ? 'X' : ' ', getTaskDescription());
+        printTask();
     }
 
     /**
@@ -82,6 +113,6 @@ public class Task {
     public void markAsUndone() {
         setTaskStatus(false);
         System.out.println("Oh okay, this task is now marked as undone:");
-        System.out.format("    [%c] %s\n", isTaskDone() ? 'X' : ' ', getTaskDescription());
+        printTask();
     }
 }

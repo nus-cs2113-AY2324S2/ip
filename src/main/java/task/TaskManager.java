@@ -22,9 +22,32 @@ public class TaskManager {
         return null;
     }
 
-    public static void createNewTask(String taskDescription) {
+    public static void createNewTask(String taskDescription, Task.TaskType taskType) {
+        if (taskDescription.isEmpty()){
+            System.out.println("Invalid Task: Task Description is empty");
+            return;
+        }
+        if (taskType == Task.TaskType.INVALID){
+            System.out.println("Invalid Task Type");
+            return;
+        }
+
         numberOfActiveTasks += 1;
-        Task newTask = new Task(taskDescription, numberOfActiveTasks);
+        Task newTask = null;
+        switch (taskType){
+        case TODO:
+            newTask = new Todo(taskDescription, numberOfActiveTasks);
+            System.out.println("Alright. I have added this todo task: ");
+            break;
+        case DEADLINE:
+            newTask = new Deadline(taskDescription,numberOfActiveTasks);
+            System.out.println("Alright. I have added this deadline: ");
+            break;
+        case EVENT:
+            newTask = new Event(taskDescription,numberOfActiveTasks);
+            System.out.println("Alright. I have added this event: ");
+            break;
+        }
         taskList.add(newTask);
     }
 
