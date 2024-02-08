@@ -2,47 +2,24 @@ import java.util.Scanner;
 public class Jane {
     public static void processInput(String input, TaskList taskList) {
         String[] inputPart = input.split(" ", 2);
-        Task currentTask;
         switch (inputPart[0]) {
         case "todo":
-            Todo todo = new Todo(inputPart[1]);
-            taskList.addTask(todo);
-            System.out.println("Got it. I've added this task:\n" + todo + "\n" +
-                    "Now you have " + taskList.getCount() + " tasks in the list.");
+            taskList.processTodo(inputPart[1]);
             break;
         case "deadline":
-            String[] deadlineInput = inputPart[1].split("/", 2);
-            Deadline deadline = new Deadline(deadlineInput[0],
-                    deadlineInput[1].replace("/", "").replace("by ", ""));
-            taskList.addTask(deadline);
-            System.out.println("Got it. I've added this task:\n" + deadline + "\n" +
-                    "Now you have " + taskList.getCount() + " tasks in the list.");
+            taskList.processDeadline(inputPart[1]);
             break;
         case "event":
-            String[] eventInput = inputPart[1].split("/", 3);
-            Event event = new Event(eventInput[0],
-                    eventInput[1].replace("/", "").replace("from ", ""),
-                    eventInput[2].replace("/to", "").replace("to ", ""));
-            taskList.addTask(event);
-            System.out.println("Got it. I've added this task:\n" + event + "\n" +
-                    "Now you have " + taskList.getCount() + " tasks in the list.");
+            taskList.processEvent(inputPart[1]);
             break;
         case "list":
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskList.count; i++) {
-                currentTask = taskList.list[i];
-                System.out.println(currentTask.getSequence() + "." + currentTask);
-            }
+            taskList.printList();
             break;
         case "mark":
-            currentTask = taskList.list[Integer.parseInt(inputPart[1])-1];
-            currentTask.isDone(true);
-            System.out.println("Nice! I've marked this task as done:\n" + currentTask);
+            taskList.markAsDone(Integer.parseInt(inputPart[1])-1);
             break;
         case "unmark":
-            currentTask = taskList.list[Integer.parseInt(inputPart[1])-1];
-            currentTask.isDone(false);
-            System.out.println("OK, I've marked this task as not done yet:\n" + currentTask);
+            taskList.markAsUndone(Integer.parseInt(inputPart[1])-1);
             break;
         default:
             // handle errors for input not starting with the correct keyword
