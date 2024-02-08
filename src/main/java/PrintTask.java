@@ -16,22 +16,25 @@ public class PrintTask {
         String intro = "Got it. I've added this task: \n";
         char type = newTask.getTypeIcon();
         String taskDisplayed;
-        String[] words = newTask.description.split(" ");
-        switch(words[0]) {
+        String[] descriptionWords = newTask.description.split(" ");
+        switch(descriptionWords[0]) {
         case "todo":
             taskDisplayed = newTask.description.replace("todo ", "");
             break;
         case "deadline":
             taskDisplayed = newTask.description.replace("deadline ", "");
-            taskDisplayed = taskDisplayed.replaceFirst("/", "(");
-            taskDisplayed = taskDisplayed.replaceFirst("by ", "by: ") + ")";
+            if (taskDisplayed.contains("/by ")) {
+                taskDisplayed = taskDisplayed.replaceFirst("/by ", "(by: ");
+                taskDisplayed += ")";
+            }
             break;
         case "event":
             taskDisplayed = newTask.description.replace("event ", "");
-            taskDisplayed = taskDisplayed.replaceFirst("/", "(");
-            taskDisplayed = taskDisplayed.replaceFirst("/", "");
-            taskDisplayed = taskDisplayed.replaceFirst("from ", "from: ");
-            taskDisplayed = taskDisplayed.replaceFirst("to ", "to: ") + ")";
+            if (taskDisplayed.contains("/from ") && taskDisplayed.contains("/to ")) {
+                taskDisplayed = taskDisplayed.replaceFirst("/from ", "(from: ");
+                taskDisplayed = taskDisplayed.replaceFirst("/to ", "to: ");
+                taskDisplayed += ")";
+            }
             break;
         default:
             taskDisplayed = newTask.description;
@@ -40,12 +43,12 @@ public class PrintTask {
         String statusMark = "[" + newTask.getStatusIcon() + "] ";
         String taskCount = String.format("Now you have %d tasks in the list.", taskNum);
         String output = intro +typeMark + statusMark + taskDisplayed + "\n" + taskCount;
-        PrintText.printWithHorizon(output);
+        PrintText.printWithLinebreak(output);
         newTask.setDescription(taskDisplayed);
     }
 
     public static void normalTask(Task newTask, int taskNum) {
         String taskCount = String.format("Now you have %d tasks in the list.", taskNum);
-        PrintText.printWithHorizon("added: " + newTask.description + "\n" + taskCount);
+        PrintText.printWithLinebreak("added: " + newTask.description + "\n" + taskCount);
     }
 }

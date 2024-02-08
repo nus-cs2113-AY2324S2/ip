@@ -11,32 +11,32 @@ public class AddTask {
         }
     }
 
-    public static void addTask(Task[] tasks) {
+    public static void taskListManager(Task[] tasks) {
         int index = 0;
         boolean isRunning = true;
         while (isRunning) {
             Scanner userInput = new Scanner(System.in);
             String text = userInput.nextLine();
-            String[] words = text.split(" ");
-            switch (words[0]) {
+            String[] userInputWords = text.split(" ");
+            switch (userInputWords[0]) {
             case "bye":
                 isRunning = false;
                 break;
             case "list":
-                PrintText.print(PrintText.HORIZON);
+                PrintText.print(PrintText.LINEBREAK);
                 PrintTask.list(Arrays.copyOf(tasks, index));
-                PrintText.print(PrintText.HORIZON + "\n");
+                PrintText.print(PrintText.LINEBREAK + "\n");
                 break;
             case "mark":
             case "unmark":
-                int taskIndex = hasIndex(words) ?
-                        Integer.parseInt(words[1]) - 1 : -1;
-                Task.markTask(taskIndex, words[0], Arrays.copyOf(tasks, index));
+                int taskIndex = hasIndex(userInputWords) ?
+                        Integer.parseInt(userInputWords[1]) - 1 : -1;
+                Task.markTask(taskIndex, userInputWords[0], Arrays.copyOf(tasks, index));
                 break;
             case "todo":
             case "deadline":
             case "event":
-                char type = Character.toUpperCase(words[0].charAt(0));
+                char type = Character.toUpperCase(userInputWords[0].charAt(0));
                 Task specialTask = new Task(text, type);
                 tasks[index] = specialTask;
                 index++;

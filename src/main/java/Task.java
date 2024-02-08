@@ -25,28 +25,30 @@ public class Task {
         return type;
     }
 
-    public void setDescription(String newOne) {
-        this.description = newOne;
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
     }
 
     public static void markTask(int index, String isMarked, Task[] tasks) {
-        if (index >= 0 && index < tasks.length) {
-            if (isMarked.equals("mark")) {
-                tasks[index].isDone = true;
-                String statusMark = "[" + tasks[index].getStatusIcon() + "] ";
-                PrintText.printWithHorizon("Nice! I've marked this task as done:\n" +
-                        statusMark + tasks[index].description);
-            } else if (isMarked.equals("unmark")) {
-                tasks[index].isDone = false;
-                String statusMark = "[" + tasks[index].getStatusIcon() + "] ";
-                PrintText.printWithHorizon("OK, I've marked this task as not done yet:\n" +
-                        statusMark + tasks[index].description);
-            } else {
-                PrintText.printWithHorizon("unknown instruction");
-            }
+        try {
+            PrintText.print(tasks[index].getStatusIcon());
+        } catch(ArrayIndexOutOfBoundsException e) {
+            PrintText.printWithLinebreak("Index out of range");
+            return;
         }
-        else {
-            PrintText.printWithHorizon("Index out of range");
+
+        if (isMarked.equals("mark")) {
+            tasks[index].isDone = true;
+            String statusMark = "[" + tasks[index].getStatusIcon() + "] ";
+            PrintText.printWithLinebreak("Nice! I've marked this task as done:\n" +
+                    statusMark + tasks[index].description);
+        } else if (isMarked.equals("unmark")) {
+            tasks[index].isDone = false;
+            String statusMark = "[" + tasks[index].getStatusIcon() + "] ";
+            PrintText.printWithLinebreak("OK, I've marked this task as not done yet:\n" +
+                    statusMark + tasks[index].description);
+        } else {
+            PrintText.printWithLinebreak("unknown instruction");
         }
     }
 }
