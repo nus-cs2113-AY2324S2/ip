@@ -1,4 +1,5 @@
 public class Task {
+    public static final String OUTPUT_INDENTATION = "    ";
     protected String description;
     protected boolean isDone;
     protected Integer index;
@@ -26,4 +27,5 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
 }

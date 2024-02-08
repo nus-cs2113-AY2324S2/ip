@@ -5,7 +5,7 @@ import java.util.List;
 public class Chandler {
 
     public static final String LINE_DIVIDER = "____________________________________________________________";
-
+    public static final String OUTPUT_INDENTATION = "    ";
 
     public static void main(String[] args) {
 
@@ -16,48 +16,54 @@ public class Chandler {
         System.out.println(LINE_DIVIDER);
 
         String input = myObj.nextLine();
-        List<Task> list = new ArrayList<>(); // No need new ArrayList<Circle>() because of type inference
-        Task reply = new Task(input, false);
+        List<Task> list = new ArrayList<>();
 
-        for(int index = 1; !input.equals("bye"); input = myObj.nextLine()) {
+        for(int listSize = 1; !input.equals("bye"); input = myObj.nextLine()) {
 
             System.out.println(LINE_DIVIDER);
-            String[] words = input.split("\\s+"); // Split by whitespace
+            String[] words = input.split("\\s+");
             String inputCommand = words[0];
-
 
             switch (inputCommand) {
                 case "list":
-                    System.out.println("Here are the tasks in your list:");
-                    for (int k = 0; k < index-1; k++) {
-                        System.out.println(k+1 + "." + list.get(k).toString());
+                    System.out.println(OUTPUT_INDENTATION + "Here are the tasks in your list:");
+                    for (int index = 0; index < listSize-1; index++) {
+                        System.out.println(OUTPUT_INDENTATION + (index+1) + "." + list.get(index));
                     }
                     break;
                 case "mark":
                     int task_number = Integer.parseInt(input.replace("mark ", "")) - 1;
-                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(OUTPUT_INDENTATION + "Nice! I've marked this task as done:");
                     list.get(task_number).markAsDone();
-                    System.out.println(list.get(task_number));
+                    System.out.println(OUTPUT_INDENTATION + list.get(task_number));
                     break;
                 case "unmark":
                     int task_number2 = Integer.parseInt(input.replace("unmark ", "")) - 1;
-                    System.out.println("Ok, I've marked this task as not done yet:");
+                    System.out.println(OUTPUT_INDENTATION + "Ok, I've marked this task as not done yet:");
                     list.get(task_number2).markAsUndone();
-                    System.out.println(list.get(task_number2));
+                    System.out.println(OUTPUT_INDENTATION + list.get(task_number2));
                     break;
                 case "todo":
-                    reply = new Task(input.replace("todo ", ""), false);
-                    System.out.println("added: " + reply.description);
-                    index++;
+                    Todo taskTodo = new Todo(input.replace("todo ", ""), "T");
+                    list.add(taskTodo);
+                    System.out.println(
+                            OUTPUT_INDENTATION + "Awesome! Something to do without deadline hehe\n" +
+                                    OUTPUT_INDENTATION + "  " + "[T]" + taskTodo + "\n" +
+                                    OUTPUT_INDENTATION + "You better not procrastinate... or maybe you should");
+                    listSize++;
                     break;
                 case "deadline":
                     input = input.replace("deadline ", "");
                     int indexBy = input.indexOf("/by");
                     String description = input.substring(0, indexBy);
                     String by = input.substring(indexBy + 4);
-                    reply = new Deadline(description, by);
-                    System.out.println(reply);
-                    index++;
+                    Deadline taskDeadline = new Deadline(description, by, "D");
+                    list.add(taskDeadline);
+                    System.out.println(
+                            OUTPUT_INDENTATION + "Oh wow... a deadline, how exciting :)\n" +
+                                    OUTPUT_INDENTATION + "  " + taskDeadline+ "\n" +
+                                    OUTPUT_INDENTATION + "A deadline a day keeps the sanity away.");
+                    listSize++;
                     break;
                 case "event":
                     input = input.replace("event ", "");
@@ -66,16 +72,16 @@ public class Chandler {
                     String description2 = input.substring(0, indexFrom);
                     String from = input.substring(indexFrom + 6, indexTo);
                     String to = input.substring(indexTo + 4);
-                    reply = new Event(description2, from, to);
-                    System.out.println("added: " + reply.description);
-                    index++;
+                    Event taskEvent = new Event(description2, from, to, "E");
+                    list.add(taskEvent);
+                    System.out.println(
+                            OUTPUT_INDENTATION + "Event... yeay.\n" +
+                                    OUTPUT_INDENTATION + "  " + taskEvent + ")\n" +
+                                    OUTPUT_INDENTATION + "Can it BE any more fun?");
+                    listSize++;
                     break;
                 default:
-                    reply = new Task(input, false);
-                    list.add(reply);
-                    System.out.println("added: " + reply.description);
-                    index++;
-                    break;
+                    System.out.println("I'm sorry, but you have to specify if it's a todo, deadline or event task. :(");
             }
             System.out.println(LINE_DIVIDER);
 

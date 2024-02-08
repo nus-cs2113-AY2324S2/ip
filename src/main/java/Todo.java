@@ -1,15 +1,14 @@
 public class Todo extends Task {
-
-    protected String by;
     protected String description;
+    protected String taskType;
 
-    public Todo(String description, String by) {
+    public Todo(String description, String taskType) {
         super(description);
-        this.by = by;
+        this.taskType = taskType;
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (by: " + by + ")";
+        return "[T]" + super.toString();
     }
 }
