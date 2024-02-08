@@ -1,11 +1,26 @@
+/**
+ * Represents a deadline task in the chatbot application.
+ * A deadline task includes a due date in addition to the base task properties.
+ */
 public class Deadline extends Task {
-    protected String by;
+    protected String by; // The deadline date for the task
 
+    /**
+     * Constructs a new Deadline task with specified name, task number, and deadline date.
+     *
+     * @param name The name or description of the deadline task.
+     * @param taskNo The unique number assigned to the task.
+     * @param by The deadline date for the task.
+     */
     public Deadline(String name, int taskNo, String by) {
         super(name, taskNo);
         this.by = by;
     }
 
+    /**
+     * Marks this deadline task as completed.
+     * Overrides the markedTask method in the Task class to include deadline-specific details in the confirmation message.
+     */
     @Override
     public void markedTask() {
         this.hasDone=true;
@@ -15,6 +30,10 @@ public class Deadline extends Task {
         System.out.println("    " + "--------------");
     }
 
+    /**
+     * Marks this deadline task as not completed.
+     * Overrides the unmarkedTask method in the Task class to include deadline-specific details in the confirmation message.
+     */
     @Override
     public void unmarkedTask() {
         this.hasDone=false;
@@ -24,6 +43,10 @@ public class Deadline extends Task {
         System.out.println("    " + "--------------");
     }
 
+    /**
+     * Prints the deadline task's details, including its type (D for deadline), number, completion status, name, and due date.
+     * Overrides the printTask method in the Task class to include the due date information.
+     */
     @Override
     public void printTask() {
         System.out.print("[D]");

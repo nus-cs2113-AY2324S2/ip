@@ -1,7 +1,19 @@
+/**
+ * Manages a list of tasks for the chatbot.
+ * Supports adding tasks of different types (todo, deadline, event),
+ * marking tasks as done or undone, and displaying all tasks.
+ */
 public class TaskList {
-    public final Task [] taskList= new Task[100];
-    public int taskNo = 0;
+    public final Task [] taskList= new Task[100]; // Array to store tasks
+    public int taskNo = 0; // Counter for the number of tasks
 
+    /**
+     * Adds a task to the task list based on user input.
+     * The task can be of types: todo, deadline, event, or a general task.
+     * Parses the user input to determine the task type and details.
+     *
+     * @param userInput The full command entered by the user to add a task.
+     */
     public void addTask(String userInput){
         switch (userInput.split(" ")[0]){
         case "todo":
@@ -16,7 +28,6 @@ public class TaskList {
             name = userInput.split(" /")[0].substring(6);
             String from = userInput.split(" /")[1].substring(5);
             String to = userInput.split(" /")[2].substring(3);
-//            System.out.println("from: "+from +" to: " +to);
             taskList[taskNo]=new Event(name,taskNo+1, from, to);
             break;
         default:
@@ -26,6 +37,10 @@ public class TaskList {
         taskAddMessage();
     }
 
+    /**
+     * Displays a message confirming the addition of a task.
+     * Also shows the current number of tasks in the list.
+     */
     private void taskAddMessage() {
         System.out.println("    " + "--------------");
         System.out.println("    Got it. I've added this task:");
@@ -36,6 +51,12 @@ public class TaskList {
         System.out.println("    " + "--------------");
     }
 
+    /**
+     * Marks a task as completed based on its position in the task list.
+     * If the task does not exist, prints an error message.
+     *
+     * @param n The index of the task in the task list (0-based).
+     */
     public void markTask (int n){
         if (n >= taskNo){
             print("Sorry, task unfound.");
@@ -44,6 +65,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as not completed based on its position in the task list.
+     * If the task does not exist, prints an error message.
+     *
+     * @param n The index of the task in the task list (0-based).
+     */
     public void unmarkTask (int n){
         if (n >= taskNo){
             print("Sorry, task unfound.");
@@ -52,6 +79,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints all tasks in the task list.
+     * Displays a numbered list of tasks along with their completion status and details.
+     */
     public void showTaskList() {
         System.out.println("    " + "--------------");
         System.out.println("    " + "Here are the tasks in your list:");
@@ -61,6 +92,12 @@ public class TaskList {
         }
         System.out.println("    " + "--------------");
     }
+
+    /**
+     * Prints a formatted message to the console.
+     *
+     * @param thingToPrint The message to be printed.
+     */
     private static void print(String thingToPrint){
         System.out.println("    " + "--------------");
         System.out.println("    " + thingToPrint);
