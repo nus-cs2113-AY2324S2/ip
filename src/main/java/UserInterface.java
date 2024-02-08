@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class UserInterface {
     private static final String LINE = "-----------------------------------------";
     private static final String TAB_SPACE = "    ";
-    private static final String CHATBOT_NAME = "Todo List";
+    private static final String CHATBOT_NAME = "ZORO";
 
     public void greetUser() {
         System.out.println(LINE);
@@ -24,11 +24,11 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    public void printTaskList(Task[] taskLists, int index) {
+    public void printTaskList(Task[] taskList, int index) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
-            System.out.println(TAB_SPACE + (i + 1) + "." + taskLists[i]);
+            System.out.println(TAB_SPACE + (i + 1) + "." + taskList[i]);
         }
         System.out.println(LINE);
     }
@@ -76,6 +76,12 @@ public class UserInterface {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Invalid task type: " + taskDescription);
         System.out.println(TAB_SPACE + "Please mention the task type (todo, deadline, or event)");
+        System.out.println(LINE);
+    }
+
+    public void printInvalidTodoFormat() {
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Invalid todo format. Please dont put empty description");
         System.out.println(LINE);
     }
 }

@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Zoro {
+    public static final int MARK_BEGIN_INDEX = 5;
+    public static final int UNMARK_BEGIN_INDEX = 7;
+
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
         Scanner in = new Scanner(System.in);
@@ -9,21 +12,24 @@ public class Zoro {
 
         while (true) {
             String input = UserInterface.getUserInput(in);
-
-            if (input.equalsIgnoreCase("bye")) {
+            String inputType = input.split(" ")[0];
+            if (inputType.equals("bye")) {
                 break;
             }
 
-            if (input.equalsIgnoreCase("list")) {
+            switch (inputType) {
+            case "mark":
+                taskManager.markTask(Integer.parseInt(input.substring(MARK_BEGIN_INDEX).trim()) - 1);
+                break;
+            case "unmark":
+                taskManager.unmarkTask(Integer.parseInt(input.substring(UNMARK_BEGIN_INDEX).trim()) - 1);
+                break;
+            case "list":
                 taskManager.printTaskList();
-
-            } else if (input.startsWith("mark ")) {
-                taskManager.markTask(Integer.parseInt(input.substring(5).trim()) - 1);
-
-            } else if (input.startsWith("unmark ")) {
-                taskManager.unmarkTask(Integer.parseInt(input.substring(7).trim()) - 1);
-            } else {
+                break;
+            default:
                 taskManager.addTask(input);
+                break;
             }
         }
 
