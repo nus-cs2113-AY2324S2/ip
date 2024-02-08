@@ -7,10 +7,10 @@ public class Bob {
 
         displayWelcomeMessage();
         List<Task> list = new ArrayList<>();
+        Scanner in = new Scanner(System.in);
 
         loop: while (true) {
 
-            Scanner in = new Scanner(System.in);
             String line = in.nextLine();
 
             String command = line.split(" ")[0];
@@ -18,58 +18,19 @@ public class Bob {
 
             switch (command) {
             case "todo":
-                content = line.split(" ", 2)[1];
-                Task t = new Task(content);
-                list.add(t);
-
-                displayHorizontalLine();
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(t);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                displayHorizontalLine();
+                addTodo(line, list);
                 break;
             case "deadline":
-                content = line.split(" ", 2)[1];
-                Deadline d = new Deadline(content.split( " /by ")[0], content.split( " /by ")[1]);
-                list.add(d);
-
-                displayHorizontalLine();
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(d);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                displayHorizontalLine();
+                addDeadline(line, list);
                 break;
             case "event":
-                content = line.split(" ", 2)[1];
-
-                String description = content.split( " /from ")[0];
-                String start = content.split( " /from ")[1].split(" /to ")[0];
-                String by = content.split(" /to ")[1];
-
-                Event e = new Event(description, start, by);
-                list.add(e);
-
-                displayHorizontalLine();
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(e);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                displayHorizontalLine();
+                addEvent(line, list);
                 break;
             case "mark":
-                content = line.split(" ", 2)[1];
-                list.get(Integer.parseInt(content) - 1).setDone(true);
-                displayHorizontalLine();
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(list.get(Integer.parseInt(content) - 1).getListItem());
-                displayHorizontalLine();
+                markTask(line, list);
                 break;
             case "unmark":
-                content = line.split(" ", 2)[1];
-                list.get(Integer.parseInt(content) - 1).setDone(false);
-                displayHorizontalLine();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(list.get(Integer.parseInt(content) - 1).getListItem());
-                displayHorizontalLine();
+                unmarkTask(line, list);
                 break;
             case "list":
                 displayList(list);
@@ -81,6 +42,70 @@ public class Bob {
                 break;
             }
         }
+    }
+
+    private static void unmarkTask(String line, List<Task> list) {
+        String content;
+        content = line.split(" ", 2)[1];
+        list.get(Integer.parseInt(content) - 1).setDone(false);
+        displayHorizontalLine();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(list.get(Integer.parseInt(content) - 1).getListItem());
+        displayHorizontalLine();
+    }
+
+    private static void markTask(String line, List<Task> list) {
+        String content;
+        content = line.split(" ", 2)[1];
+        list.get(Integer.parseInt(content) - 1).setDone(true);
+        displayHorizontalLine();
+        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println(list.get(Integer.parseInt(content) - 1).getListItem());
+        displayHorizontalLine();
+    }
+
+    private static void addEvent(String line, List<Task> list) {
+        String content;
+        content = line.split(" ", 2)[1];
+
+        String description = content.split( " /from ")[0];
+        String start = content.split( " /from ")[1].split(" /to ")[0];
+        String by = content.split(" /to ")[1];
+
+        Event e = new Event(description, start, by);
+        list.add(e);
+
+        displayHorizontalLine();
+        System.out.println("Got it. I've added this event: ");
+        System.out.println(e);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        displayHorizontalLine();
+    }
+
+    private static void addDeadline(String line, List<Task> list) {
+        String content;
+        content = line.split(" ", 2)[1];
+        Deadline d = new Deadline(content.split( " /by ")[0], content.split( " /by ")[1]);
+        list.add(d);
+
+        displayHorizontalLine();
+        System.out.println("Got it. I've added this deadline: ");
+        System.out.println(d);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        displayHorizontalLine();
+    }
+
+    private static void addTodo(String line, List<Task> list) {
+        String content;
+        content = line.split(" ", 2)[1];
+        Task t = new Task(content);
+        list.add(t);
+
+        displayHorizontalLine();
+        System.out.println("Got it. I've added this todo: ");
+        System.out.println(t);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        displayHorizontalLine();
     }
 
     private static void displayList(List<Task> list) {
