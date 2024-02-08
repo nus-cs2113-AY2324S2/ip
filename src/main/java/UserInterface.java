@@ -17,6 +17,7 @@ public class UserInterface {
         System.out.println("======================================");
         System.out.println("goodbye! hope to see you again soon!");
         System.out.println("======================================");
+        scan.close();
     }
 
     public static void requestUsername() {
