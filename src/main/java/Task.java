@@ -12,7 +12,7 @@ public class Task {
     }
 
     public String getDescription(){
-        return (description);
+        return (this.description);
     }
 
     public void markAsDone(){
@@ -21,6 +21,10 @@ public class Task {
 
     public void unmark(){
         isDone = false;
+    }
+
+    public String taskType(){
+        return "[U]";
     }
 
 
