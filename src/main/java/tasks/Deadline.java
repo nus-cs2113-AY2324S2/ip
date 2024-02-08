@@ -1,4 +1,8 @@
 // Subclass of Task
+
+package tasks;
+import main.DukeException;
+
 public class Deadline extends Task {
 
     public Deadline(String description, int index) throws DukeException {
