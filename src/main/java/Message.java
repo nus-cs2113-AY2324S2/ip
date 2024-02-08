@@ -49,9 +49,9 @@ public class Message {
 
     public static final String ADD_TASK_MESSAGE_MIDDLE = "\nYou now have a whopping ";
 
-    public static final String ADD_TASK_MESSAGE_END = " task(s) in the list. Keep 'em coming!";
+    public static final String ADD_TASK_MESSAGE_END = " tasks in the list. Keep 'em coming!";
 
     public static final String LIST_MESSAGE_FRONT = "Behold, the mighty task(s) in your realm:\n";
 
-    public static final String LIST_MESSAGE_END = "\nThese task(s) await your valiant efforts, noble taskmaster!";
+    public static final String LIST_MESSAGE_END = "\nThese tasks await your valiant efforts, noble taskmaster!";
 }

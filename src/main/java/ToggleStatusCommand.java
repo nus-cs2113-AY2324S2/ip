@@ -10,8 +10,10 @@ public class ToggleStatusCommand implements Command {
 
     @Override
     public void execute(TaskList tasks) {
-        tasks.getTask(index).setIsDone(command.startsWith("mark"));
-        System.out.println(toggleMessage(tasks.getTask(index)));
+        if (index > 0 && index <= tasks.size()) {
+            tasks.getTask(index).setIsDone(command.startsWith("mark"));
+            System.out.println(toggleMessage(tasks.getTask(index)));
+        }
     }
 
     private String toggleMessage(Task task) {

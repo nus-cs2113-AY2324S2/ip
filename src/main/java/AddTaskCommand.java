@@ -7,7 +7,7 @@ public class AddTaskCommand implements Command {
 
     @Override
     public void execute(TaskList tasks) {
-        tasks.addTask(new TaskGenerator().apply(taskDescriptions).orElseThrow());
+        tasks.addTask(TaskGenerator.generate(taskDescriptions));
         System.out.println(Message.ADD_TASK_MESSAGE_FRONT
                 + tasks.getTask(tasks.size())
                 + Message.ADD_TASK_MESSAGE_MIDDLE

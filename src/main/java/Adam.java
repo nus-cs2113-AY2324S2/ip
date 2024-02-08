@@ -10,12 +10,12 @@ public class Adam {
         System.out.println(Message.GREETING_MESSAGE);
 
         while (scanner.hasNextLine()) {
-            input = scanner.nextLine();
             System.out.print(Message.DELIMITER);
 
             try {
-                Command command = new CommandGenerator().apply(input).orElseThrow();
-                command.execute(tasks);
+                CommandGenerator.generate(scanner.nextLine())
+                        .orElseThrow()
+                        .execute(tasks);
             } catch (NoSuchElementException error) {
                 System.out.println(Message.ERROR_MESSAGE);
             }
