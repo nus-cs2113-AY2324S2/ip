@@ -2,56 +2,110 @@ import java.util.Scanner;
 
 
 public class Allez {
+    public static final int LIST_SIZE = 100;
+    protected static Task[] tasks = new Task[LIST_SIZE];
+    protected static  int taskCount = 0;
 
-    public static void printList(Task[] list){
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
+    public static void printList(Task[] tasks){
         int count = 0;
-        while(list[count] != null){
-            System.out.println((count+1) + ". " + list[count].getStatusIcon() +
-                    " " + list[count].getDescription());
+        System.out.println("Here are the tasks in your list:");
+        while(tasks[count] != null){
+            System.out.println((count+1) + ". " + tasks[count].toString());
             count+=1;
         }
     }
 
-//    public static void storeInList(String[] list, int count, String line) {
-//        list[count] = line;
-//    }
     public static void main(String[] args) {
+        boolean hasEnded = false;
 
         printGreeting();
-        executeCommands();
+
+        while(!hasEnded) {
+            hasEnded = executeCommands();
+        }
+
         printExit();
     }
 
-    private static void executeCommands() {
+    private static boolean executeCommands() {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-        Task[] list = new Task[100];
-        int toMark = 0;
+        String firstWord = line.split(" ",2)[0];
 
-        int itemsInList = 0;
-
-
-        while (!line.equals("bye")){
-
-            //mark activity as done
-            if(line.startsWith("mark")) {
-                toMark = Integer.parseInt(line.substring(4).trim()) -1;
-                list[toMark].markDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("\t" + list[toMark].getStatusIcon() + " " + list[toMark].getDescription());
-
-            } else if (line.equals("list")) { //print list
-                printList(list);
-            } else{ //store line as new task
-                list[itemsInList] = new Task(line);
-                System.out.println("added: " + list[itemsInList].getDescription());
-                itemsInList+=1;
-            }
-
-
-
-            line = in.nextLine();
+        switch(firstWord){
+        case "bye":
+            return true;
+        case "mark":
+            markTask(line);
+            break;
+        case "todo":
+            createTask(line, TaskType.TODO);
+            break;
+        case "deadline":
+            createTask(line, TaskType.DEADLINE);
+            break;
+        case "event":
+            createTask(line, TaskType.EVENT);
+            break;
+        case "list":
+            printList(tasks);
+            break;
+        default:
+            System.out.println("Invalid command. Please try again.");
+            break;
         }
+
+        return false;
+    }
+
+    private static void createTask(String lineWithCommand, TaskType type) {
+        String[] lineSegment;
+        String description;
+        String by;
+        String from;
+        String to;
+        String line = lineWithCommand.split(" ",2)[1];
+
+
+        switch (type){
+        case TODO:
+            description = line.trim();
+            tasks[taskCount] = new ToDo(description);
+            break;
+        case DEADLINE:
+            lineSegment = line.split("/", 2);
+            description = lineSegment[0].trim();
+            by = lineSegment[1].substring(2).trim();
+            tasks[taskCount] = new Deadline(description, by);
+            break;
+        case EVENT:
+            lineSegment = line.split("/", 3);
+            description = lineSegment[0].trim();
+            from = lineSegment[1].substring(4).trim();
+            to = lineSegment[2].substring(2).trim();
+            tasks[taskCount] = new Event(description, from, to);
+            break;
+        default:
+            System.out.println("Invalid TaskType occurred.");
+            return;
+        }
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + tasks[taskCount].toString());
+        taskCount +=1;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    private static void markTask(String line) {
+        int toMark;
+        toMark = Integer.parseInt(line.substring(4).trim()) -1;
+        tasks[toMark].markDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("\t" + tasks[toMark].toString());
     }
 
     private static void printExit() {
