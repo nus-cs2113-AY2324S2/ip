@@ -48,7 +48,7 @@ public class Floda {
                 taskScanner.next();
                 String remaining = taskScanner.nextLine().trim();
                 String[] parts = remaining.split("/by");
-                String description = parts[0].trim(); // Trim to remove leading/trailing spaces
+                String description = parts[0].trim();
                 String by = parts[1].trim();
                 list[taskCounter] = new Deadline(description, by);
                 taskCounter++;
@@ -66,7 +66,7 @@ public class Floda {
                 String remaining = taskScanner.nextLine().trim();
                 remaining = remaining.replace("/to", "/from");
                 String[] parts = remaining.split("/from");
-                String description = parts[0].trim(); // Trim to remove leading/trailing spaces
+                String description = parts[0].trim();
                 String from = parts[1].trim();
                 String to = parts[2].trim();
                 list[taskCounter] = new Events(description, from, to);
