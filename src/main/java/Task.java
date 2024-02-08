@@ -3,7 +3,7 @@
  */
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected Boolean isDone;
 
     /**
      * Creates a new Task with the specified description.

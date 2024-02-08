@@ -4,9 +4,61 @@ import java.util.Scanner;
  * Represents the main class for the application Duke.
  */
 public class Duke {
+    private static final int MAX_SIZE = 100;
+    private static Task[] list = new Task[MAX_SIZE];
+    private static int num = 0;
+
+
+    private static void markTask(String[] input) {
+        int taskNumber = Integer.parseInt(input[1]) - 1;
+                list[taskNumber].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(list[taskNumber]);
+    }
+
+
+    private static void unmarkTask(String[] input) {
+        int taskNumber = Integer.parseInt(input[1]) - 1;
+                list[taskNumber].markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(list[taskNumber]);
+
+    }
+
+
+    private static void showList() {
+        System.out.println("Here are the tasks in your list");
+        for (int i = 0; i < num; i++) {
+            System.out.println(i + 1 + ":" + list[i]);
+        }
+
+    }
+
+    private static void todoTasks(String task) {
+
+        String taskDescription = task.substring(5);   //input this into the function
+                    list[num] = new Todo(taskDescription);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(list[num].toString());
+                    num++;
+    }
+
+    private static void DeadlineTasks(String task) {
+        
+    }
+
+
+    private static void addTasks(String input) {
+        if (input.startsWith("todo")) {
+            todoTasks(input);
+        }
+
+    }
+
+
 
     /**
-     * Main entry point of the Duke application.
+     * Main entry point of the Chatbot.
      * Initializes the application and starts the interaction with the user.
      *
      * @param args Command line arguments.
@@ -14,11 +66,11 @@ public class Duke {
     public static void main(String[] args) {
         // Initialize greeting logo and print welcome message
         String logo =
-                "   J     A    SSSS    OOO   N   N \n"
-                        + "   J    A A   S      O   O  NN  N \n"
-                        + "   J   AAAAA   SSS   O   O  N N N \n"
-                        + "J  J  A     A     S  O   O  N  NN \n"
-                        + " JJJ  A     A  SSSS   OOO   N   N \n" +
+                "   J     A     SSSS    OOO   N   N \n"
+                        + "   J    A A    S      O   O  NN  N \n"
+                        + "   J   A A A    SSS   O   O  N N N \n"
+                        + "J  J  A     A      S  O   O  N  NN \n"
+                        + " JJJ A       A  SSSS   OOO   N   N \n" +
                         "                 \n";
         System.out.println(logo + " Eyy wassup I'm Jason\r\n"
                 + " What can I do for you?\r\n"
@@ -26,8 +78,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        Task[] list = new Task[100];
-        int num = 0;
+        
 
         while (true) {
             input = scanner.nextLine();
@@ -42,28 +93,19 @@ public class Duke {
 
             // Split the input and check for commands
             String[] parts = input.split(" ");
-            if (parts.length > 1 && parts[0].equalsIgnoreCase("mark")) {
+            if (parts[0].equalsIgnoreCase("mark")) {
                 // Mark task as done
-                int taskNumber = Integer.parseInt(parts[1]) - 1;
-                list[taskNumber].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(list[taskNumber]);
-            } else if (parts.length > 1 && parts[0].equalsIgnoreCase("unmark")) {
+                markTask(parts);
+            } else if (parts[0].equalsIgnoreCase("unmark")) {
                 // Mark task as not done
-                int taskNumber = Integer.parseInt(parts[1]) - 1;
-                list[taskNumber].markAsNotDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(list[taskNumber]);
-            } else if (input.equalsIgnoreCase("list")) {
+                unmarkTask(parts);
+            } else if (parts[0].equalsIgnoreCase("list")) {
                 // List all tasks
-                for (int i = 0; i < num; i++) {
-                    System.out.println(i + 1 + ":" + list[i]);
-                }
+                showList();
             } else {
                 // Add new task
-                System.out.println("added: " + input);
-                list[num] = new Task(input);
-                num++;
+                addTasks(input);
+               
             }
 
             System.out.println("____________________________________________________________");
