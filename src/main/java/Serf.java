@@ -125,7 +125,6 @@ public class Serf {
                         " (by: " + taskList[taskCounter - 1].getEndDate() + ")");
                 System.out.println(FIVEWHITESPACES + "Now you have " + Integer.toString(taskCounter) + " tasks in the list.");
                 System.out.println(VERTICALLINES + "\n");
-
             } else if (receivedMessage.contains("event")) {
                 String[] splittedMessage = receivedMessage.split("event ");
                 String[] doubleSplittedMessage = splittedMessage[1].split(" /from ");
