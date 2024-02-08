@@ -1,20 +1,20 @@
 import java.util.Scanner;
 public class NyanBot {
-    private static String line = "____________";
+    private static String LINE = "____________";
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
     private static void echo() {
         Scanner in = new Scanner(System.in);
-        String[] splitInput = new String[2];
+        String[] splitInputs = new String[2];
         String userInput = in.nextLine();
-        splitInput = userInput.split(" ");
+        splitInputs = userInput.split(" ");
 
-        switch(splitInput[0]) {
+        switch(splitInputs[0]) {
         case "bye":
             return;
         case "list":
-            System.out.println(line);
+            System.out.println(LINE);
 
             for (int i = 0; i < taskCount; i++) {
                 System.out.print(i + 1 + ". " + tasks[i].getStatusIcon() + " ");
@@ -22,15 +22,15 @@ public class NyanBot {
             }
             break;
         case "mark":
-            int markIndex = Integer.parseInt(splitInput[1]) - 1;
+            int markIndex = Integer.parseInt(splitInputs[1]) - 1;
             tasks[markIndex].markAsDone();
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("はい、markしました！");
             break;
         case "unmark":
-            markIndex = Integer.parseInt(splitInput[1]) - 1;
+            markIndex = Integer.parseInt(splitInputs[1]) - 1;
             tasks[markIndex].unmarkAsDone();
-            System.out.println(line);
+            System.out.println(LINE);
             System.out.println("はい、unmarkしました！");
             break;
         case "todo":
@@ -38,13 +38,13 @@ public class NyanBot {
             addTask(newTodo);
             break;
         case "deadline":
-            splitInput = userInput.split("/");
-            Deadline newDeadline = new Deadline(splitInput[0].substring(9), splitInput[1]);
+            splitInputs = userInput.split("/");
+            Deadline newDeadline = new Deadline(splitInputs[0].substring(9), splitInputs[1]);
             addTask(newDeadline);
             break;
         case "event":
-            splitInput = userInput.split("/");
-            Event newEvent = new Event(splitInput[0].substring(6), splitInput[1], splitInput[2]);
+            splitInputs = userInput.split("/");
+            Event newEvent = new Event(splitInputs[0].substring(6), splitInputs[1], splitInputs[2]);
             addTask(newEvent);
             break;
         default:
@@ -54,23 +54,23 @@ public class NyanBot {
         echo();
     }
     public static void main(String[] args) {
-        String greet = "お帰りなさいませ、ご主人様。ニャンー♡♡";
-        String prompt = "なにをしたいの？";
-        String bye = "じゃー、またね〜！！";
+        String GREET = "お帰りなさいませ、ご主人様。ニャンー♡♡";
+        String PROMPT = "なにをしたいの？";
+        String BYE = "じゃー、またね〜！！";
 
-        System.out.println(line);
-        System.out.println(greet + "\n" + prompt);
+        System.out.println(LINE);
+        System.out.println(GREET + "\n" + PROMPT);
 
         echo();
 
-        System.out.println(line);
-        System.out.println(bye);
+        System.out.println(LINE);
+        System.out.println(BYE);
     }
 
     public static void addTask(Task task) {
         tasks[taskCount] = task;
         taskCount++;
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Added " + task);
     }
 }
