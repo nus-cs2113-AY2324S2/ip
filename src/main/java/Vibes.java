@@ -20,6 +20,31 @@ public class Vibes {
         }
     }
 
+    private static void executeCommand(String commandToExecute, List taskList, String userInput) {
+        int taskNumber;
+
+        switch (commandToExecute){
+        case "list":
+            taskList.listTasks();
+            break;
+        case "mark":
+            taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
+            taskList.setAsDone(taskNumber);
+            break;
+        case "unmark":
+            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+            taskList.setAsNotDone(taskNumber);
+            break;
+        case "add task":
+            taskList.addTask(userInput);
+            break;
+        default:
+            System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
+                    "and bye");
+            break;
+        }
+    }
+
     public static void main(String[] args) {
         String userInput;
         boolean isExit = true;
@@ -31,34 +56,15 @@ public class Vibes {
         System.out.println(DASHED_LINE);
 
         while(isExit){
-            int taskNumber;
             userInput = in.nextLine().trim();
             String commandToExecute = extractCommand(userInput.toLowerCase());
 
             System.out.println(DASHED_LINE);
-            switch (commandToExecute){
-            case "bye":
+            if (commandToExecute.equals("bye")){
                 System.out.println("\t Bye. Hope to see you again soon!");
                 isExit = false;
-                break;
-            case "list":
-                taskList.listTasks();
-                break;
-            case "mark":
-                taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-                taskList.setAsDone(taskNumber);
-                break;
-            case "unmark":
-                taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-                taskList.setAsNotDone(taskNumber);
-                break;
-            case "add task":
-                taskList.addTask(userInput);
-                break;
-            default:
-                System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
-                        "and bye");
-                break;
+            } else {
+                executeCommand(commandToExecute, taskList, userInput);
             }
             System.out.println(DASHED_LINE);
         }
