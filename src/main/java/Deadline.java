@@ -6,8 +6,14 @@ public class Deadline extends Task{
         toPrint();
     }
     public String getBy() throws DukeException{
+        String[] splitLine = description.split("/by");
+        if (splitLine.length != 2) {
+            throw new DukeException("Invalid Syntax! Please try again!");
+        }
+        return splitLine[1];
 
-        String[] splitLine = description.split("/"); // Split input from / onwards
+
+     /*   String[] splitLine = description.split("/"); // Split input from / onwards
         String getby = null;
         for (String s : splitLine) {
             if (s.startsWith("by")) {
@@ -17,7 +23,7 @@ public class Deadline extends Task{
 
         }
         throw new DukeException();
-        //return splitLine[1].substring(3); // Return date
+        //return splitLine[1].substring(3); // Return date*/
 
     }
 
@@ -26,14 +32,17 @@ public class Deadline extends Task{
     public String toString() {
         //printHeaders();
         try {
-            return "[D]" + super.toString() + " (by: " + getBy() + ")";
+            return "[D]" + super.toString() + " (by:" + getBy() + ")";
         } catch (DukeException e) {
+            System.out.println("error!, please try again!");
             throw new RuntimeException();
+
         }
     }
 
     public void toPrint() throws DukeException {
         if (getBy() != null) {
+            printHeaders();
             System.out.println(toString());
         }
     }

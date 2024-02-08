@@ -19,12 +19,18 @@ public class Event extends Task{
                 return getfrom;
             }
         }
-        throw new DukeException();
+        throw new DukeException("Invalid Syntax! Please try again!");
         //return splitLine[1].substring(5); // Return starting time
     }
 
     public String getTo() throws DukeException {
-        String[] splitLine = description.split("/"); // Split input from / onwards
+        String[] splitLine = description.split("/from");
+        String[] durationLine = splitLine[1].split("/to");
+        if (splitLine.length != 2 || durationLine.length != 2) {
+            throw new DukeException("Invalid Syntax! Please try again!");
+        }
+        return splitLine[1].substring(3);
+    /*    String[] splitLine = description.split("/"); // Split input from / onwards
         String getto = null;
         for (String s : splitLine) {
             if (s.startsWith("to")) {
@@ -33,7 +39,7 @@ public class Event extends Task{
             }
 
         }
-        throw new DukeException();
+        throw new DukeException("Invalid Syntax! Please try again!");*/
 
         //return splitLine[1].substring(5); // Return starting time
 
@@ -46,10 +52,17 @@ public class Event extends Task{
     public String toString() {
         String date = null;
         try {
-            date = " (from: " + getFrom()  + "to: " + getTo() + ")";
-        } catch (DukeException e) {
+            String[] splitLine = description.split("/from");
+            String[] durationLine = splitLine[1].split("/to");
+            if (splitLine.length != 2 || durationLine.length != 2) {
+                throw new DukeException("Invalid Syntax! Please try again!");
+            }
+
+            date = " (from:" + durationLine[0]  + "to:" + durationLine[1] + ")";
+
+        return "[E]" + super.toString() + date;
+    } catch (DukeException e) {
             throw new RuntimeException(e);
         }
-        return "[E]" + super.toString() + date;
     }
-}
+    }
