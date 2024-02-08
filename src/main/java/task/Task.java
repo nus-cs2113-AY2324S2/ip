@@ -1,12 +1,6 @@
 package task;
 
-import java.util.ArrayList;
-
 public class Task {
-    private static final int MAX_TASKS = 128;
-    private static int totalTasks = 0;
-    private static ArrayList<Task> taskList = new ArrayList<Task>();
-
     private String taskDescription;
     private int taskNumber;
     private boolean isTaskDone;
@@ -18,12 +12,10 @@ public class Task {
      *
      * @param taskDescription Description of the task.
      */
-    public Task(String taskDescription) {
+    public Task(String taskDescription, int taskNumber) {
         setTaskDescription(taskDescription);
-        setTaskNumber();
+        setTaskNumber(taskNumber);
         setTaskStatus(false);
-        totalTasks++;
-        taskList.add(this);
     }
 
     /**
@@ -33,6 +25,14 @@ public class Task {
      */
     public String getTaskDescription() {
         return taskDescription;
+    }
+
+    public int getTaskNumber() {
+        return taskNumber;
+    }
+
+    public boolean isTaskDone() {
+        return isTaskDone;
     }
 
     /**
@@ -47,8 +47,8 @@ public class Task {
     /**
      * Give the newly created task an associated task number.
      */
-    private void setTaskNumber() {
-        this.taskNumber = totalTasks + 1;
+    private void setTaskNumber(int taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
     /**
@@ -60,29 +60,11 @@ public class Task {
         this.isTaskDone = isTaskDone;
     }
 
-    /**
-     * Prints out the whole list of tasks that have been added so far.
-     */
-    public static void printTaskList() {
-        System.out.println("Here are the tasks at hand:");
-        for (Task t : taskList) {
-            System.out.format("%d.[%c] %s\n", t.taskNumber, t.isTaskDone ? 'X' : ' ', t.taskDescription);
-        }
-    }
-
-    /**
-     * Retrieves the task associated by its task number.
-     *
-     * @param taskNumber The task number to retrieve.
-     * @return The task associated with the task number. `null` if the task is not found.
-     */
-    public static Task getTask(int taskNumber) {
-        for (Task task : taskList) {
-            if (task.taskNumber == taskNumber) {
-                return task;
-            }
-        }
-        return null;
+    public void printTask() {
+        System.out.format("%d.[%c] %s\n",
+                getTaskNumber(),
+                isTaskDone() ? 'X' : ' ',
+                getTaskDescription());
     }
 
     /**
@@ -91,7 +73,7 @@ public class Task {
     public void markAsDone() {
         setTaskStatus(true);
         System.out.println("Cool, this task is now done:");
-        System.out.format("    [%c] %s\n", this.isTaskDone ? 'X' : ' ', this.taskDescription);
+        System.out.format("    [%c] %s\n", isTaskDone() ? 'X' : ' ', getTaskDescription());
     }
 
     /**
@@ -100,6 +82,6 @@ public class Task {
     public void markAsUndone() {
         setTaskStatus(false);
         System.out.println("Oh okay, this task is now marked as undone:");
-        System.out.format("    [%c] %s\n", this.isTaskDone ? 'X' : ' ', this.taskDescription);
+        System.out.format("    [%c] %s\n", isTaskDone() ? 'X' : ' ', getTaskDescription());
     }
 }

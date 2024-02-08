@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-import task.Task;
+import task.TaskManager;
 
 public class AnonBot {
     // ASCII Art Generated from: https://patorjk.com/software/taag/#p=display&f=Big&t=anonBot
@@ -49,17 +49,14 @@ public class AnonBot {
                 return;
             case "list":
                 System.out.println(SECTION_BAR);
-                Task.printTaskList();
+                TaskManager.printTaskList();
                 System.out.println(SECTION_BAR + "\n");
                 break;
             case "mark":
                 System.out.println(SECTION_BAR);
                 if (commands.length >= 2) {
                     taskNumber = Integer.parseInt(commands[1]);
-                    Task taskToMark = Task.getTask(taskNumber);
-                    if (taskToMark != null) {
-                        taskToMark.markAsDone();
-                    }
+                    TaskManager.markTaskAsDone(taskNumber);
                 }
                 System.out.println(SECTION_BAR + "\n");
                 break;
@@ -67,15 +64,12 @@ public class AnonBot {
                 System.out.println(SECTION_BAR);
                 if (commands.length >= 2) {
                     taskNumber = Integer.parseInt(commands[1]);
-                    Task taskToUnmark = Task.getTask(taskNumber);
-                    if (taskToUnmark != null) {
-                        taskToUnmark.markAsUndone();
-                    }
+                    TaskManager.markTaskAsUndone(taskNumber);
                 }
                 System.out.println(SECTION_BAR + "\n");
                 break;
             default:
-                new Task(userInput);
+                TaskManager.createNewTask(userInput);
                 System.out.println(SECTION_BAR);
                 System.out.println("Added: " + userInput);
                 System.out.println(SECTION_BAR + "\n");
