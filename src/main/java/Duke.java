@@ -8,6 +8,8 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
+        String[] listOfItems = new String[100];
+
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Brennan!");
         System.out.println("What can I do for you?\n");
@@ -15,18 +17,31 @@ public class Duke {
         //String that stores the input entered by the user
         String input;
 
+        //variable stores the number of tasks being added
+        int sizeOfAddedItems = 0;
+
         Scanner in = new Scanner(System.in);
         while (true) {
             input = in.nextLine();
 
             if (input.equals("bye")) {
                 break;
-            }
 
-            else {
+            } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println(input);
+                for (int i = 0; i < sizeOfAddedItems; i++) {
+                    System.out.println((i + 1) + ". " + listOfItems[i]);
+                }
                 System.out.println("____________________________________________________________");
+            } else {
+                listOfItems[sizeOfAddedItems] = input;
+
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + input);
+                System.out.println("____________________________________________________________");
+
+                sizeOfAddedItems++;
+
             }
         }
 
