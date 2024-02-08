@@ -91,8 +91,16 @@ public class N {
                 taskList[taskCount] = new ToDo(taskDescription, taskCount);
                 break;
         }
-        printMessage("Got it, " +taskType+ " task has been added:\n" + "    " +taskList[taskCount].toString());
         taskCount ++;
+        if (taskCount <= 1) {
+            printMessage("Got it, " +taskType+ " task has been added:\n" + "    "
+                    +taskList[taskCount - 1].toString()+
+                    "\n    Now you have 1 task in the list");
+        } else {
+            printMessage("Got it, " +taskType+ " task has been added:\n" + "    "
+                    +taskList[taskCount - 1].toString()+
+                    "\n    Now you have "+taskCount+" tasks in the list");
+        }
     }
 
     public static void handleMessages() {
