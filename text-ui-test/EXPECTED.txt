@@ -1,0 +1,22 @@
+____________________________________________________________
+Hello! I'm Bartholomew, but you can call me Bart for short :)
+What can I do for you?
+____________________________________________________________
+todo borrow book
+Got it. I've added this task:
+  [T][ ] w book
+Now you have 1 tasks in the list.
+____________________________________________________________
+deadline return book /by Sunday
+Got it. I've added this task:
+  [D][ ] ok (by: Sunday)
+Now you have 2 tasks in the list.
+____________________________________________________________
+event project meeting /from Mon 2pm /to 4pm
+Got it. I've added this task:
+  [E][ ] t meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+bye
+Bye. Hope to see you again soon!
+____________________________________________________________
