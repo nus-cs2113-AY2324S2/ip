@@ -46,15 +46,12 @@ public class Evelyn {
         } else if (line.equals("list")) {
             System.out.println("Here are the tasks in your list:");
             printList(tasks);
-            echo();
         } else if (line.startsWith("mark")) {
                 int index = Integer.parseInt(line.substring(5).trim()) - 1;
                 markTask(index, true);
-                echo();
         } else if (line.startsWith("unmark")) {
             int index = Integer.parseInt(line.substring(7).trim()) - 1;
             markTask(index, false);
-            echo();
 
         } else if (line.startsWith("todo")) {
             tasks[indexOfTask] = new Todos(line.substring(5).trim());
@@ -63,7 +60,6 @@ public class Evelyn {
             System.out.println("  " + tasks[indexOfTask - 1]);
             System.out.println("Now you have " + indexOfTask + " tasks in the list.");
             printLine();
-            echo();
         } else if (line.startsWith("deadline")) {
             boolean haveBy = line.contains("/by");
             if (haveBy) {
@@ -76,11 +72,9 @@ public class Evelyn {
                 System.out.println("  " + tasks[indexOfTask - 1]);
                 System.out.println("Now you have " + indexOfTask + " tasks in the list.");
                 printLine();
-                echo();
             }
             else{
                 System.out.println(" please enter the correct command");
-                echo();
             }
         } else if (line.startsWith("event")) {
             boolean haveFrom = line.contains("/from");
@@ -97,16 +91,16 @@ public class Evelyn {
                 System.out.println("  " + tasks[indexOfTask - 1]);
                 System.out.println("Now you have " + indexOfTask + " tasks in the list.");
                 printLine();
-                echo();
             }
             else{
                 System.out.println(" please enter the correct command");
-                echo();
+
             }
         } else {
             System.out.println(" please enter the correct command");
-            echo();
+
         }
+        echo();
     }
 
     public static void printLine() {
