@@ -1,5 +1,7 @@
 import java.util.Scanner;
 public class N {
+    static Task[] taskList = new Task[100];
+    static int taskCount = 0;
 
     public static void printLine() {
         System.out.println("    ____________________________________________________________ \n");
@@ -11,28 +13,23 @@ public class N {
         printLine();
     }
 
-    /**
-     * Prints the current list of tasks and their completion status.
-     * If there are no tasks added, "no tasks to complete" will be printed.
-     *
-     * @param taskList the current list of tasks tracked.
-     */
-    public static void printAsList(Task[] taskList) {
-        if (taskList[0] == null) {
+    public static void printTaskList() {
+        if (taskCount == 0) {
             printMessage("no tasks added, wake up pleasee!");
         } else {
             printLine();
-            for(int i = 0; taskList[i] != null; i++) {
-                System.out.println(taskList[i].getIndex()+ ".["+taskList[i].getCheckMark()+"] " +taskList[i].getDescription());
+            System.out.println("Here are the tasks in your list:");
+            for(int i = 0; i < taskCount; i++) {
+                System.out.println(taskList[i]);
             }
             printLine();
         }
     }
 
-    public static void changeTaskStatus(Task[] taskList, int taskIndex, boolean newStatus) {
-        String outputMessage = "";
+    public static void changeTaskStatus(int taskIndex, boolean newStatus) {
+        String outputMessage;
         //check to ensure that task to be marked/unmarked exists in the list
-        if (taskIndex < Task.totalTasks) {
+        if (taskIndex < taskCount) {
             //when no change in status is required
             if (taskList[taskIndex].isDone() == newStatus) {
                 //generate output message based on current task status
@@ -57,12 +54,48 @@ public class N {
         printMessage(outputMessage);
     }
 
-    public static void addTask(Task[] taskList, int taskIndex, String taskDescription) {
-        printMessage("added: " +taskDescription.trim());
-        taskList[taskIndex] = new Task(taskDescription, taskIndex);
+    public static Type filterTask(String taskDescription) {
+        Type taskType;
+        switch (taskDescription.split(" ")[0]) {
+            case "event":
+                taskType = Type.Event;
+                break;
+            case "deadline":
+                taskType = Type.Deadline;
+                break;
+            default:
+                taskType = Type.ToDo;
+                break;
+        };
+        return taskType;
     }
 
-    public static void handleMessages(Task[] taskList, int nextIndex) {
+    public static void addTask(String message) {
+        Type taskType = filterTask(message);
+        String taskDescription;
+        switch(taskType) {
+            case Event:
+                taskDescription = message.substring(5);
+                taskList[taskCount] = new Event(taskDescription, taskCount);
+                break;
+            case Deadline:
+                taskDescription = message.substring(8);
+                taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                break;
+            case ToDo:
+                taskDescription = message.substring(4);
+                taskList[taskCount] = new ToDo(taskDescription, taskCount);
+                break;
+            default:
+                taskDescription = message;
+                taskList[taskCount] = new ToDo(taskDescription, taskCount);
+                break;
+        }
+        printMessage("Got it, " +taskType+ " task has been added:\n" + "    " +taskList[taskCount].toString());
+        taskCount ++;
+    }
+
+    public static void handleMessages() {
         Scanner in = new Scanner(System.in);
         String message = in.nextLine();
 
@@ -70,21 +103,19 @@ public class N {
             //print bye message
             printMessage("Bye. Hope to see you again soon!");
         } else if (message.equalsIgnoreCase("list")) {
-            //print task list and continue to poll for message
-            printAsList(taskList);
-            handleMessages(taskList, nextIndex);
+            printTaskList();
+            handleMessages();
         } else if (message.contains("unmark")) {
             int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
-            changeTaskStatus(taskList, indexToUnmark - 1, false);
-            handleMessages(taskList, nextIndex);
+            changeTaskStatus(indexToUnmark - 1, false);
+            handleMessages();
         } else if (message.contains("mark")) {
             int indexToMark = Integer.parseInt(message.split(" ")[1]);
-            changeTaskStatus(taskList, indexToMark - 1, true);
-            handleMessages(taskList, nextIndex);
+            changeTaskStatus(indexToMark - 1, true);
+            handleMessages();
         } else {
-            // add a new task to the current task list
-            addTask(taskList, nextIndex, message);
-            handleMessages(taskList, nextIndex + 1);
+            addTask(message);
+            handleMessages();
         }
     }
 
@@ -106,11 +137,7 @@ public class N {
 
         System.out.println("Hello from\n" + logo);
 
-        printLine();
-        System.out.println("    Hello! I'm N :) \n" + "    What can I do for you? \n");
-        printLine();
-
-        Task[] taskList = new Task[100];
-        handleMessages(taskList, 0);
+        printMessage("Hello! I'm N :) \n" + "    What can I do for you? \n");
+        handleMessages();
     }
 }

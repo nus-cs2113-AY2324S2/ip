@@ -1,15 +1,13 @@
 public class Task {
-    private String description;
-    private int index;
-    private boolean isDone;
-
-    static int totalTasks = 0;
+    protected String description;
+    protected int index;
+    protected boolean isDone;
+    protected Type taskType;
 
     public Task(String description, int arrayIndex) {
         this.description = description.trim();
         this.index = arrayIndex + 1;
         this.isDone = false;
-        totalTasks ++;
     }
 
     public String getDescription() {
@@ -42,5 +40,10 @@ public class Task {
         } else {
             return " ";
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.getIndex()+ ". ["+ this.getCheckMark()+"] " +this.getDescription();
     }
 }
