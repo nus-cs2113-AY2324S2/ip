@@ -1,9 +1,11 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
 
     public static void userMarkOrUnmark(String command, String line, Task[] list, int index, Task t) {
-        // To mark
+
+        // To Mark
         if (command.equals("mark")) {
             try {
                 index = Integer.parseInt(line.substring(5));
@@ -43,8 +45,25 @@ public class Duke {
             }
             System.out.println("____________________________________________________________");
     }
+
     public static void userBye() {
         System.out.println("Bye human. Come back soon !");
+    }
+
+    public static void userWrongCommand() {
+        System.out.println("No suitable command found. Please try again!");
+    }
+
+    public static boolean checkMinimumArguments(String[] splitLine, int number) {
+        try {
+            if (splitLine.length < number) {
+                throw new DukeException();
+            }
+        } catch (DukeException e) {
+            System.out.println("Minimally " + number + " arguments, please try again!");
+            return true;
+        }
+        return false;
     }
 
     //
@@ -52,7 +71,7 @@ public class Duke {
         Scanner in = new Scanner(System.in); // Declared a scanner object
         String line; // Declared a string object to take in user input
         Task[] list; // Declared a list with string data type
-        list = new Task[100]; // created a list of 100 elements
+        list = new Task[100]; // Created a list of 100 elements
         int counter = 0;
         int index = 0;
         Task t = list[0];
@@ -60,10 +79,11 @@ public class Duke {
         // Start of user input
 
         while (true) {
-            line = in.nextLine().toLowerCase(); // Takes in user input
+            line = in.nextLine().toLowerCase(); // Takes in user
+
+            //split by whitespaces
             String[] splitLine = line.split("\\s+"); // split if there is 1 or more whitespace
             String command = splitLine[0];
-
 
             // User wants to exit
             switch (command) {
@@ -73,6 +93,10 @@ public class Duke {
 
                 // User wants to display the list of tasks
                 case "list":
+                    if (splitLine.length != 1) {
+                        userWrongCommand();
+                        break;
+                    }
                     userList(line, list);
                     continue;
 
@@ -84,21 +108,50 @@ public class Duke {
 
                 // Checks which type of task the user wants to do
                 case "todo":
-                    t = new Todo(line, counter + 1);
+                    if (checkMinimumArguments(splitLine, 2)) {
+                        continue;
+                    }
+                    try {
+                        t = new Todo(line, counter + 1);
+                    }catch (Exception e) {
+                        System.out.println("Invalid Syntax, please try again!");
+                        continue;
+                    }
+
+                    //t = new Todo(line, counter + 1);
                     list[counter] = t;
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
                     continue;
 
                 case "deadline":
-                    t = new Deadline(line, counter + 1);
+                    if (checkMinimumArguments(splitLine, 4)) {
+                        continue;
+                    }
+                    try {
+                        t = new Deadline(line, counter + 1);
+                    } catch (Exception e) {
+                        System.out.println("Invalid Syntax, please try again!");
+                        continue;
+                    }
+                    //t = new Deadline(line, counter + 1);
                     list[counter] = t;
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
                     continue;
 
                 case "event":
-                    t = new Event(line, counter + 1);
+                    if (checkMinimumArguments(splitLine, 8)) {
+                        continue;
+                    }
+                    try {
+                        t = new Event(line, counter + 1);
+                    } catch (Exception e) {
+                        System.out.println("Invalid Syntax, please try again!");
+                        continue;
+                    }
+
+                    //t = new Event(line, counter + 1);
                     list[counter] = t;
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
