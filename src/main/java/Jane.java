@@ -30,15 +30,15 @@ public class Jane {
     }
 
     public static void main(String[] args) {
-        String LOGO = " _____    _____    ____ _    _____ \n" +
-                      "|____ |  |     |  |    | |  | ____|\n" +
-                      "    | |  |  |  |  | |  | |  | |___ \n" +
-                      " _  | |  |  _  |  | |  | |  |  ___|\n" +
-                      "| |_| |  | | | |  | |  | |  | |___ \n" +
-                      "|_____|  |_| |_|  |_| ___|  |_____|\n";
+        String LOGO = " _____    _____    ____ _    _____ \n"
+                + "|____ |  |     |  |    | |  | ____|\n"
+                + "    | |  |  |  |  | |  | |  | |___ \n"
+                + " _  | |  |  _  |  | |  | |  |  ___|\n"
+                + "| |_| |  | | | |  | |  | |  | |___ \n"
+                + "|_____|  |_| |_|  |_| ___|  |_____|\n";
         String SEPARATOR = "____________________________________________________________\n";
         String GREET_MESSAGE = "Hello! I am Jane.\nWhat can I do for you?\n";
-        String EXIT_MESSAGE = "Bye. Hope to see you again soon!\n";
+        String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 
         System.out.print(LOGO + SEPARATOR);
         System.out.print(GREET_MESSAGE + SEPARATOR);
