@@ -1,6 +1,6 @@
 public class Task {
-    private String taskName;
-    private boolean isDone;
+    protected String taskName;
+    protected boolean isDone;
 
     public Task(){
         this.taskName = "";
@@ -27,12 +27,12 @@ public class Task {
         this.isDone = done;
     }
 
-    public void printTask(){
+    public String toString(){
         if (this.isDone){
-            System.out.println("[X] " + this.taskName);
+            return("[X] " + this.taskName);
         }
         else{
-            System.out.println("[ ] " + this.taskName);
+            return("[ ] " + this.taskName);
         }
     }
 }
