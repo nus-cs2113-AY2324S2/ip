@@ -1,4 +1,4 @@
-public class DeadlineTask extends Task {
+public class DeadlineTask extends Task{
     protected static String deadline;
 
     public DeadlineTask(boolean status, String description) {
@@ -18,9 +18,8 @@ public class DeadlineTask extends Task {
     public String setDeadline(String argument){
         // find index of '/'
         int index = argument.indexOf('/');
-        System.out.println("test");
-        deadline = argument.substring(index + 3);
-        return argument.substring(0, index - 2);
+        deadline = argument.substring(index + 4);
+        return argument.substring(0, index - 1);
     }
 
     public String getDeadline() {

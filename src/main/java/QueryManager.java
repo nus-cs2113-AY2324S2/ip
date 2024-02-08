@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class QueryManager {
     private Query currentQuery;
 
@@ -52,6 +50,10 @@ public class QueryManager {
                 DeadlineTask deadline = new DeadlineTask(false, argument);
                 // add deadline to list of task (substitutability)
                 list.addTask(deadline);
+                return -1;
+            case "event":
+                EventTask event = new EventTask(false, argument);
+                list.addTask(event);
                 return -1;
         }
     }
