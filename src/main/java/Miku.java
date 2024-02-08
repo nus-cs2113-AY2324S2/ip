@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Miku {
     public static void main(String[] args) {
@@ -14,36 +15,64 @@ public class Miku {
         Task[] storedList = new Task[100];
         int numberOfListItems = 0;
 
-        while (!line.equals("bye")) {
+        while (!newItem.equals("bye")) {
             System.out.println("______________________");
 
-            if (line.equals("list")) {
-                System.out.println("Here are ycxdfqwert1e123our list items!");
+            if (newItem.contains("list")) {
+                System.out.println("Here are your list items!");
                 for (int i = 0; i < numberOfListItems; i++) {
-                    System.out.println(i + 1 + ". [" + storedList[i].getStatusIcon()
-                            + "] " + storedList[i].description + "\n");
+                    System.out.println((i + 1) + ". " + storedList[i].toString());
                 }
-            } else if (line.contains("mark")) {
-                boolean isUnmarking = line.contains("unmark");
-                String printedLine = (isUnmarking ? "Aww... I've marked it as undone."
-                        : "Good job~! I've marked it as done");
-                System.out.println(printedLine);
-                String[] markList = line.split(" ");
-                String listNumberString = markList[(markList.length - 1)];
-                int listNumberInt = Integer.parseInt(listNumberString);
-                storedList[listNumberInt-1].isDone = (!isUnmarking);
-                System.out.println("[" + storedList[listNumberInt-1].getStatusIcon()
-                        + "] " + storedList[listNumberInt-1].description + "\n");
-            } else {
-                    System.out.println("added: " + newItem);
-                    storedList[numberOfListItems] = new Task(newItem);
-                    storedList[numberOfListItems].description = newItem;
-                    numberOfListItems++;
+
+                System.out.println("______________________");
+                line = in.nextLine();
+                newItem = line;
+                continue;
             }
+
+            if (line.contains("mark")) {
+                boolean isUnmarking = line.contains("unmark");
+                String[] markList = line.split(" ");
+                int listNumberInt = Integer.parseInt(markList[1]);
+                storedList[listNumberInt - 1].isDone = (!isUnmarking);
+
+                System.out.println(isUnmarking ? "Aww... I've marked it as undone."
+                        : "Good job~! I've marked it as done");
+                System.out.println("[" + storedList[listNumberInt - 1].getStatusIcon()
+                        + "] " + storedList[listNumberInt - 1].description + "\n");
+                System.out.println("______________________");
+                line = in.nextLine();
+                newItem = line;
+                continue;
+            }
+
+
+            if (newItem.contains("todo")) {
+                String[] itemString = newItem.split("todo");
+                Todo newTask = new Todo(itemString[1]);
+                storedList[numberOfListItems] = new Todo(itemString[1]);
+                storedList[numberOfListItems].description = (itemString[1]);
+            } else if (newItem.contains("deadline")) {
+                String[] itemString = newItem.split("deadline|/by");
+                Deadline newDeadline = new Deadline(itemString[1], itemString[2]);
+                storedList[numberOfListItems] = new Deadline(itemString[1], itemString[2]);
+                storedList[numberOfListItems].description = (itemString[1]);
+            } else if (newItem.contains("event")) {
+                String[] itemString = newItem.split("event|/from|/to");
+                Event newEvent = new Event(itemString[1], itemString[2], itemString[3]);
+                storedList[numberOfListItems] = new Event(itemString[1], itemString[2], itemString[3]);
+                storedList[numberOfListItems].description = (itemString[1]);
+            }
+
+            System.out.println("Got it! I've addded this task:\n" + storedList[numberOfListItems].toString());
+            numberOfListItems++;
+            System.out.println("Now you have " + numberOfListItems + " tasks in the list!");
             System.out.println("______________________");
+
             line = in.nextLine();
             newItem = line;
         }
+
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("______________________");
     }
