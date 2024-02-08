@@ -1,0 +1,20 @@
+hello
+todo sleep for 8 hours
+deadline wake up /by 8:00AM tmr
+event exercise/from tmr /to 1st Aug. 2024
+todo jaer09549)(0
+list
+mark 1
+unmark 1
+mark 99
+mark -1
+unmark 0
+unmark 99
+todo borrow book
+list
+deadline sleep /by 12 tonight
+event sleep /from 12am /to 9a.m. 09/02/2024
+deadline sleep /by 12 tonight
+event sleep /from 12am /to 9a.m. 09/02/2024
+list
+bye
