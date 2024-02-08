@@ -11,6 +11,31 @@ public class List {
         totalTasks = 0;
     }
 
+    public boolean isValidCommand(String[] textArray) {
+        boolean isValid = true;
+        String command = textArray[0];
+        switch (command) { // assume inputs for commands are correct
+        case "mark":
+            // fallthrough
+        case "unmark":
+            int idx = Integer.parseInt(textArray[1]) - 1;
+            getMark(idx, command);
+            break;
+        case "todo":
+            addTodo(textArray);
+            break;
+        case "deadline":
+            addDeadline(textArray);
+            break;
+        case "event":
+            addEvent(textArray);
+            break;
+        default:
+            isValid = false;
+            break;
+        }
+        return isValid;
+    }
     public Task getTodo(int idx) {
         return this.todoList.get(idx);
     }
@@ -20,7 +45,7 @@ public class List {
         for (int i = 2; i < todo.length; i++) {
             todoText.append(' ').append(todo[i]);
         }
-        Task task = new Task(todoText.toString(), 'T');
+        Task task = new Todo(todoText.toString());
         addTask(task);
     }
 
@@ -39,7 +64,7 @@ public class List {
         }
         i++;
         eventText.append(' ').append("to: ").append(event[i]).append(')');
-        Task task = new Task(eventText.toString(), 'E');
+        Task task = new Event(eventText.toString());
         addTask(task);
     }
 
@@ -57,7 +82,7 @@ public class List {
             i++;
         }
         deadlineText.append(deadline[i]).append(')');
-        Task task = new Task(deadlineText.toString(), 'D');
+        Task task = new Deadline(deadlineText.toString());
         addTask(task);
     }
 
@@ -67,7 +92,7 @@ public class List {
         System.out.println("Got it. I've added this task:");
         this.todoList.get(totalTasks).printTask();
         this.totalTasks++;
-        System.out.println(' ');
+        System.out.println();
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
         printLine();
     }
@@ -91,7 +116,7 @@ public class List {
 
     public void printTaskWithLine(int idx) {
         this.todoList.get(idx).printTask();
-        System.out.println(' ');
+        System.out.println();
         printLine();
     }
 
@@ -101,7 +126,7 @@ public class List {
         for (int i = 0; i < todoList.size(); i++) {
             System.out.print(i+1 + ". ");
             todoList.get(i).printTask();
-            System.out.println(' ');
+            System.out.println();
         }
         printLine();
     }

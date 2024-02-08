@@ -1,9 +1,9 @@
 public class Task {
 
-    private final String name;
-    private boolean hasDone;
+    protected String name;
+    protected boolean hasDone;
 
-    private char tde;
+    protected char tde;
 
     public Task(String task, char tde) {
         this.name = task;
@@ -19,6 +19,7 @@ public class Task {
         System.out.print(tick);
         System.out.print(name);
     }
+
     public String getName() {
         return this.name;
     }
@@ -26,7 +27,7 @@ public class Task {
         return this.hasDone ? "[X] " : "[ ] ";
     }
     public String getTDE() {
-        return "[" + (char)this.tde + "]";
+        return "[" + this.tde + "]";
     }
     public void markDone() {
         this.hasDone = true;

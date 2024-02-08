@@ -12,23 +12,7 @@ public class Burger {
         while (isPolling) {
             String text = input.nextLine();
             String[] textArray = text.split(" ");
-            String command = textArray[0];
-            switch (command) { // assume inputs for commands are correct
-            case "mark":
-            case "unmark":
-                int idx = Integer.parseInt(textArray[1]) - 1;
-                myList.getMark(idx, command);
-                break;
-            case "todo":
-                myList.addTodo(textArray);
-                break;
-            case "deadline":
-                myList.addDeadline(textArray);
-                break;
-            case "event":
-                myList.addEvent(textArray);
-                break;
-            default:
+            if (!myList.isValidCommand(textArray)) {
                 switch (text.trim().toLowerCase()) {
                 case "bye":
                     isPolling = false;
@@ -40,7 +24,6 @@ public class Burger {
                     wakeUp();
                     break;
                 }
-                break;
             }
         }
         goodbye();
