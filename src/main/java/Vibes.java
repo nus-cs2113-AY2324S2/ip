@@ -9,9 +9,9 @@ public class Vibes {
             return "list";
         } else if (userInput.contentEquals("bye")){
             return "bye";
-        } else if (userInput.startsWith("mark")) {
+        } else if (userInput.startsWith("mark ")) {
             return "mark";
-        } else if (userInput.startsWith("unmark")) {
+        } else if (userInput.startsWith("unmark ")) {
             return "unmark";
         } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
             return "add task";

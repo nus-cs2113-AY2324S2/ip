@@ -15,6 +15,12 @@ public class List {
             String by = userInput.substring(userInput.indexOf("/by") + 4);
             tasks[taskCount] = new Deadline(description, by);
             break;
+        case "event":
+            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
+            String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") -1);
+            String to = userInput.substring(userInput.indexOf("/to") + 4);
+            tasks[taskCount] = new Event(description, from, to);
+            break;
         }
         System.out.println("\t Got it. I've added this task:");
         System.out.println("\t   " + tasks[taskCount]);
