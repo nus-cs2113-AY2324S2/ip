@@ -1,13 +1,13 @@
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // Prompt the user to enter their details
         String name = UserDetails.getName();
         String birthday = UserDetails.getBirthday();
         String gender = UserDetails.getGenderSelection();
 
 
+        // Print the user details with a welcome message
         String message = String.format(
                 "Verification passed.\nOptions enabled.\n%s Born on %s\n%s\nID A.D.0013\n" +
                         "Rank 'S'\nListed in the Kassel Academy roster.\n" +
@@ -17,14 +17,10 @@ public class Main {
 
         System.out.println(message);
 
-        boolean continueReading = true;
-        while (continueReading) {
-            String command = scanner.nextLine().trim();
-            continueReading = TaskManager.processCommand(command);
-        }
+        //Call control panel to start the task manager
+        ControlPanel.main(args);
 
-        scanner.close();
+        
 
     }
 }
-
