@@ -1,13 +1,17 @@
 import java.util.Scanner;
 
 public class GermaBot {
+    public static int getIdx(String input) {
+        return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
+    }
+
     public static void main(String[] args) {
         String WelcomeMessage = "____________________ \n"
                 + "Hello! GermaBot here! \n"
                 + "What may I do for you this fine day? \n"
                 + "____________________";
         System.out.println(WelcomeMessage);
-        String[] toDoList = new String[100];
+        Task[] toDoList = new Task[100];
         int counter = 0;
         while (true) {
             String echo;
@@ -17,19 +21,30 @@ public class GermaBot {
                 break;
             }
             if (echo.equals("list")) {
-                int i = 1;
-                for (String s : toDoList) {
-                    if (s == null) {
+                int printCounter = 1;
+                System.out.println("Gotcha! Here are your tasks:");
+                for (int j = 0; j < counter; j++) {
+                    if (toDoList[j] == null) {
                         break;
                     }
-                    System.out.println(i + ". " + s);
-                    i++;
+                    System.out.println(printCounter + ". [" + toDoList[j].getStatusIcon() + "] " + toDoList[j].getDescription());
+                    printCounter++;
                 }
-            }
-            else {
-                toDoList[counter] = echo;
-                System.out.println("Added: " + echo + " to the list!");
-                counter += 1;
+            } else if (echo.contains("unmark")) {
+                int idx = getIdx(echo);
+                toDoList[idx].setDone(false);
+                System.out.println("Aww, not done? Okay, I'll mark this task as undone: "
+                        + "[" + toDoList[idx].getStatusIcon() + "] " + toDoList[idx].getDescription());
+            } else if (echo.contains("mark")) {
+                int idx = getIdx(echo);
+                toDoList[idx].setDone(true);t
+                System.out.println("Good job! I'll mark this task as done: "
+                        + "[" + toDoList[idx].getStatusIcon() + "] " + toDoList[idx].getDescription());
+            } else {
+                Task t = new Task(echo);
+                toDoList[counter] = t;
+                System.out.println("Added '" + echo + "' to the list!");
+                counter++;
             }
         }
         String GoodbyeMessage = "____________________ \n"
@@ -37,4 +52,4 @@ public class GermaBot {
                 + "____________________";
         System.out.println(GoodbyeMessage);
     }
-    }
+}
