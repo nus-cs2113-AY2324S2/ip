@@ -32,23 +32,57 @@ public class Loopy {
             markTaskAsDone(task);
         } else if (task.startsWith("unmark ")) {
             markTaskAsUndone(task);
-        } else {
-            addTask(new Task(task)); // Create Task object and add it to the list
+        } else if (task.startsWith("todo")){
+            addTodo(task); // Create Task object and add it to the list
+        } else if (task.startsWith("deadline")){
+            addDeadline(task);
+        } else if (task.startsWith("event")){
+            addEvent(task);
         }
     }
 
-    private static void addTask(Task task) {
-        if (!task.getDescription().equals("bye")) {
-            tasks.add(task);
-            System.out.println("added: " + task.getDescription());
-        }
+    private static void addTodo(String task) {
+       // if (!task.getDescription().equals("bye")) {
+            //tasks.add(task);
+
+            String description = task.substring(5, task.length());
+            tasks.add(new TodoTask(description));
+
+            System.out.println("Got it. I've added this task: ");
+            System.out.println(tasks.get(tasks.size() - 1));
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        //}
     }
-//NOT DISPLAYING LIST PROPERLY
+    private static void addDeadline(String task) {
+       //separate the input into 2 substrings: description and deadline
+        int splitPosition = task.indexOf("/");
+        String description = task.substring(9, splitPosition);
+        String deadline = task.substring(splitPosition + 4, task.length());
+
+        tasks.add(new DeadlineTask(description,deadline));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void addEvent(String task){
+        int fromPosition = task.indexOf("from");
+        int toPosition = task.indexOf("to");
+        String description = task.substring(6, fromPosition - 1);
+        String fromDate = task.substring(fromPosition + 5, toPosition - 1);
+        String toDate = task.substring(toPosition + 3, task.length());
+
+        tasks.add(new EventTask(description, fromDate, toDate));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
     private static void displayTaskList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
-            System.out.println((i + 1) + ". " + currentTask);
+            String taskInfo = currentTask.toString();
+            System.out.println((i + 1) + ". " + taskInfo);
         }
     }
 
@@ -78,8 +112,8 @@ public class Loopy {
 }
 
 class Task {
-    private String description;
-    private boolean isDone;
+    public String description;
+    public boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -101,8 +135,57 @@ class Task {
     public String getDescription() {
         return description;
     }
-    @Override
+    public String getType(){
+        return "";
+    }
+    @Override //converts hexadecimal output to string
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
+        return "[" + getType() + "]" + "[" + (isDone ? "X" : " ") + "] " + description;
     }
 }
+
+class TodoTask extends Task{
+    public TodoTask(String description){
+        super(description);
+    }
+    @Override
+    public String getType() {
+        return "T";
+    }
+
+}
+class DeadlineTask extends Task{
+    private String deadline;
+    public DeadlineTask(String description, String deadline){
+        super(description);
+        this.deadline = deadline;
+    }
+    @Override
+    public String toString() {
+        return "[" + getType() + "]" + "[" + (isDone ? "X" : " ") + "] " + description + " (by: " + deadline + ")";
+    }
+
+    @Override
+    public String getType() {
+        return "D";
+    }
+}
+class EventTask extends Task {
+    private String fromDate, toDate;
+    public EventTask(String description, String fromDate, String toDate) {
+        super(description);
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+    @Override
+    public String getType() {
+        return "E";
+    }
+    @Override
+    public String toString() {
+        return "[" + getType() + "]" + "[" + (isDone ? "X" : " ") + "] " + description + " (from: " + fromDate + " to: " + toDate + ")";
+    }
+
+
+}
+
