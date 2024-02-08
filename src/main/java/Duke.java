@@ -58,7 +58,21 @@ public class Duke {
                                 + "_________________________"
                                 + System.lineSeparator());
             } else if(line.startsWith("event")) {
-
+                String[] eventTask = line.split("event");
+                String[] description = eventTask[1].split("/from | /to");
+                Event event = new Event(description[0], description[1], description[2]);
+                tasks[count] = event;
+                count++;
+                System.out.println(
+                        "_________________________\n"
+                                + "\t Got it. I've added this task:"
+                                + System.lineSeparator()
+                                + "\t\t " + event
+                                + System.lineSeparator()
+                                + "\t Now you have " + count + " tasks in the list."
+                                + System.lineSeparator()
+                                + "_________________________"
+                                + System.lineSeparator());
             }
 
             else if(line.contains("mark")) {
@@ -73,8 +87,7 @@ public class Duke {
                     System.out.println(
                             "_________________________\n"
                                     + "\tNice! I've marked this task as done:\n"
-                                    + "[" + tasks[num-1].getStatusIcon() + "] "
-                                    + tasks[num-1].description
+                                    + tasks[num-1]
                                     + "\n_________________________");
                 } else {
                     tasks[num-1].markNotDone();
