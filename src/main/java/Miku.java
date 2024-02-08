@@ -1,17 +1,15 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Miku {
+
     public static void main(String[] args) {
-        String line;
         Scanner in = new Scanner(System.in);
 
         System.out.println("______________________");
         System.out.println("Hello! I'm Miku!\n" + "What can I do for you?");
         System.out.println("______________________");
 
-        line = in.nextLine();
-        String newItem = line;
+        String newItem = in.nextLine();
         Task[] storedList = new Task[100];
         int numberOfListItems = 0;
 
@@ -25,14 +23,13 @@ public class Miku {
                 }
 
                 System.out.println("______________________");
-                line = in.nextLine();
-                newItem = line;
+                newItem = in.nextLine();
                 continue;
             }
 
-            if (line.contains("mark")) {
-                boolean isUnmarking = line.contains("unmark");
-                String[] markList = line.split(" ");
+            if (newItem.contains("mark")) {
+                boolean isUnmarking = newItem.contains("unmark");
+                String[] markList = newItem.split(" ");
                 int listNumberInt = Integer.parseInt(markList[1]);
                 storedList[listNumberInt - 1].isDone = (!isUnmarking);
 
@@ -41,36 +38,30 @@ public class Miku {
                 System.out.println("[" + storedList[listNumberInt - 1].getStatusIcon()
                         + "] " + storedList[listNumberInt - 1].description + "\n");
                 System.out.println("______________________");
-                line = in.nextLine();
-                newItem = line;
+
+                newItem = in.nextLine();
                 continue;
             }
 
-
             if (newItem.contains("todo")) {
                 String[] itemString = newItem.split("todo");
-                Todo newTask = new Todo(itemString[1]);
                 storedList[numberOfListItems] = new Todo(itemString[1]);
                 storedList[numberOfListItems].description = (itemString[1]);
             } else if (newItem.contains("deadline")) {
                 String[] itemString = newItem.split("deadline|/by");
-                Deadline newDeadline = new Deadline(itemString[1], itemString[2]);
                 storedList[numberOfListItems] = new Deadline(itemString[1], itemString[2]);
                 storedList[numberOfListItems].description = (itemString[1]);
             } else if (newItem.contains("event")) {
                 String[] itemString = newItem.split("event|/from|/to");
-                Event newEvent = new Event(itemString[1], itemString[2], itemString[3]);
                 storedList[numberOfListItems] = new Event(itemString[1], itemString[2], itemString[3]);
                 storedList[numberOfListItems].description = (itemString[1]);
             }
 
-            System.out.println("Got it! I've addded this task:\n" + storedList[numberOfListItems].toString());
+            System.out.println("Got it! I've added this task:\n" + storedList[numberOfListItems].toString());
             numberOfListItems++;
             System.out.println("Now you have " + numberOfListItems + " tasks in the list!");
             System.out.println("______________________");
-
-            line = in.nextLine();
-            newItem = line;
+            newItem = in.nextLine();
         }
 
         System.out.println("Bye. Hope to see you again soon!");
