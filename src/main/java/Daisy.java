@@ -6,7 +6,6 @@ public class Daisy {
         final String EXIT_PROMPT = "Ending prompt received. Remember to keep to the deadlines!";
         final String LINE_BREAK = "____________________________________";
         Task[] tasks = new Task[100];
-        Task new_task;
         int task_no = 0;
 
 
@@ -19,7 +18,7 @@ public class Daisy {
 
         while (!command.equals("bye")) {
             System.out.println(LINE_BREAK);
-            String[] separate_commands = command.split(" ");
+            String[] separate_commands = command.split(" ",2);
             switch (separate_commands[0]) {
                 case "list":
                     for (int i = 0; i < task_no; i++) {
@@ -36,11 +35,29 @@ public class Daisy {
                     System.out.println("More time needed for the following task? Sure!");
                     System.out.println(tasks[Integer.parseInt(separate_commands[1])-1]);
                     break;
-                default:
-                    new_task = new Task(command);
-                    tasks[task_no] = new_task;
+                case "todo":
+                    Todo newTodo = new Todo(separate_commands[1]);
+                    addItem(tasks, task_no, newTodo);
                     task_no++;
-                    System.out.println("added: " + new_task);
+                    break;
+                case "deadline":
+                    String[] separate_deadlines = separate_commands[1].split(" /by ");
+                    Deadline newDeadline = new Deadline(separate_deadlines[0],separate_deadlines[1]);
+                    addItem(tasks, task_no, newDeadline);
+                    task_no++;
+                    break;
+                case "event":
+                    String eventLine = separate_commands[1];
+                    int from = eventLine.indexOf(" /from ");
+                    int to = eventLine.indexOf(" /to ");
+                    Event newEvent = new Event(eventLine.substring(0, from),eventLine.substring(from + " /from ".length(), to), eventLine.substring(to+" /to ".length()));
+                    addItem(tasks, task_no, newEvent);
+                    task_no++;
+                    break;
+                default:
+                    Task newTask = new Task(command);
+                    addItem(tasks, task_no, newTask);
+                    task_no++;
                     break;
             }
             System.out.println(LINE_BREAK);
@@ -48,5 +65,11 @@ public class Daisy {
         }
         System.out.println(EXIT_PROMPT);
         System.out.println(LINE_BREAK);
+    }
+
+    public static void addItem(Task[] tasks, int task_no, Task item) {
+        tasks[task_no] = item;
+        System.out.println("Task received! The following has been added to your list of todos:\n" + item);
+        System.out.println(String.format("Now you have %d tasks in your todo list.",task_no+1));
     }
 }
