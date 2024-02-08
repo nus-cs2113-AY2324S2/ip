@@ -7,10 +7,7 @@ public class Event extends Task {
         this.startDayAndTime = startDayAndTime;
         this.endDayAndTime = endDayAndTime;
     }
-    @Override
-    public String getDescription(){
-        return description + " (from: " + startDayAndTime + " to: " + endDayAndTime;
-    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startDayAndTime + " to: " + endDayAndTime + ")";
