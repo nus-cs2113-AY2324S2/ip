@@ -3,7 +3,7 @@ public enum TaskType {
     DEADLINE ("D"),
     EVENT ("E");
 
-    // private final String type;
+    private final String type;
 
     /**
      * Constructor for TaskType.
