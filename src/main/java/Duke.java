@@ -19,15 +19,35 @@ public class Duke {
                 return;
             } else if(line.equals("list")) {
                 System.out.println("_________________________");
-                System.out.println("\tYour List:");
+                System.out.println("\tHere are the tasks in your list:");
                 for(int i = 0; i < count; i++) {
-                    System.out.println("\t" + (i+1) + ". ["
-                            + tasks[i].getStatusIcon()
-                            + "] "
-                            + tasks[i].description);
+                    Task task = tasks[i];
+                    System.out.println("\t" + (i+1) + "."
+                            + task);
                 }
                 System.out.println("_________________________");
-            } else if(line.contains("mark")) {
+            } else if(line.startsWith("todo")) {
+                String[] toDoTask = line.split("todo");
+                Todo todo = new Todo(toDoTask[1]);
+                tasks[count] = todo;
+                count++;
+                System.out.println(
+                        "_________________________\n"
+                                + "\t Got it. I've added this task:"
+                                + System.lineSeparator()
+                                + "\t\t " + todo
+                                + System.lineSeparator()
+                                + "\t Now you have " + count + " tasks in the list."
+                                + System.lineSeparator()
+                                + "_________________________"
+                                + System.lineSeparator());
+            } else if(line.startsWith("deadline")) {
+
+            } else if(line.startsWith("event")) {
+
+            }
+
+            else if(line.contains("mark")) {
                 String[] subCommand = line.split(" ");
                 int num = Integer.parseInt(subCommand[1]);
                 if(num > count) {
@@ -52,13 +72,6 @@ public class Duke {
                                     + "\n_________________________");
                 }
             } else {
-                Task task = new Task(line);
-                tasks[count] = task;
-                System.out.println(
-                        "_________________________\n"
-                                + "\tadded: " + line
-                                + "\n"
-                                + "_________________________\n");
                 count++;
             }
         }
