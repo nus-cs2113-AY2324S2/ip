@@ -12,9 +12,15 @@ public class CommandManager {
      * 4. `unmark` <task_number> - Marks specific task as undone.
      */
     public static Status processCommand(String userInput) {
+        if (Parser.isUserInputEmpty(userInput)){
+            System.out.println("Empty input");
+            return Status.STATUS_OK;
+        }
+
         String command = Parser.getCommand(userInput);
         String argument = Parser.getCommandArgument(userInput);
         int taskNumber;
+
         switch (command) {
         case "exit":
             // fallthrough
@@ -27,17 +33,21 @@ public class CommandManager {
             return Status.STATUS_OK;
         case "mark":
             System.out.println(Ui.SECTION_BAR);
-            if (commands.length >= 2) {
-                taskNumber = Integer.parseInt(commands[1]);
+            if (Parser.isValidTaskNumberString(argument)){
+                taskNumber = Parser.getTaskNumberFromString(argument);
                 TaskManager.markTaskAsDone(taskNumber);
+            } else {
+                System.out.println("Invalid argument for mark");
             }
             System.out.println(Ui.SECTION_BAR + "\n");
             return Status.STATUS_OK;
         case "unmark":
             System.out.println(Ui.SECTION_BAR);
-            if (commands.length >= 2) {
-                taskNumber = Integer.parseInt(commands[1]);
+            if (Parser.isValidTaskNumberString(argument)) {
+                taskNumber = Parser.getTaskNumberFromString(argument);
                 TaskManager.markTaskAsUndone(taskNumber);
+            } else {
+                System.out.println("Invalid argument for unmark");
             }
             System.out.println(Ui.SECTION_BAR + "\n");
             return Status.STATUS_OK;
