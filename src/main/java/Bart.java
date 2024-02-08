@@ -11,43 +11,72 @@ public class Bart {
         byeUser();
     }
     public static void greetUser() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm Bartholomew, but you can call me Bart for short :)");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        System.out.println(LINE + "\nHello! I'm Bartholomew, but you can call me Bart for short :)");
+        System.out.println("What can I do for you?\n" + LINE);
     }
     public static void manageTask() {
         Scanner in = new Scanner(System.in);
         String command = "";
+
         while (!command.equals("bye")) {
             command = in.nextLine();
-            if (command.equals("list")) {
-                listTasks();
-            } else if (command.startsWith("mark")) {
-                markTask(command);
-            } else if (command.startsWith("unmark")) {
-                unmarkTask(command);
-            } else {
-                if (taskCount < tasksArray.length) {
-                    tasksArray[taskCount] = new Task(command); // Create new Task object
-                    taskCount++;
-                    System.out.println(LINE);
-                    System.out.println("added: " + command);
-                    System.out.println(LINE);
-                } else {
-                    System.out.println("Sorry, task list is full.");
-                }
+
+            switch (command) {
+                case "list":
+                    listTasks();
+                    break;
+                case "bye":
+                    break; // Exit the loop
+                default:
+                    handleMarking(command);
+                    break;
             }
         }
     }
+
+    private static void handleMarking(String command) {
+        if (command.startsWith("mark")) {
+            markTask(command);
+        } else if (command.startsWith("unmark")) {
+            unmarkTask(command);
+        } else {
+            addNewTask(command);
+        }
+    }
+
+    private static void addNewTask(String command) {
+        String taskDescription = command.substring(command.indexOf(' ') + 1);
+        if (taskCount < tasksArray.length) {
+            switch (command.split(" ")[0]) {
+                case "todo":
+                    tasksArray[taskCount] = new Todo(taskDescription);
+                    break;
+                case "deadline":
+                    tasksArray[taskCount] = new Deadline(taskDescription);
+                    break;
+                case "event":
+                    tasksArray[taskCount] = new Event(taskDescription);
+                    break;
+                default:
+                    tasksArray[taskCount] = new Task(taskDescription);
+                    break;
+            }
+            tasksArray[taskCount].printT(taskCount);
+            taskCount++;
+        } else {
+            System.out.println("Sorry, task list is full.");
+        }
+    }
+
     public static void listTasks() {
         System.out.println(LINE);
         //Edge case: If list empty
         if (taskCount == 0) {
             System.out.println("Nothing added");
         }
+
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasksArray[i].getStatusIcon() + " " + tasksArray[i].description);
+            System.out.println((i + 1) + "." + tasksArray[i].getTaskMark() + " " + tasksArray[i].description);
         }
         System.out.println(LINE);
     }
@@ -59,7 +88,7 @@ public class Bart {
         if (taskIndex >= 0 && taskIndex < taskCount) {
             tasksArray[taskIndex].markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasksArray[taskIndex].getStatusIcon() + " " + tasksArray[taskIndex].description);
+            System.out.println(tasksArray[taskIndex].getTaskMark() + " " + tasksArray[taskIndex].description);
         } else {
             System.out.println("Invalid task number.");
         }
@@ -72,7 +101,7 @@ public class Bart {
         if (taskIndex >= 0 && taskIndex < taskCount) {
             tasksArray[taskIndex].markAsUndone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(tasksArray[taskIndex].getStatusIcon() + " " + tasksArray[taskIndex].description);
+            System.out.println(tasksArray[taskIndex].getTaskMark() + " " + tasksArray[taskIndex].description);
         } else {
             System.out.println("Invalid task number.");
         }
@@ -80,7 +109,6 @@ public class Bart {
     }
 
     private static void byeUser() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+        System.out.println("Bye. Hope to see you again soon!\n" + LINE);
     }
 }
