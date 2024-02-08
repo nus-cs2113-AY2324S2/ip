@@ -50,8 +50,8 @@ public class John {
             break;
 
         case "todo": 
-            input = in.next();
-            taskList.add(new ToDo(input));
+            input = in.nextLine();
+            taskList.add(new ToDo(input.trim()));
             System.out.println("Added ToDo: " + input);
             break;
 
@@ -83,6 +83,7 @@ public class John {
         while (!userInput.equalsIgnoreCase("bye")) {
             parseInput(userInput);
             userInput = in.next();
+            System.out.println("");
         }
 
         System.out.println("Bye. Hope to see you again soon!");
