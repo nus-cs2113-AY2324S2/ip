@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Kratos {
     public final static int MAX_TASKS = 100;
     static Task[] tasksList = new Task[MAX_TASKS];
 
