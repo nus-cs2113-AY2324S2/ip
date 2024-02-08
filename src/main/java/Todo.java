@@ -3,7 +3,6 @@ public class Todo extends Task {
      * Constructor for Todo.
      * 
      * @param name The name of the todo.
-     * @return None
      */
     public Todo(String name) {
         super(name);

@@ -106,8 +106,7 @@ public class TaskList {
      * @param type
      * @return None
      */
-    public void addItem(String description, String type) {
-        // TODO: Refactor type to use enum for improved readability
+    public void addItem(String description, TaskType type) {
         // Error if empty string
         if (description.equals("")) {
             this.addItemError();
@@ -119,12 +118,12 @@ public class TaskList {
 
         try {
             switch (type) {
-            case "T": // Todo
+            case TODO:
                 taskName = description;
                 list.add(new Todo(taskName));
                 break;
 
-            case "D": // Deadline
+            case DEADLINE:
                 String[] nameEnd = description.split(" /by ", 2);
                 taskName = nameEnd[0];
                 taskEnd = nameEnd[1];
@@ -132,7 +131,7 @@ public class TaskList {
                 list.add(new Deadline(taskName, taskEnd));
                 break;
 
-            case "E": // Event
+            case EVENT:
                 String[] nameTimes = description.split(" /from ", 2);
                 String times = nameTimes[1];
 

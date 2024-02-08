@@ -117,16 +117,13 @@ public class Duke {
             break;
 
         case "todo":
-            // Add a todo task if input starts with "todo"
-            taskList.addItem(taskString, "T");
+            taskList.addItem(taskString, TaskType.TODO);
             break;
         case "deadline":
-            // Add a deadline task if input starts with "deadline"
-            taskList.addItem(taskString, "D");
+            taskList.addItem(taskString, TaskType.DEADLINE);
             break;
         case "event":
-            // Add an event task if input starts with "event"
-            taskList.addItem(taskString, "E");
+            taskList.addItem(taskString, TaskType.EVENT);
             break;
 
         default:

@@ -5,7 +5,6 @@ public class Deadline extends Task {
      * Constructor for Deadline.
      * 
      * @param name The name of the deadline.
-     * @return None
      */
     public Deadline(String name, String end) {
         super(name);

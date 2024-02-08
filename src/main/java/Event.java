@@ -5,7 +5,6 @@ public class Event extends Task {
      * Constructor for Event.
      * 
      * @param name The name of the event.
-     * @return None
      */
     public Event(String name, String start, String end) {
         super(name);

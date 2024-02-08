@@ -7,7 +7,6 @@ public class Task {
      * Constructor for Task.
      * 
      * @param name The name of the task.
-     * @return None
      */
     public Task(String name) {
         this.name = name;
