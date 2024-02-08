@@ -1,3 +1,5 @@
+package misc;
+
 public class Parser {
     public static String getCommand(String userInput) {
         return userInput.split(" ", 2)[0];
@@ -44,5 +46,27 @@ public class Parser {
      */
     public static int getTaskNumberFromString(String taskNumberString){
         return Integer.parseInt(taskNumberString);
+    }
+
+    public static String parseDeadlineDescription(String rawDeadlineDescription){
+        String[] stringArray = rawDeadlineDescription.split("/by", 2);
+        if (stringArray.length != 2) {
+            return rawDeadlineDescription;
+        }
+        return stringArray[0] + "(by:" + stringArray[1] + ")";
+    }
+
+    public static String parseEventDescription(String rawEventDescription){
+        String[] stringArray = rawEventDescription.split("/from", 2);
+        if (stringArray.length != 2){
+            return rawEventDescription;
+        }
+
+        String[] toFromArray = stringArray[1].split("/to", 2);
+        if (toFromArray.length != 2){
+            return rawEventDescription;
+        }
+
+        return stringArray[0] + "(from:" + toFromArray[0] + "to:" + toFromArray[1] + ")";
     }
 }

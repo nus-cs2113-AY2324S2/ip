@@ -1,6 +1,7 @@
 package task;
 
 import java.util.ArrayList;
+import misc.Parser;
 
 public class TaskManager {
     private static final int MAX_TASKS = 128;
@@ -40,10 +41,12 @@ public class TaskManager {
             System.out.println("Alright. I have added this todo task: ");
             break;
         case DEADLINE:
+            taskDescription = Parser.parseDeadlineDescription(taskDescription);
             newTask = new Deadline(taskDescription,numberOfActiveTasks);
             System.out.println("Alright. I have added this deadline: ");
             break;
         case EVENT:
+            taskDescription = Parser.parseEventDescription(taskDescription);
             newTask = new Event(taskDescription,numberOfActiveTasks);
             System.out.println("Alright. I have added this event: ");
             break;
