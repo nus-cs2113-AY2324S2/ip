@@ -8,8 +8,8 @@ public class Duke {
         System.out.println(chatBot);
         Task[] tasks = new Task[100];
         int count = 0;
-        while(true) {
-            Scanner userInput = new Scanner(System.in);
+        Scanner userInput = new Scanner(System.in);
+        while(userInput.hasNextLine()) {
             String line = userInput.nextLine();
             if(line.equals("bye")){
                 System.out.println(
