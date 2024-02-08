@@ -12,7 +12,7 @@ public enum Parser {
 
     private final String commandRegex;
 
-    private Parser(String commandRegex) {
+    Parser(String commandRegex) {
         this.commandRegex = commandRegex;
     }
 

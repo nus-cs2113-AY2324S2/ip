@@ -1,5 +1,4 @@
 import java.util.Optional;
-import java.util.function.Function;
 
 public class CommandGenerator{
     public static Optional<Command> generate(String input) {

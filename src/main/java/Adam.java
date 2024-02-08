@@ -3,17 +3,16 @@ import java.util.Scanner;
 
 public class Adam {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         TaskList tasks = new TaskList();
-        String input;
 
         System.out.println(Message.GREETING_MESSAGE);
 
-        while (scanner.hasNextLine()) {
+        while (input.hasNextLine()) {
             System.out.print(Message.DELIMITER);
 
             try {
-                CommandGenerator.generate(scanner.nextLine())
+                CommandGenerator.generate(input.nextLine())
                         .orElseThrow()
                         .execute(tasks);
             } catch (NoSuchElementException error) {
