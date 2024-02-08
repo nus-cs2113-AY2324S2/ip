@@ -17,18 +17,18 @@ public class Laika {
 
     public static void addTask(Task[] taskList, String line, int count){
         if(line.startsWith("todo")){
-            taskList[count] = new Todo(line.substring(5));
+            taskList[count] = new Todo(line.replaceFirst("todo ",""));
         }
         else if (line.startsWith("deadline")) {
             String[] words = line.split("/");
-            taskList[count] = new Deadline(words[0].substring(9),
-                    words[1].substring(3));
+            taskList[count] = new Deadline(words[0].replaceFirst("deadline ",""),
+                                           words[1].replaceFirst("by ",""));
         }
         else if (line.startsWith("event")) {
             String[] words = line.split("/");
-            taskList[count] = new Event(words[0].substring(6),
-                    words[1].substring(5),
-                    words[2].substring(3));
+            taskList[count] = new Event(words[0].replaceFirst("event ",""),
+                                        words[1].replaceFirst("from ",""),
+                                        words[2].replaceFirst("to ",""));
         }
         System.out.println("Laika: Gotcha! I've added the task for you\n  "
                 + taskList[count] + System.lineSeparator()
@@ -69,7 +69,7 @@ public class Laika {
                     isConvoOngoing = false;
                     break;
                 default:
-                    addTask(taskList,line,count);
+                    addTask(taskList, line, count);
                     count++;
             }
         }
