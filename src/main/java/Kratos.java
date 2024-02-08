@@ -48,7 +48,6 @@ public class Kratos {
                 "────────────▀─███─▀───────────\n" +
                 "───────────────▀──────────────\n";
 
-
         System.out.println(logo);
         System.out.println("------------------------------------------------------------");
         System.out.println("Kratos commends you for your presence. Prepare for battle. \n" +
