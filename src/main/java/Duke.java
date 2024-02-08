@@ -9,7 +9,7 @@ public class Duke {
         System.out.println("=========================");
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
-        System.out.println("=========================");
+//        System.out.println("=========================");
     }
 
     public void exit() {
