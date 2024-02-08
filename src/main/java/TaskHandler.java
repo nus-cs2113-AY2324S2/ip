@@ -1,5 +1,6 @@
 public class TaskHandler {
-    public static Task[] taskList = new Task[100];
+    static int MAX_TASKS = 100;
+    public static Task[] taskList = new Task[MAX_TASKS];
     public static int listCount = 0;
 
     public static ToDo createToDo(String userInput) {
