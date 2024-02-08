@@ -7,23 +7,22 @@ public class Artemis {
     public static int listCount = 0;
 
     public static void printBanner() {
-        String logo = "  __ _ _ __| |_ ___ _ __ ___ (_)___ \n" +
-                " / _` | '__| __/ _ \\ '_ ` _ \\| / __|\n" +
-                "| (_| | |  | ||  __/ | | | | | \\__ \\\n" +
-                " \\__,_|_|   \\__\\___|_| |_| |_|_|___/\n" +
-                "                                    ";
-        System.out.println("======================================\n");
+        String logo = "  __ _ _ __| |_ ___ _ __ ___ (_)___" + System.lineSeparator() +
+                " / _` | '__| __/ _ \\ '_ ` _ \\| / __|" + System.lineSeparator() +
+                "| (_| | |  | ||  __/ | | | | | \\__ \\"  + System.lineSeparator() +
+                " \\__,_|_|   \\__\\___|_| |_| |_|_|___/" + System.lineSeparator();
+        System.out.println("======================================" + System.lineSeparator());
         System.out.println(logo);
     }
 
     public static void printGoodbye() {
-        System.out.println("======================================\n");
-        System.out.println("goodbye! hope to see you again soon!\n");
-        System.out.println("======================================\n");
+        System.out.println("======================================");
+        System.out.println("goodbye! hope to see you again soon!");
+        System.out.println("======================================");
     }
 
     public static void requestUsername() {
-        System.out.println("hello! i'm artemis. what is your name?\n");
+        System.out.println("hello! i'm artemis. what is your name?");
         System.out.print("[unknown user]: ");
         username = scan.nextLine();
     }
@@ -44,7 +43,7 @@ public class Artemis {
     public static void listHandler() {
         String userInput;
 
-        System.out.printf("welcome to your personal list, %s!\n", username);
+        System.out.printf("welcome to your personal list, %s!%s", username, System.lineSeparator());
         System.out.println("usage: todo [item]");
         System.out.println("       deadline [item] /by [due date]");
         System.out.println("       event [item] /from [start] /to [end]");
@@ -66,13 +65,13 @@ public class Artemis {
                 taskList[listCount] = newToDo;
                 listCount++;
 
-                System.out.printf("[artemis]: you have added %s to the list\n", userInput);
+                System.out.printf("[artemis]: you have added %s to the list%s", userInput, System.lineSeparator());
             } else if (userInput.startsWith("event")) {
                 String[] eventDetails = Parser.eventParser(userInput);
                 Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
                 taskList[listCount] = newEvent;
                 listCount++;
-                System.out.printf("[artemis]: you have added this task:\n %s\n", newEvent);
+                System.out.printf("[artemis]: you have added this task:%s %s%s", System.lineSeparator(), newEvent, System.lineSeparator());
 
             } else if (userInput.startsWith("deadline")) {
                 String[] deadlineDetails = Parser.deadlineParser(userInput);
@@ -80,7 +79,7 @@ public class Artemis {
                 taskList[listCount] = newDeadline;
                 listCount++;
 
-                System.out.printf("[artemis]: you have added this task:\n %s\n", newDeadline);
+                System.out.printf("[artemis]: you have added this task:%s %s%s", System.lineSeparator(), newDeadline, System.lineSeparator());
 
             } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
                 String[] markList = userInput.split(" ");
@@ -97,7 +96,7 @@ public class Artemis {
                 String markAction = markList[0];
                 taskList[markItem].markAsDone(markAction.equals("mark"));
 
-                System.out.printf("alright! i have set \"%s\" as %s\n", taskList[markItem].getTaskName(), markAction.equals("mark") ? "complete" : "incomplete");
+                System.out.printf("alright! i have set \"%s\" as %s%s", taskList[markItem].getTaskName(), markAction.equals("mark") ? "complete" : "incomplete", System.lineSeparator());
             }
         }
     }

@@ -1,7 +1,43 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+======================================
 
+  __ _ _ __| |_ ___ _ __ ___ (_)___
+ / _` | '__| __/ _ \ '_ ` _ \| / __|
+| (_| | |  | ||  __/ | | | | | \__ \
+ \__,_|_|   \__\___|_| |_| |_|_|___/
+
+hello! i'm artemis. what is your name?
+[unknown user]: welcome to your personal list, batman!
+usage: todo [item]
+       deadline [item] /by [due date]
+       event [item] /from [start] /to [end]
+you may also enter "list" to see your current list.
+you may also exit by entering "bye".
+[batman]: [artemis]: you have added todo make batarangs to the list
+[batman]: [artemis]: you have added this task:
+ [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
+[batman]: [Artemis]: Your list is as such:
+1. [T] [ ] make batarangs
+2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
+[batman]: alright! i have set "make batarangs" as complete
+[batman]: [Artemis]: Your list is as such:
+1. [T] [X] make batarangs
+2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
+[batman]: [artemis]: you have added this task:
+ [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)
+[batman]: [Artemis]: Your list is as such:
+1. [T] [X] make batarangs
+2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
+3. [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)
+[batman]: alright! i have set "stop joker's escape from arkham asylum " as complete
+[batman]: [Artemis]: Your list is as such:
+1. [T] [X] make batarangs
+2. [D] [X] stop joker's escape from arkham asylum  (by: tonight)
+3. [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)
+[batman]: alright! i have set "stop joker's escape from arkham asylum " as incomplete
+[batman]: [Artemis]: Your list is as such:
+1. [T] [X] make batarangs
+2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
+3. [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)
+[batman]: ======================================
+goodbye! hope to see you again soon!
+======================================
