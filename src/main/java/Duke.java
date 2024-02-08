@@ -5,9 +5,9 @@ public class Duke {
     public static void main(String[] args) {
         String name = "Floda";
         System.out.println("Hello! I'm " + name);
-        String[] list = new String[100];
-        Boolean[] marked = new Boolean[100];
-        Arrays.fill(marked, Boolean.FALSE);
+        Task[] list = new Task[100];
+        //Boolean[] marked = new Boolean[100];
+//        Arrays.fill(marked, Boolean.FALSE);
         int taskCounter = 0;
         Scanner scanner = new Scanner(System.in);
         String line;
@@ -16,7 +16,7 @@ public class Duke {
             if ("list".equals(line)) {
                 System.out.println("List so far: ");
                 for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + ". " + getStatusIcon(marked[i]) + " " + list[i]);
+                    System.out.println((i + 1) + ". " + list[i].getStatusIcon() + " " + list[i].description);
                 }
             } else if (line.startsWith("mark")) {
                 Scanner taskScanner = new Scanner(line);
@@ -24,8 +24,8 @@ public class Duke {
                 if (taskScanner.hasNextInt()) {
                     int taskNumber = taskScanner.nextInt() - 1;
                     if (taskNumber >= 0 && taskNumber < taskCounter) {
-                        marked[taskNumber] = true;
-                        System.out.println("I have marked this task as done:\n" + getStatusIcon(marked[taskNumber]) + " " + list[taskNumber]);
+                        list[taskNumber].setDone(true);
+                        System.out.println("I have marked this task as done:\n" + list[taskNumber].getStatusIcon() + " " + list[taskNumber].description);
                     } else {
                         System.out.println("Invalid task number! Please check with 'list'.");
                     }
@@ -38,8 +38,8 @@ public class Duke {
                 if (taskScanner.hasNextInt()) {
                     int taskNumber = taskScanner.nextInt() - 1;
                     if (taskNumber >= 0 && taskNumber < taskCounter) {
-                        marked[taskNumber] = false;
-                        System.out.println("I have marked this task as not done:\n" + getStatusIcon(marked[taskNumber]) + " " + list[taskNumber]);
+                        list[taskNumber].setDone(false);
+                        System.out.println("I have marked this task as not done:\n" + list[taskNumber].getStatusIcon() + " " + list[taskNumber].description);
                     } else {
                         System.out.println("Invalid task number! Please check with 'list'.");
                     }
@@ -47,15 +47,11 @@ public class Duke {
                     System.out.println("Invalid input! Please check with 'list'.");
                 }
             } else {
-                list[taskCounter] = line;
+                list[taskCounter] = new Task(line);
                 taskCounter++;
                 System.out.println("Added: " + line);
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    private static String getStatusIcon(boolean marked) {
-        return marked ? "[X]" : "[ ]";
     }
 }
