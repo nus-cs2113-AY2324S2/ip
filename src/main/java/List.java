@@ -2,11 +2,18 @@ public class List {
     Task[] tasks = new Task[100];
     private int taskCount = 0;
 
-    public void addTask(String userInput, String taskType) {
+    public void addTask(String userInput) {
+        String taskType = userInput.toLowerCase().substring(0, userInput.indexOf(" "));
+        String description;
         switch (taskType){
         case "todo":
-            String description = userInput.substring(userInput.indexOf(" ") + 1);
+            description = userInput.substring(userInput.indexOf(" ") + 1);
             tasks[taskCount] = new Todo(description);
+            break;
+        case "deadline":
+            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
+            String by = userInput.substring(userInput.indexOf("/by") + 4);
+            tasks[taskCount] = new Deadline(description, by);
             break;
         }
         System.out.println("\t Got it. I've added this task:");

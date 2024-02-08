@@ -13,12 +13,8 @@ public class Vibes {
             return "mark";
         } else if (userInput.startsWith("unmark")) {
             return "unmark";
-        } else if (userInput.startsWith("todo")) {
-            return "todo";
-        } else if (userInput.startsWith("deadline")) {
-            return "deadline";
-        } else if (userInput.startsWith("event")) {
-            return "event";
+        } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
+            return "add task";
         } else {
             return userInput;
         }
@@ -56,8 +52,8 @@ public class Vibes {
                 taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
                 taskList.setAsNotDone(taskNumber);
                 break;
-            case "todo":
-                taskList.addTask(userInput, "todo");
+            case "add task":
+                taskList.addTask(userInput);
                 break;
             default:
                 System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
