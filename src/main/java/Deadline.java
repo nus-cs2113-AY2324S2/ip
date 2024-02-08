@@ -2,9 +2,9 @@ public class Deadline extends Task{
 
     public String taskType = "D";
     private String endDate;
-    public Deadline(String Description, String Date){
-        super(Description);
-        this.endDate = Date;
+    public Deadline(String description, String date){
+        super(description);
+        this.endDate = date;
     }
 
     public String getTaskType() {

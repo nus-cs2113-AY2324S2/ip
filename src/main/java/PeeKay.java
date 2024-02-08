@@ -23,19 +23,19 @@ public class PeeKay {
             count ++;
             echo(input);
         } else if (input.contains("deadline")) {
-            String Description = input.replaceFirst("deadline ", "");
-            int by = Description.indexOf("/");
-            String Date = Description.substring(by + 4);
-            list[count] = new Deadline(Description.substring(0, by - 1), Date);
+            String description = input.replaceFirst("deadline ", "");
+            int by = description.indexOf("/");
+            String Date = description.substring(by + 4);
+            list[count] = new Deadline(description.substring(0, by - 1), Date);
             count++;
             echo(input);
         } else if (input.contains("event")){
-            String Description = input.replaceFirst("event ", "");
-            int from = Description.indexOf("/from");
-            int by = Description.indexOf("/to");
-            String startDate = Description.substring(from + 6, by - 1);
-            String endDate = Description.substring(by + 4);
-            list[count] = new Event(Description.substring(0, from - 1), startDate, endDate);
+            String description = input.replaceFirst("event ", "");
+            int from = description.indexOf("/from");
+            int by = description.indexOf("/to");
+            String startDate = description.substring(from + 6, by - 1);
+            String endDate = description.substring(by + 4);
+            list[count] = new Event(description.substring(0, from - 1), startDate, endDate);
             count++;
             echo(input);
         }else {
@@ -43,7 +43,7 @@ public class PeeKay {
         }
     }
 
-    public static int mark(String input) {
+    public static int getIndexToMark(String input) {
         int idx = Integer.parseInt(input.substring(input.indexOf(" ") + 1));
         return idx - 1;
     }
@@ -59,12 +59,12 @@ public class PeeKay {
                     System.out.println(indent + " " + (x + 1) + "." + list[x].toString());
                 }
             } else if (input.contains("unmark")) {
-                int idx = mark(input);
+                int idx = getIndexToMark(input);
                 list[idx].setDone(false);
-                System.out.println(indent + "OK, I've marked this task as not done yet:");
+                System.out.println(indent + "OK, I've getIndexToMed this task as not done yet:");
                 System.out.println(indent + list[idx].toString());
             } else if (input.contains("mark")) {
-                int idx = mark(input);
+                int idx = getIndexToMark(input);
                 list[idx].setDone(true);
                 System.out.println(indent + "Nice! I've marked this task as done:");
                 System.out.println(indent + list[idx].toString());
