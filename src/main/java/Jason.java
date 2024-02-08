@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Represents the main class for the application Duke.
  */
-public class Duke {
+public class Jason {
     private static final int MAX_SIZE = 100;
     private static Task[] list = new Task[MAX_SIZE];
     private static int num = 0;
@@ -25,6 +25,14 @@ public class Duke {
 
     }
 
+    private static void showTaskNumber() {
+        if (num == 1) {
+            System.out.println("Now you have 1 task in the list");
+        } else {
+            System.out.println("Now you have " + num + " tasks in the list");
+        }
+
+    }
 
     private static void showList() {
         System.out.println("Here are the tasks in your list");
@@ -37,21 +45,51 @@ public class Duke {
     private static void todoTasks(String task) {
 
         String taskDescription = task.substring(5);   //input this into the function
-                    list[num] = new Todo(taskDescription);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(list[num].toString());
-                    num++;
+        list[num] = new Todo(taskDescription);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(list[num].toString());
+        num++;
+        showTaskNumber();
     }
 
-    private static void DeadlineTasks(String task) {
-        
+    private static void deadlineTasks(String task) {
+        String[] parts = task.split("/by", 2);
+        String taskDescription = parts[0].substring(9);
+        String taskDeadlineBy = parts[1];
+        list[num] = new Deadline(taskDescription, taskDeadlineBy);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(list[num].toString());
+        num++;
+        showTaskNumber();
     }
+
+
+    private static void eventTasks(String task) {
+        String[] parts = task.split("/from", 2);
+        String taskDescription = parts[0].substring(6);
+        String[] eventTimeline = parts[1].split("/to", 2);
+        String eventStartFrom = eventTimeline[0];
+        String eventTill = eventTimeline[1];
+        list[num] = new Events(taskDescription, eventStartFrom, eventTill);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(list[num].toString());
+        num++;
+        showTaskNumber();
+    }
+
+
+
 
 
     private static void addTasks(String input) {
         if (input.startsWith("todo")) {
             todoTasks(input);
+        } else if (input.startsWith("deadline")) {
+            deadlineTasks(input);
+        } else if (input.startsWith("event")) {
+            eventTasks(input);
         }
+
 
     }
 
