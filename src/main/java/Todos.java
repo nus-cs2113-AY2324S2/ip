@@ -3,8 +3,8 @@ public class Todos extends Task{
         super(description);
         this.type = TaskType.TODO;
     }
-    public String getDescription() {
-        return super.getDescription();
+    public String toString() {
+        return "[T]" + super.toString();
     }
 
 }

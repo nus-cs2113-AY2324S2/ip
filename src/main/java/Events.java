@@ -9,7 +9,7 @@ public class Events extends Task {
         this.type = TaskType.EVENT;
     }
     @Override
-    public String getDescription() {
-        return super.getDescription() + " (from: " + from + " to: " + to + ")";
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

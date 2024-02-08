@@ -6,7 +6,7 @@ public class Deadlines extends Task{
         this.type = TaskType.DEADLINE;
     }
     @Override
-    public String getDescription(){
-        return super.getDescription() + "(by: "+ by +")";
+    public String toString(){
+        return "[D]" + super.toString() + "(by: "+ by +")";
     }
 }
