@@ -37,12 +37,13 @@ public class GermaBot {
                         + "[" + toDoList[idx].getStatusIcon() + "] " + toDoList[idx].getDescription());
             } else if (echo.contains("mark")) {
                 int idx = getIdx(echo);
-                toDoList[idx].setDone(true);t
+                toDoList[idx].setDone(true);
                 System.out.println("Good job! I'll mark this task as done: "
                         + "[" + toDoList[idx].getStatusIcon() + "] " + toDoList[idx].getDescription());
             } else {
                 Task t = new Task(echo);
                 toDoList[counter] = t;
+                toDoList[counter].setDescription(echo);
                 System.out.println("Added '" + echo + "' to the list!");
                 counter++;
             }
