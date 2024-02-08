@@ -13,7 +13,6 @@ public class Omoh {
         printHorizontalLine();
         readUserInput();
         bye();
-
     }
 
     //Method that prints horizontal line using "_" char
@@ -23,7 +22,6 @@ public class Omoh {
             System.out.print("_");
         }
         System.out.println("");
-        return;
     }
 
     //Method reads in what user types
@@ -53,8 +51,8 @@ public class Omoh {
                 line = in.nextLine();
             }
             else if (line.startsWith("mark") || line.startsWith("unmark")) {
-                int taskNumber = extractTaskNumber(line);
-                modifyDoneState(taskNumber, line);
+                int taskNumber = Task.extractTaskNumber(line);
+                Task.modifyDoneState(taskNumber, line);
                 List.printMarkTask(taskNumber, line);
                 line = in.nextLine();
             } else {
@@ -77,40 +75,5 @@ public class Omoh {
         printHorizontalLine();
         System.out.println("     Bye. Hope to see you again soon!");
         printHorizontalLine();
-    }
-
-    //method that extracts the task number to mark or unmark
-    public static int extractTaskNumber(String input) {
-        String keyword;
-        if (input.startsWith("mark")) {
-            keyword = "mark";
-        } else {
-            keyword = "unmark";
-        }
-        //checks if theres even characters after mark/unmark
-        if (input.length() > keyword.length()) {
-            String numberString = input.substring(keyword.length()).trim();
-            int taskNumber = Integer.parseInt(numberString);
-            //checks if taskNumber is valid
-            if (taskNumber <= 0) {
-                return -1;
-            } else {
-                return taskNumber;
-            }
-        } else {
-            return -1;
-        }
-    }
-
-    //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
-    public static void modifyDoneState(int taskNumber, String input) {
-        //only executes if taskNumber is valid
-        if (taskNumber != -1) {
-            if (input.startsWith("mark")) {
-                List.markAsDone(taskNumber);
-            } else {
-                List.markAsNotDone(taskNumber);
-            }
-        }
     }
 }
