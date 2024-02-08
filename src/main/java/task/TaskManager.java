@@ -39,19 +39,23 @@ public class TaskManager {
         case TODO:
             newTask = new Todo(taskDescription, numberOfActiveTasks);
             System.out.println("Alright. I have added this todo task: ");
+            newTask.printTask();
             break;
         case DEADLINE:
             taskDescription = Parser.parseDeadlineDescription(taskDescription);
             newTask = new Deadline(taskDescription,numberOfActiveTasks);
             System.out.println("Alright. I have added this deadline: ");
+            newTask.printTask();
             break;
         case EVENT:
             taskDescription = Parser.parseEventDescription(taskDescription);
             newTask = new Event(taskDescription,numberOfActiveTasks);
             System.out.println("Alright. I have added this event: ");
+            newTask.printTask();
             break;
         }
         taskList.add(newTask);
+        System.out.println("Now you have " + numberOfActiveTasks + " tasks in the list.");
     }
 
     /**
