@@ -3,6 +3,13 @@ public class OGF {
     private static void printBreakLine(){
         System.out.println(("____________________________________________________________"));
     }
+
+    private static void printTaskAdded(Task task, int taskIndex){
+        System.out.println("Alright, adding this task to the list: ");
+        System.out.println(task);
+        System.out.printf("You have %d tasks in the list.%n", taskIndex+1);
+        printBreakLine();
+    }
     public static void main(String[] args) {
         String logo = "\n" +
                 " _____  _    _                   _____ ______ \n" +
@@ -53,32 +60,23 @@ public class OGF {
                 case ("todo"):
                     String newTodoDesc = input.substring(input.indexOf(" "));
                     tasks[numItem] = new Todo(newTodoDesc);
-                    System.out.println("Alright, adding this task to the list: ");
-                    System.out.println(tasks[numItem]);
+                    printTaskAdded(tasks[numItem], numItem);
                     numItem++;
-                    System.out.printf("You have %d tasks in the list.%n", numItem);
-                    printBreakLine();
                     break;
                 case ("deadline"):
                     String newDeadlineDesc = input.substring(input.indexOf(" "), input.indexOf(" /by"));
                     String newDeadlineTime = input.substring(input.indexOf("/by")+4);
                     tasks[numItem] = new Deadline(newDeadlineDesc, newDeadlineTime);
-                    System.out.println("Alright, adding this task to the list: ");
-                    System.out.println(tasks[numItem]);
+                    printTaskAdded(tasks[numItem], numItem);
                     numItem++;
-                    System.out.printf("You have %d tasks in the list.%n", numItem);
-                    printBreakLine();
                     break;
                 case ("event"):
                     String newEventDesc = input.substring(input.indexOf(" "), input.indexOf("/from"));
                     String newEventStart = input.substring(input.indexOf("/from")+6, input.indexOf(" /to"));
                     String newEventEnd = input.substring(input.indexOf("/to")+4);
                     tasks[numItem] = new Event(newEventDesc, newEventStart, newEventEnd);
-                    System.out.println("Alright, adding this task to the list: ");
-                    System.out.println(tasks[numItem]);
+                    printTaskAdded(tasks[numItem], numItem);
                     numItem++;
-                    System.out.printf("You have %d tasks in the list.%n", numItem);
-                    printBreakLine();
                     break;
 
                 default:
