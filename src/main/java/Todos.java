@@ -4,7 +4,7 @@ public class Todos extends Task{
         this.type = TaskType.TODO;
     }
     public String toString() {
-        return "[T]" + super.toString();
+        return super.toString();
     }
 
 }
