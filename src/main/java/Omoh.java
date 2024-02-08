@@ -7,10 +7,7 @@ public class Omoh {
     private static List myTaskList = new List();
 
     public static void main(String[] args) {
-        printHorizontalLine();
-        System.out.println("     Hello! I'm Omoh");
-        System.out.println("     What can I do for you?");
-        printHorizontalLine();
+        printWelcomeMessage();
         readUserInput();
         bye();
     }
@@ -22,6 +19,19 @@ public class Omoh {
             System.out.print("_");
         }
         System.out.println("");
+    }
+    public static void printWelcomeMessage() {
+        printHorizontalLine();
+        System.out.println("     Hello! I'm Omoh");
+        System.out.println("     What can I do for you?");
+        printHorizontalLine();
+    }
+
+    //Method that prints the bye message
+    public static void bye() {
+        printHorizontalLine();
+        System.out.println("     Bye. Hope to see you again soon!");
+        printHorizontalLine();
     }
 
     //Method reads in what user types
@@ -67,13 +77,6 @@ public class Omoh {
     public static void printAllTasks() {
         printHorizontalLine();
         myTaskList.getAllTasks();
-        printHorizontalLine();
-    }
-
-    //Method that prints the bye message
-    public static void bye() {
-        printHorizontalLine();
-        System.out.println("     Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 }
