@@ -19,6 +19,10 @@ public class Baron {
         int numberOfTasks = 0;
         System.out.println("Hello! I'm Baron");
         System.out.println("What can I do for you?\n");
+        getUserInput(tasks, numberOfTasks);
+    }
+
+    private static void getUserInput(Task[] tasks, int numberOfTasks) {
         while (true) {
             Scanner userInput = new Scanner(System.in);
             String input = userInput.nextLine();
