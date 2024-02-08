@@ -42,7 +42,21 @@ public class Duke {
                                 + "_________________________"
                                 + System.lineSeparator());
             } else if(line.startsWith("deadline")) {
-
+                String[] deadlineTask = line.split("deadline");
+                String[] description = deadlineTask[1].split("/by");
+                Deadline deadline = new Deadline(description[0], description[1]);
+                tasks[count] = deadline;
+                count++;
+                System.out.println(
+                        "_________________________\n"
+                                + "\t Got it. I've added this task:"
+                                + System.lineSeparator()
+                                + "\t\t " + deadline
+                                + System.lineSeparator()
+                                + "\t Now you have " + count + " tasks in the list."
+                                + System.lineSeparator()
+                                + "_________________________"
+                                + System.lineSeparator());
             } else if(line.startsWith("event")) {
 
             }
