@@ -15,13 +15,14 @@ public class Deadline extends Task {
 
     /**
      * Prints the task and its status in one line.
-     * Overwrites toString method in Java Object class.
      * 
      * @param None
      * @return String representation of the task.
      */
+    @Override
     public String toString() {
-        return "[" + this.type + "]" + "[" + (this.isDone ? "X" : " ") + "] " + this.name
-                + " (by: " + this.end + ")";
+        String completion = this.isDone ? "X" : " ";
+        return String.format("[%s][%s] %s (by: %s)",
+                this.type, completion, this.name, this.end);
     }
 }
