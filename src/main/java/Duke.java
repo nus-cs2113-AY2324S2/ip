@@ -10,7 +10,7 @@ public class Duke {
     }
     public static void printHello() {
         String logo =
-                "__    __   ___    ____ \n"
+                "__   __   ___    _____ \n"
                         + "\\ \\ / /  / _ \\  | ___ |\n"
                         + " \\ Y /  | | | |     | | \n"
                         + "  \\ /   | | | |     | | \n"
@@ -22,12 +22,7 @@ public class Duke {
         System.out.println("What can I do for you?");
         printLine();
     }
-    public static void printList(String[]tasks, int taskCount) {
-        for(int i = 0; i < taskCount; i++) {
-            System.out.println(i+1 + ". " + tasks[i]);
-        }
-        printLine();
-    }
+
     public static void main(String[] args) {
         printHello();
         // get user input
@@ -35,18 +30,26 @@ public class Duke {
         String userInput;
         userInput = in.nextLine();
 
-        String[] tasks = new String[100];
-        int taskCount = 0;
-
         while(!userInput.equals("bye")) {
             printShortLine();
             System.out.println("added: " + userInput);
             printLine();
             if (userInput.equals("list")) {
-                printList(tasks, taskCount);
+                Task.printList();
+            } else if(userInput.matches("mark \\d+")) {
+                String[] taskIndex = userInput.split(" ");
+                int index = Integer.parseInt(taskIndex[1]);
+                Task.markDone(index-1);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  [X] " + Task.tasks[index-1]);
+            } else if(userInput.matches("unmark \\d+")) {
+                String[] taskIndex = userInput.split(" ");
+                int index = Integer.parseInt(taskIndex[1]);
+                Task.markUndone(index-1);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  [ ] " + Task.tasks[index-1]);
             } else {
-                tasks[taskCount] = userInput;
-                taskCount++;
+                Task.addTask(userInput);
             }
             userInput = in.nextLine();
         }
