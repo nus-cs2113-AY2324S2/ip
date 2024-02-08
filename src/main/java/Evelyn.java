@@ -14,7 +14,8 @@ public class Evelyn {
                 tasks[index].markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
             }
-            System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].description);
+            System.out.println("  " + tasks[index].getStatusIcon() + " "
+                               + tasks[index].description);
             printLine();
         } else {
             System.out.println("Invalid task index. Please try again.");
@@ -85,8 +86,7 @@ public class Evelyn {
                 indexOfTask++;
                 printAddingWords();
                 printLine();
-            }
-            else{
+            } else{
                 System.out.println(" please enter the correct command");
 
             }
