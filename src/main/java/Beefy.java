@@ -109,13 +109,7 @@ public class Beefy {
     }
 
     public void endChat() {
-        System.out.println(
-
-
-                
-
-                "See Ya Mate!");
+        System.out.println("See Ya Mate!");
         printSeparation();
     }
-
 }
