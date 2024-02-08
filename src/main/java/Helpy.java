@@ -19,16 +19,14 @@ public class Helpy {
         System.out.print(HORIZONTAL_LINE);
         System.out.println("These are the tasks in your list:");
         for (Task task : taskList) {
-            String statusIcon = task.getStatusIcon();
-            System.out.print(label);
-            System.out.println("." + statusIcon + " " + task.getTaskName());
+            System.out.print(label + ".");
+            System.out.println(task);
             label++;
         }
         System.out.println(HORIZONTAL_LINE);
     }
 
     public static void printIndexError() {
-
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Invalid task number. "
                 + "Please check the task number again.");
@@ -40,7 +38,7 @@ public class Helpy {
 
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Good job! I've marked this task as done:");
-        System.out.println("\t[X] " + task.getTaskName());
+        System.out.println("\t" + task);
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -49,7 +47,23 @@ public class Helpy {
 
         System.out.print(HORIZONTAL_LINE);
         System.out.println("Ok, this task has been marked as not done yet:");
-        System.out.println("\t[ ] " + task.getTaskName());
+        System.out.println("\t" + task);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void addMessage(ArrayList<Task> taskList) {
+        int numOfTasks = taskList.toArray().length;
+        Task theTask = taskList.get(numOfTasks - 1);
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Ok I just added: ");
+        System.out.println("\t" + theTask);
+
+        if (numOfTasks == 1) {
+            System.out.println("There is 1 task in the list.");
+        } else {
+            System.out.println("There are " + numOfTasks
+                    + " tasks in the list.");
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -84,12 +98,20 @@ public class Helpy {
             return;
         }
 
-        Task newTask = new Task(command);
-        taskList.add(newTask);
-
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("I have added: " + command);
-        System.out.println(HORIZONTAL_LINE);
+        if (command.startsWith("todo")) {
+            Todo newTodo = new Todo(command);
+            taskList.add(newTodo);
+        } else if (command.startsWith("deadline")) {
+            Deadline newDeadline = new Deadline(command);
+            taskList.add(newDeadline);
+        } else if (command.startsWith("event")) {
+            Event newEvent = new Event(command);
+            taskList.add(newEvent);
+        } else {
+            Task newTask = new Task(command);
+            taskList.add(newTask);
+        }
+        addMessage(taskList);
     }
 
     public static void goodbyeUser() {

@@ -1,9 +1,13 @@
 public class Task {
-    private String taskName;
-    private boolean isDone;
+    protected String taskName;
+    protected boolean isDone;
+
+    public Task() {
+        setDone(false);
+    }
 
     public Task(String taskName) {
-        setTaskName(taskName);
+        setTaskName(taskName.trim());
         setDone(false);
     }
 
@@ -25,5 +29,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
+    }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + getTaskName();
     }
 }
