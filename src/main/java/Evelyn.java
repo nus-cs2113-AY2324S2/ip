@@ -56,9 +56,7 @@ public class Evelyn {
         } else if (line.startsWith("todo")) {
             tasks[indexOfTask] = new Todos(line.substring(5).trim());
             indexOfTask++;
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + tasks[indexOfTask - 1]);
-            System.out.println("Now you have " + indexOfTask + " tasks in the list.");
+            printAddingWords();
             printLine();
         } else if (line.startsWith("deadline")) {
             boolean haveBy = line.contains("/by");
@@ -68,9 +66,7 @@ public class Evelyn {
                 String by = parts[1].trim();
                 tasks[indexOfTask] = new Deadlines(description, by);
                 indexOfTask++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[indexOfTask - 1]);
-                System.out.println("Now you have " + indexOfTask + " tasks in the list.");
+                printAddingWords();
                 printLine();
             }
             else{
@@ -87,9 +83,7 @@ public class Evelyn {
                 String to = date[1].trim();
                 tasks[indexOfTask] = new Events(description, from, to);
                 indexOfTask++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[indexOfTask - 1]);
-                System.out.println("Now you have " + indexOfTask + " tasks in the list.");
+                printAddingWords();
                 printLine();
             }
             else{
@@ -101,6 +95,12 @@ public class Evelyn {
 
         }
         echo();
+    }
+
+    private static void printAddingWords() {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[indexOfTask - 1]);
+        System.out.println("Now you have " + indexOfTask + " tasks in the list.");
     }
 
     public static void printLine() {
