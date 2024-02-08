@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 import task.Task;
 
-public class Duke {
+public class AnonBot {
     // ASCII Art Generated from: https://patorjk.com/software/taag/#p=display&f=Big&t=anonBot
     private static final String LOGO = "                          ____        _   \n"
             + "                         |  _ \\      | |  \n"
