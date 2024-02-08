@@ -1,6 +1,7 @@
 public class Task {
-    private boolean isDone;
-    private String description;
+    protected boolean isDone;
+    protected String description;
+    protected String type;
 
     public Task() {
         this(false,"");
@@ -9,6 +10,7 @@ public class Task {
     public Task(boolean status, String s){
         this.isDone = status;
         this.description = s;
+        this.type = "T";
     }
 
     public void setDescription(String description) {
@@ -30,5 +32,13 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public void printTask() {
+        if (isDone) {
+            System.out.println("[" + this.type + "][X] " + this.getDescription());
+        } else {
+            System.out.println("[" + this.type + "][ ] " + this.getDescription());
+        }
     }
 }

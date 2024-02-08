@@ -21,13 +21,11 @@ public class QueryManager {
         inputQuery(q);
         String command = q.getCommand();
         String argument = q.getArgument();
+        // return 0 means exit programme, return -1 means ask for query
         switch (command) {
             default:
-                // adding task to tasks list
-                Task task = new Task();
-                task.setDescription(q.getInput());
-                list.addTask(task);
-                System.out.println("added: " + list.getLatestTask().getDescription());
+                // command not found
+                System.out.println("ERROR: command not found");
                 return -1;
             case "list":
                 list.show();
@@ -44,6 +42,16 @@ public class QueryManager {
                 return 0;
             case "echo":
                 System.out.println("Can I double check that you said: " + currentQuery.getArgument());
+                return -1;
+            case "todo":
+                Task task = new Task();
+                task.setDescription(argument);
+                list.addTask(task);
+                return -1;
+            case "deadline":
+                DeadlineTask deadline = new DeadlineTask(false, argument);
+                // add deadline to list of task (substitutability)
+                list.addTask(deadline);
                 return -1;
         }
     }

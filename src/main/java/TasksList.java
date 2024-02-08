@@ -12,18 +12,18 @@ public class TasksList {
     public void addTask(Task t) {
         this.noOfTasks++;
         this.list.add(t);
+        System.out.println("Hai! You task is added ~");
+        System.out.print("    ");
+        t.printTask();
+        System.out.println("You have " + this.noOfTasks + " tasks remaining");
     }
 
     public void show(){
         System.out.println("Osu! Your task is as follows:");
         for(int i = 0; i < this.noOfTasks; i++) {
+            System.out.print("  ");
             System.out.print((i + 1) + ".");
-            if (this.list.get(i).getStatus()){
-                System.out.print("[X] ");
-            } else {
-                System.out.print("[ ] ");
-            }
-            System.out.println(this.list.get(i).getDescription());
+            this.list.get(i).printTask();
         }
     }
 
@@ -36,7 +36,8 @@ public class TasksList {
             this.list.get(index).markAsDone();
         }
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("   [X] " + this.list.get(index).getDescription());
+        System.out.print("    ");
+        this.list.get(index).printTask();
     }
 
     public void markAsDone(Integer index){
@@ -48,7 +49,8 @@ public class TasksList {
             this.list.get(index).markAsDone();
         }
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("   [X] " + this.list.get(index).getDescription());
+        System.out.print("    ");
+        this.list.get(index).printTask();
     }
 
     public void markAsNotDone(String s){
@@ -57,10 +59,11 @@ public class TasksList {
             System.out.println("Gomen! Task is not in your list");
             return;
         } else {
-            this.list.get(index).markAsDone();
+            this.list.get(index).markAsNotDone();
         }
         System.out.println("As you wished, your task is now undone:");
-        System.out.println("   [ ] " + this.list.get(index).getDescription());
+        System.out.print("    ");
+        this.list.get(index).printTask();
     }
 
     public void markAsNotDone(Integer index){
@@ -72,7 +75,8 @@ public class TasksList {
             this.list.get(index).markAsNotDone();
         }
         System.out.println("As you wished, your task is now undone:");
-        System.out.println("   [ ] " + this.list.get(index).getDescription());
+        System.out.print("    ");
+        this.list.get(index).printTask();
     }
 
     public Integer findIndexWithDesc(String s){
