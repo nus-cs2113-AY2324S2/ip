@@ -12,9 +12,7 @@ public class Sinep {
     static List<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         System.out.println(line + nl + greeting + nl+ line);
-
         while(true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {  // Check if the input is "bye"
