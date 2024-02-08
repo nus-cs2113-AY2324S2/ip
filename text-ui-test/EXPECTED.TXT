@@ -12,7 +12,8 @@ usage: todo [item]
        event [item] /from [start] /to [end]
 you may also enter "list" to see your current list.
 you may also exit by entering "bye".
-[batman]: [artemis]: you have added todo make batarangs to the list
+[batman]: [artemis]: you have added this task:
+ [T] [ ] make batarangs
 [batman]: [artemis]: you have added this task:
  [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
 [batman]: [Artemis]: Your list is as such:
