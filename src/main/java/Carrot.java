@@ -13,8 +13,8 @@ public class Carrot {
 
         // Chatbot functionality
         greetUser();
+        printHelpCommand();
         handleUserInput();
-        sayGoodbye();
     }
 
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
@@ -39,49 +39,45 @@ public class Carrot {
     }
 
     private static void handleUserInput() {
-        // Scanner object for userInput
-        Scanner in = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        // Print Command List
-        printHelpCommand();
-
-        // Variables to hold current userInput and associated command
-        String userInput;
-        CommandType userCommand;
-
-        // Chat input and response Loop
         while (true) {
-            userInput = in.nextLine().trim();
-            userCommand = CommandManager.getCommandType(userInput);
+            String userInput = scanner.nextLine().trim();
+            CommandType userCommand = CommandManager.getCommandType(userInput);
 
-            switch (userCommand) {
-            case EXIT:
-                return;
-            case INVALID:
-                printInvalidCommand();
-                break;
-            case HELP:
-                printHelpCommand();
-                break;
-            case LIST:
-                printListItems();
-                break;
-            case TODO:
-                addTodoToList(userInput);
-                break;
-            case DEADLINE:
-                addDeadlineToList(userInput);
-                break;
-            case EVENT:
-                addEventToList(userInput);
-                break;
-            case MARK:
-            case UNMARK:
-                handleMarkUnmarkTask(userCommand, userInput);
-                break;
-            default:
-                break;
-            }
+            processUserCommand(userCommand, userInput, scanner);
+        }
+    }
+
+    private static void processUserCommand(CommandType userCommand, String userInput, Scanner scanner) {
+        switch (userCommand) {
+        case INVALID:
+            printInvalidCommand();
+            break;
+        case HELP:
+            printHelpCommand();
+            break;
+        case LIST:
+            printListItems();
+            break;
+        case TODO:
+            addTodoToList(userInput);
+            break;
+        case DEADLINE:
+            addDeadlineToList(userInput);
+            break;
+        case EVENT:
+            addEventToList(userInput);
+            break;
+        case MARK:
+        case UNMARK:
+            handleMarkUnmarkTask(userCommand, userInput);
+            break;
+        case EXIT:
+            scanner.close();
+            sayGoodbye();
+            System.exit(0);
+            return;
         }
     }
 
@@ -140,7 +136,7 @@ public class Carrot {
 
         try {
             changeTaskStatus(isDone, taskIndexInt);
-        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
+        } catch (Exception e) {
             printInvalidTaskIndexError();
         }
     }

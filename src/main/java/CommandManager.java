@@ -56,40 +56,26 @@ public class CommandManager {
     }
 
     protected static String[] getCommandArguments(CommandType command, String userInput) {
-        // Check if command-pattern key-value exists in hashmap
-        // Get the pattern associated with the command
-        Pattern commandPattern = commandPatternMap.get(command);
-        if (commandPattern == null) {
-            return null;
-        }
-
-        // Check if userinput matches the associated pattern
-        Matcher matcher = commandPattern.matcher(userInput);
+        Matcher matcher = commandPatternMap.get(command).matcher(userInput);
         if (!matcher.matches()) {
             return null;
         }
 
-        // Return in String[], the user arguments associated with the command
-        // eg. <taskIndex> for mark, <taskDescription> && <by> for deadline,
-        String[] arguments = null;
+        String[] arguments = new String[3];
 
         switch (command) {
         case MARK:
         case UNMARK:
-            arguments = new String[1];
             arguments[0] = matcher.group("taskIndex");
             break;
         case TODO:
-            arguments = new String[1];
             arguments[0] = matcher.group("taskDescription");
             break;
         case DEADLINE:
-            arguments = new String[2];
             arguments[0] = matcher.group("taskDescription");
             arguments[1] = matcher.group("by");
             break;
         case EVENT:
-            arguments = new String[3];
             arguments[0] = matcher.group("taskDescription");
             arguments[1] = matcher.group("from");
             arguments[2] = matcher.group("to");
@@ -97,7 +83,6 @@ public class CommandManager {
         default:
             return null;
         }
-
         return arguments;
     }
 }
