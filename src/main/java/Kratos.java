@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Kratos {
     public final static int MAX_TASKS = 100;
+    public static final String LINE = "----------------------------------------------------------------";
     static Task[] tasksList = new Task[MAX_TASKS];
 
     public static int count = 0;
@@ -47,50 +48,49 @@ public class Kratos {
                 "──────────▀─███████─▀─────────\n" +
                 "────────────▀─███─▀───────────\n" +
                 "───────────────▀──────────────\n";
-
         System.out.println(logo);
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
         System.out.println("Kratos commends you for your presence. Prepare for battle. \n" +
                         "Enter your commands with purpose.");
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
     }
 
     // Method to say goodbye
     public static void end() {
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
         System.out.println("            Until the next battle, mortal. \n" +
                 "May your tasks be conquered with the ferocity of a god.");
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
     }
 
     // Method to display marking of tasks
     public static void displayMarking(int taskNumber, String mark) {
         String displayString;
         if (mark.equals("mark")) {
-            displayString = "    Task vanquished. Another notch on the blade of progress.\n" +
-                    " What next, mortal?";
+            displayString = "Task vanquished. Another notch on the blade of progress.\n" +
+                    "What next, mortal?";
             tasksList[taskNumber].markTask();
         } else {
-            displayString = "    Task restored from the depths of completion.\n" +
-                    " A twist of fate, mortal. What now? \n" +
+            displayString = "Task restored from the depths of completion.\n" +
+                    "A twist of fate, mortal. What now? \n" +
                     "Reclaim victory or face the abyss once more.";
             tasksList[taskNumber].unmarkTask();
         }
         
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
         System.out.println(displayString);
         System.out.printf("         %s%n",  tasksList[taskNumber].toString());
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
     }
 
     // Method to display tasks
     public static void displayTasks(int count) {
-        System.out.println("----------------------------------------------------------------");
+        System.out.println(LINE);
         System.out.println("    Your list of Tasks");
         for (int i = 0; i < count; i++) {
             System.out.printf("     %d. %s%n", i + 1, tasksList[i].toString());
         }
-        System.out.println("----------------------------------------------------------------");
+        System.out.println(LINE);
     }
 
     // Main method
@@ -105,7 +105,7 @@ public class Kratos {
             } else if (userInput.equals("list")) {
                 displayTasks(count);
             } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]); //Extract task number
                 displayMarking(taskNumber - 1, userInput.split(" ")[0]);
             } else {
                 if (userInput.startsWith("deadline")) {
@@ -138,10 +138,10 @@ public class Kratos {
 
         tasksList[count] = new Event(action, timeline[0].trim(), timeline[1].trim());
         count++;
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("Event recorded. Destiny's hourglass turns. \n" +
+        System.out.println(LINE);
+        System.out.println("Event recorded. Destiny's hourglass turns.\n" +
                 "What now? Seize control or be swept by its sands?");
-        System.out.println("----------------------------------------------------------------");
+        System.out.println(LINE);
     }
 
     private static void addTodo(String userInput) {
@@ -150,10 +150,10 @@ public class Kratos {
         String action = actionAndType[1];
         tasksList[count] = new Todo(action);
         count++;
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("Task noted. A duty without a deadline? Dangerous. \n" +
-                "   What now? Forge ahead or risk oblivion?");
-        System.out.println("----------------------------------------------------------------");
+        System.out.println(LINE);
+        System.out.println("Task noted. A duty without a deadline? Dangerous.\n" +
+                "What now? Forge ahead or risk oblivion?");
+        System.out.println(LINE);
     }
 
     private static void addDeadline(String userInput) {
@@ -170,9 +170,9 @@ public class Kratos {
         String item = actionAndItem[1];
         tasksList[count] = new Deadline(item, date);
         count++;
-        System.out.println("----------------------------------------------------------------");
+        System.out.println(LINE);
         System.out.println("Deadline acknowledged. Time ticks away, mortal. \n" +
-                "   What next? Embrace purpose or succumb to chaos?" );
-        System.out.println("----------------------------------------------------------------");
+                "What next? Embrace purpose or succumb to chaos?" );
+        System.out.println(LINE);
     }
 }
