@@ -26,25 +26,30 @@ public class ZukeLogic {
                 return;
 
             case "list":
-                ResponseManager.listTaskToUser(taskList);
+                ResponseManager.listTaskToUser(taskList.listTasks());
                 break;
 
             case "todo":
                 Task newTodo = new Todo(info);
                 taskList.add(newTodo);
-                ResponseManager.sendTaskAddedToUser(taskList);
+                ResponseManager.sendTaskAddedToUser(newTodo +
+                        "\n" + taskList);
                 break;
 
             case "deadline":
                 String[] deadlineInfo = MessageDecoder.decodeDeadline(info);
-                taskList.add(new Deadline(deadlineInfo));
-                ResponseManager.sendTaskAddedToUser(taskList);
+                Task newDeadline = new Deadline(deadlineInfo);
+                taskList.add(newDeadline);
+                ResponseManager.sendTaskAddedToUser(newDeadline +
+                        "\n" + taskList);
                 break;
 
             case "event":
                 String[] eventInfo = MessageDecoder.decodeEvent(info);
-                taskList.add(new Event(eventInfo));
-                ResponseManager.sendTaskAddedToUser(taskList);
+                Task newEvent = new Event(eventInfo);
+                taskList.add(newEvent);
+                ResponseManager.sendTaskAddedToUser(newEvent +
+                        "\n" + taskList);
                 break;
 
             case "mark" :

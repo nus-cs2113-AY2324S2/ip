@@ -24,7 +24,7 @@ public class ResponseManager {
             "OK, I've marked this task as not done yet:\n";
     private static final String MARKED_MESSAGE =
             "Nice! I've marked this task as done:\n";
-
+    private static final String END_LINE = System.lineSeparator();
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
         System.out.println(response + INDENTATION_LINE);
@@ -39,24 +39,23 @@ public class ResponseManager {
         indentPrint(BYE_MESSAGE);
     }
 
-    public static void listTaskToUser(TaskList taskList) {
-        indentPrint(LIST_TASK_MESSAGE + taskList.listTasks());
+    public static void listTaskToUser(String taskList) {
+        indentPrint(LIST_TASK_MESSAGE + taskList);
     }
 
-    public static void sendTaskAddedToUser(TaskList taskList) {
+    public static void sendTaskAddedToUser(String messageToPrint) {
         indentPrint(TASK_ADDED_MESSAGE + " " +
-                taskList.showNewlyAddedTask() + "\n" +
-                taskList + "\n");
+                messageToPrint + END_LINE);
     }
 
     public static void printMarkOrUnMarkTask(String action, String task) {
         switch(action) {
         case "mark":
-            indentPrint(MARKED_MESSAGE + " " + task + "\n");
+            indentPrint(MARKED_MESSAGE + " " + task + END_LINE);
             break;
 
         case "unmark":
-            indentPrint(UNMARKED_MESSAGE + " " + task + "\n");
+            indentPrint(UNMARKED_MESSAGE + " " + task + END_LINE);
             break;
 
         default:
