@@ -2,18 +2,24 @@ import java.util.Scanner;
 
 public class Aragorn {
 
+    private static final String LINE =  "    __________________________________________________________\n";
+    private static final String GREET = "    Hello! I am Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
+            "    the heir of Isildur Elendil's son of Gondor.\n" +
+            "    What can I do for you?\n";
+    private static final String EXIT = "    Bye. Hope to see you again soon!\n";
+    private static final String TAB = "    ";
+
     public static void main(String[] args) {
-        String LINE =  "    __________________________________________________________\n";
-        String GREET = "    Hello! I am Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
-                "    the heir of Isildur Elendil's son of Gondor.\n" +
-                "    What can I do for you?\n";
-        String EXIT = "    Bye. Hope to see you again soon!\n";
-        String TAB = "    ";
         Task[] list = new Task[100];
         int listLength = 0;
+        int remainingTasks = 0;
         System.out.println(LINE + GREET + LINE);
         int index;
         String echo;
+        String[] splitInput;
+        String[] splitDeadline;
+        String[] splitEvent;
+        String[] splitStart;
         Scanner in = new Scanner(System.in);
         while(true) {
             String userInput = in.nextLine();
@@ -23,36 +29,72 @@ public class Aragorn {
                 return;
             }
 
-            if (userInput.equals("list")) {
+            if (userInput.startsWith("list")) {
                 System.out.println(LINE);
-                System.out.println("Here are the tasks in your list: ");
+                System.out.println("    Here are the tasks in your list: ");
                 for (int i = 0; i < listLength; i += 1) {
-                    System.out.println(TAB + "[" + list[i].getStatusIcon() + "] " + (i + 1) + ". " + list[i].getDescription());
+                    System.out.println(TAB + (i + 1) + ". " + list[i].taskString());
                 }
                 System.out.println(LINE);
                 continue;
             }
 
-            if (userInput.contains("unmark")) {
+            if (userInput.startsWith("unmark ")) {
                 index = Integer.parseInt(userInput.substring(7)) - 1;
                 list[index].markAsUndone();
                 System.out.println(LINE + TAB + "OK, I've marked this task as not done yet:\n" + TAB +
-                        "   [ ] " + list[index].getDescription() +"\n" + LINE);
+                        "   " + list[index].taskString() +"\n" + LINE);
                 continue;
             }
 
-            else if (userInput.contains("mark")) {
+            if (userInput.startsWith("mark ")) {
                 index = Integer.parseInt(userInput.substring(5)) - 1;
                 list[index].markAsDone();
                 System.out.println(LINE + TAB + "Nice! I've marked this task as done:\n" + TAB +
-                        "   [X] " + list[index].getDescription() +"\n" + LINE);
+                        "   " + list[index].taskString() + "\n" + LINE);
                 continue;
             }
 
-            list[listLength] = new Task(userInput);
-            listLength += 1;
-            echo = userInput;
-            System.out.println(LINE + TAB + "added: " + echo + "\n" + LINE);
+            if (userInput.startsWith("todo ")) {
+                echo = userInput.substring(5);
+                list[listLength] = new ToDo(echo);
+                System.out.println(LINE + "    Got it. I've added this task:");
+                System.out.println(TAB + list[listLength].taskString() + "\n");
+                listLength += 1;
+                remainingTasks += 1;
+                System.out.println("    Now you have " + remainingTasks + " tasks in the list.\n" + LINE);
+                continue;
+            }
+
+            if (userInput.startsWith("deadline ")) {
+                splitInput = userInput.split("deadline ");
+                splitDeadline = splitInput[1].split("/by");
+                list[listLength] = new Deadline(splitDeadline[0].trim(), splitDeadline[1].trim());
+                System.out.println(LINE + "    Got it. I've added this task:\n" + TAB + list[listLength].taskString() + "\n");
+                listLength += 1;
+                remainingTasks += 1;
+                System.out.println("    Now you have " + remainingTasks + " tasks in the list.\n" + LINE);
+                continue;
+            }
+
+            if (userInput.startsWith("event ")) {
+                splitInput = userInput.split("event ");
+                splitEvent = splitInput[1].split("/from ");
+                splitStart = splitEvent[1].split("/to ");
+                list[listLength] = new Event(splitEvent[0].trim(), splitStart[0].trim(), splitStart[1].trim());
+                System.out.println(LINE + "    Got it. I've added this task:\n" + TAB + list[listLength].taskString() + "\n");
+                listLength += 1;
+                remainingTasks += 1;
+                System.out.println("    Now you have " + remainingTasks + " tasks in the list.\n" + LINE);
+            }
+
+            else {
+                System.out.println(LINE + "    Sorry! Please the correct format.");
+                System.out.println("    list for viewing list of tasks, \n" +
+                                    "    'todo [activity]' to input a todo task, \n" +
+                                    "    'deadline [activity] /by [submission day]' to input deadline task" +
+                                    "\n    or 'event [activity] /from [start period] /to [end period] to input a event task\n" + LINE);
+            }
         }
     }
 }
