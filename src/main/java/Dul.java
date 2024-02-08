@@ -15,30 +15,41 @@ public class Dul {
         System.out.println("What can I do for you?");
         String guyInput = "";
         Scanner in = new Scanner(System.in);
+
         while (!guyInput.equals("bye")) {
             guyInput = in.nextLine();
             listInput(guyInput);
         }
+
         System.out.println("Bye. Hope to see you again soon!");
         in.close();
     }
 
     public static void listInput(String input) {
-        String[] command = input.split(" ");
+        String[] command = input.split(" ", 2);
         switch (command[0]) {
             case "list":
                 listTasks();
                 break;
             case "mark":
-                markTaskAsDone(Integer.parseInt(command[1]) - 1);
+                markTaskDone(Integer.parseInt(command[1]) - 1);
                 break;
             case "unmark":
-                markTaskAsNotDone(Integer.parseInt(command[1]) - 1);
+                markTaskNotDone(Integer.parseInt(command[1]) - 1);
+                break;
+            case "todo":
+                addTodoTask(command[1]);
+                break;
+            case "deadline":
+                addDeadlineTask(command[1]);
+                break;
+            case "event":
+                addEventTask(command[1]);
                 break;
             case "bye":
                 break;
             default:
-                addTask(input);
+                addTask(command[0]);
                 break;
         }
     }
@@ -50,20 +61,52 @@ public class Dul {
         }
     }
 
-    public static void addTask(String taskDescription) {
-            tasks[taskCount] = new Task(taskDescription);
-            taskCount++;
-            System.out.println("added: " + taskDescription);
+    public static void addTask(String taskType) {
+        tasks[taskCount] = new Task(taskType);
+        taskCount++;
+        System.out.println("added: " + taskType);
     }
 
-    public static void markTaskAsDone(int index) {
-        tasks[index].markAsDone();
+    public static void addTodoTask(String taskType) {
+        tasks[taskCount] = new TodoTask(taskType);
+        taskCount++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[taskCount - 1].toString());
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void addDeadlineTask(String taskType) {
+        String[] parts = taskType.split(" /by ", 2);
+        String description = parts[0];
+        String by = parts[1];
+        tasks[taskCount] = new DeadlineTask(description, by);
+        taskCount++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[taskCount - 1].toString());
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void addEventTask(String taskType) {
+        String[] parts = taskType.split(" /from ", 2);
+        String[] eventParts = parts[1].split(" /to ", 2);
+        String description = parts[0];
+        String from = eventParts[0];
+        String to = eventParts[1];
+        tasks[taskCount] = new EventTask(description, from, to);
+        taskCount++;
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks[taskCount - 1].toString());
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void markTaskDone(int index) {
+        tasks[index].markDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + tasks[index].toString());
     }
 
-    public static void markTaskAsNotDone(int index) {
-        tasks[index].markAsNotDone();
+    public static void markTaskNotDone(int index) {
+        tasks[index].markNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + tasks[index].toString());
     }
@@ -78,11 +121,11 @@ class Task {
         this.isDone = false;
     }
 
-    public void markAsDone() {
+    public void markDone() {
         this.isDone = true;
     }
 
-    public void markAsNotDone() {
+    public void markNotDone() {
         this.isDone = false;
     }
 
@@ -96,3 +139,43 @@ class Task {
     }
 }
 
+class TodoTask extends Task {
+    public TodoTask(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class DeadlineTask extends Task {
+    protected String by;
+
+    public DeadlineTask(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class EventTask extends Task {
+    protected String from;
+    protected String to;
+
+    public EventTask(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
