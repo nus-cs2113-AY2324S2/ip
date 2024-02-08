@@ -51,6 +51,7 @@ public class Jane {
             break;
         }
     }
+
     public static void main(String[] args) {
         String LOGO = " _____    _____    ____ _    _____ \n" +
                       "|____ |  |     |  |    | |  | ____|\n" +
@@ -75,8 +76,6 @@ public class Jane {
             System.out.print(SEPARATOR);
             input = in.nextLine();
         }
-
         System.out.print(SEPARATOR + EXIT_MESSAGE + SEPARATOR);
-
     }
 }
