@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Daisy {
     public static void main(String[] args) {
-        String INTRO_PROMPT = "Good day! This is Daisy.\nAny task for today?";
-        String EXIT_PROMPT = "Ending prompt received. Remember to keep to the deadlines!";
-        String LINE_BREAK = "____________________________________";
+        final String INTRO_PROMPT = "Good day! This is Daisy.\nAny task for today?";
+        final String EXIT_PROMPT = "Ending prompt received. Remember to keep to the deadlines!";
+        final String LINE_BREAK = "____________________________________";
         Task[] tasks = new Task[100];
         Task new_task;
         int task_no = 0;
