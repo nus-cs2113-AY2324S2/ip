@@ -2,32 +2,50 @@ import java.util.Scanner;
 
 public class BobBot {
 
-    private static Task[] allTasks = new Task[100];
+    private static final int MAX_NUMBER_OF_TASKS = 100;
+    private static Task[] allTasks = new Task[MAX_NUMBER_OF_TASKS];
     private static int numTasks = 0;
 
     private static void mark(String line) {
-        int taskNumToMark = Integer.parseInt(line.substring(4).trim()) - 1;
-        allTasks[taskNumToMark].markAsDone();
+        int taskNumberToMark = Integer.parseInt(line.substring("mark".length()).trim()) - 1;
+        allTasks[taskNumberToMark].markAsDone();
+
+        printMessageMarkAsDone(taskNumberToMark);
+    }
+
+    private static void printMessageMarkAsDone(int taskNumberToMark) {
         drawLine(true);
         System.out.println("\tGot it! Marking this task as done:");
-        System.out.println("\t  " + allTasks[taskNumToMark].toString());
+        System.out.println("\t  " + allTasks[taskNumberToMark].toString());
         drawLine(true);
     }
 
     private static void unmark(String line) {
-        int taskNumToUnmark = Integer.parseInt(line.substring(6).trim()) - 1;
-        allTasks[taskNumToUnmark].markAsUndone();
-        drawLine(true);
-        System.out.println("\tAlright! Unmarking this task:");
-        System.out.println("\t  " + allTasks[taskNumToUnmark].toString());
-        drawLine(true);
+        int taskNumberToUnmark = Integer.parseInt(line.substring("unmark".length()).trim()) - 1;
+        allTasks[taskNumberToUnmark].markAsUndone();
+
+        printMessageUnmarkAsDone(taskNumberToUnmark);
     }
 
-    private static void listItems() {
+    private static void printMessageUnmarkAsDone(int taskNumberToUnmark) {
         drawLine(true);
+        System.out.println("\tAlright! Unmarking this task:");
+        System.out.println("\t  " + allTasks[taskNumberToUnmark].toString());
+        drawLine(true);
+    }
+    
+    private static void printTaskList() {
+        int taskNumberToDisplay;
+
         for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
-            System.out.printf("\t%d. %s\n", taskIndex + 1, allTasks[taskIndex].toString());
+            taskNumberToDisplay = taskIndex + 1;
+            System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks[taskIndex].toString());
         }
+    }
+
+    private static void displayList() {
+        drawLine(true);
+        printTaskList();
         drawLine(true);
     }
 
@@ -71,10 +89,14 @@ public class BobBot {
         System.out.println("Simply type in any task and I will store them for you!");
         drawLine(false);
     }
+    
+    private static void bidFarewell() {
+        drawLine(true);
+        System.out.println("\tBye. Hope to see you again soon!");
+        drawLine(true);
+    }
 
-    public static void main(String[] args) {
-        greet();
-
+    private static void runTaskManager() {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -83,7 +105,7 @@ public class BobBot {
         while (!line.equalsIgnoreCase("bye")) {
 
             if (line.equalsIgnoreCase("list")) {
-                listItems();
+                displayList();
             } else if (line.startsWith("mark")) {
                 mark(line);
             } else if (line.startsWith("unmark")) {
@@ -94,9 +116,11 @@ public class BobBot {
 
             line = in.nextLine();
         }
-
-        drawLine(true);
-        System.out.println("\tBye. Hope to see you again soon!");
-        drawLine(true);
     }
+    public static void main(String[] args) {
+        greet();
+        runTaskManager();
+        bidFarewell();
+    }
+
 }

@@ -9,7 +9,8 @@ public class Deadline extends Task {
                 "Deadline".length(), 
                 this.description.indexOf("/by")
                 ).trim();
-        this.by = this.description.substring(this.description.indexOf("/by")+3).trim();
+        this.by = this.description.substring(
+                this.description.indexOf("/by") + "/by".length()).trim();
     }
 
     @Override

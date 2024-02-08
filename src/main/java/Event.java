@@ -11,11 +11,11 @@ public class Event extends Task {
                 this.description.indexOf("/from")
                 ).trim();
         this.from = this.description.substring(
-                this.description.indexOf("/from")+"/from".length(), 
+                this.description.indexOf("/from") + "/from".length(), 
                 this.description.indexOf("/to")
                 ).trim();
         this.to = this.description.substring(
-                this.description.indexOf("/to")+"/to".length()
+                this.description.indexOf("/to") + "/to".length()
                 ).trim();
     }
     

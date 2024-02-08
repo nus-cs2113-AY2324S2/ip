@@ -4,7 +4,7 @@ public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
-        this.toDo = this.description.substring(4).trim();
+        this.toDo = this.description.substring("todo".length()).trim();
     }
 
     @Override
