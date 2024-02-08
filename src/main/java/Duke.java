@@ -8,7 +8,6 @@ public class Duke {
     public static void printShortLine() {
         System.out.println("_____________");
     }
-
     public static void printHello() {
         String logo =
                 "__    __   ___    ____ \n"
@@ -23,6 +22,12 @@ public class Duke {
         System.out.println("What can I do for you?");
         printLine();
     }
+    public static void printList(String[]tasks, int taskCount) {
+        for(int i = 0; i < taskCount; i++) {
+            System.out.println(i+1 + ". " + tasks[i]);
+        }
+        printLine();
+    }
     public static void main(String[] args) {
         printHello();
         // get user input
@@ -30,10 +35,19 @@ public class Duke {
         String userInput;
         userInput = in.nextLine();
 
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         while(!userInput.equals("bye")) {
             printShortLine();
-            System.out.println(userInput);
+            System.out.println("added: " + userInput);
             printLine();
+            if (userInput.equals("list")) {
+                printList(tasks, taskCount);
+            } else {
+                tasks[taskCount] = userInput;
+                taskCount++;
+            }
             userInput = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
