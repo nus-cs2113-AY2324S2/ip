@@ -3,80 +3,75 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class RecrBad {
-    /**
-     * Prints "*" as line-separator
-     */
-    private static void printLine() {
-        final int CHARS_IN_LINE = 40;
-        for (int i = 0; i < CHARS_IN_LINE; i++) {
-            System.out.print("*");
+
+    private static Task[] addEventTask(final int startIndexOfDescription, String line, Task[] tasks){
+        Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
+        int indexTo = line.lastIndexOf('/');
+        int indexFrom = line.lastIndexOf('/', indexTo - 1); // counts from back
+        if (indexFrom == -1 || indexTo == -1) { //not found
+            System.out.println("Please input BOTH start and end timing parameters by adding '/' followed by the start timing, then ' ', '/' and end timing");
+            return tasks;
         }
-        System.out.println();
+        String description = line.substring(startIndexOfDescription, indexFrom - 1);
+        String timeRange = " (from: " + line.substring(indexFrom + 1, indexTo) +
+                "to: " + line.substring(indexTo + 1) + ")";
+        moreTasks[tasks.length] = new Event(description, timeRange); //append at last elem
+        System.out.println("Event added!");
+        return moreTasks;
     }
-
-    /**
-     * Prints introductory message
-     */
-    private static void sayHi() {
-        String logo = " ____   ___    ___   ____    ___   \n"
-                + "| __/  / _ \\  | _ \\  | __|  / _ \\   \n"
-                + "| |    ||_||  | / /  | |_   | | |      \n"
-                + "| |_   | _ |  | _/   |_  /  | | |      \n"
-                + "|___\\  // \\\\  |_|    /__/ . \\___/  \n";
-
-        System.out.println("Hello! I'm \n" + logo);
-        printLine();
-        System.out.println("What can I do for you?");
+    private static Task[] addDeadlineTask(int startIndexOfDescription, String line, Task[] tasks){
+        Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
+        int indexDeadline = line.lastIndexOf('/');
+        if (indexDeadline == -1) { // no deadline argument
+            System.out.println("Please input a deadline by adding a parameter '/' followed by the deadline");
+            return tasks;
+        }
+        String deadline = "(by: " + line.substring(indexDeadline + 1) + ")";
+        String description = line.substring(startIndexOfDescription, indexDeadline);
+        moreTasks[tasks.length] = new Deadline(description, deadline); //append at last elem
+        System.out.println("Deadline added!");
+        return moreTasks;
     }
-
-    /**
-     * Prints ending message
-     */
-    private static void sayBye() {
-        // generating random quote
-        Random rand = new Random(); // create instance of class Random
-        // quotes inspired by https://wisdomquotes.com/short-quotes/, https://wisdomquotes.com/positive-quotes/
-        String[] quotes = {
-                "2230 | Time Block",
-                "The best investment is in yourself",
-                "Never regret anything that made you smile ~Mark Twain",
-                "You are the main character in your life",
-                "Life is like riding a bicycle. To keep your balance, you must keep moving ~Albert Einstein",
-                "Stay hungry, Stay Foolish ~Steve Jobs",
-                "You only live once, but if you do it right, once is enough ~Mae West",
-                "Choose one thing and be the best in it",
-                "Don't tell people your plans. Show them your results",
-                "Good things happen to those who hustle ~Anais Nin",
-                "If you want it, work for it",
-                "If it matters to you, you'll find a way ~Charlie Gilkey",
-                "If you're going through hell, keep going ~Winston Churchill",
-                "Small steps motivate. Big steps overwhelm ~Maxime Lagace",
-                "The difference btwn a good and bad day is your ATTITUDE! ~a magnet",
-                "The less you respond to negative people, the more positive your life will become ~Paulo Coelho",
-                "Always know your goals in life",
-                "Often, the problem is not the lack of time but lack of direction"
-        };
-        int upperbound = quotes.length;
-        int randNum = rand.nextInt(upperbound);
-
-        System.out.println("Adios My Friend. Sleep early, study smarter \n" + quotes[randNum]);
-        printLine();
+    private static Task[] addTodoTask(final int startIndexOfDescription, String line, Task[] tasks){
+        Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
+        String description = line.substring(startIndexOfDescription);
+        moreTasks[moreTasks.length - 1] = new Todo(description); //append at last elem
+        System.out.println("Todo added!");
+        return moreTasks;
     }
 
     /**
      * Adds new Task to Tasks array
      *
      * @param tasks existing Tasks array
-     * @param line string input from user
+     * @param line  string input from user
      * @return moreTasks array with added Task
      */
-    private static Task[] addToList(Task[] tasks, String line) {
+    private static Task[] addToList(Task[] tasks, String[] req, String line) {
         // copies and returns longer String[tasks.length+1]
-        Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
-        moreTasks[tasks.length] = new Task(line); //append at last elem
+        Task[] moreTasks;
+        String description;
+        final int startIndexOfDescription = req[0].length() + 1; //assume got space after TODO/deadline/event
 
-        printLine();
-        System.out.println("You added: " + line);
+        if (req[0].equalsIgnoreCase("TODO")) {
+            moreTasks = addTodoTask(startIndexOfDescription, line, tasks);
+        } else if (req[0].equalsIgnoreCase("DEADLINE")) {
+            moreTasks = addDeadlineTask(startIndexOfDescription, line, tasks);
+        } else if (req[0].equalsIgnoreCase("EVENT")) {
+            moreTasks = addEventTask(startIndexOfDescription, line, tasks);
+        } else { // normal tasks
+            moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
+            moreTasks[tasks.length] = new Task(line); //append at last elem
+            printHelper.printLine();
+            System.out.println("You added: ");
+        }
+
+        if (tasks.length == moreTasks.length){ // invalid TODO/deadline/event format
+            return tasks;
+        }
+        displayListItem(moreTasks, tasks.length);
+        System.out.println(System.lineSeparator() + "Congrats, now have " + moreTasks.length + " tasks");
+
         return moreTasks;
     }
 
@@ -87,8 +82,9 @@ public class RecrBad {
      */
     private static void displayList(Task[] tasks) {
         int count = 1;
-        for (Task line : tasks) {
-            System.out.println(count + ".[" + line.getStatus() + "] " + line.description);
+        for (Task task : tasks) {
+            System.out.println(count + ".[" + task.getType() + "]["
+                    + task.getStatus() + "] " + task.description);
             count += 1;
         }
     }
@@ -100,65 +96,67 @@ public class RecrBad {
      * @param index index of specific task
      */
     private static void displayListItem(Task[] tasks, int index) {
-        System.out.println("[" + tasks[index].getStatus() + "] " + tasks[index].description);
+        System.out.println("[" + tasks[index].getType() + "]["
+                + tasks[index].getStatus() + "] "
+                + tasks[index].description);
     }
 
     /**
      * Marks Task as done or not done
      *
-     * @param tasks existing Tasks array
-     * @param line  String input from user
+     * @param tasks  existing Tasks array
+     * @param req    String[] input from user
      * @param isMark type of operation: mark or unmark
      */
-    private static void markOperation(Task[] tasks, String line, boolean isMark) {
-        String[] req = line.split(" ");
-        if (req.length > 1) {
-            int taskNum = Integer.parseInt(req[1]);
-            if (tasks.length > taskNum - 1) {
-                // mark #taskNum as done
-                if (isMark) {
-                    tasks[taskNum - 1].markAsDone();
-                    System.out.println("Okie dokie, marked task below:");
-                } else {
-                    tasks[taskNum - 1].markAsNotDone();
-                    System.out.println("Okie dokie, unmarked task below:");
-                }
-                displayListItem(tasks, taskNum - 1);
-            } else {
-                System.out.println("No such taskNum");
-            }
-        } else {
+    private static void markOperation(Task[] tasks, String[] req, boolean isMark) {
+        if (req.length < 1) {
             System.out.println("invalid mark/ unmark operation");
+            return;
         }
+        int taskNum = Integer.parseInt(req[1]);
+        if (tasks.length < taskNum) {
+            System.out.println("No such taskNum");
+        }
+        if (isMark) { // MARK #taskNum as done
+            tasks[taskNum - 1].markAsDone();
+            System.out.println("Okie dokie, marked task below:");
+        } else {
+            tasks[taskNum - 1].markAsNotDone();
+            System.out.println("Okie dokie, unmarked task below:");
+        }
+        displayListItem(tasks, taskNum - 1);
     }
 
     /**
-     * Asks user for input to addToList or displayList or markOperation
+     * Input
+     * [any text]           to addToList,
+     * list                 to displayList,
+     * mark/unmark [index]  to mark item
      */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        sayHi();
+        printHelper.sayHi();
         Task[] tasks = new Task[]{};
 
         while (true) {
-            printLine();
+            printHelper.printLine();
             String line = in.nextLine(); // reads input
+            String[] req = line.split(" ");
 
-            if (line.equalsIgnoreCase("BYE")) {
-                sayBye(); // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
+            if (req[0].equalsIgnoreCase("BYE")) {
+                printHelper.sayBye(); // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
                 break;
             }
-            if (line.equalsIgnoreCase("LIST")) {
+            if (req[0].equalsIgnoreCase("LIST")) {
                 displayList(tasks);
                 continue;
             }
-            if (line.toUpperCase().contains("MARK")) { // both unmark & mark contains 'mark'
+            if (req[0].toUpperCase().contains("MARK")) { // both unmark & mark contains 'mark'
                 boolean isMark = !line.toUpperCase().contains("UNMARK");
-                markOperation(tasks, line, isMark);
+                markOperation(tasks, req, isMark);
                 continue;
             }
-
-            tasks = addToList(tasks, line);
+            tasks = addToList(tasks, req, line);
         }
     }
 }
