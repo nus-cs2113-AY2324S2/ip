@@ -23,4 +23,12 @@ public class Task {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("\t [" + this.getStatusIcon() + "] " + this.description);
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTaskTypeIcon() { //default is a todo task
+        return "T";
+    }
 }
