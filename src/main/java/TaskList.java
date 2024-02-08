@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class List {
+public class TaskList {
     private ArrayList<Task> list = new ArrayList<Task>();
     private int size = 0;
 
@@ -106,7 +106,7 @@ public class List {
      * @param type
      * @return None
      */
-    public void addItem(String description, String type) {
+    public void addItem(String description, TaskType type) {
         // Error if empty string
         if (description.equals("")) {
             this.addItemError();
@@ -118,12 +118,12 @@ public class List {
 
         try {
             switch (type) {
-            case "T":
+            case TODO:
                 taskName = description;
                 list.add(new Todo(taskName));
                 break;
 
-            case "D":
+            case DEADLINE:
                 String[] nameEnd = description.split(" /by ", 2);
                 taskName = nameEnd[0];
                 taskEnd = nameEnd[1];
@@ -131,7 +131,7 @@ public class List {
                 list.add(new Deadline(taskName, taskEnd));
                 break;
 
-            case "E":
+            case EVENT:
                 String[] nameTimes = description.split(" /from ", 2);
                 String times = nameTimes[1];
 

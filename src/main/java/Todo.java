@@ -3,7 +3,6 @@ public class Todo extends Task {
      * Constructor for Todo.
      * 
      * @param name The name of the todo.
-     * @return None
      */
     public Todo(String name) {
         super(name);
@@ -12,12 +11,14 @@ public class Todo extends Task {
 
     /**
      * Prints the task and its status in one line.
-     * Overwrites toString method in Java Object class.
      * 
      * @param None
      * @return String representation of the task.
      */
+    @Override
     public String toString() {
-        return "[" + this.type + "]" + "[" + (this.isDone ? "X" : " ") + "] " + this.name;
+        String completion = this.isDone ? "X" : " ";
+        return String.format("[%s][%s] %s",
+                this.type, completion, this.name);
     }
 }

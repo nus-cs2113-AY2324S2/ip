@@ -98,7 +98,7 @@ public class Duke {
      * @param taskString The task to execute the command on.
      * @return None
      */
-    public static void parseCommand(List taskList, String command, String taskString) {
+    public static void parseCommand(TaskList taskList, String command, String taskString) {
         switch (command) {
         case "list":
             // Print the list if input is "list"
@@ -117,16 +117,13 @@ public class Duke {
             break;
 
         case "todo":
-            // Add a todo task if input starts with "todo"
-            taskList.addItem(taskString, "T");
+            taskList.addItem(taskString, TaskType.TODO);
             break;
         case "deadline":
-            // Add a deadline task if input starts with "deadline"
-            taskList.addItem(taskString, "D");
+            taskList.addItem(taskString, TaskType.DEADLINE);
             break;
         case "event":
-            // Add an event task if input starts with "event"
-            taskList.addItem(taskString, "E");
+            taskList.addItem(taskString, TaskType.EVENT);
             break;
 
         default:
@@ -145,7 +142,7 @@ public class Duke {
      */
     public static void loop() {
         boolean isRunning = true;
-        List taskList = new List();
+        TaskList taskList = new TaskList();
 
         while (isRunning) {
             String input = getInput();

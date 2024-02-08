@@ -7,7 +7,6 @@ public class Task {
      * Constructor for Task.
      * 
      * @param name The name of the task.
-     * @return None
      */
     public Task(String name) {
         this.name = name;
@@ -66,12 +65,14 @@ public class Task {
     /**
      * Prints the task and its status in one line.
      * By default, task type is empty.
-     * Overwrites toString method in Java Object class.
      * 
      * @param None
      * @return String representation of the task.
      */
+    @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
+        String completion = this.isDone ? "X" : " ";
+        return String.format("[%s] %s",
+                completion, this.name);
     }
 }
