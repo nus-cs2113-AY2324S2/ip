@@ -17,13 +17,14 @@ public class Allez {
 //    }
     public static void main(String[] args) {
 
-        System.out.println("_________________________");
-        System.out.println("Hello! I'm Allez");
-        System.out.println("What can I do for you?");
-        System.out.println("_________________________");
+        printGreeting();
+        executeCommands();
+        printExit();
+    }
+
+    private static void executeCommands() {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-//        String[] list = new String[100];
         Task[] list = new Task[100];
         int toMark = 0;
 
@@ -48,19 +49,19 @@ public class Allez {
             }
 
 
-//            switch(line){
-//                case "list":
-//                    //method to list out items
-//                    printList(list);
-//                    break;
-//                default:
-//                    //method to store items;
-//                    list[itemsInList].setDescription(line);
-//                    System.out.println("added: " + list[itemsInList].getDescription());
-//                    itemsInList+=1;
-//            }
+
             line = in.nextLine();
         }
+    }
+
+    private static void printExit() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static void printGreeting() {
+        System.out.println("_________________________");
+        System.out.println("Hello! I'm Allez");
+        System.out.println("What can I do for you?");
+        System.out.println("_________________________");
     }
 }
