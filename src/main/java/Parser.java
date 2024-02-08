@@ -5,7 +5,12 @@ public class Parser {
      * @param userInput Command from the user.
      * @return String array containing space-delimited words.
      */
-    public static String[] getCommandArguments(String userInput) {
-        return userInput.split(" ");
+    public static String getCommand(String userInput) {
+        return userInput.split(" ", 2)[0];
+    }
+
+    public static String getCommandArgument (String userInput) {
+        return userInput.split(" ", 2)[1];
+    }
     }
 }

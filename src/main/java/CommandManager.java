@@ -12,9 +12,10 @@ public class CommandManager {
      * 4. `unmark` <task_number> - Marks specific task as undone.
      */
     public static Status processCommand(String userInput) {
-        String[] commands = Parser.getCommandArguments(userInput);
+        String command = Parser.getCommand(userInput);
+        String argument = Parser.getCommandArgument(userInput);
         int taskNumber;
-        switch (commands[0]) {
+        switch (command) {
         case "exit":
             // fallthrough
         case "bye":
