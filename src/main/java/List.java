@@ -75,10 +75,10 @@ public class List {
         Omoh.printHorizontalLine();
     }
 
-    public void addEvent (String input) {
-        Event extractedInfo = Event.extractEvent(input);
-        tasks[totalTasks] = new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to);
-        totalTasks++;
-        Event.addEventMessage(extractedInfo);
-    }
+//    public void addEvent (String input) {
+//        Event extractedInfo = Event.extractEvent(input);
+//        tasks[totalTasks] = new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to);
+//        totalTasks++;
+//        Event.addEventMessage(extractedInfo);
+//    }
 }

@@ -57,7 +57,7 @@ public class Omoh {
                 line = in.nextLine();
             }
             else if (line.startsWith("event")) {
-                myTaskList.addEvent(line);
+                Event.addEvent(line);
                 line = in.nextLine();
             }
             else if (line.startsWith("mark") || line.startsWith("unmark")) {
