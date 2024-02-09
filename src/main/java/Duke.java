@@ -22,16 +22,15 @@ public class Duke {
         int sizeOfAddedItems = 0;
 
         Scanner in = new Scanner(System.in);
+
         while (true) {
             input = in.nextLine();
 
             if (input.equals("bye")) {
                 break;
-
             }
 
             else if (input.equals("list")) {
-
                 System.out.println("Here are the tasks in your list: ");
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < sizeOfAddedItems; i++) {
@@ -42,7 +41,6 @@ public class Duke {
             }
 
             else if (Arrays.asList(input.split( " ")).contains("mark")) {
-
                 //Finding the index of the task that the user wants to mark
                 String[] splitInput = input.split(" ");
                 int indexTask = Integer.parseInt(splitInput[1]);
@@ -53,11 +51,9 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println((indexTask) + ". " + "[" + listOfItems[indexTask-1].getStatusIcon() + "]" + listOfItems[indexTask - 1].description);
                 System.out.println("____________________________________________________________");
-
             }
 
             else if (Arrays.asList(input.split( " ")).contains("unmark")) {
-
                 //Finding the index of the task that the user wants to mark
                 String[] splitInput = input.split(" ");
                 int indexTask = Integer.parseInt(splitInput[1]);
@@ -68,12 +64,9 @@ public class Duke {
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println((indexTask) + ". " + "[" + listOfItems[indexTask-1].getStatusIcon() + "]" + listOfItems[indexTask - 1].description);
                 System.out.println("____________________________________________________________");
-
             }
 
             else if (Arrays.asList(input.split( " ")).contains("todo")) {
-
-
                 listOfItems[sizeOfAddedItems] = new ToDo(input);
                 sizeOfAddedItems += 1;
 
@@ -81,7 +74,6 @@ public class Duke {
             }
 
             else if (Arrays.asList(input.split( " ")).contains("deadline")) {
-
                 listOfItems[sizeOfAddedItems] = new Deadline(input);
                 sizeOfAddedItems += 1;
 
@@ -89,12 +81,10 @@ public class Duke {
             }
 
             else if (Arrays.asList(input.split( " ")).contains("event")) {
-
                 listOfItems[sizeOfAddedItems] = new Event(input);
                 sizeOfAddedItems += 1;
 
                 indicateNewTask(listOfItems[sizeOfAddedItems - 1], sizeOfAddedItems);
-
             }
 
             else {
@@ -104,7 +94,6 @@ public class Duke {
                 System.out.println("____________________________________________________________");
 
                 sizeOfAddedItems++;
-
             }
         }
 
@@ -113,6 +102,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
     }
+
     public static void indicateNewTask(Task newTask, int currentNumberOfTasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Well done, you've added a new task: ");

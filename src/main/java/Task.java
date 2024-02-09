@@ -1,7 +1,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-
     protected String typeOfTask;
 
     public Task(String description) {

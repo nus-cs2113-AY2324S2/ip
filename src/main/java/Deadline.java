@@ -1,5 +1,4 @@
 public class Deadline extends Task {
-
     protected String dateOfDeadline;
 
     public Deadline(String description) {
