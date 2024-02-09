@@ -105,8 +105,13 @@ public class Task {
 
     public static void printAddedTask() {
         Omoh.printHorizontalLine();
-        System.out.println("added: " + tasks[totalTasks - 1].getDescription());
+        System.out.println("added: " + toString(totalTasks - 1));
         Omoh.printHorizontalLine();
+    }
+
+    public static String toString(int index) {
+        return tasks[index].description;
+
     }
 
 }
