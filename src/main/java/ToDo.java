@@ -4,6 +4,7 @@ public class ToDo extends Task{
         super(task);
     }
 
+    @Override
     public String taskType(){
         return "[T]";
     }
