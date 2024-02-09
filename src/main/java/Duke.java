@@ -3,13 +3,13 @@ import java.util.Arrays;
 
 public class Duke {
     static boolean ifExit = false; //exits program if true
-    static Task[] tasks = new Task[100];
-    static int listIndex = 0;
+    static Task[] tasks = new Task[100]; //List of tasks
+    static int listIndex = 0; //To index through Task[] tasks
 
-
-    public static void addList(String line) {
+    public static void echoTask() {
         System.out.println("--------------------------------------");
-        System.out.println("added: " + line);
+        System.out.println("Got it! I've added this task:");
+        System.out.println(tasks[listIndex]);
         System.out.println("--------------------------------------");
         listIndex ++;
     }
@@ -30,6 +30,7 @@ public class Duke {
             System.out.println(item);
             printCounter++;
         }
+        System.out.println("--------------------------------------");
     }
 
     public static void introStart() {
@@ -72,29 +73,29 @@ public class Duke {
         int deadlineDividerPositionBy = line.indexOf("/by");
 
         switch(line.split(" ")[0].toLowerCase()) {
-        case "bye":
+        case "bye": //Exits program with farewell dialogue
             printBye();
             break;
-        case "list":
+        case "list": //Shows entire list of tasks
             printList();
             break;
-        case "unmark":
+        case "unmark": //unmark a task
             unmarkTask(tasks, line);
             break;
-        case "mark":
+        case "mark": //marks a task as done
             markTask(tasks, line);
             break;
-        case "todo":
-            addList(line);
+        case "todo": //add a new task
             tasks[listIndex] = new Todo(line);
+            echoTask();
             break;
-        case "event":
-            addList(line);
+        case "event": //add a new event task
             tasks[listIndex] = new Event(line.substring(0, eventDividerPositionFrom).trim(), line.substring(eventDividerPositionFrom + 5,eventDividerPositionTo).trim(), line.substring(eventDividerPositionTo + 3).trim());
+            echoTask();
             break;
-        case "deadline":
-            addList(line);
+        case "deadline": //add a new deadline task
             tasks[listIndex] = new Deadline(line.substring(0, deadlineDividerPositionBy).trim(), line.substring(deadlineDividerPositionBy + 3).trim());
+            echoTask();
             break;
         }
 
@@ -106,7 +107,7 @@ public class Duke {
         while (!ifExit) {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
-            performAction(tasks, line, listIndex);
+            performAction(tasks, line, listIndex); //Executes an action based on first word of command in String line
         }
     }
 }
