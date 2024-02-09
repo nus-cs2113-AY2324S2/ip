@@ -1,13 +1,16 @@
 import java.util.Scanner;
 public class Nehsik {
+    public static final int MAX_TASKS = 100;
+
     public static void main(String[] args) {
         displayGreetings();
-        String command;
+        
         Scanner in = new Scanner(System.in);
-        Task[] taskList = new Task[100];
+        Task[] taskList = new Task[MAX_TASKS];
         int taskIndex = 0;
+
         while (true) {
-            command = in.nextLine();
+            String command = in.nextLine();
             if (command.equals("list")) {
                 printLine();
                 System.out.println("Here are the tasks in your list:");
@@ -39,6 +42,7 @@ public class Nehsik {
                 taskIndex++;
             }
         }
+
         displayExitMessage();
     }
 
