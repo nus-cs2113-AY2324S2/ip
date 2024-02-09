@@ -8,6 +8,7 @@ public class Deadline extends Task {
     public String getTime() {
         return time;
     }
+
     @Override
     public String getFullDescription() {
         String output = "[D][";

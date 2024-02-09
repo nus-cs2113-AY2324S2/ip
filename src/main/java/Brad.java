@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 
-public class Duke {
+public class Brad {
     private static List inputList = new List();
     public static void main(String[] args) {
         greetUser();
@@ -34,33 +34,40 @@ public class Duke {
     }
 
     private static void greetUser() {
-        String name = "Brad";
+        final String name = "Brad";
         System.out.println("Hello I am " + name + ".\n");
         System.out.println("How can I help you today?\n");
     }
+
     private static void printOutput(String message) {
-        String separator = "____________________________________________________________";
+        final String separator = "__________________________________________________________";
         System.out.println(separator);
         System.out.println(message);
         System.out.println(separator);
     }
 
     private static void doMarkAction(String input) {
-        int taskNum = Integer.parseInt(input.split(" ")[1]);
-        if (taskNum > inputList.listSize()) {
-            System.out.println("Exceeded existing list size of: " + inputList.listSize() + ". Please enter a valid number" + "\n");
-        } else {
-            inputList.markAsDone(taskNum, true);
-            String message = "Nice! I've marked this task as done: \n" + inputList.getTask(taskNum);
+        try {
+            int taskNumber = Integer.parseInt(input.split(" ")[1]);
+            inputList.markAsDone(taskNumber, true);
+            String message = "Nice! I've marked this task as done: \n" + inputList.getTask(taskNumber);
             printOutput(message);
+        } catch (Exception e) {
+            System.out.println(">:( Exceeded existing list size of: " + inputList.listSize() +
+                    "\nPlease enter a valid number" + "\n");
         }
     }
 
     private static void doUnmarkAction(String input) {
-        int itemNo = Integer.parseInt(input.split(" ")[1]);
-        inputList.markAsDone(itemNo, false);
-        String message = "OK, I've marked this task as not done yet: \n" + inputList.getTask(itemNo);
-        printOutput(message);
+        try {
+            int taskNumber = Integer.parseInt(input.split(" ")[1]);
+            inputList.markAsDone(taskNumber, false);
+            String message = "OK, I've marked this task as not done yet: \n" + inputList.getTask(taskNumber);
+            printOutput(message);
+        } catch (Exception e) {
+            System.out.println(">:( Exceeded existing list size of: " + inputList.listSize() +
+                    "\nPlease enter a valid number." + "\n");
+        }
     }
 
     private static void doTodoAction(String input) {

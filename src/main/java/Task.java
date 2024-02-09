@@ -19,7 +19,7 @@ public class Task {
     }
 
     public String getFullDescription() {
-        String output = "[ ][";
+        String output = "[";
         output += (getIsDone() ? "X] " : " ] ");
         output += getTaskDescription();
         return output;

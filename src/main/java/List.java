@@ -6,11 +6,11 @@ public class List {
     public void addToList(String input, TaskType type) {
         Task newTask;
         if (type == TaskType.EVENT) {
-            int startTimeIndex = input.indexOf("/from");
-            String description = input.substring(0, startTimeIndex).strip();
-            String startTime = input.substring(startTimeIndex + "/from ".length()).strip();
-            startTime = startTime.replace("/", "");
-            newTask = new Event(description, startTime);
+            int timeIndex = input.indexOf("/from");
+            String description = input.substring(0, timeIndex).strip();
+            String time = input.substring(timeIndex + "/from ".length()).strip();
+            time = time.replace("/", "");
+            newTask = new Event(description, time);
         } else if (type == TaskType.DEADLINE) {
             int timeIndex = input.indexOf("/by");
             String description = input.substring(0, timeIndex).strip();
@@ -44,6 +44,4 @@ public class List {
     public int listSize() {
         return inputList.size();
     }
-
-
 }
