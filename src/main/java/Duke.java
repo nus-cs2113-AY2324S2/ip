@@ -4,9 +4,7 @@ import java.util.Scanner;
 public class Duke {
     private static List inputList = new List();
     public static void main(String[] args) {
-        String name = "Brad";
-        System.out.println("Hello I am " + name + ".\n");
-        System.out.println("How can I help you today?\n");
+        greetUser();
         Scanner userInput = new Scanner(System.in);
         while (true) {
             String input = userInput.nextLine();
@@ -35,6 +33,11 @@ public class Duke {
         }
     }
 
+    private static void greetUser() {
+        String name = "Brad";
+        System.out.println("Hello I am " + name + ".\n");
+        System.out.println("How can I help you today?\n");
+    }
     private static void printOutput(String message) {
         String separator = "____________________________________________________________";
         System.out.println(separator);
