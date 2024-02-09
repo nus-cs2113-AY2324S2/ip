@@ -5,7 +5,7 @@ public class Avocado {
         System.out.println("Hello from avocado");
         System.out.println("How can I help you ?");
         System.out.println("See you!");
-        Task[] list = new Task[100];
+        String[] list = new String[100];
         int i = 0;
         int n = 0;
         while (true) {
@@ -16,28 +16,17 @@ public class Avocado {
             if (line.equals("bye")) {
                 return;
             }
-                String[] array;
-                Task t = new Task(line);
-                array = line.split(" ");
-                if (array[0].startsWith("mark")) {
-                    list[Integer.parseInt(array[1]) - 1].setDone();
-                    System.out.print("[" + list[Integer.parseInt(array[1]) - 1].getStatusIcon() + "] " + list[Integer.parseInt(array[1]) -1].taskDescription());
-                }
-                else if (array[0].startsWith("unmark")) {
-                    list[Integer.parseInt(array[1]) - 1].setNotDone();
-                    System.out.print("[" + list[Integer.parseInt(array[1]) -1].getStatusIcon() + "]" + list[Integer.parseInt(array[1]) -1 ].taskDescription());
-                }
-                else if (line.equals("list")) {
+
+            if (line.equals("list")) {
                 for (i = 0; i < n; i++) {
-                    System.out.println((i + 1) + "." + "[" + list[i].getStatusIcon() + "]" + list[i].taskDescription());
+                    System.out.println((i + 1) + "." + list[i]);
                 }
-                }
-                else{
-                    list[i] = new Task(line);
-                    System.out.println("added: " + line);
-                    i++;
-                    n++;
-                }
+            } else {
+                list[i] = line;
+                System.out.println("added: " + line);
+                i++;
+                n++;
             }
         }
     }
+}
