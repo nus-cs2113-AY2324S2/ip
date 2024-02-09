@@ -12,7 +12,9 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // returns X if task isDone is true
+        return (isDone ?
+                "[X]" :
+                "[ ]"); // returns X if task isDone is true
     }
 
     public void setDone(boolean isDoneStatus) {
