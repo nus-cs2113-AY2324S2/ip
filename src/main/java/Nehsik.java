@@ -36,12 +36,26 @@ public class Nehsik {
                 printLine();
             }  else if (command.startsWith("todo")) {
                 taskList[taskIndex] = new Todo(command);
+
                 printLine();
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + taskList[taskIndex].toString());
                 System.out.println("Now you have " + (taskIndex + 1) + " tasks in the list");
                 taskIndex++;
                 printLine();
+            } else if (command.startsWith("deadline")) {
+                String taskDescription = command.substring(command.indexOf("deadline ") + 9, command.indexOf("/by ") - 1);
+                String by = command.substring(command.indexOf("/by ") + 4);
+                taskList[taskIndex] = new Deadline(taskDescription, by);
+
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + taskList[taskIndex].toString());
+                System.out.println("Now you have " + (taskIndex + 1) + " tasks in the list");
+                taskIndex++;
+                printLine();
+            } else {
+                break;
             }
         }
 
