@@ -4,8 +4,9 @@ public class KuroBot {
 
     private static Task[] tasks = new Task[100];
     private static int taskNum = 0;
-
-    private static final String LINE =  "-".repeat(60);
+    private static boolean isStart;
+    private static final int LINE_LEN = 60;
+    private static final String LINE =  "-".repeat(LINE_LEN);
 
     private static final String LOGO =
             " ___   ___    ___    ___ \n"
@@ -24,10 +25,11 @@ public class KuroBot {
         System.out.println(LINE);
     }
 
-    private static void intro() {
+    private static void start() {
         System.out.println(LINE);
         System.out.println("Hello! I'm KuroBot\n" + "What can I do for you?");
         System.out.println(LINE);
+        isStart = true;
     }
 
     private static void printAddedTask(Task task) {
@@ -39,29 +41,33 @@ public class KuroBot {
     }
 
     private static void addTodo(String userInput) {
-        String taskName = userInput.substring(5);
-        Todo t = new Todo(taskName);
-        tasks[taskNum++] = t;
-        printAddedTask(t);
+        Todo task = new Todo(userInput);
+        tasks[taskNum++] = task;
+        printAddedTask(task);
     }
 
     private static void addDeadline(String userInput) {
-        String[] words = userInput.split("/");
-        String taskName = words[0].substring(9);
-        String by = words[1].substring(3);
-        Deadline t = new Deadline(taskName, by);
-        tasks[taskNum++] = t;
-        printAddedTask(t);
+        //process input to get due date
+        String[] words = userInput.split("/by", 2);
+        String taskName = words[0];
+        String by = words[1].strip();
+
+        Deadline task = new Deadline(taskName, by);
+        tasks[taskNum++] = task;
+        printAddedTask(task);
     }
 
     private static void addEvent(String userInput) {
-        String[] words = userInput.split("/");
-        String taskName = words[0].substring(6);
-        String from = words[1].substring(5);
-        String to = words[2].substring(3);
-        Event t = new Event(taskName, from, to);
-        tasks[taskNum++] = t;
-        printAddedTask(t);
+        //process input to get the duration
+        String[] words = userInput.split("/from",2);
+        String taskName = words[0];
+        String[] period = words[1].split("/to",2);
+        String from = period[0].strip();
+        String to = period[1].strip();
+
+        Event task = new Event(taskName, from, to);
+        tasks[taskNum++] = task;
+        printAddedTask(task);
     }
 
     private static void end() {
@@ -69,11 +75,12 @@ public class KuroBot {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
         System.out.println(LOGO);
+        isStart = false;
     }
 
     private static void markTask(String userInput, boolean status) {
-        String[] words = userInput.split(" ");
-        int i = Integer.parseInt(words[1]);
+        //get the task number from input
+        int i = Integer.parseInt(userInput);
         if (status) {
             tasks[i - 1].mark();
         } else {
@@ -83,32 +90,44 @@ public class KuroBot {
 
     public static void main(String[] args) {
 
-        intro();
+        //display welcome message
+        start();
 
         Scanner in = new Scanner(System.in);
-        while (true) {
+        while (isStart) {
             String input = in.nextLine();
-            if (input.equals("bye")) {
+            //extract command keyword from input
+            String[] words = input.split(" ",2);
+            String command = words[0];
+            switch (command) {
+            case "bye":
+                end();
+                in.close();
                 break;
-            } else if (input.equals("list")) {
+            case "list":
                 printTasks();
-            } else if (input.startsWith("mark")) {
-                markTask(input,true);
-            } else if (input.startsWith("unmark")) {
-                markTask(input,false);
-            } else if (input.startsWith("todo")) {
-                addTodo(input);
-            } else if (input.startsWith("deadline")) {
-                addDeadline(input);
-            } else if (input.startsWith("event")) {
-                addEvent(input);
-            } else {
+                break;
+            case "mark":
+                markTask(words[1],true);
+                break;
+            case "unmark":
+                markTask(words[1],false);
+                break;
+            case "todo":
+                addTodo(words[1]);
+                break;
+            case "deadline":
+                addDeadline(words[1]);
+                break;
+            case "event":
+                addEvent(words[1]);
+                break;
+            default:
                 System.out.println(LINE);
                 System.out.println("Please enter valid keyword");
                 System.out.println(LINE);
+                break;
             }
         }
-
-        end();
     }
 }

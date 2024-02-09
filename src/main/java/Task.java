@@ -3,17 +3,15 @@ import java.util.Arrays;
 public class Task {
     protected String taskType;
     protected boolean isMarked;
-
     protected String taskName;
+    protected int lineLen = 60;
+    protected String lineBreak = "-".repeat(lineLen);
 
     public Task(String taskType, String taskName) {
         this.taskType = taskType;
         this.isMarked = false;
         this.taskName = taskName;
     }
-
-    protected String lineBreak = "-".repeat(60);
-
 
     public void mark() {
         this.isMarked = true;
