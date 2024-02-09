@@ -1,32 +1,31 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
 
-	// CONSTANTS
-
-	// Logo
-        String logo = " \n"
-        + "  ________  ________  ___  ________  ________                            \n"
-        + "  |\\   __  \\|\\   __  \\|\\  \\|\\   __  \\|\\   ___  \\               \n"
-        + "  \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\ \\  \\|\\  \\ \\  \\\\ \\  \\    \n"
-        + "   \\ \\  \\ \\  \\ \\   _  _\\ \\  \\ \\  \\ \\  \\ \\  \\\\ \\  \\       \n"
-        + "    \\ \\  \\ \\  \\ \\  \\\\  \\\\ \\  \\ \\  \\ \\  \\ \\  \\\\ \\  \\   \n"
-        + "     \\ \\_______\\ \\__\\\\ _\\\\ \\__\\ \\_______\\ \\__\\\\ \\__\\    \n"
-        + "      \\|_______|\\|__|\\|__|\\|__|\\|_______|\\|__| \\|__|              \n";
-
-        // Border line
-        String line = "____________________________________________________________";
-
-
-	// CODE
-
-	// Greeting Message
-        System.out.println(logo);
-        System.out.println(line);
+        // Greeting Message
+        System.out.println(Constants.LOGO);
+        System.out.println(Constants.LINE);
         System.out.println("Hello! I'm Orion!\n" + "What can I do for you?");
-        System.out.println(line);
+        System.out.println(Constants.LINE);
 
-	// Print farewell
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        // Echo loop
+        do {
+            input = scanner.nextLine();
+            System.out.println(Constants.LINE);
+            
+            if (!input.equalsIgnoreCase("bye")) {
+                System.out.println(input);
+            } else {
+                System.out.println("Bye. Hope to see you again soon!");
+            }
+
+            System.out.println(Constants.LINE);
+        } while (!input.equalsIgnoreCase("bye"));
+
+        scanner.close();
     }
 }
