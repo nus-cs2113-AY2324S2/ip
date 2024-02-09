@@ -30,8 +30,8 @@ public class Ui {
         System.out.println("See ya!");
     }
 
-    public static void printSectionBar(boolean withLineTerminator){
-        if (withLineTerminator){
+    public static void printSectionBar(boolean withLineTerminator) {
+        if (withLineTerminator) {
             System.out.println(SECTION_BAR + System.lineSeparator());
         } else {
             System.out.println(SECTION_BAR);

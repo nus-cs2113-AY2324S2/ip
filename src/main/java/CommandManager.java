@@ -17,7 +17,7 @@ public class CommandManager {
      * 7. `event` <description> /from <start_time> /to <end_time> - Creates a new event task.
      */
     public static Status processCommand(String userInput) {
-        if (userInput.isEmpty()){
+        if (userInput.isEmpty()) {
             System.out.println("Error: Empty input");
             return Status.STATUS_ERROR_EMPTY_INPUT;
         }

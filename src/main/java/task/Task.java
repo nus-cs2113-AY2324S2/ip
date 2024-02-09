@@ -18,7 +18,7 @@ public class Task {
      * @param taskNumber The task number this task is tagged to.
      * @param taskType The type of task.
      */
-    public Task (String taskDescription, int taskNumber, TaskType taskType) {
+    public Task(String taskDescription, int taskNumber, TaskType taskType) {
         setTaskDescription(taskDescription);
         setTaskNumber(taskNumber);
         setTaskType(taskType);
@@ -70,8 +70,8 @@ public class Task {
         this.taskType = taskType;
     }
 
-    private char getCharRepresentationOfTaskType(){
-        switch (getTaskType()){
+    private char getCharRepresentationOfTaskType() {
+        switch (getTaskType()) {
         case TODO:
             return 'T';
         case EVENT:

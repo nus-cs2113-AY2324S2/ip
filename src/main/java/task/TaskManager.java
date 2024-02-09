@@ -7,11 +7,11 @@ public class TaskManager {
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
     public static void createNewTask(String taskDescription, Task.TaskType taskType) {
-        if (taskDescription.isEmpty()){
+        if (taskDescription.isEmpty()) {
             System.out.println("Invalid Task: Task Description is empty");
             return;
         }
-        if (taskType == Task.TaskType.INVALID){
+        if (taskType == Task.TaskType.INVALID) {
             System.out.println("Invalid Task Type");
             return;
         }
@@ -22,17 +22,17 @@ public class TaskManager {
         numberOfActiveTasks += 1;
         Task newTask = null;
 
-        switch (taskType){
+        switch (taskType) {
         case TODO:
             newTask = new Todo(taskDescription, numberOfActiveTasks);
             System.out.println("Alright. I have added this todo task: ");
             break;
         case DEADLINE:
-            newTask = new Deadline(taskDescription,numberOfActiveTasks);
+            newTask = new Deadline(taskDescription, numberOfActiveTasks);
             System.out.println("Alright. I have added this deadline: ");
             break;
         case EVENT:
-            newTask = new Event(taskDescription,numberOfActiveTasks);
+            newTask = new Event(taskDescription, numberOfActiveTasks);
             System.out.println("Alright. I have added this event: ");
             break;
         }
