@@ -38,4 +38,14 @@ public class Deadline extends Task {
         System.out.println("Now you have " + List.totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
     }
+
+
+    public static void addDeadline (String input) {
+        Task[] tasksArray = List.getTasksArray();
+        Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
+//        tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
+        tasksArray[List.totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
+        List.totalTasks++;
+        Deadline.printDeadline(extractedInfo);
+    }
 }

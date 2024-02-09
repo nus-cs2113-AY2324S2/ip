@@ -49,13 +49,6 @@ public class List {
         Omoh.printHorizontalLine();
     }
 
-    public void Deadline (String input) {
-        Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
-        tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
-        totalTasks++;
-        Deadline.printDeadline(extractedInfo);
-    }
-
     public void addTodo (String input) {
         //extracts task portion from input, after the "todo" keyword
         String description = input.substring("todo".length()).trim();
@@ -75,10 +68,4 @@ public class List {
         Omoh.printHorizontalLine();
     }
 
-//    public void addEvent (String input) {
-//        Event extractedInfo = Event.extractEvent(input);
-//        tasks[totalTasks] = new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to);
-//        totalTasks++;
-//        Event.addEventMessage(extractedInfo);
-//    }
 }

@@ -49,7 +49,7 @@ public class Omoh {
                 printAllTasks();
                 line = in.nextLine();
             } else if (line.startsWith("deadline")) {
-                myTaskList.Deadline(line);
+                Deadline.addDeadline(line);
                 line = in.nextLine();
             }
             else if (line.startsWith("todo")) {
