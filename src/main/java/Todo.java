@@ -14,11 +14,8 @@ public class Todo extends Task {
 
     public static void printTodoMessage (Task description) {
         Omoh.printHorizontalLine();
-        System.out.print("     ");
         System.out.println("Got it. I've added this task:");
-        System.out.print("       ");
         System.out.println("[T][ ] " + description.description);
-        System.out.print("     ");
         System.out.println("Now you have " + Task.totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
     }

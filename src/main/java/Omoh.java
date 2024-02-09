@@ -12,7 +12,6 @@ public class Omoh {
 
     //Method that prints horizontal line using "_" char
     public static void printHorizontalLine() {
-        System.out.print("    ");
         for (int i = 0; i < 50; i++) {
             System.out.print("_");
         }
@@ -20,15 +19,15 @@ public class Omoh {
     }
     public static void printWelcomeMessage() {
         printHorizontalLine();
-        System.out.println("     Hello! I'm Omoh");
-        System.out.println("     What can I do for you?");
+        System.out.println("Hello! I'm Omoh");
+        System.out.println("What can I do for you?");
         printHorizontalLine();
     }
 
     //Method that prints the bye message
     public static void bye() {
         printHorizontalLine();
-        System.out.println("     Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
     }
 

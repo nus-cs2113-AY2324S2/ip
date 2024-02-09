@@ -24,12 +24,9 @@ public class Event extends Task {
 
     public static void addEventMessage (Event description) {
         Omoh.printHorizontalLine();
-        System.out.print("     ");
         System.out.println("Got it. I've added this task:");
-        System.out.print("       ");
         System.out.println("[E][ ] " + description.description + " (from: " + description.from
                 + " to: " + description.to + ")" );
-        System.out.print("     ");
         System.out.println("Now you have " + Task.totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
     }
