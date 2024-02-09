@@ -8,10 +8,11 @@ public class RecrBad {
         Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
         int indexTo = line.lastIndexOf('/');
         int indexFrom = line.lastIndexOf('/', indexTo - 1); // counts from back
-        if (indexFrom == -1 || indexTo == -1) { //not found
+        if (indexFrom == -1 || indexTo == -1) { // arguments not found
             System.out.println("Invalid event: Add BOTH start and end parameters by adding '/', start timing, then ' ', '/' and end timing");
             return tasks;
         }
+        // process input as Event object
         String description = line.substring(startIndexOfDescription, indexFrom - 1);
         String timeRange = " (from: " + line.substring(indexFrom + 1, indexTo) +
                 "to: " + line.substring(indexTo + 1) + ")";
@@ -26,6 +27,7 @@ public class RecrBad {
             System.out.println("Invalid deadline: Add a parameter '/' followed by the deadline");
             return tasks;
         }
+        // process input as Deadline object
         String deadline = "(by: " + line.substring(indexDeadline + 1) + ")";
         String description = line.substring(startIndexOfDescription, indexDeadline);
         moreTasks[tasks.length] = new Deadline(description, deadline); //append at last elem
@@ -62,7 +64,7 @@ public class RecrBad {
         } else { // normal tasks
             moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
             moreTasks[tasks.length] = new Task(line); //append at last elem
-            printHelper.printLine();
+            PrintHelper.printLine();
             System.out.println("You added: ");
         }
 
@@ -116,6 +118,7 @@ public class RecrBad {
         int taskNum = Integer.parseInt(req[1]);
         if (tasks.length < taskNum) {
             System.out.println("No such taskNum");
+            return;
         }
         if (isMark) { // MARK #taskNum as done
             tasks[taskNum - 1].markAsDone();
@@ -133,18 +136,18 @@ public class RecrBad {
      * list                 to displayList,
      * mark/unmark [index]  to mark item
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) { // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
         Scanner in = new Scanner(System.in);
-        printHelper.sayHi();
+        PrintHelper.sayHi();
         Task[] tasks = new Task[]{};
 
         while (true) {
-            printHelper.printLine();
+            PrintHelper.printLine();
             String line = in.nextLine(); // reads input
             String[] req = line.split(" ");
 
             if (req[0].equalsIgnoreCase("BYE")) {
-                printHelper.sayBye(); // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
+                PrintHelper.sayBye();
                 break; // EXITS loop
             }
             if (req[0].equalsIgnoreCase("LIST")) {

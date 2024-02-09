@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class printHelper {
+public class PrintHelper {
     /**
      * Prints "*" as line-separator
      */
