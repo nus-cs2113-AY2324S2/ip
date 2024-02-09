@@ -1,7 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static int totalTasks = 0;
+    protected static int totalTasks = 0;
 
     public Task(String description) {
         this.description = description;
@@ -25,6 +25,10 @@ public class Task {
 
     public String toString() {
         return getStatusIcon() + description;
+    }
+
+    public static void removeTask() {
+        totalTasks--;
     }
 
 }

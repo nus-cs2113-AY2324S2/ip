@@ -5,14 +5,14 @@ public class Deadline extends Task{
         super(description);
         int index = description.indexOf("/by");
         this.description = description.substring(0, index);
-        if (this.description.isEmpty()) {
-            throw new QuillException();
-        }
         this.by = description.substring(index + 3);
-        if (by.isEmpty()) {
+        if (this.description.isEmpty()) {
+            totalTasks--;
+            throw new QuillException();
+        } else if (by.isEmpty()) {
+            totalTasks--;
             throw new EmptyDateException("by");
         }
-
     }
 
     @Override

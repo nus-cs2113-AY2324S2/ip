@@ -55,11 +55,15 @@ public class Quill {
                 System.out.println(horizontalLine + "Bye! Hope to see you again soon!" + horizontalLine);
                 return;
             case "list":
-                System.out.println(horizontalLine + "Here are the tasks in your list:\n");
-                for (int i = 0; i < Task.getTotalTasks(); i++) {
-                    System.out.println(i + 1 + "." + tasks[i].toString());
+                if (Task.totalTasks == 0) {
+                    System.out.println("Zero tasks. Add something already.");
+                } else {
+                    System.out.println(horizontalLine + "Here are the tasks in your list:\n");
+                    for (int i = 0; i < Task.getTotalTasks(); i++) {
+                        System.out.println(i + 1 + "." + tasks[i].toString());
+                    }
+                    System.out.println(horizontalLine);
                 }
-                System.out.println(horizontalLine);
                 break;
             case "mark":
                 performMarkOrUnmark(line, tasks, true);
@@ -82,6 +86,7 @@ public class Quill {
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Seriously? You call that a deadline?");
                     System.out.println("It's 'deadline [task] /by [date]'. Get it right!");
+                    Task.removeTask();
                     break;
                 } catch (EmptyDateException e) {
                     break;
@@ -91,8 +96,18 @@ public class Quill {
                 }
                 break;
             case "event":
-                tasks[taskNumber] = new Event(line);
-                printAddTask(tasks[taskNumber]);
+                try {
+                    tasks[taskNumber] = new Event(line);
+                    printAddTask(tasks[taskNumber]);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Seriously? You call that an event?");
+                    System.out.println("It's 'event [task] /from [date] /to [date]'. Get it right!");
+                    Task.removeTask();
+                } catch (EmptyDateException e) {
+                    break;
+                } catch (QuillException e) {
+                    System.out.println("No empty descriptions allowed for event. Fill it in!");
+                }
                 break;
             default:
                 System.out.println("Enough with the gibberish. Stick to the commands I understand: ");
