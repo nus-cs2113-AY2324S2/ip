@@ -1,7 +1,67 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm
+ ____   ___    ___   ____    ___
+| __/  / _ \  | _ \  | __|  / _ \
+| |    ||_||  | / /  | |_   | | |
+| |_   | _ |  | _/   |_  /  | | |
+|___\  // \\  |_|    /__/ . \___/
 
+****************************************
+What can I do for you?
+****************************************
+****************************************
+You added:
+[ ][ ] item1
+
+Congrats, now have 1 tasks
+****************************************
+****************************************
+You added:
+[ ][ ] item2
+
+Congrats, now have 2 tasks
+****************************************
+****************************************
+You added:
+[ ][ ] item3
+
+Congrats, now have 3 tasks
+****************************************
+1.[ ][ ] item1
+2.[ ][ ] item2
+3.[ ][ ] item3
+****************************************
+Has marked task1:
+[ ][X] item1
+****************************************
+Has marked task3:
+[ ][X] item3
+****************************************
+1.[ ][X] item1
+2.[ ][ ] item2
+3.[ ][X] item3
+****************************************
+Has unmarked task1:
+[ ][ ] item1
+****************************************
+Todo added!
+[T][ ] task1
+
+Congrats, now have 4 tasks
+****************************************
+Deadline added!
+[D][ ] task2 (by: Wednesday)
+
+Congrats, now have 5 tasks
+****************************************
+Invalid deadline: Add a parameter '/' followed by the deadline
+****************************************
+Event added!
+[E][ ] task3 (from: 9am to: 6pm)
+
+Congrats, now have 6 tasks
+****************************************
+Invalid event: Add BOTH start and end parameters by adding '/', start timing, then ' ', '/' and end timing
+****************************************
+Adios My Friend. Sleep early, study smarter
+Always know your goals in life
+****************************************

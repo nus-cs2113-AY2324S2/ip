@@ -9,7 +9,7 @@ public class RecrBad {
         int indexTo = line.lastIndexOf('/');
         int indexFrom = line.lastIndexOf('/', indexTo - 1); // counts from back
         if (indexFrom == -1 || indexTo == -1) { //not found
-            System.out.println("Please input BOTH start and end timing parameters by adding '/' followed by the start timing, then ' ', '/' and end timing");
+            System.out.println("Invalid event: Add BOTH start and end parameters by adding '/', start timing, then ' ', '/' and end timing");
             return tasks;
         }
         String description = line.substring(startIndexOfDescription, indexFrom - 1);
@@ -23,7 +23,7 @@ public class RecrBad {
         Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
         int indexDeadline = line.lastIndexOf('/');
         if (indexDeadline == -1) { // no deadline argument
-            System.out.println("Please input a deadline by adding a parameter '/' followed by the deadline");
+            System.out.println("Invalid deadline: Add a parameter '/' followed by the deadline");
             return tasks;
         }
         String deadline = "(by: " + line.substring(indexDeadline + 1) + ")";
@@ -119,10 +119,10 @@ public class RecrBad {
         }
         if (isMark) { // MARK #taskNum as done
             tasks[taskNum - 1].markAsDone();
-            System.out.println("Okie dokie, marked task below:");
+            System.out.println("Has marked task" + taskNum + ":");
         } else {
             tasks[taskNum - 1].markAsNotDone();
-            System.out.println("Okie dokie, unmarked task below:");
+            System.out.println("Has unmarked task" + taskNum + ":");
         }
         displayListItem(tasks, taskNum - 1);
     }
@@ -145,16 +145,16 @@ public class RecrBad {
 
             if (req[0].equalsIgnoreCase("BYE")) {
                 printHelper.sayBye(); // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
-                break;
+                break; // EXITS loop
             }
             if (req[0].equalsIgnoreCase("LIST")) {
                 displayList(tasks);
-                continue;
+                continue; // GOTO next iteration of loop
             }
             if (req[0].toUpperCase().contains("MARK")) { // both unmark & mark contains 'mark'
                 boolean isMark = !line.toUpperCase().contains("UNMARK");
                 markOperation(tasks, req, isMark);
-                continue;
+                continue; //GOTO next iteration of loop
             }
             tasks = addToList(tasks, req, line);
         }
