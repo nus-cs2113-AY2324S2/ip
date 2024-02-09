@@ -66,8 +66,8 @@ public class Omoh {
                 Task.printMarkTask(taskNumber, line);
                 line = in.nextLine();
             } else {
-                myTaskList.addTask(line);
-                myTaskList.printAddedTask();
+                Task.addTask(line);
+                Task.printAddedTask();
                 line = in.nextLine();
             }
         }
