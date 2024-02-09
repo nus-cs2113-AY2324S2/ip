@@ -1,72 +1,117 @@
 import java.util.Scanner;
 public class Quill {
-    public static final String horizontalLine = "\n____________________________________________________________\n";
+    public static final String horizontalLine = "____________________________________________________________";
     public static void printAddTask(Task tasks) {
-        System.out.println(horizontalLine + "Got it. I've added this task:");
+        System.out.println(horizontalLine + "\nGot it. I've added this task:");
         System.out.println(tasks.toString());
-        System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
+        System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
     }
-    public static void main(String[] args) {
-        String name = "Quill";
-        final int MAX_TASKS = 100;
 
+    public static void performMarkOrUnmark(String line, Task[] tasks, boolean isDone) {
+        try {
+            int taskNumber = Integer.parseInt(line) - 1;
+            if (isDone) {
+                tasks[taskNumber].markAsDone();
+                System.out.println(horizontalLine + "\nNice! I've marked this task as done:");
+            } else {
+                tasks[taskNumber].markAsNotDone();
+                System.out.println(horizontalLine + "\nOK, I've marked this task as not done yet:");
+            }
+            System.out.println(tasks[taskNumber].toString() + "\n" + horizontalLine);
+        } catch (NullPointerException e) {
+            System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("1 to 100 only. Seriously, no zeros, no hundreds. Got it?");
+        } catch (NumberFormatException e) {
+            System.out.println("Listen up! Numbers only, got it? Don't bother with anything else");
+        }
+    }
+
+    public static void main(String[] args) throws QuillException{
+        String name = "Quill";
+        int MAX_TASKS = 100;
         String line;
         Task[] tasks = new Task[MAX_TASKS];
         Scanner in = new Scanner(System.in);
 
-        System.out.println(horizontalLine + "Hello! I'm " + name + ".");
-        System.out.println("What can i do for you?" + horizontalLine);
+        System.out.println(horizontalLine + "\nHello! I'm " + name + ".");
+        System.out.println("What can i do for you?\n" + horizontalLine);
 
         line = in.nextLine();
-
 
         while(true) {
             String command;
             int taskNumber = Task.getTotalTasks();
-            int index;
-            if (line.contains(" ")) {
-                index = line.indexOf(" ");
+            int index = line.indexOf(" ");
+            if (index != -1) {
                 command = line.substring(0, index);
                 line = line.substring(index + 1);
             } else {
                 command = line;
+                line = "";
             }
             switch(command) {
             case "bye":
-                System.out.println(horizontalLine + "Bye! Hope to see you again soon!" + horizontalLine);
+                System.out.println(horizontalLine + "\nBye! Hope to see you again soon!\n" + horizontalLine);
                 return;
             case "list":
-                System.out.println(horizontalLine + "Here are the tasks in your list:\n");
-                for (int i = 0; i < Task.getTotalTasks(); i++) {
-                    System.out.println(i + 1 + "." + tasks[i].toString());
+                if (Task.totalTasks == 0) {
+                    System.out.println(horizontalLine + "\nZero tasks. Add something already.");
+                } else {
+                    System.out.println(horizontalLine + "\nHere are the tasks in your list:");
+                    for (int i = 0; i < Task.getTotalTasks(); i++) {
+                        System.out.println(i + 1 + "." + tasks[i].toString());
+                    }
                 }
                 System.out.println(horizontalLine);
                 break;
             case "mark":
-                taskNumber = Integer.parseInt(line) - 1;
-                tasks[taskNumber].markAsDone();
-                System.out.println(horizontalLine + "Nice! I've marked this task as done:");
-                System.out.println(tasks[taskNumber].toString() + horizontalLine);
+                performMarkOrUnmark(line, tasks, true);
                 break;
             case "unmark":
-                taskNumber = Integer.parseInt(line) - 1;
-                tasks[taskNumber].markAsNotDone();
-                System.out.println(horizontalLine + "OK, I've marked this task as not done yet:");
-                System.out.println(tasks[taskNumber].toString() + horizontalLine);
+                performMarkOrUnmark(line, tasks, false);
                 break;
             case "todo":
-                tasks[taskNumber] = new Todo(line);
-                printAddTask(tasks[taskNumber]);
+                if (line.isEmpty()) {
+                    System.out.println("No empty descriptions allowed for todos. Fill it in!");
+                } else {
+                    tasks[taskNumber] = new Todo(line);
+                    printAddTask(tasks[taskNumber]);
+                }
                 break;
             case "deadline":
-                tasks[taskNumber] = new Deadline(line);
-                printAddTask(tasks[taskNumber]);
+                try {
+                    tasks[taskNumber] = new Deadline(line);
+                    printAddTask(tasks[taskNumber]);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Seriously? You call that a deadline?");
+                    System.out.println("It's 'deadline [task] /by [date]'. Get it right!");
+                    Task.removeTask();
+                    break;
+                } catch (EmptyDateException e) {
+                    break;
+                } catch (QuillException e) {
+                    System.out.println("No empty descriptions allowed for deadline. Fill it in!");
+                    break;
+                }
                 break;
             case "event":
-                tasks[taskNumber] = new Event(line);
-                printAddTask(tasks[taskNumber]);
+                try {
+                    tasks[taskNumber] = new Event(line);
+                    printAddTask(tasks[taskNumber]);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Seriously? You call that an event?");
+                    System.out.println("It's 'event [task] /from [date] /to [date]'. Get it right!");
+                    Task.removeTask();
+                } catch (EmptyDateException e) {
+                    break;
+                } catch (QuillException e) {
+                    System.out.println("No empty descriptions allowed for event. Fill it in!");
+                }
                 break;
             default:
+                System.out.println("Enough with the gibberish. Stick to the commands I understand:");
+                System.out.println("bye, list, todo, deadline, event, mark, unmark. Got it? Next!");
                 break;
             }
             line = in.nextLine();
