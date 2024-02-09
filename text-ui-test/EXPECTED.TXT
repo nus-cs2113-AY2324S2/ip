@@ -18,12 +18,97 @@ Deadline has been added to list:
 [D][ ] iP week 4 (by: Friday)
 -------------------------------------------
 > -------------------------------------------
+Missing information. Please try again.
+Command to add a new deadline:
+deadline <description> /by <datetime>
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new deadline:
+deadline <description> /by <datetime>
+-------------------------------------------
+> -------------------------------------------
+Missing information. Please try again.
+Command to add a new deadline:
+deadline <description> /by <datetime>
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new deadline:
+deadline <description> /by <datetime>
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new deadline:
+deadline <description> /by <datetime>
+-------------------------------------------
+> -------------------------------------------
+Missing information. Please try again.
+Command to add a new deadline:
+deadline <description> /by <datetime>
+-------------------------------------------
+> -------------------------------------------
 Event has been added to list:
 [E][ ] CS2113T lecture (from: Friday, 4pm, to: Friday, 6pm)
 -------------------------------------------
 > -------------------------------------------
+Missing information. Please try again.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Missing information. Please try again.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Missing information. Please try again.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Missing information. Please try again.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Missing information. Please try again.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
+Missing information. Please try again.
+Command to add a new event:
+event <description> /from <datetime> /to <datetime>
+-------------------------------------------
+> -------------------------------------------
 Task has been added to list:
 [T][ ] pack room
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new to-do task:
+todo <description>
+-------------------------------------------
+> -------------------------------------------
+Empty or whitespace-only fields are not allowed.
+Command to add a new to-do task:
+todo <description>
 -------------------------------------------
 > -------------------------------------------
 Your list:
@@ -41,7 +126,7 @@ Nice! I've marked this task as done: CS2113T lecture
 Nice! I've marked this task as done: pack room
 -------------------------------------------
 > -------------------------------------------
-Failed to mark item 3. Index out of range.
+Failed to mark item 4. Index out of range.
 -------------------------------------------
 > -------------------------------------------
 Your list:

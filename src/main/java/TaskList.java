@@ -1,5 +1,6 @@
 public class TaskList {
-    private Task[] taskList = new Task[100];
+    private static final int MAX_TASK_COUNT = 100;
+    private Task[] taskList = new Task[MAX_TASK_COUNT];
     private int taskCount = 0;
 
     /**
@@ -59,7 +60,7 @@ public class TaskList {
      */
     public void markTask(int index) {
         if (index >= taskCount || index < 0) {
-            System.out.println("Failed to mark item " + index + ". Index out of range.");
+            System.out.println("Failed to mark item " + (index + 1) + ". Index out of range.");
             return;
         }
         taskList[index].markAsDone();
