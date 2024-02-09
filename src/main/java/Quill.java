@@ -42,13 +42,13 @@ public class Quill {
         while(true) {
             String command;
             int taskNumber = Task.getTotalTasks();
-            int index;
-            if (line.contains(" ")) {
-                index = line.indexOf(" ");
+            int index = line.indexOf(" ");
+            if (index != -1) {
                 command = line.substring(0, index);
                 line = line.substring(index + 1);
             } else {
                 command = line;
+                line = "";
             }
             switch(command) {
             case "bye":
@@ -68,24 +68,35 @@ public class Quill {
                 performMarkOrUnmark(line, tasks, false);
                 break;
             case "todo":
-                tasks[taskNumber] = new Todo(line);
-                printAddTask(tasks[taskNumber]);
+                if (line.isEmpty()) {
+                    System.out.println("No empty descriptions allowed for todos. Fill it in!");
+                } else {
+                    tasks[taskNumber] = new Todo(line);
+                    printAddTask(tasks[taskNumber]);
+                }
                 break;
             case "deadline":
-                tasks[taskNumber] = new Deadline(line);
-                printAddTask(tasks[taskNumber]);
+                try {
+                    tasks[taskNumber] = new Deadline(line);
+                    printAddTask(tasks[taskNumber]);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Seriously? You call that a deadline?");
+                    System.out.println("It's 'deadline [task] /by [date]'. Get it right!");
+                    break;
+                } catch (EmptyDateException e) {
+                    break;
+                } catch (QuillException e) {
+                    System.out.println("No empty descriptions allowed for deadline. Fill it in!");
+                    break;
+                }
                 break;
             case "event":
                 tasks[taskNumber] = new Event(line);
                 printAddTask(tasks[taskNumber]);
                 break;
             default:
-                try {
-                    throw new QuillException();
-                } catch (QuillException e) {
-                    System.out.println("Enough with the gibberish. Stick to the commands I understand: ");
-                    System.out.println("bye, list, todo, deadline, event, mark, unmark. Got it? Next!");
-                }
+                System.out.println("Enough with the gibberish. Stick to the commands I understand: ");
+                System.out.println("bye, list, todo, deadline, event, mark, unmark. Got it? Next!");
                 break;
             }
             line = in.nextLine();
