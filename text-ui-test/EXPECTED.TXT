@@ -17,13 +17,22 @@
      Now you have 2 tasks in the list
     ____________________________________________________
     ____________________________________________________
+     Here are the tasks in your list:
+     1. [T][ ] Eric Sim Chong Li: Answer CS2113T tutorial questions
+     2. [D][ ] Weekly CS2113T quiz (by: Monday 9pm)
+    ____________________________________________________
+    ____________________________________________________
      Got it. I've added this task: 
        [E][ ] CS2113T lecture (from: Friday 4pm to: 6pm)
      Now you have 3 tasks in the list
     ____________________________________________________
     ____________________________________________________
+     Nice! I've marked this task as done:
+     [T][X] Eric Sim Chong Li: Answer CS2113T tutorial questions
+    ____________________________________________________
+    ____________________________________________________
      Here are the tasks in your list:
-     1. [T][ ] Eric Sim Chong Li: Answer CS2113T tutorial questions
+     1. [T][X] Eric Sim Chong Li: Answer CS2113T tutorial questions
      2. [D][ ] Weekly CS2113T quiz (by: Monday 9pm)
      3. [E][ ] CS2113T lecture (from: Friday 4pm to: 6pm)
     ____________________________________________________
