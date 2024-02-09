@@ -51,18 +51,7 @@ public class List {
         Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
         tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
         totalTasks++;
-        printTaskAndDeadline(extractedInfo);
-    }
-
-    public void printTaskAndDeadline(Deadline description) {
-        Omoh.printHorizontalLine();
-        System.out.print("     ");
-        System.out.println("Got it. I've added this task:");
-        System.out.print("       ");
-        System.out.println("[D][ ] " + description.description + " (by: " + description.by + ")" );
-        System.out.print("     ");
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
-        Omoh.printHorizontalLine();
+        Deadline.printDeadline(extractedInfo);
     }
 
     public void addTodo (String input) {

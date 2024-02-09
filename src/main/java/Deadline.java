@@ -27,4 +27,15 @@ public class Deadline extends Task {
     public String getBy() {
         return by;
     }
+
+    public static void printDeadline (Deadline description) {
+        Omoh.printHorizontalLine();
+        System.out.print("     ");
+        System.out.println("Got it. I've added this task:");
+        System.out.print("       ");
+        System.out.println("[D][ ] " + description.description + " (by: " + description.by + ")" );
+        System.out.print("     ");
+        System.out.println("Now you have " + List.totalTasks + " tasks in the list.");
+        Omoh.printHorizontalLine();
+    }
 }
