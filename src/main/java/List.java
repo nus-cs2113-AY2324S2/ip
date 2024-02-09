@@ -7,7 +7,9 @@ public class List {
         this.tasks = new Task[100];
     }
 
-
+    public static Task[] getTasksArray() {
+        return tasks;
+    }
 
     public void getAllTasks() {
         System.out.print("     ");
@@ -47,7 +49,7 @@ public class List {
         Omoh.printHorizontalLine();
     }
 
-    public void addTaskAndDeadline (String input) {
+    public void Deadline (String input) {
         Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
         tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
         totalTasks++;
@@ -86,20 +88,6 @@ public class List {
 
     public static void markAsNotDone(int index) {
         tasks[index - 1].isDone = false;
-    }
-
-    //method that prints out the task that has been marked done or unmarked
-    public static void printMarkTask(int index, String input) {
-        Omoh.printHorizontalLine();
-        System.out.print("    ");
-        if (input.startsWith("mark")) {
-            System.out.println("Nice! I've marked this task as done:");
-        } else {
-            System.out.println("OK, I've marked his task as not done yet:");
-        }
-        System.out.print("      ");
-        System.out.println("[" + tasks[index - 1].getStatusIcon() + "] " + tasks[index - 1].description);
-        Omoh.printHorizontalLine();
     }
 
 }

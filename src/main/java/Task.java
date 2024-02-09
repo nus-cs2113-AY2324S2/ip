@@ -60,6 +60,23 @@ public class Task {
     }
 
 
+    //method that prints out the task that has been marked done or unmarked
+    public static void printMarkTask(int index, String input) {
+        Task[] taskArray = List.getTasksArray();
+        Omoh.printHorizontalLine();
+        System.out.print("    ");
+        if (input.startsWith("mark")) {
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            System.out.println("OK, I've marked his task as not done yet:");
+        }
+        System.out.print("      ");
+        System.out.println("[" + taskArray[index - 1].getStatusIcon() + "] "
+                + taskArray[index - 1].description);
+        Omoh.printHorizontalLine();
+    }
+
+
 }
 
 

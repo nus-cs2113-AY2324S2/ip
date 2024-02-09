@@ -49,7 +49,7 @@ public class Omoh {
                 printAllTasks();
                 line = in.nextLine();
             } else if (line.startsWith("deadline")) {
-                myTaskList.addTaskAndDeadline(line);
+                myTaskList.Deadline(line);
                 line = in.nextLine();
             }
             else if (line.startsWith("todo")) {
@@ -63,7 +63,7 @@ public class Omoh {
             else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 int taskNumber = Task.extractTaskNumber(line);
                 Task.modifyDoneState(taskNumber, line);
-                List.printMarkTask(taskNumber, line);
+                Task.printMarkTask(taskNumber, line);
                 line = in.nextLine();
             } else {
                 myTaskList.addTask(line);
