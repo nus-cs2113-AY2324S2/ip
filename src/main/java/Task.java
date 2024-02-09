@@ -1,3 +1,5 @@
+import java.lang.invoke.SerializedLambda;
+
 public class Task {
     protected static Task[] tasks;
     public static int totalTasks = 0;
@@ -21,21 +23,7 @@ public class Task {
         System.out.println("Here are the tasks in your list:");
         int serialNumber = 1;
         for (int i = 0; i < totalTasks; i++) {
-            System.out.print(serialNumber
-                    + ".[" + tasks[i].type + "]"
-                    + "[" + tasks[i].getStatusIcon() + "] "
-                    + tasks[i].getDescription());
-
-            if (tasks[i].type.equals("D")) {
-                //type casting required to access by member
-                Deadline deadlineTask = (Deadline) tasks[i];
-                System.out.print(" (by: " + deadlineTask.by + ")");
-            } else if (tasks[i].type.equals("E")) {
-                //type casting required to access from and to members
-                Event eventTask = (Event) tasks[i];
-                System.out.print(" (from: " + eventTask.from + " to: " + eventTask.to + ")");
-            }
-            System.out.println();
+            System.out.println(serialNumber + "." + tasks[i].toString());
             serialNumber += 1;
         }
     }
@@ -105,13 +93,13 @@ public class Task {
 
     public static void printAddedTask() {
         Omoh.printHorizontalLine();
-        System.out.println("added: " + toString(totalTasks - 1));
+        System.out.println("added: " + tasks[totalTasks - 1].getDescription());
+//        System.out.println("added: " + toString(totalTasks - 1);
         Omoh.printHorizontalLine();
     }
 
-    public static String toString(int index) {
-        return tasks[index].description;
-
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }

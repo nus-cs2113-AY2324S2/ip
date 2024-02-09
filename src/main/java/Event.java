@@ -37,4 +37,9 @@ public class Event extends Task {
         Task.totalTasks++;
         Event.addEventMessage(extractedInfo);
     }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + "(from: " + from + " to: " + to + ")" ;
+    }
 }

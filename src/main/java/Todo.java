@@ -7,7 +7,7 @@ public class Todo extends Task {
     public static void addTodo (String input) {
         //extracts task portion from input, after the "todo" keyword
         String description = input.substring("todo".length()).trim();
-        Task.tasks[Task.totalTasks] = new Task(description);
+        Task.tasks[Task.totalTasks] = new Todo(description);
         Task.totalTasks++;
         printTodoMessage(Task.tasks[Task.totalTasks - 1]);
     }
@@ -18,5 +18,10 @@ public class Todo extends Task {
         System.out.println("[T][ ] " + description.description);
         System.out.println("Now you have " + Task.totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
     }
 }
