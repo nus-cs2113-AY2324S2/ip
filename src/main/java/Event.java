@@ -6,7 +6,7 @@ public class Event extends Task{
         int fromIndex = description.indexOf("/from");
         this.description = description.substring(0, fromIndex);
         int toIndex = description.indexOf("/to");
-        this.from = description.substring(fromIndex + 5, toIndex);
+        this.from = description.substring(fromIndex + 5, toIndex - 1);
         this.to = description.substring(toIndex + 3);
         if (this.description.isEmpty()) {
             totalTasks--;

@@ -56,7 +56,7 @@ public class Quill {
                 return;
             case "list":
                 if (Task.totalTasks == 0) {
-                    System.out.println(horizontalLine + "\nZero tasks. Add something already.list");
+                    System.out.println(horizontalLine + "\nZero tasks. Add something already.");
                 } else {
                     System.out.println(horizontalLine + "\nHere are the tasks in your list:");
                     for (int i = 0; i < Task.getTotalTasks(); i++) {
@@ -110,7 +110,7 @@ public class Quill {
                 }
                 break;
             default:
-                System.out.println("Enough with the gibberish. Stick to the commands I understand: ");
+                System.out.println("Enough with the gibberish. Stick to the commands I understand:");
                 System.out.println("bye, list, todo, deadline, event, mark, unmark. Got it? Next!");
                 break;
             }

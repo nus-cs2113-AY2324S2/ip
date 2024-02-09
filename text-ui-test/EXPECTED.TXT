@@ -1,70 +1,69 @@
-
 ____________________________________________________________
 Hello! I'm Quill.
 What can i do for you?
 ____________________________________________________________
-
-
+____________________________________________________________
+Zero tasks. Add something already.
+____________________________________________________________
+No empty descriptions allowed for todos. Fill it in!
 ____________________________________________________________
 Got it. I've added this task:
-[T][ ] borrow book
+[T][ ] read book
 Now you have 1 tasks in the list.
 ____________________________________________________________
-
-
+Seriously? You call that a deadline?
+It's 'deadline [task] /by [date]'. Get it right!
+No empty descriptions allowed for deadline. Fill it in!
+No date after by? Seriously?
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: 2 march 2024)
 Now you have 2 tasks in the list.
 ____________________________________________________________
-
-
+Seriously? You call that an event?
+It's 'event [task] /from [date] /to [date]'. Get it right!
+No empty descriptions allowed for event. Fill it in!
+No date after from? Seriously?
+No date after to? Seriously?
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
 Now you have 3 tasks in the list.
 ____________________________________________________________
-
-
 ____________________________________________________________
 Here are the tasks in your list:
-
-1.[T][ ] borrow book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-
+1.[T][ ] read book
+2.[D][ ] return book (by: 2 march 2024)
+3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
 ____________________________________________________________
-
-
-____________________________________________________________
-Nice! I've marked this task as done:
-[T][X] borrow book
-____________________________________________________________
-
-
+Listen up! Numbers only, got it? Don't bother with anything else
+1 to 100 only. Seriously, no zeros, no hundreds. Got it?
+Hey, wake up! That task? Non-existent. Try something real.
 ____________________________________________________________
 Nice! I've marked this task as done:
-[D][X] return book (by: June 6th)
+[T][X] read book
 ____________________________________________________________
-
-
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: 2 march 2024)
+3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
+____________________________________________________________
+Listen up! Numbers only, got it? Don't bother with anything else
+1 to 100 only. Seriously, no zeros, no hundreds. Got it?
+Hey, wake up! That task? Non-existent. Try something real.
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[D][ ] return book (by: June 6th)
+[T][ ] read book
 ____________________________________________________________
-
-
 ____________________________________________________________
 Here are the tasks in your list:
-
-1.[T][X] borrow book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-
+1.[T][ ] read book
+2.[D][ ] return book (by: 2 march 2024)
+3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
 ____________________________________________________________
-
-
+Enough with the gibberish. Stick to the commands I understand:
+bye, list, todo, deadline, event, mark, unmark. Got it? Next!
 ____________________________________________________________
 Bye! Hope to see you again soon!
 ____________________________________________________________
-
