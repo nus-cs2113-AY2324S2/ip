@@ -6,15 +6,22 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-    public void setIsDone(boolean status) {
-        this.isDone = status;
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public boolean getIsDone() {
-        return this.isDone;
+        return isDone;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getTaskDescription() {
+        return description;
+    }
+
+    public String getFullDescription() {
+        String output = "[ ][";
+        output += (getIsDone() ? "X] " : " ] ");
+        output += getTaskDescription();
+        return output;
     }
 }
