@@ -17,25 +17,23 @@ public class Duke {
 
         int MAX_NUMBERED_LIST_LENGTH = 100;
         Task[] numberedList = new Task[MAX_NUMBERED_LIST_LENGTH];
-        int numberedListIndex = 0;
+        int listCount = 0;
 
         while (isRunning) {
-
             if (userInput.equals("bye")) {
                 System.out.println("************************************************************");
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("************************************************************");
                 isRunning = false;
-            } else if (userInput.equals("list") && numberedListIndex == 0) {
+            } else if (userInput.equals("list") && listCount == 0) {
                 System.out.println("List is empty.");
-            } else if (userInput.equals("list") && numberedListIndex > 0) {
-                for (int i = 0; i < numberedListIndex; i++) {
+            } else if (userInput.equals("list") && listCount > 0) {
+                for (int i = 0; i < listCount; i++) {
                     System.out.print((i + 1) + ".");
-                    System.out.printf("[%s] ", numberedList[i].getStatusIcon());
-                    System.out.println(numberedList[i].description);
+//                    System.out.printf("[%s][%s] ", numberedList[i].getType(), numberedList[i].getStatusIcon());
+                    System.out.println(numberedList[i]);
                 }
             } else if (userInput.startsWith("mark")) {
-                //assume syntax of command is correct, the number is within range of list
                 String secondArgument = userInput.substring(userInput.indexOf(' ') + 1);
                 int userSelectedIndex = Integer.parseInt(secondArgument);
                 numberedList[userSelectedIndex - 1].markAsDone();
@@ -45,7 +43,6 @@ public class Duke {
                 System.out.printf("[%s] ", numberedList[userSelectedIndex - 1].getStatusIcon());
                 System.out.println(numberedList[userSelectedIndex - 1].description);
             } else if (userInput.startsWith("unmark")) {
-                //assume syntax of command is correct, the number is within range of list
                 String secondArgument = userInput.substring(userInput.indexOf(' ') + 1);
                 int userSelectedIndex = Integer.parseInt(secondArgument);
                 numberedList[userSelectedIndex - 1].markAsNotDone();
@@ -54,9 +51,31 @@ public class Duke {
                 System.out.print((userSelectedIndex) + ".");
                 System.out.printf("[%s] ", numberedList[userSelectedIndex - 1].getStatusIcon());
                 System.out.println(numberedList[userSelectedIndex - 1].description);
+            } else if (userInput.startsWith("todo")) {
+                String taskDescription = userInput.substring(userInput.indexOf(' ') + 1);
+
+                Todo newTodo = new Todo(taskDescription);
+                numberedList[listCount++] = newTodo;
+                System.out.println("added: " + newTodo);
+            } else if (userInput.startsWith("deadline")) {
+                String taskDescription = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
+                String deadline = userInput.substring(userInput.indexOf('/') + 1);
+
+                Deadline newDeadline = new Deadline(taskDescription, deadline);
+                numberedList[listCount++] = newDeadline;
+                System.out.println("added: " + newDeadline);
+            } else if (userInput.startsWith("event")) {
+                String taskDescription = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
+                String timePeriod = userInput.substring(userInput.indexOf('/') + 1);
+                String startTime = timePeriod.substring(0, timePeriod.indexOf('/') - 1);
+                String endTime = timePeriod.substring(timePeriod.indexOf('/') + 1);
+
+                Event newEvent = new Event(taskDescription, startTime, endTime);
+                numberedList[listCount++] = newEvent;
+                System.out.println("added: " + newEvent);
             } else {
                 Task newTask = new Task(userInput);
-                numberedList[numberedListIndex++] = newTask;
+                numberedList[listCount++] = newTask;
                 System.out.println("added: " + userInput);
             }
             userInput = in.nextLine();
