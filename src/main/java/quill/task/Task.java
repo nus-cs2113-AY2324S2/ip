@@ -1,3 +1,5 @@
+package quill.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -31,4 +33,7 @@ public class Task {
         totalTasks--;
     }
 
+    public static boolean isEmpty() {
+        return totalTasks == 0;
+    }
 }
