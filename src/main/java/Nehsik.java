@@ -54,6 +54,18 @@ public class Nehsik {
                 System.out.println("Now you have " + (taskIndex + 1) + " tasks in the list");
                 taskIndex++;
                 printLine();
+            } else if (command.startsWith("event")) {
+                String taskDescription = command.substring(command.indexOf("event ") + 6, command.indexOf("/from ") - 1);
+                String from = command.substring(command.indexOf("/from ") + 6, command.indexOf("/to ") - 1);
+                String to = command.substring(command.indexOf("/to ") + 4);
+                taskList[taskIndex] = new Event(taskDescription, from, to);
+
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + taskList[taskIndex].toString());
+                System.out.println("Now you have " + (taskIndex + 1) + " tasks in the list");
+                taskIndex++;
+                printLine();
             } else {
                 break;
             }
