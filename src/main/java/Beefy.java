@@ -1,115 +1,30 @@
 import java.util.Scanner;
 
 public class Beefy {
-    private static final String BOT_NAME = "BEEFY";
-    private Scanner userInput;
     private TaskList userTasks;
+    private boolean isExit;
+    private Scanner scanner;
 
     public Beefy() {
-        userInput = new Scanner(System.in);
         userTasks = new TaskList();
+        isExit = false;
+        scanner = new Scanner(System.in);
     }
 
-    private void printSeparation() {
-        int WIDTH = 59;
-        for (int i = 0; i < WIDTH; i++) {
-            System.out.print("_");
+    private void run () {
+        Ui.printHi();
+        while (!isExit) {
+            Ui.printUser();
+            String userInput = scanner.nextLine();
+            Command userCommand = Parser.determineCommand(userTasks, userInput);
+            userCommand.execute();
+            this.isExit = userCommand.isExit();
         }
-        System.out.println("_");
+        Ui.printBye();
     }
 
-    private boolean isInteger(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void executeCommand(String userWords, CommandType command) {
-        String[] taskDetails;
-        switch(command) {
-        case UNMARK:
-            userTasks.unmarkTask(Integer.parseInt(userWords));
-            break;
-        case MARK:
-            userTasks.markTask(Integer.parseInt(userWords));
-            break;
-        case TODO:
-            userTasks.addTask(userWords);
-            break;
-        case DEADLINE:
-            taskDetails = userWords.trim().split("/by");
-            try {
-                userTasks.addTask(taskDetails[0].trim(), taskDetails[1].trim());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Don't be a Drongo mate. Use format:" + System.lineSeparator() + "deadline (Task Description) /by (Date)");
-            }
-            break;
-        case EVENT:
-            taskDetails =  userWords.trim().split("/from|/to");
-            try {
-                userTasks.addTask(taskDetails[0].trim(), taskDetails[1].trim(), taskDetails[2].trim());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Don't be a Drongo mate. Use format:" + System.lineSeparator() + "event (Task Description) /from (Date) /to (Date)");
-            }
-            break;
-        default:
-            System.out.println("Crikey Mate! What is this command?");
-        }
-    }
-
-    public void startChat() {
-        String userLine;
-        printSeparation();
-        System.out.println(BOT_NAME);
-        System.out.println("G'Day! I'm " + BOT_NAME);
-        System.out.println("What can I do for you mate?");
-        printSeparation();
-        do {
-            System.out.println("You");
-            userLine = userInput.nextLine();
-            printSeparation();
-            String[] userWords = userLine.trim().split("\\s+", 2);
-            System.out.println(BOT_NAME);
-            if (userLine.equalsIgnoreCase("bye")) {
-                break;
-            } else if (userLine.isBlank()) {
-                System.out.println("Ya alright mate?");
-            } else if (userLine.equalsIgnoreCase("list")) {
-                userTasks.listOut();
-            } else if (userWords.length == 2 && userWords[0].equalsIgnoreCase("mark")) {
-                if (isInteger(userWords[1])) {
-                    executeCommand(userWords[1], CommandType.MARK);
-                } else {
-                    System.out.println("Don't be a Drongo mate. Use format:"
-                            + System.lineSeparator()
-                            + "mark (taskNo.)");
-                }
-            } else if (userWords.length == 2 && userWords[0].equalsIgnoreCase("unmark")) {
-                if (isInteger(userWords[1])) {
-                    executeCommand(userWords[1], CommandType.UNMARK);
-                } else {
-                    System.out.println("Don't be a Drongo mate. Use format:"
-                            + System.lineSeparator()
-                            + "unmark (taskNo.)");
-                }
-            } else if (userWords[0].equalsIgnoreCase("todo")){
-                executeCommand(userWords[1], CommandType.TODO);
-            } else if (userWords[0].equalsIgnoreCase("deadline")){
-                executeCommand(userWords[1], CommandType.DEADLINE);
-            } else if (userWords[0].equalsIgnoreCase("event")){
-                executeCommand(userWords[1], CommandType.EVENT);
-            } else {
-                System.out.println("Okay, so what?");
-            }
-            printSeparation();
-        } while(!userLine.equalsIgnoreCase("bye"));
-    }
-
-    public void endChat() {
-        System.out.println("See Ya Mate!");
-        printSeparation();
+    public static void main(String[] args) {
+        Beefy chatBot = new Beefy();
+        chatBot.run();
     }
 }
