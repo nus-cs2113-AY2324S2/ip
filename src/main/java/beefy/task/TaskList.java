@@ -1,6 +1,8 @@
 package beefy.task;
 
 import java.util.ArrayList;
+
+import beefy.BeefyException;
 import beefy.ui.Ui;
 
 public class TaskList {
@@ -41,10 +43,6 @@ public class TaskList {
     }
 
     public void listOut() {
-        if (numberOfTasks == 0) {
-            Ui.printMessage("You have no tasks u lazy bum!");
-            return;
-        }
         String message = "Here are the tasks in your list:\n";
         for (int i = 0; i < numberOfTasks - 1; i++) {
             Task currTask = tasks.get(i);
@@ -54,33 +52,25 @@ public class TaskList {
         Ui.printMessage(message);
     }
 
-    public void markTask(int taskId) {
-        if (taskId >= 1 && taskId <= numberOfTasks) {
+    public void markTask(int taskId) throws BeefyException {
             Task selectedTask = tasks.get(taskId - 1);
             if (selectedTask.getStatus()) {
-                Ui.printMessage("Are you blind mate?");
+                throw new BeefyException("Are you blind mate?");
             } else {
                 selectedTask.setMark();
                 Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
                         + selectedTask);
             }
-        } else {
-            Ui.printMessage("Can you not do math, mate?");
-        }
     }
 
-    public void unmarkTask(int taskId) {
-        if (taskId >= 1 && taskId <= numberOfTasks) {
-            Task selectedTask = tasks.get(taskId - 1);
-            if (!selectedTask.getStatus()) {
-                Ui.printMessage("Are you blind mate?");
-            } else {
-                selectedTask.setUnmark();
-                Ui.printMessage("WHY?! I've marked this task as not done:" + System.lineSeparator()
-                        + selectedTask);
-            }
+    public void unmarkTask(int taskId) throws BeefyException {
+        Task selectedTask = tasks.get(taskId - 1);
+        if (!selectedTask.getStatus()) {
+            throw new BeefyException("Are you blind mate?");
         } else {
-            Ui.printMessage("Can you not do math, mate?");
+            selectedTask.setUnmark();
+            Ui.printMessage("WHY?! I've marked this task as not done:" + System.lineSeparator()
+                    + selectedTask);
         }
     }
 }

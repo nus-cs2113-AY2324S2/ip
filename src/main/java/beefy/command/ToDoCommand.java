@@ -1,24 +1,23 @@
 package beefy.command;
 
+import beefy.BeefyException;
 import beefy.task.TaskList;
-import beefy.ui.Ui;
 
 public class ToDoCommand implements Command{
     private TaskList userTasks;
     private String taskDescription;
-    public ToDoCommand(TaskList userTasks, String userParams) {
+
+    public ToDoCommand(TaskList userTasks, String userParams) throws BeefyException {
+        if (userParams.isEmpty()) {
+            throw new BeefyException("Quit fooling me, I do not see any task to add!");
+        }
         this.userTasks = userTasks;
         taskDescription = userParams;
     }
 
     @Override
     public void execute() {
-        if (taskDescription.isBlank()) {
-            Ui.printMessage("Quit fooling me, I do not see any task to add!");
-        }
-        else {
-            userTasks.addTask(taskDescription);
-        }
+        userTasks.addTask(taskDescription);
     }
 
     @Override

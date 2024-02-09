@@ -1,21 +1,20 @@
 package beefy.parser;
 
+import beefy.BeefyException;
 import beefy.command.Command;
 import beefy.command.*;
 import beefy.task.TaskList;
 
 public class Parser {
-    public static Command determineCommand(TaskList userTasks, String userInput) {
+    public static Command determineCommand(TaskList userTasks, String userInput) throws BeefyException {
         String[] userWords = userInput.trim().split("\\s+", 2);
-        if (userInput.equals("bye")) {
-            return new ByeCommand();
-        }
-        if (userInput.equals("list")) {
-            return new ListCommand(userTasks);
-        }
         String userCommand = userWords[0];
         String userParams = userWords.length == 2 ? userWords[1] : "";
         switch(userCommand) {
+        case "bye":
+            return new ByeCommand(userParams);
+        case "list":
+            return new ListCommand(userTasks, userParams);
         case "todo":
             return new ToDoCommand(userTasks, userParams);
         case "deadline":
@@ -27,7 +26,7 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(userTasks, userParams);
         default:
-            return new DefaultCommand();
+            throw new BeefyException("What Did you Say? I do not understand this command.");
         }
     }
 }

@@ -22,9 +22,13 @@ public class Beefy {
         while (!isExit) {
             Ui.printUser();
             String userInput = scanner.nextLine();
-            Command userCommand = Parser.determineCommand(userTasks, userInput);
-            userCommand.execute();
-            this.isExit = userCommand.isExit();
+            try {
+                Command userCommand = Parser.determineCommand(userTasks, userInput);
+                userCommand.execute();
+                this.isExit = userCommand.isExit();
+            } catch (BeefyException e) {
+                Ui.printMessage(e.getMessage());
+            }
         }
         Ui.printBye();
     }

@@ -1,24 +1,29 @@
 package beefy.command;
 
+import beefy.BeefyException;
 import beefy.task.TaskList;
 import beefy.ui.Ui;
 
 public class UnmarkCommand implements Command {
     private TaskList userTasks;
-    private String taskDetails;
-    public UnmarkCommand(TaskList userTasks, String userParams) {
+    private int taskId;
+
+    public UnmarkCommand(TaskList userTasks, String userParams) throws BeefyException{
         this.userTasks = userTasks;
-        taskDetails = userParams;
+        try {
+            taskId = Integer.parseInt(userParams);
+        } catch (NumberFormatException e) {
+            throw new BeefyException("Use format:" + System.lineSeparator() + "mark (taskId)");
+        }
     }
 
     @Override
-    public void execute() {
-        try {
-            int taskId = Integer.parseInt(taskDetails);
-            userTasks.unmarkTask(taskId);
-        } catch (NumberFormatException e) {
-            Ui.printMessage("Use format:" + System.lineSeparator() + "mark (TaskId)");
+    public void execute() throws BeefyException {
+        if (taskId < 1 || taskId > userTasks.getNumberOfTasks())
+        {
+            throw new BeefyException("Can you not do math, mate?");
         }
+        userTasks.unmarkTask(taskId);
     }
 
     @Override

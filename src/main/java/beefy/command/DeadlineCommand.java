@@ -1,26 +1,26 @@
 package beefy.command;
 
+import beefy.BeefyException;
 import beefy.task.TaskList;
 import beefy.ui.Ui;
 
 public class DeadlineCommand implements Command {
     private TaskList userTasks;
-    private String[] taskDetails;
+    private String taskDescription, taskBy;
 
-    public DeadlineCommand(TaskList userTasks, String userParams) {
+    public DeadlineCommand(TaskList userTasks, String userParams) throws BeefyException {
         this.userTasks = userTasks;
-        taskDetails = userParams.trim().split("/by");
+        String[] taskDetails = userParams.trim().split("/by");
+        if (taskDetails.length < 2) {
+            throw new BeefyException("Use format:" + System.lineSeparator() + "deadline (Task Description) /by (Date)");
+        }
+        taskDescription = taskDetails[0].trim();
+        taskBy = taskDetails[1].trim();
     }
 
     @Override
     public void execute() {
-        try {
-            String taskDescription = taskDetails[0].trim();
-            String taskBy = taskDetails[1].trim();
-            userTasks.addTask(taskDescription, taskBy);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            Ui.printMessage("Use format:" + System.lineSeparator() + "deadline (Task Description) /by (Date)");
-        }
+        userTasks.addTask(taskDescription, taskBy);
     }
 
     @Override
