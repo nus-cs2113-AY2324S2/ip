@@ -18,8 +18,6 @@ public class Nehsik {
                     System.out.println((i + 1) + "." + taskList[i].toString());
                 }
                 printLine();
-            } else if (command.equals("bye")) {
-                break;
             } else if (command.startsWith("mark")){
                 printLine();
                 System.out.println("Nice! I've marked this task as done:");
@@ -35,7 +33,8 @@ public class Nehsik {
                 System.out.println(taskList[taskNum].toString());
                 printLine();
             }  else if (command.startsWith("todo")) {
-                taskList[taskIndex] = new Todo(command);
+                String taskDescription = command.substring(5);
+                taskList[taskIndex] = new Todo(taskDescription);
 
                 printLine();
                 System.out.println("Got it. I've added this task:");
@@ -66,12 +65,13 @@ public class Nehsik {
                 System.out.println("Now you have " + (taskIndex + 1) + " tasks in the list");
                 taskIndex++;
                 printLine();
-            } else {
+            } else if (command.equals("bye")) {
+                displayExitMessage();
                 break;
+            } else {
+                System.out.println("Invalid Command");
             }
         }
-
-        displayExitMessage();
     }
 
     public static void printLine() {
