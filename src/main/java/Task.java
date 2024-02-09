@@ -1,77 +1,84 @@
+import java.util.ArrayList;
+
 public class Task {
     //Attributes
-
+    protected TaskType taskType;
     protected String name;
     protected boolean isDone;
-    protected static int tasksCount = 0;
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     //Constructors
-    Task(String name){
+    Task (String name) {
         this.name = name;
         isDone = false;
+        taskType = TaskType.TASK;
     }
 
+    public TaskType getTaskType(){
+        return taskType;
+    }
     //Methods
-    public String toString(){
-        return (isDone? "[X] " : "[ ] ") + name;
+    public String toString () {
+        return (isDone ? "[X] " : "[ ] ") + name;
     }
 
-    public static void listTasks(){
-        System.out.println(Duke.LINE_SEPARATOR);
-        for (int i = 0; i < tasksCount; i++){
+    public static void listTasks () {
+        System.out.println(UI.LINE_SEPARATOR);
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.print((i + 1) + ".");
-            System.out.println(tasks[i]);
+            System.out.println(tasks.get(i));
         }
-        System.out.println(Duke.LINE_SEPARATOR);
+        System.out.println(UI.LINE_SEPARATOR);
     }
 
-    public static void add(Task task){
-        System.out.println(Duke.LINE_SEPARATOR);
-        System.out.println("Got it. I've added this task:");
+    public static void addTask (Task task) {
+        System.out.println(UI.LINE_SEPARATOR);
+
+        switch (task.getTaskType()){
+            case DEADLINE:
+            case EVENT:
+            case TODO:
+                System.out.println("Got it. I've added this task:");
+                tasks.add(task);
+                break;
+        }
         System.out.println(task);
-        tasks[tasksCount] = task;
-        tasksCount++;
-        System.out.println(Duke.LINE_SEPARATOR);
+
+        System.out.println(UI.LINE_SEPARATOR);
     }
 
-    public static void mark(int index){
-        tasks[index - 1].isDone = true;
-        System.out.println(Duke.LINE_SEPARATOR);
+    public static void mark (int index) {
+        tasks.get(index - 1).isDone = true;
+        System.out.println(UI.LINE_SEPARATOR);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[index - 1]);
-        System.out.println(Duke.LINE_SEPARATOR);
+        System.out.println(tasks.get(index - 1));
+        System.out.println(UI.LINE_SEPARATOR);
     }
 
-    public static void unmark(int index){
-        tasks[index - 1].isDone = false;
-        System.out.println(Duke.LINE_SEPARATOR);
+    public static void unmark (int index) {
+        tasks.get(index - 1).isDone = false;
+        System.out.println(UI.LINE_SEPARATOR);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks[index - 1]);
-        System.out.println(Duke.LINE_SEPARATOR);
+        System.out.println(tasks.get(index - 1));
+        System.out.println(UI.LINE_SEPARATOR);
     }
 
-    private static boolean isValidObject(String command){
+    private static boolean isValidObject (String command) {
         return command.equals("deadline") || command.equals("event")
                 || command.equals("todo");
     }
 
-    public static void responseToCommand(String command){
+    public static void responseToCommand (String command) {
         String[] commandWords = command.split(" ");
         if (commandWords[0].equals("list")) {
             Task.listTasks();
         } else if (commandWords[0].equals("mark")) {
             mark(Integer.parseInt(commandWords[1]));
-        } else if (commandWords[0].equals("unmark")){
+        } else if (commandWords[0].equals("unmark")) {
             unmark(Integer.parseInt(commandWords[1]));
         } else {
-            Task newTask;
-            if (isValidObject(commandWords[0])){
-                newTask = Parser.parseCommand(command);
-                add(newTask);
-            } else {
-                System.out.println("Invalid!");
-            }
+            Task newTask = Parser.parseCommand(command);
+            addTask(newTask);
         }
     }
 }

@@ -1,7 +1,6 @@
 public class Parser {
-    private static Deadline parseDeadline(String command){
+    private static Deadline parseDeadline (String command) {
         String[] commandWords = command.split("/");
-
         Deadline newDeadline;
         String taskName = commandWords[0].substring(9);
         String by = commandWords[1].substring(3);
@@ -9,7 +8,7 @@ public class Parser {
         return newDeadline;
     }
 
-    private static Event parseEvent(String command){
+    private static Event parseEvent (String command) {
         String[] commandWords = command.split("/");
 
         Event newEvent;
@@ -20,17 +19,20 @@ public class Parser {
         return newEvent;
     }
 
-    private static Todo parseTodo(String command){
+    private static Todo parseTodo (String command) {
         String[] commandWords = command.split(" ");
         return new Todo(commandWords[1]);
     }
-    public static Task parseCommand(String command){
+
+    public static Task parseCommand (String command) {
         String[] commandWords = command.split(" ");
-        if (commandWords[0].equals("deadline")){
+        if (commandWords[0].equals("deadline")) {
             return parseDeadline(command);
-        } else if (commandWords[0].equals("event")){
+        } else if (commandWords[0].equals("event")) {
             return parseEvent(command);
+        } else if (commandWords[0].equals("todo")) {
+            return parseTodo(command);
         }
-        return parseTodo(command);
+        return new Invalid("INVALID COMMAND");
     }
 }
