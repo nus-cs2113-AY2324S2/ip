@@ -1,31 +1,24 @@
 public class Task {
-    // Description of the task
     protected String description;
-    // Status of the task, true if done, false otherwise
     protected boolean isDone;
 
-    // Constructor to create a new task with a description
+    // Constructor initializes the task with a description and sets its status to not done.
     public Task(String description) {
         this.description = description;
-        this.isDone = false; // New tasks are not done by default
-    }
-
-    // Method to mark the task as done
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    // Method to mark the task as not done
-    public void markAsNotDone() {
         this.isDone = false;
     }
 
-    // Method to get the status icon for the task
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // Return "[X]" or "[ ]" based on task completion
+    // Sets the task's done status.
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
-    // Override toString method for task representation
+    // Returns a status icon depending on whether the task is done.
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]");
+    }
+
+    // Overrides toString to return the task's status icon and description.
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
