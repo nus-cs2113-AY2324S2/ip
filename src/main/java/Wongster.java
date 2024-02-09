@@ -1,62 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
-class Task {
-    protected String description;
-    protected boolean isDone;
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
-    public void markList() {
-        this.isDone = true;
-    }
-
-    public void unmarkList() {
-        this.isDone = false;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-}
-
-
-class ToDo extends Task {
-    public ToDo(String description) {
-        super(description);
-    }
-    public String toString() {
-        return "[T]" + super.getStatusIcon() + " " + super.getDescription();
-    }
-}
-
-class Event extends Task {
-    protected String from;
-    protected String to;
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-    public String toString() {
-        return "[E]" + super.getStatusIcon() + " " + super.getDescription() + " (from: " + from + " to: " + to + ")";
-    }
-}
-
-class Deadline extends Task {
-    protected String by;
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-    public String toString() {
-        return "[D]" + super.getStatusIcon() + " " + super.getDescription() + " (by: " + by + ")";
-    }
-}
 
 public class Wongster {
     public static void main(String[] args) {
@@ -69,6 +11,7 @@ public class Wongster {
         Task[] userList = new Task[100];
         int userListItems = 0;
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
             String userInput = scanner.nextLine();
             if (userInput.equalsIgnoreCase("bye")) {
