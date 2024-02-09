@@ -1,9 +1,19 @@
+import java.util.Scanner;
+
 public class Ui {
+
+    public static String getTask() {
+        String taskDescription;
+        Scanner in = new Scanner(System.in);
+        System.out.println("\tWhat do you want to do?: ");
+        taskDescription = in.nextLine();
+        return taskDescription;
+    }
 
     public static void listTask(Task[] taskList) { //using the array to list the tasks
         System.out.println("All your tasks are here");
         for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.println((i+1) + "." + taskList[i].toString());
+            System.out.println((i + 1) + "." + taskList[i].toString());
         }
     }
 
@@ -30,4 +40,15 @@ public class Ui {
         System.out.println(eventTask);
     }
 
+    public static void printMarkTask (int taskIndex, Task[] taskList) {
+        System.out.println("_______________________");
+        System.out.println("One done!");
+        System.out.println(taskList[taskIndex]);
+    }
+
+    public static void printUnmarkTask (int taskIndex, Task[] taskList) {
+        System.out.println("______________________");
+        System.out.println("Oh no!");
+        System.out.println(taskList[taskIndex]);
+    }
 }
