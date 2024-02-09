@@ -56,4 +56,9 @@ public class Ui {
         System.out.println("Command to add a new event:");
         System.out.println("event <description> /from <datetime> /to <datetime>");
     }
+    
+    public void printMarkCommandUsage() {
+        System.out.println("Command to mark task as completed:");
+        System.out.println("event <description> /from <datetime> /to <datetime>");
+    }
 }

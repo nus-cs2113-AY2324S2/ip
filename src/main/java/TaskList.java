@@ -58,7 +58,7 @@ public class TaskList {
      *
      * @param index Index of the task to mark as done.
      */
-    public void markTask(int index) {
+    public void markTask(int index) throws NumberFormatException {
         if (index >= taskCount || index < 0) {
             System.out.println("Failed to mark item " + (index + 1) + ". Index out of range.");
             return;
@@ -72,7 +72,7 @@ public class TaskList {
      *
      * @param index Index of the task to mark as not done.
      */
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws NumberFormatException {
         if (index >= taskCount || index < 0) {
             System.out.println("Failed to unmark item " + (index + 1) + ". Index out of range.");
             return;

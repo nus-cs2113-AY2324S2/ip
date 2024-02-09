@@ -137,11 +137,19 @@ public class Command {
             break;
 
         case "MARK":
-            taskList.markTask(Integer.parseInt(this.arguments) - 1);
+            try {
+                taskList.markTask(Integer.parseInt(this.arguments) - 1);
+            } catch (NumberFormatException exception ) {
+                ui.printMarkCommandUsage();
+            }
             break;
 
         case "UNMARK":
-            taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
+            try {
+                taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
+            } catch (NumberFormatException exception ) {
+                ui.printMarkCommandUsage();
+            }
             break;
 
         default:
