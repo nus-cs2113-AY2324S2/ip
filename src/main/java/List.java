@@ -7,9 +7,21 @@ public class List {
         this.size = 0;
     }
 
+    // Overloaded Method to add a deadline to the list
+    public void addTask(String taskDescription, String taskDeadline) {
+        tasks[size] = new Deadline(taskDescription, taskDeadline);
+        size++;
+    }
+
+    // Overloaded Method to add an event to the list
+    public void addTask(String taskDescription, String taskStart, String taskEnd) {
+        tasks[size] = new Event(taskDescription,taskStart, taskEnd);
+        size++;
+    }
+
     // Method to add a task to the list
     public void addTask(String taskDescription) {
-        tasks[size] = new Task(taskDescription);
+        tasks[size] = new ToDo(taskDescription);
         size++;
     }
 
@@ -24,12 +36,12 @@ public class List {
 
     //Method to toggle check task as done by index
     public void markDoneByIndex(int index){
-        tasks[index].completeTask();
+        tasks[index-1].completeTask();
     }
 
     //Method to toggle check task as undone by index
     public void markUndoneByIndex(int index){
-        tasks[index].uncheckTask();
+        tasks[index-1].uncheckTask();
     }
 
     // Method to print all tasks
@@ -38,10 +50,11 @@ public class List {
             System.out.println("All tasks:");
             for (int i = 0; i < size; i++) {
                 Task currentTask = tasks[i]; // Assuming tasks[i] is a Task object
-                String statusMark = currentTask.isCompleted() ? "x" : " "; // Mark with 'x' if completed
-                System.out.println((i+1) + ". " + "[" + statusMark + "] " + currentTask.getDescription());
+                System.out.print((i + 1) + ".");
+                System.out.println(currentTask);
             }
-        } else {
+        }
+        else {
             System.out.println("The list is empty.");
         }
     }

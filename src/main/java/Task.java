@@ -29,8 +29,7 @@ public class Task {
         return this.isCompleted;
     }
 
-    @Override
     public String toString() {
-        return "Task: " + this.description + " - Completed: " + this.isCompleted;
+        return this.description;
     }
 }

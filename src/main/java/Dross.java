@@ -65,10 +65,36 @@ public class Dross {
                 toggleMark(line);
                 line = in.nextLine();
             }
+            else if (line.startsWith("todo")){
+                String withoutCommand = line.substring("todo".length()).trim();
+                drossTaskList.addTask(withoutCommand);
+                drossTaskList.printLastTask();
+                printLine();
+                line = in.nextLine();
+            }
+            else if (line.startsWith("deadline")) {
+                String withoutCommand = line.substring("deadline".length()).trim();
+                String[] parsedParts = withoutCommand.split(" /by ", 2);
+
+                String taskName = parsedParts[0];
+                String taskDeadline = parsedParts[1];
+
+                drossTaskList.addTask(taskName, taskDeadline);
+                printLine();
+                line = in.nextLine();
+            }
+            else if (line.startsWith("event")) {
+                String withoutCommand = line.substring("event".length()).trim();
+                String[] parts = withoutCommand.split(" /from ", 2);
+                String taskName = parts[0];
+                String[] timeParts = parts[1].split(" /to ", 2);
+                drossTaskList.addTask(taskName, timeParts[0], timeParts[1]);
+                printLine();
+                line = in.nextLine();
+            }
             else{
                 printLine();
-                drossTaskList.addTask(line);
-                drossTaskList.printLastTask();
+                System.out.println("Please enter a valid command");
                 printLine();
                 line = in.nextLine();
             }
