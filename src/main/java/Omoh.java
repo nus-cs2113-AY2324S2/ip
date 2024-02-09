@@ -53,7 +53,7 @@ public class Omoh {
                 line = in.nextLine();
             }
             else if (line.startsWith("todo")) {
-                myTaskList.addTodo(line);
+                Todo.addTodo(line);
                 line = in.nextLine();
             }
             else if (line.startsWith("event")) {
