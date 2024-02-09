@@ -27,7 +27,7 @@ public class TaskList {
         } else {
             System.out.println("     Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                String taskFormatter = String.format("     %d. %s", (i + 1), taskList[i].getDescription());
+                String taskFormatter = String.format("     %d. %s", (i + 1), taskList[i]);
                 System.out.println(taskFormatter);
 
             }
@@ -88,7 +88,7 @@ public class TaskList {
         System.out.println(horizontalLine + lineSeparator
                 + "     Got it. I've added this task: " + lineSeparator
                 + "       " + taskList[taskCount] + lineSeparator + "     Now you have "
-                + taskCount + " tasks in the list" + lineSeparator + horizontalLine);
+                + (taskCount + 1) + " tasks in the list" + lineSeparator + horizontalLine);
 
         taskCount++;
     }
@@ -106,7 +106,7 @@ public class TaskList {
         System.out.println(horizontalLine + lineSeparator
                 + "     Got it. I've added this task: " + lineSeparator
                 + "       " + taskList[taskCount] + lineSeparator + "     Now you have "
-                + taskCount + " tasks in the list" + lineSeparator + horizontalLine);
+                + (taskCount + 1) + " tasks in the list" + lineSeparator + horizontalLine);
 
         taskCount++;
     }
@@ -127,7 +127,7 @@ public class TaskList {
         System.out.println(horizontalLine + lineSeparator
                 + "     Got it. I've added this task: " + lineSeparator
                 + "       " + taskList[taskCount] + lineSeparator + "     Now you have "
-                + taskCount + " tasks in the list" + lineSeparator + horizontalLine);
+                + (taskCount + 1) + " tasks in the list" + lineSeparator + horizontalLine);
 
         taskCount++;
     }
