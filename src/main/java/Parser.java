@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public enum Parser {
     BYE("bye"),
     LIST("list"),
-    TOGGLE("^(mark [0-9]*|unmark [0-9]*)"),
+    TOGGLE("(mark|unmark)\\s(\\d+)"),
     TODO("todo\\s(.+)"),
     DEADLINE("deadline\\s(.+)/by\\s(.+)"),
     EVENT("event\\s(.+)/from\\s(.+)/to\\s(.+)");
@@ -29,9 +29,16 @@ public enum Parser {
 
     public static String[] splitInput(String input) {
         String[] parsedInput = {};
-        Matcher eventMatcher = Pattern.compile(EVENT.getCommandRegex()).matcher(input);
-        Matcher deadlineMatcher = Pattern.compile(DEADLINE.getCommandRegex()).matcher(input);
-        Matcher todoMatcher = Pattern.compile(TODO.getCommandRegex()).matcher(input);
+
+        Pattern eventPattern = Pattern.compile(EVENT.getCommandRegex());
+        Pattern deadlinePattern = Pattern.compile(DEADLINE.getCommandRegex());
+        Pattern todoPattern = Pattern.compile(TODO.getCommandRegex());
+        Pattern togglePattern = Pattern.compile(TOGGLE.getCommandRegex());
+
+        Matcher eventMatcher = eventPattern.matcher(input);
+        Matcher deadlineMatcher = deadlinePattern.matcher(input);
+        Matcher todoMatcher = todoPattern.matcher(input);
+        Matcher toggleMatcher = togglePattern.matcher(input);
 
         if (eventMatcher.find()) {
             parsedInput = new String[3];
@@ -45,6 +52,10 @@ public enum Parser {
         } else if (todoMatcher.find()) {
             parsedInput = new String[1];
             parsedInput[0] = todoMatcher.group(1);
+        } else if(toggleMatcher.find()) {
+            parsedInput = new String[2];
+            parsedInput[0] = toggleMatcher.group(1);
+            parsedInput[1] = toggleMatcher.group(2);
         }
 
         return parsedInput;

@@ -1,18 +1,16 @@
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Adam {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
         TaskList tasks = new TaskList();
 
         System.out.println(Message.GREETING_MESSAGE);
 
-        while (input.hasNextLine()) {
+        while (true) {
             System.out.print(Message.DELIMITER);
 
             try {
-                CommandGenerator.generate(input.nextLine())
+                CommandGenerator.generate()
                         .orElseThrow()
                         .execute(tasks);
             } catch (NoSuchElementException error) {
