@@ -11,29 +11,38 @@ public class Chelle {
         while (true) {
             System.out.print("You: ");
             String userInput = scanner.nextLine();
+            String userCommand = userInput.split(" ")[0];
 
-            if (userInput.equals("bye")) {
+            switch (userCommand) {
+            case "bye":
                 System.out.println("Chelle: Bye! Hope to see you again soon!");
-                break;
-            } else if (userInput.equals("list")) {
+                scanner.close();
+                return;
+            case "list":
                 System.out.println("Chelle: ");
                 displayTasks(tasks, taskCount);
-            } else if (userInput.startsWith("mark")) {
+                break;
+            case "mark":
                 markTask(userInput, tasks, taskCount);
-            } else if (userInput.startsWith("unmark")) {
+                break;
+            case "unmark":
                 unmarkTask(userInput, tasks, taskCount);
-            } else {
-                if (taskCount < tasks.length) {
-                    tasks[taskCount] = new Task(userInput);
-                    taskCount++;
-                    System.out.println("Chelle: added: " + userInput);
-                } else {
-                    System.out.println("Chelle: Task limit reached. Cannot add more tasks.");
-                }
+                break;
+            case "todo":
+                taskCount = createTask(userInput.substring(5), tasks, taskCount, TaskType.TODO);
+                break;
+            case "deadline":
+                taskCount = createTask(userInput.substring(9), tasks, taskCount, TaskType.DEADLINE);
+                break;
+            case "event":
+                taskCount = createTask(userInput.substring(6), tasks, taskCount, TaskType.EVENT);
+                break;
+            default:
+                System.out.println("Chelle: Invalid command. Please start your command with one of the following commands: \n" +
+                        "        'list', 'mark', 'unmark', 'todo', deadline' or 'event'.");
+                break;
             }
         }
-
-        scanner.close();
     }
 
     private static void displayTasks(Task[] tasks, int count) {
@@ -41,11 +50,23 @@ public class Chelle {
             System.out.println("No tasks to display.");
         } else {
             for (int i = 0; i < count; i++) {
-                Task task = tasks[i];
-                String status = task.isDone() ? "[X]" : "[ ]";
-                System.out.println((i + 1) + ". " + status + " " + task.getTaskName());
+                System.out.println((i + 1) + ". " + tasks[i].toString());
             }
         }
+    }
+
+    private static int createTask(String userInput, Task[] tasks, int taskCount, TaskType taskType) {
+        if (taskCount < tasks.length) {
+            tasks[taskCount] = new Task(userInput);
+            tasks[taskCount].setTaskType(taskType);
+            taskCount++;
+            System.out.println("Chelle: Got it. I've added this task:\n        " +
+                    tasks[taskCount - 1].toString() +
+                    "\n     Now you have " + taskCount + " tasks in the list.");
+        } else {
+            System.out.println("Chelle: Task limit reached. Cannot add more tasks.");
+        }
+        return taskCount;
     }
 
     private static void markTask(String userInput, Task[] tasks, int taskCount) {
@@ -55,8 +76,8 @@ public class Chelle {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     tasks[taskIndex].markDone();
-                    System.out.println("Chelle: Nice! I've marked this task as done:\n        [X]  " +
-                            tasks[taskIndex].getTaskName());
+                    System.out.println("Chelle: Nice! I've marked this task as done:\n        " +
+                            tasks[taskIndex].toString());
                 } else {
                     System.out.println("Chelle: Invalid task index.");
                 }
@@ -75,8 +96,8 @@ public class Chelle {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
                     tasks[taskIndex].markUndone();
-                    System.out.println("Chelle: OK, I've marked this task as not done yet:\n        [ ]  " +
-                            tasks[taskIndex].getTaskName());
+                    System.out.println("Chelle: OK, I've marked this task as not done yet:\n        " +
+                            tasks[taskIndex].toString());
                 } else {
                     System.out.println("Chelle: Invalid task index.");
                 }
@@ -88,3 +109,4 @@ public class Chelle {
         }
     }
 }
+
