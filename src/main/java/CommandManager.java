@@ -25,57 +25,56 @@ public class CommandManager {
         String command = Parser.getCommand(userInput);
         String argument = Parser.getCommandArgument(userInput);
         int taskNumber;
+        Status executionStatus = Status.STATUS_OK;
 
+        System.out.println(Ui.SECTION_BAR);
         switch (command) {
         case "exit":
             // fallthrough
         case "bye":
-            return Status.STATUS_EXIT;
+            Ui.printGoodbye();
+            executionStatus = Status.STATUS_EXIT;
+            break;
         case "list":
-            System.out.println(Ui.SECTION_BAR);
             TaskManager.printTaskList();
-            System.out.println(Ui.SECTION_BAR + "\n");
-            return Status.STATUS_OK;
+            executionStatus = Status.STATUS_OK;
+            break;
         case "mark":
-            System.out.println(Ui.SECTION_BAR);
             if (Parser.isValidTaskNumberString(argument)){
                 taskNumber = Parser.getTaskNumberFromString(argument);
                 TaskManager.markTaskAsDone(taskNumber);
             } else {
                 System.out.println("Invalid argument for mark");
             }
-            System.out.println(Ui.SECTION_BAR + "\n");
-            return Status.STATUS_OK;
+            executionStatus = Status.STATUS_OK;
+            break;
         case "unmark":
-            System.out.println(Ui.SECTION_BAR);
             if (Parser.isValidTaskNumberString(argument)) {
                 taskNumber = Parser.getTaskNumberFromString(argument);
                 TaskManager.markTaskAsUndone(taskNumber);
             } else {
                 System.out.println("Invalid argument for unmark");
             }
-            System.out.println(Ui.SECTION_BAR + "\n");
-            return Status.STATUS_OK;
+            executionStatus = Status.STATUS_OK;
+            break;
         case "todo":
-            System.out.println(Ui.SECTION_BAR);
             TaskManager.createNewTask(argument, TaskType.TODO);
-            System.out.println(Ui.SECTION_BAR + "\n");
-            return Status.STATUS_OK;
+            executionStatus = Status.STATUS_OK;
+            break;
         case "deadline":
-            System.out.println(Ui.SECTION_BAR);
             TaskManager.createNewTask(argument, TaskType.DEADLINE);
-            System.out.println(Ui.SECTION_BAR + "\n");
-            return Status.STATUS_OK;
+            executionStatus = Status.STATUS_OK;
+            break;
         case "event":
-            System.out.println(Ui.SECTION_BAR);
             TaskManager.createNewTask(argument, TaskType.EVENT);
-            System.out.println(Ui.SECTION_BAR + "\n");
-            return Status.STATUS_OK;
+            executionStatus = Status.STATUS_OK;
+            break;
         default:
-            System.out.println(Ui.SECTION_BAR);
             System.out.println("Invalid Command.");
-            System.out.println(Ui.SECTION_BAR + "\n");
-            return Status.STATUS_OK;
+            executionStatus = Status.STATUS_OK;
+            break;
         }
+        System.out.println(Ui.SECTION_BAR + System.lineSeparator());
+        return executionStatus;
     }
 }
