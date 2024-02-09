@@ -32,10 +32,6 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     //method that extracts the task number to mark or unmark
     public static int extractTaskNumber(String input) {
         String keyword;
@@ -81,8 +77,7 @@ public class Task {
         } else {
             System.out.println("OK, I've marked his task as not done yet:");
         }
-        System.out.println("[" + tasks[index - 1].getStatusIcon() + "] "
-                + tasks[index - 1].description);
+        System.out.println(tasks[index - 1].toString());
         Omoh.printHorizontalLine();
     }
 
@@ -93,8 +88,7 @@ public class Task {
 
     public static void printAddedTask() {
         Omoh.printHorizontalLine();
-        System.out.println("added: " + tasks[totalTasks - 1].getDescription());
-//        System.out.println("added: " + toString(totalTasks - 1);
+        System.out.println("added: " + tasks[totalTasks - 1].description);
         Omoh.printHorizontalLine();
     }
 
