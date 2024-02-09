@@ -1,5 +1,4 @@
 public class Event extends Task {
-
     protected String from;
     protected String to;
 
@@ -10,7 +9,6 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return String.format("[E]%s %s",
-                this.getStatusIcon(), this.description);
+        return String.format("[E]%s %s", this.getStatusIcon(), this.description);
     }
 }
