@@ -13,4 +13,14 @@ public enum TaskType {
     TaskType(String type) {
         this.type = type;
     }
+
+    /**
+     * Gets the type of the task.
+     * 
+     * @param None
+     * @return The type of the task.
+     */
+    public String getType() {
+        return this.type;
+    }
 }

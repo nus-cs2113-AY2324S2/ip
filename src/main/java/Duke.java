@@ -117,17 +117,12 @@ public class Duke {
             break;
 
         case "todo":
-            taskList.addItem(taskString, TaskType.TODO);
-            break;
         case "deadline":
-            taskList.addItem(taskString, TaskType.DEADLINE);
-            break;
         case "event":
-            taskList.addItem(taskString, TaskType.EVENT);
+            taskList.addItem(taskString, command);
             break;
 
         default:
-            // TODO: Add support to pass taskString into addItem vs command
             // Add default task to the list (no type)
             taskList.addItem(command);
             break;

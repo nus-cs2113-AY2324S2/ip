@@ -8,7 +8,7 @@ public class Event extends Task {
      */
     public Event(String name, String start, String end) {
         super(name);
-        this.type = "E";
+        this.type = TaskType.EVENT.getType();
         this.start = start;
         this.end = end;
     }

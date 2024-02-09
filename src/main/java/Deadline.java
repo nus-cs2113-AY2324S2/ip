@@ -8,7 +8,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String end) {
         super(name);
-        this.type = "D";
+        this.type = TaskType.DEADLINE.getType();
         this.end = end;
     }
 
