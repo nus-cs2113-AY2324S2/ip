@@ -1,3 +1,7 @@
+package beefy.command;
+
+import beefy.task.TaskList;
+
 public class ListCommand implements Command{
     private TaskList userTasks;
     public ListCommand(TaskList userTasks) {

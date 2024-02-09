@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package beefy.ui;
 
 public class Ui {
     private static final String BOT_NAME = "BEEFY\n";
