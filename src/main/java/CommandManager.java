@@ -26,7 +26,7 @@ public class CommandManager {
         String rawArgument = Parser.getCommandArgument(userInput);
         Status executionStatus;
 
-        System.out.println(Ui.SECTION_BAR);
+        Ui.printSectionBar(false);
         switch (command) {
         case "exit":
             // fallthrough
@@ -63,7 +63,7 @@ public class CommandManager {
             executionStatus = Status.STATUS_ERROR_INVALID_COMMAND;
             break;
         }
-        System.out.println(Ui.SECTION_BAR + System.lineSeparator());
+        Ui.printSectionBar(true);
         return executionStatus;
     }
 
