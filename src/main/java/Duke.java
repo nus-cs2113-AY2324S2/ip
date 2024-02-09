@@ -28,12 +28,15 @@ public class Duke {
             if (input.equals("bye")) {
                 break;
 
-            } else if (input.equals("list")) {
+            }
+
+            else if (input.equals("list")) {
+
                 System.out.println("Here are the tasks in your list: ");
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < sizeOfAddedItems; i++) {
 
-                    System.out.println((i + 1) + ". " + "[" + listOfItems[i].getStatusIcon() + "]" + listOfItems[i].description);
+                    System.out.println((i + 1) + ". " + " "+ "[" + listOfItems[i].typeOfTask + "]" + "[" + listOfItems[i].getStatusIcon() + "]" + listOfItems[i].description);
                 }
                 System.out.println("____________________________________________________________");
             }
@@ -51,7 +54,9 @@ public class Duke {
                 System.out.println((indexTask) + ". " + "[" + listOfItems[indexTask-1].getStatusIcon() + "]" + listOfItems[indexTask - 1].description);
                 System.out.println("____________________________________________________________");
 
-            } else if (Arrays.asList(input.split( " ")).contains("unmark")) {
+            }
+
+            else if (Arrays.asList(input.split( " ")).contains("unmark")) {
 
                 //Finding the index of the task that the user wants to mark
                 String[] splitInput = input.split(" ");
@@ -64,7 +69,35 @@ public class Duke {
                 System.out.println((indexTask) + ". " + "[" + listOfItems[indexTask-1].getStatusIcon() + "]" + listOfItems[indexTask - 1].description);
                 System.out.println("____________________________________________________________");
 
-            } else {
+            }
+
+            else if (Arrays.asList(input.split( " ")).contains("todo")) {
+
+
+                listOfItems[sizeOfAddedItems] = new ToDo(input);
+                sizeOfAddedItems += 1;
+
+                indicateNewTask(listOfItems[sizeOfAddedItems - 1], sizeOfAddedItems);
+            }
+
+            else if (Arrays.asList(input.split( " ")).contains("deadline")) {
+
+                listOfItems[sizeOfAddedItems] = new Deadline(input);
+                sizeOfAddedItems += 1;
+
+                indicateNewTask(listOfItems[sizeOfAddedItems - 1], sizeOfAddedItems);
+            }
+
+            else if (Arrays.asList(input.split( " ")).contains("event")) {
+
+                listOfItems[sizeOfAddedItems] = new Event(input);
+                sizeOfAddedItems += 1;
+
+                indicateNewTask(listOfItems[sizeOfAddedItems - 1], sizeOfAddedItems);
+
+            }
+
+            else {
                 listOfItems[sizeOfAddedItems] = new Task(input);
                 System.out.println("____________________________________________________________");
                 System.out.println(" added: " + input);
@@ -80,4 +113,12 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
     }
+    public static void indicateNewTask(Task newTask, int currentNumberOfTasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Well done, you've added a new task: ");
+        System.out.println("[" + newTask.typeOfTask + "]" + "[" + newTask.getStatusIcon() + "]" + newTask.description);
+        System.out.println("Currently you have " + currentNumberOfTasks + " task(s) in your list!");
+        System.out.println("____________________________________________________________");
+    }
 }
+
