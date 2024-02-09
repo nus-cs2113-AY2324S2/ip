@@ -48,11 +48,6 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
     //method that extracts the task number to mark or unmark
     public static int extractTaskNumber(String input) {
         String keyword;
