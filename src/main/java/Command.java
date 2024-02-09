@@ -1,3 +1,3 @@
 public interface Command {
-    void execute(TaskList tasks);
+    boolean execute(TaskList tasks);
 }

@@ -8,12 +8,13 @@ public class AddTaskCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
+    public boolean execute(TaskList tasks) {
         tasks.addTask(token, taskDescriptions);
         System.out.println(Message.ADD_TASK_MESSAGE_FRONT
                 + tasks.getTask(tasks.size())
                 + Message.ADD_TASK_MESSAGE_MIDDLE
                 + tasks.size()
                 + Message.ADD_TASK_MESSAGE_END);
+        return false;
     }
 }

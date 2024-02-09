@@ -8,11 +8,12 @@ public class ToggleStatusCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks) {
+    public boolean execute(TaskList tasks) {
         if (index > 0 && index <= tasks.size()) {
             tasks.getTask(index).setIsDone(command.equals("mark"));
             System.out.println(toggleMessage(tasks.getTask(index)));
         }
+        return false;
     }
 
     private String toggleMessage(Task task) {

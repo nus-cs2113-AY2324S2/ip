@@ -33,10 +33,11 @@ public class Message {
 
     private static final String[] LOGOS = {LOGO_DEFAULT, LOGO_BOLD, LOGO_3D};
 
+    // Random logo display at app start
     public static final String GREETING_MESSAGE = "Hello from\n" + LOGOS[new Random().nextInt(LOGOS.length)]
             + GREETING;
 
-    public static final String EXIT_MESSAGE = "Farewell, adventurer! Until our paths cross again!\n" + DELIMITER;
+    public static final String EXIT_MESSAGE = "Farewell, adventurer! Until our paths cross again!\n";
 
     public static final String MARK_MESSAGE = "Ta-da! Task conquered! I've marked this task as done:\n";
 
