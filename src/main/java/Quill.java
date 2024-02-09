@@ -1,3 +1,10 @@
+import quill.exception.EmptyDateException;
+import quill.exception.QuillException;
+import quill.task.Deadline;
+import quill.task.Event;
+import quill.task.Task;
+import quill.task.Todo;
+
 import java.util.Scanner;
 public class Quill {
     public static final String horizontalLine = "____________________________________________________________";
@@ -27,7 +34,7 @@ public class Quill {
         }
     }
 
-    public static void main(String[] args) throws QuillException{
+    public static void main(String[] args) throws QuillException {
         String name = "Quill";
         int MAX_TASKS = 100;
         String line;
@@ -55,7 +62,7 @@ public class Quill {
                 System.out.println(horizontalLine + "\nBye! Hope to see you again soon!\n" + horizontalLine);
                 return;
             case "list":
-                if (Task.totalTasks == 0) {
+                if (Task.isEmpty()) {
                     System.out.println(horizontalLine + "\nZero tasks. Add something already.");
                 } else {
                     System.out.println(horizontalLine + "\nHere are the tasks in your list:");

@@ -1,4 +1,8 @@
-public class Todo extends Task{
+package quill.task;
+
+import quill.task.Task;
+
+public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
