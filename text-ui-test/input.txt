@@ -1,0 +1,11 @@
+deadline CS2113 ip /by Friday 9pm
+deadline buy gift /by 10 feb
+todo run new year errands
+todo ee2026 assignment
+mark 2
+mark 3
+mark 4
+unmark 4
+event cny gathering /from 11am /to 6pm
+event gym /from 10pm /to 12am
+list

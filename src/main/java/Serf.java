@@ -17,7 +17,7 @@ public class Serf {
         String FAREWELLMESSAGE = VERTICALLINES
                 + "\n"
                 + FIVEWHITESPACES
-                + "Farewell, my lord. \n"
+                + "Farewell, my lord.\n"
                 + VERTICALLINES;
         System.out.println(GREETINGMESSAGE + "\n");
         Scanner requestedMessage = new Scanner(System.in);
@@ -32,8 +32,7 @@ public class Serf {
                         case "T":
                             System.out.println(FIVEWHITESPACES + (i + 1) + "." + "["
                                     + taskList[i].getTaskStatus() + "]" + "["
-                                    + taskList[i].getStatusIcon() + "] " + taskList[i].description
-                                    + " ");
+                                    + taskList[i].getStatusIcon() + "] " + taskList[i].description);
                             break;
                         case "D":
                             System.out.println(FIVEWHITESPACES + (i + 1) + "." + "["
@@ -103,7 +102,6 @@ public class Serf {
                 taskList[taskCounter] = new Task(splittedMessage[1]);
                 taskList[taskCounter].setTaskStatus("todo");
                 taskCounter += 1;
-                //taskList[taskCounter - 1].setTaskStatus("todo");
                 System.out.println(VERTICALLINES);
                 System.out.println(FIVEWHITESPACES + "Got it. I've added this task:");
                 System.out.println(FIVEWHITESPACES + "  " + "[" + taskList[taskCounter - 1].getTaskStatus() + "]" +
@@ -144,7 +142,12 @@ public class Serf {
                 System.out.println(VERTICALLINES + "\n");
 
             }
-            receivedMessage = requestedMessage.nextLine();
+
+            if (requestedMessage.hasNextLine()) {
+                receivedMessage = requestedMessage.nextLine();
+            } else {
+                break;
+            }
         }
         System.out.println(FAREWELLMESSAGE);
     }
