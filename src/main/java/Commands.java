@@ -1,3 +1,3 @@
 public enum Commands {
-    bye,,list,mark,unmark
+    BYE,LIST,MARK,UNMARK,INVALID,TODO,DEADLINE,EVENT
 }
