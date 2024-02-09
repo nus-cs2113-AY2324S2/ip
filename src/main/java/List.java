@@ -11,18 +11,6 @@ public class List {
         return tasks;
     }
 
-//    public void addTask(String taskDescription) {
-//        tasks[totalTasks] = new Task(taskDescription);
-//        totalTasks++;
-//    }
-//
-//    public void printAddedTask() {
-//        Omoh.printHorizontalLine();
-//        System.out.print("     ");
-//        System.out.println("added: " + tasks[totalTasks - 1].getDescription());
-//        Omoh.printHorizontalLine();
-//    }
-
     public void addTodo (String input) {
         //extracts task portion from input, after the "todo" keyword
         String description = input.substring("todo".length()).trim();
