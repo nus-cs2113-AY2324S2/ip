@@ -2,12 +2,10 @@ import java.util.Scanner;
 
 
 public class Omoh {
-    //static List declared here so that whole Omoh class
-    //can use the same size 100 array for myTaskList
-    private static List myTaskList = new List();
-
     public static void main(String[] args) {
         printWelcomeMessage();
+        //initialise the size 100 array
+        Task.initArray();
         readUserInput();
         bye();
     }

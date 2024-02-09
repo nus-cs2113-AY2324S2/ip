@@ -30,15 +30,14 @@ public class Event extends Task {
         System.out.println("[E][ ] " + description.description + " (from: " + description.from
                 + " to: " + description.to + ")" );
         System.out.print("     ");
-        System.out.println("Now you have " + List.totalTasks + " tasks in the list.");
+        System.out.println("Now you have " + Task.totalTasks + " tasks in the list.");
         Omoh.printHorizontalLine();
     }
 
     public static void addEvent (String input) {
-        Task[] taskArray = List.getTasksArray();
         Event extractedInfo = extractEvent(input);
-        taskArray[List.totalTasks] = new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to);
-        List.totalTasks++;
+        Task.tasks[Task.totalTasks] = new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to);
+        Task.totalTasks++;
         Event.addEventMessage(extractedInfo);
     }
 }

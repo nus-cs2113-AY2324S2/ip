@@ -1,8 +1,14 @@
 public class Task {
+    protected static Task[] tasks;
+    public static int totalTasks = 0;
     protected String description;
     protected boolean isDone;
 
     protected String type;
+
+    public static void initArray() {
+        tasks = new Task[100];
+    }
 
     public Task(String description) {
         this.description = description;
@@ -12,24 +18,23 @@ public class Task {
 
 
     public static void getAllTasks() {
-        Task[] tasksArray = List.getTasksArray();
         System.out.print("     ");
         System.out.println("Here are the tasks in your list:");
         int serialNumber = 1;
-        for (int i = 0; i < List.totalTasks; i++) {
+        for (int i = 0; i < totalTasks; i++) {
             System.out.print("     ");
             System.out.print(serialNumber
-                    + ".[" + tasksArray[i].type + "]"
-                    + "[" + tasksArray[i].getStatusIcon() + "] "
-                    + tasksArray[i].getDescription());
+                    + ".[" + tasks[i].type + "]"
+                    + "[" + tasks[i].getStatusIcon() + "] "
+                    + tasks[i].getDescription());
 
-            if (tasksArray[i].type.equals("D")) {
+            if (tasks[i].type.equals("D")) {
                 //type casting required to access by member
-                Deadline deadlineTask = (Deadline) tasksArray[i];
+                Deadline deadlineTask = (Deadline) tasks[i];
                 System.out.print(" (by: " + deadlineTask.by + ")");
-            } else if (tasksArray[i].type.equals("E")) {
+            } else if (tasks[i].type.equals("E")) {
                 //type casting required to access from and to members
-                Event eventTask = (Event) tasksArray[i];
+                Event eventTask = (Event) tasks[i];
                 System.out.print(" (from: " + eventTask.from + " to: " + eventTask.to + ")");
             }
             System.out.println();
@@ -77,12 +82,11 @@ public class Task {
     //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
     public static void modifyDoneState(int taskNumber, String input) {
         //only executes if taskNumber is valid
-        Task[] taskArray = List.getTasksArray();
         if (taskNumber != -1) {
             if (input.startsWith("mark")) {
-                taskArray[taskNumber - 1].isDone = true;
+                tasks[taskNumber - 1].isDone = true;
             } else {
-                taskArray[taskNumber - 1].isDone = false;
+                tasks[taskNumber - 1].isDone = false;
             }
         }
     }
@@ -90,7 +94,6 @@ public class Task {
 
     //method that prints out the task that has been marked done or unmarked
     public static void printMarkTask(int index, String input) {
-        Task[] taskArray = List.getTasksArray();
         Omoh.printHorizontalLine();
         System.out.print("    ");
         if (input.startsWith("mark")) {
@@ -99,22 +102,20 @@ public class Task {
             System.out.println("OK, I've marked his task as not done yet:");
         }
         System.out.print("      ");
-        System.out.println("[" + taskArray[index - 1].getStatusIcon() + "] "
-                + taskArray[index - 1].description);
+        System.out.println("[" + tasks[index - 1].getStatusIcon() + "] "
+                + tasks[index - 1].description);
         Omoh.printHorizontalLine();
     }
 
     public static void addTask(String taskDescription) {
-        Task[] tasksArray = List.getTasksArray();
-        tasksArray[List.totalTasks] = new Task(taskDescription);
-        List.totalTasks++;
+        tasks[totalTasks] = new Task(taskDescription);
+        totalTasks++;
     }
 
     public static void printAddedTask() {
-        Task[] tasksArray = List.getTasksArray();
         Omoh.printHorizontalLine();
         System.out.print("     ");
-        System.out.println("added: " + tasksArray[List.totalTasks - 1].getDescription());
+        System.out.println("added: " + tasks[totalTasks - 1].getDescription());
         Omoh.printHorizontalLine();
     }
 
