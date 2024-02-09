@@ -81,13 +81,4 @@ public class List {
         totalTasks++;
         Event.addEventMessage(extractedInfo);
     }
-
-    public static void markAsDone(int index) {
-        tasks[index - 1].isDone = true;
-    }
-
-    public static void markAsNotDone(int index) {
-        tasks[index - 1].isDone = false;
-    }
-
 }

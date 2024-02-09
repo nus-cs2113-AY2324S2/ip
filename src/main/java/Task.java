@@ -50,11 +50,12 @@ public class Task {
     //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
     public static void modifyDoneState(int taskNumber, String input) {
         //only executes if taskNumber is valid
+        Task[] taskArray = List.getTasksArray();
         if (taskNumber != -1) {
             if (input.startsWith("mark")) {
-                List.markAsDone(taskNumber);
+                taskArray[taskNumber - 1].isDone = true;
             } else {
-                List.markAsNotDone(taskNumber);
+                taskArray[taskNumber - 1].isDone = false;
             }
         }
     }
