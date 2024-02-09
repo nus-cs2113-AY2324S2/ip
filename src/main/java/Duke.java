@@ -36,10 +36,40 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(tasks[taskIndex]);
             }
-            else{
-                tasks[taskCount] = new Task(userInput);
-                System.out.println("added: " + tasks[taskCount]);
+            else if(words[0].equals("todo")){
+                int dividerPosition = userInput.indexOf(" ");
+                tasks[taskCount] = new Todo(userInput.substring(dividerPosition + 1));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount]);
                 taskCount++;
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            }
+            else if(words[0].equals("deadline")){
+                int dividerPosition = userInput.indexOf(" ");
+                int slashPosition = userInput.indexOf("/by");
+                tasks[taskCount] = new Deadline(userInput.substring(dividerPosition + 1, slashPosition - 1), userInput.substring(slashPosition + 4));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            }
+            else if(words[0].equals("event")){
+                int dividerPosition = userInput.indexOf(" ");
+                int fromPosition = userInput.indexOf("/from");
+                int toPosition = userInput.indexOf("/to");
+
+                tasks[taskCount] = new Event(userInput.substring(dividerPosition + 1, fromPosition - 1), userInput.substring(fromPosition + 6, toPosition - 1), userInput.substring(toPosition + 4));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            }
+            else{
+                tasks[taskCount] = new Todo(userInput);
+                System.out.println("Got it. I've added this task.");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
             }
             userInput = in.nextLine();
         }
