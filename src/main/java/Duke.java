@@ -1,6 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
+
+    static ArrayList<String> enteredCommands=new ArrayList<String>();
 
     public static void greet(){
         System.out.printf("%s%n", "    ____________________________________________________________");
@@ -20,21 +23,38 @@ public class Duke {
         String userCommand;
 
         while(!shouldExit){
-            System.out.printf("%s%n%n","    ____________________________________________________________");
-            userCommand=commandReader.nextLine();
-            shouldExit=echoUserCommand(userCommand);
+            if(enteredCommands.size()<100) {
+                System.out.printf("%s%n%n", "    ____________________________________________________________");
+                userCommand = commandReader.nextLine();
+                shouldExit = executesCommand(userCommand);
+            }
+            else{
+                exit();
+                shouldExit=true;
+            }
         }
 
 
+
     }
-    public static boolean echoUserCommand(String userCommand){
+    public static boolean executesCommand(String userCommand){
         if(userCommand.equalsIgnoreCase("bye")){
             exit();
             return true;
         }
+
+        else if(userCommand.equalsIgnoreCase("list")){
+            System.out.printf("%s%n","    ____________________________________________________________");
+            for(int i=0;i< enteredCommands.size();i++){
+                System.out.printf("     %d.%s%n",(i+1),enteredCommands.get(i));
+            }
+            return false;
+        }
+
         else{
             System.out.printf("%s%n","    ____________________________________________________________");
-            System.out.printf("     %s%n",userCommand);
+            System.out.printf("     added: %s%n",userCommand);
+            enteredCommands.add(userCommand);
             return false;
         }
 
