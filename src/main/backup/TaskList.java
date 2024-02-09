@@ -6,13 +6,13 @@ public class TaskList {
     public static final String lineSeparator = System.lineSeparator();
 
     public static final String horizontalLine = "    _________________________"
-            + "___________________________";
+                                                + "___________________________";
 
     public static final String logo = "  #        ####  ##### ######  ####" + lineSeparator
-            + "                #       #    #   #   #      #" + lineSeparator
-            + "                #       #    #   #   #####   ####" + lineSeparator
-            + "                #       #    #   #   #           #" + lineSeparator
-            + "                #######  ####    #   ######  ####";
+                      + "                #       #    #   #   #      #" + lineSeparator
+                      + "                #       #    #   #   #####   ####" + lineSeparator
+                      + "                #       #    #   #   #           #" + lineSeparator
+                      + "                #######  ####    #   ######  ####";
 
     public static final String greetings = horizontalLine + lineSeparator
             + "    Hello! I'm" + logo + lineSeparator
