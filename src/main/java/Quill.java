@@ -30,7 +30,6 @@ public class Quill {
     public static void main(String[] args) throws QuillException{
         String name = "Quill";
         int MAX_TASKS = 100;
-
         String line;
         Task[] tasks = new Task[MAX_TASKS];
         Scanner in = new Scanner(System.in);
@@ -39,7 +38,6 @@ public class Quill {
         System.out.println("What can i do for you?" + horizontalLine);
 
         line = in.nextLine();
-
 
         while(true) {
             String command;
@@ -82,6 +80,12 @@ public class Quill {
                 printAddTask(tasks[taskNumber]);
                 break;
             default:
+                try {
+                    throw new QuillException();
+                } catch (QuillException e) {
+                    System.out.println("Enough with the gibberish. Stick to the commands I understand: ");
+                    System.out.println("bye, list, todo, deadline, event, mark, unmark. Got it? Next!");
+                }
                 break;
             }
             line = in.nextLine();
