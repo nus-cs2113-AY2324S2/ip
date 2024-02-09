@@ -1,12 +1,55 @@
 package task;
 
 import java.util.ArrayList;
-import misc.Parser;
 
 public class TaskManager {
-    private static final int MAX_TASKS = 128;
     private static int numberOfActiveTasks = 0;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
+
+    public static void createNewTask(String taskDescription, Task.TaskType taskType) {
+        if (taskDescription.isEmpty()){
+            System.out.println("Invalid Task: Task Description is empty");
+            return;
+        }
+        if (taskType == Task.TaskType.INVALID){
+            System.out.println("Invalid Task Type");
+            return;
+        }
+
+        // We currently do not check if the deadline and event tasks has the right format i.e. `/by`, `/to`, `/from`.
+        // As long as there is a description, we shall accept the new task
+        // Todo: Add a default clause to catch any new unhandled task types
+        numberOfActiveTasks += 1;
+        Task newTask = null;
+
+        switch (taskType){
+        case TODO:
+            newTask = new Todo(taskDescription, numberOfActiveTasks);
+            System.out.println("Alright. I have added this todo task: ");
+            break;
+        case DEADLINE:
+            newTask = new Deadline(taskDescription,numberOfActiveTasks);
+            System.out.println("Alright. I have added this deadline: ");
+            break;
+        case EVENT:
+            newTask = new Event(taskDescription,numberOfActiveTasks);
+            System.out.println("Alright. I have added this event: ");
+            break;
+        }
+        newTask.printTask();
+        taskList.add(newTask);
+        System.out.println("Now you have " + numberOfActiveTasks + " tasks in the list.");
+    }
+
+    /**
+     * Prints out the whole list of tasks that have been added so far.
+     */
+    public static void printTaskList() {
+        System.out.println("Here are the tasks at hand:");
+        for (Task t : taskList) {
+            t.printTask();
+        }
+    }
 
     /**
      * Retrieves the task associated by its task number.
@@ -21,51 +64,6 @@ public class TaskManager {
             }
         }
         return null;
-    }
-
-    public static void createNewTask(String taskDescription, Task.TaskType taskType) {
-        if (taskDescription.isEmpty()){
-            System.out.println("Invalid Task: Task Description is empty");
-            return;
-        }
-        if (taskType == Task.TaskType.INVALID){
-            System.out.println("Invalid Task Type");
-            return;
-        }
-
-        numberOfActiveTasks += 1;
-        Task newTask = null;
-        switch (taskType){
-        case TODO:
-            newTask = new Todo(taskDescription, numberOfActiveTasks);
-            System.out.println("Alright. I have added this todo task: ");
-            newTask.printTask();
-            break;
-        case DEADLINE:
-            taskDescription = Parser.parseDeadlineDescription(taskDescription);
-            newTask = new Deadline(taskDescription,numberOfActiveTasks);
-            System.out.println("Alright. I have added this deadline: ");
-            newTask.printTask();
-            break;
-        case EVENT:
-            taskDescription = Parser.parseEventDescription(taskDescription);
-            newTask = new Event(taskDescription,numberOfActiveTasks);
-            System.out.println("Alright. I have added this event: ");
-            newTask.printTask();
-            break;
-        }
-        taskList.add(newTask);
-        System.out.println("Now you have " + numberOfActiveTasks + " tasks in the list.");
-    }
-
-    /**
-     * Prints out the whole list of tasks that have been added so far.
-     */
-    public static void printTaskList() {
-        System.out.println("Here are the tasks at hand:");
-        for (Task t : taskList) {
-            t.printTask();
-        }
     }
 
     public static void markTaskAsDone(int taskNumber) {

@@ -8,28 +8,23 @@ public class Task {
 
     private String taskDescription;
     private int taskNumber;
-    private boolean isTaskDone;
     private TaskType taskType;
+    private boolean isTaskDone;
 
     /**
-     * Creates a new Task.
-     * An associated task number is assigned to the task.
-     * The created Task is also added to the taskList (at the end) for tracking.
+     * Creates a new Task with an associated task number and task type.
      *
      * @param taskDescription Description of the task.
+     * @param taskNumber The task number this task is tagged to.
+     * @param taskType The type of task.
      */
-    public Task(String taskDescription, int taskNumber) {
+    public Task (String taskDescription, int taskNumber, TaskType taskType) {
         setTaskDescription(taskDescription);
         setTaskNumber(taskNumber);
+        setTaskType(taskType);
         setTaskStatus(false);
-        setTaskType(TaskType.INVALID);
     }
 
-    /**
-     * Gets the task description.
-     *
-     * @return The task description.
-     */
     public String getTaskDescription() {
         return taskDescription;
     }
@@ -46,27 +41,12 @@ public class Task {
         return taskType;
     }
 
-    public char getCharRepresentationOfTaskType(){
-        switch (getTaskType()){
-        case TODO:
-            return 'T';
-        case EVENT:
-            return 'E';
-        case DEADLINE:
-            return 'D';
-        case INVALID:
-            return 'I';
-        default:
-            return '?';
-        }
-    }
-
     /**
      * Sets the task description.
      *
      * @param taskDescription Description of the task.
      */
-    private void setTaskDescription(String taskDescription) {
+    protected void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
     }
 
@@ -86,8 +66,23 @@ public class Task {
         this.isTaskDone = isTaskDone;
     }
 
-    public void setTaskType(TaskType taskType) {
+    private void setTaskType(TaskType taskType) {
         this.taskType = taskType;
+    }
+
+    private char getCharRepresentationOfTaskType(){
+        switch (getTaskType()){
+        case TODO:
+            return 'T';
+        case EVENT:
+            return 'E';
+        case DEADLINE:
+            return 'D';
+        case INVALID:
+            return 'I';
+        default:
+            return '?';
+        }
     }
 
     public void printTask() {
