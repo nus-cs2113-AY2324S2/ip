@@ -18,46 +18,52 @@ public class TaskList {
         ToDo userTask = new ToDo(taskDescription);
         tasks.add(userTask);
         numberOfTasks++;
-        System.out.println( "---" + taskDescription + " has been added to task list!---");
-        System.out.println("---Number of Tasks in List: " + numberOfTasks + "---");
+        Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
+                + "---Number of Tasks in List: " + numberOfTasks + "---");
     }
 
     public void addTask(String taskDescription, String by) {
         Deadline userTask = new Deadline(taskDescription, by);
         tasks.add(userTask);
         numberOfTasks++;
-        System.out.println( "---" + taskDescription + " has been added to task list!---");
-        System.out.println("---Number of Tasks in List: " + numberOfTasks + "---");
+        Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
+               + "---Number of Tasks in List: " + numberOfTasks + "---");
     }
 
     public void addTask(String taskDescription, String from, String to) {
         Event userTask = new Event(taskDescription, from, to);
         tasks.add(userTask);
         numberOfTasks++;
-        System.out.println( "---" + taskDescription + " has been added to task list!---");
-        System.out.println("---Number of Tasks in List: " + numberOfTasks + "---");
+        Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
+                + "---Number of Tasks in List: " + numberOfTasks + "---");
     }
 
     public void listOut() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numberOfTasks; i++) {
-            Task currTask = tasks.get(i);
-            System.out.println((i + 1) + ". " + currTask);
+        if (numberOfTasks == 0) {
+            Ui.printMessage("You have no tasks u lazy bum!");
+            return;
         }
+        String message = "Here are the tasks in your list:\n";
+        for (int i = 0; i < numberOfTasks - 1; i++) {
+            Task currTask = tasks.get(i);
+            message = message.concat((i + 1) + ". " + currTask + "\n");
+        }
+        message = message.concat((numberOfTasks) + ". " + tasks.get(numberOfTasks - 1));
+        Ui.printMessage(message);
     }
 
     public void markTask(int taskId) {
         if (taskId >= 1 && taskId <= numberOfTasks) {
             Task selectedTask = tasks.get(taskId - 1);
             if (selectedTask.getStatus()) {
-                System.out.println("Are you blind mate?");
+                Ui.printMessage("Are you blind mate?");
             } else {
                 selectedTask.setMark();
-                System.out.println("Gnarly mate! I've marked this task as done:");
-                System.out.println(selectedTask);
+                Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
+                        + selectedTask);
             }
         } else {
-            System.out.println("Can you not do math, mate?");
+            Ui.printMessage("Can you not do math, mate?");
         }
     }
 
@@ -65,14 +71,14 @@ public class TaskList {
         if (taskId >= 1 && taskId <= numberOfTasks) {
             Task selectedTask = tasks.get(taskId - 1);
             if (!selectedTask.getStatus()) {
-                System.out.println("Are you blind mate?");
+                Ui.printMessage("Are you blind mate?");
             } else {
                 selectedTask.setUnmark();
-                System.out.println("WHY?! I've marked this task as not done:");
-                System.out.println(selectedTask);
+                Ui.printMessage("WHY?! I've marked this task as not done:" + System.lineSeparator()
+                        + selectedTask);
             }
         } else {
-            System.out.println("Can you not do math, mate?");
+            Ui.printMessage("Can you not do math, mate?");
         }
     }
 }
