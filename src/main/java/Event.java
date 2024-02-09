@@ -21,7 +21,7 @@ public class Event extends Task {
 
         String descriptionWithoutDate = description.substring(0, (indexOfFromDivider - 1)).replace("event", "");
 
-        this.description = descriptionWithoutDate + " from: " + getStartDate() + " to: " + getEndDate() + ")";
+        this.description = descriptionWithoutDate + " (from: " + getStartDate() + " to: " + getEndDate() + ")";
     }
 
     public String getStartDate() {
