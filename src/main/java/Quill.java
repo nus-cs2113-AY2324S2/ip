@@ -6,7 +6,28 @@ public class Quill {
         System.out.println(tasks.toString());
         System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list." + horizontalLine);
     }
-    public static void main(String[] args) {
+
+    public static void performMarkOrUnmark(String line, Task[] tasks, boolean isDone) {
+        try {
+            int taskNumber = Integer.parseInt(line) - 1;
+            if (isDone) {
+                tasks[taskNumber].markAsDone();
+                System.out.println(horizontalLine + "Nice! I've marked this task as done:");
+            } else {
+                tasks[taskNumber].markAsNotDone();
+                System.out.println(horizontalLine + "OK, I've marked this task as not done yet:");
+            }
+            System.out.println(tasks[taskNumber].toString() + horizontalLine);
+        } catch (NullPointerException e) {
+            System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("1 to 100 only. Seriously, no zeros, no hundreds. Got it?");
+        } catch (NumberFormatException e) {
+            System.out.println("Listen up! Numbers only, got it? Don't bother with anything else");
+        }
+    }
+
+    public static void main(String[] args) throws QuillException{
         String name = "Quill";
         int MAX_TASKS = 100;
 
@@ -43,39 +64,11 @@ public class Quill {
                 System.out.println(horizontalLine);
                 break;
             case "mark":
-                try {
-                    taskNumber = Integer.parseInt(line) - 1;
-                    tasks[taskNumber].markAsDone();
-                    System.out.println(horizontalLine + "Nice! I've marked this task as done:");
-                    System.out.println(tasks[taskNumber].toString() + horizontalLine);
-                    break;
-                } catch (NullPointerException e) {
-                    System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("1 to 100 only. Seriously, no zeros, no hundreds. Got it?");
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println("Listen up! Numbers only, got it? Don't bother with anything else");
-                    break;
-                }
+                performMarkOrUnmark(line, tasks, true);
+                break;
             case "unmark":
-                try {
-                    taskNumber = Integer.parseInt(line) - 1;
-                    tasks[taskNumber].markAsNotDone();
-                    System.out.println(horizontalLine + "OK, I've marked this task as not done yet:");
-                    System.out.println(tasks[taskNumber].toString() + horizontalLine);
-                    break;
-                } catch (NullPointerException e) {
-                    System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
-                    break;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("1 to 100 only. Seriously, no zeros, no hundreds. Got it?");
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println("Listen up! Numbers only, got it? Don't bother with anything else");
-                    break;
-                }
+                performMarkOrUnmark(line, tasks, false);
+                break;
             case "todo":
                 tasks[taskNumber] = new Todo(line);
                 printAddTask(tasks[taskNumber]);
