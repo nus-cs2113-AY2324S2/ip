@@ -13,19 +13,18 @@ public class CommandManager {
      * 3. `mark <task_number> - Marks specific task as done.
      * 4. `unmark` <task_number> - Marks specific task as undone.
      * 5. `todo` <description> - Creates a new todo task.
-     * 6. `deadline` <description> - Creates a new deadline task.
-     * 7. `event` <description> - Creates a new event task.
+     * 6. `deadline` <description> /by <end_time> - Creates a new deadline task.
+     * 7. `event` <description> /from <start_time> /to <end_time> - Creates a new event task.
      */
     public static Status processCommand(String userInput) {
-        if (Parser.isUserInputEmpty(userInput)){
-            System.out.println("Empty input");
-            return Status.STATUS_OK;
+        if (userInput.isEmpty()){
+            System.out.println("Error: Empty input");
+            return Status.STATUS_ERROR_EMPTY_INPUT;
         }
 
         String command = Parser.getCommand(userInput);
-        String argument = Parser.getCommandArgument(userInput);
-        int taskNumber;
-        Status executionStatus = Status.STATUS_OK;
+        String rawArgument = Parser.getCommandArgument(userInput);
+        Status executionStatus;
 
         System.out.println(Ui.SECTION_BAR);
         switch (command) {
@@ -40,41 +39,49 @@ public class CommandManager {
             executionStatus = Status.STATUS_OK;
             break;
         case "mark":
-            if (Parser.isValidTaskNumberString(argument)){
-                taskNumber = Parser.getTaskNumberFromString(argument);
-                TaskManager.markTaskAsDone(taskNumber);
-            } else {
-                System.out.println("Invalid argument for mark");
-            }
+            processMarkCommand(rawArgument);
             executionStatus = Status.STATUS_OK;
             break;
         case "unmark":
-            if (Parser.isValidTaskNumberString(argument)) {
-                taskNumber = Parser.getTaskNumberFromString(argument);
-                TaskManager.markTaskAsUndone(taskNumber);
-            } else {
-                System.out.println("Invalid argument for unmark");
-            }
+            processUnmarkCommand(rawArgument);
             executionStatus = Status.STATUS_OK;
             break;
         case "todo":
-            TaskManager.createNewTask(argument, TaskType.TODO);
+            TaskManager.createNewTask(rawArgument, TaskType.TODO);
             executionStatus = Status.STATUS_OK;
             break;
         case "deadline":
-            TaskManager.createNewTask(argument, TaskType.DEADLINE);
+            TaskManager.createNewTask(rawArgument, TaskType.DEADLINE);
             executionStatus = Status.STATUS_OK;
             break;
         case "event":
-            TaskManager.createNewTask(argument, TaskType.EVENT);
+            TaskManager.createNewTask(rawArgument, TaskType.EVENT);
             executionStatus = Status.STATUS_OK;
             break;
         default:
             System.out.println("Invalid Command.");
-            executionStatus = Status.STATUS_OK;
+            executionStatus = Status.STATUS_ERROR_INVALID_COMMAND;
             break;
         }
         System.out.println(Ui.SECTION_BAR + System.lineSeparator());
         return executionStatus;
+    }
+
+    private static void processMarkCommand(String rawArgument) {
+        if (Parser.isValidTaskNumberString(rawArgument)) {
+            int taskNumber = Parser.getTaskNumberFromString(rawArgument);
+            TaskManager.markTaskAsDone(taskNumber);
+        } else {
+            System.out.println("Invalid argument for mark");
+        }
+    }
+
+    private static void processUnmarkCommand(String rawArgument) {
+        if (Parser.isValidTaskNumberString(rawArgument)) {
+            int taskNumber = Parser.getTaskNumberFromString(rawArgument);
+            TaskManager.markTaskAsUndone(taskNumber);
+        } else {
+            System.out.println("Invalid argument for unmark");
+        }
     }
 }

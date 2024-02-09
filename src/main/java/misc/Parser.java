@@ -9,12 +9,9 @@ public class Parser {
         try{
             return userInput.split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e){
+            // If there is no argument associated with that command
             return "";
         }
-    }
-
-    public static boolean isUserInputEmpty(String userInput){
-        return userInput.isEmpty();
     }
 
     /**
