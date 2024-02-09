@@ -1,5 +1,6 @@
 import java.util.Scanner;
 public class Lotes {
+    public static final Scanner inputCommand = new Scanner(System.in); // Prompt for continuous user input.
 
     public static void main(String[] args) {
         TaskList taskList = new TaskList();
@@ -9,9 +10,7 @@ public class Lotes {
                 + "    What can I do for you?" + taskList.lineSeparator
                 + taskList.horizontalLine);
 
-        Scanner inputCommand = new Scanner(System.in); // Prompt for continuous user input.
-
-        while (true) {
+        while (inputCommand.hasNextLine()) {
             String userInput = inputCommand.nextLine();
 
             if (userInput.equals("bye")) {
@@ -35,11 +34,9 @@ public class Lotes {
 
             } else if (userInput.startsWith("event ")) {
                     taskList.addEvent(userInput);
-
 //            } else if (!userInput.isEmpty()) {
 //                taskList.addTask(userInput); // Automatically add user input to tasks
                 //taskList.addNewTask(userInput);
-
             } else if (userInput.startsWith("deadline ")) {
                 taskList.addDeadline(userInput);
             } else {

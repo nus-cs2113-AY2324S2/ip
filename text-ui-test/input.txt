@@ -1,0 +1,4 @@
+todo Eric Sim Chong Li: Answer CS2113T tutorial questions
+deadline Weekly CS2113T quiz /by Monday 9pm
+event CS2113T lecture /from Friday 4pm /to 6pm
+list
