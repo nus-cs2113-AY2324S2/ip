@@ -3,6 +3,7 @@ public class Event extends Task{
         super(description + String.format("(from:%s to:%s)",from,to));
     }
 
+    @Override
     public String taskType(){
         return "[E]";
     }
