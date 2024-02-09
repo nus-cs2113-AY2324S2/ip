@@ -1,4 +1,7 @@
+package beefy.task;
+
 import java.util.ArrayList;
+import beefy.ui.Ui;
 
 public class TaskList {
     private int numberOfTasks;

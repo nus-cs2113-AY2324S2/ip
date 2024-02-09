@@ -1,4 +1,10 @@
+package beefy;
+
 import java.util.Scanner;
+import beefy.ui.Ui;
+import beefy.command.Command;
+import beefy.parser.Parser;
+import beefy.task.TaskList;
 
 public class Beefy {
     private TaskList userTasks;

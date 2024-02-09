@@ -1,3 +1,8 @@
+package beefy.command;
+
+import beefy.task.TaskList;
+import beefy.ui.Ui;
+
 public class DeadlineCommand implements Command {
     private TaskList userTasks;
     private String[] taskDetails;

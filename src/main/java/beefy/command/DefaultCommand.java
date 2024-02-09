@@ -1,3 +1,7 @@
+package beefy.command;
+
+import beefy.ui.Ui;
+
 public class DefaultCommand implements Command {
     @Override
     public void execute() {

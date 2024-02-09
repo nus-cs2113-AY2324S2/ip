@@ -1,3 +1,9 @@
+package beefy.parser;
+
+import beefy.command.Command;
+import beefy.command.*;
+import beefy.task.TaskList;
+
 public class Parser {
     public static Command determineCommand(TaskList userTasks, String userInput) {
         String[] userWords = userInput.trim().split("\\s+", 2);
