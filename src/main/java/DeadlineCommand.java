@@ -1,6 +1,7 @@
 public class DeadlineCommand implements Command {
     private TaskList userTasks;
     private String[] taskDetails;
+
     public DeadlineCommand(TaskList userTasks, String userParams) {
         this.userTasks = userTasks;
         taskDetails = userParams.trim().split("/by");

@@ -13,7 +13,6 @@ public class TaskList {
         return numberOfTasks;
     }
 
-
     public void addTask(String taskDescription) {
         ToDo userTask = new ToDo(taskDescription);
         tasks.add(userTask);

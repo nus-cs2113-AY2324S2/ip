@@ -21,4 +21,3 @@ public class UnmarkCommand implements Command {
         return false;
     }
 }
-

@@ -1,6 +1,7 @@
 public class EventCommand implements Command {
     private TaskList userTasks;
     private String[] taskDetails;
+
     public EventCommand(TaskList userTasks, String userParams) {
         this.userTasks = userTasks;
         taskDetails = userParams.trim().split("/from|/to");
