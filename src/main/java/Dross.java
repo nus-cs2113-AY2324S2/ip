@@ -1,106 +1,82 @@
 import java.util.Scanner;
 
 public class Dross {
-
-    //Size 100 array tasklist for Dross
     private static List drossTaskList = new List();
-    //Method that prints line using "_" char
+    private static Scanner in = new Scanner(System.in);
+
+    //Method to print a line of _ characters
     public static void printLine() {
-        for (int i = 0; i < 55; i++) {
-            System.out.print("_");
-        }
-        System.out.println();
+        System.out.println("_".repeat(55));
     }
 
-    //Method that echoes back whatever user typed in provide that it is not "bye"
-    public static void echo(){
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-
-        while (!line.equals("bye")) {
-            printLine();
-            System.out.println(line);
-            printLine();
-            line = in.nextLine();
-        }
-        goodbye();
+    //Method to read in a line of text from standard input
+    public static String readLine() {
+        return in.nextLine().trim();
     }
 
-    //Method that prints bye message
-    public static void goodbye(){
+    //Method to exit Dross bot
+    public static void goodbye() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
 
-    //Method that lists out all the tasks
+    //Method to list all tasks
     public static void listAllTasks() {
         printLine();
         drossTaskList.printAllTasks();
         printLine();
     }
 
-    //Method that receives the user input and toggles the check on the task based on index
+    //Method to toggle tasks as marked or unmarked
     public static void toggleMark(String instruction) {
-        String command = instruction.split(" ")[0];
-        int index = Integer.parseInt(instruction.split(" ")[1]);
-        if (command.equals("mark")){
+        String[] tokens = instruction.split(" ");
+        int index = Integer.parseInt(tokens[1]);
+        if (tokens[0].equals("mark")) {
             drossTaskList.markDoneByIndex(index);
-        }
-        else{
+        } else {
             drossTaskList.markUndoneByIndex(index);
         }
         listAllTasks();
     }
+
+    //Method to handle task creation and parse input to appropriately construct the correct object
+    public static void handleTaskCreation(String line) {
+        if (line.startsWith("todo")) {
+            drossTaskList.addTask(line.substring("todo".length()).trim());
+        } else if (line.startsWith("deadline")) {
+            String[] parts = line.substring("deadline".length()).trim().split(" /by ", 2);
+            drossTaskList.addTask(parts[0], parts[1]);
+        } else if (line.startsWith("event")) {
+            String[] parts = line.substring("event".length()).trim().split(" /from ", 2);
+            String[] timeParts = parts[1].split(" /to ", 2);
+            drossTaskList.addTask(parts[0], timeParts[0], timeParts[1]);
+        }
+        drossTaskList.printLastTask();
+        printLine();
+    }
+
+    //Method to determine what to do based on the input entered
     public static void receiveUserInput() {
-        String line;
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        String line = readLine();
         while (!line.equals("bye")) {
-            if (line.equals("list")) {
+            if (line.startsWith("list")) {
                 listAllTasks();
-                line = in.nextLine();
-            }
-            else if (line.startsWith("mark") || line.startsWith("unmark")) {
+            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 toggleMark(line);
-                line = in.nextLine();
-            }
-            else if (line.startsWith("todo")){
-                String withoutCommand = line.substring("todo".length()).trim();
-                drossTaskList.addTask(withoutCommand);
-                drossTaskList.printLastTask();
-                printLine();
-                line = in.nextLine();
-            }
-            else if (line.startsWith("deadline")) {
-                String withoutCommand = line.substring("deadline".length()).trim();
-                String[] parsedParts = withoutCommand.split(" /by ", 2);
-
-                String taskName = parsedParts[0];
-                String taskDeadline = parsedParts[1];
-
-                drossTaskList.addTask(taskName, taskDeadline);
-                printLine();
-                line = in.nextLine();
-            }
-            else if (line.startsWith("event")) {
-                String withoutCommand = line.substring("event".length()).trim();
-                String[] parts = withoutCommand.split(" /from ", 2);
-                String taskName = parts[0];
-                String[] timeParts = parts[1].split(" /to ", 2);
-                drossTaskList.addTask(taskName, timeParts[0], timeParts[1]);
-                printLine();
-                line = in.nextLine();
-            }
-            else{
+            } else if (line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event")) {
+                handleTaskCreation(line);
+            } else {
                 printLine();
                 System.out.println("Please enter a valid command");
                 printLine();
-                line = in.nextLine();
             }
+            line = readLine();
         }
         goodbye();
     }
+
+
     public static void main(String[] args) {
         printLine();
         System.out.println("Hello! I'm Dross");
