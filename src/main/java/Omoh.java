@@ -76,7 +76,7 @@ public class Omoh {
     //Method that prints all the tasks stored in myTaskList array
     public static void printAllTasks() {
         printHorizontalLine();
-        myTaskList.getAllTasks();
+        Task.getAllTasks();
         printHorizontalLine();
     }
 }

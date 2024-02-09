@@ -10,6 +10,33 @@ public class Task {
         this.type = "T";
     }
 
+
+    public static void getAllTasks() {
+        Task[] tasksArray = List.getTasksArray();
+        System.out.print("     ");
+        System.out.println("Here are the tasks in your list:");
+        int serialNumber = 1;
+        for (int i = 0; i < List.totalTasks; i++) {
+            System.out.print("     ");
+            System.out.print(serialNumber
+                    + ".[" + tasksArray[i].type + "]"
+                    + "[" + tasksArray[i].getStatusIcon() + "] "
+                    + tasksArray[i].getDescription());
+
+            if (tasksArray[i].type.equals("D")) {
+                //type casting required to access by member
+                Deadline deadlineTask = (Deadline) tasksArray[i];
+                System.out.print(" (by: " + deadlineTask.by + ")");
+            } else if (tasksArray[i].type.equals("E")) {
+                //type casting required to access from and to members
+                Event eventTask = (Event) tasksArray[i];
+                System.out.print(" (from: " + eventTask.from + " to: " + eventTask.to + ")");
+            }
+            System.out.println();
+            serialNumber += 1;
+        }
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
