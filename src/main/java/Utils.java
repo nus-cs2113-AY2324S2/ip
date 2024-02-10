@@ -19,10 +19,26 @@ public class Utils {
     public static void printInstructions() {
         System.out.println("Accepted commands are:");
         System.out.println("list: shows you list of tasks");
+        System.out.println("\tInput Example: list\n");
         System.out.println("mark: marks a task as done");
+        System.out.println("\tInput Example: mark 1\n");
         System.out.println("unmark: marks a task as undone");
+        System.out.println("\tInput Example: unmark 1\n");
         System.out.println("todo: adds a todo");
+        System.out.println("\tInput Example: todo read book\n");
         System.out.println("deadline: adds a deadline");
+        System.out.println("\tInput Example: deadline wash clothes /by Sunday\n");
         System.out.println("event: adds an event");
+        System.out.println("\tInput Example: event birthday party /from 1 Jan /to 4 Jan");
+    }
+
+    public static void printInvalidDescriptionWarning() {
+        System.out.println("Please enter a valid description");
+        printLine();
+    }
+
+    public static void printInvalidCommandWarning() {
+        System.out.println("Invalid command");
+        printLine();
     }
 }

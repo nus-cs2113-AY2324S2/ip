@@ -22,24 +22,33 @@ public class Yuki {
         reportNumberOfTasks();
     }
 
-    public static void addTodo(String input) {
+    public static void addTodo(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(LENGTH_TODO_COMMAND));
+        if (data[0].isEmpty()) {
+            throw new YukiExceptions.InvalidDescriptionException();
+        }
         description = data[0];
         tasks[taskCount] = new Todo(description);
         taskCount++;
         reportNumberOfTasks();
     }
 
-    public static void addDeadline(String input) {
+    public static void addDeadline(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(LENGTH_DEADLINE_COMMAND));
+        if (data.length < 2) {
+            throw new YukiExceptions.InvalidDescriptionException();
+        }
         description = data[0] + " (by:" + data[1] + ")";
         tasks[taskCount] = new Deadline(description);
         taskCount++;
         reportNumberOfTasks();
     }
 
-    public static void addEvent(String input) {
+    public static void addEvent(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(LENGTH_EVENT_COMMAND));
+        if (data.length < 3) {
+            throw new YukiExceptions.InvalidDescriptionException();
+        }
         description = data[0] + " (from: " + data[1] + " to: " + data[2] + ")";
         tasks[taskCount] = new Event(description);
         taskCount++;
@@ -77,15 +86,31 @@ public class Yuki {
                 tasks[index_task].markAsUndone();
                 break;
             case "todo":
-                addTodo(line);
+                try {
+                    addTodo(line);
+                } catch (YukiExceptions.InvalidDescriptionException e) {
+                    Utils.printInvalidDescriptionWarning();
+                    Utils.printInstructions();
+                }
                 break;
             case "deadline":
-                addDeadline(line);
+                try {
+                    addDeadline(line);
+                } catch (YukiExceptions.InvalidDescriptionException e) {
+                    Utils.printInvalidDescriptionWarning();
+                    Utils.printInstructions();
+                }
                 break;
             case "event":
-                addEvent(line);
+                try {
+                    addEvent(line);
+                } catch (YukiExceptions.InvalidDescriptionException e) {
+                    Utils.printInvalidDescriptionWarning();
+                    Utils.printInstructions();
+                }
                 break;
             default:
+                Utils.printInvalidCommandWarning();
                 Utils.printInstructions();
                 break;
             }
