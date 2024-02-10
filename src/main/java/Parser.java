@@ -26,8 +26,15 @@ public class Parser {
     }
 
     public static String extractDescription(String userInput){
-        String[] words = userInput.split(" ");
-        return words[1];
+        int start = userInput.indexOf(" ") + 1;
+        int end = userInput.indexOf("/") - 1;
+        if (start > 0 && (end > start)) {
+            return userInput.substring(start,end);
+        } else if (start > 0){
+            return userInput.substring(start);
+        } else {
+            return "INVALID INPUT";
+        }
     }
 
     public static String extractStartTime(String userInput){

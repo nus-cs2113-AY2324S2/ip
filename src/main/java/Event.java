@@ -1,9 +1,8 @@
 public class Event extends Task{
-    protected String TYPE = "event";
     protected String startTime;
     protected String endTime;
 
-
+    @Override
     public String getDescription(){
         return ("[E][" + this.getStatusIcon() + "] " + this.description + " (from: " + startTime + " to: " + endTime +
                 ")");
@@ -25,10 +24,6 @@ public class Event extends Task{
     }
     public void setEndTime(String time) {
         this.endTime = time;
-    }
-
-    public String getTYPE() {
-        return this.TYPE;
     }
 
 }

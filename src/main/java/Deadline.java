@@ -6,6 +6,7 @@ public class Deadline extends Task{
         this.by = deadLine;
     }
 
+    @Override
     public String getDescription(){
         return ("[D][" + super.getStatusIcon() + "] " + this.description + " (by: " + by + ")");
     }
@@ -18,7 +19,4 @@ public class Deadline extends Task{
         return this.by;
     }
 
-    public String getTYPE() {
-        return this.TYPE;
-    }
 }
