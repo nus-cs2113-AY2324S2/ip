@@ -1,3 +1,5 @@
+package yuki;
+
 public class InputParser {
 
     // Parses user input
