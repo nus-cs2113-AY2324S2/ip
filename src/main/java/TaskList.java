@@ -27,6 +27,19 @@ public class TaskList {
                 addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
             }
             break;
+        case "event":
+            String[] eventparts = commandParts[1].split("/from" , 2);
+            if (eventparts.length != 2) {
+                System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
+            } else {
+                String[] endDateParts = eventparts[1].split("/to" , 2);
+                if (endDateParts.length != 2) {
+                    System.out.println("☹ OOPS!!! Invalid event format. Use 'event <description> /from <start date/time> /to <end date/time>'.");
+                } else {
+                    addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
+                }
+            }
+            break;
         case "mark":
             if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1])-1) ) {
                 System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
