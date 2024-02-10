@@ -7,12 +7,6 @@ import geepee.exceptions.*;
 
 public class GeePee {
 
-    // constants to determine required padding to extract the name of a Event
-    // object, and when it starts and ends
-    private static final int EVENT_PADDING = 6;
-    private static final int FROM_PADDING = 6;
-    private static final int TO_PADDING = 4;
-
     private static void handleTodo(List list, String line) {
         try {
             String todoDescription = InputParser.getTodoDescription(line);
@@ -37,17 +31,19 @@ public class GeePee {
 
     private static void handleEvent(List list, String line) {
         try {
-            InputParser.checkValidEventDescription(line);
+            int fromIndex = line.indexOf("/from");
+            int toIndex = line.indexOf("/to", fromIndex + 1);
+            String eventDescription = InputParser.getEventDescription(line, fromIndex);
+            String eventFrom = InputParser.getEventFrom(line, fromIndex, toIndex);
+            String eventTo = InputParser.getEventTo(line, toIndex);
+            list.addEvent(eventDescription, eventFrom, eventTo);
         } catch (EmptyDescriptionException e) {
             SystemMessage.printEmptyEventDescriptionMessage();
-            return;
+        } catch (MissingFromException e) {
+            SystemMessage.printMissingFromMessage();
+        } catch (MissingToException e) {
+            SystemMessage.printMissingToMessage();
         }
-        int fromIndex = line.indexOf("/");
-        int toIndex = line.indexOf("/", fromIndex + 1);
-        String from = line.substring(fromIndex + FROM_PADDING, toIndex).trim();
-        String to = line.substring(toIndex + TO_PADDING).trim();
-        String eventName = line.substring(EVENT_PADDING, fromIndex).trim();
-        list.addEvent(eventName, from, to);
     }
 
     private static void handleTaskStatusChange(List list, String line) {

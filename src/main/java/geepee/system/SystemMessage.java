@@ -56,4 +56,18 @@ public class SystemMessage {
                 EVENT_TEMPLATE);
         printHorizontalLine();
     }
+
+    public static void printMissingFromMessage() {
+        printHorizontalLine();
+        System.out.println("    The start (from) of the event is missing! The correct input is " +
+                EVENT_TEMPLATE);
+        printHorizontalLine();
+    }
+
+    public static void printMissingToMessage() {
+        printHorizontalLine();
+        System.out.println("    The end (to) of the event is missing! The correct input is " +
+                EVENT_TEMPLATE);
+        printHorizontalLine();
+    }
 }
