@@ -1,3 +1,7 @@
+package joe.util;
+
+import joe.JoeException;
+
 public class InputParser {
     protected static final String FLAG_INDICATOR = "/";
     protected static final String DEADLINE_FLAG =  FLAG_INDICATOR + "by";

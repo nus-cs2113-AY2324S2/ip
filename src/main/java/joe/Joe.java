@@ -1,3 +1,9 @@
+package joe;
+
+import joe.util.InputParser;
+import joe.util.Printer;
+import joe.task.TaskManager;
+
 import java.util.Scanner;
 
 public class Joe {
@@ -10,10 +16,15 @@ public class Joe {
     protected static final String NEW_EVENT_COMMAND = "event";
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
         Printer.printGreeting();
+        runJoe();
+        Printer.printExitMessage();
+    }
 
+    private static void runJoe() {
+        Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
+
         boolean hasExitInput = false;
         while (!hasExitInput) {
             String input = in.nextLine();
@@ -80,7 +91,5 @@ public class Joe {
                 break;
             }
         }
-        
-        Printer.printExitMessage();
     }
 }

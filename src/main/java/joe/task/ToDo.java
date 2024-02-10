@@ -1,3 +1,5 @@
+package joe.task;
+
 public class ToDo extends Task {
     protected static final String TODO_SYMBOL = "[T]";
 
