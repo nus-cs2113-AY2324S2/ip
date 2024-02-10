@@ -1,4 +1,5 @@
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Kobot {
@@ -11,7 +12,9 @@ public class Kobot {
         ui.printHelloMessage();
 
         while (!command.getIsExit()) {
-            command.parseCommand(ui.receiveInput(in));
+            String input = "";
+            input = ui.receiveInput(in);
+            command.parseCommand(input);
             command.executeCommand(taskList, ui);
         }
 

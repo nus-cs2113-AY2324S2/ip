@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Ui {
@@ -26,10 +27,17 @@ public class Ui {
         System.out.println("Bye, hope to see you again!");
     }
 
-    public String receiveInput(Scanner in) {
+    public String receiveInput(Scanner in) throws NoSuchElementException {
         printLineDivider();
         System.out.print("> ");
-        String input = in.nextLine();
+        String input = "";
+        
+        try {
+            input = in.nextLine();
+        } catch (NoSuchElementException exception) {
+            System.exit(0);
+        }
+        
         printLineDivider();
         return input;
     }
