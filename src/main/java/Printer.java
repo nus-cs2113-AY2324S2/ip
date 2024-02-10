@@ -1,5 +1,5 @@
 public class Printer {
-    public static final String H_LINE = "____________________________________________________________\n";
+    protected static final String H_LINE = "____________________________________________________________\n";
     protected static final String GREET_MESSAGE = H_LINE + "HI I'M JOE\n" + "WHAT CAN I DO FOR YOU\n" + H_LINE;
     protected static final String EXIT_MESSAGE = H_LINE + "GOODBYE. PLEASE COME BACK AGAIN :)\n" + H_LINE;
     protected static final String LIST_MESSAGE = H_LINE + "HERE'S YOUR TASKS:";
