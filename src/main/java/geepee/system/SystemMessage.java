@@ -2,6 +2,10 @@ package geepee.system;
 
 public class SystemMessage {
 
+    public static void printHorizontalLine() {
+        System.out.println("    ________________________________________________");
+    }
+
     public static void printWelcomeMessage() {
         printHorizontalLine();
         System.out.println("    Hello! I'm GeePee, your friendly chatbot assistant!");
@@ -15,7 +19,16 @@ public class SystemMessage {
         printHorizontalLine();
     }
 
-    public static void printHorizontalLine() {
-        System.out.println("    ________________________________________________");
+    public static void printInvalidCommandMessage() {
+        printHorizontalLine();
+        System.out.println("    Invalid command! Valid commands are: todo, event, deadline, list.");
+        printHorizontalLine();
+    }
+
+    public static void printEmptyDescriptionMessage() {
+        printHorizontalLine();
+        System.out.println("    The description of a task cannot be empty! The correct input" +
+                " is \"{command} {description}\".");
+        printHorizontalLine();
     }
 }

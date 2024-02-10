@@ -1,6 +1,6 @@
 package geepee.task;
 
-public class Task {
+public abstract class Task {
 
     protected String name;
     protected boolean isDone;

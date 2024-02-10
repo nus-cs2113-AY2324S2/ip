@@ -1,4 +1,4 @@
-package geepee.list;
+package geepee.task.list;
 
 import geepee.system.SystemMessage;
 import geepee.task.*;

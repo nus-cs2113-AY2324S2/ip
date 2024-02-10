@@ -1,31 +1,44 @@
 package geepee;
 
 import java.util.Scanner;
-import geepee.system.SystemMessage;
-import geepee.list.*;
+import geepee.system.*;
+import geepee.task.list.*;
+import geepee.exceptions.*;
 
 public class GeePee {
-    
-    //constant to determine required padding to extract the name of a Todo object
+
+    // constant to determine required padding to extract the name of a Todo object
     public static final int TODO_PADDING = 5;
 
-    //constants to determine required padding to extract the name of a Deadline object,
-    //and when it needs to be completed by
+    // constants to determine required padding to extract the name of a Deadline
+    // object, and when it needs to be completed by
     public static final int DEADLINE_PADDING = 9;
     public static final int BY_PADDING = 4;
 
-    //constants to determine required padding to extract the name of a Event object,
-    //and when it starts and ends
+    // constants to determine required padding to extract the name of a Event
+    // object, and when it starts and ends
     public static final int EVENT_PADDING = 6;
     public static final int FROM_PADDING = 6;
     public static final int TO_PADDING = 4;
 
     public static void handleTodo(List list, String line) {
+        try {
+            InputHandler.checkTodoInputValidity(line);
+        } catch (EmptyDescriptionException e) {
+            SystemMessage.printEmptyDescriptionMessage();
+            return;
+        }
         String todoName = line.substring(TODO_PADDING).trim();
         list.addTodo(todoName);
     }
 
     public static void handleDeadline(List list, String line) {
+        try {
+            InputHandler.checkDeadlineInputValidity(line);
+        } catch (EmptyDescriptionException e) {
+            SystemMessage.printEmptyDescriptionMessage();
+            return;
+        }
         int byIndex = line.indexOf("/");
         String by = line.substring(byIndex + BY_PADDING).trim();
         String deadlineName = line.substring(DEADLINE_PADDING, byIndex).trim();
@@ -33,6 +46,12 @@ public class GeePee {
     }
 
     public static void handleEvent(List list, String line) {
+        try {
+            InputHandler.checkEventInputValidity(line);
+        } catch (EmptyDescriptionException e) {
+            SystemMessage.printEmptyDescriptionMessage();
+            return;
+        }
         int fromIndex = line.indexOf("/");
         int toIndex = line.indexOf("/", fromIndex + 1);
         String from = line.substring(fromIndex + FROM_PADDING, toIndex).trim();
@@ -49,32 +68,42 @@ public class GeePee {
         }
     }
 
-    public static void getUserInput() {
+    public static void handleUserInput(List list, String line) throws InvalidCommandException {
+        String command = line.split(" ")[0];
+        if (command.equals("") || command.equals("bye")) {
+            return;
+        } else if (command.equals("list")) {
+            ListMessage.printAllTasks(list);
+        } else if (command.equals("mark") || command.equals("unmark")) {
+            handleTaskStatusChange(list, line);
+        } else if (command.equals("todo")) {
+            handleTodo(list, line);
+        } else if (command.equals("deadline")) {
+            handleDeadline(list, line);
+        } else if (command.equals("event")) {
+            handleEvent(list, line);
+        } else {
+            throw new InvalidCommandException();
+        }
+    }
+
+    public static void initialiseLoop() {
+        Scanner in = new Scanner(System.in);
         List list = new List();
         String line = "";
-        Scanner in = new Scanner(System.in);
-        while (!(line.equals("bye"))) {
+        while (!line.equals("bye")) {
             line = in.nextLine().trim();
-            if (line.equals("") || line.equals("bye")) {
-                continue;
-            } else if (line.startsWith("list")) {
-                ListMessage.printAllTasks(list);
-            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
-                handleTaskStatusChange(list, line);
-            } else if (line.startsWith("todo")) {
-                handleTodo(list, line);
-            } else if (line.startsWith("deadline")) {
-                handleDeadline(list, line);
-            } else if (line.startsWith("event")) {
-                handleEvent(list, line);
+            try {
+                handleUserInput(list, line);
+            } catch (InvalidCommandException e) {
+                SystemMessage.printInvalidCommandMessage();
             }
         }
     }
 
     public static void main(String[] args) {
         SystemMessage.printWelcomeMessage();
-        getUserInput();
+        initialiseLoop();
         SystemMessage.printExitMessage();
     }
-    
 }
