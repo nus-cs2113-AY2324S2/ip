@@ -1,0 +1,7 @@
+Singapore 
+
+todo Hong Kong
+
+event tokyo /from 4 pm /to 2 pm 
+
+deadline beijing /by 2pm
