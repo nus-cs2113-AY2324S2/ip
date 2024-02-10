@@ -14,27 +14,34 @@ public class TaskManager {
         this.tasks = new Task[MAX_TASKS];
     }
 
-    public String addTask(String taskToAdd) {
+    public void addTask(String taskToAdd) throws Exception {
         String[] taskAsArray = taskToAdd.split(" ");
         if (taskAsArray.length == 1) {
-            return "error";
+            throw new TaskNoNameException();
         }
         String taskType = taskAsArray[0];
         if (taskType.equals("todo")) {
             processToDo(taskToAdd);
         } else if (taskType.equals("deadline")) {
-            if (processDeadline(taskToAdd).equals("error")) {
-                return "error";
+            try {
+                processDeadline(taskToAdd);
+            } catch (DeadlineNoByDateTimeException e) {
+                throw new DeadlineNoByDateTimeException();
             }
         } else if (taskType.equals("event")) {
-            if (processEvent(taskToAdd).equals("error")) {
-                return "error";
+            try {
+                processEvent(taskToAdd);
+            } catch (EventNoFromDateTimeException e) {
+                throw new EventNoFromDateTimeException();
+            } catch (EventNoToDateTimeException e) {
+                throw new EventNoToDateTimeException();
+            } catch (EventToBeforeFromException e) {
+                throw new EventToBeforeFromException();
             }
         } else {
-            return "error";
+            throw new InvalidInputException();
         }
         printAndIncrementAfterAddTask();
-        return "success";
     }
     
     private void processToDo(String taskToAdd) {
@@ -43,35 +50,37 @@ public class TaskManager {
         tasks[currIndex] = new ToDo(taskName);
     }
 
-    private String processDeadline(String taskToAdd) {
+    private void processDeadline(String taskToAdd) throws Exception {
         if (!(taskToAdd.contains("/by "))) {
-            return "error";
+            throw new DeadlineNoByDateTimeException();
         }
         String taskName;
         int firstBackslashIndex = taskToAdd.indexOf("/");
         if (firstBackslashIndex == DEADLINE_LENGTH) {
             // occurs when task is not given a name
-            return "error";
+            throw new TaskNoNameException();
         }
         taskName = taskToAdd.substring(DEADLINE_LENGTH, firstBackslashIndex - 1);
         int byWhenIndex = firstBackslashIndex + BY_LENGTH;
         String byWhen = taskToAdd.substring(byWhenIndex);
         tasks[currIndex] = new Deadline(taskName, byWhen);
-        return "success";
     }
 
-    private String processEvent(String taskToAdd) {
-        if (!(taskToAdd.contains("/from ")) || !(taskToAdd.contains("/to "))) {
-            return "error";
+    private void processEvent(String taskToAdd) throws Exception {
+        if (!(taskToAdd.contains("/from "))) {
+            throw new EventNoFromDateTimeException();
         }
-        if (taskToAdd.indexOf("/from ") > taskToAdd.indexOf("/to ")) {
-            return "error";
+        if (!(taskToAdd.contains("/to "))) {
+            throw new EventNoToDateTimeException();
+        }
+        if (taskToAdd.indexOf("/to ") < taskToAdd.indexOf("/from ")) {
+            throw new EventToBeforeFromException();
         }
         String taskName;
         int firstBackslashIndex = taskToAdd.indexOf("/");
         if (firstBackslashIndex == EVENT_LENGTH) {
             // occurs when task is not given a name
-            return "error";
+            throw new TaskNoNameException();
         }
         taskName = taskToAdd.substring(EVENT_LENGTH, firstBackslashIndex - 1);
         int fromWhenIndex = firstBackslashIndex + FROM_LENGTH;
@@ -80,7 +89,6 @@ public class TaskManager {
         String fromWhen = taskToAdd.substring(fromWhenIndex, secondBackslashIndex - 1);
         String toWhen = taskToAdd.substring(toWhenIndex);
         tasks[currIndex] = new Event(taskName, fromWhen, toWhen);
-        return "success";
     }
     
     private void printAndIncrementAfterAddTask() {
@@ -90,9 +98,9 @@ public class TaskManager {
         currIndex++;
     }
     
-    public String markTask(int taskIndex, boolean isDone) {
+    public void markTask(int taskIndex, boolean isDone) throws Exception {
         if (taskIndex < 0 || taskIndex >= currIndex) {
-            return "error";
+            throw new MarkUnmarkIndexOutOfBoundsException();
         }
         Task targetTask = tasks[taskIndex];
         if (isDone) {
@@ -104,7 +112,6 @@ public class TaskManager {
             System.out.println("Ok, I've marked this Task as not done yet:");
             System.out.println(targetTask);
         }
-        return "success";
     }
 
     public void listTasks() {

@@ -16,13 +16,17 @@ public class UserInterface {
             String command = input.split(" ")[0];
             if (command.equals("unmark")) {
                 int taskIndex = Character.getNumericValue(input.charAt(UNMARK_LENGTH)) - 1;
-                if (taskManager.markTask(taskIndex, false).equals("error")) {
-                    printError();
+                try {
+                    taskManager.markTask(taskIndex, false);
+                } catch (Exception e) {
+                    printError(e);
                 }
             } else if (command.equals("mark")) {
                 int taskIndex = Character.getNumericValue(input.charAt(MARK_LENGTH)) - 1;
-                if (taskManager.markTask(taskIndex, true).equals("error")) {
-                    printError();
+                try {
+                    taskManager.markTask(taskIndex, true);
+                } catch (Exception e) {
+                    printError(e);
                 }
             } else {
                 switch (input) {
@@ -32,8 +36,10 @@ public class UserInterface {
                     taskManager.listTasks();
                     break;
                 default:
-                    if (taskManager.addTask(input).equals("error")) {
-                        printError();
+                    try {
+                        taskManager.addTask(input);
+                    } catch (Exception e) {
+                        printError(e);
                     }
                     //Fallthrough
                 }
@@ -41,7 +47,7 @@ public class UserInterface {
         }
     }
 
-    public void printError() {
-        System.out.println("ERROR: Invalid input");
+    public void printError(Exception e) {
+        System.out.println(e.getMessage());
     }
 }
