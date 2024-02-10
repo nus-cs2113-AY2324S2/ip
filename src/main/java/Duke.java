@@ -83,7 +83,7 @@ public class Duke {
 
         do {
             command = scanner.nextLine();
-            if (command.startsWith("list")) {
+            if (command.startsWith("list ")) {
                 listTasks();
             } else if (command.startsWith("mark ")) {
                 markTaskAsDone(command.substring(5));
@@ -118,14 +118,14 @@ public class Duke {
             this.isDone = false;
         }
 
-        public String markAsDone() {
+        public void markAsDone() {
             this.isDone = true;
-            return (isDone ? "X" : " "); // mark done task with X
+//            return (isDone ? "X" : " "); // mark done task with X
         }
 
-        public String markAsNotDone() {
+        public void markAsNotDone() {
             this.isDone = false;
-            return (isDone ? "X" : " "); // mark done task with X
+//            return (isDone ? "X" : " "); // mark done task with X
         }
 
         public String getDescription() {
