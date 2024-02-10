@@ -8,7 +8,10 @@ public class TaskManager {
         numberOfTasks = 0;
     }
 
-    public void addToDo(String taskName) {
+    public void addToDo(String taskName) throws JoeException {
+        if (taskName.isEmpty()) {
+            throw new JoeException();
+        }
         if (numberOfTasks >= MAX_TASK_SIZE) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -46,10 +49,9 @@ public class TaskManager {
         Printer.printHeaderLine();
     }
 
-    public void toggleTaskMarkedStatus(int taskNumber, boolean isMark) {
+    public void toggleTaskMarkedStatus(int taskNumber, boolean isMark) throws JoeException {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
-            Printer.printInvalidMarkError();
-            return;
+            throw new JoeException();
         }
         tasks[taskNumber - 1].setDone(isMark);
         if (isMark) {

@@ -1,9 +1,8 @@
 public class InputParser {
-    protected static final int GARBAGE_INT = -69;
     protected static final String FLAG_INDICATOR = "/";
-    protected static final String DEADLINE_FLAG = "/by";
-    protected static final String EVENT_START_FLAG = "/from";
-    protected static final String EVENT_END_FLAG = "/to";
+    protected static final String DEADLINE_FLAG =  FLAG_INDICATOR + "by";
+    protected static final String EVENT_START_FLAG = FLAG_INDICATOR + "from";
+    protected static final String EVENT_END_FLAG = FLAG_INDICATOR + "to";
 
 
     public static String getCommand(String input) {
@@ -20,33 +19,23 @@ public class InputParser {
         return input.substring(input.indexOf(" ")).trim();
     }
 
-    public static int convertMessageToInteger(String message) {
-        int number;
-        try {
-            number = Integer.parseInt(message);
-        } catch (NumberFormatException e) {
-            number = GARBAGE_INT;
-        }
-        return number;
-    }
-
-    public static String getTaskName(String message) {
+    public static String getTaskName(String message) throws JoeException {
         if (!message.contains(FLAG_INDICATOR)) {
-            throw new IllegalArgumentException();
+            throw new JoeException();
         }
         return message.substring(0, message.indexOf(FLAG_INDICATOR)).trim();
     }
 
-    public static String getDeadlineTime(String message) {
+    public static String getDeadlineTime(String message) throws JoeException{
         if (!message.contains(DEADLINE_FLAG)) {
-            throw new IllegalArgumentException();
+            throw new JoeException();
         }
         return message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
     }
 
-    public static String[] getEventTime(String message) {
+    public static String[] getEventTime(String message) throws JoeException {
         if (!message.contains(EVENT_START_FLAG) || !message.contains(EVENT_END_FLAG)) {
-            throw new IllegalArgumentException();
+            throw new JoeException();
         }
         String[] eventDurations = new String[2];
         int startIndex = message.indexOf(EVENT_START_FLAG);

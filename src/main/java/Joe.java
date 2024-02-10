@@ -23,31 +23,33 @@ public class Joe {
             switch (command) {
             case EXIT_COMMAND:
                 if (!message.isEmpty()) {
-                    Printer.printDefaultError();
+                    Printer.printExitError();
                     break;
                 }
                 hasExitInput = true;
                 break;
             case LIST_COMMAND:
                 if (!message.isEmpty()) {
-                    Printer.printDefaultError();
+                    Printer.printListError();
                     break;
                 }
                 taskManager.listTasks();
                 break;
             case MARK_COMMAND:
             case UNMARK_COMMAND:
-                int taskNumber = InputParser.convertMessageToInteger(message);
-                taskManager.toggleTaskMarkedStatus(taskNumber, command.equals(MARK_COMMAND));
+                try {
+                    int taskNumber = Integer.parseInt(message);
+                    taskManager.toggleTaskMarkedStatus(taskNumber, command.equals(MARK_COMMAND));
+                } catch (NumberFormatException | JoeException e) {
+                    Printer.printInvalidMarkError();
+                }
                 break;
             case NEW_TODO_COMMAND:
-                if (message.isEmpty()) {
-                    Printer.printToDoEmptyError();
-                    break;
-                }
                 try {
                     taskManager.addToDo(message);
-                } catch (Exception e) {
+                } catch (JoeException e) {
+                    Printer.printToDoEmptyError();
+                } catch (ArrayIndexOutOfBoundsException e) {
                     Printer.printTaskOvercapacityError();
                 }
                 break;
@@ -56,7 +58,7 @@ public class Joe {
                     String by = InputParser.getDeadlineTime(message);
                     String taskName = InputParser.getTaskName(message);
                     taskManager.addDeadline(taskName, by);
-                } catch (IllegalArgumentException e) {
+                } catch (JoeException e) {
                     Printer.printDeadlineInputError();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     Printer.printTaskOvercapacityError();
@@ -67,7 +69,7 @@ public class Joe {
                     String[] eventDurations = InputParser.getEventTime(message);
                     String taskName = InputParser.getTaskName(message);
                     taskManager.addEvent(taskName, eventDurations[0], eventDurations[1]);
-                } catch (IllegalArgumentException e) {
+                } catch (JoeException e) {
                     Printer.printEventInputError();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     Printer.printTaskOvercapacityError();
