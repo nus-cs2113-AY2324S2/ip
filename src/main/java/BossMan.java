@@ -26,17 +26,24 @@ public class BossMan {
             System.out.print("You: ");
             userInput = SCANNER.nextLine();
 
-            processUserInput(userInput);
+            try {
+                processUserInput(userInput);
+            } catch (UnknownCommandException e) {
+                System.out.println("Unknown command\n" + SEP);
+            } catch (InvalidTodoCommandException e) {
+                System.out.println("Invalid todo command format\n" + SEP);
+            }
+
+
 
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 
-    private void processUserInput(String userInput) {
+    private void processUserInput(String userInput) throws UnknownCommandException, InvalidTodoCommandException{
         String[] parts = parseUserInput(userInput);
 
         if (parts.length == 0) {
-            System.out.println("Unknown command\n" + SEP);
-            return;
+            throw new UnknownCommandException();
         }
 
         String commandType = parts[0];
@@ -97,7 +104,10 @@ public class BossMan {
         }
     }
 
-    private void handleTodoCommand(String commandArgs) {
+    private void handleTodoCommand(String commandArgs) throws InvalidTodoCommandException{
+        if(commandArgs.isBlank()) {
+            throw new InvalidTodoCommandException();
+        }
         Task todoTask = new Todo(commandArgs);
         TASK_LIST.addTask(todoTask);
         echo(todoTask);
@@ -139,9 +149,3 @@ public class BossMan {
         System.out.println(SEP);
     }
 }
-
-
-
-
-
-
