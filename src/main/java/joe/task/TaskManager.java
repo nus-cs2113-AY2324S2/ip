@@ -1,3 +1,8 @@
+package joe.task;
+
+import joe.JoeException;
+import joe.util.Printer;
+
 public class TaskManager {
     protected Task[] tasks;
     protected int numberOfTasks;
@@ -21,7 +26,10 @@ public class TaskManager {
         Printer.printTaskAddingMessage(newToDo.getTaskStatus(), numberOfTasks);
     }
 
-    public void addDeadline(String taskName, String finishBy) {
+    public void addDeadline(String taskName, String finishBy) throws JoeException {
+        if (taskName.isEmpty() || finishBy.isEmpty()) {
+            throw new JoeException();
+        }
         if (numberOfTasks >= MAX_TASK_SIZE) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -31,7 +39,10 @@ public class TaskManager {
         Printer.printTaskAddingMessage(newDeadline.getTaskStatus(), numberOfTasks);
     }
 
-    public void addEvent(String taskName, String startDate, String endDate) {
+    public void addEvent(String taskName, String startDate, String endDate) throws JoeException {
+        if (taskName.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+            throw new JoeException();
+        }
         if (numberOfTasks >= MAX_TASK_SIZE) {
             throw new ArrayIndexOutOfBoundsException();
         }

@@ -1,3 +1,5 @@
+package joe.task;
+
 public class Event extends Task {
     protected static final String EVENT_SYMBOL = "[E]";
     protected String startDate;

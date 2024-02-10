@@ -1,4 +1,6 @@
-public class Task {
+package joe.task;
+
+public abstract class Task {
     protected static final String MARKED_STATUS = "[X]";
     protected static final String UNMARKED_STATUS = "[ ]";
     protected String taskName;

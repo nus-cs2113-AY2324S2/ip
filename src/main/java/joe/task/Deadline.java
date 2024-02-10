@@ -1,3 +1,5 @@
+package joe.task;
+
 public class Deadline extends Task {
     protected static final String DEADLINE_SYMBOL = "[D]";
     protected String finishBy;
