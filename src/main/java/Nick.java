@@ -12,8 +12,9 @@ public class Nick {
     private static final Logger LOGGER = Logger.getLogger(Nick.class.getName());
 
     public static void main(String[] args) {
-        printIntroName();
-        printIntroMsg();
+        UserInterface ui = new UserInterface();
+        ui.printIntroName();
+        ui.printIntroMsg();
 
         boolean hasQuit = false;
         String command, commandAction;
@@ -29,7 +30,7 @@ public class Nick {
             case "list":
             case "mark":
             case "unmark":
-                boolean continueProgram = continueExecution(command, taskCount, userTasks);
+                boolean continueProgram = continueExecution(command, taskCount, userTasks, ui);
                 if (continueProgram) {
                     continue;
                 }
@@ -39,11 +40,11 @@ public class Nick {
                 break;
             }
 
-            taskExecution(command, commandAction, userTasks);
+            taskExecution(command, commandAction, userTasks, ui);
         }
     }
 
-    public static void taskExecution(String command, String taskType, Task[] userTasks) {
+    public static void taskExecution(String command, String taskType, Task[] userTasks, UserInterface ui) {
         Task task;
         String taskName;
         int taskDescriptionIndex = taskType.length() + 1;
@@ -73,16 +74,16 @@ public class Nick {
             break;
         }
 
-        printAddTaskMsg(userTasks[taskCount].toString(), taskCount);
+        ui.printAddTaskMsg(userTasks[taskCount].toString(), taskCount);
         taskCount++;
     }
 
-    public static boolean continueExecution(String command, int taskCount, Task[] userTasks) {
+    public static boolean continueExecution(String command, int taskCount, Task[] userTasks, UserInterface ui) {
         String commandAction = command.split(" ")[0];
 
         switch (commandAction) {
         case ("bye"):
-            printByeMsg();
+            ui.printByeMsg();
             return false;
         case ("list"):
             System.out.println("____________________________________________________________");
@@ -109,34 +110,5 @@ public class Nick {
         }
 
         return true;
-    }
-
-    public static void printByeMsg() {
-        System.out.println("____________________________________________________________");
-        System.out.println("\t" + "Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
-    }
-
-    public static void printAddTaskMsg(String taskName, int taskCount) {
-        System.out.println("____________________________________________________________");
-        System.out.println("\t" + "Got it. I've added this task:");
-        System.out.println("\t" + taskName);
-        System.out.println("\t" + "Now you have " + (taskCount + 1) + " tasks in the list.");
-        System.out.println("____________________________________________________________");
-    }
-
-    public static void printIntroName() {
-        try {
-            String name = new String(Files.readAllBytes(Paths.get("name.txt")));
-            System.out.print(name);
-        } catch (IOException exception) {
-            LOGGER.severe(exception.toString());
-        }
-    }
-
-    public static void printIntroMsg() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Welcome to the Ultimate Nick Bot!");
-        System.out.println("What can I do for you?\n");
     }
 }
