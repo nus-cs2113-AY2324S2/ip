@@ -11,6 +11,6 @@ public class Todo extends Task{
 
     @Override
     public String toString() {
-        return String.format("%s %s", super.toString(), super.description);
+        return String.format("%s", super.toString());
     }
 }

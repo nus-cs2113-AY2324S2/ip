@@ -11,6 +11,6 @@ public class Deadline extends Task{
     }
     @Override
     public String toString() {
-        return String.format("%s %s (%s)", super.toString(), super.description, deadline);
+        return String.format("%s (%s)", super.toString(), deadline);
     }
 }

@@ -13,6 +13,6 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return String.format("%s %s (%s %s)", super.toString(), super.description, startTime, endTime);
+        return String.format("%s (%s %s)", super.toString(), startTime, endTime);
     }
 }
