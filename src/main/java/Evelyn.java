@@ -48,51 +48,70 @@ public class Evelyn {
             System.out.println("Here are the tasks in your list:");
             printList(tasks);
         } else if (line.startsWith("mark")) {
+            try {
                 int index = Integer.parseInt(line.substring(5).trim()) - 1;
                 markTask(index, true);
+            } catch (NumberFormatException e){
+                System.out.println("Please key in a number after 'mark'");
+            }
+
         } else if (line.startsWith("unmark")) {
-            int index = Integer.parseInt(line.substring(7).trim()) - 1;
-            markTask(index, false);
+            try {
+                int index = Integer.parseInt(line.substring(7).trim()) - 1;
+                markTask(index, false);
+            } catch(NumberFormatException e){
+                System.out.println("Please key in a number after 'unmark'");
+            }
 
         } else if (line.startsWith("todo")) {
-            tasks[indexOfTask] = new Todos(line.substring(5).trim());
-            indexOfTask++;
-            printAddingWords();
-            printLine();
+            try {
+                tasks[indexOfTask] = new Todos(line.substring(5).trim());
+                indexOfTask++;
+                printAddingWords();
+                printLine();
+            } catch(StringIndexOutOfBoundsException e){
+                System.out.println("Please enter a description for the todo task!");
+            }
         } else if (line.startsWith("deadline")) {
-            boolean haveBy = line.contains("/by");
-            if (haveBy) {
-                String[] parts = line.substring(9).split("/by");
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                tasks[indexOfTask] = new Deadlines(description, by);
-                indexOfTask++;
-                printAddingWords();
-                printLine();
-            }
-            else{
-                System.out.println(" please enter the correct command");
-            }
+                boolean haveBy = line.contains("/by");
+                if (haveBy) {
+                    try {
+                        String[] parts = line.substring(9).split("/by");
+                        String description = parts[0].trim();
+                        String by = parts[1].trim();
+                        tasks[indexOfTask] = new Deadlines(description, by);
+                        indexOfTask++;
+                        printAddingWords();
+                        printLine();
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        System.out.println("Please enter a description for the deadline!");
+                    }
+                } else {
+                    System.out.println("Please enter a time in the format of 'by/ (time)'");
+                }
+
         } else if (line.startsWith("event")) {
-            boolean haveFrom = line.contains("/from");
-            boolean haveTo = line.contains("/to");
-            if(haveFrom && haveTo) {
-                String[] parts = line.substring(6).split("/from");
-                String description = parts[0].trim();
-                String[] date = parts[1].trim().split("/to");
-                String from = date[0].trim();
-                String to = date[1].trim();
-                tasks[indexOfTask] = new Events(description, from, to);
-                indexOfTask++;
-                printAddingWords();
-                printLine();
-            } else{
-                System.out.println(" please enter the correct command");
-
-            }
+                boolean haveFrom = line.contains("/from");
+                boolean haveTo = line.contains("/to");
+                if (haveFrom && haveTo) {
+                    try {
+                        String[] parts = line.substring(6).split("/from");
+                        String description = parts[0].trim();
+                        String[] date = parts[1].trim().split("/to");
+                        String from = date[0].trim();
+                        String to = date[1].trim();
+                        tasks[indexOfTask] = new Events(description, from, to);
+                        indexOfTask++;
+                        printAddingWords();
+                        printLine();
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        System.out.println("Please enter a description for the event!");
+                    }
+                } else {
+                    System.out.println("Please enter a time in the format of '/from (time) /to (time)'");
+                }
         } else {
-            System.out.println(" please enter the correct command");
-
+            System.out.println("Please enter the correct command");
         }
         echo();
     }
