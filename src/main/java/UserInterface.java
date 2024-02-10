@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class UserInterface {
-    public static final int INDEX_MARK_DONE = 5;
-    public static final int INDEX_MARK_NOT_DONE = 7;
+    public static final int MARK_LENGTH = 5;
+    public static final int UNMARK_LENGTH = 7;
     private Scanner reader;
     private TaskManager taskManager;
 
@@ -15,11 +15,15 @@ public class UserInterface {
             String input = reader.nextLine();
             String command = input.split(" ")[0];
             if (command.equals("unmark")) {
-                int taskIndex = Character.getNumericValue(input.charAt(INDEX_MARK_NOT_DONE)) - 1;
-                taskManager.markTask(taskIndex, false);
+                int taskIndex = Character.getNumericValue(input.charAt(UNMARK_LENGTH)) - 1;
+                if (taskManager.markTask(taskIndex, false).equals("error")) {
+                    printError();
+                }
             } else if (command.equals("mark")) {
-                int taskIndex = Character.getNumericValue(input.charAt(INDEX_MARK_DONE)) - 1;
-                taskManager.markTask(taskIndex, true);
+                int taskIndex = Character.getNumericValue(input.charAt(MARK_LENGTH)) - 1;
+                if (taskManager.markTask(taskIndex, true).equals("error")) {
+                    printError();
+                }
             } else {
                 switch (input) {
                 case "bye":
@@ -28,10 +32,16 @@ public class UserInterface {
                     taskManager.listTasks();
                     break;
                 default:
-                    taskManager.addTask(input);
+                    if (taskManager.addTask(input).equals("error")) {
+                        printError();
+                    }
                     //Fallthrough
                 }
             }
         }
+    }
+
+    public void printError() {
+        System.out.println("ERROR: Invalid input");
     }
 }
