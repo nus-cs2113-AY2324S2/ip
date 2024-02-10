@@ -20,16 +20,6 @@ public class InputParser {
         return input.substring(input.indexOf(" ")).trim();
     }
 
-    public static int convertMessageToInteger(String message) {
-        int number;
-        try {
-            number = Integer.parseInt(message);
-        } catch (NumberFormatException e) {
-            number = GARBAGE_INT;
-        }
-        return number;
-    }
-
     public static String getTaskName(String message) {
         if (!message.contains(FLAG_INDICATOR)) {
             throw new IllegalArgumentException();

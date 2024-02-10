@@ -37,8 +37,12 @@ public class Joe {
                 break;
             case MARK_COMMAND:
             case UNMARK_COMMAND:
-                int taskNumber = InputParser.convertMessageToInteger(message);
-                taskManager.toggleTaskMarkedStatus(taskNumber, command.equals(MARK_COMMAND));
+                try {
+                    int taskNumber = Integer.parseInt(message);
+                    taskManager.toggleTaskMarkedStatus(taskNumber, command.equals(MARK_COMMAND));
+                } catch (NumberFormatException | JoeException e) {
+                    Printer.printInvalidMarkError();
+                }
                 break;
             case NEW_TODO_COMMAND:
                 if (message.isEmpty()) {

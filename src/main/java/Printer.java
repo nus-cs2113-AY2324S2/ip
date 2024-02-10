@@ -5,7 +5,8 @@ public class Printer {
     protected static final String LIST_MESSAGE = H_LINE + "HERE'S YOUR TASKS:";
     protected static final String DEFAULT_ERROR = H_LINE + "INVALID COMMAND :( PLEASE ENTER SOMETHING I UNDERSTAND\n"
             + H_LINE;
-    protected static final String INVALID_MARK_ERROR = H_LINE + "PLEASE ENTER A VALID TASK NUMBER :(\n" + H_LINE;
+    protected static final String INVALID_MARK_ERROR = H_LINE + "PLEASE ENTER A VALID TASK NUMBER :(\n"
+            + "\tPLEASE USE A VALID INTEGER... YOU CAN list FOR REFERENCE" + H_LINE;
     protected static final String MARK_MESSAGE = H_LINE + "GOOD JOB BRO. I'VE MARKED IT AS DONE:";
     protected static final String UNMARK_MESSAGE = H_LINE + "OKAY I WILL MARK IT UNDONE:";
     protected static final String TASKS_LIMIT_EXCEEDED_ERROR = H_LINE + "SORRY BRO THERE'S TOO MANY TASKS, I CAN'T " +
