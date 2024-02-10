@@ -17,10 +17,47 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
+//    public void addTask(String description) {
+//        Task task = new Task(description);
+//        tasks.add(task);
+//        System.out.println("added: " + description);
+//    }
+
     public void addTask(String description) {
-        Task task = new Task(description);
+        String[] parts = description.split(" ", 2);
+        String taskType = parts[0].toLowerCase();
+        String taskDescription = parts.length > 1 ? parts[1] : "";
+
+        Task task;
+        switch (taskType) {
+            case "todo":
+                task = new Todo(taskDescription);
+                break;
+            case "deadline":
+                String[] deadlineParts = taskDescription.split(" /by ", 2);
+                String deadlineDescription = deadlineParts[0];
+                String by = deadlineParts.length > 1 ? deadlineParts[1] : "";
+                task = new Deadline(deadlineDescription, by);
+                break;
+            case "event":
+                String[] eventParts = taskDescription.split(" /from ", 2);
+                String eventDescription = eventParts[0];
+                if (eventParts.length < 2) {
+                    System.out.println("Invalid event task format. Please include the start and end times.");
+                    return;
+                }
+                String[] timeParts = eventParts[1].split(" /to ", 2);
+                String start = timeParts[0];
+                String end = timeParts.length > 1 ? timeParts[1] : "";
+                task = new Event(eventDescription, start, end);
+                break;
+            default:
+                System.out.println("Invalid task type. Please try again.");
+                return;
+        }
+
         tasks.add(task);
-        System.out.println("added: " + description);
+        System.out.println("Added: " + task);
     }
 
     public void listTasks() {
@@ -83,7 +120,7 @@ public class Duke {
 
         do {
             command = scanner.nextLine();
-            if (command.startsWith("list ")) {
+            if (command.equals("list") || command.startsWith("list ")) {
                 listTasks();
             } else if (command.startsWith("mark ")) {
                 markTaskAsDone(command.substring(5));
@@ -109,9 +146,10 @@ public class Duke {
         chatbot.exit();
     }
 
-    private static class Task {
+    private abstract class Task {
         private final String description;
         private boolean isDone;
+        public abstract String getType();
 
         public Task(String description) {
             this.description = description;
@@ -120,12 +158,10 @@ public class Duke {
 
         public void markAsDone() {
             this.isDone = true;
-//            return (isDone ? "X" : " "); // mark done task with X
         }
 
         public void markAsNotDone() {
             this.isDone = false;
-//            return (isDone ? "X" : " "); // mark done task with X
         }
 
         public String getDescription() {
@@ -139,7 +175,75 @@ public class Duke {
         @Override
         public String toString() {
             String status = isDone ? "[X]" : "[ ]";
-            return status + " " + description;
+//            return status + " " + description;
+            return "[" + getType() + "]" + status + " " + description;
+        }
+
+    }
+
+    public class Todo extends Task {
+
+        public Todo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String getType() {
+            return "T";
+        }
+    }
+
+    public class Deadline extends Task {
+
+        private String ddl;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.ddl = by;
+        }
+
+        public String getDdl() {
+            return ddl;
+        }
+
+        @Override
+        public String getType() {
+            return "D";
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " (by: " + ddl + ")";
+        }
+    }
+
+    public class Event extends Task {
+
+        private String start;
+        private String end;
+
+        public Event(String description, String start, String end) {
+            super(description);
+            this.start = start;
+            this.end = end;
+        }
+
+        public String getStart() {
+            return start;
+        }
+
+        public String getEnd() {
+            return end;
+        }
+
+        @Override
+        public String getType() {
+            return "E";
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " (from: " + start + " to: " + end + ")";
         }
     }
 }
