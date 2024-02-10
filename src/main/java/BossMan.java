@@ -34,14 +34,19 @@ public class BossMan {
                 System.out.println("Invalid todo command format\n" + SEP);
             } catch (InvalidDeadlineCommandException e) {
                 System.out.println("Invalid deadline command format\n" + SEP);
+            } catch (InvalidEventCommandException e) {
+                System.out.println("Invalid event command format\n" + SEP);
             }
-
-
 
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 
-    private void processUserInput(String userInput) throws UnknownCommandException, InvalidTodoCommandException, InvalidDeadlineCommandException{
+    private void processUserInput(String userInput)
+            throws UnknownCommandException,
+            InvalidTodoCommandException,
+            InvalidDeadlineCommandException,
+            InvalidEventCommandException{
+
         String[] parts = parseUserInput(userInput);
 
         if (parts.length == 0) {
@@ -127,19 +132,21 @@ public class BossMan {
         echo(deadlineTask);
     }
 
-    private void handleEventCommand(String commandArgs) {
+    private void handleEventCommand(String commandArgs) throws InvalidEventCommandException{
         String[] eventArgParts = commandArgs.split("/from", 2);
-        if (eventArgParts.length == 2) {
-            String description = eventArgParts[0];
-            String[] eventArgTimeParts = eventArgParts[1].split("/to", 2);
-            String from = eventArgTimeParts[0];
-            String to = eventArgTimeParts[1];
-            Task eventTask = new Event(description, from, to);
-            TASK_LIST.addTask(eventTask);
-            echo(eventTask);
-        } else {
-            System.out.println("Invalid event command format\n" + SEP);
+        if (eventArgParts.length != 2 || eventArgParts[0].isBlank()){
+            throw new InvalidEventCommandException();
         }
+        String description = eventArgParts[0];
+        String[] eventArgTimeParts = eventArgParts[1].split("/to", 2);
+        if (eventArgTimeParts.length != 2){
+            throw new InvalidEventCommandException();
+        }
+        String from = eventArgTimeParts[0];
+        String to = eventArgTimeParts[1];
+        Task eventTask = new Event(description, from, to);
+        TASK_LIST.addTask(eventTask);
+        echo(eventTask);
     }
 
     private void echo(Task task) {
