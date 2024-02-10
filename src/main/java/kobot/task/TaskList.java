@@ -1,3 +1,10 @@
+package kobot.task;
+
+import kobot.task.Deadline;
+import kobot.task.Event;
+import kobot.task.Task;
+import kobot.task.ToDo;
+
 public class TaskList {
     private static final int MAX_TASK_COUNT = 100;
     private Task[] taskList = new Task[MAX_TASK_COUNT];
