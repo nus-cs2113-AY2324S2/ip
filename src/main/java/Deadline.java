@@ -1,9 +1,8 @@
 public class Deadline extends Task {
 
-    protected String by;
-
     public Deadline(String description) {
         super(description);
+        // set marker as [D] for printing.
         this.taskType = "[D]";
     }
 
