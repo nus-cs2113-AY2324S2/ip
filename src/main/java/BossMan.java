@@ -32,6 +32,8 @@ public class BossMan {
                 System.out.println("Unknown command\n" + SEP);
             } catch (InvalidTodoCommandException e) {
                 System.out.println("Invalid todo command format\n" + SEP);
+            } catch (InvalidDeadlineCommandException e) {
+                System.out.println("Invalid deadline command format\n" + SEP);
             }
 
 
@@ -39,7 +41,7 @@ public class BossMan {
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 
-    private void processUserInput(String userInput) throws UnknownCommandException, InvalidTodoCommandException{
+    private void processUserInput(String userInput) throws UnknownCommandException, InvalidTodoCommandException, InvalidDeadlineCommandException{
         String[] parts = parseUserInput(userInput);
 
         if (parts.length == 0) {
@@ -113,17 +115,16 @@ public class BossMan {
         echo(todoTask);
     }
 
-    private void handleDeadlineCommand(String commandArgs) {
+    private void handleDeadlineCommand(String commandArgs) throws InvalidDeadlineCommandException{
         String[] deadlineArgParts = commandArgs.split("/by", 2);
-        if (deadlineArgParts.length == 2) {
-            String description = deadlineArgParts[0];
-            String deadline = deadlineArgParts[1];
-            Task deadlineTask = new Deadline(description, deadline);
-            TASK_LIST.addTask(deadlineTask);
-            echo(deadlineTask);
-        } else {
-            System.out.println("Invalid deadline command format\n" + SEP);
+        if (deadlineArgParts.length != 2 || deadlineArgParts[0].isBlank()) {
+            throw new InvalidDeadlineCommandException();
         }
+        String description = deadlineArgParts[0];
+        String deadline = deadlineArgParts[1];
+        Task deadlineTask = new Deadline(description, deadline);
+        TASK_LIST.addTask(deadlineTask);
+        echo(deadlineTask);
     }
 
     private void handleEventCommand(String commandArgs) {
