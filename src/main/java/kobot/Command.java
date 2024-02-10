@@ -1,3 +1,7 @@
+package kobot;
+
+import kobot.task.TaskList;
+
 public class Command {
     private Boolean isExit;
     private String command;
