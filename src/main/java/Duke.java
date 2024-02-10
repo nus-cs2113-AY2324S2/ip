@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Duke  {
-
     private static final Task[] tasks = new Task[100];
     private static int taskCount = 0;
     public static void addTask(Task t) {
@@ -31,7 +30,6 @@ public class Duke  {
         System.out.println("Hello from\n" + logo);
         Greet greet = new Greet();
         greet.sayHello();
-
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -115,6 +113,5 @@ public class Duke  {
             }
         }
         greet.sayBye();
-
     }
 }

@@ -16,7 +16,6 @@ public class Task {
     }
 
     public void setIsNotDone() {
-
         this.isDone = false;
     }
 
