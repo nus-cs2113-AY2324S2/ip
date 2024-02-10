@@ -1,10 +1,8 @@
 package geepee;
 
 import java.util.Scanner;
-
-import geepee.list.List;
-import geepee.list.ListMessage;
 import geepee.system.SystemMessage;
+import geepee.list.*;
 
 public class GeePee {
     

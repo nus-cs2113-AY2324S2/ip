@@ -1,7 +1,7 @@
 package geepee.system;
 
 public class SystemMessage {
-    
+
     public static void printWelcomeMessage() {
         printHorizontalLine();
         System.out.println("    Hello! I'm GeePee, your friendly chatbot assistant!");

@@ -1,13 +1,10 @@
 package geepee.list;
 
 import geepee.system.SystemMessage;
-import geepee.task.Deadline;
-import geepee.task.Event;
-import geepee.task.Task;
-import geepee.task.Todo;
+import geepee.task.*;
 
 public class List {
-    
+
     protected Task[] tasks;
     protected int size;
 

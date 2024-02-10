@@ -14,7 +14,7 @@ public class ListMessage {
         System.out.println("    Now you have " + size + " task" + (size == 1 ? "" : "s")  + " in the list.");
     }
 
-    public static void printTaskStatusMessage(boolean isDone, Task task) {
+    protected static void printTaskStatusMessage(boolean isDone, Task task) {
         if (isDone) {
             System.out.println("    Nice! I've marked this task as done:");
         } else {
@@ -23,7 +23,7 @@ public class ListMessage {
         System.out.println("      " + task);
     }
 
-    public static void printAfterAddingTask(int size, Task task) {
+    protected static void printAfterAddingTask(int size, Task task) {
         SystemMessage.printHorizontalLine();
         printTaskAddedMessage(task);
         printListSummary(size);
