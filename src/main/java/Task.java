@@ -1,7 +1,7 @@
 public class Task {
     public String description;
     public Boolean isDone;
-    public String taskType;
+    public TaskType taskType;
 
     Task() {
         this.description = "";
@@ -16,24 +16,48 @@ public class Task {
         System.out.println(Humi.LINE);
     }
 
-    public void print() {
+    public void printTaskType() {
+        switch (taskType) {
+        case TODO:
+            System.out.print("[T]");
+            break;
+        case DEADLINE:
+            System.out.print("[D]");
+            break;
+        case EVENT:
+            System.out.print("[E]");
+            break;
+        }
+    }
+
+    public void printMark() {
         String mark = (isDone) ? "[X] " : "[ ] ";
-        System.out.println("[" + this.taskType + "]" + mark + description);
+        System.out.print(mark);
+    }
+
+    public void print() {
+        printTaskType();
+        printMark();
+        System.out.println(description);
     }
 
     public void mark() {
         isDone = true;
         System.out.println(Humi.LINE);
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("     [" + this.taskType + "]" + "[X] " + description);
+        System.out.print("     Nice! I've marked this task as done:\n     ");
+        printTaskType();
+        printMark();
+        System.out.println(description);
         System.out.println(Humi.LINE);
     }
 
     public void unmark() {
         isDone = false;
         System.out.println(Humi.LINE);
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("     [" + this.taskType + "]" + "[ ] " + description);
+        System.out.print("     OK, I've marked this task as not done yet:\n     ");
+        printTaskType();
+        printMark();
+        System.out.println(description);
         System.out.println(Humi.LINE);
     }
 }
