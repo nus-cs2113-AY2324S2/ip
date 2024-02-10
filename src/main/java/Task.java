@@ -7,15 +7,28 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); 
+        return (isDone ? "✓" : " ");
     }
 
     public void markAsDone() {
-        this.isDone = true; 
+
+        this.isDone = true;
     }
 
     public void markAsUndone() {
-        this.isDone = false; 
+        this.isDone = false;
+    }
+
+    public String getTaskIcon() {
+        return "";
+    }
+
+    public String getTimespan() {
+        return "";
     }
 }
