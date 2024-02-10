@@ -26,7 +26,7 @@ public class Bart {
                     listTasks();
                     break;
                 case "bye":
-                    break; // Exit the loop
+                    break;
                 default:
                     handleMarking(command);
                     break;
@@ -36,29 +36,28 @@ public class Bart {
 
     private static void handleMarking(String command) {
         if (command.startsWith("mark")) {
-            markTask(command);
+            markTask(command, true);
         } else if (command.startsWith("unmark")) {
-            unmarkTask(command);
+            markTask(command, false);
         } else {
             addNewTask(command);
         }
     }
 
     private static void addNewTask(String command) {
-        String taskDescription = command.substring(command.indexOf(' ') + 1);
         if (taskCount < tasksArray.length) {
             switch (command.split(" ")[0]) {
                 case "todo":
-                    tasksArray[taskCount] = new Todo(taskDescription);
+                    tasksArray[taskCount] = new Todo(command);
                     break;
                 case "deadline":
-                    tasksArray[taskCount] = new Deadline(taskDescription);
+                    tasksArray[taskCount] = new Deadline(command);
                     break;
                 case "event":
-                    tasksArray[taskCount] = new Event(taskDescription);
+                    tasksArray[taskCount] = new Event(command);
                     break;
                 default:
-                    tasksArray[taskCount] = new Task(taskDescription);
+                    tasksArray[taskCount] = new Task(command);
                     break;
             }
             tasksArray[taskCount].printT(taskCount);
@@ -76,31 +75,22 @@ public class Bart {
         }
 
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasksArray[i].getTaskMark() + " " + tasksArray[i].description);
+            System.out.println((i + 1) + "." + tasksArray[i].toString());
         }
         System.out.println(LINE);
     }
 
-    public static void markTask(String command) {
-        int taskIndex = Integer.parseInt(command.substring(5).trim()) - 1;
-
-        // Check if the task index is within the valid range
+    public static void markTask(String command, boolean mark) {
+        int taskIndex = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
         if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasksArray[taskIndex].markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasksArray[taskIndex].getTaskMark() + " " + tasksArray[taskIndex].description);
-        } else {
-            System.out.println("Invalid task number.");
-        }
-        System.out.println(LINE);
-    }
-
-    //similar to markTask
-    public static void unmarkTask(String command) {
-        int taskIndex = Integer.parseInt(command.substring(7).trim()) - 1;
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasksArray[taskIndex].markAsUndone();
-            System.out.println("OK, I've marked this task as not done yet:");
+            Task task = tasksArray[taskIndex];
+            if (mark) {
+                task.markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+            } else {
+                task.markAsUndone();
+                System.out.println("OK, I've marked this task as not done yet:");
+            }
             System.out.println(tasksArray[taskIndex].getTaskMark() + " " + tasksArray[taskIndex].description);
         } else {
             System.out.println("Invalid task number.");
