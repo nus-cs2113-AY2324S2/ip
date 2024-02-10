@@ -1,4 +1,12 @@
+package main.java.nyanbot;
+
 import java.util.Scanner;
+import main.java.task.Task;
+import main.java.task.Todo;
+import main.java.task.Deadline;
+import main.java.task.Event;
+import main.java.printer.Printer;
+
 public class NyanBot {
     private static final String LIST_COMMAND = "LIST";
     private static final String MARK_COMMAND = "MARK";
@@ -126,7 +134,7 @@ public class NyanBot {
                     addEvent(input);
                     break;
                 case HELP_COMMAND:
-
+                    Printer.printSike();
                     break;
                 default:
                     Printer.printInvalidInput();
