@@ -36,6 +36,8 @@ public class BossMan {
                 System.out.println("Invalid deadline command format\n" + SEP);
             } catch (InvalidEventCommandException e) {
                 System.out.println("Invalid event command format\n" + SEP);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid mark/unmark task command format\n" + SEP);
             }
 
         } while (!userInput.equalsIgnoreCase("bye"));
@@ -45,7 +47,8 @@ public class BossMan {
             throws UnknownCommandException,
             InvalidTodoCommandException,
             InvalidDeadlineCommandException,
-            InvalidEventCommandException{
+            InvalidEventCommandException,
+            NumberFormatException{
 
         String[] parts = parseUserInput(userInput);
 
@@ -94,21 +97,13 @@ public class BossMan {
     }
 
     private void handleMarkCommand(String commandArgs) {
-        try {
-            int number = Integer.parseInt(commandArgs);
-            TASK_LIST.markTask(number);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid number format\n" + SEP);
-        }
+        int number = Integer.parseInt(commandArgs);
+        TASK_LIST.markTask(number);
     }
 
-    private void handleUnmarkCommand(String commandArgs) {
-        try {
-            int number = Integer.parseInt(commandArgs);
-            TASK_LIST.unmarkTask(number);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid number format\n" + SEP);
-        }
+    private void handleUnmarkCommand(String commandArgs) throws NumberFormatException{
+        int number = Integer.parseInt(commandArgs);
+        TASK_LIST.unmarkTask(number);
     }
 
     private void handleTodoCommand(String commandArgs) throws InvalidTodoCommandException{
