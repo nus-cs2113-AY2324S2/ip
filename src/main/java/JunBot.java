@@ -6,11 +6,10 @@ public class JunBot {
     public static Task[] tasks = new Task[100];
     public static int tasksCount = 0;
 
-    public static void addEvent(String description) {
+    public static void addEvent(String description) throws InvalidInputException {
         description = description.replace("event", "").trim();
         if (!description.contains("/from") || !description.contains("/to")) {
-            System.out.println("Include a /from and /to for event");
-            return;
+            throw new InvalidInputException("Include a /from and /to for event");
         }
 
         String[] details = new String[3];
@@ -28,11 +27,10 @@ public class JunBot {
 
     }
 
-    public static void addDeadline(String description) {
+    public static void addDeadline(String description) throws InvalidInputException {
         description = description.replace("deadline", "").trim();
         if (!description.contains("/by")) {
-            System.out.println("Include a /by for deadline");
-            return;
+            throw new InvalidInputException("Include a /by for deadline");
         }
 
         String[] details = new String[2];
@@ -48,8 +46,12 @@ public class JunBot {
 
     }
 
-    public static void addTodo(String description) {
+    public static void addTodo(String description) throws InvalidInputException {
         description = description.replace("todo", "").trim();
+        if(description.isEmpty()){
+            throw new InvalidInputException("Please state a task : todo <task>");
+        }
+
         Task userTask = new Todo(description);
         tasks[tasksCount] = userTask;
         tasksCount++;
@@ -136,30 +138,34 @@ public class JunBot {
         Scanner userInputScanner = new Scanner(System.in);
         String userInput = userInputScanner.nextLine();
 
-        while (!userInput.equals("bye")){
+        while (!userInput.equals("bye")) {
             String command = getCommand(userInput);
-            switch (command) {
-            case "list" :
-                printList();
-                break;
-            case "mark" :
-                markTaskInList(userInput);
-                break;
-            case "unmark":
-                unmarkTaskInList(userInput);
-                break;
-            case "todo" :
-                addTodo(userInput);
-                break;
-            case "deadline" :
-                addDeadline(userInput);
-                break;
-            case "event" :
-                addEvent(userInput);
-                break;
-            default :
-                System.out.println("Enter a valid command");
-                break;
+            try {
+                switch (command) {
+                case "list":
+                    printList();
+                    break;
+                case "mark":
+                    markTaskInList(userInput);
+                    break;
+                case "unmark":
+                    unmarkTaskInList(userInput);
+                    break;
+                case "todo":
+                    addTodo(userInput);
+                    break;
+                case "deadline":
+                    addDeadline(userInput);
+                    break;
+                case "event":
+                    addEvent(userInput);
+                    break;
+                default:
+                    System.out.println("Enter a valid command");
+                    break;
+                }
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
             }
             userInput = userInputScanner.nextLine();
         }
