@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 public class Humi {
-    public static final String LINE = "    ____________________________________________________________";
-        //    String logo = " ____        _        \n"
-        //                + "|  _ \\ _   _| | _____ \n"
-        //                + "| | | | | | | |/ / _ \\\n"
-        //                + "| |_| | |_| |   <  __/\n"
-        //                + "|____/ \\__,_|_|\\_\\___|\n";
+    public static final String LINE = "    ____________________";
+    //    String logo = " __        _        \n"
+    //                + "|  _ \\ _   | | __ \n"
+    //                + "| | | | | | | |/ / _ \\\n"
+    //                + "| || | || |   <  __/\n"
+    //                + "|_/ \\,||\\\\_|\n";
     public static void main(String[] args) {
         System.out.println(LINE);
         System.out.println("     Hello! I'm Humi");
@@ -20,6 +20,9 @@ public class Humi {
             taskManager.handleCommand(input);
             input = in.nextLine();
         }
+
+        System.out.println(LINE);
         System.out.println("     Bye. Hope to see you again soon!");
+        System.out.println(LINE);
     }
 }
