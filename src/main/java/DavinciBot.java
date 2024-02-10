@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class DavinciBot {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
+    public static final int SPLIT_INTO_TWO_PARTS = 2;
 
     /**
      * Selects the icon corresponding to the type of task inputted by the user.
@@ -46,7 +47,7 @@ public class DavinciBot {
      * @param taskArray Array of tasks.
      */
     private static void completeTask(String userInput, Task[] taskArray) {
-        String[] parts = userInput.split(" ", 2);
+        String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < taskArray.length) {
@@ -71,7 +72,7 @@ public class DavinciBot {
      * @param taskArray Array of tasks.
      */
     private static void unmarkTask(String userInput, Task[] taskArray) {
-        String[] parts = userInput.split(" ", 2);
+        String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < taskArray.length) {
@@ -107,7 +108,7 @@ public class DavinciBot {
             echoTask(taskArray);
             break;
         case "deadline":
-            String[] deadlineParts = description.split("/by", 2);
+            String[] deadlineParts = description.split("/by", SPLIT_INTO_TWO_PARTS);
             if (deadlineParts.length == 2) {
                 taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
                 taskArray[taskArray.length - 1] = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
@@ -117,9 +118,9 @@ public class DavinciBot {
             }
             break;
         case "event":
-            String[] eventParts = description.split("/from", 2);
+            String[] eventParts = description.split("/from", SPLIT_INTO_TWO_PARTS);
             if (eventParts.length == 2) {
-                String[] eventTimeParts = eventParts[1].split("/to", 2);
+                String[] eventTimeParts = eventParts[1].split("/to", SPLIT_INTO_TWO_PARTS);
                 if (eventTimeParts.length == 2) {
                     taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
                     taskArray[taskArray.length - 1] = new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim());
@@ -202,7 +203,7 @@ public class DavinciBot {
             }
         }
     }
-    
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Task[] taskArray = new Task[0];
