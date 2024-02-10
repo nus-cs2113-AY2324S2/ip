@@ -1,7 +1,10 @@
+package geepee;
+
 import java.util.Scanner;
+import geepee.task.List;
 
 public class GeePee {
-
+    
     //constant to determine required padding to extract the name of a Todo object
     public static final int TODO_PADDING = 5;
 
@@ -45,7 +48,7 @@ public class GeePee {
         }
     }
 
-    public static void loop() {
+    public static void getUserInput() {
         List list = new List();
         String line = "";
         Scanner in = new Scanner(System.in);
@@ -67,14 +70,14 @@ public class GeePee {
         }
     }
 
-    public static void greetUser() {
+    public static void printWelcomeMessage() {
         printHorizontalLine();
         System.out.println("    Hello! I'm GeePee, your friendly chatbot assistant!");
         System.out.println("    What can I do for you?");
         printHorizontalLine();
     }
 
-    public static void exitMessage() {
+    public static void printExitMessage() {
         printHorizontalLine();
         System.out.println("    Bye! Hope to see you again soon!");
         printHorizontalLine();
@@ -85,8 +88,9 @@ public class GeePee {
     }
 
     public static void main(String[] args) {
-        greetUser();
-        loop();
-        exitMessage();
+        printWelcomeMessage();
+        getUserInput();
+        printExitMessage();
     }
+    
 }

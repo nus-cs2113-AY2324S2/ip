@@ -1,3 +1,5 @@
+package geepee.task;
+
 public class Task {
 
     protected String name;

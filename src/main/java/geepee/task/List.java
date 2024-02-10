@@ -1,3 +1,5 @@
+package geepee.task;
+
 public class List {
     
     private Task[] tasks;
@@ -67,11 +69,7 @@ public class List {
     }
 
     private void printListSummary() {
-        if (size == 1) {
-            System.out.println("    Now you have " + size + " task in the list.");
-        } else {
-            System.out.println("    Now you have " + size + " tasks in the list.");
-        }
+        System.out.println("    Now you have " + size + " task" + (size == 1 ? "" : "s")  + " in the list.");
     }
 
     private void printHorizontalLine() {
