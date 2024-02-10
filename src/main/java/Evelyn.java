@@ -5,22 +5,30 @@ public class Evelyn {
     public static Task[] tasks;
     public static int indexOfTask = 0;
 
-    public static void markTask(int index, boolean done) {
-        if (index >= 0 && index < indexOfTask) {
-            if (done) {
+    public static void markTask(int index, boolean done) throws invalidIndex, RepeatMark, RepeatUnmark {
+        if(index < 0 || index >= indexOfTask){
+            throw new invalidIndex();
+        }
+
+        if (done) {
+            try {
                 tasks[index].markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-            } else {
+            } catch(RepeatMark e){
+                System.out.println("This task is already marked as done.");
+            }
+        } else {
+            try {
                 tasks[index].markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
+            } catch(RepeatUnmark e){
+                System.out.println("This task is already unmarked as not done.");
             }
-            System.out.println("  " + tasks[index].getStatusIcon() + " "
-                               + tasks[index].description);
-            printLine();
-        } else {
-            System.out.println("Invalid task index. Please try again.");
-            printLine();
         }
+        System.out.println("  " + tasks[index].getStatusIcon() + " "
+                               + tasks[index].description);
+        printLine();
+
     }
 
     public static void printList(Task[] tasks){
@@ -51,7 +59,13 @@ public class Evelyn {
         } else if (line.startsWith("mark")) {
             try {
                 int index = Integer.parseInt(line.substring(5).trim()) - 1;
-                markTask(index, true);
+                try {
+                    markTask(index, true);
+                } catch (invalidIndex e){
+                    System.out.println("Invalid task index, please try again!");
+                } catch (RepeatMark | RepeatUnmark e){
+                    System.out.println("This task is already marked.");
+                }
             } catch (NumberFormatException e){
                 System.out.println("Please key in a number after 'mark'");
             }
@@ -59,7 +73,15 @@ public class Evelyn {
         } else if (line.startsWith("unmark")) {
             try {
                 int index = Integer.parseInt(line.substring(7).trim()) - 1;
-                markTask(index, false);
+                try {
+                    markTask(index, false);
+                }
+                catch (RepeatMark | RepeatUnmark e){
+                    System.out.println("This task is already marked.");
+                }
+                catch(invalidIndex e){
+                    System.out.println("Invalid task index, please try again!");
+                }
             } catch(NumberFormatException e){
                 System.out.println("Please key in a number after 'unmark'");
             }

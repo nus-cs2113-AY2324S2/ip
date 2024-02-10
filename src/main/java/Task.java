@@ -24,11 +24,17 @@ public class Task {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
-    public void markAsDone() {
+    public void markAsDone() throws RepeatMark {
+        if(isDone){
+            throw new RepeatMark();
+        }
         isDone = true;
     }
 
-    public void markAsNotDone() {
+    public void markAsNotDone() throws RepeatUnmark {
+        if(!isDone){
+            throw new RepeatUnmark();
+        }
         isDone = false;
     }
 }
