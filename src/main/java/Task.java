@@ -3,7 +3,7 @@ public class Task {
     private boolean isDone;
 
     public Task() {
-        this.name = "placeholder";
+        this("placeholder");
         this.isDone = false;
     }
 

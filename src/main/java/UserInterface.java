@@ -11,25 +11,27 @@ public class UserInterface {
     }
 
     public void processInput() {
-        String input = reader.nextLine();
-        if (input.contains("unmark")) {
-            int taskIndex = Character.getNumericValue(input.charAt(INDEX_MARK_NOT_DONE)) - 1;
-            taskManager.markTask(taskIndex, false);
-        } else if (input.contains("mark")) {
-            int taskIndex = Character.getNumericValue(input.charAt(INDEX_MARK_DONE)) - 1;
-            taskManager.markTask(taskIndex, true);
-        } else {
-            switch (input) {
-            case "bye":
-                return;
-            case "list":
-                taskManager.listTasks();
-                break;
-            default:
-                taskManager.addTask(input);
-                //Fallthrough
+        while (true) {
+            String input = reader.nextLine();
+            String command = input.split(" ")[0];
+            if (command.equals("unmark")) {
+                int taskIndex = Character.getNumericValue(input.charAt(INDEX_MARK_NOT_DONE)) - 1;
+                taskManager.markTask(taskIndex, false);
+            } else if (command.equals("mark")) {
+                int taskIndex = Character.getNumericValue(input.charAt(INDEX_MARK_DONE)) - 1;
+                taskManager.markTask(taskIndex, true);
+            } else {
+                switch (input) {
+                case "bye":
+                    return;
+                case "list":
+                    taskManager.listTasks();
+                    break;
+                default:
+                    taskManager.addTask(input);
+                    //Fallthrough
+                }
             }
         }
-        processInput();
     }
 }

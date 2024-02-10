@@ -3,8 +3,12 @@ public class Dor {
 
         System.out.println("Hello! I'm Dor");
         System.out.println("What can I do for you?");
+        startListening();
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static void startListening() {
         UserInterface UI = new UserInterface();
         UI.processInput();
-        System.out.println("Bye. Hope to see you again soon!");
     }
 }
