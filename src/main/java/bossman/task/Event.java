@@ -1,3 +1,4 @@
+package bossman.task;
 public class Event extends Todo {
     private final String TYPE_SYMBOL = "[E]";
     private final String FROM;

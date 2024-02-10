@@ -1,3 +1,4 @@
+package bossman.task;
 public abstract class Task {
     private boolean isMark;
     private final String DESCRIPTION;

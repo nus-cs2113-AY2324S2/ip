@@ -1,3 +1,4 @@
+package bossman.task;
 public class Deadline extends Todo {
     private final String TYPE_SYMBOL = "[D]";
     private final String BY;

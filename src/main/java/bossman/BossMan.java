@@ -1,4 +1,16 @@
+package bossman;
+
 import java.util.Scanner;
+import bossman.task.Task;
+import bossman.task.TaskList;
+import bossman.task.Event;
+import bossman.task.Todo;
+import bossman.task.Deadline;
+import bossman.exceptions.commandexceptions.InvalidEventCommandException;
+import bossman.exceptions.commandexceptions.InvalidDeadlineCommandException;
+import bossman.exceptions.commandexceptions.InvalidTodoCommandException;
+import bossman.exceptions.commandexceptions.UnknownCommandException;
+
 
 public class BossMan {
     private static final String SEP = "____________________________________________________________";
