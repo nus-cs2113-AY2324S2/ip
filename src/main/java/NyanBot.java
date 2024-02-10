@@ -7,6 +7,7 @@ public class NyanBot {
     private static final String DEADLINE_COMMAND = "DEADLINE";
     private static final String EVENT_COMMAND = "EVENT";
     private static final String BYE_COMMAND = "BYE";
+    private static final String HELP_COMMAND = "HELP";
     private static String LINE = "____________";
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
@@ -123,6 +124,9 @@ public class NyanBot {
                     break;
                 case EVENT_COMMAND:
                     addEvent(input);
+                    break;
+                case HELP_COMMAND:
+
                     break;
                 default:
                     Printer.printInvalidInput();

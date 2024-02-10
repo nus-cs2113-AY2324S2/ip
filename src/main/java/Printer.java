@@ -1,5 +1,6 @@
 public class Printer {
     protected static final String LINE = "____________________";
+    protected static final String SIKE_MESSAGE = "lmao u got siked wwwwwwwwww";
     protected static final String MARK_MESSAGE = "はい、markしました！";
     protected static final String UNMARK_MESSAGE = "はい、UN-markしました！";
     protected static final String MARK_USAGE_MESSAGE = "使い方：mark [index]";
@@ -109,6 +110,11 @@ public class Printer {
     public static void printInvalidInput() {
         System.out.println(INVALID_INPUT_MESSAGE);
         System.out.println(HELP_MESSAGE);
+        System.out.println(LINE);
+    }
+
+    public static void printSike() {
+        System.out.println(SIKE_MESSAGE);
         System.out.println(LINE);
     }
 }
