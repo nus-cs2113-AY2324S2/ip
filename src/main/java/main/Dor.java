@@ -1,3 +1,7 @@
+package main;
+
+import logic.UserInterface;
+
 public class Dor {
     public static void main(String[] args) {
 
