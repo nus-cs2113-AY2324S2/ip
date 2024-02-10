@@ -148,7 +148,7 @@ public class Command {
             try {
                 taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
             } catch (NumberFormatException exception ) {
-                ui.printMarkCommandUsage();
+                ui.printUnmarkCommandUsage();
             }
             break;
 

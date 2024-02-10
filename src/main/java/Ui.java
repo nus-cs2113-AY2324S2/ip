@@ -59,6 +59,11 @@ public class Ui {
     
     public void printMarkCommandUsage() {
         System.out.println("Command to mark task as completed:");
-        System.out.println("event <description> /from <datetime> /to <datetime>");
+        System.out.println("mark <task index>");
+    }
+
+    public void printUnmarkCommandUsage() {
+        System.out.println("Command to mark task as not completed:");
+        System.out.println("unmark <task index>");
     }
 }
