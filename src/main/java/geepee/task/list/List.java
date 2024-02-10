@@ -13,20 +13,20 @@ public class List {
         size = 0;
     }
 
-    public void addTodo(String name) {
-        tasks[size] = new Todo(name);
+    public void addTodo(String description) {
+        tasks[size] = new Todo(description);
         size++;
         ListMessage.printAfterAddingTask(size, tasks[size - 1]);
     }
 
-    public void addDeadline(String name, String by) {
-        tasks[size] = new Deadline(name, by);
+    public void addDeadline(String description, String by) {
+        tasks[size] = new Deadline(description, by);
         size++;
         ListMessage.printAfterAddingTask(size, tasks[size - 1]);
     }
 
-    public void addEvent(String name, String from, String to) {
-        tasks[size] = new Event(name, from, to);
+    public void addEvent(String description, String from, String to) {
+        tasks[size] = new Event(description, from, to);
         size++;
         ListMessage.printAfterAddingTask(size, tasks[size - 1]);
     }

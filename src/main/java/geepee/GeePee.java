@@ -7,49 +7,39 @@ import geepee.exceptions.*;
 
 public class GeePee {
 
-    // constant to determine required padding to extract the name of a Todo object
-    public static final int TODO_PADDING = 5;
-
-    // constants to determine required padding to extract the name of a Deadline
-    // object, and when it needs to be completed by
-    public static final int DEADLINE_PADDING = 9;
-    public static final int BY_PADDING = 4;
-
     // constants to determine required padding to extract the name of a Event
     // object, and when it starts and ends
-    public static final int EVENT_PADDING = 6;
-    public static final int FROM_PADDING = 6;
-    public static final int TO_PADDING = 4;
+    private static final int EVENT_PADDING = 6;
+    private static final int FROM_PADDING = 6;
+    private static final int TO_PADDING = 4;
 
-    public static void handleTodo(List list, String line) {
+    private static void handleTodo(List list, String line) {
         try {
-            InputHandler.checkTodoInputValidity(line);
+            String todoDescription = InputParser.getTodoDescription(line);
+            list.addTodo(todoDescription);
         } catch (EmptyDescriptionException e) {
-            SystemMessage.printEmptyDescriptionMessage();
-            return;
+            SystemMessage.printEmptyTodoDescriptionMessage();
         }
-        String todoName = line.substring(TODO_PADDING).trim();
-        list.addTodo(todoName);
     }
 
-    public static void handleDeadline(List list, String line) {
+    private static void handleDeadline(List list, String line) {
         try {
-            InputHandler.checkDeadlineInputValidity(line);
+            int byIndex = line.indexOf("/by");
+            String deadlineDescription = InputParser.getDeadlineDescription(line, byIndex);
+            String deadlineBy = InputParser.getDeadlineBy(line, byIndex);
+            list.addDeadline(deadlineDescription, deadlineBy);
         } catch (EmptyDescriptionException e) {
-            SystemMessage.printEmptyDescriptionMessage();
-            return;
+            SystemMessage.printEmptyDeadlineDescriptionMessage();
+        } catch (MissingDeadlineException e) {
+            SystemMessage.printMissingDeadlineMessage();
         }
-        int byIndex = line.indexOf("/");
-        String by = line.substring(byIndex + BY_PADDING).trim();
-        String deadlineName = line.substring(DEADLINE_PADDING, byIndex).trim();
-        list.addDeadline(deadlineName, by);
     }
 
-    public static void handleEvent(List list, String line) {
+    private static void handleEvent(List list, String line) {
         try {
-            InputHandler.checkEventInputValidity(line);
+            InputParser.checkValidEventDescription(line);
         } catch (EmptyDescriptionException e) {
-            SystemMessage.printEmptyDescriptionMessage();
+            SystemMessage.printEmptyEventDescriptionMessage();
             return;
         }
         int fromIndex = line.indexOf("/");
@@ -60,7 +50,7 @@ public class GeePee {
         list.addEvent(eventName, from, to);
     }
 
-    public static void handleTaskStatusChange(List list, String line) {
+    private static void handleTaskStatusChange(List list, String line) {
         String[] words = line.split(" ");
         int number = Integer.parseInt(words[1]);
         if (number >= 0 && number <= list.getSize()) {
@@ -68,7 +58,7 @@ public class GeePee {
         }
     }
 
-    public static void handleUserInput(List list, String line) throws InvalidCommandException {
+    private static void handleUserInput(List list, String line) throws InvalidCommandException {
         String command = line.split(" ")[0];
         if (command.equals("") || command.equals("bye")) {
             return;
@@ -87,7 +77,7 @@ public class GeePee {
         }
     }
 
-    public static void initialiseLoop() {
+    private static void initialiseLoop() {
         Scanner in = new Scanner(System.in);
         List list = new List();
         String line = "";

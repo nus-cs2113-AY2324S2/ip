@@ -2,6 +2,10 @@ package geepee.system;
 
 public class SystemMessage {
 
+    public static final String TODO_TEMPLATE = "\"todo {description}\"";
+    public static final String DEADLINE_TEMPLATE = "\"deadline {description} /by {deadline}\"";
+    public static final String EVENT_TEMPLATE = "\"event {description} /from {from} /to {to}\"";
+
     public static void printHorizontalLine() {
         System.out.println("    ________________________________________________");
     }
@@ -21,14 +25,35 @@ public class SystemMessage {
 
     public static void printInvalidCommandMessage() {
         printHorizontalLine();
-        System.out.println("    Invalid command! Valid commands are: todo, event, deadline, list.");
+        System.out.println("    Invalid command! Valid commands are: todo, event, deadline, list");
         printHorizontalLine();
     }
 
-    public static void printEmptyDescriptionMessage() {
+    public static void printEmptyTodoDescriptionMessage() {
         printHorizontalLine();
-        System.out.println("    The description of a task cannot be empty! The correct input" +
-                " is \"{command} {description}\".");
+        System.out.println("    The description of a todo cannot be empty! The correct input is " +
+                TODO_TEMPLATE);
+        printHorizontalLine();
+    }
+
+    public static void printEmptyDeadlineDescriptionMessage() {
+        printHorizontalLine();
+        System.out.println("    The description of a deadline cannot be empty! The correct input is " +
+                DEADLINE_TEMPLATE);
+        printHorizontalLine();
+    }
+
+    public static void printMissingDeadlineMessage() {
+        printHorizontalLine();
+        System.out.println("    The deadline of the task is missing! The correct input is " +
+                DEADLINE_TEMPLATE);
+        printHorizontalLine();
+    }
+
+    public static void printEmptyEventDescriptionMessage() {
+        printHorizontalLine();
+        System.out.println("    The description of an event cannot be empty! The correct input is " +
+                EVENT_TEMPLATE);
         printHorizontalLine();
     }
 }

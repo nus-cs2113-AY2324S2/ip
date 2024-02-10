@@ -2,11 +2,11 @@ package geepee.task;
 
 public abstract class Task {
 
-    protected String name;
+    protected String description;
     protected boolean isDone;
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         isDone = false;
     }
 
@@ -19,6 +19,6 @@ public abstract class Task {
     }
 
     public String toString() {
-        return String.format("[" + getStatusIcon() + "] " + name);
+        return String.format("[" + getStatusIcon() + "] " + description);
     }
 }
