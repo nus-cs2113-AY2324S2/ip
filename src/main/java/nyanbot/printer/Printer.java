@@ -1,6 +1,7 @@
-package main.java.printer;
+package nyanbot.printer;
 
-import main.java.task.Task;
+import nyanbot.task.Task;
+
 public class Printer {
     protected static final String LINE = "____________________";
     protected static final String SIKE_MESSAGE = "lmao u got siked wwwwwwwwww";

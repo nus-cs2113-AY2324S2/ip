@@ -1,4 +1,4 @@
-package main.java.task;
+package nyanbot.task;
 
 public class Deadline extends Task {
     private String date;

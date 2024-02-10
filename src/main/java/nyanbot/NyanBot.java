@@ -1,11 +1,11 @@
-package main.java.nyanbot;
+package nyanbot;
 
 import java.util.Scanner;
-import main.java.task.Task;
-import main.java.task.Todo;
-import main.java.task.Deadline;
-import main.java.task.Event;
-import main.java.printer.Printer;
+import nyanbot.task.Task;
+import nyanbot.task.Todo;
+import nyanbot.task.Deadline;
+import nyanbot.task.Event;
+import nyanbot.printer.Printer;
 
 public class NyanBot {
     private static final String LIST_COMMAND = "LIST";
