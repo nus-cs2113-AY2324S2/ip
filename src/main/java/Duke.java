@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    static ArrayList<String> enteredCommands=new ArrayList<String>();
+    static ArrayList<Task> enteredCommands=new ArrayList<Task>();
 
     public static void greet(){
         System.out.printf("%s%n", "    ____________________________________________________________");
@@ -46,15 +46,31 @@ public class Duke {
         else if(userCommand.equalsIgnoreCase("list")){
             System.out.printf("%s%n","    ____________________________________________________________");
             for(int i=0;i< enteredCommands.size();i++){
-                System.out.printf("     %d.%s%n",(i+1),enteredCommands.get(i));
+                System.out.printf("     %d.%s %s%n",(i+1),enteredCommands.get(i).getStatusIcon(),enteredCommands.get(i).getDescription());
             }
+            return false;
+        }
+        else if(userCommand.toUpperCase().contains("MARK") && !userCommand.toUpperCase().contains("UNMARK")){
+            int taskToMark=Integer.parseInt(userCommand.replaceAll("[^0-9]", ""))-1;
+            enteredCommands.get(taskToMark).markAsDone();
+            System.out.printf("%s%n","    ____________________________________________________________");
+            System.out.printf("     Nice! I've marked this task as done:%n       %s %s%n",
+                    enteredCommands.get(taskToMark).getStatusIcon(),enteredCommands.get(taskToMark).getDescription());
+            return false;
+        }
+        else if(userCommand.toUpperCase().contains("UNMARK")){
+            int taskToMark=Integer.parseInt(userCommand.replaceAll("[^0-9]", ""))-1;
+            enteredCommands.get(taskToMark).markAsNotDone();
+            System.out.printf("%s%n","    ____________________________________________________________");
+            System.out.printf("     OK, I've marked this task as not done yet:%n       %s %s%n",
+                    enteredCommands.get(taskToMark).getStatusIcon(),enteredCommands.get(taskToMark).getDescription());
             return false;
         }
 
         else{
             System.out.printf("%s%n","    ____________________________________________________________");
             System.out.printf("     added: %s%n",userCommand);
-            enteredCommands.add(userCommand);
+            enteredCommands.add(new Task(userCommand));
             return false;
         }
 
