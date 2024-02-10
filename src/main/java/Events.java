@@ -7,9 +7,10 @@ public class Events extends Task {
         this.from = from;
         this.to = to;
         this.type = TaskType.EVENT;
+        shortType = this.type.name().substring(0, 1);
     }
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + shortType + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

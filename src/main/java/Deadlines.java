@@ -4,9 +4,10 @@ public class Deadlines extends Task{
         super(description);
         this.by = by;
         this.type = TaskType.DEADLINE;
+        shortType = this.type.name().substring(0, 1);
     }
     @Override
     public String toString(){
-        return super.toString() + "(by: "+ by +")";
+        return "[" + shortType +"]" + super.toString() + "(by: "+ by +")";
     }
 }

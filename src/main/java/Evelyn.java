@@ -23,7 +23,7 @@ public class Evelyn {
         }
     }
 
-    public static void printList(Task[] tasks) {
+    public static void printList(Task[] tasks){
         int index = 1;
         for (Task task : tasks) {
             if (task == null) {
@@ -45,8 +45,9 @@ public class Evelyn {
         if (line.equals("bye")) {
             return;
         } else if (line.equals("list")) {
-            System.out.println("Here are the tasks in your list:");
-            printList(tasks);
+                System.out.println("Here are the tasks in your list:");
+                printList(tasks);
+
         } else if (line.startsWith("mark")) {
             try {
                 int index = Integer.parseInt(line.substring(5).trim()) - 1;
