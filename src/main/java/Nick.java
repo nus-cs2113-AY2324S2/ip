@@ -6,19 +6,20 @@ import java.util.logging.Logger;
 
 public class Nick {
     public static int taskCount = 0;
+    public static final int TOTAL_TASKS = 100;
     public static final int TO_OFFSET_IDX = 4;
     public static final int FROM_OFFSET_IDX = 6;
     public static final int DEADLINE_OFFSET_IDX = 4;
+    public static final String FORMAT_LINES = "____________________________________________________________";
     private static final Logger LOGGER = Logger.getLogger(Nick.class.getName());
 
     public static void main(String[] args) {
         UserInterface ui = new UserInterface();
-        ui.printIntroName();
         ui.printIntroMsg();
 
         boolean hasQuit = false;
         String command, commandAction;
-        Task[] userTasks = new Task[100];
+        Task[] userTasks = new Task[TOTAL_TASKS];
         Scanner input = new Scanner(System.in);
 
         while (input.hasNextLine()) {
@@ -27,11 +28,14 @@ public class Nick {
 
             switch (commandAction) {
             case "bye":
+                // Fallthrough
             case "list":
+                // Fallthrough
             case "mark":
+                // Fallthrough
             case "unmark":
-                boolean continueProgram = continueExecution(command, taskCount, userTasks, ui);
-                if (continueProgram) {
+                boolean isContinueProgram = continueExecution(command, taskCount, userTasks, ui);
+                if (isContinueProgram) {
                     continue;
                 }
                 hasQuit = true;
@@ -86,26 +90,34 @@ public class Nick {
             ui.printByeMsg();
             return false;
         case ("list"):
-            System.out.println("____________________________________________________________");
+            System.out.println(FORMAT_LINES);
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
                 System.out.println("\t" + Integer.toString(i + 1) + "." + userTasks[i]);
             }
-            System.out.println("____________________________________________________________");
+            System.out.println(FORMAT_LINES);
             break;
         case ("mark"):
             userTasks[Integer.parseInt(command.split(" ")[1]) - 1].markAsDone();
-            System.out.println("____________________________________________________________");
+            System.out.println(FORMAT_LINES);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("\t" + "[" + userTasks[Integer.parseInt(command.split(" ")[1]) - 1].getStatusIcon() + "] " + userTasks[Integer.parseInt(command.split(" ")[1]) - 1].description);
-            System.out.println("____________________________________________________________");
+            System.out.println("\t" +
+                    "[" +
+                    userTasks[Integer.parseInt(command.split(" ")[1]) - 1].getStatusIcon() +
+                    "] " +
+                    userTasks[Integer.parseInt(command.split(" ")[1]) - 1].description);
+            System.out.println(FORMAT_LINES);
             break;
         case ("unmark"):
             userTasks[Integer.parseInt(command.split(" ")[1]) - 1].markAsUndone();
-            System.out.println("____________________________________________________________");
+            System.out.println(FORMAT_LINES);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("\t" + "[" + userTasks[Integer.parseInt(command.split(" ")[1]) - 1].getStatusIcon() + "] " + userTasks[Integer.parseInt(command.split(" ")[1]) - 1].description);
-            System.out.println("____________________________________________________________");
+            System.out.println("\t" +
+                    "[" +
+                    userTasks[Integer.parseInt(command.split(" ")[1]) - 1].getStatusIcon() +
+                    "] " +
+                    userTasks[Integer.parseInt(command.split(" ")[1]) - 1].description);
+            System.out.println(FORMAT_LINES);
             break;
         }
 

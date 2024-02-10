@@ -35,6 +35,7 @@ public class UserInterface {
     }
 
     public void printIntroMsg() {
+        printIntroName();
         System.out.println("____________________________________________________________");
         System.out.println("Welcome to the Ultimate Nick Bot!");
         System.out.println("What can I do for you?\n");
