@@ -1,7 +1,10 @@
 package geepee;
 
 import java.util.Scanner;
-import geepee.task.List;
+
+import geepee.list.List;
+import geepee.list.ListMessage;
+import geepee.system.SystemMessage;
 
 public class GeePee {
     
@@ -57,7 +60,7 @@ public class GeePee {
             if (line.equals("") || line.equals("bye")) {
                 continue;
             } else if (line.startsWith("list")) {
-                list.printAllTasks();
+                ListMessage.printAllTasks(list);
             } else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 handleTaskStatusChange(list, line);
             } else if (line.startsWith("todo")) {
@@ -70,27 +73,10 @@ public class GeePee {
         }
     }
 
-    public static void printWelcomeMessage() {
-        printHorizontalLine();
-        System.out.println("    Hello! I'm GeePee, your friendly chatbot assistant!");
-        System.out.println("    What can I do for you?");
-        printHorizontalLine();
-    }
-
-    public static void printExitMessage() {
-        printHorizontalLine();
-        System.out.println("    Bye! Hope to see you again soon!");
-        printHorizontalLine();
-    }
-
-    public static void printHorizontalLine() {
-        System.out.println("    ________________________________________________");
-    }
-
     public static void main(String[] args) {
-        printWelcomeMessage();
+        SystemMessage.printWelcomeMessage();
         getUserInput();
-        printExitMessage();
+        SystemMessage.printExitMessage();
     }
     
 }
