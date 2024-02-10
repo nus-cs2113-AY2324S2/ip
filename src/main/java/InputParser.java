@@ -1,4 +1,6 @@
-public class Parser {
+public class InputParser {
+
+    // Parses user input
 
     // These are the prefix strings to define the data type of a command parameter
     private static final String TASK_DATA_PREFIX_DEADLINE = "/by ";
