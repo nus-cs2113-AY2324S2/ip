@@ -2,8 +2,8 @@ package geepee.task;
 
 public class Todo extends Task {
 
-    public Todo(String name) {
-        super(name);
+    public Todo(String description) {
+        super(description);
     }
 
     public String toString() {
