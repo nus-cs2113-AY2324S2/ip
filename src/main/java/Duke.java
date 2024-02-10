@@ -3,13 +3,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String botName = "Hirofumi";
-        System.out.println("************************************************************");
-        System.out.println(" Hello! I'm " + botName);
-        System.out.println(" What can I do for you?");
-        System.out.println("************************************************************");
-
-
+        Formatter.printWelcomeMsg();
         while (CommandExecutor.isRunning) {
 
             CommandExecutor.beginListening();

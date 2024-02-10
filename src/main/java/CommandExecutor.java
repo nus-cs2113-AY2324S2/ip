@@ -14,8 +14,7 @@ public class CommandExecutor {
 
     public static void executeCommand(CommandParser readUserCommand) {
         if (!readUserCommand.getIsGoodTokens()) {
-            System.out.println("CommandExecutor: Command could not be executed");
-            System.out.println("Try again");
+            Formatter.printErrorExecutionFail();
         } else {
             CommandList selectedCommand = CommandList.valueOf(readUserCommand.getCommandName());
             switch (selectedCommand) {
@@ -41,7 +40,7 @@ public class CommandExecutor {
                 CommandList.executeDeadline(readUserCommand);
                 break;
             default:
-                System.out.println("Unexpected error");
+                Formatter.printErrorUnknown();
             }
         }
     }

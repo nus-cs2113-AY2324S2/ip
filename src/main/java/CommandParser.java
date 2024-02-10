@@ -8,7 +8,7 @@ public class CommandParser {
         String commandToken = userInput.split(" ", 2)[0];
         String otherToken;
         if (!SyntaxChecker.validateCommandToken(commandToken)) {
-            System.out.println("CommandParser: Command not found");
+            Formatter.printErrorWrongCommand();
         } else if (!SyntaxChecker.hasArgument(userInput)) {
             commandName = commandToken.toUpperCase();
             isGoodTokens = true;
