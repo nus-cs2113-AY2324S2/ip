@@ -26,17 +26,34 @@ public class BossMan {
             System.out.print("You: ");
             userInput = SCANNER.nextLine();
 
-            processUserInput(userInput);
+            try {
+                processUserInput(userInput);
+            } catch (UnknownCommandException e) {
+                System.out.println("Unknown command\n" + SEP);
+            } catch (InvalidTodoCommandException e) {
+                System.out.println("Invalid todo command format\n" + SEP);
+            } catch (InvalidDeadlineCommandException e) {
+                System.out.println("Invalid deadline command format\n" + SEP);
+            } catch (InvalidEventCommandException e) {
+                System.out.println("Invalid event command format\n" + SEP);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid mark/unmark task command format\n" + SEP);
+            }
 
         } while (!userInput.equalsIgnoreCase("bye"));
     }
 
-    private void processUserInput(String userInput) {
+    private void processUserInput(String userInput)
+            throws UnknownCommandException,
+            InvalidTodoCommandException,
+            InvalidDeadlineCommandException,
+            InvalidEventCommandException,
+            NumberFormatException{
+
         String[] parts = parseUserInput(userInput);
 
         if (parts.length == 0) {
-            System.out.println("Unknown command\n" + SEP);
-            return;
+            throw new UnknownCommandException();
         }
 
         String commandType = parts[0];
@@ -80,55 +97,51 @@ public class BossMan {
     }
 
     private void handleMarkCommand(String commandArgs) {
-        try {
-            int number = Integer.parseInt(commandArgs);
-            TASK_LIST.markTask(number);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid number format\n" + SEP);
-        }
+        int number = Integer.parseInt(commandArgs);
+        TASK_LIST.markTask(number);
     }
 
-    private void handleUnmarkCommand(String commandArgs) {
-        try {
-            int number = Integer.parseInt(commandArgs);
-            TASK_LIST.unmarkTask(number);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid number format\n" + SEP);
-        }
+    private void handleUnmarkCommand(String commandArgs) throws NumberFormatException{
+        int number = Integer.parseInt(commandArgs);
+        TASK_LIST.unmarkTask(number);
     }
 
-    private void handleTodoCommand(String commandArgs) {
+    private void handleTodoCommand(String commandArgs) throws InvalidTodoCommandException{
+        if(commandArgs.isBlank()) {
+            throw new InvalidTodoCommandException();
+        }
         Task todoTask = new Todo(commandArgs);
         TASK_LIST.addTask(todoTask);
         echo(todoTask);
     }
 
-    private void handleDeadlineCommand(String commandArgs) {
+    private void handleDeadlineCommand(String commandArgs) throws InvalidDeadlineCommandException{
         String[] deadlineArgParts = commandArgs.split("/by", 2);
-        if (deadlineArgParts.length == 2) {
-            String description = deadlineArgParts[0];
-            String deadline = deadlineArgParts[1];
-            Task deadlineTask = new Deadline(description, deadline);
-            TASK_LIST.addTask(deadlineTask);
-            echo(deadlineTask);
-        } else {
-            System.out.println("Invalid deadline command format\n" + SEP);
+        if (deadlineArgParts.length != 2 || deadlineArgParts[0].isBlank()) {
+            throw new InvalidDeadlineCommandException();
         }
+        String description = deadlineArgParts[0];
+        String deadline = deadlineArgParts[1];
+        Task deadlineTask = new Deadline(description, deadline);
+        TASK_LIST.addTask(deadlineTask);
+        echo(deadlineTask);
     }
 
-    private void handleEventCommand(String commandArgs) {
+    private void handleEventCommand(String commandArgs) throws InvalidEventCommandException{
         String[] eventArgParts = commandArgs.split("/from", 2);
-        if (eventArgParts.length == 2) {
-            String description = eventArgParts[0];
-            String[] eventArgTimeParts = eventArgParts[1].split("/to", 2);
-            String from = eventArgTimeParts[0];
-            String to = eventArgTimeParts[1];
-            Task eventTask = new Event(description, from, to);
-            TASK_LIST.addTask(eventTask);
-            echo(eventTask);
-        } else {
-            System.out.println("Invalid event command format\n" + SEP);
+        if (eventArgParts.length != 2 || eventArgParts[0].isBlank()){
+            throw new InvalidEventCommandException();
         }
+        String description = eventArgParts[0];
+        String[] eventArgTimeParts = eventArgParts[1].split("/to", 2);
+        if (eventArgTimeParts.length != 2){
+            throw new InvalidEventCommandException();
+        }
+        String from = eventArgTimeParts[0];
+        String to = eventArgTimeParts[1];
+        Task eventTask = new Event(description, from, to);
+        TASK_LIST.addTask(eventTask);
+        echo(eventTask);
     }
 
     private void echo(Task task) {
@@ -139,9 +152,3 @@ public class BossMan {
         System.out.println(SEP);
     }
 }
-
-
-
-
-
-
