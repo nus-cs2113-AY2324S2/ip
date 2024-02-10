@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import junbot.command.Todo;
+import junbot.command.Deadline;
+import junbot.command.Event;
+import junbot.task.Task;
 public class JunBot {
     public static String DIVIDER = "____________________________________________________________\n";
     public static String GREETING = "Hello! I'm JunBot\nWhat can I do for you?\n";
@@ -130,7 +134,7 @@ public class JunBot {
     public static void addToList(String description) {
         Task userTask = new Task(description);
         tasks[tasksCount] = userTask;
-        System.out.println(DIVIDER + "added: " + userTask.description + "\n" + DIVIDER);
+        System.out.println(DIVIDER + "added: " + userTask.getDescription() + "\n" + DIVIDER);
     }
 
     public static void handleUserInput() {

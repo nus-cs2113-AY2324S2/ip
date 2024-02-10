@@ -1,3 +1,5 @@
+package junbot.command;
+
 public class Deadline extends Todo {
     protected String endDate;
 

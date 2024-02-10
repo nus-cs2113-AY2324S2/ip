@@ -1,3 +1,5 @@
+package junbot.command;
+
 public class Event extends Todo {
     protected String startDate;
     protected String endDate;
