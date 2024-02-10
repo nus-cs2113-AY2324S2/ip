@@ -4,55 +4,65 @@ public class NyanBot {
     private static Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
-    private static void echo() {
-        Scanner in = new Scanner(System.in);
+    private static void runNyan() {
+        Scanner scanner = new Scanner(System.in);
         String[] splitInputs = new String[2];
-        String userInput = in.nextLine();
-        splitInputs = userInput.split(" ");
+        while (true) {
+            String userInput = scanner.nextLine();
+            splitInputs = userInput.split(" ");
 
-        switch(splitInputs[0]) {
-        case "bye":
-            return;
-        case "list":
-            System.out.println(LINE);
+            switch (Command.parseInput(splitInputs[0])) {
+                case Command.BYE_COMMAND:
+                    scanner.close();
+                    return;
+                case Command.LIST_COMMAND:
+                    System.out.println(LINE);
 
-            for (int i = 0; i < taskCount; i++) {
-                System.out.print(i + 1 + ". " + tasks[i].getStatusIcon() + " ");
-                System.out.println(tasks[i]);
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.print(i + 1 + ". " + tasks[i].getStatusIcon() + " ");
+                        System.out.println(tasks[i]);
+                    }
+                    break;
+                case Command.MARK_COMMAND:
+                    int markIndex = Integer.parseInt(splitInputs[1]) - 1;
+                    tasks[markIndex].markAsDone();
+                    System.out.println(LINE);
+                    System.out.println("はい、markしました！");
+                    break;
+                case Command.UNMARK_COMMAND:
+                    markIndex = Integer.parseInt(splitInputs[1]) - 1;
+                    tasks[markIndex].unmarkAsDone();
+                    System.out.println(LINE);
+                    System.out.println("はい、unmarkしました！");
+                    break;
+                case Command.TODO_COMMAND:
+                    Todo newTodo = new Todo(userInput.substring(5));
+                    addTask(newTodo);
+                    break;
+                case Command.DEADLINE_COMMAND:
+                    splitInputs = userInput.split("/");
+                    Deadline newDeadline = new Deadline(splitInputs[0].substring(9), splitInputs[1]);
+                    addTask(newDeadline);
+                    break;
+                case Command.EVENT_COMMAND:
+                    splitInputs = userInput.split("/");
+                    Event newEvent = new Event(splitInputs[0].substring(6), splitInputs[1], splitInputs[2]);
+                    addTask(newEvent);
+                    break;
+                default:
+                    System.out.println("あの。。。puriisu taipu input ne \uD83D\uDC31\uD83C\uDF08");
+                    System.out.println("try \"help\" desu？");
             }
-            break;
-        case "mark":
-            int markIndex = Integer.parseInt(splitInputs[1]) - 1;
-            tasks[markIndex].markAsDone();
-            System.out.println(LINE);
-            System.out.println("はい、markしました！");
-            break;
-        case "unmark":
-            markIndex = Integer.parseInt(splitInputs[1]) - 1;
-            tasks[markIndex].unmarkAsDone();
-            System.out.println(LINE);
-            System.out.println("はい、unmarkしました！");
-            break;
-        case "todo":
-            Todo newTodo = new Todo(userInput.substring(5));
-            addTask(newTodo);
-            break;
-        case "deadline":
-            splitInputs = userInput.split("/");
-            Deadline newDeadline = new Deadline(splitInputs[0].substring(9), splitInputs[1]);
-            addTask(newDeadline);
-            break;
-        case "event":
-            splitInputs = userInput.split("/");
-            Event newEvent = new Event(splitInputs[0].substring(6), splitInputs[1], splitInputs[2]);
-            addTask(newEvent);
-            break;
-        default:
-            Task newTask = new Task(userInput);
-            addTask(newTask);
         }
-        echo();
     }
+
+    public static void addTask(Task task) {
+        tasks[taskCount] = task;
+        taskCount++;
+        System.out.println(LINE);
+        System.out.println("Added " + task);
+    }
+
     public static void main(String[] args) {
         String GREET = "お帰りなさいませ、ご主人様。ニャンー♡♡";
         String PROMPT = "なにをしたいの？";
@@ -61,16 +71,9 @@ public class NyanBot {
         System.out.println(LINE);
         System.out.println(GREET + "\n" + PROMPT);
 
-        echo();
+        runNyan();
 
         System.out.println(LINE);
         System.out.println(BYE);
-    }
-
-    public static void addTask(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
-        System.out.println(LINE);
-        System.out.println("Added " + task);
     }
 }
