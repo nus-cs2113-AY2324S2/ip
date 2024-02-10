@@ -29,34 +29,55 @@ public class Command {
         this.command = parts[0].toUpperCase();
         if (parts.length > 1) {
             this.arguments = parts[1];
+        } else {
+            this.arguments = "";
         }
     }
 
     /**
      * Parses arguments (description) for ToDo.
+     *
+     * @throws ArrayIndexOutOfBoundsException If arguments are not found.
      */
-    public void parseToDoArguments() {
+    public void parseToDoArguments() throws NullPointerException, ArrayIndexOutOfBoundsException {
         this.description = this.arguments.trim();
+
+        if (this.description.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
      * Parses arguments (description, by) for Deadline.
+     *
+     * @throws ArrayIndexOutOfBoundsException If arguments are not found.
      */
-    public void parseDeadlineArguments() {
+    public void parseDeadlineArguments() throws NullPointerException, ArrayIndexOutOfBoundsException {
         String[] argList = this.arguments.split("/by");
         this.description = argList[0].trim();
         this.by = argList[1].trim();
+
+        if (this.description.isEmpty() || this.by.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
      * Parses arguments (description, from, to) for Event.
+     *
+     * @throws ArrayIndexOutOfBoundsException If arguments are not found.
      */
-    public void parseEventArguments() {
+    public void parseEventArguments() throws NullPointerException, ArrayIndexOutOfBoundsException {
         String[] argList = this.arguments.split("/from");
         this.description = argList[0].trim();
+
         String[] dateList = argList[1].split("/to");
         this.from = dateList[0].trim();
         this.to = dateList[1].trim();
+
+        if (this.description.isEmpty() || this.from.isEmpty() || this.to.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
     }
 
     /**
@@ -64,7 +85,7 @@ public class Command {
      *
      * @param taskList List of current tasks.
      */
-    public void executeCommand(TaskList taskList) {
+    public void executeCommand(TaskList taskList, Ui ui) {
         switch (this.command) {
         case "EXIT":
             // Fallthrough
@@ -77,26 +98,58 @@ public class Command {
             break;
 
         case "TODO":
-            parseToDoArguments();
-            taskList.addToDo(this.description);
+            try {
+                parseToDoArguments();
+                taskList.addToDo(this.description);
+            } catch (NullPointerException | IndexOutOfBoundsException exception) {
+                ui.printMissingArgumentErrorMessage();
+                ui.printToDoCommandUsage();
+            } catch (IllegalArgumentException exception) {
+                ui.printEmptyArgumentErrorMessage();
+                ui.printToDoCommandUsage();
+            }
             break;
 
         case "DEADLINE":
-            parseDeadlineArguments();
-            taskList.addDeadline(this.description, this.by);
+            try {
+                parseDeadlineArguments();
+                taskList.addDeadline(this.description, this.by);
+            } catch (NullPointerException | IndexOutOfBoundsException exception) {
+                ui.printMissingArgumentErrorMessage();
+                ui.printDeadlineCommandUsage();
+            } catch (IllegalArgumentException exception) {
+                ui.printEmptyArgumentErrorMessage();
+                ui.printDeadlineCommandUsage();
+            }
             break;
 
         case "EVENT":
-            parseEventArguments();
-            taskList.addEvent(this.description, this.from, this.to);
+            try {
+                parseEventArguments();
+                taskList.addEvent(this.description, this.from, this.to);
+            } catch (NullPointerException| IndexOutOfBoundsException exception) {
+                ui.printMissingArgumentErrorMessage();
+                ui.printEventCommandUsage();
+            } catch (IllegalArgumentException exception) {
+                ui.printEmptyArgumentErrorMessage();
+                ui.printEventCommandUsage();
+            }
             break;
 
         case "MARK":
-            taskList.markTask(Integer.parseInt(this.arguments) - 1);
+            try {
+                taskList.markTask(Integer.parseInt(this.arguments) - 1);
+            } catch (NumberFormatException exception ) {
+                ui.printMarkCommandUsage();
+            }
             break;
 
         case "UNMARK":
-            taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
+            try {
+                taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
+            } catch (NumberFormatException exception ) {
+                ui.printUnmarkCommandUsage();
+            }
             break;
 
         default:

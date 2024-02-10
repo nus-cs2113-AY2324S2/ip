@@ -1,15 +1,8 @@
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Kobot {
-    public static String receiveInput(Scanner in, Ui ui) {
-        ui.printLineDivider();
-        System.out.print("> ");
-        String input = in.nextLine();
-        ui.printLineDivider();
-        return input;
-    }
-
     public static void main(String[] args) {
         TaskList taskList = new TaskList();
         Ui ui = new Ui();
@@ -19,8 +12,10 @@ public class Kobot {
         ui.printHelloMessage();
 
         while (!command.getIsExit()) {
-            command.parseCommand(receiveInput(in, ui));
-            command.executeCommand(taskList);
+            String input = "";
+            input = ui.receiveInput(in);
+            command.parseCommand(input);
+            command.executeCommand(taskList, ui);
         }
 
         ui.printGoodbyeMessage();
