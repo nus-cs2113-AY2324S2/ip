@@ -1,3 +1,5 @@
+package logic;
+
 import java.util.Scanner;
 public class UserInterface {
     public static final int MARK_LENGTH = 5;
