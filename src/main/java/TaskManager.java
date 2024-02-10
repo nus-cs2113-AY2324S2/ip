@@ -20,15 +20,18 @@ public class TaskManager {
             throw new TaskNoNameException();
         }
         String taskType = taskAsArray[0];
-        if (taskType.equals("todo")) {
+        switch (taskType) {
+        case "todo":
             processToDo(taskToAdd);
-        } else if (taskType.equals("deadline")) {
+            break;
+        case "deadline":
             try {
                 processDeadline(taskToAdd);
             } catch (DeadlineNoByDateTimeException e) {
                 throw new DeadlineNoByDateTimeException();
             }
-        } else if (taskType.equals("event")) {
+            break;
+        case "event":
             try {
                 processEvent(taskToAdd);
             } catch (EventNoFromDateTimeException e) {
@@ -38,7 +41,8 @@ public class TaskManager {
             } catch (EventToBeforeFromException e) {
                 throw new EventToBeforeFromException();
             }
-        } else {
+            break;
+        default:
             throw new InvalidInputException();
         }
         printAndIncrementAfterAddTask();
