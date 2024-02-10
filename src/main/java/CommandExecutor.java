@@ -1,10 +1,22 @@
+import java.util.Scanner;
+
 public class CommandExecutor {
+    static boolean isRunning = true;
+    static final int MAX_NUMBERED_LIST_LENGTH = 100;
+    static Task[] tasks = new Task[MAX_NUMBERED_LIST_LENGTH];
+    static int listCount = 0;
+    static Scanner in = new Scanner(System.in);
+    static String userInput;
+
+    public static void beginListening() {
+        userInput = in.nextLine();
+    }
+
     public static void executeCommand(CommandParser readUserCommand) {
         if (!readUserCommand.getIsGoodTokens()) {
             System.out.println("CommandExecutor: Command could not be executed");
             System.out.println("Try again");
-        }
-        else {
+        } else {
             CommandList selectedCommand = CommandList.valueOf(readUserCommand.getCommandName());
             switch (selectedCommand) {
             case BYE:
