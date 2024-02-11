@@ -172,6 +172,11 @@ public class DavinciBot {
         try {
             Scanner taskScanner = new Scanner(userInput);
             String taskType = taskScanner.next().toLowerCase();
+
+            if (!taskScanner.hasNext()) {
+                throw new DavinciException("Come on man, specify the " + taskType + " task.");
+            }
+
             String description = taskScanner.nextLine().trim();
             switch (taskType) {
             case "todo":
@@ -184,7 +189,7 @@ public class DavinciBot {
                 taskArray = executeEventTask(taskArray, description);
                 break;
             default:
-                throw new DavinciException("This task isn't in my dictionary man. Please use 'todo', 'deadline', or 'event'.");
+                throw new DavinciException("Unknown task type. Please use 'todo', 'deadline', or 'event'.");
             }
             return taskArray;
         } catch (DavinciException e) {
@@ -192,6 +197,7 @@ public class DavinciBot {
             return taskArray;
         }
     }
+
 
     /**
      * Prints and echos back the newly added task.
@@ -232,7 +238,7 @@ public class DavinciBot {
      */
     private static void userCommand(Scanner scanner, Task[] taskArray) {
         while (true) {
-            System.out.print("What do you want me to do?");
+            System.out.print("What do you want me to do? ");
             String userInput = scanner.nextLine();
 
             if (userInput.isEmpty()) {
