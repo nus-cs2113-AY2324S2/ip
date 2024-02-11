@@ -9,38 +9,53 @@ public class Bob {
         List<Task> list = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
-        loop: while (true) {
+        while (true) {
 
             String line = in.nextLine();
-
             String command = line.split(" ")[0];
 
-            switch (command) {
-            case "todo":
-                addTodo(line, list);
-                break;
-            case "deadline":
-                addDeadline(line, list);
-                break;
-            case "event":
-                addEvent(line, list);
-                break;
-            case "mark":
-                markTask(line, list);
-                break;
-            case "unmark":
-                unmarkTask(line, list);
-                break;
-            case "list":
-                displayList(list);
-                break;
-            case "bye":
-                displayExitMessage();
-                break loop;
-            default:
-                break;
+            try {
+                boolean endLoop = processCommand(command, line, list);
+
+                if (endLoop) {
+                    break;
+                }
+            } catch (DukeException e) {
+                displayHorizontalLine();
+                System.out.println(e.getMessage());
+                displayHorizontalLine();
             }
+
         }
+    }
+
+    private static boolean processCommand(String command, String line, List<Task> list) throws DukeException {
+        switch (command) {
+        case "todo":
+            addTodo(line, list);
+            break;
+        case "deadline":
+            addDeadline(line, list);
+            break;
+        case "event":
+            addEvent(line, list);
+            break;
+        case "mark":
+            markTask(line, list);
+            break;
+        case "unmark":
+            unmarkTask(line, list);
+            break;
+        case "list":
+            displayList(list);
+            break;
+        case "bye":
+            displayExitMessage();
+            return true;
+        default:
+            throw new DukeException("sI'm sorry, but I don't know what that means :-(");
+        }
+        return false;
     }
 
     private static void unmarkTask(String line, List<Task> list) {
@@ -63,13 +78,19 @@ public class Bob {
         displayHorizontalLine();
     }
 
-    private static void addEvent(String line, List<Task> list) {
-        String content;
-        content = line.split(" ", 2)[1];
+    private static void addEvent(String line, List<Task> list) throws DukeException {
+        String content, description, start, by;
 
-        String description = content.split( " /from ")[0];
-        String start = content.split( " /from ")[1].split(" /to ")[0];
-        String by = content.split(" /to ")[1];
+        try {
+            content = line.split(" ", 2)[1];
+
+            description = content.split( " /from ")[0];
+            start = content.split( " /from ")[1].split(" /to ")[0];
+            by = content.split(" /to ")[1];
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("An event must have a description, a start time, and an end time.");
+        }
 
         Event e = new Event(description, start, by);
         list.add(e);
@@ -81,9 +102,14 @@ public class Bob {
         displayHorizontalLine();
     }
 
-    private static void addDeadline(String line, List<Task> list) {
+    private static void addDeadline(String line, List<Task> list) throws DukeException {
         String content;
-        content = line.split(" ", 2)[1];
+        try {
+            content = line.split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("A deadline must have a description and a deadline.");
+        }
+
         Deadline d = new Deadline(content.split( " /by ")[0], content.split( " /by ")[1]);
         list.add(d);
 
@@ -94,9 +120,14 @@ public class Bob {
         displayHorizontalLine();
     }
 
-    private static void addTodo(String line, List<Task> list) {
+    private static void addTodo(String line, List<Task> list) throws DukeException {
         String content;
-        content = line.split(" ", 2)[1];
+        try {
+            content = line.split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
+
         Task t = new Task(content);
         list.add(t);
 
