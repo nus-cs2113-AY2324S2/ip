@@ -1,3 +1,9 @@
+package command;
+
+import task.Task;
+import task.TaskList;
+import ui.Message;
+
 public class ToggleStatusCommand implements Command {
     private final int index;
     private final String command;

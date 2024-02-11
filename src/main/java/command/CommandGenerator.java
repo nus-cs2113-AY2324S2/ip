@@ -1,4 +1,8 @@
+package command;
+
 import java.util.Optional;
+
+import ui.Parser;
 
 public class CommandGenerator{
     public static Optional<Command> generate(String input) {

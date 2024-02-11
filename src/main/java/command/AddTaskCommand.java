@@ -1,3 +1,9 @@
+package command;
+
+import task.TaskList;
+import ui.Message;
+import ui.Parser;
+
 public class AddTaskCommand implements Command {
     private final Parser token;
     private final String[] taskDescriptions;
