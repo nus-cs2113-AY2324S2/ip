@@ -10,7 +10,10 @@ public class Kyrene {
     final static String GREETING = "    Hi, I am Kyrene, your private reminder assistant.\n"
             + "    What can I do for you?\n";
     final static String BYE = "    Bye! Wish to see you again soon!\n";
-    final static String ERROR_TASK_NOT_EXIST = "    Sorry! This task does not exist.\n";
+    final static String ERROR_TASK_NOT_EXIST = "    Error! This task does not exist.\n";
+    final static String ERROR_MISSING_TASK = "    Error! Your task description is missing.\n    For creating tasks, please type \"[task type (todo/deadline/event)] [task description]\"([] is to be omitted).\n    For example:\n        todo have a nice day\n    or\n        deadline get a cup of coffee /by 9am\n    or\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
+    final static String ERROR_MISSING_TIME = "    Error! Your deadline/event task created is incomplete in terms of time.\n    For creating deadline task, please type \"deadline [task description] /by [time]\"([] is to be omitted).\n    For example:\n        deadline get a cup of coffee /by 9pm\n    For creating event task, please type \"event [task description] /from [starting time] /to [ending time]\"([] is to be omitted).\n    For example:\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
+    final static String ERROR_INVALID_COMMAND = "   Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark\n        unmark\n        [task type (todo/deadline/event)] [task description]\n";
     final static int MAX_ARRAY_LENGTH = 100;
 
     public static Task[] tasks = new Task[MAX_ARRAY_LENGTH];
@@ -29,25 +32,45 @@ public class Kyrene {
         System.out.println(DIVIDER);
     }
 
-    public static void addTask(String sentence){
+    public static void addTask(String sentence) throws KyreneInvalidCommandException, KyreneMissingTaskException {
+        String[] words = sentence.split(" ");
+        String classType = words[0];
 
-        String command = sentence.substring(0, sentence.indexOf(" "));
-
-        switch (command) {
+        switch (classType) {
         case "todo":
-            tasks[taskCount] = new Todo(sentence.substring(5));
+            try {
+                tasks[taskCount] = new Todo(sentence.substring(5));
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new KyreneMissingTaskException();
+            }
             break;
         case "deadline":
-            tasks[taskCount] = new Deadline(sentence.substring(9));
+            try {
+                tasks[taskCount] = new Deadline(sentence.substring(9));
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new KyreneMissingTaskException();
+            } catch (KyreneMissingTimeException e) {
+                System.out.printf("%s\n", ERROR_MISSING_TIME);
+                printDivider();
+                return;
+            }
             break;
         case "event":
-            tasks[taskCount] = new Event(sentence.substring(6));
+            try {
+                tasks[taskCount] = new Event(sentence.substring(6));
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new KyreneMissingTaskException();
+            } catch (KyreneMissingTimeException e) {
+                System.out.printf("%s\n", ERROR_MISSING_TIME);
+                printDivider();
+                return;
+            }
             break;
         default:
-            tasks[taskCount] = new Task(sentence);
+            throw new KyreneInvalidCommandException();
         }
 
-        System.out.println("    Task has been successfully added: " + tasks[taskCount].toString());
+        System.out.printf("    Task has been successfully added: %s\n", tasks[taskCount].toString());
         taskCount++;
         if(taskCount == 1){
             System.out.printf("    Now you have %d task(including finished ones) in your list.\n\n", taskCount);
@@ -96,26 +119,40 @@ public class Kyrene {
     public static boolean converseKyrene(String sentence){
         boolean isEnd = false;
         printDivider();
-        if(sentence.equals("bye")){
+
+        String[] commands = sentence.split(" ");
+        String command = commands[0];
+        int taskNumber = 0;
+
+        switch(command) {
+        case "bye":
             isEnd = true;
             exitKyrene();
             return isEnd;
-        }
-        else if(sentence.equals("list")){
+        case "list":
             printTasks();
             printDivider();
-        }
-        else if(sentence.startsWith("mark ")){
-            int taskNumber = Integer.parseInt(sentence.substring(5));
+            break;
+        case "mark":
+            taskNumber = Integer.parseInt(sentence.substring(5));
             markTask(taskNumber);
-        }
-        else if(sentence.startsWith("unmark ")){
-            int taskNumber = Integer.parseInt(sentence.substring(7));
+            break;
+        case "unmark":
+            taskNumber = Integer.parseInt(sentence.substring(7));
             unmarkTask(taskNumber);
+            break;
+        default:
+            try {
+                addTask(sentence);
+            } catch (KyreneMissingTaskException e) {
+                System.out.printf("%s\n", ERROR_MISSING_TASK);
+                printDivider();
+            } catch (KyreneInvalidCommandException e) {
+                System.out.printf("%s\n", ERROR_INVALID_COMMAND);
+                printDivider();
+            }
         }
-        else{
-            addTask(sentence);
-        }
+
         return isEnd;
     }
 

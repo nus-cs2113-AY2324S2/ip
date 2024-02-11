@@ -6,14 +6,12 @@ public class Deadline extends Task{
         super(null);
     }
 
-    public Deadline(String line){
+    public Deadline(String line) throws KyreneMissingTimeException {
         super(line);
         taskType = "D";
         int dividerIndex = line.indexOf("/by");
         if(dividerIndex == -1){
-            setTaskName(line);
-            setDeadline(null);
-            return;
+            throw new KyreneMissingTimeException();
         }
         String deadline = line.substring(dividerIndex + 4);
         setDeadline(deadline);

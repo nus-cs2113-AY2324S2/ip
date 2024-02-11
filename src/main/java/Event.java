@@ -7,24 +7,16 @@ public class Event extends Task{
         super(null);
     }
 
-    public Event(String line){
+    public Event(String line) throws KyreneMissingTimeException {
         super(line);
         taskType = "E";
         int startDividerIndex = line.indexOf("/from");
         if(startDividerIndex == -1){
-            setTaskName(line);
-            setStartTime(null);
-            setEndTime(null);
-            return;
+            throw new KyreneMissingTimeException();
         }
         int endDividerIndex = line.indexOf("/to");
         if(endDividerIndex == startDividerIndex){
-            String startTime = line.substring(startDividerIndex + 6);
-            String taskName = line.substring(0, startDividerIndex - 1);
-            setTaskName(taskName);
-            setStartTime(startTime);
-            setEndTime(null);
-            return;
+            throw new KyreneMissingTimeException();
         }
         String startTime = line.substring(startDividerIndex + 6, endDividerIndex - 1);
         String endTime = line.substring(endDividerIndex + 4);
