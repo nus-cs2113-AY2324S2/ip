@@ -47,21 +47,27 @@ public class DavinciBot {
      * @param taskArray Array of tasks.
      */
     private static void completeTask(String userInput, Task[] taskArray) {
-        String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
-        if (parts.length > 1) {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskArray.length) {
-                taskArray[taskIndex].markAsDone();
-                System.out.println(LINE_SEPARATOR);
-                System.out.println("Nice job! I've marked this task as done :D");
-                System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
-                        taskArray[taskIndex].getDescription());
-                System.out.println(LINE_SEPARATOR);
+        try {
+            String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
+            if (parts.length > 1) {
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskArray.length) {
+                    taskArray[taskIndex].markAsDone();
+                    System.out.println(LINE_SEPARATOR);
+                    System.out.println("Nice job! I've marked this task as done :D");
+                    System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
+                            taskArray[taskIndex].getDescription());
+                    System.out.println(LINE_SEPARATOR);
+                } else {
+                    throw new DavinciException("Invalid task index.");
+                }
             } else {
-                System.out.println("Invalid task index.");
+                throw new DavinciException("Please specify the task index to complete.");
             }
-        } else {
-            System.out.println("Please specify the task index to complete.");
+        } catch (DavinciException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid task index format.");
         }
     }
 
@@ -72,22 +78,87 @@ public class DavinciBot {
      * @param taskArray Array of tasks.
      */
     private static void unmarkTask(String userInput, Task[] taskArray) {
-        String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
-        if (parts.length > 1) {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskArray.length) {
-                taskArray[taskIndex].markAsNotDone();
-                System.out.println(LINE_SEPARATOR);
-                System.out.println("OK, I've marked this task as not done, but stop being lazy!");
-                System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
-                        taskArray[taskIndex].getDescription());
-                System.out.println(LINE_SEPARATOR);
+        try {
+            String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
+            if (parts.length > 1) {
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskArray.length) {
+                    taskArray[taskIndex].markAsNotDone();
+                    System.out.println(LINE_SEPARATOR);
+                    System.out.println("OK, I've marked this task as not done, but stop being lazy!");
+                    System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
+                            taskArray[taskIndex].getDescription());
+                    System.out.println(LINE_SEPARATOR);
+                } else {
+                    throw new DavinciException("Invalid task index.");
+                }
             } else {
-                System.out.println("Invalid task index.");
+                throw new DavinciException("Please specify the task index to unmark.");
+            }
+        } catch (DavinciException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid task index format.");
+        }
+    }
+
+    /**
+     * Adds an event task to the list, handling the specified description format.
+     *
+     * @param taskArray Array of tasks.
+     * @param description Description of the event task.
+     * @return Updated array of tasks.
+     * @throws DavinciException If the event format is invalid.
+     */
+    private static Task[] executeEventTask(Task[] taskArray, String description) throws DavinciException {
+        String[] eventParts = description.split("/from", SPLIT_INTO_TWO_PARTS);
+        if (eventParts.length == 2) {
+            String[] eventTimeParts = eventParts[1].split("/to", SPLIT_INTO_TWO_PARTS);
+            if (eventTimeParts.length == 2) {
+                taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
+                taskArray[taskArray.length - 1] = new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim());
+                echoTask(taskArray);
+            } else {
+                throw new DavinciException("Come on man. Please use: event <description> /from <start> /to <end>");
             }
         } else {
-            System.out.println("Please specify the task index to unmark.");
+            throw new DavinciException("Whatcha' doing bruh, listen. Please use: event <description> /from <start> /to <end>");
         }
+        return taskArray;
+    }
+
+    /**
+     * Adds a deadline task to the list, handling the specified description format.
+     *
+     * @param taskArray Array of tasks.
+     * @param description Description of the deadline task.
+     * @return Updated array of tasks.
+     * @throws DavinciException If the deadline format is invalid.
+     */
+    private static Task[] executeDeadlineTask(Task[] taskArray, String description) throws DavinciException {
+        String[] deadlineParts = description.split("/by", SPLIT_INTO_TWO_PARTS);
+        if (deadlineParts.length == 2) {
+            taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
+            taskArray[taskArray.length - 1] = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+            echoTask(taskArray);
+        } else {
+            throw new DavinciException("Crappy formatting. Please use: deadline <description> /by <deadline>");
+        }
+        return taskArray;
+    }
+
+    /**
+     * Adds a todo task to the list, handling the specified description format.
+     *
+     * @param taskArray Array of tasks.
+     * @param description Description of the todo task.
+     * @return Updated array of tasks.
+     */
+    private static Task[] executeTodoTask(Task[] taskArray, String description) {
+        taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
+        taskArray[taskArray.length - 1] = new Todo(description);
+        echoTask(taskArray);
+        return taskArray;
     }
 
     /**
@@ -98,44 +169,28 @@ public class DavinciBot {
      * @param taskArray Array of tasks.
      */
     private static Task[] getTasks(String userInput, Task[] taskArray) {
-        Scanner taskScanner = new Scanner(userInput);
-        String taskType = taskScanner.next().toLowerCase();
-        String description = taskScanner.nextLine().trim();
-        switch (taskType) {
-        case "todo":
-            taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
-            taskArray[taskArray.length - 1] = new Todo(description);
-            echoTask(taskArray);
-            break;
-        case "deadline":
-            String[] deadlineParts = description.split("/by", SPLIT_INTO_TWO_PARTS);
-            if (deadlineParts.length == 2) {
-                taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
-                taskArray[taskArray.length - 1] = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
-                echoTask(taskArray);
-            } else {
-                System.out.println("Invalid deadline format. Please use: deadline <description> /by <deadline>");
+        try {
+            Scanner taskScanner = new Scanner(userInput);
+            String taskType = taskScanner.next().toLowerCase();
+            String description = taskScanner.nextLine().trim();
+            switch (taskType) {
+            case "todo":
+                taskArray = executeTodoTask(taskArray, description);
+                break;
+            case "deadline":
+                taskArray = executeDeadlineTask(taskArray, description);
+                break;
+            case "event":
+                taskArray = executeEventTask(taskArray, description);
+                break;
+            default:
+                throw new DavinciException("This task isn't in my dictionary man. Please use 'todo', 'deadline', or 'event'.");
             }
-            break;
-        case "event":
-            String[] eventParts = description.split("/from", SPLIT_INTO_TWO_PARTS);
-            if (eventParts.length == 2) {
-                String[] eventTimeParts = eventParts[1].split("/to", SPLIT_INTO_TWO_PARTS);
-                if (eventTimeParts.length == 2) {
-                    taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
-                    taskArray[taskArray.length - 1] = new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim());
-                    echoTask(taskArray);
-                } else {
-                    System.out.println("Invalid event format. Please use: event <description> /from <start> /to <end>");
-                }
-            } else {
-                System.out.println("Invalid event format. Please use: event <description> /from <start> /to <end>");
-            }
-            break;
-        default:
-            System.out.println("Unknown task type. Please use 'todo', 'deadline', or 'event'.");
+            return taskArray;
+        } catch (DavinciException e) {
+            System.out.println("Error: " + e.getMessage());
+            return taskArray;
         }
-        return taskArray;
     }
 
     /**
@@ -156,7 +211,7 @@ public class DavinciBot {
      */
     private static void printStartingMessage() {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("Hello! I'm DavinciBot! I was the smartest man alive, but now I am just a list maker.");
+        System.out.println("Sup! I'm DavinciBot! I was the smartest man alive, but now I am just a list maker.");
         System.out.println("Enter commands, and I will echo them back to you, as well as add them to your list.");
         System.out.println("Type 'bye' to end the conversation.");
         System.out.println("Type 'list' to see your to-do list.");
@@ -165,7 +220,7 @@ public class DavinciBot {
         System.out.println("Type 'todo <work>' to add a task to the list.");
         System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
         System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
-        System.out.println("See you!");
+        System.out.println("See ya bucko!");
         System.out.println(LINE_SEPARATOR);
     }
     /**
@@ -177,16 +232,16 @@ public class DavinciBot {
      */
     private static void userCommand(Scanner scanner, Task[] taskArray) {
         while (true) {
-            System.out.print("Enter command: ");
+            System.out.print("What do you want me to do?");
             String userInput = scanner.nextLine();
 
             if (userInput.isEmpty()) {
-                System.out.println("Please enter a valid command.");
+                System.out.println("... are you mute?");
                 continue;
             }
 
             if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println("Goodbye! Hope to see you again soon!");
+                System.out.println("Goodbye... It may be a mere few seconds for you but an eternity for me.");
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 displayTaskList(taskArray);
@@ -199,7 +254,7 @@ public class DavinciBot {
                     userInput.toLowerCase().startsWith("event")) {
                 taskArray = getTasks(userInput, taskArray);
             } else {
-                System.out.println("Unknown command. Please enter a valid command.");
+                System.out.println("Bro, say something that I can understand.");
             }
         }
     }
