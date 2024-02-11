@@ -4,7 +4,6 @@ import ui.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -21,6 +20,10 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     public void addTask(Parser token, String[] parsedInput) {
         if (token == Parser.TODO) {
             tasks.add(new ToDo(parsedInput[0]));
@@ -32,8 +35,8 @@ public class TaskList {
     }
 
     public void displayAll() {
-        IntStream.rangeClosed(1, tasks.size())
-                .mapToObj(index -> index + "." + getTask(index))
-                .forEach(System.out::println);
+        for (int index = 1; index < this.size(); index++) {
+            System.out.println(index + "." + getTask(index));
+        }
     }
 }

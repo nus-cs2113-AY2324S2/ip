@@ -1,5 +1,6 @@
 package command;
 
+import exception.AdamException;
 import task.Task;
 import task.TaskList;
 import ui.Message;
@@ -14,11 +15,14 @@ public class ToggleStatusCommand implements Command {
     }
 
     @Override
-    public boolean execute(TaskList tasks) {
-        if (index > 0 && index <= tasks.size()) {
+    public boolean execute(TaskList tasks) throws AdamException {
+        try {
             tasks.getTask(index).setIsDone(command.equals("mark"));
             System.out.println(toggleMessage(tasks.getTask(index)));
+        } catch (IndexOutOfBoundsException error) {
+            throw new AdamException(Message.getToggleErrorMessage(tasks.size()));
         }
+
         return false;
     }
 

@@ -45,9 +45,6 @@ public class Message {
 
     public static final String UNMARK_MESSAGE = "Whoopsie-daisy! This task is back in action:\n";
 
-    public static final String ERROR_MESSAGE = "Oopsie! Looks like I got tangled up in my circuits.\n"
-            + "Could you please try again?";
-
     public static final String ADD_TASK_MESSAGE_FRONT = "Awesome sauce! Task successfully added:\n  ";
 
     public static final String ADD_TASK_MESSAGE_MIDDLE = "\nYou now have a whopping ";
@@ -57,4 +54,17 @@ public class Message {
     public static final String LIST_MESSAGE_FRONT = "Behold, the mighty task(s) in your realm:\n";
 
     public static final String LIST_MESSAGE_END = "\nThese tasks await your valiant efforts, noble taskmaster!";
+
+    public static final String LIST_ERROR_MESSAGE = "Looks like our task list is empty.\n"
+            + "Time to fill it up with some action-packed tasks!";
+
+    public static final String TOGGLE_ERROR_MESSAGE = "Oops! The specified index is out of range.\n"
+            + "Please enter an index between 1 and ";
+
+    public static final String INVALID_INPUT_MESSAGE = "Oopsie! Looks like I got tangled up in my circuits.\n"
+            + "Could you please try again?";
+
+    public static String getToggleErrorMessage(int size) {
+        return size == 0 ? LIST_ERROR_MESSAGE : TOGGLE_ERROR_MESSAGE + size + ". (both inclusive)";
+    }
 }
