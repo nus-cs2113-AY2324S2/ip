@@ -1,3 +1,5 @@
+package bean.command;
+
 public class Parser {
     private final String[] fieldValuePairs;
     private final String command;
@@ -14,16 +16,21 @@ public class Parser {
 
     public String getArgument() {
         int indexOfFirstSpace = command.indexOf(" ");
-        return command.substring(indexOfFirstSpace + 1).trim();
+        if (indexOfFirstSpace == -1) {
+            return "";
+        } else {
+            return command.substring(indexOfFirstSpace + 1).trim();
+        }
+
     }
 
 
     public String getCommand() {
         int indexOfFirstSpace = command.indexOf(" ");
-        if (indexOfFirstSpace != -1) {
-            return command.substring(0, indexOfFirstSpace).trim();
-        } else {
+        if (indexOfFirstSpace == -1) {
             return command;
+        } else {
+            return command.substring(0, indexOfFirstSpace).trim();
         }
     }
 
