@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
+//test merge functionality
+
 public class John {
 
     private static List<Task> taskList = new ArrayList<>();
