@@ -30,8 +30,8 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public String toString(){
-        if(isDone){
+    public String toString() {
+        if (isDone) {
             return ("[🆗] " + taskName);
         } else {
             return ("[  ] " + taskName);
