@@ -6,48 +6,75 @@ public class Quokka {
     private static int taskCount = 0;
 
     private static void addTask(Task newTask) {
-        if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = newTask;
-            System.out.println("     Got it. I've added this task:");
-            System.out.println("       " + newTask);
-            System.out.println("     Now you have " + taskCount + " tasks in the list.");
-        } else {
-            System.out.println("    Sorry, the task list is full. You cannot add more tasks.");
+        try {
+            if (newTask != null) {
+                if (taskCount < MAX_TASKS) {
+                    tasks[taskCount++] = newTask;
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + newTask);
+                    System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                } else {
+                    throw new QuokkaException("    Sorry, the task list is full. You cannot add more tasks.");
+                }
+            }
+        } catch (QuokkaException e) {
+            System.out.println("     Error: " + e.getMessage());
         }
     }
 
     private static Todo parseTodoTask(String userInput) {
-        String description = userInput.substring("todo".length()).trim();
-        return new Todo(description);
+        try {
+            String description = userInput.substring("todo".length()).trim();
+            if (description.isEmpty()) {
+                throw new QuokkaException("Please provide a description for the todo task.");
+            }
+            return new Todo(description);
+        } catch (QuokkaException e) {
+            System.out.println("    Error: " + e.getMessage());
+            return null;
+        }
     }
 
     private static Deadline parseDeadlineTask(String userInput) {
-        String[] parts = userInput.split("/by", 2);
-        if (parts.length == 2) {
-            String description = parts[0].substring("deadline".length()).trim();
-            String by = parts[1].trim();
-            return new Deadline(description, by);
-        } else {
-            System.out.println("    Invalid deadline format. Please use: deadline [description] /by [date/time]");
+        try {
+            String[] parts = userInput.split("/by", 2);
+            if (parts.length == 2) {
+                String description = parts[0].substring("deadline".length()).trim();
+                String by = parts[1].trim();
+                if (description.isEmpty() || by.isEmpty()) {
+                    throw new QuokkaException("Please provide both description and deadline for the task.");
+                }
+                return new Deadline(description, by);
+            } else {
+                throw new QuokkaException("Invalid deadline format. Please use: deadline [description] /by [date/time]");
+            }
+        } catch (QuokkaException e) {
+            System.out.println("     Error: " + e.getMessage());
             return null;
         }
     }
 
     private static Event parseEventTask(String userInput) {
-        String[] parts = userInput.split("/from", 2);
-        if (parts.length == 2) {
-            String description = parts[0].substring("event".length()).trim();
-            String[] dateTimes = parts[1].split("/to", 2);
-            if (dateTimes.length == 2) {
-                String from = dateTimes[0].trim();
-                String to = dateTimes[1].trim();
-                return new Event(description, from, to);
+        try {
+            String[] parts = userInput.split("/from", 2);
+            if (parts.length == 2) {
+                String description = parts[0].substring("event".length()).trim();
+                String[] dateTimes = parts[1].split("/to", 2);
+                if (dateTimes.length == 2) {
+                    String from = dateTimes[0].trim();
+                    String to = dateTimes[1].trim();
+                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        throw new QuokkaException("Please provide description, start time, and end time for the event task.");
+                    }
+                    return new Event(description, from, to);
+                } else {
+                    throw new QuokkaException("Invalid event format. Please use: event [description] /from [start] /to [end]");
+                }
             } else {
-                System.out.println("    Invalid event format. Please use: event [description] /from [start] /to [end]");
-                return null;
+                throw new QuokkaException("Invalid event format. Please use: event [description] /from [start] /to [end]");
             }
-        } else {
-            System.out.println("    Invalid event format. Please use: event [description] /from [start] /to [end]");
+        } catch (QuokkaException e) {
+            System.out.println("    Error: " + e.getMessage());
             return null;
         }
     }
@@ -64,26 +91,38 @@ public class Quokka {
     }
 
     private static void markTaskAsDone(String userInput) {
-        updateTaskStatus(userInput, true, "Nice! I've marked this task as done:");
+        try {
+            updateTaskStatus(userInput, true, "Nice! I've marked this task as done:");
+        } catch (QuokkaException e) {
+            System.out.println("     Error: " + e.getMessage());
+        }
     }
 
     private static void markTaskAsNotDone(String userInput) {
-        updateTaskStatus(userInput, false, "OK, I've marked this task as not done yet:");
+        try {
+            updateTaskStatus(userInput, false, "OK, I've marked this task as not done yet:");
+        } catch (QuokkaException e) {
+            System.out.println("     Error: " + e.getMessage());
+        }
     }
 
     private static void updateTaskStatus(String userInput, boolean newStatus, String statusMessage) {
-        String[] parts = userInput.split(" ", 2);
-        if (parts.length == 2) {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].setStatus(newStatus);
-                System.out.println("    " + statusMessage);
-                System.out.println("      " + tasks[taskIndex]);
+        try {
+            String[] parts = userInput.split(" ", 2);
+            if (parts.length == 2) {
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    tasks[taskIndex].setStatus(newStatus);
+                    System.out.println("    " + statusMessage);
+                    System.out.println("      " + tasks[taskIndex]);
+                } else {
+                    throw new QuokkaException("Invalid task index.");
+                }
             } else {
-                System.out.println("    Invalid task index.");
+                throw new QuokkaException("Please provide a valid task index to mark as done or not done.");
             }
-        } else {
-            System.out.println("    Please provide a valid task index to mark as done or not done.");
+        } catch (NumberFormatException e) {
+            System.out.println("     Error: Invalid task index format.");
         }
     }
 
