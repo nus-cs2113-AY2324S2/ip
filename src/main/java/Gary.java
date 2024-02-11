@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Gary {
     public static final int MAX_TASK = 100;
 
     public static final int TODO_DESCRIPTION_START_INDEX = 5;
