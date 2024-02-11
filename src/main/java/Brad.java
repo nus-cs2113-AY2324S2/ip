@@ -3,32 +3,70 @@ import java.util.Scanner;
 
 public class Brad {
     private static List inputList = new List();
+    private static final String SEPARATOR = "__________________________________________________________";
+
     public static void main(String[] args) {
         greetUser();
         Scanner userInput = new Scanner(System.in);
         while (true) {
             String input = userInput.nextLine();
-            boolean canExit = input.equals("bye");
-            boolean canList = input.equals("list");
-            boolean canMark = input.startsWith("mark");
-            boolean canUnmark = input.startsWith("unmark");
-            if (canExit) {
+            String[] splitInput = input.split(" ",2);
+            String command = splitInput[0];
+            if (command.equals("bye")) {
                 printOutput("Bye. Hope to see you again soon!");
                 break;
-            } else if (canList) {
-                printOutput("Here are the tasks in your list:\n" + inputList.getList());
-            } else if (canMark) {
-                doMarkAction(input);
-            } else if (canUnmark) {
-                doUnmarkAction(input);
-            } else if (input.startsWith("todo")) {
-                doTodoAction(input);
-            } else if (input.startsWith("deadline")) {
-                doDeadlineAction(input);
-            } else if (input.startsWith("event")) {
-                doEventAction(input);
-            } else {
-                doTaskAction(input);
+            }
+            switch (command) {
+                case "list":
+                    printOutput("Here are the tasks in your list:\n" + inputList.getList());
+                    break;
+                case "mark":
+                    try {
+                        doMarkAction(splitInput[1]);
+                    } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
+                        printOutput("Uh oh. Please enter a number to mark the corresponding " +
+                                "task as done");
+                    } catch (invalidNumberException e) {
+                        printOutput("No! >:( Exceeded existing list size of: \" + inputList.listSize() +\n" +
+                                "Please enter a valid number.\n;");
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        doUnmarkAction(splitInput[1]);
+                    } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
+                            printOutput("Uh oh. Please enter a number to mark the corresponding " +
+                                    "task as done");
+                        } catch (invalidNumberException e) {
+                            printOutput("No! >:( Exceeded existing list size of: \" + inputList.listSize() +\n" +
+                                    "Please enter a valid number.\n");
+                    }
+                    break;
+                case "todo":
+                    try {
+                        doTodoAction(splitInput[1]);
+                    } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
+                        printOutput("Hey, you can't give me an empty todo!");
+                    }
+                    break;
+                case "deadline":
+                    try {
+                        doDeadlineAction(splitInput[1]);
+                    } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
+                        printOutput("Hey, you can't give me an empty deadline!");
+                    }
+                    break;
+                case "event":
+                    try {
+                        doEventAction(splitInput[1]);
+                    } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
+                        printOutput("Hey, you can't give me an event with no details!");
+                    }
+                    break;
+                default:
+                    printOutput("Huh?! Sorry I don't understand. \n Please only enter valid commands: " +
+                            "'list', 'mark', 'unmark', 'todo', 'deadline', 'event', 'bye'");
+                    break;
             }
         }
     }
@@ -40,65 +78,66 @@ public class Brad {
     }
 
     private static void printOutput(String message) {
-        final String separator = "__________________________________________________________";
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
         System.out.println(message);
-        System.out.println(separator);
+        System.out.println(SEPARATOR);
     }
 
-    private static void doMarkAction(String input) {
-        try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            inputList.markAsDone(taskNumber, true);
+    private static void doMarkAction(String input) throws
+            emptyArgumentException, invalidNumberException {
+        int taskNumber = Integer.parseInt(input);
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        if (taskNumber > inputList.listSize()) {
+            throw new invalidNumberException();
+        }
+        inputList.markAsDone(taskNumber, true);
             String message = "Nice! I've marked this task as done: \n" + inputList.getTask(taskNumber);
             printOutput(message);
-        } catch (Exception e) {
-            System.out.println(">:( Exceeded existing list size of: " + inputList.listSize() +
-                    "\nPlease enter a valid number" + "\n");
+    }
+
+    private static void doUnmarkAction(String input) throws
+            emptyArgumentException, invalidNumberException {
+        int taskNumber = Integer.parseInt(input);
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
         }
-    }
-
-    private static void doUnmarkAction(String input) {
-        try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            inputList.markAsDone(taskNumber, false);
-            String message = "OK, I've marked this task as not done yet: \n" + inputList.getTask(taskNumber);
-            printOutput(message);
-        } catch (Exception e) {
-            System.out.println(">:( Exceeded existing list size of: " + inputList.listSize() +
-                    "\nPlease enter a valid number." + "\n");
+        if (taskNumber > inputList.listSize()) {
+            throw new invalidNumberException();
         }
+        inputList.markAsDone(taskNumber, false);
+        String message = "Ok. I've marked this task as not done yet: \n" + inputList.getTask(taskNumber);
+        printOutput(message);
     }
 
-    private static void doTodoAction(String input) {
-        String description = input.substring("todo ".length());
-        inputList.addToList(description, TaskType.TODO);
+    private static void doTodoAction(String input) throws emptyArgumentException {
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        inputList.addToList(input, TaskType.TODO);
         int size = inputList.listSize();
         String message = "Got it. I've added this task:\n" + inputList.getTask(size)
                 + "\n Now you have " + size + " tasks in the list.";
         printOutput(message);
     }
 
-    private static void doDeadlineAction(String input) {
-        String description = input.substring("deadline ".length());
-        inputList.addToList(description, TaskType.DEADLINE);
+    private static void doDeadlineAction(String input) throws emptyArgumentException {
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        inputList.addToList(input, TaskType.DEADLINE);
         int size = inputList.listSize();
         String message = "Got it. I've added this task:\n" + inputList.getTask(size)
                 + "\n Now you have " + size + " tasks in the list.";
         printOutput(message);
     }
 
-    private static void doEventAction(String input) {
-        String description = input.substring("event ".length());
-        inputList.addToList(description, TaskType.EVENT);
-        int size = inputList.listSize();
-        String message = "Got it. I've added this task:\n" + inputList.getTask(size)
-                + "\n Now you have " + size + " tasks in the list.";
-        printOutput(message);
-    }
-
-    private static void doTaskAction(String input) {
-        inputList.addToList(input, TaskType.OTHER);
+    private static void doEventAction(String input) throws emptyArgumentException {
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        inputList.addToList(input, TaskType.EVENT);
         int size = inputList.listSize();
         String message = "Got it. I've added this task:\n" + inputList.getTask(size)
                 + "\n Now you have " + size + " tasks in the list.";
