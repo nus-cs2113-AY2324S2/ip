@@ -1,7 +1,44 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ___     _   ___   ___   __
+|   \   | | |   | |   | |  |
+| |\ \  | | | | | | | | |  |__
+| | \ \_| | | | | | | | | ___ |
+|_|  \____| |___| |___| |_____|
 
+	__________________________________________________
+	Hi!, I'm 'Noob'
+	What can I do for you?
+	__________________________________________________
+	I have the following features:
+		1. Echo and store three types of tasks: 'todo', 'deadline' and 'event'.
+		2. Type "todo" + "taskContent" to record a 'todo' task.
+		3. Type "deadline" + "taskContent" + "/by" + "dates/times" to record a 'deadline' task.
+		4. Type "event" + "taskContent" + "/from" + "dates/times" + "/to" + "dates/times" to record a 'event' task.
+		5. Type "list" to see what I have recorded.
+		6. Type "mark" + "number" to mark tasks as done.
+		7. Type "unmark" + "number" to mark tasks as not done.
+		8. Type "bye" to say goodbye to me.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[T][ ] read book
+	Now you have 1 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[T][ ] borrow book
+	Now you have 2 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[D][ ] return book  (by: Sunday)
+	Now you have 3 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	Now you have 4 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Bye. Hope to see you again soon!
+	__________________________________________________

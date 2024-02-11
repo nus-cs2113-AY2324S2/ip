@@ -1,14 +1,17 @@
-public class Deadlines extends Task{
+public class Deadline extends Task {
     protected String by;
-    public Deadlines(String description, String by){
+
+    public Deadline(String description, String by) {
         super(description);
         identity = "[D]";
         this.by = by;
     }
-    public String getBy(){
+
+    public String getBy() {
         return by;
     }
-    public String getContent(){
+
+    public String getContent() {
         return super.getContent() + " (by: " + by + ")";
     }
 }

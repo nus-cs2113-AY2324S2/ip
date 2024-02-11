@@ -12,13 +12,16 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
-    public String getContent(){
+
+    public String getContent() {
         return description;
     }
-    public void changeStatus(boolean status){
+
+    public void changeStatus(boolean status) {
         isDone = status;
     }
-    public String getIdentity(){
+
+    public String getIdentity() {
         return identity;
     }
 }
