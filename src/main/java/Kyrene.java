@@ -11,11 +11,12 @@ public class Kyrene {
             + "    What can I do for you?\n";
     final static String BYE = "    Bye! Wish to see you again soon!\n";
     final static String ERROR_TASK_NOT_EXIST = "    Sorry! This task does not exist.\n";
+    final static int MAX_ARRAY_LENGTH = 100;
 
-    public static Task[] tasks = new Task[100];
+    public static Task[] tasks = new Task[MAX_ARRAY_LENGTH];
     public static int taskCount = 0;
 
-    public static void initKyrene(){
+    public static void initKyrene() {
         System.out.println(DIVIDER);
         System.out.println(LOGO);
         System.out.println(DIVIDER);
@@ -23,23 +24,26 @@ public class Kyrene {
         System.out.println(DIVIDER);
     }
 
-    public static void exitKyrene(){
+    public static void exitKyrene() {
         System.out.println(BYE);
         System.out.println(DIVIDER);
     }
 
     public static void addTask(String sentence){
 
-        if(sentence.startsWith("todo ")){
+        String command = sentence.substring(0, sentence.indexOf(" "));
+
+        switch (command) {
+        case "todo":
             tasks[taskCount] = new Todo(sentence.substring(5));
-        }
-        else if(sentence.startsWith("deadline ")){
+            break;
+        case "deadline":
             tasks[taskCount] = new Deadline(sentence.substring(9));
-        }
-        else if(sentence.startsWith("event ")){
+            break;
+        case "event":
             tasks[taskCount] = new Event(sentence.substring(6));
-        }
-        else{
+            break;
+        default:
             tasks[taskCount] = new Task(sentence);
         }
 

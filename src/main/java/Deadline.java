@@ -9,7 +9,7 @@ public class Deadline extends Task{
     public Deadline(String line){
         super(line);
         taskType = "D";
-        int dividerIndex = line.indexOf("/");
+        int dividerIndex = line.indexOf("/by");
         if(dividerIndex == -1){
             setTaskName(line);
             setDeadline(null);
