@@ -6,19 +6,23 @@ public class TaskManager {
     private static final String BORDER = "______________________________________________________________\n";
 
     private void printList() {
-        System.out.println(BORDER + " Here are the tasks in your list:");
+        System.out.print(BORDER + " Here are the tasks in your list:\n");
         for (int i = 0; i < taskCount; i++) {
             System.out.println(" " + (i + 1) + ". [" + tasks[i].getTaskType() + "] "
                     + "[" + tasks[i].getStatusIcon() + "] "
                     + tasks[i].getDescription());
         }
-        System.out.println(BORDER);
+        System.out.print(BORDER);
     }
 
     private void markTask(int index) {
-        System.out.println(BORDER + " Good job! I've marked this task as done:\n"
+        if (index < 0 || index >= taskCount) {
+            System.out.print("Invalid task number\n");
+        } else {
+            System.out.print(BORDER + " Good job! I've marked this task as done:\n"
                     + " [" + tasks[index].getStatusIcon() + "] " + tasks[index].getDescription() + "\n"
                     + BORDER);
+        }
     }
 
     private void handleMarking(String input) {
@@ -37,7 +41,7 @@ public class TaskManager {
             taskCount++;
             printTask(task);
         } else {
-            System.out.println("Unknown task type. Please enter a todo, deadline or event task.");
+            System.out.print("Unknown task type. Please enter a todo, deadline or event task\n");
         }
     }
 
@@ -52,6 +56,7 @@ public class TaskManager {
         return null; // Return null if the task type is unknown.
     }
 
+    // Creates a Todo task from the input.
      private Todo createTodoTask(String input) {
         String description = input.substring(5).trim(); // Removing 'todo ' prefix.
         return new Todo(description);
@@ -76,7 +81,7 @@ public class TaskManager {
 
 
     private void printTask(Task task) {
-        System.out.println(BORDER + " Got it. I've added this task:\n"
+        System.out.print(BORDER + " Got it. I've added this task:\n"
                 + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
                 + " Now you have " + taskCount + " tasks in the list.\n"
                 + BORDER);
@@ -85,23 +90,20 @@ public class TaskManager {
     public TaskManager() {
         tasks = new Task[100];
         taskCount = 0;
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
 
-        while (true) {
-            Scanner in = new Scanner(System.in);
-            String input = in.nextLine();
-            if (input.equals("bye")) {
-                break;
-
-            } else if (input.equals("list")) {
+        while (!input.equals("bye")) {
+            if (input.equals("list")) {
                 printList();
 
             } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                 handleMarking(input);
 
             } else {
-                Task task = new Task(input);
                 addTask(input);
             }
+            input = in.nextLine();
         }
     }
 }
