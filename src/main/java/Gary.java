@@ -31,9 +31,16 @@ public class Gary {
             } else if (command.equalsIgnoreCase("UNMARK")) {
                 processUnmark(todos, lineWords);
             } else {
-                processAddTask(command, todos, todosCount, line);
-                todosCount += 1;
-                todos[todosCount - 1].printAdd(todosCount);
+                try {
+                    processAddTask(command, todos, todosCount, line);
+                    todosCount += 1;
+                    todos[todosCount - 1].printAdd(todosCount);
+                } catch (UnknownCommandException e) {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } catch (EmptyTodoDescriptionException e) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                }
+
             }
 
             line = in.nextLine();
@@ -64,18 +71,26 @@ public class Gary {
         }
     }
 
-    private static void processAddTask(String command, Task[] todos, int todosCount, String line) {
+    private static void processAddTask(String command, Task[] todos, int todosCount, String line)
+            throws UnknownCommandException, EmptyTodoDescriptionException {
         if (command.equalsIgnoreCase("TODO")) {
             createNewTodo(todos, todosCount, line);
-        } else if (command.equalsIgnoreCase("Deadline")) {
+        } else if (command.equalsIgnoreCase("DEADLINE")) {
             createNewDeadline(todos, todosCount, line);
-        } else {
+        } else if (command.equalsIgnoreCase("EVENT")) {
             createNewEvent(todos, todosCount, line);
+        } else {
+            throw new UnknownCommandException();
         }
     }
 
-    private static void createNewTodo(Task[] todos, int todosCount, String line) {
-        todos[todosCount] = new Todo(line.substring(TODO_DESCRIPTION_START_INDEX));
+    private static void createNewTodo(Task[] todos, int todosCount, String line)
+            throws EmptyTodoDescriptionException {
+        try {
+            todos[todosCount] = new Todo(line.substring(TODO_DESCRIPTION_START_INDEX));
+        } catch(StringIndexOutOfBoundsException e) {
+            throw new EmptyTodoDescriptionException();
+        }
     }
 
     private static void createNewDeadline(Task[] todos, int todosCount, String line) {
