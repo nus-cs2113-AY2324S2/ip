@@ -40,55 +40,8 @@ public class Kvothe {
 
     }
 
-    //TODO: move to Task class?
-    //TODO: Check that the arguments are the correct ones
-    private static String[] parseLine(String line, String[] args) {
-        String[] lineWords = line.split(" ");
-        String[] newArgs = new String[args.length + 1]; // description + args
 
-        int lastWordIndex = 1;
-        int argsIndex = 0;
-
-        // Get the description
-        String description = "";
-        while (lastWordIndex < lineWords.length && !lineWords[lastWordIndex].startsWith("/")) {
-            description += lineWords[lastWordIndex] + " ";
-            lastWordIndex++;
-        }
-        newArgs[argsIndex++] = description.trim();
-        lastWordIndex++;
-
-        // Get values associated with specified arguments
-        for (int i = 0; i < args.length-1; i++) {
-            if (lastWordIndex >= lineWords.length) {
-                break;
-            }
-
-            String nextArg = "";
-            while (lastWordIndex < lineWords.length && !lineWords[lastWordIndex].startsWith("/")) {
-                nextArg += lineWords[lastWordIndex] + " ";
-                lastWordIndex++;
-            }
-
-            nextArg = nextArg.trim();
-            newArgs[argsIndex++] = nextArg;
-        }
-
-        //last argument
-        String lastArg = "";
-        lastWordIndex++;
-
-        while(lastWordIndex < lineWords.length) {
-            lastArg += lineWords[lastWordIndex++] + "";
-        }
-
-        newArgs[argsIndex] = lastArg.trim();
-
-        return newArgs;
-    }
-
-
-    private static void add(String line) {
+    private static void add(String line) throws WrongArgumentsException {
 
         String lineWords[] = line.split(" ");
         String command = lineWords[0];
@@ -101,11 +54,11 @@ public class Kvothe {
             newTask = new Todo(descr);
             break;
         case "deadline":
-            args = parseLine(line, Deadline.args);
+            args = Task.parseLine(line, Deadline.args);
             newTask = new Deadline(args[0], args[1]);
             break;
         case "event":
-            args = parseLine(line, Event.args);
+            args = Task.parseLine(line, Event.args);
             newTask = new Event(args[0], args[1], args[2]);
             break;
         default:
@@ -174,7 +127,8 @@ public class Kvothe {
 
             int taskNumber;
 
-            switch (command) {
+            try{
+                switch (command) {
                 case "list":
                     list();
                     break;
@@ -194,7 +148,11 @@ public class Kvothe {
                     add(line);
                     echo("added: " + line + "\n\t\tnow you have " + tasksIndex + " tasks in the list");
                     break;
+                }
+            }catch (WrongArgumentsException e) {
+                echo(e.toString());
             }
+
             line = in.nextLine();
         }
 
