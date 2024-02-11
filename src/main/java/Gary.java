@@ -43,6 +43,12 @@ public class Gary {
                     System.out.println("OOPS!!! Deadline must contain '/by' and its description");
                 } catch (MissingDeadlineDescriptionException e) {
                     System.out.println("OOPS!!! The description of a deadline cannot be empty");
+                } catch (MissingEventFromException e) {
+                    System.out.println("OOPS!!! Event must contain '/from' and its description");
+                } catch (MissingEventToException e) {
+                    System.out.println("OOPS!!! Event must contain '/to' and its description");
+                } catch (MissingEventDescriptionException e) {
+                    System.out.println("OOPS!!! The description of an event cannot be empty");
                 }
 
             }
@@ -77,7 +83,8 @@ public class Gary {
 
     private static void processAddTask(String command, Task[] todos, int todosCount, String line)
             throws UnknownCommandException, MissingTodoDescriptionException,
-            MissingDeadlineByException, MissingDeadlineDescriptionException {
+            MissingDeadlineByException, MissingDeadlineDescriptionException,
+            MissingEventFromException, MissingEventToException, MissingEventDescriptionException {
         if (command.equalsIgnoreCase("TODO")) {
             createNewTodo(todos, todosCount, line);
         } else if (command.equalsIgnoreCase("DEADLINE")) {
@@ -121,16 +128,39 @@ public class Gary {
         }
     }
 
-    private static void createNewEvent(Task[] todos, int todosCount, String line) {
+    private static void createNewEvent(Task[] todos, int todosCount, String line)
+            throws MissingEventFromException, MissingEventToException,
+            MissingEventDescriptionException {
+        if (!(line.contains("/from"))) {
+            throw new MissingEventFromException();
+        }
+        if (!(line.contains("/to"))) {
+            throw new MissingEventToException();
+        }
+
         int fromSlashIndex = line.indexOf("/");
         String substringBeforeFrom = line.substring(0, fromSlashIndex + 1);
-
         int toSlashIndex = substringBeforeFrom.length()
                 + line.substring(fromSlashIndex + 1).indexOf("/");
         String eventDescription = line.substring(EVENT_DESCRIPTION_START_INDEX, fromSlashIndex);
+        if (eventDescription.isBlank()) {
+            throw new MissingEventDescriptionException();
+        }
+
         String eventFrom = line.substring(fromSlashIndex + EVENT_FROM_SPACE_LENGTH, toSlashIndex);
-        String eventTo = line.substring(toSlashIndex + EVENT_TO_SPACE_LENGTH);
-        todos[todosCount] = new Event(eventDescription, eventFrom, eventTo);
+        if (eventFrom.isBlank()) {
+            throw new MissingEventFromException();
+        }
+
+        try {
+            String eventTo = line.substring(toSlashIndex + EVENT_TO_SPACE_LENGTH);
+            if (eventTo.isBlank()) {
+                throw new MissingEventToException();
+            }
+            todos[todosCount] = new Event(eventDescription, eventFrom, eventTo);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new MissingEventToException();
+        }
     }
 
     private static void greetings() {
