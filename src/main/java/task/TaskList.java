@@ -21,7 +21,7 @@ public class TaskList {
     }
 
     public boolean isEmpty() {
-        return tasks.isEmpty();
+        return this.tasks.isEmpty();
     }
 
     public void addTask(Parser token, String[] parsedInput) {
@@ -35,7 +35,7 @@ public class TaskList {
     }
 
     public void displayAll() {
-        for (int index = 1; index < this.size(); index++) {
+        for (int index = 1; index <= this.size(); index++) {
             System.out.println(index + "." + getTask(index));
         }
     }

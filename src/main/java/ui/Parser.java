@@ -7,12 +7,13 @@ import java.util.regex.Pattern;
 import exception.AdamException;
 
 public enum Parser {
-    BYE("bye"),
+    EXIT("bye|exit|ex"),
     LIST("list"),
     TOGGLE("(mark|unmark)\\s(\\d+)"),
     TODO("todo\\s(.+)"),
     DEADLINE("deadline\\s(.+)/by\\s(.+)"),
-    EVENT("event\\s(.+)/from\\s(.+)/to\\s(.+)");
+    EVENT("event\\s(.+)/from\\s(.+)/to\\s(.+)"),
+    HELP("help|h");
 
     private final String commandRegex;
 
