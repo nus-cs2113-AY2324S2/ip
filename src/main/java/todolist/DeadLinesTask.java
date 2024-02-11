@@ -1,7 +1,7 @@
-package ToDoListFeature;
+package todolist;
 
-public class DeadLinesTask extends ToDo{
-    private String deadline;
+public class DeadLinesTask extends Task {
+    private final String deadline;
 
     /**
      * Constructor for DeadLinesTask

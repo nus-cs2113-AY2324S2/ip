@@ -1,17 +1,18 @@
-package ToDoListFeature;
+package todolist;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ToDoList {
-    private final ArrayList<ToDo> toDoListArray;
+    private final ArrayList<Task> toDoListArray;
     //Keywords
     private static final String MARK_FEATURE_PATTERN = "^mark \\d+$"; //mark
     private static final String UNMARK_FEATURE_PATTERN = "^unmark \\d+$"; //unmark
     private static final String TODOTASK_FEATURE_PATTERN = "^todo .*"; //todoItem
     private static final String DEADLINESTASK_FEATURE_PATTERN = "^deadline .*"; //todoItem
     private static final String EVENTSTASK_PATTERN = "^event .*"; //todoItem
+
     private static final int SPACE_OFFSET = 1; //keyword " " offset
     private static final int BY_OFFSET = 4; //keyword "/by" offset
     private static final int FROM_OFFSET = 6; //keyword "/from" offset
@@ -21,7 +22,7 @@ public class ToDoList {
      * Constructor for ToDoList
      */
     public ToDoList() {
-        this.toDoListArray = new ArrayList<ToDo>();
+        this.toDoListArray = new ArrayList<Task>();
     }
 
     /**
@@ -59,7 +60,7 @@ public class ToDoList {
     public void execute(Scanner input) {
         featureIntroMessage();
         boolean isFinished = false;
-        while (!isFinished) {
+        while (true) {
             String inputText = input.nextLine();
             try {
                 if (!processKeywordInput(inputText)) {
@@ -98,10 +99,10 @@ public class ToDoList {
     }
 
     /**
-     * Add a ToDo item to the ToDoList
+     * Add a Task to the ToDoList
      * @param item the ToDo item to be added
      */
-    public void addItem(ToDo item) {
+    public void addTask(Task item) {
         this.toDoListArray.add(item);
         System.out.println("added: " + item.getName());
         System.out.println("Now you have " + this.toDoListArray.size() + " task(s) in the list");
@@ -118,9 +119,9 @@ public class ToDoList {
         }
         String output = "";
         int count = 1;
-        for (ToDo item: this.toDoListArray) {
+        for (Task item : this.toDoListArray) {
             output += count + "." + item.toString() + "\n";
-            count ++;
+            count++;
         }
         return output.substring(0, output.length()-1);
     }
@@ -171,17 +172,17 @@ public class ToDoList {
             unMarkTask(Integer.parseInt(inputText.substring(numberPosition + SPACE_OFFSET)));
             return true;
         } else if (matchesPattern(inputText, TODOTASK_FEATURE_PATTERN)) {
-            addItem(new ToDoTask(inputText.substring(numberPosition + SPACE_OFFSET)));
+            addTask(new ToDoTask(inputText.substring(numberPosition + SPACE_OFFSET)));
             return true;
         } else if (matchesPattern(inputText, DEADLINESTASK_FEATURE_PATTERN)) {
             int keywordPosition = inputText.indexOf("/by");
-            addItem(new DeadLinesTask(inputText.substring(numberPosition + SPACE_OFFSET, keywordPosition - 1),
+            addTask(new DeadLinesTask(inputText.substring(numberPosition + SPACE_OFFSET, keywordPosition - 1),
                     inputText.substring(keywordPosition + BY_OFFSET)));
             return true;
         } else if (matchesPattern(inputText, EVENTSTASK_PATTERN)) {
-            int keywordPosition1 = inputText.indexOf("/from"); // theck /from keyword position
+            int keywordPosition1 = inputText.indexOf("/from"); // check /from keyword position
             int keywordPosition2 = inputText.indexOf("/to"); // check /to keyword position
-            addItem(new EventsTask(inputText.substring(numberPosition + SPACE_OFFSET, keywordPosition1 - 1),
+            addTask(new EventsTask(inputText.substring(numberPosition + SPACE_OFFSET, keywordPosition1 - 1),
                     inputText.substring(keywordPosition1 + FROM_OFFSET, keywordPosition2 - 1),
                     inputText.substring(keywordPosition2 + TO_OFFSET)));
             return true;
@@ -200,4 +201,5 @@ public class ToDoList {
         Matcher matcher = regex.matcher(input);
         return matcher.matches();
     }
+
 }

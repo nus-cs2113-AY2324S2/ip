@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import ToDoListFeature.ToDoList;
+import todolist.ToDoList;
 
 public class ChatBBT {
 

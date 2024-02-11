@@ -1,6 +1,6 @@
-package ToDoListFeature;
+package todolist;
 
-public class ToDoTask extends ToDo{
+public class ToDoTask extends Task {
 
     /**
      * Constructor for ToDoTask

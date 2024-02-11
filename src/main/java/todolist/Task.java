@@ -1,21 +1,21 @@
-package ToDoListFeature;
+package todolist;
 
-public abstract class ToDo {
+public abstract class Task {
     protected final String name;
     protected boolean isDone;
 
     /**
-     * Constructor for ToDo
-     * @param name the name of the ToDo
+     * Constructor for Task
+     * @param name the name of the Task
      */
-    public ToDo(String name) {
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
     /**
-     * Get the name of the ToDo
-     * @return the name of the ToDo
+     * Get the name of the Task
+     * @return the name of the Task
      */
     public String getName() {
         return this.name;

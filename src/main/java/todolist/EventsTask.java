@@ -1,6 +1,6 @@
-package ToDoListFeature;
+package todolist;
 
-public class EventsTask extends ToDo{
+public class EventsTask extends Task {
     private final String startDate;
     private final String endDate;
 
