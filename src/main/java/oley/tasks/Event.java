@@ -1,9 +1,14 @@
+package oley.tasks;
+
 public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event (String description) {
+    public Event (String description) throws TimingNotFoundException {
         super(description);
+        if (!description.contains("/from") || !description.contains("/to")) {
+            throw new TimingNotFoundException();
+        }
         int fromIndex = description.indexOf("/");
         String time = description.substring(fromIndex + 1);
         int toIndex = time.indexOf("/") + fromIndex + 1;

@@ -1,15 +1,35 @@
+package oley.commands;
+import oley.tasks.*;
 import java.util.Scanner;
+
 public class Oley {
     public static Task[] tasks = new Task[100];
     public static int taskNumber = 0;
 
-    public static void addTask(String sentence){
+    public static void addTask(String sentence) throws InputNotRecognizedException {
         if (sentence.startsWith("deadline")) {
-            tasks[taskNumber] = new Deadline(sentence.substring(9));
+            try {
+                tasks[taskNumber] = new Deadline(sentence.substring(9));
+            } catch (TimingNotFoundException e) {
+                System.out.println("OOPS, we have encountered an error!");
+                System.out.println("A specific deadline would be better for you to complete your task on time! ( •̀ .̫ •́ )✧");
+                System.out.println("You may use /by to indicate the time.");
+                return;
+            }
         } else if (sentence.startsWith("todo")) {
             tasks[taskNumber] = new Todo(sentence.substring(5));
         } else if (sentence.startsWith("event")) {
-            tasks[taskNumber] = new Event(sentence.substring(6));
+            try {
+                tasks[taskNumber] = new Event(sentence.substring(6));
+            } catch (TimingNotFoundException e) {
+                System.out.println("OOPS, we have encountered an error!");
+                System.out.println("A specific timing of the event would be clearer! ( •̀ .̫ •́ )✧");
+                System.out.println("You may use /from and /to to indicate the starting and ending time.");
+                return;
+            }
+        }
+        if (!(sentence.startsWith("deadline") || sentence.startsWith("todo") || sentence.startsWith("event"))) {
+            throw new InputNotRecognizedException();
         }
         System.out.println("    " + "added: " + tasks[taskNumber].getTaskName());
         taskNumber++;
@@ -20,7 +40,7 @@ public class Oley {
         }
     }
 
-    public static void initialise(){
+    public static void initialise() {
         String logo = "  _____  __       \n"
                 + " /  _  \\|  | ____ ___  ___ \n"
                 + "|  | |  |  |/ ___ \\  \\/  /\n"
@@ -84,7 +104,15 @@ public class Oley {
                 mark(message);
                 lineBreaker();
             } else {
-                addTask(message);
+                try {
+                    addTask(message);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("OOPS, we have encountered an error!");
+                    System.out.println("The description of a task cannot be empty! (๑•́ ₃•̀๑)");
+                } catch (InputNotRecognizedException e) {
+                    System.out.println("So sorry, I do not understand the commands. I will try to improve!! (ง •̀_•́)ง");
+                    System.out.println("Meanwhile, you can use todo, deadline or event to indicate the type of tasks.");
+                }
                 lineBreaker();
             }
             message = in.nextLine();
