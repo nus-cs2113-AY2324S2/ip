@@ -26,11 +26,11 @@ public class Task {
     }
 
     public void printAdd(int todosCount) {
-        System.out.print("");
+        return;
     }
 
     public void printTask(int todoCount) {
-        System.out.print("");
+        return;
     }
 
     public TaskType getTaskType() {

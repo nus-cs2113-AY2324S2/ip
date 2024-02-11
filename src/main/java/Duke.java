@@ -19,17 +19,19 @@ public class Duke {
         String line;
         line = in.nextLine();
         String[] lineWords;
+        String command;
 
         while (!(line.toUpperCase().contains("BYE"))) {
             lineWords = line.split(" ");
+            command = lineWords[0];
             if (line.equalsIgnoreCase("LIST")) {
                 processList(todosCount, todos);
-            } else if (lineWords[0].equalsIgnoreCase("MARK")) {
+            } else if (command.equalsIgnoreCase("MARK")) {
                 processMark(todos, lineWords);
-            } else if (lineWords[0].equalsIgnoreCase("UNMARK")) {
+            } else if (command.equalsIgnoreCase("UNMARK")) {
                 processUnmark(todos, lineWords);
             } else {
-                processAddTask(lineWords, todos, todosCount, line);
+                processAddTask(command, todos, todosCount, line);
                 todosCount += 1;
                 todos[todosCount - 1].printAdd(todosCount);
             }
@@ -51,8 +53,7 @@ public class Duke {
     private static void processMark(Task[] todos, String[] lineWords) {
         todos[Integer.parseInt(lineWords[1]) - 1].markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  "
-                + "[X] "
+        System.out.println("  " + "[X] "
                 + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
     }
 
@@ -63,10 +64,10 @@ public class Duke {
         }
     }
 
-    private static void processAddTask(String[] lineWords, Task[] todos, int todosCount, String line) {
-        if (lineWords[0].equalsIgnoreCase("TODO")) {
+    private static void processAddTask(String command, Task[] todos, int todosCount, String line) {
+        if (command.equalsIgnoreCase("TODO")) {
             createNewTodo(todos, todosCount, line);
-        } else if (lineWords[0].equalsIgnoreCase("Deadline")) {
+        } else if (command.equalsIgnoreCase("Deadline")) {
             createNewDeadline(todos, todosCount, line);
         } else {
             createNewEvent(todos, todosCount, line);
