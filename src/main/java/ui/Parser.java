@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exception.AdamException;
+
 public enum Parser {
     BYE("bye"),
     LIST("list"),
@@ -22,11 +24,11 @@ public enum Parser {
         return this.commandRegex;
     }
 
-    public static Parser analyzeInput(String input) {
+    public static Parser analyzeInput(String input) throws AdamException {
         return Arrays.stream(Parser.values())
                 .filter(token -> input.matches(token.getCommandRegex()))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new AdamException(Message.INVALID_INPUT_MESSAGE));
     }
 
     public static String[] splitInput(String input) {

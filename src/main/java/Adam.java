@@ -1,6 +1,6 @@
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import exception.AdamException;
 import command.CommandGenerator;
 import task.TaskList;
 import ui.Message;
@@ -23,8 +23,8 @@ public class Adam {
                 exitFlag = CommandGenerator.generate(input)
                         .orElseThrow()
                         .execute(tasks); // return true if it's exitCommand; false otherwise
-            } catch (NoSuchElementException error) {
-                System.out.println(Message.ERROR_MESSAGE);
+            } catch (AdamException error) {
+                System.out.println(error.getMessage());
             }
 
             System.out.println(Message.DELIMITER);
