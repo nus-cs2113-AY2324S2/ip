@@ -14,7 +14,6 @@ public class Bob {
             String line = in.nextLine();
 
             String command = line.split(" ")[0];
-            String content;
 
             switch (command) {
             case "todo":
