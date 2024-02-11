@@ -23,6 +23,10 @@ public class TaskList {
         return false;
     }
 
+    public Task getTask(int taskIndex) {
+        return tasks[taskIndex];
+    }
+
     public void markTask(int taskIndex) {
         tasks[taskIndex].mark();
         System.out.println("Nice! I've marked this task as done:");
