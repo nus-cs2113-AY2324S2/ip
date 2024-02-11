@@ -31,18 +31,28 @@ public class Duke {
                 printGoodByeMessage();
             } else if (usersInput.equals("list")) {
                 printList(currentIteration, list);
-            } else if (usersInput.startsWith("todo") || usersInput.startsWith("deadline") || usersInput.startsWith("event")) {
-                addTask(usersInput, list, currentIteration);
-                currentIteration++;
             } else if (usersInput.startsWith("unmark")) {
                 markOrUnmarkTask(usersInput, false, list);
             } else if (usersInput.startsWith("mark")) {
                 markOrUnmarkTask(usersInput, true, list);
             }
+            else {
+                try {
+                    addTask(usersInput, list, currentIteration);
+                    currentIteration++;
+                } catch(ThawException e) {
+                    if (e.getMessage().equals("Empty command")) {
+                        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    else if (e.getMessage().equals("Invalid command")) {
+                        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                }
+            }
         }
     }
 
-    private static void markOrUnmarkTask(String usersInput, boolean isDone, Task[] task) {
+    private static void markOrUnmarkTask (String usersInput, boolean isDone, Task[] task) {
         int taskIndex;
 
         if (isDone) {
@@ -69,8 +79,11 @@ public class Duke {
         System.out.print("Now you have " + (index + 1) + " task in the list.");
     }
 
-    private static void addTask(String usersInput, Task[] list, int currentIteration) {
-        if (usersInput.startsWith("todo")) {
+    private static void addTask(String usersInput, Task[] list, int currentIteration) throws ThawException {
+        if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") || usersInput.strip().equals("event")) {
+            throw new ThawException("Empty command");
+        }
+        else if (usersInput.startsWith("todo")) {
             list[currentIteration] = new Todo(usersInput.substring(5), usersInput);
         }
         else if (usersInput.startsWith("deadline")) {
@@ -83,6 +96,9 @@ public class Duke {
             int secondIndex = usersInput.indexOf("to");
             list[currentIteration] = new Event(usersInput.substring(6, startIndex - 2),
                     "from: " + usersInput.substring(startIndex+ 5, secondIndex - 2) + " " + "to: " + usersInput.substring(secondIndex + 3));
+        }
+        else {
+            throw new ThawException("Invalid command");
         }
         printAcknowledgementMessage(list, currentIteration);
     }
