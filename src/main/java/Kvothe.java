@@ -96,21 +96,21 @@ public class Kvothe {
         String args[];
 
         switch (command) {
-            case "todo":
-                String descr = line.substring("todo".length()).trim();
-                newTask = new Todo(descr);
-                break;
-            case "deadline":
-                args = parseLine(line, Deadline.args);
-                newTask = new Deadline(args[0], args[1]);
-                break;
-            case "event":
-                args = parseLine(line, Event.args);
-                newTask = new Event(args[0], args[1], args[2]);
-                break;
-            default:
-                echo("Sorry. I do not support that method.");
-                break;
+        case "todo":
+            String descr = line.substring("todo".length()).trim();
+            newTask = new Todo(descr);
+            break;
+        case "deadline":
+            args = parseLine(line, Deadline.args);
+            newTask = new Deadline(args[0], args[1]);
+            break;
+        case "event":
+            args = parseLine(line, Event.args);
+            newTask = new Event(args[0], args[1], args[2]);
+            break;
+        default:
+            echo("Sorry. I do not support that method.");
+            break;
         }
 
         tasks[tasksIndex] = newTask;
