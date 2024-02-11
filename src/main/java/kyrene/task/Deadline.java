@@ -1,3 +1,7 @@
+package kyrene.task;
+
+import kyrene.exception.KyreneMissingTimeException;
+
 public class Deadline extends Task{
 
     protected String deadline;

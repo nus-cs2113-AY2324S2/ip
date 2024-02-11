@@ -1,3 +1,7 @@
+package kyrene;
+
+import kyrene.task.*;
+import kyrene.exception.*;
 import java.util.Scanner;
 
 public class Kyrene {
@@ -13,7 +17,7 @@ public class Kyrene {
     final static String ERROR_TASK_NOT_EXIST = "    Error! This task does not exist.\n";
     final static String ERROR_MISSING_TASK = "    Error! Your task description is missing.\n    For creating tasks, please type \"[task type (todo/deadline/event)] [task description]\"([] is to be omitted).\n    For example:\n        todo have a nice day\n    or\n        deadline get a cup of coffee /by 9am\n    or\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
     final static String ERROR_MISSING_TIME = "    Error! Your deadline/event task created is incomplete in terms of time.\n    For creating deadline task, please type \"deadline [task description] /by [time]\"([] is to be omitted).\n    For example:\n        deadline get a cup of coffee /by 9pm\n    For creating event task, please type \"event [task description] /from [starting time] /to [ending time]\"([] is to be omitted).\n    For example:\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
-    final static String ERROR_INVALID_COMMAND = "   Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark\n        unmark\n        [task type (todo/deadline/event)] [task description]\n";
+    final static String ERROR_INVALID_COMMAND = "   Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark\n        unmark\n        [task type (todo/deadline/event)] [task description]\n        bye\n";
     final static int MAX_ARRAY_LENGTH = 100;
 
     public static Task[] tasks = new Task[MAX_ARRAY_LENGTH];
@@ -118,7 +122,7 @@ public class Kyrene {
 
         String[] commands = sentence.split(" ");
         String command = commands[0];
-        int taskNumber = 0;
+        int taskNumber;
 
         switch(command) {
         case "bye":

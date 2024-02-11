@@ -1,3 +1,7 @@
+package kyrene.task;
+
+import kyrene.exception.KyreneMissingTimeException;
+
 public class Event extends Task{
 
     protected String startTime;
