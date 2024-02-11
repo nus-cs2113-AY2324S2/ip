@@ -37,8 +37,12 @@ public class Gary {
                     todos[todosCount - 1].printAdd(todosCount);
                 } catch (UnknownCommandException e) {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                } catch (EmptyTodoDescriptionException e) {
-                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                } catch (MissingTodoDescriptionException e) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty");
+                } catch (MissingDeadlineByException e) {
+                    System.out.println("OOPS!!! Deadline must contain '/by' and its description");
+                } catch (MissingDeadlineDescriptionException e) {
+                    System.out.println("OOPS!!! The description of a deadline cannot be empty");
                 }
 
             }
@@ -72,7 +76,8 @@ public class Gary {
     }
 
     private static void processAddTask(String command, Task[] todos, int todosCount, String line)
-            throws UnknownCommandException, EmptyTodoDescriptionException {
+            throws UnknownCommandException, MissingTodoDescriptionException,
+            MissingDeadlineByException, MissingDeadlineDescriptionException {
         if (command.equalsIgnoreCase("TODO")) {
             createNewTodo(todos, todosCount, line);
         } else if (command.equalsIgnoreCase("DEADLINE")) {
@@ -85,19 +90,35 @@ public class Gary {
     }
 
     private static void createNewTodo(Task[] todos, int todosCount, String line)
-            throws EmptyTodoDescriptionException {
+            throws MissingTodoDescriptionException {
         try {
             todos[todosCount] = new Todo(line.substring(TODO_DESCRIPTION_START_INDEX));
         } catch(StringIndexOutOfBoundsException e) {
-            throw new EmptyTodoDescriptionException();
+            throw new MissingTodoDescriptionException();
         }
     }
 
-    private static void createNewDeadline(Task[] todos, int todosCount, String line) {
+    private static void createNewDeadline(Task[] todos, int todosCount, String line)
+            throws MissingDeadlineByException, MissingDeadlineDescriptionException {
+        if (!(line.contains("/by"))) {
+            throw new MissingDeadlineByException();
+        }
+
         int bySlashIndex = line.indexOf("/");
         String deadlineDescription = line.substring(DEADLINE_DESCRIPTION_START_INDEX, bySlashIndex);
-        String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH);
-        todos[todosCount] = new Deadline(deadlineDescription, deadlineBy);
+        if (deadlineDescription.isBlank()) {
+            throw new MissingDeadlineDescriptionException();
+        }
+
+        try {
+            String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH);
+            if (deadlineBy.isBlank()) {
+                throw new MissingDeadlineByException();
+            }
+            todos[todosCount] = new Deadline(deadlineDescription, deadlineBy);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new MissingDeadlineByException();
+        }
     }
 
     private static void createNewEvent(Task[] todos, int todosCount, String line) {
