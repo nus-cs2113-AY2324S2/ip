@@ -3,7 +3,7 @@ package ui;
 import java.util.Random;
 
 public class Message {
-    public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====> >====>\n";
+    public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====> >====> >====>\n";
 
     private static final String LOGO_DEFAULT = "              _                 \n"
             + "     /\\      | |                \n"
@@ -30,7 +30,8 @@ public class Message {
     private static final String GREETING = DELIMITER
             + "Greetings, human! I'm Adam, your friendly chat bot.\n"
             + "Ready to conquer the world of tasks together?\n"
-            + "Let's dive into the adventure!\n"
+            + "Let's dive into the adventure!\n\n"
+            + ">>> Type 'help' or 'h' to view the available commands."
             + DELIMITER;
 
     private static final String[] LOGOS = {LOGO_DEFAULT, LOGO_BOLD, LOGO_3D};
@@ -62,9 +63,24 @@ public class Message {
             + "Please enter an index between 1 and ";
 
     public static final String INVALID_INPUT_MESSAGE = "Oopsie! Looks like I got tangled up in my circuits.\n"
-            + "Could you please try again?";
+            + "Please try again or type 'help' for valid commands.";
 
     public static String getToggleErrorMessage(int size) {
         return size == 0 ? LIST_ERROR_MESSAGE : TOGGLE_ERROR_MESSAGE + size + ". (both inclusive)";
     }
+
+    public static String HELP_MESSAGE = "Need a hand? Here's your guide to Adam's commands!\n\n"
+            + "Available commands:\n"
+            + "- bye (or exit, ex): Exit the chatbot.\n"
+            + "- list: View all tasks in the task list.\n"
+            + "- mark [task number]: Mark a task as completed.\n"
+            + "- unmark [task number]: Mark a completed task as incomplete.\n"
+            + "- todo [description]: Add a new todo task.\n"
+            + "- deadline [description] /by [deadline]: Add a new task with a deadline.\n"
+            + "- event [description] /from [start time] /to [end time]: Add a new event task.\n"
+            + "- help (or h): Display this help menu.\n\n"
+            + "To use a command, simply type it followed by any necessary parameters\n"
+            + "(e.g. \"deadline Hand in assignments /by 4th June\").\n"
+            + "Enjoy chatting with Adam!";
+
 }

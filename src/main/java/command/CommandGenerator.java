@@ -11,7 +11,7 @@ public class CommandGenerator{
         Parser token = Parser.analyzeInput(input);
 
         switch (token) {
-        case BYE:
+        case EXIT:
             return Optional.of(new ExitCommand());
 
         case LIST:
@@ -19,6 +19,9 @@ public class CommandGenerator{
 
         case TOGGLE:
             return Optional.of(new ToggleStatusCommand(Parser.splitInput(input)));
+
+        case HELP:
+            return Optional.of(new HelpCommand());
 
         default:
             return Optional.of(new AddTaskCommand(token, Parser.splitInput(input)));
