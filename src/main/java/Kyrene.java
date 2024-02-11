@@ -82,22 +82,18 @@ public class Kyrene {
 
     }
 
-    public static void markTask(int taskNumber){
+    public static void markTask(int taskNumber) throws KyreneTaskNotFoundException {
         if(taskNumber < 1 || taskNumber > taskCount){
-            System.out.println(ERROR_TASK_NOT_EXIST);
-            printDivider();
-            return;
+            throw new KyreneTaskNotFoundException();
         }
         tasks[taskNumber - 1].setDone(true);
         System.out.println("    Congrats! Task " + taskNumber + " is done!\n");
         printDivider();
     }
 
-    public static void unmarkTask(int taskNumber){
+    public static void unmarkTask(int taskNumber) throws KyreneTaskNotFoundException {
         if(taskNumber < 1 || taskNumber > taskCount){
-            System.out.println(ERROR_TASK_NOT_EXIST);
-            printDivider();
-            return;
+            throw new KyreneTaskNotFoundException();
         }
         tasks[taskNumber - 1].setDone(false);
         System.out.println("    Task " + taskNumber + " is marked as not done.\n");
@@ -134,12 +130,22 @@ public class Kyrene {
             printDivider();
             break;
         case "mark":
-            taskNumber = Integer.parseInt(sentence.substring(5));
-            markTask(taskNumber);
+            try {
+                taskNumber = Integer.parseInt(sentence.substring(5));
+                markTask(taskNumber);
+            } catch (NumberFormatException | KyreneTaskNotFoundException e) {
+                System.out.println(ERROR_TASK_NOT_EXIST);
+                printDivider();
+            }
             break;
         case "unmark":
-            taskNumber = Integer.parseInt(sentence.substring(7));
-            unmarkTask(taskNumber);
+            try {
+                taskNumber = Integer.parseInt(sentence.substring(7));
+                unmarkTask(taskNumber);
+            } catch (NumberFormatException | KyreneTaskNotFoundException e) {
+                System.out.println(ERROR_TASK_NOT_EXIST);
+                printDivider();
+            }
             break;
         default:
             try {
