@@ -1,10 +1,6 @@
-public class WrongArgumentsException extends Exception{
+public class WrongArgumentsException extends KvotheExcpetion{
     public WrongArgumentsException(String message){
         super(message);
     }
 
-    @Override
-    public String toString(){
-        return "OOPS!!! " + super.getMessage();
-    }
 }
