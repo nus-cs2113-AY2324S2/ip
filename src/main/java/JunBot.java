@@ -2,6 +2,7 @@ import java.util.Scanner;
 import junbot.command.Todo;
 import junbot.command.Deadline;
 import junbot.command.Event;
+import junbot.error.InvalidInputException;
 import junbot.task.Task;
 public class JunBot {
     public static String DIVIDER = "____________________________________________________________\n";
