@@ -50,8 +50,8 @@ public class Kvothe {
 
         switch (command) {
         case "todo":
-            String descr = line.substring("todo".length()).trim();
-            newTask = new Todo(descr);
+            args = Task.parseLine(line);
+            newTask = new Todo(args[0]);
             break;
         case "deadline":
             args = Task.parseLine(line, Deadline.args);
@@ -144,10 +144,14 @@ public class Kvothe {
                         unmark(taskNumber);
                     }
                     break;
-                default:
+                case "todo":
+                case "deadline":
+                case "event":
                     add(line);
                     echo("added: " + line + "\n\t\tnow you have " + tasksIndex + " tasks in the list");
                     break;
+                default:
+                    throw new WrongArgumentsException("Sorry. I do not support the method." + command);
                 }
             }catch (WrongArgumentsException e) {
                 echo(e.toString());

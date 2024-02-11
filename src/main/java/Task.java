@@ -8,9 +8,10 @@ public class Task {
         this.isDone = false;
     }
 
+    //TODO: keep track of the received args
     public static String[] parseLine(String line, String[] validArgs) throws WrongArgumentsException {
 
-        String args[] = line.split(" "); // remove the first word (command)
+        String args[] = line.split(" ");
         String newArgs[] = new String[validArgs.length + 1];
         String aux = "";
 
@@ -42,8 +43,11 @@ public class Task {
             }
         }
 
+        newArgs[indexOfNewArgs] = aux.trim();
+
         if (lenOfArgGiven == 0) {
-            throw new WrongArgumentsException("No value for " + validArgs[indexOfValidArgs - 1]);
+            String name = indexOfValidArgs > 0 ? validArgs[indexOfValidArgs - 1] : "description";
+            throw new WrongArgumentsException("No value for " + name);
         }
 
         if (indexOfValidArgs != validArgs.length) {
@@ -53,6 +57,31 @@ public class Task {
             }
             throw new WrongArgumentsException(message);
         }
+
+        return newArgs;
+    }
+
+
+    public static String[] parseLine(String line) throws WrongArgumentsException {
+
+        String args[] = line.split(" ");
+        String newArgs[] = new String[1];
+        String aux = "";
+
+        for (int i = 1; i < args.length; i++) {
+            String word = args[i];
+            if (word.startsWith("/")) {
+                throw new WrongArgumentsException("Todo does not accept arguments.");
+            } else {
+                aux += word + " ";
+            }
+        }
+
+        if (aux.length() == 0) {
+            throw new WrongArgumentsException("No value for description." );
+        }
+
+        newArgs[0] = aux.trim();
 
         return newArgs;
     }
