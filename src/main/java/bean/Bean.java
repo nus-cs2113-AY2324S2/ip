@@ -1,5 +1,10 @@
+package bean;
+
 import java.util.Scanner;
-import java.util.Arrays;
+
+import bean.command.Parser;
+import bean.task.Task;
+import bean.task.TaskList;
 
 public class Bean {
     public static final String MESSAGE_TASK_UNDONE = "    Oops, looks like you're still not done with this:\n   ";
@@ -69,7 +74,7 @@ public class Bean {
         if (userLine.getCommand().equals("list")) {
             printTaskList(listOfTasks);
 
-        } else if (userLine.getCommand().startsWith("mark")) {
+        } else if (userLine.getCommand().equals("mark")) {
             int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
             if (taskIndex >= 0 && taskIndex < listOfTasks.getNumTasks()) {
                 Task markedTask = listOfTasks.markTask(taskIndex, true);
@@ -78,7 +83,7 @@ public class Bean {
                 printInvalidTaskNo();
             }
 
-        } else if (userLine.getCommand().startsWith("unmark")) {
+        } else if (userLine.getCommand().equals("unmark")) {
             int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
             if (taskIndex >= 0 && taskIndex < listOfTasks.getNumTasks()) {
                 Task unmarkedTask = listOfTasks.markTask(taskIndex, false);

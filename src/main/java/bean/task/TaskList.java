@@ -1,3 +1,5 @@
+package bean.task;
+
 import java.util.Arrays;
 
 public class TaskList {
