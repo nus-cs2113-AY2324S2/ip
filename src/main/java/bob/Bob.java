@@ -1,3 +1,5 @@
+package bob;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -157,7 +159,7 @@ public class Bob {
         System.out.println("Hello from\n" + logo);
 
         displayHorizontalLine();
-        System.out.println("Hello! I'm Bob");
+        System.out.println("Hello! I'm bob.Bob");
         System.out.println("What can I do for you?");
         displayHorizontalLine();
     }

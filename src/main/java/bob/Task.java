@@ -1,3 +1,5 @@
+package bob;
+
 public class Task {
     // todo: refactor so that deadline, event, and todo all extend from task and not each other
     protected String description;

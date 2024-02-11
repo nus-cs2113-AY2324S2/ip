@@ -1,3 +1,5 @@
+package bob;
+
 public class Event extends Deadline {
 
     protected String start;
