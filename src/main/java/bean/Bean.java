@@ -3,6 +3,7 @@ package bean;
 import java.util.Scanner;
 
 import bean.command.Parser;
+import bean.command.exception.NoValueException;
 import bean.task.Task;
 import bean.task.TaskList;
 
@@ -14,9 +15,9 @@ public class Bean {
     public static final String MESSAGE_LIST_HEADER = "    These are the tasks in your list:";
     public static final String MESSAGE_TASK_DONE = "    Hey, looks like you're done with this task:\n   ";
     public static final String MESSAGE_CURRENT_NUMTASKS = "    You currently have ";
-    public static final String ERROR_INVALID_TASK_NUMBER = "    Sorry, that was an invalid task number.";
-    public static final String ERROR_NO_VALUE_FOR_REQUIRED_FIELDS = "    Error: no value for required fields";
-    public static final String ERROR_NO_SUCH_COMMAND = "    Sorry, I don't understand that command";
+    public static final String EXCEPTION_INVALID_TASK_NUMBER = "    Sorry, that was an invalid task number.";
+    public static final String EXCEPTION_NO_VALUE_FOR_REQUIRED_FIELDS = "    Exception: no value for required fields";
+    public static final String EXCEPTION_NO_SUCH_COMMAND = "    Sorry, I don't understand that command";
     public static final String MESSAGE_GOODBYE = "    Bean will take a nap now. Bye!";
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -30,6 +31,7 @@ public class Bean {
         System.out.println(tasks.toString());
         System.out.println(SEPARATOR);
     }
+
     private static void printTaskDone(Task task) {
         System.out.print(MESSAGE_TASK_DONE);
         System.out.println(task.toString());
@@ -50,17 +52,17 @@ public class Bean {
     }
 
     private static void printInvalidTaskNo() {
-        System.out.println(ERROR_INVALID_TASK_NUMBER);
+        System.out.println(EXCEPTION_INVALID_TASK_NUMBER);
         System.out.println(SEPARATOR);
     }
 
     private static void printNoValueForFields() {
-        System.out.println(ERROR_NO_VALUE_FOR_REQUIRED_FIELDS);
+        System.out.println(EXCEPTION_NO_VALUE_FOR_REQUIRED_FIELDS);
         System.out.println(SEPARATOR);
     }
 
     private static void printNoSuchCommand() {
-        System.out.println(ERROR_NO_SUCH_COMMAND);
+        System.out.println(EXCEPTION_NO_SUCH_COMMAND);
         System.out.println(SEPARATOR);
     }
 
@@ -71,59 +73,68 @@ public class Bean {
 
     private static void processAndExecute(String line, TaskList listOfTasks) {
         Parser userLine = new Parser(line);
-        if (userLine.getCommand().equals("list")) {
+        String command = userLine.getCommand();
+        switch (command) {
+        case "list": {
             printTaskList(listOfTasks);
-
-        } else if (userLine.getCommand().equals("mark")) {
-            int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
-            if (taskIndex >= 0 && taskIndex < listOfTasks.getNumTasks()) {
+            break;
+        }
+        case "mark": {
+            try {
+                int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
                 Task markedTask = listOfTasks.markTask(taskIndex, true);
                 printTaskDone(markedTask);
-            } else {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 printInvalidTaskNo();
             }
-
-        } else if (userLine.getCommand().equals("unmark")) {
-            int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
-            if (taskIndex >= 0 && taskIndex < listOfTasks.getNumTasks()) {
+            break;
+        }
+        case "unmark": {
+            try {
+                int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
                 Task unmarkedTask = listOfTasks.markTask(taskIndex, false);
                 printTaskUndone(unmarkedTask);
-            } else {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 printInvalidTaskNo();
             }
-
-        } else if (userLine.getCommand().equals("todo")) {
+            break;
+        }
+        case "todo": {
             String description = userLine.getArgument();
-            if (description.isEmpty()) {
-                printNoValueForFields();
-            } else {
+            try {
                 Task newTask = listOfTasks.addTask(description);
                 printTaskAdded(newTask, listOfTasks.getNumTasks());
+            } catch (NoValueException e) {
+                printNoValueForFields();
             }
-
-        } else if (userLine.getCommand().equals("deadline")) {
+            break;
+        }
+        case "deadline": {
             String description = userLine.getArgument();
             String by = userLine.getValue("by");
-            if (by.isEmpty() || description.isEmpty()) {
-                printNoValueForFields();
-            } else {
+            try {
                 Task newTask = listOfTasks.addTask(description, by);
                 printTaskAdded(newTask, listOfTasks.getNumTasks());
+            } catch (NoValueException e) {
+                printNoValueForFields();
             }
-
-        } else if (userLine.getCommand().equals("event")) {
+            break;
+        }
+        case "event": {
             String description = userLine.getArgument();
             String start = userLine.getValue("start");
             String end = userLine.getValue("end");
-            if (start.isEmpty() || end.isEmpty() || description.isEmpty()) {
-                printNoValueForFields();
-            } else {
+            try {
                 Task newTask = listOfTasks.addTask(description, start, end);
                 printTaskAdded(newTask, listOfTasks.getNumTasks());
+            } catch (NoValueException e) {
+                printNoValueForFields();
             }
-
-        } else {
+            break;
+        }
+        default:
             printNoSuchCommand();
+            break;
         }
     }
 
@@ -133,7 +144,7 @@ public class Bean {
         while (inputLine.trim().isEmpty()) {
             inputLine = SCANNER.nextLine();
         }
-        return inputLine;
+        return inputLine.trim();
     }
 
     public static void main(String[] args) {
