@@ -53,18 +53,19 @@ public class Brad {
                     try {
                         doDeadlineAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
-                        printOutput("Hey, you can't give me an empty deadline!");
+                        printOutput("Hey, you can't give me an empty deadline with no " +
+                                "specified due date!");
                     }
                     break;
                 case "event":
                     try {
                         doEventAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
-                        printOutput("Hey, you can't give me an event with no details!");
+                        printOutput("Hey, you can't give me an event with no start & end time!");
                     }
                     break;
                 default:
-                    printOutput("Huh?! Sorry I don't understand. \n Please only enter valid commands: " +
+                    printOutput("Huh?! Sorry I don't understand. T_T\n Please only enter valid commands: " +
                             "'list', 'mark', 'unmark', 'todo', 'deadline', 'event', 'bye'");
                     break;
             }
