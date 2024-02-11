@@ -1,5 +1,7 @@
 package bean.task;
 
+import bean.command.exception.NoValueException;
+
 import java.util.Arrays;
 
 public class TaskList {
@@ -19,19 +21,19 @@ public class TaskList {
         return numTasksDone;
     }
 
-    public Task addTask(String description) {
+    public Task addTask(String description) throws NoValueException {
         tasks[numTasks] = new ToDo(description);
         numTasks += 1;
         return tasks[numTasks - 1];
     }
 
-    public Task addTask(String description, String by) {
+    public Task addTask(String description, String by) throws NoValueException {
         tasks[numTasks] = new Deadline(description, by);
         numTasks += 1;
         return tasks[numTasks - 1];
     }
 
-    public Task addTask(String description, String start, String end) {
+    public Task addTask(String description, String start, String end) throws NoValueException {
         tasks[numTasks] = new Event(description, start, end);
         numTasks += 1;
         return tasks[numTasks - 1];
@@ -39,7 +41,7 @@ public class TaskList {
 
     public Task markTask(int index, boolean isDone) {
         if(index >= numTasks){
-            return null;
+            throw new IndexOutOfBoundsException();
         }
         else if (isDone) {
             tasks[index].setDone();

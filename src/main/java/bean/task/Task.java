@@ -1,9 +1,13 @@
 package bean.task;
+import bean.command.exception.NoValueException;
 public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws NoValueException {
+        if(description == null) {
+            throw new NoValueException();
+        }
         this.description = description;
         this.isDone = false;
     }
