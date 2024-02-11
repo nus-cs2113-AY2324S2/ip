@@ -66,7 +66,7 @@ public class Kyrene {
             return;
         }
         tasks[taskNumber - 1].setDone(true);
-        System.out.println("    Congrats! Task " + taskNumber + " is done!\n");
+        System.out.printf("    Congrats! Task %d is done!\n\n", taskNumber);
         printDivider();
     }
 
@@ -77,7 +77,7 @@ public class Kyrene {
             return;
         }
         tasks[taskNumber - 1].setDone(false);
-        System.out.println("    Task " + taskNumber + " is marked as not done.\n");
+        System.out.printf("    Task %d is marked as not done.\n\n", taskNumber);
         printDivider();
     }
 
