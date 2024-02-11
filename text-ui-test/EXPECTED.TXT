@@ -5,25 +5,19 @@ Hello! I'm Gary
                     ===================
 |   |   |   |   |   |   |   |   |   |   |   |
 What can I do for you?
-
 Got it! I've added this task:
   [T][ ] do CS2113
 Now you have 1 tasks in your list.
-
 Got it! I've added this task:
   [D][ ] CS2113 iP (by: today)
 Now you have 2 tasks in your list.
-
 Got it! I've added this task:
   [E][ ] CS2113 lecture (from: 4 to: 6 pm)
 Now you have 3 tasks in your list.
-
 Nice! I've marked this task as done:
   [X] do CS2113
-
 Here are the tasks in your list:
 1.[T][X] do CS2113
 2.[D][ ] CS2113 iP (by: today)
 3.[E][ ] CS2113 lecture (from: 4 to: 6 pm)
-
 Bye. Hope to see you again!
