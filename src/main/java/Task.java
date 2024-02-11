@@ -4,11 +4,11 @@ public class Task {
     protected String doneSymbol;
     protected String taskType;
 
-    public Task(){
+    public Task() {
         this(null);
     }
 
-    public Task(String taskName){
+    public Task(String taskName) {
         if(taskName == null) {
             return;
         }
@@ -29,7 +29,7 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public void setDone(boolean isDone){
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
         if(isDone){
             doneSymbol = "√";

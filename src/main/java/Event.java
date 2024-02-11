@@ -3,7 +3,7 @@ public class Event extends Task{
     protected String startTime;
     protected String endTime;
 
-    public Event(){
+    public Event() {
         super(null);
     }
 
@@ -26,19 +26,19 @@ public class Event extends Task{
         setTaskName(taskName);
     }
 
-    public String getStartTime(){
+    public String getStartTime() {
         return startTime;
     }
 
-    public String getEndTime(){
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setStartTime(String startTime){
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(String endTime){
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

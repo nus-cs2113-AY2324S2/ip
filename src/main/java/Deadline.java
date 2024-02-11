@@ -2,7 +2,7 @@ public class Deadline extends Task{
 
     protected String deadline;
 
-    public Deadline(){
+    public Deadline() {
         super(null);
     }
 
@@ -19,16 +19,16 @@ public class Deadline extends Task{
         setTaskName(taskName);
     }
 
-    public String getDeadline(){
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline){
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("[%s][%s] %s (by %s)", taskType, doneSymbol, taskName, deadline);
     }
 

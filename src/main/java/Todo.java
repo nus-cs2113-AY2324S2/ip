@@ -1,10 +1,10 @@
 public class Todo extends Task{
 
-    public Todo(){
+    public Todo() {
         super(null);
     }
 
-    public Todo(String taskName){
+    public Todo(String taskName) {
         super(taskName);
         taskType = "T";
     }

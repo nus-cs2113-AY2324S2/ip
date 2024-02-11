@@ -83,7 +83,7 @@ public class Kyrene {
     }
 
     public static void markTask(int taskNumber) throws KyreneTaskNotFoundException {
-        if(taskNumber < 1 || taskNumber > taskCount){
+        if (taskNumber < 1 || taskNumber > taskCount) {
             throw new KyreneTaskNotFoundException();
         }
         tasks[taskNumber - 1].setDone(true);
@@ -92,7 +92,7 @@ public class Kyrene {
     }
 
     public static void unmarkTask(int taskNumber) throws KyreneTaskNotFoundException {
-        if(taskNumber < 1 || taskNumber > taskCount){
+        if (taskNumber < 1 || taskNumber > taskCount) {
             throw new KyreneTaskNotFoundException();
         }
         tasks[taskNumber - 1].setDone(false);
@@ -100,8 +100,8 @@ public class Kyrene {
         printDivider();
     }
 
-    public static void printDivider(){
-        System.out.println(DIVIDER);
+    public static void printDivider() {
+        System.out.printf("%s\n", DIVIDER);
     }
 
     public static void printTasks() {
@@ -112,7 +112,7 @@ public class Kyrene {
         System.out.print("\n");
     }
 
-    public static boolean converseKyrene(String sentence){
+    public static boolean converseKyrene(String sentence) {
         boolean isEnd = false;
         printDivider();
 
@@ -167,7 +167,7 @@ public class Kyrene {
         Scanner input = new Scanner(System.in);
         String line;
         boolean exitFlag = false;
-        while (!exitFlag){
+        while (!exitFlag) {
             line = input.nextLine();
             exitFlag = converseKyrene(line);
         }
