@@ -1,3 +1,9 @@
+package Binks;
+
+import Binks.task.Deadlines;
+import Binks.task.Events;
+import Binks.task.Task;
+import Binks.task.Todo;
 
 public class List {
     private Task[] list;

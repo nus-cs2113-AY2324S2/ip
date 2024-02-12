@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package Binks;
+
 import java.util.Scanner;
 
 public class Binks {

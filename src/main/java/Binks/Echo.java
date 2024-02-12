@@ -1,3 +1,5 @@
+package Binks;
+
 import java.util.Scanner;
 public class Echo {
     public static void main(String[] arg){
