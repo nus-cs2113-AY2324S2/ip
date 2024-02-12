@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
     final static String APP_NAME = "mimichat";
+    final static int INPUT_LIMIT = 2;
+
     static Task[] taskList = new Task[100];
     static int numberOfTask = 0;
 
@@ -16,36 +18,49 @@ public class Duke {
         startupSequence();
 
         while (isRunning) {
-            String input = scanner.nextLine();
-            String[] inputs = input.split(" ", 2);
-            switch (inputs[0]) {
-            case "bye":
-                shutdownSequence();
-                break;
-            case "list":
-                listTasks(taskList, numberOfTask);
-                break;
-            case "mark":
-                markTask(taskList, Integer.parseInt(inputs[1])-1);
-                break;
-            case "unmark":
-                unmarkTask(taskList, Integer.parseInt(inputs[1])-1);
-                break;
-            case "todo":
-                addToDo(inputs[1]);
-                break;
-            case "deadline":
-                addDeadline(inputs[1]);
-                break;
-            case "event":
-                addEvent(inputs[1]);
-                break;
-            default:
-                // Adds task by default and prints that a task has been added
-                addTask(input);
-                break;
+            try {
+                String[] inputs = getInput();
+                switch (inputs[0]) {
+                case "bye":
+                    shutdownSequence();
+                    break;
+                case "list":
+                    listTasks(taskList, numberOfTask);
+                    break;
+                case "mark":
+                    markTask(taskList, Integer.parseInt(inputs[1]) - 1);
+                    break;
+                case "unmark":
+                    unmarkTask(taskList, Integer.parseInt(inputs[1]) - 1);
+                    break;
+                case "todo":
+                    addToDo(inputs[1]);
+                    break;
+                case "deadline":
+                    addDeadline(inputs[1]);
+                    break;
+                case "event":
+                    addEvent(inputs[1]);
+                    break;
+                default:
+                    // Adds task by default and prints that a task has been added
+                    addTask(inputs[1]);
+                    break;
+                }
+            } catch (MimichatException.InvalidInputFormatException e) {
+                    System.out.println(e);
             }
         }
+    }
+
+    // METHODS TO GET INPUT
+    private static String[] getInput() throws MimichatException.InvalidInputFormatException {
+        String input = scanner.nextLine();
+        String[] inputs = input.split(" ", INPUT_LIMIT);
+        if (inputs.length < 2) {
+            throw new MimichatException.InvalidInputFormatException("Invalid format for given input " + input + ".");
+        }
+        return inputs;
     }
 
     // METHODS TO CREATE/RETRIEVE OF TASKS
@@ -55,15 +70,16 @@ public class Duke {
         printDescription("added: " + input);
     }
 
-    private static void addToDo(String input){
+    private static void addToDo(String input) {
         ToDo toDo = new ToDo(input);
         appendIntoTaskList(toDo);
         printSuccessMessage(toDo);
     }
-    private static void addDeadline(String input){
+
+    private static void addDeadline(String input) {
 
         // Further process the deadline input
-        String[] inputs = input.split("/by" , 2);
+        String[] inputs = input.split("/by", 2);
         String taskName = inputs[0];
         String dueDate = inputs[1].strip();
 
@@ -74,10 +90,10 @@ public class Duke {
 
     }
 
-    private static void addEvent(String input){
+    private static void addEvent(String input) {
 
         // Further process the deadline input
-        String[] inputs = input.split("/from" , 2);
+        String[] inputs = input.split("/from", 2);
         String taskName = inputs[0];
         String[] duration = inputs[1].split("/to", 2);
         String startDate = duration[0].strip();
@@ -90,7 +106,7 @@ public class Duke {
 
     }
 
-    private static void appendIntoTaskList(Task newTask){
+    private static void appendIntoTaskList(Task newTask) {
         taskList[numberOfTask] = newTask;
         numberOfTask++;
     }
@@ -98,7 +114,7 @@ public class Duke {
     public static void listTasks(Task[] list, int numberOfTasks) {
         System.out.println("-------------------------------------------");
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < numberOfTasks; i++){
+        for (int i = 0; i < numberOfTasks; i++) {
             System.out.println(formatTask(list[i], i));
         }
         System.out.println("-------------------------------------------");
@@ -140,7 +156,7 @@ public class Duke {
     }
 
     public static String formatTask(Task task, int index) {
-        String indexNumber = Integer.toString(index+1);
+        String indexNumber = Integer.toString(index + 1);
         return indexNumber + ". " + task;
     }
 
