@@ -1,8 +1,8 @@
 public class Todo extends Task {
-    private final static char badge = 'T';
+    private final static char BADGE = 'T';
 
     public char getBadge() {
-        return badge;
+        return BADGE;
     }
 
     public Todo(String description) {

@@ -4,13 +4,17 @@ public class Spike {
     private static final String CHATBOT = "Spike";
     public static final String DIVIDER = "_________________________________________________";
     public static final int MAX_TASK = 100;
+    public static final int MARK_TASK_INDEX = 5;
+    public static final int UNMARK_TASK_INDEX = 7;
+    public static final int EVENT_TASK_INDEX = 6;
+    public static final int DEADLINE_TASK_INDEX = 9;
+    public static final int TODO_TASK_INDEX = 5;
 
     public static void main(String[] args) {
         displayWelcomeMsg();
 
         Task[] inputList = new Task[MAX_TASK];
         int iter = 0;
-        int taskCount = 0;
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -19,11 +23,11 @@ public class Spike {
                 displayList(inputList);
                 iter -= 1;
             } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
+                int index = Integer.parseInt(input.substring(MARK_TASK_INDEX)) - 1;
                 inputList[index].setDone(true);
                 displayMarkMsg(index, inputList);
             } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(7)) - 1;
+                int index = Integer.parseInt(input.substring(UNMARK_TASK_INDEX)) - 1;
                 inputList[index].setDone(false);
                 displayUnmarkMsg(index, inputList);
             } else if (input.startsWith("todo")) {
@@ -56,20 +60,20 @@ public class Spike {
     }
 
     private static String processEvent(String input) {
-        String event = input.substring(6);
+        String event = input.substring(EVENT_TASK_INDEX);
         String[] parts = event.split(" /from ");
         String[] time = parts[1].split(" /to ");
         return parts[0] + " (from: " + time[0] + " to: " + time[1] + ")";
     }
 
     private static String processDeadline(String input) {
-        String deadline = input.substring(9);
+        String deadline = input.substring(DEADLINE_TASK_INDEX);
         String[] parts = deadline.split(" /by ");
         return parts[0] + " (by: " + parts[1] + ")";
     }
 
     private static String processTodo(String input) {
-        return input.substring(5);
+        return input.substring(TODO_TASK_INDEX);
     }
 
     private static void displayAddedMsg(String input) {
@@ -87,7 +91,8 @@ public class Spike {
                 break;
             }
             char Badge = getBadge(value);
-            System.out.println((i + 1) + ".[" + Badge + "]" + "[" + value.getStatusIcon() + "] " + value.description);
+            System.out.println((i + 1) + ".[" + Badge + "]"
+                    + "[" + value.getStatusIcon() + "] " + value.description);
         }
         System.out.println(DIVIDER);
     }
@@ -108,7 +113,8 @@ public class Spike {
         char Badge = getBadge(inputList[index]);
         System.out.println(DIVIDER);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println((index + 1) + ".[" + Badge + "]" + "[ ] " + inputList[index].description);
+        System.out.println((index + 1) + ".[" + Badge + "]" + "[ ] "
+                + inputList[index].description);
         System.out.println(DIVIDER);
     }
 
@@ -116,7 +122,8 @@ public class Spike {
         char Badge = getBadge(inputList[index]);
         System.out.println(DIVIDER);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println((index + 1) + ".[" + Badge + "]" + "[X] " + inputList[index].description);
+        System.out.println((index + 1) + ".[" + Badge + "]" + "[X] "
+                + inputList[index].description);
         System.out.println(DIVIDER);
     }
 

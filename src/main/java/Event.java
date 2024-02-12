@@ -1,8 +1,8 @@
 public class Event extends Task {
-    private final static char badge = 'E';
+    private final static char BADGE = 'E';
 
     public char getBadge() {
-        return badge;
+        return BADGE;
     }
 
     public Event(String description) {
