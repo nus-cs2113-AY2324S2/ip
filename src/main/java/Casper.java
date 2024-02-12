@@ -1,15 +1,16 @@
 import java.util.Scanner;
-import java.util.WeakHashMap;
 
 public class Casper {
     private static final String SEPARATOR = "    _______________________________________________________________________";
     private static final Task[] taskList = new Task[100];
     private static int noOfTasks = 0;
+    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo"};
     private static void wrapEchoMessage(String message){
         System.out.println(SEPARATOR);
         System.out.println("     "+message);
         System.out.println(SEPARATOR);
     }
+
 
     private static void echoGreetings(){
         String logo = "       ___ __ _ ___ _ __   ___ _ __\n"
@@ -24,32 +25,61 @@ public class Casper {
 
     private static void handleQueries(){
         Scanner inputScanner = new Scanner(System.in);
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             String userInput = inputScanner.nextLine();
-            if (userInput.equals("bye")) {
+            try{
+                validateInputKeyword(userInput);
+                isRunning = handleKeywordRouting(userInput);
+            } catch (CasperUnrecognizedKeywordException e){
+                System.out.println(SEPARATOR);
+                System.out.println("     Pardon? I didn't quite understand \""+ e.getUnrecognizedKeyword()+"\"");
+                System.out.println("     Maybe refer to the following list of commands?");
+                for(String keyword:keywordList){
+                    System.out.println("      - " + keyword);
+                }
+                System.out.println(SEPARATOR);
+            }
+        }
+    }
+
+    private static boolean handleKeywordRouting(String userInput){
+        if (userInput.equals("bye")) {
+            return false;
+        }
+        if (userInput.equals("list")) {
+            echoTaskList();
+        } else if (userInput.startsWith("mark")) {
+            int targetTaskNumber = validateMarkInput(userInput);
+            if (targetTaskNumber != -1) {
+                taskList[targetTaskNumber-1].markTask();
+            }
+        } else if (userInput.startsWith("unmark")) {
+            int targetTaskNumber = validateMarkInput(userInput);
+            if (targetTaskNumber != -1) {
+                taskList[targetTaskNumber-1].unMarkTask();
+            }
+        } else if (userInput.startsWith("event")) {
+            handleEvent(userInput);
+        } else if (userInput.startsWith("deadline")) {
+            handleDeadline(userInput);
+        } else if (userInput.startsWith("todo")) {
+            handleTodo(userInput);
+        }
+        return true;
+    }
+
+    private static void validateInputKeyword(String userInput) throws CasperUnrecognizedKeywordException {
+        String userInputKeyword = userInput.split(" ")[0];
+        boolean isValidKeyword = false;
+        for(String keyword : keywordList){
+            if (keyword.equals(userInputKeyword)) {
+                isValidKeyword = true;
                 break;
             }
-            if (userInput.equals("list")) {
-                echoTaskList();
-            } else if (userInput.startsWith("mark")) {
-                int targetTaskNumber = validateMarkInput(userInput);
-                if (targetTaskNumber != -1) {
-                    taskList[targetTaskNumber-1].markTask();
-                }
-            } else if (userInput.startsWith("unmark")) {
-                int targetTaskNumber = validateMarkInput(userInput);
-                if (targetTaskNumber != -1) {
-                    taskList[targetTaskNumber-1].unMarkTask();
-                }
-            } else if (userInput.startsWith("event")) {
-                handleEvent(userInput);
-            } else if (userInput.startsWith("deadline")) {
-                handleDeadline(userInput);
-            } else if (userInput.startsWith("todo")) {
-                handleTodo(userInput);
-            } else {
-                wrapEchoMessage("Pardon? I didn't get your message.");
-            }
+        }
+        if(!isValidKeyword){
+            throw new CasperUnrecognizedKeywordException(userInputKeyword);
         }
     }
 
