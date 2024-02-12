@@ -15,7 +15,7 @@ public class ResponseManager {
         + "How can I assist you today?\n";
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon, baa-baa-baa!\n";
 
-    public void printLine() {
+    public static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
     public void printGreeting() {
@@ -47,6 +47,11 @@ public class ResponseManager {
     public void printInvalidIndex() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Invalid index");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void printErrorMessage(String errorMessage) {
+        System.out.println(errorMessage);
         System.out.println(HORIZONTAL_LINE);
     }
 }
