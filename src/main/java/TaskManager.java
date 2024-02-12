@@ -10,7 +10,7 @@ public class TaskManager {
 
     public TaskManager() {
         this.tasks = new Task[100];   //initialize an array of Tasks, to act as a list
-        noOfTasks = 0;
+        this.noOfTasks = 0;
     }
     public void executeCommand(String[] commandTypeAndParams) {
         String commandType = commandTypeAndParams[INDEX_COMMAND_TYPE];

@@ -1,11 +1,10 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    public static int noOfTasks = 0;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        noOfTasks += 1;
     }
     @Override
     public String toString() {
