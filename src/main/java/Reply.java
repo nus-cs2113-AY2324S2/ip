@@ -4,6 +4,49 @@ public class Reply {
     public static void printLine() {
         System.out.println(PARTITION_LINE);
     }
+    public static void printHelp() {
+        printLine();
+        System.out.println("Commands List:" + "\n");
+        System.out.println("list - prints out the List");
+        System.out.println("man - procures utility commands' usage");
+        System.out.println("help - procures command list");
+        System.out.println("bye - terminates the bot");
+        printLine();
+        System.out.println("todo - adds an item to the List");
+        System.out.println("event - adds an event to the List");
+        System.out.println("deadline - adds a deadline to the List");
+        System.out.println("mark - indicates an item on the List as done");
+        System.out.println("unmark - indicates an item on the List as not done");
+    }
+    public static void printManual(String command) {
+        printLine();
+        try {
+            switch (command) {
+            case "": {
+                System.out.println("man format: man *command*");
+                break;
+            }
+            case "todo": {
+                System.out.println("todo format: todo *parameter*");
+                break;
+            }
+            case "event": {
+                System.out.println("event format: event *parameter* /from *start time* /to *end time*");
+                break;
+            }
+            case "deadline": {
+                System.out.println("deadline format: deadline *parameter* /by *end time*");
+                break;
+            }
+            default:
+                throw new CustomException("Invalid command. Enter 'help' to view available commands.");
+            }
+        } catch (CustomException e) {
+            System.err.println("Custom Exception Caught!" + "\n" + e.getMessage());
+        }
+    }
+
+
     public static void printReply(String reply) {
         printLine();
         System.out.println(reply);
