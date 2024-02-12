@@ -3,7 +3,7 @@ public class Oley {
     public static Task[] tasks = new Task[100];
     public static int taskNumber = 0;
 
-    public static void addTask(String sentence){
+    public static void addTask(String sentence) {
         if (sentence.startsWith("deadline")) {
             tasks[taskNumber] = new Deadline(sentence.substring(9));
         } else if (sentence.startsWith("todo")) {
@@ -20,7 +20,7 @@ public class Oley {
         }
     }
 
-    public static void initialise(){
+    public static void initialise() {
         String logo = "  _____  __       \n"
                 + " /  _  \\|  | ____ ___  ___ \n"
                 + "|  | |  |  |/ ___ \\  \\/  /\n"
