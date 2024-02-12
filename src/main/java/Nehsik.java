@@ -1,31 +1,34 @@
 import java.util.Scanner;
 public class Nehsik {
     public static final int MAX_TASKS = 100;
+    public static final int MARK_TASK_INDEX = 5;
+    public static final int UNMARK_TASK_INDEX = 7;
+    public static final int TODO_DESCRIPTION_POSITION = 5;
 
     public static void main(String[] args) {
         displayGreetings();
         
         Scanner in = new Scanner(System.in);
         Task[] taskList = new Task[MAX_TASKS];
-        int taskIndex = 0;
+        int currTaskCount = 0;
 
         while (true) {
             String command = in.nextLine().trim();
             if (command.equals("list")) {
-                displayTaskList(taskIndex, taskList);
+                displayTaskList(currTaskCount, taskList);
             } else if (command.startsWith("mark")){
                 markTask(command, taskList);
             } else if (command.startsWith("unmark")) {
                 unmarkTask(command, taskList);
             }  else if (command.startsWith("todo")) {
-                addTodoTask(command, taskList, taskIndex);
-                taskIndex = acknowledgeTaskAdded(taskList, taskIndex);
+                addTodoTask(command, taskList, currTaskCount);
+                currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
             } else if (command.startsWith("deadline")) {
-                addDeadlineTask(command, taskList, taskIndex);
-                taskIndex = acknowledgeTaskAdded(taskList, taskIndex);
+                addDeadlineTask(command, taskList, currTaskCount);
+                currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
             } else if (command.startsWith("event")) {
-                addEventTask(command, taskList, taskIndex);
-                taskIndex = acknowledgeTaskAdded(taskList, taskIndex);
+                addEventTask(command, taskList, currTaskCount);
+                currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
             } else if (command.equals("bye")) {
                 displayExitMessage();
                 break;
@@ -33,12 +36,14 @@ public class Nehsik {
                 System.out.println("Invalid Command");
             }
         }
+
+        in.close();
     }
 
-    private static void displayTaskList(int taskIndex, Task[] taskList) {
+    private static void displayTaskList(int currTaskCount, Task[] taskList) {
         printLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskIndex; i++) {
+        for (int i = 0; i < currTaskCount; i++) {
             System.out.println((i + 1) + "." + taskList[i].toString());
         }
         printLine();
@@ -47,7 +52,7 @@ public class Nehsik {
     private static void markTask(String command, Task[] taskList) {
         printLine();
         System.out.println("Nice! I've marked this task as done:");
-        int taskNum = Integer.parseInt(command.substring(5)) - 1;
+        int taskNum = Integer.parseInt(command.substring(MARK_TASK_INDEX)) - 1;
         taskList[taskNum].markAsDone();
         System.out.println(taskList[taskNum].toString());
         printLine();
@@ -56,38 +61,51 @@ public class Nehsik {
     private static void unmarkTask(String command, Task[] taskList) {
         printLine();
         System.out.println("OK, I've marked this task as not done yet:");
-        int taskNum = Integer.parseInt(command.substring(7)) - 1;
+        int taskNum = Integer.parseInt(command.substring(UNMARK_TASK_INDEX)) - 1;
         taskList[taskNum].markAsUndone();
         System.out.println(taskList[taskNum].toString());
         printLine();
     }
 
-    private static void addTodoTask(String command, Task[] taskList, int taskIndex) {
-        String taskDescription = command.substring(5).trim();
-        taskList[taskIndex] = new Todo(taskDescription);
+    private static void addTodoTask(String command, Task[] taskList, int currTaskCount) {
+        String taskDescription = command.substring(TODO_DESCRIPTION_POSITION).trim();
+        taskList[currTaskCount] = new Todo(taskDescription);
     }
 
-    private static void addDeadlineTask(String command, Task[] taskList, int taskIndex) {
-        String taskDescription = command.substring(command.indexOf("deadline ") + 9, command.indexOf("/by ") - 1).trim();
-        String by = command.substring(command.indexOf("/by ") + 4).trim();
-        taskList[taskIndex] = new Deadline(taskDescription, by);
+    private static void addDeadlineTask(String command, Task[] taskList, int currTaskCount) {
+        int descriptionStartPosition = command.indexOf("deadline ") + 9;
+        int descriptionEndPosition = command.indexOf("/by ") - 1;
+        String taskDescription = command.substring(descriptionStartPosition, descriptionEndPosition).trim();
+
+        int byStringPosition = command.indexOf("/by ") + 4;
+        String by = command.substring(byStringPosition).trim();
+
+        taskList[currTaskCount] = new Deadline(taskDescription, by);
     }
 
-    private static void addEventTask(String command, Task[] taskList, int taskIndex) {
-        String taskDescription = command.substring(command.indexOf("event ") + 6, command.indexOf("/from ") - 1).trim();
-        String from = command.substring(command.indexOf("/from ") + 6, command.indexOf("/to ") - 1).trim();
-        String to = command.substring(command.indexOf("/to ") + 4).trim();
-        taskList[taskIndex] = new Event(taskDescription, from, to);
+    private static void addEventTask(String command, Task[] taskList, int currTaskCount) {
+        int descriptionStartPosition = command.indexOf("event ") + 6;
+        int descriptionEndPosition = command.indexOf("/from ") - 1;
+        String taskDescription = command.substring(descriptionStartPosition, descriptionEndPosition).trim();
+
+        int fromStringStartPosition = command.indexOf("/from ") + 6;
+        int fromStringEndPosition = command.indexOf("/to ") - 1;
+        String from = command.substring(fromStringStartPosition, fromStringEndPosition).trim();
+
+        int toStringPosition = command.indexOf("/to ") + 4;
+        String to = command.substring(toStringPosition).trim();
+
+        taskList[currTaskCount] = new Event(taskDescription, from, to);
     }
 
-    private static int acknowledgeTaskAdded(Task[] taskList, int taskIndex) {
+    private static int acknowledgeTaskAdded(Task[] taskList, int currTaskCount) {
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + taskList[taskIndex].toString());
-        System.out.println("Now you have " + (taskIndex + 1) + " tasks in the list");
-        taskIndex++;
+        System.out.println("  " + taskList[currTaskCount].toString());
+        System.out.println("Now you have " + (currTaskCount + 1) + " tasks in the list");
+        currTaskCount++;
         printLine();
-        return taskIndex;
+        return currTaskCount;
     }
 
     private static void printLine() {
