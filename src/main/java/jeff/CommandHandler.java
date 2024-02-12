@@ -1,3 +1,5 @@
+package jeff;
+
 public class CommandHandler {
     private static final int TODO_DESCRIPTION_INDEX = 5;
     private static final int DEADLINE_DESCRIPTION_INDEX = 9;
