@@ -1,3 +1,7 @@
+package bob.exceptions;
+
+import bob.utils.Command;
+
 public class InvalidArgumentException extends Exception {
     private final Command command;
     private static final String ERROR_MESSAGE = " Please ensure your command is properly formatted!\n\n";

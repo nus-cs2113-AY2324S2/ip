@@ -1,9 +1,11 @@
+package bob.utils;
+
 public class Ui {
     private static final String WELCOME = " Hello! I'm Bob\n What can I do for you?";
     private static final String EXIT = " Bye. Hope to see you again soon!";
     private static final String SEPARATOR = "____________________________________________________________";
 
-    void printLogo() {
+    public void printLogo() {
         String bobAsciiLogo = " ____        _\n"
                + "|  _ \\      | |\n"
                + "| |_) | ___ | |__\n"
@@ -17,17 +19,17 @@ public class Ui {
     /**
      * Generic print method for any given input
      */
-    void print(String output) {
+    public void print(String output) {
         System.out.println(SEPARATOR);
         System.out.println(output);
         System.out.println(SEPARATOR);
     }
 
-    void printWelcome() {
+    public void printWelcome() {
         print(WELCOME);
     }
 
-    void printExit() {
+    public void printExit() {
         print(EXIT);
     }
 }

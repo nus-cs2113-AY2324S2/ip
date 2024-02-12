@@ -1,3 +1,5 @@
+package bob.utils;
+
 public enum Command {
     LIST,
     MARK,

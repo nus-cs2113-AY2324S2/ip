@@ -1,3 +1,5 @@
+package bob.task;
+
 abstract public class Task {
     protected final String taskName;
     protected final int taskId;

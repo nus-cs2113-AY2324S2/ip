@@ -1,3 +1,10 @@
+package bob.utils;
+
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.Task;
+import bob.task.Todo;
+
 public class TaskManager {
     private final Task[] tasks;
     private int nextTaskId;

@@ -1,3 +1,13 @@
+package bob;
+
+import bob.exceptions.InvalidArgumentException;
+import bob.exceptions.InvalidCommandException;
+import bob.exceptions.InvalidTaskNumberException;
+import bob.utils.Command;
+import bob.utils.Parser;
+import bob.utils.TaskManager;
+import bob.utils.Ui;
+
 public class Bob {
     public String executeCommand(Command userCommand, TaskManager manager, Parser inputParser) throws
             InvalidTaskNumberException, InvalidArgumentException {
