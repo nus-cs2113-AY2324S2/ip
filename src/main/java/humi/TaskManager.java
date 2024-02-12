@@ -9,26 +9,30 @@ public class TaskManager {
         taskCount = 0;
     }
     public void handleCommand(String command) {
-        if (command.equals("list")) {
-            handleList();
-        } else if (command.startsWith("todo")) {
-            handleTodo(command);
-        } else if (command.startsWith("deadline")) {
-            handleDeadline(command);
-        } else if (command.startsWith("event")) {
-            handleEvent(command);
-        } else if (command.startsWith("mark")) {
-            int taskIndex = Integer.parseInt(command.substring(5));
-            taskList[taskIndex - 1].mark();
-        } else if (command.startsWith("unmark")) {
-            int taskIndex = Integer.parseInt(command.substring(7));
-            taskList[taskIndex - 1].unmark();
-        } else {
-            System.out.println("Invalid input. What is " + command + "?");
+        try {
+            if (command.equals("list")) {
+                handleList();
+            } else if (command.startsWith("todo")) {
+                handleTodo(command);
+            } else if (command.startsWith("deadline")) {
+                handleDeadline(command);
+            } else if (command.startsWith("event")) {
+                handleEvent(command);
+            } else if (command.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(command.substring(5));
+                taskList[taskIndex - 1].mark();
+            } else if (command.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(command.substring(7));
+                taskList[taskIndex - 1].unmark();
+            } else {
+                System.out.println("Invalid input. What is " + command + "?");
+            }
+        } catch (HumiException e) {
+            System.out.println(e.message);
         }
     }
 
-    private void handleEvent(String command) {
+    private void handleEvent(String command) throws HumiException {
         String trimmedCommand = command.trim();
         if (trimmedCommand.length() > 5) {
             String[] splitArray = trimmedCommand.split("/");
@@ -39,14 +43,14 @@ public class TaskManager {
                 taskList[taskCount] = new EventTask(description, startDate, endDate);
                 taskCount += 1;
             } else {
-                System.out.println("Please specify both the start date and end date");
+                throw new HumiException("Please specify both the start date and end date");
             }
         } else {
-            System.out.println("Description of an event cannot be empty.");
+            throw new HumiException("Description of an event cannot be empty.");
         }
     }
 
-    private void handleDeadline(String command) {
+    private void handleDeadline(String command) throws HumiException{
         String trimmedCommand = command.trim();
         if (trimmedCommand.length() > 8) {
             String[] splitArray = trimmedCommand.split("/");
@@ -56,21 +60,21 @@ public class TaskManager {
                 taskList[taskCount] = new DeadlineTask(description, deadline);
                 taskCount += 1;
             } else {
-                System.out.println("Please specify the deadline date.");
+                throw new HumiException("Please specify the deadline date.");
             }
         } else {
-            System.out.println("Description of a deadline cannot be empty.");
+            throw new HumiException("Description of a deadline cannot be empty.");
         }
     }
 
-    private void handleTodo(String command) {
+    private void handleTodo(String command) throws HumiException {
         String trimmedCommand = command.trim();
         if (trimmedCommand.length() > 4) {
             String description = trimmedCommand.substring(5);
             taskList[taskCount] = new TodoTask(description);
             taskCount += 1;
         } else {
-            System.out.println("Description of a todo cannot be empty.");
+            throw new HumiException("Description of a todo cannot be empty.");
         }
     }
 

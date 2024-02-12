@@ -11,7 +11,7 @@ public class Humi {
     //                + "|_/ \\,||\\\\_|\n";
     public static void main(String[] args) {
         System.out.println(LINE);
-        System.out.println("     Hello! I'm humi.Humi");
+        System.out.println("     Hello! I'm Humi");
         System.out.println("     What can I do for you?");
         System.out.println(LINE);
 
