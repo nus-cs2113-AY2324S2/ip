@@ -1,3 +1,5 @@
+package Casper;
+
 public class CasperEmptyTodoException extends Exception {
     public CasperEmptyTodoException(){
         super();

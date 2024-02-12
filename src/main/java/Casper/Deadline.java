@@ -1,4 +1,7 @@
-public class Deadline extends Task{
+package Casper;
+
+
+public class Deadline extends Task {
     String by;
     public Deadline(String description, String by){
         super(description);

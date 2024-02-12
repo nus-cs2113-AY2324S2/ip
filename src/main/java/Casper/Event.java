@@ -1,4 +1,7 @@
-public class Event extends Task{
+package Casper;
+
+
+public class Event extends Task {
     String from, to;
     public Event(String description, String from, String to){
         super(description);

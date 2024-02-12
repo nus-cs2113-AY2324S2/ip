@@ -1,3 +1,4 @@
+package Casper;
 import java.util.Scanner;
 
 public class Casper {

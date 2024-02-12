@@ -1,3 +1,5 @@
+package Casper;
+
 public class CasperUnrecognizedKeywordException extends Exception {
     private String unrecognizedKeyword;
     public CasperUnrecognizedKeywordException(){

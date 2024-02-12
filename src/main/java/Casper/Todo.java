@@ -1,4 +1,7 @@
-public class Todo extends Task{
+package Casper;
+
+
+public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
