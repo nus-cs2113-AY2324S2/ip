@@ -100,7 +100,7 @@ public class Chelle {
         taskCount++;
         System.out.println("Chelle: Got it. I've added this task:\n        " +
                 tasks[taskCount - 1].toString() +
-                "\n     Now you have " + taskCount + " tasks in the list.");
+                "\n        Now you have " + taskCount + " tasks in the list.");
         return taskCount;
     }
 
