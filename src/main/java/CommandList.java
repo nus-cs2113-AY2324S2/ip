@@ -3,8 +3,8 @@ public enum CommandList {
     private static final String[][] lutRegexSequence = {
             {},
             {},
-            {"^[0-9]+$"},
-            {"^[0-9]+$"},
+            {"^[0-9]{1,3}$"},
+            {"^[0-9]{1,3}$"},
             {".+"},
             {".+", ".+"},
             {".+", ".+", ".+"}
@@ -12,6 +12,16 @@ public enum CommandList {
 
     public static int getArgumentCount(String commandName) {
         return lutRegexSequence[CommandList.valueOf(commandName).ordinal()].length;
+    }
+
+    public static int getMaxArgumentCount() {
+        int maxSoFar = 0;
+        for (int i = 0; i < lutRegexSequence.length; i++) {
+            if (lutRegexSequence[i].length > maxSoFar) {
+                maxSoFar = lutRegexSequence[i].length;
+            }
+        }
+        return maxSoFar;
     }
 
     public static String[] getRegexSequence(String commandName) {
@@ -32,55 +42,33 @@ public enum CommandList {
     }
 
     public static void executeMark(CommandParser readUserCommand) {
-        if (readUserCommand.getIsGoodTokens()) {
-            Formatter.printMarkDoneNotif(readUserCommand);
-        } else {
-            Formatter.printErrorBadTokens();
-        }
+        Formatter.printMarkDoneNotif(readUserCommand);
     }
 
     public static void executeUnmark(CommandParser readUserCommand) {
-        if (readUserCommand.getIsGoodTokens()) {
-            Formatter.printMarkUndoneNotif(readUserCommand);
-        } else {
-            Formatter.printErrorBadTokens();
-        }
-
+        Formatter.printMarkUndoneNotif(readUserCommand);
     }
 
     public static void executeTodo(CommandParser readUserCommand) {
-        if (readUserCommand.getIsGoodTokens()) {
-            Todo newTodo = new Todo(readUserCommand.getArgumentTokens()[0]);
-            CommandExecutor.tasks[CommandExecutor.listCount++] = newTodo;
-            Formatter.printTodoNotif(readUserCommand);
-        } else {
-            Formatter.printErrorBadTokens();
-        }
+        Todo newTodo = new Todo(readUserCommand.getArgumentTokens()[0]);
+        CommandExecutor.tasks[CommandExecutor.listCount++] = newTodo;
+        Formatter.printTaskNotif(readUserCommand);
     }
 
     public static void executeDeadline(CommandParser readUserCommand) {
-        if (readUserCommand.getIsGoodTokens()) {
-            Deadline newDeadline = new Deadline(readUserCommand.getArgumentTokens()[0], readUserCommand.getArgumentTokens()[1]);
-            CommandExecutor.tasks[CommandExecutor.listCount++] = newDeadline;
-            Formatter.printDeadlineNotif(readUserCommand);
-        } else {
-            Formatter.printErrorBadTokens();
-        }
+        Deadline newDeadline = new Deadline(readUserCommand.getArgumentTokens()[0], readUserCommand.getArgumentTokens()[1]);
+        CommandExecutor.tasks[CommandExecutor.listCount++] = newDeadline;
+        Formatter.printTaskNotif(readUserCommand);
     }
 
     public static void executeEvent(CommandParser readUserCommand) {
-        if (readUserCommand.getIsGoodTokens()) {
-            String description = readUserCommand.getArgumentTokens()[0];
-            String startTime = readUserCommand.getArgumentTokens()[1];
-            String endTime = readUserCommand.getArgumentTokens()[2];
+        String description = readUserCommand.getArgumentTokens()[0];
+        String startTime = readUserCommand.getArgumentTokens()[1];
+        String endTime = readUserCommand.getArgumentTokens()[2];
 
-            Event newEvent = new Event(description, startTime, endTime);
-            CommandExecutor.tasks[CommandExecutor.listCount++] = newEvent;
-            Formatter.printEventNotif(readUserCommand);
-        } else {
-            Formatter.printErrorBadTokens();
-        }
-
+        Event newEvent = new Event(description, startTime, endTime);
+        CommandExecutor.tasks[CommandExecutor.listCount++] = newEvent;
+        Formatter.printTaskNotif(readUserCommand);
     }
 }
 

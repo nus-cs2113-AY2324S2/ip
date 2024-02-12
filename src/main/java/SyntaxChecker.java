@@ -11,9 +11,12 @@ public class SyntaxChecker {
         return false;
     }
 
-    public static boolean validateTokens(String commandName, String[] argumentTokens) {
+    public static boolean validateTokens(String commandName, String[] argumentTokens, int argumentCount) {
         if (argumentTokens.length == 0) {
             return true;
+        }
+        if (!isArgumentMatch(commandName, argumentCount)) {
+            return false;
         }
         String[] thisRegexSequence = CommandList.getRegexSequence(commandName);
         for (int i = 0; i < CommandList.getArgumentCount(commandName); i++) {
@@ -26,11 +29,16 @@ public class SyntaxChecker {
         return true;
     }
 
-    public static boolean isDelimitedWithSpaces(String commandName) {
-        return CommandList.valueOf(commandName).ordinal() < 5;
-    }
-
     public static boolean hasArgument(String userInput) {
         return userInput.split(" ", 2).length - 1 == 1;
+    }
+
+    public static boolean isArgumentMatch(String commandName, int argumentCount) {
+        int correctArgumentCount = CommandList.getArgumentCount(commandName);
+        if (correctArgumentCount == argumentCount) {
+            return true;
+        }
+        Formatter.printErrorArgumentsMismatch();
+        return false;
     }
 }

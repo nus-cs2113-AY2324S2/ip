@@ -7,13 +7,19 @@ public class CommandExecutor {
     static int listCount = 0;
     static Scanner in = new Scanner(System.in);
     static String userInput;
+    static CommandParser readUserCommand;
 
     public static void beginListening() {
         userInput = in.nextLine();
     }
 
-    public static void executeCommand(CommandParser readUserCommand) {
+    public static void processInput() {
+        readUserCommand = new CommandParser(userInput);
+    }
+
+    public static void executeCommand() {
         if (!readUserCommand.getIsGoodTokens()) {
+            Formatter.printErrorBadTokens();
             Formatter.printErrorExecutionFail();
         } else {
             CommandList selectedCommand = CommandList.valueOf(readUserCommand.getCommandName());

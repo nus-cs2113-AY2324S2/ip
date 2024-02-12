@@ -3,6 +3,7 @@ public class CommandParser {
     private int argumentCount = 0;
     private String[] argumentTokens = {};
     private boolean isGoodTokens = false;
+    private String separator;
 
     public CommandParser(String userInput) {
         String commandToken = userInput.split(" ", 2)[0];
@@ -11,17 +12,23 @@ public class CommandParser {
             Formatter.printErrorWrongCommand();
         } else if (!SyntaxChecker.hasArgument(userInput)) {
             commandName = commandToken.toUpperCase();
-            isGoodTokens = true;
+            isGoodTokens = SyntaxChecker.isArgumentMatch(commandName, argumentCount);
         } else {
             commandName = commandToken.toUpperCase();
             otherToken = userInput.split(" ", 2)[1];
-            if (SyntaxChecker.isDelimitedWithSpaces(commandName)) {
-                argumentTokens = otherToken.split(" ", 3);
-            } else {
-                argumentTokens = otherToken.split(" /", 3);
-            }
-            isGoodTokens = SyntaxChecker.validateTokens(commandName, argumentTokens);
+            separator = setSeparator();
+            argumentTokens = otherToken.split(separator, CommandList.getMaxArgumentCount());
+            argumentCount = argumentTokens.length;
+            isGoodTokens = SyntaxChecker.validateTokens(commandName, argumentTokens, argumentCount);
         }
+    }
+
+    private String setSeparator() {
+        boolean isDelimitedWithSpaces = CommandList.valueOf(commandName).ordinal() < 5;
+        if (isDelimitedWithSpaces) {
+            return " ";
+        }
+        return " /";
     }
 
     public String getCommandName() {
@@ -38,5 +45,9 @@ public class CommandParser {
 
     public boolean getIsGoodTokens() {
         return isGoodTokens;
+    }
+
+    public String getSeparator() {
+        return separator;
     }
 }
