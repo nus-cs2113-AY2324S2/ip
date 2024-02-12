@@ -1,7 +1,9 @@
+package humi;
+
 import java.util.Scanner;
 
 public class Humi {
-    public static final String LINE = "    ____________________";
+    public static final String LINE = "    ____________________________________________________________";
     //    String logo = " __        _        \n"
     //                + "|  _ \\ _   | | __ \n"
     //                + "| | | | | | | |/ / _ \\\n"
@@ -9,7 +11,7 @@ public class Humi {
     //                + "|_/ \\,||\\\\_|\n";
     public static void main(String[] args) {
         System.out.println(LINE);
-        System.out.println("     Hello! I'm Humi");
+        System.out.println("     Hello! I'm humi.Humi");
         System.out.println("     What can I do for you?");
         System.out.println(LINE);
 

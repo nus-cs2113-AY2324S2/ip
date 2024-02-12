@@ -1,3 +1,5 @@
+package humi;
+
 public class DeadlineTask extends Task {
     public String deadline;
     DeadlineTask(String description, String deadline) {
