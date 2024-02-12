@@ -1,8 +1,9 @@
+package alpaca.tasks;
 public class TaskList {
     protected int listCount;
     protected final Task[] tasks;
 
-    TaskList() {
+    public TaskList() {
         this.listCount = 0;
         this.tasks = new Task[100];
     }

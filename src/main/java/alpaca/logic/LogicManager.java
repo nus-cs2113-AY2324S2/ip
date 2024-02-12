@@ -1,3 +1,10 @@
+package alpaca.logic;
+
+import alpaca.UI.ResponseManager;
+import alpaca.tasks.*;
+import alpaca.exceptions.InvalidCommandException;
+import alpaca.exceptions.InvalidIndexException;
+
 public class LogicManager {
     private TaskList taskList;
     private ResponseManager responseManager;

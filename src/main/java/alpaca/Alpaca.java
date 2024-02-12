@@ -1,3 +1,9 @@
+package alpaca;
+
+import alpaca.logic.LogicManager;
+import alpaca.UI.ResponseManager;
+import alpaca.UI.InputManager;
+
 public class Alpaca {
     public static void startConversation() {
         ResponseManager responseManager = new ResponseManager();
