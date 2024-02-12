@@ -7,13 +7,10 @@ public class LogicManager {
         this.responseManager = responseManager;
     }
 
-    public void executeCommand(String command, String details) {
+    public void executeCommand (String command, String details) throws InvalidCommandException{
         switch (command) {
         case "list":
             responseManager.printTaskList(taskList);
-            break;
-        case "todo":
-            addTask(new Todo(details));
             break;
         case "mark":
         case "unmark":
@@ -25,8 +22,12 @@ public class LogicManager {
             break;
         default:
             // Handle other commands or ignore unknown commands
-            break;
+            throw new InvalidCommandException();
         }
+    }
+
+    public void addTodo(String details){
+        addTask(new Todo(details));
     }
 
     public void addDeadline(String title, String by) {
@@ -44,15 +45,18 @@ public class LogicManager {
 
     private void markUnmarkTask(String details, boolean isMark) {
         int taskIndex = Integer.parseInt(details) - 1;
-        if (taskList.isCountValid(taskIndex)) {
+        try {
+            if (!taskList.isCountValid(taskIndex)) {
+                throw new InvalidIndexException();
+            }
             if (isMark) {
                 taskList.markTask(taskIndex);
             } else {
                 taskList.unmarkTask(taskIndex);
             }
             responseManager.printLine();
-        } else {
-            responseManager.printInvalidIndex();
+        } catch (InvalidIndexException e) {
+            ResponseManager.printErrorMessage(e.toString());
         }
     }
 }
