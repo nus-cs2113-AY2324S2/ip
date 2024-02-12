@@ -42,33 +42,26 @@ public class Casper {
                     taskList[targetTaskNumber-1].unMarkTask();
                 }
             } else if (userInput.startsWith("event")) {
-                Task newTask = getEvent(userInput);
-                taskList[noOfTasks] = newTask;
-                noOfTasks++;
-                wrapEchoMessage("Got it. I've added this task: \n       "
-                        +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+                handleEvent(userInput);
             } else if (userInput.startsWith("deadline")) {
-                Task newTask = getDeadline(userInput);
-                taskList[noOfTasks] = newTask;
-                noOfTasks++;
-                wrapEchoMessage("Got it. I've added this task: \n       "
-                        +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+                handleDeadline(userInput);
             } else if (userInput.startsWith("todo")) {
-                Task newTask = getTodo(userInput);
-                taskList[noOfTasks] = newTask;
-                noOfTasks++;
-                wrapEchoMessage("Got it. I've added this task: \n       "
-                        +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+                handleTodo(userInput);
             } else {
                 wrapEchoMessage("Pardon? I didn't get your message.");
             }
         }
     }
 
-    private static Task getEvent(String userInput) {
+    private static Task getEvent(String userInput) throws StringIndexOutOfBoundsException {
         int fromIndex = userInput.indexOf("/from") + "/from".length();
         int toIndex = userInput.indexOf("/to") + "/to".length();
         int descIndex = userInput.indexOf("event")+"event".length();
+
+        boolean isValidInput = fromIndex < descIndex || toIndex < descIndex;
+        if (isValidInput) {
+            throw new StringIndexOutOfBoundsException();
+        }
 
         String eventDesc= userInput.substring(descIndex, userInput.indexOf("/from")).trim();
         String from = userInput.substring(fromIndex, userInput.indexOf("/to")).trim();
@@ -76,11 +69,26 @@ public class Casper {
         return new Event(eventDesc, from, to);
     }
 
+    private static void handleEvent(String userInput) {
+        try{
+            Task newTask = getEvent(userInput);
+            taskList[noOfTasks] = newTask;
+            noOfTasks++;
+            wrapEchoMessage("Got it. I've added this task: \n       "
+                    +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+        } catch (StringIndexOutOfBoundsException e){
+            wrapEchoMessage("What event did you say? Try again?\n\n"
+                    +"     Make sure its in the format: \n"
+                    +"       event {description} /from {date} /to {date}");
+        }
+    }
+
     private static Task getDeadline(String userInput) throws StringIndexOutOfBoundsException {
         int byIndex = userInput.indexOf("/by") + "/by".length();
         int descIndex = userInput.indexOf("deadline")+"deadline".length();
 
-        if (byIndex < descIndex) {
+        boolean isValidInput = byIndex < descIndex;
+        if (isValidInput) {
             throw new StringIndexOutOfBoundsException();
         }
 
@@ -89,10 +97,41 @@ public class Casper {
         return new Deadline(deadlineDesc, by);
     }
 
-    private static Task getTodo(String userInput) {
+    private static void handleDeadline(String userInput){
+        try{
+            Task newTask = getDeadline(userInput);
+            taskList[noOfTasks] = newTask;
+            noOfTasks++;
+            wrapEchoMessage("Got it. I've added this task: \n       "
+                    +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+        } catch (StringIndexOutOfBoundsException e) {
+            wrapEchoMessage("A deadline to what? Try again?\n\n"
+                    +"     Make sure its in the format: \n"
+                    +"       deadline {description} /by {date}");
+        }
+    }
+
+    private static Task getTodo(String userInput) throws EmptyTodoException {
         int descIndex = userInput.indexOf("todo")+"todo".length();
         String todoDesc = userInput.substring(descIndex).trim();
+        if(todoDesc.isEmpty()){
+            throw new EmptyTodoException();
+        }
         return new Todo(todoDesc);
+    }
+
+    private static void handleTodo(String userInput) {
+        try{
+            Task newTask = getTodo(userInput);
+            taskList[noOfTasks] = newTask;
+            noOfTasks++;
+            wrapEchoMessage("Got it. I've added this task: \n       "
+                    +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
+        } catch (EmptyTodoException e){
+            wrapEchoMessage("What did you want to do? Try again?\n\n"
+                    +"     Make sure its in the format: \n"
+                    +"       todo {description}");
+        }
     }
 
     private static void echoTaskList() {
