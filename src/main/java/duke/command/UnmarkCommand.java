@@ -30,8 +30,14 @@ public class UnmarkCommand implements Command {
         } else {
             Task undoneTask = taskList.get(INDEX);
             undoneTask.markAsUndone();
+            storage.editTaskList(taskList);
             ui.printMessage("OK, I've marked this task as not done yet:\n\t   " + undoneTask);
         }
+    }
+
+    @Override
+    public void splitWords() {
+        //do nothing
     }
 
     @Override

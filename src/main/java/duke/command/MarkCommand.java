@@ -30,8 +30,14 @@ public class MarkCommand implements Command {
         } else {
             Task doneTask = taskList.get(INDEX);
             doneTask.markAsDone();
+            storage.editTaskList(taskList);
             ui.printMessage("Nice! I've marked this task as done:\n\t   " + doneTask);
         }
+    }
+
+    @Override
+    public void splitWords() {
+        //do nothing
     }
 
     @Override

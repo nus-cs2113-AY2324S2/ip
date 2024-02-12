@@ -21,6 +21,9 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toDisk() {
+        return " | " + (this.isDone ? "1 | " : "0 | ") + this.description;
+    }
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

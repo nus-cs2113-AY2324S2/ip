@@ -18,6 +18,11 @@ public class ListCommand implements Command {
     }
 
     @Override
+    public void splitWords() {
+        //do nothing
+    }
+
+    @Override
     public boolean isExit() {
         return false;
     }
