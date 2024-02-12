@@ -1,7 +1,12 @@
 todo borrow book
+todo
 todo borrow calculator
 list
 deadline return book /by Sunday
+deadline
+deadline /by
+deadline by
+deadline return book /by
 event project meeting /from Mon 2pm /to 4pm
 list
 mark 1

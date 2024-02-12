@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,49 +19,49 @@ public class Duke {
         startupSequence();
 
         while (isRunning) {
-            try {
-                String[] inputs = getInput();
-                switch (inputs[0]) {
-                case "bye":
-                    shutdownSequence();
-                    break;
-                case "list":
-                    listTasks(taskList, numberOfTask);
-                    break;
-                case "mark":
-                    markTask(taskList, Integer.parseInt(inputs[1]) - 1);
-                    break;
-                case "unmark":
-                    unmarkTask(taskList, Integer.parseInt(inputs[1]) - 1);
-                    break;
-                case "todo":
-                    addToDo(inputs[1]);
-                    break;
-                case "deadline":
-                    addDeadline(inputs[1]);
-                    break;
-                case "event":
-                    addEvent(inputs[1]);
-                    break;
-                default:
-                    // Adds task by default and prints that a task has been added
-                    addTask(inputs[1]);
-                    break;
+            String[] inputs = getInput();
+            switch (inputs[0]) {
+            case "bye":
+                shutdownSequence();
+                break;
+            case "list":
+                listTasks(taskList, numberOfTask);
+                break;
+            case "mark":
+                markTask(taskList, Integer.parseInt(inputs[1]) - 1);
+                break;
+            case "unmark":
+                unmarkTask(taskList, Integer.parseInt(inputs[1]) - 1);
+                break;
+            case "todo":
+                try {
+                    addToDo(inputs);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(MimiException.INSUFFICIENT_INPUT_FOR_TODO);
                 }
-            } catch (MimichatException.InvalidInputFormatException e) {
+                break;
+            case "deadline":
+                try {
+                    addDeadline(inputs);
+                } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
                     System.out.println(e);
+                }
+                break;
+            case "event":
+                addEvent(inputs[1]);
+                break;
+            default:
+                // Adds task by default and prints that a task has been added
+                addTask(inputs[1]);
+                break;
             }
         }
     }
 
     // METHODS TO GET INPUT
-    private static String[] getInput() throws MimichatException.InvalidInputFormatException {
+    private static String[] getInput() {
         String input = scanner.nextLine();
-        String[] inputs = input.split(" ", INPUT_LIMIT);
-        if (inputs.length < 2) {
-            throw new MimichatException.InvalidInputFormatException("Invalid format for given input " + input + ".");
-        }
-        return inputs;
+        return input.split(" ", INPUT_LIMIT);
     }
 
     // METHODS TO CREATE/RETRIEVE OF TASKS
@@ -70,23 +71,47 @@ public class Duke {
         printDescription("added: " + input);
     }
 
-    private static void addToDo(String input) {
-        ToDo toDo = new ToDo(input);
+    private static void addToDo(String[] inputs) throws IndexOutOfBoundsException {
+        if (inputs.length != 2) {
+            throw new IndexOutOfBoundsException();
+        }
+        ToDo toDo = new ToDo(inputs[1]);
         appendIntoTaskList(toDo);
         printSuccessMessage(toDo);
     }
 
-    private static void addDeadline(String input) {
+    private static void addDeadline(String[] inputs) throws
+            MimiException.IncorrectFormat, MimiException.InsufficientParameters {
 
-        // Further process the deadline input
-        String[] inputs = input.split("/by", 2);
-        String taskName = inputs[0];
-        String dueDate = inputs[1].strip();
+        if (inputs.length < 2) {
+            // Throws an error if parameters is incomplete
+            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
+        }
 
-        // Add into task list and print success message
-        Deadline deadline = new Deadline(taskName, dueDate);
+        String[] splittedInputs = inputs[1].split("/by", 2);
+        Deadline deadline = getDeadline(splittedInputs);
         appendIntoTaskList(deadline);
         printSuccessMessage(deadline);
+    }
+
+    private static Deadline getDeadline(String[] inputs) throws MimiException.InsufficientParameters,
+            MimiException.IncorrectFormat {
+
+        if (inputs.length < 2){
+            // Throws an error if /by is missing
+            throw new MimiException.IncorrectFormat(MimiException.INCORRECT_DEADLINE_FORMAT);
+        }
+
+        for (String s : inputs) {
+            // Throws an error if parameters is incomplete
+            if (s == null || s.isEmpty()) {
+                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
+            }
+        }
+
+        String taskName = inputs[0];
+        String dueDate = inputs[1].strip();
+        return new Deadline(taskName, dueDate);
 
     }
 
