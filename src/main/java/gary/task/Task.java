@@ -1,3 +1,5 @@
+package gary.task;
+
 public class Task {
     private String taskDescription;
     private Boolean isDone;
