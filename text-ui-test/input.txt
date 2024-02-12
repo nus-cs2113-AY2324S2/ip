@@ -12,6 +12,8 @@ list
 unmark 10
 unmark 2
 list
+delete 1
+list
 blah
 mark
 unmark
