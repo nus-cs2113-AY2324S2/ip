@@ -5,7 +5,6 @@ public class Byte {
     private static final Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         runByte(scanner);
@@ -33,11 +32,11 @@ public class Byte {
             markTask(userInput.substring("unmark ".length()), false);
         } else if (userInput.equals("list")) {
             listTasks();
-        } else if (userInput.startsWith("todo ")){
+        } else if (userInput.startsWith("todo ")) {
             handleToDoCommand(userInput);
-        }else if(userInput.startsWith("deadline ")){
+        }else if (userInput.startsWith("deadline ")) {
             handleDeadlineCommand(userInput);
-        }else if(userInput.startsWith("event ")){
+        }else if (userInput.startsWith("event ")) {
             handleEventCommand(userInput);
         }
         return false;
