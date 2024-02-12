@@ -57,8 +57,20 @@ public class Chelle {
 
     private static int createTask(String userInput, Task[] tasks, int taskCount, TaskType taskType) {
         if (taskCount < tasks.length) {
-            tasks[taskCount] = new Task(userInput);
-            tasks[taskCount].setTaskType(taskType);
+            switch (taskType){
+                case TODO:
+                tasks[taskCount] = new ToDo(userInput);
+                break;
+            case DEADLINE:
+                tasks[taskCount] = new Deadline(userInput);
+                break;
+            case EVENT:
+                tasks[taskCount] = new Event(userInput);
+                break;
+            default:
+                System.out.println("Error");
+                break;
+            }
             taskCount++;
             System.out.println("Chelle: Got it. I've added this task:\n        " +
                     tasks[taskCount - 1].toString() +
