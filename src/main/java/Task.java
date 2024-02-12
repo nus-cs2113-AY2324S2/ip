@@ -1,7 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static final String SEPARATOR = "    _____________________________________________";
+    private static final String SEPARATOR = "    _______________________________________________________________________";
     public static void wrapEchoMessage(String message){
         System.out.println(SEPARATOR);
         System.out.println(message);

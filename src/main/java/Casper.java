@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.WeakHashMap;
 
 public class Casper {
-    private static final String SEPARATOR = "    _____________________________________________";
+    private static final String SEPARATOR = "    _______________________________________________________________________";
     private static final Task[] taskList = new Task[100];
     private static int noOfTasks = 0;
     private static void wrapEchoMessage(String message){
@@ -58,8 +58,8 @@ public class Casper {
         int toIndex = userInput.indexOf("/to") + "/to".length();
         int descIndex = userInput.indexOf("event")+"event".length();
 
-        boolean isValidInput = fromIndex < descIndex || toIndex < descIndex;
-        if (isValidInput) {
+        boolean isValidEventInput = fromIndex < descIndex || toIndex < descIndex;
+        if (isValidEventInput) {
             throw new StringIndexOutOfBoundsException();
         }
 
@@ -87,8 +87,8 @@ public class Casper {
         int byIndex = userInput.indexOf("/by") + "/by".length();
         int descIndex = userInput.indexOf("deadline")+"deadline".length();
 
-        boolean isValidInput = byIndex < descIndex;
-        if (isValidInput) {
+        boolean isValidDeadlineInput = byIndex < descIndex;
+        if (isValidDeadlineInput) {
             throw new StringIndexOutOfBoundsException();
         }
 
@@ -111,11 +111,11 @@ public class Casper {
         }
     }
 
-    private static Task getTodo(String userInput) throws EmptyTodoException {
+    private static Task getTodo(String userInput) throws CasperEmptyTodoException {
         int descIndex = userInput.indexOf("todo")+"todo".length();
         String todoDesc = userInput.substring(descIndex).trim();
         if(todoDesc.isEmpty()){
-            throw new EmptyTodoException();
+            throw new CasperEmptyTodoException();
         }
         return new Todo(todoDesc);
     }
@@ -127,7 +127,7 @@ public class Casper {
             noOfTasks++;
             wrapEchoMessage("Got it. I've added this task: \n       "
                     +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
-        } catch (EmptyTodoException e){
+        } catch (CasperEmptyTodoException e){
             wrapEchoMessage("What did you want to do? Try again?\n\n"
                     +"     Make sure its in the format: \n"
                     +"       todo {description}");
@@ -177,5 +177,4 @@ public class Casper {
         handleQueries();
         wrapEchoMessage("Alright, see you around!");
     }
-
 }
