@@ -1,8 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         // Greet the user and initialise Jonas Chatbot
@@ -59,6 +59,8 @@ public class Duke {
             markTask(userInput);
         } else if (userInput.startsWith("unmark ")) {
             unmarkTask(userInput);
+        } else if (userInput.startsWith("delete ")) {
+            deleteTask(userInput);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :(");
         }
@@ -69,11 +71,11 @@ public class Duke {
         if (description.isEmpty()) {
             throw new DukeException("The description of a todo task cannot be empty.");
         }
-        tasks[taskCount++] = new Todo(description);
+        tasks.add(new Todo(description));
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -82,11 +84,11 @@ public class Duke {
         if (description.isEmpty() || by.isEmpty()) {
             throw new DukeException("The description and deadline of a deadline task cannot be empty.");
         }
-        tasks[taskCount++] = new Deadline(description, by);
+        tasks.add(new Deadline(description, by));
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -95,17 +97,17 @@ public class Duke {
         if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new DukeException("The description and timing of an event task cannot be empty.");
         }
-        tasks[taskCount++] = new Event(description, start, end);
+        tasks.add(new Event(description, start, end));
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
     // Display tasks in the list
     private static void displayTasks() throws DukeException {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("____________________________________________________________");
             System.out.println("Ehhh, you got no tasks to do leh. Try adding some! :(");
             System.out.println("____________________________________________________________");
@@ -113,8 +115,8 @@ public class Duke {
         }
         System.out.println("____________________________________________________________");
         System.out.println("LaiLaiLai, Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
@@ -123,11 +125,11 @@ public class Duke {
     private static void markTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsDone();
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("Nice one lah! I've marked this task as done:");
-                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("  " + tasks.get(taskIndex));
                 System.out.println("____________________________________________________________");
             } else {
                 throw new DukeException("Invalid task number provided.");
@@ -141,11 +143,30 @@ public class Duke {
     private static void unmarkTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsNotDone();
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                tasks.get(taskIndex).markAsNotDone();
                 System.out.println("____________________________________________________________");
                 System.out.println("OK can, I've marked this task as not done yet:");
-                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("  " + tasks.get(taskIndex));
+                System.out.println("____________________________________________________________");
+            } else {
+                throw new DukeException("Invalid task number provided.");
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("Invalid task number provided.");
+        }
+    }
+
+    // Delete a task from the list
+    private static void deleteTask(String userInput) throws DukeException {
+        try {
+            int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("  " + tasks.get(taskIndex));
+                tasks.remove(taskIndex);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else {
                 throw new DukeException("Invalid task number provided.");
