@@ -1,3 +1,4 @@
+package alpaca.exceptions;
 public class InvalidIndexException extends Exception{
     @Override
     public String toString () {

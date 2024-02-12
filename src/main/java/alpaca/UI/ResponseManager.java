@@ -1,3 +1,8 @@
+package alpaca.UI;
+
+import alpaca.tasks.TaskList;
+import alpaca.tasks.Task;
+
 public class ResponseManager {
     private static final String LOGO = "           _      _____        _____          \n" +
         "     /\\   | |    |  __ \\ /\\   / ____|   /\\    \n" +

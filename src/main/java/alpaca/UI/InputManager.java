@@ -1,4 +1,9 @@
+package alpaca.UI;
+
 import java.util.Scanner;
+import alpaca.logic.LogicManager;
+import alpaca.exceptions.EmptyTaskDescriptionException;
+import alpaca.exceptions.InvalidCommandException;
 
 public class InputManager {
     private Scanner scanner;

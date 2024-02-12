@@ -1,3 +1,4 @@
+package alpaca.exceptions;
 public class InvalidCommandException extends Exception{
 
     @Override
