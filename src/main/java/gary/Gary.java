@@ -1,3 +1,11 @@
+package gary;
+
+import gary.exception.*;
+import gary.task.Deadline;
+import gary.task.Event;
+import gary.task.Task;
+import gary.task.Todo;
+
 import java.util.Scanner;
 
 public class Gary {
