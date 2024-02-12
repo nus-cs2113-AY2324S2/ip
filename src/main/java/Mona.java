@@ -1,13 +1,6 @@
 import java.util.Scanner;
 public class Mona {
     public static void main(String[] args) {
-        String logo = "___  ___                  \n"
-                + "|  \\/  |                  \n"
-                + "| .  . | ___  _ __   __ _ \n"
-                + "| |\\/| |/ _ \\| '_ \\ / _` |\n"
-                + "| |  | | (_) | | | | (_| |\n"
-                + "\\_|  |_/\\___/|_| |_|\\__,_|\n";
-        System.out.println("Hello from\n" + logo);
 
         ConsolePrint.greet();
 

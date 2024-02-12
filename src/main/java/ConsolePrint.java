@@ -42,6 +42,8 @@ public class ConsolePrint {
         printHorizontalLine();
     }
     public static void greet() {
+        System.out.println("Hello from\n" + Constants.ASCII_LOGO);
+
         printHorizontalLine();
 
         System.out.println("Hello! I'm Mona");

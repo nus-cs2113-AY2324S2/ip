@@ -5,9 +5,9 @@ public final class Constants {
     }
 
     // These are the prefix strings to define the various data types of a command parameter.
-    public static final String DEADLINE_PREFIX = "/by";
-    public static final String FROM_DATE_PREFIX = "/from";
-    public static final String TO_DATE_PREFIX = "/to";
+    public static final String BY_PREFIX = "/by";
+    public static final String FROM_PREFIX = "/from";
+    public static final String TO_PREFIX = "/to";
 
     /* Given that we use a String array (of 4 elements) to store details of a command,
      * the constants given below are the indexes for the different data elements of a command.
