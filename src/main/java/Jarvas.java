@@ -1,19 +1,13 @@
 import java.util.Scanner;
 public class Jarvas {
-    public static void initialiseBot(){
-        System.out.println(" _____                                  ");
-        System.out.println("(___  )                                 ");
-        System.out.println("    | |   _ _  _ __  _   _    _ _   ___ ");
-        System.out.println(" _  | | /'_` )( '__)( ) ( ) /'_` )/',__)");
-        System.out.println("( )_| |( (_| || |   | \\_/ |( (_| |\\__, \\");
-        System.out.println("`\\___/'`\\__,_)(_)   `\\___/'`\\__,_)(____/");
-
+    public static void initialiseBot() {
+        Reply.printArt();
         Reply.printReply("Hello! I'm Jarvas", "What can I do for you?");
     }
-    public static void terminateBot(){
+    public static void terminateBot() {
         Reply.printReply("Bye, see you soon!");
     }
-    public static void runTime(){
+    public static void processInput() {
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         Task[] tasks = new Task[100];
@@ -98,7 +92,7 @@ public class Jarvas {
 
     public static void main(String[] args) {
         initialiseBot();
-        runTime();
+        processInput();
         terminateBot();
     }
 }

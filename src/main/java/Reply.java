@@ -5,38 +5,37 @@ public class Reply {
         System.out.println(PARTITION_LINE);
     }
     public static void printReply(String reply) {
-        System.out.println(PARTITION_LINE);
+        printLine();
         System.out.println(reply);
-        System.out.println(PARTITION_LINE);
+        printLine();
     }
 
     public static void printReply(String s1, String s2) {
-        System.out.println(PARTITION_LINE);
+        printLine();
         System.out.println(s1);
         System.out.println(s2);
-        System.out.println(PARTITION_LINE);
+        printLine();
     }
 
 
-    public static void printReply(ToDo toDo, int total){
-        System.out.println(PARTITION_LINE);
+    public static void printReply(Task task, int total){
+        printLine();
         System.out.println("Got it. I've added: ");
-        System.out.println(toDo);
-        System.out.println("You now have " + total + " tasks in the list.");
-        System.out.println(PARTITION_LINE);
+        System.out.println(task);
+        if (total == 1) {
+            System.out.println("You now have " + total + " task in the list.");
+        } else {
+            System.out.println("You now have " + total + " tasks in the list.");
+        }
+        printLine();
     }
-    public static void printReply(Event event, int total){
-        System.out.println(PARTITION_LINE);
-        System.out.println("Got it. I've added: ");
-        System.out.println(event);
-        System.out.println("You now have " + total + " tasks in the list.");
-        System.out.println(PARTITION_LINE);
-    }
-    public static void printReply(Deadline deadline, int total){
-        System.out.println(PARTITION_LINE);
-        System.out.println("Got it. I've added: ");
-        System.out.println(deadline);
-        System.out.println("You now have " + total + " tasks in the list.");
-        System.out.println(PARTITION_LINE);
+
+    public static void printArt() {
+        System.out.println(" _____                                  ");
+        System.out.println("(___  )                                 ");
+        System.out.println("    | |   _ _  _ __  _   _    _ _   ___ ");
+        System.out.println(" _  | | /'_` )( '__)( ) ( ) /'_` )/',__)");
+        System.out.println("( )_| |( (_| || |   | \\_/ |( (_| |\\__, \\");
+        System.out.println("`\\___/'`\\__,_)(_)   `\\___/'`\\__,_)(____/");
     }
 }
