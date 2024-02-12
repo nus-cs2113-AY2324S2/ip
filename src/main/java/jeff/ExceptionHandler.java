@@ -1,3 +1,5 @@
+package jeff;
+
 public class ExceptionHandler {
     public static void handleInvalidCommandException() {
         Printer.printIndent("Invalid command.");

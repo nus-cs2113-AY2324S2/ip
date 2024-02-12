@@ -1,3 +1,5 @@
+package jeff;
+
 public class Printer {
     public static void printIndent(String s) {
         System.out.println("     " + s);
