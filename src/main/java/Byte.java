@@ -14,16 +14,24 @@ public class Byte {
     public static void runByte(Scanner scanner){
         printWelcomeMessage();
         while(true){
-            String userInput = scanner.nextLine();
-            printLineSeparator();
-            if (processUserInput(userInput)) {
-                break;
+            try{
+                String userInput = scanner.nextLine();
+                printLineSeparator();
+                if (processUserInput(userInput)) {
+                    break;
+                }
+            } catch (ByteException e){
+                System.out.println(e.getMessage());
+                printLineSeparator();
             }
+
         }
     }
 
-    public static boolean processUserInput(String userInput){
-        if (userInput.equals("bye")) {
+    public static boolean processUserInput(String userInput) throws ByteException {
+        if (userInput.trim().isEmpty()) {
+            throw new ByteException("Hmm, it seems like you didn't enter any command. Please try again.");
+        } else if (userInput.equals("bye")) {
             printGoodbyeMessage();
             return true;
         } else if (userInput.startsWith("mark ")) {
@@ -34,27 +42,59 @@ public class Byte {
             listTasks();
         } else if (userInput.startsWith("todo ")) {
             handleToDoCommand(userInput);
-        }else if (userInput.startsWith("deadline ")) {
+        } else if (userInput.startsWith("deadline ")) {
             handleDeadlineCommand(userInput);
-        }else if (userInput.startsWith("event ")) {
+        } else if (userInput.startsWith("event ")) {
             handleEventCommand(userInput);
+        } else {
+            throw new ByteException("I'm sorry, but I don't know what that means.");
         }
         return false;
     }
 
-    private static void handleToDoCommand(String userInput) {
+    private static void handleToDoCommand(String userInput) throws ByteException {
+        String description = userInput.substring("todo ".length()).trim();
+        if (description.isEmpty()){
+            throw new ByteException("The description of a todo cannot be empty.");
+        }
         addTask(new ToDo(userInput.substring("todo ".length())));
     }
 
-    private static void handleDeadlineCommand(String userInput) {
-        String[] deadlineDetails = userInput.substring("deadline ".length()).split(" /by ");
-        addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+    private static void handleDeadlineCommand(String userInput) throws ByteException{
+        String trimmedInput = userInput.trim();
+        if (!trimmedInput.contains(" /by ")) {
+            throw new ByteException("Oops! The deadline command is missing a '/by' to specify the deadline.");
+        }
+        String[] deadlineDetails = trimmedInput.split(" /by ", 2);
+        String description = deadlineDetails[0].substring("deadline ".length()).trim();
+        String deadline = deadlineDetails.length > 1 ? deadlineDetails[1].trim() : "";
+        if (description.isEmpty()) {
+            throw new ByteException("The description of a deadline cannot be empty.");
+        }
+        if (deadline.isEmpty()) {
+            throw new ByteException("The deadline date cannot be empty.");
+        }
+        addTask(new Deadline(description, deadline));
     }
 
-    private static void handleEventCommand(String userInput) {
-        String[] eventDetails = userInput.substring("event ".length()).split(" /from ");
-        String[] eventTimes = eventDetails[1].split(" /to ");
-        addTask(new Event(eventDetails[0], eventTimes[0], eventTimes[1]));
+    private static void handleEventCommand(String userInput) throws ByteException {
+        String trimmedInput = userInput.trim();
+        if (!trimmedInput.contains(" /from ") || !trimmedInput.contains(" /to ")) {
+            throw new ByteException("Oops! The event command is missing a '/from' and '/to' to specify the event timing.");
+        }
+        String descriptionPart = trimmedInput.split(" /from ", 2)[0];
+        String timingPart = trimmedInput.split(" /from ", 2)[1];
+        String description = descriptionPart.substring("event ".length()).trim();
+        String[] timingDetails = timingPart.split(" /to ", 2);
+        String startTime = timingDetails.length > 0 ? timingDetails[0].trim() : "";
+        String endTime = timingDetails.length > 1 ? timingDetails[1].trim() : "";
+        if (description.isEmpty()) {
+            throw new ByteException("The description of an event cannot be empty.");
+        }
+        if (startTime.isEmpty() || endTime.isEmpty()) {
+            throw new ByteException("Both the start time and end time for the event must be specified.");
+        }
+        addTask(new Event(description, startTime, endTime));
     }
 
     private static void printWelcomeMessage() {
