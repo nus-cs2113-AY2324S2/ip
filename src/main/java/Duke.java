@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class Duke {
-    static String lineBreak = "__________________________________________________" + System.lineSeparator();
+    static String LINEBREAKER = "__________________________________________________" + System.lineSeparator();
     public static void main(String[] args) {
         String chatBot = "Hello! I'm TONY\n"
                 + "What can I do for you?\n"
-                + lineBreak;
+                + LINEBREAKER;
         System.out.println(chatBot);
         Task[] tasks = new Task[100];
         int count = 0;
@@ -14,33 +14,33 @@ public class Duke {
             String line = userInput.nextLine();
             if(line.equals("bye")){
                 System.out.println(
-                        lineBreak
+                        LINEBREAKER
                                 + "Bye. Hope to see you again soon!\n"
-                                + lineBreak);
+                                + LINEBREAKER);
                 return;
             } else if(line.equals("list")) {
-                System.out.println(lineBreak);
+                System.out.println(LINEBREAKER);
                 System.out.println("\tHere are the tasks in your list:");
                 for(int i = 0; i < count; i++) {
                     Task task = tasks[i];
                     System.out.println("\t" + (i+1) + "."
                             + task);
                 }
-                System.out.println(lineBreak);
+                System.out.println(LINEBREAKER);
             } else if(line.startsWith("todo")) {
                 String[] toDoTask = line.split("todo");
                 Todo todo = new Todo(toDoTask[1]);
                 tasks[count] = todo;
                 count++;
                 System.out.println(
-                        lineBreak
+                        LINEBREAKER
                             + "\t Got it. I've added this task:"
                             + System.lineSeparator()
                             + "\t\t " + todo
                             + System.lineSeparator()
                             + "\t Now you have " + count + " tasks in the list."
                             + System.lineSeparator()
-                            + lineBreak);
+                            + LINEBREAKER);
             } else if(line.startsWith("deadline")) {
                 String[] deadlineTask = line.split("deadline");
                 String[] description = deadlineTask[1].split("/by");
@@ -48,14 +48,14 @@ public class Duke {
                 tasks[count] = deadline;
                 count++;
                 System.out.println(
-                        lineBreak
+                        LINEBREAKER
                             + "\t Got it. I've added this task:"
                             + System.lineSeparator()
                             + "\t\t " + deadline
                             + System.lineSeparator()
                             + "\t Now you have " + count + " tasks in the list."
                             + System.lineSeparator()
-                            + lineBreak);
+                            + LINEBREAKER);
             } else if(line.startsWith("event")) {
                 String[] eventTask = line.split("event");
                 String[] description = eventTask[1].split("/from | /to");
@@ -63,14 +63,14 @@ public class Duke {
                 tasks[count] = event;
                 count++;
                 System.out.println(
-                        lineBreak
+                        LINEBREAKER
                             + "\t Got it. I've added this task:"
                             + System.lineSeparator()
                             + "\t\t " + event
                             + System.lineSeparator()
                             + "\t Now you have " + count + " tasks in the list."
                             + System.lineSeparator()
-                            + lineBreak);
+                            + LINEBREAKER);
             }
 
             else if(line.contains("mark")) {
@@ -83,17 +83,17 @@ public class Duke {
                 if(subCommand[0].equals("mark")) {
                     tasks[num-1].markDone();
                     System.out.println(
-                            lineBreak
+                            LINEBREAKER
                                     + "\tNice! I've marked this task as done:\n"
                                     + tasks[num-1] + System.lineSeparator()
-                                    + lineBreak);
+                                    + LINEBREAKER);
                 } else {
                     tasks[num-1].markNotDone();
                     System.out.println(
-                            lineBreak
+                            LINEBREAKER
                                 + "\tOK, I've marked this task as not done yet:\n"
                                 + tasks[num-1] + System.lineSeparator()
-                                + lineBreak);
+                                + LINEBREAKER);
                 }
             }
         }
