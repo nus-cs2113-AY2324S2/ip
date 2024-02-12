@@ -12,6 +12,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String toDisk() {
+        return "E" + super.toDisk() + " | " + this.from + " - " + this.to + System.lineSeparator();
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
     }

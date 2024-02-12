@@ -10,7 +10,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toDisk() {
+        return "D" + super.toDisk() + " | " + this.by + System.lineSeparator();
+    }
+
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + "(by: " + this.by + ")";
     }
 }

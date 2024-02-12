@@ -6,15 +6,25 @@ import duke.command.Command;
 import duke.parser.Parser;
 import duke.task.TaskList;
 
+import java.io.IOException;
+
 public class Duke {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
 
     public Duke() {
-        this.taskList = new TaskList();
         this.ui = new Ui();
-        this.storage = new Storage();
+        String filePath = "data/duke.txt";
+        this.storage = new Storage(filePath);
+        try {
+            this.taskList = this.storage.getTaskList();
+        } catch (DukeException e) {
+            ui.printError(e.getMessage());
+            this.taskList = new TaskList();
+        } catch (IOException e) {
+            ui.printError("ERROR.... \n\t OOPS!!! Error occurred: " + e.getMessage());
+        }
     }
 
     private void run() {
@@ -28,6 +38,8 @@ public class Duke {
                 isExit = command.isExit();
             } catch (DukeException e) {
                 ui.printError(e.getMessage());
+            } catch (IOException e) {
+                ui.printError("ERROR.... \n\t OOPS!!! Error occurred: " + e.getMessage());
             }
         }
     }
