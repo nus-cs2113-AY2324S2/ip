@@ -1,3 +1,8 @@
+package bob.utils;
+
+import bob.exceptions.InvalidArgumentException;
+import bob.exceptions.InvalidCommandException;
+
 import java.util.Scanner;
 import java.util.regex.MatchResult;
 

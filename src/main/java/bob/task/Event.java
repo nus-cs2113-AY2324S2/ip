@@ -1,3 +1,5 @@
+package bob.task;
+
 public class Event extends Task {
     private final String startDate;
     private final String endDate;

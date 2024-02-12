@@ -11,4 +11,13 @@ mark 3
 list
 todo junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
 list
+blah
+mark
+unmark
+mark 999
+todo
+deadline something
+deadline something /until another day
+event something /by now
+event something /from tomorrow
 bye

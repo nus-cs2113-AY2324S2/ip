@@ -1,3 +1,7 @@
+package bob.exceptions;
+
+import bob.utils.Command;
+
 public class InvalidTaskNumberException extends Exception {
     private final Command command;
     public static final String ERROR_MESSAGE = " Please provide a valid task number!\n\n";
