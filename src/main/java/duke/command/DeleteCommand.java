@@ -30,7 +30,8 @@ public class DeleteCommand implements Command {
         } else {
             Task deletedTask = taskList.get(INDEX);
             taskList.remove(INDEX);
-            String msg = (taskList.size() == 1) ? "tasks" : "task";
+            storage.editTaskList(taskList);
+            String msg = (taskList.size() == 1) ? "task" : "tasks";
             ui.printMessage("Noted. I've removed this task:\n\t   " + deletedTask
                     + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
         }

@@ -10,7 +10,5 @@ import java.io.IOException;
 public interface Command {
     void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException;
 
-    void splitWords();
-
     boolean isExit();
 }
