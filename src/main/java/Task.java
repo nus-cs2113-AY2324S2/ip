@@ -15,19 +15,11 @@ public class Task {
         return "";
     }
 
-    public String getDeadline() {
-        return "";
-    }
-
     public String getStart() {
         return "";
     }
 
     public String getEnd() {
         return "";
-    }
-
-    public void iji() {
-        return;
     }
 }
