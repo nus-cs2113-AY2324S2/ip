@@ -10,4 +10,24 @@ public class Task {
     public void markDone() {
         this.isDone = !isDone;
     }
+
+    public String getTaskType() {
+        return "";
+    }
+
+    public String getDeadline() {
+        return "";
+    }
+
+    public String getStart() {
+        return "";
+    }
+
+    public String getEnd() {
+        return "";
+    }
+
+    public void iji() {
+        return;
+    }
 }
