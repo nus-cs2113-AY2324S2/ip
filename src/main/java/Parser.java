@@ -11,14 +11,19 @@ public class Parser {
     /**
      * Parse user command (e.g., list, deadline, bye)
      */
-    public Command parseCommand() {
-        return Command.valueOf(inputReader.next().toUpperCase());
+    public Command parseCommand() throws InvalidCommandException {
+        try {
+            return Command.valueOf(inputReader.next().toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            clearInput();
+            throw new InvalidCommandException();
+        }
     }
 
     /**
      * Parse arguments provided (e.g., /from, /by, /to)
      */
-    public String[] parseArguments(Command userCommand) {
+    public String[] parseArguments(Command userCommand) throws InvalidArgumentException {
         int expectedArgumentCount;
 
         switch (userCommand) {
@@ -31,20 +36,25 @@ public class Parser {
             expectedArgumentCount = 3;
             break;
         default:
-            inputReader.findInLine("(.+)"); // Set regex format
+            inputReader.findInLine(" (.+)"); // Set regex format
             expectedArgumentCount = 1;
             break;
         }
 
-        MatchResult argumentMatches = inputReader.match();
-        String[] arguments = new String[expectedArgumentCount]; // Return arguments in String array
+        try {
+            MatchResult argumentMatches = inputReader.match();
+            String[] arguments = new String[expectedArgumentCount]; // Return arguments in String array
 
-        for (int i = 1; i <= expectedArgumentCount; i++) {
-            // Extract provided arguments
-            arguments[i - 1] = argumentMatches.group(i).strip();
+            for (int i = 1; i <= expectedArgumentCount; i++) {
+                // Extract provided arguments
+                arguments[i - 1] = argumentMatches.group(i).strip();
+            }
+
+            return arguments;
+        } catch (IllegalStateException exception) {
+            clearInput();
+            throw new InvalidArgumentException(userCommand);
         }
-
-        return arguments;
     }
 
     public boolean isDone(Command userCommand) {

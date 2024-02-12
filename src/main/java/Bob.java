@@ -1,5 +1,6 @@
 public class Bob {
-    public String executeCommand(Command userCommand, TaskManager manager, Parser inputParser) {
+    public String executeCommand(Command userCommand, TaskManager manager, Parser inputParser) throws
+            InvalidTaskNumberException, InvalidArgumentException {
         String commandOutput;
         String taskName;
         String[] arguments;
@@ -10,9 +11,15 @@ public class Bob {
             break;
         case MARK:
         case UNMARK:
-            arguments = inputParser.parseArguments(userCommand);
-            int taskId = Integer.parseInt(arguments[0]);
-            commandOutput = manager.updateTaskProgress(taskId, userCommand);
+            try {
+                arguments = inputParser.parseArguments(userCommand);
+                int taskId = Integer.parseInt(arguments[0]); // Throws NumberFormatException
+                commandOutput = manager.updateTaskProgress(taskId, userCommand); // Throws NPE or ArrayIndexOOB Ex.
+            } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException exception) {
+                // Catch improperly formatted arguments for mark/unmark operations
+                inputParser.clearInput();
+                throw new InvalidTaskNumberException(userCommand);
+            }
             break;
         case TODO:
             arguments = inputParser.parseArguments(userCommand);
@@ -33,7 +40,6 @@ public class Bob {
             commandOutput = manager.addEvent(taskName, startDate, endDate);
             break;
         default:
-            inputParser.clearInput();
             commandOutput = "ERROR";
             break;
         }
@@ -50,15 +56,23 @@ public class Bob {
         Parser inputParser = new Parser();
 
         while (inputParser.hasMoreInput()) {
-            Command userCommand = inputParser.parseCommand();
+            try {
+                Command userCommand = inputParser.parseCommand();
 
-            if (inputParser.isDone(userCommand)) {
-                // Check if "bye" command was given as input
-                break;
+                if (inputParser.isDone(userCommand)) {
+                    // Check if "bye" command was given as input
+                    break;
+                }
+
+                String executionResult = executeCommand(userCommand, manager, inputParser);
+                userInterface.print(executionResult);
+            } catch (InvalidCommandException invalidCommandException) {
+                userInterface.print(invalidCommandException.getMessage());
+            } catch (InvalidTaskNumberException invalidTaskNumberException) {
+                userInterface.print(invalidTaskNumberException.getMessage());
+            } catch (InvalidArgumentException invalidArgumentException) {
+                userInterface.print(invalidArgumentException.getMessage());
             }
-
-             String executionResult = executeCommand(userCommand, manager, inputParser);
-             userInterface.print(executionResult);
         }
 
         userInterface.printExit();

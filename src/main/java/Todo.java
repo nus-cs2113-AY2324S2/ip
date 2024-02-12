@@ -2,6 +2,7 @@ public class Todo extends Task {
     private Todo(String taskName, int taskId, boolean isCompleted) {
         super(taskName, taskId, isCompleted);
     }
+
     public Todo(String taskName, int taskId) {
         super(taskName, taskId, false);
     }

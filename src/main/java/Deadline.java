@@ -5,6 +5,7 @@ public class Deadline extends Task {
         super(taskName, taskId, isCompleted);
         this.dueDate = dueDate;
     }
+
     public Deadline(String taskName, int taskId, String dueDate) {
         super(taskName, taskId, false);
         this.dueDate = dueDate;
