@@ -106,7 +106,7 @@ public class TaskList {
      * @param type
      * @return None
      */
-    public void addItem(String description, TaskType type) {
+    public void addItem(String description, String command) {
         // Error if empty string
         if (description.equals("")) {
             this.addItemError();
@@ -114,13 +114,15 @@ public class TaskList {
         }
 
         String taskName, taskStart, taskEnd;
+        
+        // Convert String command to TaskType enum
+        TaskType type = TaskType.valueOf(command.toUpperCase());
         boolean isValid = true;
 
         try {
             switch (type) {
             case TODO:
-                taskName = description;
-                list.add(new Todo(taskName));
+                list.add(new Todo(description));
                 break;
 
             case DEADLINE:

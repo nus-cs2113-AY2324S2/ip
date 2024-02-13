@@ -8,6 +8,7 @@ list
 deadline
 deadline qwerty /by 123
 deadline z12cv /by asd 123
+deadline ancs /by /by /by 1232
 deadline 0000
 list
 event
