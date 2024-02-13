@@ -32,15 +32,6 @@ public class Gene {
         }
     }
 
-    public boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     private void processCommand(String command) {
         String[] parts = command.split(" ");
         String action = parts[0].toLowerCase();
@@ -49,39 +40,50 @@ public class Gene {
             case "list":
                 taskList.printListItems();
                 break;
+
             case "mark":
-                if (parts.length > 1 && isNumeric(parts[1])) {
-                    taskList.markTaskAsDone(Integer.parseInt(parts[1]));
-                } else {
-                    System.out.println("Please provide a valid task number to mark as done.");
+                try {
+                    MarkCommand.execute(command, taskList, true);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
                 }
                 break;
+
             case "unmark":
-                if (parts.length > 1 && isNumeric(parts[1])) {
-                    taskList.markTaskAsNotDone(Integer.parseInt(parts[1]));
-                } else {
-                    System.out.println("Please provide a valid task number to mark as not done.");
+                try {
+                    MarkCommand.execute(command, taskList, false);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
                 }
                 break;
 
             case "todo":
-                String toDoParts = command.replaceFirst("\\S+", "");
-                Todo newToDo = new Todo(toDoParts.trim());
-                taskList.addTask(newToDo);
+                try {
+                    TodoCommand.execute(command, taskList);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             case "deadline":
-                String[] deadlineParts = command.replaceFirst("\\S+", "").split("/");
-                Deadline newDeadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1]
-                        .replace("by", "").trim());
-                taskList.addTask(newDeadline);
+                try {
+                    DeadlineCommand.execute(command, taskList);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             case "event":
-                String[] eventParts = command.replaceFirst("\\S+", "").split("/");
-                Event newEvent = new Event(eventParts[0].trim(), eventParts[1].replace("from", "").trim()
-                        , eventParts[2].replace("to", "").trim());
-                taskList.addTask(newEvent);
+                try {
+                    EventCommand.execute(command, taskList);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             default:
