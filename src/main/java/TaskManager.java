@@ -53,7 +53,7 @@ public class TaskManager{
     }
 
     public void handleDeadline(String input) throws SuvException{
-        if(input.trim().length() > 8){
+        if(input.trim().length() > 8 && input.contains("/by")){
             String by = input.split("/by")[1].trim();
             String description = input.split("/by")[0].substring(DEADLINE_KEYWORD_END_INDEX).trim();
 
@@ -70,7 +70,7 @@ public class TaskManager{
     }
 
     public void handleEvent(String input) throws SuvException{
-        if(input.trim().length() > 5){
+        if(input.trim().length() > 5 && input.contains("/from") &&  input.contains("/to")){
             String from = input.split("/")[1].trim().substring(FROM_KEYWORD_END_INDEX).trim();
             String to = input.split("/")[2].trim().substring(TO_KEYWORD_END_INDEX).trim();
             String description = input.split("/")[0].substring(EVENT_KEYWORD_END_INDEX).trim();
