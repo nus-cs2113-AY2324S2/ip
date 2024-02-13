@@ -1,28 +1,32 @@
 public class TaskManager {
     // Constants
     public static final String LINE = "____________________________________________________________";
+    public static int insertIndex = 0;
 
-    public static void handleUserTasks(String userInput, Task[] listTasks, int insertIndex) {
-        if (insertIndex < listTasks.length) {
-            if (userInput.startsWith("todo ")) {
-                handleToDoTasks(userInput, listTasks, insertIndex);
-            }
-            else if (userInput.startsWith("deadline ")) {
-                handleDeadlineTasks(userInput, listTasks, insertIndex);
-            }
-            else if (userInput.startsWith("event ")) {
-                handleEventTasks(userInput, listTasks, insertIndex);
-            }
-            else {
-                System.out.println(LINE);
-                System.out.println("Invalid keyword.");
-                System.out.println(LINE);
-            }
-
-        } else {
+    public static void handleUserTasks(String userInput, Task[] listTasks)  {
+        try {
+            insertUserTasks(userInput, listTasks);
+            insertIndex ++;
+        } catch (InvalidKeywordException e) {
+            System.out.println(LINE);
+            System.out.println("Invalid keyword");
+            System.out.println(LINE);
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
             System.out.println("List is full. Cannot add more items.");
             System.out.println(LINE);
+        }
+    }
+
+    public static void insertUserTasks (String userInput, Task[] listTasks) throws InvalidKeywordException {
+        if (userInput.startsWith("todo ")) {
+            handleToDoTasks(userInput, listTasks, insertIndex);
+        } else if (userInput.startsWith("deadline ")) {
+            handleDeadlineTasks(userInput, listTasks, insertIndex);
+        } else if (userInput.startsWith("event ")) {
+            handleEventTasks(userInput, listTasks, insertIndex);
+        } else {
+            throw new InvalidKeywordException();
         }
     }
 

@@ -35,8 +35,7 @@ public class Gandalf {
     private static void makeList() {
         makeListWelcomeMessage();
 
-        Task[] listTasks = new Task[100];
-        int insertIndex = 0;
+        Task[] listTasks = new Task[5];
 
         while (true) {
             String userInput = getUserInput();
@@ -48,7 +47,7 @@ public class Gandalf {
             } else if (hasSaidMarkOrUnmark(userInput)) {
                 TaskManager.handleTasksMarkings(userInput, listTasks);
             } else {
-                TaskManager.handleUserTasks(userInput, listTasks, insertIndex);
+                TaskManager.handleUserTasks(userInput, listTasks);
             }
         }
     }
