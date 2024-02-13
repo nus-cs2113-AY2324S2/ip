@@ -15,18 +15,13 @@ public class Task {
         return "[] " + this.taskName;
     }
 
-    public void mark() {
-        this.isCompleted = true;
-        // Provide feedback to user
-        System.out.println("Nice! I've marked this task as done: ");
+    public void mark(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+        if (this.isCompleted) {
+            System.out.println("Nice! I've marked this task as done: ");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
         System.out.println("  " + this);
     }
-
-    public void unmark() {
-        this.isCompleted = false;
-        // Provide feedback to user
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + this);
-    }
-
 }

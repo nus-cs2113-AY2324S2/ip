@@ -3,10 +3,6 @@ public class ToDo extends Task {
         super(taskName);
     }
 
-    public ToDo(ToDoArguments toDoArguments) {
-        this(toDoArguments.taskName);
-    }
-
     @Override
     public String toString() {
         return "[T]" + super.toString();
