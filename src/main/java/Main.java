@@ -1,6 +1,6 @@
 import java.util.Objects;
 import java.util.Scanner;
-public class Duke {
+public class Main {
     private static final String CHATBOT_NAME = "Horizon";
     public static void printTask(Task task) {
         System.out.println(task.getData());
@@ -41,19 +41,9 @@ public class Duke {
             input = in.nextLine();
             String command = input.split(" ", 2)[0];
             String description = "";
-            String startTime = "";
-            String endTime = "";
-
-            //splitting the data
             boolean isAddingTask = !(Objects.equals(command, "list") || Objects.equals(command, "bye"));
             if (isAddingTask) {
-                String[] tempDataArray = input.split("/");
-                System.out.println(tempDataArray[0]);
-                String[] dataArray = {null, null, null};
-                System.arraycopy(tempDataArray, 0, dataArray, 0, tempDataArray.length);
-                description = dataArray[0];
-                startTime = dataArray[1]; //if any
-                endTime = dataArray[2]; //if any
+                description = input.split(" ", 2)[1];
             }
 
             printResponse(command);
@@ -77,19 +67,19 @@ public class Duke {
                 printTask(selectedItem);
                 break;
             case "todo":
-                taskList[listLength] = new Task(description);
+                taskList[listLength] = new Todo(description);
                 printTask(taskList[listLength]);
                 listLength += 1;
                 printLength(listLength);
                 break;
             case "deadline":
-                taskList[listLength] = new Deadline(description, startTime);
+                taskList[listLength] = new Deadline(description);
                 printTask(taskList[listLength]);
                 listLength += 1;
                 printLength(listLength);
                 break;
             case "event":
-                taskList[listLength] = new Event(description, startTime, endTime);
+                taskList[listLength] = new Event(description);
                 printTask(taskList[listLength]);
                 listLength += 1;
                 printLength(listLength);

@@ -1,8 +1,8 @@
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone = false;
     public Task(String description) {
-        this.description = description.split(" ", 2)[1];
+        this.description = description;
     }
 
     public void setDescription(String description) {
@@ -22,9 +22,7 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
-    public String getTypeDisplay() {
-        return "[T]";
-    }
+    public abstract String getTypeDisplay();
     public String getMarkDisplay() {
         if (this.isDone()) {
             return "[X]";

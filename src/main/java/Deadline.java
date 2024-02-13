@@ -1,8 +1,10 @@
 public class Deadline extends Task {
     private final String startTime;
-    public Deadline(String description, String startTime) {
+    public Deadline(String description) {
         super(description);
-        this.startTime = startTime.split("by ", 2)[1];
+        String[] descriptionList = description.split("by ", 2);
+        this.setDescription(descriptionList[0]);
+        this.startTime = descriptionList[1];
     }
     public String getTypeDisplay() {
         return "[D]";
