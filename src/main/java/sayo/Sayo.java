@@ -1,3 +1,5 @@
+package sayo;
+
 import java.util.Scanner;
 
 public class Sayo {
