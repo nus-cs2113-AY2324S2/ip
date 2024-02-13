@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -256,7 +257,12 @@ public class Hachi {
                     break;
 
                 default:
-                    // handle invalid case
+                    try {
+                        HachiException.invalidInput();
+                    } catch (HachiException e) {
+                        System.out.println(e.toString());
+                    }
+
                     System.out.println("Invalid command read."); // for testing
                     break;
                 }
