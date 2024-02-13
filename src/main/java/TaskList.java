@@ -2,7 +2,6 @@ import java.util.Scanner;
 public class TaskList {
         private final Task[] taskList;
         private static final int MAX_TASKS = 100;
-        //protected boolean[] isMarked;
         private int taskCount;
 
 
@@ -118,7 +117,7 @@ public class TaskList {
          */
         public void unmarkTask(int taskIndex) {
             if (!isValidIndex(taskIndex)) {
-                System.out.println("Invalid number> Please try again");
+                System.out.println("Invalid number! Please try again");
             } else if (!taskList[taskIndex].isDone()) {
                 System.out.println("The task is already unmarked");
             } else {
