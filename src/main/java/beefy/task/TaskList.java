@@ -73,4 +73,12 @@ public class TaskList {
                     + selectedTask);
         }
     }
+
+    public void deleteTask(int taskId) throws BeefyException {
+        String delTaskDescription = tasks.get(taskId - 1).getDescription();
+        tasks.remove(taskId - 1);
+        numberOfTasks--;
+        Ui.printMessage("---" + delTaskDescription + " has been removed from task list!---" + System.lineSeparator()
+                + "---Number of Tasks in List: " + numberOfTasks + "---");
+    }
 }
