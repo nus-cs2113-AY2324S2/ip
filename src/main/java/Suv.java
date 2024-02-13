@@ -96,6 +96,8 @@ public class Suv {
                     System.out.println("Oh no! You are missing the Event details\n" + LINE);
                 }
 
+            } else {
+                System.out.println("Oh no! I am not sure what you mean.");
             }
         }
     }
