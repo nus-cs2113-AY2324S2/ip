@@ -5,6 +5,7 @@ public class Gandalf {
     public static final String LINE = "____________________________________________________________";
     public static final String BYE_STATEMENT = "bye";
     public static final String MAKE_LIST_STATEMENT = "make list";
+    public static final int MAX_TASK_LENGTH = 100;
 
     // Scanner object
     static Scanner in = new Scanner(System.in);
@@ -35,7 +36,7 @@ public class Gandalf {
     private static void makeList() {
         makeListWelcomeMessage();
 
-        Task[] listTasks = new Task[5];
+        Task[] listTasks = new Task[MAX_TASK_LENGTH];
 
         while (true) {
             String userInput = getUserInput();

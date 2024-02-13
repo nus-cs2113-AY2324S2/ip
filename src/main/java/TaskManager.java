@@ -11,10 +11,13 @@ public class TaskManager {
             printInvalidKeywordMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             printListIsFullMessage();
+        } catch (MissingDescriptionException e) {
+            printMissingDescritpionMessage();
         }
     }
 
-    public static void insertUserTasks (String userInput, Task[] listTasks) throws InvalidKeywordException {
+    public static void insertUserTasks (String userInput, Task[] listTasks)
+            throws InvalidKeywordException, MissingDescriptionException {
         if (userInput.startsWith("todo")) {
             handleToDoTasks(userInput, listTasks, insertIndex);
         } else if (userInput.startsWith("deadline")) {
@@ -70,15 +73,20 @@ public class TaskManager {
         }
     }
 
-    public static void handleToDoTasks(String userInput, Task[] listTasks, int insertIndex) {
-        String toDoItem = userInput.substring(4).trim();
-        listTasks[insertIndex] = new ToDo(toDoItem);
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + listTasks[insertIndex]);
-        insertIndex += 1;
-        System.out.println("Now you have " + insertIndex + " tasks in the list.");
-        System.out.println(LINE);
+    public static void handleToDoTasks(String userInput, Task[] listTasks, int insertIndex)
+            throws MissingDescriptionException {
+        if (userInput.trim().length() == 4){
+            throw new MissingDescriptionException();
+        } else {
+            String toDoItem = userInput.substring(4).trim();
+            listTasks[insertIndex] = new ToDo(toDoItem);
+            System.out.println(LINE);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + listTasks[insertIndex]);
+            insertIndex += 1;
+            System.out.println("Now you have " + insertIndex + " tasks in the list.");
+            System.out.println(LINE);
+        }
     }
 
     public static void handleTasksMarkings(String userInput, Task[] listTasks) {
@@ -96,8 +104,7 @@ public class TaskManager {
                 System.out.println("Invalid task index. Please try again.");
                 System.out.println(LINE);
             }
-        }
-        else {
+        } else {
             int indexToUnmark = Integer.parseInt(userInput.substring(7).trim());
             if (indexToUnmark >= 1 && indexToUnmark <= listTasks.length && listTasks[indexToUnmark - 1] != null) {
                 listTasks[indexToUnmark - 1].unmarkAsDone();
@@ -136,6 +143,12 @@ public class TaskManager {
         System.out.println("Invalid keyword, the available keywords are:"
                 + "\n(todo), (deadline), (event)"
                 + "\nPlease type again.");
+        System.out.println(LINE);
+    }
+
+    private static void printMissingDescritpionMessage() {
+        System.out.println(LINE);
+        System.out.println("Please fill in the description of the task.");
         System.out.println(LINE);
     }
 }
