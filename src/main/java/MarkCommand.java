@@ -8,10 +8,12 @@ public class MarkCommand {
             return false;
         }
     }
-    public static void execute(String command, TaskList taskList, boolean markAsDone) {
+
+    public static void execute(String command, TaskList taskList, boolean markAsDone) throws GeneException {
         String[] parts = command.split(" ");
         if (parts.length < 2 || !isNumeric(parts[1])) {
-            System.out.println("Please provide a valid task number.");
+            throw new GeneException("Please provide a valid task number." + System.lineSeparator()
+                    + "Use Format: mark/unmark (number)");
         }
         int taskNumber = Integer.parseInt(parts[1]);
 
