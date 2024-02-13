@@ -25,6 +25,8 @@ public class Parser {
             return new MarkCommand(userTasks, userParams);
         case "unmark":
             return new UnmarkCommand(userTasks, userParams);
+        case "delete":
+            return new DeleteCommand(userTasks, userParams);
         default:
             throw new BeefyException("What Did you Say? I do not understand this command.");
         }
