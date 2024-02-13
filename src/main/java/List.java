@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 
 public class List {
 
@@ -10,7 +11,12 @@ public class List {
         todoList = new ArrayList<>();
         totalTasks = 0;
     }
-
+    /**
+     * Returns boolean value base on whether the input matches one of the commands.
+     *
+     * @param textArray user input in array type.
+     * @return true if it's a valid command and false otherwise.
+     */
     public boolean isValidCommand(String[] textArray) {
         boolean isValid = true;
         String command = textArray[0];
@@ -36,56 +42,109 @@ public class List {
         }
         return isValid;
     }
-    public Task getTodo(int idx) {
-        return this.todoList.get(idx);
-    }
 
+    /**
+     * Returns the task at the specified index.
+     * If the index is out of bounds, null is returned.
+     *
+     * @param idx index of task.
+     * @return task.
+     * @throws ArrayIndexOutOfBoundsException idx is out of bounds.
+     */
+    public Task getTask(int idx) {
+        try {
+            return this.todoList.get(idx);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("UwU? Do you know how to count?");
+            return null;
+        }
+    }
+    /**
+     * Adds a new todo to the list.
+     *
+     * @param todo the todo input by the user.
+     */
     public void addTodo(String[] todo) {
-        StringBuilder todoText = new StringBuilder(todo[1]);
-        for (int i = 2; i < todo.length; i++) {
-            todoText.append(' ').append(todo[i]);
+        try {
+            StringBuilder todoText = new StringBuilder(todo[1]);
+            for (int i = 2; i < todo.length; i++) {
+                todoText.append(' ').append(todo[i]);
+            }
+            Task newTodo = new Todo(todoText.toString());
+            addTask(newTodo);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Oi, why is the description empty! Type something after the command!");
+        } catch (IllegalFormatException e) {
+            System.out.println("Oi! Invalid Command!");
         }
-        Task task = new Todo(todoText.toString());
-        addTask(task);
     }
-
+    /**
+     * Adds a new event to the list.
+     *
+     * @param event the event input by the user.
+     * @throws ArrayIndexOutOfBoundsException if text is empty after the "event" command.
+     * @throws IllegalFormatException if event format is not followed.
+     */
     public void addEvent(String[] event) {
-        StringBuilder eventText = new StringBuilder(event[1]);
-        int i = 2;
-        while (!event[i].startsWith("/")) {
-            eventText.append(' ').append(event[i]);
+        try {
+            StringBuilder eventText = new StringBuilder(event[1]);
+            int i = 2;
+            while (!event[i].startsWith("/")) {
+                eventText.append(' ').append(event[i]);
+                i++;
+            }
+            eventText.append(' ').append("(from: ");
             i++;
-        }
-        eventText.append(' ').append("(from: ");
-        i++;
-        while (!event[i].startsWith("/")) {
-            eventText.append(' ').append(event[i]);
+            while (!event[i].startsWith("/")) {
+                eventText.append(' ').append(event[i]);
+                i++;
+            }
             i++;
+            eventText.append(' ').append("to: ").append(event[i]).append(')');
+            Task newEvent = new Event(eventText.toString());
+            addTask(newEvent);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Oi, why is the description empty! Type something after the command!");
+        } catch (IllegalFormatException e) {
+            System.out.println("Oi! Invalid Command!");
         }
-        i++;
-        eventText.append(' ').append("to: ").append(event[i]).append(')');
-        Task task = new Event(eventText.toString());
-        addTask(task);
-    }
 
+    }
+    /**
+     * Adds a new deadline to the list.
+     *
+     * @param deadline the deadline input by the user.
+     * @throws ArrayIndexOutOfBoundsException if text is empty after the "deadline" command.
+     * @throws IllegalFormatException if deadline format is not followed.
+     */
     public void addDeadline(String[] deadline) {
         StringBuilder deadlineText = new StringBuilder(deadline[1]);
         int i = 2;
-        while (!deadline[i].startsWith("/")) {
-            deadlineText.append(' ').append(deadline[i]);
+        try {
+            while (!deadline[i].startsWith("/")) {
+                deadlineText.append(' ').append(deadline[i]);
+                i++;
+            }
+            deadlineText.append(' ').append("(by: ");
             i++;
+            while (i < deadline.length - 1) {
+                deadlineText.append(deadline[i]).append(' ');
+                i++;
+            }
+            deadlineText.append(deadline[i]).append(')');
+            Task newDeadline = new Deadline(deadlineText.toString());
+            addTask(newDeadline);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Oi, why is the description empty! Type something after the command!");
+        } catch (IllegalFormatException e) {
+            System.out.println("Oi! Invalid Command!");
         }
-        deadlineText.append(' ').append("(by: ");
-        i++;
-        while (i < deadline.length - 1) {
-            deadlineText.append(deadline[i]).append(' ');
-            i++;
-        }
-        deadlineText.append(deadline[i]).append(')');
-        Task task = new Deadline(deadlineText.toString());
-        addTask(task);
     }
-
+    /**
+     * Adds task to the list and prints out a message.
+     *
+     * @param task Task that is being added.
+     */
     public void addTask(Task task) {
         this.todoList.add(task);
         printLine();
@@ -96,14 +155,15 @@ public class List {
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
         printLine();
     }
-
-    public void getMark(int idx, String mark) {
-        if (idx < 0 || idx >= totalTasks) {
-            System.out.println("OUT OF INDEX!!!");
-            return;
-        }
-        Task currTask = getTodo(idx);
-        if (mark.equals("mark")) {
+    /**
+     * Returns the mark from a task in the list.
+     *
+     * @param idx the index of the task.
+     * @param command Command to "mark" or "unmark" the task.
+     */
+    public void getMark(int idx, String command) {
+        Task currTask = getTask(idx);
+        if (command.equals("mark")) {
             System.out.println("Nice! I've marked this task as done:");
             currTask.markDone();
         } else {
@@ -113,7 +173,11 @@ public class List {
         }
         printTaskWithLine(idx);
     }
-
+    /**
+     * Prints the task with a horizontal line.
+     *
+     * @param idx Index of the task.
+     */
     public void printTaskWithLine(int idx) {
         this.todoList.get(idx).printTask();
         System.out.println();

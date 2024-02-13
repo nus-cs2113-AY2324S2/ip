@@ -10,7 +10,9 @@ public class Task {
         this.hasDone = false;
         this.tde = tde;
     }
-
+    /**
+     * Prints task in the required format [][] {Task Name}.
+     */
     public void printTask() {
         String tde =  getTDE() ;
         String tick = getTick();

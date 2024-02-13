@@ -39,13 +39,14 @@ public class Burger {
     public static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
-
+    /**
+     * Prints error message when input doesn't match any case
+     */
     private static void wakeUp() {
         printLine();
         System.out.println("Wake Up! Key in something that makes sense!");
         printLine();
     }
-
 
     public static void goodbye() {
         printLine();
