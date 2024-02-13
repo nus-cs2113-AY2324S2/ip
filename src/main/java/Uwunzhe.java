@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Uwunzhe {
     // Print Constants
     private static String botName = "Uwunzhe";
     private static String logo = " _    _                          _          \n"
