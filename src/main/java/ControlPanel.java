@@ -7,14 +7,7 @@ public class ControlPanel {
         TaskManager taskManager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("How may I assist you today?");
-        System.out.println("1. List tasks");
-        System.out.println("2. Add a task");
-        System.out.println("3. Add a deadline task");
-        System.out.println("4. Add an event task");
-        System.out.println("5. Mark a task as done");
-        System.out.println("6. Exit");
-        System.out.print("Enter the number corresponding to your choice: ");
+        displayMenu();
 
         while (scanner.hasNextLine()) {
             String choice = scanner.nextLine().trim();
@@ -51,7 +44,7 @@ public class ControlPanel {
                     System.out.println("Unknown command. Please try again.");
                     break;
             }
-            System.out.println("Enter next command:");
+            displayMenu();
         }
         scanner.close();
     }
@@ -70,14 +63,13 @@ public class ControlPanel {
         String description = parts[0].trim();
         TaskManager.Priority priority;
         try {
-            priority = TaskManager.Priority.valueOf(parts[1].trim().toUpperCase());
+            priority = TaskManager.validateAndConvertPriority(parts[1].trim());
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D, E).");
             return;
         }
         // Assuming the name and description of the task are the same for simplicity
         taskManager.addTask(taskManager.new Todo("Todo", description, priority));
-
     }
 
     private static void addDeadlineTask(String input, TaskManager taskManager) {
@@ -141,5 +133,16 @@ public class ControlPanel {
             address = "Mx";
         }
         return address;
+    }
+
+    private static void displayMenu() {
+        System.out.println("\nHow may I assist you");
+        System.out.println("1. List tasks");
+        System.out.println("2. Add a task");
+        System.out.println("3. Add a deadline task");
+        System.out.println("4. Add an event task");
+        System.out.println("5. Mark a task as done");
+        System.out.println("6. Exit");
+        System.out.print("Enter the number corresponding to your choice: ");
     }
 }
