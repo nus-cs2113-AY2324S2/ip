@@ -124,7 +124,7 @@ public class Kratos {
                     }
                 }
                 catch (Exception e) {
-                    KratosException.handleException(e);
+                    KratosException.handleException(e, userInput);
                 }
             }
         }

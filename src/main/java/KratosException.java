@@ -1,5 +1,5 @@
 public class KratosException extends Exception {
-    public static void handleException(Exception e) {
+    public static void handleException(Exception e, String command) {
         if (e instanceof IllegalArgumentException) {
             System.out.println(Kratos.LINE);
             System.out.println("Verily, the COMMAND hath eluded us, " +
@@ -8,8 +8,19 @@ public class KratosException extends Exception {
             System.out.println(Kratos.LINE);
         } else if (e instanceof ArrayIndexOutOfBoundsException) {
             System.out.println(Kratos.LINE);
-            System.out.println("Your intentions are as vague as the mists of Hades.\n" +
-                    "Specify a task after 'todo' or face the consequences.");
+            if (command.startsWith("todo")) {
+                System.out.println("Your intentions for a 'todo' task are as vague as the mists of Hades.\n" +
+                        "Specify a task after 'todo' or face the consequences.");
+            } else if (command.startsWith("deadline")) {
+                System.out.println("Your intentions for a 'deadline' task are as unclear as the shifting sands of time.\n" +
+                        "Specify a task after 'deadline' or face the consequences.");
+            } else if (command.startsWith("event")) {
+                System.out.println("Your intentions for an 'event' are as elusive as a fleeting dream.\n" +
+                        "Specify a task after 'event' or face the consequences.");
+            } else {
+                System.out.println("Your intentions are as vague as the mists of Hades.\n" +
+                        "Specify a valid command or face the consequences.");
+            }
             System.out.println(Kratos.LINE);
         } else {
             // Handle other exceptions
