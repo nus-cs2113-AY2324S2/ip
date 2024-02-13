@@ -1,3 +1,11 @@
+package natsu;
+
+import natsu.task.Deadline;
+import natsu.task.Event;
+import natsu.task.Task;
+import natsu.task.Todo;
+import natsu.exception.InvalidCommandException;
+
 import java.util.Scanner;
 
 public class Natsu {
@@ -122,11 +130,6 @@ public class Natsu {
         printTaskAddedConfirmation();
     }
 
-    public static class InvalidCommandException extends Exception {
-        public InvalidCommandException(String message) {
-            super(message);
-        }
-    }
     private static void printTaskAddedMessage(String userInput) {
         printLine();
         System.out.println("     added: " + userInput);
