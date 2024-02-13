@@ -46,36 +46,70 @@ public class Natsu {
         return true;
     }
 
-    private static void handleTaskCommands(String userInput) {
+    private static void handleTaskCommands(String userInput) throws NumberFormatException {
         if (userInput.startsWith("mark ")) {
             int itemIndex = Integer.parseInt(userInput.substring(MARK_COMMAND_LENGTH)) - 1;
-            list[itemIndex].markAsDone();
-            printLine();
-            System.out.println("     Nice! I've marked this task as done:");
-            System.out.println("       " + list[itemIndex].toString());
-            printLine();
+            if (itemIndex >= taskCount || itemIndex < 0) {
+                throw new NumberFormatException();
+            } else {
+                list[itemIndex].markAsDone();
+                printLine();
+                System.out.println("     Nice! I've marked this task as done:");
+                System.out.println("       " + list[itemIndex].toString());
+                printLine();
+            }
         } else if (userInput.startsWith("unmark ")) {
             int itemIndex = Integer.parseInt(userInput.substring(UNMARK_COMMAND_LENGTH)) - 1;
-            list[itemIndex].markAsUndone();
-            printLine();
-            System.out.println("     OK, I've marked this task as not done yet:");
-            System.out.println("       " + list[itemIndex].toString());
-            printLine();
+            if (itemIndex >= taskCount || itemIndex < 0) {
+                throw new NumberFormatException();
+            } else {
+                list[itemIndex].markAsUndone();
+                printLine();
+                System.out.println("     OK, I've marked this task as not done yet:");
+                System.out.println("       " + list[itemIndex].toString());
+                printLine();
+            }
         } else {
-            addTask(userInput);
+            try {
+                addTask(userInput);
+            } catch (InvalidCommandException e) {
+                printLine();
+                System.out.println(e.getMessage());
+                printLine();
+            }
         }
     }
 
-    private static void addTask(String userInput) {
-        if (userInput.startsWith("todo ")) {
+    private static void addTask(String userInput) throws InvalidCommandException {
+        if (userInput.startsWith("todo")) {
+            if (userInput.length() <= TODO_COMMAND_LENGTH) {
+                throw new InvalidCommandException("     I'm terribly sorry, but the description of a todo cannot be empty. Please try again!");
+            }
             String todoDescription = userInput.substring(TODO_COMMAND_LENGTH).trim();
             list[taskCount++] = new Todo(todoDescription);
-        } else if (userInput.startsWith("deadline ")) {
-            int byIndex = userInput.indexOf(DEADLINE_INDICATOR);
-            String deadlineDescription = userInput.substring(DEADLINE_COMMAND_PREFIX_LENGTH, byIndex).trim();
-            String deadlineBy = userInput.substring(byIndex + DEADLINE_INDICATOR.length() + 1).trim();
-            list[taskCount++] = new Deadline(deadlineDescription, deadlineBy);
-        } else if (userInput.startsWith("event ")) {
+        } else if (userInput.startsWith("deadline")) {
+            if (!userInput.contains(DEADLINE_INDICATOR)) {
+                throw new InvalidCommandException("     I'm terribly sorry, but do add '/by' along with the deadline of the task. Please try again!");
+            } else if (userInput.indexOf(DEADLINE_INDICATOR) == DEADLINE_COMMAND_PREFIX_LENGTH) {
+                throw new InvalidCommandException("     I'm terribly sorry, but the description of a deadline cannot be empty. Please try again!");
+            } else if (userInput.indexOf(DEADLINE_INDICATOR) + DEADLINE_INDICATOR.length() >= userInput.length()) {
+                throw new InvalidCommandException("     I'm terribly sorry, but the deadline date/time cannot be empty. Please try again!");
+            } else {
+                int byIndex = userInput.indexOf(DEADLINE_INDICATOR);
+                String deadlineDescription = userInput.substring(DEADLINE_COMMAND_PREFIX_LENGTH, byIndex).trim();
+                String deadlineBy = userInput.substring(byIndex + DEADLINE_INDICATOR.length() + 1).trim();
+                list[taskCount++] = new Deadline(deadlineDescription, deadlineBy);
+            }
+        } else if (userInput.startsWith("event")) {
+            if (!userInput.contains(EVENT_START_INDICATOR) || !userInput.contains(EVENT_END_INDICATOR)) {
+                throw new InvalidCommandException("     I'm terribly sorry, but do add '/from' and '/to' along with the event details. Please try again!");
+            }
+            if (userInput.indexOf(EVENT_START_INDICATOR) == EVENT_COMMAND_PREFIX_LENGTH || userInput.indexOf(EVENT_END_INDICATOR) == EVENT_COMMAND_PREFIX_LENGTH) {
+                throw new InvalidCommandException("     I'm terribly sorry, but the description of an event cannot be empty. Please try again!");
+            }
+            if (userInput.indexOf(EVENT_START_INDICATOR) + EVENT_START_INDICATOR.length() >= userInput.length() || userInput.indexOf(EVENT_END_INDICATOR) + EVENT_END_INDICATOR.length() == userInput.length()) {
+                throw new InvalidCommandException("     I'm terribly sorry, but the details of an event cannot be empty. Please try again!");
+            }
             int fromIndex = userInput.indexOf(EVENT_START_INDICATOR);
             int toIndex = userInput.indexOf(EVENT_END_INDICATOR);
             String eventDescription = userInput.substring(EVENT_COMMAND_PREFIX_LENGTH, fromIndex).trim();
@@ -83,13 +117,16 @@ public class Natsu {
             String eventTo = userInput.substring(toIndex + EVENT_END_INDICATOR.length() + 1).trim();
             list[taskCount++] = new Event(eventDescription, eventFrom, eventTo);
         } else {
-            list[taskCount++] = new Task(userInput);
-            printTaskAddedMessage(userInput);
-            return;
+            throw new InvalidCommandException("     I'm terribly sorry, but I do not know what that means. Please try again!");
         }
         printTaskAddedConfirmation();
     }
 
+    public static class InvalidCommandException extends Exception {
+        public InvalidCommandException(String message) {
+            super(message);
+        }
+    }
     private static void printTaskAddedMessage(String userInput) {
         printLine();
         System.out.println("     added: " + userInput);
