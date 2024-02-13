@@ -2,11 +2,19 @@
 Hello! I'm mimichat
 What can I do for you?
 -------------------------------------------
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
 -------------------------------------------
 Got it. I've added this task:
 		[T][ ] borrow book
 Now you have 1 in the list
 -------------------------------------------
+[31mError: todo parameters is incomplete. Proper syntax: todo [task][0m
+[31mError: unknown instruction. Type of instructions available [deadline/todo/event/list/bye][0m
 -------------------------------------------
 Got it. I've added this task:
 		[T][ ] borrow calculator
@@ -22,11 +30,19 @@ Got it. I've added this task:
 		[D][ ] return book (by: Sunday)
 Now you have 3 in the list
 -------------------------------------------
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline format is invalid. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
 -------------------------------------------
 Got it. I've added this task:
 		[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 4 in the list
 -------------------------------------------
+[31mError: event parameters is incomplete. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event parameters is incomplete. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event format is invalid. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event format is invalid. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
 -------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] borrow book
