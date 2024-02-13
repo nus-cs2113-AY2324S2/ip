@@ -42,23 +42,48 @@ public class Gene {
                 break;
 
             case "mark":
-                MarkCommand.execute(command, taskList, true);
+                try {
+                    MarkCommand.execute(command, taskList, true);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             case "unmark":
-                MarkCommand.execute(command, taskList, false);
+                try {
+                    MarkCommand.execute(command, taskList, false);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             case "todo":
-                TodoCommand.execute(command, taskList);
+                try {
+                    TodoCommand.execute(command, taskList);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             case "deadline":
-                DeadlineCommand.execute(command, taskList);
+                try {
+                    DeadlineCommand.execute(command, taskList);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             case "event":
-                EventCommand.execute(command, taskList);
+                try {
+                    EventCommand.execute(command, taskList);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
                 break;
 
             default:

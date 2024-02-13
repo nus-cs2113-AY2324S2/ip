@@ -25,7 +25,7 @@ public class TaskList {
             System.out.println("   " + task.getStatusIcon() + " " + task.description);
             Gene.printLineSeparation();
         } else {
-            System.out.println("Invalid task number. Please provide a valid task number.");
+            System.out.println("ERROR: Invalid task number. Please provide a valid task number.");
         }
     }
 
