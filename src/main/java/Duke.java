@@ -106,33 +106,41 @@ public class Duke {
     }
 
     /**
-     * Marks task as done or undone.
+     * Marks task as done.
      *
      * @param taskList List of tasks.
      * @param instruction User instruction on which task to mark.
      */
     public static void markTask(List<Task> taskList, String instruction) {
-        boolean done = true;
-        String message;
+        int taskNumber = Integer.parseInt(instruction);
 
-        if (instruction.substring(0, 4).equalsIgnoreCase("mark")) {
-            done = true;
-        } else if (instruction.substring(0, 6).equalsIgnoreCase("unmark")) {
-            done = false;
-        }
-
-        int index = (new Scanner(instruction).useDelimiter("\\D+").nextInt()) - 1;
-        message = done ? "Nice! I've marked this task as done:\n" + "   [X] "
-                + taskList.get(index).getDescription() :
-                " OK, I've marked this task as not done yet:\n" + "   [ ] "
-                + taskList.get(index).getDescription();
-
-        try {
-            taskList.get(index).setDone(done);
-            printMessage(message);
-        } catch (Exception e){
+        if (taskNumber < 0 && taskNumber > taskList.size() + 1){
             printMessage("Invalid mark instruction ZENBU FAKE!!");
+            return;
         }
+
+        taskList.get(taskNumber - 1).setDone(true);
+        printMessage("Nice! I've marked this task as done:\n" + "   [X] "
+                + taskList.get(taskNumber).getDescription());
+    }
+
+    /**
+     * Marks task as undone.
+     *
+     * @param taskList List of tasks.
+     * @param instruction User instruction on which task to mark.
+     */
+    public static void unmarkTask(List<Task> taskList, String instruction) {
+        int taskNumber = Integer.parseInt(instruction);
+
+        if (taskNumber < 0 && taskNumber > taskList.size() + 1){
+            printMessage("Invalid mark instruction ZENBU FAKE!!");
+            return;
+        }
+
+        taskList.get(taskNumber - 1).setDone(false);
+        printMessage("OK, I've marked this task as not done yet:\n" + "   [ ] "
+                + taskList.get(taskNumber).getDescription());
     }
 
     /**
@@ -142,16 +150,35 @@ public class Duke {
         List<Task> taskList = new ArrayList<>();
         while(true){
             String input = readInput();
+            String[] tokens = input.split(" ", 2);
 
-            if (input.equalsIgnoreCase("bye")) {
-                return;
-            } else if (input.equalsIgnoreCase("list")) {
-                printList(taskList);
-            } else if (input.substring(0, 4).equalsIgnoreCase("mark") ||
-                    input.substring(0, 6).equalsIgnoreCase("unmark")) {
-                markTask(taskList, input);
-            } else {
+            // If tokens only contains one string, there is no command
+            if (tokens.length < 2){
+                if (input.equalsIgnoreCase("bye")) {
+                    return;
+                }
                 addToList(taskList, input);
+                continue;
+            }
+
+            String command = tokens[0].toLowerCase();
+            String argument = tokens[1];
+
+            switch (command) {
+            case "list":
+                printList(taskList);
+                break;
+            case "mark":
+                markTask(taskList, argument);
+                break;
+            case "unmark":
+                unmarkTask(taskList, argument);
+                break;
+            case "bye":
+                return;
+            default:
+                addToList(taskList, argument);
+                break;
             }
         }
     }
