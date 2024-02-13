@@ -1,3 +1,5 @@
+package Xavier;
+
 import java.util.Scanner;
 
 public class Xavier {

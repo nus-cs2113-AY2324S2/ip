@@ -1,3 +1,7 @@
+package Xavier;
+
+import Xavier.*;
+
 public class TaskManager {
     public static final int MAX_ENTRIES = 100;
     int numberOfItems = 0;
@@ -35,7 +39,7 @@ public class TaskManager {
         System.out.println(itemList[index].toString());
     }
     
-    public void handleAddTask(String command) throws InvalidInputException, NoInputException{
+    public void handleAddTask(String command) throws InvalidInputException, NoInputException {
         String[] stringArray = command.split(" ");
         if (stringArray.length == 1) {
             throw new NoInputException();
