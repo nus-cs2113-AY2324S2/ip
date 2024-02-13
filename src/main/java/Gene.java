@@ -32,15 +32,6 @@ public class Gene {
         }
     }
 
-    public boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     private void processCommand(String command) {
         String[] parts = command.split(" ");
         String action = parts[0].toLowerCase();
@@ -49,39 +40,25 @@ public class Gene {
             case "list":
                 taskList.printListItems();
                 break;
+
             case "mark":
-                if (parts.length > 1 && isNumeric(parts[1])) {
-                    taskList.markTaskAsDone(Integer.parseInt(parts[1]));
-                } else {
-                    System.out.println("Please provide a valid task number to mark as done.");
-                }
+                MarkCommand.execute(command, taskList, true);
                 break;
+
             case "unmark":
-                if (parts.length > 1 && isNumeric(parts[1])) {
-                    taskList.markTaskAsNotDone(Integer.parseInt(parts[1]));
-                } else {
-                    System.out.println("Please provide a valid task number to mark as not done.");
-                }
+                MarkCommand.execute(command, taskList, false);
                 break;
 
             case "todo":
-                String toDoParts = command.replaceFirst("\\S+", "");
-                Todo newToDo = new Todo(toDoParts.trim());
-                taskList.addTask(newToDo);
+                TodoCommand.execute(command, taskList);
                 break;
 
             case "deadline":
-                String[] deadlineParts = command.replaceFirst("\\S+", "").split("/");
-                Deadline newDeadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1]
-                        .replace("by", "").trim());
-                taskList.addTask(newDeadline);
+                DeadlineCommand.execute(command, taskList);
                 break;
 
             case "event":
-                String[] eventParts = command.replaceFirst("\\S+", "").split("/");
-                Event newEvent = new Event(eventParts[0].trim(), eventParts[1].replace("from", "").trim()
-                        , eventParts[2].replace("to", "").trim());
-                taskList.addTask(newEvent);
+                EventCommand.execute(command, taskList);
                 break;
 
             default:
