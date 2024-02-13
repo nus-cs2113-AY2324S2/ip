@@ -1,4 +1,12 @@
+package uwunzhe.util;
+
 import java.util.ArrayList;
+
+import uwunzhe.tasks.Deadline;
+import uwunzhe.tasks.Event;
+import uwunzhe.tasks.Task;
+import uwunzhe.tasks.TaskType;
+import uwunzhe.tasks.Todo;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<Task>();

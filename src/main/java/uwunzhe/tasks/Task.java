@@ -1,3 +1,5 @@
+package uwunzhe.tasks;
+
 public class Task {
     protected String name;
     protected String type;
