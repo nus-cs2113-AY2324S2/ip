@@ -58,9 +58,11 @@ public class Hachi {
 
     public static void spacerInsert(String length, boolean hasTab) {
         String spacer;
+
         if (hasTab) {
             System.out.print("    ");
         }
+
         switch (length) {
         case "small": // 20 tildes
             spacer = "~~~~~~~~~~~~~~~~~~~~";
@@ -73,6 +75,7 @@ public class Hachi {
             spacer = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
             break;
         }
+
         System.out.println(spacer);
     }
 
@@ -81,11 +84,15 @@ public class Hachi {
      * the console for the user to see.
      *
      * @param listOfTasks The Task[] array that contains the list of tasks.
+     * @throws HachiException If the current list is empty.
      */
 
-    public static void retrieveList(Task[] listOfTasks) {
+    public static void retrieveList(Task[] listOfTasks) throws HachiException{
         int numTasks = Task.getTotalNumTasks();
+
+        HachiException.checkEmptyList(numTasks);
         spacerInsert("medium", true);
+
         System.out.println("    The following are in your list:");
         for (int i = 0; i < numTasks; i++) {
             String taskType = listOfTasks[i].getTaskType();
@@ -101,14 +108,16 @@ public class Hachi {
      * Given a task's name and the list of tasks, add a new task into the list.
      * Depending on the user's input, can create subclass of tasks: Todos, Deadlines and Events.
      *
-     * @param taskType Type of task to be added. (Todo, Event, Deadline, Task, Invalid)
+     * @param taskType Type of task to be added. (Todo, Event, Deadline)
      * @param listOfTasks The Task[] array that the new task will be added to.
      * @param line The line of text given by the user.
      * @param cleanInput The cleaned line of text that will be used to determine the instruction.
      */
 
-    public static void addTask(TaskType taskType, Task[] listOfTasks, String line, String cleanInput) {
+    public static void addTask(TaskType taskType, Task[] listOfTasks, String line, String cleanInput) throws HachiException {
         Task toAdd;
+        HachiException.checkValidDescription(line);
+
         if (taskType == TaskType.TODO) {
             int indexOfTodo = cleanInput.indexOf("TODO") + 5;
             String name = line.substring(indexOfTodo).trim();
@@ -116,7 +125,8 @@ public class Hachi {
         } else if (taskType == TaskType.DEADLINE) {
             // parse deadline here
             int indexOfName = cleanInput.indexOf("DEADLINE") + 9;
-            int indexOfBy = cleanInput.indexOf("/B") + 3;
+            int indexOfBy = cleanInput.indexOf("/BY") + 3;
+            HachiException.checkDeadlineByDate(indexOfBy);
 
             String name = line.substring(indexOfName, indexOfBy - 3).trim();
             String byDate = line.substring(indexOfBy).trim();
@@ -126,12 +136,14 @@ public class Hachi {
             int indexOfName = cleanInput.indexOf("EVENT") + 6;
             int indexOfStart = cleanInput.indexOf("/FROM") + 5;
             int indexOfEnd = cleanInput.indexOf("/TO") + 3;
+            HachiException.checkEventDates(indexOfStart, indexOfEnd);
 
             String name = line.substring(indexOfName, indexOfStart - 5);
             String fromDate = line.substring(indexOfStart, indexOfEnd - 3).trim();
             String toDate = line.substring(indexOfEnd).trim();
             toAdd = new Event(name, fromDate, toDate);
         } else {
+            // this branch should not ever be reached
             toAdd = new Task(line);
         }
         int numTasks = Task.getTotalNumTasks();
@@ -140,32 +152,33 @@ public class Hachi {
     }
 
     /**
-     * Given a task's index and the list of tasks,
-     * mark that task as complete.
-     * @param index Index of the task to be marked.
+     * Function that cleans the user input for mark or unmark requests
+     * and completes the function call as required.
+     *
+     * @param firstWord First word in the input from user.
+     * @param cleanedInput Cleaned input string from user.
      * @param listOfTasks The Task[] array that contains the list of tasks.
      */
 
-    public static void markTask(int index, Task[] listOfTasks) {
-        listOfTasks[index].setCompleteness(true);
-        System.out.println("    Sure, I've marked this task as done:");
-        String statusIcon = listOfTasks[index].getStatusIcon();
-        System.out.print("    " + (index + 1) + ": ");
-        System.out.print("[" + statusIcon + "] ");
-        System.out.println(listOfTasks[index].getName());
+    public static void markOrUnmarkHandler(String firstWord, String cleanedInput, Task[] listOfTasks ) throws HachiException{
+        int indexOfTask = cleanedInput.indexOf("MARK") + 4; // find index of task number
+        int taskNumber = Integer.parseInt(cleanedInput.substring(indexOfTask).trim()); // parse string to int
+        HachiException.checkOutOfBounds(taskNumber);
+        markOrUnmarkTask(taskNumber - 1, listOfTasks, !cleanedInput.contains("UNMARK"));
     }
 
     /**
      * Given a task's index and the list of tasks,
-     * mark that task as incomplete.
+     * mark that task as complete or incomplete.
      *
      * @param index Index of the task to be marked.
      * @param listOfTasks The Task[] array that contains the list of tasks.
+     * @param isMark True if task is to be marked as complete, false otherwise
      */
 
-    public static void unmarkTask(int index, Task[] listOfTasks) {
-        listOfTasks[index].setCompleteness(false);
-        System.out.println("    Okay, marking this task as incomplete now:");
+    public static void markOrUnmarkTask(int index, Task[] listOfTasks, boolean isMark) {
+        listOfTasks[index].setCompleteness(isMark);
+        System.out.println("    Sure, I've done as you requested:");
         String statusIcon = listOfTasks[index].getStatusIcon();
         System.out.print("    " + (index + 1) + ": ");
         System.out.print("[" + statusIcon + "] ");
@@ -178,7 +191,6 @@ public class Hachi {
 
     public static void printGoodbyeMessage() {
         System.out.println("    Goodbye! Hope you have a marvelous day.");
-        spacerInsert("medium", true);
     }
 
     /**
@@ -200,33 +212,32 @@ public class Hachi {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        spacerInsert("medium", false);
         boolean isBye = false;
         Task[] listOfTasks = new Task[100];
+
+        spacerInsert("medium", false);
         printGreetingMessage();
         printHelpMessage();
 
         while (!isBye) {
-            String line = in.nextLine();
-            String cleanedInput = line.toUpperCase().trim();
-            int indexOfSpace = cleanedInput.indexOf(" ");
-            String firstWord;
-            if (indexOfSpace == -1) { // check for single-word inputs
-                firstWord = cleanedInput;
-            } else {
-                firstWord = cleanedInput.substring(0, indexOfSpace);
-            }
+            try {
+                String line = in.nextLine();
+                String cleanedInput = line.toUpperCase().trim();
+                String firstWord;
+                int indexOfSpace = cleanedInput.indexOf(" ");
 
-            if (firstWord.contains("MARK")) {
-                int indexOfTask = cleanedInput.indexOf("MARK") + 4; // find index of task number
-                int taskNumber = Integer.parseInt(cleanedInput.substring(indexOfTask).trim()); // parse string to int
-                if (cleanedInput.contains("UNMARK")) {
-                    unmarkTask(taskNumber - 1, listOfTasks);
+                if (indexOfSpace == -1) { // check for single-word inputs
+                    firstWord = cleanedInput;
                 } else {
-                    markTask(taskNumber - 1, listOfTasks);
+                    firstWord = cleanedInput.substring(0, indexOfSpace);
                 }
-            } else {
+
                 switch (firstWord) {
+                case "MARK":
+                case "UNMARK":
+                    markOrUnmarkHandler(firstWord, cleanedInput, listOfTasks);
+                    break;
+
                 case "LIST":
                     retrieveList(listOfTasks);
                     break;
@@ -235,13 +246,15 @@ public class Hachi {
                 case "EVENT":
                 case "DEADLINE":
                     TaskType currentTask;
-                    if (cleanedInput.startsWith("TODO")) {
-                        currentTask = TaskType.TODO;
+
+                    if (cleanedInput.startsWith("EVENT")) {
+                        currentTask = TaskType.EVENT;
                     } else if (cleanedInput.startsWith("DEADLINE")) {
                         currentTask = TaskType.DEADLINE;
                     } else {
-                        currentTask = TaskType.EVENT;
+                        currentTask = TaskType.TODO;
                     }
+
                     addTask(currentTask, listOfTasks, line, cleanedInput);
                     break;
 
@@ -256,10 +269,13 @@ public class Hachi {
                     break;
 
                 default:
-                    // handle invalid case
-                    System.out.println("Invalid command read."); // for testing
+                    HachiException.invalidInput();
                     break;
                 }
+            } catch (HachiException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                spacerInsert("medium", true);
             }
         }
     }
