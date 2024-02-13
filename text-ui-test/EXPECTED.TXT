@@ -54,7 +54,7 @@
      6.[E][ ] Conference (from: 15th Aug 9am to: 15th Aug 5pm)
     ____________________________________________________________
     ____________________________________________________________
-     added: Go grocery shopping
+     I'm terribly sorry, but I do not know what that means. Please try again!
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
@@ -72,7 +72,6 @@
      4.[D][ ] Pay bills (by: 30th July)
      5.[E][ ] Sister's birthday party (from: Saturday 5pm to: Saturday 8pm)
      6.[E][X] Conference (from: 15th Aug 9am to: 15th Aug 5pm)
-     7.[ ] Go grocery shopping
     ____________________________________________________________
     ____________________________________________________________
      Bye. Hope to see you again soon!
