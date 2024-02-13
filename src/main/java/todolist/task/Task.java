@@ -1,4 +1,4 @@
-package todolist;
+package todolist.task;
 
 public abstract class Task {
     protected final String name;

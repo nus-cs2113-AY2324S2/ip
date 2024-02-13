@@ -1,4 +1,4 @@
-package todolist;
+package todolist.keywordfinder;
 
 public enum Keyword {
     mark,

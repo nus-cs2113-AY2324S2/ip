@@ -1,6 +1,10 @@
-package todolist;
+package todolist.keywordfinder;
 
-import java.security.Key;
+import todolist.task.DeadLinesTask;
+import todolist.task.EventsTask;
+import todolist.task.Task;
+import todolist.task.ToDoTask;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +27,7 @@ public class KeywordPatternMatcher {
     private static final int FROM_OFFSET = 6; //keyword "/from" offset
     private static final int TO_OFFSET = 4; //keyword "/to" offset
 
-    KeywordPatternMatcher(String input) {
+    public KeywordPatternMatcher(String input) {
         this.inputText = input;
         this.keywordType = checkKeywordType();
     }

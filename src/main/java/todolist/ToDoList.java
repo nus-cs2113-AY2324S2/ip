@@ -1,4 +1,8 @@
 package todolist;
+import todolist.keywordfinder.Keyword;
+import todolist.keywordfinder.KeywordPatternMatcher;
+import todolist.task.Task;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -10,7 +14,7 @@ public class ToDoList {
      * Constructor for ToDoList
      */
     public ToDoList() {
-        this.toDoListArray = new ArrayList<Task>();
+        this.toDoListArray = new ArrayList<>();
     }
 
     /**
@@ -97,7 +101,7 @@ public class ToDoList {
      */
     public void printToDoList() {
         System.out.println("Here are the tasks in your list:");
-        System.out.println(toString());
+        System.out.println(this);
     }
 
     /**
