@@ -105,6 +105,7 @@ public class Duke {
             taskList.printList();
             break;
 
+        // TODO: Add support for catching non-integer input
         case "mark":
             // Mark a task as done if input is "mark"
             int index = Integer.parseInt(taskString);

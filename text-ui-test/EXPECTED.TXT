@@ -54,6 +54,11 @@ Okey dokey here we go
 We only have uhhhh 5 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
+Okey dokey here we go
+ [D][ ] ancs (by: /by /by 1232)
+We only have uhhhh 6 more things left to go!
+------------------------------------------------------------
+: ------------------------------------------------------------
 ACKSHUALLY you are missing something...
 ------------------------------------------------------------
 : ------------------------------------------------------------
@@ -63,6 +68,7 @@ Yay! List!
 3.[T][ ] 123 def 345
 4.[D][ ] qwerty (by: 123)
 5.[D][ ] z12cv (by: asd 123)
+6.[D][ ] ancs (by: /by /by 1232)
 ------------------------------------------------------------
 : ------------------------------------------------------------
 ACKSHUALLY you are missing something...
@@ -70,17 +76,17 @@ ACKSHUALLY you are missing something...
 : ------------------------------------------------------------
 Okey dokey here we go
  [E][ ] 12ujk (from: 123 to: ned)
-We only have uhhhh 6 more things left to go!
-------------------------------------------------------------
-: ------------------------------------------------------------
-Okey dokey here we go
- [E][ ] pks (from: q3a cvse to: ned iho)
 We only have uhhhh 7 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Okey dokey here we go
- [E][ ] gusf\ (from: ;sa!] to: ~./))
+ [E][ ] pks (from: q3a cvse to: ned iho)
 We only have uhhhh 8 more things left to go!
+------------------------------------------------------------
+: ------------------------------------------------------------
+Okey dokey here we go
+ [E][ ] gusf\ (from: ;sa!] to: ~./))
+We only have uhhhh 9 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 ACKSHUALLY you are missing something...
@@ -95,9 +101,10 @@ Yay! List!
 3.[T][ ] 123 def 345
 4.[D][ ] qwerty (by: 123)
 5.[D][ ] z12cv (by: asd 123)
-6.[E][ ] 12ujk (from: 123 to: ned)
-7.[E][ ] pks (from: q3a cvse to: ned iho)
-8.[E][ ] gusf\ (from: ;sa!] to: ~./))
+6.[D][ ] ancs (by: /by /by 1232)
+7.[E][ ] 12ujk (from: 123 to: ned)
+8.[E][ ] pks (from: q3a cvse to: ned iho)
+9.[E][ ] gusf\ (from: ;sa!] to: ~./))
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Good night my positive mentality flen, it is time for me to take my happy pills. Bye Bye!

@@ -114,6 +114,7 @@ public class TaskList {
         }
 
         String taskName, taskStart, taskEnd;
+        
         // Convert String command to TaskType enum
         TaskType type = TaskType.valueOf(command.toUpperCase());
         boolean isValid = true;
