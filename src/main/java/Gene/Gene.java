@@ -1,3 +1,11 @@
+package Gene;
+
+import Gene.command.DeadlineCommand;
+import Gene.command.EventCommand;
+import Gene.command.MarkCommand;
+import Gene.command.TodoCommand;
+import Gene.task.TaskList;
+
 import java.util.Scanner;
 
 public class Gene {

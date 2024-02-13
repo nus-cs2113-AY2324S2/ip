@@ -1,3 +1,9 @@
+package Gene.command;
+
+import Gene.task.Deadline;
+import Gene.GeneException;
+import Gene.task.TaskList;
+
 public class DeadlineCommand {
     public static void execute(String command, TaskList taskList) throws GeneException {
         String[] parts = command.replaceFirst("\\S+", "").split("/");

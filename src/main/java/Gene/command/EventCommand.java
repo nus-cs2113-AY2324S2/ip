@@ -1,3 +1,9 @@
+package Gene.command;
+
+import Gene.task.Event;
+import Gene.GeneException;
+import Gene.task.TaskList;
+
 public class EventCommand {
     public static void execute(String command, TaskList taskList) throws GeneException {
         String[] parts = command.replaceFirst("\\S+", "").split("/");

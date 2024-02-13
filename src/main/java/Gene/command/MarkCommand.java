@@ -1,3 +1,8 @@
+package Gene.command;
+
+import Gene.GeneException;
+import Gene.task.TaskList;
+
 public class MarkCommand {
 
     public static boolean isNumeric(String str) {

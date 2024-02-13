@@ -1,3 +1,7 @@
+package Gene.task;
+
+import Gene.Gene;
+
 import java.util.ArrayList;
 
 public class TaskList {
