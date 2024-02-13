@@ -121,7 +121,7 @@ public class Duke {
 
         taskList.get(taskNumber - 1).setDone(true);
         printMessage("Nice! I've marked this task as done:\n" + "   [X] "
-                + taskList.get(taskNumber).getDescription());
+                + taskList.get(taskNumber - 1).getDescription());
     }
 
     /**
@@ -140,7 +140,7 @@ public class Duke {
 
         taskList.get(taskNumber - 1).setDone(false);
         printMessage("OK, I've marked this task as not done yet:\n" + "   [ ] "
-                + taskList.get(taskNumber).getDescription());
+                + taskList.get(taskNumber - 1).getDescription());
     }
 
     /**
@@ -177,7 +177,7 @@ public class Duke {
             case "bye":
                 return;
             default:
-                addToList(taskList, argument);
+                addToList(taskList, input);
                 break;
             }
         }
