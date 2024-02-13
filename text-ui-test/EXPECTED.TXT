@@ -6,7 +6,7 @@ Hello from
 |_|  \____| |___| |___| |_____|
 
 	__________________________________________________
-	Hi!, I'm 'Noob'
+	Hi!, I'm 'noobconversation.Noob'
 	What can I do for you?
 	__________________________________________________
 	I have the following features:

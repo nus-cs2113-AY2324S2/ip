@@ -1,3 +1,5 @@
+package errorhandle;
+import format.Formatting;
 public class UserInputErrorHandle {
 
     protected Formatting format;

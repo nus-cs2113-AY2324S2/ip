@@ -1,7 +1,21 @@
+package noobconversation;
+
+import errorhandle.ExceptionsHandle;
+import errorhandle.UserInputErrorHandle;
+import format.Formatting;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.util.Scanner;
 
+import static constant.NormalConstant.correctTaskCreation;
+import static constant.NormalConstant.incorrectTaskCreation;
+
 public class CommunicateCaseHandle {
-    public static final int correctTaskCreation = 66319;
+
+
     protected ExceptionsHandle exceptions;
     protected Formatting format;
     protected UserInputErrorHandle userInputError;
@@ -31,7 +45,7 @@ public class CommunicateCaseHandle {
             return eventHandle(line.substring(spaceIndex + 1), list, index);
         } else {
             userInputError.undefinedTaskError();
-            return -1;
+            return incorrectTaskCreation;
         }
     }
 
@@ -46,7 +60,7 @@ public class CommunicateCaseHandle {
     public int todoHandle(String line, Task[] list, int index) {
         if (line.toLowerCase().startsWith("todo")) {
             userInputError.noTaskContentError("todo");
-            return -1;
+            return incorrectTaskCreation;
         }
         Task t = new ToDo(line.trim());
         list[index] = t;
@@ -57,7 +71,7 @@ public class CommunicateCaseHandle {
     public int deadlineHandle(String line, Task[] list, int index) {
         if (line.toLowerCase().startsWith("deadline")) {
             userInputError.noTaskContentError("deadline");
-            return -1;
+            return incorrectTaskCreation;
         }
         int byIndex = line.indexOf("/by");
         String content = line.substring(0, byIndex);
@@ -71,7 +85,7 @@ public class CommunicateCaseHandle {
     public int eventHandle(String line, Task[] list, int index) {
         if (line.toLowerCase().startsWith("event")) {
             userInputError.noTaskContentError("event");
-            return -1;
+            return incorrectTaskCreation;
         }
         int fromIndex = line.indexOf("/from");
         String content = line.substring(0, fromIndex);
@@ -86,7 +100,7 @@ public class CommunicateCaseHandle {
 
     public void markHandle(String line, Scanner in, int index, Task[] list) {
         int spaceIndex = line.indexOf(" ");
-        if (spaceIndex == -1) {
+        if (spaceIndex == incorrectTaskCreation) {
             format.dividingLine();
             System.out.println("\tPlease add a spacing between 'mark' and 'number'");
             format.dividingLine();
@@ -115,7 +129,7 @@ public class CommunicateCaseHandle {
 
     public void unmarkHandle(String line, Scanner in, int index, Task[] list) {
         int spaceIndex = line.indexOf(" ");
-        if (spaceIndex == -1) {
+        if (spaceIndex == incorrectTaskCreation) {
             format.dividingLine();
             System.out.println("\tPlease add a spacing between 'unmark' and 'number'");
             format.dividingLine();

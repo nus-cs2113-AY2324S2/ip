@@ -1,6 +1,6 @@
-# User guide of chatbot Noob
+# User guide of chatbot noobconversation.Noob
 
-Hi, this chatbot is still a Noob.  
+Hi, this chatbot is still a noobconversation.Noob.  
 ***Need upgrade.......***    
 He has following features:
 
@@ -8,7 +8,7 @@ He has following features:
 
 He can echo what you type.
 
-## Feature: Store three types of Task
+## Feature: Store three types of task.Task
 
 He can store what you type as a task
 * Type `todo` + `taskContent` to record a **todo** task 
@@ -29,4 +29,4 @@ Type `list` to list what he has stored for you
 
 Type `bye` to say goodbye to him
 
-# Hope you have fun with Noob!
+# Hope you have fun with noobconversation.Noob!
