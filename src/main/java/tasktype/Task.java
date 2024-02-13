@@ -20,10 +20,9 @@ public class Task {
     public void uncheck(){
         this.isDone = false;
     }
+
     public String toString(){
         String statusIcon = isDone ? "X" : " ";
         return "[" + statusIcon + "]" + description;
     }
-
-
 }

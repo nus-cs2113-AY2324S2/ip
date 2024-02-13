@@ -19,10 +19,12 @@ public class JingHao {
         this.taskList = new Task[MAX_SIZE];
         this.in = new Scanner(System.in);
     }
+
     public void start(){
         greetUser();
         getUserInput();
     }
+
     private void greetUser(){
         System.out.println(LINE_SEP + "\nHello! I'm JingHao" );
         System.out.println("What can I do for you?\n" + LINE_SEP);
@@ -37,17 +39,17 @@ public class JingHao {
                 handleInput(userInput);
             }
             catch (InvalidTodoCommandException e){
-                System.out.println("Invalid Todo Command Format!\n" + LINE_SEP);
+                System.out.println("Invalid Todo Command Format!\n" +
+                        "Use: todo (Todo description)\n" + LINE_SEP);
             }
             catch (InvalidDeadlineCommandException e){
                 System.out.println("Invalid Deadline Command Format!\n" +
-                        "User (Deadline description) + /by + (date)\n" + LINE_SEP);
+                        "Use: deadline (Deadline description) + /by + (date)\n" + LINE_SEP);
             }
             catch (InvalidEventCommandException e){
                 System.out.println("Invalid Deadline Command Format!\n" +
-                        "Use (Event description) + /from (date) /to (date)\n" + LINE_SEP);
+                        "Use: event (Event description) + /from (date) /to (date)\n" + LINE_SEP);
             }
-
         }
         while(!userInput.equalsIgnoreCase("bye"));
     }
@@ -115,6 +117,7 @@ public class JingHao {
             System.out.println("Invalid index. Please try again\n" + LINE_SEP);
         }
     }
+
     private void handleUnmarkCommand(String description){
         try {
             int index = Integer.parseInt(description)-1;
@@ -125,6 +128,7 @@ public class JingHao {
             System.out.println("Invalid index. Please try again\n" + LINE_SEP);
         }
     }
+
     private void handleTodoCommand(String userInput) throws InvalidTodoCommandException{
         if(userInput.isBlank()){
             throw new InvalidTodoCommandException();
@@ -136,6 +140,7 @@ public class JingHao {
         printTotalTask();
         System.out.println(LINE_SEP);
     }
+
     private void handleDeadlineCommand(String userInput) throws InvalidDeadlineCommandException{
         String[] deadlineDescription = userInput.split("/by");
         if(deadlineDescription.length != 2){
@@ -152,7 +157,7 @@ public class JingHao {
     }
 
     private void handleEventCommand(String userInput) throws InvalidEventCommandException{
-        String[] eventDescriptions = userInput.split("/from",2);
+        String[] eventDescriptions = userInput.split("/from", 2);
         if(eventDescriptions.length != 2 || eventDescriptions[0].isBlank() || eventDescriptions[1].isBlank()){
             throw new InvalidEventCommandException();
         }
@@ -169,11 +174,9 @@ public class JingHao {
         System.out.println("Got it. I've added this task:\n " +newEvent);
         printTotalTask();
         System.out.println(LINE_SEP);
-
     }
 
     private void printTotalTask(){
         System.out.println("Now you have " + numberOfTask + " tasks in the list.");
     }
-
 }
