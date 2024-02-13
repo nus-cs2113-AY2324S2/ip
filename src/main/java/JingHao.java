@@ -1,3 +1,6 @@
+import commandexceptions.InvalidDeadlineCommandException;
+import commandexceptions.InvalidEventCommandException;
+import commandexceptions.InvalidTodoCommandException;
 import tasktype.Deadline;
 import tasktype.Event;
 import tasktype.Task;
@@ -30,13 +33,30 @@ public class JingHao {
         do{
             System.out.print("Input: ");
             userInput = in.nextLine();
-            handleInput(userInput);
+            try {
+                handleInput(userInput);
+            }
+            catch (InvalidTodoCommandException e){
+                System.out.println("Invalid Todo Command Format!\n" + LINE_SEP);
+            }
+            catch (InvalidDeadlineCommandException e){
+                System.out.println("Invalid Deadline Command Format!\n" +
+                        "User (Deadline description) + /by + (date)\n" + LINE_SEP);
+            }
+            catch (InvalidEventCommandException e){
+                System.out.println("Invalid Deadline Command Format!\n" +
+                        "Use (Event description) + /from (date) /to (date)\n" + LINE_SEP);
+            }
 
         }
         while(!userInput.equalsIgnoreCase("bye"));
     }
 
-    private void handleInput(String userInput){
+    private void handleInput(String userInput)
+            throws InvalidTodoCommandException,
+            InvalidEventCommandException,
+            InvalidDeadlineCommandException{
+
         String[] words = userInput.split(" ", 2);
         String command = words[0].toLowerCase();
         String description = (words.length == 2) ? words[1] : "";
@@ -105,7 +125,10 @@ public class JingHao {
             System.out.println("Invalid index. Please try again\n" + LINE_SEP);
         }
     }
-    private void handleTodoCommand(String userInput){
+    private void handleTodoCommand(String userInput) throws InvalidTodoCommandException{
+        if(userInput.isBlank()){
+            throw new InvalidTodoCommandException();
+        }
         Task newTodo = new Todo(userInput);
         taskList[numberOfTask] = newTodo;
         numberOfTask++;
@@ -113,41 +136,42 @@ public class JingHao {
         printTotalTask();
         System.out.println(LINE_SEP);
     }
-    private void handleDeadlineCommand(String userInput){
-        String[] deadlineDescription = userInput.split("/by",2);
-        if(deadlineDescription.length == 2){
-            String description = deadlineDescription[0];
-            String date = deadlineDescription[1];
-            Task newDeadline = new Deadline(description, date);
-            taskList[numberOfTask] = newDeadline;
-            numberOfTask++;
-            System.out.println("Got it. I've added this task:\n " + newDeadline);
-            printTotalTask();
-            System.out.println(LINE_SEP);
+    private void handleDeadlineCommand(String userInput) throws InvalidDeadlineCommandException{
+        String[] deadlineDescription = userInput.split("/by");
+        if(deadlineDescription.length != 2){
+            throw new InvalidDeadlineCommandException();
         }
-        else{
-            System.out.println("Invalid deadline command.\n" + LINE_SEP);
-        }
+        String description = deadlineDescription[0];
+        String date = deadlineDescription[1];
+        Task newDeadline = new Deadline(description, date);
+        taskList[numberOfTask] = newDeadline;
+        numberOfTask++;
+        System.out.println("Got it. I've added this task:\n " + newDeadline);
+        printTotalTask();
+        System.out.println(LINE_SEP);
     }
-    private void handleEventCommand(String userInput){
+
+    private void handleEventCommand(String userInput) throws InvalidEventCommandException{
         String[] eventDescriptions = userInput.split("/from",2);
-        if(eventDescriptions.length == 2){
-            String description = eventDescriptions[0];
-            String[] eventTime = eventDescriptions[1].split("/to", 2);
-            if(eventTime.length == 2){
-                String fromDate = eventTime[0];
-                String toDate = eventTime[1];
-                Task newEvent = new Event(description,fromDate,toDate);
-                taskList[numberOfTask] = newEvent;
-                numberOfTask++;
-                System.out.println("Got it. I've added this task:\n " +newEvent);
-                printTotalTask();
-                System.out.println(LINE_SEP);
-                return;
-            }
+        if(eventDescriptions.length != 2 || eventDescriptions[0].isBlank() || eventDescriptions[1].isBlank()){
+            throw new InvalidEventCommandException();
         }
-        System.out.println("Please use the format: deadline (event) /from (Start date) /to (End date)\n" + LINE_SEP);
+        String description = eventDescriptions[0];
+        String[] eventTime = eventDescriptions[1].split("/to", 2);
+        if(eventTime.length != 2 || eventTime[0].isBlank() || eventTime[1].isBlank()){
+            throw new InvalidEventCommandException();
+        }
+        String fromDate = eventTime[0];
+        String toDate = eventTime[1];
+        Task newEvent = new Event(description,fromDate,toDate);
+        taskList[numberOfTask] = newEvent;
+        numberOfTask++;
+        System.out.println("Got it. I've added this task:\n " +newEvent);
+        printTotalTask();
+        System.out.println(LINE_SEP);
+
     }
+
     private void printTotalTask(){
         System.out.println("Now you have " + numberOfTask + " tasks in the list.");
     }
