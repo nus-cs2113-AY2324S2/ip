@@ -5,19 +5,26 @@ public class TaskManager {
 
     public static void handleUserTasks(String userInput, Task[] listTasks)  {
         try {
-            insertUserTasks(userInput, listTasks);
-            insertIndex ++;
+            if (hasSaidMarkOrUnmark(userInput)) {
+                handleTasksMarkings(userInput, listTasks);
+            }
+            else {
+                insertUserTasks(userInput, listTasks);
+                insertIndex += 1;
+            }
         } catch (InvalidKeywordException e) {
             printInvalidKeywordMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
             printListIsFullMessage();
         } catch (MissingDescriptionException e) {
             printMissingDescritpionMessage();
+        } catch (InvalidTaskIndexException e) {
+            printInvalidTaskIndexMessage();
         }
     }
 
     public static void insertUserTasks (String userInput, Task[] listTasks)
-            throws InvalidKeywordException, MissingDescriptionException {
+            throws InvalidKeywordException, MissingDescriptionException, InvalidTaskIndexException {
         if (userInput.startsWith("todo")) {
             handleToDoTasks(userInput, listTasks, insertIndex);
         } else if (userInput.startsWith("deadline")) {
@@ -89,7 +96,8 @@ public class TaskManager {
         }
     }
 
-    public static void handleTasksMarkings(String userInput, Task[] listTasks) {
+    public static void handleTasksMarkings(String userInput, Task[] listTasks)
+            throws InvalidTaskIndexException {
         if (userInput.startsWith("mark ")) {
             int indexToMark = Integer.parseInt(userInput.substring(5).trim());
             if (indexToMark >= 1 && indexToMark <= listTasks.length && listTasks[indexToMark - 1] != null) {
@@ -100,9 +108,7 @@ public class TaskManager {
                         + " " + listTasks[indexToMark - 1].getDescription());
                 System.out.println(LINE);
             } else {
-                System.out.println(LINE);
-                System.out.println("Invalid task index. Please try again.");
-                System.out.println(LINE);
+                throw new InvalidTaskIndexException();
             }
         } else {
             int indexToUnmark = Integer.parseInt(userInput.substring(7).trim());
@@ -114,9 +120,7 @@ public class TaskManager {
                         + " " + listTasks[indexToUnmark - 1].getDescription());
                 System.out.println(LINE);
             } else {
-                System.out.println(LINE);
-                System.out.println("Invalid task index. Please try again.");
-                System.out.println(LINE);
+                throw new InvalidTaskIndexException();
             }
         }
     }
@@ -130,6 +134,10 @@ public class TaskManager {
             }
         }
         System.out.println(LINE);
+    }
+
+    private static boolean hasSaidMarkOrUnmark(String userInput) {
+        return (userInput.startsWith("mark ") || userInput.startsWith("unmark "));
     }
 
     private static void printListIsFullMessage() {
@@ -149,6 +157,12 @@ public class TaskManager {
     private static void printMissingDescritpionMessage() {
         System.out.println(LINE);
         System.out.println("Please fill in the description of the task.");
+        System.out.println(LINE);
+    }
+
+    private static void printInvalidTaskIndexMessage() {
+        System.out.println(LINE);
+        System.out.println("Invalid task index. Please try again.");
         System.out.println(LINE);
     }
 }
