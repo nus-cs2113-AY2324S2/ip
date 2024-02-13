@@ -4,14 +4,14 @@ public class TaskManager {
     Task[] itemList = new Task[MAX_ENTRIES];
 
     public void handleCommand(String command) {
-         if (command.equals("list")) {
-             printList();
-         }
-        else if (command.startsWith("mark") || command.startsWith(("unmark"))) {
+        if (command.equals("list")) {
+            printList();
+        } else if (command.startsWith("mark") || command.startsWith(("unmark"))) {
             handleMarkAsDone(command);
-        }
-        else {
-            handleAddTask(command);
+        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")){
+            printOutput(command);
+        } else {
+            printErrorMessage();
         }
     }
 
@@ -35,26 +35,62 @@ public class TaskManager {
         System.out.println(itemList[index].toString());
     }
     
-    public void handleAddTask(String command) {
+    public void handleAddTask(String command) throws InvalidInputException, NoInputException{
+        String[] stringArray = command.split(" ");
+        if (stringArray.length == 1) {
+            throw new NoInputException();
+        }
+
         if (command.startsWith("todo")){
-            String toDoString = command.substring(4);
+            int toDoStartIndex = 4;
+            String toDoString = command.substring(toDoStartIndex);
             Todo toDo = new Todo(toDoString);
             itemList[numberOfItems] = toDo;
         }
         else if (command.startsWith("deadline")){
+            if (!command.contains("/by")) {
+                throw new InvalidInputException();
+            }
             int deadlineIndex = command.indexOf("/by");
-            Deadline deadline = new Deadline(command.substring(8, deadlineIndex), command.substring(deadlineIndex + 4));
+            String description = command.substring(8, deadlineIndex);
+            String by = command.substring(deadlineIndex + 4);
+            Deadline deadline = new Deadline(description, by);
             itemList[numberOfItems] = deadline;
         }
         else if (command.startsWith("event")){
+            if (!command.contains("/from") || !command.contains("/to")) {
+                throw new InvalidInputException();
+            }
             int startIndex = command.indexOf("/from");
             int endIndex = command.indexOf("/to");
-            Event event = new Event(command.substring(5, startIndex), command.substring(startIndex + 6, endIndex), command.substring(endIndex + 4));
+            String description = command.substring(5, startIndex);
+            String start = command.substring(startIndex + 6, endIndex);
+            String end = command.substring(endIndex + 4);
+            Event event = new Event(description, start, end);
             itemList[numberOfItems] = event;
         }
-        System.out.println("Got it. I've added this task:");
-        System.out.println(itemList[numberOfItems].toString());
-        numberOfItems += 1;
-        System.out.println("Now you have " + numberOfItems + " tasks in the list.");
+    }
+
+    private void printOutput(String command) {
+        String[] stringArray = command.split(" ");
+        try {
+            handleAddTask(command);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(itemList[numberOfItems].toString());
+            numberOfItems += 1;
+            System.out.println("Now you have " + numberOfItems + " tasks in the list.");
+        } catch (NoInputException e) {
+            System.out.println("OOPS!!! The description of a " + stringArray[0] + " cannot be empty.");
+        } catch (InvalidInputException e) {
+            if (stringArray[0].equals("deadline")) {
+                System.out.println("OOPS!!! " + stringArray[0] + " must contains /by");
+            } else if (stringArray[0].equals("event")) {
+                System.out.println("OOPS!!! " + stringArray[0] + " must contains /from and /to");
+            }
+        }
+    }
+
+    private void printErrorMessage() {
+        System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }
