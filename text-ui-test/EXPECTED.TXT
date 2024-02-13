@@ -7,7 +7,8 @@ Got it. I've added this task:
 		[T][ ] borrow book
 Now you have 1 in the list
 -------------------------------------------
-Insufficient Input for a To-Do Instruction. Proper Syntax: todo [task]
+[31mError: todo parameters is incomplete. Proper syntax: todo [task][0m
+[31mError: unknown instruction. Type of instructions available [deadline/todo/event/list/bye][0m
 -------------------------------------------
 Got it. I've added this task:
 		[T][ ] borrow calculator
@@ -23,10 +24,10 @@ Got it. I've added this task:
 		[D][ ] return book (by: Sunday)
 Now you have 3 in the list
 -------------------------------------------
-MimiException$InsufficientParameters: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline]
-MimiException$InsufficientParameters: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline]
-MimiException$IncorrectFormat: deadline format is invalid. Proper syntax: deadline [instruction] /by [deadline]
-MimiException$InsufficientParameters: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline]
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline format is invalid. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
 -------------------------------------------
 Got it. I've added this task:
 		[E][ ] project meeting (from: Mon 2pm to: 4pm)

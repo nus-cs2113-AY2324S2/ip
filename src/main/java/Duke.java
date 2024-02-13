@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class Duke {
@@ -36,23 +35,27 @@ public class Duke {
             case "todo":
                 try {
                     addToDo(inputs);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(MimiException.INSUFFICIENT_INPUT_FOR_TODO);
+                } catch (MimiException.InsufficientParameters e) {
+                    System.out.println(e.getMessage());
                 }
                 break;
             case "deadline":
                 try {
                     addDeadline(inputs);
                 } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
                 break;
             case "event":
                 addEvent(inputs[1]);
                 break;
             default:
-                // Adds task by default and prints that a task has been added
-                addTask(inputs[1]);
+                // raise invalid instruction error
+                try{
+                    throw new MimiException.IncorrectFormat(MimiException.INCORRECT_INSTRUCTION);
+                } catch (MimiException.IncorrectFormat e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             }
         }
@@ -71,10 +74,12 @@ public class Duke {
         printDescription("added: " + input);
     }
 
-    private static void addToDo(String[] inputs) throws IndexOutOfBoundsException {
+    private static void addToDo(String[] inputs) throws MimiException.InsufficientParameters {
+
         if (inputs.length != 2) {
-            throw new IndexOutOfBoundsException();
+            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_TODO_PARAMETERS);
         }
+
         ToDo toDo = new ToDo(inputs[1]);
         appendIntoTaskList(toDo);
         printSuccessMessage(toDo);
