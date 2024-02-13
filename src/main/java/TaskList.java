@@ -1,14 +1,14 @@
 import java.util.Scanner;
 public class TaskList {
-        private final Task[] taskList;
-        private static final int MAX_TASKS = 100;
-        private int taskCount;
+    private final Task[] taskList;
+    private static final int MAX_TASKS = 100;
+    private int taskCount;
 
 
-        public TaskList() {
-            this.taskList = new Task[MAX_TASKS];
-            this.taskCount = 0;
-        }
+    public TaskList() {
+        this.taskList = new Task[MAX_TASKS];
+        this.taskCount = 0;
+    }
 
     private void processTaskCommand(String command) {
         String[] commandParts = command.split(" ", 2);
@@ -59,96 +59,95 @@ public class TaskList {
         }
     }
 
-        /**
-         * Adds user input into taskList
-         *
-         * @param task input given by user
-         */
-        public void addTask(Task task) {
-            taskList[taskCount] = task;
-            //isMarked[taskCount] = false;
-            taskCount += 1;
-            System.out.println("added: " + task);
-        }
+    /**
+     * Adds user input into taskList
+     *
+     * @param task input given by user
+     */
+    public void addTask(Task task) {
+        taskList[taskCount] = task;
+        taskCount += 1;
+        System.out.println("added: " + task);
+    }
 
-        /**
-         * list out current tasks and displays task status
-         */
-        public void listTasks() {
-            if (taskCount == 0) {
-                System.out.println("Dobby has no tasks :(");
-                return;
+    /**
+     * list out current tasks and displays task status
+     */
+    public void listTasks() {
+        if (taskCount == 0) {
+            System.out.println("Dobby has no tasks :(");
+            return;
+        }
+        System.out.println("List\n~~~~~~~~~~~~~~~~");
+        for (int i = 0 ; i < taskCount ; i += 1) {
+            System.out.println("  " + (i+1) + ". [" + taskList[i].getType() + "]" + taskList[i]);
+        }
+        System.out.println("~~~~~~~~~~~~~~~~");
+    }
+
+    private Boolean isValidIndex(int index) {
+        return index >= 0 && index < taskCount;
+    }
+
+    /**
+     * 1. Checks if user inputs a valid index if valid
+     * marks the stated task and shows which task is marked
+     *
+     * @param taskIndex index of task stored in array
+     */
+    public void markTask(int taskIndex) {
+        if (!isValidIndex(taskIndex)) {
+            System.out.println("Invalid number! Please try again");
+        } else if (taskList[taskIndex].isDone()) {
+            System.out.println("ERROR: task is already marked");
+        } else {
+            taskList[taskIndex].markTask();
+            System.out.println("OK, Dobby has marked this task as done:");
+            System.out.println("  " + taskList[taskIndex]);
+            System.out.println("~~~~~~~~~~~~~~~~");
             }
-            System.out.println("List\n~~~~~~~~~~~~~~~~");
-            for (int i = 0 ; i < taskCount ; i += 1) {
-                System.out.println("  " + (i+1) + ". [" + taskList[i].getType() + "]" + taskList[i]);
-            }
+    }
+
+    /**
+     * Checks if user inputs a valid index
+     * if valid, unmarks the stated task and shows the unmarked task
+     *
+     * @param taskIndex index of task stored in array
+     */
+    public void unmarkTask(int taskIndex) {
+        if (!isValidIndex(taskIndex)) {
+            System.out.println("Invalid number! Please try again");
+        } else if (!taskList[taskIndex].isDone()) {
+            System.out.println("The task is already unmarked");
+        } else {
+            taskList[taskIndex].unmarkTask();
+            System.out.println("OK, Dobby marked this task as not done:");
+            System.out.println("  " + taskList[taskIndex]);
             System.out.println("~~~~~~~~~~~~~~~~");
         }
+    }
 
-        private Boolean isValidIndex(int index) {
-            return index >= 0 && index < taskCount;
-        }
+    public void userCommand() {
+        while(true) {
+            String command;
+            Scanner in = new Scanner(System.in);
+            command = in.nextLine().toLowerCase();
+            String[] commandParts = command.split(" ", 2);
 
-        /**
-         * 1. Checks if user inputs a valid index if valid
-         * marks the stated task and shows which task is marked
-         *
-         * @param taskIndex index of task stored in array
-         */
-        public void markTask(int taskIndex) {
-            if (!isValidIndex(taskIndex)) {
-                System.out.println("Invalid number! Please try again");
-            } else if (taskList[taskIndex].isDone()) {
-                System.out.println("ERROR: task is already marked");
-            } else {
-                taskList[taskIndex].markTask();
-                System.out.println("OK, Dobby has marked this task as done:");
-                System.out.println("  " + taskList[taskIndex]);
-                System.out.println("~~~~~~~~~~~~~~~~");
+            switch (commandParts[0]) {
+            case "bye":
+                System.out.println("~~~~~~~~~~~~~~~~\nDobby say's BYE!");
+                return;
+            case "list":
+                listTasks();
+                break;
+            default:
+                processTaskCommand(command);
+                break;
             }
+
         }
-
-        /**
-         * Checks if user inputs a valid index
-         * if valid, unmarks the stated task and shows the unmarked task
-         *
-         * @param taskIndex index of task stored in array
-         */
-        public void unmarkTask(int taskIndex) {
-            if (!isValidIndex(taskIndex)) {
-                System.out.println("Invalid number! Please try again");
-            } else if (!taskList[taskIndex].isDone()) {
-                System.out.println("The task is already unmarked");
-            } else {
-                taskList[taskIndex].unmarkTask();
-                System.out.println("OK, Dobby marked this task as not done:");
-                System.out.println("  " + taskList[taskIndex]);
-                System.out.println("~~~~~~~~~~~~~~~~");
-            }
-        }
-
-        public void userCommand() {
-            while(true) {
-                String command;
-                Scanner in = new Scanner(System.in);
-                command = in.nextLine().toLowerCase();
-                String[] commandParts = command.split(" ", 2);
-
-                switch (commandParts[0]) {
-                case "bye":
-                    System.out.println("~~~~~~~~~~~~~~~~\nDobby say's BYE!");
-                    return;
-                case "list":
-                    listTasks();
-                    break;
-                default:
-                    processTaskCommand(command);
-                    break;
-                }
-
-            }
-        }
+    }
 
 
 
