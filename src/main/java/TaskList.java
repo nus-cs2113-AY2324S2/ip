@@ -33,7 +33,8 @@ public class TaskList {
             } else {
                 String[] endDateParts = eventparts[1].split("/to" , 2);
                 if (endDateParts.length != 2) {
-                    System.out.println("☹ OOPS!!! Invalid event format. Use 'event <description> /from <start date/time> /to <end date/time>'.");
+                    System.out.println("☹ OOPS!!! Invalid event format. " +
+                            "Use 'event <description> /from <start date/time> /to <end date/time>'.");
                 } else {
                     addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
                 }
