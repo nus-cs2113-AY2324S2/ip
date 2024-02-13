@@ -35,8 +35,7 @@ public class Task {
         }
         this.isDone = false;
         System.out.println("This task is now marked undone: ");
-        printCheckbox();
-        System.out.println(" > " + this.taskName);
+        System.out.println("  >> " + printTaskType() + printCheckbox() + this.taskName);
     }
 
     public void printRespond() {
@@ -48,7 +47,7 @@ public class Task {
     }
 
     public void printTaskCount() {
-        int taskCount = Soot.listCounter + 1;
+        int taskCount = CommandManager.listCounter + 1;
         System.out.println("you now have " + taskCount + " tasks left...");
     }
 
