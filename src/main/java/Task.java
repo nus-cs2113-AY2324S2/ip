@@ -13,7 +13,8 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public String getContent() {
+    @Override
+    public String toString() {
         return description;
     }
 

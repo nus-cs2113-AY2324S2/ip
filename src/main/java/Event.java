@@ -17,7 +17,7 @@ public class Event extends Task {
         return to;
     }
 
-    public String getContent() {
-        return super.getContent() + " (from: " + from + " to: " + to + ")";
+    public String toString() {
+        return super.toString() + "  (from: " + from + " to: " + to + ")";
     }
 }

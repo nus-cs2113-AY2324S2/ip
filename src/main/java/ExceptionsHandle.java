@@ -1,9 +1,6 @@
 public class ExceptionsHandle extends Exception {
     protected final int STRING_IS_NOT_INTEGER = -35019;
 
-    public ExceptionsHandle() {
-    }
-
     public int checkIfStringIsInteger(String s) {
         try {
             return Integer.parseInt(s);
