@@ -1,12 +1,11 @@
 import java.util.Scanner;
 
 public class Conversation {
-    public Conversation() {
 
-    }
+    protected Formatting f;
 
-    public void dividingLine() {
-        System.out.println("\t__________________________________________________");
+    public Conversation(){
+        f = new Formatting();
     }
 
     public void communicate() {
@@ -25,8 +24,9 @@ public class Conversation {
             } else if (line.toLowerCase().startsWith("mark")) {
                 caseHandle.markHandle(line, in, index, list);
             } else {
-                caseHandle.taskHandle(line, in, list, index);
-                index++;
+                if(caseHandle.taskHandle(line, in, list, index) == 66319){
+                    index++;
+                }
             }
             line = in.nextLine().trim();
         }
@@ -54,16 +54,16 @@ public class Conversation {
                         + "| | \\ \\_| | | | | | | | | ___ |\n"
                         + "|_|  \\____| |___| |___| |_____|\n";
         System.out.println("Hello from\n" + logo);
-        dividingLine();
+        f.dividingLine();
         System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
-        dividingLine();
+        f.dividingLine();
         describeFunctionality();
-        dividingLine();
+        f.dividingLine();
 
         communicate();
-        dividingLine();
+        f.dividingLine();
         System.out.println("\tBye. Hope to see you again soon!");
-        dividingLine();
+        f.dividingLine();
     }
 }
