@@ -34,11 +34,7 @@ public class ListKeeper {
         return inputIndex >= 1 && inputIndex <= this.numTaskAdded;
     }
 
-    public void processMark(int inputIndex) {
-        tasks[inputIndex - 1].mark();
-    }
-
-    public void processUnmark(int inputIndex) {
-        tasks[inputIndex - 1].unmark();
+    public void processMark(int inputIndex, boolean isCompleted) {
+        tasks[inputIndex - 1].mark(isCompleted);
     }
 }
