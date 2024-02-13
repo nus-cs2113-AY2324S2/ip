@@ -1,3 +1,8 @@
+package gandalf;
+
+import action.*;
+import exception.*;
+
 public class TaskManager {
     // Constants
     public static final String LINE = "____________________________________________________________";
@@ -50,7 +55,7 @@ public class TaskManager {
             String eventFrom = secondPartition[0];
             String eventTo = secondPartition[1];
 
-            listTasks[insertIndex] = new Event (eventItem, eventFrom, eventTo);
+            listTasks[insertIndex] = new Event(eventItem, eventFrom, eventTo);
             System.out.println(LINE);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + listTasks[insertIndex]);

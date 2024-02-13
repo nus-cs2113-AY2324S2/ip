@@ -1,3 +1,7 @@
+package gandalf;
+
+import action.Task;
+
 import java.util.Scanner;
 
 public class Gandalf {
