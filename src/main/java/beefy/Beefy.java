@@ -1,6 +1,5 @@
 package beefy;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -18,11 +17,10 @@ public class Beefy {
     public Beefy() {
         try {
             userTasks = Storage.readDisk();
-        } catch (FileNotFoundException e) {
-            Ui.printMessage("Storage file not found, creating new empty task List...");
-            userTasks = new TaskList();
         } catch (BeefyException e) {
             Ui.printMessage(e.getMessage());
+        } catch (IOException e) {
+            Ui.printMessage("Whoops! An error occurred while handling the files...");
         }
         isExit = false;
         scanner = new Scanner(System.in);

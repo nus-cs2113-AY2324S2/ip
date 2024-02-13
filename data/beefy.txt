@@ -1,3 +1,1 @@
-D,TRUE,chop chop,7
-T,FALSE,yannn
-T,FALSE,asdas hello
+T,FALSE,sad

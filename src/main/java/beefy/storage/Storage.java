@@ -13,18 +13,16 @@ import java.io.IOException;
 public class Storage {
     private static final String FILE_PATH = "data/beefy.txt";
 
-    public static TaskList readDisk() throws FileNotFoundException, BeefyException {
-        File f = new File(FILE_PATH);
-        if (!f.exists()) {
-            throw new FileNotFoundException();
-        }
-        Scanner s = new Scanner(f);
+    public static TaskList readDisk() throws BeefyException, IOException {
         TaskList userTasks = new TaskList();
-        int numOfTasks = 0;
-        while (s.hasNext()) {
-            String currLine = s.nextLine();
-            String[] currParams = currLine.split(",");
-            switch(currParams[0]) {
+        try {
+            File f = new File(FILE_PATH);
+            Scanner s = new Scanner(f);
+            int numOfTasks = 0;
+            while (s.hasNext()) {
+                String currLine = s.nextLine();
+                String[] currParams = currLine.split(",");
+                switch (currParams[0]) {
                 case "T":
                     userTasks.addTask(currParams[2], true);
                     numOfTasks++;
@@ -48,23 +46,30 @@ public class Storage {
                     break;
                 default:
                     throw new BeefyException("OH NO! beefy.txt FILE IS CORRUPTED!");
+                }
             }
+        } catch (FileNotFoundException e) {
+            createFolder();
         }
         return userTasks;
     }
 
+    public static void createFolder() throws IOException {
+            Ui.printMessage("Creating Storage file...");
+            File f = new File(FILE_PATH);
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+    }
+
     public static void updateDisk(TaskList taskList) throws IOException {
-        File f = new File("data/beefy.txt");
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task currTask : taskList.getTasks()) {
             fw.write(currTask.toDiskFormat());
         }
-        fw.write("");
         fw.close();
     }
 
     public static void addToDisk(String taskLine) throws IOException{
-        File f = new File("data/beefy.txt");
         FileWriter fa = new FileWriter(FILE_PATH, true);
         fa.write(taskLine);
         fa.close();
