@@ -45,6 +45,8 @@ public class Gandalf {
                 return;
             } else if (hasSaidList(userInput)) {
                 TaskManager.printList(listTasks);
+            } else if (hasSaidMarkOrUnmark(userInput)) {
+                TaskManager.handleTasksMarkings(userInput, listTasks);
             } else {
                 TaskManager.handleUserTasks(userInput, listTasks);
             }
@@ -55,6 +57,10 @@ public class Gandalf {
         System.out.println(LINE);
         System.out.println("What would you like to be added to the list?");
         System.out.println(LINE);
+    }
+
+    private static boolean hasSaidMarkOrUnmark(String userInput) {
+        return (userInput.startsWith("mark ") || userInput.startsWith("unmark "));
     }
 
     private static boolean hasSaidList(String userInput) {
