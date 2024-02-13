@@ -2,6 +2,12 @@
 Hello! I'm mimichat
 What can I do for you?
 -------------------------------------------
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: mark/unmark parameters is incomplete. Proper syntax: mark/unmark [task number][0m
 -------------------------------------------
 Got it. I've added this task:
 		[T][ ] borrow book

@@ -12,7 +12,12 @@ public class Duke {
     static Scanner scanner;
 
 
-    public static void main(String[] args) {
+    /**
+     * Main method to run the program
+     *
+     * @param args
+     */
+    public static void main(String[] args) throws MimiException.IncorrectFormat, MimiException.InsufficientParameters {
 
         // Initial welcome message
         startupSequence();
@@ -27,37 +32,25 @@ public class Duke {
                 listTasks(taskList, numberOfTask);
                 break;
             case "mark":
-                markTask(taskList, Integer.parseInt(inputs[1]) - 1);
+                markTask(taskList, inputs);
                 break;
             case "unmark":
-                unmarkTask(taskList, Integer.parseInt(inputs[1]) - 1);
+                unmarkTask(taskList, inputs);
                 break;
             case "todo":
-                try {
-                    addToDo(inputs);
-                } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e ) {
-                    System.out.println(e.getMessage());
-                }
+                addToDo(inputs);
                 break;
             case "deadline":
-                try {
-                    addDeadline(inputs);
-                } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
-                    System.out.println(e.getMessage());
-                }
+                addDeadline(inputs);
                 break;
             case "event":
-                try {
-                    addEvent(inputs);
-                } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
-                    System.out.println(e.getMessage());
-                }
+                addEvent(inputs);
                 break;
             default:
                 // raise invalid instruction
-                try{
+                try {
                     throw new MimiException.IncorrectFormat(MimiException.INCORRECT_INSTRUCTION);
-                } catch (MimiException.IncorrectFormat e){
+                } catch (MimiException.IncorrectFormat e) {
                     System.out.println(e.getMessage());
                 }
                 break;
@@ -82,38 +75,44 @@ public class Duke {
             MimiException.InsufficientParameters,
             MimiException.IncorrectFormat {
 
-        if (inputs.length != 2) {
-            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_TODO_PARAMETERS);
-        }
+        try {
+            if (inputs.length != 2) {
+                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_TODO_PARAMETERS);
+            }
+            if (inputs[1].isBlank()) {
+                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_TODO_FORMAT);
+            }
 
-        if(inputs[1].isBlank()){
-            throw new MimiException.IncorrectFormat(MimiException.INCORRECT_TODO_FORMAT);
+            ToDo toDo = new ToDo(inputs[1]);
+            appendIntoTaskList(toDo);
+            printSuccessMessage(toDo);
+        } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
+            System.out.println(e.getMessage());
         }
-
-        ToDo toDo = new ToDo(inputs[1]);
-        appendIntoTaskList(toDo);
-        printSuccessMessage(toDo);
     }
 
     private static void addDeadline(String[] inputs) throws
             MimiException.IncorrectFormat, MimiException.InsufficientParameters {
 
-        if (inputs.length < 2) {
-            // Throws an error if parameters is incomplete
-            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
+        try {
+            // Throws exception if deadline parameters are incomplete
+            if (inputs.length < 2) {
+                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
+            }
+            String[] splitInputs = inputs[1].split("/by", 2);
+            Deadline deadline = getDeadline(splitInputs);
+            appendIntoTaskList(deadline);
+            printSuccessMessage(deadline);
+        } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
+            System.out.println(e.getMessage());
         }
-
-        String[] splittedInputs = inputs[1].split("/by", 2);
-        Deadline deadline = getDeadline(splittedInputs);
-        appendIntoTaskList(deadline);
-        printSuccessMessage(deadline);
     }
 
     private static Deadline getDeadline(String[] inputs) throws
             MimiException.InsufficientParameters,
             MimiException.IncorrectFormat {
 
-        if (inputs.length < 2){
+        if (inputs.length < 2) {
             // Throws an error if /by is missing
             throw new MimiException.IncorrectFormat(MimiException.INCORRECT_DEADLINE_FORMAT);
         }
@@ -131,17 +130,20 @@ public class Duke {
 
     }
 
-    private static void addEvent(String [] inputs) throws
+    private static void addEvent(String[] inputs) throws
             MimiException.InsufficientParameters,
             MimiException.IncorrectFormat {
-        
-        if (inputs.length != 2){
-           throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
-        }
+        try {
+            if (inputs.length != 2) {
+                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
+            }
 
-        Event event = getEvent(inputs[1]);
-        appendIntoTaskList(event);
-        printSuccessMessage(event);
+            Event event = getEvent(inputs[1]);
+            appendIntoTaskList(event);
+            printSuccessMessage(event);
+        } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -152,20 +154,21 @@ public class Duke {
         // Further process the deadline input
         try {
             String[] inputs = input.split("/from", 2);
-
             String[] duration = inputs[1].split("/to", 2);
 
+            // Check if the inputs are complete
             String taskName = inputs[0];
             String startDate = duration[0].strip();
             String endDate = duration[1].strip();
 
-            if(taskName.isBlank() || startDate.isBlank() || endDate.isBlank()){
+            // Throws an error if parameters is incomplete
+            if (taskName.isBlank() || startDate.isBlank() || endDate.isBlank()) {
                 throw new MimiException.IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT);
             }
 
             return new Event(taskName, startDate, endDate);
 
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
         }
     }
@@ -184,20 +187,54 @@ public class Duke {
         System.out.println("-------------------------------------------");
     }
 
-    public static void markTask(Task[] list, int index) {
-        list[index].markAsDone();
-        System.out.println("-------------------------------------------");
-        System.out.println("OK, I've marked this task as done");
-        System.out.println(formatTask(list[index], index));
-        System.out.println("-------------------------------------------");
+    public static void markTask(Task[] list, String[] inputs) {
+
+        try {
+            int index = checkValidityOfMarks(inputs);
+            list[index].markAsDone();
+            System.out.println("-------------------------------------------");
+            System.out.println("OK, I've marked this task as done");
+            System.out.println(formatTask(list[index], index));
+            System.out.println("-------------------------------------------");
+        } catch (MimiException.TaskNotFound | MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static void unmarkTask(Task[] list, int index) {
-        list[index].markAsUndone();
-        System.out.println("-------------------------------------------");
-        System.out.println("OK, I've marked this task as not done yet");
-        System.out.println(formatTask(list[index], index));
-        System.out.println("-------------------------------------------");
+    private static int checkValidityOfMarks(String[] inputs) throws MimiException.TaskNotFound,
+            MimiException.InsufficientParameters, MimiException.IncorrectFormat {
+        if (inputs.length != 2) {
+            // Throws an error if parameters is incomplete
+            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_MARK_PARAMETERS);
+        }
+
+        try {
+            int index = Integer.parseInt(inputs[1]) - 1;
+            if (index < 0 || index >= numberOfTask) {
+                // Throws an error if task is not found
+                throw new MimiException.TaskNotFound(MimiException.TASK_NOT_FOUND);
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            // Throws an error if the format is incorrect
+            throw new MimiException.IncorrectFormat(MimiException.INCORRECT_MARK_FORMAT);
+        }
+    }
+
+    public static void unmarkTask(Task[] list, String[] inputs) {
+        try {
+            int index = checkValidityOfMarks(inputs);
+            list[index].markAsUndone();
+            System.out.println("-------------------------------------------");
+            System.out.println("OK, I've marked this task as not done yet");
+            System.out.println(formatTask(list[index], index));
+            System.out.println("-------------------------------------------");
+        } catch (MimiException.TaskNotFound |
+                 MimiException.InsufficientParameters |
+                 MimiException.IncorrectFormat e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     // METHOD REGARDING PRINT FORMATTING
