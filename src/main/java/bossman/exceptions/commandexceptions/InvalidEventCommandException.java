@@ -1,4 +1,7 @@
 package bossman.exceptions.commandexceptions;
-public class InvalidEventCommandException extends Exception{
+
+import bossman.task.BossManExceptions;
+
+public class InvalidEventCommandException extends BossManExceptions{
     //no additional code needed
 }

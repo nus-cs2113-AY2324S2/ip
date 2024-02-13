@@ -1,4 +1,7 @@
 package bossman.exceptions.commandexceptions;
-public class InvalidTodoCommandException extends Exception{
+
+import bossman.task.BossManExceptions;
+
+public class InvalidTodoCommandException extends BossManExceptions {
     //No additional code needed
 }
