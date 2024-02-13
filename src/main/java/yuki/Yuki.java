@@ -1,10 +1,10 @@
-import yuki.InputParser;
-import yuki.Utils;
-import yuki.task.Task;
-import yuki.task.Todo;
+package yuki;
+
+import yuki.exceptions.YukiExceptions;
 import yuki.task.Deadline;
 import yuki.task.Event;
-import yuki.exceptions.YukiExceptions;
+import yuki.task.Task;
+import yuki.task.Todo;
 
 import java.util.Scanner;
 public class Yuki {
