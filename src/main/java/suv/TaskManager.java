@@ -1,3 +1,5 @@
+package suv;
+
 public class TaskManager{
     final static int DEADLINE_KEYWORD_END_INDEX = 8;
     final static int TODO_KEYWORD_END_INDEX = 4;
@@ -48,7 +50,7 @@ public class TaskManager{
                             "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper + "in the list.\n" + LINE
             );
         } else {
-            throw new SuvException(LINE +"Oh no! You are missing the Todo description\n" + LINE);
+            throw new SuvException(LINE +"Oh no! You are missing the suv.Todo description\n" + LINE);
         }
     }
 
@@ -65,7 +67,7 @@ public class TaskManager{
                             "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list.\n" + LINE
             );
         } else {
-            throw new SuvException(LINE +"Oh no! You are missing the Deadline details\n" + LINE);
+            throw new SuvException(LINE +"Oh no! You are missing the suv.Deadline details\n" + LINE);
         }
     }
 
@@ -85,7 +87,7 @@ public class TaskManager{
                             "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list.\n" + LINE
             );
         } else {
-            throw new SuvException(LINE + "Oh no! You are missing the Event details\n" + LINE);
+            throw new SuvException(LINE + "Oh no! You are missing the suv.Event details\n" + LINE);
         }
     }
 

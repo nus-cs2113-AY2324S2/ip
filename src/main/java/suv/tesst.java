@@ -1,2 +1,4 @@
-package suv;public class tesst {
+package suv;
+
+public class tesst {
 }

@@ -1,3 +1,5 @@
+package suv;
+
 import java.util.Scanner;
 
 
@@ -5,7 +7,7 @@ public class Suv {
     final static String LINE = "____________________________________________________________\n";
 
     public static void main(String[] args) {
-        String name = "Suv";
+        String name = "suv.Suv";
         Scanner in = new Scanner(System.in);
 
         System.out.println(LINE +
