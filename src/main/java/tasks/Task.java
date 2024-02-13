@@ -1,9 +1,11 @@
 // Superclass of 3 subclasses: Todo, Deadline and Event
+
+package tasks;
 public class Task {
     // 3 class attributes
     protected String description;
-    protected boolean isDone;
-    protected int index;
+    public boolean isDone;
+    public int index;
 
     // constructor
     public Task(String description, int index) {

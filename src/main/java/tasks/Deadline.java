@@ -1,4 +1,8 @@
 // Subclass of Task
+
+package tasks;
+import main.DukeException;
+
 public class Deadline extends Task {
 
     public Deadline(String description, int index) throws DukeException {
@@ -13,7 +17,6 @@ public class Deadline extends Task {
         return splitLine[1];
     }
 
-    // Override task's toString() to add [D] and the deadline timing
     @Override
     public String toString() {
 
@@ -22,7 +25,6 @@ public class Deadline extends Task {
         } catch (DukeException e) {
             System.out.println("error!, please try again!");
             throw new RuntimeException();
-
         }
     }
     public void toPrint() throws DukeException {

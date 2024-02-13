@@ -1,5 +1,11 @@
+package main;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+import tasks.Task;
+import tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
 
 
 public class Duke {
