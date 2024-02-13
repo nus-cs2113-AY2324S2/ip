@@ -35,7 +35,7 @@ public class Duke {
             case "todo":
                 try {
                     addToDo(inputs);
-                } catch (MimiException.InsufficientParameters e) {
+                } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e ) {
                     System.out.println(e.getMessage());
                 }
                 break;
@@ -47,10 +47,14 @@ public class Duke {
                 }
                 break;
             case "event":
-                addEvent(inputs[1]);
+                try {
+                    addEvent(inputs);
+                } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             default:
-                // raise invalid instruction error
+                // raise invalid instruction
                 try{
                     throw new MimiException.IncorrectFormat(MimiException.INCORRECT_INSTRUCTION);
                 } catch (MimiException.IncorrectFormat e){
@@ -74,10 +78,16 @@ public class Duke {
         printDescription("added: " + input);
     }
 
-    private static void addToDo(String[] inputs) throws MimiException.InsufficientParameters {
+    private static void addToDo(String[] inputs) throws
+            MimiException.InsufficientParameters,
+            MimiException.IncorrectFormat {
 
         if (inputs.length != 2) {
             throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_TODO_PARAMETERS);
+        }
+
+        if(inputs[1].isBlank()){
+            throw new MimiException.IncorrectFormat(MimiException.INCORRECT_TODO_FORMAT);
         }
 
         ToDo toDo = new ToDo(inputs[1]);
@@ -99,7 +109,8 @@ public class Duke {
         printSuccessMessage(deadline);
     }
 
-    private static Deadline getDeadline(String[] inputs) throws MimiException.InsufficientParameters,
+    private static Deadline getDeadline(String[] inputs) throws
+            MimiException.InsufficientParameters,
             MimiException.IncorrectFormat {
 
         if (inputs.length < 2){
@@ -120,20 +131,43 @@ public class Duke {
 
     }
 
-    private static void addEvent(String input) {
+    private static void addEvent(String [] inputs) throws
+            MimiException.InsufficientParameters,
+            MimiException.IncorrectFormat {
+        
+        if (inputs.length != 2){
+           throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
+        }
 
-        // Further process the deadline input
-        String[] inputs = input.split("/from", 2);
-        String taskName = inputs[0];
-        String[] duration = inputs[1].split("/to", 2);
-        String startDate = duration[0].strip();
-        String endDate = duration[1].strip();
-
-        // Add into task list and print success message
-        Event event = new Event(taskName, startDate, endDate);
+        Event event = getEvent(inputs[1]);
         appendIntoTaskList(event);
         printSuccessMessage(event);
 
+    }
+
+    private static Event getEvent(String input) throws
+            MimiException.IncorrectFormat,
+            MimiException.InsufficientParameters {
+
+        // Further process the deadline input
+        try {
+            String[] inputs = input.split("/from", 2);
+
+            String[] duration = inputs[1].split("/to", 2);
+
+            String taskName = inputs[0];
+            String startDate = duration[0].strip();
+            String endDate = duration[1].strip();
+
+            if(taskName.isBlank() || startDate.isBlank() || endDate.isBlank()){
+                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT);
+            }
+
+            return new Event(taskName, startDate, endDate);
+
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
+        }
     }
 
     private static void appendIntoTaskList(Task newTask) {

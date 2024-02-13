@@ -9,6 +9,10 @@ deadline /by
 deadline by
 deadline return book /by
 event project meeting /from Mon 2pm /to 4pm
+event
+event testing
+event testing /from /to
+event testing /from Mon 3pm /to
 list
 mark 1
 list

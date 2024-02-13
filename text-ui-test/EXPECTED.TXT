@@ -33,6 +33,10 @@ Got it. I've added this task:
 		[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 4 in the list
 -------------------------------------------
+[31mError: event parameters is incomplete. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event parameters is incomplete. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event format is invalid. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event format is invalid. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
 -------------------------------------------
 Here are the tasks in your list:
 1. [T][ ] borrow book
