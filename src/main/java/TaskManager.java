@@ -2,13 +2,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
+
+    public enum Priority {
+        SS, S, A, B, C, D
+    }
+
     public abstract class Task {
         protected String name;
         protected String description;
+        protected Priority priority;
 
-        public Task(String name, String description) {
+        public Task(String name, String description, Priority priority) {
             this.name = name;
             this.description = description;
+            this.priority = priority;
         }
 
         public String getName() {
@@ -17,6 +24,14 @@ public class TaskManager {
 
         public String getDescription() {
             return description;
+        }
+
+        public Priority getPriority() {
+            return priority;
+        }
+
+        public void setPriority(Priority priority) {
+            this.priority = priority;
         }
 
         public abstract String getStatusIcon();
@@ -28,8 +43,8 @@ public class TaskManager {
     public class Todo extends Task {
         protected boolean isDone;
 
-        public Todo(String name, String description) {
-            super(name, description);
+        public Todo(String name, String description, Priority priority) {
+            super(name, description, priority);
             isDone = false;
         }
 
@@ -48,21 +63,21 @@ public class TaskManager {
 
         @Override
         public String toString(){
-            return "[T]" + getStatusIcon() + " " + description;
+            return "[T]" + getStatusIcon() + " " + description + " <" + priority + "> ";
         }
     }
 
     public class Deadline extends Todo {
         protected String by;
 
-        public Deadline(String name, String description, String by) {
-            super(name, description); // Fixed: Correctly initialize the parent class
+        public Deadline(String name, String description, String by, Priority priority) {
+            super(name, description, priority); // Fixed: Correctly initialize the parent class
             this.by = by;
         }
 
         @Override
         public String toString(){
-            return "[D]" + super.getStatusIcon() + " " + description + " (by: " + by + ")";
+            return "[D]" + super.getStatusIcon() + " " + description + " <" + priority + "> " + " (by: " + by + ")";
         }
     }
 
@@ -71,8 +86,8 @@ public class TaskManager {
         protected String end;
         protected boolean isDone; // Added completion status
     
-        public Event(String name, String description, String start, String end) {
-            super(name, description);
+        public Event(String name, String description, String start, String end, Priority priority) {
+            super(name, description, priority);
             this.start = start;
             this.end = end;
             this.isDone = false; // Initialize as not done
@@ -89,11 +104,16 @@ public class TaskManager {
     
         @Override
         public String toString() {
-            return "[E]" + getStatusIcon() + " " + description + " (from: " + start + " to: " + end + ")";
+            return "[E]" + getStatusIcon() + " " + description + " <" + priority + "> " + " (from: " + start + " to: " + end + ")";
         }
     }
 
+
     private List<Task> tasks = new ArrayList<>();
+
+    public int listSize(){
+        return tasks.size();
+    } 
 
     public void addTask(Task task) {
         tasks.add(task);
@@ -110,6 +130,27 @@ public class TaskManager {
         }
         System.out.println("____________________________________________________________");
     }
+
+    public void sortListByPriority() {
+        tasks.sort((Task t1, Task t2) -> t1.getPriority().compareTo(t2.getPriority()));
+        System.out.println("Tasks sorted by priority.");
+    }
+
+    public void sortListByType() {
+        tasks.sort((Task t1, Task t2) -> t1.getName().compareTo(t2.getName()));
+        System.out.println("Tasks sorted by type.");
+    }
+
+    // public void sortListByDeadline() {
+    //     tasks.sort((Task t1, Task t2) -> {
+    //         if (t1 instanceof Deadline && t2 instanceof Deadline) {
+    //             return ((Deadline) t1).by.compareTo(((Deadline) t2).by);
+    //         } else {
+    //             return 0;
+    //         }
+    //     });
+    //     System.out.println("Tasks sorted by deadline.");
+    // }
 
     public void markTaskAsDone(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
@@ -131,5 +172,7 @@ public class TaskManager {
             System.out.println("Invalid task number.");
         }
     }
+
+    
     
 }

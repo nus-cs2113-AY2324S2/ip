@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 public class UserDetails {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Pattern datePattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
+    private static String UserName = "";
+    private static String UserBirthday = "";
+    private static String UserGender = "";
 
     /**
      * Prompts the user to enter their full name and validates the input.
@@ -27,6 +30,7 @@ public class UserDetails {
                 System.out.println("Invalid name. Please enter both your first name and last name.");
             }
         }
+        UserName = name;
         return name;
     }
 
@@ -47,6 +51,7 @@ public class UserDetails {
                 System.out.println("Invalid format. Please enter your birthday in DD/MM/YYYY format.");
             }
         }
+        UserBirthday = birthday;
         return birthday;
     }
 
@@ -82,7 +87,17 @@ public class UserDetails {
             }
             break; // Exit the loop once a valid input is received.
         }
-
+        UserGender = gender;
         return gender; // Return the selected gender.
+    }
+    
+    public static String getUserName() {
+        return UserName;
+    }
+    public static String getUserBirthday() {
+        return UserBirthday;
+    }
+    public static String getUserGender() {
+        return UserGender;
     }
 }
