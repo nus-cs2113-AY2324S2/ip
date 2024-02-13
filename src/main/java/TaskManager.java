@@ -8,22 +8,18 @@ public class TaskManager {
             insertUserTasks(userInput, listTasks);
             insertIndex ++;
         } catch (InvalidKeywordException e) {
-            System.out.println(LINE);
-            System.out.println("Invalid keyword");
-            System.out.println(LINE);
+            printInvalidKeywordMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(LINE);
-            System.out.println("List is full. Cannot add more items.");
-            System.out.println(LINE);
+            printListIsFullMessage();
         }
     }
 
     public static void insertUserTasks (String userInput, Task[] listTasks) throws InvalidKeywordException {
-        if (userInput.startsWith("todo ")) {
+        if (userInput.startsWith("todo")) {
             handleToDoTasks(userInput, listTasks, insertIndex);
-        } else if (userInput.startsWith("deadline ")) {
+        } else if (userInput.startsWith("deadline")) {
             handleDeadlineTasks(userInput, listTasks, insertIndex);
-        } else if (userInput.startsWith("event ")) {
+        } else if (userInput.startsWith("event")) {
             handleEventTasks(userInput, listTasks, insertIndex);
         } else {
             throw new InvalidKeywordException();
@@ -126,6 +122,20 @@ public class TaskManager {
                 System.out.println((i + 1) + ". " + listTasks[i].toString());
             }
         }
+        System.out.println(LINE);
+    }
+
+    private static void printListIsFullMessage() {
+        System.out.println(LINE);
+        System.out.println("List is full. Cannot add more items.");
+        System.out.println(LINE);
+    }
+
+    private static void printInvalidKeywordMessage() {
+        System.out.println(LINE);
+        System.out.println("Invalid keyword, the available keywords are:"
+                + "\n(todo), (deadline), (event)"
+                + "\nPlease type again.");
         System.out.println(LINE);
     }
 }
