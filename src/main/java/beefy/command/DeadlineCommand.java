@@ -2,7 +2,10 @@ package beefy.command;
 
 import beefy.BeefyException;
 import beefy.task.TaskList;
-import beefy.ui.Ui;
+import beefy.task.Task;
+import beefy.storage.Storage;
+
+import java.io.IOException;
 
 public class DeadlineCommand implements Command {
     private TaskList userTasks;
@@ -19,8 +22,9 @@ public class DeadlineCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        userTasks.addTask(taskDescription, taskBy);
+    public void execute() throws IOException {
+        Task addedTask = userTasks.addTask(taskDescription, taskBy, false);
+        Storage.addToDisk(addedTask.toDiskFormat());
     }
 
     @Override

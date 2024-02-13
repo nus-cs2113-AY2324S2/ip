@@ -1,8 +1,11 @@
 package beefy.command;
 
 import beefy.BeefyException;
+import beefy.storage.Storage;
 import beefy.task.TaskList;
-import beefy.ui.Ui;
+import beefy.task.Task;
+
+import java.io.IOException;
 
 public class EventCommand implements Command {
     private TaskList userTasks;
@@ -21,8 +24,9 @@ public class EventCommand implements Command {
     }
 
     @Override
-    public void execute() {
-            userTasks.addTask(taskDescription, taskFrom, taskTo);
+    public void execute() throws IOException {
+        Task addedTask = userTasks.addTask(taskDescription, taskFrom, taskTo, false);
+        Storage.addToDisk(addedTask.toDiskFormat());
     }
 
     @Override

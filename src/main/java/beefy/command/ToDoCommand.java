@@ -1,7 +1,11 @@
 package beefy.command;
 
 import beefy.BeefyException;
+import beefy.storage.Storage;
 import beefy.task.TaskList;
+import beefy.task.Task;
+
+import java.io.IOException;
 
 public class ToDoCommand implements Command{
     private TaskList userTasks;
@@ -16,8 +20,9 @@ public class ToDoCommand implements Command{
     }
 
     @Override
-    public void execute() {
-        userTasks.addTask(taskDescription);
+    public void execute() throws IOException {
+        Task addedTask = userTasks.addTask(taskDescription, false);
+        Storage.addToDisk(addedTask.toDiskFormat());
     }
 
     @Override
