@@ -40,6 +40,9 @@ public class Burger {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Message when user gives an invalid input
+     */
     private static void wakeUp() {
         printLine();
         System.out.println("Wake Up! Key in something that makes sense!");
