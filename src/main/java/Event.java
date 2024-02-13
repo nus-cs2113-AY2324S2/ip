@@ -8,10 +8,6 @@ public class Event extends Task {
         this.end = end;
     }
 
-    public Event(EventArguments eventArguments) {
-        this(eventArguments.taskName, eventArguments.start, eventArguments.end);
-    }
-
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
