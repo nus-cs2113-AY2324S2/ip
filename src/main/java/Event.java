@@ -12,10 +12,10 @@ public class Event extends Task {
     public void printRespond() {
         super.printRespond();
         System.out.println(" " + this.taskName + " (from: " + startDate + " ~~ to: " + endDate + "!)");
-        super.printTaskcount();
+        super.printTaskCount();
     }
     @Override
-    public void printTasktype() {
+    public void printTaskType() {
         System.out.print("[E]");
     }
     @Override

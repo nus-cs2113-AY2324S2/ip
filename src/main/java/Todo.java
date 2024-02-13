@@ -7,10 +7,10 @@ public class Todo extends Task {
     public void printRespond() {
         super.printRespond();
         System.out.println(" " + this.taskName);
-        super.printTaskcount();
+        super.printTaskCount();
     }
     @Override
-    public void printTasktype() {
+    public void printTaskType() {
         System.out.print("[T]");
     }
 }

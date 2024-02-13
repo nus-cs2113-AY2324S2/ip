@@ -17,7 +17,7 @@ public class Task {
     }
     public void printTask() {
         System.out.print(index + ".");
-        printTasktype();
+        printTaskType();
         printCheckbox();
         System.out.println(" " + taskName);
     }
@@ -43,16 +43,16 @@ public class Task {
 //        System.out.println("added: " + this.taskName);
         System.out.println("Okay! i've added to ur tasklist:");
         System.out.print(" >> ");
-        printTasktype();
+        printTaskType();
         printCheckbox();
     }
 
-    public void printTaskcount() {
+    public void printTaskCount() {
         int taskCount = Soot.listCounter + 1;
         System.out.println("you now have " + taskCount + " tasks left...");
     }
 
-    public void printTasktype() {
+    public void printTaskType() {
         System.out.print("[NA]");
     }
 }
