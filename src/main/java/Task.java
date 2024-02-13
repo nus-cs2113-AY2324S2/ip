@@ -1,4 +1,3 @@
-
 // Superclass of 3 subclasses: Todo, Deadline and Event
 public class Task {
     // 3 class attributes
@@ -11,7 +10,6 @@ public class Task {
         setDescription(description);
         setDone();
         setCounter(index);
-        printHeaders();
     }
 
     // Set for description attribute
@@ -40,11 +38,19 @@ public class Task {
         System.out.println("Got it. I've added this task:");
     }
 
-    // Prints from status to end
-    // Override the default toString() method
+
     public String toString() {
-        String[] splitLine = description.split("\\s+"); // split if there is 1 or more whitespace
-        return "[" + this.getStatusIcon() + "] " + splitLine[1] + ' ' + splitLine[2];
+        String[] original = description.split("/"); // split the original input by /
+        String value = String.valueOf(original[0]); //obtain the task and action
+
+        String[] splitLine = value.split("\\s+"); //split the words by whitespace
+        StringBuilder action = new StringBuilder();
+
+        //obtain the action of the task
+        for (int i = 1; i < splitLine.length; i += 1) {
+            action.append(splitLine[i]).append(" ");
+        }
+        return "[" + this.getStatusIcon() + "] " + action;
     }
 
 }
