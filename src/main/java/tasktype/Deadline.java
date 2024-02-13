@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package tasktype;
+
+public class Deadline extends Task {
     private final static String ICON_TYPE = "[D]";
     protected String date;
 

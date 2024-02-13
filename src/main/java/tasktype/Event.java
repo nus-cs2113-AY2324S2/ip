@@ -1,4 +1,6 @@
-public class Event extends Task{
+package tasktype;
+
+public class Event extends Task {
     private final static String ICON_TYPE = "[E]";
     protected String startDate;
     protected String endDate;

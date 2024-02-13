@@ -1,13 +1,19 @@
+import tasktype.Deadline;
+import tasktype.Event;
+import tasktype.Task;
+import tasktype.Todo;
+
 import java.util.Scanner;
 public class JingHao {
     private static final String LINE_SEP = "____________________________________________________________";
+    private static final int MAX_SIZE = 100;
     protected Task[] taskList;
     protected int numberOfTask;
     protected Scanner in;
 
     public JingHao() {
         this.numberOfTask = 0;
-        this.taskList = new Task[100];
+        this.taskList = new Task[MAX_SIZE];
         this.in = new Scanner(System.in);
     }
     public void start(){
@@ -124,10 +130,10 @@ public class JingHao {
         }
     }
     private void handleEventCommand(String userInput){
-        String[] eventDescription = userInput.split("/from",2);
-        if(eventDescription.length == 2){
-            String description = eventDescription[0];
-            String[] eventTime = eventDescription[1].split("/to", 2);
+        String[] eventDescriptions = userInput.split("/from",2);
+        if(eventDescriptions.length == 2){
+            String description = eventDescriptions[0];
+            String[] eventTime = eventDescriptions[1].split("/to", 2);
             if(eventTime.length == 2){
                 String fromDate = eventTime[0];
                 String toDate = eventTime[1];
