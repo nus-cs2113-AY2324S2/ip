@@ -14,8 +14,7 @@ public class UserInterface {
             currentInput = scanner.nextLine();
         } while (currentInput.isEmpty());
     }
-
-    // Assume currentInput is updated;
+    
     private boolean isExitCommandGiven() {
         return currentInput.startsWith("bye");
     }
