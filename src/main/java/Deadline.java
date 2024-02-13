@@ -1,26 +1,24 @@
 public class Deadline extends Task {
 
     protected String deadline = "Unknown";
+    private final int MAX_INPUT_SPLIT = 2;
 
-    public Deadline(String input) {
+    public Deadline(String input) throws JohnException{
 
         if (!input.contains("/by")) {
-            if (!input.trim().equals("")) {
-                super.name = input.trim();
-            }
-            return;
+            throw new JohnException();
         }
 
-        String[] inputSplit = input.split("/by");
+        String[] inputSplit = input.split("/by", MAX_INPUT_SPLIT);
 
-        if (!inputSplit[0].trim().equals("")) {
+        try {
+
             super.name = inputSplit[0].trim();
-        }
-
-        if (inputSplit.length > 1) {
             this.deadline = inputSplit[1].trim();
-        }
 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid Input");
+        }
     }
 
     @Override

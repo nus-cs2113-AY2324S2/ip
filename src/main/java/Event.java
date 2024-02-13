@@ -2,53 +2,34 @@ public class Event extends Task {
 
     protected String from = "Unknown";
     protected String to = "Unknown";
+    private final int MAX_INPUT_SPLIT = 2;
 
-    public Event(String input) {
+    public Event(String input) throws JohnException {
 
         String[] inputSplit;
 
-        if (input.contains("/from")) {
-
-            inputSplit = input.split("/from");
-
-            if (!inputSplit[0].trim().equals("")) {
-                super.name = inputSplit[0].trim();
-            }
-
-            if (input.contains("/to")) {
-
-                inputSplit = inputSplit[1].split("/to");
-
-                if (!inputSplit[0].trim().equals("")) {
-                    this.from = inputSplit[0].trim();
-                }
-
-                if (inputSplit.length > 1) {
-                    this.to = inputSplit[1].trim();
-                }
-
-            } else if (inputSplit.length > 1) {
-                this.from = inputSplit[1].trim();
-            }
-
-        } else if (input.contains("/to")) {
-
-            inputSplit = input.split("/to");
-
-            if (!inputSplit[0].trim().equals("")) {
-                super.name = inputSplit[0].trim();
-            }
-
-            if (inputSplit.length > 1) {
-                this.to = inputSplit[1].trim();
-            }
-
-        } else {
-            if (!input.trim().equals("")) {
-                super.name = input.trim();
-            }
+        if (!checkValidInput(input)) {
+            throw new JohnException();
         }
 
+        try {
+
+            inputSplit = input.split("/from", MAX_INPUT_SPLIT);
+            this.name = inputSplit[0].trim();
+
+            inputSplit = inputSplit[1].split("/to", MAX_INPUT_SPLIT);
+
+            this.from = inputSplit[0].trim();
+            this.to = inputSplit[1].trim();
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid Input");
+        }
+
+    }
+
+    private boolean checkValidInput(String input) {
+        return input.contains("/from") && input.contains("/to");
     }
 
     @Override
