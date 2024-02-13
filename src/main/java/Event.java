@@ -10,8 +10,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String getStatus() {
-        return "[E]" + super.getStatus() + 
-        " (from: " + startDate + " to " + endDate + ")";
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
     }
 }

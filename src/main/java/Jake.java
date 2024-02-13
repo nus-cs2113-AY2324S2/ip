@@ -2,75 +2,98 @@ import java.util.Scanner;
 
 public class Jake {
 
+    static final String LINE_STRING ="____________________________________________________________";
+
     // List out all tasks
-    private static void listTask(Task[] commands, int totalCommands) {
+    private static void listTask(Task[] commands, int totalTasks) {
         System.out.println("Current commands being executed: ");
-        for (int i=0; i<totalCommands; i++){
-            System.out.println(Integer.toString(i+1) + "." + commands[i].getStatus());
+        for (int i = 0; i < totalTasks; i++){
+            System.out.println(Integer.toString(i+1) + "." + commands[i].toString());
         }
+        System.out.println(LINE_STRING);
     }
 
     // Mark or Unmark respective task.
-    private static void markOrUnmarkTask(Task[] commands, int totalCommands, String userInput) {
-        int taskNumber = Integer.parseInt(userInput.substring(userInput.length()-1));
-        if (taskNumber>totalCommands){
+    private static void toggleTask(Task[] commands, int totalTasks, String userInput, String taskType) {
+        int taskNumber = Integer.parseInt(userInput.substring(userInput.lastIndexOf(" ")+1));
+        if (taskNumber>totalTasks){
             System.out.println("Task does not exist!");
-        } else if (userInput.startsWith("unmark")){
+        } else if (taskType.equals("unmark")){
             System.out.println("Successfully unmarked");
-            commands[taskNumber-1].markAsUndone();;
+            commands[taskNumber-1].markTask(false);
         } else {
             System.out.println("Successfully marked");
-            commands[taskNumber-1].markAsDone();
+            commands[taskNumber-1].markTask(true);
         }
+        System.out.println(LINE_STRING);
     }
 
     // Add Task. Allows ToDos, Deadlines, and Events
-    private static void addTask(Task[] commands, int totalCommands, String userInput) {
+    private static void addTask(Task[] commands, int totalTasks, String userInput, String taskType) {
         Task newTask;
-        if (userInput.startsWith("todo")){
-            newTask = new ToDo(userInput);
-        } else if (userInput.startsWith("deadline")){
-            String[] deadlineSections = userInput.split(" /by ");
-            newTask = new Deadline(deadlineSections[0], deadlineSections[1]);
-        } else if (userInput.startsWith("event")){
-            String[] eventSections = userInput.split(" /from ");
-            String[] eventTimings = eventSections[1].split(" /to ");
-            newTask = new Event(eventSections[0], eventTimings[0], eventTimings[1]);
-        } else {
-            return;
+        switch (taskType) {
+            case "todo":
+                newTask = new ToDo(userInput);
+                break;
+            case "deadline":
+                String[] deadlineSections = userInput.split(" /by ");
+                newTask = new Deadline(deadlineSections[0], deadlineSections[1]);
+                break;
+            case "event":
+                String[] eventSections = userInput.split(" /from ");
+                String[] eventTimings = eventSections[1].split(" /to ");
+                newTask = new Event(eventSections[0], eventTimings[0], eventTimings[1]);
+                break;
+            default:
+                return;
         }
         
-        commands[totalCommands] = newTask;
-        System.out.println("______________________________________________");
-        System.out.println("Got it! I have successfully added: \n" + "    " + newTask.getStatus());
-        System.out.printf("You have a total of %d tasks in the list \n", totalCommands+1);
-        System.out.println("______________________________________________");
+        commands[totalTasks] = newTask;
+        System.out.println(LINE_STRING);
+        System.out.println("Got it! I have successfully added: \n" + "    " + newTask.toString());
+        System.out.printf("You have a total of %d tasks in the list \n", totalTasks+1);
+        System.out.println(LINE_STRING);
     }
 
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Jake\n" + "What can I do for you? \n" + 
-                "______________________________________________");
+        System.out.println("Hello! I'm Jake\n" + "What can I do for you? \n" + LINE_STRING);
         Scanner myScanner = new Scanner(System.in);
         Task[] commands = new Task[100];
-        int totalCommands = 0;
+        int totalTasks = 0;
         String userInput= "";
 
         do {
             userInput = myScanner.nextLine();
-            if (userInput.equals("bye")){
-                System.out.println("Bye. Hope to see you again soon!");
-            } else if (userInput.equals("list")){
-                listTask(commands, totalCommands);
-            } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")){
-                markOrUnmarkTask(commands, totalCommands, userInput);
-            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || 
-                    userInput.startsWith("event")){
-                addTask(commands, totalCommands, userInput);
-                totalCommands++;
+            String taskType; 
+            // Check if the userInput contains a space, to handle inputs like "list" and "bye";
+            if (userInput.contains(" ")) {
+                taskType = userInput.substring(0, userInput.indexOf(" "));
             } else {
-                System.out.println("Invalid task! Please try again!");
+                taskType = userInput;
             }
+
+            switch (taskType) {
+                case "bye":
+                    System.out.println("Bye. Hope to see you again soon!");
+                    break;
+                case "list":
+                    listTask(commands, totalTasks);
+                    break;
+                case "mark":
+                case "unmark":
+                    toggleTask(commands, totalTasks, userInput, taskType);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    addTask(commands, totalTasks, userInput, taskType);
+                    totalTasks++;
+                    break;
+                default:
+                    System.out.println("Invalid task! Please try again!");
+            }
+
         } while (!userInput.equals("bye"));
 
         myScanner.close();

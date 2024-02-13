@@ -9,15 +9,16 @@ public class Task {
 
     public String getStatus() {
         String icon = isDone ? "X" : " ";
-        String status= "[" + icon + "] "+ description;
+        String status= "[" + icon + "] ";
         return status;
     }
 
-    public void markAsDone() {
-        isDone= true; 
+    public void markTask(boolean isDone) {
+        this.isDone = isDone;
     }
 
-    public void markAsUndone() {
-        isDone= false;
+    @Override
+    public String toString() {
+        return getStatus() + this.description;
     }
 }
