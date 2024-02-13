@@ -14,7 +14,7 @@ public class Storage {
     private static final String FILE_PATH = "data/beefy.txt";
 
     public static TaskList readDisk() throws FileNotFoundException, BeefyException {
-        File f = new File(FILE_PATH;
+        File f = new File(FILE_PATH);
         if (!f.exists()) {
             throw new FileNotFoundException();
         }
@@ -53,7 +53,7 @@ public class Storage {
         return userTasks;
     }
 
-    public static void deleteFromDisk(TaskList taskList, int taskId) throws IOException {
+    public static void updateDisk(TaskList taskList) throws IOException {
         File f = new File("data/beefy.txt");
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task currTask : taskList.getTasks()) {

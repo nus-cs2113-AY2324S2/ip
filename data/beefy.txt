@@ -1,6 +1,3 @@
-T,FALSE,yanling
-D,FALSE,chop chop,7
-E,FALSE,chopppp,8,9
+D,TRUE,chop chop,7
 T,FALSE,yannn
-T,FALSE,gay
-T,FALSE,sad
+T,FALSE,asdas hello

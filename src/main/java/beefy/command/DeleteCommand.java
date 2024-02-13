@@ -1,7 +1,10 @@
 package beefy.command;
 
 import beefy.BeefyException;
+import beefy.storage.Storage;
 import beefy.task.TaskList;
+
+import java.io.IOException;
 
 public class DeleteCommand implements Command {
     private TaskList userTasks;
@@ -17,12 +20,13 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public void execute() throws BeefyException{
+    public void execute() throws BeefyException, IOException {
         if (taskId < 1 || taskId > userTasks.getNumberOfTasks())
         {
             throw new BeefyException("Can you not do math, mate?");
         }
         userTasks.deleteTask(taskId);
+        Storage.updateDisk(userTasks);
     }
 
     @Override

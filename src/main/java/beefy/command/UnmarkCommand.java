@@ -1,8 +1,10 @@
 package beefy.command;
 
 import beefy.BeefyException;
+import beefy.storage.Storage;
 import beefy.task.TaskList;
-import beefy.ui.Ui;
+
+import java.io.IOException;
 
 public class UnmarkCommand implements Command {
     private TaskList userTasks;
@@ -18,12 +20,13 @@ public class UnmarkCommand implements Command {
     }
 
     @Override
-    public void execute() throws BeefyException {
+    public void execute() throws BeefyException, IOException {
         if (taskId < 1 || taskId > userTasks.getNumberOfTasks())
         {
             throw new BeefyException("Can you not do math, mate?");
         }
         userTasks.unmarkTask(taskId);
+        Storage.updateDisk(userTasks);
     }
 
     @Override

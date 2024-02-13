@@ -2,7 +2,6 @@ package beefy.command;
 
 import beefy.BeefyException;
 import beefy.task.TaskList;
-import beefy.ui.Ui;
 
 public class ListCommand implements Command{
     private TaskList userTasks;
