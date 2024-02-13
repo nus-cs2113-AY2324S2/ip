@@ -45,8 +45,8 @@ public class ControlPanel {
                     break;
                 case "6":
                     String address = getAddress();
-                    System.out.println("Pleased to serve you, " + address+"." + UserDetails.getUserName());
-                    break;
+                    System.out.println("Pleased to serve you, " + address + "." + UserDetails.getUserName());
+                    System.exit(0);
                 default:
                     System.out.println("Unknown command. Please try again.");
                     break;
@@ -55,11 +55,11 @@ public class ControlPanel {
         }
         scanner.close();
     }
-    
+
     private static void listTasks(TaskManager taskManager) {
         taskManager.listTasks();
     }
-    
+
     private static void addTodoTask(String input, TaskManager taskManager) {
         // Splitting the input at " /" to separate description and priority
         String[] parts = input.split(" ?/ ?");
@@ -67,11 +67,11 @@ public class ControlPanel {
             System.out.println("\"Incorrect format. Please ensure the task description is followed by '/' and a priority value (e.g., 'slain a dragon /SS').\"");
             return;
         }
-        String description = parts[0];
+        String description = parts[0].trim();
         TaskManager.Priority priority;
-        try{
+        try {
             priority = TaskManager.Priority.valueOf(parts[1].trim().toUpperCase());
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D, E).");
             return;
         }
@@ -79,47 +79,47 @@ public class ControlPanel {
         taskManager.addTask(taskManager.new Todo("Todo", description, priority));
 
     }
-    
+
     private static void addDeadlineTask(String input, TaskManager taskManager) {
         String[] parts = input.split(" ?/by |  ?/ ?");
-        if(parts.length < 3 || parts[1].isEmpty() || parts[2].isEmpty()){
+        if (parts.length < 3 || parts[1].isEmpty() || parts[2].isEmpty()) {
             System.out.println("Incorrect format. Please ensure the task description is followed by '/by' and a deadline date, and then a priority value (e.g., 'submit report /by 2021-09-30 /SS').");
             return;
         }
-        String description = parts[0];
-        String by = parts[1];
+        String description = parts[0].trim();
+        String by = parts[1].trim();
         TaskManager.Priority priority;
-        try{
+        try {
             priority = TaskManager.Priority.valueOf(parts[2].trim().toUpperCase());
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D, E).");
             return;
         }
         taskManager.addTask(taskManager.new Deadline("Deadline", description, by, priority));
     }
-    
+
     private static void addEventTask(String input, TaskManager taskManager) {
         String[] parts = input.split(" /from | /to |  ?/ ?");
         if (parts.length < 4 || parts[1].isEmpty() || parts[2].isEmpty() || parts[3].isEmpty()) {
             System.out.println("Incorrect format. Please ensure the task description is followed by '/from', a start date, '/to', an end date, and then a priority value (e.g., 'project meeting /from 2021-09-30 /to 2021-10-01 /S').");
             return;
         }
-        String description = parts[0];
-        String start = parts[1];
-        String end = parts[2];
+        String description = parts[0].trim();
+        String start = parts[1].trim();
+        String end = parts[2].trim();
         TaskManager.Priority priority;
-        try{
+        try {
             priority = TaskManager.Priority.valueOf(parts[3].trim().toUpperCase());
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D, E).");
             return;
         }
         taskManager.addTask(taskManager.new Event("Event", description, start, end, priority));
     }
-    
+
     private static void markTaskAsDone(String input, TaskManager taskManager) {
         try {
-            int taskNumber = Integer.parseInt(input.substring(5)) - 1; // Adjust for zero-based index
+            int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1; // Adjust for zero-based index
             if (taskNumber < 0 || taskNumber >= taskManager.listSize()) {
                 System.out.println("Task number is out of range. Please enter a valid task number.");
                 System.out.println("Current number of tasks: " + taskManager.listSize());
@@ -143,6 +143,3 @@ public class ControlPanel {
         return address;
     }
 }
-
-
-
