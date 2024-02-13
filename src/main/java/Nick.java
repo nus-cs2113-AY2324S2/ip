@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.MissingFormatArgumentException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -13,7 +14,7 @@ public class Nick {
     public static final String FORMAT_LINES = "____________________________________________________________";
     private static final Logger LOGGER = Logger.getLogger(Nick.class.getName());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NickException {
         UserInterface ui = new UserInterface();
         ui.printIntroMsg();
 
@@ -48,7 +49,7 @@ public class Nick {
         }
     }
 
-    public static void taskExecution(String command, String taskType, Task[] userTasks, UserInterface ui) {
+    public static void taskExecution(String command, String taskType, Task[] userTasks, UserInterface ui) throws NickException {
         Task task;
         String taskName;
         int taskDescriptionIndex = taskType.length() + 1;
@@ -56,16 +57,28 @@ public class Nick {
 
         switch (taskType) {
         case "todo":
-            taskName = command.substring(taskDescriptionIndex);
-            task = new Todo(taskName);
-            userTasks[taskCount] = task;
-            break;
+            try {
+                taskName = command.substring(taskDescriptionIndex);
+                task = new Todo(taskName);
+                userTasks[taskCount] = task;
+                ui.printAddTaskMsg(userTasks[taskCount].toString(), taskCount);
+                taskCount++;
+                break;
+            }
+            catch (StringIndexOutOfBoundsException exception) {
+                System.out.println(FORMAT_LINES + System.lineSeparator() +
+                        "I cannot add a Todo task which has no description. " + System.lineSeparator() +
+                        "Try adding the task description after specifying the Todo command!");
+                break;
+            }
         case "deadline":
             int deadlineIndex = command.indexOf("/by") + DEADLINE_OFFSET_IDX;
             taskName = command.substring(taskDescriptionIndex, taskDescriptionEndIndex);
             String deadline = command.substring(deadlineIndex);
             task = new Deadline(taskName, deadline);
             userTasks[taskCount] = task;
+            ui.printAddTaskMsg(userTasks[taskCount].toString(), taskCount);
+            taskCount++;
             break;
         case "event":
             int fromIndex = command.indexOf("/from");
@@ -75,11 +88,19 @@ public class Nick {
             String to = command.substring(toIndex + TO_OFFSET_IDX);
             task = new Event(taskName, from, to);
             userTasks[taskCount] = task;
+            ui.printAddTaskMsg(userTasks[taskCount].toString(), taskCount);
+            taskCount++;
             break;
+        default:
+            try {
+                throw new NickException();
+            }
+            catch (NickException exception) {
+                System.out.println(FORMAT_LINES + System.lineSeparator() +
+                        "Invalid command!!! Please try again.");
+            }
         }
 
-        ui.printAddTaskMsg(userTasks[taskCount].toString(), taskCount);
-        taskCount++;
     }
 
     public static boolean continueExecution(String command, int taskCount, Task[] userTasks, UserInterface ui) {
