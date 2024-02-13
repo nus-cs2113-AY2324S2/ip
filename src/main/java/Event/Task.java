@@ -1,4 +1,7 @@
+package Event;
+
 public class Task {
+    static String BREAK_LINE = "____________________________________________________________";
     protected String description; //Holds the textual description of the task.
     protected boolean isDone;
     protected String eventType;
@@ -36,7 +39,7 @@ public class Task {
 
         System.out.println("Voilà! \uD83D\uDCDC Got it. I've added this task:");
         System.out.println("  " + toString());
-        System.out.println("Now you have " + (count + 1) + " tasks in the list. \uD83D\uDCDC" + "\n" + Duke.BREAK_LINE);
+        System.out.println("Now you have " + (count + 1) + " tasks in the list. \uD83D\uDCDC" + "\n" + BREAK_LINE);
 
     }
 }

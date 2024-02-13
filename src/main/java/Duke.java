@@ -1,3 +1,8 @@
+import Event.Event;
+import Event.Deadline;
+import Event.ToDo;
+import Event.Task;
+import RuntimeSupport.DukeException;
 import java.util.Scanner;
 
 public class Duke {

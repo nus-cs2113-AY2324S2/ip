@@ -1,5 +1,8 @@
+package RuntimeSupport;
+
 public class DukeException {
 
+    static String BREAK_LINE = "____________________________________________________________";
     public static void handleException(Exception error, String line) {
 
         if (error instanceof NullPointerException) {
@@ -28,6 +31,6 @@ public class DukeException {
 
         }
 
-        System.out.println(Duke.BREAK_LINE);
+        System.out.println(BREAK_LINE);
     }
 }
