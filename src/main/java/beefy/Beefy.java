@@ -1,6 +1,10 @@
 package beefy;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+
+import beefy.storage.Storage;
 import beefy.ui.Ui;
 import beefy.command.Command;
 import beefy.parser.Parser;
@@ -12,7 +16,14 @@ public class Beefy {
     private Scanner scanner;
 
     public Beefy() {
-        userTasks = new TaskList();
+        try {
+            userTasks = Storage.readDisk();
+        } catch (FileNotFoundException e) {
+            Ui.printMessage("Storage file not found, creating new empty task List...");
+            userTasks = new TaskList();
+        } catch (BeefyException e) {
+            Ui.printMessage(e.getMessage());
+        }
         isExit = false;
         scanner = new Scanner(System.in);
     }
@@ -25,9 +36,11 @@ public class Beefy {
             try {
                 Command userCommand = Parser.determineCommand(userTasks, userInput);
                 userCommand.execute();
-                this.isExit = userCommand.isExit();
+                isExit = userCommand.isExit();
             } catch (BeefyException e) {
                 Ui.printMessage(e.getMessage());
+            } catch (IOException e) {
+                Ui.printMessage("Whoops! An error occurred while handling the files...");
             }
         }
         Ui.printBye();

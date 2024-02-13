@@ -1,8 +1,10 @@
 package beefy.task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import beefy.BeefyException;
+import beefy.storage.Storage;
 import beefy.ui.Ui;
 
 public class TaskList {
@@ -18,28 +20,45 @@ public class TaskList {
         return numberOfTasks;
     }
 
-    public void addTask(String taskDescription) {
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public Task getTask(int taskId) {
+        return tasks.get(taskId);
+    }
+
+    public Task addTask(String taskDescription, boolean isInitialize) {
         ToDo userTask = new ToDo(taskDescription);
         tasks.add(userTask);
         numberOfTasks++;
-        Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
-                + "---Number of Tasks in List: " + numberOfTasks + "---");
+        if (!isInitialize){
+            Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
+                    + "---Number of Tasks in List: " + numberOfTasks + "---");
+        }
+        return userTask;
     }
 
-    public void addTask(String taskDescription, String by) {
+    public Task addTask(String taskDescription, String by, boolean isInitialize) {
         Deadline userTask = new Deadline(taskDescription, by);
         tasks.add(userTask);
         numberOfTasks++;
-        Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
-               + "---Number of Tasks in List: " + numberOfTasks + "---");
+        if (!isInitialize) {
+            Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
+                    + "---Number of Tasks in List: " + numberOfTasks + "---");
+        }
+        return userTask;
     }
 
-    public void addTask(String taskDescription, String from, String to) {
+    public Task addTask(String taskDescription, String from, String to, boolean isInitialize) {
         Event userTask = new Event(taskDescription, from, to);
         tasks.add(userTask);
         numberOfTasks++;
-        Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
-                + "---Number of Tasks in List: " + numberOfTasks + "---");
+        if (!isInitialize) {
+            Ui.printMessage("---" + taskDescription + " has been added to task list!---" + System.lineSeparator()
+                    + "---Number of Tasks in List: " + numberOfTasks + "---");
+        }
+        return userTask;
     }
 
     public void listOut() {
