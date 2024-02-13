@@ -1,4 +1,8 @@
-public class Event extends Task{
+package MassimoBoi;
+
+import MassimoBoi.Task;
+
+public class Event extends Task {
     public Event(String description, String from, String to){
         super(description + String.format("(from:%s to:%s)",from,to));
     }
