@@ -78,7 +78,6 @@ public class JingHao {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < numberOfTask; i++) {
-                //System.out.println(i+1 + ".[" +taskList[i].getStatusIcon()+ "] " + taskList[i].description);
                 System.out.println(taskList[i]);
             }
             System.out.println(LINE_SEP);
