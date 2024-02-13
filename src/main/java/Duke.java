@@ -32,7 +32,8 @@ public class Duke {
             catch (Exception e) {
                 System.out.println("Cannot parse event start/end date! Requires [/from /to]");
             }
-            list[taskLength] = new Event(taskContent);
+            list[taskLength] = new Event(taskFinal
+            );
             break;
         default:
             System.out.println(taskType);
