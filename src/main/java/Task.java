@@ -34,9 +34,9 @@ public class Task {
 
     public void print(int count) {
 
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Voilà! \uD83D\uDCDC Got it. I've added this task:");
         System.out.println("  " + toString());
-        System.out.println("Now you have " + (count + 1) + " tasks in the list." + "\n" + "____________________________________________________________");
+        System.out.println("Now you have " + (count + 1) + " tasks in the list. \uD83D\uDCDC" + "\n" + Duke.BREAK_LINE);
 
     }
 }
