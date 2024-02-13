@@ -28,6 +28,8 @@ public class Mavis {
             "    \\  \\:\\        \\  \\:\\       \\__\\::::/      \\__\\/       /__/:/   \n" +
             "     \\__\\/         \\__\\/           ~~~~                   \\__\\/    ";
 
+    private final static String LINE ="____________________________________________________________";
+
     public static void main(String[] args) {
         Task[] listOfTasks = new Task[100];
         greetUser();
@@ -38,18 +40,38 @@ public class Mavis {
         while (true) {
             String inputToEcho = in.nextLine();
             String[] splitInput = inputToEcho.split(" ");
+            try {
 
-            if (inputToEcho.equals("bye")) {
-                break;
-            } else if (inputToEcho.equals("list")) {
-                printTasks(listOfTasks, listOfTasksSize);
-            } else if (inputToEcho.startsWith("mark")) {
-                markTask(splitInput, listOfTasks);
-            } else if (inputToEcho.startsWith("unmark")) {
-                unmarkTask(splitInput, listOfTasks);
-            } else if (inputToEcho.startsWith("todo") || inputToEcho.startsWith("deadline") || inputToEcho.startsWith("event")) {
-                addTask(inputToEcho, listOfTasks, splitInput, listOfTasksSize);
-                listOfTasksSize++;
+                if (inputToEcho.equals("bye")) {
+                    break;
+                } else if (inputToEcho.equals("list")) {
+                    printTasks(listOfTasks, listOfTasksSize);
+                } else if (inputToEcho.startsWith("mark")) {
+                    if (splitInput.length < 2 || splitInput[1].isEmpty()) {
+                        throw new StringIndexOutOfBoundsException();
+                    }
+                    markTask(splitInput, listOfTasks);
+                } else if (inputToEcho.startsWith("unmark")) {
+                    if (splitInput.length < 2 || splitInput[1].isEmpty()) {
+                        throw new StringIndexOutOfBoundsException();
+                    }
+
+                    unmarkTask(splitInput, listOfTasks);
+                } else if (inputToEcho.startsWith("todo") || inputToEcho.startsWith("deadline") || inputToEcho.startsWith("event")) {
+                    if (splitInput.length < 2 || splitInput[1].isEmpty()) {
+                        throw new StringIndexOutOfBoundsException();
+                    } else if (listOfTasksSize >= 100) {
+                        throw new ArrayIndexOutOfBoundsException();
+                    }
+                    addTask(inputToEcho, listOfTasks, splitInput, listOfTasksSize);
+                    listOfTasksSize++;
+                }
+                else
+                {
+                    throw new IllegalArgumentException();
+                }
+            } catch (Exception e) {
+                MavisException.handleException(e, inputToEcho);
             }
         }
 
@@ -57,19 +79,35 @@ public class Mavis {
     }
 
     private static void greetUser() {
-        System.out.println("Hello from\n" + LOGO);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Mavis!");
-        System.out.println("What can I do for you?\n");
+        System.out.println("Greetings.\n" + LOGO);
+        System.out.println(LINE);
+        System.out.println("Greetings. I am Mavis.");
+        System.out.println("What would you command of me?\n");
+        listOptions();
+    }
+
+    static void listOptions() {
+        System.out.println("┌───────────────────────────────────────────────┐");
+        System.out.println("│ Please enter a recognized command from the    │");
+        System.out.println("│ following list to maintain temporal coherence:│");
+        System.out.println("│                                               │");
+        System.out.println("│  1. todo <<task name>                         │");
+        System.out.println("│  2. deadline <task name> /by:<date/time>      │");
+        System.out.println("│  3. event <task name> /from:<date> /to:<date> │");
+        System.out.println("│  4. mark <task number>                        │");
+        System.out.println("│  5. unmark <task number>                      │");
+        System.out.println("│  6. list                                      │");
+        System.out.println("│  7. bye                                       │");
+        System.out.println("└───────────────────────────────────────────────┘");
     }
 
     private static void printTasks(Task[] listOfTasks, int size) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the tasks in your list: ");
+        System.out.println(LINE);
+        System.out.println("Herein lies the catalog of your labors: ");
         for (int i = 0; i < size; i++) {
             listTask(i, listOfTasks[i]);
         }
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
     }
 
     private static void listTask(int currentTaskIndex, Task currentTask) {
@@ -79,8 +117,8 @@ public class Mavis {
     private static void markTask(String[] splitInput, Task[] listOfTasks) {
         int taskIndex = Integer.parseInt(splitInput[1]) - 1;
         listOfTasks[taskIndex].markAsCompleted();
-        System.out.println("As you wish, good sir."
-                + "Here is the task you just marked as completed:");
+        System.out.println("Your command has been executed."
+                + "Behold the task, now marked as completed:");
         listTask(taskIndex, listOfTasks[taskIndex]);
     }
 
@@ -107,16 +145,16 @@ public class Mavis {
     }
 
     private static void showNewlyAddedTask(Task newTask, int currentNumberOfTasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Alright, you've added this new task: ");
+        System.out.println(LINE);
+        System.out.println("A new task is etched upon the sands of time:");
         System.out.println("[" + newTask.taskType + "]" + "[" + newTask.getStatusIcon() + "]" + newTask.description);
-        System.out.println("Now you have " + currentNumberOfTasks + " task(s) in your list!");
-        System.out.println("____________________________________________________________");
+        System.out.println("Your roster now bears " + currentNumberOfTasks + " endeavors.");
+        System.out.println(LINE);
     }
-
+    
     private static void bidFarewell() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        System.out.println(LINE);
+        System.out.println("Time's tide ebbs, and so must I. Farewell, traveler.");
+        System.out.println(LINE);
     }
 }
