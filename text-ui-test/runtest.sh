@@ -13,14 +13,14 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin $(find ../src -name "*.java");
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin $(find ../src -name "*.java")
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Natsu < input.txt > ACTUAL.TXT
+java -classpath ../bin natsu.Natsu < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
