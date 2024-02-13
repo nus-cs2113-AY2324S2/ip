@@ -1,6 +1,9 @@
+package MassimoBoi;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import MassimoBoiException.*;
 
 public class MassimoBoi {
     public static void main(String[] args) {
@@ -41,7 +44,10 @@ public class MassimoBoi {
                 e.errorMessage();
             } catch(MassimoBoiException e){
                 e.errorMessage();
-            } finally {
+            } catch(IndexOutOfBoundsException e){
+                System.out.println("The task number you have tried to mark/unmark does not exist");
+            }
+            finally {
                 makeHorizontalRow();
             }
 
