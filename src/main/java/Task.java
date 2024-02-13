@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
 
     /** Description of task */
     protected String description;
@@ -30,8 +30,6 @@ public class Task {
         this.isDone = done;
     }
 
-//    @Override
-//    public String toString() {
-//        return this.description;
-//    }
+    @Override
+    public abstract String toString();
 }

@@ -88,21 +88,87 @@ public class Duke {
         printLine();
         for(int i = 0; i < taskList.size(); i++){
             Task task = taskList.get(i);
-            System.out.println((i + 1) + ". [" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println((i + 1) + "." + task);
         }
         printLine();
     }
 
     /**
-     * Adds a task to list of tasks.
+     * Prints a newly-added task.
      *
-     * @param taskList List of tasks to be printed.
-     * @param description description of task to be added.
+     * @param taskList List of tasks.
      */
-    public static void addToList(List<Task> taskList, String description){
-        Task newTask = new Task(description);
+    public static void printAddedTask(List<Task> taskList){
+        Task lastTask = taskList.get(taskList.size() - 1);
+        printMessage("Got it. I've added this task:\n"
+                + "  " + lastTask + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    /**
+     * Adds a to-do task to list of tasks.
+     *
+     * @param taskList List of tasks.
+     * @param argument information of to-do to be added.
+     */
+    public static void addToDo(List<Task> taskList, String argument){
+        Task newTask = new ToDo(argument);
         taskList.add(newTask);
-        printMessage("added: " + description);
+        printAddedTask(taskList);
+    }
+
+    /**
+     * Adds a deadline task to list of tasks.
+     *
+     * @param taskList List of tasks.
+     * @param argument information of deadline to be added.
+     */
+    public static void addDeadline(List<Task> taskList, String argument){
+        String[] tokens = argument.split("/");
+        String description = "", by = "";
+
+        for(String token : tokens){
+            String[] subTokens = token.split(" ", 2);
+            if (subTokens[0].equalsIgnoreCase("by")) {
+                by = subTokens[1].trim();
+            } else {
+                description = token.trim();
+            }
+        }
+
+        Task newTask = new Deadline(description, by);
+        taskList.add(newTask);
+        printAddedTask(taskList);
+    }
+
+    /**
+     * Adds an event task to list of tasks.
+     *
+     * @param taskList List of tasks.
+     * @param argument information of deadline to be added.
+     */
+    public static void addEvent(List<Task> taskList, String argument){
+        String[] tokens = argument.split("/");
+        String description = "", start = "", end = "";
+
+        for(String token : tokens){
+            String[] subTokens = token.split(" ", 2);
+            switch (subTokens[0].toLowerCase()){
+            case "from":
+                start = subTokens[1].trim();
+                break;
+            case "to":
+                end = subTokens[1].trim();
+                break;
+            default:
+                description = token.trim();
+                break;
+            }
+        }
+
+        Task newTask = new Event(description, start, end);
+        taskList.add(newTask);
+        printAddedTask(taskList);
     }
 
     /**
@@ -111,7 +177,7 @@ public class Duke {
      * @param taskList List of tasks.
      * @param instruction User instruction on which task to mark.
      */
-    public static void markTask(List<Task> taskList, String instruction) {
+    public static void markTask(List<Task> taskList, String instruction){
         int taskNumber = Integer.parseInt(instruction);
 
         if (taskNumber < 0 && taskNumber > taskList.size() + 1){
@@ -120,8 +186,8 @@ public class Duke {
         }
 
         taskList.get(taskNumber - 1).setDone(true);
-        printMessage("Nice! I've marked this task as done:\n" + "   [X] "
-                + taskList.get(taskNumber - 1).getDescription());
+        printMessage("Nice! I've marked this task as done:\n"
+                + "  " + taskList.get(taskNumber - 1));
     }
 
     /**
@@ -130,7 +196,7 @@ public class Duke {
      * @param taskList List of tasks.
      * @param instruction User instruction on which task to mark.
      */
-    public static void unmarkTask(List<Task> taskList, String instruction) {
+    public static void unmarkTask(List<Task> taskList, String instruction){
         int taskNumber = Integer.parseInt(instruction);
 
         if (taskNumber < 0 && taskNumber > taskList.size() + 1){
@@ -139,8 +205,8 @@ public class Duke {
         }
 
         taskList.get(taskNumber - 1).setDone(false);
-        printMessage("OK, I've marked this task as not done yet:\n" + "   [ ] "
-                + taskList.get(taskNumber - 1).getDescription());
+        printMessage("OK, I've marked this task as not done yet:\n"
+                + "  " + taskList.get(taskNumber - 1));
     }
 
     /**
@@ -152,13 +218,9 @@ public class Duke {
             String input = readInput();
             String[] tokens = input.split(" ", 2);
 
-            // If tokens only contains one string, there is no command
-            if (tokens.length < 2){
-                if (input.equalsIgnoreCase("bye")) {
+            // If input only contains one word "bye", return
+            if (tokens.length < 2 && input.equalsIgnoreCase("bye")) {
                     return;
-                }
-                addToList(taskList, input);
-                continue;
             }
 
             String command = tokens[0].toLowerCase();
@@ -174,18 +236,25 @@ public class Duke {
             case "unmark":
                 unmarkTask(taskList, argument);
                 break;
+            case "todo":
+                addToDo(taskList, argument);
+                break;
+            case "deadline":
+                addDeadline(taskList, argument);
+                break;
+            case "event":
+                addEvent(taskList, argument);
+                break;
             case "bye":
                 return;
-            default:
-                addToList(taskList, input);
-                break;
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         greet();
         startList();
         goodbye();
     }
 }
+
