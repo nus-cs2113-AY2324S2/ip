@@ -45,39 +45,57 @@ public class Suv {
                 System.out.println(" Nice! I've marked this task as done:\n" + "   [X] " + currentTask.getDescription() + LINE);
 
             } else if(input.contains("todo")){
-                Todo newTask = new Todo(input.substring(TODO_KEYWORD_END_INDEX).trim());
 
-                tasks[taskIndex++] = newTask;
-                String helper = (taskIndex > 1) ? "s " : " ";
-                System.out.println(
-                        " Got it. I've added this task:\n" + "  " + newTask +
-                        "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper + "in the list." + LINE
-                );
+                if(input.trim().length() > 4){
+                    Todo newTask = new Todo(input.substring(TODO_KEYWORD_END_INDEX).trim());
+
+                    tasks[taskIndex++] = newTask;
+                    String helper = (taskIndex > 1) ? "s " : " ";
+                    System.out.println(
+                            " Got it. I've added this task:\n" + "  " + newTask +
+                                    "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper + "in the list." + LINE
+                    );
+                } else {
+                    System.out.println("Oh no! You are missing the Todo description\n" + LINE);
+                }
+
             }else if(input.contains("deadline")){
-                String by = input.split("/by")[1].trim();
-                String description = input.split("/by")[0].substring(DEADLINE_KEYWORD_END_INDEX).trim();
 
-                Deadline newTask = new Deadline(description, by);
-                tasks[taskIndex++] = newTask;
-                String helper = (taskIndex > 1) ? "s " : " ";
-                System.out.println(
-                        " Got it. I've added this task:\n" + "  " + newTask +
-                        "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list." + LINE
-                );
+                if(input.trim().length() > 8){
+                    String by = input.split("/by")[1].trim();
+                    String description = input.split("/by")[0].substring(DEADLINE_KEYWORD_END_INDEX).trim();
+
+                    Deadline newTask = new Deadline(description, by);
+                    tasks[taskIndex++] = newTask;
+                    String helper = (taskIndex > 1) ? "s " : " ";
+                    System.out.println(
+                            " Got it. I've added this task:\n" + "  " + newTask +
+                                    "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list." + LINE
+                    );
+                } else {
+                    System.out.println("Oh no! You are missing the Deadline details\n" + LINE);
+                }
+
             } else if(input.contains("event")){
-                String from = input.split("/")[1].trim().substring(FROM_KEYWORD_END_INDEX).trim();
-                String to = input.split("/")[2].trim().substring(TO_KEYWORD_END_INDEX).trim();
-                String description = input.split("/")[0].substring(EVENT_KEYWORD_END_INDEX).trim();
 
-                Event newTask = new Event(description, from, to);
-                tasks[taskIndex++] = newTask;
+                if(input.trim().length() > 5){
+                    String from = input.split("/")[1].trim().substring(FROM_KEYWORD_END_INDEX).trim();
+                    String to = input.split("/")[2].trim().substring(TO_KEYWORD_END_INDEX).trim();
+                    String description = input.split("/")[0].substring(EVENT_KEYWORD_END_INDEX).trim();
 
-                //If the number of tasks is 1 use the word 'task' instead of 'tasks'
-                String helper = (taskIndex > 1) ? "s " : " ";
-                System.out.println(
-                        " Got it. I've added this task:\n" + "  " + newTask +
-                        "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list." + LINE
-                );
+                    Event newTask = new Event(description, from, to);
+                    tasks[taskIndex++] = newTask;
+
+                    //If the number of tasks is 1 use the word 'task' instead of 'tasks'
+                    String helper = (taskIndex > 1) ? "s " : " ";
+                    System.out.println(
+                            " Got it. I've added this task:\n" + "  " + newTask +
+                                    "\n Now you have " + Integer.toString((taskIndex)) +" task" + helper +"in the list." + LINE
+                    );
+                } else {
+                    System.out.println("Oh no! You are missing the Event details\n" + LINE);
+                }
+
             }
         }
     }
