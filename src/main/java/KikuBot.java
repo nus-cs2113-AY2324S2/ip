@@ -1,3 +1,7 @@
+import exceptions.KikuEmptyTaskException;
+import exceptions.KikuException;
+import exceptions.KikuInvalidTaskException;
+
 import java.util.Scanner;
 
 public class KikuBot {
