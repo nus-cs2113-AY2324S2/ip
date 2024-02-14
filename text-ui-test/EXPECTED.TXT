@@ -18,29 +18,29 @@ you may also exit by entering "bye".
 [batman]: [artemis]: invalid deadline given. please enter "deadline <task> /by <deadline of task>"
 [batman]: [artemis]: you have added this task:
  [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
-[batman]: [Artemis]: Your list is as such:
+[batman]: [artemis]: Your list is as such:
 1. [T] [ ] make batarangs
 2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
 [batman]: alright! i have set "make batarangs" as complete
-[batman]: [Artemis]: Your list is as such:
+[batman]: [artemis]: Your list is as such:
 1. [T] [X] make batarangs
 2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
 [batman]: [artemis]: invalid event given. please enter "event <event title> /from <start datetime> /to <end datetime>"
 [batman]: [artemis]: invalid event given. please enter "event <event title> /from <start datetime> /to <end datetime>"
 [batman]: [artemis]: you have added this task:
  [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)
-[batman]: [Artemis]: Your list is as such:
+[batman]: [artemis]: Your list is as such:
 1. [T] [X] make batarangs
 2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
 3. [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)
 [batman]: alright! i have set "stop joker's escape from arkham asylum " as complete
-[batman]: [Artemis]: Your list is as such:
+[batman]: [artemis]: Your list is as such:
 1. [T] [X] make batarangs
 2. [D] [X] stop joker's escape from arkham asylum  (by: tonight)
 3. [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)
 [batman]: alright! i have set "stop joker's escape from arkham asylum " as incomplete
 [batman]: [artemis]: the given list item number given is invalid!
-[batman]: [Artemis]: Your list is as such:
+[batman]: [artemis]: Your list is as such:
 1. [T] [X] make batarangs
 2. [D] [ ] stop joker's escape from arkham asylum  (by: tonight)
 3. [E] [ ] charity fundraising gala dinner  (from: sunday 5pm  to: sunday 11pm)

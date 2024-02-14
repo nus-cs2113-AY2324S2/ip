@@ -28,11 +28,11 @@ public class UserInterface {
 
     public static void printList() {
         if (TaskHandler.listCount == 0) {
-            System.out.println("[Artemis]: Your list is empty!");
+            System.out.println("[artemis]: Your list is empty!");
             return;
         }
 
-        System.out.println("[Artemis]: Your list is as such:");
+        System.out.println("[artemis]: Your list is as such:");
         for (int index = 0; index < TaskHandler.listCount; index++) {
             Task currentTask = TaskHandler.taskList[index];
             System.out.printf("%d. %s\n", index+1, currentTask);
