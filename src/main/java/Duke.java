@@ -1,6 +1,10 @@
-import java.util.Scanner;
-import java.util.Arrays;
+import DukeException.Command_Not_Exist;
+import DukeException.No_Description;
+import Task.Task;
 
+import java.util.Scanner;
+import DukeException.*;
+import Task.*;
 public class Duke {
     public static Boolean test_existence(Task[] tasks_list, String instruction){
         for(Task element:tasks_list){
@@ -53,7 +57,7 @@ public class Duke {
             }
 
 
-            if(split_instruction[0].equals("mark")) //mark method
+            if(instruction.startsWith("mark")) //mark method
             {
                 int mark_number = Integer.parseInt(split_instruction[1]);
                 mark_number--; //fit with start with 1
@@ -63,7 +67,7 @@ public class Duke {
                 continue;
             }
 
-            if(split_instruction[0].equals("unmark")) //mark method
+            if(instruction.startsWith("unmark")) //mark method
             {
                 int mark_number = Integer.parseInt(split_instruction[1]);
                 mark_number--;
@@ -76,33 +80,51 @@ public class Duke {
             //case: the instructions is used to add a new task
             String tasks_type = split_instruction[0];
             String task_description = "";
-            if(!instruction.equals("bye"))
-                task_description = split_instruction[1].split("/", 2)[0];
-            System.out.println(prefix+"Got it. I've added this task:");
+            try {
+                if (tasks_type.equals("todo") || tasks_type.equals("deadline") || tasks_type.equals("event")) {
+                    if (split_instruction.length == 1) {
+                        throw new No_Description();
+                    }
 
-            // add the task
-            if(tasks_type.equals("todo"))
-            {
-                tasks_list[number_of_task] = new Todo(task_description);
-            }
-            if(tasks_type.equals("deadline"))
-            {
-                String task_date = split_instruction[1].split("/", 2)[1];
-                task_date = task_date.replace("by ","");
-                tasks_list[number_of_task] = new Deadline(task_description, task_date);
-            }
-            if(tasks_type.equals("event"))
-            {
-                String task_date = split_instruction[1].split("/", 2)[1];
-                task_date = task_date.replace("/","");
-                task_date = task_date.replace("from ","");
-                tasks_list[number_of_task] = new Event(task_description, task_date);
-            }
+                    task_description = split_instruction[1].split("/", 2)[0];
+                    switch (tasks_type) {
+                        case "todo":
+                            tasks_list[number_of_task] = new Todo(task_description);
+                            break;
+                        case "deadline": {
+                            String task_date = split_instruction[1].split("/", 2)[1];
+                            task_date = task_date.replace("by ", "");
+                            tasks_list[number_of_task] = new Deadline(task_description, task_date);
+                            break;
+                        }
+                        case "event": {
+                            String task_date = split_instruction[1].split("/", 2)[1];
+                            task_date = task_date.replace("/", "");
+                            task_date = task_date.replace("from ", "");
+                            tasks_list[number_of_task] = new Event(task_description, task_date);
+                            break;
 
-            System.out.println(prefix+tasks_list[number_of_task]+"\n");
-            number_of_task++;
-            System.out.println("Now you have "+number_of_task+" tasks in the list. \n");
+                        }
 
+                    }
+                    System.out.println(prefix + "Got it. I've added this task:");
+                    System.out.println(prefix + tasks_list[number_of_task] + "\n");
+                    number_of_task++;
+                    System.out.println("Now you have " + number_of_task + " tasks in the list. \n");
+                }
+                else
+                {
+                    throw new Command_Not_Exist();
+                }
+
+            }catch(No_Description e){
+                System.out.println("Sorry, you should give a more detailed description of your command.");
+            }catch(Command_Not_Exist e){
+                System.out.println("Sorry, I do not understand your command.");
+            }catch(IndexOutOfBoundsException e){
+                System.out.println("Sorry, you should use \\ to indicate the time!");
+            }
+            continue;
 
 
         }
