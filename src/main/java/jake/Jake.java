@@ -1,4 +1,10 @@
+package jake;
 import java.util.Scanner;
+
+import jake.task.Deadline;
+import jake.task.Event;
+import jake.task.Task;
+import jake.task.ToDo;
 
 public class Jake {
 
