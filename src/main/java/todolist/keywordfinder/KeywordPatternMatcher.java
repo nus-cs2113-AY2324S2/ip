@@ -13,12 +13,14 @@ public class KeywordPatternMatcher {
     private final String inputText;
     private final Keyword keywordType;
 
+    //CORRECT PATTERN
     private static final String MARK_FEATURE_PATTERN = "^mark \\d+$"; //mark
     private static final String UNMARK_FEATURE_PATTERN = "^unmark \\d+$"; //unmark
+    private static final String DELETE_TASK_FEATURE_PATTERN = "^delete \\d+$"; //delete
     private static final String TODOTASK_FEATURE_PATTERN = "^todo .+"; //todoItem
     private static final String DEADLINESTASK_FEATURE_PATTERN = "^deadline .*"; //todoItem
     private static final String EVENTSTASK_PATTERN = "^event .*"; //todoItem
-
+    //INCORRECT PATTERN
     private static final String TODOTASK_FEATURE_PATTERN_INCORRECT = "^todo .*";
 
 
@@ -53,12 +55,14 @@ public class KeywordPatternMatcher {
             return Keyword.event;
         } else if (matchesPattern(this.inputText, TODOTASK_FEATURE_PATTERN_INCORRECT)) {
             return Keyword.todoError;
+        } else if (matchesPattern(this.inputText, DELETE_TASK_FEATURE_PATTERN)){
+            return Keyword.delete;
         } else {
             return Keyword.none;
         }
     }
 
-    public int findMarkOrUnmarkIndex() {
+    public int findNumberIndex() {
         int spacePosition = getSpaceCharacterPosition(this.inputText);
         return Integer.parseInt(this.inputText.substring(spacePosition + SPACE_OFFSET));
     }
