@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -17,36 +16,30 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         userInput = userInput.toLowerCase();
-        List<String> userInputSaver = new ArrayList<>();
-        List<String> statusOfInput = new ArrayList<>();
+//      //  List<String> userInputSaver = new ArrayList<>();
+//      //  List<String> statusOfInput = new ArrayList<>();
+        List<Task> taskList = new ArrayList<Task>();
         while (!userInput.contains("bye")) {
 
             System.out.println("____________________________________________________________\n");
             int indexOfMark;
             if (userInput.contains("list")) {
-                for (int i = 0; i < userInputSaver.size(); i++) {
-                    int inputIndex = userInputSaver.indexOf(userInputSaver.get(i))+1;
-                    System.out.println(inputIndex + "." + " [" + statusOfInput.get(i) + "] "
-                            + userInputSaver.get(i)+ '\n');
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println((i+1) + "." + taskList.get(i));
                 }
 
             } else if (userInput.contains("mark")) {
                 if (userInput.contains("unmark")) {
 
                     indexOfMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    statusOfInput.set(indexOfMark, " ");
-                    System.out.println("OK, I've marked this task as not done yet:\n");
-                    System.out.println("[ ] " + userInputSaver.get(indexOfMark) + "\n");
+                    taskList.get(indexOfMark).markAsUndone();
 
                 } else {
                     indexOfMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    statusOfInput.set(indexOfMark, "X");
-                    System.out.println("Nice! I've marked this task as done:\n");
-                    System.out.println("[X] " + userInputSaver.get(indexOfMark) + "\n");
+                    taskList.get(indexOfMark).markAsDone();
                 }
             } else {
-                userInputSaver.add(userInput);
-                statusOfInput.add(" ");
+                taskList.add(new Task(userInput));
                 System.out.println("added: " + userInput );
             }
 
