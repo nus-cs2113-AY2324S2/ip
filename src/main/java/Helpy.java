@@ -1,4 +1,3 @@
-import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -34,20 +33,18 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void markTask(Task task) {
-        task.setDone(true);
+    public static void markTask(Task task, String commandStartsWith) {
 
         System.out.print(HORIZONTAL_LINE);
-        System.out.println("Good job! I've marked this task as done:");
-        System.out.println("\t" + task);
-        System.out.println(HORIZONTAL_LINE);
-    }
 
-    public static void unmarkTask(Task task) {
-        task.setDone(false);
+        if (commandStartsWith.equals("mark")) {
+            task.setDone(true);
+            System.out.println("Good job! I've marked this task as done:");
+        } else {
+            task.setDone(false);
+            System.out.println("Ok, this task has been marked as not done yet:");
+        }
 
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Ok, this task has been marked as not done yet:");
         System.out.println("\t" + task);
         System.out.println(HORIZONTAL_LINE);
     }
@@ -69,32 +66,21 @@ public class Helpy {
     }
 
     public static void addTask(String command, ArrayList<Task> taskList) {
-        if (command.startsWith("mark")) {
-            String taskNum = command.replace("mark", "");
-            taskNum = taskNum.trim();
-            try {
-                int taskIndex = Integer.parseInt(taskNum) - 1;
-                markTask(taskList.get(taskIndex));
-            } catch (NumberFormatException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Task number provided is invalid! " +
-                        "Did you enter wrongly? You typed: " + command);
-                System.out.println(HORIZONTAL_LINE);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Task number doesn't exist! " +
-                        "Did you enter wrongly? You typed: " + command);
-                System.out.println(HORIZONTAL_LINE);
-            }
-            return;
-        }
 
-        if (command.startsWith("unmark")) {
-            String taskNum = command.replace("unmark", "");
+        if (command.startsWith("mark") || command.startsWith("unmark")) {
+            String taskNum;
+            String commandStartsWith;
+            if (command.startsWith("mark")) {
+                taskNum = command.replace("mark", "");
+                commandStartsWith = "mark";
+            } else {
+                taskNum = command.replace("unmark", "");
+                commandStartsWith = "unmark";
+            }
             taskNum = taskNum.trim();
             try {
                 int taskIndex = Integer.parseInt(taskNum) - 1;
-                unmarkTask(taskList.get(taskIndex));
+                markTask(taskList.get(taskIndex), commandStartsWith);
             } catch (NumberFormatException e) {
                 System.out.print(HORIZONTAL_LINE);
                 System.out.println("Task number provided is invalid! " +
