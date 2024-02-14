@@ -28,7 +28,7 @@ public class Jake {
         System.out.println(LINE_STRING);
     }
 
-    // Add Task. Allows ToDos, Deadlines, and Events
+    // Add ToDos, Deadlines, and Events
     private static void addTask(Task[] commands, int totalTasks, String userInput, String taskType) {
         Task newTask;
         switch (taskType) {
