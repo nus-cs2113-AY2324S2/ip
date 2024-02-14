@@ -1,3 +1,7 @@
+package Tasks;
+
+import Tasks.Task;
+
 public class Event extends Task {
     private final static char BADGE = 'E';
 
