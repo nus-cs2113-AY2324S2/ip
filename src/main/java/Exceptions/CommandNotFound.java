@@ -1,5 +1,5 @@
 package Exceptions;
 
-public class CommandNotFoundException extends Exception{
-    
+public class CommandNotFound extends Exception{
+    public CommandNotFound(){ }
 }
