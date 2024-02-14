@@ -39,34 +39,33 @@ public class Omoh {
     //If bye is typed, function exits
     public static void readUserInput() {
         String line;
+
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+
         while (!line.equalsIgnoreCase("bye")) {
-            if (line.equalsIgnoreCase("list")) {
+            if (line.trim().isEmpty()) {
+                System.out.println("Please enter a non empty Input!");
+            } else if (line.equalsIgnoreCase("list")) {
                 printAllTasks();
-                line = in.nextLine();
             } else if (line.startsWith("deadline")) {
                 Deadline.addDeadline(line);
-                line = in.nextLine();
             }
             else if (line.startsWith("todo")) {
                 Todo.addTodo(line);
-                line = in.nextLine();
             }
             else if (line.startsWith("event")) {
                 Event.addEvent(line);
-                line = in.nextLine();
             }
             else if (line.startsWith("mark") || line.startsWith("unmark")) {
                 int taskNumber = Task.extractTaskNumber(line);
                 Task.modifyDoneState(taskNumber, line);
                 Task.printMarkTask(taskNumber, line);
-                line = in.nextLine();
             } else {
                 Task.addTask(line);
                 Task.printAddedTask();
-                line = in.nextLine();
             }
+            line = in.nextLine();
         }
     }
 
