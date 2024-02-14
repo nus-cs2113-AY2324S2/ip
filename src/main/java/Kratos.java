@@ -108,14 +108,23 @@ public class Kratos {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]); //Extract task number
                 displayMarking(taskNumber - 1, userInput.split(" ")[0]);
             } else {
-                if (userInput.startsWith("deadline")) {
-                    addDeadline(userInput);
+                try {
+                    if (userInput.startsWith("deadline")) {
+                        addDeadline(userInput);
+                    }
+                    else if (userInput.startsWith("todo")) {
+                        addTodo(userInput);
+
+                    }
+                    else if (userInput.startsWith("event")) {
+                        addEvent(userInput);
+                    }
+                    else {
+                        throw new IllegalArgumentException();
+                    }
                 }
-                else if (userInput.startsWith("todo")) {
-                    addTodo(userInput);
-                }
-                if (userInput.startsWith("event")) {
-                    addEvent(userInput);
+                catch (Exception e) {
+                    KratosException.handleException(e, userInput);
                 }
             }
         }
