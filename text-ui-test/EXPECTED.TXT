@@ -13,13 +13,10 @@ Actually uh... What even do you want me to do?
 You KAIBAI-ing
 ------------------------------------------------------------
 : ------------------------------------------------------------
-Okey dokey here we go
- [ ] lst
-We only have uhhhh 1 more thing left to go!
+OH NO! I cannot understand!
 ------------------------------------------------------------
 : ------------------------------------------------------------
-Yay! List!
-1.[ ] lst
+You KAIBAI-ing
 ------------------------------------------------------------
 : ------------------------------------------------------------
 ACKSHUALLY you are missing something...
@@ -27,18 +24,17 @@ ACKSHUALLY you are missing something...
 : ------------------------------------------------------------
 Okey dokey here we go
  [T][ ] abc
-We only have uhhhh 2 more things left to go!
+We only have uhhhh 1 more thing left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Okey dokey here we go
  [T][ ] 123 def 345
-We only have uhhhh 3 more things left to go!
+We only have uhhhh 2 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Yay! List!
-1.[ ] lst
-2.[T][ ] abc
-3.[T][ ] 123 def 345
+1.[T][ ] abc
+2.[T][ ] 123 def 345
 ------------------------------------------------------------
 : ------------------------------------------------------------
 ACKSHUALLY you are missing something...
@@ -46,29 +42,28 @@ ACKSHUALLY you are missing something...
 : ------------------------------------------------------------
 Okey dokey here we go
  [D][ ] qwerty (by: 123)
-We only have uhhhh 4 more things left to go!
+We only have uhhhh 3 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Okey dokey here we go
  [D][ ] z12cv (by: asd 123)
-We only have uhhhh 5 more things left to go!
+We only have uhhhh 4 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Okey dokey here we go
  [D][ ] ancs (by: /by /by 1232)
-We only have uhhhh 6 more things left to go!
+We only have uhhhh 5 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 ACKSHUALLY you are missing something...
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Yay! List!
-1.[ ] lst
-2.[T][ ] abc
-3.[T][ ] 123 def 345
-4.[D][ ] qwerty (by: 123)
-5.[D][ ] z12cv (by: asd 123)
-6.[D][ ] ancs (by: /by /by 1232)
+1.[T][ ] abc
+2.[T][ ] 123 def 345
+3.[D][ ] qwerty (by: 123)
+4.[D][ ] z12cv (by: asd 123)
+5.[D][ ] ancs (by: /by /by 1232)
 ------------------------------------------------------------
 : ------------------------------------------------------------
 ACKSHUALLY you are missing something...
@@ -76,17 +71,17 @@ ACKSHUALLY you are missing something...
 : ------------------------------------------------------------
 Okey dokey here we go
  [E][ ] 12ujk (from: 123 to: ned)
-We only have uhhhh 7 more things left to go!
+We only have uhhhh 6 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Okey dokey here we go
  [E][ ] pks (from: q3a cvse to: ned iho)
-We only have uhhhh 8 more things left to go!
+We only have uhhhh 7 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Okey dokey here we go
  [E][ ] gusf\ (from: ;sa!] to: ~./))
-We only have uhhhh 9 more things left to go!
+We only have uhhhh 8 more things left to go!
 ------------------------------------------------------------
 : ------------------------------------------------------------
 ACKSHUALLY you are missing something...
@@ -96,15 +91,66 @@ ACKSHUALLY you are missing something...
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Yay! List!
-1.[ ] lst
-2.[T][ ] abc
-3.[T][ ] 123 def 345
-4.[D][ ] qwerty (by: 123)
-5.[D][ ] z12cv (by: asd 123)
-6.[D][ ] ancs (by: /by /by 1232)
-7.[E][ ] 12ujk (from: 123 to: ned)
-8.[E][ ] pks (from: q3a cvse to: ned iho)
-9.[E][ ] gusf\ (from: ;sa!] to: ~./))
+1.[T][ ] abc
+2.[T][ ] 123 def 345
+3.[D][ ] qwerty (by: 123)
+4.[D][ ] z12cv (by: asd 123)
+5.[D][ ] ancs (by: /by /by 1232)
+6.[E][ ] 12ujk (from: 123 to: ned)
+7.[E][ ] pks (from: q3a cvse to: ned iho)
+8.[E][ ] gusf\ (from: ;sa!] to: ~./))
+------------------------------------------------------------
+: ------------------------------------------------------------
+Good job team! We did it!
+ [X] abc
+------------------------------------------------------------
+: ------------------------------------------------------------
+Huhhhhhhh? I cannot find!
+------------------------------------------------------------
+: ------------------------------------------------------------
+Yay! List!
+1.[T][X] abc
+2.[T][ ] 123 def 345
+3.[D][ ] qwerty (by: 123)
+4.[D][ ] z12cv (by: asd 123)
+5.[D][ ] ancs (by: /by /by 1232)
+6.[E][ ] 12ujk (from: 123 to: ned)
+7.[E][ ] pks (from: q3a cvse to: ned iho)
+8.[E][ ] gusf\ (from: ;sa!] to: ~./))
+------------------------------------------------------------
+: ------------------------------------------------------------
+Good job team! We did it!
+ [X] 123 def 345
+------------------------------------------------------------
+: ------------------------------------------------------------
+Worryhands! You haven't finished this yet...
+ [ ] abc
+------------------------------------------------------------
+: ------------------------------------------------------------
+Huhhhhhhh? I cannot find!
+------------------------------------------------------------
+: ------------------------------------------------------------
+Something something not adding up...
+------------------------------------------------------------
+: ------------------------------------------------------------
+Something something not adding up...
+------------------------------------------------------------
+: ------------------------------------------------------------
+Yay! List!
+1.[T][ ] abc
+2.[T][X] 123 def 345
+3.[D][ ] qwerty (by: 123)
+4.[D][ ] z12cv (by: asd 123)
+5.[D][ ] ancs (by: /by /by 1232)
+6.[E][ ] 12ujk (from: 123 to: ned)
+7.[E][ ] pks (from: q3a cvse to: ned iho)
+8.[E][ ] gusf\ (from: ;sa!] to: ~./))
+------------------------------------------------------------
+: ------------------------------------------------------------
+Something something not adding up...
+------------------------------------------------------------
+: ------------------------------------------------------------
+Something something not adding up...
 ------------------------------------------------------------
 : ------------------------------------------------------------
 Good night my positive mentality flen, it is time for me to take my happy pills. Bye Bye!
