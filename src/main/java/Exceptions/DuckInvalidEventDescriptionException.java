@@ -1,4 +1,2 @@
-package Exceptions;
-
-public class DuckInvalidEventDescriptionException extends Exception{
+package Exceptions;public class DuckInvalidEventDescriptionException {
 }

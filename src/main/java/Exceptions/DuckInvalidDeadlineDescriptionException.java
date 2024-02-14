@@ -1,4 +1,2 @@
-package Exceptions;
-
-public class DuckInvalidDeadlineDescriptionException extends Exception{
+package Exceptions;public class DuckInvalidDeadlineDescriptionException {
 }
