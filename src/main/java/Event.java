@@ -1,4 +1,5 @@
 public class Event extends Task {
+    public static final String EVENT_STATUS = "[E]";
     private String startTime;
     private String endTime;
 
@@ -18,6 +19,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " " + "(from: " + startTime + " to:" + endTime + ")";
+        return EVENT_STATUS + super.toString() + " " + "(from: " + startTime + " to: " + endTime + ")";
     }
 }
