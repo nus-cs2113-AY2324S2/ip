@@ -1,9 +1,10 @@
+package task;
 public class Deadline extends Task {
     protected String dueTime;
     private static final int TASK_NAME_INDEX = 0;
     private static final int DUE_DATE_INDEX = 1;
 
-    Deadline(String[] deadlineInfo) {
+    public Deadline(String[] deadlineInfo) {
         this(deadlineInfo[TASK_NAME_INDEX],
                 deadlineInfo[DUE_DATE_INDEX]);
     }

@@ -1,8 +1,9 @@
+package task;
 public class TaskList {
     private int numberOfTask;
     private final Task[] tasks;
 
-    TaskList() {
+    public TaskList() {
         this.numberOfTask = 0;
         this.tasks = new Task[100];
     }

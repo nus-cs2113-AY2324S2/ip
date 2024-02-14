@@ -1,3 +1,4 @@
+package tool;
 public class ResponseManager {
     private static final String LOGO =
             "███████╗██╗   ██╗██╗  ██╗███████╗\n" +

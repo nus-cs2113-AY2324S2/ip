@@ -1,6 +1,6 @@
 public class Zuke {
     public static void main(String[] args) {
-        ResponseManager.greet();
-        new ZukeLogic().chattingStart();
+        ZukeLogic.initZuke().chattingStart();
+        ZukeLogic.exitZuke();
     }
 }

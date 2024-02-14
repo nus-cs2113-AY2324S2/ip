@@ -1,10 +1,28 @@
 import java.util.Scanner;
 
+import task.Deadline;
+import task.Task;
+import task.Todo;
+import task.Event;
+import task.TaskList;
+import tool.MessageDecoder;
+import tool.ResponseManager;
+import exception.InputException;
+
 public class ZukeLogic {
     private final TaskList taskList;
 
     ZukeLogic() {
         taskList = new TaskList();
+    }
+
+    public static ZukeLogic initZuke() {
+        ResponseManager.greet();
+        return new ZukeLogic();
+    }
+
+    public static void exitZuke() {
+        ResponseManager.sayGoodbye();
     }
 
     public void chattingStart() {
@@ -18,7 +36,6 @@ public class ZukeLogic {
             try {
                 switch (command) {
                 case "bye":
-                    ResponseManager.sayGoodbye();
                     userInput.close();
                     return;
 
