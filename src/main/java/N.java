@@ -72,8 +72,9 @@ public class N {
         return taskType;
     }
 
-    public static void addToTaskList(Type taskType, String message) {
-        String taskDescription;
+    public static void addToTaskList(Type taskType, String message)
+            throws EmptyTaskDescriptionException {
+        String taskDescription = "";
         switch(taskType) {
             case Event:
                 taskDescription = message.substring(5);
@@ -87,10 +88,9 @@ public class N {
                 taskDescription = message.substring(4);
                 taskList[taskCount] = new ToDo(taskDescription, taskCount);
                 break;
-            default:
-                taskDescription = message;
-                taskList[taskCount] = new ToDo(taskDescription, taskCount);
-                break;
+        }
+        if (taskDescription.isEmpty()) {
+            throw new EmptyTaskDescriptionException();
         }
         taskCount ++;
         if (taskCount <= 1) {
@@ -111,6 +111,8 @@ public class N {
         } catch (NoTaskTypeException e) {
             printMessage("oHno, you did not specify your task type :O");
             return;
+        } catch (EmptyTaskDescriptionException e) {
+            printMessage("OoPs! Task description cannot be empty");
         }
 
     }
