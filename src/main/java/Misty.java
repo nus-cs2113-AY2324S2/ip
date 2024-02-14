@@ -1,36 +1,10 @@
 import java.util.Scanner;
 
 public class Misty {
-    public static void printMessageBorder() {
-        System.out.println("\t--------------------------------------------------");
-    }
-
-    public static void printWelcomeMessage() {
-        String welcome = "Hello! I'm Misty\n"
-                + "\tWhat can I do for you?";
-
-        printMessageBorder();
-        System.out.println("\t" + welcome);
-        printMessageBorder();
-    }
-
-    public static void printByeMessage() {
-        String bye = "Bye! Hope to see you again soon!";
-
-        printMessageBorder();
-        System.out.println("\t" + bye);
-        printMessageBorder();
-    }
-
-    public static void printUnknownCommandMessage() {
-        String bye = "Sorry, unknown command entered!";
-        System.out.println("\t" + bye);
-    }
-
     public static void main(String[] args) {
-        printWelcomeMessage();
-
         List itemList = new List();
+        Parser.printWelcomeMessage();
+
         String input;
         Scanner in = new Scanner(System.in);
 
@@ -38,14 +12,14 @@ public class Misty {
             input = in.nextLine();
             switch (input) {
             case "list":
-                printMessageBorder();
+                Parser.printMessageBorder();
                 itemList.listAll();
-                printMessageBorder();
+                Parser.printMessageBorder();
                 break;
             case "bye":
                 break;
             default:
-                printMessageBorder();
+                Parser.printMessageBorder();
                 if (input.startsWith("unmark")) {
                     int index;
                     index = Integer.parseInt(input.substring(7));
@@ -72,13 +46,13 @@ public class Misty {
 
                     itemList.addEvent(description, from, to);
                 } else {
-                    printUnknownCommandMessage();
+                    Parser.printUnknownCommandMessage();
                 }
-                printMessageBorder();
+                Parser.printMessageBorder();
             }
 
             if (input.equals("bye")) {
-                printByeMessage();
+                Parser.printByeMessage();
                 break;
             }
         }
