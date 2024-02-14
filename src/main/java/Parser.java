@@ -103,7 +103,6 @@ public class Parser {
         String[] markList = markUnmarkString.split(" ", 2);
 
         if (markList.length != 2) {
-            System.out.println("[artemis]: please enter \"[mark/unmark] <list item number>\".");
             throw new Errors.InvalidMarkUnmarkException();
         }
 
@@ -111,7 +110,6 @@ public class Parser {
         String markAction = markList[0];
 
         if (markItem > TaskHandler.listCount) {
-            System.out.println("list item number given is invalid!");
             throw new Errors.InvalidMarkUnmarkIndexException();
         }
 
