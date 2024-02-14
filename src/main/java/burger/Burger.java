@@ -1,4 +1,7 @@
+package burger;
+
 import java.util.Scanner;
+import burger.list.List;
 
 public class Burger {
     static final String CHATBOT_NAME = "Burger";
