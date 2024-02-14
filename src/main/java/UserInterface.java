@@ -28,11 +28,11 @@ public class UserInterface {
 
     public static void printList() {
         if (TaskHandler.listCount == 0) {
-            System.out.println("[Artemis]: Your list is empty!");
+            System.out.println("[artemis]: Your list is empty!");
             return;
         }
 
-        System.out.println("[Artemis]: Your list is as such:");
+        System.out.println("[artemis]: Your list is as such:");
         for (int index = 0; index < TaskHandler.listCount; index++) {
             Task currentTask = TaskHandler.taskList[index];
             System.out.printf("%d. %s\n", index+1, currentTask);
@@ -55,47 +55,57 @@ public class UserInterface {
 
         while (true) {
             System.out.printf("[%s]: ", username);
-             userInput = scan.nextLine().trim();
-             Parser.Command commandGiven = Parser.parseCommand(userInput);
+            userInput = scan.nextLine().trim();
+            Parser.Command commandGiven = Parser.parseCommand(userInput);
 
-             switch (commandGiven) {
-             case TODO:
-                 currentTask = TaskHandler.createToDo(userInput);
-                 break;
-             case DEADLINE:
-                 currentTask = TaskHandler.createDeadline(userInput);
-                 break;
-             case EVENT:
-                 currentTask = TaskHandler.createEvent(userInput);
-                 break;
-             case LIST:
-                 printList();
-                 continue;
-             case MARK:
-             case UNMARK:
-                 Object[] parsedContent = Parser.parseMarkUnmark(userInput);
-                 if (parsedContent[1] == null) {
-                     System.out.println("[artemis]: invalid command. please enter \"[mark/unmark] <list item number>\"");
+             try {
+                 switch (commandGiven) {
+                 case TODO:
+                     currentTask = TaskHandler.createToDo(userInput);
+                     break;
+                 case DEADLINE:
+                     currentTask = TaskHandler.createDeadline(userInput);
+                     break;
+                 case EVENT:
+                     currentTask = TaskHandler.createEvent(userInput);
+                     break;
+                 case LIST:
+                     printList();
+                     continue;
+                 case MARK:
+                 case UNMARK:
+                    Object[] parsedContent = Parser.parseMarkUnmark(userInput);
+                    int markItem = (int) parsedContent[0];
+                    boolean isMarked = (boolean) parsedContent[1];
+                    TaskHandler.markUnmarkItem(markItem, isMarked);
+
+                    continue;
+                 case BYE:
+                     printGoodbye();
+                     return;
+                 case UNKNOWN:
+                 default:
+                     System.out.println("[artemis]: unknown command!");
+                     continue;
                  }
 
-                 int markItem = (int) parsedContent[0];
-                 boolean isMarked = (boolean) parsedContent[1];
-                 TaskHandler.markUnmarkItem(markItem, isMarked);
-                 continue;
-             case BYE:
-                 printGoodbye();
-                 return;
-             case UNKNOWN:
-             default:
-                 System.out.println("[artemis]: unknown command!");
-                 continue;
+                TaskHandler.taskList[TaskHandler.listCount] = currentTask;
+                TaskHandler.listCount++;
+
+                System.out.printf("[artemis]: you have added this task:%s %s%s",
+                        System.lineSeparator(), currentTask, System.lineSeparator());
+
+             } catch (Errors.InvalidTodoException e) {
+                 System.out.println("[artemis]: invalid todo given. please enter \"todo <task>\"");
+             } catch (Errors.InvalidDeadlineException e) {
+                 System.out.println("[artemis]: invalid deadline given. please enter \"deadline <task> /by <deadline of task>\"");
+             } catch (Errors.InvalidEventException e) {
+                 System.out.println("[artemis]: invalid event given. please enter \"event <event title> /from <start datetime> /to <end datetime>\"");
+             } catch (Errors.InvalidMarkUnmarkException e) {
+                 System.out.println("[artemis]: please enter \"[mark/unmark] <list item number>\".");
+             } catch (Errors.InvalidMarkUnmarkIndexException e) {
+                 System.out.println("[artemis]: the given list item number given is invalid!");
              }
-
-            TaskHandler.taskList[TaskHandler.listCount] = currentTask;
-            TaskHandler.listCount++;
-
-            System.out.printf("[artemis]: you have added this task:%s %s%s",
-                    System.lineSeparator(), currentTask, System.lineSeparator());
         }
     }
 }
