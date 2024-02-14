@@ -1,9 +1,14 @@
+package Tasking;
+
+import NewExceptions.EmptyArgumentException;
+import NewExceptions.EmptyStatementException;
+
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
 public class Davvy {
-    private static final String BOT_NAME = "Davvy";
+    private static final String BOT_NAME = "Tasking.Davvy";
     private static boolean isExitStatus;
     public static void printLine() {
         System.out.println("____________________________________________________________");
