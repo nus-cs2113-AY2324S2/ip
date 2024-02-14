@@ -6,4 +6,12 @@ mark 1
 list
 unmark 1
 list
+blah
+todo
+event
+deadline
+mark one
+mark -1
+mark 0
+mark 4
 bye

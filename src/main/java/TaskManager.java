@@ -16,21 +16,28 @@ public class TaskManager {
     }
 
     private void markTask(int index) {
-        if (index < 0 || index >= taskCount) {
-            System.out.print("Invalid task number\n");
-        } else {
-            System.out.print(BORDER + " Good job! I've marked this task as done:\n"
-                    + " [" + tasks[index].getStatusIcon() + "] " + tasks[index].getDescription() + "\n"
-                    + BORDER);
-        }
+        System.out.print(BORDER + " Good job! I've marked this task as done:\n"
+                + " [" + tasks[index].getStatusIcon() + "] " + tasks[index].getDescription() + "\n"
+                + BORDER);
     }
 
     private void handleMarking(String input) {
-        String[] parts = input.split(" ");
-        int index = Integer.parseInt(parts[1]) - 1;
-        boolean isDone = input.startsWith("mark");
-        tasks[index].markTask(isDone);
-        markTask(index);
+        try {
+            String[] parts = input.split(" ");
+            int index = Integer.parseInt(parts[1]) - 1;
+            if (index < 0 || index >= taskCount) {
+                throw new CodyException(" Task number is out of range\n"
+                        + " Please enter a number between 1 and " + taskCount + "\n");
+            }
+            boolean isDone = input.startsWith("mark");
+            tasks[index].markTask(isDone);
+            markTask(index);
+        } catch (NumberFormatException e) {
+            System.out.print(BORDER + " Task number is invalid\n"
+                    + " Please enter a valid number\n" + BORDER);
+        } catch (CodyException e) {
+            System.out.print(BORDER + e.getMessage() + BORDER);
+        }
     }
 
     // Adds a task based on the input provided
@@ -54,17 +61,17 @@ public class TaskManager {
             return createEventTask(input);
         } else {
             // If the task type is unknown, throw a CodyException
-            throw new CodyException(" I'm not sure what task this is\n" +
-                    " Please start with 'todo', 'event' or 'deadline'\n");
+            throw new CodyException(" I'm not sure what task this is\n"
+                    + " Please start with 'todo', 'event' or 'deadline'\n");
         }
     }
 
 
     // Creates a Todo task from the input.
-     private Todo createTodoTask(String input) throws CodyException{
+    private Todo createTodoTask(String input) throws CodyException {
         if (input.length() <= 5) {
-            throw new CodyException(" The description of a todo cannot be empty\n" +
-                    " Please use 'todo <description>'\n");
+            throw new CodyException(" The description of a todo cannot be empty\n"
+                    + " Please use 'todo <description>'\n");
         }
 
         String description = input.substring(5).trim(); // Removing 'todo ' prefix.
@@ -74,8 +81,8 @@ public class TaskManager {
     // Creates a Deadline task from the input.
     private Deadline createDeadlineTask(String input) throws CodyException {
         if (input.length() <= 9) {
-            throw new CodyException(" The description of a deadline cannot be empty\n" +
-                    " Please use 'deadline <description> /by <deadline>'\n");
+            throw new CodyException(" The description of a deadline cannot be empty\n"
+                    + " Please use 'deadline <description> /by <deadline>'\n");
         }
 
         String[] deadlineDetails = input.split(" /by ", 2);
@@ -87,8 +94,8 @@ public class TaskManager {
     // Creates an Event task from the input.
     private Event createEventTask(String input) throws CodyException {
         if (input.length() <= 6) {
-            throw new CodyException(" The description of an event cannot be empty\n" +
-                    " Please use 'event <description> /from <start time> /to <end time>'\n");
+            throw new CodyException(" The description of an event cannot be empty\n"
+                    + " Please use 'event <description> /from <start time> /to <end time>'\n");
         }
 
         String[] eventDetails = input.split(" /from | /to ");
