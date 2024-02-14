@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class OGF {
-    private static final int MAX_ITEMS = 1;
+    private static final int MAX_ITEMS = 100;
     private static int numItem;
     private static final Task[] tasks = new Task[MAX_ITEMS];
 
@@ -52,7 +52,7 @@ public class OGF {
                 break;
             case ("todo"):
                 if (!input.contains(" ") || input.indexOf(" ") == input.length()-1){
-                    throw new OGFException("empty todo");
+                    throw new OGFException("Did not write anything after \"todo\", dont waste my time and yours pls");
                 }
                 String newTodoDesc = input.substring(input.indexOf(" "));
 
@@ -61,6 +61,12 @@ public class OGF {
                 numItem++;
                 break;
             case ("deadline"):
+                if (!input.contains(" ")){
+                    throw new OGFException("Did not write anything after \"deadline\", dont waste my time and yours pls");
+                }
+                if (!input.contains(" /by ")){
+                    throw new OGFException("Did not enter deadline, use /by, followed by your deadline to add a deadline to your deadline");
+                }
                 String newDeadlineDesc = input.substring(input.indexOf(" "), input.indexOf(" /by"));
                 String newDeadlineTime = input.substring(input.indexOf("/by") + 4);
                 tasks[numItem] = new Deadline(newDeadlineDesc, newDeadlineTime);
@@ -68,6 +74,12 @@ public class OGF {
                 numItem++;
                 break;
             case ("event"):
+                if (!input.contains(" ")){
+                    throw new OGFException("Did not write anything after \"event\", dont waste my time and yours pls");
+                }
+                if (!input.contains(" /from ") || !input.contains(" /to ")){
+                    throw new OGFException("Did not enter event start and end, use /from and /to to enter start and end time respectively");
+                }
                 String newEventDesc = input.substring(input.indexOf(" "), input.indexOf("/from"));
                 String newEventStart = input.substring(input.indexOf("/from") + 6, input.indexOf(" /to"));
                 String newEventEnd = input.substring(input.indexOf("/to") + 4);
@@ -102,7 +114,7 @@ public class OGF {
                 isRunning = handleInput(input);
             }
             catch (OGFException error){
-                System.out.println("Uh oh! an error happened: " + error.getMessage());
+                System.out.println(error.getMessage());
                 printBreakLine();
             }
             catch (NumberFormatException error){
