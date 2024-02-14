@@ -87,16 +87,22 @@ public class Bobby {
                     System.out.println("Please enter a valid start and end date.");
                     break;
                 }
-                description = input.substring(6, input.indexOf("/from") - 1);
-                by = input.substring(input.indexOf("/to") + 4);
-                from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+                try {
+                    description = input.substring(6, input.indexOf("/from") - 1);
+                    by = input.substring(input.indexOf("/to") + 4);
+                    from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid event in this format:");
+                    System.out.println("event Project Meeting /from Mon 2pm /to 4pm");
+                    break;
+                }
                 tasks[counter] = new Event(description, by, from);
                 System.out.println("Okay, added:\n" + tasks[counter]);
                 counter += 1;
                 System.out.println("Now you have " + counter + " task(s) in the list.");
                 break;
             default:
-                System.out.println("Sorry, I didn't quite understand that.\nPlease input a valid command.");
+                System.out.println("Sorry, I didn't quite understand that.\nPlease enter a valid command.");
                 break;
             }
         }
