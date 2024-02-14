@@ -7,77 +7,111 @@ public class Floda {
         Task[] list = new Task[100];
         int taskCounter = 0;
         Scanner scanner = new Scanner(System.in);
-        String line;
         System.out.println("I can keep track of a to-do list for you! Just type what you want to add to the list.");
-        while (!"bye".equals((line = scanner.nextLine()))) {
-            if ("list".equals(line)) {
-                System.out.println("List so far: ");
-                for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + "." + list[i]);
+        while (true) {
+            String line = scanner.nextLine().trim();
+            if (line.equals("bye")) {
+                break;
+            } else if (line.equals("list")) {
+                if (taskCounter == 0) {
+                    System.out.println("Your to-do list is empty.");
+                } else {
+                    System.out.println("List so far: ");
+                    for (int i = 0; i < taskCounter; i++) {
+                        System.out.println((i + 1) + "." + list[i]);
+                    }
                 }
             } else if (line.startsWith("mark")) {
-                Scanner taskScanner = new Scanner(line);
-                taskScanner.next();
-                if (taskScanner.hasNextInt()) {
-                    int taskNumber = taskScanner.nextInt() - 1;
-                    if (taskNumber >= 0 && taskNumber < taskCounter) {
-                        list[taskNumber].setDone(true);
-                        System.out.println("I have marked this task as done:\n" + list[taskNumber]);
-                    } else {
-                        System.out.println("Invalid task number! Please check with 'list'.");
-                    }
-                } else {
-                    System.out.println("Invalid input! Please check with 'list'.");
-                }
+                handleMarkTask(line, list, taskCounter);
             } else if (line.startsWith("unmark")) {
-                Scanner taskScanner = new Scanner(line);
-                taskScanner.next();
-                if (taskScanner.hasNextInt()) {
-                    int taskNumber = taskScanner.nextInt() - 1;
-                    if (taskNumber >= 0 && taskNumber < taskCounter) {
-                        list[taskNumber].setDone(false);
-                        System.out.println("I have marked this task as not done:\n" + list[taskNumber]);
-                    } else {
-                        System.out.println("Invalid task number! Please check with 'list'.");
-                    }
-                } else {
-                    System.out.println("Invalid input! Please check with 'list'.");
-                }
+                handleUnmarkTask(line, list, taskCounter);
             } else if (line.startsWith("deadline")) {
-                Scanner taskScanner = new Scanner(line);
-                taskScanner.next();
-                String remaining = taskScanner.nextLine().trim();
-                String[] parts = remaining.split("/by");
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                list[taskCounter] = new Deadline(description, by);
-                taskCounter++;
-                System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
+                handleDeadlineTask(line, list, taskCounter);
             } else if (line.startsWith("todo")) {
-                Scanner taskScanner = new Scanner(line);
-                taskScanner.next();
-                String remaining = taskScanner.nextLine().trim();
-                list[taskCounter] = new ToDo(remaining);
-                taskCounter++;
-                System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
+                handleTodoTask(line, list, taskCounter);
             } else if (line.startsWith("event")) {
-                Scanner taskScanner = new Scanner(line);
-                taskScanner.next();
-                String remaining = taskScanner.nextLine().trim();
-                remaining = remaining.replace("/to", "/from");
-                String[] parts = remaining.split("/from");
-                String description = parts[0].trim();
-                String from = parts[1].trim();
-                String to = parts[2].trim();
-                list[taskCounter] = new Events(description, from, to);
-                taskCounter++;
-                System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
+                handleEventTask(line, list, taskCounter);
             } else {
-                list[taskCounter] = new Task(line);
-                taskCounter++;
-                System.out.println("Added: " + line + "\nNow you have " + (taskCounter) + " items in the list!");
+//                list[taskCounter] = new Task(line);
+//                taskCounter++;
+//                System.out.println("Added: " + line + "\nNow you have " + taskCounter + " items in the list!");
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
+        scanner.close();
+    }
+
+    private static void handleMarkTask(String line, Task[] list, int taskCounter) {
+        Scanner taskScanner = new Scanner(line);
+        taskScanner.next();
+        if (taskScanner.hasNextInt()) {
+            int taskNumber = taskScanner.nextInt() - 1;
+            if (isValidTaskNumber(taskNumber, taskCounter)) {
+                list[taskNumber].setDone(true);
+                System.out.println("I have marked this task as done:\n" + list[taskNumber]);
+            } else {
+                System.out.println("Invalid task number! Please check with 'list'.");
+            }
+        } else {
+            System.out.println("Invalid input! Please check with 'list'.");
+        }
+        taskScanner.close();
+    }
+
+    private static void handleUnmarkTask(String line, Task[] list, int taskCounter) {
+        Scanner taskScanner = new Scanner(line);
+        taskScanner.next();
+        if (taskScanner.hasNextInt()) {
+            int taskNumber = taskScanner.nextInt() - 1;
+            if (isValidTaskNumber(taskNumber, taskCounter)) {
+                list[taskNumber].setDone(false);
+                System.out.println("I have marked this task as not done:\n" + list[taskNumber]);
+            } else {
+                System.out.println("Invalid task number! Please check with 'list'.");
+            }
+        } else {
+            System.out.println("Invalid input! Please check with 'list'.");
+        }
+        taskScanner.close();
+    }
+
+    private static void handleDeadlineTask(String line, Task[] list, int taskCounter) {
+        Scanner taskScanner = new Scanner(line);
+        taskScanner.next();
+        String remaining = taskScanner.nextLine().trim();
+        String[] parts = remaining.split("/by");
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        list[taskCounter] = new Deadline(description, by);
+        taskCounter++;
+        System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
+    }
+
+    private static void handleTodoTask(String line, Task[] list, int taskCounter) {
+        Scanner taskScanner = new Scanner(line);
+        taskScanner.next();
+        String remaining = taskScanner.nextLine().trim();
+        list[taskCounter] = new ToDo(remaining);
+        taskCounter++;
+        System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
+    }
+
+    private static void handleEventTask(String line, Task[] list, int taskCounter) {
+        Scanner taskScanner = new Scanner(line);
+        taskScanner.next();
+        String remaining = taskScanner.nextLine().trim();
+        remaining = remaining.replace("/to", "/from");
+        String[] parts = remaining.split("/from");
+        String description = parts[0].trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        list[taskCounter] = new Events(description, from, to);
+        taskCounter++;
+        System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
+
+    }
+
+    private static boolean isValidTaskNumber(int taskNumber, int taskCounter) {
+        return taskNumber >= 0 && taskNumber < taskCounter;
     }
 }
