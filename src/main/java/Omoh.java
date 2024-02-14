@@ -55,16 +55,25 @@ public class Omoh {
                 try {
                     Todo.addTodo(line);
                 } catch (EmptyTodoException e) {
-                    System.out.println("Todo cannot be empty! Please key in input in this format [Todo] [task] [/by] ");
+                    System.out.println("Todo cannot be empty! Please key in input in this format [Todo] [task] " +
+                            "example: todo hang clothes");
                 }
             }
             else if (line.startsWith("event")) {
                 Event.addEvent(line);
             }
             else if (line.startsWith("mark") || line.startsWith("unmark")) {
-                int taskNumber = Task.extractTaskNumber(line);
-                Task.modifyDoneState(taskNumber, line);
-                Task.printMarkTask(taskNumber, line);
+                try {
+                    int taskNumber = Task.extractTaskNumber(line);
+                    Task.modifyDoneState(taskNumber, line);
+                    Task.printMarkTask(taskNumber, line);
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter valid number without alphabets after mark or unmark " +
+                            "Example: mark 1");
+                } catch (NullPointerException e) {
+                    System.out.println("Please enter valid number within boundaries of list. " +
+                            "Example: if list only has 2 items, dont enter beyond 2");
+                }
             } else {
                 Task.addTask(line);
                 Task.printAddedTask();

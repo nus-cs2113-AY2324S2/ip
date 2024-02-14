@@ -33,7 +33,7 @@ public class Task {
     }
 
     //method that extracts the task number to mark or unmark
-    public static int extractTaskNumber(String input) {
+    public static int extractTaskNumber(String input) throws NumberFormatException {
         String keyword;
         if (input.startsWith("mark")) {
             keyword = "mark";
