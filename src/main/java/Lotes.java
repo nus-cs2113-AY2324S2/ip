@@ -1,3 +1,6 @@
+import lotes.parser.Parser;
+import lotes.task.TaskList;
+
 import java.util.Scanner;
 
 public class Lotes {
@@ -7,7 +10,7 @@ public class Lotes {
     public static void main(String[] args) {
         System.out.println(TaskList.greetingsMessage); // Print greetings message
 
-        TaskList taskList = new TaskList(); // Creating the TaskList object
+        TaskList taskList = new TaskList(); // Creating the lotes.task.TaskList object
 
         Parser.interpretUserInput(inputCommand, taskList); // Interprets the user input
     }

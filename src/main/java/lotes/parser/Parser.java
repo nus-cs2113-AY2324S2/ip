@@ -1,4 +1,7 @@
+package lotes.parser;
+
 import java.util.Scanner;
+import lotes.task.TaskList;
 
 public class Parser {
 

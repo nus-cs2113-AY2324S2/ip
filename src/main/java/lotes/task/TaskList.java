@@ -1,3 +1,5 @@
+package lotes.task;
+
 public class TaskList {
     private static final int MAX_TASKS = 100;
     private static final Task[] taskList = new Task[MAX_TASKS];
