@@ -13,14 +13,21 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    public static Deadline extractTaskAndDueDate (String input) {
+    public static Deadline extractTaskAndDueDate (String input) throws IllegalDeadlineInput {
         Deadline taskAndDeadlineString = new Deadline("random","random");
         //splits string according to /by keyword
         String[] parts = input.split("/by");
+        //if array is not size 2, means that we are missing inputs
+        if (parts.length != 2) {
+            throw new IllegalDeadlineInput();
+        }
         //extracts task portion from input, after deadline keyword
         taskAndDeadlineString.description = parts[0].substring("deadline".length()).trim();
         //extracts deadline portion from input
         taskAndDeadlineString.by = parts[1].trim();
+        if (taskAndDeadlineString.description.isEmpty() || taskAndDeadlineString.by.isEmpty()) {
+            throw new IllegalDeadlineInput();
+        }
         return taskAndDeadlineString;
     }
 
@@ -38,9 +45,14 @@ public class Deadline extends Task {
 
 
     public static void addDeadline (String input) {
-        Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
-        Task.tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
-        Task.totalTasks++;
-        Deadline.printDeadline(extractedInfo);
+        try {
+            Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
+            Task.tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
+            Task.totalTasks++;
+            Deadline.printDeadline(extractedInfo);
+        } catch (IllegalDeadlineInput e) {
+            System.out.println("Please enter non empty Input for Deadline in format [task] [/by] " +
+                    "example: deadline hang clothes /by tomorrow");
+        }
     }
 }

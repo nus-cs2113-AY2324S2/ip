@@ -33,26 +33,19 @@ public class Task {
     }
 
     //method that extracts the task number to mark or unmark
-    public static int extractTaskNumber(String input) {
+    public static int extractTaskNumber(String input) throws NumberFormatException, EmptyTaskNumberException {
         String keyword;
         if (input.startsWith("mark")) {
             keyword = "mark";
         } else {
             keyword = "unmark";
         }
-        //checks if theres even characters after mark/unmark
-        if (input.length() > keyword.length()) {
-            String numberString = input.substring(keyword.length()).trim();
-            int taskNumber = Integer.parseInt(numberString);
-            //checks if taskNumber is valid
-            if (taskNumber <= 0) {
-                return -1;
-            } else {
-                return taskNumber;
-            }
-        } else {
-            return -1;
+        String numberString = input.substring(keyword.length()).trim();
+        if (numberString.isEmpty()) {
+            throw new EmptyTaskNumberException();
         }
+        int taskNumber = Integer.parseInt(numberString);
+        return taskNumber;
     }
 
 
