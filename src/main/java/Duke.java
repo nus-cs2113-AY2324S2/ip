@@ -16,31 +16,47 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         userInput = userInput.toLowerCase();
-//      //  List<String> userInputSaver = new ArrayList<>();
-//      //  List<String> statusOfInput = new ArrayList<>();
-        List<Task> taskList = new ArrayList<Task>();
+        Task[] tasks = new Task[100];
         while (!userInput.contains("bye")) {
 
             System.out.println("____________________________________________________________\n");
             int indexOfMark;
             if (userInput.contains("list")) {
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println((i+1) + "." + taskList.get(i));
+                for (int i = 0; i < Task.numOfTask; i++) {
+                    System.out.println((i+1) + "." + tasks[i]);
                 }
 
             } else if (userInput.contains("mark")) {
                 if (userInput.contains("unmark")) {
 
                     indexOfMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    taskList.get(indexOfMark).markAsUndone();
+                    tasks[indexOfMark].markAsUndone();
 
                 } else {
                     indexOfMark = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    taskList.get(indexOfMark).markAsDone();
+                    tasks[indexOfMark].markAsDone();
                 }
             } else {
-                taskList.add(new Task(userInput));
-                System.out.println("added: " + userInput );
+                if (userInput.contains("deadline")) {
+                    String descriptionAndBy = userInput.split(" ", 2)[1];
+                    String Description = descriptionAndBy.split("/")[0];
+                    String By = descriptionAndBy.split("/")[1];
+                    tasks[Task.numOfTask] = new Deadline(Description, By);
+                }
+                else if (userInput.contains("todo")) {
+                    String Description = userInput.split(" ", 2)[1];
+                    tasks[Task.numOfTask] = new ToDo(Description);
+                }
+                else if (userInput.contains("event")) {
+                    String descriptionAndRange = userInput.split(" ", 2)[1];
+                    String Description = descriptionAndRange.split("/",3)[0];
+                    String from = descriptionAndRange.split("/",3)[1];
+                    String to = descriptionAndRange.split("/", 3)[2];
+                    tasks[Task.numOfTask] = new Event(Description, from, to);
+                }
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[Task.numOfTask - 1]);
+                System.out.println("Now you have " + Task.numOfTask + " tasks in the list.");
             }
 
             System.out.println("____________________________________________________________\n");
