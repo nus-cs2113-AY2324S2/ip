@@ -1,3 +1,5 @@
+package bobby;
+
 public class Event extends Task {
     protected String by;
     protected String from;
