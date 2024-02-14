@@ -4,7 +4,7 @@ import static java.lang.Integer.parseInt;
 
 public class Davvy {
     private static final String BOT_NAME = "Davvy";
-    private static boolean toEnd;
+    private static boolean isExitStatus;
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -24,11 +24,30 @@ public class Davvy {
 
     public void startChat() {
         printStatement("greetings");
-        toEnd = false;
+        isExitStatus = false;
         Scanner in = new Scanner(System.in);
-        while (!toEnd) {
-            String[] parsedInput = processInput(in.nextLine());
-            processCommand(parsedInput);
+        while (!isExitStatus) {
+            try {
+                String[] parsedInput = processInput(in.nextLine());
+                processCommand(parsedInput);
+            } catch (EmptyStatementException e) {
+                printLine();
+                System.out.println("Please type something >:(");
+            } catch (NumberFormatException e) {
+                printLine();
+                System.out.println("Exception thrown: " + e);
+                System.out.println("Please Enter A Valid Number");
+            } catch (IndexOutOfBoundsException e) {
+                printLine();
+                System.out.println("Exception thrown: " + e);
+                System.out.println("There is no such task!");
+            } catch (EmptyArgumentException e) {
+                printLine();
+                System.out.println("Please enter a proper argument >:(");
+            }
+            finally {
+                printLine();
+            }
         }
     }
 
@@ -36,50 +55,42 @@ public class Davvy {
         printStatement("goodbye");
     }
 
-    public String[] processInput (String inputText) {
+    public String[] processInput (String inputText) throws EmptyStatementException, IllegalArgumentException {
+        // String processing, \\b is used to signal the end of a word
+        String[] processedInput = inputText.split("\\b", 2);
         if (inputText.isEmpty()) {
-            printLine();
-            System.out.println("Please type something >:(");
-            printLine();
-            return null;
+            throw new EmptyStatementException();
         }
-        return inputText.split("\\b", 2);
+        // String Cleaning
+        processedInput[0] = processedInput[0].trim().toLowerCase();
+        processedInput[1] = processedInput[1].isEmpty() ? "" : processedInput[1];
+        return processedInput;
     }
 
-    public void processCommand (String[] input) {
-        String commandType = input[0].trim().toLowerCase();
-        String commandArg = input[1].isEmpty() ? "" : input[1];
+    public void processCommand (String[] input) throws EmptyArgumentException {
+        String commandType = input[0];
+        String commandArg = input[1];
+        int taskIndex = 0;
 
         switch (commandType) {
         case "list":
             TaskList.printList();
             break;
         case "mark":
-            try {
-                TaskList.getTask(parseInt(commandArg.trim()) - 1).markDone();
-            } catch (NumberFormatException e) {
-                System.out.println("Exception thrown: " + e);
-                System.out.println("Please Enter A Valid Number");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Exception thrown: " + e);
-                System.out.println("There is no such task!");
-            }
+            taskIndex = parseInt(commandArg.trim()) - 1;
+            TaskList.getTask(taskIndex).markDone();
             break;
         case "unmark":
-            try {
-                TaskList.getTask(parseInt(commandArg.trim()) - 1).markNotDone();
-            } catch (NumberFormatException e) {
-                System.out.println("Exception thrown: " + e);
-                System.out.println("Please Enter A Valid Number");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Exception thrown: " + e);
-                System.out.println("There is no such task!");
-            }
+            taskIndex = parseInt(commandArg.trim()) - 1;
+            TaskList.getTask(taskIndex).markNotDone();
             break;
         case "bye":
-            toEnd = true;
+            isExitStatus = true;
             break;
         case "todo":
+            if (commandArg.isEmpty()) {
+                throw new EmptyArgumentException();
+            }
             Todo inputTodo = new Todo(commandArg);
             TaskList.addTask(inputTodo);
             break;
@@ -89,7 +100,9 @@ public class Davvy {
                 Deadline inputDeadline = new Deadline(newCommandArg[0], newCommandArg[1]);
                 TaskList.addTask(inputDeadline);
             } else {
+                printLine();
                 System.out.println("Please put a date!");
+                printLine();
             }
             break;
         case "event":
@@ -99,11 +112,15 @@ public class Davvy {
                 Events inputEvent = new Events(newCommandArg[0], newCommandArg2[0], newCommandArg2[1]);
                 TaskList.addTask(inputEvent);
             } else {
+                printLine();
                 System.out.println("Please put a correct time!");
+                printLine();
             }
             break;
         default:
+            printLine();
             System.out.println("Unknown Command, type something I know please!");
+            printLine();
             break;
         }
     }
