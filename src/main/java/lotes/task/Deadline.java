@@ -1,3 +1,5 @@
+package lotes.task;
+
 public class Deadline extends Task {
 
     protected String by;

@@ -1,3 +1,5 @@
+package lotes.task;
+
 public class Task {
 
     protected String description;
@@ -16,7 +18,7 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ?
                 "[X]" :
-                "[ ]"); // returns X if task isDone is true
+                "[ ]"); // returns X if lotes.task isDone is true
     }
 
     public void setDone(boolean isDoneStatus) {
