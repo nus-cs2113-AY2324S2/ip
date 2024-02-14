@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
     private int id;
     private String content;

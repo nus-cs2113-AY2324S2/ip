@@ -11,7 +11,7 @@ public class UserInterface {
     public void processUserCommand(String userInput) {
         userInput = userInput.toLowerCase();
         if (userInput.equals("bye")) {
-            System.out.println("Bye. Hope to see you again soon!");
+            System.out.println("Bye. I will be awaiting your next order! ☺");
         } else if (userInput.equals("list")) {
             taskManager.showListContents();
             userInput = myScanner.nextLine();
@@ -21,13 +21,12 @@ public class UserInterface {
             userInput = myScanner.nextLine();
             processUserCommand(userInput);
         } else if (userInput.contains("todo") || userInput.contains("event") || userInput.contains("deadline")){
-            System.out.println("Got it. I've added this task:");
             taskManager.addListContents(userInput);
             userInput = myScanner.nextLine();
             processUserCommand(userInput);
         }
         else {
-            System.out.println("Please enter a valid command.");
+            System.out.println("Please enter a valid command. Here have a cup of tea as you think of your next command. ☕");
             userInput = myScanner.nextLine();
             processUserCommand(userInput);
         }

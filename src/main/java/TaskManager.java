@@ -1,40 +1,78 @@
+import Exceptions.DeadlineLackInputsException;
+import Exceptions.EventLackInputsException;
+import Exceptions.TodoLackInputsException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 public class TaskManager {
     private int numItems;
     private Task[] taskList;
 
+    public final int MAX_TASKS = 100;
+
     public TaskManager() {
         this.numItems = 0;
-        this.taskList = new Task[100];
+        this.taskList = new Task[MAX_TASKS];
     }
 
     public void addListContents(String userInput) {
         Parser myParser = new Parser();
-        String[] taskInfomation = myParser.processTaskInformation(userInput);
-        switch (taskInfomation[0]) {
-        case ("todo"):
-            this.taskList[numItems] = new Todo(numItems, taskInfomation[1], false);
-            break;
+        try {
+            String[] taskInformation = myParser.processTaskInformation(userInput);
+            switch (taskInformation[0]) {
+            case ("todo"):
+                this.taskList[numItems] = new Todo(numItems, taskInformation[1], false);
+                break;
 
-        case ("deadline"):
-            this.taskList[numItems] = new Deadline(numItems, taskInfomation[1], false, taskInfomation[2]);
-            break;
+            case ("deadline"):
+                this.taskList[numItems] = new Deadline(numItems, taskInformation[1], false, taskInformation[2]);
+                break;
 
-        case ("event"):
-            this.taskList[numItems] = new Event(numItems, taskInfomation[1], false, taskInfomation[2],
-                    taskInfomation[3]);
-            break;
+            case ("event"):
+                this.taskList[numItems] = new Event(numItems, taskInformation[1], false, taskInformation[2],
+                        taskInformation[3]);
+                break;
 
-        case ("error"):
-            System.out.println("Please give a proper input");
-            break;
+            case ("error"):
+                //should not hit this line
+                System.out.println("Please give a proper input for todo/deadline/event");
+                break;
 
-        default:
-            break;
+            default:
+                break;
+            }
+            System.out.println("Got it. I've added this task:");
+            System.out.println(taskList[numItems]);
+            this.numItems += 1;
+            String taskPluralString = numItems > 1 ? " tasks" : " task";
+            System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
+
         }
-        System.out.println(taskList[numItems]);
-        this.numItems += 1;
-        String taskPluralString = numItems > 1 ? " tasks" : " task";
-        System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
+        catch (TodoLackInputsException e) {
+            System.out.println("Your Todo task description seems to be empty. What you entered was " + userInput +
+                    ". Try typing it as 'todo <task>'");
+        }
+        catch (DeadlineLackInputsException e) {
+            System.out.println("Your Deadline task description seems to be empty. What you entered was " + userInput +
+                    ". Try typing it as 'Deadline <task> /by <due date>'");
+        }
+        catch (EventLackInputsException e) {
+            System.out.println("Your Event task description seems to be empty. What you entered was " + userInput +
+                    ". Try typing it as 'Event <task> /from <start date> /to <end date>'");
+        }
+        catch (IndexOutOfBoundsException e) {
+            // update this if /help is added
+            if (userInput.contains("deadline")) {
+                System.out.println("Your Deadline task description seems to lack inputs. What you entered was " + userInput +
+                        ". Try typing it as 'Deadline <task> /by <due date>'");
+            } else if (userInput.contains("event")) {
+                System.out.println("Your Event task description seems to be empty. What you entered was " + userInput +
+                        ". Try typing it as 'Event <task> /from <start date> /to <end date>'");
+            }
+        }
+
     }
 
     public void showListContents() {
