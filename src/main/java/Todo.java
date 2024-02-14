@@ -1,7 +1,11 @@
 public class Todo extends Task{
-    public Todo(String command) {
+    public Todo(String command) throws IllegalDescriptionException{
         super();
-        this.taskName = command.replace("todo", "").trim();
+        String description = command.replace("todo", "").trim();
+        if (description.isEmpty()) {
+            throw new IllegalDescriptionException();
+        }
+        taskName = description;
     }
 
     @Override

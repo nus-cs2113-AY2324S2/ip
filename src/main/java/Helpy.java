@@ -96,14 +96,37 @@ public class Helpy {
         }
 
         if (command.startsWith("todo")) {
-            Todo newTodo = new Todo(command);
-            taskList.add(newTodo);
+            try {
+                Todo newTodo = new Todo(command);
+                taskList.add(newTodo);
+            } catch (IllegalDescriptionException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Your todo description is empty!");
+                System.out.println(HORIZONTAL_LINE);
+                return;
+            }
         } else if (command.startsWith("deadline")) {
-            Deadline newDeadline = new Deadline(command);
-            taskList.add(newDeadline);
+            try {
+                Deadline newDeadline = new Deadline(command);
+                taskList.add(newDeadline);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Invalid format for deadline! Make sure it follows: " +
+                        "deadline <description> /by <date>");
+                System.out.println(HORIZONTAL_LINE);
+                return;
+            }
         } else if (command.startsWith("event")) {
-            Event newEvent = new Event(command);
-            taskList.add(newEvent);
+            try {
+                Event newEvent = new Event(command);
+                taskList.add(newEvent);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Invalid format for event! Make sure it's in this format: " +
+                        "event <description> /from <start date> /to <end date>");
+                System.out.println(HORIZONTAL_LINE);
+                return;
+            }
         } else {
             System.out.print(HORIZONTAL_LINE);
             System.out.println("I don't understand the command \"" + command
