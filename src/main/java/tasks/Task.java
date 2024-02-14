@@ -11,7 +11,7 @@ public class Task {
     public Task(String description, int index) {
         setDescription(description);
         setDone();
-        setCounter(index);
+        //setCounter(index);
     }
 
     // Set for description attribute
@@ -25,9 +25,9 @@ public class Task {
     }
 
     // Set index attribute of the task
-    public void setCounter(int index) {
+/*    public void setCounter(int index) {
         this.index = index;
-    }
+    }*/
 
     // Get status icon
     public String getStatusIcon() {

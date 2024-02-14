@@ -10,7 +10,24 @@ import tasks.Event;
 
 public class Duke {
 
-    // Function to mark or unmark tasks
+    public static boolean removeElement(ArrayList<Task> list, String[] splitLine, int counter) {
+        try {
+            Task t = list.get(Integer.parseInt(splitLine[1]) - 1);
+            list.remove(Integer.parseInt(splitLine[1]) - 1);
+            System.out.println("____________________________________________________________");
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(t);
+            System.out.println("Now you have " + (counter - 1) + " tasks in the list.");
+
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("Invalid index, please try again!");
+            return false;
+        }
+        return true;
+
+    }
+
+        // Function to mark or unmark tasks
     public static void userMarkOrUnmark(String command, String line, ArrayList<Task> list, int index, Task t) {
 
         // User enters Mark, proceed to check if index is valid. If valid, then mark the task number
@@ -44,12 +61,12 @@ public class Duke {
     }
 
     // Function to print the list of tasks
-    public static void userList(String line, ArrayList<Task> list) {
+    public static void userList(ArrayList<Task> list) {
             for (Task task : list) {
                 if (task == null) {
                     break;
                 }
-                System.out.println(task.index + ". " + task);
+                System.out.println(list.indexOf(task) + 1 + ". " + task);
             }
             System.out.println("____________________________________________________________");
     }
@@ -79,9 +96,9 @@ public class Duke {
 
     // Start of user input
     public static void userInput() throws DukeException {
-        Scanner scanner = new Scanner(System.in); // Declared a scanner object
-        String line; // Declared a string object to take in user input
-        ArrayList<Task> list = new ArrayList<>(); // Declared a dynamic list with Task data type
+        Scanner scanner = new Scanner(System.in);
+        String line;
+        ArrayList<Task> list = new ArrayList<>();
         int counter = 0;
         int index = 0;
         Task t = null;
@@ -104,7 +121,7 @@ public class Duke {
                         userWrongCommand();
                         break;
                     }
-                    userList(line, list);
+                    userList(list);
                     continue;
 
                 // User wants to mark or unmark tasks
@@ -126,9 +143,8 @@ public class Duke {
                         System.out.println("Invalid Syntax, please try again!");
                         continue;
                     }
-
-                    //t = new Todo(line, counter + 1);
-                    list.add(counter, t);
+                    //list.add(counter, t);
+                    list.add(t);
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
                     continue;
@@ -144,8 +160,8 @@ public class Duke {
                         System.out.println("Invalid Syntax, please try again!");
                         continue;
                     }
-                    //t = new Deadline(line, counter + 1);
-                    list.add(counter, t);
+                    //list.add(counter, t);
+                    list.add(t);
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
                     continue;
@@ -161,11 +177,17 @@ public class Duke {
                         System.out.println("Invalid Syntax, please try again!");
                         continue;
                     }
-
-                    //t = new Event(line, counter + 1);
-                    list.add(counter, t);
+                    //list.add(counter, t);
+                    list.add(t);
                     counter += 1;
                     System.out.println("Now you have " + counter + " tasks in the list.");
+                    continue;
+
+                case "delete":
+                    if (removeElement(list, splitLine, counter)) {
+                        counter -= 1;
+                    }
+
                     continue;
 
                 default:
