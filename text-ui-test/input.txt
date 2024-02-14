@@ -18,4 +18,15 @@ event gusf\ /from ;sa!] /to ~./)
 event 7ubj /from /to
 event /from vbj /to
 list
+mark 1
+mark -1
+list
+mark 2
+unmark 1
+unmark -2
+mark abc
+unmark 1a
+list
+mark
+unmark
 bye
