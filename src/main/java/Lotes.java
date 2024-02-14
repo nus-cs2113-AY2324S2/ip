@@ -2,21 +2,14 @@ import java.util.Scanner;
 
 public class Lotes {
 
-    // Setting the Scanner
-
-    public static final Scanner inputCommand = new Scanner(System.in);
+    public static final Scanner inputCommand = new Scanner(System.in); // Setting the Scanner
 
     public static void main(String[] args) {
-        TaskList taskList = new TaskList(); // Creating the TaskList object
-
         System.out.println(TaskList.greetingsMessage); // Print greetings message
 
-        while (inputCommand.hasNextLine()) { // Prompt for continuous user input
-            String userInput = inputCommand.nextLine();
+        TaskList taskList = new TaskList(); // Creating the TaskList object
 
-            if (parser.performUserInput(userInput, taskList)) { // if ixExit returns true
-                break; // Exit reading and interpreting next line
-            }
-        }
+        Parser.interpretUserInput(inputCommand, taskList); // Interprets the user input
     }
+
 }
