@@ -11,13 +11,15 @@ public class Serf {
         String receivedMessage = requestedMessage.nextLine();
 
         while(!receivedMessage.equals("bye")) {
+
             if (receivedMessage.equals("list") && taskCounter == 0) { // list is empty
                 Messages.listIsEmptyMessage();
                 receivedMessage = requestedMessage.nextLine();
                 continue;
             } else if (receivedMessage.equals("list") && taskCounter > 0) { // list is not empty
                 ConditionHandlers.listIsNotEmpty(taskList, taskCounter);
-            } else if (receivedMessage.contains("mark") && !receivedMessage.contains("unmark")) { // user keys in mark
+            } else if (receivedMessage.contains("mark") && !receivedMessage.contains("unmark")) {
+                // user keys in mark
                 ConditionHandlers.markTask(receivedMessage, taskList);
             } else if (receivedMessage.contains("unmark")) { // user keys in unmark
                 ConditionHandlers.unmarkTask(receivedMessage, taskList);
@@ -27,6 +29,8 @@ public class Serf {
                 taskCounter = ConditionHandlers.addDeadlineTaskToList(receivedMessage, taskList, taskCounter);
             } else if (receivedMessage.contains("event")) { //user keys in event
                 taskCounter = ConditionHandlers.addEventTaskToList(receivedMessage, taskList, taskCounter);
+            } else {
+                Messages.typoErrorMessage();
             }
             if (requestedMessage.hasNextLine()) { //check if user added another line
                 receivedMessage = requestedMessage.nextLine();

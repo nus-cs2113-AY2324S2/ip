@@ -1,36 +1,62 @@
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    protected String description = "";
+    protected boolean isDone = false;
     protected String startDate = "";
     protected String endDate = "";
     protected String taskType = "";
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
     }
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
     public String getDescription() {
-        return this.description;
+        try {
+            if (this.description.isEmpty() || this.description == null) {
+                throw new InvalidGetException();
+            } else {
+                return this.description;
+            }
+        } catch (InvalidGetException e){
+            Messages.invalidTaskAttributeMessage();
+            return this.description;
+        }
     }
-    public void markAsDone() {
+    public void markAsDone() { // mark done task with X
         this.isDone = true;
     }
-    public void markAsUndone() {
+    public void markAsUndone() { // unmark task by removing X
         this.isDone = false;
     }
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     public String getStartDate() {
-        return this.startDate;
+        try {
+            if (this.startDate.isEmpty() || this.startDate == null) {
+                throw new InvalidGetException();
+            } else {
+                return this.startDate;
+            }
+        } catch (InvalidGetException e){
+            Messages.invalidTaskAttributeMessage();
+            return this.startDate;
+        }
     }
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
     public String getEndDate() {
-        return this.endDate;
+        try {
+            if (this.endDate.isEmpty() || this.endDate == null) {
+                throw new InvalidGetException();
+            } else {
+                return this.endDate;
+            }
+        } catch (InvalidGetException e){
+            Messages.invalidTaskAttributeMessage();
+            return this.endDate;
+        }
     }
     public void setTaskType(String status) {
         switch(status) {
@@ -44,10 +70,20 @@ public class Task {
                 this.taskType = "E";
                 break;
             default:
+                Messages.invalidTaskTypeMessage();
                 break;
         }
     }
     public String getTaskType() {
-        return this.taskType;
+        try {
+            if (this.taskType.isEmpty() || this.taskType == null) {
+                throw new InvalidGetException();
+            } else {
+                return this.taskType;
+            }
+        } catch (InvalidGetException e){
+            Messages.invalidTaskAttributeMessage();
+            return this.taskType;
+        }
     }
 }
