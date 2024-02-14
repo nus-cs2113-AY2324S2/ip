@@ -16,7 +16,7 @@ public class OGF {
         printBreakLine();
     }
 
-    private static boolean handleInput (String input) {
+    private static boolean handleInput (String input) throws OGFException{
         switch (input.split(" ")[0]) {
             case ("bye"):
                 System.out.println("Bye bye now!");
@@ -32,8 +32,14 @@ public class OGF {
             case ("mark"):
                 //Fallthrough
             case ("unmark"):
-                int taskNo = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (!input.contains(" ")){
+                    throw new OGFException("did not indicate task to mark/unmark");
+                }
 
+                int taskNo = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (taskNo < 0 || taskNo > numItem-1){
+                    throw new OGFException("tried to mark/unmark task not in list");
+                }
                 if (input.split(" ")[0].equals("mark")) {
                     System.out.println("Good Job! I'm setting this task as done: ");
                     tasks[taskNo].setDone(true);
@@ -45,7 +51,13 @@ public class OGF {
                 printBreakLine();
                 break;
             case ("todo"):
+                if (!input.contains(" ")){
+                    throw new OGFException("empty todo");
+                }
                 String newTodoDesc = input.substring(input.indexOf(" "));
+                if (newTodoDesc.isBlank()){
+                    throw new OGFException("empty todo");
+                }
                 tasks[numItem] = new Todo(newTodoDesc);
                 printTaskAdded(tasks[numItem], numItem);
                 numItem++;
@@ -67,9 +79,8 @@ public class OGF {
                 break;
 
             default:
-                System.out.println("unrecognised input");
-                printBreakLine();
-                break;
+                throw new OGFException("unrecognised input");
+
         }
         return true;
     }
@@ -89,7 +100,16 @@ public class OGF {
         Scanner scanner = new Scanner(System.in);
         while (isRunning) {
             String input = scanner.nextLine();
-            isRunning = handleInput(input);
+            try {
+                isRunning = handleInput(input);
+            }
+            catch (OGFException error){
+                System.out.println("Uh oh! an error happened: " + error.getMessage());
+                printBreakLine();
+            }
+            catch (NumberFormatException error){
+                System.out.println("did not enter int: " + input);
+            }
             }
         }
 
