@@ -77,7 +77,7 @@
 	_____________________________________________________________________
 	 Noted. I've removed this task:
 	   [T][ ] borrow book
-	 Now you have 2 task in the list.
+	 Now you have 2 tasks in the list.
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Here are the tasks in your list:
