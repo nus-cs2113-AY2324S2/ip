@@ -8,7 +8,7 @@ public class Task {
     public int index;
 
     // constructor
-    public Task(String description, int index) {
+    public Task(String description) {
         setDescription(description);
         setDone();
         //setCounter(index);
