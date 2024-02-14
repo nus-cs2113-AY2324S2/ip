@@ -8,7 +8,7 @@ public class Gab {
 
     public static void main(String[] args) {
         String logo =
-                "  _____           __ \n"
+                          "  _____           __ \n"
                         + "/  ____|         |  |\n"
                         + "|  |  __   ____  |  |__\n"
                         + "|  | |_  |/  _   |  -   \\ \n"
