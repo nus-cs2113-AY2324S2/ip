@@ -1,3 +1,9 @@
+package Chat.tasks;
+
+import Chat.exceptions.RepeatMark;
+import Chat.exceptions.RepeatUnmark;
+import Chat.exceptions.invalidIndex;
+
 import java.util.Scanner;
 
 public class Evelyn {

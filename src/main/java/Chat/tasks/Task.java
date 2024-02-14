@@ -1,3 +1,8 @@
+package Chat.tasks;
+
+import Chat.exceptions.RepeatMark;
+import Chat.exceptions.RepeatUnmark;
+
 public class Task {
     protected TaskType type;
     protected String shortType;
