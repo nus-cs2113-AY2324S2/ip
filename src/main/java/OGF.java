@@ -1,8 +1,8 @@
 import java.util.Scanner;
 public class OGF {
-
+    private static final int MAX_ITEMS = 1;
     private static int numItem;
-    private static final Task[] tasks = new Task[100];
+    private static final Task[] tasks = new Task[MAX_ITEMS];
 
     private static boolean isRunning = true;
     private static void printBreakLine(){
@@ -51,13 +51,11 @@ public class OGF {
                 printBreakLine();
                 break;
             case ("todo"):
-                if (!input.contains(" ")){
+                if (!input.contains(" ") || input.indexOf(" ") == input.length()-1){
                     throw new OGFException("empty todo");
                 }
                 String newTodoDesc = input.substring(input.indexOf(" "));
-                if (newTodoDesc.isBlank()){
-                    throw new OGFException("empty todo");
-                }
+
                 tasks[numItem] = new Todo(newTodoDesc);
                 printTaskAdded(tasks[numItem], numItem);
                 numItem++;
@@ -109,6 +107,11 @@ public class OGF {
             }
             catch (NumberFormatException error){
                 System.out.println("did not enter int: " + input);
+                printBreakLine();
+            }
+            catch (ArrayIndexOutOfBoundsException error){
+                System.out.println("Whoops, looks like you have too many items in the list! Have less commitments next time :)");
+                printBreakLine();
             }
             }
         }
