@@ -1,3 +1,5 @@
+package command;
+
 public class Deadline extends Task {
     protected String symbol = "D";
     protected String deadline;

@@ -1,3 +1,5 @@
+package command;
+
 public class Event extends Task {
     protected String symbol = "E";
     protected String from;

@@ -1,3 +1,5 @@
+package command;
+
 public class Todo extends Task {
     protected String symbol = "T";
 

@@ -1,7 +1,8 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.MissingFormatArgumentException;
+import command.Deadline;
+import command.Event;
+import command.Task;
+import command.Todo;
+
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -67,8 +68,8 @@ public class Nick {
             }
             catch (StringIndexOutOfBoundsException exception) {
                 System.out.println(FORMAT_LINES + System.lineSeparator() +
-                        "I cannot add a Todo task which has no description. " + System.lineSeparator() +
-                        "Try adding the task description after specifying the Todo command!");
+                        "I cannot add a command.Todo task which has no description. " + System.lineSeparator() +
+                        "Try adding the task description after specifying the command.Todo command!");
                 break;
             }
         case "deadline":
