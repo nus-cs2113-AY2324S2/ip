@@ -1,4 +1,5 @@
 package task;
+
 public class Deadline extends Task {
     protected String dueTime;
     private static final int TASK_NAME_INDEX = 0;

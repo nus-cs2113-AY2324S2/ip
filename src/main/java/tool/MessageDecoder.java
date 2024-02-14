@@ -65,8 +65,10 @@ public class MessageDecoder {
         }
         int indexOfStartPrefix = message.indexOf(EVENT_START_PREFIX);
         int indexOfEndPrefix = message.indexOf(EVENT_END_PREFIX);
+        int endOfTaskName = Math.min(indexOfStartPrefix, indexOfEndPrefix);
         String[] decoded = new String[EVENT_INFO_COUNT];
-        decoded[TASK_NAME_INDEX] = message.substring(0, indexOfStartPrefix).trim();
+
+        decoded[TASK_NAME_INDEX] = message.substring(0, endOfTaskName).trim();
 
         if (indexOfEndPrefix > indexOfStartPrefix) {
             decoded[START_DATE_INDEX] = removePrefixMark(
