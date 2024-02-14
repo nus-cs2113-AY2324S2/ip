@@ -47,30 +47,43 @@ public class TaskList {
     // Mark the task number in the task list.
 
     public static void markTask(String userInput) {
-        String inputString = userInput.substring(5);
-        int taskListIndex = (Integer.parseInt(inputString) - 1);
+        try {
+            String inputString = userInput.substring(5);
+            int taskListIndex = (Integer.parseInt(inputString) - 1);
 
-        taskList[taskListIndex].setDone(true);
+            taskList[taskListIndex].setDone(true);
 
-        System.out.println(line + separator
-                + indent +" Nice! I've marked this task as done:"
-                + separator + indent + " " + taskList[taskListIndex]
-                + separator + line);
+            System.out.println(line + separator
+                    + indent +" Nice! I've marked this task as done:"
+                    + separator + indent + " " + taskList[taskListIndex]
+                    + separator + line);
 
+        } catch (NullPointerException e) {
+            System.out.println(indent + " Invalid integer input: " + e);
+
+            printTasksList();
+        }
     }
 
     //  Unmark the task number in the task list.
 
     public static void unMarkTask(String userInput) {
-        String inputString = userInput.substring(7);
-        int taskListIndex = (Integer.parseInt(inputString) - 1);
+        try {
+            String inputString = userInput.substring(7);
+            int taskListIndex = (Integer.parseInt(inputString) - 1);
 
-        taskList[taskListIndex].setDone(false);
+            taskList[taskListIndex].setDone(false);
 
-        System.out.println(line + separator
-                + indent + " OK, I've marked this task as not done yet:"
-                + separator + indent + " " + taskList[taskListIndex]
-                + separator + line);
+            System.out.println(line + separator
+                    + indent + " OK, I've marked this task as not done yet:"
+                    + separator + indent + " " + taskList[taskListIndex]
+                    + separator + line);
+
+        } catch (NumberFormatException e) {
+            System.out.println(indent + " Invalid integer input: " + e);
+
+            printTasksList();
+        }
     }
 
     // Adds a new To Do task to the task list,

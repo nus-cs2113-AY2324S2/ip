@@ -1,24 +1,23 @@
-import java.util.Scanner;
+public class parser {
 
-public class Parser {
+    // parses the user input to get the command to perform.
 
-    // Parses the user input to get the command to perform.
-
-    public static String[] parseInputCommand(String userInput) {
+    public static String parseInputCommand(String userInput) {
         String[] words = userInput.split(" ", 2);
+        String inputCommand = words[0];
 
-        return words;
+        return inputCommand;
     }
 
     // Reads and parse the user input to perform its respective actions.
 
-    public static boolean performUserInput(String userInput, TaskList taskList) throws LotesException {
+    public static boolean performUserInput(String userInput, TaskList taskList) {
         boolean isExit = false;
-        String[] command = parseInputCommand(userInput);
+        String command = parseInputCommand(userInput);
 
-        switch (command[0]) {
+        switch (command) {
         case "bye":
-            System.out.println(TaskList.goodbyeMessage);
+            System.out.println(taskList.goodbyeMessage);
             isExit = true;
             break;
         case "list":
@@ -43,48 +42,8 @@ public class Parser {
             taskList.addNewTask(userInput);
             break;
         default:
-            if(command.length < 2) {
-                throw new LotesException();
-            }
+            System.out.println("Enter something to add to your task list");
         }
         return isExit;
     }
-
-    // Handle errors by catching exceptions.
-
-    public static boolean isException(String userInput, TaskList taskList) {
-        try {
-            if (Parser.performUserInput(userInput, taskList)) { // if ixExit returns true
-                return true;
-            }
-
-        } catch (NumberFormatException e) {
-            System.out.println("Please enter enter a number without other characters.");
-
-        } catch (NullPointerException e) {
-            System.out.println("Please enter enter a number within the list.");
-
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please enter at least 2 arguments.");
-
-        } catch (LotesException e) {
-            System.out.println("Please enter a command I can understand :(");
-
-        }
-        return false;
-    }
-
-    //  Continuously Interpreting the user input
-
-    public static void interpretUserInput(Scanner inputCommand, TaskList taskList) {
-
-        while (inputCommand.hasNextLine()) { // Prompt for continuous user input
-            String userInput = inputCommand.nextLine();
-
-            if (isException(userInput, taskList)) {
-                break; // Exit reading and interpreting next line
-            }
-        }
-    }
-
 }
