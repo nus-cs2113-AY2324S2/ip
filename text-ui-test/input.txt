@@ -1,5 +1,6 @@
 todo borrow book
 list
+event Go supper /from 12am /to
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 list
@@ -17,5 +18,8 @@ list
 unmark 1
 unmark 1
 mark 50
+unmark 50
+
 list
+deadline Assingment /by
 bye
