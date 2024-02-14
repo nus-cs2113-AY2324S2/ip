@@ -12,7 +12,7 @@ public class Chris {
                 "   \\:\\  \\           /:/  /      |:|\\/__/    \\:\\__\\       \\:\\/:/  /  \n" +
                 "    \\:\\__\\         /:/  /       |:|  |       \\/__/        \\::/  /   \n" +
                 "     \\/__/         \\/__/         \\|__|                     \\/__/    ";
-        System.out.println("Hello from\n" + logo );
+        System.out.println("Hello from \n" + logo );
 
         Scanner sc = new Scanner(System.in);
         String command = "";
