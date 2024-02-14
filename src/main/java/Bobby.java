@@ -69,8 +69,14 @@ public class Bobby {
                     System.out.println("Please enter a valid deadline.");
                     break;
                 }
-                description = input.substring(9, input.indexOf("/by") - 1);
-                by = input.substring(input.indexOf("/by") + 4);
+                try {
+                    description = input.substring(9, input.indexOf("/by") - 1);
+                    by = input.substring(input.indexOf("/by") + 4);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Please enter a valid deadline task in this format:");
+                    System.out.println("deadline Return Book /by Sunday");
+                    break;
+                }
                 tasks[counter] = new Deadline(description, by);
                 System.out.println("Okay, added:\n" + tasks[counter]);
                 counter += 1;
