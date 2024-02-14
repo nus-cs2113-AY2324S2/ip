@@ -19,35 +19,45 @@ public class Spike {
 
         while (true) {
             String input = in.nextLine();
-            if (input.contentEquals("list")) {
+            switch (input.split(" ")[0]) {
+            case "list":
                 displayList(inputList);
                 iter -= 1;
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.substring(MARK_TASK_INDEX)) - 1;
-                inputList[index].setDone(true);
-                displayMarkMsg(index, inputList);
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(UNMARK_TASK_INDEX)) - 1;
-                inputList[index].setDone(false);
-                displayUnmarkMsg(index, inputList);
-            } else if (input.startsWith("todo")) {
+                break;
+            case "mark":
+                int indexMark = Integer.parseInt(input.substring(MARK_TASK_INDEX)) - 1;
+                inputList[indexMark].setDone(true);
+                displayMarkMsg(indexMark, inputList);
+                iter -= 1;
+                break;
+            case "unmark":
+                int indexUnmark = Integer.parseInt(input.substring(UNMARK_TASK_INDEX)) - 1;
+                inputList[indexUnmark].setDone(false);
+                displayUnmarkMsg(indexUnmark, inputList);
+                iter -= 1;
+                break;
+            case "todo":
                 inputList[iter] = new Todo(processTodo(input));
                 displayAcknowledgement(inputList, iter);
-            } else if (input.startsWith("deadline")) {
+                break;
+            case "deadline":
                 inputList[iter] = new Deadline(processDeadline(input));
                 displayAcknowledgement(inputList, iter);
-            } else if (input.startsWith("event")) {
+                break;
+            case "event":
                 inputList[iter] = new Event(processEvent(input));
                 displayAcknowledgement(inputList, iter);
-            } else if (input.contentEquals("bye")) {
                 break;
-            } else {
+            case "bye":
+                displayByeMsg();
+                break;
+            default:
                 System.out.println("Not valid");
                 iter -= 1;
+                break;
             }
             iter += 1;
         }
-        displayByeMsg();
     }
 
     private static void displayAcknowledgement(Task[] inputList, int iter) {
