@@ -67,22 +67,6 @@ public class Zap {
         scanner.close();
     }
 
-    /**
-     * `addTask` method adds new task to the list of tasks
-     * creates a new `Task` object with description,
-     * adds it to the `tasks` list
-     */
-    private static void addTask(String taskDescription) {
-        if (taskDescription.isEmpty()) {
-            System.out.println("Woi. You think I robot then can waste my time >:(");
-        } else {
-            tasks.add(new Task(taskDescription));
-            System.out.println("____________________________________________________________");
-            System.out.println(" added: " + taskDescription);
-            System.out.println("____________________________________________________________");
-        }
-    }
-
     private static void addTodoTask(String userCommand) {
 
         String taskDescription = userCommand.substring(4).trim();
