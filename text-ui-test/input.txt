@@ -1,13 +1,18 @@
 batman
+todo
 todo make batarangs
+deadline stop joker
 deadline stop joker's escape from arkham asylum /by tonight
 list
 mark 1
 list
+event charity
+event charity fundraising gala dinner /from sunday 5pm
 event charity fundraising gala dinner /from sunday 5pm /to sunday 11pm
 list
 mark 2
 list
 unmark 2
+mark 10
 list
 bye
