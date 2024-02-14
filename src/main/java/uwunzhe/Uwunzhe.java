@@ -1,99 +1,11 @@
 package uwunzhe;
 
+import uwunzhe.util.Printer;
+import uwunzhe.util.UserInput;
 import uwunzhe.util.TaskList;
 
-import java.util.Scanner;
 
 public class Uwunzhe {
-    // Print Constants
-    private static String botName = "Uwunzhe";
-    private static String logo = " _    _                          _          \n"
-            + "| |  | |                        | |         \n"
-            + "| |  | |_      ___   _ _ __  ___| |__   ___ \n"
-            + "| |  | \\ \\ /\\ / / | | | '_ \\|_  / '_ \\ / _ \\\n"
-            + "| |__| |\\ V  V /| |_| | | | |/ /| | | |  __/\n"
-            + " \\____/  \\_/\\_/  \\__,_|_| |_/___|_| |_|\\___|\n";
-
-    private static String lineString = "-".repeat(60);
-
-    // Scanner object to get user input
-    private static Scanner sc = new Scanner(System.in);
-
-    /**
-     * Prints the logo of the bot.
-     * 
-     * @param None
-     * @return None
-     */
-    public static void printLogo() {
-        System.out.println(logo);
-        addLineBreak();
-    }
-
-    /**
-     * Prints a horizontal line.
-     * 
-     * @param None
-     * @return None
-     */
-    public static void addLineBreak() {
-        System.out.println(lineString);
-    }
-
-    /**
-     * Initializes the bot, prints the logo and a welcome message.
-     * 
-     * @param None
-     * @return None
-     */
-    public static void printInitMsg() {
-        printLogo();
-        System.out.print("HELLO MY POSITIVE MENTALITY FLEN!! MY NAME IS ");
-        System.out.println(botName.toUpperCase() + "!!!");
-        System.out.println("Actually uh... What even do you want me to do?");
-    }
-
-    /**
-     * Exits the bot, prints a goodbye message.
-     * 
-     * @param None
-     * @return None
-     */
-    public static void printExitMsg() {
-        System.out.println("Good night my positive mentality flen, "
-                + "it is time for me to take my happy pills. Bye Bye!");
-        addLineBreak();
-    }
-
-    /**
-     * Gets user input.
-     * 
-     * @param None
-     * @return The user input.
-     */
-    public static String getInput() {
-        addLineBreak();
-        System.out.print(": ");
-        String input = sc.nextLine();
-        addLineBreak();
-        return input;
-    }
-
-    /**
-     * Gets user input.
-     * Overloaded method.
-     * 
-     * @param leadingString The string to print before the user input.
-     * @return The user input.
-     */
-    public static String getInput(String leadingString) {
-        addLineBreak();
-        System.out.print(leadingString);
-        String input = sc.nextLine();
-        addLineBreak();
-        return input;
-    }
-
     /**
      * Parses the user input and executes the corresponding command.
      * 
@@ -145,7 +57,7 @@ public class Uwunzhe {
         TaskList taskList = new TaskList();
 
         while (isRunning) {
-            String input = getInput();
+            String input = UserInput.getInput();
 
             String[] splitInput = input.split(" ", 2);
             String command = splitInput[0].toLowerCase();
@@ -158,13 +70,14 @@ public class Uwunzhe {
             }
             parseCommand(taskList, command, taskString);
         }
-
-        sc.close();
+        
+        // Close the scanner at the end of the program
+        UserInput.closeScanner();
     }
 
     public static void main(String[] args) {
-        printInitMsg();
+        Printer.printInitMsg();
         loop();
-        printExitMsg();
+        Printer.printExitMsg();
     }
 }
