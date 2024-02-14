@@ -1,3 +1,8 @@
+package artemis.processing;
+
+import artemis.tasks.*;
+import artemis.errors.Errors;
+
 public class TaskHandler {
     static int MAX_TASKS = 100;
     public static Task[] taskList = new Task[MAX_TASKS];
@@ -25,6 +30,6 @@ public class TaskHandler {
         taskList[markItem].markAsDone(isMarked);
 
         System.out.printf("alright! i have set \"%s\" as %s%s",
-                taskList[markItem].taskName, isMarked ? "complete" : "incomplete",System.lineSeparator());
+                taskList[markItem].getTaskName(), isMarked ? "complete" : "incomplete",System.lineSeparator());
     }
 }

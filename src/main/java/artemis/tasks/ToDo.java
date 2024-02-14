@@ -1,3 +1,5 @@
+package artemis.tasks;
+
 public class ToDo extends Task {
 
     public ToDo(String taskName) {
