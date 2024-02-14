@@ -108,8 +108,11 @@ public class Helpy {
             Event newEvent = new Event(command);
             taskList.add(newEvent);
         } else {
-            Task newTask = new Task(command);
-            taskList.add(newTask);
+            System.out.print(HORIZONTAL_LINE);
+            System.out.println("I don't understand the command \"" + command
+                    + "\". Can you check that you typed correctly?");
+            System.out.println(HORIZONTAL_LINE);
+            return;
         }
         addMessage(taskList);
     }
