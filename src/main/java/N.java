@@ -77,20 +77,43 @@ public class N {
         String taskDescription = "";
         switch(taskType) {
             case Event:
-                taskDescription = message.substring(5);
-                taskList[taskCount] = new Event(taskDescription, taskCount);
+                try {
+                    taskDescription = message.substring(5);
+                    taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                } catch (StringIndexOutOfBoundsException e) {
+                    printMessage("Wrong format for event task! \n" +
+                            "    Please input in this format: \n" +
+                            "    event [task] /from [start time] /to [end time]");
+                    return;
+                }
                 break;
             case Deadline:
-                taskDescription = message.substring(8);
-                taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                try {
+                    taskDescription = message.substring(8);
+                    taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                } catch (StringIndexOutOfBoundsException e) {
+                    printMessage("Wrong format for deadline task! \n" +
+                            "    Please input in this format: \n" +
+                            "    deadline [task] /by [deadline]");
+                    return;
+                } catch (EmptyTaskDescriptionException e) {
+                    printMessage("uhOh! The task or deadline cannot be empty for a deadline :o\n" +
+                            "    Please input in this format:\n" +
+                            "    deadline [task] /by [deadline]");
+                    return;
+                }
                 break;
             case ToDo:
-                taskDescription = message.substring(4);
-                taskList[taskCount] = new ToDo(taskDescription, taskCount);
+                try {
+                    taskDescription = message.substring(4);
+                    taskList[taskCount] = new ToDo(taskDescription, taskCount);
+                } catch (EmptyTaskDescriptionException e) {
+                    printMessage("uhOh! The task must be specified for a todo :o\n" +
+                            "    Please input in this format:\n" +
+                            "    todo [task]");
+                    return;
+                }
                 break;
-        }
-        if (taskDescription.isEmpty()) {
-            throw new EmptyTaskDescriptionException();
         }
         taskCount ++;
         if (taskCount <= 1) {
@@ -112,7 +135,7 @@ public class N {
             printMessage("oHno, you did not specify your task type :O");
             return;
         } catch (EmptyTaskDescriptionException e) {
-            printMessage("OoPs! Task description cannot be empty");
+            return;
         }
 
     }
