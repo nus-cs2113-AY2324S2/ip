@@ -74,7 +74,12 @@ public class TaskList {
     }
 
     public int extractInt(String input) {
-        String number = input.replaceAll("[^0-9]", "");
-        return Integer.parseInt(number);
+        try {
+            String number = input.replaceAll("[^0-9]", "");
+            return Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            System.out.println("Please tell me which task you are referring to.");
+        }
+        return 0;
     }
 }
