@@ -73,6 +73,9 @@ public class Omoh {
                 } catch (NullPointerException e) {
                     System.out.println("Please enter valid number within boundaries of list. " +
                             "Example: if list only has 2 items, dont enter beyond 2");
+                } catch (EmptyTaskNumberException e) {
+                    System.out.println("Please enter a number after mark or unmark " +
+                            "Example: mark 1");
                 }
             } else {
                 Task.addTask(line);
