@@ -14,7 +14,8 @@ public class Jake {
     }
 
     // Mark or Unmark respective task.
-    private static void toggleTask(Task[] commands, int totalTasks, String userInput, String taskType) {
+    private static void toggleTask(Task[] commands, int totalTasks, 
+            String userInput, String taskType) throws JakeException {
         int taskNumber = Integer.parseInt(userInput.substring(userInput.lastIndexOf(" ")+1));
         if (taskNumber>totalTasks){
             System.out.println("Task does not exist!");
@@ -56,7 +57,7 @@ public class Jake {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JakeException {
         System.out.println("Hello! I'm Jake\n" + "What can I do for you? \n" + LINE_STRING);
         Scanner myScanner = new Scanner(System.in);
         Task[] commands = new Task[100];
@@ -87,11 +88,17 @@ public class Jake {
                 case "todo":
                 case "deadline":
                 case "event":
-                    addTask(commands, totalTasks, userInput, taskType);
-                    totalTasks++;
-                    break;
+                    try {
+                        addTask(commands, totalTasks, userInput, taskType);
+                        totalTasks++;
+                        break;
+                    } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+                        //throw new JakeException("Invalid task! Please try again!", e);
+                        System.out.println("Invalid task! Please check your formatting!");
+                        break;
+                    } 
                 default:
-                    System.out.println("Invalid task! Please try again!");
+                    System.out.println("Command not recognised! Please try again!");
             }
 
         } while (!userInput.equals("bye"));
