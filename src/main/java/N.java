@@ -79,7 +79,7 @@ public class N {
             case Event:
                 try {
                     taskDescription = message.substring(5);
-                    taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                    taskList[taskCount] = new Event(taskDescription, taskCount);
                 } catch (StringIndexOutOfBoundsException e) {
                     printMessage("Wrong format for event task! \n" +
                             "    Please input in this format: \n" +
@@ -140,8 +140,29 @@ public class N {
 
     }
 
-    public static void handleMessages() {
-        Scanner in = new Scanner(System.in);
+    public static void unmarkTask(String message) {
+        try {
+            int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
+            changeTaskStatus(indexToUnmark - 1, false);
+        } catch (NumberFormatException e) {
+            printMessage("invalid task!");
+        } catch (IndexOutOfBoundsException e) {
+            printMessage("Task number not provided, please try again ...");
+        }
+    }
+
+    public static void markTask(String message) {
+        try {
+            int indexToMark = Integer.parseInt(message.split(" ")[1]);
+            changeTaskStatus(indexToMark - 1, true);
+        } catch (NumberFormatException e) {
+            printMessage("invalid task!");
+        } catch (IndexOutOfBoundsException e) {
+            printMessage("Task number not provided, please try again ...");
+        }
+    }
+
+    public static void handleMessages(Scanner in) {
         String message = in.nextLine();
 
         if (message.equalsIgnoreCase("bye")) {
@@ -149,30 +170,16 @@ public class N {
             printMessage("Bye. Hope to see you again soon!");
         } else if (message.equalsIgnoreCase("list")) {
             printTaskList();
-            handleMessages();
+            handleMessages(in);
         } else if (message.trim().startsWith("unmark")) {
-            try {
-                int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
-                changeTaskStatus(indexToUnmark - 1, false);
-            } catch (NumberFormatException e) {
-                printMessage("invalid task!");
-            } catch (IndexOutOfBoundsException e) {
-                printMessage("Task number not provided, please try again ...");
-            }
-            handleMessages();
+            unmarkTask(message);
+            handleMessages(in);
         } else if (message.trim().startsWith("mark")) {
-            try {
-                int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
-                changeTaskStatus(indexToUnmark - 1, true);
-            } catch (NumberFormatException e) {
-                printMessage("invalid task!");
-            } catch (IndexOutOfBoundsException e) {
-                printMessage("Task number not provided, please try again ...");
-            }
-            handleMessages();
+            markTask(message);
+            handleMessages(in);
         } else {
             addTask(message);
-            handleMessages();
+            handleMessages(in);
         }
     }
 
@@ -195,6 +202,7 @@ public class N {
         System.out.println("Hello from\n" + logo);
 
         printMessage("Hello! I'm N :) \n" + "    What can I do for you? \n");
-        handleMessages();
+        Scanner in = new Scanner(System.in);
+        handleMessages(in);
     }
 }
