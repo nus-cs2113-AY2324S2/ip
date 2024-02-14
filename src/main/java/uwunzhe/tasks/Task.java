@@ -1,4 +1,6 @@
-public class Task {
+package uwunzhe.tasks;
+
+public abstract class Task {
     protected String name;
     protected String type;
     protected boolean isDone;
