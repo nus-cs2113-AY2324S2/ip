@@ -11,6 +11,7 @@ __________________________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
 __________________________________________________
+Invalid Input for Event. Ensure that format follows event [task] [/from] [/to]
 __________________________________________________
 Got it. I've added this task:
 [D][ ] return book (by: Sunday)
@@ -85,12 +86,15 @@ OK, I've marked his task as not done yet:
 [T][ ] borrow book
 __________________________________________________
 Please enter valid number within boundaries of list. Example: if list only has 2 items, dont enter beyond 2
+Please enter valid number within boundaries of list. Example: if list only has 2 items, dont enter beyond 2
+Please enter a non empty Input!
 __________________________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 __________________________________________________
+Please enter non empty Input for Deadline in format [task] [/by] example: deadline hang clothes /by tomorrow
 __________________________________________________
 Bye. Hope to see you again soon!
 __________________________________________________

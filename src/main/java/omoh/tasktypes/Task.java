@@ -1,4 +1,7 @@
-import java.lang.invoke.SerializedLambda;
+package omoh.tasktypes;
+import omoh.Omoh;
+
+import omoh.customexceptions.EmptyTaskNumberException;
 
 public class Task {
     protected static Task[] tasks;

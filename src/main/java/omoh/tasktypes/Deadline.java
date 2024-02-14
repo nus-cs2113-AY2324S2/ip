@@ -1,3 +1,9 @@
+package omoh.tasktypes;
+
+import omoh.Omoh;
+
+import omoh.customexceptions.IllegalDeadlineInput;
+
 public class Deadline extends Task {
     protected String by;
 
