@@ -21,7 +21,7 @@ public class Event extends Task {
         //extracts from and to portion from input
         eventDetails.from = parts[1].trim();
         eventDetails.to = parts[2].trim();
-        if (eventDetails.to.isEmpty()) {
+        if (eventDetails.to.isEmpty() || eventDetails.from.isEmpty()) {
             throw new IllegalEventInput();
         }
         return eventDetails;
