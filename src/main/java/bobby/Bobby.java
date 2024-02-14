@@ -1,3 +1,5 @@
+package bobby;
+
 import java.util.Scanner;
 public class Bobby {
     public static String obtainTodoDescription(String input) throws BobbyException {
