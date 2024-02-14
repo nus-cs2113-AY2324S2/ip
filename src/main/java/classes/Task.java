@@ -1,4 +1,4 @@
-package utils;
+package classes;
 
 public class Task {
     protected String description;

@@ -1,7 +1,7 @@
 package utils;
-public final class Constants {
+public final class constants {
 
-    private Constants() {
+    private constants() {
         // restrict instantiation
     }
 
