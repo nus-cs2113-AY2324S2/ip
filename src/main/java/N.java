@@ -54,7 +54,7 @@ public class N {
         printMessage(outputMessage);
     }
 
-    public static Type filterTask(String taskDescription) {
+    public static Type filterTask(String taskDescription) throws NoTaskTypeException {
         Type taskType;
         switch (taskDescription.split(" ")[0]) {
             case "event":
@@ -63,15 +63,16 @@ public class N {
             case "deadline":
                 taskType = Type.Deadline;
                 break;
-            default:
+            case "todo":
                 taskType = Type.ToDo;
                 break;
+            default:
+                throw new NoTaskTypeException();
         };
         return taskType;
     }
 
-    public static void addTask(String message) {
-        Type taskType = filterTask(message);
+    public static void addToTaskList(Type taskType, String message) {
         String taskDescription;
         switch(taskType) {
             case Event:
@@ -101,6 +102,17 @@ public class N {
                     +taskList[taskCount - 1].toString()+
                     "\n    Now you have "+taskCount+" tasks in the list");
         }
+    }
+
+    public static void addTask(String message) {
+        try {
+            Type taskType = filterTask(message);
+            addToTaskList(taskType, message);
+        } catch (NoTaskTypeException e) {
+            printMessage("oHno, you did not specify your task type :O");
+            return;
+        }
+
     }
 
     public static void handleMessages() {
