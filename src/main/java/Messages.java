@@ -85,4 +85,26 @@ public class Messages {
         System.out.println(FIVE_WHITE_SPACES + "Now you have " + Integer.toString(taskCounter) + " tasks in the list.");
         System.out.println(VERTICAL_LINES + "\n");
     }
+    public static void typoErrorMessage() {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES + "Sorry my lord, I believe that you have made a typo");
+        System.out.println(FIVE_WHITE_SPACES + "Remember the format for messages are:");
+        System.out.println(FIVE_WHITE_SPACES + "1) Todo: 'todo (Task)'");
+        System.out.println(FIVE_WHITE_SPACES + "2) Deadline: 'deadline (Task) /by (due date)'");
+        System.out.println(FIVE_WHITE_SPACES + "3) Event: 'event (Task) /from (start date) /to (end date)'");
+        System.out.println(FIVE_WHITE_SPACES + "4) List: 'list'");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
+
+    public static void invalidTaskTypeMessage() {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES + "Invalid Task Type sire, tasks can only be todo, deadline or event");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
+    public static void invalidTaskAttributeMessage() {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES + "Invalid Task Attribute  sire. Did you forget to set this attribute?");
+        System.out.println(FIVE_WHITE_SPACES + "You get to pass for now but go back and set the attribute");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
 }
