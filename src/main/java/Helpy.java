@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -68,33 +69,43 @@ public class Helpy {
     }
 
     public static void addTask(String command, ArrayList<Task> taskList) {
-        if (command.startsWith("mark ")) {
-            String taskNum = command.substring(5);
+        if (command.startsWith("mark")) {
+            String taskNum = command.replace("mark", "");
             taskNum = taskNum.trim();
-            int taskIndex = Integer.parseInt(taskNum) - 1;
-            int arrayLength = taskList.toArray().length;
-
-            // Check if index is out of bounds
-            if ( taskIndex < 0 || taskIndex > arrayLength - 1) {
-                printIndexError();
-                return;
+            try {
+                int taskIndex = Integer.parseInt(taskNum) - 1;
+                markTask(taskList.get(taskIndex));
+            } catch (NumberFormatException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Task number provided is invalid! " +
+                        "Did you enter wrongly? You typed: " + command);
+                System.out.println(HORIZONTAL_LINE);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Task number doesn't exist! " +
+                        "Did you enter wrongly? You typed: " + command);
+                System.out.println(HORIZONTAL_LINE);
             }
-            markTask(taskList.get(taskIndex));
             return;
         }
 
-        if (command.startsWith("unmark ")) {
-            String taskNum = command.substring(7);
+        if (command.startsWith("unmark")) {
+            String taskNum = command.replace("unmark", "");
             taskNum = taskNum.trim();
-            int taskIndex = Integer.parseInt(taskNum) - 1;
-            int arrayLength = taskList.toArray().length;
-
-            // Check if index is out of bounds
-            if ( taskIndex < 0 || taskIndex > arrayLength - 1) {
-                printIndexError();
-                return;
+            try {
+                int taskIndex = Integer.parseInt(taskNum) - 1;
+                unmarkTask(taskList.get(taskIndex));
+            } catch (NumberFormatException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Task number provided is invalid! " +
+                        "Did you enter wrongly? You typed: " + command);
+                System.out.println(HORIZONTAL_LINE);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Task number doesn't exist! " +
+                        "Did you enter wrongly? You typed: " + command);
+                System.out.println(HORIZONTAL_LINE);
             }
-            unmarkTask(taskList.get(taskIndex));
             return;
         }
 
