@@ -1,4 +1,4 @@
-import Exceptions.DuckEmptyDescriptionException;
+import Exceptions.DuckInvalidToDoDescriptionException;
 
 public class ToDo extends Task{
 
@@ -16,7 +16,7 @@ public class ToDo extends Task{
         try {
             String split = userInput.substring(4);
             if (split.trim().isEmpty()) {
-                throw new DuckEmptyDescriptionException();
+                throw new DuckInvalidToDoDescriptionException();
             }
             tasks[index] = new ToDo(split);
             System.out.println(LINE_SEPARATOR);
@@ -26,7 +26,7 @@ public class ToDo extends Task{
             System.out.println(LINE_SEPARATOR);
         } catch (IndexOutOfBoundsException e){
             System.out.println("Too many items! Max 100 items");
-        } catch (DuckEmptyDescriptionException e) {
+        } catch (DuckInvalidToDoDescriptionException e) {
             System.out.println("Invalid ToDo input. Please type in format: todo [string]");
         }
         return index;
