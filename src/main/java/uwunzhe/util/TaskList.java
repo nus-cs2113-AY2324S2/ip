@@ -2,30 +2,16 @@ package uwunzhe.util;
 
 import java.util.ArrayList;
 
-import uwunzhe.tasks.Deadline;
-import uwunzhe.tasks.Event;
 import uwunzhe.tasks.Task;
+import uwunzhe.exceptions.UwunzheException;
 import uwunzhe.tasks.TaskType;
 import uwunzhe.tasks.Todo;
+import uwunzhe.tasks.Deadline;
+import uwunzhe.tasks.Event;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<Task>();
     private int size = 0;
-
-    /**
-    * Marks a task as done or not done.
-    * 
-    * @param index The index of the task in the list.
-    * @param status The status of the task.
-    * @return None
-    */
-    public void setItemStatus(int index, boolean status) {
-        try {
-            list.get(index - 1).setStatus(status);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Huhhhhhhh? I cannot find!");
-        }
-    }
 
     /**
      * Returns the size of the list.
@@ -71,39 +57,30 @@ public class TaskList {
     }
 
     /**
-     * Prints error message for invalid addItem command.
-     * 
-     * @param None
-     * @return None
-     */
-    public void addItemError() {
-        System.out.println("ACKSHUALLY you are missing something...");
-    }
+    * Marks a task as done or not done.
+    * 
+    * @param index The index of the task in the list.
+    * @param status The status of the task.
+    * @return None
+    */
+    public void setItemStatus(String command, String indexString) throws UwunzheException {
+        try {
+            int index = Integer.parseInt(indexString) - 1;
+            boolean newStatus = command.equals("mark");
+            boolean prevStatus = list.get(index).getStatus();
 
-    /**
-     * Adds a task to the list.
-     * 
-     * @param taskName The name of the task.
-     * @return None
-     */
-    public void addItem(String taskName) {
-        // Error if empty string
-        if (taskName.equals("")) {
-            this.addItemError();
-            return;
+            if (prevStatus == newStatus) {
+                throw new UwunzheException("No no no, not again...");
+            }
+
+            list.get(index).setStatus(newStatus);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new UwunzheException("Huhhhhhhh? I cannot find!");
+
+        } catch (NumberFormatException e) {
+            throw new UwunzheException("Something something not adding up...");
         }
-
-        // Create new task object, add to list and update size
-        Task task = new Task(taskName);
-        list.add(task);
-        size++;
-
-        // Echo the input
-        System.out.println("Okey dokey here we go");
-        System.out.print(" ");
-        System.out.println(list.get(size - 1));
-
-        this.printSize();
     }
 
     /**
@@ -113,61 +90,84 @@ public class TaskList {
      * @param taskName
      * @param type
      * @return None
+     * @throws UwunzheException
      */
-    public void addItem(String description, String command) {
+    public void addItem(String command, String description) throws UwunzheException {
         // Error if empty string
         if (description.equals("")) {
-            this.addItemError();
-            return;
+            throw new UwunzheException("ACKSHUALLY you are missing something...");
         }
-
-        String taskName, taskStart, taskEnd;
         
         // Convert String command to TaskType enum
         TaskType type = TaskType.valueOf(command.toUpperCase());
-        boolean isValid = true;
-
         try {
             switch (type) {
             case TODO:
-                list.add(new Todo(description));
+                addTodo(description);
                 break;
 
             case DEADLINE:
-                String[] nameEnd = description.split(" /by ", 2);
-                taskName = nameEnd[0];
-                taskEnd = nameEnd[1];
-
-                list.add(new Deadline(taskName, taskEnd));
+                addDeadline(description);
                 break;
 
             case EVENT:
-                String[] nameTimes = description.split(" /from ", 2);
-                String times = nameTimes[1];
-
-                String[] startEnd = times.split(" /to ", 2);
-                taskName = nameTimes[0];
-                taskStart = startEnd[0];
-                taskEnd = startEnd[1];
-
-                list.add(new Event(taskName, taskStart, taskEnd));
-                break;
-            
-            default:
-                isValid = false;
-                System.out.println("HUHHH? What is this even?");
+                addEvent(description);
                 break;
             }
-            
-            if (isValid) {
-                size++;
-                System.out.println("Okey dokey here we go");
-                System.out.print(" ");
-                System.out.println(list.get(size - 1));
-                this.printSize();
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            this.addItemError();
+
+            System.out.println("Okey dokey here we go");
+            System.out.print(" ");
+            System.out.println(list.get(size - 1));
+            this.printSize();
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new UwunzheException("ACKSHUALLY you are missing something...");
         }
+    }
+
+    /**
+     * Adds a todo to the list. Updates size.
+     * 
+     * @param description
+     * @return None
+     */
+    public void addTodo(String description) {
+        // String name = description;
+        list.add(new Todo(description));
+        size++;
+    }
+
+    /**
+     * Adds a deadline to the list. Updates size.
+     * 
+     * @param description
+     * @return None
+     */
+    public void addDeadline(String description) {
+        String[] nameEnd = description.split(" /by ", 2);
+        String taskName = nameEnd[0];
+        String taskEnd = nameEnd[1];
+
+        list.add(new Deadline(taskName, taskEnd));
+        size++;
+    }
+
+    /**
+     * Adds an event to the list. Updates size.
+     * 
+     * @param description
+     * @return None
+     */
+    public void addEvent(String description) {
+        String[] nameTimes = description.split(" /from ", 2);
+        String times = nameTimes[1];
+
+        String[] startEnd = times.split(" /to ", 2);
+        String taskName = nameTimes[0];
+        String taskStart = startEnd[0];
+        String taskEnd = startEnd[1];
+
+        list.add(new Event(taskName, taskStart, taskEnd));
+        size++;
     }
 }
