@@ -25,7 +25,7 @@ public class MarkCommand implements Command {
         {
             throw new BeefyException("Can you not do math, mate?");
         }
-        userTasks.markTask(taskId);
+        userTasks.markTask(taskId, false);
         Storage.updateDisk(userTasks);
     }
 

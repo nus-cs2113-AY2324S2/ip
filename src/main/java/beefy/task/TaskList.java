@@ -71,25 +71,29 @@ public class TaskList {
         Ui.printMessage(message);
     }
 
-    public void markTask(int taskId) throws BeefyException {
+    public void markTask(int taskId, boolean isInitialize) throws BeefyException {
             Task selectedTask = tasks.get(taskId - 1);
             if (selectedTask.getStatus()) {
                 throw new BeefyException("Are you blind mate?");
             } else {
                 selectedTask.setMark();
-                Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
-                        + selectedTask);
+                if (isInitialize) {
+                    Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
+                            + selectedTask);
+                }
             }
     }
 
-    public void unmarkTask(int taskId) throws BeefyException {
+    public void unmarkTask(int taskId, boolean isInitialize) throws BeefyException {
         Task selectedTask = tasks.get(taskId - 1);
         if (!selectedTask.getStatus()) {
             throw new BeefyException("Are you blind mate?");
         } else {
             selectedTask.setUnmark();
-            Ui.printMessage("WHY?! I've marked this task as not done:" + System.lineSeparator()
-                    + selectedTask);
+            if (isInitialize) {
+                Ui.printMessage("WHY?! I've marked this task as not done:" + System.lineSeparator()
+                        + selectedTask);
+            }
         }
     }
 

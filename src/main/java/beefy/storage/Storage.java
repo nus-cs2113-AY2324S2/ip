@@ -27,21 +27,21 @@ public class Storage {
                     userTasks.addTask(currParams[2], true);
                     numOfTasks++;
                     if (currParams[1].equals("TRUE")) {
-                        userTasks.markTask(numOfTasks);
+                        userTasks.markTask(numOfTasks, true);
                     }
                     break;
                 case "D":
                     userTasks.addTask(currParams[2], currParams[3], true);
                     numOfTasks++;
                     if (currParams[1].equals("TRUE")) {
-                        userTasks.markTask(numOfTasks);
+                        userTasks.markTask(numOfTasks, true);
                     }
                     break;
                 case "E":
                     userTasks.addTask(currParams[2], currParams[3], currParams[4], true);
                     numOfTasks++;
                     if (currParams[1].equals("TRUE")) {
-                        userTasks.markTask(numOfTasks);
+                        userTasks.markTask(numOfTasks, true);
                     }
                     break;
                 default:

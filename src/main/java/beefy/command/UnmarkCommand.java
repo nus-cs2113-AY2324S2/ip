@@ -25,7 +25,7 @@ public class UnmarkCommand implements Command {
         {
             throw new BeefyException("Can you not do math, mate?");
         }
-        userTasks.unmarkTask(taskId);
+        userTasks.unmarkTask(taskId, false);
         Storage.updateDisk(userTasks);
     }
 
