@@ -54,7 +54,7 @@ public class N {
         printMessage(outputMessage);
     }
 
-    public static Type filterTask(String taskDescription) {
+    public static Type filterTask(String taskDescription) throws NoTaskTypeException {
         Type taskType;
         switch (taskDescription.split(" ")[0]) {
             case "event":
@@ -63,32 +63,56 @@ public class N {
             case "deadline":
                 taskType = Type.Deadline;
                 break;
-            default:
+            case "todo":
                 taskType = Type.ToDo;
                 break;
+            default:
+                throw new NoTaskTypeException();
         };
         return taskType;
     }
 
-    public static void addTask(String message) {
-        Type taskType = filterTask(message);
-        String taskDescription;
+    public static void addToTaskList(Type taskType, String message)
+            throws EmptyTaskDescriptionException {
+        String taskDescription = "";
         switch(taskType) {
             case Event:
-                taskDescription = message.substring(5);
-                taskList[taskCount] = new Event(taskDescription, taskCount);
+                try {
+                    taskDescription = message.substring(5);
+                    taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                } catch (StringIndexOutOfBoundsException e) {
+                    printMessage("Wrong format for event task! \n" +
+                            "    Please input in this format: \n" +
+                            "    event [task] /from [start time] /to [end time]");
+                    return;
+                }
                 break;
             case Deadline:
-                taskDescription = message.substring(8);
-                taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                try {
+                    taskDescription = message.substring(8);
+                    taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                } catch (StringIndexOutOfBoundsException e) {
+                    printMessage("Wrong format for deadline task! \n" +
+                            "    Please input in this format: \n" +
+                            "    deadline [task] /by [deadline]");
+                    return;
+                } catch (EmptyTaskDescriptionException e) {
+                    printMessage("uhOh! The task or deadline cannot be empty for a deadline :o\n" +
+                            "    Please input in this format:\n" +
+                            "    deadline [task] /by [deadline]");
+                    return;
+                }
                 break;
             case ToDo:
-                taskDescription = message.substring(4);
-                taskList[taskCount] = new ToDo(taskDescription, taskCount);
-                break;
-            default:
-                taskDescription = message;
-                taskList[taskCount] = new ToDo(taskDescription, taskCount);
+                try {
+                    taskDescription = message.substring(4);
+                    taskList[taskCount] = new ToDo(taskDescription, taskCount);
+                } catch (EmptyTaskDescriptionException e) {
+                    printMessage("uhOh! The task must be specified for a todo :o\n" +
+                            "    Please input in this format:\n" +
+                            "    todo [task]");
+                    return;
+                }
                 break;
         }
         taskCount ++;
@@ -103,6 +127,19 @@ public class N {
         }
     }
 
+    public static void addTask(String message) {
+        try {
+            Type taskType = filterTask(message);
+            addToTaskList(taskType, message);
+        } catch (NoTaskTypeException e) {
+            printMessage("oHno, you did not specify your task type :O");
+            return;
+        } catch (EmptyTaskDescriptionException e) {
+            return;
+        }
+
+    }
+
     public static void handleMessages() {
         Scanner in = new Scanner(System.in);
         String message = in.nextLine();
@@ -113,13 +150,25 @@ public class N {
         } else if (message.equalsIgnoreCase("list")) {
             printTaskList();
             handleMessages();
-        } else if (message.contains("unmark")) {
-            int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
-            changeTaskStatus(indexToUnmark - 1, false);
+        } else if (message.trim().startsWith("unmark")) {
+            try {
+                int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
+                changeTaskStatus(indexToUnmark - 1, false);
+            } catch (NumberFormatException e) {
+                printMessage("invalid task!");
+            } catch (IndexOutOfBoundsException e) {
+                printMessage("Task number not provided, please try again ...");
+            }
             handleMessages();
-        } else if (message.contains("mark")) {
-            int indexToMark = Integer.parseInt(message.split(" ")[1]);
-            changeTaskStatus(indexToMark - 1, true);
+        } else if (message.trim().startsWith("mark")) {
+            try {
+                int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
+                changeTaskStatus(indexToUnmark - 1, true);
+            } catch (NumberFormatException e) {
+                printMessage("invalid task!");
+            } catch (IndexOutOfBoundsException e) {
+                printMessage("Task number not provided, please try again ...");
+            }
             handleMessages();
         } else {
             addTask(message);

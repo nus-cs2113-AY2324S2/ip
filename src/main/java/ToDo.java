@@ -1,6 +1,9 @@
 public class ToDo extends Task{
-    public ToDo(String description, int arrayIndex) {
+    public ToDo(String description, int arrayIndex) throws EmptyTaskDescriptionException {
         super(description, arrayIndex);
+        if (this.description.isEmpty()){
+            throw new EmptyTaskDescriptionException();
+        }
         this.taskType = Type.ToDo;
     }
 
