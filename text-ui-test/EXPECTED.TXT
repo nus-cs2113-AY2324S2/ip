@@ -56,10 +56,10 @@ Here are the tasks in your list:
 3.[E][ ] 2113 lecture (from: fri 4pm to: fri 6pm)
 ____________________________________________________________
 ____________________________________________________________
-please enter a valid index for mark!
+please enter a valid index!
 ____________________________________________________________
 ____________________________________________________________
-please enter a valid index for unmark!
+please enter a valid index!
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

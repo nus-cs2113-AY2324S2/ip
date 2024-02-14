@@ -1,11 +1,9 @@
 import java.util.Scanner;
 
 public class ZukeLogic {
-    private String receivedMessage;
     private final TaskList taskList;
 
     ZukeLogic() {
-        receivedMessage = "";
         taskList = new TaskList();
     }
 
@@ -13,81 +11,72 @@ public class ZukeLogic {
         Scanner userInput = new Scanner(System.in);
 
         while (userInput.hasNextLine()) {
-            receivedMessage = userInput.nextLine();
-            String[] processedMessage = MessageDecoder.separateCommand(receivedMessage);
+            String[] processedMessage = MessageDecoder.separateCommand(userInput.nextLine());
             String command = processedMessage[0];
-            String info = processedMessage.length == 1 ?
-                    "" : processedMessage[1];
+            String info = processedMessage[1];
 
-            switch(command) {
-            case "bye":
-                ResponseManager.sayGoodbye();
-                userInput.close();
-                return;
+            try {
+                switch (command) {
+                case "bye":
+                    ResponseManager.sayGoodbye();
+                    userInput.close();
+                    return;
 
-            case "list":
-                ResponseManager.listTaskToUser(taskList.listTasks());
-                break;
-
-            case "todo":
-                Task newTodo = new Todo(info);
-                taskList.add(newTodo);
-                ResponseManager.sendTaskAddedToUser(newTodo +
-                        "\n" + taskList);
-                break;
-
-            case "deadline":
-                String[] deadlineInfo = MessageDecoder.decodeDeadline(info);
-                Task newDeadline = new Deadline(deadlineInfo);
-                taskList.add(newDeadline);
-                ResponseManager.sendTaskAddedToUser(newDeadline +
-                        "\n" + taskList);
-                break;
-
-            case "event":
-                String[] eventInfo = MessageDecoder.decodeEvent(info);
-                Task newEvent = new Event(eventInfo);
-                taskList.add(newEvent);
-                ResponseManager.sendTaskAddedToUser(newEvent +
-                        "\n" + taskList);
-                break;
-
-            case "mark" :
-                String markIndexStr =
-                        MessageDecoder.removePrefixMark(receivedMessage, "mark").trim();
-
-                if (!markIndexStr.matches("\\d+") ||
-                        Integer.parseInt(markIndexStr) > taskList.getSize()) {
-                    ResponseManager.printErrorMessage("mark");
+                case "list":
+                    ResponseManager.listTaskToUser(taskList.listTasks());
                     break;
-                }
 
-                int markIndex = Integer.parseInt(markIndexStr);
-                taskList.markTask(markIndex);
-                ResponseManager.printMarkOrUnMarkTask("mark",
-                        taskList.getPosAt(markIndex).toString());
-                break;
-
-            case "unmark" :
-                String unmarkIndexStr =
-                        MessageDecoder.removePrefixMark(receivedMessage, "unmark").trim();
-
-                if (!unmarkIndexStr.matches("\\d+") ||
-                        Integer.parseInt(unmarkIndexStr) > taskList.getSize()) {
-                    ResponseManager.printErrorMessage("unmark");
+                case "todo":
+                    String todo = MessageDecoder.decodeTodo(info);
+                    Task newTodo = new Todo(todo);
+                    taskList.add(newTodo);
+                    ResponseManager.sendTaskAddedToUser(newTodo +
+                            "\n" + taskList);
                     break;
+
+                case "deadline":
+                    String[] deadlineInfo = MessageDecoder.decodeDeadline(info);
+                    Task newDeadline = new Deadline(deadlineInfo);
+                    taskList.add(newDeadline);
+                    ResponseManager.sendTaskAddedToUser(newDeadline +
+                            "\n" + taskList);
+                    break;
+
+                case "event":
+                    String[] eventInfo = MessageDecoder.decodeEvent(info);
+                    Task newEvent = new Event(eventInfo);
+                    taskList.add(newEvent);
+                    ResponseManager.sendTaskAddedToUser(newEvent +
+                            "\n" + taskList);
+                    break;
+
+                case "mark":
+                    int markIndex = MessageDecoder.decodeToggleMark(info);
+                    if (markIndex > taskList.getSize()) {
+                        throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+                    }
+                    taskList.markTask(markIndex);
+                    ResponseManager.printMarkOrUnMarkTask("mark",
+                            taskList.getPosAt(markIndex).toString());
+                    break;
+
+                case "unmark":
+                    int unmarkIndex = MessageDecoder.decodeToggleMark(info);
+                    if (unmarkIndex > taskList.getSize()) {
+                        throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+                    }
+                    taskList.unmarkTask(unmarkIndex);
+                    ResponseManager.printMarkOrUnMarkTask("unmark",
+                            taskList.getPosAt(unmarkIndex).toString());
+                    break;
+
+                default:
+                    throw new InputException(ResponseManager.COMMAND_ERROR);
                 }
-
-                int unmarkIndex = Integer.parseInt(unmarkIndexStr);
-                taskList.unmarkTask(unmarkIndex);
-                ResponseManager.printMarkOrUnMarkTask("unmark",
-                        taskList.getPosAt(unmarkIndex).toString());
-                break;
-
-            default:
-                ResponseManager.printErrorMessage("error");
-                break;
+            } catch (InputException error) {
+                ResponseManager.indentPrint(error.getMessage());
             }
+
         }
     }
 }
