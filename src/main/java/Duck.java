@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Duck {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final int MAX_TASKS = 100;
@@ -17,29 +17,39 @@ public class Duke {
                 " |_____/ \\____/ \\_____|_|\\_\\");
 
         Task[] tasks = new Task[MAX_TASKS]; //stores Tasks in array called tasks
-        String userInput;
         int index = 0; //index of where the userInput is stored in texts
-        do {
-            Scanner in = new Scanner(System.in);
-            userInput = in.nextLine();
-            if (userInput.equals("list")) {
-                Task.listTasks(tasks,index);
-                System.out.println(LINE_SEPARATOR + "\n");
-            } else if(userInput.startsWith("mark ")) {
-                Task.markTask(tasks, userInput, index);
-            } else if(userInput.startsWith("unmark ")) {
-                Task.unmarkTask(tasks, userInput, index);
-            } else if(userInput.startsWith("todo ")) {
-                index = ToDo.addToDo(tasks, userInput, index);
-            } else if (userInput.startsWith("deadline ")) {
-                index = Deadline.addDeadline(tasks, userInput, index);
-            } else if (userInput.startsWith("event ")) {
-                index = Event.addEvent(tasks, userInput, index);
-            }
-        } while (!userInput.equals("bye"));
+        handleUserInput(tasks, index);
+    }
 
-        System.out.println(LINE_SEPARATOR + "\n" +
-                "Bye. Hope to see you again soon!\n" +
-                LINE_SEPARATOR);
+    private static void handleUserInput(Task[] tasks, int index) {
+        boolean isFinished = false; //isFinished will be true if user types in bye and the program is finished and terminates
+
+        while (!isFinished) {
+            try {
+                Scanner in = new Scanner(System.in);
+                String userInput = in.nextLine();
+                if (userInput.equals("list")) {
+                    Task.listTasks(tasks, index);
+                    System.out.println(LINE_SEPARATOR + "\n");
+                } else if (userInput.startsWith("mark ")) {
+                    Task.markTask(tasks, userInput, index);
+                } else if (userInput.startsWith("unmark ")) {
+                    Task.unmarkTask(tasks, userInput, index);
+                } else if (userInput.startsWith("todo ")) {
+                    index = ToDo.addToDo(tasks, userInput, index);
+                } else if (userInput.startsWith("deadline ")) {
+                    index = Deadline.addDeadline(tasks, userInput, index);
+                } else if (userInput.startsWith("event ")) {
+                    index = Event.addEvent(tasks, userInput, index);
+                } else if (userInput.startsWith("bye")) {
+                    System.out.println(LINE_SEPARATOR + "\n" + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR);
+                    isFinished = true;
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Sorry, that is not a valid command. Please try again!");
+            }
+        }
     }
 }
