@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class GermaBot {
     static int counter = 0;
+    static final String LINE= "____________________________________________";
     static Task[] toDoList = new Task[100];
     public static int getIdx(String input) {
         return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
@@ -9,15 +10,27 @@ public class GermaBot {
 
     public static void echo(String input) {
         if (input.contains("todo")) {
-            System.out.println("Gotcha! Added '" + input + "' to your To Do List!");
+            String toDoTask = input.substring(input.indexOf("todo ") + 5);
+            System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
         }
         else if (input.contains("deadline")) {
-            System.out.println("Gotcha! Added '" + input + "' to your To Do List!" +
-                    " You have to finish this by a certain time, so be reminded!");
+            String description = input.replaceFirst("deadline ", "");
+            int idxOfEndDate = description.indexOf("/");
+            String toDoTask = description.substring(0, idxOfEndDate - 1);
+            String Date = description.substring(idxOfEndDate + 4);
+            System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
+                    " You have to finish this by "  + Date + ", so be reminded!");
         }
         else if (input.contains("event")) {
-            System.out.println("Gotcha! Added '" + input + "' to your To Do List!" +
-                    " This happens and ends at a specific time, so remember to check your calender! (Or ask me!)");
+            String description = input.replaceFirst("event ", "");
+            int idxOfFrom = description.indexOf("/from");
+            int idxOfBy = description.indexOf("/to");
+            String startDate = description.substring(idxOfFrom + 6, idxOfBy - 1);
+            String endDate = description.substring(idxOfBy + 4);
+            String toDoTask = description.substring(0, idxOfFrom - 1);
+            System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
+                    " This will happen from " + startDate + " to " + endDate + ", so please remember to mark it" +
+                    " on your calender! (Or ask me!)");
         }
         else {
             System.out.println("Uhh.. I'm sorry but I'm not quite sure what '" + input + "' means..." +
@@ -59,11 +72,11 @@ public class GermaBot {
     }
 
     public static void main(String[] args) {
-        String WelcomeMessage = "____________________ \n"
-                + "Hello! GermaBot here! \n"
-                + "What may I do for you this fine day? \n"
-                + "____________________";
+        String WelcomeMessage = "Hello! GermaBot here! \n"
+                + "What may I do for you this fine day?";
+        System.out.println(LINE);
         System.out.println(WelcomeMessage);
+        System.out.println(LINE);
         while (true) {
             String input;
             Scanner in = new Scanner(System.in);
@@ -96,9 +109,9 @@ public class GermaBot {
                 createTask(input);
             }
         }
-        String GoodbyeMessage = "____________________ \n"
-                + "Thanks for using me! Hope you again soon~! \n"
-                + "____________________";
+        String GoodbyeMessage = "Thanks for using me! Hope you again soon~!";
+        System.out.println(LINE);
         System.out.println(GoodbyeMessage);
+        System.out.println(LINE);
     }
 }
