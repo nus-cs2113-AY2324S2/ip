@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Todolist {
+
+    String Icon = "T";
     private static final int MAX_LIST_LENGTH = 100;
     static String[] todolist = new String[MAX_LIST_LENGTH];
     static boolean[] isDoneList = new boolean[MAX_LIST_LENGTH];
@@ -69,7 +71,7 @@ public class Todolist {
             if(s == null){
                 continue;
             }
-            System.out.printf("%d."+GetIcon(i)+s+"\n",i);
+            System.out.printf("%d."+ GetIcon(i)+s+"\n",i);
             i++;
         }
         System.out.print("---------------------------------------------\n");
