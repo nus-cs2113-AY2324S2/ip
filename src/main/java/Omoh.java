@@ -52,7 +52,11 @@ public class Omoh {
                 Deadline.addDeadline(line);
             }
             else if (line.startsWith("todo")) {
-                Todo.addTodo(line);
+                try {
+                    Todo.addTodo(line);
+                } catch (EmptyTodoException e) {
+                    System.out.println("Todo cannot be empty! Please key in input in this format [Todo] [task] [/by] ");
+                }
             }
             else if (line.startsWith("event")) {
                 Event.addEvent(line);

@@ -4,9 +4,12 @@ public class Todo extends Task {
         this.type = "T";
     }
 
-    public static void addTodo (String input) {
+    public static void addTodo (String input) throws EmptyTodoException {
         //extracts task portion from input, after the "todo" keyword
         String description = input.substring("todo".length()).trim();
+        if (description.isEmpty()) {
+            throw new EmptyTodoException();
+        }
         Task.tasks[Task.totalTasks] = new Todo(description);
         Task.totalTasks++;
         printTodoMessage(Task.tasks[Task.totalTasks - 1]);
