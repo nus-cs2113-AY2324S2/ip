@@ -1,3 +1,8 @@
+package omoh.tasktypes;
+import omoh.Omoh;
+
+import omoh.customexceptions.EmptyTodoException;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

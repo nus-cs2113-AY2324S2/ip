@@ -1,3 +1,9 @@
+package omoh.tasktypes;
+
+import omoh.customexceptions.IllegalEventInput;
+import omoh.Omoh;
+
+
 public class Event extends Task {
     protected String from;
     protected String to;

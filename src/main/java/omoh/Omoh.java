@@ -1,3 +1,12 @@
+package omoh;
+
+import omoh.customexceptions.EmptyTaskNumberException;
+import omoh.customexceptions.EmptyTodoException;
+import omoh.tasktypes.Deadline;
+import omoh.tasktypes.Event;
+import omoh.tasktypes.Task;
+import omoh.tasktypes.Todo;
+
 import java.util.Scanner;
 
 
