@@ -11,7 +11,7 @@ public class UserInterface {
     public void processUserCommand(String userInput) {
         userInput = userInput.toLowerCase();
         if (userInput.equals("bye")) {
-            System.out.println("Bye. I will be awaiting your next order");
+            System.out.println("Bye. I will be awaiting your next order! ☺");
         } else if (userInput.equals("list")) {
             taskManager.showListContents();
             userInput = myScanner.nextLine();

@@ -1,14 +1,20 @@
 import Exceptions.DeadlineLackInputsException;
 import Exceptions.EventLackInputsException;
 import Exceptions.TodoLackInputsException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
 
 public class TaskManager {
     private int numItems;
     private Task[] taskList;
 
+    public final int MAX_TASKS = 100;
+
     public TaskManager() {
         this.numItems = 0;
-        this.taskList = new Task[100];
+        this.taskList = new Task[MAX_TASKS];
     }
 
     public void addListContents(String userInput) {
