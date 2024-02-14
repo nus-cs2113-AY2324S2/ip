@@ -1,3 +1,7 @@
+package taskmanager;
+
+import newexceptions.InvalidGetException;
+
 public class Task {
     protected String description = "";
     protected boolean isDone = false;

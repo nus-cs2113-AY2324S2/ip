@@ -1,3 +1,7 @@
+import taskmanager.ConditionHandlers;
+import taskmanager.Messages;
+import taskmanager.Task;
+
 import java.util.Scanner;
 
 public class Serf {
