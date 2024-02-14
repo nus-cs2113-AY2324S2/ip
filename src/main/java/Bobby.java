@@ -1,5 +1,12 @@
 import java.util.Scanner;
 public class Bobby {
+    public static String obtainTodoDescription(String input) throws BobbyException {
+        if (input.length() < 5 || input.substring(5).trim().isEmpty()) {
+            throw new BobbyException();
+        }
+        return input.substring(5);
+    }
+
     public static void main(String[] args) {
         int counter = 0;
         boolean isExit = false;
@@ -46,11 +53,12 @@ public class Bobby {
                 }
                 break;
             case "todo":
-                if (input.length() < 5 || input.substring(5).trim().isEmpty()) {
+                try {
+                    description = obtainTodoDescription(input);
+                } catch (BobbyException e) {
                     System.out.println("Please enter a valid task.");
                     break;
                 }
-                description = input.substring(5);
                 tasks[counter] = new Todo(description);
                 System.out.println("Okay, added:\n" + tasks[counter]);
                 counter += 1;
