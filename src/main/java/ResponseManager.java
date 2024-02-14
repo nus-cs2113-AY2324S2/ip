@@ -6,18 +6,23 @@ public class ResponseManager {
             " ███╔╝  ██║   ██║██╔═██╗ ██╔══╝  \n" +
             "███████╗╚██████╔╝██║  ██╗███████╗\n" +
             "╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝\n";
+    public static final String TODO = "todo\n";
+    public static final String DEADLINE = "deadline\n";
+    public static final String EVENT = "event\n";
     private static final String INDENTATION_LINE =
             "____________________________________________________________";
     private static final String BYE_MESSAGE =
             "Bye. Hope to see you again soon!\n";
     private static final String TASK_ADDED_MESSAGE =
             "Got it. I've added this task:\n";
-    private static final String MARK_ERROR_MESSAGE =
-            "please enter a valid index for mark!\n";
-    private static final String UNMARK_ERROR_MESSAGE =
-            "please enter a valid index for unmark!\n";
-    private static final String STANDARD_ERROR_MESSAGE =
-            "sorry, I don't get your words :(\n";
+    public static final String INDEX_ERROR_MESSAGE =
+            "please enter a valid index!\n";
+    public static final String COMMAND_ERROR =
+            "please enter a valid command\n";
+    public static final String FORMAT_ERROR_MESSAGE =
+            "please follow the valid format for ";
+    public static final String BLANK_MSG_ERROR =
+            "make sure the required field is not empty.\n hit /h for help\n";
     private static final String LIST_TASK_MESSAGE =
             "Here are the tasks in your list:\n";
     private static final String UNMARKED_MESSAGE =
@@ -25,6 +30,7 @@ public class ResponseManager {
     private static final String MARKED_MESSAGE =
             "Nice! I've marked this task as done:\n";
     private static final String END_LINE = System.lineSeparator();
+
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
         System.out.println(response + INDENTATION_LINE);
@@ -62,21 +68,5 @@ public class ResponseManager {
             break;
         }
 
-    }
-
-    public static void printErrorMessage(String errorType) {
-        switch(errorType) {
-        case "mark":
-            indentPrint(MARK_ERROR_MESSAGE);
-            break;
-
-        case "unmark":
-            indentPrint(UNMARK_ERROR_MESSAGE);
-            break;
-
-        default:
-            indentPrint(STANDARD_ERROR_MESSAGE);
-            break;
-        }
     }
 }
