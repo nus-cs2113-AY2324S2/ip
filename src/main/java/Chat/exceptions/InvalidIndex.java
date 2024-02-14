@@ -1,5 +1,5 @@
 package Chat.exceptions;
 
-public class invalidIndex extends Exception{
+public class InvalidIndex extends Exception{
     //no code needed
 }

@@ -2,7 +2,7 @@ package Chat.tasks;
 
 import Chat.exceptions.RepeatMark;
 import Chat.exceptions.RepeatUnmark;
-import Chat.exceptions.invalidIndex;
+import Chat.exceptions.InvalidIndex;
 
 import java.util.Scanner;
 
@@ -11,9 +11,9 @@ public class Evelyn {
     public static Task[] tasks;
     public static int indexOfTask = 0;
 
-    public static void markTask(int index, boolean done) throws invalidIndex, RepeatMark, RepeatUnmark {
+    public static void markTask(int index, boolean done) throws InvalidIndex, RepeatMark, RepeatUnmark {
         if(index < 0 || index >= indexOfTask){
-            throw new invalidIndex();
+            throw new InvalidIndex();
         }
 
         if (done) {
@@ -67,7 +67,7 @@ public class Evelyn {
                 int index = Integer.parseInt(line.substring(5).trim()) - 1;
                 try {
                     markTask(index, true);
-                } catch (invalidIndex e){
+                } catch (InvalidIndex e){
                     System.out.println("Invalid task index, please try again!");
                 } catch (RepeatMark | RepeatUnmark e){
                     System.out.println("This task is already marked.");
@@ -85,7 +85,7 @@ public class Evelyn {
                 catch (RepeatMark | RepeatUnmark e){
                     System.out.println("This task is already marked.");
                 }
-                catch(invalidIndex e){
+                catch(InvalidIndex e){
                     System.out.println("Invalid task index, please try again!");
                 }
             } catch(NumberFormatException e){
