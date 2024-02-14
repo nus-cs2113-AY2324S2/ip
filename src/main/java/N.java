@@ -113,13 +113,25 @@ public class N {
         } else if (message.equalsIgnoreCase("list")) {
             printTaskList();
             handleMessages();
-        } else if (message.contains("unmark")) {
-            int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
-            changeTaskStatus(indexToUnmark - 1, false);
+        } else if (message.trim().startsWith("unmark")) {
+            try {
+                int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
+                changeTaskStatus(indexToUnmark - 1, false);
+            } catch (NumberFormatException e) {
+                printMessage("invalid task!");
+            } catch (IndexOutOfBoundsException e) {
+                printMessage("Task number not provided, please try again ...");
+            }
             handleMessages();
-        } else if (message.contains("mark")) {
-            int indexToMark = Integer.parseInt(message.split(" ")[1]);
-            changeTaskStatus(indexToMark - 1, true);
+        } else if (message.trim().startsWith("mark")) {
+            try {
+                int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
+                changeTaskStatus(indexToUnmark - 1, true);
+            } catch (NumberFormatException e) {
+                printMessage("invalid task!");
+            } catch (IndexOutOfBoundsException e) {
+                printMessage("Task number not provided, please try again ...");
+            }
             handleMessages();
         } else {
             addTask(message);
