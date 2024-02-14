@@ -61,8 +61,7 @@ public class Zap {
             } else if (userCommand.startsWith("event")) {
                 addEvent(userCommand);
             } else {
-                System.out.println(userCommand);
-                addTask(userCommand);
+                System.out.println("proper english pls. don't waste time already >:(");
             }
         } while (true);
         scanner.close();
@@ -87,16 +86,21 @@ public class Zap {
     private static void addTodoTask(String userCommand) {
 
         String taskDescription = userCommand.substring(4).trim();
-        tasks.add(new TodoTask(taskDescription));
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Zappy boy added this task:");
-        System.out.println("   [T][ ]  " + taskDescription);
-        if (tasks.size() == 1) {
-            System.out.println(" Now you have 1 task in the list.");
+        if (taskDescription.isEmpty()) {
+            System.out.println("Woi. You think I robot then can waste my time. Gimme description >:(");
         } else {
-            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            tasks.add(new TodoTask(taskDescription));
+
+            System.out.println("____________________________________________________________");
+            System.out.println(" Got it. Zappy boy added this task:");
+            System.out.println("   [T][ ]  " + taskDescription);
+            if (tasks.size() == 1) {
+                System.out.println(" Now you have 1 task in the list.");
+            } else {
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            }
+            System.out.println("____________________________________________________________");
         }
-        System.out.println("____________________________________________________________");
     }
 
     private static void addDeadline(String userCommand) {
