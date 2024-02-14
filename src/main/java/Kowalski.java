@@ -45,10 +45,16 @@ public class Kowalski {
         }
     }
 
-    public static void parseUserCommand(String UserCommand){
+    public static void printCurrentTaskItems(){
+        for (int i = 1; i <= currentTask.size(); i++){
+            System.out.println(i + "." + currentTask.get(i-1));
+        }
+    }
+
+    public static void parseUserCommand(String UserCommand) {
 
         int taskNumber;
-        int lastTaskIndex = currentTask.size() - 1;
+        int lastTaskIndex;
         String remainingCommand;
 
         switch (UserCommand){
@@ -56,19 +62,20 @@ public class Kowalski {
             break;
 
         case "list":
-            for (int i = 1; i <= currentTask.size(); i++){
-                    System.out.println(i + "." + currentTask.get(i-1));
-                }
+
+            printCurrentTaskItems();
             System.out.println(DIVIDING_LINE);
             break;
 
         case "unmark":
             taskNumber = in.nextInt();
 
-            if(taskNumber >= 0 || taskNumber < lastTaskIndex ){
+            try{
                 currentTask.get(taskNumber - 1).markAsNotDone();
-                System.out.println( "Nice! I've marked this task as done:");
+                System.out.println( "C'mon Skipper, you're much better than that! I've marked this task as undone:");
                 System.out.println("  " + currentTask.get(taskNumber - 1));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid Task Number! Skipper stop acting like Private!");
             }
             System.out.println(DIVIDING_LINE);
             break;
@@ -76,10 +83,12 @@ public class Kowalski {
         case "mark":
             taskNumber = in.nextInt();
 
-            if(taskNumber >= 0 || taskNumber < lastTaskIndex ){
+            try{
                 currentTask.get(taskNumber - 1).markAsDone();
-                System.out.println( "Nice! I've marked this task as done:");
+                System.out.println( "Way to go Skipper! I've marked this task as done:");
                 System.out.println("  " + currentTask.get(taskNumber - 1));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid Task Number! Skipper stop acting like Private!");
             }
             System.out.println(DIVIDING_LINE);
             break;
@@ -91,7 +100,7 @@ public class Kowalski {
             currentTask.add(newToDoTask);
             lastTaskIndex = currentTask.size() - 1;
 
-            System.out.println("Got it. I've added this task:");
+            System.out.println("Skipper you've got this work to do:");
             System.out.println("  " + currentTask.get( lastTaskIndex));
             printCurrentTaskMessage(currentTask.size());
             System.out.println(DIVIDING_LINE);
@@ -111,12 +120,13 @@ public class Kowalski {
                 currentTask.add(newDeadlineTask);
                 lastTaskIndex = currentTask.size() - 1;
 
-                System.out.println("Got it. I've added this task:");
+                System.out.println("Skipper, I have recorded this deadline:");
                 System.out.println("  " + currentTask.get( lastTaskIndex));
                 printCurrentTaskMessage(currentTask.size());
                 System.out.println(DIVIDING_LINE);
             } else {
-                System.out.println("Something wrong with the input! Please try again!");
+                System.out.println("Skipper your inputs are wrong! Don't be sorry, be better!");
+                //throw new KowalskiException();
             }
             break;
 
@@ -133,12 +143,13 @@ public class Kowalski {
                 currentTask.add(newEventTask);
                 lastTaskIndex = currentTask.size() - 1;
 
-                System.out.println("Got it. I've added this task:");
+                System.out.println("Skipper I've noted this event in my calendar:");
                 System.out.println("  " + currentTask.get(lastTaskIndex));
                 printCurrentTaskMessage(currentTask.size());
                 System.out.println(DIVIDING_LINE);
             } else {
-                System.out.println("Something wrong with the input! Please try again!");
+                System.out.println("Skipper your inputs are wrong! Don't be sorry, be better!");
+                //throw new KowalskiException();
             }
             break;
 
