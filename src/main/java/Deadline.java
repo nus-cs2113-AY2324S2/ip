@@ -1,3 +1,5 @@
+import Exceptions.DuckInvalidDeadlineDescriptionException;
+
 public class Deadline extends Task{
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
@@ -10,13 +12,20 @@ public class Deadline extends Task{
     }
 
     public static int addDeadline(Task[] tasks, String userInput, int index) {
-        String[] split = userInput.split("/");
-        tasks[index] = new Deadline(split[0].substring(9), split[1]);
-        System.out.println(LINE_SEPARATOR);
-        System.out.println(ADDED_MESSAGE + tasks[index]);
-        index++;
-        System.out.println("Now you have " + index + " tasks in the list.");
-        System.out.println(LINE_SEPARATOR);
+        try {
+            String[] split = userInput.split("/");
+            if (split.length != 2 || !split[1].startsWith("by ")) { //throws exception if the inputs are not to program specifications
+                throw new DuckInvalidDeadlineDescriptionException();
+            }
+            tasks[index] = new Deadline(split[0].substring(9), split[1]);
+            System.out.println(LINE_SEPARATOR);
+            System.out.println(ADDED_MESSAGE + tasks[index]);
+            index++;
+            System.out.println("Now you have " + index + " tasks in the list.");
+            System.out.println(LINE_SEPARATOR);
+        } catch (DuckInvalidDeadlineDescriptionException e) {
+            System.out.println("Invalid Event input. Please type in format: deadline [string] /by [string]");
+        }
         return index;
     }
 
