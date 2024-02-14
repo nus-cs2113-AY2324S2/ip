@@ -1,5 +1,6 @@
+package exception;
 public class InputException extends Exception {
-    InputException (String errorMessage) {
+    public InputException (String errorMessage) {
         super(errorMessage);
     }
 }

@@ -1,3 +1,6 @@
+package tool;
+
+import exception.InputException;
 public class MessageDecoder {
     private static final String DEADLINE_PREFIX = "/by";
     private static final String EVENT_START_PREFIX = "/from";

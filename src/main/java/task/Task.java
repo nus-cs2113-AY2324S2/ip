@@ -1,8 +1,9 @@
+package task;
 public class Task {
     protected boolean isDone;
     protected final String description;
 
-    Task(String description) {
+    public Task(String description) {
         this.isDone = false;
         this.description = description;
     }

@@ -1,3 +1,4 @@
+package task;
 public class Event extends Task {
     protected String startTime;
     protected String dueTime;
@@ -5,7 +6,7 @@ public class Event extends Task {
     private static final int START_DATE_INDEX = 1;
     private static final int END_DATE_INDEX = 2;
 
-    Event(String[] eventInfo) {
+    public Event(String[] eventInfo) {
         this(eventInfo[TASK_NAME_INDEX],
                 eventInfo[END_DATE_INDEX],
                 eventInfo[START_DATE_INDEX]);
