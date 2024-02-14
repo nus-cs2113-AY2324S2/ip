@@ -16,10 +16,19 @@ public class Console {
             + "What can I do for you?";
     private final static String GOODBYE = "Bye. Hope to see you again soon!";
 
+    private final static String ERROR = "Sorry bro I didn't quite get what you wanna do. Please enter a valid command.";
+
+
     public static void printWelcomeMessage() {
         System.out.println(NAME);
         System.out.println(LINEBREAK);
         System.out.println(GREETING);
+        System.out.println(LINEBREAK);
+    }
+
+    public static void printErrorMessage() {
+        System.out.println(LINEBREAK);
+        System.out.println(ERROR);
         System.out.println(LINEBREAK);
     }
 
@@ -29,6 +38,9 @@ public class Console {
             Command command = Command.getFirstWord(line);
             String description = Command.getDescription(line);
 
+            if (command == null) {
+                continue;
+            }
             switch (command) {
             case BYE:
                 return;

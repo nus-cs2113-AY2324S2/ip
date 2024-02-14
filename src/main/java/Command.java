@@ -8,7 +8,12 @@ public enum Command {
     EVENT;
 
     public static Command getCommand(String type) {
-        return Command.valueOf(type.toUpperCase());
+        try {
+            return Command.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            Console.printErrorMessage();
+            return null;
+        }
     }
 
     public static Command getFirstWord(String input) {
