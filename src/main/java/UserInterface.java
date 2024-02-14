@@ -60,27 +60,46 @@ public class UserInterface {
 
              switch (commandGiven) {
              case TODO:
-                 currentTask = TaskHandler.createToDo(userInput);
+                 try {
+                     currentTask = TaskHandler.createToDo(userInput);
+                 } catch (Errors.InvalidTodoException e) {
+                     System.out.println("[artemis]: invalid todo given. please enter \"todo <task>\"");
+                     continue;
+                 }
                  break;
              case DEADLINE:
-                 currentTask = TaskHandler.createDeadline(userInput);
+                 try {
+                     currentTask = TaskHandler.createDeadline(userInput);
+                 } catch (Errors.InvalidDeadlineException e) {
+                     System.out.println("[artemis]: invalid deadline given. please enter \"deadline <task> /by <deadline of task>\"");
+                     continue;
+                 }
                  break;
              case EVENT:
-                 currentTask = TaskHandler.createEvent(userInput);
+                 try {
+                     currentTask = TaskHandler.createEvent(userInput);
+                 } catch (Errors.InvalidEventException e) {
+                     System.out.println("[artemis]: invalid event given. please enter \"event <event title> /from <start datetime> /to <end datetime>\"");
+                     continue;
+                 }
                  break;
              case LIST:
                  printList();
                  continue;
              case MARK:
              case UNMARK:
-                 Object[] parsedContent = Parser.parseMarkUnmark(userInput);
-                 if (parsedContent[1] == null) {
-                     System.out.println("[artemis]: invalid command. please enter \"[mark/unmark] <list item number>\"");
+                 try {
+                    Object[] parsedContent = Parser.parseMarkUnmark(userInput);
+                     int markItem = (int) parsedContent[0];
+                     boolean isMarked = (boolean) parsedContent[1];
+                     TaskHandler.markUnmarkItem(markItem, isMarked);
+                 } catch (Errors.InvalidMarkUnmarkException e) {
+                     System.out.println("[artemis]: please enter \"[mark/unmark] <list item number>\".");
+                     continue;
+                 } catch (Errors.InvalidMarkUnmarkIndexException e) {
+                     System.out.println("[artemis]: the given list item number given is invalid!");
                  }
 
-                 int markItem = (int) parsedContent[0];
-                 boolean isMarked = (boolean) parsedContent[1];
-                 TaskHandler.markUnmarkItem(markItem, isMarked);
                  continue;
              case BYE:
                  printGoodbye();
