@@ -1,3 +1,6 @@
+package Bobble;
+
+import Bobble.task.*;
 import java.util.Scanner;
 
 public class Bobble {
@@ -49,9 +52,9 @@ public class Bobble {
                     unmarkResponse(tasklist[taskNumber]);
                     break;
                 default:
-                    throw new DukeExceptionCommand();
+                    throw new BobbleExceptionCommand();
                 }
-            } catch (DukeExceptionCommand e) {
+            } catch (BobbleExceptionCommand e) {
                 System.out.println(LINE_WRAP +
                         "OOPS!! I'm sorry, but I don't know what that means :-(\n" +
                         LINE_WRAP);
@@ -99,7 +102,7 @@ public class Bobble {
     //Greets user
     public static void start() {
         System.out.println(LINE_WRAP +
-                "Hello! I'm Bobble.\n" +
+                "Hello! I'm Bobble.Bobble.\n" +
                 "What can I do for you?\n" +
                 LINE_WRAP);
     }
