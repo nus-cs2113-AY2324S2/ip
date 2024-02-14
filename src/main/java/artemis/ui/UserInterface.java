@@ -1,3 +1,9 @@
+package artemis.ui;
+
+import artemis.processing.*;
+import artemis.tasks.*;
+import artemis.errors.Errors;
+
 import java.util.Scanner;
 
 public class UserInterface {

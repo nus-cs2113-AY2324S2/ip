@@ -1,3 +1,5 @@
+package artemis.errors;
+
 public class Errors {
     public static class InvalidTodoException extends Exception {
     }

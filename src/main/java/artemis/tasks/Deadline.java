@@ -1,3 +1,5 @@
+package artemis.tasks;
+
 public class Deadline extends Task {
     protected String dueDate;
     public Deadline(String taskName, String dueDate) {

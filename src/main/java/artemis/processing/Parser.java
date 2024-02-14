@@ -1,3 +1,7 @@
+package artemis.processing;
+
+import artemis.errors.Errors;
+
 public class Parser {
     public enum Command {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, UNKNOWN
