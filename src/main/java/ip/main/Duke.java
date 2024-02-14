@@ -1,15 +1,15 @@
 package ip.main;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+
 import ip.task.Task;
 import ip.task.Todo;
 import ip.task.Deadline;
 import ip.task.Event;
 
 public class Duke {
-    private static final int MAX_SIZE = 100;
-    private static Task[] tasks = new Task[MAX_SIZE];
-    private static int numberOfTasks = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = "  ____   _   _      __     ______    _       _  _____\n" +
@@ -50,11 +50,10 @@ public class Duke {
                     unmarkTask(line);
                     continue;
                 }
-            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-                System.out.println("     You have provided an index out of bounds");
-                System.out.println("     Please provide a number from 1 to " + numberOfTasks);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("     Please provide a number from 1 to " + tasks.size());
                 continue;
-            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("     Please input the command in the form 'mark/unmark <integer>'");
                 continue;
             }
@@ -66,54 +65,52 @@ public class Duke {
     private static void addTask(String line) {
         if (line.startsWith("todo")) {
             try {
-                tasks[numberOfTasks] = new Todo(line);
+                tasks.add(new Todo(line));
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("     Please input in the form 'todo <description>'");
                 return;
             }
         } else if (line.startsWith("deadline")) {
             try {
-                tasks[numberOfTasks] = new Deadline(line);
+                tasks.add(new Deadline(line));
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("     Please input in the form 'deadline <description> /by <when>'");
                 return;
             }
         } else if (line.startsWith("event")) {
             try {
-                tasks[numberOfTasks] = new Event(line);
+                tasks.add(new Event(line));
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("     Please input in the form 'event <description> /from <when> /to <when>'");
                 return;
             }
+        } else {
+            System.out.println("     Possible commands: bye, list, mark, unmark, todo, deadline, event");
+            return;
         }
 
-        try {
-            System.out.println("     New task added: " + tasks[numberOfTasks].getDetails());
-            numberOfTasks++;
-            System.out.println("     Current number of tasks: " + numberOfTasks);
-        } catch (NullPointerException e) {
-            System.out.println("     Possible commands: bye, list, mark, unmark, todo, deadline, event");
-        }
+        System.out.println("     New task added: " + tasks.get(tasks.size() - 1).getDetails());
+        System.out.println("     Current number of tasks: " + tasks.size());
     }
 
     private static void printTaskList() {
         System.out.println("     Here is your list of tasks:");
-        for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println("     " + (i + 1) + "." + tasks[i].getDetails());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + tasks.get(i).getDetails());
         }
     }
 
     private static void markTask(String line) {
         int indexMarked = Integer.parseInt(line.substring(5)) - 1;
-        tasks[indexMarked].setDone(true);
+        tasks.get(indexMarked).setDone(true);
         System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + tasks[indexMarked].getDetails());
+        System.out.println("       " + tasks.get(indexMarked).getDetails());
     }
 
     private static void unmarkTask(String line) {
         int indexUnmarked = Integer.parseInt(line.substring(7)) - 1;
-        tasks[indexUnmarked].setDone(false);
+        tasks.get(indexUnmarked).setDone(false);
         System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + tasks[indexUnmarked].getDetails());
+        System.out.println("       " + tasks.get(indexUnmarked).getDetails());
     }
 }
