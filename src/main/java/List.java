@@ -2,11 +2,22 @@ public class List {
     Task[] tasks = new Task[100];
     private int taskCount = 0;
 
-    public void addTask(String userInput) {
-        String taskType = userInput.toLowerCase().substring(0, userInput.indexOf(" "));
+    public void addTask(String userInput) throws InvalidArgumentException {
+//        String taskType = userInput.toLowerCase().substring(0, userInput.indexOf(" ") -1);
+        String taskType = "";
+        if (userInput.startsWith("todo")){
+            taskType = "todo";
+        } else if(userInput.startsWith("deadline")){
+            taskType = "deadline";
+        } else if (userInput.startsWith("event")) {
+            taskType = "event";
+        }
         String description;
         switch (taskType){
         case "todo":
+            if(5 > userInput.length()){
+                throw new InvalidArgumentException();
+            }
             description = userInput.substring(userInput.indexOf(" ") + 1);
             tasks[taskCount] = new Todo(description);
             break;
