@@ -64,11 +64,6 @@ public class GermaBot {
         } else {
             echo(input);
         }
-        /*Task t = new Task(input);
-        toDoList[counter] = t;
-        toDoList[counter].setDescription(input);
-        System.out.println("Added '" + input + "' to your To Do List!");
-        counter++;*/
     }
 
     public static void main(String[] args) {
@@ -91,7 +86,6 @@ public class GermaBot {
                     if (toDoList[i] == null) {
                         break;
                     }
-                    /*System.out.println(printCounter + ". [" + toDoList[j].getStatusIcon() + "] " + toDoList[j].getDescription());*/
                     System.out.println(printCounter + ". " + toDoList[i].toString());
                     printCounter++;
                 }
@@ -109,7 +103,7 @@ public class GermaBot {
                 createTask(input);
             }
         }
-        String GoodbyeMessage = "Thanks for using me! Hope you again soon~!";
+        String GoodbyeMessage = "Thanks for using me! Hope to see you again soon~!";
         System.out.println(LINE);
         System.out.println(GoodbyeMessage);
         System.out.println(LINE);
