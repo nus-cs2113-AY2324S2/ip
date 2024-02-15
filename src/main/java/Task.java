@@ -29,7 +29,6 @@ public class Task {
                 "\n        Now you have " + taskCount + " tasks in the list.");
     }
 
-
     @Override
     public String toString() {
         String status = isDone ? "[X]" : "[ ]";

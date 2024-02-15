@@ -5,5 +5,5 @@ public enum CommandType {
     UNMARK,
     TODO,
     DEADLINE,
-    EVENT;
+    EVENT
 }
