@@ -32,27 +32,42 @@ public class Duke {
                 printTasks(tasks);
                 continue;
             }
+            String[] words = line.split(" ", 2);
             if (line.startsWith(todo)) {
-                tasks.add(new ToDo(line.substring(todo.length())));
+                try {
+                    tasks.add(new ToDo(words[1]));
+                } catch(IndexOutOfBoundsException e) {
+                    System.out.println("clown! add something after todo!");
+                }
                 continue;
             }
 
             if (line.startsWith(deadline)) {
-                tasks.add(new Deadline(line.substring(deadline.length())));
+                try {
+                    tasks.add(new Deadline(words[1]));
+                } catch(IndexOutOfBoundsException e) {
+                    System.out.println("clown! add something after deadline!");
+                }
                 continue;
             }
 
             if (line.startsWith(event)) {
-                tasks.add(new Event(line.substring(event.length())));
+                try {
+                    tasks.add(new Event(words[1]));
+                } catch(IndexOutOfBoundsException e) {
+                    System.out.println("clown! add something after event!");
+                }
                 continue;
             }
-
-            int listIndex = line.charAt(line.length() - 1) - '0';
             if (line.startsWith("mark")) {
                 try {
+                    int listIndex = Integer.parseInt(words[1]);
                     Task markedTask = tasks.get(listIndex - 1).markTask();
                     tasks.set(listIndex - 1, markedTask);
                     printTasks(tasks);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("You are not marking an index!!!");
                 }
                 catch(IndexOutOfBoundsException e) {
                     System.out.println(e + " clownnnnn");
@@ -62,15 +77,28 @@ public class Duke {
 
             if (line.startsWith("unmark")) {
                 try {
+                    int listIndex = Integer.parseInt(words[1]);
                     Task unmarkedTask = tasks.get(listIndex - 1).unmarkTask();
                     tasks.set(listIndex - 1, unmarkedTask);
                     printTasks(tasks);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("You are not unmarking an index!!!");
                 }
                 catch(IndexOutOfBoundsException e) {
                     System.out.println(e + " clownnnnn");
                 }
                 continue;
             }
+            try {
+                throw new JxExceptions("gibberish");
+            } catch(JxExceptions e) {
+                System.out.println(e.getMessage());
+            }
+
+
+
+
         }
         System.out.println("Hope to see you soon");
     }
