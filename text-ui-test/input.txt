@@ -1,0 +1,17 @@
+list
+study
+todo study for EE2211
+list
+deadline finish assignment1/by 10 June 2024
+list
+event hair for hope /from 10 June 2024 /to 20 June 2024
+list
+mark 1
+list
+mark 3
+list
+unmark 2
+list
+unmark 3
+list
+bye

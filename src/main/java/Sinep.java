@@ -2,42 +2,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Sinep {
-    static String greeting = "Hello! I'm Sinep, your personal chatbot!\n"
-            + "What can I do for you today?";
-    static String bye = "Bye. Hope to see you again soon!";
     static String line = "_____________________________________________________________________";
     static String nl = System.lineSeparator();
     static List<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(line + nl + greeting + nl+ line);
-        while(true) {
+        printGreeting();
+        while (true) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {  // Check if the input is "bye"
-                printBye();
-                break;
-            } else if (input.equals("list")) { // Check if the input is "list"
-                printList();
-            } else if (input.startsWith("mark ")) { // Check if the input is "mark"
-                markList(input);
-            } else if (input.startsWith("unmark ")) { // Check if the input is "unmark"
-                unmarkList(input);
-            } else if (input.startsWith("todo ")) {
-                addTodo(input);
-            } else if (input.startsWith("deadline ")) {
-                addDeadline(input);
-            } else if (input.startsWith("event")) {
-                addEvent(input);
-            } else {
-                addToList(input);
+            String command = input.split(" ", 2)[0]; // Get the first word of the input as the command
+
+            switch (command) {
+                case "bye":
+                    printBye();
+                    scanner.close();
+                    return;
+                case "list":
+                    printList();
+                    break;
+                case "mark":
+                    markList(input);
+                    break;
+                case "unmark":
+                    unmarkList(input);
+                    break;
+                case "todo":
+                    addTodo(input);
+                    break;
+                case "deadline":
+                    addDeadline(input);
+                    break;
+                case "event":
+                    addEvent(input);
+                    break;
+                default:
+                    addToList(input);
+                    break;
             }
         }
-        scanner.close();
     }
-
+    public static void printGreeting() {
+        final String greeting = "Hello! I'm Sinep, your personal chatbot!\n"
+                + "What can I do for you today?";
+        System.out.println(line + nl + greeting + nl+ line);
+    }
     public static void printBye() {
+        final String bye = "Bye. Hope to see you again soon!";
         System.out.println(line + nl + bye + nl + line);
 
     }
@@ -81,7 +92,7 @@ public class Sinep {
         String actualDescription = input.replace("todo ", "");
         Todo newTodo = new Todo(actualDescription);
         taskList.add(newTodo);
-        System.out.println(line + nl + "Added to task list: " + nl + newTodo);
+        System.out.println(line + nl + "Added to task list:" + nl + newTodo);
         System.out.println("Now you have " + taskList.size() + " tasks in the list." + nl + line);
     }
 
@@ -90,7 +101,7 @@ public class Sinep {
         Deadline newDeadline = new Deadline(actualDescription);
         taskList.add(newDeadline);
         String descriptionToPrint = newDeadline.toString();
-        System.out.println(line + nl + "Added to task list: " + nl + descriptionToPrint);
+        System.out.println(line + nl + "Added to task list:" + nl + descriptionToPrint);
         System.out.println("Now you have " + taskList.size() + " tasks in the list." + nl + line);
     }
 
@@ -99,7 +110,7 @@ public class Sinep {
         Event newEvent = new Event(actualDescription);
         taskList.add(newEvent);
         String descriptionToPrint = newEvent.toString();
-        System.out.println(line + nl + "Added to task list: " + nl + descriptionToPrint);
+        System.out.println(line + nl + "Added to task list:" + nl + descriptionToPrint);
         System.out.println("Now you have " + taskList.size() + " tasks in the list." + nl + line);
     }
 
