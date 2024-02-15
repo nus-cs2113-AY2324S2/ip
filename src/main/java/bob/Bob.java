@@ -22,7 +22,7 @@ public class Bob {
                 if (endLoop) {
                     break;
                 }
-            } catch (DukeException e) {
+            } catch (BobException e) {
                 displayHorizontalLine();
                 System.out.println(e.getMessage());
                 displayHorizontalLine();
@@ -31,7 +31,7 @@ public class Bob {
         }
     }
 
-    private static boolean processCommand(String command, String line, List<Task> list) throws DukeException {
+    private static boolean processCommand(String command, String line, List<Task> list) throws BobException {
         switch (command) {
         case "todo":
             addTodo(line, list);
@@ -55,7 +55,7 @@ public class Bob {
             displayExitMessage();
             return true;
         default:
-            throw new DukeException("sI'm sorry, but I don't know what that means :-(");
+            throw new BobException("sI'm sorry, but I don't know what that means :-(");
         }
         return false;
     }
@@ -80,7 +80,7 @@ public class Bob {
         displayHorizontalLine();
     }
 
-    private static void addEvent(String line, List<Task> list) throws DukeException {
+    private static void addEvent(String line, List<Task> list) throws BobException {
         String content, description, start, by;
 
         try {
@@ -91,7 +91,7 @@ public class Bob {
             by = content.split(" /to ")[1];
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("An event must have a description, a start time, and an end time.");
+            throw new BobException("An event must have a description, a start time, and an end time.");
         }
 
         Event e = new Event(description, start, by);
@@ -104,12 +104,12 @@ public class Bob {
         displayHorizontalLine();
     }
 
-    private static void addDeadline(String line, List<Task> list) throws DukeException {
+    private static void addDeadline(String line, List<Task> list) throws BobException {
         String content;
         try {
             content = line.split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("A deadline must have a description and a deadline.");
+            throw new BobException("A deadline must have a description and a deadline.");
         }
 
         Deadline d = new Deadline(content.split( " /by ")[0], content.split( " /by ")[1]);
@@ -122,12 +122,12 @@ public class Bob {
         displayHorizontalLine();
     }
 
-    private static void addTodo(String line, List<Task> list) throws DukeException {
+    private static void addTodo(String line, List<Task> list) throws BobException {
         String content;
         try {
             content = line.split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("The description of a todo cannot be empty.");
+            throw new BobException("The description of a todo cannot be empty.");
         }
 
         Task t = new Task(content);
