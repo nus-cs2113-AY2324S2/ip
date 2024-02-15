@@ -1,3 +1,5 @@
+package jason.tasks;
+
 /**
  * Represents a task with a description and a status.
  */

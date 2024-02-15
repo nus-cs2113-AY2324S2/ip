@@ -1,3 +1,5 @@
+package jason.tasks;
+
 public class Events extends Task {
 
     private final String from;
