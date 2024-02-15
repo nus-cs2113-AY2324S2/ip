@@ -43,27 +43,43 @@ public class Phoebe {
 
         Task newTask = null;
         if (input.toLowerCase().startsWith("todo ")) {
-            newTask = new ToDo(input.substring(5).trim(), "");
+            String description = input.substring(5).trim();
+            if (description.isEmpty()) {
+                System.out.println("hello fool how can you todo nothing??????");
+                return;
+            }
+            newTask = new ToDo(description, "");
         } else if (input.toLowerCase().startsWith("deadline ")) {
             String[] parts = input.substring(9).split("/by", 2);
-            if (parts.length < 2) return; // simple validation
+            if (parts.length < 2 || parts[0].trim().isEmpty()) {
+                System.out.println("if never tell me /by how I know the deadline??? im ded.");
+                return; // simple validation
+            }
             newTask = new Deadline(parts[0].trim(), parts[1].trim());
         } else if (input.toLowerCase().startsWith("event ")) {
             String[] parts = input.substring(6).split("/from", 2);
-            if (parts.length < 2) return; // simple validation
+            if (parts.length < 2 || parts[0].trim().isEmpty()) {
+                System.out.println("you tell me empty event for what");
+                return; // simple validation
+            }
             String[] timeParts = parts[1].trim().split("/to", 2);
-            if (timeParts.length < 2) return; // Simple validation
+            if (timeParts.length < 2) {
+                System.out.println("event no (/from and /to)??? then what time u can go home?");
+                return; // Simple validation
+            }
             newTask = new Event(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim());
+        } else {
+            System.out.println("you dont make any sense");
+            return;
         }
 
         if (newTask != null) {
             tasks[taskCount++] = newTask;
             System.out.println("OKIE I MEMORISED FOR U:\n  " + newTask);
             System.out.println("You have " + taskCount + " remaining things to dododo.");
-        } else {
-            System.out.println("you don't make any sense.");
         }
     }
+
 
 
 
