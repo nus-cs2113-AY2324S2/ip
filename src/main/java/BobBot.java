@@ -52,19 +52,37 @@ public class BobBot {
     public static void addTask(String line) {
 
         Task newTask = null;
-
         if (line.startsWith("todo")) {
-            newTask = new Todo(line);
+            try {
+                newTask = new Todo(line);
+            } catch (InvalidTodoException e) {
+                drawErrorLine();
+                System.out.println("\tIt seems that you have not entered the task information correctly. "
+                        + "\n\tPlease try again, or enter /help if you need it");
+                drawErrorLine();
+                return;
+            }
         } else if (line.startsWith("deadline")) {
             newTask = new Deadline(line);
         } else if (line.startsWith("event")) {
             newTask = new Event(line);
+        } else {
+            handleInvalidCommand();
+            return;
         }
 
         allTasks[numTasks] = newTask;
         numTasks += 1;
 
         echoCommand(line, newTask);
+    }
+
+    private static void handleInvalidCommand() {
+        drawErrorLine();
+        System.out.println(
+                "\tI did not understand that. Refer to the help manual for information on \n\t keying in the right commands!");
+        printHelpMessage();
+        drawErrorLine();
     }
 
     public static void echoCommand(String lineString, Task newTask) {
@@ -75,13 +93,17 @@ public class BobBot {
         System.out.println();
     }
 
-    public static void drawLine(Boolean includeIndentation) {
-        if (includeIndentation) {
+    public static void drawErrorLine() {
+        System.out.println("\t*******************************ERROR******************************************");
+    }
+
+    public static void drawLine(Boolean isIncludeIndentation) {
+        if (isIncludeIndentation) {
             System.out.print("\t");
         } else {
             System.out.print("________");
         }
-        System.out.println("________________________________________________________________________");
+        System.out.println("______________________________________________________________________________");
     }
 
     public static void greet() {
@@ -92,15 +114,15 @@ public class BobBot {
     }
 
     private static void printHelpMessage() {
-        drawLine(false);
-        System.out.println("I see you require some help. Fear not, I shall come to your assistance:\n");
-        System.out.println("Here are the options available to you:");
-        System.out.println("\t/help - Display this help menu");
-        System.out.println("\ttodo ... - State something you want to add to the TODO list");
-        System.out.println("\tdeadline ... - Tell me about an important deadline you need to meet");
-        System.out.println("\tevent ... - Let me know what event you have coming up");
-        System.out.println("\tbye - We bid our farewells (sob)");
-        drawLine(false);
+        drawLine(true);
+        System.out.println("\tI see you require some help. Fear not, I shall come to your assistance:\n");
+        System.out.println("\tHere are the options available to you:");
+        System.out.println("\t\t/help - Display this help menu");
+        System.out.println("\t\ttodo ... - State something you want to add to the TODO list");
+        System.out.println("\t\tdeadline ... - Tell me about an important deadline you need to meet");
+        System.out.println("\t\tevent ... - Let me know what event you have coming up");
+        System.out.println("\t\tbye - We bid our farewells (sob)");
+        drawLine(true);
     }
 
     private static void bidFarewell() {
