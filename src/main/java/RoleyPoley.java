@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 public class RoleyPoley {
     public static void main(String[] args) {
-        try {
-            Task[] taskList = new Task[100];
-            greet();
-            echo(taskList);
-        } catch (RoleyPoleyException error) {
-            System.out.println("Error Detected!\n" + error);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("test");
+        Task[] taskList = new Task[100];
+        greet();
+        while (true) {
+            try {
+                echo(taskList);
+            } catch (RoleyPoleyException error) {
+                System.out.println("\tError Detected!\n" + error);
+                createLine();
+            }
         }
     }
 
@@ -22,12 +23,16 @@ public class RoleyPoley {
     }
 
     public static void displayList(Task[] taskList) {
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 1; i < taskList.length; i++) {
-            if (taskList[i] == null) {
-                break;
+        if (taskList[0] == null) {
+            System.out.println("\tLooks like you need to find more work to do! Task list is empty!");
+        } else {
+            System.out.println("\tHere are the tasks in your list:");
+            for (int i = 1; i < taskList.length; i++) {
+                if (taskList[i] == null) {
+                    break;
+                }
+                System.out.println("\t" + i + ".[" + taskList[i].getTaskTypeIcon() + "][" + taskList[i].getStatusIcon() + "]" + taskList[i].getDescription());
             }
-            System.out.println("\t" + i + ".[" + taskList[i].getTaskTypeIcon() + "][" + taskList[i].getStatusIcon() + "]" + taskList[i].getDescription());
         }
     }
 
@@ -72,7 +77,7 @@ public class RoleyPoley {
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList[taskNum] == null) {
-                        throw new RoleyPoleyException("Task " + taskNum + " cannot be found. Enter command 'list' to view task list.")
+                        throw new RoleyPoleyException("Task " + taskNum + " cannot be found. Enter command 'list' to view task list.");
                     }
                     taskList[taskNum].markAsUndone();
                     createLine();
@@ -99,14 +104,14 @@ public class RoleyPoley {
             } else if (splitString[0].equals("event")) {
                 String[] words = line.split("/from");
                 if (words.length == 1) {
-                    System.out.println("Invalid entry. Please enter input in the following format:");
-                    System.out.println("event <Task Description> /from <Start Time> /to <End Time");
+                    throw new RoleyPoleyException("Invalid entry. Please enter input in the following format:" +
+                                "\nevent <Task Description> /from <Start Time> /to <End Time");
                 } else {
                     String description = words[0].substring("event".length());
                     int indexOfEndTime = words[1].indexOf("/to");
                     if (indexOfEndTime == -1) {
-                        System.out.println("Invalid entry. Please enter input in the following format:");
-                        System.out.println("event <Task Description> /from <Start Time> /to <End Time");
+                        throw new RoleyPoleyException("Invalid entry. Please enter input in the following format:" +
+                                "\nevent <Task Description> /from <Start Time> /to <End Time");
                     } else {
                         String startTime = words[1].substring(0, indexOfEndTime - 1);
                         String endTime = words[1].substring(indexOfEndTime + "/to".length());
