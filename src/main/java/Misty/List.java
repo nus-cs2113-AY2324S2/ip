@@ -1,4 +1,4 @@
-package Misty.Util;
+package Misty;
 
 import Misty.Exception.*;
 import Misty.Task.Deadline;

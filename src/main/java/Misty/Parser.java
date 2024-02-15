@@ -1,4 +1,4 @@
-package Misty.Util;
+package Misty;
 
 import Misty.Task.Task;
 
