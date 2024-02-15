@@ -1,3 +1,7 @@
+package Misty.Util;
+
+import Misty.Task.Task;
+
 public class Parser {
     public static void printMessageBorder() {
         System.out.println("\t--------------------------------------------------");
