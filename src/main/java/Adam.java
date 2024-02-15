@@ -20,9 +20,8 @@ public class Adam {
             System.out.println(Message.DELIMITER);
 
             try {
-                exitFlag = CommandGenerator.generate(input)
-                        .orElseThrow()
-                        .execute(tasks); // return true if it's exitCommand; false otherwise
+                exitFlag = CommandGenerator.generate(input).execute(tasks);
+                // return true if it's exitCommand; false otherwise
             } catch (AdamException error) {
                 System.out.println(error.getMessage());
             }

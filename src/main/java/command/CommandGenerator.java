@@ -1,30 +1,28 @@
 package command;
 
-import java.util.Optional;
-
 import exception.AdamException;
 import ui.Parser;
 
 public class CommandGenerator{
-    public static Optional<Command> generate(String input) throws AdamException {
+    public static Command generate(String input) throws AdamException {
         // match input to corresponding enum (also handles invalid input)
         Parser token = Parser.analyzeInput(input);
 
         switch (token) {
         case EXIT:
-            return Optional.of(new ExitCommand());
+            return new ExitCommand();
 
         case LIST:
-            return Optional.of(new ListCommand());
+            return new ListCommand();
 
         case TOGGLE:
-            return Optional.of(new ToggleStatusCommand(Parser.splitInput(input)));
+            return new ToggleStatusCommand(Parser.splitInput(input));
 
         case HELP:
-            return Optional.of(new HelpCommand());
+            return new HelpCommand();
 
         default:
-            return Optional.of(new AddTaskCommand(token, Parser.splitInput(input)));
+            return new AddTaskCommand(token, Parser.splitInput(input));
         }
     }
 }

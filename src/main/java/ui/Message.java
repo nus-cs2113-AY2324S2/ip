@@ -59,7 +59,7 @@ public class Message {
     public static final String LIST_ERROR_MESSAGE = "Looks like our task list is empty.\n"
             + "Time to fill it up with some action-packed tasks!";
 
-    public static final String TOGGLE_ERROR_MESSAGE = "Oops! The specified index is out of range.\n"
+    private static final String TOGGLE_ERROR_MESSAGE = "Oops! The specified index is out of range.\n"
             + "Please enter an index between 1 and ";
 
     public static final String INVALID_INPUT_MESSAGE = "Oopsie! Looks like I got tangled up in my circuits.\n"
