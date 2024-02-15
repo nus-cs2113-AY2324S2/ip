@@ -1,4 +1,7 @@
+package task;
+
 import java.util.ArrayList;
+import parser.Parser;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -23,30 +26,33 @@ public class TaskList {
         System.out.println();
     }
 
-    public void markTask(int taskIndex) {
-        if (taskIndex < 0 || taskIndex > taskCount) {
-            System.out.println("Invalid task number. Please enter a valid task number");
-        } else {
+    public void markTask(int taskIndex) throws IndexOutOfBoundsException {
+        try {
             this.tasks.get(taskIndex).markAsDone();
-        }
-    }
-
-    public void unmarkTask(int taskIndex) {
-        if (taskIndex < 0 || taskIndex > taskCount) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid task number. Please enter a valid task number");
-        } else {
-            this.tasks.get(taskIndex).unmarkAsDone();
         }
     }
 
-    public void addTask(String taskType, String taskDetails) {
-        if (taskType.equals(Parser.TODO_COMMAND)) {
-            handleToDo(taskDetails);
-        } else if (taskType.equals(Parser.DEADLINE_COMMAND)) {
-            handleDeadline(taskDetails);
-        } else {
-            handleEvent(taskDetails);
+    public void unmarkTask(int taskIndex) throws IndexOutOfBoundsException {
+        try {
+            this.tasks.get(taskIndex).unmarkAsDone();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number. Please enter a valid task number");
         }
+    }
+
+    public void addTask(String taskType, String[] userInput) {
+        if (taskType.equals(Parser.TODO_COMMAND)) {
+            handleToDo(userInput);
+        } else if (taskType.equals(Parser.DEADLINE_COMMAND)) {
+            handleDeadline(userInput[1]);
+        } else {
+            handleEvent(userInput[1]);
+        }
+    }
+
+    public void validTask() {
         taskCount += 1;
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + tasks.get(taskCount - 1).getTaskDetails());
@@ -54,8 +60,13 @@ public class TaskList {
                 + (taskCount == 1 ? " task" : " tasks") + " in the list.\n");
     }
 
-    public void handleToDo(String taskDetails) {
-        tasks.add(new ToDo(taskDetails));
+    public void handleToDo(String[] userInput) throws ArrayIndexOutOfBoundsException {
+        try {
+            tasks.add(new ToDo(userInput[1]));
+            validTask();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ToDo task description cannot be empty. Please try again.");
+        }
     }
 
     public void handleDeadline(String taskDetails) {
