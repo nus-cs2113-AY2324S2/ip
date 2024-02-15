@@ -1,8 +1,14 @@
+import Exceptions.InvalidDeadlineFormatException;
+import Exceptions.InvalidEventFormatException;
+import Exceptions.InvalidTodoFormatException;
+
 import java.util.Scanner;
 
 public class UserInterface {
     private static final String LINE = "-----------------------------------------";
     private static final String TAB_SPACE = "    ";
+    public static final int INDEX_OFFSET = 1;
+    public static final int START_INDEX = 0;
     private static final String CHATBOT_NAME = "ZORO";
 
     public void greetUser() {
@@ -16,7 +22,7 @@ public class UserInterface {
         return in.nextLine().trim();
     }
 
-    public void printTaskAdded(Task task, int index, int totalTasks) {
+    public void printTaskAdded(Task task, int totalTasks) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Got it. I've added this task:");
         System.out.println(TAB_SPACE + "  " + task);
@@ -24,11 +30,11 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    public void printTaskList(Task[] taskList, int index) {
+    public void printTaskList(Task[] taskLists, int index) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Here are the tasks in your list:");
-        for (int i = 0; i < index; i++) {
-            System.out.println(TAB_SPACE + (i + 1) + "." + taskList[i]);
+        for (int i = START_INDEX; i < index; i++) {
+            System.out.println(TAB_SPACE + (i + INDEX_OFFSET) + "." + taskLists[i]);
         }
         System.out.println(LINE);
     }
@@ -47,9 +53,9 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    public void printInvalidTaskIndex(int index) {
+    public void printInvalidTaskIndex(IndexOutOfBoundsException e) {
         System.out.println(LINE);
-        System.out.println(TAB_SPACE + "Invalid task index for marking/unmarking. Please check your input.");
+        System.out.println(TAB_SPACE + e.getMessage() + ".\n" + TAB_SPACE + "Please check your input.");
         System.out.println(LINE);
     }
 
@@ -59,29 +65,49 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    public void printInvalidEventFormat() {
+    public void printInvalidEventFormat(InvalidEventFormatException e) {
         System.out.println(LINE);
-        System.out.println(TAB_SPACE
-                + "Invalid event format. Please use: event [description] /from [start date/time] /to [end date/time]");
+        System.out.println(TAB_SPACE + e.getMessage()
+                + "Please use: event [description] /from [start date/time] /to [end date/time]");
         System.out.println(LINE);
     }
 
-    public void printInvalidDeadlineFormat() {
+    public void printInvalidDeadlineFormat(InvalidDeadlineFormatException e) {
         System.out.println(LINE);
-        System.out.println(TAB_SPACE + "Invalid deadline format. Please use: deadline [description] /by [date/time]");
+        System.out.println(TAB_SPACE + e.getMessage() + "Please use: deadline [description] /by [date/time]");
         System.out.println(LINE);
     }
 
     public void printInvalidTaskType(String taskDescription) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Invalid task type: " + taskDescription);
-        System.out.println(TAB_SPACE + "Please mention the task type (todo, deadline, or event)");
+        System.out.println(TAB_SPACE + "Please mention the task type (todo, deadline, or event) or \n"
+                + TAB_SPACE + "use commands (list, mark, unmark, bye)");
         System.out.println(LINE);
     }
 
-    public void printInvalidTodoFormat() {
+    public void printInvalidTodoFormat(InvalidTodoFormatException e) {
         System.out.println(LINE);
-        System.out.println(TAB_SPACE + "Invalid todo format. Please dont put empty description");
+        System.out.println(TAB_SPACE + e.getMessage() + "Please dont put empty description");
         System.out.println(LINE);
     }
+
+    public void printTaskAlreadyMarked(String message) {
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "NOTE: " + message);
+        System.out.println(LINE);
+    }
+
+    public void printTaskNotMarked(String message) {
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "NOTE: " + message);
+        System.out.println(LINE);
+    }
+    public void printInvalidInputIndex(NumberFormatException e) {
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Invalid task index: " + e.getMessage());
+        System.out.println(TAB_SPACE + "Please enter a valid task index to mark or unmark.");
+        System.out.println(LINE);
+    }
+
 }
