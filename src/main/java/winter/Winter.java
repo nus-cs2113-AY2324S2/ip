@@ -1,4 +1,6 @@
+package winter;
 import java.util.Scanner;
+
 public class Winter {
     public static void main(String[] args) {
         String logo = "  __      __.__        __                \n" +

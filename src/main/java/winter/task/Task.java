@@ -1,9 +1,10 @@
+package winter.task;
 public class Task {
     boolean isMarked;
     int order;
     String taskName;
 
-    String doneCheckbox ="[ ]";
+    public String doneCheckbox ="[ ]";
 
     Task(int order, boolean marked, String taskName) {
         this.order = order;

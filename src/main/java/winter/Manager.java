@@ -1,4 +1,18 @@
+package winter;
+
 import java.util.Scanner;
+import winter.checkedexceptions.EmptyCommandException;
+import winter.checkedexceptions.InvalidCommandException;
+import winter.checkedexceptions.InvalidDeadlineException;
+import winter.checkedexceptions.InvalidToDoException;
+import winter.checkedexceptions.InvalidEventException;
+import winter.task.Deadline;
+import winter.task.Event;
+import winter.task.Task;
+import winter.task.ToDo;
+
+import static winter.Commands.*;
+
 
 public class Manager {
     private static final String line = "-----------------------------------\n";
@@ -113,14 +127,14 @@ public class Manager {
             switch (commandWords[0]) {
             case "todo":
                 addToDo(commandWords);
-                return Commands.TODO;
+                return TODO;
 
             case "deadline":
                 addDeadline(commandWords);
-                return Commands.DEADLINE;
+                return DEADLINE;
             case "event":
                 addEvent(commandWords);
-                return Commands.EVENT;
+                return EVENT;
             // Cases for marking tasks
             case "mark":
                 return Commands.MARK;
