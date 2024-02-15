@@ -1,2 +1,3 @@
-public class EmptyTodoException extends Exception{
+public class EmptyTaskException extends Exception{
 }
+

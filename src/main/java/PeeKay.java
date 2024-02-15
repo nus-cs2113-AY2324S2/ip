@@ -17,41 +17,83 @@ public class PeeKay {
         System.out.println("\t Bye. Hope to see you again soon!");
     }
 
-    public static void createTodo(String input){
-        tasks[count] = new ToDo(input.substring(input.indexOf("todo ") + 5));
+    public static void createTodo(String input) throws EmptyTaskException {
+        String todo = input.substring(input.indexOf("todo ") + 5);
+        if (todo.isBlank()) {
+            throw new EmptyTaskException();
+        }
+        tasks[count] = new ToDo(todo);
         count++;
         echo(input);
     }
 
-    public static void createDeadline(String input){
+
+    public static void createDeadline(String input) throws EmptyTaskException, MissingDeadlineException {
         String description = input.replaceFirst("deadline ", "");
         int by = description.indexOf("/");
-        String Date = description.substring(by + 4);
-        tasks[count] = new Deadline(description.substring(0, by - 1), Date);
+        if (by == -1){
+            throw new MissingDeadlineException();
+        }
+        String deadline = description.substring(0, by - 1);
+        if (deadline.isBlank()){
+            throw new EmptyTaskException();
+        }
+        String date = description.substring(by + 4);
+        tasks[count] = new Deadline(deadline, date);
         count++;
         echo(input);
     }
 
-    public static void createEvent(String input){
+    public static void createEvent(String input) throws EmptyTaskException, MissingDeadlineException, MissingStartException {
         String description = input.replaceFirst("event ", "");
         int from = description.indexOf("/from");
+        if (from == -1) {
+            throw new MissingStartException();
+        }
         int by = description.indexOf("/to");
+        if (by == -1) {
+            throw new MissingDeadlineException();
+        }
         String startDate = description.substring(from + 6, by - 1);
         String endDate = description.substring(by + 4);
-        tasks[count] = new Event(description.substring(0, from - 1), startDate, endDate);
+        String event = description.substring(0, from - 1);
+        if (event.isBlank()){
+            throw new EmptyTaskException();
+        }
+        tasks[count] = new Event(event, startDate, endDate);
         count++;
         echo(input);
     }
 
-    public static void handleInput(String input) {
+    public static void handleInput(String input) throws UnknownInputException {
         if (input.contains("todo")) {
-            createTodo(input);
+            try {
+                createTodo(input);
+            } catch (EmptyTaskException e) {
+                System.out.println("Todo should not be empty!");
+            }
         } else if (input.contains("deadline")) {
-            createDeadline(input);
+            try {
+                createDeadline(input);
+            } catch (MissingDeadlineException e) {
+                System.out.println("Include when this deadline is due as such: /by {deadline}");
+            } catch (EmptyTaskException e){
+                System.out.println("Deadline should not be empty!");
+            }
         } else if (input.contains("event")) {
-            createEvent(input);
-        } else {
+            try {
+                createEvent(input);
+            } catch (MissingDeadlineException e) {
+                System.out.println("Include when this event ends as such: /to {end date}");
+            } catch (MissingStartException e) {
+                System.out.println("Include when this event starts as such: /from {start date}");
+            } catch (EmptyTaskException e) {
+                System.out.println("Event should not be empty!");
+            }
+        } else if (input.contains("bye")) {
             sayBye();
+        } else {
+            throw new UnknownInputException();
         }
     }
 
@@ -93,7 +135,11 @@ public class PeeKay {
             } else if (input.contains("mark")) {
                 markItem(input);
             } else {
-                handleInput(input);
+                try {
+                    handleInput(input);
+                } catch (UnknownInputException e){
+                    System.out.println("I've not seen this input before. Please tell me something else I can help you with.");
+                }
             }
             System.out.println(line);
         } while (!input.equals("bye"));

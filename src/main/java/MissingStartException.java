@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class MissingStartException {
+public class MissingStartException extends Exception{
 }

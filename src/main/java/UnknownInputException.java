@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class UnknownInputException {
+public class UnknownInputException extends Exception{
 }

@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class MissingDeadlineException {
+public class MissingDeadlineException extends Exception{
 }
+
