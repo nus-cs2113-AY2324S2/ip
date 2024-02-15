@@ -1,3 +1,5 @@
+package hachi.data.task;
+
 public class Deadline extends Task {
     protected String byDate;
 

@@ -1,3 +1,7 @@
+package hachi.data;
+
+import hachi.data.task.Task;
+
 /**
  * Represent the error handling class for the chatbot Hachi.
  */

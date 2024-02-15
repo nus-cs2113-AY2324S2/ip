@@ -1,3 +1,5 @@
+package hachi.ui;
+
 import java.util.Scanner;
 
 /**
