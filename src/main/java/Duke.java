@@ -39,6 +39,22 @@ public class Duke {
         }
     }
 
+    public static void handleTodoDeadlineAndEvent(String userCommand,int taskCount,String[] arrayOfCommand,Task[] tasks){
+        if (userCommand.startsWith("todo")) {
+            arrayOfCommand = userCommand.split(" ", 2);
+            tasks[taskCount] = new Todo(arrayOfCommand[1]);
+        }
+        if (userCommand.startsWith("deadline")) {
+            arrayOfCommand = userCommand.split("deadline | /by");
+            tasks[taskCount] = new Deadline(arrayOfCommand[1], arrayOfCommand[2]);
+        }
+        if (userCommand.startsWith("event")) {
+            arrayOfCommand = userCommand.split("event | /from | /to ");
+            tasks[taskCount] = new Event(arrayOfCommand[1], arrayOfCommand[2], arrayOfCommand[3]);
+        }
+        System.out.println("Got it. I've added this task:");
+    }
+
     public static void handleCommand(String userCommand) {
         Task[] tasks = new Task[100];
         String[] arrayOfCommand = new String[4];
@@ -58,15 +74,8 @@ public class Duke {
                 handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks);
                 userCommand = in.nextLine();
                 continue;
-            } else if (userCommand.contains("todo")) {
-                arrayOfCommand = userCommand.split(" ", 2);
-                tasks[taskCount] = new Todo(arrayOfCommand[1]);
-            } else if (userCommand.contains("deadline")) {
-                arrayOfCommand = userCommand.split("deadline | /by");
-                tasks[taskCount] = new Deadline(arrayOfCommand[1], arrayOfCommand[2]);
-            } else if (userCommand.contains("event")) {
-                arrayOfCommand = userCommand.split("event | /from | /to ");
-                tasks[taskCount] = new Event(arrayOfCommand[1], arrayOfCommand[2], arrayOfCommand[3]);
+            } else if (userCommand.contains("todo") || userCommand.contains("deadline") || userCommand.contains("event")) {
+                handleTodoDeadlineAndEvent(userCommand, taskCount, arrayOfCommand, tasks);
             } else {
                 tasks[taskCount] = new Task(userCommand);
                 taskCount++;
@@ -75,7 +84,6 @@ public class Duke {
                 continue;
             }
 
-            System.out.println("Got it. I've added this task:");
             tasks[taskCount].printTask();
             taskCount++;
             System.out.println("Now you have " + taskCount + " task(s) in the list.");
