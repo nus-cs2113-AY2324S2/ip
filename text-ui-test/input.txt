@@ -9,4 +9,12 @@ mark 3
 list
 deadline make potato /by 5pm
 list
+deadline
+deadline wrong input format
+deadline wrong input format /by
+todo
+event
+event wrong input format
+event wrong input format /from
+event /from now /to then
 bye

@@ -4,8 +4,13 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description) {
+    public Event(String description) throws InvalidEventException {
         super(description);
+
+        if (!description.contains("/from") || !description.contains("/to")) {
+            throw new InvalidEventException("Wrong command format");
+        }
+
         this.task = this.description.substring(
                 "event".length(), 
                 this.description.indexOf("/from")
@@ -17,6 +22,11 @@ public class Event extends Task {
         this.to = this.description.substring(
                 this.description.indexOf("/to") + "/to".length()
                 ).trim();
+
+
+        if (this.task.length() == 0 || this.from.length() == 0 || this.to.length() == 0) {
+            throw new InvalidEventException("Missing fields");
+        }
     }
     
     @Override
