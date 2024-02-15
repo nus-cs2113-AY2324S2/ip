@@ -23,6 +23,12 @@ public class Task {
         this.isDone = false;
     }
 
+    public static void message(Task[] tasks, int taskCount) {
+        System.out.println("Chelle: Got it. I've added this task:\n        " +
+                tasks[taskCount - 1].toString() +
+                "\n        Now you have " + taskCount + " tasks in the list.");
+    }
+
 
     @Override
     public String toString() {
