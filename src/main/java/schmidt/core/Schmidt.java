@@ -1,3 +1,11 @@
+package schmidt.core;
+
+import schmidt.exception.SchmidtException;
+import schmidt.task.Deadline;
+import schmidt.task.Event;
+import schmidt.task.Task;
+import schmidt.task.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -169,7 +177,7 @@ public class Schmidt {
     }
 
     /**
-     * This is a helper method to add a todo task
+     * This is a helper method to add a Todo task
      *
      * @param tasks The list of tasks
      * @param input The user input

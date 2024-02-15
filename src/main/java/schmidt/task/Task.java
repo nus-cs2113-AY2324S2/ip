@@ -1,3 +1,5 @@
+package schmidt.task;
+
 /**
  * Task class represents a task with a description and a boolean to indicate if it is done.
  */
