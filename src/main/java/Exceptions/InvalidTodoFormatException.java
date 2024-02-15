@@ -1,4 +1,7 @@
 package Exceptions;
 
-public class InvalidTodoFormatException {
+public class InvalidTodoFormatException extends Exception {
+    public InvalidTodoFormatException(String message) {
+        super(message);
+    }
 }
