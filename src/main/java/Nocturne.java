@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class Duke {
-    public static void main(String[] args) {
+public class Nocturne {
+    public static void main(String[] args) throws NocturneException {
         Task[] tasks = new Task[100];
         int taskCount = 0;
 
@@ -11,11 +11,13 @@ public class Duke {
         System.out.println("What ails you on this fine day?");
 
         input = in.nextLine();
-
         while (!input.equals("bye")) {
             String[] commandCheck = input.split(" ");
             switch (commandCheck[0]) {
                 case "list":
+                    if (taskCount == 0) {
+                        throw new NocturneException("An empty list begets an empty mind.");
+                    }
                     for (int i = 0; i < taskCount; i++) {
                         System.out.println((i + 1) + "." + tasks[i]);
                     }
@@ -68,6 +70,10 @@ public class Duke {
                     taskCount++;
                     System.out.println("An event I see. I have added it:");
                     System.out.println("  " + trueEvent);
+                    break;
+
+                default:
+                    throw new NocturneException("Your command is invalid. Try again.");
             }
             input = in.nextLine();
         }
