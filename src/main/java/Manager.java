@@ -6,7 +6,7 @@ public class Manager {
 
     public static void acceptInput () {
         Scanner input = new Scanner(System.in);
-        String inputString = " ";
+        String inputString;
         Commands action;
         boolean flag = true;
 
@@ -160,7 +160,7 @@ public class Manager {
     }
 
     // Method for echo, not used after Level-1
-    private static void echo() {
+    /*private static void echo() {
         String line = "-----------------------------------\n";
         String indent = "   ";
         String echoLine;
@@ -177,6 +177,6 @@ public class Manager {
             echoLine = input.nextLine();
         }
 
-    }
+    }*/
 
 }
