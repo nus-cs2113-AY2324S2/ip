@@ -1,3 +1,7 @@
+package n.task;
+
+import n.exceptions.EmptyTaskDescriptionException;
+
 public class ToDo extends Task{
     public ToDo(String description, int arrayIndex) throws EmptyTaskDescriptionException {
         super(description, arrayIndex);

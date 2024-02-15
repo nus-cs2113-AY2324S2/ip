@@ -1,3 +1,7 @@
+import n.exceptions.EmptyTaskDescriptionException;
+import n.exceptions.NoTaskTypeException;
+import n.task.*;
+
 import java.util.Scanner;
 public class N {
     static Task[] taskList = new Task[100];
