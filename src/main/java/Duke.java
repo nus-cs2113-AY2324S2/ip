@@ -21,16 +21,21 @@ public class Duke {
         ifExit = true;
     }
 
-    public static void printList() {
-        int printCounter = 1;
-        System.out.println("--------------------------------------");
-        System.out.println("Here are the tasks in your lists:");
-        for (Task item : Arrays.copyOf(tasks, listIndex)) {
-            System.out.print(printCounter + ".");
-            System.out.println(item);
-            printCounter++;
+    public static void printList() throws IllegalShapeException {
+        {
+            int printCounter = 1;
+            if (listIndex == 0) {
+                throw new IllegalShapeException();
+            }
+            System.out.println("--------------------------------------");
+            System.out.println("Here are the tasks in your lists:");
+            for (Task item : Arrays.copyOf(tasks, listIndex)) {
+                System.out.print(printCounter + ".");
+                System.out.println(item);
+                printCounter++;
+            }
+            System.out.println("--------------------------------------");
         }
-        System.out.println("--------------------------------------");
     }
 
     public static void introStart() {
@@ -48,7 +53,10 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
-    public static void markTask(Task[] tasks, String line) {
+    public static void markTask(Task[] tasks, String line) throws IllegalShapeException {
+        if (Integer.parseInt(line.substring(5)) > listIndex || Integer.parseInt(line.substring(5)) <= 0) {
+            throw new IllegalShapeException();
+        }
         tasks[Integer.parseInt(line.substring(5)) - 1].markAsDone();
         System.out.println("--------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
@@ -78,13 +86,25 @@ public class Duke {
             printBye();
             break;
         case "list": //Shows entire list of tasks
-            printList();
+            try {
+                printList();
+            } catch (IllegalShapeException e) {
+                System.out.println("--------------------------------------");
+                System.out.println("Your list is empty!");
+                System.out.println("--------------------------------------");
+            }
             break;
         case "unmark": //unmark a task
             unmarkTask(tasks, line);
             break;
         case "mark": //marks a task as done
-            markTask(tasks, line);
+            try {
+                markTask(tasks, line);
+            } catch (IllegalShapeException e) {
+                System.out.println("--------------------------------------");
+                System.out.println("There is no such Task! :( ");
+                System.out.println("--------------------------------------");
+            }
             break;
         case "todo": //add a new task
             tasks[listIndex] = new Todo(line);
