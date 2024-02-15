@@ -73,7 +73,15 @@ public class BobBot {
                 return;
             }
         } else if (line.startsWith("event")) {
-            newTask = new Event(line);
+            try {
+                newTask = new Event(line);
+            } catch (InvalidEventException e) {
+                drawErrorLine();
+                System.out.println("\tIt seems that you have missed out on certain fields for event. "
+                        + "\n\tPlease try again, or enter /help if you need it");
+                drawErrorLine();
+                return;
+            }
         } else {
             handleInvalidCommand();
             return;
