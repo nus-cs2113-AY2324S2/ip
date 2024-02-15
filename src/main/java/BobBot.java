@@ -1,3 +1,4 @@
+import java.nio.InvalidMarkException;
 import java.util.Scanner;
 
 public class BobBot {
@@ -65,7 +66,7 @@ public class BobBot {
                 return;
             }
         } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
-            printExceptionMessage(e);
+            printCustomExceptionMessage(e);
             return;
         }
 
@@ -75,7 +76,7 @@ public class BobBot {
         echoCommand(line, newTask);
     }
 
-    private static void printExceptionMessage(BobBotExceptions e) {
+    private static void printCustomExceptionMessage(BobBotExceptions e) {
         drawErrorLine();
         e.displayExceptionMessage();
         drawErrorLine();
@@ -143,20 +144,42 @@ public class BobBot {
 
         while (!line.equalsIgnoreCase("bye")) {
 
-            if (line.equalsIgnoreCase("help")) {
-                printHelpMessage();
-            } else if (line.equalsIgnoreCase("list")) {
-                displayList();
-            } else if (line.startsWith("mark")) {
-                mark(line);
-            } else if (line.startsWith("unmark")) {
-                unmark(line);
-            } else {
-                addTask(line);
+            try {
+                if (line.equalsIgnoreCase("help")) {
+                    printHelpMessage();
+                } else if (line.equalsIgnoreCase("list")) {
+                    displayList();
+                } else if (line.startsWith("mark")) {
+                    mark(line);
+                } else if (line.startsWith("unmark")) {
+                    unmark(line);
+                } else {
+                    addTask(line);
+                }
+            } catch (NullPointerException | NumberFormatException e) {
+                printStandardExceptionMessage(e);
             }
 
             line = in.nextLine();
         }
+    }
+
+    private static void printStandardExceptionMessage(Exception e) {
+        drawErrorLine();
+
+        if (e instanceof NullPointerException) {
+            System.out.println("\tIndex is out of range.");
+        } else if (e instanceof NumberFormatException) {
+            System.out.println("\tMissing task number!");
+        } else {
+            System.out.println("There was an error: " + e);
+        }
+
+        System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
+        System.out.println("\tUsage: (un)mark {task number}");
+        System.out.println("\tPlease enter a valid number within the range of your list.");
+        
+        drawErrorLine();
     }
 
     public static void main(String[] args) {

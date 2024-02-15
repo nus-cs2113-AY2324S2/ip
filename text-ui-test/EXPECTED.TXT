@@ -26,6 +26,13 @@ ________________________________________________________________________________
 	Got it! Marking this task as done:
 	  [T][X] make bread
 	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 2 items!
+
+	Usage: (un)mark {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	Got it! I've added this task:
 	  [E][ ] join meeting (from: monday 2pm to: friday 6pm)
@@ -36,10 +43,24 @@ ________________________________________________________________________________
 	Alright! Unmarking this task:
 	  [D][ ] try this (by: monday 2pm)
 	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Index is out of range.
+	Your task list currently has 3 items!
+
+	Usage: (un)mark {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	Got it! Marking this task as done:
 	  [E][X] join meeting (from: monday 2pm to: friday 6pm)
 	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 3 items!
+
+	Usage: (un)mark {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	1. [T][X] make bread
 	2. [D][ ] try this (by: monday 2pm)

@@ -3,9 +3,12 @@ deadline try this /by monday 2pm
 list
 mark 2
 mark 1
+unmark
 event join meeting /from monday 2pm /to friday 6pm
 unmark 2
+unmark 88
 mark 3
+mark
 list
 deadline make potato /by 5pm
 list
