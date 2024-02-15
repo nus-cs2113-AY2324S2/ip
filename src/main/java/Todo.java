@@ -7,7 +7,7 @@ public class Todo extends Task {
         this.toDo = this.description.substring("todo".length()).trim();
 
         if (this.toDo.length() < 1) {
-            throw new InvalidTodoException("User did not enter any task information.");
+            throw new InvalidTodoException();
         }
     }
 

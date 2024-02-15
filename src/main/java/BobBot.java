@@ -57,13 +57,21 @@ public class BobBot {
                 newTask = new Todo(line);
             } catch (InvalidTodoException e) {
                 drawErrorLine();
-                System.out.println("\tIt seems that you have not entered the task information correctly. "
+                System.out.println("\tIt seems that you have not entered the task information. "
                         + "\n\tPlease try again, or enter /help if you need it");
                 drawErrorLine();
                 return;
             }
         } else if (line.startsWith("deadline")) {
-            newTask = new Deadline(line);
+            try {
+                newTask = new Deadline(line);
+            } catch (InvalidDeadlineException e) {
+                drawErrorLine();
+                System.out.println("\tIt seems that you have missed out on certain fields for deadline. "
+                        + "\n\tPlease try again, or enter /help if you need it");
+                drawErrorLine();
+                return;
+            }
         } else if (line.startsWith("event")) {
             newTask = new Event(line);
         } else {
