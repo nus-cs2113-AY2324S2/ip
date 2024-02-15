@@ -51,11 +51,6 @@ public class Ruby {
                 }catch (NullPointerException | ArrayIndexOutOfBoundsException ee){
                     print ("Sorry, I cannot find your task.");
                 }
-//                if ((userInputs.length != 2) || (!userInputs[1].matches("\\d+"))){
-//                    print("Sorry sir. Your command is incorrect.");
-//                    break;
-//                }
-//                t1.markTask(Integer.parseInt(userInputs[1])-1);
                 break;
             case "unmark":
                 try {
@@ -67,11 +62,7 @@ public class Ruby {
                 }
                 break;
             default:
-                if (userInput.split(" ").length<2){
-                    print("Sorry sir. Please give me more detail. I am not intelligent enough to know what that means.");
-                }else{
-                    t1.addTask(userInput);
-                }
+                t1.addTask(userInput);
                 break;
             }
             userInputs = inputCatcher();

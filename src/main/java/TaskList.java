@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Manages a list of tasks for the chatbot.
  * Supports adding tasks of different types (todo, deadline, event),
@@ -15,6 +17,15 @@ public class TaskList {
      * @param userInput The full command entered by the user to add a task.
      */
     public void addTask(String userInput){
+        try {
+            keywordCatcher(userInput);
+        }catch (InvalidKeywordException e){
+            print("Sorry sir. I am not intelligent enough to know what that means.");
+            return;
+        }catch (MissingDescriptionException e){
+            print("Sorry sir. Please give me more detail to your task.");
+            return;
+        }
         String[] inputSplitBySlash = userInput.split(" /");
         switch (userInput.split(" ")[0]){
         case "todo":
@@ -32,7 +43,6 @@ public class TaskList {
             taskList[taskNo]=new Event(name,taskNo+1, from, to);
             break;
         default:
-            print("Sorry sir. I am not intelligent enough to know what that means.");
             break;
         }
         taskAddMessage();
@@ -95,5 +105,16 @@ public class TaskList {
         System.out.println("    " + "--------------");
         System.out.println("    " + thingToPrint);
         System.out.println("    " + "--------------");
+    }
+
+    public static void keywordCatcher(String userInput) throws InvalidKeywordException, MissingDescriptionException{
+        String[] taskTypeList = {"todo", "deadline", "event"};
+        String[] inputBreakdown = userInput.split(" ");
+        if (!Arrays.asList(taskTypeList).contains(inputBreakdown[0])){
+            throw new InvalidKeywordException();
+        }
+        if (inputBreakdown.length<2){
+            throw new MissingDescriptionException();
+        }
     }
 }
