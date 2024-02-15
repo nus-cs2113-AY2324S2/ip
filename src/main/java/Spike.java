@@ -1,3 +1,11 @@
+import Exceptions.TaskNotFoundException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+import Exceptions.ArgumentNotFoundException;
+import Exceptions.CommandNotFoundException;
+
 import java.util.Scanner;
 
 public class Spike {
@@ -18,36 +26,75 @@ public class Spike {
         Scanner in = new Scanner(System.in);
 
         while (true) {
+            try {
+                startChatbot(in, inputList, iter);
+                displayByeMsg();
+                break;
+            } catch (CommandNotFoundException e) {
+                System.out.println("Command Not Found! Please Try Again");
+            } catch (ArgumentNotFoundException e) {
+                System.out.println("Argument Not Found! Please Try Again");
+            } catch (TaskNotFoundException e){
+                System.out.println("Task Not Found! Please Try Again");
+            }
+        }
+    }
+
+    private static void startChatbot(Scanner in, Task[] inputList, int iter)
+            throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException {
+        outerLoop:
+        while (true) {
             String input = in.nextLine();
-            if (input.contentEquals("list")) {
+            switch (input.split(" ")[0]) {
+            case "list":
                 displayList(inputList);
                 iter -= 1;
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.substring(MARK_TASK_INDEX)) - 1;
-                inputList[index].setDone(true);
-                displayMarkMsg(index, inputList);
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(UNMARK_TASK_INDEX)) - 1;
-                inputList[index].setDone(false);
-                displayUnmarkMsg(index, inputList);
-            } else if (input.startsWith("todo")) {
+                break;
+            case "mark":
+                if (MARK_TASK_INDEX > input.length()) {
+                    throw new ArgumentNotFoundException();
+                }
+                int indexMark = Integer.parseInt(input.substring(MARK_TASK_INDEX)) - 1;
+                if (inputList[indexMark] == null){
+                    throw new TaskNotFoundException();
+                }
+                inputList[indexMark].setDone(true);
+                displayMarkMsg(indexMark, inputList);
+                iter -= 1;
+                break;
+            case "unmark":
+                if (UNMARK_TASK_INDEX > input.length()) {
+                    throw new ArgumentNotFoundException();
+                }
+                int indexUnmark = Integer.parseInt(input.substring(UNMARK_TASK_INDEX)) - 1;
+                if (inputList[indexUnmark] == null){
+                    throw new TaskNotFoundException();
+                }
+                inputList[indexUnmark].setDone(false);
+                displayUnmarkMsg(indexUnmark, inputList);
+                iter -= 1;
+                break;
+            case "todo":
                 inputList[iter] = new Todo(processTodo(input));
                 displayAcknowledgement(inputList, iter);
-            } else if (input.startsWith("deadline")) {
+                break;
+            case "deadline":
                 inputList[iter] = new Deadline(processDeadline(input));
                 displayAcknowledgement(inputList, iter);
-            } else if (input.startsWith("event")) {
+                break;
+            case "event":
                 inputList[iter] = new Event(processEvent(input));
                 displayAcknowledgement(inputList, iter);
-            } else if (input.contentEquals("bye")) {
                 break;
-            } else {
-                System.out.println("Not valid");
+            case "bye":
+                break outerLoop;
+            default:
                 iter -= 1;
+                throw new CommandNotFoundException();
+                //System.out.println("Not valid");
             }
             iter += 1;
         }
-        displayByeMsg();
     }
 
     private static void displayAcknowledgement(Task[] inputList, int iter) {
@@ -59,20 +106,29 @@ public class Spike {
         System.out.println(DIVIDER);
     }
 
-    private static String processEvent(String input) {
+    private static String processEvent(String input) throws ArgumentNotFoundException {
+        if (EVENT_TASK_INDEX > input.length()) {
+            throw new ArgumentNotFoundException();
+        }
         String event = input.substring(EVENT_TASK_INDEX);
         String[] parts = event.split(" /from ");
         String[] time = parts[1].split(" /to ");
         return parts[0] + " (from: " + time[0] + " to: " + time[1] + ")";
     }
 
-    private static String processDeadline(String input) {
+    private static String processDeadline(String input) throws ArgumentNotFoundException {
+        if (DEADLINE_TASK_INDEX > input.length()) {
+            throw new ArgumentNotFoundException();
+        }
         String deadline = input.substring(DEADLINE_TASK_INDEX);
         String[] parts = deadline.split(" /by ");
         return parts[0] + " (by: " + parts[1] + ")";
     }
 
-    private static String processTodo(String input) {
+    private static String processTodo(String input) throws ArgumentNotFoundException {
+        if (TODO_TASK_INDEX > input.length()) {
+            throw new ArgumentNotFoundException();
+        }
         return input.substring(TODO_TASK_INDEX);
     }
 
