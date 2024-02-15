@@ -1,6 +1,15 @@
+package fredbot;
+
+import fredbot.exception.EmptyTodoException;
+import fredbot.exception.UnknownCommandException;
+import fredbot.task.Deadline;
+import fredbot.task.Event;
+import fredbot.task.Task;
+import fredbot.task.Todo;
+
 import java.util.Scanner;
 
-public class Duke {
+public class FredBot {
     private static Task[] allTasks;
     private static final int TASK_CAPACITY = 100;
     private static int count;
