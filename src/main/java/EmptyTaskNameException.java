@@ -1,2 +1,2 @@
-public class EmptyTaskNameException extends Exception{
+public class EmptyTaskNameException extends Exception {
 }

@@ -1,2 +1,2 @@
-public class IllegalListIndexException extends Exception{
+public class IllegalListIndexException extends Exception {
 }

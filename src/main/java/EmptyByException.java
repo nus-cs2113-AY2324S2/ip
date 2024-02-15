@@ -1,2 +1,2 @@
-public class EmptyByException extends Exception{
+public class EmptyByException extends Exception {
 }
