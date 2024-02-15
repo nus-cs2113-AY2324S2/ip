@@ -26,27 +26,24 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void printIndexError() {
+    public static void printMessage(String message) {
         System.out.print(HORIZONTAL_LINE);
-        System.out.println("Invalid task number. "
-                + "Please check the task number again.");
+        System.out.println(message);
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void markTask(Task task) {
-        task.setDone(true);
+    public static void markTask(Task task, String commandStartsWith) {
 
         System.out.print(HORIZONTAL_LINE);
-        System.out.println("Good job! I've marked this task as done:");
-        System.out.println("\t" + task);
-        System.out.println(HORIZONTAL_LINE);
-    }
 
-    public static void unmarkTask(Task task) {
-        task.setDone(false);
+        if (commandStartsWith.equals("mark")) {
+            task.setDone(true);
+            System.out.println("Good job! I've marked this task as done:");
+        } else {
+            task.setDone(false);
+            System.out.println("Ok, this task has been marked as not done yet:");
+        }
 
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Ok, this task has been marked as not done yet:");
         System.out.println("\t" + task);
         System.out.println(HORIZONTAL_LINE);
     }
@@ -67,57 +64,64 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void addTask(String command, ArrayList<Task> taskList) {
-        if (command.startsWith("mark ")) {
-            String taskNum = command.substring(5);
-            taskNum = taskNum.trim();
-            int taskIndex = Integer.parseInt(taskNum) - 1;
-            int arrayLength = taskList.toArray().length;
+    public static void processCommand(String command, ArrayList<Task> taskList) {
 
-            // Check if index is out of bounds
-            if ( taskIndex < 0 || taskIndex > arrayLength - 1) {
-                printIndexError();
-                return;
+        if (command.startsWith("mark") || command.startsWith("unmark")) {
+            String taskNum;
+            String commandStartsWith;
+            if (command.startsWith("mark")) {
+                taskNum = command.replace("mark", "");
+                commandStartsWith = "mark";
+            } else {
+                taskNum = command.replace("unmark", "");
+                commandStartsWith = "unmark";
             }
-            markTask(taskList.get(taskIndex));
-            return;
-        }
-
-        if (command.startsWith("unmark ")) {
-            String taskNum = command.substring(7);
             taskNum = taskNum.trim();
-            int taskIndex = Integer.parseInt(taskNum) - 1;
-            int arrayLength = taskList.toArray().length;
-
-            // Check if index is out of bounds
-            if ( taskIndex < 0 || taskIndex > arrayLength - 1) {
-                printIndexError();
-                return;
+            try {
+                int taskIndex = Integer.parseInt(taskNum) - 1;
+                markTask(taskList.get(taskIndex), commandStartsWith);
+            } catch (NumberFormatException e) {
+                printMessage("Task number provided is invalid! " +
+                        "Did you enter wrongly? You typed: " + command);
+            } catch (IndexOutOfBoundsException e) {
+                printMessage("Task number doesn't exist! " +
+                        "Did you enter wrongly? You typed: " + command);
             }
-            unmarkTask(taskList.get(taskIndex));
             return;
         }
 
         if (command.startsWith("todo")) {
-            Todo newTodo = new Todo(command);
-            taskList.add(newTodo);
+            try {
+                Todo newTodo = new Todo(command);
+                taskList.add(newTodo);
+            } catch (IllegalDescriptionException e) {
+                printMessage("Your todo description is empty!");
+                return;
+            }
         } else if (command.startsWith("deadline")) {
-            Deadline newDeadline = new Deadline(command);
-            taskList.add(newDeadline);
+            try {
+                Deadline newDeadline = new Deadline(command);
+                taskList.add(newDeadline);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                printMessage("Invalid format for deadline! Make sure it follows: " +
+                        "deadline <description> /by <date>");
+                return;
+            }
         } else if (command.startsWith("event")) {
-            Event newEvent = new Event(command);
-            taskList.add(newEvent);
+            try {
+                Event newEvent = new Event(command);
+                taskList.add(newEvent);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                printMessage("Invalid format for event! Make sure it's in this format: " +
+                        "event <description> /from <start date> /to <end date>");
+                return;
+            }
         } else {
-            Task newTask = new Task(command);
-            taskList.add(newTask);
+            printMessage("I don't understand the command \"" + command
+                    + "\". Can you check that you typed correctly?");
+            return;
         }
         addMessage(taskList);
-    }
-
-    public static void goodbyeUser() {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Goodbye, see you next time!");
-        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
@@ -131,13 +135,13 @@ public class Helpy {
             command = in.nextLine();
             switch (command) {
             case "bye":
-                goodbyeUser();
+                printMessage("Goodbye, see you next time!");
                 break;
             case "list":
                 listTasks(taskList);
                 break;
             default:
-                addTask(command, taskList);
+                processCommand(command, taskList);
                 break;
             }
         }
