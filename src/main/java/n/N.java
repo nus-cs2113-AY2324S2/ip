@@ -1,14 +1,35 @@
+package n;
+
 import n.exceptions.EmptyTaskDescriptionException;
 import n.exceptions.NoTaskTypeException;
-import n.task.*;
+import n.task.Deadline;
+import n.task.ToDo;
+import n.task.Type;
+import n.task.Task;
+import n.task.Event;
 
 import java.util.Scanner;
+
 public class N {
-    static Task[] taskList = new Task[100];
+    public static final int MAX_LIST_ITEMS = 100;
+    public static final String NO_TASK_TYPE_ERROR = "oHno, you did not specify your task type :O";
+    public static final String NO_TASK_INDEX_ERROR = "Task number not provided, please try again ...";
+    public static final String INVALID_TASK_INDEX_ERROR = "invalid task!";
+    public static final String INPUT_INSTRUCTION = "    Please input in this format:\n";
+    public static final String TODO_INPUT_FORMAT = "    todo [task]";
+    public static final String EVENT_INPUT_FORMAT = "    event [task] /from [start time] /to [end time]";
+    public static final String DEADLINE_INPUT_FORMAT = "    deadline [task] /by [deadline]";
+    public static final String LOGO = " ____   ___\n"
+            + "|    \\ |   |\n"
+            + "|     \\|   |\n"
+            + "|          |\n"
+            + "|   |\\     |\n"
+            + "|___| \\____| .chatbot :)";
+    static Task[] taskList = new Task[MAX_LIST_ITEMS];
     static int taskCount = 0;
 
     public static void printLine() {
-        System.out.println("    ____________________________________________________________ \n");
+        System.out.println("    ____________________________________________________________\n");
     }
 
     public static void printMessage(String message) {
@@ -22,9 +43,9 @@ public class N {
             printMessage("no tasks added, wake up pleasee!");
         } else {
             printLine();
-            System.out.println("Here are the tasks in your list:");
+            System.out.println("    Here are the tasks in your list:");
             for(int i = 0; i < taskCount; i++) {
-                System.out.println(taskList[i]);
+                System.out.println("    " + taskList[i]);
             }
             printLine();
         }
@@ -52,7 +73,6 @@ public class N {
                         "Okay, task " +(taskIndex + 1)+ " unmarked, let's complete it soon ~.o.~";
             }
         } else {
-            //output message when task index given is invalid
             outputMessage = "Task not found :p";
         }
         printMessage(outputMessage);
@@ -86,8 +106,8 @@ public class N {
                     taskList[taskCount] = new Event(taskDescription, taskCount);
                 } catch (StringIndexOutOfBoundsException e) {
                     printMessage("Wrong format for event task! \n" +
-                            "    Please input in this format: \n" +
-                            "    event [task] /from [start time] /to [end time]");
+                            INPUT_INSTRUCTION +
+                            EVENT_INPUT_FORMAT);
                     return;
                 }
                 break;
@@ -97,13 +117,13 @@ public class N {
                     taskList[taskCount] = new Deadline(taskDescription, taskCount);
                 } catch (StringIndexOutOfBoundsException e) {
                     printMessage("Wrong format for deadline task! \n" +
-                            "    Please input in this format: \n" +
-                            "    deadline [task] /by [deadline]");
+                            INPUT_INSTRUCTION +
+                            DEADLINE_INPUT_FORMAT);
                     return;
                 } catch (EmptyTaskDescriptionException e) {
                     printMessage("uhOh! The task or deadline cannot be empty for a deadline :o\n" +
-                            "    Please input in this format:\n" +
-                            "    deadline [task] /by [deadline]");
+                            INPUT_INSTRUCTION +
+                            DEADLINE_INPUT_FORMAT);
                     return;
                 }
                 break;
@@ -113,8 +133,8 @@ public class N {
                     taskList[taskCount] = new ToDo(taskDescription, taskCount);
                 } catch (EmptyTaskDescriptionException e) {
                     printMessage("uhOh! The task must be specified for a todo :o\n" +
-                            "    Please input in this format:\n" +
-                            "    todo [task]");
+                            INPUT_INSTRUCTION +
+                            TODO_INPUT_FORMAT);
                     return;
                 }
                 break;
@@ -136,7 +156,7 @@ public class N {
             Type taskType = filterTask(message);
             addToTaskList(taskType, message);
         } catch (NoTaskTypeException e) {
-            printMessage("oHno, you did not specify your task type :O");
+            printMessage(NO_TASK_TYPE_ERROR);
             return;
         } catch (EmptyTaskDescriptionException e) {
             return;
@@ -149,9 +169,9 @@ public class N {
             int indexToUnmark = Integer.parseInt(message.split(" ")[1]);
             changeTaskStatus(indexToUnmark - 1, false);
         } catch (NumberFormatException e) {
-            printMessage("invalid task!");
+            printMessage(INVALID_TASK_INDEX_ERROR);
         } catch (IndexOutOfBoundsException e) {
-            printMessage("Task number not provided, please try again ...");
+            printMessage(NO_TASK_INDEX_ERROR);
         }
     }
 
@@ -160,17 +180,16 @@ public class N {
             int indexToMark = Integer.parseInt(message.split(" ")[1]);
             changeTaskStatus(indexToMark - 1, true);
         } catch (NumberFormatException e) {
-            printMessage("invalid task!");
+            printMessage(INVALID_TASK_INDEX_ERROR);
         } catch (IndexOutOfBoundsException e) {
-            printMessage("Task number not provided, please try again ...");
+            printMessage(NO_TASK_INDEX_ERROR);
         }
     }
 
     public static void handleMessages(Scanner in) {
         String message = in.nextLine();
 
-        if (message.equalsIgnoreCase("bye")) {
-            //print bye message
+        if (message.startsWith("bye")) {
             printMessage("Bye. Hope to see you again soon!");
         } else if (message.equalsIgnoreCase("list")) {
             printTaskList();
@@ -188,24 +207,8 @@ public class N {
     }
 
     public static void main(String[] args) {
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-         */
-
-        String logo = " ____   ___\n"
-                + "|    \\ |   |\n"
-                + "|     \\|   |\n"
-                + "|          |\n"
-                + "|   |\\     |\n"
-                + "|___| \\____| .chatbot :)\n";
-
-        System.out.println("Hello from\n" + logo);
-
-        printMessage("Hello! I'm N :) \n" + "    What can I do for you? \n");
+        System.out.println("Hello from\n" + LOGO);
+        printMessage("Hello! I'm N :) \n" + "    What can I do for you?");
         Scanner in = new Scanner(System.in);
         handleMessages(in);
     }
