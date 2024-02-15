@@ -58,6 +58,7 @@ public class BobBot {
             } catch (InvalidTodoException e) {
                 drawErrorLine();
                 System.out.println("\tIt seems that you have not entered the task information. "
+                        + "\n\tUsage: todo {description of task}"
                         + "\n\tPlease try again, or enter /help if you need it");
                 drawErrorLine();
                 return;
@@ -68,6 +69,7 @@ public class BobBot {
             } catch (InvalidDeadlineException e) {
                 drawErrorLine();
                 System.out.println("\tIt seems that you have missed out on certain fields for deadline. "
+                        + "\n\tUsage: deadline {description of task} /by {due date}"
                         + "\n\tPlease try again, or enter /help if you need it");
                 drawErrorLine();
                 return;
@@ -78,6 +80,7 @@ public class BobBot {
             } catch (InvalidEventException e) {
                 drawErrorLine();
                 System.out.println("\tIt seems that you have missed out on certain fields for event. "
+                        + "\n\tUsage: event {description of task} /from {start date/time} /to {end date/time}"
                         + "\n\tPlease try again, or enter /help if you need it");
                 drawErrorLine();
                 return;
