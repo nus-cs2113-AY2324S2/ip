@@ -15,23 +15,24 @@ public class TaskList {
      * @param userInput The full command entered by the user to add a task.
      */
     public void addTask(String userInput){
+        String[] inputSplitBySlash = userInput.split(" /");
         switch (userInput.split(" ")[0]){
         case "todo":
             taskList[taskNo] = new Todo(userInput.substring(5),taskNo+1);
             break;
         case "deadline":
-            String name = userInput.split(" /")[0].substring(9);
-            String by = userInput.split(" /")[1].substring(3);
+            String name = inputSplitBySlash[0].substring(9);
+            String by = inputSplitBySlash[1].substring(3);
             taskList[taskNo] = new Deadline(name, taskNo+1, by);
             break;
         case "event":
-            name = userInput.split(" /")[0].substring(6);
-            String from = userInput.split(" /")[1].substring(5);
-            String to = userInput.split(" /")[2].substring(3);
+            name = inputSplitBySlash[0].substring(6);
+            String from = inputSplitBySlash[1].substring(5);
+            String to = inputSplitBySlash[2].substring(3);
             taskList[taskNo]=new Event(name,taskNo+1, from, to);
             break;
         default:
-            taskList[taskNo]=new Task(userInput,taskNo+1);
+            print("Sorry sir. I am not intelligent enough to know what that means.");
             break;
         }
         taskAddMessage();

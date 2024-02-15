@@ -45,20 +45,24 @@ public class Ruby {
                 break;
             case "mark":
                 if ((userInputs.length != 2) || (!userInputs[1].matches("\\d+"))){
-                    print("Incorrect order.");
+                    print("Sorry sir. Your command is incorrect.");
                     break;
                 }
                 t1.markTask(Integer.parseInt(userInputs[1])-1);
                 break;
             case "unmark":
                 if ((userInputs.length != 2) || (!userInputs[1].matches("\\d+"))){
-                    print("Incorrect order.");
+                    print("Sorry sir. Your command is incorrect.");
                     break;
                 }
                 t1.unmarkTask(Integer.parseInt(userInputs[1])-1);
                 break;
             default:
-                t1.addTask(userInput);
+                if (userInput.split(" ").length<2){
+                    print("Sorry sir. Please give me more detail. I am not intelligent enough to know what that means.");
+                }else{
+                    t1.addTask(userInput);
+                }
                 break;
             }
             userInputs = inputCatcher();
