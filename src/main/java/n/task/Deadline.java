@@ -1,3 +1,7 @@
+package n.task;
+
+import n.exceptions.EmptyTaskDescriptionException;
+
 public class Deadline extends Task{
     private String deadline;
     public Deadline(String description, int arrayIndex) throws EmptyTaskDescriptionException {
