@@ -131,6 +131,10 @@ public class Duke {
             tasks[listIndex] = new Deadline(line.substring(0, deadlineDividerPositionBy).trim(), line.substring(deadlineDividerPositionBy + 3).trim());
             echoTask();
             break;
+        default:
+            System.out.println("--------------------------------------");
+            System.out.println("Sorry! I don't know what that means!");
+            System.out.println("--------------------------------------");
         }
 
     }
