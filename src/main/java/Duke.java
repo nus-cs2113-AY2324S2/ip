@@ -25,16 +25,11 @@ public class Duke {
         tasks[taskNumber].printTask();
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello! I'm Ms Chatty :)");
-        System.out.println("What can I do for you?");
-
-        String userCommand;
+    public static void handleCommand(String userCommand) {
         Task[] tasks = new Task[100];
         String[] arrayOfCommand = new String[4];
         int taskCount = 0;
         Scanner in = new Scanner(System.in);
-        userCommand = in.nextLine();
 
         while (!(userCommand.equals("bye"))) {
             if (userCommand.equals("list")) {
@@ -57,7 +52,6 @@ public class Duke {
             } else if (userCommand.contains("deadline")) {
                 arrayOfCommand = userCommand.split("deadline | /by");
                 tasks[taskCount] = new Deadline(arrayOfCommand[1], arrayOfCommand[2]);
-
             } else if (userCommand.contains("event")) {
                 arrayOfCommand = userCommand.split("event | /from | /to ");
                 tasks[taskCount] = new Event(arrayOfCommand[1], arrayOfCommand[2], arrayOfCommand[3]);
@@ -78,5 +72,15 @@ public class Duke {
 
         System.out.println("Bye! Hope to see you again :)");
     }
-}
 
+
+    public static void main(String[] args) {
+        System.out.println("Hello! I'm Ms Chatty :)");
+        System.out.println("What can I do for you?");
+
+        Scanner in = new Scanner(System.in);
+        String userCommand = in.nextLine();
+        handleCommand(userCommand);
+
+    }
+}
