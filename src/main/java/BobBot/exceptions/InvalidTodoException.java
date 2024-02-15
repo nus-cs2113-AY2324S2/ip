@@ -1,3 +1,4 @@
+package BobBot.exceptions;
 public class InvalidTodoException extends BobBotExceptions {
 
     @Override

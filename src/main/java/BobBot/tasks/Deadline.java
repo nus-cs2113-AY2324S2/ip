@@ -1,3 +1,7 @@
+package BobBot.tasks;
+
+import BobBot.exceptions.InvalidDeadlineException;
+
 public class Deadline extends Task {
 
     protected String task;
