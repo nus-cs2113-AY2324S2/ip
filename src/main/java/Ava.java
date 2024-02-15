@@ -24,28 +24,94 @@ public class Ava {
                 markTask(tasks, task);
                 continue;
             } else if (task.startsWith("todo")) {
-                task = task.replace("todo ", "");
-                tasks[Task.getNumberOfTasks()] = new ToDo(task);
+                try {
+                    addTask(tasks, task, "todo");
+                } catch (EmptyDescriptionException e) {
+                    dealWithEmptyDescriptionException("todo");
+                    continue;
+                }
             } else if (task.startsWith("deadline")) {
-                String[] taskAndDate = trimTask(task, "deadline ");
-                tasks[Task.getNumberOfTasks()] = new Deadline(taskAndDate[0], taskAndDate[1]);
+                try {
+                    try {
+                        addTask(tasks, task, "deadline");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        dealWithFormatException();
+                        continue;
+                    }
+                } catch (EmptyDescriptionException e) {
+                    dealWithEmptyDescriptionException("deadline");
+                    continue;
+                }
             } else if (task.startsWith("event")) {
-                String[] taskAndDate = trimTask(task, "event ");
-                tasks[Task.getNumberOfTasks()] = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
+                try {
+                    try {
+                        addTask(tasks, task, "event");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        dealWithFormatException();
+                        continue;
+                    }
+                } catch (EmptyDescriptionException e) {
+                    dealWithEmptyDescriptionException("event");
+                    continue;
+                }
             }
-            addTask(tasks);
+            printAfterAddingTask(tasks);
         }
     }
 
-    public static String[] trimTask(String task, String type) {
-        task = task.replace(type, "");
-        return task.split("/");
+    private static void dealWithFormatException() {
+        printLine();
+        System.out.println("(⊙_⊙)? You need to specify the date after '/'");
+        printLine();
     }
 
-    public static void addTask(Task[] tasks) {
+    private static void dealWithEmptyDescriptionException(String type) {
         printLine();
-        System.out.println("Got it! I've added this task:");
-        System.out.println(tasks[Task.getNumberOfTasks() - 1].toString());
+        switch (type) {
+        case "todo":
+            System.out.println("Please tell me what needs todo (＾＿－)");
+            break;
+        case "deadline":
+            System.out.println("Please tell me the deadline is for? (＾＿－)");
+            break;
+        case "event":
+            System.out.println("Please tell me what is the event? (＾＿－)");
+            break;
+        }
+        printLine();
+    }
+
+    public static void addTask(Task[] tasks, String task, String type) throws EmptyDescriptionException {
+        task = task.replace(type, "");
+        if (task.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        String[] taskAndDate = task.split("/");
+        switch (type) {
+        case "todo":
+            tasks[Task.getNumberOfTasks()] = new ToDo(taskAndDate[0]);
+            break;
+        case "deadline":
+            tasks[Task.getNumberOfTasks()] = new Deadline(taskAndDate[0], taskAndDate[1]);
+            break;
+        case "event":
+            tasks[Task.getNumberOfTasks()] = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
+            break;
+        }
+    }
+
+    public static void printAfterAddingTask(Task[] tasks) {
+        try {
+            String addedTask = tasks[Task.getNumberOfTasks() - 1].toString();
+            printLine();
+            System.out.println("Got it! I've added this task:");
+            System.out.println(addedTask);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printLine();
+            System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
+            printLine();
+            return;
+        }
         if (Task.getNumberOfTasks() == 1) {
             System.out.println("Now you have " + 1 + " task in the list~~~");
         } else {
@@ -61,18 +127,30 @@ public class Ava {
         if (command.startsWith("unmark")) {
             isMark = false;
         }
-        if (isMark) {
-            command = command.replace("mark ", "");
-            taskChanged = Integer.parseInt(command) - 1;
-            tasks[taskChanged].markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-        } else {
-            command = command.replace("unmark ", "");
-            taskChanged = Integer.parseInt(command) - 1;
-            tasks[taskChanged].markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:");
+        try {
+            try {
+                if (isMark) {
+                    command = command.replace("mark ", "");
+                    taskChanged = Integer.parseInt(command) - 1;
+                    tasks[taskChanged].markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                } else {
+                    command = command.replace("unmark ", "");
+                    taskChanged = Integer.parseInt(command) - 1;
+                    tasks[taskChanged].markAsNotDone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                }
+            } catch (NullPointerException e) {
+                System.out.println(" ⊙﹏⊙ Hey! You cannot mark a task that does not exist!");
+                printLine();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please tell me which one to mark? (＾＿－)");
+            printLine();
+            return;
         }
-        System.out.println(tasks[taskChanged].toString());
+        System.out.println(tasks[taskChanged]);
         printLine();
     }
 
@@ -81,7 +159,7 @@ public class Ava {
         System.out.println("Here are the tasks in your list:");
         int noOfTask = 0;
         while (noOfTask < Task.getNumberOfTasks()) {
-            System.out.println((noOfTask + 1) + "." + tasks[noOfTask].toString());
+            System.out.println((noOfTask + 1) + "." + tasks[noOfTask]);
             noOfTask += 1;
         }
         printLine();
