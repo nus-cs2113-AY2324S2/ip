@@ -35,7 +35,7 @@ public class Misty {
 
                     if (indexString.equals((""))) {
                         Parser.printErrorNoId();
-                        Parser.printMarkUsage();
+                        Parser.printUnmarkUsage();
                         break;
                     }
 
@@ -117,7 +117,7 @@ public class Misty {
                 } else if (input.startsWith("event")) {
                     if (!input.contains(" ") || !input.contains(" /from ") || !input.contains(" /to ") ) {
                         Parser.printErrorInvalidFormat();
-                        Parser.printDeadlineUsage();
+                        Parser.printEventUsage();
                         break;
                     }
 
