@@ -3,4 +3,3 @@ public class MonaException extends Exception {
         super(errorMessage);
     }
 }
-    
