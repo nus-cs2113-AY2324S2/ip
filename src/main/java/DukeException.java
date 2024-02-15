@@ -10,7 +10,7 @@ public class DukeException extends Exception {
             return taskIndex;
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! Invalid input");
+            System.out.println("OOPS!!! Invalid input.");
             throw new DukeException();
         }
     }
