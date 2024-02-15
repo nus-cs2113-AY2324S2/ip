@@ -50,6 +50,12 @@ public class Lovie {
                             addTaskPrinter(newTask);
                             break;
                         case "todo":
+                            try {
+                                todoFormatChecker(input);
+                            } catch (LovieException e) {
+                                print(e.getMessage());
+                                break;
+                            }
                             newTask = new ToDo(input);
                             tasksList.add(newTask);
                             addTaskPrinter(newTask);
@@ -137,6 +143,13 @@ public class Lovie {
             Task selectedTask = tasksList.get(taskNumber);
             selectedTask.markAsDone();
             markTaskPrinter(selectedTask);
+        }
+    }
+
+    public static void todoFormatChecker(String input) throws LovieException {
+        String[] splitUpInput = input.split(" ", 2);
+        if (splitUpInput.length == 1) {
+            throw new LovieException("Oops! Make sure you add a description for your todo! Here is the format:\n");
         }
     }
 }

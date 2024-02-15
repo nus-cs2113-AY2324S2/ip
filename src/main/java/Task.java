@@ -7,7 +7,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getDescription() throws LovieException {
+    public String getDescription() {
         return description;
     }
 
