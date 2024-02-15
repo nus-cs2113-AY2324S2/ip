@@ -1,3 +1,5 @@
+package Blue;
+
 import java.util.Scanner;
 
 public class Blue {

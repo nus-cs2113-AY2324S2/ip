@@ -1,3 +1,5 @@
+package Blue;
+
 public class Event extends Deadline {
     private String from;
 
