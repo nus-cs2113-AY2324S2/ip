@@ -1,3 +1,5 @@
+package Blue;
+
 public class InputParser extends Blue {
     private InputCommand command;
     private int taskIndex;

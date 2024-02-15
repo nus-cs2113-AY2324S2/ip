@@ -1,3 +1,5 @@
+package Blue;
+
 public class TaskManager extends Blue {
     // assume no more than 100 tasks for now
     public static final int MAX_TASKS = 100;
