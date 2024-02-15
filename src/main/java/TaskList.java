@@ -55,7 +55,11 @@ public class TaskList {
     }
 
     public void handleToDo(String taskDetails) {
-        tasks.add(new ToDo(taskDetails));
+        if (taskDetails == null) {
+            System.out.println("ToDo task description cannot be empty. Please try again.");
+        }else {
+            tasks.add(new ToDo(taskDetails));
+        }
     }
 
     public void handleDeadline(String taskDetails) {

@@ -21,6 +21,9 @@ public class Baron {
             input = input.toLowerCase();
             if (input.equals(EXIT_COMMAND)) {
                 break;
+            } else if (input.isEmpty()) {
+                System.out.println("Command cannot be empty. Please enter a valid command.");
+                continue;
             }
             Parser.parseInput(input, tasks);
         }
