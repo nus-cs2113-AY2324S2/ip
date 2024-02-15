@@ -1,3 +1,4 @@
+package laika;
 public class Deadline extends Task{
 
     protected String by = " (by: ";

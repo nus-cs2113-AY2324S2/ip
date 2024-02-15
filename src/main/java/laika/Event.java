@@ -1,3 +1,4 @@
+package laika;
 public class Event extends Task{
 
     protected String from = " (from: ";

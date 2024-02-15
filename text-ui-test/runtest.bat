@@ -7,7 +7,7 @@ REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp "C:\Users\ansel\Desktop\CS2113\ip\src\main\java" -Xlint:none -d C:\Users\ansel\bin C:\Users\ansel\Desktop\CS2113\ip\src\main\java\Laika.java
+javac  -cp "C:\Users\ansel\Desktop\CS2113\ip\src\main\java" -Xlint:none -d C:\Users\ansel\bin C:\Users\ansel\Desktop\CS2113\ip\src\main\java\laika\Laika.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

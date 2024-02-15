@@ -1,3 +1,4 @@
+package laika;
 import java.util.Scanner;
 
 public class Laika {
