@@ -17,7 +17,7 @@ public class Schmidt {
                 "░╚═══██╗██║░░██╗██╔══██║██║╚██╔╝██║██║██║░░██║░░░██║░░░\n" +
                 "██████╔╝╚█████╔╝██║░░██║██║░╚═╝░██║██║██████╔╝░░░██║░░░\n" +
                 "╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░";
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(LOGO);
         print("Hello! I'm Schmidt\n" +
@@ -37,8 +37,8 @@ public class Schmidt {
             // check if the input is empty
             String command;
             try {
-                // get the command from the input and convert it to lowercase
-                command = trimmedInput.split(" ")[0].toLowerCase();
+                // split input by whitespace and extract the command
+                command = trimmedInput.split("\\s+")[0].toLowerCase();
             } catch (ArrayIndexOutOfBoundsException e) {
                 printValidCommands();
                 continue;
@@ -53,23 +53,55 @@ public class Schmidt {
                 printListHelper(tasks);
                 continue;
             case "mark":
-                markTaskHelper(tasks, trimmedInput, true);
+                try {
+                    markTaskHelper(tasks, trimmedInput, true);
+                } catch (NumberFormatException e) {
+                    print("The task number should be a number\n" +
+                            "\tmark <task number>");
+                } catch (IndexOutOfBoundsException e) {
+                    print("Task number out of range\n" +
+                            "\tmark <task number>");
+                } catch (SchmidtException e) {
+                    print(e.getMessage());
+                }
                 continue;
             case "unmark":
-                markTaskHelper(tasks, trimmedInput, false);
+                try {
+                    markTaskHelper(tasks, trimmedInput, false);
+                } catch (NumberFormatException e) {
+                    print("The task number should be a number\n" +
+                            "\tunmark <task number>");
+                } catch (IndexOutOfBoundsException e) {
+                    print("Task number out of range\n" +
+                            "\tunmark <task number>");
+                } catch (SchmidtException e) {
+                    print(e.getMessage());
+                }
                 continue;
             case "todo":
-                addTodoHelper(tasks, trimmedInput);
+                try {
+                    addTodoHelper(tasks, trimmedInput);
+                } catch (StringIndexOutOfBoundsException e) {
+                    print("The description of a todo cannot be empty\n" +
+                            "\ttodo <description>");
+                }
                 continue;
             case "deadline":
-                addDeadlineHelper(tasks, trimmedInput);
+                try {
+                    addDeadlineHelper(tasks, trimmedInput);
+                } catch (SchmidtException e) {
+                    print(e.getMessage());
+                }
                 continue;
             case "event":
-                addEventHelper(tasks, trimmedInput);
+                try {
+                    addEventHelper(tasks, trimmedInput);
+                } catch (SchmidtException e) {
+                    print(e.getMessage());
+                }
                 continue;
             default:
                 printValidCommands();
-                continue;
             }
         }
     }
@@ -110,7 +142,7 @@ public class Schmidt {
      * @param tasks The list of tasks
      */
     public static void printListHelper(ArrayList<Task> tasks) {
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             print("You have no tasks in the list");
             return;
         }
@@ -143,15 +175,18 @@ public class Schmidt {
      * @param input The user input
      */
     public static void addTodoHelper(ArrayList<Task> tasks, String input) {
-        try {
-            // parse the input to get the description
-            String description = input.substring(5);
-            tasks.add(new Todo(description));
-
-            printAddedTaskMessage(tasks);
-        } catch (StringIndexOutOfBoundsException e) {
-            printValidCommands();
+        // split by the first whitespace to get the description
+        String[] inputTokens = input.split("\\s+", 2);
+        if (inputTokens.length < 2) {
+            print("The description of a todo cannot be empty\n" +
+                    "\ttodo <description>");
+            return;
         }
+
+        String description = inputTokens[1];
+        tasks.add(new Todo(description));
+
+        printAddedTaskMessage(tasks);
     }
 
     /**
@@ -160,17 +195,30 @@ public class Schmidt {
      * @param tasks The list of tasks
      * @param input The user input
      */
-    public static void addDeadlineHelper(ArrayList<Task> tasks, String input) {
-        try {
-            // parse the input to get the description and by
-            String description = input.substring(9, input.indexOf("/by") - 1);
-            String by = input.substring(input.indexOf("/by") + 4);
-            tasks.add(new Deadline(description, by));
+    public static void addDeadlineHelper(ArrayList<Task> tasks, String input) throws SchmidtException {
+        // parse the input to get the description and by
+        String[] inputTokens = input.split("\\s+/by\\s+");
 
-            printAddedTaskMessage(tasks);
-        } catch (StringIndexOutOfBoundsException e) {
-            printValidCommands();
+        // no description or "/by"
+        if (inputTokens.length < 2) {
+            throw new SchmidtException("Please specify the deadline and description\n" +
+                    "\tdeadline <description> /by <date>");
         }
+
+        // no description
+        String description;
+        try {
+            description = inputTokens[0].split("\\s+", 2)[1];
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new SchmidtException("The description of a deadline cannot be empty\n" +
+                    "\tdeadline <description> /by <date>");
+        }
+
+        String by = inputTokens[1];
+
+        tasks.add(new Deadline(description, by));
+
+        printAddedTaskMessage(tasks);
     }
 
     /**
@@ -179,18 +227,39 @@ public class Schmidt {
      * @param tasks The list of tasks
      * @param input The user input
      */
-    public static void addEventHelper(ArrayList<Task> tasks, String input) {
-        try {
-            // parse the input to get the description, from and to
-            String description = input.substring(6, input.indexOf("/from") - 1);
-            String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
-            String to = input.substring(input.indexOf("/to") + 4);
-            tasks.add(new Event(description, from, to));
+    public static void addEventHelper(ArrayList<Task> tasks, String input) throws SchmidtException {
+        // split by "/from" to get the description and time details
+        String[] inputSplitByFrom = input.split("\\s+/from\\s+");
 
-            printAddedTaskMessage(tasks);
-        } catch (StringIndexOutOfBoundsException e) {
-            printValidCommands();
+        // no "/from" or "/to"
+        if (inputSplitByFrom.length < 2) {
+            throw new SchmidtException("Please specify both the from and to date\n" +
+                    "\tevent <description> /from <date> /to <date>");
         }
+
+        // split by "/to" to get the from and to
+        String[] inputSplitByTo = inputSplitByFrom[1].split("\\s+/to\\s+");
+
+        // no "/from" or "/to"
+        if (inputSplitByTo.length < 2) {
+            throw new SchmidtException("Please specify both the from and to date\n" +
+                    "\tevent <description> /from <date> /to <date>");
+        }
+
+        String description;
+        try {
+            description = inputSplitByFrom[0].split("\\s+", 2)[1];
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new SchmidtException("The description of an event cannot be empty\n" +
+                    "\tevent <description> /from <date> /to <date>");
+        }
+
+        String from = inputSplitByTo[0].trim();
+        String to = inputSplitByTo[1].trim();
+
+        tasks.add(new Event(description, from, to));
+
+        printAddedTaskMessage(tasks);
     }
 
     /**
@@ -200,29 +269,19 @@ public class Schmidt {
      * @param input      The user input
      * @param shouldMark A boolean to indicate if the task needs to be marked or unmarked as done
      */
-    public static void markTaskHelper(ArrayList<Task> tasks, String input, boolean shouldMark) {
-        String[] tokens = input.split(" ");
+    public static void markTaskHelper(ArrayList<Task> tasks, String input, boolean shouldMark) throws SchmidtException {
+        String[] tokens = input.split("\\s+");
 
         // incorrectly formatted command
-        if (tokens.length != 2) {
-            print("Please specify the task number to mark as done");
-            return;
+        if (tokens.length < 2) {
+            throw new SchmidtException("Please specify the task number to mark as done\n" +
+                    "\tmark <task number>");
+        } else if (tokens.length > 2) {
+            throw new SchmidtException("Please specify one task number to mark as done\n" +
+                    "\tmark <task number>");
         }
 
-        // task number is not a number
-        int index;
-        try {
-            index = Integer.parseInt(tokens[1]) - 1;
-        } catch (NumberFormatException e) {
-            print("Please specify the task number to mark as done");
-            return;
-        }
-
-        // task number out of range
-        if (index < 0 || index >= tasks.size()) {
-            print("Task number out of range");
-            return;
-        }
+        int index = Integer.parseInt(tokens[1]) - 1;
 
         // mark or unmark the task as done
         if (shouldMark) {
