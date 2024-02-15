@@ -9,6 +9,11 @@ public class IllegalInput extends Exception {
     }
     @Override
     public String toString() {
-        return WARNING_MESSAGE;
+        switch (type) {
+        case mark:
+            return "Please specify a task index";
+        default:
+            return WARNING_MESSAGE;
+        }
     }
 }

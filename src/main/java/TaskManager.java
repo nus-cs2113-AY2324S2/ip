@@ -4,9 +4,6 @@ public class TaskManager extends Blue {
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int numTasks = 0;
 
-    public int getNumTasks() {
-        return numTasks;
-    }
     public void listTasks() {
         for (int i = 0; i < numTasks; i += 1) {
             talk(Integer.toString(i + 1) + ". " + tasks[i]);
@@ -14,11 +11,16 @@ public class TaskManager extends Blue {
     }
     public void markTask(int taskIndex) {
         if (taskIndex < 0 || taskIndex >= numTasks) {
-            talk("Task no. " + taskIndex + "not found.");
+            talk("Task not found.");
             return;
         }
         tasks[taskIndex].setDone();
         talk("Task " + tasks[taskIndex].getDescription() + " marked as done.");
+    }
+    public void addTask(Task task) {
+        tasks[numTasks] = task;
+        numTasks += 1;
+        talk("added: " + task.getDescription());
     }
     public void addTask(String description) {
         tasks[numTasks] = new Task(description);
