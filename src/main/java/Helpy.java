@@ -26,10 +26,9 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void printIndexError() {
+    public static void printMessage(String message) {
         System.out.print(HORIZONTAL_LINE);
-        System.out.println("Invalid task number. "
-                + "Please check the task number again.");
+        System.out.println(message);
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -65,7 +64,7 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void addTask(String command, ArrayList<Task> taskList) {
+    public static void processCommand(String command, ArrayList<Task> taskList) {
 
         if (command.startsWith("mark") || command.startsWith("unmark")) {
             String taskNum;
@@ -82,15 +81,11 @@ public class Helpy {
                 int taskIndex = Integer.parseInt(taskNum) - 1;
                 markTask(taskList.get(taskIndex), commandStartsWith);
             } catch (NumberFormatException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Task number provided is invalid! " +
+                printMessage("Task number provided is invalid! " +
                         "Did you enter wrongly? You typed: " + command);
-                System.out.println(HORIZONTAL_LINE);
             } catch (IndexOutOfBoundsException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Task number doesn't exist! " +
+                printMessage("Task number doesn't exist! " +
                         "Did you enter wrongly? You typed: " + command);
-                System.out.println(HORIZONTAL_LINE);
             }
             return;
         }
@@ -100,9 +95,7 @@ public class Helpy {
                 Todo newTodo = new Todo(command);
                 taskList.add(newTodo);
             } catch (IllegalDescriptionException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Your todo description is empty!");
-                System.out.println(HORIZONTAL_LINE);
+                printMessage("Your todo description is empty!");
                 return;
             }
         } else if (command.startsWith("deadline")) {
@@ -110,10 +103,8 @@ public class Helpy {
                 Deadline newDeadline = new Deadline(command);
                 taskList.add(newDeadline);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Invalid format for deadline! Make sure it follows: " +
+                printMessage("Invalid format for deadline! Make sure it follows: " +
                         "deadline <description> /by <date>");
-                System.out.println(HORIZONTAL_LINE);
                 return;
             }
         } else if (command.startsWith("event")) {
@@ -121,26 +112,16 @@ public class Helpy {
                 Event newEvent = new Event(command);
                 taskList.add(newEvent);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Invalid format for event! Make sure it's in this format: " +
+                printMessage("Invalid format for event! Make sure it's in this format: " +
                         "event <description> /from <start date> /to <end date>");
-                System.out.println(HORIZONTAL_LINE);
                 return;
             }
         } else {
-            System.out.print(HORIZONTAL_LINE);
-            System.out.println("I don't understand the command \"" + command
+            printMessage("I don't understand the command \"" + command
                     + "\". Can you check that you typed correctly?");
-            System.out.println(HORIZONTAL_LINE);
             return;
         }
         addMessage(taskList);
-    }
-
-    public static void goodbyeUser() {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Goodbye, see you next time!");
-        System.out.println(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
@@ -154,13 +135,13 @@ public class Helpy {
             command = in.nextLine();
             switch (command) {
             case "bye":
-                goodbyeUser();
+                printMessage("Goodbye, see you next time!");
                 break;
             case "list":
                 listTasks(taskList);
                 break;
             default:
-                addTask(command, taskList);
+                processCommand(command, taskList);
                 break;
             }
         }
