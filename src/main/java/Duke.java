@@ -25,6 +25,20 @@ public class Duke {
         tasks[taskNumber].printTask();
     }
 
+    public static void handleMarkAndUnmarkRequest(String userCommand,String[] arrayOfCommand,Task[] tasks) {
+        arrayOfCommand = userCommand.split(" ",2);
+        if (arrayOfCommand.length < 2 || arrayOfCommand[1].isEmpty()) {
+            System.out.print(Guide.MARK_AND_UNMARK_REQUEST_FORMAT);
+            throw new StringIndexOutOfBoundsException();
+        }
+        int taskNumber = Integer.parseInt(arrayOfCommand[1]);
+        if (arrayOfCommand[0].equals("mark")) {
+            markTask(tasks, taskNumber - 1);
+        } else {
+            unmarkTask(tasks, taskNumber - 1);
+        }
+    }
+
     public static void handleCommand(String userCommand) {
         Task[] tasks = new Task[100];
         String[] arrayOfCommand = new String[4];
@@ -36,14 +50,12 @@ public class Duke {
                 printTasks(tasks, taskCount);
                 userCommand = in.nextLine();
                 continue;
-            } else if (userCommand.contains("unmark ")) {
-                int taskNumber = Task.extractNumber(userCommand);
-                unmarkTask(tasks,taskNumber-1);
+            } else if (userCommand.contains("unmark")) {
+                handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks);
                 userCommand = in.nextLine();
                 continue;
-            } else if (userCommand.contains("mark ")) {
-                int taskNumber = Task.extractNumber(userCommand);
-                markTask(tasks,taskNumber-1);
+            } else if (userCommand.contains("mark")) {
+                handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks);
                 userCommand = in.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
