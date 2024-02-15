@@ -1,3 +1,8 @@
+package hachi;
+
+import hachi.data.HachiException;
+import hachi.data.task.*;
+
 import java.util.Scanner;
 
 /**

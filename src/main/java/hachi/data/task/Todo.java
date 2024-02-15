@@ -1,3 +1,5 @@
+package hachi.data.task;
+
 public class Todo extends Task {
     /**
      * Constructor for new tasks given its name.

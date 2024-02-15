@@ -1,3 +1,7 @@
+package hachi.parser;
+
+import hachi.ui.Ui;
+
 /**
  * Parses user input in order to determine instructions for the chatbot.
  * To be completed

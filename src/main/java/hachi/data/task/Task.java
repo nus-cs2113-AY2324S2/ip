@@ -1,3 +1,5 @@
+package hachi.data.task;
+
 /**
  * Represents a Task with the elements task name, its completeness status
  * and a class-level element that tracks the total number of tasks currently active.
