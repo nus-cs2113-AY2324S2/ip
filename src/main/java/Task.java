@@ -14,9 +14,10 @@ public class Task {
         taskType = TaskType.TASK;
     }
 
-    public TaskType getTaskType(){
+    public TaskType getTaskType () {
         return taskType;
     }
+
     //Methods
     public String toString () {
         return (isDone ? "[X] " : "[ ] ") + name;
@@ -34,7 +35,7 @@ public class Task {
     public static void addTask (Task task) {
         System.out.println(UI.LINE_SEPARATOR);
 
-        switch (task.getTaskType()){
+        switch (task.getTaskType()) {
             case DEADLINE:
             case EVENT:
             case TODO:
@@ -63,13 +64,22 @@ public class Task {
         System.out.println(UI.LINE_SEPARATOR);
     }
 
-    private static boolean isValidObject (String command) {
-        return command.equals("deadline") || command.equals("event")
-                || command.equals("todo");
+    private static boolean isValidTask (String command) {
+        return command.equals("todo") || command.equals("deadline") || command.equals("event");
+    }
+
+    private static boolean isValidCommand (String command) {
+        return command.equals("list") || command.equals("mark") || command.equals("unmark") || isValidTask(command);
     }
 
     public static void responseToCommand (String command) {
         String[] commandWords = command.split(" ");
+        if (!isValidCommand(commandWords[0])) {
+            System.out.println(UI.LINE_SEPARATOR);
+            System.out.println("Command not recognized");
+            System.out.println(UI.LINE_SEPARATOR);
+            return;
+        }
         if (commandWords[0].equals("list")) {
             Task.listTasks();
         } else if (commandWords[0].equals("mark")) {
@@ -77,8 +87,11 @@ public class Task {
         } else if (commandWords[0].equals("unmark")) {
             unmark(Integer.parseInt(commandWords[1]));
         } else {
-            Task newTask = Parser.parseCommand(command);
-            addTask(newTask);
+            if (Parser.isValidTaskCommand(command, commandWords)) {
+                Task newTask;
+                newTask = Parser.parseCommand(command);
+                addTask(newTask);
+            }
         }
     }
 }
