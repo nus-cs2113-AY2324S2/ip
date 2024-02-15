@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class EmptyCommandException {
+public class EmptyCommandException extends Exception {
 }

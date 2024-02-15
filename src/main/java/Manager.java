@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Manager {
+    private static final String line = "-----------------------------------\n";
+    private static final String indent = "   ";
     private static int taskIndex = 0;
     private static final Task[] taskList = new Task[100];
 
@@ -25,7 +27,7 @@ public class Manager {
             case TODO:
             case DEADLINE:
             case EVENT:
-                addTasks(action,inputString.substring(spaceIndex,slashIndex),inputString,slashIndex);
+                addTask(action,inputString.substring(spaceIndex,slashIndex),inputString,slashIndex);
                 continue;
             case BYE:
                 sayBye();
@@ -40,16 +42,19 @@ public class Manager {
             case UNMARK:
                 taskList[Integer.parseInt(inputString.substring(7)) - 1].unmark();
                 continue;
-            case INVALID:
-                System.out.println("Your command was invalid.");
+            case INVALIDTODO:
+            case INVALIDDEADLINE:
+            case INVALIDEVENT:
+            case INVALIDCOMMAND:
+            case EMPTYCOMMAND:
+                handleCheckedExceptions(action);
+
             }
 
         } while (flag);
 
     }
-    private static void addTasks(Commands taskType, String taskName, String inputString, int slashIndex) {
-        String line = "-----------------------------------\n";
-        String indent = "   ";
+    private static void addTask(Commands taskType, String taskName, String inputString, int slashIndex) {
         switch (taskType) {
         case TODO:
             ToDo newToDo = new ToDo(taskIndex, false, taskName);
@@ -91,47 +96,61 @@ public class Manager {
         System.out.print(line);
     }
     private static Commands classifyCommand(String inputString) {
-
-        Commands command;
         switch (inputString) {
         // Cases include farewell and list commands
         case "bye":
         case "Bye":
         case "BYE":
-            command = Commands.BYE;
-            return command;
+            return Commands.BYE;
         case "list":
         case "List":
         case "LIST":
-            command = Commands.LIST;
-            return command;
+            return Commands.LIST;
         }
-        switch (inputString.substring(0, inputString.indexOf(" "))) {
-        case "todo":
-            command = Commands.TODO;
-            return command;
-        case "deadline":
-            command = Commands.DEADLINE;
-            return command;
-        case "event":
-            command = Commands.EVENT;
-            return command;
-        // Cases for marking tasks
-        case "mark":
-            command = Commands.MARK;
-            return command;
-        case "unmark":
-            command = Commands.UNMARK;
-            return command;
+
+        try {
+            String[] commandWords = inputString.split(" ");
+            switch (commandWords[0]) {
+            case "todo":
+                addToDo(commandWords);
+                return Commands.TODO;
+
+            case "deadline":
+                addDeadline(commandWords);
+                return Commands.DEADLINE;
+            case "event":
+                addEvent(commandWords);
+                return Commands.EVENT;
+            // Cases for marking tasks
+            case "mark":
+                return Commands.MARK;
+
+            case "unmark":
+                return Commands.UNMARK;
+
+            case "":
+                handleEmptyString();
+
+            default:
+                handleInvalidCommand();
+            }
+        } catch (InvalidToDoException e) {
+            return Commands.INVALIDTODO;
+        } catch (InvalidDeadlineException E) {
+            return Commands.INVALIDDEADLINE;
+        } catch (InvalidEventException e) {
+            return Commands.INVALIDEVENT;
+        } catch (EmptyCommandException e) {
+            return Commands.EMPTYCOMMAND;
+        } catch (InvalidCommandException | ArrayIndexOutOfBoundsException e) {
+            return Commands.INVALIDCOMMAND;
         }
-       return Commands.INVALID;
+        return Commands.INVALIDCOMMAND;
 
     }
 
     // Method for displaying list
     private static void displayList(Task[] taskList, int taskIndex) {
-        String line = "-----------------------------------\n";
-        String indent = "   ";
         for (int i = 0; i < taskIndex; i++) {
             System.out.print(indent);
             if (taskList[i].getType().equals("D")) {
@@ -152,7 +171,6 @@ public class Manager {
 
     // Method for farewell message
     private static void sayBye() {
-        String line = "-----------------------------------\n";
         String farewell = "Farewell. Hope to see you again soon!";
         System.out.print(line);
         System.out.println(farewell);
@@ -161,8 +179,6 @@ public class Manager {
 
     // Method for echo, not used after Level-1
     private static void echo() {
-        String line = "-----------------------------------\n";
-        String indent = "   ";
         String echoLine;
         Scanner input = new Scanner(System.in);
         echoLine = input.nextLine();
@@ -178,5 +194,82 @@ public class Manager {
         }
 
     }
+    public static void addToDo(String[] commandWords) throws InvalidToDoException {
+        if (commandWords.length < 2) {
+            throw new InvalidToDoException();
+        }
+    }
 
+    public static void addDeadline(String[] commandWords) throws InvalidDeadlineException {
+        boolean isValidDeadline = true;
+        for (String commandWord : commandWords) {
+            if (commandWord.equals("/by")) {
+                isValidDeadline = false;
+                break;
+            }
+        }
+        if (commandWords.length < 2 || !isValidDeadline) {
+            throw new InvalidDeadlineException();
+        }
+    }
+
+    public static void addEvent(String[] commandWords) throws InvalidEventException {
+        boolean isValidEvent = false;
+        boolean hasValidStart = true;
+        boolean hasValidEnd = true;
+        for (String commandWord : commandWords) {
+            if (commandWord.equals("/from")) {
+                hasValidStart = false;
+            }
+            if (commandWord.equals("/to")) {
+                hasValidEnd = false;
+            }
+        }
+        if (hasValidStart && hasValidEnd) {
+            isValidEvent = true;
+        }
+        if (commandWords.length < 2 || !isValidEvent) {
+            throw new InvalidEventException();
+        }
+    }
+
+    public static void handleEmptyString () throws EmptyCommandException {
+        throw new EmptyCommandException();
+    }
+
+    public static void handleInvalidCommand () throws InvalidCommandException {
+        throw new InvalidCommandException();
+    }
+
+    public static void handleCheckedExceptions (Commands action) {
+        switch (action) {
+        case INVALIDTODO:
+            System.out.println("Oh no! You did not enter a ToDo task after the todo command!");
+            System.out.println("The correct format should be 'todo (task)'");
+            System.out.print(line);
+            break;
+        case INVALIDDEADLINE:
+            System.out.println("Oh no! You did not enter a Deadline task / specify the deadline correctly " +
+                    "after the deadline command!");
+            System.out.println("The correct format should be 'deadline (task) by/ (deadline)'");
+            System.out.print(line);
+            break;
+        case INVALIDEVENT:
+            System.out.println("Oh no! You did not enter a Event task / specify the event correctly " +
+                    "after the event command!");
+            System.out.println("The correct format should be 'event (task) /from (start time) /to (end time)'");
+            System.out.print(line);
+            break;
+        case EMPTYCOMMAND:
+            System.out.println("Oh no! You did not enter anything! What can one do with nothing? I wonder...");
+            System.out.println("Valid commands are todo, deadline, event\nThanks!");
+            System.out.print(line);
+            break;
+        case INVALIDCOMMAND:
+            System.out.println("Thank you for your input but you did not enter any command! :(");
+            System.out.println("Valid commands are todo, deadline, event\nThanks!");
+            System.out.print(line);
+            break;
+        }
+    }
 }

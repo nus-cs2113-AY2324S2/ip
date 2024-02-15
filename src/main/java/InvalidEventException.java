@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class InvalidEventException {
+public class InvalidEventException extends Exception{
 }

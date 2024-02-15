@@ -1,5 +1,5 @@
 public class Task {
-    boolean marked;
+    boolean isMarked;
     int order;
     String taskName;
 
@@ -7,7 +7,7 @@ public class Task {
 
     Task(int order, boolean marked, String taskName) {
         this.order = order;
-        this.marked = marked;
+        this.isMarked = marked;
         this.taskName = taskName;
     }
 
@@ -15,7 +15,7 @@ public class Task {
     public void mark() {
         String line = "-----------------------------------\n";
         String indent = "   ";
-        this.marked = true;
+        this.isMarked = true;
         this.doneCheckbox = "[X]";
         System.out.println("Woohoo! I've marked this task as done:");
         System.out.print(indent);
@@ -26,7 +26,7 @@ public class Task {
     public void unmark() {
         String line = "-----------------------------------\n";
         String indent = "   ";
-        this.marked = false;
+        this.isMarked = false;
         this.doneCheckbox = "[ ]";
         System.out.println("Alright! I've marked this task as incomplete:");
         System.out.print(indent);
@@ -43,7 +43,7 @@ public class Task {
     }
     // Getter method for marked
     public boolean isMarked() {
-        return marked;
+        return isMarked;
     }
 
     public String getType() {

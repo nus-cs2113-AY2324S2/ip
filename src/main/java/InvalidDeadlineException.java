@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class InvalidDeadlineException {
+public class InvalidDeadlineException extends Exception {
 }
