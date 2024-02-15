@@ -5,5 +5,7 @@ public class Todo extends Task {
     public String getTypeDisplay() {
         return "[T]";
     }
-
+    public String getData() {
+        return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription();
+    }
 }
