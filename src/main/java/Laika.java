@@ -21,11 +21,17 @@ public class Laika {
         }
         else if (line.startsWith("deadline")) {
             String[] words = line.split("/");
+            if (words.length != 2){
+                throw new LaikaException();
+            }
             taskList[count] = new Deadline(words[0].replaceFirst("deadline ",""),
                                            words[1].replaceFirst("by ",""));
         }
         else if (line.startsWith("event")) {
             String[] words = line.split("/");
+            if (words.length != 3){
+                throw new LaikaException();
+            }
             taskList[count] = new Event(words[0].replaceFirst("event ",""),
                                         words[1].replaceFirst("from ",""),
                                         words[2].replaceFirst("to ",""));
