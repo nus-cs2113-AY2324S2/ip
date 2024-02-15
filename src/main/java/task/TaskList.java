@@ -1,5 +1,6 @@
 package task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import parser.Parser;
 
@@ -46,13 +47,13 @@ public class TaskList {
         if (taskType.equals(Parser.TODO_COMMAND)) {
             handleToDo(userInput);
         } else if (taskType.equals(Parser.DEADLINE_COMMAND)) {
-            handleDeadline(userInput[1]);
+            handleDeadline(userInput);
         } else {
-            handleEvent(userInput[1]);
+            handleEvent(userInput);
         }
     }
 
-    public void validTask() {
+    public void validTaskAdded() {
         taskCount += 1;
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + tasks.get(taskCount - 1).getTaskDetails());
@@ -63,25 +64,37 @@ public class TaskList {
     public void handleToDo(String[] userInput) throws ArrayIndexOutOfBoundsException {
         try {
             tasks.add(new ToDo(userInput[1]));
-            validTask();
+            validTaskAdded();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("ToDo task description cannot be empty. Please try again.");
         }
     }
 
-    public void handleDeadline(String taskDetails) {
-        int dividerPosition = taskDetails.indexOf('/');
-        String description = taskDetails.substring(0, dividerPosition);
-        String deadline = taskDetails.substring(dividerPosition + 4);
-        tasks.add(new Deadline(description, deadline));
+    public void handleDeadline(String[] userInput) {
+        try {
+            String taskDetails = userInput[1];
+            int dividerPosition = taskDetails.indexOf('/');
+            String description = taskDetails.substring(0, dividerPosition);
+            String deadline = taskDetails.substring(dividerPosition + 4);
+            tasks.add(new Deadline(description, deadline));
+            validTaskAdded();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Deadline task description cannot be empty. Please try again.");
+        }
     }
 
-    public void handleEvent(String taskDetails) {
-        int firstDividerPosition = taskDetails.indexOf('/');
-        int secondDividerPosition = taskDetails.indexOf("to");
-        String description = taskDetails.substring(0, firstDividerPosition);
-        String eventStart = taskDetails.substring(firstDividerPosition + 6, secondDividerPosition - 1);
-        String eventEnd = taskDetails.substring(secondDividerPosition + 3);
-        tasks.add(new Event(description, eventStart, eventEnd));
+    public void handleEvent(String[] userInput) {
+        try {
+            String taskDetails = userInput[1];
+            int firstDividerPosition = taskDetails.indexOf('/');
+            int secondDividerPosition = taskDetails.indexOf("to");
+            String description = taskDetails.substring(0, firstDividerPosition);
+            String eventStart = taskDetails.substring(firstDividerPosition + 6, secondDividerPosition - 1);
+            String eventEnd = taskDetails.substring(secondDividerPosition + 3);
+            tasks.add(new Event(description, eventStart, eventEnd));
+            validTaskAdded();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Event task description cannot be empty. Please try again.");
+        }
     }
 }
