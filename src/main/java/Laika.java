@@ -15,7 +15,7 @@ public class Laika {
         System.out.println(taskList[taskNumber-1]);
     }
 
-    public static void addTask(Task[] taskList, String line, int count){
+    public static void addTask(Task[] taskList, String line, int count) throws LaikaException {
         if(line.startsWith("todo")){
             taskList[count] = new Todo(line.replaceFirst("todo ",""));
         }
@@ -29,10 +29,9 @@ public class Laika {
             taskList[count] = new Event(words[0].replaceFirst("event ",""),
                                         words[1].replaceFirst("from ",""),
                                         words[2].replaceFirst("to ",""));
+        } else {
+            throw new LaikaException();
         }
-        System.out.println("Laika: Gotcha! I've added the task for you\n  "
-                + taskList[count] + System.lineSeparator()
-                + "You have " + (count+1) + " tasks in your list. :P" );
     }
 
     public static void displayTasks(Task[] taskList,int count){
@@ -57,7 +56,12 @@ public class Laika {
         while(isConvoOngoing){
             line = in.nextLine();
             if (line.startsWith("mark") || line.startsWith("unmark")) {
-                modifyTask(taskList,line);
+                try {
+                    modifyTask(taskList, line);
+                }
+                catch (NullPointerException e) {
+                    System.out.println("Laika: You dont have so many tasks!");
+                }
                 continue;
             }
 
@@ -69,8 +73,22 @@ public class Laika {
                     isConvoOngoing = false;
                     break;
                 default:
-                    addTask(taskList, line, count);
+
+                    try{
+                        addTask(taskList, line, count);
+                    }
+                    catch(LaikaException e) {
+                        System.out.println("Laika: Hmmmm, I dont understand you?");
+                        break;
+                    }
+
+                    System.out.println("Laika: Gotcha! I've added the task for you\n  "
+                            + taskList[count] + System.lineSeparator()
+                            + "You have " + (count + 1) + " tasks in your list. :P");
                     count++;
+
+
+
             }
         }
 
