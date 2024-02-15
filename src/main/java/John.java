@@ -36,32 +36,25 @@ public class John {
                 // Closing the Scanner to avoid resource leaks
                 scanner.close();
                 isFinished = true;
-            }
-            else if (input.equals("List") || input.equals("list")){
+            } else if (input.equals("List") || input.equals("list")){
                 for (int i=0; i<tasks.size(); i++){
                     System.out.println(Integer.toString(i+1) + ". " + tasks.get(i));
                 }
-            }
-            //Mark Command
-            else if (input.startsWith("unmark") || input.startsWith("Unmark")){
+            } else if (input.startsWith("unmark") || input.startsWith("Unmark")){
                 try {
                     StringValidator.validateUnmarkFormat(input);
                     mark(input, tasks, false);
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
-            }
-
-            else if (input.startsWith("mark") || input.startsWith("Mark")){
+            } else if (input.startsWith("mark") || input.startsWith("Mark")){
                 try {
                     StringValidator.validateMarkFormat(input);
                     mark(input, tasks, true);
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
-            }
-            //commands.Todo Command
-            else if (input.startsWith("todo") || input.startsWith("commands.Todo")) {
+            } else if (input.startsWith("todo") || input.startsWith("Todo")) {
                 try {
                     StringValidator.validateTodoFormat(input);
                     Todo todo = new Todo(Todo.parse(input));
@@ -69,10 +62,7 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
-            }
-
-            //commands.Deadline Command
-            else if (input.startsWith("deadline") || input.startsWith("commands.Deadline")) {
+            } else if (input.startsWith("deadline") || input.startsWith("Deadline")) {
                 try {
                     StringValidator.validateDeadlineFormat(input);
                     Deadline deadline = new Deadline(Deadline.parseName(input), Deadline.parseDate(input));
@@ -80,10 +70,7 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
-            }
-
-            //commands.Event Command
-            else if (input.startsWith("event") || input.startsWith("commands.Event")) {
+            } else if (input.startsWith("event") || input.startsWith("Event")) {
                 try {
                     StringValidator.validateEventFormat(input);
                     Event event = new Event(Event.parseName(input), Event.parseStart(input), Event.parseEnd(input));
@@ -91,10 +78,7 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
-            }
-
-            //Unknown Command
-            else {
+            } else {
                 System.out.println("Unknown Command: " + input);
             }
         }
@@ -106,12 +90,10 @@ public class John {
             list.get(taskNum-1).setDone(b);
             if (b) {
                 System.out.println("Nice! I've marked this task as done:\n" + list.get(taskNum-1));
-            }
-            else {
+            } else {
                 System.out.println("OK, I've marked this task as not done yet:\n" + list.get(taskNum-1));
             }
-        }
-        else{
+        } else{
             System.out.println("commands.Task number out of bounds: try again");
         }
     }
