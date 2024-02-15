@@ -1,10 +1,11 @@
 import java.util.Scanner;
+
 public class Floda {
+    private static int taskCounter = 0;
     public static void main(String[] args) {
         String name = "Floda";
         System.out.println("Hello! I'm " + name);
         Task[] list = new Task[100];
-        int taskCounter = 0;
         Scanner scanner = new Scanner(System.in);
         System.out.println("I can keep track of a to-do list for you! Just type what you want to add to the list.");
         while (true) {
@@ -28,19 +29,19 @@ public class Floda {
                         }
                         break;
                     case "mark":
-                        handleMarkTask(line, list, taskCounter);
+                        handleMarkTask(line, list);
                         break;
                     case "unmark":
-                        handleUnmarkTask(line, list, taskCounter);
+                        handleUnmarkTask(line, list);
                         break;
                     case "deadline":
-                        handleDeadlineTask(line, list, taskCounter);
+                        handleDeadlineTask(line, list);
                         break;
                     case "todo":
-                        handleTodoTask(line, list, taskCounter);
+                        handleTodoTask(line, list);
                         break;
                     case "event":
-                        handleEventTask(line, list, taskCounter);
+                        handleEventTask(line, list);
                         break;
                     default:
                         throw new InvalidInputException("Invalid input!");
@@ -49,41 +50,42 @@ public class Floda {
             }
         }
     }
-    private static void handleMarkTask(String line, Task[] list, int taskCounter) {
+
+    private static void handleMarkTask(String line, Task[] list) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
         if (taskScanner.hasNextInt()) {
             int taskNumber = taskScanner.nextInt() - 1;
-            if (isValidTaskNumber(taskNumber, taskCounter)) {
+            if (isValidTaskNumber(taskNumber)) {
                 list[taskNumber].setDone(true);
                 System.out.println("I have marked this task as done:\n" + list[taskNumber]);
             } else {
-                System.out.println("Invalid task number! Please check with 'list'.");
+                throw new InvalidInputException("Invalid task number! Please check with 'list'.");
             }
         } else {
-            System.out.println("Invalid input! Please check with 'list'.");
+            throw new InvalidInputException("Invalid input! Please check with 'list'.");
         }
         taskScanner.close();
     }
 
-    private static void handleUnmarkTask(String line, Task[] list, int taskCounter) {
+    private static void handleUnmarkTask(String line, Task[] list) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
         if (taskScanner.hasNextInt()) {
             int taskNumber = taskScanner.nextInt() - 1;
-            if (isValidTaskNumber(taskNumber, taskCounter)) {
+            if (isValidTaskNumber(taskNumber)) {
                 list[taskNumber].setDone(false);
                 System.out.println("I have marked this task as not done:\n" + list[taskNumber]);
             } else {
-                System.out.println("Invalid task number! Please check with 'list'.");
+                throw new InvalidInputException("Invalid task number! Please check with 'list'.");
             }
         } else {
-            System.out.println("Invalid input! Please check with 'list'.");
+            throw new InvalidInputException("Invalid input! Please check with 'list'.");
         }
         taskScanner.close();
     }
 
-    private static void handleDeadlineTask(String line, Task[] list, int taskCounter) {
+    private static void handleDeadlineTask(String line, Task[] list) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
         String remaining = taskScanner.nextLine().trim();
@@ -95,7 +97,7 @@ public class Floda {
         System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
     }
 
-    private static void handleTodoTask(String line, Task[] list, int taskCounter) {
+    private static void handleTodoTask(String line, Task[] list) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
         String remaining = taskScanner.nextLine().trim();
@@ -104,7 +106,7 @@ public class Floda {
         System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
     }
 
-    private static void handleEventTask(String line, Task[] list, int taskCounter) {
+    private static void handleEventTask(String line, Task[] list) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
         String remaining = taskScanner.nextLine().trim();
@@ -119,7 +121,7 @@ public class Floda {
 
     }
 
-    private static boolean isValidTaskNumber(int taskNumber, int taskCounter) {
+    private static boolean isValidTaskNumber(int taskNumber) {
         return taskNumber >= 0 && taskNumber < taskCounter;
     }
 }
