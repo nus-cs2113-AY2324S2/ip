@@ -1,13 +1,14 @@
 package burger;
 
 import java.util.Scanner;
+
 import burger.list.List;
 
 public class Burger {
     static final String CHATBOT_NAME = "Burger";
     static final String HORIZONTAL_LINE = "---------------------------------";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BurgerException {
         welcomeMessage();
         Scanner input = new Scanner(System.in);
         List myList = new List();
@@ -46,11 +47,15 @@ public class Burger {
      * Prints error message when user provides invalid input
      */
     private static void wakeUp() {
-        printLine();
-        System.out.println("Wake Up! Key in something that makes sense!");
-        printLine();
-    }
+        try {
+            throw new BurgerException();
+        } catch (BurgerException e) {
+            printLine();
+            System.out.println("Wake Up!!! Key in something that makes sense!");
+            printLine();
+        }
 
+    }
 
     public static void goodbye() {
         printLine();

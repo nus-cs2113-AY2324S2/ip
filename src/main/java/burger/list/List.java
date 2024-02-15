@@ -2,14 +2,17 @@ package burger.list;
 
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
+
+import burger.BurgerException;
 import burger.task.Deadline;
 import burger.task.Event;
 import burger.task.Task;
 import burger.task.Todo;
 
+import static burger.Burger.printLine;
+
 public class List {
 
-    static final String HORIZONTAL_LINE = "---------------------------------";
     private final ArrayList<Task> todoList;
 
     public int totalTasks;
@@ -61,7 +64,9 @@ public class List {
         try {
             return this.todoList.get(idx);
         } catch (ArrayIndexOutOfBoundsException e) {
+            printLine();
             System.out.println("UwU? Do you know how to count?");
+            printLine();
             return null;
         }
     }
@@ -72,18 +77,20 @@ public class List {
      */
     public void addTodo(String[] todo) {
         try {
+            if (todo.length == 1) {
+                throw new BurgerException();
+            }
             StringBuilder todoText = new StringBuilder(todo[1]);
             for (int i = 2; i < todo.length; i++) {
                 todoText.append(' ').append(todo[i]);
             }
             Task newTodo = new Todo(todoText.toString());
             addTask(newTodo);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Oi, why is the description empty! Type something after the command!");
-        } catch (IllegalFormatException e) {
-            System.out.println("Oi! Invalid Command!");
+        } catch (BurgerException e) {
+            printEmptyDescription();
         }
     }
+
     /**
      * Adds a new event to the list.
      *
@@ -93,6 +100,9 @@ public class List {
      */
     public void addEvent(String[] event) {
         try {
+            if (event.length == 1) {
+                throw new BurgerException();
+            }
             StringBuilder eventText = new StringBuilder(event[1]);
             int i = 2;
             while (!event[i].startsWith("/")) {
@@ -110,12 +120,12 @@ public class List {
             Task newEvent = new Event(eventText.toString());
             addTask(newEvent);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Oi, why is the description empty! Type something after the command!");
-        } catch (IllegalFormatException e) {
-            System.out.println("Oi! Invalid Command!");
+            printInvalidInputMessage();
+        } catch (BurgerException e) {
+            printEmptyDescription();
         }
-
     }
+
     /**
      * Adds a new deadline to the list.
      *
@@ -124,9 +134,12 @@ public class List {
      * @throws IllegalFormatException if deadline format is not followed.
      */
     public void addDeadline(String[] deadline) {
-        StringBuilder deadlineText = new StringBuilder(deadline[1]);
-        int i = 2;
         try {
+            if (deadline.length == 1) {
+                throw new BurgerException();
+            }
+            StringBuilder deadlineText = new StringBuilder(deadline[1]);
+            int i = 2;
             while (!deadline[i].startsWith("/")) {
                 deadlineText.append(' ').append(deadline[i]);
                 i++;
@@ -141,11 +154,24 @@ public class List {
             Task newDeadline = new Deadline(deadlineText.toString());
             addTask(newDeadline);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Oi, why is the description empty! Type something after the command!");
-        } catch (IllegalFormatException e) {
-            System.out.println("Oi! Invalid Command!");
+            printInvalidInputMessage();
+        } catch (BurgerException e) {
+            printEmptyDescription();
         }
     }
+
+    private static void printInvalidInputMessage() {
+        printLine();
+        System.out.println("Oi, the input is wrong!");
+        printLine();
+    }
+
+    private void printEmptyDescription() {
+        printLine();
+        System.out.println("UwU~ Where is your description?");
+        printLine();
+    }
+
     /**
      * Adds task to the list and prints out a message.
      *
@@ -199,9 +225,5 @@ public class List {
             System.out.println();
         }
         printLine();
-    }
-
-    public static void printLine() {
-        System.out.println(HORIZONTAL_LINE);
     }
 }
