@@ -1,3 +1,7 @@
+package jason.tasks;
+
+import jason.tasks.Task;
+
 public class Todo extends Task {
 
     public Todo(String description) {
