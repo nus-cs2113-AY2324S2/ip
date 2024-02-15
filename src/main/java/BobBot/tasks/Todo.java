@@ -1,3 +1,7 @@
+package BobBot.tasks;
+
+import BobBot.exceptions.InvalidTodoException;
+
 public class Todo extends Task {
 
     protected String toDo;

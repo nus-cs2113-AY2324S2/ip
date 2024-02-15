@@ -1,3 +1,4 @@
+package BobBot.exceptions;
 public class InvalidEventException extends BobBotExceptions {
 
     @Override

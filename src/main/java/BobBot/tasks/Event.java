@@ -1,3 +1,7 @@
+package BobBot.tasks;
+
+import BobBot.exceptions.InvalidEventException;
+
 public class Event extends Task {
 
     protected String task;
