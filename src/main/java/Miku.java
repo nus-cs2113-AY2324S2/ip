@@ -2,16 +2,57 @@ import java.util.Scanner;
 
 public class Miku {
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+    static Task[] storedList = new Task[100];
+    static int numberOfListItems = 0;
 
+    public static void newTodo(String newItem) throws MikuException {
+        String[] itemString = newItem.split("todo");
+        if (itemString.length < 1) {
+            throw new MikuException();
+        } else {
+            storedList[numberOfListItems] = new Todo(itemString[1]);
+            storedList[numberOfListItems].description = (itemString[1]);
+            System.out.println("Got it! I've added this task:\n" + storedList[numberOfListItems].toString());
+            numberOfListItems++;
+            System.out.println("Now you have " + numberOfListItems + " tasks in the list!");
+        }
+    }
+
+    public static void newDeadline(String newItem) throws MikuException {
+        String[] itemString = newItem.split("deadline|/by");
+        if (itemString.length < 1 || !newItem.contains("/by ")) {
+            throw new MikuException();
+        } else {
+            storedList[numberOfListItems] = new Deadline(itemString[1], itemString[2]);
+            storedList[numberOfListItems].description = (itemString[1]);
+            System.out.println("Got it! I've added this task:\n" + storedList[numberOfListItems].toString());
+            numberOfListItems++;
+            System.out.println("Now you have " + numberOfListItems + " tasks in the list!");
+        }
+    }
+
+    public static void newEvent(String newItem) throws MikuException {
+        String[] itemString = newItem.split("event|/from|/to");
+        if (itemString.length < 1 || !newItem.contains("/from ") || !newItem.contains("/to ")) {
+            throw new MikuException();
+        } else {
+            storedList[numberOfListItems] = new Event(itemString[1], itemString[2], itemString[3]);
+            storedList[numberOfListItems].description = (itemString[1]);
+            System.out.println("Got it! I've added this task:\n" + storedList[numberOfListItems].toString());
+            numberOfListItems++;
+            System.out.println("Now you have " + numberOfListItems + " tasks in the list!");
+        }
+    }
+
+
+    public static void main(String[] args) {
         System.out.println("______________________");
         System.out.println("Hello! I'm Miku!\n" + "What can I do for you?");
         System.out.println("______________________");
 
+        Scanner in = new Scanner(System.in);
         String newItem = in.nextLine();
-        Task[] storedList = new Task[100];
-        int numberOfListItems = 0;
+
 
         while (!newItem.equals("bye")) {
             System.out.println("______________________");
@@ -43,23 +84,37 @@ public class Miku {
                 continue;
             }
 
-            if (newItem.contains("todo")) {
-                String[] itemString = newItem.split("todo");
-                storedList[numberOfListItems] = new Todo(itemString[1]);
-                storedList[numberOfListItems].description = (itemString[1]);
-            } else if (newItem.contains("deadline")) {
-                String[] itemString = newItem.split("deadline|/by");
-                storedList[numberOfListItems] = new Deadline(itemString[1], itemString[2]);
-                storedList[numberOfListItems].description = (itemString[1]);
-            } else if (newItem.contains("event")) {
-                String[] itemString = newItem.split("event|/from|/to");
-                storedList[numberOfListItems] = new Event(itemString[1], itemString[2], itemString[3]);
-                storedList[numberOfListItems].description = (itemString[1]);
+            String[] splitCommand = newItem.split(" ");
+
+            switch (splitCommand[0]) {
+                case "todo":
+                    try {
+                        newTodo(newItem);
+                    } catch (MikuException e) {
+                        System.out.println("Todo can't be blank!");
+                    }
+                    break;
+                case "deadline": {
+                    try {
+                        newDeadline(newItem);
+                    } catch (MikuException e) {
+                        System.out.println("Check your deadline arguments!");
+                    }
+                    break;
+                }
+                case "event": {
+                    try {
+                        newEvent(newItem);
+                    } catch (MikuException e) {
+                        System.out.println("Check your event arguments!");
+                    }
+                    break;
+                }
+                default:
+                    System.out.println("You inputted something wrongly, idk what that means.");
+                    break;
             }
 
-            System.out.println("Got it! I've added this task:\n" + storedList[numberOfListItems].toString());
-            numberOfListItems++;
-            System.out.println("Now you have " + numberOfListItems + " tasks in the list!");
             System.out.println("______________________");
             newItem = in.nextLine();
         }
@@ -68,3 +123,4 @@ public class Miku {
         System.out.println("______________________");
     }
 }
+
