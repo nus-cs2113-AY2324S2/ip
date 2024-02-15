@@ -44,18 +44,22 @@ public class Ruby {
                 t1.showTaskList();
                 break;
             case "mark":
-                if ((userInputs.length != 2) || (!userInputs[1].matches("\\d+"))){
-                    print("Incorrect order.");
-                    break;
+                try {
+                    t1.markTask(Integer.parseInt(userInputs[1])-1);
+                }catch (NumberFormatException e){
+                    print ("Sorry, please input number.");
+                }catch (NullPointerException | ArrayIndexOutOfBoundsException ee){
+                    print ("Sorry, I cannot find your task.");
                 }
-                t1.markTask(Integer.parseInt(userInputs[1])-1);
                 break;
             case "unmark":
-                if ((userInputs.length != 2) || (!userInputs[1].matches("\\d+"))){
-                    print("Incorrect order.");
-                    break;
+                try {
+                    t1.unmarkTask(Integer.parseInt(userInputs[1])-1);
+                }catch (NumberFormatException e){
+                    print ("Sorry, please input number.");
+                }catch (NullPointerException | ArrayIndexOutOfBoundsException ee){
+                    print ("Sorry, I cannot find your task.");
                 }
-                t1.unmarkTask(Integer.parseInt(userInputs[1])-1);
                 break;
             default:
                 t1.addTask(userInput);

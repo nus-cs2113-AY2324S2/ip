@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Manages a list of tasks for the chatbot.
  * Supports adding tasks of different types (todo, deadline, event),
@@ -15,23 +17,32 @@ public class TaskList {
      * @param userInput The full command entered by the user to add a task.
      */
     public void addTask(String userInput){
+        try {
+            keywordCatcher(userInput);
+        }catch (InvalidKeywordException e){
+            print("Sorry sir. I am not intelligent enough to know what that means.");
+            return;
+        }catch (MissingDescriptionException e){
+            print("Sorry sir. Please give me more detail to your task.");
+            return;
+        }
+        String[] inputSplitBySlash = userInput.split(" /");
         switch (userInput.split(" ")[0]){
         case "todo":
             taskList[taskNo] = new Todo(userInput.substring(5),taskNo+1);
             break;
         case "deadline":
-            String name = userInput.split(" /")[0].substring(9);
-            String by = userInput.split(" /")[1].substring(3);
+            String name = inputSplitBySlash[0].substring(9);
+            String by = inputSplitBySlash[1].substring(3);
             taskList[taskNo] = new Deadline(name, taskNo+1, by);
             break;
         case "event":
-            name = userInput.split(" /")[0].substring(6);
-            String from = userInput.split(" /")[1].substring(5);
-            String to = userInput.split(" /")[2].substring(3);
+            name = inputSplitBySlash[0].substring(6);
+            String from = inputSplitBySlash[1].substring(5);
+            String to = inputSplitBySlash[2].substring(3);
             taskList[taskNo]=new Event(name,taskNo+1, from, to);
             break;
         default:
-            taskList[taskNo]=new Task(userInput,taskNo+1);
             break;
         }
         taskAddMessage();
@@ -58,11 +69,7 @@ public class TaskList {
      * @param n The index of the task in the task list (0-based).
      */
     public void markTask (int n){
-        if (n >= taskNo){
-            print("Sorry, task unfound.");
-        }else{
-            taskList[n].markedTask();
-        }
+        taskList[n].markedTask();
     }
 
     /**
@@ -72,11 +79,7 @@ public class TaskList {
      * @param n The index of the task in the task list (0-based).
      */
     public void unmarkTask (int n){
-        if (n >= taskNo){
-            print("Sorry, task unfound.");
-        }else{
-            taskList[n].unmarkedTask();
-        }
+        taskList[n].unmarkedTask();
     }
 
     /**
@@ -102,5 +105,16 @@ public class TaskList {
         System.out.println("    " + "--------------");
         System.out.println("    " + thingToPrint);
         System.out.println("    " + "--------------");
+    }
+
+    public static void keywordCatcher(String userInput) throws InvalidKeywordException, MissingDescriptionException{
+        String[] taskTypeList = {"todo", "deadline", "event"};
+        String[] inputBreakdown = userInput.split(" ");
+        if (!Arrays.asList(taskTypeList).contains(inputBreakdown[0])){
+            throw new InvalidKeywordException();
+        }
+        if (inputBreakdown.length<2){
+            throw new MissingDescriptionException();
+        }
     }
 }
