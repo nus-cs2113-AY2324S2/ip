@@ -59,11 +59,7 @@ public class TaskList {
      * @param n The index of the task in the task list (0-based).
      */
     public void markTask (int n){
-        if (n >= taskNo){
-            print("Sorry, task unfound.");
-        }else{
-            taskList[n].markedTask();
-        }
+        taskList[n].markedTask();
     }
 
     /**
@@ -73,11 +69,7 @@ public class TaskList {
      * @param n The index of the task in the task list (0-based).
      */
     public void unmarkTask (int n){
-        if (n >= taskNo){
-            print("Sorry, task unfound.");
-        }else{
-            taskList[n].unmarkedTask();
-        }
+        taskList[n].unmarkedTask();
     }
 
     /**
