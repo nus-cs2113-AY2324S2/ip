@@ -15,7 +15,8 @@ public class Duke {
 
     private static final String MESSAGE_ADD = "Got it. I've added this task:";
     private static final String MESSAGE_EMPTY_LIST = "Your list is empty.";
-    private static final String MESSAGE_ERROR = "Sorry, I did not understand that.";
+    private static final String MESSAGE_EMPTY_TODO = "Sorry, the description of your todo is empty.";
+    private static final String MESSAGE_UNKNOWN_COMMAND = "Sorry, I did not understand that.";
     private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_LIST_HEADER = "Here are the tasks in your list:";
     private static final String MESSAGE_MARK = "Nice! I've marked this task as done:";
@@ -32,8 +33,8 @@ public class Duke {
         initTaskList();
         showWelcomeMessage();
         while (true) {
-            String command = readUserInput();
-            executeCommand(command);
+            String userInput = readUserInput();
+            executeCommand(userInput);
         }
     }
 
@@ -51,35 +52,42 @@ public class Duke {
     }
 
     private static void executeCommand(String input) {
+        try {
+            extractCommand(input);
+        } catch (UnknownCommandException e) {
+            System.out.println(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    private static void extractCommand(String input) throws UnknownCommandException {
         final String[] commandWordAndArgs = splitCommandWordAndArgs(input);
         final String commandWord = commandWordAndArgs[0];
         final String commandArgs = commandWordAndArgs[1];
 
         switch (commandWord) {
-            case COMMAND_TODO:
-                executeAddTodo(commandArgs);
-                break;
-            case COMMAND_DEADLINE:
-                executeAddDeadline(commandArgs);
-                break;
-            case COMMAND_EVENT:
-                executeAddEvent(commandArgs);
-                break;
-            case COMMAND_LIST:
-                executeList();
-                break;
-            case COMMAND_MARK:
-                executeMark(commandArgs);
-                break;
-            case COMMAND_UNMARK:
-                executeUnmark(commandArgs);
-                break;
-            case COMMAND_EXIT:
-                executeExit();
-                break;
-            default:
-                executeError();
-                break;
+        case COMMAND_TODO:
+            executeAddTodo(commandArgs);
+            break;
+        case COMMAND_DEADLINE:
+            executeAddDeadline(commandArgs);
+            break;
+        case COMMAND_EVENT:
+            executeAddEvent(commandArgs);
+            break;
+        case COMMAND_LIST:
+            executeList();
+            break;
+        case COMMAND_MARK:
+            executeMark(commandArgs);
+            break;
+        case COMMAND_UNMARK:
+            executeUnmark(commandArgs);
+            break;
+        case COMMAND_EXIT:
+            executeExit();
+            break;
+        default:
+            throw new UnknownCommandException();
         }
     }
 
@@ -89,8 +97,12 @@ public class Duke {
     }
 
     private static void executeAddTodo(String input) {
-        allTasks[count] = new Todo(input);
-        echoTask();
+        try {
+            allTasks[count] = new Todo(input);
+            echoTask();
+        } catch (EmptyTodoException e) {
+            System.out.println(MESSAGE_EMPTY_TODO);
+        }
     }
 
     private static void executeAddDeadline(String input) {
@@ -166,9 +178,5 @@ public class Duke {
     private static void executeExit() {
         System.out.println(MESSAGE_GOODBYE);
         System.exit(0);
-    }
-
-    private static void executeError() {
-        System.out.println(MESSAGE_ERROR);
     }
 }
