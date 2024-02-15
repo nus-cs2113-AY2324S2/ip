@@ -25,41 +25,41 @@ public class Chelle {
                 break;
 
             case "mark":
-                if (userInput.length() > 5) {
-                    markTask(userInput.substring(5), tasks, taskCount);
-                } else {
+                try {
+                    markTask(userInput, tasks, taskCount);
+                } catch (InvalidCommandFormatException e){
                     System.out.println("Chelle: Invalid format. Use 'mark ___'.");
                 }
                 break;
 
             case "unmark":
-                if (userInput.length() > 7) {
-                    unmarkTask(userInput.substring(7), tasks, taskCount);
-                } else {
+                try {
+                    unmarkTask(userInput, tasks, taskCount);
+                } catch (InvalidCommandFormatException e){
                     System.out.println("Chelle: Invalid format. Use 'unmark ___'.");
                 }
                 break;
 
             case "todo":
-                if (userInput.length() > 5) {
-                    taskCount = createTask(userInput.substring(5), tasks, taskCount, TaskType.TODO);
-                } else {
+                try {
+                    taskCount = createTask(userInput, tasks, taskCount, TaskType.TODO);
+                } catch (InvalidCommandFormatException e){
                     System.out.println("Chelle: Invalid format. Use 'todo ___'.");
                 }
                 break;
 
             case "deadline":
-                if (userInput.length() > 9 && userInput.contains("/by")) {
-                    taskCount = createTask(userInput.substring(9), tasks, taskCount, TaskType.DEADLINE);
-                } else {
+                try {
+                    taskCount = createTask(userInput, tasks, taskCount, TaskType.DEADLINE);
+                } catch (InvalidCommandFormatException e){
                     System.out.println("Chelle: Invalid format. Use 'deadline ___ /by ___'.");
                 }
                 break;
 
             case "event":
-                if (userInput.length() > 6 && (userInput.indexOf("/from") < userInput.indexOf("/to"))) {
-                    taskCount = createTask(userInput.substring(6), tasks, taskCount, TaskType.EVENT);
-                } else {
+                try {
+                    taskCount = createTask(userInput, tasks, taskCount, TaskType.EVENT);
+                } catch (InvalidCommandFormatException e){
                     System.out.println("Chelle: Invalid format. Use 'event ___ /from ___ /to ___'.");
                 }
                 break;
@@ -81,16 +81,28 @@ public class Chelle {
         }
     }
 
-    private static int createTask(String userInput, Task[] tasks, int taskCount, TaskType taskType) {
+    private static int createTask(String userInput, Task[] tasks, int taskCount, TaskType taskType) throws InvalidCommandFormatException{
         switch (taskType) {
         case TODO:
-            tasks[taskCount] = new ToDo(userInput);
+            if (userInput.length() < 6) {
+                throw new InvalidCommandFormatException();
+            } else {
+                tasks[taskCount] = new ToDo(userInput.substring(5));
+            }
             break;
         case DEADLINE:
-            tasks[taskCount] = new Deadline(userInput);
+            if (userInput.length() < 10 || !userInput.contains("/by")) {
+                throw new InvalidCommandFormatException();
+            } else {
+                tasks[taskCount] = new Deadline(userInput.substring(9));
+            }
             break;
         case EVENT:
-            tasks[taskCount] = new Event(userInput);
+            if (userInput.length() < 7 || !(userInput.indexOf("/from") < userInput.indexOf("/to"))) {
+                throw new InvalidCommandFormatException();
+            } else {
+                tasks[taskCount] = new Event(userInput.substring(6));
+            }
             break;
         default:
             System.out.println("Chelle: Error");
@@ -104,7 +116,13 @@ public class Chelle {
         return taskCount;
     }
 
-    private static void markTask(String userInput, Task[] tasks, int taskCount) {
+    private static void markTask(String userInput, Task[] tasks, int taskCount) throws InvalidCommandFormatException{
+        if (userInput.length() < 6) {
+            throw new InvalidCommandFormatException();
+        } else {
+            userInput = userInput.substring(5);
+        }
+
         try {
             int taskIndex = Integer.parseInt(userInput) - 1;
             if (taskIndex >= 0 && taskIndex < taskCount) {
@@ -119,7 +137,13 @@ public class Chelle {
         }
     }
 
-    private static void unmarkTask(String userInput, Task[] tasks, int taskCount) {
+    private static void unmarkTask(String userInput, Task[] tasks, int taskCount) throws InvalidCommandFormatException{
+        if (userInput.length() < 8) {
+            throw new InvalidCommandFormatException();
+        } else {
+            userInput = userInput.substring(7);
+        }
+
         try {
             int taskIndex = Integer.parseInt(userInput) - 1;
             if (taskIndex >= 0 && taskIndex < taskCount) {
