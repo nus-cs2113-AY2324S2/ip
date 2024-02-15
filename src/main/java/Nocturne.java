@@ -67,7 +67,6 @@ public class Nocturne {
                     System.out.println("  " + trueTodo);
                     break;
 
-
                 case "event":
                     String[] eventSeparated = input.split("/");
                     if (eventSeparated.length != 3) {
