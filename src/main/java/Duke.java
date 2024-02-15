@@ -66,7 +66,10 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
-    public static void unmarkTask(Task[] tasks, String line) {
+    public static void unmarkTask(Task[] tasks, String line) throws IllegalShapeException {
+        if (Integer.parseInt(line.substring(7)) > listIndex || Integer.parseInt(line.substring(7)) <= 0) {
+            throw new IllegalShapeException();
+        }
         tasks[Integer.parseInt(line.substring(7)) - 1].unmarkDone();
         System.out.println("--------------------------------------");
         System.out.println("OK, I've marked this task as not done yet:");
@@ -95,7 +98,13 @@ public class Duke {
             }
             break;
         case "unmark": //unmark a task
-            unmarkTask(tasks, line);
+            try {
+                unmarkTask(tasks, line);
+            } catch (IllegalShapeException e) {
+                System.out.println("--------------------------------------");
+                System.out.println("There is no such Task! :( ");
+                System.out.println("--------------------------------------");
+            }
             break;
         case "mark": //marks a task as done
             try {
