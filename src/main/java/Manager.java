@@ -178,13 +178,13 @@ public class Manager {
     }
 
     // Method for echo, not used after Level-1
-<<<<<<< HEAD
-    private static void echo() {
-=======
+
+
+
     /*private static void echo() {
         String line = "-----------------------------------\n";
         String indent = "   ";
->>>>>>> master
+
         String echoLine;
         Scanner input = new Scanner(System.in);
         echoLine = input.nextLine();
@@ -199,16 +199,13 @@ public class Manager {
             echoLine = input.nextLine();
         }
 
-<<<<<<< HEAD
-    }
+
+    }*/
     public static void addToDo(String[] commandWords) throws InvalidToDoException {
         if (commandWords.length < 2) {
             throw new InvalidToDoException();
         }
     }
-=======
-    }*/
->>>>>>> master
 
     public static void addDeadline(String[] commandWords) throws InvalidDeadlineException {
         boolean isValidDeadline = true;
