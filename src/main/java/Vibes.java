@@ -36,12 +36,14 @@ public class Vibes {
             taskList.setAsNotDone(taskNumber);
             break;
         case "add task":
-            taskList.addTask(userInput);
+            try {
+                taskList.addTask(userInput);
+            } catch (InvalidArgumentException e){
+                System.out.println("\t Argument note found! The description of a todo cannot be empty.");
+            }
             break;
         default:
-            System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
-                    "and bye");
-            break;
+            throw new CommandNotFoundException();
         }
     }
 
