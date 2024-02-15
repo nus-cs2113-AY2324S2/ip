@@ -1,3 +1,5 @@
+package lotes;
+
 import lotes.parser.Parser;
 import lotes.task.TaskList;
 
