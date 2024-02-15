@@ -4,9 +4,15 @@ import java.util.ArrayList;
 
 public class RoleyPoley {
     public static void main(String[] args) {
-        Task[] taskList = new Task[100];
-        greet();
-        echo(taskList);
+        try {
+            Task[] taskList = new Task[100];
+            greet();
+            echo(taskList);
+        } catch (RoleyPoleyException error) {
+            System.out.println("Error Detected!\n" + error);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("test");
+        }
     }
 
     private static void printReply(Task[] taskList, int counter) {
@@ -37,7 +43,7 @@ public class RoleyPoley {
         createLine();
     }
 
-    public static void echo(Task[] taskList) {
+    public static void echo(Task[] taskList) throws RoleyPoleyException{
         String line;
         int counter = 1;
         while (true) {
@@ -56,10 +62,9 @@ public class RoleyPoley {
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList[taskNum] == null) {
-                        System.out.println("Error! Task " + taskNum + " cannot be found. Enter command list to view task list.");
-                    } else {
-                        taskList[taskNum].markAsDone();
+                        throw new RoleyPoleyException("Task " + taskNum + " cannot be found. Enter command 'list' to view task list.");
                     }
+                    taskList[taskNum].markAsDone();
                     createLine();
                 }
             } else if (splitString[0].equals("unmark")) {
@@ -67,10 +72,9 @@ public class RoleyPoley {
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList[taskNum] == null) {
-                        System.out.println("Error! Task " + taskNum + " cannot be found. Enter command list to view task list.");
-                    } else {
-                        taskList[taskNum].markAsUndone();
+                        throw new RoleyPoleyException("Task " + taskNum + " cannot be found. Enter command 'list' to view task list.")
                     }
+                    taskList[taskNum].markAsUndone();
                     createLine();
                 }
             } else if (splitString[0].equals("todo")) {
@@ -82,8 +86,8 @@ public class RoleyPoley {
             } else if (splitString[0].equals("deadline")) {
                 String[] words = line.split("/by");
                 if (words.length == 1) {
-                    System.out.println("Invalid entry. Please enter input in the following format:");
-                    System.out.println("deadline <Task Description> /by <Due Date>");
+                    throw new RoleyPoleyException("Invalid entry. Please enter input in the following format:" +
+                            "\ndeadline <Task Description> /by <Due Date>" );
                 } else {
                     String description = words[0].substring("deadline".length());
                     String dueDate = words[1];
