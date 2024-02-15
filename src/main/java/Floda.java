@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class Floda {
     public static void main(String[] args) {
         String name = "Floda";
@@ -9,38 +8,47 @@ public class Floda {
         Scanner scanner = new Scanner(System.in);
         System.out.println("I can keep track of a to-do list for you! Just type what you want to add to the list.");
         while (true) {
-            String line = scanner.nextLine().trim();
-            if (line.equals("bye")) {
-                break;
-            } else if (line.equals("list")) {
-                if (taskCounter == 0) {
-                    System.out.println("Your to-do list is empty.");
-                } else {
-                    System.out.println("List so far: ");
-                    for (int i = 0; i < taskCounter; i++) {
-                        System.out.println((i + 1) + "." + list[i]);
-                    }
+            try {
+                String line = scanner.nextLine().trim();
+                String[] parts = line.split(" ", 2);
+                String command = parts[0].trim();
+                switch (command) {
+                    case "bye":
+                        System.out.println("Bye. Hope to see you again soon!");
+                        scanner.close();
+                        return;
+                    case "list":
+                        if (taskCounter == 0) {
+                            System.out.println("Your to-do list is empty.");
+                        } else {
+                            System.out.println("List so far: ");
+                            for (int i = 0; i < taskCounter; i++) {
+                                System.out.println((i + 1) + "." + list[i]);
+                            }
+                        }
+                        break;
+                    case "mark":
+                        handleMarkTask(line, list, taskCounter);
+                        break;
+                    case "unmark":
+                        handleUnmarkTask(line, list, taskCounter);
+                        break;
+                    case "deadline":
+                        handleDeadlineTask(line, list, taskCounter);
+                        break;
+                    case "todo":
+                        handleTodoTask(line, list, taskCounter);
+                        break;
+                    case "event":
+                        handleEventTask(line, list, taskCounter);
+                        break;
+                    default:
+                        throw new InvalidInputException("Invalid input!");
                 }
-            } else if (line.startsWith("mark")) {
-                handleMarkTask(line, list, taskCounter);
-            } else if (line.startsWith("unmark")) {
-                handleUnmarkTask(line, list, taskCounter);
-            } else if (line.startsWith("deadline")) {
-                handleDeadlineTask(line, list, taskCounter);
-            } else if (line.startsWith("todo")) {
-                handleTodoTask(line, list, taskCounter);
-            } else if (line.startsWith("event")) {
-                handleEventTask(line, list, taskCounter);
-            } else {
-//                list[taskCounter] = new Task(line);
-//                taskCounter++;
-//                System.out.println("Added: " + line + "\nNow you have " + taskCounter + " items in the list!");
+            } catch (InvalidInputException e) {
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
-        scanner.close();
     }
-
     private static void handleMarkTask(String line, Task[] list, int taskCounter) {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
