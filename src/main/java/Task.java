@@ -1,6 +1,7 @@
 public abstract class Task {
     private String description;
     private boolean isDone = false;
+
     public Task(String description) {
         this.description = description;
     }
@@ -16,13 +17,17 @@ public abstract class Task {
     public boolean isDone() {
         return isDone;
     }
+
     public void markAsDone() {
         this.isDone = true;
     }
+
     public void markAsNotDone() {
         this.isDone = false;
     }
+
     public abstract String getTypeDisplay();
+
     public String getMarkDisplay() {
         if (this.isDone()) {
             return "[X]";
@@ -30,7 +35,6 @@ public abstract class Task {
             return "[ ]";
         }
     }
-    public String getData() {
-        return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription();
-    }
+
+    public abstract String getData();
 }

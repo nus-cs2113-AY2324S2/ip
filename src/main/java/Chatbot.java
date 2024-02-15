@@ -18,40 +18,40 @@ public class Chatbot {
         System.out.println(task.getData());
     }
 
-    public static void printLength(int length) {
-        System.out.println("Now you have " + length + " tasks in the list.");
+    public void printLength() {
+        System.out.println("You have " + this.listLength + " tasks in the list. ");
     }
 
     public void printResponse(String command) {
         switch (command) {
         case "bye":
-            System.out.println("Bye. Hope to see you again soon! ");
+            System.out.println("Bye. Hope not to see you again! ");
             return;
         case "list":
             if (this.listLength > 0) {
                 System.out.println("Here are the tasks in your list: ");
             } else {
-                System.out.println("There are no tasks in your list. ");
+                System.out.println("There's nothing here. ");
             }
             return;
         case "unmark":
-            System.out.println("OK, I've marked this task as not done yet: ");
+            System.out.println("Failing to meet expectations, are we? Unmarked. ");
             return;
         case "mark":
-            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println("Not as incompetent as I thought. Marked. ");
             return;
         case "todo":
         case "deadline":
         case "event":
-            System.out.println("Got it. I've added this task: ");
+            System.out.println("Got it. Don't worry, I won't forget. ");
             return;
         default:
         }
     }
 
     public void initiate() {
-        System.out.println("Hello! I'm " + CHATBOT_NAME + ". ");
-        System.out.println("What can I do for you? ");
+        System.out.println("Hello. You may call me " + CHATBOT_NAME + ". ");
+        System.out.println("Looks like you need me to remember things for you. Again. ");
     }
 
     public void execute(String command, String description) throws ChatbotException {
@@ -71,7 +71,7 @@ public class Chatbot {
         case "unmark":
             inputNum = new Scanner(input).useDelimiter("\\D+").nextInt();
             if (inputNum > listLength) {
-                throw new ChatbotException("This task does not exist. Select another. ");
+                throw new ChatbotException("You only have " + listLength + " task(s). Choose one of them. ");
             }
             selectedItem = taskList[inputNum - 1];
             selectedItem.markAsNotDone();
@@ -81,7 +81,7 @@ public class Chatbot {
         case "mark":
             inputNum = new Scanner(input).useDelimiter("\\D+").nextInt();
             if (inputNum > listLength) {
-                throw new ChatbotException("This task does not exist. Select another. ");
+                throw new ChatbotException("You only have " + listLength + " task(s). Choose one of them. ");
             }
             selectedItem = taskList[inputNum - 1];
             selectedItem.markAsDone();
@@ -93,24 +93,26 @@ public class Chatbot {
             printResponse(command);
             printTask(taskList[listLength]);
             listLength += 1;
-            printLength(listLength);
+            printLength();
             break;
         case "deadline":
             taskList[listLength] = new Deadline(description);
             printResponse(command);
             printTask(taskList[listLength]);
             listLength += 1;
-            printLength(listLength);
+            printLength();
             break;
         case "event":
             taskList[listLength] = new Event(description);
             printResponse(command);
             printTask(taskList[listLength]);
             listLength += 1;
-            printLength(listLength);
+            printLength();
             break;
         default:
-            throw new ChatbotException("Unknown command. ");
+            throw new ChatbotException("I'm not omnipotent, you know? \n" +
+                    "I can mark, unmark, and list items, or add a todo, deadline, or event. \n" +
+                    "Or may I recommend using bye and thinking for yourself? ");
         }
     }
 
@@ -125,15 +127,19 @@ public class Chatbot {
                 String description = "";
                 boolean isAddingTask = (Objects.equals(command, "todo") ||
                         Objects.equals(command, "deadline") || Objects.equals(command, "event"));
-                if (isAddingTask) {
-                    if (inputArray.length == 1) {
-                        throw new ChatbotException("Empty task description. ");
-                    } else {
-                        description = input.split(" ", 2)[1];
-                    }
+
+                if (!isAddingTask) {
+                    this.execute(command, description);
+                    continue;
                 }
 
-                this.execute(command, description);
+                if (inputArray.length == 1) {
+                    throw new ChatbotException("Have you forgotten your task already? ");
+                } else {
+                    description = input.split(" ", 2)[1];
+                    this.execute(command, description);
+                }
+
             } catch (ChatbotException e) {
                 e.printDescription();
             }

@@ -5,7 +5,7 @@ public class Event extends Task {
         super(description);
         String[] descriptionList = description.split(" /", 3);
         if (descriptionList.length != 3) {
-            throw new ChatbotException("Formatting error. ");
+            throw new ChatbotException("Formatting error. Use /from and /to to state timings. ");
         }
         this.setDescription(descriptionList[0]);
         this.startTime = descriptionList[1].split("from ")[1];
