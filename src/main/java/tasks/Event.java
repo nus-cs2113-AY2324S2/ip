@@ -1,4 +1,8 @@
-public class Event extends Task{
+package tasks;
+
+
+
+public class Event extends Task {
 
     public String taskType = "E";
     private String startDate;
