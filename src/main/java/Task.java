@@ -19,6 +19,10 @@ public class Task {
         return description;
     }
 
+    public String type() {
+        return "[T]";
+    }
+
     public void markAsDone() {
         isDone = true;
     }
