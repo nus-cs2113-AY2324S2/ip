@@ -54,32 +54,6 @@ public class Duke {
     }
 
     /**
-     * Reads user input.
-     *
-     * @return String User input.
-     */
-    public static String readInput(){
-        String line;
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
-        return line;
-    }
-
-    /**
-     * Reads user input and prints user input.
-     */
-    public static void echo(){
-        boolean isRunning = true;
-        while(isRunning){
-            String input = readInput();
-            if(input.equalsIgnoreCase("bye")) {
-                isRunning = false;
-            }
-            else printMessage(input);
-        }
-    }
-
-    /**
      * Prints list of tasks.
      *
      * @param taskList List of tasks to be printed.
@@ -214,17 +188,21 @@ public class Duke {
      */
     public static void startList(){
         List<Task> taskList = new ArrayList<>();
+
+        String line;
+        Scanner in = new Scanner(System.in);
+
         while(true){
-            String input = readInput();
-            String[] tokens = input.split(" ", 2);
+            line = in.nextLine();
 
-            // If input only contains one word "bye", return
-            if (tokens.length < 2 && input.equalsIgnoreCase("bye")) {
-                    return;
+            String[] tokens = line.split(" ", 2);
+
+            String command = tokens[0].toLowerCase(), argument = "";
+
+            // If input contains more than one word, assign remaining words to argument
+            if (tokens.length > 1) {
+                argument = tokens[1];
             }
-
-            String command = tokens[0].toLowerCase();
-            String argument = tokens[1];
 
             switch (command) {
             case "list":

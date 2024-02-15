@@ -1,7 +1,95 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ _______               .__        __   .__ 
+ \      \   ___________|__|____  |  | _|__|
+ /   |   \ /  _ \_  __ \  \__  \ |  |/ /  |
+/    |    (  <_> )  | \/  |/ __ \|    <|  |
+\____|__  /\____/|__|  |__(____  /__|_ \__|
+        \/                     \/     \/   
 
+______________________________
+Hello! I'm Noriaki
+What can I do for you?
+______________________________
+______________________________
+Got it. I've added this task:
+  [T][ ] Eat Breakfast 
+Now you have 1 tasks in the list.
+______________________________
+______________________________
+Got it. I've added this task:
+  [T][ ] Eat Lunch
+Now you have 2 tasks in the list.
+______________________________
+______________________________
+1.[T][ ] Eat Breakfast 
+2.[T][ ] Eat Lunch
+______________________________
+______________________________
+Got it. I've added this task:
+  [E][ ] Tutorial (from: 1pm to: 3pm)
+Now you have 3 tasks in the list.
+______________________________
+______________________________
+Got it. I've added this task:
+  [E][ ] Lecture (from: 3pm to: 5pm)
+Now you have 4 tasks in the list.
+______________________________
+______________________________
+1.[T][ ] Eat Breakfast 
+2.[T][ ] Eat Lunch
+3.[E][ ] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+______________________________
+______________________________
+Got it. I've added this task:
+  [D][ ] RealizeIt (by: Thursday)
+Now you have 5 tasks in the list.
+______________________________
+______________________________
+Got it. I've added this task:
+  [D][ ] Coursemology (by: Friday)
+Now you have 6 tasks in the list.
+______________________________
+______________________________
+1.[T][ ] Eat Breakfast 
+2.[T][ ] Eat Lunch
+3.[E][ ] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[D][ ] RealizeIt (by: Thursday)
+6.[D][ ] Coursemology (by: Friday)
+______________________________
+______________________________
+Nice! I've marked this task as done:
+  [T][X] Eat Breakfast 
+______________________________
+______________________________
+Nice! I've marked this task as done:
+  [E][X] Tutorial (from: 1pm to: 3pm)
+______________________________
+______________________________
+Nice! I've marked this task as done:
+  [D][X] RealizeIt (by: Thursday)
+______________________________
+______________________________
+1.[T][X] Eat Breakfast 
+2.[T][ ] Eat Lunch
+3.[E][X] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[D][X] RealizeIt (by: Thursday)
+6.[D][ ] Coursemology (by: Friday)
+______________________________
+______________________________
+OK, I've marked this task as not done yet:
+  [E][ ] Tutorial (from: 1pm to: 3pm)
+______________________________
+______________________________
+1.[T][X] Eat Breakfast 
+2.[T][ ] Eat Lunch
+3.[E][ ] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[D][X] RealizeIt (by: Thursday)
+6.[D][ ] Coursemology (by: Friday)
+______________________________
+______________________________
+Bye! Hope to see you again soon! MEGANE!!
+______________________________

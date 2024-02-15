@@ -1,0 +1,16 @@
+todo Eat Breakfast 
+todo Eat Lunch
+list
+event Tutorial /from 1pm /to 3pm
+event Lecture /from 3pm /to 5pm
+list
+deadline RealizeIt /by Thursday
+deadline Coursemology /by Friday
+list
+mark 1
+mark 3
+mark 5
+list
+unmark 3
+list
+bye
