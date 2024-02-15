@@ -173,6 +173,17 @@ public class TaskManager {
         }
     }
 
-    
+    /**
+     * Validates and converts a string representation of priority to the Priority enum.
+     * @param priorityString The string representation of priority.
+     * @return The Priority enum value if valid, otherwise throws an IllegalArgumentException.
+     */
+    public static Priority validateAndConvertPriority(String priorityString) throws IllegalArgumentException{
+        try {
+            return Priority.valueOf(priorityString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D).");
+        }
+    }
     
 }
