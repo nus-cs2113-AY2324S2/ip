@@ -1,3 +1,6 @@
+package task;
+import command.JohnException;
+
 public class Event extends Task {
 
     protected String from = "Unknown";
