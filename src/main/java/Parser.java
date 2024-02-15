@@ -81,23 +81,23 @@ public class Parser {
         System.out.println("\tPlease enter a valid task id");
     }
 
-    public static void printTodoUsage() {
+    public static void printUsageUsageTodo() {
         System.out.println("\tTodo command syntax: todo <task name>");
     }
 
-    public static void printDeadlineUsage() {
+    public static void printUsageDeadline() {
         System.out.println("\tDeadline commnad syntax: deadline <task name> /by <deadline>");
     }
 
-    public static void printEventUsage() {
+    public static void printUsageEvent() {
         System.out.println("\tEvent command syntax: Event <task name> /from <event start> /to <event end>");
     }
 
-    public static void printMarkUsage() {
+    public static void printUsageMark() {
         System.out.println("\tMark command syntax: mark <task id>");
     }
 
-    public static void printUnmarkUsage() {
+    public static void printUsageUnmark() {
         System.out.println("\tUnmark command syntax: unmark <task id>");
     }
 }

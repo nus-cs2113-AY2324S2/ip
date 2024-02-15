@@ -23,123 +23,142 @@ public class Misty {
             default:
                 if (input.startsWith("unmark")) {
                     int index;
-                    String indexString;
 
-                    if (!input.contains(" ")) {
+                    try {
+                        index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                    } catch(NumberFormatException e) {
                         Parser.printErrorNoId();
-                        Parser.printUnmarkUsage();
+                        Parser.printUsageUnmark();
+                        break;
+                    } catch(StringIndexOutOfBoundsException e) {
+                        Parser.printErrorNoId();
+                        Parser.printUsageUnmark();
                         break;
                     }
 
-                    indexString = input.substring(input.indexOf(" ")).trim();
-
-                    if (indexString.equals((""))) {
-                        Parser.printErrorNoId();
-                        Parser.printUnmarkUsage();
-                        break;
-                    }
-
-                    index = Integer.parseInt(indexString);
-
-                    if (index <= 0 || index > itemList.getItemCount()) {
+                    try {
+                        itemList.unmarkTask(index);
+                    } catch(IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
-                        Parser.printUnmarkUsage();
+                        Parser.printUsageUnmark();
                         break;
                     }
-
-                    itemList.unmarkTask(index);
                 } else if (input.startsWith("mark")) {
                     int index;
-                    String indexString;
 
-                    if (!input.contains(" ")) {
+                    try {
+                        index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                    } catch(NumberFormatException e) {
                         Parser.printErrorNoId();
-                        Parser.printMarkUsage();
+                        Parser.printUsageMark();
+                        break;
+                    } catch(StringIndexOutOfBoundsException e) {
+                        Parser.printErrorNoId();
+                        Parser.printUsageMark();
                         break;
                     }
 
-                    indexString = input.substring(input.indexOf(" ")).trim();
-
-                    if (indexString.equals((""))) {
-                        Parser.printErrorNoId();
-                        Parser.printMarkUsage();
-                        break;
-                    }
-
-                    index = Integer.parseInt(indexString);
-
-                    if (index <= 0 || index > itemList.getItemCount()) {
+                    try {
+                        itemList.markTask(index);
+                    } catch(IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
-                        Parser.printMarkUsage();
+                        Parser.printUsageMark();
                         break;
                     }
 
-                    itemList.markTask(index);
                 } else if (input.startsWith("todo")) {
-                    if (!input.contains(" "))
-                    {
+                    String description;
+
+                    try {
+                        description = input.substring(input.indexOf(" ")).trim();
+                    } catch(StringIndexOutOfBoundsException e) {
                         Parser.printErrorNoTaskName();
-                        Parser.printTodoUsage();
+                        Parser.printUsageUsageTodo();
                         break;
                     }
 
-                    String description = input.substring(input.indexOf(" ")).trim();
-
-                    if (description.equals("")) {
+                    try {
+                        itemList.addTodo(description);
+                    } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
-                        Parser.printTodoUsage();
+                        Parser.printUsageUsageTodo();
                         break;
                     }
-
-                    itemList.addTodo(description);
                 } else if (input.startsWith("deadline")) {
+                    String description;
+                    String by;
 
-                    if (!input.contains(" ") || !input.contains(" /by ")) {
+                    try {
+                        description = input.substring(input.indexOf(" "), input.indexOf(" /by ")).trim();
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorInvalidFormat();
-                        Parser.printDeadlineUsage();
+                        Parser.printUsageDeadline();
                         break;
                     }
 
-                    String description = input.substring(input.indexOf(" "), input.indexOf("/by")).trim();
-                    String by = input.substring(input.indexOf("/by") + 3).trim();
-
-                    if (description.equals("")) {
-                        Parser.printErrorNoTaskName();
-                        Parser.printDeadlineUsage();
+                    try {
+                        by = input.substring(input.indexOf(" /by ") + 4).trim();
+                    } catch (StringIndexOutOfBoundsException e) {
+                        Parser.printErrorInvalidFormat();
+                        Parser.printUsageDeadline();
                         break;
-                    } else if (by.equals("")) {
+                    }
+
+                    try {
+                        itemList.addDeadline(description, by);
+                    } catch (EmptyTaskNameException e) {
+                        Parser.printErrorNoTaskName();
+                        Parser.printUsageDeadline();
+                        break;
+                    } catch (EmptyByException e) {
                         Parser.printErrorNoBy();
-                        Parser.printDeadlineUsage();
+                        Parser.printUsageDeadline();
                         break;
                     }
-
-                    itemList.addDeadline(description, by);
                 } else if (input.startsWith("event")) {
-                    if (!input.contains(" ") || !input.contains(" /from ") || !input.contains(" /to ") ) {
+                    String description;
+                    String from;
+                    String to;
+
+                    try {
+                        description = input.substring(input.indexOf(" "), input.indexOf(" /from ")).trim();
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorInvalidFormat();
-                        Parser.printEventUsage();
+                        Parser.printUsageEvent();
                         break;
                     }
 
-                    String description = input.substring(input.indexOf(" "), input.indexOf("/from")).trim();
-                    String from = input.substring(input.indexOf("/from") + 5, input.indexOf("/to")).trim();
-                    String to = input.substring(input.indexOf("/to") + 3).trim();
+                    try {
+                        from = input.substring(input.indexOf("/from") + 5, input.indexOf(" /to ")).trim();
+                    } catch (StringIndexOutOfBoundsException e) {
+                        Parser.printErrorInvalidFormat();
+                        Parser.printUsageEvent();
+                        break;
+                    }
 
-                    if (description.equals("")) {
+                    try {
+                        to = input.substring(input.indexOf("/to ") + 3).trim();
+                    } catch (StringIndexOutOfBoundsException e) {
+                        Parser.printErrorInvalidFormat();
+                        Parser.printUsageEvent();
+                        break;
+                    }
+
+                    try {
+                        itemList.addEvent(description, from, to);
+                    } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
-                        Parser.printEventUsage();
+                        Parser.printUsageEvent();
                         break;
-                    } else if (from.equals("")) {
+                    } catch (EmptyFromException e) {
                         Parser.printErrorNoFrom();
-                        Parser.printEventUsage();
+                        Parser.printUsageEvent();
                         break;
-                    } else if (to.equals("")) {
+                    } catch (EmptyToException e) {
                         Parser.printErrorNoTo();
-                        Parser.printEventUsage();
+                        Parser.printUsageEvent();
                         break;
                     }
-
-                    itemList.addEvent(description, from, to);
                 } else {
                     Parser.printUnknownCommandMessage();
                 }
