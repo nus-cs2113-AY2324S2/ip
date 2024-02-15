@@ -1,4 +1,4 @@
-/**
+package Ruby; /**
  * Main class for the chatbot named Ruby.
  * Ruby assists users in recording and organizing their daily tasks.
  * It interacts with users through the command line, processing commands to manage tasks.
@@ -62,7 +62,11 @@ public class Ruby {
                 }
                 break;
             default:
-                t1.addTask(userInput);
+                try{
+                    t1.addTask(userInput);
+                }catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e){
+                    print ("Sorry, please check your input format.");
+                }
                 break;
             }
             userInputs = inputCatcher();

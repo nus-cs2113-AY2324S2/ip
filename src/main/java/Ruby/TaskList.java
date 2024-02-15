@@ -1,4 +1,9 @@
+package Ruby;
+
 import java.util.Arrays;
+import Exception.*;
+import Task.*;
+
 
 /**
  * Manages a list of tasks for the chatbot.
@@ -6,7 +11,7 @@ import java.util.Arrays;
  * marking tasks as done or undone, and displaying all tasks.
  */
 public class TaskList {
-    public final Task [] taskList= new Task[100]; // Array to store tasks
+    public final Task[] taskList= new Task[100]; // Array to store tasks
     public int taskNo = 0; // Counter for the number of tasks
 
     /**
@@ -16,7 +21,7 @@ public class TaskList {
      *
      * @param userInput The full command entered by the user to add a task.
      */
-    public void addTask(String userInput){
+    public void addTask(String userInput) throws StringIndexOutOfBoundsException, ArrayIndexOutOfBoundsException{
         try {
             keywordCatcher(userInput);
         }catch (InvalidKeywordException e){
@@ -107,7 +112,7 @@ public class TaskList {
         System.out.println("    " + "--------------");
     }
 
-    public static void keywordCatcher(String userInput) throws InvalidKeywordException, MissingDescriptionException{
+    public static void keywordCatcher(String userInput) throws InvalidKeywordException, MissingDescriptionException {
         String[] taskTypeList = {"todo", "deadline", "event"};
         String[] inputBreakdown = userInput.split(" ");
         if (!Arrays.asList(taskTypeList).contains(inputBreakdown[0])){
