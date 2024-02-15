@@ -42,16 +42,31 @@ public class Duke {
     public static void handleTodoDeadlineAndEvent(String userCommand,int taskCount,String[] arrayOfCommand,Task[] tasks){
         if (userCommand.startsWith("todo")) {
             arrayOfCommand = userCommand.split(" ", 2);
+            if (arrayOfCommand.length < 2 || arrayOfCommand[1].isEmpty()) {
+                System.out.println(Guide.TODO_REQUEST_FORMAT);
+                throw new StringIndexOutOfBoundsException();
+            }
             tasks[taskCount] = new Todo(arrayOfCommand[1]);
         }
+
         if (userCommand.startsWith("deadline")) {
             arrayOfCommand = userCommand.split("deadline | /by");
+            if (arrayOfCommand.length < 2 || arrayOfCommand[1].isEmpty()) {
+                System.out.println(Guide.DEADLINE_REQUEST_FORMAT);
+                throw new StringIndexOutOfBoundsException();
+            }
             tasks[taskCount] = new Deadline(arrayOfCommand[1], arrayOfCommand[2]);
         }
+
         if (userCommand.startsWith("event")) {
             arrayOfCommand = userCommand.split("event | /from | /to ");
+            if (arrayOfCommand.length < 3 || arrayOfCommand[1].isEmpty() || arrayOfCommand[2].isEmpty()) {
+                System.out.println(Guide.EVENT_REQUEST_FORMAT);
+                throw new StringIndexOutOfBoundsException();
+            }
             tasks[taskCount] = new Event(arrayOfCommand[1], arrayOfCommand[2], arrayOfCommand[3]);
         }
+
         System.out.println("Got it. I've added this task:");
     }
 
@@ -76,12 +91,8 @@ public class Duke {
                 continue;
             } else if (userCommand.contains("todo") || userCommand.contains("deadline") || userCommand.contains("event")) {
                 handleTodoDeadlineAndEvent(userCommand, taskCount, arrayOfCommand, tasks);
-            } else {
-                tasks[taskCount] = new Task(userCommand);
-                taskCount++;
-                System.out.println("added: " + userCommand);
-                userCommand = in.nextLine();
-                continue;
+            } else { System.out.println(Guide.REQUESTS_FORMAT);
+                throw new IllegalArgumentException();
             }
 
             tasks[taskCount].printTask();
@@ -93,7 +104,6 @@ public class Duke {
         System.out.println("Bye! Hope to see you again :)");
     }
 
-
     public static void main(String[] args) {
         System.out.println("Hello! I'm Ms Chatty :)");
         System.out.println("What can I do for you?");
@@ -101,6 +111,5 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
         handleCommand(userCommand);
-
     }
 }
