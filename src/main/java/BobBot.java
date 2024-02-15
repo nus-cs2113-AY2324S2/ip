@@ -33,7 +33,7 @@ public class BobBot {
         System.out.println("\t  " + allTasks[taskNumberToUnmark].toString());
         drawLine(true);
     }
-    
+
     private static void printTaskList() {
         int taskNumberToDisplay;
 
@@ -52,6 +52,7 @@ public class BobBot {
     public static void addTask(String line) {
 
         Task newTask = null;
+
         if (line.startsWith("todo")) {
             newTask = new Todo(line);
         } else if (line.startsWith("deadline")) {
@@ -59,7 +60,7 @@ public class BobBot {
         } else if (line.startsWith("event")) {
             newTask = new Event(line);
         }
-        
+
         allTasks[numTasks] = newTask;
         numTasks += 1;
 
@@ -80,7 +81,7 @@ public class BobBot {
         } else {
             System.out.print("________");
         }
-        System.out.println("__________________________________");
+        System.out.println("________________________________________________________________________");
     }
 
     public static void greet() {
@@ -89,7 +90,19 @@ public class BobBot {
         System.out.println("Simply type in any task and I will store them for you!");
         drawLine(false);
     }
-    
+
+    private static void printHelpMessage() {
+        drawLine(false);
+        System.out.println("I see you require some help. Fear not, I shall come to your assistance:\n");
+        System.out.println("Here are the options available to you:");
+        System.out.println("\t/help - Display this help menu");
+        System.out.println("\ttodo ... - State something you want to add to the TODO list");
+        System.out.println("\tdeadline ... - Tell me about an important deadline you need to meet");
+        System.out.println("\tevent ... - Let me know what event you have coming up");
+        System.out.println("\tbye - We bid our farewells (sob)");
+        drawLine(false);
+    }
+
     private static void bidFarewell() {
         drawLine(true);
         System.out.println("\tBye. Hope to see you again soon!");
@@ -104,7 +117,9 @@ public class BobBot {
 
         while (!line.equalsIgnoreCase("bye")) {
 
-            if (line.equalsIgnoreCase("list")) {
+            if (line.equalsIgnoreCase("/help")) {
+                printHelpMessage();
+            } else if (line.equalsIgnoreCase("list")) {
                 displayList();
             } else if (line.startsWith("mark")) {
                 mark(line);
@@ -117,6 +132,7 @@ public class BobBot {
             line = in.nextLine();
         }
     }
+
     public static void main(String[] args) {
         greet();
         runTaskManager();
