@@ -13,14 +13,14 @@ public class Vibes {
             return "mark";
         } else if (userInput.startsWith("unmark ")) {
             return "unmark";
-        } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
+        } else if (userInput.startsWith("todo") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
             return "add task";
         } else {
             return userInput;
         }
     }
 
-    private static void executeCommand(String commandToExecute, List taskList, String userInput) {
+    private static void executeCommand(String commandToExecute, List taskList, String userInput) throws CommandNotFoundException {
         int taskNumber;
 
         switch (commandToExecute){
@@ -66,7 +66,12 @@ public class Vibes {
                 System.out.println("\t Bye. Hope to see you again soon!");
                 isExit = false;
             } else {
+                try{
                 executeCommand(commandToExecute, taskList, userInput);
+                } catch (CommandNotFoundException e){
+                    System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
+                    "and bye");
+                }
             }
             System.out.println(DASHED_LINE);
         }
