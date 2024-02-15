@@ -10,9 +10,15 @@ public class Mona {
 
         while (true) {
             InputParser input = new InputParser(line);
+
+            if (!input.isValidInput) {
+                line = in.nextLine();
+                continue;
+            }
+
             taskManager.executeCommand(input.commandTypeAndParams);
 
-            if (input.commandTypeAndParams[0].equals("bye")) {
+            if (input.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE].equals("bye")) {
                 ConsolePrint.exit();
                 break;
             }

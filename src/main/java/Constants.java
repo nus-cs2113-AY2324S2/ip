@@ -5,6 +5,14 @@ public final class Constants {
     }
 
     // These are the prefix strings to define the various data types of a command parameter.
+    public static final String TODO_PREFIX = "todo";
+    public static final String MARK_PREFIX = "mark";
+    public static final String UNMARK_PREFIX = "unmark";
+    public static final String DEADLINE_PREFIX = "deadline";
+    public static final String EVENT_PREFIX = "event";
+    public static final String LIST_PREFIX = "list";
+
+
     public static final String BY_PREFIX = "/by";
     public static final String FROM_PREFIX = "/from";
     public static final String TO_PREFIX = "/to";

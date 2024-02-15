@@ -1,46 +1,120 @@
 public class InputParser {
     protected String[] commandTypeAndParams;
     protected String line;
+    protected boolean isValidInput;
+    protected InputValidator inputValidator;
     public InputParser(String line) {
         this.commandTypeAndParams = new String[4];
         this.line = line;
+        this.isValidInput = true; // set to true initially, any error caught will set it to false
+        this.inputValidator = new InputValidator();
+
         this.parseInput(line);
     }
 
     public void extractCommandTypeFromString(String line) {
-        this.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = line.split(" ")[0].trim();
+        // checking for "list" and "bye", the 2 single word commands
+        if (line.equals("list")) {
+            commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = "list";
+            return;
+        }
+        if (line.equals("bye")) {
+            commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = "bye";
+            return;
+        }
+
+        try {
+            int endIndex = line.indexOf(" ");
+
+            this.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = line.substring(0, endIndex);
+
+            inputValidator.commandTypeChecker(commandTypeAndParams);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Invalid command detected!");
+            isValidInput = false;
+        } catch (MonaException e) {
+            System.out.println(e.getMessage());
+            isValidInput = false;
+        }
     }
     public void extractDetailsFromMarkUnmarkString(String line) {
-        int descriptionIndex = line.indexOf(" ");
+        try {
+            int descriptionIndex = line.indexOf(" ");
 
-        this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
+            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
+
+            inputValidator.markUnmarkCommandChecker(commandTypeAndParams);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! The description of a mark/unmark command cannot be empty");
+            isValidInput = false;
+        } catch (MonaException e) {
+            System.out.println(e.getMessage());
+            isValidInput = false;
+        }
     }
     public void extractDetailsFromTodoString(String line) {
-        int descriptionIndex = line.indexOf(" ");
+        try {
+            int descriptionIndex = line.indexOf(" ");
 
-        this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
+            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
+
+            inputValidator.todoCommandChecker(commandTypeAndParams);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! The description of a todo cannot be empty");
+            isValidInput = false;
+        } catch (MonaException e) {
+            System.out.println(e.getMessage());
+            isValidInput = false;
+        }
     }
     public void extractDetailsFromDeadlineString(String line) {
-        int descriptionIndex = line.indexOf(" ");
-        int deadlineIndex = line.indexOf(Constants.BY_PREFIX);
 
-        this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex, deadlineIndex).trim();
-        this.commandTypeAndParams[Constants.INDEX_DEADLINE] = line.substring(deadlineIndex
-                + Constants.BY_PREFIX.length()).trim();
+        try {
+            int descriptionIndex = line.indexOf(" ");
+            int deadlineIndex = line.indexOf(Constants.BY_PREFIX);
+
+            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex, deadlineIndex).trim();
+            this.commandTypeAndParams[Constants.INDEX_DEADLINE] = line.substring(deadlineIndex
+                    + Constants.BY_PREFIX.length()).trim();
+
+            inputValidator.deadlineCommandChecker(commandTypeAndParams);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! Remember to key in /by to let me know when the deadline is!");
+            isValidInput = false;
+        } catch (MonaException e) {
+            System.out.println(e.getMessage());
+            isValidInput = false;
+        }
     }
     public void extractDetailsFromEventString(String line) {
-        int descriptionIndex = line.indexOf(" ");
-        int fromIndex = line.indexOf(Constants.FROM_PREFIX);
-        int toIndex = line.indexOf(Constants.TO_PREFIX);
+        try {
+            int descriptionIndex = line.indexOf(" ");
+            int fromIndex = line.indexOf(Constants.FROM_PREFIX);
+            int toIndex = line.indexOf(Constants.TO_PREFIX);
 
-        this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex, fromIndex).trim();
-        this.commandTypeAndParams[Constants.INDEX_FROM_DATE] = line.substring(fromIndex
-                        + Constants.FROM_PREFIX.length(), toIndex).trim();
-        this.commandTypeAndParams[Constants.INDEX_TO_DATE] = line.substring(toIndex
-                + Constants.TO_PREFIX.length()).trim();
+            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex, fromIndex).trim();
+            this.commandTypeAndParams[Constants.INDEX_FROM_DATE] = line.substring(fromIndex
+                    + Constants.FROM_PREFIX.length(), toIndex).trim();
+            this.commandTypeAndParams[Constants.INDEX_TO_DATE] = line.substring(toIndex
+                    + Constants.TO_PREFIX.length()).trim();
+
+            inputValidator.eventCommandChecker(commandTypeAndParams);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Invalid input format detected!");
+            isValidInput = false;
+        } catch (MonaException e) {
+            System.out.println(e.getMessage());
+            isValidInput = false;
+        }
     }
     public void parseInput(String line) {
         extractCommandTypeFromString(line);
+
+        // if Command Type cannot be detected, stop parsing input for further details
+        if (!isValidInput) {
+            return;
+        }
+
         String commandType = commandTypeAndParams[Constants.INDEX_COMMAND_TYPE];
 
         switch(commandType) {

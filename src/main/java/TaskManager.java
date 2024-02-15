@@ -1,10 +1,10 @@
 public class TaskManager {
-    protected int noOfTasks;
+    public static int noOfTasks;
     protected Task[] tasks;
 
     public TaskManager() {
         this.tasks = new Task[100];   //initialize an array of Tasks, to act as a list
-        this.noOfTasks = 0;
+        noOfTasks = 0;
     }
     public void executeCommand(String[] commandTypeAndParams) {
         String commandType = commandTypeAndParams[Constants.INDEX_COMMAND_TYPE];
