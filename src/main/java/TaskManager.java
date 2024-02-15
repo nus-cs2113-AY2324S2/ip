@@ -1,4 +1,4 @@
-public class TaskManager extends Duke {
+public class TaskManager extends Blue {
     // assume no more than 100 tasks for now
     public static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
@@ -13,6 +13,10 @@ public class TaskManager extends Duke {
         }
     }
     public void markTask(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= numTasks) {
+            talk("Task no. " + taskIndex + "not found.");
+            return;
+        }
         tasks[taskIndex].setDone();
         talk("Task " + tasks[taskIndex].getDescription() + " marked as done.");
     }
