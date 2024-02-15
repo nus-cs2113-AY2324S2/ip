@@ -25,7 +25,7 @@ public class Duke {
         {
             int printCounter = 1;
             if (listIndex == 0) {
-                throw new IllegalShapeException();
+                throw new IllegalShapeException(); //Throws exception for empty list
             }
             System.out.println("--------------------------------------");
             System.out.println("Here are the tasks in your lists:");
@@ -55,7 +55,7 @@ public class Duke {
 
     public static void markTask(Task[] tasks, String line) throws IllegalShapeException {
         if (Integer.parseInt(line.substring(5)) > listIndex || Integer.parseInt(line.substring(5)) <= 0) {
-            throw new IllegalShapeException();
+            throw new IllegalShapeException(); //Throws exception for marking out of bounds
         }
         tasks[Integer.parseInt(line.substring(5)) - 1].markAsDone();
         System.out.println("--------------------------------------");
@@ -68,7 +68,7 @@ public class Duke {
 
     public static void unmarkTask(Task[] tasks, String line) throws IllegalShapeException {
         if (Integer.parseInt(line.substring(7)) > listIndex || Integer.parseInt(line.substring(7)) <= 0) {
-            throw new IllegalShapeException();
+            throw new IllegalShapeException(); //Throws exception for unmarking out of bounds
         }
         tasks[Integer.parseInt(line.substring(7)) - 1].unmarkDone();
         System.out.println("--------------------------------------");
@@ -79,10 +79,14 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
-    public static void performAction(Task[] tasks, String line, int listIndex) {
+    public static void performAction(Task[] tasks, String line, int listIndex) throws IllegalShapeException{
         int eventDividerPositionTo = line.indexOf("/to");
         int eventDividerPositionFrom = line.indexOf("/from");
         int deadlineDividerPositionBy = line.indexOf("/by");
+
+        if(line.isEmpty()) {
+            throw new IllegalShapeException(); //Throws error for empty inputs
+        }
 
         switch(line.split(" ")[0].toLowerCase()) {
         case "bye": //Exits program with farewell dialogue
@@ -137,7 +141,13 @@ public class Duke {
         while (!ifExit) {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
-            performAction(tasks, line, listIndex); //Executes an action based on first word of command in String line
+            try {
+                performAction(tasks, line, listIndex); //Executes an action based on first word of command in String line
+            } catch (IllegalShapeException e) {
+                System.out.println("--------------------------------------");
+                System.out.println("Your input is empty!");
+                System.out.println("--------------------------------------");
+            }
         }
     }
 }
