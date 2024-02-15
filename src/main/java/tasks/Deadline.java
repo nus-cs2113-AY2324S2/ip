@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package tasks;
+
+public class Deadline extends Task {
 
     public String taskType = "D";
     private String endDate;
