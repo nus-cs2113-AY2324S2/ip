@@ -24,6 +24,9 @@ public class Nocturne {
                     break;
 
                 case "mark": {
+                    if (commandCheck.length < 2 | commandCheck.length > taskCount + 1) {
+                        throw new NocturneException("Your list is either empty or your brain is.");
+                    }
                     int listIndex = Integer.parseInt(commandCheck[1]);
                     System.out.println("Congratulations. I have marked this task as finished:");
                     tasks[listIndex - 1].isDone = true;
@@ -31,6 +34,9 @@ public class Nocturne {
                     break;
                 }
                 case "unmark": {
+                    if (commandCheck.length < 2 | commandCheck.length > taskCount + 1) {
+                        throw new NocturneException("Your list is either empty or your brain is.");
+                    }
                     int listIndex = Integer.parseInt(commandCheck[1]);
                     System.out.println("Do not neglect your duties. I have marked this task as unfinished:");
                     tasks[listIndex - 1].isDone = false;
