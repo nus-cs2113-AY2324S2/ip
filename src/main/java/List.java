@@ -7,6 +7,10 @@ public class List {
         list = new Task[100];
     }
 
+    public int getItemCount() {
+        return itemCount;
+    }
+
     public void printTaskCount() {
         Parser.printTaskCount(itemCount);
     }
