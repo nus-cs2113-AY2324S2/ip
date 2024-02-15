@@ -1,4 +1,8 @@
-public class ToDo extends Task{
+package Bobble.task;
+
+import Bobble.task.Task;
+
+public class ToDo extends Task {
 
     public ToDo(String description) {
         super(description);
