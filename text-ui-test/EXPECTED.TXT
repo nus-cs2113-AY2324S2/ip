@@ -57,6 +57,46 @@ ________________________________________________________________________________
 	3. [E][X] join meeting (from: monday 2pm to: friday 6pm)
 	4. [D][ ] make potato (by: 5pm)
 	______________________________________________________________________________
+	*******************************ERROR******************************************
+	It seems that you have missed out on certain fields for deadline. 
+	Usage: deadline {description of task} /by {due date}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
+	*******************************ERROR******************************************
+	It seems that you have missed out on certain fields for deadline. 
+	Usage: deadline {description of task} /by {due date}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
+	*******************************ERROR******************************************
+	It seems that you have missed out on certain fields for deadline. 
+	Usage: deadline {description of task} /by {due date}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
+	*******************************ERROR******************************************
+	It seems that you have not entered the task information. 
+	Usage: todo {description of task}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
+	*******************************ERROR******************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
+	*******************************ERROR******************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
+	*******************************ERROR******************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
+	*******************************ERROR******************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	*******************************ERROR******************************************
 	______________________________________________________________________________
 	Bye. Hope to see you again soon!
 	______________________________________________________________________________
