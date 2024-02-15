@@ -8,7 +8,7 @@ public class Event extends Task {
         super(description);
 
         if (!description.contains("/from") || !description.contains("/to")) {
-            throw new InvalidEventException("Wrong command format");
+            throw new InvalidEventException();
         }
 
         this.task = this.description.substring(
@@ -25,7 +25,7 @@ public class Event extends Task {
 
 
         if (this.task.length() == 0 || this.from.length() == 0 || this.to.length() == 0) {
-            throw new InvalidEventException("Missing fields");
+            throw new InvalidEventException();
         }
     }
     
