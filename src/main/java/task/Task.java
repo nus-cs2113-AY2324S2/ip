@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -23,10 +25,6 @@ public class Task {
 
     public String getDescription() {
         return description;
-    }
-
-    public static int getTasks() {
-        return totalTasks;
     }
 
 }

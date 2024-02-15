@@ -1,3 +1,5 @@
+package task;
+
 public class DukeException extends Exception {
 
     public static int getTaskIndex(String userInput, int taskCount) throws DukeException {
