@@ -7,7 +7,7 @@ public class Deadline extends Task {
         super(description);
 
         if (!description.contains("/by")) {
-            throw new InvalidDeadlineException("Wrong command format");
+            throw new InvalidDeadlineException();
         }
         
         this.task = this.description.substring(
@@ -18,7 +18,7 @@ public class Deadline extends Task {
                 this.description.indexOf("/by") + "/by".length()).trim();
 
         if (this.task.length() == 0 || this.by.length() == 0) { 
-            throw new InvalidDeadlineException("Missing fields");
+            throw new InvalidDeadlineException();
         }
     }
 

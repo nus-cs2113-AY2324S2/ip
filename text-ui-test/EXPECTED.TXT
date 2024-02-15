@@ -26,6 +26,13 @@ ________________________________________________________________________________
 	Got it! Marking this task as done:
 	  [T][X] make bread
 	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 2 items!
+
+	Usage: (un)mark {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	Got it! I've added this task:
 	  [E][ ] join meeting (from: monday 2pm to: friday 6pm)
@@ -36,10 +43,24 @@ ________________________________________________________________________________
 	Alright! Unmarking this task:
 	  [D][ ] try this (by: monday 2pm)
 	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Index is out of range.
+	Your task list currently has 3 items!
+
+	Usage: (un)mark {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	Got it! Marking this task as done:
 	  [E][X] join meeting (from: monday 2pm to: friday 6pm)
 	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 3 items!
+
+	Usage: (un)mark {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	1. [T][X] make bread
 	2. [D][ ] try this (by: monday 2pm)
@@ -57,46 +78,46 @@ ________________________________________________________________________________
 	3. [E][X] join meeting (from: monday 2pm to: friday 6pm)
 	4. [D][ ] make potato (by: 5pm)
 	______________________________________________________________________________
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
 	It seems that you have missed out on certain fields for deadline. 
 	Usage: deadline {description of task} /by {due date}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
 	It seems that you have missed out on certain fields for deadline. 
 	Usage: deadline {description of task} /by {due date}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
 	It seems that you have missed out on certain fields for deadline. 
 	Usage: deadline {description of task} /by {due date}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
 	It seems that you have not entered the task information. 
 	Usage: todo {description of task}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
 	It seems that you have missed out on certain fields for event. 
 	Usage: event {description of task} /from {start date/time} /to {end date/time}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
 	It seems that you have missed out on certain fields for event. 
 	Usage: event {description of task} /from {start date/time} /to {end date/time}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
 	It seems that you have missed out on certain fields for event. 
 	Usage: event {description of task} /from {start date/time} /to {end date/time}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
 	It seems that you have missed out on certain fields for event. 
 	Usage: event {description of task} /from {start date/time} /to {end date/time}
 	Please try again, or enter /help if you need it
-	*******************************ERROR******************************************
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	Bye. Hope to see you again soon!
 	______________________________________________________________________________

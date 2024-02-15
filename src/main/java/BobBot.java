@@ -1,3 +1,4 @@
+import java.nio.InvalidMarkException;
 import java.util.Scanner;
 
 public class BobBot {
@@ -52,41 +53,20 @@ public class BobBot {
     public static void addTask(String line) {
 
         Task newTask = null;
-        if (line.startsWith("todo")) {
-            try {
+
+        try {
+            if (line.startsWith("todo")) {
                 newTask = new Todo(line);
-            } catch (InvalidTodoException e) {
-                drawErrorLine();
-                System.out.println("\tIt seems that you have not entered the task information. "
-                        + "\n\tUsage: todo {description of task}"
-                        + "\n\tPlease try again, or enter /help if you need it");
-                drawErrorLine();
-                return;
-            }
-        } else if (line.startsWith("deadline")) {
-            try {
+            } else if (line.startsWith("deadline")) {
                 newTask = new Deadline(line);
-            } catch (InvalidDeadlineException e) {
-                drawErrorLine();
-                System.out.println("\tIt seems that you have missed out on certain fields for deadline. "
-                        + "\n\tUsage: deadline {description of task} /by {due date}"
-                        + "\n\tPlease try again, or enter /help if you need it");
-                drawErrorLine();
-                return;
-            }
-        } else if (line.startsWith("event")) {
-            try {
+            } else if (line.startsWith("event")) {
                 newTask = new Event(line);
-            } catch (InvalidEventException e) {
-                drawErrorLine();
-                System.out.println("\tIt seems that you have missed out on certain fields for event. "
-                        + "\n\tUsage: event {description of task} /from {start date/time} /to {end date/time}"
-                        + "\n\tPlease try again, or enter /help if you need it");
-                drawErrorLine();
+            } else {
+                handleInvalidCommand();
                 return;
             }
-        } else {
-            handleInvalidCommand();
+        } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
+            printCustomExceptionMessage(e);
             return;
         }
 
@@ -96,10 +76,16 @@ public class BobBot {
         echoCommand(line, newTask);
     }
 
+    private static void printCustomExceptionMessage(BobBotExceptions e) {
+        drawErrorLine();
+        e.displayExceptionMessage();
+        drawErrorLine();
+    }
+
     private static void handleInvalidCommand() {
         drawErrorLine();
         System.out.println(
-                "\tI did not understand that. Refer to the help manual for information on \n\t keying in the right commands!");
+                "\tI did not understand that. Refer to the help manual for information on \n\tkeying in the right commands!");
         printHelpMessage();
         drawErrorLine();
     }
@@ -113,7 +99,7 @@ public class BobBot {
     }
 
     public static void drawErrorLine() {
-        System.out.println("\t*******************************ERROR******************************************");
+        System.out.println("\t********************************ERROR*****************************************");
     }
 
     public static void drawLine(Boolean isIncludeIndentation) {
@@ -134,9 +120,9 @@ public class BobBot {
 
     private static void printHelpMessage() {
         drawLine(true);
-        System.out.println("\tI see you require some help. Fear not, I shall come to your assistance:\n");
+        System.out.println("\tI see you require some help. Fear not, I shall come to your assistance.\n");
         System.out.println("\tHere are the options available to you:");
-        System.out.println("\t\t/help - Display this help menu");
+        System.out.println("\t\thelp - Display this help menu");
         System.out.println("\t\ttodo ... - State something you want to add to the TODO list");
         System.out.println("\t\tdeadline ... - Tell me about an important deadline you need to meet");
         System.out.println("\t\tevent ... - Let me know what event you have coming up");
@@ -158,20 +144,42 @@ public class BobBot {
 
         while (!line.equalsIgnoreCase("bye")) {
 
-            if (line.equalsIgnoreCase("/help")) {
-                printHelpMessage();
-            } else if (line.equalsIgnoreCase("list")) {
-                displayList();
-            } else if (line.startsWith("mark")) {
-                mark(line);
-            } else if (line.startsWith("unmark")) {
-                unmark(line);
-            } else {
-                addTask(line);
+            try {
+                if (line.equalsIgnoreCase("help")) {
+                    printHelpMessage();
+                } else if (line.equalsIgnoreCase("list")) {
+                    displayList();
+                } else if (line.startsWith("mark")) {
+                    mark(line);
+                } else if (line.startsWith("unmark")) {
+                    unmark(line);
+                } else {
+                    addTask(line);
+                }
+            } catch (NullPointerException | NumberFormatException e) {
+                printStandardExceptionMessage(e);
             }
 
             line = in.nextLine();
         }
+    }
+
+    private static void printStandardExceptionMessage(Exception e) {
+        drawErrorLine();
+
+        if (e instanceof NullPointerException) {
+            System.out.println("\tIndex is out of range.");
+        } else if (e instanceof NumberFormatException) {
+            System.out.println("\tMissing task number!");
+        } else {
+            System.out.println("There was an error: " + e);
+        }
+
+        System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
+        System.out.println("\tUsage: (un)mark {task number}");
+        System.out.println("\tPlease enter a valid number within the range of your list.");
+        
+        drawErrorLine();
     }
 
     public static void main(String[] args) {
