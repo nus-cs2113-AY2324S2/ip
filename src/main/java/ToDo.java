@@ -5,11 +5,8 @@ public class ToDo extends Task {
         super(description);
     }
 
-    public String getDescription() throws LovieException {
-        String[] splitUpDescription = description.split("todo");
-        if (splitUpDescription.length == 1) {
-            throw new LovieException("Oops. Make sure to add a description for your todo!");
-        }
+    public String getDescription() {
+        String[] splitUpDescription = description.trim().split("(?i)todo");
         String realDescription = splitUpDescription[1];
         return realDescription;
     }
