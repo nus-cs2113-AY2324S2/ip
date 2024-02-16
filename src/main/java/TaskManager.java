@@ -19,13 +19,9 @@ public class TaskManager {
                     commandParser.parseCommand(userInput);
                 }
             } catch (HandleException e) {
-                // Print out the custom error message from the DukeException
                 System.out.println(e.getMessage());
             } catch (Exception e) {
-                // This catches any other exceptions that are not DukeExceptions
                 System.out.println("An unexpected error occurred: " + e.getMessage());
-                // Optionally, for debugging purposes, you might want to print the stack trace
-                // e.printStackTrace();
             }
         }
 
