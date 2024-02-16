@@ -3,13 +3,13 @@ package exception;
 public class InvalidTaskException extends Exception implements AnonbotExceptionHandler {
     private String taskDescription;
 
-    public InvalidTaskException(String taskDescription){
+    public InvalidTaskException(String taskDescription) {
         this.taskDescription = taskDescription;
     }
 
-    protected String getTaskDescription(){
+    protected String getTaskDescription() {
         return this.taskDescription;
-    };
+    }
 
     @Override
     public void printErrorMessage() {

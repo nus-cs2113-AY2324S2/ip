@@ -2,11 +2,11 @@ package exception;
 
 import anonbot.AnonBot;
 
-public class IncompleteCommandException  extends Exception implements AnonbotExceptionHandler {
+public class IncompleteCommandException extends Exception implements AnonbotExceptionHandler {
     private String command;
     private String argument;
 
-    public IncompleteCommandException(String command, String argument){
+    public IncompleteCommandException(String command, String argument) {
         this.command = command;
         this.argument = argument;
     }
