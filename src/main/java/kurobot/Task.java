@@ -1,4 +1,4 @@
-import java.util.Arrays;
+package kurobot;
 
 public class Task {
     protected String taskType;
