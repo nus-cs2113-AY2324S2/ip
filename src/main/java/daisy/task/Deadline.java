@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package daisy.task;
+
+public class Deadline extends Task {
 
     protected String dueDate;
 

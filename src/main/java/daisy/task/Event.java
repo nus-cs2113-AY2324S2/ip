@@ -1,4 +1,6 @@
-public class Event extends Task{
+package daisy.task;
+
+public class Event extends Task {
 
     protected String fromDate;
     protected String toDate;
