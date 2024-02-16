@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package kvothe.task;
+
+public class Deadline extends Task {
     protected String by;
     public static final String[] args = {"/by"};
 
