@@ -1,6 +1,7 @@
 package misc;
 
 import anonbot.Ui;
+import exception.IncompleteCommandException;
 import task.Task.TaskType;
 import task.TaskManager;
 import exception.InvalidCommandException;
@@ -29,52 +30,56 @@ public class CommandManager {
         String command = Parser.getCommand(userInput);
         String rawArgument = Parser.getCommandArgument(userInput);
 
-        switch (command) {
-        case "exit":
-            // fallthrough
-        case "bye":
-            Ui.printGoodbye();
-            executionStatus = Status.STATUS_EXIT;
-            break;
-        case "list":
-            TaskManager.printTaskList();
-            break;
-        case "mark":
-            processMarkCommand(rawArgument);
-            break;
-        case "unmark":
-            processUnmarkCommand(rawArgument);
-            break;
-        case "todo":
-            TaskManager.createNewTask(rawArgument, TaskType.TODO);
-            break;
-        case "deadline":
-            TaskManager.createNewTask(rawArgument, TaskType.DEADLINE);
-            break;
-        case "event":
-            TaskManager.createNewTask(rawArgument, TaskType.EVENT);
-            break;
-        default: // Invalid Command
-            throw new InvalidCommandException(command);
+        try {
+            switch (command) {
+            case "exit":
+                // fallthrough
+            case "bye":
+                Ui.printGoodbye();
+                executionStatus = Status.STATUS_EXIT;
+                break;
+            case "list":
+                TaskManager.printTaskList();
+                break;
+            case "mark":
+                processMarkCommand(rawArgument);
+                break;
+            case "unmark":
+                processUnmarkCommand(rawArgument);
+                break;
+            case "todo":
+                TaskManager.createNewTask(rawArgument, TaskType.TODO);
+                break;
+            case "deadline":
+                TaskManager.createNewTask(rawArgument, TaskType.DEADLINE);
+                break;
+            case "event":
+                TaskManager.createNewTask(rawArgument, TaskType.EVENT);
+                break;
+            default: // Invalid Command
+                throw new InvalidCommandException(command);
+            }
+        } catch (IncompleteCommandException e) {
+            e.printErrorMessage();
         }
         return executionStatus;
     }
 
-    private static void processMarkCommand(String rawArgument) {
-        if (Parser.isValidTaskNumberString(rawArgument)) {
+    private static void processMarkCommand(String rawArgument) throws IncompleteCommandException {
+        try {
             int taskNumber = Parser.getTaskNumberFromString(rawArgument);
             TaskManager.markTaskAsDone(taskNumber);
-        } else {
-            System.out.println("Invalid argument for mark");
+        } catch (NumberFormatException e) {
+            throw new IncompleteCommandException("mark", rawArgument);
         }
     }
 
-    private static void processUnmarkCommand(String rawArgument) {
-        if (Parser.isValidTaskNumberString(rawArgument)) {
+    private static void processUnmarkCommand(String rawArgument) throws IncompleteCommandException {
+        try {
             int taskNumber = Parser.getTaskNumberFromString(rawArgument);
             TaskManager.markTaskAsUndone(taskNumber);
-        } else {
-            System.out.println("Invalid argument for unmark");
+        } catch (NumberFormatException e) {
+            throw new IncompleteCommandException("unmark", rawArgument);
         }
     }
 }
