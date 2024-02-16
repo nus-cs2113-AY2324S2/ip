@@ -67,6 +67,9 @@ public class QueryManager {
         } catch (SalmonNotInListException e) {
             System.out.println("Gomen! Task is not in your list");
             return -1;
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a valid number to mark/unmark list!");
+            return -1;
         }
     }
 }
