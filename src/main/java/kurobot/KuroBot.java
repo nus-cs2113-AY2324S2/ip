@@ -26,8 +26,13 @@ public class KuroBot {
     private static void printTasks() {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
+        int counter = 1;
         for (int i = 0; i < taskNum; i ++){
-            System.out.println(i+1 + "." + tasks[i].printTask());
+            if (tasks[i].isDeleted()){
+                continue;
+            }
+            System.out.println(counter + "." + tasks[i].printTask());
+            counter++;
         }
         System.out.println(LINE);
     }
@@ -119,7 +124,7 @@ public class KuroBot {
         scanner.close();
     }
 
-    private static void markTask(String userInput, boolean status) throws InvalidDescriptionException{
+    private static void markTask(String userInput, boolean status) throws InvalidDescriptionException {
         //check if task number was given
         String[] words = userInput.split(" ",2);
         if (words.length < 2){
@@ -142,6 +147,25 @@ public class KuroBot {
         }
     }
 
+    private static void deleteTask(String userInput) throws InvalidDescriptionException {
+        String[] words = userInput.split(" ",2);
+        if (words.length < 2){
+            throw new InvalidDescriptionException();
+        }
+
+        String taskIndex = words[1];
+        int i = Integer.parseInt(taskIndex);
+        try {
+            tasks[i - 1].setDeleted();
+        } catch (NullPointerException e){
+            System.out.println(LINE);
+            System.out.println("there's no such task though...");
+            System.out.println(LINE);
+        }
+
+
+    }
+
     private static void manageTasks(String input) throws InvalidCommandException {
         //extract command keyword from input
         String[] words = input.split(" ",2);
@@ -157,7 +181,7 @@ public class KuroBot {
         case "mark":
             try {
                 markTask(input, true);
-            } catch (InvalidDescriptionException e){
+            } catch (InvalidDescriptionException e) {
                 System.out.println(LINE);
                 System.out.println("mhmm.. which task have you completed? >.<");
                 System.out.println(LINE);
@@ -166,7 +190,7 @@ public class KuroBot {
         case "unmark":
             try {
                 markTask(words[1], false);
-            } catch (InvalidDescriptionException e){
+            } catch (InvalidDescriptionException e) {
                 System.out.println(LINE);
                 System.out.println("oopsie, what task should I unmark?");
                 System.out.println(LINE);
@@ -175,7 +199,7 @@ public class KuroBot {
         case "todo":
             try {
                 addTodo(input);
-            } catch (InvalidDescriptionException e){
+            } catch (InvalidDescriptionException e) {
                 System.out.println(LINE);
                 System.out.println("Hmmm.. what is the task about?");
                 System.out.println(LINE);
@@ -184,11 +208,11 @@ public class KuroBot {
         case "deadline":
             try {
                 addDeadline(input);
-            } catch (InvalidDescriptionException e){
+            } catch (InvalidDescriptionException e) {
                 System.out.println(LINE);
                 System.out.println("Heyyy~ don't forget your task");
                 System.out.println(LINE);
-            } catch (InvalidTimeException e){
+            } catch (InvalidTimeException e) {
                 System.out.println(LINE);
                 System.out.println("Did you forget your due date? :p");
                 System.out.println(LINE);
@@ -197,13 +221,22 @@ public class KuroBot {
         case "event":
             try {
                 addEvent(input);
-            } catch (InvalidDescriptionException e){
+            } catch (InvalidDescriptionException e) {
                 System.out.println(LINE);
                 System.out.println("aiyoyo, how can you forget the event XD");
                 System.out.println(LINE);
-            } catch (InvalidTimeException e){
+            } catch (InvalidTimeException e) {
                 System.out.println(LINE);
                 System.out.println("uhoh! don't forget the timings!");
+                System.out.println(LINE);
+            }
+            break;
+        case "delete":
+            try {
+                deleteTask(input);
+            } catch (InvalidDescriptionException e) {
+                System.out.println(LINE);
+                System.out.println("what task?");
                 System.out.println(LINE);
             }
             break;
