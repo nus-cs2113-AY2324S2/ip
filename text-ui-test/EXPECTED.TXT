@@ -6,85 +6,76 @@ _____________________________________________________________________
 Here are the current tasks in your list:
 Great job! You have no tasks!
 _____________________________________________________________________
-_____________________________________________________________________
-Added to task list: study
-_____________________________________________________________________
+Please enter a valid command: todo, deadline or event
 _____________________________________________________________________
 Added to task list:
 [T][ ] study for EE2211
+Now you have 1 tasks in the list.
+_____________________________________________________________________
+_____________________________________________________________________
+Here are the current tasks in your list:
+1.[T][ ] study for EE2211
+_____________________________________________________________________
+_____________________________________________________________________
+Added to task list:
+[D][ ] finish assignment1/by 10 June 2024 (by: 10 June 2024)
 Now you have 2 tasks in the list.
 _____________________________________________________________________
 _____________________________________________________________________
 Here are the current tasks in your list:
-1.[ ] study
-2.[T][ ] study for EE2211
+1.[T][ ] study for EE2211
+2.[D][ ] finish assignment1/by 10 June 2024 (by: 10 June 2024)
 _____________________________________________________________________
 _____________________________________________________________________
 Added to task list:
-[D][ ] finish assignment1 (by: 10 June 2024)
+[E][ ] hair for hope /from 10 June 2024 /to 20 June 2024 (from: 10 June 2024 to: 20 June 2024)
 Now you have 3 tasks in the list.
 _____________________________________________________________________
 _____________________________________________________________________
 Here are the current tasks in your list:
-1.[ ] study
-2.[T][ ] study for EE2211
-3.[D][ ] finish assignment1 (by: 10 June 2024)
-_____________________________________________________________________
-_____________________________________________________________________
-Added to task list:
-[E][ ] hair for hope  (from: 10 June 2024 to: 20 June 2024)
-Now you have 4 tasks in the list.
-_____________________________________________________________________
-_____________________________________________________________________
-Here are the current tasks in your list:
-1.[ ] study
-2.[T][ ] study for EE2211
-3.[D][ ] finish assignment1 (by: 10 June 2024)
-4.[E][ ] hair for hope  (from: 10 June 2024 to: 20 June 2024)
+1.[T][ ] study for EE2211
+2.[D][ ] finish assignment1/by 10 June 2024 (by: 10 June 2024)
+3.[E][ ] hair for hope /from 10 June 2024 /to 20 June 2024 (from: 10 June 2024 to: 20 June 2024)
 _____________________________________________________________________
 _____________________________________________________________________
 Got it! Task 1 marked as done:
-[X] study
+[X] study for EE2211
 _____________________________________________________________________
 _____________________________________________________________________
 Here are the current tasks in your list:
-1.[X] study
-2.[T][ ] study for EE2211
-3.[D][ ] finish assignment1 (by: 10 June 2024)
-4.[E][ ] hair for hope  (from: 10 June 2024 to: 20 June 2024)
+1.[T][X] study for EE2211
+2.[D][ ] finish assignment1/by 10 June 2024 (by: 10 June 2024)
+3.[E][ ] hair for hope /from 10 June 2024 /to 20 June 2024 (from: 10 June 2024 to: 20 June 2024)
 _____________________________________________________________________
 _____________________________________________________________________
 Got it! Task 3 marked as done:
-[X] finish assignment1
+[X] hair for hope /from 10 June 2024 /to 20 June 2024
 _____________________________________________________________________
 _____________________________________________________________________
 Here are the current tasks in your list:
-1.[X] study
-2.[T][ ] study for EE2211
-3.[D][X] finish assignment1 (by: 10 June 2024)
-4.[E][ ] hair for hope  (from: 10 June 2024 to: 20 June 2024)
+1.[T][X] study for EE2211
+2.[D][ ] finish assignment1/by 10 June 2024 (by: 10 June 2024)
+3.[E][X] hair for hope /from 10 June 2024 /to 20 June 2024 (from: 10 June 2024 to: 20 June 2024)
 _____________________________________________________________________
 _____________________________________________________________________
 Got it! Task 2 marked as undone:
-[ ] study for EE2211
+[ ] finish assignment1/by 10 June 2024
 _____________________________________________________________________
 _____________________________________________________________________
 Here are the current tasks in your list:
-1.[X] study
-2.[T][ ] study for EE2211
-3.[D][X] finish assignment1 (by: 10 June 2024)
-4.[E][ ] hair for hope  (from: 10 June 2024 to: 20 June 2024)
+1.[T][X] study for EE2211
+2.[D][ ] finish assignment1/by 10 June 2024 (by: 10 June 2024)
+3.[E][X] hair for hope /from 10 June 2024 /to 20 June 2024 (from: 10 June 2024 to: 20 June 2024)
 _____________________________________________________________________
 _____________________________________________________________________
 Got it! Task 3 marked as undone:
-[ ] finish assignment1
+[ ] hair for hope /from 10 June 2024 /to 20 June 2024
 _____________________________________________________________________
 _____________________________________________________________________
 Here are the current tasks in your list:
-1.[X] study
-2.[T][ ] study for EE2211
-3.[D][ ] finish assignment1 (by: 10 June 2024)
-4.[E][ ] hair for hope  (from: 10 June 2024 to: 20 June 2024)
+1.[T][X] study for EE2211
+2.[D][ ] finish assignment1/by 10 June 2024 (by: 10 June 2024)
+3.[E][ ] hair for hope /from 10 June 2024 /to 20 June 2024 (from: 10 June 2024 to: 20 June 2024)
 _____________________________________________________________________
 _____________________________________________________________________
 Bye. Hope to see you again soon!

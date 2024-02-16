@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+
 
 public class Sinep {
     static String line = "_____________________________________________________________________";
@@ -22,30 +24,53 @@ public class Sinep {
                     printList();
                     break;
                 case "mark":
-                    markList(input);
+                    try {
+                        markList(input);
+                    } catch (InvalidTaskIndexException e){
+                        System.out.println("The task you are trying to edit does not exist!" + nl + line);
+                    }
                     break;
                 case "unmark":
-                    unmarkList(input);
+                    try {
+                        unmarkList(input);
+                    } catch (InvalidTaskIndexException e){
+                        System.out.println("The task you are trying to edit does not exist!" + nl + line);
+                    }
                     break;
                 case "todo":
-                    addTodo(input);
+                    try {
+                        addTodo(input);
+                    } catch (InvalidCommandMessageException e) {
+                        System.out.println("The todo command message is invalid" + nl + line);
+                    }
                     break;
                 case "deadline":
-                    addDeadline(input);
+                    try {
+                        addDeadline(input);
+                    } catch (InvalidCommandMessageException e) {
+                        System.out.println("The deadline command is invalid" + nl +line);
+                    }
                     break;
                 case "event":
-                    addEvent(input);
+                    try {
+                        addEvent(input);
+                    } catch (InvalidCommandMessageException e) {
+                        System.out.println("The event command is invalid" + nl + line);
+                    }
                     break;
                 default:
-                    addToList(input);
-                    break;
+                    try {
+                        throw new InvalidCommandException();
+                    } catch (InvalidCommandException e) {
+                        System.out.println("Please enter a valid command: todo, deadline or event");
+                    }
             }
         }
     }
     public static void printGreeting() {
         final String greeting = "Hello! I'm Sinep, your personal chatbot!\n"
                 + "What can I do for you today?";
-        System.out.println(line + nl + greeting + nl+ line);
+        System.out.println(line + nl + greeting + nl + line);
     }
     public static void printBye() {
         final String bye = "Bye. Hope to see you again soon!";
@@ -66,29 +91,33 @@ public class Sinep {
         System.out.println(line);
     }
 
-    public static void markList(String input) {
+    public static void markList(String input) throws InvalidTaskIndexException {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
+        if (taskIndex >= taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
         Task markingTask = taskList.get(taskIndex);
         markingTask.markAsDone();
         System.out.println(line + nl + "Got it! Task " + (taskIndex + 1) + " marked as done:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + nl + line);
     }
 
-    public static void unmarkList(String input) {
+    public static void unmarkList(String input) throws InvalidTaskIndexException {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+        if (taskIndex >= taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
         Task markingTask = taskList.get(taskIndex);
         markingTask.unmarkAsDone();
         System.out.println(line + nl + "Got it! Task " + (taskIndex + 1) + " marked as undone:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + nl + line);
     }
 
-    public static void addToList(String input) {
-        Task newTask = new Task(input); // Add new task into the list
-        taskList.add(newTask);
-        System.out.println(line + nl + "Added to task list: " + input + nl + line);
-    }
 
-    public static void addTodo(String input) {
+    public static void addTodo(String input) throws InvalidCommandMessageException {
+        if (Objects.equals(input, "todo")) {
+            throw new InvalidCommandMessageException();
+        }
         String actualDescription = input.replace("todo ", "");
         Todo newTodo = new Todo(actualDescription);
         taskList.add(newTodo);
@@ -96,8 +125,16 @@ public class Sinep {
         System.out.println("Now you have " + taskList.size() + " tasks in the list." + nl + line);
     }
 
-    public static void addDeadline(String input) {
+    public static void addDeadline(String input) throws InvalidCommandMessageException{
+        boolean containsDeadline = input.contains("/by");
+        if (Objects.equals(input, "deadline") || !containsDeadline) {
+            throw new InvalidCommandMessageException();
+        }
         String actualDescription = input.replace("deadline ", "");
+        String[] inputParts = actualDescription.split("/by", 2);
+        if (Objects.equals(inputParts[0], "") || Objects.equals(inputParts[1], "")) {
+            throw new InvalidCommandMessageException();
+        }
         Deadline newDeadline = new Deadline(actualDescription);
         taskList.add(newDeadline);
         String descriptionToPrint = newDeadline.toString();
@@ -105,8 +142,17 @@ public class Sinep {
         System.out.println("Now you have " + taskList.size() + " tasks in the list." + nl + line);
     }
 
-    public static void addEvent(String input) {
+    public static void addEvent(String input) throws InvalidCommandMessageException{
+        boolean containStart = input.contains("/from");
+        boolean containEnd = input.contains("/to");
+        if (Objects.equals(input, "event") || !containStart || !containEnd) {
+            throw new InvalidCommandMessageException();
+        }
         String actualDescription = input.replace("event ", "");
+        String[] inputParts = actualDescription.split("/from|/to", 3);
+        if (Objects.equals(inputParts[0], "") || Objects.equals(inputParts[1], "") || Objects.equals(inputParts[2], "")) {
+            throw new InvalidCommandMessageException();
+        }
         Event newEvent = new Event(actualDescription);
         taskList.add(newEvent);
         String descriptionToPrint = newEvent.toString();

@@ -3,7 +3,8 @@ public class Deadline extends Task {
     public Deadline(String description) {
         super(description);
         String[] givenDeadline = description.split("/by ", 2);
-        this.description = givenDeadline.length >= 1 ? givenDeadline[0] : "";
+        this.description = description;
+        //this.description = givenDeadline.length >= 1 ? givenDeadline[0] : "";
         this.dateTime = givenDeadline.length > 1 ? givenDeadline[1] : "";
     }
 
