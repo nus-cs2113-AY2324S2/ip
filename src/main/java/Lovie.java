@@ -17,7 +17,7 @@ public class Lovie {
 
         while (true) {
             System.out.print("\t");
-            input = inputGetter.nextLine().split(" ")[0];
+            input = inputGetter.nextLine();
 
             // Switch statement to keep track of user input commands
             switch (input) {
@@ -40,16 +40,28 @@ public class Lovie {
                     // Switch statement to keep track of taskType + default of incorrect input
                     switch (taskType) {
                         case "event":
+                            try {
+                                eventFormatChecker(input);
+                            } catch (LovieException e) {
+                                print(e.getMessage());
+                                break;
+                            }
                             newTask = new Event(input);
                             tasksList.add(newTask);
                             addTaskPrinter(newTask);
                             break;
                         case "deadline":
+                            try {
+                                deadlineFormatChecker(input);
+                            } catch (LovieException e) {
+                                print(e.getMessage());
+                                break;
+                            }
                             newTask = new Deadline(input);
                             tasksList.add(newTask);
                             addTaskPrinter(newTask);
                             break;
-                        case "todo":
+                        case "todo": //need to fix for input "todo todo"
                             try {
                                 todoFormatChecker(input);
                             } catch (LovieException e) {
@@ -92,8 +104,8 @@ public class Lovie {
     public static void listTaskPrinter(ArrayList<Task> tasksList) {
         if (tasksList.size() == 0) {
             print("Your list is empty right now. \nTry adding a task using one of the following " +
-                    "command formats: \n\n" + "(1) todo **description** \n" + "(2) event **description** /from **start** " +
-                    "/to **end**\n" + "(3) deadline **description** /by **end**");
+                    "command formats: \n\n" + "(1) todo **description** \n" + "(2) event **description** " +
+                    "/from **start** /to **end**\n" + "(3) deadline **description** /by **end**");
         } else {
             int counter = 0;
             String output = new String();
@@ -149,7 +161,46 @@ public class Lovie {
     public static void todoFormatChecker(String input) throws LovieException {
         String[] splitUpInput = input.split(" ", 2);
         if (splitUpInput.length == 1) {
-            throw new LovieException("Oops! Make sure you add a description for your todo! Here is the format:\n");
+            throw new LovieException("Oops! Make sure you add a description for your todo! Here is the format:\n" +
+                    "todo **description**");
+        }
+    }
+
+    public static void deadlineFormatChecker(String input) throws LovieException {
+        String firstHalf = input.split("/", 2)[0];
+        String[] splitUpFirstHalf = firstHalf.split(" ", 2);
+        if (splitUpFirstHalf.length == 1) {
+            throw new LovieException("Oops! Make sure you add a description for your deadline! Here is the format:\n" +
+                    "deadline **description** /by **end**");
+        }
+        System.out.println(input);
+        String[] bySplitter = input.trim().split("/by", 3);
+        System.out.println("length: " + bySplitter.length);
+        for (String token : bySplitter) {
+            System.out.println(token);
+        }
+        System.out.println("done");
+        if (bySplitter.length == 1) { //what if there are 2 /by methods
+            throw new LovieException("Oops! Make sure you include a /by for your deadline. Here is the format:\n" +
+                    "deadline **description** /by **end**");
+        }
+    }
+
+    public static void eventFormatChecker(String input) throws LovieException {
+        String[] splitUpInput = input.split(" ", 2);
+        if (splitUpInput.length == 1) {
+            throw new LovieException("Oops! Make sure you add a description for your event! Here is the format:\n" +
+                    "event **description** /from **start** /to **end**");
+        }
+        String[] fromSplitter = input.split("/from", 2);
+        if (fromSplitter.length == 1) { //what if there are 2 /from methods
+            throw new LovieException("Oops! Make sure you include a /from for your event. Here is the format:\n" +
+                    "event **description** /from **start** /to **end**");
+        }
+        String[] toSplitter = input.split("/to", 2);
+        if (toSplitter.length == 1) { //what if there are 2 /from methods
+            throw new LovieException("Oops! Make sure you include a /to for your event. Here is the format:\n" +
+                    "event **description** /from **start** /to **end**");
         }
     }
 }
