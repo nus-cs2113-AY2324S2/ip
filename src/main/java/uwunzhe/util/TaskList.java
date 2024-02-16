@@ -10,8 +10,8 @@ import uwunzhe.tasks.Deadline;
 import uwunzhe.tasks.Event;
 
 public class TaskList {
-    private ArrayList<Task> list = new ArrayList<Task>();
-    private int size = 0;
+    private static ArrayList<Task> list = new ArrayList<Task>();
+    private static int size = 0;
 
     /**
      * Returns the size of the list.
@@ -30,10 +30,50 @@ public class TaskList {
      * @return None
      */
     public void printSize() {
-        int size = this.getSize();
+        int size = getSize();
         System.out.println("We only have uhhhh " + size
                 + " more thing" + (size > 1 ? "s" : "") + " left to go!");
-    }   
+    }
+
+    /**
+     * Prints the task.
+     * 
+     * @param task
+     */
+    public void printTask(Task task) {
+        System.out.println(task);
+    }
+
+    /**
+     * Prints the task with leading text.
+     * 
+     * @param task
+     * @param leading
+     */
+    public void printTask(Task task, String leading) {
+        System.out.print(leading);
+        System.out.println(task);
+    }
+
+    /**
+     * Prints the task at the specified index.
+     * 
+     * @param index
+     */
+    public void printTask(int index) {
+        System.out.println(list.get(index));
+    }
+
+    /**
+     * Prints the task at the specified index with leading text.
+     * 
+     * @param index
+     * @param leading
+     */
+    public void printTask(int index, String leading) {
+        System.out.print(leading);
+        System.out.println(list.get(index));
+    }
    
     /**
      * Prints the list.
@@ -115,10 +155,10 @@ public class TaskList {
                 break;
             }
 
+            size++;
             System.out.println("Okey dokey here we go");
-            System.out.print(" ");
-            System.out.println(list.get(size - 1));
-            this.printSize();
+            printTask(size - 1, " ");
+            printSize();
 
         } catch (IndexOutOfBoundsException e) {
             throw new UwunzheException("ACKSHUALLY you are missing something...");
@@ -134,7 +174,6 @@ public class TaskList {
     public void addTodo(String description) {
         // String name = description;
         list.add(new Todo(description));
-        size++;
     }
 
     /**
@@ -149,7 +188,6 @@ public class TaskList {
         String taskEnd = nameEnd[1];
 
         list.add(new Deadline(taskName, taskEnd));
-        size++;
     }
 
     /**
@@ -168,6 +206,24 @@ public class TaskList {
         String taskEnd = startEnd[1];
 
         list.add(new Event(taskName, taskStart, taskEnd));
-        size++;
+    }
+
+    public void deleteItem(String index) throws UwunzheException {
+        try {
+            int i = Integer.parseInt(index) - 1;
+            Task toRemove = list.get(i);
+            list.remove(i);   
+            size--;
+            
+            System.out.println("There goes that task!");
+            printTask(toRemove, " ");
+            printSize();
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new UwunzheException("Huhhhhhhh? I cannot find!");
+
+        } catch (NumberFormatException e) {
+            throw new UwunzheException("Something something not adding up...");
+        }
     }
 }
