@@ -30,6 +30,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("Kamxia. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
+                saveTasksToFile();
                 break;
             } else {
                 try {
@@ -176,6 +177,7 @@ public class Duke {
                 tasks.remove(taskIndex);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
+                saveTasksToFile();
             } else {
                 throw new DukeException("Invalid task number provided.");
             }
@@ -215,4 +217,17 @@ public class Duke {
         }
     }
 
+    // Save tasks to file
+    private static void saveTasksToFile() {
+        try {
+            File file = new File(FILE_PATH);
+            FileWriter writer = new FileWriter(file);
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
 }
