@@ -1,13 +1,14 @@
 import java.util.Scanner;
 
 public class Daisy {
+
+    protected static Task[] tasks = new Task[100];
+    protected static int task_no = 0;
+
     public static void main(String[] args) {
         final String INTRO_PROMPT = "Good day! This is Daisy.\nAny task for today?";
         final String EXIT_PROMPT = "Ending prompt received. Remember to keep to the deadlines!";
         final String LINE_BREAK = "____________________________________";
-        Task[] tasks = new Task[100];
-        int task_no = 0;
-
 
         System.out.println(LINE_BREAK);
         System.out.println(INTRO_PROMPT);
@@ -37,27 +38,23 @@ public class Daisy {
                     break;
                 case "todo":
                     Todo newTodo = new Todo(separate_commands[1]);
-                    addItem(tasks, task_no, newTodo);
-                    task_no++;
+                    addItem(newTodo);
                     break;
                 case "deadline":
                     String[] separate_deadlines = separate_commands[1].split(" /by ");
                     Deadline newDeadline = new Deadline(separate_deadlines[0],separate_deadlines[1]);
-                    addItem(tasks, task_no, newDeadline);
-                    task_no++;
+                    addItem(newDeadline);
                     break;
                 case "event":
                     String eventLine = separate_commands[1];
                     int from = eventLine.indexOf(" /from ");
                     int to = eventLine.indexOf(" /to ");
                     Event newEvent = new Event(eventLine.substring(0, from),eventLine.substring(from + " /from ".length(), to), eventLine.substring(to+" /to ".length()));
-                    addItem(tasks, task_no, newEvent);
-                    task_no++;
+                    addItem(newEvent);
                     break;
                 default:
                     Task newTask = new Task(command);
-                    addItem(tasks, task_no, newTask);
-                    task_no++;
+                    addItem(newTask);
                     break;
             }
             System.out.println(LINE_BREAK);
@@ -67,9 +64,10 @@ public class Daisy {
         System.out.println(LINE_BREAK);
     }
 
-    public static void addItem(Task[] tasks, int task_no, Task item) {
+    public static void addItem(Task item) {
         tasks[task_no] = item;
         System.out.println("Task received! The following has been added to your list of todos:\n" + item);
         System.out.println(String.format("Now you have %d tasks in your todo list.",task_no+1));
+        task_no++;
     }
 }
