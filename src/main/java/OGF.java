@@ -78,7 +78,7 @@ public class OGF {
                     throw new OGFException("Did not write anything after \"event\", dont waste my time and yours pls");
                 }
                 if (!input.contains(" /from ") || !input.contains(" /to ")){
-                    throw new OGFException("Did not enter event timings, use /from and /to to enter start and end time respectively");
+                    throw new OGFException("Did not enter event start and end, use /from and /to to enter start and end time respectively");
                 }
                 String newEventDesc = input.substring(input.indexOf(" "), input.indexOf("/from"));
                 String newEventStart = input.substring(input.indexOf("/from") + 6, input.indexOf(" /to"));
