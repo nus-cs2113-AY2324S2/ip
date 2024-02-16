@@ -11,10 +11,14 @@ public class Query {
         this("");
     }
 
-    public Query(String s){
+    public Query(String s) {
         this.changeInput(s);
     }
 
+    /**
+     * Parse string s to update attributes of Query.
+     * @param s
+     */
     public void changeInput(String s) {
         this.rawInput = s;
         this.lowercaseInput = rawInput.trim().toLowerCase();
@@ -27,25 +31,40 @@ public class Query {
             this.argument = null;
         } else {
             // There is an Argument
-            this.command = s.substring(0,index);
+            this.command = s.substring(0,index).toLowerCase();
             this.argument = s.substring(index + 1);
         }
     }
 
 
-    // Getters
+    /**
+     *
+     * @return actual inputted query
+     */
     public String getInput() {
         return this.rawInput;
     }
 
+    /**
+     *
+     * @return actual inputted query but all in lowercase
+     */
     public String getLowercaseInput() {
         return this.lowercaseInput;
     }
 
+    /**
+     *
+     * @return command of query
+     */
     public String getCommand() {
         return this.command;
     }
 
+    /**
+     *
+     * @return argument of query (not in lowercase)
+     */
     public String getArgument() {
         return this.argument;
     }

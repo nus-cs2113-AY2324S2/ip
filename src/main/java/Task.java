@@ -7,7 +7,7 @@ public class Task {
         this(false,"");
     }
 
-    public Task(boolean status, String s){
+    public Task(boolean status, String s) {
         this.isDone = status;
         this.description = s;
         this.type = "T";
@@ -17,7 +17,7 @@ public class Task {
         this.description = description;
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
     }
 
@@ -25,11 +25,18 @@ public class Task {
         this.isDone = false;
     }
 
-    // getters
+    /**
+     *
+     * @return boolean isDone of Task
+     */
     public boolean getStatus() {
         return this.isDone;
     }
 
+    /**
+     *
+     * @return String description of Task
+     */
     public String getDescription() {
         return this.description;
     }

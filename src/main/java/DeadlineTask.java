@@ -13,7 +13,7 @@ public class DeadlineTask extends Task{
      * assign it to the object
      *
      * @param argument
-     * @return description of deadline without the deadline
+     * @return String description of deadlineTask
      */
     public String setDeadline(String argument){
         // find index of '/'
@@ -22,6 +22,10 @@ public class DeadlineTask extends Task{
         return argument.substring(0, index - 1);
     }
 
+    /**
+     *
+     * @return String containing deadline of task
+     */
     public String getDeadline() {
         return deadline;
     }
@@ -29,9 +33,9 @@ public class DeadlineTask extends Task{
     @Override
     public void printTask() {
         if (isDone) {
-            System.out.println("[" + this.type + "][X] " + this.getDescription() + " (by: " + this.getDeadline() + " )");
+            System.out.println("[" + this.type + "][X] " + this.getDescription() + " (by: " + this.getDeadline() + ")");
         } else {
-            System.out.println("[" + this.type + "][ ] " + this.getDescription() + " (by: " + this.getDeadline() + " )");
+            System.out.println("[" + this.type + "][ ] " + this.getDescription() + " (by: " + this.getDeadline() + ")");
         }
     }
 }

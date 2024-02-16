@@ -5,17 +5,25 @@ public class QueryManager {
         this(new Query());
     }
 
-    public QueryManager(Query q){
+    public QueryManager(Query q) {
         inputQuery(q);
     }
 
-    // simply input or update query
-    public void inputQuery(Query q){
+    /**
+     * simply input or update query
+     * @param q
+     */
+    public void inputQuery(Query q) {
         currentQuery = q;
     }
 
-    // input or update query and executes it
-    public int executeQuery(Query q, TasksList list){
+    /**
+     * input or update query and executes it
+     * @param q
+     * @param list
+     * @return 0 to exit the programme, -1 to loop
+     */
+    public int executeQuery(Query q, TasksList list) {
         inputQuery(q);
         String command = q.getCommand();
         String argument = q.getArgument();
@@ -28,11 +36,10 @@ public class QueryManager {
             case "list":
                 list.show();
                 return -1;
-            case "mark":
-                //list.markAsDone(argument);
+            case "mark": //only receive int input at this moment, string or no input is error
                 list.markAsDone(Integer.parseInt(argument));
                 return -1;
-            case "unmark":
+            case "unmark": //only receive int input at this moment, string or not input is error
                 list.markAsNotDone(Integer.parseInt(argument));
                 return -1;
             case "bye":

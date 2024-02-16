@@ -9,6 +9,10 @@ public class TasksList {
         this.noOfTasks = 0;
     }
 
+    /**
+     * Add task T into TaskList
+     * @param t
+     */
     public void addTask(Task t) {
         this.noOfTasks++;
         this.list.add(t);
@@ -18,7 +22,10 @@ public class TasksList {
         System.out.println("You have " + this.noOfTasks + " tasks remaining");
     }
 
-    public void show(){
+    /**
+     * list out the Tasks in the TaskList
+     */
+    public void show() {
         System.out.println("Osu! Your task is as follows:");
         for(int i = 0; i < this.noOfTasks; i++) {
             System.out.print("  ");
@@ -27,7 +34,11 @@ public class TasksList {
         }
     }
 
-    public void markAsDone(String s){
+    /**
+     * Find task with description String s (case-sensitive), and mark it as done.
+     * @param s
+     */
+    public void markAsDone(String s) {
         Integer index = this.findIndexWithDesc(s);
         if (index == -1) {
             System.out.println("Gomen! Task is not in your list");
@@ -40,7 +51,11 @@ public class TasksList {
         this.list.get(index).printTask();
     }
 
-    public void markAsDone(Integer index){
+    /**
+     * Mark task at number index as done
+     * @param index
+     */
+    public void markAsDone(Integer index) {
         index -= 1;
         if (index < 0 || index > (this.noOfTasks - 1)) {
             System.out.println("Gomen! You went out from the list");
@@ -53,7 +68,11 @@ public class TasksList {
         this.list.get(index).printTask();
     }
 
-    public void markAsNotDone(String s){
+    /**
+     * Find task with description String s (case-sensitive), and mark it as not done.
+     * @param s
+     */
+    public void markAsNotDone(String s) {
         Integer index = this.findIndexWithDesc(s);
         if (index == -1) {
             System.out.println("Gomen! Task is not in your list");
@@ -66,7 +85,11 @@ public class TasksList {
         this.list.get(index).printTask();
     }
 
-    public void markAsNotDone(Integer index){
+    /**
+     * Mark task at number index as not done
+     * @param index
+     */
+    public void markAsNotDone(Integer index) {
         index -= 1;
         if (index < 0 || index > (this.noOfTasks - 1)) {
             System.out.println("Gomen! You went out from the list");
@@ -79,7 +102,12 @@ public class TasksList {
         this.list.get(index).printTask();
     }
 
-    public Integer findIndexWithDesc(String s){
+    /**
+     * Find the index of inputted task String s (case-sensitive)
+     * @param s
+     * @return Integer index
+     */
+    public Integer findIndexWithDesc(String s) {
         for (int i = 0; i < this.noOfTasks; i++){
             if (this.list.get(i).getDescription().equals(s)){
                 return i;
@@ -88,11 +116,20 @@ public class TasksList {
         return -1;
     }
 
-    public Task getTaskWithIndex(int i){
+    /**
+     * return Task at specific index in list (0 indexed)
+     * @param i
+     * @return Task
+     */
+    public Task getTaskWithIndex(int i) {
         return this.list.get(i);
     }
 
-    public Task getLatestTask(){
+    /**
+     * return the latest Task inserted
+     * @return Task
+     */
+    public Task getLatestTask() {
         return this.list.get(this.noOfTasks - 1); // -1 to get index
     }
 

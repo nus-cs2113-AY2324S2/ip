@@ -8,7 +8,13 @@ public class EventTask extends Task{
         this.type = "E";
     }
 
-    public String setEventTask(String argument){
+    /**
+     * setEventTask parse argument of inputted query,
+     * assign start and end of event to eventStart and eventEnd
+     * @param argument
+     * @return String description of eventTask
+     */
+    public String setEventTask(String argument) {
         // find index of '/'
         int firstSlash = argument.indexOf('/');
         int secondSlash = argument.indexOf('/', firstSlash + 1);
