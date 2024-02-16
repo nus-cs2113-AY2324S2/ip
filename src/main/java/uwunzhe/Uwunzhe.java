@@ -20,7 +20,7 @@ public class Uwunzhe {
         try {
             boolean isRunning = true;
             InputHandler inputHandler = new InputHandler(taskList);
-            StorageHandler storageHandler = new StorageHandler();
+            StorageHandler storageHandler = new StorageHandler(taskList);
 
             while (isRunning) {
                 String input = UserInput.getInput();

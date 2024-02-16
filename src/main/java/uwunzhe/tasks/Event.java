@@ -7,12 +7,30 @@ public class Event extends Task {
      * Constructor for Event.
      * 
      * @param name The name of the event.
+     * @param start The start time of the event.
+     * @param end The end time of the event.
      */
     public Event(String name, String start, String end) {
         super(name);
         this.type = TaskType.EVENT.getType();
         this.start = start;
         this.end = end;
+    }
+
+    /**
+     * Constructor for Event.
+     * 
+     * @param name The name of the event.
+     * @param start The start time of the event.
+     * @param end The end time of the event.
+     * @param isDone The status of the event.
+     */
+    public Event(String name, String start, String end, boolean isDone) {
+        super(name);
+        this.type = TaskType.EVENT.getType();
+        this.start = start;
+        this.end = end;
+        this.isDone = isDone;
     }
 
     /**

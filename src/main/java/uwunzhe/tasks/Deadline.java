@@ -7,11 +7,26 @@ public class Deadline extends Task {
      * Constructor for Deadline.
      * 
      * @param name The name of the deadline.
+     * @param end The end time of the deadline.
      */
     public Deadline(String name, String end) {
         super(name);
         this.type = TaskType.DEADLINE.getType();
         this.end = end;
+    }
+
+    /**
+     * Constructor for Deadline.
+     * 
+     * @param name The name of the deadline.
+     * @param end The end time of the deadline.
+     * @param isDone The status of the deadline.
+     */
+    public Deadline(String name, String end, boolean isDone) {
+        super(name);
+        this.type = TaskType.DEADLINE.getType();
+        this.end = end;
+        this.isDone = isDone;
     }
 
     /**

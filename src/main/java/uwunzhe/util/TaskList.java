@@ -126,6 +126,17 @@ public class TaskList {
     }
 
     /**
+     * Adds a task object to the list. Updates size.
+     * 
+     * @param task
+     * @return None
+     */
+    public void addItem(Task task) {
+        list.add(task);
+        size++;
+    }
+
+    /**
      * Adds a todo to the list. Updates size.
      * 
      * @param description

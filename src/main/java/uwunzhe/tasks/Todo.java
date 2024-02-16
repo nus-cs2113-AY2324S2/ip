@@ -12,6 +12,18 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor for Todo.
+     * 
+     * @param name The name of the todo.
+     * @param isDone The status of the todo.
+     */
+    public Todo(String name, boolean isDone) {
+        super(name);
+        this.type = TaskType.TODO.getType();
+        this.isDone = isDone;
+    }
+
+    /**
      * Prints the task and its status in one line.
      * 
      * @param None
