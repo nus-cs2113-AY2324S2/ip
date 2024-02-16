@@ -37,10 +37,10 @@ public class QueryManager {
                 case "list":
                     list.show();
                     return -1;
-                case "mark": //only receive int input at this moment, string or no input is error
+                case "mark": 
                     list.markAsDone(Integer.parseInt(argument));
                     return -1;
-                case "unmark": //only receive int input at this moment, string or not input is error
+                case "unmark":
                     list.markAsNotDone(Integer.parseInt(argument));
                     return -1;
                 case "bye":
@@ -69,6 +69,9 @@ public class QueryManager {
             return -1;
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid number to mark/unmark list!");
+            return -1;
+        } catch (SalmonMissingArgument e) {
+            System.out.println("Please input an argument for your command!");
             return -1;
         }
     }

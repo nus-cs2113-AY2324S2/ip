@@ -2,7 +2,7 @@ public class EventTask extends Task{
     protected static String eventStart;
     protected static String eventEnd;
 
-    public EventTask(boolean status, String description) {
+    public EventTask(boolean status, String description) throws SalmonMissingArgument {
         this.isDone = status;
         this.description = setEventTask(description);
         this.type = "E";
@@ -14,7 +14,10 @@ public class EventTask extends Task{
      * @param argument
      * @return String description of eventTask
      */
-    public String setEventTask(String argument) {
+    public String setEventTask(String argument) throws SalmonMissingArgument {
+        if (argument == null) {
+            throw new SalmonMissingArgument();
+        }
         // find index of '/'
         int firstSlash = argument.indexOf('/');
         int secondSlash = argument.indexOf('/', firstSlash + 1);
