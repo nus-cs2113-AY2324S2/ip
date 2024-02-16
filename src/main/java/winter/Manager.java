@@ -11,6 +11,7 @@ import winter.task.Event;
 import winter.task.Task;
 import winter.task.ToDo;
 
+import static java.sql.Types.NULL;
 import static winter.Commands.*;
 
 
@@ -69,25 +70,30 @@ public class Manager {
 
     }
     private static void addTask(Commands taskType, String taskName, String inputString, int slashIndex) {
+        ToDo newToDo = null;
+        Deadline newDeadline = null;
+        Event newEvent = null;
         switch (taskType) {
         case TODO:
-            ToDo newToDo = new ToDo(taskIndex, false, taskName);
+            newToDo = new ToDo(taskIndex, false, taskName);
             taskList[taskIndex] = newToDo;
             taskIndex++;
             break;
         case DEADLINE:
             String deadline = inputString.substring(slashIndex+3);
-            Deadline newDeadline = new Deadline(taskIndex,false,taskName,deadline);
+            newDeadline = new Deadline(taskIndex,false,taskName,deadline);
             taskList[taskIndex] = newDeadline;
             taskIndex++;
+
             break;
         case EVENT:
             String startAndEnd = inputString.substring(slashIndex+5);
             String startTime = startAndEnd.substring(0,startAndEnd.indexOf("/"));
             String endTime = startAndEnd.substring(startAndEnd.indexOf("/")+3);
-            Event newEvent = new Event(taskIndex,false,taskName,startTime,endTime);
+            newEvent = new Event(taskIndex,false,taskName,startTime,endTime);
             taskList[taskIndex] = newEvent;
             taskIndex++;
+
             break;
         }
 
@@ -96,14 +102,13 @@ public class Manager {
         System.out.print(indent);
         System.out.println("OK, I've added: " + taskName);
         if (taskList[taskIndex-1].getType().equals("D")) {
-            System.out.println(indent + taskList[taskIndex-1].displayCurrentTask() + " (by: " + taskList[taskIndex-1].getEndTime() +")");
+            System.out.println(newDeadline);
 
         }else if (taskList[taskIndex-1].getType().equals("E")){
-            System.out.println(indent + taskList[taskIndex-1].displayCurrentTask() + " (from: " + taskList[taskIndex-1].getStartTime()
-                    + " to: " + taskList[taskIndex-1].getEndTime() + ")");
+            System.out.println(newEvent);
 
         }else {
-            System.out.println(indent + taskList[taskIndex-1].displayCurrentTask());
+            System.out.println(newToDo);
         }
 
         System.out.println(indent + "Now, you have " + taskIndex+ " tasks in your list.");
@@ -115,32 +120,32 @@ public class Manager {
         case "bye":
         case "Bye":
         case "BYE":
-            return Commands.BYE;
+            return BYE;
         case "list":
         case "List":
         case "LIST":
-            return Commands.LIST;
+            return LIST;
         }
 
         try {
             String[] commandWords = inputString.split(" ");
             switch (commandWords[0]) {
             case "todo":
-                addToDo(commandWords);
+                verifyToDo(commandWords);
                 return TODO;
 
             case "deadline":
-                addDeadline(commandWords);
+                verifyDeadline(commandWords);
                 return DEADLINE;
             case "event":
-                addEvent(commandWords);
+                verifyEvent(commandWords);
                 return EVENT;
             // Cases for marking tasks
             case "mark":
-                return Commands.MARK;
+                return MARK;
 
             case "unmark":
-                return Commands.UNMARK;
+                return UNMARK;
 
             case "":
                 handleEmptyString();
@@ -149,17 +154,17 @@ public class Manager {
                 handleInvalidCommand();
             }
         } catch (InvalidToDoException e) {
-            return Commands.INVALIDTODO;
+            return INVALIDTODO;
         } catch (InvalidDeadlineException E) {
-            return Commands.INVALIDDEADLINE;
+            return INVALIDDEADLINE;
         } catch (InvalidEventException e) {
-            return Commands.INVALIDEVENT;
+            return INVALIDEVENT;
         } catch (EmptyCommandException e) {
-            return Commands.EMPTYCOMMAND;
+            return EMPTYCOMMAND;
         } catch (InvalidCommandException | ArrayIndexOutOfBoundsException e) {
-            return Commands.INVALIDCOMMAND;
+            return INVALIDCOMMAND;
         }
-        return Commands.INVALIDCOMMAND;
+        return INVALIDCOMMAND;
 
     }
 
@@ -215,26 +220,27 @@ public class Manager {
 
 
     }*/
-    public static void addToDo(String[] commandWords) throws InvalidToDoException {
+    public static void verifyToDo(String[] commandWords) throws InvalidToDoException {
         if (commandWords.length < 2) {
             throw new InvalidToDoException();
         }
     }
 
-    public static void addDeadline(String[] commandWords) throws InvalidDeadlineException {
+    public static void verifyDeadline(String[] commandWords) throws InvalidDeadlineException {
         boolean isValidDeadline = true;
+
         for (String commandWord : commandWords) {
             if (commandWord.equals("/by")) {
                 isValidDeadline = false;
                 break;
             }
         }
-        if (commandWords.length < 2 || !isValidDeadline) {
+        if (commandWords.length < 2 || isValidDeadline) {
             throw new InvalidDeadlineException();
         }
     }
 
-    public static void addEvent(String[] commandWords) throws InvalidEventException {
+    public static void verifyEvent(String[] commandWords) throws InvalidEventException {
         boolean isValidEvent = false;
         boolean hasValidStart = true;
         boolean hasValidEnd = true;
@@ -249,7 +255,7 @@ public class Manager {
         if (hasValidStart && hasValidEnd) {
             isValidEvent = true;
         }
-        if (commandWords.length < 2 || !isValidEvent) {
+        if (commandWords.length < 2 || isValidEvent) {
             throw new InvalidEventException();
         }
     }

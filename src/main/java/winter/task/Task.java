@@ -51,10 +51,10 @@ public class Task {
         return "";
     }
 
-    public String displayCurrentTask () {
+    /*public String toString () {
         String checkboxes = "[ ] [ ]";
         return checkboxes + taskName;
-    }
+    }*/
 
     public String getEndTime() {
         return "";

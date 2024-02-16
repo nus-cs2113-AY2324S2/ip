@@ -1,5 +1,6 @@
 package winter.task;
 public class ToDo extends Task {
+    private static final String indent = "   ";
     public ToDo (int order,boolean marked, String toDoName) {
         super(order,marked,toDoName);
     }
@@ -10,9 +11,9 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String displayCurrentTask () {
+    public String toString() {
         String typeCheckbox = "[T]";
-        return typeCheckbox + " " + this.doneCheckbox + this.taskName;
+        return indent + typeCheckbox + " " + this.doneCheckbox + this.taskName;
     }
 
 }

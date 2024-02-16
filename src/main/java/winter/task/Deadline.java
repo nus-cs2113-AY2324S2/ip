@@ -1,8 +1,9 @@
 package winter.task;
 public class Deadline extends Task {
+    private static final String indent = "   ";
     protected String deadline;
-    public Deadline (int order,boolean marked, String deadlineName, String deadline) {
-        super(order,marked,deadlineName);
+    public Deadline (int order,boolean isMarked, String deadlineName, String deadline) {
+        super(order,isMarked,deadlineName);
         this.deadline = deadline;
     }
     @Override
@@ -16,9 +17,9 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String displayCurrentTask () {
+    public String toString() {
         String typeCheckbox = "[D]";
-        return typeCheckbox + " " + this.doneCheckbox + this.taskName;
+        return indent + typeCheckbox + " " + this.doneCheckbox + this.taskName + " (by: " + this.deadline + ")";
     }
 
 }
