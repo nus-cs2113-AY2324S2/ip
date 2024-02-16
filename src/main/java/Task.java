@@ -16,12 +16,8 @@ public class Task {
         return taskCounter;
     }
 
-    public void setCompletedTrue() {
-        this.isCompleted = true;
-    }
-
-    public void setCompletedFalse() {
-        this.isCompleted = false;
+    public void setCompleted(boolean value) {
+        this.isCompleted = value;
     }
 
     @Override

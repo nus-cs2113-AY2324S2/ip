@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class Jarvas {
     public static void main(String[] args) {
         CommandHandling.initialiseBot();

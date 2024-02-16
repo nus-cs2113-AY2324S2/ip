@@ -10,12 +10,12 @@ public class Deadline extends Task {
 
         String[] results = new String[2];
 
-        // Find the index of "/by"
+
         int index = input.indexOf("/by");
-        // Extract the label substring up to "/by" and trim whitespace
+
         String label = input.substring(0, index).trim();
 
-        // Extract the substrings
+
         String deadline = input.substring(index + 3).trim();
 
         results[0] = label;

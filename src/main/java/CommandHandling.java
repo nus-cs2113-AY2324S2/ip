@@ -8,20 +8,7 @@ public class CommandHandling {
     private static final int TODO_OFFSET = 4;
     private static final int EVENT_OFFSET = 5;
     private static final int DEADLINE_OFFSET = 8;
-    private static final int MAN_OFFSET = 3;
     private static final int ARRAY_START_INDEX = 0;
-
-    public enum Command {
-        BYE,
-        MARK,
-        UNMARK,
-        LIST,
-        TODO,
-        EVENT,
-        DEADLINE,
-        HELP,
-        MAN
-    }
 
     public static void processInput() {
         Scanner in = new Scanner(System.in);
@@ -98,11 +85,6 @@ public class CommandHandling {
                     Reply.printHelp();
                     break;
                 }
-                case MAN: {
-                    String query = userInput.substring(MAN_OFFSET).trim(); // obtain command after mark
-                    Reply.printManual(query);
-                    break;
-                }
                 default:
                     throw new CustomException(Reply.INVALID_COMMAND);
                 }
@@ -118,7 +100,7 @@ public class CommandHandling {
     }
 
 
-    // Method to handle mark/unmark operations
+
     private static void handleMarkUnmark(String userInput, Task[] tasks, Command command) throws CustomException {
         String index = userInput.substring(command == Command.MARK ? MARK_OFFSET : UNMARK_OFFSET).trim();
         if (index.isEmpty()) {

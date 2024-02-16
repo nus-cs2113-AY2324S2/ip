@@ -1,5 +1,10 @@
+import java.util.Scanner;
 public class Reply {
     public static final String PARTITION_LINE = "____________________________________________________________";
+    public static final String INVALID_COMMAND = "Invalid command. Enter 'help' to view available commands.";
+    public static final String UNSPECIFIED_PARAMETER = "Parameter is unspecified.";
+    public static final String INVALID_PARAMETER = "Parameter is invalid and out of bounds";
+    public static final String EMPTY_LIST = "List is empty.";
 
     public static void printLine() {
         System.out.println(PARTITION_LINE);
@@ -17,33 +22,10 @@ public class Reply {
         System.out.println("deadline - adds a deadline to the List");
         System.out.println("mark - indicates an item on the List as done");
         System.out.println("unmark - indicates an item on the List as not done");
-    }
-    public static void printManual(String command) {
         printLine();
-        try {
-            switch (command) {
-            case "": {
-                System.out.println("man format: man *command*");
-                break;
-            }
-            case "todo": {
-                System.out.println("todo format: todo *parameter*");
-                break;
-            }
-            case "event": {
-                System.out.println("event format: event *parameter* /from *start time* /to *end time*");
-                break;
-            }
-            case "deadline": {
-                System.out.println("deadline format: deadline *parameter* /by *end time*");
-                break;
-            }
-            default:
-                throw new CustomException("Invalid command. Enter 'help' to view available commands.");
-            }
-        } catch (CustomException e) {
-            System.err.println("Custom Exception Caught!" + "\n" + e.getMessage());
-        }
+        System.out.println("todo format: todo *parameter*");
+        System.out.println("event format: event *parameter* /from *start time* /to *end time*");
+        System.out.println("deadline format: deadline *parameter* /by *end time*");
     }
 
 
@@ -53,10 +35,10 @@ public class Reply {
         printLine();
     }
 
-    public static void printReply(String s1, String s2) {
+    public static void printReply(String firstString, String secondString) {
         printLine();
-        System.out.println(s1);
-        System.out.println(s2);
+        System.out.println(firstString);
+        System.out.println(secondString);
         printLine();
     }
 
@@ -80,5 +62,20 @@ public class Reply {
         System.out.println(" _  | | /'_` )( '__)( ) ( ) /'_` )/',__)");
         System.out.println("( )_| |( (_| || |   | \\_/ |( (_| |\\__, \\");
         System.out.println("`\\___/'`\\__,_)(_)   `\\___/'`\\__,_)(____/");
+    }
+    public static void printWelcomeMessage(){
+        printArt();
+        printReply("Hello! I'm Jarvas", "What can I do for you?");
+    }
+    public static void printGoodbyeMessage(){
+        printReply("Have a good day!", "Bye, see you soon!");
+    }
+
+    public static void printException(CustomException e) {
+        System.err.println("Custom Exception Caught!" + "\n" + e.getMessage());
+    }
+
+    public static void printInvalidCommand() {
+        System.err.println("Custom Exception Caught!" + "\n" + Reply.INVALID_COMMAND);
     }
 }
