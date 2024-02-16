@@ -3,7 +3,7 @@ Good day! This is Daisy.
 Any task for today?
 ____________________________________
 ____________________________________
-Task received! The following has been added to your list of todos:
+daisy.task.Task received! The following has been added to your list of todos:
 [T][ ] borrow book
 Now you have 1 tasks in your todo list.
 ____________________________________
@@ -11,12 +11,12 @@ ____________________________________
 1.[T][ ] borrow book
 ____________________________________
 ____________________________________
-Task received! The following has been added to your list of todos:
+daisy.task.Task received! The following has been added to your list of todos:
 [D][ ] return book (by: Sunday)
 Now you have 2 tasks in your todo list.
 ____________________________________
 ____________________________________
-Task received! The following has been added to your list of todos:
+daisy.task.Task received! The following has been added to your list of todos:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in your todo list.
 ____________________________________

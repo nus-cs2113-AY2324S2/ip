@@ -1,3 +1,11 @@
+import daisy.error.IllegalEntryException;
+import daisy.error.IllegalEventFormatException;
+import daisy.error.IllegalDeadlineFormatException;
+import daisy.task.Deadline;
+import daisy.task.Event;
+import daisy.task.Task;
+import daisy.task.Todo;
+
 import java.util.Scanner;
 
 public class Daisy {
@@ -55,7 +63,7 @@ public class Daisy {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error! No event detected for deadline. Try again!");
                     } catch (IllegalDeadlineFormatException e) {
-                        System.out.println("Error! Deadline entry is not following format. Try again!");
+                        System.out.println("Error! daisy.task.Deadline entry is not following format. Try again!");
                     }
                     break;
                 case "event":
@@ -71,7 +79,7 @@ public class Daisy {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error! No event detected for event. Try again!");
                     } catch (IllegalEventFormatException e){
-                        System.out.println("Error! Event entry is not following format. Try again!");
+                        System.out.println("Error! daisy.task.Event entry is not following format. Try again!");
                     }
                     break;
                 default:
@@ -91,7 +99,7 @@ public class Daisy {
 
     public static void addItem(Task item) {
         tasks[task_no] = item;
-        System.out.println("Task received! The following has been added to your list of todos:\n" + item);
+        System.out.println("daisy.task.Task received! The following has been added to your list of todos:\n" + item);
         System.out.println(String.format("Now you have %d tasks in your todo list.",task_no+1));
         task_no++;
     }
