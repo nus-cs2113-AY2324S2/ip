@@ -1,3 +1,5 @@
+package chatbot;
+
 public class ChatbotException extends Exception{
     private final String description;
     public ChatbotException(String description) {

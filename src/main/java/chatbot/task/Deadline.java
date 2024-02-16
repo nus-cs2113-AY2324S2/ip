@@ -1,3 +1,7 @@
+package chatbot.task;
+
+import chatbot.ChatbotException;
+
 public class Deadline extends Task {
     private final String startTime;
     public Deadline(String description) throws ChatbotException {

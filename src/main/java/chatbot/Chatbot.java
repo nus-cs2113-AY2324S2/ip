@@ -1,3 +1,10 @@
+package chatbot;
+
+import chatbot.task.Deadline;
+import chatbot.task.Event;
+import chatbot.task.Task;
+import chatbot.task.Todo;
+
 import java.util.Objects;
 import java.util.Scanner;
 
