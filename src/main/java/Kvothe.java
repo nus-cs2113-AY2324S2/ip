@@ -94,7 +94,7 @@ public class Kvothe {
     private static int getTaskNumber(String[] args){
 
         int index = 0;
-        if (args.length < 2 || args.length > 2) {
+        if (args.length != 2 ) {
            echo("Sorry. Please specify one task number.");
            return -1;
         }
