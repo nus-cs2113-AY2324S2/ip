@@ -108,6 +108,11 @@ public class TaskManager {
         }
 
         int id = Integer.parseInt(wordArray[1]) - 1;
+        if (id >= numItems || id < 0) {
+            System.out.println("Please select a task number that exists. =)");
+            return;
+        }
+
         if (userInput.contains("unmark")) {
             taskList[id].setDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
