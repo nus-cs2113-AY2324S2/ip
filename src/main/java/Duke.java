@@ -18,7 +18,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("____________________________________________________________");
-        System.out.println("Da Gei Ho, Hello! I'm " + name + ".");
+        System.out.println("Hello! I'm " + name + ".");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
