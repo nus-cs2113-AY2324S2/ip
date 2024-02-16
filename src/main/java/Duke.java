@@ -166,7 +166,7 @@ public class Duke {
         }
     }
 
-    // Delete a task from the list
+    // Delete a task from the list according to number provided
     private static void deleteTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
