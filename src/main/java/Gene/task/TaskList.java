@@ -81,6 +81,7 @@ public class TaskList {
         System.out.println("Got it. I've deleted this task:");
         System.out.println("  " + toDoList.get(taskNumber - 1));
         toDoList.remove(taskNumber - 1);
+        saveTasksToFile();
         System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
         Gene.printLineSeparation();
     }
