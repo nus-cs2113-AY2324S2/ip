@@ -55,7 +55,7 @@ public class Bob {
             displayExitMessage();
             return true;
         default:
-            throw new BobException("sI'm sorry, but I don't know what that means :-(");
+            throw new BobException("I'm sorry, but I don't know what that means :-(");
         }
         return false;
     }
