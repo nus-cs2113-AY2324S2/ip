@@ -1,4 +1,7 @@
+package Chelle;
 import java.util.Scanner;
+import ChelleCommands.*;
+import ChelleExceptions.*;
 
 public class Chelle {
     public static void main(String[] args){

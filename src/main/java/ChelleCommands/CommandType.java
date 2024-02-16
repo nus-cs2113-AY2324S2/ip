@@ -1,3 +1,5 @@
+package ChelleCommands;
+
 public enum CommandType {
     BYE,
     LIST,

@@ -1,6 +1,9 @@
+package ChelleExceptions;
+import ChelleCommands.*;
+
 public class InvalidCommandFormatException extends Exception{
 
-    InvalidCommandFormatException(CommandType command){
+    public InvalidCommandFormatException(CommandType command){
 
         switch (command) {
 
