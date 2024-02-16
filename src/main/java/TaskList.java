@@ -6,7 +6,7 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String userInput) {
+    public void addTask(String userInput) throws HandleException {
         // Similar to addTask method in TaskManager, but refactored for this class
         Task task = TaskFactory.createTask(userInput);
         if (task != null) {
