@@ -1,6 +1,8 @@
-import Exceptions.DuckInvalidDeadlineDescriptionException;
+package tasks;
 
-public class Deadline extends Task{
+import exceptions.DuckInvalidDeadlineDescriptionException;
+
+public class Deadline extends Task {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final String ADDED_MESSAGE = "Got it. I've added this task: \n";

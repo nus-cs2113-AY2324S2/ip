@@ -1,4 +1,6 @@
-import Exceptions.DuckInvalidEventDescriptionException;
+package tasks;
+
+import exceptions.DuckInvalidEventDescriptionException;
 
 public class Event extends Task{
 

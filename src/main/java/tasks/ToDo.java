@@ -1,4 +1,6 @@
-import Exceptions.DuckInvalidToDoDescriptionException;
+package tasks;
+
+import exceptions.DuckInvalidToDoDescriptionException;
 
 public class ToDo extends Task{
 
