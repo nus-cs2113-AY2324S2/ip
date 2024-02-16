@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Floda {
     private static int taskCounter = 0;
+
     public static void main(String[] args) {
         String name = "Floda";
         System.out.println("Hello! I'm " + name);
