@@ -38,11 +38,10 @@ public class TasksList {
      * Find task with description String s (case-sensitive), and mark it as done.
      * @param s
      */
-    public void markAsDone(String s) {
+    public void markAsDone(String s) throws SalmonNotInListException{
         Integer index = this.findIndexWithDesc(s);
         if (index == -1) {
-            System.out.println("Gomen! Task is not in your list");
-            return;
+            throw new SalmonNotInListException();
         } else {
             this.list.get(index).markAsDone();
         }
@@ -55,11 +54,10 @@ public class TasksList {
      * Mark task at number index as done
      * @param index
      */
-    public void markAsDone(Integer index) {
+    public void markAsDone(Integer index) throws SalmonNotInListException{
         index -= 1;
         if (index < 0 || index > (this.noOfTasks - 1)) {
-            System.out.println("Gomen! You went out from the list");
-            return;
+            throw new SalmonNotInListException();
         } else {
             this.list.get(index).markAsDone();
         }
@@ -72,11 +70,10 @@ public class TasksList {
      * Find task with description String s (case-sensitive), and mark it as not done.
      * @param s
      */
-    public void markAsNotDone(String s) {
+    public void markAsNotDone(String s) throws SalmonNotInListException{
         Integer index = this.findIndexWithDesc(s);
         if (index == -1) {
-            System.out.println("Gomen! Task is not in your list");
-            return;
+            throw new SalmonNotInListException();
         } else {
             this.list.get(index).markAsNotDone();
         }
@@ -89,11 +86,10 @@ public class TasksList {
      * Mark task at number index as not done
      * @param index
      */
-    public void markAsNotDone(Integer index) {
+    public void markAsNotDone(Integer index) throws SalmonNotInListException{
         index -= 1;
         if (index < 0 || index > (this.noOfTasks - 1)) {
-            System.out.println("Gomen! You went out from the list");
-            return;
+            throw new SalmonNotInListException();
         } else {
             this.list.get(index).markAsNotDone();
         }

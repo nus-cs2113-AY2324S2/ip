@@ -28,41 +28,45 @@ public class QueryManager {
         String command = q.getCommand();
         String argument = q.getArgument();
         // return 0 means exit programme, return -1 means ask for query
-        switch (command) {
-            default:
-                // command not found
-                System.out.println("ERROR: command not found");
-                return -1;
-            case "list":
-                list.show();
-                return -1;
-            case "mark": //only receive int input at this moment, string or no input is error
-                list.markAsDone(Integer.parseInt(argument));
-                return -1;
-            case "unmark": //only receive int input at this moment, string or not input is error
-                list.markAsNotDone(Integer.parseInt(argument));
-                return -1;
-            case "bye":
-                System.out.println("Sankyuuu! BYE (^ _^ )");
-                return 0;
-            case "echo":
-                System.out.println("Can I double check that you said: " + currentQuery.getArgument());
-                return -1;
-            case "todo":
-                Task task = new Task();
-                task.setDescription(argument);
-                list.addTask(task);
-                return -1;
-            case "deadline":
-                DeadlineTask deadline = new DeadlineTask(false, argument);
-                // add deadline to list of task (substitutability)
-                list.addTask(deadline);
-                return -1;
-            case "event":
-                EventTask event = new EventTask(false, argument);
-                list.addTask(event);
-                return -1;
+        try {
+            switch (command) {
+                default:
+                    // command not found
+                    System.out.println("ERROR: command not found");
+                    return -1;
+                case "list":
+                    list.show();
+                    return -1;
+                case "mark": //only receive int input at this moment, string or no input is error
+                    list.markAsDone(Integer.parseInt(argument));
+                    return -1;
+                case "unmark": //only receive int input at this moment, string or not input is error
+                    list.markAsNotDone(Integer.parseInt(argument));
+                    return -1;
+                case "bye":
+                    System.out.println("Sankyuuu! BYE (^ _^ )");
+                    return 0;
+                case "echo":
+                    System.out.println("Can I double check that you said: " + currentQuery.getArgument());
+                    return -1;
+                case "todo":
+                    Task task = new Task();
+                    task.setDescription(argument);
+                    list.addTask(task);
+                    return -1;
+                case "deadline":
+                    DeadlineTask deadline = new DeadlineTask(false, argument);
+                    // add deadline to list of task (substitutability)
+                    list.addTask(deadline);
+                    return -1;
+                case "event":
+                    EventTask event = new EventTask(false, argument);
+                    list.addTask(event);
+                    return -1;
+            }
+        } catch (SalmonNotInListException e) {
+            System.out.println("Gomen! Task is not in your list");
+            return -1;
         }
     }
-
 }
