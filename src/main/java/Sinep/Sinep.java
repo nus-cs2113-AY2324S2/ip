@@ -1,3 +1,9 @@
+package Sinep;
+
+import ExceptionHandling.InvalidCommandException;
+import ExceptionHandling.InvalidCommandMessageException;
+import ExceptionHandling.InvalidTaskIndexException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -68,7 +74,7 @@ public class Sinep {
         }
     }
     public static void printGreeting() {
-        final String greeting = "Hello! I'm Sinep, your personal chatbot!\n"
+        final String greeting = "Hello! I'm Sinep.Sinep, your personal chatbot!\n"
                 + "What can I do for you today?";
         System.out.println(line + nl + greeting + nl + line);
     }
@@ -98,7 +104,7 @@ public class Sinep {
         }
         Task markingTask = taskList.get(taskIndex);
         markingTask.markAsDone();
-        System.out.println(line + nl + "Got it! Task " + (taskIndex + 1) + " marked as done:");
+        System.out.println(line + nl + "Got it! Sinep.Task " + (taskIndex + 1) + " marked as done:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + nl + line);
     }
 
@@ -109,7 +115,7 @@ public class Sinep {
         }
         Task markingTask = taskList.get(taskIndex);
         markingTask.unmarkAsDone();
-        System.out.println(line + nl + "Got it! Task " + (taskIndex + 1) + " marked as undone:");
+        System.out.println(line + nl + "Got it! Sinep.Task " + (taskIndex + 1) + " marked as undone:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + nl + line);
     }
 

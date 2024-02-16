@@ -1,3 +1,4 @@
+package Sinep;
 public class Event extends Task {
     protected String startDateTime;
     protected String endDateTime;
