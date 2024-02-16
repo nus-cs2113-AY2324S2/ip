@@ -18,9 +18,10 @@ public class Lovie {
         while (true) {
             System.out.print("\t");
             input = inputGetter.nextLine();
+            String processedInput = input.toLowerCase().trim();
 
             // Switch statement to keep track of user input commands
-            switch (input) {
+            switch (processedInput) {
                 case "bye":
                     print("Thanks for using me! See you next time ♡〜٩( ˃▿˂ )۶〜♡");
                     break;
@@ -34,7 +35,7 @@ public class Lovie {
                     markTaskHelper(input, tasksList);
                     break;
                 default:
-                    String taskType = input.split(" ")[0];
+                    String taskType = processedInput.split(" ")[0];
                     Task newTask;
 
                     // Switch statement to keep track of taskType + default of incorrect input
@@ -160,45 +161,51 @@ public class Lovie {
 
     public static void todoFormatChecker(String input) throws LovieException {
         String[] splitUpInput = input.split(" ", 2);
-        if (splitUpInput.length == 1) {
+        if (splitUpInput.length <= 1) {
             throw new LovieException("Oops! Make sure you add a description for your todo! Here is the format:\n" +
                     "todo **description**");
         }
     }
 
     public static void deadlineFormatChecker(String input) throws LovieException {
-        String firstHalf = input.split("/", 2)[0];
+        String firstHalf = input.split("/", 2)[0].trim();
         String[] splitUpFirstHalf = firstHalf.split(" ", 2);
-        if (splitUpFirstHalf.length == 1) {
+        if (splitUpFirstHalf.length <= 1) {
             throw new LovieException("Oops! Make sure you add a description for your deadline! Here is the format:\n" +
                     "deadline **description** /by **end**");
         }
-        System.out.println(input);
-        String[] bySplitter = input.trim().split("/by", 3);
-        System.out.println("length: " + bySplitter.length);
-        for (String token : bySplitter) {
-            System.out.println(token);
-        }
-        System.out.println("done");
-        if (bySplitter.length == 1) { //what if there are 2 /by methods
+        String[] bySplitter = input.trim().split("/by", 2);
+        if (bySplitter.length <= 1 || bySplitter[1].trim().isEmpty()) { //what if there are 2 /by methods
             throw new LovieException("Oops! Make sure you include a /by for your deadline. Here is the format:\n" +
                     "deadline **description** /by **end**");
         }
     }
 
     public static void eventFormatChecker(String input) throws LovieException {
-        String[] splitUpInput = input.split(" ", 2);
-        if (splitUpInput.length == 1) {
+        // event call mihir /from today /to tomorrow --> "event call mihir" "today /to tomorrow"
+        String splitUpInput = input.split("/from")[0].trim();
+        String[] splitUpDescription = splitUpInput.split(" ", 2);
+        if (splitUpDescription.length <= 1) {
             throw new LovieException("Oops! Make sure you add a description for your event! Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }
         String[] fromSplitter = input.split("/from", 2);
-        if (fromSplitter.length == 1) { //what if there are 2 /from methods
+        if (fromSplitter.length <= 1) { //what if there are 2 /from methods
+            throw new LovieException("Oops! Make sure you include a /from for your event. Here is the format:\n" +
+                    "event **description** /from **start** /to **end**");
+        }
+        String[] fromDescription = fromSplitter[1].split("/to", 2);
+        if (fromSplitter.length <= 1 || fromDescription[0].trim().isEmpty()) { //what if there are 2 /from methods
             throw new LovieException("Oops! Make sure you include a /from for your event. Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }
         String[] toSplitter = input.split("/to", 2);
-        if (toSplitter.length == 1) { //what if there are 2 /from methods
+        if (toSplitter.length <= 1) { //what if there are 2 /from methods
+            throw new LovieException("Oops! Make sure you include a /to for your event. Here is the format:\n" +
+                    "event **description** /from **start** /to **end**");
+        }
+        String[] toDescription = toSplitter[1].split("/to", 2);
+        if (toSplitter.length <= 1 || toDescription[0].trim().isEmpty()) { //what if there are 2 /from methods
             throw new LovieException("Oops! Make sure you include a /to for your event. Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }

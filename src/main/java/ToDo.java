@@ -6,7 +6,7 @@ public class ToDo extends Task {
     }
 
     public String getDescription() {
-        String[] splitUpDescription = description.split("todo");
+        String[] splitUpDescription = description.trim().split("(?i)todo");
         String realDescription = splitUpDescription[1];
         return realDescription;
     }
