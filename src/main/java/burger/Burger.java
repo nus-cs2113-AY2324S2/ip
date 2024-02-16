@@ -8,7 +8,7 @@ public class Burger {
     static final String CHATBOT_NAME = "Burger";
     static final String HORIZONTAL_LINE = "---------------------------------";
 
-    public static void main(String[] args) throws BurgerException {
+    public static void main(String[] args) {
         welcomeMessage();
         Scanner input = new Scanner(System.in);
         List myList = new List();
@@ -22,7 +22,7 @@ public class Burger {
                     isPolling = false;
                     break;
                 case "list":
-                    myList.printTodoList();
+                    myList.printTaskList();
                     break;
                 default:
                     wakeUp();
@@ -43,18 +43,14 @@ public class Burger {
     public static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
+
     /**
-     * Prints error message when user provides invalid input
+     * Prints error message when user provides unknown input
      */
     private static void wakeUp() {
-        try {
-            throw new BurgerException();
-        } catch (BurgerException e) {
-            printLine();
-            System.out.println("Wake Up!!! Key in something that makes sense!");
-            printLine();
-        }
-
+        printLine();
+        System.out.println("Wake Up!!! Key in something that makes sense!");
+        printLine();
     }
 
     public static void goodbye() {
