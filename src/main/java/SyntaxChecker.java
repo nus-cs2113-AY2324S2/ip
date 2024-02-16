@@ -15,7 +15,7 @@ public class SyntaxChecker {
         if (argumentTokens.length == 0) {
             return true;
         }
-        if (!isArgumentMatch(commandName, argumentCount)) {
+        if (!isArgumentMatch(commandName,argumentCount)) {
             return false;
         }
         String[] thisRegexSequence = CommandList.getRegexSequence(commandName);
@@ -23,6 +23,7 @@ public class SyntaxChecker {
             Pattern pattern = Pattern.compile(thisRegexSequence[i]);
             Matcher matcher = pattern.matcher(argumentTokens[i]);
             if (!matcher.find()) {
+                Formatter.printErrorWrongArgumentType(commandName,thisRegexSequence[i],i);
                 return false;
             }
         }
@@ -32,13 +33,12 @@ public class SyntaxChecker {
     public static boolean hasArgument(String userInput) {
         return userInput.split(" ", 2).length - 1 == 1;
     }
-
     public static boolean isArgumentMatch(String commandName, int argumentCount) {
         int correctArgumentCount = CommandList.getArgumentCount(commandName);
-        if (correctArgumentCount == argumentCount) {
+        if (argumentCount == correctArgumentCount) {
             return true;
         }
-        Formatter.printErrorArgumentsMismatch();
+        Formatter.printErrorArgumentsMismatch(argumentCount,correctArgumentCount);
         return false;
     }
 }

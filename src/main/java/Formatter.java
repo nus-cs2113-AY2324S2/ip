@@ -2,7 +2,6 @@ public class Formatter {
     final static String botName = "Howard Smith";
     final static String emojiGrinning = "\uD83D\uDE00";
     final static String emojiConfused = "\uD83D\uDE35\u200D\uD83D\uDCAB";
-
     public static void printWrapper(String wrapWith) {
         System.out.print("\t");
         for (int i = 0; i < 60; i++) {
@@ -12,16 +11,16 @@ public class Formatter {
     }
 
     public static void printWelcomeMsg() {
-        printWrapper("\u3030");
+        printWrapper("〰");
         System.out.println("\t Hello! I'm " + botName + emojiGrinning);
         System.out.println("\t What can I do for you?");
-        printWrapper("\u3030");
+        printWrapper("〰");
     }
 
     public static void printGoodbyeMsg() {
-        printWrapper("\u3030");
-        System.out.println("\t Bye. Hope to see you again soon!" + " \u30c4");
-        printWrapper("\u3030");
+        printWrapper("〰");
+        System.out.println("\t Bye. Hope to see you again soon!" + " ツ");
+        printWrapper("〰");
     }
 
     public static void printListEmpty() {
@@ -29,12 +28,12 @@ public class Formatter {
     }
 
     public static void printListAll() {
-        printWrapper("\u3013");
+        printWrapper("〓");
         System.out.println("\t Here are the tasks in your list:");
         for (int i = 0; i < CommandExecutor.listCount; i++) {
             System.out.printf(" \t%d. %s\n", (i + 1), CommandExecutor.tasks[i].toString());
         }
-        printWrapper("\u3013");
+        printWrapper("〓");
     }
 
     public static void printMarkDoneNotif(CommandParser readUserCommand) {
@@ -60,12 +59,11 @@ public class Formatter {
             printErrorIndexOutOfRange();
         }
     }
-
     public static void printTaskNotif(CommandParser readUserCommand) {
         printWrapper("_");
         System.out.println("\t Got it. I've added this task:");
-        System.out.printf("\t\t%s\n", CommandExecutor.tasks[CommandExecutor.listCount - 1].toString());
-        System.out.printf("\t Now you have %d tasks in the list.\n", CommandExecutor.listCount);
+        System.out.printf("\t\t%s\n",CommandExecutor.tasks[CommandExecutor.listCount - 1].toString());
+        System.out.printf("\t Now you have %d tasks in the list.\n",CommandExecutor.listCount);
         printWrapper("_");
     }
 
@@ -83,13 +81,16 @@ public class Formatter {
     }
 
     public static void printErrorBadTokens() {
-        System.out.println("\t CommandExecutor: Bad Token Error ");
+        System.out.println("\t CommandExecutor: Bad Token Error, please check your arguments");
     }
-
-    public static void printErrorArgumentsMismatch() {
-        System.out.println("\t SyntaxChecker: Arguments Mismatch Error ");
+    public static void printErrorArgumentsMismatch(int argumentCount,int correctArgumentCount) {
+        System.out.printf("\t SyntaxChecker: Too %s arguments. Given: %d - Expected: %d\n",
+                argumentCount < correctArgumentCount ? "few" : "many", argumentCount, correctArgumentCount);
     }
-
+    public static void printErrorWrongArgumentType(String commandName, String regex, int argumentPosition) {
+        System.out.printf("\t SyntaxChecker: %s expects the %dth argument to be %s\n",
+                commandName, argumentPosition + 1, regex);
+    }
     public static void printErrorIndexOutOfRange() {
         System.out.println("\t List: Selected index not in range. Try again.");
     }

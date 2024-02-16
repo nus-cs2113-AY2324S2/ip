@@ -2,24 +2,28 @@ public class CommandParser {
     private String commandName = null;
     private int argumentCount = 0;
     private String[] argumentTokens = {};
-    private boolean isGoodTokens = false;
     private String separator;
-
-    public CommandParser(String userInput) {
+    public CommandParser(String userInput) throws IllegalCommandException, ArgumentMismatchException, BadTokenException{
         String commandToken = userInput.split(" ", 2)[0];
         String otherToken;
         if (!SyntaxChecker.validateCommandToken(commandToken)) {
-            Formatter.printErrorWrongCommand();
-        } else if (!SyntaxChecker.hasArgument(userInput)) {
+            throw new IllegalCommandException();
+        }
+        else if (!SyntaxChecker.hasArgument(userInput)) {
             commandName = commandToken.toUpperCase();
-            isGoodTokens = SyntaxChecker.isArgumentMatch(commandName, argumentCount);
-        } else {
+            if (!SyntaxChecker.isArgumentMatch(commandName,argumentCount)) {
+                throw new ArgumentMismatchException(commandName, argumentCount);
+            }
+        }
+        else {
             commandName = commandToken.toUpperCase();
             otherToken = userInput.split(" ", 2)[1];
             separator = setSeparator();
             argumentTokens = otherToken.split(separator, CommandList.getMaxArgumentCount());
             argumentCount = argumentTokens.length;
-            isGoodTokens = SyntaxChecker.validateTokens(commandName, argumentTokens, argumentCount);
+            if (!SyntaxChecker.validateTokens(commandName, argumentTokens, argumentCount)) {
+                throw new BadTokenException();
+            }
         }
     }
 
@@ -34,19 +38,12 @@ public class CommandParser {
     public String getCommandName() {
         return commandName;
     }
-
     public int getArgumentCount() {
         return argumentCount;
     }
-
     public String[] getArgumentTokens() {
         return argumentTokens;
     }
-
-    public boolean getIsGoodTokens() {
-        return isGoodTokens;
-    }
-
     public String getSeparator() {
         return separator;
     }

@@ -5,9 +5,13 @@ public class Duke {
     public static void main(String[] args) {
         Formatter.printWelcomeMsg();
         while (CommandExecutor.isRunning) {
-            CommandExecutor.beginListening();
-            CommandExecutor.processInput();
-            CommandExecutor.executeCommand();
+            try {
+                CommandExecutor.beginListening();
+                CommandExecutor.processInput();
+                CommandExecutor.executeCommand();
+            } catch (ProcessInputException e) {
+                Formatter.printErrorExecutionFail();
+            }
         }
     }
 }
