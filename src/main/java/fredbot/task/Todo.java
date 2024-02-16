@@ -1,12 +1,12 @@
 package fredbot.task;
 
-import fredbot.exception.EmptyTodoException;
+import fredbot.exception.EmptyDescriptionException;
 
 public class Todo extends Task {
-    public Todo(String description) throws EmptyTodoException {
+    public Todo(String description) throws EmptyDescriptionException {
         super(description);
         if (description.isEmpty()) {
-            throw new EmptyTodoException();
+            throw new EmptyDescriptionException();
         }
     }
 

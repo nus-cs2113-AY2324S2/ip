@@ -1,6 +1,6 @@
 package fredbot;
 
-import fredbot.exception.EmptyTodoException;
+import fredbot.exception.EmptyDescriptionException;
 import fredbot.exception.UnknownCommandException;
 import fredbot.task.Deadline;
 import fredbot.task.Event;
@@ -109,15 +109,19 @@ public class FredBot {
         try {
             allTasks[count] = new Todo(input);
             echoTask();
-        } catch (EmptyTodoException e) {
+        } catch (EmptyDescriptionException e) {
             System.out.println(MESSAGE_EMPTY_DESCRIPTION);
         }
     }
 
     private static void executeAddDeadline(String input) {
         String[] split = splitDeadlineAndDate(input);
-        allTasks[count] = new Deadline(split[0], split[1]);
-        echoTask();
+        try {
+            allTasks[count] = new Deadline(split[0], split[1]);
+            echoTask();
+        } catch (EmptyDescriptionException e) {
+            System.out.println(MESSAGE_EMPTY_DESCRIPTION);
+        }
     }
 
     private static String[] splitDeadlineAndDate(String input) {
@@ -131,8 +135,12 @@ public class FredBot {
 
     private static void executeAddEvent(String input) {
         String[] split = splitEventAndDates(input);
-        allTasks[count] = new Event(split[0], split[1], split[2]);
-        echoTask();
+        try {
+            allTasks[count] = new Event(split[0], split[1], split[2]);
+            echoTask();
+        } catch (EmptyDescriptionException e) {
+            System.out.println(MESSAGE_EMPTY_DESCRIPTION);
+        }
     }
 
     private static String[] splitEventAndDates(String input) {
