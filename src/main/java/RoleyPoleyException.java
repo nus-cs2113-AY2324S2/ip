@@ -24,9 +24,10 @@ public class RoleyPoleyException extends Exception {
             System.out.println("\n2. Tasks to be done by a certain time. \n\tdeadline <Task Description>" +
                     " /by <Due Date>");
             System.out.println("\n3. Tasks to be done within a time frame. \n\tevent <Task Description>" +
-                            " /from <Start Time> /to <End Time>");
+                    " /from <Start Time> /to <End Time>");
             System.out.println("\n4. List all tasks in current task list. \n\tEnter 'list' in the command prompt");
             System.out.println("\n5. Exit from Chatbot. \n\tEnter 'bye' in the command prompt ");
         }
     }
 }
+
