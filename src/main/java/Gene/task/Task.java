@@ -1,8 +1,9 @@
 package Gene.task;
 
-class Task {
+public class Task {
     protected String description;
     protected boolean isDone;
+    public String taskType;
 
     public Task(String description) {
         this.description = description;
@@ -13,15 +14,20 @@ class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsNotDone() {
-        this.isDone = false;
-    }
 
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String toFileString() {
+        return description;
     }
 }

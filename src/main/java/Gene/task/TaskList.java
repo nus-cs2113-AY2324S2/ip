@@ -9,9 +9,18 @@ import static Gene.command.MarkCommand.isNumeric;
 
 public class TaskList {
     private ArrayList<Task> toDoList = new ArrayList<>();
+    private final Storage fileData = new Storage();
+    public TaskList() {
+        toDoList = fileData.loadTasksFromFile();
+    }
+
+    private void saveTasksToFile() {
+        fileData.saveTasksToFile(toDoList);
+    }
 
     public void addTask(Task newTask) {
         toDoList.add(newTask);
+        saveTasksToFile();
         Gene.printLineSeparation();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + newTask);
@@ -26,7 +35,8 @@ public class TaskList {
     public void markTaskAsDone(int taskNumber) {
         if (isValidTaskNumber(taskNumber)) {
             Task task = toDoList.get(taskNumber - 1);
-            task.markAsDone();
+            task.setDone(true);
+            saveTasksToFile();
             Gene.printLineSeparation();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("   " + task.getStatusIcon() + " " + task.description);
@@ -39,7 +49,8 @@ public class TaskList {
     public void markTaskAsNotDone(int taskNumber) {
         if (isValidTaskNumber(taskNumber)) {
             Task task = toDoList.get(taskNumber - 1);
-            task.markAsNotDone();
+            task.setDone(false);
+            saveTasksToFile();
             Gene.printLineSeparation();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("   " + task.getStatusIcon() + " " + task.description);

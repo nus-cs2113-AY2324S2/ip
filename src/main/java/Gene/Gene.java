@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Gene {
     private static final String BOT_NAME = "Gene";
     private final Scanner scanner = new Scanner(System.in);
-    private TaskList taskList = new TaskList();
+    private final TaskList taskList = new TaskList();
 
     public static void printLineSeparation() {
         for (int i = 0; i < 29; i++) {
