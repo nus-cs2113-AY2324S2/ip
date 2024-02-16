@@ -1,3 +1,8 @@
+package anonbot;
+
+import misc.CommandManager;
+import misc.Status;
+
 public class AnonBot {
     private static void runMainLoop() {
         Status commandStatus = Status.STATUS_OK;

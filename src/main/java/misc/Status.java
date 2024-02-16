@@ -1,3 +1,5 @@
+package misc;
+
 public enum Status {
     STATUS_OK, STATUS_EXIT,
     STATUS_ERROR_EMPTY_INPUT,
