@@ -8,13 +8,13 @@ public class ListCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String message = "Here are the tasks in your list:";
-        message += (taskList.isEmpty()) ? "" : System.lineSeparator();
+        StringBuilder message = new StringBuilder("Here are the tasks in your list:");
+        message.append((taskList.isEmpty()) ? "" : System.lineSeparator());
         for (int i = 0; i < taskList.size(); i++) {
-            message += ("\t " + (i + 1) + "." + taskList.get(i).toString()
-                    + ((i == taskList.size() - 1) ? "" : System.lineSeparator()));
+            message.append("\t ").append(i + 1).append(".").append(taskList.get(i).toString())
+                    .append((i == taskList.size() - 1) ? "" : System.lineSeparator());
         }
-        ui.printMessage(message);
+        ui.printMessage(message.toString());
     }
 
     @Override
