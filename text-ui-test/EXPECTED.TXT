@@ -15,7 +15,7 @@ Got it. I've added this task:
 [D][ ] weekly CS2113 quiz (by: Monday 9pm)
 Now you have 2 tasks in the list
 ____________________________________________________________
-Here are the tasks in your list
+Here are the tasks in your list:
 1:[T][ ] Shaiyan: Answer CS2113 Tutorial Questions
 2:[D][ ] weekly CS2113 quiz (by: Monday 9pm)
 ____________________________________________________________
@@ -26,7 +26,7 @@ ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] Shaiyan: Answer CS2113 Tutorial Questions
 ____________________________________________________________
-Here are the tasks in your list
+Here are the tasks in your list:
 1:[T][X] Shaiyan: Answer CS2113 Tutorial Questions
 2:[D][ ] weekly CS2113 quiz (by: Monday 9pm)
 3:[E][ ] CS2113 lecture (from: Friday 4 to: 6pm)
