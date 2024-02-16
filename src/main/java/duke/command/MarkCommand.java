@@ -6,10 +6,19 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command for marking tasks as complete.
+ */
 public class MarkCommand implements Command {
 
     private final int INDEX;
 
+    /**
+     * Constructs a new MarkCommand with index of the specified task provided by the user.
+     *
+     * @param index Index of the task to be marked as complete.
+     * @throws DukeException If the user did not provide any index of the task to be marked.
+     */
     public MarkCommand(String index) throws DukeException {
         if (index.isEmpty()) {
             throw new DukeException("Exceed Charge....\n\t " +
@@ -22,6 +31,15 @@ public class MarkCommand implements Command {
         }
     }
 
+    /**
+     * Executes the command by marking the task as complete.
+     * Displays the marked task and its new status on the screen.
+     *
+     * @param taskList The lists of tasks of the Duke chatbot.
+     * @param ui The user interface of the Duke chatbot.
+     * @param storage The file storage of the Duke chatbot.
+     * @throws DukeException If there is an error in the user's input.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (INDEX < 0 || INDEX >= taskList.size()) {
@@ -35,6 +53,12 @@ public class MarkCommand implements Command {
         }
     }
 
+    /**
+     * Indicates whether this is an exit command.
+     * Returns false since this is not an exit command.
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;

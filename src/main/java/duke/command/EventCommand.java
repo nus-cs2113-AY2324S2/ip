@@ -9,14 +9,32 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command for the Event task.
+ */
 public class EventCommand implements Command {
 
     private final String INPUT; // event meet friends /from 5pm tdy /to 9pm tdy
 
+    /**
+     * Constructs a new EventCommand object with user input.
+     *
+     * @param input User input of the event command.
+     */
     public EventCommand(String input) {
         this.INPUT = input.trim();
     }
 
+    /**
+     * Executes the command by creating a new Event object and adding the Event task to the task list.
+     * Displays the added task to the screen.
+     *
+     * @param taskList The lists of tasks of the Duke chatbot.
+     * @param ui The user interface of the Duke chatbot.
+     * @param storage The file storage of the Duke chatbot.
+     * @throws DukeException If there is an error in the user's input.
+     * @throws IOException If there is an error appending the new task.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
         final String EXCEPTION = "Exceed Charge....\n\t " +
@@ -45,6 +63,12 @@ public class EventCommand implements Command {
         }
     }
 
+    /**
+     * Indicates whether this is an exit command.
+     * Returns false since this is not an exit command.
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;

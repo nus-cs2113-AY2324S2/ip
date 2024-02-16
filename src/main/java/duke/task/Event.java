@@ -5,11 +5,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 
+/**
+ * Represents the Event task of the Duke chatbot.
+ * Event tasks are tasks with a start and end date/time.
+ */
 public class Event extends Task {
 
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs a new Event object with the specified description, start date/time and end date/time.
+     * @param description Description of the Event task
+     * @param from Start date/time of the Event task
+     * @param to End date/time of the Event task
+     */
     public Event(String description, String from, String to) throws DukeException {
         super(description);
         this.from = convertTime(from, true);
@@ -45,6 +55,11 @@ public class Event extends Task {
         return parsedTime;
     }
 
+    /**
+     * Converts the Event task to the specific format for saving to the text file.
+     *
+     * @return A formatted string containing the Event task for saving.
+     */
     @Override
     public String toDisk() {
         String fromToDisk = this.from.toString().replace("T", " ").replace(":", "");
@@ -52,6 +67,11 @@ public class Event extends Task {
         return "E" + super.toDisk() + " | " + fromToDisk + " - " + toToDisk + System.lineSeparator();
     }
 
+    /**
+     * Converts the Event task to the specific format for displaying on the screen.
+     *
+     * @return A formatted string containing the Event task for display.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");

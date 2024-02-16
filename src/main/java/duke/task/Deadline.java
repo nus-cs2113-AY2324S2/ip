@@ -5,10 +5,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 
+/**
+ * Represents the Deadline task of the Duke chatbot.
+ * Deadline tasks are tasks with a specific deadline.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
+    /**
+     * Constructs a new Deadline object with the specified description and deadline.
+     *
+     * @param description Description of the Deadline task
+     * @param by Deadline of the Deadline task
+     */
     public Deadline(String description, String by) throws DukeException {
         super(description);
         this.by = convertBy(by);
@@ -36,12 +46,22 @@ public class Deadline extends Task {
         return parsedBy;
     }
 
+    /**
+     * Converts the Deadline task to the specific format for saving to the text file.
+     *
+     * @return A formatted string containing the Deadline task for saving.
+     */
     @Override
     public String toDisk() {
         String byToDisk = this.by.toString().replace("T", " ").replace(":", "");
         return "D" + super.toDisk() + " | " + byToDisk + System.lineSeparator();
     }
 
+    /**
+     * Converts the Deadline task to the specific format for displaying on the screen.
+     *
+     * @return A formatted string containing the Deadline task for display.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");

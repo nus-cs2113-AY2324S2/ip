@@ -15,13 +15,29 @@ import duke.task.Deadline;
 import duke.task.Todo;
 import duke.task.Event;
 
+/**
+ * Represents the file storage of the Duke chatbot.
+ * Responsible for loading/saving of the task data from/to the text file.
+ */
 public class Storage {
     private final String FILEPATH;
 
+    /**
+     * Constructs a new Storage object with the specified filepath.
+     *
+     * @param FILEPATH The filepath of the saved text file containing the tasks.
+     */
     public Storage(String FILEPATH) {
         this.FILEPATH = FILEPATH;
     }
 
+    /**
+     * Loads the task list from the text file and returns the TaskList.
+     *
+     * @return The TaskList with the loaded tasks.
+     * @throws DukeException If there is an error loading the tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     public TaskList getTaskList() throws DukeException, IOException {
         TaskList taskList = new TaskList();
         try {
@@ -65,6 +81,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Edits and saves the tasks data to the text file.
+     *
+     * @param taskList The TaskList containing the tasks to be saved.
+     * @throws DukeException If there is an error saving the data.
+     */
     public void editTaskList(TaskList taskList) throws DukeException {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(FILEPATH, false));
@@ -77,6 +99,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends the new task to the text file.
+     *
+     * @param newLine String representing the new task to be added.
+     * @throws IOException If there is an error appending the new task.
+     */
     public void addTask(String newLine) throws IOException {
         FileWriter fw = new FileWriter(FILEPATH, true); // create a FileWriter in append mode
         fw.write(newLine);
