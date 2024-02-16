@@ -3,17 +3,20 @@ public class Task {
     protected String description;
     protected String type;
 
-    public Task() {
+    public Task() throws SalmonMissingArgument {
         this(false,"");
     }
 
-    public Task(boolean status, String s) {
+    public Task(boolean status, String s) throws SalmonMissingArgument {
         this.isDone = status;
-        this.description = s;
+        this.setDescription(s);
         this.type = "T";
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws SalmonMissingArgument {
+        if (description==null) {
+            throw new SalmonMissingArgument();
+        }
         this.description = description;
     }
 

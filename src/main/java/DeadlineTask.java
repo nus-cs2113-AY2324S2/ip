@@ -1,7 +1,7 @@
 public class DeadlineTask extends Task{
     protected static String deadline;
 
-    public DeadlineTask(boolean status, String description) {
+    public DeadlineTask(boolean status, String description) throws SalmonMissingArgument{
         this.isDone = status;
         this.description = setDeadline(description);
         this.type = "D";
@@ -15,7 +15,10 @@ public class DeadlineTask extends Task{
      * @param argument
      * @return String description of deadlineTask
      */
-    public String setDeadline(String argument){
+    public String setDeadline(String argument) throws SalmonMissingArgument {
+        if (argument == null) {
+            throw new SalmonMissingArgument();
+        }
         // find index of '/'
         int index = argument.indexOf('/');
         deadline = argument.substring(index + 4);
