@@ -22,15 +22,15 @@ public class FredBot {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_UNMARK = "unmark";
 
-    private static final String MESSAGE_ADD = "Got it. I've added this task:";
-    private static final String MESSAGE_EMPTY_LIST = "Your list is empty.";
-    private static final String MESSAGE_EMPTY_TODO = "Sorry, the description of your todo is empty.";
-    private static final String MESSAGE_UNKNOWN_COMMAND = "Sorry, I did not understand that.";
-    private static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
-    private static final String MESSAGE_LIST_HEADER = "Here are the tasks in your list:";
-    private static final String MESSAGE_MARK = "Nice! I've marked this task as done:";
-    private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:";
-    private static final String MESSAGE_WELCOME = "Hello! I'm FredBot.\nWhat can I do for you?";
+    private static final String MESSAGE_ADD = "Are you sure you'll ever get to it? Fine, I've added this task:";
+    private static final String MESSAGE_EMPTY_LIST = "Go and touch some grass... your list is empty.";
+    private static final String MESSAGE_EMPTY_DESCRIPTION = "I can't do that if you don't give me the description...";
+    private static final String MESSAGE_UNKNOWN_COMMAND = "I have no idea what you just said.";
+    private static final String MESSAGE_GOODBYE = "Finally... goodbye.";
+    private static final String MESSAGE_LIST_HEADER = "Mr Busy over here has these tasks in his list:";
+    private static final String MESSAGE_MARK = "Ok and do you want a medal for that? I've marked this as done:";
+    private static final String MESSAGE_UNMARK = "Why am I not surprised... I've marked this task as not done yet:";
+    private static final String MESSAGE_WELCOME = "Yo I'm FredBot. What do you want with me?";
 
     private static final String PREFIX_BY = "/by";
     private static final String PREFIX_FROM = "/from";
@@ -110,7 +110,7 @@ public class FredBot {
             allTasks[count] = new Todo(input);
             echoTask();
         } catch (EmptyTodoException e) {
-            System.out.println(MESSAGE_EMPTY_TODO);
+            System.out.println(MESSAGE_EMPTY_DESCRIPTION);
         }
     }
 
@@ -155,7 +155,7 @@ public class FredBot {
         System.out.println(allTasks[count].toString());
         count++;
         String task = (count == 1) ? " task " : " tasks ";
-        System.out.println("Now you have " + count + task + "in the list.");
+        System.out.println("You now have " + count + task + "in the list.");
     }
 
     private static void executeList() {
