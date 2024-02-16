@@ -34,6 +34,9 @@ public class Parser {
         case "event":
             //add event
             return new EventCommand(description);
+        case "find":
+            //find tasks
+            return new FindCommand(description);
         default:
             throw new DukeException("ERROR.... \n\t A thousand apologies, but I don't know what that means.");
         }
