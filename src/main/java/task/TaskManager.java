@@ -1,15 +1,17 @@
 package task;
 
+import exception.InvalidTaskException;
+
 import java.util.ArrayList;
 
 public class TaskManager {
     private static int numberOfActiveTasks = 0;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
-    public static void createNewTask(String taskDescription, Task.TaskType taskType) {
+    public static void createNewTask(String taskDescription, Task.TaskType taskType)
+            throws InvalidTaskException {
         if (taskDescription.isEmpty()) {
-            System.out.println("Invalid Task: Task Description is empty");
-            return;
+            throw new InvalidTaskException("");
         }
         if (taskType == Task.TaskType.INVALID) {
             System.out.println("Invalid Task Type");

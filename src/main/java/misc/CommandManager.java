@@ -2,6 +2,7 @@ package misc;
 
 import anonbot.Ui;
 import exception.IncompleteCommandException;
+import exception.InvalidTaskException;
 import task.Task.TaskType;
 import task.TaskManager;
 import exception.InvalidCommandException;
@@ -60,6 +61,8 @@ public class CommandManager {
                 throw new InvalidCommandException(command);
             }
         } catch (IncompleteCommandException e) {
+            e.printErrorMessage();
+        } catch (InvalidTaskException e) {
             e.printErrorMessage();
         }
         return executionStatus;
