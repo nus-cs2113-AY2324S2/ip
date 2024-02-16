@@ -5,6 +5,7 @@ public class Allez {
     public static final int LIST_SIZE = 100;
     protected static Task[] tasks = new Task[LIST_SIZE];
     protected static  int taskCount = 0;
+    protected static Scanner in = new Scanner(System.in);
 
     public enum TaskType {
         TODO, DEADLINE, EVENT
@@ -32,7 +33,7 @@ public class Allez {
     }
 
     private static boolean executeCommands() {
-        Scanner in = new Scanner(System.in);
+//        Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         String firstWord = line.split(" ",2)[0];
 
