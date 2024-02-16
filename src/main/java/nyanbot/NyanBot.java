@@ -55,10 +55,11 @@ public class NyanBot {
 
     private static void addTodo(String input) {
         try {
-            String description = input.substring(5);
+            String description = input.substring(6);
             Todo todo = new Todo(description);
             addTask(todo);
         } catch (StringIndexOutOfBoundsException e) {
+            Printer.printMissingDescription();
             Printer.printTodoUsage();
         }
     }
@@ -66,7 +67,7 @@ public class NyanBot {
     private static void addDeadline(String input) {
         try {
             String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(9);
+            String description = splitInputs[0].substring(10);
             String date = splitInputs[1];
             Deadline deadline = new Deadline(description, date);
             addTask(deadline);
@@ -82,7 +83,7 @@ public class NyanBot {
     private static void addEvent(String input) {
         try {
             String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(6);
+            String description = splitInputs[0].substring(7);
             String start = splitInputs[1];
             String end = splitInputs[2];
             Event event = new Event(description, start, end);
