@@ -1,3 +1,10 @@
+package allez;
+
+import allez.task.Deadline;
+import allez.task.Event;
+import allez.task.Task;
+import allez.task.ToDo;
+
 import java.util.Scanner;
 
 
