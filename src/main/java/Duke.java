@@ -3,7 +3,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static String chatbotName = "Noriaki";
+
+    public static class InvalidCommandException extends Exception {
+
+    }
+
+    public static final String chatbotName = "Noriaki";
+    public static final String[] validCommands =
+            {"list", "mark", "unmark", "todo", "deadline", "event"};
+    public static List<Task> taskList = new ArrayList<>();
 
     /**
      * Prints line of 30 underscores.
@@ -55,10 +63,8 @@ public class Duke {
 
     /**
      * Prints list of tasks.
-     *
-     * @param taskList List of tasks to be printed.
      */
-    public static void printList(List<Task> taskList){
+    public static void printList(){
         printLine();
         for(int i = 0; i < taskList.size(); i++){
             Task task = taskList.get(i);
@@ -69,10 +75,8 @@ public class Duke {
 
     /**
      * Prints a newly-added task.
-     *
-     * @param taskList List of tasks.
      */
-    public static void printAddedTask(List<Task> taskList){
+    public static void printAddedTask(){
         Task lastTask = taskList.get(taskList.size() - 1);
         printMessage("Got it. I've added this task:\n"
                 + "  " + lastTask + "\n"
@@ -82,22 +86,19 @@ public class Duke {
     /**
      * Adds a to-do task to list of tasks.
      *
-     * @param taskList List of tasks.
      * @param argument information of to-do to be added.
      */
-    public static void addToDo(List<Task> taskList, String argument){
+    public static void addToDo(String argument){
         Task newTask = new ToDo(argument);
         taskList.add(newTask);
-        printAddedTask(taskList);
+        printAddedTask();
     }
 
     /**
      * Adds a deadline task to list of tasks.
-     *
-     * @param taskList List of tasks.
      * @param argument information of deadline to be added.
      */
-    public static void addDeadline(List<Task> taskList, String argument){
+    public static void addDeadline(String argument){
         String[] tokens = argument.split("/");
         String description = "", by = "";
 
@@ -112,16 +113,15 @@ public class Duke {
 
         Task newTask = new Deadline(description, by);
         taskList.add(newTask);
-        printAddedTask(taskList);
+        printAddedTask();
     }
 
     /**
      * Adds an event task to list of tasks.
      *
-     * @param taskList List of tasks.
      * @param argument information of deadline to be added.
      */
-    public static void addEvent(List<Task> taskList, String argument){
+    public static void addEvent(String argument){
         String[] tokens = argument.split("/");
         String description = "", start = "", end = "";
 
@@ -142,16 +142,15 @@ public class Duke {
 
         Task newTask = new Event(description, start, end);
         taskList.add(newTask);
-        printAddedTask(taskList);
+        printAddedTask();
     }
 
     /**
      * Marks task as done.
      *
-     * @param taskList List of tasks.
      * @param instruction User instruction on which task to mark.
      */
-    public static void markTask(List<Task> taskList, String instruction){
+    public static void markTask(String instruction){
         int taskNumber = Integer.parseInt(instruction);
 
         if (taskNumber < 0 && taskNumber > taskList.size() + 1){
@@ -167,10 +166,9 @@ public class Duke {
     /**
      * Marks task as undone.
      *
-     * @param taskList List of tasks.
      * @param instruction User instruction on which task to mark.
      */
-    public static void unmarkTask(List<Task> taskList, String instruction){
+    public static void unmarkTask(String instruction){
         int taskNumber = Integer.parseInt(instruction);
 
         if (taskNumber < 0 && taskNumber > taskList.size() + 1){
@@ -183,12 +181,14 @@ public class Duke {
                 + "  " + taskList.get(taskNumber - 1));
     }
 
+    public static void executeCommand(String command, String argument){
+
+    }
+
     /**
      * Creates a list that users can add tasks to, read, and mark tasks as done or undone.
      */
     public static void startList(){
-        List<Task> taskList = new ArrayList<>();
-
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -197,31 +197,32 @@ public class Duke {
 
             String[] tokens = line.split(" ", 2);
 
-            String command = tokens[0].toLowerCase(), argument = "";
+            String command = tokens[0].toLowerCase().trim();
+            String argument = "";
 
             // If input contains more than one word, assign remaining words to argument
             if (tokens.length > 1) {
-                argument = tokens[1];
+                argument = tokens[1].trim();
             }
 
             switch (command) {
             case "list":
-                printList(taskList);
+                printList();
                 break;
             case "mark":
-                markTask(taskList, argument);
+                markTask(argument);
                 break;
             case "unmark":
-                unmarkTask(taskList, argument);
+                unmarkTask(argument);
                 break;
             case "todo":
-                addToDo(taskList, argument);
+                addToDo(argument);
                 break;
             case "deadline":
-                addDeadline(taskList, argument);
+                addDeadline(argument);
                 break;
             case "event":
-                addEvent(taskList, argument);
+                addEvent(argument);
                 break;
             case "bye":
                 return;

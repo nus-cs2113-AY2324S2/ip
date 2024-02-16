@@ -12,7 +12,7 @@ What can I do for you?
 ______________________________
 ______________________________
 Got it. I've added this task:
-  [T][ ] Eat Breakfast 
+  [T][ ] Eat Breakfast
 Now you have 1 tasks in the list.
 ______________________________
 ______________________________
@@ -21,7 +21,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ______________________________
 ______________________________
-1.[T][ ] Eat Breakfast 
+1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
 ______________________________
 ______________________________
@@ -35,7 +35,7 @@ Got it. I've added this task:
 Now you have 4 tasks in the list.
 ______________________________
 ______________________________
-1.[T][ ] Eat Breakfast 
+1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
 3.[E][ ] Tutorial (from: 1pm to: 3pm)
 4.[E][ ] Lecture (from: 3pm to: 5pm)
@@ -51,7 +51,7 @@ Got it. I've added this task:
 Now you have 6 tasks in the list.
 ______________________________
 ______________________________
-1.[T][ ] Eat Breakfast 
+1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
 3.[E][ ] Tutorial (from: 1pm to: 3pm)
 4.[E][ ] Lecture (from: 3pm to: 5pm)
@@ -60,7 +60,7 @@ ______________________________
 ______________________________
 ______________________________
 Nice! I've marked this task as done:
-  [T][X] Eat Breakfast 
+  [T][X] Eat Breakfast
 ______________________________
 ______________________________
 Nice! I've marked this task as done:
@@ -71,7 +71,7 @@ Nice! I've marked this task as done:
   [D][X] RealizeIt (by: Thursday)
 ______________________________
 ______________________________
-1.[T][X] Eat Breakfast 
+1.[T][X] Eat Breakfast
 2.[T][ ] Eat Lunch
 3.[E][X] Tutorial (from: 1pm to: 3pm)
 4.[E][ ] Lecture (from: 3pm to: 5pm)
@@ -83,7 +83,7 @@ OK, I've marked this task as not done yet:
   [E][ ] Tutorial (from: 1pm to: 3pm)
 ______________________________
 ______________________________
-1.[T][X] Eat Breakfast 
+1.[T][X] Eat Breakfast
 2.[T][ ] Eat Lunch
 3.[E][ ] Tutorial (from: 1pm to: 3pm)
 4.[E][ ] Lecture (from: 3pm to: 5pm)
