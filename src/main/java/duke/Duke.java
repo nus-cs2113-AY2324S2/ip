@@ -8,11 +8,18 @@ import duke.task.TaskList;
 
 import java.io.IOException;
 
+/**
+ * Represents the Duke chatbot application.
+ * Duke is a chatbot that helps with task management.
+ */
 public class Duke {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructs a new Duke object.
+     */
     public Duke() {
         this.ui = new Ui();
         String filePath = "data/duke.txt";
@@ -27,6 +34,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke chatbot, prints welcome message, and execute user commands.
+     */
     private void run() {
         ui.printHi();
         boolean isExit = false;
@@ -44,6 +54,12 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method for starting the Duke chatbot
+     * Creates a new Duke object and runs the Duke chatbot
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

@@ -9,14 +9,32 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command for the Deadline task.
+ */
 public class DeadlineCommand implements Command {
 
     private final String INPUT; //deadline return book /by saturday
 
+    /**
+     * Constructs a new DeadlineCommand object with user input.
+     *
+     * @param input User input of the deadline command.
+     */
     public DeadlineCommand(String input) {
         this.INPUT = input;
     }
 
+    /**
+     * Executes the command by creating a new Deadline object and adding the Deadline task to the task list.
+     * Displays the added task to the screen.
+     *
+     * @param taskList The lists of tasks of the Duke chatbot.
+     * @param ui The user interface of the Duke chatbot.
+     * @param storage The file storage of the Duke chatbot.
+     * @throws DukeException If there is an error in the user's input.
+     * @throws IOException If there is an error appending the new task.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
         String[] details = INPUT.split("/by ");
@@ -36,6 +54,12 @@ public class DeadlineCommand implements Command {
         }
     }
 
+    /**
+     * Indicates whether this is an exit command.
+     * Returns false since this is not an exit command.
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;
