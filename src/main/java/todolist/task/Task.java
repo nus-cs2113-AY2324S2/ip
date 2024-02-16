@@ -35,6 +35,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract String storeDataString();
+
     /**
      * Get the full String representation of the task
      * @return the full String of the task

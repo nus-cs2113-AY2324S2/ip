@@ -13,6 +13,11 @@ public class DeadLinesTask extends Task {
         this.deadline = deadline;
     }
 
+    @Override
+    public String storeDataString() {
+        return "D" + "|" + this.name + "|" + this.deadline;
+    }
+
     /**
      * Get the full String representation of the task
      * @return the full String of the task

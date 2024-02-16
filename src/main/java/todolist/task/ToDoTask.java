@@ -10,6 +10,11 @@ public class ToDoTask extends Task {
         super(name);
     }
 
+    @Override
+    public String storeDataString() {
+        return "T" + "|" + this.name;
+    }
+
     /**
      * Get the full String representation of the task
      * @return the full String of the task

@@ -16,6 +16,11 @@ public class EventsTask extends Task {
         this.endDate = endDate;
     }
 
+    @Override
+    public String storeDataString() {
+        return "E" + "|" + this.name + "|" + this.startDate + "|" + this.endDate;
+    }
+
     /**
      * Get the full String representation of the task
      * @return the full String of the task

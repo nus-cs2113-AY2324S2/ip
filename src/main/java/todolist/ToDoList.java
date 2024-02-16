@@ -2,8 +2,14 @@ package todolist;
 import todolist.keywordfinder.Keyword;
 import todolist.keywordfinder.KeywordPatternMatcher;
 import todolist.task.Task;
+
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class ToDoList {
     private final ArrayList<Task> toDoListArray;
@@ -96,6 +102,11 @@ public class ToDoList {
                 }
             }
             messageDivider();
+            try {
+                writeToFile();
+            } catch (IOException e) {
+                System.out.println("File does not exist, please do not delete any files");
+            }
         }
     }
 
@@ -154,6 +165,7 @@ public class ToDoList {
         System.out.println("[list] Show your Todolist tasks");
         System.out.println("[mark X] Mark number X task as Done");
         System.out.println("[unmark X] Mark number X task as UnDone");
+        System.out.println("[delete X] Delete number X task");
         System.out.println("[todo XXX] Add a todo task");
         System.out.println("[deadline XXX /by XXX] Add a deadline task");
         System.out.println("[event XXX /from XXX /to XXX] Add a Event task");
@@ -170,4 +182,32 @@ public class ToDoList {
     public static void messageDivider() {
         System.out.println("------------------------------------------");
     }
+
+    private void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("ChatBBTData.txt");
+        fw.write(storeDataString());
+        fw.close();
+    }
+
+    private String storeDataString() {
+        StringBuilder dataString = new StringBuilder();
+        for (Task task : this.toDoListArray) {
+            dataString.append(task.storeDataString()).append("\n");
+        }
+        dataString.append("#end");
+        return dataString.toString();
+    }
+
+    public void loadData() {
+        String filePath = "ChatBBTData.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while (!Objects.equals(line = reader.readLine(), "#end")) {
+            }
+        } catch (IOException e) {
+            System.err.println("Data file damaged");
+        }
+    }
+
 }
