@@ -14,7 +14,7 @@ public class TodoCommand implements Command {
     private final String INPUT;
 
     public TodoCommand(String input) {
-        this.INPUT = input;
+        this.INPUT = input.trim();
     }
 
     @Override

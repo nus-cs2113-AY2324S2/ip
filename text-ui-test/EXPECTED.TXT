@@ -21,15 +21,15 @@
 	 Exceed Charge....
 	 OOPS!!! The description of a deadline task cannot be empty.
 	 deadline: Adds a deadline task to task list.
-	 Parameters: TASK /by DEADLINE
-	 Example: deadline return book /by saturday
+	 Parameters: TASK /by DEADLINE (in date: yyyy-mm-dd time: HHmm format)
+	 Example: deadline return book /by 2024-05-01 1800
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Exceed Charge....
 	 OOPS!!! The description of an event task cannot be empty.
 	 event: Adds an event task to task list.
-	 Parameters: TASK /from START TIME /to END TIME
-	 Example: event meet friends /from 9pm today /to 11pm today
+	 Parameters: TASK /from START TIME /to END TIME (both in date: yyyy-mm-dd time: HHmm format)
+	 Example: event meet friends /from 2024-05-01 0610 /to 2024-06-01 1720
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Got it. I've added this task: 
@@ -37,13 +37,25 @@
 	 Now you have 1 task in the list.
 	_____________________________________________________________________
 	_____________________________________________________________________
-	 Got it. I've added this task: 
-	   [D][ ] return book (by: saturday)
+	 Exceed Charge....
+	 OOPS!!! The format of a deadline task is wrong!
+	 TASK /by DEADLINE (in date: yyyy-mm-dd time: HHmm format)
+	 Example: deadline return book /by 2024-05-01 1800
+	_____________________________________________________________________
+	_____________________________________________________________________
+	 Exceed Charge....
+	 OOPS!!! The format of an event task is wrong!
+	 TASK /from START TIME /to END TIME (both in date: yyyy-mm-dd time: HHmm format)
+	 Example: event meet friends /from 2024-05-01 0610 /to 2024-06-01 1720
+	_____________________________________________________________________
+	_____________________________________________________________________
+	 Got it. I've added this task:
+	   [D][ ] return book (by: Feb 17 2024 2359)
 	 Now you have 2 tasks in the list.
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Got it. I've added this task: 
-	   [E][ ] meet friends (from: 5pm tdy to: 9pm tdy)
+	   [E][ ] meet friends (from: Feb 18 2025 1200 to: Feb 19 2024 1400)
 	 Now you have 3 tasks in the list.
 	_____________________________________________________________________
 	_____________________________________________________________________
@@ -52,13 +64,13 @@
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Nice! I've marked this task as done:
-	   [D][X] return book (by: saturday)
+	   [D][X] return book (by: Feb 17 2024 2359)
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
-	 2.[D][X] return book (by: saturday)
-	 3.[E][ ] meet friends (from: 5pm tdy to: 9pm tdy)
+	 2.[D][X] return book (by: Feb 17 2024 2359)
+	 3.[E][ ] meet friends (from: Feb 18 2025 1200 to: Feb 19 2024 1400)
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Exceed Charge.... 
@@ -66,13 +78,13 @@
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 OK, I've marked this task as not done yet:
-	   [D][ ] return book (by: saturday)
+	   [D][ ] return book (by: Feb 17 2024 2359)
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
-	 2.[D][ ] return book (by: saturday)
-	 3.[E][ ] meet friends (from: 5pm tdy to: 9pm tdy)
+	 2.[D][ ] return book (by: Feb 17 2024 2359)
+	 3.[E][ ] meet friends (from: Feb 18 2025 1200 to: Feb 19 2024 1400)
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Noted. I've removed this task:
@@ -81,8 +93,8 @@
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 Here are the tasks in your list:
-	 1.[D][ ] return book (by: saturday)
-	 2.[E][ ] meet friends (from: 5pm tdy to: 9pm tdy)
+	 1.[D][ ] return book (by: Feb 17 2024 2359)
+	 2.[E][ ] meet friends (from: Feb 18 2025 1200 to: Feb 19 2024 1400)
 	_____________________________________________________________________
 	_____________________________________________________________________
 	 ERROR.... 
