@@ -2,22 +2,38 @@ _________________________
 Hello! I'm Allez
 What can I do for you?
 _________________________
+List is currently empty
+Please input a number only
+Please input a number within current number of tasks
+Please add a description of your task
 Got it. I've added this task:
 	[T][ ] Fung Wen Wu: Answer CS2113 tutorial questions
 Now you have 1 tasks in the list.
 Got it. I've added this task:
 	[D][ ] weekly CS2113 quiz (by: Monday 9pm)
 Now you have 2 tasks in the list.
+Please input deadline for the task in a format as shown below
+deadline <description> /by <deadline>
+Please input deadline for the task in a format as shown below
+deadline <description> /by <deadline>
 Here are the tasks in your list:
-1. [T][ ] Fung Wen Wu: Answer CS2113 tutorial questions
-2. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
+	1. [T][ ] Fung Wen Wu: Answer CS2113 tutorial questions
+	2. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
 Got it. I've added this task:
 	[E][ ] CS2113 lecture (from: Friday 4pm to: Friday 6pm)
 Now you have 3 tasks in the list.
+Please input event for the task in a format as shown below
+event <description> /from <start> /to <end>
+Please input event for the task in a format as shown below
+event <description> /from <start> /to <end>
+Please input event for the task in a format as shown below
+event <description> /from <start> /to <end>
 Nice! I've marked this task as done:
 	[T][X] Fung Wen Wu: Answer CS2113 tutorial questions
 Here are the tasks in your list:
-1. [T][X] Fung Wen Wu: Answer CS2113 tutorial questions
-2. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
-3. [E][ ] CS2113 lecture (from: Friday 4pm to: Friday 6pm)
+	1. [T][X] Fung Wen Wu: Answer CS2113 tutorial questions
+	2. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
+	3. [E][ ] CS2113 lecture (from: Friday 4pm to: Friday 6pm)
+Please input a number within current number of tasks
+Invalid command. Please try again.
 Bye. Hope to see you again soon!
