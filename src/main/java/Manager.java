@@ -142,7 +142,7 @@ public class Manager {
                         + taskList[i].getTaskName() + " (from: " + taskList[i].getStartTime()
                         + " to: " + taskList[i].getEndTime() + ")");
             }else {
-                System.out.println(taskList[i].getOrder()+1 + ". [T]" + taskList[i].doneCheckbox + " "
+                System.out.println(taskList[i].getOrder()+1 + ". [T] " + taskList[i].doneCheckbox + " "
                         + taskList[i].getTaskName());
             }
         }
