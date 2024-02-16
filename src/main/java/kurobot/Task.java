@@ -20,13 +20,13 @@ public class Task {
         return isDeleted;
     }
 
-    public void setDeleted() {
-        this.isDeleted = true;
-        System.out.println(lineBreak);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(this.printTask());
-        System.out.println(lineBreak);
-    }
+//    public void setDeleted() {
+//        this.isDeleted = true;
+//        System.out.println(lineBreak);
+//        System.out.println("Noted. I've removed this task:");
+//        System.out.println(this.printTask());
+//        System.out.println(lineBreak);
+//    }
 
     public void mark() {
         this.isMarked = true;
