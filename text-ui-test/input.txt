@@ -6,6 +6,8 @@ event
 todo borrow book
 deadline return book /by saturday
 event meet friends /from 5pm tdy /to 9pm tdy
+deadline return book /by 2024-02-17
+event meet friends /from 2025-02-18 1200 /to 2024-02-19 1400
 mark 0
 mark 2
 list

@@ -18,7 +18,7 @@ public class UnmarkCommand implements Command {
                     "Parameters: INDEX\n\t " +
                     "Example: unmark 1");
         } else {
-            this.INDEX = Integer.parseInt(index) - 1;
+            this.INDEX = Integer.parseInt(index.trim()) - 1;
         }
     }
 
