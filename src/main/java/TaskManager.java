@@ -8,6 +8,7 @@ public class TaskManager {
 
         System.out.println("Hello! I'm TaskManager Jamarcus \nWhat can I do for you?");
 
+
         while (true) {
             try {
                 String userInput = scanner.nextLine().trim();
