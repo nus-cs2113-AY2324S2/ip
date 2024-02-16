@@ -22,7 +22,7 @@ public class DeadlineCommand implements Command {
      * @param input User input of the deadline command.
      */
     public DeadlineCommand(String input) {
-        this.INPUT = input;
+        this.INPUT = input.trim();
     }
 
     /**
@@ -37,15 +37,17 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
-        String[] details = INPUT.split("/by ");
-        if (INPUT.isEmpty() || details.length != 2 || details[1].isEmpty()) {
+        String[] details = INPUT.split("/by");
+        if (INPUT.isEmpty() || details.length != 2 || details[0].trim().isEmpty() || details[1].trim().isEmpty()) {
             throw new DukeException("Exceed Charge....\n\t " +
                     "OOPS!!! The description of a deadline task cannot be empty.\n\t " +
                     "deadline: Adds a deadline task to task list.\n\t " +
-                    "Parameters: TASK /by DEADLINE\n\t " +
-                    "Example: deadline return book /by saturday");
+                    "Parameters: TASK /by DEADLINE (in date: yyyy-mm-dd time: HHmm format)\n\t " +
+                    "Example: deadline return book /by 2024-05-01 1800");
         } else {
-            Task newDeadline = new Deadline(details[0], details[1]);
+            String description = details[0].trim();
+            String by = details[1].trim();
+            Task newDeadline = new Deadline(description, by);
             storage.addTask(newDeadline.toDisk());
             taskList.add(newDeadline);
             String msg = (taskList.size() > 1) ? "tasks" : "task";

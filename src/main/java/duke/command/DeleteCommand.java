@@ -27,7 +27,7 @@ public class DeleteCommand implements Command {
                     "Parameters: INDEX\n\t " +
                     "Example: delete 1");
         } else {
-            this.INDEX = Integer.parseInt(index) - 1;
+            this.INDEX = Integer.parseInt(index.trim()) - 1;
         }
     }
 

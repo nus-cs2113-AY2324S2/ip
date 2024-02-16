@@ -21,7 +21,7 @@ public class TodoCommand implements Command {
      * @param input User input of the todo command.
      */
     public TodoCommand(String input) {
-        this.INPUT = input;
+        this.INPUT = input.trim();
     }
 
     /**

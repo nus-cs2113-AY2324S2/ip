@@ -14,23 +14,23 @@ import java.io.IOException;
  */
 public class Duke {
     private TaskList taskList;
-    private Ui ui;
-    private Storage storage;
+    private final Ui UI;
+    private final Storage STORAGE;
 
     /**
      * Constructs a new Duke object.
      */
     public Duke() {
-        this.ui = new Ui();
+        this.UI = new Ui();
         String filePath = "data/duke.txt";
-        this.storage = new Storage(filePath);
+        this.STORAGE = new Storage(filePath);
         try {
-            this.taskList = this.storage.getTaskList();
+            this.taskList = this.STORAGE.getTaskList();
         } catch (DukeException e) {
-            ui.printError(e.getMessage());
+            UI.printError(e.getMessage());
             this.taskList = new TaskList();
         } catch (IOException e) {
-            ui.printError("ERROR.... \n\t OOPS!!! Error occurred: " + e.getMessage());
+            UI.printError("ERROR.... \n\t OOPS!!! Error occurred: " + e.getMessage());
         }
     }
 
@@ -38,18 +38,18 @@ public class Duke {
      * Runs the Duke chatbot, prints welcome message, and execute user commands.
      */
     private void run() {
-        ui.printHi();
+        UI.printHi();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String userInput = ui.readCommand();
+                String userInput = UI.readCommand();
                 Command command = Parser.parse(userInput);
-                command.execute(taskList, ui, storage);
+                command.execute(taskList, UI, STORAGE);
                 isExit = command.isExit();
             } catch (DukeException e) {
-                ui.printError(e.getMessage());
+                UI.printError(e.getMessage());
             } catch (IOException e) {
-                ui.printError("ERROR.... \n\t OOPS!!! Error occurred: " + e.getMessage());
+                UI.printError("ERROR.... \n\t OOPS!!! Error occurred: " + e.getMessage());
             }
         }
     }

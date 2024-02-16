@@ -27,7 +27,7 @@ public class MarkCommand implements Command {
                     "Parameters: INDEX\n\t " +
                     "Example: mark 1");
         } else {
-            this.INDEX = Integer.parseInt(index) - 1;
+            this.INDEX = Integer.parseInt(index.trim()) - 1;
         }
     }
 

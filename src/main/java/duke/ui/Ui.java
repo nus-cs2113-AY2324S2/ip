@@ -38,7 +38,7 @@ public class Ui {
      * Displays the exit message of the Duke chatbot.
      */
     public void printBye() {
-        System.out.print(messageFormat("Reformation.... \n\t Bye! Hope to see you again soon!"));
+        System.out.print(messageFormat("Deformation.... \n\t Bye! Hope to see you again soon!"));
     }
 
     /**
