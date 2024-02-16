@@ -2,14 +2,14 @@ package joe.task;
 
 import joe.JoeException;
 import joe.util.Printer;
+import java.util.ArrayList;
 
 public class TaskManager {
-    protected Task[] tasks;
+    protected ArrayList<Task> tasks;
     protected int numberOfTasks;
-    protected static final int MAX_TASK_SIZE = 100;
 
     public TaskManager() {
-        tasks = new Task[MAX_TASK_SIZE];
+        tasks = new ArrayList<>();
         numberOfTasks = 0;
     }
 
@@ -17,11 +17,8 @@ public class TaskManager {
         if (taskName.isEmpty()) {
             throw new JoeException();
         }
-        if (numberOfTasks >= MAX_TASK_SIZE) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
         ToDo newToDo = new ToDo(taskName);
-        tasks[numberOfTasks] = newToDo;
+        tasks.add(newToDo);
         numberOfTasks++;
         Printer.printTaskAddingMessage(newToDo.getTaskStatus(), numberOfTasks);
     }
@@ -30,11 +27,8 @@ public class TaskManager {
         if (taskName.isEmpty() || finishBy.isEmpty()) {
             throw new JoeException();
         }
-        if (numberOfTasks >= MAX_TASK_SIZE) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
         Deadline newDeadline = new Deadline(taskName, finishBy);
-        tasks[numberOfTasks] = newDeadline;
+        tasks.add(newDeadline);
         numberOfTasks++;
         Printer.printTaskAddingMessage(newDeadline.getTaskStatus(), numberOfTasks);
     }
@@ -43,11 +37,8 @@ public class TaskManager {
         if (taskName.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
             throw new JoeException();
         }
-        if (numberOfTasks >= MAX_TASK_SIZE) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
         Event newEvent = new Event(taskName, startDate, endDate);
-        tasks[numberOfTasks] = newEvent;
+        tasks.add(newEvent);
         numberOfTasks++;
         Printer.printTaskAddingMessage(newEvent.getTaskStatus(), numberOfTasks);
     }
@@ -55,7 +46,7 @@ public class TaskManager {
     public void listTasks() {
         Printer.printListMessage();
         for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println((i + 1) + "." + tasks[i].getTaskStatus());
+            System.out.println((i + 1) + "." + tasks.get(i).getTaskStatus());
         }
         Printer.printHeaderLine();
     }
@@ -64,13 +55,13 @@ public class TaskManager {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
             throw new JoeException();
         }
-        tasks[taskNumber - 1].setDone(isMark);
+        tasks.get(taskNumber - 1).setDone(isMark);
         if (isMark) {
             Printer.printMarkMessage();
         } else {
             Printer.printUnmarkMessage();
         }
-        System.out.println("  " + tasks[taskNumber - 1].getTaskStatus());
+        System.out.println("  " + tasks.get(taskNumber - 1).getTaskStatus());
         Printer.printHeaderLine();
     }
 }
