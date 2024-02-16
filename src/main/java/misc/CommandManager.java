@@ -3,6 +3,7 @@ package misc;
 import anonbot.Ui;
 import task.Task.TaskType;
 import task.TaskManager;
+import exception.InvalidCommandException;
 
 public class CommandManager {
     /**
@@ -18,10 +19,9 @@ public class CommandManager {
      * 6. `deadline` <description> /by <end_time> - Creates a new deadline task.
      * 7. `event` <description> /from <start_time> /to <end_time> - Creates a new event task.
      */
-    public static Status processCommand(String userInput) {
+    public static Status processCommand(String userInput) throws InvalidCommandException {
         if (userInput.isEmpty()) {
-            System.out.println("Error: Empty input");
-            return Status.STATUS_ERROR_EMPTY_INPUT;
+            throw new InvalidCommandException("");
         }
 
         String command = Parser.getCommand(userInput);
@@ -60,10 +60,8 @@ public class CommandManager {
             TaskManager.createNewTask(rawArgument, TaskType.EVENT);
             executionStatus = Status.STATUS_OK;
             break;
-        default:
-            System.out.println("Invalid Command.");
-            executionStatus = Status.STATUS_ERROR_INVALID_COMMAND;
-            break;
+        default: // Invalid Command
+            throw new InvalidCommandException(command);
         }
         Ui.printSectionBar(true);
         return executionStatus;

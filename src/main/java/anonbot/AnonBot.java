@@ -1,5 +1,6 @@
 package anonbot;
 
+import exception.InvalidCommandException;
 import misc.CommandManager;
 import misc.Status;
 
@@ -8,7 +9,11 @@ public class AnonBot {
         Status commandStatus = Status.STATUS_OK;
         while (commandStatus != Status.STATUS_EXIT) {
             String userInput = Ui.getUserInput();
-            commandStatus = CommandManager.processCommand(userInput);
+            try{
+                commandStatus = CommandManager.processCommand(userInput);
+            } catch (InvalidCommandException e) {
+                e.printErrorMessage();
+            }
         }
     }
 
