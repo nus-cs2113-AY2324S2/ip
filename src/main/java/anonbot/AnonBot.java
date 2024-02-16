@@ -9,10 +9,13 @@ public class AnonBot {
         Status commandStatus = Status.STATUS_OK;
         while (commandStatus != Status.STATUS_EXIT) {
             String userInput = Ui.getUserInput();
-            try{
+            Ui.printSectionBar(false);
+            try {
                 commandStatus = CommandManager.processCommand(userInput);
             } catch (InvalidCommandException e) {
                 e.printErrorMessage();
+            } finally {
+                Ui.printSectionBar(true);
             }
         }
     }

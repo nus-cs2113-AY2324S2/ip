@@ -20,15 +20,15 @@ public class CommandManager {
      * 7. `event` <description> /from <start_time> /to <end_time> - Creates a new event task.
      */
     public static Status processCommand(String userInput) throws InvalidCommandException {
+        Status executionStatus = Status.STATUS_OK;
+
         if (userInput.isEmpty()) {
             throw new InvalidCommandException("");
         }
 
         String command = Parser.getCommand(userInput);
         String rawArgument = Parser.getCommandArgument(userInput);
-        Status executionStatus;
 
-        Ui.printSectionBar(false);
         switch (command) {
         case "exit":
             // fallthrough
@@ -38,32 +38,25 @@ public class CommandManager {
             break;
         case "list":
             TaskManager.printTaskList();
-            executionStatus = Status.STATUS_OK;
             break;
         case "mark":
             processMarkCommand(rawArgument);
-            executionStatus = Status.STATUS_OK;
             break;
         case "unmark":
             processUnmarkCommand(rawArgument);
-            executionStatus = Status.STATUS_OK;
             break;
         case "todo":
             TaskManager.createNewTask(rawArgument, TaskType.TODO);
-            executionStatus = Status.STATUS_OK;
             break;
         case "deadline":
             TaskManager.createNewTask(rawArgument, TaskType.DEADLINE);
-            executionStatus = Status.STATUS_OK;
             break;
         case "event":
             TaskManager.createNewTask(rawArgument, TaskType.EVENT);
-            executionStatus = Status.STATUS_OK;
             break;
         default: // Invalid Command
             throw new InvalidCommandException(command);
         }
-        Ui.printSectionBar(true);
         return executionStatus;
     }
 
