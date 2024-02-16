@@ -2,15 +2,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private static final ArrayList<Task> TASKS = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
-    // Main method - entry point of the Duke application.
     public static void main(String[] args) {
         printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        // Main loop for command processing.
         while (true) {
             input = scanner.nextLine().trim();
             if ("bye".equalsIgnoreCase(input)) {
@@ -22,51 +20,69 @@ public class Duke {
         scanner.close();
     }
 
-    // Processes the user input and calls the respective method.
     private static void processInput(String input) {
-        System.out.println("  " + Constants.LINE);
-        if (input.startsWith("list")) {
+        if (input.startsWith("todo")) {
+            handleTodo(input);
+        } else if (input.startsWith("deadline")) {
+            handleDeadline(input);
+        } else if (input.startsWith("event")) {
+            handleEvent(input);
+        } else if (input.startsWith("list")) {
             listTasks();
         } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-            // Extracts the task number and marks or unmarks the task.
-            markTask(input, input.startsWith("mark"));
+            markOrUnmarkTask(input);
         } else {
-            addTask(input);
+            System.out.println("  I'm sorry, but I don't know what that means :-(");
         }
         System.out.println("  " + Constants.LINE);
     }
 
-    // Adds a new task to the list.
-    private static void addTask(String description) {
-        Task newTask = new Task(description);
-        TASKS.add(newTask);
-        System.out.println("  added: " + description);
+    private static void handleTodo(String input) {
+        String description = input.substring(5);
+        Todo todo = new Todo(description);
+        tasks.add(todo);
+        System.out.println("  Got it. I've added this task:\n  " + todo);
+        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    // Lists all tasks currently in the list.
+    private static void handleDeadline(String input) {
+        String[] parts = input.substring(9).split(" /by ");
+        Deadline deadline = new Deadline(parts[0], parts[1]);
+        tasks.add(deadline);
+        System.out.println("  Got it. I've added this task:\n  " + deadline);
+        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void handleEvent(String input) {
+        String[] parts = input.substring(6).split(" /at ");
+        Event event = new Event(parts[0], parts[1]);
+        tasks.add(event);
+        System.out.println("  Got it. I've added this task:\n  " + event);
+        System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     private static void listTasks() {
         System.out.println("  Here are the tasks in your list:");
-        for (int i = 0; i < TASKS.size(); i++) {
-            System.out.println("  " + (i + 1) + "." + TASKS.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("  " + (i + 1) + "." + tasks.get(i));
         }
     }
 
-    // Marks or unmarks a task as done/not done based on the user input.
-    private static void markTask(String input, boolean isDone) {
-        try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-            Task task = TASKS.get(taskNumber);
-            task.setDone(isDone);
-            System.out.println("  Nice! I've marked this task as " + (isDone ? "done:" : "not done yet:"));
-            System.out.println("  " + task);
-        } catch (NumberFormatException e) {
-            System.out.println("  Please enter a valid task number to mark.");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("  Task number is invalid.");
+    private static void markOrUnmarkTask(String input) {
+        String[] parts = input.split(" ");
+        int index = Integer.parseInt(parts[1]) - 1;
+        Task task = tasks.get(index);
+
+        if (input.startsWith("mark")) {
+            task.setDone(true);
+            System.out.println("  Nice! I've marked this task as done:");
+        } else {
+            task.setDone(false);
+            System.out.println("  OK, I've marked this task as not done yet:");
         }
+        System.out.println("    " + task);
     }
 
-    // Prints the welcome message to the user.
     private static void printWelcomeMessage() {
         System.out.println("  " + Constants.LOGO);
         System.out.println("  " + Constants.LINE);
@@ -74,7 +90,6 @@ public class Duke {
         System.out.println("  " + Constants.LINE);
     }
 
-    // Prints the goodbye message to the user.
     private static void printGoodbyeMessage() {
         System.out.println("  Bye. Hope to see you again soon!");
         System.out.println("  " + Constants.LINE);
