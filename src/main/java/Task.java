@@ -1,6 +1,6 @@
 public class Task {
     private String description;
-    private boolean isDone;
+    public boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -18,5 +18,10 @@ public class Task {
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+
+    public String toFileString() {
+        String status = isDone ? "1" : "0";
+        return status + " | " + description;
     }
 }

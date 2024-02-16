@@ -1,10 +1,18 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "tasks.txt";
 
     public static void main(String[] args) {
+        loadTasksFromFile();
+
         // Greet the user and initialise Jonas Chatbot
         String name = "Jonas";
         Scanner scanner = new Scanner(System.in);
@@ -22,6 +30,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("Kamxia. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
+                saveTasksToFile();
                 break;
             } else {
                 try {
@@ -168,11 +177,57 @@ public class Duke {
                 tasks.remove(taskIndex);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
+                saveTasksToFile();
             } else {
                 throw new DukeException("Invalid task number provided.");
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Invalid task number provided.");
+        }
+    }
+
+    // Load tasks from file
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] taskInfo = line.split("\\|");
+                    String taskType = taskInfo[0].trim();
+                    boolean isDone = taskInfo[1].trim().equals("1");
+                    String taskDescription = taskInfo[2].trim();
+                    switch (taskType) {
+                        case "T":
+                            tasks.add(new Todo(taskDescription, isDone));
+                            break;
+                        case "D":
+                            tasks.add(new Deadline(taskDescription, taskInfo[3].trim(), isDone));
+                            break;
+                        case "E":
+                            tasks.add(new Event(taskDescription, taskInfo[3].trim(), taskInfo[4].trim(), isDone));
+                            break;
+                    }
+                }
+                reader.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    // Save tasks to file
+    private static void saveTasksToFile() {
+        try {
+            File file = new File(FILE_PATH);
+            FileWriter writer = new FileWriter(file);
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 }
