@@ -1,3 +1,7 @@
+package chatbot.task;
+
+import chatbot.ChatbotException;
+
 public class Event extends Task {
     private final String startTime;
     private final String endTime;
