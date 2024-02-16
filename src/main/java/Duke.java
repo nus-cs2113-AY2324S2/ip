@@ -18,7 +18,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("____________________________________________________________");
-        System.out.println("Da Gei Ho, Hello! I'm " + name + ".");
+        System.out.println("Hello! I'm " + name + ".");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
@@ -166,7 +166,7 @@ public class Duke {
         }
     }
 
-    // Delete a task from the list
+    // Delete a task from the list according to number provided
     private static void deleteTask(String userInput) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -186,7 +186,7 @@ public class Duke {
         }
     }
 
-    // Load tasks from file
+    // Load tasks from file into list
     private static void loadTasksFromFile() {
         try {
             File file = new File(FILE_PATH);
