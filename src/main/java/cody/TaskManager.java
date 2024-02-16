@@ -1,7 +1,14 @@
+package cody;
+
+import cody.tasks.Deadline;
+import cody.tasks.Event;
+import cody.tasks.Task;
+import cody.tasks.Todo;
+
 import java.util.Scanner;
 
 public class TaskManager {
-    private Task[] tasks;
+    private final Task[] tasks;
     private int taskCount;
     private static final String BORDER = "______________________________________________________________\n";
 
@@ -26,14 +33,14 @@ public class TaskManager {
             String[] parts = input.split(" ");
             int index = Integer.parseInt(parts[1]) - 1;
             if (index < 0 || index >= taskCount) {
-                throw new CodyException(" Task number is out of range\n"
+                throw new CodyException(" cody.tasks.Task number is out of range\n"
                         + " Please enter a number between 1 and " + taskCount + "\n");
             }
             boolean isDone = input.startsWith("mark");
             tasks[index].markTask(isDone);
             markTask(index);
         } catch (NumberFormatException e) {
-            System.out.print(BORDER + " Task number is invalid\n"
+            System.out.print(BORDER + " cody.tasks.Task number is invalid\n"
                     + " Please enter a valid number\n" + BORDER);
         } catch (CodyException e) {
             System.out.print(BORDER + e.getMessage() + BORDER);
@@ -60,14 +67,14 @@ public class TaskManager {
         } else if (input.startsWith("event")) {
             return createEventTask(input);
         } else {
-            // If the task type is unknown, throw a CodyException
+            // If the task type is unknown, throw a cody.CodyException
             throw new CodyException(" I'm not sure what task this is\n"
                     + " Please start with 'todo', 'event' or 'deadline'\n");
         }
     }
 
 
-    // Creates a Todo task from the input.
+    // Creates a cody.tasks.Todo task from the input.
     private Todo createTodoTask(String input) throws CodyException {
         if (input.length() <= 5) {
             throw new CodyException(" The description of a todo cannot be empty\n"
@@ -78,7 +85,7 @@ public class TaskManager {
         return new Todo(description);
     }
 
-    // Creates a Deadline task from the input.
+    // Creates a cody.tasks.Deadline task from the input.
     private Deadline createDeadlineTask(String input) throws CodyException {
         if (input.length() <= 9) {
             throw new CodyException(" The description of a deadline cannot be empty\n"
@@ -91,7 +98,7 @@ public class TaskManager {
         return new Deadline(description, by);
     }
 
-    // Creates an Event task from the input.
+    // Creates an cody.tasks.Event task from the input.
     private Event createEventTask(String input) throws CodyException {
         if (input.length() <= 6) {
             throw new CodyException(" The description of an event cannot be empty\n"
@@ -133,3 +140,4 @@ public class TaskManager {
         }
     }
 }
+    

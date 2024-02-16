@@ -1,4 +1,6 @@
-public class Event extends Task{
+package cody.tasks;
+
+public class Event extends Task {
     protected String from;
     protected String to;
 
