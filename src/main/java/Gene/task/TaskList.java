@@ -1,8 +1,11 @@
 package Gene.task;
 
 import Gene.Gene;
+import Gene.GeneException;
 
 import java.util.ArrayList;
+
+import static Gene.command.MarkCommand.isNumeric;
 
 public class TaskList {
     private ArrayList<Task> toDoList = new ArrayList<>();
@@ -55,5 +58,21 @@ public class TaskList {
         }
         Gene.printLineSeparation();
     }
+
+    public void deleteListItem(String command) throws GeneException {
+        String[] parts = command.split(" ");
+        if (parts.length < 2 || !isNumeric(parts[1]) || Integer.parseInt(parts[1]) > toDoList.size()) {
+            throw new GeneException("Please provide a valid task number." + System.lineSeparator()
+                    + "Use Format: delete (number)");
+        }
+
+        int taskNumber = Integer.parseInt(parts[1]);
+        System.out.println("Got it. I've deleted this task:");
+        System.out.println("  " + toDoList.get(taskNumber - 1));
+        toDoList.remove(taskNumber - 1);
+        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+        Gene.printLineSeparation();
+    }
+
 
 }

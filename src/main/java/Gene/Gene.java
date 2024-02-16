@@ -1,9 +1,6 @@
 package Gene;
 
-import Gene.command.DeadlineCommand;
-import Gene.command.EventCommand;
-import Gene.command.MarkCommand;
-import Gene.command.TodoCommand;
+import Gene.command.*;
 import Gene.task.TaskList;
 
 import java.util.Scanner;
@@ -88,6 +85,15 @@ public class Gene {
             case "event":
                 try {
                     EventCommand.execute(command, taskList);
+                } catch (GeneException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    printLineSeparation();
+                }
+                break;
+
+            case "delete":
+                try {
+                    taskList.deleteListItem(command);
                 } catch (GeneException e) {
                     System.out.println("ERROR: " + e.getMessage());
                     printLineSeparation();
