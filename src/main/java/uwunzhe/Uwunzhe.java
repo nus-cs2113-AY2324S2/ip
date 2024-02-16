@@ -5,6 +5,7 @@ import uwunzhe.util.UserInput;
 import uwunzhe.util.TaskList;
 import uwunzhe.exceptions.UwunzheException;
 import uwunzhe.handler.InputHandler;
+import uwunzhe.handler.StorageHandler;
 
 public class Uwunzhe {
     private static final TaskList taskList = new TaskList();
@@ -16,11 +17,12 @@ public class Uwunzhe {
      * @return None
      */
     public static void loop() {
-        boolean isRunning = true;
-        InputHandler inputHandler = new InputHandler(taskList);
+        try {
+            boolean isRunning = true;
+            InputHandler inputHandler = new InputHandler(taskList);
+            StorageHandler storageHandler = new StorageHandler();
 
-        while (isRunning) {
-            try {
+            while (isRunning) {
                 String input = UserInput.getInput();
                 if (input.toLowerCase().equals("bye")) {
                     // Exit loop if input is "bye"
@@ -28,10 +30,9 @@ public class Uwunzhe {
                     continue;
                 }
                 inputHandler.praseInput(input);
-                
-            } catch (UwunzheException e) {
-                UwunzheException.printException(e);
             }
+        } catch (UwunzheException e) {
+            UwunzheException.printException(e);
         }
 
         // Close the scanner at the end of the program
