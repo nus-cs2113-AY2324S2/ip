@@ -186,7 +186,7 @@ public class Duke {
         }
     }
 
-    // Load tasks from file
+    // Load tasks from file into list
     private static void loadTasksFromFile() {
         try {
             File file = new File(FILE_PATH);
