@@ -19,7 +19,7 @@ public class CommandParser {
             commandName = commandToken.toUpperCase();
             otherToken = userInput.split(" ", 2)[1];
             separator = setSeparator();
-            argumentTokens = otherToken.split(separator, CommandList.getMaxArgumentCount());
+            argumentTokens = otherToken.split(separator, CommandList.getArgumentCount(commandName));
             argumentCount = argumentTokens.length;
             if (!SyntaxChecker.validateTokens(commandName, argumentTokens, argumentCount)) {
                 throw new BadTokenException();
