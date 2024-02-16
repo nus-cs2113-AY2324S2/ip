@@ -1,0 +1,4 @@
+diff a/src/main/java/Task.java b/src/main/java/Task.java	(rejected hunks)
+@@ -0,0 +1,2 @@
++package PACKAGE_NAME;public class Task {
++}
