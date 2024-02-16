@@ -8,10 +8,15 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        taskType = "E";
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    public String toFileString() {
+        return super.toFileString() + " | " + from + " | " + to;
     }
 }
