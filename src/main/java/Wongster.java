@@ -64,7 +64,7 @@ public class Wongster {
                 System.out.println(userList[userListItems - 1]);
                 System.out.println("Now you have " + userListItems + " tasks in the list.");
             } else {
-                System.out.println("Invalid Command, please enter a valid command.");
+                System.out.println("Invalid input, please enter a valid command.");
             }
         }
         scanner.close();
