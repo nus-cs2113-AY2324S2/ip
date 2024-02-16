@@ -1,3 +1,6 @@
+package kvothe.task;
+import kvothe.exception.WrongArgumentsException;
+
 public class Task {
 
     private String description;
@@ -71,13 +74,13 @@ public class Task {
         for (int i = 1; i < args.length; i++) {
             String word = args[i];
             if (word.startsWith("/")) {
-                throw new WrongArgumentsException("Todo does not accept arguments.");
+                throw new WrongArgumentsException("kvothe.task.Todo does not accept arguments.");
             } else {
                 aux += word + " ";
             }
         }
 
-        if (aux.length() == 0) {
+        if (aux.isEmpty()) {
             throw new WrongArgumentsException("No value for description." );
         }
 

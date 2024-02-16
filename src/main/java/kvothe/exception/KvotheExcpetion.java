@@ -1,3 +1,5 @@
+package kvothe.exception;
+
 public class KvotheExcpetion extends Exception{
     public KvotheExcpetion(String message){
         super(message);

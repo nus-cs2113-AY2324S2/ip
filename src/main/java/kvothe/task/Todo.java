@@ -1,6 +1,6 @@
-public class Todo extends Task{
+package kvothe.task;
 
-        public static final String[] args = {};
+public class Todo extends Task {
 
         public Todo (String description){
             super(description);

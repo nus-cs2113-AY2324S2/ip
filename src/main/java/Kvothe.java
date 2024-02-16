@@ -1,3 +1,9 @@
+import kvothe.exception.WrongArgumentsException;
+import kvothe.task.Deadline;
+import kvothe.task.Event;
+import kvothe.task.Task;
+import kvothe.task.Todo;
+
 import java.util.Scanner;
 
 public class Kvothe {
