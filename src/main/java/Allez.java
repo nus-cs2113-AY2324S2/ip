@@ -13,9 +13,15 @@ public class Allez {
 
     public static void printList(Task[] tasks){
         int count = 0;
+
+        if(tasks[0] == null) {
+            System.out.println("List is currently empty");
+            return;
+        }
+
         System.out.println("Here are the tasks in your list:");
         while(tasks[count] != null){
-            System.out.println((count+1) + ". " + tasks[count].toString());
+            System.out.println("\t" + (count+1) + ". " + tasks[count].toString());
             count+=1;
         }
     }
@@ -33,7 +39,6 @@ public class Allez {
     }
 
     private static boolean executeCommands() {
-//        Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         String firstWord = line.split(" ",2)[0];
 
@@ -63,35 +68,25 @@ public class Allez {
         return false;
     }
 
-    private static void createTask(String lineWithCommand, TaskType type) {
-        String[] lineSegment;
-        String description;
-        String by;
-        String from;
-        String to;
-        String line = lineWithCommand.split(" ",2)[1];
-
+    private static void createTask(String line, TaskType type) {
+        boolean taskCreated;
 
         switch (type){
         case TODO:
-            description = line.trim();
-            tasks[taskCount] = new ToDo(description);
+            taskCreated = createToDoTask(line);
             break;
         case DEADLINE:
-            lineSegment = line.split("/", 2);
-            description = lineSegment[0].trim();
-            by = lineSegment[1].substring(2).trim();
-            tasks[taskCount] = new Deadline(description, by);
+            taskCreated = createDeadlineTask(line);
             break;
         case EVENT:
-            lineSegment = line.split("/", 3);
-            description = lineSegment[0].trim();
-            from = lineSegment[1].substring(4).trim();
-            to = lineSegment[2].substring(2).trim();
-            tasks[taskCount] = new Event(description, from, to);
+            taskCreated = createEventTask(line);
             break;
         default:
             System.out.println("Invalid TaskType occurred.");
+            return;
+        }
+
+        if(!taskCreated){
             return;
         }
 
@@ -101,12 +96,94 @@ public class Allez {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
+    private static boolean createEventTask(String line) {
+        String description;
+        String to;
+        String[] lineSegment;
+        String from;
+        try {
+            lineSegment = verifyEventCommand(line);
+            description = lineSegment[0].trim();
+            from = lineSegment[1].trim();
+            to = lineSegment[2].trim();
+            tasks[taskCount] = new Event(description, from, to);
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please input event for the task in a format as shown below");
+            System.out.println("event <description> /from <start> /to <end>");
+        } catch (MissingDetailsException e) {
+            System.out.println("Please input something for description, from and to");
+        } catch (Exception e) {
+            System.out.println("Error encountered");
+        }
+        return false;
+    }
+
+    private static String[] verifyEventCommand(String line) throws MissingDetailsException {
+        String[] checkFrom = line.split(" /from ", 2);
+        String[] checkTo = checkFrom[1].split(" /to ", 2);
+        String[] lineSegment = new String[3];
+        lineSegment[0] = checkFrom[0].substring(5);
+        lineSegment[1] = checkTo[0];
+        lineSegment[2] = checkTo[1];
+        if(lineSegment[0].isBlank() || lineSegment[1].isBlank() || lineSegment[2].isBlank()) {
+            throw new MissingDetailsException();
+        }
+        return lineSegment;
+    }
+
+    private static boolean createDeadlineTask(String line) {
+        String description;
+        String[] lineSegment;
+        String by;
+        try {
+            lineSegment = verifyDeadlineCommand(line);
+            description = lineSegment[0].trim();
+            by = lineSegment[1].trim();
+            tasks[taskCount] = new Deadline(description, by);
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please input deadline for the task in a format as shown below");
+            System.out.println("deadline <description> /by <deadline>");
+        } catch (MissingDetailsException e) {
+            System.out.println("Please input something for description and deadline");
+        } catch (Exception e) {
+            System.out.println("Error encountered");
+        }
+        return false;
+    }
+
+    private static String[] verifyDeadlineCommand(String line) throws MissingDetailsException {
+        String[] lineSegment = line.substring(9).split(" /by ", 2);
+        if (lineSegment[0].isBlank() || lineSegment[1].isBlank()) {
+            throw new MissingDetailsException();
+        }
+        return lineSegment;
+    }
+
+    private static boolean createToDoTask(String line) {
+        String description;
+        description = line.substring(4).trim();
+        if (description.isEmpty()) {
+            System.out.println("Please add a description of your task");
+            return false;
+        }
+        tasks[taskCount] = new ToDo(description);
+        return true;
+    }
+
     private static void markTask(String line) {
         int toMark;
-        toMark = Integer.parseInt(line.substring(4).trim()) -1;
-        tasks[toMark].markDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("\t" + tasks[toMark].toString());
+        try {
+            toMark = Integer.parseInt(line.substring(4).trim()) -1;
+            tasks[toMark].markDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("\t" + tasks[toMark].toString());
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a number only");
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please input a number within current number of tasks");
+        }
     }
 
     private static void printExit() {
