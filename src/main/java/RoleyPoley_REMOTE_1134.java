@@ -5,8 +5,15 @@ import java.util.ArrayList;
 public class RoleyPoley {
     public static void main(String[] args) {
         Task[] taskList = new Task[100];
+        boolean isExit = false;
         greet();
-        echo(taskList);
+        while(!isExit) {
+            try {
+                isExit = echo(taskList);
+            } catch (RoleyPoleyException error) {
+                createLine();
+            }
+        }
     }
 
     private static void printReply(Task[] taskList, int counter) {
@@ -16,12 +23,16 @@ public class RoleyPoley {
     }
 
     public static void displayList(Task[] taskList) {
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 1; i < taskList.length; i++) {
-            if (taskList[i] == null) {
-                break;
+        if (taskList[1] == null) {
+            System.out.println("\tLooks like you need to find more work to do! Task list is empty!");
+        } else {
+            System.out.println("\tHere are the tasks in your list:");
+            for (int i = 1; i < taskList.length; i++) {
+                if (taskList[i] == null) {
+                    break;
+                }
+                System.out.println("\t" + i + ".[" + taskList[i].getTaskTypeIcon() + "][" + taskList[i].getStatusIcon() + "]" + taskList[i].getDescription());
             }
-            System.out.println("\t" + i + ".[" + taskList[i].getTaskTypeIcon() + "][" + taskList[i].getStatusIcon() + "]" + taskList[i].getDescription());
         }
     }
 
@@ -37,72 +48,81 @@ public class RoleyPoley {
         createLine();
     }
 
-    public static void echo(Task[] taskList) {
+    public static boolean echo(Task[] taskList) throws RoleyPoleyException {
+
         String line;
+        String[] words;
+        String description;
         int counter = 1;
         while (true) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
             String[] splitString = line.split(" ");
-            if (splitString[0].equals("bye")) {
+
+            switch (splitString[0]) {
+            case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 createLine();
-                break;
-            } else if (line.equals("list")) {
+                return true;
+            case "list":
                 displayList(taskList);
                 createLine();
-            } else if (splitString[0].equals("mark")) {
-                String[] words = line.split(" ");
+                break;
+            case "mark":
+                words = line.split(" ");
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList[taskNum] == null) {
-                        System.out.println("Error! Task " + taskNum + " cannot be found. Enter command list to view task list.");
-                    } else {
-                        taskList[taskNum].markAsDone();
+                        throw new RoleyPoleyException("markError");
                     }
+                    taskList[taskNum].markAsDone();
                     createLine();
                 }
-            } else if (splitString[0].equals("unmark")) {
-                String[] words = line.split(" ");
+                break;
+            case "unmark":
+                words = line.split(" ");
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList[taskNum] == null) {
-                        System.out.println("Error! Task " + taskNum + " cannot be found. Enter command list to view task list.");
-                    } else {
-                        taskList[taskNum].markAsUndone();
+                        throw new RoleyPoleyException("unmarkError");
                     }
+                    taskList[taskNum].markAsUndone();
                     createLine();
                 }
-            } else if (splitString[0].equals("todo")) {
-                String description = line.substring("todo".length());
-                taskList[counter] = new Todo(description);
-                printReply(taskList, counter);
-                createLine();
-                counter++;
-            } else if (splitString[0].equals("deadline")) {
-                String[] words = line.split("/by");
-                if (words.length == 1) {
-                    System.out.println("Invalid entry. Please enter input in the following format:");
-                    System.out.println("deadline <Task Description> /by <Due Date>");
+                break;
+            case "todo":
+                description = line.substring("todo".length());
+                if (description.isEmpty() || description.equals(" ")) {
+                    throw new RoleyPoleyException("toDoError");
                 } else {
-                    String description = words[0].substring("deadline".length());
+                    taskList[counter] = new Todo(description);
+                    printReply(taskList, counter);
+                    createLine();
+                    counter++;
+                }
+                break;
+            case "deadline":
+                words = line.split("/by");
+                if (words.length == 1) {
+                    throw new RoleyPoleyException("deadlineError");
+                } else {
+                    description = words[0].substring("deadline".length());
                     String dueDate = words[1];
                     taskList[counter] = new Deadline(description, dueDate);
                     printReply(taskList, counter);
                     createLine();
                     counter++;
                 }
-            } else if (splitString[0].equals("event")) {
-                String[] words = line.split("/from");
+                break;
+            case "event":
+                words = line.split("/from");
                 if (words.length == 1) {
-                    System.out.println("Invalid entry. Please enter input in the following format:");
-                    System.out.println("event <Task Description> /from <Start Time> /to <End Time");
+                    throw new RoleyPoleyException("eventError");
                 } else {
-                    String description = words[0].substring("event".length());
+                    description = words[0].substring("event".length());
                     int indexOfEndTime = words[1].indexOf("/to");
                     if (indexOfEndTime == -1) {
-                        System.out.println("Invalid entry. Please enter input in the following format:");
-                        System.out.println("event <Task Description> /from <Start Time> /to <End Time");
+                        throw new RoleyPoleyException("eventError");
                     } else {
                         String startTime = words[1].substring(0, indexOfEndTime - 1);
                         String endTime = words[1].substring(indexOfEndTime + "/to".length());
@@ -112,12 +132,9 @@ public class RoleyPoley {
                         counter++;
                     }
                 }
-            } else {
-                taskList[counter] = new Todo(" " + line);
-                System.out.println("Task type not defined. Task is automatically assigned to todo task type.");
-                printReply(taskList, counter);
-                createLine();
-                counter++;
+                break;
+            default:
+                throw new RoleyPoleyException("defaultError");
             }
         }
     }
