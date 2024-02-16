@@ -1,3 +1,9 @@
+package kurobot;
+
+import kurobot.exceptions.InvalidCommandException;
+import kurobot.exceptions.InvalidDescriptionException;
+import kurobot.exceptions.InvalidTimeException;
+
 import java.util.Scanner;
 
 public class KuroBot {
@@ -136,7 +142,7 @@ public class KuroBot {
         }
     }
 
-    private static void manageTasks(String input) throws InvalidCommandException{
+    private static void manageTasks(String input) throws InvalidCommandException {
         //extract command keyword from input
         String[] words = input.split(" ",2);
         //first phrase given is the command keyword
