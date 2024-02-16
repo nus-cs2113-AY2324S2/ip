@@ -37,24 +37,49 @@ public class Daisy {
                     System.out.println(tasks[Integer.parseInt(separate_commands[1])-1]);
                     break;
                 case "todo":
-                    Todo newTodo = new Todo(separate_commands[1]);
-                    addItem(newTodo);
+                    try {
+                        Todo newTodo = new Todo(separate_commands[1]);
+                        addItem(newTodo);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Error! No event detected for todo. Try again!");
+                    }
                     break;
                 case "deadline":
-                    String[] separate_deadlines = separate_commands[1].split(" /by ");
-                    Deadline newDeadline = new Deadline(separate_deadlines[0],separate_deadlines[1]);
-                    addItem(newDeadline);
+                    try {
+                        String[] separate_deadlines = separate_commands[1].split(" /by ");
+                        if (separate_deadlines.length < 2) {
+                            throw new IllegalDeadlineFormatException();
+                        }
+                        Deadline newDeadline = new Deadline(separate_deadlines[0],separate_deadlines[1]);
+                        addItem(newDeadline);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Error! No event detected for deadline. Try again!");
+                    } catch (IllegalDeadlineFormatException e) {
+                        System.out.println("Error! Deadline entry is not following format. Try again!");
+                    }
                     break;
                 case "event":
-                    String eventLine = separate_commands[1];
-                    int from = eventLine.indexOf(" /from ");
-                    int to = eventLine.indexOf(" /to ");
-                    Event newEvent = new Event(eventLine.substring(0, from),eventLine.substring(from + " /from ".length(), to), eventLine.substring(to+" /to ".length()));
-                    addItem(newEvent);
+                    try {
+                        String eventLine = separate_commands[1];
+                        int from = eventLine.indexOf(" /from ");
+                        int to = eventLine.indexOf(" /to ");
+                        if (from == -1 || to == -1 ) {
+                            throw new IllegalEventFormatException();
+                        }
+                        Event newEvent = new Event(eventLine.substring(0, from),eventLine.substring(from + " /from ".length(), to), eventLine.substring(to+" /to ".length()));
+                        addItem(newEvent);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Error! No event detected for event. Try again!");
+                    } catch (IllegalEventFormatException e){
+                        System.out.println("Error! Event entry is not following format. Try again!");
+                    }
                     break;
                 default:
-                    Task newTask = new Task(command);
-                    addItem(newTask);
+                    try {
+                        throw new IllegalEntryException();
+                    } catch (IllegalEntryException e){
+                        System.out.println("Your input does not match any of my programs! Try again!");
+                    }
                     break;
             }
             System.out.println(LINE_BREAK);
