@@ -23,6 +23,7 @@ public class Task {
         String indexToMark = description.substring(description.lastIndexOf(" ") + 1);
         return Integer.parseInt(indexToMark) - 1;
     }
+
     public String toString() {
         return "[" + getStatusIcon() + "]" + description;
     }

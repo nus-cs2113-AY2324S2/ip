@@ -4,12 +4,17 @@ public class Todo extends Task{
         super(description);
     }
 
-    public String editTodo(String description) {
-        return description.replace("todo", "");
+    public static Task fromString(String line) throws MissingParameterException {
+        String todo = line.replace("todo", "");
+        String todoName = todo.trim();
+        if(todoName.isEmpty()) {
+            throw new MissingParameterException("todo");
+        }
+        return new Todo(todoName);
     }
 
     @Override
     public String toString() {
-        return "[T]" + editTodo(super.toString());
+        return "[T]" + super.toString();
     }
 }

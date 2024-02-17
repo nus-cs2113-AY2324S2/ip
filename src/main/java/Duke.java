@@ -1,11 +1,31 @@
 import java.util.Scanner;
 
-public class Duke  {
+public class Duke {
     private static final Task[] tasks = new Task[100];
     private static int taskCount = 0;
-    public static void addTask(Task t) {
-        tasks[taskCount] = t;
+    public static void addTask(String line) {
+        Greet greet = new Greet();
+        Task task;
+        try {
+            if(line.startsWith("event")) {
+                task = Event.fromString(line);
+            } else if(line.startsWith("deadline")) {
+                task = Deadline.fromString(line);
+            } else {
+                task = Todo.fromString(line);
+            }
+        } catch(MissingParameterException e) {
+            greet.printError(e.getMessage());
+            return;
+        }
+        tasks[taskCount] = task;
         taskCount++;
+
+        greet.printFormat();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        greet.printNumTasks(taskCount);
+        greet.printFormat();
     }
 
     public static void printList() {
@@ -19,6 +39,25 @@ public class Duke  {
             System.out.println(t);
         }
     }
+
+    public static void validate(String description) {
+        Greet greet = new Greet();
+        try {
+            checkForError(description);
+        } catch (DukeException e) {
+            greet.printInvalidDescription();
+        }
+    }
+
+    private static void checkForError(String description) throws DukeException {
+        if(!description.contains("list") && !description.contains("event") && !description.contains("deadline") && !description.contains("todo") && !description.contains("mark")) {
+            throw new DukeException();
+        }
+        if(description.trim().isEmpty()) {
+            throw new DukeException();
+        }
+    }
+
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -38,78 +77,48 @@ public class Duke  {
             if(line.equals("bye")) {
                 break;
             }
+            validate(line);
             if(line.startsWith("list")) {
-                greet.printHyphen();
-                System.out.println();
+                greet.printFormat();
                 printList();
-                greet.printHyphen();
-                System.out.println();
+                greet.printFormat();
                 continue;
             }
             Task t = new Task(line);
             if(line.startsWith("mark")) {
                 int indexToMark = t.taskIndex(line);
-                Task taskToMark = tasks[indexToMark];
-                greet.printHyphen();
-                System.out.println();
-                taskToMark.setIsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(taskToMark);
-                greet.printHyphen();
-                System.out.println();
+                if (greet.isWithinBounds(taskCount, indexToMark)) {
+                    Task taskToMark = tasks[indexToMark];
+                    greet.printFormat();
+                    taskToMark.setIsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(taskToMark);
+                    greet.printFormat();
+                }
                 continue;
             }
             if(line.startsWith("unmark")) {
                 int indexToUnmark = t.taskIndex(line);
-                Task taskToUnmark = tasks[indexToUnmark];
-                greet.printHyphen();
-                System.out.println();
-                taskToUnmark.setIsNotDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(taskToUnmark);
-                greet.printHyphen();
-                System.out.println();
+                if (greet.isWithinBounds(taskCount, indexToUnmark)) {
+                    Task taskToUnmark = tasks[indexToUnmark];
+                    greet.printFormat();
+                    taskToUnmark.setIsNotDone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(taskToUnmark);
+                    greet.printFormat();
+                }
                 continue;
             }
             if(line.startsWith("todo")) {
-                Todo todo = new Todo(line);
-                addTask(todo);
-                greet.printHyphen();
-                System.out.println();
-                System.out.println("Got it. I've added this task:");
-                System.out.println(todo);
-                greet.printNumTasks(taskCount);
-                greet.printHyphen();
-                System.out.println();
+                addTask(line);
                 continue;
             }
             if(line.startsWith("deadline")) {
-                String[] segments = line.split("/");
-                String by = segments[segments.length-1];
-                Deadline d = new Deadline(line, by.replace("by", ""));
-                addTask(d);
-                greet.printHyphen();
-                System.out.println();
-                System.out.println("Got it. I've added this task:");
-                System.out.println(d);
-                greet.printNumTasks(taskCount);
-                greet.printHyphen();
-                System.out.println();
+                addTask(line);
                 continue;
             }
             if(line.startsWith("event")) {
-                String[] segments = line.split("/");
-                String from = segments[segments.length-2].replace("from", "");
-                String to = segments[segments.length-1].replace("to", "");
-                Event e = new Event(line, from, to);
-                addTask(e);
-                greet.printHyphen();
-                System.out.println();
-                System.out.println("Got it. I've added this task:");
-                System.out.println(e);
-                greet.printNumTasks(taskCount);
-                greet.printHyphen();
-                System.out.println();
+                addTask(line);
             }
         }
         greet.sayBye();
