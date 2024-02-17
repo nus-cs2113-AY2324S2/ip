@@ -23,5 +23,9 @@ public class Event extends Task {
         super.unMarkTask();
         wrapEchoMessage("     Noted. Get it done soon...\n       "+toString());
     }
+    @Override
+    public String saveFormat(){
+        return String.format("E # %d # %s # %s # %s", super.isDone?1:0, super.description, this.from, this.to);
+    }
 
 }
