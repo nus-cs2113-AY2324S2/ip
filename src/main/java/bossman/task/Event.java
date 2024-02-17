@@ -6,7 +6,7 @@ public class Event extends Todo {
         super(task, isMark);
         this.FROM = from;
         this.TO = to;
-        this.typeSymbol = "E";
+        this.typeSymbol = "[E]";
     }
 
     @Override

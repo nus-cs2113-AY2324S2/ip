@@ -2,7 +2,7 @@ package bossman.task;
 public class Todo extends Task {
     public Todo(String task, boolean isMark) {
         super(task, isMark);
-        this.typeSymbol = "T";
+        this.typeSymbol = "[T]";
     }
 
     @Override

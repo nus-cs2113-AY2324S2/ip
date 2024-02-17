@@ -4,7 +4,7 @@ public class Deadline extends Todo {
     public Deadline(String task, boolean isMark, String by) {
         super(task, isMark);
         this.BY = by;
-        this.typeSymbol = "D";
+        this.typeSymbol = "[D]";
     }
 
     @Override
