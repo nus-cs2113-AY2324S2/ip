@@ -50,7 +50,7 @@ public class Kratos {
                 "───────────────▀──────────────\n";
         System.out.println(logo);
         System.out.println(LINE);
-        System.out.println("Kratos commends you for your presence. Prepare for battle. \n" +
+        System.out.println("Kratos commends you for your presence. Prepare for battle.\n" +
                         "Enter your commands with purpose.");
         System.out.println(LINE);
     }
@@ -58,7 +58,7 @@ public class Kratos {
     // Method to say goodbye
     public static void end() {
         System.out.println(LINE);
-        System.out.println("            Until the next battle, mortal. \n" +
+        System.out.println("            Until the next battle, mortal.\n" +
                 "May your tasks be conquered with the ferocity of a god.");
         System.out.println(LINE);
     }
@@ -72,7 +72,7 @@ public class Kratos {
             tasksList[taskNumber].markTask();
         } else {
             displayString = "Task restored from the depths of completion.\n" +
-                    "A twist of fate, mortal. What now? \n" +
+                    "A twist of fate, mortal. What now?\n" +
                     "Reclaim victory or face the abyss once more.";
             tasksList[taskNumber].unmarkTask();
         }
@@ -180,7 +180,7 @@ public class Kratos {
         tasksList[count] = new Deadline(item, date);
         count++;
         System.out.println(LINE);
-        System.out.println("Deadline acknowledged. Time ticks away, mortal. \n" +
+        System.out.println("Deadline acknowledged. Time ticks away, mortal.\n" +
                 "What next? Embrace purpose or succumb to chaos?" );
         System.out.println(LINE);
     }
