@@ -1,4 +1,3 @@
-import javax.swing.undo.UndoManager;
 import java.util.Scanner;
 
 public class Console {
@@ -26,9 +25,9 @@ public class Console {
         System.out.println(LINEBREAK);
     }
 
-    public static void printErrorMessage() {
+    public static void printCommandErrorMessage() {
         System.out.println(LINEBREAK);
-        System.out.println(ERROR);
+        System.out.println(COMMAND_ERROR);
         System.out.println(LINEBREAK);
     }
 

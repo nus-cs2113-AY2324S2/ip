@@ -11,7 +11,7 @@ public enum Command {
         try {
             return Command.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e) {
-            Console.printErrorMessage();
+            Console.printCommandErrorMessage();
             return null;
         }
     }
