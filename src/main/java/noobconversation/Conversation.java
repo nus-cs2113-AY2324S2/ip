@@ -60,7 +60,7 @@ public class Conversation {
                         + "|_|  \\____| |___| |___| |_____|\n";
         System.out.println("Hello from\n" + logo);
         f.dividingLine();
-        System.out.println("\tHi!, I'm 'noobconversation.Noob'");
+        System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
         f.dividingLine();
         describeFunctionality();

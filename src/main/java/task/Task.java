@@ -1,6 +1,6 @@
 package task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected String identity;
@@ -8,7 +8,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        identity = "[ ]";
     }
 
     public String getStatusIcon() {

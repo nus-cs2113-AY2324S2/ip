@@ -1,6 +1,6 @@
 # User guide of chatbot noobconversation.Noob
 
-Hi, this chatbot is still a noobconversation.Noob.  
+Hi, this chatbot is still a Noob.  
 ***Need upgrade.......***    
 He has following features:
 
@@ -14,7 +14,7 @@ He can store what you type as a task
 * Type `todo` + `taskContent` to record a **todo** task 
 * Type `deadline` + `taskContent` + `/by` + `dates/times` to record a **deadline** task
 * Type `event` + `taskContent` + `/from` + `dates/times` + `/to` + `dates/times` to record a **event** task
-~~I won't tell you he can only store 100 tasks~~
+
 
 ## Feature: List
 
