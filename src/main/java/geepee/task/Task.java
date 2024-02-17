@@ -21,4 +21,8 @@ public abstract class Task {
     public String toString() {
         return String.format("[" + getStatusIcon() + "] " + description);
     }
+
+    public String toFileFriendlyString() {
+        return String.format(getStatusIcon() + ";" + description);
+    }
 }

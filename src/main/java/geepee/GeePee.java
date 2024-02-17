@@ -4,41 +4,35 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import geepee.system.*;
+import geepee.task.*;
 import geepee.task.list.*;
 import geepee.exceptions.*;
 
 public class GeePee {
 
-    private static void handleTodo(List list, FileHandler fileHandler, String line) {
+    private static void handleTodo(List list, String line) {
         try {
             String todoDescription = InputParser.getTodoDescription(line);
             list.addTodo(todoDescription);
-            fileHandler.appendToFile("T;" + todoDescription + System.lineSeparator());
         } catch (EmptyDescriptionException e) {
             SystemMessage.printEmptyTodoDescriptionMessage();
-        } catch (IOException e) {
-            System.out.println("File not found!");
         }
     }
 
-    private static void handleDeadline(List list, FileHandler fileHandler, String line) {
+    private static void handleDeadline(List list, String line) {
         try {
             int byIndex = line.indexOf("/by");
             String deadlineDescription = InputParser.getDeadlineDescription(line, byIndex);
             String deadlineBy = InputParser.getDeadlineBy(line, byIndex);
             list.addDeadline(deadlineDescription, deadlineBy);
-            fileHandler.appendToFile("D;" + deadlineDescription + ";" +
-                    deadlineBy + System.lineSeparator());
         } catch (EmptyDescriptionException e) {
             SystemMessage.printEmptyDeadlineDescriptionMessage();
         } catch (MissingDeadlineException e) {
             SystemMessage.printMissingDeadlineMessage();
-        } catch (IOException e) {
-            System.out.println("File not found!");
         }
     }
 
-    private static void handleEvent(List list, FileHandler fileHandler, String line) {
+    private static void handleEvent(List list, String line) {
         try {
             int fromIndex = line.indexOf("/from");
             int toIndex = line.indexOf("/to", fromIndex + 1);
@@ -46,20 +40,16 @@ public class GeePee {
             String eventFrom = InputParser.getEventFrom(line, fromIndex, toIndex);
             String eventTo = InputParser.getEventTo(line, toIndex);
             list.addEvent(eventDescription, eventFrom, eventTo);
-            fileHandler.appendToFile("E;" + eventDescription + ";" + eventFrom + ";"
-                    + eventTo + ";" + System.lineSeparator());
         } catch (EmptyDescriptionException e) {
             SystemMessage.printEmptyEventDescriptionMessage();
         } catch (MissingFromException e) {
             SystemMessage.printMissingFromMessage();
         } catch (MissingToException e) {
             SystemMessage.printMissingToMessage();
-        } catch (IOException e) {
-            System.out.println("File not found!");
         }
     }
 
-    private static void handleTaskStatusChange(List list, FileHandler fileHandler, String line) {
+    private static void handleTaskStatusChange(List list, String line) {
         String[] words = line.split(" ");
         int number = Integer.parseInt(words[1]);
         if (number >= 0 && number <= list.getSize()) {
@@ -67,22 +57,35 @@ public class GeePee {
         }
     }
 
-    private static void handleUserInput(List list, FileHandler fileHandler, String line) throws InvalidCommandException {
+    private static void handleUserInput(List list, String line)
+            throws InvalidCommandException {
         String command = line.split(" ")[0];
         if (command.equals("") || command.equals("bye")) {
             return;
         } else if (command.equals("list")) {
             ListMessage.printAllTasks(list);
         } else if (command.equals("mark") || command.equals("unmark")) {
-            handleTaskStatusChange(list, fileHandler, line);
+            handleTaskStatusChange(list, line);
         } else if (command.equals("todo")) {
-            handleTodo(list, fileHandler, line);
+            handleTodo(list, line);
         } else if (command.equals("deadline")) {
-            handleDeadline(list, fileHandler, line);
+            handleDeadline(list, line);
         } else if (command.equals("event")) {
-            handleEvent(list, fileHandler, line);
+            handleEvent(list, line);
         } else {
             throw new InvalidCommandException();
+        }
+    }
+
+    private static void updateFile(Task[] tasks, List list, FileHandler fileHandler) {
+        try {
+            String newData = "";
+            for (int i = 0; i < list.getSize(); i++) {
+                newData += tasks[i].toFileFriendlyString() + System.lineSeparator();
+            }
+            fileHandler.writeToFile(newData);
+        } catch (IOException e) {
+            System.out.println("Unable to append!");
         }
     }
 
@@ -95,7 +98,9 @@ public class GeePee {
         while (!line.equals("bye")) {
             line = in.nextLine().trim();
             try {
-                handleUserInput(list, fileHandler, line);
+                handleUserInput(list, line);
+                Task[] tasks = list.getTasks();
+                updateFile(tasks, list, fileHandler);
             } catch (InvalidCommandException e) {
                 SystemMessage.printInvalidCommandMessage();
             }
@@ -104,7 +109,6 @@ public class GeePee {
 
     public static void main(String[] args) {
         SystemMessage.printWelcomeMessage();
-        File f = new File("data/data.txt");
         initialiseLoop();
         SystemMessage.printExitMessage();
     }
