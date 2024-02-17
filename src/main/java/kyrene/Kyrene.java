@@ -2,6 +2,8 @@ package kyrene;
 
 import kyrene.task.*;
 import kyrene.exception.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Kyrene {
@@ -17,10 +19,9 @@ public class Kyrene {
     final static String ERROR_TASK_NOT_EXIST = "    Error! This task does not exist.\n";
     final static String ERROR_MISSING_TASK = "    Error! Your task description is missing.\n    For creating tasks, please type \"[task type (todo/deadline/event)] [task description]\"([] is to be omitted).\n    For example:\n        todo have a nice day\n    or\n        deadline get a cup of coffee /by 9am\n    or\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
     final static String ERROR_MISSING_TIME = "    Error! Your deadline/event task created is incomplete in terms of time.\n    For creating deadline task, please type \"deadline [task description] /by [time]\"([] is to be omitted).\n    For example:\n        deadline get a cup of coffee /by 9pm\n    For creating event task, please type \"event [task description] /from [starting time] /to [ending time]\"([] is to be omitted).\n    For example:\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
-    final static String ERROR_INVALID_COMMAND = "   Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark\n        unmark\n        [task type (todo/deadline/event)] [task description]\n        bye\n";
-    final static int MAX_ARRAY_LENGTH = 100;
+    final static String ERROR_INVALID_COMMAND = "    Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark\n        unmark\n        [task type (todo/deadline/event)] [task description]\n        bye\n";
 
-    public static Task[] tasks = new Task[MAX_ARRAY_LENGTH];
+    public static ArrayList<Task> tasks = new ArrayList<>();
     public static int taskCount = 0;
 
     public static void initKyrene() {
@@ -43,14 +44,14 @@ public class Kyrene {
         switch (classType) {
         case "todo":
             try {
-                tasks[taskCount] = new Todo(sentence.substring(5));
+                tasks.add(new Todo(sentence.substring(5)));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             }
             break;
         case "deadline":
             try {
-                tasks[taskCount] = new Deadline(sentence.substring(9));
+                tasks.add(new Deadline(sentence.substring(9)));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
@@ -61,7 +62,7 @@ public class Kyrene {
             break;
         case "event":
             try {
-                tasks[taskCount] = new Event(sentence.substring(6));
+                tasks.add(new Event(sentence.substring(6)));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
@@ -74,33 +75,38 @@ public class Kyrene {
             throw new KyreneInvalidCommandException();
         }
 
-        System.out.printf("    Task has been successfully added: %s\n", tasks[taskCount].toString());
-        taskCount++;
-        if(taskCount == 1){
-            System.out.printf("    Now you have %d task(including finished ones) in your list.\n\n", taskCount);
-        }
-        else{
-            System.out.printf("    Now you have %d tasks(including finished ones) in your list.\n\n", taskCount);
-        }
+        int taskCount = tasks.size();
+        System.out.printf("    Task has been successfully added: %s\n", tasks.get(taskCount - 1).toString());
+        printTaskCount();
         printDivider();
-
     }
 
     public static void markTask(int taskNumber) throws KyreneTaskNotFoundException {
-        if (taskNumber < 1 || taskNumber > taskCount) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new KyreneTaskNotFoundException();
         }
-        tasks[taskNumber - 1].setDone(true);
+        tasks.get(taskNumber - 1).setDone(true);
         System.out.printf("    Congrats! Task %d is done!\n\n", taskNumber);
         printDivider();
     }
 
     public static void unmarkTask(int taskNumber) throws KyreneTaskNotFoundException {
-        if (taskNumber < 1 || taskNumber > taskCount) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new KyreneTaskNotFoundException();
         }
-        tasks[taskNumber - 1].setDone(false);
+        tasks.get(taskNumber - 1).setDone(false);
         System.out.printf("    Task %d is marked as not done.\n\n", taskNumber);
+        printDivider();
+    }
+
+    public static void deleteTask(int taskNumber) throws KyreneTaskNotFoundException {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new KyreneTaskNotFoundException();
+        }
+        Task taskDeleted = tasks.get(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
+        System.out.printf("    Sure! I have successfully deleted this task from your list:\n        %s\n", taskDeleted.toString());
+        printTaskCount();
         printDivider();
     }
 
@@ -108,10 +114,20 @@ public class Kyrene {
         System.out.printf("%s\n", DIVIDER);
     }
 
+    public static void printTaskCount() {
+        taskCount = tasks.size();
+        if(taskCount < 2){
+            System.out.printf("    Now you have %d task(including finished ones) in your list.\n\n", taskCount);
+        }
+        else{
+            System.out.printf("    Now you have %d tasks(including finished ones) in your list.\n\n", taskCount);
+        }
+    }
+
     public static void printTasks() {
         System.out.println("    Here is your to-do list:");
-        for(int i = 0; i < taskCount; i++){
-            System.out.printf("        %d.%s\n", i + 1, tasks[i].toString());
+        for(int i = 0; i < tasks.size(); i++){
+            System.out.printf("        %d.%s\n", i + 1, tasks.get(i).toString());
         }
         System.out.print("\n");
     }
@@ -135,7 +151,7 @@ public class Kyrene {
             break;
         case "mark":
             try {
-                taskNumber = Integer.parseInt(sentence.substring(5));
+                taskNumber = Integer.parseInt(commands[1]);
                 markTask(taskNumber);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
                 System.out.println(ERROR_TASK_NOT_EXIST);
@@ -144,8 +160,17 @@ public class Kyrene {
             break;
         case "unmark":
             try {
-                taskNumber = Integer.parseInt(sentence.substring(7));
+                taskNumber = Integer.parseInt(commands[1]);
                 unmarkTask(taskNumber);
+            } catch (NumberFormatException | KyreneTaskNotFoundException e) {
+                System.out.println(ERROR_TASK_NOT_EXIST);
+                printDivider();
+            }
+            break;
+        case "delete":
+            try {
+                taskNumber = Integer.parseInt(commands[1]);
+                deleteTask(taskNumber);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
                 System.out.println(ERROR_TASK_NOT_EXIST);
                 printDivider();
