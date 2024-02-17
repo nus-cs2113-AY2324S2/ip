@@ -17,6 +17,32 @@ public class TaskManager {
         this.taskCount = 0;
     }
 
+    public List<List<String>> tokenizeTasks() {
+        List<List<String>> tokenizedTaskList = new ArrayList<>();
+
+        for (Task task : tasks) {
+            List<String> token = new ArrayList<>();
+            token.add("T");
+            token.add(task.getCompletionStatus());
+            token.add(task.getTaskName());
+
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                token.set(0, "D");
+                token.add(deadline.getDueDate());
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                token.set(0, "E");
+                token.add(event.getStartDate());
+                token.add(event.getEndDate());
+            }
+
+            tokenizedTaskList.add(token);
+        }
+
+        return tokenizedTaskList;
+    }
+
     /**
      * Add new Task to Task array
      */

@@ -6,7 +6,10 @@ import bob.exceptions.InvalidTaskNumberException;
 import bob.utils.Command;
 import bob.utils.Parser;
 import bob.utils.TaskManager;
+import bob.utils.StateManager;
 import bob.utils.Ui;
+
+import java.io.IOException;
 
 public class Bob {
     public String executeCommand(Command userCommand, TaskManager manager, Parser inputParser) throws
@@ -72,8 +75,15 @@ public class Bob {
         userInterface.printLogo();
         userInterface.printWelcome();
 
-        TaskManager manager = new TaskManager();
+        TaskManager manager;
         Parser inputParser = new Parser();
+
+        try {
+            manager = StateManager.loadState();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            manager = new TaskManager();
+        }
 
         while (inputParser.hasMoreInput()) {
             try {
@@ -81,17 +91,15 @@ public class Bob {
 
                 if (inputParser.isDone(userCommand)) {
                     // Check if "bye" command was given as input
+                    StateManager.saveState(manager);
                     break;
                 }
 
                 String executionResult = executeCommand(userCommand, manager, inputParser);
                 userInterface.print(executionResult);
-            } catch (InvalidCommandException invalidCommandException) {
-                userInterface.print(invalidCommandException.getMessage());
-            } catch (InvalidTaskNumberException invalidTaskNumberException) {
-                userInterface.print(invalidTaskNumberException.getMessage());
-            } catch (InvalidArgumentException invalidArgumentException) {
-                userInterface.print(invalidArgumentException.getMessage());
+            } catch (IOException | InvalidCommandException | InvalidTaskNumberException |
+                     InvalidArgumentException exception) {
+                userInterface.print(exception.getMessage());
             }
         }
 

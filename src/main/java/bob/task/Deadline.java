@@ -13,6 +13,10 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    public String getDueDate() {
+        return this.dueDate;
+    }
+
     public Task markTaskAsComplete() {
         return new Deadline(this.taskName, true, this.dueDate);
     }
