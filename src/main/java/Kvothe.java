@@ -78,9 +78,9 @@ public class Kvothe {
     }
 
     private static void delete(int index) {
-        echo("Noted. I've removed this task:\n\t\t" + tasks.get(index - 1));
+        echo("Noted. I've removed this task:\n\t\t" + tasks.get(index - 1), true,false );
         tasks.remove(index - 1);
-        echo("Now you have " + tasks.size() + " tasks in the list.");
+        echo("Now you have " + tasks.size() + " tasks in the list.", false, true);
     }
 
     private static void list() {
@@ -160,7 +160,7 @@ public class Kvothe {
                     delete(taskNumber);
                     break;
                 default:
-                    throw new WrongArgumentsException("Sorry. I do not support the method." + command);
+                    throw new WrongArgumentsException("Sorry. I do not support the method " + command);
                 }
             }catch (WrongArgumentsException e) {
                 echo(e.toString());
