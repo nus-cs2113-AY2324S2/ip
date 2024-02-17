@@ -32,7 +32,7 @@ public class Duke {
     public static void printCommands(){
         printLine();
         System.out.println("    These are the commands available:");
-        System.out.println("    list\n    mark\n    unmark\n    todo\n    deadline\n    event\n    help");
+        System.out.println("    list\n    mark\n    unmark\n    todo\n    deadline\n    event\n    delete\n    help");
         printLine();
     }
 
@@ -51,7 +51,7 @@ public class Duke {
     }
     public static void main(String[] args) {
         // Creates a class of TaskList
-        TaskList taskList = new TaskList(100);
+        TaskList taskList = new TaskList();
         String line;
         Scanner in = new Scanner(System.in);
         boolean userSaidBye = false;
@@ -134,6 +134,17 @@ public class Duke {
                     System.out.println("     Got it. I've added this task:");
                     System.out.println("       " + newTask);
                     System.out.println("     Now you have " + taskList.getNoOfTasks() + " tasks in the list.");
+                    printLine();
+
+                } else if (line.startsWith("delete")){
+                    // Deletes the task in the list
+                    String[] sentence = line.split(" ");
+                    if(sentence.length < 2 || !isNumeric(sentence[1])){
+                        throw new DukeException("Please do not give a non numeric or empty description\nDelete format: delete 1");
+                    }
+                    printLine();
+                    System.out.println("     Fine! I've removed this task:");
+                    taskList.removeTask(Integer.parseInt(sentence[1]));
                     printLine();
 
                 } else if (line.startsWith("help")){
