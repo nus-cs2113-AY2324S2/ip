@@ -1,18 +1,20 @@
 package bob.utils;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import bob.task.Deadline;
 import bob.task.Event;
 import bob.task.Task;
 import bob.task.Todo;
 
 public class TaskManager {
-    private final Task[] tasks;
+    private final List<Task> tasks;
     private int nextTaskId;
     private int taskCount;
-    private static final int MAX_TASK_COUNT = 100;
 
     public TaskManager() {
-        this.tasks = new Task[MAX_TASK_COUNT]; // Assumption that there will never be more than 100 tasks
+        this.tasks = new ArrayList<>();
         this.nextTaskId = 1;
         this.taskCount = 0;
     }
@@ -20,11 +22,10 @@ public class TaskManager {
     /**
      * Add new Task to Task array
      */
-    private String addNewTask(Task newTask, int taskId) {
+    private String addNewTask(Task newTask) {
         String output = " Got it. I've added this task:\n";
-        int currentIndex = taskId - 1;
 
-        tasks[currentIndex] = newTask;
+        tasks.add(newTask);
         nextTaskId++;
         taskCount++;
 
@@ -36,17 +37,17 @@ public class TaskManager {
 
     public String addTodo(String taskName) {
         Task newTodo = new Todo(taskName, nextTaskId);
-        return addNewTask(newTodo, nextTaskId);
+        return addNewTask(newTodo);
     }
 
     public String addDeadline(String taskName, String dueDate) {
         Task newDeadline = new Deadline(taskName, nextTaskId, dueDate);
-        return addNewTask(newDeadline, nextTaskId);
+        return addNewTask(newDeadline);
     }
 
     public String addEvent(String taskName, String startDate, String endDate) {
         Task newEvent = new Event(taskName, nextTaskId, startDate, endDate);
-        return addNewTask(newEvent, nextTaskId);
+        return addNewTask(newEvent);
     }
 
     /**
@@ -56,7 +57,7 @@ public class TaskManager {
         StringBuilder output = new StringBuilder(" Here are the tasks in your list:\n");
 
         for (int i = 0; i < taskCount; i++) {
-            Task currentTask = tasks[i];
+            Task currentTask = tasks.get(i);
             output.append(String.format(" %d.%s\n", currentTask.getTaskId(), currentTask));
         }
 
@@ -69,7 +70,7 @@ public class TaskManager {
     public String updateTaskProgress(int taskId, Command command) {
         String output;
         int currentTaskIndex = taskId - 1; // Index in array is ID - 1
-        Task currentTask = tasks[currentTaskIndex];
+        Task currentTask = tasks.get(currentTaskIndex);
 
         if (command.equals(Command.MARK)) {
             output = " Nice! I've marked this task as done:\n";
@@ -81,7 +82,7 @@ public class TaskManager {
 
         output += String.format("   %s", currentTask);
 
-        tasks[currentTaskIndex] = currentTask; // Update array
+        tasks.set(currentTaskIndex, currentTask); // Update array
 
         return output;
     }
