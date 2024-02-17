@@ -22,3 +22,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Local state files
 /data/
 /text-ui-test/data/
+
+# IntelliJ JAR build files
+src/main/java/META-INF/
