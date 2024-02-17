@@ -143,16 +143,30 @@ public class Command {
         case "MARK":
             try {
                 taskList.markTask(Integer.parseInt(this.arguments) - 1);
-            } catch (NumberFormatException exception ) {
+            } catch (NumberFormatException exception) {
                 ui.printMarkCommandUsage();
+            } catch (IndexOutOfBoundsException exception) {
+                ui.printIndexOutOfBoundsMessage("mark");
             }
             break;
 
         case "UNMARK":
             try {
                 taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
-            } catch (NumberFormatException exception ) {
+            } catch (NumberFormatException exception) {
                 ui.printUnmarkCommandUsage();
+            } catch (IndexOutOfBoundsException exception) {
+                ui.printIndexOutOfBoundsMessage("unmark");
+            }
+            break;
+            
+        case "DELETE":
+            try {
+                taskList.deleteTask(Integer.parseInt(this.arguments) - 1);
+            } catch (NumberFormatException exception) {
+                ui.printDeleteCommandUsage();
+            } catch (IndexOutOfBoundsException exception) {
+                ui.printIndexOutOfBoundsMessage("delete");
             }
             break;
 

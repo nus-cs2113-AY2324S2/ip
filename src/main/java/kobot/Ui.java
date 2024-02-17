@@ -29,7 +29,7 @@ public class Ui {
         System.out.println("Bye, hope to see you again!");
     }
 
-    public String receiveInput(Scanner in) throws NoSuchElementException {
+    public String receiveInput(Scanner in) {
         printLineDivider();
         System.out.print("> ");
         String input = "";
@@ -50,6 +50,10 @@ public class Ui {
 
     public void printMissingArgumentErrorMessage() {
         System.out.println("Missing information. Please try again.");
+    }
+    
+    public void printIndexOutOfBoundsMessage(String action) {
+        System.out.println("Invalid index. Failed to " + action + " item.");
     }
 
     public void printToDoCommandUsage() {
@@ -75,5 +79,10 @@ public class Ui {
     public void printUnmarkCommandUsage() {
         System.out.println("Command to mark task as not completed:");
         System.out.println("unmark <task index>");
+    }
+
+    public void printDeleteCommandUsage() {
+        System.out.println("Command to delete task:");
+        System.out.println("delete <task index>");
     }
 }

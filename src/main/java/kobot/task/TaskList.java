@@ -1,13 +1,9 @@
 package kobot.task;
 
-import kobot.task.Deadline;
-import kobot.task.Event;
-import kobot.task.Task;
-import kobot.task.ToDo;
+import java.util.ArrayList;
 
 public class TaskList {
-    private static final int MAX_TASK_COUNT = 100;
-    private Task[] taskList = new Task[MAX_TASK_COUNT];
+    private ArrayList<Task> taskList = new ArrayList<>();
     private int taskCount = 0;
 
     /**
@@ -16,9 +12,10 @@ public class TaskList {
      * @param description Description of the task.
      */
     public void addToDo(String description) {
-        taskList[taskCount] = new ToDo(description);
+        ToDo newTodo = new ToDo(description);
+        taskList.add(newTodo);
         System.out.println("Task has been added to list:");
-        System.out.println(taskList[taskCount]);
+        System.out.println(newTodo);
         taskCount++;
     }
 
@@ -29,9 +26,10 @@ public class TaskList {
      * @param by Date/Time that the task has to be completed by.
      */
     public void addDeadline(String description, String by) {
-        taskList[taskCount] = new Deadline(description, by);
+        Deadline newDeadline = new Deadline(description, by);
+        taskList.add(newDeadline);
         System.out.println("Deadline has been added to list:");
-        System.out.println(taskList[taskCount]);
+        System.out.println(newDeadline);
         taskCount++;
     }
 
@@ -43,9 +41,10 @@ public class TaskList {
      * @param to Date/Time that the task ends.
      */
     public void addEvent(String description, String from, String to) {
-        taskList[taskCount] = new Event(description, from, to);
+        Event newEvent = new Event(description, from, to);
+        taskList.add(newEvent);
         System.out.println("Event has been added to list:");
-        System.out.println(taskList[taskCount]);
+        System.out.println(newEvent);
         taskCount++;
     }
 
@@ -54,9 +53,12 @@ public class TaskList {
      */
     public void printTaskList() {
         System.out.println("Your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.print(i+1 + ". ");
-            System.out.println(taskList[i]);
+        
+        int index = 1;
+        for (Task task : taskList) {
+            System.out.print(index + ". ");
+            System.out.println(task);
+            index++;
         }
     }
 
@@ -65,13 +67,10 @@ public class TaskList {
      *
      * @param index Index of the task to mark as done.
      */
-    public void markTask(int index) throws NumberFormatException {
-        if (index >= taskCount || index < 0) {
-            System.out.println("Failed to mark item " + (index + 1) + ". Index out of range.");
-            return;
-        }
-        taskList[index].markAsDone();
-        System.out.println("Nice! I've marked this task as done: " + taskList[index].getDescription());
+    public void markTask(int index) throws NumberFormatException, IndexOutOfBoundsException {
+        Task task = taskList.get(index);
+        task.markAsDone();
+        System.out.println("Nice! I've marked this task as done: " + task.getDescription());
     }
 
     /**
@@ -79,12 +78,20 @@ public class TaskList {
      *
      * @param index Index of the task to mark as not done.
      */
-    public void unmarkTask(int index) throws NumberFormatException {
-        if (index >= taskCount || index < 0) {
-            System.out.println("Failed to unmark item " + (index + 1) + ". Index out of range.");
-            return;
-        }
-        taskList[index].markAsNotDone();
-        System.out.println("Okay, I've marked this task as not done yet: " + taskList[index].getDescription());
+    public void unmarkTask(int index) throws NumberFormatException, IndexOutOfBoundsException {
+        Task task = taskList.get(index);
+        task.markAsNotDone();
+        System.out.println("Okay, I've marked this task as not done yet: " + task.getDescription());
+    }
+
+    /**
+     * Deletes a specified task from task list.
+     *
+     * @param index Index of the task to delete.
+     */
+    public void deleteTask(int index) throws NumberFormatException, IndexOutOfBoundsException {
+        Task task = taskList.get(index);
+        taskList.remove(index);
+        System.out.println("Item has been deleted: " + task.getDescription());
     }
 }
