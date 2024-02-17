@@ -71,6 +71,21 @@ public class Yuki {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    private static void markTask(String line, String cmd) throws YukiExceptions.InvalidIndexException {
+        int indexTask;
+        indexTask = Integer.parseInt(line.split(" ")[1]);
+        if (indexTask < 0 || indexTask > tasks.size()) {
+            throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
+        }
+        if (cmd.equals("mark")){
+            tasks.get(indexTask - 1).markAsDone();
+        } else if (cmd.equals("unmark")) {
+            tasks.get(indexTask - 1).markAsUndone();
+        } else {
+            System.out.println("invalid command in mark method");
+        }
+    }
+
     public static void main(String[] args) {
         Utils.printWelcomeMessage();
 
@@ -79,7 +94,6 @@ public class Yuki {
         line = in.nextLine();
 
         String command;
-        int indexTask;
 
         while (!line.equals("exit")) {
             Utils.printLine();
@@ -90,14 +104,20 @@ public class Yuki {
                 listTasks();
                 break;
             case "mark":
-                indexTask = Integer.parseInt(line.split(" ")[1]) - 1;
-                // add invalid index exception
-                tasks.get(indexTask).markAsDone();
+                try {
+                    markTask(line, "mark");
+                } catch (YukiExceptions.InvalidIndexException e) {
+                    System.out.println(e);
+                    listTasks();
+                }
                 break;
             case "unmark":
-                // add invalid index exception
-                indexTask = Integer.parseInt(line.split(" ")[1]) - 1;
-                tasks.get(indexTask).markAsUndone();
+                try {
+                    markTask(line, "unmark");
+                } catch (YukiExceptions.InvalidIndexException e) {
+                    System.out.println(e);
+                    listTasks();
+                }
                 break;
             case "todo":
                 try {
