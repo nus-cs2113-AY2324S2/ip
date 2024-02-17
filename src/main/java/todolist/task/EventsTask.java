@@ -16,6 +16,17 @@ public class EventsTask extends Task {
         this.endDate = endDate;
     }
 
+    public EventsTask(String name, boolean isDone, String startDate, String endDate) {
+        super(name, isDone);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    @Override
+    public String storeDataString() {
+        return "E" + "|" + (this.isDone ? 1 : 0) + "|" + this.name + "|" + this.startDate + "|" + this.endDate;
+    }
+
     /**
      * Get the full String representation of the task
      * @return the full String of the task

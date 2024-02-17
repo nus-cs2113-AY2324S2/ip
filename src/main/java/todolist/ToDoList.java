@@ -1,9 +1,18 @@
 package todolist;
 import todolist.keywordfinder.Keyword;
 import todolist.keywordfinder.KeywordPatternMatcher;
+import todolist.task.DeadLinesTask;
+import todolist.task.EventsTask;
 import todolist.task.Task;
+import todolist.task.ToDoTask;
+
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class ToDoList {
     private final ArrayList<Task> toDoListArray;
@@ -96,6 +105,11 @@ public class ToDoList {
                 }
             }
             messageDivider();
+            try {
+                writeToFile();
+            } catch (IOException e) {
+                System.out.println("File does not exist, please do not delete any files");
+            }
         }
     }
 
@@ -154,6 +168,7 @@ public class ToDoList {
         System.out.println("[list] Show your Todolist tasks");
         System.out.println("[mark X] Mark number X task as Done");
         System.out.println("[unmark X] Mark number X task as UnDone");
+        System.out.println("[delete X] Delete number X task");
         System.out.println("[todo XXX] Add a todo task");
         System.out.println("[deadline XXX /by XXX] Add a deadline task");
         System.out.println("[event XXX /from XXX /to XXX] Add a Event task");
@@ -170,4 +185,55 @@ public class ToDoList {
     public static void messageDivider() {
         System.out.println("------------------------------------------");
     }
+
+    private void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("ChatBBTData.txt");
+        fw.write(storeDataString());
+        fw.close();
+    }
+
+    private String storeDataString() {
+        StringBuilder dataString = new StringBuilder();
+        for (Task task : this.toDoListArray) {
+            dataString.append(task.storeDataString()).append("\n");
+        }
+        dataString.append("#end");
+        return dataString.toString();
+    }
+
+    public void loadData() {
+        String filePath = "ChatBBTData.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while (!Objects.equals(line = reader.readLine(), "#end")) {
+                char isDone = line.charAt(2);
+                switch(line.charAt(0)){
+                case 'E' :
+                    //get name
+                    int splitIndexEvent1 = line.indexOf('|',4);
+                    //get start and end time
+                    int splitIndexEvent2 = line.indexOf('|',splitIndexEvent1 + 1);
+                    this.toDoListArray.add(new EventsTask(line.substring(4,splitIndexEvent1 - 1),
+                            isDone != '0',
+                            line.substring(splitIndexEvent1 + 1, splitIndexEvent2 -1),
+                            line.substring(splitIndexEvent2 + 1)));
+                    break;
+                case 'T' :
+                    this.toDoListArray.add(new ToDoTask(line.substring(4), isDone != '0'));
+                    break;
+                case 'D' :
+                    int splitIndexDeadline = line.indexOf('|',4);
+                    this.toDoListArray.add(new DeadLinesTask(line.substring(4,splitIndexDeadline - 1),
+                            isDone != '0',
+                            line.substring(splitIndexDeadline + 1)));
+                    break;
+                default:
+                    throw new IOException();
+                }
+            }
+        } catch (IOException | StringIndexOutOfBoundsException e) {
+            System.err.println("Data file damaged, please continue");
+        }
+    }
+
 }
