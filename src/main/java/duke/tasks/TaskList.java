@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class TaskList {
     /** Array of tasks */
     private Task[] tasks;
