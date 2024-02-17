@@ -7,7 +7,6 @@ import java.util.Scanner;
 import static main.Command.*;
 import static storage.Storage.loadData;
 
-
 public class Duke {
     public static void userInput() throws DukeException {
         Scanner scanner = new Scanner(System.in);
@@ -36,6 +35,7 @@ public class Duke {
 
                 case "mark":
                 case "unmark":
+
                     userMarkOrUnmark(command, userInput, taskList, stringList);
                     continue;
 
@@ -72,11 +72,11 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-        System.out.println("""
-                ____________________________________________________________
-                Hello! I'm Bob
-                What can I do for you?
-                ____________________________________________________________""");
+        System.out.println("____________________________________________________________\n" +
+                           "Hello! I'm Bob\n" +
+                           "What can I do for you?\n" +
+                           "____________________________________________________________");
+
         userInput();
     }
 }

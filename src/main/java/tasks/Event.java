@@ -2,6 +2,7 @@ package tasks;
 import main.DukeException;
 
 public class Event extends Task {
+
     protected boolean newInput;
     public Event(String description, boolean newInput) {
         super(description);

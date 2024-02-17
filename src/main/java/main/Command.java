@@ -11,8 +11,7 @@ public class Command {
     public enum Commands {
         Todo, Deadline, Event
     }
-    static ArrayList<Task> changePresentationFormat(ArrayList<String> listString) throws DukeExceptio
-    n {
+    static ArrayList<Task> changePresentationFormat(ArrayList<String> listString) throws DukeException {
         ArrayList<Task> listTask = new ArrayList<>();
         String[] splitEntireLine, splitInput;
         String mark, command;
@@ -23,12 +22,20 @@ public class Command {
             splitInput = splitEntireLine[1].split(" ");
             command = splitInput[0];
 
-            t = switch (command) {
-                case "todo" -> new Todo(splitEntireLine[1], false);
-                case "deadline" -> new Deadline(splitEntireLine[1], false);
-                case "event" -> new Event(splitEntireLine[1], false);
-                default -> null;
-            };
+            switch (command) {
+                case "todo":
+                    t = new Todo(splitEntireLine[1], false);
+                    break;
+                case "deadline":
+                    t = new Deadline(splitEntireLine[1], false);
+                    break;
+                case "event":
+                    t = new Event(splitEntireLine[1], false);
+                    break;
+                default:
+                    t = null;
+                    break;
+            }
 
             if (mark.equals("Marked")) {
                 assert t != null;
@@ -47,9 +54,9 @@ public class Command {
             listString.remove(index);
             saveData(listString);
             System.out.println("____________________________________________________________\n" +
-                    "Noted. I've removed this task:\n" +
-                    t + "\n" +
-                    "Now you have " + list.size() + " tasks in the list.");
+                               "Noted. I've removed this task:\n" +
+                               t + "\n" +
+                               "Now you have " + list.size() + " tasks in the list.");
         } catch(IndexOutOfBoundsException e) {
             System.out.println("Invalid index, please try again!");
             return false;
@@ -61,49 +68,56 @@ public class Command {
         Task t;
         boolean success = true;
 
+
         switch (typeOfTask) {
             case Todo:
                 if (checkMinimumArguments(splitLine, 2)) {
-                    try {
-                        t = new Todo(line, true);
-                        System.out.println(t);
-                        list.add(t);
-                    } catch (RuntimeException e) {
-                        System.out.println("Invalid Syntax, please try again!");
-                    }
+                    success = false;
+                    break;
                 }
-                success = false;
+                try {
+                    t = new Todo(line, true);
+                    System.out.println(t);
+                    list.add(t);
+                } catch (RuntimeException e) {
+                    System.out.println("Invalid Syntax, please try again!");
+                    success = false;
+                }
                 break;
-
 
             case Deadline:
                 if (checkMinimumArguments(splitLine, 4)) {
-                    try {
-                        t = new Deadline(line, true);
-                        System.out.println(t);
-                        list.add(t);
-                    } catch (DukeException e) {
-                        System.out.println("Invalid Syntax, please try again!");
-                    }
+                    success = false;
+                    break;
                 }
-                success = false;
+                try {
+                    t = new Deadline(line, true);
+                    System.out.println(t);
+                    list.add(t);
+                } catch (DukeException e) {
+                    System.out.println("Invalid Syntax, please try again!");
+                    success = false;
+                }
                 break;
-
 
             case Event:
                 if (checkMinimumArguments(splitLine, 8)) {
-                    try {
-                        t = new Event(line, true);
-                        System.out.println(t);
-                        list.add(t);
-                    } catch (RuntimeException e) {
-                        System.out.println("Invalid Syntax, please try again!");
-                    }
+                    success = false;
+                    break;
                 }
-                success = false;
+                try {
+                    t = new Event(line, true);
+                    System.out.println(t);
+                    list.add(t);
+                } catch (RuntimeException e) {
+                    System.out.println("Invalid Syntax, please try again!");
+                    success = false;
+                }
                 break;
+
         }
         return success;
+
     }
 
 
@@ -169,10 +183,11 @@ public class Command {
             }
         } catch (DukeException e) {
             System.out.println("Minimally " + number + " arguments, please try again!");
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
+
     public static void saveDataIntoBothArrays (ArrayList<Task> list, ArrayList<String> listString, String line) {
         String savedLine;
         savedLine = "notMarked:" + line;
