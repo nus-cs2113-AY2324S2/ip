@@ -27,15 +27,36 @@ public class Arriky {
 
             switch (arguments[0]) {
             case "bye":
-                endSession();
-                running = false;
+                try {
+                    if (arguments.length != 1) {
+                        throw new IncorrectArgumentAmountException();
+                    }
+                    endSession();
+                    running = false;
+                } catch (IncorrectArgumentAmountException e) {
+                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_0);
+                    printSeparation();
+                }
+
                 break;
             case "list":
-                tl.listTasks();
-                printSeparation();
+                try {
+                    if (arguments.length != 1) {
+                        throw new IncorrectArgumentAmountException();
+                    }
+                    tl.listTasks();
+                    printSeparation();
+                } catch (IncorrectArgumentAmountException e) {
+                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_0);
+                    printSeparation();
+                }
+
                 break;
             case "mark":
                 try {
+                    if (arguments.length != 2) {
+                        throw new IncorrectArgumentAmountException();
+                    }
                     tl.markDone(Integer.parseInt(arguments[1]) - 1);
                     printSeparation();
                 } catch (NumberFormatException e) {
@@ -44,10 +65,16 @@ public class Arriky {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(em.ID_NOT_EXIST);
                     printSeparation();
+                } catch (IncorrectArgumentAmountException e) {
+                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_1);
+                    printSeparation();
                 }
                 break;
             case "unmark":
                 try {
+                    if (arguments.length != 2) {
+                        throw new IncorrectArgumentAmountException();
+                    }
                     tl.unmarkDone(Integer.parseInt(arguments[1]) - 1);
                     printSeparation();
                 } catch (NumberFormatException e) {
@@ -55,6 +82,9 @@ public class Arriky {
                     printSeparation();
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(em.ID_NOT_EXIST);
+                    printSeparation();
+                } catch (IncorrectArgumentAmountException e) {
+                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_1);
                     printSeparation();
                 }
                 break;
