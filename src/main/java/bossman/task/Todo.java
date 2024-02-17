@@ -1,12 +1,12 @@
 package bossman.task;
 public class Todo extends Task {
-    private final String TYPE_SYMBOL = "[T]";
-    public Todo(String task) {
-        super(task);
+    public Todo(String task, boolean isMark) {
+        super(task, isMark);
+        this.typeSymbol = "T";
     }
 
     @Override
-    public String getTypeSymbol() {
-        return TYPE_SYMBOL;
+    public String formatForSave() {
+        return "T" + "," + isMark + "," + DESCRIPTION ;
     }
 }
