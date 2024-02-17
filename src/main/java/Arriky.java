@@ -12,38 +12,53 @@ public class Arriky {
 
         while(running) {
             String command = "";
+            // for UI testing, to prevent "no line found" exception
             if (sc.hasNextLine()) {
                 command = sc.nextLine();
             } else {
+                running = false;
                 System.exit(0);
             }
+
             printSeparation();
 
             String[] arguments = command.split(" ");
 
-            if (arguments[0].equals("bye")) {
+            switch (arguments[0]) {
+            case "bye":
                 endSession();
                 running = false;
-            } else if (arguments[0].equals("list")) {
+                break;
+            case "list":
                 tl.listTasks();
                 printSeparation();
-            } else if (arguments[0].equals("mark")) {
+                break;
+            case "mark":
                 tl.markDone(Integer.parseInt(arguments[1]) - 1);
                 printSeparation();
-            } else if (arguments[0].equals("unmark")) {
+                break;
+            case "unmark":
                 tl.unmarkDone(Integer.parseInt(arguments[1]) - 1);
                 printSeparation();
-            } else if (arguments[0].equals("todo")) {
+                break;
+            case "todo":
                 String taskName = command.substring(5);
                 tl.addToDo(taskName);
                 printSeparation();
-            } else if (arguments[0].equals("deadline")) {
+                break;
+            case "deadline": {
                 String[] segments = command.split(" /by ");
                 tl.addDeadline(segments[0].substring(9), segments[1]);
-            } else if (arguments[0].equals("event")) {
+                break;
+            }
+            case "event": {
                 String[] segments = command.split(" /");
                 tl.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3));
-            } else {}
+                break;
+            }
+            default:
+                break;
+            }
         }
     }
 
