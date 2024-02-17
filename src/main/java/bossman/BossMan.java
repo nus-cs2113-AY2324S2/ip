@@ -43,6 +43,7 @@ public class BossMan {
                      InvalidDeadlineCommandException |
                      InvalidEventCommandException |
                      InvalidDeleteCommandException |
+                     IndexOutOfBoundsException |
                      NumberFormatException e) {
                 System.out.println(e.getMessage() + "\n" + SEP);
             }
@@ -55,7 +56,9 @@ public class BossMan {
             InvalidTodoCommandException,
             InvalidDeadlineCommandException,
             InvalidEventCommandException,
-            NumberFormatException, InvalidDeleteCommandException {
+            NumberFormatException,
+            IndexOutOfBoundsException,
+            InvalidDeleteCommandException {
 
         String[] parts = parseUserInput(userInput);
 
@@ -159,12 +162,14 @@ public class BossMan {
         echo(eventTask);
     }
 
-    private void handleDeleteCommand(String commandArgs) throws InvalidDeleteCommandException {
+    private void handleDeleteCommand(String commandArgs)
+            throws InvalidDeleteCommandException,
+            IndexOutOfBoundsException {
 
         try {
             int number = Integer.parseInt(commandArgs);
             TASK_LIST.removeTask(number);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidDeleteCommandException("Invalid delete command");
         }
 

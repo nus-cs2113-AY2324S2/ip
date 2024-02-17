@@ -16,9 +16,10 @@ public class TaskList {
     }
 
 
-    public void removeTask(int num) {
+    public void removeTask(int num) throws IndexOutOfBoundsException {
+        Task toDeleteTask = TASKS.get(num - 1);
         System.out.print("Removed task: ");
-        TASKS.get(num - 1).printTask();
+        toDeleteTask.printTask();
         System.out.println("\n" + SEP);
         TASKS.remove(num - 1);
     }
