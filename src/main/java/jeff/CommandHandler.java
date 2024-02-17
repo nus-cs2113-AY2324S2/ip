@@ -89,6 +89,23 @@ public class CommandHandler {
         }
     }
 
+    public static void handleDelete(String userInput) throws InvalidDeleteSyntaxException {
+        if (TaskList.isEmpty()) {
+            Printer.printUnableToDelete();
+            return;
+        }
+        if (userInput.equals("delete")) {
+            throw new InvalidDeleteSyntaxException();
+        }
+        try {
+            int currentIndex = Integer.parseInt(userInput.substring(UNMARK_INDEX)) - 1;
+            Task deletedTask = TaskList.remove(currentIndex);
+            Printer.printDeleteTask(deletedTask);
+        } catch (Exception e) {
+            throw new InvalidDeleteSyntaxException();
+        }
+    }
+
     public static void handleBye() {
         Printer.printBye();
     }
