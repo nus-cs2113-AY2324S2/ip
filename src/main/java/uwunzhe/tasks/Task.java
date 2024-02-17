@@ -77,4 +77,6 @@ public abstract class Task {
         return String.format("[%s] %s",
                 completion, this.name);
     }
+
+    public abstract String toStorageString(String delimiter);
 }

@@ -14,6 +14,16 @@ public class TaskList {
     private static int size = 0;
 
     /**
+     * List access operator.
+     * 
+     * @param index
+     * @return Task
+     */
+    public Task getTask(int index) {
+        return list.get(index);
+    }
+
+    /**
      * Returns the size of the list.
      * 
      * @param None
@@ -163,6 +173,17 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new UwunzheException("ACKSHUALLY you are missing something...");
         }
+    }
+
+    /**
+     * Adds a task object to the list. Updates size.
+     * 
+     * @param task
+     * @return None
+     */
+    public void addItem(Task task) {
+        list.add(task);
+        size++;
     }
 
     /**

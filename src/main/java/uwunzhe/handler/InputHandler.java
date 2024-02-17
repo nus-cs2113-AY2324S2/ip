@@ -19,15 +19,15 @@ public class InputHandler {
      * Parses the input and calls the appropriate function.
      * 
      * @param input The input from the user.
-     * @return None
+     * @return If the task list was updated.
      * @throws UwunzheException
      */
-    public void praseInput(String input) throws UwunzheException {
+    public boolean parseInput(String input) throws UwunzheException {
         String[] splitInput = input.split(" ", 2);
         String command = splitInput[0].toLowerCase();
         String taskString = splitInput.length > 1 ? splitInput[1] : "";
         
-        parseCommand(command, taskString);
+        return parseCommand(command, taskString);
     }
 
     /**
@@ -36,11 +36,13 @@ public class InputHandler {
      * @param taskList The list of tasks.
      * @param command The command from the user.
      * @param taskString The task from the user.
-     * @return None
+     * @return If the task list was updated.
      * @throws UwunzheException
      */
-    public void parseCommand (String command, String taskString)
+    public boolean parseCommand (String command, String taskString)
             throws UwunzheException {
+        boolean isUpdated = false;
+
         switch (command) {
         case "list":
             // Print the list if input is "list"
@@ -50,12 +52,14 @@ public class InputHandler {
         case "mark":
         case "unmark":
             this.taskList.setItemStatus(command, taskString);
+            isUpdated = true;
             break;
 
         case "todo":
         case "deadline":
         case "event":
             this.taskList.addItem(command, taskString);
+            isUpdated = true;
             break;
 
         case "delete":
@@ -66,5 +70,7 @@ public class InputHandler {
             // Add message for invalid input
             throw new UwunzheException("OH NO! I cannot understand!");
         }
+        
+        return isUpdated;
     }
 }
