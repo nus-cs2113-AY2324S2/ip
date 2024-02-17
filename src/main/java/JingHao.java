@@ -84,6 +84,9 @@ public class JingHao {
         case "event":
             handleEventCommand(description);
             break;
+        case "delete":
+            handleDeleteCommand(description);
+            break;
         default:
             System.out.println("unknown command\n" + LINE_SEP);
         }
@@ -95,12 +98,14 @@ public class JingHao {
     }
 
     private void handleListCommand(){
-        if (numberOfTask == 0) {
+        if (taskList.isEmpty()) {
             System.out.println("You have no task\n"+ LINE_SEP);
         } else {
             System.out.println("Here are the tasks in your list:");
+            int i = 1;
             for (Task item: taskList) {
-                System.out.println(item);
+                System.out.println( i + "." +item);
+                i++;
             }
             System.out.println(LINE_SEP);
         }
@@ -173,6 +178,18 @@ public class JingHao {
         System.out.println("Got it. I've added this task:\n " +newEvent);
         printTotalTask();
         System.out.println(LINE_SEP);
+    }
+
+    private void handleDeleteCommand(String userInput){
+        try {
+            int index = Integer.parseInt(userInput) - 1 ;
+            System.out.println("Noted. I have removed this task:\n" +
+                    taskList.get(index) + "\n" + LINE_SEP);
+            taskList.remove(index);
+        }
+        catch (Exception e) {
+            System.out.println("Invalid index. Please try again\n" + LINE_SEP);
+        }
     }
 
     private void printTotalTask(){
