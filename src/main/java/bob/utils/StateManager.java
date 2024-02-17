@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StateManager {
-    private static final String DATA_STATE_FILEPATH = "src/main/data/state.txt";
+    private static final String DATA_STATE_FILEPATH = "data/state.txt";
 
     public static void saveState(TaskManager taskManager) throws IOException {
         List<List<String>> tokenizedTasks = taskManager.tokenizeTasks();
@@ -51,7 +51,7 @@ public class StateManager {
         return new TaskManager();
     }
 
-    public static TaskManager loadTasksFromStream(Stream<String> taskStream) {
+    private static TaskManager loadTasksFromStream(Stream<String> taskStream) {
         // Process Stream<String> into List<List<String>>; tokenize inputs
         List<List<String>> result = taskStream.map(x -> Arrays
                 .stream(x.split("\\|"))
@@ -59,8 +59,8 @@ public class StateManager {
                 .collect(Collectors.toList())
         ).collect(Collectors.toList());
 
-        TaskManager tm = new TaskManager();
-        int counter = 1;
+        TaskManager taskManager = new TaskManager();
+        int currentTaskId = 1;
 
         for (List<String> tokenizedTask : result) {
             String taskType = tokenizedTask.get(0);
@@ -69,26 +69,26 @@ public class StateManager {
 
             switch (taskType) {
             case "T":
-                tm.addTodo(taskName);
+                taskManager.addTodo(taskName);
                 break;
             case "D":
                 String taskDueDate = tokenizedTask.get(3);
-                tm.addDeadline(taskName, taskDueDate);
+                taskManager.addDeadline(taskName, taskDueDate);
                 break;
             case "E":
                 String taskStartDate = tokenizedTask.get(3);
                 String taskEndDate = tokenizedTask.get(4);
-                tm.addEvent(taskName, taskStartDate, taskEndDate);
+                taskManager.addEvent(taskName, taskStartDate, taskEndDate);
                 break;
             }
 
             if (taskCompletionStatus.equals("1")) {
-                tm.updateTaskProgress(counter, Command.MARK);
+                taskManager.updateTaskProgress(currentTaskId, Command.MARK);
             }
 
-            counter++;
+            currentTaskId++;
         }
 
-        return tm;
+        return taskManager;
     }
 }
