@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.ScatteringByteChannel;
 import java.util.Scanner;
@@ -47,6 +48,9 @@ public class ChatBBT {
             // Check if the file already exists
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getAbsolutePath());
+                FileWriter fw = new FileWriter("ChatBBTData.txt");
+                fw.write("#end");
+                fw.close();
             } else {
                 System.out.println("App data stored in " + file.getAbsolutePath());
             }
