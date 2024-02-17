@@ -15,6 +15,14 @@ public class TaskList {
         TASKS.add(task);
     }
 
+
+    public void removeTask(int num) {
+        System.out.print("Removed task: ");
+        TASKS.get(num - 1).printTask();
+        System.out.println("\n" + SEP);
+        TASKS.remove(num - 1);
+    }
+
     public void printTasks() {
         System.out.println("Todo List:");
 
