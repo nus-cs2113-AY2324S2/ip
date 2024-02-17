@@ -1,80 +1,68 @@
 import java.util.Scanner;
 
 public class Chris {
+    protected static int taskCount = 0;
+    protected static Task[] taskList = new Task[100];
     public static void main(String[] args) {
-        System.out.println("------------------------------------------------");
+        printLine();
         System.out.println("Hello, I am Chris");
+        printLine();
+        menu();
+    }
+
+    public static void printLine() {
         System.out.println("------------------------------------------------");
-        boolean done = false;
-        Scanner in = new Scanner(System.in);
-        Task[] taskList = new Task[100];
-        int taskCount = 0;
-        while (!done) {
-            System.out.println("How can I help you today?");
-            System.out.println("1) Task List");
-            System.out.println("2) Add tasks");
-            System.out.println("3) Remove tasks");
-            System.out.println("4) Mark Tasks");
-            System.out.println("5) Quit");
-            String line = in.nextLine();
-            switch (line) {
-                case "1":
-                    if (taskCount == 0) {
-                        System.out.println("List is empty.");
-                    } else {
-                        for (int i = 0; i < taskCount; i++) {
-                            System.out.print(i + 1);
-                            System.out.print(". ");
-                            System.out.println(taskList[i]);
-                        }
-                    }
-                    break;
-                case "2":
-                    System.out.println("Type of task: ");
-                    String taskType = in.nextLine();
-                    System.out.println("Description of task: ");
-                    String taskDescription = in.nextLine();
-                    switch (taskType) {
-                        case "T":
-                            taskList[taskCount] = new ToDo(taskDescription);
-                            taskCount++;
-                            break;
-                        case "D":
-                            System.out.println("By: ");
-                            String taskby = in.nextLine();
-                            taskList[taskCount] = new Deadline(taskDescription, taskby);
-                            taskCount++;
-                            break;
-                        case "E":
-                            System.out.println("From: ");
-                            String taskFrom = in.nextLine();
-                            System.out.println("To: ");
-                            String taskTo = in.nextLine();
-                            taskList[taskCount] = new Event(taskDescription, taskFrom, taskTo);
-                            taskCount++;
-                            break;
-                        default:
-                            taskList[taskCount] = new Task(taskDescription);
-                            taskCount++;
-                            break;
-                    }
-                    break;
-                case "3":
-                    System.out.println("Currently unavailable.");
-                    break;
-                case "4":
-                    System.out.println("Which task do you want to mark?");
-                    int taskNumber = Integer.parseInt(in.nextLine());
-                    taskList[taskNumber - 1].markTask();
-                    break;
-                case "5":
-                    done = true;
-                    break;
-                default:
-                    System.out.println("Please enter again: ");
-                    break;
+    }
+
+    public static void printList() {
+        if (taskCount == 0) {
+            System.out.println("Sorry, there are no tasks currently.");
+            printLine();
+        } else {
+            System.out.println("Here are you current tasks!");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.print(i + 1);
+                System.out.print(". ");
+                System.out.println(taskList[i]);
             }
         }
-        System.out.println("Thank you! Have a nice day!");
+    }
+
+    public static void menu() {
+        boolean done = false;
+        Scanner in = new Scanner(System.in);
+        while (!done) {
+            System.out.println("What can I do for you?");
+            printLine();
+            String line = in.nextLine();
+            if (line.startsWith("todo")) {
+                taskList[taskCount] = new ToDo(line.substring(5));
+                taskCount++;
+                System.out.println("ToDo added!");
+                printLine();
+            } else if (line.startsWith("deadline")) {
+                taskList[taskCount] = new Deadline(line.substring(9).split("/by"));
+                taskCount++;
+                System.out.println("Deadline added!");
+                printLine();
+            } else if (line.startsWith("event")) {
+                taskList[taskCount] = new Event(line.substring(6).split("/from|/to"));
+                taskCount++;
+                System.out.println("Event added!");
+                printLine();
+            } else if (line.startsWith("mark")) {
+                String taskNumber = line.substring(5);
+                taskList[Integer.parseInt(taskNumber) - 1].markTask();
+            } else if (line.startsWith("list")) {
+                printList();
+            } else if (line.startsWith("quit")) {
+                System.out.println("Goodbye, have a nice day!");
+                printLine();
+                break;
+            } else {
+                System.out.println("Sorry, I don't recognise that command.");
+                printLine();
+            }
+        }
     }
 }
