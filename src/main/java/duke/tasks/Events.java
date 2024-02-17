@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class Events extends Task{
     /** Task start date */
     private String startDate;
