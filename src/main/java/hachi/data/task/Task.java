@@ -74,6 +74,10 @@ public class Task {
         return totalNumTasks;
     }
 
+    public static void decrementTotalNumTasks() {
+        totalNumTasks -= 1;
+    }
+
     /**
      * Checks the completeness status of a task and returns to the
      * caller the status icon of the task.
