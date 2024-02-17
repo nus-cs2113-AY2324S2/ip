@@ -11,7 +11,12 @@ public class Arriky {
         boolean running = true;
 
         while(running) {
-            String command = sc.nextLine();
+            String command = "";
+            if (sc.hasNextLine()) {
+                command = sc.nextLine();
+            } else {
+                System.exit(0);
+            }
             printSeparation();
 
             String[] arguments = command.split(" ");
@@ -38,7 +43,7 @@ public class Arriky {
             } else if (arguments[0].equals("event")) {
                 String[] segments = command.split(" /");
                 tl.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3));
-            }
+            } else {}
         }
     }
 
