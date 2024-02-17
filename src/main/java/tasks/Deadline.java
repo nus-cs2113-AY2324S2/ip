@@ -5,9 +5,16 @@ import main.DukeException;
 
 public class Deadline extends Task {
 
-    public Deadline(String description, int index) throws DukeException {
-        super(description, index); // Automatically invokes the constructor of Task
+    protected boolean newInput;
+
+    public Deadline(String description, boolean newInput) throws DukeException {
+        super(description, newInput); // Automatically invokes the constructor of Task
+        setNewInput(newInput);
         toPrint();
+    }
+
+    public void setNewInput(boolean newInput) {
+        this.newInput = newInput;
     }
     public String getBy() throws DukeException{
         String[] splitLine = description.split("/by");
@@ -29,8 +36,9 @@ public class Deadline extends Task {
     }
     public void toPrint() throws DukeException {
         if (getBy() != null) {
-            printHeaders();
-            System.out.println(this);
+            if (newInput) {
+                printHeaders();
+            }
         }
     }
 }

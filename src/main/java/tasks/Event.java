@@ -5,10 +5,15 @@ import main.DukeException;
 public class Event extends Task {
     protected String from;
     protected String to;
+    protected boolean newInput;
 
-    public Event(String description, int index) {
-        super(description, index);
+    public Event(String description, boolean newInput) {
+        super(description, newInput);
+        setNewInput(newInput);
         toPrint();
+    }
+    public void setNewInput(boolean newInput) {
+        this.newInput = newInput;
     }
 
     @Override
@@ -22,16 +27,16 @@ public class Event extends Task {
             }
             date = " (from:" + durationLine[0]  + "to:" + durationLine[1] + ")";
 
-        return "[E]" + super.toString() + date;
-    } catch (DukeException e) {
+            return "[E]" + super.toString() + date;
+        } catch (DukeException e) {
             throw new RuntimeException(e);
         }
     }
     public void toPrint() {
         if (toString() != null) {
-            printHeaders();
-            System.out.println(this);
+            if (newInput) {
+                printHeaders();
+            }
         }
     }
 }
-

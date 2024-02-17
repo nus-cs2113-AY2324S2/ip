@@ -5,13 +5,12 @@ public class Task {
     // 3 class attributes
     protected String description;
     public boolean isDone;
-    public int index;
 
     // constructor
-    public Task(String description, int index) {
+    public Task(String description, boolean newInput) {
         setDescription(description);
         setDone();
-        setCounter(index);
+        //setCounter(index);
     }
 
     // Set for description attribute
@@ -24,10 +23,6 @@ public class Task {
         this.isDone = false;
     }
 
-    // Set index attribute of the task
-    public void setCounter(int index) {
-        this.index = index;
-    }
 
     // Get status icon
     public String getStatusIcon() {
