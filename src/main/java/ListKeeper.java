@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class ListKeeper {
     private ArrayList<Task> tasks;
@@ -10,16 +11,14 @@ public class ListKeeper {
     public void addToList(Task task) {
         this.tasks.add(task);
         // Provide feedback to user
-        System.out.println("I have added this task:");
-        System.out.println(task);
+        System.out.println("Added task: " + task);
     }
 
     public void deleteTask(int taskIndex) {
         Task removedTask = this.tasks.get(taskIndex - 1);
         this.tasks.remove(taskIndex - 1);
         // Provide feedback
-        System.out.println("I have removed this task:");
-        System.out.println(removedTask);
+        System.out.println("Removed task: " + removedTask);
     }
 
     public void printList() {
@@ -36,5 +35,20 @@ public class ListKeeper {
     public void processMark(int inputIndex, boolean isCompleted) {
         Task task = this.tasks.get(inputIndex - 1);
         task.mark(isCompleted);
+    }
+
+    public void saveTasksData(SaveManager saveManager) {
+        try {
+            saveManager.clearFile();
+            if (this.tasks.isEmpty()) {
+                return;
+            }
+            for (Task task : this.tasks) {
+                System.out.println("Saving: " + task);
+                saveManager.writeToFile(task.getStringRepresentation());
+            }
+        } catch (IOException e) {
+            System.out.println("Data could not be saved");
+        }
     }
 }

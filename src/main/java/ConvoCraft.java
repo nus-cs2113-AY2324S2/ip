@@ -14,10 +14,16 @@ public class ConvoCraft {
 
     public static void main(String[] args) {
         ListKeeper listKeeper = new ListKeeper();
+        SaveManager saveManager = new SaveManager();
         LogicManager logicManager = new LogicManager(listKeeper);
         UserInterface userInterface = new UserInterface(logicManager);
+
+        saveManager.loadData(logicManager);
+
         printWelcomeMessage();
         userInterface.manageList();
         printExitMessage();
+
+        listKeeper.saveTasksData(saveManager);
     }
 }
