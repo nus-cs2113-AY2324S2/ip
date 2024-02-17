@@ -2,7 +2,7 @@ package geepee.system;
 
 import geepee.exceptions.*;
 
-public class InputParser {
+public abstract class InputParser {
 
     // constant to determine required padding to extract the name of a Todo object
     private static final int TODO_PADDING = 5;
@@ -17,6 +17,8 @@ public class InputParser {
     private static final int EVENT_PADDING = 6;
     private static final int FROM_PADDING = 5;
     private static final int TO_PADDING = 3;
+
+    private static final int TASK_INDEX = 1;
 
     public static String getTodoDescription(String line) throws EmptyDescriptionException {
         //check for empty todo description
@@ -93,5 +95,10 @@ public class InputParser {
         }
         String eventTo = line.substring(toIndex + TO_PADDING).trim();
         return eventTo;
+    }
+
+    public static int getTaskIndex(String line) {
+        String[] words = line.split(" ");
+        return Integer.parseInt(words[TASK_INDEX]) - 1;
     }
 }

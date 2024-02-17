@@ -15,7 +15,6 @@ public class Deadline extends Task {
         this.isDone = isDone;
     }
 
-
     public String toString() {
         return String.format("[D]" + super.toString() + " (by: " + by + ")");
     }

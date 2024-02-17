@@ -1,6 +1,6 @@
 package geepee.system;
 
-public class SystemMessage {
+public abstract class SystemMessage {
 
     public static final String TODO_TEMPLATE = "\"todo {description}\"";
     public static final String DEADLINE_TEMPLATE = "\"deadline {description} /by {deadline}\"";
@@ -68,6 +68,17 @@ public class SystemMessage {
         printHorizontalLine();
         System.out.println("    The end (to) of the event is missing! The correct input is " +
                 EVENT_TEMPLATE);
+        printHorizontalLine();
+    }
+
+    public static void printFileNotFoundMessage() {
+        printHorizontalLine();
+        System.out.println("    No file found! The initialised list will be empty.");
+    }
+
+    public static void printIOExceptionMessage() {
+        printHorizontalLine();
+        System.out.println("    Unable to overwrite file!");
         printHorizontalLine();
     }
 }

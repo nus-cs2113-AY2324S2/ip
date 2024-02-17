@@ -10,12 +10,12 @@ public abstract class Task {
         isDone = false;
     }
 
-    public void changeStatus(boolean isDone) {
-        this.isDone = isDone;
+    private String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
-    protected String getStatusIcon() {
-        return (isDone ? "X" : " ");
+    public void changeStatus(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String toString() {
