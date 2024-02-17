@@ -16,6 +16,14 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    public String getEndDate() {
+        return this.endDate;
+    }
+
     public Task markTaskAsComplete() {
         return new Event(this.taskName, this.taskId, true, this.startDate, this.endDate);
     }

@@ -11,6 +11,14 @@ abstract public class Task {
         this.isCompleted = isCompleted;
     }
 
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+    public String getCompletionStatus() {
+        return (this.isCompleted) ? "1" : "0";
+    }
+
     public int getTaskId() {
         return taskId;
     }
