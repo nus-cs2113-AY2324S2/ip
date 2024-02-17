@@ -58,7 +58,7 @@ public class Chris {
             } else if (line.startsWith("quit")) {
                 System.out.println("Goodbye, have a nice day!");
                 printLine();
-                done = True;
+                done = true;
             } else {
                 System.out.println("Sorry, I don't recognise that command.");
                 printLine();
