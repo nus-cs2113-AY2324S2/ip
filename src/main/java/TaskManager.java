@@ -11,6 +11,10 @@ public class TaskManager {
     private Task[] taskList;
 
     public final int MAX_TASKS = 100;
+    public final String TODO_REQUIRED_INPUTS = "'todo <task>'";
+    public final String DEADLINE_REQUIRED_INPUTS = "'Deadline <task> /by <due date>'";
+    public final String EVENT_REQUIRED_INPUTS = "'Event <task> /from <start date> /to <end date>'";
+    
 
     public TaskManager() {
         this.numItems = 0;
@@ -51,28 +55,28 @@ public class TaskManager {
 
         }
         catch (TodoLackInputsException e) {
-            System.out.println("Your Todo task description seems to be empty. What you entered was " + userInput +
-                    ". Try typing it as 'todo <task>'");
+            lackInputsErrorMessage(userInput, "todo", TODO_REQUIRED_INPUTS);
         }
         catch (DeadlineLackInputsException e) {
-            System.out.println("Your Deadline task description seems to be empty. What you entered was " + userInput +
-                    ". Try typing it as 'Deadline <task> /by <due date>'");
+            lackInputsErrorMessage(userInput, "deadline", DEADLINE_REQUIRED_INPUTS);
         }
         catch (EventLackInputsException e) {
-            System.out.println("Your Event task description seems to be empty. What you entered was " + userInput +
-                    ". Try typing it as 'Event <task> /from <start date> /to <end date>'");
+            lackInputsErrorMessage(userInput, "event", EVENT_REQUIRED_INPUTS);
         }
         catch (IndexOutOfBoundsException e) {
             // update this if /help is added
             if (userInput.contains("deadline")) {
-                System.out.println("Your Deadline task description seems to lack inputs. What you entered was " + userInput +
-                        ". Try typing it as 'Deadline <task> /by <due date>'");
+                lackInputsErrorMessage(userInput, "deadline", DEADLINE_REQUIRED_INPUTS);
             } else if (userInput.contains("event")) {
-                System.out.println("Your Event task description seems to be empty. What you entered was " + userInput +
-                        ". Try typing it as 'Event <task> /from <start date> /to <end date>'");
+                lackInputsErrorMessage(userInput, "event", EVENT_REQUIRED_INPUTS);
             }
         }
 
+    }
+
+    private static void lackInputsErrorMessage(String userInput, String errorType, String requiredInputs) {
+        System.out.println("Your " + errorType + " task description seems to lack inputs. What you entered was " + userInput +
+                ". Try typing it as " + requiredInputs);
     }
 
     public void showListContents() {
