@@ -11,6 +11,12 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    public void deleteTask(int taskIndex) {
+        System.out.println("I've removed this task: ");
+        System.out.println(" " + tasks.get(taskIndex));
+        this.tasks.remove(taskIndex);
+    }
+
     public int getTotalTaskNumber() {
         return this.tasks.size();
     }

@@ -23,6 +23,9 @@ public class LogicManager {
         case "unmark":
             markUnmarkTask(details, command.equals("mark"));
             break;
+        case "delete":
+            deleteTask(details);
+            break;
         case "bye":
             responseManager.printGoodbye();
             System.exit(0);
@@ -48,6 +51,19 @@ public class LogicManager {
     private void addTask(Task task) {
         taskList.addTask(task);
         responseManager.printAddTask(task, taskList.getTotalTaskNumber());
+    }
+
+    private void deleteTask(String details) {
+        int taskIndex = Integer.parseInt(details) - 1;
+        try {
+            if (!taskList.isCountValid(taskIndex)) {
+                throw new InvalidIndexException();
+            }
+            taskList.deleteTask(taskIndex);
+            responseManager.printLine();
+        } catch (InvalidIndexException e) {
+            ResponseManager.printErrorMessage(e.toString());
+        }
     }
 
     private void markUnmarkTask(String details, boolean isMark) {
