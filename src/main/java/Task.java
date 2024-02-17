@@ -17,7 +17,7 @@ public class Task {
         this.task = task;
         this.isMarked = false;
     }
-    public void printTask() {
+    public void print() {
         System.out.print("[" + (isMarked() ? "X" : " ") + "] ");
         System.out.println(getTask());
     }

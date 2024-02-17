@@ -6,7 +6,7 @@ public class TaskList {
             System.out.print("      ");
             Task task = taskList[i];
             System.out.print(i + 1 + ".");
-            task.printTask();
+            task.print();
         }
     }
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class TaskList {
                 int index = Integer.parseInt(line.substring(5));
                 Task markedTask = list[index - 1];
                 markedTask.setMarked(true);
-                markedTask.printTask();
+                markedTask.print();
             }
             else if (line.startsWith("unmark")) {
                 System.out.println("MOBY: OK, I've marked this task as not done yet:");
@@ -44,7 +44,7 @@ public class TaskList {
                 int index = Integer.parseInt(line.substring(7));
                 Task unmarkedTask = list[index - 1];
                 unmarkedTask.setMarked(false);
-                unmarkedTask.printTask();
+                unmarkedTask.print();
             } else {
                 Task newTask = new Task(line);
                 list[currSize++] = newTask;
