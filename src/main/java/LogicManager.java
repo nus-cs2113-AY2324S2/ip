@@ -88,6 +88,10 @@ public class LogicManager {
     }
 
     public void processCommand(String currentInput) {
+        currentInput = currentInput.trim();
+        if (currentInput.isEmpty()) {
+            return;
+        }
         try {
             executeCommand(currentInput);
         } catch (IllegalNumberOfArguments e) {
