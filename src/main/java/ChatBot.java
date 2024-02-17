@@ -17,38 +17,46 @@ public class ChatBot {
         printWelcomeMessage();
 
         while (true) {
+
             String command = in.nextLine().trim();
 
-            if (command.equalsIgnoreCase("bye")) {
-                printFormattedMessage("Bye. Hope to see you again soon!");
-                break;
-            } else if (command.equalsIgnoreCase("list")) {
-                printTaskList();
-            } else if (command.startsWith("mark ")) {
-                markTaskAsDone(command.substring(5));
-            } else if (command.startsWith("unmark ")) {
-                unmarkTaskAsDone(command.substring(7));
-            } else if (command.startsWith("todo ")) {
-                addTask(command.substring(5), "todo");
-            } else if (command.startsWith("event ")) {
-                addTask(command.substring(6), "event");
-            } else if (command.startsWith("deadline ")) {
-                addTask(command.substring(9), "deadline");
-            } else {
-                printFormattedMessage("Unknown command. Please enter 'todo', 'event', 'deadline', 'list', 'mark', 'unmark', or 'bye'.");
+            try {
+                if (command.equalsIgnoreCase("bye")) {
+                    printFormattedMessage("Bye. Hope to see you again soon!");
+                    break;
+                } else if (command.equalsIgnoreCase("list")) {
+                    printTaskList();
+                } else if (command.startsWith("mark ")) {
+                    markTaskAsDone(command.substring(5));
+                } else if (command.startsWith("unmark ")) {
+                    unmarkTaskAsDone(command.substring(7));
+                } else if (command.startsWith("todo ")) {
+                    addTask(command.substring(5), "todo");
+                } else if (command.startsWith("event ")) {
+                    addTask(command.substring(6), "event");
+                } else if (command.startsWith("deadline ")) {
+                    addTask(command.substring(9), "deadline");
+                } else {
+                    printFormattedMessage("Unknown command. Please enter 'todo', 'event', " +
+                            "'deadline', 'list', 'mark', 'unmark', or 'bye'.");
+                }
+            } catch (ChatBotExceptions e) {
+                printFormattedMessage(e.getMessage());
             }
         }
     }
 
-    private void addTask(String taskDescription, String taskType) {
+
+    private void addTask(String taskDescription, String taskType) throws ChatBotExceptions {
         Task newTask;
+
         if (taskType.equals("todo")) {
             newTask = new ToDos(taskDescription);
         } else if (taskType.equals("deadline")) {
             String[] parts = taskDescription.split(" by ");
             if (parts.length < 2) {
-                printFormattedMessage("Invalid deadline format. Please use 'deadline <description> by <date>'.");
-                return;
+                throw new ChatBotExceptions("Invalid deadline format. " +
+                        "Please use 'deadline <description> by <date>'.");
             }
             String description = parts[0];
             String byDate = parts[1];
@@ -56,27 +64,20 @@ public class ChatBot {
         } else if (taskType.equals("event")) {
             String[] parts = taskDescription.split(" from | to ");
             if (parts.length < 3) {
-                printFormattedMessage("Invalid event format. Please use 'event <description> from <start> to <end>'.");
-                return;
+                throw new ChatBotExceptions("Invalid event format. " +
+                        "Please use 'event <description> from <start> to <end>'.");
             }
             String description = parts[0];
             String fromDate = parts[1];
             String toDate = parts[2];
             newTask = new Events(description, fromDate, toDate);
         } else {
-            printFormattedMessage("Invalid command.");
-            return;
+            throw new ChatBotExceptions("Invalid command.");
         }
 
         tasks.add(newTask);
         System.out.println("Got it. I've added this task:");
-        if (newTask instanceof Deadlines) {
-            System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
-        } else if (newTask instanceof Events) {
-            System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
-        } else {
-            System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
-        }
+        System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
         printFormattedMessage(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -86,15 +87,16 @@ public class ChatBot {
 
         int tasks_size = tasks.size();
 
-        if(tasks_size == 0){
+        if (tasks_size == 0) {
 
             printFormattedMessage("No tasks added. Add now!");
-        } else{
+        } else {
 
             System.out.println(" Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
-                System.out.println( " " + (i + 1) + ". " + task.getStatusIcon() + " " + task.getDescription());
+                System.out.println(" " + (i + 1) + ". "
+                        + task.getStatusIcon() + " " + task.getDescription());
             }
 
             System.out.println(horizontalLines);
@@ -107,6 +109,7 @@ public class ChatBot {
         System.out.println("  " + message);
         System.out.println(horizontalLines);
     }
+
     private void markTaskAsDone(String taskNumber) {
         try {
             int index = Integer.parseInt(taskNumber) - 1;
@@ -148,6 +151,7 @@ public class ChatBot {
     }
 
     public static void main(String[] args) {
+
         ChatBot chatBot = new ChatBot("EDITH");
         chatBot.startChat();
     }
