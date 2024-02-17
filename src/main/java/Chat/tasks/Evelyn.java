@@ -4,8 +4,14 @@ import Chat.exceptions.RepeatMark;
 import Chat.exceptions.RepeatUnmark;
 import Chat.exceptions.InvalidIndex;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
 import java.util.ArrayList;
+import java.io.File;
+
 
 public class Evelyn {
 
@@ -203,10 +209,53 @@ public class Evelyn {
         printLine();
     }
 
-    public static void main(String[] args) {
+    public static void readFile(ArrayList<Task> tasks) throws FileNotFoundException {
+        File file = new File("tasks.txt");
+        if(file.exists()){
+            try{
+                Scanner sc = new Scanner(file);
+                while(sc.hasNext()){
+                    String stringTask = sc.nextLine();
+                    Task pastTask = Task.fromString(stringTask);
+                    tasks.add(pastTask);
+                    indexOfTask++;
+                }
+            }catch (IOException e){
+                System.out.println("error in reading the file");
+            } catch (RepeatMark e) {
+                System.out.println("This task is already marked.");
+            }
+        }
+        else{
+            try{
+                System.out.println("creating a new file...\n");
+                file.createNewFile();
+            } catch(IOException e){
+                System.out.println("error in creating new file");
+            }
+        }
+    }
+    public static void saveToFile() throws IOException{
+        try{
+            FileWriter fw = new FileWriter(("tasks.txt"));
+            for(int i = 0; i<indexOfTask;i++){
+                //fw.write(tasks[i].toString() + "\n");
+                fw.write(tasks.get(i).shortType + " | " + tasks.get(i).numisDone() +
+                            " | " + tasks.get(i).getDescription() + " | " + tasks.get(i).time + "\n");
+
+            }
+            fw.close();
+        } catch(IOException e){
+            System.out.println("error in saving the file");
+        }
+    }
+    public static void main(String[] args) throws IOException {
         greeting();
         tasks = new ArrayList<>();
+        readFile(tasks);
         echo();
+        saveToFile();
+        System.out.println("all changes saved to file");
         end();
     }
 
