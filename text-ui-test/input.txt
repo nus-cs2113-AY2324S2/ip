@@ -11,6 +11,8 @@ mark 3
 list
 todo junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
 list
+delete 2
+list
 blah
 mark
 unmark
