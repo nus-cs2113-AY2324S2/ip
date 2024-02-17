@@ -8,6 +8,7 @@ public class Events extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        this.time = from + "-" +to;
         this.type = TaskType.EVENT;
         shortType = this.type.name().substring(0, 1);
     }
