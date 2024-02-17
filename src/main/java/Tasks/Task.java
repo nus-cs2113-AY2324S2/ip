@@ -1,19 +1,14 @@
 package Tasks;
 
 public class Task {
-    private int id;
     private String content;
     private boolean isDone;
 
-    public Task(int id, String content, boolean isDone) {
-        this.id = id;
+    public Task(String content, boolean isDone) {
         this.content = content;
         this.isDone = isDone;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getContent() {
         return content;

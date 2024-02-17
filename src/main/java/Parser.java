@@ -15,7 +15,7 @@ public class Parser {
         if (wordArray[0].equals("todo")) {
             output[0] = "todo";
             output[1] = userInput.substring(4);
-            if (output[1].isEmpty()) {
+            if (output[1].trim().isEmpty()) {
                 throw new TodoLackInputsException();
             }
             return output;
@@ -24,7 +24,7 @@ public class Parser {
             int byIndex = userInput.indexOf("/by");
             output[1] = userInput.substring(8, byIndex);
             output[2] = userInput.substring(byIndex + 4);
-            if (output[1].isEmpty() || output[2].isEmpty()) {
+            if (output[1].trim().isEmpty() || output[2].trim().isEmpty()) {
                 throw new DeadlineLackInputsException();
             }
             return output;
@@ -35,7 +35,7 @@ public class Parser {
             int toIndex = userInput.indexOf("/to");
             output[2] = userInput.substring(fromIndex + 6, toIndex);
             output[3] = userInput.substring(toIndex + 4);
-            if (output[1].isEmpty() || output[2].isEmpty() || output[3].isEmpty()) {
+            if (output[1].trim().isEmpty() || output[2].trim().isEmpty() || output[3].trim().isEmpty()) {
                 throw new EventLackInputsException();
             }
             return output;

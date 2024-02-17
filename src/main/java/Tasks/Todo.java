@@ -2,8 +2,8 @@ package Tasks;
 
 // class not very necesary now but just future proofing if I want to change the class Task
 public class Todo extends Task {
-    public Todo(int id, String content, boolean isDone) {
-        super(id, content, isDone);
+    public Todo(String content, boolean isDone) {
+        super(content, isDone);
     }
     @Override
     public String toString() {

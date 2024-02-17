@@ -4,8 +4,8 @@ public class Event extends Task{
     protected String startDate;
     protected String endDate;
 
-    public Event(int id, String content, boolean isDone, String from, String to) {
-        super(id, content, isDone);
+    public Event(String content, boolean isDone, String from, String to) {
+        super(content, isDone);
         this.startDate = from;
         this.endDate = to;
     }

@@ -5,12 +5,12 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
+import java.util.ArrayList;
 
 public class TaskManager {
     private int numItems;
-    private Task[] taskList;
+    ArrayList<Task> taskArrayList = new ArrayList<>();
 
-    public final int MAX_TASKS = 100;
     public final String TODO_REQUIRED_INPUTS = "'todo <task>'";
     public final String DEADLINE_REQUIRED_INPUTS = "'Deadline <task> /by <due date>'";
     public final String EVENT_REQUIRED_INPUTS = "'Event <task> /from <start date> /to <end date>'";
@@ -18,7 +18,6 @@ public class TaskManager {
 
     public TaskManager() {
         this.numItems = 0;
-        this.taskList = new Task[MAX_TASKS];
     }
 
     public void addListContents(String userInput) {
@@ -27,16 +26,16 @@ public class TaskManager {
             String[] taskInformation = myParser.processTaskInformation(userInput);
             switch (taskInformation[0]) {
             case ("todo"):
-                this.taskList[numItems] = new Todo(numItems, taskInformation[1], false);
+                taskArrayList.add(new Todo(taskInformation[1], false));
                 break;
 
             case ("deadline"):
-                this.taskList[numItems] = new Deadline(numItems, taskInformation[1], false, taskInformation[2]);
+                taskArrayList.add(new Deadline(taskInformation[1], false, taskInformation[2]));
                 break;
 
             case ("event"):
-                this.taskList[numItems] = new Event(numItems, taskInformation[1], false, taskInformation[2],
-                        taskInformation[3]);
+                taskArrayList.add(new Event(taskInformation[1], false, taskInformation[2],
+                        taskInformation[3]));
                 break;
 
             case ("error"):
@@ -48,7 +47,7 @@ public class TaskManager {
                 break;
             }
             System.out.println("Got it. I've added this task:");
-            System.out.println(taskList[numItems]);
+            System.out.println(taskArrayList.get(numItems));
             this.numItems += 1;
             String taskPluralString = numItems > 1 ? " tasks" : " task";
             System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
@@ -86,8 +85,8 @@ public class TaskManager {
         else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < numItems; i += 1) {
-                System.out.print(taskList[i].getId() + 1 + ". ");
-                System.out.println(taskList[i]);
+                System.out.print(i + 1 + ". ");
+                System.out.println(taskArrayList.get(i));
             }
         }
     }
@@ -118,16 +117,18 @@ public class TaskManager {
         }
 
         if (userInput.contains("unmark")) {
-            taskList[id].setDone(false);
+            taskArrayList.get(id).setDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[ ] " + taskList[id].getContent());
+            System.out.println("[ ] " + taskArrayList.get(id).getContent());
+
         }
         // must contain mark at this point
         else {
-            taskList[id].setDone(true);
+            taskArrayList.get(id).setDone(true);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[X] " + taskList[id].getContent());
+            System.out.println("[X] " + taskArrayList.get(id).getContent());
         }
+
     }
 
 
