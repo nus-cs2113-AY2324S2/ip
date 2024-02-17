@@ -90,7 +90,7 @@ public class Command {
      *
      * @param taskList List of current tasks.
      */
-    public void executeCommand(TaskList taskList, Ui ui) {
+    public void executeCommand(TaskList taskList) {
         switch (this.command) {
         case "EXIT":
             // Fallthrough
@@ -108,11 +108,11 @@ public class Command {
                 taskList.addToDo(this.description);
                 Storage.updateFile(taskList);
             } catch (NullPointerException | IndexOutOfBoundsException exception) {
-                ui.printMissingArgumentErrorMessage();
-                ui.printToDoCommandUsage();
+                Ui.printMissingArgumentErrorMessage();
+                Ui.printToDoCommandUsage();
             } catch (IllegalArgumentException exception) {
-                ui.printEmptyArgumentErrorMessage();
-                ui.printToDoCommandUsage();
+                Ui.printEmptyArgumentErrorMessage();
+                Ui.printToDoCommandUsage();
             }
             break;
 
@@ -122,11 +122,11 @@ public class Command {
                 taskList.addDeadline(this.description, this.by);
                 Storage.updateFile(taskList);
             } catch (NullPointerException | IndexOutOfBoundsException exception) {
-                ui.printMissingArgumentErrorMessage();
-                ui.printDeadlineCommandUsage();
+                Ui.printMissingArgumentErrorMessage();
+                Ui.printDeadlineCommandUsage();
             } catch (IllegalArgumentException exception) {
-                ui.printEmptyArgumentErrorMessage();
-                ui.printDeadlineCommandUsage();
+                Ui.printEmptyArgumentErrorMessage();
+                Ui.printDeadlineCommandUsage();
             }
             break;
 
@@ -136,11 +136,11 @@ public class Command {
                 taskList.addEvent(this.description, this.from, this.to);
                 Storage.updateFile(taskList);
             } catch (NullPointerException| IndexOutOfBoundsException exception) {
-                ui.printMissingArgumentErrorMessage();
-                ui.printEventCommandUsage();
+                Ui.printMissingArgumentErrorMessage();
+                Ui.printEventCommandUsage();
             } catch (IllegalArgumentException exception) {
-                ui.printEmptyArgumentErrorMessage();
-                ui.printEventCommandUsage();
+                Ui.printEmptyArgumentErrorMessage();
+                Ui.printEventCommandUsage();
             }
             break;
 
@@ -149,9 +149,9 @@ public class Command {
                 taskList.markTask(Integer.parseInt(this.arguments) - 1);
                 Storage.updateFile(taskList);
             } catch (NumberFormatException exception ) {
-                ui.printMarkCommandUsage();
+                Ui.printMarkCommandUsage();
             } catch (IndexOutOfBoundsException exception) {
-                ui.printIndexOutOfBoundsMessage("mark");
+                Ui.printIndexOutOfBoundsMessage("mark");
             }
             break;
 
@@ -160,9 +160,9 @@ public class Command {
                 taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
                 Storage.updateFile(taskList);
             } catch (NumberFormatException exception ) {
-                ui.printUnmarkCommandUsage();
+                Ui.printUnmarkCommandUsage();
             } catch (IndexOutOfBoundsException exception) {
-                ui.printIndexOutOfBoundsMessage("unmark");
+                Ui.printIndexOutOfBoundsMessage("unmark");
             }
             break;
             
@@ -171,9 +171,9 @@ public class Command {
                 taskList.deleteTask(Integer.parseInt(this.arguments) - 1);
                 Storage.updateFile(taskList);
             } catch (NumberFormatException exception) {
-                ui.printDeleteCommandUsage();
+                Ui.printDeleteCommandUsage();
             } catch (IndexOutOfBoundsException exception) {
-                ui.printIndexOutOfBoundsMessage("delete");
+                Ui.printIndexOutOfBoundsMessage("delete");
             }
             break;
 

@@ -5,24 +5,22 @@ import kobot.storage.Storage;
 
 public class Kobot {
     TaskList taskList;
-    Ui ui;
     Command command;
     
     public Kobot() {
         this.taskList = Storage.loadFile();
-        this.ui = new Ui();
         this.command = new Command();
     }
     
     public void run() {
-        ui.printHelloMessage();
+        Ui.printHelloMessage();
 
         while (!command.getIsExit()) {
-            String input = ui.receiveInput();
+            String input = Ui.receiveInput();
             command.parseCommand(input);
-            command.executeCommand(taskList, ui);
+            command.executeCommand(taskList);
         }
 
-        ui.printGoodbyeMessage();
+        Ui.printGoodbyeMessage();
     }
 }

@@ -16,31 +16,27 @@ public class Ui {
             + "#########################################\n";
 
     private static final String LINE_DIVIDER = "-------------------------------------------";
-    
-    Scanner in;
-    public Ui() {
-        this.in = new Scanner(System.in);
-    }
 
-    public void printLineDivider() {
+    public static void printLineDivider() {
         System.out.println(LINE_DIVIDER);
     }
-    public void printHelloMessage() {
+    public static void printHelloMessage() {
         System.out.println(LOGO);
         System.out.println("Hello! I'm " + BOT_NAME + ". How may I assist you?");
     }
 
-    public void printGoodbyeMessage() {
+    public static void printGoodbyeMessage() {
         System.out.println("Bye, hope to see you again!");
     }
     
-    public String receiveInput() throws NoSuchElementException {
+    public static String receiveInput() throws NoSuchElementException {
         printLineDivider();
         System.out.print("> ");
         String input = "";
         
         try {
-            input = this.in.nextLine();
+            Scanner in = new Scanner(System.in);
+            input = in.nextLine();
         } catch (NoSuchElementException exception) {
             System.exit(0);
         }
@@ -49,44 +45,44 @@ public class Ui {
         return input;
     }
 
-    public void printEmptyArgumentErrorMessage() {
+    public static void printEmptyArgumentErrorMessage() {
         System.out.println("Empty or whitespace-only fields are not allowed.");
     }
 
-    public void printMissingArgumentErrorMessage() {
+    public static void printMissingArgumentErrorMessage() {
         System.out.println("Missing information. Please try again.");
     }
     
-    public void printIndexOutOfBoundsMessage(String action) {
+    public static void printIndexOutOfBoundsMessage(String action) {
         System.out.println("Invalid index. Failed to " + action + " item.");
     }
 
-    public void printToDoCommandUsage() {
+    public static void printToDoCommandUsage() {
         System.out.println("Command to add a new to-do task:");
         System.out.println("todo <description>");
     }
 
-    public void printDeadlineCommandUsage() {
+    public static void printDeadlineCommandUsage() {
         System.out.println("Command to add a new deadline:");
         System.out.println("deadline <description> /by <datetime>");
     }
 
-    public void printEventCommandUsage() {
+    public static void printEventCommandUsage() {
         System.out.println("Command to add a new event:");
         System.out.println("event <description> /from <datetime> /to <datetime>");
     }
     
-    public void printMarkCommandUsage() {
+    public static void printMarkCommandUsage() {
         System.out.println("Command to mark task as completed:");
         System.out.println("mark <task index>");
     }
 
-    public void printUnmarkCommandUsage() {
+    public static void printUnmarkCommandUsage() {
         System.out.println("Command to mark task as not completed:");
         System.out.println("unmark <task index>");
     }
 
-    public void printDeleteCommandUsage() {
+    public static void printDeleteCommandUsage() {
         System.out.println("Command to delete task:");
         System.out.println("delete <task index>");
     }
