@@ -40,6 +40,12 @@ public class LogicManager {
         this.listKeeper.processMark(taskIndex, isCompleted);
     }
 
+    private void executeDelete (String[] words)
+        throws  IllegalNumberOfArguments, InvalidTaskIndex {
+        int taskIndex = getTaskIndex(words);
+        this.listKeeper.deleteTask(taskIndex);
+    }
+
     private void executeToDo(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {
@@ -132,6 +138,10 @@ public class LogicManager {
         case "mark":
         case "unmark":
             executeMark(words);
+            break;
+
+        case "delete":
+            executeDelete(words);
             break;
 
         case "todo":

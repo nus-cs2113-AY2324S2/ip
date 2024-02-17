@@ -14,7 +14,16 @@ public class ListKeeper {
         System.out.println(task);
     }
 
+    public void deleteTask(int taskIndex) {
+        Task removedTask = this.tasks.get(taskIndex - 1);
+        this.tasks.remove(taskIndex - 1);
+        // Provide feedback
+        System.out.println("I have removed this task:");
+        System.out.println(removedTask);
+    }
+
     public void printList() {
+        System.out.println("You have " + this.tasks.size() + " tasks");
         for (int i = 0; i < this.tasks.size(); i++) {
             System.out.println(i + 1 + ". " + this.tasks.get(i));
         }
