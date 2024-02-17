@@ -10,8 +10,14 @@ public class Todo extends Task {
     }
 
     @Override
+    public String getTag() {
+        return this.tag;
+    }
+
+    @Override
     public String toString() {
         return "[" + tag + "]" + "[" + super.getStatusIcon() + "] "
                 + description ;
     }
+
 }

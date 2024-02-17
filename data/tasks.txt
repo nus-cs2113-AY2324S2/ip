@@ -1,0 +1,4 @@
+T- -find a job
+D- -find a life-morning
+E- -get a job-morning-night
+D- -jogging-nightime
