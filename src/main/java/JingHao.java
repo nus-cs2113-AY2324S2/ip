@@ -5,18 +5,18 @@ import tasktype.Deadline;
 import tasktype.Event;
 import tasktype.Task;
 import tasktype.Todo;
+import tasktype.TaskList;
 
 import java.util.Scanner;
 public class JingHao {
     private static final String LINE_SEP = "____________________________________________________________";
-    private static final int MAX_SIZE = 100;
-    protected Task[] taskList;
+    protected TaskList taskList;
     protected int numberOfTask;
     protected Scanner in;
 
     public JingHao() {
         this.numberOfTask = 0;
-        this.taskList = new Task[MAX_SIZE];
+        this.taskList = new TaskList();
         this.in = new Scanner(System.in);
     }
 
@@ -99,8 +99,8 @@ public class JingHao {
             System.out.println("You have no task\n"+ LINE_SEP);
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < numberOfTask; i++) {
-                System.out.println(taskList[i]);
+            for (Task item: taskList) {
+                System.out.println(item);
             }
             System.out.println(LINE_SEP);
         }
@@ -109,8 +109,8 @@ public class JingHao {
     private void handleMarkCommand(String description){
         try {
             int index = Integer.parseInt(description)-1;
-            taskList[index].check();
-            System.out.println("Nice! I've marked this task as done:\n  "+ taskList[index]);
+            taskList.get(index).check();
+            System.out.println("Nice! I've marked this task as done:\n  "+ taskList.get(index));
             System.out.println(LINE_SEP);
         } catch (Exception e){
             System.out.println("Invalid index. Please try again\n" + LINE_SEP);
@@ -120,8 +120,8 @@ public class JingHao {
     private void handleUnmarkCommand(String description){
         try {
             int index = Integer.parseInt(description)-1;
-            taskList[index].uncheck();
-            System.out.println("OK, I've marked this task as not done yet:\n  "+ taskList[index]);
+            taskList.get(index).uncheck();
+            System.out.println("OK, I've marked this task as not done yet:\n  "+ taskList.get(index));
             System.out.println(LINE_SEP);
         } catch (Exception e){
             System.out.println("Invalid index. Please try again\n" + LINE_SEP);
@@ -133,7 +133,7 @@ public class JingHao {
             throw new InvalidTodoCommandException();
         }
         Task newTodo = new Todo(userInput);
-        taskList[numberOfTask] = newTodo;
+        taskList.add(newTodo);
         numberOfTask++;
         System.out.println("Got it. I've added this task:\n " + newTodo);
         printTotalTask();
@@ -148,7 +148,7 @@ public class JingHao {
         String description = deadlineDescription[0];
         String date = deadlineDescription[1];
         Task newDeadline = new Deadline(description, date);
-        taskList[numberOfTask] = newDeadline;
+        taskList.add(newDeadline);
         numberOfTask++;
         System.out.println("Got it. I've added this task:\n " + newDeadline);
         printTotalTask();
@@ -168,7 +168,7 @@ public class JingHao {
         String fromDate = eventTime[0];
         String toDate = eventTime[1];
         Task newEvent = new Event(description,fromDate,toDate);
-        taskList[numberOfTask] = newEvent;
+        taskList.add(newEvent);
         numberOfTask++;
         System.out.println("Got it. I've added this task:\n " +newEvent);
         printTotalTask();
