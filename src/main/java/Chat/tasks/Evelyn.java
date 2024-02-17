@@ -5,10 +5,11 @@ import Chat.exceptions.RepeatUnmark;
 import Chat.exceptions.InvalidIndex;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Evelyn {
 
-    public static Task[] tasks;
+    public static ArrayList<Task> tasks;
     public static int indexOfTask = 0;
 
     public static void markTask(int index, boolean done) throws InvalidIndex, RepeatMark, RepeatUnmark {
@@ -18,33 +19,33 @@ public class Evelyn {
 
         if (done) {
             try {
-                tasks[index].markAsDone();
+                tasks.get(index).markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
             } catch(RepeatMark e){
                 System.out.println("This task is already marked as done.");
             }
         } else {
             try {
-                tasks[index].markAsNotDone();
+                tasks.get(index).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
             } catch(RepeatUnmark e){
                 System.out.println("This task is already unmarked as not done.");
             }
         }
-        System.out.println("  " + tasks[index].getStatusIcon() + " "
-                               + tasks[index].description);
+        System.out.println("  " + tasks.get(index).getStatusIcon() + " "
+                               + tasks.get(index).description);
         printLine();
 
     }
 
-    public static void printList(Task[] tasks){
+    public static void printList(ArrayList<Task> tasks){
         int index = 1;
         for (Task task : tasks) {
             if (task == null) {
                 printLine();
                 break;
             } else {
-                System.out.println(index + ". " + tasks[index - 1].toString());
+                System.out.println(index + ". " + tasks.get(index - 1).toString());
                 index++;
             }
         }
@@ -63,91 +64,126 @@ public class Evelyn {
                 printList(tasks);
 
         } else if (line.startsWith("mark")) {
-            try {
-                int index = Integer.parseInt(line.substring(5).trim()) - 1;
-                try {
-                    markTask(index, true);
-                } catch (InvalidIndex e){
-                    System.out.println("Invalid task index, please try again!");
-                } catch (RepeatMark | RepeatUnmark e){
-                    System.out.println("This task is already marked.");
-                }
-            } catch (NumberFormatException e){
-                System.out.println("Please key in a number after 'mark'");
-            }
+            mark(line);
 
         } else if (line.startsWith("unmark")) {
-            try {
-                int index = Integer.parseInt(line.substring(7).trim()) - 1;
-                try {
-                    markTask(index, false);
-                }
-                catch (RepeatMark | RepeatUnmark e){
-                    System.out.println("This task is already marked.");
-                }
-                catch(InvalidIndex e){
-                    System.out.println("Invalid task index, please try again!");
-                }
-            } catch(NumberFormatException e){
-                System.out.println("Please key in a number after 'unmark'");
-            }
+            unmark(line);
 
         } else if (line.startsWith("todo")) {
-            try {
-                tasks[indexOfTask] = new Todos(line.substring(5).trim());
-                indexOfTask++;
-                printAddingWords();
-                printLine();
-            } catch(StringIndexOutOfBoundsException e){
-                System.out.println("Please enter a description for the todo task!");
-            }
+            todo(line);
         } else if (line.startsWith("deadline")) {
-                boolean haveBy = line.contains("/by");
-                if (haveBy) {
-                    try {
-                        String[] parts = line.substring(9).split("/by");
-                        String description = parts[0].trim();
-                        String by = parts[1].trim();
-                        tasks[indexOfTask] = new Deadlines(description, by);
-                        indexOfTask++;
-                        printAddingWords();
-                        printLine();
-                    } catch (ArrayIndexOutOfBoundsException e){
-                        System.out.println("Please enter a description for the deadline!");
-                    }
-                } else {
-                    System.out.println("Please enter a time in the format of 'by/ (time)'");
-                }
+            deadline(line);
 
         } else if (line.startsWith("event")) {
-                boolean haveFrom = line.contains("/from");
-                boolean haveTo = line.contains("/to");
-                if (haveFrom && haveTo) {
-                    try {
-                        String[] parts = line.substring(6).split("/from");
-                        String description = parts[0].trim();
-                        String[] date = parts[1].trim().split("/to");
-                        String from = date[0].trim();
-                        String to = date[1].trim();
-                        tasks[indexOfTask] = new Events(description, from, to);
-                        indexOfTask++;
-                        printAddingWords();
-                        printLine();
-                    } catch (ArrayIndexOutOfBoundsException e){
-                        System.out.println("Please enter a description for the event!");
-                    }
-                } else {
-                    System.out.println("Please enter a time in the format of '/from (time) /to (time)'");
-                }
+            event(line);
+        } else if(line.startsWith("delete")){
+            delete(line);
         } else {
             System.out.println("Please enter the correct command");
         }
         echo();
     }
+    private static void delete(String line){
+        try {
+            int index = Integer.parseInt(line.substring(7).trim()) - 1;
+            try {
+                tasks.remove(index);
+                int add1toIndex = index + 1;
+                System.out.println("Ok! Task " + add1toIndex + " is removed from the list");
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Invalid task index, please try again!");
+            }
+        } catch (NumberFormatException e){
+            System.out.println("Please key in a number after 'mark'");
+        }
+    }
+    private static void event(String line) {
+        boolean haveFrom = line.contains("/from");
+        boolean haveTo = line.contains("/to");
+        if (haveFrom && haveTo) {
+            try {
+                String[] parts = line.substring(6).split("/from");
+                String description = parts[0].trim();
+                String[] date = parts[1].trim().split("/to");
+                String from = date[0].trim();
+                String to = date[1].trim();
+                tasks.add(new Events(description, from, to));
+                indexOfTask++;
+                printAddingWords();
+                printLine();
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Please enter a description for the event!");
+            }
+        } else {
+            System.out.println("Please enter a time in the format of '/from (time) /to (time)'");
+        }
+    }
+
+    private static void deadline(String line) {
+        boolean haveBy = line.contains("/by");
+        if (haveBy) {
+            try {
+                String[] parts = line.substring(9).split("/by");
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                tasks.add(new Deadlines(description, by));
+                indexOfTask++;
+                printAddingWords();
+                printLine();
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Please enter a description for the deadline!");
+            }
+        } else {
+            System.out.println("Please enter a time in the format of 'by/ (time)'");
+        }
+    }
+
+    private static void todo(String line) {
+        try {
+            tasks.add(new Todos(line.substring(5).trim()));
+            indexOfTask++;
+            printAddingWords();
+            printLine();
+        } catch(StringIndexOutOfBoundsException e){
+            System.out.println("Please enter a description for the todo task!");
+        }
+    }
+
+    private static void unmark(String line) {
+        try {
+            int index = Integer.parseInt(line.substring(7).trim()) - 1;
+            try {
+                markTask(index, false);
+            }
+            catch (RepeatMark | RepeatUnmark e){
+                System.out.println("This task is already marked.");
+            }
+            catch(InvalidIndex e){
+                System.out.println("Invalid task index, please try again!");
+            }
+        } catch(NumberFormatException e){
+            System.out.println("Please key in a number after 'unmark'");
+        }
+    }
+
+    private static void mark(String line) {
+        try {
+            int index = Integer.parseInt(line.substring(5).trim()) - 1;
+            try {
+                markTask(index, true);
+            } catch (InvalidIndex e){
+                System.out.println("Invalid task index, please try again!");
+            } catch (RepeatMark | RepeatUnmark e){
+                System.out.println("This task is already marked.");
+            }
+        } catch (NumberFormatException e){
+            System.out.println("Please key in a number after 'mark'");
+        }
+    }
 
     private static void printAddingWords() {
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[indexOfTask - 1]);
+        System.out.println("  " + tasks.get(indexOfTask - 1));
         System.out.println("Now you have " + indexOfTask + " tasks in the list.");
     }
 
@@ -169,7 +205,7 @@ public class Evelyn {
 
     public static void main(String[] args) {
         greeting();
-        tasks = new Task[100];
+        tasks = new ArrayList<>();
         echo();
         end();
     }
