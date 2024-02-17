@@ -1,13 +1,17 @@
-// Subclass of Task
-
 package tasks;
 import main.DukeException;
 
 public class Deadline extends Task {
+    protected boolean newInput;
 
-    public Deadline(String description) throws DukeException {
-        super(description); // Automatically invokes the constructor of Task
+    public Deadline(String description, boolean newInput) throws DukeException {
+        super(description);
+        setNewInput(newInput);
         toPrint();
+    }
+
+    public void setNewInput(boolean newInput) {
+        this.newInput = newInput;
     }
     public String getBy() throws DukeException{
         String[] splitLine = description.split("/by");
@@ -16,10 +20,8 @@ public class Deadline extends Task {
         }
         return splitLine[1];
     }
-
     @Override
     public String toString() {
-
         try {
             return "[D]" + super.toString() + " (by:" + getBy() + ")";
         } catch (DukeException e) {
@@ -29,8 +31,9 @@ public class Deadline extends Task {
     }
     public void toPrint() throws DukeException {
         if (getBy() != null) {
-            printHeaders();
-            System.out.println(this);
+            if (newInput) {
+                printHeaders();
+            }
         }
     }
 }

@@ -1,17 +1,12 @@
-// Superclass of 3 subclasses: Todo, Deadline and Event
-
 package tasks;
 public class Task {
-    // 3 class attributes
     protected String description;
     public boolean isDone;
-    public int index;
 
     // constructor
     public Task(String description) {
         setDescription(description);
         setDone();
-        //setCounter(index);
     }
 
     // Set for description attribute
@@ -23,11 +18,6 @@ public class Task {
     public void setDone() {
         this.isDone = false;
     }
-
-    // Set index attribute of the task
-/*    public void setCounter(int index) {
-        this.index = index;
-    }*/
 
     // Get status icon
     public String getStatusIcon() {
