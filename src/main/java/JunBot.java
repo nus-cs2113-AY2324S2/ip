@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import junbot.command.Todo;
 import junbot.command.Deadline;
@@ -8,7 +9,7 @@ public class JunBot {
     public static String DIVIDER = "____________________________________________________________\n";
     public static String GREETING = "Hello! I'm JunBot\nWhat can I do for you?\n";
     public static String GOODBYE = "Bye. Hope to see you again soon!\n";
-    public static Task[] tasks = new Task[100];
+    public static ArrayList<Task> tasks = new ArrayList<>();
     public static int tasksCount = 0;
 
     public static void addEvent(String description) throws InvalidInputException {
@@ -21,7 +22,8 @@ public class JunBot {
         details = description.split("/from|/to", 3);
 
         Task userTask = new Event(details[0].trim(), details[1].trim(), details[2].trim());
-        tasks[tasksCount] = userTask;
+        tasks.add(tasksCount, userTask);
+        //tasks[tasksCount] = userTask;
         tasksCount += 1;
 
         System.out.println(DIVIDER + "Got it. I've added this tasks:");
@@ -42,7 +44,7 @@ public class JunBot {
         details = description.split("/by", 2);
 
         Task userTask = new Deadline(details[0].trim(), details[1].trim());
-        tasks[tasksCount] = userTask;
+        tasks.add(tasksCount, userTask);
         tasksCount += 1;
 
         System.out.println(DIVIDER + "Got it. I've added this tasks:");
@@ -58,7 +60,7 @@ public class JunBot {
         }
 
         Task userTask = new Todo(description);
-        tasks[tasksCount] = userTask;
+        tasks.add(tasksCount, userTask);
         tasksCount++;
 
         System.out.println(DIVIDER + "Got it. I've added this tasks:");
@@ -87,10 +89,10 @@ public class JunBot {
         }
 
         int listNumber = Integer.parseInt(command) - 1;
-        tasks[listNumber].unmarkTask();
+        tasks.get(listNumber).unmarkTask();
 
         System.out.println(DIVIDER + "Ok, I've marked this task as not done yet:\n");
-        System.out.print(tasks[listNumber] + "\n" + DIVIDER);
+        System.out.print(tasks.get(listNumber) + "\n" + DIVIDER);
     }
     public static void markTaskInList(String command) {
         command = command.replace("mark", "").trim();
@@ -101,10 +103,11 @@ public class JunBot {
         }
 
         int listNumber = Integer.parseInt(command) - 1;
-        tasks[listNumber].markTask();
+        tasks.get(listNumber).markTask();
+        //tasks[listNumber].markTask();
 
         System.out.println(DIVIDER + "Nice! I've marked this task as done:\n");
-        System.out.print(tasks[listNumber] + "\n" + DIVIDER);
+        System.out.print(tasks.get(listNumber) + "\n" + DIVIDER);
     }
 
     public static String getCommand(String userInput) {
@@ -125,8 +128,7 @@ public class JunBot {
         System.out.println("Here are the tasks in your list: ");
         for(int i = 0; i < tasksCount; i++){
             System.out.print( taskNumber + ". ");
-            //tasks[i].printTask();
-            System.out.println(tasks[i]);
+            System.out.println(tasks.get(i));
             taskNumber += 1;
         }
         System.out.println(DIVIDER + "\n");
@@ -134,7 +136,7 @@ public class JunBot {
 
     public static void addToList(String description) {
         Task userTask = new Task(description);
-        tasks[tasksCount] = userTask;
+        tasks.add(tasksCount, userTask);
         System.out.println(DIVIDER + "added: " + userTask.getDescription() + "\n" + DIVIDER);
     }
 
