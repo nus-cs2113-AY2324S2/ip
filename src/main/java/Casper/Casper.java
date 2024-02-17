@@ -6,7 +6,7 @@ public class Casper {
     private static final String SEPARATOR = "    _______________________________________________________________________";
     private static final ArrayList<Task> taskList = new ArrayList<>();
     private static int noOfTasks = 0;
-    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo"};
+    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo", "delete"};
     private static void wrapEchoMessage(String message){
         System.out.println(SEPARATOR);
         System.out.println("     "+message);
@@ -52,12 +52,12 @@ public class Casper {
         if (userInput.equals("list")) {
             echoTaskList();
         } else if (userInput.startsWith("mark")) {
-            int targetTaskNumber = validateMarkInput(userInput);
+            int targetTaskNumber = validateTargetedInput(userInput);
             if (targetTaskNumber != -1) {
                 taskList.get(targetTaskNumber-1).markTask();
             }
         } else if (userInput.startsWith("unmark")) {
-            int targetTaskNumber = validateMarkInput(userInput);
+            int targetTaskNumber = validateTargetedInput(userInput);
             if (targetTaskNumber != -1) {
                 taskList.get(targetTaskNumber-1).unMarkTask();
             }
@@ -67,8 +67,21 @@ public class Casper {
             handleDeadline(userInput);
         } else if (userInput.startsWith("todo")) {
             handleTodo(userInput);
+        } else if (userInput.startsWith("delete")){
+            deleteTask(userInput);
         }
         return true;
+    }
+
+    private static void deleteTask(String userInput){
+        int targetTaskNumber = validateTargetedInput(userInput);
+        if(targetTaskNumber != -1){
+            Task taskToRemove = taskList.get(targetTaskNumber-1);
+            taskList.remove(targetTaskNumber-1);
+            noOfTasks--;
+            wrapEchoMessage("Nicely done!. It's about time you get things done: \n       "
+                    +taskToRemove+"\n     Now you have "+noOfTasks+" task(s) in the list");
+        }
     }
 
     private static void validateInputKeyword(String userInput) throws CasperUnrecognizedKeywordException {
@@ -95,7 +108,7 @@ public class Casper {
             throw new StringIndexOutOfBoundsException();
         }
 
-        String eventDesc= userInput.substring(descIndex, userInput.indexOf("/from")).trim();
+        String eventDesc = userInput.substring(descIndex, userInput.indexOf("/from")).trim();
         String from = userInput.substring(fromIndex, userInput.indexOf("/to")).trim();
         String to = userInput.substring(toIndex).trim();
         return new Event(eventDesc, from, to);
@@ -188,7 +201,7 @@ public class Casper {
         }
     }
 
-    private static int validateMarkInput(String userInput){
+    private static int validateTargetedInput(String userInput){
         String[] userInputSplit = userInput.split(" ");
         if (userInputSplit.length==2 && checkNumeric(userInputSplit[1])) {
             int targetTaskNumber = Integer.parseInt(userInputSplit[1]);
