@@ -1,5 +1,7 @@
 package jeff;
 
+import java.io.File;
+
 public class CommandHandler {
     private static final int TODO_DESCRIPTION_INDEX = 5;
     private static final int DEADLINE_DESCRIPTION_INDEX = 9;
@@ -19,7 +21,9 @@ public class CommandHandler {
             throw new InvalidTodoSyntaxException();
         }
         String description = userInput.substring(TODO_DESCRIPTION_INDEX);
-        TaskList.add(new Todo(description));
+        Todo todo = new Todo(description);
+        TaskList.add(todo);
+        FileManager.appendTask(todo);
         Printer.printAddTask();
     }
 
@@ -33,7 +37,9 @@ public class CommandHandler {
         if (description.isEmpty()) {
             throw new InvalidDeadlineSyntaxException();
         }
-        TaskList.add(new Deadline(description, by));
+        Deadline deadline = new Deadline(description, by);
+        TaskList.add(deadline);
+        FileManager.appendTask(deadline);
         Printer.printAddTask();
     }
 
@@ -49,7 +55,9 @@ public class CommandHandler {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new InvalidEventSyntaxException();
         }
-        TaskList.add(new Event(description, from, to));
+        Event event = new Event(description, from, to);
+        TaskList.add(event);
+        FileManager.appendTask(event);
         Printer.printAddTask();
     }
 
@@ -65,6 +73,7 @@ public class CommandHandler {
             int currentIndex = Integer.parseInt(userInput.substring(MARK_INDEX)) - 1;
             Task currentTask = TaskList.get(currentIndex);
             currentTask.mark();
+            FileManager.updateMarkStatus(currentIndex, true);
             Printer.printMarkTask(currentTask);
         } catch (Exception e) {
             throw new InvalidMarkSyntaxException();
@@ -83,6 +92,7 @@ public class CommandHandler {
             int currentIndex = Integer.parseInt(userInput.substring(UNMARK_INDEX)) - 1;
             Task currentTask = TaskList.get(currentIndex);
             currentTask.unmark();
+            FileManager.updateMarkStatus(currentIndex, false);
             Printer.printUnmarkTask(currentTask);
         } catch (Exception e) {
             throw new InvalidUnmarkSyntaxException();
