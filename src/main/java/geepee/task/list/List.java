@@ -1,44 +1,40 @@
 package geepee.task.list;
 
-import geepee.system.SystemMessage;
+import java.util.ArrayList;
 import geepee.task.*;
 
 public class List {
 
-    protected Task[] tasks;
-    protected int size;
+    protected ArrayList<Task> tasks;
 
     public List() {
-        tasks = new Task[100];
-        size = 0;
+        tasks = new ArrayList<>();
     }
 
     public void addTodo(String description) {
-        tasks[size] = new Todo(description);
-        size++;
-        ListMessage.printAfterAddingTask(size, tasks[size - 1]);
+        Task newTodo = new Todo(description);
+        tasks.add(newTodo);
+        ListMessage.printAfterAddingTask(tasks.size(), newTodo);
     }
 
     public void addDeadline(String description, String by) {
-        tasks[size] = new Deadline(description, by);
-        size++;
-        ListMessage.printAfterAddingTask(size, tasks[size - 1]);
+        Task newDeadline = new Deadline(description, by);
+        tasks.add(newDeadline);
+        ListMessage.printAfterAddingTask(tasks.size(), newDeadline);
     }
 
     public void addEvent(String description, String from, String to) {
-        tasks[size] = new Event(description, from, to);
-        size++;
-        ListMessage.printAfterAddingTask(size, tasks[size - 1]);
+        Task newEvent = new Event(description, from, to);
+        tasks.add(newEvent);
+        ListMessage.printAfterAddingTask(tasks.size(), newEvent);
     }
 
     public void changeTaskStatus(int index, boolean isDone) {
-        tasks[index].changeStatus(isDone);
-        SystemMessage.printHorizontalLine();
-        ListMessage.printTaskStatusMessage(isDone, tasks[index]);
-        SystemMessage.printHorizontalLine();
+        tasks.get(index).changeStatus(isDone);
+        ListMessage.printTaskStatusMessage(isDone, tasks.get(index));
     }
 
     public int getSize() {
-        return size;
+        return tasks.size();
     }
 }
