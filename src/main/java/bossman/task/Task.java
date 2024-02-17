@@ -2,10 +2,12 @@ package bossman.task;
 public abstract class Task {
     protected boolean isMark;
     protected final String DESCRIPTION;
+    protected String typeSymbol;
 
     public Task(String task, boolean isMark) {
         this.isMark = isMark;
         this.DESCRIPTION = task;
+        this.typeSymbol = "";
     }
 
     public void printTask() {
@@ -27,7 +29,7 @@ public abstract class Task {
     }
 
     public String getTypeSymbol() {
-        return "[ ]";
+        return typeSymbol;
     }
 
     public String formatForSave() {

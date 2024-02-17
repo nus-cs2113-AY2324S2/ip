@@ -8,20 +8,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Data {
+public class DataStorage {
     public final TaskList TASK_LIST;
     private static final String FILE_PATH = "data/BossMan.txt";
 
-
-    public Data() throws FileNotFoundException {
+    public DataStorage() throws IOException {
         this.TASK_LIST = new TaskList();
         loadTasksFromFile();
     }
 
-    protected void loadTasksFromFile() throws FileNotFoundException {
+    protected void loadTasksFromFile() throws IOException {
         try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
             while (scanner.hasNextLine()) {
                 String taskCsvFormat = scanner.nextLine();
+
                 String[] formattedData = parseDataCsvFormat(taskCsvFormat);
 
                 String taskType = formattedData[0];
@@ -47,8 +47,14 @@ public class Data {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException();
+            createFolder();
         }
+    }
+
+    public static void createFolder() throws IOException {
+        File f = new File(FILE_PATH);
+        f.getParentFile().mkdirs();
+        f.createNewFile();
     }
 
     protected void saveTasksToFile() throws IOException {

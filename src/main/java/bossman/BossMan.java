@@ -1,6 +1,5 @@
 package bossman;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import bossman.task.Task;
@@ -18,12 +17,12 @@ public class BossMan {
     private static final String SEP = "____________________________________________________________";
     private final Scanner SCANNER;
     private final TaskList TASK_LIST;
-    private final Data data;
+    private final DataStorage DATA_STORAGE;
 
-    public BossMan() throws FileNotFoundException {
-        this.data = new Data();
+    public BossMan() throws IOException {
+        this.DATA_STORAGE = new DataStorage();
         this.SCANNER = new Scanner(System.in);
-        this.TASK_LIST = data.TASK_LIST;
+        this.TASK_LIST = DATA_STORAGE.TASK_LIST;
     }
 
     public void greetUser() {
@@ -62,7 +61,8 @@ public class BossMan {
             InvalidTodoCommandException,
             InvalidDeadlineCommandException,
             InvalidEventCommandException,
-            NumberFormatException, IOException {
+            NumberFormatException,
+            IOException {
 
         String[] parts = parseUserInput(userInput);
 
@@ -99,7 +99,7 @@ public class BossMan {
             break;
 
         case "bye":
-            data.saveTasksToFile();
+            DATA_STORAGE.saveTasksToFile();
             break;
 
         default:

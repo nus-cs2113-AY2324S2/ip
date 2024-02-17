@@ -1,15 +1,10 @@
 package bossman.task;
 public class Deadline extends Todo {
-    private final String TYPE_SYMBOL = "[D]";
     private final String BY;
     public Deadline(String task, boolean isMark, String by) {
         super(task, isMark);
         this.BY = by;
-    }
-
-    @Override
-    public String getTypeSymbol() {
-        return TYPE_SYMBOL;
+        this.typeSymbol = "D";
     }
 
     @Override
