@@ -16,11 +16,27 @@ import uwunzhe.exceptions.UwunzheException;
 
 public class StorageHandler {
     private static File storage;
-    private final static String STORAGE_FOLDER_PATH = "./ip/data";
-    private final static String STORAGE_PATH = STORAGE_FOLDER_PATH + "/uwunzhe.txt";
+    private static String STORAGE_FOLDER_PATH;
+    private static String STORAGE_PATH;
     private final static String SEPARATOR = String.valueOf(Character.toChars(31));
 
+    /**
+     * Constructor for StorageHandler.
+     * 
+     * @param taskList The list of tasks to be updated.
+     */
     public StorageHandler(TaskList taskList) throws UwunzheException {
+        // Set storage path
+        String currentPath = System.getProperty("user.dir").replace("\\", "/");
+        String currentDir = currentPath.split("/")[currentPath.split("/").length - 1];
+
+        if (currentDir.equals("text-ui-test")) {
+            STORAGE_FOLDER_PATH = "./data";
+        } else {
+            STORAGE_FOLDER_PATH = "./ip/data";
+        }
+        STORAGE_PATH = STORAGE_FOLDER_PATH + "/uwunzhe.txt";
+
         // Create data folder if it does not exist
         if (!new File(STORAGE_FOLDER_PATH).exists()) {
             new File(STORAGE_FOLDER_PATH).mkdir();
@@ -38,6 +54,11 @@ public class StorageHandler {
         loadData(taskList);
     }
 
+    /**
+     * Loads data from the storage file.
+     * 
+     * @param taskList The list of tasks to load to.
+     */
     public void loadData(TaskList taskList) throws UwunzheException {
         try {
             Scanner sc = new java.util.Scanner(storage);
@@ -53,6 +74,12 @@ public class StorageHandler {
         }
     }
 
+    /**
+     * Creates a task from a line in the saved data and adds it to the list.
+     * 
+     * @param taskList The list of tasks to add to.
+     * @param data The data to create the task from.
+     */
     public void createTask(TaskList taskList, String[] data) throws UwunzheException {
         boolean isDone = data[1].equals("1");
         boolean isNotDone = data[1].equals("0");
@@ -78,6 +105,11 @@ public class StorageHandler {
         taskList.addItem(task);
     }
 
+    /**
+     * Saves the data to the storage file.
+     * 
+     * @param taskList The list of tasks to save.
+     */
     public void saveData(TaskList taskList) throws UwunzheException {
         try {
             FileWriter fw = new FileWriter(STORAGE_PATH);

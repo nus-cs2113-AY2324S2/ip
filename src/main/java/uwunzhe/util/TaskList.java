@@ -41,8 +41,12 @@ public class TaskList {
      */
     public void printSize() {
         int size = getSize();
+        if (size == 0) {
+            System.out.println("No more taskies! Yay!");
+        } else {
         System.out.println("We only have uhhhh " + size
                 + " more thing" + (size > 1 ? "s" : "") + " left to go!");
+        }
     }
 
     /**
@@ -229,6 +233,13 @@ public class TaskList {
         list.add(new Event(taskName, taskStart, taskEnd));
     }
 
+    /**
+     * Deletes a task from the list.
+     * 
+     * @param index
+     * @return None
+     * @throws UwunzheException
+     */
     public void deleteItem(String index) throws UwunzheException {
         try {
             int i = Integer.parseInt(index) - 1;

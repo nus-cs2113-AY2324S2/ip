@@ -64,6 +64,7 @@ public class InputHandler {
 
         case "delete":
             this.taskList.deleteItem(taskString);
+            isUpdated = true;
             break;
 
         default:
