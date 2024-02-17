@@ -12,12 +12,20 @@ public class Uwunzhe {
     private static InputHandler inputHandler;
     private static StorageHandler storageHandler;
 
-    public static void init() {
+    /**
+     * Initializes the necessary handlers.
+     * 
+     * @param None
+     * @return None
+     */
+    public static boolean init() {
         try {
             inputHandler = new InputHandler(taskList);
             storageHandler = new StorageHandler(taskList);
+            return true; // init successful
         } catch (UwunzheException e) {
             UwunzheException.printException(e);
+            return false; // init failed
         }
     }
 
@@ -56,10 +64,20 @@ public class Uwunzhe {
         UserInput.closeScanner();
     }
 
+    /**
+     * The main method of the bot.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         Printer.printInitMsg();
-        init();
-        loop();
+
+        boolean isInit = init();
+        if (isInit) {
+            // Start the main loop if init is successful
+            loop();
+        }
+
         Printer.printExitMsg();
     }
 }

@@ -43,15 +43,15 @@ public abstract class Task {
      * @return None
      */
     public void setStatus(boolean newStatus) {
-        String completion = newStatus ? "X" : " ";
         if (newStatus) {
             System.out.println("Good job team! We did it!");
         } else {
             System.out.println("Worryhands! You haven't finished this yet...");
         }
 
-        System.out.println(" [" + completion + "] " + this.name);
         this.isDone = newStatus;
+        System.out.print(" ");
+        System.out.println(this);        
     }
 
     /**
