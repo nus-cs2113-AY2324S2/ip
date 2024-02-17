@@ -8,11 +8,11 @@ public class Event extends Task{
     protected String endTime;
 
     public Event() {
-        super(null);
+        super(null, false);
     }
 
-    public Event(String line) throws KyreneMissingTimeException {
-        super(line);
+    public Event(String line, boolean isDone) throws KyreneMissingTimeException {
+        super(line, isDone);
         taskType = "E";
         int startDividerIndex = line.indexOf("/from");
         if(startDividerIndex == -1){

@@ -52,21 +52,21 @@ public class Kyrene {
         System.out.println(DIVIDER);
     }
 
-    public static void addTask(String sentence, boolean whetherWriteToFile) throws KyreneInvalidCommandException, KyreneMissingTaskException {
+    public static void addTask(String sentence, boolean isDone, boolean whetherWriteToFile) throws KyreneInvalidCommandException, KyreneMissingTaskException {
         String[] words = sentence.split(" ");
         String classType = words[0];
 
         switch (classType) {
         case "todo":
             try {
-                tasks.add(new Todo(sentence.substring(5)));
+                tasks.add(new Todo(sentence.substring(5), isDone));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             }
             break;
         case "deadline":
             try {
-                tasks.add(new Deadline(sentence.substring(9)));
+                tasks.add(new Deadline(sentence.substring(9), isDone));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
@@ -77,7 +77,7 @@ public class Kyrene {
             break;
         case "event":
             try {
-                tasks.add(new Event(sentence.substring(6)));
+                tasks.add(new Event(sentence.substring(6), isDone));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
@@ -90,10 +90,6 @@ public class Kyrene {
             throw new KyreneInvalidCommandException();
         }
 
-        int taskCount = tasks.size();
-        System.out.printf("    Task has been successfully added: %s\n", tasks.get(taskCount - 1).toString());
-        printTaskCount();
-
         if (whetherWriteToFile) {
             try {
                 writeToFile();
@@ -103,12 +99,9 @@ public class Kyrene {
             }
         }
 
-        if(taskCount == 1){
-            System.out.printf("    Now you have %d task(including finished ones) in your list.\n\n", taskCount);
-        }
-        else{
-            System.out.printf("    Now you have %d tasks(including finished ones) in your list.\n\n", taskCount);
-        }
+        int taskCount = tasks.size();
+        System.out.printf("    Task has been successfully added: %s\n", tasks.get(taskCount - 1).toString());
+        printTaskCount();
         printDivider();
     }
 
@@ -233,7 +226,7 @@ public class Kyrene {
             break;
         default:
             try {
-                addTask(sentence, true);
+                addTask(sentence, false, true);
             } catch (KyreneMissingTaskException e) {
                 System.out.printf("%s\n", ERROR_MISSING_TASK);
                 printDivider();
@@ -261,8 +254,7 @@ public class Kyrene {
                 task = line.substring("false ".length());
             }
             try {
-                addTask(task, false);
-                tasks.get(tasks.size() - 1).setDone(isDone);
+                addTask(task, isDone, false);
             } catch (KyreneMissingTaskException | KyreneInvalidCommandException e) {
                 System.out.printf("%s    Error occurs at line %d.\n", ERROR_FILE_CORRUPTED, lineNumber);
                 printDivider();

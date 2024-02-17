@@ -1,0 +1,6 @@
+false todo sleep
+true todo watch Spy X Family
+true todo play bg3
+true deadline finish iP week 6 /by Sunday
+false deadline revision /by recess week
+false event KECD dinner /from Sunday 1730 /to 2200
