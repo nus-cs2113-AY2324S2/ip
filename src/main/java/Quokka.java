@@ -5,11 +5,19 @@ import Quokka.tasks.Task;
 import Quokka.tasks.Todo;
 
 import java.util.Scanner;
+import java.io.*;
 
 public class Quokka {
     private static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
+
+    private static final String DATA_FILE_PATH = "tasks.txt";
+
+    static {
+        loadTasksFromFile();
+    }
+
 
     private static void addTask(Task newTask) {
         try {
@@ -34,7 +42,7 @@ public class Quokka {
             if (description.isEmpty()) {
                 throw new QuokkaException("Please provide a description for the todo task.");
             }
-            return new Todo(description);
+            return new Todo(description, false);
         } catch (QuokkaException e) {
             System.out.println("    Error: " + e.getMessage());
             return null;
@@ -45,12 +53,14 @@ public class Quokka {
         try {
             String[] parts = userInput.split("/by", 2);
             if (parts.length == 2) {
+
                 String description = parts[0].substring("deadline".length()).trim();
                 String by = parts[1].trim();
                 if (description.isEmpty() || by.isEmpty()) {
                     throw new QuokkaException("Please provide both description and deadline for the task.");
                 }
-                return new Deadline(description, by);
+
+                return new Deadline(description, by, false);
             } else {
                 throw new QuokkaException("Invalid deadline format. Please use: deadline [description] /by [date/time]");
             }
@@ -72,7 +82,7 @@ public class Quokka {
                     if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                         throw new QuokkaException("Please provide description, start time, and end time for the event task.");
                     }
-                    return new Event(description, from, to);
+                    return new Event(description, from, to, false);
                 } else {
                     throw new QuokkaException("Invalid event format. Please use: event [description] /from [start] /to [end]");
                 }
@@ -93,6 +103,39 @@ public class Quokka {
             for (int i = 0; i < taskCount; i++) {
                 System.out.println("    " + (i + 1) + ". " + tasks[i]);
             }
+        }
+    }
+
+    private static void saveTasksToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(DATA_FILE_PATH))) {
+            for (int i = 0; i < taskCount; i++) {
+                writer.println(tasks[i].toString());
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static void loadTasksFromFile() {
+        File file = new File(DATA_FILE_PATH);
+        if (!file.exists()) {
+            System.out.println("No existing data file found. Starting with empty task list.");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            taskCount = 0;
+            while (scanner.hasNextLine() && taskCount < MAX_TASKS) {
+                String taskData = scanner.nextLine();
+                Task task = Task.parseFromFileString(taskData);
+                if (task != null) {
+                    tasks[taskCount++] = task;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file not found: " + e.getMessage());
+        } catch (QuokkaException e) {
+            System.out.println("Data file contains corrupted data: " + e.getMessage());
         }
     }
 
@@ -144,6 +187,7 @@ public class Quokka {
 
             // Check if the user wants to exit
             if (userInput.equalsIgnoreCase("bye")) {
+                saveTasksToFile(); //Save tasks whenever task list changes
                 System.out.println("    Bye. Hope to see you again soon!");
                 break;
             }
