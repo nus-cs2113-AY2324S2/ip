@@ -15,9 +15,9 @@ public class Console {
             + "What can I do for you?";
     private final static String GOODBYE = "Bye. Hope to see you again soon!";
 
-    private final static String COMMAND_ERROR = "Sorry bro I didn't quite get what you wanna do. Please enter a valid command.";
+    private final static String COMMAND_ERROR = "Sorry bro I don't quite get what you wanna do. Please enter a valid command.";
 
-
+    private final static String DESCRIPTION_ERROR = "Sorry bro I don't know what task you wanna add. Please add a description.";
 
     public static void printWelcomeMessage() {
         System.out.println(NAME);
@@ -26,47 +26,60 @@ public class Console {
         System.out.println(LINE_BREAK);
     }
 
-    public static void printErrorMessage() {
+    public static void printCommandErrorMessage() {
         System.out.println(LINE_BREAK);
         System.out.println(COMMAND_ERROR);
         System.out.println(LINE_BREAK);
     }
 
+    public static void printDescriptionErrorMessage() {
+        System.out.println(LINE_BREAK);
+        System.out.println(DESCRIPTION_ERROR);
+        System.out.println(LINE_BREAK);
+    }
+
     public static void processUserInput(TaskList tasks, Scanner in) {
         while (true) {
-            String line = in.nextLine();
-            Command command = Command.getFirstWord(line);
-            String description = Command.getDescription(line);
+            try {
+                String line = in.nextLine();
+                Command command = Command.getFirstWord(line);
 
-            if (command == null) {
-                continue;
-            }
-            switch (command) {
-            case BYE:
-                return;
-            case LIST:
-                printTasksToConsole(tasks);
-                break;
-            case MARK:
-                printMarkedItemToConsole(tasks, line);
-                break;
-            case UNMARK:
-                printUnmarkedItemToConsole(tasks, line);
-                break;
-            case TODO:
-                printTaskToConsole(tasks, TaskType.TODO, description);
-                break;
-            case DEADLINE:
-                printTaskToConsole(tasks, TaskType.DEADLINE, description);
-                break;
-            case EVENT:
-                printTaskToConsole(tasks, TaskType.EVENT, description);
-                break;
+                if (command == null) {
+                    continue;
+                }
+                switch (command) {
+                case BYE:
+                    return;
+                case LIST:
+                    printTaskListToConsole(tasks);
+                    break;
+                case MARK:
+                    printMarkedItemToConsole(tasks, line);
+                    break;
+                case UNMARK:
+                    printUnmarkedItemToConsole(tasks, line);
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    printNewTaskToConsole(tasks, line, command);
+                    break;
+                }
+            } catch (MissingFieldException e) {
+                printDescriptionErrorMessage();
             }
         }
     }
 
-    private static void printTasksToConsole(TaskList tasks) {
+    private static void printNewTaskToConsole(TaskList tasks, String line, Command command) throws MissingFieldException {
+        String description = Command.getDescription(line);
+        if (description.trim().isEmpty()) {
+            throw new MissingFieldException();
+        }
+        printTaskToConsole(tasks, TaskType.valueOf(command.name()), description);
+    }
+
+    private static void printTaskListToConsole(TaskList tasks) {
         System.out.println(Console.LINE_BREAK);
         tasks.printTasks();
         System.out.println(Console.LINE_BREAK);

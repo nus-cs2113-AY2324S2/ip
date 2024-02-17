@@ -11,7 +11,7 @@ public enum Command {
         try {
             return Command.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e) {
-            Console.printErrorMessage();
+            Console.printCommandErrorMessage();
             return null;
         }
     }
@@ -31,11 +31,11 @@ public enum Command {
     }
 
 
-    public static String getDescription(String input) {
+    public static String getDescription(String input) throws MissingFieldException {
         int firstSpace = input.indexOf(" ");
         // Check if there is no space in the input string
         if (firstSpace == -1) {
-            return ""; // Return an empty string if no description is present
+            throw new MissingFieldException(); // Return an empty string if no description is present
         }
         // Otherwise, return the substring after the first space
         return input.substring(firstSpace + 1);
