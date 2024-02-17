@@ -69,7 +69,7 @@ public class Storage {
         fw.close();
     }
 
-    public static void addToDisk(String taskLine) throws IOException{
+    public static void addToDisk(String taskLine) throws IOException {
         FileWriter fa = new FileWriter(FILE_PATH, true);
         fa.write(taskLine);
         fa.close();

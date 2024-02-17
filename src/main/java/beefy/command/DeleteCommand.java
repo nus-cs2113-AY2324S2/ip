@@ -21,8 +21,7 @@ public class DeleteCommand implements Command {
 
     @Override
     public void execute() throws BeefyException, IOException {
-        if (taskId < 1 || taskId > userTasks.getNumberOfTasks())
-        {
+        if (taskId < 1 || taskId > userTasks.getNumberOfTasks()) {
             throw new BeefyException("Can you not do math, mate?");
         }
         userTasks.deleteTask(taskId);
