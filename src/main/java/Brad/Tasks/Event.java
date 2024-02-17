@@ -2,11 +2,12 @@ package Brad.Tasks;
 
 public class Event extends Task {
     private String time;
-    public Event (String description, String time) {
-        super(description);
+    public Event (String description, String time, boolean isDone) {
+        super(description, isDone);
         this.time = time;
     }
 
+    @Override
     public String getTime() {
         return time;
     }
