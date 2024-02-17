@@ -19,7 +19,9 @@ public class CommandHandler {
             throw new InvalidTodoSyntaxException();
         }
         String description = userInput.substring(TODO_DESCRIPTION_INDEX);
-        TaskList.add(new Todo(description));
+        Todo todo = new Todo(description);
+        TaskList.add(todo);
+        FileManager.appendTask(todo);
         Printer.printAddTask();
     }
 
@@ -33,7 +35,9 @@ public class CommandHandler {
         if (description.isEmpty()) {
             throw new InvalidDeadlineSyntaxException();
         }
-        TaskList.add(new Deadline(description, by));
+        Deadline deadline = new Deadline(description, by);
+        TaskList.add(deadline);
+        FileManager.appendTask(deadline);
         Printer.printAddTask();
     }
 
@@ -49,7 +53,9 @@ public class CommandHandler {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new InvalidEventSyntaxException();
         }
-        TaskList.add(new Event(description, from, to));
+        Event event = new Event(description, from, to);
+        TaskList.add(event);
+        FileManager.appendTask(event);
         Printer.printAddTask();
     }
 

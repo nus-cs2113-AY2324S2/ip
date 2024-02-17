@@ -1,5 +1,7 @@
 package jeff;
 
+import java.io.IOException;
+
 public class ExceptionHandler {
     public static void handleInvalidCommandException() {
         Printer.printIndent("Invalid command.");
@@ -35,5 +37,23 @@ public class ExceptionHandler {
         Printer.printIndent("Invalid unmark syntax.");
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("unmark [any number from 1 to " + TaskList.size() + "]");
+    }
+
+    public static void handleFileNotFoundException() {
+        FileManager.createNewFile();
+        Printer.printIndent("File not found. data/jeff.txt created.");
+        Printer.printDivider();
+    }
+
+    public static void handleCorruptFileException() {
+        Printer.printIndent("File is corrupt. Content not in expected format.");
+        Printer.printDivider();
+        System.exit(1);
+    }
+
+    public static void handleIOException(IOException e) {
+        Printer.printIndent("Something went wrong: " + e.getMessage());
+        Printer.printDivider();
+        System.exit(1);
     }
 }
