@@ -167,8 +167,8 @@ public class Hachi {
 
     public static void markOrUnmarkHandler(String firstWord, String cleanedInput, Task[] listOfTasks ) throws HachiException{
         int indexOfTask = cleanedInput.indexOf("MARK") + 4; // find index of task number
+        HachiException.checkOutOfBounds(indexOfTask);
         int taskNumber = Integer.parseInt(cleanedInput.substring(indexOfTask).trim()); // parse string to int
-        HachiException.checkOutOfBounds(taskNumber);
         markOrUnmarkTask(taskNumber - 1, listOfTasks, !cleanedInput.contains("UNMARK"));
     }
 
