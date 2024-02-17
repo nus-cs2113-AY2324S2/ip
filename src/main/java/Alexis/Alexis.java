@@ -1,3 +1,8 @@
+package Alexis;
+
+import Alexis.console.Console;
+import Alexis.task.TaskList;
+
 import java.util.Scanner;
 
 public class Alexis {
