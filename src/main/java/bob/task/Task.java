@@ -2,17 +2,11 @@ package bob.task;
 
 abstract public class Task {
     protected final String taskName;
-    protected final int taskId;
     protected final boolean isCompleted;
 
-    protected Task(String taskName, int taskId, boolean isCompleted) {
+    protected Task(String taskName, boolean isCompleted) {
         this.taskName = taskName;
-        this.taskId = taskId;
         this.isCompleted = isCompleted;
-    }
-
-    public int getTaskId() {
-        return taskId;
     }
 
     abstract public Task markTaskAsComplete();
