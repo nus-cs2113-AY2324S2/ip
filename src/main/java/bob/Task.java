@@ -5,9 +5,15 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String stringRepresentation) {
+        this.isDone = stringRepresentation.substring(0, 6).contains("X");
+        String[] split = stringRepresentation.substring(7).split(" ");
+        this.description = split[0];
     }
 
     public String getStatusIcon() {
