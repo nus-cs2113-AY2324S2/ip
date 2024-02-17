@@ -11,6 +11,16 @@ public class Event extends Todo {
     }
 
     @Override
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    @Override
+    public String getEndDate() {
+        return this.endDate;
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " (from: " + this.startDate
                 + " to: " + this.endDate + ")";

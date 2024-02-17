@@ -26,6 +26,18 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getTag(){
+        return " ";
+    }
+
+    public String getStartDate(){
+        return " ";
+    }
+
+    public String getEndDate(){
+        return " ";
+    }
+
     public void printTask() {
         System.out.print("[" + this.getStatusIcon() + "] " + this.description + "\n");
     }
