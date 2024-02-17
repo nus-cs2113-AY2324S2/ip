@@ -23,13 +23,11 @@ public class TaskManager {
         switch (commandType) {
         case ("mark"):
             int markIndex = Integer.parseInt(commandTypeAndParams[Constants.INDEX_DESCRIPTION]) - 1;
-            //tasks[markIndex].markAsDone();
             tasks.get(markIndex).markAsDone();
             ConsolePrint.printMarkStatement(tasks.get(markIndex));
             break;
         case ("unmark"):
             int unmarkIndex = Integer.parseInt(commandTypeAndParams[Constants.INDEX_DESCRIPTION]) - 1;
-            //tasks[unmarkIndex].markAsNotDone();
             tasks.get(unmarkIndex).markAsNotDone();
             ConsolePrint.printUnmarkStatement(tasks.get(unmarkIndex));
             break;
@@ -56,6 +54,13 @@ public class TaskManager {
             tasks.add(newEvent);
             ConsolePrint.printAddTaskStatement(newEvent, noOfTasks + 1);
             noOfTasks += 1;
+            break;
+        case("delete"):
+            int deleteIndex = Integer.parseInt(commandTypeAndParams[Constants.INDEX_DESCRIPTION]) - 1;
+            Task deletedTask = tasks.get(deleteIndex);
+            tasks.remove(deleteIndex);
+            ConsolePrint.printDeleteTaskStatement(deletedTask, noOfTasks - 1);
+            noOfTasks -= 1;
             break;
         }
     }

@@ -120,6 +120,10 @@ public class InputParser {
             isValidInput = false;
         }
     }
+    public void extractDetailsFromDeleteString(String line) {
+        int descriptionIndex = line.indexOf(" ");
+        this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
+    }
     public void parseInput(String line) {
         extractCommandTypeFromString(line);
 
@@ -144,6 +148,9 @@ public class InputParser {
             break;
         case ("event"):
             extractDetailsFromEventString(line);
+            break;
+        case("delete"):
+            extractDetailsFromDeleteString(line);
             break;
         }
     }

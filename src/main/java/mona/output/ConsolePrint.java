@@ -15,7 +15,7 @@ public class ConsolePrint {
     public static void printUnmarkStatement(Task task) {
         printHorizontalLine();
 
-        System.out.println("OK,  I've marked this as not done yet:");
+        System.out.println("OK, I've marked this as not done yet:");
         System.out.println(task);
 
         printHorizontalLine();
@@ -32,6 +32,14 @@ public class ConsolePrint {
         printHorizontalLine();
 
         System.out.println("Got it. I've added this task: " + System.lineSeparator() + task);
+        System.out.println("Now you have " + Integer.toString(noOfTasks) + " tasks in the list.");
+
+        printHorizontalLine();
+    }
+    public static void printDeleteTaskStatement(Task task, int noOfTasks) {
+        printHorizontalLine();
+
+        System.out.println("Noted. I've removed this task: " + System.lineSeparator() + task);
         System.out.println("Now you have " + Integer.toString(noOfTasks) + " tasks in the list.");
 
         printHorizontalLine();
