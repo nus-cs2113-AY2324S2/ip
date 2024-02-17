@@ -1,6 +1,11 @@
 package kvothe.task;
 import kvothe.exception.WrongArgumentsException;
 
+import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Task {
 
     private String description;
@@ -113,6 +118,64 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String toFileString() {
+        String status = this.isDone ? "1" : "0";
+        return  "|" + status + "|" + this.description + "|";
+    }
+
+    public static void dumpToFile(ArrayList<Task> tasks, String filename){
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false));
+
+            for (Task task : tasks) {
+                writer.write(task.toString());
+                // [Type][Done] descr (arg1: value1, arg2: value2 ...)
+                writer.newLine();
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<Task> loadFromFile(String filename){
+        ArrayList<Task> tasks = new ArrayList<Task>();
+
+        try {
+            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                char type = line.charAt(0);
+                boolean isDone = line.charAt(2) == '1';
+                String args[] = line.split("\\|");
+                switch (type) {
+                case 'T':
+                    tasks.add(new Todo(args[2]));
+                    break;
+                case 'D':
+                    tasks.add(new Deadline(args[2], args[3]));
+                    break;
+                case 'E':
+                    tasks.add(new Event(args[2], args[3], args[4]));
+                    break;
+                default:
+                    System.err.println("Invalid task type: " + type);
+                    break;
+                }
+
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.err.println("Error reading from the file: " + e.getMessage());
+        }
+
+        return tasks;
+    }
+
 }
 
 

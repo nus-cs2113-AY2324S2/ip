@@ -9,6 +9,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String toFileString(){
+        return "D" + super.toFileString() + this.by + "|";
+    }
+
     public String getBy(){
         return this.by;
     }

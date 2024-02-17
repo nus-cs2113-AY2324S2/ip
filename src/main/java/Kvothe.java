@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class Kvothe {
 
+    private static final String FILEPATH = "data/kvothe.txt";
+
     private static final int MAXTASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<Task>(MAXTASKS);
 
