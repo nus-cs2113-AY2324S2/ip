@@ -47,7 +47,7 @@ public class TodoCommand implements Command {
             storage.addTask(newTodo.toDisk());
             taskList.add(newTodo);
             String msg = (taskList.size() > 1) ? "tasks" : "task";
-            ui.printMessage("Got it. I've added this task: \n\t   " + newTodo
+            ui.printMessage("Got it. I've added this task:\n\t   " + newTodo
                     + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
         }
     }

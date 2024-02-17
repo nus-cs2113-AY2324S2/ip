@@ -43,7 +43,7 @@ public class UnmarkCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (INDEX < 0 || INDEX >= taskList.size()) {
-            throw new DukeException("Exceed Charge.... \n\t " +
+            throw new DukeException("Exceed Charge....\n\t " +
                     "OOPS!!! Unable to mark invalid task as undone.");
         } else {
             Task undoneTask = taskList.get(INDEX);

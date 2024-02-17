@@ -31,18 +31,19 @@ public class Ui {
      * Displays the welcome message of the Duke chatbot.
      */
     public void printHi() {
-        System.out.print(messageFormat("Awakening.... \n\t Hi! I'm Faiz!\n\t What can I do for you?"));
+        System.out.print(messageFormat("Awakening....\n\t Hi! I'm Faiz!\n\t What can I do for you?"));
     }
 
     /**
      * Displays the exit message of the Duke chatbot.
      */
     public void printBye() {
-        System.out.print(messageFormat("Deformation.... \n\t Bye! Hope to see you again soon!"));
+        System.out.print(messageFormat("Deformation....\n\t Bye! Hope to see you again soon!"));
     }
 
     /**
      * Reads in user input via the Scanner.
+     *
      * @return The user's input.
      */
     public String readCommand() {
@@ -51,6 +52,7 @@ public class Ui {
 
     /**
      * Displays message of the executed commands.
+     *
      * @param message The message to be displayed.
      */
     public void printMessage(String message) {
@@ -59,6 +61,7 @@ public class Ui {
 
     /**
      * Displays the error message.
+     *
      * @param message The error message to be displayed.
      */
     public void printError(String message) {

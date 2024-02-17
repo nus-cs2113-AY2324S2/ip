@@ -58,7 +58,7 @@ public class EventCommand implements Command {
             storage.addTask(newEvent.toDisk());
             taskList.add(newEvent);
             String msg = (taskList.size() > 1) ? "tasks" : "task";
-            ui.printMessage("Got it. I've added this task: \n\t   " + newEvent
+            ui.printMessage("Got it. I've added this task:\n\t   " + newEvent
                     + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
         }
     }

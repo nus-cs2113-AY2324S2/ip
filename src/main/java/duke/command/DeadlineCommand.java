@@ -51,7 +51,7 @@ public class DeadlineCommand implements Command {
             storage.addTask(newDeadline.toDisk());
             taskList.add(newDeadline);
             String msg = (taskList.size() > 1) ? "tasks" : "task";
-            ui.printMessage("Got it. I've added this task: \n\t   " + newDeadline
+            ui.printMessage("Got it. I've added this task:\n\t   " + newDeadline
                     + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
         }
     }

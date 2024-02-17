@@ -9,6 +9,7 @@ import duke.command.*;
  * Generates the respective Command objects based on the parsed command keyword.
  */
 public class Parser {
+
     /**
      * Parses user input into command and details, and creates the corresponding Command object.
      *

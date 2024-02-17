@@ -19,6 +19,7 @@ public abstract class Task {
 
     /**
      * Returns the status of whether the Task is completed.
+     *
      * @return String representing the status of the Task
      */
     public String getStatusIcon() {
@@ -41,6 +42,7 @@ public abstract class Task {
 
     /**
      * Converts the Task to the specific format for saving to the text file.
+     *
      * @return A formatted string containing the Task for saving.
      */
     public String toDisk() {
