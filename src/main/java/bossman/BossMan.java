@@ -1,15 +1,13 @@
 package bossman;
 
 import java.util.Scanner;
+
+import bossman.exceptions.commandexceptions.*;
 import bossman.task.Task;
 import bossman.task.TaskList;
 import bossman.task.Event;
 import bossman.task.Todo;
 import bossman.task.Deadline;
-import bossman.exceptions.commandexceptions.InvalidEventCommandException;
-import bossman.exceptions.commandexceptions.InvalidDeadlineCommandException;
-import bossman.exceptions.commandexceptions.InvalidTodoCommandException;
-import bossman.exceptions.commandexceptions.UnknownCommandException;
 
 
 public class BossMan {
@@ -44,6 +42,8 @@ public class BossMan {
                      InvalidTodoCommandException |
                      InvalidDeadlineCommandException |
                      InvalidEventCommandException |
+                     InvalidDeleteCommandException |
+                     IndexOutOfBoundsException |
                      NumberFormatException e) {
                 System.out.println(e.getMessage() + "\n" + SEP);
             }
@@ -56,7 +56,9 @@ public class BossMan {
             InvalidTodoCommandException,
             InvalidDeadlineCommandException,
             InvalidEventCommandException,
-            NumberFormatException {
+            NumberFormatException,
+            IndexOutOfBoundsException,
+            InvalidDeleteCommandException {
 
         String[] parts = parseUserInput(userInput);
 
@@ -90,6 +92,10 @@ public class BossMan {
 
         case "event":
             handleEventCommand(commandArgs);
+            break;
+
+        case "delete":
+            handleDeleteCommand(commandArgs);
             break;
 
         case "bye":
@@ -154,6 +160,19 @@ public class BossMan {
         Task eventTask = new Event(description, from, to);
         TASK_LIST.addTask(eventTask);
         echo(eventTask);
+    }
+
+    private void handleDeleteCommand(String commandArgs)
+            throws InvalidDeleteCommandException,
+            IndexOutOfBoundsException {
+
+        try {
+            int number = Integer.parseInt(commandArgs);
+            TASK_LIST.removeTask(number);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidDeleteCommandException("Invalid delete command");
+        }
+
     }
 
     private void echo(Task task) {
