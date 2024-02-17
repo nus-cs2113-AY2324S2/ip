@@ -46,10 +46,15 @@ public class Baymax {
                 }
             }
 
-            // "{other words}" -- ADD TASK
+            // ADD TASK
+            else if (text.startsWith(("todo")) || text.startsWith("deadline") || text.startsWith("event")) {
+                Task.addTask(text,list,num);
+                num++;
+            }
+
+            // "{other words}" -- REJECT
             else {
-                Task.addTask(text, list, num);
-                num++; // need to account for error messages!
+                System.out.println("OH NOOO! I don't know what that means.");
             }
         }
 
