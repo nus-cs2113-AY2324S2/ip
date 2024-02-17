@@ -1,14 +1,24 @@
 package bob;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Bob {
     public static void main(String[] args) {
 
         displayWelcomeMessage();
         List<Task> list = new ArrayList<>();
+
+
+
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -51,6 +61,9 @@ public class Bob {
         case "list":
             displayList(list);
             break;
+        case "save":
+            saveList(list);
+            break;
         case "bye":
             displayExitMessage();
             return true;
@@ -58,6 +71,27 @@ public class Bob {
             throw new BobException("I'm sorry, but I don't know what that means :-(");
         }
         return false;
+    }
+
+    private static void saveList(List<Task> list) throws BobException {
+        final String FILENAME = "./data/bob.txt";
+
+        // convert list of tasks objects to list of strings
+        List<String> stringList = list.stream()
+                .map(object -> Objects.toString(object, null))
+                .collect(Collectors.toList());
+
+        Path file = Paths.get(FILENAME);
+
+        try {
+            Files.write(file, stringList, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new BobException("Some problem with your computer, could not save list.");
+        }
+
+        displayHorizontalLine();
+        System.out.println("Your list has been saved to " + FILENAME + ".");
+        displayHorizontalLine();
     }
 
     private static void unmarkTask(String line, List<Task> list) {
