@@ -45,4 +45,17 @@ public class Event extends Task {
         return String.format("[%s][%s] %s (from: %s to: %s)",
                 this.type, completion, this.name, this.start, this.end);
     }
+
+    /**
+     * Returns the string representation of the task for storage.
+     * 
+     * @param delimiter The delimiter to be used.
+     * @return String representation of the task for storage.
+     */
+    public String toStorageString(String delimiter) {
+        int completion = this.isDone ? 1 : 0;
+        return String.format("%s%s%d%s%s%s%s%s%s",
+                this.type, delimiter, completion, delimiter, this.name,
+                delimiter, this.start, delimiter, this.end);
+    }
 }

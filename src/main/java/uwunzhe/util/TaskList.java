@@ -14,6 +14,16 @@ public class TaskList {
     private int size = 0;
 
     /**
+     * List access operator.
+     * 
+     * @param index
+     * @return Task
+     */
+    public Task getTask(int index) {
+        return list.get(index);
+    }
+
+    /**
      * Returns the size of the list.
      * 
      * @param None

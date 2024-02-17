@@ -16,8 +16,8 @@ import uwunzhe.exceptions.UwunzheException;
 
 public class StorageHandler {
     private static File storage;
-    private final static String STORAGE_FOLDER_PATH = "./data";
-    private final static String STORAGE_PATH = "./data/uwunzhe.txt";
+    private final static String STORAGE_FOLDER_PATH = "./ip/data";
+    private final static String STORAGE_PATH = STORAGE_FOLDER_PATH + "/uwunzhe.txt";
     private final static String SEPARATOR = String.valueOf(Character.toChars(31));
 
     public StorageHandler(TaskList taskList) throws UwunzheException {
@@ -63,7 +63,6 @@ public class StorageHandler {
             throw new UwunzheException("EEK! Storage data!");
         }
 
-        // Update below to check type using data[0] instead
         if (data[0].equals(TaskType.TODO.getType())) {
             task = new Todo(data[2], isDone);
         } else if (data[0].equals(TaskType.DEADLINE.getType())) {
@@ -77,5 +76,21 @@ public class StorageHandler {
 
         // Add task to list
         taskList.addItem(task);
+    }
+
+    public void saveData(TaskList taskList) throws UwunzheException {
+        try {
+            FileWriter fw = new FileWriter(STORAGE_PATH);
+            
+            for (int i = 0; i < taskList.getSize(); i++) {
+                Task task = taskList.getTask(i);
+                String data = task.toStorageString(SEPARATOR);
+                fw.write(data + "\n");
+            }
+
+            fw.close();
+        } catch (IOException e) {
+            throw new UwunzheException("Storage file oopsies!");
+        }
     }
 }
