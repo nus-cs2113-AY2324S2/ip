@@ -3,6 +3,8 @@ package mona.output;
 import mona.task.Task;
 import mona.util.Constants;
 
+import java.util.ArrayList;
+
 public class ConsolePrint {
     public static void printHorizontalLine() {
         for (int i = 0; i < 59; i++) {
@@ -34,7 +36,7 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
-    public static void printList(Task[] tasks) {
+    public static void printList(ArrayList<Task> tasks) {
         printHorizontalLine();
 
         int index = 1;
