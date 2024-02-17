@@ -1,29 +1,33 @@
 package Brad.Tasks;
 
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
-    public Task(String description) {
+    protected Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
-    public void setIsDone(boolean isDone) {
+    protected void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 
-    public boolean getIsDone() {
+    protected boolean getIsDone() {
         return isDone;
     }
 
-    public String getTaskDescription() {
+    protected String getTaskDescription() {
         return description;
     }
 
-    public String getFullDescription() {
+    protected String getFullDescription() {
         String output = "[";
         output += (getIsDone() ? "X] " : " ] ");
         output += getTaskDescription();
         return output;
+    }
+
+    protected String getTime() {
+        return "";
     }
 }

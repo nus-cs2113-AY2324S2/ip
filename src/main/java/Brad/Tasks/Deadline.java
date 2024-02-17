@@ -2,11 +2,12 @@ package Brad.Tasks;
 
 public class Deadline extends Task {
     private String time;
-    public Deadline (String description, String time) {
-        super(description);
+    public Deadline (String description, String time, boolean isDone) {
+        super(description, isDone);
         this.time = time;
     }
 
+    @Override
     public String getTime() {
         return time;
     }
