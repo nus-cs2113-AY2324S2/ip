@@ -7,6 +7,7 @@ public class Arriky {
         // initialize
         Scanner sc = new Scanner(System.in);
         TaskList tl = new TaskList();
+        ErrorMessage em = new ErrorMessage();
         greet();
         boolean running = true;
 
@@ -34,12 +35,28 @@ public class Arriky {
                 printSeparation();
                 break;
             case "mark":
-                tl.markDone(Integer.parseInt(arguments[1]) - 1);
-                printSeparation();
+                try {
+                    tl.markDone(Integer.parseInt(arguments[1]) - 1);
+                    printSeparation();
+                } catch (NumberFormatException e) {
+                    System.out.println(em.INVALID_ID);
+                    printSeparation();
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(em.ID_NOT_EXIST);
+                    printSeparation();
+                }
                 break;
             case "unmark":
-                tl.unmarkDone(Integer.parseInt(arguments[1]) - 1);
-                printSeparation();
+                try {
+                    tl.unmarkDone(Integer.parseInt(arguments[1]) - 1);
+                    printSeparation();
+                } catch (NumberFormatException e) {
+                    System.out.println(em.INVALID_ID);
+                    printSeparation();
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(em.ID_NOT_EXIST);
+                    printSeparation();
+                }
                 break;
             case "todo":
                 String taskName = command.substring(5);
@@ -47,17 +64,30 @@ public class Arriky {
                 printSeparation();
                 break;
             case "deadline": {
-                String[] segments = command.split(" /by ");
-                tl.addDeadline(segments[0].substring(9), segments[1]);
+                try {
+                    String[] segments = command.split(" /by ");
+                    tl.addDeadline(segments[0].substring(9), segments[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(em.INVALID_DEADLINE_FORMAT);
+                    printSeparation();
+                }
+
                 break;
             }
             case "event": {
-                String[] segments = command.split(" /");
-                tl.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3));
+                try {
+                    String[] segments = command.split(" /");
+                    tl.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(em.INVALID_EVENT_FORMAT);
+                    printSeparation();
+                }
+
                 break;
             }
             default:
-                break;
+                System.out.println(em.INVALID_COMMAND);
+                printSeparation();
             }
         }
     }
