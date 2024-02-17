@@ -73,12 +73,11 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-        System.out.println("""
-                ____________________________________________________________
-                Hello! I'm Bob
-                What can I do for you?
-                ____________________________________________________________""");
 
+        System.out.println("____________________________________________________________\n" +
+                           "Hello! I'm Bob\n" +
+                           "What can I do for you?\n" +
+                           "____________________________________________________________");
         userInput();
     }
 }
