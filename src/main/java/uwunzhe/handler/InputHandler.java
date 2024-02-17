@@ -62,6 +62,10 @@ public class InputHandler {
             isUpdated = true;
             break;
 
+        case "delete":
+            this.taskList.deleteItem(taskString);
+            break;
+
         default:
             // Add message for invalid input
             throw new UwunzheException("OH NO! I cannot understand!");
