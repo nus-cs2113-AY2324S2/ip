@@ -1,5 +1,3 @@
-// Subclass of Task
-
 package tasks;
 public class Todo extends Task {
 
@@ -7,7 +5,7 @@ public class Todo extends Task {
 
     // Constructor
     public Todo(String description,  boolean newInput) {
-        super(description, newInput);
+        super(description);
         setNewInput(newInput);
         toPrint();
     }

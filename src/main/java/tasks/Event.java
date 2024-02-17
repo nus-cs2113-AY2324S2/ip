@@ -1,21 +1,16 @@
-// subclass of Task
 package tasks;
 import main.DukeException;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
     protected boolean newInput;
-
     public Event(String description, boolean newInput) {
-        super(description, newInput);
+        super(description);
         setNewInput(newInput);
         toPrint();
     }
     public void setNewInput(boolean newInput) {
         this.newInput = newInput;
     }
-
     @Override
     public String toString() {
         String date;

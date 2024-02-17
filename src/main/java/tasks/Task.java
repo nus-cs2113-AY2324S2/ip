@@ -1,16 +1,12 @@
-// Superclass of 3 subclasses: Todo, Deadline and Event
-
 package tasks;
 public class Task {
-    // 3 class attributes
     protected String description;
     public boolean isDone;
 
     // constructor
-    public Task(String description, boolean newInput) {
+    public Task(String description) {
         setDescription(description);
         setDone();
-        //setCounter(index);
     }
 
     // Set for description attribute
