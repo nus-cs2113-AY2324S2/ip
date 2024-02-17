@@ -1,4 +1,11 @@
 package Casper;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -6,7 +13,10 @@ public class Casper {
     private static final String SEPARATOR = "    _______________________________________________________________________";
     private static final ArrayList<Task> taskList = new ArrayList<>();
     private static int noOfTasks = 0;
-    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo", "delete"};
+    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo", "delete",
+            "save"};
+    private static final String pathToSaveDirectory = "./save/";
+    private static final String saveFilename= "savedCasper.txt";
     private static void wrapEchoMessage(String message){
         System.out.println(SEPARATOR);
         System.out.println("     "+message);
@@ -69,12 +79,36 @@ public class Casper {
         case "delete":
             deleteTask(userInput);
             break;
+        case "save":
+            handleSaveFile();
         default:
             break;
         }
         return true;
     }
 
+    private static void handleSaveFile(){
+        try{
+            File saveFile = new File(pathToSaveDirectory + saveFilename);
+            PrintWriter writer = new PrintWriter(saveFile);
+            writer.close();
+            wrapEchoMessage("File cleared.");
+        } catch (FileNotFoundException e){
+            handleMissingDirectory();
+        }
+    }
+    
+    private static void handleMissingDirectory(){
+        Path absolutePath = Paths.get(pathToSaveDirectory).toAbsolutePath();
+        try{
+            Files.createDirectory(absolutePath);
+            Path filePath = absolutePath.resolve(saveFilename);
+            Files.createFile(filePath);
+            wrapEchoMessage("File created successfully");
+        } catch (IOException e){
+            wrapEchoMessage(e.getMessage());
+        }
+    }
     private static void handleMarkTask(String userInput){
         boolean toMark = userInput.split(" ")[0].equals("mark");
         int targetTaskNumber = validateTargetedInput(userInput);
