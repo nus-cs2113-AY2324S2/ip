@@ -37,7 +37,7 @@ Here are the tasks in your list:
 3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
-1 to 100 only. Seriously, no zeros, no hundreds. Got it?
+Hey, wake up! That task? Non-existent. Try something real.
 Hey, wake up! That task? Non-existent. Try something real.
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -50,7 +50,7 @@ Here are the tasks in your list:
 3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
-1 to 100 only. Seriously, no zeros, no hundreds. Got it?
+Hey, wake up! That task? Non-existent. Try something real.
 Hey, wake up! That task? Non-existent. Try something real.
 ____________________________________________________________
 OK, I've marked this task as not done yet:
