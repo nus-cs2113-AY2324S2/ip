@@ -15,7 +15,7 @@ public class List {
             tasks = new ArrayList<>();
             readFile(filePath);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to read file as file is not found!");
+            System.out.println("    No file found, current task list will be empty!");
         }
     }
 
@@ -27,12 +27,13 @@ public class List {
             line = s.nextLine();
             String[] words = line.split(";");
             String taskType = words[0];
+            boolean taskStatus = words[1].equals("X") ? true : false;
             if (taskType.equals("T")) {
-                tasks.add(new Todo(words[1]));
+                tasks.add(new Todo(words[1], taskStatus));
             } else if (taskType.equals("D")) {
-                tasks.add(new Deadline(words[1], words[2]));
+                tasks.add(new Deadline(words[2], words[3], taskStatus));
             } else if (taskType.equals("E")) {
-                tasks.add(new Event(words[1], words[2], words[3]));
+                tasks.add(new Event(words[2], words[3], words[4], taskStatus));
             }
         }
     }
@@ -68,5 +69,9 @@ public class List {
 
     public int getSize() {
         return tasks.size();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 }
