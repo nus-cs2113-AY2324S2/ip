@@ -43,10 +43,10 @@ It appears you have no tasks at the moment...
     3: [D] [ ] project review (by: thursday)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Sure, I've done as you requested:
-    1: [X] go to school
+    1: [T] [X] go to school
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Sure, I've done as you requested:
-    2: [X] chinese new year (from: friday to: 15 days after friday)
+    2: [E] [X] chinese new year (from: friday to: 15 days after friday)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     The following are in your list:
@@ -55,7 +55,7 @@ It appears you have no tasks at the moment...
     3: [D] [ ] project review (by: thursday)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Sure, I've done as you requested:
-    2: [ ] chinese new year (from: friday to: 15 days after friday)
+    2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Goodbye! Hope you have a marvelous day.
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
