@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class FileManager {
     private static final String EXPECTED_FILE_PATH = "data/jeff.txt";
+    private static final int MARK_INDEX = 4;
 
     public static void loadTasks() {
         try {
@@ -33,6 +34,34 @@ public class FileManager {
             String textToAppend = task.toFileString() + System.lineSeparator();
             fw.write(textToAppend);
             fw.close();
+        } catch (IOException e) {
+            ExceptionHandler.handleIOException(e);
+        }
+    }
+
+    public static void updateMarkStatus(int index, boolean mark) {
+        char newMarkStatus = mark ? '1' : '0';
+
+        try {
+            File f = new File(EXPECTED_FILE_PATH);
+            Scanner s = new Scanner(f);
+            StringBuilder content = new StringBuilder();
+            int currentLine = 0;
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                if (currentLine == index) {
+                    StringBuilder modifiedLine = new StringBuilder(line);
+                    modifiedLine.setCharAt(MARK_INDEX, newMarkStatus);
+                    line = modifiedLine.toString();
+                }
+                content.append(line).append(System.lineSeparator());
+                currentLine++;
+            }
+            FileWriter fw = new FileWriter(EXPECTED_FILE_PATH);
+            fw.write(content.toString());
+            fw.close();
+        } catch (FileNotFoundException e) {
+            ExceptionHandler.handleFileNotFoundException();
         } catch (IOException e) {
             ExceptionHandler.handleIOException(e);
         }
