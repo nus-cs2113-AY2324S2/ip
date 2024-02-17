@@ -1,3 +1,9 @@
+package Alexis.console;
+
+import Alexis.exception.MissingFieldException;
+import Alexis.task.TaskList;
+import Alexis.task.TaskType;
+
 import java.util.Scanner;
 
 public class Console {

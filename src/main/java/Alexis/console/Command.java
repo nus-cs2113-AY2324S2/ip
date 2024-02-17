@@ -1,3 +1,7 @@
+package Alexis.console;
+
+import Alexis.exception.MissingFieldException;
+
 public enum Command {
     LIST,
     BYE,
