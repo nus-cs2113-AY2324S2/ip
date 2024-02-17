@@ -15,6 +15,9 @@ public class InvalidArgumentException extends Exception {
         String errorMessage = ERROR_MESSAGE + " Usage:\n";
 
         switch (this.command) {
+        case DELETE:
+            errorMessage += "  delete <task number>";
+            break;
         case MARK:
             errorMessage += "  mark <task number>";
             break;

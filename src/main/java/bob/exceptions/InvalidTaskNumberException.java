@@ -16,8 +16,10 @@ public class InvalidTaskNumberException extends Exception {
 
         if (command.equals(Command.MARK)) {
             errorMessage += "  mark <task number>";
-        } else {
+        } else if (command.equals(Command.UNMARK)){
             errorMessage += "  unmark <task number>";
+        } else {
+            errorMessage += "  delete <task number>";
         }
 
         return errorMessage;
