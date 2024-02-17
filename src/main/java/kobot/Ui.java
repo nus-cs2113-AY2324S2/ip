@@ -16,6 +16,11 @@ public class Ui {
             + "#########################################\n";
 
     private static final String LINE_DIVIDER = "-------------------------------------------";
+    
+    Scanner in;
+    public Ui() {
+        this.in = new Scanner(System.in);
+    }
 
     public void printLineDivider() {
         System.out.println(LINE_DIVIDER);
@@ -29,13 +34,13 @@ public class Ui {
         System.out.println("Bye, hope to see you again!");
     }
 
-    public String receiveInput(Scanner in) throws NoSuchElementException {
+    public String receiveInput() throws NoSuchElementException {
         printLineDivider();
         System.out.print("> ");
         String input = "";
         
         try {
-            input = in.nextLine();
+            input = this.in.nextLine();
         } catch (NoSuchElementException exception) {
             System.exit(0);
         }

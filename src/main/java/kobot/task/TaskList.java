@@ -1,11 +1,16 @@
 package kobot.task;
 
-import kobot.task.Deadline;
-import kobot.task.Event;
-import kobot.task.Task;
-import kobot.task.ToDo;
+import java.util.Arrays;
 
 public class TaskList {
+    private static final String EMPTY_STRING = "";
+    private static final String FILE_DELIMITER = ";";
+    private static final int TASK_TYPE_INDEX = 0;
+    private static final int TASK_IS_DONE_INDEX = 1;
+    private static final int TASK_DESCRIPTION_INDEX = 2;
+    private static final int DEADLINE_BY_INDEX = 3;
+    private static final int EVENT_FROM_INDEX = 3;
+    private static final int EVENT_TO_INDEX = 4;
     private static final int MAX_TASK_COUNT = 100;
     private Task[] taskList = new Task[MAX_TASK_COUNT];
     private int taskCount = 0;
@@ -86,5 +91,42 @@ public class TaskList {
         }
         taskList[index].markAsNotDone();
         System.out.println("Okay, I've marked this task as not done yet: " + taskList[index].getDescription());
+    }
+    
+    public void loadTask(String line) {
+        String[] data = line.split(FILE_DELIMITER);
+
+        try {
+            switch (data[TASK_TYPE_INDEX]) {
+            case "T":
+                taskList[taskCount] = new ToDo(data[TASK_DESCRIPTION_INDEX]
+                        , Boolean.parseBoolean(data[TASK_IS_DONE_INDEX]));
+                break;
+            case "D":
+                taskList[taskCount] = new Deadline(data[TASK_DESCRIPTION_INDEX], data[DEADLINE_BY_INDEX]
+                        , Boolean.parseBoolean(data[TASK_IS_DONE_INDEX]));
+                break;
+            case "E":
+                taskList[taskCount] = new Event(data[TASK_DESCRIPTION_INDEX], data[EVENT_FROM_INDEX]
+                        , data[EVENT_TO_INDEX], Boolean.parseBoolean(data[TASK_IS_DONE_INDEX]));
+                break;
+            default:
+                break;
+            }
+            taskCount++;
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("Invalid entry found in storage. Entry will be ignored.");
+        }
+    }
+    
+    public String toStorageFormat() {
+        StringBuilder storage = new StringBuilder(EMPTY_STRING);
+        
+        for (int i = 0; i < taskCount; i++) {
+            storage.append(taskList[i].toStorageFormat());
+            storage.append("\n");
+        }
+        
+        return String.valueOf(storage);
     }
 }

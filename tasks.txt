@@ -1,0 +1,3 @@
+E;true;CS2113T Lecture;16 Feb 4pm; 16 Feb 6pm
+D;true;Clean room;17 Feb
+T;false;Check email

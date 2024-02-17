@@ -1,19 +1,16 @@
 package kobot;
 
 import kobot.task.TaskList;
-
-import java.util.Scanner;
+import kobot.storage.Storage;
 
 public class Kobot {
     TaskList taskList;
     Ui ui;
-    Scanner in;
     Command command;
     
     public Kobot() {
-        this.taskList = new TaskList();
+        this.taskList = Storage.loadFile();
         this.ui = new Ui();
-        this.in = new Scanner(System.in);
         this.command = new Command();
     }
     
@@ -21,7 +18,7 @@ public class Kobot {
         ui.printHelloMessage();
 
         while (!command.getIsExit()) {
-            String input = ui.receiveInput(in);
+            String input = ui.receiveInput();
             command.parseCommand(input);
             command.executeCommand(taskList, ui);
         }

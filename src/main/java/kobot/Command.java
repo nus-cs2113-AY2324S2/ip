@@ -1,5 +1,6 @@
 package kobot;
 
+import kobot.storage.Storage;
 import kobot.task.TaskList;
 
 public class Command {
@@ -105,6 +106,7 @@ public class Command {
             try {
                 parseToDoArguments();
                 taskList.addToDo(this.description);
+                Storage.updateFile(taskList);
             } catch (NullPointerException | IndexOutOfBoundsException exception) {
                 ui.printMissingArgumentErrorMessage();
                 ui.printToDoCommandUsage();
@@ -118,6 +120,7 @@ public class Command {
             try {
                 parseDeadlineArguments();
                 taskList.addDeadline(this.description, this.by);
+                Storage.updateFile(taskList);
             } catch (NullPointerException | IndexOutOfBoundsException exception) {
                 ui.printMissingArgumentErrorMessage();
                 ui.printDeadlineCommandUsage();
@@ -131,6 +134,7 @@ public class Command {
             try {
                 parseEventArguments();
                 taskList.addEvent(this.description, this.from, this.to);
+                Storage.updateFile(taskList);
             } catch (NullPointerException| IndexOutOfBoundsException exception) {
                 ui.printMissingArgumentErrorMessage();
                 ui.printEventCommandUsage();
@@ -143,6 +147,7 @@ public class Command {
         case "MARK":
             try {
                 taskList.markTask(Integer.parseInt(this.arguments) - 1);
+                Storage.updateFile(taskList);
             } catch (NumberFormatException exception ) {
                 ui.printMarkCommandUsage();
             }
@@ -151,6 +156,7 @@ public class Command {
         case "UNMARK":
             try {
                 taskList.unmarkTask(Integer.parseInt(this.arguments) - 1);
+                Storage.updateFile(taskList);
             } catch (NumberFormatException exception ) {
                 ui.printUnmarkCommandUsage();
             }
