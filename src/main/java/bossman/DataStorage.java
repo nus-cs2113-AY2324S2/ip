@@ -1,7 +1,10 @@
 package bossman;
 
-import bossman.task.*;
-
+import bossman.task.Deadline;
+import bossman.task.Task;
+import bossman.task.TaskList;
+import bossman.task.Todo;
+import bossman.task.Event;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -44,6 +47,8 @@ public class DataStorage {
                     Task eventTask = new Event(description, isMark, from, to);
                     TASK_LIST.addTask(eventTask);
                     break;
+                default:
+                    System.out.println("Invalid task");
                 }
             }
         } catch (FileNotFoundException e) {

@@ -2,14 +2,12 @@ package bossman;
 
 import java.io.IOException;
 import java.util.Scanner;
-
 import bossman.exceptions.commandexceptions.*;
 import bossman.task.Task;
 import bossman.task.TaskList;
 import bossman.task.Event;
 import bossman.task.Todo;
 import bossman.task.Deadline;
-
 
 public class BossMan {
     private static final String SEP = "____________________________________________________________";
@@ -47,7 +45,8 @@ public class BossMan {
                      InvalidEventCommandException |
                      InvalidDeleteCommandException |
                      IndexOutOfBoundsException |
-                     NumberFormatException e) {
+                     NumberFormatException |
+                     InvalidMarkCommandException e) {
                 System.out.println(e.getMessage() + "\n" + SEP);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -64,7 +63,8 @@ public class BossMan {
             NumberFormatException,
             IndexOutOfBoundsException,
             InvalidDeleteCommandException,
-            IOException {
+            IOException,
+            InvalidMarkCommandException {
 
         String[] parts = parseUserInput(userInput);
 
@@ -117,13 +117,23 @@ public class BossMan {
         return userInput.trim().split("\\s+", 2);
     }
 
-    private void handleMarkCommand(String commandArgs) {
-        int number = Integer.parseInt(commandArgs);
+    private void handleMarkCommand(String commandArgs) throws InvalidMarkCommandException {
+        int number;
+        try {
+            number = Integer.parseInt(commandArgs);
+        } catch (NumberFormatException e) {
+            throw new InvalidMarkCommandException("Out of range");
+        }
         TASK_LIST.markTask(number);
     }
 
-    private void handleUnmarkCommand(String commandArgs) throws NumberFormatException {
-        int number = Integer.parseInt(commandArgs);
+    private void handleUnmarkCommand(String commandArgs) throws InvalidMarkCommandException {
+        int number;
+        try {
+            number = Integer.parseInt(commandArgs);
+        } catch (NumberFormatException e) {
+            throw new InvalidMarkCommandException("Out of range");
+        }
         TASK_LIST.unmarkTask(number);
     }
 
@@ -176,10 +186,11 @@ public class BossMan {
         try {
             int number = Integer.parseInt(commandArgs);
             TASK_LIST.removeTask(number);
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+        } catch (NumberFormatException e) {
             throw new InvalidDeleteCommandException("Invalid delete command");
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidDeleteCommandException("Item out of range");
         }
-
     }
 
     private void echo(Task task) {
