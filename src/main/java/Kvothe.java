@@ -74,9 +74,14 @@ public class Kvothe {
         }
 
         tasks.add(newTask);
+        echo("added: " + line + "\n\t\tnow you have " + tasks.size() + " tasks in the list");
     }
 
-  
+    private static void delete(int index) {
+        echo("Noted. I've removed this task:\n\t\t" + tasks.get(index - 1));
+        tasks.remove(index - 1);
+        echo("Now you have " + tasks.size() + " tasks in the list.");
+    }
 
     private static void list() {
         for (int i = 0; i < tasks.size(); i++) {
@@ -99,25 +104,22 @@ public class Kvothe {
         echo("OK, I've marked this task as not done yet:\n\t\t" + tasks.get(index - 1));
     }
 
-    private static int getTaskNumber(String[] args){
+    private static int getTaskNumber(String[] args) throws WrongArgumentsException{
 
         int index = 0;
         if (args.length != 2 ) {
-           echo("Sorry. Please specify one task number.");
-           return -1;
+          throw new WrongArgumentsException("Sorry. Input a task number.");
         }
 
         try{
             // First argument is the command
             index = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-            echo("Sorry. Please specify the task number as an integer.");
-            return -1;
+            throw new WrongArgumentsException("Sorry. The task number must be a number.");
         }
 
         if(index > tasks.size()){
-            echo("Sorry. There are just " + tasks.size() + " tasks in the list.");
-            return -1;
+            throw new WrongArgumentsException("Sorry. There are only " + tasks.size() + " tasks in the list");
         }
 
         return index;
@@ -142,21 +144,20 @@ public class Kvothe {
                     break;
                 case "mark":
                     taskNumber = getTaskNumber(lineWords);
-                    if(taskNumber != -1){
-                        mark(taskNumber);
-                    }
+                    mark(taskNumber);
                     break;
                 case "unmark":
                     taskNumber = getTaskNumber(lineWords);
-                    if(taskNumber != -1){
-                        unmark(taskNumber);
-                    }
+                    unmark(taskNumber);
                     break;
                 case "todo":
                 case "deadline":
                 case "event":
                     add(line);
-                    echo("added: " + line + "\n\t\tnow you have " + tasks.size() + " tasks in the list");
+                    break;
+                case "delete":
+                    taskNumber = getTaskNumber(lineWords);
+                    delete(taskNumber);
                     break;
                 default:
                     throw new WrongArgumentsException("Sorry. I do not support the method." + command);
