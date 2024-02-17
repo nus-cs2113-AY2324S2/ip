@@ -1,4 +1,4 @@
-import java.util.Scanner;
+
 public class Reply {
     public static final String PARTITION_LINE = "____________________________________________________________";
     public static final String INVALID_COMMAND = "Invalid command. Enter 'help' to view available commands.";
