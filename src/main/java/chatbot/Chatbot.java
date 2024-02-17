@@ -5,6 +5,8 @@ import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -20,7 +22,20 @@ public class Chatbot {
     public Chatbot(String name) {
         this.CHATBOT_NAME = name;
     }
-
+    public void writeToFile() throws IOException {
+        FileWriter fileWriter = new FileWriter("./data/chatbot.txt");
+        for (int i = 0; i < listLength; i += 1) {
+            fileWriter.write(taskList[i].getData() + "\n");
+        }
+        fileWriter.close();
+    }
+    public void save() {
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
     public static void printTask(Task task) {
         System.out.println(task.getData());
     }
