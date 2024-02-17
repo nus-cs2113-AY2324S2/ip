@@ -18,7 +18,6 @@ public class JingHao {
     private static final String LINE_SEP = "____________________________________________________________";
 
     protected static TaskList taskList;
-    protected int numberOfTask;
     protected Scanner in;
 
     public JingHao() {
@@ -31,7 +30,6 @@ public class JingHao {
         } catch (JingHaoExceptions e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
-        this.numberOfTask = taskList.size();
         this.in = new Scanner(System.in);
     }
 
@@ -157,7 +155,6 @@ public class JingHao {
         }
         Task newTodo = new Todo(userInput);
         taskList.add(newTodo);
-        numberOfTask++;
         System.out.println("Got it. I've added this task:\n " + newTodo);
         printTotalTask();
         System.out.println(LINE_SEP);
@@ -172,7 +169,6 @@ public class JingHao {
         String date = deadlineDescription[1];
         Task newDeadline = new Deadline(description, date);
         taskList.add(newDeadline);
-        numberOfTask++;
         System.out.println("Got it. I've added this task:\n " + newDeadline);
         printTotalTask();
         System.out.println(LINE_SEP);
@@ -192,7 +188,6 @@ public class JingHao {
         String toDate = eventTime[1];
         Task newEvent = new Event(description,fromDate,toDate);
         taskList.add(newEvent);
-        numberOfTask++;
         System.out.println("Got it. I've added this task:\n " +newEvent);
         printTotalTask();
         System.out.println(LINE_SEP);
@@ -211,6 +206,6 @@ public class JingHao {
     }
 
     private void printTotalTask(){
-        System.out.println("Now you have " + numberOfTask + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 }
