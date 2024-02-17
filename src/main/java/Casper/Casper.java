@@ -1,8 +1,5 @@
 package Casper;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -92,23 +89,68 @@ public class Casper {
             File saveFile = new File(pathToSaveDirectory + saveFilename);
             PrintWriter writer = new PrintWriter(saveFile);
             writer.close();
-            wrapEchoMessage("File cleared.");
+            writeToFile();
+        } catch (FileNotFoundException e){
+            handleMissingDirectory();
+            writeToFile();
+        }
+        wrapEchoMessage("Tasks saved successfully.");
+    }
+
+    private static void loadSaveFile(){
+        try{
+            File f = new File(pathToSaveDirectory + saveFilename);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()){
+                String[] formatInputList = s.nextLine().split(" # ");
+                handleTaskStringToTaskObject(formatInputList);
+            }
         } catch (FileNotFoundException e){
             handleMissingDirectory();
         }
     }
-    
+
+    private static void handleTaskStringToTaskObject(String[] formatInputList){
+        String taskType = formatInputList[0];
+        Task newTask;
+        if(taskType.equals("D")){
+            newTask = new Deadline(formatInputList[2], formatInputList[3]);
+        }else if (taskType.equals("E")){
+            newTask = new Event(formatInputList[2], formatInputList[3], formatInputList[4]);
+        }else{
+            newTask = new Todo(formatInputList[2]);
+        }
+        if(formatInputList[1].equals("1")){
+            newTask.isDone = true;
+        }
+        taskList.add(newTask);
+        noOfTasks++;
+    }
+
     private static void handleMissingDirectory(){
         Path absolutePath = Paths.get(pathToSaveDirectory).toAbsolutePath();
         try{
             Files.createDirectory(absolutePath);
             Path filePath = absolutePath.resolve(saveFilename);
             Files.createFile(filePath);
-            wrapEchoMessage("File created successfully");
         } catch (IOException e){
             wrapEchoMessage(e.getMessage());
         }
     }
+
+    private static void writeToFile() {
+        try{
+            String pathToFile = pathToSaveDirectory + saveFilename;
+            FileWriter fw = new FileWriter(pathToFile);
+            for(Task task : taskList){
+                fw.write(task.saveFormat() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e){
+            wrapEchoMessage("Something went wrong: "+ e.getMessage());
+        }
+    }
+
     private static void handleMarkTask(String userInput){
         boolean toMark = userInput.split(" ")[0].equals("mark");
         int targetTaskNumber = validateTargetedInput(userInput);
@@ -268,6 +310,7 @@ public class Casper {
 
     public static void main(String[] args) {
         echoGreetings();
+        loadSaveFile();
         handleQueries();
         wrapEchoMessage("Alright, see you around!");
     }

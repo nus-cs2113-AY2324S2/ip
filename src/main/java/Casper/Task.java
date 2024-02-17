@@ -1,6 +1,6 @@
 package Casper;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     private static final String SEPARATOR = "    _______________________________________________________________________";
@@ -26,4 +26,5 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
+    public abstract String saveFormat();
 }

@@ -22,4 +22,9 @@ public class Deadline extends Task {
         super.unMarkTask();
         wrapEchoMessage("     Noted. Get it done soon...\n       "+toString());
     }
+
+    @Override
+    public String saveFormat(){
+        return String.format("D # %d # %s # %s", super.isDone?1:0, super.description, this.by);
+    }
 }
