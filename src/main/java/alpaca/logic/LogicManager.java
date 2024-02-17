@@ -46,8 +46,8 @@ public class LogicManager {
     }
 
     private void addTask(Task task) {
-        taskList.add(task);
-        responseManager.printAddTask(task, taskList.getListCount());
+        taskList.addTask(task);
+        responseManager.printAddTask(task, taskList.getTotalTaskNumber());
     }
 
     private void markUnmarkTask(String details, boolean isMark) {
