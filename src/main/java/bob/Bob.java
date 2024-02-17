@@ -70,20 +70,13 @@ public class Bob {
         return commandOutput;
     }
 
-    public void run() {
+    public void run() throws IOException {
         Ui userInterface = new Ui();
         userInterface.printLogo();
         userInterface.printWelcome();
 
-        TaskManager manager;
+        TaskManager manager = StateManager.loadState();
         Parser inputParser = new Parser();
-
-        try {
-            manager = StateManager.loadState();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            manager = new TaskManager();
-        }
 
         while (inputParser.hasMoreInput()) {
             try {
