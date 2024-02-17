@@ -1,9 +1,10 @@
 package Casper;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Casper {
     private static final String SEPARATOR = "    _______________________________________________________________________";
-    private static final Task[] taskList = new Task[100];
+    private static final ArrayList<Task> taskList = new ArrayList<>();
     private static int noOfTasks = 0;
     private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo"};
     private static void wrapEchoMessage(String message){
@@ -53,12 +54,12 @@ public class Casper {
         } else if (userInput.startsWith("mark")) {
             int targetTaskNumber = validateMarkInput(userInput);
             if (targetTaskNumber != -1) {
-                taskList[targetTaskNumber-1].markTask();
+                taskList.get(targetTaskNumber-1).markTask();
             }
         } else if (userInput.startsWith("unmark")) {
             int targetTaskNumber = validateMarkInput(userInput);
             if (targetTaskNumber != -1) {
-                taskList[targetTaskNumber-1].unMarkTask();
+                taskList.get(targetTaskNumber-1).unMarkTask();
             }
         } else if (userInput.startsWith("event")) {
             handleEvent(userInput);
@@ -103,7 +104,7 @@ public class Casper {
     private static void handleEvent(String userInput) {
         try{
             Task newTask = getEvent(userInput);
-            taskList[noOfTasks] = newTask;
+            taskList.add(newTask);
             noOfTasks++;
             wrapEchoMessage("Got it. I've added this task: \n       "
                     +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
@@ -131,7 +132,7 @@ public class Casper {
     private static void handleDeadline(String userInput){
         try{
             Task newTask = getDeadline(userInput);
-            taskList[noOfTasks] = newTask;
+            taskList.add(newTask);
             noOfTasks++;
             wrapEchoMessage("Got it. I've added this task: \n       "
                     +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
@@ -154,7 +155,7 @@ public class Casper {
     private static void handleTodo(String userInput) {
         try{
             Task newTask = getTodo(userInput);
-            taskList[noOfTasks] = newTask;
+            taskList.add(newTask);
             noOfTasks++;
             wrapEchoMessage("Got it. I've added this task: \n       "
                     +newTask+"\n     Now you have "+noOfTasks+" tasks in the list");
@@ -172,7 +173,7 @@ public class Casper {
         } else {
             System.out.println("     Here are the tasks in your list:");
             for (int i=1; i<=noOfTasks; i++) {
-                System.out.println("     "+i+". "+taskList[i-1]);
+                System.out.println("     "+i+". "+taskList.get(i-1));
             }
         }
         System.out.println(SEPARATOR);
