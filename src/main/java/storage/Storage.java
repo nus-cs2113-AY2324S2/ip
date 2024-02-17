@@ -7,12 +7,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
     private static final String FILE_PATH = "data/tasklist.txt";
 
-    public static TaskList readFile() throws JingHaoExceptions{
+    public static TaskList readFile() throws JingHaoExceptions, IOException{
         TaskList currentList = new TaskList();
         try{
             File f = new File(FILE_PATH);
@@ -49,6 +51,9 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Please restart the bot.");
+            File f = new File(FILE_PATH);
+            f.getParentFile().mkdirs();
+            f.createNewFile();
         }
         return currentList;
     }

@@ -19,10 +19,6 @@ public class JingHao {
 
     public JingHao() {
         try {
-            File f = new File("data/tasklist.txt");
-            if (!f.exists()) {
-                Files.createFile(Paths.get("data/tasklist.txt"));
-            }
             taskList = Storage.readFile();
         } catch (IOException e) {
             // Handle IOException here
@@ -36,19 +32,6 @@ public class JingHao {
     }
 
     public void start(){
-        /*try {
-            File f = new File("data/tasklist.txt");
-            if (!f.exists()) {
-                Files.createFile(Paths.get("data/tasklist.txt"));
-            }
-            taskList = Storage.readFile();
-        } catch (IOException e) {
-            // Handle IOException here
-            System.out.println("Something went wrong: " + e.getMessage());
-            return;
-        } catch (JingHaoExceptions e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }*/
         greetUser();
         getUserInput();
     }
