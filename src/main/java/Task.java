@@ -1,4 +1,4 @@
-public class Task {
+abstract class Task {
     public String taskName;
     public boolean completed = false;
 
@@ -6,4 +6,6 @@ public class Task {
         this.taskName = taskName;
         completed = false;
     }
+
+    abstract String getSummary();
 }
