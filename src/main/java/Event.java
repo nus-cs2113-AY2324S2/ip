@@ -2,8 +2,8 @@ public class Event extends Task {
     private final String start;
     private final String end;
 
-    public Event(String taskName, String start, String end) {
-        super(taskName);
+    public Event(String taskName, String start, String end, boolean isCompleted) {
+        super(taskName, isCompleted);
         this.start = start;
         this.end = end;
     }
@@ -15,12 +15,15 @@ public class Event extends Task {
 
     @Override
     public String getStringRepresentation() {
-        return "event " + taskName + " /from " + this.start + " /to " + this.end;
+        return "event " + taskName + " /from " + this.start + " /to " + this.end + getIsCompletedString();
     }
 
     public static Event getTask(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {
+            boolean isCompleted = currentInput.contains(Task.IS_COMPLETED_STRING);
+            currentInput = currentInput.replaceAll(Task.IS_COMPLETED_STRING, "");
+
             int idxOfStart = currentInput.indexOf(" /from ");
             int idxOfEnd = currentInput.indexOf(" /to ");
 
@@ -43,7 +46,7 @@ public class Event extends Task {
             String end = currentInput.substring(idxOfEnd + 5);
             end = end.trim();
 
-            return new Event(taskName, start, end);
+            return new Event(taskName, start, end, isCompleted);
 
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskArguments();

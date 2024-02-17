@@ -1,10 +1,19 @@
 public abstract class Task {
     protected final String taskName;
-    protected boolean isCompleted;
+    private boolean isCompleted;
 
-    public Task(String taskName) {
+    public static final String IS_COMPLETED_STRING = "---IS_COMPLETED---";
+
+    public Task(String taskName, boolean isCompleted) {
         this.taskName = taskName;
-        this.isCompleted = false;
+        this.isCompleted = isCompleted;
+    }
+
+    protected String getIsCompletedString() {
+        if (this.isCompleted) {
+            return IS_COMPLETED_STRING;
+        }
+        return "";
     }
 
     @Override
