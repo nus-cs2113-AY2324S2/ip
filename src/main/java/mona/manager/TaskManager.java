@@ -1,3 +1,12 @@
+package mona.manager;
+
+import mona.output.ConsolePrint;
+import mona.task.Deadline;
+import mona.task.Event;
+import mona.task.Task;
+import mona.task.Todo;
+import mona.util.Constants;
+
 public class TaskManager {
     public static int noOfTasks;
     protected Task[] tasks;

@@ -1,3 +1,8 @@
+import mona.input.InputParser;
+import mona.output.ConsolePrint;
+import mona.manager.TaskManager;
+import mona.util.Constants;
+
 import java.util.Scanner;
 public class Mona {
     public static void main(String[] args) {
@@ -11,14 +16,14 @@ public class Mona {
         while (true) {
             InputParser input = new InputParser(line);
 
-            if (!input.isValidInput) {
+            if (!input.isValidInput()) {
                 line = in.nextLine();
                 continue;
             }
 
-            taskManager.executeCommand(input.commandTypeAndParams);
+            taskManager.executeCommand(input.getCommandTypeAndParams());
 
-            if (input.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE].equals("bye")) {
+            if (input.getCommandTypeAndParams()[Constants.INDEX_COMMAND_TYPE].equals("bye")) {
                 ConsolePrint.exit();
                 break;
             }

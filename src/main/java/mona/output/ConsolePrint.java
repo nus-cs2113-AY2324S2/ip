@@ -1,3 +1,8 @@
+package mona.output;
+
+import mona.task.Task;
+import mona.util.Constants;
+
 public class ConsolePrint {
     public static void printHorizontalLine() {
         for (int i = 0; i < 59; i++) {
