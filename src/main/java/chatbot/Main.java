@@ -5,5 +5,6 @@ public class Main {
         Chatbot horizon = new Chatbot("Horizon");
         horizon.initiate();
         horizon.run();
+        horizon.save();
     }
 }
