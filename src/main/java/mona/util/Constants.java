@@ -1,3 +1,5 @@
+package mona.util;
+
 public final class Constants {
 
     // Private constructor to prevent instantiation

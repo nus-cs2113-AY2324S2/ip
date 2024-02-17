@@ -1,3 +1,8 @@
+package mona.input;
+
+import mona.exception.MonaException;
+import mona.util.Constants;
+
 public class InputParser {
     protected String[] commandTypeAndParams;
     protected String line;
@@ -10,6 +15,14 @@ public class InputParser {
         this.inputValidator = new InputValidator();
 
         this.parseInput(line);
+    }
+
+    public String[] getCommandTypeAndParams() {
+        return commandTypeAndParams;
+    }
+
+    public boolean isValidInput() {
+        return isValidInput;
     }
 
     public void extractCommandTypeFromString(String line) {
