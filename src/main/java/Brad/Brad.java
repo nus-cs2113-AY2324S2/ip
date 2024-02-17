@@ -251,4 +251,19 @@ public class Brad {
         }
     }
 
+    private static void doDeleteAction(String input)
+            throws emptyArgumentException, invalidNumberException {
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        int taskNumber = Integer.parseInt(input);
+        if (taskNumber > inputList.listSize()) {
+            throw new invalidNumberException();
+        }
+        int size = inputList.listSize() - 1;
+        String message = "Got it. I've removed this task:\n" + inputList.getTask(size)
+                + "\n Now you have " + size + " tasks in the list.";
+        inputList.deleteTask(taskNumber);
+        printOutput(message);
+    }
 }
