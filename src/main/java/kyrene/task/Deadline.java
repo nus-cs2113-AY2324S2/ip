@@ -36,4 +36,7 @@ public class Deadline extends Task{
         return String.format("[%s][%s] %s (by %s)", taskType, doneSymbol, taskName, deadline);
     }
 
+    @Override
+    public String format() { return String.format("%b deadline %s /by %s\n", isDone, taskName, deadline);}
+
 }

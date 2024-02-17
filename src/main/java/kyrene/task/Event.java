@@ -51,4 +51,7 @@ public class Event extends Task{
         return String.format("[%s][%s] %s (from: %s to: %s)", taskType, doneSymbol, taskName, startTime, endTime);
     }
 
+    @Override
+    public String format() { return String.format("%b event %s /from %s /to %s\n", isDone, taskName, startTime, endTime);}
+
 }

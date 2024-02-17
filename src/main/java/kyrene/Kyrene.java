@@ -4,6 +4,15 @@ import kyrene.task.*;
 import kyrene.exception.*;
 
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.Scanner;
 
 public class Kyrene {
@@ -16,6 +25,12 @@ public class Kyrene {
     final static String GREETING = "    Hi, I am Kyrene, your private reminder assistant.\n"
             + "    What can I do for you?\n";
     final static String BYE = "    Bye! Wish to see you again soon!\n";
+    final static String FILE_PATH = "./data/Kyrene.txt";
+    final static String FOLDER_PATH = "./data/";
+    final static String ERROR_WRITE_TO_FILE_FAILED = "    Error! Write to file failed.\n";
+    final static String ERROR_FOLDER_CREATION_FAILED = "    Error! Folder creation failed.\n";
+    final static String ERROR_FILE_CREATION_FAILED = "    Error! File creation failed.\n";
+    final static String ERROR_FILE_CORRUPTED = "    Error! File loaded is corrupted.\n";
     final static String ERROR_TASK_NOT_EXIST = "    Error! This task does not exist.\n";
     final static String ERROR_MISSING_TASK = "    Error! Your task description is missing.\n    For creating tasks, please type \"[task type (todo/deadline/event)] [task description]\"([] is to be omitted).\n    For example:\n        todo have a nice day\n    or\n        deadline get a cup of coffee /by 9am\n    or\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
     final static String ERROR_MISSING_TIME = "    Error! Your deadline/event task created is incomplete in terms of time.\n    For creating deadline task, please type \"deadline [task description] /by [time]\"([] is to be omitted).\n    For example:\n        deadline get a cup of coffee /by 9pm\n    For creating event task, please type \"event [task description] /from [starting time] /to [ending time]\"([] is to be omitted).\n    For example:\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
@@ -37,7 +52,7 @@ public class Kyrene {
         System.out.println(DIVIDER);
     }
 
-    public static void addTask(String sentence) throws KyreneInvalidCommandException, KyreneMissingTaskException {
+    public static void addTask(String sentence, boolean whetherWriteToFile) throws KyreneInvalidCommandException, KyreneMissingTaskException {
         String[] words = sentence.split(" ");
         String classType = words[0];
 
@@ -78,6 +93,22 @@ public class Kyrene {
         int taskCount = tasks.size();
         System.out.printf("    Task has been successfully added: %s\n", tasks.get(taskCount - 1).toString());
         printTaskCount();
+
+        if (whetherWriteToFile) {
+            try {
+                writeToFile();
+            } catch (IOException e) {
+                System.out.printf("%s\n", ERROR_WRITE_TO_FILE_FAILED);
+                printDivider();
+            }
+        }
+
+        if(taskCount == 1){
+            System.out.printf("    Now you have %d task(including finished ones) in your list.\n\n", taskCount);
+        }
+        else{
+            System.out.printf("    Now you have %d tasks(including finished ones) in your list.\n\n", taskCount);
+        }
         printDivider();
     }
 
@@ -86,6 +117,14 @@ public class Kyrene {
             throw new KyreneTaskNotFoundException();
         }
         tasks.get(taskNumber - 1).setDone(true);
+
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.printf("%s\n", ERROR_WRITE_TO_FILE_FAILED);
+            printDivider();
+        }
+
         System.out.printf("    Congrats! Task %d is done!\n\n", taskNumber);
         printDivider();
     }
@@ -95,6 +134,14 @@ public class Kyrene {
             throw new KyreneTaskNotFoundException();
         }
         tasks.get(taskNumber - 1).setDone(false);
+
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.printf("%s\n", ERROR_WRITE_TO_FILE_FAILED);
+            printDivider();
+        }
+
         System.out.printf("    Task %d is marked as not done.\n\n", taskNumber);
         printDivider();
     }
@@ -105,6 +152,14 @@ public class Kyrene {
         }
         Task taskDeleted = tasks.get(taskNumber - 1);
         tasks.remove(taskNumber - 1);
+
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.printf("%s\n", ERROR_WRITE_TO_FILE_FAILED);
+            printDivider();
+        }
+
         System.out.printf("    Sure! I have successfully deleted this task from your list:\n        %s\n", taskDeleted.toString());
         printTaskCount();
         printDivider();
@@ -178,7 +233,7 @@ public class Kyrene {
             break;
         default:
             try {
-                addTask(sentence);
+                addTask(sentence, true);
             } catch (KyreneMissingTaskException e) {
                 System.out.printf("%s\n", ERROR_MISSING_TASK);
                 printDivider();
@@ -191,7 +246,71 @@ public class Kyrene {
         return isEnd;
     }
 
+    public static void loadFileToKyrene() throws FileNotFoundException {
+        System.out.printf("    Loading file %s ...\n", FILE_PATH);
+        File f = new File(FILE_PATH);
+        Scanner s = new Scanner(f);
+        int lineNumber = 1;
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            boolean isDone = line.startsWith("true");
+            String task;
+            if (isDone) {
+                task = line.substring("true ".length());
+            } else {
+                task = line.substring("false ".length());
+            }
+            try {
+                addTask(task, false);
+                tasks.get(tasks.size() - 1).setDone(isDone);
+            } catch (KyreneMissingTaskException | KyreneInvalidCommandException e) {
+                System.out.printf("%s    Error occurs at line %d.\n", ERROR_FILE_CORRUPTED, lineNumber);
+                printDivider();
+            }
+            lineNumber ++;
+        }
+        System.out.printf("    File %s has been loaded.\n", FILE_PATH);
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter clearWriter = new FileWriter(FILE_PATH);
+        clearWriter.write("");
+        clearWriter.close();
+
+        FileWriter fw = new FileWriter(FILE_PATH, true);
+        for (Task task : tasks) {
+            fw.write(task.format());
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
+        try {
+            loadFileToKyrene();
+        } catch (FileNotFoundException e) {
+            System.out.printf("    File %s is not found.\n", FILE_PATH);
+            Path folderPath = Paths.get(FOLDER_PATH);
+            Path filePath = Paths.get(FILE_PATH);
+            if (Files.exists(folderPath)) {
+                try {
+                    Files.createFile(filePath);
+                } catch (IOException ex) {
+                    System.out.printf("%s\n", ERROR_FILE_CREATION_FAILED);
+                    return;
+                }
+            } else {
+                System.out.printf("    Folder %s is not found.\n", FOLDER_PATH);
+                try {
+                    Files.createDirectory(folderPath);
+                    Files.createFile(filePath);
+                } catch (IOException ex) {
+                    System.out.printf("%s\n", ERROR_FOLDER_CREATION_FAILED);
+                    return;
+                }
+                System.out.printf("    Folder %s is successfully created.\n", FOLDER_PATH);
+            }
+            System.out.printf("    File %s is successfully created.\n", FILE_PATH);
+        }
         initKyrene();
         Scanner input = new Scanner(System.in);
         String line;

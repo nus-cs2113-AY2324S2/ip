@@ -50,4 +50,5 @@ public class Task {
         return String.format("[%s][%s] %s", taskType, doneSymbol, taskName);
     }
 
+    public String format() { return String.format("%b task %s\n", isDone, taskName);}
 }

@@ -11,4 +11,7 @@ public class Todo extends Task{
         taskType = "T";
     }
 
+    @Override
+    public String format() { return String.format("%b todo %s\n", isDone, taskName);}
+
 }
