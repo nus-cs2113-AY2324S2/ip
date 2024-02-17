@@ -9,6 +9,9 @@ import junbot.task.Task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class JunBot {
     public static String DIVIDER = "____________________________________________________________\n";
@@ -243,6 +246,12 @@ public class JunBot {
 
     public static void importFile() throws FileNotFoundException,InvalidInputException,IOException {
         File f = new File(FILEPATH);
+        if(!f.exists()){
+            Path path = Paths.get(FILEPATH);
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+        }
+
         Scanner s = new Scanner(f);
         int counter = 1;
 
