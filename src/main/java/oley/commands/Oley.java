@@ -1,15 +1,15 @@
 package oley.commands;
 import oley.tasks.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Oley {
-    public static Task[] tasks = new Task[100];
-    public static int taskNumber = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void addTask(String sentence) throws InputNotRecognizedException {
         if (sentence.startsWith("deadline")) {
             try {
-                tasks[taskNumber] = new Deadline(sentence.substring(9));
+                tasks.add(new Deadline(sentence.substring(9)));
             } catch (TimingNotFoundException e) {
                 System.out.println("OOPS, we have encountered an error!");
                 System.out.println("A specific deadline would be better for you to complete your task on time! ( •̀ .̫ •́ )✧");
@@ -17,10 +17,10 @@ public class Oley {
                 return;
             }
         } else if (sentence.startsWith("todo")) {
-            tasks[taskNumber] = new Todo(sentence.substring(5));
+            tasks.add(new Todo(sentence.substring(5)));
         } else if (sentence.startsWith("event")) {
             try {
-                tasks[taskNumber] = new Event(sentence.substring(6));
+                tasks.add(new Event(sentence.substring(6)));
             } catch (TimingNotFoundException e) {
                 System.out.println("OOPS, we have encountered an error!");
                 System.out.println("A specific timing of the event would be clearer! ( •̀ .̫ •́ )✧");
@@ -31,12 +31,11 @@ public class Oley {
         if (!(sentence.startsWith("deadline") || sentence.startsWith("todo") || sentence.startsWith("event"))) {
             throw new InputNotRecognizedException();
         }
-        System.out.println("    " + "added: " + tasks[taskNumber].getTaskName());
-        taskNumber++;
-        if (taskNumber <= 1) {
-            System.out.println("    Now you have " + taskNumber + " task in the list.");
+        System.out.println("    " + "added: " + tasks.get(tasks.size() - 1));
+        if (tasks.size() <= 1) {
+            System.out.println("    Now you have " + tasks.size() + " task in the list.");
         } else {
-            System.out.println("    Now you have " + taskNumber + " tasks in the list.");
+            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
         }
     }
 
@@ -66,8 +65,8 @@ public class Oley {
     public static void printTask() {
         System.out.println("    Here are the tasks in your list:");
         int i = 0;
-        while (i < taskNumber) {
-            System.out.println("    " + (i + 1) + "." + tasks[i].toString());
+        while (i < tasks.size()) {
+            System.out.println("    " + (i + 1) + "." + tasks.get(i).toString());
             i++;
         }
     }
@@ -75,16 +74,16 @@ public class Oley {
     public static void mark(String sentence) {
         String[] markInstructions = sentence.split(" ");
         int toBeMarked = Integer.parseInt(markInstructions[1]) - 1;
-        if (toBeMarked >= taskNumber) {
+        if (toBeMarked >= tasks.size()) {
             System.out.println("You have not created Task " + (toBeMarked + 1) + " yet. Jiayous. I will always support you. ฅ •ﻌ•♡");
         } else if (markInstructions[0].equals("mark")) {
-            tasks[toBeMarked].setDone();
+            tasks.get(toBeMarked).setDone();
             System.out.println("    Good job! I've marked this task as done:");
-            System.out.println("    " + tasks[toBeMarked]);
+            System.out.println("    " + tasks.get(toBeMarked));
         } else if (markInstructions[0].equals("unmark")) {
-            tasks[toBeMarked].setNotDone();
+            tasks.get(toBeMarked).setNotDone();
             System.out.println("    Sure~ I've marked this task as not done yet:");
-            System.out.println("    " + tasks[toBeMarked]);
+            System.out.println("    " + tasks.get(toBeMarked));
         }
     }
 
