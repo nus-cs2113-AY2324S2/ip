@@ -4,24 +4,24 @@ public class Event extends Task {
     private final String startDate;
     private final String endDate;
 
-    private Event(String taskName, int taskId, boolean isCompleted, String startDate, String endDate) {
-        super(taskName, taskId, isCompleted);
+    private Event(String taskName, boolean isCompleted, String startDate, String endDate) {
+        super(taskName, isCompleted);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Event(String taskName, int taskId, String startDate, String endDate) {
-        super(taskName, taskId, false);
+    public Event(String taskName, String startDate, String endDate) {
+        super(taskName, false);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public Task markTaskAsComplete() {
-        return new Event(this.taskName, this.taskId, true, this.startDate, this.endDate);
+        return new Event(this.taskName, true, this.startDate, this.endDate);
     }
 
     public Task markTaskAsIncomplete() {
-        return new Event(this.taskName, this.taskId, false, this.startDate, this.endDate);
+        return new Event(this.taskName, false, this.startDate, this.endDate);
     }
 
     @Override

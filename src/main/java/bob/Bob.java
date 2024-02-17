@@ -25,8 +25,18 @@ public class Bob {
                 arguments = inputParser.parseArguments(userCommand);
                 int taskId = Integer.parseInt(arguments[0]); // Throws NumberFormatException
                 commandOutput = manager.updateTaskProgress(taskId, userCommand); // Throws NPE or ArrayIndexOOB Ex.
-            } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException exception) {
+            } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException exception) {
                 // Catch improperly formatted arguments for mark/unmark operations
+                inputParser.clearInput();
+                throw new InvalidTaskNumberException(userCommand);
+            }
+            break;
+        case DELETE:
+            try {
+                arguments = inputParser.parseArguments(userCommand);
+                int taskId = Integer.parseInt(arguments[0]); // Throws NumberFormatException
+                commandOutput = manager.deleteTask(taskId); // Throws ArrayIndexOOB Ex.
+            } catch (IndexOutOfBoundsException exception) {
                 inputParser.clearInput();
                 throw new InvalidTaskNumberException(userCommand);
             }

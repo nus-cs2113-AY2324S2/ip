@@ -3,22 +3,22 @@ package bob.task;
 public class Deadline extends Task {
     private final String dueDate;
 
-    private Deadline(String taskName, int taskId, boolean isCompleted, String dueDate) {
-        super(taskName, taskId, isCompleted);
+    private Deadline(String taskName, boolean isCompleted, String dueDate) {
+        super(taskName, isCompleted);
         this.dueDate = dueDate;
     }
 
-    public Deadline(String taskName, int taskId, String dueDate) {
-        super(taskName, taskId, false);
+    public Deadline(String taskName, String dueDate) {
+        super(taskName, false);
         this.dueDate = dueDate;
     }
 
     public Task markTaskAsComplete() {
-        return new Deadline(this.taskName, this.taskId, true, this.dueDate);
+        return new Deadline(this.taskName, true, this.dueDate);
     }
 
     public Task markTaskAsIncomplete() {
-        return new Deadline(this.taskName, this.taskId, false, this.dueDate);
+        return new Deadline(this.taskName, false, this.dueDate);
     }
 
     @Override

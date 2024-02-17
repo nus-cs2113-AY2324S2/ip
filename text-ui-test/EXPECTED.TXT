@@ -69,10 +69,22 @@ ____________________________________________________________
  4.[T][ ] junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
 ____________________________________________________________
 ____________________________________________________________
+ Noted. I've removed this task:
+   [D][ ] more things to do (by: the next few weeks...!)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] something to do
+ 2.[E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+ 3.[T][ ] junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
+____________________________________________________________
+____________________________________________________________
  I'm sorry, but I don't understand your command!
 
  Supported commands:
   list
+  delete <task number>
   mark <task number>
   unmark <task number>
   todo <task name>
