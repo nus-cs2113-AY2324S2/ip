@@ -7,3 +7,13 @@ Hello from
 |  |  | |  | |     \|     |
 |  |  | |  | |  .  ||     |
 |__|__||____||__|\_| \___/
+
+
+What can I do for you?
+type 'help' for list of instructions.
+hello
+----------------------------------------
+Added: hello
+----------------------------------------
+What can I do for you?
+type 'help' for list of instructions.
