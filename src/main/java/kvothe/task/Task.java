@@ -130,7 +130,7 @@ public class Task {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false));
 
             for (Task task : tasks) {
-                writer.write(task.toString());
+                writer.write(task.toFileString());
                 // [Type][Done] descr (arg1: value1, arg2: value2 ...)
                 writer.newLine();
             }
@@ -166,6 +166,8 @@ public class Task {
                     System.err.println("Invalid task type: " + type);
                     break;
                 }
+
+                tasks.get(tasks.size() - 1).setIsDone(isDone);
 
             }
             reader.close();

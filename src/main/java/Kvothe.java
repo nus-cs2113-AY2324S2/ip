@@ -21,7 +21,12 @@ public class Kvothe {
 
         String bye = "Bye. Hope to see you again soon!";
 
-        echo(greeting);
+        tasks = Task.loadFromFile(FILEPATH);
+
+        echo(greeting, true, false);
+
+        echo("Here are the tasks in your list from your previous time:", false, false);
+        list();
 
         interact();
 
@@ -77,12 +82,16 @@ public class Kvothe {
 
         tasks.add(newTask);
         echo("added: " + line + "\n\t\tnow you have " + tasks.size() + " tasks in the list");
+
+        Task.dumpToFile(tasks, FILEPATH);
     }
 
     private static void delete(int index) {
         echo("Noted. I've removed this task:\n\t\t" + tasks.get(index - 1), true,false );
         tasks.remove(index - 1);
         echo("Now you have " + tasks.size() + " tasks in the list.", false, true);
+
+        Task.dumpToFile(tasks, FILEPATH);
     }
 
     private static void list() {
@@ -94,16 +103,19 @@ public class Kvothe {
     private static void done(int index) {
         tasks.get(index - 1).markAsDone();
         echo("Nice! I've marked this task as done:\n\t\t" + tasks.get(index - 1));
+
     }
 
     private static void mark(int index){
         tasks.get(index - 1).setIsDone(true);
         echo("Nice! I've marked this task as done:\n\t\t" + tasks.get(index - 1));
+        Task.dumpToFile(tasks, FILEPATH);
     }
 
     private static void unmark(int index){
         tasks.get(index - 1).setIsDone(false);
         echo("OK, I've marked this task as not done yet:\n\t\t" + tasks.get(index - 1));
+        Task.dumpToFile(tasks, FILEPATH);
     }
 
     private static int getTaskNumber(String[] args) throws WrongArgumentsException{
