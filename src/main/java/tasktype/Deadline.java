@@ -12,4 +12,10 @@ public class Deadline extends Task {
     public String toString(){
         return ICON_TYPE + super.toString() + "(by:" + date + ")";
     }
+
+    @Override
+    public String toDiskFormat() {
+        return "D," + (this.isDone ? "TRUE," : "FALSE,")
+                + description + "," + date + "\n";
+    }
 }

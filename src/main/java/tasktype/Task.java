@@ -1,6 +1,6 @@
 package tasktype;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -25,4 +25,6 @@ public class Task {
         String statusIcon = isDone ? "X" : " ";
         return "[" + statusIcon + "]" + description;
     }
+    public abstract String toDiskFormat();
+
 }

@@ -12,4 +12,9 @@ public class Todo extends Task {
     public String toString(){
         return ICON_TYPE + super.toString();
     }
+
+    @Override
+    public String toDiskFormat() {
+        return "T," + (this.isDone ? "TRUE," : "FALSE,") + description + "\n";
+    }
 }

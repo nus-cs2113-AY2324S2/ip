@@ -1,22 +1,37 @@
 import commandexceptions.InvalidDeadlineCommandException;
 import commandexceptions.InvalidEventCommandException;
 import commandexceptions.InvalidTodoCommandException;
+import commandexceptions.JingHaoExceptions;
+
 import tasktype.Deadline;
 import tasktype.Event;
 import tasktype.Task;
 import tasktype.Todo;
 import tasktype.TaskList;
 
+import storage.Storage;
+
+import java.io.IOException;
 import java.util.Scanner;
+
 public class JingHao {
     private static final String LINE_SEP = "____________________________________________________________";
-    protected TaskList taskList;
+
+    protected static TaskList taskList;
     protected int numberOfTask;
     protected Scanner in;
 
     public JingHao() {
-        this.numberOfTask = 0;
-        this.taskList = new TaskList();
+        try {
+            taskList = Storage.readFile();
+        } catch (IOException e) {
+            // Handle IOException here
+            System.out.println("Something went wrong: " + e.getMessage());
+            return;
+        } catch (JingHaoExceptions e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        this.numberOfTask = taskList.size();
         this.in = new Scanner(System.in);
     }
 
@@ -37,6 +52,7 @@ public class JingHao {
             userInput = in.nextLine();
             try {
                 handleInput(userInput);
+                Storage.updateDisk(taskList);
             }
             catch (InvalidTodoCommandException e){
                 System.out.println("Invalid Todo Command Format!\n" +
@@ -49,6 +65,8 @@ public class JingHao {
             catch (InvalidEventCommandException e){
                 System.out.println("Invalid Deadline Command Format!\n" +
                         "Use: event (Event description) + /from (date) /to (date)\n" + LINE_SEP);
+            } catch (IOException e) {
+                System.out.println("Error updating database");
             }
         }
         while(!userInput.equalsIgnoreCase("bye"));
