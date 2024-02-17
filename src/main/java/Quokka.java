@@ -122,8 +122,8 @@ public class Quokka {
 
     private static void saveTasksToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(DATA_FILE_PATH))) {
-            for (int i = 0; i < taskCount; i++) {
-                writer.println(tasks[i].toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                writer.println(tasks.get(i).toString());
             }
         } catch (IOException e) {
             System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
@@ -138,12 +138,11 @@ public class Quokka {
         }
 
         try (Scanner scanner = new Scanner(file)) {
-            taskCount = 0;
-            while (scanner.hasNextLine() && taskCount < MAX_TASKS) {
+            while (scanner.hasNextLine() && tasks.size() < MAX_TASKS) {
                 String taskData = scanner.nextLine();
                 Task task = Task.parseFromFileString(taskData);
                 if (task != null) {
-                    tasks[taskCount++] = task;
+                    tasks.add(task);
                 }
             }
         } catch (FileNotFoundException e) {
