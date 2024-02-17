@@ -9,6 +9,9 @@ public class Event extends Task {
 
     private void extractDescription(String description) {
         String[] parts = description.split(" /from ", 2);
+        if (description.trim().equalsIgnoreCase("event")) {
+            throw new IllegalArgumentException();
+        }
         this.description = parts[0].substring(6).trim(); // Remove "event" command and trim spaces
         parts = parts[1].split(" /to ", 2);
         this.from = parts[0];

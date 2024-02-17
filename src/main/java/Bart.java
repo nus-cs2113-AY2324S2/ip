@@ -46,23 +46,42 @@ public class Bart {
 
     private static void addNewTask(String command) {
         if (taskCount < tasksArray.length) {
-            switch (command.split(" ")[0]) {
-                case "todo":
-                    tasksArray[taskCount] = new Todo(command);
-                    break;
-                case "deadline":
-                    tasksArray[taskCount] = new Deadline(command);
-                    break;
-                case "event":
-                    tasksArray[taskCount] = new Event(command);
-                    break;
-                default:
-                    tasksArray[taskCount] = new Task(command);
-                    break;
-            }
-            tasksArray[taskCount].printT(taskCount);
-            taskCount++;
-        } else {
+            String[] commandParts = command.split(" ");
+            String taskType = commandParts[0];
+
+                switch (taskType) {
+                    case "todo":
+                        try {
+                            tasksArray[taskCount] = new Todo(command);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(LINE + "\nOOPS!!! The description of a todo cannot be empty.\n" + LINE);
+                            return;
+                        }
+                        break;
+                    case "deadline":
+                        try {
+                            tasksArray[taskCount] = new Deadline(command);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
+                            return;
+                        }
+                        break;
+                    case "event":
+                        try {
+                            tasksArray[taskCount] = new Event(command);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
+                            return;
+                        }
+                        break;
+                    default:
+                        System.out.println(LINE + "\nOOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE);
+                        return;
+                }
+                tasksArray[taskCount].printTask(taskCount);
+                taskCount++;
+
+        }else {
             System.out.println("Sorry, task list is full.");
         }
     }
@@ -86,16 +105,15 @@ public class Bart {
             Task task = tasksArray[taskIndex];
             if (mark) {
                 task.markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(LINE + "\nNice! I've marked this task as done:\n" + LINE);
             } else {
                 task.markAsUndone();
-                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(LINE + "\nOK, I've marked this task as not done yet:\n" + LINE);
             }
             System.out.println(tasksArray[taskIndex].getTaskMark() + " " + tasksArray[taskIndex].description);
         } else {
-            System.out.println("Invalid task number.");
+            System.out.println(LINE + "Invalid task number.\n" + LINE);
         }
-        System.out.println(LINE);
     }
 
     private static void byeUser() {

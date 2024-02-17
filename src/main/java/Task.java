@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 // Use a Task class to represent tasks.
 public class Task {
     private static final String LINE = "____________________________________________________________";
@@ -31,9 +33,10 @@ public class Task {
         return this.getTaskType() + this.getTaskMark() + " " + this.description;
     }
 
-    public void printT(int count) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this);
-        System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + LINE);
+    public void printTask(int count) {
+            System.out.println(LINE + "\nGot it. I've added this task:");
+            System.out.println("  " + this);
+            System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + LINE);
+
     }
 }
