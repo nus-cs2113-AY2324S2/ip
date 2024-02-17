@@ -1,3 +1,5 @@
+package bart;
+import bart.task.*;
 import java.util.Scanner;
 
 public class Bart {
@@ -49,39 +51,39 @@ public class Bart {
             String[] commandParts = command.split(" ");
             String taskType = commandParts[0];
 
-                switch (taskType) {
-                    case "todo":
-                        try {
-                            tasksArray[taskCount] = new Todo(command);
-                        } catch (IllegalArgumentException e) {
-                            System.out.println(LINE + "\nOOPS!!! The description of a todo cannot be empty.\n" + LINE);
-                            return;
-                        }
-                        break;
-                    case "deadline":
-                        try {
-                            tasksArray[taskCount] = new Deadline(command);
-                        } catch (IllegalArgumentException e) {
-                            System.out.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
-                            return;
-                        }
-                        break;
-                    case "event":
-                        try {
-                            tasksArray[taskCount] = new Event(command);
-                        } catch (IllegalArgumentException e) {
-                            System.out.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
-                            return;
-                        }
-                        break;
-                    default:
-                        System.out.println(LINE + "\nOOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE);
+            switch (taskType) {
+                case "todo":
+                    try {
+                        tasksArray[taskCount] = new Todo(command);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(LINE + "\nOOPS!!! The description of a todo cannot be empty.\n" + LINE);
                         return;
-                }
-                tasksArray[taskCount].printTask(taskCount);
-                taskCount++;
+                    }
+                    break;
+                case "deadline":
+                    try {
+                        tasksArray[taskCount] = new Deadline(command);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
+                        return;
+                    }
+                    break;
+                case "event":
+                    try {
+                        tasksArray[taskCount] = new Event(command);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
+                        return;
+                    }
+                    break;
+                default:
+                    System.out.println(LINE + "\nOOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE);
+                    return;
+            }
+            tasksArray[taskCount].printTask(taskCount);
+            taskCount++;
 
-        }else {
+        } else {
             System.out.println("Sorry, task list is full.");
         }
     }

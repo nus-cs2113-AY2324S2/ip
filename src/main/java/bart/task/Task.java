@@ -1,9 +1,8 @@
-import java.util.Objects;
-
 // Use a Task class to represent tasks.
+package bart.task;
 public class Task {
     private static final String LINE = "____________________________________________________________";
-    protected String description;
+    public String description;
     protected String taskType;
     protected boolean isDone;
 
@@ -34,9 +33,9 @@ public class Task {
     }
 
     public void printTask(int count) {
-            System.out.println(LINE + "\nGot it. I've added this task:");
-            System.out.println("  " + this);
-            System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + LINE);
+        System.out.println(LINE + "\nGot it. I've added this task:");
+        System.out.println("  " + this);
+        System.out.println("Now you have " + (count + 1) + " tasks in the list.\n" + LINE);
 
     }
 }
