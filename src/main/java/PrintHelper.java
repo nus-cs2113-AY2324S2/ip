@@ -16,13 +16,13 @@ public class PrintHelper {
      * Prints introductory message
      */
     public static void sayHi() {
-        String logo = " ____   ___    ___   ____    ___   \n"
-                + "| __/  / _ \\  | _ \\  | __|  / _ \\   \n"
-                + "| |    ||_||  | / /  | |_   | | |      \n"
-                + "| |_   | _ |  | _/   |_  /  | | |      \n"
-                + "|___\\  // \\\\  |_|    /__/ . \\___/  \n";
+        String logo = " ____   ___    ___   ____    ___\n"
+                + "| __/  / _ \\  | _ \\  | __|  / _ \\\n"
+                + "| |    ||_||  | / /  | |_   | | |\n"
+                + "| |_   | _ |  | _/   |_  /  | | |\n"
+                + "|___\\  // \\\\  |_|    /__/ . \\___/\n";
 
-        System.out.println("Hello! I'm \n" + logo);
+        System.out.println("Hello! I'm\n" + logo);
         printLine();
         System.out.println("What can I do for you?");
     }
@@ -57,7 +57,7 @@ public class PrintHelper {
         int upperbound = quotes.length;
         int randNum = rand.nextInt(upperbound);
 
-        System.out.println("Adios My Friend. Sleep early, study smarter \n" + quotes[randNum]);
+        System.out.println("Adios My Friend. Sleep early, study smarter\n" + quotes[randNum]);
         printLine();
     }
 }

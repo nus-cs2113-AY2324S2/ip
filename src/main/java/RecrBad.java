@@ -65,10 +65,10 @@ public class RecrBad {
             moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
             moreTasks[tasks.length] = new Task(line); //append at last elem
             PrintHelper.printLine();
-            System.out.println("You added: ");
+            System.out.println("You added:");
         }
 
-        if (tasks.length == moreTasks.length){ // invalid TODO/deadline/event format
+        if (tasks.length == moreTasks.length){ // checks for invalid TODO/deadline/event format
             return tasks;
         }
         displayListItem(moreTasks, tasks.length);

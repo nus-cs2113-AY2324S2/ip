@@ -63,5 +63,5 @@ Congrats, now have 6 tasks
 Invalid event: Add BOTH start and end parameters by adding '/', start timing, then ' ', '/' and end timing
 ****************************************
 Adios My Friend. Sleep early, study smarter
-Always know your goals in life
+(insert random quote)
 ****************************************
