@@ -8,10 +8,10 @@ public class Task {
     public int index;
 
     // constructor
-    public Task(String description, int index) {
+    public Task(String description) {
         setDescription(description);
         setDone();
-        setCounter(index);
+        //setCounter(index);
     }
 
     // Set for description attribute
@@ -25,9 +25,9 @@ public class Task {
     }
 
     // Set index attribute of the task
-    public void setCounter(int index) {
+/*    public void setCounter(int index) {
         this.index = index;
-    }
+    }*/
 
     // Get status icon
     public String getStatusIcon() {

@@ -5,8 +5,8 @@ import main.DukeException;
 
 public class Deadline extends Task {
 
-    public Deadline(String description, int index) throws DukeException {
-        super(description, index); // Automatically invokes the constructor of Task
+    public Deadline(String description) throws DukeException {
+        super(description); // Automatically invokes the constructor of Task
         toPrint();
     }
     public String getBy() throws DukeException{

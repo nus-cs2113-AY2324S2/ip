@@ -6,8 +6,8 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description, int index) {
-        super(description, index);
+    public Event(String description) {
+        super(description);
         toPrint();
     }
 

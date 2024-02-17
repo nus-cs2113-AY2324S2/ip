@@ -4,8 +4,8 @@ package tasks;
 public class Todo extends Task {
 
     // Constructor
-    public Todo(String description, int index) {
-        super(description, index);
+    public Todo(String description) {
+        super(description);
         toPrint();
     }
 
