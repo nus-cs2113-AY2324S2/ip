@@ -5,12 +5,13 @@ import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Chatbot {
     private final String CHATBOT_NAME;
-    private final Task[] taskList = new Task[100];
+    private final ArrayList<Task> taskList = new ArrayList<>();
     private int listLength = 0;
     private boolean isExit = false;
     String input;
@@ -20,7 +21,6 @@ public class Chatbot {
     public Chatbot(String name) {
         this.CHATBOT_NAME = name;
     }
-
     public static void printTask(Task task) {
         System.out.println(task.getData());
     }
@@ -43,22 +43,30 @@ public class Chatbot {
             return;
         case "unmark":
             System.out.println("Failing to meet expectations, are we? Unmarked. ");
-            return;
+            break;
         case "mark":
             System.out.println("Not as incompetent as I thought. Marked. ");
-            return;
+            break;
         case "todo":
         case "deadline":
         case "event":
             System.out.println("Got it. Don't worry, I won't forget. ");
+            break;
+        case "help":
+            System.out.println("Want to know what I can do? \n" +
+                    "I can add 'todo', 'deadline', and 'event' tasks. \n" +
+                    "Or 'list', 'mark', 'unmark', and 'delete' tasks. \n" +
+                    "Also, type 'bye' to exit. I suggest this one. ");
             return;
         default:
+            break;
         }
+        printTask(selectedItem);
     }
 
     public void initiate() {
-        System.out.println("Hello. You may call me " + CHATBOT_NAME + ". ");
-        System.out.println("Looks like you need me to remember things for you. Again. ");
+        System.out.println("Hello. You may call me " + CHATBOT_NAME + ". \n" +
+                "Looks like you need me to remember things for you. Again. ");
     }
 
     public void execute(String command, String description) throws ChatbotException {
@@ -72,7 +80,7 @@ public class Chatbot {
             printResponse(command);
             for (int i = 0; i < listLength; i += 1) {
                 System.out.print((i + 1) + ". ");
-                printTask(taskList[i]);
+                printTask(taskList.get(i));
             }
             break;
         case "unmark":
@@ -80,46 +88,55 @@ public class Chatbot {
             if (inputNum > listLength) {
                 throw new ChatbotException("You only have " + listLength + " task(s). Choose one of them. ");
             }
-            selectedItem = taskList[inputNum - 1];
+            selectedItem = taskList.get(inputNum - 1);
             selectedItem.markAsNotDone();
             printResponse(command);
-            printTask(selectedItem);
             break;
         case "mark":
             inputNum = new Scanner(input).useDelimiter("\\D+").nextInt();
             if (inputNum > listLength) {
                 throw new ChatbotException("You only have " + listLength + " task(s). Choose one of them. ");
             }
-            selectedItem = taskList[inputNum - 1];
+            selectedItem = taskList.get(inputNum - 1);
             selectedItem.markAsDone();
             printResponse(command);
-            printTask(selectedItem);
+            break;
+        case "delete":
+            inputNum = new Scanner(input).useDelimiter("\\D+").nextInt();
+            if (inputNum > listLength) {
+                throw new ChatbotException("You only have " + listLength + " task(s). Choose one of them. ");
+            }
+            selectedItem = taskList.get(inputNum - 1);
+            printResponse(command);
+            taskList.remove(inputNum - 1);
+            listLength -= 1;
             break;
         case "todo":
-            taskList[listLength] = new Todo(description);
+            selectedItem = new Todo(description);
             printResponse(command);
-            printTask(taskList[listLength]);
+            taskList.add(selectedItem);
             listLength += 1;
             printLength();
             break;
         case "deadline":
-            taskList[listLength] = new Deadline(description);
+            selectedItem = new Deadline(description);
             printResponse(command);
-            printTask(taskList[listLength]);
+            taskList.add(selectedItem);
             listLength += 1;
             printLength();
             break;
         case "event":
-            taskList[listLength] = new Event(description);
+            selectedItem = new Event(description);
             printResponse(command);
-            printTask(taskList[listLength]);
+            taskList.add(selectedItem);
             listLength += 1;
             printLength();
             break;
+        case "help":
+            printResponse(command);
+            break;
         default:
-            throw new ChatbotException("I'm not omnipotent, you know? \n" +
-                    "I can mark, unmark, and list items, or add a todo, deadline, or event. \n" +
-                    "Or may I recommend using bye and thinking for yourself? ");
+            throw new ChatbotException("I don't know what that is. Type 'help' for help.");
         }
     }
 
