@@ -1,6 +1,8 @@
 package alpaca.UI;
 
 import java.util.Scanner;
+
+import alpaca.file.FileSaver;
 import alpaca.logic.LogicManager;
 import alpaca.exceptions.EmptyTaskDescriptionException;
 import alpaca.exceptions.InvalidCommandException;

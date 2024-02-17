@@ -1,6 +1,7 @@
 package alpaca.logic;
 
 import alpaca.UI.ResponseManager;
+import alpaca.file.FileSaver;
 import alpaca.tasks.*;
 import alpaca.exceptions.InvalidCommandException;
 import alpaca.exceptions.InvalidIndexException;
@@ -31,6 +32,7 @@ public class LogicManager {
             // Handle other commands or ignore unknown commands
             throw new InvalidCommandException();
         }
+        FileSaver.startFileWriter(taskList.listTasks());
     }
 
     public void addTodo(String details){
@@ -48,6 +50,7 @@ public class LogicManager {
     private void addTask(Task task) {
         taskList.add(task);
         responseManager.printAddTask(task, taskList.getListCount());
+        FileSaver.startFileWriter(taskList.listTasks());
     }
 
     private void markUnmarkTask(String details, boolean isMark) {

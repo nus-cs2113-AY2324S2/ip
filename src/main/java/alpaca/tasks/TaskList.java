@@ -40,12 +40,13 @@ public class TaskList {
         System.out.println(" " + tasks[taskIndex].toString());
     }
 
-    public void listTasks() {
+    public String listTasks() {
+        String taskList = "";
         int taskIndex = 0;
-        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < listCount; i++) {
             taskIndex++;
-            System.out.println(taskIndex + "." + tasks[i].toString());
+            taskList += taskIndex + "." + tasks[i].toString() + "\n";
         }
+        return taskList;
     }
 }

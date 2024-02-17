@@ -1,5 +1,6 @@
 package alpaca;
 
+import alpaca.file.FileReader;
 import alpaca.logic.LogicManager;
 import alpaca.UI.ResponseManager;
 import alpaca.UI.InputManager;
@@ -11,6 +12,7 @@ public class Alpaca {
         InputManager inputManager = new InputManager();
 
         responseManager.printGreeting();
+        FileReader.startFileReader();
         inputManager.listenForInput(logicManager);
     }
 
