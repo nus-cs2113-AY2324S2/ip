@@ -28,6 +28,27 @@ public class Quokka {
         }
     }
 
+    private static void deleteTask(int taskIndex) {
+        try {
+            if (taskIndex < 1 || taskIndex > taskCount) {
+                throw new QuokkaException("Invalid task index. Please provide a valid task index to delete");
+            }
+
+            Task deletedTask = tasks[taskIndex - 1];
+            for (int i = taskIndex - 1; i < taskCount; i++) {
+                tasks[i] = tasks[i + 1];
+            }
+            tasks[taskCount - 1] = null;
+            taskCount--;
+
+            System.out.println("    Noted. I've removed this task:");
+            System.out.println("      " + deletedTask);
+            System.out.println("    Now you have " + taskCount + " tasks in the list");
+        } catch (QuokkaException e) {
+            System.out.println("    Error: " + e.getMessage());
+        }
+    }
+
     private static Todo parseTodoTask(String userInput) {
         try {
             String description = userInput.substring("todo".length()).trim();
@@ -163,6 +184,18 @@ public class Quokka {
                     addTask(parseDeadlineTask(userInput));
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     addTask(parseEventTask(userInput));
+                } else if (userInput.toLowerCase().startsWith("delete ")) {
+                    String[] parts = userInput.split(" ");
+                    if (parts.length == 2) {
+                        try {
+                            int taskIndex = Integer.parseInt(parts[1]);
+                            deleteTask(taskIndex);
+                        } catch (NumberFormatException e) {
+                            System.out.println("    Invaid task index format");
+                        }
+                    } else {
+                        System.out.println("    Please provide a valid task index to delete");
+                    }
                 } else {
                     System.out.println("    I'm sorry, I don't understand that command.");
                 }
