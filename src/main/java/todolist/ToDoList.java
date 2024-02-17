@@ -2,7 +2,6 @@ package todolist;
 import todolist.keywordfinder.Keyword;
 import todolist.keywordfinder.KeywordPatternMatcher;
 import todolist.task.Task;
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -74,17 +73,21 @@ public class ToDoList {
                 }
             } else {
                 switch (keywordFinder.getKeywordType()) {
+                case delete:
+                    deleteTask(keywordFinder.findNumberIndex());
+                    break;
                 case mark:
-                    markTask(keywordFinder.findMarkOrUnmarkIndex());
+                    markTask(keywordFinder.findNumberIndex());
                     break;
                 case unmark:
-                    unMarkTask(keywordFinder.findMarkOrUnmarkIndex());
+                    unMarkTask(keywordFinder.findNumberIndex());
                     break;
                 case todoError:
                     ErrorMessages.todoTaskFormatIncorrectErrorMessage();
                     break;
                 default:
-                    if (keywordFinder.processKeywordInput() == null) {
+                    // the method will return null if the input is incorrect
+                    if (keywordFinder.processKeywordInput() == null) { 
                         ErrorMessages.taskFormatIncorrectErrorMessage();
                     } else {
                         addTask(keywordFinder.processKeywordInput());
@@ -112,6 +115,18 @@ public class ToDoList {
         this.toDoListArray.add(task);
         System.out.println("added: " + task.getName());
         System.out.println("Now you have " + this.toDoListArray.size() + " task(s) in the list");
+    }
+
+    public void deleteTask(int index) {
+        try {
+            String taskNameString = index + ". " + this.toDoListArray.get(index - 1).toString();
+            this.toDoListArray.remove(index - 1);
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println(taskNameString);
+            System.out.println("Now you have " + this.toDoListArray.size() + " task(s) in the list");
+        } catch (IndexOutOfBoundsException e) {
+            ErrorMessages.taskDoesNotExistErrorMessage();
+        }
     }
 
     /**

@@ -8,4 +8,5 @@ public enum Keyword {
     event,
     none,
     todoError,
+    delete,
 }
