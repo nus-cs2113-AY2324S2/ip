@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class Kvothe {
 
+    private static final String FILEPATH = "data/kvothe.txt";
+
     private static final int MAXTASKS = 100;
     private static Task[] tasks = new Task[MAXTASKS];
     private static int tasksIndex = 0;
@@ -71,6 +73,9 @@ public class Kvothe {
             echo("Sorry. I do not support that method.");
             break;
         }
+
+        System.out.println("Adding task: ");
+        System.out.println(newTask.toFileString());
 
         tasks[tasksIndex] = newTask;
         tasksIndex++;
