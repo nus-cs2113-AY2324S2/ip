@@ -10,6 +10,14 @@ public class Event extends Task {
         this.endDate = toDate;
     }
     public String toString(){
-        return ICON_TYPE + super.toString() + "(from:" + startDate + " to:"+ endDate+")";
+        return ICON_TYPE + super.toString()
+                + "(from:" + startDate + " to:"+ endDate+")";
     }
+
+    @Override
+    public String toDiskFormat() {
+        return "E," + (this.isDone ? "TRUE," : "FALSE,") + description + ","
+                + startDate + "," + endDate + "\n";
+    }
+
 }
