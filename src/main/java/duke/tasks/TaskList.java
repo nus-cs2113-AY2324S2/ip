@@ -1,13 +1,15 @@
 package duke.tasks;
 
+import java.util.ArrayList;
+
 public class TaskList {
     /** Array of tasks */
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
 
     /** Number of tasks */
     private int noOfTasks = 0;
-    public TaskList(int taskLength) {
-        tasks = new Task[taskLength];
+    public TaskList() {
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -15,26 +17,37 @@ public class TaskList {
      * @param task The task
      */
     public void addTask(Task task){
-        tasks[noOfTasks] = task;
-        noOfTasks++;
+        tasks.add(task);
+    }
+
+    /**
+     * Removes task from the task list
+     * @param taskNumber The task number
+     */
+    public void removeTask(int taskNumber){
+        int indexOfTask = taskNumber - 1;
+        System.out.println("      " + tasks.get(indexOfTask));
+        tasks.remove(indexOfTask);
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list");
+
     }
 
     /**
      * Checks the task in the task list
-     * @param taskNumber The index of the task
+     * @param taskNumber The task number
      */
     public void checkTask(int taskNumber){
-        tasks[taskNumber-1].setTaskStatus(true);
-        System.out.println("      " + tasks[taskNumber-1]);
+        tasks.get(taskNumber-1).setTaskStatus(true);
+        System.out.println("      " + tasks.get(taskNumber-1));
     }
 
     /**
      * Unchecks the task in the task list
-     * @param taskNumber The index of the task
+     * @param taskNumber The task number
      */
     public void uncheckTask(int taskNumber){
-        tasks[taskNumber-1].setTaskStatus(false);
-        System.out.println("      " + tasks[taskNumber-1]);
+        tasks.get(taskNumber-1).setTaskStatus(false);
+        System.out.println("      " + tasks.get(taskNumber-1));
     }
 
     /**
@@ -57,7 +70,7 @@ public class TaskList {
      * @return the number of tasks
      */
     public int getNoOfTasks(){
-        return noOfTasks;
+        return tasks.size();
     }
 
 
