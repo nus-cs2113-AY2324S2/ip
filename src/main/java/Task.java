@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected final String taskName;
     protected boolean isCompleted;
 
@@ -24,4 +24,6 @@ public class Task {
         }
         System.out.println("  " + this);
     }
+
+    public abstract String getStringRepresentation();
 }
