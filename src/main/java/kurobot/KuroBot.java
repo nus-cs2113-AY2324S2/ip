@@ -4,8 +4,13 @@ import kurobot.exceptions.InvalidCommandException;
 import kurobot.exceptions.InvalidDescriptionException;
 import kurobot.exceptions.InvalidTimeException;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class KuroBot {
 
@@ -255,6 +260,19 @@ public class KuroBot {
         default:
             throw new InvalidCommandException();
         }
+        try {
+            writeToFile();
+        } catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("src/data/history");
+        for (Task task : tasks){
+            fw.write(tasks.indexOf(task)+1 + "." + task.printTask() + System.lineSeparator());
+        }
+        fw.close();
     }
 
     public static void main(String[] args) {
@@ -262,8 +280,16 @@ public class KuroBot {
         //display welcome message
         start();
 
+        try {
+            printFileContents();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
         while (isStart) {
             String input = scanner.nextLine();
+            //System.getProperty("user.dir");
+            //System.out.println("file exists?: " + file.exists());
             try {
                 manageTasks(input);
             } catch (InvalidCommandException e) {
@@ -271,6 +297,28 @@ public class KuroBot {
                 System.out.println("Whoops! Please enter a valid command~");
                 System.out.println(LINE);
             }
+        }
+    }
+
+    private static void printFileContents() throws FileNotFoundException {
+//        File file = new File("src/data/history");
+//        Scanner scan = new Scanner(file); // create a Scanner using the File as the source
+//        while (scan.hasNext()) {
+//            System.out.println(scan.nextLine());
+//        }
+//        System.out.println(" \n");
+        try {
+            File file = new File("src/data/history");
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                Scanner scan = new Scanner(file); // create a Scanner using the File as the source
+                while (scan.hasNext()) {
+                System.out.println(scan.nextLine());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 }
