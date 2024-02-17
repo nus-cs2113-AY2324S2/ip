@@ -1,3 +1,5 @@
+package com.arriky.task;
+
 abstract class Task {
     public String taskName;
     public boolean completed = false;

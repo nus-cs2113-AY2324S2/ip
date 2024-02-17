@@ -1,3 +1,5 @@
+package com.arriky.exception;
+
 public class ErrorMessage {
     public String INVALID_ID = "Task ID should be an integer. Please try again.";
     public String INVALID_COMMAND = "Command does not exist. Please try again.";

@@ -1,3 +1,5 @@
+package com.arriky.task;
+
 public class Deadline extends Task{
 
     private String dueTime;
