@@ -46,6 +46,14 @@ public class GeePee {
         }
     }
 
+    private static void handleDelete(List list, String line) {
+        String[] words = line.split(" ");
+        int number = Integer.parseInt(words[1]);
+        if (number >= 0 && number <= list.getSize()) {
+            list.deleteTask(number - 1);
+        }
+    }
+
     private static void handleTaskStatusChange(List list, String line) {
         String[] words = line.split(" ");
         int number = Integer.parseInt(words[1]);
@@ -68,6 +76,8 @@ public class GeePee {
             handleDeadline(list, line);
         } else if (command.equals("event")) {
             handleEvent(list, line);
+        } else if (command.equals("delete")) {
+            handleDelete(list, line);
         } else {
             throw new InvalidCommandException();
         }
