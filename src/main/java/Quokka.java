@@ -4,27 +4,41 @@ import Quokka.tasks.Event;
 import Quokka.tasks.Task;
 import Quokka.tasks.Todo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Quokka {
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static List<Task> tasks = new ArrayList<>();
 
     private static void addTask(Task newTask) {
         try {
-            if (newTask != null) {
-                if (taskCount < MAX_TASKS) {
-                    tasks[taskCount++] = newTask;
-                    System.out.println("     Got it. I've added this task:");
-                    System.out.println("       " + newTask);
-                    System.out.println("     Now you have " + taskCount + " tasks in the list.");
-                } else {
-                    throw new QuokkaException("    Sorry, the task list is full. You cannot add more tasks.");
-                }
+            if (tasks.size() >= MAX_TASKS) {
+                throw new QuokkaException("Sorry, the task list is full. You cannot add more tasks.");
             }
+            tasks.add(newTask);
+            System.out.println("    Got it. I've added this task:");
+            System.out.println("      " + newTask);
+            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
         } catch (QuokkaException e) {
-            System.out.println("     Error: " + e.getMessage());
+            System.out.println("    Error: " + e.getMessage());
+        }
+    }
+
+    private static void deleteTask(int taskIndex) {
+        try {
+            if (taskIndex < 1 || taskIndex > tasks.size()) {
+                throw new QuokkaException("Invalid task index. Please provide a valid task index to delete");
+            }
+
+            Task deletedTask = tasks.remove(taskIndex - 1);
+
+            System.out.println("    Noted. I've removed this task:");
+            System.out.println("      " + deletedTask);
+            System.out.println("    Now you have " + tasks.size() + " tasks in the list");
+        } catch (QuokkaException e) {
+            System.out.println("    Error: " + e.getMessage());
         }
     }
 
@@ -86,12 +100,12 @@ public class Quokka {
     }
 
     private static void displayTasks() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("    No tasks added yet.");
         } else {
             System.out.println("    Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println("    " + (i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("    " + (i + 1) + ". " + tasks.get(i));
             }
         }
     }
@@ -117,10 +131,10 @@ public class Quokka {
             String[] parts = userInput.split(" ", 2);
             if (parts.length == 2) {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].setStatus(newStatus);
+                if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                    tasks.get(taskIndex).setStatus(newStatus);
                     System.out.println("    " + statusMessage);
-                    System.out.println("      " + tasks[taskIndex]);
+                    System.out.println("      " + tasks.get(taskIndex));
                 } else {
                     throw new QuokkaException("Invalid task index.");
                 }
@@ -163,6 +177,18 @@ public class Quokka {
                     addTask(parseDeadlineTask(userInput));
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     addTask(parseEventTask(userInput));
+                } else if (userInput.toLowerCase().startsWith("delete ")) {
+                    String[] parts = userInput.split(" ");
+                    if (parts.length == 2) {
+                        try {
+                            int taskIndex = Integer.parseInt(parts[1]);
+                            deleteTask(taskIndex);
+                        } catch (NumberFormatException e) {
+                            System.out.println("    Invaid task index format");
+                        }
+                    } else {
+                        System.out.println("    Please provide a valid task index to delete");
+                    }
                 } else {
                     System.out.println("    I'm sorry, I don't understand that command.");
                 }
