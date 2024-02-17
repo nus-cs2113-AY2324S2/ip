@@ -10,8 +10,12 @@ list
 mark2
 mark 2
 mark 3
+mark 4
+mark 6
+unmark 6
 unmark 2
 unmarkreturn book
 unmark 2
+unmark2
 list
 bye
