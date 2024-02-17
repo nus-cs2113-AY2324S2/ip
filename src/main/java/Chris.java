@@ -7,6 +7,7 @@ public class Chris {
         printLine();
         System.out.println("Hello, I am Chris");
         menu();
+        printLine();
     }
 
     public static void printLine() {
