@@ -22,5 +22,13 @@ public class Task {
        this.taskIsDone = taskIsDone;
    }
 
+   public String getTask(){
+       return task;
+   }
+
+   public boolean getTaskStatus(){
+       return taskIsDone;
+   }
+
 
 }

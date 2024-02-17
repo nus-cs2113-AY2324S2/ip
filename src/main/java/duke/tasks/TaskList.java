@@ -1,5 +1,6 @@
 package duke.tasks;
-
+import java.io.FileWriter;
+import java.io.IOException;
 public class TaskList {
     /** Array of tasks */
     private Task[] tasks;
@@ -58,6 +59,21 @@ public class TaskList {
      */
     public int getNoOfTasks(){
         return noOfTasks;
+    }
+
+    public void saveTaskList() throws IOException {
+        FileWriter fw = new FileWriter("src/main/java/duke.txt");
+
+        for (Task task : tasks) {
+            if (task instanceof ToDos) {
+                fw.write("T/ " + (task.getTaskStatus() ? "1 /" : "0 /") + task.getTask() + System.lineSeparator());
+            } else if (task instanceof Events) {
+                fw.write("E/ " + (task.getTaskStatus() ? "1 /" : "0 /") + task.getTask() + System.lineSeparator());
+            } else if (task instanceof Deadlines) {
+                fw.write("D/ " + (task.getTaskStatus() ? "1 /" : "0 /") + task.getTask() + System.lineSeparator());
+            }
+        }
+        fw.close();
     }
 
 

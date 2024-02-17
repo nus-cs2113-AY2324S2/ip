@@ -5,7 +5,9 @@ import duke.tasks.TaskList;
 import duke.tasks.Task;
 import duke.tasks.Events;
 import duke.tasks.ToDos;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 public class Duke {
     /**
@@ -18,6 +20,50 @@ public class Duke {
         System.out.println("    How can I assist you mortal?");
         printLine();
     }
+
+    /**
+     * Loads the file contents into the task list
+     * @param tasklist The task list
+     * @throws FileNotFoundException File is not found exception
+     * @throws DukeException File is corrupted exception
+     */
+    public static void loadFile(TaskList tasklist) throws FileNotFoundException, DukeException {
+        // Creates a file object
+        File dukeFile = new File("src/main/java/duke.txt");
+        // Create a Scanner using the File as the source
+        Scanner line = new Scanner(dukeFile);
+        // Loads the file contents into the task list
+        while (line.hasNext()) {
+            String[] sentence = line.nextLine().split("/");
+            switch (sentence[0]){
+            case "T":
+                Task todoTask = new ToDos(sentence[2]);
+                tasklist.addTask(todoTask);
+                if(sentence[1].equals(" 1 ")){
+                    todoTask.setTaskStatus(true);
+                }
+                break;
+            case "D":
+                Task deadlineTask = new Deadlines(sentence[2], sentence[3]);
+                tasklist.addTask(deadlineTask);
+                if(sentence[1].equals(" 1 ")){
+                    deadlineTask.setTaskStatus(true);
+                }
+                break;
+            case "E":
+                Task eventTask = new Events(sentence[2], sentence[3], sentence[4]);
+                tasklist.addTask(eventTask);
+                if(sentence[1].equals(" 1 ")){
+                    eventTask.setTaskStatus(true);
+                }
+                break;
+            default:
+                throw new DukeException("File is corrupted or has invalid format");
+            }
+        }
+    }
+
+
 
     /**
      * Prints a line
@@ -52,6 +98,14 @@ public class Duke {
     public static void main(String[] args) {
         // Creates a class of TaskList
         TaskList taskList = new TaskList(100);
+        // Loads Duke.txt file
+        try{
+            loadFile(taskList);
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
         String line;
         Scanner in = new Scanner(System.in);
         boolean userSaidBye = false;
@@ -142,8 +196,11 @@ public class Duke {
                     // Throws an invalid command error
                     throw new DukeException("I do not understand this command mortal\nType help for help");
                 }
+                taskList.saveTaskList();
             } catch (DukeException e){
                 System.out.println(e);
+            } catch (IOException e) {
+                System.out.println("Something went wrong while saving file");
             }
 
 
