@@ -43,6 +43,10 @@ public class Aragorn {
 
             switch (commandType) {
                 case "LIST":
+                    if (listLength == 0) {
+                       System.out.println("    List is empty. Add tasks to view them here.");
+                       break;
+                    }
                     System.out.println(LINE);
                     System.out.println("    Here are the tasks in your list: ");
                     for (int i = 0; i < listLength; i += 1) {
