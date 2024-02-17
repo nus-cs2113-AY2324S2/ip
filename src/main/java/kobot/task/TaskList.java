@@ -4,7 +4,15 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
-    private int taskCount = 0;
+    private static final String EMPTY_STRING = "";
+    private static final String FILE_DELIMITER = ";";
+    private static final int TASK_TYPE_INDEX = 0;
+    private static final int TASK_IS_DONE_INDEX = 1;
+    private static final int TASK_DESCRIPTION_INDEX = 2;
+    private static final int DEADLINE_BY_INDEX = 3;
+    private static final int EVENT_FROM_INDEX = 3;
+    private static final int EVENT_TO_INDEX = 4;
+    private static final int MAX_TASK_COUNT = 100;
 
     /**
      * Adds a to-do item to the task list.
@@ -16,7 +24,6 @@ public class TaskList {
         taskList.add(newTodo);
         System.out.println("Task has been added to list:");
         System.out.println(newTodo);
-        taskCount++;
     }
 
     /**
@@ -30,7 +37,6 @@ public class TaskList {
         taskList.add(newDeadline);
         System.out.println("Deadline has been added to list:");
         System.out.println(newDeadline);
-        taskCount++;
     }
 
     /**
@@ -45,7 +51,6 @@ public class TaskList {
         taskList.add(newEvent);
         System.out.println("Event has been added to list:");
         System.out.println(newEvent);
-        taskCount++;
     }
 
     /**
@@ -93,5 +98,44 @@ public class TaskList {
         Task task = taskList.get(index);
         taskList.remove(index);
         System.out.println("Item has been deleted: " + task.getDescription());
+    }
+    
+    public void loadTask(String line) {
+        String[] data = line.split(FILE_DELIMITER);
+
+        try {
+            switch (data[TASK_TYPE_INDEX]) {
+            case "T":
+                Task newToDo = new ToDo(data[TASK_DESCRIPTION_INDEX]
+                        , Boolean.parseBoolean(data[TASK_IS_DONE_INDEX]));
+                taskList.add(newToDo);
+                break;
+            case "D":
+                Task newDeadline = new Deadline(data[TASK_DESCRIPTION_INDEX], data[DEADLINE_BY_INDEX]
+                        , Boolean.parseBoolean(data[TASK_IS_DONE_INDEX]));
+                taskList.add(newDeadline);
+                break;
+            case "E":
+                Task newEvent = new Event(data[TASK_DESCRIPTION_INDEX], data[EVENT_FROM_INDEX]
+                        , data[EVENT_TO_INDEX], Boolean.parseBoolean(data[TASK_IS_DONE_INDEX]));
+                taskList.add(newEvent);
+                break;
+            default:
+                break;
+            }
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("Invalid entry found in storage. Entry will be ignored.");
+        }
+    }
+    
+    public String toStorageFormat() {
+        StringBuilder storage = new StringBuilder(EMPTY_STRING);
+        
+        for (Task task:taskList) {
+            storage.append(task.toStorageFormat());
+            storage.append("\n");
+        }
+        
+        return String.valueOf(storage);
     }
 }

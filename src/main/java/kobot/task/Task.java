@@ -1,13 +1,18 @@
 package kobot.task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    public Task(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
 
     public String getDescription() {
         return this.description;
@@ -24,4 +29,6 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public abstract String toStorageFormat();
 }
