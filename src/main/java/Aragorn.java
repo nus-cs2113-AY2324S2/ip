@@ -15,7 +15,7 @@ public class Aragorn {
         int remainingTasks = 0;
         System.out.println(LINE + GREET + LINE);
         int index;
-        String echo;
+        String icon;
         String[] splitInput;
         String[] splitDeadline;
         String[] splitEvent;
@@ -23,7 +23,6 @@ public class Aragorn {
         Scanner in = new Scanner(System.in);
         while(true) {
             String userInput = in.nextLine();
-
             if (userInput.equals("bye")) {
                 System.out.println(LINE + TAB + EXIT + LINE);
                 return;
@@ -35,34 +34,47 @@ public class Aragorn {
                 for (int i = 0; i < listLength; i += 1) {
                     System.out.println(TAB + (i + 1) + ". " + list[i].taskString());
                 }
-                System.out.println(LINE);
+                System.out.println("\n    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
                 continue;
             }
 
             if (userInput.startsWith("unmark ")) {
                 index = Integer.parseInt(userInput.substring(7)) - 1;
+                icon = list[index].getStatusIcon();
+                if (icon.equals(" ")) {
+                    System.out.println(LINE + "    This task has already been unmarked.\n" + LINE);
+                    continue;
+                }
                 list[index].markAsUndone();
+                remainingTasks += 1;
                 System.out.println(LINE + TAB + "OK, I've marked this task as not done yet:\n" + TAB +
-                        "   " + list[index].taskString() +"\n" + LINE);
+                        "   " + list[index].taskString() +"\n");
+                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
                 continue;
             }
 
             if (userInput.startsWith("mark ")) {
                 index = Integer.parseInt(userInput.substring(5)) - 1;
+                icon = list[index].getStatusIcon();
+                if (icon.equals("X")) {
+                    System.out.println(LINE + "    This task has already been marked.\n" + LINE);
+                    continue;
+                }
                 list[index].markAsDone();
+                remainingTasks -= 1;
                 System.out.println(LINE + TAB + "Nice! I've marked this task as done:\n" + TAB +
-                        "   " + list[index].taskString() + "\n" + LINE);
+                        "   " + list[index].taskString() + "\n");
+                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
                 continue;
             }
 
             if (userInput.startsWith("todo ")) {
-                echo = userInput.substring(5);
-                list[listLength] = new ToDo(echo);
+                list[listLength] = new ToDo(userInput);
                 System.out.println(LINE + "    Got it. I've added this task:");
                 System.out.println(TAB + list[listLength].taskString() + "\n");
                 listLength += 1;
                 remainingTasks += 1;
-                System.out.println("    Now you have " + remainingTasks + " tasks in the list.\n" + LINE);
+                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
                 continue;
             }
 
@@ -73,7 +85,7 @@ public class Aragorn {
                 System.out.println(LINE + "    Got it. I've added this task:\n" + TAB + list[listLength].taskString() + "\n");
                 listLength += 1;
                 remainingTasks += 1;
-                System.out.println("    Now you have " + remainingTasks + " tasks in the list.\n" + LINE);
+                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
                 continue;
             }
 
@@ -85,7 +97,7 @@ public class Aragorn {
                 System.out.println(LINE + "    Got it. I've added this task:\n" + TAB + list[listLength].taskString() + "\n");
                 listLength += 1;
                 remainingTasks += 1;
-                System.out.println("    Now you have " + remainingTasks + " tasks in the list.\n" + LINE);
+                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
             }
 
             else {
