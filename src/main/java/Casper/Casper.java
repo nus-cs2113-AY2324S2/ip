@@ -46,31 +46,46 @@ public class Casper {
     }
 
     private static boolean handleKeywordRouting(String userInput){
-        if (userInput.equals("bye")) {
+        String commandPrefix = userInput.split(" ")[0];
+        switch (commandPrefix) {
+        case "bye":
             return false;
-        }
-        if (userInput.equals("list")) {
+        case "list":
             echoTaskList();
-        } else if (userInput.startsWith("mark")) {
-            int targetTaskNumber = validateTargetedInput(userInput);
-            if (targetTaskNumber != -1) {
-                taskList.get(targetTaskNumber-1).markTask();
-            }
-        } else if (userInput.startsWith("unmark")) {
-            int targetTaskNumber = validateTargetedInput(userInput);
-            if (targetTaskNumber != -1) {
-                taskList.get(targetTaskNumber-1).unMarkTask();
-            }
-        } else if (userInput.startsWith("event")) {
+            break;
+        case "mark":
+        case "unmark":
+            handleMarkTask(userInput);
+            break;
+        case "event":
             handleEvent(userInput);
-        } else if (userInput.startsWith("deadline")) {
+            break;
+        case "deadline":
             handleDeadline(userInput);
-        } else if (userInput.startsWith("todo")) {
+            break;
+        case "todo":
             handleTodo(userInput);
-        } else if (userInput.startsWith("delete")){
+            break;
+        case "delete":
             deleteTask(userInput);
+            break;
+        default:
+            break;
         }
         return true;
+    }
+
+    private static void handleMarkTask(String userInput){
+        boolean toMark = userInput.split(" ")[0].equals("mark");
+        int targetTaskNumber = validateTargetedInput(userInput);
+        if (targetTaskNumber == -1) {
+            return;
+        }
+        if(toMark){
+            taskList.get(targetTaskNumber-1).markTask();
+        }else{
+            taskList.get(targetTaskNumber-1).unMarkTask();
+        }
     }
 
     private static void deleteTask(String userInput){
