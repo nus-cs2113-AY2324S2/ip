@@ -46,4 +46,10 @@ public class Parser {
         }
     }
 
+    public int processTaskIdforMarkingAndDeletingTask(String userInput) {
+        userInput = userInput.toLowerCase();
+        String[] wordArray = userInput.split(" ");
+        return Integer.parseInt(wordArray[1]) - 1;
+    }
+
 }

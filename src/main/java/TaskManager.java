@@ -19,9 +19,8 @@ public class TaskManager {
     public TaskManager() {
         this.numItems = 0;
     }
-
+    Parser myParser = new Parser();
     public void addListContents(String userInput) {
-        Parser myParser = new Parser();
         try {
             String[] taskInformation = myParser.processTaskInformation(userInput);
             switch (taskInformation[0]) {
@@ -101,35 +100,64 @@ public class TaskManager {
     }
 
     public void changeTaskStatus(String userInput) {
-        userInput = userInput.toLowerCase();
-        String[] wordArray = userInput.split(" ");
-        // need to check if the 1st index of the array is a valid number and an actual number
-        if (wordArray.length != 2 || !isStringInteger(wordArray[1])) {
-            System.out.println("Please give a command in the structure of \"mark x\" or \"unmark x\"" +
-                    "where x is the task number");
+        if (!isValidTaskId(userInput, "changeTaskStatus")) {
             return;
         }
 
-        int id = Integer.parseInt(wordArray[1]) - 1;
-        if (id >= numItems || id < 0) {
-            System.out.println("Please select a task number that exists. =)");
-            return;
-        }
+        int id = myParser.processTaskIdforMarkingAndDeletingTask(userInput);
 
         if (userInput.contains("unmark")) {
             taskArrayList.get(id).setDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[ ] " + taskArrayList.get(id).getContent());
+            System.out.println(taskArrayList.get(id));
 
         }
         // must contain mark at this point
         else {
             taskArrayList.get(id).setDone(true);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[X] " + taskArrayList.get(id).getContent());
+            System.out.println(taskArrayList.get(id));
         }
-
     }
 
+    public boolean isValidTaskId(String userInput, String purpose) {
+        userInput = userInput.toLowerCase();
+        String[] wordArray = userInput.split(" ");
+        String commandStructure;
+        if (purpose.equals("changeTaskStatus")) {
+            commandStructure = "\"mark x or unmark x\"";
+        } else if (purpose.equals("deleteTask")) {
+            commandStructure = "\"delete x\"";
+        }
+        else {
+            System.out.println("not a valid purpose =(");
+            return false;
+        }
 
+        if (wordArray.length != 2 || !isStringInteger(wordArray[1])) {
+            System.out.println("Please give a command in the structure of " + commandStructure +
+                    "where x is the task number");
+            return false;
+        }
+
+        int id = Integer.parseInt(wordArray[1]) - 1;
+        if (id >= numItems || id < 0) {
+            System.out.println("Please select a task number that exists. =)");
+            return false;
+        }
+        return true;
+    }
+
+    public void deleteTask(String userInput) {
+        if (!isValidTaskId(userInput, "deleteTask")) {
+            return;
+        }
+        int id = myParser.processTaskIdforMarkingAndDeletingTask(userInput);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskArrayList.get(id));
+        this.numItems -= 1;
+        String taskPluralString = numItems > 1 ? " tasks" : " task";
+        System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
+        taskArrayList.remove(id);
+    }
 }

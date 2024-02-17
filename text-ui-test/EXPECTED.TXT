@@ -7,8 +7,8 @@ Hello from
 
 Hello! I'm Sebastian, your humble butler
 What can I do for you?
-Your Todo task description seems to be empty. What you entered was todo. Try typing it as 'todo <task>'
-Your Event task description seems to be empty. What you entered was event /from test /to. Try typing it as 'Event <task> /from <start date> /to <end date>'
+Your todo task description seems to lack inputs. What you entered was todo. Try typing it as 'todo <task>'
+Your event task description seems to lack inputs. What you entered was event /from test /to. Try typing it as 'Event <task> /from <start date> /to <end date>'
 Got it. I've added this task:
 [T] [ ]  borrow book
 Now you have 1 task in the list.
