@@ -1,51 +1,51 @@
 package alpaca.tasks;
+
+import java.util.List;
+import java.util.ArrayList;
+
 public class TaskList {
-    protected int listCount;
-    protected final Task[] tasks;
+    private List<Task> tasks = new ArrayList<>();
 
-    public TaskList() {
-        this.listCount = 0;
-        this.tasks = new Task[100];
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 
-    public int getListCount() {
-        return listCount;
+    public void deleteTask(int taskIndex) {
+        System.out.println("I've removed this task: ");
+        System.out.println(" " + tasks.get(taskIndex));
+        this.tasks.remove(taskIndex);
     }
 
-    public void add(Task task) {
-        tasks[listCount] = task;
-        listCount++;
+    public int getTotalTaskNumber() {
+        return this.tasks.size();
     }
 
     public boolean isCountValid(int taskIndex) {
-        if (taskIndex <= listCount - 1) {
+        if (taskIndex <= getTotalTaskNumber() - 1) {
             return true;
         }
         return false;
     }
 
-    public Task getTask(int taskIndex) {
-        return tasks[taskIndex];
-    }
-
     public void markTask(int taskIndex) {
-        tasks[taskIndex].mark();
+        tasks.get(taskIndex).mark();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + tasks[taskIndex].toString());
+        System.out.println(" " + tasks.get(taskIndex));
     }
 
     public void unmarkTask(int taskIndex) {
-        tasks[taskIndex].unmark();
+        tasks.get(taskIndex).unmark();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(" " + tasks[taskIndex].toString());
+        System.out.println(" " + tasks.get(taskIndex));
     }
 
     public void listTasks() {
         int taskIndex = 0;
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < listCount; i++) {
+        for (Task task : tasks) {
             taskIndex++;
-            System.out.println(taskIndex + "." + tasks[i].toString());
+            System.out.println(taskIndex + "." + task);
         }
     }
 }
