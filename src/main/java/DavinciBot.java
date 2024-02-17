@@ -213,6 +213,47 @@ public class DavinciBot {
     }
 
     /**
+     * Deletes a specified task from the list.
+     *
+     * @param userInput User input specifying the task to delete.
+     * @param taskArray Array of tasks.
+     * @return Updated array of tasks.
+     */
+    private static Task[] deleteTask(String userInput, Task[] taskArray) {
+        try {
+            String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
+            if (parts.length > 1) {
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < taskArray.length) {
+                    return successfulDeletion(taskArray, taskIndex);
+                } else {
+                    throw new DavinciException("Invalid task index.");
+                }
+            } else {
+                throw new DavinciException("Please specify the task index to delete.");
+            }
+        } catch (DavinciException e) {
+            System.out.println("Error: " + e.getMessage());
+            return taskArray;
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid task index format.");
+            return taskArray;
+        }
+    }
+
+    private static Task[] successfulDeletion(Task[] taskArray, int taskIndex) {
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + taskArray[taskIndex].toString());
+        System.out.println("Now you have " + (taskArray.length - 1) + " tasks in the list.");
+        System.out.println(LINE_SEPARATOR);
+        Task[] newArray = new Task[taskArray.length - 1];
+        System.arraycopy(taskArray, 0, newArray, 0, taskIndex);
+        System.arraycopy(taskArray, taskIndex + 1, newArray, taskIndex, taskArray.length - taskIndex - 1);
+        return newArray;
+    }
+
+    /**
      * Prints the starting message.
      */
     private static void printStartingMessage() {
@@ -226,6 +267,7 @@ public class DavinciBot {
         System.out.println("Type 'todo <work>' to add a task to the list.");
         System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
         System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
+        System.out.println("Type 'delete <index>' to delete a task from your list.");
         System.out.println("See ya bucko!");
         System.out.println(LINE_SEPARATOR);
     }
@@ -255,6 +297,8 @@ public class DavinciBot {
                 completeTask(userInput, taskArray);
             } else if (userInput.toLowerCase().startsWith("unmark")) {
                 unmarkTask(userInput, taskArray);
+            } else if (userInput.toLowerCase().startsWith("delete")) {
+                taskArray = deleteTask(userInput, taskArray);
             } else if (userInput.toLowerCase().startsWith("todo") ||
                     userInput.toLowerCase().startsWith("deadline") ||
                     userInput.toLowerCase().startsWith("event")) {
