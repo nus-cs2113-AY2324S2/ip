@@ -12,9 +12,8 @@ public class LogicManager {
         this.listKeeper.printList();
     }
 
-    private void executeMark (String[] words)
+    private int getTaskIndex (String[] words)
         throws IllegalNumberOfArguments, InvalidTaskIndex {
-
         if (words.length != 2) {
             throw new IllegalNumberOfArguments();
         }
@@ -31,8 +30,20 @@ public class LogicManager {
             throw new InvalidTaskIndex();
         }
 
+        return taskIndex;
+    }
+
+    private void executeMark (String[] words)
+        throws IllegalNumberOfArguments, InvalidTaskIndex {
+        int taskIndex = getTaskIndex(words);
         boolean isCompleted = words[0].equals("mark");
         this.listKeeper.processMark(taskIndex, isCompleted);
+    }
+
+    private void executeDelete (String[] words)
+        throws  IllegalNumberOfArguments, InvalidTaskIndex {
+        int taskIndex = getTaskIndex(words);
+        this.listKeeper.deleteTask(taskIndex);
     }
 
     private void executeToDo(String currentInput)
@@ -127,6 +138,10 @@ public class LogicManager {
         case "mark":
         case "unmark":
             executeMark(words);
+            break;
+
+        case "delete":
+            executeDelete(words);
             break;
 
         case "todo":

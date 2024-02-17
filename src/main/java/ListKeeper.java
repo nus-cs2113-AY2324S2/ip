@@ -1,40 +1,40 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class ListKeeper {
-    private Task[] tasks;
-    private int numTaskAdded = 0;
-    private static final int MAX_NUM_OF_TASKS = 100;
+    private ArrayList<Task> tasks;
 
-    public ListKeeper(int numOfTasks) {
-        this.tasks = new Task[numOfTasks];
-    }
     public ListKeeper() {
-        this(MAX_NUM_OF_TASKS);
+        this.tasks = new ArrayList<>();
     }
 
     public void addToList(Task task) {
-        if (this.numTaskAdded == this.tasks.length) {
-            System.out.println("No more tasks can be added");
-            return;
-        }
-        this.tasks[this.numTaskAdded] = task;
-        this.numTaskAdded++;
+        this.tasks.add(task);
         // Provide feedback to user
         System.out.println("I have added this task:");
         System.out.println(task);
     }
 
+    public void deleteTask(int taskIndex) {
+        Task removedTask = this.tasks.get(taskIndex - 1);
+        this.tasks.remove(taskIndex - 1);
+        // Provide feedback
+        System.out.println("I have removed this task:");
+        System.out.println(removedTask);
+    }
+
     public void printList() {
-        for (int i = 0; i < this.numTaskAdded; i++) {
-            System.out.println(i + 1 + ". " + this.tasks[i]);
+        System.out.println("You have " + this.tasks.size() + " tasks");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println(i + 1 + ". " + this.tasks.get(i));
         }
     }
 
     public boolean isValidTaskIndex(int inputIndex) {
-        return inputIndex >= 1 && inputIndex <= this.numTaskAdded;
+        return inputIndex >= 1 && inputIndex <= this.tasks.size();
     }
 
     public void processMark(int inputIndex, boolean isCompleted) {
-        tasks[inputIndex - 1].mark(isCompleted);
+        Task task = this.tasks.get(inputIndex - 1);
+        task.mark(isCompleted);
     }
 }
