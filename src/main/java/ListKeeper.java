@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ListKeeper {
@@ -36,5 +37,20 @@ public class ListKeeper {
 
     public void processMark(int inputIndex, boolean isCompleted) {
         tasks[inputIndex - 1].mark(isCompleted);
+    }
+
+    public void saveTasksData(SaveManager saveManager) {
+        try {
+            saveManager.clearFile();
+            if (this.numTaskAdded == 0) {
+                return;
+            }
+            for (int i = 0; i < this.numTaskAdded; i++) {
+                System.out.println("Saving: " + tasks[i]);
+                saveManager.writeToFile(tasks[i].getStringRepresentation());
+            }
+        } catch (IOException e) {
+            System.out.println("Data could not be saved");
+        }
     }
 }
