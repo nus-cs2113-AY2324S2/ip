@@ -1,6 +1,7 @@
 package alpaca.logic;
 
 import alpaca.UI.ResponseManager;
+import alpaca.file.FileSaver;
 import alpaca.tasks.*;
 import alpaca.exceptions.InvalidCommandException;
 import alpaca.exceptions.InvalidIndexException;
@@ -10,7 +11,7 @@ public class LogicManager {
     private ResponseManager responseManager;
 
     public LogicManager(ResponseManager responseManager) {
-        this.taskList = new TaskList();
+        this.taskList = TaskLoader.loadTask();
         this.responseManager = responseManager;
     }
 
@@ -22,16 +23,17 @@ public class LogicManager {
         case "mark":
         case "unmark":
             markUnmarkTask(details, command.equals("mark"));
+            FileSaver.startFileWriter(taskList.saveTask());
             break;
         case "delete":
             deleteTask(details);
+            FileSaver.startFileWriter(taskList.saveTask());
             break;
         case "bye":
             responseManager.printGoodbye();
             System.exit(0);
             break;
         default:
-            // Handle other commands or ignore unknown commands
             throw new InvalidCommandException();
         }
     }
@@ -51,6 +53,7 @@ public class LogicManager {
     private void addTask(Task task) {
         taskList.addTask(task);
         responseManager.printAddTask(task, taskList.getTotalTaskNumber());
+        FileSaver.startFileWriter(taskList.saveTask());
     }
 
     private void deleteTask(String details) {

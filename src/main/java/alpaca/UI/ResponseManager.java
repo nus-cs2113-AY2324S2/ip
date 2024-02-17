@@ -38,7 +38,8 @@ public class ResponseManager {
 
     public void printTaskList(TaskList taskList) {
         System.out.println(HORIZONTAL_LINE);
-        taskList.listTasks();
+        System.out.println("Here are the tasks in your list:");
+        System.out.print(taskList.listTasks());
         System.out.println(HORIZONTAL_LINE);
     }
 

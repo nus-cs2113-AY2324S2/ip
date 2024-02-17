@@ -16,4 +16,9 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from +
             " to: " + to + ")";
     }
+
+    public String save() {
+        return "E | " + IntIsDone + " | " + description + " | " + from
+            + "-" + to;
+    }
 }
