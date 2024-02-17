@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Sam {
     public static void main(String[] args) {
         // Printing the logo and greeting message
         String logo = "  _________   _____      _____   \n" +
@@ -23,7 +23,7 @@ public class Duke {
         // Main loop
         while (!line.equals("bye")) {
             String[] words = line.split(" ");
-            System.out.println("____________________________________________________________");
+            printLine();
 
             // Checking user input
             switch (words[0]) {
@@ -74,11 +74,15 @@ public class Duke {
                 // Invalid command
                 System.out.println("Sorry, I don't understand that command.");
             }
-            System.out.println("____________________________________________________________");
+            printLine();
             line = in.nextLine();
         }
         // Exiting message
         System.out.println("Bye. Hope to see you again soon!");
+        printLine();
+    }
+
+    private static void printLine() {
         System.out.println("____________________________________________________________");
     }
 }
