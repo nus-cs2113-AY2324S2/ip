@@ -34,22 +34,22 @@ public class Kyrene {
     final static String ERROR_TASK_NOT_EXIST = "    Error! This task does not exist.\n";
     final static String ERROR_MISSING_TASK = "    Error! Your task description is missing.\n    For creating tasks, please type \"[task type (todo/deadline/event)] [task description]\"([] is to be omitted).\n    For example:\n        todo have a nice day\n    or\n        deadline get a cup of coffee /by 9am\n    or\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
     final static String ERROR_MISSING_TIME = "    Error! Your deadline/event task created is incomplete in terms of time.\n    For creating deadline task, please type \"deadline [task description] /by [time]\"([] is to be omitted).\n    For example:\n        deadline get a cup of coffee /by 9pm\n    For creating event task, please type \"event [task description] /from [starting time] /to [ending time]\"([] is to be omitted).\n    For example:\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
-    final static String ERROR_INVALID_COMMAND = "    Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark\n        unmark\n        [task type (todo/deadline/event)] [task description]\n        bye\n";
+    final static String ERROR_INVALID_COMMAND = "    Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark [task index]\n        unmark [task index]\n        delete [task index]\n        [task type (todo/deadline/event)] [task description]\n        bye\n";
 
     public static ArrayList<Task> tasks = new ArrayList<>();
     public static int taskCount = 0;
 
     public static void initKyrene() {
-        System.out.println(DIVIDER);
-        System.out.println(LOGO);
-        System.out.println(DIVIDER);
-        System.out.println(GREETING);
-        System.out.println(DIVIDER);
+        printDivider();
+        System.out.printf("%s\n", LOGO);
+        printDivider();
+        System.out.printf("%s\n", GREETING);
+        printDivider();
     }
 
     public static void exitKyrene() {
-        System.out.println(BYE);
-        System.out.println(DIVIDER);
+        System.out.printf("%s\n", BYE);
+        printDivider();
     }
 
     public static void addTask(String sentence, boolean isDone, boolean whetherWriteToFile) throws KyreneInvalidCommandException, KyreneMissingTaskException {
