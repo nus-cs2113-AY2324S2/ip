@@ -29,6 +29,12 @@ public class List {
         ListMessage.printAfterAddingTask(tasks.size(), newEvent);
     }
 
+    public void deleteTask(int index) {
+        Task deletedTask = tasks.get(index);
+        tasks.remove(index);
+        ListMessage.printAfterRemovingTask(tasks.size(), deletedTask);
+    }
+
     public void changeTaskStatus(int index, boolean isDone) {
         tasks.get(index).changeStatus(isDone);
         ListMessage.printTaskStatusMessage(isDone, tasks.get(index));

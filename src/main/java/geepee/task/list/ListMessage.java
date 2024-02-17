@@ -10,6 +10,11 @@ public class ListMessage {
         System.out.println("      " + task);
     }
 
+    private static void printTaskRemovedMessage(Task task) {
+        System.out.println("    Noted. I've removed this task: ");
+        System.out.println("      " + task);
+    }
+
     private static void printListSummary(int size) {
         System.out.println("    Now you have " + size + " task" + (size == 1 ? "" : "s")  + " in the list.");
     }
@@ -28,6 +33,13 @@ public class ListMessage {
     protected static void printAfterAddingTask(int size, Task task) {
         SystemMessage.printHorizontalLine();
         printTaskAddedMessage(task);
+        printListSummary(size);
+        SystemMessage.printHorizontalLine();
+    }
+
+    protected static void printAfterRemovingTask(int size, Task task) {
+        SystemMessage.printHorizontalLine();
+        printTaskRemovedMessage(task);
         printListSummary(size);
         SystemMessage.printHorizontalLine();
     }
