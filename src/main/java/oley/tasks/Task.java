@@ -11,7 +11,7 @@ public class Task {
         isDone = false;
     }
 
-    public boolean getDoneList() {
+    public boolean checkDone() {
         return isDone;
     }
 
