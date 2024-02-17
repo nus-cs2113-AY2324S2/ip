@@ -23,6 +23,8 @@ public class Aragorn {
         Scanner in = new Scanner(System.in);
         while(true) {
             String userInput = in.nextLine();
+            String commandType = commandIdentifier(userInput);
+
             if (userInput.equals("bye")) {
                 System.out.println(LINE + TAB + EXIT + LINE);
                 return;
@@ -110,7 +112,7 @@ public class Aragorn {
         }
     }
 
-    public String commandIdentifier(String userInput) {
+    public static String commandIdentifier(String userInput) {
         String commandType;
 
         if (userInput.equals("list")) {
@@ -134,7 +136,41 @@ public class Aragorn {
         return commandType;
     }
 
-    public String[] inputParser(String userInput) {
+    public String[] inputParser(String userInput, String commandType) {
+        String[] output = new String[3];
+        String[] splitInput;
+        String[] splitEvent;
+        int index = 0;
+        switch (commandType) {
+            case "MARK":
+                output[0] = String.valueOf(Integer.parseInt(userInput.substring(5)) - 1);
+                output[1] = null;
+                output[2] = null;
+                break;
 
+            case "UNMARK":
+                output[0] = String.valueOf(Integer.parseInt(userInput.substring(7)) - 1);
+                output[1] = null;
+                output[2] = null;
+                break;
+
+            case "DEADLINE":
+                splitInput = userInput.split(" /by ", 2);
+                output[0] = splitInput[0].substring(9);
+                output[1] = splitInput[1];
+                output[2] = null;
+                break;
+
+            case "EVENT":
+                splitInput = userInput.split(" /from ", 2);
+                splitEvent = splitInput[1].split(" /to ", 2);
+                output[0] = splitInput[0].substring(6);
+                output[1] = splitEvent[0];
+                output[2] = splitEvent[1];
+                break;
+
+        }
+
+        return output;
     }
 }
