@@ -28,7 +28,7 @@ public class Aragorn {
                 return;
             }
 
-            if (userInput.startsWith("list")) {
+            if (userInput.equals("list")) {
                 System.out.println(LINE);
                 System.out.println("    Here are the tasks in your list: ");
                 for (int i = 0; i < listLength; i += 1) {
@@ -108,5 +108,33 @@ public class Aragorn {
                                     "\n    or 'event [activity] /from [start period] /to [end period] to input a event task\n" + LINE);
             }
         }
+    }
+
+    public String commandIdentifier(String userInput) {
+        String commandType;
+
+        if (userInput.equals("list")) {
+            commandType = "LIST";
+        } else if (userInput.startsWith("unmark ")) {
+            commandType = "UNMARK";
+        } else if (userInput.startsWith("mark ")) {
+            commandType = "MARK";
+        } else if (userInput.startsWith("todo ")) {
+            commandType = "TODO";
+        } else if (userInput.startsWith("deadline ")) {
+            commandType = "DEADLINE";
+        } else if (userInput.startsWith("event ")) {
+            commandType = "EVENT";
+        } else if (userInput.equals("/help")) {
+            commandType = "HELP";
+        } else {
+            commandType = "INVALID";
+        }
+
+        return commandType;
+    }
+
+    public String[] inputParser(String userInput) {
+
     }
 }
