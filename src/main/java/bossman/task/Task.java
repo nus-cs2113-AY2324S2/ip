@@ -18,7 +18,7 @@ public abstract class Task {
         isMark = true;
     }
 
-    public void setUnmark(){
+    public void setUnmark() {
         isMark = false;
     }
 

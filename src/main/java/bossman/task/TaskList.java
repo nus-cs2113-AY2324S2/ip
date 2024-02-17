@@ -17,13 +17,16 @@ public class TaskList {
 
     public void printTasks() {
         System.out.println("Todo List:");
+
         int counter = 1;
+
         for (Task t: TASKS) {
             System.out.print(counter + ". ");
             t.printTask();
             counter += 1;
             System.out.println();
         }
+
         System.out.println(SEP);
     }
 

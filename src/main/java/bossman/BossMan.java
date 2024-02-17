@@ -40,16 +40,12 @@ public class BossMan {
 
             try {
                 processUserInput(userInput);
-            } catch (UnknownCommandException e) {
-                System.out.println("Unknown command\n" + SEP);
-            } catch (InvalidTodoCommandException e) {
-                System.out.println("Invalid todo command format\n" + SEP);
-            } catch (InvalidDeadlineCommandException e) {
-                System.out.println("Invalid deadline command format\n" + SEP);
-            } catch (InvalidEventCommandException e) {
-                System.out.println("Invalid event command format\n" + SEP);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid mark/unmark task command format\n" + SEP);
+            } catch (UnknownCommandException |
+                     InvalidTodoCommandException |
+                     InvalidDeadlineCommandException |
+                     InvalidEventCommandException |
+                     NumberFormatException e) {
+                System.out.println(e.getMessage() + "\n" + SEP);
             }
 
         } while (!userInput.equalsIgnoreCase("bye"));
@@ -60,12 +56,12 @@ public class BossMan {
             InvalidTodoCommandException,
             InvalidDeadlineCommandException,
             InvalidEventCommandException,
-            NumberFormatException{
+            NumberFormatException {
 
         String[] parts = parseUserInput(userInput);
 
         if (parts.length == 0) {
-            throw new UnknownCommandException();
+            throw new UnknownCommandException("Unknown command");
         }
 
         String commandType = parts[0];
@@ -100,7 +96,7 @@ public class BossMan {
             break; // No need to print unknown command for 'bye'
 
         default:
-            System.out.println("Unknown command\n" + SEP);
+            throw new UnknownCommandException("Unknown command");
         }
     }
 
@@ -113,24 +109,24 @@ public class BossMan {
         TASK_LIST.markTask(number);
     }
 
-    private void handleUnmarkCommand(String commandArgs) throws NumberFormatException{
+    private void handleUnmarkCommand(String commandArgs) throws NumberFormatException {
         int number = Integer.parseInt(commandArgs);
         TASK_LIST.unmarkTask(number);
     }
 
-    private void handleTodoCommand(String commandArgs) throws InvalidTodoCommandException{
+    private void handleTodoCommand(String commandArgs) throws InvalidTodoCommandException {
         if(commandArgs.isBlank()) {
-            throw new InvalidTodoCommandException();
+            throw new InvalidTodoCommandException("Invalid todo command");
         }
         Task todoTask = new Todo(commandArgs);
         TASK_LIST.addTask(todoTask);
         echo(todoTask);
     }
 
-    private void handleDeadlineCommand(String commandArgs) throws InvalidDeadlineCommandException{
+    private void handleDeadlineCommand(String commandArgs) throws InvalidDeadlineCommandException {
         String[] deadlineArgParts = commandArgs.split("/by", 2);
         if (deadlineArgParts.length != 2 || deadlineArgParts[0].isBlank()) {
-            throw new InvalidDeadlineCommandException();
+            throw new InvalidDeadlineCommandException("Invalid deadline command");
         }
         String description = deadlineArgParts[0];
         String deadline = deadlineArgParts[1];
@@ -139,16 +135,20 @@ public class BossMan {
         echo(deadlineTask);
     }
 
-    private void handleEventCommand(String commandArgs) throws InvalidEventCommandException{
+    private void handleEventCommand(String commandArgs) throws InvalidEventCommandException {
         String[] eventArgParts = commandArgs.split("/from", 2);
-        if (eventArgParts.length != 2 || eventArgParts[0].isBlank()){
-            throw new InvalidEventCommandException();
+
+        if (eventArgParts.length != 2 || eventArgParts[0].isBlank()) {
+            throw new InvalidEventCommandException("Invalid event command");
         }
+
         String description = eventArgParts[0];
         String[] eventArgTimeParts = eventArgParts[1].split("/to", 2);
-        if (eventArgTimeParts.length != 2){
-            throw new InvalidEventCommandException();
+
+        if (eventArgTimeParts.length != 2) {
+            throw new InvalidEventCommandException("Invalid event command");
         }
+
         String from = eventArgTimeParts[0];
         String to = eventArgTimeParts[1];
         Task eventTask = new Event(description, from, to);
