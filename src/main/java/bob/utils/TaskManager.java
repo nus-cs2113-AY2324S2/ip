@@ -10,12 +10,10 @@ import bob.task.Todo;
 
 public class TaskManager {
     private final List<Task> tasks;
-    private int nextTaskId;
     private int taskCount;
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
-        this.nextTaskId = 1;
         this.taskCount = 0;
     }
 
@@ -26,7 +24,6 @@ public class TaskManager {
         String output = " Got it. I've added this task:\n";
 
         tasks.add(newTask);
-        nextTaskId++;
         taskCount++;
 
         output += String.format("   %s\n", newTask);
@@ -36,17 +33,17 @@ public class TaskManager {
     }
 
     public String addTodo(String taskName) {
-        Task newTodo = new Todo(taskName, nextTaskId);
+        Task newTodo = new Todo(taskName);
         return addNewTask(newTodo);
     }
 
     public String addDeadline(String taskName, String dueDate) {
-        Task newDeadline = new Deadline(taskName, nextTaskId, dueDate);
+        Task newDeadline = new Deadline(taskName, dueDate);
         return addNewTask(newDeadline);
     }
 
     public String addEvent(String taskName, String startDate, String endDate) {
-        Task newEvent = new Event(taskName, nextTaskId, startDate, endDate);
+        Task newEvent = new Event(taskName, startDate, endDate);
         return addNewTask(newEvent);
     }
 
@@ -58,7 +55,8 @@ public class TaskManager {
 
         for (int i = 0; i < taskCount; i++) {
             Task currentTask = tasks.get(i);
-            output.append(String.format(" %d.%s\n", currentTask.getTaskId(), currentTask));
+            int currentTaskId = i + 1;
+            output.append(String.format(" %d.%s\n", currentTaskId, currentTask));
         }
 
         return output.toString().stripTrailing();
@@ -83,6 +81,18 @@ public class TaskManager {
         output += String.format("   %s", currentTask);
 
         tasks.set(currentTaskIndex, currentTask); // Update array
+
+        return output;
+    }
+
+    public String deleteTask(int taskId) {
+        int currentTaskIndex = taskId - 1;
+        Task taskToDelete = tasks.remove(currentTaskIndex);
+        taskCount--;
+
+        String output = " Noted. I've removed this task:\n";
+        output += String.format("   %s\n", taskToDelete);
+        output += String.format(" Now you have %d tasks in the list.", taskCount);
 
         return output;
     }

@@ -31,6 +31,16 @@ public class Bob {
                 throw new InvalidTaskNumberException(userCommand);
             }
             break;
+        case DELETE:
+            try {
+                arguments = inputParser.parseArguments(userCommand);
+                int taskId = Integer.parseInt(arguments[0]); // Throws NumberFormatException
+                commandOutput = manager.deleteTask(taskId); // Throws ArrayIndexOOB Ex.
+            } catch (IndexOutOfBoundsException exception) {
+                inputParser.clearInput();
+                throw new InvalidTaskNumberException(userCommand);
+            }
+            break;
         case TODO:
             arguments = inputParser.parseArguments(userCommand);
             taskName = arguments[0];
