@@ -21,6 +21,8 @@ public class UserInterface {
                     CommandHandler.handleMark(userInput);
                 } else if (userInput.equals("unmark") || userInput.startsWith("unmark ")) {
                     CommandHandler.handleUnmark(userInput);
+                } else if (userInput.equals("delete") || userInput.startsWith("delete ")) {
+                    CommandHandler.handleDelete(userInput);
                 } else if (userInput.equals("bye")) {
                     CommandHandler.handleBye();
                     return;
@@ -39,7 +41,10 @@ public class UserInterface {
                 ExceptionHandler.handleInvalidMarkSyntaxException();
             } catch (InvalidUnmarkSyntaxException e) {
                 ExceptionHandler.handleInvalidUnmarkSyntaxException();
-            } finally {
+            } catch (InvalidDeleteSyntaxException e) {
+                ExceptionHandler.handleInvalidDeleteSyntaxException();
+            }
+            finally {
                 Printer.printDivider();
             }
         }

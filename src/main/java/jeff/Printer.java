@@ -34,6 +34,12 @@ public class Printer {
         printIndent("Now you have " + TaskList.size() + " tasks in the list.");
     }
 
+    public static void printDeleteTask(Task deletedTask) {
+        printIndent("Noted. I've removed this task:");
+        printIndent("  " + deletedTask);
+        printIndent("Now you have " + TaskList.size() + " tasks in the list.");
+    }
+
     public static void printMarkTask(Task currentTask) {
         printIndent("Nice! I've marked this task as done:");
         printIndent("  " + currentTask);
@@ -50,5 +56,9 @@ public class Printer {
 
     public static void printUnableToUnmark() {
         printIndent("Unable to unmark any tasks as task list is empty.");
+    }
+
+    public static void printUnableToDelete() {
+        printIndent("Unable to delete any tasks as task list is empty.");
     }
 }

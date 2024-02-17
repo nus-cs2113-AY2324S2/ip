@@ -36,4 +36,10 @@ public class ExceptionHandler {
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("unmark [any number from 1 to " + TaskList.size() + "]");
     }
+
+    public static void handleInvalidDeleteSyntaxException() {
+        Printer.printIndent("Invalid delete syntax.");
+        Printer.printIndent("Correct syntax should be:");
+        Printer.printIndent("delete [any number from 1 to " + TaskList.size() + "]");
+    }
 }
