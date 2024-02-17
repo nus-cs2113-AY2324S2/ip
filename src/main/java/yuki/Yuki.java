@@ -8,12 +8,8 @@ import yuki.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-public class Yuki {
 
-    // length of each command: 'todo', 'deadline', 'event'
-    private static final int LENGTH_TODO_COMMAND = 4;
-    private static final int LENGTH_DEADLINE_COMMAND = 8;
-    private static final int LENGTH_EVENT_COMMAND = 5;
+public class Yuki {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
@@ -32,7 +28,7 @@ public class Yuki {
     }
 
     public static void addTodo(String input) throws YukiExceptions.InvalidDescriptionException {
-        data = InputParser.parseInput(input.substring(LENGTH_TODO_COMMAND));
+        data = InputParser.parseInput(input.substring(Constants.LENGTH_TODO_COMMAND));
         if (data[0].isEmpty()) {
             throw new YukiExceptions.InvalidDescriptionException();
         }
@@ -44,7 +40,7 @@ public class Yuki {
     }
 
     public static void addDeadline(String input) throws YukiExceptions.InvalidDescriptionException {
-        data = InputParser.parseInput(input.substring(LENGTH_DEADLINE_COMMAND));
+        data = InputParser.parseInput(input.substring(Constants.LENGTH_DEADLINE_COMMAND));
         if (data.length < 2) {
             throw new YukiExceptions.InvalidDescriptionException();
         }
@@ -56,7 +52,7 @@ public class Yuki {
     }
 
     public static void addEvent(String input) throws YukiExceptions.InvalidDescriptionException {
-        data = InputParser.parseInput(input.substring(LENGTH_EVENT_COMMAND));
+        data = InputParser.parseInput(input.substring(Constants.LENGTH_EVENT_COMMAND));
         if (data.length < 3) {
             throw new YukiExceptions.InvalidDescriptionException();
         }
@@ -77,9 +73,9 @@ public class Yuki {
         if (indexTask < 0 || indexTask > tasks.size()) {
             throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
         }
-        if (cmd.equals("mark")){
+        if (cmd.equals(Constants.MARK_COMMAND)){
             tasks.get(indexTask - 1).markAsDone();
-        } else if (cmd.equals("unmark")) {
+        } else if (cmd.equals(Constants.UNMARK_COMMAND)) {
             tasks.get(indexTask - 1).markAsUndone();
         } else {
             System.out.println("invalid command in mark method");
@@ -95,31 +91,31 @@ public class Yuki {
 
         String command;
 
-        while (!line.equals("exit")) {
+        while (!line.equals(Constants.EXIT_COMMAND)) {
             Utils.printLine();
             command = line.split(" ")[0];
 
             switch(command) {
-            case "list":
+            case Constants.LIST_COMMAND:
                 listTasks();
                 break;
-            case "mark":
+            case Constants.MARK_COMMAND:
                 try {
-                    markTask(line, "mark");
+                    markTask(line, Constants.MARK_COMMAND);
                 } catch (YukiExceptions.InvalidIndexException e) {
                     System.out.println(e);
                     listTasks();
                 }
                 break;
-            case "unmark":
+            case Constants.UNMARK_COMMAND:
                 try {
-                    markTask(line, "unmark");
+                    markTask(line, Constants.UNMARK_COMMAND);
                 } catch (YukiExceptions.InvalidIndexException e) {
                     System.out.println(e);
                     listTasks();
                 }
                 break;
-            case "todo":
+            case Constants.TODO_COMMAND:
                 try {
                     addTodo(line);
                 } catch (YukiExceptions.InvalidDescriptionException e) {
@@ -127,7 +123,7 @@ public class Yuki {
                     Utils.printInstructions();
                 }
                 break;
-            case "deadline":
+            case Constants.DEADLINE_COMMAND:
                 try {
                     addDeadline(line);
                 } catch (YukiExceptions.InvalidDescriptionException e) {
@@ -135,7 +131,7 @@ public class Yuki {
                     Utils.printInstructions();
                 }
                 break;
-            case "event":
+            case Constants.EVENT_COMMAND:
                 try {
                     addEvent(line);
                 } catch (YukiExceptions.InvalidDescriptionException e) {
@@ -143,6 +139,8 @@ public class Yuki {
                     Utils.printInstructions();
                 }
                 break;
+            case Constants.HELP_COMMAND:
+                Utils.printInstructions();
             default:
                 Utils.printInvalidCommandWarning();
                 Utils.printInstructions();
