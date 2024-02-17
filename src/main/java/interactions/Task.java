@@ -1,6 +1,21 @@
+package interactions;
+import java.util.Scanner;
+import interactions.Chatbot;
 public class Task {
-    private String task;
-    private boolean isMarked;
+    protected String task;
+    protected boolean isMarked;
+
+    public boolean HaveToDo() {
+        return haveToDo;
+    }
+
+    public void setHaveToDo(boolean haveToDo) {
+        this.haveToDo = haveToDo;
+    }
+
+    protected boolean haveToDo;
+    Task[] list = new Task[100];
+    protected int currSize = 0;
     public String getTask() {
         return task;
     }
@@ -18,6 +33,7 @@ public class Task {
         this.isMarked = false;
     }
     public void print() {
+        System.out.print("[" + (isMarked() ? "T" : " ") + "] ");
         System.out.print("[" + (isMarked() ? "X" : " ") + "] ");
         System.out.println(getTask());
     }
