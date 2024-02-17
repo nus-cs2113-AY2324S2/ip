@@ -1,6 +1,7 @@
 import task.*;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void printLine(){
@@ -16,8 +17,7 @@ public class Duke {
         //Create Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        Task[] tasks = new Task[100]; // Array to store tasks
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>(); // Array to store tasks
         int taskIndex;
 
         //Continue reading user input, detecting any keywords and executing the respective commands
@@ -34,37 +34,38 @@ public class Duke {
 
                 } else if (userInput.equalsIgnoreCase("list")) {
                     //Lists out all the tasks added, else print out no tasks added
-                    if (taskCount == 0) {
+                    if (tasks.isEmpty()) {
                         System.out.println("No tasks added yet.");
                     } else {
-                        for (int i = 0; i < taskCount; i++) {
-                            System.out.println(" " + (i + 1) + "." + tasks[i]);
+                        System.out.println("Here are the tasks in your list:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println(" " + (i + 1) + "." + tasks.get(i));
                         }
                     }
 
                 } else if (userInput.startsWith("mark")) {
                     //Feature to mark tasks as done
-                    taskIndex = DukeException.getTaskIndex(userInput.split(" ")[1], taskCount);
-                    tasks[taskIndex].markAsDone();
+                    taskIndex = DukeException.getTaskIndex(userInput.split(" ")[1], tasks);
+                    tasks.get(taskIndex).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks[taskIndex].getStatusIcon() + " " + tasks[taskIndex].getDescription());
+                    System.out.println("  " + tasks.get(taskIndex));
 
                 } else if (userInput.startsWith("unmark")) {
                     //Feature to unmark tasks as not done
-                    taskIndex = DukeException.getTaskIndex(userInput.split(" ")[1], taskCount);
-                    tasks[taskIndex].markAsNotDone();
+                    taskIndex = DukeException.getTaskIndex(userInput.split(" ")[1], tasks);
+                    tasks.get(taskIndex).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks[taskIndex].getStatusIcon() + " " + tasks[taskIndex].getDescription());
+                    System.out.println("  " + tasks.get(taskIndex));
 
                 } else if (userInput.startsWith("todo")) {
                     //Feature to track tasks without any date/time attached to it
                     DukeException.checkDescription(userInput);
                     String description = userInput.substring(5).trim();
-                    tasks[taskCount] = new ToDo(description);
-                    taskCount++;
+                    tasks.add(new ToDo(description));
+
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else if (userInput.startsWith("deadline")) {
                     //Feature to track tasks that need to be done before a specific date/time
@@ -76,11 +77,10 @@ public class Duke {
                     }
                     String description = parts[0].trim();
                     String by = parts[1].trim();
-                    tasks[taskCount] = new Deadline(description, by);
-                    taskCount++;
+                    tasks.add(new Deadline(description, by));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else if (userInput.startsWith("event")) {
                     //Feature to track tasks that start at a specific date/time and ends at a specific date/time
@@ -93,11 +93,17 @@ public class Duke {
                     String description = parts[0].trim();
                     String from = parts[1].trim();
                     String to = parts[2].trim();
-                    tasks[taskCount] = new Event(description, from, to);
-                    taskCount++;
+                    tasks.add(new Event(description, from, to));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+                } else if (userInput.startsWith("delete")) {
+                    taskIndex = DukeException.getTaskIndex(userInput.split(" ")[1], tasks);
+                    Task removedTask = tasks.remove(taskIndex);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removedTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else {
                     //Handles the case if invalid input
