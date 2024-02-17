@@ -37,79 +37,20 @@ public class LogicManager {
 
     private void executeToDo(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
-        try {
-            // Extract after _todo_, which is 4 characters long
-            String taskName = currentInput.substring(4);
-            taskName = taskName.trim();
-            if (taskName.isEmpty()) {
-                throw new EmptyTaskDescription();
-            }
-            this.listKeeper.addToList(new ToDo(taskName));
-
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskArguments();
-        }
-
+        ToDo todo = ToDo.getTask(currentInput);
+        this.listKeeper.addToList(todo);
     }
 
     private void executeDeadline(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
-        try {
-            int idxOfDeadline = currentInput.indexOf(" /by ");
-            if (idxOfDeadline == -1) {
-                throw new InvalidTaskArguments();
-            }
-
-            // Extract after _deadline_, which is 8 characters long
-            String taskName = currentInput.substring(8, idxOfDeadline);
-            taskName = taskName.trim();
-            if (taskName.isEmpty()) {
-                throw new EmptyTaskDescription();
-            }
-
-            // Extract after _ /by _, which is 5 characters long
-            String by = currentInput.substring(idxOfDeadline + 5);
-            by = by.trim();
-
-            this.listKeeper.addToList(new Deadline(taskName, by));
-
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskArguments();
-        }
-
+        Deadline deadline = Deadline.getTask(currentInput);
+        this.listKeeper.addToList(deadline);
     }
 
     private void executeEvent(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
-        try {
-            int idxOfStart = currentInput.indexOf(" /from ");
-            int idxOfEnd = currentInput.indexOf(" /to ");
-
-            if (idxOfStart == -1 || idxOfEnd == -1) {
-                throw new InvalidTaskArguments();
-            }
-
-            // Extract after _event_, which is 5 characters long
-            String taskName = currentInput.substring(5, idxOfStart);
-            taskName = taskName.trim();
-            if (taskName.isEmpty()) {
-                throw new EmptyTaskDescription();
-            }
-
-            // Extract start after _ /from _, which is 7 characters long, and before idxOfEnd
-            String start = currentInput.substring(idxOfStart + 7, idxOfEnd);
-            start = start.trim();
-
-            // Extract end after _ /to _, which is 5 characters long
-            String end = currentInput.substring(idxOfEnd + 5);
-            end = end.trim();
-
-            this.listKeeper.addToList(new Event(taskName, start, end));
-
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskArguments();
-        }
-
+        Event event = Event.getTask(currentInput);
+        this.listKeeper.addToList(event);
     }
 
     private void executeCommand (String currentInput)
