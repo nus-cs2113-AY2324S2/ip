@@ -13,9 +13,14 @@ public class DeadLinesTask extends Task {
         this.deadline = deadline;
     }
 
+    public DeadLinesTask(String name, boolean isDone, String deadline) {
+        super(name, isDone);
+        this.deadline = deadline;
+    }
+
     @Override
     public String storeDataString() {
-        return "D" + "|" + this.name + "|" + this.deadline;
+        return "D" + "|" + (this.isDone ? 1 : 0) + "|" + this.name + "|" + this.deadline;
     }
 
     /**

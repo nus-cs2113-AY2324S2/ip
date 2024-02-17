@@ -10,9 +10,12 @@ public class ToDoTask extends Task {
         super(name);
     }
 
+    public ToDoTask(String name, boolean isDone) {
+        super(name, isDone);
+    }
     @Override
     public String storeDataString() {
-        return "T" + "|" + this.name;
+        return "T" + "|" + (this.isDone ? 1 : 0) + "|" + this.name;
     }
 
     /**

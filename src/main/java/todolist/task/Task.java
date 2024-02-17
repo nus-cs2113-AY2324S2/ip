@@ -13,6 +13,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     /**
      * Get the name of the Task
      * @return the name of the Task
