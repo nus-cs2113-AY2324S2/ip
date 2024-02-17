@@ -5,6 +5,7 @@ public class Greet {
         }
         System.out.println();
     }
+
     public void sayHello() {
         printFormat();
         System.out.println("Hello! I'm Duke");
