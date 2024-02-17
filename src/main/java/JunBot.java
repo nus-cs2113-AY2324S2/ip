@@ -10,7 +10,6 @@ public class JunBot {
     public static String GREETING = "Hello! I'm JunBot\nWhat can I do for you?\n";
     public static String GOODBYE = "Bye. Hope to see you again soon!\n";
     public static ArrayList<Task> tasks = new ArrayList<>();
-    public static int tasksCount = 0;
 
     public static void addEvent(String description) throws InvalidInputException {
         description = description.replace("event", "").trim();
@@ -22,13 +21,11 @@ public class JunBot {
         details = description.split("/from|/to", 3);
 
         Task userTask = new Event(details[0].trim(), details[1].trim(), details[2].trim());
-        tasks.add(tasksCount, userTask);
-        //tasks[tasksCount] = userTask;
-        tasksCount += 1;
+        tasks.add(userTask);
 
         System.out.println(DIVIDER + "Got it. I've added this tasks:");
         System.out.println(userTask);
-        System.out.println("Now you have " + tasksCount + " tasks in the list\n" + DIVIDER);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list\n" + DIVIDER);
 
 
 
@@ -44,12 +41,11 @@ public class JunBot {
         details = description.split("/by", 2);
 
         Task userTask = new Deadline(details[0].trim(), details[1].trim());
-        tasks.add(tasksCount, userTask);
-        tasksCount += 1;
+        tasks.add(userTask);
 
         System.out.println(DIVIDER + "Got it. I've added this tasks:");
         System.out.println(userTask);
-        System.out.println("Now you have " + tasksCount + " tasks in the list\n" + DIVIDER);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list\n" + DIVIDER);
 
     }
 
@@ -60,12 +56,11 @@ public class JunBot {
         }
 
         Task userTask = new Todo(description);
-        tasks.add(tasksCount, userTask);
-        tasksCount++;
+        tasks.add(userTask);
 
         System.out.println(DIVIDER + "Got it. I've added this tasks:");
         System.out.println(userTask);
-        System.out.println("Now you have " + tasksCount + " tasks in the list\n" + DIVIDER);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list\n" + DIVIDER);
     }
 
     public static boolean isValidListPosition(String command) {
@@ -74,7 +69,7 @@ public class JunBot {
         }
         try {
             int listPosition = Integer.parseInt(command);
-            return listPosition <= tasksCount && listPosition > 0;
+            return listPosition <= tasks.size() && listPosition > 0;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -126,7 +121,7 @@ public class JunBot {
 
         System.out.println(DIVIDER);
         System.out.println("Here are the tasks in your list: ");
-        for(int i = 0; i < tasksCount; i++){
+        for(int i = 0; i < tasks.size(); i++){
             System.out.print( taskNumber + ". ");
             System.out.println(tasks.get(i));
             taskNumber += 1;
@@ -136,8 +131,25 @@ public class JunBot {
 
     public static void addToList(String description) {
         Task userTask = new Task(description);
-        tasks.add(tasksCount, userTask);
+        tasks.add(userTask);
         System.out.println(DIVIDER + "added: " + userTask.getDescription() + "\n" + DIVIDER);
+    }
+
+    public static void deleteTask(String userInput){
+        String command = userInput.replace("delete", "").trim();
+
+        if (!isValidListPosition(command)){
+            System.out.println("Invalid List Number");
+            return;
+        }
+
+        int listNumber = Integer.parseInt(command) - 1;
+        Task taskToDisplay = tasks.get(listNumber);
+        tasks.remove(listNumber);
+
+        System.out.println(DIVIDER + "Noted. I've removed this task:\n");
+        System.out.print(taskToDisplay + "\n" + DIVIDER);
+
     }
 
     public static void handleUserInput() {
@@ -166,6 +178,9 @@ public class JunBot {
                     break;
                 case "event":
                     addEvent(userInput);
+                    break;
+                case "delete":
+                    deleteTask(userInput);
                     break;
                 default:
                     System.out.println("Enter a valid command");
