@@ -34,8 +34,8 @@ public class Brad {
                         printOutput("Uh oh. Please enter a number to mark the corresponding " +
                                 "task as done");
                     } catch (invalidNumberException e) {
-                        printOutput("No! >:( Exceeded existing list size of: \" + inputList.listSize() +\n" +
-                                "Please enter a valid number.\n;");
+                        printOutput("No! >:( Exceeded existing list size of: " + inputList.listSize()  +
+                                "\nPlease enter a valid number.\n");
                     }
                     break;
                 case "unmark":
@@ -43,10 +43,10 @@ public class Brad {
                         doUnmarkAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
                             printOutput("Uh oh. Please enter a number to mark the corresponding " +
-                                    "task as done");
+                                    "task as undone");
                         } catch (invalidNumberException e) {
-                            printOutput("No! >:( Exceeded existing list size of: \" + inputList.listSize() +\n" +
-                                    "Please enter a valid number.\n");
+                            printOutput("No! >:( Exceeded existing list size of: " + inputList.listSize() +
+                                    "\nPlease enter a valid number.\n");
                     }
                     break;
                 case "todo":
@@ -71,9 +71,19 @@ public class Brad {
                         printOutput("Hey, you can't give me an event with no start & end time!");
                     }
                     break;
+                case "delete":
+                    try {
+                        doDeleteAction(splitInput[1]);
+                    } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
+                        printOutput("Uh oh. Please enter a number to delete this task");
+                    } catch (invalidNumberException e) {
+                        printOutput("No! >:( Exceeded existing list size of: " + inputList.listSize()  +
+                                "\nPlease enter a valid number.\n");
+                    }
+                    break;
                 default:
                     printOutput("Huh?! Sorry I don't understand. T_T\n Please only enter valid commands: " +
-                            "'list', 'mark', 'unmark', 'todo', 'deadline', 'event', 'bye'");
+                            "'list', 'mark', 'unmark', 'todo', 'deadline', 'event', 'delete', 'bye'");
                     break;
             }
         }
@@ -149,6 +159,22 @@ public class Brad {
         int size = inputList.listSize();
         String message = "Got it. I've added this task:\n" + inputList.getTask(size)
                 + "\n Now you have " + size + " tasks in the list.";
+        printOutput(message);
+    }
+
+    private static void doDeleteAction(String input)
+            throws emptyArgumentException, invalidNumberException {
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        int taskNumber = Integer.parseInt(input);
+        if (taskNumber > inputList.listSize()) {
+            throw new invalidNumberException();
+        }
+        int size = inputList.listSize() - 1;
+        String message = "Got it. I've removed this task:\n" + inputList.getTask(size)
+                + "\n Now you have " + size + " tasks in the list.";
+        inputList.deleteTask(taskNumber);
         printOutput(message);
     }
 }

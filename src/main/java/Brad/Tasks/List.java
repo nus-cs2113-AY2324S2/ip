@@ -46,4 +46,8 @@ public class List {
     public int listSize() {
         return inputList.size();
     }
+
+    public void deleteTask(int n) {
+        inputList.remove(n - 1);
+    }
 }
