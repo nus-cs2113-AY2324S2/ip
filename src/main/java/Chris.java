@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Chris {
     public static void main(String[] args) {
         System.out.println("------------------------------------------------");
         System.out.println("Hello, I am Chris");
