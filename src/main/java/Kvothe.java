@@ -4,13 +4,14 @@ import kvothe.task.Event;
 import kvothe.task.Task;
 import kvothe.task.Todo;
 
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Kvothe {
 
     private static final int MAXTASKS = 100;
-    private static Task[] tasks = new Task[MAXTASKS];
-    private static int tasksIndex = 0;
+    private static ArrayList<Task> tasks = new ArrayList<Task>(MAXTASKS);
 
     public static void main(String[] args) {
         String greeting = "Hello! I'm Kvothe.\n"
@@ -72,29 +73,30 @@ public class Kvothe {
             break;
         }
 
-        tasks[tasksIndex] = newTask;
-        tasksIndex++;
+        tasks.add(newTask);
     }
 
+  
+
     private static void list() {
-        for (int i = 0; i < tasksIndex; i++) {
-            echo(i + 1 + ". " + tasks[i], i == 0, i == tasksIndex - 1);
+        for (int i = 0; i < tasks.size(); i++) {
+            echo(i + 1 + ". " + tasks.get(i), i == 0, i == tasks.size() - 1);
         }
     }
 
     private static void done(int index) {
-        tasks[index - 1].markAsDone();
-        echo("Nice! I've marked this task as done:\n\t\t" + tasks[index - 1]);
+        tasks.get(index - 1).markAsDone();
+        echo("Nice! I've marked this task as done:\n\t\t" + tasks.get(index - 1));
     }
 
     private static void mark(int index){
-        tasks[index - 1].setIsDone(true);
-        echo("Nice! I've marked this task as done:\n\t\t" + tasks[index - 1]);
+        tasks.get(index - 1).setIsDone(true);
+        echo("Nice! I've marked this task as done:\n\t\t" + tasks.get(index - 1));
     }
 
     private static void unmark(int index){
-        tasks[index - 1].setIsDone(false);
-        echo("OK, I've marked this task as not done yet:\n\t\t" + tasks[index - 1]);
+        tasks.get(index - 1).setIsDone(false);
+        echo("OK, I've marked this task as not done yet:\n\t\t" + tasks.get(index - 1));
     }
 
     private static int getTaskNumber(String[] args){
@@ -113,8 +115,8 @@ public class Kvothe {
             return -1;
         }
 
-        if(index > tasksIndex){
-            echo("Sorry. There are just " + tasksIndex + " tasks in the list.");
+        if(index > tasks.size()){
+            echo("Sorry. There are just " + tasks.size() + " tasks in the list.");
             return -1;
         }
 
@@ -154,7 +156,7 @@ public class Kvothe {
                 case "deadline":
                 case "event":
                     add(line);
-                    echo("added: " + line + "\n\t\tnow you have " + tasksIndex + " tasks in the list");
+                    echo("added: " + line + "\n\t\tnow you have " + tasks.size() + " tasks in the list");
                     break;
                 default:
                     throw new WrongArgumentsException("Sorry. I do not support the method." + command);
