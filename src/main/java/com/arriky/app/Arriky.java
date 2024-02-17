@@ -1,6 +1,11 @@
+package com.arriky.app;
+
+import com.arriky.exception.ErrorMessage;
+import com.arriky.exception.IncorrectArgumentAmountException;
+import com.arriky.task.TaskList;
+
 import java.util.Scanner;
-import java.util.Arrays;
-import java.util.ArrayList;
+
 public class Arriky {
     public static void main(String[] args) {
 
