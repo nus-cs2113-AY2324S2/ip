@@ -38,7 +38,6 @@ Here are the tasks in your list:
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
 Hey, wake up! That task? Non-existent. Try something real.
-Hey, wake up! That task? Non-existent. Try something real.
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] read book
@@ -51,7 +50,6 @@ Here are the tasks in your list:
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
 Hey, wake up! That task? Non-existent. Try something real.
-Hey, wake up! That task? Non-existent. Try something real.
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] read book
@@ -61,6 +59,18 @@ Here are the tasks in your list:
 1.[T][ ] read book
 2.[D][ ] return book (by: 2 march 2024)
 3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
+____________________________________________________________
+Listen up! Numbers only, got it? Don't bother with anything else
+Hey, wake up! That task? Non-existent. Try something real.
+____________________________________________________________
+Got it. I've removed this task:
+[T][ ] read book
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] return book (by: 2 march 2024)
+2.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
 ____________________________________________________________
 Enough with the gibberish. Stick to the commands I understand:
 bye, list, todo, deadline, event, mark, unmark, delete. Got it? Next!
