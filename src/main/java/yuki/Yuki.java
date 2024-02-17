@@ -27,6 +27,28 @@ public class Yuki {
         reportNumberOfTasks();
     }
 
+    public static void markTask(String line, String cmd) throws YukiExceptions.InvalidIndexException {
+        int indexTask = Integer.parseInt(line.split(" ")[1]);
+        if (indexTask < 0 || indexTask > tasks.size()) {
+            throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
+        }
+        if (cmd.equals(Constants.MARK_COMMAND)){
+            tasks.get(indexTask - 1).markAsDone();
+        } else if (cmd.equals(Constants.UNMARK_COMMAND)) {
+            tasks.get(indexTask - 1).markAsUndone();
+        } else {
+            System.out.println("invalid command in mark method");
+        }
+    }
+
+    public static void deleteTask(String line) throws YukiExceptions.InvalidIndexException {
+        int indexTask = Integer.parseInt(line.split(" ")[1]);
+        if (indexTask < 0 || indexTask > tasks.size()) {
+            throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
+        }
+        tasks.remove(indexTask - 1);
+    }
+
     public static void addTodo(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(Constants.LENGTH_TODO_COMMAND));
         if (data[0].isEmpty()) {
@@ -67,21 +89,6 @@ public class Yuki {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void markTask(String line, String cmd) throws YukiExceptions.InvalidIndexException {
-        int indexTask;
-        indexTask = Integer.parseInt(line.split(" ")[1]);
-        if (indexTask < 0 || indexTask > tasks.size()) {
-            throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
-        }
-        if (cmd.equals(Constants.MARK_COMMAND)){
-            tasks.get(indexTask - 1).markAsDone();
-        } else if (cmd.equals(Constants.UNMARK_COMMAND)) {
-            tasks.get(indexTask - 1).markAsUndone();
-        } else {
-            System.out.println("invalid command in mark method");
-        }
-    }
-
     public static void main(String[] args) {
         Utils.printWelcomeMessage();
 
@@ -115,6 +122,13 @@ public class Yuki {
                     listTasks();
                 }
                 break;
+            case Constants.DELETE_COMMAND:
+                try {
+                    deleteTask(line);
+                } catch (YukiExceptions.InvalidIndexException e) {
+                    System.out.println(e);
+                    listTasks();
+                }
             case Constants.TODO_COMMAND:
                 try {
                     addTodo(line);
