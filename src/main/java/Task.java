@@ -20,18 +20,31 @@ public class Task {
     public static void addTask(String text, Task[] tasks, int num) {
         // Todo
         if (text.startsWith("todo")) {
-            tasks[num] = new ToDo(text);
-            System.out.println("Bala-lala. I've added this task:" + System.lineSeparator() + "[T] " + "[ ] " + tasks[num].description);
+            if (text.length() < 5) {
+                System.out.println("OH NOOO! Please enter the todo task name.");
+            } else {
+                tasks[num] = new ToDo(text);
+                System.out.println("Bala-lala. I've added this task:" + System.lineSeparator() + "[T] " + "[ ] " + tasks[num].description);
+            }
         }
+
         // Deadline
         else if (text.startsWith("deadline")) {
-            tasks[num] = new Deadline(text);
-            System.out.println("Bala-lala. I've added this task:" + System.lineSeparator() + "[D] " + "[ ] " + tasks[num].description);
+            if (text.length() < 9) {
+                System.out.println("OH NOOO! Please enter the deadline task name.");
+            } else {
+                tasks[num] = new Deadline(text);
+                System.out.println("Bala-lala. I've added this task:" + System.lineSeparator() + "[D] " + "[ ] " + tasks[num].description);
+            }
         }
         // Event
         else if (text.startsWith("event")) {
-            tasks[num] = new Event(text);
-            System.out.println("Bala-lala. I've added this task:" + System.lineSeparator() + "[E] " + "[ ] " + tasks[num].description);
+            if (text.length() < 6) {
+                System.out.println("OH NOOO! Please enter the event task name.");
+            } else {
+                tasks[num] = new Event(text);
+                System.out.println("Bala-lala. I've added this task:" + System.lineSeparator() + "[E] " + "[ ] " + tasks[num].description);
+            }
         }
         // ERROR
         else {
