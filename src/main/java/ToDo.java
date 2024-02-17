@@ -8,6 +8,11 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    @Override
+    public String getStringRepresentation() {
+        return "todo " + taskName;
+    }
+
     public static ToDo getTask(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {

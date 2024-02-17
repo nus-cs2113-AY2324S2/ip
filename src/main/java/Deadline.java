@@ -11,6 +11,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 
+    @Override
+    public String getStringRepresentation() {
+        return "deadline " + taskName + " /by " + this.by;
+    }
+
     public static Deadline getTask (String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {

@@ -13,6 +13,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
 
+    @Override
+    public String getStringRepresentation() {
+        return "event " + taskName + " /from " + this.start + " /to " + this.end;
+    }
+
     public static Event getTask(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {
