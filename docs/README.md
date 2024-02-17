@@ -30,14 +30,14 @@ FaizBot is a desktop chatbot for managing your task list, optimised for use via 
    The terminal should display something similar to the image below.
    ![Ui](Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list all tasks in the task list.
+5. Type the command in the command box and press Enter to execute it. <br> e.g. typing `list` and pressing Enter will list all tasks in the task list.
 
 6. Refer to the [Features](#features) below for details of each command.
 
 ------------------------------------------------------------------------------------------------------------------------
 
 ## Features
-> [!NOTE] :information_source: Notes about the command format:
+> <strong><img class="emoji" title=":information_source:" alt=":information_source:" src="https://github.githubassets.com/images/icons/emoji/unicode/2139.png" height="20" width="20"> Notes about the command format: </strong>
 > * Words in `UPPER_CASE` are the parameters to be supplied by the user. <br>
 > e.g. in `todo TASK`, `TASK` is a parameter which can be used as `todo return book`.
 >
@@ -57,7 +57,7 @@ Examples:
 
 Expected outcome:
 
-The following message will be displayed upon successful addition of the todo task.
+FaizBot will display a message similar to the following upon successful addition of the todo task.
 
 ```
 Got it. I've added this task:
@@ -70,7 +70,7 @@ Now you have 1 task in the list.
 Adds a deadline task that are tasks with a specific deadline.
 
 Format: `deadline TASK /by YYYYMMDD HHMM`
-> [!TIP] :bulb: Tip: If the time `HHMM` is not given, it will be autofilled as 2359 hrs.
+> <img class="emoji" title=":bulb:" alt=":bulb:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png" height="20" width="20"> <strong>Tip: </strong> If the time `HHMM` is not given, it will be autofilled as 2359 hrs.
 
 Examples:
 * `deadline watch lecture /by 2024-02-14 1800` Creates a deadline task with the description of `watch lecture` and the deadline by `2024-02-14 1800`.
@@ -78,7 +78,7 @@ Examples:
 
 Expected outcome:
 
-The following message will be displayed upon successful addition of the deadline task.
+FaizBot will display a message similar to the following upon successful addition of the deadline task.
 
 ```
 Got it. I've added this task:
@@ -91,7 +91,7 @@ Now you have 2 tasks in the list.
 Adds an event task that are tasks with a start and end date/time.
 
 Format: `event TASK /from YYYYMMDD HHMM /to YYYYMMDD HHMM`
-> [!TIP] :bulb: Tip: If the start/end time `HHMM` is not given, it will be autofilled as 0000 hrs for start and 2359 hrs for end.
+> <img class="emoji" title=":bulb:" alt=":bulb:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png" height="20" width="20"> <strong>Tip: </strong> If the start/end time `HHMM` is not given, it will be autofilled as 0000 hrs for start and 2359 hrs for end.
 
 Examples:
 * `event meet friends /from 2024-11-11 1200 /to 2024-11-11 2300` Creates an event task with the description of `meet friends`, the start date/time as `2024-11-11 1200` and the end date/time as `2024-11-11 2300`.
@@ -99,7 +99,7 @@ Examples:
 
 Expected outcome:
 
-The following message will be displayed upon successful addition of the deadline task.
+FaizBot will display a message similar to the following upon successful addition of the deadline task.
 
 ```
 Got it. I've added this task:
@@ -115,7 +115,7 @@ Format: `list`
 
 Expected outcome:
 
-A similar message to the below will be displayed upon input of the `list` command.
+FaizBot will display a message similar to the following upon input of the `list` command.
 
 ```
 Here are the tasks in your list:
@@ -136,7 +136,7 @@ Format: `mark INDEX`
 
 Expected outcome:
 
-A similar message to the below will be displayed upon input of the `mark 2` command.
+FaizBot will display a message similar to the following upon input of the `mark 2` command.
 
 ```
 Nice! I've marked this task as done:
@@ -155,7 +155,7 @@ Format: `unmark INDEX`
 
 Expected outcome:
 
-A similar message to the below will be displayed upon input of the `unmark 2` command.
+FaizBot will display a message similar to the following upon input of the `unmark 2` command.
 
 ```
 OK, I've marked this task as not done yet:
@@ -174,7 +174,7 @@ Format: `find KEYWORD`
 
 Expected outcome:
 
-A similar message to the below will be displayed upon input of the `find friend` command.
+FaizBot will display a message similar to the following upon input of the `find friend` command.
 
 ```
 Here are the matching tasks in your list:
@@ -193,7 +193,7 @@ Format: `delete INDEX`
 
 Expected outcome:
 
-A similar message to the below will be displayed upon input of the `delete 1` command.
+FaizBot will display a message similar to the following upon input of the `delete 1` command.
 
 ```
 Noted. I've removed this task:
@@ -209,7 +209,7 @@ Format: `bye`
 
 Expected outcome:
 
-A similar message to the below will be displayed upon input of the `bye` command.
+FaizBot will display the following message upon input of the `bye` command.
 
 ```
 Deformation....
