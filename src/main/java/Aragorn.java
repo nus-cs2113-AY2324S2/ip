@@ -9,6 +9,24 @@ public class Aragorn {
     private static final String EXIT = "    Bye. Hope to see you again soon!\n";
     private static final String TAB = "    ";
 
+    private static final String commandList = "    Here is a list of commands:\n" +
+            "\n" +
+            "    \"list\": Displays list of tasks.\n" +
+            "\n" +
+            "    \"todo [description]\": Adds a Todo task to the list.\n" +
+            "\n" +
+            "    \"deadline [description] /by [deadline]\": Adds a task and its deadline to the list.\n" +
+            "\n" +
+            "    \"event [description] /from [start] /to [end]\": Adds an event and its start and end conditions to the list.\n" +
+            "\n" +
+            "    \"mark [task number]\": Marks the corresponding task in the list as completed.\n" +
+            "\n" +
+            "    \"unmark [task number]\": Marks the corresponding task in the list as incomplete.\n" +
+            "\n" +
+            "    \"/help\": Displays this list of commands.\n" +
+            "\n" +
+            "    \"bye\": Closes the program.\n";
+
     public static void main(String[] args) {
         Task[] list = new Task[100];
         int listLength = 0;
@@ -17,105 +35,105 @@ public class Aragorn {
         int index;
         String icon;
         String[] splitInput;
-        String[] splitDeadline;
-        String[] splitEvent;
-        String[] splitStart;
         Scanner in = new Scanner(System.in);
         while(true) {
             String userInput = in.nextLine();
             String commandType = commandIdentifier(userInput);
+            splitInput = inputParser(userInput, commandType);
 
-            if (userInput.equals("bye")) {
-                System.out.println(LINE + TAB + EXIT + LINE);
-                return;
-            }
+            switch (commandType) {
+                case "LIST":
+                    System.out.println(LINE);
+                    System.out.println("    Here are the tasks in your list: ");
+                    for (int i = 0; i < listLength; i += 1) {
+                        System.out.println(TAB + (i + 1) + ". " + list[i].taskString());
+                    }
+                    System.out.println("\n");
+                    printRemainingTasks(remainingTasks);
+                    break;
 
-            if (userInput.equals("list")) {
-                System.out.println(LINE);
-                System.out.println("    Here are the tasks in your list: ");
-                for (int i = 0; i < listLength; i += 1) {
-                    System.out.println(TAB + (i + 1) + ". " + list[i].taskString());
-                }
-                System.out.println("\n    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
-                continue;
-            }
+                case "UNMARK":
+                    index = Integer.parseInt(splitInput[0]);
+                    icon = list[index].getStatusIcon();
+                    if (icon.equals(" ")) {
+                        System.out.println(LINE + "    This task has already been unmarked.\n" + LINE);
+                        break;
+                    }
+                    list[index].markAsUndone();
+                    remainingTasks += 1;
+                    System.out.println(LINE + TAB + "OK, I've marked this task as not done yet:\n" + TAB +
+                            "   " + list[index].taskString() +"\n");
+                    printRemainingTasks(remainingTasks);
+                    break;
 
-            if (userInput.startsWith("unmark ")) {
-                index = Integer.parseInt(userInput.substring(7)) - 1;
-                icon = list[index].getStatusIcon();
-                if (icon.equals(" ")) {
-                    System.out.println(LINE + "    This task has already been unmarked.\n" + LINE);
-                    continue;
-                }
-                list[index].markAsUndone();
-                remainingTasks += 1;
-                System.out.println(LINE + TAB + "OK, I've marked this task as not done yet:\n" + TAB +
-                        "   " + list[index].taskString() +"\n");
-                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
-                continue;
-            }
+                case "MARK":
+                    index = Integer.parseInt(splitInput[0]);
+                    icon = list[index].getStatusIcon();
+                    if (icon.equals("X")) {
+                        System.out.println(LINE + "    This task has already been marked.\n" + LINE);
+                        break;
+                    }
+                    list[index].markAsDone();
+                    remainingTasks -= 1;
+                    System.out.println(LINE + TAB + "Nice! I've marked this task as done:\n" + TAB +
+                            "   " + list[index].taskString() + "\n");
+                    printRemainingTasks(remainingTasks);
+                    break;
 
-            if (userInput.startsWith("mark ")) {
-                index = Integer.parseInt(userInput.substring(5)) - 1;
-                icon = list[index].getStatusIcon();
-                if (icon.equals("X")) {
-                    System.out.println(LINE + "    This task has already been marked.\n" + LINE);
-                    continue;
-                }
-                list[index].markAsDone();
-                remainingTasks -= 1;
-                System.out.println(LINE + TAB + "Nice! I've marked this task as done:\n" + TAB +
-                        "   " + list[index].taskString() + "\n");
-                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
-                continue;
-            }
+                case "TODO":
+                    list[listLength] = new ToDo(userInput);
+                    printAddTask(list[listLength]);
+                    listLength += 1;
+                    remainingTasks += 1;
+                    printRemainingTasks(remainingTasks);
+                    break;
 
-            if (userInput.startsWith("todo ")) {
-                list[listLength] = new ToDo(userInput);
-                System.out.println(LINE + "    Got it. I've added this task:");
-                System.out.println(TAB + list[listLength].taskString() + "\n");
-                listLength += 1;
-                remainingTasks += 1;
-                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
-                continue;
-            }
+                case "DEADLINE":
+                    list[listLength] = new Deadline(splitInput[0].trim(), splitInput[1].trim());
+                    printAddTask(list[listLength]);
+                    listLength += 1;
+                    remainingTasks += 1;
+                    printRemainingTasks(remainingTasks);
+                    break;
 
-            if (userInput.startsWith("deadline ")) {
-                splitInput = userInput.split("deadline ");
-                splitDeadline = splitInput[1].split("/by");
-                list[listLength] = new Deadline(splitDeadline[0].trim(), splitDeadline[1].trim());
-                System.out.println(LINE + "    Got it. I've added this task:\n" + TAB + list[listLength].taskString() + "\n");
-                listLength += 1;
-                remainingTasks += 1;
-                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
-                continue;
-            }
+                case "EVENT":
+                    list[listLength] = new Event(splitInput[0].trim(), splitInput[1].trim(), splitInput[2].trim());
+                    printAddTask(list[listLength]);
+                    listLength += 1;
+                    remainingTasks += 1;
+                    printRemainingTasks(remainingTasks);
+                    break;
 
-            if (userInput.startsWith("event ")) {
-                splitInput = userInput.split("event ");
-                splitEvent = splitInput[1].split("/from ");
-                splitStart = splitEvent[1].split("/to ");
-                list[listLength] = new Event(splitEvent[0].trim(), splitStart[0].trim(), splitStart[1].trim());
-                System.out.println(LINE + "    Got it. I've added this task:\n" + TAB + list[listLength].taskString() + "\n");
-                listLength += 1;
-                remainingTasks += 1;
-                System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
-            }
+                case "HELP":
+                    System.out.println(LINE + commandList + LINE);
+                    break;
 
-            else {
-                System.out.println(LINE + "    Sorry! Please the correct format.");
-                System.out.println("    list for viewing list of tasks, \n" +
-                                    "    'todo [activity]' to input a todo task, \n" +
-                                    "    'deadline [activity] /by [submission day]' to input deadline task" +
-                                    "\n    or 'event [activity] /from [start period] /to [end period] to input a event task\n" + LINE);
+                case "INVALID":
+                    System.out.println("Your input is invalid. Use the \"/help\" command to view the list of commands.");
+                    break;
+
+                case "BYE":
+                    System.out.println(LINE + TAB + EXIT + LINE);
+                    return;
             }
         }
+    }
+
+    private static void printAddTask(Task list) {
+        System.out.println(LINE + "    Got it. I've added this task:");
+        System.out.println(TAB + list.taskString() + "\n");
+    }
+
+    private static void printRemainingTasks(int remainingTasks) {
+        System.out.println("    You have " + remainingTasks + " remaining tasks in the list.\n" + LINE);
     }
 
     public static String commandIdentifier(String userInput) {
         String commandType;
 
-        if (userInput.equals("list")) {
+        if (userInput.equals("bye")) {
+            commandType = "BYE";
+        } else if (userInput.equals("list")) {
             commandType = "LIST";
         } else if (userInput.startsWith("unmark ")) {
             commandType = "UNMARK";
@@ -132,15 +150,13 @@ public class Aragorn {
         } else {
             commandType = "INVALID";
         }
-
         return commandType;
     }
 
-    public String[] inputParser(String userInput, String commandType) {
+    public static String[] inputParser(String userInput, String commandType) {
         String[] output = new String[3];
         String[] splitInput;
         String[] splitEvent;
-        int index = 0;
         switch (commandType) {
             case "MARK":
                 output[0] = String.valueOf(Integer.parseInt(userInput.substring(5)) - 1);
@@ -168,9 +184,7 @@ public class Aragorn {
                 output[1] = splitEvent[0];
                 output[2] = splitEvent[1];
                 break;
-
         }
-
         return output;
     }
 }
