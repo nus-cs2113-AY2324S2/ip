@@ -202,7 +202,11 @@ public class Kyrene {
                 taskNumber = Integer.parseInt(commands[1]);
                 markTask(taskNumber);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
-                System.out.println(ERROR_TASK_NOT_EXIST);
+                System.out.printf("%s", ERROR_TASK_NOT_EXIST);
+                printTaskCount();
+                printDivider();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("%s\n", ERROR_INVALID_COMMAND);
                 printDivider();
             }
             break;
@@ -211,7 +215,11 @@ public class Kyrene {
                 taskNumber = Integer.parseInt(commands[1]);
                 unmarkTask(taskNumber);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
-                System.out.println(ERROR_TASK_NOT_EXIST);
+                System.out.printf("%s", ERROR_TASK_NOT_EXIST);
+                printTaskCount();
+                printDivider();
+            }  catch (IndexOutOfBoundsException e) {
+                System.out.printf("%s\n", ERROR_INVALID_COMMAND);
                 printDivider();
             }
             break;
@@ -220,7 +228,11 @@ public class Kyrene {
                 taskNumber = Integer.parseInt(commands[1]);
                 deleteTask(taskNumber);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
-                System.out.println(ERROR_TASK_NOT_EXIST);
+                System.out.printf("%s", ERROR_TASK_NOT_EXIST);
+                printTaskCount();
+                printDivider();
+            }  catch (IndexOutOfBoundsException e) {
+                System.out.printf("%s\n", ERROR_INVALID_COMMAND);
                 printDivider();
             }
             break;
