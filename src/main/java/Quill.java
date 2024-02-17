@@ -15,6 +15,22 @@ public class Quill {
         System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
     }
 
+    public static void printDeleteTask(String line, ArrayList<Task> tasks) {
+        try {
+            int taskNumber = Integer.parseInt(line) - 1;
+            String message = tasks.get(taskNumber).toString();
+            tasks.remove(taskNumber);
+            Task.removeTask();
+            System.out.println(horizontalLine + "\nGot it. I've removed this task:");
+            System.out.println(message);
+            System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
+        } catch (NumberFormatException e) {
+            System.out.println("Listen up! Numbers only, got it? Don't bother with anything else");
+        }
+    }
+
     public static void performMarkOrUnmark(String line, ArrayList<Task> tasks, boolean isDone) {
         try {
             int taskNumber = Integer.parseInt(line) - 1;
@@ -114,9 +130,12 @@ public class Quill {
                     System.out.println("No empty descriptions allowed for event. Fill it in!");
                 }
                 break;
+            case "delete":
+                printDeleteTask(line, tasks);
+                break;
             default:
                 System.out.println("Enough with the gibberish. Stick to the commands I understand:");
-                System.out.println("bye, list, todo, deadline, event, mark, unmark. Got it? Next!");
+                System.out.println("bye, list, todo, deadline, event, mark, unmark, delete. Got it? Next!");
                 break;
             }
             line = in.nextLine();
