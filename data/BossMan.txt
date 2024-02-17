@@ -1,0 +1,5 @@
+T,true,my to do task
+D,false,my deadline task,2 june
+E,true,my event task,today 3pm,tomorrow 5pm
+T,false,new task to add
+T,true,another task

@@ -15,6 +15,10 @@ public class TaskList {
         TASKS.add(task);
     }
 
+    public List<Task> getTasks() {
+        return TASKS;
+    }
+
     public void printTasks() {
         System.out.println("Todo List:");
 

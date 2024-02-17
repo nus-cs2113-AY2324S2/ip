@@ -1,5 +1,7 @@
 package bossman;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import bossman.task.Task;
 import bossman.task.TaskList;
@@ -16,10 +18,12 @@ public class BossMan {
     private static final String SEP = "____________________________________________________________";
     private final Scanner SCANNER;
     private final TaskList TASK_LIST;
+    private final Data data;
 
-    public BossMan() {
+    public BossMan() throws FileNotFoundException {
+        this.data = new Data();
         this.SCANNER = new Scanner(System.in);
-        this.TASK_LIST = new TaskList();
+        this.TASK_LIST = data.TASK_LIST;
     }
 
     public void greetUser() {
@@ -46,6 +50,8 @@ public class BossMan {
                      InvalidEventCommandException |
                      NumberFormatException e) {
                 System.out.println(e.getMessage() + "\n" + SEP);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
 
         } while (!userInput.equalsIgnoreCase("bye"));
@@ -56,7 +62,7 @@ public class BossMan {
             InvalidTodoCommandException,
             InvalidDeadlineCommandException,
             InvalidEventCommandException,
-            NumberFormatException {
+            NumberFormatException, IOException {
 
         String[] parts = parseUserInput(userInput);
 
@@ -93,7 +99,8 @@ public class BossMan {
             break;
 
         case "bye":
-            break; // No need to print unknown command for 'bye'
+            data.saveTasksToFile();
+            break;
 
         default:
             throw new UnknownCommandException("Unknown command");
@@ -118,7 +125,7 @@ public class BossMan {
         if(commandArgs.isBlank()) {
             throw new InvalidTodoCommandException("Invalid todo command");
         }
-        Task todoTask = new Todo(commandArgs);
+        Task todoTask = new Todo(commandArgs, false);
         TASK_LIST.addTask(todoTask);
         echo(todoTask);
     }
@@ -130,7 +137,7 @@ public class BossMan {
         }
         String description = deadlineArgParts[0];
         String deadline = deadlineArgParts[1];
-        Task deadlineTask = new Deadline(description, deadline);
+        Task deadlineTask = new Deadline(description, false, deadline);
         TASK_LIST.addTask(deadlineTask);
         echo(deadlineTask);
     }
@@ -151,7 +158,7 @@ public class BossMan {
 
         String from = eventArgTimeParts[0];
         String to = eventArgTimeParts[1];
-        Task eventTask = new Event(description, from, to);
+        Task eventTask = new Event(description, false, from, to);
         TASK_LIST.addTask(eventTask);
         echo(eventTask);
     }
