@@ -1,6 +1,7 @@
 package nyanbot;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import nyanbot.task.Task;
 import nyanbot.task.Todo;
 import nyanbot.task.Deadline;
@@ -16,24 +17,38 @@ public class NyanBot {
     private static final String EVENT_COMMAND = "EVENT";
     private static final String BYE_COMMAND = "BYE";
     private static final String HELP_COMMAND = "HELP";
+    private static final String DELETE_COMMAND = "DELETE";
     private static String LINE = "____________";
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
 
     public static void addTask(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.add(task);
         Printer.printAddTaskSuccess(task);
+    }
+
+    public static void deleteTask(String input) {
+        try {
+            String[] splitInputs = input.split(" ");
+            int index = Integer.parseInt(splitInputs[1]) - 1;
+            tasks.remove(index);
+            Printer.printDeleteSuccess();
+            Printer.printTasks(tasks);
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            Printer.printNullError();
+        } catch (NumberFormatException e) {
+            Printer.printDeleteUsage();
+        }
     }
 
     private static void markTask(String input) {
         try {
             String[] splitInputs = input.split(" ");
             int index = Integer.parseInt(splitInputs[1]) - 1;
-            tasks[index].markAsDone();
+            //tasks[index].markAsDone();
+            tasks.get(index).markAsDone();
             Printer.printMarkSuccess();
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             Printer.printNullError();
         } catch (NumberFormatException e) {
             Printer.printMarkUsage();
@@ -44,9 +59,9 @@ public class NyanBot {
         try {
             String[] splitInputs = input.split(" ");
             int index = Integer.parseInt(splitInputs[1]) - 1;
-            tasks[index].markAsUndone();
+            tasks.get(index).markAsUndone();
             Printer.printUnmarkSuccess();
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             Printer.printNullError();
         } catch (NumberFormatException e) {
             Printer.printUnmarkUsage();
@@ -55,7 +70,7 @@ public class NyanBot {
 
     private static void addTodo(String input) {
         try {
-            String description = input.substring(6);
+            String description = input.substring(5);
             Todo todo = new Todo(description);
             addTask(todo);
         } catch (StringIndexOutOfBoundsException e) {
@@ -67,7 +82,7 @@ public class NyanBot {
     private static void addDeadline(String input) {
         try {
             String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(10);
+            String description = splitInputs[0].substring(9);
             String date = splitInputs[1];
             Deadline deadline = new Deadline(description, date);
             addTask(deadline);
@@ -83,7 +98,7 @@ public class NyanBot {
     private static void addEvent(String input) {
         try {
             String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(7);
+            String description = splitInputs[0].substring(6);
             String start = splitInputs[1];
             String end = splitInputs[2];
             Event event = new Event(description, start, end);
@@ -116,7 +131,7 @@ public class NyanBot {
                     return;
                 case LIST_COMMAND:
                     System.out.println(LINE);
-                    Printer.printTasks(tasks, taskCount);
+                    Printer.printTasks(tasks);
                     break;
                 case MARK_COMMAND:
                     int markIndex;
@@ -124,6 +139,9 @@ public class NyanBot {
                     break;
                 case UNMARK_COMMAND:
                     unmarkTask(input);
+                    break;
+                case DELETE_COMMAND:
+                    deleteTask(input);
                     break;
                 case TODO_COMMAND:
                     addTodo(input);
