@@ -35,12 +35,12 @@ public class Utils {
     }
 
     public static void printInvalidDescriptionWarning() {
-        System.out.println("Please enter a valid description");
+        System.out.println("Please enter a valid description.");
         printLine();
     }
 
     public static void printInvalidCommandWarning() {
-        System.out.println("Invalid command");
+        System.out.println("Invalid command.");
         printLine();
     }
 }
