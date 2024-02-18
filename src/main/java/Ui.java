@@ -1,6 +1,19 @@
 import java.util.Scanner;
 
 public class Ui {
+    public static final String LOGO =
+            "  _____           __ \n"
+                    + "/  ____|         |  |\n"
+                    + "|  |  __   ____  |  |__\n"
+                    + "|  | |_  |/  _   |  -   \\ \n"
+                    + "|  |__|  |  (_|  | |_)   |\n"
+                    + "\\_______ |__ ,_ |_.___ /\n";
+
+    public static void printWelcome() {
+        System.out.println(LOGO);
+        System.out.println("\tI am Gab the Bot! Nice to meet you!");
+        System.out.println("\tAnything I can help you with?");
+    }
 
     public static String getTask() {
         String taskDescription;
