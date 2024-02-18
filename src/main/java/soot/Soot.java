@@ -1,9 +1,12 @@
+package soot;
+
+import soot.manager.CommandManager;
+
 import java.util.Scanner;
 
 public class Soot {
     public static void main(String[] args) {
         String line;
-        String lowerCase;
         Scanner in = new Scanner(System.in);
         CommandManager commandManager = new CommandManager();
 

@@ -1,3 +1,7 @@
+package soot.task;
+
+import soot.manager.CommandManager;
+
 public class Task {
     protected String taskName;
     protected int index;

@@ -1,3 +1,11 @@
+package soot.manager;
+
+import soot.EmptyTaskException;
+import soot.task.Deadline;
+import soot.task.Event;
+import soot.task.Task;
+import soot.task.Todo;
+
 public class CommandManager {
     public static int listCounter;
     public static final int LIST_SIZE = 100;
