@@ -36,4 +36,8 @@ public class Task {
     public static boolean isEmpty() {
         return totalTasks == 0;
     }
+
+    public String saveTask() {
+        return isDone + " | " + description;
+    }
 }

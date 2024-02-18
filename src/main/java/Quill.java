@@ -14,7 +14,7 @@ public class Quill {
         System.out.println(tasks.toString());
         System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
     }
-
+    
     public static void printDeleteTask(String line, ArrayList<Task> tasks) {
         try {
             int taskNumber = Integer.parseInt(line) - 1;
@@ -42,17 +42,19 @@ public class Quill {
                 System.out.println(horizontalLine + "\nOK, I've marked this task as not done yet:");
             }
             System.out.println(tasks.get(taskNumber).toString() + "\n" + horizontalLine);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
             System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
         } catch (NumberFormatException e) {
             System.out.println("Listen up! Numbers only, got it? Don't bother with anything else");
         }
     }
 
-    public static void main(String[] args) throws QuillException {
+
+    public static void main(String[] args) {
         String name = "Quill";
         String line;
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks;
+        tasks = Save.readFile();
         Scanner in = new Scanner(System.in);
 
         System.out.println(horizontalLine + "\nHello! I'm " + name + ".");
@@ -73,6 +75,7 @@ public class Quill {
             }
             switch(command) {
             case "bye":
+                Save.writeToFile(tasks);
                 System.out.println(horizontalLine + "\nBye! Hope to see you again soon!\n" + horizontalLine);
                 return;
             case "list":

@@ -11,7 +11,7 @@ public class Event extends Task {
         int fromIndex = description.indexOf("/from");
         this.description = description.substring(0, fromIndex);
         int toIndex = description.indexOf("/to");
-        this.from = description.substring(fromIndex + 5, toIndex - 1);
+        this.from = description.substring(fromIndex + 5, toIndex);
         this.to = description.substring(toIndex + 3);
         if (this.description.isEmpty()) {
             Task.totalTasks--;
@@ -28,5 +28,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from:" + from + "to:" + to + ")";
+    }
+
+    @Override
+    public String saveTask() {
+        return "E | " + super.saveTask() + "/from" + from + "/to" + to;
     }
 }
