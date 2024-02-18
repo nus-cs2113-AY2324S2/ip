@@ -8,27 +8,28 @@ import ui.Message;
 public class Adam {
     public static void main(String[] args) {
         TaskList tasks = new TaskList();
-        Scanner scanner = new Scanner(System.in);
-        String input;
         boolean exitFlag = false;
+
+        try {
+            tasks = FileManager.loadTasks();
+        } catch (AdamException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println(Message.GREETING_MESSAGE);
 
         while (!exitFlag) {
-            input = scanner.nextLine();
-
             System.out.println(Message.DELIMITER);
 
-            try {
-                exitFlag = CommandGenerator.generate(input).execute(tasks);
+            try (Scanner input = new Scanner(System.in)) {
+                exitFlag = CommandGenerator.generate(input.nextLine()).execute(tasks);
                 // return true if it's exitCommand; false otherwise
+                FileManager.saveTasks(tasks);
             } catch (AdamException error) {
                 System.out.println(error.getMessage());
             }
 
             System.out.println(Message.DELIMITER);
         }
-
-        scanner.close();
     }
 }
