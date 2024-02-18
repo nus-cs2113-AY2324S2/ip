@@ -54,50 +54,75 @@ public class Duke {
             }
             switch (firstWord) {
             case ("bye"):
+                if(!suffixWord.isEmpty()) {
+                    System.out.println("Invalid format! Should be 'bye'");
+                    break;
+                }
                 System.out.println("Bye! See ya!");
                 return;
             case ("list"):
+                if(!suffixWord.isEmpty()) {
+                    System.out.println("Invalid format! Should be 'list'.");
+                    break;
+                }
                 listTasks();
                 break;
             case ("mark"):
-                int markIndex = Integer.parseInt(suffixWord);
-                if (!isIndexValid(markIndex)) {
-                    System.out.println("Invalid task index!");
-                }
-                else {
-                    tasks.get(markIndex - 1).setIsDone(true);
-                    System.out.println("Set task number " + markIndex + ": " + tasks.get(markIndex - 1).getName() + " as done.");
+                try {
+                    int markIndex = Integer.parseInt(suffixWord);
+                    if (!isIndexValid(markIndex)) {
+                        System.out.println("Invalid task index!");
+                    } else {
+                        tasks.get(markIndex - 1).setIsDone(true);
+                        System.out.println("Set task number " + markIndex + ": " + tasks.get(markIndex - 1).getName() + " as done.");
+                    }
+                } catch (Exception e){
+                    System.out.println("Incorrect format! Should be 'mark *n', where n is the index of the task you wish to mark as finished.");
                 }
                 break;
             case ("unmark"):
-                int unmarkIndex = Integer.parseInt(suffixWord);
-                if (!isIndexValid(unmarkIndex)) {
-                    System.out.println("Invalid task index!");
-                }
-                else {
-                    tasks.get(unmarkIndex - 1).setIsDone(false);
-                    System.out.println("Set task number " + unmarkIndex + ": " + tasks.get(unmarkIndex - 1).getName() + " as not done.");
+                try {
+                    int unmarkIndex = Integer.parseInt(suffixWord);
+                    if (!isIndexValid(unmarkIndex)) {
+                        System.out.println("Invalid task index!");
+                    } else {
+                        tasks.get(unmarkIndex - 1).setIsDone(false);
+                        System.out.println("Set task number " + unmarkIndex + ": " + tasks.get(unmarkIndex - 1).getName() + " as not done.");
+                    }
+                } catch (Exception e){
+                   System.out.println("Incorrect format! Should be 'unmark *n', where n is the index of the task you wish to mark as unfinished.");
                 }
                 break;
             case ("todo"):
+                if(suffixWord.isEmpty()) {
+                    System.out.println("Incorrect format! Should be 'todo *task_name'.");
+                    break;
+                }
                 TodoTask todoTask = new TodoTask(suffixWord, false);
                 addTask(todoTask);
                 System.out.println("Added todo type task with name: " + todoTask.getName());
                 break;
             case ("event"):
-                EventTask eventTask = new EventTask(suffixWord, false);
-                addTask(eventTask);
-                System.out.println("Added event type task with name: " + eventTask.getName());
+                try {
+                    EventTask eventTask = new EventTask(suffixWord, false);
+                    addTask(eventTask);
+                    System.out.println("Added event type task with name: " + eventTask.getName());
+                } catch (Exception e) {
+                    System.out.println("Incorrect format! Should be 'event *event_name /from *start_time /to *end_time'.");
+                }
                 break;
             case ("deadline"):
-                DeadlineTask deadlineTask = new DeadlineTask(suffixWord, false);
-                addTask(deadlineTask);
-                System.out.println("Added deadline type task with name: " + deadlineTask.getName());
+                try {
+                    DeadlineTask deadlineTask = new DeadlineTask(suffixWord, false);
+                    addTask(deadlineTask);
+                    System.out.println("Added deadline type task with name: " + deadlineTask.getName());
+                } catch (Exception e) {
+                    System.out.println("Incorrect format! Should be 'deadline *task_name /by *deadline_time'");
+                }
                 break;
+
             default:
-                Task task = new Task(inputCommand, false);
-                addTask(task);
-                System.out.println("Added task with name: " + task.getName());
+                System.out.println("Unrecognized command, please try again!");
                 break;
             }
 

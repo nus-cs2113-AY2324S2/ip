@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class EventTask extends Task{
     private String startTime, endTime;
-    public EventTask(String nameWithDates, Boolean isDone) {
+    public EventTask(String nameWithDates, Boolean isDone) throws Exception {
         StringBuilder startTime = new StringBuilder();
         StringBuilder endTime = new StringBuilder();
         StringBuilder name = new StringBuilder();
@@ -34,6 +34,9 @@ public class EventTask extends Task{
                     break;
                 }
             }
+        }
+        if(state != 2 || name.toString().isEmpty() || startTime.toString().isEmpty() || endTime.toString().isEmpty()) {
+            throw new Exception();
         }
         setName(name.toString());
         setIsDone(isDone);
