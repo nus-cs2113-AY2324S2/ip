@@ -64,7 +64,7 @@ public class Parser {
     }
 
 
-    public static Command markTask(String taskDescription, Task[] taskList) throws GabException {
+    public static Command markTask(String taskDescription, TaskList taskList) throws GabException {
         String[] task = taskDescription.split(" ");
 
         if (task.length < 2) {
@@ -78,16 +78,16 @@ public class Parser {
             throw new GabException("Task index to mark is not an integer! Please provide an integer");
         }
 
-        if (taskIndex > Task.getTaskCount()) {
+        if (taskIndex > taskList.taskList.size()) {
             throw new GabException("Task is not found!");
         }
 
-        return new MarkCommand(String.valueOf(taskIndex)); // Convert taskIndex back to String for MarkCommand constructor
+        return new MarkCommand(taskIndex); // Convert taskIndex back to String for MarkCommand constructor
     }
 
 
 
-    public static Command UnmarkTask(String taskDescription, Task[] taskList) throws GabException {
+    public static Command UnmarkTask(String taskDescription, TaskList taskList) throws GabException {
         String[] task = taskDescription.split(" ");
 
         if (task.length < 2) {
@@ -101,7 +101,7 @@ public class Parser {
             throw new GabException("Task index to unmark is not integer! Please provide an integer");
         }
 
-        if (taskIndex > taskList.length) {
+        if (taskIndex > taskList.taskList.size()) {
             throw new GabException("Task is not found!");
         }
         return new UnmarkCommand(taskIndexString);

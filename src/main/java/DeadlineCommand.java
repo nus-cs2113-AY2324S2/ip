@@ -9,10 +9,13 @@ public class DeadlineCommand implements Command {
     }
 
     @Override
-    public void execute (String task, Task[] taskList) {
+    public void execute (String task, TaskList taskList) {
         Deadline newDeadline = new Deadline(taskName, by);
-        taskList[Task.getTaskCount() - 1] = newDeadline;
+        taskList.addToList(newDeadline);
         Ui.printDeadlineTask(newDeadline.toString());
-        Ui.printTaskCount(Task.getTaskCount());
+        Ui.printTaskCount(taskList.getTaskCount());
+        //taskList[Task.getTaskCount() - 1] = newDeadline;
+        //Ui.printDeadlineTask(newDeadline.toString());
+        //Ui.printTaskCount(Task.getTaskCount());
     }
 }

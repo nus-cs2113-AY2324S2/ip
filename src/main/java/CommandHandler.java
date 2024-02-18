@@ -1,5 +1,5 @@
 public class CommandHandler {
-    public static Command checkCommand(String task, Task[] taskList) throws GabException {
+    public static Command checkCommand(String task, TaskList taskList) throws GabException {
         String[] taskAction = task.split(" ");
         String action = taskAction[0];
 

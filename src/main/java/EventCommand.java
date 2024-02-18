@@ -11,10 +11,13 @@ public class EventCommand implements Command {
     }
 
     @Override
-    public void execute (String task, Task[] taskList) {
+    public void execute (String task, TaskList taskList) {
         Event newEvent = new Event(taskName, startDate, endDate);
-        taskList[Task.getTaskCount() - 1] = newEvent;
+        taskList.addToList(newEvent);
         Ui.printEventTask(newEvent.toString());
-        Ui.printTaskCount(Task.getTaskCount());
+        Ui.printTaskCount(taskList.getTaskCount());
+        //taskList[Task.getTaskCount() - 1] = newEvent;
+        //Ui.printEventTask(newEvent.toString());
+        //Ui.printTaskCount(Task.getTaskCount());
     }
 }

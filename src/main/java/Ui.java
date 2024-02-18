@@ -15,6 +15,8 @@ public class Ui {
         System.out.println("\tAnything I can help you with?");
     }
 
+    public static final String LINE = "_______________________";
+
     public static String getTask() {
         String taskDescription;
         Scanner in = new Scanner(System.in);
@@ -23,45 +25,45 @@ public class Ui {
         return taskDescription;
     }
 
-    public static void listTask(Task[] taskList) { //using the array to list the tasks
+    public static void listTask(TaskList taskList) { //using the array to list the tasks
         System.out.println("All your tasks are here");
         for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.println((i + 1) + "." + taskList[i].toString());
+            System.out.println((i + 1) + "." + taskList.taskList.get(i).toString());
         }
     }
 
     public static void printTaskCount (int taskCount) {
         System.out.println("Now you have " + taskCount + " task(s)");
-        System.out.println("_______________________");
+        System.out.println(LINE);
     }
 
     public static void printTodoTask (String toDoTask) {
-        System.out.println("_______________________");
+        System.out.println(LINE);
         System.out.println("Oh no! One new task added...");
         System.out.println(toDoTask);
     }
 
     public static void printDeadlineTask (String deadlineTask) {
-        System.out.println("_______________________");
+        System.out.println(LINE);
         System.out.println("Ok! Watch the deadline!");
         System.out.println(deadlineTask);
     }
 
     public static void printEventTask (String eventTask) {
-        System.out.println("_______________________");
+        System.out.println(LINE);
         System.out.println("Weehoo! Enjoy the event!");
         System.out.println(eventTask);
     }
 
-    public static void printMarkTask (int taskIndex, Task[] taskList) {
-        System.out.println("_______________________");
+    public static void printMarkTask (int taskIndex, TaskList taskList) {
+        System.out.println(LINE);
         System.out.println("One done!");
-        System.out.println(taskList[taskIndex]);
+        System.out.println(taskList.taskList.get(taskIndex).toString());
     }
 
-    public static void printUnmarkTask (int taskIndex, Task[] taskList) {
-        System.out.println("______________________");
+    public static void printUnmarkTask (int taskIndex, TaskList taskList) {
+        System.out.println(LINE);
         System.out.println("Oh no!");
-        System.out.println(taskList[taskIndex]);
+        System.out.println(taskList.taskList.get(taskIndex).toString());
     }
 }

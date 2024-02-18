@@ -6,10 +6,10 @@ public class UnmarkCommand implements Command {
     }
 
     @Override
-    public void execute (String task, Task[] taskList) {
+    public void execute (String task, TaskList taskList) {
         int index = Integer.parseInt(indexTask) - 1;
-        Task taskToMark = taskList[index];
+        Task taskToMark = taskList.taskList.get(index);
         taskToMark.markAsNotDone();
-        Ui.printMarkTask(index, taskList);
+        Ui.printUnmarkTask(index, taskList);
     }
 }

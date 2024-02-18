@@ -1,15 +1,15 @@
 public class MarkCommand implements Command {
 
-    private String indexTask;
+    private int indexTask;
 
-    public MarkCommand(String indexTask) {
+    public MarkCommand(int indexTask) {
         this.indexTask = indexTask;
     }
 
     @Override
-    public void execute (String task, Task[] taskList) {
-        int index = Integer.parseInt(indexTask) - 1;
-        Task taskToMark = taskList[index];
+    public void execute (String task, TaskList taskList) {
+        int index = indexTask - 1;
+        Task taskToMark = taskList.taskList.get(index);
         taskToMark.markAsDone();
         Ui.printMarkTask(index, taskList);
     }
