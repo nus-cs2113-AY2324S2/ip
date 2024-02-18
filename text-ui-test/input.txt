@@ -12,14 +12,16 @@ event book signing /from 1 march 2024 /to
 event book signing /from 1 march 2024 /to 30 march 2024
 list
 mark
-mark 0
 mark 100
 mark 1
 list
 unmark
-unmark 0
 unmark 100
 unmark 1
+list
+delete
+delete 100
+delete 1
 list
 blah
 bye
