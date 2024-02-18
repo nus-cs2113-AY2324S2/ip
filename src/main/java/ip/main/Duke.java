@@ -132,6 +132,7 @@ public class Duke {
 
                 if (line.startsWith("delete")) {
                     deleteTask(line);
+                    updateStoredData();
                     continue;
                 }
             } catch (IndexOutOfBoundsException e) {
