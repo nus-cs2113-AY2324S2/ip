@@ -1,3 +1,5 @@
+package com.erii.core;
+
 public class Erii {
     public static void main(String[] args) {
         String art = 

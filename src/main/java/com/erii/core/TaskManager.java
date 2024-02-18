@@ -1,3 +1,5 @@
+package com.erii.core;
+
 import java.util.ArrayList;
 import java.util.List;
 
