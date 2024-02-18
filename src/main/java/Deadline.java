@@ -10,4 +10,10 @@ public class Deadline extends Task {
     public String toString() {
         return("[D]" + super.toString() + "(by:" + this.by + ")");
     }
+
+    @Override
+    public void printTask (int numberOfListItems){
+        System.out.println("Got it! I've added this task:\n" + this.toString());
+        System.out.println("Now you have " + (numberOfListItems + 1) + " tasks in the list!");
+    }
 }
