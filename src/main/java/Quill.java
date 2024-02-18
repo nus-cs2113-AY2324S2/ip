@@ -14,7 +14,7 @@ public class Quill {
         System.out.println(tasks.toString());
         System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
     }
-    
+
     public static void printDeleteTask(String line, ArrayList<Task> tasks) {
         try {
             int taskNumber = Integer.parseInt(line) - 1;

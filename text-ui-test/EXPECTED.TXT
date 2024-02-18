@@ -27,14 +27,14 @@ No date after from? Seriously?
 No date after to? Seriously?
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
+[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
 2.[D][ ] return book (by: 2 march 2024)
-3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
+3.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
 Hey, wake up! That task? Non-existent. Try something real.
@@ -46,7 +46,7 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book (by: 2 march 2024)
-3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
+3.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
 Hey, wake up! That task? Non-existent. Try something real.
@@ -58,7 +58,7 @@ ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
 2.[D][ ] return book (by: 2 march 2024)
-3.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
+3.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
 Hey, wake up! That task? Non-existent. Try something real.
@@ -70,7 +70,7 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[D][ ] return book (by: 2 march 2024)
-2.[E][ ] book signing (from: 1 march 2024to: 30 march 2024)
+2.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
 ____________________________________________________________
 Enough with the gibberish. Stick to the commands I understand:
 bye, list, todo, deadline, event, mark, unmark, delete. Got it? Next!
