@@ -1,6 +1,8 @@
 package gandalf;
 
 import action.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Gandalf {
@@ -8,7 +10,6 @@ public class Gandalf {
     public static final String LINE = "____________________________________________________________";
     public static final String BYE_STATEMENT = "bye";
     public static final String MAKE_LIST_STATEMENT = "make list";
-    public static final int MAX_TASK_LENGTH = 100;
 
     // Scanner object
     static Scanner in = new Scanner(System.in);
@@ -39,7 +40,7 @@ public class Gandalf {
     private static void makeList() {
         makeListWelcomeMessage();
 
-        Task[] listTasks = new Task[MAX_TASK_LENGTH];
+        ArrayList<Task> listTasks = new ArrayList<>();
 
         while (true) {
             String userInput = getUserInput();

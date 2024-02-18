@@ -9,12 +9,14 @@ import exception.InvalidKeywordException;
 import exception.InvalidTaskIndexException;
 import exception.MissingDescriptionException;
 
+import java.util.ArrayList;
+
 public class TaskManager {
     // Constants
     public static final String LINE = "____________________________________________________________";
     public static int insertIndex = 0;
 
-    public static void handleUserTasks(String userInput, Task[] listTasks)  {
+    public static void handleUserTasks(String userInput, ArrayList<Task> listTasks)  {
         try {
             if (hasSaidMarkOrUnmark(userInput)) {
                 handleTasksMarkings(userInput, listTasks);
@@ -33,7 +35,7 @@ public class TaskManager {
         }
     }
 
-    public static void insertUserTasks (String userInput, Task[] listTasks)
+    public static void insertUserTasks (String userInput, ArrayList<Task> listTasks)
             throws InvalidKeywordException, MissingDescriptionException, InvalidTaskIndexException {
         if (userInput.startsWith("todo")) {
             handleToDoTasks(userInput, listTasks, insertIndex);
@@ -46,7 +48,7 @@ public class TaskManager {
         }
     }
 
-    public static void handleEventTasks(String userInput, Task[] listTasks, int insertIndex) {
+    public static void handleEventTasks(String userInput, ArrayList<Task> listTasks, int insertIndex) {
         if (!userInput.contains("/from") || !userInput.contains("/to")) {
             System.out.println("Invalid command.");
             System.out.println(LINE);
@@ -60,17 +62,17 @@ public class TaskManager {
             String eventFrom = secondPartition[0];
             String eventTo = secondPartition[1];
 
-            listTasks[insertIndex] = new Event(eventItem, eventFrom, eventTo);
+            listTasks.add(insertIndex, new Event(eventItem, eventFrom, eventTo));
             System.out.println(LINE);
             System.out.println("Got it. I've added this task:");
-            System.out.println("  " + listTasks[insertIndex]);
+            System.out.println("  " + listTasks.get(insertIndex));
             insertIndex += 1;
             System.out.println("Now you have " + insertIndex + " tasks in the list.");
             System.out.println(LINE);
         }
     }
 
-    public static void handleDeadlineTasks(String userInput, Task[] listTasks, int insertIndex) {
+    public static void handleDeadlineTasks(String userInput, ArrayList<Task> listTasks, int insertIndex) {
         if (!userInput.contains("/by")) {
             System.out.println("Invalid command.");
             System.out.println(LINE);
@@ -80,54 +82,54 @@ public class TaskManager {
             String[] parts = removeDeadlineString.split("/by");
             String deadlineItem = parts[0];
             String dueBy = parts[1];
-            listTasks[insertIndex] = new Deadline(deadlineItem, dueBy);
+            listTasks.add(insertIndex, new Deadline(deadlineItem, dueBy));
             System.out.println(LINE);
             System.out.println("Got it. I've added this task:");
-            System.out.println("  " + listTasks[insertIndex]);
+            System.out.println("  " + listTasks.get(insertIndex));
             insertIndex += 1;
             System.out.println("Now you have " + insertIndex + " tasks in the list.");
             System.out.println(LINE);
         }
     }
 
-    public static void handleToDoTasks(String userInput, Task[] listTasks, int insertIndex)
+    public static void handleToDoTasks(String userInput, ArrayList<Task> listTasks, int insertIndex)
             throws MissingDescriptionException {
         if (userInput.trim().length() == 4){
             throw new MissingDescriptionException();
         } else {
             String toDoItem = userInput.substring(4).trim();
-            listTasks[insertIndex] = new ToDo(toDoItem);
+            listTasks.add(insertIndex, new ToDo(toDoItem));
             System.out.println(LINE);
             System.out.println("Got it. I've added this task:");
-            System.out.println("  " + listTasks[insertIndex]);
+            System.out.println("  " + listTasks.get(insertIndex));
             insertIndex += 1;
             System.out.println("Now you have " + insertIndex + " tasks in the list.");
             System.out.println(LINE);
         }
     }
 
-    public static void handleTasksMarkings(String userInput, Task[] listTasks)
+    public static void handleTasksMarkings(String userInput, ArrayList<Task> listTasks)
             throws InvalidTaskIndexException {
         if (userInput.startsWith("mark ")) {
             int indexToMark = Integer.parseInt(userInput.substring(5).trim());
-            if (indexToMark >= 1 && indexToMark <= listTasks.length && listTasks[indexToMark - 1] != null) {
-                listTasks[indexToMark - 1].markAsDone();
+            if (indexToMark >= 1 && indexToMark <= listTasks.size() && listTasks.get(indexToMark - 1) != null) {
+                listTasks.get(indexToMark - 1).markAsDone();
                 System.out.println(LINE);
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(listTasks[indexToMark - 1].getStatusIcon()
-                        + " " + listTasks[indexToMark - 1].getDescription());
+                System.out.println(listTasks.get(indexToMark - 1).getStatusIcon()
+                        + " " + listTasks.get(indexToMark - 1).getDescription());
                 System.out.println(LINE);
             } else {
                 throw new InvalidTaskIndexException();
             }
         } else {
             int indexToUnmark = Integer.parseInt(userInput.substring(7).trim());
-            if (indexToUnmark >= 1 && indexToUnmark <= listTasks.length && listTasks[indexToUnmark - 1] != null) {
-                listTasks[indexToUnmark - 1].unmarkAsDone();
+            if (indexToUnmark >= 1 && indexToUnmark <= listTasks.size() && listTasks.get(indexToUnmark - 1) != null) {
+                listTasks.get(indexToUnmark - 1).unmarkAsDone();
                 System.out.println(LINE);
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(listTasks[indexToUnmark - 1].getStatusIcon()
-                        + " " + listTasks[indexToUnmark - 1].getDescription());
+                System.out.println(listTasks.get(indexToUnmark - 1).getStatusIcon()
+                        + " " + listTasks.get(indexToUnmark - 1).getDescription());
                 System.out.println(LINE);
             } else {
                 throw new InvalidTaskIndexException();
@@ -135,12 +137,12 @@ public class TaskManager {
         }
     }
 
-    public static void printList(Task[] listTasks) {
+    public static void printList(ArrayList<Task> listTasks) {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < listTasks.length; i++) {
-            if (listTasks[i] != null) {
-                System.out.println((i + 1) + ". " + listTasks[i].toString());
+        for (int i = 0; i < listTasks.size(); i++) {
+            if (listTasks.get(i) != null) {
+                System.out.println((i + 1) + ". " + listTasks.get(i).toString());
             }
         }
         System.out.println(LINE);
