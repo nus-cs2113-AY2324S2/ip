@@ -9,12 +9,61 @@ import yuki.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
+
 public class Yuki {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     private static String[] data;
     private static String description;
+
+    private static final String PATH_TO_FILE = "data/tasks.txt";
+
+    public static void readFile() throws FileNotFoundException {
+        File f = new File(PATH_TO_FILE);
+        Scanner s = new Scanner(f);
+        String line;
+        while (s.hasNext()) {
+            line = s.nextLine();
+            if (line.charAt(7) == 'T') {
+                Task t = new Todo(line.substring(10));
+                tasks.add(t);
+            } else if (line.charAt(7) == 'D') {
+                Task t = new Deadline(line.substring(10));
+                tasks.add(t);
+            } else if (line.charAt(7) == 'E') {
+                Task t = new Event(line.substring(10));
+                tasks.add(t);
+            } else {
+                System.out.println("error in input file");
+            }
+        }
+    }
+
+    public static void writeFile() throws IOException {
+        File dataDirectory = new File("data");
+        if (!dataDirectory.exists()) {
+            boolean directoryCreated = dataDirectory.mkdirs(); // create directory to save in.
+            if (!directoryCreated) {
+                // Handle the case where directory creation fails
+                throw new IOException("Failed to create the 'data' directory.");
+            }
+        }
+
+        FileWriter fw = new FileWriter(PATH_TO_FILE);
+
+        int index = 1;
+        for (Task item : tasks) {
+            fw.write((index) + ".[" + item.getStatusIcon() + "] "
+                    + item.taskType + " " + item.description + "\n");
+            index++;
+        }
+        fw.close();
+    }
 
     public static void listTasks() {
         System.out.println("Wake up your idea and do these tasks:");
@@ -90,6 +139,12 @@ public class Yuki {
     }
 
     public static void main(String[] args) {
+        try {
+            readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("Txt file of tasks not found, will create one");
+        }
+
         Utils.printWelcomeMessage();
 
         String line;
@@ -163,6 +218,11 @@ public class Yuki {
 
             Utils.printLine();
             line = in.nextLine();
+        }
+        try {
+            writeFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
         Utils.printExitMessage();
     }
