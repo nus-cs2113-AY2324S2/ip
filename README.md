@@ -1,24 +1,21 @@
-# Duke project template
+#Erii Project Template
+Erii is a versatile Java project designed to streamline task management and productivity. This README outlines the setup process and provides an overview of Erii's functionalities.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+##Setting up in IntelliJ
+Prerequisites: JDK 11, update IntelliJ to the latest version.
 
-## Setting up in Intellij
+Open IntelliJ: If you're not on the welcome screen, go through File > Close Project to close any open project.
+Open Project:
+Click Open.
+Navigate to and select the project directory, then click OK.
+Accept any default prompts.
+Configure JDK 11: Follow the instructions here to set up **JDK 11**, ensuring the Project language level is set to SDK default.
+Run Erii: Find src/main/java/com/erii/Erii.java, right-click it, and select Run Erii.main(). You should see the project's output in the console.
+Erii Functional Overview
+Erii is built with efficiency in mind, featuring:
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Task Management: Create, list, and manage tasks with ease.
+Deadline and Event Tracking: Keep track of deadlines and events, including start and end dates.
+Priority Setting: Assign priorities to tasks, ensuring the most critical tasks are highlighted.
+User Customization: Manage user details for personalized interaction.
+For further information on using Erii and extending its capabilities, refer to the included documentation and comments within the codebase.
