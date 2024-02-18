@@ -3,7 +3,8 @@ import customexceptions.*;
 
 public class Chatbot {
     // Sorted instructions
-    public static final String[] INSTRUCTIONS = {"bye", "deadline", "event", "list", "mark", "todo"};
+    public static final String[] INSTRUCTIONS = {"bye", "deadline", "event", "list", "mark",
+            "rename", "todo"};
     public String getName() {
         return name;
     }
@@ -11,8 +12,10 @@ public class Chatbot {
     public Chatbot() {
         name = "MOBY";
     }
-    public void rename(String name) {
-        this.name = name.toUpperCase();
+    public void rename(String line) {
+        String newName = line.substring(7);
+        this.name = newName.toUpperCase();
+        System.out.println("Renamed chatbot to " + this.name);
     }
     public void greet() { 
         System.out.println(name + ": Hello! I'm " + name + "!");

@@ -22,6 +22,9 @@ public class Moby {
             case "echo":
                 bot.echo(line);
                 break;
+            case "rename":
+                bot.rename(line);
+                break;
             case "mark":
                 list.mark(line, true);
                 break;
@@ -65,7 +68,6 @@ public class Moby {
                     System.out.println("Sorry, your sentence appears to be incomplete. Could you complete your sentence?");
                 } catch (UnknownPromptException e) {
                     System.out.println("Sorry, I do not understand what you're saying.");
-                    //bot.didYouMean(line);
                 }
             }
         }

@@ -41,9 +41,4 @@ public class TaskList {
             System.out.println(INDENT + "There's nothing in this list.");
         }
     }
-    public void addNewTask(String line) {
-        Task newTask = new Task(line);
-        list[currSize++] = newTask;
-        System.out.println("added: " + line.trim());
-    }
 }

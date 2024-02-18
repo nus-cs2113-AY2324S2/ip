@@ -32,20 +32,8 @@ public class ToDo extends Task {
     }
 
     private String eventTo;
-    public boolean HaveDeadline() {
-        return haveDeadline;
-    }
-    public void setHaveDeadline(boolean haveDeadline) {
-        this.haveDeadline = haveDeadline;
-    }
-    public boolean isEvent() {
-        return isEvent;
-    }
     public void setEvent(boolean event) {
         isEvent = event;
-    }
-    public boolean HaveToDo() {
-        return haveToDo;
     }
 
     public void setHaveToDo(boolean haveToDo) {

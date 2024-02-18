@@ -66,8 +66,4 @@ public class ToDoList extends TaskList {
         newToDo.print();
         System.out.println(INDENT + "Now you have " + currSize + " task" + (currSize > 1 ? "s " : " ") + "in the list");
     }
-    @Override
-    public void printList() { // is this necessary?
-        super.printList();
-    }
 }

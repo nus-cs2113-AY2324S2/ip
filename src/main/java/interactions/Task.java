@@ -5,22 +5,13 @@ public class Task {
     private String task;
     private boolean isMarked;
 
-    public boolean HaveToDo() {
-        return haveToDo;
-    }
-
     public void setHaveToDo(boolean haveToDo) {
         this.haveToDo = haveToDo;
     }
 
     protected boolean haveToDo;
-    Task[] list = new Task[100];
-    protected int currSize = 0;
     public String getTask() {
         return task;
-    }
-    public void setTask(String task) {
-        this.task = task;
     }
     public boolean isMarked() {
         return isMarked;
