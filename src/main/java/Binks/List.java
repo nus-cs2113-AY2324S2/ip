@@ -5,10 +5,13 @@ import Binks.task.Events;
 import Binks.task.Task;
 import Binks.task.Todo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class List {
     private Task[] list;
     private int taskCount = 0;
-
 
     public List() {
         this.list = new Task[100];
@@ -35,6 +38,7 @@ public class List {
         Binks.createLineSpacing();
         Todo newTodo = new Todo(task);
         list[taskCount] = newTodo;
+        updateFile(list);
         taskCount++;
         System.out.println("Got it. I've added this task:");
         System.out.println(" [T][ ] " + task);
@@ -51,6 +55,7 @@ public class List {
         Binks.createLineSpacing();
         Deadlines newDeadline = new Deadlines(task);
         list[taskCount] = newDeadline;
+        updateFile(list);
         taskCount++;
         System.out.println("Got it. I've added this task:");
         System.out.println(" [D][ ] " + task);
@@ -67,6 +72,7 @@ public class List {
         Binks.createLineSpacing();;
         Events newEvent = new Events(task);
         list[taskCount] = newEvent;
+        updateFile(list);
         taskCount++;
         System.out.println("Got it. I've added this task:");
         System.out.println(" [E][ ] " + task);
@@ -90,6 +96,7 @@ public class List {
             System.out.println("This task does not exist");
         }
         Binks.createLineSpacing();
+        updateFile(list);
     }
 
     /**
@@ -109,5 +116,23 @@ public class List {
             System.out.println("This task does not exist");
         }
         Binks.createLineSpacing();
+        updateFile(list);
     }
+
+    private void updateFile(Task[] list) {
+        String file = "C:\\Users\\eugen\\OneDrive\\Documents\\ip\\src\\main\\java\\binkslist.txt";
+        //String taskDescription = list.toString();
+        try {
+            FileWriter fw = new FileWriter(file);
+            for (Task task : list) {
+                if (task != null) {
+                    fw.write(task.toString() + "\n"); // Assuming each task is represented as a single line
+                }
+            }
+            fw.close();
+        } catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
 }
