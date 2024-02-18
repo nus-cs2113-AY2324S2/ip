@@ -21,6 +21,6 @@ public class Event extends Task {
     }
 
     public String toCommand() {
-        return "event /start " + start + " /end " + end + " /isDone " + isDone;
+        return "event " + description + " /start " + start + " /end " + end + " /isDone " + isDone;
     }
 }

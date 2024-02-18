@@ -40,11 +40,11 @@ public class TaskList {
     }
 
     public Task removeTask(int index) {
-        numTasks -= 1;
         Task deletedTask = tasks.remove(index);
         if (deletedTask.checkDone()) {
             numTasksDone -= 1;
         }
+        numTasks -= 1;
         return deletedTask;
     }
 

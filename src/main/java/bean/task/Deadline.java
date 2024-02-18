@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
 
     public String toCommand() {
-        return "deadline /by " + by + " /isDone " + isDone;
+        return "deadline " + description + " /by " + by + " /isDone " + isDone;
     }
 
 }
