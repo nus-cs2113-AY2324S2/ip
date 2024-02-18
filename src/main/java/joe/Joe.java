@@ -14,6 +14,7 @@ public class Joe {
     protected static final String NEW_TODO_COMMAND = "todo";
     protected static final String NEW_DEADLINE_COMMAND = "deadline";
     protected static final String NEW_EVENT_COMMAND = "event";
+    protected static final String DELETE_COMMAND = "delete";
 
     public static void main(String[] args) {
         Printer.printGreeting();
@@ -60,8 +61,6 @@ public class Joe {
                     taskManager.addToDo(message);
                 } catch (JoeException e) {
                     Printer.printToDoEmptyError();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    Printer.printTaskOvercapacityError();
                 }
                 break;
             case NEW_DEADLINE_COMMAND:
@@ -71,8 +70,6 @@ public class Joe {
                     taskManager.addDeadline(taskName, by);
                 } catch (JoeException e) {
                     Printer.printDeadlineInputError();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    Printer.printTaskOvercapacityError();
                 }
                 break;
             case NEW_EVENT_COMMAND:
@@ -82,8 +79,14 @@ public class Joe {
                     taskManager.addEvent(taskName, eventDurations[0], eventDurations[1]);
                 } catch (JoeException e) {
                     Printer.printEventInputError();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    Printer.printTaskOvercapacityError();
+                }
+                break;
+            case DELETE_COMMAND:
+                try {
+                    int taskNumber = Integer.parseInt(message);
+                    taskManager.deleteTask(taskNumber);
+                } catch (NumberFormatException | JoeException e) {
+                    Printer.printDefaultError();
                 }
                 break;
             default:

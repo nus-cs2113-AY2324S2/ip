@@ -43,6 +43,17 @@ public class TaskManager {
         Printer.printTaskAddingMessage(newEvent.getTaskStatus(), numberOfTasks);
     }
 
+    public void deleteTask(int taskNumber) throws JoeException {
+        if (taskNumber > numberOfTasks || taskNumber <= 0) {
+            throw new JoeException();
+        }
+        Printer.printDeleteMessage();
+        System.out.println("  " + tasks.get(taskNumber - 1).getTaskStatus());
+        tasks.remove(taskNumber - 1);
+        numberOfTasks--;
+        Printer.printNumOfTasks(numberOfTasks);
+    }
+
     public void listTasks() {
         Printer.printListMessage();
         for (int i = 0; i < numberOfTasks; i++) {
