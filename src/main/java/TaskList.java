@@ -11,52 +11,58 @@ public class TaskList {
     }
 
     private void processTaskCommand(String command) {
-        String[] commandParts = command.split(" ", 2);
-        String taskType = commandParts[0];
+        try {
+            String[] commandParts = command.split(" ", 2);
+            String taskType = commandParts[0];
 
-        switch (taskType) {
-        case "todo":
-            addTask(new Task(commandParts[1]));
-            break;
-        case "deadline":
-            String[] deadlineParts = commandParts[1].split("/by" , 2);
-            if (deadlineParts.length != 2) {
-                System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
-            } else {
-                addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
-            }
-            break;
-        case "event":
-            String[] eventparts = commandParts[1].split("/from" , 2);
-            if (eventparts.length != 2) {
-                System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
-            } else {
-                String[] endDateParts = eventparts[1].split("/to" , 2);
-                if (endDateParts.length != 2) {
-                    System.out.println("☹ OOPS!!! Invalid event format. " +
-                            "Use 'event <description> /from <start date/time> /to <end date/time>'.");
+            switch (taskType) {
+            case "todo":
+                addTask(new Task(commandParts[1]));
+                break;
+            case "deadline":
+                String[] deadlineParts = commandParts[1].split("/by", 2);
+                if (deadlineParts.length != 2) {
+                    System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
                 } else {
-                    addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
+                    addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
                 }
+                break;
+            case "event":
+                String[] eventparts = commandParts[1].split("/from", 2);
+                if (eventparts.length != 2) {
+                    System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
+                } else {
+                    String[] endDateParts = eventparts[1].split("/to", 2);
+                    if (endDateParts.length != 2) {
+                        System.out.println("☹ OOPS!!! Invalid event format. " +
+                                "Use 'event <description> /from <start date/time> /to <end date/time>'.");
+                    } else {
+                        addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
+                    }
+                }
+                break;
+            case "mark":
+                if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
+                    System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
+                } else {
+                    markTask(Integer.parseInt(commandParts[1]) - 1);
+                }
+                break;
+            case "unmark":
+                if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
+                    System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
+                } else {
+                    unmarkTask(Integer.parseInt(commandParts[1]) - 1);
+                }
+                break;
+            default:
+                System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised
+                break;
             }
-            break;
-        case "mark":
-            if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1])-1) ) {
-                System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
-            } else {
-                markTask(Integer.parseInt(commandParts[1]) - 1);
-            }
-            break;
-        case "unmark":
-            if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1])-1) ) {
-                System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
-            } else {
-                unmarkTask(Integer.parseInt(commandParts[1]) - 1);
-            }
-            break;
-        default:
-            System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised
-            break;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid command format.");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid command format.");
         }
     }
 
