@@ -15,7 +15,7 @@ public class Soot {
         while (!isBye) {
             line = in.nextLine(); //user input
             drawLine();
-            isBye = commandManager.verifyInput(line);
+            isBye = commandManager.isInputBye(line);
         }
         greetGoodbye();
     }
