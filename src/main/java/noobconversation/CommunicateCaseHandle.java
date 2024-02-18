@@ -121,7 +121,7 @@ public class CommunicateCaseHandle {
                 break;
             }
             System.out.println(output);
-            if(identity.equals("delete")) {
+            if (identity.equals("delete")) {
                 System.out.println("\tNow you have " + list.size() + " tasks in the list.");
             }
             format.dividingLine();
