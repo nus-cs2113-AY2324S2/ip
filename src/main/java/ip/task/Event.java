@@ -22,4 +22,12 @@ public class Event extends Task {
     public String getDetails() {
         return ("[E]" + super.getDetails() + "(from: " + from + ", to: " + to + ")");
     }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 }
