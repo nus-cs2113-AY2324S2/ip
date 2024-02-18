@@ -9,10 +9,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String toString() {
-        return getDescription();
-    }
-
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
