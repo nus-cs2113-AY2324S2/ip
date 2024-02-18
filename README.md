@@ -19,4 +19,5 @@ Erii is built with efficiency in mind, featuring:
 1. Deadline and Event Tracking: Keep track of deadlines and events, including start and end dates.
 1. Priority Setting: Assign priorities to tasks, ensuring the most critical tasks are highlighted.
 1. User Customization: Manage user details for personalized interaction.
+
 For further information on using Erii and extending its capabilities, refer to the included documentation and comments within the codebase.
