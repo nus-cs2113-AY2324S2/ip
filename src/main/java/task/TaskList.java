@@ -34,6 +34,10 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(int index) {
+        this.tasks.remove(index - 1);
+    }
+
     public void displayAll() {
         for (int index = 1; index <= this.size(); index++) {
             System.out.println(index + "." + getTask(index));

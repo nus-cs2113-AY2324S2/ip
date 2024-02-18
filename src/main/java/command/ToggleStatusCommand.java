@@ -20,7 +20,7 @@ public class ToggleStatusCommand implements Command {
             tasks.getTask(index).setIsDone(command.equals("mark"));
             System.out.println(toggleMessage(tasks.getTask(index)));
         } catch (IndexOutOfBoundsException error) {
-            throw new AdamException(Message.getToggleErrorMessage(tasks.size()));
+            throw new AdamException(Message.getListInquiryErrorMessage(tasks.size()));
         }
 
         return false;

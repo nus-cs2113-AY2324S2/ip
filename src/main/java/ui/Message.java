@@ -56,20 +56,20 @@ public class Message {
 
     public static final String LIST_MESSAGE_END = "\nThese tasks await your valiant efforts, noble taskmaster!";
 
-    public static final String LIST_ERROR_MESSAGE = "Looks like our task list is empty.\n"
+    public static final String EMPTY_LIST_ERROR_MESSAGE = "Looks like our task list is empty.\n"
             + "Time to fill it up with some action-packed tasks!";
 
-    private static final String TOGGLE_ERROR_MESSAGE = "Oops! The specified index is out of range.\n"
+    private static final String RANGE_ERROR_MESSAGE = "Oops! The specified index is out of range.\n"
             + "Please enter an index between 1 and ";
 
     public static final String INVALID_INPUT_MESSAGE = "Oopsie! Looks like I got tangled up in my circuits.\n"
             + "Please try again or type 'help' for valid commands.";
 
-    public static String getToggleErrorMessage(int size) {
-        return size == 0 ? LIST_ERROR_MESSAGE : TOGGLE_ERROR_MESSAGE + size + ". (both inclusive)";
+    public static String getListInquiryErrorMessage(int size) {
+        return size == 0 ? EMPTY_LIST_ERROR_MESSAGE : RANGE_ERROR_MESSAGE + size + ". (both inclusive)";
     }
 
-    public static String HELP_MESSAGE = "Need a hand? Here's your guide to Adam's commands!\n\n"
+    public static final String HELP_MESSAGE = "Need a hand? Here's your guide to Adam's commands!\n\n"
             + "Available commands:\n"
             + "- bye (or exit, ex): Exit the chatbot.\n"
             + "- list: View all tasks in the task list.\n"
@@ -78,9 +78,17 @@ public class Message {
             + "- todo [description]: Add a new todo task.\n"
             + "- deadline [description] /by [deadline]: Add a new task with a deadline.\n"
             + "- event [description] /from [start time] /to [end time]: Add a new event task.\n"
+            + "- delete [task number]: Delete a task from the list. (Watch out, it's permanent!)\n"
             + "- help (or h): Display this help menu.\n\n"
             + "To use a command, simply type it followed by any necessary parameters\n"
             + "(e.g. \"deadline Hand in assignments /by 4th June\").\n"
             + "Enjoy chatting with Adam!";
+
+    public static String getDeleteMessage(int newSize, String task) {
+        return "Oops! Task gone with the digital wind!\n  "
+                + task
+                + (newSize == 0 ? "\nOur list is empty now!"
+                        : "\nNow down to " + newSize + " tasks in the list.");
+    }
 
 }
