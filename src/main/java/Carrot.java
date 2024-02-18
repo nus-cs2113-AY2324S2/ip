@@ -51,9 +51,6 @@ public class Carrot {
 
     private static void processUserCommand(CommandType userCommand, String userInput, Scanner scanner) {
         switch (userCommand) {
-        case INVALID:
-            printInvalidCommand();
-            break;
         case HELP:
             printHelpCommand();
             break;
@@ -61,13 +58,12 @@ public class Carrot {
             printListItems();
             break;
         case TODO:
-            addTodoToList(userInput);
-            break;
         case DEADLINE:
-            addDeadlineToList(userInput);
-            break;
         case EVENT:
-            addEventToList(userInput);
+            addTaskToList(userCommand, userInput);
+            break;
+        case DELETE:
+            deleteTaskFromList(userInput);
             break;
         case MARK:
         case UNMARK:
@@ -78,52 +74,50 @@ public class Carrot {
             sayGoodbye();
             System.exit(0);
             return;
+        default:
+        case INVALID:
+            printInvalidCommand();
+            break;
         }
     }
 
-    private static void addTodoToList(String userInput) {
-        String[] todoCommandArguments =
-                CommandManager.getCommandArguments(CommandType.TODO, userInput);
+    private static void addTaskToList(CommandType command, String userInput) {
+        String[] commandArguments =
+                CommandManager.getCommandArguments(command, userInput);
+        Task task;
 
-        String taskDescription =
-                todoCommandArguments[0];
-
-        Todo task = new Todo(taskDescription);
-
-        listOfTasks.add(task);
-        printAddedTask(task);
-    }
-
-    private static void addDeadlineToList(String userInput) {
-        String[] deadlineCommandArguments =
-                CommandManager.getCommandArguments(CommandType.DEADLINE, userInput);
-
-        String taskDescription =
-                deadlineCommandArguments[0];
-        String by =
-                deadlineCommandArguments[1];
-
-        Deadline task = new Deadline(taskDescription, by);
+        switch (command) {
+        case TODO:
+            task = new Todo(commandArguments[0]);
+            break;
+        case DEADLINE:
+            task = new Deadline(commandArguments[0], commandArguments[1]);
+            break;
+        case EVENT:
+            task = new Event(commandArguments[0], commandArguments[1], commandArguments[2]);
+            break;
+        default:
+            return;
+        }
 
         listOfTasks.add(task);
         printAddedTask(task);
     }
 
-    private static void addEventToList(String userInput) {
-        String[] eventCommandArguments =
-                CommandManager.getCommandArguments(CommandType.EVENT, userInput);
+    private static void deleteTaskFromList(String userInput) {
+        String taskIndex =
+                CommandManager.getCommandArguments(CommandType.DELETE, userInput)[0];
+        int taskIndexInt =
+                Integer.parseInt(taskIndex) - 1;
 
-        String taskDescription =
-                eventCommandArguments[0];
-        String from =
-                eventCommandArguments[1];
-        String to =
-                eventCommandArguments[2];
+        try {
+            Task taskToRemove = listOfTasks.get(taskIndexInt);
+            listOfTasks.remove(taskIndexInt);
 
-        Event task = new Event(taskDescription, from, to);
-
-        listOfTasks.add(task);
-        printAddedTask(task);
+            printDeletedTask(taskToRemove);
+        } catch (Exception e) {
+            printInvalidTaskIndexError();
+        }
     }
 
     private static void handleMarkUnmarkTask(CommandType command, String userInput) {
@@ -165,7 +159,9 @@ public class Carrot {
 
     private static void printInvalidTaskIndexError() {
         System.out.println(MESSAGE_DIVIDER);
-        System.out.println("ERROR: Invalid task index, usage \"mark/unmark <taskIndex>\"");
+        System.out.println("ERROR: Invalid task index. " +
+                "Type \"list\" to see available task indices\n" +
+                "Usage: \"delete/mark/unmark <taskIndex>\"");
         System.out.println(MESSAGE_DIVIDER);
     }
 
@@ -184,7 +180,15 @@ public class Carrot {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
-        System.out.printf("Now you have %d tasks in the list.%n", listOfTasks.size());
+        System.out.printf("Now you have %d task(s) in the list.%n", listOfTasks.size());
+        System.out.println(MESSAGE_DIVIDER);
+    }
+
+    private static void printDeletedTask(Task task) {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t" + task);
+        System.out.printf("Now you have %d task(s) in the list.%n", listOfTasks.size());
         System.out.println(MESSAGE_DIVIDER);
     }
 
@@ -195,7 +199,7 @@ public class Carrot {
         if (numberOfTasks == 0) {
             System.out.println("No tasks added");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            System.out.println("Here are the task(s) in your list:");
             for (int i = 1; i <= numberOfTasks; i++) {
                 System.out.println(i + "." + listOfTasks.get(i - 1));
             }
