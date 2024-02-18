@@ -55,6 +55,11 @@ public class Jeff {
                         list.insertTask(new Todo(Parser.extractDescription(userInput)));
                         break;
 
+                    case "remove":
+                        taskIndex = Parser.getFirstInt(userInput);
+                        list.deleteIndex(taskIndex);
+                        break;
+
                     default:
                         throw new JeffException.InvalidKeywordException("");
                 }
