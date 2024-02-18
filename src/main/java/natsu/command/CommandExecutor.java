@@ -3,7 +3,6 @@ package natsu.command;
 import natsu.exception.InvalidCommandException;
 
 import static natsu.util.TaskManager.list;
-import static natsu.util.TaskManager.taskCount;
 import static natsu.util.Printer.printLine;
 import static natsu.util.TaskSaver.saveTasksToFile;
 
@@ -24,7 +23,7 @@ public class CommandExecutor {
             } else if (userInput.startsWith("unmark")) {
                 new UnmarkCommand(userInput);
             } else if (userInput.startsWith("list")) {
-                new ListCommand(list, taskCount);
+                new ListCommand();
             } else {
                 throw new InvalidCommandException("     I'm terribly sorry, but I do not know what that means. Please try again!");
             }

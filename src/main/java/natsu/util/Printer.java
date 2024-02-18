@@ -1,6 +1,7 @@
 package natsu.util;
 
 import natsu.task.Task;
+import static natsu.util.TaskManager.list;
 
 public class Printer {
 
@@ -21,11 +22,11 @@ public class Printer {
         printLine();
     }
 
-    public static void printTaskAdded(String task, int size) {
+    public static void printTaskAdded(String task) {
         printLine();
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + task);
-        System.out.println("     Now you have " + size + " tasks in the list.");
+        System.out.println("     Now you have " + list.size() + " tasks in the list.");
         printLine();
     }
 
@@ -43,11 +44,11 @@ public class Printer {
         printLine();
     }
 
-    public static void printList(Task[] list, int taskCount) {
+    public static void printList() {
         printLine();
         System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("     " + (i + 1) + "." + list[i].toString());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + list.get(i).toString());
         }
         printLine();
     }
