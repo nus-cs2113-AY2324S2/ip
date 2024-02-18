@@ -5,6 +5,9 @@ public class Jeff {
         list.generateList();
         int taskIndex;
         String description;
+        Saver saveInstance = new Saver(list.getTasks());
+        Saver.deserializeTasks();
+        list.setTasks(saveInstance.getSavedList());
 
         System.out.println("Hello! My name is Jeff.");
         System.out.println("What can I do for you?");
@@ -24,22 +27,30 @@ public class Jeff {
 
                     case "bye":
                         isChatting = false;
+                        saveInstance.uploadTasks();
+
                         break;
 
                     case "mark":
                         taskIndex = Parser.getFirstInt(userInput);
                         list.markIndex(taskIndex);
+                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.uploadTasks();
                         break;
 
                     case "unmark":
                         taskIndex = Parser.getFirstInt(userInput);
                         list.unmarkIndex(taskIndex);
+                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.uploadTasks();
                         break;
 
                     case "deadline":
                         description = Parser.extractDescription(userInput);
                         String deadLine = Parser.extractStartTime(userInput);
-                        list.insertTask(new Deadline(description, deadLine));
+                        list.insertTask(new Deadline(description, deadLine, false));
+                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.uploadTasks();
                         break;
 
 
@@ -47,17 +58,23 @@ public class Jeff {
                         description = Parser.extractDescription(userInput);
                         String start = Parser.extractStartTime(userInput);
                         String end = Parser.extractEndTime(userInput);
-                        list.insertTask(new Event(description, start, end));
+                        list.insertTask(new Event(description, start, end, false));
+                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.uploadTasks();
                         break;
 
 
                     case "todo":
-                        list.insertTask(new Todo(Parser.extractDescription(userInput)));
+                        list.insertTask(new Todo(Parser.extractDescription(userInput), false));
+                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.uploadTasks();
                         break;
 
                     case "remove":
                         taskIndex = Parser.getFirstInt(userInput);
                         list.deleteIndex(taskIndex);
+                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.uploadTasks();
                         break;
 
                     default:

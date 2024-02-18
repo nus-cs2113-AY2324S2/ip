@@ -7,10 +7,11 @@ public class Event extends Task{
         return ("[E][" + this.getStatusIcon() + "] " + this.description + " (from: " + startTime + " to: " + endTime +
                 ")");
     }
-    public Event(String description, String start, String ending) {
+    public Event(String description, String start, String ending, boolean isCompleted) {
         super(description);
         this.startTime = start;
         this.endTime = ending;
+        this.isDone = isCompleted;
     }
     public String getStartTime() {
         return this.startTime;

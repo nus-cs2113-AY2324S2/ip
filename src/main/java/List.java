@@ -14,6 +14,14 @@ public class List {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    public ArrayList<Task> getTasks(){
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> aList){
+        this.tasks = aList;
+    }
+
     public void listTasks(){
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i += 1){
@@ -33,10 +41,8 @@ public class List {
 
     public void deleteIndex(int index){
         System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(index).getDescription());
-        tasks.remove(index);
+        System.out.println(tasks.get(index - 1).getDescription());
+        tasks.remove(index - 1);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
-
-
 }
