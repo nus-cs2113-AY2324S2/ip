@@ -86,7 +86,7 @@ public class Joe {
                     int taskNumber = Integer.parseInt(message);
                     taskManager.deleteTask(taskNumber);
                 } catch (NumberFormatException | JoeException e) {
-                    Printer.printDefaultError();
+                    Printer.printDeleteError();
                 }
                 break;
             default:

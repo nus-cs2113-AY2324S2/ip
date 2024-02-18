@@ -10,7 +10,8 @@ public class Printer {
             + "\n\nlist\n\tLIST ALL YOUR TASKS THAT I'VE RECORDED"
             + "\n\ntodo --TASK--\ndeadline --TASK-- /by --TIME--\nevent --TASK-- /from --START TIME-- /to --END TIME--"
             + "\n\tADD A TODO/DEADLINE/EVENT TASK"
-            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\t MARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE\n"
+            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\t MARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE"
+            + "\n\ndelete --TASK NUMBER--\n\t DELETE A TASK (NUMBER IN LIST) FROM THE LIST\n"
             + H_LINE;
     protected static final String EXIT_INPUT_ERROR = H_LINE + "SORRY I DON'T UNDERSTAND :( DID YOU MEAN\n\tbye\n"
             + H_LINE;
@@ -29,6 +30,8 @@ public class Printer {
     protected static final String EVENT_INPUT_ERROR = H_LINE + "INVALID EVENT LOL\nPLEASE USE /from AND /to TO "
             + "INDICATE EVENT DURATION\n\tevent --TASK-- /from --START TIME-- /to --END TIME--\n" + H_LINE;
     protected static final String DELETE_MESSAGE = H_LINE + "COOL BEANS I WILL REMOVE THAT TASK:";
+    protected static final String DELETE_ERROR = H_LINE + "SORRY BUT I CAN'T DELETE WHATEVER YOU'RE REFERRING TO BRO\n"
+            + "\tUSE A VALID INTEGER PLEASE: \"delete --INTEGER--\"\n" + H_LINE;
 
     public static void printHeaderLine() {
         System.out.println(H_LINE);
@@ -94,5 +97,8 @@ public class Printer {
 
     public static void printDeleteMessage() {
         System.out.println(DELETE_MESSAGE);
+    }
+    public static void printDeleteError() {
+        System.out.println(DELETE_ERROR);
     }
 }
