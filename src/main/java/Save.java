@@ -4,10 +4,7 @@ import quill.task.Event;
 import quill.task.Task;
 import quill.task.Todo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,9 +54,13 @@ public class Save {
     }
 
     private static Task getTask(String line) throws QuillException {
-        String taskType = line.substring(1, 2);
-        boolean isDone = Integer.parseInt(line.substring(4, 5)) == 1;
-        String taskDetails = line.substring(9);
+        String[] parts = line.split("\\s*\\|\\s*");
+        if (parts.length < 3) {
+            throw new QuillException();
+        }
+        String taskType = parts[0].trim();
+        boolean isDone = Boolean.parseBoolean(parts[1].trim());
+        String taskDetails = parts[2].trim();
         Task task;
         switch (taskType) {
         case "T":
@@ -85,9 +86,9 @@ public class Save {
 
     public static void writeToFile(ArrayList<Task> tasks) {
         try {
-            FileWriter fw = new FileWriter("data/quill.txt");
+            PrintWriter fw = new PrintWriter("data/quill.txt");
             for (Task task: tasks) {
-                fw.write(task.saveTask());
+                fw.println(task.saveTask());
             }
             fw.close();
         } catch (IOException e) {

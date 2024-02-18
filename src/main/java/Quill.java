@@ -5,6 +5,7 @@ import quill.task.Event;
 import quill.task.Task;
 import quill.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Quill {
     public static final String horizontalLine = "____________________________________________________________";
@@ -14,31 +15,32 @@ public class Quill {
         System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
     }
 
-    public static void performMarkOrUnmark(String line, Task[] tasks, boolean isDone) {
+    public static void performMarkOrUnmark(String line, ArrayList<Task> tasks, boolean isDone) {
         try {
             int taskNumber = Integer.parseInt(line) - 1;
             if (isDone) {
-                tasks[taskNumber].markAsDone();
+                tasks.get(taskNumber).markAsDone();
                 System.out.println(horizontalLine + "\nNice! I've marked this task as done:");
             } else {
-                tasks[taskNumber].markAsNotDone();
+                tasks.get(taskNumber).markAsNotDone();
                 System.out.println(horizontalLine + "\nOK, I've marked this task as not done yet:");
             }
-            System.out.println(tasks[taskNumber].toString() + "\n" + horizontalLine);
+            System.out.println(tasks.get(taskNumber).toString() + "\n" + horizontalLine);
         } catch (NullPointerException e) {
             System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("1 to 100 only. Seriously, no zeros, no hundreds. Got it?");
         } catch (NumberFormatException e) {
             System.out.println("Listen up! Numbers only, got it? Don't bother with anything else");
         }
     }
 
-    public static void main(String[] args) throws QuillException {
+
+    public static void main(String[] args) {
         String name = "Quill";
-        int MAX_TASKS = 100;
         String line;
-        Task[] tasks = new Task[MAX_TASKS];
+        ArrayList<Task> tasks;
+        tasks = Save.readFile();
         Scanner in = new Scanner(System.in);
 
         System.out.println(horizontalLine + "\nHello! I'm " + name + ".");
@@ -59,6 +61,7 @@ public class Quill {
             }
             switch(command) {
             case "bye":
+                Save.writeToFile(tasks);
                 System.out.println(horizontalLine + "\nBye! Hope to see you again soon!\n" + horizontalLine);
                 return;
             case "list":
@@ -67,7 +70,7 @@ public class Quill {
                 } else {
                     System.out.println(horizontalLine + "\nHere are the tasks in your list:");
                     for (int i = 0; i < Task.getTotalTasks(); i++) {
-                        System.out.println(i + 1 + "." + tasks[i].toString());
+                        System.out.println(i + 1 + "." + tasks.get(i).toString());
                     }
                 }
                 System.out.println(horizontalLine);
@@ -82,14 +85,14 @@ public class Quill {
                 if (line.isEmpty()) {
                     System.out.println("No empty descriptions allowed for todos. Fill it in!");
                 } else {
-                    tasks[taskNumber] = new Todo(line);
-                    printAddTask(tasks[taskNumber]);
+                    tasks.add(new Todo(line));
+                    printAddTask(tasks.get(taskNumber));
                 }
                 break;
             case "deadline":
                 try {
-                    tasks[taskNumber] = new Deadline(line);
-                    printAddTask(tasks[taskNumber]);
+                    tasks.add(new Deadline(line));
+                    printAddTask(tasks.get(taskNumber));
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Seriously? You call that a deadline?");
                     System.out.println("It's 'deadline [task] /by [date]'. Get it right!");
@@ -104,8 +107,8 @@ public class Quill {
                 break;
             case "event":
                 try {
-                    tasks[taskNumber] = new Event(line);
-                    printAddTask(tasks[taskNumber]);
+                    tasks.add(new Event(line));
+                    printAddTask(tasks.get(taskNumber));
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Seriously? You call that an event?");
                     System.out.println("It's 'event [task] /from [date] /to [date]'. Get it right!");
