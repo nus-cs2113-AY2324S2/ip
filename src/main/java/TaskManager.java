@@ -1,3 +1,4 @@
+import Exceptions.CorruptedFileException;
 import Exceptions.DeadlineLackInputsException;
 import Exceptions.EventLackInputsException;
 import Exceptions.TodoLackInputsException;
@@ -5,11 +6,14 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private int numItems;
-    ArrayList<Task> taskArrayList = new ArrayList<>();
+    public static final String DATA_TXT_FILE_PATH = "./src/main/data.txt";
+    private static int numItems;
+    public static ArrayList<Task> taskArrayList = new ArrayList<>();
 
     public final String TODO_REQUIRED_INPUTS = "'todo <task>'";
     public final String DEADLINE_REQUIRED_INPUTS = "'Deadline <task> /by <due date>'";
@@ -17,40 +21,20 @@ public class TaskManager {
     
 
     public TaskManager() {
-        this.numItems = 0;
+        numItems = 0;
     }
-    Parser myParser = new Parser();
+
     public void addListContents(String userInput) {
         try {
-            String[] taskInformation = myParser.processTaskInformation(userInput);
-            switch (taskInformation[0]) {
-            case ("todo"):
-                taskArrayList.add(new Todo(taskInformation[1], false));
-                break;
-
-            case ("deadline"):
-                taskArrayList.add(new Deadline(taskInformation[1], false, taskInformation[2]));
-                break;
-
-            case ("event"):
-                taskArrayList.add(new Event(taskInformation[1], false, taskInformation[2],
-                        taskInformation[3]));
-                break;
-
-            case ("error"):
-                //should not hit this line
-                System.out.println("Please give a proper input for todo/deadline/event");
-                break;
-
-            default:
-                break;
-            }
+            String[] taskInformation = Parser.processTaskInformation(userInput);
+            addByTaskToTaskArray(taskInformation, false);
             System.out.println("Got it. I've added this task:");
             System.out.println(taskArrayList.get(numItems));
-            this.numItems += 1;
+            numItems += 1;
             String taskPluralString = numItems > 1 ? " tasks" : " task";
             System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
-
+            String dataToAppend = formatDataToAppend(taskInformation);
+            FileProcessor.appendToFile(DATA_TXT_FILE_PATH, dataToAppend);
         }
         catch (TodoLackInputsException e) {
             lackInputsErrorMessage(userInput, "todo", TODO_REQUIRED_INPUTS);
@@ -69,7 +53,56 @@ public class TaskManager {
                 lackInputsErrorMessage(userInput, "event", EVENT_REQUIRED_INPUTS);
             }
         }
+        catch (IOException e) {
+            System.out.println("failed to append data to txt file");
+        }
 
+    }
+
+    public static String formatDataToAppend(String[] taskInformation) {
+        String output;
+        switch (taskInformation[0]) {
+        case ("todo"):
+            output = "T,0," + taskInformation[1];
+            break;
+
+        case ("deadline"):
+            output = "D,0," + taskInformation[1] + "," + taskInformation[2];
+            break;
+
+        case ("event"):
+            output = "E,0," + taskInformation[1] + "," + taskInformation[2] + "," + taskInformation[3];
+            break;
+
+        default:
+            output = "error";
+        }
+        return output;
+    }
+
+    private static void addByTaskToTaskArray(String[] taskInformation, boolean isDone) {
+        switch (taskInformation[0]) {
+        case ("todo"):
+            taskArrayList.add(new Todo(taskInformation[1], isDone));
+            break;
+
+        case ("deadline"):
+            taskArrayList.add(new Deadline(taskInformation[1], isDone, taskInformation[2]));
+            break;
+
+        case ("event"):
+            taskArrayList.add(new Event(taskInformation[1], isDone, taskInformation[2],
+                    taskInformation[3]));
+            break;
+
+        case ("error"):
+            //should not hit this line
+            System.out.println("Please give a proper input for todo/deadline/event");
+            break;
+
+        default:
+            break;
+        }
     }
 
     private static void lackInputsErrorMessage(String userInput, String errorType, String requiredInputs) {
@@ -78,7 +111,7 @@ public class TaskManager {
     }
 
     public void showListContents() {
-        if (this.numItems == 0) {
+        if (numItems == 0) {
             System.out.println("List is empty. Please enter something first.");
         }
         else {
@@ -104,7 +137,7 @@ public class TaskManager {
             return;
         }
 
-        int id = myParser.processTaskIdforMarkingAndDeletingTask(userInput);
+        int id = Parser.processTaskIdforMarkingAndDeletingTask(userInput);
 
         if (userInput.contains("unmark")) {
             taskArrayList.get(id).setDone(false);
@@ -152,12 +185,38 @@ public class TaskManager {
         if (!isValidTaskId(userInput, "deleteTask")) {
             return;
         }
-        int id = myParser.processTaskIdforMarkingAndDeletingTask(userInput);
+        int id = Parser.processTaskIdforMarkingAndDeletingTask(userInput);
         System.out.println("Noted. I've removed this task:");
         System.out.println(taskArrayList.get(id));
-        this.numItems -= 1;
+        numItems -= 1;
         String taskPluralString = numItems > 1 ? " tasks" : " task";
         System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
+        FileProcessor.removeLineData(DATA_TXT_FILE_PATH, id + 1);
         taskArrayList.remove(id);
     }
+
+    public static void loadTasks(ArrayList<String> dataArrayList) {
+        for (String line: dataArrayList) {
+            try {
+                String[] output = Parser.processTaskLoadingData(line);
+                boolean isDone = output[1].equals("1");
+                String[] filteredOutput = new String[4];
+                filteredOutput[0] = output[0];
+                System.arraycopy(output, 2, filteredOutput, 1, 3);
+                addByTaskToTaskArray(filteredOutput, isDone);
+                numItems += 1;
+            }
+            catch (CorruptedFileException e) {
+                System.out.println("File is corrupted");
+                try {
+                    FileProcessor.writeToFile(DATA_TXT_FILE_PATH, "");
+                    System.out.println("Successfully restarted file");
+                }
+                catch (IOException inputOutputException) {
+                    System.out.println("Failed to restart file");
+                }
+            }
+        }
+    }
+
 }
