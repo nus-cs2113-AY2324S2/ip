@@ -1,7 +1,13 @@
 package gandalf;
 
-import action.*;
-import exception.*;
+import action.Deadline;
+import action.Event;
+import action.Task;
+import action.ToDo;
+
+import exception.InvalidKeywordException;
+import exception.InvalidTaskIndexException;
+import exception.MissingDescriptionException;
 
 public class TaskManager {
     // Constants
@@ -12,8 +18,7 @@ public class TaskManager {
         try {
             if (hasSaidMarkOrUnmark(userInput)) {
                 handleTasksMarkings(userInput, listTasks);
-            }
-            else {
+            } else {
                 insertUserTasks(userInput, listTasks);
                 insertIndex += 1;
             }
@@ -22,7 +27,7 @@ public class TaskManager {
         } catch (ArrayIndexOutOfBoundsException e) {
             printListIsFullMessage();
         } catch (MissingDescriptionException e) {
-            printMissingDescritpionMessage();
+            printMissingDescriptionMessage();
         } catch (InvalidTaskIndexException e) {
             printInvalidTaskIndexMessage();
         }
@@ -155,11 +160,11 @@ public class TaskManager {
         System.out.println(LINE);
         System.out.println("Invalid keyword, the available keywords are:"
                 + "\n(todo), (deadline), (event)"
-                + "\nPlease type again.");
+                + "\nPlease try again.");
         System.out.println(LINE);
     }
 
-    private static void printMissingDescritpionMessage() {
+    private static void printMissingDescriptionMessage() {
         System.out.println(LINE);
         System.out.println("Please fill in the description of the task.");
         System.out.println(LINE);
