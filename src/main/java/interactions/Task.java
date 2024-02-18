@@ -2,8 +2,8 @@ package interactions;
 import java.util.Scanner;
 import interactions.Chatbot;
 public class Task {
-    protected String task;
-    protected boolean isMarked;
+    private String task;
+    private boolean isMarked;
 
     public boolean HaveToDo() {
         return haveToDo;
@@ -33,7 +33,6 @@ public class Task {
         this.isMarked = false;
     }
     public void print() {
-        System.out.print("[" + (isMarked() ? "T" : " ") + "] ");
         System.out.print("[" + (isMarked() ? "X" : " ") + "] ");
         System.out.println(getTask());
     }
