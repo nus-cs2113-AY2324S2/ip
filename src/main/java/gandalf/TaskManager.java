@@ -6,6 +6,7 @@ import action.Task;
 import action.ToDo;
 
 import exception.InvalidKeywordException;
+import exception.InvalidTaskDeletionException;
 import exception.InvalidTaskIndexException;
 import exception.MissingDescriptionException;
 
@@ -20,7 +21,10 @@ public class TaskManager {
         try {
             if (hasSaidMarkOrUnmark(userInput)) {
                 handleTasksMarkings(userInput, listTasks);
-            } else {
+            } else if (hasSaidDelete(userInput)) {
+                deleteUserTasks(userInput, listTasks);
+            }
+            else {
                 insertUserTasks(userInput, listTasks);
                 insertIndex += 1;
             }
@@ -32,7 +36,30 @@ public class TaskManager {
             printMissingDescriptionMessage();
         } catch (InvalidTaskIndexException e) {
             printInvalidTaskIndexMessage();
+        } catch (InvalidTaskDeletionException e) {
+            printInvalidTaskDeletionMessage();
         }
+    }
+
+    private static void deleteUserTasks(String userInput, ArrayList<Task> listTasks)
+            throws InvalidTaskDeletionException {
+        if (listTasks.isEmpty() || userInput.trim().length() == 6) {
+            throw new InvalidTaskDeletionException();
+        }
+        
+        int indexToDelete = Integer.parseInt(userInput.substring(6).trim());
+
+        if (indexToDelete > listTasks.size()) {
+            throw new InvalidTaskDeletionException();
+        }
+
+        System.out.println(LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + listTasks.get(indexToDelete - 1));
+        listTasks.remove(indexToDelete - 1);
+        insertIndex -= 1;
+        System.out.println("Now you have " + insertIndex + " tasks in the list.");
+        System.out.println(LINE);
     }
 
     public static void insertUserTasks (String userInput, ArrayList<Task> listTasks)
@@ -116,8 +143,7 @@ public class TaskManager {
                 listTasks.get(indexToMark - 1).markAsDone();
                 System.out.println(LINE);
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(listTasks.get(indexToMark - 1).getStatusIcon()
-                        + " " + listTasks.get(indexToMark - 1).getDescription());
+                System.out.println("  " + listTasks.get(indexToMark - 1));
                 System.out.println(LINE);
             } else {
                 throw new InvalidTaskIndexException();
@@ -128,8 +154,7 @@ public class TaskManager {
                 listTasks.get(indexToUnmark - 1).unmarkAsDone();
                 System.out.println(LINE);
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(listTasks.get(indexToUnmark - 1).getStatusIcon()
-                        + " " + listTasks.get(indexToUnmark - 1).getDescription());
+                System.out.println("  " + listTasks.get(indexToUnmark - 1));
                 System.out.println(LINE);
             } else {
                 throw new InvalidTaskIndexException();
@@ -142,14 +167,18 @@ public class TaskManager {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < listTasks.size(); i++) {
             if (listTasks.get(i) != null) {
-                System.out.println((i + 1) + ". " + listTasks.get(i).toString());
+                System.out.println((i + 1) + ". " + listTasks.get(i));
             }
         }
         System.out.println(LINE);
     }
 
     private static boolean hasSaidMarkOrUnmark(String userInput) {
-        return (userInput.startsWith("mark ") || userInput.startsWith("unmark "));
+        return (userInput.startsWith("mark ")  || userInput.startsWith("unmark "));
+    }
+
+    private static boolean hasSaidDelete(String userInput) {
+        return userInput.startsWith("delete");
     }
 
     private static void printListIsFullMessage() {
@@ -175,6 +204,12 @@ public class TaskManager {
     private static void printInvalidTaskIndexMessage() {
         System.out.println(LINE);
         System.out.println("Invalid task index. Please try again.");
+        System.out.println(LINE);
+    }
+
+    private static void printInvalidTaskDeletionMessage() {
+        System.out.println(LINE);
+        System.out.println("Deletion unsuccessful, please try again.");
         System.out.println(LINE);
     }
 }
