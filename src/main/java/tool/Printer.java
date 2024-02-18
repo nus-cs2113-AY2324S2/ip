@@ -1,6 +1,6 @@
 package tool;
 
-import nyanbot.task.Task;
+import task.Task;
 import java.util.ArrayList;
 
 public class Printer {
