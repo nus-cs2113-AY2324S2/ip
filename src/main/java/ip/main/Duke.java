@@ -29,13 +29,13 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String line;
         while (true) {
-            line = in.nextLine();
-            if (line.trim().equals("bye")) {
+            line = in.nextLine().trim();
+            if (line.equals("bye")) {
                 System.out.println("     Bye. Hope to see you again soon!");
                 break;
             }
 
-            if (line.trim().equals("list")) {
+            if (line.equals("list")) {
                 printTaskList();
                 continue;
             }
@@ -50,11 +50,16 @@ public class Duke {
                     unmarkTask(line);
                     continue;
                 }
+
+                if (line.startsWith("delete")) {
+                    deleteTask(line);
+                    continue;
+                }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("     Please provide a number from 1 to " + tasks.size());
                 continue;
             } catch (NumberFormatException e) {
-                System.out.println("     Please input the command in the form 'mark/unmark <integer>'");
+                System.out.println("     Please input an integer");
                 continue;
             }
 
@@ -90,6 +95,13 @@ public class Duke {
         }
 
         System.out.println("     New task added: " + tasks.get(tasks.size() - 1).getDetails());
+        System.out.println("     Current number of tasks: " + tasks.size());
+    }
+
+    private static void deleteTask(String line) {
+        int indexDeleted = Integer.parseInt((line.substring(7))) - 1;
+        System.out.println("     Task removed: " + tasks.get(indexDeleted).getDetails());
+        tasks.remove(indexDeleted);
         System.out.println("     Current number of tasks: " + tasks.size());
     }
 
