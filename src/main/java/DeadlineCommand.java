@@ -1,21 +1,16 @@
 public class DeadlineCommand implements Command {
-    public static final int DEADLINE_START_INDEX = 9; //to get deadline name
-
-    private String taskName;
-    private String by;
+    private final String TASK_NAME;
+    private final String BY;
     public DeadlineCommand (String taskName, String by) {
-        this.taskName = taskName;
-        this.by = by;
+        this.TASK_NAME = taskName;
+        this.BY = by;
     }
 
     @Override
     public void execute (String task, TaskList taskList) {
-        Deadline newDeadline = new Deadline(taskName, by);
+        Deadline newDeadline = new Deadline(TASK_NAME, BY);
         taskList.addToList(newDeadline);
         Ui.printDeadlineTask(newDeadline.toString());
         Ui.printTaskCount(taskList.getTaskCount());
-        //taskList[Task.getTaskCount() - 1] = newDeadline;
-        //Ui.printDeadlineTask(newDeadline.toString());
-        //Ui.printTaskCount(Task.getTaskCount());
     }
 }

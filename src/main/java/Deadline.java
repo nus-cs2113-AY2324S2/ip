@@ -1,14 +1,14 @@
 public class Deadline extends Task {
     public static final String DEADLINE_STATUS = "[D]";
-    private String by;
+    private final String BY;
 
     public Deadline (String description, String by) {
         super(description);
-        this.by = by;
+        this.BY = by;
     }
 
     @Override
     public String toString() {
-        return DEADLINE_STATUS + super.toString() + " " + "(by: " + by + ")"; //superclass is task
+        return DEADLINE_STATUS + super.toString() + " " + "(by: " + BY + ")"; //superclass is task
     }
 }

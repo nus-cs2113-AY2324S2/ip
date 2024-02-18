@@ -1,20 +1,15 @@
 public class TodoCommand implements Command {
-    //public static final int TODO_START_INDEX = 5;
-    private final String taskName;
+    private final String TASK_NAME;
 
     public TodoCommand(String task) {
-        this.taskName = task;
+        this.TASK_NAME = task;
     }
 
     @Override
     public void execute (String taskDescription, TaskList taskList) {
-        //String todoName = task.substring(TODO_START_INDEX);
-        ToDo newToDo = new ToDo(taskName);
+        ToDo newToDo = new ToDo(TASK_NAME);
         taskList.addToList(newToDo);
         Ui.printTodoTask(newToDo.toString());
         Ui.printTaskCount(taskList.getTaskCount());
-        //taskList[Task.getTaskCount() - 1] = newToDo; //creating new class(to do) in the array
-        //Ui.printTodoTask(newToDo.toString());
-        //Ui.printTaskCount(Task.getTaskCount());
     }
 }

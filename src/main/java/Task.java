@@ -1,26 +1,22 @@
 
-public class Task { //each task represent one instance of this class
-    private String description;
+public class Task {
+    private final String DESSCRIPTION;
     private boolean isDone;
     protected static int taskCount = 0;
 
     public Task (String description) {
-        this.description = description;
+        this.DESSCRIPTION = description;
         this.isDone = false;
-        taskCount++; //increment everytime constructor is called
+        taskCount++;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void markAsDone() { //need to choose which task to mark as done
+    public void markAsDone() {
         isDone = true;
     }
 
     public void markAsNotDone() { isDone = false; }
 
-    public String getStatusIcon() { //if it is done mark as [X]
+    public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
@@ -28,7 +24,7 @@ public class Task { //each task represent one instance of this class
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description; //will be over ride by subclass
+        return getStatusIcon() + " " + DESSCRIPTION; //will be over ride by subclass
     }
 }
 
