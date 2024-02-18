@@ -1,5 +1,11 @@
+import helperFunctions.InvalidParamsException;
+import helperFunctions.PrintHelper;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
 public class RecrBad {
@@ -95,7 +101,7 @@ public class RecrBad {
         int count = 1;
         for (Task task : tasks) {
             System.out.println(count + ".[" + task.getType() + "]["
-                    + task.getStatus() + "] " + task.description);
+                    + task.getStatus() + "] " + task.getDescription());
             count += 1;
         }
     }
@@ -109,7 +115,7 @@ public class RecrBad {
     private static void displayListItem(Task[] tasks, int index) {
         System.out.println("[" + tasks[index].getType() + "]["
                 + tasks[index].getStatus() + "] "
-                + tasks[index].description);
+                + tasks[index].getDescription());
     }
 
     /**
