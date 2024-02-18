@@ -1,9 +1,14 @@
+package main;
+
+import exceptions.AragornException;
+import commands.inputParser;
+import tasks.*;
 import java.util.Scanner;
 
 public class Aragorn {
 
     private static final String LINE =  "    __________________________________________________________\n";
-    private static final String GREET = "    Hello! I am Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
+    private static final String GREET = "    Hello! I am main.Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
             "    the heir of Isildur Elendil's son of Gondor.\n" +
             "    What can I do for you?\n";
     private static final String EXIT = "    Bye. Hope to see you again soon!\n";
@@ -39,13 +44,14 @@ public class Aragorn {
             String userInput = in.nextLine();
             String commandType = inputParser.commandIdentifier(userInput);
             try {
-                inputParser input = new inputParser(userInput, commandType);
+                inputParser input = new inputParser(userInput.trim(), commandType);
 
 
                 switch (commandType) {
                     case "LIST":
                         if (listLength == 0) {
-                            System.out.println("    List is empty. Add tasks to view them here.");
+                            System.out.println(LINE + "    List is empty. Add tasks to view them here.\n" + LINE);
+                            break;
                         }
                         System.out.println(LINE);
                         System.out.println("    Here are the tasks in your list: ");
@@ -58,7 +64,7 @@ public class Aragorn {
 
                     case "UNMARK":
                         try {
-                            index = Integer.parseInt(input.splitInput[0]);
+                            index = Integer.parseInt(input.getSplitInput()[0]);
                             icon = list[index].getStatusIcon();
                             if (icon.equals(" ")) {
                                 System.out.println(LINE + "    This task has already been unmarked.\n" + LINE);
@@ -66,19 +72,19 @@ public class Aragorn {
                             }
                             list[index].markAsUndone();
                             remainingTasks += 1;
-                            System.out.println(LINE + TAB + "OK, I've marked this task as not done yet:\n" + TAB +
+                            System.out.println(LINE + TAB + "OK, I've marked this task as incomplete:\n" + TAB +
                                     "   " + list[index].taskString() + "\n");
                             printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
-                            System.out.println("Task index is not in the list");
+                            System.out.println(LINE + "    Task index is not in the list\n" + LINE);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Invalid Task");
+                            System.out.println(LINE + "    Invalid tasks.Task\n" + LINE);
                         }
                         break;
 
                     case "MARK":
                         try {
-                            index = Integer.parseInt(input.splitInput[0]);
+                            index = Integer.parseInt(input.getSplitInput()[0]);
                             icon = list[index].getStatusIcon();
                             if (icon.equals("X")) {
                                 System.out.println(LINE + "    This task has already been marked.\n" + LINE);
@@ -90,17 +96,17 @@ public class Aragorn {
                                     "   " + list[index].taskString() + "\n");
                             printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
-                            System.out.println("Task index is not in the list");
+                            System.out.println(LINE + "    Task index is not in the list\n" + LINE);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Invalid Task");
+                            System.out.println(LINE + "    Invalid tasks.Task\n" + LINE);
                         }
                         break;
 
                     case "TODO":
-                        if (input.splitInput[0].trim().isEmpty()) {
+                        if (input.getSplitInput()[0].trim().isEmpty()) {
                             break;
                         }
-                        list[listLength] = new ToDo(input.splitInput[0]);
+                        list[listLength] = new ToDo(input.getSplitInput()[0]);
                         printAddTask(list[listLength]);
                         listLength += 1;
                         remainingTasks += 1;
@@ -109,10 +115,10 @@ public class Aragorn {
 
                     case "DEADLINE":
                         try {
-                            if (input.splitInput[0].isEmpty() || input.splitInput[1].isEmpty()) {
+                            if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty()) {
                                 break;
                             }
-                            list[listLength] = new Deadline(input.splitInput[0], input.splitInput[1]);
+                            list[listLength] = new Deadline(input.getSplitInput()[0], input.getSplitInput()[1]);
                             printAddTask(list[listLength]);
                             listLength += 1;
                             remainingTasks += 1;
@@ -123,11 +129,18 @@ public class Aragorn {
                         break;
 
                     case "EVENT":
-                        list[listLength] = new Event(input.splitInput[0].trim(), input.splitInput[1].trim(), input.splitInput[2].trim());
-                        printAddTask(list[listLength]);
-                        listLength += 1;
-                        remainingTasks += 1;
-                        printRemainingTasks(remainingTasks);
+                        try {
+                            if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty() || input.getSplitInput()[2].isEmpty()) {
+                                break;
+                            }
+                            list[listLength] = new Event(input.getSplitInput()[0], input.getSplitInput()[1], input.getSplitInput()[2]);
+                            printAddTask(list[listLength]);
+                            listLength += 1;
+                            remainingTasks += 1;
+                            printRemainingTasks(remainingTasks);
+                        } catch (NullPointerException e) {
+                            break;
+                        }
                         break;
 
                     case "HELP":
@@ -135,7 +148,11 @@ public class Aragorn {
                         break;
 
                     case "INVALID":
-                        System.out.println(LINE + "    Your input is invalid. Use the \"/help\" command to view the list of commands.\n" + LINE);
+                        if (userInput.trim().isEmpty()) {
+                            System.out.println(LINE + "    Input is empty. Use \"/help\" command to view the list of commands\n" + LINE);
+                        } else {
+                            System.out.println(LINE + "    Your input is invalid. Use the \"/help\" command to view the list of commands.\n" + LINE);
+                        }
                         break;
 
                     case "BYE":
@@ -143,7 +160,7 @@ public class Aragorn {
                         return;
                 }
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                System.out.println("Invalid task index format");
+                System.out.println(LINE + "    Invalid task index format\n" + LINE);
             }
         }
     }

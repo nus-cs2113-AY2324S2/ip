@@ -1,10 +1,14 @@
+package commands;
+
+import exceptions.AragornException;
+
 public class inputParser {
-    protected String[] splitInput = new String[3];
+    private String[] splitInput = new String[3];
 
     public inputParser(String userInput, String commandType) throws AragornException {
         String[] splitDeadline;
         String[] splitEvent;
-
+        String LINE =  "    __________________________________________________________\n";
         switch (commandType) {
             case "MARK":
                 this.splitInput[0] = String.valueOf(Integer.parseInt(userInput.substring(5).trim()) - 1);
@@ -22,7 +26,7 @@ public class inputParser {
                 try {
                     this.splitInput[0] = userInput.substring(4);
                     if (this.splitInput[0].trim().isEmpty()){
-                        throw new AragornException("Task description is empty!");
+                        throw new AragornException(LINE + "    Task description is empty!\n" + LINE);
                     }
                     this.splitInput[1] = null;
                     this.splitInput[2] = null;
@@ -36,11 +40,11 @@ public class inputParser {
                     splitDeadline = userInput.split("/by", 2);
                     this.splitInput[0] = splitDeadline[0].substring(8).trim();
                     if (this.splitInput[0].trim().isEmpty()) {
-                        throw new AragornException("Task description is empty!");
+                        throw new AragornException(LINE + "    Task description is empty!\n" + LINE);
                     }
                     this.splitInput[1] = splitDeadline[1].trim();
                     if (this.splitInput[1].trim().isEmpty()) {
-                        throw new AragornException("Deadline condition is empty!");
+                        throw new AragornException(LINE + "    Deadline condition is empty!\n" + LINE);
                     }
                     this.splitInput[2] = null;
                 } catch (AragornException e) {
@@ -48,38 +52,60 @@ public class inputParser {
                 } catch (NullPointerException e) {
                     break;
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Invalid format!");
+                    System.out.println(LINE + "    Invalid format!\n" + LINE);
                 }
                 break;
 
             case "EVENT":
-                splitDeadline = userInput.split(" /from ", 2);
-                splitEvent = splitDeadline[1].split(" /to ", 2);
-                this.splitInput[0] = splitDeadline[0].substring(6);
-                this.splitInput[1] = splitEvent[0];
-                this.splitInput[2] = splitEvent[1];
+                try {
+                    splitDeadline = userInput.split("/from", 2);
+
+                    this.splitInput[0] = splitDeadline[0].substring(5).trim();
+                    if (this.splitInput[0].trim().isEmpty()) {
+                        throw new AragornException(LINE + "    Task description is empty!\n" + LINE);
+                    }
+                    splitEvent = splitDeadline[1].split("/to", 2);
+                    this.splitInput[1] = splitEvent[0].trim();
+                    if (this.splitInput[1].trim().isEmpty()) {
+                        throw new AragornException(LINE + "    Start condition is empty!\n" + LINE);
+                    }
+                    this.splitInput[2] = splitEvent[1].trim();
+                    if (this.splitInput[2].trim().isEmpty()) {
+                        throw new AragornException(LINE + "    End condition is empty!\n" + LINE);
+                    }
+                } catch (AragornException e) {
+                    System.out.println(e.getMessage());
+                }  catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(LINE + "    Invalid format!\n" + LINE);
+                } catch (NullPointerException e) {
+                    break;
+                }
                 break;
         }
+    }
+
+    public String[] getSplitInput() {
+        return splitInput;
     }
 
     public static String commandIdentifier(String userInput) {
         String commandType;
 
-        if (userInput.equals("bye")) {
+        if (userInput.trim().equals("bye")) {
             commandType = "BYE";
-        } else if (userInput.equals("list")) {
+        } else if (userInput.trim().equals("list")) {
             commandType = "LIST";
-        } else if (userInput.startsWith("unmark")) {
+        } else if (userInput.trim().startsWith("unmark")) {
             commandType = "UNMARK";
-        } else if (userInput.startsWith("mark")) {
+        } else if (userInput.trim().startsWith("mark")) {
             commandType = "MARK";
-        } else if (userInput.startsWith("todo")) {
+        } else if (userInput.trim().startsWith("todo")) {
             commandType = "TODO";
-        } else if (userInput.startsWith("deadline")) {
+        } else if (userInput.trim().startsWith("deadline")) {
             commandType = "DEADLINE";
-        } else if (userInput.startsWith("event ")) {
+        } else if (userInput.trim().startsWith("event")) {
             commandType = "EVENT";
-        } else if (userInput.equals("/help")) {
+        } else if (userInput.trim().equals("/help")) {
             commandType = "HELP";
         } else {
             commandType = "INVALID";
