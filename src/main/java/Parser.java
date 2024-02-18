@@ -7,6 +7,8 @@ public class Parser {
         if (task.length() <= TODO_START_INDEX) {
             throw new GabException("Incomplete input! Correct usage: todo [Task name]");
         }
+        //String todoName = task.substring(TODO_START_INDEX);
+        //int taskLength = task.split(" ").length;
         String[] taskArray = task.split(" ", 2);
         if (taskArray.length < 2) {
             throw new GabException("Todo task is empty! Correct usage: todo [task name]");
@@ -105,6 +107,7 @@ public class Parser {
         return new UnmarkCommand(taskIndexString);
     }
 
+
     public static Command DeleteTask (String taskDescription, TaskList taskList) throws GabException {
         String[] task = taskDescription.split(" ");
 
@@ -127,7 +130,6 @@ public class Parser {
     }
 
 }
-
 
 
 

@@ -27,7 +27,7 @@ public class Ui {
 
     public static void listTask(TaskList taskList) { //using the array to list the tasks
         System.out.println("All your tasks are here");
-        for (int i = 0; i < Task.getTaskCount(); i++) {
+        for (int i = 0; i < taskList.getTaskCount(); i++) {
             System.out.println((i + 1) + "." + taskList.taskList.get(i).toString());
         }
     }

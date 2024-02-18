@@ -1,11 +1,24 @@
+import java.io.IOException;
+
 public class Gab {
-    //public static final int TASK_LIST_LENGTH = 100;
-    //public static Task[] taskList = new Task[TASK_LIST_LENGTH]; //array of Task instances
     public TaskList taskList; //taskList arraylist
     public static boolean isExit;
+    public Storage storage;
+
     public Gab() {
         isExit = false;
         taskList = new TaskList();
+
+        String filePath = "src/main/java/gab.txt";
+        storage = new Storage(filePath);
+
+        try {
+            taskList = storage.loadTaskList();
+        } catch (GabException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {
@@ -17,6 +30,7 @@ public class Gab {
                 String task = Ui.getTask();
                 Command command = CommandHandler.checkCommand(task, gab.taskList);
                 command.execute(task, gab.taskList);
+                gab.storage.saveTask(gab.taskList);
             } catch (GabException e) {
                 System.out.println(e.getMessage());
             }
