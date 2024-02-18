@@ -14,4 +14,8 @@ public class Task {
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
+    public void printTask(int numberOfListitems) {
+        return;
+    }
+
 }
