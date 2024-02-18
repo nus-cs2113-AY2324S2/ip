@@ -26,5 +26,4 @@ public class FileManager {
             throw new AdamException(Message.FILE_LOAD_ERROR_MESSAGE);
         }
     }
-
 }

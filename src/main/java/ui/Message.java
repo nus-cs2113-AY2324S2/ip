@@ -56,7 +56,7 @@ public class Message {
 
     public static final String LIST_MESSAGE_END = "\nThese tasks await your valiant efforts, noble taskmaster!";
 
-    public static final String EMPTY_LIST_ERROR_MESSAGE = "Looks like our task list is empty.\n"
+    public static final String EMPTY_LIST_ERROR_MESSAGE = "Oops! Looks like our task list is empty.\n"
             + "Time to fill it up with some action-packed tasks!";
 
     private static final String RANGE_ERROR_MESSAGE = "Oops! The specified index is out of range.\n"
@@ -71,11 +71,11 @@ public class Message {
 
     public static final String HELP_MESSAGE = "Need a hand? Here's your guide to Adam's commands!\n\n"
             + "Available commands:\n"
-            + "- bye (or exit, ex): Exit the chatbot.\n"
-            + "- list: View all tasks in the task list.\n"
+            + "- bye (or ex, q): Exit the chatbot.\n"
             + "- todo [description]: Add a new todo task.\n"
             + "- deadline [description] /by [deadline]: Add a new task with a deadline.\n"
             + "- event [description] /from [start time] /to [end time]: Add a new event task.\n"
+            + "- list (or ls): View all tasks in the task list.\n"
             + "- mark [task number]: Mark a task as completed.\n"
             + "- unmark [task number]: Mark a completed task as incomplete.\n"
             + "- delete [task number]: Delete a task from the list. (Watch out, it's permanent!)\n"
@@ -85,12 +85,14 @@ public class Message {
             + "Enjoy chatting with Adam!";
 
     public static String getDeleteMessage(int newSize, String task) {
-        return "Oops! Task gone with the digital wind!\n  "
-                + task
-                + (newSize == 0 ? "\nOur list is empty now!"
+        return "Task gone with the digital wind!\n  "
+                + task + (newSize == 0 ? "\nOur list is empty now!"
                         : "\nNow down to " + newSize + " tasks in the list.");
     }
 
-    public static String FILE_SAVE_ERROR_MESSAGE = "File fail to save\n";
-    public static String FILE_LOAD_ERROR_MESSAGE = "File fail to load\n";
+    public static final String FILE_SAVE_ERROR_MESSAGE = "\nOops! Looks like your tasks will vanish after this session!"
+            + "\nRestart the app and let's see if they're back to their normal selves!";
+
+    public static final String FILE_LOAD_ERROR_MESSAGE = DELIMITER + "Oops! List data lost in the digital Bermuda Triangle!"
+            + "\nStarting fresh with an empty list...\n" + DELIMITER;
 }

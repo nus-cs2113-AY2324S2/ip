@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 import exception.AdamException;
 
 public enum Parser {
-    EXIT("bye|exit|ex"),
-    LIST("list"),
+    EXIT("bye|ex|q"),
+    LIST("list|ls"),
     TOGGLE("(mark|unmark)\\s*(\\d+)\\s*"), // accept any number of space using \s*
     TODO("todo\\s*(.+)"), //
     DEADLINE("deadline\\s*(.+)/by\\s*(.+)"), //
