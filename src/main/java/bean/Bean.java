@@ -109,108 +109,27 @@ public class Bean {
             break;
         }
         case "mark": {
-            try {
-                int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
-                Task markedTask = listOfTasks.markTask(taskIndex, true);
-                printTaskDone(markedTask);
-            } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                printInvalidTaskNo();
-            } catch (NoValueException e) {
-                printNoValueForFields();
-            }
+            processMarkCommand(listOfTasks, userLine);
             break;
         }
         case "unmark": {
-            try {
-                int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
-                Task unmarkedTask = listOfTasks.markTask(taskIndex, false);
-                printTaskUndone(unmarkedTask);
-            } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                printInvalidTaskNo();
-            } catch (NoValueException e) {
-                printNoValueForFields();
-            }
+            processUnmarkCommand(listOfTasks, userLine);
             break;
         }
         case "todo": {
-            boolean taskIsDone;
-            try {
-                taskIsDone = userLine.getValue("isDone").equals("true");
-            } catch (NoValueException e) {
-                taskIsDone = false;
-            }
-
-            try {
-                String description = userLine.getArgument();
-                Task newTask = listOfTasks.addTask(description);
-                listOfTasks.markTask(listOfTasks.getNumTasks() - 1, taskIsDone);
-                if (!isForLoading) {
-                    printTaskAdded(newTask, listOfTasks.getNumTasks());
-                }
-            } catch (NoValueException e) {
-                if (!isForLoading) {
-                    printNoValueForFields();
-                }
-            }
+            processTodoCommand(listOfTasks, isForLoading, userLine);
             break;
         }
         case "deadline": {
-            boolean taskIsDone;
-            try {
-                taskIsDone = userLine.getValue("isDone").equals("true");
-            } catch (NoValueException e) {
-                taskIsDone = false;
-            }
-
-            try {
-                String description = userLine.getArgument();
-                String by = userLine.getValue("by");
-                Task newTask = listOfTasks.addTask(description, by);
-                listOfTasks.markTask(listOfTasks.getNumTasks() - 1, taskIsDone);
-                if (!isForLoading) {
-                    printTaskAdded(newTask, listOfTasks.getNumTasks());
-                }
-            } catch (NoValueException e) {
-                if (!isForLoading) {
-                    printNoValueForFields();
-                }
-            }
+            processDeadlineCommand(listOfTasks, isForLoading, userLine);
             break;
         }
         case "event": {
-            boolean taskIsDone;
-            try {
-                taskIsDone = userLine.getValue("isDone").equals("true");
-            } catch (NoValueException e) {
-                taskIsDone = false;
-            }
-
-            try {
-                String description = userLine.getArgument();
-                String start = userLine.getValue("start");
-                String end = userLine.getValue("end");
-                Task newTask = listOfTasks.addTask(description, start, end);
-                listOfTasks.markTask(listOfTasks.getNumTasks() - 1, taskIsDone);
-                if (!isForLoading) {
-                    printTaskAdded(newTask, listOfTasks.getNumTasks());
-                }
-            } catch (NoValueException e) {
-                if (!isForLoading) {
-                    printNoValueForFields();
-                }
-            }
+            processEventCommand(listOfTasks, isForLoading, userLine);
             break;
         }
         case "delete": {
-            try {
-                int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
-                Task deletedTask = listOfTasks.removeTask(taskIndex);
-                printTaskDeleted(deletedTask);
-            } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                printInvalidTaskNo();
-            } catch (NoValueException e) {
-                printNoValueForFields();
-            }
+            processDeleteCommand(listOfTasks, userLine);
             break;
         }
         default:
@@ -218,6 +137,112 @@ public class Bean {
                 printNoSuchCommand();
             }
             break;
+        }
+    }
+
+    private static void processDeleteCommand(TaskList listOfTasks, Parser userLine) {
+        try {
+            int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
+            Task deletedTask = listOfTasks.removeTask(taskIndex);
+            printTaskDeleted(deletedTask);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            printInvalidTaskNo();
+        } catch (NoValueException e) {
+            printNoValueForFields();
+        }
+        return;
+    }
+
+    private static void processEventCommand(TaskList listOfTasks, boolean isForLoading, Parser userLine) {
+        boolean taskIsDone;
+        try {
+            taskIsDone = userLine.getValue("isDone").equals("true");
+        } catch (NoValueException e) {
+            taskIsDone = false;
+        }
+
+        try {
+            String description = userLine.getArgument();
+            String start = userLine.getValue("start");
+            String end = userLine.getValue("end");
+            Task newTask = listOfTasks.addTask(description, start, end);
+            listOfTasks.markTask(listOfTasks.getNumTasks() - 1, taskIsDone);
+            if (!isForLoading) {
+                printTaskAdded(newTask, listOfTasks.getNumTasks());
+            }
+        } catch (NoValueException e) {
+            if (!isForLoading) {
+                printNoValueForFields();
+            }
+        }
+    }
+
+    private static void processDeadlineCommand(TaskList listOfTasks, boolean isForLoading, Parser userLine) {
+        boolean taskIsDone;
+        try {
+            taskIsDone = userLine.getValue("isDone").equals("true");
+        } catch (NoValueException e) {
+            taskIsDone = false;
+        }
+
+        try {
+            String description = userLine.getArgument();
+            String by = userLine.getValue("by");
+            Task newTask = listOfTasks.addTask(description, by);
+            listOfTasks.markTask(listOfTasks.getNumTasks() - 1, taskIsDone);
+            if (!isForLoading) {
+                printTaskAdded(newTask, listOfTasks.getNumTasks());
+            }
+        } catch (NoValueException e) {
+            if (!isForLoading) {
+                printNoValueForFields();
+            }
+        }
+    }
+
+    private static void processTodoCommand(TaskList listOfTasks, boolean isForLoading, Parser userLine) {
+        boolean taskIsDone;
+        try {
+            taskIsDone = userLine.getValue("isDone").equals("true");
+        } catch (NoValueException e) {
+            taskIsDone = false;
+        }
+
+        try {
+            String description = userLine.getArgument();
+            Task newTask = listOfTasks.addTask(description);
+            listOfTasks.markTask(listOfTasks.getNumTasks() - 1, taskIsDone);
+            if (!isForLoading) {
+                printTaskAdded(newTask, listOfTasks.getNumTasks());
+            }
+        } catch (NoValueException e) {
+            if (!isForLoading) {
+                printNoValueForFields();
+            }
+        }
+    }
+
+    private static void processUnmarkCommand(TaskList listOfTasks, Parser userLine) {
+        try {
+            int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
+            Task unmarkedTask = listOfTasks.markTask(taskIndex, false);
+            printTaskUndone(unmarkedTask);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            printInvalidTaskNo();
+        } catch (NoValueException e) {
+            printNoValueForFields();
+        }
+    }
+
+    private static void processMarkCommand(TaskList listOfTasks, Parser userLine) {
+        try {
+            int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
+            Task markedTask = listOfTasks.markTask(taskIndex, true);
+            printTaskDone(markedTask);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            printInvalidTaskNo();
+        } catch (NoValueException e) {
+            printNoValueForFields();
         }
     }
 
