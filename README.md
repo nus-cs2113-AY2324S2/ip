@@ -1,5 +1,5 @@
 # Erii Project Template
-Erii is a versatile Java project designed to streamline task management and productivity. This README outlines the setup process and provides an overview of Erii's functionalities.
+Erii is a versatile Java project designed to streamline task management and productivity with a story based user expeirence. This README outlines the setup process and provides an overview of Erii's functionalities.
 
 ## Setting up in IntelliJ
 Prerequisites: JDK 11, update IntelliJ to the latest version.
