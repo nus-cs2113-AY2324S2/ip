@@ -8,61 +8,93 @@ public class GermaBot {
         return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
     }
 
-    public static void echo(String input) {
-        if (input.contains("todo")) {
-            String toDoTask = input.substring(input.indexOf("todo ") + 5);
-            System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
+    public static void createTodo(String input) throws EmptyTaskException {
+        String toDoTask = input.substring(input.indexOf("todo ") + 5);
+        if (toDoTask.isBlank()) {
+            throw new EmptyTaskException();
         }
-        else if (input.contains("deadline")) {
-            String description = input.replaceFirst("deadline ", "");
-            int idxOfEndDate = description.indexOf("/");
-            String toDoTask = description.substring(0, idxOfEndDate - 1);
-            String Date = description.substring(idxOfEndDate + 4);
-            System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
-                    " You have to finish this by "  + Date + ", so be reminded!");
-        }
-        else if (input.contains("event")) {
-            String description = input.replaceFirst("event ", "");
-            int idxOfFrom = description.indexOf("/from");
-            int idxOfBy = description.indexOf("/to");
-            String startDate = description.substring(idxOfFrom + 6, idxOfBy - 1);
-            String endDate = description.substring(idxOfBy + 4);
-            String toDoTask = description.substring(0, idxOfFrom - 1);
-            System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
-                    " This will happen from " + startDate + " to " + endDate + ", so please remember to mark it" +
-                    " on your calender! (Or ask me!)");
-        }
-        else {
-            System.out.println("Uhh.. I'm sorry but I'm not quite sure what '" + input + "' means..." +
-                    " Remember to include the Task Type in front of the input!!");
-        }
+        toDoList[counter] = new ToDo(toDoTask);
+        counter++;
+        System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
     }
 
-    public static void createTask(String input) {
+    public static void createDeadline(String input) throws EmptyTaskException, MissingDeadlineException {
+        String description = input.replaceFirst("deadline ", "");
+        int idxOfEndDate = description.indexOf("/");
+        if (idxOfEndDate == -1) {
+            throw new MissingDeadlineException();
+        }
+        String date = description.substring( idxOfEndDate + 4);
+        String toDoTask = description.substring(0, idxOfEndDate - 1);
+        if (toDoTask.isBlank()) {
+            throw new EmptyTaskException();
+        }
+        toDoList[counter] = new Deadline(description.substring(0, idxOfEndDate - 1), date);
+        counter++;
+        System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
+                " You have to finish this by "  + date + ", so be reminded!");
+    }
+
+    public static void createEvent(String input) throws EmptyTaskException, MissingDeadlineException,
+            MissingStartDateException {
+        String description = input.replaceFirst("event ", "");
+        int idxOfFrom = description.indexOf("/from");
+        if (idxOfFrom == -1) {
+            throw new EmptyTaskException();
+        }
+        int idxOfBy = description.indexOf("/to");
+        if (idxOfBy == -1) {
+            throw new MissingDeadlineException();
+        }
+        String startDate = description.substring(idxOfFrom + 6, idxOfBy - 1);
+        if (startDate.isBlank()) {
+            throw new MissingStartDateException();
+        }
+        String endDate = description.substring(idxOfBy + 4);
+        if (endDate.isBlank()) {
+            throw new MissingDeadlineException();
+        }
+        String toDoTask = description.substring(0, idxOfFrom - 1);
+        if (toDoTask.isBlank()) {
+            throw new EmptyTaskException();
+        }
+        toDoList[counter] = new Event(description.substring(0, idxOfFrom - 1), startDate, endDate);
+        counter++;
+        System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
+                " This will happen from " + startDate + " to " + endDate + ", so please remember to mark it" +
+                " on your calender! (Or ask me!)");
+    }
+
+    public static void createTask(String input) throws UnknownInputException{
         if (input.contains("todo")) {
-            toDoList[counter] = new ToDo(input.substring(input.indexOf("todo ") + 5));
-            counter++;
-            echo(input);
+            try {
+                createTodo(input);
+            } catch (EmptyTaskException e) {
+                System.out.println("Uh oh, you did not specify a task to add! Let's try again!");
+            }
         }
         else if (input.contains("deadline")) {
-            String description = input.replaceFirst("deadline ", "");
-            int idxOfEndDate = description.indexOf("/");
-            String Date = description.substring( idxOfEndDate + 4);
-            toDoList[counter] = new Deadline(description.substring(0, idxOfEndDate - 1), Date);
-            counter++;
-            echo(input);
+            try {
+                createDeadline(input);
+            } catch (EmptyTaskException e) {
+                System.out.println("Uh oh, you did not specify a task to add! Let's try again!");
+            } catch (MissingDeadlineException e) {
+                System.out.println("Uh oh, you did not specify the deadline! Let's try again!");
+            }
+
         }
-        else if(input.contains("event")) {
-            String description = input.replaceFirst("event ", "");
-            int idxOfFrom = description.indexOf("/from");
-            int idxOfBy = description.indexOf("/to");
-            String startDate = description.substring(idxOfFrom + 6, idxOfBy - 1);
-            String endDate = description.substring(idxOfBy + 4);
-            toDoList[counter] = new Event(description.substring(0, idxOfFrom - 1), startDate, endDate);
-            counter++;
-            echo(input);
+        else if (input.contains("event")) {
+            try {
+                createEvent(input);
+            } catch (EmptyTaskException e) {
+                System.out.println("Uh oh, you did not specify a task to add! Let's try again!");
+            } catch (MissingStartDateException e) {
+                System.out.println("Uh oh, you did not specify a start time! Let's try again!");
+            } catch (MissingDeadlineException e) {
+                System.out.println("Uh oh, you did not specify the deadline! Let's try again!");
+            }
         } else {
-            echo(input);
+            throw new UnknownInputException();
         }
     }
 
@@ -100,7 +132,12 @@ public class GermaBot {
                 System.out.println("Good job! I'll mark this task as done: "
                         + "[" + toDoList[idx].getStatusIcon() + "] " + toDoList[idx].getDescription());
             } else {
-                createTask(input);
+                try {
+                    createTask(input);
+                } catch (UnknownInputException e){
+                    System.out.println("Uhh.. I'm sorry but I'm not quite sure what '" + input + "' means..." +
+                            " Remember to include the Task Type in front of the input!!");
+                }
             }
         }
         String GoodbyeMessage = "Thanks for using me! Hope to see you again soon~!";
