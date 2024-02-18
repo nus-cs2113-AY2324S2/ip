@@ -89,6 +89,17 @@ public class TaskList {
         taskList.get(n-1).unmarkedTask();
     }
 
+    public void deleteTask (int n) throws IndexOutOfBoundsException{
+        if ((n > taskList.size())|(n <= 0)){
+            throw new IndexOutOfBoundsException();
+        }
+        System.out.println("    " + "--------------");
+        System.out.println("    Got it. I've removed this task:");
+        System.out.print("      ");
+        taskList.get(n-1).printTask();
+        taskList.remove(n-1);
+        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
+        System.out.println("    " + "--------------");
     }
 
     /**
