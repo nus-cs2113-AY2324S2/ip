@@ -2,10 +2,11 @@ package bean.task;
 
 import bean.command.exception.NoValueException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TaskList {
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
     private int numTasks;
     private int numTasksDone;
 
@@ -13,60 +14,67 @@ public class TaskList {
         return numTasks;
     }
 
-    public Task[] getTaskList() {
-        return Arrays.copyOf(tasks, numTasks);
-    }
-
     public int getNumTasksDone() {
         return numTasksDone;
     }
 
     public Task addTask(String description) throws NoValueException {
-        tasks[numTasks] = new ToDo(description);
+        Task newTask = new ToDo(description);
         numTasks += 1;
-        return tasks[numTasks - 1];
+        tasks.add(newTask);
+        return newTask;
     }
 
     public Task addTask(String description, String by) throws NoValueException {
-        tasks[numTasks] = new Deadline(description, by);
+        Task newTask = new Deadline(description, by);
         numTasks += 1;
-        return tasks[numTasks - 1];
+        tasks.add(newTask);
+        return newTask;
     }
 
     public Task addTask(String description, String start, String end) throws NoValueException {
-        tasks[numTasks] = new Event(description, start, end);
+        Task newTask = new Event(description, start, end);
         numTasks += 1;
-        return tasks[numTasks - 1];
+        tasks.add(newTask);
+        return newTask;
+    }
+
+    public Task removeTask(int index) {
+        numTasks -= 1;
+        Task deletedTask = tasks.remove(index);
+        if (deletedTask.checkDone()) {
+            numTasksDone -= 1;
+        }
+        return deletedTask;
     }
 
     public Task markTask(int index, boolean isDone) {
-        if(index >= numTasks){
-            throw new IndexOutOfBoundsException();
-        }
-        else if (isDone) {
-            tasks[index].setDone();
+        if (isDone) {
+            tasks.get(index).setDone();
             numTasksDone += 1;
         }
         else {
-            tasks[index].setUndone();
+            tasks.get(index).setUndone();
             numTasksDone -= 1;
         }
-        return tasks[index];
+        return tasks.get(index);
     }
 
     public TaskList() {
-        tasks = new Task[100];
+        tasks = new ArrayList<>();
         numTasks = 0;
         numTasksDone = 0;
     }
 
     public String toString(){
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < numTasks; i += 1) {
-            result.append("    ").append(i+1).append('.').append(tasks[i].toString());
-            if (i != numTasks - 1) {
+        int i = 1;
+        for (Task task : tasks) {
+            result.append("    ").append(i).append('.').append(task.toString());
+            if (i != numTasks) {
                 result.append('\n');
             }
+            i += 1;
         }
         return result.toString();
     }

@@ -10,6 +10,7 @@ import bean.task.TaskList;
 public class Bean {
     public static final String MESSAGE_TASK_UNDONE = "    Oops, looks like you're still not done with this:\n   ";
     public static final String MESSAGE_TASK_ADDED = "    Hey, I've added:\n    ";
+    public static final String MESSAGE_TASK_DELETED = "    Alright, this task has been removed:\n    ";
     private static final String SEPARATOR = "   -------------------------------------------------";
     public static final String MESSAGE_WELCOME = "    Hello! I'm Bean.\n    What can I do for you?";
     public static final String MESSAGE_LIST_HEADER = "    These are the tasks in your list:";
@@ -46,8 +47,13 @@ public class Bean {
 
     private static void printTaskAdded(Task task, int numTasks) {
         System.out.println(MESSAGE_TASK_ADDED + task.toString());
-        String singularOrPlural = numTasks == 1 ? " task."  : " tasks.";
+        String singularOrPlural = numTasks == 1 ? " task." : " tasks.";
         System.out.println(MESSAGE_CURRENT_NUMTASKS + numTasks + singularOrPlural);
+        System.out.println(SEPARATOR);
+    }
+
+    private static void printTaskDeleted(Task task) {
+        System.out.println(MESSAGE_TASK_DELETED + task.toString());
         System.out.println(SEPARATOR);
     }
 
@@ -86,6 +92,8 @@ public class Bean {
                 printTaskDone(markedTask);
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 printInvalidTaskNo();
+            } catch (NoValueException e) {
+                printNoValueForFields();
             }
             break;
         }
@@ -96,12 +104,14 @@ public class Bean {
                 printTaskUndone(unmarkedTask);
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 printInvalidTaskNo();
+            } catch (NoValueException e) {
+                printNoValueForFields();
             }
             break;
         }
         case "todo": {
-            String description = userLine.getArgument();
             try {
+                String description = userLine.getArgument();
                 Task newTask = listOfTasks.addTask(description);
                 printTaskAdded(newTask, listOfTasks.getNumTasks());
             } catch (NoValueException e) {
@@ -110,9 +120,9 @@ public class Bean {
             break;
         }
         case "deadline": {
-            String description = userLine.getArgument();
-            String by = userLine.getValue("by");
             try {
+                String description = userLine.getArgument();
+                String by = userLine.getValue("by");
                 Task newTask = listOfTasks.addTask(description, by);
                 printTaskAdded(newTask, listOfTasks.getNumTasks());
             } catch (NoValueException e) {
@@ -121,12 +131,24 @@ public class Bean {
             break;
         }
         case "event": {
-            String description = userLine.getArgument();
-            String start = userLine.getValue("start");
-            String end = userLine.getValue("end");
             try {
+                String description = userLine.getArgument();
+                String start = userLine.getValue("start");
+                String end = userLine.getValue("end");
                 Task newTask = listOfTasks.addTask(description, start, end);
                 printTaskAdded(newTask, listOfTasks.getNumTasks());
+            } catch (NoValueException e) {
+                printNoValueForFields();
+            }
+            break;
+        }
+        case "delete": {
+            try {
+                int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
+                Task deletedTask = listOfTasks.removeTask(taskIndex);
+                printTaskDeleted(deletedTask);
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                printInvalidTaskNo();
             } catch (NoValueException e) {
                 printNoValueForFields();
             }

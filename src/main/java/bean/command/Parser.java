@@ -1,27 +1,28 @@
 package bean.command;
 
+import bean.command.exception.NoValueException;
+
 public class Parser {
     private final String[] fieldValuePairs;
     private final String command;
 
-    public String getValue(String field) {
+    public String getValue(String field) throws NoValueException {
         for (String item : fieldValuePairs) {
             if (item.startsWith(field) && item.contains(" ")) {
                 int indexOfFirstSpace = item.indexOf(" ");
                 return item.substring(indexOfFirstSpace + 1).trim();
             }
         }
-        return null;
+        throw new NoValueException();
     }
 
-    public String getArgument() {
+    public String getArgument() throws NoValueException {
         int indexOfFirstSpace = command.indexOf(" ");
         if (indexOfFirstSpace == -1) {
-            return null;
+            throw new NoValueException();
         } else {
             return command.substring(indexOfFirstSpace + 1).trim();
         }
-
     }
 
     public String getCommand() {
