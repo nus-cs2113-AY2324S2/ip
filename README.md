@@ -4,13 +4,14 @@ Erii is a versatile Java project designed to streamline task management and prod
 ## Setting up in IntelliJ
 Prerequisites: JDK 11, update IntelliJ to the latest version.
 
-Open IntelliJ: If you're not on the welcome screen, go through File > Close Project to close any open project.
-Open Project:
-Click Open.
-Navigate to and select the project directory, then click OK.
-Accept any default prompts.
-Configure JDK 11: Follow the instructions here to set up **JDK 11**, ensuring the Project language level is set to SDK default.
-Run Erii: Find src/main/java/com/erii/Erii.java, right-click it, and select Run Erii.main(). You should see the project's output in the console.
+1.Open IntelliJ: If you're not on the welcome screen, go through File > Close Project to close any open project.
+  1.Open Project:
+  1.Click Open.
+  1.Navigate to and select the project directory, then click OK.
+  1.Accept any default prompts.
+1.Configure JDK 11: Follow the instructions here to set up **JDK 11**, ensuring the Project language level is set to SDK default.
+1.Run Erii: Find src/main/java/com/erii/Erii.java, right-click it, and select Run Erii.main(). You should see the project's output in the console.
+
 Erii Functional Overview
 Erii is built with efficiency in mind, featuring:
 
