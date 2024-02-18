@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class List {
     protected ArrayList<Task> tasks;
 
-    public void generateSizeOfList(int elements){
+    public void generateList(){
         tasks = new ArrayList<>();
     }
 
@@ -23,12 +23,12 @@ public class List {
 
     public void markIndex(int index){
         System.out.println("Nice Ive marked this task as completed ");
-        tasks.get(index).markTask();
+        tasks.get(index - 1).markTask();
     }
 
     public void unmarkIndex(int index){
         System.out.println("OK, I have unchecked this task");
-        tasks.get(index).unmarkTask();
+        tasks.get(index - 1).unmarkTask();
     }
 
     public void deleteIndex(int index){

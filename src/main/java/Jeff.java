@@ -2,7 +2,7 @@
 public class Jeff {
     public static void main(String[] args) throws JeffException.InvalidKeywordException {
         List list = new List();
-        list.generateSizeOfList(100);
+        list.generateList();
         int taskIndex;
         String description;
 
