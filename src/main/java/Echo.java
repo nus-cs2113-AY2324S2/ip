@@ -18,6 +18,8 @@ public class Echo {
 
             switch (parts[0].toLowerCase()) {
 
+
+
             case "list":
                 System.out.println(break_line);
                 System.out.println("Here are your tasks in your list:");
@@ -125,7 +127,7 @@ public class Echo {
                         System.out.println(break_line);
                         ;
                     } else {
-                        System.out.println("Invalid task number.");
+                        System.out.println("Oops.Seems like you have input a invalid task number!");
                         System.out.println(break_line);
                     }
                 }
@@ -139,7 +141,7 @@ public class Echo {
                         System.out.println("Yo I have unmarked task" + (taskNumber + 1));
                         System.out.println(break_line);
                     } else {
-                        System.out.println("Invalid task number.");
+                        System.out.println("Oops.Seems like you have input a invalid task number!");
                         System.out.println(break_line);
                     }
                 }
@@ -159,15 +161,14 @@ public class Echo {
                 System.out.println(break_line);
                 break;
 
+
             default:
-                if (count == list.length) {
-                    list = Arrays.copyOf(list, count * 2);
-                }
-                list[count] = new Task(input);
-                count++;
                 System.out.println(break_line);
-                System.out.println("Added: " + input);
+                System.out.println("Sorry, I didn't understand that command.");
+                System.out.println("Type 'help' for a list of valid commands.");
                 System.out.println(break_line);
+                break;
+
             }
         }
     }
