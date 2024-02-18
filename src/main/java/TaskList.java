@@ -70,15 +70,19 @@ public class TaskList {
         if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
             System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
         } else {
-            markTask(Integer.parseInt(commandParts[1]) - 1);
+            markTaskIndex(Integer.parseInt(commandParts[1]) - 1);
         }
     }
 
+    /**
+    *  Unmarks specified task
+    *
+    **/
     private void unmarkTask(String[] commandParts) {
         if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
             System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
         } else {
-            unmarkTask(Integer.parseInt(commandParts[1]) - 1);
+            unmarkTaskIndex(Integer.parseInt(commandParts[1]) - 1);
         }
     }
 
@@ -118,7 +122,7 @@ public class TaskList {
      *
      * @param taskIndex index of task stored in array
      */
-    public void markTask(int taskIndex) {
+    public void markTaskIndex(int taskIndex) {
         if (!isValidIndex(taskIndex)) {
             System.out.println("Invalid number! Please try again");
         } else if (taskList[taskIndex].isDone()) {
@@ -137,7 +141,7 @@ public class TaskList {
      *
      * @param taskIndex index of task stored in array
      */
-    public void unmarkTask(int taskIndex) {
+    public void unmarkTaskIndex(int taskIndex) {
         if (!isValidIndex(taskIndex)) {
             System.out.println("Invalid number! Please try again");
         } else if (!taskList[taskIndex].isDone()) {
