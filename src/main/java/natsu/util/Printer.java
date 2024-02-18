@@ -51,4 +51,12 @@ public class Printer {
         }
         printLine();
     }
+
+    public static void printTaskDeleted(String task, int size) {
+        printLine();
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println("       " + task);
+        System.out.println("     Now you have " + size + " tasks in the list.");
+        printLine();
+    }
 }

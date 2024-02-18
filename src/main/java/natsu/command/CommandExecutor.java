@@ -24,6 +24,8 @@ public class CommandExecutor {
                 new UnmarkCommand(userInput);
             } else if (userInput.startsWith("list")) {
                 new ListCommand(list, taskCount);
+            } else if (userInput.startsWith("delete")) {
+                new DeleteCommand(userInput);
             } else {
                 throw new InvalidCommandException("     I'm terribly sorry, but I do not know what that means. Please try again!");
             }
