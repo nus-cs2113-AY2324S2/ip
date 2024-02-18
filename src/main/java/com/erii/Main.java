@@ -1,5 +1,8 @@
 package com.erii;
 
+import com.erii.user.UserDetails;
+import com.erii.ui.ControlPanel;
+
 public class Main {
     public static void main(String[] args) {
         // Prompt the user to enter their details

@@ -2,6 +2,7 @@ package com.erii.ui;
 
 import java.util.Scanner;
 import com.erii.user.UserDetails;
+import com.erii.core.TaskManager;
 
 
 public class ControlPanel {
@@ -10,14 +11,7 @@ public class ControlPanel {
         TaskManager taskManager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("How may I assist you today?");
-        System.out.println("1. List tasks");
-        System.out.println("2. Add a task");
-        System.out.println("3. Add a deadline task");
-        System.out.println("4. Add an event task");
-        System.out.println("5. Mark a task as done");
-        System.out.println("6. Exit");
-        System.out.print("Enter the number corresponding to your choice: ");
+        menu();
 
         while (scanner.hasNextLine()) {
             String choice = scanner.nextLine().trim();
@@ -46,9 +40,14 @@ public class ControlPanel {
                     String inputMark = scanner.nextLine().trim();
                     markTaskAsDone(inputMark, taskManager);
                     break;
+                case "6":
+                    System.out.println("Choose the task you want to delete: ");
+                    String inputDelete = scanner.nextLine().trim();
+                    deleteTask(inputDelete, taskManager);
+                    return;
                 // ...
 
-                case "6":
+                case "X":
                     String address = getAddress();
                     System.out.println("Pleased to serve you, " + address + "." + UserDetails.getUserName());
                     break;
@@ -56,9 +55,22 @@ public class ControlPanel {
                     System.out.println("Unknown command. Please try again.");
                     break;
             }
-            System.out.println("Enter next command:");
+
+            menu();
         }
         scanner.close();
+    }
+
+    private static void menu(){
+        System.out.println("How may I assist you today?");
+        System.out.println("1. List tasks");
+        System.out.println("2. Add a task");
+        System.out.println("3. Add a deadline task");
+        System.out.println("4. Add an event task");
+        System.out.println("5. Mark a task as done");
+        System.out.println("6. Delete a task");
+        System.out.println("X. Exit");
+        System.out.print("Enter the symbol corresponding to your choice: ");
     }
     
     private static void listTasks(TaskManager taskManager) {
@@ -131,6 +143,20 @@ public class ControlPanel {
                 return;
             }
             taskManager.markTaskAsDone(taskNumber);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid task number.");
+        }
+    }
+
+    private static void deleteTask(String input, TaskManager taskManager) {
+        try {
+            int taskNumber = Integer.parseInt(input) - 1; // Adjust for zero-based index
+            if (taskNumber < 0 || taskNumber >= taskManager.listSize()) {
+                System.out.println("Task number is out of range. Please enter a valid task number.");
+                System.out.println("Current number of tasks: " + taskManager.listSize());
+                return;
+            }
+            taskManager.deleteTask(taskNumber);
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid task number.");
         }

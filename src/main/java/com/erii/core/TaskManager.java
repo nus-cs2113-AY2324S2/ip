@@ -175,6 +175,18 @@ public class TaskManager {
         }
     }
 
+    public void deleteTask(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.remove(taskIndex);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
+
     /**
      * Validates and converts a string representation of priority to the Priority enum.
      * @param priorityString The string representation of priority.
