@@ -53,29 +53,33 @@ public class TaskSaver {
             while (input.hasNext()) {
                 String line = input.nextLine();
                 boolean isDone = line.contains("[X]");
-                String content = line.substring(7);
-                Task task;
-                if (content.startsWith("[D]")) {
-                    String by = content.substring(content.indexOf("(by: ") + 5, content.length() - 1);
-                    String description = content.substring(0, content.indexOf(" (by:"));
-                    task = new Deadline(description, by);
-                } else if (content.startsWith("[E]")) {
-                    String times = content.substring(content.indexOf("(from: ") + 7);
-                    String start = times.substring(0, times.indexOf(" to:"));
-                    String end = times.substring(times.indexOf("to: ") + 4, times.length() - 1);
-                    String description = content.substring(0, content.indexOf(" (from:"));
-                    task = new Event(description, start, end);
-                } else {
-                    task = new Todo(content);
-                }
-                if (isDone) {
-                    task.markAsDone();
-                }
+                Task task = getTask(line, isDone);
                 list.add(task);
             }
             input.close();
         } catch (IOException e) {
             System.out.println("     An error occurred while reading file: " + e.getMessage());
         }
+    }
+
+    private static Task getTask(String line, boolean isDone) {
+        Task task;
+        if (line.startsWith("[D]")) {
+            String by = line.substring(line.indexOf("(by: ") + 5, line.length() - 1);
+            String description = line.substring(7, line.indexOf(" (by:"));
+            task = new Deadline(description, by);
+        } else if (line.startsWith("[E]")) {
+            String times = line.substring(line.indexOf("(from: ") + 7);
+            String start = times.substring(0, times.indexOf(" to:"));
+            String end = times.substring(times.indexOf("to: ") + 4, times.length() - 1);
+            String description = line.substring(7, line.indexOf(" (from:"));
+            task = new Event(description, start, end);
+        } else {
+            task = new Todo(line.substring(7));
+        }
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
     }
 }
