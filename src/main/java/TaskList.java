@@ -42,18 +42,10 @@ public class TaskList {
                 }
                 break;
             case "mark":
-                if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
-                    System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
-                } else {
-                    markTask(Integer.parseInt(commandParts[1]) - 1);
-                }
+                markTask(commandParts);
                 break;
             case "unmark":
-                if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
-                    System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
-                } else {
-                    unmarkTask(Integer.parseInt(commandParts[1]) - 1);
-                }
+                unmarkTask(commandParts);
                 break;
             default:
                 System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised
@@ -63,6 +55,22 @@ public class TaskList {
             System.out.println("Invalid command format.");
         } catch (NumberFormatException e) {
             System.out.println("Invalid command format.");
+        }
+    }
+
+    private void markTask(String[] commandParts) {
+        if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
+            System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
+        } else {
+            markTask(Integer.parseInt(commandParts[1]) - 1);
+        }
+    }
+
+    private void unmarkTask(String[] commandParts) {
+        if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
+            System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
+        } else {
+            unmarkTask(Integer.parseInt(commandParts[1]) - 1);
         }
     }
 
