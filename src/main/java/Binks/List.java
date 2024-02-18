@@ -6,12 +6,13 @@ import Binks.task.Task;
 import Binks.task.Todo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class List {
-    //private Task[] list;
-    //private int taskCount = 0;
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
+
+
 
     public List() {
 
@@ -39,6 +40,7 @@ public class List {
         Binks.createLineSpacing();
         Todo newTodo = new Todo(task);
         list.add(newTodo);
+        updateFile(list);
         System.out.println("Got it. I've added this task:");
         System.out.println(" [T][ ] " + task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
@@ -54,6 +56,7 @@ public class List {
         Binks.createLineSpacing();
         Deadlines newDeadline = new Deadlines(task);
         list.add(newDeadline);
+        updateFile(list);
         System.out.println("Got it. I've added this task:");
         System.out.println(" [D][ ] " + task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
@@ -66,9 +69,10 @@ public class List {
      * @param task Event task that is being added to the task list
      */
     public void addEvent(String task){
-        Binks.createLineSpacing();;
+        Binks.createLineSpacing();
         Events newEvent = new Events(task);
         list.add(newEvent);
+        updateFile(list);
         System.out.println("Got it. I've added this task:");
         System.out.println(" [E][ ] " + task);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
@@ -91,6 +95,7 @@ public class List {
             System.out.println("This task does not exist");
         }
         Binks.createLineSpacing();
+        updateFile(list);
     }
 
     /**
@@ -126,5 +131,23 @@ public class List {
             System.out.println("This task does not exist");
         }
         Binks.createLineSpacing();
+        updateFile(list);
     }
+
+    private void updateFile(ArrayList<Task> list) {
+        String file = "C:\\Users\\eugen\\OneDrive\\Documents\\ip\\src\\main\\java\\binkslist.txt";
+        //String taskDescription = list.toString();
+        try {
+            FileWriter fw = new FileWriter(file);
+            for (Task task : list) {
+                if (task != null) {
+                    fw.write(task + "\n"); // Assuming each task is represented as a single line
+                }
+            }
+            fw.close();
+        } catch (IOException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
 }

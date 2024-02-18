@@ -1,15 +1,62 @@
 package Binks;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Binks {
+
+    public static void loadFileContents(List list, String file) throws FileNotFoundException{
+        File f = new File(file);
+        Scanner s = new Scanner(f);
+        String description;
+        for (int i = 1; s.hasNext(); i++) {
+            String line = s.nextLine();
+            String taskType = line.substring(1, 2);
+            switch (taskType.toLowerCase()) {
+            case "t":
+                list.addTodo(line.substring(7));
+                if (line.charAt(4) == 'X') {
+                    list.markAsDone(i);
+                }
+                break;
+            case "d":
+                description = line.substring(7, line.indexOf(" (by:"));
+                String deadline = line.substring(line.indexOf("(by: ") + 5, line.indexOf(")"));
+                list.addDeadline(description + " (by: " + deadline + ")");
+                if (line.charAt(4) == 'X') {
+                    list.markAsDone(i);
+                }
+                break;
+            case "e":
+                description = line.substring(7, line.indexOf(" (from:"));
+                String startTime = line.substring(line.indexOf("(from: ") + 7, line.indexOf(" to:"));
+                String endTime = line.substring(line.indexOf("to:") + 4, line.indexOf(")"));
+                list.addEvent(description + " (from: " + startTime + " to: " + endTime + ")");
+                if (line.charAt(4) == 'X'){
+                    list.markAsDone(i);
+                }
+                break;
+            }
+        }
+        System.out.println("I have added all the tasks that you have saved!");
+        System.out.println("Is there anything more tasks I can list for you?");
+        createLineSpacing();
+    }
+    public static void readFile(List list) {
+        try {
+            loadFileContents(list,"C:\\Users\\eugen\\OneDrive\\Documents\\ip\\src\\main\\java\\binkslist.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
     /**
      * Prints out the greeting message from the chatbot "Binks".
      */
     public static void greetUser() {
         createLineSpacing();
         System.out.println("Hello! I'm Binks.");
-        System.out.println("What can I do for you?");
+        System.out.println("Let me check if you have any saved tasks!");
         createLineSpacing();
     }
 
@@ -91,7 +138,7 @@ public class Binks {
             if (bySeparator != -1) {
                 String deadline = line.substring(bySeparator + 4);
                 String task = line.substring(9, bySeparator);
-                list.addDeadline(task + " (by: " + deadline + ")");
+                list.addDeadline(task + "(by: " + deadline + ")");
             } else {
                 throw new BinksException("Please indicate a deadline using /by!");
             }
@@ -117,7 +164,7 @@ public class Binks {
                 String startTime = line.substring(fromSeparator + 6, toSeparator);
                 String endTime = line.substring(toSeparator + 4);
                 String task = line.substring(6, fromSeparator);
-                list.addEvent(task + " (from: " + startTime + "to: " + endTime + ")");
+                list.addEvent(task + "(from: " + startTime + "to: " + endTime + ")");
             } else {
                 throw new BinksException("Please specify start and end times using /from and /to!");
             }
@@ -136,8 +183,10 @@ public class Binks {
     }
 
     public static void main(String[] arg) {
+        File f = new File ("C:\\Users\\eugen\\OneDrive\\Documents\\ip\\src\\main\\java\\binkslist.txt");
         greetUser();
         List list = new List();
+        readFile(list);
         while (true) {
             String line;
             Scanner in = new Scanner(System.in);
@@ -220,7 +269,7 @@ public class Binks {
                     deleteCommand(command, list);
                 }
                 catch (BinksException exception){
-                    createLineSpacing();;
+                    createLineSpacing();
                     System.out.println("Warning! " + exception.getMessage());
                     createLineSpacing();
                 }
