@@ -39,6 +39,30 @@ public class FileManager {
         }
     }
 
+    public static void deleteTask(int index) {
+        try {
+            File f = new File(EXPECTED_FILE_PATH);
+            Scanner s = new Scanner(f);
+            StringBuilder content = new StringBuilder();
+            int currentLine = 0;
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                if (currentLine == index) {
+                    continue;
+                }
+                content.append(line).append(System.lineSeparator());
+                currentLine++;
+            }
+            FileWriter fw = new FileWriter(EXPECTED_FILE_PATH);
+            fw.write(content.toString());
+            fw.close();
+        } catch (FileNotFoundException e) {
+            ExceptionHandler.handleFileNotFoundException();
+        } catch (IOException e) {
+            ExceptionHandler.handleIOException(e);
+        }
+    }
+
     public static void updateMarkStatus(int index, boolean mark) {
         char newMarkStatus = mark ? '1' : '0';
 

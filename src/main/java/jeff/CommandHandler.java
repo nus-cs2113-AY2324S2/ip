@@ -110,6 +110,7 @@ public class CommandHandler {
         try {
             int currentIndex = Integer.parseInt(userInput.substring(UNMARK_INDEX)) - 1;
             Task deletedTask = TaskList.remove(currentIndex);
+            FileManager.deleteTask(currentIndex);
             Printer.printDeleteTask(deletedTask);
         } catch (Exception e) {
             throw new InvalidDeleteSyntaxException();
