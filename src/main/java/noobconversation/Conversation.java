@@ -1,9 +1,12 @@
 package noobconversation;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import format.Formatting;
 import task.Task;
+import memory.FileAccess;
 
 import java.util.Scanner;
 
@@ -18,8 +21,14 @@ public class Conversation {
     public void communicate() {
         CommunicateCaseHandle caseHandle = new CommunicateCaseHandle();
         Scanner in = new Scanner(System.in);
+        FileAccess fileAccess = new FileAccess();
 
         ArrayList<Task> list = new ArrayList<>();
+        try {
+            fileAccess.readFile(list);
+        } catch (FileNotFoundException e) {
+            System.out.println("Can not find your file!!!" + e.getMessage());
+        }
         String line = in.nextLine().trim();
 
         while (!line.equalsIgnoreCase("bye")) {
@@ -31,9 +40,15 @@ public class Conversation {
                 caseHandle.markHandle(line, list);
             } else {
                 caseHandle.taskHandle(line, list);
+                try {
+                    fileAccess.saveFile(list.get(list.size() - 1));
+                } catch (IOException e) {
+                    System.out.println("Can not save your file!!!" + e.getMessage());
+                }
             }
             line = in.nextLine().trim();
         }
+
     }
 
     public void startConversationInitiateLogo() {

@@ -105,7 +105,7 @@ public class CommunicateCaseHandle {
         } else {
             format.dividingLine();
             System.out.println("\tNice! I've marked this task as done:");
-            list.get(number - 1).changeStatus(true);
+            list.get(number - 1).changStatus(true);
             System.out.println("\t\t" + list.get(number - 1).getIdentity() + list.get(number - 1).getStatusIcon() + " " + list.get(number - 1));
             format.dividingLine();
         }
@@ -128,7 +128,7 @@ public class CommunicateCaseHandle {
         } else {
             format.dividingLine();
             System.out.println("\tOK, I've marked this task as not done yet:");
-            list.get(number - 1).changeStatus(false);
+            list.get(number - 1).changStatus(false);
             System.out.println("\t\t" + list.get(number - 1).getIdentity() + list.get(number - 1).getStatusIcon() + " " + list.get(number - 1));
             format.dividingLine();
         }
