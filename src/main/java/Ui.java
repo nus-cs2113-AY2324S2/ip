@@ -66,4 +66,9 @@ public class Ui {
         System.out.println("Oh no!");
         System.out.println(taskList.taskList.get(taskIndex).toString());
     }
+
+    public static void printDeleteTask (int taskIndex, TaskList taskList) {
+        System.out.println("Ok task deleted!");
+        System.out.println("\t" + taskList.taskList.get(taskIndex).toString());
+    }
 }
