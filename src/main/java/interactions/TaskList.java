@@ -7,7 +7,7 @@ public class TaskList {
     protected Task[] list;
     protected int currSize;
     protected int TOTAL_SIZE = 100;
-    protected String INDENT = "      ";
+    protected static final String INDENT = "      ";
     public TaskList() {
         currSize = 0;
         list = new Task[TOTAL_SIZE];
@@ -38,7 +38,7 @@ public class TaskList {
                 task.print();
             }
         } else {
-            System.out.println("There's nothing in this list.");
+            System.out.println(INDENT + "There's nothing in this list.");
         }
     }
     public void addNewTask(String line) {

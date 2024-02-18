@@ -9,6 +9,7 @@ public class ToDo extends Task {
     }
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+        this.haveDeadline = true;
     }
     private String deadline;
 
@@ -20,7 +21,7 @@ public class ToDo extends Task {
         this.eventFrom = eventFrom;
     }
 
-    private String eventFrom;
+    private String eventFrom = "";
 
     public String getEventTo() {
         return eventTo;

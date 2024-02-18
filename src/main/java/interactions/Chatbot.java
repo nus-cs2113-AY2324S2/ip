@@ -1,6 +1,9 @@
 package interactions;
+import customexceptions.*;
+
 public class Chatbot {
-    private String[] instructions = {"todo", "deadline", "event", "list", "bye"};
+    // Sorted instructions
+    public static final String[] INSTRUCTIONS = {"bye", "deadline", "event", "list", "mark", "todo"};
     public String getName() {
         return name;
     }
@@ -18,18 +21,17 @@ public class Chatbot {
     public void echo(String line) {
         System.out.println(line);
     }
-    // identify if its a typo, otherwise just echo
-    public void didYouMean(String line) {
-        String[] parts = line.split(" ", 2);
-        String typo = parts[0];
+    public boolean isTypo(String line) { // identifies and deals with typo
+        String[] words = line.split(" ");
+        String typo = words[0];
         int typoSize = typo.length();
-        for (String instruction : instructions) {
-            if (typo.equals(instruction.substring(0, typoSize))) {
+        for (String instruction : INSTRUCTIONS) {
+            if (!instruction.equals(typo) && instruction.startsWith(typo)) {
                 System.out.println("Did you mean: " + instruction + "?");
-                return;
+                return true;
             }
         }
-        echo(line);
+        return false;
     }
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");

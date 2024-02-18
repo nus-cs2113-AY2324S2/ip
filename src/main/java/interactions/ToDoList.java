@@ -1,5 +1,7 @@
 package interactions;
+import customexceptions.UnknownPromptException;
 import interactions.*;
+import customexceptions.IncompletePromptException;
 
 public class ToDoList extends TaskList {
     public ToDoList() {
@@ -25,12 +27,13 @@ public class ToDoList extends TaskList {
         if (nextWord != null) {
             int nextIndex = line.indexOf(nextWord, index);
             if (nextIndex != -1) {
-                return line.substring(index, nextIndex);
+                return line.substring(index, nextIndex).trim();
             }
+            return "incomplete";
         }
-        return line.substring(index);
+        return line.substring(index).trim();
     }
-    public void addNewTask(String line, String type) {
+    public void addNewTask(String line, String type) throws IncompletePromptException {
         String toDoDescription = extractToDoOrDate(line, type);
         ToDo newToDo = new ToDo(toDoDescription);
         switch (type) { // only three cases considered
@@ -38,20 +41,30 @@ public class ToDoList extends TaskList {
             newToDo.setHaveToDo(true);
             break;
         case "deadline":
-            newToDo.setDeadline(extractToDoOrDate(line, "by"));
-            newToDo.setHaveDeadline(true);
+            String deadline = extractToDoOrDate(line, "by");
+            if (deadline.equals("incomplete")) {
+                throw new IncompletePromptException();
+            } else {
+                newToDo.setDeadline(deadline);
+            }
             break;
         case "event":
-            newToDo.setEventFrom(extractToDoOrDate(line, "from"));
-            newToDo.setEventTo(extractToDoOrDate(line, "to"));
-            newToDo.setEvent(true);
+            String dateFrom = extractToDoOrDate(line, "from");
+            String dateTo = extractToDoOrDate(line, "to");
+            if (dateFrom.equals("incomplete") || dateTo.equals("incomplete")) {
+                throw new IncompletePromptException();
+            } else {
+                newToDo.setEventFrom(dateFrom);
+                newToDo.setEventTo(dateTo);
+                newToDo.setEvent(true);
+            }
             break;
         }
         super.list[currSize++] = newToDo;
         System.out.println("Got it. I've added this task:");
         System.out.print(INDENT);
         newToDo.print();
-        System.out.println(INDENT + "Now you have " + currSize + " tasks in the list");
+        System.out.println(INDENT + "Now you have " + currSize + " task" + (currSize > 1 ? "s " : " ") + "in the list");
     }
     @Override
     public void printList() { // is this necessary?
