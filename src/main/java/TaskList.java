@@ -10,6 +10,13 @@ public class TaskList {
         this.taskCount = 0;
     }
 
+    /**
+     *  Seperates the unser input into the type of task
+     *  and adds them to the list
+     *
+     * @param command user command to handle
+     *
+     **/
     private void processTaskCommand(String command) {
         try {
             String[] commandParts = command.split(" ", 2);
@@ -36,12 +43,18 @@ public class TaskList {
                 break;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid command format.");
+            System.out.println("Invalid command format. Provide valid input");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid command format.");
+            System.out.println("Invalid command format. Input a valid number");
         }
     }
 
+    /**
+     *  Adds task of "deadline" type
+     *
+     * @param commandParts user command to handle
+     *
+     **/
     private void addDeadlineTask(String[] commandParts) {
         String[] deadlineParts = commandParts[1].split("/by", 2);
         if (deadlineParts.length != 2) {
@@ -51,6 +64,12 @@ public class TaskList {
         }
     }
 
+    /**
+     *  Adds task of "event" type
+     *
+     * @param commandParts user command to handle
+     *
+     **/
     private void addEvent(String[] commandParts) {
         String[] eventparts = commandParts[1].split("/from", 2);
         if (eventparts.length != 2) {
@@ -66,6 +85,12 @@ public class TaskList {
         }
     }
 
+    /**
+     *  marks specified task
+     *
+     *  @param commandParts user command to handle
+     *
+     **/
     private void markTask(String[] commandParts) {
         if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
             System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
@@ -75,9 +100,11 @@ public class TaskList {
     }
 
     /**
-    *  Unmarks specified task
-    *
-    **/
+     *  Unmarks specified task*
+     *
+     * @param commandParts user command to handle
+     *
+     **/
     private void unmarkTask(String[] commandParts) {
         if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
             System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
@@ -92,9 +119,17 @@ public class TaskList {
      * @param task input given by user
      */
     public void addTask(Task task) {
-        taskList[taskCount] = task;
-        taskCount += 1;
-        System.out.println("added: " + task);
+        try {
+            if (taskCount < taskList.length) {
+                taskList[taskCount] = task;
+                taskCount += 1;
+                System.out.println("added: " + task);
+            } else {
+                throw new TaskListFullException("TaskList if full");
+            }
+        } catch (TaskListFullException e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
     }
 
     /**
@@ -112,6 +147,13 @@ public class TaskList {
         System.out.println("~~~~~~~~~~~~~~~~");
     }
 
+    /**
+     *  Checks if user inputted index is valid
+     *
+     * @param index integer input by user
+     * @return  True if valid index and false if invalid
+     *
+     **/
     private Boolean isValidIndex(int index) {
         return index >= 0 && index < taskCount;
     }
