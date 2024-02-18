@@ -33,14 +33,6 @@ public class KuroBot {
     private static void printTasks() {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
-//        int counter = 1;
-//        for (int i = 0; i < taskNum; i ++){
-//            if (tasks[i].isDeleted()){
-//                continue;
-//            }
-//            System.out.println(counter + "." + tasks[i].printTask());
-//            counter++;
-//        }
         for (Task task : tasks){
             System.out.println(tasks.indexOf(task)+1 + "." + task.printTask());
         }
@@ -71,7 +63,7 @@ public class KuroBot {
         }
 
         String taskName = words[1];
-        Todo task = new Todo(taskName);
+        Todo task = new Todo(taskName, false);
         tasks.add(task);
         taskNum++;
         printAddedTask(task);
@@ -93,7 +85,7 @@ public class KuroBot {
         String taskName = phrases[0];
         String by = phrases[1].strip();
 
-        Deadline task = new Deadline(taskName, by);
+        Deadline task = new Deadline(taskName, by, false);
         tasks.add(task);
         taskNum++;
         printAddedTask(task);
@@ -122,7 +114,7 @@ public class KuroBot {
         String from = period[0].strip();
         String to = period[1].strip();
 
-        Event task = new Event(taskName, from, to);
+        Event task = new Event(taskName, from, to, false);
         tasks.add(task);
         taskNum++;
         printAddedTask(task);
@@ -262,13 +254,13 @@ public class KuroBot {
         }
         try {
             writeToFile();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
     private static void writeToFile() throws IOException {
-        FileWriter fw = new FileWriter("src/data/history");
+        FileWriter fw = new FileWriter("src/data/prevData");
         for (Task task : tasks){
             fw.write(tasks.indexOf(task)+1 + "." + task.printTask() + System.lineSeparator());
         }
@@ -281,15 +273,15 @@ public class KuroBot {
         start();
 
         try {
-            printFileContents();
+            readFileContents();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
 
+        printTasks();
+
         while (isStart) {
             String input = scanner.nextLine();
-            //System.getProperty("user.dir");
-            //System.out.println("file exists?: " + file.exists());
             try {
                 manageTasks(input);
             } catch (InvalidCommandException e) {
@@ -300,25 +292,79 @@ public class KuroBot {
         }
     }
 
-    private static void printFileContents() throws FileNotFoundException {
-//        File file = new File("src/data/history");
-//        Scanner scan = new Scanner(file); // create a Scanner using the File as the source
-//        while (scan.hasNext()) {
-//            System.out.println(scan.nextLine());
-//        }
-//        System.out.println(" \n");
+    private static void readFileContents() throws FileNotFoundException {
         try {
-            File file = new File("src/data/history");
+            File file = new File("src/data/prevData");
             if (!file.exists()) {
+                file.getParentFile().mkdirs();
                 file.createNewFile();
             } else {
                 Scanner scan = new Scanner(file); // create a Scanner using the File as the source
                 while (scan.hasNext()) {
-                System.out.println(scan.nextLine());
+                    String content = scan.nextLine();
+                    char taskType = content.charAt(3);
+                    char markStatus = content.charAt(6);
+                    String taskDetails = content.substring(9);
+                    switch (Character.toString(taskType)){
+                    case "T":
+                        addPreviousTodo(taskDetails, markStatus);
+                        break;
+                    case "D":
+                        addPreviousDeadline(taskDetails, markStatus);
+                        break;
+                    case"E":
+                        addPreviousEvent(taskDetails, markStatus);
+                        break;
+                    default:
+                        System.out.println("Something went wrong!");
+                    }
                 }
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
+    }
+
+    private static void addPreviousTodo(String details, char mark) {
+        Todo task;
+        if (Character.toString(mark).equals("X")) {
+            task = new Todo(details, true);
+        } else {
+            task = new Todo(details, false);
+        }
+        tasks.add(task);
+        taskNum++;
+    }
+
+    private static void addPreviousDeadline(String details, char mark) {
+        String[] phrases = details.split("\\(");
+        String taskName = phrases[0];
+        String by = phrases[1];
+        String deadline = by.substring(by.indexOf(" ")+1, by.indexOf(")"));
+        Deadline task;
+        if (Character.toString(mark).equals("X")) {
+            task = new Deadline(taskName, deadline, true);
+        } else {
+            task = new Deadline(taskName, deadline, false);
+        }
+        tasks.add(task);
+        taskNum++;
+        printAddedTask(task);
+    }
+
+    private static void addPreviousEvent(String details, char mark) {
+        String[] phrases = details.split("\\(from: ");
+        String taskName = phrases[0];
+        String[] periods = phrases[1].split(" to: ");
+        String from = periods[0];
+        String to = periods[1].substring(0,periods[1].length()-1);
+        Event task;
+        if (Character.toString(mark).equals("X")) {
+            task = new Event(taskName, from, to, true);
+        } else {
+            task = new Event(taskName, from, to, false);
+        }
+        tasks.add(task);
+        taskNum++;
     }
 }
