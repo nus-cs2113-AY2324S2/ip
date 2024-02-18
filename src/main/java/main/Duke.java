@@ -10,14 +10,14 @@ import static storage.Storage.loadData;
 public class Duke {
     public static void userInput() throws DukeException {
         Scanner scanner = new Scanner(System.in);
-        String userInput;
+        String originalUserInput;
         ArrayList<String> stringList = loadData();
         ArrayList<Task> taskList = changePresentationFormat(stringList);
 
         // Start of user input
         while (true) {
-            userInput = scanner.nextLine().toLowerCase(); // Takes in user input
-            String[] splitInput = userInput.split("\\s+"); // split by whitespaces
+            originalUserInput = scanner.nextLine();
+            String[] splitInput = originalUserInput.split("\\s+"); // split by whitespaces
             String command = splitInput[0]; // main command of user
 
             switch (command) {
@@ -35,26 +35,25 @@ public class Duke {
 
                 case "mark":
                 case "unmark":
-
-                    userMarkOrUnmark(command, userInput, taskList, stringList);
+                    userMarkOrUnmark(command, originalUserInput, taskList, stringList);
                     continue;
 
                 case "todo":
-                    if (addTask(taskList, userInput, splitInput, Commands.Todo)) {
-                        saveDataIntoBothArrays (taskList, stringList, userInput);
+                    if (addTask(taskList, originalUserInput, splitInput, Commands.Todo)) {
+                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
                     }
                     continue;
 
                 case "deadline":
-                    if (addTask(taskList, userInput, splitInput, Commands.Deadline)) {
-                        saveDataIntoBothArrays (taskList, stringList, userInput);
+                    if (addTask(taskList, originalUserInput, splitInput, Commands.Deadline)) {
+                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
                     }
                     continue;
 
                 case "event":
 
-                    if (addTask(taskList, userInput, splitInput, Commands.Event)) {
-                        saveDataIntoBothArrays (taskList, stringList, userInput);
+                    if (addTask(taskList, originalUserInput, splitInput, Commands.Event)) {
+
                     }
                     continue;
 
