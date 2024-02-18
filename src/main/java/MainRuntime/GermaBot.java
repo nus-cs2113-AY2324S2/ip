@@ -1,3 +1,14 @@
+package MainRuntime;
+
+import Exceptions.EmptyTaskException;
+import Exceptions.MissingDeadlineException;
+import Exceptions.MissingStartDateException;
+import Exceptions.UnknownInputException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
 import java.util.Scanner;
 
 public class GermaBot {
@@ -20,6 +31,9 @@ public class GermaBot {
 
     public static void createDeadline(String input) throws EmptyTaskException, MissingDeadlineException {
         String description = input.replaceFirst("deadline ", "");
+        if (description.equals("deadline")) {
+            throw new EmptyTaskException();
+        }
         int idxOfEndDate = description.indexOf("/");
         if (idxOfEndDate == -1) {
             throw new MissingDeadlineException();
@@ -65,7 +79,7 @@ public class GermaBot {
                 " on your calender! (Or ask me!)");
     }
 
-    public static void createTask(String input) throws UnknownInputException{
+    public static void createTask(String input) throws UnknownInputException {
         if (input.contains("todo")) {
             try {
                 createTodo(input);
@@ -99,7 +113,7 @@ public class GermaBot {
     }
 
     public static void main(String[] args) {
-        String WelcomeMessage = "Hello! GermaBot here! \n"
+        String WelcomeMessage = "Hello! MainRuntime.GermaBot here! \n"
                 + "What may I do for you this fine day?";
         System.out.println(LINE);
         System.out.println(WelcomeMessage);
@@ -112,14 +126,19 @@ public class GermaBot {
                 break;
             }
             if (input.equals("list")) {
-                int printCounter = 1;
-                System.out.println("Gotcha! Here are your tasks:");
-                for (int i = 0; i < counter; i++) {
-                    if (toDoList[i] == null) {
-                        break;
+                if (toDoList[0] == null) {
+                    System.out.println("Umm... You haven't added any Tasks yet... Let's try adding " +
+                            "some now!");
+                } else {
+                    int printCounter = 1;
+                    System.out.println("Gotcha! Here are your tasks:");
+                    for (int i = 0; i < counter; i++) {
+                        if (toDoList[i] == null) {
+                            break;
+                        }
+                        System.out.println(printCounter + ". " + toDoList[i].toString());
+                        printCounter++;
                     }
-                    System.out.println(printCounter + ". " + toDoList[i].toString());
-                    printCounter++;
                 }
             } else if (input.contains("unmark")) {
                 int idx = getIdx(input);
