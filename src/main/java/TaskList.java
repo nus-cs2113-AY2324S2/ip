@@ -20,26 +20,10 @@ public class TaskList {
                 addTask(new Task(commandParts[1]));
                 break;
             case "deadline":
-                String[] deadlineParts = commandParts[1].split("/by", 2);
-                if (deadlineParts.length != 2) {
-                    System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
-                } else {
-                    addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
-                }
+                addDeadlineTask(commandParts);
                 break;
             case "event":
-                String[] eventparts = commandParts[1].split("/from", 2);
-                if (eventparts.length != 2) {
-                    System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
-                } else {
-                    String[] endDateParts = eventparts[1].split("/to", 2);
-                    if (endDateParts.length != 2) {
-                        System.out.println("☹ OOPS!!! Invalid event format. " +
-                                "Use 'event <description> /from <start date/time> /to <end date/time>'.");
-                    } else {
-                        addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
-                    }
-                }
+                addEvent(commandParts);
                 break;
             case "mark":
                 markTask(commandParts);
@@ -55,6 +39,30 @@ public class TaskList {
             System.out.println("Invalid command format.");
         } catch (NumberFormatException e) {
             System.out.println("Invalid command format.");
+        }
+    }
+
+    private void addDeadlineTask(String[] commandParts) {
+        String[] deadlineParts = commandParts[1].split("/by", 2);
+        if (deadlineParts.length != 2) {
+            System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
+        } else {
+            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+        }
+    }
+
+    private void addEvent(String[] commandParts) {
+        String[] eventparts = commandParts[1].split("/from", 2);
+        if (eventparts.length != 2) {
+            System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
+        } else {
+            String[] endDateParts = eventparts[1].split("/to", 2);
+            if (endDateParts.length != 2) {
+                System.out.println("☹ OOPS!!! Invalid event format. " +
+                        "Use 'event <description> /from <start date/time> /to <end date/time>'.");
+            } else {
+                addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
+            }
         }
     }
 
@@ -138,8 +146,12 @@ public class TaskList {
             taskList[taskIndex].unmarkTask();
             System.out.println("OK, Dobby marked this task as not done:");
             System.out.println("  " + taskList[taskIndex]);
-            System.out.println("~~~~~~~~~~~~~~~~");
+            printLineBreak();
         }
+    }
+
+    private static void printLineBreak() {
+        System.out.println("~~~~~~~~~~~~~~~~");
     }
 
     public void userCommand() {
