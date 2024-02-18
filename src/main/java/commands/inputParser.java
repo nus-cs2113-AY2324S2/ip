@@ -1,5 +1,9 @@
+package commands;
+
+import exceptions.AragornException;
+
 public class inputParser {
-    protected String[] splitInput = new String[3];
+    private String[] splitInput = new String[3];
 
     public inputParser(String userInput, String commandType) throws AragornException {
         String[] splitDeadline;
@@ -60,6 +64,10 @@ public class inputParser {
                 this.splitInput[2] = splitEvent[1];
                 break;
         }
+    }
+
+    public String[] getSplitInput() {
+        return splitInput;
     }
 
     public static String commandIdentifier(String userInput) {
