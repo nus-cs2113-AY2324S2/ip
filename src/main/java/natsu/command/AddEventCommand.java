@@ -5,7 +5,6 @@ import natsu.task.Event;
 import natsu.util.Printer;
 
 import static natsu.util.TaskManager.list;
-import static natsu.util.TaskManager.taskCount;
 
 public class AddEventCommand {
 
@@ -18,8 +17,8 @@ public class AddEventCommand {
             throw new InvalidCommandException("     I'm terribly sorry, but the description of an event cannot be empty. Please try again!");
         }
         Event event = getEvent(userInput);
-        list[taskCount++] = event;
-        Printer.printTaskAdded(event.toString(), taskCount);
+        list.add(event);
+        Printer.printTaskAdded(event.toString(), list.size());
     }
 
     private static Event getEvent(String userInput) throws InvalidCommandException {

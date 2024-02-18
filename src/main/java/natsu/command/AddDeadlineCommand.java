@@ -4,7 +4,6 @@ import natsu.exception.InvalidCommandException;
 import natsu.task.Deadline;
 import natsu.util.Printer;
 import static natsu.util.TaskManager.list;
-import static natsu.util.TaskManager.taskCount;
 
 public class AddDeadlineCommand {
 
@@ -20,8 +19,8 @@ public class AddDeadlineCommand {
             String deadlineDescription = userInput.substring(CommandConstants.DEADLINE_COMMAND_PREFIX_LENGTH, byIndex).trim();
             String deadlineBy = userInput.substring(byIndex + CommandConstants.DEADLINE_INDICATOR.length() + 1).trim();
             Deadline deadline = new Deadline(deadlineDescription, deadlineBy);
-            list[taskCount++] = deadline;
-            Printer.printTaskAdded(deadline.toString(), taskCount);
+            list.add(deadline);
+            Printer.printTaskAdded(deadline.toString(), list.size());
         }
     }
 }
