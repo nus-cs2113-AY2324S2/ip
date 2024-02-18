@@ -14,7 +14,6 @@ import java.io.File;
 
 
 public class Evelyn {
-
     public static ArrayList<Task> tasks;
     public static int indexOfTask = 0;
 
