@@ -88,38 +88,15 @@ public class CommunicateCaseHandle {
         newTaskAddedMessage(t, list);
     }
 
-    public void markHandle(String line, ArrayList<Task> list) {
+    public void totalHandle(String line, ArrayList<Task> list, String identity) {
         int spaceIndex = line.indexOf(" ");
         if (spaceIndex == -1) {
-            userInputError.noSpacingError("'mark'");
+            userInputError.noSpacingError("'" + identity + "'");
             return;
         }
         String secondPart = line.substring(spaceIndex + 1);
         if (exceptions.checkIfStringIsInteger(secondPart) == exceptions.getStringIsNotInteger()) {
-            userInputError.inputNotNumberError("'mark'");
-            return;
-        }
-        int number = Integer.parseInt(line.substring(spaceIndex + 1));
-        if (number > list.size()) {
-            userInputError.requestTaskOutOfBound();
-        } else {
-            format.dividingLine();
-            System.out.println("\tNice! I've marked this task as done:");
-            list.get(number - 1).changeStatus(true);
-            System.out.println("\t\t" + list.get(number - 1).getIdentity() + list.get(number - 1).getStatusIcon() + " " + list.get(number - 1));
-            format.dividingLine();
-        }
-    }
-
-    public void unmarkHandle(String line, ArrayList<Task> list) {
-        int spaceIndex = line.indexOf(" ");
-        if (spaceIndex == -1) {
-            userInputError.noSpacingError("'unmark'");
-            return;
-        }
-        String secondPart = line.substring(spaceIndex + 1);
-        if (exceptions.checkIfStringIsInteger(secondPart) == exceptions.getStringIsNotInteger()) {
-            userInputError.inputNotNumberError("'unmark'");
+            userInputError.inputNotNumberError("'" + identity + "'");
             return;
         }
         int number = Integer.parseInt(secondPart);
@@ -127,13 +104,27 @@ public class CommunicateCaseHandle {
             userInputError.requestTaskOutOfBound();
         } else {
             format.dividingLine();
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            list.get(number - 1).changeStatus(false);
-            System.out.println("\t\t" + list.get(number - 1).getIdentity() + list.get(number - 1).getStatusIcon() + " " + list.get(number - 1));
+            String output = "\t\t" + list.get(number - 1).getIdentity() +
+                    list.get(number - 1).getStatusIcon() + " " + list.get(number - 1);
+            switch (identity) {
+            case "unmark":
+                System.out.println("\tOK, I've marked this task as not done yet:");
+                list.get(number - 1).changeStatus(false);
+                break;
+            case "mark":
+                System.out.println("\tNice! I've marked this task as done:");
+                list.get(number - 1).changeStatus(true);
+                break;
+            case "delete":
+                System.out.println("\tNoted. I've removed this task:");
+                list.remove(number - 1);
+                break;
+            }
+            System.out.println(output);
+            if(identity.equals("delete")) {
+                System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+            }
             format.dividingLine();
         }
-
     }
-
-
 }
