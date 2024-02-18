@@ -1,10 +1,8 @@
 package memory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
-import java.io.FileWriter;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,6 +13,7 @@ import task.Task;
 import task.ToDo;
 
 import static constant.NormalConstant.TASK_SAVE_PATH;
+import static constant.NormalConstant.TEMP_TASK_SAVE_PATH;
 
 public class FileAccess {
 
@@ -39,6 +38,7 @@ public class FileAccess {
             String content = fileContent.nextLine();
             handleFileContent(list, content);
         }
+        fileContent.close();
     }
 
     public void handleFileContent(ArrayList<Task> list, String content) {
@@ -52,15 +52,15 @@ public class FileAccess {
             switch (detail[0]) {
             case "T":
                 newTask = new ToDo(detail[2]);
-                newTask.changStatus(Integer.parseInt(detail[1]) == 1);
+                newTask.changeStatus(Integer.parseInt(detail[1]) == 1);
                 break;
             case "D":
                 newTask = new Deadline(detail[2], detail[3]);
-                newTask.changStatus(Integer.parseInt(detail[1]) == 1);
+                newTask.changeStatus(Integer.parseInt(detail[1]) == 1);
                 break;
             case "E":
                 newTask = new Event(detail[2], detail[3], detail[4]);
-                newTask.changStatus(Integer.parseInt(detail[1]) == 1);
+                newTask.changeStatus(Integer.parseInt(detail[1]) == 1);
                 break;
             default:
                 newTask = new ToDo("Corrupted File");
@@ -70,8 +70,7 @@ public class FileAccess {
         }
     }
 
-    public void saveFile(Task currentTask) throws IOException {
-        FileWriter fileWriter = new FileWriter(TASK_SAVE_PATH, true);
+    public String changeTaskToTextFormat(Task currentTask) {
         String separator = " | ";
         String taskFileFormat = "";
 
@@ -93,7 +92,52 @@ public class FileAccess {
             taskFileFormat += currentTask.getTo();
             break;
         }
+        return taskFileFormat;
+    }
+
+    public void deleteTask(Task currentTask) throws IOException {
+        File oldFile = new File(TASK_SAVE_PATH);
+        File tempFile = new File(TEMP_TASK_SAVE_PATH);
+
+        BufferedReader reader = new BufferedReader(new FileReader(oldFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        String lineToRemove = changeTaskToTextFormat(currentTask);
+        String currentLine;
+
+        while ((currentLine = reader.readLine()) != null) {
+            if (currentLine.trim().equals(lineToRemove)) {
+                continue;
+            }
+            writer.write(currentLine + System.lineSeparator());
+        }
+
+        writer.close();
+        reader.close();
+
+        Path taskPath = Paths.get(TASK_SAVE_PATH);
+        Path tempTaskPath = Paths.get(TEMP_TASK_SAVE_PATH);
+
+        Files.delete(taskPath);
+        Files.copy(tempTaskPath, taskPath);
+        Files.delete(tempTaskPath);
+    }
+
+    public void saveTask(Task currentTask) throws IOException {
+        FileWriter fileWriter = new FileWriter(TASK_SAVE_PATH, true);
+        String taskFileFormat = changeTaskToTextFormat(currentTask);
         fileWriter.write(taskFileFormat + System.lineSeparator());
         fileWriter.close();
+    }
+
+    public static void main(String[] args) throws IOException {
+        ArrayList<Task> list = new ArrayList<>();
+        list.add(new ToDo("sfwefwf"));
+        list.add(new Deadline("ewfhwihfwf", "fwf"));
+        list.add(new ToDo("fweofiwf"));
+        FileAccess a = new FileAccess();
+        a.saveTask(new ToDo("sfwefwf"));
+        a.saveTask(new Deadline("ewfhwihfwf", "fwf"));
+        a.saveTask(new ToDo("fweofiwf"));
+        a.deleteTask(list.get(1));
     }
 }

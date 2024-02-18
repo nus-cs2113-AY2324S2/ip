@@ -17,6 +17,8 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 #Customize
+/data/
+/text-ui-test/data/
 *.class
 *.jar
 *.exe

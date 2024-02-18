@@ -1,29 +1,36 @@
 package noobconversation;
 
-import errorhandle.ExceptionsHandle;
-import errorhandle.UserInputErrorOutputHandle;
-import format.Formatting;
+import errorhandle.ExceptionsHandler;
+import errorhandle.UserInputErrorOutputHandler;
+import format.Formatter;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class CommunicateCaseHandle {
+import memory.FileAccess;
+
+import static constant.NormalConstant.CORRECT_TASK_CREATION;
+import static constant.NormalConstant.WRONG_TASK_CREATION;
 
 
-    protected ExceptionsHandle exceptions;
-    protected Formatting format;
-    protected UserInputErrorOutputHandle userInputError;
+public class CommunicateCaseHandler {
 
-    public CommunicateCaseHandle() {
-        exceptions = new ExceptionsHandle();
-        format = new Formatting();
-        userInputError = new UserInputErrorOutputHandle();
+
+    protected ExceptionsHandler exceptions;
+    protected Formatter format;
+    protected UserInputErrorOutputHandler userInputError;
+
+    public CommunicateCaseHandler() {
+        exceptions = new ExceptionsHandler();
+        format = new Formatter();
+        userInputError = new UserInputErrorOutputHandler();
     }
 
-    public void listHandle(ArrayList<Task> list) {
+    public void printList(ArrayList<Task> list) {
         format.dividingLine();
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
@@ -32,20 +39,21 @@ public class CommunicateCaseHandle {
         format.dividingLine();
     }
 
-    public void taskHandle(String line, ArrayList<Task> list) {
+    public int handleTask(String line, ArrayList<Task> list) {
         int spaceIndex = line.indexOf(" ");
         if (line.toLowerCase().startsWith("todo")) {
-            todoHandle(line.substring(spaceIndex + 1), list);
+            return handleTodo(line.substring(spaceIndex + 1), list);
         } else if (line.toLowerCase().startsWith("deadline")) {
-            deadlineHandle(line.substring(spaceIndex + 1), list);
+            return handleDeadline(line.substring(spaceIndex + 1), list);
         } else if (line.toLowerCase().startsWith("event")) {
-            eventHandle(line.substring(spaceIndex + 1), list);
+            return handleEvent(line.substring(spaceIndex + 1), list);
         } else {
-            userInputError.undefinedTaskError();
+            userInputError.printUndefinedTaskError();
+            return WRONG_TASK_CREATION;
         }
     }
 
-    public void newTaskAddedMessage(Task t, ArrayList<Task> list) {
+    public void printNewTaskAddedMessage(Task t, ArrayList<Task> list) {
         format.dividingLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + t.getIdentity() + t.getStatusIcon() + " " + t);
@@ -53,30 +61,35 @@ public class CommunicateCaseHandle {
         format.dividingLine();
     }
 
-    public void todoHandle(String line, ArrayList<Task> list) {
+    public int handleTodo(String line, ArrayList<Task> list) {
         if (line.toLowerCase().startsWith("todo")) {
-            userInputError.noTaskContentError("todo");
+            userInputError.printNoTaskContentError("todo");
+            return WRONG_TASK_CREATION;
         }
         Task t = new ToDo(line.trim());
         list.add(t);
-        newTaskAddedMessage(t, list);
+        printNewTaskAddedMessage(t, list);
+        return CORRECT_TASK_CREATION;
     }
 
-    public void deadlineHandle(String line, ArrayList<Task> list) {
+    public int handleDeadline(String line, ArrayList<Task> list) {
         if (line.toLowerCase().startsWith("deadline")) {
-            userInputError.noTaskContentError("deadline");
+            userInputError.printNoTaskContentError("deadline");
+            return WRONG_TASK_CREATION;
         }
         int byIndex = line.indexOf("/by");
         String content = line.substring(0, byIndex);
         String by = line.substring(byIndex + 3).trim();
         Task t = new Deadline(content.trim(), by.trim());
         list.add(t);
-        newTaskAddedMessage(t, list);
+        printNewTaskAddedMessage(t, list);
+        return CORRECT_TASK_CREATION;
     }
 
-    public void eventHandle(String line, ArrayList<Task> list) {
+    public int handleEvent(String line, ArrayList<Task> list) {
         if (line.toLowerCase().startsWith("event")) {
-            userInputError.noTaskContentError("event");
+            userInputError.printNoTaskContentError("event");
+            return WRONG_TASK_CREATION;
         }
         int fromIndex = line.indexOf("/from");
         String content = line.substring(0, fromIndex);
@@ -85,40 +98,54 @@ public class CommunicateCaseHandle {
         String to = line.substring(toIndex + 3).trim();
         Task t = new Event(content.trim(), from.trim(), to.trim());
         list.add(t);
-        newTaskAddedMessage(t, list);
+        printNewTaskAddedMessage(t, list);
+        return CORRECT_TASK_CREATION;
     }
 
-    public void totalHandle(String line, ArrayList<Task> list, String identity) {
+    public void handleTotal(String line, ArrayList<Task> list, String identity) {
+        FileAccess fileAccess = new FileAccess();
         int spaceIndex = line.indexOf(" ");
         if (spaceIndex == -1) {
-            userInputError.noSpacingError("'" + identity + "'");
+            userInputError.printNoSpacingError("'" + identity + "'");
             return;
         }
         String secondPart = line.substring(spaceIndex + 1);
         if (exceptions.checkIfStringIsInteger(secondPart) == exceptions.getStringIsNotInteger()) {
-            userInputError.inputNotNumberError("'" + identity + "'");
+            userInputError.printInputNotNumberError("'" + identity + "'");
             return;
         }
         int number = Integer.parseInt(secondPart);
         if (number > list.size()) {
-            userInputError.requestTaskOutOfBound();
+            userInputError.printRequestTaskOutOfBoundError();
         } else {
             format.dividingLine();
-            String output = "\t\t" + list.get(number - 1).getIdentity() +
-                    list.get(number - 1).getStatusIcon() + " " + list.get(number - 1);
+            String output;
             switch (identity) {
             case "unmark":
                 System.out.println("\tOK, I've marked this task as not done yet:");
                 list.get(number - 1).changeStatus(false);
+                output = "\t\t" + list.get(number - 1).getIdentity() +
+                        list.get(number - 1).getStatusIcon() + " " + list.get(number - 1);
                 break;
             case "mark":
                 System.out.println("\tNice! I've marked this task as done:");
                 list.get(number - 1).changeStatus(true);
+                output = "\t\t" + list.get(number - 1).getIdentity() +
+                        list.get(number - 1).getStatusIcon() + " " + list.get(number - 1);
                 break;
             case "delete":
                 System.out.println("\tNoted. I've removed this task:");
+                output = "\t\t" + list.get(number - 1).getIdentity() +
+                        list.get(number - 1).getStatusIcon() + " " + list.get(number - 1);
+                try {
+                    fileAccess.deleteTask(list.get(number - 1));
+                } catch (IOException e) {
+                    System.out.println("Can not delete your Task!!!" + e.getMessage());
+                }
                 list.remove(number - 1);
                 break;
+            default:
+                output = "Corrupted";
             }
             System.out.println(output);
             if (identity.equals("delete")) {

@@ -1,40 +1,40 @@
 package errorhandle;
 
-import format.Formatting;
+import format.Formatter;
 
-public class UserInputErrorOutputHandle {
+public class UserInputErrorOutputHandler {
 
-    protected Formatting format;
+    protected Formatter format;
 
-    public UserInputErrorOutputHandle() {
-        format = new Formatting();
+    public UserInputErrorOutputHandler() {
+        format = new Formatter();
     }
 
-    public void undefinedTaskError() {
+    public void printUndefinedTaskError() {
         format.dividingLine();
         System.out.println("\tUnknown Command!");
         format.dividingLine();
     }
 
-    public void noTaskContentError(String taskType) {
+    public void printNoTaskContentError(String taskType) {
         format.dividingLine();
         System.out.println("\tOh nooooo!! The description of " + taskType + "is missing!!");
         format.dividingLine();
     }
 
-    public void noSpacingError(String identity) {
+    public void printNoSpacingError(String identity) {
         format.dividingLine();
         System.out.println("\tPlease add a spacing between " + identity + " and 'number'");
         format.dividingLine();
     }
 
-    public void inputNotNumberError(String identity) {
+    public void printInputNotNumberError(String identity) {
         format.dividingLine();
         System.out.println("\tPlease type " + identity + " + 'NUMBER'!");
         format.dividingLine();
     }
 
-    public void requestTaskOutOfBound() {
+    public void printRequestTaskOutOfBoundError() {
         format.dividingLine();
         System.out.println("\tOops, you do not have this task");
         format.dividingLine();

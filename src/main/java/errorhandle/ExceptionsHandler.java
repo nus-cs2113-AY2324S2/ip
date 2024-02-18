@@ -1,7 +1,7 @@
 package errorhandle;
 import static constant.NormalConstant.STRING_IS_NOT_INTEGER;
 
-public class ExceptionsHandle extends Exception {
+public class ExceptionsHandler extends Exception {
 
 
     public int checkIfStringIsInteger(String s) {

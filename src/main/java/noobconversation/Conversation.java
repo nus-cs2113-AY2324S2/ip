@@ -4,28 +4,29 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import format.Formatting;
+import format.Formatter;
 import task.Task;
 import memory.FileAccess;
-
 import java.util.Scanner;
+import static constant.NormalConstant.CORRECT_TASK_CREATION;
+
 
 public class Conversation {
 
-    protected Formatting format;
+    protected Formatter format;
 
     public Conversation() {
-        format = new Formatting();
+        format = new Formatter();
     }
 
     public void communicate() {
-        CommunicateCaseHandle caseHandle = new CommunicateCaseHandle();
+        CommunicateCaseHandler caseHandle = new CommunicateCaseHandler();
         Scanner in = new Scanner(System.in);
         FileAccess fileAccess = new FileAccess();
 
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> lists = new ArrayList<>();
         try {
-            fileAccess.readFile(list);
+            fileAccess.readFile(lists);
         } catch (FileNotFoundException e) {
             System.out.println("Can not find your file!!!" + e.getMessage());
         }
@@ -33,19 +34,20 @@ public class Conversation {
 
         while (!line.equalsIgnoreCase("bye")) {
             if (line.equalsIgnoreCase("list")) {
-                caseHandle.listHandle(list);
+                caseHandle.printList(lists);
             } else if (line.toLowerCase().startsWith("unmark")) {
-                caseHandle.totalHandle(line, list, "unmark");
+                caseHandle.handleTotal(line, lists, "unmark");
             }else if (line.toLowerCase().startsWith("delete")){
-                caseHandle.totalHandle(line, list, "delete");
+                 caseHandle.handleTotal(line, lists, "delete");
             }else if (line.toLowerCase().startsWith("mark")) {
-                caseHandle.totalHandle(line, list, "mark");
+                 caseHandle.handleTotal(line, lists, "mark");
             } else {
-                caseHandle.taskHandle(line, list);
-                try {
-                    fileAccess.saveFile(list.get(list.size() - 1));
-                } catch (IOException e) {
-                    System.out.println("Can not save your file!!!" + e.getMessage());
+                if(caseHandle.handleTask(line, lists) == CORRECT_TASK_CREATION) {
+                    try {
+                        fileAccess.saveTask(lists.get(lists.size() - 1));
+                    } catch (IOException e) {
+                        System.out.println("Can not save your Task!!!" + e.getMessage());
+                    }
                 }
             }
             line = in.nextLine().trim();
@@ -53,19 +55,24 @@ public class Conversation {
 
     }
 
-    public void startConversationInitiateLogo() {
+    public void printWelcomeMessage() {
 
         System.out.println("Hello from\n" + format.logo());
         format.dividingLine();
         System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
         format.dividingLine();
-        format.describeFunctionality();
+        format.printFunctionality();
         format.dividingLine();
+    }
 
-        communicate();
+    public void printGoodbyeMessage() {
         format.dividingLine();
         System.out.println("\tBye. Hope to see you again soon!");
         format.dividingLine();
+    }
+
+    public void startConversation(){
+        communicate();
     }
 }

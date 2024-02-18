@@ -1,11 +1,11 @@
 package format;
 
-public class Formatting {
+public class Formatter {
     public void dividingLine() {
         System.out.println("\t__________________________________________________");
     }
 
-    public void describeFunctionality() {
+    public void printFunctionality() {
         System.out.println("\tI have the following features:");
         System.out.println("\t\t1. Echo and store three types of tasks: 'todo', 'deadline' and 'event'.");
         System.out.println("\t\t2. Type \"todo\" + \"taskContent\" to record a 'todo' task.");
