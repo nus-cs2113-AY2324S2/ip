@@ -31,20 +31,35 @@ Hello from
 	__________________________________________________
 	__________________________________________________
 	Got it. I've added this task:
-		[D][ ] return book  (by: Sunday)
+		[T][ ] watch TV
 	Now you have 3 tasks in the list.
 	__________________________________________________
 	__________________________________________________
 	Got it. I've added this task:
-		[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+		[T][ ] running
 	Now you have 4 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[D][ ] return book  (by: Sunday)
+	Now you have 5 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[D][ ] eat apple  (by: tonight)
+	Now you have 6 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	Now you have 7 tasks in the list.
 	__________________________________________________
 	__________________________________________________
 	Unknown Command!
 	__________________________________________________
 	__________________________________________________
 	Nice! I've marked this task as done:
-		[T][X] read book
+		[T][ ] read book
 	__________________________________________________
 	__________________________________________________
 	Please type 'mark' + 'NUMBER'!
@@ -56,23 +71,34 @@ Hello from
 	Here are the tasks in your list:
 	1.[T][X] read book
 	2.[T][ ] borrow book
-	3.[D][ ] return book  (by: Sunday)
-	4.[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	3.[T][ ] watch TV
+	4.[T][ ] running
+	5.[D][ ] return book  (by: Sunday)
+	6.[D][ ] eat apple  (by: tonight)
+	7.[E][ ] project meeting  (from: Mon 2pm to: 4pm)
 	__________________________________________________
 	__________________________________________________
 	Please add a spacing between 'mark' and 'number'
 	__________________________________________________
 	__________________________________________________
 	Nice! I've marked this task as done:
-		[T][X] borrow book
+		[T][ ] borrow book
 	__________________________________________________
 	__________________________________________________
 	Nice! I've marked this task as done:
-		[D][X] return book  (by: Sunday)
+		[T][ ] watch TV
 	__________________________________________________
 	__________________________________________________
 	Nice! I've marked this task as done:
-		[E][X] project meeting  (from: Mon 2pm to: 4pm)
+		[T][ ] running
+	__________________________________________________
+	__________________________________________________
+	Nice! I've marked this task as done:
+		[D][ ] eat apple  (by: tonight)
+	__________________________________________________
+	__________________________________________________
+	OK, I've marked this task as not done yet:
+		[D][X] eat apple  (by: tonight)
 	__________________________________________________
 	__________________________________________________
 	Oops, you do not have this task
@@ -82,7 +108,7 @@ Hello from
 	__________________________________________________
 	__________________________________________________
 	OK, I've marked this task as not done yet:
-		[T][ ] borrow book
+		[T][X] borrow book
 	__________________________________________________
 	__________________________________________________
 	Please type 'unmark' + 'NUMBER'!
@@ -98,8 +124,31 @@ Hello from
 	Here are the tasks in your list:
 	1.[T][X] read book
 	2.[T][ ] borrow book
-	3.[D][X] return book  (by: Sunday)
-	4.[E][X] project meeting  (from: Mon 2pm to: 4pm)
+	3.[T][X] watch TV
+	4.[T][X] running
+	5.[D][ ] return book  (by: Sunday)
+	6.[D][ ] eat apple  (by: tonight)
+	7.[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	__________________________________________________
+	__________________________________________________
+	Noted. I've removed this task:
+		[T][X] watch TV
+	Now you have 6 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Please add a spacing between 'delete' and 'number'
+	__________________________________________________
+	__________________________________________________
+	Please type 'delete' + 'NUMBER'!
+	__________________________________________________
+	__________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[T][ ] borrow book
+	3.[T][X] running
+	4.[D][ ] return book  (by: Sunday)
+	5.[D][ ] eat apple  (by: tonight)
+	6.[E][ ] project meeting  (from: Mon 2pm to: 4pm)
 	__________________________________________________
 	__________________________________________________
 	Bye. Hope to see you again soon!

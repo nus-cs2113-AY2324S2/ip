@@ -26,9 +26,11 @@ public class Conversation {
             if (line.equalsIgnoreCase("list")) {
                 caseHandle.listHandle(list);
             } else if (line.toLowerCase().startsWith("unmark")) {
-                caseHandle.unmarkHandle(line, list);
-            } else if (line.toLowerCase().startsWith("mark")) {
-                caseHandle.markHandle(line, list);
+                caseHandle.totalHandle(line, list, "unmark");
+            }else if (line.toLowerCase().startsWith("delete")){
+                caseHandle.totalHandle(line, list, "delete");
+            }else if (line.toLowerCase().startsWith("mark")) {
+                caseHandle.totalHandle(line, list, "mark");
             } else {
                 caseHandle.taskHandle(line, list);
             }

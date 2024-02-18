@@ -1,6 +1,9 @@
 todo read book
 todo borrow book
+todo watch TV
+todo running
 deadline return book /by Sunday
+deadline eat apple /by tonight
 event project meeting /from Mon 2pm /to 4pm
 we don't talk anymore
 mark 1
@@ -13,9 +16,15 @@ mark 3
 mark 4
 mark 6
 unmark 6
+mark 8
+unmark 10
 unmark 2
 unmarkreturn book
 unmark 2
 unmark2
+list
+delete 3
+delete3
+delete borrow book
 list
 bye
