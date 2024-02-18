@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class DeadlineTask extends Task{
     private String ddlTime;
-    public DeadlineTask(String nameWithDate, Boolean isDone) {
+    public DeadlineTask(String nameWithDate, Boolean isDone) throws Exception{
         StringBuilder ddlTime = new StringBuilder();
         StringBuilder name = new StringBuilder();
         String[] words = nameWithDate.split(" ");
@@ -26,6 +26,9 @@ public class DeadlineTask extends Task{
                     break;
                 }
             }
+        }
+        if(state != 1 || name.toString().isEmpty() || isDone.toString().isEmpty()) {
+            throw new Exception();
         }
         setName(name.toString());
         setIsDone(isDone);
