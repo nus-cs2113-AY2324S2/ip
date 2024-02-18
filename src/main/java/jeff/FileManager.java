@@ -161,6 +161,9 @@ public class FileManager {
         } else {
             throw new CorruptFileException();
         }
+        if (params[1].equals("1")) {
+            task.mark();
+        }
         return task;
     }
 }
