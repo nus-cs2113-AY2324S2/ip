@@ -5,6 +5,7 @@ import natsu.exception.InvalidCommandException;
 import static natsu.util.TaskManager.list;
 import static natsu.util.TaskManager.taskCount;
 import static natsu.util.Printer.printLine;
+import static natsu.util.TaskSaver.saveTasksToFile;
 
 public class CommandExecutor {
     public static Boolean executeCommand(String userInput) {
@@ -32,6 +33,7 @@ public class CommandExecutor {
             System.out.println(e.getMessage());
             printLine();
         }
+        saveTasksToFile("data/tasks.txt");
         return true;
     }
 }
