@@ -64,7 +64,7 @@ public class Command {
         return true;
     }
 
-    public static boolean addTask(ArrayList<Task> list, String line, String[] splitLine, Commands typeOfTask) {
+    public static boolean addTask(ArrayList<Task> list, String originalUserInput, String[] splitLine, Commands typeOfTask) {
         Task t;
         boolean success = true;
 
@@ -76,7 +76,7 @@ public class Command {
                     break;
                 }
                 try {
-                    t = new Todo(line, true);
+                    t = new Todo(originalUserInput, true);
                     System.out.println(t);
                     list.add(t);
                 } catch (RuntimeException e) {
@@ -91,7 +91,7 @@ public class Command {
                     break;
                 }
                 try {
-                    t = new Deadline(line, true);
+                    t = new Deadline(originalUserInput, true);
                     System.out.println(t);
                     list.add(t);
                 } catch (DukeException e) {
@@ -106,7 +106,7 @@ public class Command {
                     break;
                 }
                 try {
-                    t = new Event(line, true);
+                    t = new Event(originalUserInput, true);
                     System.out.println(t);
                     list.add(t);
                 } catch (RuntimeException e) {
