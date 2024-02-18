@@ -91,4 +91,6 @@ public class Message {
                         : "\nNow down to " + newSize + " tasks in the list.");
     }
 
+    public static String FILE_SAVE_ERROR_MESSAGE = "File fail to save\n";
+    public static String FILE_LOAD_ERROR_MESSAGE = "File fail to load\n";
 }

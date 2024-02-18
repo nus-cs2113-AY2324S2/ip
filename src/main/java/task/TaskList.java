@@ -2,10 +2,11 @@ package task;
 
 import ui.Parser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskList {
+public class TaskList implements Serializable {
     private final List<Task> tasks;
 
     public TaskList() {
