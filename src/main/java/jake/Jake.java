@@ -1,5 +1,6 @@
 package jake;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import jake.task.Deadline;
 import jake.task.Event;
@@ -8,35 +9,35 @@ import jake.task.ToDo;
 
 public class Jake {
 
-    static final String LINE_STRING ="____________________________________________________________";
+    private static final String LINE_STRING ="____________________________________________________________";
+    private static ArrayList<Task> commands = new ArrayList<>();
 
     // List out all tasks
-    private static void listTask(Task[] commands, int totalTasks) {
+    private static void listTask() {
         System.out.println("Current commands being executed: ");
-        for (int i = 0; i < totalTasks; i++){
-            System.out.println(Integer.toString(i+1) + "." + commands[i].toString());
+        for (int i = 0; i < commands.size(); i++){
+            System.out.println(Integer.toString(i+1) + "." + commands.get(i));
         }
         System.out.println(LINE_STRING);
     }
 
     // Mark or Unmark respective task.
-    private static void toggleTask(Task[] commands, int totalTasks, 
-            String userInput, String taskType) throws JakeException {
+    private static void toggleTask(String userInput, String taskType) {
         int taskNumber = Integer.parseInt(userInput.substring(userInput.lastIndexOf(" ")+1));
-        if (taskNumber>totalTasks){
+        if (taskNumber>commands.size()){
             System.out.println("Task does not exist!");
         } else if (taskType.equals("unmark")){
             System.out.println("Successfully unmarked");
-            commands[taskNumber-1].markTask(false);
+            commands.get(taskNumber-1).markTask(false);
         } else {
             System.out.println("Successfully marked");
-            commands[taskNumber-1].markTask(true);
+            commands.get(taskNumber-1).markTask(true);
         }
         System.out.println(LINE_STRING);
     }
 
     // Add ToDos, Deadlines, and Events
-    private static void addTask(Task[] commands, int totalTasks, String userInput, String taskType) {
+    private static void addTask(String userInput, String taskType) {
         Task newTask;
         switch (taskType) {
             case "todo":
@@ -53,12 +54,12 @@ public class Jake {
                 break;
             default:
                 return;
-        }
+        } 
         
-        commands[totalTasks] = newTask;
+        commands.add(newTask);
         System.out.println(LINE_STRING);
-        System.out.println("Got it! I have successfully added: \n" + "    " + newTask.toString());
-        System.out.printf("You have a total of %d tasks in the list \n", totalTasks+1);
+        System.out.println("Got it! I have successfully added: \n" + "    " + newTask);
+        System.out.printf("You have a total of %d tasks in the list \n", commands.size());
         System.out.println(LINE_STRING);
     }
 
@@ -66,8 +67,6 @@ public class Jake {
     public static void main(String[] args) throws JakeException {
         System.out.println("Hello! I'm Jake\n" + "What can I do for you? \n" + LINE_STRING);
         Scanner myScanner = new Scanner(System.in);
-        Task[] commands = new Task[100];
-        int totalTasks = 0;
         String userInput= "";
 
         do {
@@ -85,18 +84,17 @@ public class Jake {
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
                 case "list":
-                    listTask(commands, totalTasks);
+                    listTask();
                     break;
                 case "mark":
                 case "unmark":
-                    toggleTask(commands, totalTasks, userInput, taskType);
+                    toggleTask(userInput, taskType);
                     break;
                 case "todo":
                 case "deadline":
                 case "event":
                     try {
-                        addTask(commands, totalTasks, userInput, taskType);
-                        totalTasks++;
+                        addTask(userInput, taskType);
                         break;
                     } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                         //throw new JakeException("Invalid task! Please try again!", e);
