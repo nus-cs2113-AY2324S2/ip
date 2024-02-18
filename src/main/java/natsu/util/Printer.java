@@ -2,6 +2,8 @@ package natsu.util;
 
 import natsu.task.Task;
 
+import java.util.ArrayList;
+
 public class Printer {
 
     public static void printLine() {
@@ -43,11 +45,11 @@ public class Printer {
         printLine();
     }
 
-    public static void printList(Task[] list, int taskCount) {
+    public static void printList(ArrayList<Task> list) {
         printLine();
         System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("     " + (i + 1) + "." + list[i].toString());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + list.get(i).toString());
         }
         printLine();
     }

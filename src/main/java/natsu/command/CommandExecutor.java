@@ -3,7 +3,6 @@ package natsu.command;
 import natsu.exception.InvalidCommandException;
 
 import static natsu.util.TaskManager.list;
-import static natsu.util.TaskManager.taskCount;
 import static natsu.util.Printer.printLine;
 
 public class CommandExecutor {
@@ -23,7 +22,7 @@ public class CommandExecutor {
             } else if (userInput.startsWith("unmark")) {
                 new UnmarkCommand(userInput);
             } else if (userInput.startsWith("list")) {
-                new ListCommand(list, taskCount);
+                new ListCommand(list);
             } else if (userInput.startsWith("delete")) {
                 new DeleteCommand(userInput);
             } else {
