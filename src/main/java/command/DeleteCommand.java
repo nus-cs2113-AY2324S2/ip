@@ -2,6 +2,7 @@ package command;
 
 import exception.AdamException;
 import task.TaskList;
+import ui.Message;
 
 public class DeleteCommand implements Command {
     private final int index;
@@ -12,7 +13,12 @@ public class DeleteCommand implements Command {
 
     @Override
     public boolean execute(TaskList tasks) throws AdamException {
-        tasks.deleteTask(index);
+        try {
+            System.out.println(Message.getDeleteMessage(tasks.size() - 1, tasks.getTask(index).toString()));
+            tasks.deleteTask(index);
+        } catch (IndexOutOfBoundsException error) {
+            throw new AdamException(Message.getListInquiryErrorMessage(tasks.size()));
+        }
         return false;
     }
 }
