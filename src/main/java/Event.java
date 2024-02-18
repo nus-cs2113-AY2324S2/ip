@@ -9,14 +9,6 @@ public class Event extends Task {
         this.END_TIME= endTime;
     }
 
-    public String getStartTime() {
-        return START_TIME;
-    }
-
-    public String getEndTime() {
-        return END_TIME;
-    }
-
     @Override
     public String toString() {
         return EVENT_STATUS + super.toString() + " " + "(from: " + START_TIME + " to: " + END_TIME + ")";
