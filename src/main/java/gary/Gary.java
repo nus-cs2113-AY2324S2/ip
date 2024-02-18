@@ -36,11 +36,30 @@ public class Gary {
             if (line.equalsIgnoreCase("LIST")) {
                 processList(todosCount, todos);
             } else if (command.equalsIgnoreCase("MARK")) {
-                processMark(todos, lineWords);
+                try {
+                    processMark(todos, lineWords);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! You don't have that much task");
+                } catch (NumberFormatException e) {
+                    System.out.println("OOPS!!! input after 'mark' must be a number");
+                }
             } else if (command.equalsIgnoreCase("UNMARK")) {
-                processUnmark(todos, lineWords);
+                try {
+                    processUnmark(todos, lineWords);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! You don't have that much task");
+                } catch (NumberFormatException e) {
+                    System.out.println("OOPS!!! input after 'unmark' must be a number");
+                }
             } else if (command.equalsIgnoreCase("DELETE")) {
-                processDelete(todos, lineWords);
+                try {
+                    processDelete(todos, lineWords);
+                    todosCount -= 1;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! You don't have that much task");
+                } catch (NumberFormatException e) {
+                    System.out.println("OOPS!!! input after 'delete' must be a number");
+                }
             } else {
                 try {
                     processAddTask(command, todos, todosCount, line);
