@@ -1,10 +1,7 @@
 package gary;
 
 import gary.exception.*;
-import gary.task.Deadline;
-import gary.task.Event;
-import gary.task.Task;
-import gary.task.Todo;
+import gary.task.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -74,29 +71,58 @@ public class Gary {
         System.out.println("Bye. Hope to see you again!");
     }
 
+    private static String getTaskSymbol(Task currentTask) {
+        String taskSymbol = null;
+        switch(currentTask.getTaskType()) {
+        case TODO:
+            taskSymbol = "T";
+            break;
+        case DEADLINE:
+            taskSymbol = "D";
+            break;
+        case EVENT:
+            taskSymbol = "E";
+            break;
+        }
+        return taskSymbol;
+    }
     private static void processDelete(ArrayList<Task> todos, String[] lineWords) {
         Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
         int taskIndex = Integer.parseInt(lineWords[1]) - 1;
+        String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
+        String taskType = getTaskSymbol(currentTask);
+        String taskDescription = currentTask.getTaskDescription();
         todos.remove(taskIndex);
-        System.out.println("Noted, I've removed this task: [ ] " + currentTask.getTaskDescription());
+        System.out.println("Noted, I've removed this task:");
+        System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
+//        System.out.println("Noted, I've removed this task: [ ] " + currentTask.getTaskDescription());
     }
 //    private static void processUnmark(Task[] todos, String[] lineWords) {
     private static void processUnmark(ArrayList<Task> todos, String[] lineWords) {
         Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
 //        todos[Integer.parseInt(lineWords[1]) - 1].unmarkAsDone();
         currentTask.unmarkAsDone();
+        String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
+        String taskType = getTaskSymbol(currentTask);
+        String taskDescription = currentTask.getTaskDescription();
         System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println("  " + "[ ] " + currentTask.getTaskDescription());
-//                + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
+        System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
+//        System.out.println("  " + "[ ] " + currentTask.getTaskDescription());
+//      /          + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
     }
 
 //    private static void processMark(Task[] todos, String[] lineWords) {
     private static void processMark(ArrayList<Task> todos, String[] lineWords) {
 //        todos[Integer.parseInt(lineWords[1]) - 1].markAsDone();
         Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
+        currentTask.markAsDone();
+        String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
+        String taskType = getTaskSymbol(currentTask);
+        String taskDescription = currentTask.getTaskDescription();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + "[X] " + currentTask.getTaskDescription());
-//                + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
+        System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
+//        System.out.println("  " + "[X] " + currentTask.getTaskDescription());
+//           /     + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
     }
 
 //    private static void processList(int todosCount, Task[] todos) {
