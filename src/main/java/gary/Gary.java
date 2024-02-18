@@ -3,13 +3,10 @@ package gary;
 import gary.exception.*;
 import gary.task.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Gary {
-    public static final int MAX_TASK = 100;
-
     public static final int TODO_DESCRIPTION_START_INDEX = 5;
     public static final int DEADLINE_DESCRIPTION_START_INDEX = 9;
     public static final int DEADLINE_BY_SPACE_LENGTH = 4;
@@ -22,7 +19,6 @@ public class Gary {
         Scanner in = new Scanner(System.in);
         greetings();
 
-//        Task[] todos = new Task[MAX_TASK];
         int todosCount = 0;
 
         String line;
@@ -64,7 +60,6 @@ public class Gary {
                 try {
                     processAddTask(command, todos, todosCount, line);
                     todosCount += 1;
-//                    todos[todosCount - 1].printAdd(todosCount);
                     todos.get(todosCount - 1).printAdd(todosCount);
                 } catch (UnknownCommandException e) {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -114,25 +109,19 @@ public class Gary {
         todos.remove(taskIndex);
         System.out.println("Noted, I've removed this task:");
         System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
-//        System.out.println("Noted, I've removed this task: [ ] " + currentTask.getTaskDescription());
     }
-//    private static void processUnmark(Task[] todos, String[] lineWords) {
+
     private static void processUnmark(ArrayList<Task> todos, String[] lineWords) {
         Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
-//        todos[Integer.parseInt(lineWords[1]) - 1].unmarkAsDone();
         currentTask.unmarkAsDone();
         String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
         String taskType = getTaskSymbol(currentTask);
         String taskDescription = currentTask.getTaskDescription();
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
-//        System.out.println("  " + "[ ] " + currentTask.getTaskDescription());
-//      /          + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
     }
 
-//    private static void processMark(Task[] todos, String[] lineWords) {
     private static void processMark(ArrayList<Task> todos, String[] lineWords) {
-//        todos[Integer.parseInt(lineWords[1]) - 1].markAsDone();
         Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
         currentTask.markAsDone();
         String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
@@ -140,11 +129,8 @@ public class Gary {
         String taskDescription = currentTask.getTaskDescription();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
-//        System.out.println("  " + "[X] " + currentTask.getTaskDescription());
-//           /     + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
     }
 
-//    private static void processList(int todosCount, Task[] todos) {
     private static void processList(int todosCount, ArrayList<Task> todos) {
         System.out.println("Here are the tasks in your list:");
         for(int i = 0; i < todosCount; i += 1) {
@@ -152,7 +138,6 @@ public class Gary {
         }
     }
 
-//    private static void processAddTask(String command, Task[] todos, int todosCount, String line)
     private static void processAddTask(String command, ArrayList<Task> todos, int todosCount, String line)
             throws UnknownCommandException, MissingTodoDescriptionException,
             MissingDeadlineByException, MissingDeadlineDescriptionException,
@@ -168,11 +153,9 @@ public class Gary {
         }
     }
 
-//    private static void createNewTodo(Task[] todos, int todosCount, String line)
     private static void createNewTodo(ArrayList<Task> todos, int todosCount, String line)
             throws MissingTodoDescriptionException {
         try {
-//            todos[todosCount] = new Todo(line.substring(TODO_DESCRIPTION_START_INDEX));
             todos.add(new Todo(line.substring(TODO_DESCRIPTION_START_INDEX)));
         } catch(StringIndexOutOfBoundsException e) {
             throw new MissingTodoDescriptionException();
@@ -196,14 +179,12 @@ public class Gary {
             if (deadlineBy.isBlank()) {
                 throw new MissingDeadlineByException();
             }
-//            todos[todosCount] = new Deadline(deadlineDescription, deadlineBy);
             todos.add(new Deadline(deadlineDescription, deadlineBy));
         } catch (StringIndexOutOfBoundsException e) {
             throw new MissingDeadlineByException();
         }
     }
 
-//    private static void createNewEvent(Task[] todos, int todosCount, String line)
     private static void createNewEvent(ArrayList<Task> todos, int todosCount, String line)
             throws MissingEventFromException, MissingEventToException,
             MissingEventDescriptionException {
@@ -233,7 +214,6 @@ public class Gary {
             if (eventTo.isBlank()) {
                 throw new MissingEventToException();
             }
-//            todos[todosCount] = new Event(eventDescription, eventFrom, eventTo);
             todos.add(new Event(eventDescription, eventFrom, eventTo));
         } catch (StringIndexOutOfBoundsException e) {
             throw new MissingEventToException();
