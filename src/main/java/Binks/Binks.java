@@ -125,6 +125,16 @@ public class Binks {
             throw new BinksException("The description of event cannot be empty!");
         }
     }
+
+    public static void deleteCommand(String[] command, List list) throws BinksException {
+        if (command.length == 2) {
+            int taskNumber = Integer.parseInt(command[1]);
+            list.deleteTask(taskNumber);
+        } else {
+            throw new BinksException("Please specify which task to delete.");
+        }
+    }
+
     public static void main(String[] arg) {
         greetUser();
         List list = new List();
@@ -200,6 +210,18 @@ public class Binks {
                 catch (BinksException exception){
                     createLineSpacing();
                     System.out.println("WARNING! " + exception.getMessage());
+                    createLineSpacing();
+                }
+                break;
+
+            //when there is a task to delete
+            case "delete":
+                try {
+                    deleteCommand(command, list);
+                }
+                catch (BinksException exception){
+                    createLineSpacing();;
+                    System.out.println("Warning! " + exception.getMessage());
                     createLineSpacing();
                 }
                 break;
