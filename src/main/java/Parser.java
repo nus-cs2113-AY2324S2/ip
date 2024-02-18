@@ -26,14 +26,18 @@ public class Parser {
     }
 
     public static String extractDescription(String userInput){
-        int start = userInput.indexOf(" ") + 1;
-        int end = userInput.indexOf("/") - 1;
-        if (start > 0 && (end > start)) {
-            return userInput.substring(start,end);
-        } else if (start > 0){
-            return userInput.substring(start);
-        } else {
-            return "INVALID INPUT";
+        try {
+            int start = userInput.indexOf(" ") + 1;
+            int end = userInput.indexOf("/") - 1;
+            if (start > 0 && (end > start)) {
+                return userInput.substring(start, end);
+            } else if (start > 0) {
+                return userInput.substring(start);
+            } else {
+                throw new JeffException.InvalidInputException("YOU NEED A DESCRIPTION");
+            }
+        } catch (JeffException.InvalidInputException e) {
+            throw new IllegalArgumentException("ERROR IN THE INPUT STRING");
         }
     }
 
