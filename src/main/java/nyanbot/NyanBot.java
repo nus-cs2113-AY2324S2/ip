@@ -22,21 +22,33 @@ public class NyanBot {
     private static final String BYE_COMMAND = "BYE";
     private static final String HELP_COMMAND = "HELP";
     private static final String LINE = "____________";
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
 
     public static void addTask(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.add(task);
         Printer.printAddTaskSuccess(task);
+    }
+
+    public static void deleteTask(String input) {
+        try {
+            String[] splitInputs = input.split(" ");
+            int index = Integer.parseInt(splitInputs[1]) - 1;
+            tasks.remove(index);
+            Printer.printDeleteSuccess();
+            Printer.printTasks(tasks);
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            Printer.printNullError();
+        } catch (NumberFormatException e) {
+            Printer.printDeleteUsage();
+        }
     }
 
     private static void markTask(String input) {
         try {
             String[] splitInputs = input.split(" ");
             int index = Integer.parseInt(splitInputs[1]) - 1;
-            tasks[index].markAsDone();
+            tasks.get(index).markAsDone();
             Printer.printMarkSuccess();
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             Printer.printNullError();
@@ -49,7 +61,7 @@ public class NyanBot {
         try {
             String[] splitInputs = input.split(" ");
             int index = Integer.parseInt(splitInputs[1]) - 1;
-            tasks[index].markAsUndone();
+            tasks.get(index).markAsUndone();
             Printer.printUnmarkSuccess();
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             Printer.printNullError();
@@ -60,7 +72,7 @@ public class NyanBot {
 
     private static void addTodo(String input) {
         try {
-            String description = input.substring(6);
+            String description = input.substring(5);
             Todo todo = new Todo(description);
             addTask(todo);
         } catch (StringIndexOutOfBoundsException e) {
@@ -72,7 +84,7 @@ public class NyanBot {
     private static void addDeadline(String input) {
         try {
             String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(10);
+            String description = splitInputs[0].substring(9);
             String date = splitInputs[1];
             Deadline deadline = new Deadline(description, date);
             addTask(deadline);
@@ -88,7 +100,7 @@ public class NyanBot {
     private static void addEvent(String input) {
         try {
             String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(7);
+            String description = splitInputs[0].substring(6);
             String start = splitInputs[1];
             String end = splitInputs[2];
             Event event = new Event(description, start, end);
@@ -125,7 +137,7 @@ public class NyanBot {
                     return;
                 case LIST_COMMAND:
                     System.out.println(LINE);
-                    Printer.printTasks(tasks, taskCount);
+                    Printer.printTasks(tasks);
                     break;
                 case MARK_COMMAND:
                     int markIndex;
@@ -162,22 +174,14 @@ public class NyanBot {
         try {
             List<String> lines = FileHandler.readFile("data/nyan.txt");
             for (String line : lines) {
-                readLine(line);
+                tasks.add(readLine(line));
             }
         } catch (IOException e) {
             System.out.println("IO Exception");
         }
     }
 
-    private static void readLine(String line) {
-        tasks[taskCount] = readCommand(line);
-        if (readStatus(line)) {
-            tasks[taskCount].markAsDone();
-        }
-        taskCount++;
-    }
-
-    private static Task readCommand(String line) {
+    private static Task readLine(String line) {
         String[] tokens = line.split("/");
         String command = tokens[0].toUpperCase();
         String status = tokens[1].toUpperCase();
@@ -194,6 +198,9 @@ public class NyanBot {
                 break;
             default:
                 return null; //TODO: throw exception
+        }
+        if (status.equals(TRUE)) {
+            task.markAsDone();
         }
         return task;
     }
@@ -213,8 +220,8 @@ public class NyanBot {
     private static void writeFile() {
         try {
             ArrayList<String> lines = new ArrayList<String>();
-            for (int i = 0; i < taskCount; i++) {
-                lines.add(tasks[i].toString());
+            for (Task task : tasks) {
+                lines.add(task.toString());
             }
             FileHandler.writeFile("data/nyan.txt", "temp/temp.txt", lines);
         } catch (IOException e) {
