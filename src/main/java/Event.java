@@ -21,4 +21,9 @@ public class Event extends Task {
     public String toString() {
         return EVENT_STATUS + super.toString() + " " + "(from: " + START_TIME + " to: " + END_TIME + ")";
     }
+
+    @Override
+    public String toFileFormat() {
+        return EVENT_STATUS + super.toFileFormat() + " | " + "from: " + START_TIME + " to: " + END_TIME;
+    }
 }

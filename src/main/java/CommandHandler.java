@@ -25,6 +25,9 @@ public class CommandHandler {
         case "unmark": {
             return Parser.UnmarkTask(task, taskList);
         }
+        case "delete": {
+            return Parser.DeleteTask(task, taskList);
+        }
         default:
             throw new GabException("Not a valid command");
         }

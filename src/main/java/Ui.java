@@ -27,7 +27,7 @@ public class Ui {
 
     public static void listTask(TaskList taskList) { //using the array to list the tasks
         System.out.println("All your tasks are here");
-        for (int i = 0; i < Task.getTaskCount(); i++) {
+        for (int i = 0; i < taskList.getTaskCount(); i++) {
             System.out.println((i + 1) + "." + taskList.taskList.get(i).toString());
         }
     }
@@ -65,5 +65,10 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Oh no!");
         System.out.println(taskList.taskList.get(taskIndex).toString());
+    }
+
+    public static void printDeleteTask (int taskIndex, TaskList taskList) {
+        System.out.println("Ok task deleted!");
+        System.out.println("\t" + taskList.taskList.get(taskIndex).toString());
     }
 }

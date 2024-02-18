@@ -11,4 +11,9 @@ public class Deadline extends Task {
     public String toString() {
         return DEADLINE_STATUS + super.toString() + " " + "(by: " + BY + ")"; //superclass is task
     }
+
+    @Override
+    public String toFileFormat() {
+        return DEADLINE_STATUS + super.toFileFormat() + " | " + "by: " + BY;
+    }
 }
