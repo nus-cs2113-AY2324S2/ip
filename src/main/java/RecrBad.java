@@ -4,28 +4,37 @@ import java.util.Scanner;
 
 public class RecrBad {
 
-    private static Task[] addEventTask(final int startIndexOfDescription, String line, Task[] tasks){
+    private static Task[] addEventTask(final int startIndexOfDescription, String line, Task[] tasks) throws InvalidParamsException {
         Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
         int indexTo = line.lastIndexOf('/');
         int indexFrom = line.lastIndexOf('/', indexTo - 1); // counts from back
-        if (indexFrom == -1 || indexTo == -1) { // arguments not found
-            System.out.println("Invalid event: Add BOTH start and end parameters by adding '/', start timing, then ' ', '/' and end timing");
-            return tasks;
+
+        // checks for invalid input
+        if (indexFrom == -1 || indexTo == -1) {
+            throw new InvalidParamsException("No event arguments: Add a '/', then the startTime, followed by a '/' and the endTime");
         }
+        if (startIndexOfDescription > indexFrom - 1) {
+            throw new InvalidParamsException(("no event description"));
+        }
+
         // process input as Event object
         String description = line.substring(startIndexOfDescription, indexFrom - 1);
         String timeRange = " (from: " + line.substring(indexFrom + 1, indexTo) +
-                "to: " + line.substring(indexTo + 1) + ")";
+                "to " + line.substring(indexTo + 1) + ")";
         moreTasks[tasks.length] = new Event(description, timeRange); //append at last elem
         System.out.println("Event added!");
         return moreTasks;
     }
-    private static Task[] addDeadlineTask(int startIndexOfDescription, String line, Task[] tasks){
+
+    private static Task[] addDeadlineTask(int startIndexOfDescription, String line, Task[] tasks) throws InvalidParamsException {
         Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
         int indexDeadline = line.lastIndexOf('/');
-        if (indexDeadline == -1) { // no deadline argument
-            System.out.println("Invalid deadline: Add a parameter '/' followed by the deadline");
-            return tasks;
+        // checks for invalid input
+        if (indexDeadline == -1) {
+            throw new InvalidParamsException("No deadline argument: Add a parameter '/' followed by the deadline");
+        }
+        if (startIndexOfDescription > indexDeadline - 1) {
+            throw new InvalidParamsException("No deadline description");
         }
         // process input as Deadline object
         String deadline = "(by: " + line.substring(indexDeadline + 1) + ")";
@@ -34,7 +43,12 @@ public class RecrBad {
         System.out.println("Deadline added!");
         return moreTasks;
     }
-    private static Task[] addTodoTask(final int startIndexOfDescription, String line, Task[] tasks){
+
+    private static Task[] addTodoTask(final int startIndexOfDescription, String line, Task[] tasks) throws InvalidParamsException {
+        // checks for invalid input
+        if (startIndexOfDescription > line.length() - 1) {
+            throw new InvalidParamsException("No task description");
+        }
         Task[] moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
         String description = line.substring(startIndexOfDescription);
         moreTasks[moreTasks.length - 1] = new Todo(description); //append at last elem
@@ -49,28 +63,23 @@ public class RecrBad {
      * @param line  string input from user
      * @return moreTasks array with added Task
      */
-    private static Task[] addToList(Task[] tasks, String[] req, String line) {
+    private static Task[] addToList(Task[] tasks, String[] req, String line) throws InvalidParamsException {
         // copies and returns longer String[tasks.length+1]
         Task[] moreTasks;
-        String description;
         final int startIndexOfDescription = req[0].length() + 1; //assume got space after TODO/deadline/event
 
+        // process request
         if (req[0].equalsIgnoreCase("TODO")) {
             moreTasks = addTodoTask(startIndexOfDescription, line, tasks);
         } else if (req[0].equalsIgnoreCase("DEADLINE")) {
             moreTasks = addDeadlineTask(startIndexOfDescription, line, tasks);
         } else if (req[0].equalsIgnoreCase("EVENT")) {
             moreTasks = addEventTask(startIndexOfDescription, line, tasks);
-        } else { // normal tasks
-            moreTasks = Arrays.copyOf(tasks, tasks.length + 1);
-            moreTasks[tasks.length] = new Task(line); //append at last elem
-            PrintHelper.printLine();
-            System.out.println("You added:");
+        } else {
+            // request does not start with todo, deadline, or event
+            throw new InvalidParamsException("No such command." + System.lineSeparator() + PrintHelper.printCommandsList());
         }
 
-        if (tasks.length == moreTasks.length){ // checks for invalid TODO/deadline/event format
-            return tasks;
-        }
         displayListItem(moreTasks, tasks.length);
         System.out.println(System.lineSeparator() + "Congrats, now have " + moreTasks.length + " tasks");
 
@@ -159,7 +168,13 @@ public class RecrBad {
                 markOperation(tasks, req, isMark);
                 continue; //GOTO next iteration of loop
             }
-            tasks = addToList(tasks, req, line);
+
+            try {
+                tasks = addToList(tasks, req, line);
+            } catch (InvalidParamsException e) {
+                System.out.println(e.getMessage()); // prints out error message
+            }
+
         }
     }
 }

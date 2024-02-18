@@ -1,6 +1,19 @@
 import java.util.Random;
 
 public class PrintHelper {
+
+    private static String commandsList =
+            "## Possible user commands: \n" +
+            "1. todo <task>                            : Add todo task \n" +
+            "2. deadline <task> /<deadline>            : Add deadline\n" +
+            "3. event <task> /<startTime> /<endTime>   : Add event \n" +
+            "4. list                                   : List all tasks\n" +
+            "5. mark/unmark <taskIndex>                : Mark task <index> as done/ undone\n" +
+            "6. bye                                    : Exit Program";
+    public static String printCommandsList() {
+        return commandsList;
+    }
+
     /**
      * Prints "*" as line-separator
      */
