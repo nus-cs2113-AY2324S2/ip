@@ -1,4 +1,4 @@
-package nyanbot.tool;
+package tool;
 
 import java.io.FileWriter;
 import java.io.IOException;

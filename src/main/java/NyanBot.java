@@ -1,14 +1,9 @@
-package nyanbot;
-
 import java.util.Scanner;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Scanner;
 import java.util.List;
-import nyanbot.task.*;
-import nyanbot.tool.*;
+import task.*;
+import tool.*;
 
 public class NyanBot {
     private static final String TRUE = "TRUE";

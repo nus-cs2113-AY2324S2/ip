@@ -1,4 +1,4 @@
-package nyanbot.task;
+package task;
 
 public class Event extends Task {
     private String start;

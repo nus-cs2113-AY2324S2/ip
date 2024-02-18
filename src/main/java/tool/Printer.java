@@ -1,4 +1,4 @@
-package nyanbot.tool;
+package tool;
 
 import nyanbot.task.Task;
 import java.util.ArrayList;
