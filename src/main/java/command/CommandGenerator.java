@@ -21,6 +21,9 @@ public class CommandGenerator{
         case HELP:
             return new HelpCommand();
 
+        case DELETE:
+            return new DeleteCommand(Parser.splitInput(input));
+
         default:
             return new AddTaskCommand(token, Parser.splitInput(input));
         }

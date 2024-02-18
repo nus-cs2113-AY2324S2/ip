@@ -35,7 +35,7 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
-        this.tasks.remove(index);
+        this.tasks.remove(index - 1);
     }
 
     public void displayAll() {

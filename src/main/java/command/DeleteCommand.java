@@ -6,8 +6,8 @@ import task.TaskList;
 public class DeleteCommand implements Command {
     private final int index;
 
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(String[] inputArguments) {
+        this.index = Integer.parseInt(inputArguments[0]);
     }
 
     @Override
