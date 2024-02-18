@@ -1,5 +1,9 @@
 package ip.main;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -22,7 +26,54 @@ public class Duke {
         System.out.println("Hello! I'm Charlie!\n" + logo);
         System.out.println("What can I do for you?");
 
+        File file = new File("./data/task_list.txt");
+        if (! file.getParentFile().exists()) {
+            file.getParentFile().mkdir();
+        }
+        if (! file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Unable to create data file");
+                return;
+            }
+        }
+
+        try {
+            readStoredData(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+            return;
+        }
+        
         readInputAndExecute();
+    }
+
+    private static void readStoredData(File file) throws FileNotFoundException {
+        Scanner s = new Scanner(file);
+        while (s.hasNext()) {
+            String str = s.nextLine();
+            String[] dataLine = str.split(" :: ");
+            try {
+                boolean isDone = (Integer.parseInt(dataLine[1]) == 1);
+
+                switch (dataLine[0]) {
+                case "T":
+                    tasks.add(new Todo(isDone, dataLine[2]));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(isDone, dataLine[2], dataLine[3]));
+                    break;
+                case "E":
+                    tasks.add(new Event(isDone, dataLine[2], dataLine[3], dataLine[4]));
+                    break;
+                default:
+                    System.out.println("I have no idea what this is: " + str);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Missing information: " + str);
+            }
+        }
     }
 
     private static void readInputAndExecute() {

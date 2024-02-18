@@ -9,6 +9,12 @@ public class Deadline extends Task {
         by = line.substring(line.indexOf("/by") + 4);
     }
 
+    public Deadline(boolean isDone, String description, String by) {
+        super(description);
+        this.isDone = isDone;
+        this.by = by;
+    }
+
     @Override
     public String getDetails() {
         return ("[D]" + super.getDetails() + "(by: " + by + ")");

@@ -11,8 +11,15 @@ public class Event extends Task {
         to = line.substring(line.indexOf("/to") + 4);
     }
 
+    public Event(boolean isDone, String description, String from, String to) {
+        super(description);
+        this.isDone = isDone;
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String getDetails() {
-        return ("[E]" + super.getDetails() + "(from: " + from + "to: " + to + ")");
+        return ("[E]" + super.getDetails() + "(from: " + from + ", to: " + to + ")");
     }
 }
