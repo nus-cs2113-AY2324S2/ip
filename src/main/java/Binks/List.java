@@ -5,13 +5,17 @@ import Binks.task.Events;
 import Binks.task.Task;
 import Binks.task.Todo;
 
-public class List {
-    private Task[] list;
-    private int taskCount = 0;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+public class List {
+    //private Task[] list;
+    //private int taskCount = 0;
+    private ArrayList<Task> list;
 
     public List() {
-        this.list = new Task[100];
+
+        this.list = new ArrayList<>();
     }
 
     /**
@@ -20,8 +24,8 @@ public class List {
     public void getList() {
         Binks.createLineSpacing();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++){
-            System.out.println( (i + 1) + ". " + list[i]);
+        for (int i = 0; i < list.size(); i++){
+            System.out.println( (i + 1) + ". " + list.get(i));
         }
         Binks.createLineSpacing();
     }
@@ -34,11 +38,10 @@ public class List {
     public void addTodo(String task){
         Binks.createLineSpacing();
         Todo newTodo = new Todo(task);
-        list[taskCount] = newTodo;
-        taskCount++;
+        list.add(newTodo);
         System.out.println("Got it. I've added this task:");
         System.out.println(" [T][ ] " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         Binks.createLineSpacing();
     }
 
@@ -50,11 +53,10 @@ public class List {
     public void addDeadline(String task){
         Binks.createLineSpacing();
         Deadlines newDeadline = new Deadlines(task);
-        list[taskCount] = newDeadline;
-        taskCount++;
+        list.add(newDeadline);
         System.out.println("Got it. I've added this task:");
         System.out.println(" [D][ ] " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         Binks.createLineSpacing();
     }
 
@@ -66,11 +68,10 @@ public class List {
     public void addEvent(String task){
         Binks.createLineSpacing();;
         Events newEvent = new Events(task);
-        list[taskCount] = newEvent;
-        taskCount++;
+        list.add(newEvent);
         System.out.println("Got it. I've added this task:");
         System.out.println(" [E][ ] " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         Binks.createLineSpacing();
     }
 
@@ -81,10 +82,10 @@ public class List {
      */
     public void markAsDone(int index){
         Binks.createLineSpacing();
-        if (index > 0 && index <= taskCount){
-            list[index - 1].markTaskAsDone();
+        if (index > 0 && index <= list.size()){
+            list.get(index - 1).markTaskAsDone();
             System.out.println("Nice! I have marked this task as done:");
-            System.out.println(list[index - 1]);
+            System.out.println(list.get(index - 1));
         }
         else {
             System.out.println("This task does not exist");
@@ -100,10 +101,26 @@ public class List {
      */
     public void unmarkAsDone(int index){
         Binks.createLineSpacing();
-        if (index > 0 && index <= taskCount){
-            list[index - 1].unmarkTaskAsDone();
+        if (index > 0 && index <= list.size()){
+            list.get(index - 1).unmarkTaskAsDone();
             System.out.println("OK, I have marked this task as not done yet:");
-            System.out.println(list[index - 1]);
+            System.out.println(list.get(index - 1));
+        }
+        else {
+            System.out.println("This task does not exist");
+        }
+        Binks.createLineSpacing();
+    }
+
+
+    public void deleteTask(int index){
+        Binks.createLineSpacing();
+        if (index > 0 && index <= list.size()) {
+            System.out.println("I have deleted the task: ");
+            System.out.println(list.get(index - 1));
+            list.remove(index - 1);
+            System.out.println("That task was useless anyways ¯\\_(ツ)_/¯");
+            System.out.println("You now have " + list.size() + " tasks left");
         }
         else {
             System.out.println("This task does not exist");
