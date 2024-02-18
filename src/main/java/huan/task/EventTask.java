@@ -1,3 +1,5 @@
+package huan.task;
+
 import java.util.Objects;
 
 public class EventTask extends Task{

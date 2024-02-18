@@ -1,7 +1,11 @@
+package huan.main;
+
+import huan.task.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-public class Duke {
+public class Huan {
     private static List<Task> tasks = new ArrayList<>();
 
     public static Boolean isIndexValid(int index) {
