@@ -1,34 +1,41 @@
+import java.util.ArrayList;
+
 public class List {
-    protected Task[] tasks;
-    protected int counter = 0;
+    protected ArrayList<Task> tasks;
 
     public void generateSizeOfList(int elements){
-        tasks = new Task[elements];
+        tasks = new ArrayList<>();
     }
 
     public void insertTask(Task task){
-        tasks[counter] = task;
+        tasks.add(task);
         System.out.println("Got it. I've added this task");
         System.out.println(task.getDescription());
-        System.out.println("Now you have " + (counter + 1) + " tasks in the list.");
-        counter += 1;
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void listTasks(){
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < counter; i += 1){
-            System.out.println((i +1) + ". "+ tasks[i].getDescription());
+        for (int i = 0; i < tasks.size(); i += 1){
+            System.out.println((i +1) + ". "+ tasks.get(i).getDescription());
         }
     }
 
     public void markIndex(int index){
         System.out.println("Nice Ive marked this task as completed ");
-        tasks[index - 1].markTask();
+        tasks.get(index).markTask();
     }
 
     public void unmarkIndex(int index){
         System.out.println("OK, I have unchecked this task");
-        tasks[index - 1].unmarkTask();
+        tasks.get(index).unmarkTask();
+    }
+
+    public void deleteIndex(int index){
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tasks.get(index).getDescription());
+        tasks.remove(index);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
 
