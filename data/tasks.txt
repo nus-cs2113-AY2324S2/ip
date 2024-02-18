@@ -1,0 +1,4 @@
+1.[ ] [T] eat
+2.[ ] [T] sleep
+3.[ ] [D] wash clothes  (by:Sunday)
+4.[ ] [E] birthday party  (from: 1 Jan  to: 4 Jan)
