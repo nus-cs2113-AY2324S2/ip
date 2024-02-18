@@ -49,7 +49,7 @@ public class Gary {
                 }
             } else if (command.equalsIgnoreCase("DELETE")) {
                 try {
-                    processDelete(todos, lineWords);
+                    processDelete(todos, lineWords, todosCount);
                     todosCount -= 1;
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! You don't have that much task");
@@ -100,7 +100,7 @@ public class Gary {
         }
         return taskSymbol;
     }
-    private static void processDelete(ArrayList<Task> todos, String[] lineWords) {
+    private static void processDelete(ArrayList<Task> todos, String[] lineWords, int todosCount) {
         Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
         int taskIndex = Integer.parseInt(lineWords[1]) - 1;
         String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
@@ -109,6 +109,7 @@ public class Gary {
         todos.remove(taskIndex);
         System.out.println("Noted, I've removed this task:");
         System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
+        System.out.println("Now you have " + (todosCount - 1) + " tasks in the list.");
     }
 
     private static void processUnmark(ArrayList<Task> todos, String[] lineWords) {
