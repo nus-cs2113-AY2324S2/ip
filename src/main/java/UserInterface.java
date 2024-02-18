@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 public class UserInterface {
     Scanner myScanner = new Scanner(System.in);
@@ -6,6 +8,13 @@ public class UserInterface {
     private boolean continueReceivingUserInputs = true;
 
     public UserInterface() {
+        FileProcessor.startUpCheck("./src/main/data.txt");
+        try {
+            FileProcessor.printFileContents("./src/main/data.txt");
+        }
+        catch (IOException e) {
+            System.out.println("input output error");
+        }
         String userInput = myScanner.nextLine();
         processUserCommand(userInput);
     }
