@@ -1,7 +1,6 @@
 package nyanbot.printer;
 
 import nyanbot.task.Task;
-import java.util.ArrayList;
 
 public class Printer {
     protected static final String LINE = "____________________";
@@ -10,9 +9,6 @@ public class Printer {
     protected static final String UNMARK_MESSAGE = "はい、UN-markしました！";
     protected static final String MARK_USAGE_MESSAGE = "使い方：mark [index]";
     protected static final String UNMARK_USAGE_MESSAGE = "使い方：unmark [index]";
-    protected static final String DELETE_MESSAGE = "分かりました！deleteするをsuccessful desu!";
-    protected static final String DELETE_USAGE_MESSAGE = "使い方: delete [index]";
-    protected static final String DELETE_FOLLOW_UP_MESSAGE = "今は tasks remaining:";
     protected static final String TODO_USAGE_MESSAGE = "使い方: todo [description]";
 
     protected static final String DEADLINE_USAGE_MESSAGE = "使い方：deadline [description] /[date]";
@@ -42,15 +38,6 @@ public class Printer {
         System.out.println(GREET_MESSAGE);
         System.out.println(HELP_MESSAGE);
         System.out.println(LINE);
-    }
-
-    public static void printDeleteSuccess() {
-        System.out.println(DELETE_MESSAGE);
-        System.out.println(DELETE_FOLLOW_UP_MESSAGE);
-    }
-
-    public static void printDeleteUsage() {
-        System.out.println(DELETE_USAGE_MESSAGE);
     }
 
     public static void printMarkSuccess() {
@@ -114,20 +101,14 @@ public class Printer {
         System.out.println(MISSING_START_END_MESSAGE);
     }
 
-    public static void printTasks (ArrayList<Task> tasks) {
-        int count = 0;
-        for (Task task : tasks) {
-            count++;
-            System.out.print(count + ". " + task.getStatusIcon() + " ");
-            System.out.println(task);
+    public static void printTasks(Task[] tasks, int count) {
+        for (int i = 0; i < count; i++) {
+            if (tasks[i] == null) {
+                break;
+            }
+            System.out.print(i + 1 + ". " + tasks[i].getStatusIcon() + " ");
+            System.out.println(tasks[i]);
         }
-//        for (int i = 0; i < count; i++) {
-//            if (tasks[i] == null) {
-//                break;
-//            }
-//            System.out.print(i + 1 + ". " + tasks[i].getStatusIcon() + " ");
-//            System.out.println(tasks[i]);
-//        }
     }
 
     public static void printInvalidInput() {
