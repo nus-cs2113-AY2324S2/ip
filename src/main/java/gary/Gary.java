@@ -6,6 +6,7 @@ import gary.task.Event;
 import gary.task.Task;
 import gary.task.Todo;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,6 +42,8 @@ public class Gary {
                 processMark(todos, lineWords);
             } else if (command.equalsIgnoreCase("UNMARK")) {
                 processUnmark(todos, lineWords);
+            } else if (command.equalsIgnoreCase("DELETE")) {
+                processDelete(todos, lineWords);
             } else {
                 try {
                     processAddTask(command, todos, todosCount, line);
@@ -71,9 +74,15 @@ public class Gary {
         System.out.println("Bye. Hope to see you again!");
     }
 
+    private static void processDelete(ArrayList<Task> todos, String[] lineWords) {
+        Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
+        int taskIndex = Integer.parseInt(lineWords[1]) - 1;
+        todos.remove(taskIndex);
+        System.out.println("Noted, I've removed this task: [ ] " + currentTask.getTaskDescription());
+    }
 //    private static void processUnmark(Task[] todos, String[] lineWords) {
     private static void processUnmark(ArrayList<Task> todos, String[] lineWords) {
-        Task currentTask = todos.get(Integer.parseInt(lineWords[1]));
+        Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
 //        todos[Integer.parseInt(lineWords[1]) - 1].unmarkAsDone();
         currentTask.unmarkAsDone();
         System.out.println("Ok, I've marked this task as not done yet:");
@@ -84,7 +93,7 @@ public class Gary {
 //    private static void processMark(Task[] todos, String[] lineWords) {
     private static void processMark(ArrayList<Task> todos, String[] lineWords) {
 //        todos[Integer.parseInt(lineWords[1]) - 1].markAsDone();
-        Task currentTask = todos.get(Integer.parseInt(lineWords[1]));
+        Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + "[X] " + currentTask.getTaskDescription());
 //                + todos[Integer.parseInt(lineWords[1]) - 1].getTaskDescription());
