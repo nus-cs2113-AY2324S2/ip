@@ -45,27 +45,38 @@ public class Ruby {
                 break;
             case "mark":
                 try {
-                    t1.markTask(Integer.parseInt(userInputs[1])-1);
+                    t1.markTask(Integer.parseInt(userInputs[1]));
                 }catch (NumberFormatException e){
                     print ("Sorry, please input number.");
-                }catch (NullPointerException | ArrayIndexOutOfBoundsException ee){
+                }catch (NullPointerException | IndexOutOfBoundsException ee){
                     print ("Sorry, I cannot find your task.");
                 }
                 break;
             case "unmark":
                 try {
-                    t1.unmarkTask(Integer.parseInt(userInputs[1])-1);
+                    t1.unmarkTask(Integer.parseInt(userInputs[1]));
                 }catch (NumberFormatException e){
                     print ("Sorry, please input number.");
-                }catch (NullPointerException | ArrayIndexOutOfBoundsException ee){
+                }catch (NullPointerException | IndexOutOfBoundsException ee){
+                    print ("Sorry, I cannot find your task.");
+                }
+                break;
+            case "delete":
+                try {
+                    t1.deleteTask(Integer.parseInt(userInputs[1]));
+                }catch (NumberFormatException e){
+                    print ("Sorry, please input number.");
+                }catch (NullPointerException | IndexOutOfBoundsException ee){
                     print ("Sorry, I cannot find your task.");
                 }
                 break;
             default:
                 try{
                     t1.addTask(userInput);
-                }catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e){
-                    print ("Sorry, please check your input format.");
+                }catch (ArrayIndexOutOfBoundsException e){
+                    print ("ArrayIndexOutOfBoundsException");
+                }catch(StringIndexOutOfBoundsException e){
+                    print ("StringIndexOutOfBoundsException");
                 }
                 break;
             }

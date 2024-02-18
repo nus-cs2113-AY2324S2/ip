@@ -13,12 +13,11 @@ public class Event extends Task{
      * Inherits name and task number from the Task class and adds time-specific information.
      *
      * @param name The name or description of the event.
-     * @param taskNo The unique number assigned to the task.
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String name, int taskNo, String from, String to) {
-        super(name, taskNo);
+    public Event(String name, String from, String to) {
+        super(name);
         this.from = from; // The start time of the event
         this.to = to; // The end time of the event
     }

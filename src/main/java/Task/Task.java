@@ -7,19 +7,17 @@ package Task;
 public class Task {
     public String name; // The name or description of the task
     public boolean hasDone; // The completion status of the task
-    public int taskNo; // The unique number assigned to the task
+//    public int taskNo; // The unique number assigned to the task
 
     /**
      * Constructs a new Task with the specified name and task number.
      * Initially, the task is marked as not done.
      *
      * @param name The name or description of the task.
-     * @param taskNo The unique number assigned to the task.
      */
-    public Task(String name, int taskNo) {
+    public Task(String name) {
         this.name = name;
         this.hasDone=false;
-        this.taskNo = taskNo;
     }
 
     /**
@@ -50,7 +48,6 @@ public class Task {
      * Prints the task's details, including its number, completion status, and name.
      */
     public void printTask(){
-        System.out.print("    " +taskNo);
         if (hasDone){
             System.out.print(".[X] ");
         }else{

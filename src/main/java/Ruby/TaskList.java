@@ -1,5 +1,6 @@
 package Ruby;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import Exception.*;
 import Task.*;
@@ -11,7 +12,8 @@ import Task.*;
  * marking tasks as done or undone, and displaying all tasks.
  */
 public class TaskList {
-    public final Task[] taskList= new Task[100]; // Array to store tasks
+//    public final Task[] taskList= new Task[100]; // Array to store tasks
+    public final ArrayList<Task> taskList =new ArrayList<>();
     public int taskNo = 0; // Counter for the number of tasks
 
     /**
@@ -34,18 +36,18 @@ public class TaskList {
         String[] inputSplitBySlash = userInput.split(" /");
         switch (userInput.split(" ")[0]){
         case "todo":
-            taskList[taskNo] = new Todo(userInput.substring(5),taskNo+1);
+            taskList.add(new Todo(userInput.substring(5)));
             break;
         case "deadline":
             String name = inputSplitBySlash[0].substring(9);
             String by = inputSplitBySlash[1].substring(3);
-            taskList[taskNo] = new Deadline(name, taskNo+1, by);
+            taskList.add(new Deadline(name, by));
             break;
         case "event":
             name = inputSplitBySlash[0].substring(6);
             String from = inputSplitBySlash[1].substring(5);
             String to = inputSplitBySlash[2].substring(3);
-            taskList[taskNo]=new Event(name,taskNo+1, from, to);
+            taskList.add(new Event(name,from, to));
             break;
         default:
             break;
@@ -61,9 +63,9 @@ public class TaskList {
         System.out.println("    " + "--------------");
         System.out.println("    Got it. I've added this task:");
         System.out.print("      ");
-        taskList[taskNo].printTask();
-        taskNo++;
-        System.out.println("    Now you have " + taskNo + " tasks in the list.");
+        taskList.get(taskList.size()-1).printTask();
+//        taskNo++;
+        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
         System.out.println("    " + "--------------");
     }
 
@@ -74,7 +76,7 @@ public class TaskList {
      * @param n The index of the task in the task list (0-based).
      */
     public void markTask (int n){
-        taskList[n].markedTask();
+        taskList.get(n-1).markedTask();
     }
 
     /**
@@ -84,7 +86,9 @@ public class TaskList {
      * @param n The index of the task in the task list (0-based).
      */
     public void unmarkTask (int n){
-        taskList[n].unmarkedTask();
+        taskList.get(n-1).unmarkedTask();
+    }
+
     }
 
     /**
@@ -94,9 +98,9 @@ public class TaskList {
     public void showTaskList() {
         System.out.println("    " + "--------------");
         System.out.println("    " + "Here are the tasks in your list:");
-        for (int i=0; i < taskNo; i++){
+        for (int i=0; i < taskList.size(); i++){
             System.out.print("    " + (i+1) +".");
-            taskList[i].printTask();
+            taskList.get(i).printTask();
         }
         System.out.println("    " + "--------------");
     }
