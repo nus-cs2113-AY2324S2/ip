@@ -13,7 +13,7 @@ import bean.task.Task;
 import bean.task.TaskList;
 
 public class Bean {
-    public static final Path FILE_PATH = Path.of("src", "main", "java", "bean", "data", "tasks.txt");
+    public static final Path FILE_PATH = Path.of("src", "main", "java", "bean", "tasks.txt");
     public static final String MESSAGE_TASK_UNDONE = "    Oops, looks like you're still not done with this:\n   ";
     public static final String MESSAGE_TASK_ADDED = "    Hey, I've added:\n    ";
     public static final String MESSAGE_TASK_DELETED = "    Alright, this task has been removed:\n    ";
