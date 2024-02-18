@@ -21,9 +21,15 @@ public class Jake {
         System.out.println(LINE_STRING);
     }
 
+    // Retrieve task number from user input. Used in toggleTask() & delete()
+    private static int retrieveTaskNumber(String userInput) {
+        int taskNumber = Integer.parseInt(userInput.substring(userInput.lastIndexOf(" ")+1));
+        return taskNumber;
+    }
+
     // Mark or Unmark respective task.
     private static void toggleTask(String userInput, String taskType) {
-        int taskNumber = Integer.parseInt(userInput.substring(userInput.lastIndexOf(" ")+1));
+        int taskNumber = retrieveTaskNumber(userInput);
         if (taskNumber>commands.size()){
             System.out.println("Task does not exist!");
         } else if (taskType.equals("unmark")){
@@ -63,6 +69,19 @@ public class Jake {
         System.out.println(LINE_STRING);
     }
 
+    // Delete respective task
+    private static void deleteTask(String userInput) {
+        int taskNumber = retrieveTaskNumber(userInput);
+        try {
+            System.out.println(LINE_STRING);
+            System.out.println("Got it! I have successfully removed: \n" + "    " + commands.get(taskNumber-1));
+            commands.remove(taskNumber-1);
+            System.out.printf("You have a total of %d tasks in the list \n", commands.size());
+            System.out.println(LINE_STRING);    
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Task does not exist!");
+        }
+    }
 
     public static void main(String[] args) throws JakeException {
         System.out.println("Hello! I'm Jake\n" + "What can I do for you? \n" + LINE_STRING);
@@ -89,6 +108,9 @@ public class Jake {
                 case "mark":
                 case "unmark":
                     toggleTask(userInput, taskType);
+                    break;
+                case "delete":
+                    deleteTask(userInput);
                     break;
                 case "todo":
                 case "deadline":
