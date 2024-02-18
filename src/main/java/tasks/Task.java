@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -7,6 +9,10 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.type = ' ';
+    }
+
+    public String getDescription(){
+        return description;
     }
     public String getStatus(){
         return (isDone ? "X" : " "); // mark done task w X

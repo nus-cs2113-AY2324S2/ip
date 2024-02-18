@@ -1,3 +1,5 @@
+package helperFunctions;
+
 import java.util.Random;
 
 public class PrintHelper {
