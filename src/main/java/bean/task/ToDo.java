@@ -11,5 +11,9 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    public String toCommand() {
+        return "todo " + description + " /isDone " + isDone;
+    }
 }
 

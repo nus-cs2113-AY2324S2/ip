@@ -52,8 +52,7 @@ public class TaskList {
         if (isDone) {
             tasks.get(index).setDone();
             numTasksDone += 1;
-        }
-        else {
+        } else {
             tasks.get(index).setUndone();
             numTasksDone -= 1;
         }
@@ -66,15 +65,23 @@ public class TaskList {
         numTasksDone = 0;
     }
 
-    public String toString(){
+    public String toString() {
         StringBuilder result = new StringBuilder();
         int i = 1;
         for (Task task : tasks) {
             result.append("    ").append(i).append('.').append(task.toString());
             if (i != numTasks) {
-                result.append('\n');
+                result.append(System.lineSeparator());
             }
             i += 1;
+        }
+        return result.toString();
+    }
+
+    public String toCommand() {
+        StringBuilder result = new StringBuilder();
+        for (Task task : tasks) {
+            result.append(task.toCommand()).append(System.lineSeparator());
         }
         return result.toString();
     }

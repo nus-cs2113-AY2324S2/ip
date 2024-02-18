@@ -19,4 +19,8 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
+
+    public String toCommand() {
+        return "event /start " + start + " /end " + end + " /isDone " + isDone;
+    }
 }

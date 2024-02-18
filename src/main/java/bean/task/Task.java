@@ -1,6 +1,6 @@
 package bean.task;
 import bean.command.exception.NoValueException;
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -11,6 +11,8 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public abstract String toCommand();
 
     public String toString() {
         String checkBox = "[ ] ";

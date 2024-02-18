@@ -1,0 +1,3 @@
+todo me /isDone false
+deadline /by tdy /isDone true
+event /start idk /end idk /isDone true
