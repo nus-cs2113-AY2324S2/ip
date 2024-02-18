@@ -14,6 +14,6 @@ public class AddTodoCommand {
         String todoDescription = userInput.substring(CommandConstants.TODO_COMMAND_LENGTH).trim();
         Todo todo = new Todo(todoDescription);
         list.add(todo);
-        Printer.printTaskAdded(todo.toString(), list.size());
+        Printer.printTaskAdded(todo.toString());
     }
 }

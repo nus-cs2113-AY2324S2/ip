@@ -31,8 +31,16 @@ diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
-    exit 0
 else
     echo "Test result: FAILED"
-    exit 1
 fi
+
+# Delete text.ui.test/data directory after running the test
+if [ -d "./data" ]
+then
+    rm -r ./data
+    echo "data directory deleted after tests."
+fi
+
+# Exit with the status code from diff
+exit $?

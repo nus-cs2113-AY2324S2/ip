@@ -20,7 +20,7 @@ public class AddDeadlineCommand {
             String deadlineBy = userInput.substring(byIndex + CommandConstants.DEADLINE_INDICATOR.length() + 1).trim();
             Deadline deadline = new Deadline(deadlineDescription, deadlineBy);
             list.add(deadline);
-            Printer.printTaskAdded(deadline.toString(), list.size());
+            Printer.printTaskAdded(deadline.toString());
         }
     }
 }

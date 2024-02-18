@@ -2,8 +2,8 @@ package natsu.command;
 
 import natsu.exception.InvalidCommandException;
 
-import static natsu.util.TaskManager.list;
 import static natsu.util.Printer.printLine;
+import static natsu.util.TaskSaver.saveTasksToFile;
 
 public class CommandExecutor {
     public static Boolean executeCommand(String userInput) {
@@ -22,7 +22,7 @@ public class CommandExecutor {
             } else if (userInput.startsWith("unmark")) {
                 new UnmarkCommand(userInput);
             } else if (userInput.startsWith("list")) {
-                new ListCommand(list);
+                new ListCommand();
             } else if (userInput.startsWith("delete")) {
                 new DeleteCommand(userInput);
             } else {
@@ -33,6 +33,7 @@ public class CommandExecutor {
             System.out.println(e.getMessage());
             printLine();
         }
+        saveTasksToFile("data/tasks.txt");
         return true;
     }
 }

@@ -18,7 +18,7 @@ public class AddEventCommand {
         }
         Event event = getEvent(userInput);
         list.add(event);
-        Printer.printTaskAdded(event.toString(), list.size());
+        Printer.printTaskAdded(event.toString());
     }
 
     private static Event getEvent(String userInput) throws InvalidCommandException {
