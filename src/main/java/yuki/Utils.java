@@ -20,6 +20,7 @@ public class Utils {
 
     public static void printInstructions() {
         System.out.println("Accepted commands are:");
+        System.out.println("help: shows available commands\n");
         System.out.println("list: shows you list of tasks");
         System.out.println("\tInput Example: list\n");
         System.out.println("mark: marks a task as done");
