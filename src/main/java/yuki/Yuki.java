@@ -101,7 +101,7 @@ public class Yuki {
     public static void addTodo(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(Constants.LENGTH_TODO_COMMAND));
         if (data[0].isEmpty()) {
-            throw new YukiExceptions.InvalidDescriptionException();
+            throw new YukiExceptions.InvalidDescriptionException("Invalid description");
         }
         description = data[0];
         Task t = new Todo(description);
@@ -113,7 +113,7 @@ public class Yuki {
     public static void addDeadline(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(Constants.LENGTH_DEADLINE_COMMAND));
         if (data.length < 2) {
-            throw new YukiExceptions.InvalidDescriptionException();
+            throw new YukiExceptions.InvalidDescriptionException("Invalid description");
         }
         description = data[0] + " (by:" + data[1] + ")";
         Task t = new Deadline(description);
@@ -125,7 +125,7 @@ public class Yuki {
     public static void addEvent(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(Constants.LENGTH_EVENT_COMMAND));
         if (data.length < 3) {
-            throw new YukiExceptions.InvalidDescriptionException();
+            throw new YukiExceptions.InvalidDescriptionException("Invalid description");
         }
         description = data[0] + " (from: " + data[1] + " to: " + data[2] + ")";
         Task t = new Event(description);
@@ -165,7 +165,7 @@ public class Yuki {
                 try {
                     markTask(line, Constants.MARK_COMMAND);
                 } catch (YukiExceptions.InvalidIndexException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                     listTasks();
                 }
                 break;
@@ -173,7 +173,7 @@ public class Yuki {
                 try {
                     markTask(line, Constants.UNMARK_COMMAND);
                 } catch (YukiExceptions.InvalidIndexException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                     listTasks();
                 }
                 break;
@@ -181,14 +181,14 @@ public class Yuki {
                 try {
                     deleteTask(line);
                 } catch (YukiExceptions.InvalidIndexException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                     listTasks();
                 }
             case Constants.TODO_COMMAND:
                 try {
                     addTodo(line);
                 } catch (YukiExceptions.InvalidDescriptionException e) {
-                    Utils.printInvalidDescriptionWarning();
+                    System.out.println(e.getMessage() + "\nPlease enter a valid description\n");
                     Utils.printInstructions();
                 }
                 break;
@@ -196,7 +196,7 @@ public class Yuki {
                 try {
                     addDeadline(line);
                 } catch (YukiExceptions.InvalidDescriptionException e) {
-                    Utils.printInvalidDescriptionWarning();
+                    System.out.println(e.getMessage() + "\nPlease enter a valid description\n");
                     Utils.printInstructions();
                 }
                 break;
@@ -204,7 +204,7 @@ public class Yuki {
                 try {
                     addEvent(line);
                 } catch (YukiExceptions.InvalidDescriptionException e) {
-                    Utils.printInvalidDescriptionWarning();
+                    System.out.println(e.getMessage() + "\nPlease enter a valid description\n");
                     Utils.printInstructions();
                 }
                 break;

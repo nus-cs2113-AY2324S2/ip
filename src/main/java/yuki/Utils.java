@@ -35,11 +35,6 @@ public class Utils {
         System.out.println("\tInput Example: event birthday party /from 1 Jan /to 4 Jan");
     }
 
-    public static void printInvalidDescriptionWarning() {
-        System.out.println("Please enter a valid description.");
-        printLine();
-    }
-
     public static void printInvalidCommandWarning() {
         System.out.println("Invalid command.");
         printLine();
