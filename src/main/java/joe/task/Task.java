@@ -3,6 +3,7 @@ package joe.task;
 public abstract class Task {
     protected static final String MARKED_STATUS = "[X]";
     protected static final String UNMARKED_STATUS = "[ ]";
+    public abstract TaskType getTaskType();
     protected String taskName;
     protected boolean isDone;
 

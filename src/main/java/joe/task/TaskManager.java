@@ -13,6 +13,11 @@ public class TaskManager {
         numberOfTasks = 0;
     }
 
+    public void addTask(Task t) {
+        tasks.add(t);
+        numberOfTasks++;
+    }
+
     public void addToDo(String taskName) throws JoeException {
         if (taskName.isEmpty()) {
             throw new JoeException();
