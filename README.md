@@ -1,7 +1,7 @@
-#Erii Project Template
+# Erii Project Template
 Erii is a versatile Java project designed to streamline task management and productivity. This README outlines the setup process and provides an overview of Erii's functionalities.
 
-##Setting up in IntelliJ
+## Setting up in IntelliJ
 Prerequisites: JDK 11, update IntelliJ to the latest version.
 
 Open IntelliJ: If you're not on the welcome screen, go through File > Close Project to close any open project.
