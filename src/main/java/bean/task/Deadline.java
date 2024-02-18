@@ -17,4 +17,9 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    public String toCommand() {
+        return "deadline /by " + by + " /isDone " + isDone;
+    }
+
 }
