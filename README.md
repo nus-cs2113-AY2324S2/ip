@@ -15,8 +15,8 @@ Prerequisites: JDK 11, update IntelliJ to the latest version.
 Erii Functional Overview
 Erii is built with efficiency in mind, featuring:
 
-Task Management: Create, list, and manage tasks with ease.
-Deadline and Event Tracking: Keep track of deadlines and events, including start and end dates.
-Priority Setting: Assign priorities to tasks, ensuring the most critical tasks are highlighted.
-User Customization: Manage user details for personalized interaction.
+1. Task Management: Create, list, and manage tasks with ease.
+1. Deadline and Event Tracking: Keep track of deadlines and events, including start and end dates.
+1. Priority Setting: Assign priorities to tasks, ensuring the most critical tasks are highlighted.
+1. User Customization: Manage user details for personalized interaction.
 For further information on using Erii and extending its capabilities, refer to the included documentation and comments within the codebase.
