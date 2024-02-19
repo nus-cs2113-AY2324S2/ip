@@ -1,8 +1,12 @@
+package drosstasks;
+
+import drosstasks.Task;
+
 public class Deadline extends Task {
 
     protected String by;
 
-    //Deadline subclass of Task superclass
+    //drosstasks.Deadline subclass of drosstasks.Task superclass
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
