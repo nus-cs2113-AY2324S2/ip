@@ -75,7 +75,7 @@ public class Duke {
                     System.out.println("You are not marking an index!!!");
                 }
                 catch(IndexOutOfBoundsException e) {
-                    System.out.println(e + " clownnnnn");
+                    System.out.println(e + " clown");
                 }
                 continue;
             }
@@ -89,6 +89,21 @@ public class Duke {
                 }
                 catch (NumberFormatException e) {
                     System.out.println("You are not unmarking an index!!!");
+                }
+                catch(IndexOutOfBoundsException e) {
+                    System.out.println(e + " clown");
+                }
+                continue;
+            }
+
+            if (line.startsWith("delete")) {
+                try {
+                    int listIndex = Integer.parseInt(words[1]);
+                    tasks.remove(listIndex - 1);
+                    printTasks(tasks);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("You are not deleting an index!!!");
                 }
                 catch(IndexOutOfBoundsException e) {
                     System.out.println(e + " clownnnnn");
