@@ -21,42 +21,100 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ______________________________
 ______________________________
+The following parameters are missing:
+description
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
 1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
 ______________________________
 ______________________________
 Got it. I've added this task:
-  [E][ ] Tutorial (from: 1pm to: 3pm)
+  [E][ ] Tutorial (from: 1pm  to: 3pm)
 Now you have 3 tasks in the list.
 ______________________________
 ______________________________
 Got it. I've added this task:
-  [E][ ] Lecture (from: 3pm to: 5pm)
+  [E][ ] Lecture (from: 3pm  to: 5pm)
 Now you have 4 tasks in the list.
+______________________________
+______________________________
+The following parameters are missing:
+from to
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+The following parameters are missing:
+from to
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+The following parameters are missing:
+to
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+The following parameters are missing:
+from
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+The following parameters are missing:
+description
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+Got it. I've added this task:
+  [E][ ] Seminar (from: 5pm  to: 7pm)
+Now you have 5 tasks in the list.
 ______________________________
 ______________________________
 1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][ ] Tutorial (from: 1pm to: 3pm)
-4.[E][ ] Lecture (from: 3pm to: 5pm)
+3.[E][ ] Tutorial (from: 1pm  to: 3pm)
+4.[E][ ] Lecture (from: 3pm  to: 5pm)
+5.[E][ ] Seminar (from: 5pm  to: 7pm)
 ______________________________
 ______________________________
 Got it. I've added this task:
   [D][ ] RealizeIt (by: Thursday)
-Now you have 5 tasks in the list.
+Now you have 6 tasks in the list.
 ______________________________
 ______________________________
 Got it. I've added this task:
   [D][ ] Coursemology (by: Friday)
-Now you have 6 tasks in the list.
+Now you have 7 tasks in the list.
+______________________________
+______________________________
+The following parameters are missing:
+description by
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+The following parameters are missing:
+by
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+The following parameters are missing:
+description
+YOU GOTTA SAVE ME AND MY HEART!!
+______________________________
+______________________________
+Got it. I've added this task:
+  [D][ ] Teammates (by: Saturday)
+Now you have 8 tasks in the list.
 ______________________________
 ______________________________
 1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][ ] Tutorial (from: 1pm to: 3pm)
-4.[E][ ] Lecture (from: 3pm to: 5pm)
-5.[D][ ] RealizeIt (by: Thursday)
-6.[D][ ] Coursemology (by: Friday)
+3.[E][ ] Tutorial (from: 1pm  to: 3pm)
+4.[E][ ] Lecture (from: 3pm  to: 5pm)
+5.[E][ ] Seminar (from: 5pm  to: 7pm)
+6.[D][ ] RealizeIt (by: Thursday)
+7.[D][ ] Coursemology (by: Friday)
+8.[D][ ] Teammates (by: Saturday)
 ______________________________
 ______________________________
 Nice! I've marked this task as done:
@@ -64,31 +122,67 @@ Nice! I've marked this task as done:
 ______________________________
 ______________________________
 Nice! I've marked this task as done:
-  [E][X] Tutorial (from: 1pm to: 3pm)
+  [E][X] Tutorial (from: 1pm  to: 3pm)
 ______________________________
 ______________________________
 Nice! I've marked this task as done:
-  [D][X] RealizeIt (by: Thursday)
+  [E][X] Seminar (from: 5pm  to: 7pm)
+______________________________
+______________________________
+Nice! I've marked this task as done:
+  [D][X] Coursemology (by: Friday)
 ______________________________
 ______________________________
 1.[T][X] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][X] Tutorial (from: 1pm to: 3pm)
-4.[E][ ] Lecture (from: 3pm to: 5pm)
-5.[D][X] RealizeIt (by: Thursday)
-6.[D][ ] Coursemology (by: Friday)
+3.[E][X] Tutorial (from: 1pm  to: 3pm)
+4.[E][ ] Lecture (from: 3pm  to: 5pm)
+5.[E][X] Seminar (from: 5pm  to: 7pm)
+6.[D][ ] RealizeIt (by: Thursday)
+7.[D][X] Coursemology (by: Friday)
+8.[D][ ] Teammates (by: Saturday)
 ______________________________
 ______________________________
-OK, I've marked this task as not done yet:
-  [E][ ] Tutorial (from: 1pm to: 3pm)
+Nice! I've marked this task as done:
+  [E][ ] Tutorial (from: 1pm  to: 3pm)
+______________________________
+______________________________
+Nice! I've marked this task as done:
+  [E][ ] Lecture (from: 3pm  to: 5pm)
+______________________________
+______________________________
+Nice! I've marked this task as done:
+  [E][ ] Seminar (from: 5pm  to: 7pm)
+______________________________
+______________________________
+Nice! I've marked this task as done:
+  [D][ ] RealizeIt (by: Thursday)
 ______________________________
 ______________________________
 1.[T][X] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][ ] Tutorial (from: 1pm to: 3pm)
-4.[E][ ] Lecture (from: 3pm to: 5pm)
-5.[D][X] RealizeIt (by: Thursday)
-6.[D][ ] Coursemology (by: Friday)
+3.[E][ ] Tutorial (from: 1pm  to: 3pm)
+4.[E][ ] Lecture (from: 3pm  to: 5pm)
+5.[E][ ] Seminar (from: 5pm  to: 7pm)
+6.[D][ ] RealizeIt (by: Thursday)
+7.[D][X] Coursemology (by: Friday)
+8.[D][ ] Teammates (by: Saturday)
+______________________________
+______________________________
+Please input an integer!!
+Invalid mark instruction ZENBU FAKE!!
+______________________________
+______________________________
+Task does not exist!!
+Invalid mark instruction ZENBU FAKE!!
+______________________________
+______________________________
+Please input an integer!!
+Invalid mark instruction ZENBU FAKE!!
+______________________________
+______________________________
+Task does not exist!!
+Invalid mark instruction ZENBU FAKE!!
 ______________________________
 ______________________________
 Bye! Hope to see you again soon! MEGANE!!

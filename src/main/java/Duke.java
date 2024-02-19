@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -5,12 +6,30 @@ import java.util.Scanner;
 public class Duke {
 
     public static class InvalidCommandException extends Exception {
+        public void printErrorMessage(){
+            printMessage("Invalid Command!!\nYAMAGATA kita baby FACE!!");
+        }
+    }
 
+    public static class EndListException extends Exception {
+
+    }
+
+    public static class MarkInstructionNotIntegerException extends Exception {
+        public void printErrorMessage() {
+            printMessage("Please input an integer!!\nInvalid mark instruction ZENBU FAKE!!");
+        }
+    }
+
+    public static class MarkInstructionOutOfBoundsException extends Exception {
+        public void printErrorMessage() {
+            printMessage("Task does not exist!!\nInvalid mark instruction ZENBU FAKE!!");
+        }
     }
 
     public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
-            {"list", "mark", "unmark", "todo", "deadline", "event"};
+            {"list", "mark", "unmark", "todo", "deadline", "event", "bye"};
     public static List<Task> taskList = new ArrayList<>();
 
     /**
@@ -88,7 +107,7 @@ public class Duke {
      *
      * @param argument information of to-do to be added.
      */
-    public static void addToDo(String argument){
+    public static void addToDo(String argument) throws MissingParamsException {
         Task newTask = new ToDo(argument);
         taskList.add(newTask);
         printAddedTask();
@@ -98,14 +117,20 @@ public class Duke {
      * Adds a deadline task to list of tasks.
      * @param argument information of deadline to be added.
      */
-    public static void addDeadline(String argument){
+    public static void addDeadline(String argument) throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", by = "";
 
         for(String token : tokens){
             String[] subTokens = token.split(" ", 2);
-            if (subTokens[0].equalsIgnoreCase("by")) {
-                by = subTokens[1].trim();
+            String subCommand = subTokens[0].toLowerCase().trim();
+            String subArgument = "";
+            if (subTokens.length > 1) {
+                subArgument = subTokens[1];
+            }
+
+            if (subCommand.equalsIgnoreCase("by")) {
+                by = subArgument;
             } else {
                 description = token.trim();
             }
@@ -121,18 +146,24 @@ public class Duke {
      *
      * @param argument information of deadline to be added.
      */
-    public static void addEvent(String argument){
+    public static void addEvent(String argument) throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", start = "", end = "";
 
         for(String token : tokens){
             String[] subTokens = token.split(" ", 2);
-            switch (subTokens[0].toLowerCase()){
+            String subCommand = subTokens[0].toLowerCase().trim();
+            String subArgument = "";
+            if (subTokens.length > 1) {
+                subArgument = subTokens[1];
+            }
+
+            switch (subCommand){
             case "from":
-                start = subTokens[1].trim();
+                start = subArgument;
                 break;
             case "to":
-                end = subTokens[1].trim();
+                end = subArgument;
                 break;
             default:
                 description = token.trim();
@@ -146,43 +177,61 @@ public class Duke {
     }
 
     /**
-     * Marks task as done.
+     * Marks task as done or undone.
      *
      * @param instruction User instruction on which task to mark.
+     * @param done Status of task - done or undone.
      */
-    public static void markTask(String instruction){
-        int taskNumber = Integer.parseInt(instruction);
+    public static void markTask(String instruction, boolean done)
+            throws MarkInstructionNotIntegerException, MarkInstructionOutOfBoundsException {
+        int taskNumber;
 
-        if (taskNumber < 0 && taskNumber > taskList.size() + 1){
-            printMessage("Invalid mark instruction ZENBU FAKE!!");
-            return;
+        try {
+            taskNumber = Integer.parseInt(instruction);
+        } catch (NumberFormatException e) {
+            throw new MarkInstructionNotIntegerException();
         }
 
-        taskList.get(taskNumber - 1).setDone(true);
-        printMessage("Nice! I've marked this task as done:\n"
-                + "  " + taskList.get(taskNumber - 1));
+        try {
+            taskList.get(taskNumber - 1).setDone(done);
+            printMessage("Nice! I've marked this task as done:\n"
+                    + "  " + taskList.get(taskNumber - 1));
+        } catch (IndexOutOfBoundsException e) {
+            throw new MarkInstructionOutOfBoundsException();
+        }
     }
 
-    /**
-     * Marks task as undone.
-     *
-     * @param instruction User instruction on which task to mark.
-     */
-    public static void unmarkTask(String instruction){
-        int taskNumber = Integer.parseInt(instruction);
-
-        if (taskNumber < 0 && taskNumber > taskList.size() + 1){
-            printMessage("Invalid mark instruction ZENBU FAKE!!");
-            return;
+    public static void executeCommand(String command, String argument)
+            throws MissingParamsException, InvalidCommandException, EndListException,
+            MarkInstructionOutOfBoundsException, MarkInstructionNotIntegerException {
+        if (command.equalsIgnoreCase("bye")) {
+            throw new EndListException();
         }
 
-        taskList.get(taskNumber - 1).setDone(false);
-        printMessage("OK, I've marked this task as not done yet:\n"
-                + "  " + taskList.get(taskNumber - 1));
-    }
+        if (Arrays.stream(validCommands).noneMatch(command::equals)){
+            throw new InvalidCommandException();
+        }
 
-    public static void executeCommand(String command, String argument){
-
+        switch (command) {
+        case "list":
+            printList();
+            break;
+        case "mark":
+            markTask(argument, true);
+            break;
+        case "unmark":
+            markTask(argument, false);
+            break;
+        case "todo":
+            addToDo(argument);
+            break;
+        case "deadline":
+            addDeadline(argument);
+            break;
+        case "event":
+            addEvent(argument);
+            break;
+        }
     }
 
     /**
@@ -205,27 +254,21 @@ public class Duke {
                 argument = tokens[1].trim();
             }
 
-            switch (command) {
-            case "list":
-                printList();
-                break;
-            case "mark":
-                markTask(argument);
-                break;
-            case "unmark":
-                unmarkTask(argument);
-                break;
-            case "todo":
-                addToDo(argument);
-                break;
-            case "deadline":
-                addDeadline(argument);
-                break;
-            case "event":
-                addEvent(argument);
-                break;
-            case "bye":
+            try {
+                executeCommand(command,argument);
+            } catch (EndListException e) {
                 return;
+            } catch (InvalidCommandException e) {
+                e.printErrorMessage();
+            } catch (MissingParamsException e) {
+                String errorMessage = "The following parameters are missing:\n"
+                        + e + "\n"
+                        + "YOU GOTTA SAVE ME AND MY HEART!!";
+                printMessage(errorMessage);
+            } catch (MarkInstructionOutOfBoundsException e) {
+                e.printErrorMessage();
+            } catch (MarkInstructionNotIntegerException e) {
+                e.printErrorMessage();
             }
         }
     }
@@ -236,4 +279,3 @@ public class Duke {
         goodbye();
     }
 }
-
