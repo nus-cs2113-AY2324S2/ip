@@ -1,19 +1,17 @@
 package gary;
 
 import gary.exception.*;
-import gary.task.Deadline;
-import gary.task.Event;
-import gary.task.Task;
-import gary.task.Todo;
+import gary.task.*;
 
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.FileWriter;
 
 public class Gary {
     public static final int MAX_TASK = 100;
@@ -52,7 +50,6 @@ public class Gary {
             while (lineText != null) {
                 // convert each line into TASK_todo/deadline/event, then store in the array todos
                 lineWords = lineText.split(" \\| ");
-                System.out.println(Arrays.toString(lineWords));
                 command = lineWords[0];
                 String description = lineWords[2];
                 if (command.equalsIgnoreCase("TODO")) {
@@ -78,7 +75,6 @@ public class Gary {
             fileReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("FILE NOT FOUND!!!");
-//            createFile(file);
         }
 
         String line;
@@ -93,13 +89,16 @@ public class Gary {
                 processList(todosCount, todos);
             } else if (command.equalsIgnoreCase("MARK")) {
                 processMark(todos, lineWords);
+                writeTaskToTxt(file, todosCount, todos);
             } else if (command.equalsIgnoreCase("UNMARK")) {
                 processUnmark(todos, lineWords);
+                writeTaskToTxt(file, todosCount, todos);
             } else {
                 try {
                     processAddTask(command, todos, todosCount, line);
                     todosCount += 1;
                     todos[todosCount - 1].printAdd(todosCount);
+                    writeTaskToTxt(file, todosCount, todos);
                 } catch (UnknownCommandException e) {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (MissingTodoDescriptionException e) {
@@ -124,13 +123,36 @@ public class Gary {
         System.out.println("Bye. Hope to see you again!");
     }
 
-//    private static void createFile(File file) throws IOException {
-//        try {
-//            Boolean isFileCreated = file.createNewFile();
-//        } catch (IOException e) {
-//            System.out.println("FILE NOT CREATED");
-//        }
-//    }
+    //bug in writing if exception raised
+    private static void writeTaskToTxt(File file, int todosCount, Task[] todos) throws IOException {
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
+            for (int i = 0; i < todosCount; i += 1) {
+                String description = todos[i].getTaskDescription();
+                String taskStatus = todos[i].getTaskStatus() ? "1" : "0";
+                TaskType taskType = todos[i].getTaskType();
+                switch(taskType) {
+                case DEADLINE:
+                    Deadline deadline = (Deadline) todos[i];
+                    String by = deadline.getBy();
+                    fileWriter.write(taskType + " | " + taskStatus + " | "
+                            + description + " | " + by + "\n");
+                    break;
+                case EVENT:
+                    Event event = (Event) todos[i];
+                    String from = event.getFrom();
+                    String to = event.getTo();
+                    fileWriter.write(taskType + " | " + taskStatus + " | "
+                            + description + " | " + from + " | " + to + "\n");
+                default:
+                    fileWriter.write(taskType + " | " + taskStatus + " | " + description + "\n");
+                }
+            }
+            fileWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("FILE NOT FOUND!!!");
+        }
+    }
 
     private static void processUnmark(Task[] todos, String[] lineWords) {
         todos[Integer.parseInt(lineWords[1]) - 1].unmarkAsDone();
