@@ -4,20 +4,26 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    public static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void printLine(){
         System.out.println("____________________________________________________________");
     }
+
     public static void main(String[] args) {
         //Display initial greeting message
         printLine();
         System.out.println("Hello! I'm Colin");
+        printLine();
+        System.out.println("Here are your current tasks:");
+        SaveFile.loadTasksFromFile();
+        printLine();
         System.out.println("What can I do for you?");
         printLine();
 
         //Create Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        ArrayList<Task> tasks = new ArrayList<>(); // Array to store tasks
         int taskIndex;
 
         //Continue reading user input, detecting any keywords and executing the respective commands
@@ -27,6 +33,7 @@ public class Duke {
             printLine();
             try {
                 if (userInput.equalsIgnoreCase("bye")) {
+                    SaveFile.saveTasksToFile();
                     //Exit bot
                     System.out.println("Bye. Hope to see you again soon!");
                     printLine();
@@ -105,7 +112,7 @@ public class Duke {
                     System.out.println("  " + removedTask);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                } else {
+                }  else {
                     //Handles the case if invalid input
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :(");
                     throw new DukeException();

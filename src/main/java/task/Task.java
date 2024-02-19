@@ -25,4 +25,7 @@ public class Task {
         return description;
     }
 
+    public String toFileString() {
+        return "";
+    }
 }
