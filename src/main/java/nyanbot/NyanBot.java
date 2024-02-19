@@ -25,6 +25,7 @@ public class NyanBot {
     private static final String HELP_COMMAND = "HELP";
     private static final String LINE = "____________";
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static Boolean isRunning = true;
 
     public static void addTask(Task task) {
         tasks.add(task);
@@ -128,41 +129,47 @@ public class NyanBot {
     private static void getInput() {
         Scanner scanner = new Scanner(System.in);
         String[] splitInputs = new String[2];
-        while (true) {
+        while (isRunning) {
             String input = scanner.nextLine();
-            switch (parseCommand(input)) {
-                case BYE_COMMAND:
-                    scanner.close();
-                    return;
-                case DELETE_COMMAND:
-                    deleteTask(input);
-                    break;
-                case LIST_COMMAND:
-                    Printer.printTasks(tasks);
-                    break;
-                case MARK_COMMAND:
-                    markTask(input);
-                    break;
-                case UNMARK_COMMAND:
-                    unmarkTask(input);
-                    break;
-                case TODO_COMMAND:
-                    addTodo(input);
-                    break;
-                case DEADLINE_COMMAND:
-                    addDeadline(input);
-                    break;
-                case EVENT_COMMAND:
-                    addEvent(input);
-                    break;
-                case HELP_COMMAND:
-                    Printer.printSike();
-                    break;
-                default:
-                    Printer.printInvalidInput();
-                    break;
-            }
+            processCommand(input);
             writeFile();
+        }
+        scanner.close();
+    }
+
+    private static void processCommand(String input) {
+        String command = parseCommand(input);
+        switch (command) {
+            case BYE_COMMAND:
+                isRunning = false;
+                break;
+            case DELETE_COMMAND:
+                deleteTask(input);
+                break;
+            case LIST_COMMAND:
+                Printer.printTasks(tasks);
+                break;
+            case MARK_COMMAND:
+                markTask(input);
+                break;
+            case UNMARK_COMMAND:
+                unmarkTask(input);
+                break;
+            case TODO_COMMAND:
+                addTodo(input);
+                break;
+            case DEADLINE_COMMAND:
+                addDeadline(input);
+                break;
+            case EVENT_COMMAND:
+                addEvent(input);
+                break;
+            case HELP_COMMAND:
+                Printer.printSike();
+                break;
+            default:
+                Printer.printInvalidInput();
+                break;
         }
     }
 
