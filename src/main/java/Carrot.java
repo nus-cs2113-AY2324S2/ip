@@ -17,7 +17,7 @@ public class Carrot {
         handleUserInput();
     }
 
-    private static ArrayList<Task> listOfTasks = new ArrayList<>();
+    private static ArrayList<Task> listOfTasks = Storage.loadListOfTasks();
 
     private static final String MESSAGE_DIVIDER = "-------------------------------------";
     private static final String COMMAND_LIST =
@@ -101,6 +101,7 @@ public class Carrot {
         }
 
         listOfTasks.add(task);
+        Storage.writeAllTasksToStorage(listOfTasks);
         printAddedTask(task);
     }
 
@@ -113,6 +114,7 @@ public class Carrot {
         try {
             Task taskToRemove = listOfTasks.get(taskIndexInt);
             listOfTasks.remove(taskIndexInt);
+            Storage.writeAllTasksToStorage(listOfTasks);
 
             printDeletedTask(taskToRemove);
         } catch (Exception e) {
@@ -141,6 +143,7 @@ public class Carrot {
         Task task = listOfTasks.get(taskIndex - 1);
 
         task.setStatus(isDone);
+        Storage.writeAllTasksToStorage(listOfTasks);
         printChangedTaskStatus(isDone, task);
     }
 

@@ -23,6 +23,14 @@ public class CommandManager {
     private static final Pattern EXIT_PATTERN =
             Pattern.compile("bye", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern TODO_DATA_PATTERN =
+            Pattern.compile("T \\| (?<isDone>true|false) \\| \"(?<description>.+?)\"");
+    private static final Pattern DEADLINE_DATA_PATTERN =
+            Pattern.compile("D \\| (?<isDone>true|false) \\| \"(?<description>.+?)\" \\| \"(?<by>.+?)\"");
+    private static final Pattern EVENT_DATA_PATTERN =
+            Pattern.compile("E \\| (?<isDone>true|false) \\| \"(?<description>.+?)\" \\| " +
+                    "\"(?<from>.+?)\" \\| \"(?<to>.+?)\"");
+
     private static Map<CommandType, Pattern> commandPatternMap = initCommandTypes();
 
     private static Map<CommandType, Pattern> initCommandTypes() {
@@ -88,5 +96,33 @@ public class CommandManager {
             return null;
         }
         return arguments;
+    }
+
+    protected static Task parseTaskFromTextFileLine(String line) {
+        Pattern[] dataPatterns = {TODO_DATA_PATTERN, DEADLINE_DATA_PATTERN, EVENT_DATA_PATTERN};
+
+        for (int i = 0; i < dataPatterns.length; i++) {
+            Pattern pattern = dataPatterns[i];
+            Matcher matcher = pattern.matcher(line);
+
+            if (matcher.matches()) {
+                boolean isDone = Boolean.parseBoolean(matcher.group("isDone"));
+                String description = matcher.group("description");
+
+                switch (i) {
+                case 0: // Index of TODO_DATA_PATTERN
+                    return new Todo(description, isDone);
+                case 1: // Index of DEADLINE_DATA_PATTERN
+                    String by = matcher.group("by");
+                    return new Deadline(description, by, isDone);
+                case 2: // Index of EVENT_DATA_PATTERN
+                    String from = matcher.group("from");
+                    String to = matcher.group("to");
+                    return new Event(description, from, to, isDone);
+                }
+                break;
+            }
+        }
+        return null;
     }
 }
