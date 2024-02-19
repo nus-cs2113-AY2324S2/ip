@@ -7,10 +7,13 @@ import Byte.task.Task;
 import Byte.task.ToDo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Byte {
     private static final int MAX_TASKS = 100;
-    private static final Task[] tasks = new Task[MAX_TASKS];
+    private static final List<Task> tasksList = new ArrayList<>();
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -119,7 +122,8 @@ public class Byte {
 
     private static void addTask(Task task) {
         if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = task;
+            tasksList.add(task);
+            taskCount++;
             System.out.println("Got it. I've added this task:\n " + task);
             System.out.println("Now you have " + taskCount + " tasks in the list.");
         } else {
@@ -130,7 +134,7 @@ public class Byte {
 
     private static void listTasks() {
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+            System.out.println((i + 1) + ". " + tasksList.get(i));
         }
         printLineSeparator();
     }
@@ -139,13 +143,13 @@ public class Byte {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(taskNumberStr)-1;
-            Task task = tasks[taskNumber];
+            Task task = tasksList.get(taskNumber);
             if (isDone) {
                 task.markAsDone();
-                System.out.println("Nice! I've marked this task as done:\n  " + tasks[taskNumber]);
+                System.out.println("Nice! I've marked this task as done:\n  " + task);
             } else {
                 task.markAsNotDone();
-                System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[taskNumber]);
+                System.out.println("OK, I've marked this task as not done yet:\n  " + task);
             }
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid task number.");
