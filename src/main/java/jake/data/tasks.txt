@@ -1,0 +1,5 @@
+[T][X] nothing
+[T][X] this
+[T][ ] that
+[T][ ] those
+[T][X] next
