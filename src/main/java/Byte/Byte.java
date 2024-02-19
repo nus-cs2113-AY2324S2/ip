@@ -57,6 +57,8 @@ public class Byte {
             handleDeadlineCommand(userInput);
         } else if (userInput.startsWith("event ")) {
             handleEventCommand(userInput);
+        } else if (userInput.startsWith("delete ")){
+            deleteTask(userInput);
         } else {
             throw new ByteException("I'm sorry, but I don't know what that means.");
         }
@@ -161,6 +163,24 @@ public class Byte {
 
     private static void printLineSeparator() {
         System.out.println("____________________________________________________________");
+    }
+
+    private static void deleteTask(String userInput) throws ByteException{
+        try{
+            int taskNumber = Integer.parseInt(userInput.substring("delete ".length())) - 1;
+            if (taskNumber < 0 || taskNumber >= taskCount){
+                throw new IndexOutOfBoundsException("Task number is out of range");
+            }
+            Task deletedTask = tasksList.remove(taskNumber);
+            taskCount --;
+            System.out.println("Noted. I've removed this task:\n  " + deletedTask);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
+        } catch (NumberFormatException e){
+            throw new ByteException("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException e){
+            throw new ByteException(e.getMessage());
+        }
+        printLineSeparator();
     }
 }
 
