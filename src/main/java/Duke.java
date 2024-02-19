@@ -112,8 +112,14 @@ public class Duke {
 
         for(String token : tokens){
             String[] subTokens = token.split(" ", 2);
-            if (subTokens[0].equalsIgnoreCase("by")) {
-                by = subTokens[1].trim();
+            String subCommand = subTokens[0].toLowerCase().trim();
+            String subArgument = "";
+            if (subTokens.length > 1) {
+                subArgument = subTokens[1];
+            }
+
+            if (subCommand.equalsIgnoreCase("by")) {
+                by = subArgument;
             } else {
                 description = token.trim();
             }
@@ -135,12 +141,18 @@ public class Duke {
 
         for(String token : tokens){
             String[] subTokens = token.split(" ", 2);
-            switch (subTokens[0].toLowerCase().trim()){
+            String subCommand = subTokens[0].toLowerCase().trim();
+            String subArgument = "";
+            if (subTokens.length > 1) {
+                subArgument = subTokens[1];
+            }
+
+            switch (subCommand){
             case "from":
-                start = subTokens[1].trim();
+                start = subArgument;
                 break;
             case "to":
-                end = subTokens[1].trim();
+                end = subArgument;
                 break;
             default:
                 description = token.trim();

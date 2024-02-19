@@ -20,10 +20,10 @@ public class MissingParamsException extends Exception {
                 errorMessage.append("by ");
                 break;
             case START:
-                errorMessage.append("start ");
+                errorMessage.append("from ");
                 break;
             case END:
-                errorMessage.append("end ");
+                errorMessage.append("to ");
                 break;
             }
         }
