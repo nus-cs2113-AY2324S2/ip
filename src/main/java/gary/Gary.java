@@ -54,15 +54,24 @@ public class Gary {
                 lineWords = lineText.split(" \\| ");
                 System.out.println(Arrays.toString(lineWords));
                 command = lineWords[0];
-
+                String description = lineWords[2];
                 if (command.equalsIgnoreCase("TODO")) {
-                    todos[todosCount] = new Todo(lineWords[2]);
+                    todos[todosCount] = new Todo(description);
                 } else if (command.equalsIgnoreCase("DEADLINE")) {
-                    todos[todosCount] = new Deadline(lineWords[2], lineWords[3]);
+                    String by = lineWords[3];
+                    todos[todosCount] = new Deadline(description, by);
                 } else {
-                    todos[todosCount] = new Event(lineWords[2], lineWords[3], lineWords[4]);
+                    String from = lineWords[3];
+                    String to = lineWords[4];
+                    todos[todosCount] = new Event(description, from, to);
                 }
                 todosCount += 1;
+
+                // Update task status in array todos
+                String taskStatus = lineWords[1];
+                if (taskStatus.equalsIgnoreCase("1")) {
+                    todos[todosCount - 1].markAsDone();
+                }
 
                 lineText = fileReader.readLine();
             }
