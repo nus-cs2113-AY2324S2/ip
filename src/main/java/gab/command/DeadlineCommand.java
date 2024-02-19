@@ -1,3 +1,9 @@
+package gab.command;
+
+import gab.task.Deadline;
+import gab.task.TaskList;
+import gab.ui.Ui;
+
 public class DeadlineCommand implements Command {
     private final String TASK_NAME;
     private final String BY;

@@ -1,3 +1,9 @@
+package gab.storage;
+
+import gab.exception.GabException;
+import gab.task.Task;
+import gab.task.TaskList;
+
 import java.io.*;
 
 public class Storage {

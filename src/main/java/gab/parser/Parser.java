@@ -1,3 +1,9 @@
+package gab.parser;
+
+import gab.exception.GabException;
+import gab.task.TaskList;
+import gab.command.*;
+
 public class Parser {
     public static final int TODO_START_INDEX = 5;
     public static final int DEADLINE_START_INDEX = 9;

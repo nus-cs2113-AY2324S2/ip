@@ -1,3 +1,8 @@
+package gab.command;
+
+import gab.Gab;
+import gab.task.TaskList;
+
 public class ByeCommand implements Command {
 
     @Override

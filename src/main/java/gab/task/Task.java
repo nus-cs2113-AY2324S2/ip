@@ -1,3 +1,6 @@
+package gab.task;
+
+import gab.exception.GabException;
 
 public class Task {
     private final String DESCRIPTION;

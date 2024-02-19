@@ -1,3 +1,5 @@
+package gab.task;
+
 public class Event extends Task {
     public static final String EVENT_STATUS = "[E]";
     private final String START_TIME;

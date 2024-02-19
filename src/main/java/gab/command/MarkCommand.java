@@ -1,3 +1,9 @@
+package gab.command;
+
+import gab.task.Task;
+import gab.task.TaskList;
+import gab.ui.Ui;
+
 public class MarkCommand implements Command {
 
     private final int INDEX_TASK;

@@ -1,3 +1,12 @@
+package gab;
+
+import gab.command.Command;
+import gab.command.CommandHandler;
+import gab.exception.GabException;
+import gab.storage.Storage;
+import gab.task.TaskList;
+import gab.ui.Ui;
+
 import java.io.IOException;
 
 public class Gab {

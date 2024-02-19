@@ -1,3 +1,9 @@
+package gab.command;
+
+import gab.task.Event;
+import gab.task.TaskList;
+import gab.ui.Ui;
+
 public class EventCommand implements Command {
 
     private final String TASK_NAME;
