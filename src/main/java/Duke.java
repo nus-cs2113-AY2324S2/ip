@@ -1,8 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     public static void addTask(String line) {
         Greet greet = new Greet();
         Task task;
@@ -18,14 +18,16 @@ public class Duke {
             greet.printError(e.getMessage());
             return;
         }
-        tasks[taskCount] = task;
-        taskCount++;
-
+        tasks.add(task);
         greet.printFormat();
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        greet.printNumTasks(taskCount);
+        greet.printNumTasks(tasks.size());
         greet.printFormat();
+    }
+
+    public static void deleteTask(int indexToDelete) {
+        tasks.remove(indexToDelete);
     }
 
     public static void printList() {
@@ -50,7 +52,9 @@ public class Duke {
     }
 
     private static void checkForError(String description) throws DukeException {
-        if(!description.contains("list") && !description.contains("event") && !description.contains("deadline") && !description.contains("todo") && !description.contains("mark")) {
+        if(!description.contains("list") && !description.contains("event") && !description.contains("deadline")
+                && !description.contains("todo") && !description.contains("mark")
+                && !description.contains("delete")) {
             throw new DukeException();
         }
         if(description.trim().isEmpty()) {
@@ -87,8 +91,8 @@ public class Duke {
             Task t = new Task(line);
             if(line.startsWith("mark")) {
                 int indexToMark = t.taskIndex(line);
-                if (greet.isWithinBounds(taskCount, indexToMark)) {
-                    Task taskToMark = tasks[indexToMark];
+                if (greet.isWithinBounds(tasks.size(), indexToMark)) {
+                    Task taskToMark = tasks.get(indexToMark);
                     greet.printFormat();
                     taskToMark.setIsDone();
                     System.out.println("Nice! I've marked this task as done:");
@@ -99,8 +103,8 @@ public class Duke {
             }
             if(line.startsWith("unmark")) {
                 int indexToUnmark = t.taskIndex(line);
-                if (greet.isWithinBounds(taskCount, indexToUnmark)) {
-                    Task taskToUnmark = tasks[indexToUnmark];
+                if (greet.isWithinBounds(tasks.size(), indexToUnmark)) {
+                    Task taskToUnmark = tasks.get(indexToUnmark);
                     greet.printFormat();
                     taskToUnmark.setIsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
@@ -108,6 +112,18 @@ public class Duke {
                     greet.printFormat();
                 }
                 continue;
+            }
+            if(line.startsWith("delete")) {
+                int indexToDelete = t.taskIndex(line);
+                if (greet.isWithinBounds(tasks.size(), indexToDelete)) {
+                    Task taskToDelete = tasks.get(indexToDelete);
+                    greet.printFormat();
+                    deleteTask(indexToDelete);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(taskToDelete);
+                    greet.printNumTasks(tasks.size());
+                    greet.printFormat();
+                }
             }
             if(line.startsWith("todo")) {
                 addTask(line);
