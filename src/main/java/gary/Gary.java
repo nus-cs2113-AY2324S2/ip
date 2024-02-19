@@ -6,6 +6,7 @@ import gary.task.Event;
 import gary.task.Task;
 import gary.task.Todo;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
@@ -44,14 +45,26 @@ public class Gary {
 
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(file));
-            String line = fileReader.readLine();
-            int i = 0;
-            while (line != null) {
-                //convert into TASK_todo/deadline/event, then put in the array
-                todo_temp[i] = line;
-                System.out.println(todo_temp[i]);
-                line = fileReader.readLine();
-                i += 1;
+            String lineText = fileReader.readLine();
+            String[] lineWords;
+            String command;
+
+            while (lineText != null) {
+                // convert each line into TASK_todo/deadline/event, then store in the array todos
+                lineWords = lineText.split(" \\| ");
+                System.out.println(Arrays.toString(lineWords));
+                command = lineWords[0];
+
+                if (command.equalsIgnoreCase("TODO")) {
+                    todos[todosCount] = new Todo(lineWords[2]);
+                } else if (command.equalsIgnoreCase("DEADLINE")) {
+                    todos[todosCount] = new Deadline(lineWords[2], lineWords[3]);
+                } else {
+                    todos[todosCount] = new Event(lineWords[2], lineWords[3], lineWords[4]);
+                }
+                todosCount += 1;
+
+                lineText = fileReader.readLine();
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
