@@ -156,4 +156,16 @@ public class TaskList {
 
         System.out.println(formattedString);
     }
+
+    public static void deleteTask(String userInput) {
+        String inputString = userInput.substring(7);
+        int taskListIndex = (Integer.parseInt(inputString) - 1);
+
+        System.out.println(line + separator
+                + indent +" Noted. I've removed this task:"
+                + separator + indent + " " + taskList.get(taskListIndex)
+                + separator + line);
+
+        taskList.remove(taskListIndex);
+    }
 }
