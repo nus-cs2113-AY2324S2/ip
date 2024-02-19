@@ -1,30 +1,48 @@
 public class Task {
-    private final StringBuilder description;
-    private static final int START_INDEX = 4;
-    private static final int END_INDEX = 5;
+    private final String input;
+    private final String type;
+    private final boolean status;
 
     Task(String input, String type) {
-        this.description = new StringBuilder("[" + type + "]" + "[ ] " + input);
+        this.input = input;
+        this.type = type;
+        this.status = false;
     }
 
-    Task (StringBuilder description) {
-        this.description = description;
+    Task(String input, String type, boolean status) {
+        this.input = input;
+        this.type = type;
+        this.status = status;
+    }
+
+    Task(Task a, boolean status){
+        this.input = a.input;
+        this.type = a.type;
+        this.status = status;
     }
 
     Task markTask() {
-        return new Task(this.description.replace(START_INDEX,END_INDEX,"X"));
+        return new Task(this, true);
     }
 
     Task unmarkTask() {
-        return new Task(this.description.replace(START_INDEX,END_INDEX," "));
+        return new Task(this,false);
     }
 
-    String getTask() {
-        return this.description.toString();
+    String getInput() {
+        return this.input;
+    }
+    String getType() {
+        return this.type;
+    }
+
+    boolean getStatus() {
+        return this.status;
     }
 
     @Override
     public String toString() {
-        return this.description.toString();
+        return String.format(
+                "[%s][%s] %s",this.type, this.status ? "X" : " ", this.input);
     }
 }

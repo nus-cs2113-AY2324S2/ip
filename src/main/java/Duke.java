@@ -44,7 +44,9 @@ public class Duke {
 
             if (line.startsWith(deadline)) {
                 try {
-                    tasks.add(new Deadline(words[1]));
+                    String[] deadlineDescription = words[1].split("/by", 2);
+                    tasks.add(new Deadline(deadlineDescription[0],
+                            deadlineDescription[1].trim()));
                 } catch(IndexOutOfBoundsException e) {
                     System.out.println("clown! add something after deadline!");
                 }
@@ -53,7 +55,10 @@ public class Duke {
 
             if (line.startsWith(event)) {
                 try {
-                    tasks.add(new Event(words[1]));
+                    String[] eventDescription = words[1].split("/from", 2);
+                    String[] timeWords = eventDescription[1].split("/to", 2);
+                    tasks.add(new Event(eventDescription[0].trim(),
+                            timeWords[0].trim(), timeWords[1].trim()));
                 } catch(IndexOutOfBoundsException e) {
                     System.out.println("clown! add something after event!");
                 }
@@ -95,10 +100,6 @@ public class Duke {
             } catch(JxExceptions e) {
                 System.out.println(e.getMessage());
             }
-
-
-
-
         }
         System.out.println("Hope to see you soon");
     }
