@@ -12,8 +12,7 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
-
-
+    
     public String getDescription() {
         return this.description;
     }
@@ -28,6 +27,10 @@ public abstract class Task {
 
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    public String toString() {
+        return String.format("%s %s", this.getStatusIcon(), this.description);
     }
 
     public abstract String toStorageFormat();

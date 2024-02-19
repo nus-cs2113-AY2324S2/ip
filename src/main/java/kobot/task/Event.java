@@ -17,7 +17,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return String.format("[E]%s %s (from: %s, to: %s)", this.getStatusIcon(), this.description, this.from, this.to);
+        return String.format("[E]%s (from: %s, to: %s)", super.toString(), this.from, this.to);
     }
 
     public String toStorageFormat() {

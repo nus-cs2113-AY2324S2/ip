@@ -1,8 +1,7 @@
 package kobot.storage;
 
-import kobot.task.Task;
 import kobot.task.TaskList;
-import kobot.Ui;
+import kobot.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,8 +11,6 @@ import java.util.Scanner;
 
 public class Storage {
     private static final String FILE_PATH = "tasks.txt";
-    private static final String ERROR_MESSAGE_CREATE_FILE = "Error: Unable to create storage file.";
-    private static final String ERROR_MESSAGE_UPDATE_FILE = "Error: Unable to update storage file.";
 
     /**
      * Creates storage file.
@@ -23,7 +20,7 @@ public class Storage {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             fileWriter.close();
         } catch (IOException exception) {
-            System.out.println(ERROR_MESSAGE_CREATE_FILE);
+            Ui.printCreateFileErrorMessage();
             System.exit(0);
         }
     }
@@ -47,14 +44,19 @@ public class Storage {
             return new TaskList();
         }
     }
-    
+
+    /**
+     * Updates storage file with the current task list.
+     * 
+     * @param taskList Current list of tasks.
+     */
     public static void updateFile(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             fileWriter.write(taskList.toStorageFormat());
             fileWriter.close();
         } catch (IOException exception) {
-            System.out.println(ERROR_MESSAGE_UPDATE_FILE);
+            Ui.printUpdateFileErrorMessage();
             System.exit(0);
         }
     }

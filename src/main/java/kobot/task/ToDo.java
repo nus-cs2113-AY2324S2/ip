@@ -1,7 +1,5 @@
 package kobot.task;
 
-import kobot.task.Task;
-
 public class ToDo extends Task {
     public ToDo(String description, Boolean isDone) {
         super(description, isDone);
@@ -11,7 +9,7 @@ public class ToDo extends Task {
     }
 
     public String toString() {
-        return String.format("[T]%s %s", this.getStatusIcon(), this.description);
+        return String.format("[T]%s", super.toString());
     }
 
     public String toStorageFormat() {
