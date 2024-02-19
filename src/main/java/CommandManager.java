@@ -8,6 +8,8 @@ public class CommandManager {
             Pattern.compile("mark (?<taskIndex>\\d+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern UNMARK_PATTERN =
             Pattern.compile("unmark (?<taskIndex>\\d+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DELETE_PATTERN =
+            Pattern.compile("delete (?<taskIndex>\\d+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern LIST_PATTERN =
             Pattern.compile("list", Pattern.CASE_INSENSITIVE);
     private static final Pattern TODO_PATTERN =
@@ -30,6 +32,7 @@ public class CommandManager {
         commandPatternMap.put(CommandType.HELP, HELP_PATTERN);
         commandPatternMap.put(CommandType.MARK, MARK_PATTERN);
         commandPatternMap.put(CommandType.UNMARK, UNMARK_PATTERN);
+        commandPatternMap.put(CommandType.DELETE, DELETE_PATTERN);
         commandPatternMap.put(CommandType.LIST, LIST_PATTERN);
         commandPatternMap.put(CommandType.TODO, TODO_PATTERN);
         commandPatternMap.put(CommandType.DEADLINE, DEADLINE_PATTERN);
@@ -66,6 +69,7 @@ public class CommandManager {
         switch (command) {
         case MARK:
         case UNMARK:
+        case DELETE:
             arguments[0] = matcher.group("taskIndex");
             break;
         case TODO:
