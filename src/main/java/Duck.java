@@ -3,12 +3,13 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duck {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
-    private static final int MAX_TASKS = 100;
+//    private static final int MAX_TASKS = 100;
 
     public static void main(String[] args) {
         System.out.println(LINE_SEPARATOR + "\n" +
@@ -21,12 +22,12 @@ public class Duck {
                 " | |__| | |__| | |____| . \\ \n" +
                 " |_____/ \\____/ \\_____|_|\\_\\");
 
-        Task[] tasks = new Task[MAX_TASKS]; //stores Tasks in array called tasks
+        ArrayList<Task> tasks = new ArrayList<>(); //stores Tasks in ArrayList called tasks
         int index = 0; //index of where the userInput is stored in texts
         handleUserInput(tasks, index);
     }
 
-    private static void handleUserInput(Task[] tasks, int index) {
+    private static void handleUserInput(ArrayList<Task> tasks, int index) {
         boolean isFinished = false; //isFinished will be true if user types in bye and the program is finished and terminates
 
         while (!isFinished) {

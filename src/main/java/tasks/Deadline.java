@@ -2,6 +2,8 @@ package tasks;
 
 import exceptions.DuckInvalidDeadlineDescriptionException;
 
+import java.util.ArrayList;
+
 public class Deadline extends Task {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
@@ -13,15 +15,16 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public static int addDeadline(Task[] tasks, String userInput, int index) {
+    public static int addDeadline(ArrayList<Task> tasks, String userInput, int index) {
         try {
             String[] split = userInput.split("/");
             if (split.length != 2 || !split[1].startsWith("by ")) { //throws exception if the inputs are not to program specifications
                 throw new DuckInvalidDeadlineDescriptionException();
             }
-            tasks[index] = new Deadline(split[0].substring(9), split[1]);
+            Deadline newDeadline = new Deadline(split[0].substring(9), split[1]);
+            tasks.add(newDeadline);
             System.out.println(LINE_SEPARATOR);
-            System.out.println(ADDED_MESSAGE + tasks[index]);
+            System.out.println(ADDED_MESSAGE + tasks.get(index));
             index++;
             System.out.println("Now you have " + index + " tasks in the list.");
             System.out.println(LINE_SEPARATOR);

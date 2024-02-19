@@ -2,6 +2,8 @@ package tasks;
 
 import exceptions.DuckInvalidEventDescriptionException;
 
+import java.util.ArrayList;
+
 public class Event extends Task{
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
@@ -15,15 +17,16 @@ public class Event extends Task{
         this.by = by;
     }
 
-    public static int addEvent(Task[] tasks, String userInput, int index){
+    public static int addEvent(ArrayList<Task> tasks, String userInput, int index){
         try {
             String[] split = userInput.split("/");
             if (split.length != 3 || !split[1].startsWith("from ") || !split[2].startsWith("by ")) { //throws exception if the inputs are not to program specifications
                 throw new DuckInvalidEventDescriptionException();
             }
-            tasks[index] = new Event(split[0].substring(6), split[1].substring(5), split[2].substring(3));
+            Event newEvent = new Event(split[0].substring(6), split[1].substring(5), split[2].substring(3));
+            tasks.add(newEvent);
             System.out.println(LINE_SEPARATOR);
-            System.out.println(ADDED_MESSAGE + tasks[index]);
+            System.out.println(ADDED_MESSAGE + tasks.get(index));
             index++;
             System.out.println("Now you have " + index + " tasks in the list.");
             System.out.println(LINE_SEPARATOR);
