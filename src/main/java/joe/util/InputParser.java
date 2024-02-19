@@ -52,32 +52,4 @@ public class InputParser {
         eventDurations[1] = message.substring(endIndex).replace(EVENT_END_FLAG, "").trim();
         return eventDurations;
     }
-
-    public static Task readTaskData(String taskData) throws JoeException {
-        char taskSymbol = taskData.charAt(0);
-        boolean isDone = taskData.charAt(1) == 'X';
-        String taskInput = taskData.substring(2);
-
-        Task task = null;
-        switch (taskSymbol) {
-        case 't':
-            task = new ToDo(taskInput);
-            task.setDone(isDone);
-            break;
-        case 'd':
-            String deadlineName = getTaskName(taskInput);
-            String deadlineTime = getDeadlineTime(taskInput);
-            task = new Deadline(deadlineName, deadlineTime);
-            task.setDone(isDone);
-            break;
-        case 'e':
-            String eventName = getTaskName(taskInput);
-            String[] eventTime = getEventTime(taskInput);
-            task = new Event(eventName, eventTime[0], eventTime[1]);
-            task.setDone(isDone);
-            break;
-        }
-
-        return task;
-    }
 }

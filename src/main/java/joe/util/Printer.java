@@ -30,6 +30,9 @@ public class Printer {
             + "DEADLINE TIME\n\tdeadline --TASK-- /by --TIME--\n" + H_LINE;
     protected static final String EVENT_INPUT_ERROR = H_LINE + "INVALID EVENT LOL\nPLEASE USE /from AND /to TO "
             + "INDICATE EVENT DURATION\n\tevent --TASK-- /from --START TIME-- /to --END TIME--\n" + H_LINE;
+    protected static final String FILE_CORRUPT_ERROR = H_LINE + "OOPS LOOKS LIKE THERE WERE CORRUPTED LINES OF CODE\n"
+            + "\tNUMBER OF CORRUPTED LINES: ";
+    protected static final String SAVE_ERROR = H_LINE + "SORRY I CURRENTLY CAN'T SAVE YOUR LIST MY BAD LOL\n" + H_LINE;
 
     public static void printHeaderLine() {
         System.out.println(H_LINE);
@@ -77,7 +80,7 @@ public class Printer {
 
     public static void printTaskAddingMessage(String task, int currentNumberOfTasks) {
         System.out.println(TASK_ADDED_MESSAGE + "  " + task + TASKS_NUMBER_MESSAGE + currentNumberOfTasks);
-        System.out.println(H_LINE);
+        printHeaderLine();
     }
 
     public static void printToDoEmptyError() {
@@ -90,5 +93,14 @@ public class Printer {
 
     public static void printEventInputError() {
         System.out.println(EVENT_INPUT_ERROR);
+    }
+
+    public static void printCorruptedFileError(int numOfLines) {
+        System.out.println(FILE_CORRUPT_ERROR + numOfLines);
+        printHeaderLine();
+    }
+
+    public static void printSaveError() {
+        System.out.println(SAVE_ERROR);
     }
 }
