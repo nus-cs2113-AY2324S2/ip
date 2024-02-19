@@ -1,11 +1,13 @@
 package task;
 
+import java.util.ArrayList;
+
 public class DukeException extends Exception {
 
-    public static int getTaskIndex(String userInput, int taskCount) throws DukeException {
+    public static int getTaskIndex(String userInput, ArrayList<Task> tasks) throws DukeException {
         try {
             int taskIndex = Integer.parseInt(userInput) - 1;
-            if (taskIndex < 0 || taskIndex >= taskCount) {
+            if (taskIndex < 0 || taskIndex >= tasks.size()) {
                 System.out.println("OOPS!!! Please enter a valid task number.");
                 throw new DukeException();
             }
