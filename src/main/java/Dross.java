@@ -1,3 +1,4 @@
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.Scanner;
 
 public class Dross {
@@ -43,14 +44,26 @@ public class Dross {
     //Method to handle task creation and parse input to appropriately construct the correct object
     public static void handleTaskCreation(String line) {
         if (line.startsWith("todo")) {
-            drossTaskList.addTask(line.substring("todo".length()).trim());
+            try {
+                drossTaskList.addTask(line.substring("todo".length()).trim());
+            } catch (InvalidTodoException e){
+                System.out.println("You want to do nothing? Be my guest... Type it this way todo [task] if you are kind enough to stop wasting my time");
+            }
         } else if (line.startsWith("deadline")) {
             String[] parts = line.substring("deadline".length()).trim().split(" /by ", 2);
-            drossTaskList.addTask(parts[0], parts[1]);
+            try {
+                drossTaskList.addTask(parts[0], parts[1]);
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Go ahead, live life with no deadlines. Procrastinate forever. deadline /by [time] is what you need to type, genius.");
+            }
         } else if (line.startsWith("event")) {
             String[] parts = line.substring("event".length()).trim().split(" /from ", 2);
-            String[] timeParts = parts[1].split(" /to ", 2);
-            drossTaskList.addTask(parts[0], timeParts[0], timeParts[1]);
+            try {
+                String[] timeParts = parts[1].split(" /to ", 2);
+                drossTaskList.addTask(parts[0], timeParts[0], timeParts[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("An event without a name, a start or end... Is this a philosophical conundrum?? event [name] /from [time1] /to [time2] is the way for goodness sakes...");
+            }
         }
         drossTaskList.printLastTask();
         printLine();
