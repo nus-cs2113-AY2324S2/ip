@@ -7,6 +7,12 @@ import gary.task.Task;
 import gary.task.Todo;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Gary {
     public static final int MAX_TASK = 100;
@@ -17,12 +23,41 @@ public class Gary {
     public static final int EVENT_DESCRIPTION_START_INDEX = 6;
     public static final int EVENT_FROM_SPACE_LENGTH = 6;
     public static final int EVENT_TO_SPACE_LENGTH = 4;
-    public static void main(String[] args) {
+
+    public static final String FILE_PATH = "./gary.txt";
+
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         greetings();
 
         Task[] todos = new Task[MAX_TASK];
         int todosCount = 0;
+
+        String[] todo_temp = new String[MAX_TASK];
+
+        File file = new File(FILE_PATH);
+        try {
+            Boolean isFileCreated = file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("FILE NOT CREATED");
+        }
+
+        try {
+            BufferedReader fileReader = new BufferedReader(new FileReader(file));
+            String line = fileReader.readLine();
+            int i = 0;
+            while (line != null) {
+                //convert into TASK_todo/deadline/event, then put in the array
+                todo_temp[i] = line;
+                System.out.println(todo_temp[i]);
+                line = fileReader.readLine();
+                i += 1;
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("FILE NOT FOUND!!!");
+//            createFile(file);
+        }
 
         String line;
         line = in.nextLine();
@@ -66,6 +101,14 @@ public class Gary {
 
         System.out.println("Bye. Hope to see you again!");
     }
+
+//    private static void createFile(File file) throws IOException {
+//        try {
+//            Boolean isFileCreated = file.createNewFile();
+//        } catch (IOException e) {
+//            System.out.println("FILE NOT CREATED");
+//        }
+//    }
 
     private static void processUnmark(Task[] todos, String[] lineWords) {
         todos[Integer.parseInt(lineWords[1]) - 1].unmarkAsDone();
