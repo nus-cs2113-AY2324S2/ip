@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -5,7 +6,9 @@ import java.util.Scanner;
 public class Duke {
 
     public static class InvalidCommandException extends Exception {
-
+        public void printErrorMessage(){
+            printMessage("Invalid Command!!\nYAMAGATA kita baby FACE!!");
+        }
     }
 
     public static class EndListException extends Exception {
@@ -14,7 +17,7 @@ public class Duke {
 
     public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
-            {"list", "mark", "unmark", "todo", "deadline", "event"};
+            {"list", "mark", "unmark", "todo", "deadline", "event", "bye"};
     public static List<Task> taskList = new ArrayList<>();
 
     /**
@@ -105,6 +108,7 @@ public class Duke {
     public static void addDeadline(String argument) throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", by = "";
+        System.out.println(Arrays.toString(tokens));
 
         for(String token : tokens){
             String[] subTokens = token.split(" ", 2);
@@ -186,9 +190,13 @@ public class Duke {
     }
 
     public static void executeCommand(String command, String argument)
-            throws MissingParamsException, EndListException {
+            throws MissingParamsException, InvalidCommandException, EndListException {
         if (command.equalsIgnoreCase("bye")) {
             throw new EndListException();
+        }
+
+        if (Arrays.stream(validCommands).noneMatch(command::equals)){
+            throw new InvalidCommandException();
         }
 
         switch (command) {
@@ -237,6 +245,8 @@ public class Duke {
                 executeCommand(command,argument);
             } catch (EndListException e) {
                 return;
+            } catch (InvalidCommandException e) {
+                e.printErrorMessage();
             } catch (MissingParamsException e) {
                 String errorMessage = "The following parameters are missing:\n"
                         + e + "\n"
