@@ -8,7 +8,7 @@ public class List {
     }
 
     // Overloaded Method to add a deadline to the list
-    public void addTask(String taskDescription, String taskDeadline) {
+    public void addTask(String taskDescription, String taskDeadline){
         tasks[size] = new Deadline(taskDescription, taskDeadline);
         size++;
     }
@@ -20,7 +20,10 @@ public class List {
     }
 
     // Method to add a task to the list
-    public void addTask(String taskDescription) {
+    public void addTask(String taskDescription) throws InvalidTodoException {
+        if (taskDescription.isEmpty()){
+            throw new InvalidTodoException();
+        }
         tasks[size] = new ToDo(taskDescription);
         size++;
     }
