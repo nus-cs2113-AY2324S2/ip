@@ -99,5 +99,7 @@ public class Joe {
                 break;
             }
         }
+
+        in.close();
     }
 }

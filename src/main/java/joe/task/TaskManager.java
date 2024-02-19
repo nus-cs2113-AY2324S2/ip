@@ -78,6 +78,8 @@ public class TaskManager {
         }
         System.out.println("  " + tasks.get(taskNumber - 1).getTaskStatus());
         Printer.printHeaderLine();
+
+        saveListAfterAdd();
     }
 
     protected void saveListAfterAdd() {

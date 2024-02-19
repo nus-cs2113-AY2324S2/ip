@@ -1,9 +1,10 @@
 package joe.util;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,8 +13,17 @@ import joe.task.TaskManager;
 import joe.task.Task;
 
 public class FileManager {
-    protected static final String SAVE_FILE_PATH = "./data/tasklist.txt";
+    protected static final String DATA_PATH = "./data/";
+    protected static final String FILE_NAME = "tasklist.txt";
+    protected static final String SAVE_FILE_PATH = DATA_PATH + FILE_NAME;
+
     public static void loadData(TaskManager taskManager) throws FileNotFoundException {
+        File directory = new File(DATA_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+            return;
+        }
+
         File saveFile = new File(SAVE_FILE_PATH);
         if (!saveFile.exists()) {
             return;
@@ -34,6 +44,7 @@ public class FileManager {
         if (corruptedData != 0) {
             Printer.printCorruptedFileError(corruptedData);
         }
+        s.close();
     }
 
     public static void saveData(ArrayList<Task> tasks) throws IOException {
@@ -44,6 +55,7 @@ public class FileManager {
         }
 
         FileWriter fw = new FileWriter(saveFile);
+        BufferedWriter writer = new BufferedWriter(fw);
         for (Task t : tasks) {
             String data = null;
             switch (t.getTaskType()) {
@@ -59,10 +71,11 @@ public class FileManager {
             }
 
             if (data != null) {
-                fw.write(data + "\n");
+                writer.write(data + "\n");
             }
         }
 
+        writer.close();
         fw.close();
     }
 }

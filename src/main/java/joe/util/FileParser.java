@@ -52,24 +52,45 @@ public class FileParser {
         return data.split(SEPARATOR);
     }
 
+    /**
+     * Generates file data from a ToDo task
+     * in the form "t#MARK STATUS#TASKNAME"
+     *
+     * @param taskInfo String of a ToDo task status
+     * @return String of parsed data to used to write
+     */
     public static String getTodoData(String taskInfo) {
         String doneSymbol = taskInfo.contains("[X]") ? String.valueOf(DONE_SYMBOL) : "o";
-        String taskName = taskInfo.substring(taskInfo.indexOf(" ") + 1);
+        String taskName = taskInfo.substring(taskInfo.indexOf("] ") + 1).trim();
 
         return TODO_SYMBOL + SEPARATOR + doneSymbol + SEPARATOR + taskName;
     }
 
+    /**
+     * Generates file data from a Deadline task
+     * in the form "d#MARK STATUS#TASKNAME#DEADLINE DATE"
+     *
+     * @param taskInfo String of a Deadline task status
+     * @return String of parsed data to used to write
+     */
     public static String getDeadlineData(String taskInfo) {
         String doneSymbol = taskInfo.contains("[X]") ? String.valueOf(DONE_SYMBOL) : "o";
-        String taskName = taskInfo.substring(taskInfo.indexOf(" ") + 1, taskInfo.indexOf("(by:")).trim();
+        String taskName = taskInfo.substring(taskInfo.indexOf("] ") + 1, taskInfo.indexOf("(by:")).trim();
         String deadlineTime = taskInfo.substring(taskInfo.indexOf("(by: ") + 5, taskInfo.lastIndexOf(")")).trim();
 
         return DEADLINE_SYMBOL + SEPARATOR + doneSymbol + SEPARATOR + taskName + SEPARATOR + deadlineTime;
     }
 
+    /**
+     * Generates file data from an Event task
+     * in the form "e#MARK STATUS#TASKNAME#START DATE#END DATE"
+     *
+     * @param taskInfo String of an Event task status
+     * @return String of parsed data to used to write
+     */
     public static String getEventData(String taskInfo) {
         String doneSymbol = taskInfo.contains("[X]") ? String.valueOf(DONE_SYMBOL) : "o";
-        String taskName = taskInfo.substring(taskInfo.indexOf(" ") + 1, taskInfo.indexOf("(from: ")).trim();
+        String taskName = taskInfo.substring(taskInfo.indexOf("] ") + 1, taskInfo.indexOf("(from: ")).trim();
         String eventStart = taskInfo.substring(taskInfo.indexOf("(from: ") + 7, taskInfo.indexOf(" to: "));
         String eventEnd = taskInfo.substring(taskInfo.indexOf(" to: ") + 5, taskInfo.lastIndexOf(")"));
 
