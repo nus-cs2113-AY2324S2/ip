@@ -22,14 +22,15 @@ public class Carrot {
     private static final String MESSAGE_DIVIDER = "-------------------------------------";
     private static final String COMMAND_LIST =
             "Available Commands:\n" +
-            "1. todo <taskdescription> - Add a new todo task\n" +
-            "2. deadline <taskdescription> /<by> - Add a new task with a deadline <by>\n" +
-            "3. event <taskdescription> /<from> /<to> - Add a new task that starts <from> and ends <to>\n" +
-            "4. mark <taskindex> - Mark a task as done\n" +
-            "5. unmark <taskindex> - Mark a task as not done\n" +
-            "6. list - List all tasks recorded\n" +
-            "7. bye - Exit the program\n" +
-            "8. help - Show available commands";
+                    "1. todo <taskdescription> - Add a new todo task\n" +
+                    "2. deadline <taskdescription> /<by> - Add a new task with a deadline <by>\n" +
+                    "3. event <taskdescription> /<from> /<to> - Add a new task that starts <from> and ends <to>\n" +
+                    "4. mark <taskindex> - Mark a task as done\n" +
+                    "5. unmark <taskindex> - Mark a task as not done\n" +
+                    "6. delete <taskindex> - delete a task from the list\n" +
+                    "7. list - List all tasks recorded\n" +
+                    "8. bye - Exit the program\n" +
+                    "9. help - Show available commands";
 
     private static void greetUser() {
         System.out.println(MESSAGE_DIVIDER);
