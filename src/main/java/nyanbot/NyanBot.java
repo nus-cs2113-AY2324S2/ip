@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import nyanbot.exception.NyanException;
 import nyanbot.task.Task;
 import nyanbot.task.Todo;
 import nyanbot.task.Deadline;
@@ -180,44 +181,36 @@ public class NyanBot {
                 tasks.add(readLine(line));
             }
         } catch (IOException e) {
-            System.out.println("IO Exception");
+            Printer.printIOException();
+        } catch (NyanException e) {
+            Printer.printNyanException(e.getMessage());
         }
     }
 
-    private static Task readLine(String line) {
-        String[] tokens = line.split("/");
-        String command = tokens[0].toUpperCase();
-        String status = tokens[1].toUpperCase();
-        Task task = new Task("");
-        switch (command) {
-            case TODO_COMMAND:
-                task = new Todo(tokens[2]);
-                break;
-            case DEADLINE_COMMAND:
-                task = new Deadline(tokens[2], tokens[3]);
-                break;
-            case EVENT_COMMAND:
-                task = new Event(tokens[2], tokens[3], tokens[4]);
-                break;
-            default:
-                return null; //TODO: throw exception
+    private static Task readLine(String line) throws NyanException {
+        try {
+            String[] tokens = line.split("/");
+            String command = tokens[0].toUpperCase();
+            String status = tokens[1].toUpperCase();
+            Task task = new Task("");
+            switch (command) {
+                case TODO_COMMAND:
+                    task = new Todo(tokens[2]);
+                    break;
+                case DEADLINE_COMMAND:
+                    task = new Deadline(tokens[2], tokens[3]);
+                    break;
+                case EVENT_COMMAND:
+                    task = new Event(tokens[2], tokens[3], tokens[4]);
+                    break;
+            }
+            if (status.equals(TRUE)) {
+                task.markAsDone();
+            }
+            return task;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NyanException("corrupted file");
         }
-        if (status.equals(TRUE)) {
-            task.markAsDone();
-        }
-        return task;
-    }
-
-    private static boolean readStatus(String line) {
-        String[] tokens = line.split("/");
-        String status = tokens[1].toUpperCase();
-        if (status.equals(TRUE)) {
-            return true;
-        }
-        else if (status.equals(FALSE)) {
-            return false;
-        }
-        return false; //TODO: throw exception
     }
 
     private static void writeFile() {
@@ -229,7 +222,7 @@ public class NyanBot {
             }
             FileHandler.writeFile("data/nyan.txt", "temp/temp.txt", lines);
         } catch (IOException e) {
-            System.out.println("IO exception");
+            Printer.printIOException();
         }
     }
 

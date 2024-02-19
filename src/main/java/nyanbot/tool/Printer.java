@@ -1,6 +1,7 @@
 package nyanbot.tool;
 
 import nyanbot.task.Task;
+
 import java.util.ArrayList;
 
 public class Printer {
@@ -25,6 +26,8 @@ public class Printer {
     protected static final String MISSING_DESCRIPTION_MESSAGE = "puriisu add description!";
     protected static final String MISSING_DATE_MESSAGE = "puriisu add date!";
     protected static final String MISSING_START_END_MESSAGE = "puriisu add start & end";
+    protected static final String NYAN_EXCEPTION_MESSAGE = " nyannnn";
+    protected static final String IO_EXCEPTION_MESSAGE = "cannot read file nyannnnn";
 
     public static void printLine() {
         System.out.println(LINE);
@@ -132,5 +135,13 @@ public class Printer {
     public static void printSike() {
         System.out.println(SIKE_MESSAGE);
         System.out.println(LINE);
+    }
+
+    public static void printNyanException(String error) {
+        System.out.println(error + NYAN_EXCEPTION_MESSAGE);
+    }
+
+    public static void printIOException() {
+        System.out.println(IO_EXCEPTION_MESSAGE);
     }
 }
