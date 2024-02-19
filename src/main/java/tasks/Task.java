@@ -1,12 +1,14 @@
 package tasks;
 
 import exceptions.DuckEmptyDeleteDescriptionException;
+import exceptions.DuckDeleteOutofBoundsException;
 
 import java.util.ArrayList;
 
 public class Task{
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
+    private static final String REMOVE_MESSAGE= "Noted. I've removed this task:";
     protected String description;
     protected boolean isDone;
 
@@ -68,17 +70,27 @@ public class Task{
         }
     }
 
-    public static void deleteTask(Task[] tasks, String userInput, int index) {
+    public static int deleteTask(ArrayList<Task> tasks, String userInput, int totalTasks) {
         String[] split = userInput.split(" ");
         try {
+            int index = Integer.parseInt(split[1]) - 1; //index of arraylist to delete
             if (split.length != 2) {
                 throw new DuckEmptyDeleteDescriptionException();
             }
-            int number = Integer.parseInt(split[1]);
+            if (index + 1 > totalTasks || index == -1) {
+                throw new DuckDeleteOutofBoundsException();
+            }
+            System.out.println(LINE_SEPARATOR);
+            System.out.println(REMOVE_MESSAGE);
+            System.out.println(tasks.get(index));
+            tasks.remove(index);
+            totalTasks--;
+            System.out.println("Now you have " + totalTasks + " tasks in the list.");
+            System.out.println(LINE_SEPARATOR);
         } catch(DuckEmptyDeleteDescriptionException e) {
             System.out.println("Invalid Delete input. Please type in format: delete [index]");
-        } catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid index. Please try again");
-        }
+        } catch(DuckDeleteOutofBoundsException e) {
+            System.out.println("Invalid index. There is only " + totalTasks +  " tasks. Please try again");
+        } return totalTasks;
     }
 }

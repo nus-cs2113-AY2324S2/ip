@@ -47,6 +47,8 @@ public class Duck {
                     index = Deadline.addDeadline(tasks, userInput, index);
                 } else if (userInput.startsWith("event ")) {
                     index = Event.addEvent(tasks, userInput, index);
+                } else if (userInput.startsWith("delete ")) {
+                    index = Task.deleteTask(tasks,userInput,index);
                 } else if (userInput.startsWith("bye")) {
                     System.out.println(LINE_SEPARATOR + "\n" + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR);
                     isFinished = true;
