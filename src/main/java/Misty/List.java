@@ -5,22 +5,23 @@ import Misty.Task.Deadline;
 import Misty.Task.Event;
 import Misty.Task.Task;
 import Misty.Task.Todo;
+import java.util.ArrayList;
 
 public class List {
-    private Task[] list;
+    private ArrayList<Task> taskList;
     private int itemCount;
 
     public List() {
         itemCount = 0;
-        list = new Task[100];
+        taskList = new ArrayList<>();
     }
 
     public int getItemCount() {
-        return itemCount;
+        return taskList.size();
     }
 
     public void printTaskCount() {
-        Parser.printTaskCount(itemCount);
+        Parser.printTaskCount(taskList.size());
     }
 
     private void printAddTaskMessage(Task newTask) {
@@ -29,8 +30,7 @@ public class List {
     }
 
     private void addTask(Task newTask) {
-        list[itemCount] = newTask;
-        itemCount++;
+        taskList.add(newTask);
     }
 
     public void addTodo(String description) throws EmptyTaskNameException {
@@ -70,24 +70,24 @@ public class List {
     }
 
     public void markTask(int index) throws IllegalListIndexException {
-        if (index <= 0 || index > itemCount) {
+        if (index <= 0 || index > taskList.size()) {
             throw new IllegalListIndexException();
         }
 
-        list[index - 1].setTaskAsDone();
-        Parser.printTaskMarkAsDone(list[index-1]);
+        taskList.get(index - 1).setTaskAsDone();
+        Parser.printTaskMarkAsDone(taskList.get(index - 1));
     }
 
     public void unmarkTask(int index) throws IllegalListIndexException {
-        if (index <= 0 || index > itemCount) {
+        if (index <= 0 || index > taskList.size()) {
             throw new IllegalListIndexException();
         }
 
-        list[index - 1].setTaskAsNotDone();
-        Parser.printTaskUnmarkAsNotDone(list[index-1]);
+        taskList.get(index - 1).setTaskAsNotDone();
+        Parser.printTaskUnmarkAsNotDone(taskList.get(index - 1));
     }
 
     public void listAll() {
-        Parser.printList(list, itemCount);
+        Parser.printList(taskList, itemCount);
     }
 }
