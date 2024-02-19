@@ -34,5 +34,7 @@ public class Adam {
 
             System.out.println(Message.DELIMITER);
         }
+
+        scanner.close();
     }
 }
