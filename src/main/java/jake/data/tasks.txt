@@ -1,0 +1,3 @@
+[T][ ] that
+[T][X] those
+[D][ ] this (by: then)
