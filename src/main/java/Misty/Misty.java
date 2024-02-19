@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Misty {
     public static void main(String[] args) {
-        List itemList = new List();
+        List taskList = new List();
         Parser.printWelcomeMessage();
 
         String input;
@@ -18,7 +18,7 @@ public class Misty {
             Parser.printMessageBorder();
             switch (input) {
             case "list":
-                itemList.listAll();
+                taskList.listAll();
                 break;
             case "bye":
                 Parser.printByeMessage();
@@ -41,7 +41,7 @@ public class Misty {
                     }
 
                     try {
-                        itemList.unmarkTask(index);
+                        taskList.unmarkTask(index);
                     } catch(IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
                         Parser.printUsageUnmark();
@@ -63,7 +63,7 @@ public class Misty {
                     }
 
                     try {
-                        itemList.markTask(index);
+                        taskList.markTask(index);
                     } catch(IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
                         Parser.printUsageMark();
@@ -82,7 +82,7 @@ public class Misty {
                     }
 
                     try {
-                        itemList.addTodo(description);
+                        taskList.addTodo(description);
                     } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageUsageTodo();
@@ -109,7 +109,7 @@ public class Misty {
                     }
 
                     try {
-                        itemList.addDeadline(description, by);
+                        taskList.addDeadline(description, by);
                     } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageDeadline();
@@ -149,7 +149,7 @@ public class Misty {
                     }
 
                     try {
-                        itemList.addEvent(description, from, to);
+                        taskList.addEvent(description, from, to);
                     } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageEvent();
