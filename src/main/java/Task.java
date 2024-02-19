@@ -1,3 +1,5 @@
+import java.util.List;
+
 public abstract class Task {
 
     /** Description of task */
@@ -32,4 +34,15 @@ public abstract class Task {
 
     @Override
     public abstract String toString();
+
+    public abstract List<TaskParams> findMissingParams();
+
+    /**
+     * Checks if the object has missing parameters.
+     *
+     * @return Boolean indicating if there are missing parameters.
+     */
+    public boolean hasMissingParams() {
+        return (!this.findMissingParams().isEmpty());
+    }
 }

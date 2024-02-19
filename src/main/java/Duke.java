@@ -8,6 +8,10 @@ public class Duke {
 
     }
 
+    public static class EndListException extends Exception {
+
+    }
+
     public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
             {"list", "mark", "unmark", "todo", "deadline", "event"};
@@ -88,7 +92,7 @@ public class Duke {
      *
      * @param argument information of to-do to be added.
      */
-    public static void addToDo(String argument){
+    public static void addToDo(String argument) throws MissingParamsException {
         Task newTask = new ToDo(argument);
         taskList.add(newTask);
         printAddedTask();
@@ -98,7 +102,7 @@ public class Duke {
      * Adds a deadline task to list of tasks.
      * @param argument information of deadline to be added.
      */
-    public static void addDeadline(String argument){
+    public static void addDeadline(String argument) throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", by = "";
 
@@ -121,13 +125,13 @@ public class Duke {
      *
      * @param argument information of deadline to be added.
      */
-    public static void addEvent(String argument){
+    public static void addEvent(String argument) throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", start = "", end = "";
 
         for(String token : tokens){
             String[] subTokens = token.split(" ", 2);
-            switch (subTokens[0].toLowerCase()){
+            switch (subTokens[0].toLowerCase().trim()){
             case "from":
                 start = subTokens[1].trim();
                 break;
@@ -181,8 +185,32 @@ public class Duke {
                 + "  " + taskList.get(taskNumber - 1));
     }
 
-    public static void executeCommand(String command, String argument){
+    public static void executeCommand(String command, String argument)
+            throws MissingParamsException, EndListException {
+        if (command.equalsIgnoreCase("bye")) {
+            throw new EndListException();
+        }
 
+        switch (command) {
+        case "list":
+            printList();
+            break;
+        case "mark":
+            markTask(argument);
+            break;
+        case "unmark":
+            unmarkTask(argument);
+            break;
+        case "todo":
+            addToDo(argument);
+            break;
+        case "deadline":
+            addDeadline(argument);
+            break;
+        case "event":
+            addEvent(argument);
+            break;
+        }
     }
 
     /**
@@ -205,27 +233,15 @@ public class Duke {
                 argument = tokens[1].trim();
             }
 
-            switch (command) {
-            case "list":
-                printList();
-                break;
-            case "mark":
-                markTask(argument);
-                break;
-            case "unmark":
-                unmarkTask(argument);
-                break;
-            case "todo":
-                addToDo(argument);
-                break;
-            case "deadline":
-                addDeadline(argument);
-                break;
-            case "event":
-                addEvent(argument);
-                break;
-            case "bye":
+            try {
+                executeCommand(command,argument);
+            } catch (EndListException e) {
                 return;
+            } catch (MissingParamsException e) {
+                String errorMessage = "The following parameters are missing:\n"
+                        + e + "\n"
+                        + "YOU GOTTA SAVE ME AND MY HEART!!";
+                printMessage(errorMessage);
             }
         }
     }
