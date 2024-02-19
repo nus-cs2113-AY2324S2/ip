@@ -62,7 +62,7 @@ public class Dross {
                 String[] timeParts = parts[1].split(" /to ", 2);
                 drossTaskList.addTask(parts[0], timeParts[0], timeParts[1]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("An event without a name, a start or end... Is this a philosophical conundrum?? event [name] /from [time1] /to [time2] is the way for goodness sakes...");
+                System.out.println("An event without a name, a start or end... What do you think you are, a philosopher?? event [name] /from [time1] /to [time2] is the way for goodness sakes...");
             }
         }
         drossTaskList.printLastTask();
