@@ -1,6 +1,6 @@
 /**
  * Generic error handling parent class
  */
-public class KatleenError extends Exception {
+public class KatleenException extends Exception {
     
 }
