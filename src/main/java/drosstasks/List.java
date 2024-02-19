@@ -1,3 +1,7 @@
+package drosstasks;
+import drosstasks.Event;
+import myexceptions.InvalidTodoException;
+
 public class List {
     private Task[] tasks;
     private int size;
@@ -52,7 +56,7 @@ public class List {
         if (size > 0) {
             System.out.println("All tasks:");
             for (int i = 0; i < size; i++) {
-                Task currentTask = tasks[i]; // Assuming tasks[i] is a Task object
+                Task currentTask = tasks[i]; // Assuming tasks[i] is a drosstasks.Task object
                 System.out.print((i + 1) + ".");
                 System.out.println(currentTask);
             }

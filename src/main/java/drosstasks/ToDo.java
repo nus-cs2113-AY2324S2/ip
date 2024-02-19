@@ -1,6 +1,10 @@
+package drosstasks;
+
+import drosstasks.Task;
+
 public class ToDo extends Task {
 
-    //ToDo subclass of Task superclass for item with no deadline or timing
+    //drosstasks.ToDo subclass of drosstasks.Task superclass for item with no deadline or timing
     public ToDo(String description) {
         super(description);
     }

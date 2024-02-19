@@ -1,9 +1,11 @@
+package drosstasks;
+
 public class Event extends Task {
 
     protected String from;
     protected String to;
 
-    //Deadline subclass of Task superclass
+    //drosstasks.Deadline subclass of drosstasks.Task superclass
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
