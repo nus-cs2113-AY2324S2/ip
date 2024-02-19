@@ -1,16 +1,35 @@
 todo Eat Breakfast 
 todo Eat Lunch
+todo
 list
 event Tutorial /from 1pm /to 3pm
 event Lecture /from 3pm /to 5pm
+event Seminar 
+event Seminar /from /to
+event Seminar /from 5pm
+event Seminar /to 7pm
+event /from 5pm /to 7pm
+event Seminar /from 5pm /to 7pm
 list
 deadline RealizeIt /by Thursday
 deadline Coursemology /by Friday
+deadline 
+deadline Teammates /by
+deadline /by Saturday
+deadline Teammates /by Saturday
 list
 mark 1
 mark 3
 mark 5
+mark 7
 list
 unmark 3
+unmark 4
+unmark 5
+unmark 6
 list
+mark string
+mark 1000
+unmark string
+unmark 2000
 bye

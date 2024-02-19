@@ -15,6 +15,18 @@ public class Duke {
 
     }
 
+    public static class MarkInstructionNotIntegerException extends Exception {
+        public void printErrorMessage() {
+            printMessage("Please input an integer!!\nInvalid mark instruction ZENBU FAKE!!");
+        }
+    }
+
+    public static class MarkInstructionOutOfBoundsException extends Exception {
+        public void printErrorMessage() {
+            printMessage("Task does not exist!!\nInvalid mark instruction ZENBU FAKE!!");
+        }
+    }
+
     public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
             {"list", "mark", "unmark", "todo", "deadline", "event", "bye"};
@@ -108,7 +120,6 @@ public class Duke {
     public static void addDeadline(String argument) throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", by = "";
-        System.out.println(Arrays.toString(tokens));
 
         for(String token : tokens){
             String[] subTokens = token.split(" ", 2);
@@ -166,43 +177,33 @@ public class Duke {
     }
 
     /**
-     * Marks task as done.
+     * Marks task as done or undone.
      *
      * @param instruction User instruction on which task to mark.
+     * @param done Status of task - done or undone.
      */
-    public static void markTask(String instruction){
-        int taskNumber = Integer.parseInt(instruction);
+    public static void markTask(String instruction, boolean done)
+            throws MarkInstructionNotIntegerException, MarkInstructionOutOfBoundsException {
+        int taskNumber;
 
-        if (taskNumber < 0 && taskNumber > taskList.size() + 1){
-            printMessage("Invalid mark instruction ZENBU FAKE!!");
-            return;
+        try {
+            taskNumber = Integer.parseInt(instruction);
+        } catch (NumberFormatException e) {
+            throw new MarkInstructionNotIntegerException();
         }
 
-        taskList.get(taskNumber - 1).setDone(true);
-        printMessage("Nice! I've marked this task as done:\n"
-                + "  " + taskList.get(taskNumber - 1));
-    }
-
-    /**
-     * Marks task as undone.
-     *
-     * @param instruction User instruction on which task to mark.
-     */
-    public static void unmarkTask(String instruction){
-        int taskNumber = Integer.parseInt(instruction);
-
-        if (taskNumber < 0 && taskNumber > taskList.size() + 1){
-            printMessage("Invalid mark instruction ZENBU FAKE!!");
-            return;
+        try {
+            taskList.get(taskNumber - 1).setDone(done);
+            printMessage("Nice! I've marked this task as done:\n"
+                    + "  " + taskList.get(taskNumber - 1));
+        } catch (IndexOutOfBoundsException e) {
+            throw new MarkInstructionOutOfBoundsException();
         }
-
-        taskList.get(taskNumber - 1).setDone(false);
-        printMessage("OK, I've marked this task as not done yet:\n"
-                + "  " + taskList.get(taskNumber - 1));
     }
 
     public static void executeCommand(String command, String argument)
-            throws MissingParamsException, InvalidCommandException, EndListException {
+            throws MissingParamsException, InvalidCommandException, EndListException,
+            MarkInstructionOutOfBoundsException, MarkInstructionNotIntegerException {
         if (command.equalsIgnoreCase("bye")) {
             throw new EndListException();
         }
@@ -216,10 +217,10 @@ public class Duke {
             printList();
             break;
         case "mark":
-            markTask(argument);
+            markTask(argument, true);
             break;
         case "unmark":
-            unmarkTask(argument);
+            markTask(argument, false);
             break;
         case "todo":
             addToDo(argument);
@@ -264,6 +265,10 @@ public class Duke {
                         + e + "\n"
                         + "YOU GOTTA SAVE ME AND MY HEART!!";
                 printMessage(errorMessage);
+            } catch (MarkInstructionOutOfBoundsException e) {
+                e.printErrorMessage();
+            } catch (MarkInstructionNotIntegerException e) {
+                e.printErrorMessage();
             }
         }
     }
