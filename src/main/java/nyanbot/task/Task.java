@@ -1,4 +1,4 @@
-package task;
+package nyanbot.task;
 
 public class Task {
     protected String description;

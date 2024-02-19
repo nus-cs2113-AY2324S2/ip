@@ -1,6 +1,6 @@
-package tool;
+package nyanbot.tool;
 
-import task.Task;
+import nyanbot.task.Task;
 import java.util.ArrayList;
 
 public class Printer {
@@ -12,7 +12,7 @@ public class Printer {
     protected static final String UNMARK_USAGE_MESSAGE = "使い方：unmark [index]";
     protected static final String DELETE_MESSAGE = "分かりました！deleteするをsuccessful desu!";
     protected static final String DELETE_USAGE_MESSAGE = "使い方: delete [index]";
-    protected static final String DELETE_FOLLOW_UP_MESSAGE = "今は tasks remaining:";
+    protected static final String LIST_MESSAGE = "今は tasks currently:";
     protected static final String TODO_USAGE_MESSAGE = "使い方: todo [description]";
     protected static final String DEADLINE_USAGE_MESSAGE = "使い方：deadline [description] /[date]";
     protected static final String EVENT_USAGE_MESSAGE = "使い方：event [description] /[start] /[end]";
@@ -45,7 +45,6 @@ public class Printer {
 
     public static void printDeleteSuccess() {
         System.out.println(DELETE_MESSAGE);
-        System.out.println(DELETE_FOLLOW_UP_MESSAGE);
     }
 
     public static void printDeleteUsage() {
@@ -112,8 +111,11 @@ public class Printer {
     public static void printMissingStartEnd() {
         System.out.println(MISSING_START_END_MESSAGE);
     }
+
     public static void printTasks (ArrayList<Task> tasks) {
         int count = 0;
+        System.out.println(LINE);
+        System.out.println(LIST_MESSAGE);
         for (Task task : tasks) {
             count++;
             System.out.print(count + ". " + task.getStatusIcon() + " ");

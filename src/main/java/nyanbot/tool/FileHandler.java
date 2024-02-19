@@ -1,13 +1,13 @@
-package tool;
+package nyanbot.tool;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.*;
-import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class FileHandler {
     public static List<String> readFile(String filePath) throws IOException {
@@ -20,6 +20,7 @@ public class FileHandler {
 
     public static void writeFile(String filePath, String tempPath, List<String> lines) throws IOException {
         File temp = new File(tempPath);
+        temp.createNewFile();
         for (String line : lines) {
             appendLine(tempPath, line);
         }

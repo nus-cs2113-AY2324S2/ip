@@ -1,14 +1,21 @@
+package nyanbot;
+
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import task.*;
-import tool.*;
+import nyanbot.task.Task;
+import nyanbot.task.Todo;
+import nyanbot.task.Deadline;
+import nyanbot.task.Event;
+import nyanbot.tool.Printer;
+import nyanbot.tool.FileHandler;
 
 public class NyanBot {
     private static final String TRUE = "TRUE";
     private static final String FALSE = "FALSE";
     private static final String LIST_COMMAND = "LIST";
+    private static final String DELETE_COMMAND = "DELETE";
     private static final String MARK_COMMAND = "MARK";
     private static final String UNMARK_COMMAND = "UNMARK";
     private static final String TODO_COMMAND = "TODO";
@@ -18,7 +25,6 @@ public class NyanBot {
     private static final String HELP_COMMAND = "HELP";
     private static final String LINE = "____________";
     private static ArrayList<Task> tasks = new ArrayList<>();
-
 
     public static void addTask(Task task) {
         tasks.add(task);
@@ -118,42 +124,36 @@ public class NyanBot {
         readFile();
         Printer.printGreet();
     }
+
     private static void getInput() {
         Scanner scanner = new Scanner(System.in);
         String[] splitInputs = new String[2];
-
         while (true) {
             String input = scanner.nextLine();
-            splitInputs = input.split(" ");
-
             switch (parseCommand(input)) {
                 case BYE_COMMAND:
                     scanner.close();
                     return;
+                case DELETE_COMMAND:
+                    deleteTask(input);
+                    break;
                 case LIST_COMMAND:
-                    System.out.println(LINE);
                     Printer.printTasks(tasks);
                     break;
                 case MARK_COMMAND:
-                    int markIndex;
                     markTask(input);
-                    writeFile();
                     break;
                 case UNMARK_COMMAND:
                     unmarkTask(input);
-                    writeFile();
                     break;
                 case TODO_COMMAND:
                     addTodo(input);
-                    writeFile();
                     break;
                 case DEADLINE_COMMAND:
                     addDeadline(input);
-                    writeFile();
                     break;
                 case EVENT_COMMAND:
                     addEvent(input);
-                    writeFile();
                     break;
                 case HELP_COMMAND:
                     Printer.printSike();
@@ -162,6 +162,7 @@ public class NyanBot {
                     Printer.printInvalidInput();
                     break;
             }
+            writeFile();
         }
     }
 
@@ -215,6 +216,7 @@ public class NyanBot {
     private static void writeFile() {
         try {
             ArrayList<String> lines = new ArrayList<String>();
+
             for (Task task : tasks) {
                 lines.add(task.toString());
             }

@@ -1,6 +1,0 @@
-todo/false/egtege
-todo/true/gagae
-deadline/true/sd /sadas
-deadline/false/2113 /soon
-event/false/sleep /1am /3am
-event/false/asdsad /s/s
