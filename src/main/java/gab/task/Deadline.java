@@ -1,3 +1,5 @@
+package gab.task;
+
 public class Deadline extends Task {
     public static final String DEADLINE_STATUS = "[D]";
     private final String BY;

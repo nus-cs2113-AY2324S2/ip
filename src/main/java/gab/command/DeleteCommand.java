@@ -1,3 +1,8 @@
+package gab.command;
+
+import gab.task.TaskList;
+import gab.ui.Ui;
+
 public class DeleteCommand implements Command {
     public final int DELETE_INDEX;
 

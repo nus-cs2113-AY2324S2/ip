@@ -1,3 +1,9 @@
+package gab.command;
+
+import gab.task.Task;
+import gab.task.TaskList;
+import gab.ui.Ui;
+
 public class UnmarkCommand implements Command {
     private final String INDEX_TASK;
 

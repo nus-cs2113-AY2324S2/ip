@@ -1,3 +1,6 @@
+package gab.ui;
+
+import gab.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
