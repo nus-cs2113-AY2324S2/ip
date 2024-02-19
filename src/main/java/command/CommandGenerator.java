@@ -16,16 +16,16 @@ public class CommandGenerator{
             return new ListCommand();
 
         case TOGGLE:
-            return new ToggleStatusCommand(Parser.splitInput(input));
+            return new ToggleStatusCommand(Parser.splitInput(token, input));
 
         case HELP:
             return new HelpCommand();
 
         case DELETE:
-            return new DeleteCommand(Parser.splitInput(input));
+            return new DeleteCommand(Parser.splitInput(token, input));
 
         default:
-            return new AddTaskCommand(token, Parser.splitInput(input));
+            return new AddTaskCommand(token, Parser.splitInput(token, input));
         }
     }
 }
