@@ -2,7 +2,9 @@ package commands;
 
 public class Todo extends Task {
 
-    public Todo() {
+    public Todo(String name, boolean status) {
+        super(name);
+        this.isDone = status;
     }
 
     public Todo(String name) {
