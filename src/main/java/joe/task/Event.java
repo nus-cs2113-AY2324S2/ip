@@ -5,6 +5,11 @@ public class Event extends Task {
     protected String startDate;
     protected String endDate;
 
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.EVENT;
+    }
+
     public Event(String taskName, String startDate, String endDate) {
         super(taskName);
         this.startDate = startDate;

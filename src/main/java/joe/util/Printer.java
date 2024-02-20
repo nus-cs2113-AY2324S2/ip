@@ -32,6 +32,9 @@ public class Printer {
     protected static final String DELETE_MESSAGE = H_LINE + "COOL BEANS I WILL REMOVE THAT TASK:";
     protected static final String DELETE_ERROR = H_LINE + "SORRY BUT I CAN'T DELETE WHATEVER YOU'RE REFERRING TO BRO\n"
             + "\tUSE A VALID INTEGER PLEASE: \"delete --INTEGER--\"\n" + H_LINE;
+    protected static final String FILE_CORRUPT_ERROR = H_LINE + "OOPS LOOKS LIKE THERE WERE CORRUPTED LINES OF CODE\n"
+            + "\tNUMBER OF CORRUPTED LINES: ";
+    protected static final String SAVE_ERROR = H_LINE + "SORRY I CURRENTLY CAN'T SAVE YOUR LIST MY BAD LOL\n" + H_LINE;
 
     public static void printHeaderLine() {
         System.out.println(H_LINE);
@@ -100,5 +103,14 @@ public class Printer {
     }
     public static void printDeleteError() {
         System.out.println(DELETE_ERROR);
+    }
+
+    public static void printCorruptedFileError(int numOfLines) {
+        System.out.println(FILE_CORRUPT_ERROR + numOfLines);
+        printHeaderLine();
+    }
+
+    public static void printSaveError() {
+        System.out.println(SAVE_ERROR);
     }
 }

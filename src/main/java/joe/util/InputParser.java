@@ -1,6 +1,10 @@
 package joe.util;
 
 import joe.JoeException;
+import joe.task.Task;
+import joe.task.ToDo;
+import joe.task.Event;
+import joe.task.Deadline;
 
 public class InputParser {
     protected static final String FLAG_INDICATOR = "/";

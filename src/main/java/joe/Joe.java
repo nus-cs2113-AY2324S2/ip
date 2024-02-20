@@ -1,9 +1,11 @@
 package joe;
 
+import joe.util.FileManager;
 import joe.util.InputParser;
 import joe.util.Printer;
 import joe.task.TaskManager;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Joe {
@@ -25,6 +27,12 @@ public class Joe {
     private static void runJoe() {
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
+
+        try {
+            FileManager.loadData(taskManager);
+        } catch (IOException e) {
+            System.out.println("SORRY I COULDN'T GET YOUR PREVIOUS DATA\n\t maybe it got corrupted lol");
+        }
 
         boolean hasExitInput = false;
         while (!hasExitInput) {
@@ -94,5 +102,7 @@ public class Joe {
                 break;
             }
         }
+
+        in.close();
     }
 }

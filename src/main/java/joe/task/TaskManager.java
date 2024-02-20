@@ -1,7 +1,11 @@
 package joe.task;
 
 import joe.JoeException;
+import joe.util.FileManager;
+import joe.util.FileParser;
 import joe.util.Printer;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -13,6 +17,11 @@ public class TaskManager {
         numberOfTasks = 0;
     }
 
+    public void addTask(Task t) {
+        tasks.add(t);
+        numberOfTasks++;
+    }
+
     public void addToDo(String taskName) throws JoeException {
         if (taskName.isEmpty()) {
             throw new JoeException();
@@ -21,6 +30,8 @@ public class TaskManager {
         tasks.add(newToDo);
         numberOfTasks++;
         Printer.printTaskAddingMessage(newToDo.getTaskStatus(), numberOfTasks);
+
+        saveListAfterAdd();
     }
 
     public void addDeadline(String taskName, String finishBy) throws JoeException {
@@ -31,6 +42,8 @@ public class TaskManager {
         tasks.add(newDeadline);
         numberOfTasks++;
         Printer.printTaskAddingMessage(newDeadline.getTaskStatus(), numberOfTasks);
+
+        saveListAfterAdd();
     }
 
     public void addEvent(String taskName, String startDate, String endDate) throws JoeException {
@@ -41,6 +54,8 @@ public class TaskManager {
         tasks.add(newEvent);
         numberOfTasks++;
         Printer.printTaskAddingMessage(newEvent.getTaskStatus(), numberOfTasks);
+
+        saveListAfterAdd();
     }
 
     public void deleteTask(int taskNumber) throws JoeException {
@@ -74,5 +89,15 @@ public class TaskManager {
         }
         System.out.println("  " + tasks.get(taskNumber - 1).getTaskStatus());
         Printer.printHeaderLine();
+
+        saveListAfterAdd();
+    }
+
+    protected void saveListAfterAdd() {
+        try {
+            FileManager.saveData(tasks);
+        } catch (IOException e) {
+            Printer.printSaveError();
+        }
     }
 }
