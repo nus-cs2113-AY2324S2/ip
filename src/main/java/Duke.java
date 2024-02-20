@@ -7,11 +7,16 @@ import exceptions.MimiException.TaskNotFound;
 import exceptions.MimiException.InsufficientParameters;
 import exceptions.MimiException.IncorrectFormat;
 import java.util.ArrayList;
+import exceptions.MimiException.FileCorrupted;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     final static String APP_NAME = "mimichat";
     final static int INPUT_LIMIT = 2;
+    final static String FILE_PATH = "data/mimi.logs";
 
     static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -30,10 +35,10 @@ public class Duke {
 
         try {
             if (inputs.length != 2) {
-                throw new InsufficientParameters(MimiException.INSUFFICIENT_TODO_PARAMETERS);
+                throw new InsufficientParameters(MimiException.INSUFFICIENT_TODO_PARAMETERS_MSG);
             }
             if (inputs[1].isBlank()) {
-                throw new IncorrectFormat(MimiException.INCORRECT_TODO_FORMAT);
+                throw new IncorrectFormat(MimiException.INCORRECT_TODO_FORMAT_MSG);
             }
 
             ToDo toDo = new ToDo(inputs[1]);
@@ -49,7 +54,7 @@ public class Duke {
         try {
             // Throws exception if deadline parameters are incomplete
             if (inputs.length < 2) {
-                throw new InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
+                throw new InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS_MSG);
             }
 
             String[] splitInputs = inputs[1].split("/by", 2);
@@ -64,7 +69,7 @@ public class Duke {
     private static void addEvent(String[] inputs) {
         try {
             if (inputs.length != 2) {
-                throw new InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
+                throw new InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS_MSG);
             }
 
             Event event = Event.processEvent(inputs[1]);
@@ -116,19 +121,19 @@ public class Duke {
             InsufficientParameters, IncorrectFormat {
         if (inputs.length != 2) {
             // Throws an error if parameters is incomplete
-            throw new InsufficientParameters(MimiException.INSUFFICIENT_INDEX_PARAMETERS);
+            throw new InsufficientParameters(MimiException.INSUFFICIENT_MARK_PARAMETERS_MSG);
         }
 
         try {
             int index = Integer.parseInt(inputs[1]) - 1;
             if (index < 0 || index >= taskList.size()) {
                 // Throws an error if task is not found
-                throw new TaskNotFound(MimiException.TASK_NOT_FOUND);
+                throw new TaskNotFound(MimiException.TASK_NOT_FOUND_MSG);
             }
             return index;
         } catch (NumberFormatException e) {
             // Throws an error if the format is incorrect
-            throw new IncorrectFormat(MimiException.INCORRECT_INDEX_FORMAT);
+            throw new IncorrectFormat(MimiException.INCORRECT_MARK_FORMAT_MSG);
         }
     }
 
@@ -209,11 +214,107 @@ public class Duke {
         scanner.close();
     }
 
+    private static void saveFile(Task[] taskList, int numberOfTask, String filePath){
+        try {
+            File file = new File(filePath);
+            FileWriter writer = new FileWriter(file);
+            for (int i = 0; i < numberOfTask; i++) {
+                writer.write(taskList[i].toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("\u001B[31mError:Unable to save file as " + filePath + " does not exists. Please create a " +
+                    "/data folder in the root directory first.\u001B[0m");
+        }
+    }
+
+    private static void loadFile(String filePath) throws FileCorrupted {
+        try {
+            File file = new File(filePath);
+            Scanner fileScanner = new Scanner(file);
+            fileScanner.useDelimiter("\n");
+            while(fileScanner.hasNext()){
+                String[] task = fileScanner.next().split(",");
+
+                if(task.length < 3) {
+                    throw new FileCorrupted(MimiException.FILE_CORRUPTED_MSG);
+                }
+
+                String taskType = task[0];
+                String taskStatus = task[1];
+                String taskName = task[2];
+
+                if (!taskStatus.equals("true") && !taskStatus.equals("false")) {
+                    throw new FileCorrupted(MimiException.FILE_CORRUPTED_MSG);
+                }
+
+                switch (taskType) {
+                case "T":
+                    ToDo toDo = loadToDo(taskName, taskStatus);
+                    appendIntoTaskList(toDo);
+                    break;
+                case "D":
+                    String until = task[3];
+                    String[] deadlineParameter = {taskName, until};
+                    Deadline deadline = Deadline.processDeadline(deadlineParameter);
+                    appendIntoTaskList(deadline);
+                    break;
+                case "E":
+                    String to = task[3];
+                    String from = task[4];
+                    Event event = Event.processEvent(taskName, to, from);
+                    if (taskStatus.equals("true")) {
+                        event.markAsDone();
+                    }
+                    appendIntoTaskList(event);
+                    break;
+                default:
+                    throw new FileCorrupted(MimiException.FILE_CORRUPTED_MSG);
+                }
+
+                if(taskStatus.equals("true")) {
+                    taskList[numberOfTask - 1].markAsDone();
+                }
+            }
+            saveFile(taskList, numberOfTask, FILE_PATH);
+
+        } catch (IOException e) {
+            System.out.println("\u001B[31mError:Unable to load file as " + filePath + " does not exists\u001B[0m");
+        } catch(IncorrectFormat | InsufficientParameters | ArrayIndexOutOfBoundsException e) {
+            throw new FileCorrupted(MimiException.FILE_CORRUPTED_MSG);
+        }
+    }
+
+
+
+    private static ToDo loadToDo(String taskName, String taskStatus) throws FileCorrupted {
+        ToDo toDo = new ToDo(taskName);
+
+        if (taskStatus.equals("true")) {
+            // mark as done
+            toDo.markAsDone();
+        }
+        else if (taskStatus.equals("false")){
+            toDo.markAsUndone();
+        }
+        else{
+            throw new FileCorrupted(MimiException.FILE_CORRUPTED_MSG);
+        }
+
+        return toDo;
+    }
+
 
     public static void main(String[] args) {
 
         // Initial welcome message
         startupSequence();
+
+        try{
+            loadFile(FILE_PATH);
+        } catch (FileCorrupted e){
+            System.out.println(e.getMessage());
+        }
 
         while (isRunning) {
             String[] inputs = getInput();
@@ -245,12 +346,14 @@ public class Duke {
             default:
                 // raise invalid instruction
                 try {
-                    throw new IncorrectFormat(MimiException.INCORRECT_INSTRUCTION);
+                    throw new IncorrectFormat(MimiException.INCORRECT_INSTRUCTION_MSG);
                 } catch (IncorrectFormat e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             }
+
+            saveFile(taskList, numberOfTask, FILE_PATH);
         }
     }
 

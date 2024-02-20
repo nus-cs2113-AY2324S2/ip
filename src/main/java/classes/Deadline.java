@@ -28,18 +28,18 @@ public class Deadline extends Task {
 
         if (inputs.length < 2) {
             // Throws an error if /by is missing
-            throw new MimiException.IncorrectFormat(MimiException.INCORRECT_DEADLINE_FORMAT);
+            throw new MimiException.IncorrectFormat(MimiException.INCORRECT_DEADLINE_FORMAT_MSG);
         }
 
         for (String s : inputs) {
             // Throws an error if parameters is incomplete
             if (s == null || s.isEmpty()) {
-                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
+                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS_MSG);
             }
         }
 
         if (inputs[1].strip().isBlank()){
-            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
+            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS_MSG);
         }
 
         String taskName = inputs[0];
@@ -47,6 +47,11 @@ public class Deadline extends Task {
 
         return new Deadline(taskName, dueDate);
 
+    }
+
+    @Override
+    public String toFileString(){
+        return "D" +  "," + super.toFileString() + "," + this.getDeadline();
     }
 
 }
