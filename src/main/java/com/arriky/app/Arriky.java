@@ -63,15 +63,13 @@ public class Arriky {
                         throw new IncorrectArgumentAmountException();
                     }
                     tl.markDone(Integer.parseInt(arguments[1]) - 1);
-                    printSeparation();
                 } catch (NumberFormatException e) {
                     System.out.println(em.INVALID_ID);
-                    printSeparation();
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(em.ID_NOT_EXIST);
-                    printSeparation();
                 } catch (IncorrectArgumentAmountException e) {
                     System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_1);
+                } finally {
                     printSeparation();
                 }
                 break;
@@ -81,15 +79,13 @@ public class Arriky {
                         throw new IncorrectArgumentAmountException();
                     }
                     tl.unmarkDone(Integer.parseInt(arguments[1]) - 1);
-                    printSeparation();
                 } catch (NumberFormatException e) {
                     System.out.println(em.INVALID_ID);
-                    printSeparation();
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(em.ID_NOT_EXIST);
-                    printSeparation();
                 } catch (IncorrectArgumentAmountException e) {
                     System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_1);
+                } finally {
                     printSeparation();
                 }
                 break;
@@ -104,9 +100,9 @@ public class Arriky {
                     tl.addDeadline(segments[0].substring(9), segments[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(em.INVALID_DEADLINE_FORMAT);
+                } finally {
                     printSeparation();
                 }
-
                 break;
             }
             case "event": {
@@ -126,18 +122,15 @@ public class Arriky {
                         throw new IncorrectArgumentAmountException();
                     }
                     tl.delete(Integer.parseInt(arguments[1]) - 1);
-                    printSeparation();
                 } catch (NumberFormatException e) {
                     System.out.println(em.INVALID_ID);
-                    printSeparation();
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(em.ID_NOT_EXIST);
-                    printSeparation();
                 } catch (IncorrectArgumentAmountException e) {
                     System.out.println((em.INCORRECT_ARGUMENT_AMOUNT_1));
+                } finally {
                     printSeparation();
                 }
-
                 break;
             }
             default:
