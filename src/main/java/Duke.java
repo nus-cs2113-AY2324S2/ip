@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     static final int MAX_SIZE = 100;
@@ -7,31 +8,38 @@ public class Duke {
     }
 
     private static void handleError(ThawException e) {
-        if (e.getMessage().equals("Empty command")) {
-            System.out.println("OOPS!!! The description of a todo cannot be empty.");
+        if (e.getMessage().startsWith("Empty command")) {
+            System.out.println("OOPS!!! The description of a " + e.getMessage().substring(14) +" cannot be empty.");
         } else if (e.getMessage().equals("Invalid command")) {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static void markOrUnmarkTask (String usersInput, Task[] task) {
+    private static void editTask(String usersInput, ArrayList<Task> task) {
         int taskIndex;
-        boolean isDone = false;
         if (usersInput.startsWith("mark")) {
             taskIndex = Integer.parseInt(usersInput.substring(5)) - 1 ;
             System.out.println("Nice! I've marked this task as done:");
-            isDone = true;
-        } else {
+            task.get(taskIndex).isDone = true;
+            System.out.println(task.get(taskIndex).getStatusIcon());
+        } else if (usersInput.startsWith("unmark")) {
             taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
             System.out.println("OK, I've marked this task as not done yet:");
+            task.get(taskIndex).isDone = false;
+            System.out.println(task.get(taskIndex).getStatusIcon());
+        } else if (usersInput.startsWith("delete")) {
+            taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task.get(taskIndex).getStatusIcon());
+            System.out.println("Now you have " + (task.size() - 1) + " tasks in the list.");
+            task.remove(taskIndex);
         }
-        task[taskIndex].isDone = isDone;
-        System.out.println(task[taskIndex].getStatusIcon());
+
     }
 
     private static void mimicMessage() {
         Scanner input = new Scanner(System.in);
-        Task[] list = new Task[MAX_SIZE];
+        ArrayList<Task> list = new ArrayList<>();
         int currentIteration = 0;
         boolean canExit = false;
 
@@ -44,11 +52,12 @@ public class Duke {
             } else if (usersInput.equals("list")) {
                 printList(currentIteration, list);
             } else if ((usersInput.startsWith("unmark") && !usersInput.strip().endsWith("unmark")) ||
-                    (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark"))) {
-                markOrUnmarkTask(usersInput, list);
+                    (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark")) ||
+                    (usersInput.startsWith("delete") && !usersInput.strip().endsWith("delete"))) {
+                editTask(usersInput, list);
             } else {
                 try {
-                    addTask(usersInput, list, currentIteration);
+                    addTask(usersInput, list);
                     currentIteration++;
                 } catch (ThawException e) {
                     handleError(e);
@@ -57,24 +66,25 @@ public class Duke {
         }
     }
 
-    private static void addTask(String usersInput, Task[] list, int currentIteration) throws ThawException {
-        if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") || usersInput.strip().equals("event")) {
-            throw new ThawException("Empty command");
+    private static void addTask(String usersInput, ArrayList<Task> list) throws ThawException {
+        if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") ||
+                usersInput.strip().equals("event") || usersInput.strip().equals("delete")) {
+            throw new ThawException("Empty command " + usersInput.strip());
         } else if (usersInput.startsWith("todo")) {
-            list[currentIteration] = new Todo(usersInput.substring(5), usersInput);
+            list.add(new Todo(usersInput.substring(5), usersInput));
         } else if (usersInput.startsWith("deadline")) {
             int startingIndex = usersInput.indexOf("/by");
-            list[currentIteration] = new Deadline(usersInput.substring(9, startingIndex - 1),
-                    usersInput.substring(startingIndex + 4));
+            list.add(new Deadline(usersInput.substring(9, startingIndex - 1),
+                    usersInput.substring(startingIndex + 4)));
         } else if (usersInput.startsWith("event")) {
             int startIndex = usersInput.indexOf("from");
             int endIndex = usersInput.indexOf("to");
-            list[currentIteration] = new Event(usersInput.substring(6, startIndex - 2),
-                    "from: " + usersInput.substring(startIndex+ 5, endIndex - 2) + " " + "to: " + usersInput.substring(endIndex + 3));
+            list.add(new Event(usersInput.substring(6, startIndex - 2),
+                    "from: " + usersInput.substring(startIndex+ 5, endIndex - 2) + " " + "to: " + usersInput.substring(endIndex + 3)));
         } else {
             throw new ThawException("Invalid command");
         }
-        printAcknowledgementMessage(list, currentIteration);
+        printAcknowledgementMessage(list);
     }
 
     private static void printsGreeting() {
@@ -87,15 +97,15 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
-    private static void printList(int index, Task[] task) {
-        for (int i = 0; i < index; i ++) {
-            System.out.println((i + 1) + ". " + task[i].getStatusIcon());
+    private static void printList(int index, ArrayList<Task> task) {
+        for (int i = 0; i < task.size(); i ++) {
+            System.out.println((i + 1) + ". " + task.get(i).getStatusIcon());
         }
     }
 
-    private static void printAcknowledgementMessage(Task[] task, int index) {
+    private static void printAcknowledgementMessage(ArrayList<Task> task) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(task[index].getStatusIcon());
-        System.out.print("Now you have " + (index + 1) + " task in the list.");
+        System.out.println(task.get(task.size() - 1).getStatusIcon());
+        System.out.print("Now you have " + task.size() + " task in the list.");
     }
 }
