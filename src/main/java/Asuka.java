@@ -11,6 +11,7 @@ import java.util.Scanner;
 import static utils.TaskManager.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import static utils.constants.BREAKLINE;
 
 public class Asuka {
     public static void main(String[] args) throws InvalidCommandException, EmptyTaskException, TaskIndexOutOfBoundsException, EmptyIndexException {
@@ -26,8 +27,10 @@ public class Asuka {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner myObj = new Scanner(System.in);
 
+        String currentDir = System.getProperty("user.dir") ;
+
         //Read file
-        taskCount = readFile(tasks, taskCount);
+        taskCount = readFile(tasks, taskCount, currentDir);
 
         //Loop through different commands, until "bye" command
         while (command != Commands.bye) {
@@ -70,12 +73,12 @@ public class Asuka {
         }
 
         //Write file
-        writeFile(tasks, taskCount);
+        writeFile(tasks, taskCount, currentDir);
     }
 
-    private static void writeFile(ArrayList<Task> tasks, int taskCount) {
+    private static void writeFile(ArrayList<Task> tasks, int taskCount, String currentDir) {
         //local path of data file
-        File f = new File("src/main/data/local-asuka.txt");
+        File f = new File(currentDir + "/local-asuka.txt");
 
         try {
             java.io.FileWriter writer = new java.io.FileWriter(f);
@@ -89,9 +92,9 @@ public class Asuka {
         }
     }
 
-    private static int readFile(ArrayList<Task> tasks, int taskCount) {
+    private static int readFile(ArrayList<Task> tasks, int taskCount, String currentDir) {
         //local path of data file
-        File f = new File("src/main/data/local-asuka.txt");
+        File f = new File(currentDir + "/local-asuka.txt" );
 
         try {
             Scanner s = new Scanner(f);
@@ -123,7 +126,13 @@ public class Asuka {
             }
             System.out.println(constants.BREAKLINE);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            System.out.println("File not found. \nCreating new file... \nFile created.");
+            try {
+                f.createNewFile();
+            } catch (java.io.IOException ex) {
+                System.out.println("An error occurred.");
+            }
+            System.out.println(BREAKLINE);
         }
         return taskCount;
     }
