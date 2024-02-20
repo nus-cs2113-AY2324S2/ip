@@ -132,8 +132,26 @@ public class Kowalski {
             break;
 
         case "list":
-
             printCurrentTaskItems();
+            System.out.println(DIVIDING_LINE);
+            break;
+
+        case "delete":
+            try {
+                taskNumber = in.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Skipper input a god damn number! I am now gonna add the text which you inputted into our list!");
+                break;
+            }
+
+            try {
+                System.out.println( "Damn Skipper, you're got some courage removing this task:");
+                System.out.println("  " + currentTask.get(taskNumber - 1));
+                printCurrentTaskMessage(currentTask.size()-1);
+                currentTask.remove(taskNumber-1);
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Invalid Task Number! Skipper stop acting like Private!");
+            }
             System.out.println(DIVIDING_LINE);
             break;
 
