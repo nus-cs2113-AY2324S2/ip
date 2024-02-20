@@ -118,8 +118,7 @@ public class TaskManager{
         }
         taskIndex--;
         tasks = newTasks;
-        int length = taskIndex;
-        System.out.println(LINE + " Noted. I've removed this task:\n" + " " + currentTask + "\n Now you have " + Integer.toString((length)) +" tasks " + "in the list.\n" + LINE);
+        System.out.println(LINE + " Noted. I've removed this task:\n" + " " + currentTask + "\n Now you have " + Integer.toString((taskIndex)) +" tasks " + "in the list.\n" + LINE);
     }
 
     public void handleList(String input) throws SuvException {
