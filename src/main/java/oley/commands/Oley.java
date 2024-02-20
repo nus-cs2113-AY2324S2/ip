@@ -1,12 +1,35 @@
 package oley.commands;
 import oley.tasks.*;
+
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Oley {
     public static Task[] tasks = new Task[100];
     public static int taskNumber = 0;
 
-    public static void addTask(String sentence) throws InputNotRecognizedException {
+    public static void appendToFile (String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend + System.lineSeparator());
+        fw.close();
+    }
+
+    public static void changeFile (String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(tasks[0].format() + System.lineSeparator());
+        fw.close();
+        for (int i = 1; i < taskNumber; i++) {
+            appendToFile(filePath, tasks[i].format());
+        }
+    }
+
+    public static void addTask(String sentence, boolean isBegin) throws InputNotRecognizedException {
         if (sentence.startsWith("deadline")) {
             try {
                 tasks[taskNumber] = new Deadline(sentence.substring(9));
@@ -31,13 +54,23 @@ public class Oley {
         if (!(sentence.startsWith("deadline") || sentence.startsWith("todo") || sentence.startsWith("event"))) {
             throw new InputNotRecognizedException();
         }
-        System.out.println("    " + "added: " + tasks[taskNumber].getTaskName());
         taskNumber++;
-        if (taskNumber <= 1) {
-            System.out.println("    Now you have " + taskNumber + " task in the list.");
-        } else {
-            System.out.println("    Now you have " + taskNumber + " tasks in the list.");
+        if (!isBegin) {
+            String file = "./data/Oley.txt";
+            try {
+                appendToFile(file, tasks[taskNumber - 1].format());
+            } catch (IOException e) {
+                System.out.println("    OOPS, we have encountered an error!");
+                System.out.println("    Write to file failed.");
+            }
+            System.out.println("    " + "added: " + tasks[taskNumber - 1].getTaskName());
+            if (taskNumber <= 1) {
+                System.out.println("    Now you have " + taskNumber + " task in the list.");
+            } else {
+                System.out.println("    Now you have " + taskNumber + " tasks in the list.");
+            }
         }
+
     }
 
     public static void initialise() {
@@ -52,6 +85,38 @@ public class Oley {
         System.out.println("    Hello, I'm your cute and lovely friend Oley.");
         System.out.println("    What can I do for you?");
         lineBreaker();
+
+        String file = "./data/Oley.txt";
+        Scanner s = null;
+        try {
+            File f = new File(file);
+            s = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            System.out.println("    OOPS, the file does not exist! I will now create one for you~ (๑･∀･๑)");
+            lineBreaker();
+            Path folder = Paths.get("./data/");
+            Path filePath = Paths.get(file);
+            try {
+                Files.createDirectory(folder);
+                Files.createFile(filePath);
+            } catch (IOException ex) {
+                System.out.println("    Sorry! I am unable to create file for you.(・ε・｀)");
+            }
+            return;
+        }
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String isDone = line.substring(0,1);
+            String task = line.substring(1);
+            try {
+                addTask(task, true);
+            } catch (InputNotRecognizedException e) {
+                System.out.println("    OOPS, the file seems to be corrupted!");
+            }
+            if (isDone.equals("1")) {
+                mark("mark " + taskNumber, true);
+            }
+        }
     }
 
     public static void exit() {
@@ -72,19 +137,33 @@ public class Oley {
         }
     }
 
-    public static void mark(String sentence) {
+    public static void mark(String sentence, boolean isBegin) {
         String[] markInstructions = sentence.split(" ");
         int toBeMarked = Integer.parseInt(markInstructions[1]) - 1;
         if (toBeMarked >= taskNumber) {
             System.out.println("You have not created Task " + (toBeMarked + 1) + " yet. Jiayous. I will always support you. ฅ •ﻌ•♡");
         } else if (markInstructions[0].equals("mark")) {
             tasks[toBeMarked].setDone();
-            System.out.println("    Good job! I've marked this task as done:");
-            System.out.println("    " + tasks[toBeMarked]);
+            if (!isBegin) {
+                System.out.println("    Good job! I've marked this task as done:");
+                System.out.println("    " + tasks[toBeMarked]);
+            }
         } else if (markInstructions[0].equals("unmark")) {
             tasks[toBeMarked].setNotDone();
-            System.out.println("    Sure~ I've marked this task as not done yet:");
-            System.out.println("    " + tasks[toBeMarked]);
+            if (!isBegin) {
+                System.out.println("    Sure~ I've marked this task as not done yet:");
+                System.out.println("    " + tasks[toBeMarked]);
+            }
+        }
+
+        if (!isBegin) {
+            String file = "./data/Oley.txt";
+            try {
+                changeFile(file);
+            } catch (IOException e) {
+                System.out.println("    OOPS, we have encountered an error!");
+                System.out.println("    Write to file failed.");
+            }
         }
     }
 
@@ -101,11 +180,11 @@ public class Oley {
                 printTask();
                 lineBreaker();
             } else if (message.contains("unmark") || message.contains("mark")) {
-                mark(message);
+                mark(message, false);
                 lineBreaker();
             } else {
                 try {
-                    addTask(message);
+                    addTask(message, false);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS, we have encountered an error!");
                     System.out.println("The description of a task cannot be empty! (๑•́ ₃•̀๑)");
