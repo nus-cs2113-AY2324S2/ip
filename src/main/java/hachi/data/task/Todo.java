@@ -17,4 +17,9 @@ public class Todo extends Task {
     public String getTaskType () {
         return "T";
     }
+
+    @Override
+    public String getSaveFormat () {
+        return getTaskType() + " | " + getStatusIcon() + " | " + getName();
+    }
 }

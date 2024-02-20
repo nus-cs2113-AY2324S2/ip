@@ -28,4 +28,9 @@ public class Event extends Task {
     public String getName () {
         return name + "(from: " + startDate + " to: " + endDate + ")";
     }
+
+    @Override
+    public String getSaveFormat () {
+        return getTaskType() + " | " + getStatusIcon() + " | " + this.name + " | " + startDate + " | " + endDate;
+    }
 }

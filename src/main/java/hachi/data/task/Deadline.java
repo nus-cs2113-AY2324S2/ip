@@ -26,4 +26,9 @@ public class Deadline extends Task {
     public String getName () {
         return name + " (by: " + byDate + ")";
     }
+
+    @Override
+    public String getSaveFormat () {
+        return getTaskType() + " | " + getStatusIcon() + " | " + this.name + " | " + byDate;
+    }
 }
