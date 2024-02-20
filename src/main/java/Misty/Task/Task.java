@@ -1,4 +1,4 @@
-package Misty.Task;
+package misty.task;
 
 public class Task {
     private String description;

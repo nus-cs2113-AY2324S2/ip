@@ -1,4 +1,4 @@
-package Misty.Exception;
+package misty.exception;
 
-public class UnknownTaskException extends Exception{
+public class UnknownTaskException extends Exception {
 }

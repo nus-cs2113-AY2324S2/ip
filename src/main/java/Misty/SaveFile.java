@@ -1,14 +1,13 @@
-package Misty;
+package misty;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
-import Misty.Exception.*;
-import Misty.Task.*;
+import misty.exception.*;
+import misty.task.*;
 
 public class SaveFile {
     public static void createFiles() throws IOException, SecurityException {
@@ -30,7 +29,6 @@ public class SaveFile {
         File dataFile = new File("data/misty.txt");
         Scanner scanner = new Scanner(dataFile);
         int taskCount = 0;
-
         String[] parameters;
 
         while (scanner.hasNext()) {
@@ -101,7 +99,6 @@ public class SaveFile {
                 saveDeadLine((Deadline)list.get(i));
             } else if (list.get(i) instanceof Event) {
                 saveEvent((Event)list.get(i));
-            } else {
             }
         }
     }

@@ -1,4 +1,4 @@
-package Misty.Exception;
+package misty.exception;
 
 public class EmptyToException extends Exception {
 }

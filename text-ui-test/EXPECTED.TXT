@@ -84,5 +84,21 @@
 	Event command syntax: Event <task name> /from <event start> /to <event end>
 	--------------------------------------------------
 	--------------------------------------------------
+	Here are the tasks in your list:
+	1.[T][ ] eat ramen
+	2.[D][ ] 2113T assignment (by: next week lecture)
+	3.[E][ ] party (from: March 1 3PM to: March 3 12AM)
+	--------------------------------------------------
+	--------------------------------------------------
+	Alright, I've deleted this task:
+	[E][ ] party (from: March 1 3PM to: March 3 12AM)
+	You now have 2 tasks in the list.
+	--------------------------------------------------
+	--------------------------------------------------
+	Here are the tasks in your list:
+	1.[T][ ] eat ramen
+	2.[D][ ] 2113T assignment (by: next week lecture)
+	--------------------------------------------------
+	--------------------------------------------------
 	Bye! Hope to see you again soon!
 	--------------------------------------------------

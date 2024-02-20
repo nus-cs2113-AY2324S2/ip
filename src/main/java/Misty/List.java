@@ -1,10 +1,10 @@
-package Misty;
+package misty;
 
-import Misty.Exception.*;
-import Misty.Task.Deadline;
-import Misty.Task.Event;
-import Misty.Task.Task;
-import Misty.Task.Todo;
+import misty.exception.*;
+import misty.task.Deadline;
+import misty.task.Event;
+import misty.task.Task;
+import misty.task.Todo;
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -14,10 +14,6 @@ public class List {
 
     public List() {
         taskList = new ArrayList<>();
-    }
-
-    public int getItemCount() {
-        return taskList.size();
     }
 
     public void printTaskCount() {

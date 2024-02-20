@@ -16,4 +16,7 @@ deadline Assignment 100 /by
 event /from /to
 event Test /from /to monday
 event Test /from tomorrow /to
+list
+delete 3
+list
 bye

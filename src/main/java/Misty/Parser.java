@@ -1,6 +1,6 @@
-package Misty;
+package misty;
 
-import Misty.Task.Task;
+import misty.task.Task;
 import java.util.ArrayList;
 
 public class Parser {
@@ -17,7 +17,6 @@ public class Parser {
     public static void printWelcomeMessage() {
         String welcome = "\tHello! I'm Misty\n"
                 + "\tWhat can I do for you?";
-
         printMessageWithBorder(welcome);
     }
 

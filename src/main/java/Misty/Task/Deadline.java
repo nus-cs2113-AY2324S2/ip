@@ -1,4 +1,4 @@
-package Misty.Task;
+package misty.task;
 
 public class Deadline extends Task {
     private String by;

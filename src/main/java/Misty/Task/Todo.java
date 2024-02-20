@@ -1,4 +1,4 @@
-package Misty.Task;
+package misty.task;
 
 public class Todo extends Task {
     public Todo (String description) {

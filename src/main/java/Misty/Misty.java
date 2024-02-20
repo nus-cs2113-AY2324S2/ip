@@ -1,7 +1,6 @@
-package Misty;
+package misty;
 
-import Misty.Exception.*;
-
+import misty.exception.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;

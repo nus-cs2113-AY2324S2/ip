@@ -1,2 +1,0 @@
-E | 1 | Exam | monday | tuesday
-T | 1 | hithere
