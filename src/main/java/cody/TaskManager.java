@@ -6,25 +6,26 @@ import cody.tasks.Task;
 import cody.tasks.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TaskManager {
-    private final Task[] tasks;
-    private int taskCount;
+    ArrayList<Task> tasks;
     private static final String BORDER = "______________________________________________________________\n";
 
     private void printList() {
         System.out.print(BORDER + " Here are the tasks in your list:\n");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + ". [" + tasks[i].getTaskType() + "] "
-                    + "[" + tasks[i].getStatusIcon() + "] "
-                    + tasks[i].getDescription());
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.println(" " + (i + 1) + ". [" + task.getTaskType() + "] "
+                    + "[" + task.getStatusIcon() + "] "
+                    + task.getDescription());
         }
         System.out.print(BORDER);
     }
 
     private void markTask(int index) {
         System.out.print(BORDER + " Good job! I've marked this task as done:\n"
-                + " [" + tasks[index].getStatusIcon() + "] " + tasks[index].getDescription() + "\n"
+                + " [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription() + "\n"
                 + BORDER);
     }
 
@@ -32,27 +33,22 @@ public class TaskManager {
         try {
             String[] parts = input.split(" ");
             int index = Integer.parseInt(parts[1]) - 1;
-            if (index < 0 || index >= taskCount) {
-                throw new CodyException(" cody.tasks.Task number is out of range\n"
-                        + " Please enter a number between 1 and " + taskCount + "\n");
-            }
             boolean isDone = input.startsWith("mark");
-            tasks[index].markTask(isDone);
+            tasks.get(index).markTask(isDone);
             markTask(index);
         } catch (NumberFormatException e) {
-            System.out.print(BORDER + " cody.tasks.Task number is invalid\n"
+            System.out.print(BORDER + " Task number is invalid\n"
                     + " Please enter a valid number\n" + BORDER);
-        } catch (CodyException e) {
-            System.out.print(BORDER + e.getMessage() + BORDER);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print(BORDER + " Task number is out of range\n"
+                    + " Please enter a number between 1 and " + tasks.size() + "\n" + BORDER);
         }
     }
 
-    // Adds a task based on the input provided
     private void addTask(String input) {
         try {
             Task task = createTaskFromInput(input);
-            tasks[taskCount] = task;
-            taskCount++;
+            tasks.add(task);
             printTask(task);
         } catch (CodyException e) {
             System.out.print(BORDER + e.getMessage() + BORDER);
@@ -67,7 +63,7 @@ public class TaskManager {
         } else if (input.startsWith("event")) {
             return createEventTask(input);
         } else {
-            // If the task type is unknown, throw a cody.CodyException
+            // If the task type is unknown, throw a CodyException
             throw new CodyException(" I'm not sure what task this is\n"
                     + " Please start with 'todo', 'event' or 'deadline'\n");
         }
@@ -116,28 +112,51 @@ public class TaskManager {
     private void printTask(Task task) {
         System.out.print(BORDER + " Got it. I've added this task:\n"
                 + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + " Now you have " + taskCount + " tasks in the list.\n"
+                + " Now you have " + tasks.size() + " tasks in the list.\n"
+                + BORDER);
+    }
+
+    private void deleteTask(String input) {
+        String[] parts = input.split(" ");
+        int index = Integer.parseInt(parts[1]) - 1;
+        try {
+            Task task = tasks.get(index);
+            tasks.remove(index);
+            printDeleteTask(task);
+        } catch (NumberFormatException e) {
+            System.out.print(" Task number is invalid\n"
+                    + " Please enter a valid number\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print(" Task number is out of range\n"
+                    + " Please enter a number between 1 and " + tasks.size() + "\n");
+        }
+    }
+
+    private void printDeleteTask(Task task) {
+        System.out.print(BORDER + " Noted. I've removed this task:\n"
+                + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + " Now you have " + tasks.size() + " tasks in the list.\n"
                 + BORDER);
     }
 
     public TaskManager() {
-        tasks = new Task[100];
-        taskCount = 0;
+        tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 printList();
-
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                 handleMarking(input);
-
-            } else {
+            }  else {
                 addTask(input);
             }
             input = in.nextLine();
         }
+        Save.saveTasks(tasks);
     }
 }
     
