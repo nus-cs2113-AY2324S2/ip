@@ -16,8 +16,8 @@ import uwunzhe.exceptions.UwunzheException;
 
 public class StorageHandler {
     private static File storage;
-    private static String STORAGE_FOLDER_PATH;
-    private static String STORAGE_PATH;
+    private final static String STORAGE_FOLDER_PATH = "./data";
+    private final static String STORAGE_PATH = STORAGE_FOLDER_PATH + "/uwunzhe.txt";
     private final static String SEPARATOR = String.valueOf(Character.toChars(31));
 
     /**
@@ -26,17 +26,6 @@ public class StorageHandler {
      * @param taskList The list of tasks to be updated.
      */
     public StorageHandler(TaskList taskList) throws UwunzheException {
-        // Set storage path
-        String currentPath = System.getProperty("user.dir").replace("\\", "/");
-        String currentDir = currentPath.split("/")[currentPath.split("/").length - 1];
-
-        if (currentDir.equals("text-ui-test")) {
-            STORAGE_FOLDER_PATH = "./data";
-        } else {
-            STORAGE_FOLDER_PATH = "./ip/data";
-        }
-        STORAGE_PATH = STORAGE_FOLDER_PATH + "/uwunzhe.txt";
-
         // Create data folder if it does not exist
         if (!new File(STORAGE_FOLDER_PATH).exists()) {
             new File(STORAGE_FOLDER_PATH).mkdir();
