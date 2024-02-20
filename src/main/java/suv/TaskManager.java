@@ -1,4 +1,6 @@
 package suv;
+import java.io.*;
+import java.util.Scanner;
 
 public class TaskManager{
     final static int DEADLINE_KEYWORD_END_INDEX = 8;
@@ -10,7 +12,7 @@ public class TaskManager{
     Task[] tasks;
     public static int taskIndex;
 
-    TaskManager(){
+    TaskManager() {
         tasks = new Task[100];
         taskIndex = 0;
     }
@@ -34,6 +36,7 @@ public class TaskManager{
             } else {
                 throw new SuvException(LINE +"Oh no! I am not sure what you mean.");
             }
+            saveTasksToFile();
         } catch (SuvException e){
             System.out.println(e.warning);
         }
@@ -117,5 +120,52 @@ public class TaskManager{
         System.out.println(LINE +" Bye. Hope to see you again soon!\n" + LINE);
     }
 
+    public void saveTasksToFile() {
+        String filePath = "src/data/data.txt";
+        try (FileWriter fw = new FileWriter(filePath);) {
+            for (int i = 0; i < taskIndex; i++) {
+                String out = tasks[i].toString();
+                fw.write(out + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("     An error occurred while saving tasks to file: " + e.getMessage());
+        }
+    }
 
+    public void fetchData()  {
+        File f;
+        try{
+            f = new File("src/data/data.txt");
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                String task = s.nextLine();
+                boolean isDone = task.contains("[X]");
+                String text = task.substring(7);
+                if(task.startsWith("[T]")){
+                    Todo newTask = new Todo(task.split("|")[2].trim());
+
+                    newTask.isDone = isDone ? true: false;
+                    tasks[taskIndex++] = newTask;
+                }else if (task.startsWith("[D]")){
+                    String by = text.substring(text.indexOf("by:") + 3 , text.length() - 1).trim();
+                    String description =text.substring(0, text.indexOf("(by:")).trim();
+
+                    Deadline newTask = new Deadline(description, by);
+                    newTask.isDone = isDone ? true: false;
+                    tasks[taskIndex++] = newTask;
+                } else if (task.startsWith("[E]")) {
+                    String to = text.substring(text.indexOf("to:") + 3 , text.length() - 1).trim();
+                    String from = text.substring(text.indexOf("from:") + 5, text.indexOf("to:")).trim();
+                    String description =text.substring(0, text.indexOf("(from:")).trim();
+
+                    Event newTask = new Event(description, from, to);
+                    newTask.isDone = isDone ? true: false;
+                    tasks[taskIndex++] = newTask;
+                }
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println(e);
+        }
+
+    }
 }
