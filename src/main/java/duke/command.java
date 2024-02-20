@@ -78,6 +78,7 @@ public class command {
     /**
      * Adds an event task to list of tasks.
      *
+     * @param taskList List of tasks.
      * @param argument information of deadline to be added.
      */
     public static void addEvent(List<Task> taskList, String argument)
@@ -114,6 +115,7 @@ public class command {
     /**
      * Marks task as done or undone.
      *
+     * @param taskList List of tasks.
      * @param instruction User instruction on which task to mark.
      * @param done Status of task - done or undone.
      */
@@ -131,6 +133,32 @@ public class command {
         try {
             taskList.get(taskNumber - 1).setDone(done);
             printMessage("Nice! I've marked this task as done:\n"
+                    + "  " + taskList.get(taskNumber - 1));
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException.IntegerOutOfBoundsException();
+        }
+    }
+
+    /**
+     * Deletes task specified by User.
+     *
+     * @param taskList List of tasks.
+     * @param instruction User instruction on which task to mark.
+     */
+    public static void deleteTask(List<Task> taskList, String instruction, boolean done)
+            throws DukeException.InvalidIntegerException,
+            DukeException.IntegerOutOfBoundsException {
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(instruction);
+        } catch (NumberFormatException e) {
+            throw new DukeException.InvalidIntegerException();
+        }
+
+        try {
+            taskList.remove(taskNumber - 1);
+            printMessage(" Noted. I've removed this task:\n"
                     + "  " + taskList.get(taskNumber - 1));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException.IntegerOutOfBoundsException();
