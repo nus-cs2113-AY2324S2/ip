@@ -42,7 +42,7 @@ public class Joe {
             String command = InputParser.getCommand(input);
             String message = InputParser.getMessage(input);
             hasExitInput = handleCommand(command, message, taskManager);
-        } while (hasExitInput);
+        } while (!hasExitInput);
 
         in.close();
     }
