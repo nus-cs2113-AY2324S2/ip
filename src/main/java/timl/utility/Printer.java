@@ -19,11 +19,11 @@ public class Printer {
     protected static final String INVALID_EVENT = "    ____________________________________________________________\n" +
             "     SORRY THAT IS AN INVALID EVENT WITH MISSING PARAMS :(\n" +
             "    ____________________________________________________________";
-    protected static final String INVALID_TODO = "    ____________________________________________________________\n" +
-            "     SORRY THAT IS AN INVALID TASK WITH MISSING PARAMS :(\n" +
-            "    ____________________________________________________________";
     protected static final String INVALID_DEADLINE = "    ____________________________________________________________\n" +
             "     SORRY THAT IS AN INVALID DEADLINE WITH MISSING PARAMS :(\n" +
+            "    ____________________________________________________________";
+    protected static final String DELETE_ERROR = "    ____________________________________________________________\n" +
+            "     SORRY I CAT DELETE THAT TASK. YOUR PARAMS MUST BE WRONG.\n" +
             "    ____________________________________________________________";
     protected static final String INVALID_TASKOVERFLOW = "    ____________________________________________________________\n" +
             "     SORRY TASK MANAGER HAS FULL CAPACITY :(\n" +
@@ -31,6 +31,8 @@ public class Printer {
     protected static final String EMPTY_CONTENT = "    ____________________________________________________________\n" +
             "     Your task description is empty :-(\n" +
             "    ____________________________________________________________";
+    protected static final String DELETE_OPENING = "    ____________________________________________________________\n" +
+            "     Your task as shown BELOW has sadly been deleted :-(";
     public static void printGreeting() {
         System.out.println(GREETING);
     }
@@ -70,14 +72,18 @@ public class Printer {
     public static void printInvalidEvent(){
         System.out.println(INVALID_EVENT);
     }
-    public static void printInvalidTodo(){
-        System.out.println(INVALID_TODO);
-    }
+
     public static void printInvalidDeadline(){
         System.out.println(INVALID_DEADLINE);
     }
-    public static void printEmptyContent(){
+    public static void printDeleteOpening(){
+        System.out.println(DELETE_OPENING);
+    }
+    public static void printEmptyTodoCommand(){
         System.out.println(EMPTY_CONTENT);
+    }
+    public static void printInvalidDelete() {
+        System.out.println(DELETE_ERROR);
     }
 }
 
