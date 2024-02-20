@@ -1,3 +1,5 @@
-T/1/shopping
-D/0/assignments /tomorrow
-E/1/party /monday /sunday
+T/1/Shopping
+E/0/Party /Monday /Sunday
+D/1/Assignments /Tuesday
+T/0/Exercise
+T/1/Study

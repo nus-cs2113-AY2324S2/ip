@@ -8,6 +8,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileProcessor {
+
+    public static String textContent;
+
+    public static void appendTextContent(String content) {
+        textContent += (content + '\n');
+    }
+
     public static ArrayList<String> readFile(String filePath) throws FileNotFoundException {
         ArrayList<String> input = new ArrayList<>();
         File f = new File(filePath);
@@ -44,5 +51,16 @@ public class FileProcessor {
             text = "E/0/" + description + "/" + startDate + "/" + endDate;
         }
         return text;
+    }
+
+    public static void markText(boolean isDone, int index) {
+        String[] textArray = textContent.split("\n");
+        String mark = isDone ? "1" : "0";
+        String newString = textArray[index-1].substring(0, 2) + mark + textArray[index-1].substring(3);
+        textArray[index-1] = newString;
+        textContent = "";
+        for (int i = 0; i < textArray.length; i++) {
+            FileProcessor.appendTextContent(textArray[i]);
+        }
     }
 }

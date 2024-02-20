@@ -13,11 +13,6 @@ public class Humi {
     //                + "| | | | | | | |/ / _ \\\n"
     //                + "| || | || |   <  __/\n"
     //                + "|_/ \\,||\\\\_|\n";
-    public static String textContent;
-
-    public static void appendTextContent(String content) {
-        textContent += (content + '\n');
-    }
 
     public static void main(String[] args) {
         System.out.println(LINE);
@@ -26,19 +21,27 @@ public class Humi {
         System.out.println(LINE);
 
         TaskManager taskManager = new TaskManager();
-        textContent = "";
+        FileProcessor.textContent = "";
 
-        // read input file
+        // read text file
         try {
             ArrayList<String> inputFile = FileProcessor.readFile("data/list.txt");
             if (!inputFile.isEmpty()) {
                 for (int i = 0; i < inputFile.size(); i += 1) {
                     taskManager.addTask(inputFile.get(i));
-                    appendTextContent(inputFile.get(i));
+                    FileProcessor.appendTextContent(inputFile.get(i));
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("File not found, attempting to create file.");
+            try {
+                File textFile = new File("data/list.txt");
+                if (textFile.createNewFile()) {
+                    System.out.println("File has been created.");
+                }
+            } catch (IOException err) {
+                System.out.println("Fail to create file.");
+            }
         }
 
         Scanner in = new Scanner(System.in);
@@ -48,8 +51,9 @@ public class Humi {
             input = in.nextLine();
         }
 
+        // write text file
         try {
-            FileProcessor.writeFile("data/list.txt", textContent);
+            FileProcessor.writeFile("data/list.txt", FileProcessor.textContent);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
