@@ -16,7 +16,3 @@ bin/
 /text-ui-test/ACTUAL1.TXT
 /text-ui-test/ACTUAL2.TXT
 text-ui-test/EXPECTED-UNIX.TXT
-
-# Local storage
-/data/
-*/data/
