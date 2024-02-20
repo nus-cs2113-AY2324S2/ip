@@ -16,6 +16,7 @@ public class FredBot {
     private static int count;
 
     private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";
@@ -24,6 +25,7 @@ public class FredBot {
     private static final String COMMAND_UNMARK = "unmark";
 
     private static final String MESSAGE_ADD = "Are you sure you'll ever get to it? Fine, I've added this task:";
+    private static final String MESSAGE_DELETE = "Finally lifting my load? I've removed this task:";
     private static final String MESSAGE_EMPTY_LIST = "Go and touch some grass... your list is empty.";
     private static final String MESSAGE_EMPTY_DESCRIPTION = "I can't do that if you don't give me the description...";
     private static final String MESSAGE_UNKNOWN_COMMAND = "I have no idea what you just said.";
@@ -92,6 +94,9 @@ public class FredBot {
             break;
         case COMMAND_UNMARK:
             executeUnmark(commandArgs);
+            break;
+        case COMMAND_DELETE:
+            executeDelete(commandArgs);
             break;
         case COMMAND_EXIT:
             executeExit();
@@ -191,6 +196,15 @@ public class FredBot {
         allTasks.get(index).unmarkAsDone();
         System.out.println(MESSAGE_UNMARK);
         System.out.println(allTasks.get(index).toString());
+    }
+
+    private static void executeDelete(String taskNumber) {
+        int index = Integer.parseInt(taskNumber) - 1;
+        System.out.println(MESSAGE_DELETE);
+        System.out.println(allTasks.remove(index).toString());
+        count--;
+        String task = (count == 1) ? " task " : " tasks ";
+        System.out.println("You now have " + count + task + "in the list.");
     }
 
     private static void executeExit() {
