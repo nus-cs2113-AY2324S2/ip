@@ -1,5 +1,11 @@
 package Xavier;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import Exceptions.InvalidInputException;
 import Exceptions.NoInputException;
 import Tasks.Deadline;
@@ -12,6 +18,8 @@ import java.util.ArrayList;
 public class TaskManager {
     public static final int MAX_ENTRIES = 100;
     ArrayList<Task> itemList = new ArrayList<>();
+
+    public static final String FILEPATH = "/Users/jasonlienardi/Documents/CS2113/ip/src/main/java/Xavier/toDoList.txt";
 
     public void handleCommand(String command) {
         if (command.equals("list")) {
@@ -45,6 +53,7 @@ public class TaskManager {
             System.out.println("OK, I've marked this task as not yet done:");
         }
         System.out.println(itemList.get(index).toString());
+        saveFile(FILEPATH);
     }
 
     public void handleAddTask(String command) throws InvalidInputException, NoInputException {
@@ -81,6 +90,7 @@ public class TaskManager {
             Event event = new Event(description, start, end);
             itemList.add(event);
         }
+        saveFile(FILEPATH);
     }
 
     public void deleteTask(String command) {
@@ -90,6 +100,7 @@ public class TaskManager {
         System.out.println(itemList.get(index).toString());
         itemList.remove(index);
         System.out.println("Now you have " + itemList.size() + " tasks in the list.");
+        saveFile(FILEPATH);
     }
 
     private void printOutput(String command) {
@@ -112,5 +123,53 @@ public class TaskManager {
 
     private void printErrorMessage() {
         System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+    public static void createOrCheckFile(String fileName) {
+        File file = new File(fileName);
+        try {
+            if (!file.exists()) {
+                boolean created = file.createNewFile();
+                if (created) {
+                    System.out.println("File created: " + fileName);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating or checking file: " + e.getMessage());
+        }
+    }
+
+    //writing files
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private void saveFile(String file) {
+        createOrCheckFile(FILEPATH);
+        try {
+            for (int i = 0; i < itemList.size(); i++) {
+                writeToFile(file, itemList.get(i).toString() );
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    //reading files
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void readFile(String file) {
+        try {
+            printFileContents(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
     }
 }
