@@ -54,6 +54,13 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
+            } else if (input.startsWith("delete") || input.startsWith("Delete") ) {
+                try {
+                    StringValidator.validateDeleteFormat(input);
+                    delete(input, tasks);
+                } catch (InvalidFormatException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (input.startsWith("todo") || input.startsWith("Todo")) {
                 try {
                     StringValidator.validateTodoFormat(input);
@@ -94,7 +101,21 @@ public class John {
                 System.out.println("OK, I've marked this task as not done yet:\n" + list.get(taskNum-1));
             }
         } else{
-            System.out.println("commands.Task number out of bounds: try again");
+            System.out.println("Task number out of bounds: try again");
+        }
+    }
+
+    public static void delete(String command, List<Task> list) {
+        int number = Integer.parseInt(command.substring(command.indexOf(" ")+1));
+        if (number <= list.size() && number != 0) {
+            System.out.println("____________________________________________________________\n" +
+                    "Noted. I've removed this task:\n" +
+                    "  " + list.get(number - 1) + "\n" +
+                    "Now you have " + (list.size() - 1) + " tasks in the list.\n" +
+                    "____________________________________________________________");
+            list.remove(number - 1);
+        } else {
+            System.out.println("Task number out of bounds: try again");
         }
     }
 }

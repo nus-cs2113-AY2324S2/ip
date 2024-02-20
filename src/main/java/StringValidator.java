@@ -56,4 +56,16 @@ public class StringValidator {
                     "-----------------------------------------------------------");
         }
     }
+
+    public static void validateDeleteFormat(String input) throws InvalidFormatException {
+        // Regular expression to match "delete #"
+        String regex = "(?i)delete \\d+";
+
+        // Check if the input matches the expected format
+        if (!input.matches(regex)) {
+            throw new InvalidFormatException("-----------------------------------------------------------\n" +
+                    "Invalid delete command. Expected format: delete <task number>\n" +
+                    "-----------------------------------------------------------");
+        }
+    }
 }
