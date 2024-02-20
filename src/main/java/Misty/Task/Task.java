@@ -1,16 +1,16 @@
 package misty.task;
 
 public class Task {
-    private String description;
+    private String taskName;
     private boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String taskName) {
+        this.taskName = taskName;
         isDone = false;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTaskName() {
+        return taskName;
     }
     public String getStatus() {
         return (isDone ? "[X]" : "[ ]");

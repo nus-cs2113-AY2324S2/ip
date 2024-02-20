@@ -1,12 +1,12 @@
 package misty.task;
 
 public class Todo extends Task {
-    public Todo (String description) {
-        super(description);
+    public Todo (String taskName) {
+        super(taskName);
     }
 
     @Override
     public String toString() {
-        return "[T]" + getStatus() + " " + getDescription();
+        return "[T]" + getStatus() + " " + getTaskName();
     }
 }

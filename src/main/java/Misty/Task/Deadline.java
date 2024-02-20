@@ -3,8 +3,8 @@ package misty.task;
 public class Deadline extends Task {
     private String by;
 
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String taskName, String by) {
+        super(taskName);
         this.by = by;
     }
 
@@ -14,6 +14,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + getStatus() + " " + getDescription() + " (by: " + getBy() + ")";
+        return "[D]" + getStatus() + " " + getTaskName() + " (by: " + getBy() + ")";
     }
 }

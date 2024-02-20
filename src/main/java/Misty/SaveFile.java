@@ -64,7 +64,7 @@ public class SaveFile {
     public static void saveTodo(Todo todo) throws IOException {
         File dataFile = new File("data/misty.txt");
         FileWriter fileWriter = new FileWriter(dataFile, true);
-        String data = String.format("T | %s | %s\n",(todo.getIsDone() ? "1" : "0") ,todo.getDescription());
+        String data = String.format("T | %s | %s\n",(todo.getIsDone() ? "1" : "0") ,todo.getTaskName());
         fileWriter.write(data);
         fileWriter.close();
     }
@@ -73,7 +73,7 @@ public class SaveFile {
         File dataFile = new File("data/misty.txt");
         FileWriter fileWriter = new FileWriter(dataFile, true);
         String data = String.format("D | %s | %s | %s\n",(deadline.getIsDone() ? "1" : "0")
-                ,deadline.getDescription(), deadline.getBy());
+                ,deadline.getTaskName(), deadline.getBy());
         fileWriter.write(data);
         fileWriter.close();
     }
@@ -82,7 +82,7 @@ public class SaveFile {
         File dataFile = new File("data/misty.txt");
         FileWriter fileWriter = new FileWriter(dataFile, true);
         String data = String.format("E | %s | %s | %s | %s\n",(event.getIsDone() ? "1" : "0")
-                ,event.getDescription(), event.getFrom(), event.getTo());
+                ,event.getTaskName(), event.getFrom(), event.getTo());
         fileWriter.write(data);
         fileWriter.close();
     }
