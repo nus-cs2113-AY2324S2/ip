@@ -23,3 +23,6 @@ Asuka.class
 
 # test text file
 local-asuka.txt
+
+./out/*
+src/main/java/META-INF/MANIFEST.MF
