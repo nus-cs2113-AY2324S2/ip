@@ -6,20 +6,39 @@ import Byte.task.Event;
 import Byte.task.Task;
 import Byte.task.ToDo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Byte {
     private static final int MAX_TASKS = 100;
     private static final Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
+    private static boolean tasksChanged = false;
+    private static final String FILE_PATH = "./src/main/java/Byte/byte.txt";
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         runByte(scanner);
+        if (tasksChanged){
+            try{
+                    saveTasksToFile();
+            }catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
         scanner.close();
     }
 
     public static void runByte(Scanner scanner){
+        try{
+            loadTasksFromFile(FILE_PATH);
+        }catch (FileNotFoundException e){
+            System.out.println("File not found. Starting with an empty task list.");
+        }
         printWelcomeMessage();
         while(true){
             try{
@@ -32,7 +51,6 @@ public class Byte {
                 System.out.println(e.getMessage());
                 printLineSeparator();
             }
-
         }
     }
 
@@ -122,6 +140,7 @@ public class Byte {
             tasks[taskCount++] = task;
             System.out.println("Got it. I've added this task:\n " + task);
             System.out.println("Now you have " + taskCount + " tasks in the list.");
+            tasksChanged = true;
         } else {
             System.out.println("Sorry, I can only handle up to " + MAX_TASKS + " tasks!");
         }
@@ -147,6 +166,7 @@ public class Byte {
                 task.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[taskNumber]);
             }
+            tasksChanged = true;
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid task number.");
         } catch (IndexOutOfBoundsException e) {
@@ -157,6 +177,47 @@ public class Byte {
 
     private static void printLineSeparator() {
         System.out.println("____________________________________________________________");
+    }
+
+    private static void loadTasksFromFile(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            processTaskFromLine(line);
+        }
+    }
+
+    private static void processTaskFromLine(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        String description = parts[2];
+        switch (type) {
+            case "T":
+                addTask(new ToDo(description));
+                break;
+            case "D":
+                String by = parts[3];
+                addTask(new Deadline(description, by));
+                break;
+            case "E":
+                String startTime = parts[3];
+                String endTime = parts[4];
+                addTask(new Event(description, startTime, endTime));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static void saveTasksToFile() throws IOException {
+        FileWriter writeToFile = new FileWriter(FILE_PATH);
+        for (int i=0; i<taskCount; i++){
+            Task task = tasks[i];
+            writeToFile.write(task.toFileString() + "\n");
+        }
+        writeToFile.close();
+        tasksChanged = false;
     }
 }
 
