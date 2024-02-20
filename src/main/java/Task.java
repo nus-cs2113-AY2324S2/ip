@@ -10,9 +10,7 @@ public class Task {
 
     }
 
-//    public String getDescription() {
-//        return description;
-//    }
+
 
 
     public void markAsDone() {
@@ -27,9 +25,6 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-//    public String getTypeIcon() {
-//        return type;
-//    }
 
 
 
