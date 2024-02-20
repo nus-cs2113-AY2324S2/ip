@@ -31,6 +31,8 @@ public class TaskManager{
                 handleDeadline(input);
             } else if(input.contains("event")){
                 handleEvent(input);
+            } else if(input.contains("delete")){
+                handleDelete(input);
             } else {
                 throw new SuvException(LINE +"Oh no! I am not sure what you mean.");
             }
@@ -102,6 +104,22 @@ public class TaskManager{
         int n = Integer.parseInt(input.split(" ")[1]);
         tasks[n - 1].unMark();
         System.out.println(LINE + " OK, I've marked this task as not done yet:\n" + "   [ ] " + tasks[n - 1].getDescription() + "\n" + LINE);
+    }
+
+    public void handleDelete(String input) throws SuvException{
+        int n = Integer.parseInt(input.split(" ")[1]);
+        Task currentTask = tasks[n - 1];
+        Task[] newTasks = new Task[100];
+        int j = 0;
+        for(int i = 0; i < taskIndex; i++){
+            if(i != n - 1){
+                newTasks[j++] = tasks[i];
+            }
+        }
+        taskIndex--;
+        tasks = newTasks;
+        int length = taskIndex;
+        System.out.println(LINE + " Noted. I've removed this task:\n" + " " + currentTask + "\n Now you have " + Integer.toString((length)) +" tasks " + "in the list.\n" + LINE);
     }
 
     public void handleList(String input) throws SuvException {
