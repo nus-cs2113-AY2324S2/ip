@@ -21,6 +21,8 @@ public class Asuka {
         //Initialise
         Commands command = null;
         int taskCount = 0;
+
+
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner myObj = new Scanner(System.in);
 
@@ -40,25 +42,28 @@ public class Asuka {
 
                 // Execute command
                 switch (command) {
-                    case mark:
-                        mark(inputs, taskCount, tasks);
-                        break;
-                    case unmark:
-                        unmark(inputs, taskCount, tasks);
-                        break;
-                    case list:
-                        list(taskCount, tasks);
-                        break;
-                    case add:
-                        taskCount = add(input, tasks, taskCount);
-                        break;
-                    case bye:
-                        bye();
-                        myObj.close();
-                        myObj = null;
-                        break;
-                    case null, default:
-                        break;
+                case mark:
+                    mark(inputs, taskCount, tasks);
+                    break;
+                case unmark:
+                    unmark(inputs, taskCount, tasks);
+                    break;
+                case list:
+                    list(taskCount, tasks);
+                    break;
+                case add:
+                    taskCount = add(input, tasks, taskCount);
+                    break;
+                case delete:
+                    taskCount = delete(inputs, taskCount, tasks);
+                    break;
+                case bye:
+                    bye();
+                    myObj.close();
+                    myObj = null;
+                    break;
+                case null, default:
+                    break;
                 }
             }
             catch (EmptyTaskException | InvalidCommandException | TaskIndexOutOfBoundsException | EmptyIndexException ignored) {}

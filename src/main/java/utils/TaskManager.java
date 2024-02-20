@@ -49,9 +49,14 @@ public class TaskManager {
 
     public static void list(int taskCount, ArrayList<Task> tasks) {
         System.out.println(constants.BREAKLINE);
-        for (int j = 0; j < taskCount; j++) {
-            System.out.print(j + 1 + ". ");
-            tasks.get(j).printTask();
+        if (taskCount == 0) {
+            System.out.println("You have no tasks in the list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int j = 0; j < taskCount; j++) {
+                System.out.print(j + 1 + ". ");
+                tasks.get(j).printTask();
+            }
         }
         System.out.println(constants.BREAKLINE);
     }
@@ -85,6 +90,28 @@ public class TaskManager {
             throw new TaskIndexOutOfBoundsException(taskCount);
         }
         System.out.println(constants.BREAKLINE);
+    }
+
+    public static int delete(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
+        int taskNumber;
+        taskNumber = Integer.parseInt(inputs[1]);
+        System.out.println(constants.BREAKLINE);
+        if (taskNumber > 0 && taskNumber <= taskCount) {
+            System.out.println("Noted. I've removed this task: ");
+            tasks.get(taskNumber - 1).printTask();
+            tasks.remove(taskNumber - 1);
+            taskCount--;
+            if (taskCount == 1) {
+                System.out.println("Now you got " + taskCount + " task in the list.");
+            } else {
+                System.out.println("Now you got " + taskCount + " tasks in the list.");
+            }
+        }
+        else {
+            throw new TaskIndexOutOfBoundsException(taskCount);
+        }
+        System.out.println(constants.BREAKLINE);
+        return taskCount;
     }
 
     public static void bye() {
