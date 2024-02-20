@@ -3,11 +3,22 @@ import commands.Event;
 import commands.Task;
 import commands.Todo;
 
-import java.util.ArrayList;
+
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
 public class John {
+    //Load in the data and import it into the task list
+    static List<Task> tasks;
+    static {
+        try {
+            tasks = DataManager.readData("src/main/java/data.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("ヽ(•‿•)ノ");
          System.out.println("-----------------------------------");
@@ -22,7 +33,6 @@ public class John {
     public static void getUserInput() {
         // Creating a Scanner object for input
         Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
 
         boolean isFinished = false;
 
@@ -47,6 +57,11 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
+                try {
+                    DataManager.saveData(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (input.startsWith("mark") || input.startsWith("Mark")){
                 try {
                     StringValidator.validateMarkFormat(input);
@@ -54,12 +69,22 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
+                try {
+                    DataManager.saveData(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (input.startsWith("delete") || input.startsWith("Delete") ) {
                 try {
                     StringValidator.validateDeleteFormat(input);
                     delete(input, tasks);
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
+                }
+                try {
+                    DataManager.saveData(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             } else if (input.startsWith("todo") || input.startsWith("Todo")) {
                 try {
@@ -69,6 +94,11 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
+                try {
+                    DataManager.saveData(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (input.startsWith("deadline") || input.startsWith("Deadline")) {
                 try {
                     StringValidator.validateDeadlineFormat(input);
@@ -77,6 +107,11 @@ public class John {
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
+                try {
+                    DataManager.saveData(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (input.startsWith("event") || input.startsWith("Event")) {
                 try {
                     StringValidator.validateEventFormat(input);
@@ -84,6 +119,11 @@ public class John {
                     event.addTo(tasks);
                 } catch (InvalidFormatException e) {
                     System.out.println(e.getMessage());
+                }
+                try {
+                    DataManager.saveData(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             } else {
                 System.out.println("Unknown Command: " + input);

@@ -19,6 +19,13 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String name, boolean status, String start, String end) {
+        super(name);
+        this.isDone = status;
+        this.start = start;
+        this.end = end;
+    }
+
     public static String parseName(String command) {
         return command.substring(command.indexOf(" ") + 1, command.indexOf("/")-1);
     }

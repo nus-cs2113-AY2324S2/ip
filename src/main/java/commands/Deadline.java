@@ -12,6 +12,11 @@ public class Deadline extends Task {
         super(name);
         this.date = date;
     }
+    public Deadline(String name, boolean status, String date) {
+        super(name);
+        this.isDone = status;
+        this.date = date;
+    }
 
     public static String parseName(String command) {
         return command.substring(command.indexOf(" ") + 1, command.indexOf("/")-1);
