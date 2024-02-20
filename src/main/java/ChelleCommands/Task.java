@@ -1,5 +1,7 @@
 package ChelleCommands;
 
+import java.util.ArrayList;
+
 public class Task {
     private String taskName;
     private boolean isDone;
@@ -25,16 +27,16 @@ public class Task {
         this.isDone = false;
     }
 
-    public static void addMessage(Task[] tasks, int taskCount) {
+    public static void addMessage(ArrayList<Task> tasks) {
         System.out.println("Chelle: Got it. I've added this task:\n        " +
-                tasks[taskCount - 1].toString() +
-                "\n        Now you have " + taskCount + " tasks in the list.");
+                tasks.get(tasks.size() - 1).toString() +
+                "\n        Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void delMessage(Task[] tasks, int taskCount, int taskIndex) {
+    public static void delMessage(ArrayList<Task> tasks, int taskIndex) {
         System.out.println("Chelle: Got it. I've deleted this task:\n        " +
-                tasks[taskIndex].toString() +
-                "\n        Now you have " + (taskCount-1) + " tasks in the list.");
+                tasks.get(taskIndex).toString() +
+                "\n        Now you have " + (tasks.size() - 1) + " tasks in the list.");
     }
 
     @Override

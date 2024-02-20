@@ -1,13 +1,14 @@
 package Chelle;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import ChelleCommands.*;
 import ChelleExceptions.*;
 
 public class Chelle {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("Hello! I'm Chelle.\nI like to talkity talkity talk!");
 
@@ -17,9 +18,9 @@ public class Chelle {
             CommandType userCommand;
             try {
                 userCommand = CommandType.valueOf((userInput.split(" ")[0]).toUpperCase());
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println("Chelle: Invalid command. Please start your command with one of the following commands: \n" +
-                        "'list', 'mark', 'unmark', 'todo', 'deadline' or 'event'.");
+                        "'list', 'mark', 'unmark', 'todo', 'deadline', 'event', or 'delete'.");
                 continue;
             }
 
@@ -31,7 +32,7 @@ public class Chelle {
 
             case LIST:
                 System.out.println("Chelle: ");
-                displayTasks(tasks, taskCount);
+                displayTasks(tasks);
                 break;
 
             case MARK:
@@ -41,32 +42,32 @@ public class Chelle {
             case EVENT:
             case DELETE:
                 try {
-                    taskCount = handleCommand(userInput, tasks, taskCount, userCommand);
+                    handleCommand(userInput, tasks, userCommand);
                 } catch (InvalidCommandFormatException e) {
                     break;
                 }
                 break;
+
             default:
                 System.out.println("Chelle: Invalid command. Please start your command with one of the following commands: \n" +
-                        "'list', 'mark', 'unmark', 'todo', 'deadline' or 'event'.");
+                        "'list', 'mark', 'unmark', 'todo', 'deadline', 'event', or 'delete'.");
                 break;
             }
         }
     }
 
-    private static void displayTasks(Task[] tasks, int count) {
-        if (count == 0) {
+    private static void displayTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
             System.out.println("No tasks to display.");
         } else {
-            for (int i = 0; i < count; i++) {
-                System.out.println((i + 1) + ". " + tasks[i].toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i).toString());
             }
         }
     }
 
-    private static int handleCommand(String userInput, Task[] tasks, int taskCount, CommandType command) throws InvalidCommandFormatException {
+    private static void handleCommand(String userInput, ArrayList<Task> tasks, CommandType command) throws InvalidCommandFormatException {
         switch (command) {
-
         case MARK:
             if (userInput.length() < 6) {
                 throw new InvalidCommandFormatException(command);
@@ -76,10 +77,10 @@ public class Chelle {
 
             try {
                 int taskIndex = Integer.parseInt(userInput) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markDone();
+                if (isValidTaskIndex(taskIndex, tasks)) {
+                    tasks.get(taskIndex).markDone();
                     System.out.println("Chelle: Nice! I've marked this task as done:\n        " +
-                            tasks[taskIndex].toString());
+                            tasks.get(taskIndex).toString());
                 } else {
                     System.out.println("Chelle: Invalid task index.");
                 }
@@ -97,10 +98,10 @@ public class Chelle {
 
             try {
                 int taskIndex = Integer.parseInt(userInput) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    tasks[taskIndex].markUndone();
+                if (isValidTaskIndex(taskIndex, tasks)) {
+                    tasks.get(taskIndex).markUndone();
                     System.out.println("Chelle: OK, I've marked this task as not done yet:\n        " +
-                            tasks[taskIndex].toString());
+                            tasks.get(taskIndex).toString());
                 } else {
                     System.out.println("Chelle: Invalid task index.");
                 }
@@ -113,9 +114,8 @@ public class Chelle {
             if (userInput.length() < 6) {
                 throw new InvalidCommandFormatException(command);
             } else {
-                tasks[taskCount] = new ToDo(userInput.substring(5));
-                taskCount++;
-                Task.addMessage(tasks, taskCount);
+                tasks.add(new ToDo(userInput.substring(5)));
+                Task.addMessage(tasks);
             }
             break;
 
@@ -123,9 +123,8 @@ public class Chelle {
             if (userInput.length() < 10 || !userInput.contains("/by")) {
                 throw new InvalidCommandFormatException(command);
             } else {
-                tasks[taskCount] = new Deadline(userInput.substring(9));
-                taskCount++;
-                Task.addMessage(tasks, taskCount);
+                tasks.add(new Deadline(userInput.substring(9)));
+                Task.addMessage(tasks);
             }
             break;
 
@@ -133,9 +132,8 @@ public class Chelle {
             if (userInput.length() < 7 || !(userInput.indexOf("/from") < userInput.indexOf("/to"))) {
                 throw new InvalidCommandFormatException(command);
             } else {
-                tasks[taskCount] = new Event(userInput.substring(6));
-                taskCount++;
-                Task.addMessage(tasks, taskCount);
+                tasks.add(new Event(userInput.substring(6)));
+                Task.addMessage(tasks);
             }
             break;
 
@@ -148,16 +146,10 @@ public class Chelle {
 
             try {
                 int taskIndex = Integer.parseInt(userInput) - 1;
-                if (taskIndex >= 0 && taskIndex < taskCount) {
-                    Task.delMessage(tasks, taskCount, taskIndex);
-                    // Shift tasks to fill the gap
-                    for (int i = taskIndex; i < taskCount - 1; i++) {
-                        tasks[i] = tasks[i + 1];
-                    }
-                    // Set the last element to null or create a new empty task if needed
-                    tasks[taskCount - 1] = null; // or tasks[taskCount - 1] = new Task();
-                    taskCount--;
-
+                if (isValidTaskIndex(taskIndex, tasks)) {
+                    System.out.println("Chelle: Okay, I've deleted this task:\n        " +
+                            tasks.get(taskIndex).toString());
+                    tasks.remove(taskIndex);
                 } else {
                     System.out.println("Chelle: Invalid task index.");
                 }
@@ -168,9 +160,11 @@ public class Chelle {
 
         default:
             System.out.println("Chelle: Error");
-            return taskCount;
+            break;
         }
+    }
 
-        return taskCount;
+    private static boolean isValidTaskIndex(int index, ArrayList<Task> tasks) {
+        return index >= 0 && index < tasks.size();
     }
 }
