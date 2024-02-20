@@ -13,4 +13,9 @@ public class Event extends Task {
             System.out.println("[E][ ] " + this.description);
         }
     }
+
+    @Override
+    public String getTaskType() {
+        return "Event";
+    }
 }
