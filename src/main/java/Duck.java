@@ -3,15 +3,15 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duck {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
-//    private static final int MAX_TASKS = 100;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println(LINE_SEPARATOR + "\n" +
                 "Hello! I'm Duck\n" +
                 "What can I do for you?\n" +
@@ -24,6 +24,7 @@ public class Duck {
 
         ArrayList<Task> tasks = new ArrayList<>(); //stores Tasks in ArrayList called tasks
         int index = 0; //index of where the userInput is stored in texts
+//        Save.createNewFile();
         handleUserInput(tasks, index);
     }
 
