@@ -113,6 +113,7 @@ public class Gary {
                 try {
                     processDelete(todos, lineWords, todosCount);
                     todosCount -= 1;
+                    writeTaskToTxt(file, todosCount, todos);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! You don't have that much task");
                 } catch (NumberFormatException e) {
