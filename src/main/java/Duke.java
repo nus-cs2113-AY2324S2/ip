@@ -25,6 +25,14 @@ public class Duke {
                     break; //Break out of the loop immediately when bye command is entered, quitting the program.
                 }
 
+                if (line.startsWith("delete")) {
+                    int taskNumber = Integer.parseInt(line.split(" ")[1]) - 1;
+                    Task removedTask = tasks.remove(taskNumber);
+                    System.out.println("Noted. I've removed this task:\n  " + removedTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.\n" + BREAK_LINE);
+                    continue;
+                }
+
                 if (line.equals("list")) {
 
                     System.out.println("Abracadabra! \uD83C\uDF1F Here are the tasks in your list:");
