@@ -22,7 +22,6 @@ public class DavinciBot {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     public static final int SPLIT_INTO_TWO_PARTS = 2;
     private static final String DATA_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\DavinciBot.txt";
-    private static final String TEMP_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\temp.txt";
     private static Task[] taskArray = new Task[0];
 
 
@@ -289,9 +288,11 @@ public class DavinciBot {
     private static void readFile() {
         try {
             List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
+            taskArray = new Task[0];
+
             for (String line : lines) {
                 Task task = readLine(line);
-                if (task != null) {
+                if (task != null && !containsTask(taskArray, task)) {
                     taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
                     taskArray[taskArray.length - 1] = task;
                     echoTask(taskArray);
@@ -304,54 +305,79 @@ public class DavinciBot {
         }
     }
 
+    private static void writeFile() {
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Task task : taskArray) {
+                lines.add(task.toFileString());
+            }
+            DavinciFileHandler.writeFile(DATA_FILE_PATH, lines);
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
+
+    private static boolean containsTask(Task[] tasks, Task task) {
+        for (Task t : tasks) {
+            if (t.equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static Task readLine(String line) throws DavinciException {
         try {
             String[] tokens = line.split("/");
             String command = tokens[0].toUpperCase();
-            Task task = null;
 
             boolean isDone = tokens[tokens.length - 1].equals("1"); // Check if the last token is "1"
 
+            Task newTask;
+
             switch (command) {
             case "TODO":
-                task = new Todo(tokens[1]);
+                newTask = new Todo(tokens[1]);
                 break;
             case "DEADLINE":
-                task = new Deadline(tokens[1], tokens[2]);
+                newTask = new Deadline(tokens[1], tokens[2]);
                 break;
             case "EVENT":
-                task = new Event(tokens[1], tokens[2], tokens[3]);
+                newTask = new Event(tokens[1], tokens[2], tokens[3]);
                 break;
             default:
                 System.out.println("Unknown task type: " + command);
-                break;
+                return null; // Return null for unrecognized tasks
             }
 
-            if (task != null) {
-                if (isDone) {
-                    task.markAsDone();
-                }
+            if (isDone) {
+                newTask.markAsDone();
             }
-            return task;
+
+            if (!taskExists(newTask)) {
+                return newTask;
+            }
+
+            return null;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DavinciException("Corrupted file");
         }
     }
 
-    private static void writeFile() {
-        try {
-            List<Task> tasks = Arrays.asList(taskArray);
-            DavinciFileHandler.writeFile(DATA_FILE_PATH, tasks);
-        } catch (IOException e) {
-            System.out.println("Error writing file: " + e.getMessage());
+    private static boolean taskExists(Task newTask) {
+        for (Task existingTask : taskArray) {
+            if (existingTask.equals(newTask)) {
+                return true;
+            }
         }
+        return false;
     }
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        readFile();
+        startDavinici();
         printStartingMessage();
         userCommand(scanner, taskArray);
         writeFile();

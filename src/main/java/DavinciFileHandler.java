@@ -23,13 +23,13 @@ public class DavinciFileHandler {
         fw.close();
     }
 
-    public static void writeFile(String filePath, List<Task> tasks) throws IOException {
-        try {
-            for (Task task : tasks) {
-                appendLine(filePath, task.toFileString());
+    public static void writeFile(String filePath, List<String> lines) throws IOException {
+        try (FileWriter fw = new FileWriter(filePath)) {
+            for (String line : lines) {
+                fw.write(line + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Error appending lines to file: " + e.getMessage());
+            System.out.println("Error writing file: " + e.getMessage());
             throw e;
         }
     }
