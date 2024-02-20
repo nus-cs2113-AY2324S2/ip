@@ -1,10 +1,12 @@
+import java.sql.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
 
     public static void main(String[] args) throws UnexpectedCommandException, EmptyLineException {
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         //greeting
         System.out.println("Hello! I'm Apple");
