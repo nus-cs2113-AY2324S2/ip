@@ -166,7 +166,7 @@ public class Hachi {
      * @param cleanedInput Cleaned input string from user.
      */
 
-    public static void markOrUnmarkHandler(String cleanedInput ) throws HachiException{
+    public static void markOrUnmarkHandler(String cleanedInput) throws HachiException{
         int numTasks = Task.getTotalNumTasks();
         HachiException.checkEmptyList(numTasks);
         int taskNumber = getMarkTaskNumber(cleanedInput);
@@ -248,6 +248,56 @@ public class Hachi {
         System.out.println("\tGoodbye! Hope you have a marvelous day.");
     }
 
+    private static void loadFile(ArrayList<Task> taskArrayList) throws FileNotFoundException, HachiException {
+        File taskFile = new File("src/main/java/hachi.txt");
+        Scanner s = new Scanner(taskFile);
+
+        while (s.hasNext()) {
+            String[] line = s.nextLine().split(" \\| ");
+            Task toAdd;
+
+            switch (line[0]){
+            case "T":
+                toAdd = new Todo(line[2]);
+                break;
+
+            case "D":
+                toAdd = new Deadline(line[2], line[3]);
+                break;
+
+            case "E":
+                toAdd = new Event(line[2], line[3], line[4]);
+                break;
+
+            default:
+                throw new HachiException(HachiException.CORRUPTED_SAVE_MESSAGE);
+            }
+
+            if (line[1].equals("X")) {
+                toAdd.setCompleteness(true);
+            }
+            taskArrayList.add(toAdd);
+        }
+    }
+
+    private static void save(ArrayList<Task> taskArrayList) throws IOException {
+        try {
+            FileWriter fw = new FileWriter("src/main/java/hachi.txt", false);
+            fw.write("");
+            fw.close(); // to clear text file
+        } catch (IOException e) {
+            System.out.println("\n\tCreating new task list save...");
+        }
+
+        FileWriter fw = new FileWriter("src/main/java/hachi.txt");
+        for (Task task : taskArrayList) {
+            if (task != null) {
+                fw.write(task.getSaveFormat() + "\n");
+            } else break;
+        }
+        fw.close();
+    }
+
     /**
      * The main program that starts the chatbot.
      * Prints to the console for the user to read its messages.
@@ -269,18 +319,17 @@ public class Hachi {
         Scanner in = new Scanner(System.in);
         boolean isBye = false;
         boolean isUpdated = false;
+        spacerInsert("medium", false);
+        printGreetingMessage();
+        printHelpMessage();
 
         try {
             loadFile(taskArrayList);
         } catch (FileNotFoundException e) {
-            System.out.println("Error finding specified file. Creating empty task list.");
+            System.out.println("Error finding save file. Creating empty task list.");
         } catch (HachiException e) {
-            System.out.println("Corrupted file format.");
+            System.out.println("Save file is corrupted. Creating empty task list.");
         }
-
-        spacerInsert("medium", false);
-        printGreetingMessage();
-        printHelpMessage();
 
         while (!isBye) {
             try {
@@ -357,56 +406,5 @@ public class Hachi {
                 spacerInsert("medium", true);
             }
         }
-    }
-
-    private static void loadFile(ArrayList<Task> taskArrayList) throws FileNotFoundException, HachiException {
-        File taskFile = new File("src/main/java/hachi.txt");
-        Scanner s = new Scanner(taskFile);
-
-        while (s.hasNext()) {
-            String[] line = s.nextLine().split(" \\| ");
-            Task toAdd;
-
-            switch (line[0]){
-            case "T":
-                toAdd = new Todo(line[2]);
-                break;
-
-            case "D":
-                toAdd = new Deadline(line[2], line[3]);
-                break;
-
-            case "E":
-                toAdd = new Event(line[2], line[3], line[4]);
-                break;
-
-            default:
-                throw new HachiException(HachiException.CORRUPTED_SAVE_MESSAGE);
-            }
-
-            if (line[1].equals("X")) {
-                toAdd.setCompleteness(true);
-            }
-            taskArrayList.add(toAdd);
-        }
-    }
-
-    private static void save(ArrayList<Task> taskArrayList) throws IOException {
-        try {
-            FileWriter fw = new FileWriter("src/main/java/hachi.txt", false);
-            fw.write("");
-            System.out.println("\n\tOverwriting task list...");
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("\n\tCreating new task list save...");
-        }
-
-        FileWriter fw = new FileWriter("src/main/java/hachi.txt");
-        for (Task task : taskArrayList) {
-            if (task != null) {
-                fw.write(task.getSaveFormat() + "\n");
-            } else break;
-        }
-        fw.close();
     }
 }
