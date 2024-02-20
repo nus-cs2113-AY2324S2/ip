@@ -14,6 +14,11 @@ public class Save {
     public static void saveTasks(ArrayList<Task> tasks) {
         File file = new File(FILE_PATH);
 
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
         try (FileWriter writer = new FileWriter(file)) {
             for (Task task : tasks) {
                 String taskType = task.getTaskType();

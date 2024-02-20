@@ -143,49 +143,45 @@ public class TaskManager {
 
     public void loadTasksFromFile(String filePath) {
         File file = new File(filePath);
-        if (file.exists()) {
-            try (Scanner scanner = new Scanner(file)) {
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split(" \\| ");
-                    String type = parts[0].trim();
-                    boolean isDone = parts[1].trim().equals("1");
-                    String description = parts[2].trim();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                String type = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
 
-                    Task task = null;
-                    switch (type) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        String[] deadlineParts = description.split(" \\(by: ");
-                        String deadlineDescription = deadlineParts[0].trim();
-                        String by = deadlineParts.length > 1 ? deadlineParts[1].replace(")", "").trim() : "No deadline specified";
-                        task = new Deadline(deadlineDescription, by);
-                        break;
-                    case "E":
-                        String[] eventParts = description.split(" \\(from: | to: ");
-                        String eventDescription = eventParts[0].trim();
-                        String from = eventParts.length > 1 ? eventParts[1].trim() : "No start time specified";
-                        String to = eventParts.length > 2 ? eventParts[2].replace(")", "").trim() : "No end time specified";
-                        task = new Event(eventDescription, from, to);
-                        break;
-                    }
-
-                    if (task != null) {
-                        if (isDone) {
-                            task.markTask(true);
-                        }
-                        tasks.add(task);
-                    }
+                Task task = null;
+                switch (type) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    String[] deadlineParts = description.split(" \\(by: ");
+                    String deadlineDescription = deadlineParts[0].trim();
+                    String by = deadlineParts.length > 1 ? deadlineParts[1].replace(")", "").trim() : "No deadline specified";
+                    task = new Deadline(deadlineDescription, by);
+                    break;
+                case "E":
+                    String[] eventParts = description.split(" \\(from: | to: ");
+                    String eventDescription = eventParts[0].trim();
+                    String from = eventParts.length > 1 ? eventParts[1].trim() : "No start time specified";
+                    String to = eventParts.length > 2 ? eventParts[2].replace(")", "").trim() : "No end time specified";
+                    task = new Event(eventDescription, from, to);
+                    break;
                 }
-            } catch (FileNotFoundException e) {
-                System.err.println("File not found: " + filePath);
 
+                if (task != null) {
+                    if (isDone) {
+                        task.markTask(true);
+                    }
+                    tasks.add(task);
+                }
             }
+        } catch (FileNotFoundException e) {
+            System.out.println(" No saved tasks found");
         }
     }
-
 
     public TaskManager() {
         tasks = new ArrayList<>();
@@ -200,7 +196,7 @@ public class TaskManager {
                 deleteTask(input);
             } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                 handleMarking(input);
-            }  else {
+            } else {
                 addTask(input);
             }
             input = in.nextLine();
