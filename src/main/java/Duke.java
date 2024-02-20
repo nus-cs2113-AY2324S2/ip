@@ -41,7 +41,7 @@ public class Duke {
 
                 if (line.equals("list")) {
 
-                    System.out.println("Abracadabra! \uD83C\uDF1F Here are the tasks in your list:");
+                    System.out.println("Abracadabra! Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + "." + tasks.get(i).toString());
                     }
@@ -51,14 +51,14 @@ public class Duke {
 
                     int taskMarkNumber = Integer.parseInt(line.split(" ")[1]) - 1;
                     tasks.get(taskMarkNumber).markAsNotDone();
-                    System.out.println("All good! We've hit the rewind button and unmarked this task \uD83D\uDD04:");
+                    System.out.println("All good! We've hit the rewind button and unmarked this task:");
                     System.out.println("  " + tasks.get(taskMarkNumber) + "\n" + BREAK_LINE);
 
                 } else if (line.startsWith("mark")) {
 
                     int taskMarkNumber = Integer.parseInt(line.split(" ")[1]) - 1;
                     tasks.get(taskMarkNumber).markAsDone();
-                    System.out.println("X marks the spot! \uD83C\uDF89 I've marked this task as done:");
+                    System.out.println("X marks the spot! I've marked this task as done:");
                     System.out.println("  " + tasks.get(taskMarkNumber) + "\n" + BREAK_LINE);
 
                 } else if (line.startsWith("todo")) {
@@ -81,7 +81,7 @@ public class Duke {
 
                 } else {
 
-                    System.out.println("Oops! I've no clue what that means. Could you enlighten me, please? \uD83E\uDD16\uD83D\uDCA1");
+                    System.out.println("Oops! I've no clue what that means. Could you enlighten me, please?");
                     System.out.println(BREAK_LINE);
                 }
 
@@ -93,7 +93,7 @@ public class Duke {
             }
         }
 
-        System.out.println("Bye. Hope to see you again soon! \uD83D\uDE0A\n" + BREAK_LINE);
+        System.out.println("Bye. Hope to see you again soon!" + BREAK_LINE);
     }
 
     private static void saveTasks() {

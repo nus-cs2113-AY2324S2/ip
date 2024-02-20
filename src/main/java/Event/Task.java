@@ -39,7 +39,7 @@ public class Task {
 
         System.out.println("Voilà! \uD83D\uDCDC Got it. I've added this task:");
         System.out.println("  " + this);
-        System.out.println("Now you have " + (count) + " tasks in the list. \uD83D\uDCDC" + "\n" + BREAK_LINE);
+        System.out.println("Now you have " + (count) + " tasks in the list." + "\n" + BREAK_LINE);
 
     }
 }

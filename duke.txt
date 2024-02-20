@@ -1,1 +1,1 @@
-E | 1 | cs2113 | 2pm to 4pm
+E | 0 | todo | 1 to 2
