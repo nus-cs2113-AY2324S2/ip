@@ -15,6 +15,10 @@ public class Task {
     public String getStatus() {
         return (isDone ? "[X]" : "[ ]");
     }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
     public void setTaskAsDone() {
         isDone = true;
     }

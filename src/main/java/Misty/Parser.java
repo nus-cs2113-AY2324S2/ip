@@ -94,6 +94,22 @@ public class Parser {
         System.out.println("\tPlease enter a valid task id");
     }
 
+    public static void printErrorIO() {
+        System.out.println("------WARNING! I/O Error detected. Unable to save changes to task list!------");
+    }
+
+    public static void printErrorSecurity() {
+        System.out.println("------WARNING! File access denied. Unable to save changes to task list!------");
+    }
+
+    public static void printErrorFileNotFound() {
+        System.out.println("------WARNING! Data file not found. Unable to load task list!------");
+    }
+
+    public static void printErrorCorruptedFile() {
+        System.out.println("------WARNING! Data file corrupted. Unable to load task list!------");
+    }
+
     public static void printUsageUsageTodo() {
         System.out.println("\tTodo command syntax: todo <task name>");
     }
