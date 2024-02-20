@@ -43,15 +43,34 @@ public class Event extends Task {
 
             // Throws an error if parameters is incomplete
             if (taskName.isBlank() || startDate.isBlank() || endDate.isBlank()) {
-                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT);
+                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT_MSG);
             }
 
             return new Event(taskName, startDate, endDate);
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
+            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS_MSG);
         }
     }
+
+    public static Event processEvent(String taskName, String startDate, String endDate) throws
+            MimiException.IncorrectFormat,
+            MimiException.InsufficientParameters {
+
+        // Further process the deadline input
+        try {
+            // Check if the inputs are complete
+            // Throws an error if parameters is incomplete
+            if (taskName.isBlank() || startDate.isBlank() || endDate.isBlank()) {
+                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT_MSG);
+            }
+            return new Event(taskName, startDate, endDate);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS_MSG);
+        }
+    }
+
 
     @Override
     public String toString(){

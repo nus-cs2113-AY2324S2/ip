@@ -13,7 +13,7 @@ then
     mkdir ../data
 fi
 
-# if previous copy of mimi.logs exists, then create new copy it
+# if previous copy of EXPECTED_FILE.logs exists, then create new copy it
 if [ -e "../data/mimi.logs" ]
 then
     rm ../data/mimi.logs
@@ -51,9 +51,17 @@ dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
-    echo "Test result: PASSED"
-    exit 0
+    diff ../data/mimi.logs EXPECTED_FILE.logs
+    if [ $? -eq 0 ]
+    then
+        echo "Test result: PASSED"
+        exit 0
+    else
+        echo "Test result: FAILED"
+        exit 1
+    fi
 else
     echo "Test result: FAILED"
     exit 1
 fi
+
