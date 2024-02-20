@@ -1,5 +1,5 @@
 ______________________________________________________________
- Hey there! I'm cody.Cody, your personal task manager
+ Hey there! I'm Cody, your personal task manager
  Tell me your tasks and I will create a task list for you
 ______________________________________________________________
 ______________________________________________________________
@@ -60,19 +60,19 @@ ______________________________________________________________
  Please use 'deadline <description> /by <deadline>'
 ______________________________________________________________
 ______________________________________________________________
- cody.tasks.Task number is invalid
+ Task number is invalid
  Please enter a valid number
 ______________________________________________________________
 ______________________________________________________________
- cody.tasks.Task number is out of range
+ Task number is out of range
  Please enter a number between 1 and 3
 ______________________________________________________________
 ______________________________________________________________
- cody.tasks.Task number is out of range
+ Task number is out of range
  Please enter a number between 1 and 3
 ______________________________________________________________
 ______________________________________________________________
- cody.tasks.Task number is out of range
+ Task number is out of range
  Please enter a number between 1 and 3
 ______________________________________________________________
 ______________________________________________________________
