@@ -3,6 +3,8 @@ package gandalf;
 import action.Task;
 
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Gandalf {
@@ -11,13 +13,42 @@ public class Gandalf {
     public static final String BYE_STATEMENT = "bye";
     public static final String MAKE_LIST_STATEMENT = "make list";
 
+    static ArrayList<Task> listTasks = new ArrayList<>();
+
     // Scanner object
     static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
         startMessage();
         startProgram();
+        saveTasks();
         endMessage();
+    }
+
+    private static void saveTasks() {
+        try {
+            String filePath = "data/savefile.txt";
+            FileWriter writer = new FileWriter(filePath);
+            String concatenatedData = compileData();
+            writer.write(concatenatedData);
+            writer.close();
+
+            System.out.println("Content has been saved to the file successfully.");
+
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+
+    private static String compileData() {
+        StringBuilder dataToSave = new StringBuilder();
+        for (Task listTask : listTasks) {
+            if (listTask != null) {
+                dataToSave.append(listTask);
+                dataToSave.append("\n");
+            }
+        }
+        return dataToSave.toString();
     }
 
     private static void startProgram() {
@@ -39,8 +70,6 @@ public class Gandalf {
 
     private static void makeList() {
         makeListWelcomeMessage();
-
-        ArrayList<Task> listTasks = new ArrayList<>();
 
         while (true) {
             String userInput = getUserInput();

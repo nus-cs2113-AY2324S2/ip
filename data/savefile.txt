@@ -1,0 +1,3 @@
+[T][ ] makan
+[D][X] makan pagi (by: besok)
+[E][ ] makan tai (from: today to: tomorrow)
