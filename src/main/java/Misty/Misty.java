@@ -2,7 +2,6 @@ package Misty;
 
 import Misty.Exception.*;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 public class Misty {
     public static void main(String[] args) {
         try {
-            SaveFile.createFilesIfFirstTime();
+            SaveFile.createFiles();
         } catch (IOException e) {
             Parser.printErrorIO();
         } catch (SecurityException e) {

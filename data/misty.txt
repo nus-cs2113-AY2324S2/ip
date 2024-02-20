@@ -1,3 +1,3 @@
-T | 0 | gohome
-D | 0 | eat | dinner
-E | 0 | party | today | tomororw
+T | 1 | hi
+D | 1 | go | now
+E | 1 | run | now | tomorrow

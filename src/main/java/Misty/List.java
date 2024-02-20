@@ -98,6 +98,13 @@ public class List {
         }
 
         list[index - 1].setTaskAsDone();
+
+        try {
+            SaveFile.refreshSave(list);
+        } catch (IOException e) {
+            Parser.printErrorIO();
+        }
+
         Parser.printTaskMarkAsDone(list[index-1]);
     }
 
@@ -107,6 +114,13 @@ public class List {
         }
 
         list[index - 1].setTaskAsNotDone();
+
+        try {
+            SaveFile.refreshSave(list);
+        } catch (IOException e) {
+            Parser.printErrorIO();
+        }
+
         Parser.printTaskUnmarkAsNotDone(list[index-1]);
     }
 
@@ -153,6 +167,10 @@ public class List {
         }
 
         list[index - 1].setTaskAsDone();
+    }
+
+    public Task getTask(int index) {
+        return list[index];
     }
 
 }
