@@ -1,9 +1,17 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Duke {
     static final int MAX_SIZE = 100;
     public static void main(String[] args) {
         printsGreeting();
-        mimicMessage();
+        try {
+            mimicMessage();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
     }
 
     private static void handleError(ThawException e) {
@@ -29,9 +37,14 @@ public class Duke {
         System.out.println(task[taskIndex].getStatusIcon());
     }
 
-    private static void mimicMessage() {
+    private static void mimicMessage() throws FileNotFoundException {
+        File f = new File("./data/ThawBot.txt");
+        Scanner s = new Scanner(f);
         Scanner input = new Scanner(System.in);
         Task[] list = new Task[MAX_SIZE];
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
         int currentIteration = 0;
         boolean canExit = false;
 
