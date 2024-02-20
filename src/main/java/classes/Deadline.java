@@ -14,4 +14,9 @@ public class Deadline extends Task {
             System.out.println("[D][ ] " + this.description);
         }
     }
+
+    @Override
+    public String getTaskType() {
+        return "Deadline";
+    }
 }

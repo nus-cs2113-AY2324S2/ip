@@ -17,6 +17,18 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getTaskType() {
+        return "Task";
+    }
+
     public void printTask() {
         if (this.isDone) {
             System.out.println("[X] " + this.description);

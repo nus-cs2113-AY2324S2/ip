@@ -14,4 +14,9 @@ public class Todo extends Task {
             System.out.println("[T][ ] " + this.description);
         }
     }
+
+    @Override
+    public String getTaskType() {
+        return "Todo";
+    }
 }
