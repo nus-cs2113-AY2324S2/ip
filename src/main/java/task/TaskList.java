@@ -53,15 +53,14 @@ public class TaskList {
 
     public String listTasks() {
         String tasksToBeListed = "";
-
-        for (int i = 0; i < tasks.size(); i++) {
-            tasksToBeListed += String.format("%d.%s\n", i + 1, tasks.get(i).toString());
+        for (int i = 1; i <= tasks.size(); i++) {
+            tasksToBeListed += String.format("%d.%s\n", i, this.getPosAt(i).toString());
         }
         return tasksToBeListed;
     }
 
     public Task showNewlyAddedTask() {
-        return tasks.get(tasks.size() - 1);
+        return this.getPosAt(tasks.size());
     }
 
     @Override
