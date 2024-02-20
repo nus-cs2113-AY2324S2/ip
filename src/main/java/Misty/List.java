@@ -87,6 +87,13 @@ public class List {
         Parser.printTaskUnmarkAsNotDone(taskList.get(index - 1));
     }
 
+    public void deleteTask(int index) {
+        Task temp = taskList.get(index);
+        taskList.remove(index);
+        Parser.printDeleteTask(temp);
+        printTaskCount();
+    }
+
     public void listAll() {
         Parser.printList(taskList, itemCount);
     }

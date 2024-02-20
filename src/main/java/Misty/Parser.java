@@ -48,6 +48,12 @@ public class Parser {
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println(String.format("\t%s",task));
     }
+
+    public static void printDeleteTask(Task task) {
+        System.out.println("\tAlright, I've deleted this task:");
+        System.out.println(String.format("\t%s", task));
+    }
+
     public static void printList(ArrayList<Task> list, int itemCount) {
         Integer itemNumber = 1;
         System.out.println("\tHere are the tasks in your list:");

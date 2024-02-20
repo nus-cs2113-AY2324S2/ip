@@ -163,6 +163,11 @@ public class Misty {
                         Parser.printUsageEvent();
                         break;
                     }
+                } else if(input.startsWith("delete")) {
+                    int index;
+
+                    index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                    taskList.deleteTask(index - 1);
                 } else {
                     Parser.printUnknownCommandMessage();
                 }
