@@ -1,5 +1,6 @@
 package joe;
 
+import joe.task.TaskType;
 import joe.util.FileManager;
 import joe.util.InputParser;
 import joe.util.Printer;
@@ -31,78 +32,81 @@ public class Joe {
         try {
             FileManager.loadData(taskManager);
         } catch (IOException e) {
-            System.out.println("SORRY I COULDN'T GET YOUR PREVIOUS DATA\n\t maybe it got corrupted lol");
+            Printer.printLoadError();
         }
 
-        boolean hasExitInput = false;
-        while (!hasExitInput) {
+        boolean hasExitInput;
+        do {
             String input = in.nextLine();
             input = input.trim();
             String command = InputParser.getCommand(input);
             String message = InputParser.getMessage(input);
-            switch (command) {
-            case EXIT_COMMAND:
-                if (!message.isEmpty()) {
-                    Printer.printExitError();
-                    break;
-                }
-                hasExitInput = true;
-                break;
-            case LIST_COMMAND:
-                if (!message.isEmpty()) {
-                    Printer.printListError();
-                    break;
-                }
-                taskManager.listTasks();
-                break;
-            case MARK_COMMAND:
-            case UNMARK_COMMAND:
-                try {
-                    int taskNumber = Integer.parseInt(message);
-                    taskManager.toggleTaskMarkedStatus(taskNumber, command.equals(MARK_COMMAND));
-                } catch (NumberFormatException | JoeException e) {
-                    Printer.printInvalidMarkError();
-                }
-                break;
-            case NEW_TODO_COMMAND:
-                try {
-                    taskManager.addToDo(message);
-                } catch (JoeException e) {
-                    Printer.printToDoEmptyError();
-                }
-                break;
-            case NEW_DEADLINE_COMMAND:
-                try {
-                    String by = InputParser.getDeadlineTime(message);
-                    String taskName = InputParser.getTaskName(message);
-                    taskManager.addDeadline(taskName, by);
-                } catch (JoeException e) {
-                    Printer.printDeadlineInputError();
-                }
-                break;
-            case NEW_EVENT_COMMAND:
-                try {
-                    String[] eventDurations = InputParser.getEventTime(message);
-                    String taskName = InputParser.getTaskName(message);
-                    taskManager.addEvent(taskName, eventDurations[0], eventDurations[1]);
-                } catch (JoeException e) {
-                    Printer.printEventInputError();
-                }
-                break;
-            case DELETE_COMMAND:
-                try {
-                    int taskNumber = Integer.parseInt(message);
-                    taskManager.deleteTask(taskNumber);
-                } catch (NumberFormatException | JoeException e) {
-                    Printer.printDeleteError();
-                }
-                break;
-            default:
-                Printer.printDefaultError();
-                break;
-            }
-        }
+            hasExitInput = handleCommand(command, message, taskManager);
+        } while (hasExitInput);
 
         in.close();
+    }
+
+    private static boolean handleCommand(String command, String message, TaskManager taskManager) {
+        boolean hasExitInput = false;
+        switch (command) {
+        case EXIT_COMMAND:
+            if (!message.isEmpty()) {
+                Printer.printExitError();
+                break;
+            }
+            hasExitInput = true;
+            break;
+        case LIST_COMMAND:
+            if (!message.isEmpty()) {
+                Printer.printListError();
+                break;
+            }
+            taskManager.listTasks();
+            break;
+        case MARK_COMMAND:
+        case UNMARK_COMMAND:
+            try {
+                int taskNumber = Integer.parseInt(message);
+                taskManager.toggleTaskMarkedStatus(taskNumber, command.equals(MARK_COMMAND));
+            } catch (NumberFormatException | JoeException e) {
+                Printer.printInvalidMarkError();
+            }
+            break;
+        case NEW_TODO_COMMAND:
+            try {
+                taskManager.addTask(TaskType.TODO, message);
+            } catch (JoeException e) {
+                Printer.printToDoEmptyError();
+            }
+            break;
+        case NEW_DEADLINE_COMMAND:
+            try {
+                taskManager.addTask(TaskType.DEADLINE, message);
+            } catch (JoeException e) {
+                Printer.printDeadlineInputError();
+            }
+            break;
+        case NEW_EVENT_COMMAND:
+            try {
+                taskManager.addTask(TaskType.EVENT, message);
+            } catch (JoeException e) {
+                Printer.printEventInputError();
+            }
+            break;
+        case DELETE_COMMAND:
+            try {
+                int taskNumber = Integer.parseInt(message);
+                taskManager.deleteTask(taskNumber);
+            } catch (NumberFormatException | JoeException e) {
+                Printer.printDeleteError();
+            }
+            break;
+        default:
+            Printer.printDefaultError();
+            break;
+        }
+
+        return hasExitInput;
     }
 }

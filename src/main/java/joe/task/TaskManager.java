@@ -2,6 +2,7 @@ package joe.task;
 
 import joe.JoeException;
 import joe.util.FileManager;
+import joe.util.InputParser;
 import joe.util.Printer;
 
 import java.io.IOException;
@@ -21,38 +22,39 @@ public class TaskManager {
         numberOfTasks++;
     }
 
-    public void addToDo(String taskName) throws JoeException {
-        if (taskName.isEmpty()) {
+    public void addTask(TaskType type, String message) throws JoeException {
+        if (message.isEmpty()) {
             throw new JoeException();
         }
-        ToDo newToDo = new ToDo(taskName);
-        tasks.add(newToDo);
-        numberOfTasks++;
-        Printer.printTaskAddingMessage(newToDo.getTaskStatus(), numberOfTasks);
 
-        saveList();
-    }
-
-    public void addDeadline(String taskName, String finishBy) throws JoeException {
-        if (taskName.isEmpty() || finishBy.isEmpty()) {
+        Task t;
+        switch (type) {
+        case TODO:
+            t = new ToDo(message);
+            break;
+        case DEADLINE:
+            String deadlineName = InputParser.getTaskName(message);
+            String deadlineTime = InputParser.getDeadlineTime(message);
+            if (deadlineName.isEmpty() || deadlineTime.isEmpty()) {
+                throw new JoeException();
+            }
+            t = new Deadline(deadlineName, deadlineTime);
+            break;
+        case EVENT:
+            String eventName = InputParser.getTaskName(message);
+            String[] eventDuration = InputParser.getEventTime(message);
+            if (eventName.isEmpty() || eventDuration[0].isEmpty() || eventDuration[1].isEmpty()) {
+                throw new JoeException();
+            }
+            t = new Event(eventName, eventDuration[0], eventDuration[1]);
+            break;
+        default:
             throw new JoeException();
         }
-        Deadline newDeadline = new Deadline(taskName, finishBy);
-        tasks.add(newDeadline);
-        numberOfTasks++;
-        Printer.printTaskAddingMessage(newDeadline.getTaskStatus(), numberOfTasks);
 
-        saveList();
-    }
-
-    public void addEvent(String taskName, String startDate, String endDate) throws JoeException {
-        if (taskName.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
-            throw new JoeException();
-        }
-        Event newEvent = new Event(taskName, startDate, endDate);
-        tasks.add(newEvent);
+        tasks.add(t);
         numberOfTasks++;
-        Printer.printTaskAddingMessage(newEvent.getTaskStatus(), numberOfTasks);
+        Printer.printTaskAddingMessage(t.getTaskStatus(), numberOfTasks);
 
         saveList();
     }

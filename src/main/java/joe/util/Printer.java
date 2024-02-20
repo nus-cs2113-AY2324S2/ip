@@ -34,6 +34,8 @@ public class Printer {
             + "\tUSE A VALID INTEGER PLEASE: \"delete --INTEGER--\"\n" + H_LINE;
     protected static final String FILE_CORRUPT_ERROR = H_LINE + "OOPS LOOKS LIKE THERE WERE CORRUPTED LINES OF CODE\n"
             + "\tNUMBER OF CORRUPTED LINES: ";
+    protected static final String LOAD_ERROR = H_LINE + "SORRY I COULDN'T GET YOUR PREVIOUS DATA"
+            + "\n\t maybe it got corrupted lol\n" + H_LINE;
     protected static final String SAVE_ERROR = H_LINE + "SORRY I CURRENTLY CAN'T SAVE YOUR LIST MY BAD LOL\n" + H_LINE;
 
     public static void printHeaderLine() {
@@ -112,5 +114,9 @@ public class Printer {
 
     public static void printSaveError() {
         System.out.println(SAVE_ERROR);
+    }
+
+    public static void printLoadError() {
+        System.out.println(LOAD_ERROR);
     }
 }
