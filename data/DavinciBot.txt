@@ -2,4 +2,3 @@ todo/eat/1
 todo/go school/0
 event/have dinner/now/later/0
 todo/homework/1
-deadline/assignment/8pm tomorrow/1

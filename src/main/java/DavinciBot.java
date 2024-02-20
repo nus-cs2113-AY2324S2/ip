@@ -254,23 +254,27 @@ public class DavinciBot {
     private static Task[] deleteTask(String userInput, Task[] taskArray) {
         try {
             String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
-            if (parts.length > 1) {
-                int taskIndex = Integer.parseInt(parts[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskArray.length) {
-                    writeFile();
-                    return successfulDeletion(taskArray, taskIndex);
-                } else {
-                    throw new DavinciException("Invalid task index.");
-                }
-            } else {
-                throw new DavinciException("Please specify the task index to delete.");
-            }
+            return ableToDelete(taskArray, parts);
         } catch (DavinciException e) {
             System.out.println("Error: " + e.getMessage());
             return taskArray;
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid task index format.");
             return taskArray;
+        }
+    }
+
+    private static Task[] ableToDelete(Task[] taskArray, String[] parts) throws DavinciException {
+        if (parts.length > 1) {
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < taskArray.length) {
+                writeFile();
+                return successfulDeletion(taskArray, taskIndex);
+            } else {
+                throw new DavinciException("Invalid task index.");
+            }
+        } else {
+            throw new DavinciException("Please specify the task index to delete.");
         }
     }
 
@@ -393,7 +397,7 @@ public class DavinciBot {
             String[] tokens = line.split("/");
             String command = tokens[0].toUpperCase();
 
-            boolean isDone = tokens[tokens.length - 1].equals("1"); // Check if the last token is "1"
+            boolean isDone = tokens[tokens.length - 1].equals("1");
 
             Task newTask;
 
@@ -409,7 +413,7 @@ public class DavinciBot {
                 break;
             default:
                 System.out.println("Unknown task type: " + command);
-                return null; // Return null for unrecognized tasks
+                return null;
             }
 
             if (isDone) {
