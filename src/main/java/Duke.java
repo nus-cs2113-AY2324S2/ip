@@ -42,10 +42,27 @@ public class Duke {
         Scanner s = new Scanner(f);
         Scanner input = new Scanner(System.in);
         Task[] list = new Task[MAX_SIZE];
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
         int currentIteration = 0;
+
+         while (s.hasNext()) {
+            String[] currentLine = s.nextLine().split("\\s*\\|\\s*");
+            if (currentLine[0].equals("D")) {
+                list[currentIteration] = new Deadline(currentLine[2], currentLine[3]);
+            }
+            else if (currentLine[0].equals("T")) {
+                 list[currentIteration] = new Todo(currentLine[2], currentLine[2]);
+             }
+            else if (currentLine[0].equals("E")) {
+                String[] duration = currentLine[3].split("\\s*\\-\\s*");
+                 list[currentIteration] = new Event(currentLine[2],
+                         "from: " + duration[0] + " to: " + duration[1]);
+            }
+
+            if (currentLine[1].equals("1")) {
+                list[currentIteration].isDone = true;
+            }
+            currentIteration++;
+        }
         boolean canExit = false;
 
         while (!canExit) {
@@ -83,7 +100,7 @@ public class Duke {
             int startIndex = usersInput.indexOf("from");
             int endIndex = usersInput.indexOf("to");
             list[currentIteration] = new Event(usersInput.substring(6, startIndex - 2),
-                    "from: " + usersInput.substring(startIndex+ 5, endIndex - 2) + " " + "to: " + usersInput.substring(endIndex + 3));
+                    "from: " + usersInput.substring(startIndex+ 5, endIndex - 2) + " to: " + usersInput.substring(endIndex + 3));
         } else {
             throw new ThawException("Invalid command");
         }
