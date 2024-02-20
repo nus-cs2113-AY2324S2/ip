@@ -1,1 +1,3 @@
-deadline/piss/tomorrow/0
+deadline/homework/tomorrow/0
+todo/eat/0
+event/study/now/later/0
