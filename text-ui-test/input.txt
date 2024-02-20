@@ -9,4 +9,6 @@ unmark 1
 list
 mark 100
 unmark 1000
+delete 2
+list
 bye

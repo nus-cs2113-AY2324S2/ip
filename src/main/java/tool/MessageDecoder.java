@@ -90,7 +90,7 @@ public class MessageDecoder {
         return decoded;
     }
 
-    public static int decodeToggleMark(String message) throws InputException {
+    public static int decodeIndex(String message) throws InputException {
         if (message.matches(BLANK)) {
             throw new InputException(ResponseManager.BLANK_MSG_ERROR);
         }

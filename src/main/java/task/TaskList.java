@@ -1,56 +1,72 @@
 package task;
 
+import exception.InputException;
+import tool.ResponseManager;
+
+import java.util.ArrayList;
+
 public class TaskList {
-    private int numberOfTask;
-    private final Task[] tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
-        this.numberOfTask = 0;
-        this.tasks = new Task[100];
+        this.tasks = new ArrayList<>();
     }
 
     public void add(Task task) {
-        tasks[numberOfTask] = task;
-        numberOfTask++;
+        tasks.add(task);
+    }
+
+    public void deleteTaskAt(int index) throws InputException {
+        if (index > this.getSize()) {
+            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+        }
+        tasks.remove(index - 1);
     }
 
     public int getSize() {
-        return numberOfTask;
+        return tasks.size();
     }
 
     public Task getPosAt(int index) {
-        if (index <= 0) {
-            return null;
+        return tasks.get(index - 1);
+    }
+
+    public void markTask(int taskNum) throws InputException {
+        if (taskNum > this.getSize()) {
+            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
-        return tasks[index - 1];
+        Task task = tasks.get(taskNum - 1);
+        int position = tasks.indexOf(task);
+        task.mark();
+        tasks.set(position, task);
     }
 
-    public void markTask(int taskNum) {
-        tasks[taskNum - 1].mark();
-    }
-
-    public void unmarkTask(int taskNum) {
-        tasks[taskNum - 1].unmark();
+    public void unmarkTask(int taskNum) throws InputException {
+        if (taskNum > this.getSize()) {
+            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+        }
+        Task task = tasks.get(taskNum - 1);
+        int position = tasks.indexOf(task);
+        task.unmark();
+        tasks.set(position, task);
     }
 
     public String listTasks() {
-        int index;
         String tasksToBeListed = "";
 
-        for (int i = 0; i < numberOfTask; i++) {
-            index = i + 1;
-            tasksToBeListed += String.format("%d.%s\n", index, tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            tasksToBeListed += String.format("%d.%s\n", i + 1, tasks.get(i).toString());
         }
         return tasksToBeListed;
     }
 
     public Task showNewlyAddedTask() {
-        return tasks[numberOfTask - 1];
+        return tasks.get(tasks.size() - 1);
     }
 
     @Override
     public String toString() {
-        String formOfTask = numberOfTask > 1 ? "tasks" : "task";
-        return String.format("Now you have %d %s in the list", numberOfTask, formOfTask);
+        String formOfTask = tasks.size() > 1 ? "tasks" : "task";
+        return String.format("Now you have %d %s in the list", tasks.size(), formOfTask);
     }
 }

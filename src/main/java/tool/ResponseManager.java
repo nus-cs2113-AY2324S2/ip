@@ -31,6 +31,8 @@ public class ResponseManager {
     private static final String MARKED_MESSAGE =
             "Nice! I've marked this task as done:\n";
     private static final String END_LINE = System.lineSeparator();
+    private static final String DELETE_MESSAGE =
+            "Noted. I've removed the task:\n";
 
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
@@ -55,15 +57,18 @@ public class ResponseManager {
                 messageToPrint + END_LINE);
     }
 
-    public static void printMarkOrUnMarkTask(String action, String task) {
+    public static void printActionOnTasks(String action, String msgTobePrinted) {
         switch(action) {
         case "mark":
-            indentPrint(MARKED_MESSAGE + " " + task + END_LINE);
+            indentPrint(MARKED_MESSAGE + " " + msgTobePrinted);
             break;
 
         case "unmark":
-            indentPrint(UNMARKED_MESSAGE + " " + task + END_LINE);
+            indentPrint(UNMARKED_MESSAGE + " " + msgTobePrinted);
             break;
+
+        case "delete":
+            indentPrint(DELETE_MESSAGE + " " + msgTobePrinted);
 
         default:
             break;
