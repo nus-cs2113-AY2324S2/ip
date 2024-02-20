@@ -45,5 +45,13 @@ public class TaskList {
         System.out.println(" OK, I've marked this task as not done yet:");
         System.out.println(" " + tasklist.get(index).getSummary());
     }
+
+    public void delete(int index) {
+        Task t = tasklist.get(index);
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + tasklist.get(index).getSummary());
+        tasklist.remove(index);
+        System.out.println(" Now you have " + tasklist.size() + " tasks in the list.");
+    }
 }
 

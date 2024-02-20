@@ -120,6 +120,26 @@ public class Arriky {
 
                 break;
             }
+            case "delete": {
+                try {
+                    if (arguments.length != 2) {
+                        throw new IncorrectArgumentAmountException();
+                    }
+                    tl.delete(Integer.parseInt(arguments[1]) - 1);
+                    printSeparation();
+                } catch (NumberFormatException e) {
+                    System.out.println(em.INVALID_ID);
+                    printSeparation();
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(em.ID_NOT_EXIST);
+                    printSeparation();
+                } catch (IncorrectArgumentAmountException e) {
+                    System.out.println((em.INCORRECT_ARGUMENT_AMOUNT_1));
+                    printSeparation();
+                }
+
+                break;
+            }
             default:
                 System.out.println(em.INVALID_COMMAND);
                 printSeparation();
