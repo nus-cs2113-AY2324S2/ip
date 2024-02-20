@@ -7,6 +7,10 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FredBot {
@@ -25,6 +29,7 @@ public class FredBot {
     private static final String MESSAGE_ADD = "Are you sure you'll ever get to it? Fine, I've added this task:";
     private static final String MESSAGE_EMPTY_LIST = "Go and touch some grass... your list is empty.";
     private static final String MESSAGE_EMPTY_DESCRIPTION = "I can't do that if you don't give me the description...";
+    private static final String MESSAGE_ERROR = "What did you do... Something went wrong.";
     private static final String MESSAGE_UNKNOWN_COMMAND = "I have no idea what you just said.";
     private static final String MESSAGE_GOODBYE = "Finally... goodbye.";
     private static final String MESSAGE_LIST_HEADER = "Mr Busy over here has these tasks in his list:";
@@ -36,14 +41,80 @@ public class FredBot {
     private static final String PREFIX_FROM = "/from";
     private static final String PREFIX_TO = "/to";
 
+    private static final String FILE_PATH = "data/fredbot.txt";
+
     private static final Scanner SCANNER = new Scanner(System.in);
 
     public static void main(String[] args) {
-        initTaskList();
+        loadFredBot();
         showWelcomeMessage();
         while (true) {
             String userInput = readUserInput();
             executeCommand(userInput);
+            saveFredBot();
+        }
+    }
+
+    private static void loadFredBot() {
+        initTaskList();
+        File f = new File(FILE_PATH);
+        try {
+            loadTaskList(f);
+        } catch (FileNotFoundException e) {
+            initSaveFile(f);
+        }
+    }
+
+    private static void loadTaskList(File f) throws FileNotFoundException {
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String task = s.nextLine();
+            try {
+                processLine(task);
+            } catch (EmptyDescriptionException e) {
+                System.out.println(MESSAGE_EMPTY_DESCRIPTION);
+            }
+        }
+    }
+
+    private static void processLine(String task) throws EmptyDescriptionException {
+        String taskType = task.substring(0, 1);
+        String[] taskArgs = splitArgs(task);
+        switch (taskType) {
+        case "T":
+            allTasks[count] = new Todo(taskArgs[2].trim());
+            markDone(allTasks[count], taskArgs[1]);
+            count++;
+            break;
+        case "D":
+            allTasks[count] = new Deadline(taskArgs[2].trim(), taskArgs[3].trim());
+            markDone(allTasks[count], taskArgs[1]);
+            count++;
+            break;
+        case "E":
+            allTasks[count] = new Event(taskArgs[2].trim(), taskArgs[3].trim(), taskArgs[4].trim());
+            markDone(allTasks[count], taskArgs[1]);
+            count++;
+            break;
+        }
+    }
+
+    private static void markDone(Task t, String status) {
+        if (status.trim().equals("1")) {
+            t.markAsDone();
+        }
+    }
+
+    private static String[] splitArgs(String task) {
+        return task.split("\\|", 5);
+    }
+
+    private static void initSaveFile(File f) {
+        try {
+            new File("data").mkdir();
+            f.createNewFile();
+        } catch (IOException e) {
+            System.out.println(MESSAGE_ERROR);
         }
     }
 
@@ -58,6 +129,22 @@ public class FredBot {
 
     private static String readUserInput() {
         return SCANNER.nextLine();
+    }
+
+    private static void saveFredBot() {
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println(MESSAGE_ERROR);
+        }
+    }
+
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (int i = 0; i < count; i++) {
+            fw.write(allTasks[i].saveString() + System.lineSeparator());
+        }
+        fw.close();
     }
 
     private static void executeCommand(String input) {
