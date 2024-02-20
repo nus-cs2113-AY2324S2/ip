@@ -1,10 +1,8 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 
 public class Phoebe {
-    private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String greet = "\n" +
                 "█▀█ █░█ █▀█ █▀▀ █▄▄ █▀▀\n" +
@@ -20,6 +18,8 @@ public class Phoebe {
                 if (input.equalsIgnoreCase("bye")) {
                     System.out.println(exit);
                     break;
+                }else if (input.toLowerCase().startsWith("delete ")) {
+                    deleteTask(input);
                 } else if (input.equalsIgnoreCase("list")) {
                     displayTasks();
                 } else if (input.toLowerCase().startsWith("mark ")) {
@@ -36,10 +36,6 @@ public class Phoebe {
     }
 
     private static void addTask(String input) throws PhoebeException {
-        if (taskCount >= MAX_TASKS) {
-            throw new PhoebeException("NO MORE I SHORT TERM MMR");
-        }
-
         input = input.trim();
         Task newTask = null;
         if (input.toLowerCase().startsWith("todo")) {
@@ -68,18 +64,31 @@ public class Phoebe {
             throw new PhoebeException("you dont make any sense");
         }
 
-        tasks[taskCount++] = newTask;
+        tasks.add(newTask);
         System.out.println("OKIE I MEMORISED FOR U:\n  " + newTask);
-        System.out.println("You have " + taskCount + " remaining things to dododo.");
+        System.out.println("You have " + tasks.size() + " remaining things to dododo.");
+    }
+
+    private static void deleteTask(String input) {
+        try {
+            int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
+            Task removedTask = tasks.remove(taskIndex); // This removes and returns the task
+            System.out.println("Just now you said do but now say don't, so I forgot this:\n  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " remaining things to dododo.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Which one is that? You never tell me this before:");
+        } catch (NumberFormatException e) {
+            System.out.println("Eh, use numbers to tell me which one to forget, can?");
+        }
     }
 
     private static void displayTasks() throws PhoebeException {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             throw new PhoebeException("U never tell me anything how I know");
         } else {
             System.out.println("Every time need me to remind you...");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
     }
@@ -89,8 +98,8 @@ public class Phoebe {
         if (!isValidIndex(taskIndex)) {
             throw new PhoebeException("u stupid u never tell me this before:");
         }
-        tasks[taskIndex].markAsDone();
-        System.out.println("YAY GOOD JOB\n  " + tasks[taskIndex]);
+        tasks.get(taskIndex).markAsDone();
+        System.out.println("YAY GOOD JOB\n  " + tasks.get(taskIndex));
     }
 
     private static void unmarkTask(String input) throws PhoebeException {
@@ -98,12 +107,12 @@ public class Phoebe {
         if (!isValidIndex(taskIndex)) {
             throw new PhoebeException("u stupid u never tell me this before:");
         }
-        tasks[taskIndex].markAsUndone();
-        System.out.println("Just now say do alr now never do\n  " + tasks[taskIndex]);
+        tasks.get(taskIndex).markAsUndone();
+        System.out.println("Just now say do alr now never do\n  " + tasks.get(taskIndex));
     }
 
     private static boolean isValidIndex(int index) {
-        return index >= 0 && index < taskCount;
+        return index >= 0 && index < tasks.size();
     }
 }
 
