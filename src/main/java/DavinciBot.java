@@ -2,14 +2,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 
 
 /**
@@ -22,7 +15,7 @@ public class DavinciBot {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     public static final int SPLIT_INTO_TWO_PARTS = 2;
     private static final String DATA_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\DavinciBot.txt";
-    private static Task[] taskArray = new Task[0];
+    public static Task[] taskArray = new Task[0];
 
 
 
@@ -252,9 +245,8 @@ public class DavinciBot {
      * Warns the user if the input is invalid
      *
      * @param scanner Reads in the input.
-     * @param taskArray Array of tasks.
      */
-    private static void userCommand(Scanner scanner, Task[] taskArray){
+    private static void userCommand(Scanner scanner){
         while (true) {
             System.out.print("What do you want me to do? ");
             String userInput = scanner.nextLine();
@@ -381,7 +373,7 @@ public class DavinciBot {
 
         startDavinici();
         printStartingMessage();
-        userCommand(scanner, taskArray);
+        userCommand(scanner);
         writeFile();
 
         scanner.close();
