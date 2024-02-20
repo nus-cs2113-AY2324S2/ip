@@ -18,7 +18,6 @@ public class DavinciBot {
     public static Task[] taskArray = new Task[0];
 
 
-
     /**
      * Selects the icon corresponding to the type of task inputted by the user.
      *
@@ -236,6 +235,7 @@ public class DavinciBot {
             if (parts.length > 1) {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 if (taskIndex >= 0 && taskIndex < taskArray.length) {
+                    writeFile();
                     return successfulDeletion(taskArray, taskIndex);
                 } else {
                     throw new DavinciException("Invalid task index.");
@@ -271,6 +271,8 @@ public class DavinciBot {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Sup! I'm DavinciBot! I was the smartest man alive, but now I am just a list maker.");
         System.out.println("Enter commands, and I will echo them back to you, as well as add them to your list.");
+        System.out.println("If there were things in your list that you previously had," +
+                " I will show what you have told me previously.");
         System.out.println("Type 'bye' to end the conversation.");
         System.out.println("Type 'list' to see your to-do list.");
         System.out.println("Type 'mark' to mark a task as done.");
