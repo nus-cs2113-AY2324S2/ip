@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Event extends Task{
 
-    /** Start date of duke.Event */
+    /** Start date of Event */
     protected String start;
-    /** End date of duke.Event */
+    /** End date of Event */
     protected String end;
     
     public Event(String description, String start, String end) throws MissingParamsException{
