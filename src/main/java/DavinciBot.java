@@ -1,5 +1,16 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+
 
 /**
  * DavinciBot is a simple bot that allows the user to manage a to-do list.
@@ -10,6 +21,11 @@ public class DavinciBot {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     public static final int SPLIT_INTO_TWO_PARTS = 2;
+    private static final String DATA_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\DavinciBot.txt";
+    private static final String TEMP_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\temp.txt";
+    private static Task[] taskArray = new Task[0];
+
+
 
     /**
      * Selects the icon corresponding to the type of task inputted by the user.
@@ -191,6 +207,7 @@ public class DavinciBot {
             default:
                 throw new DavinciException("Unknown task type. Please use 'todo', 'deadline', or 'event'.");
             }
+            writeFile();
             return taskArray;
         } catch (DavinciException e) {
             System.out.println("Error: " + e.getMessage());
@@ -236,7 +253,7 @@ public class DavinciBot {
      * @param scanner Reads in the input.
      * @param taskArray Array of tasks.
      */
-    private static void userCommand(Scanner scanner, Task[] taskArray) {
+    private static void userCommand(Scanner scanner, Task[] taskArray){
         while (true) {
             System.out.print("What do you want me to do? ");
             String userInput = scanner.nextLine();
@@ -265,12 +282,81 @@ public class DavinciBot {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Task[] taskArray = new Task[0];
+    private static void startDavinici() {
+        readFile();
+    }
 
+    private static void readFile() {
+        try {
+            List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
+            for (String line : lines) {
+                Task task = readLine(line);
+                if (task != null) {
+                    taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
+                    taskArray[taskArray.length - 1] = task;
+                    echoTask(taskArray);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        } catch (DavinciException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static Task readLine(String line) throws DavinciException {
+        try {
+            String[] tokens = line.split("/");
+            String command = tokens[0].toUpperCase();
+            Task task = null;
+
+            boolean isDone = tokens[tokens.length - 1].equals("1"); // Check if the last token is "1"
+
+            switch (command) {
+            case "TODO":
+                task = new Todo(tokens[1]);
+                break;
+            case "DEADLINE":
+                task = new Deadline(tokens[1], tokens[2]);
+                break;
+            case "EVENT":
+                task = new Event(tokens[1], tokens[2], tokens[3]);
+                break;
+            default:
+                System.out.println("Unknown task type: " + command);
+                break;
+            }
+
+            if (task != null) {
+                if (isDone) {
+                    task.markAsDone();
+                }
+            }
+            return task;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DavinciException("Corrupted file");
+        }
+    }
+
+    private static void writeFile() {
+        try {
+            List<Task> tasks = Arrays.asList(taskArray);
+            DavinciFileHandler.writeFile(DATA_FILE_PATH, tasks);
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        readFile();
         printStartingMessage();
         userCommand(scanner, taskArray);
+        writeFile();
+
         scanner.close();
     }
+
 }
