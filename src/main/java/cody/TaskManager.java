@@ -7,6 +7,8 @@ import cody.tasks.Todo;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class TaskManager {
     ArrayList<Task> tasks;
@@ -139,8 +141,46 @@ public class TaskManager {
                 + BORDER);
     }
 
+    public void loadTasksFromFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            try (Scanner scanner = new Scanner(file)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split(" \\| ");
+                    String type = parts[0].trim();
+                    boolean isDone = parts[1].trim().equals("1");
+                    String description = parts[2].trim();
+
+                    Task task = null;
+                    switch (type) {
+                    case "T":
+                        task = new Todo(description);
+                        break;
+                    case "D":
+                        task = new Deadline(description, ""); // Placeholder for deadline date
+                        break;
+                    case "E":
+                        task = new Event(description, "", ""); // Placeholder for event start and end times
+                        break;
+                    }
+
+                    if (task != null) {
+                        if (isDone) {
+                            task.markTask(true);
+                        }
+                        tasks.add(task);
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("File not found: " + filePath);
+            }
+        }
+    }
+
     public TaskManager() {
         tasks = new ArrayList<>();
+        loadTasksFromFile("./data/tasks.txt");
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
