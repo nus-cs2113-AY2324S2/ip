@@ -36,13 +36,31 @@ public class Tony {
                     System.out.println(LINE_BREAKER + "OOPS!! The description of " + line
                             + " cannot be empty." + System.lineSeparator() + LINE_BREAKER);
                 }
-            } else {
+            } else if(line.startsWith("delete")) {
+                try {
+                    String[] subCommand = line.split(" ");
+                    int num = Integer.parseInt(subCommand[1]);
+                    System.out.println(num);
+                    checkNumberWithinRange(num);
+                    deleteATask(subCommand[0], num);
+                } catch (NumberFormatException nfe) {
+                    System.out.println("Suggest only number after 'delete'!");
+                } catch (TonyException e) {
+                    System.out.println("To delete a task, suggest a number available in the list!");
+                }
+            }else {
                 System.out.println("Please begin input with the following words: "
                         + System.lineSeparator()
-                        + "'todo / deadline / event / mark'");
+                        + "'todo / deadline / event / delete / mark'");
             }
         }
     }
+
+    private static void deleteATask(String subCommand, int num) {
+        printAddOrDeleteTask(subCommand, num-1);
+        tasks.remove(num-1);
+    }
+
     private static void listTasks() {
         System.out.println(LINE_BREAKER);
         System.out.println("\tHere are the tasks in your list:");
@@ -60,7 +78,6 @@ public class Tony {
         }
     }
     private static void markTasks(String[] subCommand, int num) {
-
         if(subCommand[0].equals("mark")) {
             tasks.get(num-1).markDone();
             System.out.println(
@@ -114,27 +131,31 @@ public class Tony {
         String[] description = eventTask[1].split("/from | /to");
         Event event = new Event(description[0], description[1], description[2]);
         tasks.add(event);
-        printAddNewTask(tasks.indexOf(event));
+        printAddOrDeleteTask(description[0] ,tasks.indexOf(event));
     }
     private static void addDeadlineTask(String[] deadlineTask) {
         String[] description = deadlineTask[1].split("/by");
         Deadline deadline = new Deadline(description[0], description[1]);
         tasks.add(deadline);
-        printAddNewTask(tasks.indexOf(deadline));
+        printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
     }
     private static void addTodoTask(String[] toDoTask) {
         Todo todo = new Todo(toDoTask[1]);
         tasks.add(todo);
-        printAddNewTask(tasks.indexOf(todo));
+        printAddOrDeleteTask(toDoTask[0], tasks.indexOf(todo));
+        System.out.println("index of task is " + tasks.indexOf(todo));
     }
-    private static void printAddNewTask(int index) {
+    private static void printAddOrDeleteTask(String command, int index) {
+        String deleteOrAdd = (command.equals("delete") ? "removed" : "added");
+        int taskSize = (command.equals("delete") ? tasks.size() - 1  : tasks.size());
         System.out.println(
                 LINE_BREAKER
-                    + "\t Got it. I've added this task:"
+                    + "\t Got it. I've " + deleteOrAdd
+                    + " this task:"
                     + System.lineSeparator()
                     + "\t\t " + tasks.get(index)
                     + System.lineSeparator()
-                    + "\t Now you have " + tasks.size() + " tasks in the list."
+                    + "\t Now you have " + taskSize + " tasks in the list."
                     + System.lineSeparator()
                     + LINE_BREAKER);
     }
