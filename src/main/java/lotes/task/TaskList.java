@@ -1,9 +1,8 @@
 package lotes.task;
+import java.util.ArrayList;
 
 public class TaskList {
-    private static final int MAX_TASKS = 100;
-    private static final Task[] taskList = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    public static ArrayList<Task> taskList = new ArrayList<>();
 
     public static String indent = "    ";
     public static String separator = System.lineSeparator();
@@ -29,16 +28,17 @@ public class TaskList {
     public static void printTasksList() {
         System.out.println(line);
 
-        if (taskCount == 0) {
+        if (taskList.isEmpty()) {
             System.out.println(indent + " List is empty,"
                     + " please enter some text to add to list.");
 
         } else {
             System.out.println(indent +" Here are the tasks in your list:");
-
-            for (int taskIndex = 0; taskIndex < taskCount; taskIndex++) {
-                String taskFormatter = String.format("     %d. %s",
-                        (taskIndex + 1), taskList[taskIndex]);
+            int taskListIndex = 0;
+            for (Task task : taskList) {
+                taskListIndex++;
+                String taskFormatter = String.format("%s %d. %s",
+                        indent, taskListIndex, task);
 
                 System.out.println(taskFormatter);
             }
@@ -52,13 +52,12 @@ public class TaskList {
         String inputString = userInput.substring(5);
         int taskListIndex = (Integer.parseInt(inputString) - 1);
 
-        taskList[taskListIndex].setDone(true);
+        taskList.get(taskListIndex).setDone(true);
 
         System.out.println(line + separator
                 + indent +" Nice! I've marked this task as done:"
-                + separator + indent + " " + taskList[taskListIndex]
+                + separator + indent + " " + taskList.get(taskListIndex)
                 + separator + line);
-
     }
 
     //  Unmark the task number in the task list.
@@ -67,11 +66,11 @@ public class TaskList {
         String inputString = userInput.substring(7);
         int taskListIndex = (Integer.parseInt(inputString) - 1);
 
-        taskList[taskListIndex].setDone(false);
+        taskList.get(taskListIndex).setDone(false);
 
         System.out.println(line + separator
                 + indent + " OK, I've marked this task as not done yet:"
-                + separator + indent + " " + taskList[taskListIndex]
+                + separator + indent + " " + taskList.get(taskListIndex)
                 + separator + line);
     }
 
@@ -81,16 +80,15 @@ public class TaskList {
     public static void addToDo(String description) {
         String toDoDescription = description.substring(5);
 
-        taskList[taskCount] = new ToDo(toDoDescription);
+        Task newTask = new ToDo(toDoDescription);
+        taskList.add(newTask);
 
         String formattedString = String.format("%s%s Got it. I've added this task: %s" +
                         "       %s%s     Now you have %d tasks in the list%s"
                 , line + separator, indent, separator
-                , taskList[taskCount], separator, (taskCount + 1), separator + line);
+                , newTask, separator, taskList.size(), separator + line);
 
         System.out.println(formattedString);
-
-        taskCount++;
     }
 
     // Adds a new Deadline task to the task list,
@@ -107,16 +105,15 @@ public class TaskList {
         String formattedDescription = String.format("%s (by: %s)",
                 properDescription, byDate);
 
-        taskList[taskCount] = new Deadline(formattedDescription, byDate);
+        Task newTask = new Deadline(formattedDescription, byDate);
+        taskList.add(newTask);
 
         String formattedString = String.format("%s%s Got it. I've added this task: %s" +
                         "       %s%s     Now you have %d tasks in the list%s"
                 , line + separator, indent, separator
-                , taskList[taskCount], separator, (taskCount + 1), separator + line);
+                , newTask, separator, taskList.size(), separator + line);
 
         System.out.println(formattedString);
-
-        taskCount++;
     }
 
     // Adds a new Event task to the task list,
@@ -136,29 +133,39 @@ public class TaskList {
         String formattedDescription = String.format("%s(from: %s to: %s)",
                 properDescription, from, to);
 
-        taskList[taskCount] = new Event(formattedDescription, from, to);
+        Task newTask = new Event(formattedDescription, from, to);
+        taskList.add(newTask);
 
         String formattedString = String.format("%s%s Got it. I've added this task: %s" +
                         "       %s%s     Now you have %d tasks in the list%s"
                 , line + separator, indent, separator
-                , taskList[taskCount], separator, (taskCount + 1), separator + line);
+                , newTask, separator, taskList.size(), separator + line);
 
         System.out.println(formattedString);
-
-        taskCount++;
     }
 
     // Adds a new task to the task list.
 
     public static void addNewTask(String description) {
-        taskList[taskCount] = new Task(description);
+        Task newTask = new Task(description);
+        taskList.add(newTask);
 
         String formattedString = String.format("%s%s%s added: %s%s%s",
                 line, separator, indent
                 , description, separator, line);
 
         System.out.println(formattedString);
+    }
 
-        taskCount++;
+    public static void deleteTask(String userInput) {
+        String inputString = userInput.substring(7);
+        int taskListIndex = (Integer.parseInt(inputString) - 1);
+
+        System.out.println(line + separator
+                + indent +" Noted. I've removed this task:"
+                + separator + indent + " " + taskList.get(taskListIndex)
+                + separator + line);
+
+        taskList.remove(taskListIndex);
     }
 }

@@ -42,6 +42,9 @@ public class Parser {
         case "event":
             taskList.addEvent(userInput);
             break;
+        case "delete":
+            taskList.deleteTask(userInput);
+            break;
         case "add":
             taskList.addNewTask(userInput);
             break;
@@ -68,7 +71,7 @@ public class Parser {
             System.out.println("Please enter enter a number within the list.");
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please enter at least 2 arguments.");
+            System.out.println("Please enter at least 2 arguments and within bounds.");
 
         } catch (LotesException e) {
             System.out.println("Please enter a command I can understand :(");
