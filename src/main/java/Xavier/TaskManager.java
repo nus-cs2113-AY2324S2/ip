@@ -1,6 +1,11 @@
 package Xavier;
 
-import Xavier.*;
+import Exceptions.InvalidInputException;
+import Exceptions.NoInputException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
 
 public class TaskManager {
     public static final int MAX_ENTRIES = 100;

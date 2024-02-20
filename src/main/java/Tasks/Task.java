@@ -1,4 +1,4 @@
-package Xavier;
+package Tasks;
 
 public class Task {
     protected String description;
