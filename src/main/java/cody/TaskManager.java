@@ -33,18 +33,15 @@ public class TaskManager {
         try {
             String[] parts = input.split(" ");
             int index = Integer.parseInt(parts[1]) - 1;
-            if (index < 0 || index >= tasks.size()) {
-                throw new CodyException(" Task number is out of range\n"
-                        + " Please enter a number between 1 and " + tasks.size() + "\n");
-            }
             boolean isDone = input.startsWith("mark");
             tasks.get(index).markTask(isDone);
             markTask(index);
         } catch (NumberFormatException e) {
             System.out.print(BORDER + " Task number is invalid\n"
                     + " Please enter a valid number\n" + BORDER);
-        } catch (CodyException e) {
-            System.out.print(BORDER + e.getMessage() + BORDER);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print(BORDER + " Task number is out of range\n"
+                    + " Please enter a number between 1 and " + tasks.size() + "\n" + BORDER);
         }
     }
 
@@ -119,6 +116,26 @@ public class TaskManager {
                 + BORDER);
     }
 
+    private void deleteTask(String input) {
+        String[] parts = input.split(" ");
+        int index = Integer.parseInt(parts[1]) - 1;
+        try {
+            Task task = tasks.get(index);
+            tasks.remove(index);
+            printDeleteTask(task);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print(" Task number is out of range\n"
+                    + " Please enter a number between 1 and " + tasks.size() + "\n");
+        }
+    }
+
+    private void printDeleteTask(Task task) {
+        System.out.print(BORDER + " Noted. I've removed this task:\n"
+                + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
+                + " Now you have " + tasks.size() + " tasks in the list.\n"
+                + BORDER);
+    }
+
     public TaskManager() {
         tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
@@ -131,7 +148,10 @@ public class TaskManager {
             } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                 handleMarking(input);
 
-            } else {
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
+            }
+            else {
                 addTask(input);
             }
             input = in.nextLine();
