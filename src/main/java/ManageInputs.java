@@ -3,19 +3,37 @@ import java.util.Scanner;
 public class ManageInputs {
     protected static String from;
     protected static String to;
-    public String description;
+    public static String description;
+    protected static String by;
+
 
     public static void dealWithEvent(Task[] tasks, int index, String[] inputs, String line) throws UnexpectedCommandException {
         int indexTo = line.indexOf("/to");
         int indexFrom = line.indexOf("/from");
 
-        if ((indexTo == -1) || (indexFrom == -1)) {
-            System.out.println("remember to include a description and event timeline!");
+        if ((indexTo == -1) || (indexFrom == -1)) { //invalid format
+            System.out.println("Invalid format! Enter event in the format: event (description) /from (start) /to (end)");
             throw new UnexpectedCommandException();
         }
-        String from = line.substring(indexFrom + 6, indexTo - 1);
-        String to = line.substring(indexTo + 4);
-        String description = line.substring(6, indexFrom - 1);
+        try {//timeline not specified/ both not specified
+            String from = line.substring(indexFrom + 6, indexTo - 1);
+            String to = line.substring(indexTo + 4);
+        } catch (IndexOutOfBoundsException e) {
+            try {
+                String description = line.substring(6, indexFrom - 1);
+            } catch (IndexOutOfBoundsException f) {
+                System.out.println("event description and timeline not specified");
+                throw new UnexpectedCommandException();
+            }
+            System.out.println("event timeline not specified");
+            throw new UnexpectedCommandException();
+        }
+        try {//description not specified
+            String description = line.substring(6, indexFrom - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("event description not specified");
+            throw new UnexpectedCommandException();
+        }
 
         tasks[index] = new Event(description, from, to);
         System.out.println("Got it. I've added this task: ");
@@ -24,12 +42,28 @@ public class ManageInputs {
 
     public static void dealWithDeadline(Task[] tasks, int index, String line) throws UnexpectedCommandException {
         int indexBy = line.indexOf("by");
-        if (indexBy == -1) {
-            System.out.println("remember to include a description and a deadline!");
+        if (indexBy == -1) {//invalid format
+            System.out.println("Invalid format! Enter deadline in the format: deadline (description) by (deadline)");
             throw new UnexpectedCommandException();
         }
-        String by = line.substring(indexBy + 3);
-        String description = line.substring(0, indexBy - 1);
+        try {//deadline / both not specified
+            String by = line.substring(indexBy + 3);
+        } catch (IndexOutOfBoundsException e) {
+            try {
+                String description = line.substring(9, indexBy - 1);
+            } catch (IndexOutOfBoundsException f) {
+                System.out.println("deadline description and deadline not specified");
+                throw new UnexpectedCommandException();
+            }
+            System.out.println("deadline not specified");
+            throw new UnexpectedCommandException();
+        }
+        try {//deadline not specified
+            String description = line.substring(9, indexBy - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("deadline description not specified");
+            throw new UnexpectedCommandException();
+        }
         tasks[index] = new Deadline(description, by);
         System.out.println("Got it. I've added this task: ");
         System.out.println(tasks[index]);
@@ -38,7 +72,7 @@ public class ManageInputs {
     public static void dealWithTodo(Task[] tasks, int index, String line) throws UnexpectedCommandException {
         int indexSpace = line.indexOf(" ");
         if (indexSpace == -1) {
-            System.out.println("todo description cannot be empty");
+            System.out.println("todo description not specified");
             throw new UnexpectedCommandException();
         }
 
@@ -61,8 +95,7 @@ public class ManageInputs {
         }
     }
 
-    public ManageInputs(Task[] tasks, int index, String line){
-
+    public ManageInputs(Task[] tasks, int index, String line) {
         while (!line.equals("bye")) {
             Boolean isValidCommand = false;
             Scanner input = new Scanner(System.in);
@@ -117,7 +150,7 @@ public class ManageInputs {
                     handleUnexpectedCommand(isValidCommand);
                 } catch (UnexpectedCommandException e) {
                     System.out.println("please enter a valid command");
-                } catch (EmptyLineException e){
+                } catch (EmptyLineException e) {
                     System.out.println("enter a task");
                 }
             }
@@ -125,3 +158,9 @@ public class ManageInputs {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
+
+/*try{
+            handleFromUnspecified();
+        } catch (FromUnspecifiedError e){
+            System.out.println("remember to include start of event!");
+        }*/
