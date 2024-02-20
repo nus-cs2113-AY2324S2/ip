@@ -2,8 +2,8 @@ package Event;
 
 public class Task {
     static String BREAK_LINE = "____________________________________________________________";
-    protected String description; //Holds the textual description of the task.
-    protected boolean isDone;
+    public String description; //Holds the textual description of the task.
+    public boolean isDone;
     protected String eventType;
 
     public Task(String description) {
