@@ -18,4 +18,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    @Override
+    public String format() {
+        if (checkDone()) {
+            return "1deadline " + getTaskName() + " /by " + by;
+        } else {
+            return "0deadline " + getTaskName() + " /by " + by;
+        }
+    }
 }

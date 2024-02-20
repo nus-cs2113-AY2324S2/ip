@@ -22,4 +22,13 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String format() {
+        if (checkDone()) {
+            return "1event " + getTaskName() + " /from " + from + " /to " + to;
+        } else {
+            return "0event " + getTaskName() + " /from " + from + " /to " + to;
+        }
+    }
 }

@@ -38,4 +38,12 @@ public class Task {
             return ("[  ] " + taskName);
         }
     }
+
+    public String format() {
+        if (isDone) {
+            return "1task " + taskName;
+        } else {
+            return "0task " + taskName;
+        }
+    }
 }

@@ -9,4 +9,13 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String format() {
+        if (checkDone()) {
+            return "1todo " + getTaskName();
+        } else {
+            return "0todo " + getTaskName();
+        }
+    }
 }
