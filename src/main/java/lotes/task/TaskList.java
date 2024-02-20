@@ -2,7 +2,7 @@ package lotes.task;
 
 public class TaskList {
     private static final int MAX_TASKS = 100;
-    private static final Task[] taskList = new Task[MAX_TASKS];
+    public static final Task[] taskList = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
     public static String indent = "    ";
@@ -160,5 +160,61 @@ public class TaskList {
         System.out.println(formattedString);
 
         taskCount++;
+    }
+
+    public static int getTaskCount(){
+        return taskCount;
+    }
+
+    public static void readFromStorage(String description) {
+        String taskType = description.substring(1, 2);
+        String isMarked = description.substring(4, 5);
+        String des = description.substring(7);
+
+        if (taskType.equals("T")) {
+//            System.out.println("T");
+//            System.out.println(des);
+            if (isMarked.equals("X")) {
+//                System.out.println(isMarked);
+                taskList[taskCount] = new ToDo(des, true);
+                taskCount++;
+            } else {
+                taskList[taskCount] = new ToDo(des);
+                taskCount++;
+            }
+
+        } else if (taskType.equals("D")) {
+//            System.out.println("D");
+//            System.out.println(des);
+            String[] by = des.split("by: ");
+            String byDate = by[1].substring(0, by[1].length() - 1);
+//            System.out.println(byDate);
+            if (isMarked.equals("X")) {
+//                System.out.println(isMarked);
+                taskList[taskCount] = new Deadline(des, byDate, true);
+                taskCount++;
+            } else {
+                taskList[taskCount] = new Deadline(des, byDate);
+                taskCount++;
+            }
+
+        } else if (taskType.equals("E")) {
+//            System.out.println("E");
+//            System.out.println(des);
+            String[] from = des.split("from: ");
+            String[] to = from[1].split(" to: ");
+            String toTime = to[1].substring(0, to[1].length() - 1);
+//            System.out.println(to[0]);
+//            System.out.println(toTime);
+            if (isMarked.equals("X")) {
+//                System.out.println(isMarked);
+                taskList[taskCount] = new Event(des, to[0], toTime, true);
+                taskCount++;
+            } else {
+                taskList[taskCount] = new Event(des, to[0], toTime);
+                taskCount++;
+            }
+        }
+
     }
 }

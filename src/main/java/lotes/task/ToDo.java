@@ -6,6 +6,10 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(String description, Boolean isDone) {
+        super(description, isDone);
+    }
+
     public String toString() {
         return String.format("[T]%s %s",
                 this.getStatusIcon(), this.description);
