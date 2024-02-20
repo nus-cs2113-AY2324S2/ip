@@ -2,9 +2,15 @@ package gary;
 
 import gary.exception.*;
 import gary.task.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Gary {
     public static final int TODO_DESCRIPTION_START_INDEX = 5;
@@ -15,11 +21,65 @@ public class Gary {
     public static final int EVENT_TO_SPACE_LENGTH = 4;
 
     public static ArrayList<Task> todos = new ArrayList<>();
-    public static void main(String[] args) {
+
+    public static final String FILE_PATH = "./gary.txt";
+
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         greetings();
 
         int todosCount = 0;
+
+//        String[] todo_temp = new String[MAX_TASK];
+
+        File file = new File(FILE_PATH);
+        try {
+            Boolean isFileCreated = file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("FILE NOT CREATED");
+        }
+
+        try {
+            BufferedReader fileReader = new BufferedReader(new FileReader(file));
+            String lineText = fileReader.readLine();
+            String[] lineWords;
+            String command;
+
+            while (lineText != null) {
+                // convert each line into TASK_todo/deadline/event, then store in the array todos
+                lineWords = lineText.split(" \\| ");
+                command = lineWords[0];
+                String description = lineWords[2];
+
+                if (command.equalsIgnoreCase("TODO")) {
+//                    todos[todosCount] = new Todo(description);
+                    todos.add(new Todo(description));
+                } else if (command.equalsIgnoreCase("DEADLINE")) {
+                    String by = lineWords[3];
+//                    todos[todosCount] = new Deadline(description, by);
+                    todos.add(new Deadline(description, by));
+                } else if (command.equalsIgnoreCase("EVENT")){
+                    String from = lineWords[3];
+                    String to = lineWords[4];
+//                    todos[todosCount] = new Event(description, from, to);
+                    todos.add(new Event(description, from, to));
+                }
+                todosCount += 1;
+
+                // Update task status in array todos
+                String taskStatus = lineWords[1];
+                if (taskStatus.equalsIgnoreCase("1")) {
+//                    todos[todosCount - 1].markAsDone();
+                    Task currentTask = todos.get(todosCount - 1);
+                    currentTask.markAsDone();
+                }
+
+                lineText = fileReader.readLine();
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("FILE NOT FOUND!!!");
+        }
 
         String line;
         line = in.nextLine();
@@ -34,6 +94,7 @@ public class Gary {
             } else if (command.equalsIgnoreCase("MARK")) {
                 try {
                     processMark(todos, lineWords);
+                    writeTaskToTxt(file, todosCount, todos);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! You don't have that much task");
                 } catch (NumberFormatException e) {
@@ -42,6 +103,7 @@ public class Gary {
             } else if (command.equalsIgnoreCase("UNMARK")) {
                 try {
                     processUnmark(todos, lineWords);
+                    writeTaskToTxt(file, todosCount, todos);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! You don't have that much task");
                 } catch (NumberFormatException e) {
@@ -58,9 +120,17 @@ public class Gary {
                 }
             } else {
                 try {
-                    processAddTask(command, todos, todosCount, line);
+                    // add task to array
+                    processAddTask(command, todos, todosCount, line, file);
+
+                    // update count
                     todosCount += 1;
+
                     todos.get(todosCount - 1).printAdd(todosCount);
+//                    todos[todosCount - 1].printAdd(todosCount);
+
+                    // write all task to txt file
+                    writeTaskToTxt(file, todosCount, todos);
                 } catch (UnknownCommandException e) {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (MissingTodoDescriptionException e) {
@@ -78,7 +148,6 @@ public class Gary {
                 }
 
             }
-
             line = in.nextLine();
         }
 
@@ -122,6 +191,50 @@ public class Gary {
         System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
     }
 
+    private static void writeTaskToTxt(File file, int todosCount, ArrayList<Task> todos) throws IOException {
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
+            for (int i = 0; i < todosCount; i += 1) {
+                writeFormattedString(todos, i, fileWriter);
+            }
+            fileWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("FILE NOT FOUND!!!");
+        }
+    }
+
+    private static void writeFormattedString(ArrayList<Task> todos, int i, BufferedWriter fileWriter) throws IOException {
+        Task currentTask = todos.get(i);
+//        String description = todos[i].getTaskDescription();
+//        String taskStatus = todos[i].getTaskStatus() ? "1" : "0";
+//        TaskType taskType = todos[i].getTaskType();
+
+        String description = currentTask.getTaskDescription();
+        String taskStatus = currentTask.getTaskStatus() ? "1" : "0";
+        TaskType taskType = currentTask.getTaskType();
+
+        switch(taskType) {
+        case DEADLINE:
+//            Deadline deadline = (Deadline) todos[i];
+            Deadline deadline = (Deadline) currentTask;
+            String by = deadline.getBy();
+            fileWriter.write(taskType + " | " + taskStatus + " | "
+                    + description + " | " + by + "\n");
+            break;
+        case EVENT:
+//            Event event = (Event) todos[i];
+            Event event = (Event) currentTask;
+            String from = event.getFrom();
+            String to = event.getTo();
+            fileWriter.write(taskType + " | " + taskStatus + " | "
+                    + description + " | " + from + " | " + to + "\n");
+            break;
+        case TODO:
+            fileWriter.write(taskType + " | " + taskStatus + " | " + description + "\n");
+            break;
+        }
+    }
+
     private static void processMark(ArrayList<Task> todos, String[] lineWords) {
         Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
         currentTask.markAsDone();
@@ -139,7 +252,7 @@ public class Gary {
         }
     }
 
-    private static void processAddTask(String command, ArrayList<Task> todos, int todosCount, String line)
+    private static void processAddTask(String command, ArrayList<Task> todos, int todosCount, String line, File file)
             throws UnknownCommandException, MissingTodoDescriptionException,
             MissingDeadlineByException, MissingDeadlineDescriptionException,
             MissingEventFromException, MissingEventToException, MissingEventDescriptionException {
