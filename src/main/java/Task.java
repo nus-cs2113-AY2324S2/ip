@@ -10,4 +10,8 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
+
+    public String printFileFormat() {
+        return this.getClass().getSimpleName().charAt(0) + " | " + ((isDone)? 1 : 0) + " | " + description;
+    }
 }

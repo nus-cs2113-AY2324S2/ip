@@ -1,6 +1,8 @@
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
     static final int MAX_SIZE = 100;
@@ -76,18 +78,26 @@ public class Duke {
             } else if ((usersInput.startsWith("unmark") && !usersInput.strip().endsWith("unmark")) ||
                     (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark"))) {
                 markOrUnmarkTask(usersInput, list);
+                try {
+                    saveData(list, currentIteration);
+                } catch (IOException e) {
+                    System.out.println("Error with saving");
+                }
             } else {
                 try {
                     addTask(usersInput, list, currentIteration);
+                    saveData(list, currentIteration);
                     currentIteration++;
                 } catch (ThawException e) {
                     handleError(e);
+                } catch (IOException e) {
+                    System.out.println("Error with saving");
                 }
             }
         }
     }
 
-    private static void addTask(String usersInput, Task[] list, int currentIteration) throws ThawException {
+    private static void addTask(String usersInput, Task[] list, int currentIteration) throws ThawException, IOException {
         if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") || usersInput.strip().equals("event")) {
             throw new ThawException("Empty command");
         } else if (usersInput.startsWith("todo")) {
@@ -107,6 +117,17 @@ public class Duke {
         printAcknowledgementMessage(list, currentIteration);
     }
 
+
+    public static void saveData(Task[] list, int currentIteration) throws IOException {
+        final String filePath = "./data/ThawBot.txt";
+        FileWriter fw = new FileWriter(filePath);
+        String textToAdd = "";
+        for (int i = 0; i < currentIteration + 1; i++) {
+            textToAdd += list[i].printFileFormat() + System.lineSeparator();
+        }
+        fw.write(textToAdd);
+        fw.close();
+    }
     private static void printsGreeting() {
         String greetingMessage = "Hello! I'm ThawBot!\nWhat can I do for you?\n";
         System.out.println(greetingMessage);
