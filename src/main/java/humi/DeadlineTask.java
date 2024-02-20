@@ -15,6 +15,13 @@ public class DeadlineTask extends Task {
         System.out.println(Humi.LINE);
     }
 
+    DeadlineTask(String description, String deadline, boolean isDone) {
+        this.taskType = TaskType.DEADLINE;
+        this.description = description;
+        this.isDone = isDone;
+        this.deadline = deadline;
+    }
+
     @Override
     public void print() {
         printTaskType();

@@ -1,29 +1,74 @@
 package humi;
+import java.io.IOException;
 
 public class TaskManager {
     public static final int MAX_TASK = 100;
-    Task[] taskList;
+    public static Task[] taskList;
     public static int taskCount;
+
     TaskManager() {
         taskList = new Task[MAX_TASK];
         taskCount = 0;
     }
+
+    public void markText(boolean isDone, int index) {
+        String[] textArray = Humi.textContent.split("\n");
+        String mark = isDone ? "1" : "0";
+        String newString = textArray[index-1].substring(0, 2) + mark + textArray[index-1].substring(3);
+        textArray[index-1] = newString;
+        Humi.textContent = "";
+        for (int i = 0; i < textArray.length; i++) {
+            Humi.appendTextContent(textArray[i]);
+        }
+    }
+
+    public void addTask(String inputString) {
+        String[] taskComponents = inputString.split("/");
+        String taskType = taskComponents[0];
+        boolean isDone = (taskComponents[1].equals("1"));
+        String description = taskComponents[2];
+
+        if (taskType.equals("T")) {
+            taskList[taskCount] = new TodoTask(description, isDone);
+            taskCount++;
+        } else if (taskType.equals("D")) {
+            String deadline = taskComponents[3];
+            taskList[taskCount] = new DeadlineTask(description, deadline, isDone);
+            taskCount++;
+        } else if (taskType.equals("E")) {
+            String startDate = taskComponents[3];
+            String endDate = taskComponents[4];
+            taskList[taskCount] = new EventTask(description, startDate, endDate, isDone);
+            taskCount++;
+        } else {
+            System.out.println("Invalid text, cannot add new task.");
+        }
+    }
+
     public void handleCommand(String command) {
         try {
             if (command.equals("list")) {
                 handleList();
             } else if (command.startsWith("todo")) {
                 handleTodo(command);
+                String text = FileProcessor.convertCommandToText(command);
+                Humi.appendTextContent(text);
             } else if (command.startsWith("deadline")) {
                 handleDeadline(command);
+                String text = FileProcessor.convertCommandToText(command);
+                Humi.appendTextContent(text);
             } else if (command.startsWith("event")) {
                 handleEvent(command);
+                String text = FileProcessor.convertCommandToText(command);
+                Humi.appendTextContent(text);
             } else if (command.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(command.substring(5));
                 taskList[taskIndex - 1].mark();
+                markText(true, taskIndex);
             } else if (command.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(command.substring(7));
                 taskList[taskIndex - 1].unmark();
+                markText(false, taskIndex);
             } else {
                 System.out.println("Invalid input. What is " + command + "?");
             }
