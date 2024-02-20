@@ -137,7 +137,14 @@ public class TaskManager {
         }
     }
 
-    public void deleteTask(int deleteIndex) throws InputIndexOutOfBoundsException {
-        return;
+    public void deleteTask(int deleteIndex) throws Exception {
+        if (deleteIndex < 0 || deleteIndex >= currIndex) {
+            throw new InputIndexOutOfBoundsException();
+        }
+        System.out.println("Okay. I've removed this task:");
+        System.out.println(tasks.get(deleteIndex));
+        tasks.remove(deleteIndex);
+        System.out.println("Now you have " + (currIndex-1) + " tasks in the list");
+        currIndex--;
     }
 }
