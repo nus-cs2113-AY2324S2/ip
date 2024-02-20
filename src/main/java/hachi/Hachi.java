@@ -3,6 +3,8 @@ package hachi;
 import hachi.data.HachiException;
 import hachi.data.task.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -234,6 +236,11 @@ public class Hachi {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         boolean isBye = false;
+        boolean isUpdated = false;
+
+        // TRY TO LOAD TEXT FILE HERE BY CHECKING DIR
+        // THROW EXCEPTION IF NO FILE FOUND AND CREATE NEW FILE IN DIR
+        // ELSE POPULATE TASK ARRAYLIST FROM TEXT FILE
 
         spacerInsert("medium", false);
         printGreetingMessage();
@@ -241,6 +248,7 @@ public class Hachi {
 
         while (!isBye) {
             try {
+                isUpdated = false;
                 String line = in.nextLine();
                 String cleanedInput = line.toUpperCase().trim();
                 String firstWord;
@@ -256,6 +264,7 @@ public class Hachi {
                 case "MARK":
                 case "UNMARK":
                     markOrUnmarkHandler(cleanedInput);
+                    isUpdated = true;
                     break;
 
                 case "LIST":
@@ -264,6 +273,8 @@ public class Hachi {
 
                 case "DELETE":
                     deleteTask(cleanedInput);
+                    isUpdated = true;
+                    break;
 
                 case "TODO":
                 case "EVENT":
@@ -279,6 +290,7 @@ public class Hachi {
                     }
 
                     addTask(currentTask, line, cleanedInput);
+                    isUpdated = true;
                     break;
 
                 case "BYE":
@@ -299,7 +311,25 @@ public class Hachi {
                 System.out.println(e.getMessage());
             } finally {
                 spacerInsert("medium", true);
+
+                if (isUpdated) { // save if there is a file update
+                    save(taskArrayList);
+                }
             }
+        }
+    }
+
+    private static void save(ArrayList<Task> taskArrayList) {
+        String filePath = "some path name";
+
+        try (FileWriter fw = new FileWriter(filePath)) {
+            for (Task task : taskArrayList) {
+                if (task != null) {
+                    fw.write(task.toString() + "\n");
+                } else break;
+            }
+        } catch (IOException e) {
+            System.out.println("There was an error saving files: " + e.getMessage());
         }
     }
 }
