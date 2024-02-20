@@ -158,10 +158,17 @@ public class TaskManager {
                         task = new Todo(description);
                         break;
                     case "D":
-                        task = new Deadline(description, ""); // Placeholder for deadline date
+                        String[] deadlineParts = description.split(" \\(by: ");
+                        String deadlineDescription = deadlineParts[0].trim();
+                        String by = deadlineParts.length > 1 ? deadlineParts[1].replace(")", "").trim() : "No deadline specified";
+                        task = new Deadline(deadlineDescription, by);
                         break;
                     case "E":
-                        task = new Event(description, "", ""); // Placeholder for event start and end times
+                        String[] eventParts = description.split(" \\(from: | to: ");
+                        String eventDescription = eventParts[0].trim();
+                        String from = eventParts.length > 1 ? eventParts[1].trim() : "No start time specified";
+                        String to = eventParts.length > 2 ? eventParts[2].replace(")", "").trim() : "No end time specified";
+                        task = new Event(eventDescription, from, to);
                         break;
                     }
 
@@ -174,9 +181,11 @@ public class TaskManager {
                 }
             } catch (FileNotFoundException e) {
                 System.err.println("File not found: " + filePath);
+
             }
         }
     }
+
 
     public TaskManager() {
         tasks = new ArrayList<>();

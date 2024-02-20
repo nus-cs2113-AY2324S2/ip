@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Save {
 
-    private static final String FILE_PATH = "./data/tasks.txt"; 
+    private static final String FILE_PATH = "./data/tasks.txt";
 
     public static void saveTasks(ArrayList<Task> tasks) {
         File file = new File(FILE_PATH);
