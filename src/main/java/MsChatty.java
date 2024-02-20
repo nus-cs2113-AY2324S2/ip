@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class Chatty {
     public static void printTasks(Task[] tasks, int taskCount) {
         System.out.println("Here are the tasks in your list:");
         int taskNumber = 1;
@@ -10,21 +10,17 @@ public class Duke {
             taskNumber++;
         }
     }
-
-    public static void markTask(Task[] tasks, int taskNumber) {
-        System.out.println("Nice! I've marked this task as done:");
-        tasks[taskNumber].markAsDone();
+    public static void markAndUnmarkTask(Task[] tasks, int taskNumber, String[] arrayOfCommand) {
+        if (arrayOfCommand[0].equals("mark")) {
+            System.out.println("Nice! I've marked this task as done:");
+            tasks[taskNumber].markAsDoneOrNotDone(arrayOfCommand);
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+            tasks[taskNumber].markAsDoneOrNotDone(arrayOfCommand);
+        }
         System.out.print(" ");
         tasks[taskNumber].printTask();
     }
-
-    public static void unmarkTask(Task[] tasks, int taskNumber) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        tasks[taskNumber].markAsNotDone();
-        System.out.print(" ");
-        tasks[taskNumber].printTask();
-    }
-
     public static void handleMarkAndUnmarkRequest(String userCommand,String[] arrayOfCommand,Task[] tasks) {
         arrayOfCommand = userCommand.split(" ",2);
         if (arrayOfCommand.length < 2 || arrayOfCommand[1].isEmpty()) {
@@ -32,13 +28,8 @@ public class Duke {
             throw new StringIndexOutOfBoundsException();
         }
         int taskNumber = Integer.parseInt(arrayOfCommand[1]);
-        if (arrayOfCommand[0].equals("mark")) {
-            markTask(tasks, taskNumber - 1);
-        } else {
-            unmarkTask(tasks, taskNumber - 1);
-        }
+        markAndUnmarkTask(tasks, taskNumber - 1, arrayOfCommand);
     }
-
     public static void handleTodoDeadlineAndEvent(String userCommand,int taskCount,String[] arrayOfCommand,Task[] tasks){
         if (userCommand.startsWith("todo")) {
             arrayOfCommand = userCommand.split(" ", 2);
@@ -69,14 +60,14 @@ public class Duke {
 
         System.out.println("Got it. I've added this task:");
     }
-
     public static void handleCommand(String userCommand) {
-        Task[] tasks = new Task[100];
+        final int MAX_SIZE = 100;
+        Task[] tasks = new Task[MAX_SIZE];
         String[] arrayOfCommand = new String[4];
         int taskCount = 0;
         Scanner in = new Scanner(System.in);
 
-        while (!(userCommand.equals("bye"))) {
+        while (!userCommand.equals("bye")) {
             if (userCommand.equals("list")) {
                 printTasks(tasks, taskCount);
                 userCommand = in.nextLine();
@@ -91,7 +82,8 @@ public class Duke {
                 continue;
             } else if (userCommand.contains("todo") || userCommand.contains("deadline") || userCommand.contains("event")) {
                 handleTodoDeadlineAndEvent(userCommand, taskCount, arrayOfCommand, tasks);
-            } else { System.out.println(Guide.REQUESTS_FORMAT);
+            } else {
+                System.out.println(Guide.REQUESTS_FORMAT);
                 throw new IllegalArgumentException();
             }
 
@@ -103,7 +95,6 @@ public class Duke {
 
         System.out.println("Bye! Hope to see you again :)");
     }
-
     public static void main(String[] args) {
         System.out.println("Hello! I'm Ms Chatty :)");
         System.out.println("What can I do for you?");
