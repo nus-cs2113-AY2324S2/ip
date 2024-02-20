@@ -1,6 +1,7 @@
 package Misty;
 
 import Misty.Task.Task;
+import java.util.ArrayList;
 
 public class Parser {
     public static void printMessageBorder() {
@@ -47,10 +48,18 @@ public class Parser {
         System.out.println("\tOK, I've marked this task as not done yet:");
         System.out.println(String.format("\t%s",task));
     }
-    public static void printList(Task[] list, int itemCount) {
+
+    public static void printDeleteTask(Task task) {
+        System.out.println("\tAlright, I've deleted this task:");
+        System.out.println(String.format("\t%s", task));
+    }
+
+    public static void printList(ArrayList<Task> list, int itemCount) {
+        Integer itemNumber = 1;
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0 ; i < itemCount; i++) {
-            System.out.println(String.format("\t%d.%s", i + 1, list[i]));
+        for (Task task : list) {
+            System.out.println(String.format("\t%d.%s", itemNumber, task));
+            itemNumber++;
         }
     }
 
@@ -103,5 +112,9 @@ public class Parser {
 
     public static void printUsageUnmark() {
         System.out.println("\tUnmark command syntax: unmark <task id>");
+    }
+
+    public static void printUsageDelete() {
+        System.out.println("\tDelete command syntax: delete <task id>");
     }
 }

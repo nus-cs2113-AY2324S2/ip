@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Misty {
     public static void main(String[] args) {
-        List itemList = new List();
+        List taskList = new List();
         Parser.printWelcomeMessage();
 
         String input;
@@ -18,7 +18,7 @@ public class Misty {
             Parser.printMessageBorder();
             switch (input) {
             case "list":
-                itemList.listAll();
+                taskList.listAll();
                 break;
             case "bye":
                 Parser.printByeMessage();
@@ -30,19 +30,19 @@ public class Misty {
 
                     try {
                         index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
-                    } catch(NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageUnmark();
                         break;
-                    } catch(StringIndexOutOfBoundsException e) {
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageUnmark();
                         break;
                     }
 
                     try {
-                        itemList.unmarkTask(index);
-                    } catch(IllegalListIndexException e) {
+                        taskList.unmarkTask(index);
+                    } catch (IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
                         Parser.printUsageUnmark();
                         break;
@@ -52,37 +52,36 @@ public class Misty {
 
                     try {
                         index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
-                    } catch(NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageMark();
                         break;
-                    } catch(StringIndexOutOfBoundsException e) {
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageMark();
                         break;
                     }
 
                     try {
-                        itemList.markTask(index);
-                    } catch(IllegalListIndexException e) {
+                        taskList.markTask(index);
+                    } catch (IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
                         Parser.printUsageMark();
                         break;
                     }
-
                 } else if (input.startsWith("todo")) {
                     String description;
 
                     try {
                         description = input.substring(input.indexOf(" ")).trim();
-                    } catch(StringIndexOutOfBoundsException e) {
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageUsageTodo();
                         break;
                     }
 
                     try {
-                        itemList.addTodo(description);
+                        taskList.addTodo(description);
                     } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageUsageTodo();
@@ -109,7 +108,7 @@ public class Misty {
                     }
 
                     try {
-                        itemList.addDeadline(description, by);
+                        taskList.addDeadline(description, by);
                     } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageDeadline();
@@ -149,7 +148,7 @@ public class Misty {
                     }
 
                     try {
-                        itemList.addEvent(description, from, to);
+                        taskList.addEvent(description, from, to);
                     } catch (EmptyTaskNameException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageEvent();
@@ -161,6 +160,27 @@ public class Misty {
                     } catch (EmptyToException e) {
                         Parser.printErrorNoTo();
                         Parser.printUsageEvent();
+                        break;
+                    }
+                } else if(input.startsWith("delete")) {
+                    int index;
+                    try {
+                        index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                    } catch (NumberFormatException e) {
+                        Parser.printErrorNoId();
+                        Parser.printUsageDelete();
+                        break;
+                    } catch (StringIndexOutOfBoundsException e) {
+                        Parser.printErrorNoId();
+                        Parser.printUsageDelete();
+                        break;
+                    }
+
+                    try {
+                        taskList.deleteTask(index);
+                    } catch (IllegalListIndexException e) {
+                        Parser.printErrorInvalidId();
+                        Parser.printUsageDelete();
                         break;
                     }
                 } else {
