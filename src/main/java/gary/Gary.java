@@ -52,12 +52,13 @@ public class Gary {
                 lineWords = lineText.split(" \\| ");
                 command = lineWords[0];
                 String description = lineWords[2];
+
                 if (command.equalsIgnoreCase("TODO")) {
                     todos[todosCount] = new Todo(description);
                 } else if (command.equalsIgnoreCase("DEADLINE")) {
                     String by = lineWords[3];
                     todos[todosCount] = new Deadline(description, by);
-                } else {
+                } else if (command.equalsIgnoreCase("EVENT")){
                     String from = lineWords[3];
                     String to = lineWords[4];
                     todos[todosCount] = new Event(description, from, to);
@@ -95,9 +96,14 @@ public class Gary {
                 writeTaskToTxt(file, todosCount, todos);
             } else {
                 try {
-                    processAddTask(command, todos, todosCount, line);
+                    // add task to array
+                    processAddTask(command, todos, todosCount, line, file);
+
+                    // update count
                     todosCount += 1;
                     todos[todosCount - 1].printAdd(todosCount);
+
+                    // write all task to txt file
                     writeTaskToTxt(file, todosCount, todos);
                 } catch (UnknownCommandException e) {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -116,41 +122,45 @@ public class Gary {
                 }
 
             }
-
             line = in.nextLine();
         }
 
         System.out.println("Bye. Hope to see you again!");
     }
 
-    //bug in writing if exception raised
     private static void writeTaskToTxt(File file, int todosCount, Task[] todos) throws IOException {
         try {
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
             for (int i = 0; i < todosCount; i += 1) {
-                String description = todos[i].getTaskDescription();
-                String taskStatus = todos[i].getTaskStatus() ? "1" : "0";
-                TaskType taskType = todos[i].getTaskType();
-                switch(taskType) {
-                case DEADLINE:
-                    Deadline deadline = (Deadline) todos[i];
-                    String by = deadline.getBy();
-                    fileWriter.write(taskType + " | " + taskStatus + " | "
-                            + description + " | " + by + "\n");
-                    break;
-                case EVENT:
-                    Event event = (Event) todos[i];
-                    String from = event.getFrom();
-                    String to = event.getTo();
-                    fileWriter.write(taskType + " | " + taskStatus + " | "
-                            + description + " | " + from + " | " + to + "\n");
-                default:
-                    fileWriter.write(taskType + " | " + taskStatus + " | " + description + "\n");
-                }
+                writeFormattedString(todos, i, fileWriter);
             }
             fileWriter.close();
         } catch (FileNotFoundException e) {
             System.out.println("FILE NOT FOUND!!!");
+        }
+    }
+
+    private static void writeFormattedString(Task[] todos, int i, BufferedWriter fileWriter) throws IOException {
+        String description = todos[i].getTaskDescription();
+        String taskStatus = todos[i].getTaskStatus() ? "1" : "0";
+        TaskType taskType = todos[i].getTaskType();
+        switch(taskType) {
+        case DEADLINE:
+            Deadline deadline = (Deadline) todos[i];
+            String by = deadline.getBy();
+            fileWriter.write(taskType + " | " + taskStatus + " | "
+                    + description + " | " + by + "\n");
+            break;
+        case EVENT:
+            Event event = (Event) todos[i];
+            String from = event.getFrom();
+            String to = event.getTo();
+            fileWriter.write(taskType + " | " + taskStatus + " | "
+                    + description + " | " + from + " | " + to + "\n");
+            break;
+        case TODO:
+            fileWriter.write(taskType + " | " + taskStatus + " | " + description + "\n");
+            break;
         }
     }
 
@@ -176,7 +186,7 @@ public class Gary {
         }
     }
 
-    private static void processAddTask(String command, Task[] todos, int todosCount, String line)
+    private static void processAddTask(String command, Task[] todos, int todosCount, String line, File file)
             throws UnknownCommandException, MissingTodoDescriptionException,
             MissingDeadlineByException, MissingDeadlineDescriptionException,
             MissingEventFromException, MissingEventToException, MissingEventDescriptionException {

@@ -1,0 +1,3 @@
+TODO | 0 | task 1
+DEADLINE | 1 | task 2  | friday
+EVENT | 0 | lecture  | 4pm  | 6pm
