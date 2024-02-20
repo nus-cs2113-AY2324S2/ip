@@ -1,4 +1,5 @@
 package RuntimeSupport;
+import java.io.IOException;
 
 public class DukeException {
 
@@ -25,10 +26,12 @@ public class DukeException {
             System.out.println("deadline [deadline event name] /by [time].");
             System.out.println("event [event name] /from [start time] /to [end time].");
 
+        } else if (error instanceof IOException) {
+
+            System.out.println("Uh-Oh! An error occurred while saving or loading tasks: " + line);
         } else {
 
             System.out.println("Oops! It seems my circuits are tangled. I've no clue what that means. Could you enlighten me, please? \uD83E\uDD16\uD83D\uDCA1");
-
         }
 
         System.out.println(BREAK_LINE);

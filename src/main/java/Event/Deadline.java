@@ -1,7 +1,7 @@
 package Event;
 
 public class Deadline extends Task {
-    protected String by;
+    public String by;
     public Deadline(String input) {
         super(input);
         String[] parts = input.split(" /by ", 2);
