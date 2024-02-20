@@ -26,10 +26,6 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getType(){
-        return "T";
-    }
-
     public void markAsDone() {
         setDone(true);
     }
@@ -42,4 +38,10 @@ public class Task {
     public String toString(){
         return "[" + this.getStatusIcon() + "] " + this.getName();
     }
+
+    public String toFileString(){
+        return  this.isDone +  "," + this.getName();
+    }
+
+
 }

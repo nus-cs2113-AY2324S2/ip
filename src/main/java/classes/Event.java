@@ -58,4 +58,9 @@ public class Event extends Task {
         String duration = "(from: " + this.getStartTime() + " to: " + this.getEndTime() + ")";
         return "[E]" + super.toString() + duration;
     }
+
+    @Override
+    public String toFileString(){
+        return "E" +  "," + super.toFileString() + "," + this.getStartTime() + "," + this.getEndTime();
+    }
 }

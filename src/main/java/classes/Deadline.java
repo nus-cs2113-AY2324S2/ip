@@ -49,4 +49,9 @@ public class Deadline extends Task {
 
     }
 
+    @Override
+    public String toFileString(){
+        return "D" +  "," + super.toFileString() + "," + this.getDeadline();
+    }
+
 }

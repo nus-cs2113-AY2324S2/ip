@@ -6,12 +6,15 @@ import exceptions.MimiException;
 import exceptions.MimiException.TaskNotFound;
 import exceptions.MimiException.InsufficientParameters;
 import exceptions.MimiException.IncorrectFormat;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     final static String APP_NAME = "mimichat";
     final static int INPUT_LIMIT = 2;
+    final static String FILE_PATH = "data/mimi.logs";
 
     static Task[] taskList = new Task[100];
     static int numberOfTask = 0;
@@ -80,6 +83,7 @@ public class Duke {
     private static void appendIntoTaskList(Task newTask) {
         taskList[numberOfTask] = newTask;
         numberOfTask++;
+        saveFile(taskList, numberOfTask, FILE_PATH);
     }
 
     public static void listTasks(Task[] list, int numberOfTasks) {
@@ -179,6 +183,19 @@ public class Duke {
         printDescription("Bye. Hope to see you again soon!");
         isRunning = false;
         scanner.close();
+    }
+
+    private static void saveFile(Task[] taskList, int numberOfTask, String filePath){
+        try {
+            File file = new File(filePath);
+            FileWriter writer = new FileWriter(file);
+            for (int i = 0; i < numberOfTask; i++) {
+                writer.write(taskList[i].toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
