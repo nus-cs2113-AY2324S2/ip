@@ -1,9 +1,9 @@
 package Blue;
 
+import java.util.ArrayList;
+
 public class TaskManager extends Blue {
-    // assume no more than 100 tasks for now
-    public static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int numTasks = 0;
     private Input request;
 
@@ -20,6 +20,9 @@ public class TaskManager extends Blue {
         case mark:
             markTask(request.getTaskIndex());
             break;
+        case delete:
+            deleteTask(request.getTaskIndex());
+            break;
         case todo:
         case deadline:
         case event:
@@ -30,8 +33,10 @@ public class TaskManager extends Blue {
     }
 
     private void listTasks() {
-        for (int i = 0; i < numTasks; i += 1) {
-            talk((i + 1) + ". " + tasks[i]);
+        int i = 0;
+        for (Task task : tasks) {
+            talk((i + 1) + ". " + task);
+            i += 1;
         }
     }
 
@@ -40,12 +45,23 @@ public class TaskManager extends Blue {
             talk("Task not found.");
             return;
         }
-        tasks[taskIndex].setDone();
-        talk("Task " + tasks[taskIndex].getDescription() + " marked as done.");
+        Task taskToMark = tasks.get(taskIndex);
+        taskToMark.setDone();
+        talk("Task " + taskToMark.getDescription() + " marked as done.");
+    }
+
+    private void deleteTask(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= numTasks) {
+            talk("Task not found.");
+            return;
+        }
+        talk("Task " + tasks.get(taskIndex).getDescription() + " deleted.");
+        tasks.remove(taskIndex);
+        numTasks -= 1;
     }
 
     private void addTask(Task task) {
-        tasks[numTasks] = task;
+        tasks.add(task);
         numTasks += 1;
         talk("added: " + task.getDescription());
     }
