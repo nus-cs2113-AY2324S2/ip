@@ -147,8 +147,7 @@ public class Chelle {
             try {
                 int taskIndex = Integer.parseInt(userInput) - 1;
                 if (isValidTaskIndex(taskIndex, tasks)) {
-                    System.out.println("Chelle: Okay, I've deleted this task:\n        " +
-                            tasks.get(taskIndex).toString());
+                    Task.delMessage(tasks, taskIndex);
                     tasks.remove(taskIndex);
                 } else {
                     System.out.println("Chelle: Invalid task index.");
