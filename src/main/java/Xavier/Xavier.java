@@ -4,10 +4,12 @@ import java.util.Scanner;
 
 public class Xavier {
     public static final String LINE = "_________________________________________________________________";
+    public static final String FILEPATH = "/Users/jasonlienardi/Documents/CS2113/ip/src/main/java/Xavier/toDoList.txt";
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
         printWelcomeMessage();
+        taskManager.readFile(FILEPATH);
         while (true) {
             String command = input.nextLine();
             System.out.println(LINE);

@@ -4,7 +4,7 @@ import Tasks.Task;
 
 public class Todo extends Task {
     public Todo(String description) {
-        super(description);
+        super(description, "T");
     }
 
     public String toString() {

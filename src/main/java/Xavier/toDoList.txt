@@ -1,0 +1,2 @@
+T|1| buy groceries
+E|0| birthday party |4pm |6pm
