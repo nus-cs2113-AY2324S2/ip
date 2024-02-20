@@ -73,6 +73,7 @@ public class list {
             break;
         case "delete":
             deleteTask(taskList, argument);
+            break;
         }
     }
 

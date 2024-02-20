@@ -132,7 +132,7 @@ public class command {
 
         try {
             taskList.get(taskNumber - 1).setDone(done);
-            printMessage("Nice! I've marked this task as done:\n"
+            printMessage("Nice! I've marked this task as " + (done ? "done\n" : "undone\n")
                     + "  " + taskList.get(taskNumber - 1));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException.IntegerOutOfBoundsException();
@@ -157,9 +157,10 @@ public class command {
         }
 
         try {
+            Task taskToDelete = taskList.get(taskNumber - 1);
             taskList.remove(taskNumber - 1);
             printMessage(" Noted. I've removed this task:\n"
-                    + "  " + taskList.get(taskNumber - 1));
+                    + "  " + taskToDelete);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException.IntegerOutOfBoundsException();
         }
