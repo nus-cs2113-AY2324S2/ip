@@ -10,7 +10,8 @@ public class Printer {
             + "\n\nlist\n\tLIST ALL YOUR TASKS THAT I'VE RECORDED"
             + "\n\ntodo --TASK--\ndeadline --TASK-- /by --TIME--\nevent --TASK-- /from --START TIME-- /to --END TIME--"
             + "\n\tADD A TODO/DEADLINE/EVENT TASK"
-            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\t MARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE\n"
+            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\t MARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE"
+            + "\n\ndelete --TASK NUMBER--\n\t DELETE A TASK (NUMBER IN LIST) FROM THE LIST\n"
             + H_LINE;
     protected static final String EXIT_INPUT_ERROR = H_LINE + "SORRY I DON'T UNDERSTAND :( DID YOU MEAN\n\tbye\n"
             + H_LINE;
@@ -20,16 +21,17 @@ public class Printer {
             + "\tUSE: \"mark --INTEGER--\" OR \"unmark --INTEGER--\"\n\tYOU CAN list FOR REFERENCE\n" + H_LINE;
     protected static final String MARK_MESSAGE = H_LINE + "GOOD JOB BRO. I'VE MARKED IT AS DONE:";
     protected static final String UNMARK_MESSAGE = H_LINE + "OKAY I WILL MARK IT UNDONE:";
-    protected static final String TASKS_LIMIT_EXCEEDED_ERROR = H_LINE + "SORRY BRO THERE'S TOO MANY TASKS, I CAN'T "
-            + "ADD MORE :(\n" + H_LINE;
     protected static final String TASK_ADDED_MESSAGE = H_LINE + "OKAY I'VE ADDED THIS TASK:\n";
-    protected static final String TASKS_NUMBER_MESSAGE = "\nNUMBER OF TASKS CURRENTLY IN LIST: ";
+    protected static final String TASKS_NUMBER_MESSAGE = "NUMBER OF TASKS CURRENTLY IN LIST: ";
     protected static final String TODO_EMPTY_TASK_ERROR = H_LINE + "??? YOU NEED TO GIVE YOUR TASK A NAME\n"
             + "\ttodo --TASK--\n" + H_LINE;
     protected static final String DEADLINE_INPUT_ERROR = H_LINE + "INVALID DEADLINE LOL\nPLEASE USE /by TO INDICATE "
             + "DEADLINE TIME\n\tdeadline --TASK-- /by --TIME--\n" + H_LINE;
     protected static final String EVENT_INPUT_ERROR = H_LINE + "INVALID EVENT LOL\nPLEASE USE /from AND /to TO "
             + "INDICATE EVENT DURATION\n\tevent --TASK-- /from --START TIME-- /to --END TIME--\n" + H_LINE;
+    protected static final String DELETE_MESSAGE = H_LINE + "COOL BEANS I WILL REMOVE THAT TASK:";
+    protected static final String DELETE_ERROR = H_LINE + "SORRY BUT I CAN'T DELETE WHATEVER YOU'RE REFERRING TO BRO\n"
+            + "\tUSE A VALID INTEGER PLEASE: \"delete --INTEGER--\"\n" + H_LINE;
 
     public static void printHeaderLine() {
         System.out.println(H_LINE);
@@ -71,13 +73,14 @@ public class Printer {
         System.out.println(UNMARK_MESSAGE);
     }
 
-    public static void printTaskOvercapacityError() {
-        System.out.println(TASKS_LIMIT_EXCEEDED_ERROR);
+    public static void printNumOfTasks(int numOfTasks) {
+        System.out.println(TASKS_NUMBER_MESSAGE + numOfTasks);
+        System.out.println(H_LINE);
     }
 
-    public static void printTaskAddingMessage(String task, int currentNumberOfTasks) {
-        System.out.println(TASK_ADDED_MESSAGE + "  " + task + TASKS_NUMBER_MESSAGE + currentNumberOfTasks);
-        System.out.println(H_LINE);
+    public static void printTaskAddingMessage(String task, int numOfTasks) {
+        System.out.println(TASK_ADDED_MESSAGE + "  " + task);
+        printNumOfTasks(numOfTasks);
     }
 
     public static void printToDoEmptyError() {
@@ -90,5 +93,12 @@ public class Printer {
 
     public static void printEventInputError() {
         System.out.println(EVENT_INPUT_ERROR);
+    }
+
+    public static void printDeleteMessage() {
+        System.out.println(DELETE_MESSAGE);
+    }
+    public static void printDeleteError() {
+        System.out.println(DELETE_ERROR);
     }
 }
