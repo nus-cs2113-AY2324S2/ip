@@ -143,9 +143,9 @@ public class command {
      * Deletes task specified by User.
      *
      * @param taskList List of tasks.
-     * @param instruction User instruction on which task to mark.
+     * @param instruction User instruction on which task to delete.
      */
-    public static void deleteTask(List<Task> taskList, String instruction, boolean done)
+    public static void deleteTask(List<Task> taskList, String instruction)
             throws DukeException.InvalidIntegerException,
             DukeException.IntegerOutOfBoundsException {
         int taskNumber;
