@@ -7,4 +7,9 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("todo/%s/%s", description, isDone ? "1" : "0");
+    }
 }

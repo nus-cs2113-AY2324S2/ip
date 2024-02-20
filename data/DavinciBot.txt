@@ -1,0 +1,4 @@
+deadline/homework/tomorrow/0
+todo/eat/1
+event/study/now/later/0
+todo/go school/0

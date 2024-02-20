@@ -1,5 +1,9 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.IOException;
+
 
 /**
  * DavinciBot is a simple bot that allows the user to manage a to-do list.
@@ -10,6 +14,10 @@ public class DavinciBot {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     public static final int SPLIT_INTO_TWO_PARTS = 2;
+    private static final String DATA_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\DavinciBot.txt";
+    public static Task[] taskArray = new Task[0];
+
+
 
     /**
      * Selects the icon corresponding to the type of task inputted by the user.
@@ -58,6 +66,8 @@ public class DavinciBot {
                     System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
                             taskArray[taskIndex].getDescription());
                     System.out.println(LINE_SEPARATOR);
+
+                    writeFile();
                 } else {
                     throw new DavinciException("Invalid task index.");
                 }
@@ -89,6 +99,8 @@ public class DavinciBot {
                     System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
                             taskArray[taskIndex].getDescription());
                     System.out.println(LINE_SEPARATOR);
+
+                    writeFile();
                 } else {
                     throw new DavinciException("Invalid task index.");
                 }
@@ -198,7 +210,6 @@ public class DavinciBot {
         }
     }
 
-
     /**
      * Prints and echos back the newly added task.
      *
@@ -276,9 +287,8 @@ public class DavinciBot {
      * Warns the user if the input is invalid
      *
      * @param scanner Reads in the input.
-     * @param taskArray Array of tasks.
      */
-    private static void userCommand(Scanner scanner, Task[] taskArray) {
+    private static void userCommand(Scanner scanner){
         while (true) {
             System.out.print("What do you want me to do? ");
             String userInput = scanner.nextLine();
@@ -309,12 +319,108 @@ public class DavinciBot {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Task[] taskArray = new Task[0];
+    private static void startDavinici() {
+        readFile();
+    }
 
+    private static void readFile() {
+        try {
+            List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
+            taskArray = new Task[0];
+
+            for (String line : lines) {
+                Task task = readLine(line);
+                if (task != null && !containsTask(taskArray, task)) {
+                    taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
+                    taskArray[taskArray.length - 1] = task;
+                    echoTask(taskArray);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        } catch (DavinciException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void writeFile() {
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Task task : taskArray) {
+                lines.add(task.toFileString());
+            }
+            DavinciFileHandler.writeFile(DATA_FILE_PATH, lines);
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
+
+    private static boolean containsTask(Task[] tasks, Task task) {
+        for (Task t : tasks) {
+            if (t.equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Task readLine(String line) throws DavinciException {
+        try {
+            String[] tokens = line.split("/");
+            String command = tokens[0].toUpperCase();
+
+            boolean isDone = tokens[tokens.length - 1].equals("1"); // Check if the last token is "1"
+
+            Task newTask;
+
+            switch (command) {
+            case "TODO":
+                newTask = new Todo(tokens[1]);
+                break;
+            case "DEADLINE":
+                newTask = new Deadline(tokens[1], tokens[2]);
+                break;
+            case "EVENT":
+                newTask = new Event(tokens[1], tokens[2], tokens[3]);
+                break;
+            default:
+                System.out.println("Unknown task type: " + command);
+                return null; // Return null for unrecognized tasks
+            }
+
+            if (isDone) {
+                newTask.markAsDone();
+            }
+
+            if (!taskExists(newTask)) {
+                return newTask;
+            }
+
+            return null;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DavinciException("Corrupted file");
+        }
+    }
+
+    private static boolean taskExists(Task newTask) {
+        for (Task existingTask : taskArray) {
+            if (existingTask.equals(newTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        startDavinici();
         printStartingMessage();
-        userCommand(scanner, taskArray);
+        userCommand(scanner);
+        writeFile();
+
         scanner.close();
     }
+
 }
