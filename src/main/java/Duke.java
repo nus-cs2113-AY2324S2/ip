@@ -6,15 +6,14 @@ import exceptions.MimiException;
 import exceptions.MimiException.TaskNotFound;
 import exceptions.MimiException.InsufficientParameters;
 import exceptions.MimiException.IncorrectFormat;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     final static String APP_NAME = "mimichat";
     final static int INPUT_LIMIT = 2;
 
-    static Task[] taskList = new Task[100];
-    static int numberOfTask = 0;
+    static ArrayList<Task> taskList = new ArrayList<>();
 
     static boolean isRunning;
 
@@ -78,61 +77,66 @@ public class Duke {
     }
 
     private static void appendIntoTaskList(Task newTask) {
-        taskList[numberOfTask] = newTask;
-        numberOfTask++;
+        taskList.add(newTask);
     }
 
-    public static void listTasks(Task[] list, int numberOfTasks) {
+    public static void listTasks(ArrayList<Task> list) {
         System.out.println("-------------------------------------------");
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numberOfTasks; i++) {
-            System.out.println(formatTask(list[i], i));
+        for (Task t: list) {
+            System.out.println(formatTask(t, list.indexOf(t)));
         }
         System.out.println("-------------------------------------------");
     }
 
-    public static void markTask(Task[] list, String[] inputs) {
-
+    public static void deleteTask(ArrayList<Task> list, String[] inputs){
         try {
-            int index = checkValidityOfMarks(inputs);
-            list[index].markAsDone();
-            System.out.println("-------------------------------------------");
-            System.out.println("OK, I've marked this task as done");
-            System.out.println(formatTask(list[index], index));
-            System.out.println("-------------------------------------------");
+            int index = checkValidityOfIndex(inputs);
+            Task removedTask = list.get(index);
+            list.remove(index);
+            printDeleteMessage(removedTask);
+            
         } catch (TaskNotFound | InsufficientParameters | IncorrectFormat e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static int checkValidityOfMarks(String[] inputs) throws TaskNotFound,
+    public static void markTask(ArrayList<Task> list, String[] inputs) {
+
+        try {
+            int index = checkValidityOfIndex(inputs);
+            list.get(index).markAsDone();
+            printMarkTask(list, index);
+        } catch (TaskNotFound | InsufficientParameters | IncorrectFormat e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static int checkValidityOfIndex(String[] inputs) throws TaskNotFound,
             InsufficientParameters, IncorrectFormat {
         if (inputs.length != 2) {
             // Throws an error if parameters is incomplete
-            throw new InsufficientParameters(MimiException.INSUFFICIENT_MARK_PARAMETERS);
+            throw new InsufficientParameters(MimiException.INSUFFICIENT_INDEX_PARAMETERS);
         }
 
         try {
             int index = Integer.parseInt(inputs[1]) - 1;
-            if (index < 0 || index >= numberOfTask) {
+            if (index < 0 || index >= taskList.size()) {
                 // Throws an error if task is not found
                 throw new TaskNotFound(MimiException.TASK_NOT_FOUND);
             }
             return index;
         } catch (NumberFormatException e) {
             // Throws an error if the format is incorrect
-            throw new IncorrectFormat(MimiException.INCORRECT_MARK_FORMAT);
+            throw new IncorrectFormat(MimiException.INCORRECT_INDEX_FORMAT);
         }
     }
 
-    public static void unmarkTask(Task[] list, String[] inputs) {
+    public static void unmarkTask(ArrayList<Task> list, String[] inputs) {
         try {
-            int index = checkValidityOfMarks(inputs);
-            list[index].markAsUndone();
-            System.out.println("-------------------------------------------");
-            System.out.println("OK, I've marked this task as not done yet");
-            System.out.println(formatTask(list[index], index));
-            System.out.println("-------------------------------------------");
+            int index = checkValidityOfIndex(inputs);
+            list.get(index).markAsUndone();
+            printUnmarkTask(list, index);
         } catch (TaskNotFound |
                  InsufficientParameters |
                  IncorrectFormat e) {
@@ -141,7 +145,23 @@ public class Duke {
 
     }
 
+
+
     // METHOD REGARDING PRINT FORMATTING
+    private static void printMarkTask(ArrayList<Task> list, int index) {
+        System.out.println("-------------------------------------------");
+        System.out.println("OK, I've marked this task as done");
+        System.out.println(formatTask(list.get(index), index));
+        System.out.println("-------------------------------------------");
+    }
+
+    private static void printUnmarkTask(ArrayList<Task> list, int index) {
+        System.out.println("-------------------------------------------");
+        System.out.println("OK, I've marked this task as not done yet");
+        System.out.println(formatTask(list.get(index), index));
+        System.out.println("-------------------------------------------");
+    }
+
     public static void printDescription(String input) {
         System.out.println("-------------------------------------------");
         System.out.println(input);
@@ -152,7 +172,15 @@ public class Duke {
         System.out.println("-------------------------------------------");
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + formatTask(task));
-        System.out.println("Now you have " + Integer.toString(numberOfTask) + " in the list");
+        System.out.println("Now you have " + Integer.toString(taskList.size()) + " tasks in the list");
+        System.out.println("-------------------------------------------");
+    }
+
+    private static void printDeleteMessage(Task task) {
+        System.out.println("-------------------------------------------");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t" + formatTask(task));
+        System.out.println("Now you have " + Integer.toString(taskList.size()) + " tasks in the list");
         System.out.println("-------------------------------------------");
     }
 
@@ -194,7 +222,7 @@ public class Duke {
                 shutdownSequence();
                 break;
             case "list":
-                listTasks(taskList, numberOfTask);
+                listTasks(taskList);
                 break;
             case "mark":
                 markTask(taskList, inputs);
@@ -210,6 +238,9 @@ public class Duke {
                 break;
             case "event":
                 addEvent(inputs);
+                break;
+            case "delete":
+                deleteTask(taskList, inputs);
                 break;
             default:
                 // raise invalid instruction

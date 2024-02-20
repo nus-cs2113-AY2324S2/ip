@@ -12,16 +12,16 @@ public class MimiException {
     public final static String INCORRECT_EVENT_FORMAT = "event format is invalid. " +
             "Proper syntax: event [eventName] /from [startDate] /to [endDate]";
 
-    public final static String INCORRECT_MARK_FORMAT = "mark/unmark format is invalid. " +
-            "Proper syntax: mark/unmark [task number]";
+    public final static String INCORRECT_INDEX_FORMAT = "delete/mark/unmark format is invalid. " +
+            "Proper syntax: delete/mark/unmark [task number]";
     public final static String INSUFFICIENT_TODO_PARAMETERS = "todo parameters is incomplete. " +
             "Proper syntax: todo [task]";
     public final static String INSUFFICIENT_DEADLINE_PARAMETERS = "deadline parameters is incomplete. " +
             "Proper syntax: deadline [instruction] /by [deadline]";
     public final static String INSUFFICIENT_EVENT_PARAMETERS = "event parameters is incomplete. " +
             "Proper syntax: event [eventName] /from [startDate] /to [endDate]";
-    public final static String INSUFFICIENT_MARK_PARAMETERS = "mark/unmark parameters is incomplete. " +
-            "Proper syntax: mark/unmark [task number]";
+    public final static String INSUFFICIENT_INDEX_PARAMETERS = "delete/mark/unmark parameters is incomplete. " +
+            "Proper syntax: delete/mark/unmark [task number]";
     public final static String TASK_NOT_FOUND = "task not found. " + "Please check the task number again.";
 
     public static class InsufficientParameters extends Exception {
