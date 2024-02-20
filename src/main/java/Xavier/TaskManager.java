@@ -7,18 +7,21 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.util.ArrayList;
+
 public class TaskManager {
     public static final int MAX_ENTRIES = 100;
-    int numberOfItems = 0;
-    Task[] itemList = new Task[MAX_ENTRIES];
+    ArrayList<Task> itemList = new ArrayList<>();
 
     public void handleCommand(String command) {
         if (command.equals("list")) {
             printList();
         } else if (command.startsWith("mark") || command.startsWith(("unmark"))) {
             handleMarkAsDone(command);
-        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")){
+        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
             printOutput(command);
+        } else if (command.startsWith("delete")) {
+            deleteTask(command);
         } else {
             printErrorMessage();
         }
@@ -26,8 +29,8 @@ public class TaskManager {
 
     private void printList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numberOfItems; i++) {
-            System.out.println(i + 1 + "." + itemList[i].toString());
+        for (int i = 0; i < itemList.size(); i++) {
+            System.out.println(i + 1 + "." + itemList.get(i).toString());
         }
     }
 
@@ -35,15 +38,15 @@ public class TaskManager {
         String[] stringArray = command.split(" ");
         int index = Integer.parseInt(stringArray[1]) - 1;
         if (command.startsWith("mark")) {
-            itemList[index].markAsDone();
+            itemList.get(index).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
         } else if (command.startsWith("unmark")) {
-            itemList[index].markAsNotDone();
+            itemList.get(index).markAsNotDone();
             System.out.println("OK, I've marked this task as not yet done:");
         }
-        System.out.println(itemList[index].toString());
+        System.out.println(itemList.get(index).toString());
     }
-    
+
     public void handleAddTask(String command) throws InvalidInputException, NoInputException {
         String[] stringArray = command.split(" ");
         if (stringArray.length == 1) {
@@ -54,7 +57,7 @@ public class TaskManager {
             int toDoStartIndex = 4;
             String toDoString = command.substring(toDoStartIndex);
             Todo toDo = new Todo(toDoString);
-            itemList[numberOfItems] = toDo;
+            itemList.add(toDo);
         }
         else if (command.startsWith("deadline")){
             if (!command.contains("/by")) {
@@ -64,7 +67,7 @@ public class TaskManager {
             String description = command.substring(8, deadlineIndex);
             String by = command.substring(deadlineIndex + 4);
             Deadline deadline = new Deadline(description, by);
-            itemList[numberOfItems] = deadline;
+            itemList.add(deadline);
         }
         else if (command.startsWith("event")){
             if (!command.contains("/from") || !command.contains("/to")) {
@@ -76,8 +79,17 @@ public class TaskManager {
             String start = command.substring(startIndex + 6, endIndex);
             String end = command.substring(endIndex + 4);
             Event event = new Event(description, start, end);
-            itemList[numberOfItems] = event;
+            itemList.add(event);
         }
+    }
+
+    public void deleteTask(String command) {
+        String[] stringArray = command.split(" ");
+        int index = Integer.parseInt(stringArray[1]) - 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(itemList.get(index).toString());
+        itemList.remove(index);
+        System.out.println("Now you have " + itemList.size() + " tasks in the list.");
     }
 
     private void printOutput(String command) {
@@ -85,9 +97,8 @@ public class TaskManager {
         try {
             handleAddTask(command);
             System.out.println("Got it. I've added this task:");
-            System.out.println(itemList[numberOfItems].toString());
-            numberOfItems += 1;
-            System.out.println("Now you have " + numberOfItems + " tasks in the list.");
+            System.out.println(itemList.get(itemList.size()-1).toString());
+            System.out.println("Now you have " + itemList.size() + " tasks in the list.");
         } catch (NoInputException e) {
             System.out.println("OOPS!!! The description of a " + stringArray[0] + " cannot be empty.");
         } catch (InvalidInputException e) {
