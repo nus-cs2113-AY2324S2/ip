@@ -73,6 +73,8 @@ public class DavinciBot {
                     System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
                             taskArray[taskIndex].getDescription());
                     System.out.println(LINE_SEPARATOR);
+
+                    writeFile();
                 } else {
                     throw new DavinciException("Invalid task index.");
                 }
@@ -104,6 +106,8 @@ public class DavinciBot {
                     System.out.println("[" + taskArray[taskIndex].getStatusIcon() + "] " +
                             taskArray[taskIndex].getDescription());
                     System.out.println(LINE_SEPARATOR);
+
+                    writeFile();
                 } else {
                     throw new DavinciException("Invalid task index.");
                 }
@@ -206,14 +210,12 @@ public class DavinciBot {
             default:
                 throw new DavinciException("Unknown task type. Please use 'todo', 'deadline', or 'event'.");
             }
-            writeFile();
             return taskArray;
         } catch (DavinciException e) {
             System.out.println("Error: " + e.getMessage());
             return taskArray;
         }
     }
-
 
     /**
      * Prints and echos back the newly added task.
