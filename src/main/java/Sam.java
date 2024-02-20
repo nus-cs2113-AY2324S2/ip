@@ -88,7 +88,7 @@ public class Sam {
                 System.out.println("That's not a number!");
                 printLine();
                 line = in.nextLine(); // Prompt for new input
-            } catch(IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 switch (words[0]) {
                 case "todo":
                     System.out.println("I am expecting: todo <description>");
