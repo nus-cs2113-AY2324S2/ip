@@ -1,3 +1,5 @@
+package Kowalski.tasks;
+
 public class Event extends Task {
     protected String startDayAndTime;
     protected String endDayAndTime;

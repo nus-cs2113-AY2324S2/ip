@@ -1,3 +1,11 @@
+package Kowalski;
+
+import Kowalski.commands.KowalskiException;
+import Kowalski.tasks.Deadline;
+import Kowalski.tasks.Event;
+import Kowalski.tasks.Task;
+import Kowalski.tasks.Todo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +62,10 @@ public class Kowalski {
 
     /**
      * Prints out an accurate message for the number of tasks in the list.
-     * @param number : represents the total current task count
+     * @param numberOfTasks : represents the total current task count
      */
-    public static void printCurrentTaskMessage(int number){
-        switch (number){
+    public static void printCurrentTaskMessage(int numberOfTasks){
+        switch (numberOfTasks){
         case 0:
             System.out.println("Now you have 0 tasks in the list.");
             break;
@@ -65,7 +73,7 @@ public class Kowalski {
             System.out.println("Now you have 1 task in the list.");
             break;
         default:
-            System.out.println("Now you have " + number + " tasks in the list.");
+            System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
         }
     }
 
