@@ -6,7 +6,7 @@ import exceptions.InvalidCommandException;
 
 public class Command{
     public enum Commands {
-        list, mark, unmark, add, delete, bye
+        list, mark, unmark, add, bye
     }
 
     public static Commands getCommands(String input, String[] inputs) throws EmptyIndexException, EmptyTaskException, InvalidCommandException {
@@ -26,8 +26,6 @@ public class Command{
                 return Commands.mark;
             } else if (inputs[0].equalsIgnoreCase("unmark") && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
                 return Commands.unmark;
-            } else if (inputs[0].equalsIgnoreCase("delete") && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
-                return Commands.delete;
             } else {
                 throw new InvalidCommandException();
             }
