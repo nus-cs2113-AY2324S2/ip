@@ -1,7 +1,5 @@
 package cody.tasks;
 
-import cody.tasks.Task;
-
 public class Todo extends Task {
 
     public Todo (String description) {
