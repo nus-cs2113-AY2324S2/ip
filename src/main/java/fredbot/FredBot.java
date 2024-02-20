@@ -7,14 +7,16 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FredBot {
-    private static Task[] allTasks;
+    private static ArrayList<Task> allTasks;
     private static final int TASK_CAPACITY = 100;
     private static int count;
 
     private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";
@@ -23,6 +25,7 @@ public class FredBot {
     private static final String COMMAND_UNMARK = "unmark";
 
     private static final String MESSAGE_ADD = "Are you sure you'll ever get to it? Fine, I've added this task:";
+    private static final String MESSAGE_DELETE = "Finally lifting my load? I've removed this task:";
     private static final String MESSAGE_EMPTY_LIST = "Go and touch some grass... your list is empty.";
     private static final String MESSAGE_EMPTY_DESCRIPTION = "I can't do that if you don't give me the description...";
     private static final String MESSAGE_UNKNOWN_COMMAND = "I have no idea what you just said.";
@@ -48,7 +51,7 @@ public class FredBot {
     }
 
     private static void initTaskList() {
-        allTasks = new Task[TASK_CAPACITY];
+        allTasks = new ArrayList<>();
         count = 0;
     }
 
@@ -92,6 +95,9 @@ public class FredBot {
         case COMMAND_UNMARK:
             executeUnmark(commandArgs);
             break;
+        case COMMAND_DELETE:
+            executeDelete(commandArgs);
+            break;
         case COMMAND_EXIT:
             executeExit();
             break;
@@ -107,7 +113,7 @@ public class FredBot {
 
     private static void executeAddTodo(String input) {
         try {
-            allTasks[count] = new Todo(input);
+            allTasks.add(new Todo(input));
             echoTask();
         } catch (EmptyDescriptionException e) {
             System.out.println(MESSAGE_EMPTY_DESCRIPTION);
@@ -117,7 +123,7 @@ public class FredBot {
     private static void executeAddDeadline(String input) {
         String[] split = splitDeadlineAndDate(input);
         try {
-            allTasks[count] = new Deadline(split[0], split[1]);
+            allTasks.add(new Deadline(split[0], split[1]));
             echoTask();
         } catch (EmptyDescriptionException e) {
             System.out.println(MESSAGE_EMPTY_DESCRIPTION);
@@ -136,7 +142,7 @@ public class FredBot {
     private static void executeAddEvent(String input) {
         String[] split = splitEventAndDates(input);
         try {
-            allTasks[count] = new Event(split[0], split[1], split[2]);
+            allTasks.add(new Event(split[0], split[1], split[2]));
             echoTask();
         } catch (EmptyDescriptionException e) {
             System.out.println(MESSAGE_EMPTY_DESCRIPTION);
@@ -160,7 +166,7 @@ public class FredBot {
 
     private static void echoTask() {
         System.out.println(MESSAGE_ADD);
-        System.out.println(allTasks[count].toString());
+        System.out.println(allTasks.get(count).toString());
         count++;
         String task = (count == 1) ? " task " : " tasks ";
         System.out.println("You now have " + count + task + "in the list.");
@@ -174,22 +180,31 @@ public class FredBot {
 
         System.out.println(MESSAGE_LIST_HEADER);
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + ". " + allTasks[i].toString());
+            System.out.println((i + 1) + ". " + allTasks.get(i).toString());
         }
     }
 
     private static void executeMark(String taskNumber) {
         int index = Integer.parseInt(taskNumber) - 1;
-        allTasks[index].markAsDone();
+        allTasks.get(index).markAsDone();
         System.out.println(MESSAGE_MARK);
-        System.out.println(allTasks[index].toString());
+        System.out.println(allTasks.get(index).toString());
     }
 
     private static void executeUnmark(String taskNumber) {
         int index = Integer.parseInt(taskNumber) - 1;
-        allTasks[index].unmarkAsDone();
+        allTasks.get(index).unmarkAsDone();
         System.out.println(MESSAGE_UNMARK);
-        System.out.println(allTasks[index].toString());
+        System.out.println(allTasks.get(index).toString());
+    }
+
+    private static void executeDelete(String taskNumber) {
+        int index = Integer.parseInt(taskNumber) - 1;
+        System.out.println(MESSAGE_DELETE);
+        System.out.println(allTasks.remove(index).toString());
+        count--;
+        String task = (count == 1) ? " task " : " tasks ";
+        System.out.println("You now have " + count + task + "in the list.");
     }
 
     private static void executeExit() {
