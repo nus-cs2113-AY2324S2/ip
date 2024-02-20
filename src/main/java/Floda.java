@@ -90,13 +90,37 @@ public class Floda {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
         String remaining = taskScanner.nextLine().trim();
-        String[] parts = remaining.split("/by");
-        String description = parts[0].trim();
-        String by = parts[1].trim();
+        int byIndex = remaining.indexOf("/by");
+        if (byIndex == -1 || byIndex == 0) {
+            throw new InvalidInputException("Invalid input format! Use: 'deadline <description> /by <time>'");
+        }
+        String description = remaining.substring(0, byIndex).trim();
+        String by = remaining.substring(byIndex + 3).trim();
         list[taskCounter] = new Deadline(description, by);
         taskCounter++;
-        System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
+        System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + taskCounter + " items in the list!");
     }
+
+    private static void handleEventTask(String line, Task[] list) throws InvalidInputException {
+        Scanner taskScanner = new Scanner(line);
+        taskScanner.next();
+        String remaining = taskScanner.nextLine().trim();
+        int fromIndex = remaining.indexOf("/from");
+        if (fromIndex == -1 || fromIndex == 0) {
+            throw new InvalidInputException("Invalid input format! Use: 'event <description> /from <start time> /to <end time>'");
+        }
+        int toIndex = remaining.indexOf("/to");
+        if (toIndex == -1 || toIndex <= fromIndex + 5) {
+            throw new InvalidInputException("Invalid input format! Use: 'event <description> /from <start time> /to <end time>'");
+        }
+        String description = remaining.substring(0, fromIndex).trim();
+        String from = remaining.substring(fromIndex + 5, toIndex).trim();
+        String to = remaining.substring(toIndex + 3).trim();
+        list[taskCounter] = new Events(description, from, to);
+        taskCounter++;
+        System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + taskCounter + " items in the list!");
+    }
+
 
     private static void handleTodoTask(String line, Task[] list) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
@@ -107,20 +131,7 @@ public class Floda {
         System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
     }
 
-    private static void handleEventTask(String line, Task[] list) throws InvalidInputException {
-        Scanner taskScanner = new Scanner(line);
-        taskScanner.next();
-        String remaining = taskScanner.nextLine().trim();
-        remaining = remaining.replace("/to", "/from");
-        String[] parts = remaining.split("/from");
-        String description = parts[0].trim();
-        String from = parts[1].trim();
-        String to = parts[2].trim();
-        list[taskCounter] = new Events(description, from, to);
-        taskCounter++;
-        System.out.println("Added: " + list[taskCounter - 1] + "\nNow you have " + (taskCounter) + " items in the list!");
 
-    }
 
     private static boolean isValidTaskNumber(int taskNumber) {
         return taskNumber >= 0 && taskNumber < taskCounter;
