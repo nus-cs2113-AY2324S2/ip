@@ -123,6 +123,9 @@ public class TaskManager {
             Task task = tasks.get(index);
             tasks.remove(index);
             printDeleteTask(task);
+        } catch (NumberFormatException e) {
+            System.out.print(" Task number is invalid\n"
+                    + " Please enter a valid number\n");
         } catch (IndexOutOfBoundsException e) {
             System.out.print(" Task number is out of range\n"
                     + " Please enter a number between 1 and " + tasks.size() + "\n");
@@ -144,14 +147,11 @@ public class TaskManager {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 printList();
-
-            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-                handleMarking(input);
-
             } else if (input.startsWith("delete")) {
                 deleteTask(input);
-            }
-            else {
+            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+                handleMarking(input);
+            }  else {
                 addTask(input);
             }
             input = in.nextLine();
