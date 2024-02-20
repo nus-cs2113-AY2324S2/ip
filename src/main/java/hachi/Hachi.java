@@ -3,10 +3,15 @@ package hachi;
 import hachi.data.HachiException;
 import hachi.data.task.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static java.nio.file.Files.delete;
 
 /**
  * This program currently starts the chatbot with a greeting,
@@ -238,9 +243,13 @@ public class Hachi {
         boolean isBye = false;
         boolean isUpdated = false;
 
-        // TRY TO LOAD TEXT FILE HERE BY CHECKING DIR
-        // THROW EXCEPTION IF NO FILE FOUND AND CREATE NEW FILE IN DIR
-        // ELSE POPULATE TASK ARRAYLIST FROM TEXT FILE
+        try {
+            loadFile(taskArrayList);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error finding specified file. Creating empty task list.");
+        } catch (HachiException e) {
+            System.out.println("Corrupted file format.");
+        }
 
         spacerInsert("medium", false);
         printGreetingMessage();
@@ -310,26 +319,67 @@ public class Hachi {
             } catch (HachiException e) {
                 System.out.println(e.getMessage());
             } finally {
-                spacerInsert("medium", true);
-
                 if (isUpdated) { // save if there is a file update
-                    save(taskArrayList);
+                    try {
+                        save(taskArrayList);
+                    } catch (IOException e) {
+                        System.out.println("There was an error saving tasks.");
+                    }
                 }
+
+                spacerInsert("medium", true);
             }
         }
     }
 
-    private static void save(ArrayList<Task> taskArrayList) {
-        String filePath = "some path name";
+    private static void loadFile(ArrayList<Task> taskArrayList) throws FileNotFoundException, HachiException {
+        File taskFile = new File("src/main/java/hachi.txt");
+        Scanner s = new Scanner(taskFile);
 
-        try (FileWriter fw = new FileWriter(filePath)) {
-            for (Task task : taskArrayList) {
-                if (task != null) {
-                    fw.write(task.toString() + "\n");
-                } else break;
+        while (s.hasNext()) {
+            String[] line = s.nextLine().split(" \\| ");
+            Task toAdd;
+
+            switch (line[0]){
+            case "T":
+                toAdd = new Todo(line[2]);
+                break;
+
+            case "D":
+                toAdd = new Deadline(line[2], line[3]);
+                break;
+
+            case "E":
+                toAdd = new Event(line[2], line[3], line[4]);
+                break;
+
+            default:
+                throw new HachiException(HachiException.CORRUPTED_SAVE_MESSAGE);
             }
-        } catch (IOException e) {
-            System.out.println("There was an error saving files: " + e.getMessage());
+
+            if (line[1].equals("X")) {
+                toAdd.setCompleteness(true);
+            }
+            taskArrayList.add(toAdd);
         }
+    }
+
+    private static void save(ArrayList<Task> taskArrayList) throws IOException {
+        try {
+            FileWriter fw = new FileWriter("src/main/java/hachi.txt", false);
+            fw.write("");
+            System.out.println("\n\tOverwriting task list...");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("\n\tCreating new task list save...");
+        }
+
+        FileWriter fw = new FileWriter("src/main/java/hachi.txt");
+        for (Task task : taskArrayList) {
+            if (task != null) {
+                fw.write(task.getSaveFormat() + "\n");
+            } else break;
+        }
+        fw.close();
     }
 }

@@ -89,4 +89,8 @@ public class Task {
     public String getTaskType() {
         return "?";
     }
+
+    public String getSaveFormat () {
+        return "?";
+    }
 }
