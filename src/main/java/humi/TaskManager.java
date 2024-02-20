@@ -24,12 +24,27 @@ public class TaskManager {
             } else if (command.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(command.substring(7));
                 taskList[taskIndex - 1].unmark();
+            } else if (command.startsWith("delete")) {
+                handleDelete(command);
             } else {
                 System.out.println("Invalid input. What is " + command + "?");
             }
         } catch (HumiException e) {
             System.out.println(e.message);
         }
+    }
+
+    private void handleDelete(String command) {
+        System.out.println(Humi.LINE);
+        System.out.print("    Noted. I've removed this task:\n      ");
+        int taskIndex = Integer.parseInt(command.substring(7));
+        taskList[taskIndex - 1].print();
+        for (int i = taskIndex-1; i < taskCount; i+=1) {
+            taskList[i] = taskList[i+1];
+        }
+        taskCount -= 1;
+        System.out.println("    Now you have " + taskCount + " tasks in the list");
+        System.out.println(Humi.LINE);
     }
 
     private void handleEvent(String command) throws HumiException {
