@@ -1,5 +1,5 @@
 package Blue;
 
 public enum InputCommand {
-   list, mark, todo, deadline, event, undefined
+   list, mark, todo, deadline, event, bye, undefined
 }

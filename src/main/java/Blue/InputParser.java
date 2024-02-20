@@ -1,80 +1,83 @@
 package Blue;
 
 public class InputParser extends Blue {
-    private InputCommand command;
-    private int taskIndex;
-    private Task taskToAdd;
+    private Input parsedInput;
 
-    public InputCommand getCommand() {
-        return command;
-    }
-    public int getTaskIndex() {
-        return taskIndex;
-    }
-    public Task getTaskToAdd() {
-        return taskToAdd;
+    public Input getParsedInput() {
+        return parsedInput;
     }
 
-    InputParser(String line) {
+    public void parse(String line) {
+        InputCommand command = InputCommand.undefined;
+        int taskIndex = -1;
+        Task taskToAdd = new Task();
         try {
-            parseRequest(line);
-            parseTask(line);
+            command = parseRequest(line);
+            taskIndex = parseIndex(line, command);
+            taskToAdd = parseTask(line, command);
         } catch (IllegalInput e) {
-            talk(String.valueOf(e));
             command = InputCommand.undefined;
+            talk(String.valueOf(e));
+        } finally {
+            parsedInput = new Input(command, taskIndex, taskToAdd);
         }
     }
 
-    private void parseRequest(String line) throws IllegalInput {
+    private InputCommand parseRequest(String line) throws IllegalInput {
         String parsedRequest = line.trim().split(" ")[0];
         switch (parsedRequest) {
         case "list":
-            command = InputCommand.list;
-            break;
+            return InputCommand.list;
         case "mark":
-            command = InputCommand.mark;
-            try {
-                taskIndex = Integer.parseInt(line.substring(4).trim()) - 1;
-            } catch (NumberFormatException e) {
-                throw new IllegalInput(InputCommand.mark);
-            }
-            break;
+            return InputCommand.mark;
         case "todo":
-            command = InputCommand.todo;
-            break;
+            return InputCommand.todo;
         case "deadline":
-            command = InputCommand.deadline;
-            break;
+            return InputCommand.deadline;
         case "event":
-            command = InputCommand.event;
-            break;
+            return InputCommand.event;
+        case "bye":
+            return InputCommand.bye;
         default:
             throw new IllegalInput();
         }
     }
 
-    private void parseTask(String line) throws IllegalInput {
+    private int parseIndex(String line, InputCommand command) throws IllegalInput {
+        switch (command) {
+        case mark:
+            try {
+                int taskIndex = Integer.parseInt(line.substring(4).trim()) - 1;
+                return taskIndex;
+            } catch (NumberFormatException e) {
+                throw new IllegalInput(InputCommand.mark);
+            }
+        default:
+            return -1;
+        }
+    }
+
+    private Task parseTask(String line, InputCommand command) throws IllegalInput {
         String taskDescription;
         String taskDeadline;
         String taskStart;
         switch (command) {
         case todo:
             taskDescription = line.substring(4).trim();
-            taskToAdd = new Task(taskDescription);
-            break;
+            return new Task(taskDescription);
         case deadline:
             String[] TaskDetails = line.substring(8).split("/by");
             taskDescription = TaskDetails[0].trim();
             taskDeadline = TaskDetails[1].trim();
-            taskToAdd = new Deadline(taskDescription, taskDeadline);
-            break;
+            return new Deadline(taskDescription, taskDeadline);
         case event:
             String[] eventDetails = line.substring(5).split("/from|/to");
             taskDescription = eventDetails[0].trim();
             taskStart = eventDetails[1].trim();
             taskDeadline = eventDetails[2].trim();
-            taskToAdd = new Event(taskDescription, taskStart, taskDeadline);
-            break;
+            return new Event(taskDescription, taskStart, taskDeadline);
+        default:
+            return new Task();
         }
     }
 }

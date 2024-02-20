@@ -10,30 +10,35 @@ public class Blue {
     public static void talk(String line) {
         System.out.println(line);
     }
-    private static void handleRequest(InputParser blueRequest) {
-        TaskManager tmMaster = new TaskManager();
-        InputCommand request = blueRequest.getCommand();
-        switch (request) {
-        case list:
-            tmMaster.listTasks();
-            break;
-        case mark:
-            tmMaster.markTask(blueRequest.getTaskIndex());
-            break;
-        case todo:
-        case deadline:
-        case event:
-            tmMaster.addTask(blueRequest.getTaskToAdd());
-            break;
-        default:
-        }
+
+    private static Input getRequest(Scanner in, InputParser blueParser) {
+        String line = in.nextLine();
+        blueParser.parse(line);
+        Input userInput = blueParser.getParsedInput();
+        return userInput;
     }
+
+    private static int handleRequest(Input request) {
+        if (request.getCommand() == InputCommand.bye) {
+            return 0;
+        }
+        if (request.getCommand() == InputCommand.undefined) {
+            return 2;
+        }
+        TaskManager tmMaster = new TaskManager(request);
+        tmMaster.performRequest();
+        return 1;
+    }
+
     public static void main(String[] args) {
         talk(WELCOME_MESSAGE);
         Scanner in = new Scanner(System.in);
-        for (String line = in.nextLine(); !line.trim().equals("bye"); line = in.nextLine()) {
-            InputParser blueRequest = new InputParser(line);
-            handleRequest(blueRequest);
+        InputParser blueParser = new InputParser();
+        Input userInput;
+        int status = 1;
+        while (status != 0) {
+            userInput = getRequest(in, blueParser);
+            status = handleRequest(userInput);
         }
         talk(GOODBYE_MESSAGE);
     }

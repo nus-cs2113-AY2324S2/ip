@@ -5,13 +5,37 @@ public class TaskManager extends Blue {
     public static final int MAX_TASKS = 100;
     private static Task[] tasks = new Task[MAX_TASKS];
     private static int numTasks = 0;
+    private Input request;
 
-    public void listTasks() {
-        for (int i = 0; i < numTasks; i += 1) {
-            talk(Integer.toString(i + 1) + ". " + tasks[i]);
+    public TaskManager(Input request) {
+        this.request = request;
+    }
+
+    //@Override
+    public void performRequest() {
+        switch (request.getCommand()) {
+        case list:
+            listTasks();
+            break;
+        case mark:
+            markTask(request.getTaskIndex());
+            break;
+        case todo:
+        case deadline:
+        case event:
+            addTask(request.getTaskToAdd());
+            break;
+        default:
         }
     }
-    public void markTask(int taskIndex) {
+
+    private void listTasks() {
+        for (int i = 0; i < numTasks; i += 1) {
+            talk((i + 1) + ". " + tasks[i]);
+        }
+    }
+
+    private void markTask(int taskIndex) {
         if (taskIndex < 0 || taskIndex >= numTasks) {
             talk("Task not found.");
             return;
@@ -19,24 +43,10 @@ public class TaskManager extends Blue {
         tasks[taskIndex].setDone();
         talk("Task " + tasks[taskIndex].getDescription() + " marked as done.");
     }
-    public void addTask(Task task) {
+
+    private void addTask(Task task) {
         tasks[numTasks] = task;
         numTasks += 1;
         talk("added: " + task.getDescription());
-    }
-    public void addTask(String description) {
-        tasks[numTasks] = new Task(description);
-        numTasks += 1;
-        talk("added: " + description);
-    }
-    public void addTask(String description, String by) {
-        tasks[numTasks] = new Deadline(description, by);
-        numTasks += 1;
-        talk("added: " + description);
-    }
-    public void addTask(String description, String from, String to) {
-        tasks[numTasks] = new Event(description, from, to);
-        numTasks += 1;
-        talk("added: " + description);
     }
 }
