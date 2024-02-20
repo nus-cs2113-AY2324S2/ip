@@ -1,0 +1,3 @@
+T | 0 | gohome
+D | 0 | eat | dinner
+E | 0 | party | today | tomororw

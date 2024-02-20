@@ -2,11 +2,41 @@ package Misty;
 
 import Misty.Exception.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Misty {
     public static void main(String[] args) {
+        try {
+            SaveFile.createFilesIfFirstTime();
+        } catch (IOException e) {
+            Parser.printErrorIO();
+        } catch (SecurityException e) {
+            Parser.printErrorSecurity();
+        }
+
         List itemList = new List();
+
+        try {
+            SaveFile.loadData(itemList);
+        } catch (FileNotFoundException e) {
+            Parser.printErrorFileNotFound();
+        } catch (EmptyTaskNameException e) {
+            Parser.printErrorCorruptedFile();
+        } catch (IllegalListIndexException e) {
+            Parser.printErrorCorruptedFile();
+        } catch (EmptyByException e) {
+            Parser.printErrorCorruptedFile();
+        } catch (EmptyFromException e ) {
+            Parser.printErrorCorruptedFile();
+        } catch (EmptyToException e) {
+            Parser.printErrorCorruptedFile();
+        } catch (UnknownTaskException e) {
+            Parser.printErrorCorruptedFile();
+        }
+
         Parser.printWelcomeMessage();
 
         String input;
