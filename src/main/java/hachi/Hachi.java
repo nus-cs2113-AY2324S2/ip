@@ -44,14 +44,14 @@ public class Hachi {
     private static void printHelpMessage() {
         spacerInsert("medium", true);
         System.out.println("You can use the following commands:");
-        System.out.println("    'list' to retrieve your current list of tasks,");
-        System.out.println("    'mark <#>' to mark task number # as complete,");
-        System.out.println("    'unmark <#>' to mark task number # as incomplete,");
-        System.out.println("    'todo <task name>' to create a to-do,");
-        System.out.println("    'deadline <task name> /by <by date>' to create a task with a deadline,");
-        System.out.println("    'event <task name> /from <start> /to <end>' to create an event with a start and end date,");
-        System.out.println("    'bye' to stop chatting :('");
-        System.out.println("    And if you need to see this again, type 'help'!");
+        System.out.println("\t'list' to retrieve your current list of tasks,");
+        System.out.println("\t'mark <#>' to mark task number # as complete,");
+        System.out.println("\t'unmark <#>' to mark task number # as incomplete,");
+        System.out.println("\t'todo <task name>' to create a to-do,");
+        System.out.println("\t'deadline <task name> /by <by date>' to create a task with a deadline,");
+        System.out.println("\t'event <task name> /from <start> /to <end>' to create an event with a start and end date,");
+        System.out.println("\t'bye' to stop chatting :('");
+        System.out.println("\tAnd if you need to see this again, type 'help'!");
         spacerInsert("medium", true);
     }
 
@@ -68,7 +68,7 @@ public class Hachi {
         String spacer;
 
         if (hasTab) {
-            System.out.print("    ");
+            System.out.print("\t");
         }
 
         switch (length) {
@@ -100,12 +100,12 @@ public class Hachi {
         HachiException.checkEmptyList(numTasks);
         spacerInsert("medium", true);
 
-        System.out.println("    The following are in your list:");
+        System.out.println("\tThe following are in your list:");
         taskArrayList.forEach(task -> {
             String taskType = task.getTaskType();
             String statusIcon = task.getStatusIcon();
             int currentIndex = taskArrayList.indexOf(task);
-            System.out.print("    " + (currentIndex + 1) + ": ");
+            System.out.print("\t" + (currentIndex + 1) + ": ");
             System.out.print("[" + taskType + "] ");
             System.out.print("[" + statusIcon + "] ");
             System.out.println(task.getName());
@@ -152,7 +152,7 @@ public class Hachi {
         }
 
         taskArrayList.add(toAdd);
-        System.out.println("    Added to list: " + toAdd.getName());
+        System.out.println("\tAdded to list: " + toAdd.getName());
     }
 
     /**
@@ -163,7 +163,10 @@ public class Hachi {
      */
 
     public static void markOrUnmarkHandler(String cleanedInput ) throws HachiException{
-        int taskNumber = getTaskNumber(cleanedInput);
+        int numTasks = Task.getTotalNumTasks();
+        HachiException.checkEmptyList(numTasks);
+        int taskNumber = getMarkTaskNumber(cleanedInput);
+        HachiException.checkOutOfBounds(taskNumber);
         markOrUnmarkTask(taskNumber - 1, !cleanedInput.contains("UNMARK"));
     }
 
@@ -177,23 +180,50 @@ public class Hachi {
 
     public static void markOrUnmarkTask(int index, boolean isMark) {
         taskArrayList.get(index).setCompleteness(isMark);
-        System.out.println("    Sure, I've done as you requested:");
+        System.out.println("\tSure, I've done as you requested:");
 
         Task currentTask = taskArrayList.get(index);
         String taskType = currentTask.getTaskType();
         String statusIcon = currentTask.getStatusIcon();
-        System.out.print("    " + (index + 1) + ": ");
+        System.out.print("\t" + (index + 1) + ": ");
         System.out.print("[" + taskType + "] ");
         System.out.print("[" + statusIcon + "] ");
         System.out.println(currentTask.getName());
     }
 
     private static void deleteTask(String cleanedInput) throws HachiException {
-        int taskNumber = getTaskNumber(cleanedInput);
-        taskArrayList.remove(taskNumber);
+        int numTasks = Task.getTotalNumTasks();
+        HachiException.checkEmptyList(numTasks);
+        int taskNumber = getDeleteTaskNumber(cleanedInput);
+        HachiException.checkOutOfBounds(taskNumber);
+
+        Task toDelete = taskArrayList.get(taskNumber - 1);
+        String taskType = toDelete.getTaskType();
+        String statusIcon = toDelete.getStatusIcon();
+        Task.decrementTotalNumTasks();
+
+        System.out.println("\tSure, I've done as you requested.");
+        System.out.print("\t[" + taskType + "] ");
+        System.out.print("[" + statusIcon + "] " + toDelete.getName());
+        System.out.println(" has been deleted from your list.");
+
+        taskArrayList.remove(taskNumber - 1);
     }
 
-    private static int getTaskNumber(String cleanedInput) throws HachiException {
+    private static int getDeleteTaskNumber(String cleanedInput) throws HachiException {
+        int indexOfTaskNum = cleanedInput.indexOf("DELETE") + 6; // find index of task number
+        int taskNumber = 0;
+
+        try {
+            taskNumber = Integer.parseInt(cleanedInput.substring(indexOfTaskNum).trim()); // parse string to int
+        } catch (NumberFormatException e){
+            HachiException.checkOutOfBounds(indexOfTaskNum);
+        }
+
+        return taskNumber;
+    }
+
+    private static int getMarkTaskNumber(String cleanedInput) throws HachiException {
         int indexOfTaskNum = cleanedInput.indexOf("MARK") + 4; // find index of task number
         int taskNumber = 0;
 
@@ -211,7 +241,7 @@ public class Hachi {
      */
 
     public static void printGoodbyeMessage() {
-        System.out.println("    Goodbye! Hope you have a marvelous day.");
+        System.out.println("\tGoodbye! Hope you have a marvelous day.");
     }
 
     /**
@@ -264,6 +294,7 @@ public class Hachi {
 
                 case "DELETE":
                     deleteTask(cleanedInput);
+                    break;
 
                 case "TODO":
                 case "EVENT":

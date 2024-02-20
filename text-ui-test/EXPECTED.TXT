@@ -8,54 +8,62 @@ Hey, Hachi Here!
 How can I assist you today?
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can use the following commands:
-    'list' to retrieve your current list of tasks,
-    'mark <#>' to mark task number # as complete,
-    'unmark <#>' to mark task number # as incomplete,
-    'todo <task name>' to create a to-do,
-    'deadline <task name> /by <by date>' to create a task with a deadline,
-    'event <task name> /from <start> /to <end>' to create an event with a start and end date,
-    'bye' to stop chatting :('
-    And if you need to see this again, type 'help'!
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	'list' to retrieve your current list of tasks,
+	'mark <#>' to mark task number # as complete,
+	'unmark <#>' to mark task number # as incomplete,
+	'todo <task name>' to create a to-do,
+	'deadline <task name> /by <by date>' to create a task with a deadline,
+	'event <task name> /from <start> /to <end>' to create an event with a start and end date,
+	'bye' to stop chatting :('
+	And if you need to see this again, type 'help'!
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 It appears you have no tasks at the moment...
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Added to list: go to school
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    The following are in your list:
-    1: [T] [ ] go to school
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Added to list: chinese new year (from: friday to: 15 days after friday)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    The following are in your list:
-    1: [T] [ ] go to school
-    2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Added to list: project review (by: thursday)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    The following are in your list:
-    1: [T] [ ] go to school
-    2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
-    3: [D] [ ] project review (by: thursday)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Sure, I've done as you requested:
-    1: [T] [X] go to school
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Sure, I've done as you requested:
-    2: [E] [X] chinese new year (from: friday to: 15 days after friday)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    The following are in your list:
-    1: [T] [X] go to school
-    2: [E] [X] chinese new year (from: friday to: 15 days after friday)
-    3: [D] [ ] project review (by: thursday)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Sure, I've done as you requested:
-    2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Goodbye! Hope you have a marvelous day.
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Added to list: go to school
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	The following are in your list:
+	1: [T] [ ] go to school
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Added to list: chinese new year (from: friday to: 15 days after friday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	The following are in your list:
+	1: [T] [ ] go to school
+	2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Added to list: project review (by: thursday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	The following are in your list:
+	1: [T] [ ] go to school
+	2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
+	3: [D] [ ] project review (by: thursday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Sure, I've done as you requested:
+	1: [T] [X] go to school
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Sure, I've done as you requested:
+	2: [E] [X] chinese new year (from: friday to: 15 days after friday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	The following are in your list:
+	1: [T] [X] go to school
+	2: [E] [X] chinese new year (from: friday to: 15 days after friday)
+	3: [D] [ ] project review (by: thursday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Sure, I've done as you requested:
+	2: [E] [ ] chinese new year (from: friday to: 15 days after friday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Sure, I've done as you requested.
+	[E] [ ] chinese new year (from: friday to: 15 days after friday) has been deleted from your list.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	The following are in your list:
+	1: [T] [X] go to school
+	2: [D] [ ] project review (by: thursday)
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Goodbye! Hope you have a marvelous day.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
