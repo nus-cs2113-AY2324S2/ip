@@ -15,19 +15,26 @@ public class Duke {
         }
     }
 
-    private static void markOrUnmarkTask (String usersInput, ArrayList<Task> task) {
+    private static void editTask(String usersInput, ArrayList<Task> task) {
         int taskIndex;
-        boolean isDone = false;
         if (usersInput.startsWith("mark")) {
             taskIndex = Integer.parseInt(usersInput.substring(5)) - 1 ;
             System.out.println("Nice! I've marked this task as done:");
-            isDone = true;
-        } else {
+            task.get(taskIndex).isDone = true;
+            System.out.println(task.get(taskIndex).getStatusIcon());
+        } else if (usersInput.startsWith("unmark")) {
             taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
             System.out.println("OK, I've marked this task as not done yet:");
+            task.get(taskIndex).isDone = false;
+            System.out.println(task.get(taskIndex).getStatusIcon());
+        } else if (usersInput.startsWith("delete")) {
+            taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task.get(taskIndex).getStatusIcon());
+            System.out.println("Now you have " + (task.size() - 1) + " tasks in the list.");
+            task.remove(taskIndex);
         }
-        task.get(taskIndex).isDone = isDone;
-        System.out.println(task.get(taskIndex).getStatusIcon());
+
     }
 
     private static void mimicMessage() {
@@ -45,8 +52,9 @@ public class Duke {
             } else if (usersInput.equals("list")) {
                 printList(currentIteration, list);
             } else if ((usersInput.startsWith("unmark") && !usersInput.strip().endsWith("unmark")) ||
-                    (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark"))) {
-                markOrUnmarkTask(usersInput, list);
+                    (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark")) ||
+                    (usersInput.startsWith("delete") && !usersInput.strip().endsWith("delete"))) {
+                editTask(usersInput, list);
             } else {
                 try {
                     addTask(usersInput, list);
@@ -59,7 +67,8 @@ public class Duke {
     }
 
     private static void addTask(String usersInput, ArrayList<Task> list) throws ThawException {
-        if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") || usersInput.strip().equals("event")) {
+        if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") ||
+                usersInput.strip().equals("event") || usersInput.strip().equals("delete")) {
             throw new ThawException("Empty command " + usersInput.strip());
         } else if (usersInput.startsWith("todo")) {
             list.add(new Todo(usersInput.substring(5), usersInput));
