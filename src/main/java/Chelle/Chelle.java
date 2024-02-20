@@ -39,6 +39,7 @@ public class Chelle {
             case TODO:
             case DEADLINE:
             case EVENT:
+            case DELETE:
                 try {
                     taskCount = handleCommand(userInput, tasks, taskCount, userCommand);
                 } catch (InvalidCommandFormatException e) {
@@ -114,7 +115,7 @@ public class Chelle {
             } else {
                 tasks[taskCount] = new ToDo(userInput.substring(5));
                 taskCount++;
-                Task.message(tasks, taskCount);
+                Task.addMessage(tasks, taskCount);
             }
             break;
 
@@ -124,7 +125,7 @@ public class Chelle {
             } else {
                 tasks[taskCount] = new Deadline(userInput.substring(9));
                 taskCount++;
-                Task.message(tasks, taskCount);
+                Task.addMessage(tasks, taskCount);
             }
             break;
 
@@ -134,7 +135,34 @@ public class Chelle {
             } else {
                 tasks[taskCount] = new Event(userInput.substring(6));
                 taskCount++;
-                Task.message(tasks, taskCount);
+                Task.addMessage(tasks, taskCount);
+            }
+            break;
+
+        case DELETE:
+            if (userInput.length() < 8) {
+                throw new InvalidCommandFormatException(CommandType.DELETE);
+            } else {
+                userInput = userInput.substring(7);
+            }
+
+            try {
+                int taskIndex = Integer.parseInt(userInput) - 1;
+                if (taskIndex >= 0 && taskIndex < taskCount) {
+                    Task.delMessage(tasks, taskCount, taskIndex);
+                    // Shift tasks to fill the gap
+                    for (int i = taskIndex; i < taskCount - 1; i++) {
+                        tasks[i] = tasks[i + 1];
+                    }
+                    // Set the last element to null or create a new empty task if needed
+                    tasks[taskCount - 1] = null; // or tasks[taskCount - 1] = new Task();
+                    taskCount--;
+
+                } else {
+                    System.out.println("Chelle: Invalid task index.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Chelle: Invalid task index.");
             }
             break;
 

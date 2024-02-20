@@ -25,10 +25,16 @@ public class Task {
         this.isDone = false;
     }
 
-    public static void message(Task[] tasks, int taskCount) {
+    public static void addMessage(Task[] tasks, int taskCount) {
         System.out.println("Chelle: Got it. I've added this task:\n        " +
                 tasks[taskCount - 1].toString() +
                 "\n        Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void delMessage(Task[] tasks, int taskCount, int taskIndex) {
+        System.out.println("Chelle: Got it. I've deleted this task:\n        " +
+                tasks[taskIndex].toString() +
+                "\n        Now you have " + (taskCount-1) + " tasks in the list.");
     }
 
     @Override
