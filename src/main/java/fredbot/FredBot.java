@@ -7,10 +7,11 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FredBot {
-    private static Task[] allTasks;
+    private static ArrayList<Task> allTasks;
     private static final int TASK_CAPACITY = 100;
     private static int count;
 
@@ -48,7 +49,7 @@ public class FredBot {
     }
 
     private static void initTaskList() {
-        allTasks = new Task[TASK_CAPACITY];
+        allTasks = new ArrayList<>();
         count = 0;
     }
 
@@ -107,7 +108,7 @@ public class FredBot {
 
     private static void executeAddTodo(String input) {
         try {
-            allTasks[count] = new Todo(input);
+            allTasks.add(new Todo(input));
             echoTask();
         } catch (EmptyDescriptionException e) {
             System.out.println(MESSAGE_EMPTY_DESCRIPTION);
@@ -117,7 +118,7 @@ public class FredBot {
     private static void executeAddDeadline(String input) {
         String[] split = splitDeadlineAndDate(input);
         try {
-            allTasks[count] = new Deadline(split[0], split[1]);
+            allTasks.add(new Deadline(split[0], split[1]));
             echoTask();
         } catch (EmptyDescriptionException e) {
             System.out.println(MESSAGE_EMPTY_DESCRIPTION);
@@ -136,7 +137,7 @@ public class FredBot {
     private static void executeAddEvent(String input) {
         String[] split = splitEventAndDates(input);
         try {
-            allTasks[count] = new Event(split[0], split[1], split[2]);
+            allTasks.add(new Event(split[0], split[1], split[2]));
             echoTask();
         } catch (EmptyDescriptionException e) {
             System.out.println(MESSAGE_EMPTY_DESCRIPTION);
@@ -160,7 +161,7 @@ public class FredBot {
 
     private static void echoTask() {
         System.out.println(MESSAGE_ADD);
-        System.out.println(allTasks[count].toString());
+        System.out.println(allTasks.get(count).toString());
         count++;
         String task = (count == 1) ? " task " : " tasks ";
         System.out.println("You now have " + count + task + "in the list.");
@@ -174,22 +175,22 @@ public class FredBot {
 
         System.out.println(MESSAGE_LIST_HEADER);
         for (int i = 0; i < count; i++) {
-            System.out.println((i + 1) + ". " + allTasks[i].toString());
+            System.out.println((i + 1) + ". " + allTasks.get(i).toString());
         }
     }
 
     private static void executeMark(String taskNumber) {
         int index = Integer.parseInt(taskNumber) - 1;
-        allTasks[index].markAsDone();
+        allTasks.get(index).markAsDone();
         System.out.println(MESSAGE_MARK);
-        System.out.println(allTasks[index].toString());
+        System.out.println(allTasks.get(index).toString());
     }
 
     private static void executeUnmark(String taskNumber) {
         int index = Integer.parseInt(taskNumber) - 1;
-        allTasks[index].unmarkAsDone();
+        allTasks.get(index).unmarkAsDone();
         System.out.println(MESSAGE_UNMARK);
-        System.out.println(allTasks[index].toString());
+        System.out.println(allTasks.get(index).toString());
     }
 
     private static void executeExit() {
