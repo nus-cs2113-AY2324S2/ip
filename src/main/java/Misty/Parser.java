@@ -113,4 +113,8 @@ public class Parser {
     public static void printUsageUnmark() {
         System.out.println("\tUnmark command syntax: unmark <task id>");
     }
+
+    public static void printUsageDelete() {
+        System.out.println("\tDelete command syntax: delete <task id>");
+    }
 }

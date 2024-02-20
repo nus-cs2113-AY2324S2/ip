@@ -87,9 +87,13 @@ public class List {
         Parser.printTaskUnmarkAsNotDone(taskList.get(index - 1));
     }
 
-    public void deleteTask(int index) {
-        Task temp = taskList.get(index);
-        taskList.remove(index);
+    public void deleteTask(int index) throws IllegalListIndexException {
+        if (index <= 0 || index > taskList.size()) {
+            throw new IllegalListIndexException();
+        }
+
+        Task temp = taskList.get(index - 1);
+        taskList.remove(index - 1);
         Parser.printDeleteTask(temp);
         printTaskCount();
     }

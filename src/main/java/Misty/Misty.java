@@ -30,11 +30,11 @@ public class Misty {
 
                     try {
                         index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
-                    } catch(NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageUnmark();
                         break;
-                    } catch(StringIndexOutOfBoundsException e) {
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageUnmark();
                         break;
@@ -42,7 +42,7 @@ public class Misty {
 
                     try {
                         taskList.unmarkTask(index);
-                    } catch(IllegalListIndexException e) {
+                    } catch (IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
                         Parser.printUsageUnmark();
                         break;
@@ -52,11 +52,11 @@ public class Misty {
 
                     try {
                         index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
-                    } catch(NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageMark();
                         break;
-                    } catch(StringIndexOutOfBoundsException e) {
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorNoId();
                         Parser.printUsageMark();
                         break;
@@ -64,18 +64,17 @@ public class Misty {
 
                     try {
                         taskList.markTask(index);
-                    } catch(IllegalListIndexException e) {
+                    } catch (IllegalListIndexException e) {
                         Parser.printErrorInvalidId();
                         Parser.printUsageMark();
                         break;
                     }
-
                 } else if (input.startsWith("todo")) {
                     String description;
 
                     try {
                         description = input.substring(input.indexOf(" ")).trim();
-                    } catch(StringIndexOutOfBoundsException e) {
+                    } catch (StringIndexOutOfBoundsException e) {
                         Parser.printErrorNoTaskName();
                         Parser.printUsageUsageTodo();
                         break;
@@ -165,9 +164,25 @@ public class Misty {
                     }
                 } else if(input.startsWith("delete")) {
                     int index;
+                    try {
+                        index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                    } catch (NumberFormatException e) {
+                        Parser.printErrorNoId();
+                        Parser.printUsageDelete();
+                        break;
+                    } catch (StringIndexOutOfBoundsException e) {
+                        Parser.printErrorNoId();
+                        Parser.printUsageDelete();
+                        break;
+                    }
 
-                    index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
-                    taskList.deleteTask(index - 1);
+                    try {
+                        taskList.deleteTask(index);
+                    } catch (IllegalListIndexException e) {
+                        Parser.printErrorInvalidId();
+                        Parser.printUsageDelete();
+                        break;
+                    }
                 } else {
                     Parser.printUnknownCommandMessage();
                 }
