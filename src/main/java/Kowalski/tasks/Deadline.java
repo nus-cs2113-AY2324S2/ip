@@ -1,3 +1,5 @@
+package Kowalski.tasks;
+
 public class Deadline extends Task {
 
     protected String by;
