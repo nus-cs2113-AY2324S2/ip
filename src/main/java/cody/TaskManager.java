@@ -142,29 +142,6 @@ public class TaskManager {
                 + BORDER);
     }
 
-    private void deleteTask(String input) {
-        String[] parts = input.split(" ");
-        int index = Integer.parseInt(parts[1]) - 1;
-        try {
-            Task task = tasks.get(index);
-            tasks.remove(index);
-            printDeleteTask(task);
-        } catch (NumberFormatException e) {
-            System.out.print(" Task number is invalid\n"
-                    + " Please enter a valid number\n");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.print(" Task number is out of range\n"
-                    + " Please enter a number between 1 and " + tasks.size() + "\n");
-        }
-    }
-
-    private void printDeleteTask(Task task) {
-        System.out.print(BORDER + " Noted. I've removed this task:\n"
-                + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n"
-                + BORDER);
-    }
-
     public void loadTasksFromFile(String filePath) {
         File file = new File(filePath);
         try (Scanner scanner = new Scanner(file)) {

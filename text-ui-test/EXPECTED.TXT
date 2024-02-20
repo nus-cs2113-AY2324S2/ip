@@ -5,23 +5,24 @@ ______________________________________________________________
 ______________________________________________________________
  Got it. I've added this task:
  [T] [ ] borrow book
- Now you have 1 tasks in the list.
-______________________________________________________________
-______________________________________________________________
- Got it. I've added this task:
- [D] [ ] return book (by: Sunday)
  Now you have 2 tasks in the list.
 ______________________________________________________________
 ______________________________________________________________
  Got it. I've added this task:
- [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+ [D] [ ] return book (by: Sunday)
  Now you have 3 tasks in the list.
 ______________________________________________________________
 ______________________________________________________________
+ Got it. I've added this task:
+ [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+ Now you have 4 tasks in the list.
+______________________________________________________________
+______________________________________________________________
  Here are the tasks in your list:
- 1. [T] [ ] borrow book
- 2. [D] [ ] return book (by: Sunday)
- 3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+ 1. [T] [ ] first task
+ 2. [T] [ ] borrow book
+ 3. [D] [ ] return book (by: Sunday)
+ 4. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 ______________________________________________________________
 ______________________________________________________________
  Good job! I've marked this task as done:
@@ -29,9 +30,10 @@ ______________________________________________________________
 ______________________________________________________________
 ______________________________________________________________
  Here are the tasks in your list:
- 1. [T] [X] borrow book
- 2. [D] [ ] return book (by: Sunday)
- 3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+ 1. [T] [ ] first task
+ 2. [T] [X] borrow book
+ 3. [D] [ ] return book (by: Sunday)
+ 4. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 ______________________________________________________________
 ______________________________________________________________
  Good job! I've marked this task as done:
@@ -39,9 +41,10 @@ ______________________________________________________________
 ______________________________________________________________
 ______________________________________________________________
  Here are the tasks in your list:
- 1. [T] [ ] borrow book
- 2. [D] [ ] return book (by: Sunday)
- 3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+ 1. [T] [ ] first task
+ 2. [T] [ ] borrow book
+ 3. [D] [ ] return book (by: Sunday)
+ 4. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 ______________________________________________________________
 ______________________________________________________________
  I'm not sure what task this is
@@ -65,20 +68,20 @@ ______________________________________________________________
 ______________________________________________________________
 ______________________________________________________________
  Task number is out of range
- Please enter a number between 1 and 3
+ Please enter a number between 1 and 4
 ______________________________________________________________
 ______________________________________________________________
  Task number is out of range
- Please enter a number between 1 and 3
+ Please enter a number between 1 and 4
 ______________________________________________________________
 ______________________________________________________________
  Task number is out of range
- Please enter a number between 1 and 3
+ Please enter a number between 1 and 4
 ______________________________________________________________
 ______________________________________________________________
  Noted. I've removed this task:
  [E] [ ] project meeting (from: Mon 2pm to: 4pm)
- Now you have 2 tasks in the list.
+ Now you have 3 tasks in the list.
 ______________________________________________________________
 ______________________________________________________________
  Bye. Hope to see you again soon!
