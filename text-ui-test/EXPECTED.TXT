@@ -13,7 +13,7 @@ Got it. I've added this task:
 		[T][ ] borrow book
 Now you have 1 tasks in the list
 -------------------------------------------
-[31mError: todo parameters is incomplete. Proper syntax: todo [task][0m
+[31mError: todo parameters is incomplete. Proper syntax: todo [task number][0m
 [31mError: unknown instruction. Type of instructions available [deadline/todo/event/list/bye][0m
 -------------------------------------------
 Got it. I've added this task:

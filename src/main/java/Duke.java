@@ -121,7 +121,7 @@ public class Duke {
             InsufficientParameters, IncorrectFormat {
         if (inputs.length != 2) {
             // Throws an error if parameters is incomplete
-            throw new InsufficientParameters(MimiException.INSUFFICIENT_MARK_PARAMETERS_MSG);
+            throw new InsufficientParameters(MimiException.INSUFFICIENT_INDEX_PARAMETERS_MSG);
         }
 
         try {
@@ -133,7 +133,7 @@ public class Duke {
             return index;
         } catch (NumberFormatException e) {
             // Throws an error if the format is incorrect
-            throw new IncorrectFormat(MimiException.INCORRECT_MARK_FORMAT_MSG);
+            throw new IncorrectFormat(MimiException.INCORRECT_INDEX_FORMAT_MSG);
         }
     }
 
@@ -214,12 +214,12 @@ public class Duke {
         scanner.close();
     }
 
-    private static void saveFile(Task[] taskList, int numberOfTask, String filePath){
+    private static void saveFile(ArrayList<Task> taskList , String filePath){
         try {
             File file = new File(filePath);
             FileWriter writer = new FileWriter(file);
-            for (int i = 0; i < numberOfTask; i++) {
-                writer.write(taskList[i].toFileString() + "\n");
+            for (Task t: taskList) {
+                writer.write(t.toFileString() + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -273,10 +273,10 @@ public class Duke {
                 }
 
                 if(taskStatus.equals("true")) {
-                    taskList[numberOfTask - 1].markAsDone();
+                    taskList.get(taskList.size()-1).markAsDone();
                 }
             }
-            saveFile(taskList, numberOfTask, FILE_PATH);
+            saveFile(taskList, FILE_PATH);
 
         } catch (IOException e) {
             System.out.println("\u001B[31mError:Unable to load file as " + filePath + " does not exists\u001B[0m");
@@ -353,7 +353,7 @@ public class Duke {
                 break;
             }
 
-            saveFile(taskList, numberOfTask, FILE_PATH);
+            saveFile(taskList, FILE_PATH);
         }
     }
 
