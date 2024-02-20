@@ -14,8 +14,12 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
+REM Change the current directory to the parent directory
+cd ..
+echo Current Directory: %CD%
+
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Byte.Byte < input.txt > ACTUAL.TXT
+java -classpath .\bin Byte.Byte < .\text-ui-test\input.txt > .\text-ui-test\ACTUAL.TXT
 
 REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+FC .\text-ui-test\ACTUAL.TXT .\text-ui-test\EXPECTED.TXT
