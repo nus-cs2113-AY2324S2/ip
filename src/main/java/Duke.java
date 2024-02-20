@@ -3,8 +3,8 @@ import Event.Deadline;
 import Event.ToDo;
 import Event.Task;
 import RuntimeSupport.DukeException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -13,18 +13,12 @@ import java.io.BufferedReader;
 public class Duke {
     static final String FILE_PATH = "./duke.txt";
     static String BREAK_LINE = "____________________________________________________________";
-    static int count = 0;
+    static ArrayList<Task> tasks = new ArrayList<>();
     static String line = "";
-
-    static Task[] tasks = new Task[100];
     public static void main(String[] args) {
 
         loadTasks();
         System.out.println(BREAK_LINE + "\nHello! I'm 550W.\nWhat can I do for you?\n" + BREAK_LINE);
-<<<<<<< HEAD
-        ArrayList<Task> tasks = new ArrayList<>();
-=======
->>>>>>> branch-Level-7
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -33,6 +27,7 @@ public class Duke {
                 System.out.println(BREAK_LINE);
 
                 if (line.equals("bye")) {
+                    saveTasks(); //Save tasks before exiting.
                     break; //Break out of the loop immediately when bye command is entered, quitting the program.
                 }
 
@@ -106,21 +101,38 @@ public class Duke {
 
             FileWriter writer = new FileWriter(FILE_PATH, false);
 
-            for (int i = 0; i < count; i++) {
+            for (Task task : tasks) {
 
-                Task task = tasks[i];
+                String type = "";
+                if (task instanceof ToDo) {
+                    type = "T";
+                } else if (task instanceof Deadline) {
+                    type = "D";
+                } else if (task instanceof Event) {
+                    type = "E";
+                }
 
-                String type = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : task instanceof Event ? "E" : "";
-                String status = task.isDone ? "1" : "0";
+                String status = task.isDone ? "1" : "0"; //Marked as 1 if it is done and 0 if it is not done.
                 String details = task.description;
-                String extra = task instanceof Deadline ? ((Deadline)task).by : task instanceof Event ? ((Event)task).from + " to " + ((Event)task).to : "";
-                String line = String.join(" | ", type, status, details, extra).trim();
-                writer.write(line + System.lineSeparator());
 
+                String extra = "";
+                if (task instanceof Deadline) {
+
+                    extra = ((Deadline)task).by; //Account for the /by part of the deadline task input.
+                } else if (task instanceof Event) {
+
+                    extra = ((Event)task).from + " to " + ((Event)task).to; //Account for the /from and /to part of the event input.
+                }
+
+                String lineToSave = type + " | " + status + " | " + details;
+                if (!extra.isEmpty()) {
+                    lineToSave += " | " + extra; //Generate the lines to be saved in the txt file.
+                }
+
+                writer.write(lineToSave + System.lineSeparator());
             }
 
             writer.close(); //To close up writing operation.
-
         } catch (Exception error) {
 
             DukeException.handleException(error, line);
@@ -164,7 +176,7 @@ public class Duke {
                         task.markAsDone();
                     }
 
-                    tasks[count++] = task;
+                    tasks.add(task);
                 }
             }
 

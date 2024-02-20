@@ -1,1 +1,1 @@
-T | 0 | add |
+E | 1 | cs2113 | 2pm to 4pm
