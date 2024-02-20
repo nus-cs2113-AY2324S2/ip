@@ -13,10 +13,6 @@ public class DukeException {
 
             System.out.println("Uh-oh! Our canvas is blank. \uD83C\uDFA8 The description of the " + line + " event cannot be empty!");
 
-        } else if (error instanceof ArrayIndexOutOfBoundsException && line.contains("mark")) {
-
-            System.out.println("Whoops! We've hit a ghost event. It's simply not there. \uD83D\uDC7B The operation: " + line + " cannot be done because the event does not exist!");
-
         } else if (error instanceof ArrayIndexOutOfBoundsException) {
 
             System.out.println("Echo... echo... Your event's lost in the echo chamber. \uD83C\uDF0C The event input: " + line + " cannot be recognized by the bot! :(" + "\n");
@@ -27,7 +23,7 @@ public class DukeException {
 
         } else {
 
-            System.out.println("Oops! It seems my circuits are tangled. I've no clue what that means. Could you enlighten me, please? \uD83E\uDD16\uD83D\uDCA1");
+            System.out.println("Oops! I've no clue what that means, or the event does not exist! Could you enlighten me, please? \uD83E\uDD16\uD83D\uDCA1");
 
         }
 
