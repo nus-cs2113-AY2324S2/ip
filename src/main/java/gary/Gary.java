@@ -30,8 +30,6 @@ public class Gary {
 
         int todosCount = 0;
 
-//        String[] todo_temp = new String[MAX_TASK];
-
         File file = new File(FILE_PATH);
         try {
             Boolean isFileCreated = file.createNewFile();
@@ -46,30 +44,26 @@ public class Gary {
             String command;
 
             while (lineText != null) {
-                // convert each line into TASK_todo/deadline/event, then store in the array todos
+                // convert each line into TASK_todo/deadline/event, then store in the array list todos
                 lineWords = lineText.split(" \\| ");
                 command = lineWords[0];
                 String description = lineWords[2];
 
                 if (command.equalsIgnoreCase("TODO")) {
-//                    todos[todosCount] = new Todo(description);
                     todos.add(new Todo(description));
                 } else if (command.equalsIgnoreCase("DEADLINE")) {
                     String by = lineWords[3];
-//                    todos[todosCount] = new Deadline(description, by);
                     todos.add(new Deadline(description, by));
                 } else if (command.equalsIgnoreCase("EVENT")){
                     String from = lineWords[3];
                     String to = lineWords[4];
-//                    todos[todosCount] = new Event(description, from, to);
                     todos.add(new Event(description, from, to));
                 }
                 todosCount += 1;
 
-                // Update task status in array todos
+                // Update task status in array list todos
                 String taskStatus = lineWords[1];
                 if (taskStatus.equalsIgnoreCase("1")) {
-//                    todos[todosCount - 1].markAsDone();
                     Task currentTask = todos.get(todosCount - 1);
                     currentTask.markAsDone();
                 }
@@ -122,13 +116,12 @@ public class Gary {
             } else {
                 try {
                     // add task to array
-                    processAddTask(command, todos, todosCount, line, file);
+                    processAddTask(command, todos, line);
 
                     // update count
                     todosCount += 1;
 
                     todos.get(todosCount - 1).printAdd(todosCount);
-//                    todos[todosCount - 1].printAdd(todosCount);
 
                     // write all task to txt file
                     writeTaskToTxt(file, todosCount, todos);
@@ -206,24 +199,18 @@ public class Gary {
 
     private static void writeFormattedString(ArrayList<Task> todos, int i, BufferedWriter fileWriter) throws IOException {
         Task currentTask = todos.get(i);
-//        String description = todos[i].getTaskDescription();
-//        String taskStatus = todos[i].getTaskStatus() ? "1" : "0";
-//        TaskType taskType = todos[i].getTaskType();
-
         String description = currentTask.getTaskDescription();
         String taskStatus = currentTask.getTaskStatus() ? "1" : "0";
         TaskType taskType = currentTask.getTaskType();
 
         switch(taskType) {
         case DEADLINE:
-//            Deadline deadline = (Deadline) todos[i];
             Deadline deadline = (Deadline) currentTask;
             String by = deadline.getBy();
             fileWriter.write(taskType + " | " + taskStatus + " | "
                     + description + " | " + by + "\n");
             break;
         case EVENT:
-//            Event event = (Event) todos[i];
             Event event = (Event) currentTask;
             String from = event.getFrom();
             String to = event.getTo();
@@ -253,22 +240,22 @@ public class Gary {
         }
     }
 
-    private static void processAddTask(String command, ArrayList<Task> todos, int todosCount, String line, File file)
+    private static void processAddTask(String command, ArrayList<Task> todos, String line)
             throws UnknownCommandException, MissingTodoDescriptionException,
             MissingDeadlineByException, MissingDeadlineDescriptionException,
             MissingEventFromException, MissingEventToException, MissingEventDescriptionException {
         if (command.equalsIgnoreCase("TODO")) {
-            createNewTodo(todos, todosCount, line);
+            createNewTodo(todos, line);
         } else if (command.equalsIgnoreCase("DEADLINE")) {
-            createNewDeadline(todos, todosCount, line);
+            createNewDeadline(todos, line);
         } else if (command.equalsIgnoreCase("EVENT")) {
-            createNewEvent(todos, todosCount, line);
+            createNewEvent(todos, line);
         } else {
             throw new UnknownCommandException();
         }
     }
 
-    private static void createNewTodo(ArrayList<Task> todos, int todosCount, String line)
+    private static void createNewTodo(ArrayList<Task> todos, String line)
             throws MissingTodoDescriptionException {
         try {
             todos.add(new Todo(line.substring(TODO_DESCRIPTION_START_INDEX)));
@@ -277,7 +264,7 @@ public class Gary {
         }
     }
 
-    private static void createNewDeadline(ArrayList<Task> todos, int todosCount, String line)
+    private static void createNewDeadline(ArrayList<Task> todos, String line)
             throws MissingDeadlineByException, MissingDeadlineDescriptionException {
         if (!(line.contains("/by"))) {
             throw new MissingDeadlineByException();
@@ -300,7 +287,7 @@ public class Gary {
         }
     }
 
-    private static void createNewEvent(ArrayList<Task> todos, int todosCount, String line)
+    private static void createNewEvent(ArrayList<Task> todos, String line)
             throws MissingEventFromException, MissingEventToException,
             MissingEventDescriptionException {
         if (!(line.contains("/from"))) {
