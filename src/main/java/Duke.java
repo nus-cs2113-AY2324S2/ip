@@ -7,6 +7,7 @@ import exceptions.MimiException.TaskNotFound;
 import exceptions.MimiException.InsufficientParameters;
 import exceptions.MimiException.IncorrectFormat;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -104,6 +105,8 @@ public class Duke {
             System.out.println("OK, I've marked this task as done");
             System.out.println(formatTask(list[index], index));
             System.out.println("-------------------------------------------");
+
+            saveFile(taskList, numberOfTask, FILE_PATH);
         } catch (TaskNotFound | InsufficientParameters | IncorrectFormat e) {
             System.out.println(e.getMessage());
         }
@@ -137,6 +140,9 @@ public class Duke {
             System.out.println("OK, I've marked this task as not done yet");
             System.out.println(formatTask(list[index], index));
             System.out.println("-------------------------------------------");
+
+            saveFile(taskList, numberOfTask, FILE_PATH);
+
         } catch (TaskNotFound |
                  InsufficientParameters |
                  IncorrectFormat e) {
@@ -194,8 +200,47 @@ public class Duke {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Unable to save file as " + filePath + " does not exists. Please create a " +
+                    "/data folder in the root directory first.");
         }
+    }
+
+    private static void loadFile(String filePath){
+        try {
+            File file = new File(filePath);
+            Scanner fileScanner = new Scanner(file);
+            fileScanner.useDelimiter("\n");
+            while(fileScanner.hasNext()){
+                String[] task = fileScanner.next().split(",");
+                String taskType = task[0];
+                String taskStatus = task[1];
+                String taskName = task[2];
+                switch (taskType) {
+                case "T":
+                    ToDo toDo = new ToDo(taskName);
+                    if (taskStatus.equals("true")) {
+                        toDo.markAsDone();
+                    }
+                    appendIntoTaskList(toDo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(taskName, task[3]);
+                    if (taskStatus.equals("true")) {
+                        deadline.markAsDone();
+                    }
+                    appendIntoTaskList(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(taskName, task[3], task[4]);
+                    if (taskStatus.equals("true")) {
+                        event.markAsDone();
+                    }
+                    appendIntoTaskList(event);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to load file as " + filePath + " does not exists");        }
     }
 
 
@@ -203,7 +248,7 @@ public class Duke {
 
         // Initial welcome message
         startupSequence();
-
+        loadFile(FILE_PATH);
         while (isRunning) {
             String[] inputs = getInput();
             switch (inputs[0]) {
