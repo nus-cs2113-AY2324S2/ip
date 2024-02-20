@@ -12,10 +12,6 @@ public class Task {
     Task(String description) {
         this.description = description;
         this.isDone = false;
-        System.out.println(Humi.LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("[ ][ ]" + description);
-        System.out.println(Humi.LINE);
     }
 
     public void printTaskType() {

@@ -12,4 +12,10 @@ public class TodoTask extends Task {
         System.out.println("     Now you have " + (TaskManager.taskCount + 1) + " tasks in the list.");
         System.out.println(Humi.LINE);
     }
+
+    TodoTask(String description, boolean isDone) {
+        this.taskType = TaskType.TODO;
+        this.description = description;
+        this.isDone = isDone;
+    }
 }

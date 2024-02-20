@@ -17,6 +17,14 @@ public class EventTask extends Task{
         System.out.println(Humi.LINE);
     }
 
+    EventTask(String description, String startDate, String endDate, boolean isDone) {
+        this.taskType = TaskType.EVENT;
+        this.description = description;
+        this.isDone = isDone;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     @Override
     public void print() {
         printTaskType();
