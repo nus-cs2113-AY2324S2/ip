@@ -257,10 +257,6 @@ public class Kowalski {
             System.out.println("Skipper pull up your socks!"
                     + System.lineSeparator());
             printHelpCommands();
-//            remainingCommand = in.nextLine();
-//            Task newTask = new Task(UserCommand + remainingCommand);
-//            currentTask.add(newTask);
-//            System.out.println("added: " + UserCommand + remainingCommand);
             System.out.println(DIVIDING_LINE);
             break;
         }
