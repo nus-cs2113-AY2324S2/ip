@@ -1,9 +1,11 @@
 public class Todo extends Task {
     protected String toDoDescription;
+    public String duration;
 
     public Todo(String description, String toDoDescription) {
         super(description);
         this.toDoDescription = toDoDescription;
+        this.duration = "";
     }
 
     @Override

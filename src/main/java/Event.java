@@ -10,4 +10,12 @@ public class Event extends Task{
     public String getStatusIcon() {
         return (isDone ? "[E][X] " + super.description + " (" + event + ")": "[E][ ] " + super.description + " (" + event + ")"); // mark done task with X
     }
+
+    @Override
+    public String printFileFormat() {
+        String toBePrinted = this.event;
+        toBePrinted = toBePrinted.replace("to:", "-");
+        toBePrinted = toBePrinted.replace("from: ", "");
+        return super.printFileFormat() + " | " + toBePrinted;
+    }
 }

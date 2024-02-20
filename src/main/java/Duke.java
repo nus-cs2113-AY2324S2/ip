@@ -1,10 +1,20 @@
 import java.util.ArrayList;
+import java.io.FileWriter;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Duke {
     static final int MAX_SIZE = 100;
     public static void main(String[] args) {
         printsGreeting();
-        mimicMessage();
+        try {
+            mimicMessage();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
     }
 
     private static void handleError(ThawException e) {
@@ -37,10 +47,32 @@ public class Duke {
 
     }
 
-    private static void mimicMessage() {
+    private static void mimicMessage() throws FileNotFoundException {
+        File f = new File("./data/ThawBot.txt");
+        Scanner s = new Scanner(f);
         Scanner input = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
         int currentIteration = 0;
+
+         while (s.hasNext()) {
+            String[] currentLine = s.nextLine().split("\\s*\\|\\s*");
+            if (currentLine[0].equals("D")) {
+                list.add(new Deadline(currentLine[2], currentLine[3]));
+            }
+            else if (currentLine[0].equals("T")) {
+                 list.add(new Todo(currentLine[2], currentLine[2]));
+             }
+            else if (currentLine[0].equals("E")) {
+                String[] duration = currentLine[3].split("\\s*\\-\\s*");
+                 list.add(new Event(currentLine[2],
+                         "from: " + duration[0] + " to: " + duration[1]));
+            }
+
+            if (currentLine[1].equals("1")) {
+                list.get(currentIteration).isDone = true;
+            }
+            currentIteration++;
+        }
         boolean canExit = false;
 
         while (!canExit) {
@@ -50,23 +82,30 @@ public class Duke {
                 canExit = true;
                 printGoodByeMessage();
             } else if (usersInput.equals("list")) {
-                printList(currentIteration, list);
+                printList(list);
             } else if ((usersInput.startsWith("unmark") && !usersInput.strip().endsWith("unmark")) ||
                     (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark")) ||
                     (usersInput.startsWith("delete") && !usersInput.strip().endsWith("delete"))) {
                 editTask(usersInput, list);
+                try {
+                    saveData(list);
+                } catch (IOException e) {
+                    System.out.println("Error with saving");
+                }
             } else {
                 try {
                     addTask(usersInput, list);
-                    currentIteration++;
+                    saveData(list);
                 } catch (ThawException e) {
                     handleError(e);
+                } catch (IOException e) {
+                    System.out.println("Error with saving");
                 }
             }
         }
     }
 
-    private static void addTask(String usersInput, ArrayList<Task> list) throws ThawException {
+    private static void addTask(String usersInput, ArrayList<Task> list) throws ThawException, IOException {
         if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") ||
                 usersInput.strip().equals("event") || usersInput.strip().equals("delete")) {
             throw new ThawException("Empty command " + usersInput.strip());
@@ -80,13 +119,24 @@ public class Duke {
             int startIndex = usersInput.indexOf("from");
             int endIndex = usersInput.indexOf("to");
             list.add(new Event(usersInput.substring(6, startIndex - 2),
-                    "from: " + usersInput.substring(startIndex+ 5, endIndex - 2) + " " + "to: " + usersInput.substring(endIndex + 3)));
+                    "from: " + usersInput.substring(startIndex+ 5, endIndex - 2) + " to: " + usersInput.substring(endIndex + 3)));
         } else {
             throw new ThawException("Invalid command");
         }
         printAcknowledgementMessage(list);
     }
 
+
+    public static void saveData(ArrayList<Task> list) throws IOException {
+        final String filePath = "./data/ThawBot.txt";
+        FileWriter fw = new FileWriter(filePath);
+        String textToAdd = "";
+        for (int i = 0; i < list.size(); i++) {
+            textToAdd += list.get(i).printFileFormat() + System.lineSeparator();
+        }
+        fw.write(textToAdd);
+        fw.close();
+    }
     private static void printsGreeting() {
         String greetingMessage = "Hello! I'm ThawBot!\nWhat can I do for you?\n";
         System.out.println(greetingMessage);
@@ -97,7 +147,7 @@ public class Duke {
         System.out.println(goodbyeMessage);
     }
 
-    private static void printList(int index, ArrayList<Task> task) {
+    private static void printList(ArrayList<Task> task) {
         for (int i = 0; i < task.size(); i ++) {
             System.out.println((i + 1) + ". " + task.get(i).getStatusIcon());
         }

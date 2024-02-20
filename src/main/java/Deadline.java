@@ -11,4 +11,9 @@ public class Deadline extends Task {
     public String getStatusIcon() {
         return (isDone ? "[D][X] " + super.description + " (by: " + by + ")": "[D][ ] " + super.description + " (by: " + by + ")"); // mark done task with X
     }
+
+    @Override
+    public String printFileFormat() {
+        return super.printFileFormat() + " | " + this.by;
+    }
 }
