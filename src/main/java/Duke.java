@@ -21,68 +21,13 @@ public class Duke {
     static Scanner scanner;
 
 
-    /**
-     * Main method to run the program
-     *
-     * @param args
-     */
-    public static void main(String[] args) throws IncorrectFormat, InsufficientParameters {
-
-        // Initial welcome message
-        startupSequence();
-
-        while (isRunning) {
-            String[] inputs = getInput();
-            switch (inputs[0]) {
-            case "bye":
-                shutdownSequence();
-                break;
-            case "list":
-                listTasks(taskList, numberOfTask);
-                break;
-            case "mark":
-                markTask(taskList, inputs);
-                break;
-            case "unmark":
-                unmarkTask(taskList, inputs);
-                break;
-            case "todo":
-                addToDo(inputs);
-                break;
-            case "deadline":
-                addDeadline(inputs);
-                break;
-            case "event":
-                addEvent(inputs);
-                break;
-            default:
-                // raise invalid instruction
-                try {
-                    throw new IncorrectFormat(MimiException.INCORRECT_INSTRUCTION);
-                } catch (IncorrectFormat e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-            }
-        }
-    }
-
     // METHODS TO GET INPUT
     private static String[] getInput() {
         String input = scanner.nextLine();
         return input.split(" ", INPUT_LIMIT);
     }
 
-    // METHODS TO CREATE/RETRIEVE OF TASKS
-    private static void addTask(String input) {
-        Task newTask = new Task(input);
-        appendIntoTaskList(newTask);
-        printDescription("added: " + input);
-    }
-
-    private static void addToDo(String[] inputs) throws
-            InsufficientParameters,
-            IncorrectFormat {
+    private static void addToDo(String[] inputs) {
 
         try {
             if (inputs.length != 2) {
@@ -100,16 +45,16 @@ public class Duke {
         }
     }
 
-    private static void addDeadline(String[] inputs) throws
-            IncorrectFormat, InsufficientParameters {
+    private static void addDeadline(String[] inputs) {
 
         try {
             // Throws exception if deadline parameters are incomplete
             if (inputs.length < 2) {
                 throw new InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
             }
+
             String[] splitInputs = inputs[1].split("/by", 2);
-            Deadline deadline = getDeadline(splitInputs);
+            Deadline deadline = Deadline.processDeadline(splitInputs);
             appendIntoTaskList(deadline);
             printSuccessMessage(deadline);
         } catch (InsufficientParameters | IncorrectFormat e) {
@@ -117,69 +62,19 @@ public class Duke {
         }
     }
 
-    private static Deadline getDeadline(String[] inputs) throws
-            InsufficientParameters,
-            IncorrectFormat {
-
-        if (inputs.length < 2) {
-            // Throws an error if /by is missing
-            throw new IncorrectFormat(MimiException.INCORRECT_DEADLINE_FORMAT);
-        }
-
-        for (String s : inputs) {
-            // Throws an error if parameters is incomplete
-            if (s == null || s.isEmpty()) {
-                throw new InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS);
-            }
-        }
-
-        String taskName = inputs[0];
-        String dueDate = inputs[1].strip();
-        return new Deadline(taskName, dueDate);
-
-    }
-
-    private static void addEvent(String[] inputs) throws
-            InsufficientParameters,
-            IncorrectFormat {
+    private static void addEvent(String[] inputs) {
         try {
             if (inputs.length != 2) {
                 throw new InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
             }
 
-            Event event = getEvent(inputs[1]);
+            Event event = Event.processEvent(inputs[1]);
             appendIntoTaskList(event);
             printSuccessMessage(event);
         } catch (InsufficientParameters | IncorrectFormat e) {
             System.out.println(e.getMessage());
         }
 
-    }
-
-    private static Event getEvent(String input) throws
-            IncorrectFormat,
-            InsufficientParameters {
-
-        // Further process the deadline input
-        try {
-            String[] inputs = input.split("/from", 2);
-            String[] duration = inputs[1].split("/to", 2);
-
-            // Check if the inputs are complete
-            String taskName = inputs[0];
-            String startDate = duration[0].strip();
-            String endDate = duration[1].strip();
-
-            // Throws an error if parameters is incomplete
-            if (taskName.isBlank() || startDate.isBlank() || endDate.isBlank()) {
-                throw new IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT);
-            }
-
-            return new Event(taskName, startDate, endDate);
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS);
-        }
     }
 
     private static void appendIntoTaskList(Task newTask) {
@@ -285,5 +180,48 @@ public class Duke {
         isRunning = false;
         scanner.close();
     }
+
+
+    public static void main(String[] args) {
+
+        // Initial welcome message
+        startupSequence();
+
+        while (isRunning) {
+            String[] inputs = getInput();
+            switch (inputs[0]) {
+            case "bye":
+                shutdownSequence();
+                break;
+            case "list":
+                listTasks(taskList, numberOfTask);
+                break;
+            case "mark":
+                markTask(taskList, inputs);
+                break;
+            case "unmark":
+                unmarkTask(taskList, inputs);
+                break;
+            case "todo":
+                addToDo(inputs);
+                break;
+            case "deadline":
+                addDeadline(inputs);
+                break;
+            case "event":
+                addEvent(inputs);
+                break;
+            default:
+                // raise invalid instruction
+                try {
+                    throw new IncorrectFormat(MimiException.INCORRECT_INSTRUCTION);
+                } catch (IncorrectFormat e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            }
+        }
+    }
+
 
 }
