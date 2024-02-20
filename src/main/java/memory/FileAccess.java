@@ -128,16 +128,4 @@ public class FileAccess {
         fileWriter.write(taskFileFormat + System.lineSeparator());
         fileWriter.close();
     }
-
-    public static void main(String[] args) throws IOException {
-        ArrayList<Task> list = new ArrayList<>();
-        list.add(new ToDo("sfwefwf"));
-        list.add(new Deadline("ewfhwihfwf", "fwf"));
-        list.add(new ToDo("fweofiwf"));
-        FileAccess a = new FileAccess();
-        a.saveTask(new ToDo("sfwefwf"));
-        a.saveTask(new Deadline("ewfhwihfwf", "fwf"));
-        a.saveTask(new ToDo("fweofiwf"));
-        a.deleteTask(list.get(1));
-    }
 }

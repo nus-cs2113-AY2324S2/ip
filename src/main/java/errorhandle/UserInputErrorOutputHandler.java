@@ -4,39 +4,39 @@ import format.Formatter;
 
 public class UserInputErrorOutputHandler {
 
-    protected Formatter format;
+    protected Formatter formatter;
 
     public UserInputErrorOutputHandler() {
-        format = new Formatter();
+        formatter = new Formatter();
     }
 
     public void printUndefinedTaskError() {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tUnknown Command!");
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 
     public void printNoTaskContentError(String taskType) {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tOh nooooo!! The description of " + taskType + "is missing!!");
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 
     public void printNoSpacingError(String identity) {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tPlease add a spacing between " + identity + " and 'number'");
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 
     public void printInputNotNumberError(String identity) {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tPlease type " + identity + " + 'NUMBER'!");
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 
     public void printRequestTaskOutOfBoundError() {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tOops, you do not have this task");
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 }

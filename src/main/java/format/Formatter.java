@@ -1,7 +1,7 @@
 package format;
 
 public class Formatter {
-    public void dividingLine() {
+    public void printDividingLine() {
         System.out.println("\t__________________________________________________");
     }
 
@@ -19,7 +19,7 @@ public class Formatter {
         System.out.println("\t\t8. Type \"bye\" to say goodbye to me.");
     }
 
-    public String logo() {
+    public String generateLogo() {
         return
                 " ___     _   ___   ___   __\n"
                         + "|   \\   | | |   | |   | |  |\n"

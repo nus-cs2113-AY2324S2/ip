@@ -13,10 +13,10 @@ import static constant.NormalConstant.CORRECT_TASK_CREATION;
 
 public class Conversation {
 
-    protected Formatter format;
+    protected Formatter formatter;
 
     public Conversation() {
-        format = new Formatter();
+        formatter = new Formatter();
     }
 
     public void communicate() {
@@ -57,19 +57,19 @@ public class Conversation {
 
     public void printWelcomeMessage() {
 
-        System.out.println("Hello from\n" + format.logo());
-        format.dividingLine();
+        System.out.println("Hello from\n" + formatter.generateLogo());
+        formatter.printDividingLine();
         System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
-        format.dividingLine();
-        format.printFunctionality();
-        format.dividingLine();
+        formatter.printDividingLine();
+        formatter.printFunctionality();
+        formatter.printDividingLine();
     }
 
     public void printGoodbyeMessage() {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tBye. Hope to see you again soon!");
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 
     public void startConversation(){

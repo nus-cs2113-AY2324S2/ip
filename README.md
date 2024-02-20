@@ -1,4 +1,4 @@
-# User guide of chatbot noobconversation.Noob
+# User guide of chatbot Noob
 
 Hi, this chatbot is still a Noob.  
 ***Need upgrade.......***    
@@ -29,4 +29,4 @@ Type `list` to list what he has stored for you
 
 Type `bye` to say goodbye to him
 
-# Hope you have fun with noobconversation.Noob!
+# Hope you have fun with Noob!

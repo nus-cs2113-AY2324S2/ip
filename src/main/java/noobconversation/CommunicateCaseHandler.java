@@ -21,22 +21,22 @@ public class CommunicateCaseHandler {
 
 
     protected ExceptionsHandler exceptions;
-    protected Formatter format;
+    protected Formatter formatter;
     protected UserInputErrorOutputHandler userInputError;
 
     public CommunicateCaseHandler() {
         exceptions = new ExceptionsHandler();
-        format = new Formatter();
+        formatter = new Formatter();
         userInputError = new UserInputErrorOutputHandler();
     }
 
     public void printList(ArrayList<Task> list) {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + list.get(i).getIdentity() + list.get(i).getStatusIcon() + " " + list.get(i));
         }
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 
     public int handleTask(String line, ArrayList<Task> list) {
@@ -54,11 +54,11 @@ public class CommunicateCaseHandler {
     }
 
     public void printNewTaskAddedMessage(Task t, ArrayList<Task> list) {
-        format.dividingLine();
+        formatter.printDividingLine();
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + t.getIdentity() + t.getStatusIcon() + " " + t);
         System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-        format.dividingLine();
+        formatter.printDividingLine();
     }
 
     public int handleTodo(String line, ArrayList<Task> list) {
@@ -118,7 +118,7 @@ public class CommunicateCaseHandler {
         if (number > list.size()) {
             userInputError.printRequestTaskOutOfBoundError();
         } else {
-            format.dividingLine();
+            formatter.printDividingLine();
             String output;
             switch (identity) {
             case "unmark":
@@ -151,7 +151,7 @@ public class CommunicateCaseHandler {
             if (identity.equals("delete")) {
                 System.out.println("\tNow you have " + list.size() + " tasks in the list.");
             }
-            format.dividingLine();
+            formatter.printDividingLine();
         }
     }
 }
