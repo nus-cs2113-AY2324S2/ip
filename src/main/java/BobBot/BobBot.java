@@ -1,4 +1,5 @@
 package BobBot;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import BobBot.exceptions.BobBotExceptions;
@@ -12,13 +13,12 @@ import BobBot.tasks.Todo;
 
 public class BobBot {
 
-    private static final int MAX_NUMBER_OF_TASKS = 100;
-    private static Task[] allTasks = new Task[MAX_NUMBER_OF_TASKS];
+    private static ArrayList<Task> allTasks = new ArrayList<>();
     private static int numTasks = 0;
 
     private static void mark(String line) {
         int taskNumberToMark = Integer.parseInt(line.substring("mark".length()).trim()) - 1;
-        allTasks[taskNumberToMark].markAsDone();
+        allTasks.get(taskNumberToMark).markAsDone();
 
         printMessageMarkAsDone(taskNumberToMark);
     }
@@ -26,13 +26,13 @@ public class BobBot {
     private static void printMessageMarkAsDone(int taskNumberToMark) {
         drawLine(true);
         System.out.println("\tGot it! Marking this task as done:");
-        System.out.println("\t  " + allTasks[taskNumberToMark].toString());
+        System.out.println("\t  " + allTasks.get(taskNumberToMark).toString());
         drawLine(true);
     }
 
     private static void unmark(String line) {
         int taskNumberToUnmark = Integer.parseInt(line.substring("unmark".length()).trim()) - 1;
-        allTasks[taskNumberToUnmark].markAsUndone();
+        allTasks.get(taskNumberToUnmark).markAsUndone();
 
         printMessageUnmarkAsDone(taskNumberToUnmark);
     }
@@ -40,7 +40,7 @@ public class BobBot {
     private static void printMessageUnmarkAsDone(int taskNumberToUnmark) {
         drawLine(true);
         System.out.println("\tAlright! Unmarking this task:");
-        System.out.println("\t  " + allTasks[taskNumberToUnmark].toString());
+        System.out.println("\t  " + allTasks.get(taskNumberToUnmark).toString());
         drawLine(true);
     }
 
@@ -49,7 +49,7 @@ public class BobBot {
 
         for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
             taskNumberToDisplay = taskIndex + 1;
-            System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks[taskIndex].toString());
+            System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks.get(taskIndex).toString());
         }
     }
 
@@ -79,7 +79,7 @@ public class BobBot {
             return;
         }
 
-        allTasks[numTasks] = newTask;
+        allTasks.add(newTask);
         numTasks += 1;
 
         echoCommand(line, newTask);
