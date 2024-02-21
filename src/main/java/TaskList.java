@@ -1,12 +1,13 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class TaskList {
-    private final Task[] taskList;
-    private static final int MAX_TASKS = 100;
+    private final ArrayList<Task> taskList;
+    private final int MAX_TASKS = 100;
     private int taskCount;
 
 
     public TaskList() {
-        this.taskList = new Task[MAX_TASKS];
+        this.taskList = new ArrayList<>();
         this.taskCount = 0;
     }
 
@@ -120,8 +121,8 @@ public class TaskList {
      */
     public void addTask(Task task) {
         try {
-            if (taskCount < taskList.length) {
-                taskList[taskCount] = task;
+            if (taskList.size() < MAX_TASKS) {
+                taskList.add(taskCount, task);
                 taskCount += 1;
                 System.out.println("added: " + task);
             } else {
@@ -142,7 +143,7 @@ public class TaskList {
         }
         System.out.println("List\n~~~~~~~~~~~~~~~~");
         for (int i = 0 ; i < taskCount ; i += 1) {
-            System.out.println("  " + (i+1) + ". [" + taskList[i].getType() + "]" + taskList[i]);
+            System.out.println("  " + (i+1) + ". [" + taskList.get(i).getType() + "]" + taskList.get(i));
         }
         System.out.println("~~~~~~~~~~~~~~~~");
     }
@@ -167,12 +168,12 @@ public class TaskList {
     public void markTaskIndex(int taskIndex) {
         if (!isValidIndex(taskIndex)) {
             System.out.println("Invalid number! Please try again");
-        } else if (taskList[taskIndex].isDone()) {
+        } else if (taskList.get(taskIndex).isDone()) {
             System.out.println("ERROR: task is already marked");
         } else {
-            taskList[taskIndex].markTask();
+            taskList.get(taskIndex).markTask();
             System.out.println("OK, Dobby has marked this task as done:");
-            System.out.println("  " + taskList[taskIndex]);
+            System.out.println("  " + taskList.get(taskIndex));
             System.out.println("~~~~~~~~~~~~~~~~");
             }
     }
@@ -186,12 +187,12 @@ public class TaskList {
     public void unmarkTaskIndex(int taskIndex) {
         if (!isValidIndex(taskIndex)) {
             System.out.println("Invalid number! Please try again");
-        } else if (!taskList[taskIndex].isDone()) {
+        } else if (!taskList.get(taskIndex).isDone()) {
             System.out.println("The task is already unmarked");
         } else {
-            taskList[taskIndex].unmarkTask();
+            taskList.get(taskIndex).unmarkTask();
             System.out.println("OK, Dobby marked this task as not done:");
-            System.out.println("  " + taskList[taskIndex]);
+            System.out.println("  " + taskList.get(taskIndex));
             printLineBreak();
         }
     }
