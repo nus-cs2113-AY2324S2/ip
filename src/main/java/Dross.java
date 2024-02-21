@@ -34,13 +34,19 @@ public class Dross {
     //Method to toggle tasks as marked or unmarked
     public static void toggleMark(String instruction) {
         String[] tokens = instruction.split(" ");
-        int index = Integer.parseInt(tokens[1]);
-        if (tokens[0].equals("mark")) {
-            drossTaskList.markDoneByIndex(index);
-        } else {
-            drossTaskList.markUndoneByIndex(index);
+        try {
+            int index = Integer.parseInt(tokens[1]);
+            if (tokens[0].equals("mark")) {
+                drossTaskList.markDoneByIndex(index);
+            } else {
+                drossTaskList.markUndoneByIndex(index);
+            }
+            listAllTasks();
+        } catch (ArrayIndexOutOfBoundsException e){
+            printLine();
+            System.out.println("Yeah sure go ahead and mark that invisible task sir!");
+            printLine();
         }
-        listAllTasks();
     }
 
     //Method to handle task creation and parse input to appropriately construct the correct object
