@@ -65,6 +65,9 @@ public class Console {
                 case UNMARK:
                     printUnmarkedItemToConsole(tasks, line);
                     break;
+                case DELETE:
+                    printDeletedTaskToConsole(tasks, line);
+                    break;
                 case TODO:
                 case DEADLINE:
                 case EVENT:
@@ -106,6 +109,12 @@ public class Console {
     private static void printTaskToConsole(TaskList tasks, TaskType todo, String description) {
         System.out.println(Console.LINE_BREAK);
         tasks.addTask(todo, description);
+        System.out.println(Console.LINE_BREAK);
+    }
+
+    private static void printDeletedTaskToConsole(TaskList tasks, String line) {
+        System.out.println(Console.LINE_BREAK);
+        tasks.deleteTask(line);
         System.out.println(Console.LINE_BREAK);
     }
 

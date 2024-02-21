@@ -75,6 +75,17 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(String input) {
+        int number = extractInt(input);
+        if (number > 0 && number <= tasks.size()) {
+            Task task = tasks.get(number - 1);
+            tasks.remove(task);
+            System.out.println("Noted. I've removed this task:");
+            printTask(task, -1);
+            System.out.printf("Now you have %d tasks in the list\n", tasks.size());
+        }
+    }
+
     public int extractInt(String input) {
         try {
             String number = input.replaceAll("[^0-9]", "");
