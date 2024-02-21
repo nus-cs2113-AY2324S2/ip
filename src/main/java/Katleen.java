@@ -1,4 +1,6 @@
+import java.sql.Array;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Katleen {
     public static final String LINE = "____________________________________________________________";
@@ -9,7 +11,7 @@ public class Katleen {
         System.out.println("What can I do for you?");
         System.out.println(LINE);
 
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         Scanner in = new Scanner(System.in);
         String text = "";
@@ -21,7 +23,7 @@ public class Katleen {
         }
     }
 
-    private static void parseString(String input, Task[] tasks)
+    private static void parseString(String input, ArrayList<Task> tasks)
             throws IncompleteTaskException, UnrecognizedCommandException {
         String[] splitInput = input.split(" ");
         String cmdWord = splitInput[0];
@@ -32,7 +34,7 @@ public class Katleen {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.print((i+1) + ". ");
-                    tasks[i].printTask();
+                    tasks.get(i).printTask();
                 }
                 break;
             case "bye":
@@ -45,10 +47,10 @@ public class Katleen {
                 String index = splitInput[1];
                 int i = Integer.parseInt(index) - 1;
                 if (cmdWord.equals("mark")) {
-                    tasks[i].setDone(true);
+                    tasks.get(i).setDone(true);
                     break;
                 }
-                tasks[i].setDone(false);
+                tasks.get(i).setDone(false);
                 break;
             case "todo":
             case "deadline":
@@ -57,8 +59,8 @@ public class Katleen {
                 if (task == null) {
                     throw new UnrecognizedCommandException();
                 }
-                tasks[taskCount] = task;
-                tasks[taskCount].printTask();
+                tasks.set(taskCount, task);
+                tasks.get(taskCount).printTask();
                 break;
             default:
                 throw new UnrecognizedCommandException();
