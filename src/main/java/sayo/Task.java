@@ -21,6 +21,14 @@ public class Task {
         return (isDone ? "[X]" : "[ ]"); 
     }
 
+    public String toFileFormat() {
+        return (isDone ? "1" : "0") + " | " + description; // This basic format will be extended by subclasses
+    }
+
+    public static Task fromFileFormat(String fileFormat) throws SayoException {
+        throw new SayoException("This method should be called on a subclass, not on the Task class directly.");
+    }
+    
     public String toString() {
         return getStatusIcon() + " " + description;
     }

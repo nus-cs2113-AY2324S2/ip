@@ -12,4 +12,22 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    public String toFileFormat() {
+        return "D | " + super.toFileFormat() + " | " + by;
+    }
+
+    public static Task fromFileFormat(String fileFormat) {
+        // Assuming fileFormat is in the correct format for Deadline
+        String[] parts = fileFormat.split(" \\| ");
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        String by = parts[3].trim();
+
+        Deadline deadline = new Deadline(description, by);
+        if (isDone) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
 }
