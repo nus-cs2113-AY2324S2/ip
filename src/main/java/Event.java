@@ -23,7 +23,7 @@ public class Event extends Task{
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("\t[" + this.getTaskTypeIcon() + "][" + this.getStatusIcon() + "]" + this.description +
-                "(from:" + this.from + "to:" + this.to + ")") ;
+                "(from:" + this.from + " to:" + this.to + ")") ;
     }
 
     @Override

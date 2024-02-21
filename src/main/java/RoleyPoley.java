@@ -75,10 +75,10 @@ public class RoleyPoley {
                 words = line.split(" ");
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
-                    if (taskList.get(taskNum) == null) {
+                    if (taskList.get(taskNum - 1) == null) {
                         throw new RoleyPoleyException("markError");
                     }
-                    taskList.get(taskNum).markAsDone();
+                    taskList.get(taskNum - 1).markAsDone();
                     createLine();
                 }
                 break;
@@ -86,10 +86,10 @@ public class RoleyPoley {
                 words = line.split(" ");
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
-                    if (taskList.get(taskNum) == null) {
+                    if (taskList.get(taskNum - 1) == null) {
                         throw new RoleyPoleyException("unmarkError");
                     }
-                    taskList.get(taskNum).markAsUndone();
+                    taskList.get(taskNum - 1).markAsUndone();
                     createLine();
                 }
                 break;
