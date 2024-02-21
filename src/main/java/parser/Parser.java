@@ -11,6 +11,8 @@ public class Parser {
     public static final String EVENT_COMMAND = "event";
     public static final String MARK_COMMAND = "mark";
     public static final String UNMARK_COMMAND = "unmark";
+    public static final String DELETE_COMMAND = "delete";
+
     public static void parseInput(String input, TaskList tasks) throws NullPointerException {
         String[] inputArray = input.split(" ", 2);
         if (input.equals(EXIT_COMMAND)) {
@@ -30,6 +32,9 @@ public class Parser {
         } else if (input.startsWith(UNMARK_COMMAND)) {
             int taskIndex = Integer.parseInt(inputArray[1]) - 1;
             tasks.unmarkTask(taskIndex);
+        } else if (input.startsWith(DELETE_COMMAND)) {
+            int taskIndex = Integer.parseInt(inputArray[1]) - 1;
+            tasks.deleteTask(taskIndex);
         } else {
             System.out.println("Sorry but that is not a valid command. Please enter a valid command.");
         }
