@@ -83,7 +83,7 @@ public class TaskManager {
     public static void markTaskAsUndone(int taskNumber) throws InvalidMarkCommandException {
         Task taskToMark = retrieveTask(taskNumber);
 
-        if (taskToMark == null){
+        if (taskToMark == null) {
             throw new InvalidMarkCommandException("unmark", Integer.toString(taskNumber));
         }
 
@@ -91,9 +91,9 @@ public class TaskManager {
     }
 
     public static void deleteTask(int taskNumber) throws InvalidDeleteCommandException {
-        for (int i = 0 ; i < taskList.size(); i++){
+        for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            if (task.getTaskNumber() == taskNumber){
+            if (task.getTaskNumber() == taskNumber) {
                 System.out.println("Ok. Task Removed: ");
                 task.printTask();
                 taskList.remove(i);
