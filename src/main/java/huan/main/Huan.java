@@ -124,7 +124,21 @@ public class Huan {
                     System.out.println("Incorrect format! Should be 'deadline *task_name /by *deadline_time'");
                 }
                 break;
+            case ("delete"):
+                try {
+                    int deleteIndex = Integer.parseInt(suffixWord);
+                    if (!isIndexValid(deleteIndex)) {
+                        System.out.println("Invalid task index!");
+                    } else {
+                        tasks.get(deleteIndex - 1).setIsDone(true);
+                        System.out.println("Removed task number " + deleteIndex + ": " + tasks.get(deleteIndex - 1).getName());
+                        tasks.remove(deleteIndex - 1);
 
+                    }
+                } catch (Exception e){
+                    System.out.println("Incorrect format! Should be 'delete *n', where n is the index of the task you wish to delete.");
+                }
+                break;
             default:
                 System.out.println("Unrecognized command, please try again!");
                 break;
