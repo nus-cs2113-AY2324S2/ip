@@ -13,9 +13,17 @@ public class Task {
         System.out.println(getTypeIcon() + getStatusIcon() + this.description);
     }
 
+    public void markAsDoneWithoutPrints() {
+        this.isDone = true;
+    }
+
     public void markAsUndone() {
         this.isDone = false;
         System.out.println(getTypeIcon() + getStatusIcon() + this.description);
+    }
+
+    public void markAsUndoneWithoutPrints() {
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
