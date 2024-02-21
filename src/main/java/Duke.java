@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Duke {
 
     public static void main(String[] args) {
@@ -6,7 +8,7 @@ public class Duke {
         PrintText.printWithLinebreak("Hello! I'm " + botName + "\n" +
                 "What can I do for you?");
 
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
 
         AddTask.taskListManager(tasks);
 
