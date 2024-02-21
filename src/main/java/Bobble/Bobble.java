@@ -13,8 +13,6 @@ public class Bobble {
         start();
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
-//        int taskCount = 0;
-//        String command;
 
         while (!userInput.equals("bye")) {
             String[] UserInputs = getCommandAndDesc(userInput);
@@ -27,7 +25,6 @@ public class Bobble {
                 case "todo":
                     ToDo newToDo = new ToDo(UserInputs[1]);
                     taskList.add(newToDo);
-//                    taskList[taskCount] = new ToDo(UserInputs[1]);
                     addTaskResponse(newToDo);
                     break;
                 case "deadline":
@@ -45,7 +42,6 @@ public class Bobble {
                     break;
                 case "mark":
                     int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-//                    taskList.get(taskNumber).setDone(true);
                     markResponse(taskList.get(taskNumber), taskNumber);
                     break;
                 case "unmark":
