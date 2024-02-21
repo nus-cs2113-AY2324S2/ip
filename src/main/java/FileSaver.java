@@ -10,7 +10,6 @@ public class FileSaver {
     protected static final String SEPARATOR = " | ";
     protected static File file = new File(DATA_PATH);
 
-
     public static void checkFileExists() throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
@@ -28,7 +27,7 @@ public class FileSaver {
         String description = todo.description;
         int notDone = todo.getStatusIcon().equals(" ") ? 0 : 1;
         String toDoText = type + SEPARATOR + notDone
-                + SEPARATOR + todo.description + System.lineSeparator();
+                + SEPARATOR + description + System.lineSeparator();
         saveData(toDoText);
     }
 
