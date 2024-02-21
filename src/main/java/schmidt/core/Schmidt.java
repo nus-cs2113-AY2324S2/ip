@@ -13,18 +13,29 @@ import java.util.Scanner;
  * This is the class for Schmidt, a multi-functional chatbot
  */
 public class Schmidt {
+    private static final String LOGO = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
+            "██╔════╝██╔══██╗██║░░██║████╗░████║██║██╔══██╗╚══██╔══╝\n" +
+            "╚█████╗░██║░░╚═╝███████║██╔████╔██║██║██║░░██║░░░██║░░░\n" +
+            "░╚═══██╗██║░░██╗██╔══██║██║╚██╔╝██║██║██║░░██║░░░██║░░░\n" +
+            "██████╔╝╚█████╔╝██║░░██║██║░╚═╝░██║██║██████╔╝░░░██║░░░\n" +
+            "╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░";
+    private static final String LINE = "------------------------------------------------------------";
+    private static final String HELP_MESSAGE = "I'm sorry, but the valid commands are:\n" +
+            "\tbye\n" +
+            "\tlist\n" +
+            "\ttodo <description>\n" +
+            "\tdeadline <description> /by <date>\n" +
+            "\tevent <description> /from <date> /to <date>\n" +
+            "\tmark <task number>\n" +
+            "\tunmark <task number>\n" +
+            "\tdelete <task number>";
+
     /**
      * This is the main method which makes use of Schmidt class.
      *
      * @param args Unused.
      */
     public static void main(String[] args) {
-        String LOGO = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
-                "██╔════╝██╔══██╗██║░░██║████╗░████║██║██╔══██╗╚══██╔══╝\n" +
-                "╚█████╗░██║░░╚═╝███████║██╔████╔██║██║██║░░██║░░░██║░░░\n" +
-                "░╚═══██╗██║░░██╗██╔══██║██║╚██╔╝██║██║██║░░██║░░░██║░░░\n" +
-                "██████╔╝╚█████╔╝██║░░██║██║░╚═╝░██║██║██████╔╝░░░██║░░░\n" +
-                "╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░";
         ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(LOGO);
@@ -108,6 +119,19 @@ public class Schmidt {
                     print(e.getMessage());
                 }
                 continue;
+            case "delete":
+                try {
+                    deleteTaskHelper(tasks, trimmedInput);
+                } catch (NumberFormatException e) {
+                    print("The task number should be a number\n" +
+                            "\tdelete <task number>");
+                } catch (IndexOutOfBoundsException e) {
+                    print("Task number out of range\n" +
+                            "\tdelete <task number>");
+                } catch (SchmidtException e) {
+                    print(e.getMessage());
+                }
+                continue;
             default:
                 printValidCommands();
             }
@@ -118,23 +142,16 @@ public class Schmidt {
      * This is a function to add lines to print statements
      */
     public static void print(String message) {
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
         System.out.println(message);
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
     }
 
     /**
      * This is a function to print the valid commands
      */
     public static void printValidCommands() {
-        print("I'm sorry, but the valid commands are:\n" +
-                "\tbye\n" +
-                "\tlist\n" +
-                "\ttodo <description>\n" +
-                "\tdeadline <description> /by <date>\n" +
-                "\tevent <description> /from <date> /to <date>\n" +
-                "\tmark <task number>\n" +
-                "\tunmark <task number>");
+        print(HELP_MESSAGE);
     }
 
     /**
@@ -155,14 +172,14 @@ public class Schmidt {
             return;
         }
 
-        System.out.println("------------------------------------------------------------\n" +
-                "Here are the tasks in your list:");
+        System.out.println(LINE +
+                "\nHere are the tasks in your list:");
 
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
         }
 
-        System.out.println("------------------------------------------------------------");
+        System.out.println(LINE);
     }
 
     /**
@@ -303,5 +320,32 @@ public class Schmidt {
             print("Nice! I've unmarked this task as done:\n" +
                     "\t" + tasks.get(index));
         }
+    }
+
+    /**
+     * This is a helper method to delete a task
+     *
+     * @param tasks The list of tasks
+     * @param input The user input
+     */
+    public static void deleteTaskHelper(ArrayList<Task> tasks, String input) throws SchmidtException {
+        String[] tokens = input.split("\\s+");
+
+        // incorrectly formatted command
+        if (tokens.length < 2) {
+            throw new SchmidtException("Please specify the task number to delete\n" +
+                    "\tdelete <task number>");
+        } else if (tokens.length > 2) {
+            throw new SchmidtException("Please specify one task number to delete\n" +
+                    "\tdelete <task number>");
+        }
+
+        int index = Integer.parseInt(tokens[1]) - 1;
+
+        Task removedTask = tasks.remove(index);
+
+        print("Noted. I've removed this task:\n" +
+                "\t" + removedTask + "\n" +
+                "Now you have " + tasks.size() + " tasks in the list.");
     }
 }
