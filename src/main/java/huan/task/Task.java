@@ -38,6 +38,11 @@ public class Task {
     public void printTask() {
         System.out.println("[" + (isDone ? "X" : " ") + "] " + name);
     }
+
+    public String writeLine() {
+        return null;
+    }
+
     public Task() {
         setName("task");
         setIsDone(false);

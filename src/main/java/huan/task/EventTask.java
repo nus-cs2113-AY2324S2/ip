@@ -50,6 +50,11 @@ public class EventTask extends Task{
         System.out.println("[E][" + (getIsDone() ? "X" : " ") + "] " + getName() + " (from: " + startTime + " to: " + endTime + ")");
     }
 
+    @Override
+    public String writeLine() {
+        return "E" + (getIsDone() ? "T" : "F") + " " + getName() + " /from " + startTime + " /to " + endTime;
+    }
+
     public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
