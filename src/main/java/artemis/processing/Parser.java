@@ -1,10 +1,14 @@
 package artemis.processing;
 
 import artemis.errors.Errors;
+import artemis.tasks.Deadline;
+import artemis.tasks.Event;
+import artemis.tasks.Task;
+import artemis.tasks.ToDo;
 
 public class Parser {
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, UNKNOWN, SAVE
     }
 
     public static Command parseCommand(String userInput) {
@@ -36,6 +40,9 @@ public class Parser {
             break;
         case "UNMARK":
             returnValue = Command.UNMARK;
+            break;
+        case "SAVE":
+            returnValue = Command.SAVE;
             break;
         default:
             returnValue = Command.UNKNOWN;
@@ -118,5 +125,36 @@ public class Parser {
         }
 
         return new Object[]{markItem, markAction.equals("mark")};
+    }
+
+    public static Task parseSaveData(String[] currentTaskArray, String taskName, boolean isDone) throws Errors.CorruptedSaveException {
+        Task currentTask;
+
+        // to dos: 2 pipes
+        // deadlines: 3 pipes
+        // events: 4 pipes
+        if (currentTaskArray.length == 3) {
+            ToDo newToDo = new ToDo(taskName);
+            newToDo.markAsDone(isDone);
+
+            currentTask = newToDo;
+        } else if (currentTaskArray.length == 4) {
+            String dueDate = currentTaskArray[3];
+            Deadline newDeadline = new Deadline(taskName, dueDate);
+            newDeadline.markAsDone(isDone);
+
+            currentTask = newDeadline;
+        } else if (currentTaskArray.length == 5) {
+            String startDateTime = currentTaskArray[3];
+            String endDateTime = currentTaskArray[4];
+
+            Event newEvent = new Event(taskName, startDateTime, endDateTime);
+            newEvent.markAsDone(isDone);
+
+            currentTask = newEvent;
+        } else {
+            throw new Errors.CorruptedSaveException();
+        }
+        return currentTask;
     }
 }

@@ -15,4 +15,7 @@ public class Errors {
 
     public static class InvalidMarkUnmarkIndexException extends Exception {
     }
+
+    public static class CorruptedSaveException extends Exception {
+    }
 }

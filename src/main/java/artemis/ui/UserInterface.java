@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class UserInterface {
     public static final Scanner scan = new Scanner(System.in);
-    private static String username;
+    public static String username;
 
     public static void printBanner() {
         String logo = "  __ _ _ __| |_ ___ _ __ ___ (_)___" + System.lineSeparator() +
@@ -50,6 +50,7 @@ public class UserInterface {
         System.out.println("usage: todo [item]");
         System.out.println("       deadline [item] /by [due date]");
         System.out.println("       event [item] /from [start] /to [end]");
+        System.out.println("       save");
         System.out.println("you may also enter \"list\" to see your current list.");
         System.out.println("you may also exit by entering \"bye\".");
 
@@ -89,6 +90,9 @@ public class UserInterface {
                  case BYE:
                      printGoodbye();
                      return;
+                 case SAVE:
+                     Save.saveData();
+                     continue;
                  case UNKNOWN:
                  default:
                      System.out.println("[artemis]: unknown command!");

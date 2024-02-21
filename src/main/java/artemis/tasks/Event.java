@@ -14,4 +14,12 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E] [%s] %s (from: %s to: %s)", super.getStatusIcon(), super.taskName, startDateTime, endDateTime);
     }
+
+    public String getStartDateTime() {
+        return startDateTime;
+    }
+
+    public String getEndDateTime() {
+        return endDateTime;
+    }
 }
