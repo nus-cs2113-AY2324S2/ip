@@ -14,7 +14,7 @@ public class FileSaver {
 
     public static String saveTodo(Todo todo) {
         char type = 'T';
-        String description = todo.description.trim();
+        String description = todo.description;
         int doneStatus = todo.toString().contains("[X]") ? 1 : 0;
         String toDoText = type + SEPARATOR + doneStatus
                 + SEPARATOR + description + System.lineSeparator();
