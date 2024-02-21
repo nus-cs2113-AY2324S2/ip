@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TaskManager {
     public static int noOfTasks;
@@ -111,7 +112,7 @@ public class TaskManager {
                 executeCommand(input.getCommandTypeAndParams());
 
                 if (processedInput[1].equals("DONE")) {
-                    tasks[noOfTasks - 1].markAsDone();
+                    tasks.get(noOfTasks - 1).markAsDone();
                 }
             }
         } catch (FileNotFoundException e) {
