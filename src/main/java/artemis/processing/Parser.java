@@ -4,7 +4,7 @@ import artemis.errors.Errors;
 
 public class Parser {
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, DELETE, UNKNOWN
     }
 
     public static Command parseCommand(String userInput) {
@@ -36,6 +36,9 @@ public class Parser {
             break;
         case "UNMARK":
             returnValue = Command.UNMARK;
+            break;
+        case "DELETE":
+            returnValue = Command.DELETE;
             break;
         default:
             returnValue = Command.UNKNOWN;
@@ -113,10 +116,25 @@ public class Parser {
         int markItem = Integer.parseInt(markList[1]) - 1;
         String markAction = markList[0];
 
-        if (markItem > TaskHandler.listCount) {
+        if (markItem > TaskHandler.taskList.size()) {
             throw new Errors.InvalidMarkUnmarkIndexException();
         }
 
         return new Object[]{markItem, markAction.equals("mark")};
+    }
+
+    public static int parseDelete(String deleteString) throws Errors.InvalidDeleteException, Errors.TaskNotFoundException {
+        String[] deleteList = deleteString.split(" ", 2);
+        if (deleteList.length != 2) {
+            throw new Errors.InvalidDeleteException();
+        }
+
+        int deleteItem = Integer.parseInt(deleteList[1]) - 1;
+
+        if (deleteItem > TaskHandler.taskList.size()) {
+            throw new Errors.TaskNotFoundException();
+        }
+
+        return deleteItem;
     }
 }

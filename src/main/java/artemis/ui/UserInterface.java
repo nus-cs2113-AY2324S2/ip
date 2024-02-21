@@ -4,6 +4,7 @@ import artemis.processing.*;
 import artemis.tasks.*;
 import artemis.errors.Errors;
 
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -33,15 +34,15 @@ public class UserInterface {
     }
 
     public static void printList() {
-        if (TaskHandler.listCount == 0) {
+        if (TaskHandler.taskList.isEmpty()) {
             System.out.println("[artemis]: Your list is empty!");
             return;
         }
 
         System.out.println("[artemis]: Your list is as such:");
-        for (int index = 0; index < TaskHandler.listCount; index++) {
-            Task currentTask = TaskHandler.taskList[index];
-            System.out.printf("%d. %s\n", index+1, currentTask);
+        for (ListIterator<Task> it = TaskHandler.taskList.listIterator(); it.hasNext();) {
+            Task currentTask = it.next();
+            System.out.printf("%d. %s\n", it.nextIndex(), currentTask);
         }
     }
 
@@ -50,14 +51,17 @@ public class UserInterface {
         System.out.println("usage: todo [item]");
         System.out.println("       deadline [item] /by [due date]");
         System.out.println("       event [item] /from [start] /to [end]");
-        System.out.println("you may also enter \"list\" to see your current list.");
-        System.out.println("you may also exit by entering \"bye\".");
-
+        System.out.println("       list");
+        System.out.println("       mark/unmark [index]");
+        System.out.println("       delete [index]");
+        System.out.println("       bye");
     }
 
     public static void commandLine() {
         String userInput;
         Task currentTask;
+
+
 
         while (true) {
             System.out.printf("[%s]: ", username);
@@ -89,14 +93,17 @@ public class UserInterface {
                  case BYE:
                      printGoodbye();
                      return;
+                 case DELETE:
+                    int deleteItem = Parser.parseDelete(userInput);
+                    TaskHandler.deleteTask(deleteItem);
+                    continue;
                  case UNKNOWN:
                  default:
                      System.out.println("[artemis]: unknown command!");
                      continue;
                  }
 
-                TaskHandler.taskList[TaskHandler.listCount] = currentTask;
-                TaskHandler.listCount++;
+                 TaskHandler.taskList.add(currentTask);
 
                 System.out.printf("[artemis]: you have added this task:%s %s%s",
                         System.lineSeparator(), currentTask, System.lineSeparator());
@@ -111,6 +118,10 @@ public class UserInterface {
                  System.out.println("[artemis]: please enter \"[mark/unmark] <list item number>\".");
              } catch (Errors.InvalidMarkUnmarkIndexException e) {
                  System.out.println("[artemis]: the given list item number given is invalid!");
+             } catch (Errors.InvalidDeleteException e) {
+                 System.out.println("[artemis]: invalid delete. please enter \"delete <list item number>\".");
+             } catch (Errors.TaskNotFoundException e) {
+                 System.out.println("[artemis]: the task you are requesting to delete does not exist!");
              }
         }
     }
