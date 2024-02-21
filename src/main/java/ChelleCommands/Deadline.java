@@ -8,6 +8,14 @@ public class Deadline extends Task {
         this.by = parseBy(description);
     }
 
+    public String getBy() {
+        return by;
+    }
+
+    public void setBy(String by) {
+        this.by = by;
+    }
+
     private static String parseDescription(String description) {
         String[] descriptionPart = description.split("/by", 2);
         return descriptionPart[0].trim();

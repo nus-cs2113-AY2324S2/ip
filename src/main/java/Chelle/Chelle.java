@@ -6,9 +6,13 @@ import ChelleCommands.*;
 import ChelleExceptions.*;
 
 public class Chelle {
+    private static final String FILE_PATH = "./src/main/java/Chelle/ChelleTasks.txt";
+
+
     public static void main(String[] args) {
+        // Load tasks from the hard disk when the chatbot starts up
+        ArrayList<Task> tasks = SaveTasks.loadTasksFromFile();
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println("Hello! I'm Chelle.\nI like to talkity talkity talk!");
 
@@ -26,6 +30,7 @@ public class Chelle {
 
             switch (userCommand) {
             case BYE:
+                SaveTasks.saveTasksToFile(tasks);
                 System.out.println("Chelle: Bye! Hope to see you again soon!");
                 scanner.close();
                 return;
