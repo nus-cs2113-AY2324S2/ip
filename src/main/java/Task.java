@@ -1,7 +1,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected int sequence = 0;
 
     public Task(String description) {
         this.description = description;
@@ -12,16 +11,16 @@ public class Task {
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
 
-    public int getSequence() {
-        return sequence;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void isDone(Boolean status) {
+    public void setDone(Boolean status) {
         this.isDone = status;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     @Override

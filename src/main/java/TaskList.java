@@ -1,43 +1,45 @@
+import java.util.ArrayList;
 public class TaskList {
-    protected Task[] list;
+    protected ArrayList<Task> list;
     protected int count;
 
     public TaskList() {
-        this(new Task[100], 0);
+        this.list = new ArrayList<>();
     }
 
-    public TaskList(Task[] list, int count) {
+    public TaskList(ArrayList<Task> list) {
         this.list = list;
-        this.count = count;
     }
 
     public void addTask(Task task) {
-        this.list[count] = task;
-        this.count = count + 1;
-        task.sequence = count;
+        this.list.add(task);
     }
 
     public int getCount() {
-        return count;
+        return list.size();
     }
 
     public void printList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.count; i++) {
-            System.out.println(this.list[i].getSequence() + "." + this.list[i]);
+        for (int i = 0; i < getCount(); i++) {
+            System.out.println(i+1 + "." + this.list.get(i));
         }
     }
 
+    public ArrayList<Task> getTasks() {
+        return list;
+    }
+
     public void markAsDone(int sequence) {
-        Task task = this.list[sequence];
-        task.isDone(true);
+        Task task = this.list.get(sequence);
+        task.setDone(true);
         System.out.println("Nice! I've marked this task as done:\n" + task);
 
     }
 
     public void markAsUndone(int sequence) {
-        Task task = this.list[sequence];
-        task.isDone(false);
+        Task task = this.list.get(sequence);
+        task.setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" + task);
     }
 

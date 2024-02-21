@@ -1,5 +1,9 @@
+import java.io.IOException;
 import java.util.Scanner;
 public class Jane {
+    public static final String FILE_PATH = "./data/jane.txt";
+    public static Storage storage;
+
     public static void processInput(String input, TaskList taskList) throws JaneException {
         try {
             String[] inputPart = input.split(" ", 2);
@@ -52,21 +56,39 @@ public class Jane {
         System.out.print(LOGO + SEPARATOR);
         System.out.print(GREET_MESSAGE + SEPARATOR);
 
+        storage = new Storage(FILE_PATH);
+
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-        TaskList taskList = new TaskList();
+        //TaskList taskList = new TaskList();
 
-        while (!input.equals("bye")) {
-            try {
-                System.out.print(SEPARATOR);
-                processInput(input, taskList);
-                System.out.print(SEPARATOR);
-            } catch (JaneException e) {
-                System.out.println(e.getMessage());
-                System.out.print(SEPARATOR);
+        try {
+            TaskList taskList = storage.loadTasksToFile();
+
+
+            while (!input.equals("bye")) {
+                try {
+                    System.out.print(SEPARATOR);
+                    processInput(input, taskList);
+                    System.out.print(SEPARATOR);
+                    storage.saveTasksToFile(taskList);
+                } catch (JaneException e) {
+                    System.out.println(e.getMessage());
+                    System.out.print(SEPARATOR);
+                }
+                input = in.nextLine();
             }
-            input = in.nextLine();
+
+            try {
+                storage.saveTasksToFile(taskList);
+                System.out.print(SEPARATOR + EXIT_MESSAGE + SEPARATOR);
+            } catch (IOException e) {
+                System.out.println("File does not exist");
+            }
+        } catch (IOException e) {
+            System.out.println("File does not exist");
+        } catch (JaneDataCorruptedException e) {
+            System.out.println("File does not exist");
         }
-        System.out.print(SEPARATOR + EXIT_MESSAGE + SEPARATOR);
     }
 }
