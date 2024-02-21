@@ -18,6 +18,7 @@ public class Task {
     public String toString(){
         return "[" +getStatusIcon()+"] "+get_description();
     }
+    public String get_date(){return null;};
     public void mark(Boolean i){
         this.isDone = i;
     }

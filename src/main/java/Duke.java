@@ -2,9 +2,15 @@ import DukeException.Command_Not_Exist;
 import DukeException.No_Description;
 import Task.Task;
 
+import java.io.IOException;
 import java.util.Scanner;
 import DukeException.*;
 import Task.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import java.io.FileWriter;
+
 public class Duke {
     public static Boolean test_existence(Task[] tasks_list, String instruction){
         for(Task element:tasks_list){
@@ -15,7 +21,111 @@ public class Duke {
         }
         return false;
     }
-    public static void main(String[] args) {
+    public static void save_status(Task[] tasks_list) throws IOException {
+        File directory = new File("data");
+        File file = new File(directory, "saver.txt");
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+                return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        FileWriter fw = new FileWriter("./data/saver.txt");
+
+        for(Task task:tasks_list){
+            if(task==null){
+                break;
+            }
+            String task_string = task.toString();
+            if(task_string.startsWith("[T]")){
+                fw.write("T | ");
+                if(task.getStatusIcon().equals("X"))
+                    fw.write("1 | ");
+                else
+                    fw.write("0 | ");
+                fw.write(task.get_description());
+            }
+            else if(task_string.startsWith("[D]")){
+                fw.write("D | ");
+                if(task.getStatusIcon().equals("X"))
+                    fw.write("1 | ");
+                else
+                    fw.write("0 | ");
+                fw.write(task.get_description()+" | ");
+                fw.write(task.get_date());
+            }
+            else if(task_string.startsWith("[E]")){
+                fw.write("E | ");
+                if(task.getStatusIcon().equals("X"))
+                    fw.write("1 | ");
+                else
+                    fw.write("0 | ");
+                fw.write(task.get_description()+" | ");
+                fw.write(task.get_date());
+            }
+            fw.write(System.lineSeparator());
+        }
+
+        fw.close();
+    }
+    public static Task[] load_status() throws IOException {
+        File directory = new File("./data");
+        File Load_file = new File(directory, "saver.txt");
+        Task[] tasks_list = new Task[100];
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        try {
+            if (!Load_file.exists()) {
+                Load_file.createNewFile();
+                return new Task[100];
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new Task[100];
+        }
+
+        int task_number=0;
+        Scanner data = new Scanner(Load_file);
+        while (data.hasNext()){
+            String current_line = data.nextLine();
+            String[] processed_data = current_line.split("\\|");
+            if(current_line.startsWith("T")){
+                tasks_list[task_number] =  new Todo(processed_data[2]);
+                if(processed_data[1].equals(" 1 ")){
+                    tasks_list[task_number].mark(true);
+                }
+                task_number++;
+            }
+            else if(current_line.startsWith("D")){
+                tasks_list[task_number] = new Deadline(processed_data[2],processed_data[3]);
+                if(processed_data[1].equals(" 1 ")){
+                    tasks_list[task_number].mark(true);
+                }
+                task_number++;
+            }
+            else if(current_line.startsWith("E")){
+                tasks_list[task_number] = new Event(processed_data[2],processed_data[3]);
+                if(processed_data[1].equals(" 1 ")){
+                    tasks_list[task_number].mark(true);
+                }
+                task_number++;
+            }
+            else{
+                System.out.println("The load data is not in correct format, stop loading");
+                return tasks_list;
+            }
+        }
+        return tasks_list;
+    }
+    public static void main(String[] args) throws IOException {
         //init the parameters to be used
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -31,7 +141,14 @@ public class Duke {
         String instruction = " ";
 
         int number_of_task = 0;
-        Task[] tasks_list = new Task[100];
+        Task[] tasks_list = load_status();
+        for(int i=0;i<100;i++){
+            if(tasks_list[i]==null){
+                number_of_task =i;
+                break;
+            }
+
+        }
 
         while(true) //main loop of the chat bot
         {
@@ -64,6 +181,8 @@ public class Duke {
                 tasks_list[mark_number].mark(true);
                 System.out.println(prefix+"Nice! I've marked this task as done:");
                 System.out.println("\t"+tasks_list[mark_number]);
+                System.out.println("Status changed, I will save the data for you!");
+                save_status(tasks_list);
                 continue;
             }
 
@@ -74,6 +193,8 @@ public class Duke {
                 tasks_list[mark_number].mark(false);
                 System.out.println(prefix+"OK, I've marked this task as not done yet:");
                 System.out.println("\t"+tasks_list[mark_number]);
+                System.out.println("Status changed, I will save the data for you!");
+                save_status(tasks_list);
                 continue;
             }
 
@@ -111,6 +232,8 @@ public class Duke {
                     System.out.println(prefix + tasks_list[number_of_task] + "\n");
                     number_of_task++;
                     System.out.println("Now you have " + number_of_task + " tasks in the list. \n");
+                    System.out.println("Status changed, I will save the data for you!");
+                    save_status(tasks_list);
                 }
                 else
                 {
