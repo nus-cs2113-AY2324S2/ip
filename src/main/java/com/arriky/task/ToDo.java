@@ -1,15 +1,20 @@
 package com.arriky.task;
 public class ToDo extends Task {
-    ToDo(String taskName) {
-        super(taskName);
+    ToDo(String taskName, boolean completed) {
+        super(taskName, 'T', completed);
     }
 
     @Override
-    String getSummary() {
+    public String getSummary() {
         if (completed) {
             return "[T][X] " + taskName;
         } else {
             return "[T][ ] " + taskName;
         }
+    }
+
+    @Override
+    public String getSerializable() {
+        return "T," + completed + "," + taskName;
     }
 }

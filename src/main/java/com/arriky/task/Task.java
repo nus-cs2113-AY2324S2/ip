@@ -1,13 +1,18 @@
 package com.arriky.task;
 
-abstract class Task {
+public abstract class Task {
     public String taskName;
-    public boolean completed = false;
+    public boolean completed;
 
-    Task(String taskName) {
+    public char taskType;
+
+    Task(String taskName, char taskType, boolean completed) {
         this.taskName = taskName;
-        completed = false;
+        this.completed = completed;
+        this.taskType = taskType;
     }
 
-    abstract String getSummary();
+    public abstract String getSummary();
+
+    public abstract String getSerializable();
 }
