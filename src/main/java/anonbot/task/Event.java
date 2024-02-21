@@ -1,6 +1,6 @@
-package task;
+package anonbot.task;
 
-import misc.Parser;
+import anonbot.misc.Parser;
 
 public class Event extends Task {
     private String from;

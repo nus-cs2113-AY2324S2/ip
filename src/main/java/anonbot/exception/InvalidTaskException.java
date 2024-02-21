@@ -1,4 +1,4 @@
-package exception;
+package anonbot.exception;
 
 public class InvalidTaskException extends Exception implements AnonbotExceptionHandler {
     private String taskDescription;

@@ -1,4 +1,4 @@
-package task;
+package anonbot.task;
 
 public class Task {
     public enum TaskType {

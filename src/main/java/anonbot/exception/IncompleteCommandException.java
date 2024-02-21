@@ -1,6 +1,4 @@
-package exception;
-
-import anonbot.AnonBot;
+package anonbot.exception;
 
 public class IncompleteCommandException extends Exception implements AnonbotExceptionHandler {
     private String command;

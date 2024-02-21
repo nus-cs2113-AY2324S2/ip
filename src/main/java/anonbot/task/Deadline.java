@@ -1,6 +1,6 @@
-package task;
+package anonbot.task;
 
-import misc.Parser;
+import anonbot.misc.Parser;
 
 public class Deadline extends Task {
     private String by;

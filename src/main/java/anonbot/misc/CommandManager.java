@@ -1,11 +1,11 @@
-package misc;
+package anonbot.misc;
 
 import anonbot.Ui;
-import exception.IncompleteCommandException;
-import exception.InvalidTaskException;
-import task.Task.TaskType;
-import task.TaskManager;
-import exception.InvalidCommandException;
+import anonbot.exception.IncompleteCommandException;
+import anonbot.exception.InvalidTaskException;
+import anonbot.task.Task.TaskType;
+import anonbot.task.TaskManager;
+import anonbot.exception.InvalidCommandException;
 
 public class CommandManager {
     /**

@@ -1,4 +1,4 @@
-package misc;
+package anonbot.misc;
 
 public class Parser {
     public static String getCommand(String userInput) {

@@ -1,8 +1,8 @@
 package anonbot;
 
-import exception.InvalidCommandException;
-import misc.CommandManager;
-import misc.Status;
+import anonbot.exception.InvalidCommandException;
+import anonbot.misc.CommandManager;
+import anonbot.misc.Status;
 
 public class AnonBot {
     private static void runMainLoop() {

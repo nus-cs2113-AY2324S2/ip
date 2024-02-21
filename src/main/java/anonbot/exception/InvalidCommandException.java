@@ -1,4 +1,4 @@
-package exception;
+package anonbot.exception;
 
 public class InvalidCommandException extends Exception implements AnonbotExceptionHandler {
     private String invalidCommand;
