@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class Tony {
     public static final String LINE_BREAKER = "__________________________________________________"
             + System.lineSeparator();
+    protected static Task[] tasks = new Task[100];
     public static int taskCounter = 0;
     public static void main(String[] args) throws IOException {
         printWelcomeMessage();
         FileLoader.checkFileExists();
-        Task[] tasks = new Task[100];
+
         Scanner userInput = new Scanner(System.in);
         while(userInput.hasNextLine()) {
             String line = userInput.nextLine();
@@ -47,7 +48,7 @@ public class Tony {
     private static void listTasks(Task[] tasks) {
         System.out.println(LINE_BREAKER);
         System.out.println("\tHere are the tasks in your list:");
-        for(int i = 0; i < taskCounter; i++) {
+        for(int i = 0; i < tasks.length; i++) {
             Task task = tasks[i];
             System.out.println("\t" + (i+1) + "."
                     + task);
@@ -56,7 +57,7 @@ public class Tony {
     }
 
     private static void checkNumberWithinRange(int num) throws TonyException {
-        if(num > taskCounter) {
+        if(num > tasks.length) {
             throw new TonyException();
         }
     }
