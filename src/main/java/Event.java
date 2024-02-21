@@ -4,7 +4,7 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
-        this.to = to;
+        this.to = to.trim();
     }
     public String type() {
         return "[E]";
@@ -14,6 +14,6 @@ public class Event extends Task {
     public String toString() {
         return type() + super.toString()
                 + "(from: " + from
-                + " to:" + to + ")";
+                + " to: " + to + ")";
     }
 }

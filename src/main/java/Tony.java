@@ -116,12 +116,14 @@ public class Tony {
         Event event = new Event(description[0], description[1], description[2]);
         allTasks[taskCounter] = event;
         printAddNewTask(allTasks);
+        FileSaver.saveEvent(event);
     }
     private static void addDeadlineTask(Task[] allTasks, String[] deadlineTask) {
         String[] description = deadlineTask[1].split("/by");
         Deadline deadline = new Deadline(description[0], description[1]);
         allTasks[taskCounter] = deadline;
         printAddNewTask(allTasks);
+        FileSaver.saveDeadline(deadline);
     }
     private static void addTodoTask(Task[] allTasks, String[] toDoTask) {
         Todo todo = new Todo(toDoTask[1]);

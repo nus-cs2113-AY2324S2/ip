@@ -25,9 +25,11 @@ public class FileSaver {
 
     public static void saveTodo(Todo todo) {
         try {
-            FileWriter fw = new FileWriter(file);
+            FileWriter fw = new FileWriter(file, true);
             String type = "T";
-            String toDoText = type + SEPARATOR + 0 + SEPARATOR + todo.description;
+            int notDone = 0;
+            String toDoText = type + SEPARATOR + notDone
+                    + SEPARATOR + todo.description + System.lineSeparator();
             fw.write(toDoText);
             fw.close();
         } catch (IOException e) {
@@ -35,21 +37,34 @@ public class FileSaver {
         }
     }
 
-    public static void saveDeadline(Task[] tasks) {
+    public static void saveDeadline(Deadline deadline) {
         try {
-            FileWriter fw = new FileWriter(file);
-            String deadlineText = "";
+            FileWriter fw = new FileWriter(file, true);
+            String type = "D";
+            int notDone = 0;
+            String description = deadline.description;
+            String by = deadline.by;
+            String deadlineText = type + SEPARATOR + notDone
+                    + SEPARATOR + description + SEPARATOR + by  + System.lineSeparator();
             fw.write(deadlineText);
+            fw.close();
         } catch (IOException e) {
             System.out.println("Something happened: " + e.getMessage());
         }
     }
 
-    public static void saveEvent(Task[] tasks) {
+    public static void saveEvent(Event event) {
         try {
-            FileWriter fw = new FileWriter(file);
-            String eventText = "";
+            FileWriter fw = new FileWriter(file, true);
+            String type = "E";
+            int notDone = 0;
+            String description = event.description;
+            String from = event.from;
+            String to = event.to;
+            String eventText = type + SEPARATOR + notDone + SEPARATOR + description
+                    + SEPARATOR + from + " to " + to + System.lineSeparator();
             fw.write(eventText);
+            fw.close();
         } catch (IOException e) {
             System.out.println("Something happened: " + e.getMessage());
         }
