@@ -1,0 +1,3 @@
+[T][X] Eric Sim Chong Li: Answer CS2113T tutorial questions
+[D][ ] Weekly CS2113T quiz (by: Monday 9pm)
+[E][ ] CS2113T lecture (from: Friday 4pm to: 6pm)

@@ -59,7 +59,7 @@ public class Parser {
 
         if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event")
         || command[0].equals("add") || command[0].equals("mark") || command[0].equals("unmark")) {
-            Storage.updateFile(taskList);
+            Storage.updateFile();
         }
 
         return isExit;

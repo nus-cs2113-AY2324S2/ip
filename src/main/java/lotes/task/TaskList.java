@@ -3,9 +3,6 @@ import java.util.ArrayList;
 
 public class TaskList {
     public static ArrayList<Task> taskList = new ArrayList<>();
-//    private static final int MAX_TASKS = 100;
-//    public static final Task[] taskList = new Task[MAX_TASKS];
-//    private static int taskCount = 0;
 
     public static String indent = "    ";
     public static String separator = System.lineSeparator();
@@ -231,4 +228,5 @@ public class TaskList {
         }
 
     }
+
 }

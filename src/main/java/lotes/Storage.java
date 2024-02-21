@@ -52,11 +52,11 @@ public class Storage {
 
     // Update the current file with the updated task list
 
-    public static void updateFile(TaskList taskList){
+
+    public static void updateFile(){
         try {
             FileWriter fw = new FileWriter(filename);
             StringBuilder sb = new StringBuilder();
-
 //            for(int i = 0; i < TaskList.getTaskCount(); i++) {
 //                sb.append(TaskList.taskList[i]).append(TaskList.separator);
 //            }
