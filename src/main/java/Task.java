@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Task {
     //Attributes
@@ -48,6 +49,32 @@ public class Task {
         System.out.println(UI.LINE_SEPARATOR);
     }
 
+    public static void delete(int index) {
+        boolean isValidIndex = false;
+        Task deletedTask = null;
+        try {
+            isValidIndex = true;
+            deletedTask = tasks.get(index - 1);
+            tasks.remove(index - 1);
+        }   catch (IndexOutOfBoundsException ioobe) {
+            isValidIndex = false;
+            System.out.println(UI.LINE_SEPARATOR);
+            System.out.println("Index out of bound!");
+            System.out.println(UI.LINE_SEPARATOR);
+        }   catch (NumberFormatException nfe) {
+            isValidIndex = false;
+            System.out.println(UI.LINE_SEPARATOR);
+            System.out.println("Invalid index!");
+            System.out.println(UI.LINE_SEPARATOR);
+        }
+        if (isValidIndex){
+            System.out.println(UI.LINE_SEPARATOR);
+            System.out.println("Deleted task " + deletedTask + ".");
+            System.out.println("Now you have " + tasks.size() + " task(s) left.");
+            System.out.println(UI.LINE_SEPARATOR);
+        }
+    }
+
     public static void mark (int index) {
         tasks.get(index - 1).isDone = true;
         System.out.println(UI.LINE_SEPARATOR);
@@ -69,7 +96,8 @@ public class Task {
     }
 
     private static boolean isValidCommand (String command) {
-        return command.equals("list") || command.equals("mark") || command.equals("unmark") || isValidTask(command);
+        return command.equals("list") || command.equals("mark") || command.equals("unmark") || command.equals("delete")
+                || isValidTask(command);
     }
 
     public static void responseToCommand (String command) {
@@ -86,6 +114,8 @@ public class Task {
             mark(Integer.parseInt(commandWords[1]));
         } else if (commandWords[0].equals("unmark")) {
             unmark(Integer.parseInt(commandWords[1]));
+        } else if (commandWords[0].equals("delete")){
+            delete(Integer.parseInt(commandWords[1]));
         } else {
             if (Parser.isValidTaskCommand(command, commandWords)) {
                 Task newTask;
