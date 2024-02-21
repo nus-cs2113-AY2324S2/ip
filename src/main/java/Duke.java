@@ -19,7 +19,7 @@ public class Duke {
     System.out.printf("%s%n","    ____________________________________________________________");
   }
 
-  public static void taskMessage(){
+  public static void replyAddedTask(){
     Task addedTask = enteredCommands.get(enteredCommands.size() - 1);
     int size=enteredCommands.size();
     System.out.printf("     Got it. I've added this task:%n      %s%n     Now you have %d tasks in the list.%n",
@@ -31,15 +31,14 @@ public class Duke {
     System.out.printf("%s%n","    ____________________________________________________________");
     String taskType=userCommand.split(" ")[0].toUpperCase();
 
-
-    switch(taskType){
+    switch (taskType) {
       default:
         break;
 
       case "TODO":
         String toDoDesc=userCommand.replaceAll("(?i)TODO","");
         enteredCommands.add(new Todo(toDoDesc));
-        taskMessage();
+        replyAddedTask();
         break;
 
       case "DEADLINE":
@@ -47,7 +46,7 @@ public class Duke {
         String deadLineDesc=deadLine[0].replaceAll("(?i)DEADLINE","");
         String by=deadLine[1].replaceAll("(?i)BY","").stripLeading();
         enteredCommands.add(new Deadline(deadLineDesc,by));
-        taskMessage();
+        replyAddedTask();
         break;
 
       case "EVENT":
@@ -56,7 +55,7 @@ public class Duke {
         String from=event[1].replaceAll("(?i)FROM","").stripLeading();
         String to=event[2].replaceAll("(?i)TO","").stripLeading();
         enteredCommands.add(new Event(eventDesc,from, to));
-        taskMessage();
+        replyAddedTask();
         break;
     }
 
@@ -71,58 +70,43 @@ public class Duke {
 
   public static void markUnmark(String userCommand,String markChoice) {
 
-    if (markChoice.equalsIgnoreCase("MARK")) {
+    switch (markChoice) {
 
-      try{
-        int toMark=Integer.parseInt(userCommand.replaceAll("[^0-9]", ""))-1;
-        enteredCommands.get(toMark).markAsDone();
-        System.out.printf("%s%n","    ____________________________________________________________");
-        System.out.printf("     Nice! I've marked this task as done:%n       %s%n",
-            enteredCommands.get(toMark).toString());
-      } catch(Exception e){
-        System.out.printf("%s%n","    ____________________________________________________________");
-        System.out.printf("     No tasks added yet to mark.%n");
-      }
+      case "MARK":
+        try{
+          int toMark=Integer.parseInt(userCommand.replaceAll("[^0-9]", ""))-1;
+          enteredCommands.get(toMark).markAsDone();
+          System.out.printf("%s%n","    ____________________________________________________________");
+          System.out.printf("     Nice! I've marked this task as done:%n       %s%n",
+              enteredCommands.get(toMark).toString());
+        } catch(Exception e){
+          System.out.printf("%s%n","    ____________________________________________________________");
+          System.out.printf("     Could not complete mark request.%n");
+        }
+        break;
 
-    } else if(markChoice.equalsIgnoreCase("UNMARK")){
-
-      try{
-        int toMark=Integer.parseInt(userCommand.replaceAll("[^0-9]", ""))-1;
-        enteredCommands.get(toMark).markAsNotDone();
-        System.out.printf("%s%n","    ____________________________________________________________");
-        System.out.printf("     OK, I've marked this task as not done yet:%n       %s%n",
-            enteredCommands.get(toMark).toString());
-      } catch(Exception E){
-        System.out.printf("%s%n","    ____________________________________________________________");
-        System.out.printf("     No tasks added yet to mark.%n");
-      }
+      case "UNMARK":
+        try{
+          int toMark=Integer.parseInt(userCommand.replaceAll("[^0-9]", ""))-1;
+          enteredCommands.get(toMark).markAsNotDone();
+          System.out.printf("%s%n","    ____________________________________________________________");
+          System.out.printf("     OK, I've marked this task as not done yet:%n       %s%n",
+              enteredCommands.get(toMark).toString());
+        } catch(Exception E){
+          System.out.printf("%s%n","    ____________________________________________________________");
+          System.out.printf("     Could not complete unmark request.%n");
+        }
+        break;
 
     }
 
-  }
-
-  public static void getUserCommands() {
-    Scanner commandReader= new Scanner(System.in);
-    String userCommand;
-    boolean shouldExit=false;
-
-    while (!shouldExit) {
-      if (enteredCommands.size()<100) {
-        System.out.printf("%s%n%n", "    ____________________________________________________________");
-        userCommand = commandReader.nextLine();
-        shouldExit = executesCommand(userCommand);
-      } else {
-        exit();
-        shouldExit=true;
-      }
-    }
   }
 
   public static boolean executesCommand(String userCommand) {
 
     String[] separatedCommand=userCommand.split(" ");
 
-    switch(separatedCommand[0].toUpperCase()){
+    switch (separatedCommand[0].toUpperCase()) {
 
       default:
         addTask(userCommand);
@@ -141,14 +125,41 @@ public class Duke {
         return false;
 
       case "UNMARK":
-       markUnmark(userCommand,"UNMARK");
-       return false;
+        markUnmark(userCommand,"UNMARK");
+        return false;
 
     }
 
   }
 
+  public static void getUserCommands() {
+    Scanner commandReader= new Scanner(System.in);
+    String userCommand;
+    boolean shouldExitLoop=false;
+
+    while (!shouldExitLoop) {
+      if (enteredCommands.size()>=100) {
+        exit();
+        shouldExitLoop=true;
+        continue;
+      }
+
+      System.out.printf("%s%n%n", "    ____________________________________________________________");
+      userCommand = commandReader.nextLine();
+      shouldExitLoop = executesCommand(userCommand);
+
+    }
+
+  }
+
+
   public static void main(String[] args) {
+    String logo = " ____        _        \n"
+        + "|  _ \\ _   _| | _____ \n"
+        + "| | | | | | | |/ / _ \\\n"
+        + "| |_| | |_| |   <  __/\n"
+        + "|____/ \\__,_|_|\\_\\___|\n";
+    System.out.println("Hello from\n" + logo);
 
     greet();
     getUserCommands();

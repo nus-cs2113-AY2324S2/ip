@@ -13,16 +13,17 @@ public class Event extends Task{
     return this.startDateTime;
   }
 
+  /*
   public String getEndDateTime() {
     return this.endDateTime;
   }
-
   public void setStartDateTime(String startDateTime) {
     this.startDateTime=startDateTime;
   }
   public void setEndDateTime(String endDateTime) {
     this.endDateTime=endDateTime;
   }
+*/
 
   @Override
   public String toString() {

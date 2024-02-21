@@ -12,13 +12,14 @@ public class Task {
     return this.description;
   }
 
+  /*
   public void setDescription(String description) {
     this.description=description;
   }
 
   public boolean getIsDone() {
         return this.isDone;
-  }
+  }*/
 
   public void markAsDone() {
     this.isDone=true;
