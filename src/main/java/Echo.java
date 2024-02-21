@@ -147,6 +147,16 @@ public class Echo {
                 }
                 break;
 
+            case "delete":
+                if (parts.length > 1) {
+                    int taskNumber = Integer.parseInt(parts[1]) - 1;
+                    deleteTask.deleteTask(list, taskNumber, count);
+                    if (taskNumber >= 0 && taskNumber < count) {
+                        count--; // Decrease count after deletion
+                    }
+                }
+                break;
+
             case "help":
                 System.out.println(break_line);
                 System.out.println("'bye' to exit ");
@@ -158,13 +168,14 @@ public class Echo {
                 System.out.println("'todo [description]' to add a new ToDo task");
                 System.out.println("'deadline [description] /by [time]' to add a new Deadline");
                 System.out.println("'event [description] /from [start time] /to [end time]' to add a new Event");
+                System.out.println("'delete [event index]' to delete a task from the list. ");
                 System.out.println(break_line);
                 break;
 
 
             default:
                 System.out.println(break_line);
-                System.out.println("Sorry, I didn't understand that command.");
+                System.out.println("Sorry, I don't understand that command.");
                 System.out.println("Type 'help' for a list of valid commands.");
                 System.out.println(break_line);
                 break;
