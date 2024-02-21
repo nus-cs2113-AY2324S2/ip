@@ -1,6 +1,6 @@
 package anonbot.task;
 
-import anonbot.exception.InvalidCommandException;
+import anonbot.exception.InvalidDeleteCommandException;
 import anonbot.exception.InvalidMarkCommandException;
 import anonbot.exception.InvalidTaskException;
 
@@ -88,5 +88,19 @@ public class TaskManager {
         }
 
         taskToMark.markAsUndone();
+    }
+
+    public static void deleteTask(int taskNumber) throws InvalidDeleteCommandException {
+        for (int i = 0 ; i < taskList.size(); i++){
+            Task task = taskList.get(i);
+            if (task.getTaskNumber() == taskNumber){
+                System.out.println("Ok. Task Removed: ");
+                task.printTask();
+                taskList.remove(i);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                return;
+            }
+        }
+        throw new InvalidDeleteCommandException("delete", Integer.toString(taskNumber));
     }
 }

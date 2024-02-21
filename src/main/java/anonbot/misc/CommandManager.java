@@ -20,6 +20,7 @@ public class CommandManager {
      * 5. `todo` <description> - Creates a new todo task.
      * 6. `deadline` <description> /by <end_time> - Creates a new deadline task.
      * 7. `event` <description> /from <start_time> /to <end_time> - Creates a new event task.
+     * 8. `delete` <task_number> - Deletes the specific task.
      */
     public static Status processCommand(String userInput) throws InvalidCommandException {
         Status executionStatus = Status.STATUS_OK;
@@ -57,6 +58,9 @@ public class CommandManager {
             case "event":
                 TaskManager.createNewTask(rawArgument, TaskType.EVENT);
                 break;
+            case "delete":
+                processDeleteCommand(rawArgument);
+                break;
             default: // Invalid Command
                 throw new InvalidCommandException(command);
             }
@@ -83,6 +87,15 @@ public class CommandManager {
             TaskManager.markTaskAsUndone(taskNumber);
         } catch (NumberFormatException e) {
             throw new IncompleteCommandException("unmark", rawArgument);
+        }
+    }
+
+    private static void processDeleteCommand(String rawArgument) throws IncompleteCommandException {
+        try {
+            int taskNumber = Parser.getTaskNumberFromString(rawArgument);
+            TaskManager.deleteTask(taskNumber);
+        } catch (NumberFormatException e) {
+            throw new IncompleteCommandException("delete", rawArgument);
         }
     }
 }
