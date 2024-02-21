@@ -6,5 +6,12 @@ added: the dance of the magpie frings
 2. start a fire [ ] by: night
 3. the dance of the magpie frings from dusk to dawn
 I'm sorry. I'm afraid I can't do that.
+added: build a hut
+Task forage for wood marked as done.
 Task start a fire marked as done.
+Please specify a task index
+Task start a fire deleted.
+Task the dance of the magpie frings deleted.
+1. forage for wood [X]
+2. build a hut [ ]
 Till we meet again.

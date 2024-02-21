@@ -3,5 +3,11 @@ deadline start a fire /by night
 event the dance of the magpie frings /from dusk /to dawn
 list
 build a hut
+todo build a hut
+mark 1
 mark 2
+mark not-a-number
+delete 2
+delete 2
+list
 bye
