@@ -1,5 +1,5 @@
 public class Task {
-    protected String description;
+        protected String description;
     protected boolean isDone;
 
 
@@ -8,12 +8,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markAsDone () {
+    public void markAsDone() {
         this.isDone = true;
         System.out.println(getTypeIcon() + getStatusIcon() + this.description);
     }
 
-    public void markAsUndone () {
+    public void markAsUndone() {
         this.isDone = false;
         System.out.println(getTypeIcon() + getStatusIcon() + this.description);
     }
@@ -22,11 +22,11 @@ public class Task {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
-    public void printTask () {
+    public void printTask() {
         return;
     }
 
-    public String getTypeIcon (){
+    public String getTypeIcon(){
         return "?";
     }
 
