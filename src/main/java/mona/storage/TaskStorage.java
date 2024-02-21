@@ -2,6 +2,7 @@ package mona.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -30,7 +31,7 @@ public class TaskStorage {
         }
     }
 
-    public void saveToStorage(Task[] tasks) {
+    public void saveToStorage(ArrayList<Task> tasks) {
         String textToAdd = generateTextToAdd(tasks);
 
         try {
@@ -43,7 +44,7 @@ public class TaskStorage {
             throw new RuntimeException(e);
         }
     }
-    public static String generateTextToAdd(Task[] tasks) {
+    public static String generateTextToAdd(ArrayList<Task> tasks) {
         String textToAdd = "";
         for (Task task: tasks) {
             if (task != null) {
