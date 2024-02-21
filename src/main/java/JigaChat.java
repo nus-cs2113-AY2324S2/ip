@@ -1,10 +1,7 @@
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.IOException;
 public class JigaChat {
     ArrayList<Task> taskList = new ArrayList<>();
