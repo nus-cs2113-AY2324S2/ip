@@ -21,6 +21,7 @@ public class Duke {
         for (int i = 0; i < list.size(); i++) {
             fileInput.write(list.get(i).toString() + "\n");
         }
+        fileInput.close();
     }
 
     public static void mainLoop(String input) throws PythiaException {
