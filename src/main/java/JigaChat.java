@@ -80,6 +80,9 @@ public class JigaChat {
             catch(NumberFormatException e) {
                 printDeleteCommand();
             }
+            catch(ArrayIndexOutOfBoundsException e) {
+                printDeleteCommand();
+            }
             catch(IOException e){
             }
             return;
@@ -194,6 +197,7 @@ public class JigaChat {
             System.out.print("You have " + taskCounter + " tasks in your list");
         }
         catch (IOException e) {
+            System.out.println("but why?");
         }
         catch(IndexOutOfBoundsException e) {
             System.out.println("Task " + taskIndex + " is not in your list!");
@@ -301,6 +305,7 @@ public class JigaChat {
                 }
             }
             catch(IOException e) {
+                System.out.println("the hell?");
             }
         }
         else {
@@ -319,7 +324,7 @@ public class JigaChat {
         }
         while (1 == 1) {
             String input;
-            Scanner in = new Scanner(System.in);
+            Scanner in = new Scanner(System.in, "UTF-8");
             input = in.nextLine();
             chat.readCommand(input);
         }

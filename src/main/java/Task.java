@@ -37,5 +37,4 @@ public class Task {
     public String getTypeIcon(){
         return "?";
     }
-
 }
