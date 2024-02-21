@@ -19,7 +19,7 @@ public class Byte {
     private static final int MAX_TASKS = 100;
     private static final List<Task> tasksList = new ArrayList<>();
     private static boolean tasksChanged = false;
-    private static final String FILE_PATH = "./src/main/java/Byte/byte.txt";
+    private static final String FILE_PATH = "./data/byte.txt";
 
     private static final int TASK_TYPE_INDEX = 0;
     private static final int DESCRIPTION_INDEX = 2;
@@ -45,7 +45,6 @@ public class Byte {
         try{
             loadTasksFromFile(FILE_PATH);
         }catch (FileNotFoundException e){
-            System.out.println("Working Directory = " + System.getProperty("user.dir"));
             System.out.println("File not found. Starting with an empty task list.");
         }
         printWelcomeMessage();
@@ -209,6 +208,8 @@ public class Byte {
 
     private static void loadTasksFromFile(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
+        createParentDirectory(file);
+
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
@@ -239,12 +240,26 @@ public class Byte {
     }
 
     private static void saveTasksToFile() throws IOException {
+        File file = new File(FILE_PATH);
+        createParentDirectory(file);
+
         FileWriter writeToFile = new FileWriter(FILE_PATH);
         for (Task task : tasksList){
             writeToFile.write(task.toFileString() + "\n");
         }
         writeToFile.close();
         tasksChanged = false;
+    }
+
+
+    private static void createParentDirectory(File file) {
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            boolean directoriesCreated = parentDirectory.mkdirs();
+            if (!directoriesCreated) {
+                System.err.println("Failed to create directories for file: " + file.getPath());
+            }
+        }
     }
 }
 
