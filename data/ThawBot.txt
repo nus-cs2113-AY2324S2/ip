@@ -1,2 +1,0 @@
-T | 1 | sleep
-T | 0 | do homework
