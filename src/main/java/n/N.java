@@ -20,6 +20,7 @@ public class N {
     public static final String TODO_INPUT_FORMAT = "    todo [task]";
     public static final String EVENT_INPUT_FORMAT = "    event [task] /from [start time] /to [end time]";
     public static final String DEADLINE_INPUT_FORMAT = "    deadline [task] /by [deadline]";
+    public static final String TASK_INDEX_OUT_OF_BOUNDS_ERROR = "Task not found :p";
     public static final String LOGO = " ____   ___\n"
             + "|    \\ |   |\n"
             + "|     \\|   |\n"
@@ -74,7 +75,7 @@ public class N {
                         "Okay, task " +(taskIndex + 1)+ " unmarked, let's complete it soon ~.o.~";
             }
         } else {
-            outputMessage = "Task not found :p";
+            outputMessage = TASK_INDEX_OUT_OF_BOUNDS_ERROR;
         }
         printMessage(outputMessage);
     }
@@ -187,11 +188,24 @@ public class N {
     }
 
     public static void deleteTask(String message) {
-        int indexToDelete = Integer.parseInt(message.split(" ")[1]) - 1;
-        printMessage("Noted, I have removed the following task:\n" +
-                "    " +taskList.get(indexToDelete).toString()+ "\n" +
-                "    Number of Tasks Remaining: " +taskList.size());
-        taskList.remove(indexToDelete);
+        try {
+            int indexToDelete = Integer.parseInt(message.split(" ")[1]) - 1;
+
+            if (indexToDelete < taskList.size()) {
+                printMessage("Noted, I have removed the following task:\n" +
+                        "    " +taskList.get(indexToDelete).toString()+ "\n" +
+                        "    Number of Tasks Remaining: " +taskList.size());
+                taskList.remove(indexToDelete);
+            } else {
+                printMessage(TASK_INDEX_OUT_OF_BOUNDS_ERROR);
+            }
+
+        } catch (NumberFormatException e) {
+            printMessage(INVALID_TASK_INDEX_ERROR);
+        } catch (IndexOutOfBoundsException e) {
+            printMessage(NO_TASK_INDEX_ERROR);
+        }
+
     }
 
     public static void handleMessages(Scanner in) {
