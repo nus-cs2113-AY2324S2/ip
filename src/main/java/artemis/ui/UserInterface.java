@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class UserInterface {
     public static final Scanner scan = new Scanner(System.in);
-    private static String username;
+    public static String username;
 
     public static void printBanner() {
         String logo = "  __ _ _ __| |_ ___ _ __ ___ (_)___" + System.lineSeparator() +
@@ -54,6 +54,7 @@ public class UserInterface {
         System.out.println("       list");
         System.out.println("       mark/unmark [index]");
         System.out.println("       delete [index]");
+        System.out.println("       save");
         System.out.println("       bye");
     }
 
@@ -97,6 +98,9 @@ public class UserInterface {
                     int deleteItem = Parser.parseDelete(userInput);
                     TaskHandler.deleteTask(deleteItem);
                     continue;
+                 case SAVE:
+                     Save.saveData();
+                     continue;
                  case UNKNOWN:
                  default:
                      System.out.println("[artemis]: unknown command!");

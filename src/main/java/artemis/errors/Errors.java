@@ -17,9 +17,11 @@ public class Errors {
     }
 
     public static class InvalidDeleteException extends Exception {
-
     }
 
     public static class TaskNotFoundException extends Exception {
+    }
+
+    public static class CorruptedSaveException extends Exception {
     }
 }

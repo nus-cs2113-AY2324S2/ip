@@ -11,4 +11,8 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D] [%s] %s (by: %s)", super.getStatusIcon(), super.taskName, dueDate);
     }
+
+    public String getDueDate() {
+        return dueDate;
+    }
 }
