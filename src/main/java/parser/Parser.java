@@ -2,6 +2,9 @@ package parser;
 
 import baron.Baron;
 import task.TaskList;
+import baron.FileStorage;
+
+import java.io.IOException;
 
 public class Parser {
     public static final String EXIT_COMMAND = "bye";
@@ -11,9 +14,10 @@ public class Parser {
     public static final String EVENT_COMMAND = "event";
     public static final String MARK_COMMAND = "mark";
     public static final String UNMARK_COMMAND = "unmark";
-    public static void parseInput(String input, TaskList tasks) throws NullPointerException {
+    public static void parseInput(String input, TaskList tasks) throws NullPointerException, IOException {
         String[] inputArray = input.split(" ", 2);
         if (input.equals(EXIT_COMMAND)) {
+            FileStorage.save();
             Baron.printExitMessage();
             System.exit(0);
         } else if (input.equals(LIST_COMMAND)) {
