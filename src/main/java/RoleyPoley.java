@@ -19,14 +19,20 @@ public class RoleyPoley {
         }
     }
 
-    private static void printReply(ArrayList<Task> taskList, int counter) {
+    private static void printAddReply(ArrayList<Task> taskList) {
         System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t  [" + taskList.get(counter).getTaskTypeIcon() + "][ ]" + taskList.get(counter).getDescription());
-        System.out.println("\t Now you have " + (counter + 1) + " tasks in the list.");
+        System.out.println("\t  [" + taskList.getLast().getTaskTypeIcon() + "][ ]" + taskList.getLast().getDescription());
+        System.out.println("\t Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    private static void printDelReply(ArrayList<Task> taskList, int taskNum) {
+        System.out.println("\t Got it. I've deleted this task:");
+        System.out.println("\t  [" + taskList.get(taskNum).getTaskTypeIcon() + "][ ]" + taskList.get(taskNum).getDescription());
+        System.out.println("\t Now you have " + (taskList.size() - 1) + " tasks in the list.");
     }
 
     public static void displayList(ArrayList<Task> taskList) {
-        if (taskList.get(1) == null) {
+        if (taskList.isEmpty()) {
             System.out.println("\tLooks like you need to find more work to do! Task list is empty!");
         } else {
             System.out.println("\tHere are the tasks in your list:");
@@ -52,7 +58,7 @@ public class RoleyPoley {
     }
 
     public static boolean echo() throws RoleyPoleyException {
-        int counter = 0;
+        //int counter = 0;
         String line;
         String[] words;
         String description;
@@ -75,7 +81,7 @@ public class RoleyPoley {
                 words = line.split(" ");
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
-                    if (taskList.get(taskNum - 1) == null) {
+                    if (taskList.size() < taskNum) {
                         throw new RoleyPoleyException("markError");
                     }
                     taskList.get(taskNum - 1).markAsDone();
@@ -86,7 +92,7 @@ public class RoleyPoley {
                 words = line.split(" ");
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
-                    if (taskList.get(taskNum - 1) == null) {
+                    if (taskList.size() < taskNum) {
                         throw new RoleyPoleyException("unmarkError");
                     }
                     taskList.get(taskNum - 1).markAsUndone();
@@ -99,9 +105,9 @@ public class RoleyPoley {
                     throw new RoleyPoleyException("toDoError");
                 } else {
                     taskList.add(new Todo(description));
-                    printReply(taskList, counter);
+                    printAddReply(taskList);
                     createLine();
-                    counter++;
+                    //counter++;
                 }
                 break;
             case "deadline":
@@ -112,9 +118,9 @@ public class RoleyPoley {
                     description = words[0].substring("deadline".length());
                     String dueDate = words[1];
                     taskList.add(new Deadline(description, dueDate));
-                    printReply(taskList, counter);
+                    printAddReply(taskList);
                     createLine();
-                    counter++;
+                    //counter++;
                 }
                 break;
             case "event":
@@ -130,10 +136,22 @@ public class RoleyPoley {
                         String startTime = words[1].substring(0, indexOfEndTime - 1);
                         String endTime = words[1].substring(indexOfEndTime + "/to".length());
                         taskList.add(new Event(description, startTime, endTime));
-                        printReply(taskList, counter);
+                        printAddReply(taskList);
                         createLine();
-                        counter++;
+                        //counter++;
                     }
+                }
+                break;
+            case "delete":
+                words = line.split(" ");
+                if (words.length == 2) {
+                    int taskNum = Integer.parseInt(words[1]);
+                    if (taskList.size() < taskNum) {
+                        throw new RoleyPoleyException("deleteError");
+                    }
+                    printDelReply(taskList, taskNum - 1);
+                    taskList.remove(taskNum - 1);
+                    createLine();
                 }
                 break;
             default:
