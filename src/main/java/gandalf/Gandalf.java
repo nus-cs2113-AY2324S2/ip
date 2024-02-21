@@ -1,7 +1,10 @@
 package gandalf;
 
 import action.Task;
+import exception.FileEmptyException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,7 +16,9 @@ public class Gandalf {
     public static final String BYE_STATEMENT = "bye";
     public static final String MAKE_LIST_STATEMENT = "make list";
 
+    // Task lists object
     static ArrayList<Task> listTasks = new ArrayList<>();
+    static ArrayList<String> previousTasks = new ArrayList<>();
 
     // Scanner object
     static Scanner in = new Scanner(System.in);
@@ -25,9 +30,121 @@ public class Gandalf {
         endMessage();
     }
 
+    private static void startProgram() {
+        while (true) {
+            String userInput = getUserInput();
+            if (hasSaidBye(userInput)) {
+                System.out.println(LINE);
+                return;
+            }
+            else if (isMakeList(userInput)) {
+                makeList();
+                return;
+            } else {
+                echoMessage(userInput);
+            }
+            System.out.println(LINE);
+        }
+    }
+
+    private static void makeList() {
+
+        loadData();
+        makeListWelcomeMessage();
+
+        while (true) {
+            String userInput = getUserInput();
+            if (hasSaidBye(userInput)) {
+                System.out.println(LINE);
+                return;
+            } else if (hasSaidList(userInput)) {
+                TaskManager.printList(listTasks);
+            } else {
+                TaskManager.handleUserTasks(userInput, listTasks);
+            }
+        }
+    }
+
+    private static void loadData() {
+        try {
+            System.out.println(LINE);
+            System.out.println("Loading previous To-Do List....");
+            loadTasks("data/savefile.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println(LINE);
+            System.out.println("File not found. You may start creating your new list.");
+        } catch (FileEmptyException e) {
+            System.out.println(LINE);
+            System.out.println("No save data found. You may start creating your new list.");
+        }
+    }
+
+    private static void loadTasks(String filePath)
+            throws FileEmptyException, FileNotFoundException {
+        File saveFile = new File(filePath);
+        Scanner load = new Scanner(saveFile);
+        if (!load.hasNext()) {
+            throw new FileEmptyException();
+        }
+        else {
+            int taskIndex = 1;
+            while (load.hasNext()) {
+                String text = load.nextLine();
+                String parsedTask = parseTask(text);
+                previousTasks.add(parsedTask);
+                boolean marked = checkTasksMarkings(text);
+                if (marked) {
+                    previousTasks.add("mark " + taskIndex);
+                }
+                taskIndex += 1;
+            }
+        }
+        for (String previousTask : previousTasks) {
+            TaskManager.handleUserTasks(previousTask, listTasks);
+        }
+        load.close();
+    }
+
+    private static boolean checkTasksMarkings (String text) {
+        return text.contains("[X]");
+    }
+
+    private static String parseTask(String line) {
+        String parsedTask = null;
+        if (line.startsWith("[T]")) {
+            // Todo task
+            parsedTask = "todo " + line.substring(6).trim();
+        } else if (line.startsWith("[D]")) {
+            // Deadline task
+            int endIndex = line.indexOf("(by:");
+            String description = line.substring(6, endIndex).trim();
+            String deadline = line.substring(endIndex + 5, line.length() - 1).trim();
+            parsedTask = "deadline " + description + " /by " + deadline;
+        } else if (line.startsWith("[E]")) {
+            // Event task
+            int fromIndex = line.indexOf("(from:") + 6;
+            int toIndex = line.indexOf("to:");
+            String description = line.substring(6, fromIndex - 7).trim();
+            String fromTime = line.substring(fromIndex, toIndex - 1).trim();
+            String toTime = line.substring(toIndex + 4, line.length() - 1).trim();
+            parsedTask = "event " + description + " /from " + fromTime + " /to " + toTime;
+        }
+        return parsedTask;
+    }
+
     private static void saveTasks() {
         try {
-            String filePath = "data/savefile.txt";
+            File dataDir = new File("./data");
+            if (!dataDir.exists()) {
+                if (dataDir.mkdirs()) {
+                    System.out.println("Data directory created successfully.");
+                } else {
+                    System.err.println("Failed to create data directory.");
+                    return;
+                }
+            }
+
+            String filePath = "./data/savefile.txt";
             FileWriter writer = new FileWriter(filePath);
             String concatenatedData = compileData();
             writer.write(concatenatedData);
@@ -49,39 +166,6 @@ public class Gandalf {
             }
         }
         return dataToSave.toString();
-    }
-
-    private static void startProgram() {
-        while (true) {
-            String userInput = getUserInput();
-            if (hasSaidBye(userInput)) {
-                System.out.println(LINE);
-                return;
-            }
-            else if (isMakeList(userInput)) {
-                makeList();
-                return;
-            } else {
-                echoMessage(userInput);
-            }
-            System.out.println(LINE);
-        }
-    }
-
-    private static void makeList() {
-        makeListWelcomeMessage();
-
-        while (true) {
-            String userInput = getUserInput();
-            if (hasSaidBye(userInput)) {
-                System.out.println(LINE);
-                return;
-            } else if (hasSaidList(userInput)) {
-                TaskManager.printList(listTasks);
-            } else {
-                TaskManager.handleUserTasks(userInput, listTasks);
-            }
-        }
     }
 
     private static void makeListWelcomeMessage() {
