@@ -62,7 +62,7 @@ public class Task {
      *
      * @param isTaskDone Whether the task has been marked completed.
      */
-    private void setTaskStatus(boolean isTaskDone) {
+    public void setTaskStatus(boolean isTaskDone) {
         this.isTaskDone = isTaskDone;
     }
 

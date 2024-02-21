@@ -8,7 +8,6 @@ import anonbot.task.TaskManager;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 
 public class AnonBotFileWriter {
     private static void writeIndividualTask(FileWriter writer) {
@@ -40,7 +39,6 @@ public class AnonBotFileWriter {
         } catch (IOException e) {
             System.out.println("Unable to write to file");
             e.printStackTrace();
-            return;
         }
 
     }

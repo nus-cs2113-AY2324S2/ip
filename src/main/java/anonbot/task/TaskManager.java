@@ -17,6 +17,30 @@ public class TaskManager {
     public static int getNumberOfActiveTasks(){
         return numberOfActiveTasks;
     }
+
+    public static void setNumberOfActiveTasks(int numActiveTasks){
+        numberOfActiveTasks = numActiveTasks;
+    }
+    public static Task createTask(String taskDescription, Task.TaskType taskType,
+            int taskNumber, boolean isTaskDone){
+        Task newTask = null;
+
+        switch (taskType) {
+        case TODO:
+            newTask = new Todo(taskDescription, taskNumber);
+            break;
+        case DEADLINE:
+            newTask = new Deadline(taskDescription, taskNumber);
+            break;
+        case EVENT:
+            newTask = new Event(taskDescription, taskNumber);
+            break;
+        }
+        newTask.setTaskStatus(isTaskDone);
+        taskList.add(newTask);
+        return newTask;
+    }
+
     public static void createNewTask(String taskDescription, Task.TaskType taskType)
             throws InvalidTaskException {
         if (taskDescription.isEmpty()) {
@@ -31,24 +55,9 @@ public class TaskManager {
         // As long as there is a description, we shall accept the new task
         // Todo: Add a default clause to catch any new unhandled task types
         numberOfActiveTasks += 1;
-        Task newTask = null;
-
-        switch (taskType) {
-        case TODO:
-            newTask = new Todo(taskDescription, numberOfActiveTasks);
-            System.out.println("Alright. I have added this todo task: ");
-            break;
-        case DEADLINE:
-            newTask = new Deadline(taskDescription, numberOfActiveTasks);
-            System.out.println("Alright. I have added this deadline: ");
-            break;
-        case EVENT:
-            newTask = new Event(taskDescription, numberOfActiveTasks);
-            System.out.println("Alright. I have added this event: ");
-            break;
-        }
+        Task newTask = createTask(taskDescription,taskType,numberOfActiveTasks,false);
         newTask.printTask();
-        taskList.add(newTask);
+        System.out.println("Alright. I have added this task: ");
         System.out.println("Now you have " + numberOfActiveTasks + " tasks in the list.");
     }
 
