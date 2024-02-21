@@ -61,7 +61,7 @@ public class Tony {
             throw new TonyException();
         }
     }
-    private static void markTasks(String[] subCommand, int num, Task[] tasks) {
+    private static void markTasks(String[] subCommand, int num, Task[] tasks) throws IOException {
 
         if(subCommand[0].equals("mark")) {
             tasks[num -1].markDone();
@@ -78,6 +78,7 @@ public class Tony {
                         + System.lineSeparator() + tasks[num -1] + System.lineSeparator()
                         + LINE_BREAKER);
         }
+        FileSaver.saveMark(tasks);
     }
     private static void printByeMessage() {
         System.out.println(

@@ -7,37 +7,54 @@ public class FileSaver {
     protected static final String SEPARATOR = " | ";
 
     public static void saveTodo(Todo todo) throws IOException {
-        String type = "T";
+        char type = 'T';
         String description = todo.description;
-        int notDone = todo.getStatusIcon().equals(" ") ? 0 : 1;
-        String toDoText = type + SEPARATOR + notDone
+        int doneStatus = todo.toString().contains("[X]") ? 1 : 0;
+        String toDoText = type + SEPARATOR + doneStatus
                 + SEPARATOR + description + System.lineSeparator();
         saveData(toDoText);
     }
 
     public static void saveDeadline(Deadline deadline) throws IOException {
-        String type = "D";
-        int notDone = deadline.getStatusIcon().equals(" ") ? 0 : 1;
+        char type = 'D';
+        int doneStatus = deadline.toString().contains("[X]") ? 1 : 0;
         String description = deadline.description;
         String by = deadline.by;
-        String deadlineText = type + SEPARATOR + notDone
+        String deadlineText = type + SEPARATOR + doneStatus
                 + SEPARATOR + description + SEPARATOR + by  + System.lineSeparator();
         saveData(deadlineText);
     }
 
     public static void saveEvent(Event event) throws IOException {
-        String type = "E";
-        int notDone = event.getStatusIcon().equals(" ") ? 0 : 1;
+        char type = 'E';
+        int doneStatus = event.toString().contains("[X]") ? 1 : 0;
         String description = event.description;
         String from = event.from;
         String to = event.to;
-        String eventText = type + SEPARATOR + notDone + SEPARATOR + description
+        String eventText = type + SEPARATOR + doneStatus + SEPARATOR + description
                 + SEPARATOR + from + " to " + to + System.lineSeparator();
         saveData(eventText);
     }
 
-    public static void saveMark(Task[] tasks) {
-
+    public static void saveMark(Task[] tasks) throws IOException {
+        for (Task t : tasks) {
+            String listItem = t.toString();
+            char type = listItem.charAt(1);
+            switch (type) {
+            case 'T':
+                Todo todo = (Todo) t;
+                saveTodo(todo);
+                break;
+            case 'D':
+                Deadline deadline = (Deadline) t;
+                saveDeadline(deadline);
+                break;
+            case 'E':
+                Event event = (Event) t;
+                saveEvent(event);
+                break;
+            }
+        }
     }
 
     public static void saveData(String taskCommand) throws IOException {

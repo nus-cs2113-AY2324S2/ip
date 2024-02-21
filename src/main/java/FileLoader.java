@@ -27,7 +27,7 @@ public class FileLoader {
             String lineFromFile = scanner.nextLine();
             String[] taskSplit = lineFromFile.split(SEPARATOR);
             String taskSymbol = taskSplit[0].trim();
-            boolean isDone = taskSplit[1].equals("1");
+            boolean isDone = taskSplit[1].trim().equals("1");
             switch (taskSymbol) {
             case "T":
                 task[lineCount] = new Todo(taskSplit[2].trim());
@@ -40,8 +40,10 @@ public class FileLoader {
                 task[lineCount] = new Event(taskSplit[2].trim(), fromAndTo[0].trim(), fromAndTo[1].trim());
                 break;
             }
-            if (isDone) {
+            if (isDone == true) {
                 task[lineCount].markDone();
+            } else {
+                task[lineCount].markNotDone();
             }
             lineCount++;
         }
