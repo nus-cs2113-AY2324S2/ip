@@ -5,16 +5,20 @@ import java.util.ArrayList;
 import parser.Parser;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
-    private int taskCount;
+    private static ArrayList<Task> tasks;
+    private static int taskCount;
 
     public TaskList() {
-        this.tasks = new ArrayList<>();
-        this.taskCount = 0;
+        tasks = new ArrayList<>();
+        taskCount = 0;
     }
 
-    public int getLength() {
-        return this.tasks.size();
+    public static int getLength() {
+        return tasks.size();
+    }
+
+    public static ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     public void displayTasksList() {
@@ -33,7 +37,7 @@ public class TaskList {
 
     public void markTask(int taskIndex) throws IndexOutOfBoundsException {
         try {
-            this.tasks.get(taskIndex).markAsDone();
+            tasks.get(taskIndex).markAsDone();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid task number. Please enter a valid task number");
         }
