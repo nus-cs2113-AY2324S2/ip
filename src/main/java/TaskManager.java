@@ -7,6 +7,7 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class TaskManager {
     public final String TODO_REQUIRED_INPUTS = "'todo <task>'";
     public final String DEADLINE_REQUIRED_INPUTS = "'Deadline <task> /by <due date>'";
     public final String EVENT_REQUIRED_INPUTS = "'Event <task> /from <start date> /to <end date>'";
-    
+
 
     public TaskManager() {
         numItems = 0;
@@ -30,30 +31,30 @@ public class TaskManager {
             addByTaskToTaskArray(taskInformation, false);
             System.out.println("Got it. I've added this task:");
             System.out.println(taskArrayList.get(numItems));
-            numItems += 1;
             String taskPluralString = numItems > 1 ? " tasks" : " task";
-            System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
+            System.out.println("Now you have " + (numItems + 1) + taskPluralString + " in the list.");
             String dataToAppend = formatDataToAppend(taskInformation);
-            FileProcessor.appendToFile(DATA_TXT_FILE_PATH, dataToAppend);
-        }
-        catch (TodoLackInputsException e) {
+            if (numItems == 0) {
+                FileProcessor.writeToFile(DATA_TXT_FILE_PATH, dataToAppend);
+            }
+            else {
+                FileProcessor.appendToFile(DATA_TXT_FILE_PATH, dataToAppend);
+            }
+            numItems += 1;
+        } catch (TodoLackInputsException e) {
             lackInputsErrorMessage(userInput, "todo", TODO_REQUIRED_INPUTS);
-        }
-        catch (DeadlineLackInputsException e) {
+        } catch (DeadlineLackInputsException e) {
             lackInputsErrorMessage(userInput, "deadline", DEADLINE_REQUIRED_INPUTS);
-        }
-        catch (EventLackInputsException e) {
+        } catch (EventLackInputsException e) {
             lackInputsErrorMessage(userInput, "event", EVENT_REQUIRED_INPUTS);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // update this if /help is added
             if (userInput.contains("deadline")) {
                 lackInputsErrorMessage(userInput, "deadline", DEADLINE_REQUIRED_INPUTS);
             } else if (userInput.contains("event")) {
                 lackInputsErrorMessage(userInput, "event", EVENT_REQUIRED_INPUTS);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("failed to append data to txt file");
         }
 
@@ -113,8 +114,7 @@ public class TaskManager {
     public void showListContents() {
         if (numItems == 0) {
             System.out.println("List is empty. Please enter something first.");
-        }
-        else {
+        } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < numItems; i += 1) {
                 System.out.print(i + 1 + ". ");
@@ -123,10 +123,10 @@ public class TaskManager {
         }
     }
 
-    public static boolean isStringInteger(String number ){
-        try{
+    public static boolean isStringInteger(String number) {
+        try {
             Integer.parseInt(number);
-        }catch(Exception e ){
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -140,13 +140,24 @@ public class TaskManager {
         int id = Parser.processTaskIdforMarkingAndDeletingTask(userInput);
 
         if (userInput.contains("unmark")) {
+            try {
+                FileProcessor.changeTaskStatusData(DATA_TXT_FILE_PATH, id + 1, 0);
+            } catch (FileNotFoundException e) {
+                System.out.println("could not unmark task");
+                return;
+            }
             taskArrayList.get(id).setDone(false);
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(taskArrayList.get(id));
-
         }
         // must contain mark at this point
         else {
+            try {
+                FileProcessor.changeTaskStatusData(DATA_TXT_FILE_PATH, id + 1, 1);
+            } catch (FileNotFoundException e) {
+                System.out.println("could not mark task");
+                return;
+            }
             taskArrayList.get(id).setDone(true);
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(taskArrayList.get(id));
@@ -161,8 +172,7 @@ public class TaskManager {
             commandStructure = "\"mark x or unmark x\"";
         } else if (purpose.equals("deleteTask")) {
             commandStructure = "\"delete x\"";
-        }
-        else {
+        } else {
             System.out.println("not a valid purpose =(");
             return false;
         }
@@ -191,12 +201,16 @@ public class TaskManager {
         numItems -= 1;
         String taskPluralString = numItems > 1 ? " tasks" : " task";
         System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
-        FileProcessor.removeLineData(DATA_TXT_FILE_PATH, id + 1);
+        try {
+            FileProcessor.removeLineData(DATA_TXT_FILE_PATH, id + 1);
+        } catch (FileNotFoundException e) {
+            System.out.println("unable to delete task. Please ensure that you have input the correct command");
+        }
         taskArrayList.remove(id);
     }
 
     public static void loadTasks(ArrayList<String> dataArrayList) {
-        for (String line: dataArrayList) {
+        for (String line : dataArrayList) {
             try {
                 String[] output = Parser.processTaskLoadingData(line);
                 boolean isDone = output[1].equals("1");
@@ -205,16 +219,13 @@ public class TaskManager {
                 System.arraycopy(output, 2, filteredOutput, 1, 3);
                 addByTaskToTaskArray(filteredOutput, isDone);
                 numItems += 1;
-            }
-            catch (CorruptedFileException e) {
+            } catch (CorruptedFileException e) {
                 System.out.println("File is corrupted");
-                try {
-                    FileProcessor.writeToFile(DATA_TXT_FILE_PATH, "");
-                    System.out.println("Successfully restarted file");
-                }
-                catch (IOException inputOutputException) {
-                    System.out.println("Failed to restart file");
-                }
+                FileProcessor.clearFile(DATA_TXT_FILE_PATH);
+                System.out.println("Successfully restarted file");
+                numItems = 0;
+                taskArrayList.clear();
+                return;
             }
         }
     }

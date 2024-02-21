@@ -3,6 +3,7 @@ import Tasks.Task;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class FileProcessor {
 
@@ -55,43 +56,79 @@ public class FileProcessor {
         }
     }
 
-    public static void removeLineData(String filePath, int deleteLine) {
+    public static void clearFile(String filePath) {
         try {
-            File inputFile = new File(filePath);
-            File tempFile = new File("./src/main/temp.txt"); // Temporary file to write modified contents
-
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-            String currentLine;
-            int lineNumber = 1;
-
-            while ((currentLine = reader.readLine()) != null) {
-                // If the current line number is not the line to delete, write it to the temporary file
-                if (lineNumber != deleteLine) {
-                    writer.write(currentLine);
-                    writer.newLine();
-                }
-                lineNumber++;
-            }
-
-            writer.close();
-            reader.close();
-
-            // Delete the original file and rename the temporary file to the original file name
-            if (inputFile.delete()) {
-                if (!tempFile.renameTo(inputFile)) {
-                    System.out.println("Could not rename the file.");
-                }
-            } else {
-                System.out.println("Could not delete the file.");
-            }
-
-            System.out.println("Line " + deleteLine + " deleted successfully.");
-        }
-        catch (Exception e) {
-            System.out.println(e);
+            FileWriter fw = new FileWriter(filePath, false);
+            PrintWriter pw = new PrintWriter(fw, false);
+            pw.flush();
+            pw.close();
+            fw.close();
+        } catch (Exception exception) {
+            System.out.println("failed to clear file");
         }
     }
 
+    public static void removeLineData(String filePath, int deleteLine) throws FileNotFoundException {
+        ArrayList<String> dataContents = new ArrayList<>();
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        int count = 1;
+        while (s.hasNext()) {
+            if (count != deleteLine) {
+                dataContents.add(s.nextLine());
+            } else {
+                s.nextLine();
+            }
+            count += 1;
+        }
+        try {
+            int counter = 0;
+            for (String line : dataContents) {
+                if (counter == 0) {
+                    writeToFile(filePath, line);
+                }
+                else {
+                    appendToFile(filePath, line);
+                }
+                counter += 1;
+            }
+        } catch (IOException e) {
+            System.out.println("error in removing line");
+        }
+    }
+
+    public static void changeTaskStatusData(String filePath, int changeStatusLine, int status) throws FileNotFoundException {
+        ArrayList<String> dataContents = new ArrayList<>();
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        int count = 1;
+        while (s.hasNext()) {
+            if (count != changeStatusLine) {
+                dataContents.add(s.nextLine());
+            } else {
+                String nextLine = s.nextLine();
+                String[] lineArray = nextLine.split(",");
+                String remainingContent = "";
+                for (int i = 2; i < lineArray.length; i += 1) {
+                    remainingContent = remainingContent + "," + lineArray[i];
+                }
+                dataContents.add(lineArray[0] + "," + status + remainingContent);
+            }
+            count += 1;
+        }
+        try {
+            int counter = 0;
+            for (String line : dataContents) {
+                if (counter == 0) {
+                    writeToFile(filePath, line);
+                }
+                else {
+                    appendToFile(filePath, line);
+                }
+                counter += 1;
+            }
+        } catch (IOException e) {
+            System.out.println("error in removing line");
+        }
+    }
 }
