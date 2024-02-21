@@ -137,8 +137,26 @@ public class TaskManager{
         System.out.println(LINE +" Bye. Hope to see you again soon!\n" + LINE);
     }
 
+    public static void ensureDirectoryExists(String filePath) {
+        File file = new java.io.File(filePath);
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+    }
+
+    public static void createFile(String filePath) {
+        ensureDirectoryExists(filePath);
+        try {
+            FileWriter file = new FileWriter(filePath);
+            file.close();
+        } catch (IOException e) {
+            System.out.println("     An error occurred while creating file: " + e.getMessage());
+        }
+    }
+
     public void saveTasksToFile() {
-        String filePath = "src/data/data.txt";
+        String filePath = "data/data.txt";
         try (FileWriter fw = new FileWriter(filePath);) {
             for (int i = 0; i < taskIndex; i++) {
                 String out = tasks[i].toString();
@@ -150,9 +168,12 @@ public class TaskManager{
     }
 
     public void fetchData()  {
-        File f;
+        File f = new java.io.File("data/data.txt");
+        if (!f.exists()) {
+            createFile("data/data.txt");
+        }
         try{
-            f = new File("src/data/data.txt");
+            f = new File("data/data.txt");
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             while (s.hasNext()) {
                 String task = s.nextLine();
