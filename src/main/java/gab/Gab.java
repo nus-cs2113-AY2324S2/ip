@@ -18,7 +18,7 @@ public class Gab {
         isExit = false;
         taskList = new TaskList();
 
-        String filePath = "src/main/java/gab.txt";
+        String filePath = "src/gab.txt";
         storage = new Storage(filePath);
 
         try {
