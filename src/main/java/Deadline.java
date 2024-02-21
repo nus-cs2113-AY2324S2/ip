@@ -28,5 +28,17 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + due + ")";
     }
+    @Override
+    public String getType() {
+        return "DEADLINE";
+    }
+    @Override
+    public String getLabel() {
+        return label;
+    }
+    @Override
+    public String getRange() {
+        return due;
+    }
 }
 

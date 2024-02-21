@@ -1,6 +1,6 @@
 public class Event extends Task{
-    private String from;
-    private String to;
+    protected String from;
+    protected String to;
     public Event(String label, String from, String to) {
         super(label);
         this.from = from;
@@ -31,6 +31,18 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+    @Override
+    public String getType() {
+        return "EVENT";
+    }
+    @Override
+    public String getLabel() {
+        return label;
+    }
+    @Override
+    public String getRange() {
+        return from + ":" + to;
     }
 }
 

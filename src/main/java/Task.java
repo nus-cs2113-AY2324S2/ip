@@ -1,5 +1,5 @@
-public class Task {
-    private static int taskCounter = 0;
+public abstract class Task {
+    private static int taskCounter = Persistence.loadTasks(List.tasks);
     protected String label;
     protected boolean isCompleted;
 
@@ -19,6 +19,9 @@ public class Task {
     public void setCompleted(boolean value) {
         this.isCompleted = value;
     }
+    public abstract String getType();
+    public abstract String getLabel();
+    public abstract String getRange();
 
     @Override
     public String toString() {

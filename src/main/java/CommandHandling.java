@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CommandHandling {
@@ -12,7 +13,7 @@ public class CommandHandling {
 
     public static void processInput() {
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_TASKS];
+        ArrayList<Task> tasks = new ArrayList<>(MAX_TASKS);
         String userInput = in.nextLine();
 
         while (true) {
@@ -37,7 +38,7 @@ public class CommandHandling {
                     }
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < Task.enumerateTask(); i++) {
-                        System.out.println((i + 1) + ". "  + tasks[i]);
+                        System.out.println((i + 1) + ". "  + tasks.get(i));
                     }
                     break;
                 case TODO: {
@@ -49,7 +50,7 @@ public class CommandHandling {
                     ToDo toDo = new ToDo(label);
 
 
-                    tasks[i] = toDo;
+                    tasks.set(i, toDo);
                     Reply.printReply(toDo, i+1);
                     break;
                 }
@@ -63,7 +64,7 @@ public class CommandHandling {
                     String eventLabel = eventParameters[0];
                     Event event = new Event(eventLabel, eventParameters[1], eventParameters[2]);
 
-                    tasks[taskCount] = event;
+                    tasks.set(taskCount, event);
                     Reply.printReply(event, taskCount+1);
                     break;
                 }
@@ -77,7 +78,7 @@ public class CommandHandling {
                     String deadlineLabel = deadlineParameters[0];
                     Deadline deadline = new Deadline(deadlineLabel, deadlineParameters[1]);
 
-                    tasks[taskCount] = deadline;
+                    tasks.set(taskCount, deadline);
                     Reply.printReply(deadline, taskCount+1);
                     break;
                 }
@@ -85,8 +86,9 @@ public class CommandHandling {
                     Reply.printHelp();
                     break;
                 }
-                default:
+                default: {
                     throw new CustomException(Reply.INVALID_COMMAND);
+                }
                 }
             } catch (IllegalArgumentException e) {
                 Reply.printInvalidCommand();
@@ -101,7 +103,7 @@ public class CommandHandling {
 
 
 
-    private static void handleMarkUnmark(String userInput, Task[] tasks, Command command) throws CustomException {
+    private static void handleMarkUnmark(String userInput, ArrayList<Task> tasks, Command command) throws CustomException {
         String index = userInput.substring(command == Command.MARK ? MARK_OFFSET : UNMARK_OFFSET).trim();
         if (index.isEmpty()) {
             throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
@@ -112,7 +114,7 @@ public class CommandHandling {
             throw new CustomException(Reply.INVALID_PARAMETER);
         }
 
-        Task markTask = tasks[taskIndex];
+        Task markTask = tasks.get(taskIndex);
         markTask.setCompleted(command == Command.MARK); // Use enum for logic
 
         if (command == Command.MARK) {

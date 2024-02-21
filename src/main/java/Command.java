@@ -6,6 +6,5 @@ public enum Command {
     TODO,
     EVENT,
     DEADLINE,
-    HELP,
-    MAN
+    HELP
 }
