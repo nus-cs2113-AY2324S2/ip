@@ -10,8 +10,7 @@ public class Casper {
     private static final String SEPARATOR = "    _______________________________________________________________________";
     private static final ArrayList<Task> taskList = new ArrayList<>();
     private static int noOfTasks = 0;
-    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo", "delete",
-            "save"};
+    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo", "delete"};
     private static final String pathToSaveDirectory = "./save/";
     private static final String saveFilename= "savedCasper.txt";
     private static void wrapEchoMessage(String message){
@@ -76,11 +75,10 @@ public class Casper {
         case "delete":
             deleteTask(userInput);
             break;
-        case "save":
-            handleSaveFile();
         default:
             break;
         }
+        handleSaveFile();
         return true;
     }
 
@@ -94,7 +92,6 @@ public class Casper {
             handleMissingDirectory();
             writeToFile();
         }
-        wrapEchoMessage("Tasks saved successfully.");
     }
 
     private static void loadSaveFile(){
