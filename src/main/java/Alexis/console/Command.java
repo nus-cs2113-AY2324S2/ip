@@ -9,6 +9,7 @@ public enum Command {
     UNMARK,
     TODO,
     DEADLINE,
+    SAVE,
     EVENT;
 
     public static Command getCommand(String type) {

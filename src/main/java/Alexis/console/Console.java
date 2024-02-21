@@ -70,6 +70,9 @@ public class Console {
                 case EVENT:
                     printNewTaskToConsole(tasks, line, command);
                     break;
+                case SAVE:
+                    Save.saveToLocalDisk(tasks);
+                    break;
                 }
             } catch (MissingFieldException e) {
                 printDescriptionErrorMessage();

@@ -16,6 +16,11 @@ public class TaskList {
         printAddTaskMessage(task);
     }
 
+    public void addToTaskListFromFIle(Task task) {
+        tasks.add(task);
+        numberOfTasks++;
+    }
+
     private void printAddTaskMessage(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.print("\t" + task);
