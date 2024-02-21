@@ -1,3 +1,5 @@
+package helpy.task;
+
 public class Event extends Task{
     protected String eventFrom;
     protected String eventTo;

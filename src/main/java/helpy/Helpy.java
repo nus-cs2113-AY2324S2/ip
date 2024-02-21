@@ -1,3 +1,11 @@
+package helpy;
+
+import helpy.exceptions.IllegalDescriptionException;
+import helpy.task.Deadline;
+import helpy.task.Event;
+import helpy.task.Task;
+import helpy.task.Todo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
