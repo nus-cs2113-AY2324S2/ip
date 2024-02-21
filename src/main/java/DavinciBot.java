@@ -315,7 +315,7 @@ public class DavinciBot {
     private static Task readLine(String line) throws DavinciException {
         try {
             String[] tokens = line.split("/");
-            String command = tokens[0].toUpperCase();
+            String command = tokens[0].toLowerCase();
             boolean isDone = tokens[tokens.length - 1].equals("1");
             Task newTask = commandCases(command, tokens);
             if (newTask == null) {
@@ -343,13 +343,13 @@ public class DavinciBot {
     private static Task commandCases(String command, String[] tokens) {
         Task newTask;
         switch (command) {
-        case "TODO":
+        case TODO:
             newTask = new Todo(tokens[1]);
             break;
-        case "DEADLINE":
+        case DEADLINE:
             newTask = new Deadline(tokens[1], tokens[2]);
             break;
-        case "EVENT":
+        case EVENT:
             newTask = new Event(tokens[1], tokens[2], tokens[3]);
             break;
         default:
