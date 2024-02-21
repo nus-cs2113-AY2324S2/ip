@@ -21,11 +21,8 @@ public class Storage {
             bufferReader.close();
         } catch (FileNotFoundException e) {
             File file = new File(filePath);
-            if (file.createNewFile()) {
-                taskList = new TaskList();
-            } else {
-                throw new GabException("Error creating new file: " + filePath);
-            }
+            file.getParentFile().mkdirs();
+            file.createNewFile();
         }
         return taskList;
     }
