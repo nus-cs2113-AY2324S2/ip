@@ -10,10 +10,17 @@ public class TaskManager {
     private static int numberOfActiveTasks = 0;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
+    public static ArrayList<Task> getTaskList(){
+        return taskList;
+    }
+
+    public static int getNumberOfActiveTasks(){
+        return numberOfActiveTasks;
+    }
     public static void createNewTask(String taskDescription, Task.TaskType taskType)
             throws InvalidTaskException {
         if (taskDescription.isEmpty()) {
-            throw new InvalidTaskException("");
+            throw new InvalidTaskException("Invalid Task: Task Description is empty");
         }
         if (taskType == Task.TaskType.INVALID) {
             System.out.println("Invalid Task Type");
