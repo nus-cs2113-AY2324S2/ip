@@ -68,23 +68,24 @@ public class ZukeLogic {
                     break;
 
                 case "mark":
-                    int markIndex = MessageDecoder.decodeToggleMark(info);
-                    if (markIndex > taskList.getSize()) {
-                        throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
-                    }
+                    int markIndex = MessageDecoder.decodeIndex(info);
                     taskList.markTask(markIndex);
-                    ResponseManager.printMarkOrUnMarkTask("mark",
-                            taskList.getPosAt(markIndex).toString());
+                    ResponseManager.printActionOnTasks("mark",
+                            taskList.getPosAt(markIndex) + "\n");
                     break;
 
                 case "unmark":
-                    int unmarkIndex = MessageDecoder.decodeToggleMark(info);
-                    if (unmarkIndex > taskList.getSize()) {
-                        throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
-                    }
+                    int unmarkIndex = MessageDecoder.decodeIndex(info);
                     taskList.unmarkTask(unmarkIndex);
-                    ResponseManager.printMarkOrUnMarkTask("unmark",
-                            taskList.getPosAt(unmarkIndex).toString());
+                    ResponseManager.printActionOnTasks("unmark",
+                            taskList.getPosAt(unmarkIndex) + "\n");
+                    break;
+
+                case "delete":
+                    int deleteIndex = MessageDecoder.decodeIndex(info);
+                    ResponseManager.printActionOnTasks(command,
+                            taskList.getPosAt(deleteIndex) + "\n" + taskList + "\n");
+                    taskList.deleteTaskAt(deleteIndex);
                     break;
 
                 default:
