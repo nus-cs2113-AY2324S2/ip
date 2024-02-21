@@ -37,4 +37,8 @@ public final class Constants {
             + "| |\\/| |/ _ \\| '_ \\ / _` |\n"
             + "| |  | | (_) | | | | (_| |\n"
             + "\\_|  |_/\\___/|_| |_|\\__,_|\n";
+
+    public static final String DATA_FILE_PATH = "data/tasks.txt";
+    public static final String DATA_FOLDER_PATH = "./data/";
+    public static final String DATA_FILE_NAME = "tasks.txt";
 }
