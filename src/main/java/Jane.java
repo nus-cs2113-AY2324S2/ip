@@ -30,6 +30,9 @@ public class Jane {
             case "unmark":
                 taskList.markAsUndone(Integer.parseInt(inputPart[1]) - 1);
                 break;
+            case "delete" :
+                taskList.removeTask(Integer.parseInt(inputPart[1]) - 1);
+                break;
             default:
                 throw new JaneException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

@@ -1,7 +1,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected int sequence = 0;
 
     public Task(String description) {
         this.description = description;
@@ -10,10 +9,6 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
-    }
-
-    public int getSequence() {
-        return sequence;
     }
 
     public String getDescription() {
