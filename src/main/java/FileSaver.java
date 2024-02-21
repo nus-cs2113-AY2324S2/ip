@@ -24,53 +24,46 @@ public class FileSaver {
     }
 
     public static void saveTodo(Todo todo) {
-        try {
-            FileWriter fw = new FileWriter(file, true);
-            String type = "T";
-            int notDone = 0;
-            String toDoText = type + SEPARATOR + notDone
-                    + SEPARATOR + todo.description + System.lineSeparator();
-            fw.write(toDoText);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something happened: " + e.getMessage());
-        }
+        String type = "T";
+        String description = todo.description;
+        int notDone = todo.getStatusIcon().equals(" ") ? 0 : 1;
+        String toDoText = type + SEPARATOR + notDone
+                + SEPARATOR + todo.description + System.lineSeparator();
+        saveData(toDoText);
     }
 
     public static void saveDeadline(Deadline deadline) {
-        try {
-            FileWriter fw = new FileWriter(file, true);
-            String type = "D";
-            int notDone = 0;
-            String description = deadline.description;
-            String by = deadline.by;
-            String deadlineText = type + SEPARATOR + notDone
-                    + SEPARATOR + description + SEPARATOR + by  + System.lineSeparator();
-            fw.write(deadlineText);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something happened: " + e.getMessage());
-        }
+        String type = "D";
+        int notDone = deadline.getStatusIcon().equals(" ") ? 0 : 1;
+        String description = deadline.description;
+        String by = deadline.by;
+        String deadlineText = type + SEPARATOR + notDone
+                + SEPARATOR + description + SEPARATOR + by  + System.lineSeparator();
+        saveData(deadlineText);
     }
 
     public static void saveEvent(Event event) {
-        try {
-            FileWriter fw = new FileWriter(file, true);
-            String type = "E";
-            int notDone = 0;
-            String description = event.description;
-            String from = event.from;
-            String to = event.to;
-            String eventText = type + SEPARATOR + notDone + SEPARATOR + description
-                    + SEPARATOR + from + " to " + to + System.lineSeparator();
-            fw.write(eventText);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something happened: " + e.getMessage());
-        }
+        String type = "E";
+        int notDone = event.getStatusIcon().equals(" ") ? 0 : 1;
+        String description = event.description;
+        String from = event.from;
+        String to = event.to;
+        String eventText = type + SEPARATOR + notDone + SEPARATOR + description
+                + SEPARATOR + from + " to " + to + System.lineSeparator();
+        saveData(eventText);
     }
 
     public static void saveMark(Task[] tasks) {
 
+    }
+
+    public static void saveData(String taskCommand) {
+        try {
+            FileWriter fw = new FileWriter(file, true);
+            fw.write(taskCommand);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something happened: " + e.getMessage());
+        }
     }
 }
