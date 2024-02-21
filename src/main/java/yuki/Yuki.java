@@ -95,7 +95,9 @@ public class Yuki {
         if (indexTask < 0 || indexTask > tasks.size()) {
             throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
         }
+        Task toDelete = tasks.get(indexTask - 1);
         tasks.remove(indexTask - 1);
+        System.out.println("Deleted task number " + (indexTask) + ": " + toDelete.description);
     }
 
     public static void addTodo(String input) throws YukiExceptions.InvalidDescriptionException {
@@ -184,6 +186,7 @@ public class Yuki {
                     System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                     listTasks();
                 }
+                break;
             case Constants.TODO_COMMAND:
                 try {
                     addTodo(line);
