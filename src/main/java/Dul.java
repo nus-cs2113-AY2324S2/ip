@@ -22,8 +22,6 @@ public class Dul {
                 listInput(guyInput);
             } catch (DulException e) {
                 System.out.println(e.getMessage());
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
             }
         }
 
@@ -45,13 +43,13 @@ public class Dul {
                 break;
             case "todo":
                 if (command.length < 2 || command[1].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Do not leave the description of a todo empty.");
+                    throw new DulException("Do not leave the description of a todo empty.");
                 }
                 addTodoTask(command[1]);
                 break;
             case "deadline":
                 if (command.length < 2 || !command[1].contains("/by")) {
-                    throw new IllegalArgumentException("I need you to give me the description and deadline (/by).");
+                    throw new DulException("I need you to give me the description and deadline (/by).");
                 }
                 addDeadlineTask(command[1]);
                 break;
@@ -61,12 +59,7 @@ public class Dul {
             case "bye":
                 break;
             default:
-                if (!input.contains(" ")) {
-                    throw new DulException("OH NO!!! I do not understand");
-                } else {
-                    addTask(input);
-                }
-                break;
+                throw new DulException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
