@@ -1,4 +1,4 @@
-package lotes;
+package lotes.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;

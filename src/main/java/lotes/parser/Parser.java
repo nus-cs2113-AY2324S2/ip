@@ -1,9 +1,8 @@
 package lotes.parser;
 
-import java.util.Objects;
 import java.util.Scanner;
 
-import lotes.Storage;
+import lotes.storage.Storage;
 import lotes.task.TaskList;
 
 public class Parser {

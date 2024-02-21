@@ -2,7 +2,7 @@ package lotes;
 
 import lotes.parser.Parser;
 import lotes.task.TaskList;
-import lotes.Storage;
+import lotes.storage.Storage;
 import java.util.Scanner;
 
 public class Lotes {
