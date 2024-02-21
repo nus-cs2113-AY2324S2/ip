@@ -16,12 +16,6 @@ public class DavinciFileHandler {
         return Files.readAllLines(myPath);
     }
 
-    public static void appendLine(String filePath, String line) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(line + "\n");
-        fw.close();
-    }
-
     public static void writeFile(String filePath, List<String> lines) throws IOException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (String line : lines) {

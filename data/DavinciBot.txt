@@ -1,4 +1,5 @@
 todo/eat/1
 todo/go school/0
-event/have dinner/now/later/0
-todo/homework/1
+event/have dinner/now/later/1
+deadline/finish cs2113 assignment/tomorrow/1
+event/dinner @mbs/6pm monday/10pm monday/0
