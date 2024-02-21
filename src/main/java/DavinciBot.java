@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.nio.file.Paths;
+
 
 /**
  * The DavinciBot class is a simple to-do list application that allows users
@@ -10,7 +12,8 @@ import java.util.Scanner;
 public class DavinciBot {
 
     //specify the text file directory
-    private static final String DATA_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\DavinciBot.txt";
+    public static final String DATA_DIRECTORY = "./ip/data";
+    public static final String DATA_FILE_PATH = DATA_DIRECTORY + "/davinci.txt";
 
     public static final int SPLIT_INTO_TWO_PARTS = 2;
     public static final String TODO = "todo";
@@ -167,6 +170,7 @@ public class DavinciBot {
      */
     public static void writeFile() {
         try {
+            createDataDirectory();
             List<String> lines = new ArrayList<>();
             for (Task task : taskList) {
                 lines.add(task.toFileString());
@@ -198,6 +202,7 @@ public class DavinciBot {
      */
     private static void readFile() {
         try {
+            createDataDirectory();
             List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
             taskList.clear();
 
@@ -214,6 +219,13 @@ public class DavinciBot {
             Ui.printMessage("Error reading file: " + e.getMessage());
         } catch (DavinciException e) {
             Ui.printMessage("Error: " + e.getMessage());
+        }
+    }
+    private static void createDataDirectory() {
+        try {
+            DavinciFileHandler.createDirectories(Paths.get(DATA_DIRECTORY));
+        } catch (IOException e) {
+            Ui.printMessage("Error creating data directory: " + e.getMessage());
         }
     }
 
