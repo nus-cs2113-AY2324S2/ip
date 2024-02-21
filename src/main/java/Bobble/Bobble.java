@@ -2,54 +2,59 @@ package Bobble;
 
 import Bobble.task.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Bobble {
 
+    private static ArrayList<Task> taskList = new ArrayList<>();
     public static final String LINE_WRAP = "____________________________________________________________\n";
 
     public static void main(String[] args) {
         start();
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
-        Task[] tasklist = new Task[100];
-        int taskCount = 0;
-        String command;
+//        int taskCount = 0;
+//        String command;
 
         while (!userInput.equals("bye")) {
             String[] UserInputs = getCommandAndDesc(userInput);
-            command = UserInputs[0];
+            String command = UserInputs[0];
             try {
                 switch (command) {
                 case "list":
-                    listResponse(tasklist, taskCount);
+                    listResponse();
                     break;
                 case "todo":
-                    tasklist[taskCount] = new ToDo(UserInputs[1]);
-                    addTaskResponse(tasklist[taskCount], taskCount);
-                    taskCount++;
+                    ToDo newToDo = new ToDo(UserInputs[1]);
+                    taskList.add(newToDo);
+//                    taskList[taskCount] = new ToDo(UserInputs[1]);
+                    addTaskResponse(newToDo);
                     break;
                 case "deadline":
                     String[] parts = UserInputs[1].split("/by");
-                    tasklist[taskCount] = new Deadline(parts[0], parts[1]);
-                    addTaskResponse(tasklist[taskCount], taskCount);
-                    taskCount++;
+                    Deadline newDeadline = new Deadline(parts[0], parts[1]);
+                    taskList.add(newDeadline);
+                    addTaskResponse(newDeadline);
                     break;
                 case "event":
                     parts = UserInputs[1].split("/from");
                     String[] duration = parts[1].split("/to");
-                    tasklist[taskCount] = new Event(parts[0], duration[0], duration[1]);
-                    addTaskResponse(tasklist[taskCount], taskCount);
-                    taskCount++;
+                    Event newEvent = new Event(parts[0], duration[0], duration[1]);
+                    taskList.add(newEvent);
+                    addTaskResponse(newEvent);
                     break;
                 case "mark":
                     int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-                    tasklist[taskNumber].setDone(true);
-                    markResponse(tasklist[taskNumber]);
+//                    taskList.get(taskNumber).setDone(true);
+                    markResponse(taskList.get(taskNumber), taskNumber);
                     break;
                 case "unmark":
                     taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-                    tasklist[taskNumber].setDone(false);
-                    unmarkResponse(tasklist[taskNumber]);
+                    unmarkResponse(taskList.get(taskNumber), taskNumber);
+                    break;
+                case "delete":
+                    taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+                    deleteResponse(taskList.get(taskNumber), taskNumber);
                     break;
                 default:
                     throw new BobbleExceptionCommand();
@@ -68,41 +73,49 @@ public class Bobble {
         goodbye();
     }
 
-    private static void listResponse(Task[] tasklist,int taskCount) {
+    private static void deleteResponse(Task task, int taskNumber) {
+        System.out.println(LINE_WRAP + "Noted. I've removed this task:\n" +
+                task.toString() + "\nNow you have " + (taskList.size() - 1) +
+                " task(s) in the list.\n" + LINE_WRAP);
+        taskList.remove(taskNumber);
+    }
+
+    private static void listResponse() {
         System.out.println(LINE_WRAP + "Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasklist[i].toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + "." + taskList.get(i).toString());
         }
         System.out.println(LINE_WRAP);
     }
 
-    private static void markResponse(Task tasklist) {
+    private static void markResponse(Task task, int taskNumber) {
+        taskList.get(taskNumber).setDone(true);
         System.out.println("Nice! I've marked this task as done:\n" +
-                tasklist.toString() + "\n" + LINE_WRAP);
+                task.toString() + "\n" + LINE_WRAP);
     }
 
-    private static void unmarkResponse(Task task) {
+    private static void unmarkResponse(Task task, int taskNumber) {
+        taskList.get(taskNumber).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" +
                 task.toString() + "\n" + LINE_WRAP);
     }
 
     public static String[] getCommandAndDesc(String input) {
-        String[] userInput = input.split(" ", 2);
-        return userInput;
+        return input.split(" ", 2);
     }
 
-    public static void addTaskResponse(Task task, int taskCount) {
+    public static void addTaskResponse(Task task) {
         System.out.println(LINE_WRAP +
                 "Got it. I've added this task: \n  " +
                 task.toString() +
-                "\nNow you have " + (taskCount + 1) + " task(s) in the list.\n" +
+                "\nNow you have " + taskList.size() + " task(s) in the list.\n" +
                 LINE_WRAP);
     }
 
     //Greets user
     public static void start() {
         System.out.println(LINE_WRAP +
-                "Hello! I'm Bobble.Bobble.\n" +
+                "Hello! I'm Bobble\n" +
                 "What can I do for you?\n" +
                 LINE_WRAP);
     }
