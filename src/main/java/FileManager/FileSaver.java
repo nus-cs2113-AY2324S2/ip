@@ -1,7 +1,12 @@
+package FileManager;
+import task.Todo;
+import task.Deadline;
+import task.Event;
+import Tony.Tony;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class FileSaver {
     protected static final String DATA_PATH = "./data/tonytask.txt";
@@ -9,7 +14,7 @@ public class FileSaver {
 
     public static String saveTodo(Todo todo) {
         char type = 'T';
-        String description = todo.description;
+        String description = todo.description.trim();
         int doneStatus = todo.toString().contains("[X]") ? 1 : 0;
         String toDoText = type + SEPARATOR + doneStatus
                 + SEPARATOR + description + System.lineSeparator();

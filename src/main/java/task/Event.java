@@ -1,6 +1,8 @@
+package task;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    public String from;
+    public String to;
     public Event(String description, String from, String to) {
         super(description);
         this.from = from.trim();
@@ -13,7 +15,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return type() + super.toString()
-                + " (from: " + from
+                + "(from: " + from
                 + " to: " + to + ")";
     }
 }
