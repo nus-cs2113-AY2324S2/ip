@@ -55,6 +55,7 @@ public class Console {
                 }
                 switch (command) {
                 case BYE:
+                    Save.saveToLocalDisk(tasks);
                     return;
                 case LIST:
                     printTaskListToConsole(tasks);
