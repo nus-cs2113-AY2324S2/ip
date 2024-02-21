@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class CommandHandling {
     private static final int MARK_OFFSET = 4;
@@ -6,6 +7,7 @@ public class CommandHandling {
     private static final int TODO_OFFSET = 4;
     private static final int EVENT_OFFSET = 5;
     private static final int DEADLINE_OFFSET = 8;
+    private static final int DELETE_OFFSET = 6;
     private static final int ARRAY_START_INDEX = 0;
 
     public static void processInput() {
@@ -79,6 +81,10 @@ public class CommandHandling {
                     Reply.printHelp();
                     break;
                 }
+                case DELETE: {
+                    deleteItem(List.tasks, userInput);
+                    break;
+                }
                 default:
                     throw new CustomException(Reply.INVALID_COMMAND);
                 }
@@ -115,6 +121,26 @@ public class CommandHandling {
             System.out.println("Okay, I've marked this task as not done yet:");
         }
         System.out.println(markTask);
+    }
+    public static void deleteItem(ArrayList<Task> tasks, String userInput) throws CustomException {
+        String index = userInput.substring(DELETE_OFFSET).trim();
+        if (index.isEmpty()) {
+            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+        }
+
+        try {
+            int taskIndex = Integer.parseInt(index) - 1;
+            if (taskIndex < 0 || taskIndex >= List.getTotal()) {
+                throw new CustomException(Reply.INVALID_PARAMETER);
+            }
+
+            Reply.printReply("Deleted: " + (taskIndex + 1) + tasks.get(taskIndex));
+            tasks.remove(taskIndex);
+
+        }
+        catch (NumberFormatException e) {
+            throw new CustomException(Reply.INVALID_PARAMETER);
+        }
     }
 
     public static void initialiseBot() {

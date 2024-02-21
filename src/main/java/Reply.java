@@ -22,10 +22,14 @@ public class Reply {
         System.out.println("deadline - adds a deadline to the List");
         System.out.println("mark - indicates an item on the List as done");
         System.out.println("unmark - indicates an item on the List as not done");
+        System.out.println("delete - deletes a task from the List");
         printLine();
         System.out.println("todo format: todo *parameter*");
         System.out.println("event format: event *parameter* /from *start time* /to *end time*");
         System.out.println("deadline format: deadline *parameter* /by *end time*");
+        System.out.println("unmark format: unmark *index*");
+        System.out.println("mark format: mark *index*");
+        System.out.println("delete format: delete *index*");
     }
 
 
