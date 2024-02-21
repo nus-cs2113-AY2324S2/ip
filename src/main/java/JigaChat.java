@@ -1,4 +1,3 @@
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -31,6 +30,7 @@ public class JigaChat {
         printDeadlineCommand();
         printEventCommand();
         printListCommand();
+        printDeleteCommand();
         printMarkCommand();
         printUnmarkCommand();
     }
@@ -59,6 +59,9 @@ public class JigaChat {
         System.out.println("todo [description]                          Adds a new todo to your list");
     }
 
+    private static void printDeleteCommand() {
+        System.out.println("delete [task index]                         Removes a task from your list");
+    }
     public void readCommand(String input) {
         String[] commands = new String[2];
         commands = input.split(" ", 2);
@@ -70,6 +73,14 @@ public class JigaChat {
         case "bye":
             System.out.println("Bye. Hope to see you again soon!");
             System.exit(0);
+        case "delete":
+            try {
+                removeFromList(Integer.parseInt(commands[1]) - 1);
+            }
+            catch(NumberFormatException e) {
+                printDeleteCommand();
+            }
+            return;
         case "list":
             printList();
             return;
@@ -165,8 +176,21 @@ public class JigaChat {
         catch(ArrayIndexOutOfBoundsException e) {
             System.out.println("Type [help] to learn how to add tasks");
         }
-        catch(StringIndexOutOfBoundsException e) {
+        catch (StringIndexOutOfBoundsException e) {
             System.out.println("Type [help] to learn how to add tasks");
+        }
+    }
+
+    public void removeFromList(int taskIndex) {
+        try {
+            taskList.get(taskIndex).printTask();
+            System.out.println("Has been removed from your list");
+            taskList.remove(taskIndex);
+            taskCounter--;
+            System.out.print("You have " + taskCounter + " tasks in your list");
+        }
+        catch(IndexOutOfBoundsException e) {
+            System.out.println("Task " + taskIndex + " is not in your list!");
         }
     }
 
