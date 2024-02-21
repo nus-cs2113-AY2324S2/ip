@@ -1,11 +1,11 @@
-package commands;
+package utilities;
 
 import exceptions.AragornException;
 
-public class inputParser {
+public class InputParser {
     private String[] splitInput = new String[3];
 
-    public inputParser(String userInput, String commandType) throws AragornException {
+    public InputParser(String userInput, String commandType) throws AragornException {
         String[] splitDeadline;
         String[] splitEvent;
         String LINE =  "    __________________________________________________________\n";

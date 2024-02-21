@@ -1,8 +1,11 @@
 package main;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 import exceptions.AragornException;
-import commands.inputParser;
+import utilities.FileHandler;
+import utilities.InputParser;
 import tasks.*;
 import java.util.Scanner;
 
@@ -32,20 +35,29 @@ public class Aragorn {
             "    \"/help\": Displays this list of commands.\n" +
             "\n" +
             "    \"bye\": Closes the program.\n";
+    private static final ArrayList<Task> list = new ArrayList<>();
 
-    public static void main(String[] args) throws AragornException {
-        ArrayList<Task> list = new ArrayList<>();
-        int remainingTasks = 0;
+    public static void main(String[] args) throws AragornException, IOException {
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println("File read error");
+        }
         System.out.println(LINE + GREET + LINE);
         int index;
         String icon;
         Scanner in = new Scanner(System.in);
         while(true) {
             String userInput = in.nextLine();
-            String commandType = inputParser.commandIdentifier(userInput);
+            String commandType = InputParser.commandIdentifier(userInput);
             try {
-                inputParser input = new inputParser(userInput.trim(), commandType);
-
+                InputParser input = new InputParser(userInput.trim(), commandType);
+                int remainingTasks = 0;
+                for (Task i : list) {
+                    if (i.getStatusIcon().equals(" ")) {
+                        remainingTasks += 1;
+                    }
+                }
 
                 switch (commandType) {
                     case "LIST":
@@ -124,7 +136,7 @@ public class Aragorn {
                         if (input.getSplitInput()[0].trim().isEmpty()) {
                             break;
                         }
-                        ToDo newTask = new ToDo(input.getSplitInput()[0]);
+                        ToDo newTask = new ToDo(input.getSplitInput()[0], false);
                         list.add(newTask);
                         printAddTask(newTask);
                         remainingTasks += 1;
@@ -136,7 +148,7 @@ public class Aragorn {
                             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty()) {
                                 break;
                             }
-                            Deadline newDeadline = new Deadline(input.getSplitInput()[0], input.getSplitInput()[1]);
+                            Deadline newDeadline = new Deadline(input.getSplitInput()[0], false, input.getSplitInput()[1]);
                             list.add(newDeadline);
                             printAddTask(newDeadline);
                             remainingTasks += 1;
@@ -151,7 +163,7 @@ public class Aragorn {
                             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty() || input.getSplitInput()[2].isEmpty()) {
                                 break;
                             }
-                            Event newEvent = new Event(input.getSplitInput()[0], input.getSplitInput()[1], input.getSplitInput()[2]);
+                            Event newEvent = new Event(input.getSplitInput()[0], false, input.getSplitInput()[1], input.getSplitInput()[2]);
                             list.add(newEvent);
                             printAddTask(newEvent);
                             remainingTasks += 1;
@@ -175,11 +187,79 @@ public class Aragorn {
 
                     case "BYE":
                         System.out.println(LINE + TAB + EXIT + LINE);
+                        writeFile();
                         return;
                 }
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
                 System.out.println(LINE + "    Invalid task index format\n" + LINE);
             }
+        }
+    }
+
+    private static void readFile() throws IOException {
+        try {
+            List<String> entries = FileHandler.readFile("D:\\Files,Docu\\Docs\\CG2113_Proj\\ip\\ip\\src\\main\\data\\AragornList.txt");
+            list.clear();
+
+            for (String entry : entries) {
+                Task task = formatEntry(entry);
+                list.add(task);
+            }
+
+            if (list.isEmpty()) {
+                return;
+            }
+
+            System.out.println("    Here are the tasks in your list: ");
+            for (int i = 0; i < list.size(); i += 1) {
+                System.out.println(TAB + (i + 1) + ". " + list.get(i).taskString());
+            }
+         } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    private static Task formatEntry(String entry) {
+        Task newTask;
+        try {
+            String[] formattedEntry = entry.split("\\|");
+            String taskType = formattedEntry[0].toUpperCase();
+            boolean done = formattedEntry[1].equals("1");
+            switch (taskType) {
+                case "TODO":
+                    newTask = new ToDo(formattedEntry[2], done);
+
+                    break;
+
+                case "DEADLINE":
+                    newTask = new Deadline(formattedEntry[2], done, formattedEntry[3]);
+                    break;
+
+                case "EVENT":
+                    newTask = new Event(formattedEntry[2], done, formattedEntry[3], formattedEntry[4]);
+                    break;
+
+                default:
+                    System.out.println("Task type error: " + taskType);
+                    return null;
+            }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("File Error!");
+            return null;
+        }
+        return newTask;
+    }
+
+    private static void writeFile() {
+        try {
+            List<String> formattedEntries = new ArrayList<>();
+            for (Task newTask : list) {
+                formattedEntries.add(newTask.toFileString());
+            }
+            FileHandler.writeFile("D:\\Files,Docu\\Docs\\CG2113_Proj\\ip\\ip\\src\\main\\data\\AragornList.txt", formattedEntries);
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
         }
     }
 
@@ -193,3 +273,4 @@ public class Aragorn {
     }
 
 }
+

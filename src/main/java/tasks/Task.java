@@ -6,9 +6,9 @@ public class Task {
 
 
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -29,6 +29,10 @@ public class Task {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public String toFileString() {
+        return String.format("task|%s|%s", isDone ? "1" : "0", getDescription());
     }
 
     public String taskString() {
