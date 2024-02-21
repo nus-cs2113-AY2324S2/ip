@@ -54,9 +54,9 @@ public class Command {
             listString.remove(index);
             saveData(listString);
             System.out.println("____________________________________________________________\n" +
-                               "Noted. I've removed this task:\n" +
-                               t + "\n" +
-                               "Now you have " + list.size() + " tasks in the list.");
+                    "Noted. I've removed this task:\n" +
+                    t + "\n" +
+                    "Now you have " + list.size() + " tasks in the list.");
         } catch(IndexOutOfBoundsException e) {
             System.out.println("Invalid index, please try again!");
             return false;

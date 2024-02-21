@@ -10,7 +10,7 @@ import static storage.Storage.loadData;
 public class Duke {
     public static void userInput() throws DukeException {
         Scanner scanner = new Scanner(System.in);
-        String originalUserInput;
+        String originalUserInput, modifiedUserInput;
         ArrayList<String> stringList = loadData();
         ArrayList<Task> taskList = changePresentationFormat(stringList);
 
@@ -51,9 +51,8 @@ public class Duke {
                     continue;
 
                 case "event":
-
                     if (addTask(taskList, originalUserInput, splitInput, Commands.Event)) {
-
+                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
                     }
                     continue;
 
@@ -72,11 +71,10 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
-
         System.out.println("____________________________________________________________\n" +
-                           "Hello! I'm Bob\n" +
-                           "What can I do for you?\n" +
-                           "____________________________________________________________");
+                "Hello! I'm Bob\n" +
+                "What can I do for you?\n" +
+                "____________________________________________________________");
         userInput();
     }
 }

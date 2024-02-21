@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Storage {
     static File f = new File("data.txt");
-     public static ArrayList<String> loadData() {
+    public static ArrayList<String> loadData() {
         ArrayList<String> listString = new ArrayList<>();
 
         //try to create a file if it does not exist
