@@ -1,0 +1,5 @@
+T | 0 | swag
+D | 1 | test | monday
+T | 0 | swag
+T | 0 | nothing much
+E | 1 | swag | monday 2pm | tuesday 6pm
