@@ -46,6 +46,21 @@ public class Sayo {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + items[itemsCount - 1]);
                     System.out.println("Now you have " + itemsCount + " tasks in the list.");
+                } else if (input.startsWith("delete")) {
+                    try {
+                        int index = Integer.parseInt(input.substring(7).trim()) - 1; 
+                        if (index >= 0 && index < items.size()) {
+                            Task removedTask = items.remove(index); // Remove the task and retrieve it for printing
+                            System.out.println("Noted. I've removed this task: ");
+                            System.out.println(removedTask);
+                            System.out.println("Now you have " + items.size() + " tasks in the list.");
+                            saveTasksToFile(); 
+                        } else {
+                            System.out.println("Invalid task number. Please enter a valid task number to delete.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid number after 'delete'.");
+                    }
                 } else if (input.startsWith("event")) {
                     int fromIndex = input.indexOf("/from");
                     int toIndex = input.indexOf("/to");
