@@ -36,6 +36,11 @@ public class Duke {
             list.get(Integer.parseInt(splitInput[1])-1).doneIsTrue();
             System.out.println("Marked "+ Integer.parseInt(splitInput[1]));
         }
+        else if (input.contains("delete ")) {
+            String[] splitInput = input.split(" ");
+            System.out.println("Deleted " + list.get(Integer.parseInt(splitInput[1])-1));
+            list.remove(list.get(Integer.parseInt(splitInput[1])-1));
+        }
         else {
             throw new PythiaException();
         }
