@@ -30,6 +30,8 @@ public class InputParser extends Blue {
             return InputCommand.list;
         case "mark":
             return InputCommand.mark;
+        case "delete":
+            return InputCommand.delete;
         case "todo":
             return InputCommand.todo;
         case "deadline":
@@ -48,6 +50,13 @@ public class InputParser extends Blue {
         case mark:
             try {
                 int taskIndex = Integer.parseInt(line.substring(4).trim()) - 1;
+                return taskIndex;
+            } catch (NumberFormatException e) {
+                throw new IllegalInput(InputCommand.mark);
+            }
+        case delete:
+            try {
+                int taskIndex = Integer.parseInt(line.substring(6).trim()) - 1;
                 return taskIndex;
             } catch (NumberFormatException e) {
                 throw new IllegalInput(InputCommand.mark);
