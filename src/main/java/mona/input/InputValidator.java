@@ -19,10 +19,11 @@ public class InputValidator {
             throw new MonaException("OOPS!!! The description of a todo cannot be empty");
         }
     }
-    public void markUnmarkCommandChecker(String[] commandTypeAndParams) throws MonaException, NumberFormatException {
+    public void markUnmarkDeleteCommandChecker(String[] commandTypeAndParams) throws
+            MonaException, NumberFormatException {
         // Checking if description field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
-            throw new MonaException("OOPS!!! The description of a mark/unmark command cannot be empty");
+            throw new MonaException("OOPS!!! The description of this command cannot be empty");
         }
 
         // Checking if number provided can be converted to an integer

@@ -3,6 +3,8 @@ package mona.output;
 import mona.task.Task;
 import mona.util.Constants;
 
+import java.util.ArrayList;
+
 public class ConsolePrint {
     public static void printHorizontalLine() {
         for (int i = 0; i < 59; i++) {
@@ -13,7 +15,7 @@ public class ConsolePrint {
     public static void printUnmarkStatement(Task task) {
         printHorizontalLine();
 
-        System.out.println("OK,  I've marked this as not done yet:");
+        System.out.println("OK, I've marked this as not done yet:");
         System.out.println(task);
 
         printHorizontalLine();
@@ -34,7 +36,15 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
-    public static void printList(Task[] tasks) {
+    public static void printDeleteTaskStatement(Task task, int noOfTasks) {
+        printHorizontalLine();
+
+        System.out.println("Noted. I've removed this task: " + System.lineSeparator() + task);
+        System.out.println("Now you have " + Integer.toString(noOfTasks) + " tasks in the list.");
+
+        printHorizontalLine();
+    }
+    public static void printList(ArrayList<Task> tasks) {
         printHorizontalLine();
 
         int index = 1;

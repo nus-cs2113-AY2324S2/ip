@@ -50,15 +50,15 @@ public class InputParser {
             isValidInput = false;
         }
     }
-    public void extractDetailsFromMarkUnmarkString(String line) {
+    public void extractDetailsFromMarkUnmarkDeleteString(String line) {
         try {
             int descriptionIndex = line.indexOf(" ");
 
             this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
 
-            inputValidator.markUnmarkCommandChecker(commandTypeAndParams);
+            inputValidator.markUnmarkDeleteCommandChecker(commandTypeAndParams);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! The description of a mark/unmark command cannot be empty");
+            System.out.println("OOPS!!! This description of a mark/unmark command cannot be empty");
             isValidInput = false;
         } catch (MonaException e) {
             System.out.println(e.getMessage());
@@ -134,7 +134,9 @@ public class InputParser {
         case ("mark"):
             //fallthrough
         case ("unmark"):
-            extractDetailsFromMarkUnmarkString(line);
+            //fallthrough
+        case("delete"):
+            extractDetailsFromMarkUnmarkDeleteString(line);
             break;
         case ("todo"):
             extractDetailsFromTodoString(line);
