@@ -7,7 +7,7 @@ import anonbot.exception.InvalidTaskException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private static int numberOfActiveTasks = 0;
+    private static int totalTasksCreated = 0;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
     public static void createNewTask(String taskDescription, Task.TaskType taskType)
@@ -23,26 +23,26 @@ public class TaskManager {
         // We currently do not check if the deadline and event tasks has the right format i.e. `/by`, `/to`, `/from`.
         // As long as there is a description, we shall accept the new task
         // Todo: Add a default clause to catch any new unhandled task types
-        numberOfActiveTasks += 1;
+        totalTasksCreated += 1;
         Task newTask = null;
 
         switch (taskType) {
         case TODO:
-            newTask = new Todo(taskDescription, numberOfActiveTasks);
+            newTask = new Todo(taskDescription, totalTasksCreated);
             System.out.println("Alright. I have added this todo task: ");
             break;
         case DEADLINE:
-            newTask = new Deadline(taskDescription, numberOfActiveTasks);
+            newTask = new Deadline(taskDescription, totalTasksCreated);
             System.out.println("Alright. I have added this deadline: ");
             break;
         case EVENT:
-            newTask = new Event(taskDescription, numberOfActiveTasks);
+            newTask = new Event(taskDescription, totalTasksCreated);
             System.out.println("Alright. I have added this event: ");
             break;
         }
         newTask.printTask();
         taskList.add(newTask);
-        System.out.println("Now you have " + numberOfActiveTasks + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
