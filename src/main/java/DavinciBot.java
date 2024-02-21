@@ -320,9 +320,7 @@ public class DavinciBot {
             String command = tokens[0].toUpperCase();
             boolean isDone = tokens[tokens.length - 1].equals("1");
             Task newTask = commandCases(command, tokens);
-            if (newTask == null) {
-                return null;
-            }
+            if (newTask == null) return null;
             if (isDone) {
                 newTask.markAsDone();
             }
