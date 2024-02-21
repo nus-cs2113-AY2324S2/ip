@@ -3,6 +3,10 @@ import mona.output.ConsolePrint;
 import mona.manager.TaskManager;
 import mona.util.Constants;
 
+import mona.storage.TaskStorage;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 public class Mona {
     public static void main(String[] args) {
@@ -12,6 +16,7 @@ public class Mona {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         TaskManager taskManager = new TaskManager();
+        taskManager.loadFromStorage();
 
         while (true) {
             InputParser input = new InputParser(line);
