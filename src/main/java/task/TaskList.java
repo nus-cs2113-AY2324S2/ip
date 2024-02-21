@@ -18,11 +18,15 @@ public class TaskList {
     }
 
     public void displayTasksList() {
-        int taskNumber = 1;
-        System.out.println("\tHere are the tasks in your list:");
-        for (Task task: tasks) {
-            System.out.println("\t" + taskNumber + "." + task.getTaskDetails());
-            taskNumber += 1;
+        if (taskCount == 0) {
+            System.out.println("\tYour list does not contain any tasks.");
+        } else {
+            int taskNumber = 1;
+            System.out.println("\tHere are the tasks in your list:");
+            for (Task task : tasks) {
+                System.out.println("\t" + taskNumber + "." + task.getTaskDetails());
+                taskNumber += 1;
+            }
         }
         System.out.println();
     }
@@ -39,7 +43,7 @@ public class TaskList {
         try {
             this.tasks.get(taskIndex).unmarkAsDone();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please enter a valid task number");
+            System.out.println("Invalid task number. Please enter a valid task number\n");
         }
     }
 
@@ -50,6 +54,20 @@ public class TaskList {
             handleDeadline(userInput);
         } else {
             handleEvent(userInput);
+        }
+    }
+
+    public void deleteTask(int taskIndex) {
+        try {
+            Task task = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+            taskCount -= 1;
+            System.out.println("\tNoted. I've removed this task:");
+            System.out.println("\t\t" + task.getTaskDetails());
+            System.out.println("\tNow you have " + taskCount
+                    + (taskCount == 1 ? " task" : " tasks") + " in the list.\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number. Please enter a valid task number.\n");
         }
     }
 
