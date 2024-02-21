@@ -29,6 +29,11 @@ public class Oley {
         }
     }
 
+    public static void clearFile (String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.close();
+    }
+
     public static void initialise() {
         String logo = "  _____  __       \n"
                 + " /  _  \\|  | ____ ___  ___ \n"
@@ -130,11 +135,20 @@ public class Oley {
             System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
         }
         String file = "./data/Oley.txt";
-        try {
-            changeFile(file);
-        } catch (IOException e) {
-            System.out.println("    OOPS, we have encountered an error!");
-            System.out.println("    Write to file failed.");
+        if (!tasks.isEmpty()) {
+            try {
+                changeFile(file);
+            } catch (IOException e) {
+                System.out.println("    OOPS, we have encountered an error!");
+                System.out.println("    Write to file failed.");
+            }
+        } else {
+            try {
+                clearFile(file);
+            } catch (IOException e) {
+                System.out.println("    OOPS, we have encountered an error!");
+                System.out.println("    Clear file failed.");
+            }
         }
     }
 
