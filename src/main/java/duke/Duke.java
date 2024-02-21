@@ -5,6 +5,7 @@ import duke.tasks.TaskList;
 import duke.tasks.Task;
 import duke.tasks.Events;
 import duke.tasks.ToDos;
+import java.nio.file.Path;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class Duke {
      */
     public static void loadFile(TaskList tasklist) throws FileNotFoundException, DukeException {
         // Creates a file object
-        File dukeFile = new File("src/main/java/duke.txt");
+        File dukeFile = new File("duke.txt");
         // Create a Scanner using the File as the source
         Scanner line = new Scanner(dukeFile);
         // Loads the file contents into the task list
@@ -97,10 +98,7 @@ public class Duke {
     }
     public static void main(String[] args) {
         // Creates a class of TaskList
-
         TaskList taskList = new TaskList();
-
-
         // Loads Duke.txt file
         try{
             loadFile(taskList);
@@ -136,9 +134,7 @@ public class Duke {
                         throw new DukeException("Please do not give a non numeric or empty description\nMark format: mark 1");
                     }
                     printLine();
-                    System.out.println("     Nice! I've marked this task as done:");
                     taskList.checkTask(Integer.parseInt(sentence[1]));
-                    System.out.println(" ");
                     printLine();
 
                 } else if (line.startsWith("unmark")) {
@@ -147,7 +143,7 @@ public class Duke {
                     if(sentence.length < 2 || !isNumeric(sentence[1])){
                         throw new DukeException("Please do not give a non numeric or empty description\nUnmark format: unmark 1");
                     }
-                    System.out.println("     OK, I've marked this task as not done yet:");
+                    printLine();
                     taskList.uncheckTask(Integer.parseInt(sentence[1]));
                     printLine();
 
@@ -201,19 +197,21 @@ public class Duke {
                         throw new DukeException("Please do not give a non numeric or empty description\nDelete format: delete 1");
                     }
                     printLine();
-                    System.out.println("     Fine! I've removed this task:");
                     taskList.removeTask(Integer.parseInt(sentence[1]));
                     printLine();
 
                 } else if (line.startsWith("help")){
+                    // Prints all the valid commands
                     printCommands();
                 } else {
                     // Throws an invalid command error
                     throw new DukeException("I do not understand this command mortal\nType help for help");
                 }
+                // Saves the task list into duke.txt
                 taskList.saveTaskList();
+
             } catch (DukeException e){
-                System.out.println(e);
+                System.out.println(e.getMessage());
             } catch (IOException e) {
                 System.out.println("Something went wrong while saving file");
             }
@@ -221,6 +219,7 @@ public class Duke {
 
         }
         // Exits program when user says bye
+        printLine();
         System.out.println("     Bye. Hope to see you again soon!");
         printLine();
     }

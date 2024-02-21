@@ -22,10 +22,18 @@ public class Task {
        this.taskIsDone = taskIsDone;
    }
 
+    /**
+     * Returns the description of task
+     * @return task description
+     */
    public String getTask(){
        return task;
    }
 
+    /**
+     * Returns the status of the task
+     * @return true or false depending on whether the task is done
+     */
    public boolean getTaskStatus(){
        return taskIsDone;
    }
