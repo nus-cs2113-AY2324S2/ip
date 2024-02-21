@@ -33,6 +33,14 @@ public class ResponseManager {
     private static final String END_LINE = System.lineSeparator();
     private static final String DELETE_MESSAGE =
             "Noted. I've removed the task:\n";
+    public static final String SAVE_FILE_ERROR =
+            "OOPs, something wrong with file saving :(\n";
+    public static final String LOAD_FILE_ERROR =
+            "OOPs, something wrong with file loading :(\n";
+    public static final String NO_FILE_ERROR =
+            "Looks like the file does not exist TAT\n";
+    public static final String CREATE_FILE_MESSAGE =
+            "You will start a fresh new journey!\n";
 
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);

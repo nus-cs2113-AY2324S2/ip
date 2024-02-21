@@ -1,16 +1,16 @@
 import java.util.Scanner;
-
 import task.Deadline;
 import task.Task;
 import task.Todo;
 import task.Event;
 import task.TaskList;
+import tool.DataManager;
 import tool.MessageDecoder;
 import tool.ResponseManager;
 import exception.InputException;
 
 public class ZukeLogic {
-    private final TaskList taskList;
+    private TaskList taskList;
 
     ZukeLogic() {
         taskList = new TaskList();
@@ -27,8 +27,10 @@ public class ZukeLogic {
 
     public void chattingStart() {
         Scanner userInput = new Scanner(System.in);
-
+        DataManager.createFolder();
+        loadData();
         while (userInput.hasNextLine()) {
+            DataManager.saveData(taskList);
             String[] processedMessage = MessageDecoder.separateCommand(userInput.nextLine());
             String command = processedMessage[0];
             String info = processedMessage[1];
@@ -36,6 +38,7 @@ public class ZukeLogic {
             try {
                 switch (command) {
                 case "bye":
+                    //DataManager.saveData(taskList);
                     userInput.close();
                     return;
 
@@ -95,6 +98,14 @@ public class ZukeLogic {
                 ResponseManager.indentPrint(error.getMessage());
             }
 
+        }
+    }
+
+    private void loadData() {
+        try {
+            this.taskList = DataManager.readSavedData();
+        } catch (InputException error) {
+            ResponseManager.indentPrint(error.getMessage());
         }
     }
 }
