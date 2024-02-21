@@ -15,6 +15,11 @@ import java.util.Scanner;
 public class Storage {
     static File f = new File("data.txt");
 
+    /**
+     * Returns a list of tasks in type Task for usage in code.
+     * @param listString list of tasks in type String.
+     * @return list of tasks in type Task.
+     */
     public static ArrayList<TaskList> changePresentationFormat(ArrayList<String> listString) throws DukeException {
         ArrayList<TaskList> listTask = new ArrayList<>();
         String[] splitEntireLine, splitInput;
@@ -50,6 +55,10 @@ public class Storage {
         return listTask;
     }
 
+
+    /**
+     * Load data from file
+     */
      public static ArrayList<String> loadData() {
         ArrayList<String> listString = new ArrayList<>();
 
@@ -76,7 +85,12 @@ public class Storage {
         }
     }
 
-    //save the list in our file as string Data type
+
+    /**
+     * save the list of tasks in our file as string Data type.
+     * @param listString list of tasks in type String.
+     */
+
     public static void saveData(ArrayList<String> listString) {
         try (FileWriter fw = new FileWriter(f)) {
             for (String task : listString) {

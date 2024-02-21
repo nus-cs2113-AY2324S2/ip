@@ -24,6 +24,7 @@ public class TaskList {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+
     public String toString() {
         String[] original = description.split("/"); // split the original input by /
         String value = String.valueOf(original[0]); //obtain the task and action

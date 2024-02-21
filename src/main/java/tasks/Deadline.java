@@ -16,6 +16,11 @@ public class Deadline extends TaskList {
     public void setNewInput(boolean newInput) {
         this.newInput = newInput;
     }
+
+    /**
+     * Returns the date of deadline.
+     * @throws DukeException if number of by in user input is != 2
+     */
     public String getBy() throws DukeException{
         String[] splitLine = description.split("/by");
         if (splitLine.length != 2) {
@@ -23,6 +28,7 @@ public class Deadline extends TaskList {
         }
         return splitLine[1];
     }
+
     @Override
     public String toString() {
         try {

@@ -10,7 +10,7 @@ import static main.Command.removeElementFromBothArrays;
 import static main.Command.addTask;
 import static main.Command.userMarkOrUnmark;
 import static main.Command.userList;
-import static main.Command.saveDataIntoBothArrays;
+import static main.Command.saveDataIntoListString;
 import static main.Command.Commands;
 
 
@@ -18,6 +18,11 @@ import static storage.Storage.loadData;
 import static storage.Storage.changePresentationFormat;
 
 public class Parser {
+
+
+    /**
+     * Run the specific function based on the type of user input supplied.
+     */
 
     public static void userInput() throws DukeException {
         Scanner scanner = new Scanner(System.in);
@@ -51,19 +56,19 @@ public class Parser {
 
                 case "todo":
                     if (addTask(taskList, originalUserInput, splitInput, Commands.Todo)) {
-                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
+                        saveDataIntoListString (taskList, stringList, originalUserInput);
                     }
                     continue;
 
                 case "deadline":
                     if (addTask(taskList, originalUserInput, splitInput, Commands.Deadline)) {
-                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
+                        saveDataIntoListString (taskList, stringList, originalUserInput);
                     }
                     continue;
 
                 case "event":
                     if (addTask(taskList, originalUserInput, splitInput, Commands.Event)) {
-                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
+                        saveDataIntoListString (taskList, stringList, originalUserInput);
                     }
                     continue;
 
