@@ -45,9 +45,6 @@ public class Nocturne {
                 }
                 case "deadline":
                     String[] deadlineSeparated = input.split("/");
-                    if (deadlineSeparated.length != 3) {
-                        throw new NocturneException("Take your / back, and only put 2!");
-                    }
                     Deadline trueDeadline;
                     String deadlineName = deadlineSeparated[0].substring(9);
                     String by = deadlineSeparated[1].substring(3);
