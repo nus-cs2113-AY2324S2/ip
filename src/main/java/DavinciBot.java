@@ -172,9 +172,8 @@ public class DavinciBot {
      * Parses the user input to create tasks and adds them to the task list.
      *
      * @param userInput User input containing the command and task details.
-     * @return An array of tasks after processing the user input.
      */
-    private static Task[] getTasks(String userInput) {
+    private static void getTasks(String userInput) {
         try {
             Scanner taskScanner = new Scanner(userInput);
             String taskType = taskScanner.next().toLowerCase();
@@ -184,17 +183,19 @@ public class DavinciBot {
             String description = taskScanner.nextLine().trim();
             switch (taskType) {
             case TODO:
-                return executeTodoTask(description);
+                executeTodoTask(description);
+                return;
             case DEADLINE:
-                return executeDeadlineTask(description);
+                executeDeadlineTask(description);
+                return;
             case EVENT:
-                return executeEventTask(description);
+                executeEventTask(description);
+                return;
             default:
                 throw new DavinciException("Unknown task type. Please use 'todo', 'deadline', or 'event'.");
             }
         } catch (DavinciException e) {
             Ui.printMessage("Error: " + e.getMessage());
-            return taskList.toArray(new Task[0]);
         }
     }
 
@@ -202,10 +203,9 @@ public class DavinciBot {
      * Processes the user input for an event task and adds it to the task list.
      *
      * @param description Description of the event task with start and end times.
-     * @return An array of tasks after processing the event task.
      * @throws DavinciException If there is an issue with the event task format.
      */
-    private static Task[] executeEventTask(String description) throws DavinciException {
+    private static void executeEventTask(String description) throws DavinciException {
         String[] eventParts = description.split("/from", SPLIT_INTO_TWO_PARTS);
         if (eventParts.length == 2) {
             String[] eventTimeParts = eventParts[1].split("/to", SPLIT_INTO_TWO_PARTS);
@@ -219,17 +219,16 @@ public class DavinciBot {
             throw new DavinciException("Whatcha' doing bruh, listen. " +
                     "Please use: event <description> /from <start> /to <end>");
         }
-        return taskList.toArray(new Task[0]);
+        taskList.toArray(new Task[0]);
     }
 
     /**
      * Processes the user input for a deadline task and adds it to the task list.
      *
      * @param description Description of the deadline task with the deadline.
-     * @return An array of tasks after processing the deadline task.
      * @throws DavinciException If there is an issue with the deadline task format.
      */
-    private static Task[] executeDeadlineTask(String description) throws DavinciException {
+    private static void executeDeadlineTask(String description) throws DavinciException {
         String[] deadlineParts = description.split("/by", SPLIT_INTO_TWO_PARTS);
         if (deadlineParts.length == 2) {
             taskList.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
@@ -237,19 +236,18 @@ public class DavinciBot {
         } else {
             throw new DavinciException("Crappy formatting. Please use: deadline <description> /by <deadline>");
         }
-        return taskList.toArray(new Task[0]);
+        taskList.toArray(new Task[0]);
     }
 
     /**
      * Processes the user input for a todo task and adds it to the task list.
      *
      * @param description Description of the todo task.
-     * @return An array of tasks after processing the todo task.
      */
-    private static Task[] executeTodoTask(String description) {
+    private static void executeTodoTask(String description) {
         taskList.add(new Todo(description));
         Ui.echoTask(taskList);
-        return taskList.toArray(new Task[0]);
+        taskList.toArray(new Task[0]);
     }
 
     /**

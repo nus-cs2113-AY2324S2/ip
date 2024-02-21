@@ -31,7 +31,6 @@ public class Task {
         return String.format("%s/%s", getDescription(), isDone() ? "1" : "0");
     }
 
-
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
