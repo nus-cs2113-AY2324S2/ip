@@ -38,10 +38,15 @@ public class DeadlineTask extends Task{
         this.ddlTime = ddlTime.toString();
     }
 
+    @Override
     public void printTask() {
         System.out.println("[D][" + (getIsDone() ? "X" : " ") + "] " + getName() + " (by: " + ddlTime + ")");
     }
 
+    @Override
+    public String writeLine() {
+        return "D" + (getIsDone() ? "T" : "F") + " " + getName() + " /by " + ddlTime;
+    }
     public String getDdlTime() {
         return ddlTime;
     }
