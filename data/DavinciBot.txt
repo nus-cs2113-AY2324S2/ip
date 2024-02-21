@@ -1,4 +1,0 @@
-todo/eat/1
-event/have dinner/now/later/1
-deadline/finish cs2113 assignment/tomorrow/0
-event/go to bed/10pm/6am/1
