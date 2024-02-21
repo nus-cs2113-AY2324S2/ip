@@ -9,21 +9,17 @@ import java.io.FileNotFoundException;
 public class Floda {
     private static ArrayList<Task> list = new ArrayList<>();
     private final static String NAME = "Floda";
-    private static int taskCounter = 0;
     private static final String FILE_PATH = "./data/tasks.txt";
 
 
     public static void main(String[] args) {
-        String NAME = "Floda";
         System.out.println("Hello! I'm " + NAME);
-        Task[] list = new Task[100];
         try {
             checkIfFileExists();
-            readFromFile(list);
+            readFromFile();
         } catch (FileNotFoundException | InvalidInputException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        System.out.println("Hello! I'm " + NAME);
         Scanner scanner = new Scanner(System.in);
         System.out.println("I can keep track of a to-do list for you! Just type what you want to add to the list.");
         while (true) {
@@ -35,7 +31,7 @@ public class Floda {
                     case "bye":
                         System.out.println("Bye. Hope to see you again soon!");
                         scanner.close();
-                        saveToFile(list);
+                        saveToFile();
                         return;
                     case "list":
                         if (list.isEmpty()) {
@@ -48,32 +44,33 @@ public class Floda {
                         }
                         break;
                     case "mark":
-                        handleMarkTask(line, list);
-                        saveToFile(list);
+                        handleMarkTask(line);
+                        saveToFile();
                         break;
                     case "unmark":
-                        handleUnmarkTask(line, list);
-                        saveToFile(list);
+                        handleUnmarkTask(line);
+                        saveToFile();
                         break;
                     case "deadline":
-                        handleDeadlineTask(line, list);
-                        saveToFile(list);
+                        handleDeadlineTask(line);
+                        saveToFile();
                         break;
                     case "todo":
-                        handleTodoTask(line, list);
-                        saveToFile(list);
+                        handleTodoTask(line);
+                        saveToFile();
                         break;
                     case "event":
-                        handleEventTask(line, list);
-                        saveToFile(list);
+                        handleEventTask(line);
+                        saveToFile();
+                        break;
+                    case "delete":
+                        handleDeleteTask(line);
+                        saveToFile();
                         break;
                     default:
                         throw new InvalidInputException("Invalid input!");
                 }
-            } catch (InvalidInputException e) {
-            } catch (IOException e) {
-                System.out.println("Error writing to file: " + e.getMessage());
-                System.out.println(e.getMessage());
+            } catch (InvalidInputException | IOException e){
             }
         }
     }
@@ -138,7 +135,7 @@ public class Floda {
         String description = remaining.substring(0, byIndex).trim();
         String by = remaining.substring(byIndex + 3).trim();
         list.add(new Deadline(description, by, false));
-        System.out.println("Added: " + list.get(list.size() - 1) + "\nNow you have " + list.size() + " items in the list!");
+        System.out.println("Added: " + list.getLast() + "\nNow you have " + list.size() + " items in the list!");
     }
 
     private static void handleEventTask(String line) throws InvalidInputException {
@@ -157,7 +154,7 @@ public class Floda {
         String from = remaining.substring(fromIndex + 5, toIndex).trim();
         String to = remaining.substring(toIndex + 3).trim();
         list.add(new Events(description, from, to, false));
-        System.out.println("Added: " + list.get(list.size() - 1) + "\nNow you have " + list.size() + " items in the list!");
+        System.out.println("Added: " + list.getLast() + "\nNow you have " + list.size() + " items in the list!");
     }
 
     private static void handleTodoTask(String line) throws InvalidInputException {
@@ -165,7 +162,7 @@ public class Floda {
         taskScanner.next();
         String remaining = taskScanner.nextLine().trim();
         list.add(new ToDo(remaining, false));
-        System.out.println("Added: " + list.get(list.size() - 1) + "\nNow you have " + (taskCounter) + " items in the list!");
+        System.out.println("Added: " + list.getLast() + "\nNow you have " + list.size() + " items in the list!");
     }
 
 
@@ -186,18 +183,17 @@ public class Floda {
         }
     }
 
-    private static void readFromFile(Task[] list) throws FileNotFoundException, InvalidInputException {
+    private static void readFromFile() throws FileNotFoundException, InvalidInputException {
         File file = new File(FILE_PATH);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-//            System.out.println("Line read: " + line);
-            parseTask(line, list);
+            parseTask(line);
         }
         scanner.close();
     }
 
-    private static void parseTask(String line, Task[] list) throws InvalidInputException {
+    private static void parseTask(String line) throws InvalidInputException {
         String[] parts = line.split("\\|");
         if (parts.length < 3) {
             throw new InvalidInputException("Invalid input format in file");
@@ -208,16 +204,14 @@ public class Floda {
 
         switch (type) {
             case "T":
-                list[taskCounter] = new ToDo(description, isDone);
-                taskCounter++;
+                list.add(new ToDo(description, isDone));
                 break;
             case "D":
                 if (parts.length < 4) {
                     throw new InvalidInputException("Invalid input format for deadline in file");
                 }
                 String by = parts[3].trim();
-                list[taskCounter] = new Deadline(description, by, isDone);
-                taskCounter++;
+                list.add(new Deadline(description, by, isDone));
                 break;
             case "E":
                 if (parts.length < 5) {
@@ -225,31 +219,28 @@ public class Floda {
                 }
                 String from = parts[3].trim();
                 String to = parts[4].trim();
-                list[taskCounter] = new Events(description, from, to, isDone);
-                taskCounter++;
+                list.add(new Events(description, from, to, isDone));
                 break;
             default:
                 throw new InvalidInputException("Unknown task type in file");
         }
     }
 
-    private static void saveToFile(Task[] list) throws IOException {
+    private static void saveToFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-            for (int i = 0; i < taskCounter; i++) {
-                fw.write(taskToLine(list[i]) + "\n");
-            }
-            System.out.println("Saved to file");
+        for (Task task : list) {
+            fw.write(taskToLine(task) + "\n");
+        }
+        System.out.println("Saved to file");
         fw.close();
     }
 
     private static String taskToLine(Task task) {
-        if (task instanceof ToDo) {
-            return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
-        } else if (task instanceof Deadline) {
-            Deadline deadline = (Deadline) task;
+        if (task instanceof ToDo todo) {
+            return "T | " + (todo.isDone() ? "1" : "0") + " | " + todo.getDescription();
+        } else if (task instanceof Deadline deadline) {
             return "D | " + (deadline.isDone() ? "1" : "0") + " | " + deadline.getDescription() + " | " + deadline.getBy();
-        } else if (task instanceof Events) {
-            Events event = (Events) task;
+        } else if (task instanceof Events event) {
             return "E | " + (event.isDone() ? "1" : "0") + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
         }
         return "";
