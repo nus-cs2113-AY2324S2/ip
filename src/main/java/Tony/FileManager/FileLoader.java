@@ -1,14 +1,13 @@
-package FileManager;
+package Tony.FileManager;
 
-import task.Todo;
-import task.Deadline;
-import task.Event;
+import Tony.task.Todo;
+import Tony.task.Deadline;
+import Tony.task.Event;
 import Tony.Tony;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileLoader {
