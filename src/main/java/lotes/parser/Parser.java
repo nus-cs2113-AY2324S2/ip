@@ -1,6 +1,9 @@
 package lotes.parser;
 
+import java.util.Objects;
 import java.util.Scanner;
+
+import lotes.Storage;
 import lotes.task.TaskList;
 
 public class Parser {
@@ -53,6 +56,12 @@ public class Parser {
                 throw new LotesException();
             }
         }
+
+        if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event")
+        || command[0].equals("add") || command[0].equals("mark") || command[0].equals("unmark")) {
+            Storage.updateFile(taskList);
+        }
+
         return isExit;
     }
 
@@ -92,5 +101,7 @@ public class Parser {
             }
         }
     }
+
+
 
 }

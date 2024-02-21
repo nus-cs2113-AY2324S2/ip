@@ -3,6 +3,9 @@ import java.util.ArrayList;
 
 public class TaskList {
     public static ArrayList<Task> taskList = new ArrayList<>();
+//    private static final int MAX_TASKS = 100;
+//    public static final Task[] taskList = new Task[MAX_TASKS];
+//    private static int taskCount = 0;
 
     public static String indent = "    ";
     public static String separator = System.lineSeparator();
@@ -167,5 +170,65 @@ public class TaskList {
                 + separator + line);
 
         taskList.remove(taskListIndex);
+    }
+
+    public static int getTaskCount(){
+        return taskList.size();
+    }
+
+    public static void readFromStorage(String description) {
+        String taskType = description.substring(1, 2);
+        String isMarked = description.substring(4, 5);
+        String des = description.substring(7);
+
+        if (taskType.equals("T")) {
+//            System.out.println("T");
+//            System.out.println(des);
+            if (isMarked.equals("X")) {
+//                System.out.println(isMarked);
+                Task newTask = new ToDo(des, true);
+                taskList.add(newTask);
+
+            } else {
+                Task newTask = new ToDo(des);
+                taskList.add(newTask);
+
+            }
+
+        } else if (taskType.equals("D")) {
+//            System.out.println("D");
+//            System.out.println(des);
+            String[] by = des.split("by: ");
+            String byDate = by[1].substring(0, by[1].length() - 1);
+//            System.out.println(byDate);
+            if (isMarked.equals("X")) {
+//                System.out.println(isMarked);
+
+                Task newTask = new Deadline(des, byDate, true);
+                taskList.add(newTask);
+            } else {
+                Task newTask = new Deadline(des, byDate);
+                taskList.add(newTask);
+            }
+
+        } else if (taskType.equals("E")) {
+//            System.out.println("E");
+//            System.out.println(des);
+            String[] from = des.split("from: ");
+            String[] to = from[1].split(" to: ");
+            String toTime = to[1].substring(0, to[1].length() - 1);
+//            System.out.println(to[0]);
+//            System.out.println(toTime);
+            if (isMarked.equals("X")) {
+//                System.out.println(isMarked);
+
+                Task newTask = new Event(des, to[0], toTime, true);
+                taskList.add(newTask);
+            } else {
+                Task newTask = new Event(des, to[0], toTime);
+                taskList.add(newTask);
+            }
+        }
+
     }
 }
