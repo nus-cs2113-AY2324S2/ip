@@ -8,21 +8,8 @@ import java.util.Scanner;
 public class FileSaver {
     protected static final String DATA_PATH = "./data/tonytask.txt";
     protected static final String SEPARATOR = " | ";
-    protected static File file = new File(DATA_PATH);
 
-    public static void checkFileExists() throws IOException {
-        File directory = new File("./data");
-        if (!directory.exists()) {
-           directory.mkdirs();
-        }
-
-        if (!file.exists()) {
-            System.out.println("File not found. File will be created!");
-            file.createNewFile();
-        }
-    }
-
-    public static void saveTodo(Todo todo) {
+    public static void saveTodo(Todo todo) throws IOException {
         String type = "T";
         String description = todo.description;
         int notDone = todo.getStatusIcon().equals(" ") ? 0 : 1;
@@ -31,7 +18,7 @@ public class FileSaver {
         saveData(toDoText);
     }
 
-    public static void saveDeadline(Deadline deadline) {
+    public static void saveDeadline(Deadline deadline) throws IOException {
         String type = "D";
         int notDone = deadline.getStatusIcon().equals(" ") ? 0 : 1;
         String description = deadline.description;
@@ -41,7 +28,7 @@ public class FileSaver {
         saveData(deadlineText);
     }
 
-    public static void saveEvent(Event event) {
+    public static void saveEvent(Event event) throws IOException {
         String type = "E";
         int notDone = event.getStatusIcon().equals(" ") ? 0 : 1;
         String description = event.description;
@@ -56,13 +43,10 @@ public class FileSaver {
 
     }
 
-    public static void saveData(String taskCommand) {
-        try {
-            FileWriter fw = new FileWriter(file, true);
-            fw.write(taskCommand);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something happened: " + e.getMessage());
-        }
+    public static void saveData(String taskCommand) throws IOException {
+        File file = new File(DATA_PATH);
+        FileWriter fw = new FileWriter(file, true);
+        fw.write(taskCommand);
+        fw.close();
     }
 }

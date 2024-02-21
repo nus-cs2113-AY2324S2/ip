@@ -8,7 +8,7 @@ public class Tony {
     public static int taskCounter = 0;
     public static void main(String[] args) throws IOException {
         printWelcomeMessage();
-        FileSaver.checkFileExists();
+        FileLoader.checkFileExists();
         Task[] tasks = new Task[100];
         Scanner userInput = new Scanner(System.in);
         while(userInput.hasNextLine()) {
@@ -91,7 +91,7 @@ public class Tony {
                 + LINE_BREAKER;
         System.out.println(chatBot);
     }
-    private static void addATask(String userInput, Task[] allTasks) throws TonyException {
+    private static void addATask(String userInput, Task[] allTasks) throws TonyException, IOException {
         if(userInput.startsWith("todo")) {
             String[] toDoTask = userInput.split("todo");
             checkArrayLength(userInput, toDoTask);
@@ -111,21 +111,21 @@ public class Tony {
             throw new TonyException();
         }
     }
-    private static void addEventTask(Task[] allTasks, String[] eventTask) {
+    private static void addEventTask(Task[] allTasks, String[] eventTask) throws IOException {
         String[] description = eventTask[1].split("/from | /to");
         Event event = new Event(description[0], description[1], description[2]);
         allTasks[taskCounter] = event;
         printAddNewTask(allTasks);
         FileSaver.saveEvent(event);
     }
-    private static void addDeadlineTask(Task[] allTasks, String[] deadlineTask) {
+    private static void addDeadlineTask(Task[] allTasks, String[] deadlineTask) throws IOException {
         String[] description = deadlineTask[1].split("/by");
         Deadline deadline = new Deadline(description[0], description[1]);
         allTasks[taskCounter] = deadline;
         printAddNewTask(allTasks);
         FileSaver.saveDeadline(deadline);
     }
-    private static void addTodoTask(Task[] allTasks, String[] toDoTask) {
+    private static void addTodoTask(Task[] allTasks, String[] toDoTask) throws IOException {
         Todo todo = new Todo(toDoTask[1]);
         allTasks[taskCounter] = todo;
         printAddNewTask(allTasks);
