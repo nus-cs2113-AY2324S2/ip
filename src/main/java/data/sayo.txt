@@ -1,4 +1,3 @@
-T | 0 | swag
 D | 1 | test | monday
 T | 0 | swag
 T | 0 | nothing much
