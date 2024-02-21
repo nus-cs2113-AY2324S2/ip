@@ -56,6 +56,7 @@ public class TaskManager {
             } else if (command.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(command.substring(5));
                 taskList.get(taskIndex - 1).mark();
+                FileProcessor.markText(true, taskIndex);
             } else if (command.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(command.substring(7));
                 taskList.get(taskIndex - 1).unmark();
