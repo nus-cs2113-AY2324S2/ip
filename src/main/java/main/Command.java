@@ -1,55 +1,24 @@
 package main;
 
+import java.util.ArrayList;
+
 import tasks.Deadline;
 import tasks.Event;
-import tasks.Task;
+import tasks.TaskList;
 import tasks.Todo;
+
 import static storage.Storage.saveData;
 
-import java.util.ArrayList;
+
 public class Command {
     public enum Commands {
         Todo, Deadline, Event
     }
-    static ArrayList<Task> changePresentationFormat(ArrayList<String> listString) throws DukeException {
-        ArrayList<Task> listTask = new ArrayList<>();
-        String[] splitEntireLine, splitInput;
-        String mark, command;
-        for (String task: listString) {
-            Task t;
-            splitEntireLine = task.split(":", 2); // split by whitespaces
-            mark = splitEntireLine[0];
-            splitInput = splitEntireLine[1].split(" ");
-            command = splitInput[0];
 
-            switch (command) {
-                case "todo":
-                    t = new Todo(splitEntireLine[1], false);
-                    break;
-                case "deadline":
-                    t = new Deadline(splitEntireLine[1], false);
-                    break;
-                case "event":
-                    t = new Event(splitEntireLine[1], false);
-                    break;
-                default:
-                    t = null;
-                    break;
-            }
-
-            if (mark.equals("Marked")) {
-                assert t != null;
-                t.isDone = true;
-            }
-            listTask.add(t);
-        }
-        return listTask;
-    }
-
-    public static boolean removeElementFromBothArrays(ArrayList<Task> list, ArrayList<String> listString, String[] splitLine) {
+    public static boolean removeElementFromBothArrays(ArrayList<TaskList> list, ArrayList<String> listString, String[] splitLine) {
         try {
             int index = Integer.parseInt(splitLine[1]) - 1;
-            Task t = list.get(index);
+            TaskList t = list.get(index);
             list.remove(index);
             listString.remove(index);
             saveData(listString);
@@ -64,8 +33,8 @@ public class Command {
         return true;
     }
 
-    public static boolean addTask(ArrayList<Task> list, String originalUserInput, String[] splitLine, Commands typeOfTask) {
-        Task t;
+    public static boolean addTask(ArrayList<TaskList> list, String originalUserInput, String[] splitLine, Commands typeOfTask) {
+        TaskList t;
         boolean success = true;
 
 
@@ -122,10 +91,10 @@ public class Command {
 
 
     // Function to mark or unmark tasks
-    public static void userMarkOrUnmark(String command, String line, ArrayList<Task> listTask, ArrayList<String> listString) {
+    public static void userMarkOrUnmark(String command, String line, ArrayList<TaskList> listTask, ArrayList<String> listString) {
         int index;
         String originalString, modifiedString;
-        Task t;
+        TaskList t;
 
         if (command.equals("mark")) {
             try {
@@ -164,8 +133,8 @@ public class Command {
     }
 
     // Function to print the list of tasks
-    public static void userList(ArrayList<Task> list) {
-        for (Task task : list) {
+    public static void userList(ArrayList<TaskList> list) {
+        for (TaskList task : list) {
             if (task == null) {
                 break;
             }
@@ -179,16 +148,16 @@ public class Command {
     public static boolean checkMinimumArguments(String[] splitLine, int number) {
         try {
             if (splitLine.length < number) {
-                throw new DukeException("Invalid Syntax! Please try again!");
+                throw new DukeException("Minimally " + number + " arguments, please try again!");
             }
         } catch (DukeException e) {
-            System.out.println("Minimally " + number + " arguments, please try again!");
+            System.out.println(e.getMessage());
             return true;
         }
         return false;
     }
 
-    public static void saveDataIntoBothArrays (ArrayList<Task> list, ArrayList<String> listString, String line) {
+    public static void saveDataIntoBothArrays (ArrayList<TaskList> list, ArrayList<String> listString, String line) {
         String savedLine;
         savedLine = "notMarked:" + line;
         listString.add(savedLine);

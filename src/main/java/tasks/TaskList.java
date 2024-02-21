@@ -1,10 +1,10 @@
 package tasks;
-public class Task {
+public class TaskList {
     protected String description;
     public boolean isDone;
 
     // constructor
-    public Task(String description) {
+    public TaskList(String description) {
         setDescription(description);
         setDone();
     }
@@ -23,13 +23,6 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-
-    // Standard 2 lines that will always get printed out
-    public void printHeaders() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task:");
-    }
-
 
     public String toString() {
         String[] original = description.split("/"); // split the original input by /

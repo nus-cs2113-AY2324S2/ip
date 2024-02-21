@@ -1,7 +1,10 @@
 package tasks;
 import main.DukeException;
 
-public class Deadline extends Task {
+import static main.Ui.printHeaders;
+
+
+public class Deadline extends TaskList {
     protected boolean newInput;
 
     public Deadline(String description, boolean newInput) throws DukeException {
@@ -25,7 +28,7 @@ public class Deadline extends Task {
         try {
             return "[D]" + super.toString() + " (by:" + getBy() + ")";
         } catch (DukeException e) {
-            System.out.println("error!, please try again!");
+            System.out.println(String.valueOf(e.getMessage()));
             throw new RuntimeException();
         }
     }

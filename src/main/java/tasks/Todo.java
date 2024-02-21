@@ -1,5 +1,8 @@
 package tasks;
-public class Todo extends Task {
+
+import static main.Ui.printHeaders;
+
+public class Todo extends TaskList {
 
     boolean newInput;
 
@@ -24,7 +27,6 @@ public class Todo extends Task {
         for (int i = 1; i < splitLine.length; i += 1) {
             action.append(splitLine[i]).append(" ");
         }
-        //return "[T]" + "[" + this.getStatusIcon() + action;
         return "[T]" + "[" + this.getStatusIcon() + "] " + action;
     }
 

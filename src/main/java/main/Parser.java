@@ -1,18 +1,29 @@
 package main;
 
-import tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static main.Command.*;
-import static storage.Storage.loadData;
 
-public class Duke {
+import tasks.TaskList;
+
+import static main.Command.removeElementFromBothArrays;
+import static main.Command.addTask;
+import static main.Command.userMarkOrUnmark;
+import static main.Command.userList;
+import static main.Command.saveDataIntoBothArrays;
+import static main.Command.Commands;
+
+
+import static storage.Storage.loadData;
+import static storage.Storage.changePresentationFormat;
+
+public class Parser {
+
     public static void userInput() throws DukeException {
         Scanner scanner = new Scanner(System.in);
-        String originalUserInput, modifiedUserInput;
+        String originalUserInput;
         ArrayList<String> stringList = loadData();
-        ArrayList<Task> taskList = changePresentationFormat(stringList);
+        ArrayList<TaskList> taskList = changePresentationFormat(stringList);
 
         // Start of user input
         while (true) {
@@ -68,13 +79,5 @@ public class Duke {
             scanner.close();
             return;
         }
-    }
-
-    public static void main(String[] args) throws DukeException {
-        System.out.println("____________________________________________________________\n" +
-                "Hello! I'm Bob\n" +
-                "What can I do for you?\n" +
-                "____________________________________________________________");
-        userInput();
     }
 }

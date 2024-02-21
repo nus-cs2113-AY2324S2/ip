@@ -1,7 +1,8 @@
 package tasks;
 import main.DukeException;
+import static main.Ui.printHeaders;
 
-public class Event extends Task {
+public class Event extends TaskList {
 
     protected boolean newInput;
     public Event(String description, boolean newInput) {
