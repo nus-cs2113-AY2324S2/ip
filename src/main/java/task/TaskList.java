@@ -1,6 +1,8 @@
 package task;
 
-public class TaskList {
+import java.io.Serializable;
+
+public class TaskList implements Serializable {
     private int numberOfTask;
     private final Task[] tasks;
 
