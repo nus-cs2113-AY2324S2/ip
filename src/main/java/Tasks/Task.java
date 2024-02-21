@@ -1,6 +1,16 @@
+package Tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
 
     public Task(String description) {
         this.description = description;

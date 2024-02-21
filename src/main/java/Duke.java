@@ -1,20 +1,82 @@
+import Exceptions.*;
+import FileManagerPackage.FileManager;
+import PrintMessages.Messages;
+import Tasks.*;
+import commands.*;
+
 import java.util.ArrayList;
-import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Duke {
-    static final int MAX_SIZE = 100;
     public static void main(String[] args) {
-        printsGreeting();
+        Messages.printsGreeting();
         try {
-            mimicMessage();
+            startProgramme();
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
+    }
+
+    private static void startProgramme() throws FileNotFoundException {
+        try {
+            ArrayList<Task> list = new ArrayList<>();
+            Scanner input = new Scanner(System.in);
+
+            File f = FileManager.getFile();
+            Scanner s = new Scanner(f);
+            FileManager.readFile(s, list);
+
+            startListening(input, list);
+        } catch (IOException e) {
+            System.out.println("     An error occurred while reading file: " + e.getMessage());
+        }
+    }
+
+    private static void startListening(Scanner input, ArrayList<Task> list) {
+        boolean canExit = false;
+        while (!canExit) {
+            String usersInput = input.nextLine();
+
+            if (usersInput.equals("bye")) {
+                canExit = true;
+                Messages.printGoodByeMessage();
+            } else if (usersInput.equals("list")) {
+                Messages.printList(list);
+            } else if (commandsWithDesc(usersInput)) {
+                editTask(usersInput, list);
+            }
+        }
+    }
+
+    private static void editTask(String usersInput, ArrayList<Task> task) {
+        int taskIndex;
+        try {
+            if (usersInput.startsWith("mark")) {
+                MarkTask.markTask(task, usersInput);
+            } else if (usersInput.startsWith("unmark")) {
+                UnmarkTask.unmarkTask(task, usersInput);
+            } else if (usersInput.startsWith("delete")) {
+                DeleteTask.deleteTask(task, usersInput);
+            } else if (usersInput.startsWith("todo") || usersInput.startsWith("deadline") || usersInput.startsWith("event")) {
+                AddTask.addTask(usersInput, task);
+                Messages.printAcknowledgementMessage(task);
+            }
+            else {
+                System.out.println("Error with editing Task");
+            }
+            FileManager.saveData(task);
+        }
+        catch (ThawException e) {
+            handleError(e);
+        }
+        catch (IOException e) {
+            System.out.println("Error with saving");
+        }
+
     }
 
     private static void handleError(ThawException e) {
@@ -25,137 +87,12 @@ public class Duke {
         }
     }
 
-    private static void editTask(String usersInput, ArrayList<Task> task) {
-        int taskIndex;
-        if (usersInput.startsWith("mark")) {
-            taskIndex = Integer.parseInt(usersInput.substring(5)) - 1 ;
-            System.out.println("Nice! I've marked this task as done:");
-            task.get(taskIndex).isDone = true;
-            System.out.println(task.get(taskIndex).getStatusIcon());
-        } else if (usersInput.startsWith("unmark")) {
-            taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
-            System.out.println("OK, I've marked this task as not done yet:");
-            task.get(taskIndex).isDone = false;
-            System.out.println(task.get(taskIndex).getStatusIcon());
-        } else if (usersInput.startsWith("delete")) {
-            taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(task.get(taskIndex).getStatusIcon());
-            System.out.println("Now you have " + (task.size() - 1) + " tasks in the list.");
-            task.remove(taskIndex);
-        }
-
-    }
-
-    private static void mimicMessage() throws FileNotFoundException {
-        File f = new File("./data/ThawBot.txt");
-        Scanner s = new Scanner(f);
-        Scanner input = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
-        int currentIteration = 0;
-
-         while (s.hasNext()) {
-            String[] currentLine = s.nextLine().split("\\s*\\|\\s*");
-            if (currentLine[0].equals("D")) {
-                list.add(new Deadline(currentLine[2], currentLine[3]));
-            }
-            else if (currentLine[0].equals("T")) {
-                 list.add(new Todo(currentLine[2], currentLine[2]));
-             }
-            else if (currentLine[0].equals("E")) {
-                String[] duration = currentLine[3].split("\\s*\\-\\s*");
-                 list.add(new Event(currentLine[2],
-                         "from: " + duration[0] + " to: " + duration[1]));
-            }
-
-            if (currentLine[1].equals("1")) {
-                list.get(currentIteration).isDone = true;
-            }
-            currentIteration++;
-        }
-        boolean canExit = false;
-
-        while (!canExit) {
-            String usersInput = input.nextLine();
-
-            if (usersInput.equals("bye")) {
-                canExit = true;
-                printGoodByeMessage();
-            } else if (usersInput.equals("list")) {
-                printList(list);
-            } else if ((usersInput.startsWith("unmark") && !usersInput.strip().endsWith("unmark")) ||
-                    (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark")) ||
-                    (usersInput.startsWith("delete") && !usersInput.strip().endsWith("delete"))) {
-                editTask(usersInput, list);
-                try {
-                    saveData(list);
-                } catch (IOException e) {
-                    System.out.println("Error with saving");
-                }
-            } else {
-                try {
-                    addTask(usersInput, list);
-                    saveData(list);
-                } catch (ThawException e) {
-                    handleError(e);
-                } catch (IOException e) {
-                    System.out.println("Error with saving");
-                }
-            }
-        }
-    }
-
-    private static void addTask(String usersInput, ArrayList<Task> list) throws ThawException, IOException {
-        if (usersInput.strip().equals("todo") || usersInput.strip().equals("deadline") ||
-                usersInput.strip().equals("event") || usersInput.strip().equals("delete")) {
-            throw new ThawException("Empty command " + usersInput.strip());
-        } else if (usersInput.startsWith("todo")) {
-            list.add(new Todo(usersInput.substring(5), usersInput));
-        } else if (usersInput.startsWith("deadline")) {
-            int startingIndex = usersInput.indexOf("/by");
-            list.add(new Deadline(usersInput.substring(9, startingIndex - 1),
-                    usersInput.substring(startingIndex + 4)));
-        } else if (usersInput.startsWith("event")) {
-            int startIndex = usersInput.indexOf("from");
-            int endIndex = usersInput.indexOf("to");
-            list.add(new Event(usersInput.substring(6, startIndex - 2),
-                    "from: " + usersInput.substring(startIndex+ 5, endIndex - 2) + " to: " + usersInput.substring(endIndex + 3)));
-        } else {
-            throw new ThawException("Invalid command");
-        }
-        printAcknowledgementMessage(list);
-    }
-
-
-    public static void saveData(ArrayList<Task> list) throws IOException {
-        final String filePath = "./data/ThawBot.txt";
-        FileWriter fw = new FileWriter(filePath);
-        String textToAdd = "";
-        for (int i = 0; i < list.size(); i++) {
-            textToAdd += list.get(i).printFileFormat() + System.lineSeparator();
-        }
-        fw.write(textToAdd);
-        fw.close();
-    }
-    private static void printsGreeting() {
-        String greetingMessage = "Hello! I'm ThawBot!\nWhat can I do for you?\n";
-        System.out.println(greetingMessage);
-    }
-
-    private static void printGoodByeMessage() {
-        String goodbyeMessage = "Bye. Hope to see you again soon!";
-        System.out.println(goodbyeMessage);
-    }
-
-    private static void printList(ArrayList<Task> task) {
-        for (int i = 0; i < task.size(); i ++) {
-            System.out.println((i + 1) + ". " + task.get(i).getStatusIcon());
-        }
-    }
-
-    private static void printAcknowledgementMessage(ArrayList<Task> task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.get(task.size() - 1).getStatusIcon());
-        System.out.print("Now you have " + task.size() + " task in the list.");
+    private static boolean commandsWithDesc(String usersInput) {
+        return (usersInput.startsWith("unmark") && !usersInput.strip().endsWith("unmark"))      ||
+                (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark"))       ||
+                (usersInput.startsWith("delete") && !usersInput.strip().endsWith("delete"))     ||
+                (usersInput.startsWith("todo") && !usersInput.strip().endsWith("todo"))         ||
+                (usersInput.startsWith("deadline") && !usersInput.strip().endsWith("deadline")) ||
+                (usersInput.startsWith("event") && !usersInput.strip().endsWith("event"));
     }
 }
