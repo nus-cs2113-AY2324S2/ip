@@ -9,6 +9,15 @@ public class IncompleteCommandException extends Exception implements AnonbotExce
         this.argument = argument;
     }
 
+    protected String getCommand() {
+        return command;
+    }
+
+
+    protected String getArgument() {
+        return argument;
+    }
+
     @Override
     public void printErrorMessage() {
         System.out.format("Invalid argument for %s: %s" + System.lineSeparator(), command, argument);
