@@ -37,7 +37,7 @@ public class Aragorn {
             "    \"bye\": Closes the program.\n";
     private static final ArrayList<Task> list = new ArrayList<>();
 
-    public static void main(String[] args) throws AragornException, IOException {
+    public static void main(String[] args) throws AragornException {
         try {
             readFile();
         } catch (IOException e) {
