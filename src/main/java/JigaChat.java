@@ -74,10 +74,13 @@ public class JigaChat {
             System.exit(0);
         case "delete":
             try {
+                previousData.appendToFile(input + "\n");
                 removeFromList(Integer.parseInt(commands[1]) - 1);
             }
             catch(NumberFormatException e) {
                 printDeleteCommand();
+            }
+            catch(IOException e){
             }
             return;
         case "list":
@@ -186,7 +189,11 @@ public class JigaChat {
             System.out.println("Has been removed from your list");
             taskList.remove(taskIndex);
             taskCounter--;
+            String taskCounterString = taskCounter + "\n";
+            previousData.appendAtFirstLine(taskCounterString);
             System.out.print("You have " + taskCounter + " tasks in your list");
+        }
+        catch (IOException e) {
         }
         catch(IndexOutOfBoundsException e) {
             System.out.println("Task " + taskIndex + " is not in your list!");
