@@ -3,6 +3,7 @@ package com.arriky.app;
 import com.arriky.exception.ErrorMessage;
 import com.arriky.exception.IncorrectArgumentAmountException;
 import com.arriky.task.TaskList;
+import com.arriky.utilities.FileIO;
 
 import java.util.Scanner;
 
@@ -11,10 +12,15 @@ public class Arriky {
 
         // initialize
         Scanner sc = new Scanner(System.in);
-        TaskList tl = new TaskList();
+
         ErrorMessage em = new ErrorMessage();
-        greet();
+        TaskList tl = new TaskList();
+
+        // load saved entries from file
+        tl.importTaskList();
+
         boolean running = true;
+        greet();
 
         while(running) {
             String command = "";
@@ -95,13 +101,13 @@ public class Arriky {
                 break;
             case "todo":
                 String taskName = command.substring(5);
-                tl.addToDo(taskName);
+                tl.addToDo(taskName, false);
                 printSeparation();
                 break;
             case "deadline": {
                 try {
                     String[] segments = command.split(" /by ");
-                    tl.addDeadline(segments[0].substring(9), segments[1]);
+                    tl.addDeadline(segments[0].substring(9), segments[1], false);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(em.INVALID_DEADLINE_FORMAT);
                     printSeparation();
@@ -112,7 +118,7 @@ public class Arriky {
             case "event": {
                 try {
                     String[] segments = command.split(" /");
-                    tl.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3));
+                    tl.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3), false);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(em.INVALID_EVENT_FORMAT);
                     printSeparation();
@@ -124,6 +130,8 @@ public class Arriky {
                 System.out.println(em.INVALID_COMMAND);
                 printSeparation();
             }
+
+            tl.saveTaskList();
         }
     }
 
