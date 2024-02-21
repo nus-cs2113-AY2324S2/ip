@@ -15,8 +15,12 @@ public class Task {
         return description;
     }
 
-    public void isDone(Boolean status) {
+    public void setDone(Boolean status) {
         this.isDone = status;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     @Override

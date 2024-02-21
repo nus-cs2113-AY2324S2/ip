@@ -7,6 +7,10 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> list) {
+        this.list = list;
+    }
+
     public void addTask(Task task) {
         this.list.add(task);
     }
@@ -17,21 +21,25 @@ public class TaskList {
 
     public void printList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.getCount(); i++) {
+        for (int i = 0; i < getCount(); i++) {
             System.out.println(i+1 + "." + this.list.get(i));
         }
     }
 
+    public ArrayList<Task> getTasks() {
+        return list;
+    }
+
     public void markAsDone(int sequence) {
         Task task = this.list.get(sequence);
-        task.isDone(true);
+        task.setDone(true);
         System.out.println("Nice! I've marked this task as done:\n" + task);
 
     }
 
     public void markAsUndone(int sequence) {
         Task task = this.list.get(sequence);
-        task.isDone(false);
+        task.setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" + task);
     }
 
