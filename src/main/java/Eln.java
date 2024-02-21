@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Eln {
     private static final String LINE = "____________________________________________________________";
+    private static final String ErrorLINE = "************************************************************";
     private static Task[] tasksList = new Task[100]; // max number of tasks set to 100
     private static int numOfTasks = 0;
 
@@ -30,18 +31,54 @@ public class Eln {
         System.out.println(LINE);
     }
 
+    private static void InvalidInput() {
+        System.out.println(ErrorLINE);
+        System.out.println("That doesn't really make sense to me.");
+        System.out.println("Blink 3 times quick and type /help if you need assistance");
+        System.out.println(ErrorLINE);
+    }
+
+    private static void printHelpMessage() {
+        System.out.println(LINE);
+        System.out.println("Eln sees you require some help");
+        System.out.println("Eln will try his best but don't expect too much");
+        System.out.println();
+        System.out.println("To create a todo, type");
+        System.out.println("todo (task to do)");
+        System.out.println();
+        System.out.println("To create a deadline, type");
+        System.out.println("deadline (task to be completed) /by (by when)");
+        System.out.println();
+        System.out.println("To create an event, type");
+        System.out.println("event (the event) /from (start date/time) /to (end date/time)");
+        System.out.println();
+        System.out.println("Other things you can type include list for a list of tasks and others to be added");
+        System.out.println();
+        System.out.println("Eln hopes that this has been of help. If not there's nothing else Eln can do.");
+        System.out.println(LINE);
+    }
+
     private static void addTask(String taskToAdd) {
 
         Task newTask;
 
-        if (taskToAdd.startsWith("todo")) {
-            newTask = new Todo(taskToAdd);
-        } else if (taskToAdd.startsWith("deadline")) {
-            newTask = new Deadline(taskToAdd);
-        } else if (taskToAdd.startsWith("event")) {
-            newTask = new Event(taskToAdd);
-        } else {
-            newTask = new Task(taskToAdd);
+        try {
+            if (taskToAdd.startsWith("todo")) {
+                newTask = new Todo(taskToAdd);
+            } else if (taskToAdd.startsWith("deadline")) {
+                newTask = new Deadline(taskToAdd);
+            } else if (taskToAdd.startsWith("event")) {
+                newTask = new Event(taskToAdd);
+            } else {
+                InvalidInput();
+                return;
+            }
+
+        } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
+            System.out.println(ErrorLINE);
+            e.printExceptionMessage();
+            System.out.println(ErrorLINE);
+            return;
         }
 
         tasksList[numOfTasks] = newTask;
@@ -89,6 +126,8 @@ public class Eln {
                 mark(userInput);
             } else if (userInput.startsWith("unmark")) {
                 unmark(userInput);
+            } else if (userInput.equalsIgnoreCase("/help")) {
+                printHelpMessage();
             } else {
                 addTask(userInput);
             }

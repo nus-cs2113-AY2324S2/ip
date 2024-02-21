@@ -3,8 +3,13 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description) {
+    public Event(String description) throws InvalidEventException {
         super(description);
+
+        if (!description.contains("/from") | !description.contains("/to")) {
+            throw new InvalidEventException();
+        }
+
         this.task = this.description.substring(
                 "event".length(),
                 this.description.indexOf("/from")).trim();
@@ -12,6 +17,10 @@ public class Event extends Task {
                 this.description.indexOf("/from") + "/from".length(), this.description.indexOf("/to")).trim();
         this.to = this.description.substring(
                 this.description.indexOf("/to") + "/to".length()).trim();
+
+        if (this.task.isEmpty() | this.from.isEmpty() | this.to.isEmpty()) {
+            throw new InvalidEventException();
+        }
     }
 
     @Override
