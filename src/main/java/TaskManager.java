@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    public static final String DATA_TXT_FILE_PATH = "./src/main/data.txt";
+    public static final String DATA_TXT_FILE_PATH = "./data.txt";
     private static int numItems;
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
 

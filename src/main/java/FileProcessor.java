@@ -32,14 +32,18 @@ public class FileProcessor {
         File f = new File(filePath);
         if (f.exists()) {
             ArrayList<String> dataArrayList = new ArrayList<>();
-            System.out.println("The file already exists.");
+            System.out.println("Data file exists.");
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 dataArrayList.add(s.nextLine());
             }
             TaskManager.loadTasks(dataArrayList);
         } else {
-            createFile(f);
+            try {
+                writeToFile(filePath, "");
+            } catch (IOException e) {
+                System.out.println("failed to create file");
+            }
         }
     }
 
@@ -86,8 +90,7 @@ public class FileProcessor {
             for (String line : dataContents) {
                 if (counter == 0) {
                     writeToFile(filePath, line);
-                }
-                else {
+                } else {
                     appendToFile(filePath, line);
                 }
                 counter += 1;
@@ -121,8 +124,7 @@ public class FileProcessor {
             for (String line : dataContents) {
                 if (counter == 0) {
                     writeToFile(filePath, line);
-                }
-                else {
+                } else {
                     appendToFile(filePath, line);
                 }
                 counter += 1;

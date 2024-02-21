@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 public class UserInterface {
-    public static final String DATA_TXT_FILE_PATH = "./src/main/data.txt";
+    public static final String DATA_TXT_FILE_PATH = "./data.txt";
     Scanner myScanner = new Scanner(System.in);
     TaskManager taskManager = new TaskManager();
 
