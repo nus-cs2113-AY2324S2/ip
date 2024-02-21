@@ -21,9 +21,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String toString(){
+    public String toString() {
         String statusIcon = isDone ? "X" : " ";
-        return "[" + statusIcon + "]" + description;
+        return "[" + statusIcon + "] " + description;
     }
     public abstract String toDiskFormat();
 

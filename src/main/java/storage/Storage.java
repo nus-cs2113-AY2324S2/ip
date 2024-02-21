@@ -1,14 +1,17 @@
 package storage;
 
 import commandexceptions.JingHaoExceptions;
-import tasktype.*;
+
+import tasktype.TaskList;
+import tasktype.Task;
+import tasktype.Todo;
+import tasktype.Deadline;
+import tasktype.Event;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
@@ -16,34 +19,25 @@ public class Storage {
 
     public static TaskList readFile() throws JingHaoExceptions, IOException{
         TaskList currentList = new TaskList();
-        try{
+        try {
             File f = new File(FILE_PATH);
             Scanner s = new Scanner(f);
-            while (s.hasNext()){
+            while (s.hasNext()) {
                 String currentLine = s.nextLine();
                 String[] informations = currentLine.split(",");
                 String taskType = informations[0];
-                switch (taskType){
+                switch (taskType) {
                 case "T":
                     Todo newTodo = new Todo(informations[2]);
-                    if(informations[1].equalsIgnoreCase("TRUE")){
-                        newTodo.check();
-                    }
-                    currentList.add(newTodo);
+                    updateCheck(newTodo, informations[1], currentList);
                     break;
                 case "D":
                     Deadline newDeadline = new Deadline(informations[2], informations[3]);
-                    if(informations[1].equalsIgnoreCase("TRUE")){
-                        newDeadline.check();
-                    }
-                    currentList.add(newDeadline);
+                    updateCheck(newDeadline, informations[1], currentList);
                     break;
                 case "E":
                     Event newEvent = new Event(informations[2], informations[3], informations[4]);
-                    if(informations[1].equalsIgnoreCase("TRUE")){
-                        newEvent.check();
-                    }
-                    currentList.add(newEvent);
+                    updateCheck(newEvent, informations[1], currentList);
                     break;
                 default:
                     throw new JingHaoExceptions();
@@ -58,9 +52,16 @@ public class Storage {
         return currentList;
     }
 
+    public static void updateCheck(Task task, String information, TaskList list) throws FileNotFoundException {
+        if(information.equalsIgnoreCase("TRUE")) {
+            task.check();
+        }
+        list.add(task);
+    }
+
     public static void updateDisk(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task item: taskList){
+        for (Task item: taskList) {
             fw.write(item.toDiskFormat());
         }
         fw.close();
