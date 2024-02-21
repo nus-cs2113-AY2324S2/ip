@@ -32,7 +32,17 @@ public class Eln {
 
     private static void addTask(String taskToAdd) {
 
-        Task newTask = new Todo(taskToAdd);
+        Task newTask;
+
+        if (taskToAdd.startsWith("todo")) {
+            newTask = new Todo(taskToAdd);
+        } else if (taskToAdd.startsWith("deadline")) {
+            newTask = new Deadline(taskToAdd);
+        } else if (taskToAdd.startsWith("event")) {
+            newTask = new Event(taskToAdd);
+        } else {
+            newTask = new Task(taskToAdd);
+        }
 
         tasksList[numOfTasks] = newTask;
         numOfTasks++;
@@ -40,7 +50,7 @@ public class Eln {
         //addTaskResponse
         System.out.println(LINE);
         System.out.println("The following task has been added as task number " + numOfTasks);
-        System.out.println(newTask.toString());
+        System.out.println(newTask);
         System.out.println(LINE);
     }
 
@@ -93,32 +103,3 @@ public class Eln {
     }
 }
 
-
-
-    /*private static void echoUser() {
-        Scanner scan = new Scanner(System.in);
-        String input = "";
-        String[] list = new String[20];
-        int index = 0;
-
-        while(!input.equals("bye")) {
-            input = scan.nextLine();
-
-            if(input.equals("list")) {
-                System.out.println(LINE);
-                if(index == 0) {
-                    System.out.println("list is empty");
-                }
-                for(int i = 0; i < index; i++) {
-                    System.out.println((i+1) + ". " + list[i]);
-                }
-                System.out.println(LINE);
-            } else {
-                list[index] = input;
-                System.out.println(LINE);
-                System.out.println("added: " + input);
-                System.out.println(LINE);
-                index++;
-            }
-        }
-    }*/

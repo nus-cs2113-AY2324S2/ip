@@ -9,6 +9,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.toDo;
+        return "[T][" + this.getStatusIcon() + "] " + this.toDo;
     }
 }
