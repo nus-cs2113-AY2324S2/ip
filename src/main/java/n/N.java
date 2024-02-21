@@ -186,6 +186,14 @@ public class N {
         }
     }
 
+    public static void deleteTask(String message) {
+        int indexToDelete = Integer.parseInt(message.split(" ")[1]) - 1;
+        printMessage("Noted, I have removed the following task:\n" +
+                "    " +taskList.get(indexToDelete).toString()+ "\n" +
+                "    Number of Tasks Remaining: " +taskList.size());
+        taskList.remove(indexToDelete);
+    }
+
     public static void handleMessages(Scanner in) {
         String message = in.nextLine();
 
@@ -199,6 +207,9 @@ public class N {
             handleMessages(in);
         } else if (message.trim().startsWith("mark")) {
             markTask(message);
+            handleMessages(in);
+        } else if (message.trim().startsWith("delete")) {
+            deleteTask(message);
             handleMessages(in);
         } else {
             addTask(message);
