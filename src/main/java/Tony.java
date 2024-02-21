@@ -1,14 +1,15 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Tony {
     public static final String LINE_BREAKER = "__________________________________________________"
             + System.lineSeparator();
-    public static ArrayList<Task> tasks = new ArrayList<Task>();
-    public static void main(String[] args) {
-        printWelcomeMessage();
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
+    public static void main(String[] args) throws IOException {
+        printWelcomeMessage();
+        FileLoader.checkFileExists();
         Scanner userInput = new Scanner(System.in);
         while(userInput.hasNextLine()) {
             String line = userInput.nextLine();
@@ -64,10 +65,10 @@ public class Tony {
     private static void listTasks() {
         System.out.println(LINE_BREAKER);
         System.out.println("\tHere are the tasks in your list:");
-        for(int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            System.out.println("\t" + (i+1) + "."
-                    + task);
+        for(Task t : tasks) {
+            int numbering = tasks.indexOf(t) + 1;
+            System.out.println("\t" + numbering + "."
+                    + t);
         }
         System.out.println(LINE_BREAKER);
     }
@@ -77,7 +78,7 @@ public class Tony {
             throw new TonyException();
         }
     }
-    private static void markTasks(String[] subCommand, int num) {
+    private static void markTasks(String[] subCommand, int num) throws IOException {
         if(subCommand[0].equals("mark")) {
             tasks.get(num-1).markDone();
             System.out.println(
@@ -93,6 +94,7 @@ public class Tony {
                         + System.lineSeparator() + tasks.get(num-1) + System.lineSeparator()
                         + LINE_BREAKER);
         }
+        FileSaver.saveMark(tasks);
     }
     private static void printByeMessage() {
         System.out.println(
@@ -107,7 +109,7 @@ public class Tony {
                 + LINE_BREAKER;
         System.out.println(chatBot);
     }
-    private static void addATask(String userInput) throws TonyException {
+    private static void addATask(String userInput) throws TonyException, IOException {
         if(userInput.startsWith("todo")) {
             String[] toDoTask = userInput.split("todo");
             checkArrayLength(userInput, toDoTask);
@@ -127,23 +129,25 @@ public class Tony {
             throw new TonyException();
         }
     }
-    private static void addEventTask(String[] eventTask) {
+    private static void addEventTask(String[] eventTask)  throws IOException {
         String[] description = eventTask[1].split("/from | /to");
         Event event = new Event(description[0], description[1], description[2]);
         tasks.add(event);
         printAddOrDeleteTask(description[0] ,tasks.indexOf(event));
+        FileSaver.saveEvent(event);
     }
-    private static void addDeadlineTask(String[] deadlineTask) {
+    private static void addDeadlineTask(String[] deadlineTask)  throws IOException {
         String[] description = deadlineTask[1].split("/by");
         Deadline deadline = new Deadline(description[0], description[1]);
         tasks.add(deadline);
         printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
+        FileSaver.saveDeadline(deadline);
     }
-    private static void addTodoTask(String[] toDoTask) {
+    private static void addTodoTask(String[] toDoTask)  throws IOException {
         Todo todo = new Todo(toDoTask[1]);
         tasks.add(todo);
         printAddOrDeleteTask(toDoTask[0], tasks.indexOf(todo));
-        System.out.println("index of task is " + tasks.indexOf(todo));
+        FileSaver.saveTodo(todo);
     }
     private static void printAddOrDeleteTask(String command, int index) {
         String deleteOrAdd = (command.equals("delete") ? "removed" : "added");
