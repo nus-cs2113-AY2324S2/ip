@@ -55,6 +55,7 @@ public class Console {
                 }
                 switch (command) {
                 case BYE:
+                    Save.saveToLocalDisk(tasks);
                     return;
                 case LIST:
                     printTaskListToConsole(tasks);
@@ -72,6 +73,9 @@ public class Console {
                 case DEADLINE:
                 case EVENT:
                     printNewTaskToConsole(tasks, line, command);
+                    break;
+                case SAVE:
+                    Save.saveToLocalDisk(tasks);
                     break;
                 }
             } catch (MissingFieldException e) {

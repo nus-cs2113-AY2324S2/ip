@@ -6,10 +6,19 @@ public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
     private int numberOfTasks;
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public void addToTaskList(Task task) {
         tasks.add(task);
         numberOfTasks++;
         printAddTaskMessage(task);
+    }
+
+    public void addToTaskListFromFIle(Task task) {
+        tasks.add(task);
+        numberOfTasks++;
     }
 
     private void printAddTaskMessage(Task task) {
