@@ -15,4 +15,11 @@ public class Errors {
 
     public static class InvalidMarkUnmarkIndexException extends Exception {
     }
+
+    public static class InvalidDeleteException extends Exception {
+
+    }
+
+    public static class TaskNotFoundException extends Exception {
+    }
 }
