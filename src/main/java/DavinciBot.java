@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,9 +14,10 @@ public class DavinciBot {
     public static final String MARK = "mark";
     public static final String UNMARK = "unmark";
     public static final String DELETE = "delete";
-    public static Task[] taskArray = new Task[0];
 
-    private static void userCommand(Scanner scanner) {
+    public static List<Task> taskList = new ArrayList<>();
+
+    private static void userCommand() {
         while (true) {
             String userInput = Ui.getUserInput();
 
@@ -30,17 +30,17 @@ public class DavinciBot {
                 Ui.printMessage("Goodbye... It may be a mere few seconds for you but an eternity for me.");
                 break;
             } else if (userInput.equalsIgnoreCase(LIST)) {
-                Ui.displayTaskList(taskArray);
+                Ui.displayTaskList(taskList);
             } else if (userInput.toLowerCase().startsWith(MARK)) {
                 completeTask(userInput);
             } else if (userInput.toLowerCase().startsWith(UNMARK)) {
                 unmarkTask(userInput);
             } else if (userInput.toLowerCase().startsWith(DELETE)) {
-                taskArray = deleteTask(userInput);
+                deleteTask(userInput);
             } else if (userInput.toLowerCase().startsWith(TODO) ||
                     userInput.toLowerCase().startsWith(DEADLINE) ||
                     userInput.toLowerCase().startsWith(EVENT)) {
-                taskArray = getTasks(userInput);
+                getTasks(userInput);
             } else {
                 Ui.printMessage("Bro, say something that I can understand.");
             }
@@ -61,10 +61,10 @@ public class DavinciBot {
     private static void checkIfTaskCanBeCompleted(String[] parts) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskArray.length) {
-                taskArray[taskIndex].markAsDone();
+            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                taskList.get(taskIndex).markAsDone();
                 Ui.printMessage("Nice job! I've marked this task as done :D");
-                Ui.displayTaskList(taskArray);
+                Ui.displayTaskList(taskList);
                 writeFile();
             } else {
                 throw new DavinciException("Invalid task index.");
@@ -88,10 +88,10 @@ public class DavinciBot {
     private static void checkIfTaskCanBeUnmarked(String[] parts) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskArray.length) {
-                taskArray[taskIndex].markAsNotDone();
+            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                taskList.get(taskIndex).markAsNotDone();
                 Ui.printMessage("OK, I've marked this task as not done, but stop being lazy!");
-                Ui.displayTaskList(taskArray);
+                Ui.displayTaskList(taskList);
                 writeFile();
             } else {
                 throw new DavinciException("Invalid task index.");
@@ -101,40 +101,31 @@ public class DavinciBot {
         }
     }
 
-    private static Task[] deleteTask(String userInput) {
+    private static void deleteTask(String userInput) {
         try {
             String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
-            return ableToDelete(parts);
+            ableToDelete(parts);
         } catch (DavinciException e) {
             Ui.printMessage("Error: " + e.getMessage());
-            return taskArray;
         } catch (NumberFormatException e) {
             Ui.printMessage("Error: Invalid task index format.");
-            return taskArray;
         }
     }
 
-    private static Task[] ableToDelete(String[] parts) throws DavinciException {
+    private static void ableToDelete(String[] parts) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskArray.length) {
+            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                taskList.remove(taskIndex);
+                Ui.printMessage("Noted. I've removed this task:");
+                Ui.displayTaskList(taskList);
                 writeFile();
-                return successfulDeletion(taskIndex);
             } else {
                 throw new DavinciException("Invalid task index.");
             }
         } else {
             throw new DavinciException("Please specify the task index to delete.");
         }
-    }
-
-    private static Task[] successfulDeletion(int taskIndex) {
-        Ui.printMessage("Noted. I've removed this task:");
-        Ui.displayTaskList(Arrays.copyOf(taskArray, taskArray.length - 1));
-        Task[] newArray = new Task[taskArray.length - 1];
-        System.arraycopy(taskArray, 0, newArray, 0, taskIndex);
-        System.arraycopy(taskArray, taskIndex + 1, newArray, taskIndex, taskArray.length - taskIndex - 1);
-        return newArray;
     }
 
     private static Task[] getTasks(String userInput) {
@@ -157,7 +148,7 @@ public class DavinciBot {
             }
         } catch (DavinciException e) {
             Ui.printMessage("Error: " + e.getMessage());
-            return taskArray;
+            return taskList.toArray(new Task[0]);
         }
     }
 
@@ -166,50 +157,46 @@ public class DavinciBot {
         if (eventParts.length == 2) {
             String[] eventTimeParts = eventParts[1].split("/to", SPLIT_INTO_TWO_PARTS);
             if (eventTimeParts.length == 2) {
-                taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
-                taskArray[taskArray.length - 1] = new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim());
-                Ui.echoTask(taskArray);
+                taskList.add(new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim()));
+                Ui.echoTask(taskList);
             } else {
                 throw new DavinciException("Come on man. Please use: event <description> /from <start> /to <end>");
             }
         } else {
             throw new DavinciException("Whatcha' doing bruh, listen. Please use: event <description> /from <start> /to <end>");
         }
-        return taskArray;
+        return taskList.toArray(new Task[0]);
     }
 
     private static Task[] executeDeadlineTask(String description) throws DavinciException {
         String[] deadlineParts = description.split("/by", SPLIT_INTO_TWO_PARTS);
         if (deadlineParts.length == 2) {
-            taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
-            taskArray[taskArray.length - 1] = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
-            Ui.echoTask(taskArray);
+            taskList.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+            Ui.echoTask(taskList);
         } else {
             throw new DavinciException("Crappy formatting. Please use: deadline <description> /by <deadline>");
         }
-        return taskArray;
+        return taskList.toArray(new Task[0]);
     }
 
     private static Task[] executeTodoTask(String description) {
-        taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
-        taskArray[taskArray.length - 1] = new Todo(description);
-        Ui.echoTask(taskArray);
-        return taskArray;
+        taskList.add(new Todo(description));
+        Ui.echoTask(taskList);
+        return taskList.toArray(new Task[0]);
     }
 
     private static void readFile() {
         try {
             List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
-            taskArray = new Task[0];
+            taskList.clear();
 
             for (String line : lines) {
                 Task task = readLine(line);
-                if (task != null && !containsTask(taskArray, task)) {
-                    taskArray = Arrays.copyOf(taskArray, taskArray.length + 1);
-                    taskArray[taskArray.length - 1] = task;
+                if (task != null && !containsTask(taskList, task)) {
+                    taskList.add(task);
                     Ui.printMessage("Got it. I've added a task from the file:");
-                    System.out.println(taskArray[taskArray.length - 1].toString());
-                    Ui.displayTaskList(taskArray);
+                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    Ui.displayTaskList(taskList);
                 }
             }
         } catch (IOException e) {
@@ -222,7 +209,7 @@ public class DavinciBot {
     private static void writeFile() {
         try{
             List<String> lines = new ArrayList<>();
-            for (Task task : taskArray) {
+            for (Task task : taskList) {
                 lines.add(task.toFileString());
             }
             DavinciFileHandler.writeFile(DATA_FILE_PATH, lines);
@@ -231,7 +218,7 @@ public class DavinciBot {
         }
     }
 
-    private static boolean containsTask(Task[] tasks, Task task) {
+    private static boolean containsTask(List<Task> tasks, Task task) {
         for (Task t : tasks) {
             if (t.equals(task)) {
                 return true;
@@ -245,8 +232,7 @@ public class DavinciBot {
             String[] tokens = line.split("/");
             String command = tokens[0].toUpperCase();
             boolean isDone = tokens[tokens.length - 1].equals("1");
-            Task newTask;
-            newTask = commandCases(command, tokens);
+            Task newTask = commandCases(command, tokens);
             if (newTask == null) return null;
             if (isDone) {
                 newTask.markAsDone();
@@ -280,7 +266,7 @@ public class DavinciBot {
     }
 
     private static boolean taskExists(Task newTask) {
-        for (Task existingTask : taskArray) {
+        for (Task existingTask : taskList) {
             if (existingTask.equals(newTask)) {
                 return true;
             }
@@ -293,7 +279,7 @@ public class DavinciBot {
 
         readFile();
         Ui.printStartingMessage();
-        userCommand(scanner);
+        userCommand();
         writeFile();
 
         scanner.close();

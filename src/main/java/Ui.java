@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -27,24 +28,25 @@ public class Ui {
         return scanner.nextLine().trim();
     }
 
-    public static void displayTaskList(Task[] taskArray) {
+    public static void displayTaskList(List<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
-        if (taskArray.length == 0) {
+        if (taskList.isEmpty()) {
             System.out.println("No tasks entered yet.");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskArray.length; i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 String taskType;
-                if (taskArray[i] instanceof Deadline) {
+                Task task = taskList.get(i);
+                if (task instanceof Deadline) {
                     taskType = "[D]";
-                } else if (taskArray[i] instanceof Todo) {
+                } else if (task instanceof Todo) {
                     taskType = "[T]";
                 } else {
                     taskType = "[E]";
                 }
                 System.out.println((i + 1) + ". " + taskType +
-                        " [" + taskArray[i].getStatusIcon() + "] " +
-                        taskArray[i].getDescription());
+                        " [" + task.getStatusIcon() + "] " +
+                        task.getDescription());
             }
         }
         System.out.println(LINE_SEPARATOR);
@@ -56,11 +58,12 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
-    public static void echoTask(Task[] taskArray) {
+    public static void echoTask(List<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
+        Task addedTask = taskList.get(taskList.size() - 1);
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskArray[taskArray.length - 1].toString());
-        System.out.println("Now you have " + taskArray.length + " tasks in the list.");
+        System.out.println(addedTask.toString());
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         System.out.println(LINE_SEPARATOR);
     }
 }
