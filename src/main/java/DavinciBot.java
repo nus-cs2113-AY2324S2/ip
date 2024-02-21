@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * DavinciBot is a simple to-do list application that allows users to manage tasks
+ * including adding, marking as done, deleting, and listing tasks.
+ */
 public class DavinciBot {
     private static final int SPLIT_INTO_TWO_PARTS = 2;
     private static final String DATA_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\DavinciBot.txt";
@@ -17,6 +21,9 @@ public class DavinciBot {
 
     public static List<Task> taskList = new ArrayList<>();
 
+    /**
+     * Handles user commands and performs corresponding actions based on the input.
+     */
     private static void userCommand() {
         while (true) {
             String userInput = Ui.getUserInput();
@@ -47,6 +54,11 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Marks a task as done based on the user input.
+     *
+     * @param userInput User input containing the command and task index.
+     */
     private static void completeTask(String userInput) {
         try {
             String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
@@ -58,6 +70,12 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Checks if the task can be marked as completed and performs the operation.
+     *
+     * @param parts Array containing the command and task index.
+     * @throws DavinciException If there is an issue with the task completion.
+     */
     private static void checkIfTaskCanBeCompleted(String[] parts) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
@@ -74,6 +92,11 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Unmarks a task as done based on the user input.
+     *
+     * @param userInput User input containing the command and task index.
+     */
     private static void unmarkTask(String userInput) {
         try {
             String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
@@ -85,6 +108,12 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Checks if the task can be unmarked and performs the operation.
+     *
+     * @param parts Array containing the command and task index.
+     * @throws DavinciException If there is an issue with unmarking the task.
+     */
     private static void checkIfTaskCanBeUnmarked(String[] parts) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
@@ -101,6 +130,11 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Deletes a task based on the user input.
+     *
+     * @param userInput User input containing the command and task index.
+     */
     private static void deleteTask(String userInput) {
         try {
             String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
@@ -112,6 +146,12 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Checks if the task can be deleted and performs the operation.
+     *
+     * @param parts Array containing the command and task index.
+     * @throws DavinciException If there is an issue with deleting the task.
+     */
     private static void ableToDelete(String[] parts) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
@@ -128,6 +168,12 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Parses the user input to create tasks and adds them to the task list.
+     *
+     * @param userInput User input containing the command and task details.
+     * @return An array of tasks after processing the user input.
+     */
     private static Task[] getTasks(String userInput) {
         try {
             Scanner taskScanner = new Scanner(userInput);
@@ -152,6 +198,13 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Processes the user input for an event task and adds it to the task list.
+     *
+     * @param description Description of the event task with start and end times.
+     * @return An array of tasks after processing the event task.
+     * @throws DavinciException If there is an issue with the event task format.
+     */
     private static Task[] executeEventTask(String description) throws DavinciException {
         String[] eventParts = description.split("/from", SPLIT_INTO_TWO_PARTS);
         if (eventParts.length == 2) {
@@ -163,11 +216,19 @@ public class DavinciBot {
                 throw new DavinciException("Come on man. Please use: event <description> /from <start> /to <end>");
             }
         } else {
-            throw new DavinciException("Whatcha' doing bruh, listen. Please use: event <description> /from <start> /to <end>");
+            throw new DavinciException("Whatcha' doing bruh, listen. " +
+                    "Please use: event <description> /from <start> /to <end>");
         }
         return taskList.toArray(new Task[0]);
     }
 
+    /**
+     * Processes the user input for a deadline task and adds it to the task list.
+     *
+     * @param description Description of the deadline task with the deadline.
+     * @return An array of tasks after processing the deadline task.
+     * @throws DavinciException If there is an issue with the deadline task format.
+     */
     private static Task[] executeDeadlineTask(String description) throws DavinciException {
         String[] deadlineParts = description.split("/by", SPLIT_INTO_TWO_PARTS);
         if (deadlineParts.length == 2) {
@@ -179,12 +240,21 @@ public class DavinciBot {
         return taskList.toArray(new Task[0]);
     }
 
+    /**
+     * Processes the user input for a todo task and adds it to the task list.
+     *
+     * @param description Description of the todo task.
+     * @return An array of tasks after processing the todo task.
+     */
     private static Task[] executeTodoTask(String description) {
         taskList.add(new Todo(description));
         Ui.echoTask(taskList);
         return taskList.toArray(new Task[0]);
     }
 
+    /**
+     * Reads tasks from a file and adds them to the task list.
+     */
     private static void readFile() {
         try {
             List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
@@ -206,8 +276,11 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Writes the current task list to a file.
+     */
     private static void writeFile() {
-        try{
+        try {
             List<String> lines = new ArrayList<>();
             for (Task task : taskList) {
                 lines.add(task.toFileString());
@@ -218,6 +291,13 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Checks if a task already exists in the task list.
+     *
+     * @param tasks The list of tasks to check.
+     * @param task  The task to check for existence.
+     * @return True if the task exists, false otherwise.
+     */
     private static boolean containsTask(List<Task> tasks, Task task) {
         for (Task t : tasks) {
             if (t.equals(task)) {
@@ -227,6 +307,13 @@ public class DavinciBot {
         return false;
     }
 
+    /**
+     * Reads a line from the file and converts it into a Task object.
+     *
+     * @param line The line read from the file.
+     * @return A Task object representing the line.
+     * @throws DavinciException If there is an issue with the file format.
+     */
     private static Task readLine(String line) throws DavinciException {
         try {
             String[] tokens = line.split("/");
@@ -246,6 +333,13 @@ public class DavinciBot {
         }
     }
 
+    /**
+     * Processes the command and creates a corresponding Task object.
+     *
+     * @param command The command representing the type of task.
+     * @param tokens  An array of tokens from the line.
+     * @return A Task object based on the command.
+     */
     private static Task commandCases(String command, String[] tokens) {
         Task newTask;
         switch (command) {
@@ -265,6 +359,12 @@ public class DavinciBot {
         return newTask;
     }
 
+    /**
+     * Checks if a task already exists in the task list.
+     *
+     * @param newTask The task to check for existence.
+     * @return True if the task exists, false otherwise.
+     */
     private static boolean taskExists(Task newTask) {
         for (Task existingTask : taskList) {
             if (existingTask.equals(newTask)) {

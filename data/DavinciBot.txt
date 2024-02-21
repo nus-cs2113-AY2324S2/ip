@@ -2,4 +2,4 @@ todo/eat/0
 todo/go school/0
 event/have dinner/now/later/1
 deadline/finish cs2113 assignment/tomorrow/1
-todo/eat breakfast/1
+todo/play games/1
