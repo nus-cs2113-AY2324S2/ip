@@ -63,7 +63,7 @@ public class Bobby {
                     break;
                 }
                 tasks.add(new Todo(description));
-                System.out.println("Okay, added:\n" + tasks.get((tasks.size() - 1)));
+                System.out.println("Okay, added:\n" + tasks.get(tasks.size() - 1));
                 System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                 break;
             case "deadline":
@@ -80,7 +80,7 @@ public class Bobby {
                     break;
                 }
                 tasks.add(new Deadline(description, by));
-                System.out.println("Okay, added:\n" + tasks.get((tasks.size() - 1)));
+                System.out.println("Okay, added:\n" + tasks.get(tasks.size() - 1));
                 System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                 break;
             case "event":
@@ -98,9 +98,17 @@ public class Bobby {
                     break;
                 }
                 tasks.add(new Event(description, by, from));
-                System.out.println("Okay, added:\n" + tasks.get((tasks.size() - 1)));
+                System.out.println("Okay, added:\n" + tasks.get(tasks.size() - 1));
                 System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                 break;
+            case "delete":
+                entry = Integer.parseInt(input.substring(7));
+                if (entry > 0 && entry <= tasks.size()) {
+                    System.out.println("Noted, I've removed this task:\n" + tasks.get(entry - 1));
+                    tasks.remove(entry - 1);
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+                    break;
+                }
             default:
                 System.out.println("Sorry, I didn't quite understand that.\nPlease enter a valid command.");
                 break;
