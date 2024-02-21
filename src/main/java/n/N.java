@@ -9,6 +9,7 @@ import n.task.Task;
 import n.task.Event;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class N {
     public static final int MAX_LIST_ITEMS = 100;
@@ -25,9 +26,9 @@ public class N {
             + "|          |\n"
             + "|   |\\     |\n"
             + "|___| \\____| .chatbot :)";
-    static Task[] taskList = new Task[MAX_LIST_ITEMS];
-    static int taskCount = 0;
 
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
+   // static Task[] taskList = new Task[MAX_LIST_ITEMS];
     public static void printLine() {
         System.out.println("    ____________________________________________________________\n");
     }
@@ -39,13 +40,13 @@ public class N {
     }
 
     public static void printTaskList() {
-        if (taskCount == 0) {
+        if (taskList.isEmpty()) {
             printMessage("no tasks added, wake up pleasee!");
         } else {
             printLine();
             System.out.println("    Here are the tasks in your list:");
-            for(int i = 0; i < taskCount; i++) {
-                System.out.println("    " + taskList[i]);
+            for (Task task : taskList) {
+                System.out.println("    " + task);
             }
             printLine();
         }
@@ -54,17 +55,17 @@ public class N {
     public static void changeTaskStatus(int taskIndex, boolean newStatus) {
         String outputMessage;
         //check to ensure that task to be marked/unmarked exists in the list
-        if (taskIndex < taskCount) {
+        if (taskIndex < taskList.size()) {
             //when no change in status is required
-            if (taskList[taskIndex].isDone() == newStatus) {
+            if (taskList.get(taskIndex).isDone() == newStatus) {
                 //generate output message based on current task status
                 outputMessage = (newStatus) ?
                         //output message if task has already been marked done
-                        "Task " +taskList[taskIndex].getIndex()+ " is already completed!" :
+                        "Task " +taskList.get(taskIndex).getIndex()+ " is already completed!" :
                         //output message if task has not been marked done
-                        "Task " +taskList[taskIndex].getIndex()+ " is already unmarked, complete other tasks!";
+                        "Task " +taskList.get(taskIndex).getIndex()+ " is already unmarked, complete other tasks!";
             } else { //handle a change in task status
-                taskList[taskIndex].setDone(newStatus);
+                taskList.get(taskIndex).setDone(newStatus);
                 //generate output message based on new task status
                 outputMessage = (newStatus) ?
                         //output message when task is marked done
@@ -103,7 +104,7 @@ public class N {
             case Event:
                 try {
                     taskDescription = message.substring(5);
-                    taskList[taskCount] = new Event(taskDescription, taskCount);
+                    taskList.add(new Event(taskDescription, taskList.size()));
                 } catch (StringIndexOutOfBoundsException e) {
                     printMessage("Wrong format for event task! \n" +
                             INPUT_INSTRUCTION +
@@ -114,7 +115,7 @@ public class N {
             case Deadline:
                 try {
                     taskDescription = message.substring(8);
-                    taskList[taskCount] = new Deadline(taskDescription, taskCount);
+                    taskList.add(new Deadline(taskDescription, taskList.size()));
                 } catch (StringIndexOutOfBoundsException e) {
                     printMessage("Wrong format for deadline task! \n" +
                             INPUT_INSTRUCTION +
@@ -130,7 +131,7 @@ public class N {
             case ToDo:
                 try {
                     taskDescription = message.substring(4);
-                    taskList[taskCount] = new ToDo(taskDescription, taskCount);
+                    taskList.add(new ToDo(taskDescription, taskList.size()));
                 } catch (EmptyTaskDescriptionException e) {
                     printMessage("uhOh! The task must be specified for a todo :o\n" +
                             INPUT_INSTRUCTION +
@@ -139,15 +140,14 @@ public class N {
                 }
                 break;
         }
-        taskCount ++;
-        if (taskCount <= 1) {
+        if (taskList.size() <= 1) {
             printMessage("Got it, " +taskType+ " task has been added:\n" + "    "
-                    +taskList[taskCount - 1].toString()+
+                    +taskList.get(taskList.size() - 1).toString()+
                     "\n    Now you have 1 task in the list");
         } else {
             printMessage("Got it, " +taskType+ " task has been added:\n" + "    "
-                    +taskList[taskCount - 1].toString()+
-                    "\n    Now you have "+taskCount+" tasks in the list");
+                    +taskList.get(taskList.size() - 1).toString()+
+                    "\n    Now you have "+taskList.size()+" tasks in the list");
         }
     }
 
