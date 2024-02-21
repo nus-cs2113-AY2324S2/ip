@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * DavinciBot is a simple to-do list application that allows users to manage tasks
- * including adding, marking as done, deleting, and listing tasks.
+ * The DavinciBot class is a simple to-do list application that allows users
+ * to manage tasks, including adding, marking as done, deleting, and listing tasks.
  */
 public class DavinciBot {
-    private static final int SPLIT_INTO_TWO_PARTS = 2;
+
+    //specify the text file directory
     private static final String DATA_FILE_PATH = "C:\\cs2113 individual project\\ip\\data\\DavinciBot.txt";
+
+    public static final int SPLIT_INTO_TWO_PARTS = 2;
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
@@ -18,6 +21,8 @@ public class DavinciBot {
     public static final String MARK = "mark";
     public static final String UNMARK = "unmark";
     public static final String DELETE = "delete";
+    public static final String GOODBYE = "Goodbye... It may be a mere few seconds for you but an eternity for me.";
+    public static final String UNKNOWN_TASK_TYPE = "Unknown task type. Please use 'todo', 'deadline', or 'event'.";
 
     public static List<Task> taskList = new ArrayList<>();
 
@@ -25,155 +30,40 @@ public class DavinciBot {
      * Handles user commands and performs corresponding actions based on the input.
      */
     private static void userCommand() {
+        Scanner scanner = new Scanner(System.in);
+
         while (true) {
             String userInput = Ui.getUserInput();
-
-            if (userInput.isEmpty()) {
-                Ui.printMessage("... are you mute?");
-                continue;
-            }
-
             if (userInput.equalsIgnoreCase(BYE)) {
-                Ui.printMessage("Goodbye... It may be a mere few seconds for you but an eternity for me.");
+                Ui.printMessage(GOODBYE);
                 break;
-            } else if (userInput.equalsIgnoreCase(LIST)) {
-                Ui.displayTaskList(taskList);
-            } else if (userInput.toLowerCase().startsWith(MARK)) {
-                completeTask(userInput);
-            } else if (userInput.toLowerCase().startsWith(UNMARK)) {
-                unmarkTask(userInput);
-            } else if (userInput.toLowerCase().startsWith(DELETE)) {
-                deleteTask(userInput);
-            } else if (userInput.toLowerCase().startsWith(TODO) ||
+            }
+            if (userInput.toLowerCase().startsWith(TODO) ||
                     userInput.toLowerCase().startsWith(DEADLINE) ||
                     userInput.toLowerCase().startsWith(EVENT)) {
-                getTasks(userInput);
+                taskSelector(userInput);
+            } else if (userInput.toLowerCase().startsWith(DELETE)) {
+                try {
+                    String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
+                    ableToDelete(parts);
+                } catch (DavinciException e) {
+                    Ui.printMessage("Error: " + e.getMessage());
+                } catch (NumberFormatException e) {
+                    Ui.printMessage("Error: Invalid task index format.");
+                }
             } else {
-                Ui.printMessage("Bro, say something that I can understand.");
+                Parser.parseUserInput(userInput, taskList);
             }
         }
+        scanner.close();
     }
 
     /**
-     * Marks a task as done based on the user input.
+     * Selects the appropriate task type based on user input.
      *
-     * @param userInput User input containing the command and task index.
+     * @param userInput User input containing the task type and details.
      */
-    private static void completeTask(String userInput) {
-        try {
-            String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
-            checkIfTaskCanBeCompleted(parts);
-        } catch (DavinciException e) {
-            Ui.printMessage("Error: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            Ui.printMessage("Error: Invalid task index format.");
-        }
-    }
-
-    /**
-     * Checks if the task can be marked as completed and performs the operation.
-     *
-     * @param parts Array containing the command and task index.
-     * @throws DavinciException If there is an issue with the task completion.
-     */
-    private static void checkIfTaskCanBeCompleted(String[] parts) throws DavinciException {
-        if (parts.length > 1) {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.size()) {
-                taskList.get(taskIndex).markAsDone();
-                Ui.printMessage("Nice job! I've marked this task as done :D");
-                Ui.displayTaskList(taskList);
-                writeFile();
-            } else {
-                throw new DavinciException("Invalid task index.");
-            }
-        } else {
-            throw new DavinciException("Please specify the task index to complete.");
-        }
-    }
-
-    /**
-     * Unmarks a task as done based on the user input.
-     *
-     * @param userInput User input containing the command and task index.
-     */
-    private static void unmarkTask(String userInput) {
-        try {
-            String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
-            checkIfTaskCanBeUnmarked(parts);
-        } catch (DavinciException e) {
-            Ui.printMessage("Error: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            Ui.printMessage("Error: Invalid task index format.");
-        }
-    }
-
-    /**
-     * Checks if the task can be unmarked and performs the operation.
-     *
-     * @param parts Array containing the command and task index.
-     * @throws DavinciException If there is an issue with unmarking the task.
-     */
-    private static void checkIfTaskCanBeUnmarked(String[] parts) throws DavinciException {
-        if (parts.length > 1) {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.size()) {
-                taskList.get(taskIndex).markAsNotDone();
-                Ui.printMessage("OK, I've marked this task as not done, but stop being lazy!");
-                Ui.displayTaskList(taskList);
-                writeFile();
-            } else {
-                throw new DavinciException("Invalid task index.");
-            }
-        } else {
-            throw new DavinciException("Please specify the task index to unmark.");
-        }
-    }
-
-    /**
-     * Deletes a task based on the user input.
-     *
-     * @param userInput User input containing the command and task index.
-     */
-    private static void deleteTask(String userInput) {
-        try {
-            String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
-            ableToDelete(parts);
-        } catch (DavinciException e) {
-            Ui.printMessage("Error: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            Ui.printMessage("Error: Invalid task index format.");
-        }
-    }
-
-    /**
-     * Checks if the task can be deleted and performs the operation.
-     *
-     * @param parts Array containing the command and task index.
-     * @throws DavinciException If there is an issue with deleting the task.
-     */
-    private static void ableToDelete(String[] parts) throws DavinciException {
-        if (parts.length > 1) {
-            int taskIndex = Integer.parseInt(parts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < taskList.size()) {
-                taskList.remove(taskIndex);
-                Ui.printMessage("Noted. I've removed this task:");
-                Ui.displayTaskList(taskList);
-                writeFile();
-            } else {
-                throw new DavinciException("Invalid task index.");
-            }
-        } else {
-            throw new DavinciException("Please specify the task index to delete.");
-        }
-    }
-
-    /**
-     * Parses the user input to create tasks and adds them to the task list.
-     *
-     * @param userInput User input containing the command and task details.
-     */
-    private static void getTasks(String userInput) {
+    private static void taskSelector(String userInput) {
         try {
             Scanner taskScanner = new Scanner(userInput);
             String taskType = taskScanner.next().toLowerCase();
@@ -184,15 +74,15 @@ public class DavinciBot {
             switch (taskType) {
             case TODO:
                 executeTodoTask(description);
-                return;
+                break;
             case DEADLINE:
                 executeDeadlineTask(description);
-                return;
+                break;
             case EVENT:
                 executeEventTask(description);
-                return;
+                break;
             default:
-                throw new DavinciException("Unknown task type. Please use 'todo', 'deadline', or 'event'.");
+                throw new DavinciException(UNKNOWN_TASK_TYPE);
             }
         } catch (DavinciException e) {
             Ui.printMessage("Error: " + e.getMessage());
@@ -200,7 +90,7 @@ public class DavinciBot {
     }
 
     /**
-     * Processes the user input for an event task and adds it to the task list.
+     * Adds an event task to the task list based on user input.
      *
      * @param description Description of the event task with start and end times.
      * @throws DavinciException If there is an issue with the event task format.
@@ -223,7 +113,7 @@ public class DavinciBot {
     }
 
     /**
-     * Processes the user input for a deadline task and adds it to the task list.
+     * Adds a deadline task to the task list based on user input.
      *
      * @param description Description of the deadline task with the deadline.
      * @throws DavinciException If there is an issue with the deadline task format.
@@ -240,7 +130,7 @@ public class DavinciBot {
     }
 
     /**
-     * Processes the user input for a todo task and adds it to the task list.
+     * Adds a todo task to the task list based on user input.
      *
      * @param description Description of the todo task.
      */
@@ -251,33 +141,31 @@ public class DavinciBot {
     }
 
     /**
-     * Reads tasks from a file and adds them to the task list.
+     * Deletes a task based on the user input.
+     *
+     * @param parts User input containing the command and task index.
+     * @throws DavinciException If there is an issue with deleting the task.
      */
-    private static void readFile() {
-        try {
-            List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
-            taskList.clear();
-
-            for (String line : lines) {
-                Task task = readLine(line);
-                if (task != null && !containsTask(taskList, task)) {
-                    taskList.add(task);
-                    Ui.printMessage("Got it. I've added a task from the file:");
-                    System.out.println(taskList.get(taskList.size() - 1).toString());
-                    Ui.displayTaskList(taskList);
-                }
+    private static void ableToDelete(String[] parts) throws DavinciException {
+        if (parts.length > 1) {
+            int taskIndex = Integer.parseInt(parts[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                taskList.remove(taskIndex);
+                Ui.printMessage("Noted. I've removed this task:");
+                Ui.displayTaskList(taskList);
+                writeFile();
+            } else {
+                throw new DavinciException("Invalid task index.");
             }
-        } catch (IOException e) {
-            Ui.printMessage("Error reading file: " + e.getMessage());
-        } catch (DavinciException e) {
-            Ui.printMessage("Error: " + e.getMessage());
+        } else {
+            throw new DavinciException("Please specify the task index to delete.");
         }
     }
 
     /**
      * Writes the current task list to a file.
      */
-    private static void writeFile() {
+    public static void writeFile() {
         try {
             List<String> lines = new ArrayList<>();
             for (Task task : taskList) {
@@ -303,6 +191,30 @@ public class DavinciBot {
             }
         }
         return false;
+    }
+
+    /**
+     * Reads tasks from a file and adds them to the task list.
+     */
+    private static void readFile() {
+        try {
+            List<String> lines = DavinciFileHandler.readFile(DATA_FILE_PATH);
+            taskList.clear();
+
+            for (String line : lines) {
+                Task task = readLine(line);
+                if (task != null && !containsTask(taskList, task)) {
+                    taskList.add(task);
+                    Ui.printMessage("Got it. I've added a task from the file:");
+                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    Ui.displayTaskList(taskList);
+                }
+            }
+        } catch (IOException e) {
+            Ui.printMessage("Error reading file: " + e.getMessage());
+        } catch (DavinciException e) {
+            Ui.printMessage("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -375,13 +287,9 @@ public class DavinciBot {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
         readFile();
         Ui.printStartingMessage();
         userCommand();
         writeFile();
-
-        scanner.close();
     }
 }
