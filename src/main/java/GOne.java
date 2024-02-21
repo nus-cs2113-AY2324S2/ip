@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class G_one {
+public class GOne {
     private List<Task> tasks;
 
-    public G_one() {
+    public GOne() {
         this.tasks = new ArrayList<>();
     }
 
@@ -14,14 +14,14 @@ public class G_one {
         System.out.println("--------------------------------------");
 
         Scanner scanner = new Scanner(System.in);
-        boolean flag = true;
+        boolean isRunning = true;
 
-        while (flag) {
+        while (isRunning) {
             System.out.print("Whats up? ");
             String userInput = scanner.nextLine();
 
             if (userInput.equalsIgnoreCase("bye")) {
-                flag = false;
+                isRunning = false;
             } else if (userInput.equalsIgnoreCase("list")) {
                 displayTaskList();
             } else {
@@ -34,22 +34,54 @@ public class G_one {
     }
 
     private void processUserInput(String userInput) {
-        if (userInput.startsWith("todo")) {
-            addTodoTask(userInput.substring(5).trim());
-        } else if (userInput.startsWith("deadline")) {
-            addDeadlineTask(userInput.substring(9).trim());
-        } else if (userInput.startsWith("event")) {
-            addEventTask(userInput.substring(6).trim());
-        } else if (userInput.startsWith("mark")) {
-            markTask(userInput.substring(5).trim());
-        } else if (userInput.startsWith("unmark")) {
-            unmarkTask(userInput.substring(7).trim());
-        } else if (userInput.equalsIgnoreCase("list")) {
-            displayTaskList();
-        } else {
-            System.out.println("Invalid command.");
+        String[] parts = userInput.split(" ", 2); // Split command and argument
+        String command = parts[0].trim().toLowerCase();
+        String argument = parts.length > 1 ? parts[1].trim() : "";
+
+        switch (command) {
+            case "todo":
+                if (argument.isEmpty()) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    addTodoTask(argument);
+                }
+                break;
+            case "deadline":
+                if (argument.isEmpty() || !argument.contains("/by")) {
+                    System.out.println("OOPS!!! Invalid deadline format. Use: deadline <description> /by <deadline>");
+                } else {
+                    addDeadlineTask(argument);
+                }
+                break;
+            case "event":
+                if (argument.isEmpty() || !argument.contains("/from") || !argument.contains("/to")) {
+                    System.out.println("OOPS!!! Invalid event format. Use: event <description> /from <start time> /to <end time>");
+                } else {
+                    addEventTask(argument);
+                }
+                break;
+            case "mark":
+                if (argument.isEmpty()) {
+                    System.out.println("OOPS!!! Please provide the task number to mark.");
+                } else {
+                    markTask(argument);
+                }
+                break;
+            case "unmark":
+                if (argument.isEmpty()) {
+                    System.out.println("OOPS!!! Please provide the task number to unmark.");
+                } else {
+                    unmarkTask(argument);
+                }
+                break;
+            case "list":
+                displayTaskList();
+                break;
+            default:
+                System.out.println("That is not a valid command.");
         }
     }
+
     private void markTask(String taskNumberStr) {
         int taskNumber = Integer.parseInt(taskNumberStr) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -77,7 +109,7 @@ public class G_one {
     private void addTodoTask(String description) {
         Task task = new TodoTask(description);
         tasks.add(task);
-        System.out.println("Alright buddy, Added that::");
+        System.out.println("Alright buddy, Added that:");
         System.out.println("  " + task);
         printTaskCount();
     }
@@ -122,11 +154,11 @@ public class G_one {
     }
 
     private void printTaskCount() {
-        System.out.println("Ok busy guy, Now you have " + tasks.size() + " tasks in the list");
+        System.out.println("Ok busy guy, Now you have " + tasks.size() + " task(s) in the list");
     }
 
     public static void main(String[] args) {
-        G_one g_one = new G_one();
-        g_one.start();
+        GOne gOne = new GOne();
+        gOne.start();
     }
 }
