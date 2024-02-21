@@ -1,10 +1,9 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 public class JigaChat {
-    ArrayList<Task> taskList = new ArrayList<>();
+    Task[] taskList = new Task[100];
     int taskCounter = 0;
 
-    public static void printCommandList() {
+    public void printCommandList() {
         printTodoCommand();
         printDeadlineCommand();
         printEventCommand();
@@ -56,7 +55,7 @@ public class JigaChat {
             return;
         case "mark":
             try {
-                taskList.get(Integer.parseInt(commands[1]) - 1).markAsDone();
+                taskList[Integer.parseInt(commands[1]) - 1].markAsDone();
                 System.out.println("JigaChat has marked task " + (Integer.parseInt(commands[1])) + " as done!");
             }
             catch(NullPointerException e) {
@@ -68,7 +67,7 @@ public class JigaChat {
             return;
         case "unmark":
             try {
-                taskList.get(Integer.parseInt(commands[1]) - 1).markAsUndone();
+                taskList[Integer.parseInt(commands[1]) - 1].markAsUndone();
                 System.out.println("JigaChat has marked task " + (Integer.parseInt(commands[1])) + " as not done!");
             }
             catch(NullPointerException e) {
@@ -95,31 +94,27 @@ public class JigaChat {
 
     public void addToList(String[] taskToAdd) throws InvalidCommandException {
             if (taskToAdd[0].equals("todo")) {
-                    ToDo todoToAdd = new ToDo(taskToAdd[1]);
-                    taskList.add(todoToAdd);
+                    taskList[taskCounter] = new ToDo(taskToAdd[1]);
             }
             else if (taskToAdd[0].equals("deadline")) {
                 String[] deadline = taskToAdd[1].split("/", 2);
                 String by = deadline[1].substring(3);
                 String description = deadline[0].substring(0, deadline[0].length() - 1);
-
-                Deadline deadlineToAdd = new Deadline(description, by);
-                taskList.add(deadlineToAdd);
+                taskList[taskCounter] = new Deadline(description, by);
             }
             else if (taskToAdd[0].equals("event")) {
                 String[] event = taskToAdd[1].split("/", 3);
                 String description = event[0].substring(0, event[0].length() - 1);
                 String from = event[1].substring(5, event[1].length() - 1);
                 String to = event[2].substring(3);
-                Event eventToAdd = new Event(description, from, to);
-                taskList.add(eventToAdd);
+                taskList[taskCounter] = new Event(description, from, to);
             }
             else {
                 throw new InvalidCommandException();
             }
 
             System.out.println("The following task has been added: ");
-            taskList.get(taskCounter).printTask();
+            taskList[taskCounter].printTask();
             taskCounter++;
             System.out.print("You have " + taskCounter + " task");
             if (taskCounter != 1) {
@@ -143,7 +138,7 @@ public class JigaChat {
 
         for (int i = 0; i < taskCounter; i ++) {
             System.out.print((i + 1) + ". ");
-            taskList.get(i).printTask();
+            taskList[i].printTask();
         }
     }
     public static void main(String[] args) {
