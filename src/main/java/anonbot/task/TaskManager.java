@@ -1,5 +1,7 @@
 package anonbot.task;
 
+import anonbot.exception.InvalidCommandException;
+import anonbot.exception.InvalidMarkCommandException;
 import anonbot.exception.InvalidTaskException;
 
 import java.util.ArrayList;
@@ -68,17 +70,23 @@ public class TaskManager {
         return null;
     }
 
-    public static void markTaskAsDone(int taskNumber) {
+    public static void markTaskAsDone(int taskNumber) throws InvalidMarkCommandException {
         Task taskToMark = retrieveTask(taskNumber);
-        if (taskToMark != null) {
-            taskToMark.markAsDone();
+
+        if (taskToMark == null) {
+            throw new InvalidMarkCommandException("mark", Integer.toString(taskNumber));
         }
+
+        taskToMark.markAsDone();
     }
 
-    public static void markTaskAsUndone(int taskNumber) {
+    public static void markTaskAsUndone(int taskNumber) throws InvalidMarkCommandException {
         Task taskToMark = retrieveTask(taskNumber);
-        if (taskToMark != null) {
-            taskToMark.markAsUndone();
+
+        if (taskToMark == null){
+            throw new InvalidMarkCommandException("unmark", Integer.toString(taskNumber));
         }
+
+        taskToMark.markAsUndone();
     }
 }
