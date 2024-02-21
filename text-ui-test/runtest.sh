@@ -23,7 +23,7 @@ fi
 java -classpath ../bin Krot < input.txt > ACTUAL.TXT
 
 # compare the output to the expected output
-diff ACTUAL.TXT EXPECTED.TXT
+cmp ACTUAL.TXT EXPECTED.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"

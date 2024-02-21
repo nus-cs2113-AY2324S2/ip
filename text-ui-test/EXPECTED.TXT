@@ -5,9 +5,140 @@ What can I do for you?
 You:
 -
 Krot:
+I'm sorry I didnt quite catch that
+-
+You:
+-
+Krot:
+What task are you trying to add??? Please enter a task
+-
+You:
+-
+Krot:
 More tasks to do! I've added:
-[T][ ] borrow book
+[T][ ] read book
 Get to working, you now have 1 tasks in the list!
+-
+You:
+-
+Krot:
+What task are you trying to add??? Please enter a task
+-
+You:
+-
+Krot:
+Enter a due date with the initializer /by
+-
+You:
+-
+Krot:
+Enter a due date with the initializer /by
+-
+You:
+-
+Krot:
+Enter a due date for this task
+-
+You:
+-
+Krot:
+More tasks to do! I've added:
+[D][ ] assignment (by: 6 jun)
+Get to working, you now have 2 tasks in the list!
+-
+You:
+-
+Krot:
+What task are you trying to add??? Please enter a task
+-
+You:
+-
+Krot:
+Enter the duration with the initializer /from <start> /to <end> or don't try at all
+-
+You:
+-
+Krot:
+Enter the duration with the initializer /from <start> /to <end> or don't try at all
+-
+You:
+-
+Krot:
+When is this event happening?
+-
+You:
+-
+Krot:
+When is this event happening?
+-
+You:
+-
+Krot:
+More tasks to do! I've added:
+[E][ ] birthday party (from: 6pm 7 Dec to: 10pm 7 Dec)
+Get to working, you now have 3 tasks in the list!
+-
+You:
+-
+Krot:
+1.[T][ ] read book
+2.[D][ ] assignment (by: 6 jun)
+3.[E][ ] birthday party (from: 6pm 7 Dec to: 10pm 7 Dec)
+-
+You:
+-
+Krot:
+Which task are u trying to mark
+-
+You:
+-
+Krot:
+Wow good job at clearing a task! I,ve marked this task as done:
+[T][X] read book
+-
+You:
+-
+Krot:
+Wow good job at clearing a task! I,ve marked this task as done:
+[D][X] assignment (by: 6 jun)
+-
+You:
+-
+Krot:
+Which task are u trying to unmark
+-
+You:
+-
+Krot:
+More to do? I've marked this task as not done yet:
+[T][ ] read book
+-
+You:
+-
+Krot:
+Which task you trying to delete?
+-
+You:
+-
+Krot:
+That's not  number, enter a proper task number
+-
+You:
+-
+Krot:
+I can't delete a task that isn't there...
+-
+You:
+-
+Krot:
+Deleted task 1 from the list.
+[T][ ] read book
+You now have 2 tasks to complete.
+You:
+-
+Krot:
+1.[D][X] assignment (by: 6 jun)
+2.[E][ ] birthday party (from: 6pm 7 Dec to: 10pm 7 Dec)
 -
 You:
 -

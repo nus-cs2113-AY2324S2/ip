@@ -1,2 +1,26 @@
-todo borrow book
+to
+todo
+todo read book
+deadline
+deadline assignment
+deadline assignment /hgu
+deadline assignment /by
+deadline assignment /by 6 jun
+event
+event birthday party
+event birthday party /fff /bee
+event birthday party /from /to
+event birthday party /from 6pm 7 Dec /to
+event birthday party /from 6pm 7 Dec /to 10pm 7 Dec
+list
+mark
+mark 1
+mark 2
+unmark
+unmark 1
+delete
+delete the task
+delete 10
+delete 1
+list
 bye
