@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Dul {
     public static ArrayList<Task> tasks = new ArrayList<>();
-    public static final String FILE_PATH = "./data/dul.txt";
+    public static final String filepath = "./data/dul.txt";
 
     public static void main(String[] args) {
         loadTasksFromFile();
@@ -31,7 +31,7 @@ public class Dul {
 
     public static void loadTasksFromFile() {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filepath);
             if (!file.exists()) {
                 System.out.println("No existing data file found.");
                 return;
@@ -68,7 +68,7 @@ public class Dul {
                 directory.mkdirs();
             }
 
-            FileWriter writer = new FileWriter(FILE_PATH);
+            FileWriter writer = new FileWriter(filepath);
             for (Task task : tasks) {
                 if (task instanceof TodoTask) {
                     writer.write("T | " + (task.isDone ? 1 : 0) + " | " + task.description + "\n");
