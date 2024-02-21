@@ -13,15 +13,10 @@ import java.io.IOException;
 public class Duke {
     public static void main(String[] args) {
         Messages.printsGreeting();
-        try {
-            startProgramme();
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
+        startProgramme();
     }
 
-    private static void startProgramme() throws FileNotFoundException {
+    private static void startProgramme() {
         try {
             ArrayList<Task> list = new ArrayList<>();
             Scanner input = new Scanner(System.in);
@@ -31,29 +26,30 @@ public class Duke {
             FileManager.readFile(s, list);
 
             startListening(input, list);
+        } catch (ThawException e) {
+            handleError(e);
         } catch (IOException e) {
             System.out.println("     An error occurred while reading file: " + e.getMessage());
         }
     }
 
-    private static void startListening(Scanner input, ArrayList<Task> list) {
+    private static void startListening(Scanner input, ArrayList<Task> list) throws ThawException {
         boolean canExit = false;
         while (!canExit) {
             String usersInput = input.nextLine();
 
-            if (usersInput.equals("bye")) {
+            if (usersInput.strip().equals("bye")) {
                 canExit = true;
                 Messages.printGoodByeMessage();
-            } else if (usersInput.equals("list")) {
+            } else if (usersInput.strip().equals("list")) {
                 Messages.printList(list);
-            } else if (commandsWithDesc(usersInput)) {
-                editTask(usersInput, list);
+            } else {
+               editTask(usersInput.strip(), list);
             }
         }
     }
 
     private static void editTask(String usersInput, ArrayList<Task> task) {
-        int taskIndex;
         try {
             if (usersInput.startsWith("mark")) {
                 MarkTask.markTask(task, usersInput);
@@ -64,19 +60,13 @@ public class Duke {
             } else if (usersInput.startsWith("todo") || usersInput.startsWith("deadline") || usersInput.startsWith("event")) {
                 AddTask.addTask(usersInput, task);
                 Messages.printAcknowledgementMessage(task);
+            } else {
+                throw new ThawException("Invalid command");
             }
-            else {
-                System.out.println("Error with editing Task");
-            }
-            FileManager.saveData(task);
-        }
-        catch (ThawException e) {
+        } catch (ThawException e) {
             handleError(e);
         }
-        catch (IOException e) {
-            System.out.println("Error with saving");
-        }
-
+        FileManager.saveData(task);
     }
 
     private static void handleError(ThawException e) {
@@ -85,14 +75,5 @@ public class Duke {
         } else if (e.getMessage().equals("Invalid command")) {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-    }
-
-    private static boolean commandsWithDesc(String usersInput) {
-        return (usersInput.startsWith("unmark") && !usersInput.strip().endsWith("unmark"))      ||
-                (usersInput.startsWith("mark") && !usersInput.strip().endsWith("unmark"))       ||
-                (usersInput.startsWith("delete") && !usersInput.strip().endsWith("delete"))     ||
-                (usersInput.startsWith("todo") && !usersInput.strip().endsWith("todo"))         ||
-                (usersInput.startsWith("deadline") && !usersInput.strip().endsWith("deadline")) ||
-                (usersInput.startsWith("event") && !usersInput.strip().endsWith("event"));
     }
 }

@@ -57,14 +57,18 @@ public class FileManager {
         return f;
     }
 
-    public static void saveData(ArrayList<Task> list) throws IOException {
-        final String filePath = "data/ThawBot.txt";
-        FileWriter fw = new FileWriter(filePath);
-        String textToAdd = "";
-        for (int i = 0; i < list.size(); i++) {
-            textToAdd += list.get(i).printFileFormat() + System.lineSeparator();
+    public static void saveData(ArrayList<Task> list) {
+        try {
+            final String filePath = "data/ThawBot.txt";
+            FileWriter fw = new FileWriter(filePath);
+            String textToAdd = "";
+            for (int i = 0; i < list.size(); i++) {
+                textToAdd += list.get(i).printFileFormat() + System.lineSeparator();
+            }
+            fw.write(textToAdd);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("     An error occurred while reading file: " + e.getMessage());
         }
-        fw.write(textToAdd);
-        fw.close();
     }
 }
