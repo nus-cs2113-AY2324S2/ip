@@ -5,6 +5,13 @@ public class DeadlineTask extends Task {
         super(description);
         this.by = by;
     }
+    public String getDescription() {
+        return description;
+    }
+
+    public String getBy() {
+        return by;
+    }
 
     @Override
     public String toString() {

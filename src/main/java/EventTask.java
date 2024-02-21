@@ -7,6 +7,17 @@ public class EventTask extends Task {
         this.from = from;
         this.to = to;
     }
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 
     @Override
     public String toString() {

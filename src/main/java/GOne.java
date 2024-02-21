@@ -1,12 +1,17 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.*;
+import java.nio.file.*;
 
 public class GOne {
+    private static final String FILE_PATH = "./data/tasks.txt";
     private List<Task> tasks;
 
     public GOne() {
         this.tasks = new ArrayList<>();
+        loadTasksFromFile(); // Load tasks from file when the object is created
+
     }
 
     public void start() {
@@ -89,26 +94,14 @@ public class GOne {
         }
     }
 
-    private void deleteTask(String taskNumberStr) {
-        int taskNumber = Integer.parseInt(taskNumberStr) - 1;
-        if (taskNumber >= 0 && taskNumber < tasks.size()) {
-            Task removedTask = tasks.remove(taskNumber);
-            System.out.println("Alright, I got rid of this for you!");
-            System.out.println("  " + removedTask);
-            printTaskCount();
-        } else {
-            System.out.println("Invalid task number.");
-        }
-    }
-
-
     private void markTask(String taskNumberStr) {
         int taskNumber = Integer.parseInt(taskNumberStr) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             Task task = tasks.get(taskNumber);
             task.markAsDone();
-            System.out.println("Burden off the shoulders!!");
+            System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + task);
+            saveTasksToFile(); // Call saveTasksToFile after marking a task as done
         } else {
             System.out.println("Invalid task number.");
         }
@@ -121,6 +114,7 @@ public class GOne {
             task.unmarkAsDone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + task);
+            saveTasksToFile(); // Call saveTasksToFile after marking a task as undone
         } else {
             System.out.println("Invalid task number.");
         }
@@ -132,6 +126,7 @@ public class GOne {
         System.out.println("Alright buddy, Added that:");
         System.out.println("  " + task);
         printTaskCount();
+        saveTasksToFile(); // Call saveTasksToFile after adding a new task
     }
 
     private void addDeadlineTask(String descriptionAndBy) {
@@ -145,6 +140,7 @@ public class GOne {
         System.out.println("Alright buddy, Added this:");
         System.out.println("  " + task);
         printTaskCount();
+        saveTasksToFile(); // Call saveTasksToFile after adding a new task
     }
 
     private void addEventTask(String descriptionAndTime) {
@@ -163,6 +159,20 @@ public class GOne {
         System.out.println("Alright buddy, Added this:");
         System.out.println("  " + task);
         printTaskCount();
+        saveTasksToFile(); // Call saveTasksToFile after adding a new task
+    }
+
+    private void deleteTask(String taskNumberStr) {
+        int taskNumber = Integer.parseInt(taskNumberStr) - 1;
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task removedTask = tasks.remove(taskNumber);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            printTaskCount();
+            saveTasksToFile(); // Call saveTasksToFile after deleting a task
+        } else {
+            System.out.println("Invalid task number.");
+        }
     }
 
     private void displayTaskList() {
@@ -176,7 +186,62 @@ public class GOne {
     private void printTaskCount() {
         System.out.println("Ok busy guy, Now you have " + tasks.size() + " task(s) in the list");
     }
+    private void loadTasksFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+                switch (taskType) {
+                    case "T":
+                        tasks.add(new TodoTask(description));
+                        break;
+                    case "D":
+                        tasks.add(new DeadlineTask(description, parts[3].trim()));
+                        break;
+                    case "E":
+                        tasks.add(new EventTask(description, parts[3].trim(), parts[4].trim()));
+                        break;
+                    default:
+                        System.out.println("Invalid task type found in file: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
 
+    private void saveTasksToFile() {
+        try {
+            // Create directory if it doesn't exist
+            Path directoryPath = Paths.get("./data");
+            Files.createDirectories(directoryPath);
+
+            // Write tasks to file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+                for (Task task : tasks) {
+                    String line;
+                    if (task instanceof TodoTask) {
+                        line = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+                    } else if (task instanceof DeadlineTask) {
+                        DeadlineTask deadlineTask = (DeadlineTask) task;
+                        line = "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + deadlineTask.getBy();
+                    } else if (task instanceof EventTask) {
+                        EventTask eventTask = (EventTask) task;
+                        line = "E | " + (task.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + eventTask.getFrom() + " | " + eventTask.getTo();
+                    } else {
+                        continue; // Skip unknown task types
+                    }
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
     public static void main(String[] args) {
         GOne gOne = new GOne();
         gOne.start();
