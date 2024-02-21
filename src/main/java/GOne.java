@@ -74,6 +74,13 @@ public class GOne {
                     unmarkTask(argument);
                 }
                 break;
+            case "delete":
+                if (argument.isEmpty()) {
+                    System.out.println("OOPS!!! Please provide the task number to delete.");
+                } else {
+                    deleteTask(argument);
+                }
+                break;
             case "list":
                 displayTaskList();
                 break;
@@ -82,12 +89,25 @@ public class GOne {
         }
     }
 
+    private void deleteTask(String taskNumberStr) {
+        int taskNumber = Integer.parseInt(taskNumberStr) - 1;
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task removedTask = tasks.remove(taskNumber);
+            System.out.println("Alright, I got rid of this for you!");
+            System.out.println("  " + removedTask);
+            printTaskCount();
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
+
+
     private void markTask(String taskNumberStr) {
         int taskNumber = Integer.parseInt(taskNumberStr) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
             Task task = tasks.get(taskNumber);
             task.markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("Burden off the shoulders!!");
             System.out.println("  " + task);
         } else {
             System.out.println("Invalid task number.");
