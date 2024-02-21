@@ -62,9 +62,21 @@ public class Ava {
                     dealWithEmptyDescriptionException("event");
                     continue;
                 }
+            } else if (task.startsWith("delete")) {
+                deleteTask(tasks, task);
+                continue;
+            } else {
+                dealWithUnknownException();
+                continue;
             }
             printAfterAddingTask(tasks);
         }
+    }
+
+    private static void dealWithUnknownException() {
+        printLine();
+        System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
+        printLine();
     }
 
     private static void dealWithFormatException() {
@@ -109,23 +121,45 @@ public class Ava {
     }
 
     public static void printAfterAddingTask(ArrayList<Task> tasks) {
-        try {
-            String addedTask = tasks.get(tasks.size() - 1).toString();
-            printLine();
-            System.out.println("Got it! I've added this task:");
-            System.out.println(addedTask);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            printLine();
-            System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
-            printLine();
-            return;
-        }
+        String addedTask = tasks.get(tasks.size() - 1).toString();
+        printLine();
+        System.out.println("Got it! I've added this task:");
+        System.out.println(addedTask);
         if (Task.getNumberOfTasks() == 1) {
             System.out.println("Now you have " + 1 + " task in the list~~~");
         } else {
             System.out.println("Now you have " + tasks.size() + " tasks in the list~~~");
         }
         printLine();
+    }
+
+    public static int extractNumber(String type, String command) {
+        command = command.replace(type, "");
+        return Integer.parseInt(command) - 1;
+    }
+
+    public static void deleteTask(ArrayList<Task> tasks, String command) {
+        int taskDeleted;
+        try {
+            try {
+                taskDeleted = extractNumber("delete ", command);
+                Task deletedTask = tasks.get(taskDeleted);
+                printLine();
+                System.out.println("Noted!!! I've removed this task:");
+                System.out.println(deletedTask);
+                tasks.remove(deletedTask);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list!!!");
+                printLine();
+            } catch (IndexOutOfBoundsException e) {
+                printLine();
+                System.out.println(" ⊙﹏⊙ Hey! You cannot delete a task that does not exist!");
+                printLine();
+            }
+        } catch (NumberFormatException e) {
+            printLine();
+            System.out.println("Please tell me which one to delete? (＾＿－)");
+            printLine();
+        }
     }
 
     public static void markTask(ArrayList<Task> tasks, String command) {
@@ -138,17 +172,15 @@ public class Ava {
         try {
             try {
                 if (isMark) {
-                    command = command.replace("mark ", "");
-                    taskChanged = Integer.parseInt(command) - 1;
+                    taskChanged = extractNumber("mark ", command);
                     tasks.get(taskChanged).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
                 } else {
-                    command = command.replace("unmark ", "");
-                    taskChanged = Integer.parseInt(command) - 1;
+                    taskChanged = extractNumber("unmark ", command);
                     tasks.get(taskChanged).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
-            } catch (NullPointerException e) {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println(" ⊙﹏⊙ Hey! You cannot mark a task that does not exist!");
                 printLine();
                 return;
