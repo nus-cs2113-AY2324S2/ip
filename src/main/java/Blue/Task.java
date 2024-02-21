@@ -22,6 +22,11 @@ public class Task {
         this.isDone = true;
     }
 
+    public String toSaveTextFormat() {
+        String done = (getStatusIcon().equals("X") ? "1" : "0");
+        return "T|" + done + "|" + description + System.lineSeparator();
+    }
+
     @Override
     public String toString() {
         return this.getDescription() + " [" + this.getStatusIcon() + "]";
