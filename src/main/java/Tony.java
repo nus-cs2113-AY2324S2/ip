@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -5,8 +6,9 @@ public class Tony {
     public static final String LINE_BREAKER = "__________________________________________________"
             + System.lineSeparator();
     public static int taskCounter = 0;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         printWelcomeMessage();
+        FileSaver.checkFileExists();
         Task[] tasks = new Task[100];
         Scanner userInput = new Scanner(System.in);
         while(userInput.hasNextLine()) {
@@ -125,6 +127,7 @@ public class Tony {
         Todo todo = new Todo(toDoTask[1]);
         allTasks[taskCounter] = todo;
         printAddNewTask(allTasks);
+        FileSaver.saveTodo(todo);
     }
     private static void printAddNewTask(Task[] allTasks) {
         taskCounter++;
