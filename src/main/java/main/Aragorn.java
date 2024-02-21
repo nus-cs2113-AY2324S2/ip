@@ -102,6 +102,24 @@ public class Aragorn {
                         }
                         break;
 
+                    case "DELETE":
+                        try {
+                            index = Integer.parseInt(input.getSplitInput()[0]);
+                            icon = list.get(index).getStatusIcon();
+                            if (icon.equals(" ")) {
+                                remainingTasks -= 1;
+                            }
+                            System.out.println(LINE + TAB + "I've deleted this task from the list:\n" + TAB +
+                                    "   " + list.get(index).taskString() + "\n");
+                            list.remove(index);
+                            printRemainingTasks(remainingTasks, list);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println(LINE + "    Invalid tasks.Task\n" + LINE);
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(LINE + "    Task index is not in the list\n" + LINE);
+                        }
+                        break;
+
                     case "TODO":
                         if (input.getSplitInput()[0].trim().isEmpty()) {
                             break;

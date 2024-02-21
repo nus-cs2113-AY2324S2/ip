@@ -22,6 +22,12 @@ public class inputParser {
                 this.splitInput[2] = null;
                 break;
 
+            case "DELETE":
+                this.splitInput[0] = String.valueOf(Integer.parseInt(userInput.substring(7).trim()) - 1);
+                this.splitInput[1] = null;
+                this.splitInput[2] = null;
+                break;
+
             case "TODO":
                 try {
                     this.splitInput[0] = userInput.substring(4);
@@ -99,6 +105,8 @@ public class inputParser {
             commandType = "UNMARK";
         } else if (userInput.trim().startsWith("mark")) {
             commandType = "MARK";
+        } else if (userInput.trim().startsWith("delete")) {
+            commandType = "DELETE";
         } else if (userInput.trim().startsWith("todo")) {
             commandType = "TODO";
         } else if (userInput.trim().startsWith("deadline")) {
