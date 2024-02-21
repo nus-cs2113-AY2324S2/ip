@@ -41,7 +41,10 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:\n" + task);
     }
 
-    public void processTodo(String input) {
+    public void processTodo(String input) throws JaneException {
+        if (input.isEmpty()) {
+            throw new JaneException("OOPS!!! The description of a todo cannot be empty.");
+        }
         Todo todo = new Todo(input);
         this.addTask(todo);
         System.out.println("Got it. I've added this task:\n"
@@ -52,7 +55,10 @@ public class TaskList {
                 + " tasks in the list.");
     }
 
-    public void processDeadline(String input) {
+    public void processDeadline(String input) throws JaneException {
+        if (input.isEmpty()) {
+            throw new JaneException("OOPS!!! The description of a deadline cannot be empty.");
+        }
         String[] deadlineInput = input.split("/", 2);
         Deadline deadline = new Deadline(deadlineInput[0],
                 deadlineInput[1].replace("/", "").replace("by ", ""));
@@ -65,7 +71,10 @@ public class TaskList {
                 + " tasks in the list.");
     }
 
-    public void processEvent(String input) {
+    public void processEvent(String input) throws JaneException {
+        if (input.isEmpty()) {
+            throw new JaneException("OOPS!!! The description of a event cannot be empty.");
+        }
         String[] eventInput = input.split("/", 3);
         Event event = new Event(eventInput[0],
                 eventInput[1].replace("/", "").replace("from ", ""),
