@@ -21,6 +21,12 @@ public class Byte {
     private static boolean tasksChanged = false;
     private static final String FILE_PATH = "./src/main/java/Byte/byte.txt";
 
+    private static final int TASK_TYPE_INDEX = 0;
+    private static final int DESCRIPTION_INDEX = 2;
+    private static final int DEADLINE_TIME_INDEX = 3;
+    private static final int EVENT_START_TIME_INDEX = 3;
+    private static final int EVENT_END_TIME_INDEX = 4;
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -212,19 +218,19 @@ public class Byte {
 
     private static void processTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
-        String type = parts[0];
-        String description = parts[2];
+        String type = parts[TASK_TYPE_INDEX];
+        String description = parts[DESCRIPTION_INDEX];
         switch (type) {
             case "T":
                 addTask(new ToDo(description));
                 break;
             case "D":
-                String by = parts[3];
+                String by = parts[DEADLINE_TIME_INDEX ];
                 addTask(new Deadline(description, by));
                 break;
             case "E":
-                String startTime = parts[3];
-                String endTime = parts[4];
+                String startTime = parts[EVENT_START_TIME_INDEX];
+                String endTime = parts[EVENT_END_TIME_INDEX];
                 addTask(new Event(description, startTime, endTime));
                 break;
             default:
