@@ -13,10 +13,11 @@ public class Boop {
         String command;
         while(true) {
             System.out.println("____________________________________________________________");
-            command= in.nextLine();
+            command = in.nextLine();
             String[] comArr = command.split(" ");
             String curCommand = comArr[0];
-            if(curCommand.equals("bye")) {
+            curCommand = curCommand.toLowerCase();
+            if (curCommand.equals("bye")) {
                 break;
             } else if (curCommand.equals("list")) {
                 printLst();
@@ -24,8 +25,10 @@ public class Boop {
                 mark(comArr);
             } else if (curCommand.equals("unmark")) {
                 unmark(comArr);
-            } else {
+            } else if (curCommand.equals("todo")||curCommand.equals("deadline")||curCommand.equals("event")) {
                 addTask(curCommand, command);
+            } else {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             System.out.println("____________________________________________________________");
         }
@@ -44,6 +47,10 @@ public class Boop {
     public static void mark(String[] arr) {
         if(arr.length <= 1) {
             System.out.println("Please specify which item to mark");
+            return;
+        }
+        if (arr.length > 2) {
+            System.out.println("Please only specify one item to mark at a time");
             return;
         }
         int markNum;
@@ -65,6 +72,10 @@ public class Boop {
             System.out.println("Please specify which item to unmark");
             return;
         }
+        if (arr.length > 2) {
+            System.out.println("Please only specify one item to unmark at a time");
+            return;
+        }
         int markNum;
         try {
             markNum = Integer.parseInt(arr[1]);
@@ -81,16 +92,41 @@ public class Boop {
 
     public static void addTask(String com, String fullInput) {
         Task t;
+        String[] inputArr = fullInput.split(" ");
         if (com.equals("todo")) {
+            if (inputArr.length <= 1) {
+                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                return;
+            }
             String desc = fullInput.substring(5);
             t = new Todo(desc);
         }else if (com.equals("deadline")) {
+            if (inputArr.length <= 1) {
+                System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+                return;
+            }
+            if(!fullInput.contains("/by")) {
+                System.out.println("OOPS!!! There must by a /by date for a deadline");
+                return;
+            }
             String desc = fullInput.substring(9);
             String[] descArr = desc.split(" /by ");
             t = new Deadline(descArr[0], descArr[1]);
         } else if (com.equals("event")) {
+            if (inputArr.length <= 1) {
+                System.out.println("OOPS!!! The description of a event cannot be empty.");
+                return;
+            }
             String desc = fullInput.substring(6);
             String[] descArr = desc.split(" /");
+            if (descArr.length != 2) {
+                System.out.println("OOPS!!! You must have both a /to field and /from field for an event");
+                return;
+            }
+            if((!descArr[1].contains("/to")) || (!descArr[2].contains("/from"))) {
+                System.out.println("OOPS!!! You must have both a /to field and /from field for an event");
+                return;
+            }
             String from = descArr[1].substring(5);
             String to = descArr[2].substring(3);
             t = new Event(descArr[0], from, to);
