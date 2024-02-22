@@ -7,6 +7,7 @@ public class Deadline extends Task{
 
     /** Date by which task should be completed */
     protected String by;
+
     public Deadline(String description, String by) throws MissingParamsException {
         super(description);
         this.by = by;
@@ -15,6 +16,10 @@ public class Deadline extends Task{
             List<TaskParams> missingParams = findMissingParams();
             throw new MissingParamsException(missingParams);
         }
+    }
+
+    public String getBy() {
+        return by;
     }
 
     @Override

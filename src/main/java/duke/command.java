@@ -60,7 +60,7 @@ public class command {
             String subCommand = subTokens[0].toLowerCase().trim();
             String subArgument = "";
             if (subTokens.length > 1) {
-                subArgument = subTokens[1];
+                subArgument = subTokens[1].trim();
             }
 
             if (subCommand.equalsIgnoreCase("by")) {
@@ -91,7 +91,7 @@ public class command {
             String subCommand = subTokens[0].toLowerCase().trim();
             String subArgument = "";
             if (subTokens.length > 1) {
-                subArgument = subTokens[1];
+                subArgument = subTokens[1].trim();
             }
 
             switch (subCommand){
