@@ -129,8 +129,10 @@ public class list {
 
         try {
             saveTasks("src/main/java/db/tasks.txt", taskList);
-        } catch (IOException ignore) {
-
+        } catch (IOException e) {
+            String errorMessage = "Failed to save existing tasks to database!!\n"
+                    + "GO!! GO!!";
+            printMessage(errorMessage);
         }
     }
 }

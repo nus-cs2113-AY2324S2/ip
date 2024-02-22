@@ -10,6 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class load {
+    /**
+     * Parses an array of tokens from the database,
+     * and creates the corresponding class object,
+     * before adding it to an array of Tasks.
+     *
+     * @param taskList List of tasks to be updated.
+     * @param tokens Array of information of class object to be added.
+     */
     public static void addTask(List<Task> taskList, String[] tokens){
         String description, by, start, end;
         boolean done;
@@ -50,6 +58,13 @@ public class load {
         }
     }
 
+    /**
+     * Parses the database and extracts saved Tasks from it,
+     * before returning a List representation of the database.
+     *
+     * @param filePath Path to database file.
+     * @return An array of Task objects from the database.
+     */
     public static List<Task> loadTasks (String filePath)
             throws DukeException.DatabaseLoadException {
         List<Task> taskList = new ArrayList<>();
@@ -76,6 +91,13 @@ public class load {
         return taskList;
     }
 
+    /**
+     * Creates a string representation of the data contained in a list of tasks,
+     * before saving the string to the database folder.
+     *
+     * @param filePath Path to database file.
+     * @param taskList List of tasks to be saved.
+     */
     public static void saveTasks (String filePath, List<Task> taskList)
             throws IOException {
         StringBuilder database = new StringBuilder();
