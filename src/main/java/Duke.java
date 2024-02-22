@@ -39,7 +39,7 @@ public class Duke {
                     }
                 }
                 catch (EkudException error) {
-                    System.out.println("The given task number is not valid.");
+                    System.out.println("The task number is not valid or not provided.");
                 }
             }
             else if(userInputWords[0].equals("unmark")){
@@ -55,7 +55,7 @@ public class Duke {
                     }
                 }
                 catch (EkudException error) {
-                    System.out.println("The given task number is not valid.");
+                    System.out.println("The task number is not valid or not provided.");
                 }
             }
             else if(userInputWords[0].equals("todo")){
