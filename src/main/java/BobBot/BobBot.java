@@ -1,4 +1,5 @@
 package BobBot;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import BobBot.exceptions.BobBotExceptions;
@@ -12,35 +13,52 @@ import BobBot.tasks.Todo;
 
 public class BobBot {
 
-    private static final int MAX_NUMBER_OF_TASKS = 100;
-    private static Task[] allTasks = new Task[MAX_NUMBER_OF_TASKS];
+    private static ArrayList<Task> allTasks = new ArrayList<>();
     private static int numTasks = 0;
+    private enum TaskStatus { MARK, UNMARK, DELETE }
 
-    private static void mark(String line) {
-        int taskNumberToMark = Integer.parseInt(line.substring("mark".length()).trim()) - 1;
-        allTasks[taskNumberToMark].markAsDone();
+    private static void performTaskOperation(String line, TaskStatus status) {
+        int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
 
-        printMessageMarkAsDone(taskNumberToMark);
+        try {
+            Task task = allTasks.get(taskNumber);
+            switch (status) {
+                case MARK:
+                    task.markAsDone();
+                    printTaskOperationMessage(task, "Marking this task as done:");
+                    break;
+                case UNMARK:
+                    task.markAsUndone();
+                    printTaskOperationMessage(task, "Unmarking this task:");
+                    break;
+                case DELETE:
+                    allTasks.remove(taskNumber);
+                    printTaskOperationMessage(task, "Deleting this task:");
+                    numTasks -= 1;
+                    break;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            printErrorMessage(taskNumber);
+        }
     }
 
-    private static void printMessageMarkAsDone(int taskNumberToMark) {
+    private static void printTaskOperationMessage(Task task, String operationMessage) {
         drawLine(true);
-        System.out.println("\tGot it! Marking this task as done:");
-        System.out.println("\t  " + allTasks[taskNumberToMark].toString());
+        System.out.println("\tGot it! " + operationMessage);
+        System.out.println("\t  " + task.toString());
         drawLine(true);
     }
 
-    private static void unmark(String line) {
-        int taskNumberToUnmark = Integer.parseInt(line.substring("unmark".length()).trim()) - 1;
-        allTasks[taskNumberToUnmark].markAsUndone();
-
-        printMessageUnmarkAsDone(taskNumberToUnmark);
+    private static void printErrorMessage(int taskNumber) {
+        drawErrorLine();
+        System.out.println("\tOperation failed.");
+        System.out.println("\tTask index " + (taskNumber + 1) + " does not exist! Try another number instead.");
+        drawErrorLine();
     }
 
-    private static void printMessageUnmarkAsDone(int taskNumberToUnmark) {
+    private static void displayList() {
         drawLine(true);
-        System.out.println("\tAlright! Unmarking this task:");
-        System.out.println("\t  " + allTasks[taskNumberToUnmark].toString());
+        printTaskList();
         drawLine(true);
     }
 
@@ -49,14 +67,8 @@ public class BobBot {
 
         for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
             taskNumberToDisplay = taskIndex + 1;
-            System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks[taskIndex].toString());
+            System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks.get(taskIndex).toString());
         }
-    }
-
-    private static void displayList() {
-        drawLine(true);
-        printTaskList();
-        drawLine(true);
     }
 
     public static void addTask(String line) {
@@ -79,7 +91,7 @@ public class BobBot {
             return;
         }
 
-        allTasks[numTasks] = newTask;
+        allTasks.add(newTask);
         numTasks += 1;
 
         echoCommand(line, newTask);
@@ -159,9 +171,11 @@ public class BobBot {
                 } else if (line.equalsIgnoreCase("list")) {
                     displayList();
                 } else if (line.startsWith("mark")) {
-                    mark(line);
+                    performTaskOperation(line, TaskStatus.MARK);
                 } else if (line.startsWith("unmark")) {
-                    unmark(line);
+                    performTaskOperation(line, TaskStatus.UNMARK);
+                } else if (line.startsWith("delete")) {
+                    performTaskOperation(line, TaskStatus.DELETE);
                 } else {
                     addTask(line);
                 }
@@ -185,7 +199,9 @@ public class BobBot {
         }
 
         System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
-        System.out.println("\tUsage: (un)mark {task number}");
+        System.out.println("\tUsage: mark {task number}");
+        System.out.println("\tUsage: unmark {task number}");
+        System.out.println("\tUsage: delete {task number}");
         System.out.println("\tPlease enter a valid number within the range of your list.");
         
         drawErrorLine();

@@ -2,6 +2,10 @@ ________________________________________________________________________________
 Hello! I'm BobBot, your TODO list creator
 Simply type in any task and I will store them for you!
 ______________________________________________________________________________________
+	********************************ERROR*****************************************
+	Operation failed.
+	Task index 12 does not exist! Try another number instead.
+	********************************ERROR*****************************************
 	______________________________________________________________________________
 	Got it! I've added this task:
 	  [T][ ] make bread
@@ -30,7 +34,18 @@ ________________________________________________________________________________
 	Missing task number!
 	Your task list currently has 2 items!
 
-	Usage: (un)mark {task number}
+	Usage: mark {task number}
+	Usage: unmark {task number}
+	Usage: delete {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 2 items!
+
+	Usage: mark {task number}
+	Usage: unmark {task number}
+	Usage: delete {task number}
 	Please enter a valid number within the range of your list.
 	********************************ERROR*****************************************
 	______________________________________________________________________________
@@ -40,15 +55,12 @@ ________________________________________________________________________________
 	______________________________________________________________________________
 
 	______________________________________________________________________________
-	Alright! Unmarking this task:
+	Got it! Unmarking this task:
 	  [D][ ] try this (by: monday 2pm)
 	______________________________________________________________________________
 	********************************ERROR*****************************************
-	Index is out of range.
-	Your task list currently has 3 items!
-
-	Usage: (un)mark {task number}
-	Please enter a valid number within the range of your list.
+	Operation failed.
+	Task index 88 does not exist! Try another number instead.
 	********************************ERROR*****************************************
 	______________________________________________________________________________
 	Got it! Marking this task as done:
@@ -58,7 +70,9 @@ ________________________________________________________________________________
 	Missing task number!
 	Your task list currently has 3 items!
 
-	Usage: (un)mark {task number}
+	Usage: mark {task number}
+	Usage: unmark {task number}
+	Usage: delete {task number}
 	Please enter a valid number within the range of your list.
 	********************************ERROR*****************************************
 	______________________________________________________________________________
@@ -118,6 +132,18 @@ ________________________________________________________________________________
 	Usage: event {description of task} /from {start date/time} /to {end date/time}
 	Please try again, or enter /help if you need it
 	********************************ERROR*****************************************
+	______________________________________________________________________________
+	Got it! Deleting this task:
+	  [E][X] join meeting (from: monday 2pm to: friday 6pm)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! Deleting this task:
+	  [T][X] make bread
+	______________________________________________________________________________
+	______________________________________________________________________________
+	1. [D][ ] try this (by: monday 2pm)
+	2. [D][ ] make potato (by: 5pm)
+	______________________________________________________________________________
 	______________________________________________________________________________
 	Bye. Hope to see you again soon!
 	______________________________________________________________________________
