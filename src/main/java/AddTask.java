@@ -24,7 +24,7 @@ public class AddTask {
     }
 
     public static void taskListManager(ArrayList<Task> tasks) {
-        int index = 0;
+        int index = DukeFile.latestIndex();
         boolean isRunning = true;
         while (isRunning) {
             Scanner userInput = new Scanner(System.in);
@@ -51,19 +51,21 @@ public class AddTask {
                     tasks.add(specialTask);
                     index++;
                     PrintTask.specialTask(specialTask, index);
+                    PrintTask.printToFile(specialTask, index, true);
                 }
                 break;
             case "delete":
                 DeleteTask.delete(userInputWords, tasks);
                 index--;
+                PrintTask.printMultipleToFile(tasks, false);
                 break;
             default:
                 Task task = new Task(text);
                 tasks.add(task);
                 index++;
                 PrintTask.normalTask(task, index);
+                PrintTask.printToFile(task, index, true);
             }
-            PrintTask.printToFile(tasks);
         }
     }
 }

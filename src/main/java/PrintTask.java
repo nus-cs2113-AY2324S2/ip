@@ -14,9 +14,19 @@ public class PrintTask {
         }
     }
 
-    public static void printToFile(ArrayList<Task> tasks) {
+    public static void printToFile(Task input, int index, boolean ifAppend) {
         String output = "";
+        String indexPrinted = index + ".";
+        char type = input.getTypeIcon();
+        String typeMark = "[" + type + "]";
+        String statusMark = "[" + input.getStatusIcon() + "] ";
+        output += indexPrinted + typeMark + statusMark + input.description + "\n";
+        DukeFile.updateFile(output, ifAppend);
+    }
+
+    public static void printMultipleToFile(ArrayList<Task> tasks, boolean ifAppend) {
         int index = 1;
+        String output = "";
         for (Task task : tasks) {
             String indexPrinted = index + ".";
             char type = task.getTypeIcon();
@@ -25,7 +35,7 @@ public class PrintTask {
             output += indexPrinted + typeMark + statusMark + task.description + "\n";
             index++;
         }
-        DukeFile.updateFile(output);
+        DukeFile.updateFile(output, ifAppend);
     }
 
     public static void specialTask(Task newTask, int taskNum) {
