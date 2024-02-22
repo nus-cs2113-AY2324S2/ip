@@ -2,6 +2,8 @@ package tasks;
 
 import exceptions.DuckInvalidToDoDescriptionException;
 
+import java.util.ArrayList;
+
 public class ToDo extends Task{
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
@@ -14,15 +16,16 @@ public class ToDo extends Task{
         return "[T]" + super.toString();
     }
 
-    public static int addToDo(Task[] tasks, String userInput, int index) {
+    public static int addToDo(ArrayList<Task> tasks, String userInput, int index) {
         try {
             String split = userInput.substring(4);
             if (split.trim().isEmpty()) {
                 throw new DuckInvalidToDoDescriptionException();
             }
-            tasks[index] = new ToDo(split);
+            ToDo newToDo = new ToDo(split);
+            tasks.add(newToDo);
             System.out.println(LINE_SEPARATOR);
-            System.out.println(ADDED_MESSAGE + tasks[index]);
+            System.out.println(ADDED_MESSAGE + tasks.get(index));
             index++;
             System.out.println("Now you have " + index + " tasks in the list.");
             System.out.println(LINE_SEPARATOR);
