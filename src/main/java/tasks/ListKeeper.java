@@ -1,5 +1,6 @@
-import tasks.Task;
+package tasks;
 
+import storage.SaveManager;
 import java.util.ArrayList;
 import java.io.IOException;
 
@@ -12,14 +13,12 @@ public class ListKeeper {
 
     public void addToList(Task task) {
         this.tasks.add(task);
-        // Provide feedback to user
         System.out.println("Added task: " + task);
     }
 
     public void deleteTask(int taskIndex) {
         Task removedTask = this.tasks.get(taskIndex - 1);
         this.tasks.remove(taskIndex - 1);
-        // Provide feedback
         System.out.println("Removed task: " + removedTask);
     }
 

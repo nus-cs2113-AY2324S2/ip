@@ -1,4 +1,8 @@
+package ui;
+
 import java.util.Scanner;
+import logic.LogicManager;
+import util.HorizontalGenerator;
 
 public class UserInterface {
     private final Scanner scanner = new Scanner(System.in);
@@ -16,7 +20,7 @@ public class UserInterface {
     }
     
     private boolean isExitCommandGiven() {
-        return currentInput.startsWith("bye");
+        return currentInput.startsWith(Keywords.BYE);
     }
 
     private void formatCurrentInput() {

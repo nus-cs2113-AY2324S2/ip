@@ -1,3 +1,8 @@
+package storage;
+
+import logic.LogicManager;
+import util.HorizontalGenerator;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,11 +18,9 @@ public class SaveManager {
     }
 
     private void createDataFiles() {
-        if (!tasksFile.getParentFile().exists()) {
-            if (!tasksFile.getParentFile().mkdirs()) {
-                SaveManager.printDataNotSavedWarning();
-                return;
-            }
+        if (!tasksFile.getParentFile().exists() && !tasksFile.getParentFile().mkdirs()) {
+            SaveManager.printDataNotSavedWarning();
+            return;
         }
         try {
             tasksFile.createNewFile();
