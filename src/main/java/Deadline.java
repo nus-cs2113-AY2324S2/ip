@@ -8,7 +8,7 @@ public class Deadline extends Task {
 
     public static String[] getDeadline(String input) {
 
-        String[] results = new String[2];
+        String[] results = new String[Constant.DEADLINE_PARAMETERS];
 
 
         int index = input.indexOf("/by");
@@ -16,7 +16,7 @@ public class Deadline extends Task {
         String label = input.substring(0, index).trim();
 
 
-        String deadline = input.substring(index + 3).trim();
+        String deadline = input.substring(index + Constant.DEADLINE_BY_OFFSET).trim();
 
         results[0] = label;
         results[1] = deadline;

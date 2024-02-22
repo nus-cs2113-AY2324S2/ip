@@ -5,13 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Persistence {
-
-    private static final String FILE_NAME = "saveFile.txt";
-
-    private static final File SAVE_FILE = new File(FILE_NAME);
-
     public static void saveTasks(ArrayList<Task> tasks) throws CustomException {
-        try (FileWriter writer = new FileWriter(FILE_NAME)) {
+        try (FileWriter writer = new FileWriter(Constant.FILE_NAME)) {
 
             // Write each task in a specific format
             for (Task task : tasks) {
@@ -19,7 +14,6 @@ public class Persistence {
                         task.getStatusIcon() + '\n');
             }
 
-            Reply.printReply("Saved tasks as: " + FILE_NAME);
             writer.close();
 
         } catch (IOException e) {
@@ -31,16 +25,16 @@ public class Persistence {
         if (data.createNewFile() && data.canRead()) {
             Reply.printReply(Reply.MISSING_FILE);
         } else {
-            Reply.printReply("file found");
+            Reply.printReply(Reply.SUCCESSFUL_LOAD);
         }
     }
 
     public static void loadTasks(ArrayList<Task> tasks) throws CustomException {
         int taskCount = 0;
 
-        try (final Scanner scanner = new Scanner(SAVE_FILE)) {
+        try (final Scanner scanner = new Scanner(Constant.SAVE_FILE)) {
 
-            verifyIntegrity(SAVE_FILE);
+            verifyIntegrity(Constant.SAVE_FILE);
 
             while (scanner.hasNextLine()) {
                 String[] task = scanner.nextLine().split(":");
@@ -67,8 +61,8 @@ public class Persistence {
 
 
         } catch (IOException e) {
-            if (!new File(FILE_NAME).exists()) {
-                System.out.println("Data file not found. Starting with an empty list.");
+            if (!new File(Constant.FILE_NAME).exists()) {
+                Reply.printReply(Reply.MISSING_FILE);
             } else {
                 throw new CustomException(Reply.LOAD_ERROR + taskCount);
             }

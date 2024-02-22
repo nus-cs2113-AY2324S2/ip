@@ -13,7 +13,11 @@ public class List {
         tasks.remove(index);
     }
 
-    public static void printTasks(ArrayList<Task> tasks) {
+    public static void handleTasks(ArrayList<Task> tasks) {
+        if (List.getTotal(tasks) == Constant.ARRAY_START_INDEX) {
+            throw new CustomException(Reply.EMPTY_LIST);
+        }
+
         int taskIndex = 1;
         Reply.printReply("Here are the tasks in your list:");
         for (Task task : tasks) {

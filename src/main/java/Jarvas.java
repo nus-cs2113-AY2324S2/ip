@@ -1,16 +1,17 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Jarvas {
     public static void main(String[] args) {
-        CommandHandling.initialiseBot();
+        ArrayList<Task> tasks = CommandHandling.initialiseBot();
         try {
-            CommandHandling.processInput();
+            CommandHandling.processInput(tasks);
         } catch (IOException e) {
-            System.err.println("Error saving tasks: " + e.getMessage());
+            throw new CustomException(Reply.SAVE_ERROR + e.getMessage());
         } catch (CustomException e) {
             Reply.printException(e);
         } finally {
-            CommandHandling.terminateBot();
+            CommandHandling.terminateBot(tasks);
         }
     }
 }

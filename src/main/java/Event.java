@@ -9,7 +9,7 @@ public class Event extends Task{
 
     public static String[] getInterval(String input) {
 
-        String[] results = new String[3];
+        String[] results = new String[Constant.EVENT_PARAMETERS];
 
 
         int indexFrom = input.indexOf("/from");
@@ -18,8 +18,8 @@ public class Event extends Task{
         String label = input.substring(0, indexFrom).trim();
 
 
-        String fromSubstring = input.substring(indexFrom + 6, indexTo).trim();
-        String toSubstring = input.substring(indexTo + 3).trim();
+        String fromSubstring = input.substring(indexFrom + Constant.EVENT_FROM_OFFSET, indexTo).trim();
+        String toSubstring = input.substring(indexTo + Constant.EVENT_TO_OFFSET).trim();
 
         results[0] = label;
         results[1] = fromSubstring;
