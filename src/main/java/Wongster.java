@@ -38,13 +38,18 @@ public class Wongster {
                     }
                 }
             } else if(userInput.startsWith("todo")) {
+                if(userInput.trim().length() > 4) {
                     String description = userInput.substring(5).trim();
                     userList[userListItems] = new ToDo(description);
                     userListItems++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println(userList[userListItems - 1]);
                     System.out.println("Now you have " + userListItems + " tasks in the list.");
+                } else {
+                    System.out.println("Please input a description for this todo task!");
+                }
             } else if(userInput.startsWith("deadline")) {
+                if(userInput.trim().length() > 8) {
                     String[] parts = userInput.substring(9).split("/by");
                     String description = parts[0].trim();
                     String by = parts[1].trim();
@@ -53,7 +58,11 @@ public class Wongster {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(userList[userListItems - 1]);
                     System.out.println("Now you have " + userListItems + " tasks in the list.");
+                } else {
+                    System.out.println("Please input a description for this deadline task!");
+                }
             } else if(userInput.startsWith("event")) {
+                if(userInput.trim().length() > 5) {
                     String[] parts = userInput.substring(6).split("/from|/to");
                     String description = parts[0].trim();
                     String from = parts[1].trim();
@@ -63,6 +72,12 @@ public class Wongster {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(userList[userListItems - 1]);
                     System.out.println("Now you have " + userListItems + " tasks in the list.");
+                } else {
+                    System.out.println("Please input a description for this event task!");
+                }
+            } else {
+                System.out.println("Please input a a proper task!");
+                System.out.println("Help: Tasks start with todo, deadline or event.");
             }
         }
         scanner.close();
