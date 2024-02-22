@@ -21,31 +21,20 @@ public class Bart {
         while (!command.equals("bye")) {
             command = in.nextLine();
 
-            switch (command) {
-                case "list":
-                    listTasks();
-                    break;
-                case "bye":
-                    break;
-                default:
-                    handleMarkAndDelete(command);
-                    break;
+            if (command.equals("list")) {
+                listTasks();
+            } else if (command.startsWith("mark")) {
+                markTask(command, true);
+            } else if (command.startsWith("unmark")) {
+                markTask(command, false);
+            } else if (command.startsWith("delete")) {
+                deleteTask(command);
+            } else {
+                addNewTask(command);
             }
         }
     }
-
-    private static void handleMarkAndDelete(String command) {
-        if (command.startsWith("mark")) {
-            markTask(command, true);
-        } else if (command.startsWith("unmark")) {
-            markTask(command, false);
-        } else if (command.startsWith("delete")) {
-            deleteTask(command);
-        } else {
-            addNewTask(command);
-        }
-    }
-
+    
     private static void addNewTask(String command) {
         String[] commandParts = command.split(" ");
         String taskType = commandParts[0];
@@ -102,10 +91,10 @@ public class Bart {
             Task task = tasksList.get(taskIndex);
             if (mark) {
                 task.markAsDone();
-                System.out.println(LINE + "\nNice! I've marked this task as done:\n");
+                System.out.println(LINE + "\nNice! I've marked this task as done:");
             } else {
                 task.markAsUndone();
-                System.out.println(LINE + "\nOK, I've marked this task as not done yet:\n");
+                System.out.println(LINE + "\nOK, I've marked this task as not done yet:");
             }
             System.out.println(task.getTaskMark() + " " + task.description + "\n" + LINE );
         } else {
