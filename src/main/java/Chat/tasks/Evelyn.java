@@ -17,7 +17,7 @@ public class Evelyn {
     public static ArrayList<Task> tasks;
     public static int indexOfTask = 0;
 
-    public static void markTask(int index, boolean done) throws InvalidIndex, RepeatMark, RepeatUnmark {
+    public static void isDoneMarkTask(int index, boolean done) throws InvalidIndex, RepeatMark, RepeatUnmark {
         if(index < 0 || index >= indexOfTask){
             throw new InvalidIndex();
         }
@@ -43,7 +43,7 @@ public class Evelyn {
 
     }
 
-    public static void printList(ArrayList<Task> tasks){
+    public static void printList(ArrayList<Task> tasks) {
         int index = 1;
         for (Task task : tasks) {
             if (task == null) {
@@ -56,7 +56,7 @@ public class Evelyn {
         }
     }
 
-    public static void echo() {
+    public static void commandLine() {
         String line;
         System.out.println("type your command: ");
         Scanner in = new Scanner(System.in);
@@ -86,11 +86,12 @@ public class Evelyn {
         } else {
             System.out.println("Please enter the correct command");
         }
-        echo();
+        commandLine();
     }
     private static void delete(String line){
         try {
-            int index = Integer.parseInt(line.substring(7).trim()) - 1;
+            int DELETE_LENGTH = 7;
+            int index = Integer.parseInt(line.substring(DELETE_LENGTH).trim()) - 1;
             try {
                 tasks.remove(index);
                 int add1toIndex = index + 1;
@@ -158,12 +159,10 @@ public class Evelyn {
         try {
             int index = Integer.parseInt(line.substring(7).trim()) - 1;
             try {
-                markTask(index, false);
-            }
-            catch (RepeatMark | RepeatUnmark e){
+                isDoneMarkTask(index, false);
+            } catch (RepeatMark | RepeatUnmark e){
                 System.out.println("This task is already marked.");
-            }
-            catch(InvalidIndex e){
+            } catch(InvalidIndex e){
                 System.out.println("Invalid task index, please try again!");
             }
         } catch(NumberFormatException e){
@@ -175,7 +174,7 @@ public class Evelyn {
         try {
             int index = Integer.parseInt(line.substring(5).trim()) - 1;
             try {
-                markTask(index, true);
+                isDoneMarkTask(index, true);
             } catch (InvalidIndex e){
                 System.out.println("Invalid task index, please try again!");
             } catch (RepeatMark | RepeatUnmark e){
@@ -213,7 +212,7 @@ public class Evelyn {
         if(file.exists()){
             try{
                 Scanner sc = new Scanner(file);
-                while(sc.hasNext()){
+                while (sc.hasNext()){
                     String stringTask = sc.nextLine();
                     Task pastTask = Task.fromString(stringTask);
                     tasks.add(pastTask);
@@ -238,7 +237,6 @@ public class Evelyn {
         try{
             FileWriter fw = new FileWriter(("tasks.txt"));
             for(Task task : tasks){
-                //fw.write(tasks[i].toString() + "\n");
                 fw.write(task.shortType + " | " + task.numisDone() +
                             " | " + task.getDescription() + " | " + task.time + "\n");
 
@@ -252,7 +250,7 @@ public class Evelyn {
         greeting();
         tasks = new ArrayList<>();
         readFile(tasks);
-        echo();
+        commandLine();
         saveToFile();
         System.out.println("all changes saved to file");
         end();
