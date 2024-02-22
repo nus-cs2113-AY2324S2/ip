@@ -1,44 +1,41 @@
 package input;
 
-import exceptions.EmptyTaskException;
-import exceptions.MissingDeadlineException;
-import exceptions.MissingStartException;
-import exceptions.UnknownInputException;
+import exceptions.*;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HandleInput {
     static String line = "\t____________________________________________________________";
-    static Task[] tasks = new Task[100];
-    static int count = 0;
+    static ArrayList<Task> tasks = new ArrayList<>(100);
 
-    public static void echo(String input) {
+    private static void echo(String input) {
         System.out.println("\t Got it. I've added this task: ");
-        System.out.println(("\t   " + tasks[count - 1].toString()));
-        String task = (count == 1) ? "task " : "tasks ";
-        System.out.println("\t Now you have " + count + " " + task + "in the tasks.");
+        System.out.println(("\t   " + tasks.get(tasks.size() - 1).toString()));
+        String task = (tasks.size() == 1) ? "task " : "tasks ";
+        System.out.println("\t Now you have " + tasks.size() + " " + task + "in the tasks.");
     }
 
-    public static void sayBye() {
+    private static void sayBye() {
         System.out.println("\t Bye. Hope to see you again soon!");
     }
 
-    public static void createTodo(String input) throws EmptyTaskException {
+    private static void createTodo(String input) throws EmptyTaskException {
         String todo = input.substring(input.indexOf("todo ") + 5);
         if (todo.isBlank()) {
             throw new EmptyTaskException();
         }
-        tasks[count] = new ToDo(todo);
-        count++;
+        tasks.add(new ToDo(todo));
+
         echo(input);
     }
 
 
-    public static void createDeadline(String input) throws EmptyTaskException, MissingDeadlineException {
+    private static void createDeadline(String input) throws EmptyTaskException, MissingDeadlineException {
         String description = input.replaceFirst("deadline ", "");
         int by = description.indexOf("/");
         if (by == -1){
@@ -49,12 +46,11 @@ public class HandleInput {
             throw new EmptyTaskException();
         }
         String date = description.substring(by + 4);
-        tasks[count] = new Deadline(deadline, date);
-        count++;
+        tasks.add(new Deadline(deadline, date));
         echo(input);
     }
 
-    public static void createEvent(String input) throws EmptyTaskException,
+    private static void createEvent(String input) throws EmptyTaskException,
             MissingDeadlineException, MissingStartException {
         String description = input.replaceFirst("event ", "");
         int from = description.indexOf("/from");
@@ -74,12 +70,23 @@ public class HandleInput {
         if (event.isBlank()){
             throw new EmptyTaskException();
         }
-        tasks[count] = new Event(event, startDate, endDate);
-        count++;
+        tasks.add(new Event(event, startDate, endDate));
         echo(input);
     }
 
-    public static void handleInput(String input) throws UnknownInputException {
+    private static void deleteTask(String input) throws ArrayListOutOfBoundsException {
+        int index = Integer.parseInt(input.substring(7)) - 1;
+        if (tasks.size() < index) {
+            throw new ArrayListOutOfBoundsException();
+        }
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.println(("\t   " + tasks.get(index).toString()));
+        tasks.remove(index);
+        String task = (tasks.size() == 1) ? "task " : "tasks ";
+        System.out.println("\t Now you have " + tasks.size() + " " + task + "in the list.");
+    }
+
+    private static void handleInput(String input) throws UnknownInputException {
         if (input.contains("todo")) {
             try {
                 createTodo(input);
@@ -109,6 +116,12 @@ public class HandleInput {
             }
         } else if (input.contains("bye")) {
             sayBye();
+        } else if (input.startsWith("delete")) {
+            try {
+                deleteTask(input);
+            } catch (ArrayListOutOfBoundsException e) {
+                System.out.println("This item does not exist in your list. Try a different item.");
+            }
         } else {
             throw new UnknownInputException();
         }
@@ -121,23 +134,23 @@ public class HandleInput {
 
     public static void listItems() {
         System.out.println("\t Here are the tasks in your list:");
-        for (int x = 0; x < count; x++) {
-            System.out.println("\t  " + (x + 1) + "." + tasks[x].toString());
+        for (int x = 0; x < tasks.size(); x++) {
+            System.out.println("\t  " + (x + 1) + "." + tasks.get(x).toString());
         }
     }
 
     public static void unmarkItem(String input) {
         int idx = getIndexToMark(input);
-        tasks[idx].setDone(false);
+        tasks.get(idx).setDone(false);
         System.out.println("\t OK, I've marked this task as not done yet:");
-        System.out.println("\t " + tasks[idx].toString());
+        System.out.println("\t " + tasks.get(idx).toString());
     }
 
     public static void markItem(String input) {
         int idx = getIndexToMark(input);
-        tasks[idx].setDone(true);
+        tasks.get(idx).setDone(true);
         System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t " + tasks[idx].toString());
+        System.out.println("\t " + tasks.get(idx).toString());
     }
 
     public static void chat() {
