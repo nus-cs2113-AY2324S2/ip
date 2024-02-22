@@ -13,27 +13,33 @@ public class Nehsik {
         int currTaskCount = 0;
 
         while (true) {
-            String command = in.nextLine().trim();
-            if (command.equals("list")) {
-                displayTaskList(currTaskCount, taskList);
-            } else if (command.startsWith("mark")){
-                markTask(command, taskList);
-            } else if (command.startsWith("unmark")) {
-                unmarkTask(command, taskList);
-            }  else if (command.startsWith("todo")) {
-                addTodoTask(command, taskList, currTaskCount);
-                currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
-            } else if (command.startsWith("deadline")) {
-                addDeadlineTask(command, taskList, currTaskCount);
-                currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
-            } else if (command.startsWith("event")) {
-                addEventTask(command, taskList, currTaskCount);
-                currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
-            } else if (command.equals("bye")) {
-                displayExitMessage();
-                break;
-            } else {
-                System.out.println("Invalid Command");
+            try {
+                String command = in.nextLine().trim();
+                if (command.equals("list")) {
+                    displayTaskList(currTaskCount, taskList);
+                } else if (command.startsWith("mark")){
+                    markTask(command, taskList);
+                } else if (command.startsWith("unmark")) {
+                    unmarkTask(command, taskList);
+                }  else if (command.startsWith("todo")) {
+                    addTodoTask(command, taskList, currTaskCount);
+                    currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
+                } else if (command.startsWith("deadline")) {
+                    addDeadlineTask(command, taskList, currTaskCount);
+                    currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
+                } else if (command.startsWith("event")) {
+                    addEventTask(command, taskList, currTaskCount);
+                    currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
+                } else if (command.equals("bye")) {
+                    displayExitMessage();
+                    break;
+                } else {
+                    throw new NehsikException("Invalid Command");
+                }
+            } catch (NehsikException e) {
+                printLine();
+                System.out.println(e.getMessage());
+                printLine();
             }
         }
 
@@ -67,13 +73,22 @@ public class Nehsik {
         printLine();
     }
 
-    private static void addTodoTask(String command, Task[] taskList, int currTaskCount) {
+    private static void addTodoTask(String command, Task[] taskList, int currTaskCount) throws NehsikException {
+        if (command.length() < TODO_DESCRIPTION_POSITION) {
+            throw new NehsikException("The description of a todo cannot be empty");
+        }
+
+        if (command.charAt(TODO_DESCRIPTION_POSITION - 1) != ' ') {
+            throw new NehsikException("Invalid command");
+        }
+
         String taskDescription = command.substring(TODO_DESCRIPTION_POSITION).trim();
         taskList[currTaskCount] = new Todo(taskDescription);
     }
 
     private static void addDeadlineTask(String command, Task[] taskList, int currTaskCount) {
         int descriptionStartPosition = command.indexOf("deadline ") + 9;
+        //if (command.length() <=)
         int descriptionEndPosition = command.indexOf("/by ") - 1;
         String taskDescription = command.substring(descriptionStartPosition, descriptionEndPosition).trim();
 
