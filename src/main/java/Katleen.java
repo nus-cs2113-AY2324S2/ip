@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
@@ -10,7 +11,7 @@ public class Katleen {
     private static final ArrayList<Task> tasks = new ArrayList<>();
     public static final String LINE = "____________________________________________________________";
    private static final String filename = "./saved.txt";
-   private static final Path filePath = java.nio.file.Paths.get(filename);
+   private static final Path filePath = Paths.get(filename);
    private static void loadFileContents() {
        try {
            File file = filePath.toFile();
@@ -20,16 +21,19 @@ public class Katleen {
                System.out.println("File created at: " + file.getAbsolutePath());
            } else {
                Scanner s = new Scanner(filePath);
+               int temp = 0;
                while (s.hasNext()) {
                    String savedTask = s.nextLine();
-                   String[] splitSaved = savedTask.split(" ");
-                   if (splitSaved[0].equals("mark")) {
-                       parseString(savedTask);
-                   }
+                   String[] save = parseCommand(savedTask);
+                   String[] splitSaved = save[0].split(" ");
                    Task saved = getTask(savedTask, splitSaved[0], splitSaved, false);
                    tasks.add(saved);
+                   if (!save[1].isEmpty()) {
+                       tasks.get(temp).setDone(true);
+                   }
+                   temp++;
                }
-           }
+               }
        } catch (IncompleteTaskException e) {
            System.out.println("Could not create new task");
        } catch (IOException e) {
@@ -69,6 +73,10 @@ public class Katleen {
                 }
                 break;
             case "bye":
+                for (Task t : tasks) {
+                    FileWriter fw = new FileWriter(filename);
+                    fw.write(t.toString());
+                }
                 System.out.println(LINE);
                 System.out.println("Bye, have a nice day!");
                 System.out.println(LINE);
@@ -82,12 +90,6 @@ public class Katleen {
                     Task temp = tasks.get(i);
                     tasks.remove(i);
                     System.out.println("Task deleted: " + temp);
-                    FileWriter fw = new FileWriter(filename);
-                    for (Task t : tasks) {
-                        String text = t.convertToCommand();
-                        fw.write(text);
-                    }
-                    fw.close();
                     break;
                 }
                 if (cmdWord.equals("mark")) {
@@ -130,7 +132,7 @@ public class Katleen {
                 ToDo todo = new ToDo(input.replace("todo ", "").trim());
                 if (saveToFile) {
                     System.out.println("Added: ");
-                    fw.write(input + "\n");
+                    fw.write(todo.toString()+ "\n");
                     fw.close();
                 } else {
                     System.out.println("Restored: ");
@@ -144,7 +146,7 @@ public class Katleen {
                 Deadline dead = new Deadline(deadline, by);
                 if (saveToFile) {
                     System.out.println("Added: ");
-                    fw.write(input + "\n");
+                    fw.write(dead.toString() + "\n");
                     fw.close();
                 } else {
                     System.out.println("Restored: ");
@@ -160,7 +162,7 @@ public class Katleen {
                 Event event = new Event(desc, from, to);
                 if (saveToFile) {
                     System.out.println("Added: ");
-                    fw.write(input + "\n");
+                    fw.write(event.toString() + "\n");
                     fw.close();
                 } else {
                     System.out.println("Restored: ");
@@ -172,5 +174,30 @@ public class Katleen {
             System.out.println("There was an error writing to the file.");
         }
         return null;
+    }
+
+    private static String[] parseCommand(String input) {
+       String[] response = {"", ""};
+       String task = input.substring(6).trim();
+       char taskType = input.charAt(1);
+       switch (taskType) {
+       case 'T':
+           response[0] = "todo " + task;
+           break;
+       case 'D':
+           task = task.substring(0, task.indexOf("by"));
+           String by = " /" + task.substring(task.indexOf("by")).trim();
+           response[0] = "deadline " + task + by;
+       case 'E':
+           task = task.substring(0, task.indexOf("from"));
+           String from = " /" + task.substring(task.indexOf("from"), task.indexOf("to")).trim();
+           String to = " /" + task.substring(task.indexOf("to"));
+           response[0] = "event" + task + from + to;
+        }
+       char done = input.charAt(4);
+       if (done == 'X') {
+           response[1] = ("mark");
+       }
+       return response;
     }
 }
