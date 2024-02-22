@@ -3,8 +3,11 @@ import exceptions.KikuException;
 import exceptions.KikuInvalidTaskException;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class KikuBot {
+
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static int markIndex(String userInput, int num) {
         String markIndexChar = userInput.substring(num, userInput.length());
@@ -12,7 +15,6 @@ public class KikuBot {
     }
 
     private static Task addTask(String userInput) throws KikuException {
-        Task task;
         int n = userInput.length();
         if (userInput.startsWith("todo")) {
             if (userInput.trim().length() == 4) {
@@ -20,7 +22,7 @@ public class KikuBot {
             }
 
             String description = userInput.substring(5, n);
-            task = new Todo(description);
+            return new Todo(description);
 
         } else if (userInput.startsWith("deadline")) {
             if (userInput.trim().length() == 8) {
@@ -35,7 +37,7 @@ public class KikuBot {
             }
 
             String[] deadline = description.split(" /by ");
-            task = new Deadline(deadline[0], deadline[1]);
+            return new Deadline(deadline[0], deadline[1]);
 
         } else if (userInput.startsWith("event")) {
             if (userInput.trim().length() == 5) {
@@ -52,13 +54,13 @@ public class KikuBot {
 
             String[] start = description.split(" /from ");
             String[] end = start[1].split(" /to ");
-            task = new Event(start[0], end[0], end[1]);
+            return new Event(start[0], end[0], end[1]);
 
         } else {
             throw new KikuException("Oh no! Please specify a todo, deadline, or event! " +
                     "Make sure that all spellings are correct!");
         }
-        return task;
+        //return task;
     }
     public static void main(String[] args) {
         //greetings
@@ -67,43 +69,46 @@ public class KikuBot {
         System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
         System.out.println(HORIZONTAL);
-
-        //echo
+        
         //add task
         Scanner in = new Scanner(System.in);
         String userInput;
         userInput = in.nextLine();
 
-        //store in array
-        Task[] tasks = new Task[100];
-        int indexTask = 0;
-        int markIndexInt;
-
         //check for exit word
         while (!userInput.equals("bye")) {
             if (userInput.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < indexTask; i++) {
-                    //when printing toString() method used automatically
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
             } else if (userInput.startsWith("mark")) {
-                markIndexInt = markIndex(userInput, 5);
-                tasks[markIndexInt].isDone = true;
+                int taskIndex = markIndex(userInput, 5);
+                tasks.get(taskIndex).markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[markIndexInt]);
+                System.out.println(tasks.get(taskIndex));
+
             } else if (userInput.startsWith("unmark")) {
-                markIndexInt = markIndex(userInput, 7);
-                tasks[markIndexInt].isDone = false;
+                int taskIndex = markIndex(userInput, 7);
+                tasks.get(taskIndex).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[markIndexInt]);
+                System.out.println(tasks.get(taskIndex));
+
+            } else if (userInput.startsWith("delete")) {
+                int taskIndex = markIndex(userInput, 7);
+                System.out.println("Alright, I've removed this task: ");
+                System.out.println(tasks.get(taskIndex));
+                tasks.remove(taskIndex);
+                System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
+
             } else {
                 try {
-                    tasks[indexTask] = addTask(userInput);
+                    Task newTask = addTask(userInput);
+                    tasks.add(newTask);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks[indexTask]);
-                    System.out.println("Now you have " + (indexTask + 1) + " tasks in the list.");
-                    indexTask++;
+                    System.out.println(newTask);
+                    System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
+
                 } catch (KikuEmptyTaskException e) {
                     System.out.println(e.getMessage());
                 } catch (KikuInvalidTaskException e) {
