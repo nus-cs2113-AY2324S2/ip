@@ -6,6 +6,7 @@ import ava.task.Task;
 import ava.task.ToDo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ava {
 
@@ -17,7 +18,7 @@ public class Ava {
 
     public static void mainProcess() {
         boolean isExit = false;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         while (!isExit) {
             String task = in.nextLine();
@@ -61,9 +62,21 @@ public class Ava {
                     dealWithEmptyDescriptionException("event");
                     continue;
                 }
+            } else if (task.startsWith("delete")) {
+                deleteTask(tasks, task);
+                continue;
+            } else {
+                dealWithUnknownException();
+                continue;
             }
             printAfterAddingTask(tasks);
         }
+    }
+
+    private static void dealWithUnknownException() {
+        printLine();
+        System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
+        printLine();
     }
 
     private static void dealWithFormatException() {
@@ -88,7 +101,7 @@ public class Ava {
         printLine();
     }
 
-    public static void addTask(Task[] tasks, String task, String type) throws EmptyDescriptionException {
+    public static void addTask(ArrayList<Task> tasks, String task, String type) throws EmptyDescriptionException {
         task = task.replace(type, "");
         if (task.isEmpty()) {
             throw new EmptyDescriptionException();
@@ -96,58 +109,78 @@ public class Ava {
         String[] taskAndDate = task.split("/");
         switch (type) {
         case "todo":
-            tasks[Task.getNumberOfTasks()] = new ToDo(taskAndDate[0]);
+            tasks.add(new ToDo(taskAndDate[0]));
             break;
         case "deadline":
-            tasks[Task.getNumberOfTasks()] = new Deadline(taskAndDate[0], taskAndDate[1]);
+            tasks.add(new Deadline(taskAndDate[0], taskAndDate[1]));
             break;
         case "event":
-            tasks[Task.getNumberOfTasks()] = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
+            tasks.add(new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]));
             break;
         }
     }
 
-    public static void printAfterAddingTask(Task[] tasks) {
-        try {
-            String addedTask = tasks[Task.getNumberOfTasks() - 1].toString();
-            printLine();
-            System.out.println("Got it! I've added this task:");
-            System.out.println(addedTask);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            printLine();
-            System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
-            printLine();
-            return;
-        }
+    public static void printAfterAddingTask(ArrayList<Task> tasks) {
+        String addedTask = tasks.get(tasks.size() - 1).toString();
+        printLine();
+        System.out.println("Got it! I've added this task:");
+        System.out.println(addedTask);
         if (Task.getNumberOfTasks() == 1) {
             System.out.println("Now you have " + 1 + " task in the list~~~");
         } else {
-            System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list~~~");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list~~~");
         }
         printLine();
     }
 
-    public static void markTask(Task[] tasks, String command) {
+    public static int extractNumber(String type, String command) {
+        command = command.replace(type, "");
+        return Integer.parseInt(command) - 1;
+    }
+
+    public static void deleteTask(ArrayList<Task> tasks, String command) {
+        int taskDeleted;
+        try {
+            try {
+                taskDeleted = extractNumber("delete ", command);
+                Task deletedTask = tasks.get(taskDeleted);
+                printLine();
+                System.out.println("Noted!!! I've removed this task:");
+                System.out.println(deletedTask);
+                tasks.remove(deletedTask);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list!!!");
+                printLine();
+            } catch (IndexOutOfBoundsException e) {
+                printLine();
+                System.out.println(" ⊙﹏⊙ Hey! You cannot delete a task that does not exist!");
+                printLine();
+            }
+        } catch (NumberFormatException e) {
+            printLine();
+            System.out.println("Please tell me which one to delete? (＾＿－)");
+            printLine();
+        }
+    }
+
+    public static void markTask(ArrayList<Task> tasks, String command) {
         printLine();
         boolean isMark = true;
-        int taskChanged = 0;
+        int taskChanged;
         if (command.startsWith("unmark")) {
             isMark = false;
         }
         try {
             try {
                 if (isMark) {
-                    command = command.replace("mark ", "");
-                    taskChanged = Integer.parseInt(command) - 1;
-                    tasks[taskChanged].markAsDone();
+                    taskChanged = extractNumber("mark ", command);
+                    tasks.get(taskChanged).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
                 } else {
-                    command = command.replace("unmark ", "");
-                    taskChanged = Integer.parseInt(command) - 1;
-                    tasks[taskChanged].markAsNotDone();
+                    taskChanged = extractNumber("unmark ", command);
+                    tasks.get(taskChanged).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
-            } catch (NullPointerException e) {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println(" ⊙﹏⊙ Hey! You cannot mark a task that does not exist!");
                 printLine();
                 return;
@@ -157,16 +190,16 @@ public class Ava {
             printLine();
             return;
         }
-        System.out.println(tasks[taskChanged]);
+        System.out.println(tasks.get(taskChanged));
         printLine();
     }
 
-    public static void listTask(Task[] tasks) {
+    public static void listTask(ArrayList<Task> tasks) {
         printLine();
         System.out.println("Here are the tasks in your list:");
         int noOfTask = 0;
-        while (noOfTask < Task.getNumberOfTasks()) {
-            System.out.println((noOfTask + 1) + "." + tasks[noOfTask]);
+        while (noOfTask < tasks.size()) {
+            System.out.println((noOfTask + 1) + "." + tasks.get(noOfTask));
             noOfTask += 1;
         }
         printLine();
