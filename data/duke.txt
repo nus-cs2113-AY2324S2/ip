@@ -1,0 +1,5 @@
+[T][ ] 1
+[T][ ] 2
+[T][X] 3
+[E][ ] 1 (from: 1 to: 2)
+[D][ ] 222 /from ahha /to fuck (by: )

@@ -1,8 +1,10 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
     private final String name;
     private final List<Task> tasks;
 
@@ -21,7 +23,6 @@ public class Duke {
         Scanner scanner = new Scanner(description);
         scanner.useDelimiter(" ");
         String taskType = scanner.next().toLowerCase();
-//        System.out.println("taskType: " + taskType);
 
         String taskDescription;
         if (scanner.hasNext()) {
@@ -29,7 +30,6 @@ public class Duke {
         } else {
             taskDescription = "";
         }
-//        System.out.println("taskDescription: " + taskDescription);
 
         Task task;
         switch (taskType) {
@@ -63,6 +63,30 @@ public class Duke {
         }
         tasks.add(task);
         System.out.println("Added: " + task);
+    }
+
+    public static void saveTasksToFile(List<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (Task task : tasks) {
+                bufferedWriter.write(task.toString());
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public void listTasks() {
@@ -123,20 +147,22 @@ public class Duke {
         String command;
 
         do {
-            command = scanner.nextLine();
-            if (command.equals("list") || command.startsWith("list ")) {
+            command = scanner.nextLine().trim();
+            if (command.equals("list")) {
                 listTasks();
             } else if (command.startsWith("mark ")) {
                 markTaskAsDone(command.substring(5));
             } else if (command.startsWith("unmark ")) {
                 unmarkTaskAsDone(command.substring(7));
+            } else if (command.equals("save")) {
+                saveTasksToFile(tasks);
+                System.out.println("Tasks saved to file:" + FILE_PATH);
             } else if (!command.startsWith("bye")) {
                 try {
                     addTask(command);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-//                addTask(command);
             }
         } while (!command.equals("bye"));
 
