@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 
 public class Event extends Task {
     protected String from;
@@ -14,7 +15,11 @@ public class Event extends Task {
             throw new IllegalArgumentException();
         }
         this.description = parts[0].substring(6).trim(); // Remove "event" command and trim spaces
+        if (parts.length != 2) {
+            throw new NoSuchElementException();
+        }
         parts = parts[1].split(" /to ", 2);
+
         this.from = parts[0];
         this.to = parts[1];
     }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Bart {
@@ -37,9 +38,9 @@ public class Bart {
     
     private static void addNewTask(String command) {
         String[] commandParts = command.split(" ");
-        String taskType = commandParts[0];
+        String tasking = commandParts[0];
 
-        switch (taskType) {
+        switch (tasking) {
             case "todo":
                 try {
                     tasksList.add(new Todo(command));
@@ -55,6 +56,9 @@ public class Bart {
                 } catch (IllegalArgumentException e) {
                     System.out.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
                     return;
+                } catch (NoSuchElementException e) {
+                    System.out.println(LINE + "\nOOPS!!! Try this format: deadline <task> /by <time>.\n" + LINE);
+                    return;
                 }
                 break;
             case "event":
@@ -62,6 +66,9 @@ public class Bart {
                     tasksList.add(new Event(command));
                 } catch (IllegalArgumentException e) {
                     System.out.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
+                    return;
+                } catch (NoSuchElementException e) {
+                    System.out.println(LINE + "\nOOPS!!! Try this format: event <task> /from <start_time> /to <end_time>.\n" + LINE);
                     return;
                 }
                 break;
