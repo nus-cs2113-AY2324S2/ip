@@ -29,6 +29,7 @@ public class Allez {
         System.out.println("Here are the tasks in your list:");
         for (Task task : tasks) {
             System.out.println("\t" + (count+1) + ". " + task.toString());
+            count+=1;
         }
 
     }
@@ -48,6 +49,7 @@ public class Allez {
     private static boolean executeCommands() {
         String line = in.nextLine();
         String firstWord = line.split(" ",2)[0];
+        printHyphens();
 
         switch(firstWord){
         case "bye":
@@ -66,6 +68,9 @@ public class Allez {
             break;
         case "list":
             printList(tasks);
+            break;
+        case "delete":
+            deleteTask(line);
             break;
         default:
             System.out.println("Invalid command. Please try again.");
@@ -188,19 +193,40 @@ public class Allez {
             System.out.println("\t" + tasks.get(toMark).toString());
         } catch (NumberFormatException e) {
             System.out.println("Please input a number only");
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Please input a number within current number of tasks");
         }
     }
+
+    private static void deleteTask(String line) {
+        int toDelete;
+        Task temp;
+        try {
+            toDelete = Integer.parseInt(line.substring(6).trim()) -1;
+            temp = tasks.get(toDelete);
+            tasks.remove(toDelete);
+            System.out.println("Aight. I've removed this task:");
+            System.out.println("\t" + temp.toString());
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            System.out.println("Please input a number only");
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            System.out.println("Please input a number within current number of tasks");
+        }
+    }
+
 
     private static void printExit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     private static void printGreeting() {
-        System.out.println("_________________________");
+        printHyphens();
         System.out.println("Hello! I'm Allez");
         System.out.println("What can I do for you?");
-        System.out.println("_________________________");
+    }
+
+    private static void printHyphens() {
+        System.out.println("__________________________________________________");
     }
 }
