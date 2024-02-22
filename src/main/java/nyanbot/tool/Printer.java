@@ -28,6 +28,8 @@ public class Printer {
     protected static final String MISSING_START_END_MESSAGE = "puriisu add start & end";
     protected static final String NYAN_EXCEPTION_MESSAGE = " nyannnn";
     protected static final String IO_EXCEPTION_MESSAGE = "cannot read file nyannnnn";
+    protected static final String DIRECTORY_CREATED_MESSAGE = "directory created desu.";
+    protected static final String FILE_CREATED_MESSAGE = "data file created desu.";
 
     public static void printLine() {
         System.out.println(LINE);
@@ -143,5 +145,13 @@ public class Printer {
 
     public static void printIOException() {
         System.out.println(IO_EXCEPTION_MESSAGE);
+    }
+
+    public static void printDirectoryCreated() {
+        System.out.println(DIRECTORY_CREATED_MESSAGE);
+    }
+
+    public static void printFileCreated() {
+        System.out.println(FILE_CREATED_MESSAGE);
     }
 }

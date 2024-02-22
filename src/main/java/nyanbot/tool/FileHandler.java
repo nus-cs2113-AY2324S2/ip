@@ -12,9 +12,14 @@ import java.util.List;
 public class FileHandler {
     public static List<String> readFile(String dataPathString) throws IOException {
         Path dataPath = Paths.get(dataPathString);
-        Files.createDirectories(dataPath.getParent());
+        Path dataDirectory = dataPath.getParent();
+        if (!Files.exists(dataDirectory)) {
+            Files.createDirectories(dataDirectory);
+            Printer.printDirectoryCreated();
+        }
         if (!Files.exists(dataPath)) {
             Files.createFile(dataPath);
+            Printer.printFileCreated();
         }
         return Files.readAllLines(dataPath);
     }
