@@ -63,7 +63,7 @@ public class AddTask {
                 index++;
                 PrintTask.normalTask(task, index);
             }
-            PrintTask.printToFile(Arrays.copyOf(tasks, index));
+            PrintTask.printToFile(tasks);
         }
     }
 }

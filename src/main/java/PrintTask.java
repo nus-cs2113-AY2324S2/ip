@@ -14,7 +14,7 @@ public class PrintTask {
         }
     }
 
-    public static void printToFile(Task[] tasks) {
+    public static void printToFile(ArrayList<Task> tasks) {
         String output = "";
         int index = 1;
         for (Task task : tasks) {
