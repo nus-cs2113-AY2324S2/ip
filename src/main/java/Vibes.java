@@ -39,7 +39,7 @@ public class Vibes {
             try {
                 taskList.addTask(userInput);
             } catch (InvalidArgumentException e){
-                System.out.println("\t Argument note found! The description of a todo cannot be empty.");
+                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
             }
             break;
         default:
