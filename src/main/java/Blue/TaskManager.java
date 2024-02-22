@@ -37,7 +37,7 @@ public class TaskManager extends Blue {
         case todo:
         case deadline:
         case event:
-            addTask(request.getTaskToAdd());
+            addTask(request.getTaskToAdd(), true);
             break;
         default:
         }
@@ -72,26 +72,24 @@ public class TaskManager extends Blue {
         numTasks -= 1;
     }
 
-    private void addTask(Task task) {
+    private void addTask(Task task, boolean isNew) {
         tasks.add(task);
         numTasks += 1;
-        talk("added: " + task.getDescription());
+        if (isNew) {
+            talk("added: " + task.getDescription());
+        }
     }
 
-    //assume taskFile is in the proper format for now
     private void restoreTasks() {
         File taskFile = new File(TASK_FILE_PATH);
-        //if (!taskFile.isFile()) {
-        //    return tasks;
-        //}
         try {
             Scanner s = new Scanner(taskFile);
+            //assume taskFile is in the proper format for now
             while (s.hasNext()) {
                 String[] savedTaskDetails = s.nextLine().split("\\|");
                 Task savedTask = restoreTask(savedTaskDetails);
-                addTask(savedTask);
+                addTask(savedTask, false);
             }
-            talk("Restored " + numTasks + " tasks.");
         } catch (FileNotFoundException e) {
             talk("No saved tasks found, starting from scratch.");
         }
@@ -129,7 +127,7 @@ public class TaskManager extends Blue {
         }
         for (int i = 0; i < numTasks; i += 1) {
             try {
-                writeTaskToFile(tasks[i], (i != 0));
+                writeTaskToFile(tasks.get(i), (i != 0));
             } catch (IOException e) {
                 talk("Failed to save tasks.");
                 return;
