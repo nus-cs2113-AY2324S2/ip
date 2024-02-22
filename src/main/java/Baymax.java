@@ -43,7 +43,8 @@ public class Baymax {
                     if(tasks[i] == null) {
                         break;
                     }
-                    System.out.println(i+1 + ". " + "[" + tasks[i].type + "] " + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                    System.out.println(i+1 + ". " + "[" + tasks[i].type + "] "
+                            + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
                 }
             }
 
