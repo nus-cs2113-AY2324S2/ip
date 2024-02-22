@@ -237,10 +237,10 @@ public class Evelyn {
     public static void saveToFile() throws IOException{
         try{
             FileWriter fw = new FileWriter(("tasks.txt"));
-            for(int i = 0; i<indexOfTask;i++){
+            for(Task task : tasks){
                 //fw.write(tasks[i].toString() + "\n");
-                fw.write(tasks.get(i).shortType + " | " + tasks.get(i).numisDone() +
-                            " | " + tasks.get(i).getDescription() + " | " + tasks.get(i).time + "\n");
+                fw.write(task.shortType + " | " + task.numisDone() +
+                            " | " + task.getDescription() + " | " + task.time + "\n");
 
             }
             fw.close();
