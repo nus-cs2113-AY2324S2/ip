@@ -1,4 +1,6 @@
 package BobBot;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import BobBot.exceptions.BobBotExceptions;
@@ -45,6 +47,8 @@ public class BobBot {
     }
 
     private static void printTaskList() {
+
+        System.out.println("\tCurrently, there are " + numTasks + " tasks:");
         int taskNumberToDisplay;
 
         for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
@@ -59,7 +63,7 @@ public class BobBot {
         drawLine(true);
     }
 
-    public static void addTask(String line) {
+    public static void addTask(String line, boolean isLoad) {
 
         Task newTask = null;
 
@@ -82,7 +86,9 @@ public class BobBot {
         allTasks[numTasks] = newTask;
         numTasks += 1;
 
-        echoCommand(line, newTask);
+        if (!isLoad) {
+            echoCommand(line, newTask);
+        }
     }
 
     private static void printCustomExceptionMessage(BobBotExceptions e) {
@@ -163,7 +169,8 @@ public class BobBot {
                 } else if (line.startsWith("unmark")) {
                     unmark(line);
                 } else {
-                    addTask(line);
+                    boolean isLoad = false;
+                    addTask(line, isLoad);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 printStandardExceptionMessage(e);
@@ -183,17 +190,61 @@ public class BobBot {
         } else {
             System.out.println("There was an error: " + e);
         }
-
+        
         System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
         System.out.println("\tUsage: (un)mark {task number}");
         System.out.println("\tPlease enter a valid number within the range of your list.");
         
         drawErrorLine();
     }
+    
+    private static void loadMarkings(int taskNum, boolean isMarked) {
+        if (isMarked) {
+            allTasks[taskNum].markAsDone();
+        }
+    }
+
+    private static void loadToList(String nextLine) {
+        String[] taskItems = nextLine.split("\\|", -1);
+        int taskNum = Integer.parseInt(taskItems[0]);
+        boolean isMarked = (Integer.parseInt(taskItems[1]) == 1) ? true : false;
+        String taskDetails = taskItems[2].toString();
+
+        boolean isLoad = true;
+
+        addTask(taskDetails, isLoad);
+        loadMarkings(taskNum, isMarked);
+        
+    }
+
+    // adapted from https://nus-cs2113-ay2324s2.github.io/website/schedule/week6/topics.html#w6-3-java-file-access
+    private static void loadFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+
+        while (s.hasNext()) {
+            loadToList(s.nextLine());
+        }
+
+        displayList();
+    }
+
+
+    private static void loadFileFromStorage() {
+        String saveFilePath = "src/storage/saveFile.txt";
+
+        try {
+            loadFileContents(saveFilePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("No save file found. Creating new task list ...");
+        }
+    }
 
     public static void main(String[] args) {
         greet();
+        loadFileFromStorage();
         runTaskManager();
+        // saveFileToStorage();
         bidFarewell();
     }
 
