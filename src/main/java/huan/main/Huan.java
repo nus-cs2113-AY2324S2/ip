@@ -181,7 +181,7 @@ public class Huan {
                         tasks.get(deleteIndex - 1).setIsDone(true);
                         System.out.println("Removed task number " + deleteIndex + ": " + tasks.get(deleteIndex - 1).getName());
                         tasks.remove(deleteIndex - 1);
-
+                        writeTasks();
                     }
                 } catch (Exception e){
                     System.out.println("Incorrect format! Should be 'delete *n', where n is the index of the task you wish to delete.");
