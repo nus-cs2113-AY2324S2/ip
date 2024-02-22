@@ -57,8 +57,8 @@ public class TaskManager {
         // Todo: Add a default clause to catch any new unhandled task types
         totalTasksCreated += 1;
         Task newTask = createTask(taskDescription, taskType, totalTasksCreated, false);
-        newTask.printTask();
         System.out.println("Alright. I have added this task: ");
+        newTask.printTask();
         System.out.println("Now you have " + totalTasksCreated + " tasks in the list.");
     }
 
