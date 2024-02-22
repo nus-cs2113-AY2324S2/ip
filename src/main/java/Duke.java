@@ -1,7 +1,19 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import exception.EkudException;
 
 public class Duke {
+
+    private static void writeToFile(String filePath, Task[] tasks, int taskCount) throws IOException{
+        FileWriter fw = new FileWriter(filePath);
+        for(int i = 0; i < taskCount; i++){
+            fw.write(tasks[i].toString() + "\n");
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -10,6 +22,8 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("I'm Ekud! What can I do for you?");
+
+        String filePath = "tasks.txt";
 
         String userInput;
         Scanner in = new Scanner(System.in);
@@ -70,10 +84,15 @@ public class Duke {
                         System.out.println(tasks[taskCount]);
                         taskCount++;
                         System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+                        writeToFile(filePath, tasks, taskCount);
                     }
                 }
                 catch (EkudException error) {
                     System.out.println("The description of a todo cannot be empty.");
+                }
+                catch (IOException error) {
+                    System.out.println("Something went wrong: " + error.getMessage());
                 }
             }
             else if(userInputWords[0].equals("deadline")){
@@ -89,10 +108,15 @@ public class Duke {
                         System.out.println(tasks[taskCount]);
                         taskCount++;
                         System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+                        writeToFile(filePath, tasks, taskCount);
                     }
                 }
                 catch (EkudException error) {
                     System.out.println("The description of a deadline cannot be empty.");
+                }
+                catch (IOException error) {
+                    System.out.println("Something went wrong: " + error.getMessage());
                 }
             }
             else if(userInputWords[0].equals("event")){
@@ -110,10 +134,15 @@ public class Duke {
                         System.out.println(tasks[taskCount]);
                         taskCount++;
                         System.out.println("Now you have " + taskCount + " tasks in the list.");
+
+                        writeToFile(filePath, tasks, taskCount);
                     }
                 }
                 catch (EkudException error) {
                     System.out.println("The description of an event cannot be empty.");
+                }
+                catch (IOException error) {
+                    System.out.println("Something went wrong: " + error.getMessage());
                 }
             }
             else{
