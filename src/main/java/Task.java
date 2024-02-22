@@ -20,7 +20,7 @@ public class Task {
     public static void addTask(String text, Task[] tasks, int num) {
         // Todo
         if (text.startsWith("todo")) {
-            if (text.length() < 5) {
+            if (text.length() < "todo".length() + 2) {
                 System.out.println("OH NOOO! Please enter the todo task name.");
             } else {
                 tasks[num] = new ToDo(text);
@@ -30,7 +30,7 @@ public class Task {
 
         // Deadline
         else if (text.startsWith("deadline")) {
-            if (text.length() < 9) {
+            if (text.length() < "deadline".length() + 2) {
                 System.out.println("OH NOOO! Please enter the deadline task name.");
             } else {
                 tasks[num] = new Deadline(text);
@@ -39,7 +39,7 @@ public class Task {
         }
         // Event
         else if (text.startsWith("event")) {
-            if (text.length() < 6) {
+            if (text.length() < "event".length() + 2) {
                 System.out.println("OH NOOO! Please enter the event task name.");
             } else {
                 tasks[num] = new Event(text);
