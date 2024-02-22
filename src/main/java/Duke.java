@@ -19,6 +19,12 @@ public class Duke {
 
     public void addTask(String description) throws DukeException{
 
+        // Split the description into task type and task description (2 parts)
+
+//        if (parts.length < TASK_DESCRIPTION_INDEX + 1) {
+//            throw new DukeException("Invalid task format. Please provide a task type and description.");
+//        }
+
         String[] parts = description.split(" ", 2);
         String taskType = parts[0].toLowerCase();
         String taskDescription = parts.length > 1 ? parts[1] : "";
@@ -53,7 +59,6 @@ public class Duke {
                 System.out.println("Invalid task type. Please try again.");
                 return;
         }
-
         tasks.add(task);
         System.out.println("Added: " + task);
     }
@@ -64,7 +69,6 @@ public class Duke {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
-//                System.out.println((i + 1) + ".[" + (tasks.get(i).isDone ? "X] " : " ] ") + tasks.get(i));
                 System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
