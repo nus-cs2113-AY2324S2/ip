@@ -38,18 +38,13 @@ public class Wongster {
                     }
                 }
             } else if(userInput.startsWith("todo")) {
-                if (userInput.trim().length() > 4) {
                     String description = userInput.substring(5).trim();
                     userList[userListItems] = new ToDo(description);
                     userListItems++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println(userList[userListItems - 1]);
                     System.out.println("Now you have " + userListItems + " tasks in the list.");
-                } else {
-                    System.out.println("Please input a descriptor for an todo task!");
-                }
             } else if(userInput.startsWith("deadline")) {
-                if (userInput.trim().length() > 8) {
                     String[] parts = userInput.substring(9).split("/by");
                     String description = parts[0].trim();
                     String by = parts[1].trim();
@@ -58,11 +53,7 @@ public class Wongster {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(userList[userListItems - 1]);
                     System.out.println("Now you have " + userListItems + " tasks in the list.");
-                } else {
-                    System.out.println("Please input a descriptor for an deadline task!");
-                }
             } else if(userInput.startsWith("event")) {
-                if (userInput.trim().length() > 5) {
                     String[] parts = userInput.substring(6).split("/from|/to");
                     String description = parts[0].trim();
                     String from = parts[1].trim();
@@ -72,24 +63,6 @@ public class Wongster {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(userList[userListItems - 1]);
                     System.out.println("Now you have " + userListItems + " tasks in the list.");
-                } else {
-                    System.out.println("Please input a descriptor for an event task!");
-                }
-            } else if(userInput.startsWith("delete")) {
-                int n = Integer.parseInt(userInput.split(" ")[1]);
-                Task currentTask = userList[n - 1];
-                Task[] newTasks = new Task[100];
-                int j = 0;
-                for(int i = 0; i < userListItems; i++){
-                    if(i != n - 1){
-                        newTasks[j++] = userList[i];
-                    }
-                }
-                userListItems--;
-                userList = newTasks;
-                System.out.println("Noted. I've removed this task:\n" + " " + currentTask + "\nNow you have " + Integer.toString((userListItems)) +" tasks " + "in the list.\n");
-            } else {
-                System.out.println("Invalid input, please enter a valid command. Commands start with either a todo, deadline, or event, followed by a description of the task.");
             }
         }
         scanner.close();
