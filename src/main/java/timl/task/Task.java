@@ -19,6 +19,9 @@ public abstract class Task {
         String icon = isMarked ? MARKED : UNMARKED;
         return icon + " " + description;
     }
+    public void setMarked(boolean x){
+        this.isMarked = x;
+    }
 }
 
 

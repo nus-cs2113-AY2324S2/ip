@@ -31,6 +31,9 @@ public class Printer {
     protected static final String EMPTY_CONTENT = "    ____________________________________________________________\n" +
             "     Your task description is empty :-(\n" +
             "    ____________________________________________________________";
+    protected static final String IO_EXCEPTION = "    ____________________________________________________________\n" +
+            "     IO-exception sir :-(\n" +
+            "    ____________________________________________________________";
     public static void printGreeting() {
         System.out.println(GREETING);
     }
@@ -79,5 +82,8 @@ public class Printer {
     public static void printEmptyContent(){
         System.out.println(EMPTY_CONTENT);
     }
+    public static void printIOException(){
+    System.out.println(IO_EXCEPTION);
+}
 }
 

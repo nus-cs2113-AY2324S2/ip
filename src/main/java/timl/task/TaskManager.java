@@ -1,11 +1,22 @@
 package timl.task;
 
-import timl.Exeptions.EmptyException;
+import timl.exceptions.EmptyException;
 import timl.utility.Printer;
 import timl.utility.TextParser;
-import timl.Exeptions.TimException;
+import timl.exceptions.TimException;
 
 public class TaskManager {
+    public void addTask(Task t, Task[] list) {
+        int emptyIndex = 0;
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null) {
+                emptyIndex = i;
+                break;
+            }
+        }
+        list[emptyIndex] = t;
+    }
+
     public static void mark(int taskIndex, Task[] list, int emptyIndex) throws TimException {
         if ((taskIndex < 0) |(emptyIndex <= taskIndex)){
             throw new TimException();

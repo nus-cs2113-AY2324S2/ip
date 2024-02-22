@@ -1,16 +1,20 @@
 package timl;
 
-import timl.Exeptions.EmptyException;
-import timl.Exeptions.TimException;
+import timl.exceptions.EmptyException;
+import timl.exceptions.TimException;
 import timl.task.Task;
 import timl.task.TaskManager;
 import timl.utility.Printer;
 import timl.utility.TextParser;
+import timl.utility.FileManager;
 
+
+import java.io.IOException;
 import java.util.Scanner;
 import java.lang.String;
 
 public class TimL {
+    public static Task[] todolist = new Task[100];
     public static void respondToCommand(String response, Task[] list){
         String command = TextParser.extractCommand(response);
         String message = TextParser.extractMessage(response);
@@ -63,9 +67,9 @@ public class TimL {
             case "event":
                 try {
                     TaskManager.addEvent(message, list, emptyIndex);
-                }catch (ArrayIndexOutOfBoundsException e) {
+                } catch (ArrayIndexOutOfBoundsException e) {
                     Printer.printTaskOverflow();
-                }catch (TimException | IndexOutOfBoundsException e) {
+                } catch (TimException | IndexOutOfBoundsException e) {
                     Printer.printInvalidEvent();
                 }
                 break;
@@ -89,15 +93,21 @@ public class TimL {
 
 
     public static void main(String[] args) {
-        Task[] todolist = new Task[100];
         Printer.printGreeting();
         String response;
         Scanner in = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager();
+        FileManager.checkAndReadFile(taskManager, todolist);
         response = in.nextLine();
         while (!response.equals("bye")){
             respondToCommand(response, todolist);
             in = new Scanner(System.in);
             response = in.nextLine();
+        }
+        try {
+            FileManager.exportData(todolist);
+        } catch (IOException e){
+            Printer.printIOException();
         }
         Printer.printGoodbye();
     }
