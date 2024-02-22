@@ -2,7 +2,6 @@ import Duke.*;
 import Tasks.*;
 import Tasks.Task;
 
-import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +104,6 @@ public class Duke {
                         System.out.println("Got an IOException error.");
                     }
                 }
-
             } else if (InputMARK) {
                 if (InputUNMARK) {
 
@@ -218,6 +216,5 @@ public class Duke {
 
         System.out.println(line + "Bye. Hope to see you again soon!\n"
                 + "\n" + line);
-
         }
 }
