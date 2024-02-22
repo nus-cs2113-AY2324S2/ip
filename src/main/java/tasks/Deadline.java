@@ -19,6 +19,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getType() {
+        return "D";
+    }
+
+    @Override
     public String toString() {
         return ("[D]" + super.toString() + " (by: " + this.by + ")");
     }

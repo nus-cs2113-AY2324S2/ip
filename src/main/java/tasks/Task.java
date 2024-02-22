@@ -38,6 +38,10 @@ public class Task {
         isDone = false;
     }
 
+    public String getType() {
+        return "Task";
+    }
+
     @Override
     public String toString() {
         return ("[" + getDoneStatus() + "] " + this.name);
