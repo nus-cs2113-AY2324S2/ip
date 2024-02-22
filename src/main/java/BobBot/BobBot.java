@@ -1,6 +1,12 @@
 package BobBot;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import BobBot.exceptions.BobBotExceptions;
 import BobBot.exceptions.InvalidDeadlineException;
@@ -15,7 +21,13 @@ public class BobBot {
 
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private static int numTasks = 0;
-    private enum TaskStatus { MARK, UNMARK, DELETE }
+
+    private enum TaskStatus {
+        MARK, UNMARK, DELETE
+    }
+
+    private static final String saveFilePath = "src/storage/saveFile.txt";
+    private static final File file = new File(saveFilePath);
 
     private static void performTaskOperation(String line, TaskStatus status) {
         int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
@@ -63,6 +75,8 @@ public class BobBot {
     }
 
     private static void printTaskList() {
+
+        System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
         int taskNumberToDisplay;
 
         for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
@@ -71,7 +85,7 @@ public class BobBot {
         }
     }
 
-    public static void addTask(String line) {
+    public static void addTask(String line, boolean isLoad) {
 
         Task newTask = null;
 
@@ -94,7 +108,9 @@ public class BobBot {
         allTasks.add(newTask);
         numTasks += 1;
 
-        echoCommand(line, newTask);
+        if (!isLoad) {
+            echoCommand(line, newTask);
+        }
     }
 
     private static void printCustomExceptionMessage(BobBotExceptions e) {
@@ -177,12 +193,13 @@ public class BobBot {
                 } else if (line.startsWith("delete")) {
                     performTaskOperation(line, TaskStatus.DELETE);
                 } else {
-                    addTask(line);
+                    boolean isLoad = false;
+                    addTask(line, isLoad);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 printStandardExceptionMessage(e);
             }
-
+            saveFile();
             line = in.nextLine();
         }
     }
@@ -203,12 +220,82 @@ public class BobBot {
         System.out.println("\tUsage: unmark {task number}");
         System.out.println("\tUsage: delete {task number}");
         System.out.println("\tPlease enter a valid number within the range of your list.");
-        
+
         drawErrorLine();
+    }
+
+    // rewrite the whole file
+    private static void saveFile() {
+        StringBuilder fileContents = new StringBuilder();
+        String lineToAdd = new String();
+
+        for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
+            lineToAdd = createFileLine(taskIndex);
+            fileContents.append(lineToAdd);
+        }
+
+        try {
+            FileWriter fw = new FileWriter(saveFilePath);
+            fw.write(fileContents.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred when writing to the file: " + e);
+        }
+    }
+
+    private static String createFileLine(int taskIndex) {
+        int taskNumberToDisplay = taskIndex;
+        Task taskToSave = allTasks.get(taskIndex);
+        int taskMarkedStatus = (taskToSave.getMarkedStatus()) ? 1 : 0;
+        String taskDescription = taskToSave.getDescription();
+        String textToAdd = String.format("%d|%d|%s\n", taskNumberToDisplay, taskMarkedStatus, taskDescription);
+
+        return textToAdd;
+    }
+
+    private static void loadMarkings(int taskNum, boolean isMarked) {
+        if (isMarked) {
+            allTasks.get(taskNum).markAsDone();
+        }
+    }
+
+    private static void loadToList(String nextLine) {
+        String[] taskItems = nextLine.split("\\|", -1);
+        int taskNum = Integer.parseInt(taskItems[0]);
+        boolean isMarked = (Integer.parseInt(taskItems[1]) == 1) ? true : false;
+        String taskDetails = taskItems[2].toString();
+
+        boolean isLoad = true;
+
+        addTask(taskDetails, isLoad);
+        loadMarkings(taskNum, isMarked);
+
+    }
+
+    // adapted from
+    // https://nus-cs2113-ay2324s2.github.io/website/schedule/week6/topics.html#w6-3-java-file-access
+    private static void loadFileContents(String filePath) throws FileNotFoundException {
+        Scanner fileScanner = new Scanner(file);
+
+        while (fileScanner.hasNext()) {
+            loadToList(fileScanner.nextLine());
+        }
+
+        displayList();
+    }
+
+    private static void loadFileFromStorage() {
+
+        try {
+            loadFileContents(saveFilePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("No save file found. Creating new task list ...");
+        }
     }
 
     public static void main(String[] args) {
         greet();
+        loadFileFromStorage();
         runTaskManager();
         bidFarewell();
     }
