@@ -116,6 +116,21 @@ public class Duke {
                     System.out.println("The description of an event cannot be empty.");
                 }
             }
+            else if(userInputWords[0].equals("delete")){
+                System.out.println("In delete block.");
+                try {
+                    if(userInputWords.length == 1 || Integer.parseInt(userInputWords[1]) > taskCount){
+                        throw new EkudException();
+                    }
+                    else{
+                        int taskIndex = Integer.parseInt(userInputWords[1]);
+                        System.out.println("Task to delete: " + taskIndex);
+                    }
+                }
+                catch(EkudException error){
+                    System.out.println("The task number is not valid or not provided.");
+                }
+            }
             else{
                 try {
                     throw new EkudException();
