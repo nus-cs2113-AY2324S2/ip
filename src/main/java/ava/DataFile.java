@@ -35,11 +35,8 @@ public class DataFile {
             if (!dataFile.getParentFile().exists()) {
                 Files.createDirectories(dataFile.getParentFile().toPath());
             }
-            if (dataFile.createNewFile()) {
-                System.out.println("File created: " + dataFile.getName());
-            }
         } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            System.out.println("⊙﹏⊙ Not able to create a file for the tasks. " + e.getMessage());
         }
     }
 
@@ -50,6 +47,14 @@ public class DataFile {
     }
 
     protected static void saveTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            try {
+                DataFile.writeToFile("", false);
+                return;
+            } catch (IOException e) {
+                System.out.println("⊙﹏⊙ Not able to save your task.");
+            }
+        }
         try {
             DataFile.writeToFile(tasks.get(0).toString(), false);
         } catch (IOException e) {
@@ -68,15 +73,15 @@ public class DataFile {
 
     protected static void loadFile(ArrayList<Task> tasks) {
         File dataFile = new File(FILE_PATH);
-            try {
-                Scanner s = new Scanner(dataFile); // create a Scanner using the File as the source
-                while (s.hasNext()) {
-                    loadTask(s.nextLine(), tasks);
-                }
-            } catch (FileNotFoundException e) {
-                createFile();
+        try {
+            Scanner s = new Scanner(dataFile); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                loadTask(s.nextLine(), tasks);
             }
+        } catch (FileNotFoundException e) {
+            createFile();
         }
+    }
 
     protected static void loadTask(String line, ArrayList<Task> tasks) {
         line = line.replace("[", "");

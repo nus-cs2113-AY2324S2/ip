@@ -67,6 +67,7 @@ public class Ava {
                 }
             } else if (task.startsWith("delete")) {
                 deleteTask(tasks, task);
+                DataFile.saveTasks(tasks);
                 continue;
             } else {
                 dealWithUnknownException();
