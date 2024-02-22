@@ -26,16 +26,36 @@ public class Duke {
                 }
             }
             else if(words[0].equals("mark")){
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                tasks[taskIndex].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[taskIndex]);
+                try {
+                    if (words.length == 1 || Integer.parseInt(words[1]) > taskCount){
+                        throw new EkudException();
+                    }
+                    else {
+                        int taskIndex = Integer.parseInt(words[1]) - 1;
+                        tasks[taskIndex].markAsDone();
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(tasks[taskIndex]);
+                    }
+                }
+                catch (EkudException error) {
+                    System.out.println("The given task number is not valid.");
+                }
             }
             else if(words[0].equals("unmark")){
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                tasks[taskIndex].markAsNotDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[taskIndex]);
+                try {
+                    if (words.length == 1 || Integer.parseInt(words[1]) > taskCount){
+                        throw new EkudException();
+                    }
+                    else {
+                        int taskIndex = Integer.parseInt(words[1]) - 1;
+                        tasks[taskIndex].markAsNotDone();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(tasks[taskIndex]);
+                    }
+                }
+                catch (EkudException error) {
+                    System.out.println("The given task number is not valid.");
+                }
             }
             else if(words[0].equals("todo")){
                 int dividerPosition = userInput.indexOf(" ");
