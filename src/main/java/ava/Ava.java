@@ -5,6 +5,7 @@ import ava.task.Event;
 import ava.task.Task;
 import ava.task.ToDo;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class Ava {
     public static void mainProcess() {
         boolean isExit = false;
         ArrayList<Task> tasks = new ArrayList<>();
+        DataFile.loadFile(tasks);
         Scanner in = new Scanner(System.in);
         while (!isExit) {
             String task = in.nextLine();
@@ -30,6 +32,7 @@ public class Ava {
                 continue;
             } else if (task.contains("mark")) {
                 markTask(tasks, task);
+                DataFile.saveTasks(tasks);
                 continue;
             } else if (task.startsWith("todo")) {
                 try {
@@ -70,6 +73,7 @@ public class Ava {
                 continue;
             }
             printAfterAddingTask(tasks);
+            DataFile.saveTasks(tasks);
         }
     }
 
@@ -107,6 +111,7 @@ public class Ava {
             throw new EmptyDescriptionException();
         }
         String[] taskAndDate = task.split("/");
+        taskAndDate[0] = taskAndDate[0].trim();
         switch (type) {
         case "todo":
             tasks.add(new ToDo(taskAndDate[0]));
@@ -204,6 +209,7 @@ public class Ava {
         }
         printLine();
     }
+
 
     public static void printLine() {
         System.out.println("____________________________________________________________");

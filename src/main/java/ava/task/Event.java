@@ -12,6 +12,14 @@ public class Event extends Task {
         this.endDate = endDateEntered;
     }
 
+    public Event(String description, String startDateEntered, String endDateEntered, boolean isCompleted) {
+        super(description, isCompleted);
+        startDateEntered = startDateEntered.replace("from", "from:");
+        endDateEntered = endDateEntered.replace("to", "to:");
+        this.startDate = startDateEntered;
+        this.endDate = endDateEntered;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(" + this.startDate + this.endDate + ")";
