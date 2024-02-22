@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
 public class Duke {
     private static MoodSprite mood = new MoodSprite();
     private static List<Task> list = new ArrayList<>(2);
@@ -17,7 +18,7 @@ public class Duke {
     }
 
     public static void saveList() throws IOException {
-        FileWriter fileInput = new FileWriter("./ip/src/main/java/savedList.txt");
+        FileWriter fileInput = new FileWriter("./savedList.txt");
         for (int i = 0; i < list.size(); i++) {
             fileInput.write(list.get(i).toString() + "\n");
         }
@@ -45,12 +46,6 @@ public class Duke {
             String[] splitInput = input.split(" ");
             list.get(Integer.parseInt(splitInput[1])-1).doneIsTrue();
             System.out.println("Marked "+ Integer.parseInt(splitInput[1]));
-        } else if (input.contains("save")) {
-            try {
-                saveList();
-            } catch (IOException e) {
-                System.out.println("File not found");
-            }
         }
         else if (input.contains("delete ")) {
             String[] splitInput = input.split(" ");
@@ -59,6 +54,11 @@ public class Duke {
         }
         else {
             throw new PythiaException();
+        }
+        try {
+            saveList();
+        } catch (IOException e) {
+            System.out.println("savedList not found, creating now");
         }
         System.out.println(lineBreak);
     }

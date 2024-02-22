@@ -13,6 +13,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return taskId + this.getDoneStatus() + " " + description + " (" + from + " " + to + ")";
+        return taskId + this.getDoneStatus() + " " + description + " (from: " + from + " to: " + to + ")";
     }
 }
