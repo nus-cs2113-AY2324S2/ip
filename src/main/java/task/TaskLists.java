@@ -52,6 +52,17 @@ public class TaskLists {
         System.out.println("____________________________________________________________");
     }
 
+    public void delete(int index) {
+        Tasks fetch = this.tasksList.get(index - 1);
+        this.tasksList.remove(index - 1);
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + fetch);
+        int size = this.tasksList.size();
+        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
     public void taskNumPrint() {
         System.out.println("Now you have " + this.tasksList.size() + " tasks in the list");
     }
