@@ -1,9 +1,2 @@
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-
-    public String getType() {
-        return "[T]";
-    }
+package PACKAGE_NAME;public class Todo {
 }
