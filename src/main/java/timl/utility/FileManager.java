@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class FileManager {
     protected static final String DATA_PATH = "./data/";
     protected static final String FILE_NAME= "tasklist.txt";
-    public static void checkAndReadFile(TaskManager taskManager, Task[] list ){
+    public static void checkAndReadFile(TaskManager taskManager){
         File directory = new File(DATA_PATH);
 
         try {
@@ -30,16 +30,16 @@ public class FileManager {
             while (s.hasNext()) {
                 data = s.nextLine();
                 Task newTask = FileParser.readTask(data);
-                taskManager.addTask(newTask, list);
+                taskManager.addTask(newTask);
             }
             s.close();
         } catch (IOException e) {
             Printer.printIOException();
         } catch (TimException e) {
-            Printer.printEmptyContent();
+            Printer.printEmptyTodoCommand();
         }
     }
-    public static void exportData(Task[] tasks) throws IOException {
+    public static void exportData() throws IOException {
         File saveFile = new File(DATA_PATH + FILE_NAME);
         if (!saveFile.createNewFile()) {
                 saveFile.delete();
@@ -49,7 +49,7 @@ public class FileManager {
 
         FileWriter fw = new FileWriter(saveFile);
         BufferedWriter writer = new BufferedWriter(fw);
-        for (Task t : tasks) {
+        for (Task t : TaskManager.list) {
             String data = null;
             switch (TaskManager.getTaskType(t)) {
                 case "[T]":
