@@ -44,8 +44,10 @@ public class FileStorage {
     public static void readDataFromFile(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
         System.out.println("Retrieving file details.");
-        while (sc.hasNext()) {
-            System.out.println(sc.nextLine());
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            System.out.println(line);
+            TaskList.readTaskFromFile(line);
         }
         System.out.println();
         sc.close();
@@ -66,7 +68,7 @@ public class FileStorage {
     public static void saveFile(File file) throws IOException {
         FileWriter fw = new FileWriter(file);
         for (int i = 0; i < TaskList.getLength(); i += 1) {
-            fw.write(TaskList.getTasks().get(i).getTaskDetails() + "\n");
+            fw.write(TaskList.getTasks().get(i).getTaskAsString() + "\n");
         }
         System.out.println("\nWriting successful.\n");
         fw.close();

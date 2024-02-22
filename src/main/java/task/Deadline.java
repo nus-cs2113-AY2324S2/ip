@@ -10,6 +10,11 @@ public class Deadline extends Task {
 
     @Override
     public String getTaskDetails() {
-        return "[D][" + getStatusIcon() + "] " + description + "(by: " + deadline + ")";
+        return "[D][" + getStatusIcon() + "] " + description + " (by: " + deadline + ")";
+    }
+
+    @Override
+    public String getTaskAsString() {
+        return "D | " + getDoneAsInteger() + " | " + description + " | " + deadline;
     }
 }
