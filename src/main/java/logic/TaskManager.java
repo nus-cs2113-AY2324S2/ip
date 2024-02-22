@@ -1,7 +1,9 @@
 package logic;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import exceptions.InvalidInputException;
 import exceptions.TaskNoNameException;
@@ -63,6 +65,7 @@ public class TaskManager {
             throw new InvalidInputException();
         }
         printAndIncrementAfterAddTask();
+        saveData();
     }
     
     private void processToDo(String taskToAdd, boolean isDone) {
@@ -133,6 +136,7 @@ public class TaskManager {
             System.out.println("Ok, I've marked this Task as not done yet:");
             System.out.println(targetTask);
         }
+        saveData();
     }
 
     public void listTasks() {
@@ -154,5 +158,46 @@ public class TaskManager {
             data = s.nextLine();
             // TODO: process data and add
         }
+    }
+
+    public void saveData() throws IOException {
+        FileWriter fw = new FileWriter("./data/dor.txt");
+        for (int i = 0; i < currIndex; i++) {
+            Task currTask = tasks[i];
+            String data = processData(currTask);
+            fw.write(data + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private String processData(Task currTask) {
+        String data;
+        String doneStatusAlt;
+        if (currTask.getDoneStatus().equals("X")) {
+            doneStatusAlt = "1";
+        } else {
+            doneStatusAlt = "0";
+        }
+        data = currTask.getType() + ", " + doneStatusAlt + ", " + currTask.getName();
+        if (currTask.getType().equals("D")) {
+            data = data + ", " + appendByDateTimeToData((Deadline) currTask);
+        } else if (currTask.getType().equals("E")) {
+            data = data + ", " + appendFromToDateTimeToData((Event) currTask);
+        }
+        return data;
+    }
+
+    public String appendByDateTimeToData(Deadline data) {
+        return data.getBy();
+    }
+
+    public String appendFromToDateTimeToData(Event data) {
+        return (data.getFrom() + ", " + data.getTo());
+    }
+
+    public void writeToFile(String data) throws IOException {
+        FileWriter fw = new FileWriter("./data/dor.txt");
+        fw.write(data + System.lineSeparator());
+        fw.close();
     }
 }
