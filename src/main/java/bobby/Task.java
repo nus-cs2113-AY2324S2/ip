@@ -4,9 +4,18 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+
+    public Task(String description,Boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
+    }
+
+    public String getBy() {
+        return "";
+    }
+
+    public String getFrom() {
+        return "";
     }
 
     public String getStatusIcon() {
