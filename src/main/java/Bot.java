@@ -136,6 +136,7 @@ public class Bot {
         System.out.println("  " + removedTask);
         System.out.println("Now you have " + Task.number + " tasks in the list.");
         printLine();
+        saveTasksToFile();
     }
 
     private void handleTodo(String input) throws BotException{
@@ -236,6 +237,7 @@ public class Bot {
             System.out.println("The index is not a number! "); // check the index kind
             printLine();
         }
+
 
     }
 
