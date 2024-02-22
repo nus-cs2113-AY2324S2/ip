@@ -12,6 +12,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String task, boolean isDone){
+        this.taskName = task;
+        this.isDone = isDone;
+    }
     public String getTaskName() {
         return taskName;
     }
@@ -34,5 +38,9 @@ public class Task {
         else{
             return("[ ] " + this.taskName);
         }
+    }
+
+    public String toSerial(){
+        return (this.taskName+","+this.isDone);
     }
 }
