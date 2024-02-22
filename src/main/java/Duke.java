@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import exception.EkudException;
 
 public class Duke {
     public static void main(String[] args) {
@@ -38,11 +39,21 @@ public class Duke {
             }
             else if(words[0].equals("todo")){
                 int dividerPosition = userInput.indexOf(" ");
-                tasks[taskCount] = new Todo(userInput.substring(dividerPosition + 1));
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount]);
-                taskCount++;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                try {
+                    if (dividerPosition == -1) {
+                        throw new EkudException();
+                    }
+                    else {
+                        tasks[taskCount] = new Todo(userInput.substring(dividerPosition + 1));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(tasks[taskCount]);
+                        taskCount++;
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    }
+                }
+                catch (EkudException error) {
+                    System.out.println("The description of a todo cannot be empty.");
+                }
             }
             else if(words[0].equals("deadline")){
                 int dividerPosition = userInput.indexOf(" ");
@@ -65,11 +76,12 @@ public class Duke {
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
             }
             else{
-                tasks[taskCount] = new Todo(userInput);
-                System.out.println("Got it. I've added this task.");
-                System.out.println(tasks[taskCount]);
-                taskCount++;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                try {
+                    throw new EkudException();
+                }
+                catch (EkudException error){
+                    System.out.println("OOPS! That is not a valid input.");
+                }
             }
             userInput = in.nextLine();
         }
