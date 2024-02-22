@@ -17,6 +17,12 @@ public class Event extends Deadline {
     }
 
     @Override
+    public String toSaveTextFormat() {
+        String done = (getStatusIcon().equals("X") ? "1" : "0");
+        return "E|" + done + "|" + this.getDescription() + "|" + this.getBy() + "|" + from + System.lineSeparator();
+    }
+
+    @Override
     public String toString() {
         return this.getDescription() + " from " + from + " to " + this.getBy();
     }

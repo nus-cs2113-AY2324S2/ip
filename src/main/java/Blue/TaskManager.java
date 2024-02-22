@@ -1,11 +1,22 @@
 package Blue;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class TaskManager extends Blue {
+    public static final String DATA_DIR_PATH = "data";
+    public static final String TASK_FILE_PATH = DATA_DIR_PATH + "/tasks.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int numTasks = 0;
     private Input request;
+
+    public TaskManager() {
+        restoreTasks();
+    }
 
     public TaskManager(Input request) {
         this.request = request;
@@ -16,7 +27,7 @@ public class TaskManager extends Blue {
         switch (request.getCommand()) {
         case list:
             listTasks();
-            break;
+            return;
         case mark:
             markTask(request.getTaskIndex());
             break;
@@ -30,6 +41,7 @@ public class TaskManager extends Blue {
             break;
         default:
         }
+        saveTasks();
     }
 
     private void listTasks() {
@@ -64,5 +76,70 @@ public class TaskManager extends Blue {
         tasks.add(task);
         numTasks += 1;
         talk("added: " + task.getDescription());
+    }
+
+    //assume taskFile is in the proper format for now
+    private void restoreTasks() {
+        File taskFile = new File(TASK_FILE_PATH);
+        //if (!taskFile.isFile()) {
+        //    return tasks;
+        //}
+        try {
+            Scanner s = new Scanner(taskFile);
+            while (s.hasNext()) {
+                String[] savedTaskDetails = s.nextLine().split("\\|");
+                Task savedTask = restoreTask(savedTaskDetails);
+                addTask(savedTask);
+            }
+            talk("Restored " + numTasks + " tasks.");
+        } catch (FileNotFoundException e) {
+            talk("No saved tasks found, starting from scratch.");
+        }
+    }
+
+    private Task restoreTask(String[] savedDetails) {
+        Task restoredTask;
+        switch (savedDetails[0]) {
+        case "T":
+            restoredTask = new Task(savedDetails[2]);
+            break;
+        case "D":
+            restoredTask = new Deadline(savedDetails[2], savedDetails[3]);
+            break;
+        case "E":
+            restoredTask = new Event(savedDetails[2], savedDetails[4], savedDetails[3]);
+            break;
+        default:
+            restoredTask = new Task();
+        }
+        if (savedDetails[1].equals("1")) {
+            restoredTask.setDone();
+        }
+        return restoredTask;
+    }
+
+    private void saveTasks() {
+        new File(DATA_DIR_PATH).mkdirs();
+        File taskFile = new File(TASK_FILE_PATH);
+        try {
+            taskFile.createNewFile();
+        } catch (IOException e) {
+            talk("Failed to save tasks.");
+            return;
+        }
+        for (int i = 0; i < numTasks; i += 1) {
+            try {
+                writeTaskToFile(tasks[i], (i != 0));
+            } catch (IOException e) {
+                talk("Failed to save tasks.");
+                return;
+            }
+        }
+    }
+
+    private void writeTaskToFile(Task task, boolean isAppend) throws IOException {
+        FileWriter fw = new FileWriter(TASK_FILE_PATH, isAppend);
+        fw.write(task.toSaveTextFormat());
+        fw.close();
     }
 }
