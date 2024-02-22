@@ -20,6 +20,15 @@ public class Event extends Task{
             throw new MissingParamsException(missingParams);
         }
     }
+
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)",

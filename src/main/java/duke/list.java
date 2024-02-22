@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -8,11 +10,18 @@ import java.util.Scanner;
 import static duke.print.printMessage;
 import static duke.command.*;
 
+import static duke.load.*;
+
 public class list {
     public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
             {"list", "mark", "unmark", "todo", "deadline", "event", "bye"};
-    public static List<Task> taskList = new ArrayList<>();
+    public static List<Task> taskList;
+
+    public static void createTaskList()
+        throws DukeException.DatabaseLoadException {
+        taskList = loadTasks("src/main/java/db/tasks.txt");
+    }
 
     /**
      * Prints greeting.
@@ -81,6 +90,12 @@ public class list {
         String line;
         Scanner in = new Scanner(System.in);
 
+        try {
+            createTaskList();
+        } catch (DukeException.DatabaseLoadException e) {
+            e.printErrorMessage();
+        }
+
         while(true){
             line = in.nextLine();
 
@@ -97,7 +112,7 @@ public class list {
             try {
                 executeCommand(command,argument);
             } catch (DukeException.EndListException e) {
-                return;
+                break;
             } catch (DukeException.InvalidCommandException e) {
                 e.printErrorMessage();
             } catch (MissingParamsException e) {
@@ -111,11 +126,11 @@ public class list {
                 e.printErrorMessage();
             }
         }
-    }
 
-    public static void main(String[] args){
-        greet();
-        startList();
-        goodbye();
+        try {
+            saveTasks("src/main/java/db/tasks.txt", taskList);
+        } catch (IOException ignore) {
+
+        }
     }
 }
