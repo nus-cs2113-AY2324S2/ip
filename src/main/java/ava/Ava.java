@@ -20,6 +20,7 @@ public class Ava {
     public static void mainProcess() {
         boolean isExit = false;
         ArrayList<Task> tasks = new ArrayList<>();
+        DataFile.loadFile(tasks);
         Scanner in = new Scanner(System.in);
         while (!isExit) {
             String task = in.nextLine();
@@ -31,6 +32,7 @@ public class Ava {
                 continue;
             } else if (task.contains("mark")) {
                 markTask(tasks, task);
+                DataFile.saveTasks(tasks);
                 continue;
             } else if (task.startsWith("todo")) {
                 try {
@@ -65,6 +67,7 @@ public class Ava {
                 }
             }
             printAfterAddingTask(tasks);
+            DataFile.saveTasks(tasks);
         }
     }
 
@@ -96,6 +99,7 @@ public class Ava {
             throw new EmptyDescriptionException();
         }
         String[] taskAndDate = task.split("/");
+        taskAndDate[0] = taskAndDate[0].trim();
         switch (type) {
         case "todo":
             tasks.add(new ToDo(taskAndDate[0]));
@@ -115,11 +119,6 @@ public class Ava {
             printLine();
             System.out.println("Got it! I've added this task:");
             System.out.println(addedTask);
-            try {
-                DataFile.writeToFile(addedTask);
-            } catch (IOException e) {
-                System.out.println("⊙﹏⊙ Not able to save your task.");
-            }
         } catch (ArrayIndexOutOfBoundsException e) {
             printLine();
             System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
@@ -178,6 +177,7 @@ public class Ava {
         }
         printLine();
     }
+
 
     public static void printLine() {
         System.out.println("____________________________________________________________");

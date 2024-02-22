@@ -15,6 +15,15 @@ public class Task {
         numberOfTasks += 1;
     }
 
+    public Task(String description, boolean isCompleted) {
+        this.description = description;
+        this.isDone = isCompleted;
+        if (description.equals("list") || description.contains("mark")) {
+            return;
+        }
+        numberOfTasks += 1;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon()
