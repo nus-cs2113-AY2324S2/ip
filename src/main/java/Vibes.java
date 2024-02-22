@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class Vibes {
     private static final String CHATBOT_NAME = "Vibes";
@@ -52,6 +53,11 @@ public class Vibes {
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         List taskList = new List();
+        try {
+            taskList.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not Found!");
+        }
 
         System.out.println(DASHED_LINE);
         System.out.println("\t Hello! I'm " + CHATBOT_NAME + "\n\t What can I do for you?");
