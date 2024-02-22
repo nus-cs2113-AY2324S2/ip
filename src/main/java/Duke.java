@@ -169,8 +169,8 @@ public class Duke {
             } else if (command.startsWith("delete")) {
                 int index = Integer.parseInt(command.substring(7));
                 deleteTask(index);
-            } else if (command.equals("save")) {
-                saveTasksToFile(tasks);
+//            } else if (command.equals("save")) {
+//                saveTasksToFile(tasks);
             } else if (!command.startsWith("bye")) {
                 try {
                     addTask(command);
@@ -192,6 +192,7 @@ public class Duke {
 
         chatbot.greet();
         chatbot.echoCommands();
+        saveTasksToFile(chatbot.tasks);
         chatbot.exit();
     }
 
