@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class List {
     Task[] tasks = new Task[100];
     private int taskCount = 0;
@@ -15,13 +19,22 @@ public class List {
         String description;
         switch (taskType){
         case "todo":
-            addTodo(userInput);
+            if(5 > userInput.length()){
+                throw new InvalidArgumentException();
+            }
+            description = userInput.substring(userInput.indexOf(" ") + 1);
+            addTodo(description);
             break;
         case "deadline":
-            addDeadline(userInput);
+            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
+            String by = userInput.substring(userInput.indexOf("/by") + 4);
+            addDeadline(description, by);
             break;
         case "event":
-            addEvent(userInput);
+            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
+            String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") -1);
+            String to = userInput.substring(userInput.indexOf("/to") + 4);
+            addEvent(description, from, to);
             break;
         }
         System.out.println("\t Got it. I've added this task:");
@@ -30,27 +43,15 @@ public class List {
         System.out.println("\t Now you have " + taskCount + " tasks in the list.");
     }
 
-    private void addEvent(String userInput) {
-        String description;
-        description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
-        String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") -1);
-        String to = userInput.substring(userInput.indexOf("/to") + 4);
+    private void addEvent(String description, String from, String to) {
         tasks[taskCount] = new Event(description, from, to);
     }
 
-    private void addDeadline(String userInput) {
-        String description;
-        description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
-        String by = userInput.substring(userInput.indexOf("/by") + 4);
+    private void addDeadline(String description, String by) {
         tasks[taskCount] = new Deadline(description, by);
     }
 
-    private void addTodo(String userInput) throws InvalidArgumentException {
-        String description;
-        if(5 > userInput.length()){
-            throw new InvalidArgumentException();
-        }
-        description = userInput.substring(userInput.indexOf(" ") + 1);
+    private void addTodo(String description){
         tasks[taskCount] = new Todo(description);
     }
 
@@ -71,5 +72,50 @@ public class List {
         tasks[taskNumber].setDone(false);
         System.out.println("\t OK, I've marked this task as not done yet:");
         System.out.println("\t   " + tasks[taskNumber]);
+    }
+
+    public void loadTasks() throws FileNotFoundException {
+        File f = new File("./src/data/vibes.txt");
+        Scanner s  = new Scanner(f);
+        while (s.hasNext()){
+            readTask(s.nextLine());
+        }
+    }
+
+    private void readTask(String textLine){
+        char taskType = textLine.charAt(0);
+        boolean isMarked = (textLine.charAt(4) == '1');
+        String description;
+
+        switch (taskType){
+        case 'T':
+            description = textLine.substring(8).trim();
+            addTodo(description);
+            if (isMarked){
+                tasks[taskCount].setDone(true);
+            }
+            taskCount++;
+            break;
+        case 'D':
+            description = textLine.substring(8, textLine.indexOf('|',8)).trim();
+            String by = textLine.substring(textLine.indexOf('|',8) + 1).trim();
+            addDeadline(description, by);
+            if (isMarked){
+                tasks[taskCount].setDone(true);
+            }
+            taskCount++;
+            break;
+        case 'E':
+            description = textLine.substring(8, textLine.indexOf('|',8)).trim();
+            String from = textLine.substring(textLine.indexOf('|',8) + 1, textLine.lastIndexOf('|'))
+                    .trim();
+            String to = textLine.substring(textLine.lastIndexOf('|') + 1).trim();
+            addEvent(description, from, to);
+            if (isMarked){
+                tasks[taskCount].setDone(true);
+            }
+            taskCount++;
+            break;
+        }
     }
 }
