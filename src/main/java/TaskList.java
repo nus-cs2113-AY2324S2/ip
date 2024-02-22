@@ -39,6 +39,9 @@ public class TaskList {
             case "unmark":
                 unmarkTask(commandParts);
                 break;
+            case "delete":
+                deleteTask(Integer.parseInt(commandParts[1])-1);
+                break;
             default:
                 System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised
                 break;
@@ -130,6 +133,18 @@ public class TaskList {
             }
         } catch (TaskListFullException e) {
             System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteTask(int index) {
+        if (isValidIndex(index)) {
+            Task deletedTask = taskList.remove(index);
+            taskCount -= 1;
+            System.out.println("Okay, Doby has removed this task:");
+            System.out.println(" " + deletedTask);
+            System.out.println("You now have " + taskList.size() + " tasks.");
+        } else {
+            System.out.println("Invalid  number");
         }
     }
 
