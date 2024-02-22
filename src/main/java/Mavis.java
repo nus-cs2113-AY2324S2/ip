@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Mavis {
@@ -31,7 +32,7 @@ public class Mavis {
     private final static String LINE ="____________________________________________________________";
 
     public static void main(String[] args) {
-        Task[] listOfTasks = new Task[100];
+        ArrayList<Task> listOfTasks = new ArrayList<>();
         greetUser();
 
         int listOfTasksSize = 0;
@@ -63,10 +64,17 @@ public class Mavis {
                     } else if (listOfTasksSize >= 100) {
                         throw new ArrayIndexOutOfBoundsException();
                     }
-                    addTask(inputToEcho, listOfTasks, splitInput, listOfTasksSize);
+                    addTask(inputToEcho, listOfTasks, listOfTasksSize);
                     listOfTasksSize++;
-                }
-                else
+                } else if (inputToEcho.startsWith("delete")) {
+                    if (splitInput.length < 2 || splitInput[1].isEmpty()) {
+                        throw new StringIndexOutOfBoundsException();
+                    } else if ((Integer.parseInt(splitInput[1])) > listOfTasksSize) {
+                        throw new ArrayIndexOutOfBoundsException();
+                    }
+                    deleteTask(listOfTasks, splitInput);
+                    listOfTasksSize--;
+                } else
                 {
                     throw new IllegalArgumentException();
                 }
@@ -76,6 +84,15 @@ public class Mavis {
         }
 
         bidFarewell();
+    }
+
+    private static void deleteTask(ArrayList<Task> listOfTasks, String[] splitInput) {
+        int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+        System.out.println("Time erodes all, and hence this task has been erased too:");
+        listTask(taskIndex, listOfTasks.get(taskIndex));
+        System.out.println("Your roster now bears " + (listOfTasks.size() - 1) + " endeavors.");
+
+        listOfTasks.remove(taskIndex);
     }
 
     private static void greetUser() {
@@ -97,15 +114,16 @@ public class Mavis {
         System.out.println("│  4. mark <task number>                        │");
         System.out.println("│  5. unmark <task number>                      │");
         System.out.println("│  6. list                                      │");
-        System.out.println("│  7. bye                                       │");
+        System.out.println("│  7. delete <task number>                      │");
+        System.out.println("│  8. bye                                       │");
         System.out.println("└───────────────────────────────────────────────┘");
     }
 
-    private static void printTasks(Task[] listOfTasks, int size) {
+    private static void printTasks(ArrayList<Task> listOfTasks, int size) {
         System.out.println(LINE);
         System.out.println("Herein lies the catalog of your labors: ");
         for (int i = 0; i < size; i++) {
-            listTask(i, listOfTasks[i]);
+            listTask(i, listOfTasks.get(i));
         }
         System.out.println(LINE);
     }
@@ -114,23 +132,23 @@ public class Mavis {
         System.out.println("[" + currentTask.taskType + "]" + "[" + currentTask.getStatusIcon() + "] " + (currentTaskIndex + 1) + ". " + currentTask.description);
     }
 
-    private static void markTask(String[] splitInput, Task[] listOfTasks) {
+    private static void markTask(String[] splitInput, ArrayList<Task> listOfTasks) {
         int taskIndex = Integer.parseInt(splitInput[1]) - 1;
-        listOfTasks[taskIndex].markAsCompleted();
+        listOfTasks.get(taskIndex).markAsCompleted();
         System.out.println("Your command has been executed."
                 + "Behold the task, now marked as completed:");
-        listTask(taskIndex, listOfTasks[taskIndex]);
+        listTask(taskIndex, listOfTasks.get(taskIndex));
     }
 
-    private static void unmarkTask(String[] splitInput, Task[] listOfTasks) {
+    private static void unmarkTask(String[] splitInput, ArrayList<Task> listOfTasks) {
         int taskIndex = Integer.parseInt(splitInput[1]) - 1;
-        listOfTasks[taskIndex].markAsNotCompleted();
+        listOfTasks.get(taskIndex).markAsNotCompleted();
         System.out.println("Reversing the flow of space and time to undo the task...");
         System.out.println("Here is the task you just marked as not completed:");
-        listTask(taskIndex, listOfTasks[taskIndex]);
+        listTask(taskIndex, listOfTasks.get(taskIndex));
     }
 
-    private static void addTask(String inputToEcho, Task[] listOfTasks, String[] splitInput, int listOfTasksSize) {
+    private static void addTask(String inputToEcho, ArrayList<Task> listOfTasks, int listOfTasksSize) {
         Task newTask;
         if (inputToEcho.startsWith("todo")) {
             newTask = new ToDo(inputToEcho);
@@ -140,7 +158,7 @@ public class Mavis {
             newTask = new Event(inputToEcho);
         }
 
-        listOfTasks[listOfTasksSize] = newTask;
+        listOfTasks.add(listOfTasksSize, newTask);
         showNewlyAddedTask(newTask, listOfTasksSize + 1);
     }
 
