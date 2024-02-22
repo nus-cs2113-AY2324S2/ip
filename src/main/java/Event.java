@@ -2,10 +2,25 @@ public class Event extends Task{
     protected String from;
     protected String to;
 
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
+    public Event(String description) {
+        super(getTask(description));
+        this.from = getFrom(description);
+        this.to = getTo(description);
+    }
+
+    private static String getTask(String description) {
+        String[] split = description.split("/from");
+        return split[0];
+    }
+
+    private static String getFrom(String description) {
+        String[] split = description.split("/from | /to");
+        return split[1];
+    }
+
+    private static String getTo(String description) {
+        String[] split = description.split("/from | /to");
+        return split[2];
     }
 
     @Override

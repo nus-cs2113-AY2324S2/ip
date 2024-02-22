@@ -31,4 +31,5 @@ public class Task {
     public String getTaskTypeIcon() { //default is a todo task
         return "T";
     }
+
 }

@@ -1,9 +1,19 @@
 public class Deadline extends Task{
     protected String by;
 
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
+    public Deadline(String description) {
+        super(getTask(description));
+        this.by = getDueDate(description);
+    }
+
+    private static String getTask(String description) {
+        String[] split = description.split("/by");
+        return split[0];
+    }
+
+    private static String getDueDate(String description) {
+        String[] split = description.split("/by");
+        return split[1];
     }
 
     @Override
@@ -30,5 +40,4 @@ public class Deadline extends Task{
         System.out.println("\t[" + this.getTaskTypeIcon() + "][" + this.getStatusIcon() + "]" + this.description +
                 "(by:" + this.by + ")" ) ;
     }
-
 }

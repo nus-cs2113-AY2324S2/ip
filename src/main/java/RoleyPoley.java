@@ -1,13 +1,19 @@
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
 public class RoleyPoley {
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    protected static ArrayList<Task> taskList = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, RoleyPoleyException {
         //Task[] taskList = new Task[100];
+        ReadFile.readFileToArrayList();
         boolean isExit = false;
         greet();
         while(!isExit) {
@@ -18,6 +24,8 @@ public class RoleyPoley {
             }
         }
     }
+
+
 
     private static void printAddReply(ArrayList<Task> taskList) {
         System.out.println("\t Got it. I've added this task:");
@@ -40,7 +48,8 @@ public class RoleyPoley {
                 if (taskList.get(i) == null) {
                     break;
                 }
-                System.out.println("\t" + (i+1) + ".[" + taskList.get(i).getTaskTypeIcon() + "][" + taskList.get(i).getStatusIcon() + "]" + taskList.get(i).getDescription());
+                System.out.println("\t" + (i+1) + ".[" + taskList.get(i).getTaskTypeIcon() + "]["
+                        + taskList.get(i).getStatusIcon() + "]" + taskList.get(i).getDescription());
             }
         }
     }
@@ -58,11 +67,8 @@ public class RoleyPoley {
     }
 
     public static boolean echo() throws RoleyPoleyException {
-        //int counter = 0;
         String line;
         String[] words;
-        String description;
-        //int counter = 1;
         while (true) {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
@@ -100,35 +106,35 @@ public class RoleyPoley {
                 }
                 break;
             case "todo":
-                description = line.substring("todo".length());
-                if (description.isEmpty() || description.equals(" ")) {
+                if (line.length() < 5) {
                     throw new RoleyPoleyException("toDoError");
                 } else {
-                    taskList.add(new Todo(description));
+                    taskList.add(new Todo(line.substring("todo".length())));
                     printAddReply(taskList);
                     createLine();
                     //counter++;
                 }
                 break;
             case "deadline":
-                words = line.split("/by");
-                if (words.length == 1) {
+                if (!line.contains("/by")) {
                     throw new RoleyPoleyException("deadlineError");
                 } else {
-                    description = words[0].substring("deadline".length());
-                    String dueDate = words[1];
-                    taskList.add(new Deadline(description, dueDate));
+                    taskList.add(new Deadline(line.substring("deadline".length())));
                     printAddReply(taskList);
                     createLine();
                     //counter++;
                 }
                 break;
             case "event":
-                words = line.split("/from");
-                if (words.length == 1) {
+                //words = line.split("/from");
+                if (!line.contains("/from") || !line.contains("/to")) {
                     throw new RoleyPoleyException("eventError");
                 } else {
-                    description = words[0].substring("event".length());
+                    taskList.add(new Event(line.substring("event".length())));
+                    printAddReply(taskList);
+                    createLine();
+                }
+                    /*description = words[0].substring("event".length());
                     int indexOfEndTime = words[1].indexOf("/to");
                     if (indexOfEndTime == -1) {
                         throw new RoleyPoleyException("eventError");
@@ -140,7 +146,7 @@ public class RoleyPoley {
                         createLine();
                         //counter++;
                     }
-                }
+                }*/
                 break;
             case "delete":
                 words = line.split(" ");
