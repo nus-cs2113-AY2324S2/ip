@@ -4,7 +4,66 @@ import exceptions.KikuInvalidTaskException;
 
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 public class KikuBot {
+
+    private static void saveTasks(Task[] tasks, int taskCount) {
+        try {
+            FileWriter writer = new FileWriter("./data/Kiku.txt");
+            for (int i = 0; i < taskCount; i++) {
+                if (tasks[i] != null) {
+                    writer.write(tasks[i].toFileFormat() + "\n");
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+            e.printStackTrace();
+        }
+    }
+
+    private static int loadTasks(Task[] tasks) {
+        int taskCount = 0;
+        try {
+            File file = new File("./data/Kiku.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine() && taskCount < tasks.length) {
+                String line = scanner.nextLine();
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks[taskCount++] = task;
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No saved tasks found. Starting with an empty list.");
+        }
+        return taskCount; // Return the number of tasks loaded
+    }
+
+    private static Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        Task task = null;
+        switch (parts[0]) {
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            task = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            task = new Event(parts[2], parts[3], parts[4]);
+            break;
+        }
+        if (task != null && parts[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
+    }
 
     private static int markIndex(String userInput, int num) {
         String markIndexChar = userInput.substring(num, userInput.length());
@@ -76,6 +135,7 @@ public class KikuBot {
 
         //store in array
         Task[] tasks = new Task[100];
+        int taskCount = loadTasks(tasks);
         int indexTask = 0;
         int markIndexInt;
 
