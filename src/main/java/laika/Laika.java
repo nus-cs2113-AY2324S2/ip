@@ -1,5 +1,9 @@
 package laika;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Laika {
 
@@ -48,12 +52,46 @@ public class Laika {
         }
     }
 
-    public static void main(String[] args) {
+
+    public static void save(String[] lines,int count) throws IOException{
+        FileWriter myWriter = new FileWriter("laika.txt");
+        for (int i = 0; i<count;i++){
+            myWriter.write(lines[i] + System.lineSeparator());
+
+        }
+        myWriter.close();
+
+    }
+
+    public static void main(String[] args) throws IOException {
         String line;
         Scanner in = new Scanner(System.in);
         Task[] taskList = new Task[100];
+        String[] lines = new String[100];
+        File f = new File("laika.txt");
         int count = 0;
         boolean isConvoOngoing = true;
+
+        if (f.createNewFile()){
+            System.out.println("Laika: Save file created!");
+        }
+
+        try {
+            Scanner reader = new Scanner(f);
+            while (reader.hasNext()){
+                String command = reader.nextLine();
+                addTask(taskList,command,count);
+                lines[count] = command;
+                count++;
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("Laika: Error while reading save data.");
+        } catch (LaikaException e) {
+            throw new RuntimeException(e);
+        }
+
+
         String logo = " ^..^      /\n"
                 + " /_/\\_____/\n"
                 + "    /\\   /\\\n"
@@ -88,6 +126,7 @@ public class Laika {
                         System.out.println("Laika: Hmmmm, I dont understand you?");
                         break;
                     }
+                    lines[count] = line;
 
                     System.out.println("Laika: Gotcha! I've added the task for you\n  "
                             + taskList[count] + System.lineSeparator()
@@ -96,6 +135,12 @@ public class Laika {
 
 
 
+            }
+            try{
+                save(lines,count);
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
             }
         }
 
