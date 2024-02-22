@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class UserInterface {
     public static final int MARK_LENGTH = 5;
     public static final int UNMARK_LENGTH = 7;
+    public static final int DELETE_LENGTH = 7;
     private Scanner reader;
     private TaskManager taskManager;
 
@@ -27,6 +28,13 @@ public class UserInterface {
                 int taskIndex = Character.getNumericValue(input.charAt(MARK_LENGTH)) - 1;
                 try {
                     taskManager.markTask(taskIndex, true);
+                } catch (Exception e) {
+                    printError(e);
+                }
+            } else if (command.equals("delete")) {
+                int deleteIndex = Character.getNumericValue(input.charAt(DELETE_LENGTH)) - 1;
+                try {
+                    taskManager.deleteTask(deleteIndex);
                 } catch (Exception e) {
                     printError(e);
                 }
