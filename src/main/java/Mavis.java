@@ -1,6 +1,9 @@
+import java.io.*;
 import java.util.Scanner;
 
 public class Mavis {
+
+    private static final String FILE_PATH = "./data/mavis.txt";
     private static final String LOGO = "                           z$$$$P\n" +
             "                           d$$$$\"\n" +
             "                         .$$$$$\"\n" +
@@ -30,12 +33,15 @@ public class Mavis {
 
     private final static String LINE ="____________________________________________________________";
 
-    public static void main(String[] args) {
-        Task[] listOfTasks = new Task[100];
-        greetUser();
+    static Task[] listOfTasks = new Task[100];
 
-        int listOfTasksSize = 0;
+    static int listOfTasksSize = 0;
+
+    public static void main(String[] args) {
+        greetUser();
+        loadTasksFromFile();
         Scanner in = new Scanner(System.in);
+
 
         while (true) {
             String inputToEcho = in.nextLine();
@@ -63,7 +69,7 @@ public class Mavis {
                     } else if (listOfTasksSize >= 100) {
                         throw new ArrayIndexOutOfBoundsException();
                     }
-                    addTask(inputToEcho, listOfTasks, splitInput, listOfTasksSize);
+                    addTask(inputToEcho, listOfTasks, listOfTasksSize);
                     listOfTasksSize++;
                 }
                 else
@@ -73,10 +79,57 @@ public class Mavis {
             } catch (Exception e) {
                 MavisException.handleException(e, inputToEcho);
             }
+
+            saveTasksToFile(listOfTasksSize, listOfTasks);
         }
 
         bidFarewell();
     }
+
+    public static void saveTasksToFile(int listOfTasksSize, Task[] listOfTasks) {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs(); // Create directories if they don't exist
+            }
+            file.createNewFile(); // Create the file if it doesn't exist
+            try (FileWriter writer = new FileWriter(file)) {
+                for (int i = 0; i < listOfTasksSize; i++) {
+                    writer.write(listOfTasks[i].toFileString() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Method to load tasks from a file
+    public static void loadTasksFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                if (task != null) {
+                    listOfTasks[listOfTasksSize++] = task;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // Handle the case where the file doesn't exist
+            System.err.println("File not found. Creating a new file...");
+            File file = new File(FILE_PATH);
+            try {
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs(); // Create directories if they don't exist
+                }
+                file.createNewFile(); // Create the file if it doesn't exist
+            } catch (IOException ioException) {
+                System.err.println("Error creating a new file: " + ioException.getMessage());
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
 
     private static void greetUser() {
         System.out.println("Greetings.\n" + LOGO);
@@ -130,7 +183,7 @@ public class Mavis {
         listTask(taskIndex, listOfTasks[taskIndex]);
     }
 
-    private static void addTask(String inputToEcho, Task[] listOfTasks, String[] splitInput, int listOfTasksSize) {
+    private static void addTask(String inputToEcho, Task[] listOfTasks, int listOfTasksSize) {
         Task newTask;
         if (inputToEcho.startsWith("todo")) {
             newTask = new ToDo(inputToEcho);
