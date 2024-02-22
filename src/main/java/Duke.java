@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
     private final String name;
     private final List<Task> tasks;
 
@@ -21,7 +22,6 @@ public class Duke {
         Scanner scanner = new Scanner(description);
         scanner.useDelimiter(" ");
         String taskType = scanner.next().toLowerCase();
-//        System.out.println("taskType: " + taskType);
 
         String taskDescription;
         if (scanner.hasNext()) {
@@ -29,7 +29,6 @@ public class Duke {
         } else {
             taskDescription = "";
         }
-//        System.out.println("taskDescription: " + taskDescription);
 
         Task task;
         switch (taskType) {
@@ -63,6 +62,17 @@ public class Duke {
         }
         tasks.add(task);
         System.out.println("Added: " + task);
+    }
+
+    public void deleteTask(int index) {
+        if (index >= 0 && index <= tasks.size()) {
+            Task deletedTask = tasks.remove(index-1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(deletedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            System.out.println("Invalid task index. Please provide a valid task number.");
+        }
     }
 
     public void listTasks() {
@@ -130,13 +140,15 @@ public class Duke {
                 markTaskAsDone(command.substring(5));
             } else if (command.startsWith("unmark ")) {
                 unmarkTaskAsDone(command.substring(7));
+            } else if (command.equals("delete") || command.startsWith("delete ")) {
+                int index = Integer.parseInt(command.substring(7));
+                deleteTask(index);
             } else if (!command.startsWith("bye")) {
                 try {
                     addTask(command);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-//                addTask(command);
             }
         } while (!command.equals("bye"));
 
