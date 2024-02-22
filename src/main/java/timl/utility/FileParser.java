@@ -11,7 +11,7 @@ public class FileParser {
     protected static final char DEADLINE_SYMBOL = 'd';
     protected static final char EVENT_SYMBOL = 'e';
     protected static final char MARKED = 'X';
-    protected static final String SEPARATOR = "#";
+    protected static final String SEPARATOR = " ";
 
     public static Task readTask(String taskData) throws TimException {
         char taskSymbol = taskData.charAt(0);

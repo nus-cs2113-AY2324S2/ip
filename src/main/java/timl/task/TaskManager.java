@@ -13,7 +13,7 @@ public class TaskManager {
     }
     public static String getTaskType(Task t) {
         String words = t.getStatus();
-        return words.substring(0, 2);
+        return words.substring(0, 3);
     }
     public static void printList(){
         Printer.printList();

@@ -88,12 +88,12 @@ public class TimL {
         while (!response.equals("bye")){
             respondToCommand(response);
             in = new Scanner(System.in);
+            try {
+                FileManager.exportData();
+            } catch (IOException e){
+                Printer.printIOException();
+            }
             response = in.nextLine();
-        }
-        try {
-            FileManager.exportData();
-        } catch (IOException e){
-            Printer.printIOException();
         }
         Printer.printGoodbye();
     }
