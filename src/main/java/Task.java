@@ -1,10 +1,13 @@
 public class Task {
-    String task;
-    boolean complete;
+    private String task;
+    private boolean isComplete;
+    protected static int number=0;
     public Task(String task)
     {
         this.task=task;
-        this.complete=false;
+        this.isComplete=false;
+        number++;
+        System.out.println("Now you have "+number+" tasks in the list.");
     }
 
     public String getTask() {
@@ -12,7 +15,7 @@ public class Task {
     }
 
     public boolean isComplete() {
-        return complete;
+        return isComplete;
     }
 
     public void
@@ -21,18 +24,18 @@ public class Task {
     }
 
     public void setComplete(boolean complete) {
-        this.complete = complete;
+        this.isComplete = complete;
     }
     public void markTaskAsDone()
     {
-        this.complete=true;
+        this.isComplete=true;
     }
     public void unmarkTaskAsDone()
     {
-        this.complete=false;
+        this.isComplete=false;
     }
     public String toString() {
-        return "[" + (this.complete ? "X" : " ") + "] " + this.task;
+        return "[" + (this.isComplete ? "X" : " ") + "] " + this.task;
     }
 
 }

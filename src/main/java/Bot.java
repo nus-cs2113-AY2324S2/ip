@@ -51,7 +51,6 @@ public class Bot {
         }
     }
 
-
     protected void run()
     {
         Scanner sc = new Scanner(System.in);
@@ -85,9 +84,42 @@ public class Bot {
                 System.out.println(this.taskList.get(index).toString());
                 continue;
             }
-            echo(input);
-            Task task = new Task(input);
-            addList(task);
+            if(input.startsWith("todo"))
+            {
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                String taskDescription = input.substring(5);
+                Todo todo = new Todo(taskDescription);
+                addList(todo);
+                System.out.println(todo);
+                printLine();
+                continue;
+            }
+            if(input.startsWith("deadline")) {
+                String[] parts = input.split(" /by ");
+                String taskDescription = parts[0].substring(9);
+                String by = parts[1];
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                Deadline deadline = new Deadline(taskDescription, by);
+                addList(deadline);
+                System.out.println(deadline);
+                printLine();
+                continue;
+            }
+            if(input.startsWith("event")) {
+                String[] parts = input.split(" /from | /to ");
+                String taskDescription = parts[0].substring(6);
+                String from = parts[1];
+                String to = parts[2];
+                printLine();
+                System.out.println("Got it. I've added this task:");
+                Event event = new Event(taskDescription, from, to);
+                addList(event);
+                System.out.println(event);
+                printLine();
+                continue;
+            }
         }
         sayBye();
     }
