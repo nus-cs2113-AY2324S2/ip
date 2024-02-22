@@ -113,6 +113,7 @@ public class DavinciBot {
                     "Please use: event <description> /from <start> /to <end>");
         }
         taskList.toArray(new Task[0]);
+        writeFile();
     }
 
     /**
@@ -130,6 +131,7 @@ public class DavinciBot {
             throw new DavinciException("Crappy formatting. Please use: deadline <description> /by <deadline>");
         }
         taskList.toArray(new Task[0]);
+        writeFile();
     }
 
     /**
@@ -141,6 +143,7 @@ public class DavinciBot {
         taskList.add(new Todo(description));
         Ui.echoTask(taskList);
         taskList.toArray(new Task[0]);
+        writeFile();
     }
 
     /**
