@@ -59,4 +59,9 @@ public class Deadline extends Task {
         }
         System.out.println(name + " (by: " + by +")");
     }
+
+    @Override
+    public String toString() {
+        return "D | " + (hasDone? 1 : 0) + " | " + name + " | " + by;
+    }
 }

@@ -62,4 +62,9 @@ public class Event extends Task{
         }
         System.out.println(name + " (from: " + from+" to: "+ to+ ")");
     }
+
+    @Override
+    public String toString() {
+        return "E | " + (hasDone? 1 : 0) + " | " + name + " | " + from + " - "  + to;
+    }
 }

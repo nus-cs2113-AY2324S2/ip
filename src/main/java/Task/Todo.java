@@ -55,4 +55,9 @@ public class Todo extends Task{
         }
         System.out.println(name);
     }
+
+    @Override
+    public String toString() {
+        return "T | " + (hasDone? 1 : 0) + " | " + name;
+    }
 }
