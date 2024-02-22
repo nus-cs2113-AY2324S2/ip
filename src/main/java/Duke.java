@@ -10,6 +10,8 @@ public class Duke {
 
         ArrayList<Task> tasks = new ArrayList<>();
 
+        DukeFile.main(args);
+
         AddTask.taskListManager(tasks);
 
         PrintText.printWithLinebreak("Bye. Hope to see you again soon!");

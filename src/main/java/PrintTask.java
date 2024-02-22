@@ -14,6 +14,20 @@ public class PrintTask {
         }
     }
 
+    public static void printToFile(Task[] tasks) {
+        String output = "";
+        int index = 1;
+        for (Task task : tasks) {
+            String indexPrinted = index + ".";
+            char type = task.getTypeIcon();
+            String typeMark = "[" + type + "]";
+            String statusMark = "[" + task.getStatusIcon() + "] ";
+            output += indexPrinted + typeMark + statusMark + task.description + "\n";
+            index++;
+        }
+        DukeFile.updateFile(output);
+    }
+
     public static void specialTask(Task newTask, int taskNum) {
         String intro = "Got it. I've added this task: \n";
         char type = newTask.getTypeIcon();
