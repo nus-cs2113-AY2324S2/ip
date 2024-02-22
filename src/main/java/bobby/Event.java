@@ -10,6 +10,14 @@ public class Event extends Task {
         this.from = from;
     }
 
+    public String getBy() {
+        return by;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + by + ")";
     }
