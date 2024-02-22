@@ -5,6 +5,7 @@ import ava.task.Event;
 import ava.task.Task;
 import ava.task.ToDo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ava {
@@ -113,6 +114,11 @@ public class Ava {
             printLine();
             System.out.println("Got it! I've added this task:");
             System.out.println(addedTask);
+            try {
+                DataFile.writeToFile(addedTask);
+            } catch (IOException e) {
+                System.out.println("⊙﹏⊙ Not able to save your task.");
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             printLine();
             System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
@@ -130,7 +136,7 @@ public class Ava {
     public static void markTask(Task[] tasks, String command) {
         printLine();
         boolean isMark = true;
-        int taskChanged = 0;
+        int taskChanged;
         if (command.startsWith("unmark")) {
             isMark = false;
         }
