@@ -20,6 +20,7 @@ public class Chris {
                 "    \\:\\__\\         /:/  /       |:|  |       \\/__/        \\::/  /   \n" +
                 "     \\/__/         \\/__/         \\|__|                     \\/__/    ";
         System.out.println("Hello from \n" + logo );
+        String dash = "____________________________________________________________";
 
         Scanner sc = new Scanner(System.in);
         String command = "";
@@ -54,6 +55,14 @@ public class Chris {
                     } else {
                         listCommands.box(i);
                     }
+                } else if (command.matches("delete [0-9]")) {
+                    String[] split = command.split(" ");
+                    String index = split[1];
+                    int i = Integer.parseInt(index);
+                    if (i > listCommands.tasksSize()) {
+                        throw new InputException("index out of bound");
+                    }
+                    listCommands.delete(i);
                 } else if (command.matches("todo(.*)")) {
                     if ((command.matches("todo"))) {
                         throw new InputException("Don't have an empty description for todo");
