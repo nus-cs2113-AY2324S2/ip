@@ -7,5 +7,5 @@ public enum Command {
     EVENT,
     DEADLINE,
     HELP,
-    MAN
+    DELETE
 }
