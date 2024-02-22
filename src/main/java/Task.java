@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String task;
     private boolean isComplete;
     protected static int number=0;
@@ -6,6 +6,13 @@ public class Task {
     {
         this.task=task;
         this.isComplete=false;
+        number++;
+        System.out.println("Now you have "+number+" tasks in the list.");
+    }
+    public Task(String task,boolean isComplete)
+    {
+        this.task=task;
+        this.isComplete=isComplete;
         number++;
         System.out.println("Now you have "+number+" tasks in the list.");
     }
@@ -37,5 +44,7 @@ public class Task {
     public String toString() {
         return "[" + (this.isComplete ? "X" : " ") + "] " + this.task;
     }
+    public abstract String toFileFormat();
+    protected abstract String getTaskType();
 
 }
