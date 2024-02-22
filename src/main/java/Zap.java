@@ -32,7 +32,7 @@ public class Zap {
      * continuously prompts the user to enter commands and responds accordingly.
      * The loop breaks when the user enters "thank you and bye."
      * handles various commands like listing tasks,
-     * marking tasks as done, unmarking and adding new tasks
+     * marking tasks as done, un-marking and adding new tasks
      */
     private static void processCommands() {
         Scanner scanner = new Scanner(System.in);
@@ -60,6 +60,8 @@ public class Zap {
                 addDeadline(userCommand);
             } else if (userCommand.startsWith("event")) {
                 addEvent(userCommand);
+            } else if (userCommand.startsWith("delete")) {
+                deleteTask(userCommand);
             } else {
                 System.out.println("proper english pls. don't waste time already >:(");
             }
@@ -189,7 +191,7 @@ public class Zap {
     }
 
     /**
-     * `unmarkTask` method unmarks a task that was originally marked as done.
+     * `unmarkTask` method un-marks a task that was originally marked as done.
      * it extracts the task index, and updates the task's status, then prints a confirmation message.
      */
     private static void unmarkTask(String userCommand) {
@@ -212,13 +214,39 @@ public class Zap {
         }
     }
 
+    private static void deleteTask(String userCommand) {
+        String[] characters = userCommand.split("\\s+");
+
+        if (characters.length != 2 || !characters[1].matches("\\d+")) {
+            System.out.println("type properly");
+            return;
+        }
+
+        int taskIndex = Integer.parseInt(characters[1]) - 1;
+        if (isValidTaskIndex(taskIndex)) {
+            Task deletedTask = tasks.remove(taskIndex);
+            System.out.println("____________________________________________________________");
+            System.out.println(" orh ok. Make sure hor, I deleted this:");
+            System.out.println("   " + deletedTask);
+            if (tasks.size() == 1) {
+                System.out.println(" Now you have 1 task in the list.");
+            } else {
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            }
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("Invalid task index. Please enter a valid number.");
+        }
+    }
+
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }
 
-    //saying bye to chatbot
+    //saying bye to chat-bot
     private static void exit() {
         System.out.println("Bye! See you again sooooooooon :)");
         System.out.println("____________________________________________________________");
+
     }
 }
