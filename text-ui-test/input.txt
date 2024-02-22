@@ -1,9 +1,11 @@
+delete 12
 todo make bread
 deadline try this /by monday 2pm
 list
 mark 2
 mark 1
 unmark
+delete
 event join meeting /from monday 2pm /to friday 6pm
 unmark 2
 unmark 88
@@ -20,4 +22,7 @@ event
 event wrong input format
 event wrong input format /from
 event /from now /to then
+delete 3
+delete 1
+list
 bye
