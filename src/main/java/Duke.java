@@ -8,6 +8,8 @@ public class Duke {
 
         Task[] tasks = new Task[100];
 
+        DukeFile.main(args);
+
         AddTask.taskListManager(tasks);
 
         PrintText.printWithLinebreak("Bye. Hope to see you again soon!");
