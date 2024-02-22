@@ -11,9 +11,13 @@ public class TaskManager extends Blue {
     public static final String DATA_DIR_PATH = "data";
     public static final String TASK_FILE_PATH = DATA_DIR_PATH + "/tasks.txt";
     public static final int MAX_TASKS = 100;
-    private static Task[] tasks = loadTasks();
+    private static Task[] tasks = new Task[MAX_TASKS];
     private static int numTasks = 0;
     private Input request;
+
+    public TaskManager() {
+        restoreTasks();
+    }
 
     public TaskManager(Input request) {
         this.request = request;
@@ -60,8 +64,7 @@ public class TaskManager extends Blue {
     }
 
     //assume taskFile is in the proper format for now
-    private static Task[] loadTasks() {
-        Task[] restoredTasks = new Task[MAX_TASKS];
+    private void restoreTasks() {
         File taskFile = new File(TASK_FILE_PATH);
         //if (!taskFile.isFile()) {
         //    return tasks;
@@ -71,18 +74,15 @@ public class TaskManager extends Blue {
             while (s.hasNext()) {
                 String[] savedTaskDetails = s.nextLine().split("\\|");
                 Task savedTask = restoreTask(savedTaskDetails);
-                restoredTasks[numTasks] = savedTask;
-                numTasks += 1;
+                addTask(savedTask);
             }
             talk("Restored " + numTasks + " tasks.");
         } catch (FileNotFoundException e) {
             talk("No saved tasks found, starting from scratch.");
-        } finally {
-            return restoredTasks;
         }
     }
 
-    private static Task restoreTask(String[] savedDetails) {
+    private Task restoreTask(String[] savedDetails) {
         Task restoredTask;
         switch (savedDetails[0]) {
         case "T":

@@ -32,6 +32,7 @@ public class Blue {
 
     public static void main(String[] args) {
         talk(WELCOME_MESSAGE);
+        TaskManager tmMaster = new TaskManager();
         Scanner in = new Scanner(System.in);
         InputParser blueParser = new InputParser();
         Input userInput;
