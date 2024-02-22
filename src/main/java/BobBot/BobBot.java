@@ -1,6 +1,9 @@
 package BobBot;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import BobBot.exceptions.BobBotExceptions;
@@ -17,6 +20,9 @@ public class BobBot {
     private static final int MAX_NUMBER_OF_TASKS = 100;
     private static Task[] allTasks = new Task[MAX_NUMBER_OF_TASKS];
     private static int numTasks = 0;
+
+    private static final String saveFilePath = "src/storage/saveFile.txt";
+    private static final File file = new File(saveFilePath);
 
     private static void mark(String line) {
         int taskNumberToMark = Integer.parseInt(line.substring("mark".length()).trim()) - 1;
@@ -48,7 +54,7 @@ public class BobBot {
 
     private static void printTaskList() {
 
-        System.out.println("\tCurrently, there are " + numTasks + " tasks:");
+        System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
         int taskNumberToDisplay;
 
         for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
@@ -175,7 +181,7 @@ public class BobBot {
             } catch (NullPointerException | NumberFormatException e) {
                 printStandardExceptionMessage(e);
             }
-
+            saveFile();
             line = in.nextLine();
         }
     }
@@ -190,14 +196,43 @@ public class BobBot {
         } else {
             System.out.println("There was an error: " + e);
         }
-        
+
         System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
         System.out.println("\tUsage: (un)mark {task number}");
         System.out.println("\tPlease enter a valid number within the range of your list.");
-        
+
         drawErrorLine();
     }
-    
+
+    // rewrite the whole file
+    private static void saveFile() {
+        StringBuilder fileContents = new StringBuilder();
+        String lineToAdd = new String();
+
+        for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
+            lineToAdd = createFileLine(taskIndex);
+            fileContents.append(lineToAdd);
+        }
+
+        try {
+            FileWriter fw = new FileWriter(saveFilePath);
+            fw.write(fileContents.toString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred when writing to the file: " + e);
+        }
+    }
+
+    private static String createFileLine(int taskIndex) {
+        int taskNumberToDisplay = taskIndex;
+        Task taskToSave = allTasks[taskIndex];
+        int taskMarkedStatus = (taskToSave.getMarkedStatus()) ? 1 : 0;
+        String taskDescription = taskToSave.getDescription();
+        String textToAdd = String.format("%d|%d|%s\n", taskNumberToDisplay, taskMarkedStatus, taskDescription);
+
+        return textToAdd;
+    }
+
     private static void loadMarkings(int taskNum, boolean isMarked) {
         if (isMarked) {
             allTasks[taskNum].markAsDone();
@@ -214,24 +249,22 @@ public class BobBot {
 
         addTask(taskDetails, isLoad);
         loadMarkings(taskNum, isMarked);
-        
+
     }
 
-    // adapted from https://nus-cs2113-ay2324s2.github.io/website/schedule/week6/topics.html#w6-3-java-file-access
+    // adapted from
+    // https://nus-cs2113-ay2324s2.github.io/website/schedule/week6/topics.html#w6-3-java-file-access
     private static void loadFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
+        Scanner fileScanner = new Scanner(file);
 
-        while (s.hasNext()) {
-            loadToList(s.nextLine());
+        while (fileScanner.hasNext()) {
+            loadToList(fileScanner.nextLine());
         }
 
         displayList();
     }
 
-
     private static void loadFileFromStorage() {
-        String saveFilePath = "src/storage/saveFile.txt";
 
         try {
             loadFileContents(saveFilePath);
@@ -244,7 +277,6 @@ public class BobBot {
         greet();
         loadFileFromStorage();
         runTaskManager();
-        // saveFileToStorage();
         bidFarewell();
     }
 
