@@ -69,12 +69,27 @@ public class Bot {
         }
     }
 
+    private void deleteTask(int index) throws BotException {
+        if (index < 0 || index >= this.taskList.size()) {
+            throw new BotException("Invalid task index.");
+        }
+        Task removedTask = this.taskList.remove(index);
+        Task.deleteTask();
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + Task.number + " tasks in the list.");
+        printLine();
+    }
+
     private void handleTodo(String input) throws BotException{
         if (input.trim().equals("todo")) {
             throw new BotException("The description of a todo cannot be empty.");
         }
         String taskDescription = input.substring(5);
+        System.out.println("Got it. I've added this task:");
         Todo todo = new Todo(taskDescription);
+        System.out.println(todo);
         addList(todo);
 
     }
@@ -109,7 +124,9 @@ public class Bot {
             String taskDescription = parts[0].substring(6);
             String from = parts[1];
             String to = parts[2];
+            System.out.println("Got it. I've added this task:");
             Event event = new Event(taskDescription, from, to);
+            System.out.println(event);
             addList(event);
         } catch(IndexOutOfBoundsException e){
             printLine();
@@ -151,22 +168,50 @@ public class Bot {
         }
     }
 
-    private void processInput(String input) throws BotException {
-        if (input.equals("list")) {
-            printList();
-        } else if (input.startsWith("mark")) {
-            handleMark(input);
-        } else if (input.startsWith("unmark")) {
-            handleUnmark(input);
-        } else if (input.startsWith("todo")) {
-            handleTodo(input);
-        } else if (input.startsWith("deadline")) {
-            handleDeadline(input);
-        } else if (input.startsWith("event")) {
-            handleEvent(input);
-        } else {
-            throw new BotException("I'm sorry, but I don't know what that means :-(");
+    private void handleDelete(String input) throws  BotException{
+        String[] parts = input.split(" ");
+        if (parts.length < 2) {
+            throw new BotException("The index of delete cannot be empty.");
         }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            deleteTask(index);
+        } catch (NumberFormatException e){
+            System.out.println("The index is not a number! "); // check the index kind
+            printLine();
+        }
+
+    }
+
+    private void processInput(String input) throws BotException {
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+        switch (command) {
+            case "list":
+                printList();
+                break;
+            case "mark":
+                handleMark(input);
+                break;
+            case "unmark":
+                handleUnmark(input);
+                break;
+            case "todo":
+                handleTodo(input);
+                break;
+            case "deadline":
+                handleDeadline(input);
+                break;
+            case "event":
+                handleEvent(input);
+                break;
+            case "delete":
+                handleDelete(input);
+                break;
+            default:
+                throw new BotException("I'm sorry, but I don't know what that means :-(");
+        }
+
     }
     protected void run() {
         Scanner sc = new Scanner(System.in);

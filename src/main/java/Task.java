@@ -18,22 +18,26 @@ public class Task {
         return isComplete;
     }
 
-    public void
-    setTask(String task) {
+    public void setTask(String task) {
         this.task = task;
     }
 
     public void setComplete(boolean complete) {
         this.isComplete = complete;
     }
+
     public void markTaskAsDone()
     {
         this.isComplete=true;
     }
+
     public void unmarkTaskAsDone()
     {
         this.isComplete=false;
     }
+
+    public static void deleteTask() { number--; }
+
     public String toString() {
         return "[" + (this.isComplete ? "X" : " ") + "] " + this.task;
     }
