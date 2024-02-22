@@ -18,22 +18,24 @@ public class Duke {
     }
 
     public void addTask(String description) throws DukeException{
+        Scanner scanner = new Scanner(description);
+        scanner.useDelimiter(" ");
+        String taskType = scanner.next().toLowerCase();
+//        System.out.println("taskType: " + taskType);
 
-        // Split the description into task type and task description (2 parts)
-
-//        if (parts.length < TASK_DESCRIPTION_INDEX + 1) {
-//            throw new DukeException("Invalid task format. Please provide a task type and description.");
-//        }
-
-        String[] parts = description.split(" ", 2);
-        String taskType = parts[0].toLowerCase();
-        String taskDescription = parts.length > 1 ? parts[1] : "";
+        String taskDescription;
+        if (scanner.hasNext()) {
+            taskDescription = scanner.nextLine().trim();
+        } else {
+            taskDescription = "";
+        }
+//        System.out.println("taskDescription: " + taskDescription);
 
         Task task;
         switch (taskType) {
             case "todo":
                 if (taskDescription.isEmpty()) {
-                    throw new DukeException("The description of a task cannot be empty.");
+                    throw new DukeException("NO!!! The description of a todo task cannot be empty!");
                 }
                 task = new Todo(taskDescription);
                 break;
@@ -56,7 +58,7 @@ public class Duke {
                 task = new Event(eventDescription, start, end);
                 break;
             default:
-                System.out.println("Invalid task type. Please try again.");
+                System.out.println("I dont understand what do you mean, please try again.");
                 return;
         }
         tasks.add(task);
