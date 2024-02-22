@@ -138,6 +138,25 @@ public class TaskList {
         }
         showTaskList();
     }
+
+    private void listWrite() throws IOException {
+        Files.createDirectories(Paths.get("./data"));
+        FileWriter out = new FileWriter("./data/Ruby.txt", false);
+        for (int i=0; i < taskNo; i++){
+            out.write(taskList[i].toString());
+            out.write(System.lineSeparator());
+        }
+        out.close() ;
+    }
+
+    public void saveToFile(){
+        try{
+            listWrite();
+        } catch (IOException e) {
+            System.out.println("Sorry, something wrong with my recording function.");
+        }
+    }
+
     /**
      * Prints a formatted message to the console.
      *
