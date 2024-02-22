@@ -1,6 +1,9 @@
 package task;
 
 public class Task {
+    public static final String DONE = "1";
+    public static final String NOT_DONE = "0";
+
     protected String description;
     protected boolean isDone;
 
@@ -9,6 +12,9 @@ public class Task {
         this.isDone = false;
     }
 
+    public void setDone(String status) {
+        isDone = status.equals(DONE);
+    }
     public void markAsDone() {
         this.isDone = true;
         System.out.println("\tNice! I've marked this task as done:");
@@ -28,4 +34,16 @@ public class Task {
     public String getTaskDetails() {
         return "[T][" + getStatusIcon() + "] " + description;
     }
+
+    public String getTaskAsString() {
+        return "";
+    }
+
+    public String getDoneAsInteger() {
+        if (this.isDone) {
+            return "1";
+        }
+        return "0";
+    }
+
 }

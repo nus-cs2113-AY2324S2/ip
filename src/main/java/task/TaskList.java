@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import parser.Parser;
 
 public class TaskList {
+    public static final String TODO_TASK = "T";
+    public static final String DEADLINE_TASK = "D";
+    public static final String EVENT_TASK = "E";
+
     private static ArrayList<Task> tasks;
     private static int taskCount;
 
@@ -21,8 +25,12 @@ public class TaskList {
         return tasks;
     }
 
+    public static void incrementTaskCount() {
+        taskCount += 1;
+    }
+
     public void displayTasksList() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("\tYour list does not contain any tasks.");
         } else {
             int taskNumber = 1;
@@ -118,5 +126,30 @@ public class TaskList {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Event task description cannot be empty. Please try again.");
         }
+    }
+
+    public static void readTaskFromFile(String inputArray) {
+        String[] taskDetails = inputArray.split("\\|");
+        String status = taskDetails[1].trim();
+        String description = taskDetails[2].trim();
+        if (inputArray.startsWith(TODO_TASK)) {
+            Task tempToDo = new ToDo(description);
+            tempToDo.setDone(status);
+            tasks.add(tempToDo);
+        } else if (inputArray.startsWith(DEADLINE_TASK)) {
+            String deadline = taskDetails[3].trim();
+            Task tempDeadline = new Deadline(description, deadline);
+            tempDeadline.setDone(status);
+            tasks.add(tempDeadline);
+        } else {
+            String eventInfo = taskDetails[3].trim();
+            String[] eventParts = eventInfo.split("\\s+", 2);
+            String eventStart = eventParts[0];
+            String eventEnd = eventParts[1];
+            Task tempEvent = new Event(description, eventStart, eventEnd);
+            tempEvent.setDone(status);
+            tasks.add(tempEvent);
+        }
+        incrementTaskCount();
     }
 }

@@ -9,9 +9,10 @@ import java.util.Scanner;
 public class Baron {
     public static void main(String[] args) throws IllegalArgumentException {
         greetUser();
+        TaskList tasks = new TaskList();
         FileStorage.loadFile();
         try {
-            getUserInput();
+            getUserInput(tasks);
         } catch (IllegalArgumentException e) {
             System.out.println("Command cannot be empty. Please enter a valid command.");
         } catch (IOException e) {
@@ -24,9 +25,8 @@ public class Baron {
         System.out.println("What can I do for you?\n");
     }
 
-    public static void getUserInput() throws IOException {
+    public static void getUserInput(TaskList tasks) throws IOException {
         Scanner userInput = new Scanner(System.in);
-        TaskList tasks = new TaskList();
         //noinspection InfiniteLoopStatement
         while (true) {
             String input = userInput.nextLine();
