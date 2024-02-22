@@ -8,7 +8,7 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-        this.type = "E";
+//
     }
 
 
@@ -16,6 +16,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("E | %d | %s | %s to %s", this.isDone ? 1 : 0, this.description, this.from, this.to);
     }
 }
 
