@@ -129,7 +129,6 @@ public class list {
                 e.printErrorMessage();
             }
         }
-    }
 
         try {
             saveTasks("src/main/java/db/tasks.txt", taskList);
