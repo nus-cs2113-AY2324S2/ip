@@ -15,28 +15,43 @@ public class List {
         String description;
         switch (taskType){
         case "todo":
-            if(5 > userInput.length()){
-                throw new InvalidArgumentException();
-            }
-            description = userInput.substring(userInput.indexOf(" ") + 1);
-            tasks[taskCount] = new Todo(description);
+            addTodo(userInput);
             break;
         case "deadline":
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
-            String by = userInput.substring(userInput.indexOf("/by") + 4);
-            tasks[taskCount] = new Deadline(description, by);
+            addDeadline(userInput);
             break;
         case "event":
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
-            String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") -1);
-            String to = userInput.substring(userInput.indexOf("/to") + 4);
-            tasks[taskCount] = new Event(description, from, to);
+            addEvent(userInput);
             break;
         }
         System.out.println("\t Got it. I've added this task:");
         System.out.println("\t   " + tasks[taskCount]);
         taskCount++;
         System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+    }
+
+    private void addEvent(String userInput) {
+        String description;
+        description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
+        String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") -1);
+        String to = userInput.substring(userInput.indexOf("/to") + 4);
+        tasks[taskCount] = new Event(description, from, to);
+    }
+
+    private void addDeadline(String userInput) {
+        String description;
+        description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
+        String by = userInput.substring(userInput.indexOf("/by") + 4);
+        tasks[taskCount] = new Deadline(description, by);
+    }
+
+    private void addTodo(String userInput) throws InvalidArgumentException {
+        String description;
+        if(5 > userInput.length()){
+            throw new InvalidArgumentException();
+        }
+        description = userInput.substring(userInput.indexOf(" ") + 1);
+        tasks[taskCount] = new Todo(description);
     }
 
     public void listTasks() {
