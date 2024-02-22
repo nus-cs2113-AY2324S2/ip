@@ -12,7 +12,11 @@ import nyanbot.task.Event;
 import nyanbot.tool.Printer;
 import nyanbot.tool.FileHandler;
 
+import javax.xml.crypto.Data;
+
 public class NyanBot {
+    public static final String DATA_DIRECTORY = "./data";
+    private static final String DATA_FILE_PATH = DATA_DIRECTORY + "/nyan.txt";
     private static final String TRUE = "TRUE";
     private static final String FALSE = "FALSE";
     private static final String LIST_COMMAND = "LIST";
@@ -176,9 +180,9 @@ public class NyanBot {
 
     private static void readFile() {
         try {
-            List<String> lines = FileHandler.readFile("data/nyan.txt");
+            List<String> lines = FileHandler.readFile(DATA_FILE_PATH);
             for (String line : lines) {
-                tasks.add(readLine(line));
+                tasks.add(parseFile(line));
             }
         } catch (IOException e) {
             Printer.printIOException();
@@ -187,7 +191,7 @@ public class NyanBot {
         }
     }
 
-    private static Task readLine(String line) throws NyanException {
+    private static Task parseFile(String line) throws NyanException {
         try {
             String[] tokens = line.split("/");
             String command = tokens[0].toUpperCase();
@@ -220,7 +224,7 @@ public class NyanBot {
             for (Task task : tasks) {
                 lines.add(task.toString());
             }
-            FileHandler.writeFile("data/nyan.txt", "temp/temp.txt", lines);
+            FileHandler.writeFile(DATA_FILE_PATH, lines);
         } catch (IOException e) {
             Printer.printIOException();
         }

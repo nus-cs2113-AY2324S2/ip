@@ -10,26 +10,32 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 public class FileHandler {
-    public static List<String> readFile(String filePath) throws IOException {
-        Path myPath = Paths.get(filePath);
-        if (!Files.exists(myPath)) {
-            new File(filePath);
+    public static List<String> readFile(String dataPathString) throws IOException {
+        Path dataPath = Paths.get(dataPathString);
+        Files.createDirectories(dataPath.getParent());
+        if (!Files.exists(dataPath)) {
+            Files.createFile(dataPath);
         }
-        return Files.readAllLines(myPath);
+        return Files.readAllLines(dataPath);
     }
 
-    public static void writeFile(String filePath, String tempPath, List<String> lines) throws IOException {
-        File temp = new File(tempPath);
+    public static void writeFile(String dataPathString, List<String> lines) throws IOException {
+        Path dataPath = Paths.get(dataPathString);
+        Path dataDirectory = dataPath.getParent();
+        String tempPathString = dataDirectory + "/temp.txt";
+        Path tempPath = Paths.get(tempPathString);
+
+        File temp = new File(tempPathString);
         temp.createNewFile();
         for (String line : lines) {
-            appendLine(tempPath, line);
+            appendLine(tempPathString, line);
         }
-        Files.copy(Paths.get(tempPath), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
-        Files.delete(Paths.get(tempPath));
+        Files.copy(tempPath, dataPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(tempPath);
     }
 
-    public static void appendLine(String filePath, String line) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+    public static void appendLine(String directoryPath, String line) throws IOException {
+        FileWriter fw = new FileWriter(directoryPath, true);
         fw.write(line + "\n");
         fw.close();
     }
