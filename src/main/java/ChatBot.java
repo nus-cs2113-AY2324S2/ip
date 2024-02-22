@@ -36,7 +36,9 @@ public class ChatBot {
                     addTask(command.substring(6), "event");
                 } else if (command.startsWith("deadline ")) {
                     addTask(command.substring(9), "deadline");
-                } else {
+                } else if (command.startsWith("delete ")) {
+                    deleteTask(command.substring(7));
+                }else {
                     printFormattedMessage("Unknown command. Please enter 'todo', 'event', " +
                             "'deadline', 'list', 'mark', 'unmark', or 'bye'.");
                 }
@@ -46,6 +48,26 @@ public class ChatBot {
         }
     }
 
+    private void deleteTask(String taskNumber) throws ChatBotExceptions{
+
+        if (tasks.isEmpty()) {
+            throw new ChatBotExceptions("No tasks to delete. Task list is empty.");
+        }
+
+        try {
+            int index = Integer.parseInt(taskNumber) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                Task removedTask = tasks.remove(index);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("   " + removedTask.getStatusIcon() + " " + removedTask.getDescription());
+                printFormattedMessage(" Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+                printFormattedMessage("Invalid task number. Please enter a valid task number.");
+            }
+        } catch (NumberFormatException e) {
+            printFormattedMessage("Invalid command. Please enter a valid task number to delete.");
+        }
+    }
 
     private void addTask(String taskDescription, String taskType) throws ChatBotExceptions {
         Task newTask;
