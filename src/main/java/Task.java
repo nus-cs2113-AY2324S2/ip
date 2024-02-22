@@ -1,6 +1,7 @@
 public abstract class Task {
     private final String description;
     private boolean isDone;
+
     public abstract String getType();
 
     public Task(String description) {
@@ -27,8 +28,6 @@ public abstract class Task {
     @Override
     public String toString() {
         String status = isDone ? "[X]" : "[ ]";
-//            return status + " " + description;
         return "[" + getType() + "]" + status + " " + description;
     }
-
 }
