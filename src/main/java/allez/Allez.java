@@ -5,12 +5,12 @@ import allez.task.Event;
 import allez.task.Task;
 import allez.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Allez {
-    public static final int LIST_SIZE = 100;
-    protected static Task[] tasks = new Task[LIST_SIZE];
+    protected static ArrayList<Task> tasks = new ArrayList<>();
     protected static  int taskCount = 0;
     protected static Scanner in = new Scanner(System.in);
 
@@ -18,19 +18,19 @@ public class Allez {
         TODO, DEADLINE, EVENT
     }
 
-    public static void printList(Task[] tasks){
+    public static void printList(ArrayList<Task> tasks){
         int count = 0;
 
-        if(tasks[0] == null) {
+        if(tasks.isEmpty()) {
             System.out.println("List is currently empty");
             return;
         }
 
         System.out.println("Here are the tasks in your list:");
-        while(tasks[count] != null){
-            System.out.println("\t" + (count+1) + ". " + tasks[count].toString());
-            count+=1;
+        for (Task task : tasks) {
+            System.out.println("\t" + (count+1) + ". " + task.toString());
         }
+
     }
 
     public static void main(String[] args) {
@@ -98,7 +98,7 @@ public class Allez {
         }
 
         System.out.println("Got it. I've added this task:");
-        System.out.println("\t" + tasks[taskCount].toString());
+        System.out.println("\t" + tasks.get(taskCount).toString());
         taskCount +=1;
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
@@ -113,7 +113,7 @@ public class Allez {
             description = lineSegment[0].trim();
             from = lineSegment[1].trim();
             to = lineSegment[2].trim();
-            tasks[taskCount] = new Event(description, from, to);
+            tasks.add(new Event(description, from, to));
             return true;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input event for the task in a format as shown below");
@@ -147,7 +147,7 @@ public class Allez {
             lineSegment = verifyDeadlineCommand(line);
             description = lineSegment[0].trim();
             by = lineSegment[1].trim();
-            tasks[taskCount] = new Deadline(description, by);
+            tasks.add(new Deadline(description,by));
             return true;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input deadline for the task in a format as shown below");
@@ -175,7 +175,7 @@ public class Allez {
             System.out.println("Please add a description of your task");
             return false;
         }
-        tasks[taskCount] = new ToDo(description);
+        tasks.add(new ToDo(description));
         return true;
     }
 
@@ -183,9 +183,9 @@ public class Allez {
         int toMark;
         try {
             toMark = Integer.parseInt(line.substring(4).trim()) -1;
-            tasks[toMark].markDone();
+            tasks.get(toMark).markDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("\t" + tasks[toMark].toString());
+            System.out.println("\t" + tasks.get(toMark).toString());
         } catch (NumberFormatException e) {
             System.out.println("Please input a number only");
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
