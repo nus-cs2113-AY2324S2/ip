@@ -1,53 +1,63 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class OGF {
-    private static final int MAX_ITEMS = 100;
-    private static int numItem;
-    private static final Task[] tasks = new Task[MAX_ITEMS];
+
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     private static boolean isRunning = true;
     private static void printBreakLine(){
         System.out.println(("____________________________________________________________"));
     }
 
-    private static void printTaskAdded(Task task, int taskIndex){
+    private static void printTaskAdded(Task task){
         System.out.println("Alright, adding this task to the list: ");
         System.out.println(task);
-        System.out.printf("You have %d tasks in the list.%n", taskIndex+1);
+        System.out.printf("You have %d tasks in the list.%n", tasks.size());
         printBreakLine();
     }
 
+    private static void printAllTasks(){
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.print(i + 1 + ". ");
+            System.out.println(tasks.get(i));
+        }
+        printBreakLine();
+    }
     private static boolean handleInput (String input) throws OGFException{
         switch (input.split(" ")[0]) {
-            case ("bye"):
+            case ("bye"): // exits program
                 System.out.println("Bye bye now!");
                 return (false);
-            case ("list"):
+            case ("list"):// lists all the tasks
                 System.out.println("Here are your tasks for today: ");
-                for (int i = 0; i < numItem; i++) {
-                    System.out.print(i + 1 + ". ");
-                    System.out.println(tasks[i]);
+                printAllTasks();
+                break;
+            case ("delete"):
+                if (!input.contains(" ")){
+                    throw new OGFException("did not indicate task to delete");
                 }
-                printBreakLine();
+                int taskToDelete = Integer.parseInt(input.split(" ")[1]) - 1;
+                System.out.println("Deleting task: " + tasks.get(taskToDelete));
+                tasks.remove(taskToDelete);
+                System.out.println("Here are your tasks now: ");
+                printAllTasks();
                 break;
             case ("mark"):
                 //Fallthrough
             case ("unmark"):
                 if (!input.contains(" ")){
-                    throw new OGFException("did not indicate task to mark/unmark");
+                    throw new OGFException("Looks like you didn't indicate task to mark/unmark. \nFormat: mark/unmark [number] e.g. mark 1 to mark the first task.");
                 }
-
                 int taskNo = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (taskNo < 0 || taskNo > numItem-1){
-                    throw new OGFException("tried to mark/unmark task not in list");
-                }
                 if (input.split(" ")[0].equals("mark")) {
                     System.out.println("Good Job! I'm setting this task as done: ");
-                    tasks[taskNo].setDone(true);
+                    tasks.get(taskNo).setDone(true);
                 } else {
                     System.out.println("Oop! I'm setting this task as undone: ");
-                    tasks[taskNo].setDone(false);
+                    tasks.get(taskNo).setDone(false);
                 }
-                System.out.println(tasks[taskNo]);
+                System.out.println(tasks.get(taskNo));
                 printBreakLine();
                 break;
             case ("todo"):
@@ -56,9 +66,8 @@ public class OGF {
                 }
                 String newTodoDesc = input.substring(input.indexOf(" "));
 
-                tasks[numItem] = new Todo(newTodoDesc);
-                printTaskAdded(tasks[numItem], numItem);
-                numItem++;
+                tasks.add( new Todo(newTodoDesc));
+                printTaskAdded(tasks.get(tasks.size()-1));
                 break;
             case ("deadline"):
                 if (!input.contains(" ")){
@@ -69,9 +78,8 @@ public class OGF {
                 }
                 String newDeadlineDesc = input.substring(input.indexOf(" "), input.indexOf(" /by"));
                 String newDeadlineTime = input.substring(input.indexOf("/by") + 4);
-                tasks[numItem] = new Deadline(newDeadlineDesc, newDeadlineTime);
-                printTaskAdded(tasks[numItem], numItem);
-                numItem++;
+                tasks.add(new Deadline(newDeadlineDesc, newDeadlineTime));
+                printTaskAdded(tasks.get(tasks.size()-1));
                 break;
             case ("event"):
                 if (!input.contains(" ")){
@@ -83,9 +91,8 @@ public class OGF {
                 String newEventDesc = input.substring(input.indexOf(" "), input.indexOf("/from"));
                 String newEventStart = input.substring(input.indexOf("/from") + 6, input.indexOf(" /to"));
                 String newEventEnd = input.substring(input.indexOf("/to") + 4);
-                tasks[numItem] = new Event(newEventDesc, newEventStart, newEventEnd);
-                printTaskAdded(tasks[numItem], numItem);
-                numItem++;
+                tasks.add(new Event(newEventDesc, newEventStart, newEventEnd));
+                printTaskAdded(tasks.get(tasks.size()-1));
                 break;
 
             default:
@@ -118,11 +125,11 @@ public class OGF {
                 printBreakLine();
             }
             catch (NumberFormatException error){
-                System.out.println("did not enter int: " + input);
+                System.out.println("Looks like the input you entered was not an integer: " + input);
                 printBreakLine();
             }
-            catch (ArrayIndexOutOfBoundsException error){
-                System.out.println("Whoops, looks like you have too many items in the list! Have less commitments next time :)");
+            catch (IndexOutOfBoundsException error){
+                System.out.println("Whoops, looks like you tried to access an index not in the list! :)");
                 printBreakLine();
             }
             }
