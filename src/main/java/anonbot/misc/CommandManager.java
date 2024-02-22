@@ -1,6 +1,7 @@
 package anonbot.misc;
 
 import anonbot.Ui;
+import anonbot.data.AnonBotFileWriter;
 import anonbot.exception.IncompleteCommandException;
 import anonbot.exception.InvalidTaskException;
 import anonbot.task.Task.TaskType;
@@ -37,6 +38,7 @@ public class CommandManager {
             case "exit":
                 // fallthrough
             case "bye":
+                AnonBotFileWriter.saveAnonBotData();
                 Ui.printGoodbye();
                 executionStatus = Status.STATUS_EXIT;
                 break;
