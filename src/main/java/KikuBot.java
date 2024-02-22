@@ -63,8 +63,8 @@ public class KikuBot {
             task = new Todo(parts[2]);
         } else if ("D".equals(parts[0]) && parts.length >= 4) {
             task = new Deadline(parts[2], parts[3]);
-        } else if ("E".equals(parts[0]) && parts.length >= 4) {
-            task = new Event(parts[1], parts[2], parts[3]);
+        } else if ("E".equals(parts[0]) && parts.length >= 5) {
+            task = new Event(parts[2], parts[3], parts[4]);
         }
 
         if (task != null && "1".equals(parts[1])) {
