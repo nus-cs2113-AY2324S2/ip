@@ -55,19 +55,13 @@ public class Parser {
         try {
             checkValidDeadline(command);
         } catch (WrongInputFormat wif) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("OOPS! Wrong command format");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("OOPS! Wrong command format");
             return false;
         } catch (MissingEntries me) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Missing deadline");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("Missing deadline");
             return false;
         } catch (MissingTaskName mtn) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Missing task name");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("Missing task name");
             return false;
         }
         return true;
@@ -77,14 +71,10 @@ public class Parser {
         try {
             checkValidTodo(command);
         } catch (RedundantEntries re) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("The command has too many entries");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("The command has too many entries");
             return false;
         } catch (MissingTaskName me) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Missing task name");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("Missing task name");
             return false;
         }
         return true;
@@ -94,19 +84,13 @@ public class Parser {
         try {
             checkValidEvent(command);
         } catch (WrongInputFormat wif) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("OOPS! Wrong command format");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("OOPS! Wrong command format");
             return false;
         } catch (MissingEntries me) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Missing from/to date");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("Missing from/to dat");
             return false;
         } catch (MissingTaskName mtn) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Missing task name");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("Missing task name");
             return false;
         }
         return true;
@@ -125,7 +109,7 @@ public class Parser {
         String[] commandWords = command.split("/");
         String taskName = commandWords[0].substring(9);
         String by = commandWords[1].substring(3);
-        return new Deadline(taskName, by);
+        return new Deadline(taskName.trim(), by.trim());
     }
 
     private static Event parseEvent (String command) {
@@ -136,12 +120,12 @@ public class Parser {
         String from = commandWords[1].substring(5);
         String to = commandWords[2].substring(3);
 
-        return new Event(eventName, from, to);
+        return new Event(eventName.trim(), from.trim(), to.trim());
     }
 
     private static Todo parseTodo (String command) {
         String[] commandWords = command.split(" ");
-        return new Todo(commandWords[1]);
+        return new Todo(commandWords[1].trim());
     }
 
     public static Task parseCommand (String command) {

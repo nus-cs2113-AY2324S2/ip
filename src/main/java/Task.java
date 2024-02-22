@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,7 +11,7 @@ public class Task {
     protected String name;
     protected boolean isDone;
     private static ArrayList<Task> tasks = new ArrayList<Task>();
-
+    private static final String DATA_PATH = "../../../out/data.txt";
     //Constructors
     Task (String name) {
         this.name = name;
@@ -15,11 +19,39 @@ public class Task {
         taskType = TaskType.TASK;
     }
 
+
+    //Methods
+    private static void loadFromDiskNoExceptionHandle() throws FileNotFoundException{
+        File f = new File(DATA_PATH);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String temp = s.nextLine();
+            String[] words = temp.split(",");
+            if (words[0].equals("T")){
+                tasks.add(new Todo(words[2], !words[1].equals("0")));
+            } else if (words[0].equals("D")){
+                tasks.add(new Deadline(words[2], words[3], !words[1].equals("0")));
+            } else {
+                tasks.add(new Event(words[2], words[3], words[4], !words[1].equals("0")));
+            }
+        }
+    }
+
+    public static void loadFromDisk(){
+        try {
+            loadFromDiskNoExceptionHandle();
+        } catch (FileNotFoundException fnfe) {
+            UI.printMessage("File not found");
+        }
+    }
     public TaskType getTaskType () {
         return taskType;
     }
 
-    //Methods
+    public String getCSV () {
+        return (isDone ? "1" : "0") + "," + name;
+    }
+
     public String toString () {
         return (isDone ? "[X] " : "[ ] ") + name;
     }
@@ -50,7 +82,7 @@ public class Task {
     }
 
     public static void delete(int index) {
-        boolean isValidIndex = false;
+        boolean isValidIndex;
         Task deletedTask = null;
         try {
             isValidIndex = true;
@@ -58,14 +90,10 @@ public class Task {
             tasks.remove(index - 1);
         }   catch (IndexOutOfBoundsException ioobe) {
             isValidIndex = false;
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Index out of bound!");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("Index out of bound!");
         }   catch (NumberFormatException nfe) {
             isValidIndex = false;
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Invalid index!");
-            System.out.println(UI.LINE_SEPARATOR);
+            UI.printMessage("Invalid index!");
         }
         if (isValidIndex){
             System.out.println(UI.LINE_SEPARATOR);
@@ -97,30 +125,45 @@ public class Task {
 
     private static boolean isValidCommand (String command) {
         return command.equals("list") || command.equals("mark") || command.equals("unmark") || command.equals("delete")
-                || isValidTask(command);
+                || command.equals("save") || isValidTask(command);
     }
-
+    protected static void saveRaw() throws IOException{
+        FileWriter fw = new FileWriter(DATA_PATH);
+        for (int i = 0; i < tasks.size(); i++) {
+            fw.write(tasks.get(i).getCSV() + "\n");
+        }
+        fw.close();
+    }
+    protected static void save(){
+        try {
+            saveRaw();
+        } catch (IOException ioe){
+            UI.printMessage("Something wrong with the data path");
+        }
+    }
     public static void responseToCommand (String command) {
         String[] commandWords = command.split(" ");
         if (!isValidCommand(commandWords[0])) {
-            System.out.println(UI.LINE_SEPARATOR);
-            System.out.println("Command not recognized");
-            System.out.println(UI.LINE_SEPARATOR);
+           UI.printMessage("Command not recognized");
             return;
         }
         if (commandWords[0].equals("list")) {
             Task.listTasks();
         } else if (commandWords[0].equals("mark")) {
             mark(Integer.parseInt(commandWords[1]));
+            save();
         } else if (commandWords[0].equals("unmark")) {
             unmark(Integer.parseInt(commandWords[1]));
+            save();
         } else if (commandWords[0].equals("delete")){
             delete(Integer.parseInt(commandWords[1]));
+            save();
         } else {
             if (Parser.isValidTaskCommand(command, commandWords)) {
                 Task newTask;
                 newTask = Parser.parseCommand(command);
                 addTask(newTask);
+                save();
             }
         }
     }
