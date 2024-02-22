@@ -17,11 +17,11 @@ public class Task {
         this.isDone = true;
     }
 
-    public static void addTask(String text, Task[] tasks, int num) {
+    public static void addTask(String text, Task[] tasks, int num) throws InvalidTodoSyntaxException {
         // Todo
         if (text.startsWith("todo")) {
             if (text.length() < "todo".length() + 2) {
-                System.out.println("OH NOOO! Please enter the todo task name.");
+                throw new InvalidTodoSyntaxException();
             } else {
                 tasks[num] = new ToDo(text);
                 System.out.println("Bala-lala. I've added this task:" + System.lineSeparator()

@@ -12,51 +12,55 @@ public class Baymax {
 
         while(true) {
 
-            Scanner in = new Scanner(System.in);
-            text = in.nextLine();
+            try {
 
-            // "bye" -- terminate
-            if (text.equalsIgnoreCase("bye")) {
-                break;
-            }
-
-            // "mark" -- mark task
-            else if (text.startsWith("mark")) {
-                int position = Integer.parseInt(text.substring("mark".length() + 1)) - 1;
-                tasks[position].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[X] " + tasks[position].description);
-            }
-
-            // "unmark" -- unmark task
-            else if (text.startsWith("unmark")) {
-                int position = Integer.parseInt(text.substring("unmark".length() + 1)) - 1;
-                tasks[position].isDone = false;
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[ ] " + tasks[position].description);
-            }
-
-            // "tasks" -- displays tasks
-            else if (text.equalsIgnoreCase("list")) {
-                for (int i = 0; i < 100; i++) {
-
-                    if(tasks[i] == null) {
-                        break;
-                    }
-                    System.out.println(i+1 + ". " + "[" + tasks[i].type + "] "
-                            + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                Scanner in = new Scanner(System.in);
+                text = in.nextLine();
+                // "bye" -- terminate
+                if (text.equalsIgnoreCase("bye")) {
+                    break;
                 }
-            }
 
-            // ADD TASK
-            else if (text.startsWith(("todo")) || text.startsWith("deadline") || text.startsWith("event")) {
-                Task.addTask(text,tasks,num);
-                num++;
-            }
+                // "mark" -- mark task
+                else if (text.startsWith("mark")) {
+                    int position = Integer.parseInt(text.substring("mark".length() + 1)) - 1;
+                    tasks[position].markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[X] " + tasks[position].description);
+                }
 
-            // "{other words}" -- REJECT
-            else {
-                System.out.println("OH NOOO! I don't know what that means.");
+                // "unmark" -- unmark task
+                else if (text.startsWith("unmark")) {
+                    int position = Integer.parseInt(text.substring("unmark".length() + 1)) - 1;
+                    tasks[position].isDone = false;
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("[ ] " + tasks[position].description);
+                }
+
+                // "tasks" -- displays tasks
+                else if (text.equalsIgnoreCase("list")) {
+                    for (int i = 0; i < 100; i++) {
+
+                        if (tasks[i] == null) {
+                            break;
+                        }
+                        System.out.println(i + 1 + ". " + "[" + tasks[i].type + "] "
+                                + "[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                    }
+                }
+
+                // ADD TASK
+                else if (text.startsWith(("todo")) || text.startsWith("deadline") || text.startsWith("event")) {
+                    Task.addTask(text, tasks, num);
+                    num++;
+                }
+
+                // "{other words}" -- REJECT
+                else {
+                    System.out.println("OH NOOO! I don't know what that means.");
+                }
+            } catch (InvalidTodoSyntaxException e) {
+                InvalidTodoSyntaxException.handleInvalidTodoSyntaxException();
             }
         }
 
