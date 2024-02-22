@@ -3,21 +3,23 @@ package tasks;
 import exceptions.DuckEmptyDeleteDescriptionException;
 import exceptions.DuckDeleteOutofBoundsException;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Task{
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final String REMOVE_MESSAGE= "Noted. I've removed this task:";
-    protected String description;
+    protected static String description;
     protected boolean isDone;
+    public static final Path FILE_PATH = Path.of("./data/duck.txt");
 
     public Task(String description) {
-        this.description = description;
+        Task.description = description;
         this.isDone = false;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 
