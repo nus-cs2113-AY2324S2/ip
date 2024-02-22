@@ -1,4 +1,0 @@
-0|0|deadline try this /by monday 2pm
-1|0|event join meeting /from monday 2pm /to friday 6pm
-2|0|event try assignment /from monday 8pm /to friday 6pm
-3|1|todo make bread

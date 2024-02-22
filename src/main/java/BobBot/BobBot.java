@@ -22,13 +22,15 @@ public class BobBot {
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private static int numTasks = 0;
 
+    private static final String saveDirPath = "src/storage/";
+    private static final String saveFilePath = saveDirPath + "saveFile.txt";
+    private static final File file = new File(saveFilePath);
+    private static File directory;
+    
     private enum TaskStatus {
         MARK, UNMARK, DELETE
     }
-
-    private static final String saveFilePath = "src/storage/saveFile.txt";
-    private static final File file = new File(saveFilePath);
-
+    
     private static void performTaskOperation(String line, TaskStatus status) {
         int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
 
@@ -284,12 +286,30 @@ public class BobBot {
         displayList();
     }
 
+    private static void createNewSaveFile(String saveFilePath) {
+        try {
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("An Error occurred: " + e);
+        }
+        
+        System.out.println("\tReady! Type a command to begin.");
+    }
+
     private static void loadFileFromStorage() {
+        directory = new File(saveDirPath);
 
         try {
+            System.out.println("\tLoading from saved file ...");
             loadFileContents(saveFilePath);
         } catch (FileNotFoundException e) {
-            System.out.println("No save file found. Creating new task list ...");
+            System.out.println("\tSaved file not found! Creating new save file ...");
+            createNewSaveFile(saveFilePath);
         }
     }
 
