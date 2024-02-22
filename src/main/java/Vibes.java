@@ -4,10 +4,10 @@ public class Vibes {
     private static final String CHATBOT_NAME = "Vibes";
     private static final String DASHED_LINE = "\t---------------------------------------------------------------------------------------";
 
-    public static String extractCommand(String userInput){
-        if (userInput.contentEquals("list")){
+    public static String extractCommand(String userInput) {
+        if (userInput.contentEquals("list")) {
             return "list";
-        } else if (userInput.contentEquals("bye")){
+        } else if (userInput.contentEquals("bye")) {
             return "bye";
         } else if (userInput.startsWith("mark ")) {
             return "mark";
@@ -15,6 +15,8 @@ public class Vibes {
             return "unmark";
         } else if (userInput.startsWith("todo") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
             return "add task";
+        } else if (userInput.startsWith("delete ")) {
+            return "delete";
         } else {
             return userInput;
         }
@@ -23,7 +25,7 @@ public class Vibes {
     private static void executeCommand(String commandToExecute, List taskList, String userInput) throws CommandNotFoundException {
         int taskNumber;
 
-        switch (commandToExecute){
+        switch (commandToExecute) {
         case "list":
             taskList.listTasks();
             break;
@@ -38,10 +40,13 @@ public class Vibes {
         case "add task":
             try {
                 taskList.addTask(userInput);
-            } catch (InvalidArgumentException e){
+            } catch (InvalidArgumentException e) {
                 System.out.println("\t Argument not found! The description of a todo cannot be empty.");
             }
             break;
+        case "delete":
+            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+            taskList.delete(taskNumber);
         default:
             throw new CommandNotFoundException();
         }
@@ -57,20 +62,20 @@ public class Vibes {
         System.out.println("\t Hello! I'm " + CHATBOT_NAME + "\n\t What can I do for you?");
         System.out.println(DASHED_LINE);
 
-        while(isExit){
+        while (isExit) {
             userInput = in.nextLine().trim();
             String commandToExecute = extractCommand(userInput.toLowerCase());
 
             System.out.println(DASHED_LINE);
-            if (commandToExecute.equals("bye")){
+            if (commandToExecute.equals("bye")) {
                 System.out.println("\t Bye. Hope to see you again soon!");
                 isExit = false;
             } else {
-                try{
-                executeCommand(commandToExecute, taskList, userInput);
-                } catch (CommandNotFoundException e){
+                try {
+                    executeCommand(commandToExecute, taskList, userInput);
+                } catch (CommandNotFoundException e) {
                     System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
-                    "and bye");
+                            "and bye");
                 }
             }
             System.out.println(DASHED_LINE);
