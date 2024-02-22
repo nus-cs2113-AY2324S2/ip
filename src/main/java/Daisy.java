@@ -7,11 +7,11 @@ import daisy.task.Task;
 import daisy.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Daisy {
 
-    protected static Task[] tasks = new Task[100];
-    protected static int task_no = 0;
+    protected static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         final String INTRO_PROMPT = "Good day! This is Daisy.\nAny task for today?";
@@ -30,19 +30,22 @@ public class Daisy {
             String[] separate_commands = command.split(" ",2);
             switch (separate_commands[0]) {
                 case "list":
-                    for (int i = 0; i < task_no; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
+                    for (Task task : tasks) {
+                        System.out.println((tasks.indexOf(task) + 1) + "." + task);
                     }
                     break;
                 case "mark":
-                    tasks[Integer.parseInt(separate_commands[1])-1].setDone();
+                    tasks.get(Integer.parseInt(separate_commands[1])-1).setDone();
                     System.out.println("Congrats on completing the task!");
-                    System.out.println(tasks[Integer.parseInt(separate_commands[1])-1]);
+                    System.out.println(tasks.get(Integer.parseInt(separate_commands[1])-1));
                     break;
                 case "unmark":
-                    tasks[Integer.parseInt(separate_commands[1])-1].setUndone();
+                    tasks.get(Integer.parseInt(separate_commands[1])-1).setUndone();
                     System.out.println("More time needed for the following task? Sure!");
-                    System.out.println(tasks[Integer.parseInt(separate_commands[1])-1]);
+                    System.out.println(tasks.get(Integer.parseInt(separate_commands[1])-1));
+                    break;
+                case "delete":
+                    deleteItem(Integer.parseInt(separate_commands[1])-1);
                     break;
                 case "todo":
                     try {
@@ -63,7 +66,7 @@ public class Daisy {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error! No event detected for deadline. Try again!");
                     } catch (IllegalDeadlineFormatException e) {
-                        System.out.println("Error! daisy.task.Deadline entry is not following format. Try again!");
+                        System.out.println("Error! Deadline entry is not following format. Try again!");
                     }
                     break;
                 case "event":
@@ -79,7 +82,7 @@ public class Daisy {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error! No event detected for event. Try again!");
                     } catch (IllegalEventFormatException e){
-                        System.out.println("Error! daisy.task.Event entry is not following format. Try again!");
+                        System.out.println("Error! Event entry is not following format. Try again!");
                     }
                     break;
                 default:
@@ -98,9 +101,18 @@ public class Daisy {
     }
 
     public static void addItem(Task item) {
-        tasks[task_no] = item;
-        System.out.println("daisy.task.Task received! The following has been added to your list of todos:\n" + item);
-        System.out.println(String.format("Now you have %d tasks in your todo list.",task_no+1));
-        task_no++;
+        tasks.add(item);
+        System.out.println("Task received! The following has been added to your list of todos:\n" + item);
+        outputSize();
+    }
+
+    public static void deleteItem(int index) {
+        System.out.println("I see. The following task will be removed from your list:\n" + tasks.get(index));
+        tasks.remove(index);
+        outputSize();
+    }
+
+    public static void outputSize() {
+        System.out.println(String.format("Now you have %d tasks in your todo list.",tasks.size()));
     }
 }
