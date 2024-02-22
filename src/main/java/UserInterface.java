@@ -98,7 +98,7 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    public void printTaskNotMarked(String message) {
+    public void printTaskAlreadyUnmarked(String message) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "NOTE: " + message);
         System.out.println(LINE);

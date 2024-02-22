@@ -38,6 +38,8 @@ public class Zoro {
                 userInterface.printInvalidTaskIndex(e);
             } catch (NumberFormatException e) {
                 userInterface.printInvalidInputIndex(e);
+            } finally {
+                taskManager.saveTasksToFile();
             }
         }
 

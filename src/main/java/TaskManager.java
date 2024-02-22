@@ -1,8 +1,15 @@
 import Exceptions.InvalidDeadlineFormatException;
 import Exceptions.InvalidEventFormatException;
 import Exceptions.InvalidTodoFormatException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class TaskManager {
+    //private static final String FILE_PATH = "./data/tasks.txt";
+    private static final String FILE_PATH = "." + File.separator + "data" + File.separator + "tasks.txt";
+
     public static final int DEADLINE_BEGIN_INDEX = 8;
     public static final int EVENT_BEGIN_INDEX = 5;
     public static final int TODO_BEGIN_INDEX = 4;
@@ -82,29 +89,27 @@ public class TaskManager {
     public void markTask(int taskIndex) throws IndexOutOfBoundsException {
 
         if (taskIndex >= index || taskIndex < START_INDEX) {
-            // throw new Exception("Invalid task index: " + (taskIndex + INDEX_OFFSET));
             throw new IndexOutOfBoundsException(
                     "Invalid task index for marking: " + (taskIndex + INDEX_OFFSET));
         }
         if (taskList[taskIndex].isDone) {
-            // throw new TaskAlreadyMarkedException("Task is already marked as done");
             userInterface.printTaskAlreadyMarked("Task is already marked as done");
         } else {
             taskList[taskIndex].setAsDone();
             userInterface.printTaskMarked(taskList[taskIndex]);
         }
+
     }
 
     public void unmarkTask(int taskIndex) throws IndexOutOfBoundsException {
 
         if (taskIndex >= index || taskIndex < START_INDEX) {
             throw new IndexOutOfBoundsException(
-                    "Invalid task index for marking: " + (taskIndex + INDEX_OFFSET));
+                    "Invalid task index for unmarking: " + (taskIndex + INDEX_OFFSET));
         }
 
         if (!taskList[taskIndex].isDone) {
-            // throw new TaskAlreadyUnmarkedException("Task is already marked as undone");
-            userInterface.printTaskAlreadyMarked("Task is already marked as undone");
+            userInterface.printTaskAlreadyUnmarked("Task is already marked as undone");
         } else {
             taskList[taskIndex].setAsNotDone();
             userInterface.printTaskUnmarked(taskList[taskIndex]);
@@ -114,4 +119,84 @@ public class TaskManager {
     public void printTaskList() {
         userInterface.printTaskList(taskList, index);
     }
+
+    public TaskManager() {
+        loadTasksFromFile();
+    }
+
+    private void loadTasksFromFile() {
+        File dataDirectory = new File("data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating tasks file: " + e.getMessage() + "\n \n"
+                        + "Your Tasks wont be written to the file");
+                return;
+            }
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = parseTaskFromString(line);
+                if (task != null) {
+                    taskList[index] = task;
+                    index++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage() + "\n"
+                    + "Your Tasks wont be written to the file");
+        }
+    }
+
+    private Task parseTaskFromString(String line) {
+        Task task = null;
+        String[] parts = line.split(" \\| ");
+        if (parts.length >= 3) {
+            String taskType = parts[0];
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            switch (taskType) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                String by = parts[3];
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                task = new Event(description, from, to);
+                break;
+            default:
+                System.out.println("Unknown task type: " + taskType);
+            }
+            if (task != null && isDone) {
+                task.setAsDone();
+            }
+        } else {
+            System.out.println("Invalid task format: " + line);
+        }
+        return task;
+    }
+
+    public void saveTasksToFile() {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (int i = 0; i < index; i++) {
+                writer.write(taskList[i].toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
 }
