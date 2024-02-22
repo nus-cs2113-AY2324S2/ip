@@ -24,7 +24,7 @@ public class BobBot {
             allTasks.get(taskNumberToMark).markAsDone();
             printMessageMarkAsDone(taskNumberToMark);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task index " + taskNumberToMark + " does not exist! Try another number instead.");
+            System.out.println("Task index " + (taskNumberToMark + 1) + " does not exist! Try another number instead.");
         }
     }
 
@@ -42,7 +42,7 @@ public class BobBot {
             allTasks.get(taskNumberToUnmark).markAsUndone();
             printMessageUnmarkAsDone(taskNumberToUnmark);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task index " + taskNumberToUnmark + " does not exist! Try another number instead.");
+            System.out.println("Task index " + (taskNumberToUnmark + 1) + " does not exist! Try another number instead.");
         }
     }
 
@@ -118,20 +118,25 @@ public class BobBot {
 
     public static void delete(String lineString) {
         int taskNumberToDelete = Integer.parseInt(lineString.substring("delete".length()).trim()) - 1;
-        
+        String taskToDelete;
+
         try {
-            printMessageMarkAsDeleted(taskNumberToDelete);
+            taskToDelete = allTasks.get(taskNumberToDelete).toString();
             allTasks.remove(taskNumberToDelete);
-            numTasks -= 1;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task index " + taskNumberToDelete+1 + " does not exist! Try another number instead.");
+            System.out.println("Task index " + (taskNumberToDelete + 1) + " does not exist! Try another number instead.");
+            return;
         }
+
+        numTasks -= 1;
+        printMessageMarkAsDeleted(taskToDelete);
     }
 
-    private static void printMessageMarkAsDeleted(int taskNumberToDelete) {
+    private static void printMessageMarkAsDeleted(String taskToDelete) {
         drawLine(true);
         System.out.println("\tAlright! Deleted this task:");
-        System.out.println("\t  " + allTasks.get(taskNumberToDelete).toString());
+        System.out.println("\t  " + taskToDelete);
+        System.out.printf("\tNow you have %d tasks in the list\n", numTasks);
         drawLine(true);
     }
 
@@ -215,7 +220,9 @@ public class BobBot {
         }
 
         System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
-        System.out.println("\tUsage: (un)mark {task number}");
+        System.out.println("\tUsage: mark {task number}");
+        System.out.println("\tUsage: unmark {task number}");
+        System.out.println("\tUsage: delete {task number}");
         System.out.println("\tPlease enter a valid number within the range of your list.");
         
         drawErrorLine();
