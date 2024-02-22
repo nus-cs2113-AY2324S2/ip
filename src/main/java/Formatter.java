@@ -30,19 +30,19 @@ public class Formatter {
     public static void printListAll() {
         printWrapper("〓");
         System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < CommandExecutor.listCount; i++) {
-            System.out.printf(" \t%d. %s\n", (i + 1), CommandExecutor.tasks[i].toString());
+        for (int i = 0; i < CommandExecutor.tasks.size(); i++) {
+            System.out.printf(" \t%d. %s\n", (i + 1), CommandExecutor.tasks.get(i).toString());
         }
         printWrapper("〓");
     }
 
     public static void printMarkDoneNotif(CommandParser readUserCommand) {
         int userSelectedIndex = Integer.parseInt(readUserCommand.getArgumentTokens()[0]);
-        if (userSelectedIndex <= CommandExecutor.listCount && userSelectedIndex > 0) {
-            CommandExecutor.tasks[userSelectedIndex - 1].markAsDone();
+        if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
+            CommandExecutor.tasks.get(userSelectedIndex - 1).markAsDone();
 
             System.out.println("\t Nice! I've marked this task as done:");
-            System.out.printf("\t %s.\n", CommandExecutor.tasks[userSelectedIndex - 1]);
+            System.out.printf("\t %s.\n", CommandExecutor.tasks.get(userSelectedIndex - 1));
         } else {
             printErrorIndexOutOfRange();
         }
@@ -50,11 +50,11 @@ public class Formatter {
 
     public static void printMarkUndoneNotif(CommandParser readUserCommand) {
         int userSelectedIndex = Integer.parseInt(readUserCommand.getArgumentTokens()[0]);
-        if (userSelectedIndex <= CommandExecutor.listCount && userSelectedIndex > 0) {
-            CommandExecutor.tasks[userSelectedIndex - 1].markAsNotDone();
+        if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
+            CommandExecutor.tasks.get(userSelectedIndex - 1).markAsNotDone();
 
             System.out.println("\t OK, I've marked this task as not done yet:");
-            System.out.printf("\t %s.\n", CommandExecutor.tasks[userSelectedIndex - 1]);
+            System.out.printf("\t %s.\n", CommandExecutor.tasks.get(userSelectedIndex - 1));
         } else {
             printErrorIndexOutOfRange();
         }
@@ -62,11 +62,17 @@ public class Formatter {
     public static void printTaskNotif(CommandParser readUserCommand) {
         printWrapper("_");
         System.out.println("\t Got it. I've added this task:");
-        System.out.printf("\t\t%s\n",CommandExecutor.tasks[CommandExecutor.listCount - 1].toString());
-        System.out.printf("\t Now you have %d tasks in the list.\n",CommandExecutor.listCount);
+        System.out.printf("\t\t%s\n",CommandExecutor.tasks.get(CommandExecutor.tasks.size() - 1).toString());
+        System.out.printf("\t Now you have %d tasks in the list.\n",CommandExecutor.tasks.size());
         printWrapper("_");
     }
-
+    public static void printDeleteNotif(CommandParser readUserCommand) {
+        printWrapper("_");
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.printf("\t\t%s\n",CommandExecutor.tasks.get(CommandExecutor.tasks.size() - 1).toString());
+        System.out.printf("\t Now you have %d tasks in the list.\n",CommandExecutor.tasks.size() - 1);
+        printWrapper("_");
+    }
     public static void printErrorWrongCommand() {
         System.out.println("\t CommandParser: Command not found ");
     }

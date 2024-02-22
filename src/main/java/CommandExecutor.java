@@ -1,10 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CommandExecutor {
     static boolean isRunning = true;
-    static final int MAX_NUMBERED_LIST_LENGTH = 100;
-    static Task[] tasks = new Task[MAX_NUMBERED_LIST_LENGTH];
-    static int listCount = 0;
+    static ArrayList<Task> tasks = new ArrayList<Task>();
     static Scanner in = new Scanner(System.in);
     static String userInput;
     static CommandParser readUserCommand;
@@ -40,6 +39,9 @@ public class CommandExecutor {
                 break;
             case TODO:
                 CommandList.executeTodo(readUserCommand);
+                break;
+            case DELETE:
+                CommandList.executeDelete(readUserCommand);
                 break;
             case EVENT:
                 CommandList.executeEvent(readUserCommand);
