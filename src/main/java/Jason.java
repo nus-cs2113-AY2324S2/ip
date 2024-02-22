@@ -5,27 +5,25 @@ import jason.tasks.Events;
 
 import jason.errorhandling.JasonException;
 
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Represents the main class for the application Duke.
  */
 public class Jason {
-    private static final int MAX_SIZE = 100;
-    private static Task[] list = new Task[MAX_SIZE];
-    private static int num = 0;
+    private static ArrayList<Task> list = new ArrayList<>();
 
 
     private static void markTask(String[] input) throws JasonException {
         try {
             int taskNumber = Integer.parseInt(input[1]) - 1;
-            if (taskNumber < 0 || taskNumber >= num) {
-                throw new JasonException("That task number is not valid. The list only has " + num + " task(s) currently");
+            if (taskNumber < 0 || taskNumber >= list.size()) {
+                throw new JasonException("That task number is not valid. The list only has " + list.size() + " task(s) currently");
             }
-            list[taskNumber].markAsDone();
+            list.get(taskNumber).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(list[taskNumber]);
+            System.out.println(list.get(taskNumber));
         } catch (NumberFormatException e) {
             throw new JasonException("Please enter a valid task number.");
         }
@@ -34,13 +32,13 @@ public class Jason {
     private static void unmarkTask(String[] input) throws JasonException {
         try {
             int taskNumber = Integer.parseInt(input[1]) - 1;
-            if (taskNumber < 0 || taskNumber >= num) {
-                throw new JasonException("That task number is not valid. The list only has " + num + " task(s) currently");
+            if (taskNumber < 0 || taskNumber >= list.size()) {
+                throw new JasonException("That task number is not valid. The list only has " + list.size() + " task(s) currently");
             }
 
-            list[taskNumber].markAsNotDone();
+            list.get(taskNumber).markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(list[taskNumber]);
+            System.out.println(list.get(taskNumber));
         } catch (NumberFormatException e) {
             throw new JasonException("Please enter a valid task number.");
         }
@@ -48,22 +46,22 @@ public class Jason {
 
 
     private static void showTaskNumber() {
-        if (num == 1) {
+        if (list.size() == 1) {
             System.out.println("Now you have 1 task in the list");
         } else {
-            System.out.println("Now you have " + num + " tasks in the list");
+            System.out.println("Now you have " + list.size() + " tasks in the list");
         }
 
     }
 
     private static void showList() throws JasonException {
-        if (num == 0) {
+        if (list.isEmpty()) {
             throw new JasonException("The task list is currently empty. Add some tasks!");
         }
 
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < num; i++) {
-            System.out.println(i + 1 + ":" + list[i]);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + ":" + list.get(i));
         }
     }
 
@@ -72,13 +70,27 @@ public class Jason {
         if (taskDescription.isEmpty()) {
             throw new JasonException("The description of a todo cannot be empty.");
         }
-        list[num] = new Todo(taskDescription);
+        Todo newTodo = new Todo(taskDescription);
+        list.add(newTodo);
         System.out.println("Got it. I've added this task:");
-        System.out.println(list[num].toString());
-        num++;
+        System.out.println(newTodo);
         showTaskNumber();
     }
 
+    private static void deleteTask(String[] input) throws JasonException {
+        try {
+            int taskNumber = Integer.parseInt(input[1]) - 1;
+            if (!(taskNumber > 0) || !(taskNumber <= list.size())) {
+                throw new JasonException("That task number is not valid. The list only has " + list.size() + " task(s) currently");
+            }
+            Task removedTask = list.remove(taskNumber);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(removedTask);
+            showTaskNumber();
+        } catch (NumberFormatException e) {
+            throw new JasonException("Please enter a valid task number.");
+        }
+    }
     private static void deadlineTasks(String task) throws JasonException {
         if (!task.contains("/by")) {
             throw new JasonException("Invalid task. Please type in the format: description /by (date/time)");
@@ -90,10 +102,10 @@ public class Jason {
         if (taskDescription.isEmpty() || taskDeadlineBy.isEmpty()) {
             throw new JasonException("Invalid task. Description and date/time cannot be empty.");
         }
-        list[num] = new Deadline(taskDescription, taskDeadlineBy);
+        Deadline newDeadline = new Deadline(taskDescription, taskDeadlineBy);
+        list.add(newDeadline);
         System.out.println("Got it. I've added this task:");
-        System.out.println(list[num].toString());
-        num++;
+        System.out.println(newDeadline);
         showTaskNumber();
     }
 
@@ -115,13 +127,12 @@ public class Jason {
         }
         String eventStartFrom = eventTimeline[0].trim();
         String eventTill = eventTimeline[1].trim();
-        list[num] = new Events(taskDescription, eventStartFrom, eventTill);
+        Events newEvent = new Events(taskDescription, eventStartFrom, eventTill);
+        list.add(newEvent);
         System.out.println("Got it. I've added this task:");
-        System.out.println(list[num].toString());
-        num++;
+        System.out.println(newEvent);
         showTaskNumber();
     }
-
 
 
 
@@ -192,6 +203,9 @@ public class Jason {
                 } else if (parts[0].equalsIgnoreCase("list")) {
                     // List all tasks
                     showList();
+                } else if (parts[0].equalsIgnoreCase("delete")) {
+                    //delete task
+                    deleteTask(parts);
                 } else {
                     // Add new task
                     addTasks(input);
