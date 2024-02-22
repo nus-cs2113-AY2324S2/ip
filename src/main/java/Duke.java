@@ -20,7 +20,6 @@ public class Duke {
                 String userInput = scanner.nextLine();
 
                 if ("bye".equalsIgnoreCase(userInput)) {
-                    saveTasksToFile();
                     break;
 
                 }
@@ -112,6 +111,7 @@ public class Duke {
                 System.out.println(de.getMessage());
                 System.out.println("____________________________________________________________");
             }
+            saveTasksToFile();
         }
 
         System.out.println("____________________________________________________________");
