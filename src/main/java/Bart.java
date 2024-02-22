@@ -13,16 +13,20 @@ public class Bart {
     }
     public static void greetUser() {
         System.out.println(LINE + "\nHello! I'm Bartholomew, but you can call me Bart for short :)");
-        System.out.println("What can I do for you?\n" + LINE);
+        System.out.println("What can I do for you?\nType help for a list of available commands!\n" + LINE);
     }
     public static void manageTask() {
         Scanner in = new Scanner(System.in);
         String command = "";
 
-        while (!command.equals("bye")) {
+        while (true) {
             command = in.nextLine();
 
-            if (command.equals("list")) {
+            if (command.equals("help")) {
+                printHelp();
+            } else if (command.equals("bye")) {
+                break;
+            } else if (command.equals("list")) {
                 listTasks();
             } else if (command.startsWith("mark")) {
                 markTask(command, true);
@@ -122,6 +126,17 @@ public class Bart {
     }
 
     private static void byeUser() {
-        System.out.println("Bye. Hope to see you again soon!\n" + LINE);
+        System.out.println(LINE + "\nBye. Hope to see you again soon!\n" + LINE);
+    }
+
+    public static void printHelp() {
+        System.out.println(LINE + "\n'list' lists all current tasks");
+        System.out.println("'mark <#>' marks tasks with X");
+        System.out.println("'unmark <#>' unmarks by removing the X");;
+        System.out.println("'todo <task>' creates a to-do");
+        System.out.println("'deadline <task> /by <time>' creates a task with deadline");
+        System.out.println("'event <task> /from <time> /to <time>' creates a to-do");
+        System.out.println("'bye' to quit\n" + LINE);
+
     }
 }
