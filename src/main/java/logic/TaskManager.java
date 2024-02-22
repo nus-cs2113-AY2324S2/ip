@@ -41,18 +41,18 @@ public class TaskManager {
         String taskType = taskAsArray[0];
         switch (taskType) {
         case "todo":
-            processToDo(taskToAdd, false);
+            processToDo(taskToAdd);
             break;
         case "deadline":
             try {
-                processDeadline(taskToAdd, false);
+                processDeadline(taskToAdd);
             } catch (DeadlineNoByDateTimeException e) {
                 throw new DeadlineNoByDateTimeException();
             }
             break;
         case "event":
             try {
-                processEvent(taskToAdd, false);
+                processEvent(taskToAdd);
             } catch (EventNoFromDateTimeException e) {
                 throw new EventNoFromDateTimeException();
             } catch (EventNoToDateTimeException e) {
@@ -68,13 +68,13 @@ public class TaskManager {
         saveData();
     }
     
-    private void processToDo(String taskToAdd, boolean isDone) {
+    private void processToDo(String taskToAdd) {
         String taskName;
         taskName = taskToAdd.substring(TODO_LENGTH);
-        tasks[currIndex] = new ToDo(taskName, isDone);
+        tasks[currIndex] = new ToDo(taskName);
     }
 
-    private void processDeadline(String taskToAdd, boolean isDone) throws Exception {
+    private void processDeadline(String taskToAdd) throws Exception {
         if (!(taskToAdd.contains("/by "))) {
             throw new DeadlineNoByDateTimeException();
         }
@@ -87,10 +87,10 @@ public class TaskManager {
         taskName = taskToAdd.substring(DEADLINE_LENGTH, firstBackslashIndex - 1);
         int byWhenIndex = firstBackslashIndex + BY_LENGTH;
         String byWhen = taskToAdd.substring(byWhenIndex);
-        tasks[currIndex] = new Deadline(taskName, isDone, byWhen);
+        tasks[currIndex] = new Deadline(taskName, byWhen);
     }
 
-    private void processEvent(String taskToAdd, boolean isDone) throws Exception {
+    private void processEvent(String taskToAdd) throws Exception {
         if (!(taskToAdd.contains("/from "))) {
             throw new EventNoFromDateTimeException();
         }
@@ -112,7 +112,7 @@ public class TaskManager {
         int toWhenIndex = secondBackslashIndex + TO_LENGTH;
         String fromWhen = taskToAdd.substring(fromWhenIndex, secondBackslashIndex - 1);
         String toWhen = taskToAdd.substring(toWhenIndex);
-        tasks[currIndex] = new Event(taskName, isDone, fromWhen, toWhen);
+        tasks[currIndex] = new Event(taskName, fromWhen, toWhen);
     }
     
     private void printAndIncrementAfterAddTask() {
@@ -153,11 +153,57 @@ public class TaskManager {
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: Could not load dor.txt!");
         }
-        String data;
         while (s.hasNext()) {
-            data = s.nextLine();
-            // TODO: process data and add
+            String data = s.nextLine();
+            String taskType = data.substring(0, 1);
+            boolean taskDoneStatus = processTaskDoneStatus(data);
+            String taskName;
+            switch (taskType) {
+            case "T":
+                loadToDo(data, taskDoneStatus);
+                break;
+            case "D":
+                loadDeadline(data, taskDoneStatus);
+                break;
+            case "E":
+                loadEvent(data, taskDoneStatus);
+                break;
+            }
+            currIndex++;
         }
+        System.out.println("Successfully loaded data!");
+        System.out.println("Current number of tasks: " + currIndex);
+    }
+
+    private boolean processTaskDoneStatus(String data) {
+        boolean taskDoneStatus;
+        if (data.substring(3, 4).equals("1")){
+            taskDoneStatus = true;
+        } else {
+            taskDoneStatus = false;
+        }
+        return taskDoneStatus;
+    }
+
+    private void loadToDo(String data, boolean taskDoneStatus) {
+        String taskName = data.substring(6);
+        tasks[currIndex] = new ToDo(taskName, taskDoneStatus);
+    }
+
+    private void loadDeadline(String data, boolean taskDoneStatus) {
+        int commaAfterTaskNameIndex = data.indexOf(',', 6);
+        String taskName = data.substring(6, commaAfterTaskNameIndex);
+        String byWhen = data.substring(commaAfterTaskNameIndex + 2);
+        tasks[currIndex] = new Deadline(taskName, taskDoneStatus, byWhen);
+    }
+
+    private void loadEvent(String data, boolean taskDoneStatus) {
+        int commaAfterTaskNameIndex = data.indexOf(',', 6);
+        String taskName = data.substring(6, commaAfterTaskNameIndex);
+        int commaAfterFromDateTimeIndex = data.indexOf(",", commaAfterTaskNameIndex + 1);
+        String fromWhen = data.substring(commaAfterTaskNameIndex + 2, commaAfterFromDateTimeIndex - 1);
+        String toWhen = data.substring(commaAfterFromDateTimeIndex + 2);
+        tasks[currIndex] = new Event(taskName, taskDoneStatus, fromWhen, toWhen);
     }
 
     public void saveData() throws IOException {
@@ -193,11 +239,5 @@ public class TaskManager {
 
     public String appendFromToDateTimeToData(Event data) {
         return (data.getFrom() + ", " + data.getTo());
-    }
-
-    public void writeToFile(String data) throws IOException {
-        FileWriter fw = new FileWriter("./data/dor.txt");
-        fw.write(data + System.lineSeparator());
-        fw.close();
     }
 }
