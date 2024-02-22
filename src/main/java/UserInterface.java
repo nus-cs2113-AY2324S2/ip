@@ -2,6 +2,7 @@ import Exceptions.InvalidDeadlineFormatException;
 import Exceptions.InvalidEventFormatException;
 import Exceptions.InvalidTodoFormatException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -30,11 +31,11 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    public void printTaskList(Task[] taskLists, int index) {
+    public void printTaskList(ArrayList<Task> taskList, int index) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Here are the tasks in your list:");
         for (int i = START_INDEX; i < index; i++) {
-            System.out.println(TAB_SPACE + (i + INDEX_OFFSET) + "." + taskLists[i]);
+            System.out.println(TAB_SPACE + (i + INDEX_OFFSET) + "." + taskList.get(i));
         }
         System.out.println(LINE);
     }
@@ -98,11 +99,12 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    public void printTaskNotMarked(String message) {
+    public void printTaskAlreadyUnmarked(String message) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "NOTE: " + message);
         System.out.println(LINE);
     }
+
     public void printInvalidInputIndex(NumberFormatException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Invalid task index: " + e.getMessage());

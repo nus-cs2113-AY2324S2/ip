@@ -1,6 +1,7 @@
 import Exceptions.InvalidDeadlineFormatException;
 import Exceptions.InvalidEventFormatException;
 import Exceptions.InvalidTodoFormatException;
+import java.util.ArrayList;
 
 public class TaskManager {
     public static final int DEADLINE_BEGIN_INDEX = 8;
@@ -8,13 +9,12 @@ public class TaskManager {
     public static final int TODO_BEGIN_INDEX = 4;
     public static final int EVENT_MAX_PARTS = 3;
     public static final int DEADLINE_MAX_PARTS = 2;
-    private static final int MAX_TASKS = 100;
     public static final int INDEX_OFFSET = 1;
     public static final int PART_0 = 0;
     public static final int PART_1 = 1;
     public static final int PART_2 = 2;
     public static final int START_INDEX = 0;
-    private Task[] taskList = new Task[MAX_TASKS];
+    private ArrayList<Task> taskList = new ArrayList<>();
     private int index = 0;
     UserInterface userInterface = new UserInterface();
 
@@ -48,9 +48,9 @@ public class TaskManager {
     private void addDeadlineTask(String taskDescription) throws InvalidDeadlineFormatException {
         String[] taskDetails = taskDescription.substring(DEADLINE_BEGIN_INDEX).split("/by");
         if (taskDetails.length == DEADLINE_MAX_PARTS) {
-            taskList[index] = new Deadline(taskDetails[PART_0].trim(), taskDetails[PART_1].trim());
-            index = Math.min(index + INDEX_OFFSET, MAX_TASKS);
-            userInterface.printTaskAdded(taskList[index - INDEX_OFFSET], index);
+            taskList.add(new Deadline(taskDetails[PART_0].trim(), taskDetails[PART_1].trim()));
+            index += INDEX_OFFSET;
+            userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidDeadlineFormatException("Invalid deadline format.");
         }
@@ -59,10 +59,10 @@ public class TaskManager {
     private void addEventTask(String taskDescription) throws InvalidEventFormatException {
         String[] taskDetails = taskDescription.substring(EVENT_BEGIN_INDEX).split("/from|/to");
         if (taskDetails.length == EVENT_MAX_PARTS) {
-            taskList[index] = new Event(taskDetails[PART_0].trim(), taskDetails[PART_1].trim(),
-                    taskDetails[PART_2].trim());
-            index = Math.min(index + INDEX_OFFSET, MAX_TASKS);
-            userInterface.printTaskAdded(taskList[index - INDEX_OFFSET], index);
+            taskList.add(new Event(taskDetails[PART_0].trim(), taskDetails[PART_1].trim(),
+                    taskDetails[PART_2].trim()));
+            index += INDEX_OFFSET;
+            userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidEventFormatException("Invalid event format. ");
         }
@@ -71,9 +71,9 @@ public class TaskManager {
     private void addTodoTask(String taskDescription) throws InvalidTodoFormatException {
         String taskDetails = taskDescription.substring(TODO_BEGIN_INDEX).trim();
         if (!taskDetails.isEmpty()) {
-            taskList[index] = new Todo(taskDetails);
-            index = Math.min(index + INDEX_OFFSET, MAX_TASKS);
-            userInterface.printTaskAdded(taskList[index - INDEX_OFFSET], index);
+            taskList.add(new Todo(taskDetails));
+            index += INDEX_OFFSET;
+            userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidTodoFormatException("Invalid todo format. ");
         }
@@ -82,16 +82,14 @@ public class TaskManager {
     public void markTask(int taskIndex) throws IndexOutOfBoundsException {
 
         if (taskIndex >= index || taskIndex < START_INDEX) {
-            // throw new Exception("Invalid task index: " + (taskIndex + INDEX_OFFSET));
             throw new IndexOutOfBoundsException(
                     "Invalid task index for marking: " + (taskIndex + INDEX_OFFSET));
         }
-        if (taskList[taskIndex].isDone) {
-            // throw new TaskAlreadyMarkedException("Task is already marked as done");
+        if (taskList.get(taskIndex).isDone) {
             userInterface.printTaskAlreadyMarked("Task is already marked as done");
         } else {
-            taskList[taskIndex].setAsDone();
-            userInterface.printTaskMarked(taskList[taskIndex]);
+            taskList.get(taskIndex).setAsDone();
+            userInterface.printTaskMarked(taskList.get(taskIndex));
         }
     }
 
@@ -102,12 +100,11 @@ public class TaskManager {
                     "Invalid task index for marking: " + (taskIndex + INDEX_OFFSET));
         }
 
-        if (!taskList[taskIndex].isDone) {
-            // throw new TaskAlreadyUnmarkedException("Task is already marked as undone");
-            userInterface.printTaskAlreadyMarked("Task is already marked as undone");
+        if (!taskList.get(taskIndex).isDone) {
+            userInterface.printTaskAlreadyUnmarked("Task is already marked as undone");
         } else {
-            taskList[taskIndex].setAsNotDone();
-            userInterface.printTaskUnmarked(taskList[taskIndex]);
+            taskList.get(taskIndex).setAsNotDone();
+            userInterface.printTaskUnmarked(taskList.get(taskIndex));
         }
     }
 
