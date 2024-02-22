@@ -1,138 +1,12 @@
 import java.util.Scanner;
 
-class Task {
-    private String description;
-    private boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public void markDone() {
-        isDone = true;
-    }
-
-    public void markNotDone() {
-        isDone = false;
-    }
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
-    public String getType() {
-        return "";
-    }
-
-    public String toString() {
-        return getType() + " " + getStatusIcon() + " " + description;
-    }
-}
-
-//class Todo extends Task {
-//    public Todo(String description) {
-//        super(description);
-//    }
-//
-//    public String getType() {
-//        return "[T]";
-//    }
-//}
-
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-
-    public String getType() {
-        return "[T]";
-    }
-}
-
-
-//class Deadline extends Task {
-//    private String by;
-//
-//    public Deadline(String description, String by) {
-//        super(description);
-//        this.by = by;
-//    }
-//
-//    public String getType() {
-//        return "[D]";
-//    }
-//
-//    public String toString() {
-//        return super.toString() + " (by: " + by + ")";
-//    }
-//}
-
-class Deadline extends Task {
-    private String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    public String getType() {
-        return "[D]";
-    }
-}
-
-
-//class Event extends Task {
-//    private String from;
-//    private String to;
-//
-//    public Event(String description, String from, String to) {
-//        super(description);
-//        this.from = from;
-//        this.to = to;
-//    }
-//
-//    public String getType() {
-//        return "[E]";
-//    }
-//
-//    public String toString() {
-//        return getType() + getStatusIcon() + " " + super.toString() + " (from: " + from + " to: " + to + ")";
-//    }
-//}
-
-class Event extends Task {
-    private String from;
-    private String to;
-
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    public String getType() {
-        return "[E]";
-    }
-
-    public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")";
-    }
-}
-
 
 public class Joey {
-    public static void main(String[] args) {
+    private static final String DASHED_LINE = "____________________________________________________________";
+    public static void main(String[] args) throws JoeyException {
         System.out.println("Hello! I'm Joey");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println(DASHED_LINE);
 
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[100];
@@ -140,11 +14,11 @@ public class Joey {
 
         while (true) {
             String userCommand = scanner.nextLine();
-            System.out.println("____________________________________________________________");
+            System.out.println(DASHED_LINE);
 
             if (userCommand.equalsIgnoreCase("bye")) {
                 System.out.println(" bye bye, take care:)!");
-                System.out.println("____________________________________________________________");
+                System.out.println(DASHED_LINE);
                 break;
             } else if (userCommand.equalsIgnoreCase("list")) {
                 System.out.println(" Here are the tasks in your list:");
@@ -152,36 +26,83 @@ public class Joey {
                     Task task = tasks[i];
                     System.out.println(" " + (i + 1) + "." + task.getType() + "[" + (task.isDone() ? "X" : " ") + "] " + task.getDescription());
                 }
-                System.out.println("____________________________________________________________");
+                System.out.println(DASHED_LINE);
             } else if (userCommand.startsWith("todo")) {
-                String description = userCommand.substring(5);
-                tasks[taskCount] = new Todo(description);
-                taskCount++;
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks[taskCount - 1]);
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                try {
+                    String description = userCommand.substring(5).trim();
+                    if (description.isEmpty()) {
+                        throw new JoeyException("Hey girlie, the description of the todo can't be empty. Follow this format instead: todo buy eggs");
+                    }
+                    tasks[taskCount] = new Todo(description);
+                    taskCount++;
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskCount - 1]);
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(DASHED_LINE);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(DASHED_LINE);
+                } catch (JoeyException e) {
+                    System.out.println("OOPS!!! " + e.getMessage());
+                    System.out.println(DASHED_LINE );
+                }
             } else if (userCommand.startsWith("deadline")) {
-                String[] parts = userCommand.substring(9).split("/by");
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                tasks[taskCount] = new Deadline(description, by);
-                taskCount++;
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks[taskCount - 1]);
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                try {
+                    String[] parts = userCommand.substring(9).split("/by");
+                    if (parts.length != 2) {
+                        throw new JoeyException("Hey girlie, please provide both description and deadline for the deadline task. Follow this format instead: deadline return book /by Sunday");
+                    }
+
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+
+                    if (description.isEmpty() || by.isEmpty()) {
+                        throw new JoeyException("Hey girlie, the description and deadline for the deadline task can't be empty. Follow this format instead: deadline return book /by Sunday");
+                    }
+
+                    tasks[taskCount] = new Deadline(description, by);
+                    taskCount++;
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskCount - 1]);
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(DASHED_LINE);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!!! Hey girlie, please provide both description and deadline for the deadline task. Follow this format instead: deadline return book /by Sunday");
+                    System.out.println(DASHED_LINE);
+                } catch (JoeyException e) {
+                    System.out.println("OOPS!!! " + e.getMessage());
+                    System.out.println(DASHED_LINE);
+                }
             } else if (userCommand.startsWith("event")) {
-                String[] parts = userCommand.substring(6).split("/from|/to");
-                String description = parts[0].trim();
-                String from = parts[1].trim();
-                String to = parts[2].trim();
-                tasks[taskCount] = new Event(description, from, to);
-                taskCount++;
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + tasks[taskCount - 1]);
-                System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                try {
+                    String[] parts = userCommand.split("/from");
+                    if (parts.length != 2) {
+                        throw new JoeyException("Hey girlie, please provide both description, start time, and end time for the event task. Follow this format instead: event project meeting /from Mon 2pm /to 4pm");
+                    }
+
+                    String description = parts[0].substring(6).trim();
+                    String[] timingParts = parts[1].split("/to");
+                    if (timingParts.length != 2) {
+                        throw new JoeyException("Hey girlie, please provide both description, start time, and end time for the event task. Follow this format instead: event project meeting /from Mon 2pm /to 4pm");
+                    }
+
+                    String from = timingParts[0].trim();
+                    String to = timingParts[1].trim();
+
+                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        throw new JoeyException("Hey girlie, please provide both description, start time, and end time for the event task. Follow this format instead: event project meeting /from Mon 2pm /to 4pm");
+                    }
+
+                    tasks[taskCount] = new Event(description, from, to);
+                    taskCount++;
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + tasks[taskCount - 1]);
+                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                    System.out.println(DASHED_LINE);
+                } catch (JoeyException e) {
+                    System.out.println("OOPS!!! " + e.getMessage());
+                    System.out.println(DASHED_LINE);
+                }
             } else if (userCommand.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
@@ -189,10 +110,10 @@ public class Joey {
                     task.markDone();
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println("   [" + (task.isDone() ? "X" : " ") + "] " + task.getDescription());
-                    System.out.println("____________________________________________________________");
+                    System.out.println(DASHED_LINE);
                 } else {
                     System.out.println(" Task not found. Please enter a valid task number OR enter 'list' to view your current list:)");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(DASHED_LINE);
                 }
             } else if (userCommand.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
@@ -201,16 +122,16 @@ public class Joey {
                     task.markNotDone();
                     System.out.println(" okay, I have marked this task as not done yet:");
                     System.out.println("   [" + (task.isDone() ? "X" : " ") + "] " + task.getDescription());
-                    System.out.println("____________________________________________________________");
+                    System.out.println(DASHED_LINE);
                 } else {
                     System.out.println(" Task not found. Please enter a valid task number OR enter 'list' to view your current list:)");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(DASHED_LINE);
                 }
             } else {
                 tasks[taskCount] = new Task(userCommand);
                 taskCount++;
                 System.out.println(" added: " + userCommand);
-                System.out.println("____________________________________________________________");
+                System.out.println(DASHED_LINE);
             }
         }
         scanner.close();
