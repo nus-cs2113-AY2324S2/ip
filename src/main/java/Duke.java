@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +17,7 @@ public class Duke {
         String deadline = "deadline";
         String event = "event";
         String filename = "data.txt";
-        List<Task> tasks = new ArrayList<Task>();
+        List<Task> tasks;
         TaskListFile file;
         Scanner input = new Scanner(System.in);
         System.out.println("Hello clown I am " + chatbot);

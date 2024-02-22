@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TaskListFile {
@@ -42,12 +40,9 @@ public class TaskListFile {
             System.out.println("Error creating files " + e.getMessage());
         }
     }
-    //create a static method to load then call it once
-    // at the start to update
 
     List<Task> decodeTasks() throws FileNotFoundException {
         List<Task> loadList = new ArrayList<>();
-        String pattern;
         Scanner s = new Scanner(this.taskFile);
         while (s.hasNext()) {
             String inputLine = s.nextLine();
@@ -73,7 +68,6 @@ public class TaskListFile {
                     String from = words[3];
                     String to = words[4];
                     loadList.add(new Event(description, status, from, to));
-                    continue;
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("File corrupted");
