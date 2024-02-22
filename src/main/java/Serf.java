@@ -3,10 +3,11 @@ import taskmanager.Messages;
 import taskmanager.Task;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Serf {
     public static void main(String[] args) {
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<Task>();
         int taskCounter = 0; // tracks number of tasks in taskList
         String chatBotName = "Serf";
 

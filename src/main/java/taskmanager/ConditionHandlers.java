@@ -3,24 +3,26 @@ package taskmanager;
 import newexceptions.InvalidDeleteIndexException;
 import newexceptions.InvalidInputException;
 
+import java.util.ArrayList;
+
 public class ConditionHandlers {
-    public static void listIsNotEmpty(Task[] taskList, int taskCounter) {
+    public static void listIsNotEmpty(ArrayList<Task> taskList, int taskCounter) {
         Messages.startOfListMessage();
         for (int i = 0; i < taskCounter; i += 1) {
-            switch (taskList[i].getTaskType()) {
+            switch (taskList.get(i).getTaskType()) {
                 case "T":
-                    Messages.todoListMessage(i, taskList[i].getTaskType(),
-                            taskList[i].getStatusIcon(), taskList[i].getDescription());
+                    Messages.todoListMessage(i, taskList.get(i).getTaskType(),
+                            taskList.get(i).getStatusIcon(), taskList.get(i).getDescription());
                     break;
                 case "D":
-                    Messages.deadlineListMessage(i, taskList[i].getTaskType(),
-                            taskList[i].getStatusIcon(), taskList[i].getDescription(),
-                            taskList[i].getEndDate());
+                    Messages.deadlineListMessage(i, taskList.get(i).getTaskType(),
+                            taskList.get(i).getStatusIcon(), taskList.get(i).getDescription(),
+                            taskList.get(i).getEndDate());
                     break;
                 case "E":
-                    Messages.eventListMessage(i, taskList[i].getTaskType(),
-                            taskList[i].getStatusIcon(), taskList[i].getDescription(),
-                            taskList[i].getStartDate(), taskList[i].getEndDate());
+                    Messages.eventListMessage(i, taskList.get(i).getTaskType(),
+                            taskList.get(i).getStatusIcon(), taskList.get(i).getDescription(),
+                            taskList.get(i).getStartDate(), taskList.get(i).getEndDate());
                     break;
                 default:
                     Messages.invalidTaskTypeMessage();
@@ -28,7 +30,7 @@ public class ConditionHandlers {
         }
         Messages.printVerticalLines();
     }
-    public static void markTask(String receivedMessage, Task[] taskList) {
+    public static void markTask(String receivedMessage, ArrayList<Task> taskList) {
         String number = "";
         for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
             if (Character.isDigit(receivedMessage.charAt(j))) {
@@ -40,13 +42,13 @@ public class ConditionHandlers {
             System.out.println("     Sire you need to input a digit after mark");
             return;
         } else {
-            taskList[Integer.parseInt(number) - 1].markAsDone();
+            taskList.get(Integer.parseInt(number) - 1).markAsDone();
         }
-        Messages.markOrUnmarkTaskMessage(taskList[Integer.parseInt(number) - 1].getTaskType(),
-                taskList[Integer.parseInt(number) - 1].getStatusIcon(),
-                taskList[Integer.parseInt(number) - 1].getDescription(), "complete");
+        Messages.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
+                taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
+                taskList.get(Integer.parseInt(number) - 1).getDescription(), "complete");
     }
-    public static void unmarkTask(String receivedMessage, Task[] taskList){
+    public static void unmarkTask(String receivedMessage, ArrayList<Task> taskList){
         String number = "";
         for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
             if (Character.isDigit(receivedMessage.charAt(j))) {
@@ -58,13 +60,13 @@ public class ConditionHandlers {
             System.out.println("     Sire you need to input a digit after unmark");
             return;
         } else {
-            taskList[Integer.parseInt(number) - 1].markAsUndone();
+            taskList.get(Integer.parseInt(number) - 1).markAsUndone();
         }
-        Messages.markOrUnmarkTaskMessage(taskList[Integer.parseInt(number) - 1].getTaskType(),
-                taskList[Integer.parseInt(number) - 1].getStatusIcon(),
-                taskList[Integer.parseInt(number) - 1].getDescription(), "incomplete");
+        Messages.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
+                taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
+                taskList.get(Integer.parseInt(number) - 1).getDescription(), "incomplete");
     }
-    public static int addTodoTaskToList(String receivedMessage, Task[] taskList, int taskCounter) {
+    public static int addTodoTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
             receivedMessage = receivedMessage.trim();
             if (!receivedMessage.startsWith("todo")) { // input does not start with todo
@@ -78,11 +80,11 @@ public class ConditionHandlers {
             if (splittedMessage.length == 0 || splittedMessage.length == 1){
                 throw new InvalidInputException();
             }
-            taskList[taskCounter] = new Task(splittedMessage[1]);
-            taskList[taskCounter].setTaskType("todo");
+            taskList.add(taskCounter, new Task(splittedMessage[1]));
+            taskList.get(taskCounter).setTaskType("todo");
             taskCounter += 1;
-            Messages.addTodoMessage(taskList[taskCounter - 1].getTaskType(),
-                    taskList[taskCounter - 1].getStatusIcon(), taskList[taskCounter - 1].getDescription(),
+            Messages.addTodoMessage(taskList.get(taskCounter - 1).getTaskType(),
+                    taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
                     taskCounter);
             return taskCounter;
         } catch (InvalidInputException e) {
@@ -91,7 +93,7 @@ public class ConditionHandlers {
         }
 
     }
-    public static int addDeadlineTaskToList(String receivedMessage, Task[] taskList, int taskCounter) {
+    public static int addDeadlineTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
             receivedMessage = receivedMessage.trim();
             // input does not start with deadline or contain /by
@@ -115,20 +117,20 @@ public class ConditionHandlers {
             if (doubleSplittedMessage.length == 0 ||  doubleSplittedMessage.length == 1){
                 throw new InvalidInputException();
             }
-            taskList[taskCounter] = new Task(doubleSplittedMessage[0]);
-            taskList[taskCounter].setTaskType("deadline");
-            taskList[taskCounter].setEndDate(doubleSplittedMessage[1]);
+            taskList.add(taskCounter, new Task(doubleSplittedMessage[0]));
+            taskList.get(taskCounter).setTaskType("deadline");
+            taskList.get(taskCounter).setEndDate(doubleSplittedMessage[1]);
             taskCounter += 1;
-            Messages.addDeadlineMessage(taskList[taskCounter - 1].getTaskType(),
-                    taskList[taskCounter - 1].getStatusIcon(), taskList[taskCounter - 1].getDescription(),
-                    taskList[taskCounter - 1].getEndDate(), taskCounter);
+            Messages.addDeadlineMessage(taskList.get(taskCounter - 1).getTaskType(),
+                    taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
+                    taskList.get(taskCounter - 1).getEndDate(), taskCounter);
             return taskCounter;
         } catch (InvalidInputException e) {
             Messages.typoErrorMessage();
             return taskCounter;
         }
     }
-    public static int addEventTaskToList(String receivedMessage, Task[] taskList, int taskCounter){
+    public static int addEventTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter){
         try {
             receivedMessage = receivedMessage.trim();
             if (!receivedMessage.startsWith("event") || !receivedMessage.contains("/from")
@@ -158,14 +160,14 @@ public class ConditionHandlers {
             for (int k = 0; k < tripleSplittedMessage.length; k += 1) {
                 tripleSplittedMessage[k] = tripleSplittedMessage[k].trim();
             }
-            taskList[taskCounter] = new Task(doubleSplittedMessage[0]);
-            taskList[taskCounter].setTaskType("event");
-            taskList[taskCounter].setStartDate(tripleSplittedMessage[0]);
-            taskList[taskCounter].setEndDate(tripleSplittedMessage[1]);
+            taskList.add(taskCounter, new Task(doubleSplittedMessage[0]));
+            taskList.get(taskCounter).setTaskType("event");
+            taskList.get(taskCounter).setStartDate(tripleSplittedMessage[0]);
+            taskList.get(taskCounter).setEndDate(tripleSplittedMessage[1]);
             taskCounter += 1;
-            Messages.addEventMessage(taskList[taskCounter - 1].getTaskType(),
-                    taskList[taskCounter - 1].getStatusIcon(), taskList[taskCounter - 1].getDescription(),
-                    taskList[taskCounter - 1].getStartDate(), taskList[taskCounter - 1].getEndDate(),
+            Messages.addEventMessage(taskList.get(taskCounter - 1).getTaskType(),
+                    taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
+                    taskList.get(taskCounter - 1).getStartDate(), taskList.get(taskCounter - 1).getEndDate(),
                     taskCounter);
             return taskCounter;
         } catch (InvalidInputException e){
@@ -174,7 +176,7 @@ public class ConditionHandlers {
         }
     }
 
-    public static int deleteTask(String receivedMessage, Task[] taskList, int taskCounter) {
+    public static int deleteTask(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
             String number = "";
             for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
@@ -191,21 +193,21 @@ public class ConditionHandlers {
             if (taskNumber > taskCounter) {
                 throw new InvalidDeleteIndexException();
             }
-            switch(taskList[taskNumber - 1].getTaskType()) {
+            switch(taskList.get(taskNumber - 1).getTaskType()) {
                 case "T":
-                    Messages.deleteTodoMessage(taskList[taskNumber - 1].getTaskType(),
-                            taskList[taskNumber - 1].getStatusIcon(), taskList[taskNumber - 1].getDescription(),
+                    Messages.deleteTodoMessage(taskList.get(taskNumber - 1).getTaskType(),
+                            taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
                             taskCounter - 1);
                     break;
                 case "D":
-                    Messages.deleteDeadlineMessage(taskList[taskNumber - 1].getTaskType(),
-                            taskList[taskNumber - 1].getStatusIcon(), taskList[taskNumber - 1].getDescription(),
-                            taskList[taskNumber - 1].getEndDate(),taskCounter - 1);
+                    Messages.deleteDeadlineMessage(taskList.get(taskNumber - 1).getTaskType(),
+                            taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
+                            taskList.get(taskNumber - 1).getEndDate(),taskCounter - 1);
                     break;
                 case "E":
-                    Messages.deleteEventMessage(taskList[taskNumber - 1].getTaskType(),
-                            taskList[taskNumber - 1].getStatusIcon(), taskList[taskNumber - 1].getDescription(),
-                            taskList[taskNumber - 1].getStartDate(), taskList[taskNumber - 1].getEndDate(),
+                    Messages.deleteEventMessage(taskList.get(taskNumber - 1).getTaskType(),
+                            taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
+                            taskList.get(taskNumber - 1).getStartDate(), taskList.get(taskNumber - 1).getEndDate(),
                             taskCounter - 1);
                     break;
                 default:
@@ -214,9 +216,9 @@ public class ConditionHandlers {
             }
 
             for (int iterator = taskNumber - 1; iterator < taskCounter - 1; iterator += 1) {
-                taskList[iterator] = taskList[iterator + 1];
+                taskList.set(iterator, taskList.get(iterator + 1));
             }
-            taskList[taskCounter - 1] = null;
+            taskList.remove(taskCounter - 1);
             taskCounter = taskCounter - 1;
             return taskCounter;
         }
