@@ -4,13 +4,14 @@ public class KratosException extends Exception {
             commandNotFound();
         } else if (e instanceof ArrayIndexOutOfBoundsException) {
             blankAfterTask(command);
+        } else if (e instanceof IndexOutOfBoundsException) {
+            taskOutOfBounds();
         } else {
             otherIncurredException();
         }
     }
 
     private static void otherIncurredException() {
-        // Handle other exceptions
         System.out.println(Kratos.LINE);
         System.out.println("An unexpected error has materialized, " +
                 "shrouded in the veils of chaos. " +
@@ -48,6 +49,13 @@ public class KratosException extends Exception {
         System.out.println("Verily, the COMMAND hath eluded us, " +
                 "obscured in the realm of the unknown.\n" +
                 "Let us seek clarity and purpose in our journey forward.");
+        System.out.println(Kratos.LINE);
+    }
+
+    private static void taskOutOfBounds() {
+        System.out.println(Kratos.LINE);
+        System.out.println("The task you seek to vanquish lies beyond the reach of mortal hands.\n" +
+                "Specify a valid task number or retreat from the brink of chaos.");
         System.out.println(Kratos.LINE);
     }
 }
