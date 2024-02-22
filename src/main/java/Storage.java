@@ -59,10 +59,10 @@ public class Storage {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
-            return "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription();
+            return "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + deadlineTask.getBy();
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
-            return "E | " + (task.isDone() ? "1" : "0") + " | " + eventTask.getDescription();
+            return "E | " + (task.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + eventTask.getStart() + "-" + eventTask.getEnd();
         } else {
             return "";
         }
@@ -82,32 +82,47 @@ public class Storage {
     }
 
     public static Task decodeTask(String line) {
-        String[] parts = line.split(" \\| ");
+        String[] parts = line.split(" \\| ", 3);
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
-        String description = parts[2];
+        String description;
 
         switch (taskType) {
         case "T":
+            description = parts[2];
             Task newTodo = new Todo(description);
             newTodo.setDone(isDone);
             return newTodo;
         case "D":
-            String by = parts[3];
+            String[] descriptionByString = parts[2].split(" \\| ");
+            description = descriptionByString[0];
+            String by = descriptionByString[1];
             Deadline newDeadline = new Deadline(description, by);
             newDeadline.setDone(isDone);
             return newDeadline;
         case "E":
-            String dateTimeString = parts[3];
-            String[] dateTimeParts = dateTimeString.split(" to ");
-            String from = dateTimeParts[0];
-            String to = dateTimeParts[1];
+            String[] descriptionStartEndString = parts[2].split(" \\| ");
+            description = descriptionStartEndString[0];
+            String[] dateTimeParts = descriptionStartEndString[1].split("-");
+            String start = dateTimeParts[0];
+            String end = dateTimeParts[1];
 
-            Event newEvent = new Event(description, from, to);
+            Event newEvent = new Event(description, start, end);
             newEvent.setDone(isDone);
             return newEvent;
         default:
             return null;
+        }
+    }
+
+    public void ensureDataFileExists() throws IOException {
+        Path filePath = Paths.get(this.filePath);
+        // Check if the file exists or create it
+        if (!Files.exists(filePath)) {
+            if (!Files.exists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent());
+            }
+            Files.createFile(filePath);
         }
     }
 }

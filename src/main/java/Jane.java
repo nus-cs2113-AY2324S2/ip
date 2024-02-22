@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 public class Jane {
-    public static final String FILE_PATH = "./data/jane.txt";
+public static final String FILE_PATH = "./data/jane.txt";
     public static Storage storage;
 
     public static void processInput(String input, TaskList taskList) throws JaneException {
@@ -59,15 +59,14 @@ public class Jane {
         System.out.print(LOGO + SEPARATOR);
         System.out.print(GREET_MESSAGE + SEPARATOR);
 
-        storage = new Storage(FILE_PATH);
-
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        //TaskList taskList = new TaskList();
 
         try {
+            storage = new Storage(FILE_PATH);
+            storage.ensureDataFileExists();
             TaskList taskList = storage.loadTasksToFile();
 
+            Scanner in = new Scanner(System.in);
+            String input = in.nextLine();
 
             while (!input.equals("bye")) {
                 try {

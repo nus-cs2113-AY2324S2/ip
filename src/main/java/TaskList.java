@@ -61,7 +61,7 @@ public class TaskList {
         if (input.isEmpty()) {
             throw new JaneException("OOPS!!! The description of a deadline cannot be empty.");
         }
-        String[] deadlineInput = input.split("/", 2);
+        String[] deadlineInput = input.split(" /", 2);
         Deadline deadline = new Deadline(deadlineInput[0],
                 deadlineInput[1].replace("/", "").replace("by ", ""));
         this.addTask(deadline);
@@ -77,10 +77,10 @@ public class TaskList {
         if (input.isEmpty()) {
             throw new JaneException("OOPS!!! The description of a event cannot be empty.");
         }
-        String[] eventInput = input.split("/", 3);
+        String[] eventInput = input.split(" /", 3);
         Event event = new Event(eventInput[0],
                 eventInput[1].replace("/", "").replace("from ", ""),
-                eventInput[2].replace("/to", "").replace("to ", ""));
+                eventInput[2].replace("/", "").replace("to ", ""));
         this.addTask(event);
         System.out.println("Got it. I've added this task:\n"
                 + event
