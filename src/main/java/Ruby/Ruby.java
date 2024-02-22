@@ -3,6 +3,8 @@ package Ruby; /**
  * Ruby assists users in recording and organizing their daily tasks.
  * It interacts with users through the command line, processing commands to manage tasks.
  */
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ruby {
@@ -22,6 +24,11 @@ public class Ruby {
      */
     private static void greet(){
         print(new String[]{"Hi, I am here. Greets from Ruby.", "What can I do for you?"});
+        try{
+            t1.readFileRecords();
+        }catch (IOException e){
+            System.out.println("There is no records found.");
+        }
     }
 
     /**
@@ -80,6 +87,7 @@ public class Ruby {
                 }
                 break;
             }
+            t1.saveToFile();
             userInputs = inputCatcher();
         }
     }

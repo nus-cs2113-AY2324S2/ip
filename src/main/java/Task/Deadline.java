@@ -11,11 +11,11 @@ public class Deadline extends Task {
      * Constructs a new Deadline task with specified name, task number, and deadline date.
      *
      * @param name The name or description of the deadline task.
-     * @param taskNo The unique number assigned to the task.
+     * @param hasDone The completed status.
      * @param by The deadline date for the task.
      */
-    public Deadline(String name, String by) {
-        super(name);
+    public Deadline(String name, boolean hasDone, String by) {
+        super(name, hasDone);
         this.by = by;
     }
 
@@ -58,5 +58,10 @@ public class Deadline extends Task {
             System.out.print("[ ] ");
         }
         System.out.println(name + " (by: " + by +")");
+    }
+
+    @Override
+    public String toString() {
+        return "D | " + (hasDone? 1 : 0) + " | " + name + " | " + by;
     }
 }

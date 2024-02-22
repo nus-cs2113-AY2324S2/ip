@@ -1,6 +1,9 @@
 package Ruby;
 
 import java.util.ArrayList;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import Exception.*;
 import Task.*;
@@ -14,7 +17,7 @@ import Task.*;
 public class TaskList {
 //    public final Task[] taskList= new Task[100]; // Array to store tasks
     public final ArrayList<Task> taskList =new ArrayList<>();
-    public int taskNo = 0; // Counter for the number of tasks
+//    public int taskNo = 0; // Counter for the number of tasks
 
     /**
      * Adds a task to the task list based on user input.
@@ -36,18 +39,18 @@ public class TaskList {
         String[] inputSplitBySlash = userInput.split(" /");
         switch (userInput.split(" ")[0]){
         case "todo":
-            taskList.add(new Todo(userInput.substring(5)));
+            taskList.add(new Todo(userInput.substring(5), false));
             break;
         case "deadline":
             String name = inputSplitBySlash[0].substring(9);
             String by = inputSplitBySlash[1].substring(3);
-            taskList.add(new Deadline(name, by));
+            taskList.add(new Deadline(name, false,by));
             break;
         case "event":
             name = inputSplitBySlash[0].substring(6);
             String from = inputSplitBySlash[1].substring(5);
             String to = inputSplitBySlash[2].substring(3);
-            taskList.add(new Event(name,from, to));
+            taskList.add(new Event(name,false, from, to));
             break;
         default:
             break;
@@ -114,6 +117,56 @@ public class TaskList {
             taskList.get(i).printTask();
         }
         System.out.println("    " + "--------------");
+    }
+
+    public void readFileRecords() throws IOException {
+        Files.createDirectories(Paths.get("./data"));
+        String path = "./data/Ruby.txt";
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        String nextLine = br.readLine();
+        String[] result;
+
+        while (nextLine != null) {
+            result = nextLine.split(" \\| ");
+            String taskType = result[0];
+            boolean hasDone = Boolean.parseBoolean(result[1]);
+            String taskName = result[2];
+
+            switch (taskType){
+            case "T":
+                taskList.add(new Todo(taskName,hasDone));
+                break;
+            case "D":
+                taskList.add(new Deadline(taskName, hasDone, result[3]));
+                break;
+            case "E":
+                String[] duration = result[3].split(" - ");
+                taskList.add(new Event(taskName, hasDone, duration[0],duration[1]));
+                break;
+            default:
+                break;
+            }
+            nextLine = br.readLine();
+        }
+        showTaskList();
+    }
+
+    private void listWrite() throws IOException {
+        Files.createDirectories(Paths.get("./data"));
+        FileWriter out = new FileWriter("./data/Ruby.txt", false);
+        for (int i=0; i < taskList.size(); i++){
+            out.write(taskList.get(i).toString());
+            out.write(System.lineSeparator());
+        }
+        out.close() ;
+    }
+
+    public void saveToFile(){
+        try{
+            listWrite();
+        } catch (IOException e) {
+            System.out.println("Sorry, something wrong with my recording function.");
+        }
     }
 
     /**

@@ -15,9 +15,9 @@ public class Task {
      *
      * @param name The name or description of the task.
      */
-    public Task(String name) {
+    public Task(String name, boolean hasDone) {
         this.name = name;
-        this.hasDone=false;
+        this.hasDone = hasDone;
     }
 
     /**

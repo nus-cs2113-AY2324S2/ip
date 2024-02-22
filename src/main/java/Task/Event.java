@@ -16,8 +16,8 @@ public class Event extends Task{
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String name, String from, String to) {
-        super(name);
+    public Event(String name, boolean hasDone, String from, String to) {
+        super(name, hasDone);
         this.from = from; // The start time of the event
         this.to = to; // The end time of the event
     }
@@ -60,5 +60,10 @@ public class Event extends Task{
             System.out.print("[ ] ");
         }
         System.out.println(name + " (from: " + from+" to: "+ to+ ")");
+    }
+
+    @Override
+    public String toString() {
+        return "E | " + (hasDone? 1 : 0) + " | " + name + " | " + from + " - "  + to;
     }
 }

@@ -10,8 +10,8 @@ public class Todo extends Task{
      *
      * @param name The name or description of the todo task.
      */
-    public Todo(String name) {
-        super(name);
+    public Todo(String name, boolean hasDone) {
+        super(name, hasDone);
     }
 
     /**
@@ -53,5 +53,10 @@ public class Todo extends Task{
             System.out.print("[ ] ");
         }
         System.out.println(name);
+    }
+
+    @Override
+    public String toString() {
+        return "T | " + (hasDone? 1 : 0) + " | " + name;
     }
 }
