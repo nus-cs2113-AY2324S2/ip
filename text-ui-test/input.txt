@@ -32,4 +32,12 @@ mark string
 mark 1000
 unmark string
 unmark 2000
+list
+delete 1
+delete 2
+delete 4
+delete 0
+delete string
+delete 1000
+list
 bye

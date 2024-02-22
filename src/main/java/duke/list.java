@@ -11,7 +11,7 @@ import static duke.command.*;
 public class list {
     public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
-            {"list", "mark", "unmark", "todo", "deadline", "event", "bye"};
+            {"list", "mark", "unmark", "todo", "deadline", "event", "bye", "delete"};
     public static List<Task> taskList = new ArrayList<>();
 
     /**
@@ -70,6 +70,9 @@ public class list {
             break;
         case "event":
             addEvent(taskList, argument);
+            break;
+        case "delete":
+            deleteTask(taskList, argument);
             break;
         }
     }

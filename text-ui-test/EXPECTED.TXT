@@ -117,19 +117,19 @@ ______________________________
 8.[D][ ] Teammates (by: Saturday)
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as done
   [T][X] Eat Breakfast
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as done
   [E][X] Tutorial (from: 1pm  to: 3pm)
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as done
   [E][X] Seminar (from: 5pm  to: 7pm)
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as done
   [D][X] Coursemology (by: Friday)
 ______________________________
 ______________________________
@@ -143,19 +143,19 @@ ______________________________
 8.[D][ ] Teammates (by: Saturday)
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as undone
   [E][ ] Tutorial (from: 1pm  to: 3pm)
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as undone
   [E][ ] Lecture (from: 3pm  to: 5pm)
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as undone
   [E][ ] Seminar (from: 5pm  to: 7pm)
 ______________________________
 ______________________________
-Nice! I've marked this task as done:
+Nice! I've marked this task as undone
   [D][ ] RealizeIt (by: Thursday)
 ______________________________
 ______________________________
@@ -170,19 +170,60 @@ ______________________________
 ______________________________
 ______________________________
 Please input an integer!!
-Invalid mark instruction ZENBU FAKE!!
+Invalid instruction ZENBU FAKE!!
 ______________________________
 ______________________________
 Task does not exist!!
-Invalid mark instruction ZENBU FAKE!!
+Invalid instruction ZENBU FAKE!!
 ______________________________
 ______________________________
 Please input an integer!!
-Invalid mark instruction ZENBU FAKE!!
+Invalid instruction ZENBU FAKE!!
 ______________________________
 ______________________________
 Task does not exist!!
-Invalid mark instruction ZENBU FAKE!!
+Invalid instruction ZENBU FAKE!!
+______________________________
+______________________________
+1.[T][X] Eat Breakfast
+2.[T][ ] Eat Lunch
+3.[E][ ] Tutorial (from: 1pm  to: 3pm)
+4.[E][ ] Lecture (from: 3pm  to: 5pm)
+5.[E][ ] Seminar (from: 5pm  to: 7pm)
+6.[D][ ] RealizeIt (by: Thursday)
+7.[D][X] Coursemology (by: Friday)
+8.[D][ ] Teammates (by: Saturday)
+______________________________
+______________________________
+ Noted. I've removed this task:
+  [T][X] Eat Breakfast
+______________________________
+______________________________
+ Noted. I've removed this task:
+  [E][ ] Tutorial (from: 1pm  to: 3pm)
+______________________________
+______________________________
+ Noted. I've removed this task:
+  [D][ ] RealizeIt (by: Thursday)
+______________________________
+______________________________
+Task does not exist!!
+Invalid instruction ZENBU FAKE!!
+______________________________
+______________________________
+Please input an integer!!
+Invalid instruction ZENBU FAKE!!
+______________________________
+______________________________
+Task does not exist!!
+Invalid instruction ZENBU FAKE!!
+______________________________
+______________________________
+1.[T][ ] Eat Lunch
+2.[E][ ] Lecture (from: 3pm  to: 5pm)
+3.[E][ ] Seminar (from: 5pm  to: 7pm)
+4.[D][X] Coursemology (by: Friday)
+5.[D][ ] Teammates (by: Saturday)
 ______________________________
 ______________________________
 Bye! Hope to see you again soon! MEGANE!!
