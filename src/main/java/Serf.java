@@ -16,11 +16,11 @@ public class Serf {
 
         while(!receivedMessage.equals("bye")) {
 
-            if (receivedMessage.equals("list") && taskCounter == 0) { // list is empty
+            if (receivedMessage.trim().equals("list") && taskCounter == 0) { // list is empty
                 Messages.listIsEmptyMessage();
                 receivedMessage = requestedMessage.nextLine();
                 continue;
-            } else if (receivedMessage.equals("list") && taskCounter > 0) { // list is not empty
+            } else if (receivedMessage.trim().equals("list") && taskCounter > 0) { // list is not empty
                 ConditionHandlers.listIsNotEmpty(taskList, taskCounter);
             } else if (receivedMessage.contains("mark") && !receivedMessage.contains("unmark")) {
                 // user keys in mark
@@ -33,7 +33,10 @@ public class Serf {
                 taskCounter = ConditionHandlers.addDeadlineTaskToList(receivedMessage, taskList, taskCounter);
             } else if (receivedMessage.contains("event")) { //user keys in event
                 taskCounter = ConditionHandlers.addEventTaskToList(receivedMessage, taskList, taskCounter);
-            } else {
+            } else if (receivedMessage.contains("delete")) { //user keys in event
+                taskCounter = ConditionHandlers.deleteTask(receivedMessage, taskList, taskCounter);
+            }
+            else {
                 Messages.typoErrorMessage();
             }
             if (requestedMessage.hasNextLine()) { //check if user added another line

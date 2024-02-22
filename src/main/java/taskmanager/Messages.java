@@ -59,7 +59,7 @@ public class Messages {
     }
     public static void addTodoMessage(String type, String status, String description, int taskCounter) {
         System.out.println(VERTICAL_LINES);
-        System.out.println(FIVE_WHITE_SPACES + "Got it. I've added this task:");
+        System.out.println(FIVE_WHITE_SPACES + "Got it sire. I've added this task:");
         System.out.println(FIVE_WHITE_SPACES + "  " + "[" + type + "]" +
                 "[" + status + "] " + description);
         System.out.println(FIVE_WHITE_SPACES + "Now you have " + taskCounter + " tasks in the list.");
@@ -69,7 +69,7 @@ public class Messages {
     public static void addDeadlineMessage(String type, String status, String description,
             String endDate, int taskCounter) {
         System.out.println(VERTICAL_LINES);
-        System.out.println(FIVE_WHITE_SPACES + "Got it. I've added this task:");
+        System.out.println(FIVE_WHITE_SPACES + "Got it sire. I've added this task:");
         System.out.println(FIVE_WHITE_SPACES + "  " + "[" + type + "]" +
                 "[" + status + "] " + description +
                 " (by: " + endDate + ")");
@@ -77,9 +77,9 @@ public class Messages {
         System.out.println(VERTICAL_LINES + "\n");
     }
     public static void addEventMessage(String type, String status, String description,
-                                          String startDate, String endDate, int taskCounter) {
+            String startDate, String endDate, int taskCounter) {
         System.out.println(VERTICAL_LINES);
-        System.out.println(FIVE_WHITE_SPACES + "Got it. I've added this task:");
+        System.out.println(FIVE_WHITE_SPACES + "Got it sire. I've added this task:");
         System.out.println(FIVE_WHITE_SPACES + "  " + "[" + type + "]" +
                 "[" + status + "] " + description +
                 " (from: " + startDate + " to: " + endDate +
@@ -91,22 +91,65 @@ public class Messages {
         System.out.println(VERTICAL_LINES);
         System.out.println(FIVE_WHITE_SPACES + "Sorry my lord, I believe that you have made a typo");
         System.out.println(FIVE_WHITE_SPACES + "Remember the format for messages are:");
-        System.out.println(FIVE_WHITE_SPACES + "1) Todo: 'todo (taskmanager.Task)'");
-        System.out.println(FIVE_WHITE_SPACES + "2) Deadline: 'deadline (taskmanager.Task) /by (due date)'");
-        System.out.println(FIVE_WHITE_SPACES + "3) Event: 'event (taskmanager.Task) /from (start date) /to (end date)'");
+        System.out.println(FIVE_WHITE_SPACES + "1) Todo: 'todo (Task)'");
+        System.out.println(FIVE_WHITE_SPACES + "2) Deadline: 'deadline (Task) /by (due date)'");
+        System.out.println(FIVE_WHITE_SPACES + "3) Event: 'event (Task) /from (start date) /to (end date)'");
         System.out.println(FIVE_WHITE_SPACES + "4) List: 'list'");
+        System.out.println(FIVE_WHITE_SPACES + "5) Delete: 'delete (task)'");
         System.out.println(VERTICAL_LINES + "\n");
     }
 
     public static void invalidTaskTypeMessage() {
         System.out.println(VERTICAL_LINES);
-        System.out.println(FIVE_WHITE_SPACES + "Invalid taskmanager.Task Type sire, tasks can only be todo, deadline or event");
+        System.out.println(FIVE_WHITE_SPACES + "Invalid Task Type sire, tasks can only be todo, deadline or event");
         System.out.println(VERTICAL_LINES + "\n");
     }
     public static void invalidTaskAttributeMessage() {
         System.out.println(VERTICAL_LINES);
-        System.out.println(FIVE_WHITE_SPACES + "Invalid taskmanager.Task Attribute  sire. Did you forget to set this attribute?");
+        System.out.println(FIVE_WHITE_SPACES + "Invalid Task Attribute  sire. " +
+                "Did you forget to set this attribute?");
         System.out.println(FIVE_WHITE_SPACES + "You get to pass for now but go back and set the attribute");
         System.out.println(VERTICAL_LINES + "\n");
     }
+    public static void invalidDeleteIndexMessage() {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES +
+                "Check if you have entered a number greater than the size of the task list.");
+        System.out.println(FIVE_WHITE_SPACES +
+                "Or perhaps you may not have inputted a number");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
+
+    public static void deleteTodoMessage(String type, String status, String description, int taskCounter) {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES + "Noted sire. I've removed this task:");
+        System.out.println(FIVE_WHITE_SPACES + "  " + "[" + type + "]" +
+                "[" + status + "] " + description);
+        System.out.println(FIVE_WHITE_SPACES + "Now you have " + taskCounter + " tasks in the list.");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
+
+    public static void deleteDeadlineMessage(String type, String status, String description,
+            String endDate, int taskCounter) {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES + "Noted sire. I've removed this task:");
+        System.out.println(FIVE_WHITE_SPACES + "  " + "[" + type + "]" +
+                "[" + status + "] " + description +
+                " (by: " + endDate + ")");
+        System.out.println(FIVE_WHITE_SPACES + "Now you have " + Integer.toString(taskCounter) + " tasks in the list.");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
+
+    public static void deleteEventMessage(String type, String status, String description,
+            String startDate, String endDate, int taskCounter) {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES + "Noted sire. I've removed this task:");
+        System.out.println(FIVE_WHITE_SPACES + "  " + "[" + type + "]" +
+                "[" + status + "] " + description +
+                " (from: " + startDate + " to: " + endDate +
+                ")");
+        System.out.println(FIVE_WHITE_SPACES + "Now you have " + Integer.toString(taskCounter) + " tasks in the list.");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
+
 }

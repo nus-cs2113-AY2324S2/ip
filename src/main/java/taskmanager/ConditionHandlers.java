@@ -1,5 +1,6 @@
 package taskmanager;
 
+import newexceptions.InvalidDeleteIndexException;
 import newexceptions.InvalidInputException;
 
 public class ConditionHandlers {
@@ -169,6 +170,59 @@ public class ConditionHandlers {
             return taskCounter;
         } catch (InvalidInputException e){
             Messages.typoErrorMessage();
+            return taskCounter;
+        }
+    }
+
+    public static int deleteTask(String receivedMessage, Task[] taskList, int taskCounter) {
+        try {
+            String number = "";
+            for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
+                if (Character.isDigit(receivedMessage.charAt(j))) {
+                    number += receivedMessage.charAt(j);
+                }
+            }
+            if (number.isEmpty()) {
+                Messages.errorMessage();
+                System.out.println("     Sire you need to input a digit after delete");
+                return taskCounter;
+            }
+            int taskNumber = Integer.parseInt(number);
+            if (taskNumber > taskCounter) {
+                throw new InvalidDeleteIndexException();
+            }
+            switch(taskList[taskNumber - 1].getTaskType()) {
+                case "T":
+                    Messages.deleteTodoMessage(taskList[taskNumber - 1].getTaskType(),
+                            taskList[taskNumber - 1].getStatusIcon(), taskList[taskNumber - 1].getDescription(),
+                            taskCounter - 1);
+                    break;
+                case "D":
+                    Messages.deleteDeadlineMessage(taskList[taskNumber - 1].getTaskType(),
+                            taskList[taskNumber - 1].getStatusIcon(), taskList[taskNumber - 1].getDescription(),
+                            taskList[taskNumber - 1].getEndDate(),taskCounter - 1);
+                    break;
+                case "E":
+                    Messages.deleteEventMessage(taskList[taskNumber - 1].getTaskType(),
+                            taskList[taskNumber - 1].getStatusIcon(), taskList[taskNumber - 1].getDescription(),
+                            taskList[taskNumber - 1].getStartDate(), taskList[taskNumber - 1].getEndDate(),
+                            taskCounter - 1);
+                    break;
+                default:
+                    System.out.println("     Error, task type not found");
+                    return taskCounter;
+            }
+
+            for (int iterator = taskNumber - 1; iterator < taskCounter - 1; iterator += 1) {
+                taskList[iterator] = taskList[iterator + 1];
+            }
+            taskList[taskCounter - 1] = null;
+            taskCounter = taskCounter - 1;
+            return taskCounter;
+        }
+        catch (InvalidDeleteIndexException e) {
+            Messages.typoErrorMessage();
+            Messages.invalidDeleteIndexMessage();
             return taskCounter;
         }
     }
