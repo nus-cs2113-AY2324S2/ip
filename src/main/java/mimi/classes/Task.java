@@ -1,8 +1,10 @@
-package classes;
+package mimi.classes;
+import static mimi.Duke.FILE_DELIMINITER;
 
 public class Task {
     private String name;
     private boolean isDone;
+
 
 
     public Task(String name) {
@@ -40,7 +42,7 @@ public class Task {
     }
 
     public String toFileString(){
-        return  this.isDone +  "," + this.getName();
+        return  this.isDone +  FILE_DELIMINITER + this.getName();
     }
 
 

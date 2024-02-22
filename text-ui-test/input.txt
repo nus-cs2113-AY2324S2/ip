@@ -28,4 +28,7 @@ delete 1111
 delete 1 1 1
 delete
 delete 1
+todo borrow, from john
+deadline return, this book /by Tuesday
+event a new test, this is it /from Mon 3pm /to Mon 5pm
 bye

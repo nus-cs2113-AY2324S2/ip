@@ -33,14 +33,14 @@ fi
 
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java/mimi -Xlint:none -d ../bin ../src/main/java/mimi/classes/*.java ../src/main/java/mimi/*.java ../src/main/java/mimi/exceptions/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 cd ../
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath bin Duke < text-ui-test/input.txt > text-ui-test/ACTUAL.TXT
+java -classpath bin mimi/Duke < text-ui-test/input.txt > text-ui-test/ACTUAL.TXT
 
 cd text-ui-test
 # convert to UNIX format

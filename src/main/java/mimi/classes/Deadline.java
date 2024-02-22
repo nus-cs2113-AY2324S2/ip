@@ -1,9 +1,11 @@
-package classes;
+package mimi.classes;
 
-import exceptions.MimiException;
+import mimi.exceptions.MimiException;
+import static mimi.Duke.FILE_DELIMINITER;
 
 public class Deadline extends Task {
     private String deadline;
+
     public Deadline(String name, String deadline) {
         super(name);
         this.deadline = deadline;
@@ -51,7 +53,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString(){
-        return "D" +  "," + super.toFileString() + "," + this.getDeadline();
+        return "D" +  FILE_DELIMINITER + super.toFileString() + FILE_DELIMINITER + this.getDeadline();
     }
 
 }

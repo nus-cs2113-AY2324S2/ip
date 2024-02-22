@@ -1,13 +1,14 @@
-import classes.Deadline;
-import classes.Event;
-import classes.Task;
-import classes.ToDo;
-import exceptions.MimiException;
-import exceptions.MimiException.TaskNotFound;
-import exceptions.MimiException.InsufficientParameters;
-import exceptions.MimiException.IncorrectFormat;
+package mimi;
+import mimi.classes.Deadline;
+import mimi.classes.Event;
+import mimi.classes.Task;
+import mimi.classes.ToDo;
+import mimi.exceptions.MimiException;
+import mimi.exceptions.MimiException.TaskNotFound;
+import mimi.exceptions.MimiException.InsufficientParameters;
+import mimi.exceptions.MimiException.IncorrectFormat;
 import java.util.ArrayList;
-import exceptions.MimiException.FileCorrupted;
+import mimi.exceptions.MimiException.FileCorrupted;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +18,14 @@ public class Duke {
     final static String APP_NAME = "mimichat";
     final static int INPUT_LIMIT = 2;
     final static String FILE_PATH = "data/mimi.logs";
+
+    // DELIMITERS
+    public final static String FILE_DELIMINITER = "|";
+    public final static String DEADLINE_DELIMITER = "/by";
+
+    public final static String EVENT_FROM_DELIMITER = "/from";
+    public final static String EVENT_TO_DELIMITER = "/to";
+
 
     static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -57,7 +66,7 @@ public class Duke {
                 throw new InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS_MSG);
             }
 
-            String[] splitInputs = inputs[1].split("/by", 2);
+            String[] splitInputs = inputs[1].split(DEADLINE_DELIMITER, 2);
             Deadline deadline = Deadline.processDeadline(splitInputs);
             appendIntoTaskList(deadline);
             printSuccessMessage(deadline);
@@ -234,8 +243,7 @@ public class Duke {
             Scanner fileScanner = new Scanner(file);
             fileScanner.useDelimiter("\n");
             while(fileScanner.hasNext()){
-                String[] task = fileScanner.next().split(",");
-
+                String[] task = fileScanner.next().split("\\" + FILE_DELIMINITER);
                 if(task.length < 3) {
                     throw new FileCorrupted(MimiException.FILE_CORRUPTED_MSG);
                 }

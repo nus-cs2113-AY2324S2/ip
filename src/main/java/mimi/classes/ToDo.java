@@ -1,6 +1,5 @@
-package classes;
-
-import classes.Task;
+package mimi.classes;
+import static mimi.Duke.FILE_DELIMINITER;
 
 public class ToDo extends Task {
 
@@ -15,6 +14,6 @@ public class ToDo extends Task {
 
     @Override
     public String toFileString(){
-        return "T" +  "," + super.toFileString();
+        return "T" +  FILE_DELIMINITER + super.toFileString();
     }
 }

@@ -1,4 +1,4 @@
-package exceptions;
+package mimi.exceptions;
 
 public class MimiException {
 

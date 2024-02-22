@@ -1,6 +1,6 @@
-package classes;
-
-import exceptions.MimiException;
+package mimi.classes;
+import mimi.exceptions.MimiException;
+import static mimi.Duke.FILE_DELIMINITER;
 
 public class Event extends Task {
     private String startTime;
@@ -80,6 +80,6 @@ public class Event extends Task {
 
     @Override
     public String toFileString(){
-        return "E" +  "," + super.toFileString() + "," + this.getStartTime() + "," + this.getEndTime();
+        return "E" + FILE_DELIMINITER  + super.toFileString() + FILE_DELIMINITER+ this.getStartTime() + FILE_DELIMINITER + this.getEndTime();
     }
 }
