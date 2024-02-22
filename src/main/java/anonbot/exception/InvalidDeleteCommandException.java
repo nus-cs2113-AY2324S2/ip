@@ -1,7 +1,7 @@
 package anonbot.exception;
 
-public class InvalidMarkCommandException extends IncompleteCommandException {
-    public InvalidMarkCommandException(String command, String argument) {
+public class InvalidDeleteCommandException extends IncompleteCommandException {
+    public InvalidDeleteCommandException(String command, String argument) {
         super(command, argument);
     }
 
