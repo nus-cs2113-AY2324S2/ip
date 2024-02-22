@@ -153,6 +153,7 @@ public class TaskManager {
         tasks.remove(deleteIndex);
         System.out.println("Now you have " + (currIndex - 1) + " tasks in the list");
         currIndex--;
+        saveData();
     }
 
     public void loadData() {
@@ -211,7 +212,7 @@ public class TaskManager {
         int commaAfterTaskNameIndex = data.indexOf(',', 6);
         String taskName = data.substring(6, commaAfterTaskNameIndex);
         int commaAfterFromDateTimeIndex = data.indexOf(",", commaAfterTaskNameIndex + 1);
-        String fromWhen = data.substring(commaAfterTaskNameIndex + 2, commaAfterFromDateTimeIndex - 1);
+        String fromWhen = data.substring(commaAfterTaskNameIndex + 2, commaAfterFromDateTimeIndex);
         String toWhen = data.substring(commaAfterFromDateTimeIndex + 2);
         tasks.add(new Event(taskName, taskDoneStatus, fromWhen, toWhen));
     }
