@@ -5,9 +5,73 @@ import exceptions.KikuInvalidTaskException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 public class KikuBot {
 
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String HORIZONTAL = "____________________________________________________________";
+    private static final String BOT_NAME = "Kiku";
+    private static final String FILE_NAME = "./data/Kiku.txt";
+
+    private static void saveTasks() {
+        try {
+            File file = new File(FILE_NAME);
+            File parentDir = file.getParentFile();
+
+            if (!parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+
+            FileWriter writer = new FileWriter(file);
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadTasks() {
+        File file = new File(FILE_NAME);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No saved tasks found. Starting with an empty list.");
+            new File(file.getParent()).mkdirs();
+        }
+    }
+
+    private static Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        Task task = null;
+
+        if ("T".equals(parts[0]) && parts.length >= 3) {
+            task = new Todo(parts[2]);
+        } else if ("D".equals(parts[0]) && parts.length >= 4) {
+            task = new Deadline(parts[2], parts[3]);
+        } else if ("E".equals(parts[0]) && parts.length >= 4) {
+            task = new Event(parts[1], parts[2], parts[3]);
+        }
+
+        if (task != null && "1".equals(parts[1])) {
+            task.markAsDone();
+        }
+        return task;
+    }
 
     private static int markIndex(String userInput, int num) {
         String markIndexChar = userInput.substring(num, userInput.length());
@@ -63,13 +127,15 @@ public class KikuBot {
         //return task;
     }
     public static void main(String[] args) {
+        //load saved tasks
+        loadTasks();
+        System.out.println(HORIZONTAL);
+
         //greetings
-        String HORIZONTAL = "____________________________________________________________";
-        String BOT_NAME = "Kiku";
         System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
         System.out.println(HORIZONTAL);
-        
+
         //add task
         Scanner in = new Scanner(System.in);
         String userInput;
@@ -108,6 +174,7 @@ public class KikuBot {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(newTask);
                     System.out.println("Now you have " + (tasks.size()) + " tasks in the list.");
+                    saveTasks();
 
                 } catch (KikuEmptyTaskException e) {
                     System.out.println(e.getMessage());
@@ -124,6 +191,7 @@ public class KikuBot {
 
         //exit
         if (userInput.equals("bye")) {
+            saveTasks();
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println(HORIZONTAL);
         }
