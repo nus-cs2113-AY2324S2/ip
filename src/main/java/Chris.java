@@ -5,6 +5,7 @@ import task.Events;
 import task.TaskLists;
 import task.Tasks;
 import task.ToDos;
+import task.DataManage;
 import exceptions.InputException;
 public class Chris {
     public static void main(String[] args) throws InputException {
@@ -24,14 +25,25 @@ public class Chris {
         Scanner sc = new Scanner(System.in);
         String command = "";
         TaskLists listCommands = new TaskLists();
+
+        DataManage.createFolder();
+        DataManage.createText();
+        try {
+            listCommands = DataManage.readSavedData();
+        } catch (InputException e) {
+            System.out.println("didn't managed to read the data");
+        }
+
         System.out.println("____________________________________________________________\n" +
                 "Hello, I'm Chris\n" +
                 "What can I do for you?\n" +
                 "____________________________________________________________\n");
         while (sc.hasNextLine()) {
+            DataManage.saveData(listCommands);
             try {
                 command = sc.nextLine();
                 if (command.equals("bye")) {
+                    DataManage.saveText(listCommands);
                     System.out.println("____________________________________________________________\n" +
                             "Bye. Hope to see you again soon!\n" +
                             "____________________________________________________________");

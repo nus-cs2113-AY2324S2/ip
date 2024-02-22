@@ -68,4 +68,12 @@ public class TaskLists {
             System.out.println((i + 1) + ". " + this.tasksList.get(i).toString());
         }
     }
+
+    public String print() {
+        String output = "";
+        for (int i = 0; i < this.tasksList.size(); i++) {
+            output = output + (i + 1) + ". " + this.tasksList.get(i).toString() + '\n';
+        }
+        return output;
+    }
 }
