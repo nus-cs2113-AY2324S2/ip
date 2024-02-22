@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Bart {
     private static final String LINE = "____________________________________________________________";
-    private static final Task[] tasksArray = new Task[100];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> tasksList = new ArrayList<>();
 
     public static void main(String[] args) {
         greetUser();
@@ -44,64 +45,59 @@ public class Bart {
     }
 
     private static void addNewTask(String command) {
-        if (taskCount < tasksArray.length) {
-            String[] commandParts = command.split(" ");
-            String taskType = commandParts[0];
+        String[] commandParts = command.split(" ");
+        String taskType = commandParts[0];
 
-            switch (taskType) {
-                case "todo":
-                    try {
-                        tasksArray[taskCount] = new Todo(command);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(LINE + "\nOOPS!!! The description of a todo cannot be empty.\n" + LINE);
-                        return;
-                    }
-                    break;
-                case "deadline":
-                    try {
-                        tasksArray[taskCount] = new Deadline(command);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
-                        return;
-                    }
-                    break;
-                case "event":
-                    try {
-                        tasksArray[taskCount] = new Event(command);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
-                        return;
-                    }
-                    break;
-                default:
-                    System.out.println(LINE + "\nOOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE);
+        switch (taskType) {
+            case "todo":
+                try {
+                    tasksList.add(new Todo(command));
+                } catch (IllegalArgumentException e) {
+                    System.out.println(LINE + "\nOOPS!!! The description of a todo cannot be empty.\n" + LINE);
                     return;
-            }
-            tasksArray[taskCount].printTask(taskCount);
-            taskCount++;
+                }
+                break;
 
-        } else {
-            System.out.println("Sorry, task list is full.");
+            case "deadline":
+                try {
+                    tasksList.add(new Deadline(command));
+                } catch (IllegalArgumentException e) {
+                    System.out.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
+                    return;
+                }
+                break;
+            case "event":
+                try {
+                    tasksList.add(new Event(command));
+                } catch (IllegalArgumentException e) {
+                    System.out.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
+                    return;
+                }
+                break;
+            default:
+                System.out.println(LINE + "\nOOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE);
+                return;
         }
+        tasksList.get(tasksList.size() - 1).printTask(tasksList.size());
     }
 
     public static void listTasks() {
         System.out.println(LINE);
         //Edge case: If list empty
-        if (taskCount == 0) {
+        if (tasksList.isEmpty()) {
             System.out.println("Nothing added");
         }
 
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasksArray[i].toString());
+        for (int i = 0; i < tasksList.size(); i++) {
+            System.out.println((i + 1) + "." + tasksList.get(i).toString());
         }
         System.out.println(LINE);
     }
 
     public static void markTask(String command, boolean mark) {
         int taskIndex = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            Task task = tasksArray[taskIndex];
+        if (taskIndex >= 0 && taskIndex < tasksList.size()) {
+            Task task = tasksList.get(taskIndex);
             if (mark) {
                 task.markAsDone();
                 System.out.println(LINE + "\nNice! I've marked this task as done:\n" + LINE);
@@ -109,7 +105,7 @@ public class Bart {
                 task.markAsUndone();
                 System.out.println(LINE + "\nOK, I've marked this task as not done yet:\n" + LINE);
             }
-            System.out.println(tasksArray[taskIndex].getTaskMark() + " " + tasksArray[taskIndex].description);
+            System.out.println(task.getTaskMark() + " " + task.description);
         } else {
             System.out.println(LINE + "Invalid task number.\n" + LINE);
         }
