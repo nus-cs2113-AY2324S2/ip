@@ -29,15 +29,33 @@ public class Task {
     }
 
     public static Task fromString(String fileString) {
-
         String[] parts = fileString.split("\\|");
-        String description = parts[0];
-        boolean isDone = parts[1].equals("1");
-        Task task = new Task(description);
-        if (isDone) {
+        String taskType = parts[0];
+        String description = parts[1];
+        boolean isDone = parts[2].equals("1");
+
+        Task task;
+        switch (taskType) {
+        case "D":
+            task = new Deadline(description, parts[3]);
+            break;
+        case "E":
+            task = new Event(description, parts[3], parts[4]);
+            break;
+        case "T":
+            task = new Todo(description);
+            break;
+        default:
+            task = null;
+            break;
+        }
+
+        if (task != null && isDone) {
             task.markAsDone();
         }
+
         return task;
     }
+
 
 }

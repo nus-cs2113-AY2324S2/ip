@@ -1,5 +1,2 @@
-hm|0
-cs2113 level 7|0
-running|0
-sleep|0
-test|0
+T|cs2113|0
+T|sleep|0
