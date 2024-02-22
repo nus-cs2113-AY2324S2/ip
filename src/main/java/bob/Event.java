@@ -13,10 +13,11 @@ public class Event extends Deadline {
 
     public Event(String stringRepresentation) {
         super(stringRepresentation);
-        String[] split = stringRepresentation.substring(6).split(" ");
+        String[] split = stringRepresentation.substring(7).split(" \\(from: ");
         this.description = split[0];
-        this.start = split[1];
-        this.by = split[2];
+        String[] split2 = split[1].split(" to: ");
+        this.start = split2[0];
+        this.by = split2[1].substring(0, split2[1].length() - 1);
     }
 
     @Override

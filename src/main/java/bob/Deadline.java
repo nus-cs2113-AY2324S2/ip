@@ -13,9 +13,9 @@ public class Deadline extends Task {
 
     public Deadline (String stringRepresentation) {
         super(stringRepresentation);
-        String[] split = stringRepresentation.substring(6).split(" ");
+        String[] split = stringRepresentation.substring(7).split(" [(]");
         this.description = split[0];
-        this.by = split[1];
+        this.by = split[1].substring(4, split[1].length() - 1);
     }
 
     @Override
