@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class JoeyException {
+class JoeyException extends Exception {
+    public JoeyException(String message) {
+        super(message);
+    }
 }
