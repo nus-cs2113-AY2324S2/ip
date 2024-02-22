@@ -18,7 +18,7 @@ public class Sinep {
     protected static final String FILE_PATH = "src/main/java/Sinep/Sinep.txt";
     static String line = "_____________________________________________________________________";
     static String nl = System.lineSeparator();
-    static ArrayList<Task> taskList = new ArrayList<>();
+    static ArrayList<Task> taskList = new ArrayList<>(); 
     public static void main(String[] args) throws IOException {
         loadTaskFile(taskList);
         Scanner scanner = new Scanner(System.in);
