@@ -6,12 +6,12 @@ public class Event extends Task {
         super(description);
         try {
             String[] givenTimeline = description.split("/from ", 2);
-            this.description = description;
-            //this.description = givenTimeline.length >= 1 ? givenTimeline[0] : "";
+            //this.description = description;
+            this.description = givenTimeline.length >= 1 ? givenTimeline[0].trim() : "";
             if (givenTimeline.length > 1) {
                 String[] startEnd = givenTimeline[1].split(" /to ", 2);
-                this.startDateTime = startEnd.length > 0 ? startEnd[0] : "";
-                this.endDateTime = startEnd.length > 0 ? startEnd[1] : "";
+                this.startDateTime = startEnd.length > 0 ? startEnd[0].trim() : "";
+                this.endDateTime = startEnd.length > 0 ? startEnd[1].trim() : "";
             } else {
                 this.startDateTime = "";
                 this.endDateTime = "";
