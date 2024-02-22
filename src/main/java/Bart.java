@@ -28,17 +28,19 @@ public class Bart {
                 case "bye":
                     break;
                 default:
-                    handleMarking(command);
+                    handleMarkAndDelete(command);
                     break;
             }
         }
     }
 
-    private static void handleMarking(String command) {
+    private static void handleMarkAndDelete(String command) {
         if (command.startsWith("mark")) {
             markTask(command, true);
         } else if (command.startsWith("unmark")) {
             markTask(command, false);
+        } else if (command.startsWith("delete")) {
+            deleteTask(command);
         } else {
             addNewTask(command);
         }
@@ -82,10 +84,10 @@ public class Bart {
     }
 
     public static void listTasks() {
-        System.out.println(LINE);
+        System.out.println(LINE + "\nHere are the tasks in your list:");
         //Edge case: If list empty
         if (tasksList.isEmpty()) {
-            System.out.println("Nothing added");
+            System.out.println("Nothing added here....");
         }
 
         for (int i = 0; i < tasksList.size(); i++) {
@@ -100,14 +102,26 @@ public class Bart {
             Task task = tasksList.get(taskIndex);
             if (mark) {
                 task.markAsDone();
-                System.out.println(LINE + "\nNice! I've marked this task as done:\n" + LINE);
+                System.out.println(LINE + "\nNice! I've marked this task as done:\n");
             } else {
                 task.markAsUndone();
-                System.out.println(LINE + "\nOK, I've marked this task as not done yet:\n" + LINE);
+                System.out.println(LINE + "\nOK, I've marked this task as not done yet:\n");
             }
-            System.out.println(task.getTaskMark() + " " + task.description);
+            System.out.println(task.getTaskMark() + " " + task.description + "\n" + LINE );
         } else {
-            System.out.println(LINE + "Invalid task number.\n" + LINE);
+            System.out.println(LINE + "\nInvalid task number.\n" + LINE);
+        }
+    }
+
+    private static void deleteTask(String command) {
+        int taskIndex = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
+        if (taskIndex >= 0 && taskIndex < tasksList.size()) {
+            Task deletedTask = tasksList.remove(taskIndex);
+            System.out.println(LINE + "\nNoted. I've removed this task:\n");
+            System.out.println(deletedTask.toString());
+            System.out.println("Now you have " + tasksList.size() + " tasks in the list.\n");
+        } else {
+            System.out.println(LINE + "\nInvalid task number.\n" + LINE);
         }
     }
 
