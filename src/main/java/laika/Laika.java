@@ -61,10 +61,10 @@ public class Laika {
     }
 
 
-    public static void save(String[] lines,int count) throws IOException{
+    public static void save(ArrayList<String> lines, int count) throws IOException{
         FileWriter myWriter = new FileWriter("laika.txt");
         for (int i = 0; i<count;i++){
-            myWriter.write(lines[i] + System.lineSeparator());
+            myWriter.write(lines.get(i) + System.lineSeparator());
 
         }
         myWriter.close();
@@ -88,7 +88,7 @@ public class Laika {
             Scanner reader = new Scanner(f);
             while (reader.hasNext()){
                 String command = reader.nextLine();
-                addTask(taskList,command,count);
+                addTask(taskList,command);
                 lines.add(command);
                 count++;
             }
