@@ -40,9 +40,14 @@ public class Task {
         return this.status;
     }
 
+    String encodeString() {
+        return String.format("%s|%s|%s",
+                this.type, this.status ? "X" : " ", this.input);
+    }
+
     @Override
     public String toString() {
         return String.format(
-                "[%s][%s] %s",this.type, this.status ? "X" : " ", this.input);
+                "%s|%s|%s",this.type, this.status ? "X" : " ", this.input);
     }
 }
