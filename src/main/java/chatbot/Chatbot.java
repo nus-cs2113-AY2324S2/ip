@@ -5,6 +5,8 @@ import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,11 +26,53 @@ public class Chatbot {
         this.CHATBOT_NAME = name;
     }
     public void writeToFile() throws IOException {
-        FileWriter fileWriter = new FileWriter("./data/chatbot.txt");
+        FileWriter fileWriter = new FileWriter("data\\chatbot.txt");
         for (int i = 0; i < listLength; i += 1) {
-            fileWriter.write(taskList.get(i).getData() + "\n");
+            Task task = taskList.get(i);
+            fileWriter.write(task.isDone() + "@" + task.getTaskName() + "@" + task.getCommand() + "\n");
         }
         fileWriter.close();
+    }
+    public void read() throws FileNotFoundException, ChatbotException {
+        File f = new File("data\\chatbot.txt");
+        Scanner s = new Scanner(f);
+        String dataLine = "";
+        while (s.hasNext()) {
+            dataLine = s.nextLine();
+            String[] dataArray = dataLine.split("@");
+            if (dataArray.length != 3) {
+                throw new ChatbotException("Text file formatting error. Fix it and try again. ");
+            }
+            boolean isMarked = dataArray[0].equals("true");
+            String command = dataArray[1];
+            String description = dataArray[2];
+
+            //this.execute(command, description); //this one prints messages as well; find a way to remove
+            switch (command) {
+            case "todo":
+                selectedItem = new Todo(description);
+                taskList.add(selectedItem);
+                listLength += 1;
+                break;
+            case "deadline":
+                selectedItem = new Deadline(description);
+                taskList.add(selectedItem);
+                listLength += 1;
+                break;
+            case "event":
+                selectedItem = new Event(description);
+                taskList.add(selectedItem);
+                listLength += 1;
+                break;
+            default:
+                throw new ChatbotException("Text file formatting error. Fix it and try again. ");
+            }
+
+            if (isMarked) {
+                selectedItem = taskList.get(listLength - 1);
+                selectedItem.markAsDone();
+            }
+        }
     }
     public void save() {
         try {
@@ -63,6 +107,9 @@ public class Chatbot {
         case "mark":
             System.out.println("Not as incompetent as I thought. Marked. ");
             break;
+        case "delete":
+            System.out.println("Deleted. ");
+            break;
         case "todo":
         case "deadline":
         case "event":
@@ -83,6 +130,13 @@ public class Chatbot {
     public void initiate() {
         System.out.println("Hello. You may call me " + CHATBOT_NAME + ". \n" +
                 "Looks like you need me to remember things for you. Again. ");
+        try {
+            read();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (ChatbotException e) {
+            e.printDescription();
+        }
     }
 
     public void execute(String command, String description) throws ChatbotException {

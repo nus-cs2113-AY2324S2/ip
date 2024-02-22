@@ -17,6 +17,10 @@ public class Deadline extends Task {
         return "[D]";
     }
 
+    public String getTaskName() {
+        return "deadline";
+    }
+
     public String getData() {
         return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription()
                 + "(by: " + this.startTime + ")";

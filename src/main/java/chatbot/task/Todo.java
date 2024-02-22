@@ -7,6 +7,9 @@ public class Todo extends Task {
     public String getTypeDisplay() {
         return "[T]";
     }
+    public String getTaskName() {
+        return "todo";
+    }
     public String getData() {
         return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription();
     }

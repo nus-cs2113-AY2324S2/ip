@@ -1,2 +1,0 @@
-[T][ ] borrow book
-[D][X] return book (by: Sunday)

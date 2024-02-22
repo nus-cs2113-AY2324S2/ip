@@ -2,10 +2,11 @@ package chatbot.task;
 
 public abstract class Task {
     private String description;
+    private String command;
     private boolean isDone = false;
-
     public Task(String description) {
         this.description = description;
+        this.command = description;
     }
 
     public void setDescription(String description) {
@@ -16,6 +17,9 @@ public abstract class Task {
         return description;
     }
 
+    public String getCommand() {
+        return command;
+    }
     public boolean isDone() {
         return isDone;
     }
@@ -37,6 +41,6 @@ public abstract class Task {
             return "[ ]";
         }
     }
-
+    public abstract String getTaskName();
     public abstract String getData();
 }
