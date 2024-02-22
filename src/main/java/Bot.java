@@ -1,17 +1,70 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
 
 public class Bot {
+    private final String filePath = "./data/Venti.txt";
     ArrayList<Task> taskList;
-    public Bot()
-    {
+    public Bot() {
+
         taskList=new ArrayList<Task>();
+        createFileIfNotExist();
+        loadTasksFromFile();
     }
     private void echo(String st)
     {
         System.out.println("added: "+st);
         printLine();
     }
+    private void createFileIfNotExist() {
+        try {
+            File file = new File(filePath);
+            file.getParentFile().mkdirs(); // Create directory if it doesn't exist
+            file.createNewFile(); // Create file if it doesn't exist
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadTasksFromFile() {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+            for (String line : lines) {
+                // Assuming the format is: Type | Status | Description | [Additional Info]
+                String[] parts = line.split(" \\| ");
+                switch (parts[0]) {
+                    case "T":
+                        taskList.add(new Todo(parts[2],parts[1].equals("1")));
+                        break;
+                    case "D":
+                        taskList.add(new Deadline(parts[2], parts[3], parts[1].equals("1")));
+                        break;
+                    case "E":
+                        taskList.add(new Event(parts[2], parts[3],parts[4], parts[1].equals("1")));
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file.");
+        }
+    }
+
+    private void saveTasksToFile() {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Task task : taskList) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks from file.");
+        }
+    }
+
     private void printLine()
     {
         System.out.println("____________________________________________________________");
@@ -19,6 +72,7 @@ public class Bot {
     private void addList(Task t)
     {
         this.taskList.add(t);
+        saveTasksToFile();
     }
     private void sayBye()
     {
@@ -50,6 +104,7 @@ public class Bot {
             System.out.println("Invalid task index.");
             printLine();
         }
+        saveTasksToFile();
     }
     private void unmarkAsDone(int index)
     {
@@ -67,6 +122,7 @@ public class Bot {
             System.out.println("Invalid task index.");
             printLine();
         }
+        saveTasksToFile();
     }
 
     private void deleteTask(int index) throws BotException {
