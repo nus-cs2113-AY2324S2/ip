@@ -27,7 +27,7 @@ public class Kratos {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error saving tasks to file: " + e.getMessage());
+            KratosException.handleException(e, "Error saving tasks to file: " + e.getMessage());
         }
     }
 
@@ -44,15 +44,15 @@ public class Kratos {
             }
         } catch (FileNotFoundException e) {
             // Handle the case where the file doesn't exist
-            System.err.println("File not found. Creating a new file...");
+            KratosException.handleException(e, "File not found. Creating a new file...");
             File file = new File(FILE_PATH);
             try {
                 file.createNewFile();
             } catch (IOException ioException) {
-                System.err.println("Error creating a new file: " + ioException.getMessage());
+                KratosException.handleException(ioException, "Error creating a new file: " + ioException.getMessage());
             }
         } catch (IOException e) {
-            System.err.println("Error loading tasks from file: " + e.getMessage());
+            KratosException.handleException(e, "Error loading tasks from file: " + e.getMessage());
         }
     }
 
