@@ -4,3 +4,6 @@ deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 list
 bye
+event LIN Siyan attend CS2113 lecture Friday 23 Feb 2024 /from 4 /to 6pm
+Avengers assemble
+deadline LIN Siyan submitted UG draft /by today 2359

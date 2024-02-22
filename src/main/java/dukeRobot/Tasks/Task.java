@@ -17,7 +17,7 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("OK, I've marked this task as not done yet:\n");
+        System.out.println("OK, I've marked this task as done yet:\n");
         System.out.println(this);
     }
 
