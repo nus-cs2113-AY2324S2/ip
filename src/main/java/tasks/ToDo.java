@@ -2,6 +2,7 @@ package tasks;
 
 import exceptions.EmptyTaskDescription;
 import exceptions.InvalidTaskArguments;
+import ui.Keywords;
 
 public class ToDo extends Task {
     public ToDo(String taskName, boolean isCompleted) {
@@ -15,7 +16,7 @@ public class ToDo extends Task {
 
     @Override
     public String getStringRepresentation() {
-        return "todo " + taskName + getIsCompletedString();
+        return Keywords.TODO + " " + taskName + getIsCompletedString();
     }
 
     public static ToDo getTask(String currentInput)
@@ -24,8 +25,7 @@ public class ToDo extends Task {
             boolean isCompleted = currentInput.contains(Task.IS_COMPLETED_STRING);
             currentInput = currentInput.replaceAll(Task.IS_COMPLETED_STRING, "");
 
-            // Extract after _todo_, which is 4 characters long
-            String taskName = currentInput.substring(4);
+            String taskName = currentInput.substring(Keywords.TODO.length());
             taskName = taskName.trim();
             if (taskName.isEmpty()) {
                 throw new EmptyTaskDescription();

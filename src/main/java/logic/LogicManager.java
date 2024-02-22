@@ -1,3 +1,5 @@
+package logic;
+
 import exceptions.IllegalNumberOfArguments;
 import exceptions.Confusion;
 import exceptions.EmptyTaskDescription;
@@ -5,6 +7,7 @@ import exceptions.InvalidTaskArguments;
 import exceptions.InvalidTaskIndex;
 import tasks.Deadline;
 import tasks.Event;
+import tasks.ListKeeper;
 import tasks.ToDo;
 import ui.Keywords;
 
@@ -16,20 +19,16 @@ public class LogicManager {
     }
 
     private void executeList(String[] words) throws IllegalNumberOfArguments {
-        if (words.length != 1) {
+        if (words.length != Keywords.getExpectedInputSize(Keywords.LIST)) {
             throw new IllegalNumberOfArguments();
         }
         this.listKeeper.printList();
     }
 
-    private int getTaskIndex (String[] words)
-        throws IllegalNumberOfArguments, InvalidTaskIndex {
-        if (words.length != 2) {
-            throw new IllegalNumberOfArguments();
-        }
+    private int getTaskIndex (String[] words) throws InvalidTaskIndex {
         String taskIndexString = words[1];
-
         int taskIndex;
+
         try {
             taskIndex = Integer.parseInt(taskIndexString);
         } catch (NumberFormatException e) {
@@ -45,13 +44,19 @@ public class LogicManager {
 
     private void executeMark (String[] words)
         throws IllegalNumberOfArguments, InvalidTaskIndex {
+        if (words.length != Keywords.getExpectedInputSize(Keywords.MARK)) {
+            throw new IllegalNumberOfArguments();
+        }
         int taskIndex = getTaskIndex(words);
-        boolean isCompleted = words[0].equals("mark");
+        boolean isCompleted = words[0].equals(Keywords.MARK);
         this.listKeeper.processMark(taskIndex, isCompleted);
     }
 
     private void executeDelete (String[] words)
         throws  IllegalNumberOfArguments, InvalidTaskIndex {
+        if (words.length != Keywords.getExpectedInputSize(Keywords.DELETE)) {
+            throw new IllegalNumberOfArguments();
+        }
         int taskIndex = getTaskIndex(words);
         this.listKeeper.deleteTask(taskIndex);
     }
@@ -82,28 +87,28 @@ public class LogicManager {
         String commandType = words[0];
 
         switch (commandType) {
-        case "list":
+        case Keywords.LIST:
             executeList(words);
             break;
 
-        case "mark":
-        case "unmark":
+        case Keywords.MARK:
+        case Keywords.UNMARK:
             executeMark(words);
             break;
 
-        case "delete":
+        case Keywords.DELETE:
             executeDelete(words);
             break;
 
-        case "todo":
+        case Keywords.TODO:
             executeToDo(currentInput);
             break;
 
-        case "deadline":
+        case Keywords.DEADLINE:
             executeDeadline(currentInput);
             break;
 
-        case "event":
+        case Keywords.EVENT:
             executeEvent(currentInput);
             break;
 

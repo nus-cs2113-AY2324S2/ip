@@ -2,6 +2,7 @@ package tasks;
 
 import exceptions.EmptyTaskDescription;
 import exceptions.InvalidTaskArguments;
+import ui.Keywords;
 
 public class Event extends Task {
     private final String start;
@@ -20,7 +21,8 @@ public class Event extends Task {
 
     @Override
     public String getStringRepresentation() {
-        return "event " + taskName + " /from " + this.start + " /to " + this.end + getIsCompletedString();
+        return Keywords.EVENT + " " + taskName + Keywords.FROM + this.start +
+                Keywords.TO + this.end + getIsCompletedString();
     }
 
     public static Event getTask(String currentInput)
@@ -29,26 +31,23 @@ public class Event extends Task {
             boolean isCompleted = currentInput.contains(Task.IS_COMPLETED_STRING);
             currentInput = currentInput.replaceAll(Task.IS_COMPLETED_STRING, "");
 
-            int idxOfStart = currentInput.indexOf(" /from ");
-            int idxOfEnd = currentInput.indexOf(" /to ");
-
-            if (idxOfStart == -1 || idxOfEnd == -1) {
+            int idxOfStart = currentInput.indexOf(Keywords.FROM);
+            int idxOfEnd = currentInput.indexOf(Keywords.TO);
+            boolean hasStartEnd = idxOfStart != -1 && idxOfEnd != -1;
+            if (!hasStartEnd) {
                 throw new InvalidTaskArguments();
             }
 
-            // Extract after _event_, which is 5 characters long
-            String taskName = currentInput.substring(5, idxOfStart);
+            String taskName = currentInput.substring(Keywords.EVENT.length(), idxOfStart);
             taskName = taskName.trim();
             if (taskName.isEmpty()) {
                 throw new EmptyTaskDescription();
             }
 
-            // Extract start after _ /from _, which is 7 characters long, and before idxOfEnd
-            String start = currentInput.substring(idxOfStart + 7, idxOfEnd);
+            String start = currentInput.substring(idxOfStart + Keywords.FROM.length(), idxOfEnd);
             start = start.trim();
 
-            // Extract end after _ /to _, which is 5 characters long
-            String end = currentInput.substring(idxOfEnd + 5);
+            String end = currentInput.substring(idxOfEnd + Keywords.TO.length());
             end = end.trim();
 
             return new Event(taskName, start, end, isCompleted);

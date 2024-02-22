@@ -2,6 +2,7 @@ package tasks;
 
 import exceptions.EmptyTaskDescription;
 import exceptions.InvalidTaskArguments;
+import ui.Keywords;
 
 public class Deadline extends Task {
     private final String by;
@@ -18,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String getStringRepresentation() {
-        return "deadline " + taskName + " /by " + this.by + getIsCompletedString();
+        return Keywords.DEADLINE + " "+ taskName + Keywords.BY + this.by + getIsCompletedString();
     }
 
     public static Deadline getTask (String currentInput)
@@ -27,19 +28,19 @@ public class Deadline extends Task {
             boolean isCompleted = currentInput.contains(Task.IS_COMPLETED_STRING);
             currentInput = currentInput.replaceAll(Task.IS_COMPLETED_STRING, "");
 
-            int idxOfDeadline = currentInput.indexOf(" /by ");
-            if (idxOfDeadline == -1) {
+            int idxOfDeadline = currentInput.indexOf(Keywords.BY);
+            boolean hasDeadline = idxOfDeadline != -1;
+            if (!hasDeadline) {
                 throw new InvalidTaskArguments();
             }
-            // Extract after _deadline_, which is 8 characters long
-            String taskName = currentInput.substring(8, idxOfDeadline);
+
+            String taskName = currentInput.substring(Keywords.DEADLINE.length(), idxOfDeadline);
             taskName = taskName.trim();
             if (taskName.isEmpty()) {
                 throw new EmptyTaskDescription();
             }
 
-            // Extract after _ /by _, which is 5 characters long
-            String by = currentInput.substring(idxOfDeadline + 5);
+            String by = currentInput.substring(idxOfDeadline + Keywords.BY.length());
             by = by.trim();
 
             return new Deadline(taskName, by, isCompleted);
