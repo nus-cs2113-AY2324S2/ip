@@ -1,7 +1,7 @@
 package command;
 
 public class Task {
-    protected boolean isDone;
+    protected boolean isDone = false;
     public String description;
 
     public Task(String description) {
@@ -19,5 +19,9 @@ public class Task {
 
     public void markAsUndone() {
         isDone = false;
+    }
+
+    public boolean getDoneStatus() {
+        return isDone;
     }
 }

@@ -9,8 +9,17 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public Deadline(String description, String deadline, boolean taskDone) {
+        super(description);
+        this.deadline = deadline;
+        super.isDone = taskDone;
+    }
     @Override
     public String toString() {
         return "\t" + "[" + symbol + "]" + "[" + super.getStatusIcon() + "] " + description + " (by: " + deadline + ")";
+    }
+
+    public String getDeadline() {
+        return deadline;
     }
 }
