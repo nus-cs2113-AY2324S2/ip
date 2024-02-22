@@ -3,4 +3,8 @@ public class ToDo extends Task {
     ToDo(String input) {
         super(input, TYPE);
     }
+
+    ToDo(String input, boolean status) {
+        super(input, TYPE, status);
+    }
 }
