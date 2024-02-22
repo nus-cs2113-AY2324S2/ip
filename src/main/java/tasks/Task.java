@@ -14,6 +14,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,6 +36,10 @@ public class Task {
 
     public void markNotDone() {
         isDone = false;
+    }
+
+    public String getType() {
+        return "Task";
     }
 
     @Override
