@@ -24,12 +24,12 @@ public class Duck {
 
         ArrayList<Task> tasks = new ArrayList<>(); //stores Tasks in ArrayList called tasks
         int index = 0; //index of where the userInput is stored in texts
-//        Save.writeFile(tasks);
-//        Save.createNewFile();
+        Save.createNewFile();
+        index = Save.readFile(tasks,index);
         handleUserInput(tasks, index);
     }
 
-    private static void handleUserInput(ArrayList<Task> tasks, int index) {
+    private static void handleUserInput(ArrayList<Task> tasks, int index) throws IOException {
         boolean isFinished = false; //isFinished will be true if user types in bye and the program is finished and terminates
 
         while (!isFinished) {
@@ -53,15 +53,12 @@ public class Duck {
                     index = Task.deleteTask(tasks,userInput,index);
                 } else if (userInput.startsWith("bye")) {
                     System.out.println(LINE_SEPARATOR + "\n" + "Bye. Hope to see you again soon!\n" + LINE_SEPARATOR);
-                    Save.writeFile(tasks);
                     isFinished = true;
                 } else {
                     throw new IllegalArgumentException();
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Sorry, that is not a valid command. Please try again!");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }
     }
