@@ -1,6 +1,8 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class ManageInputs {
     protected static String from;
@@ -8,18 +10,41 @@ public class ManageInputs {
     public static String description;
     protected static String by;
 
+    private static void writeToFile(String filePath, Task textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd + "\n");
+        fw.close();
+    }
 
-    public static void dealWithEvent(ArrayList<Task> tasks, int index, String[] inputs, String line) throws UnexpectedCommandException {
-        int indexTo = line.indexOf("/to");
-        int indexFrom = line.indexOf("/from");
+    private static int fillFileContents(ArrayList<Task> tasks, String filePath, int index) throws IOException, UnexpectedCommandException {//updates index
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+
+        while (s.hasNext()) {
+            String sLine = s.nextLine();
+            if (sLine.contains("[E]")) {
+                dealWithEvent(tasks, index, sLine);
+            } else if (sLine.contains("[D]")) {
+                dealWithDeadline(tasks, index, sLine);
+            } else if (sLine.contains("[T]")) {
+                dealWithTodo(tasks, index, sLine);
+            }
+            index++;
+        }
+        return index;
+    }
+
+    public static void dealWithEvent(ArrayList<Task> tasks, int index, String line) throws UnexpectedCommandException, IOException {
+        int indexTo = line.indexOf("to");
+        int indexFrom = line.indexOf("from");
 
         if ((indexTo == -1) || (indexFrom == -1)) { //invalid format
-            System.out.println("Invalid format! Enter event in the format: event (description) /from (start) /to (end)");
+            System.out.println("Invalid format! Enter event in the format: event (description) from (start) to (end)");
             throw new UnexpectedCommandException();
         }
         try {//timeline not specified/ both not specified
-            String from = line.substring(indexFrom + 6, indexTo - 1);
-            String to = line.substring(indexTo + 4);
+            String from = line.substring(indexFrom + 5, indexTo - 1);
+            String to = line.substring(indexTo + 2);
         } catch (IndexOutOfBoundsException e) {
             try {
                 String description = line.substring(6, indexFrom - 1);
@@ -36,26 +61,25 @@ public class ManageInputs {
             System.out.println("event description not specified");
             throw new UnexpectedCommandException();
         }
-        String from = line.substring(indexFrom + 6, indexTo - 1);
-        String to = line.substring(indexTo + 4);
-        String description = line.substring(6, indexFrom - 1);
+        String from = line.substring(indexFrom + 5, indexTo - 1);
+        String to = line.substring(indexTo + 2);
+        String description = line.substring(5, indexFrom - 1);
 
         tasks.add(index, new Event(description, from, to));
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(tasks.get(index));
     }
 
-    public static void dealWithDeadline(ArrayList<Task> tasks, int index, String line) throws UnexpectedCommandException {
+    public static void dealWithDeadline(ArrayList<Task> tasks, int index, String line) throws UnexpectedCommandException, IOException {
         int indexBy = line.indexOf("by");
+        int space = line.indexOf(" ");
         if (indexBy == -1) {//invalid format
             System.out.println("Invalid format! Enter deadline in the format: deadline (description) by (deadline)");
             throw new UnexpectedCommandException();
         }
         try {//deadline / both not specified
-            String by = line.substring(indexBy + 3);
+            String by = line.substring(indexBy + 2);
         } catch (IndexOutOfBoundsException e) {
             try {
-                String description = line.substring(9, indexBy - 1);
+                String description = line.substring(space, indexBy - 1);
             } catch (IndexOutOfBoundsException f) {
                 System.out.println("deadline description and deadline not specified");
                 throw new UnexpectedCommandException();
@@ -64,19 +88,18 @@ public class ManageInputs {
             throw new UnexpectedCommandException();
         }
         try {//deadline not specified
-            String description = line.substring(9, indexBy - 1);
+            String description = line.substring(space, indexBy - 1);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("deadline description not specified");
             throw new UnexpectedCommandException();
         }
-        String description = line.substring(9, indexBy - 1);
-        String by = line.substring(indexBy + 3);
+        String description = line.substring(space, indexBy - 1);
+        String by = line.substring(indexBy + 2);
+
         tasks.add(index, new Deadline(description, by));
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(tasks.get(index));
     }
 
-    public static void dealWithTodo( ArrayList<Task> tasks, int index, String line) throws UnexpectedCommandException {
+    public static void dealWithTodo(ArrayList<Task> tasks, int index, String line) throws UnexpectedCommandException, IOException {
         int indexSpace = line.indexOf(" ");
         if (indexSpace == -1) {
             System.out.println("todo description not specified");
@@ -86,8 +109,7 @@ public class ManageInputs {
         String description = line.substring(indexSpace);
 
         tasks.add(index, new Todo(description));
-        System.out.println("Got it. I've added this task: ");
-        System.out.println(tasks.get(index));
+
     }
 
     private void handleUnexpectedCommand(boolean isValidCommand) throws UnexpectedCommandException {
@@ -102,7 +124,8 @@ public class ManageInputs {
         }
     }
 
-    public ManageInputs(ArrayList<Task> tasks, int index, String line) {
+    public ManageInputs(ArrayList<Task> tasks, int index, String line) throws IOException, UnexpectedCommandException {
+        index = fillFileContents(tasks, "TaskList.txt", index);
         while (!line.equals("bye")) {
             Boolean isValidCommand = false;
             Scanner input = new Scanner(System.in);
@@ -110,22 +133,23 @@ public class ManageInputs {
 
             Task t = new Task(line);
             String[] inputs = line.split(" ");
-
+            
             if (inputs[0].equals("mark")) {//mark as done
                 isValidCommand = true;
                 int idx = Integer.parseInt(inputs[1]);
                 tasks.get(idx - 1).markAsDone();
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println(tasks.get(idx-1));
+                System.out.println(tasks.get(idx - 1));
             } else if (inputs[0].equals("unmark")) {//unmark done
                 isValidCommand = true;
                 int idx = Integer.parseInt(inputs[1]);
                 tasks.get(idx - 1).unmarkDone();
                 System.out.println("OK, I've marked this task as not done yet: ");
-                System.out.println(tasks.get(idx-1));
+                System.out.println(tasks.get(idx - 1));
             } else if (line.equals("list")) {//lists tasks
                 isValidCommand = true;
                 System.out.println("Here are the tasks in your list: ");
+
                 for (int i = 0; i < index; i++) {
                     System.out.println((i + 1) + ". " + tasks.get(i));
                 }
@@ -136,24 +160,36 @@ public class ManageInputs {
                 try {
                     if (inputs[0].equals("event")) {
                         isValidCommand = true;
-                        dealWithEvent(tasks, index, inputs, line);
+                        dealWithEvent(tasks, index, line);
+                        writeToFile("TaskList.txt", tasks.get(index));
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(tasks.get(index));
                         index++;
                     } else if (inputs[0].equals("deadline")) {
                         isValidCommand = true;
                         dealWithDeadline(tasks, index, line);
+                        writeToFile("TaskList.txt", tasks.get(index));
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(tasks.get(index));
                         index++;
                     } else {
                         isValidCommand = true;
                         dealWithTodo(tasks, index, line);
+                        writeToFile("TaskList.txt", tasks.get(index));
+                        System.out.println("Got it. I've added this task: ");
+                        System.out.println(tasks.get(index));
                         index++;
                     }
                 } catch (UnexpectedCommandException e) {
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (inputs[0].equals("delete")){
+            } else if (inputs[0].equals("delete")) {
+                isValidCommand = true;
                 int idx = Integer.parseInt(inputs[1]);
                 System.out.println("Noted. I've removed this task: ");
-                System.out.println(tasks.get(idx-1));
+                System.out.println(tasks.get(idx - 1));
                 tasks.remove(idx - 1);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 index--;
