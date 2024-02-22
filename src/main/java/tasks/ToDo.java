@@ -1,3 +1,8 @@
+package tasks;
+
+import exceptions.EmptyTaskDescription;
+import exceptions.InvalidTaskArguments;
+
 public class ToDo extends Task {
     public ToDo(String taskName, boolean isCompleted) {
         super(taskName, isCompleted);

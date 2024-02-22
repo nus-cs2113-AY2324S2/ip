@@ -1,3 +1,12 @@
+import exceptions.IllegalNumberOfArguments;
+import exceptions.Confusion;
+import exceptions.EmptyTaskDescription;
+import exceptions.InvalidTaskArguments;
+import exceptions.InvalidTaskIndex;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+
 public class LogicManager {
     private final ListKeeper listKeeper;
 
@@ -5,7 +14,7 @@ public class LogicManager {
         this.listKeeper = listKeeper;
     }
 
-    private void executeList(String[] words) throws IllegalNumberOfArguments{
+    private void executeList(String[] words) throws IllegalNumberOfArguments {
         if (words.length != 1) {
             throw new IllegalNumberOfArguments();
         }
@@ -66,7 +75,7 @@ public class LogicManager {
 
     private void executeCommand (String currentInput)
         throws IllegalNumberOfArguments, InvalidTaskIndex,
-            EmptyTaskDescription, InvalidTaskArguments, Confusion{
+            EmptyTaskDescription, InvalidTaskArguments, Confusion {
 
         String[] words = currentInput.split(" ");
         String commandType = words[0];
