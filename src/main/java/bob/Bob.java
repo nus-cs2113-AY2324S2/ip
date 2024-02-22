@@ -81,36 +81,41 @@ public class Bob {
         return list;
     }
 
-    public enum Command {
-        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, SAVE, BYE
-    }
     private static boolean processCommand(String command, String line, List<Task> list, String filename) throws BobException {
-        switch (Command.valueOf(command.toUpperCase())) {
-        case TODO:
+
+        switch (command) {
+        case "todo":
             addTodo(line, list);
-            break;
-        case DEADLINE:
-            addDeadline(line, list);
-            break;
-        case EVENT:
-            addEvent(line, list);
-            break;
-        case MARK:
-            markTask(line, list);
-            break;
-        case UNMARK:
-            unmarkTask(line, list);
-            break;
-        case LIST:
-            displayList(list);
-            break;
-        case DELETE:
-            deleteTask(line, list);
-            break;
-        case SAVE:
             saveList(filename, list);
             break;
-        case BYE:
+        case "deadline":
+            addDeadline(line, list);
+            saveList(filename, list);
+            break;
+        case "event":
+            addEvent(line, list);
+            saveList(filename, list);
+            break;
+        case "mark":
+            markTask(line, list);
+            saveList(filename, list);
+            break;
+        case "unmark":
+            unmarkTask(line, list);
+            saveList(filename, list);
+            break;
+        case "list":
+            displayList(list);
+            break;
+        case "delete":
+            deleteTask(line, list);
+            saveList(filename, list);
+            break;
+        case "save":
+            saveList(filename, list);
+            break;
+        case "bye":
+            saveList(filename, list);
             displayExitMessage();
             return true;
         default:
