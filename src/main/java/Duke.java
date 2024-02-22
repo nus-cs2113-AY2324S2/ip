@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,6 +76,31 @@ public class Duke {
         }
     }
 
+    public static void saveTasksToFile(List<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (Task task : tasks) {
+                bufferedWriter.write(task.toString());
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+            System.out.println("Tasks saved to file: " + FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
     public void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks added yet.");
@@ -133,16 +159,18 @@ public class Duke {
         String command;
 
         do {
-            command = scanner.nextLine();
-            if (command.equals("list") || command.startsWith("list ")) {
+            command = scanner.nextLine().trim();
+            if (command.equals("list")) {
                 listTasks();
             } else if (command.startsWith("mark ")) {
                 markTaskAsDone(command.substring(5));
             } else if (command.startsWith("unmark ")) {
                 unmarkTaskAsDone(command.substring(7));
-            } else if (command.equals("delete") || command.startsWith("delete ")) {
+            } else if (command.equals("delete")) {
                 int index = Integer.parseInt(command.substring(7));
                 deleteTask(index);
+            } else if (command.equals("save")) {
+                saveTasksToFile(tasks);
             } else if (!command.startsWith("bye")) {
                 try {
                     addTask(command);
@@ -151,7 +179,6 @@ public class Duke {
                 }
             }
         } while (!command.equals("bye"));
-
         scanner.close();
     }
 
