@@ -44,6 +44,7 @@ public class Bot {
             }
             System.out.println("Nice! I've marked this task as done:");
             this.taskList.get(index).markTaskAsDone();
+            System.out.println(this.taskList.get(index).toString());
             printLine();
         } else {
             System.out.println("Invalid task index.");
@@ -60,6 +61,7 @@ public class Bot {
             }
             System.out.println("OK, I've marked this task as not done yet:");
             this.taskList.get(index).unmarkTaskAsDone();
+            System.out.println(this.taskList.get(index).toString());
             printLine();
         } else {
             System.out.println("Invalid task index.");
