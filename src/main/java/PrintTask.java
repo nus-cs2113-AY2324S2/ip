@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 public class PrintTask {
-    public static void list(Task[] tasks) {
+    public static void list(ArrayList<Task> tasks) {
         int index = 1;
         PrintText.print("Here are the tasks in your list:");
         for (Task task : tasks) {

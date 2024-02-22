@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class AddTask {
         }
     }
 
-    public static Task addSpecialTask(String description, int listIndex, Task[] tasks) {
+    public static Task addSpecialTask(String description) {
         String[] userInputWords = description.split(" ");
         try {
             checkDescription(userInputWords);
@@ -19,12 +20,10 @@ public class AddTask {
             return new Task("Not special task");
         }
         char type = Character.toUpperCase(userInputWords[0].charAt(0));
-        Task specialTask = new Task(description, type);
-        tasks[listIndex] = specialTask;
-        return specialTask;
+        return new Task(description, type);
     }
 
-    public static void taskListManager(Task[] tasks) {
+    public static void taskListManager(ArrayList<Task> tasks) {
         int index = 0;
         boolean isRunning = true;
         while (isRunning) {
@@ -37,26 +36,30 @@ public class AddTask {
                 break;
             case "list":
                 PrintText.print(PrintText.LINEBREAK);
-                PrintTask.list(Arrays.copyOf(tasks, index));
+                PrintTask.list(tasks);
                 PrintText.print(PrintText.LINEBREAK + "\n");
                 break;
             case "mark":
             case "unmark":
-                MarkTask.mark(userInputWords, Arrays.copyOf(tasks, index));
+                MarkTask.mark(userInputWords, tasks);
                 break;
             case "todo":
             case "deadline":
             case "event":
-                Task specialTask = addSpecialTask(text, index, tasks);
+                Task specialTask = addSpecialTask(text);
                 if (specialTask.type != ' ') {
-                    tasks[index] = specialTask;
+                    tasks.add(specialTask);
                     index++;
                     PrintTask.specialTask(specialTask, index);
                 }
                 break;
+            case "delete":
+                DeleteTask.delete(userInputWords, tasks);
+                index--;
+                break;
             default:
                 Task task = new Task(text);
-                tasks[index] = task;
+                tasks.add(task);
                 index++;
                 PrintTask.normalTask(task, index);
             }
