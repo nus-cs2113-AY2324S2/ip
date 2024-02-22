@@ -166,7 +166,7 @@ public class Duke {
                 markTaskAsDone(command.substring(5));
             } else if (command.startsWith("unmark ")) {
                 unmarkTaskAsDone(command.substring(7));
-            } else if (command.equals("delete")) {
+            } else if (command.startsWith("delete")) {
                 int index = Integer.parseInt(command.substring(7));
                 deleteTask(index);
             } else if (command.equals("save")) {
