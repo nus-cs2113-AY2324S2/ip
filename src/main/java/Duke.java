@@ -18,20 +18,21 @@ public class Duke {
         userInput = in.nextLine();
 
         while(!userInput.equals("bye")){
-            String[] words = userInput.split(" ");
+            String[] userInputWords = userInput.split(" ");
+
             if(userInput.equals("list")){
                 System.out.println("Here are the tasks in your list:");
                 for(int i = 0; i < taskCount; i++){
                     System.out.println((i + 1) + "." + tasks[i]);
                 }
             }
-            else if(words[0].equals("mark")){
+            else if(userInputWords[0].equals("mark")){
                 try {
-                    if (words.length == 1 || Integer.parseInt(words[1]) > taskCount){
+                    if (userInputWords.length == 1 || Integer.parseInt(userInputWords[1]) > taskCount){
                         throw new EkudException();
                     }
                     else {
-                        int taskIndex = Integer.parseInt(words[1]) - 1;
+                        int taskIndex = Integer.parseInt(userInputWords[1]) - 1;
                         tasks[taskIndex].markAsDone();
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(tasks[taskIndex]);
@@ -41,13 +42,13 @@ public class Duke {
                     System.out.println("The given task number is not valid.");
                 }
             }
-            else if(words[0].equals("unmark")){
+            else if(userInputWords[0].equals("unmark")){
                 try {
-                    if (words.length == 1 || Integer.parseInt(words[1]) > taskCount){
+                    if (userInputWords.length == 1 || Integer.parseInt(userInputWords[1]) > taskCount){
                         throw new EkudException();
                     }
                     else {
-                        int taskIndex = Integer.parseInt(words[1]) - 1;
+                        int taskIndex = Integer.parseInt(userInputWords[1]) - 1;
                         tasks[taskIndex].markAsNotDone();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(tasks[taskIndex]);
@@ -57,7 +58,7 @@ public class Duke {
                     System.out.println("The given task number is not valid.");
                 }
             }
-            else if(words[0].equals("todo")){
+            else if(userInputWords[0].equals("todo")){
                 int dividerPosition = userInput.indexOf(" ");
                 try {
                     if (dividerPosition == -1) {
@@ -75,7 +76,7 @@ public class Duke {
                     System.out.println("The description of a todo cannot be empty.");
                 }
             }
-            else if(words[0].equals("deadline")){
+            else if(userInputWords[0].equals("deadline")){
                 int dividerPosition = userInput.indexOf(" ");
                 try {
                     if (dividerPosition == -1) {
@@ -94,7 +95,7 @@ public class Duke {
                     System.out.println("The description of a deadline cannot be empty.");
                 }
             }
-            else if(words[0].equals("event")){
+            else if(userInputWords[0].equals("event")){
                 int dividerPosition = userInput.indexOf(" ");
                 try {
                     if (dividerPosition == -1) {
