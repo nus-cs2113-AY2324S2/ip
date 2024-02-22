@@ -37,15 +37,6 @@ public class Bobby {
         return "";
     }
 
-    private static void printFileContents() throws FileNotFoundException {
-        File f = new File(FILE_PATH); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        System.out.println("in print file");
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
-
     public static void parseTask(String line, ArrayList<Task> tasks) {
         String[] parts = line.split("\\|");
         String label = parts[0].trim();
