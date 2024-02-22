@@ -4,7 +4,7 @@ public class Kapwa {
     private static final String DIVIDER_LINE = "____________________________________________________________";
     private static TaskManager taskManager = new TaskManager(100);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws KapwaException {
         displayWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
