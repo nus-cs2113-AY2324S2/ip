@@ -92,14 +92,19 @@ public class Evelyn {
         try {
             int DELETE_LENGTH = 7;
             int index = Integer.parseInt(line.substring(DELETE_LENGTH).trim()) - 1;
-            try {
-                tasks.remove(index);
-                int add1toIndex = index + 1;
-                System.out.println("Ok! Task " + add1toIndex + " is removed from the list");
-            } catch (ArrayIndexOutOfBoundsException e){
+            if (index >= 0 && index < tasks.size()) {
+                try {
+                    tasks.remove(index);
+                    indexOfTask--;
+                    int add1toIndex = index + 1;
+                    System.out.println("Ok! Task " + add1toIndex + " is removed from the list");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Invalid task index, please try again!");
+                }
+            } else {
                 System.out.println("Invalid task index, please try again!");
             }
-        } catch (NumberFormatException e){
+        }catch (NumberFormatException e){
             System.out.println("Please key in a number after 'mark'");
         }
     }
