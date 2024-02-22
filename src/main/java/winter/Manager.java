@@ -6,6 +6,7 @@ import winter.checkedexceptions.InvalidCommandException;
 import winter.checkedexceptions.InvalidDeadlineException;
 import winter.checkedexceptions.InvalidToDoException;
 import winter.checkedexceptions.InvalidEventException;
+import winter.checkedexceptions.InvalidDeleteException;
 import winter.task.Deadline;
 import winter.task.Event;
 import winter.task.Task;
@@ -14,12 +15,14 @@ import winter.task.ToDo;
 import static java.sql.Types.NULL;
 import static winter.Commands.*;
 
+import java.util.ArrayList;
+
 
 public class Manager {
     private static final String line = "-----------------------------------\n";
     private static final String indent = "   ";
     private static int taskIndex = 0;
-    private static final Task[] taskList = new Task[100];
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 
     public static void acceptInput () {
         Scanner input = new Scanner(System.in);
@@ -44,24 +47,28 @@ public class Manager {
             case EVENT:
                 addTask(action,inputString.substring(spaceIndex,slashIndex),inputString,slashIndex);
                 continue;
+            case DELETE:
+                deleteTask(Integer.parseInt(inputString.substring(spaceIndex+1)));
+                continue;
             case BYE:
                 sayBye();
                 flag = false;
                 break;
             case LIST:
-                displayList(taskList, taskIndex);
+                displayList(taskList);
                 continue;
             case MARK:
-                taskList[Integer.parseInt(inputString.substring(5)) - 1].mark();
+                taskList.get(Integer.parseInt(inputString.substring(5)) - 1).mark();
                 continue;
             case UNMARK:
-                taskList[Integer.parseInt(inputString.substring(7)) - 1].unmark();
+                taskList.get(Integer.parseInt(inputString.substring(7)) - 1).unmark();
                 continue;
             case INVALIDTODO:
             case INVALIDDEADLINE:
             case INVALIDEVENT:
             case INVALIDCOMMAND:
             case EMPTYCOMMAND:
+            case INVALIDDELETE:
                 handleCheckedExceptions(action);
 
             }
@@ -76,13 +83,13 @@ public class Manager {
         switch (taskType) {
         case TODO:
             newToDo = new ToDo(taskIndex, false, taskName);
-            taskList[taskIndex] = newToDo;
+            taskList.add(newToDo);
             taskIndex++;
             break;
         case DEADLINE:
             String deadline = inputString.substring(slashIndex+3);
             newDeadline = new Deadline(taskIndex,false,taskName,deadline);
-            taskList[taskIndex] = newDeadline;
+            taskList.add(newDeadline);
             taskIndex++;
 
             break;
@@ -91,7 +98,7 @@ public class Manager {
             String startTime = startAndEnd.substring(0,startAndEnd.indexOf("/"));
             String endTime = startAndEnd.substring(startAndEnd.indexOf("/")+3);
             newEvent = new Event(taskIndex,false,taskName,startTime,endTime);
-            taskList[taskIndex] = newEvent;
+            taskList.add(newEvent);
             taskIndex++;
 
             break;
@@ -101,10 +108,10 @@ public class Manager {
         System.out.print(line);
         System.out.print(indent);
         System.out.println("OK, I've added: " + taskName);
-        if (taskList[taskIndex-1].getType().equals("D")) {
+        if ((taskList.get(taskIndex-1)).getType().equals("D")) {
             System.out.println(newDeadline);
 
-        }else if (taskList[taskIndex-1].getType().equals("E")){
+        }else if ((taskList.get(taskIndex-1)).getType().equals("E")){
             System.out.println(newEvent);
 
         }else {
@@ -114,6 +121,20 @@ public class Manager {
         System.out.println(indent + "Now, you have " + taskIndex+ " tasks in your list.");
         System.out.print(line);
     }
+
+    private static void  deleteTask(int taskNumber) {
+        taskIndex--;
+        System.out.print(line);
+        System.out.print(indent);
+        System.out.println("No problemo, I've removed this task: ");
+
+        System.out.println(taskList.get(taskNumber-1));
+
+        System.out.println(indent + "Now, you have " + taskIndex+ " tasks in your list.");
+        System.out.print(line);
+        taskList.remove(taskNumber-1);
+    }
+
     private static Commands classifyCommand(String inputString) {
         switch (inputString) {
         // Cases include farewell and list commands
@@ -140,6 +161,9 @@ public class Manager {
             case "event":
                 verifyEvent(commandWords);
                 return EVENT;
+            case "delete":
+                verifyDelete(commandWords);
+                return DELETE;
             // Cases for marking tasks
             case "mark":
                 return MARK;
@@ -155,7 +179,7 @@ public class Manager {
             }
         } catch (InvalidToDoException e) {
             return INVALIDTODO;
-        } catch (InvalidDeadlineException E) {
+        } catch (InvalidDeadlineException e) {
             return INVALIDDEADLINE;
         } catch (InvalidEventException e) {
             return INVALIDEVENT;
@@ -163,25 +187,29 @@ public class Manager {
             return EMPTYCOMMAND;
         } catch (InvalidCommandException | ArrayIndexOutOfBoundsException e) {
             return INVALIDCOMMAND;
+        } catch (InvalidDeleteException e) {
+            return INVALIDDELETE;
         }
         return INVALIDCOMMAND;
 
     }
 
     // Method for displaying list
-    private static void displayList(Task[] taskList, int taskIndex) {
-        for (int i = 0; i < taskIndex; i++) {
+    private static void displayList(ArrayList<Task> taskList) {
+        for (Task task : taskList) {
             System.out.print(indent);
-            if (taskList[i].getType().equals("D")) {
-                System.out.println(taskList[i].getOrder()+1 + ". [D] " + taskList[i].doneCheckbox + " "
-                        + taskList[i].getTaskName() + " (by: " + taskList[i].getEndTime() +")");
-            }else if (taskList[i].getType().equals("E")){
-                System.out.println(taskList[i].getOrder()+1 + ". [E] " + taskList[i].doneCheckbox + " "
-                        + taskList[i].getTaskName() + " (from: " + taskList[i].getStartTime()
-                        + " to: " + taskList[i].getEndTime() + ")");
-            }else {
-                System.out.println(taskList[i].getOrder()+1 + ". [T]" + taskList[i].doneCheckbox + " "
-                        + taskList[i].getTaskName());
+            switch (task.getType()) {
+            case "D":
+                System.out.println(task.getOrder() + 1 + ". [D] " + task.doneCheckbox + " "
+                        + task.getTaskName() + " (by: " + task.getEndTime() + ")");
+            case "E":
+                System.out.println(task.getOrder() + 1 + ". [E] " + task.doneCheckbox + " "
+                        + task.getTaskName() + " (from: " + task.getStartTime()
+                        + " to: " + task.getEndTime() + ")");
+            default:
+                System.out.println(task.getOrder() + 1 + ". [T]" + task.doneCheckbox + " "
+                        + task.getTaskName());
+
             }
         }
         System.out.print(line);
@@ -196,30 +224,6 @@ public class Manager {
         System.out.print(line);
     }
 
-    // Method for echo, not used after Level-1
-
-
-
-    /*private static void echo() {
-        String line = "-----------------------------------\n";
-        String indent = "   ";
-
-        String echoLine;
-        Scanner input = new Scanner(System.in);
-        echoLine = input.nextLine();
-        while (true) {
-            if(echoLine.equals("bye") || echoLine.equals("Bye") || echoLine.equals("BYE")) {
-                break;
-            }
-            System.out.print(line);
-            System.out.print(indent);
-            System.out.println(echoLine);
-            System.out.print(line);
-            echoLine = input.nextLine();
-        }
-
-
-    }*/
     public static void verifyToDo(String[] commandWords) throws InvalidToDoException {
         if (commandWords.length < 2) {
             throw new InvalidToDoException();
@@ -260,6 +264,24 @@ public class Manager {
         }
     }
 
+    public static void verifyDelete(String[] commandWords) throws InvalidDeleteException {
+        if (commandWords.length < 2 || !isInteger(commandWords[1])) {
+            throw new InvalidDeleteException();
+        }
+    }
+
+    public static boolean isInteger (String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            int i  = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     public static void handleEmptyString () throws EmptyCommandException {
         throw new EmptyCommandException();
     }
@@ -295,6 +317,11 @@ public class Manager {
         case INVALIDCOMMAND:
             System.out.println("Thank you for your input but you did not enter any command! :(");
             System.out.println("Valid commands are todo, deadline, event\nThanks!");
+            System.out.print(line);
+            break;
+        case INVALIDDELETE:
+            System.out.println("Haishhh, I don't know what to remove! Please specify accordingly! :(");
+            System.out.println("The correct format should be 'delete (task number)'\nThanks!");
             System.out.print(line);
             break;
         }
