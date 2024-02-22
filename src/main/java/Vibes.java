@@ -46,7 +46,7 @@ public class Vibes {
             break;
         case "delete":
             taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-            taskList.delete(taskNumber);
+            taskList.deleteTask(taskNumber);
         default:
             throw new CommandNotFoundException();
         }
