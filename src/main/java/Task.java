@@ -3,7 +3,7 @@ public class Task {
     protected static boolean[] tasksCompleted = new boolean[100];
     protected static int taskNumber;
 
-    public Task() {
+    public Task(String description) {
         taskNumber = 0;
     }
 
@@ -27,6 +27,6 @@ public class Task {
         for(int i = 0; i < taskNumber; i++) {
             System.out.println(i+1 + ". [" + getStatusIcon(i) + "] " + tasks[i]);
         }
-        Duke.printLine();
+        Yoj.printLine();
     }
 }

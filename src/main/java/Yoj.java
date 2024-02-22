@@ -1,7 +1,7 @@
 import java.util.Scanner;
 //so scanner class can be used
 
-public class Duke {
+public class Yoj {
     public static void printLine() {
         System.out.println("________________________________________");
     }
