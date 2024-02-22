@@ -1,11 +1,13 @@
 import java.util.Scanner;
-
-
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 public class Phoebe {
-    private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
+        loadTasks();
         String greet = "\n" +
                 "█▀█ █░█ █▀█ █▀▀ █▄▄ █▀▀\n" +
                 "█▀▀ █▀█ █▄█ ██▄ █▄█ ██▄\n" + "HELLOOOO WHATCHA DOING???????";
@@ -20,6 +22,8 @@ public class Phoebe {
                 if (input.equalsIgnoreCase("bye")) {
                     System.out.println(exit);
                     break;
+                }else if (input.toLowerCase().startsWith("delete ")) {
+                    deleteTask(input);
                 } else if (input.equalsIgnoreCase("list")) {
                     displayTasks();
                 } else if (input.toLowerCase().startsWith("mark ")) {
@@ -34,12 +38,62 @@ public class Phoebe {
             }
         }
     }
+    private static void loadTasks() {
+        try {
+            File file = new File("./data/phoebe.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                Task task = parseTaskFromString(data);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No saved tasks found. Starting fresh.");
+        } catch (Exception e) {
+            System.out.println("Error loading tasks. Data file might be corrupted.");
+        }
+    }
+    private static Task parseTaskFromString(String data) {
+        String[] parts = data.split("\\|");
+        // Basic validation
+        if (parts.length < 3) return null;
 
-    private static void addTask(String input) throws PhoebeException {
-        if (taskCount >= MAX_TASKS) {
-            throw new PhoebeException("NO MORE I SHORT TERM MMR");
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        Task task = null;
+
+        switch (type) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                if (parts.length < 4) return null;
+                String by = parts[3].trim();
+                task = new Deadline(description, by);
+                break;
+            case "E":
+                if (parts.length < 5) return null;
+                String times = parts[3].trim(); // Assuming "from to to" format
+                String[] timeParts = times.split(" to ", 2);
+                if (timeParts.length < 2) return null; // Proper validation
+                task = new Event(description, timeParts[0], timeParts[1]);
+                break;
         }
 
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+
+
+
+    private static void addTask(String input) throws PhoebeException {
         input = input.trim();
         Task newTask = null;
         if (input.toLowerCase().startsWith("todo")) {
@@ -68,18 +122,33 @@ public class Phoebe {
             throw new PhoebeException("you dont make any sense");
         }
 
-        tasks[taskCount++] = newTask;
+        tasks.add(newTask);
         System.out.println("OKIE I MEMORISED FOR U:\n  " + newTask);
-        System.out.println("You have " + taskCount + " remaining things to dododo.");
+        System.out.println("You have " + tasks.size() + " remaining things to dododo.");
+        saveTasks();
+    }
+
+    private static void deleteTask(String input) {
+        try {
+            int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
+            Task removedTask = tasks.remove(taskIndex); //return the removed task
+            System.out.println("Just now you said do but now say don't, so I forgot this:\n  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " remaining things to dododo.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Which one is that? You never tell me this before:");
+        } catch (NumberFormatException e) {
+            System.out.println("Eh, use numbers to tell me which one to forget, can?");
+        }
+        saveTasks();
     }
 
     private static void displayTasks() throws PhoebeException {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             throw new PhoebeException("U never tell me anything how I know");
         } else {
             System.out.println("Every time need me to remind you...");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
     }
@@ -89,8 +158,9 @@ public class Phoebe {
         if (!isValidIndex(taskIndex)) {
             throw new PhoebeException("u stupid u never tell me this before:");
         }
-        tasks[taskIndex].markAsDone();
-        System.out.println("YAY GOOD JOB\n  " + tasks[taskIndex]);
+        tasks.get(taskIndex).markAsDone();
+        System.out.println("YAY GOOD JOB\n  " + tasks.get(taskIndex));
+        saveTasks();
     }
 
     private static void unmarkTask(String input) throws PhoebeException {
@@ -98,12 +168,31 @@ public class Phoebe {
         if (!isValidIndex(taskIndex)) {
             throw new PhoebeException("u stupid u never tell me this before:");
         }
-        tasks[taskIndex].markAsUndone();
-        System.out.println("Just now say do alr now never do\n  " + tasks[taskIndex]);
+        tasks.get(taskIndex).markAsUndone();
+        System.out.println("Just now say do alr now never do\n  " + tasks.get(taskIndex));
+        saveTasks();
     }
 
     private static boolean isValidIndex(int index) {
-        return index >= 0 && index < taskCount;
+        return index >= 0 && index < tasks.size();
+    }
+
+    private static void saveTasks() {
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs(); // make dir
+            }
+
+            FileWriter writer = new FileWriter("./data/phoebe.txt");
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+            e.printStackTrace();
+        }
     }
 }
 
