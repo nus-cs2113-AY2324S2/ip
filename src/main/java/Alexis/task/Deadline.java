@@ -15,9 +15,14 @@ public class Deadline extends Task {
     protected static Deadline getDeadline(String input) {
         String keyword = "/by";
         int keywordIndex = input.indexOf(keyword);
-        String taskDeadline = input.substring(keywordIndex + keyword.length()).trim();
-        String description = input.substring(0, keywordIndex).trim();
-        return new Deadline(description, taskDeadline);
+        try {
+            String description = input.substring(0, keywordIndex).trim();
+            String taskDeadline = input.substring(keywordIndex + keyword.length()).trim();
+            return new Deadline(description, taskDeadline);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please indicate the deadline of your task.");
+            return null;
+        }
     }
 
     @Override

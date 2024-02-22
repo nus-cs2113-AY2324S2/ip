@@ -23,10 +23,15 @@ public class Event extends Task {
         String keywordTo = "/to";
         int keywordFromIndex = input.indexOf(keywordFrom);
         int keywordToIndex = input.indexOf(keywordTo, keywordFromIndex + keywordFrom.length());
-        String description = input.substring(0, keywordFromIndex).trim();
-        String taskStart = input.substring(keywordFromIndex + keywordFrom.length(), keywordToIndex).trim();
-        String taskEnd = input.substring(keywordToIndex + keywordTo.length()).trim();
-        return new Event(description, taskStart, taskEnd);
+        try {
+            String description = input.substring(0, keywordFromIndex).trim();
+            String taskStart = input.substring(keywordFromIndex + keywordFrom.length(), keywordToIndex).trim();
+            String taskEnd = input.substring(keywordToIndex + keywordTo.length()).trim();
+            return new Event(description, taskStart, taskEnd);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please indicate the start and end dates/times for your event properly.");
+            return null;
+        }
     }
 
     @Override

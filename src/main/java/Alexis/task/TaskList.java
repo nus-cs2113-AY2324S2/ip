@@ -36,11 +36,15 @@ public class TaskList {
             break;
         case DEADLINE:
             Deadline deadline = Deadline.getDeadline(input);
-            addToTaskList(deadline);
+            if (deadline != null) {
+                addToTaskList(deadline);
+            }
             break;
         case EVENT:
             Event event = Event.getEvent(input);
-            addToTaskList(event);
+            if (event != null) {
+                addToTaskList(event);
+            }
             break;
         }
     }
