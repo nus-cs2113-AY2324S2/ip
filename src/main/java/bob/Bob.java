@@ -82,7 +82,7 @@ public class Bob {
     }
 
     public enum Command {
-        TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, SAVE, BYE
+        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, SAVE, BYE
     }
     private static boolean processCommand(String command, String line, List<Task> list, String filename) throws BobException {
         switch (Command.valueOf(command.toUpperCase())) {
@@ -104,6 +104,9 @@ public class Bob {
         case LIST:
             displayList(list);
             break;
+        case DELETE:
+            deleteTask(line, list);
+            break;
         case SAVE:
             saveList(filename, list);
             break;
@@ -114,6 +117,17 @@ public class Bob {
             throw new BobException("I'm sorry, but I don't know what that means :-(");
         }
         return false;
+    }
+
+    private static void deleteTask(String line, List<Task> list) {
+        String content;
+        content = line.split(" ", 2)[1];
+        displayHorizontalLine();
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(list.get(Integer.parseInt(content) - 1).getListItem());
+        list.remove(Integer.parseInt(content) - 1);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        displayHorizontalLine();
     }
 
     private static void saveList(String filename, List<Task> list) throws BobException {
