@@ -30,10 +30,6 @@ public class Task {
        return (this.isDone ? "X" : " ");
     }
 
-    public String convertToCommand() {
-        return this.description;
-    }
-
     @Override
     public String toString() {
         return "[" + this.printDone() + "] " + this.description;
