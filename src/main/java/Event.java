@@ -6,7 +6,11 @@ public class Event extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
+    Event(String description, String startTime, String endTime, boolean isDone){
+        super(description, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
     @Override
     public String toString() {
         if (this.isDone){
@@ -14,7 +18,11 @@ public class Event extends Task {
         }
         else{
             return "[E][ ] " + this.taskName + String.format(" (from: %s to: %s)", startTime, endTime );
+        }
     }
 
+    @Override
+    public String toSerial() {
+        return ("event," + super.toSerial()+ "," + startTime + "," + endTime);
     }
 }

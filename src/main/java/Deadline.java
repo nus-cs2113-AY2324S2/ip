@@ -5,6 +5,11 @@ public class Deadline extends Task{
         super(description);
         this.deadlineString = deadline;
     }
+
+    Deadline(String description, String deadline, boolean isDone){
+        super(description, isDone);
+        this.deadlineString = deadline;
+    }
     @Override
     public java.lang.String toString() {
         if (this.isDone){
@@ -13,5 +18,10 @@ public class Deadline extends Task{
         else{
             return "[D][ ] " + this.taskName + String.format(" (by: %s)", deadlineString );
         }
+    }
+
+    @Override
+    public String toSerial() {
+        return ("deadline," + super.toSerial() + ","+ this.deadlineString);
     }
 }
