@@ -41,6 +41,8 @@ public class ResponseManager {
             "Looks like the file does not exist TAT\n";
     public static final String CREATE_FILE_MESSAGE =
             "You will start a fresh new journey!\n";
+    public static final String RETURN_MESSAGE =
+            "It's always nice to see you again!\n";
 
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);

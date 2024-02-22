@@ -28,6 +28,7 @@ public class ZukeLogic {
     public void chattingStart() {
         Scanner userInput = new Scanner(System.in);
         DataManager.createFolder();
+        DataManager.createTextFile();
         loadData();
         while (userInput.hasNextLine()) {
             DataManager.saveData(taskList);
@@ -38,7 +39,7 @@ public class ZukeLogic {
             try {
                 switch (command) {
                 case "bye":
-                    //DataManager.saveData(taskList);
+                    DataManager.saveText(taskList);
                     userInput.close();
                     return;
 
