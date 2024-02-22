@@ -15,20 +15,20 @@ public class TaskManager {
 
         try {
             switch (taskType) {
-                case "todo":
-                    newTask = new Todo(parts[1]);
-                    break;
-                case "deadline":
-                    String[] deadlineParts = parts[1].split("/by", 2);
-                    newTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
-                    break;
-                case "event":
-                    String[] eventParts = parts[1].split("/at", 2);
-                    newTask = new Event(eventParts[0].trim(), eventParts[1].trim(), taskType);
-                    break;
-                default:
-                    System.out.println("Invalid task type.");
-                    return;
+            case "todo":
+                newTask = new Todo(parts[1]);
+                break;
+            case "deadline":
+                String[] deadlineParts = parts[1].split("/by", 2);
+                newTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                break;
+            case "event":
+                String[] eventParts = parts[1].split("/at", 2);
+                newTask = new Event(eventParts[0].trim(), eventParts[1].trim(), taskType);
+                break;
+            default:
+                System.out.println("Invalid task type.");
+                return;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid task format.");
