@@ -11,12 +11,12 @@ import java.io.IOException;
 
 public class AnonBotFileWriter {
     private static void writeIndividualTask(FileWriter writer) {
-        for (Task task : TaskManager.getTaskList()){
-            try{
+        for (Task task : TaskManager.getTaskList()) {
+            try {
                 String data = ExportParser.convertTaskToCommandlineFormat(task);
                 writer.write(data);
                 writer.write(System.lineSeparator());
-            } catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("Unable to write to file");
                 e.printStackTrace();
             } catch (InvalidTaskException e) {
@@ -43,7 +43,7 @@ public class AnonBotFileWriter {
 
     }
 
-    public static void saveAnonBotData(){
+    public static void saveAnonBotData() {
         File f = new File(AnonBotFile.FILE_NAME);
         try {
             f.delete();

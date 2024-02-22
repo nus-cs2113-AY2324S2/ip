@@ -10,19 +10,20 @@ public class TaskManager {
     private static int numberOfActiveTasks = 0;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
-    public static ArrayList<Task> getTaskList(){
+    public static ArrayList<Task> getTaskList() {
         return taskList;
     }
 
-    public static int getNumberOfActiveTasks(){
+    public static int getNumberOfActiveTasks() {
         return numberOfActiveTasks;
     }
 
-    public static void setNumberOfActiveTasks(int numActiveTasks){
+    public static void setNumberOfActiveTasks(int numActiveTasks) {
         numberOfActiveTasks = numActiveTasks;
     }
+
     public static Task createTask(String taskDescription, Task.TaskType taskType,
-            int taskNumber, boolean isTaskDone){
+            int taskNumber, boolean isTaskDone) {
         Task newTask = null;
 
         switch (taskType) {
@@ -55,7 +56,7 @@ public class TaskManager {
         // As long as there is a description, we shall accept the new task
         // Todo: Add a default clause to catch any new unhandled task types
         numberOfActiveTasks += 1;
-        Task newTask = createTask(taskDescription,taskType,numberOfActiveTasks,false);
+        Task newTask = createTask(taskDescription, taskType, numberOfActiveTasks, false);
         newTask.printTask();
         System.out.println("Alright. I have added this task: ");
         System.out.println("Now you have " + numberOfActiveTasks + " tasks in the list.");
@@ -99,7 +100,7 @@ public class TaskManager {
     public static void markTaskAsUndone(int taskNumber) throws InvalidMarkCommandException {
         Task taskToMark = retrieveTask(taskNumber);
 
-        if (taskToMark == null){
+        if (taskToMark == null) {
             throw new InvalidMarkCommandException("unmark", Integer.toString(taskNumber));
         }
 

@@ -7,6 +7,6 @@ public class InvalidMarkCommandException extends IncompleteCommandException {
 
     @Override
     public void printErrorMessage() {
-        System.out.format("There is no task number %s to %s" + System.lineSeparator(), getArgument(),getCommand());
+        System.out.format("There is no task number %s to %s" + System.lineSeparator(), getArgument(), getCommand());
     }
 }
