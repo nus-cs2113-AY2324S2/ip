@@ -23,7 +23,7 @@ public class Laika {
         taskList.remove(taskNumber-1);
     }
 
-    public static void addTask(ArrayList<Task> taskList, String line, int count) throws LaikaException {
+    public static void addTask(ArrayList<Task> taskList, String line) throws LaikaException {
         if(line.startsWith("todo")){
             taskList.add(new Todo(line.replaceFirst("todo ","")));
         }
@@ -99,7 +99,7 @@ public class Laika {
                 default:
 
                     try{
-                        addTask(taskList, line, count);
+                        addTask(taskList, line);
                     }
                     catch(LaikaException e) {
                         System.out.println("Laika: Hmmmm, I dont understand you?");
