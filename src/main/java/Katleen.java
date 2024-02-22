@@ -64,6 +64,10 @@ public class Katleen {
         try {
             switch (cmdWord) {
             case "list":
+                if (tasks.isEmpty()) {
+                    System.out.println("You have no tasks!");
+                    break;
+                }
                 System.out.println("Here are the tasks in your list:");
                 int count = 1;
                 for (Task t : tasks) {
