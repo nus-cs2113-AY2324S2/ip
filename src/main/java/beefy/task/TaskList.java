@@ -104,4 +104,16 @@ public class TaskList {
         Ui.printMessage("---" + delTaskDescription + " has been removed from task list!---" + System.lineSeparator()
                 + "---Number of Tasks in List: " + numberOfTasks + "---");
     }
+
+    public void findTask(String taskDescription) {
+        String message = "Here are the matching tasks in your list: " + System.lineSeparator();
+        int taskCount = 1;
+        for (Task userTask : tasks) {
+            if (userTask.getDescription().contains(taskDescription)) {
+                message += taskCount + ". " + userTask + System.lineSeparator();
+                taskCount += 1;
+            }
+        }
+        Ui.printMessage(message);
+    }
 }
