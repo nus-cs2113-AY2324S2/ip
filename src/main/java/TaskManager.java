@@ -48,8 +48,8 @@ public class TaskManager {
     private void addDeadlineTask(String taskDescription) throws InvalidDeadlineFormatException {
         String[] taskDetails = taskDescription.substring(DEADLINE_BEGIN_INDEX).split("/by");
         if (taskDetails.length == DEADLINE_MAX_PARTS) {
-            taskList.add(new Deadline(taskDetails[PART_0].trim(), taskDetails[PART_1].trim()));
             index += INDEX_OFFSET;
+            taskList.add(new Deadline(taskDetails[PART_0].trim(), taskDetails[PART_1].trim()));
             userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidDeadlineFormatException("Invalid deadline format.");
@@ -59,9 +59,9 @@ public class TaskManager {
     private void addEventTask(String taskDescription) throws InvalidEventFormatException {
         String[] taskDetails = taskDescription.substring(EVENT_BEGIN_INDEX).split("/from|/to");
         if (taskDetails.length == EVENT_MAX_PARTS) {
+            index += INDEX_OFFSET;
             taskList.add(new Event(taskDetails[PART_0].trim(), taskDetails[PART_1].trim(),
                     taskDetails[PART_2].trim()));
-            index += INDEX_OFFSET;
             userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidEventFormatException("Invalid event format. ");
@@ -71,11 +71,23 @@ public class TaskManager {
     private void addTodoTask(String taskDescription) throws InvalidTodoFormatException {
         String taskDetails = taskDescription.substring(TODO_BEGIN_INDEX).trim();
         if (!taskDetails.isEmpty()) {
-            taskList.add(new Todo(taskDetails));
             index += INDEX_OFFSET;
+            taskList.add(new Todo(taskDetails));
             userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidTodoFormatException("Invalid todo format. ");
+        }
+    }
+
+    public void deleteTask(int taskIndex) throws IndexOutOfBoundsException{
+        if(taskIndex<index || taskIndex >= START_INDEX){
+            String taskRemoved = taskList.get(taskIndex).toString();
+            taskList.remove(taskIndex);
+            index -= INDEX_OFFSET;
+            userInterface.printTaskRemoved(taskRemoved, index);
+        } else {
+            throw new IndexOutOfBoundsException("Index out of bounds for length " +
+                    index);
         }
     }
 
@@ -111,4 +123,5 @@ public class TaskManager {
     public void printTaskList() {
         userInterface.printTaskList(taskList, index);
     }
+
 }

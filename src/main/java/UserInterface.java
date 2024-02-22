@@ -31,6 +31,14 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
+    public void printTaskRemoved(String task, int totalTasks) {
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Noted. I've removed this task:");
+        System.out.println(TAB_SPACE + "  " + task);
+        System.out.println(TAB_SPACE + "Now you have " + totalTasks + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
     public void printTaskList(ArrayList<Task> taskList, int index) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Here are the tasks in your list:");
