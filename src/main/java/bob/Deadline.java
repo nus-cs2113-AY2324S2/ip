@@ -1,5 +1,7 @@
 package bob;
 
+import static bob.Bob.DEADLINE_ICON;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -16,10 +18,8 @@ public class Deadline extends Task {
         this.by = split[1];
     }
 
-
-
     @Override
     public String toString() {
-        return "[D]" + super.getListItem() + " (by: " + by + ")";
+        return DEADLINE_ICON + super.getListItem() + " (by: " + by + ")";
     }
 }

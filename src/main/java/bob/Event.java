@@ -1,5 +1,7 @@
 package bob;
 
+import static bob.Bob.EVENT_ICON;
+
 public class Event extends Deadline {
 
     protected String start;
@@ -19,7 +21,7 @@ public class Event extends Deadline {
 
     @Override
     public String toString() {
-        return "[E]" + super.getListItem() + " (from: " + start + " to: " + by + ")";
+        return EVENT_ICON + super.getListItem() + " (from: " + start + " to: " + by + ")";
     }
 
 }

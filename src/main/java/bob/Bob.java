@@ -12,9 +12,16 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Bob {
+
+    public static final String logo = " ____       _        \n"
+                                    + "|  _ \\_____|_|__ _\n"
+                                    + "| |_| | /\\ | |    \\ \n"
+                                    + "| |_| | \\/ | |  O /\n"
+                                    + "|____/ \\__,|_|\\__/\n";
+    public static String FILENAME = "bob.txt";
     public static void main(String[] args) {
 
-        final String FILENAME = "bob.txt";
+
 
         displayWelcomeMessage();
         List<Task> list = generateListOnStartup(FILENAME);
@@ -41,26 +48,31 @@ public class Bob {
         }
     }
 
+    public static final String TODO_ICON = "[T]";
+    public static final String DEADLINE_ICON = "[D]";
+    public static final String EVENT_ICON = "[E]";
+
     private static List<Task> generateListOnStartup(String filename) {
         List<String> stringList;
         try {
             stringList = Files.readAllLines(Paths.get(filename));
         } catch (IOException e) {
-            // if there is any problem with the file or the file does not exist, return an empty list
-            // this means if the file is corrupted it will not be used, and overwritten later
+            /* if there is any problem with the file or the file does
+               not exist, return an empty list. this means if the file is
+               corrupted it will not be used, and overwritten later */
             return new ArrayList<>();
         }
 
         List<Task> list = new ArrayList<>();
         for (String s : stringList) {
-            switch (s.substring(0,3)) {
-            case "[T]":
+            switch (s.substring(0, 3)) {
+            case TODO_ICON:
                 list.add(new Task(s));
                 break;
-            case "[D]":
+            case DEADLINE_ICON:
                 list.add(new Deadline(s));
                 break;
-            case "[E]":
+            case EVENT_ICON:
                 list.add(new Event(s));
                 break;
             }
@@ -69,30 +81,33 @@ public class Bob {
         return list;
     }
 
+    public enum Command {
+        TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, SAVE, BYE
+    }
     private static boolean processCommand(String command, String line, List<Task> list, String filename) throws BobException {
-        switch (command) {
-        case "todo":
+        switch (Command.valueOf(command.toUpperCase())) {
+        case TODO:
             addTodo(line, list);
             break;
-        case "deadline":
+        case DEADLINE:
             addDeadline(line, list);
             break;
-        case "event":
+        case EVENT:
             addEvent(line, list);
             break;
-        case "mark":
+        case MARK:
             markTask(line, list);
             break;
-        case "unmark":
+        case UNMARK:
             unmarkTask(line, list);
             break;
-        case "list":
+        case LIST:
             displayList(list);
             break;
-        case "save":
+        case SAVE:
             saveList(filename, list);
             break;
-        case "bye":
+        case BYE:
             displayExitMessage();
             return true;
         default:
@@ -147,8 +162,8 @@ public class Bob {
         try {
             content = line.split(" ", 2)[1];
 
-            description = content.split( " /from ")[0];
-            start = content.split( " /from ")[1].split(" /to ")[0];
+            description = content.split(" /from ")[0];
+            start = content.split(" /from ")[1].split(" /to ")[0];
             by = content.split(" /to ")[1];
 
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -173,7 +188,7 @@ public class Bob {
             throw new BobException("A deadline must have a description and a deadline.");
         }
 
-        Deadline d = new Deadline(content.split( " /by ")[0], content.split( " /by ")[1], false);
+        Deadline d = new Deadline(content.split(" /by ")[0], content.split(" /by ")[1], false);
         list.add(d);
 
         displayHorizontalLine();
@@ -205,18 +220,14 @@ public class Bob {
         displayHorizontalLine();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i+1) + "." + list.get(i).toString());
+            System.out.println((i + 1) + "." + list.get(i).toString());
         }
 
         displayHorizontalLine();
     }
 
     private static void displayWelcomeMessage() {
-        String logo = " ____       _        \n"
-                    + "|  _ \\_____|_|__ _\n"
-                    + "| |_| | /\\ | |    \\ \n"
-                    + "| |_| | \\/ | |  O /\n"
-                    + "|____/ \\__,|_|\\__/\n";
+
         System.out.println("Hello from\n" + logo);
 
         displayHorizontalLine();

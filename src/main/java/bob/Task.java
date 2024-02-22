@@ -1,7 +1,8 @@
 package bob;
 
+import static bob.Bob.TODO_ICON;
+
 public class Task {
-    // todo: refactor so that deadline, event, and todo all extend from task and not each other
     protected String description;
     protected boolean isDone;
 
@@ -37,6 +38,6 @@ public class Task {
     }
 
     public String toString() {
-        return "[T]" + getListItem();
+        return TODO_ICON + getListItem();
     }
 }
