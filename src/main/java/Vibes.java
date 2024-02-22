@@ -49,7 +49,7 @@ public class Vibes {
 
     public static void main(String[] args) {
         String userInput;
-        boolean isExit = true;
+        boolean isExit = false;
         Scanner in = new Scanner(System.in);
         List taskList = new List();
 
@@ -57,14 +57,14 @@ public class Vibes {
         System.out.println("\t Hello! I'm " + CHATBOT_NAME + "\n\t What can I do for you?");
         System.out.println(DASHED_LINE);
 
-        while(isExit){
+        while(!isExit){
             userInput = in.nextLine().trim();
             String commandToExecute = extractCommand(userInput.toLowerCase());
 
             System.out.println(DASHED_LINE);
             if (commandToExecute.equals("bye")){
                 System.out.println("\t Bye. Hope to see you again soon!");
-                isExit = false;
+                isExit = true;
             } else {
                 try{
                 executeCommand(commandToExecute, taskList, userInput);
