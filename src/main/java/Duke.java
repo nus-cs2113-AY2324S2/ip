@@ -57,23 +57,43 @@ public class Duke {
             }
             else if(words[0].equals("deadline")){
                 int dividerPosition = userInput.indexOf(" ");
-                int slashPosition = userInput.indexOf("/by");
-                tasks[taskCount] = new Deadline(userInput.substring(dividerPosition + 1, slashPosition - 1), userInput.substring(slashPosition + 4));
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount]);
-                taskCount++;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                try {
+                    if (dividerPosition == -1) {
+                        throw new EkudException();
+                    }
+                    else {
+                        int slashPosition = userInput.indexOf("/by");
+                        tasks[taskCount] = new Deadline(userInput.substring(dividerPosition + 1, slashPosition - 1), userInput.substring(slashPosition + 4));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(tasks[taskCount]);
+                        taskCount++;
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    }
+                }
+                catch (EkudException error) {
+                    System.out.println("The description of a deadline cannot be empty.");
+                }
             }
             else if(words[0].equals("event")){
                 int dividerPosition = userInput.indexOf(" ");
-                int fromPosition = userInput.indexOf("/from");
-                int toPosition = userInput.indexOf("/to");
+                try {
+                    if (dividerPosition == -1) {
+                        throw new EkudException();
+                    }
+                    else {
+                        int fromPosition = userInput.indexOf("/from");
+                        int toPosition = userInput.indexOf("/to");
 
-                tasks[taskCount] = new Event(userInput.substring(dividerPosition + 1, fromPosition - 1), userInput.substring(fromPosition + 6, toPosition - 1), userInput.substring(toPosition + 4));
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount]);
-                taskCount++;
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        tasks[taskCount] = new Event(userInput.substring(dividerPosition + 1, fromPosition - 1), userInput.substring(fromPosition + 6, toPosition - 1), userInput.substring(toPosition + 4));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(tasks[taskCount]);
+                        taskCount++;
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    }
+                }
+                catch (EkudException error) {
+                    System.out.println("The description of an event cannot be empty.");
+                }
             }
             else{
                 try {
