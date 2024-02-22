@@ -43,7 +43,7 @@ public class Evelyn {
 
     }
 
-    public static void printList(ArrayList<Task> tasks){
+    public static void printList(ArrayList<Task> tasks) {
         int index = 1;
         for (Task task : tasks) {
             if (task == null) {
