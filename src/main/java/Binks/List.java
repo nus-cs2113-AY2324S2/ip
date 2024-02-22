@@ -135,7 +135,7 @@ public class List {
     }
 
     private void updateFile(ArrayList<Task> list) {
-        String file = "C:\\Users\\eugen\\OneDrive\\Documents\\ip\\src\\main\\java\\binkslist.txt";
+        String file = "binkslist.txt";
         //String taskDescription = list.toString();
         try {
             FileWriter fw = new FileWriter(file);
