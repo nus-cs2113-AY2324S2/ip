@@ -1,6 +1,8 @@
 package bobby;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Bobby {
     public static String obtainTodoDescription(String input) throws BobbyException {
         if (input.length() < 5 || input.substring(5).trim().isEmpty()) {
@@ -10,9 +12,8 @@ public class Bobby {
     }
 
     public static void main(String[] args) {
-        int counter = 0;
         boolean isExit = false;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>(); // Using ArrayList instead of array
         Scanner in = new Scanner(System.in);
         System.out.println("Hello I'm Bobby\n" + "What can I do for you?");
 
@@ -35,23 +36,23 @@ public class Bobby {
                 break;
             case "mark":
                 entry = Integer.parseInt(input.substring(5));
-                if (entry > 0 && entry <= counter) {
-                    tasks[entry - 1].setDone(true);
+                if (entry > 0 && entry <= tasks.size()) {
+                    tasks.get(entry - 1).setDone(true);
                     System.out.println("Marked as done");
-                    System.out.println(entry + "." + tasks[entry - 1]);
+                    System.out.println(entry + "." + tasks.get(entry - 1));
                 }
                 break;
             case "unmark":
                 entry = Integer.parseInt(input.substring(7));
-                if (entry > 0 && entry <= counter) {
-                    tasks[entry - 1].setDone(false);
+                if (entry > 0 && entry <= tasks.size()) {
+                    tasks.get(entry - 1).setDone(false);
                     System.out.println("Unmarked");
-                    System.out.println(entry + "." + tasks[entry - 1]);
+                    System.out.println(entry + "." + tasks.get(entry - 1));
                 }
                 break;
             case "list":
-                for (int i = 0; i < counter; i += 1) {
-                    System.out.println((i + 1) + "." + tasks[i]);
+                for (int i = 0; i < tasks.size(); i += 1) {
+                    System.out.println((i + 1) + "." + tasks.get(i));
                 }
                 break;
             case "todo":
@@ -61,10 +62,9 @@ public class Bobby {
                     System.out.println("Please enter a valid task.");
                     break;
                 }
-                tasks[counter] = new Todo(description);
-                System.out.println("Okay, added:\n" + tasks[counter]);
-                counter += 1;
-                System.out.println("Now you have " + counter + " task(s) in the list.");
+                tasks.add(new Todo(description));
+                System.out.println("Okay, added:\n" + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                 break;
             case "deadline":
                 if (!input.contains("/by")) {
@@ -79,10 +79,9 @@ public class Bobby {
                     System.out.println("deadline Return Book /by Sunday");
                     break;
                 }
-                tasks[counter] = new Deadline(description, by);
-                System.out.println("Okay, added:\n" + tasks[counter]);
-                counter += 1;
-                System.out.println("Now you have " + counter + " task(s) in the list.");
+                tasks.add(new Deadline(description, by));
+                System.out.println("Okay, added:\n" + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                 break;
             case "event":
                 if (!input.contains("/to") || !input.contains("/from")) {
@@ -98,11 +97,18 @@ public class Bobby {
                     System.out.println("event Project Meeting /from Mon 2pm /to 4pm");
                     break;
                 }
-                tasks[counter] = new Event(description, by, from);
-                System.out.println("Okay, added:\n" + tasks[counter]);
-                counter += 1;
-                System.out.println("Now you have " + counter + " task(s) in the list.");
+                tasks.add(new Event(description, by, from));
+                System.out.println("Okay, added:\n" + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                 break;
+            case "delete":
+                entry = Integer.parseInt(input.substring(7));
+                if (entry > 0 && entry <= tasks.size()) {
+                    System.out.println("Noted, I've removed this task:\n" + tasks.get(entry - 1));
+                    tasks.remove(entry - 1);
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+                    break;
+                }
             default:
                 System.out.println("Sorry, I didn't quite understand that.\nPlease enter a valid command.");
                 break;
