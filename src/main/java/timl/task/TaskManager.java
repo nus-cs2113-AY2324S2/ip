@@ -16,7 +16,10 @@ public class TaskManager {
         }
         list[emptyIndex] = t;
     }
-
+    public static String getTaskType(Task t) {
+        String words = t.getStatus();
+        return words.substring(0, 2);
+    }
     public static void mark(int taskIndex, Task[] list, int emptyIndex) throws TimException {
         if ((taskIndex < 0) |(emptyIndex <= taskIndex)){
             throw new TimException();
