@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class ManageInputs {
     protected static String from;
@@ -7,7 +9,7 @@ public class ManageInputs {
     protected static String by;
 
 
-    public static void dealWithEvent(Task[] tasks, int index, String[] inputs, String line) throws UnexpectedCommandException {
+    public static void dealWithEvent(ArrayList<Task> tasks, int index, String[] inputs, String line) throws UnexpectedCommandException {
         int indexTo = line.indexOf("/to");
         int indexFrom = line.indexOf("/from");
 
@@ -34,13 +36,16 @@ public class ManageInputs {
             System.out.println("event description not specified");
             throw new UnexpectedCommandException();
         }
+        String from = line.substring(indexFrom + 6, indexTo - 1);
+        String to = line.substring(indexTo + 4);
+        String description = line.substring(6, indexFrom - 1);
 
-        tasks[index] = new Event(description, from, to);
+        tasks.add(index, new Event(description, from, to));
         System.out.println("Got it. I've added this task: ");
-        System.out.println(tasks[index]);
+        System.out.println(tasks.get(index));
     }
 
-    public static void dealWithDeadline(Task[] tasks, int index, String line) throws UnexpectedCommandException {
+    public static void dealWithDeadline(ArrayList<Task> tasks, int index, String line) throws UnexpectedCommandException {
         int indexBy = line.indexOf("by");
         if (indexBy == -1) {//invalid format
             System.out.println("Invalid format! Enter deadline in the format: deadline (description) by (deadline)");
@@ -64,12 +69,14 @@ public class ManageInputs {
             System.out.println("deadline description not specified");
             throw new UnexpectedCommandException();
         }
-        tasks[index] = new Deadline(description, by);
+        String description = line.substring(9, indexBy - 1);
+        String by = line.substring(indexBy + 3);
+        tasks.add(index, new Deadline(description, by));
         System.out.println("Got it. I've added this task: ");
-        System.out.println(tasks[index]);
+        System.out.println(tasks.get(index));
     }
 
-    public static void dealWithTodo(Task[] tasks, int index, String line) throws UnexpectedCommandException {
+    public static void dealWithTodo( ArrayList<Task> tasks, int index, String line) throws UnexpectedCommandException {
         int indexSpace = line.indexOf(" ");
         if (indexSpace == -1) {
             System.out.println("todo description not specified");
@@ -78,9 +85,9 @@ public class ManageInputs {
 
         String description = line.substring(indexSpace);
 
-        tasks[index] = new Todo(description);
+        tasks.add(index, new Todo(description));
         System.out.println("Got it. I've added this task: ");
-        System.out.println(tasks[index]);
+        System.out.println(tasks.get(index));
     }
 
     private void handleUnexpectedCommand(boolean isValidCommand) throws UnexpectedCommandException {
@@ -95,7 +102,7 @@ public class ManageInputs {
         }
     }
 
-    public ManageInputs(Task[] tasks, int index, String line) {
+    public ManageInputs(ArrayList<Task> tasks, int index, String line) {
         while (!line.equals("bye")) {
             Boolean isValidCommand = false;
             Scanner input = new Scanner(System.in);
@@ -107,20 +114,20 @@ public class ManageInputs {
             if (inputs[0].equals("mark")) {//mark as done
                 isValidCommand = true;
                 int idx = Integer.parseInt(inputs[1]);
-                tasks[idx - 1].markAsDone();
+                tasks.get(idx - 1).markAsDone();
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("[" + tasks[idx - 1].getStatusIcon() + "]" + tasks[idx - 1].description);
+                System.out.println(tasks.get(idx-1));
             } else if (inputs[0].equals("unmark")) {//unmark done
                 isValidCommand = true;
                 int idx = Integer.parseInt(inputs[1]);
-                tasks[idx - 1].unmarkDone();
+                tasks.get(idx - 1).unmarkDone();
                 System.out.println("OK, I've marked this task as not done yet: ");
-                System.out.println("[" + tasks[idx - 1].getStatusIcon() + "]" + tasks[idx - 1].description);
+                System.out.println(tasks.get(idx-1));
             } else if (line.equals("list")) {//lists tasks
                 isValidCommand = true;
                 System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < index; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
             } else if (line.equals("bye")) {//exit chat
                 isValidCommand = true;
@@ -140,10 +147,16 @@ public class ManageInputs {
                         dealWithTodo(tasks, index, line);
                         index++;
                     }
-                    System.out.println("Now you have " + index + " tasks in the list.");
                 } catch (UnexpectedCommandException e) {
-
                 }
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (inputs[0].equals("delete")){
+                int idx = Integer.parseInt(inputs[1]);
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(tasks.get(idx-1));
+                tasks.remove(idx - 1);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                index--;
             } else {
                 try {
                     handleEmptyInput(line);
@@ -158,9 +171,3 @@ public class ManageInputs {
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
-
-/*try{
-            handleFromUnspecified();
-        } catch (FromUnspecifiedError e){
-            System.out.println("remember to include start of event!");
-        }*/
