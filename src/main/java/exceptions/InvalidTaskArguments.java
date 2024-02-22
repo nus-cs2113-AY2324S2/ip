@@ -1,4 +1,4 @@
 package exceptions;
 
-public class InvalidTaskArguments extends Exception{
+public class InvalidTaskArguments extends Exception {
 }

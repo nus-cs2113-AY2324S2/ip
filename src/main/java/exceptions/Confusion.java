@@ -1,4 +1,4 @@
 package exceptions;
 
-public class Confusion extends Exception{
+public class Confusion extends Exception {
 }

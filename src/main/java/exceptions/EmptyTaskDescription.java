@@ -1,4 +1,4 @@
 package exceptions;
 
-public class EmptyTaskDescription extends Exception{
+public class EmptyTaskDescription extends Exception {
 }
