@@ -47,6 +47,14 @@ public class Task {
     }
 
     /**
+     * This method returns the status of the task
+     * @return The status of the task
+     */
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
+    /**
      * This method returns the string representation of the task
      * @return The string representation of the task
      */

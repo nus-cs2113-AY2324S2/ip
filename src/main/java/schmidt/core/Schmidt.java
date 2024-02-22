@@ -6,6 +6,9 @@ import schmidt.task.Event;
 import schmidt.task.Task;
 import schmidt.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,6 +32,7 @@ public class Schmidt {
             "\tmark <task number>\n" +
             "\tunmark <task number>\n" +
             "\tdelete <task number>";
+    private static final String STORAGE = "data/schmidt.txt";
 
     /**
      * This is the main method which makes use of Schmidt class.
@@ -36,15 +40,38 @@ public class Schmidt {
      * @param args Unused.
      */
     public static void main(String[] args) {
+        System.out.println(LOGO);
+        print("Hello! I'm Schmidt");
+
         ArrayList<Task> tasks = new ArrayList<>();
 
-        System.out.println(LOGO);
-        print("Hello! I'm Schmidt\n" +
-                "What can I do for you?");
+        try {
+            pullFromStorage(tasks);
+        } catch (SchmidtException e) {
+            System.out.println(e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Saved tasks are corrupted\n" +
+                    "Starting with an empty list of tasks");
+            tasks = new ArrayList<>();
+        } catch (FileNotFoundException e) {
+            System.out.println("Couldn't find any saved tasks\n" +
+                    "Starting with an empty list of tasks");
+        }
+
+        if (tasks.isEmpty()) {
+            System.out.println("Starting with an empty list of tasks");
+        } else {
+            printListHelper(tasks, false);
+        }
+
+        print("What can I do for you today?");
 
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            // push tasks to storage
+            pushToStorage(tasks);
+
             // indent user input
             System.out.print("\t-> ");
 
@@ -69,7 +96,7 @@ public class Schmidt {
                 printByeMessage();
                 return;
             case "list":
-                printListHelper(tasks);
+                printListHelper(tasks, true);
                 continue;
             case "mark":
                 try {
@@ -166,20 +193,24 @@ public class Schmidt {
      *
      * @param tasks The list of tasks
      */
-    public static void printListHelper(ArrayList<Task> tasks) {
+    public static void printListHelper(ArrayList<Task> tasks, boolean withLine) {
         if (tasks.isEmpty()) {
             print("You have no tasks in the list");
             return;
         }
 
-        System.out.println(LINE +
-                "\nHere are the tasks in your list:");
+        if (withLine) {
+            System.out.println(LINE);
+        }
+        System.out.println("Here are the tasks in your list:");
 
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
         }
 
-        System.out.println(LINE);
+        if (withLine) {
+            System.out.println(LINE);
+        }
     }
 
     /**
@@ -237,6 +268,9 @@ public class Schmidt {
         } catch (StringIndexOutOfBoundsException e) {
             throw new SchmidtException("The description of a deadline cannot be empty\n" +
                     "\tdeadline <description> /by <date>");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SchmidtException("The description of a deadline cannot be empty\n" +
+                    "\tdeadline <description> /by <date>");
         }
 
         String by = inputTokens[1];
@@ -275,6 +309,9 @@ public class Schmidt {
         try {
             description = inputSplitByFrom[0].split("\\s+", 2)[1];
         } catch (StringIndexOutOfBoundsException e) {
+            throw new SchmidtException("The description of an event cannot be empty\n" +
+                    "\tevent <description> /from <date> /to <date>");
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new SchmidtException("The description of an event cannot be empty\n" +
                     "\tevent <description> /from <date> /to <date>");
         }
@@ -347,5 +384,98 @@ public class Schmidt {
         print("Noted. I've removed this task:\n" +
                 "\t" + removedTask + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * This is a helper method to pull tasks from storage
+     *
+     * @param tasks The list of tasks
+     */
+    public static void pullFromStorage(ArrayList<Task> tasks) throws FileNotFoundException, SchmidtException {
+        File file = new File(STORAGE);
+
+        Scanner scanner = new Scanner(file);
+        boolean isFileEmpty = true;
+        while (scanner.hasNextLine()) {
+            isFileEmpty = false;
+            String line = scanner.nextLine();
+            String[] tokens = line.split(" \\| ");
+
+            switch (tokens[0]) {
+            case "T":
+                Todo todo = new Todo(tokens[2]);
+                if (tokens[1].equals("1")) {
+                    todo.markAsDone();
+                }
+                tasks.add(todo);
+                break;
+            case "D":
+                Deadline deadline = new Deadline(tokens[2], tokens[3]);
+                if (tokens[1].equals("1")) {
+                    deadline.markAsDone();
+                }
+                tasks.add(deadline);
+                break;
+            case "E":
+                Event event = new Event(tokens[2], tokens[4], tokens[5]);
+                if (tokens[1].equals("1")) {
+                    event.markAsDone();
+                }
+                tasks.add(event);
+                break;
+            default:
+                throw new SchmidtException("Saved tasks are corrupted");
+            }
+        }
+    }
+
+    /**
+     * This is a helper method to push tasks to storage
+     *
+     * @param tasks The list of tasks
+     */
+    public static void pushToStorage(ArrayList<Task> tasks) {
+        try {
+            File file = new File(STORAGE);
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : tasks) {
+                // type of task
+                String taskType = "";
+                if (task instanceof Todo) {
+                    taskType = "T";
+                } else if (task instanceof Deadline) {
+                    taskType = "D";
+                } else if (task instanceof Event) {
+                    taskType = "E";
+                }
+
+                // status of task
+                String isDone = "0";
+                if (task.getStatus()) {
+                    isDone = "1";
+                }
+
+                // description of task
+                String description = task.getDescription();
+
+                // by, from, to
+                String by = "";
+                if (task instanceof Deadline) {
+                    by = ((Deadline) task).getBy();
+                }
+
+                String from = "";
+                String to = "";
+                if (task instanceof Event) {
+                    from = ((Event) task).getFrom();
+                    to = ((Event) task).getTo();
+                }
+
+                fileWriter.write(taskType + " | " + isDone + " | " + description + " | " + by + " | " + from + " | " + to + "\n");
+            }
+            fileWriter.close();
+        } catch (java.io.IOException e) {
+            System.out.println("An error occurred while saving tasks");
+        }
     }
 }
