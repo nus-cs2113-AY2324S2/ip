@@ -17,10 +17,10 @@ public class Nehsik {
                 String command = in.nextLine().trim();
                 if (command.equals("list")) {
                     displayTaskList(currTaskCount, taskList);
-                } else if (command.startsWith("mark")){
-                    markTask(command, taskList);
+                } else if (command.startsWith("mark")) {
+                    markTask(command, taskList, currTaskCount);
                 } else if (command.startsWith("unmark")) {
-                    unmarkTask(command, taskList);
+                    unmarkTask(command, taskList, currTaskCount);
                 }  else if (command.startsWith("todo")) {
                     addTodoTask(command, taskList, currTaskCount);
                     currTaskCount = acknowledgeTaskAdded(taskList, currTaskCount);
@@ -55,19 +55,31 @@ public class Nehsik {
         printLine();
     }
 
-    private static void markTask(String command, Task[] taskList) {
+    private static void markTask(String command, Task[] taskList, int currTaskCount) throws NehsikException {
+        if (command.length() < MARK_TASK_INDEX) {
+            throw new NehsikException("Please mention the task number you would like to mark");
+        }
+        int taskNum = Integer.parseInt(command.substring(MARK_TASK_INDEX)) - 1;
+        if (taskNum >= currTaskCount || taskNum < 0) {
+            throw new NehsikException("Please enter a valid task number. There are " + currTaskCount + " tasks in the list");
+        }
         printLine();
         System.out.println("Nice! I've marked this task as done:");
-        int taskNum = Integer.parseInt(command.substring(MARK_TASK_INDEX)) - 1;
         taskList[taskNum].markAsDone();
         System.out.println(taskList[taskNum].toString());
         printLine();
     }
 
-    private static void unmarkTask(String command, Task[] taskList) {
+    private static void unmarkTask(String command, Task[] taskList, int currTaskCount) throws NehsikException {
+        if (command.length() < UNMARK_TASK_INDEX) {
+            throw new NehsikException("Please mention the task number you would like to unmark");
+        }
+        int taskNum = Integer.parseInt(command.substring(UNMARK_TASK_INDEX)) - 1;
+        if (taskNum >= currTaskCount || taskNum < 0) {
+            throw new NehsikException("Please enter a valid task number. There are " + currTaskCount + " tasks in the list");
+        }
         printLine();
         System.out.println("OK, I've marked this task as not done yet:");
-        int taskNum = Integer.parseInt(command.substring(UNMARK_TASK_INDEX)) - 1;
         taskList[taskNum].markAsUndone();
         System.out.println(taskList[taskNum].toString());
         printLine();
@@ -79,16 +91,23 @@ public class Nehsik {
         }
 
         if (command.charAt(TODO_DESCRIPTION_POSITION - 1) != ' ') {
-            throw new NehsikException("Invalid command");
+            throw new NehsikException("Invalid Command");
         }
 
         String taskDescription = command.substring(TODO_DESCRIPTION_POSITION).trim();
         taskList[currTaskCount] = new Todo(taskDescription);
     }
 
-    private static void addDeadlineTask(String command, Task[] taskList, int currTaskCount) {
+    private static void addDeadlineTask(String command, Task[] taskList, int currTaskCount) throws NehsikException {
         int descriptionStartPosition = command.indexOf("deadline ") + 9;
-        //if (command.length() <=)
+        if (command.length() <= descriptionStartPosition) {
+            throw new NehsikException("The description of a deadline cannot be empty");
+        }
+
+        if (command.charAt(descriptionStartPosition - 1) != ' ') {
+            throw new NehsikException("Invalid Command");
+        }
+
         int descriptionEndPosition = command.indexOf("/by ") - 1;
         String taskDescription = command.substring(descriptionStartPosition, descriptionEndPosition).trim();
 
@@ -98,8 +117,15 @@ public class Nehsik {
         taskList[currTaskCount] = new Deadline(taskDescription, by);
     }
 
-    private static void addEventTask(String command, Task[] taskList, int currTaskCount) {
+    private static void addEventTask(String command, Task[] taskList, int currTaskCount) throws NehsikException {
         int descriptionStartPosition = command.indexOf("event ") + 6;
+        if (command.length() <= descriptionStartPosition) {
+            throw new NehsikException("The description of an event cannot be empty");
+        }
+        if (command.charAt(descriptionStartPosition - 1) != ' ') {
+            throw new NehsikException("Invalid Command");
+        }
+
         int descriptionEndPosition = command.indexOf("/from ") - 1;
         String taskDescription = command.substring(descriptionStartPosition, descriptionEndPosition).trim();
 
