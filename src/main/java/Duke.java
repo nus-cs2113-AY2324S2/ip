@@ -84,6 +84,7 @@ public class Duke {
             }
 
             bufferedWriter.close();
+            System.out.println("Tasks saved to file: " + FILE_PATH);
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -156,7 +157,6 @@ public class Duke {
                 unmarkTaskAsDone(command.substring(7));
             } else if (command.equals("save")) {
                 saveTasksToFile(tasks);
-                System.out.println("Tasks saved to file:" + FILE_PATH);
             } else if (!command.startsWith("bye")) {
                 try {
                     addTask(command);
@@ -165,7 +165,6 @@ public class Duke {
                 }
             }
         } while (!command.equals("bye"));
-
         scanner.close();
     }
 
