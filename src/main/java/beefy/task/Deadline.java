@@ -1,10 +1,15 @@
 package beefy.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
+    protected LocalDateTime byDate;
     protected String by;
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
-        this.by = by;
+        this.byDate = by;
+        this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy ',' HHmm"));
     }
 
     public String getBy() {
@@ -19,6 +24,6 @@ public class Deadline extends Task{
     @Override
     public String toDiskFormat() {
         return "D," + (this.getStatus() ? "TRUE," : "FALSE,") + description + ","
-                + by + "\n";
+                + byDate + "\n";
     }
 }

@@ -1,6 +1,7 @@
 package beefy.task;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import beefy.BeefyException;
@@ -39,8 +40,8 @@ public class TaskList {
         return userTask;
     }
 
-    public Task addTask(String taskDescription, String by, boolean isInitialize) {
-        Deadline userTask = new Deadline(taskDescription, by);
+    public Task addTask(String taskDescription, LocalDateTime by, boolean isInitialize) {
+        beefy.task.Deadline userTask = new beefy.task.Deadline(taskDescription, by);
         tasks.add(userTask);
         numberOfTasks++;
         if (!isInitialize) {
@@ -50,8 +51,8 @@ public class TaskList {
         return userTask;
     }
 
-    public Task addTask(String taskDescription, String from, String to, boolean isInitialize) {
-        Event userTask = new Event(taskDescription, from, to);
+    public Task addTask(String taskDescription, LocalDateTime from, LocalDateTime to, boolean isInitialize) {
+        beefy.task.Event userTask = new beefy.task.Event(taskDescription, from, to);
         tasks.add(userTask);
         numberOfTasks++;
         if (!isInitialize) {
@@ -72,16 +73,16 @@ public class TaskList {
     }
 
     public void markTask(int taskId, boolean isInitialize) throws BeefyException {
-            Task selectedTask = tasks.get(taskId - 1);
-            if (selectedTask.getStatus()) {
-                throw new BeefyException("Are you blind mate?");
-            } else {
-                selectedTask.setMark();
-                if (isInitialize) {
-                    Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
-                            + selectedTask);
-                }
+        Task selectedTask = tasks.get(taskId - 1);
+        if (selectedTask.getStatus()) {
+            throw new BeefyException("Are you blind mate?");
+        } else {
+            selectedTask.setMark();
+            if (isInitialize) {
+                Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
+                        + selectedTask);
             }
+        }
     }
 
     public void unmarkTask(int taskId, boolean isInitialize) throws BeefyException {

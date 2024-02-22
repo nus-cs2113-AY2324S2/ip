@@ -5,6 +5,7 @@ import beefy.BeefyException;
 import beefy.task.*;
 import beefy.ui.Ui;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -31,14 +32,15 @@ public class Storage {
                     }
                     break;
                 case "D":
-                    userTasks.addTask(currParams[2], currParams[3], true);
+                    userTasks.addTask(currParams[2], LocalDateTime.parse(currParams[3]), true);
                     numOfTasks++;
                     if (currParams[1].equals("TRUE")) {
                         userTasks.markTask(numOfTasks, true);
                     }
                     break;
                 case "E":
-                    userTasks.addTask(currParams[2], currParams[3], currParams[4], true);
+                    userTasks.addTask(currParams[2], LocalDateTime.parse(currParams[3]),
+                            LocalDateTime.parse(currParams[4]), true);
                     numOfTasks++;
                     if (currParams[1].equals("TRUE")) {
                         userTasks.markTask(numOfTasks, true);
@@ -55,10 +57,10 @@ public class Storage {
     }
 
     public static void createFolder() throws IOException {
-            Ui.printMessage("Creating Storage file...");
-            File f = new File(FILE_PATH);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
+        Ui.printMessage("Creating Storage file...");
+        File f = new File(FILE_PATH);
+        f.getParentFile().mkdirs();
+        f.createNewFile();
     }
 
     public static void updateDisk(TaskList taskList) throws IOException {
