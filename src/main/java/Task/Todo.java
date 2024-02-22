@@ -9,10 +9,9 @@ public class Todo extends Task{
      * Constructs a new Todo task with a specified name and task number.
      *
      * @param name The name or description of the todo task.
-     * @param taskNo The unique number assigned to the task.
      */
-    public Todo(String name, int taskNo) {
-        super(name, taskNo);
+    public Todo(String name) {
+        super(name);
     }
 
     /**

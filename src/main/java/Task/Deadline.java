@@ -14,8 +14,8 @@ public class Deadline extends Task {
      * @param taskNo The unique number assigned to the task.
      * @param by The deadline date for the task.
      */
-    public Deadline(String name, int taskNo, String by) {
-        super(name, taskNo);
+    public Deadline(String name, String by) {
+        super(name);
         this.by = by;
     }
 
