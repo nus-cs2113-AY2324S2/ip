@@ -1,5 +1,0 @@
-T | 1 | read | null
-D | 0 | return book | 6
-E | 0 | lec | 5-5
-T | 1 | aaaa | null
-T | 0 | moew | null
