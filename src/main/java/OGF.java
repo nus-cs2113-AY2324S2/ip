@@ -48,6 +48,7 @@ public class OGF {
                 tasks.remove(taskToDelete);
                 System.out.println("Here are your tasks now: ");
                 printAllTasks();
+                overwriteFileWithList();
                 break;
             case ("mark"):
                 //Fallthrough
@@ -139,9 +140,9 @@ public class OGF {
 
     private static void overwriteFileWithList(){
         String listSerial = "";
-            for (int i = 0; i < tasks.size();i++){
-                listSerial = listSerial + tasks.get(i).toSerial() + System.lineSeparator();
-            }
+        for (Task task : tasks) {
+            listSerial = listSerial + task.toSerial() + System.lineSeparator();
+        }
             writeToFile(listSerial, false);
 
     }

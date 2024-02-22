@@ -1,3 +1,0 @@
-todo,eat shit,true
-deadline,eat shit,false,8pm
-event,eat shit,false,8pm,9pm
