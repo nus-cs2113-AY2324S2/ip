@@ -1,13 +1,10 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static int taskCount = 0;
 
     public Task(String desc) {
         this.description = desc;
         this.isDone = false;
-        taskCount++;
-        System.out.println("Added: ");
     }
 
     public void setDescription(String description) {
@@ -33,8 +30,8 @@ public class Task {
        return (this.isDone ? "X" : " ");
     }
 
-    public static int getTaskCount() {
-        return taskCount;
+    public String convertToCommand() {
+        return this.description;
     }
 
     @Override
