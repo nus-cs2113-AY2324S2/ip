@@ -31,7 +31,7 @@ public class Miku {
     }
 
     public static void newEvent(String newItem) throws MikuException {
-        String[] itemString = newItem.split("event|/from|/to");
+        String[] itemString = getEventArgument(newItem);
         if (itemString.length < 1 || !newItem.contains("/from ") || !newItem.contains("/to ")) {
             throw new MikuException();
         } else {
@@ -40,6 +40,11 @@ public class Miku {
             storedList[numberOfListItems].printTask(numberOfListItems);
             numberOfListItems++;
         }
+    }
+
+    private static String[] getEventArgument(String newItem) {
+        String[] itemString = newItem.split("event|/from|/to");
+        return itemString;
     }
 
     public static void markTask(Task[] storedList, String[] markedTask) throws MikuException {
