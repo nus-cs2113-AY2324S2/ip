@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String label;
     protected boolean isCompleted;
 
@@ -15,6 +15,9 @@ public class Task {
     public void setCompleted(boolean value) {
         this.isCompleted = value;
     }
+    public abstract String getType();
+    public abstract String getLabel();
+    public abstract String getRange();
 
     @Override
     public String toString() {

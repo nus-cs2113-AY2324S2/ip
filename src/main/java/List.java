@@ -1,27 +1,19 @@
 import java.util.ArrayList;
 public class List {
-    public static final ArrayList<Task> tasks = new ArrayList<>();
-    private static int totalTasks;
 
-    public static void addTask(Task task) {
+    public static void addTask(ArrayList<Task> tasks, Task task) {
         tasks.add(task);
-        totalTasks++;
     }
 
-    public static int getTotal () {
+    public static int getTotal (ArrayList<Task> tasks) {
         return tasks.size();
     }
 
-    public static void removeTask(Task task) {
-        int indexOfTaskToRemove = tasks.indexOf(task);
-
-        if (indexOfTaskToRemove != -1) {
-            tasks.remove(indexOfTaskToRemove);
-            totalTasks--;
-        }
+    public static void removeTask(ArrayList<Task> tasks, int index) {
+        tasks.remove(index);
     }
 
-    public static void printTasks() {
+    public static void printTasks(ArrayList<Task> tasks) {
         int taskIndex = 1;
         Reply.printReply("Here are the tasks in your list:");
         for (Task task : tasks) {
