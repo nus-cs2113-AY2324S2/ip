@@ -1,5 +1,8 @@
 package Ruby;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import Exception.*;
 import Task.*;
@@ -101,6 +104,40 @@ public class TaskList {
         System.out.println("    " + "--------------");
     }
 
+    public void readFileRecords() throws IOException {
+        Files.createDirectories(Paths.get("./data"));
+        String path = "./data/Ruby.txt";
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        String nextLine = br.readLine();
+        String[] result;
+
+        while (nextLine != null) {
+            result = nextLine.split(" \\| ");
+            String taskType = result[0];
+            boolean hasDone = Boolean.parseBoolean(result[1]);
+            String taskName = result[2];
+
+            switch (taskType){
+            case "T":
+                taskList[taskNo] = new Todo(taskName,taskNo+1);
+                taskNo++;
+                break;
+            case "D":
+                taskList[taskNo] = new Deadline(taskName, taskNo+1, result[3]);
+                taskNo++;
+                break;
+            case "E":
+                String[] duration = result[3].split(" - ");
+                taskList[taskNo] = new Event(taskName, taskNo+1, duration[0],duration[1]);
+                taskNo++;
+                break;
+            default:
+                break;
+            }
+            nextLine = br.readLine();
+        }
+        showTaskList();
+    }
     /**
      * Prints a formatted message to the console.
      *
