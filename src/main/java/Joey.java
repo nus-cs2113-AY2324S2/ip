@@ -127,6 +127,29 @@ public class Joey {
                     System.out.println(" Task not found. Please enter a valid task number OR enter 'list' to view your current list:)");
                     System.out.println(DASHED_LINE);
                 }
+            } else if (userCommand.startsWith("delete")) {
+                try {
+                    int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        Task removedTask = tasks[taskIndex];
+
+                        // Shift the array to remove the task
+                        System.arraycopy(tasks, taskIndex + 1, tasks, taskIndex, taskCount - taskIndex - 1);
+                        taskCount--;
+
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + removedTask);
+                        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                        System.out.println(DASHED_LINE);
+                    } else {
+                        System.out.println(" Task not found. Please enter a valid task number OR enter 'list' to view your current list:)");
+                        System.out.println(DASHED_LINE);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println(" Please enter a valid task number to delete.");
+                    System.out.println(DASHED_LINE);
+                }
             } else {
                 tasks[taskCount] = new Task(userCommand);
                 taskCount++;
