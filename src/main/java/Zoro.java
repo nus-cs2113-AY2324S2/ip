@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Zoro {
     public static final int MARK_BEGIN_INDEX = 5;
     public static final int UNMARK_BEGIN_INDEX = 7;
+    public static final int DELETE_BEGIN_INDEX = 7;
     public static final int COMMAND_START_INDEX = 0;
     public static final int INDEX_OFFSET = 1;
 
@@ -29,6 +30,10 @@ public class Zoro {
                     break;
                 case "list":
                     taskManager.printTaskList();
+                    break;
+                case "delete":
+                    taskManager.deleteTask(
+                            Integer.parseInt(input.substring(DELETE_BEGIN_INDEX).trim()) - INDEX_OFFSET);
                     break;
                 default:
                     taskManager.addTask(input);
