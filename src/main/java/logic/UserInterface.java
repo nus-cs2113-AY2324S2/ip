@@ -12,6 +12,10 @@ public class UserInterface {
         this.taskManager = new TaskManager();
     }
 
+    public void loadDataIntoTaskManager() {
+        taskManager.loadData();
+    }
+
     public void processInput() {
         while (true) {
             String input = reader.nextLine();

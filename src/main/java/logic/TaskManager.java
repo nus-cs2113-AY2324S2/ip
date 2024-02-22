@@ -1,5 +1,8 @@
 package logic;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import exceptions.InvalidInputException;
 import exceptions.TaskNoNameException;
 import exceptions.DeadlineNoByDateTimeException;
@@ -36,18 +39,18 @@ public class TaskManager {
         String taskType = taskAsArray[0];
         switch (taskType) {
         case "todo":
-            processToDo(taskToAdd);
+            processToDo(taskToAdd, false);
             break;
         case "deadline":
             try {
-                processDeadline(taskToAdd);
+                processDeadline(taskToAdd, false);
             } catch (DeadlineNoByDateTimeException e) {
                 throw new DeadlineNoByDateTimeException();
             }
             break;
         case "event":
             try {
-                processEvent(taskToAdd);
+                processEvent(taskToAdd, false);
             } catch (EventNoFromDateTimeException e) {
                 throw new EventNoFromDateTimeException();
             } catch (EventNoToDateTimeException e) {
@@ -62,13 +65,13 @@ public class TaskManager {
         printAndIncrementAfterAddTask();
     }
     
-    private void processToDo(String taskToAdd) {
+    private void processToDo(String taskToAdd, boolean isDone) {
         String taskName;
         taskName = taskToAdd.substring(TODO_LENGTH);
-        tasks[currIndex] = new ToDo(taskName);
+        tasks[currIndex] = new ToDo(taskName, isDone);
     }
 
-    private void processDeadline(String taskToAdd) throws Exception {
+    private void processDeadline(String taskToAdd, boolean isDone) throws Exception {
         if (!(taskToAdd.contains("/by "))) {
             throw new DeadlineNoByDateTimeException();
         }
@@ -81,10 +84,10 @@ public class TaskManager {
         taskName = taskToAdd.substring(DEADLINE_LENGTH, firstBackslashIndex - 1);
         int byWhenIndex = firstBackslashIndex + BY_LENGTH;
         String byWhen = taskToAdd.substring(byWhenIndex);
-        tasks[currIndex] = new Deadline(taskName, byWhen);
+        tasks[currIndex] = new Deadline(taskName, isDone, byWhen);
     }
 
-    private void processEvent(String taskToAdd) throws Exception {
+    private void processEvent(String taskToAdd, boolean isDone) throws Exception {
         if (!(taskToAdd.contains("/from "))) {
             throw new EventNoFromDateTimeException();
         }
@@ -106,7 +109,7 @@ public class TaskManager {
         int toWhenIndex = secondBackslashIndex + TO_LENGTH;
         String fromWhen = taskToAdd.substring(fromWhenIndex, secondBackslashIndex - 1);
         String toWhen = taskToAdd.substring(toWhenIndex);
-        tasks[currIndex] = new Event(taskName, fromWhen, toWhen);
+        tasks[currIndex] = new Event(taskName, isDone, fromWhen, toWhen);
     }
     
     private void printAndIncrementAfterAddTask() {
@@ -135,6 +138,21 @@ public class TaskManager {
     public void listTasks() {
         for (int i = 0; i < currIndex; i++) {
             System.out.println((i+1) + ". " + tasks[i]);
+        }
+    }
+
+    public void loadData() {
+        File dataFile = new File("./data/dor.txt");
+        Scanner s = null;
+        try {
+            s = new Scanner(dataFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR: Could not load dor.txt!");
+        }
+        String data;
+        while (s.hasNext()) {
+            data = s.nextLine();
+            // TODO: process data and add
         }
     }
 }
