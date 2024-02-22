@@ -1,9 +1,61 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Kratos {
     public final static int MAX_TASKS = 100;
     public static final String LINE = "----------------------------------------------------------------";
     static Task[] tasksList = new Task[MAX_TASKS];
+    private static final String FILE_PATH = "./data/tasks.txt";
+
+    // Method to save tasks to a file
+    public static void saveTasksToFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs(); // Create directories if they don't exist
+            }
+            file.createNewFile(); // Create the file if it doesn't exist
+            try (FileWriter writer = new FileWriter(file)) {
+                for (int i = 0; i < count; i++) {
+                    writer.write(tasksList[i].toFileString() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Method to load tasks from a file
+    // Method to load tasks from a file
+    public static void loadTasksFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                if (task != null) {
+                    tasksList[count++] = task;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // Handle the case where the file doesn't exist
+            System.err.println("File not found. Creating a new file...");
+            File file = new File(FILE_PATH);
+            try {
+                file.createNewFile();
+            } catch (IOException ioException) {
+                System.err.println("Error creating a new file: " + ioException.getMessage());
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
 
     public static int count = 0;
 
@@ -96,6 +148,7 @@ public class Kratos {
     // Main method
     public static void main(String[] args) {
         greet();
+        loadTasksFromFile(); // Load tasks from file when the program boots up
         String userInput;
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -127,6 +180,7 @@ public class Kratos {
                     KratosException.handleException(e, userInput);
                 }
             }
+            saveTasksToFile();
         }
         end();
     }
