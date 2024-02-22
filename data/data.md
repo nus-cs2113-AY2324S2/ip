@@ -1,5 +1,3 @@
 |Task Type | Done | Description | Time |
 |----------|------|-------------|------|
-| Todo | false | task 1 |  |
-| Deadline | true | task 2 | tmr |
-| Event | false | task 3 | 9 to 10 |
+| Event | false | Deng Jun attend CS2113 lecture Friday 23 Feb 2024 | 4pm to 6pm |

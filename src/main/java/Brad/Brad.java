@@ -22,8 +22,8 @@ public class Brad {
         try {
             inputList.initializeFile();
         } catch (FileNotFoundException e) {
-            printOutput("File is not found :( Make sure that the" +
-                    "data file is located in: './data/data.md'\n" +
+            printOutput("File is not found. Make sure that the " +
+                    "data file is located in: 'data/data.md'\n" +
                     "I'm unable to save.");
             toSave = false;
         } catch (dataCorruptedException e) {
@@ -175,7 +175,7 @@ public class Brad {
     }
 
     private static void doTodoAction(String input) throws emptyArgumentException {
-        if (input.isBlank()) {
+        if (input.isBlank() || !input.contains("/by")) {
             throw new emptyArgumentException();
         }
         inputList.addToList(input, TaskType.TODO, false, toSave);
@@ -193,7 +193,7 @@ public class Brad {
     }
 
     private static void doDeadlineAction(String input) throws emptyArgumentException {
-        if (input.isBlank()) {
+        if (input.isBlank() || !input.contains("/by")) {
             throw new emptyArgumentException();
         }
         inputList.addToList(input, TaskType.DEADLINE, false, toSave);
@@ -211,7 +211,7 @@ public class Brad {
     }
 
     private static void doEventAction(String input) throws emptyArgumentException {
-        if (input.isBlank()) {
+        if (input.isBlank() || !input.contains("/from") || !input.contains("/to")) {
             throw new emptyArgumentException();
         }
         inputList.addToList(input, TaskType.EVENT, false, toSave);

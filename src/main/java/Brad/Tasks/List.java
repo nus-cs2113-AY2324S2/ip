@@ -12,12 +12,23 @@ import Brad.Exceptions.dataCorruptedException;
 
 public class List {
     private ArrayList<Task> inputList = new ArrayList<Task>();
-    private final String FILE_PATH = "./data/data.md";
+    private final String FILE_PATH = "data/data.md";
 
     public void initializeFile()
             throws FileNotFoundException, dataCorruptedException {
-        File f = new File(FILE_PATH);
-        Scanner s = new Scanner(f);
+        File file = new File(FILE_PATH);
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getAbsolutePath());
+                System.out.println("file exists?: " + file.exists());
+                System.out.println("is Directory?: " + file.isDirectory());
+            } else {
+                System.out.println("File already exists!");
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+        Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String[] input = s.nextLine().split("\\|");
             if (input[1].strip().equals("Task Type") || input[1].strip().equals("----------")) {
