@@ -1,57 +1,64 @@
 package laika;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Laika {
 
-    public static void modifyTask(Task[] taskList, String line){
-        String[] words = line.split(" ");
+    public static void modifyTask(ArrayList<Task> taskList, String[] words){
         int taskNumber = Integer.parseInt(words[1]);
         if (words[0].equals("mark")) {
-            taskList[taskNumber - 1].markAsDone();
+            taskList.get(taskNumber - 1).markAsDone();
             System.out.println("Laika: Good job! Task has been marked as done.");
         } else {
-            taskList[taskNumber - 1].markAsUndone();
+            taskList.get(taskNumber - 1).markAsUndone();
             System.out.println("Laika: Alright, task has been marked as undone.");
         }
-        System.out.println(taskList[taskNumber-1]);
+        System.out.println(taskList.get(taskNumber-1));
     }
 
-    public static void addTask(Task[] taskList, String line, int count) throws LaikaException {
+    public static void deleteTask(ArrayList<Task> taskList, String[] words){
+        int taskNumber = Integer.parseInt(words[1]);
+        System.out.println("Laika: Gotcha! I've dealt with this task:" + System.lineSeparator()
+                            + taskList.get(taskNumber-1));
+        taskList.remove(taskNumber-1);
+    }
+
+    public static void addTask(ArrayList<Task> taskList, String line, int count) throws LaikaException {
         if(line.startsWith("todo")){
-            taskList[count] = new Todo(line.replaceFirst("todo ",""));
+            taskList.add(new Todo(line.replaceFirst("todo ","")));
         }
         else if (line.startsWith("deadline")) {
             String[] words = line.split("/");
             if (words.length != 2){
                 throw new LaikaException();
             }
-            taskList[count] = new Deadline(words[0].replaceFirst("deadline ",""),
-                                           words[1].replaceFirst("by ",""));
+            taskList.add(new Deadline(words[0].replaceFirst("deadline ",""),
+                                           words[1].replaceFirst("by ","")));
         }
         else if (line.startsWith("event")) {
             String[] words = line.split("/");
             if (words.length != 3){
                 throw new LaikaException();
             }
-            taskList[count] = new Event(words[0].replaceFirst("event ",""),
+            taskList.add(new Event(words[0].replaceFirst("event ",""),
                                         words[1].replaceFirst("from ",""),
-                                        words[2].replaceFirst("to ",""));
+                                        words[2].replaceFirst("to ","")));
         } else {
             throw new LaikaException();
         }
     }
 
-    public static void displayTasks(Task[] taskList,int count){
+    public static void displayTasks(ArrayList<Task> taskList){
         System.out.println("Task List:");
-        for (int i = 0; i<count;i++){
-            System.out.println((i + 1) + ") " + taskList[i]);
+        for (int i = 0; i < taskList.size(); i++){
+            System.out.println((i + 1) + ") " + taskList.get(i));
         }
     }
 
     public static void main(String[] args) {
         String line;
         Scanner in = new Scanner(System.in);
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<>();
         int count = 0;
         boolean isConvoOngoing = true;
         String logo = " ^..^      /\n"
@@ -62,22 +69,32 @@ public class Laika {
 
         while(isConvoOngoing){
             line = in.nextLine();
-            if (line.startsWith("mark") || line.startsWith("unmark")) {
-                try {
-                    modifyTask(taskList, line);
-                }
-                catch (NullPointerException e) {
-                    System.out.println("Laika: You dont have so many tasks!");
-                }
-                continue;
-            }
-
-            switch(line){
+            String[] words = line.split(" ", 2);
+            switch(words[0]){
+                case "mark":
+                case "unmark":
+                    try {
+                        modifyTask(taskList, words);
+                    }
+                    catch (IndexOutOfBoundsException e) {
+                        System.out.println("Laika: You dont have so many tasks!");
+                    }
+                    break;
                 case "list":
-                    displayTasks(taskList,count);
+                    displayTasks(taskList);
                     break;
                 case "bye":
                     isConvoOngoing = false;
+                    break;
+                case "delete":
+                    try {
+                        deleteTask(taskList, words);
+                    }
+                    catch (IndexOutOfBoundsException e) {
+                        System.out.println("Laika: You dont have so many tasks!");
+                    }
+                    count--;
+                    System.out.println("Laika: You have " + count + " tasks left!");
                     break;
                 default:
 
@@ -90,7 +107,7 @@ public class Laika {
                     }
 
                     System.out.println("Laika: Gotcha! I've added the task for you\n  "
-                            + taskList[count] + System.lineSeparator()
+                            + taskList.get(count) + System.lineSeparator()
                             + "You have " + (count + 1) + " tasks in your list. :P");
                     count++;
 
