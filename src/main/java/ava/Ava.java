@@ -7,6 +7,7 @@ import ava.task.ToDo;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ava {
 
@@ -18,7 +19,7 @@ public class Ava {
 
     public static void mainProcess() {
         boolean isExit = false;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         while (!isExit) {
             String task = in.nextLine();
@@ -89,7 +90,7 @@ public class Ava {
         printLine();
     }
 
-    public static void addTask(Task[] tasks, String task, String type) throws EmptyDescriptionException {
+    public static void addTask(ArrayList<Task> tasks, String task, String type) throws EmptyDescriptionException {
         task = task.replace(type, "");
         if (task.isEmpty()) {
             throw new EmptyDescriptionException();
@@ -97,20 +98,20 @@ public class Ava {
         String[] taskAndDate = task.split("/");
         switch (type) {
         case "todo":
-            tasks[Task.getNumberOfTasks()] = new ToDo(taskAndDate[0]);
+            tasks.add(new ToDo(taskAndDate[0]));
             break;
         case "deadline":
-            tasks[Task.getNumberOfTasks()] = new Deadline(taskAndDate[0], taskAndDate[1]);
+            tasks.add(new Deadline(taskAndDate[0], taskAndDate[1]));
             break;
         case "event":
-            tasks[Task.getNumberOfTasks()] = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
+            tasks.add(new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]));
             break;
         }
     }
 
-    public static void printAfterAddingTask(Task[] tasks) {
+    public static void printAfterAddingTask(ArrayList<Task> tasks) {
         try {
-            String addedTask = tasks[Task.getNumberOfTasks() - 1].toString();
+            String addedTask = tasks.get(tasks.size() - 1).toString();
             printLine();
             System.out.println("Got it! I've added this task:");
             System.out.println(addedTask);
@@ -128,12 +129,12 @@ public class Ava {
         if (Task.getNumberOfTasks() == 1) {
             System.out.println("Now you have " + 1 + " task in the list~~~");
         } else {
-            System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in the list~~~");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list~~~");
         }
         printLine();
     }
 
-    public static void markTask(Task[] tasks, String command) {
+    public static void markTask(ArrayList<Task> tasks, String command) {
         printLine();
         boolean isMark = true;
         int taskChanged;
@@ -145,12 +146,12 @@ public class Ava {
                 if (isMark) {
                     command = command.replace("mark ", "");
                     taskChanged = Integer.parseInt(command) - 1;
-                    tasks[taskChanged].markAsDone();
+                    tasks.get(taskChanged).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
                 } else {
                     command = command.replace("unmark ", "");
                     taskChanged = Integer.parseInt(command) - 1;
-                    tasks[taskChanged].markAsNotDone();
+                    tasks.get(taskChanged).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
             } catch (NullPointerException e) {
@@ -163,16 +164,16 @@ public class Ava {
             printLine();
             return;
         }
-        System.out.println(tasks[taskChanged]);
+        System.out.println(tasks.get(taskChanged));
         printLine();
     }
 
-    public static void listTask(Task[] tasks) {
+    public static void listTask(ArrayList<Task> tasks) {
         printLine();
         System.out.println("Here are the tasks in your list:");
         int noOfTask = 0;
-        while (noOfTask < Task.getNumberOfTasks()) {
-            System.out.println((noOfTask + 1) + "." + tasks[noOfTask]);
+        while (noOfTask < tasks.size()) {
+            System.out.println((noOfTask + 1) + "." + tasks.get(noOfTask));
             noOfTask += 1;
         }
         printLine();
