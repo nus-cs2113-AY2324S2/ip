@@ -20,39 +20,37 @@ import BobBot.tasks.Todo;
 public class BobBot {
 
     private static ArrayList<Task> allTasks = new ArrayList<>();
-    private static int numTasks = 0;
+    private static int numberOfTasks = 0;
 
     private static final String saveDirPath = "src/storage/";
     private static final String saveFilePath = saveDirPath + "saveFile.txt";
     private static final File file = new File(saveFilePath);
     private static File directory;
-    
+
     private enum TaskStatus {
         MARK, UNMARK, DELETE
     }
-    
+
     private static void performTaskOperation(String line, TaskStatus status) {
         int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
 
         try {
             Task task = allTasks.get(taskNumber);
-            switch (status) {
-                case MARK:
-                    task.markAsDone();
-                    printTaskOperationMessage(task, "Marking this task as done:");
-                    break;
-                case UNMARK:
-                    task.markAsUndone();
-                    printTaskOperationMessage(task, "Unmarking this task:");
-                    break;
-                case DELETE:
-                    allTasks.remove(taskNumber);
-                    printTaskOperationMessage(task, "Deleting this task:");
-                    numTasks -= 1;
-                    break;
+            if (status == TaskStatus.MARK) {
+                task.markAsDone();
+                printTaskOperationMessage(task, "Marking this task as done:");
+            } else if (status == TaskStatus.UNMARK) {
+                task.markAsUndone();
+                printTaskOperationMessage(task, "Unmarking this task:");
+            } else if (status == TaskStatus.DELETE) {
+                allTasks.remove(taskNumber);
+                printTaskOperationMessage(task, "Deleting this task:");
+                numberOfTasks -= 1;
+            } else {
+                System.out.println("Oh no!");
             }
         } catch (IndexOutOfBoundsException e) {
-            printErrorMessage(taskNumber);
+            printNonExistentTaskErrorMessage(taskNumber);
         }
     }
 
@@ -63,7 +61,7 @@ public class BobBot {
         drawLine(true);
     }
 
-    private static void printErrorMessage(int taskNumber) {
+    private static void printNonExistentTaskErrorMessage(int taskNumber) {
         drawErrorLine();
         System.out.println("\tOperation failed.");
         System.out.println("\tTask index " + (taskNumber + 1) + " does not exist! Try another number instead.");
@@ -78,10 +76,10 @@ public class BobBot {
 
     private static void printTaskList() {
 
-        System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
+        System.out.printf("\tYour task list currently has %d items!\n\n", numberOfTasks);
         int taskNumberToDisplay;
 
-        for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
+        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
             taskNumberToDisplay = taskIndex + 1;
             System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks.get(taskIndex).toString());
         }
@@ -108,7 +106,7 @@ public class BobBot {
         }
 
         allTasks.add(newTask);
-        numTasks += 1;
+        numberOfTasks += 1;
 
         if (!isLoad) {
             echoCommand(line, newTask);
@@ -132,7 +130,7 @@ public class BobBot {
     public static void echoCommand(String lineString, Task newTask) {
         drawLine(true);
         System.out.println("\tGot it! I've added this task:\n\t  " + newTask.toString());
-        System.out.printf("\tNow you have %d tasks in the list\n", numTasks);
+        System.out.printf("\tNow you have %d tasks in the list\n", numberOfTasks);
         drawLine(true);
         System.out.println();
     }
@@ -217,7 +215,7 @@ public class BobBot {
             System.out.println("There was an error: " + e);
         }
 
-        System.out.printf("\tYour task list currently has %d items!\n\n", numTasks);
+        System.out.printf("\tYour task list currently has %d items!\n\n", numberOfTasks);
         System.out.println("\tUsage: mark {task number}");
         System.out.println("\tUsage: unmark {task number}");
         System.out.println("\tUsage: delete {task number}");
@@ -231,7 +229,7 @@ public class BobBot {
         StringBuilder fileContents = new StringBuilder();
         String lineToAdd = new String();
 
-        for (int taskIndex = 0; taskIndex < numTasks; taskIndex += 1) {
+        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
             lineToAdd = createFileLine(taskIndex);
             fileContents.append(lineToAdd);
         }
@@ -297,7 +295,7 @@ public class BobBot {
         } catch (IOException e) {
             System.out.println("An Error occurred: " + e);
         }
-        
+
         System.out.println("\tReady! Type a command to begin.");
     }
 

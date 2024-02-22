@@ -20,3 +20,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 src/storage/*.txt
+text-ui-test/src

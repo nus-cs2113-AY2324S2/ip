@@ -24,5 +24,8 @@ event wrong input format /from
 event /from now /to then
 delete 3
 delete 1
+delete 1
+delete 1
+delete 1
 list
 bye
