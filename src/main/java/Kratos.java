@@ -26,7 +26,7 @@ public class Kratos {
                 }
             }
         } catch (IOException e) {
-            KratosException.handleException(e, "Error saving tasks to file: " + e.getMessage());
+            KratosException.handleException(e, "Tasks seek refuge. Stitch the tapestry of storage.\n" + e.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class Kratos {
             }
         } catch (FileNotFoundException e) {
             // Handle the case where the file doesn't exist
-            KratosException.handleException(e, "File not found. Creating a new file...");
+            KratosException.handleException(e, "Darkness shrouds the file. Forging its presence......");
             File file = new File(FILE_PATH);
             try {
                 if (!file.getParentFile().exists()) {
@@ -50,10 +50,12 @@ public class Kratos {
                 }
                 file.createNewFile();
             } catch (IOException ioException) {
-                KratosException.handleException(ioException, "Error creating a new file: " + ioException.getMessage());
+                KratosException.handleException(ioException, "A new file's birth marred by chaos. Restore order.\n" +
+                        ioException.getMessage());
             }
         } catch (IOException e) {
-            KratosException.handleException(e, "Error loading tasks from file: " + e.getMessage());
+            KratosException.handleException(e, "Tasks trapped in the void. Break the chains of ignorance.\n" +
+                    e.getMessage());
         }
     }
 
@@ -117,14 +119,24 @@ public class Kratos {
     public static void displayMarking(int taskNumber, String mark) {
         String displayString;
         if (mark.equals("mark")) {
-            displayString = "Task vanquished. Another notch on the blade of progress.\n" +
-                    "What next, mortal?";
-            tasksList.get(taskNumber).markTask();
+            if (!tasksList.get(taskNumber).isDone) {
+                displayString = "Task vanquished. Another notch on the blade of progress.\n" +
+                        "What next, mortal?";
+                tasksList.get(taskNumber).markTask();
+            } else {
+                displayString = "Your task bears the mark of completion.\n" +
+                        "Attempting to mark it again is futile.";
+            }
         } else {
-            displayString = "Task restored from the depths of completion.\n" +
-                    "A twist of fate, mortal. What now?\n" +
-                    "Reclaim victory or face the abyss once more.";
-            tasksList.get(taskNumber).unmarkTask();
+            if (tasksList.get(taskNumber).isDone) {
+                displayString = "Task restored from the depths of completion.\n" +
+                        "A twist of fate, mortal. What now?\n" +
+                        "Reclaim victory or face the abyss once more.";
+                tasksList.get(taskNumber).unmarkTask();
+            } else {
+                displayString = "Foolish mortal.\n" +
+                        "Once a task is freed, it shall not be bound again.";
+            }
         }
         
         System.out.println(LINE);
@@ -190,8 +202,6 @@ public class Kratos {
             KratosException.handleException(e, userInput);
         }
     }
-
-
 
     private static void deleteEvent(String userInput) {
         String[] deleteCommand = userInput.split(" ");
