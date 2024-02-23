@@ -97,7 +97,6 @@ public class Ui {
         printLine();
         System.out.println("Ok! Watch the deadline!");
         System.out.println(deadlineTask);
-        printLine();
     }
 
     /**
@@ -110,7 +109,6 @@ public class Ui {
         printLine();
         System.out.println("Weehoo! Enjoy the event!");
         System.out.println(eventTask);
-        printLine();
     }
 
     /**
@@ -152,7 +150,6 @@ public class Ui {
         printLine();
         System.out.println("Ok task deleted!");
         System.out.println("\t" + taskList.taskList.get(taskIndex).toString());
-        printLine();
     }
 
     /**
@@ -164,13 +161,10 @@ public class Ui {
      */
 
     public static void printFoundTask (Task task, int taskCount, boolean isFound) {
-        printLine();
         if (isFound) {
-            System.out.println("All your matching tasks are here: ");
             System.out.println(taskCount + ". " + task);
         } else {
             System.out.println("Yay! No task found...");
         }
-        printLine();
     }
 }

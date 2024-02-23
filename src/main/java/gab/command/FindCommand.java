@@ -31,6 +31,7 @@ public class FindCommand extends Command {
         int taskCount = 0;
         boolean isFound;
 
+        Ui.printLine();
         for (Task task : taskList.taskList) {
             String[] words = task.getDescription().split("\\s+");
             for (String word : words) {
@@ -45,5 +46,6 @@ public class FindCommand extends Command {
         if (taskCount == 0) {
             Ui.printFoundTask(null, taskCount, false);
         }
+        Ui.printLine();
     }
 }
