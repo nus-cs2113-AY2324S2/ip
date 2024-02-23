@@ -1,12 +1,13 @@
 package input;
 
 import exceptions.*;
-import savedData.Data;
+import static savedData.Data.loadData;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +16,12 @@ public class HandleInput {
     static ArrayList<Task> tasks = new ArrayList<>(100);
 
     public static void loadDataFromFile(){
-        ArrayList<Task> data = savedData.Data.loadData();
+        try {
+            ArrayList<Task> data = loadData();
+            tasks.addAll(data);
+        } catch (FileNotFoundException e) {
+            System.out.println("Saved file not found.");
+        }
     }
 
     private static void echo(String input) {
