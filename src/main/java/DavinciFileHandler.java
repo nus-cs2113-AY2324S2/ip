@@ -40,7 +40,7 @@ public class DavinciFileHandler {
     public static void createDirectories(Path directory) throws IOException {
         try {
             Files.createDirectories(directory);
-        } catch (FileAlreadyExistsException ignored) {
+        } catch (FileAlreadyExistsException ignored) { //ignore if the file exists
         } catch (IOException e) {
             System.out.println("Error creating directories: " + e.getMessage());
             throw e;
