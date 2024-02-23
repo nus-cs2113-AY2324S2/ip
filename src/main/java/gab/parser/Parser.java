@@ -94,6 +94,14 @@ public class Parser {
         return new EventCommand(eventName, startDate, endDate);
     }
 
+    /**
+     * Parse input for list
+     *
+     * @param taskDescription the input from the user
+     * @return list command that list out tasks from taskList
+     * @throws GabException thrown when 'list' is not used correctly
+     */
+
     public static Command listTask(String taskDescription) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
 
@@ -103,6 +111,14 @@ public class Parser {
 
         return new ListCommand();
     }
+
+    /**
+     * Parse input for bye
+     *
+     * @param taskDescription the input from the user
+     * @return bye command which exits the program
+     * @throws GabException thrown when 'bye' is not used correctly
+     */
 
     public static Command exitBot (String taskDescription) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
