@@ -1,0 +1,19 @@
+Hello
+todo go home
+deadline assignment
+deadline assignment /by 10/02/24
+event batam trip /from 26/02/24
+event batam trip /from 26/02/24 /to 27/02/24
+list
+mark assignment
+mark 1
+mark 1
+mark 3
+mark 4
+list
+unmark assignment
+unmark 1
+unmark 1
+unmark 4
+list
+Bye
