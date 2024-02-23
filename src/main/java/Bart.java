@@ -1,13 +1,17 @@
+import java.io.*;
 import java.util.Scanner;
 public class Bart {
     private static final String LINE = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/tasks.txt";
     private static final Task[] tasksArray = new Task[100];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
+        loadTasks();
         greetUser();
         manageTask();
         byeUser();
+        saveTasks();
     }
     public static void greetUser() {
         System.out.println(LINE + "\nHello! I'm Bartholomew, but you can call me Bart for short :)");
