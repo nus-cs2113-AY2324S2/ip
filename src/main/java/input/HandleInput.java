@@ -6,12 +6,25 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static savedData.LoadData.loadData;
+import static savedData.AppendData.*;
 public class HandleInput {
     static String line = "\t____________________________________________________________";
     static ArrayList<Task> tasks = new ArrayList<>(100);
+
+    public static void loadDataFromFile(){
+        try {
+            ArrayList<Task> data = loadData();
+            tasks.addAll(data);
+        } catch (FileNotFoundException e) {
+            System.out.println("Saved file not found.");
+        }
+    }
 
     private static void echo(String input) {
         System.out.println("\t Got it. I've added this task: ");
@@ -29,8 +42,13 @@ public class HandleInput {
         if (todo.isBlank()) {
             throw new EmptyTaskException();
         }
-        tasks.add(new ToDo(todo));
-
+        ToDo newEntry = new ToDo(todo);
+        tasks.add(newEntry);
+        try {
+            appendToDo(newEntry);
+        } catch (IOException e){
+            System.out.println("Could not save to file.");
+        }
         echo(input);
     }
 
@@ -46,7 +64,13 @@ public class HandleInput {
             throw new EmptyTaskException();
         }
         String date = description.substring(by + 4);
-        tasks.add(new Deadline(deadline, date));
+        Deadline newEntry = new Deadline(deadline,date);
+        tasks.add(newEntry);
+        try {
+            appendDeadline(newEntry);
+        } catch (IOException e){
+            System.out.println("Could not save to file.");
+        }
         echo(input);
     }
 
@@ -70,7 +94,13 @@ public class HandleInput {
         if (event.isBlank()){
             throw new EmptyTaskException();
         }
-        tasks.add(new Event(event, startDate, endDate));
+        Event newEntry = new Event(event,startDate,endDate);
+        tasks.add(newEntry);
+        try {
+            appendEvent(newEntry);
+        } catch (IOException e){
+            System.out.println("Could not save to file.");
+        }
         echo(input);
     }
 
@@ -154,6 +184,7 @@ public class HandleInput {
     }
 
     public static void chat() {
+        loadDataFromFile();
         String input;
         do {
             input = new Scanner(System.in).nextLine();

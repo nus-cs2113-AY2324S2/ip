@@ -1,5 +1,4 @@
 import static input.HandleInput.chat;
-
 public class PeeKay {
 
     static String line = "\t____________________________________________________________";
