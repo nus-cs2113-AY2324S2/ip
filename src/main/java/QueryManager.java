@@ -55,6 +55,7 @@ public class QueryManager {
                     list.addTask(task);
                     return -1;
                 case "deadline":
+                    System.out.println(argument);
                     DeadlineTask deadline = new DeadlineTask(false, argument);
                     // add deadline to list of task (substitutability)
                     list.addTask(deadline);

@@ -68,7 +68,7 @@ public class Task {
         int secondSlash = s.indexOf('|', firstSlash + 1);
         int spaceAfterIsDone = s.indexOf(' ', firstSlash + 2);
         String isDoneStatus = s.substring(firstSlash + 2, spaceAfterIsDone);
-        String description = s.substring(secondSlash + 1);
+        String description = s.substring(secondSlash + 2);
         this.setBoolean(Boolean.parseBoolean(isDoneStatus));
         this.setDescription(description);
     }

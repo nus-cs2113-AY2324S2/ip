@@ -16,10 +16,14 @@ public class TasksListReader implements FileInterface {
                         tasksList.addTask(task);
                         break;
                     case 'D':
-                        // todo
+                        DeadlineTask deadline = new DeadlineTask();
+                        deadline.parse(line);
+                        tasksList.addTask(deadline);
                         break;
                     case 'E':
-                        // todo
+                        EventTask event = new EventTask();
+                        event.parse(line);
+                        tasksList.addTask(event);
                         break;
                     default:
                         System.out.println("This should not have happened...");

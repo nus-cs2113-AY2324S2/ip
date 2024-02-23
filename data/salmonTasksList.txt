@@ -1,2 +1,5 @@
 T | true |  trial test
 T | false | write in salmon
+D | true | DEFAU | DEFAULT
+E | false | break danc | tonigh | tomorrow
+E | true | imma cr | tonigh | tomorrow
