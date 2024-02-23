@@ -141,7 +141,7 @@ public class Aragorn {
                         if (input.getSplitInput()[0].trim().isEmpty()) {
                             break;
                         }
-                        ToDo newTask = new ToDo(input.getSplitInput()[0], false);
+                        ToDo newTask = new ToDo(input.getSplitInput()[0].trim(), false);
                         list.add(newTask);
                         printAddTask(newTask);
                         remainingTasks += 1;
@@ -153,7 +153,7 @@ public class Aragorn {
                             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty()) {
                                 break;
                             }
-                            Deadline newDeadline = new Deadline(input.getSplitInput()[0], false, input.getSplitInput()[1]);
+                            Deadline newDeadline = new Deadline(input.getSplitInput()[0].trim(), false, input.getSplitInput()[1].trim());
                             list.add(newDeadline);
                             printAddTask(newDeadline);
                             remainingTasks += 1;
@@ -168,7 +168,7 @@ public class Aragorn {
                             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty() || input.getSplitInput()[2].isEmpty()) {
                                 break;
                             }
-                            Event newEvent = new Event(input.getSplitInput()[0], false, input.getSplitInput()[1], input.getSplitInput()[2]);
+                            Event newEvent = new Event(input.getSplitInput()[0].trim(), false, input.getSplitInput()[1].trim(), input.getSplitInput()[2].trim());
                             list.add(newEvent);
                             printAddTask(newEvent);
                             remainingTasks += 1;

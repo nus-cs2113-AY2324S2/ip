@@ -30,7 +30,7 @@ public class InputParser {
 
             case "TODO":
                 try {
-                    this.splitInput[0] = userInput.substring(4);
+                    this.splitInput[0] = userInput.substring(4).trim();
                     if (this.splitInput[0].trim().isEmpty()){
                         throw new AragornException(LINE + "    Task description is empty!\n" + LINE);
                     }
