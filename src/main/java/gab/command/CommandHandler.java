@@ -6,7 +6,7 @@ import gab.task.TaskList;
 
 public class CommandHandler {
     public static Command checkCommand(String task, TaskList taskList) throws GabException {
-        String[] taskAction = task.split(" ");
+        String[] taskAction = task.trim().split(" ");
         String action = taskAction[0];
 
         switch (action) {
@@ -16,7 +16,7 @@ public class CommandHandler {
         case "list": {
             return new ListCommand();
         }
-        case "todo": {//need display [T][ ] name
+        case "todo": {
             return Parser.parseToDo(task);
         }
         case "deadline": {
@@ -33,6 +33,9 @@ public class CommandHandler {
         }
         case "delete": {
             return Parser.DeleteTask(task, taskList);
+        }
+        case "find": {
+            return Parser.FindTask(task);
         }
         default:
             throw new GabException("Not a valid command");

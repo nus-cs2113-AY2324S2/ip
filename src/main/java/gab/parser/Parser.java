@@ -25,7 +25,7 @@ public class Parser {
             throw new GabException("Incomplete input! Correct usage: deadline [Task name] /by [Due date]");
         }
 
-        String deadlineSubstring = task.substring(DEADLINE_START_INDEX);
+        String deadlineSubstring = task.trim().substring(DEADLINE_START_INDEX);
         String[] deadlineInfo = deadlineSubstring.split(" /by");
 
         if (deadlineInfo.length == 0 || deadlineInfo[0].trim().isEmpty()) {
@@ -47,8 +47,8 @@ public class Parser {
             throw new GabException("Incomplete input! Correct usage: event [Event name] /from [Start date] /to [End date]");
         }
 
-        String eventSubstring = task.substring(EVENT_START_INDEX);
-        String[] eventArray = eventSubstring.split(" /from"); // Limit split to 2 parts
+        String eventSubstring = task.trim().substring(EVENT_START_INDEX);
+        String[] eventArray = eventSubstring.split(" /from", 2); // Limit split to 2 parts
 
         if (eventArray.length < 2) {
             throw new GabException("Missing '/from' statement! Correct Usage: event [Event Name] /from [Start Date] /to [End Date]");
@@ -56,7 +56,7 @@ public class Parser {
 
         String eventName = eventArray[0].trim(); // Trim whitespace
 
-        String[] eventTimeArray = eventArray[1].split(" /to"); // Limit split to 2 parts
+        String[] eventTimeArray = eventArray[1].split(" /to", 2); // Limit split to 2 parts
         if (eventTimeArray.length < 2) {
             throw new GabException("Missing '/to' statement! Correct Usage: event [Event Name] /from [Start Date] /to [End Date]");
         }
@@ -69,7 +69,7 @@ public class Parser {
 
 
     public static Command markTask(String taskDescription, TaskList taskList) throws GabException {
-        String[] task = taskDescription.split(" ");
+        String[] task = taskDescription.trim().split("\\s+");
 
         if (task.length < 2) {
             throw new GabException("Missing task to mark! Correct usage: mark [Task Number]");
@@ -92,7 +92,7 @@ public class Parser {
 
 
     public static Command UnmarkTask(String taskDescription, TaskList taskList) throws GabException {
-        String[] task = taskDescription.split(" ");
+        String[] task = taskDescription.trim().split("\\s+");
 
         if (task.length < 2) {
             throw new GabException("Missing task to unmark! Correct usage: mark [Task Number]");
@@ -113,7 +113,7 @@ public class Parser {
 
 
     public static Command DeleteTask (String taskDescription, TaskList taskList) throws GabException {
-        String[] task = taskDescription.split(" ");
+        String[] task = taskDescription.trim().split("\\s+");
 
         if (task.length < 2) {
             throw new GabException("Missing task to delete! Correct usage: delete [Task Number]");
@@ -131,6 +131,16 @@ public class Parser {
             throw new GabException("Task not found within the list!");
         }
         return new DeleteCommand(deleteIndex);
+    }
+
+    public static Command FindTask (String taskDescription) throws GabException {
+        String[] task = taskDescription.trim().split("\\s+");
+
+        if (task.length < 2) {
+            throw new GabException("Missing task to find! Correct usage: find [Task Number]");
+        }
+        String taskToFind = task[1];
+        return new FindCommand(taskToFind);
     }
 }
 
