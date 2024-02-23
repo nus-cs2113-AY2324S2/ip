@@ -1,17 +1,21 @@
 package burger;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import burger.list.List;
 
-public class
-{
+import static burger.BurgerFileClass.getSaveFile;
+import static burger.BurgerFileClass.setSaveFile;
+import static burger.BurgerFileClass.PATHNAME;
+
+public class Burger {
     static final String CHATBOT_NAME = "Burger";
     static final String HORIZONTAL_LINE = "---------------------------------";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         welcomeMessage();
-        List myList = new List();
+        List myList = getSaveFile();
         Scanner input = new Scanner(System.in);
         boolean isPolling = true;
         while (isPolling) {
@@ -32,7 +36,7 @@ public class
                 }
             }
         }
-        goodbye();
+        goodbye(myList);
     }
 
     private static void welcomeMessage() {
@@ -55,7 +59,9 @@ public class
         printLine();
     }
 
-    public static void goodbye() {
+    public static void goodbye(List currList) throws IOException {
+        System.out.print("Saving file");
+        setSaveFile(PATHNAME, currList);
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();

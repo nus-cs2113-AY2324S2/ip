@@ -17,7 +17,7 @@ public class Task {
      */
     public void printTask() {
         char tde =  getTDE() ;
-        String tick = getTick();
+        char tick = getTick();
         String name = getName();
         System.out.print("[" + tde + "]");
         System.out.print("[" + tick + "] ");
@@ -27,8 +27,9 @@ public class Task {
     public String getName() {
         return this.name;
     }
-    public String getTick() {
-        return this.hasDone ? "X" : " ";
+
+    public char getTick() {
+        return this.hasDone ? 'X' : ' ';
     }
     public char getTDE() {
         return this.tde;

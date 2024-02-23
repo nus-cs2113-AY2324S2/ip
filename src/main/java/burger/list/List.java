@@ -66,6 +66,14 @@ public class List {
         }
     }
 
+    public void addFromSaveFile(char tde, char mark, String task) {
+        Task currTask = new Task(task, tde);
+        if (mark == 'X') {
+            currTask.markDone();
+        }
+        taskList.add(currTask);
+    }
+
     private static int getIdx(String[] textArray) {
         StringBuilder idx = new StringBuilder();
         for (int i = 1; i < textArray.length; i++) {
