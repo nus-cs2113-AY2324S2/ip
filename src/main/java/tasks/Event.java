@@ -25,6 +25,13 @@ public class Event extends Task {
                 Keywords.TO + this.end + getIsCompletedString();
     }
 
+    /**
+     * Parses the input to get the task name, start and end.
+     * @param currentInput the input to be parsed
+     * @return an Event task
+     * @throws EmptyTaskDescription
+     * @throws InvalidTaskArguments
+     */
     public static Event getTask(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {

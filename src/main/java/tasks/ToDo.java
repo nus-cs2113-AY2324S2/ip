@@ -19,6 +19,13 @@ public class ToDo extends Task {
         return Keywords.TODO + " " + taskName + getIsCompletedString();
     }
 
+    /**
+     * Parses the input to get the task name.
+     * @param currentInput the input to be parsed
+     * @return a ToDo task
+     * @throws EmptyTaskDescription
+     * @throws InvalidTaskArguments
+     */
     public static ToDo getTask(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {

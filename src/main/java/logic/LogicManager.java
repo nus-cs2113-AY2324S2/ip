@@ -128,6 +128,10 @@ public class LogicManager {
         }
     }
 
+    /**
+     * Processes the input command and executes the corresponding action
+     * @param currentInput the input command
+     */
     public void processCommand(String currentInput) {
         currentInput = currentInput.trim();
         if (currentInput.isEmpty()) {

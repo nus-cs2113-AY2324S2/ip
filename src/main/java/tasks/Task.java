@@ -17,6 +17,9 @@ public abstract class Task {
         this.wordsInTaskName = new HashSet<>(List.of(wordsInTaskName));
     }
 
+    /**
+     * Returns a string representation of the task's completion status.
+     */
     protected String getIsCompletedString() {
         if (this.isCompleted) {
             return IS_COMPLETED_STRING;
@@ -32,6 +35,10 @@ public abstract class Task {
         return "[] " + this.taskName;
     }
 
+    /**
+     * Marks the task as completed or not completed.
+     * @param isCompleted whether the task is to be marked as completed or not completed
+     */
     public void mark(boolean isCompleted) {
         this.isCompleted = isCompleted;
         if (this.isCompleted) {
@@ -42,6 +49,11 @@ public abstract class Task {
         System.out.println("  " + this);
     }
 
+    /**
+     * Check if the task description contains the keywords
+     * @param keywordsToFind keywords mentioned by the user
+     * @return true if the task description contains at least one keyword
+     */
     public boolean hasKeywords(String[] keywordsToFind) {
         for (String keywordToFind : keywordsToFind) {
             if (this.wordsInTaskName.contains(keywordToFind)) {
@@ -51,6 +63,10 @@ public abstract class Task {
         return false;
     }
 
-
+    /**
+     * Returns a string representation of the task.
+     * Abstract method to be implemented by subclasses.
+     * @return a string representation of the task
+     */
     public abstract String getStringRepresentation();
 }

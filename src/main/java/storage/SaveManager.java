@@ -29,6 +29,11 @@ public class SaveManager {
         }
     }
 
+    /**
+     * Loads existing data from the data files.
+     * If the data files do not exist, they are created.
+     * @param logicManager the LogicManager object to process the loaded data
+     */
     public void loadData(LogicManager logicManager) {
         try {
             HorizontalGenerator.printHorizontal();
@@ -46,12 +51,22 @@ public class SaveManager {
         }
     }
 
+    /**
+     * Clears the data file.
+     * @throws IOException if an error occurs when clearing the file
+     */
     public void clearFile() throws IOException{
         FileWriter fileWriter = new FileWriter(tasksFile);
         fileWriter.write("");
         fileWriter.close();
     }
 
+    /**
+     * Writes the data to the data file.
+     * Adds a new line after the data.
+     * @param data the data to be written to the file
+     * @throws IOException if an error occurs when writing to the file
+     */
     public void writeToFile(String data) throws IOException{
         FileWriter fileWriter = new FileWriter(tasksFile, true);
         fileWriter.write(data);
