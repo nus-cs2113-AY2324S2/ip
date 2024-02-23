@@ -5,26 +5,33 @@ public class Kapwa {
     private static TaskManager taskManager = new TaskManager(100);
 
     public static void main(String[] args) {
-        displayWelcomeMessage();
-
         Scanner scanner = new Scanner(System.in);
+        displayWelcomeMessage();
         String inputLine;
 
-        do {
+        while (true) {
             inputLine = scanner.nextLine().trim();
-            System.out.println(DIVIDER_LINE);
-            if ("bye".equals(inputLine)) {
-                break;
-            } else if ("list".equals(inputLine)) {
-                taskManager.displayTaskList();
-            } else if (inputLine.startsWith("mark ") || inputLine.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(inputLine.replaceAll("\\D", ""));
-                taskManager.markTask(taskNumber, inputLine.startsWith("mark "));
-            } else {
-                taskManager.addTask(inputLine);
+            try {
+                System.out.println(DIVIDER_LINE);
+                if ("bye".equals(inputLine)) {
+                    break;
+                } else if ("list".equals(inputLine)) {
+                    taskManager.displayTaskList();
+                } else if (inputLine.startsWith("mark ")) {
+                    int taskNumber = Integer.parseInt(inputLine.replaceAll("\\D+", ""));
+                    taskManager.markTask(taskNumber, true);
+                } else if (inputLine.startsWith("unmark ")) {
+                    int taskNumber = Integer.parseInt(inputLine.replaceAll("\\D+", ""));
+                    taskManager.markTask(taskNumber, false);
+                } else {
+                    taskManager.addTask(inputLine);
+                }
+            } catch (KapwaException e) {
+                System.out.println("An error occurred: " + e.getMessage());
+            } finally {
+                System.out.println(DIVIDER_LINE);
             }
-            System.out.println(DIVIDER_LINE);
-        } while (true);
+        }
 
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
