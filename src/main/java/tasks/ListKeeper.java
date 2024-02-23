@@ -77,4 +77,18 @@ public class ListKeeper {
             System.out.println("Data could not be saved");
         }
     }
+
+    public void printMatchingTasks(String[] keywordsToFind) {
+        int printIndex = 1;
+        for (Task task : this.tasks) {
+            if (task.hasKeywords(keywordsToFind)) {
+                System.out.println(printIndex + ". " + task);
+                printIndex++;
+            }
+        }
+        boolean hasFoundMatchingTasks = printIndex != 1;
+        if (!hasFoundMatchingTasks) {
+            System.out.println("No matching tasks");
+        }
+    }
 }

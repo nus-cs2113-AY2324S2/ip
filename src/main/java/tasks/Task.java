@@ -1,14 +1,20 @@
 package tasks;
 
+import java.util.HashSet;
+import java.util.List;
+
 public abstract class Task {
     protected final String taskName;
     private boolean isCompleted;
+    protected final HashSet<String> wordsInTaskName;
 
     public static final String IS_COMPLETED_STRING = "---IS_COMPLETED---";
 
     public Task(String taskName, boolean isCompleted) {
         this.taskName = taskName;
         this.isCompleted = isCompleted;
+        String[] wordsInTaskName = taskName.split(" ");
+        this.wordsInTaskName = new HashSet<>(List.of(wordsInTaskName));
     }
 
     /**
@@ -41,6 +47,20 @@ public abstract class Task {
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println("  " + this);
+    }
+
+    /**
+     * Check if the task description contains the keywords
+     * @param keywordsToFind keywords mentioned by the user
+     * @return true if the task description contains at least one keyword
+     */
+    public boolean hasKeywords(String[] keywordsToFind) {
+        for (String keywordToFind : keywordsToFind) {
+            if (this.wordsInTaskName.contains(keywordToFind)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

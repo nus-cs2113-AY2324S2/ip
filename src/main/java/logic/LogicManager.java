@@ -11,6 +11,8 @@ import tasks.ListKeeper;
 import tasks.ToDo;
 import ui.Keywords;
 
+import java.util.Arrays;
+
 public class LogicManager {
     private final ListKeeper listKeeper;
 
@@ -79,6 +81,11 @@ public class LogicManager {
         this.listKeeper.addToList(event);
     }
 
+    private void executeFind(String[] words) {
+        String[] keywordsToFind = Arrays.copyOfRange(words, 1, words.length);
+        this.listKeeper.printMatchingTasks(keywordsToFind);
+    }
+
     private void executeCommand (String currentInput)
         throws IllegalNumberOfArguments, InvalidTaskIndex,
             EmptyTaskDescription, InvalidTaskArguments, Confusion {
@@ -110,6 +117,10 @@ public class LogicManager {
 
         case Keywords.EVENT:
             executeEvent(currentInput);
+            break;
+
+        case Keywords.FIND:
+            executeFind(words);
             break;
 
         default:
