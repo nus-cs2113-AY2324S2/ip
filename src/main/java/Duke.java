@@ -1,15 +1,22 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/tasks.txt";
+//    public static Task[] tasks = new Task[100];
+//    public static int taskCount = 0;
+static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm LeoDas");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
+        load();
+
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+
 
         while (true) {
             try {
@@ -120,6 +127,7 @@ public class Duke {
                 System.out.println(de.getMessage());
                 System.out.println("____________________________________________________________");
             }
+            save();
         }
 
         System.out.println("____________________________________________________________");
@@ -151,4 +159,43 @@ public class Duke {
             System.out.println("That task doesn't exist!");
         }
     }
+    public static void save() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            file.createNewFile();
+            try (FileWriter writer = new FileWriter(file)) {
+                for (int i = 0; i < tasks.size(); i++) {
+                    writer.write(tasks.get(i).toFileString() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public static void load() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File cannot be found. I shall create a new file...");
+            File file = new File(FILE_PATH);
+            try {
+                file.createNewFile();
+            } catch (IOException ioException) {
+                System.err.println("Error creating a new file: " + ioException.getMessage());
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
 }
+
