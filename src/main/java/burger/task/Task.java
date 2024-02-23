@@ -16,11 +16,11 @@ public class Task {
      * Prints task in the required format [][] {Task Name}.
      */
     public void printTask() {
-        String tde =  getTDE() ;
+        char tde =  getTDE() ;
         String tick = getTick();
         String name = getName();
-        System.out.print(tde);
-        System.out.print(tick);
+        System.out.print("[" + tde + "]");
+        System.out.print("[" + tick + "] ");
         System.out.print(name);
     }
 
@@ -28,10 +28,10 @@ public class Task {
         return this.name;
     }
     public String getTick() {
-        return this.hasDone ? "[X] " : "[ ] ";
+        return this.hasDone ? "X" : " ";
     }
-    public String getTDE() {
-        return "[" + this.tde + "]";
+    public char getTDE() {
+        return this.tde;
     }
     public void markDone() {
         this.hasDone = true;
