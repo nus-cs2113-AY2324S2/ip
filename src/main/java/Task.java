@@ -9,30 +9,41 @@ public class Task {
         this.isCompleted = false;
         taskType = "";
     }
-    public String toFileString() {
-        // Implement how you want to represent the task as a string for file storage
-        // For example, you can concatenate the description and status with a delimiter
-        return description + "|" + (isCompleted ? "1" : "0"); // Example format: "description|status"
+    public String saveTaskRepresentation() {
+        // An example of the format: "task|0"
+        return description + "|" + (isCompleted ? "1" : "0");
     }
 
-    /**
-     * Parses a string from a file into a Task object.
-     *
-     * @param fileString The string read from the file representing a task.
-     * @return The Task object parsed from the string.
-     */
-    public static Task fromString(String fileString) {
-        // Implement how you want to parse the string from the file into a Task object
-        // For example, split the string by the delimiter and create a Task object from the parts
-        String[] parts = fileString.split("\\|");
-        String description = parts[0];
-        boolean isDone = parts[1].equals("1"); // Example format: "description|status"
-        Task task = new Task(description);
-        if (isDone) {
-            task.markAsCompleted();
+    public static Task loadTaskRepresentation(String fileString) {
+        String[] fileEntryIntoParts = fileString.split("\\|");
+        String taskType = fileEntryIntoParts[0];
+        String description = fileEntryIntoParts[1];
+        boolean isCompleted = fileEntryIntoParts[2].equals("1");
+
+        Task task;
+        switch (taskType) {
+        case "D":
+            task = new Deadline(description);
+            break;
+        case "E":
+            task = new Event(description);
+            break;
+        case "T":
+            task = new ToDo(description);
+            break;
+        default:
+            // Handle unknown task type
+            task = null;
+            break;
         }
+
+        if (task != null && isCompleted) {
+            task.markAsCompleted(); // Mark task as done if status is '1'
+        }
+
         return task;
     }
+
 
 
     public String getStatusIcon() {

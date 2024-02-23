@@ -39,7 +39,7 @@ public class Mavis {
 
     public static void main(String[] args) {
         greetUser();
-        loadTasksFromFile();
+        getTasks();
         Scanner in = new Scanner(System.in);
 
 
@@ -80,22 +80,24 @@ public class Mavis {
                 MavisException.handleException(e, inputToEcho);
             }
 
-            saveTasksToFile(listOfTasksSize, listOfTasks);
+            saveTasks(listOfTasksSize, listOfTasks);
         }
 
         bidFarewell();
     }
 
-    public static void saveTasksToFile(int listOfTasksSize, Task[] listOfTasks) {
+    public static void saveTasks(int listOfTasksSize, Task[] listOfTasks) {
         try {
             File file = new File(FILE_PATH);
             if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs(); // Create directories if they don't exist
+                //If the folder does not exist, create it
+                file.getParentFile().mkdirs();
             }
-            file.createNewFile(); // Create the file if it doesn't exist
+            //If the file doesn't exist, create it
+            file.createNewFile();
             try (FileWriter writer = new FileWriter(file)) {
                 for (int i = 0; i < listOfTasksSize; i++) {
-                    writer.write(listOfTasks[i].toFileString() + "\n");
+                    writer.write(listOfTasks[i].saveTaskRepresentation() + "\n");
                 }
             }
         } catch (IOException e) {
@@ -104,29 +106,31 @@ public class Mavis {
     }
 
     // Method to load tasks from a file
-    public static void loadTasksFromFile() {
+    public static void getTasks() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = Task.fromString(line);
+                Task task = Task.loadTaskRepresentation(line);
                 if (task != null) {
                     listOfTasks[listOfTasksSize++] = task;
                 }
             }
         } catch (FileNotFoundException e) {
             // Handle the case where the file doesn't exist
-            System.err.println("File not found. Creating a new file...");
+            System.err.println("File not found. Created a new file!");
+            listOptions();
             File file = new File(FILE_PATH);
             try {
+                //If the folder does not exist, create it
                 if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs(); // Create directories if they don't exist
+                    file.getParentFile().mkdirs();
                 }
                 file.createNewFile(); // Create the file if it doesn't exist
             } catch (IOException ioException) {
-                System.err.println("Error creating a new file: " + ioException.getMessage());
+                System.err.println("Creation of a new file in the sands of time has failed: " + ioException.getMessage());
             }
         } catch (IOException e) {
-            System.err.println("Error loading tasks from file: " + e.getMessage());
+            System.err.println("Your labors could not be retrieved: " + e.getMessage());
         }
     }
 

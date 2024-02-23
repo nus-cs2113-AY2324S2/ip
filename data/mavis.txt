@@ -1,4 +1,2 @@
- hello|0
- hi|0
- hi|0
- hello|0
+E| meeting     (from:    rom:4pm  to:    o:5pm))))|0|rom:4pm|o:5pm)))
+E| meeting    (from:   4pm  to:   5pm)))|0|4pm|5pm))
