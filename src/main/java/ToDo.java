@@ -7,4 +7,9 @@ public class ToDo extends Task{
         this.description = description.replace("todo", "");
     }
 
+    @Override
+    public String toFileString() {
+        return "T|" + super.toFileString(); // Prefix with "T" to indicate Todo
+    }
+
 }
