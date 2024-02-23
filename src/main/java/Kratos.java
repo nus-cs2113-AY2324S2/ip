@@ -1,11 +1,14 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Kratos {
     public final static int MAX_TASKS = 100;
     public static final String LINE = "----------------------------------------------------------------";
-    static Task[] tasksList = new Task[MAX_TASKS];
+    //static Task[] tasksList = new Task[MAX_TASKS];
+    static ArrayList<Task> tasksList = new ArrayList<>();
 
-    public static int count = 0;
+
+    //public static int count = 0;
 
     // Method to greet the user
     public static void greet() {
@@ -69,17 +72,17 @@ public class Kratos {
         if (mark.equals("mark")) {
             displayString = "Task vanquished. Another notch on the blade of progress.\n" +
                     "What next, mortal?";
-            tasksList[taskNumber].markTask();
+            tasksList.get(taskNumber).markTask();
         } else {
             displayString = "Task restored from the depths of completion.\n" +
                     "A twist of fate, mortal. What now?\n" +
                     "Reclaim victory or face the abyss once more.";
-            tasksList[taskNumber].unmarkTask();
+            tasksList.get(taskNumber).unmarkTask();
         }
         
         System.out.println(LINE);
         System.out.println(displayString);
-        System.out.printf("         %s%n",  tasksList[taskNumber].toString());
+        System.out.printf("         %s%n",  tasksList.get(taskNumber).toString());
         System.out.println(LINE);
     }
 
@@ -88,7 +91,7 @@ public class Kratos {
         System.out.println(LINE);
         System.out.println("    Your list of Tasks");
         for (int i = 0; i < count; i++) {
-            System.out.printf("     %d. %s%n", i + 1, tasksList[i].toString());
+            System.out.printf("     %d. %s%n", i + 1, tasksList.get(i).toString());
         }
         System.out.println(LINE);
     }
@@ -96,39 +99,64 @@ public class Kratos {
     // Main method
     public static void main(String[] args) {
         greet();
-        String userInput;
         Scanner in = new Scanner(System.in);
-        while (true) {
-            userInput = in.nextLine();
-            if (userInput.equals("bye")) {
-                break;
-            } else if (userInput.equals("list")) {
-                displayTasks(count);
-            } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(userInput.split(" ")[1]); //Extract task number
-                displayMarking(taskNumber - 1, userInput.split(" ")[0]);
-            } else {
-                try {
-                    if (userInput.startsWith("deadline")) {
-                        addDeadline(userInput);
-                    }
-                    else if (userInput.startsWith("todo")) {
-                        addTodo(userInput);
-
-                    }
-                    else if (userInput.startsWith("event")) {
-                        addEvent(userInput);
-                    }
-                    else {
-                        throw new IllegalArgumentException();
-                    }
-                }
-                catch (Exception e) {
-                    KratosException.handleException(e, userInput);
+        try {
+            while (true) {
+                String userInput = in.nextLine().trim();
+                switch (userInput) {
+                case "bye":
+                    end();
+                    return;
+                case "list":
+                    displayTasks(tasksList.size());
+                    break;
+                default:
+                    handleCommand(userInput);
+                    break;
                 }
             }
+        } finally {
+            in.close();
         }
-        end();
+    }
+
+    private static void handleCommand(String userInput) {
+        try {
+            if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]); //Extract task number
+                displayMarking(taskNumber - 1, userInput.split(" ")[0]);
+            } else if (userInput.startsWith("deadline")) {
+                addDeadline(userInput);
+            } else if (userInput.startsWith("todo")) {
+                addTodo(userInput);
+            } else if (userInput.startsWith("event")) {
+                addEvent(userInput);
+            } else if (userInput.startsWith("delete")) {
+                deleteEvent(userInput);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        } catch (Exception e) {
+            KratosException.handleException(e, userInput);
+        }
+    }
+
+
+
+    private static void deleteEvent(String userInput) {
+        String[] deleteCommand = userInput.split(" ");
+        int taskNumber = Integer.parseInt(deleteCommand[1].trim()) - 1;
+        if (taskNumber < 0 || taskNumber >= tasksList.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        String displayString = "Task erased. Its existence now a whisper in the winds of fate.\n" +
+                "What's your next decree?";
+        System.out.println(LINE);
+        System.out.println(displayString);
+        System.out.printf("         %s%n",  tasksList.get(taskNumber).toString());
+        System.out.println(tasksList.size() + " tasks linger, shadows yet unvanquished. How will you face them?");
+        System.out.println(LINE);
+        tasksList.remove(taskNumber);
     }
 
     private static void addEvent(String userInput) {
@@ -145,8 +173,7 @@ public class Kratos {
 
         String[] timeline = date.split("/to");
 
-        tasksList[count] = new Event(action, timeline[0].trim(), timeline[1].trim());
-        count++;
+        tasksList.add(new Event(action, timeline[0].trim(), timeline[1].trim()));
         System.out.println(LINE);
         System.out.println("Event recorded. Destiny's hourglass turns.\n" +
                 "What now? Seize control or be swept by its sands?");
@@ -157,8 +184,7 @@ public class Kratos {
         // Split line into action and type
         String[] actionAndType = userInput.split("\\s+", 2);
         String action = actionAndType[1];
-        tasksList[count] = new Todo(action);
-        count++;
+        tasksList.add(new Todo(action));
         System.out.println(LINE);
         System.out.println("Task noted. A duty without a deadline? Dangerous.\n" +
                 "What now? Forge ahead or risk oblivion?");
@@ -177,8 +203,7 @@ public class Kratos {
         String[] actionAndItem = deadline.split("\\s+", 2);
         String action = actionAndItem[0];
         String item = actionAndItem[1];
-        tasksList[count] = new Deadline(item, date);
-        count++;
+        tasksList.add(new Deadline(item, date));
         System.out.println(LINE);
         System.out.println("Deadline acknowledged. Time ticks away, mortal.\n" +
                 "What next? Embrace purpose or succumb to chaos?" );
