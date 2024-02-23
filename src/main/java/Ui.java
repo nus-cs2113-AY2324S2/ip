@@ -36,6 +36,9 @@ public class Ui {
                     taskList.addTask(Parser.parseDeadlineTask(userInput));
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     taskList.addTask(Parser.parseEventTask(userInput));
+                } else if (userInput.toLowerCase().startsWith("find")) {
+                    String keyword = userInput.substring("find ".length());
+                    taskList.findTask(keyword);
                 } else if (userInput.toLowerCase().startsWith("delete ")) {
                     String[] parts = userInput.split(" ");
                     if (parts.length == 2) {
