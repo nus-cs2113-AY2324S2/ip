@@ -18,6 +18,7 @@ public class Spike {
     public static final int EVENT_TASK_INDEX = 6;
     public static final int DEADLINE_TASK_INDEX = 9;
     public static final int TODO_TASK_INDEX = 5;
+    public static final int DELETE_TASK_INDEX = 7;
 
     public static void main(String[] args) {
         displayWelcomeMsg();
@@ -86,6 +87,11 @@ public class Spike {
             case "event":
                 inputList.add(new Event(processEvent(input)));
                 displayAcknowledgement(inputList, iter);
+                break;
+            case "delete":
+                int indexDelete = Integer.parseInt(input.substring(DELETE_TASK_INDEX)) - 1;
+                inputList.remove(indexDelete);
+                iter -= 1;
                 break;
             case "bye":
                 break outerLoop;
