@@ -17,6 +17,16 @@ public class TaskList {
         }
     }
 
+    public void deleteTask(int taskIndex) throws HandleException {
+        if (taskIndex < 1 || taskIndex > tasks.size()) {
+            throw new HandleException("OOPS!!! The task number is invalid.");
+        }
+        Task removedTask = tasks.remove(taskIndex - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
