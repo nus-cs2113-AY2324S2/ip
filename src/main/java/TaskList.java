@@ -4,10 +4,19 @@ import Quokka.tasks.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The TaskList class represents a list of tasks in the Quokka program.
+ * It provides methods to add, delete, display, and manipulate tasks in the list.
+ */
 public class TaskList {
     private static final int MAX_TASKS = 100;
     private List<Task> tasks = new ArrayList<>();
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param newTask The task to be added.
+     */
     public void addTask(Task newTask) {
         try {
             if (tasks.size() >= MAX_TASKS) {
@@ -22,6 +31,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on its index.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     */
     public void deleteTask(int taskIndex) {
         try {
             if (taskIndex < 1 || taskIndex > tasks.size()) {
@@ -38,6 +52,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays all tasks in the task list.
+     */
     public void displayTasks() {
         if (tasks.isEmpty()) {
             System.out.println("    No tasks added yet.");
@@ -49,6 +66,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task in the task list as done.
+     *
+     * @param userInput The user input containing the task index to be marked as done.
+     */
     public void markTaskAsDone(String userInput) {
         try {
             updateTaskStatus(userInput, true, "Nice! I've marked this task as done:");
@@ -57,6 +79,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task in the task list as not done.
+     *
+     * @param userInput The user input containing the task index to be marked as not done.
+     */
     public void markTaskAsNotDone(String userInput) {
         try {
             updateTaskStatus(userInput, false, "OK, I've marked this task as not done yet:");
@@ -65,6 +92,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates the status of a task in the task list.
+     *
+     * @param userInput     The user input containing the task index and status update.
+     * @param newStatus     The new status of the task (true for done, false for not done).
+     * @param statusMessage The message to be displayed after updating the task status.
+     */
     private void updateTaskStatus(String userInput, boolean newStatus, String statusMessage) {
         try {
             String[] parts = userInput.split(" ", 2);
@@ -85,6 +119,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks in the task list containing the specified keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
     public void findTask(String keyword) {
         if (keyword.isEmpty()) {
             System.out.println("    Please provide a keyword to search for.");
@@ -104,6 +143,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Displays matching tasks found during the search.
+     *
+     * @param matchingTasks The list of matching tasks to display.
+     */
     private void displayMatchingTasks(List<Task> matchingTasks) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the matching tasks in your list:");
