@@ -2,6 +2,9 @@ package bob;
 
 import java.util.Scanner;
 
+/**
+ * Represents the main class of the program.
+ */
 public class Bob {
 
     private final Storage storage;
@@ -10,6 +13,10 @@ public class Bob {
 
     Scanner in;
 
+    /**
+     * Constructor for the Bob class.
+     * @param filePath The file path to the file where the list is stored.
+     */
     public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +25,10 @@ public class Bob {
         ui.displayWelcomeMessage();
         in = new Scanner(System.in);
     }
+
+    /**
+     * Runs the main loop of the program.
+     */
     public void run() {
 
         while (true) {
@@ -34,6 +45,11 @@ public class Bob {
             }
         }
     }
+
+    /**
+     * Main method of the program.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Bob("bob.txt").run();
     }
