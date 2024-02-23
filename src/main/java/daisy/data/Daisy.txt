@@ -1,0 +1,4 @@
+D,0,dohomework,4pm
+E,0,running,8pm,12am
+T,1,eat dinner
+T,0,gohome
