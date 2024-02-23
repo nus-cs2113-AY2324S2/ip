@@ -11,10 +11,11 @@ public class Dobby {
                 + "                          |___/ \n";
         System.out.println(logo);
         System.out.println("Dobby say's Hello!\nHow can Dobby help?\n");
+
         TaskList taskmanager = new TaskList();
+        FileManager fileManager = new FileManager();
+        fileManager.loadTasksFromFile(taskmanager);
         taskmanager.userCommand();
     }
-
-
-
+    
 }

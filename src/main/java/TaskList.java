@@ -1,14 +1,31 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class TaskList {
     private final ArrayList<Task> taskList;
     private final int MAX_TASKS = 100;
     private int taskCount;
+    private final FileManager taskFileManager;
 
 
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.taskCount = 0;
+        this.taskFileManager = new FileManager();
+
+        //taskFileManager.loadTasksFromFile(this);
+    }
+
+    public Task get(int index) {
+        if (index >= 0 && index < taskCount) {
+            return taskList.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + taskCount);
+        }
+    }
+
+    public int size() {
+        return taskCount;
     }
 
     /**
@@ -25,13 +42,13 @@ public class TaskList {
 
             switch (taskType) {
             case "todo":
-                addTask(new Task(commandParts[1]));
+                addTask(new Task(commandParts[1]), true);
                 break;
             case "deadline":
-                addDeadlineTask(commandParts);
+                addDeadlineTask(commandParts, true);
                 break;
             case "event":
-                addEvent(commandParts);
+                addEvent(commandParts, true);
                 break;
             case "mark":
                 markTask(commandParts);
@@ -59,12 +76,12 @@ public class TaskList {
      * @param commandParts user command to handle
      *
      **/
-    private void addDeadlineTask(String[] commandParts) {
+    public void addDeadlineTask(String[] commandParts, boolean userAdded) {
         String[] deadlineParts = commandParts[1].split("/by", 2);
         if (deadlineParts.length != 2) {
             System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
         } else {
-            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            addTask(new Deadline(deadlineParts[0], deadlineParts[1]), userAdded);
         }
     }
 
@@ -74,7 +91,7 @@ public class TaskList {
      * @param commandParts user command to handle
      *
      **/
-    private void addEvent(String[] commandParts) {
+    public void addEvent(String[] commandParts, boolean userAdded) {
         String[] eventparts = commandParts[1].split("/from", 2);
         if (eventparts.length != 2) {
             System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
@@ -84,7 +101,7 @@ public class TaskList {
                 System.out.println("☹ OOPS!!! Invalid event format. " +
                         "Use 'event <description> /from <start date/time> /to <end date/time>'.");
             } else {
-                addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
+                addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]), userAdded );
             }
         }
     }
@@ -122,12 +139,15 @@ public class TaskList {
      *
      * @param task input given by user
      */
-    public void addTask(Task task) {
+    public void addTask(Task task, boolean userAdded) {
         try {
             if (taskList.size() < MAX_TASKS) {
                 taskList.add(taskCount, task);
                 taskCount += 1;
-                System.out.println("added: " + task);
+                taskFileManager.saveTasksToFile(this);
+                if (userAdded) {
+                    System.out.println("added: " + task);
+                }
             } else {
                 throw new TaskListFullException("TaskList if full");
             }
@@ -186,7 +206,9 @@ public class TaskList {
         } else if (taskList.get(taskIndex).isDone()) {
             System.out.println("ERROR: task is already marked");
         } else {
+
             taskList.get(taskIndex).markTask();
+            taskFileManager.saveTasksToFile(this);
             System.out.println("OK, Dobby has marked this task as done:");
             System.out.println("  " + taskList.get(taskIndex));
             System.out.println("~~~~~~~~~~~~~~~~");
@@ -205,7 +227,9 @@ public class TaskList {
         } else if (!taskList.get(taskIndex).isDone()) {
             System.out.println("The task is already unmarked");
         } else {
+
             taskList.get(taskIndex).unmarkTask();
+            taskFileManager.saveTasksToFile(this);
             System.out.println("OK, Dobby marked this task as not done:");
             System.out.println("  " + taskList.get(taskIndex));
             printLineBreak();

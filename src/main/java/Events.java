@@ -19,5 +19,9 @@ public class Events extends Task {
         return super.toString() + "(from:" + From + " to: " + To + ")";
     }
 
+    @Override
+    public String getDescription() {
+        return super.getDescription() + " (from: " + From + " to: " + To + ")";
+    }
 
 }
