@@ -1,11 +1,64 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Kratos {
-    public final static int MAX_TASKS = 100;
     public static final String LINE = "----------------------------------------------------------------";
-    //static Task[] tasksList = new Task[MAX_TASKS];
     static ArrayList<Task> tasksList = new ArrayList<>();
+    private static final String FILE_PATH = "./data/tasks.txt";
+
+    // Method to save tasks to a file
+    public static void saveTasksToFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs(); // Create directories if they don't exist
+            }
+            file.createNewFile(); // Create the file if it doesn't exist
+            try (FileWriter writer = new FileWriter(file)) {
+                for (int i = 0; i < tasksList.size(); i++) {
+                    writer.write(tasksList.get(i).toFileString() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            KratosException.handleException(e, "Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Method to load tasks from a file
+    // Method to load tasks from a file
+    public static void loadTasksFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                if (task != null) {
+                    tasksList.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // Handle the case where the file doesn't exist
+            KratosException.handleException(e, "File not found. Creating a new file...");
+            File file = new File(FILE_PATH);
+            try {
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs(); // Create directories if they don't exist
+                }
+                file.createNewFile();
+            } catch (IOException ioException) {
+                KratosException.handleException(ioException, "Error creating a new file: " + ioException.getMessage());
+            }
+        } catch (IOException e) {
+            KratosException.handleException(e, "Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
 
 
     //public static int count = 0;
@@ -99,10 +152,12 @@ public class Kratos {
     // Main method
     public static void main(String[] args) {
         greet();
+        loadTasksFromFile(); // Load tasks from file when the program boots up
+        String userInput;
         Scanner in = new Scanner(System.in);
         try {
             while (true) {
-                String userInput = in.nextLine().trim();
+                userInput = in.nextLine().trim();
                 switch (userInput) {
                 case "bye":
                     end();
@@ -117,6 +172,7 @@ public class Kratos {
             }
         } finally {
             in.close();
+            saveTasksToFile();
         }
     }
 
@@ -154,9 +210,9 @@ public class Kratos {
         System.out.println(LINE);
         System.out.println(displayString);
         System.out.printf("         %s%n",  tasksList.get(taskNumber).toString());
+        tasksList.remove(taskNumber);
         System.out.println(tasksList.size() + " tasks linger, shadows yet unvanquished. How will you face them?");
         System.out.println(LINE);
-        tasksList.remove(taskNumber);
     }
 
     private static void addEvent(String userInput) {

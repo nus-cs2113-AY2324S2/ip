@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class KratosException extends Exception {
     public static void handleException(Exception e, String command) {
         if (e instanceof IllegalArgumentException) {
@@ -6,6 +9,10 @@ public class KratosException extends Exception {
             blankAfterTask(command);
         } else if (e instanceof IndexOutOfBoundsException) {
             taskOutOfBounds();
+        } else if (e instanceof IOException) {
+            System.out.println(command);
+        } else if (e instanceof FileNotFoundException) {
+            System.out.println(command);
         } else {
             otherIncurredException();
         }
