@@ -11,6 +11,11 @@ import n.task.Event;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+
 public class N {
     public static final int MAX_LIST_ITEMS = 100;
     public static final String NO_TASK_TYPE_ERROR = "oHno, you did not specify your task type :O";
@@ -21,6 +26,8 @@ public class N {
     public static final String EVENT_INPUT_FORMAT = "    event [task] /from [start time] /to [end time]";
     public static final String DEADLINE_INPUT_FORMAT = "    deadline [task] /by [deadline]";
     public static final String TASK_INDEX_OUT_OF_BOUNDS_ERROR = "Task not found :p";
+    public static final String SAVE_AS_FILE_ERROR = "Ohno, error occurred when saving file :/";
+    public static final String FILENAME = "n.txt";
     public static final String LOGO = " ____   ___\n"
             + "|    \\ |   |\n"
             + "|     \\|   |\n"
@@ -207,6 +214,22 @@ public class N {
         }
 
     }
+    public static void saveTaskList() {
+        Path filePath = Paths.get("src", "data", FILENAME);
+        try {
+            Files.deleteIfExists(filePath);
+            Files.createFile(filePath);
+            Files.write(filePath, ("Task List:\n").getBytes(), java.nio.file.StandardOpenOption.APPEND);
+            for (Task task : taskList) {
+                // Write each task into the text file
+                Files.write(filePath, (task.toString()+"\n").getBytes(), java.nio.file.StandardOpenOption.APPEND);
+            }
+            Files.write(filePath, ("Number of Tasks: " +taskList.size()).getBytes(), java.nio.file.StandardOpenOption.APPEND);
+            printMessage("Your Task List has been saved, find it at "+filePath);
+        } catch (IOException e) {
+            System.out.println(SAVE_AS_FILE_ERROR);
+        }
+    }
 
     public static void handleMessages(Scanner in) {
         String message = in.nextLine();
@@ -224,6 +247,9 @@ public class N {
             handleMessages(in);
         } else if (message.trim().startsWith("delete")) {
             deleteTask(message);
+            handleMessages(in);
+        } else if (message.trim().equalsIgnoreCase("save")) {
+            saveTaskList();
             handleMessages(in);
         } else {
             addTask(message);
