@@ -4,7 +4,21 @@ import gab.exception.GabException;
 import gab.parser.Parser;
 import gab.task.TaskList;
 
+/**
+ * Class to check each task action and calls its respective methods
+ */
+
 public class CommandHandler {
+    /**
+     * Parse task action from user input
+     * Search through cases and implement respective methods
+     *
+     * @param task task input containing task action
+     * @param taskList arraylist of task
+     * @return respective methods based on the task action
+     * @throws GabException thrown when command is not valid
+     */
+
     public static Command checkCommand(String task, TaskList taskList) throws GabException {
         String[] taskAction = task.trim().split(" ");
         String action = taskAction[0];
