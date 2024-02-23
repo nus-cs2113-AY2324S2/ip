@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -7,7 +9,8 @@ import static java.lang.Integer.parseInt;
 
 public class Krot {
     static final String NAME = "Krot"; // Static variable for the bot's name
-    static List<Task> tasks = new ArrayList<>(); // Static variable list of all the tasks
+    static final String FILE_PATH = "../../../data/taskList.txt";
+    static ArrayList<Task> tasks = new ArrayList<>(); // Static variable list of all the tasks
     static boolean hasEnded = false; // Static variable to end the chatbot
 
     public static void printName() {
@@ -32,7 +35,17 @@ public class Krot {
         printSeparator();
         printName();
         System.out.println("Bye. Hope to see you again soon!");
+        saveList();
         hasEnded = true;
+    }
+
+    public static void saveList() {
+        FileWrite fw = new FileWrite(FILE_PATH, tasks);
+        try {
+            fw.writeToFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void createTask(String key, String line) {
@@ -98,11 +111,12 @@ public class Krot {
         System.out.println("["
                 + task.getTaskType() + "]"
                 + "["
-                + (task.isDone ? "x" : " ")
+                + (task.isDone ? "X" : " ")
                 + "] "
                 + task.task
-                + task.getStart()
-                + task.getEnd());
+                + (task.getTaskType().equalsIgnoreCase("E") ? " (from: " + task.getStart() + " " : "")
+                + (task.getTaskType().equalsIgnoreCase("E") ? "to: " + task.getEnd() + ")" :
+                task.getTaskType().equalsIgnoreCase("D") ? " (by: " + task.getEnd() + ")" : ""));
     }
 
     private static Task createEvent(String line) throws StringIndexOutOfBoundsException, EmptyInputException {
@@ -125,7 +139,7 @@ public class Krot {
         if (start.isBlank() || end.isBlank()) {
             throw new EmptyInputException("When is this event happening?"); // Throws exception if durations are blank
         }
-        task = new Event(title, "E", " (from: " + start, " to: " + end + ")");
+        task = new Event(title, start, end, "E");
         tasks.add(task);
         return task;
     }
@@ -147,7 +161,7 @@ public class Krot {
         if (end.isBlank()) {
             throw new EmptyInputException("Enter a due date for this task"); // Throws exception if due date is blank
         }
-        task = new Deadline(title, " (by: " + end + ")", "D");
+        task = new Deadline(title, end, "D");
         tasks.add(task);
         return task;
     }
@@ -162,16 +176,6 @@ public class Krot {
         return task;
     }
 
-    public static void listTask(Task task) {
-        // Lists 1 the task in the list
-        String taskType = task.getTaskType();
-        String cross = " ";
-        if (task.isDone) {
-            cross = "X";
-        }
-        System.out.println("[" + taskType + "]" + "[" + cross + "] " + task.task + task.getStart() + task.getEnd());
-    }
-
     public static void listTasks() {
         // Prints the list of tasks
         printSeparator();
@@ -182,7 +186,7 @@ public class Krot {
         }
         for (Task task : tasks) {
             System.out.print(i + ".");
-            listTask(task);
+            printTask(task);
             i += 1;
         }
         printSeparator();
@@ -218,7 +222,7 @@ public class Krot {
             System.out.println("Wow good job at clearing a task! I,ve marked this task as done:");
         }
         t.markDone();
-        listTask(t);
+        printTask(t);
         printSeparator();
     }
 
@@ -276,11 +280,21 @@ public class Krot {
         }
     }
 
+    public static void readDb() {
+        FileReader fileReader = new FileReader(FILE_PATH);
+        try {
+            tasks = fileReader.getTasks();
+        } catch (FileNotFoundException e) {
+            return;
+        }
+    }
+
     public static void main(String[] args) {
         String line;
         printSeparator();
         greeting();
         Scanner in = new Scanner(System.in);
+        readDb();
         while (!hasEnded) {
             System.out.println("You:");
             line = in.nextLine();

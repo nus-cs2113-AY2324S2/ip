@@ -3,7 +3,7 @@ public class Event extends Task{
     protected String end;
     protected String taskType;
 
-    public Event(String task, String taskType, String start, String end) {
+    public Event(String task, String start, String end, String taskType) {
         super(task);
         this.start = start;
         this.end = end;
