@@ -1,7 +1,5 @@
 package bob;
 
-import static bob.Bob.TODO_ICON;
-
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -29,15 +27,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public void setDone(boolean done) {
         isDone = done;
     }
 
     public String toString() {
-        return TODO_ICON + getListItem();
+        return Ui.TODO_ICON + getListItem();
     }
 }

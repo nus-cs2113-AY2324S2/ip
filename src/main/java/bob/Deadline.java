@@ -1,7 +1,5 @@
 package bob;
 
-import static bob.Bob.DEADLINE_ICON;
-
 public class Deadline extends Task {
 
     protected String by;
@@ -20,6 +18,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return DEADLINE_ICON + super.getListItem() + " (by: " + by + ")";
+        return Ui.DEADLINE_ICON + super.getListItem() + " (by: " + by + ")";
     }
 }
