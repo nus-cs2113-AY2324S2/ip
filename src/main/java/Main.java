@@ -4,6 +4,7 @@ import doraemonexceptions.InValidCommandException;
 import doraemonexceptions.IsEmptyException;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Main {
     public static void printLine() {
         System.out.println("____________________________________________________________");
@@ -23,6 +24,13 @@ public class Main {
         printLine();
     }
 
+    public static void printDelMessage(Todo task, int taskNum) {
+        System.out.println("Got it. I've deleted this task:");
+        System.out.println("  " + task.formatTask());
+        System.out.println("Now you have " + taskNum + " tasks in the list.");
+        printLine();
+    }
+
     public static void printMarked(Todo task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.formatTask());
@@ -30,8 +38,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        //initializing the arrays to 100 first
-        Todo[] list = new Todo[100];
+        ArrayList<Todo> list = new ArrayList<>();
         int taskNum = 0;
         int pos;
         String description;
@@ -48,47 +55,44 @@ public class Main {
                     if (taskNum == 0) {
                         throw new EmptyListException();
                     }
-                    if (taskNum > 100) {
-                        throw new ExceedListException();
-                    }
                     for (int i = 0; i < taskNum; i++) {
-                        System.out.println(i + 1 + "." + list[i].formatTask());
+                        System.out.println(i + 1 + "." + list.get(i).formatTask());
                     }
                     printLine();
-                }
-                //todo type
-                else if (temp.startsWith("todo")) {
+                } else if (temp.startsWith("todo")) {
                     temp = temp.substring(5); //trim "todo"
-                    list[taskNum] = new Todo(temp);
-                    printMessage(list[taskNum], taskNum + 1);
+                    list.add(taskNum, new Todo(temp));
+                    printMessage(list.get(taskNum), taskNum + 1);
                     taskNum++;
-                }
-                //deadline type
-                else if (temp.startsWith("deadline")) {
+                } else if (temp.startsWith("deadline")) {
                     pos = temp.indexOf("/");
                     description = temp.substring(8, pos);
                     date = temp.substring(pos + 3);
-                    list[taskNum] = new Deadline(description, date);
-                    printMessage(list[taskNum], taskNum + 1);
+                    list.add(taskNum, new Deadline(description, date)) ;
+                    printMessage(list.get(taskNum), taskNum + 1);
                     taskNum++;
-                }
-                //event type
-                else if (temp.startsWith("event")) {
+                } else if (temp.startsWith("event")) {
                     pos = temp.indexOf("/");
                     description = temp.substring(5, pos);
                     temp = temp.substring(pos + 5);
                     pos = temp.indexOf("/");
                     start = temp.substring(0, pos);
                     end = temp.substring(pos + 3);
-                    list[taskNum] = new Event(description, start, end);
-                    printMessage(list[taskNum], taskNum + 1);
+                    list.add(taskNum, new Event(description, start, end)) ;
+                    printMessage(list.get(taskNum), taskNum + 1);
                     taskNum++;
                 } else if (temp.startsWith("mark")) {
                     temp = temp.substring(5); //trim "mark"
                     int indexToMark = Integer.parseInt(temp) - 1;
-                    list[indexToMark].markStatus();
-                    printMarked(list[indexToMark]);
+                    list.get(indexToMark).markStatus();
+                    printMarked(list.get(indexToMark));
                     printLine();
+                } else if (temp.startsWith("delete")){
+                    temp = temp.substring(7); //trim delete
+                    int indexToDel = Integer.parseInt(temp) - 1;
+                    taskNum--;
+                    printDelMessage(list.get(indexToDel), taskNum);
+                    list.remove(indexToDel);
                 } else if (temp.isEmpty()) {
                     throw new IsEmptyException();
                 } else {
@@ -105,10 +109,6 @@ public class Main {
                 temp = in.nextLine();
             } catch (EmptyListException e) {
                 System.out.println("The list is empty! Please add something!");
-                printLine();
-                temp = in.nextLine();
-            } catch (ExceedListException e) {
-                System.out.println("The list is full! Please create a new list!");
                 printLine();
                 temp = in.nextLine();
             }
