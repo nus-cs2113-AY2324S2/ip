@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -8,11 +9,72 @@ public class Alice {
     private static final String HELP_MESSAGE = "Feelin' lost? Just type 'help' and I'll be right here with the deets again!";
     private static final String INVALID_INPUT_MESSAGE = "ayo my bad i can't seem to understand ya, try saying smt valid, or type 'help'";
 
+    private static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        File file = new File("./data/alice.txt");
+        file.getParentFile().mkdirs();
+        try(PrintWriter writer = new PrintWriter(file)){
+            for(Task task:tasks){
+                writer.println(task.toSaveFormat());
+            }
+        }
+    }
+
+    // Loads tasks which are saved in alice.txt file
+    private static void loadTasks(ArrayList<Task> tasks) throws IOException {
+        File file = new File("./data/alice.txt");
+
+        // Skip loading if file doesn't exist
+        if(!file.exists()) return;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                Task task = parseTask(line);
+                tasks.add(task);
+            }
+        }
+    }
 
 
-    public static void main(String[] args) throws AliceException {
+    // Helps to convert a line from the alice.txt file and convert it into
+    // appropriate "Task" object
+    private static Task parseTask(String line){
+        String[] parts = line.split(" \\| ");
+        Task task;
+        boolean isDone = parts[1].equals("1");
+
+        switch (parts[0]){
+            case "T":
+                task = new Todo(parts[2]);
+                break;
+            case "D":
+                task = new Deadline(parts[2], parts[3]);
+                break;
+            case "E":
+                Event event = new Event(parts[2], parts[3], parts[4]);
+                if (parts[1].equals("1")){
+                    event.markAsDone();
+                }
+                return event;
+            default:
+                throw new IllegalArgumentException("Unknown task type in the save file");
+        }
+        if (isDone){
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+
+        // Load tasks from file
+        try {
+            loadTasks(tasks);
+        } catch (IOException e) {
+            System.out.println("Could not load tasks from file: " + e.getMessage());
+        }
 
         System.out.println(LINE);
         System.out.println(GREETING_MESSAGE);
@@ -67,12 +129,14 @@ public class Alice {
                 System.out.println(LINE);
                 System.out.println(e.getMessage());
                 System.out.println(LINE);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         scanner.close();
     }
 
-    private static void handleTodo(String input, ArrayList<Task> tasks, String line) throws AliceException {
+    private static void handleTodo(String input, ArrayList<Task> tasks, String line) throws AliceException, IOException {
         String description = input.substring(5).trim();
         Todo newTask = new Todo(description);
         if (description.isEmpty()){
@@ -84,9 +148,10 @@ public class Alice {
         System.out.println(newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         System.out.println(line);
+        saveTasks(tasks);
     }
 
-    private static void handleMarkUnmark(String input, ArrayList<Task> tasks, String line) throws AliceException {
+    private static void handleMarkUnmark(String input, ArrayList<Task> tasks, String line) throws AliceException, IOException {
         int taskIndex = Integer.parseInt(input.replaceAll("\\D", "")) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.get(taskIndex);
@@ -104,9 +169,10 @@ public class Alice {
             throw new AliceException("aw man that task doesn't seem to exist :( try using a valid task number yea");
         }
         System.out.println(line);
+        saveTasks(tasks);
     }
 
-    private static void handleDeadline(String input, ArrayList<Task> tasks, String line) throws AliceException {
+    private static void handleDeadline(String input, ArrayList<Task> tasks, String line) throws AliceException, IOException {
 
         if(!input.contains("/by")){
             throw new AliceException("ayo deadline inputs must include '/by' so i'll know the deadline yea :)");
@@ -125,9 +191,10 @@ public class Alice {
         System.out.println(newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         System.out.println(line);
+        saveTasks(tasks);
     }
 
-    private static void handleEvent(String input, ArrayList<Task> tasks, String line) throws AliceException {
+    private static void handleEvent(String input, ArrayList<Task> tasks, String line) throws AliceException, IOException {
 
         if (!input.contains("/to") || !input.contains("/from")){
             throw new AliceException("ayo event commands must include '/from' and '/to' so that i'll know when your event starts and ends yea?");
@@ -152,5 +219,6 @@ public class Alice {
         System.out.println(newTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
         System.out.println(line);
+        saveTasks(tasks);
     }
 }
