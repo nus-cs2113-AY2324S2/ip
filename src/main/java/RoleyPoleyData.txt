@@ -1,3 +1,1 @@
-T | 0 |  project meeting
-E | 0 |  eat lunch (from: 1pm to: 4pm)
-D | 0 |  do IP (by: tutorial)
+E | 0 |  Shu Hong attend CS2113 lecture Friday 23 Feb 2024 (from: 4 to: 6pm)

@@ -8,7 +8,6 @@ public class RoleyPoley {
     private static String myPath = "./src/main/java/RoleyPoleyData.txt";
 
     public static void main(String[] args) throws IOException, RoleyPoleyException {
-        //Task[] taskList = new Task[100];
         ReadFile.readFileToArrayList();
         boolean isExit = false;
         greet();

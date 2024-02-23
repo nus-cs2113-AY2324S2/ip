@@ -10,15 +10,18 @@ public class ReadFile {
         try {
             Path myPath = Paths.get("./src/main/java/RoleyPoleyData.txt");
             List<String> taskList = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-            taskList.forEach(ex -> {
-                try {
-                    convertTask(ex);
-                } catch (RoleyPoleyException e) {
-                    System.out.println("Error!");
-                }
-            });
-        }
-        catch (IOException e) {
+            for(String line : taskList) {
+                if (line.trim().isEmpty()) {
+                    continue;
+                } else {
+                    try {
+                        convertTask(line);
+                    } catch (RoleyPoleyException e) {
+                        System.out.println("Error!");
+                    }
+                };
+            }
+        } catch (IOException e) {
             System.out.println("Error File not found");
         }
     }
