@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.List;
 public class TaskList {
     private final Task[] taskList;
     private static final int MAX_TASKS = 100;
@@ -10,6 +11,8 @@ public class TaskList {
         this.taskList = new Task[MAX_TASKS];
         this.taskCount = 0;
         this.taskFileManager = new FileManager();
+
+        //taskFileManager.loadTasksFromFile(this);
     }
 
     public Task get(int index) {
@@ -69,7 +72,7 @@ public class TaskList {
      * @param commandParts user command to handle
      *
      **/
-    private void addDeadlineTask(String[] commandParts) {
+    public void addDeadlineTask(String[] commandParts) {
         String[] deadlineParts = commandParts[1].split("/by", 2);
         if (deadlineParts.length != 2) {
             System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
@@ -84,7 +87,7 @@ public class TaskList {
      * @param commandParts user command to handle
      *
      **/
-    private void addEvent(String[] commandParts) {
+    public void addEvent(String[] commandParts) {
         String[] eventparts = commandParts[1].split("/from", 2);
         if (eventparts.length != 2) {
             System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
