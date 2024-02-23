@@ -57,6 +57,7 @@ public class MassimoBoi {
             } catch(IndexOutOfBoundsException e){
                 System.out.println("The task number you have tried to mark, unmark, or delete does not exist");
             } catch(IOException e){
+                System.out.println("The task number you have tried to mark/unmark does not exist");
 
             }
             finally {
@@ -177,6 +178,7 @@ public class MassimoBoi {
         printTask(newTask);
         System.out.printf("You now have %d %s in the list\n", taskList.size(), taskList.size() == 1 ? "task" : "tasks");
     }
+
 
     public static void deleteTask(int task, List<Task> taskList){
         taskList.remove(task);
