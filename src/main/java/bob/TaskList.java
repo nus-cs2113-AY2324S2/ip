@@ -3,15 +3,27 @@ package bob;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents the list of tasks in the program.
+ */
 public class TaskList {
 
     List<Task> list;
     Ui ui;
+
+    /**
+     * Constructor for the TaskList class.
+     * @param tasks The list of tasks.
+     */
     public TaskList(List<Task> tasks) {
         list = tasks;
         ui = new Ui();
     }
 
+    /**
+     * Deletes a task from the list.
+     * @param line The command to delete a task.
+     */
     public void deleteTask(String line) {
         String content;
         content = line.split(" ", 2)[1];
@@ -23,6 +35,10 @@ public class TaskList {
 
     }
 
+    /**
+     * Displays the message when a task is deleted.
+     * @param content The content of the command.
+     */
     private void displayDeleteTaskMessage(String content) {
         ui.displayHorizontalLine();
         System.out.println("Noted. I've removed this task: ");
@@ -31,6 +47,10 @@ public class TaskList {
         ui.displayHorizontalLine();
     }
 
+    /**
+     * Unmarks a task from the list.
+     * @param line The command to unmark a task.
+     */
     public void unmarkTask(String line) {
         String content;
         content = line.split(" ", 2)[1];
@@ -39,6 +59,11 @@ public class TaskList {
         displayMarkTaskMessage("OK, I've marked this task as not done yet:", content);
     }
 
+    /**
+     * Displays the message when a task is marked.
+     * @param x The message to display.
+     * @param content The content of the command.
+     */
     private void displayMarkTaskMessage(String x, String content) {
         ui.displayHorizontalLine();
         System.out.println(x);
@@ -46,6 +71,10 @@ public class TaskList {
         ui.displayHorizontalLine();
     }
 
+    /**
+     * Marks a task from the list.
+     * @param line The command to mark a task.
+     */
     public void markTask(String line) {
         String content;
         content = line.split(" ", 2)[1];
@@ -54,6 +83,10 @@ public class TaskList {
         displayMarkTaskMessage("Nice! I've marked this task as done: ", content);
     }
 
+    /**
+     * Adds an event to the list.
+     * @param line The command to add an event.
+     */
     public void addEvent(String line) throws BobException {
         String content, description, start, by;
 
@@ -74,6 +107,10 @@ public class TaskList {
         displayAddTaskMessage("Got it. I've added this event: ", e);
     }
 
+    /**
+     * Adds a deadline to the list.
+     * @param line The command to add a deadline.
+     */
     public void addDeadline(String line) throws BobException {
         String content;
         try {
@@ -88,6 +125,10 @@ public class TaskList {
         displayAddTaskMessage("Got it. I've added this deadline: ", d);
     }
 
+    /**
+     * Adds a todo to the list.
+     * @param line The command to add a todo.
+     */
     public void addTodo(String line) throws BobException {
         String content;
         try {
@@ -102,6 +143,11 @@ public class TaskList {
         displayAddTaskMessage("Got it. I've added this todo: ", t);
     }
 
+    /**
+     * Displays the message when a task is added.
+     * @param x The message to display.
+     * @param t The task to be added.
+     */
     private void displayAddTaskMessage(String x, Task t) {
         ui.displayHorizontalLine();
         System.out.println(x);
@@ -110,6 +156,10 @@ public class TaskList {
         ui.displayHorizontalLine();
     }
 
+    /**
+     * Finds a task from the list.
+     * @param line The command to find a task.
+     */
     public void findTask(String line) {
         String content;
         content = line.split(" ", 2)[1];

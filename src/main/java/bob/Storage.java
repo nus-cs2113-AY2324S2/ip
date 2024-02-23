@@ -10,13 +10,28 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Represents the storage of the program.
+ */
 public class Storage {
 
+    /**
+     * The file name of the file where the list is stored.
+     */
     public final String FILENAME;
+
+    /**
+     * Constructor for the Storage class.
+     * @param filename The file name of the file where the list is stored.
+     */
     public Storage(String filename) {
         this.FILENAME = filename;
     }
 
+    /**
+     * Generates the list of tasks on startup.
+     * @return The list of tasks.
+     */
     public List<Task> generateListOnStartup() {
         List<String> stringList;
         try {
@@ -46,6 +61,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     * @param list The list of tasks.
+     * @throws BobException If there is a problem with the computer.
+     */
     public void saveList(List<Task> list) throws BobException {
 
         // convert list of tasks objects to list of strings
@@ -60,7 +80,5 @@ public class Storage {
         } catch (IOException e) {
             throw new BobException("Some problem with your computer, could not save list.");
         }
-
-
     }
 }
