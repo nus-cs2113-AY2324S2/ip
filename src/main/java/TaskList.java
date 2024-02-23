@@ -3,11 +3,25 @@ public class TaskList {
     private final Task[] taskList;
     private static final int MAX_TASKS = 100;
     private int taskCount;
+    private final FileManager taskFileManager;
 
 
     public TaskList() {
         this.taskList = new Task[MAX_TASKS];
         this.taskCount = 0;
+        this.taskFileManager = new FileManager();
+    }
+
+    public Task get(int index) {
+        if (index >= 0 && index < taskCount) {
+            return taskList[index];
+        } else {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + taskCount);
+        }
+    }
+
+    public int size() {
+        return taskCount;
     }
 
     /**
@@ -123,6 +137,7 @@ public class TaskList {
             if (taskCount < taskList.length) {
                 taskList[taskCount] = task;
                 taskCount += 1;
+                taskFileManager.saveTasksToFile(this);
                 System.out.println("added: " + task);
             } else {
                 throw new TaskListFullException("TaskList if full");
@@ -171,6 +186,7 @@ public class TaskList {
             System.out.println("ERROR: task is already marked");
         } else {
             taskList[taskIndex].markTask();
+            taskFileManager.saveTasksToFile(this);
             System.out.println("OK, Dobby has marked this task as done:");
             System.out.println("  " + taskList[taskIndex]);
             System.out.println("~~~~~~~~~~~~~~~~");
@@ -190,6 +206,7 @@ public class TaskList {
             System.out.println("The task is already unmarked");
         } else {
             taskList[taskIndex].unmarkTask();
+            taskFileManager.saveTasksToFile(this);
             System.out.println("OK, Dobby marked this task as not done:");
             System.out.println("  " + taskList[taskIndex]);
             printLineBreak();
