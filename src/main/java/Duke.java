@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import exception.EkudException;
@@ -12,6 +13,32 @@ public class Duke {
             fw.write(tasks[i].toString() + "\n");
         }
         fw.close();
+    }
+
+    private static void readFromFile(String filePath, Task[] tasks, int taskCount) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()) {
+            String currentLine = s.nextLine();
+            if(currentLine.contains("[T]")){
+                int descriptionPosition = currentLine.indexOf("[T]") + 7;
+                tasks[taskCount] = new Todo(currentLine.substring(descriptionPosition));
+                taskCount++;
+            }
+            else if (currentLine.contains("[D]")){
+                int descriptionPosition = currentLine.indexOf("[D]") + 7;
+                int byPosition = currentLine.indexOf("(by:");
+                tasks[taskCount] = new Deadline(currentLine.substring(descriptionPosition, byPosition - 1), currentLine.substring(byPosition + 5));
+                taskCount++;
+            }
+            else if (currentLine.contains("[E]")){
+                int descriptionPosition = currentLine.indexOf("[E]") + 7;
+                int fromPosition = currentLine.indexOf("(from:");
+                int toPosition = currentLine.indexOf("to:");
+                tasks[taskCount] = new Event(currentLine.substring(descriptionPosition, fromPosition - 1), currentLine.substring(fromPosition + 7, toPosition - 1), currentLine.substring(toPosition + 4));
+                taskCount++;
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -29,6 +56,37 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         Task[] tasks = new Task[100];
         int taskCount = 0;
+
+        try {
+            // readFromFile(filePath, tasks, taskCount);
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            while(s.hasNext()) {
+                String currentLine = s.nextLine();
+                if(currentLine.contains("[T]")){
+                    int descriptionPosition = currentLine.indexOf("[T]") + 7;
+                    tasks[taskCount] = new Todo(currentLine.substring(descriptionPosition));
+                    taskCount++;
+                }
+                else if (currentLine.contains("[D]")){
+                    int descriptionPosition = currentLine.indexOf("[D]") + 7;
+                    int byPosition = currentLine.indexOf("(by:");
+                    tasks[taskCount] = new Deadline(currentLine.substring(descriptionPosition, byPosition - 1), currentLine.substring(byPosition + 5));
+                    taskCount++;
+                }
+                else if (currentLine.contains("[E]")){
+                    int descriptionPosition = currentLine.indexOf("[E]") + 7;
+                    int fromPosition = currentLine.indexOf("(from:");
+                    int toPosition = currentLine.indexOf("to:");
+                    tasks[taskCount] = new Event(currentLine.substring(descriptionPosition, fromPosition - 1), currentLine.substring(fromPosition + 7, toPosition - 1), currentLine.substring(toPosition + 4));
+                    taskCount++;
+                }
+            }
+        }
+        catch (FileNotFoundException error){
+            System.out.println("The file cannot be found.");
+        }
+
         userInput = in.nextLine();
 
         while(!userInput.equals("bye")){
