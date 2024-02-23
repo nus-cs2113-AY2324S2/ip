@@ -1,16 +1,17 @@
 package uwunzhe;
 
-import uwunzhe.util.Printer;
-import uwunzhe.util.UserInput;
+import uwunzhe.util.Ui;
 import uwunzhe.util.TaskList;
 import uwunzhe.exceptions.UwunzheException;
-import uwunzhe.handler.InputHandler;
-import uwunzhe.handler.StorageHandler;
+import uwunzhe.handler.Parser;
+import uwunzhe.handler.Storage;
+import uwunzhe.commands.Command;
 
 public class Uwunzhe {
     private static final TaskList taskList = new TaskList();
-    private static InputHandler inputHandler;
-    private static StorageHandler storageHandler;
+    private static Parser inputHandler;
+    private static Storage storageHandler;
+    private static final Ui ui = new Ui();
 
     /**
      * Initializes the necessary handlers.
@@ -20,8 +21,8 @@ public class Uwunzhe {
      */
     public static boolean init() {
         try {
-            inputHandler = new InputHandler(taskList);
-            storageHandler = new StorageHandler(taskList);
+            inputHandler = new Parser();
+            storageHandler = new Storage(taskList);
             return true; // init successful
         } catch (UwunzheException e) {
             UwunzheException.printException(e);
@@ -37,31 +38,21 @@ public class Uwunzhe {
      */
     public static void loop() {
         boolean isRunning = true;
-        boolean isListUpdated;
 
         while (isRunning) {
             try {
-                isListUpdated = false;
-                String input = UserInput.getInput();
-                
-                if (input.toLowerCase().equals("bye")) {
-                    // Exit loop if input is "bye"
-                    isRunning = false;
-                    continue;
-                }
-                isListUpdated = inputHandler.parseInput(input);
+                String input = ui.getInput();
+                Command c = inputHandler.parseInput(input);
+                c.execute(taskList, storageHandler);
+                isRunning = !(c.isExit());
 
-                if (isListUpdated) {
-                    // Save data to file if list is updated
-                    storageHandler.saveData(taskList);
-                }
             } catch (UwunzheException e) {
                 UwunzheException.printException(e);
             }
         }
 
         // Close the scanner at the end of the program
-        UserInput.closeScanner();
+        ui.closeScanner();
     }
 
     /**
@@ -70,7 +61,7 @@ public class Uwunzhe {
      * @param args
      */
     public static void main(String[] args) {
-        Printer.printInitMsg();
+        ui.printInitMsg();
 
         boolean isInit = init();
         if (isInit) {
@@ -78,6 +69,6 @@ public class Uwunzhe {
             loop();
         }
 
-        Printer.printExitMsg();
+        ui.printExitMsg();
     }
 }

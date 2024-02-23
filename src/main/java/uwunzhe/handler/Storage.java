@@ -14,7 +14,7 @@ import uwunzhe.tasks.Deadline;
 import uwunzhe.tasks.Event;
 import uwunzhe.exceptions.UwunzheException;
 
-public class StorageHandler {
+public class Storage {
     private static File storage;
     private final static String STORAGE_FOLDER_PATH = "./data";
     private final static String STORAGE_PATH = STORAGE_FOLDER_PATH + "/uwunzhe.txt";
@@ -25,7 +25,7 @@ public class StorageHandler {
      * 
      * @param taskList The list of tasks to be updated.
      */
-    public StorageHandler(TaskList taskList) throws UwunzheException {
+    public Storage(TaskList taskList) throws UwunzheException {
         // Create data folder if it does not exist
         if (!new File(STORAGE_FOLDER_PATH).exists()) {
             new File(STORAGE_FOLDER_PATH).mkdir();

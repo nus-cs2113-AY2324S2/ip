@@ -2,9 +2,29 @@ package uwunzhe.util;
 
 import java.util.Scanner;
 
-public final class UserInput {
+public final class Ui {
     // Scanner object to get user input
-    private static Scanner sc = new Scanner(System.in);    
+    private Scanner sc = new Scanner(System.in);
+
+    /**
+     * Prints logo and welcome message.
+     * 
+     * @param None
+     * @return None
+     */
+    public void printInitMsg() {
+        Printer.printInitMsg();
+    }
+
+    /**
+     * Prints exit message.
+     * 
+     * @param None
+     * @return None
+     */
+    public void printExitMsg() {
+        Printer.printExitMsg();
+    }
 
     /**
      * Gets user input.
@@ -12,10 +32,10 @@ public final class UserInput {
      * @param None
      * @return The user input.
      */
-    public static String getInput() {
+    public String getInput() {
         Printer.addLineBreak();
         System.out.print(": ");
-        String input = sc.nextLine();
+        String input = this.sc.nextLine();
         Printer.addLineBreak();
         return input;
     }
@@ -27,7 +47,7 @@ public final class UserInput {
      * @param leadingString The string to print before the user input.
      * @return The user input.
      */
-    public static String getInput(String leadingString) {
+    public String getInput(String leadingString) {
         Printer.addLineBreak();
         System.out.print(leadingString);
         String input = sc.nextLine();
@@ -41,7 +61,7 @@ public final class UserInput {
      * @param None
      * @return None
      */
-    public static void closeScanner() {
-        sc.close();
+    public void closeScanner() {
+        this.sc.close();
     }
 }
