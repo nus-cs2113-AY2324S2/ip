@@ -1,5 +1,6 @@
-T | true |  trial test
-T | false | write in salmon
-D | true | DEFAU | DEFAULT
-E | false | break danc | tonigh | tomorrow
-E | true | imma cr | tonigh | tomorrow
+T | false | todo task
+T | true | todo task 2
+D | false | this1 | tomorrow
+D | true | this2 | tomorrow
+E | false | huhh | c | d
+E | true | imma cry | c | d

@@ -63,7 +63,7 @@ public class DeadlineTask extends Task{
         int spaceAfterIsDone = s.indexOf(' ', firstSlash + 2);
 
         String isDoneStatus = s.substring(firstSlash + 2, spaceAfterIsDone);
-        String description = s.substring(secondSlash + 2, thirdSlash - 2);
+        String description = s.substring(secondSlash + 2, thirdSlash - 1);
         String deadline = s.substring(thirdSlash + 2);
 
         this.setBoolean(Boolean.parseBoolean(isDoneStatus));

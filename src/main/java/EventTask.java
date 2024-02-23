@@ -72,8 +72,8 @@ public class EventTask extends Task{
         int spaceAfterIsDone = s.indexOf(' ', firstSlash + 2);
 
         String isDoneStatus = s.substring(firstSlash + 2, spaceAfterIsDone);
-        String description = s.substring(secondSlash + 2, thirdSlash - 2);
-        String eventStart = s.substring(thirdSlash + 2, fourthSlash - 2);
+        String description = s.substring(secondSlash + 2, thirdSlash - 1);
+        String eventStart = s.substring(thirdSlash + 2, fourthSlash - 1);
         String eventEnd = s.substring(fourthSlash + 2);
 
         this.setBoolean(Boolean.parseBoolean(isDoneStatus));
