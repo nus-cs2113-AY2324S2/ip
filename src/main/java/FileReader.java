@@ -53,7 +53,7 @@ public class FileReader {
     public void createNewFile() throws DirectoryCannotBeMadeException, IOException {
         boolean isDirMade = false;
         boolean isFileMade = false;
-        File directory = new File("../../../data");
+        File directory = new File("./data");
         if (!directory.exists()) {
             isDirMade = directory.mkdir();
         }
