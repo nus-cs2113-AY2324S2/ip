@@ -1,16 +1,16 @@
 package uwunzhe;
 
-import uwunzhe.util.Printer;
-import uwunzhe.util.UserInput;
+import uwunzhe.util.Ui;
 import uwunzhe.util.TaskList;
 import uwunzhe.exceptions.UwunzheException;
-import uwunzhe.handler.InputHandler;
-import uwunzhe.handler.StorageHandler;
+import uwunzhe.handler.Parser;
+import uwunzhe.handler.Storage;
 
 public class Uwunzhe {
     private static final TaskList taskList = new TaskList();
-    private static InputHandler inputHandler;
-    private static StorageHandler storageHandler;
+    private static Parser inputHandler;
+    private static Storage storageHandler;
+    private static final Ui ui = new Ui();
 
     /**
      * Initializes the necessary handlers.
@@ -20,8 +20,8 @@ public class Uwunzhe {
      */
     public static boolean init() {
         try {
-            inputHandler = new InputHandler(taskList);
-            storageHandler = new StorageHandler(taskList);
+            inputHandler = new Parser(taskList);
+            storageHandler = new Storage(taskList);
             return true; // init successful
         } catch (UwunzheException e) {
             UwunzheException.printException(e);
@@ -42,7 +42,7 @@ public class Uwunzhe {
         while (isRunning) {
             try {
                 isListUpdated = false;
-                String input = UserInput.getInput();
+                String input = ui.getInput();
                 
                 if (input.toLowerCase().equals("bye")) {
                     // Exit loop if input is "bye"
@@ -61,7 +61,7 @@ public class Uwunzhe {
         }
 
         // Close the scanner at the end of the program
-        UserInput.closeScanner();
+        ui.closeScanner();
     }
 
     /**
@@ -70,7 +70,7 @@ public class Uwunzhe {
      * @param args
      */
     public static void main(String[] args) {
-        Printer.printInitMsg();
+        ui.printInitMsg();
 
         boolean isInit = init();
         if (isInit) {
@@ -78,6 +78,6 @@ public class Uwunzhe {
             loop();
         }
 
-        Printer.printExitMsg();
+        ui.printExitMsg();
     }
 }

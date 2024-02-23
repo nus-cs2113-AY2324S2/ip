@@ -3,7 +3,7 @@ package uwunzhe.handler;
 import uwunzhe.exceptions.UwunzheException;
 import uwunzhe.util.TaskList;
 
-public class InputHandler {
+public class Parser {
     private TaskList taskList;
 
     /**
@@ -11,7 +11,7 @@ public class InputHandler {
      * 
      * @param taskList
      */
-    public InputHandler(TaskList taskList) {
+    public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
