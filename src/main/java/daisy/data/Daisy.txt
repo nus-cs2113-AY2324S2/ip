@@ -1,4 +1,2 @@
-D,0,dohomework,4pm
-E,0,running,8pm,12am
-T,1,eat dinner
-T,0,gohome
+E,0,Jingyu attend CS2113 lecture Friday 23 Feb 2024,4,6pm
+D,0,Jingyu Submit UG draft,today 2359
