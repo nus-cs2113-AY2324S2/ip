@@ -1,19 +1,17 @@
 package burger;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import burger.list.List;
 
-import static burger.BurgerFileClass.*;
-
-public class Burger {
+public class
+{
     static final String CHATBOT_NAME = "Burger";
     static final String HORIZONTAL_LINE = "---------------------------------";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         welcomeMessage();
-        List myList = getSaveFile();
+        List myList = new List();
         Scanner input = new Scanner(System.in);
         boolean isPolling = true;
         while (isPolling) {
@@ -34,7 +32,7 @@ public class Burger {
                 }
             }
         }
-        goodbye(myList);
+        goodbye();
     }
 
     private static void welcomeMessage() {
@@ -57,9 +55,7 @@ public class Burger {
         printLine();
     }
 
-    public static void goodbye(List currList) throws IOException {
-        System.out.print("Saving file");
-        setSaveFile(PATHNAME, currList);
+    public static void goodbye() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
