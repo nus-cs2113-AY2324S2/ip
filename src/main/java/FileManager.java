@@ -3,8 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
-
 
 public class FileManager {
     private final String fileName = "C:\\Users\\koala\\OneDrive - National University of Singapore\\" +
@@ -25,14 +23,16 @@ public class FileManager {
                 }
                 fileWriter.write("\n");
             }
-            System.out.println("Tasks saved successfully!");
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 
     private static String taskStatus(Task task) {
-        return task.isDone() ? "1" : "0";
+        if (task.isDone()) {
+            return "1";
+        }
+        return "0";
     }
 
     public void loadTasksFromFile(TaskList taskList) {
@@ -56,7 +56,7 @@ public class FileManager {
                         if (deadlineParts.length == 2) {
                             task = new Deadline(deadlineParts[0], deadlineParts[1]);
                         } else {
-                            System.out.println("Invalid deadline format in file: " + line);
+                            printInvalidFormatWarning(line);
                         }
                         break;
                     case "E":
@@ -66,10 +66,10 @@ public class FileManager {
                             if (endDateParts.length == 2) {
                                 task = new Events(eventParts[0], endDateParts[0], endDateParts[1]);
                             } else {
-                                System.out.println("Invalid event format in file: " + line);
+                                printInvalidFormatWarning(line);
                             }
                         } else {
-                            System.out.println("Invalid event format in file: " + line);
+                            printInvalidFormatWarning(line);
                         }
                         break;
                     default:
@@ -80,16 +80,20 @@ public class FileManager {
                         if (isDone) {
                             task.markTask();
                         }
-                        taskList.addTask(task);
+                        taskList.addTask(task, false);
                     }
                 } else {
-                    System.out.println("Invalid line format in file: " + line);
+                    printInvalidFormatWarning(line);
                 }
             }
             System.out.println("Tasks loaded successfully!");
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         }
+    }
+
+    private static void printInvalidFormatWarning(String line) {
+        System.out.println("Invalid format in file: " + line);
     }
 
 }

@@ -41,13 +41,13 @@ public class TaskList {
 
             switch (taskType) {
             case "todo":
-                addTask(new Task(commandParts[1]));
+                addTask(new Task(commandParts[1]), true);
                 break;
             case "deadline":
-                addDeadlineTask(commandParts);
+                addDeadlineTask(commandParts, true);
                 break;
             case "event":
-                addEvent(commandParts);
+                addEvent(commandParts, true);
                 break;
             case "mark":
                 markTask(commandParts);
@@ -72,12 +72,12 @@ public class TaskList {
      * @param commandParts user command to handle
      *
      **/
-    public void addDeadlineTask(String[] commandParts) {
+    public void addDeadlineTask(String[] commandParts, boolean userAdded) {
         String[] deadlineParts = commandParts[1].split("/by", 2);
         if (deadlineParts.length != 2) {
             System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
         } else {
-            addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+            addTask(new Deadline(deadlineParts[0], deadlineParts[1]), userAdded);
         }
     }
 
@@ -87,7 +87,7 @@ public class TaskList {
      * @param commandParts user command to handle
      *
      **/
-    public void addEvent(String[] commandParts) {
+    public void addEvent(String[] commandParts, boolean userAdded) {
         String[] eventparts = commandParts[1].split("/from", 2);
         if (eventparts.length != 2) {
             System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
@@ -97,7 +97,7 @@ public class TaskList {
                 System.out.println("☹ OOPS!!! Invalid event format. " +
                         "Use 'event <description> /from <start date/time> /to <end date/time>'.");
             } else {
-                addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]));
+                addTask(new Events(eventparts[0], endDateParts[0], endDateParts[1]), userAdded );
             }
         }
     }
@@ -135,13 +135,15 @@ public class TaskList {
      *
      * @param task input given by user
      */
-    public void addTask(Task task) {
+    public void addTask(Task task, boolean userAdded) {
         try {
             if (taskCount < taskList.length) {
                 taskList[taskCount] = task;
                 taskCount += 1;
                 taskFileManager.saveTasksToFile(this);
-                System.out.println("added: " + task);
+                if (userAdded) {
+                    System.out.println("added: " + task);
+                }
             } else {
                 throw new TaskListFullException("TaskList if full");
             }
