@@ -8,7 +8,7 @@ public abstract class Command {
     protected TaskList taskList;
     
     Command(TaskList taskList) {
-        canExecute = false;
+        this.canExecute = false;
         this.taskList = taskList;
     }
     public abstract void execute();

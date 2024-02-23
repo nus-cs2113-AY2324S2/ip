@@ -7,6 +7,7 @@ public class Parser {
     private static final String EXIT_COMMAND = "exit";
     private static final String BYE_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
+    private static final String FIND_COMMAND = "find";
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
@@ -65,6 +66,8 @@ public class Parser {
         case BYE_COMMAND:
             exit();
             return null;
+        case FIND_COMMAND:
+            return new FindCommand(taskList, this.arguments);
         case LIST_COMMAND:
             return new ListCommand(taskList);
         case TODO_COMMAND:

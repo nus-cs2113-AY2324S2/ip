@@ -26,6 +26,7 @@ public class Ui {
     private static final String MARK_TASK_COMMAND_FORMAT = "mark <task index>";
     private static final String UNMARK_TASK_COMMAND_FORMAT = "unmark <task index>";
     private static final String DELETE_TASK_COMMAND_FORMAT = "delete <task index>";
+    private static final String FIND_TASK_COMMAND_FORMAT = "find <keyword>";
     
     private static final String INVALID_COMMAND_ERROR = "Invalid command. Please try again.";
     private static final String EMPTY_ARGUMENT_ERROR = "Empty or whitespace-only fields are not allowed.";
@@ -123,5 +124,10 @@ public class Ui {
     public static void printDeleteCommandUsage() {
         System.out.println("Command to delete task:");
         System.out.println(DELETE_TASK_COMMAND_FORMAT);
+    }
+    
+    public static void printFindCommandUsage() {
+        System.out.println("Command to find tasks:");
+        System.out.println(FIND_TASK_COMMAND_FORMAT);
     }
 }
