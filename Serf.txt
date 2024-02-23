@@ -1,0 +1,4 @@
+todo run
+todo sleep
+deadline ee2026 /by tmr
+event sleep /from 3pm /by 5pm

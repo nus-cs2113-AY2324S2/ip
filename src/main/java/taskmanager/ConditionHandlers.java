@@ -88,10 +88,9 @@ public class ConditionHandlers {
                     taskCounter);
             return taskCounter;
         } catch (InvalidInputException e) {
-        Messages.typoErrorMessage();
-        return taskCounter;
+            Messages.typoErrorMessage();
+            return taskCounter;
         }
-
     }
     public static int addDeadlineTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
@@ -228,4 +227,5 @@ public class ConditionHandlers {
             return taskCounter;
         }
     }
+
 }
