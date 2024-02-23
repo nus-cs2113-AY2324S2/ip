@@ -8,10 +8,12 @@ import helpy.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Helpy {
+    public static String filePath = "data/helpy.txt";
     public static ArrayList<Task> taskList = new ArrayList<>();
     public static final String HORIZONTAL_LINE = "______________________\n";
     public static final String name =
@@ -144,26 +146,38 @@ public class Helpy {
             try {
                 Todo newTodo = new Todo(command);
                 taskList.add(newTodo);
+                newTodo.saveToFile(filePath);
             } catch (IllegalDescriptionException e) {
                 printMessage("Your todo description is empty!");
+                return;
+            } catch (IOException e) {
+                printMessage("Error when attempting to write task to file");
                 return;
             }
         } else if (command.startsWith("deadline")) {
             try {
                 Deadline newDeadline = new Deadline(command);
                 taskList.add(newDeadline);
+                newDeadline.saveToFile(filePath);
             } catch (ArrayIndexOutOfBoundsException e) {
                 printMessage("Invalid format for deadline! Make sure it follows: " +
                         "deadline <description> /by <date>");
+                return;
+            } catch (IOException e) {
+                printMessage("Error when attempting to write task to file");
                 return;
             }
         } else if (command.startsWith("event")) {
             try {
                 Event newEvent = new Event(command);
                 taskList.add(newEvent);
+                newEvent.saveToFile(filePath);
             } catch (ArrayIndexOutOfBoundsException e) {
                 printMessage("Invalid format for event! Make sure it's in this format: " +
                         "event <description> /from <start date> /to <end date>");
+                return;
+            } catch (IOException e) {
+                printMessage("Error when attempting to write task to file");
                 return;
             }
         } else {
@@ -176,7 +190,6 @@ public class Helpy {
 
     public static void main(String[] args) {
         boolean isNewUser = false;
-        String filePath = "data/helpy.txt";
         try {
             loadTasks(filePath);
         } catch (FileNotFoundException e) {
