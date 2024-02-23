@@ -1,14 +1,20 @@
 package tasks;
 
+import java.util.HashSet;
+import java.util.List;
+
 public abstract class Task {
     protected final String taskName;
     private boolean isCompleted;
+    protected final HashSet<String> wordsInTaskName;
 
     public static final String IS_COMPLETED_STRING = "---IS_COMPLETED---";
 
     public Task(String taskName, boolean isCompleted) {
         this.taskName = taskName;
         this.isCompleted = isCompleted;
+        String[] wordsInTaskName = taskName.split(" ");
+        this.wordsInTaskName = new HashSet<>(List.of(wordsInTaskName));
     }
 
     protected String getIsCompletedString() {
@@ -35,6 +41,16 @@ public abstract class Task {
         }
         System.out.println("  " + this);
     }
+
+    public boolean hasKeywords(String[] keywordsToFind) {
+        for (String keywordToFind : keywordsToFind) {
+            if (this.wordsInTaskName.contains(keywordToFind)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public abstract String getStringRepresentation();
 }

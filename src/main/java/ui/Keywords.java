@@ -12,6 +12,7 @@ public class Keywords {
     public static final String DELETE = "delete";
     public static final String MARK = "mark";
     public static final String UNMARK = "unmark";
+    public static final String FIND = "find";
 
     public static int getExpectedInputSize(String keyword) {
         switch (keyword) {
