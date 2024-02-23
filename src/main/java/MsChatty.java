@@ -5,7 +5,7 @@ public class MsChatty {
     public static void printTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print((i+1) + ".");
+            System.out.print((i + 1) + ".");
             tasks.get(i).printTask();
         }
     }
@@ -40,27 +40,27 @@ public class MsChatty {
         }
     }
 
-    public static void handleTodoDeadlineAndEvent(String userCommand, int taskCount, String[] arrayOfCommand, ArrayList<Task> tasks) {
+    public static void handleTodoDeadlineAndEvent(String userCommand, String[] arrayOfCommand, ArrayList<Task> tasks) {
         if (userCommand.startsWith("todo")) {
             arrayOfCommand = userCommand.split(" ", 2);
-            Todo todo =  new Todo(arrayOfCommand[1]);
+            Todo todo = new Todo(arrayOfCommand[1]);
             tasks.add(todo);
         }
 
         if (userCommand.startsWith("deadline")) {
             arrayOfCommand = userCommand.split("deadline | /by");
-            Deadline deadline =  new Deadline(arrayOfCommand[1], arrayOfCommand[2]);
+            Deadline deadline = new Deadline(arrayOfCommand[1], arrayOfCommand[2]);
             tasks.add(deadline);
         }
 
         if (userCommand.startsWith("event")) {
             arrayOfCommand = userCommand.split("event | /from | /to ");
-            Event event =  new Event(arrayOfCommand[1], arrayOfCommand[2],arrayOfCommand[3]);
+            Event event = new Event(arrayOfCommand[1], arrayOfCommand[2], arrayOfCommand[3]);
             tasks.add(event);
         }
 
         System.out.println("Got it. I've added this task:");
-        tasks.get(taskCount).printTask();
+        tasks.get(tasks.size() - 1).printTask();
     }
 
     public static void removeTask(ArrayList<Task> tasks, int taskNumber) {
@@ -68,10 +68,9 @@ public class MsChatty {
         tasks.get(taskNumber).printTask();
         tasks.remove(taskNumber);
     }
-    public static void handleCommand(String userCommand) {
-        ArrayList<Task> tasks = new ArrayList<>();
+
+    public static void handleCommand(String userCommand, ArrayList<Task> tasks) {
         String[] arrayOfCommand = new String[4];
-        int taskCount = 0;
         Scanner in = new Scanner(System.in);
 
         while (!userCommand.equals("bye")) {
@@ -83,35 +82,23 @@ public class MsChatty {
                     userCommand = in.nextLine();
                     break;
                 case "unmark":
-                    handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, taskCount);
+                    handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, tasks.size());
                     userCommand = in.nextLine();
                     break;
                 case "mark":
-                    handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, taskCount);
+                    handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, tasks.size());
                     userCommand = in.nextLine();
                     break;
                 case "delete":
-                    removeTask(tasks, Integer.parseInt(words[1])-1);
-                    taskCount--;
-                    System.out.println("Now you have " + taskCount + " task(s) in the list.");
+                    removeTask(tasks, Integer.parseInt(words[1]) - 1);
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     userCommand = in.nextLine();
                     break;
                 case "todo":
-                    handleTodoDeadlineAndEvent(userCommand, taskCount, arrayOfCommand, tasks);
-                    taskCount++;
-                    System.out.println("Now you have " + taskCount + " task(s) in the list.");
-                    userCommand = in.nextLine();
-                    break;
                 case "deadline":
-                    handleTodoDeadlineAndEvent(userCommand, taskCount, arrayOfCommand, tasks);
-                    taskCount++;
-                    System.out.println("Now you have " + taskCount + " task(s) in the list.");
-                    userCommand = in.nextLine();
-                    break;
                 case "event":
-                    handleTodoDeadlineAndEvent(userCommand, taskCount, arrayOfCommand, tasks);
-                    taskCount++;
-                    System.out.println("Now you have " + taskCount + " task(s) in the list.");
+                    handleTodoDeadlineAndEvent(userCommand, arrayOfCommand, tasks);
+                    System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     userCommand = in.nextLine();
                     break;
                 default:
@@ -141,6 +128,9 @@ public class MsChatty {
                 }
             }
         }
+
+        FileSaver.saveTasksToFile(tasks);
+        System.out.println("Tasks saved successfully.");
         System.out.println("Bye! Hope to see you again :)");
     }
 
@@ -148,8 +138,9 @@ public class MsChatty {
         System.out.println("Hello! I'm Ms Chatty :)");
         System.out.println("What can I do for you?");
 
+        ArrayList<Task> tasks = FileSaver.loadTasksFromFile();
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
-        handleCommand(userCommand);
+        handleCommand(userCommand, tasks);
     }
 }
