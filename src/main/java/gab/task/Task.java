@@ -103,7 +103,7 @@ public class Task {
         case "[E]":
             String eventDates = savedArray[3];
             String[] eventArray = eventDates.split(" to: ");
-            String[] eventFromArray = eventArray[0].split(" ");
+            String[] eventFromArray = eventArray[0].split(" ", 2);
             String startDate = eventFromArray[1];
             String endDate = eventArray[1];
             task = new Event(taskName, startDate, endDate);

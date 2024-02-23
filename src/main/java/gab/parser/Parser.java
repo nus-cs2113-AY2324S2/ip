@@ -25,7 +25,7 @@ public class Parser {
         if (task.length() <= TODO_START_INDEX) {
             throw new GabException("Incomplete input! Correct usage: todo [Task name]");
         }
-        String[] taskArray = task.split(" ", 2);
+        String[] taskArray = task.trim().split("\\s+", 2);
         if (taskArray.length < 2) {
             throw new GabException("Todo task is empty! Correct usage: todo [task name]");
         }
@@ -74,7 +74,7 @@ public class Parser {
             throw new GabException("Incomplete input! Correct usage: event [Event name] /from [Start date] /to [End date]");
         }
 
-        String eventSubstring = task.trim().substring(EVENT_START_INDEX);
+        String eventSubstring = task.substring(EVENT_START_INDEX);
         String[] eventArray = eventSubstring.split(" /from", 2); // Limit split to 2 parts
 
         if (eventArray.length < 2) {
@@ -92,6 +92,25 @@ public class Parser {
         String endDate = eventTimeArray[1].trim();
 
         return new EventCommand(eventName, startDate, endDate);
+    }
+
+    public static Command listTask(String taskDescription) throws GabException {
+        String[] task = taskDescription.trim().split("\\s+");
+
+        if (task.length > 1) {
+            throw new GabException("Incorrect usage! Correct usage: list");
+        }
+
+        return new ListCommand();
+    }
+
+    public static Command exitBot (String taskDescription) throws GabException {
+        String[] task = taskDescription.trim().split("\\s+");
+
+        if (task.length > 1) {
+            throw new GabException("Incorrect usage! Correct usage: bye");
+        }
+        return new ByeCommand();
     }
 
     /**

@@ -25,10 +25,10 @@ public class CommandHandler {
 
         switch (action) {
         case "bye": {
-            return new ByeCommand();
+            return Parser.exitBot(task);
         }
         case "list": {
-            return new ListCommand();
+            return Parser.listTask(task);
         }
         case "todo": {
             return Parser.parseToDo(task);
