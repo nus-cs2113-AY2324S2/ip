@@ -91,21 +91,21 @@ public class Sam {
                     numItems++;
                     saveTasksToFile(records, numItems);
                     break;
-                    case "delete":
-                        // Deleting a task
-                        listIndex = Integer.parseInt(words[1]) - 1;
-                        if (listIndex < 0 || listIndex >= numItems) {
-                            System.out.println("That was outta range. Use list to see the current tasks.");
-                        } else {
-                            System.out.println("Noted. I've removed this task:\n" + records[listIndex]);
-                            // Shift remaining tasks to fill the gap
-                            for (int i = listIndex; i < numItems - 1; i++) {
-                                records[i] = records[i + 1];
-                            }
-                            numItems--;
-                            System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
+                case "delete":
+                    // Deleting a task
+                    listIndex = Integer.parseInt(words[1]) - 1;
+                    if (listIndex < 0 || listIndex >= numItems) {
+                        System.out.println("That was outta range. Use list to see the current tasks.");
+                    } else {
+                        System.out.println("Noted. I've removed this task:\n" + records[listIndex]);
+                        // Shift remaining tasks to fill the gap
+                        for (int i = listIndex; i < numItems - 1; i++) {
+                            records[i] = records[i + 1];
                         }
-                        break;
+                        numItems--;
+                        System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
+                    }
+                    break;
                 default:
                     // Invalid command
                     System.out.println("No valid command detected, please try again.");
