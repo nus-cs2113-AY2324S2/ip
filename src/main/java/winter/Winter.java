@@ -33,7 +33,6 @@ public class Winter {
                 System.out.println("Cannot add task");
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
             try {
                 Manager.acceptInput();
             } catch(IOException e2) {
