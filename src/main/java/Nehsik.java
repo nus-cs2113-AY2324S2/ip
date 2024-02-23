@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Nehsik {
     public static final int MARK_TASK_INDEX = 5;
     public static final int UNMARK_TASK_INDEX = 7;
+    public static final int DELETE_TASK_INDEX = 7;
     public static final int TODO_DESCRIPTION_POSITION = 5;
 
 
@@ -30,6 +31,8 @@ public class Nehsik {
                 } else if (command.startsWith("event")) {
                     addEventTask(command, taskList);
                     acknowledgeTaskAdded(taskList);
+                } else if (command.startsWith("delete")) {
+                    deleteTask(command, taskList);
                 } else if (command.equals("bye")) {
                     displayExitMessage();
                     break;
@@ -140,6 +143,24 @@ public class Nehsik {
         String to = command.substring(toStringPosition).trim();
 
         taskList.add(new Event(taskDescription, from, to));
+    }
+
+    private static void deleteTask(String command, ArrayList<Task> taskList) throws NehsikException {
+        if (command.length() < DELETE_TASK_INDEX) {
+            throw new NehsikException("Please mention the task number you would like to delete");
+        }
+        int taskNum = Integer.parseInt(command.substring(DELETE_TASK_INDEX)) - 1;
+        int taskListSize = taskList.size();
+        if (taskNum >= taskListSize || taskNum < 0) {
+            throw new NehsikException("Please enter a valid task number. There are " + taskListSize + " tasks in the list");
+        }
+
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + taskList.get(taskNum).toString());
+        taskList.remove(taskNum);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list");
+        printLine();
     }
 
     private static void acknowledgeTaskAdded(ArrayList<Task> taskList) {
