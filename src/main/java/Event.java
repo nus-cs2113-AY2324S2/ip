@@ -16,4 +16,8 @@ public class Event extends Task {
         return "[E]" + getStatusIcon() + description + " (" + start + " to " + end + ")";
     }
 
+    @Override
+    public String saveTask() {
+        return "E | " + (this.isDone ? "1" : "0") + " | " + description + " | " + start + " | " + end;
+    }
 }

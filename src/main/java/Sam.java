@@ -1,7 +1,16 @@
+import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Sam {
+    private static final String FILE_PATH = "data/sam.txt";
+
     public static void main(String[] args) {
+        // Load tasks from file when the program starts up
+        Task[] records = loadTasksFromFile();
+        int numItems = countTasks(records);
+
         // Printing the logo and greeting message
         String logo = "  _________   _____      _____   \n" +
                 " /   _____/  /  _  \\    /     \\  \n" +
@@ -11,13 +20,17 @@ public class Sam {
                 "        \\/         \\/         \\/ ";
         System.out.println("Hello! I'm SAM\n" + logo + "\n" + "What can I do for you?\n");
 
+        System.out.println("Here's what you got saved:");
+        for (int j = 0; j < numItems; j++) {
+            System.out.println((j + 1) + "." + records[j]);
+        }
+        printLine();
+
         // Initializing scanner to read user input
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
 
         // Array to store tasks
-        Task[] records = new Task[100];
-        int numItems = 0; // Number of tasks
         int listIndex; // Index for tasks
 
         // Main loop
@@ -39,23 +52,25 @@ public class Sam {
                     // Marking a task as done
                     listIndex = Integer.parseInt(words[1]) - 1;
                     markCheck(listIndex, numItems);
-                    records[listIndex].isDone = true;
+                    records[listIndex].setStatus(true);
                     System.out.println("Nice! I've marked this task as done:\n" + records[listIndex]);
+                    saveTasksToFile(records, numItems);
                     break;
                 case "unmark":
                     // Marking a task as not done
                     listIndex = Integer.parseInt(words[1]) - 1;
                     markCheck(listIndex, numItems);
-                    records[listIndex].isDone = false;
+                    records[listIndex].setStatus(false);
                     System.out.println("OK, I've marked this task as not done yet:\n" + records[listIndex]);
-                    throw new InvalidInputException();
-                    //break;
+                    saveTasksToFile(records, numItems);
+                    break;
                 case "todo":
                     // Adding a new todo task
                     String todoDescription = line.substring(5); // Extracting description
                     records[numItems] = new Todo(todoDescription);
                     System.out.println("Got it. I've added this task:\n" + records[numItems]);
                     numItems++;
+                    saveTasksToFile(records, numItems);
                     break;
                 case "deadline":
                     // Adding a new deadline task
@@ -64,6 +79,7 @@ public class Sam {
                     records[numItems] = new Deadline(deadlineParts[0], deadlineParts[1]);
                     System.out.println("Got it. I've added this task:\n" + records[numItems]);
                     numItems++;
+                    saveTasksToFile(records, numItems);
                     break;
 
                 case "event":
@@ -73,6 +89,7 @@ public class Sam {
                     records[numItems] = new Event(eventParts[0], eventParts[1], eventParts[2]);
                     System.out.println("Got it. I've added this task:\n" + records[numItems]);
                     numItems++;
+                    saveTasksToFile(records, numItems);
                     break;
                 default:
                     // Invalid command
@@ -110,6 +127,66 @@ public class Sam {
         // Exiting message
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
+    }
+
+    private static void saveTasksToFile(Task[] records, int numItems) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (int i = 0; i < numItems; i++) {
+                bw.write(records[i].saveTask());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Task[] loadTasksFromFile() {
+        Task[] records = new Task[100];
+        File file = new File(FILE_PATH);
+
+        // Check if the directory and file exist, create them if they don't
+        if (!file.exists()) {
+            try {
+                File directory = new File("data");
+                if (!directory.exists()) {
+                    directory.mkdir();
+                }
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating the file: " + e.getMessage());
+            }
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            int i = 0;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split(" \\| ");
+                if (words[0].equals("E")) {
+                    records[i] = new Event(words[2], words[3], words[4]);
+                } else if (words[0].equals("D")) {
+                    records[i] = new Deadline(words[2], words[3]);
+                } else if (words[0].equals("T")) {
+                    records[i] = new Todo(words[2]);
+                }
+                records[i].setStatus(words[1].equals("1"));
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return records;
+    }
+
+
+    static int countTasks(Task[] records) {
+        int numItems = 0;
+        for (Task record : records) {
+            if (record != null) {
+                numItems++;
+            }
+        }
+        return numItems;
     }
 
     private static void markCheck(int listIndex, int numItems) throws InvalidInputException {
