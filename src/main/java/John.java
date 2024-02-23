@@ -7,17 +7,19 @@ import task.Task;
 public class John {
 
     private static List<Task> taskList = new ArrayList<>();
+    public static final String LINE_BREAK = "----------------------";
 
     public static void main(String[] args) {
 
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
+        System.out.println(LINE_BREAK);
         String userInput = in.next();
 
         while (!userInput.equalsIgnoreCase("bye")) {
             UserInput.parseInput(userInput, in, taskList);
             userInput = in.next();
-            System.out.println("");
+            System.out.println(LINE_BREAK);
         }
 
         printExitMessage();

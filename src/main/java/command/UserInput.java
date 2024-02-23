@@ -1,55 +1,77 @@
 package command;
 import java.util.Scanner;
-
+import java.util.InputMismatchException;
+import java.util.List;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.util.InputMismatchException;
-import java.util.List;
 
 public class UserInput {
+
+    public final static String LIST_COMMAND = "list";
+    public final static String BYE_COMMAND = "bye";
+    public final static String MARK_COMMAND = "mark";
+    public final static String UNMARK_COMMAND = "unmark";
+    public final static String TODO_COMMAND = "todo";
+    public final static String DEADLINE_COMMAND = "deadline";
+    public final static String EVENT_COMMAND = "event";
+    public final static String DELETE_COMMAND = "delete";
+
     public static void parseInput(String input, Scanner in, List<Task> taskList) {
 
-        int taskID;
+        int taskId;
 
         switch (input.toLowerCase()) {
 
-        case "list":
+        case LIST_COMMAND:
             printLists(taskList);
             break;
 
-        case "bye":
+        case BYE_COMMAND:
             break;
 
-        case "mark":
-            taskID = in.nextInt();
-            executeMark(taskList, taskID);
-            break;
-
-        case "unmark":
+        case MARK_COMMAND:
             try {
-                taskID = in.nextInt();
-                executeUnmark(taskList, taskID);
+                taskId = in.nextInt();
+                markTask(taskList, taskId);
             } catch (InputMismatchException e) {
                 System.out.println("A number please");
             }
             break;
 
-        case "todo":
+        case UNMARK_COMMAND:
+            try {
+                taskId = in.nextInt();
+                unmarkTask(taskList, taskId);
+            } catch (InputMismatchException e) {
+                System.out.println("A number please");
+            }
+            break;
+
+        case TODO_COMMAND:
             input = in.nextLine();
             parseToDo(input, taskList);
             break;
 
-        case "deadline":
+        case DEADLINE_COMMAND:
             input = in.nextLine();
             parseDeadline(input, taskList);
             break;
 
-        case "event":
+        case EVENT_COMMAND:
             input = in.nextLine();
             parseEvent(input, taskList);
+            break;
+
+        case DELETE_COMMAND:
+            try {
+                taskId = in.nextInt();
+                deleteTask(taskId, taskList);
+            } catch (InputMismatchException e) {
+                System.out.println("A number please");
+            }
             break;
 
         default:
@@ -66,7 +88,7 @@ public class UserInput {
         }
     }
 
-    private static void executeMark(List<Task> taskList, int taskID) {
+    private static void markTask(List<Task> taskList, int taskID) {
         try {
 
             taskList.get(taskID - 1).markCompleted();
@@ -80,7 +102,7 @@ public class UserInput {
         }
     }
 
-    private static void executeUnmark(List<Task> taskList, int taskID) {
+    private static void unmarkTask(List<Task> taskList, int taskID) {
         try {
 
             taskList.get(taskID - 1).markUncompleted();
@@ -124,6 +146,17 @@ public class UserInput {
 
             System.out.println("Invalid input");
 
+        }
+    }
+
+    private static void deleteTask(int taskId, List<Task> taskList) {
+        
+        try {
+            System.out.println("Removing Task: ");
+            System.out.println(taskList.get(taskId - 1));
+            taskList.remove(taskId - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid range");
         }
     }
 
