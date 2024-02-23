@@ -1,6 +1,7 @@
 package bob;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -107,5 +108,16 @@ public class TaskList {
         System.out.println(t);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
         ui.displayHorizontalLine();
+    }
+
+    public void findTask(String line) {
+        String content;
+        content = line.split(" ", 2)[1];
+
+        List<Task> foundList = list.stream()
+                .filter(task -> task.getDescription().contains(content))
+                .collect(Collectors.toList());
+
+        ui.displayList(foundList);
     }
 }

@@ -40,6 +40,9 @@ public class Parser {
             storage.saveList(tasks.list);
             ui.displaySaveMessage(storage.FILENAME);
             break;
+        case "find":
+            tasks.findTask(line);
+            break;
         case "bye":
             storage.saveList(tasks.list);
             ui.displaySaveMessage(storage.FILENAME);
