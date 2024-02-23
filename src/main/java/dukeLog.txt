@@ -1,7 +1,0 @@
-todo 1
-todo 2
-todo 3
-todo 4
-delete 1
-delete 2
-delete 3

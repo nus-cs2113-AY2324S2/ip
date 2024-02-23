@@ -1,21 +1,17 @@
 import java.util.Scanner;
-import java.util.Arrays;
 import java.io.IOException;
-import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class Duke {
     static boolean ifExit = false; //exits program if true
-    static Task[] tasks = new Task[100]; //List of tasks
-    static int listIndex = 0; //To index through Task[] tasks
-    static int remainingTasksCounter = 0;
+    static ArrayList<Task> tasks = new ArrayList<>(); //List of tasks
 
     public static void echoTask() {
         System.out.println("--------------------------------------");
         System.out.println("Got it! I've added this task:");
-        System.out.println(tasks[listIndex]);
+        System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("--------------------------------------");
-        listIndex ++;
     }
 
     public static void printBye() {
@@ -27,16 +23,14 @@ public class Duke {
 
     public static void printList() throws IllegalShapeException {
         {
-            int printCounter = 1;
-            if (listIndex == 0) {
+            if (tasks.isEmpty()) {
                 throw new IllegalShapeException(); //Throws exception for empty list
             }
             System.out.println("--------------------------------------");
             System.out.println("Here are the tasks in your lists:");
-            for (Task item : Arrays.copyOf(tasks, listIndex)) {
-                System.out.print(printCounter + ".");
+            for (Task item : tasks) {
+                System.out.print((tasks.indexOf(item) + 1) + "."); //+ 1 as ArrayList index starts from 0
                 System.out.println(item);
-                printCounter++;
             }
             System.out.println("--------------------------------------");
         }
@@ -57,38 +51,38 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
-    public static void markTask(Task[] tasks, String line) throws IllegalShapeException {
-        if (Integer.parseInt(line.substring(5)) > listIndex || Integer.parseInt(line.substring(5)) <= 0) {
+    public static void markTask(String line) throws IllegalShapeException {
+        if (Integer.parseInt(line.substring(5)) >= tasks.size() ) {
             throw new IllegalShapeException(); //Throws exception for marking out of bounds
         }
-        tasks[Integer.parseInt(line.substring(5)) - 1].markAsDone();
+        tasks.get(Integer.parseInt(line.substring(5)) - 1).markAsDone();
         System.out.println("--------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println
-                (tasks[Integer.parseInt(line.substring(5)) - 1].getStatusIcon() + " "
-                        + tasks[Integer.parseInt(line.substring(5)) - 1].description);
+                (tasks.get(Integer.parseInt(line.substring(5)) - 1).getStatusIcon() + " "
+                        + tasks.get(Integer.parseInt(line.substring(5)) - 1).description);
         System.out.println("--------------------------------------");
     }
 
-    public static void unmarkTask(Task[] tasks, String line) throws IllegalShapeException {
-        if (Integer.parseInt(line.substring(7)) > listIndex || Integer.parseInt(line.substring(7)) <= 0) {
+    public static void unmarkTask(String line) throws IllegalShapeException {
+        if (Integer.parseInt(line.substring(7)) > tasks.size()) {
             throw new IllegalShapeException(); //Throws exception for unmarking out of bounds
         }
-        tasks[Integer.parseInt(line.substring(7)) - 1].unmarkDone();
+        tasks.get(Integer.parseInt(line.substring(7)) - 1).unmarkDone();
         System.out.println("--------------------------------------");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println
-                (tasks[Integer.parseInt(line.substring(7)) - 1].getStatusIcon() + " "
-                        + tasks[Integer.parseInt(line.substring(7)) - 1].description);
+                (tasks.get(Integer.parseInt(line.substring(7)) - 1).getStatusIcon() + " "
+                        + tasks.get(Integer.parseInt(line.substring(7)) - 1).description);
         System.out.println("--------------------------------------");
     }
 
     public static void deleteTask(int i) {
-        remainingTasksCounter ++;
         System.out.println("--------------------------------------");
         System.out.println("Noted, I have removed this task:");
-        System.out.println(tasks[i-1]);
-        System.out.println("Now you have " + (listIndex - remainingTasksCounter) + " tasks left");
+        System.out.println(tasks.get(i));
+        tasks.remove(tasks.get(i));
+        System.out.println("Now you have " + tasks.size() + " tasks left");
         System.out.println("--------------------------------------");
     }
 
@@ -98,7 +92,7 @@ public class Duke {
         fw.close();
     }
 
-    public static void performAction(Task[] tasks, String line, int listIndex) throws IllegalShapeException{
+    public static void performAction(String line) throws IllegalShapeException{
         int eventDividerPositionTo = line.indexOf("/to");
         int eventDividerPositionFrom = line.indexOf("/from");
         int deadlineDividerPositionBy = line.indexOf("/by");
@@ -122,7 +116,7 @@ public class Duke {
             break;
         case "unmark": //unmark a task
             try {
-                unmarkTask(tasks, line);
+                unmarkTask(line);
                 try {
                     writeToFile(line + System.lineSeparator());
                 } catch (IOException e){
@@ -137,7 +131,7 @@ public class Duke {
             break;
         case "mark": //marks a task as done
             try {
-                markTask(tasks, line);
+                markTask(line);
                 try {
                     writeToFile(line + System.lineSeparator());
                 } catch (IOException e){
@@ -151,7 +145,7 @@ public class Duke {
             }
             break;
         case "todo": //add a new task
-            tasks[listIndex] = new Todo(line);
+            tasks.add(new Todo(line));
             echoTask();
             try {
                 writeToFile(line + System.lineSeparator());
@@ -161,7 +155,7 @@ public class Duke {
 
             break;
         case "event": //add a new event task
-            tasks[listIndex] = new Event(line.substring(0, eventDividerPositionFrom).trim(), line.substring(eventDividerPositionFrom + 5,eventDividerPositionTo).trim(), line.substring(eventDividerPositionTo + 3).trim());
+            tasks.add(new Event(line.substring(0, eventDividerPositionFrom).trim(), line.substring(eventDividerPositionFrom + 5,eventDividerPositionTo).trim(), line.substring(eventDividerPositionTo + 3).trim()));
             echoTask();
             try {
                 writeToFile(line + System.lineSeparator());
@@ -171,7 +165,7 @@ public class Duke {
 
             break;
         case "deadline": //add a new deadline task
-            tasks[listIndex] = new Deadline(line.substring(0, deadlineDividerPositionBy).trim(), line.substring(deadlineDividerPositionBy + 3).trim());
+            tasks.add(new Deadline(line.substring(0, deadlineDividerPositionBy).trim(), line.substring(deadlineDividerPositionBy + 3).trim()));
             echoTask();
             try {
                 writeToFile(line + System.lineSeparator());
@@ -181,7 +175,7 @@ public class Duke {
 
             break;
         case "delete":
-            deleteTask(Integer.parseInt(line.substring(7)));
+            deleteTask(Integer.parseInt(line.substring(7)) - 1);
             try {
                 writeToFile(line + System.lineSeparator());
             } catch (IOException e){
@@ -203,7 +197,7 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
             try {
-                performAction(tasks, line, listIndex); //Executes an action based on first word of command in String line
+                performAction(line); //Executes an action based on first word of command in String line
             } catch (IllegalShapeException e) {
                 System.out.println("--------------------------------------");
                 System.out.println("Your input is empty!");
