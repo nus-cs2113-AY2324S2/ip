@@ -12,7 +12,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import static allez.Allez.LIST_SIZE;
 
 public class SaveManager {
     private File dataFile;
@@ -39,8 +38,8 @@ public class SaveManager {
         }
     }
 
-    public Task[] loadSave(){
-        Task[] tasks = new Task[LIST_SIZE];
+    public ArrayList<Task> loadSave(){
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             ArrayList<String> dataStored = readFile();
             tasks = parse(dataStored);
@@ -50,8 +49,8 @@ public class SaveManager {
         return tasks;
     }
 
-    private Task[] parse(ArrayList<String> dataStored) {
-        Task[] tasks = new Task[LIST_SIZE];
+    private ArrayList<Task> parse(ArrayList<String> dataStored) {
+        ArrayList<Task> tasks = new ArrayList<>();
         if(dataStored == null) {
             return tasks;
         }
@@ -61,20 +60,20 @@ public class SaveManager {
 
             switch(lineSegment[0]){
             case "T":
-                tasks[count] = new ToDo(lineSegment[2]);
+                tasks.add(new ToDo(lineSegment[2]));
                 break;
             case "D":
-                tasks[count] = new Deadline(lineSegment[2], lineSegment[3]);
+                tasks.add(new Deadline(lineSegment[2], lineSegment[3]));
                 break;
             case "E":
-                tasks[count] = new Event(lineSegment[2], lineSegment[3], lineSegment[4]);
+                tasks.add(new Event(lineSegment[2], lineSegment[3], lineSegment[4]));
                 break;
             default:
                 continue;
             }
 
             if(lineSegment[1].equals("[X]")) {
-                tasks[count].markDone();
+                tasks.get(count).markDone();
             }
             count += 1;
         }
@@ -90,7 +89,7 @@ public class SaveManager {
                 .readAllLines(dataFile.toPath(), Charset.defaultCharset());
     }
 
-    public void writeSave(Task[] tasks) {
+    public void writeSave(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(dataFile);
             for(Task t: tasks) {
