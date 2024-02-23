@@ -37,11 +37,15 @@ public class Allez {
         boolean hasEnded = false;
 
         printGreeting();
+        SaveManager saveManager = new SaveManager("./data/data.txt");
+        tasks = saveManager.loadSave();
+        taskCount = Task.getNumberOfTasks();
 
         while(!hasEnded) {
             hasEnded = executeCommands();
         }
 
+        saveManager.writeSave(tasks);
         printExit();
     }
 
@@ -202,5 +206,9 @@ public class Allez {
         System.out.println("Hello! I'm Allez");
         System.out.println("What can I do for you?");
         System.out.println("_________________________");
+    }
+
+    private static void loadSavedFile() {
+
     }
 }
