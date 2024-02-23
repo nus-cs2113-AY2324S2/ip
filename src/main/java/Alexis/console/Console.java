@@ -118,7 +118,7 @@ public class Console {
 
     private static void printDeletedTaskToConsole(TaskList tasks, String line) {
         System.out.println(Console.LINE_BREAK);
-        tasks.deleteTask(line);
+        tasks.deleteFromTaskList(line);
         System.out.println(Console.LINE_BREAK);
     }
 

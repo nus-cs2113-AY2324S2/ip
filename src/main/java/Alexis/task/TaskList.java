@@ -48,32 +48,46 @@ public class TaskList {
             break;
         }
     }
-    
+
     public void markTask(String input) {
-        int number = extractInt(input);
-        if (number > 0 && number <= tasks.size()) {
-            Task task = tasks.get(number - 1);
-            task.markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.print("\t");
-            printTask(task, -1);
+        Integer number = extractInt(input);
+        if (isNotValid(number)) {
+            return;
         }
+        Task task = tasks.get(number - 1);
+        task.markAsDone();
+        System.out.println(Console.MARK_DONE_MESSAGE);
+        System.out.print("\t");
+        printTask(task, -1);
     }
 
     public void unmarkTask(String input) {
-        int number = extractInt(input);
-        if (number > 0 && number <= tasks.size()) {
-            Task task = tasks.get(number - 1);
-            task.markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.print("\t");
-            printTask(task, -1);
+        Integer number = extractInt(input);
+        if (isNotValid(number)) {
+            return;
         }
+        Task task = tasks.get(number - 1);
+        task.markAsNotDone();
+        System.out.println(Console.MARK_UNDONE_MESSAGE);
+        System.out.print("\t");
+        printTask(task, -1);
+    }
+
+    private boolean isNotValid(Integer number) {
+        if (number == null) {
+            System.out.println(Console.MISSING_TASK_INDEX_MESSAGE);
+            return true;
+        }
+        if (number <= 0 || number > numberOfTasks) {
+            System.out.println(Console.INVALID_TASK_INDEX_MESSAGE);
+            return true;
+        }
+        return false;
     }
 
     public void printTasks() {
         int taskIndex = 1;
-        System.out.println("Here are the tasks in your list:");
+        System.out.println(Console.LIST_MESSAGE);
         for (Task task : tasks){
             printTask(task, taskIndex);
             taskIndex++;
@@ -88,24 +102,34 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(String input) {
-        int number = extractInt(input);
-        if (number > 0 && number <= tasks.size()) {
-            Task task = tasks.get(number - 1);
-            tasks.remove(task);
-            System.out.println("Noted. I've removed this task:");
-            printTask(task, -1);
-            System.out.printf("Now you have %d tasks in the list\n", tasks.size());
-        }
+    private Task removeTask(int number) {
+        Task task = tasks.remove(number - 1);
+        numberOfTasks--;
+        return task;
     }
 
-    public int extractInt(String input) {
+    public void deleteFromTaskList(String input) {
+        Integer number = extractInt(input);
+        if (isNotValid(number)) {
+            return;
+        }
+        Task task = removeTask(number);
+        printDeleteTaskMessage(task);
+    }
+
+    private void printDeleteTaskMessage(Task task) {
+        System.out.println(Console.REMOVE_MESSAGE);
+        System.out.print("\t");
+        printTask(task, -1);
+        System.out.printf(Console.LIST_UPDATE_MESSAGE, numberOfTasks);
+    }
+
+    public Integer extractInt(String input) {
         try {
-            String number = input.replaceAll("[^0-9]", "");
+            String number = input.replaceAll("[^-0-9]", "");
             return Integer.parseInt(number);
         } catch (NumberFormatException e) {
-            System.out.println("Please tell me which task you are referring to.");
+            return null;
         }
-        return 0;
     }
 }
