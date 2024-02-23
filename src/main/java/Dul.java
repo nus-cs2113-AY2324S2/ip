@@ -1,10 +1,14 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dul {
     public static ArrayList<Task> tasks = new ArrayList<>();
+    public static final String filepath = "./data/dul.txt";
 
     public static void main(String[] args) {
+        loadTasksFromFile();
+
         String logo = " ____        _\n"
                 + "|  _ \\ _   _| |\n"
                 + "| | | | | | | |\n"
@@ -18,10 +22,68 @@ public class Dul {
         while (!guyInput.equals("bye")) {
             guyInput = in.nextLine();
             listInput(guyInput);
+            saveTasksToFile();
         }
 
         System.out.println("Bye. Hope to see you again soon!");
         in.close();
+    }
+
+    public static void loadTasksFromFile() {
+        try {
+            File file = new File(filepath);
+            if (!file.exists()) {
+                System.out.println("No existing data file found.");
+                return;
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] taskDetails = line.split(" \\| ");
+                switch (taskDetails[0]) {
+                    case "T":
+                        tasks.add(new TodoTask(taskDetails[2]));
+                        break;
+                    case "D":
+                        tasks.add(new DeadlineTask(taskDetails[2], taskDetails[3]));
+                        break;
+                    case "E":
+                        tasks.add(new EventTask(taskDetails[2], taskDetails[3], taskDetails[4]));
+                        break;
+                    default:
+                        System.out.println("Invalid task format found in data file: " + line);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    public static void saveTasksToFile() {
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            FileWriter writer = new FileWriter(filepath);
+            for (Task task : tasks) {
+                if (task instanceof TodoTask) {
+                    writer.write("T | " + (task.isDone ? 1 : 0) + " | " + task.description + "\n");
+                } else if (task instanceof DeadlineTask) {
+                    DeadlineTask deadlineTask = (DeadlineTask) task;
+                    writer.write("D | " + (task.isDone ? 1 : 0) + " | " + task.description + " | " + deadlineTask.by + "\n");
+                } else if (task instanceof EventTask) {
+                    EventTask eventTask = (EventTask) task;
+                    writer.write("E | " + (task.isDone ? 1 : 0) + " | " + task.description + " | " + eventTask.from + " | " + eventTask.to + "\n");
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public static void listInput(String input) {
@@ -112,10 +174,10 @@ public class Dul {
     }
 
     public static void deleteTask(int index) {
-            Task removedTask = tasks.remove(index);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println("  " + removedTask.toString());
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        Task removedTask = tasks.remove(index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask.toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
 
@@ -186,3 +248,4 @@ class EventTask extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
+
