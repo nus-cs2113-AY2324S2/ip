@@ -1,4 +1,6 @@
 todo run
 todo sleep
-deadline ee2026 /by tmr
-event sleep /from 3pm /by 5pm
+todo breakfast
+event cg2271 /from 2pm /to 4pm
+event mecsasd /from 4 /to 33
+deadline tdy /by tdy

@@ -90,15 +90,15 @@ public class Serf {
         try {
             loadFile = new FileWriter("./Serf.txt", true);
             for (int iterator = 0; iterator < taskCounter; iterator += 1) {
-                if (taskList[iterator].getTaskType().equals("T")) {
-                    loadFile.write("todo " + taskList[iterator].getDescription() + System.lineSeparator());
-                } else if (taskList[iterator].getTaskType().equals("D")) {
-                    loadFile.write("deadline " + taskList[iterator].getDescription()
-                            + " /by " + taskList[iterator].getEndDate() + System.lineSeparator());
-                } else if (taskList[iterator].getTaskType().equals("E")) {
-                    loadFile.write("event " + taskList[iterator].getDescription()
-                            + " /from " + taskList[iterator].getStartDate()
-                            + " /by " + taskList[iterator].getEndDate() + System.lineSeparator());
+                if (taskList.get(iterator).getTaskType().equals("T")) {
+                    loadFile.write("todo " + taskList.get(iterator).getDescription() + System.lineSeparator());
+                } else if (taskList.get(iterator).getTaskType().equals("D")) {
+                    loadFile.write("deadline " + taskList.get(iterator).getDescription()
+                            + " /by " + taskList.get(iterator).getEndDate() + System.lineSeparator());
+                } else if (taskList.get(iterator).getTaskType().equals("E")) {
+                    loadFile.write("event " + taskList.get(iterator).getDescription()
+                            + " /from " + taskList.get(iterator).getStartDate()
+                            + " /to " + taskList.get(iterator).getEndDate() + System.lineSeparator());
                 } else {
                     System.out.println("error");
                 }
