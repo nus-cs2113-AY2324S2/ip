@@ -1,4 +1,5 @@
-package Exceptions;
+
+package exceptions;
 
 public class MarioMissingTask extends Exception{
     public MarioMissingTask(){

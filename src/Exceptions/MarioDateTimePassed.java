@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class MarioDateTimePassed extends Exception {
     public MarioDateTimePassed() {

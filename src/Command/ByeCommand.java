@@ -1,16 +1,16 @@
-package Command;
+package command;
 
-import Templates.TaskList;
+import templates.TaskList;
 
 public class ByeCommand extends BaseCommand{
 
-    public static String byeMessage = "Bye. Hope to see you again soon!\nClosing application in 5 seconds...";
+    public static String BYE_COMMAND = "Bye. Hope to see you again soon!\n";
 
     public ByeCommand(){
         super(true, "");
     }
 
     public String execute(TaskList taskList){
-        return byeMessage;
+        return BYE_COMMAND;
     }
 }

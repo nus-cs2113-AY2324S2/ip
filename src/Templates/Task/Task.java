@@ -1,8 +1,6 @@
-package Templates.Task;
+package templates.task;
 
-import java.io.Serializable;
-
-public abstract class Task implements Serializable {
+public abstract class Task{
     private String taskString = "Null";
     private Boolean completed = false;
     private String typeCode;

@@ -1,14 +1,14 @@
-package Command;
+package command;
 
-import Exceptions.MarioErrorExecutingCommand;
-import Exceptions.MarioMissingDateTime;
-import Exceptions.MarioMissingTask;
-import Exceptions.MarioWrongFormat;
-import Templates.BaseDate;
-import Templates.TaskList;
-import Templates.Task.Deadline;
-import Templates.Task.Event;
-import Templates.Task.Task;
+import exceptions.MarioErrorExecutingCommand;
+import exceptions.MarioMissingDateTime;
+import exceptions.MarioMissingTask;
+import exceptions.MarioWrongFormat;
+import templates.BaseDate;
+import templates.TaskList;
+import templates.task.Deadline;
+import templates.task.Event;
+import templates.task.Task;
 
 public class PostponeCommand extends BaseCommand {
     public PostponeCommand(String taskString) {
@@ -33,12 +33,12 @@ public class PostponeCommand extends BaseCommand {
                     throw new MarioWrongFormat();
                 }
             } else if (targetTask instanceof Event) {
-                if (taskString.contains(Event.keyword1) && taskString.contains(Event.keyword2)) {
+                if (taskString.contains(Event.KEYWORD_START) && taskString.contains(Event.KEYWORD_END)) {
                     String dateString = taskString.substring(
-                            taskString.indexOf(Event.keyword1) + Event.keyword1.length(),
-                            taskString.indexOf(Event.keyword2));
+                            taskString.indexOf(Event.KEYWORD_START) + Event.KEYWORD_START.length(),
+                            taskString.indexOf(Event.KEYWORD_END));
                     String dateString1 = taskString.substring(
-                            taskString.indexOf(Event.keyword2) + Event.keyword2.length(),
+                            taskString.indexOf(Event.KEYWORD_END) + Event.KEYWORD_END.length(),
                             taskString.length());
                     if (dateString.isBlank()) {
                         throw new MarioMissingDateTime();
@@ -47,7 +47,7 @@ public class PostponeCommand extends BaseCommand {
                         throw new MarioMissingDateTime();
                     }
 
-                    taskString = taskString.substring(0, taskString.indexOf(Event.keyword1));
+                    taskString = taskString.substring(0, taskString.indexOf(Event.KEYWORD_START));
                     if (taskString.isBlank()) {
                         throw new MarioMissingTask();
                     }

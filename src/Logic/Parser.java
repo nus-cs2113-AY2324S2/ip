@@ -1,17 +1,24 @@
-package Logic;
+package logic;
 
-import Command.BaseCommand;
-import Command.ByeCommand;
-import Command.DeadlineCommand;
-import Command.DeleteCommand;
-import Command.EventCommand;
-import Command.FindCommand;
-import Command.FinddateCommand;
-import Command.ListCommand;
-import Command.MarkCommand;
-import Command.PostponeCommand;
-import Command.ToDoCommand;
-import Command.UnmarkCommand;
+import command.BaseCommand;
+import command.ByeCommand;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.FinddateCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.PostponeCommand;
+import command.ToDoCommand;
+import command.UnmarkCommand;
+import exceptions.MarioFileError;
+import templates.BaseDate;
+import templates.TaskList;
+import templates.task.Deadline;
+import templates.task.Event;
+import templates.task.Task;
+import templates.task.ToDo;
 
 public class Parser {
     public static BaseCommand parse(String args) throws Exception {
@@ -78,6 +85,51 @@ public class Parser {
     private static void checkTaskString(String args) throws Exception {
         if (args == null || args.isBlank()) {
             throw new Exception("Missing arguement!");
+        }
+    }
+
+    public static void parseTaskFromString(String data, TaskList taskList) throws Exception{
+        Task task = null;
+        data = data.substring(data.indexOf("["), data.length());
+        Boolean markedStatus = data.charAt(5) == 'X';
+        String eventString, startDateString, endDateString;
+        BaseDate startDate, endDate;
+        try {
+            switch (data.charAt(1)) {
+                case 'T':
+                    eventString = data.substring(data.indexOf("]") + 4).trim();
+                    task = new ToDo(eventString);
+                    task.setCompleted(markedStatus);
+                    break;
+                case 'E':
+                    eventString = data.substring(data.indexOf("]") + 4, data.indexOf(" (from:")).trim();
+                    startDateString = data
+                            .substring(data.indexOf(" (from:") + " (from:".length(), data.indexOf("to:"))
+                            .trim();
+                    endDateString = data.substring(data.indexOf("to:") + "to:".length(), data.indexOf(")"))
+                            .trim();
+                    startDate = new BaseDate(startDateString);
+                    endDate = new BaseDate(endDateString);
+                    task = new Event(eventString, startDate, endDate);
+                    task.setCompleted(markedStatus);
+                    break;
+                case 'D':
+                    eventString = data.substring(data.indexOf("]") + 4, data.indexOf(" (by: ")).trim();
+                    startDateString = data
+                            .substring(data.indexOf(" (by: ") + " (by: ".length(), data.indexOf(")"))
+                            .trim();
+                    startDate = new BaseDate(startDateString);
+                    task = new Deadline(eventString, startDate);
+                    task.setCompleted(markedStatus);
+                    break;
+                default:
+                    throw new MarioFileError();
+            }
+            if (task != null) {
+                taskList.addTask(task);
+            }
+        } catch (Exception e) {
+            throw new MarioFileError();
         }
     }
 }

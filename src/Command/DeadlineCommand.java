@@ -1,12 +1,12 @@
-package Command;
+package command;
 
-import Exceptions.MarioErrorExecutingCommand;
-import Exceptions.MarioMissingDateTime;
-import Exceptions.MarioMissingTask;
-import Exceptions.MarioWrongFormat;
-import Templates.BaseDate;
-import Templates.TaskList;
-import Templates.Task.Deadline;
+import exceptions.MarioErrorExecutingCommand;
+import exceptions.MarioMissingDateTime;
+import exceptions.MarioMissingTask;
+import exceptions.MarioWrongFormat;
+import templates.BaseDate;
+import templates.TaskList;
+import templates.task.Deadline;
 
 public class DeadlineCommand extends BaseCommand {
     public DeadlineCommand(String taskString) {
@@ -22,7 +22,7 @@ public class DeadlineCommand extends BaseCommand {
                 if (dateString.isBlank()) {
                     throw new MarioMissingDateTime();
                 }
-                taskString = taskString.substring(0, taskString.indexOf(Deadline.keyword));
+                taskString = taskString.substring(0, taskString.indexOf(Deadline.keyword)).replaceAll("[^a-zA-Z0-9]", "");
                 if (taskString.isBlank()) {
                     throw new MarioMissingTask();
                 }

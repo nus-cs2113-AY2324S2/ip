@@ -1,11 +1,10 @@
-package Logic;
+package logic;
 
-import java.io.Serializable;
 import java.util.Scanner;
 
-public class UI implements Serializable{
-    public static String welcomeMessage = "Hello! I'm Mario!\nWhat can I do for you?";
-    public static String byeMessage = "Bye. Hope to see you again soon!";
+public class UI {
+    public static String WELCOME_MESSAGE = "Hello! I'm Mario!\nWhat can I do for you?";
+    public static String BYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final Scanner sc = new Scanner(System.in);
     
     public void printWithIndent(String args) {
@@ -18,11 +17,11 @@ public class UI implements Serializable{
     }
 
     public void showWelcome(){
-        printWithIndent(welcomeMessage);
+        printWithIndent(WELCOME_MESSAGE);
     }
 
     public void showBye(){
-        printWithIndent(byeMessage);
+        printWithIndent(BYE_MESSAGE);
     }
 
     public String readCommand(){

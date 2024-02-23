@@ -1,49 +1,50 @@
-package Logic;
-import java.io.*;
+package logic;
 
-import Templates.TaskList;
-public class Storage {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.util.Scanner;
+import templates.TaskList;
+import exceptions.MarioFileError;
+
+public class Storage{
+
+    private static Scanner sc;
 
     private void deleteFile(String filePath) {
         File myObj = new File(filePath);
         myObj.delete();
     }
-    public void saveMario(Object obj, String filePath) {
+
+    public void saveMario(TaskList obj, String filePath) {
         try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.mkdirs();
-            }
+            deleteFile("Mario.txt");
+            FileWriter myWriter = new FileWriter("Mario.txt");
+            myWriter.write(obj.toString());
+            myWriter.close();
 
-            deleteFile(filePath);
-
-            FileOutputStream fileOut = new FileOutputStream(filePath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(obj);
-            objectOut.close();
-            fileOut.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
-    public TaskList loadMario(String filePath) {
-        File myObj = new File(filePath);
-        TaskList taskList = null;
-        if (!myObj.exists()) {
-            taskList = new TaskList();
-            saveMario(taskList, filePath);
-        } else {
-            try {
-                FileInputStream fileIn = new FileInputStream(filePath);
-                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-                taskList = (TaskList) objectIn.readObject();
-                objectIn.close();
-                fileIn.close();
-            } catch (Exception e) {
-                return new TaskList();
+    public TaskList loadMario(String filePath) throws Exception{
+        TaskList taskList = new TaskList();
+        try {
+            File myObj = new File("Mario.txt");
+            sc = new Scanner(myObj);
+            while (sc.hasNextLine()) {
+                String data = sc.nextLine();
+                if (data.contains("[")) {
+                    Parser.parseTaskFromString(data, taskList);
+                }
             }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            throw new MarioFileError();
         }
+        sc.close();
         return taskList;
 
     }

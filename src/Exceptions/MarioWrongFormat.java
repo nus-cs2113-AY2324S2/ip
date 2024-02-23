@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class MarioWrongFormat extends Exception {
     public MarioWrongFormat() {

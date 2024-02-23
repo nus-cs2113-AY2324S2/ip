@@ -1,12 +1,12 @@
-package Templates.Task;
+package templates.task;
 
-import Templates.BaseDate;
+import templates.BaseDate;
 
 public class Event extends Task {
     private BaseDate startDateTime = null;
     private BaseDate endDateTime = null;
-    public static String keyword1 = "/from";
-    public static String keyword2 = "/to";
+    public static String KEYWORD_START = "/from";
+    public static String KEYWORD_END = "/to";
 
     public Event(String args, BaseDate startDateTime, BaseDate endDateTime) throws Exception {
         super(args, "E", "Event");
@@ -27,12 +27,12 @@ public class Event extends Task {
         return this.startDateTime;
     }
 
-    public BaseDate getEnDateTime() {
+    public BaseDate getEndDateTime() {
         return this.endDateTime;
     }
 
     @Override
     public String toString() {
-        return super.toString() + String.format("(from: %s to: %s)", startDateTime.toString(), endDateTime.toString());
+        return super.toString() + String.format(" (from: %s to: %s)", startDateTime.toString(), endDateTime.toString());
     }
 }

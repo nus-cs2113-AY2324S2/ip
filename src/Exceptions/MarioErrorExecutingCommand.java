@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class MarioErrorExecutingCommand extends Exception {
     public MarioErrorExecutingCommand(Exception args) {

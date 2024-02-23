@@ -1,14 +1,14 @@
-package Templates;
+package templates;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
-import Exceptions.MarioDateTimePassed;
+import exceptions.MarioDateTimePassed;
 
-public class BaseDate implements Serializable {
+public class BaseDate{
     private static final List<String> dateFormats = List.of(
             "yyyy-MM-dd",
             "dd-MM-yyyy",
@@ -17,20 +17,23 @@ public class BaseDate implements Serializable {
             "yyyy/MM/dd",
             "dd:MM:yyyy",
             "ddMMyyyy",
-            "ddMMyy");
+            "ddMMyy",
+            "MMM dd yyyy");
 
     private static final List<String> timeFormats = List.of(
             "HH:mm",
-            "HHmm");
+            "HHmm",
+            "hh:mma");
 
     private static final ArrayList<String> dateTimeFormats = dateTimeVary();
     public static DateTimeFormatter formatter = null;
     LocalDateTime dateTime = null;
+    private final String DEAULT_TIME = " 0000";
 
     public BaseDate(String args) throws Exception {
         args = args.strip();
         if (!args.contains(" ")) {
-            args = args + " 0000";
+            args = args + DEAULT_TIME;
         }
         for (String format : dateTimeFormats) {
             try {

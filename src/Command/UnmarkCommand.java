@@ -1,7 +1,7 @@
-package Command;
+package command;
 
-import Exceptions.MarioErrorExecutingCommand;
-import Templates.TaskList;
+import exceptions.MarioErrorExecutingCommand;
+import templates.TaskList;
 
 public class UnmarkCommand extends BaseCommand {
 

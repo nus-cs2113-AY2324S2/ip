@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Exceptions.MarioErrorExecutingCommand;
-import Templates.BaseDate;
-import Templates.TaskList;
+import exceptions.MarioErrorExecutingCommand;
+import templates.BaseDate;
+import templates.TaskList;
 
 public class FinddateCommand extends BaseCommand {
 

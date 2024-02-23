@@ -1,6 +1,6 @@
-package Templates.Task;
+package templates.task;
 
-import Templates.BaseDate;
+import templates.BaseDate;
 
 public class Deadline extends Task {
     private BaseDate deadlineDateTime = null;
@@ -18,6 +18,6 @@ public class Deadline extends Task {
     public BaseDate getDeadlineDateTime(){return this.deadlineDateTime;}
     @Override
     public String toString(){
-        return super.toString() + String.format("(by: %s)", deadlineDateTime.toString());
+        return super.toString() + String.format(" (by: %s)", deadlineDateTime.toString());
     }
 }

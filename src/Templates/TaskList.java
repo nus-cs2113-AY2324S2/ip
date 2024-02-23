@@ -1,10 +1,11 @@
-package Templates;
+package templates;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import Templates.Task.*;
+import templates.task.Task;
+import templates.task.Deadline;
+import templates.task.Event;
 
-public class TaskList implements Serializable {
+public class TaskList{
     ArrayList<Task> list;
 
     public TaskList() {
@@ -25,11 +26,14 @@ public class TaskList implements Serializable {
             throw e;
         }
     }
-
+    public Integer getLength(){return this.list.size();}
     public String markTask(Integer args) {
         if (args > this.list.size()) {
             throw new ArrayIndexOutOfBoundsException(
                     String.format("Unrecognised input index! Recognised range: 1 to %d", this.list.size()));
+        }
+        if(this.list.get(args - 1).getCompleted()){
+            return ("Opps! This task has already been marked as completed!");
         }
         this.list.get(args - 1).setCompleted(true);
         return ("Nice! I've marked this task as done:\n" + this.list.get(args - 1).toString());
@@ -39,6 +43,9 @@ public class TaskList implements Serializable {
         if (args > this.list.size()) {
             throw new ArrayIndexOutOfBoundsException(
                     String.format("Unrecognised input index! Recognised range: 1 to %d", this.list.size()));
+        }
+        if(!this.list.get(args - 1).getCompleted()){
+            return ("Opps! This task has already been marked as not completed!");
         }
         this.list.get(args - 1).setCompleted(false);
         return ("OK, I've marked this task as not done yet:\n" + this.list.get(args - 1).toString());
@@ -113,12 +120,12 @@ public class TaskList implements Serializable {
             return "List is empty";
         } else {
             int i = 1;
-            String val = "Here are the tasks in your list:\n";
+            String listHeader = "Here are the tasks in your list:\n";
             for (Task task : list) {
-                val += i + ". " + task.toString() + "\n";
+                listHeader += i + ". " + task.toString() + "\n";
                 i += 1;
             }
-            return val;
+            return listHeader;
         }
     }
 

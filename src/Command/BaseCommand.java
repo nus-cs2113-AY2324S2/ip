@@ -1,5 +1,5 @@
-package Command;
-import Templates.TaskList;
+package command;
+import templates.TaskList;
 
 public abstract class BaseCommand {
     String taskString = null;
