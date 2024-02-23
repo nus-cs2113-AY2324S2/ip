@@ -34,6 +34,11 @@ public class Task {
         System.out.println(this.doneCheckbox+ " " + this.taskName);
         System.out.print(line);
     }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
     // Getter method for order
     public int getOrder() {
         return order;

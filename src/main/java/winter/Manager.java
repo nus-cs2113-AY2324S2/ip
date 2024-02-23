@@ -1,5 +1,7 @@
 package winter;
 
+import java.io.IOException;
+
 import java.util.Scanner;
 import winter.checkedexceptions.EmptyCommandException;
 import winter.checkedexceptions.InvalidCommandException;
@@ -12,10 +14,12 @@ import winter.task.Event;
 import winter.task.Task;
 import winter.task.ToDo;
 
-import static java.sql.Types.NULL;
 import static winter.Commands.*;
-
 import java.util.ArrayList;
+import java.io.FileWriter;
+
+
+
 
 
 public class Manager {
@@ -24,7 +28,30 @@ public class Manager {
     private static int taskIndex = 0;
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
-    public static void acceptInput () {
+
+    public static void readFile (Scanner s) throws IOException {
+        while (s.hasNext()) {
+            String inputLine = s.nextLine();
+            String[] inputArray = inputLine.split(" \\| ");
+            switch(inputArray[0]) {
+            case "E":
+                taskList.add(new Event(taskIndex,Boolean.parseBoolean(inputArray[1]),inputArray[2],inputArray[3],inputArray[4]));
+                taskIndex++;
+                break;
+            case "D":
+                taskList.add(new Deadline(taskIndex,Boolean.parseBoolean(inputArray[1]),inputArray[2],inputArray[3]));
+                taskIndex++;
+                break;
+            case "T":
+                taskList.add(new ToDo(taskIndex,Boolean.parseBoolean(inputArray[1]),inputArray[2]));
+                taskIndex++;
+                break;
+            }
+
+        }
+    }
+
+    public static void acceptInput () throws IOException {
         Scanner input = new Scanner(System.in);
         String inputString;
         Commands action;
@@ -45,7 +72,7 @@ public class Manager {
             case TODO:
             case DEADLINE:
             case EVENT:
-                addTask(action,inputString.substring(spaceIndex,slashIndex),inputString,slashIndex);
+                addTask(action,inputString.substring(spaceIndex + 1,slashIndex),inputString,slashIndex);
                 continue;
             case DELETE:
                 deleteTask(Integer.parseInt(inputString.substring(spaceIndex+1)));
@@ -55,7 +82,7 @@ public class Manager {
                 flag = false;
                 break;
             case LIST:
-                displayList(taskList);
+                displayList();
                 continue;
             case MARK:
                 taskList.get(Integer.parseInt(inputString.substring(5)) - 1).mark();
@@ -63,6 +90,8 @@ public class Manager {
             case UNMARK:
                 taskList.get(Integer.parseInt(inputString.substring(7)) - 1).unmark();
                 continue;
+            //case CLEARDATA:
+              //  clearData();
             case INVALIDTODO:
             case INVALIDDEADLINE:
             case INVALIDEVENT:
@@ -76,21 +105,30 @@ public class Manager {
         } while (flag);
 
     }
+
+    /*private static void clearData () {
+        if (inputFile == null || !(inputFile.delete()) ) {
+            System.out.println("No data to delete");
+
+        } else {
+            System.out.println("New chapter! Data cleared!");
+        }
+    }*/
+
     private static void addTask(Commands taskType, String taskName, String inputString, int slashIndex) {
         ToDo newToDo = null;
         Deadline newDeadline = null;
         Event newEvent = null;
+
         switch (taskType) {
         case TODO:
             newToDo = new ToDo(taskIndex, false, taskName);
             taskList.add(newToDo);
-            taskIndex++;
             break;
         case DEADLINE:
             String deadline = inputString.substring(slashIndex+3);
             newDeadline = new Deadline(taskIndex,false,taskName,deadline);
             taskList.add(newDeadline);
-            taskIndex++;
 
             break;
         case EVENT:
@@ -99,7 +137,6 @@ public class Manager {
             String endTime = startAndEnd.substring(startAndEnd.indexOf("/")+3);
             newEvent = new Event(taskIndex,false,taskName,startTime,endTime);
             taskList.add(newEvent);
-            taskIndex++;
 
             break;
         }
@@ -108,19 +145,44 @@ public class Manager {
         System.out.print(line);
         System.out.print(indent);
         System.out.println("OK, I've added: " + taskName);
-        if ((taskList.get(taskIndex-1)).getType().equals("D")) {
+
+        if ((taskList.get(taskIndex)).getType().equals("D")) {
             System.out.println(newDeadline);
 
-        }else if ((taskList.get(taskIndex-1)).getType().equals("E")){
+        }else if ((taskList.get(taskIndex)).getType().equals("E")){
+
             System.out.println(newEvent);
 
         }else {
             System.out.println(newToDo);
         }
 
-        System.out.println(indent + "Now, you have " + taskIndex+ " tasks in your list.");
+        System.out.println(indent + "Now, you have " + (taskIndex + 1) + " tasks in your list.");
         System.out.print(line);
+
+        try {
+            Task addedTask  = taskList.get(taskIndex);
+            switch (addedTask.getType()) {
+            case "E":
+                writeToFile("E" + " | " + addedTask.isMarked() + " | " +
+                        addedTask.getTaskName() + " | " + addedTask.getStartTime() + " | " +
+                        addedTask.getEndTime() + System.lineSeparator(),true);
+                break;
+            case "D":
+                writeToFile("D" + " | " + addedTask.isMarked() + " | " +
+                        addedTask.getTaskName() + " | " + addedTask.getEndTime() + System.lineSeparator(),true);
+                break;
+            default:
+                writeToFile("T" + " | " + addedTask.isMarked() + " | " +
+                        addedTask.getTaskName() + System.lineSeparator(),true);
+                break;
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        taskIndex++;
     }
+
 
     private static void  deleteTask(int taskNumber) {
         taskIndex--;
@@ -128,11 +190,46 @@ public class Manager {
         System.out.print(indent);
         System.out.println("No problemo, I've removed this task: ");
 
-        System.out.println(taskList.get(taskNumber-1));
+        System.out.println(taskList.get(taskNumber - 1));
 
-        System.out.println(indent + "Now, you have " + taskIndex+ " tasks in your list.");
+        System.out.println(indent + "Now, you have " + taskIndex + " tasks in your list.");
         System.out.print(line);
-        taskList.remove(taskNumber-1);
+        taskList.remove(taskNumber - 1);
+
+        for (int i = 0; i < taskList.size(); i++) {
+            taskList.get(i).setOrder(i);
+        }
+
+        String writeFileString = "";
+        for (Task task : taskList) {
+            switch (task.getType()) {
+            case "E":
+                writeFileString += "E" + " | " + task.isMarked() + " | " +
+                        task.getTaskName() + " | " + task.getStartTime() + " | " +
+                        task.getEndTime() + System.lineSeparator();
+                break;
+            case "D":
+                writeFileString += "D" + " | " + task.isMarked() + " | " +
+                        task.getTaskName() + " | " + task.getEndTime() + System.lineSeparator();
+                break;
+            default:
+                writeFileString += "T" + " | " + task.isMarked() + " | " +
+                        task.getTaskName() + System.lineSeparator();
+                break;
+            }
+        }
+        try {
+            writeToFile(writeFileString,false);
+        } catch (IOException e) {
+            System.out.println("Error writing to file.");
+        }
+
+    }
+    private static void writeToFile (String textToAdd, boolean flag) throws IOException {
+        FileWriter fw = new FileWriter("data/winter.txt", flag);
+        fw.write(textToAdd);
+        fw.close();
+
     }
 
     private static Commands classifyCommand(String inputString) {
@@ -146,8 +243,8 @@ public class Manager {
         case "List":
         case "LIST":
             return LIST;
-        }
 
+        }
         try {
             String[] commandWords = inputString.split(" ");
             switch (commandWords[0]) {
@@ -195,8 +292,8 @@ public class Manager {
     }
 
     // Method for displaying list
-    private static void displayList(ArrayList<Task> taskList) {
-        for (Task task : taskList) {
+    private static void displayList() {
+        for (Task task : Manager.taskList) {
             System.out.print(indent);
             switch (task.getType()) {
             case "D":
@@ -209,7 +306,6 @@ public class Manager {
             default:
                 System.out.println(task.getOrder() + 1 + ". [T]" + task.doneCheckbox + " "
                         + task.getTaskName());
-
             }
         }
         System.out.print(line);
