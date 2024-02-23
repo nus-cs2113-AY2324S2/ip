@@ -3,7 +3,7 @@ package gab.command;
 import gab.task.TaskList;
 import gab.ui.Ui;
 
-public class DeleteCommand implements Command {
+public class DeleteCommand extends Command {
     public final int DELETE_INDEX;
 
     public DeleteCommand (int taskIndex) {

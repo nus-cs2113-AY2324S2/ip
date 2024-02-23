@@ -4,7 +4,7 @@ import gab.task.Event;
 import gab.task.TaskList;
 import gab.ui.Ui;
 
-public class EventCommand implements Command {
+public class EventCommand extends Command {
 
     private final String TASK_NAME;
     private final String START_DATE;

@@ -4,7 +4,7 @@ import gab.task.Deadline;
 import gab.task.TaskList;
 import gab.ui.Ui;
 
-public class DeadlineCommand implements Command {
+public class DeadlineCommand extends Command {
     private final String TASK_NAME;
     private final String BY;
     public DeadlineCommand (String taskName, String by) {

@@ -4,7 +4,7 @@ import gab.task.Task;
 import gab.task.TaskList;
 import gab.ui.Ui;
 
-public class UnmarkCommand implements Command {
+public class UnmarkCommand extends Command {
     private final String INDEX_TASK;
 
     public UnmarkCommand(String indexTask) {
