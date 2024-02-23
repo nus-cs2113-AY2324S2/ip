@@ -101,12 +101,13 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void deleteTask(String command) {
+    public static void deleteTask(String command) throws IOException{
         String taskNum = command.replace("delete", "");
         taskNum = taskNum.trim();
         int taskIndex = Integer.parseInt(taskNum) - 1;
         Task removedTask = taskList.remove(taskIndex);
         int numOfTasks = taskList.toArray().length;
+        updateFile();
 
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Got it, I've removed this task from the list:\n" +
@@ -224,6 +225,8 @@ public class Helpy {
             } catch (IndexOutOfBoundsException e) {
                 printMessage("Task number doesn't exist! " +
                         "Did you enter wrongly? You typed: " + command);
+            } catch (IOException e) {
+                printMessage("Error occurred when trying to update file");
             }
             return;
         } else {
