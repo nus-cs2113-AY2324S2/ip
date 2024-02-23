@@ -13,7 +13,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute (String task, TaskList taskList) {
+    public void execute (TaskList taskList) {
         Deadline newDeadline = new Deadline(TASK_NAME, BY);
         taskList.addToList(newDeadline);
         Ui.printDeadlineTask(newDeadline.toString());

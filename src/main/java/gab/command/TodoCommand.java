@@ -12,7 +12,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute (String taskDescription, TaskList taskList) {
+    public void execute (TaskList taskList) {
         ToDo newToDo = new ToDo(TASK_NAME);
         taskList.addToList(newToDo);
         Ui.printTodoTask(newToDo.toString());

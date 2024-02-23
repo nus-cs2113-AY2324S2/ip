@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute (String task, TaskList taskList) {
+    public void execute (TaskList taskList) {
         int index = Integer.parseInt(INDEX_TASK) - 1;
         Task taskToMark = taskList.taskList.get(index);
         taskToMark.markAsNotDone();

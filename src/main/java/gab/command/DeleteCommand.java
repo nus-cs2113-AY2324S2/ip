@@ -11,7 +11,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute (String taskName, TaskList taskList) {
+    public void execute (TaskList taskList) {
         int indexToDelete = DELETE_INDEX - 1;
         Ui.printDeleteTask(indexToDelete, taskList);
         taskList.taskList.remove(indexToDelete);

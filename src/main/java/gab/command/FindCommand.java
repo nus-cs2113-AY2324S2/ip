@@ -11,7 +11,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute (String taskName, TaskList taskList) {
+    public void execute (TaskList taskList) {
         int taskCount = 0;
         boolean isFound;
 

@@ -16,7 +16,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute (String task, TaskList taskList) {
+    public void execute (TaskList taskList) {
         Event newEvent = new Event(TASK_NAME, START_DATE, END_DATE);
         taskList.addToList(newEvent);
         Ui.printEventTask(newEvent.toString());

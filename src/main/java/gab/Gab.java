@@ -38,7 +38,7 @@ public class Gab {
             try {
                 String task = Ui.getTask();
                 Command command = CommandHandler.checkCommand(task, gab.taskList);
-                command.execute(task, gab.taskList);
+                command.execute(gab.taskList);
                 gab.storage.saveTask(gab.taskList);
             } catch (GabException e) {
                 System.out.println(e.getMessage());
