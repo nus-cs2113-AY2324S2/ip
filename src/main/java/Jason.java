@@ -6,6 +6,7 @@ import jason.tasks.Events;
 import jason.errorhandling.JasonException;
 
 import java.util.ArrayList;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Scanner;
  */
 public class Jason {
     private static ArrayList<Task> list = new ArrayList<>();
-
+    private static final String LIST_PATH = "jasonTaskList.txt";
 
     private static void markTask(String[] input) throws JasonException {
         try {
@@ -137,6 +138,7 @@ public class Jason {
 
 
 
+
     private static void addTasks(String input) throws JasonException {
 
         try {
@@ -156,6 +158,44 @@ public class Jason {
     }
 
 
+    private static void saveTasks() {
+        try (FileWriter writer = new FileWriter(LIST_PATH)) {
+            for (int i = 0; i < list.size(); i++) {
+                writer.write(list.get(i).toString() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static void loadTasks() {
+        File file = new File(LIST_PATH);
+        if (!file.exists()) {
+            System.out.println("No existing data file found. Starting with an empty task list.");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = null;
+                if (line.startsWith("[T]")) {
+                    task = Todo.parseFromFile(line);
+                } else if (line.startsWith("[D]")) {
+                    task = Deadline.parseFromFile(line);
+                } else if (line.startsWith("[E]")) {
+                    task = Events.parseFromFile(line);
+                }
+
+
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file not found: " + e.getMessage());
+        } catch (Exception e) { // Catch any other parsing errors
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
 
     /**
      * Main entry point of the Chatbot.
@@ -164,7 +204,8 @@ public class Jason {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
-        // Initialize greeting logo and print welcome message
+
+        loadTasks();
         String logo =
                 "   J     A     SSSS    OOO   N   N \n"
                         + "   J    A A    S      O   O  NN  N \n"
@@ -185,6 +226,7 @@ public class Jason {
 
             if (input.equalsIgnoreCase("bye")) {
                 // User wants to exit
+                saveTasks();
                 System.out.println("Bye. See ya laterr!\r\n"
                         + "____________________________________________________________\r\n"
                         + "\n" + logo);
@@ -210,6 +252,7 @@ public class Jason {
                     // Add new task
                     addTasks(input);
                 }
+                saveTasks();
             } catch (JasonException e) {
                 System.out.println(e.getMessage());
             }
