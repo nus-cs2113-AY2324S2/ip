@@ -6,20 +6,64 @@ import helpy.task.Event;
 import helpy.task.Task;
 import helpy.task.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Helpy {
+    public static String filePath = "data/helpy.txt";
     public static ArrayList<Task> taskList = new ArrayList<>();
     public static final String HORIZONTAL_LINE = "______________________\n";
+    public static final String name =
+            "░▒█░▒█░▒█▀▀▀░▒█░░░░▒█▀▀█░▒█░░▒█\n" +
+            "░▒█▀▀█░▒█▀▀▀░▒█░░░░▒█▄▄█░▒▀▄▄▄▀\n" +
+            "░▒█░▒█░▒█▄▄▄░▒█▄▄█░▒█░░░░░░▒█░░\n";
 
-    public static void greetUser() {
-        String name = "░▒█░▒█░▒█▀▀▀░▒█░░░░▒█▀▀█░▒█░░▒█\n" +
-                "░▒█▀▀█░▒█▀▀▀░▒█░░░░▒█▄▄█░▒▀▄▄▄▀\n" +
-                "░▒█░▒█░▒█▄▄▄░▒█▄▄█░▒█░░░░░░▒█░░\n";
-        System.out.println(HORIZONTAL_LINE
-                + "Greetings, I am\n" + name);
-        System.out.println("How can I help you?\n" + HORIZONTAL_LINE);
+    public static void processData(String taskInfo) {
+        String[] details = taskInfo.split(" \\| ");
+        if (details[0].equals("T")) {
+            try {
+                Todo newTodo = new Todo("todo " + details[2]);
+                if (details[1].equals("1")) {
+                    newTodo.setDone(true);
+                }
+                taskList.add(newTodo);
+            } catch (IllegalDescriptionException ignored) {}
+        } else if (details[0].equals("E")) {
+            try {
+                Event newEvent = new Event("event " + details[2]);
+                if (details[1].equals("1")) {
+                    newEvent.setDone(true);
+                }
+                taskList.add(newEvent);
+            } catch (ArrayIndexOutOfBoundsException ignored) {}
+        } else if (details[0].equals("D")) {
+            try {
+                Deadline newDeadline = new Deadline("deadline " + details[2]);
+                if (details[1].equals("1")) {
+                    newDeadline.setDone(true);
+                }
+                taskList.add(newDeadline);
+            } catch (ArrayIndexOutOfBoundsException ignored) {}
+        }
+    }
+
+    public static void loadTasks(String filePath) throws FileNotFoundException {
+        File savedTasks = new File(filePath);
+        Scanner scanner = new Scanner(savedTasks);
+        while (scanner.hasNext()) {
+            String taskInfo = scanner.nextLine();
+            processData(taskInfo);
+        }
+    }
+
+    public static void greetUser(boolean isNewUser) {
+        String message = isNewUser ? "Greetings, I am\n" + name + "\nHow can I help you?\n" :
+                "Good to see you again! I am\n" + name + "\nHow can I help you?";
+        printMessage(message);
     }
 
     public static void listTasks(ArrayList<Task> taskList) {
@@ -96,6 +140,14 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void updateFile() throws IOException{
+        FileWriter helpyWriter = new FileWriter(filePath);
+        for (Task task : taskList) {
+            task.saveToFile(filePath);
+        }
+        helpyWriter.close();
+    }
+
     public static void processCommand(String command, ArrayList<Task> taskList) {
 
         if (command.startsWith("mark") || command.startsWith("unmark")) {
@@ -112,12 +164,15 @@ public class Helpy {
             try {
                 int taskIndex = Integer.parseInt(taskNum) - 1;
                 markTask(taskList.get(taskIndex), commandStartsWith);
+                updateFile();
             } catch (NumberFormatException e) {
                 printMessage("Task number provided is invalid! " +
                         "Did you enter wrongly? You typed: " + command);
             } catch (IndexOutOfBoundsException e) {
                 printMessage("Task number doesn't exist! " +
                         "Did you enter wrongly? You typed: " + command);
+            } catch (IOException e) {
+                printMessage("Error occurred when trying to update file");
             }
             return;
         }
@@ -126,26 +181,38 @@ public class Helpy {
             try {
                 Todo newTodo = new Todo(command);
                 taskList.add(newTodo);
+                newTodo.saveToFile(filePath);
             } catch (IllegalDescriptionException e) {
                 printMessage("Your todo description is empty!");
+                return;
+            } catch (IOException e) {
+                printMessage("Error when attempting to write task to file");
                 return;
             }
         } else if (command.startsWith("deadline")) {
             try {
                 Deadline newDeadline = new Deadline(command);
                 taskList.add(newDeadline);
+                newDeadline.saveToFile(filePath);
             } catch (ArrayIndexOutOfBoundsException e) {
                 printMessage("Invalid format for deadline! Make sure it follows: " +
                         "deadline <description> /by <date>");
+                return;
+            } catch (IOException e) {
+                printMessage("Error when attempting to write task to file");
                 return;
             }
         } else if (command.startsWith("event")) {
             try {
                 Event newEvent = new Event(command);
                 taskList.add(newEvent);
+                newEvent.saveToFile(filePath);
             } catch (ArrayIndexOutOfBoundsException e) {
                 printMessage("Invalid format for event! Make sure it's in this format: " +
                         "event <description> /from <start date> /to <end date>");
+                return;
+            } catch (IOException e) {
+                printMessage("Error when attempting to write task to file");
                 return;
             }
         } else if (command.startsWith("delete")) {
@@ -168,7 +235,13 @@ public class Helpy {
     }
 
     public static void main(String[] args) {
-        greetUser();
+        boolean isNewUser = false;
+        try {
+            loadTasks(filePath);
+        } catch (FileNotFoundException e) {
+            isNewUser = true;
+        }
+        greetUser(isNewUser);
 
         Scanner in = new Scanner(System.in);
         String command = "";

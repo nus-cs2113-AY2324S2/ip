@@ -1,5 +1,8 @@
 package helpy.task;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Event extends Task{
     protected String eventFrom;
     protected String eventTo;
@@ -19,5 +22,14 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString()
                 + " (from: " + eventFrom + " to: " + eventTo + ")";
+    }
+
+    @Override
+    public void saveToFile(String filePath) throws IOException {
+        FileWriter helpyWriter = new FileWriter(filePath, true);
+        String isDone = isDone() ? "1" : "0";
+        helpyWriter.write("E | " + isDone + " | " + this.taskName
+                + " /from " + this.eventFrom + " /to " + this.eventTo + "\n");
+        helpyWriter.close();
     }
 }
