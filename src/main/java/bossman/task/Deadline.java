@@ -1,4 +1,7 @@
 package bossman.task;
+
+import bossman.ui.Ui;
+
 public class Deadline extends Todo {
     private final String BY;
     public Deadline(String task, boolean isMark, String by) {
@@ -10,7 +13,7 @@ public class Deadline extends Todo {
     @Override
     public void printTask() {
         super.printTask();
-        System.out.print("(do by:" + BY + ")");
+        Ui.printMessageNoSepSameLine("(do by:" + BY + ")");
     }
 
     @Override

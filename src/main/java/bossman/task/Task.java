@@ -1,4 +1,7 @@
 package bossman.task;
+
+import bossman.ui.Ui;
+
 public abstract class Task {
     protected boolean isMark;
     protected final String DESCRIPTION;
@@ -13,7 +16,8 @@ public abstract class Task {
     public void printTask() {
         String markSymbol = isMark ? "[x] " : "[ ] ";
         String taskSymbol = getTypeSymbol();
-        System.out.print(taskSymbol + markSymbol + getTask());
+
+        Ui.printMessageNoSepSameLine(taskSymbol + markSymbol + getTask());
     }
 
     public void setMark() {

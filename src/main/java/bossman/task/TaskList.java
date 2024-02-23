@@ -1,10 +1,10 @@
 package bossman.task;
 
+import bossman.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private final String SEP = "____________________________________________________________";
     private final List<Task> TASKS;
 
     public TaskList() {
@@ -15,61 +15,66 @@ public class TaskList {
         TASKS.add(task);
     }
 
-    public void removeTask(int num) throws IndexOutOfBoundsException {
-        Task toDeleteTask = TASKS.get(num - 1);
-        System.out.print("Removed task: ");
-        toDeleteTask.printTask();
-        System.out.println("\n" + SEP);
-        TASKS.remove(num - 1);
+    public void removeTask(int taskId) throws IndexOutOfBoundsException {
+        if (isValidTask(taskId)) {
+            Task toDeleteTask = TASKS.get(taskId - 1);
+
+            Ui.printMessageNoSepSameLine("Removed task: ");
+            toDeleteTask.printTask();
+            Ui.printNewLineWithSep();
+
+            TASKS.remove(taskId - 1);
+        } else {
+            Ui.printMessageWithSepNewLine("No such task");
+        }
     }
 
     public List<Task> getTasks() {
         return TASKS;
-
     }
 
     public void printTasks() {
-        System.out.println("Todo List:");
+        Ui.printMessageNoSepNewLine("Todo List:");
 
         int counter = 1;
 
         for (Task t: TASKS) {
-            System.out.print(counter + ". ");
+            Ui.printMessageNoSepSameLine(counter + ". ");
             t.printTask();
             counter += 1;
-            System.out.println();
+            Ui.printMessageNoSepNewLine("");
         }
 
-        System.out.println(SEP);
+        Ui.printSep();
     }
 
-    public void markTask(int num)  {
-        if (isValidTask(num)) {
-            this.TASKS.get(num - 1).setMark();
-            System.out.println("Nice! I've marked this task as done:");
-            echo(num);
+    public void markTask(int taskId)  {
+        if (isValidTask(taskId)) {
+            this.TASKS.get(taskId - 1).setMark();
+            Ui.printMessageNoSepNewLine("Nice! I've marked this task as done:");
+            echo(taskId);
         } else {
-            System.out.println("Selected index out of range" + "\n" + SEP);
+            Ui.printMessageWithSepNewLine("Selected index out of range");
         }
     }
 
-    public void unmarkTask(int num) {
-        if (isValidTask(num)) {
-            this.TASKS.get(num - 1).setUnmark();
-            System.out.println("OK, I've marked this task as not done yet:");
-            echo(num);
+    public void unmarkTask(int taskId) {
+        if (isValidTask(taskId)) {
+            this.TASKS.get(taskId - 1).setUnmark();
+            Ui.printMessageNoSepNewLine("OK, I've marked this task as not done yet:");
+            echo(taskId);
         } else {
-            System.out.println("Selected index out of range" + "\n" + SEP);
+            Ui.printMessageWithSepNewLine("Selected index out of range");
         }
     }
 
-    private void echo(int num) {
-        this.TASKS.get(num - 1).printTask();
-        System.out.println("\n" + SEP);
+    private void echo(int taskId) {
+        this.TASKS.get(taskId - 1).printTask();
+        Ui.printNewLineWithSep();
     }
 
-    public boolean isValidTask(int num) {
-        return num > 0 && num <= TASKS.size();
+    public boolean isValidTask(int taskId) {
+        return taskId > 0 && taskId <= TASKS.size();
     }
 
     public int getTaskListSize() {

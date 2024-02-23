@@ -1,4 +1,7 @@
 package bossman.task;
+
+import bossman.ui.Ui;
+
 public class Event extends Todo {
     private final String FROM;
     private final String TO;
@@ -12,7 +15,7 @@ public class Event extends Todo {
     @Override
     public void printTask() {
         super.printTask();
-        System.out.print(" (from:" + FROM + " to:" + TO + ")");
+        Ui.printMessageNoSepSameLine(" (from:" + FROM + " to:" + TO + ")");
     }
 
     @Override

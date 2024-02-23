@@ -12,11 +12,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class DataStorage {
+public class Storage {
     public final TaskList TASK_LIST;
     private static final String FILE_PATH = "data/BossMan.txt";
 
-    public DataStorage() throws IOException {
+    public Storage() throws IOException {
         this.TASK_LIST = new TaskList();
         loadTasksFromFile();
     }
