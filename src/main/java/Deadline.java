@@ -19,5 +19,11 @@ public class Deadline extends Task {
         public String getTaskIcon() {
             return "D";
         }
+
+        @Override
+        public String toString() {
+            return "D | " + (isDone ? "1 | " : "0 | ") + getDescription() + " |" + getTimespan();
+        }
+
 }
 

@@ -21,4 +21,9 @@ public class Event extends Task {
     public String getTaskIcon() {
         return "E";
     }
+
+    @Override
+    public String toString() {
+        return "E | " + (isDone ? "1 | " : "0 | ") + getDescription() + " |" + getTimespan();
+    }
 }
