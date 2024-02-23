@@ -18,7 +18,7 @@ public class Lovie {
         while (true) {
             System.out.print("\t");
             input = inputGetter.nextLine();
-            String processedInput = input.toLowerCase().trim();
+            String processedInput = input.toLowerCase().trim().split(" ")[0];
 
             // Switch statement to keep track of user input commands
             switch (processedInput) {
@@ -36,6 +36,7 @@ public class Lovie {
                     break;
                 case "delete":
                     deleteTask(input, tasksList);
+                    break;
                 default:
                     String taskType = processedInput.split(" ")[0];
                     Task newTask;
@@ -91,13 +92,12 @@ public class Lovie {
 
     public static void deleteTask(String input, ArrayList<Task> tasksList) { //create error handling for if string
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        boolean output = true;
         if (taskNumber >= tasksList.size() || taskNumber < 0) {
             print("Sorry, there is no record of a task number " + input.split(" ")[1] +
                     "\n Can I help you with anything else?");
         } else {
-            tasksList.remove(taskNumber);
             Task selectedTask = tasksList.get(taskNumber);
+            tasksList.remove(taskNumber);
             deleteTaskPrinter(selectedTask, tasksList);
         }
     }
@@ -105,7 +105,7 @@ public class Lovie {
     public static void deleteTaskPrinter(Task selectedTask, ArrayList<Task> tasksList) {
         print("Okay, no worries. I've deleted this task for you: \n" + "[" + selectedTask.getTaskIcon() + "] [" +
                 selectedTask.getStatusIcon() + "] " + selectedTask.getDescription() +
-                selectedTask.getTimespan() + "\n" + "You now have " + tasksList.size() + "tasks in the list.\n" +
+                selectedTask.getTimespan() + "\n" + "You now have " + tasksList.size() + " tasks in the list.\n" +
                 "What else can I do for you today?");
     }
     public static void invalidCommandPrinter() {
