@@ -45,7 +45,9 @@ public class Bart {
             addNewTask(command);
         }
     }
-
+    private static void testGitBranch() {
+        System.in.println("test lol");
+    }
     private static void addNewTask(String command) {
         String[] commandParts = command.split(" ");
         String taskType = commandParts[0];
