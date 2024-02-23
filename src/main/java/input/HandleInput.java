@@ -1,6 +1,7 @@
 package input;
 
 import exceptions.*;
+import savedData.Data;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -12,6 +13,10 @@ import java.util.Scanner;
 public class HandleInput {
     static String line = "\t____________________________________________________________";
     static ArrayList<Task> tasks = new ArrayList<>(100);
+
+    public static void loadDataFromFile(){
+        ArrayList<Task> data = savedData.Data.loadData();
+    }
 
     private static void echo(String input) {
         System.out.println("\t Got it. I've added this task: ");
@@ -154,6 +159,7 @@ public class HandleInput {
     }
 
     public static void chat() {
+        loadDataFromFile();
         String input;
         do {
             input = new Scanner(System.in).nextLine();
