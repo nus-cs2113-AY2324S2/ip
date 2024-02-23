@@ -3,6 +3,9 @@ import Quokka.tasks.Deadline;
 import Quokka.tasks.Event;
 import Quokka.tasks.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
     public static Todo parseTodoTask(String userInput) {
         try {
@@ -16,8 +19,34 @@ public class Parser {
             return null;
         }
     }
+    public static Deadline parseDeadlineTask(String userInput) throws QuokkaException {
+        try {
+            String[] parts = userInput.split("/by", 2);
+            if (parts.length == 2) {
+                String description = parts[0].substring("deadline".length()).trim();
+                String dateTimeString = parts[1].trim();
+                LocalDateTime by = parseDateTime(dateTimeString);
+                if (description.isEmpty()) {
+                    throw new QuokkaException("Please provide a description for the deadline task.");
+                }
+                return new Deadline(description, by, false);
+            } else {
+                throw new QuokkaException("Invalid deadline format. Please use: deadline [description] /by [date/time]");
+            }
+        } catch (QuokkaException e) {
+            System.out.println("    Error: " + e.getMessage());
+            return null;
+        }
+    }
 
-    public static Deadline parseDeadlineTask(String userInput) {
+    private static LocalDateTime parseDateTime(String dateTimeString) throws QuokkaException {
+        try {
+            return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (Exception e) {
+            throw new QuokkaException("Error parsing date/time. Please use format: dd/MM/yyyy HHmm");
+        }
+    }
+    /*public static Deadline parseDeadlineTask(String userInput) {
         try {
             String[] parts = userInput.split("/by", 2);
             if (parts.length == 2) {
@@ -36,7 +65,7 @@ public class Parser {
             System.out.println("     Error: " + e.getMessage());
             return null;
         }
-    }
+    }*/
 
     public static Event parseEventTask(String userInput) {
         try {

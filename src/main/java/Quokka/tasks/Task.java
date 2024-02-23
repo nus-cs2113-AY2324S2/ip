@@ -1,5 +1,8 @@
 package Quokka.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -27,7 +30,7 @@ public class Task {
             case "T":
                 return Todo.parseFromString(taskData, isDone);
             case "D":
-                return Deadline.parseFromString(taskData, isDone);
+                return Deadline.parseDeadlineFromString(taskData, isDone);
             case "E":
                 return Event.parseFromString(taskData, isDone);
             default:
@@ -35,6 +38,18 @@ public class Task {
             }
         }
         return null;
+    }
+
+    public static Task parseDeadlineFromString(String taskData, boolean isDone) {
+        String[] parts = taskData.split(" \\(by: ", 2);
+        if (parts.length == 2) {
+            String description = parts[0].trim();
+            LocalDateTime by = LocalDateTime.parse(parts[1].substring(0, parts[1].length() - 1),
+                    DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+            return new Deadline(description, by, isDone);
+        } else {
+            return null;
+        }
     }
 
 

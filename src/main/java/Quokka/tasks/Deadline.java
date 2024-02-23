@@ -1,28 +1,27 @@
 package Quokka.tasks;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by, boolean isDone) {
+public class Deadline extends Task {
+    private LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by, boolean isDone) {
         super(description, isDone);
         this.by = by;
     }
 
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
+        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    public LocalDateTime getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
-
-    public static Deadline parseFromString(String data, boolean isDone) {
-        String[] parts = data.split("\\(by: ", 2);
-        if (parts.length == 2) {
-            String description = parts[0];
-            String by = parts[1].substring(0, parts[1].length() - 1);
-            return new Deadline(description, by, isDone);
-        }
-        return null;
-    }
-
-
-
 }
