@@ -81,6 +81,17 @@ public class HandleInput {
         if (from == -1) {
             throw new MissingStartException();
         }
+        Event newEntry = getEvent(description, from);
+        tasks.add(newEntry);
+        try {
+            appendEvent(newEntry);
+        } catch (IOException e){
+            System.out.println("Could not save to file.");
+        }
+        echo(input);
+    }
+
+    private static Event getEvent(String description, int from) throws MissingDeadlineException, EmptyTaskException {
         int by = description.indexOf("/to");
         if (by == -1) {
             throw new MissingDeadlineException();
@@ -94,14 +105,7 @@ public class HandleInput {
         if (event.isBlank()){
             throw new EmptyTaskException();
         }
-        Event newEntry = new Event(event,startDate,endDate);
-        tasks.add(newEntry);
-        try {
-            appendEvent(newEntry);
-        } catch (IOException e){
-            System.out.println("Could not save to file.");
-        }
-        echo(input);
+        return new Event(event,startDate,endDate);
     }
 
     private static void deleteTask(String input) throws ArrayListOutOfBoundsException {

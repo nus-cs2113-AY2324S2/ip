@@ -16,7 +16,7 @@ public class AppendData {
         String taskType = input.getTaskType();
         String isCompleted = (input.getStatusIcon().equals("X")) ? "1" : "0";
         String textToAppend = taskType + " | " + isCompleted + " | " + description;
-        fw.write(textToAppend);
+        fw.write(textToAppend + System.lineSeparator());
         fw.close();
     }
 
@@ -27,7 +27,7 @@ public class AppendData {
         String isCompleted = (input.getStatusIcon().equals("X")) ? "1" : "0";
         String by = input.getEndDate();
         String textToAppend = taskType + " | " + isCompleted + " | " + description + " | " + by;
-        fw.write(textToAppend);
+        fw.write(textToAppend + System.lineSeparator());
         fw.close();
     }
 
@@ -39,7 +39,7 @@ public class AppendData {
         String by = input.getEndDate();
         String from = input.getStartDate();
         String textToAppend = taskType + " | " + isCompleted + " | " + description + " | " + by;
-        fw.write(textToAppend);
+        fw.write(textToAppend + System.lineSeparator());
         fw.close();
     }
 
