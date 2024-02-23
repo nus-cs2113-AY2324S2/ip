@@ -32,7 +32,7 @@ public class List {
      */
     public boolean isValidCommand(String[] textArray) {
         boolean isValid = true;
-        int idx = 0;
+        int idx;
         try {
             String command = textArray[COMMANDIDX];
             switch (command) {
@@ -64,14 +64,6 @@ public class List {
             printEmptyDescription();
             return false;
         }
-    }
-
-    public void addFromSaveFile(char tde, char mark, String task) {
-        Task currTask = new Task(task, tde);
-        if (mark == 'X') {
-            currTask.markDone();
-        }
-        taskList.add(currTask);
     }
 
     private static int getIdx(String[] textArray) {
