@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -17,12 +18,12 @@ public class ReadFile {
                     try {
                         convertTask(line);
                     } catch (RoleyPoleyException e) {
-                        System.out.println("Error!");
+
                     }
                 };
             }
         } catch (IOException e) {
-            System.out.println("Error File not found");
+            File textFile = new File("RoleyPoleyData.txt");
         }
     }
 
