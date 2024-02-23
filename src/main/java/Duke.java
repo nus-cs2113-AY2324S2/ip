@@ -2,10 +2,13 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Duke {
     static boolean ifExit = false; //exits program if true
     static ArrayList<Task> tasks = new ArrayList<>(); //List of tasks
+    static boolean ifNewWrite = false;
 
     public static void echoTask() {
         System.out.println("--------------------------------------");
@@ -87,9 +90,11 @@ public class Duke {
     }
 
     private static void writeToFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter("dukeLog.txt", true);
-        fw.write(textToAdd);
-        fw.close();
+        if (ifNewWrite) {
+            FileWriter fw = new FileWriter("dukeLog.txt", true);
+            fw.write(textToAdd);
+            fw.close();
+        }
     }
 
     public static void performAction(String line) throws IllegalShapeException{
@@ -190,8 +195,29 @@ public class Duke {
 
     }
 
+    public static void inputFileContents() throws FileNotFoundException {
+        File f = new File("dukeLog.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            try {
+                performAction(s.nextLine()); //Executes an action based on first word of command in String line
+            } catch (IllegalShapeException e) {
+                System.out.println("--------------------------------------");
+                System.out.println("Your input is empty!");
+                System.out.println("--------------------------------------");
+            }
+        }
+        ifNewWrite = true;
+    }
+
     public static void main(String[] args) {
         introStart(); //Prints starting screen
+
+        try {
+            inputFileContents();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
         while (!ifExit) {
             Scanner in = new Scanner(System.in);
