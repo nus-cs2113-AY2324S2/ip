@@ -59,7 +59,7 @@ public class Burger {
         printLine();
     }
 
-    public static void goodbye(List currList) throws IOException {
+    public static void goodbye(List currList) {
         System.out.print("Saving file");
         setSaveFile(PATHNAME, currList);
         printLine();

@@ -62,7 +62,7 @@ public class List {
             return isValid;
         } catch (ArrayIndexOutOfBoundsException e) {
             printEmptyDescription();
-            return false;
+            return isValid;
         }
     }
 
@@ -85,7 +85,7 @@ public class List {
     private void deleteTask(int idx) {
         try {
             if (idx < 0 || idx >= totalTasks) {
-                throw new BurgerException();
+                throw new BurgerException("Out of Index");
             }
             System.out.println("Noted. I've removed this task:");
             taskList.get(idx).printTask();
@@ -95,7 +95,7 @@ public class List {
             printTotalTasks();
             printLine();
         } catch (BurgerException e) {
-            printOutOfIndexMessage();
+            printErrorMessage(e);
         }
     }
 
@@ -216,13 +216,12 @@ public class List {
      *
      * @param idx the index of the task.
      * @param command Command to "mark" or "unmark" the task.
-     * @throws BurgerException if index input is out of the range of list of tasks.
      */
     public void markTask(int idx, String command) {
         try {
             Task currTask = getTask(idx);
             if (currTask == null) {
-                throw new BurgerException();
+                throw new BurgerException("Out of index");
             }
             if (command.equals("mark")) {
                 System.out.println("Nice! I've marked this task as done:");
@@ -233,9 +232,8 @@ public class List {
             }
             printTaskWithLine(idx);
         } catch (BurgerException e) {
-            printOutOfIndexMessage();
+            printErrorMessage(e);
         }
-
     }
 
     /**
@@ -264,6 +262,32 @@ public class List {
             taskList.get(i).printTask();
             System.out.println();
         }
+        printLine();
+    }
+    public static void printInvalidDeadlineInputMessage() {
+        printLine();
+        System.out.println("Oi, the input is wrong!");
+        System.out.println("Format: deadline {deadline task} /by {date}");
+        printLine();
+    }
+
+    public static void printInvalidEventInputMessage() {
+        printLine();
+        System.out.println("Oi, the input is wrong!");
+        System.out.println("Format: event {event task} /from {date} /to {date}");
+        printLine();
+    }
+
+    public static void printEmptyDescription() {
+        printLine();
+        System.out.println("UwU~ Where is your description?");
+        System.out.println("Format: {command} {description}");
+        printLine();
+    }
+
+    public static void printErrorMessage(BurgerException e) {
+        printLine();
+        System.out.println("Tsk... Out of index, do you know how to count?");
         printLine();
     }
 }
