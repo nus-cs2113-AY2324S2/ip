@@ -24,4 +24,3 @@ public class Deadlines extends Task{
         return super.getDescription() + " (by: " + by + ")";
     }
 }
-

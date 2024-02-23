@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -40,13 +44,31 @@ public class ChatBot {
                     deleteTask(command.substring(7));
                 }else {
                     printFormattedMessage("Unknown command. Please enter 'todo', 'event', " +
-                            "'deadline', 'list', 'mark', 'unmark', or 'bye'.");
+                            "'deadline', 'list', 'mark', 'unmark', 'delete', or 'bye'.");
                 }
             } catch (ChatBotExceptions e) {
                 printFormattedMessage(e.getMessage());
             }
         }
     }
+
+    public void saveTasksToFile(String filename) {
+        Path filePath = Paths.get("src", "data", filename); // Use the filename provided as an argument
+        try {
+            Files.deleteIfExists(filePath); // Delete existing file if it exists
+            Files.createFile(filePath); // Create a new file
+            for (Task task : tasks) {
+                // Convert each task to a string representation and write it to the file
+                Files.write(filePath, (task.toFileString() + System.lineSeparator()).getBytes(), java.nio.file.StandardOpenOption.APPEND);
+            }
+            System.out.println("Tasks have been saved to " + filePath);
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to " + filePath);
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void deleteTask(String taskNumber) throws ChatBotExceptions{
 
@@ -99,9 +121,18 @@ public class ChatBot {
 
         tasks.add(newTask);
         System.out.println("Got it. I've added this task:");
-        System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
+        if (newTask instanceof Deadlines) {
+            Deadlines deadline = (Deadlines) newTask;
+            System.out.println("   " + newTask.getStatusIcon() + " " + deadline.getDescription());
+        } else if (newTask instanceof Events) {
+            Events event = (Events) newTask;
+            System.out.println("   " + newTask.getStatusIcon() + " " + event.getDescription());
+        } else {
+            System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
+        }
         printFormattedMessage(" Now you have " + tasks.size() + " tasks in the list.");
     }
+
 
     private void printTaskList() {
 
@@ -125,7 +156,6 @@ public class ChatBot {
 
         }
     }
-
     private void printFormattedMessage(String message) {
         String horizontalLines = "____________________________________________________________";
         System.out.println("  " + message);
@@ -176,5 +206,6 @@ public class ChatBot {
 
         ChatBot chatBot = new ChatBot("EDITH");
         chatBot.startChat();
+        chatBot.saveTasksToFile("text.txt");
     }
 }
