@@ -23,9 +23,7 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
     public String toFileString() {
-        // Implement how you want to represent the task as a string for file storage
-        // For example, you can concatenate the description and status with a delimiter
-        return description + "|" + (isDone ? "1" : "0"); // Example format: "description|status"
+        return description + "|" + (isDone ? "1" : "0");
     }
 
     public static Task fromString(String fileString) {

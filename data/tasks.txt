@@ -1,2 +1,3 @@
 T|cs2113|0
 T|sleep|0
+T|eat|0

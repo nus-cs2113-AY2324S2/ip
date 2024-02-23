@@ -11,7 +11,7 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        loadTasksFromFile();
+        load();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -111,7 +111,7 @@ public class Duke {
                 System.out.println(de.getMessage());
                 System.out.println("____________________________________________________________");
             }
-            saveTasksToFile();
+            save();
         }
 
         System.out.println("____________________________________________________________");
@@ -143,13 +143,13 @@ public class Duke {
             System.out.println("That task doesn't exist!");
         }
     }
-    public static void saveTasksToFile() {
+    public static void save() {
         try {
             File file = new File(FILE_PATH);
             if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs(); // Create directories if they don't exist
+                file.getParentFile().mkdirs();
             }
-            file.createNewFile(); // Create the file if it doesn't exist
+            file.createNewFile();
             try (FileWriter writer = new FileWriter(file)) {
                 for (int i = 0; i < taskCount; i++) {
                     writer.write(tasks[i].toFileString() + "\n");
@@ -160,9 +160,7 @@ public class Duke {
         }
     }
 
-    // Method to load tasks from a file
-    // Method to load tasks from a file
-    public static void loadTasksFromFile() {
+    public static void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -172,7 +170,6 @@ public class Duke {
                 }
             }
         } catch (FileNotFoundException e) {
-            // Handle the case where the file doesn't exist
             System.err.println("File cannot be found. I shall create a new file...");
             File file = new File(FILE_PATH);
             try {
