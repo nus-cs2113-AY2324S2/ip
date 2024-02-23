@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
     static boolean ifExit = false; //exits program if true
@@ -89,6 +92,12 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
+    private static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter("dukeLog.txt", true);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void performAction(Task[] tasks, String line, int listIndex) throws IllegalShapeException{
         int eventDividerPositionTo = line.indexOf("/to");
         int eventDividerPositionFrom = line.indexOf("/from");
@@ -114,6 +123,12 @@ public class Duke {
         case "unmark": //unmark a task
             try {
                 unmarkTask(tasks, line);
+                try {
+                    writeToFile(line + System.lineSeparator());
+                } catch (IOException e){
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+
             } catch (IllegalShapeException e) {
                 System.out.println("--------------------------------------");
                 System.out.println("There is no such Task! :( ");
@@ -123,6 +138,12 @@ public class Duke {
         case "mark": //marks a task as done
             try {
                 markTask(tasks, line);
+                try {
+                    writeToFile(line + System.lineSeparator());
+                } catch (IOException e){
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+
             } catch (IllegalShapeException e) {
                 System.out.println("--------------------------------------");
                 System.out.println("There is no such Task! :( ");
@@ -132,17 +153,40 @@ public class Duke {
         case "todo": //add a new task
             tasks[listIndex] = new Todo(line);
             echoTask();
+            try {
+                writeToFile(line + System.lineSeparator());
+            } catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+
             break;
         case "event": //add a new event task
             tasks[listIndex] = new Event(line.substring(0, eventDividerPositionFrom).trim(), line.substring(eventDividerPositionFrom + 5,eventDividerPositionTo).trim(), line.substring(eventDividerPositionTo + 3).trim());
             echoTask();
+            try {
+                writeToFile(line + System.lineSeparator());
+            } catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+
             break;
         case "deadline": //add a new deadline task
             tasks[listIndex] = new Deadline(line.substring(0, deadlineDividerPositionBy).trim(), line.substring(deadlineDividerPositionBy + 3).trim());
             echoTask();
+            try {
+                writeToFile(line + System.lineSeparator());
+            } catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+
             break;
         case "delete":
             deleteTask(Integer.parseInt(line.substring(7)));
+            try {
+                writeToFile(line + System.lineSeparator());
+            } catch (IOException e){
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
             break;
         default:
             System.out.println("--------------------------------------");
