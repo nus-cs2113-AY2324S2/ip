@@ -27,6 +27,12 @@ public class Task {
         this.isDone = true;
     }
 
+    public String textFileInputString() {
+        return String.format("%s | %s",
+                isDone? "X" : "0",
+                getDescription().trim());
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
