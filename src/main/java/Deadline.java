@@ -1,4 +1,4 @@
-public class Deadline extends Todo {
+public class Deadline extends Task {
     protected String by;
     public Deadline(String description, String by) {
         super(description);
@@ -13,5 +13,10 @@ public class Deadline extends Todo {
     @Override
     public String toString() {
         return "[D]" + getStatusIcon() + description + " (by: " + by +")";
+    }
+
+    @Override
+    public String saveTask() {
+        return "T | " + (this.isDone ? "1" : "0") + " | " + description + " | " + by;
     }
 }
