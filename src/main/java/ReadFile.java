@@ -14,7 +14,7 @@ public class ReadFile {
                 try {
                     convertTask(ex);
                 } catch (RoleyPoleyException e) {
-                    System.out.println("Error File not found");
+                    System.out.println("Error!");
                 }
             });
         }
@@ -26,27 +26,33 @@ public class ReadFile {
 
     public static void convertTask(String line) throws RoleyPoleyException {
         String[] identifyTaskType = line.split(" ");
-        String description = line.substring("X | Y |".length());
+        String description = line.substring("X | Y | ".length());
+        boolean isDone = switch (identifyTaskType[4]) {
+            case "1" -> true;
+            case "0" -> false;
+            default -> throw new RoleyPoleyException("FileContentError");
+        };
+
         switch (identifyTaskType[0]) {
         case "T":
             if (description.length() < 5) {
                 throw new RoleyPoleyException("FileContentError");
             } else {
-                RoleyPoley.taskList.add(new Todo(description));
+                RoleyPoley.taskList.add(new Todo(description, isDone));
             }
             break;
         case "D":
-            if (!description.contains("/by")) {
+            if (!description.contains("(by:")) {
                 throw new RoleyPoleyException("FileContentError");
             } else {
-                RoleyPoley.taskList.add(new Deadline(description));
+                RoleyPoley.taskList.add(new Deadline(description, isDone));
             }
             break;
         case "E":
-            if (!description.contains("/from") || !description.contains("/to")) {
+            if (!description.contains("(from:") || !description.contains("to:")) {
                 throw new RoleyPoleyException("FileContentError");
             } else {
-                RoleyPoley.taskList.add(new Event(description));
+                RoleyPoley.taskList.add(new Event(description, isDone));
             }
             break;
         default:

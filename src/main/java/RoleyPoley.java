@@ -1,15 +1,11 @@
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
 
 public class RoleyPoley {
 
     protected static ArrayList<Task> taskList = new ArrayList<>();
+    private static String myPath = "./src/main/java/RoleyPoleyData.txt";
 
     public static void main(String[] args) throws IOException, RoleyPoleyException {
         //Task[] taskList = new Task[100];
@@ -76,6 +72,11 @@ public class RoleyPoley {
 
             switch (splitString[0]) {
             case "bye":
+                   try {
+                       WriteFile.writeToFile(myPath, taskList);
+                   } catch (IOException ex) {
+                       System.out.println("File Error!");
+                   }
                 System.out.println("Bye. Hope to see you again soon!");
                 createLine();
                 return true;
@@ -109,7 +110,7 @@ public class RoleyPoley {
                 if (line.length() < 5) {
                     throw new RoleyPoleyException("toDoError");
                 } else {
-                    taskList.add(new Todo(line.substring("todo".length())));
+                    taskList.add(new Todo(line.substring("todo".length()), false));
                     printAddReply(taskList);
                     createLine();
                     //counter++;
@@ -119,7 +120,7 @@ public class RoleyPoley {
                 if (!line.contains("/by")) {
                     throw new RoleyPoleyException("deadlineError");
                 } else {
-                    taskList.add(new Deadline(line.substring("deadline".length())));
+                    taskList.add(new Deadline(line.substring("deadline".length()), false));
                     printAddReply(taskList);
                     createLine();
                     //counter++;
@@ -130,23 +131,10 @@ public class RoleyPoley {
                 if (!line.contains("/from") || !line.contains("/to")) {
                     throw new RoleyPoleyException("eventError");
                 } else {
-                    taskList.add(new Event(line.substring("event".length())));
+                    taskList.add(new Event(line.substring("event".length()), false));
                     printAddReply(taskList);
                     createLine();
                 }
-                    /*description = words[0].substring("event".length());
-                    int indexOfEndTime = words[1].indexOf("/to");
-                    if (indexOfEndTime == -1) {
-                        throw new RoleyPoleyException("eventError");
-                    } else {
-                        String startTime = words[1].substring(0, indexOfEndTime - 1);
-                        String endTime = words[1].substring(indexOfEndTime + "/to".length());
-                        taskList.add(new Event(description, startTime, endTime));
-                        printAddReply(taskList);
-                        createLine();
-                        //counter++;
-                    }
-                }*/
                 break;
             case "delete":
                 words = line.split(" ");
