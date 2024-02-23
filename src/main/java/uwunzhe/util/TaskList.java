@@ -88,27 +88,6 @@ public class TaskList {
         System.out.print(leading);
         System.out.println(list.get(index));
     }
-   
-    /**
-     * Prints the list.
-     * 
-     * @param None
-     * @return None
-     */
-    public void printList() {
-        // Check if list is empty
-        if (size == 0) {
-            System.out.println("You KAIBAI-ing");
-            return;
-        }
-
-        System.out.println("Yay! List!");
-        for (int i = 0; i < size; i++) {
-            Task task = list.get(i);
-            System.out.print(i + 1 + ".");
-            System.out.println(task);
-        }
-    }
 
     /**
     * Marks a task as done or not done.

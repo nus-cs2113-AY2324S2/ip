@@ -5,6 +5,7 @@ import uwunzhe.util.TaskList;
 import uwunzhe.exceptions.UwunzheException;
 import uwunzhe.handler.Parser;
 import uwunzhe.handler.Storage;
+import uwunzhe.commands.Command;
 
 public class Uwunzhe {
     private static final TaskList taskList = new TaskList();
@@ -20,7 +21,7 @@ public class Uwunzhe {
      */
     public static boolean init() {
         try {
-            inputHandler = new Parser(taskList);
+            inputHandler = new Parser();
             storageHandler = new Storage(taskList);
             return true; // init successful
         } catch (UwunzheException e) {
@@ -37,24 +38,14 @@ public class Uwunzhe {
      */
     public static void loop() {
         boolean isRunning = true;
-        boolean isListUpdated;
 
         while (isRunning) {
             try {
-                isListUpdated = false;
                 String input = ui.getInput();
-                
-                if (input.toLowerCase().equals("bye")) {
-                    // Exit loop if input is "bye"
-                    isRunning = false;
-                    continue;
-                }
-                isListUpdated = inputHandler.parseInput(input);
+                Command c = inputHandler.parseInput(input);
+                c.execute(taskList, storageHandler);
+                isRunning = !(c.isExit());
 
-                if (isListUpdated) {
-                    // Save data to file if list is updated
-                    storageHandler.saveData(taskList);
-                }
             } catch (UwunzheException e) {
                 UwunzheException.printException(e);
             }

@@ -1,7 +1,6 @@
 package uwunzhe.util;
 
 import java.util.Scanner;
-import uwunzhe.util.Printer;
 
 public final class Ui {
     // Scanner object to get user input
