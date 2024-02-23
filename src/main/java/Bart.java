@@ -1,16 +1,88 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Bart {
     private static final String LINE = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/Bart.txt";
     private static final ArrayList<Task> tasksList = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadTasks();
         greetUser();
         manageTask();
+        saveTasks();
         byeUser();
     }
+
+    private static void loadTasks() {
+        try {
+            File file = new File(FILE_PATH);
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|");
+
+                String taskType = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String taskDescription = parts[2];
+
+                Task task = null;
+                switch (taskType) {
+                    case "T":
+                        task = new Todo("todo" + taskDescription);
+                        break;
+                    case "D":
+                        task = new Deadline("deadline" + taskDescription);
+                        break;
+                    case "E":
+                        task = new Event("event" + taskDescription);
+                        break;
+                    default:
+                        System.out.println("Unknown task type: " + taskType);
+                        continue;
+                }
+                if (isDone) {
+                    task.markAsDone();
+                }
+                tasksList.add(task);
+            }
+            scanner.close();
+        }  catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("No file loaded, creating new load file");
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file does not exist. Starting with an empty task list.");
+        }
+    }
+
+    private static void saveTasks() {
+        File file = new File("./data/Bart.txt");
+
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Task task: Task.getAllTasks()) {
+                if (task != null) {
+                    String description = task.description;
+                    String mark = task.isDone ? "1" : "0";
+                    String taskType = task.getTaskType().replace("]", "").replace("[", "").trim();
+                    writer.write(taskType + " | " + mark + " | " + description + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Saving error: " + e.getMessage());
+        }
+    }
+
+
     public static void greetUser() {
         System.out.println(LINE + "\nHello! I'm Bartholomew, but you can call me Bart for short :)");
         System.out.println("What can I do for you?\nType help for a list of available commands!\n" + LINE);
@@ -53,7 +125,6 @@ public class Bart {
                     return;
                 }
                 break;
-
             case "deadline":
                 try {
                     tasksList.add(new Deadline(command));
@@ -88,8 +159,8 @@ public class Bart {
         //Edge case: If list empty
         if (tasksList.isEmpty()) {
             System.out.println("Nothing added here....");
+            System.out.println("Nothing added");
         }
-
         for (int i = 0; i < tasksList.size(); i++) {
             System.out.println((i + 1) + "." + tasksList.get(i).toString());
         }
@@ -132,7 +203,7 @@ public class Bart {
     public static void printHelp() {
         System.out.println(LINE + "\n'list' lists all current tasks");
         System.out.println("'mark <#>' marks tasks with X");
-        System.out.println("'unmark <#>' unmarks by removing the X");
+        System.out.println("'unmark <#>' unmarks tasks by removing the X");
         System.out.println("'todo <task>' creates a to-do");
         System.out.println("'deadline <task> /by <time>' creates a task with deadline");
         System.out.println("'event <task> /from <time> /to <time>' creates a to-do");
