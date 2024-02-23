@@ -85,6 +85,34 @@ public class TaskList {
         }
     }
 
+    public void findTask(String keyword) {
+        if (keyword.isEmpty()) {
+            System.out.println("    Please provide a keyword to search for.");
+            return;
+        }
+
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            System.out.println("    No matching tasks found.");
+        } else {
+            displayMatchingTasks(matchingTasks);
+        }
+    }
+
+    private void displayMatchingTasks(List<Task> matchingTasks) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println("     " + (i + 1) + "." + matchingTasks.get(i));
+        }
+        System.out.println("    ____________________________________________________________");
+    }
+
     public int size() {
         return tasks.size();
     }
