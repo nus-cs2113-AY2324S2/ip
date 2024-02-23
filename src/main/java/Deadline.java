@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 
 public class Deadline extends Task {
 
@@ -8,6 +9,9 @@ public class Deadline extends Task {
         String[] parts = description.split(" /by ", 2);
         if (description.trim().equalsIgnoreCase("deadline")) {
             throw new IllegalArgumentException();
+        }
+        if (parts.length != 2) {
+            throw new NoSuchElementException();
         }
         this.description = parts[0].substring(9).trim(); // Remove "deadline" and trim
         this.by = parts[1];

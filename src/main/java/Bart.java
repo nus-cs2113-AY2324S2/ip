@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Bart {
@@ -12,47 +13,38 @@ public class Bart {
     }
     public static void greetUser() {
         System.out.println(LINE + "\nHello! I'm Bartholomew, but you can call me Bart for short :)");
-        System.out.println("What can I do for you?\n" + LINE);
+        System.out.println("What can I do for you?\nType help for a list of available commands!\n" + LINE);
     }
     public static void manageTask() {
         Scanner in = new Scanner(System.in);
         String command = "";
 
-        while (!command.equals("bye")) {
+        while (true) {
             command = in.nextLine();
 
-            switch (command) {
-                case "list":
-                    listTasks();
-                    break;
-                case "bye":
-                    break;
-                default:
-                    handleMarkAndDelete(command);
-                    break;
+            if (command.equals("help")) {
+                printHelp();
+            } else if (command.equals("bye")) {
+                break;
+            } else if (command.equals("list")) {
+                listTasks();
+            } else if (command.startsWith("mark")) {
+                markTask(command, true);
+            } else if (command.startsWith("unmark")) {
+                markTask(command, false);
+            } else if (command.startsWith("delete")) {
+                deleteTask(command);
+            } else {
+                addNewTask(command);
             }
         }
     }
 
-    private static void handleMarkAndDelete(String command) {
-        if (command.startsWith("mark")) {
-            markTask(command, true);
-        } else if (command.startsWith("unmark")) {
-            markTask(command, false);
-        } else if (command.startsWith("delete")) {
-            deleteTask(command);
-        } else {
-            addNewTask(command);
-        }
-    }
-    private static void testGitBranch() {
-        System.in.println("test lol");
-    }
     private static void addNewTask(String command) {
         String[] commandParts = command.split(" ");
-        String taskType = commandParts[0];
+        String tasking = commandParts[0];
 
-        switch (taskType) {
+        switch (tasking) {
             case "todo":
                 try {
                     tasksList.add(new Todo(command));
@@ -68,6 +60,9 @@ public class Bart {
                 } catch (IllegalArgumentException e) {
                     System.out.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
                     return;
+                } catch (NoSuchElementException e) {
+                    System.out.println(LINE + "\nOOPS!!! Try this format: deadline <task> /by <time>.\n" + LINE);
+                    return;
                 }
                 break;
             case "event":
@@ -75,6 +70,9 @@ public class Bart {
                     tasksList.add(new Event(command));
                 } catch (IllegalArgumentException e) {
                     System.out.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
+                    return;
+                } catch (NoSuchElementException e) {
+                    System.out.println(LINE + "\nOOPS!!! Try this format: event <task> /from <start_time> /to <end_time>.\n" + LINE);
                     return;
                 }
                 break;
@@ -104,10 +102,10 @@ public class Bart {
             Task task = tasksList.get(taskIndex);
             if (mark) {
                 task.markAsDone();
-                System.out.println(LINE + "\nNice! I've marked this task as done:\n");
+                System.out.println(LINE + "\nNice! I've marked this task as done:");
             } else {
                 task.markAsUndone();
-                System.out.println(LINE + "\nOK, I've marked this task as not done yet:\n");
+                System.out.println(LINE + "\nOK, I've marked this task as not done yet:");
             }
             System.out.println(task.getTaskMark() + " " + task.description + "\n" + LINE );
         } else {
@@ -128,6 +126,17 @@ public class Bart {
     }
 
     private static void byeUser() {
-        System.out.println("Bye. Hope to see you again soon!\n" + LINE);
+        System.out.println(LINE + "\nBye. Hope to see you again soon!\n" + LINE);
+    }
+
+    public static void printHelp() {
+        System.out.println(LINE + "\n'list' lists all current tasks");
+        System.out.println("'mark <#>' marks tasks with X");
+        System.out.println("'unmark <#>' unmarks by removing the X");
+        System.out.println("'todo <task>' creates a to-do");
+        System.out.println("'deadline <task> /by <time>' creates a task with deadline");
+        System.out.println("'event <task> /from <time> /to <time>' creates a to-do");
+        System.out.println("'bye' to quit\n" + LINE);
+
     }
 }
