@@ -76,7 +76,7 @@ public class UserInput {
             break;
 
         default:
-            // System.out.println("Please input a valid command");
+            System.out.println("Please input a valid command");
             break;
         }
     }

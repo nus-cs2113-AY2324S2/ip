@@ -23,8 +23,8 @@ public class John {
 
         while (!userInput.equalsIgnoreCase("bye")) {
             UserInput.parseInput(userInput, in, taskList);
-            userInput = in.next();
             System.out.println(LINE_BREAK);
+            userInput = in.next();
         }
 
         storeData();
@@ -43,6 +43,8 @@ public class John {
     private static void readData() {
         try {
             Database.readData(taskList);
+            System.out.println("Read in previous " + taskList.size() + " entries.");
+            
         } catch (FileNotFoundException e) {
             System.out.println("No previous data found");
         }
