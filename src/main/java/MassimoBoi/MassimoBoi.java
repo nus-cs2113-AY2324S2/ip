@@ -1,11 +1,9 @@
 package MassimoBoi;
 
-<<<<<<< HEAD
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-=======
->>>>>>> branch-Level-6
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -58,14 +56,14 @@ public class MassimoBoi {
             } catch(MassimoBoiException e){
                 e.errorMessage();
             } catch(IndexOutOfBoundsException e){
-<<<<<<< HEAD
+
                 System.out.println("The task number you have tried to mark, unmark, or delete does not exist");
             } catch(IOException e){
                 System.out.println("The task number you have tried to mark/unmark does not exist");
 
-=======
+
                 System.out.println("The task number you have tried to mark/unmark does not exist");
->>>>>>> branch-Level-6
+
             }
             finally {
                 makeHorizontalRow();
