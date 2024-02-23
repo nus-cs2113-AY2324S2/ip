@@ -59,6 +59,9 @@ public class Task {
     }
 
     public static void deleteTask(int taskIndex,  ArrayList<Task> taskArrayList) {
-
+        String removedTask = taskArrayList.get(taskIndex).description;
+        taskArrayList.remove(taskIndex);
+        System.out.println("Bala-lala. I've removed this task:");
+        System.out.println(removedTask);
     }
 }

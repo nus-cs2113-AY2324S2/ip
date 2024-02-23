@@ -40,8 +40,7 @@ public class Baymax {
 
                 // "tasks" -- displays tasks
                 else if (text.equalsIgnoreCase("list")) {
-                    for (int i = 0; i < 100; i++) {
-
+                    for (int i = 0; i < num; i++) {
                         if (taskArrayList.get(i) == null) {
                             break;
                         }
@@ -59,8 +58,8 @@ public class Baymax {
                 // DELETE TASK
                 else if (text.startsWith("delete")) {
                     int deleteIndex = Integer.parseInt(text.substring("delete".length() + 1)) - 1;
-
-
+                    Task.deleteTask(deleteIndex,taskArrayList);
+                    num--;
                 }
 
                 // "{other words}" -- REJECT
