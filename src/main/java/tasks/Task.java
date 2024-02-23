@@ -11,6 +11,9 @@ public abstract class Task {
         this.isCompleted = isCompleted;
     }
 
+    /**
+     * Returns a string representation of the task's completion status.
+     */
     protected String getIsCompletedString() {
         if (this.isCompleted) {
             return IS_COMPLETED_STRING;
@@ -26,6 +29,10 @@ public abstract class Task {
         return "[] " + this.taskName;
     }
 
+    /**
+     * Marks the task as completed or not completed.
+     * @param isCompleted whether the task is to be marked as completed or not completed
+     */
     public void mark(boolean isCompleted) {
         this.isCompleted = isCompleted;
         if (this.isCompleted) {
@@ -36,5 +43,10 @@ public abstract class Task {
         System.out.println("  " + this);
     }
 
+    /**
+     * Returns a string representation of the task.
+     * Abstract method to be implemented by subclasses.
+     * @return a string representation of the task
+     */
     public abstract String getStringRepresentation();
 }

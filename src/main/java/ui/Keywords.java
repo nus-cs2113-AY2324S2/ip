@@ -13,6 +13,11 @@ public class Keywords {
     public static final String MARK = "mark";
     public static final String UNMARK = "unmark";
 
+    /**
+     * Returns the expected number of inputs for a given keyword.
+     * @param keyword the keyword to check
+     * @return the expected number of inputs
+     */
     public static int getExpectedInputSize(String keyword) {
         switch (keyword) {
         case Keywords.LIST:

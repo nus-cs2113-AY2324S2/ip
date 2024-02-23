@@ -22,6 +22,13 @@ public class Deadline extends Task {
         return Keywords.DEADLINE + " "+ taskName + Keywords.BY + this.by + getIsCompletedString();
     }
 
+    /**
+     * Parses the input to get the task name and deadline.
+     * @param currentInput the input to be parsed
+     * @return a Deadline task
+     * @throws EmptyTaskDescription
+     * @throws InvalidTaskArguments
+     */
     public static Deadline getTask (String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {

@@ -33,6 +33,9 @@ public class UserInterface {
         HorizontalGenerator.printHorizontal();
     }
 
+    /**
+     * Echoes the user input back to the user.
+     */
     public void echo() {
         while (true) {
             readNextLine();
@@ -43,6 +46,11 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Runs the main loop of the program.
+     * Reads the user input and passes it to the LogicManager for processing.
+     * Exits when the user inputs the exit command.
+     */
     public void manageList() {
         while (true) {
             readNextLine();
