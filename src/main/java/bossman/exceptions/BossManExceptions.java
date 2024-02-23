@@ -1,4 +1,4 @@
-package bossman.exceptions.commandexceptions;
+package bossman.exceptions;
 
 public class BossManExceptions extends Exception {
     public BossManExceptions(String message) {

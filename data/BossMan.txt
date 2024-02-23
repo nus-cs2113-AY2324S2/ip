@@ -1,3 +1,6 @@
-T,false,task 1
-D,true,homework,
 E,false,networking,sunday 2pm,sunday 3pm
+D,false,code , tonight
+D,false,assignment 1 , 2pm
+T,false,assignemtn2
+E,false,movie , 4pm , 6pm
+T,true,feed cat

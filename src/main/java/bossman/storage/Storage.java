@@ -1,10 +1,11 @@
-package bossman;
+package bossman.storage;
 
 import bossman.task.Deadline;
 import bossman.task.Task;
 import bossman.task.TaskList;
 import bossman.task.Todo;
 import bossman.task.Event;
+import bossman.ui.Ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -36,19 +37,22 @@ public class DataStorage {
                     Task todoTask = new Todo(description, isMark);
                     TASK_LIST.addTask(todoTask);
                     break;
+
                 case "D":
                     String by = formattedData[3];
                     Task deadlineTask = new Deadline(description, isMark, by);
                     TASK_LIST.addTask(deadlineTask);
                     break;
+
                 case "E":
                     String from = formattedData[3];
                     String to = formattedData[4];
                     Task eventTask = new Event(description, isMark, from, to);
                     TASK_LIST.addTask(eventTask);
                     break;
+
                 default:
-                    System.out.println("Invalid task");
+                    Ui.printMessageNoSepNewLine("Invalid task");
                 }
             }
         } catch (FileNotFoundException e) {
@@ -62,7 +66,7 @@ public class DataStorage {
         f.createNewFile();
     }
 
-    protected void saveTasksToFile() throws IOException {
+    public void saveTasksToFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task currTask : TASK_LIST.getTasks()) {
             fw.write(currTask.formatForSave() + System.lineSeparator());
