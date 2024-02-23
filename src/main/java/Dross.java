@@ -87,7 +87,22 @@ public class Dross {
                 toggleMark(line);
             } else if (line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event")) {
                 handleTaskCreation(line);
-            } else {
+            }
+            else if (line.startsWith("delete")) {
+                try {
+                    int index = Integer.parseInt(line.split(" ")[1]);
+                    drossTaskList.deleteTask(index);
+                    System.out.println("Task " + index + " successfully deleted boss");
+                    printLine();
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("Delete what lah");
+                    printLine();
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("Delete simi delete");
+                    printLine();
+                }
+            }
+            else {
                 printLine();
                 System.out.println("Please enter a valid command");
                 printLine();
