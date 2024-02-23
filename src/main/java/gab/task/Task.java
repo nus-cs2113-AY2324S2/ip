@@ -2,41 +2,88 @@ package gab.task;
 
 import gab.exception.GabException;
 
+/**
+ * Super class of Deadline, Event and Todo
+ */
+
 public class Task {
     private final String DESCRIPTION;
     private boolean isDone;
-    protected static int taskCount = 0;
+
+    /**
+     * Initialise a new task class with name and whether task isDone
+     * @param description task name
+     */
 
     public Task (String description) {
         this.DESCRIPTION = description;
         this.isDone = false;
-        taskCount++;
     }
+
+    /**
+     * Updates task to be done
+     */
 
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * Update task as not done
+     */
+
     public void markAsNotDone() {
         isDone = false;
     }
+
+    /**
+     * Return the format to print the status of task
+     *
+     * @return task completion status
+     */
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    /**
+     * Method to get the task name
+     *
+     * @return the task name
+     */
     public String getDescription() {
         return DESCRIPTION;
     }
+
+    /**
+     * Returns format of string to be printed, to be over ride by specific class
+     *
+     * @return format of string to print
+     */
 
     @Override
     public String toString() {
         return getStatusIcon() + " " + DESCRIPTION; //will be over ride by subclass
     }
 
+    /**
+     * Returns format of data file to be printed
+     *
+     * @return file format of task to be saved in data file
+     */
+
     public String toFileFormat() {
         return " | " + (this.isDone? "1" : "0") + " | " + this.DESCRIPTION;
     }
+
+    /**
+     * Loads file input and tag them with their task category
+     * Return task and create a new task to be added to taskList
+     *
+     * @param line input read from file
+     * @return task created based on task type
+     * @throws GabException thrown when error format is wrong or corrupted
+     */
 
     public static Task loadFromFile(String line) throws GabException {
         String[] savedArray = line.split(" \\| ");
