@@ -8,8 +8,6 @@ public class Deadline extends Task{
 
     private static String getTask(String description) {
         String[] split = description.split("\\(by:|/by");
-        System.out.println(split[1]);
-        System.out.println(split[0]);
         return split[0];
     }
 

@@ -4,7 +4,6 @@ public class Event extends Task{
 
     public Event(String description, boolean isDone) {
         super(getTask(description), isDone);
-        System.out.println((getTask(description)));
         this.from = getFrom(description);
         this.to = getTo(description);
     }

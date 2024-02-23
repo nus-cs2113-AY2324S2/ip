@@ -27,7 +27,7 @@ public class ReadFile {
     public static void convertTask(String line) throws RoleyPoleyException {
         String[] identifyTaskType = line.split(" ");
         String description = line.substring("X | Y | ".length());
-        boolean isDone = switch (identifyTaskType[4]) {
+        boolean isDone = switch (identifyTaskType[2]) {
             case "1" -> true;
             case "0" -> false;
             default -> throw new RoleyPoleyException("FileContentError");
@@ -35,11 +35,7 @@ public class ReadFile {
 
         switch (identifyTaskType[0]) {
         case "T":
-            if (description.length() < 5) {
-                throw new RoleyPoleyException("FileContentError");
-            } else {
                 RoleyPoley.taskList.add(new Todo(description, isDone));
-            }
             break;
         case "D":
             if (!description.contains("(by:")) {
