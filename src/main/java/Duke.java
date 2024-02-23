@@ -7,7 +7,6 @@ public class Duke {
     static int listIndex = 0; //To index through Task[] tasks
     static int remainingTasksCounter = 0;
 
-
     public static void echoTask() {
         System.out.println("--------------------------------------");
         System.out.println("Got it! I've added this task:");
