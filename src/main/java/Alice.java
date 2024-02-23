@@ -28,7 +28,10 @@ public class Alice {
                     System.out.println(FAREWELL_MESSAGE);
                     System.out.println(LINE);
                     break;
-                } else if (input.equals("help")) {
+                } else if(input.startsWith("delete ")){
+                    handleDelete(input, tasks, LINE);
+                }
+                else if (input.equals("help")) {
                     // Respond to the help command by listing available commands
                     System.out.println(LINE);
                     System.out.println("okay bestie, here's what u can throw at me to help ya <3 :");
@@ -70,6 +73,26 @@ public class Alice {
             }
         }
         scanner.close();
+    }
+
+    private static void handleDelete(String input, ArrayList<Task> tasks, String line) throws AliceException{
+        try{
+            // Removes non-digits and parse into int, then subtracts 1 for zero-based index
+            int taskNumber = Integer.parseInt(input.replaceAll("\\D", "")) - 1;
+            if (taskNumber < 0 || taskNumber >= tasks.size()){
+                throw new AliceException("ayo i cant seem to find that task, try a valid task number yea");
+            }
+
+            // Remove task from list
+            Task removedTask = tasks.remove(taskNumber);
+            System.out.println(line);
+            System.out.println("gotcha, ive made task "+ taskNumber + " go poof!");
+            System.out.println(" " + removedTask);
+            System.out.println("now u got " + tasks.size() + " tasks in ur list.");
+            System.out.println(line);
+        } catch (NumberFormatException e){
+            throw new AliceException("ayo do tell me the specific task number to be deleted yea?");
+        }
     }
 
     private static void handleTodo(String input, ArrayList<Task> tasks, String line) throws AliceException {
