@@ -1,7 +1,10 @@
 package MassimoBoi;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch-Level-6
 =======
 >>>>>>> branch-Level-6
 public class Task {

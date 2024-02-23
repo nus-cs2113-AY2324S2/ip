@@ -1,8 +1,11 @@
 package MassimoBoi;
 
+<<<<<<< HEAD
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+=======
+>>>>>>> branch-Level-6
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -55,10 +58,14 @@ public class MassimoBoi {
             } catch(MassimoBoiException e){
                 e.errorMessage();
             } catch(IndexOutOfBoundsException e){
+<<<<<<< HEAD
                 System.out.println("The task number you have tried to mark, unmark, or delete does not exist");
             } catch(IOException e){
                 System.out.println("The task number you have tried to mark/unmark does not exist");
 
+=======
+                System.out.println("The task number you have tried to mark/unmark does not exist");
+>>>>>>> branch-Level-6
             }
             finally {
                 makeHorizontalRow();
@@ -98,7 +105,13 @@ public class MassimoBoi {
             printDeleteTaskMessage(taskIndex-1, taskList);
             deleteTask(taskIndex-1,taskList);
             return;
-        }
+        } else if (userInput.startsWith("delete")){
+        String[] handleInput = userInput.split(" ");
+        int taskIndex = Integer.parseInt(handleInput[1]);
+        printDeleteTaskMessage(taskIndex-1, taskList);
+        deleteTask(taskIndex-1,taskList);
+        return;
+    }
 
         if (userInput.startsWith("todo")){
             Task newTask;
@@ -179,7 +192,10 @@ public class MassimoBoi {
         System.out.printf("You now have %d %s in the list\n", taskList.size(), taskList.size() == 1 ? "task" : "tasks");
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch-Level-6
     public static void deleteTask(int task, List<Task> taskList){
         taskList.remove(task);
     }
