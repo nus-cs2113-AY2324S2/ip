@@ -8,11 +8,8 @@ public class TaskManager {
         taskCount = 0;
     }
 
-    public void addTask(String inputLine) throws KapwaException {
+    public void addTask(String inputLine) {
         String[] parts = inputLine.split(" ", 2);
-        if (parts.length < 2) {
-            throw new KapwaException("Invalid task format.");
-        }
         String taskType = parts[0];
         Task newTask = null;
 
@@ -20,26 +17,16 @@ public class TaskManager {
             switch (taskType) {
             case "todo":
                 newTask = new Todo(parts[1]);
-                if (parts[1].trim().isEmpty()) {
-                    throw new KapwaException("The description of a todo cannot be empty.");
-                }
                 break;
             case "deadline":
                 String[] deadlineParts = parts[1].split("/by", 2);
                 newTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
-                if (deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-                    throw new KapwaException("The description and by of a deadline cannot be empty.");
-                }
                 break;
             case "event":
-                String[] eventDetails = parts[1].split("/from", 2);
-                String[] fromTo = eventDetails[1].split("/to", 2);
-                newTask = new Event(eventDetails[0].trim(), fromTo[0].trim(), fromTo[1].trim());
-                if (eventDetails[0].trim().isEmpty() || fromTo[0].trim().isEmpty() || fromTo[1].trim().isEmpty()) {
-                    throw new KapwaException("The description, from and to of an event cannot be empty.");
-                }
+                String[] eventParts = parts[1].split("/at", 2);
+                newTask = new Event(eventParts[0].trim(), eventParts[1].trim(), taskType);
                 break;
-            default:
+            default: 
                 System.out.println("Invalid task type.");
                 return;
             }
@@ -56,10 +43,7 @@ public class TaskManager {
         }
     }
 
-    public void displayTaskList() throws KapwaException{
-        if (taskCount == 0) {
-            throw new KapwaException("There are no tasks in the list.");
-        }
+    public void displayTaskList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + tasks[i]);
