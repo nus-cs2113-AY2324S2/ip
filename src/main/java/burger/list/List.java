@@ -13,13 +13,15 @@ import static burger.BurgerException.*;
 
 public class List {
 
-    private final ArrayList<Task> taskList;
+    final int COMMANDIDX = 0;
+    private ArrayList<Task> taskList;
 
     public int totalTasks;
     public List() {
         taskList = new ArrayList<>();
         totalTasks = 0;
     }
+
     /**
      * Returns boolean value base on whether the input matches one of the commands.
      *
@@ -30,14 +32,15 @@ public class List {
      */
     public boolean isValidCommand(String[] textArray) {
         boolean isValid = true;
+        int idx = 0;
         try {
-            String command = textArray[0];
+            String command = textArray[COMMANDIDX];
             switch (command) {
             case "mark":
                 // fallthrough
             case "unmark":
-                int idx = Integer.parseInt(textArray[1]) - 1;
-                getMark(idx, command);
+                idx = getIdx(textArray);
+                markTask(idx, command);
                 break;
             case "todo":
                 addTodo(textArray);
@@ -48,6 +51,10 @@ public class List {
             case "event":
                 addEvent(textArray);
                 break;
+            case "delete":
+                idx = getIdx(textArray);
+                deleteTask(idx);
+                break;
             default:
                 isValid = false;
                 break;
@@ -55,9 +62,41 @@ public class List {
             return isValid;
         } catch (ArrayIndexOutOfBoundsException e) {
             printEmptyDescription();
-            return isValid;
+            return false;
         }
+    }
 
+    public void addFromSaveFile(char tde, char mark, String task) {
+        Task currTask = new Task(task, tde);
+        if (mark == 'X') {
+            currTask.markDone();
+        }
+        taskList.add(currTask);
+    }
+
+    private static int getIdx(String[] textArray) {
+        StringBuilder idx = new StringBuilder();
+        for (int i = 1; i < textArray.length; i++) {
+            idx.append(textArray[i]);
+        }
+        return Integer.parseInt(idx.toString()) - 1;
+    }
+
+    private void deleteTask(int idx) {
+        try {
+            if (idx < 0 || idx >= totalTasks) {
+                throw new BurgerException();
+            }
+            System.out.println("Noted. I've removed this task:");
+            taskList.get(idx).printTask();
+            taskList.remove(idx);
+            totalTasks--;
+            System.out.println();
+            printTotalTasks();
+            printLine();
+        } catch (BurgerException e) {
+            printOutOfIndexMessage();
+        }
     }
 
     /**
@@ -75,6 +114,7 @@ public class List {
             return null;
         }
     }
+
     /**
      * Adds a new todo to the list.
      *
@@ -99,20 +139,20 @@ public class List {
         try {
             StringBuilder eventText = new StringBuilder(event[1]);
             int i = 2;
-            while (!event[i].startsWith("/from")) {
+            while (!event[i].startsWith("/from")) { // appends the name of event task
                 eventText.append(' ').append(event[i]);
                 i++;
             }
             eventText.append(' ').append("(from: ");
             i++;
             while (!event[i].startsWith("/to")) {
-                eventText.append(event[i]).append(' ');
+                eventText.append(event[i]).append(' '); // appends the "from" timing
                 i++;
             }
             eventText.append("to: ");
             i++;
             while (i < event.length - 1) {
-                eventText.append(event[i]).append(' ');
+                eventText.append(event[i]).append(' '); // appends the "to" timing
                 i++;
             }
             eventText.append(event[i]).append(')');
@@ -133,14 +173,14 @@ public class List {
         try {
             StringBuilder deadlineText = new StringBuilder(deadline[1]);
             int i = 2;
-            while (!deadline[i].startsWith("/")) {
+            while (!deadline[i].startsWith("/")) { // appends the name of deadline task
                 deadlineText.append(' ').append(deadline[i]);
                 i++;
             }
             deadlineText.append(' ').append("(by: ");
             i++;
             while (i < deadline.length - 1) {
-                deadlineText.append(deadline[i]).append(' ');
+                deadlineText.append(deadline[i]).append(' '); // appends the "by" timing
                 i++;
             }
             deadlineText.append(deadline[i]).append(')');
@@ -163,9 +203,14 @@ public class List {
         this.taskList.get(totalTasks).printTask();
         this.totalTasks++;
         System.out.println();
-        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+        printTotalTasks();
         printLine();
     }
+
+    private void printTotalTasks() {
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+    }
+
     /**
      * Returns the mark from a task in the list.
      *
@@ -173,7 +218,7 @@ public class List {
      * @param command Command to "mark" or "unmark" the task.
      * @throws BurgerException if index input is out of the range of list of tasks.
      */
-    public void getMark(int idx, String command) {
+    public void markTask(int idx, String command) {
         try {
             Task currTask = getTask(idx);
             if (currTask == null) {
@@ -208,12 +253,13 @@ public class List {
      * Prints task list.
      */
     public void printTaskList() {
-        printLine();
-        System.out.println("Here are the tasks in your list:");
         if (taskList.isEmpty()) {
             System.out.println("Don't be lazy... start doing something");
+            printLine();
+            return;
         }
-        for (int i = 0; i < taskList.size(); i++) {
+        System.out.println("These are the tasks in your save file:");
+        for (int i = 0; i < totalTasks; i++) {
             System.out.print(i+1 + ". ");
             taskList.get(i).printTask();
             System.out.println();
