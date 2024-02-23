@@ -1,9 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dul {
-    public static final int maximumTASKS = 100;
-    public static Task[] tasks = new Task[maximumTASKS];
-    public static int taskCount = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = " ____        _\n"
@@ -18,20 +17,14 @@ public class Dul {
 
         while (!guyInput.equals("bye")) {
             guyInput = in.nextLine();
-            try {
-                listInput(guyInput);
-            } catch (DulException e) {
-                System.out.println(e.getMessage());
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+            listInput(guyInput);
         }
 
         System.out.println("Bye. Hope to see you again soon!");
         in.close();
     }
 
-    public static void listInput(String input) throws DulException {
+    public static void listInput(String input) {
         String[] command = input.split(" ", 2);
         switch (command[0]) {
             case "list":
@@ -45,61 +38,53 @@ public class Dul {
                 break;
             case "todo":
                 if (command.length < 2 || command[1].trim().isEmpty()) {
-                    throw new IllegalArgumentException("Do not leave the description of a todo empty.");
+                    System.out.println("OOPS!!! Do not leave the description of a todo empty.");
+                } else {
+                    addTodoTask(command[1]);
                 }
-                addTodoTask(command[1]);
                 break;
             case "deadline":
                 if (command.length < 2 || !command[1].contains("/by")) {
-                    throw new IllegalArgumentException("I need you to give me the description and deadline (/by).");
+                    System.out.println("OOPS!!! I need you to give me the description and deadline (/by).");
+                } else {
+                    addDeadlineTask(command[1]);
                 }
-                addDeadlineTask(command[1]);
                 break;
             case "event":
                 addEventTask(command[1]);
                 break;
+            case "delete":
+                deleteTask(Integer.parseInt(command[1]) - 1);
+                break;
             case "bye":
                 break;
             default:
-                if (!input.contains(" ")) {
-                    throw new DulException("OH NO!!! I do not understand");
-                } else {
-                    addTask(input);
-                }
-                break;
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
 
-    public static void addTask(String taskType) {
-        tasks[taskCount] = new Task(taskType);
-        taskCount++;
-        System.out.println("added: " + taskType);
-    }
-
     public static void addTodoTask(String taskType) {
-        tasks[taskCount] = new TodoTask(taskType);
-        taskCount++;
+        tasks.add(new TodoTask(taskType));
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1].toString());
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void addDeadlineTask(String taskType) {
         String[] parts = taskType.split(" /by ", 2);
         String description = parts[0];
         String by = parts[1];
-        tasks[taskCount] = new DeadlineTask(description, by);
-        taskCount++;
+        tasks.add(new DeadlineTask(description, by));
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1].toString());
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void addEventTask(String taskType) {
@@ -108,29 +93,29 @@ public class Dul {
         String description = parts[0];
         String from = eventParts[0];
         String to = eventParts[1];
-        tasks[taskCount] = new EventTask(description, from, to);
-        taskCount++;
+        tasks.add(new EventTask(description, from, to));
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1].toString());
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void markTaskDone(int index) {
-        tasks[index].markDone();
+        tasks.get(index).markDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + tasks[index].toString());
+        System.out.println("  " + tasks.get(index).toString());
     }
 
     public static void markTaskNotDone(int index) {
-        tasks[index].markNotDone();
+        tasks.get(index).markNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + tasks[index].toString());
+        System.out.println("  " + tasks.get(index).toString());
     }
-}
 
-class DulException extends Exception {
-    public DulException(String message) {
-        super(message);
+    public static void deleteTask(int index) {
+            Task removedTask = tasks.remove(index);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask.toString());
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
 
