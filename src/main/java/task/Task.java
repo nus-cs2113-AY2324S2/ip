@@ -1,5 +1,7 @@
 // Task.java
-abstract class Task {
+package task;
+
+public abstract class Task {
     String description;
     boolean isDone;
 
@@ -8,11 +10,11 @@ abstract class Task {
         this.isDone = false;
     }
 
-    void markAsDone() {
+    public void markAsDone() {
         isDone = true;
     }
 
-    void markAsNotDone() {
+    public void markAsNotDone() {
         isDone = false;
     }
 

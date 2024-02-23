@@ -1,3 +1,7 @@
+package kapwa;
+
+import exception.KapwaException;
+
 import java.util.Scanner;
 
 public class Kapwa {

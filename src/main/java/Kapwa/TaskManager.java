@@ -1,4 +1,11 @@
-// TaskManager.java
+package kapwa;
+
+import exception.KapwaException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 public class TaskManager {
     private Task[] tasks;
     private int taskCount;
