@@ -32,28 +32,28 @@ public class Chris {
         try {
             listCommands = DataManage.readSavedData();
         } catch (InputException e) {
-            System.out.println("didn't managed to read the data");
+            System.out.println(e.getMessage());
         }
 
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(dash + "\n" +
                 "Hello, I'm Chris\n" +
                 "What can I do for you?\n" +
-                "____________________________________________________________\n");
+                dash + "\n");
         while (sc.hasNextLine()) {
             DataManage.saveData(listCommands);
             try {
                 command = sc.nextLine();
                 if (command.equals("bye")) {
                     DataManage.saveText(listCommands);
-                    System.out.println("____________________________________________________________\n" +
+                    System.out.println(dash + "\n" +
                             "Bye. Hope to see you again soon!\n" +
-                            "____________________________________________________________");
+                            dash);
                     break;
                 } else if (command.equals("list")) {
-                    System.out.println("____________________________________________________________");
+                    System.out.println(dash);
                     System.out.println("Here are the tasks in your list");
                     listCommands.printTasks();
-                    System.out.println("____________________________________________________________");
+                    System.out.println(dash);
                 } else if (command.matches("^(mark [0-9]|unmark [0-9])")) {
                     String[] split = command.split(" ");
                     String option = split[0];
@@ -81,11 +81,11 @@ public class Chris {
                     }
                     Tasks record = new ToDos(command.substring(5));
                     listCommands.addTask(record);
-                    System.out.println("____________________________________________________________");
+                    System.out.println(dash);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + record);
                     listCommands.taskNumPrint();
-                    System.out.println("____________________________________________________________");
+                    System.out.println(dash);
                 } else if (command.matches("deadline(.*)")) {
                     String[] deadlines = command.split(" /by ", 2);
                     if (deadlines.length == 2) {
@@ -94,11 +94,11 @@ public class Chris {
                         }
                         Tasks record = new Deadlines(deadlines[0].substring(9), deadlines[1]);
                         listCommands.addTask(record);
-                        System.out.println("____________________________________________________________");
+                        System.out.println(dash);
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record);
                         listCommands.taskNumPrint();
-                        System.out.println("____________________________________________________________");
+                        System.out.println(dash);
                     } else {
                         throw new InputException("Wrong input syntax, have a time for deadline");
                     }
@@ -112,11 +112,11 @@ public class Chris {
                         if (times.length == 2) {
                             Tasks record = new Events(events[0].substring(6), times[0], times[1]);
                             listCommands.addTask(record);
-                            System.out.println("____________________________________________________________");
+                            System.out.println(dash);
                             System.out.println("Got it. I've added this task:");
                             System.out.println("  " + record);
                             listCommands.taskNumPrint();
-                            System.out.println("____________________________________________________________");
+                            System.out.println(dash);
                         } else {
                             throw new InputException("invalid syntax, have a start and end time");
                         }
@@ -127,9 +127,9 @@ public class Chris {
                     throw new InputException("I cannot understand the command");
                 }
             } catch (InputException e) {
-                System.out.println("____________________________________________________________");
+                System.out.println(dash);
                 System.out.println(e.getMessage());
-                System.out.println("____________________________________________________________");
+                System.out.println(dash);
             }
         }
         sc.close();

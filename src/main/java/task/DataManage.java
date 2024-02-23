@@ -49,8 +49,10 @@ public class DataManage {
     public static TaskLists readSavedData() throws InputException {
         try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
             return (TaskLists) reader.readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            throw new InputException("no file error + create file error");
+        } catch (ClassNotFoundException e) {
+            throw new InputException("class not found");
+        } catch (IOException inputErr) {
+            throw new InputException("I/O error");
         }
     }
 }

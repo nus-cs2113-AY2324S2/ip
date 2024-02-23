@@ -2,8 +2,9 @@ package task;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class TaskLists {
+public class TaskLists implements Serializable{
     /** All the tasks stored */
     private final List<Tasks> tasksList;
 
