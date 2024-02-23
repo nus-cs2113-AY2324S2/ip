@@ -134,7 +134,7 @@ public class Chelle {
             break;
 
         case EVENT:
-            if (userInput.length() < 7 || !(userInput.indexOf("/from") < userInput.indexOf("/to"))) {
+            if (userInput.length() < 7 || !(userInput.indexOf("/from") < userInput.indexOf("/to")) || !(userInput.contains("/from"))){
                 throw new InvalidCommandFormatException(command);
             } else {
                 tasks.add(new Event(userInput.substring(6)));
