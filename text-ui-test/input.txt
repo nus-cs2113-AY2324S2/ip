@@ -4,6 +4,9 @@ event Go supper /from 12am /to
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 list
+delete 3
+list
+event project meeting /from Mon 2pm /to 4pm
 mark 1
 mark 1b
 list
@@ -22,4 +25,5 @@ unmark 50
 
 list
 deadline Assingment /by
+delete 100
 bye

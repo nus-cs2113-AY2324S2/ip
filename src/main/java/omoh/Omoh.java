@@ -71,19 +71,18 @@ public class Omoh {
             else if (line.startsWith("event")) {
                 Event.addEvent(line);
             }
-            else if (line.startsWith("mark") || line.startsWith("unmark")) {
+            else if (line.startsWith("mark") || line.startsWith("unmark") || line.startsWith("delete")) {
                 try {
                     int taskNumber = Task.extractTaskNumber(line);
-                    Task.modifyDoneState(taskNumber, line);
-                    Task.printMarkTask(taskNumber, line);
+                    Task.modifyDoneStateOrDelete(taskNumber, line);
                 } catch (NumberFormatException e) {
-                    System.out.println("Please enter valid number without alphabets after mark or unmark " +
+                    System.out.println("Please enter valid number without alphabets after mark or unmark or delete " +
                             "Example: mark 1");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Please enter valid number within boundaries of list. " +
                             "Example: if list only has 2 items, dont enter beyond 2");
                 } catch (EmptyTaskNumberException e) {
-                    System.out.println("Please enter a number after mark or unmark " +
+                    System.out.println("Please enter a number after mark or unmark or delete " +
                             "Example: mark 1");
                 }
             } else {
