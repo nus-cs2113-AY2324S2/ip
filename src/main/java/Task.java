@@ -1,8 +1,6 @@
 public class Task {
-    public static final String OUTPUT_INDENTATION = "    ";
     protected String description;
     protected boolean isDone;
-    protected Integer index;
 
     public Task(String description, boolean b) {
         this.description = description;

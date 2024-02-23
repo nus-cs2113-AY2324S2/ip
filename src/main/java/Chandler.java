@@ -54,6 +54,17 @@ public class Chandler {
                         list.get(task_number2).markAsUndone();
                         System.out.println(OUTPUT_INDENTATION + list.get(task_number2));
                         break;
+                    case "delete":
+                        int task_number3 = Integer.parseInt(input.replace("delete ", "")) - 1;
+                        if (task_number3 < 0 || task_number3 >= list.size()) {
+                            throw new ChandlerException("Invalid task number");
+                        }
+                        listSize--;
+                        System.out.println(OUTPUT_INDENTATION + "YES, less things to do! I've removed this task:");
+                        System.out.println(OUTPUT_INDENTATION + " " + list.get(task_number3));
+                        System.out.println(OUTPUT_INDENTATION + "Now you have " + (listSize-1) + " tasks in the list.");
+                        list.remove(task_number3);
+                        break;
                     case "todo":
                         Todo taskTodo = new Todo(input.replace("todo ", ""), "T");
                         list.add(taskTodo);
@@ -101,7 +112,7 @@ public class Chandler {
             }
         }
         System.out.println(LINE_DIVIDER);
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. Meeting you was okay..");
         System.out.println(LINE_DIVIDER);
     }
 }
