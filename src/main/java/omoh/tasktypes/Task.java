@@ -84,6 +84,7 @@ public class Task {
         System.out.println("Noted. I've removed this task:");
         System.out.println(tasks.get(index - 1).toString());
         tasks.remove(index - 1);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         totalTasks--;
         Omoh.printHorizontalLine();
     }

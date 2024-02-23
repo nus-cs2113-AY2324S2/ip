@@ -31,6 +31,7 @@ __________________________________________________
 __________________________________________________
 Noted. I've removed this task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
 __________________________________________________
 __________________________________________________
 Here are the tasks in your list:
