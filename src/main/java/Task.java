@@ -20,6 +20,10 @@ public class Task {
         this.description = description;
     }
 
+    public void setBoolean(boolean status) {
+        this.isDone = status;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -56,5 +60,16 @@ public class Task {
         String answer;
         answer = this.type + " | " + this.isDone + " | " + this.description;
         return answer;
+    }
+
+    public void parse(String s) throws SalmonMissingArgument {
+        // format T | true | description
+        int firstSlash = s.indexOf('|');
+        int secondSlash = s.indexOf('|', firstSlash + 1);
+        int spaceAfterIsDone = s.indexOf(' ', firstSlash + 2);
+        String isDoneStatus = s.substring(firstSlash + 2, spaceAfterIsDone);
+        String description = s.substring(secondSlash + 1);
+        this.setBoolean(Boolean.parseBoolean(isDoneStatus));
+        this.setDescription(description);
     }
 }
