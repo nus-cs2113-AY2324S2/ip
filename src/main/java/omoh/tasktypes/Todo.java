@@ -15,9 +15,9 @@ public class Todo extends Task {
         if (description.isEmpty()) {
             throw new EmptyTodoException();
         }
-        Task.tasks[Task.totalTasks] = new Todo(description);
+        Task.tasks.add(new Todo(description));
         Task.totalTasks++;
-        printTodoMessage(Task.tasks[Task.totalTasks - 1]);
+        printTodoMessage(Task.tasks.get(Task.totalTasks - 1));
     }
 
     public static void printTodoMessage (Task description) {

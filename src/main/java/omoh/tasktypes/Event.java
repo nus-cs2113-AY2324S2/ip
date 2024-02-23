@@ -46,7 +46,7 @@ public class Event extends Task {
     public static void addEvent (String input) {
         try {
             Event extractedInfo = extractEvent(input);
-            Task.tasks[Task.totalTasks] = new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to);
+            Task.tasks.add(new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to));
             Task.totalTasks++;
             Event.addEventMessage(extractedInfo);
         } catch (IllegalEventInput e) {

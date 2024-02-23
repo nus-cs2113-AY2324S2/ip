@@ -79,7 +79,7 @@ public class Omoh {
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter valid number without alphabets after mark or unmark " +
                             "Example: mark 1");
-                } catch (NullPointerException e) {
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Please enter valid number within boundaries of list. " +
                             "Example: if list only has 2 items, dont enter beyond 2");
                 } catch (EmptyTaskNumberException e) {

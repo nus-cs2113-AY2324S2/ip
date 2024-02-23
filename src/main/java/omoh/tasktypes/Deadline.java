@@ -53,7 +53,7 @@ public class Deadline extends Task {
     public static void addDeadline (String input) {
         try {
             Deadline extractedInfo = Deadline.extractTaskAndDueDate(input);
-            Task.tasks[totalTasks] = new Deadline(extractedInfo.description, extractedInfo.by);
+            Task.tasks.add(new Deadline(extractedInfo.description, extractedInfo.by));
             Task.totalTasks++;
             Deadline.printDeadline(extractedInfo);
         } catch (IllegalDeadlineInput e) {

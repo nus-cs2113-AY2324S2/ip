@@ -3,16 +3,19 @@ import omoh.Omoh;
 
 import omoh.customexceptions.EmptyTaskNumberException;
 
+import java.util.ArrayList;
+
 public class Task {
-    protected static Task[] tasks;
+    public static ArrayList<Task> tasks;
     public static int totalTasks = 0;
     protected String description;
     protected boolean isDone;
 
     protected String type;
 
+    //initialise the ArrayList when called. This function is called in main once
     public static void initArray() {
-        tasks = new Task[100];
+        tasks = new ArrayList<>();
     }
 
     public Task(String description) {
@@ -26,7 +29,7 @@ public class Task {
         System.out.println("Here are the tasks in your list:");
         int serialNumber = 1;
         for (int i = 0; i < totalTasks; i++) {
-            System.out.println(serialNumber + "." + tasks[i].toString());
+            System.out.println(serialNumber + "." + tasks.get(i).toString());
             serialNumber += 1;
         }
     }
@@ -57,9 +60,9 @@ public class Task {
         //only executes if taskNumber is valid
         if (taskNumber != -1) {
             if (input.startsWith("mark")) {
-                tasks[taskNumber - 1].isDone = true;
+                tasks.get(taskNumber - 1).isDone = true;
             } else {
-                tasks[taskNumber - 1].isDone = false;
+                tasks.get(taskNumber - 1).isDone = false;
             }
         }
     }
@@ -73,18 +76,18 @@ public class Task {
         } else {
             System.out.println("OK, I've marked his task as not done yet:");
         }
-        System.out.println(tasks[index - 1].toString());
+        System.out.println(tasks.get(index - 1).toString());
         Omoh.printHorizontalLine();
     }
 
     public static void addTask(String taskDescription) {
-        tasks[totalTasks] = new Task(taskDescription);
+        tasks.add(new Task(taskDescription));
         totalTasks++;
     }
 
     public static void printAddedTask() {
         Omoh.printHorizontalLine();
-        System.out.println("added: " + tasks[totalTasks - 1].description);
+        System.out.println("added: " + tasks.get(totalTasks - 1).description);
         Omoh.printHorizontalLine();
     }
 
