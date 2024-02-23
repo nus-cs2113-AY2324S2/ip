@@ -4,8 +4,8 @@ package jason.tasks;
  * Represents a task with a description and a status.
  */
 public class Task {
-    private String description;
-    private Boolean isDone;
+    protected String description;
+    protected Boolean isDone;
 
     /**
      * Creates a new Task with the specified description.
