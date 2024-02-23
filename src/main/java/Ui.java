@@ -1,16 +1,31 @@
 import java.util.Scanner;
 
+/**
+ * The Ui class handles the user interface of the Quokka task management program.
+ * It interacts with the user, reads user input, and executes corresponding actions.
+ */
 public class Ui {
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Starts the Quokka program by displaying a welcome message and handling user input.
+     *
+     * @param taskList The task list used in the program.
+     */
     public static void start(TaskList taskList) {
         System.out.println("Hello! I'm Quokka");
         System.out.println("What can I do for you?");
         handleUserInput(taskList);
     }
 
+    /**
+     * Handles user input and executes corresponding actions based on the input.
+     *
+     * @param taskList The task list used in the program.
+     */
     private static void handleUserInput(TaskList taskList) {
         while (true) {
+
             // Read user input
             String userInput = scanner.nextLine();
 
@@ -25,6 +40,7 @@ public class Ui {
             if (userInput.equalsIgnoreCase("list")) {
                 taskList.displayTasks();
             } else {
+
                 // Handle different types of tasks
                 if (userInput.toLowerCase().startsWith("mark ")) {
                     taskList.markTaskAsDone(userInput);

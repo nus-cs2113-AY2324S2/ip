@@ -7,19 +7,41 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task object with the specified description and completion status.
+     *
+     * @param description The description of the task.
+     * @param isDone      The completion status of the task.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
+    /**
+     * Sets the completion status of the task.
+     *
+     * @param isDone The completion status to be set.
+     */
     public void setStatus(boolean isDone) {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns the completion status icon of the task.
+     *
+     * @return The completion status icon ('X' for done, ' ' for not done).
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Parses a string representation of a task from a data file and returns a Task object.
+     *
+     * @param data The string representation of the task.
+     * @return A Task object parsed from the string representation.
+     */
     public static Task parseFromFileString(String data) {
         String[] parts = data.split("] ", 2);
         if (parts.length == 2) {
@@ -40,6 +62,14 @@ public class Task {
         return null;
     }
 
+
+    /**
+     * Parses a string representation of a deadline task and returns a Deadline object.
+     *
+     * @param taskData The string representation of the deadline task.
+     * @param isDone   The completion status of the deadline task.
+     * @return A Deadline object parsed from the string representation.
+     */
     public static Task parseDeadlineFromString(String taskData, boolean isDone) {
         String[] parts = taskData.split(" \\(by: ", 2);
         if (parts.length == 2) {

@@ -4,6 +4,14 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Constructs an Event object with the specified description, start time, end time, and completion status.
+     *
+     * @param description The description of the event task.
+     * @param from        The start time of the event.
+     * @param to          The end time of the event.
+     * @param isDone      The completion status of the event.
+     */
     public Event(String description, String from, String to, boolean isDone) {
         super(description, isDone);
         this.from = from;
@@ -15,6 +23,13 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
+    /**
+     * Parses a string representation of an event task and returns an Event object.
+     *
+     * @param data   The string representation of the event task.
+     * @param isDone The completion status of the event.
+     * @return An Event object parsed from the string representation.
+     */
     public static Event parseFromString(String data, boolean isDone) {
         String[] parts = data.split("\\(from: | to: ", 3);
         if (parts.length == 3) {
