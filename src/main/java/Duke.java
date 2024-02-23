@@ -5,6 +5,7 @@ public class Duke {
     static boolean ifExit = false; //exits program if true
     static Task[] tasks = new Task[100]; //List of tasks
     static int listIndex = 0; //To index through Task[] tasks
+    static int remainingTasksCounter = 0;
 
     public static void echoTask() {
         System.out.println("--------------------------------------");
@@ -79,6 +80,15 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
+    public static void deleteTask(int i) {
+        remainingTasksCounter ++;
+        System.out.println("--------------------------------------");
+        System.out.println("Noted, I have removed this task:");
+        System.out.println(tasks[i-1]);
+        System.out.println("Now you have " + (listIndex - remainingTasksCounter) + " tasks left");
+        System.out.println("--------------------------------------");
+    }
+
     public static void performAction(Task[] tasks, String line, int listIndex) throws IllegalShapeException{
         int eventDividerPositionTo = line.indexOf("/to");
         int eventDividerPositionFrom = line.indexOf("/from");
@@ -130,6 +140,9 @@ public class Duke {
         case "deadline": //add a new deadline task
             tasks[listIndex] = new Deadline(line.substring(0, deadlineDividerPositionBy).trim(), line.substring(deadlineDividerPositionBy + 3).trim());
             echoTask();
+            break;
+        case "delete":
+            deleteTask(Integer.parseInt(line.substring(7)));
             break;
         default:
             System.out.println("--------------------------------------");
