@@ -5,7 +5,6 @@ import gab.task.TaskList;
 import gab.ui.Ui;
 
 public class MarkCommand extends Command {
-
     private final int INDEX_TASK;
 
     public MarkCommand(int indexTask) {

@@ -39,7 +39,6 @@ public class Task {
     }
 
     public static Task loadFromFile(String line) throws GabException {
-        //[E] | 0 | fb | from dd to ff (example)
         String[] savedArray = line.split(" \\| ");
         String taskStatus = savedArray[0];
         boolean isDone = savedArray[1].equals("1");
