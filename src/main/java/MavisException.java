@@ -8,18 +8,15 @@ public class MavisException extends Exception {
         System.out.println(SEPARATOR);
 
         if (exception instanceof ArrayIndexOutOfBoundsException) {
-            System.out.println("Task limit reached. The sands of time have filled the vessel. " +
-                    "You have exceeded the limit of 100 tasks. No more sands may be poured.");
+            System.out.println("You are attempting to access a task that does not" +
+                    " yet exist in the fabric of time");
         } else if (exception instanceof StringIndexOutOfBoundsException) {
-            if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-                System.out.println("Incomplete " + splitInput[0] + " detected. " +
-                        "Time is immutable, yet your description is incomplete. " +
-                        "Rectify this anomaly immediately.");
-            }
-            else if (input.startsWith("mark") || input.startsWith("unmark")) {
+            System.out.println("Incomplete " + splitInput[0] + " detected. " +
+                    "Time is immutable, yet your description is incomplete. " +
+                    "Rectify this anomaly immediately.");
+        } else if (input.startsWith("mark") || input.startsWith("unmark")) {
                 System.out.println("You have not specified which task to " + splitInput[0]  + ". " +
                         "To mark or unmark without a target is akin to swinging a blade in the dark.");
-            }
         } else if (exception instanceof IllegalArgumentException) {
             System.out.println("An unfamiliar command disrupts the flow of time, " +
                     "creating a discordant echo in the chamber.");
