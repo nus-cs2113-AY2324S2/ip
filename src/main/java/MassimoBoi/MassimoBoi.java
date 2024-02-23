@@ -78,7 +78,13 @@ public class MassimoBoi {
             System.out.printf("%s marked as done. Type 'list' to see updated list\n Type unmark [list index] to unmark this task\n"
                     , taskList.get(taskToMark).getDescription());
             return;
-        }
+        } else if (userInput.startsWith("delete")){
+        String[] handleInput = userInput.split(" ");
+        int taskIndex = Integer.parseInt(handleInput[1]);
+        printDeleteTaskMessage(taskIndex-1, taskList);
+        deleteTask(taskIndex-1,taskList);
+        return;
+    }
 
         if (userInput.startsWith("todo")) {
             Task newTask;
@@ -155,6 +161,16 @@ public class MassimoBoi {
         System.out.println("Got it! Ya boi has added: ");
         printTask(newTask);
         System.out.printf("You now have %d %s in the list\n", taskList.size(), taskList.size() == 1 ? "task" : "tasks");
+    }
+
+    public static void deleteTask(int task, List<Task> taskList){
+        taskList.remove(task);
+    }
+
+    public static void printDeleteTaskMessage(int taskIndex, List<Task> taskList) {
+        System.out.println("Got it! I have deleted: ");
+        printTask(taskList.get(taskIndex));
+        System.out.printf("You now have %d %s in the list\n", taskList.size()-1, taskList.size() == 1 ? "task" : "tasks");
     }
 
     public static void printList(List<Task> taskList) {
