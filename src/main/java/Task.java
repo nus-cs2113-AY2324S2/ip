@@ -51,4 +51,10 @@ public class Task {
             System.out.println("[" + this.type + "][ ] " + this.getDescription());
         }
     }
+
+    public String toString() {
+        String answer;
+        answer = this.type + " | " + this.isDone + " | " + this.description;
+        return answer;
+    }
 }

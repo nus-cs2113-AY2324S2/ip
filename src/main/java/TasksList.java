@@ -34,6 +34,14 @@ public class TasksList {
         }
     }
 
+    public String toString() {
+        String result = "";
+        for(int i = 0; i < this.noOfTasks; i++) {
+            result = result + list.get(i).toString() + System.lineSeparator();
+        }
+        return result;
+    }
+
     /**
      * Find task with description String s (case-sensitive), and mark it as done.
      * @param s

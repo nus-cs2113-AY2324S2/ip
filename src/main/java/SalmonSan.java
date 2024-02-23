@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.io.File;
 public class SalmonSan {
     public static void main(String[] args) {
         System.out.println("Salmon-San desu! \nYoroshikuonegaishimasu (^.^)/");
@@ -8,6 +8,7 @@ public class SalmonSan {
         QueryManager queryManager = new QueryManager();
         TasksList tasksList = new TasksList();
         Scanner in = new Scanner(System.in);
+        TasksListWriter writer = new TasksListWriter();
         int status = -1;
 
         do {
