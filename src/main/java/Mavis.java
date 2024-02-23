@@ -1,7 +1,10 @@
 import java.util.ArrayList;
+import java.io.*;
 import java.util.Scanner;
 
 public class Mavis {
+
+    private static final String FILE_PATH = "./data/mavis.txt";
     private static final String LOGO = "                           z$$$$P\n" +
             "                           d$$$$\"\n" +
             "                         .$$$$$\"\n" +
@@ -31,12 +34,14 @@ public class Mavis {
 
     private final static String LINE ="____________________________________________________________";
 
-    public static void main(String[] args) {
-        ArrayList<Task> listOfTasks = new ArrayList<>();
-        greetUser();
+    static ArrayList<Task> listOfTasks = new ArrayList<>();
+    static int listOfTasksSize = 0;
 
-        int listOfTasksSize = 0;
+    public static void main(String[] args) {
+        greetUser();
+        getTasks();
         Scanner in = new Scanner(System.in);
+
 
         while (true) {
             String inputToEcho = in.nextLine();
@@ -81,6 +86,8 @@ public class Mavis {
             } catch (Exception e) {
                 MavisException.handleException(e, inputToEcho);
             }
+
+            saveTasks(listOfTasksSize, listOfTasks);
         }
 
         bidFarewell();
@@ -94,6 +101,55 @@ public class Mavis {
 
         listOfTasks.remove(taskIndex);
     }
+
+    public static void saveTasks(int listOfTasksSize, ArrayList<Task> listOfTasks) {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                //If the folder does not exist, create it
+                file.getParentFile().mkdirs();
+            }
+            //If the file doesn't exist, create it
+            file.createNewFile();
+            try (FileWriter writer = new FileWriter(file)) {
+                for (int i = 0; i < listOfTasksSize; i++) {
+                    writer.write(listOfTasks.get(i).saveTaskRepresentation() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Method to load tasks from a file
+    public static void getTasks() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.loadTaskRepresentation(line);
+                if (task != null) {
+                    listOfTasks.add(listOfTasksSize++, task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // Handle the case where the file doesn't exist
+            System.err.println("File not found. Created a new file!");
+            System.err.println("Enter a command: ");
+            File file = new File(FILE_PATH);
+            try {
+                //If the folder does not exist, create it
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                file.createNewFile(); // Create the file if it doesn't exist
+            } catch (IOException ioException) {
+                System.err.println("Creation of a new file in the sands of time has failed: " + ioException.getMessage());
+            }
+        } catch (IOException e) {
+            System.err.println("Your labors could not be retrieved: " + e.getMessage());
+        }
+    }
+
 
     private static void greetUser() {
         System.out.println("Greetings.\n" + LOGO);
