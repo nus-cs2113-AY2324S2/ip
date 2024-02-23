@@ -35,7 +35,6 @@ public class Krot {
         printSeparator();
         printName();
         System.out.println("Bye. Hope to see you again soon!");
-        saveList();
         hasEnded = true;
     }
 
@@ -246,6 +245,7 @@ public class Krot {
                 System.out.println(e.getMessage());
                 printSeparator();
             }
+            saveList();
             break;
         case "todo":
         case "deadline":
@@ -255,6 +255,7 @@ public class Krot {
                     String triggerError = phrases[2];
                 }
                 createTask(key, line);
+                saveList();
             } catch (ArrayIndexOutOfBoundsException e) { // Catch if only key is typed
                 printSeparator();
                 printName();
@@ -266,6 +267,7 @@ public class Krot {
         case "delete":
             try {
                 deleteTask(phrases);
+                saveList();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 printSeparator();
