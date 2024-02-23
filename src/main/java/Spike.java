@@ -89,6 +89,7 @@ public class Spike {
                 break;
             case "delete":
                 int indexDelete = Integer.parseInt(input.substring(DELETE_TASK_INDEX)) - 1;
+                displayDeleteMsg(inputList.get(indexDelete), inputList.size());
                 inputList.remove(indexDelete);
                 break;
             case "bye":
@@ -98,6 +99,15 @@ public class Spike {
                 //System.out.println("Not valid");
             }
         }
+    }
+
+    private static void displayDeleteMsg(Task inputObj, int arrayLength){
+        char Badge = getBadge(inputObj);
+        System.out.println(DIVIDER);
+        System.out.println("I've removed this task:");
+        System.out.println(" [" + Badge + "]" + "["+ inputObj.getStatusIcon() +"] " + inputObj.description);
+        System.out.println("Now you have " + (arrayLength - 1) + " tasks in the list.");
+        System.out.println(DIVIDER);
     }
 
     private static void displayAcknowledgement(Task inputObj, int arrayLength) {
