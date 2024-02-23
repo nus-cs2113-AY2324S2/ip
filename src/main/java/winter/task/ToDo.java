@@ -13,7 +13,7 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         String typeCheckbox = "[T]";
-        return indent + typeCheckbox + " " + this.doneCheckbox + this.taskName;
+        return indent + typeCheckbox + " " + this.doneCheckbox + " " + this.taskName;
     }
 
 }

@@ -1,5 +1,9 @@
 package winter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+
 
 public class Winter {
     public static void main(String[] args) {
@@ -12,8 +16,30 @@ public class Winter {
         System.out.println("Hello from\n" + logo);
         sayHi();
         //echo();
-        Manager.acceptInput();
-
+        try {
+            File f = new File("data/winter.txt");
+            Scanner s = new Scanner(f);
+            try {
+                Manager.readFile(s);
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            } /*catch (ArrayIndexOutOfBoundsException e2) {
+                System.out.println("Something went wrong: " + e2.getMessage());
+                Files.delete(Paths.get("data/winter.txt"));
+            }*/
+            try {
+                Manager.acceptInput();
+            } catch(IOException e2) {
+                System.out.println("Cannot add task");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            try {
+                Manager.acceptInput();
+            } catch(IOException e2) {
+                System.out.println("Cannot add task");
+            }
+        }
     }
     // Method for greeting message
     private static void sayHi() {
