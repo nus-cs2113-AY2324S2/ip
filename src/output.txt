@@ -1,0 +1,1074 @@
+package UI;
+import javax.swing.*;
+class ResponseStreamer implements Runnable {
+    private String response;
+    private JTextArea chatArea;
+
+    public ResponseStreamer(String response, JTextArea chatArea) {
+        this.response = response;
+        this.chatArea = chatArea;
+    }
+
+    @Override
+    public void run() {
+        SwingUtilities.invokeLater(() -> chatArea.append("Mario:\n\n"));
+
+        for (int i = 0; i < response.length(); i++) {
+            char c = response.charAt(i);
+            // Use SwingUtilities.invokeLater to update the GUI
+            SwingUtilities.invokeLater(() -> chatArea.append(Character.toString(c)));
+            try {
+                Thread.sleep(10); // 200 ms delay between characters
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Append guards after response is fully streamed
+        SwingUtilities.invokeLater(() -> chatArea.append("\n_____________________________________________________________\n"));
+    }
+}
+package UI;
+
+import javax.swing.*;
+import javax.swing.text.DefaultCaret;
+
+import Logic.*;
+import Command.BaseCommand;
+import Command.ByeCommand;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MarioUI {
+    public static final String mario_filename = "MARIO.ser";
+    private JFrame frame;
+    private JTextArea chatArea;
+    private JTextField inputField;
+    private JButton sendButton;
+    private Mario mario;
+    private JScrollPane scrollPane;
+    private String fullCommand = "";
+    private String response = "";
+    private BaseCommand command;
+
+    public MarioUI(String filename) {
+
+        this.mario = new Mario(filename);
+        // Create the frame
+        frame = new JFrame("Mario");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 500);
+        frame.setLayout(null);
+
+        // Create the chat area
+        chatArea = new JTextArea();
+        chatArea.setEditable(false);
+
+        // Create a scroll pane that contains the chat area
+        scrollPane = new JScrollPane(chatArea);
+        scrollPane.setBounds(20, 20, 450, 350);
+        frame.add(scrollPane);
+
+        // Create the input field
+        inputField = new JTextField();
+        inputField.setBounds(20, 380, 450, 30);
+        frame.add(inputField);
+
+        // Create the send button
+        sendButton = new JButton("Talk to Mario");
+        sendButton.setBounds(20, 420, 450, 30);
+        frame.add(sendButton);
+
+        // Customisations
+        frame.getContentPane().setBackground(new Color(224,16,47)); // Example color
+        chatArea.setBackground(Color.white); // Light Lavender Background
+        chatArea.setForeground(new Color(23,65,154)); // Black text
+        inputField.setBackground(Color.WHITE);
+        inputField.setForeground(Color.BLACK);
+        chatArea.setFont(new Font("Apple LiGothic", Font.BOLD, 18));
+        inputField.setFont(new Font("Apple LiGothic", Font.BOLD, 16));
+
+        inputField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendButton.doClick();
+            }
+        });
+
+        // Add action listener to the button
+        sendButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fullCommand = inputField.getText();
+                process_command();
+                chatArea.append("\nYou: " + fullCommand + "\n\n");
+                new Thread(new ResponseStreamer(response, chatArea)).start();
+                inputField.setText("");
+            }
+        });
+
+        DefaultCaret caret = (DefaultCaret) chatArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+        // Display the frame
+        frame.setVisible(true);
+        displayWelcomeMessage();
+    }
+
+    private void displayWelcomeMessage() {
+        String welcomeMessage = "Hello! I'm Mario! What can I do for you?";
+        chatArea.append(welcomeMessage + "\n");
+    }
+
+    private String inGuards(String input) {
+        String len = "_____________________________________________________________";
+        System.out.println(len.length());
+        return input + "\n_____________________________________________________________\n";
+
+    }
+
+    public String marioResponse(String marioinput, String userinput) {
+        return inGuards("\nYou: " + userinput + "\n\n" + "Mario: " + marioinput);
+    }
+
+    private void process_command() {
+        try {
+            command = Parser.parse(fullCommand);
+            assert command != null : "Command is null!";
+            response = command.execute(mario.geTaskList());
+        } catch (Exception error) {
+            response = "OOPS!! " + error.getMessage();
+        } finally {
+            mario.saveMario();
+        }
+
+        if(command instanceof ByeCommand){
+            new Timer(5000, e -> frame.dispose()).start(); // Wait for 5 seconds then close the app
+        }
+    }
+
+    public static void main(String[] args) {
+        new MarioUI(mario_filename);
+    }
+}
+
+package Logic;
+import java.io.*;
+
+import Templates.TaskList;
+public class Storage {
+
+    private void deleteFile(String filePath) {
+        File myObj = new File(filePath);
+        myObj.delete();
+    }
+    public void saveMario(Object obj, String filePath) {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+
+            deleteFile(filePath);
+
+            FileOutputStream fileOut = new FileOutputStream(filePath);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(obj);
+            objectOut.close();
+            fileOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public TaskList loadMario(String filePath) {
+        File myObj = new File(filePath);
+        TaskList taskList = null;
+        if (!myObj.exists()) {
+            taskList = new TaskList();
+            saveMario(taskList, filePath);
+        } else {
+            try {
+                FileInputStream fileIn = new FileInputStream(filePath);
+                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+                taskList = (TaskList) objectIn.readObject();
+                objectIn.close();
+                fileIn.close();
+            } catch (Exception e) {
+                return new TaskList();
+            }
+        }
+        return taskList;
+
+    }
+}
+
+package Logic;
+
+import Command.BaseCommand;
+import Command.ByeCommand;
+import Command.DeadlineCommand;
+import Command.DeleteCommand;
+import Command.EventCommand;
+import Command.FindCommand;
+import Command.FinddateCommand;
+import Command.ListCommand;
+import Command.MarkCommand;
+import Command.PostponeCommand;
+import Command.ToDoCommand;
+import Command.UnmarkCommand;
+
+public class Parser {
+    public static BaseCommand parse(String args) throws Exception {
+        String firstWord = args.split(" ")[0].toLowerCase();
+        String taskString = removeFirstWord(args);
+        BaseCommand c = createCommand(firstWord, taskString);
+        if (c == null) {
+            throw new Exception("I'm sorry, but I don't know what that means :-(");
+        }
+        return c;
+    }
+
+    private static BaseCommand createCommand(String commandType, String taskString) throws Exception {
+        switch (commandType) {
+            case "list":
+                return new ListCommand(taskString);
+            case "bye":
+                return new ByeCommand();
+            case "deadline":
+                checkTaskString(taskString);
+                return new DeadlineCommand(taskString);
+            case "delete":
+                checkTaskString(taskString);
+                return new DeleteCommand(taskString);
+            case "event":
+                checkTaskString(taskString);
+                return new EventCommand(taskString);
+            case "find":
+                checkTaskString(taskString);
+                return new FindCommand(taskString);
+            case "find-date":
+                checkTaskString(taskString);
+                return new FinddateCommand(taskString);
+            case "mark":
+                checkTaskString(taskString);
+                return new MarkCommand(taskString);
+            case "unmark":
+                checkTaskString(taskString);
+                return new UnmarkCommand(taskString);
+            case "todo":
+                checkTaskString(taskString);
+                return new ToDoCommand(taskString);
+            case "postpone":
+                checkTaskString(taskString);
+                return new PostponeCommand(taskString);
+            default:
+                return null;
+        }
+    }
+
+    private static String removeFirstWord(String input) {
+        if (input != null && !input.isEmpty()) {
+            int firstSpaceIndex = input.indexOf(' ');
+            if (firstSpaceIndex != -1) {
+                return input.substring(firstSpaceIndex + 1).trim();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    private static void checkTaskString(String args) throws Exception {
+        if (args == null || args.isBlank()) {
+            throw new Exception("Missing arguement!");
+        }
+    }
+}
+
+package Logic;
+
+import java.io.Serializable;
+import Templates.*;
+
+public class Mario implements Serializable {
+
+    private TaskList taskList;
+    private Storage storage;
+    private String filename;
+
+    public Mario(String filename) {
+        this.storage = new Storage();
+        this.taskList = storage.loadMario(filename);
+        this.filename = filename;
+    }
+
+    // public void run(){
+    //     ui.showWelcome();
+    //     boolean isExit = false;
+    //     while (!isExit) {
+    //         try{
+    //             String fullCommand = ui.readCommand();
+    //             BaseCommand command = Parser.parse(fullCommand);
+    //             command.execute(ui, taskList);
+    //             isExit = command.isExit();
+    //         } catch (Exception e){
+    //             ui.printError(e);
+    //         }finally{
+    //             storage.saveMario(taskList, mario_filename);
+    //         }
+    //     }
+    // }
+
+    public void saveMario(){
+        this.storage.saveMario(taskList, this.filename);
+    }
+
+    public TaskList geTaskList(){return this.taskList;}
+
+}
+
+package Logic;
+
+import java.io.Serializable;
+import java.util.Scanner;
+
+public class UI implements Serializable{
+    public static String welcomeMessage = "Hello! I'm Mario!\nWhat can I do for you?";
+    public static String byeMessage = "Bye. Hope to see you again soon!";
+    private static final Scanner sc = new Scanner(System.in);
+    
+    public void printWithIndent(String args) {
+        String lineIndent = "\n____________________________________________________________\n";
+        System.out.println((lineIndent + "\n" + args + lineIndent).replace("\n", "\n\t"));
+    }
+
+    public void printError(Exception e) {
+        printWithIndent("OOPS!! " + e.getMessage());
+    }
+
+    public void showWelcome(){
+        printWithIndent(welcomeMessage);
+    }
+
+    public void showBye(){
+        printWithIndent(byeMessage);
+    }
+
+    public String readCommand(){
+        return sc.nextLine();
+    }
+}
+package Exceptions;
+
+public class MarioDateTimePassed extends Exception {
+    public MarioDateTimePassed() {
+        super("Input date has already passed!");
+    }
+}
+package Exceptions;
+
+public class MarioMissingDateTime extends Exception{
+    public MarioMissingDateTime(){
+        super("No date and time detected!");
+    }
+}
+
+package Exceptions;
+
+public class MarioMissingTask extends Exception{
+    public MarioMissingTask(){
+        super("No task description detected!");
+    }
+}
+
+package Exceptions;
+
+public class MarioWrongFormat extends Exception {
+    public MarioWrongFormat() {
+        super("Check your input format!");
+    }
+}
+
+package Exceptions;
+
+public class MarioErrorExecutingCommand extends Exception {
+    public MarioErrorExecutingCommand(Exception args) {
+        super("Error occured when executing command!\nError:\t" + args.getMessage());
+    }
+}
+package Templates;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import Templates.Task.*;
+
+public class TaskList implements Serializable {
+    ArrayList<Task> list;
+
+    public TaskList() {
+        list = new ArrayList<Task>();
+    }
+
+    public String addTask(Task args) throws Exception {
+        try {
+            for(Task task : list){
+                if(task.getTaskString().equals(args.getTaskString()) && task.getClass() == args.getClass()){
+                    throw new Exception("Duplicate task detected!");
+                }
+            }
+            this.list.add(args);
+            return (String.format("Got it. I've added this task:\n%s\n%s", args.toString(),
+                    this.stringNumberTask()));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public String markTask(Integer args) {
+        if (args > this.list.size()) {
+            throw new ArrayIndexOutOfBoundsException(
+                    String.format("Unrecognised input index! Recognised range: 1 to %d", this.list.size()));
+        }
+        this.list.get(args - 1).setCompleted(true);
+        return ("Nice! I've marked this task as done:\n" + this.list.get(args - 1).toString());
+    }
+
+    public String unmarkTask(Integer args) throws ArrayIndexOutOfBoundsException {
+        if (args > this.list.size()) {
+            throw new ArrayIndexOutOfBoundsException(
+                    String.format("Unrecognised input index! Recognised range: 1 to %d", this.list.size()));
+        }
+        this.list.get(args - 1).setCompleted(false);
+        return ("OK, I've marked this task as not done yet:\n" + this.list.get(args - 1).toString());
+    }
+
+    public Task getTask(Integer args) {
+        if (args > this.list.size()) {
+            return null;
+        }
+        return list.get(args - 1);
+    }
+
+    public String deleteTask(Integer args) throws ArrayIndexOutOfBoundsException {
+        if (args > this.list.size()) {
+            throw new ArrayIndexOutOfBoundsException(
+                    String.format("Unrecognised input index! Recognised range: 1 to %d", this.list.size()));
+        }
+        Task deletedTask = this.list.get(args - 1);
+        this.list.remove(args - 1);
+        return (String.format("Noted. I've removed this task:\n%s\n%s", deletedTask.toString(),
+                stringNumberTask()));
+    }
+
+    public String stringNumberTask() {
+        return String.format("Now you have %d %s in your list.\n", this.list.size(),
+                (this.list.size() > 1 ? "tasks" : "task"));
+    }
+
+    public String findTask(String keyword) throws Exception {
+        int i = 1;
+        String resultString = "Here are the matching tasks in your list:\n";
+        for (Task task : this.list) {
+            if (task.getTaskString().contains(keyword)) {
+                resultString += String.format("%d. %s\n", i, task.toString());
+                i += 1;
+            }
+        }
+        if (i == 1) {
+            throw new Exception("Unable to find keyword!");
+        }
+        return resultString;
+    }
+
+    public String findDate(BaseDate otherDate) throws Exception {
+        int i = 1;
+        String resultString = "Here are the matching tasks in your list:\n";
+        for (Task task : this.list) {
+            if (task instanceof Deadline) {
+                if (((Deadline) task).getDeadlineDateTime().equals(otherDate)) {
+                    resultString += String.format("%d. %s\n", i, task.toString());
+                    i += 1;
+                }
+            } else if (task instanceof Event) {
+                if (((Event) task).getStartDateTime().equals(otherDate)) {
+                    resultString += String.format("%d. %s\n", i, task.toString());
+                    i += 1;
+                }
+            } else {
+                continue;
+            }
+
+        }
+        if (i == 1) {
+            throw new Exception("Unable to find keyword!");
+        }
+        return resultString;
+    }
+
+    @Override
+    public String toString() {
+        if (this.list.isEmpty()) {
+            return "List is empty";
+        } else {
+            int i = 1;
+            String val = "Here are the tasks in your list:\n";
+            for (Task task : list) {
+                val += i + ". " + task.toString() + "\n";
+                i += 1;
+            }
+            return val;
+        }
+    }
+
+}
+
+package Templates;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.*;
+
+import Exceptions.MarioDateTimePassed;
+
+public class BaseDate implements Serializable {
+    private static final List<String> dateFormats = List.of(
+            "yyyy-MM-dd",
+            "dd-MM-yyyy",
+            "dd/MM/yyyy",
+            "yyyy-MM-dd",
+            "yyyy/MM/dd",
+            "dd:MM:yyyy",
+            "ddMMyyyy",
+            "ddMMyy");
+
+    private static final List<String> timeFormats = List.of(
+            "HH:mm",
+            "HHmm");
+
+    private static final ArrayList<String> dateTimeFormats = dateTimeVary();
+    public static DateTimeFormatter formatter = null;
+    LocalDateTime dateTime = null;
+
+    public BaseDate(String args) throws Exception {
+        args = args.strip();
+        if (!args.contains(" ")) {
+            args = args + " 0000";
+        }
+        for (String format : dateTimeFormats) {
+            try {
+                formatter = DateTimeFormatter.ofPattern(format);
+                dateTime = LocalDateTime.parse(args, formatter);
+                if (dateTime.isBefore(LocalDateTime.now())) {
+                    throw new MarioDateTimePassed();
+                }
+                break;
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+
+        }
+        if (dateTime == null) {
+            throw new Exception(
+                    String.format(
+                            "Please input date in one of the correct formats: %s\n\n(Optional) Please input time in one of the correct formats: %s\n",
+                            dateFormats, timeFormats));
+        }
+    }
+
+    private static ArrayList<String> dateTimeVary() {
+        ArrayList<String> varyList = new ArrayList<String>();
+        for (String dateFormat : dateFormats) {
+            for (String timeFormat : timeFormats) {
+                varyList.add(String.format("%s %s", dateFormat, timeFormat));
+                varyList.add(String.format("%s %s", timeFormat, dateFormat));
+            }
+        }
+        return varyList;
+    }
+
+    @Override
+    public String toString() {
+        formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
+        return String.format("%s", dateTime.format(formatter));
+    }
+
+    public boolean equals(BaseDate otherDate) {
+        if (otherDate != null) {
+            return this.dateTime.toLocalDate().equals(otherDate.dateTime.toLocalDate());
+        }
+        return false;
+    }
+
+    public boolean isBefore(BaseDate otherDate) {
+        if (otherDate != null) {
+            return this.dateTime.isBefore(otherDate.dateTime);
+        }
+        return false;
+    }
+}
+
+package Templates.Task;
+
+import Templates.BaseDate;
+
+public class Event extends Task {
+    private BaseDate startDateTime = null;
+    private BaseDate endDateTime = null;
+    public static String keyword1 = "/from";
+    public static String keyword2 = "/to";
+
+    public Event(String args, BaseDate startDateTime, BaseDate endDateTime) throws Exception {
+        super(args, "E", "Event");
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+
+    }
+
+    public void setDate(BaseDate newStartDate, BaseDate newEndDate){
+        assert newStartDate != null : "Start date is null!";
+        assert newEndDate != null : "End date is null!";
+
+        this.startDateTime = newStartDate;
+        this.endDateTime = newEndDate;
+    }
+
+    public BaseDate getStartDateTime() {
+        return this.startDateTime;
+    }
+
+    public BaseDate getEnDateTime() {
+        return this.endDateTime;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format("(from: %s to: %s)", startDateTime.toString(), endDateTime.toString());
+    }
+}
+
+package Templates.Task;
+
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
+    private String taskString = "Null";
+    private Boolean completed = false;
+    private String typeCode;
+
+    public Task(String args, String typeCode, String typeName) throws Exception {
+        if (args.isBlank()) {
+            throw new Exception(String.format("The description of a %s cannot be empty.\n", typeName));
+        }
+        args.strip();
+        this.taskString = args;
+        this.completed = false;
+        this.typeCode = typeCode;
+    }
+
+    public Boolean getCompleted() {
+        return this.completed;
+    }
+
+    public String getTaskString() {
+        return this.taskString;
+    }
+
+    public void setCompleted(Boolean args) {
+        this.completed = args;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("\t[%s][%s] %s", typeCode, (completed ? "X" : " "), taskString);
+    }
+}
+
+package Templates.Task;
+
+import Templates.BaseDate;
+
+public class Deadline extends Task {
+    private BaseDate deadlineDateTime = null;
+    public static String keyword = "/by";
+    public Deadline(String args, BaseDate deadlineDateTime) throws Exception{
+        super(args, "D", "Deadline");
+        this.deadlineDateTime = deadlineDateTime;
+    }
+
+    public void setDeadline(BaseDate newDate){
+        assert newDate != null : "Error setting new date for deadline";
+        this.deadlineDateTime = newDate;
+    }
+    
+    public BaseDate getDeadlineDateTime(){return this.deadlineDateTime;}
+    @Override
+    public String toString(){
+        return super.toString() + String.format("(by: %s)", deadlineDateTime.toString());
+    }
+}
+
+package Templates.Task;
+
+public class ToDo extends Task {
+    public ToDo(String args) throws Exception{
+        super(args, "T", "Todo");
+    }
+}
+
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Exceptions.MarioMissingDateTime;
+import Exceptions.MarioMissingTask;
+import Exceptions.MarioWrongFormat;
+import Templates.BaseDate;
+import Templates.TaskList;
+import Templates.Task.Event;
+
+public class EventCommand extends BaseCommand {
+
+    public EventCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception {
+        try {
+            if (taskString.contains(Event.keyword1) && taskString.contains(Event.keyword2)) {
+                String dateString = taskString.substring(taskString.indexOf(Event.keyword1) + Event.keyword1.length(),
+                        taskString.indexOf(Event.keyword2));
+                String dateString1 = taskString.substring(
+                        taskString.indexOf(Event.keyword2) + Event.keyword2.length(),
+                        taskString.length());
+                if (dateString.isBlank()) {
+                    throw new MarioMissingDateTime();
+                }
+                if (dateString1.isBlank()) {
+                    throw new MarioMissingDateTime();
+                }
+
+                taskString = taskString.substring(0, taskString.indexOf(Event.keyword1));
+                if (taskString.isBlank()) {
+                    throw new MarioMissingTask();
+                }
+                BaseDate starDate = new BaseDate(dateString);
+                BaseDate endDate = new BaseDate(dateString1);
+                if (endDate.isBefore(starDate)) {
+                    throw new Exception("End date cannot be before start date\n");
+                }
+                Event newEvent = new Event(taskString, starDate, endDate);
+
+                return taskList.addTask(newEvent);
+            } else {
+                throw new MarioWrongFormat();
+            }
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+package Command;
+
+import Templates.TaskList;
+
+public class ByeCommand extends BaseCommand{
+
+    public static String byeMessage = "Bye. Hope to see you again soon!\nClosing application in 5 seconds...";
+
+    public ByeCommand(){
+        super(true, "");
+    }
+
+    public String execute(TaskList taskList){
+        return byeMessage;
+    }
+}
+
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Templates.TaskList;
+import Templates.Task.*;
+
+public class DeleteCommand extends BaseCommand {
+
+    public DeleteCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception {
+        try {
+            Integer index = Integer.parseInt(taskString);
+            Task deletedTask = taskList.getTask(index);
+            String deleteTask_response = taskList.deleteTask(index);
+            return deleteTask_response + (String.format("Noted. I've removed this task:\n%s\n%s", deletedTask.toString(),
+            taskList.stringNumberTask()));
+        } catch (NumberFormatException e) {
+            throw new Exception("Please provide a valid task index to delete!");
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Templates.TaskList;
+
+public class UnmarkCommand extends BaseCommand {
+
+    public UnmarkCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception {
+        try {
+            Integer index = Integer.parseInt(taskString);
+            return taskList.unmarkTask(index);
+        } catch (NumberFormatException e) {
+            throw new Exception("Please provide a valid task index to unmark!");
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Templates.TaskList;
+
+public class ListCommand extends BaseCommand {
+
+    public ListCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception{
+        try {
+            return (taskList.toString());
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Templates.TaskList;
+import Templates.Task.ToDo;
+
+public class ToDoCommand extends BaseCommand{
+    public ToDoCommand(String taskString){
+        super(false, taskString);
+    }
+    public String execute(TaskList taskList) throws Exception{
+        try {
+            ToDo newToDo = new ToDo(taskString);
+            System.out.println("here" + taskString);
+            return taskList.addTask(newToDo);
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+
+
+package Command;
+import Templates.TaskList;
+
+public abstract class BaseCommand {
+    String taskString = null;
+    public boolean isExit;
+
+    public BaseCommand(Boolean isExit, String taskString){
+        this.isExit = isExit;
+        this.taskString = taskString;
+    }
+    public abstract String execute(TaskList taskList) throws Exception;
+
+    public boolean isExit() {
+        return this.isExit;
+    }
+}
+
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Exceptions.MarioMissingDateTime;
+import Exceptions.MarioMissingTask;
+import Exceptions.MarioWrongFormat;
+import Templates.BaseDate;
+import Templates.TaskList;
+import Templates.Task.Deadline;
+import Templates.Task.Event;
+import Templates.Task.Task;
+
+public class PostponeCommand extends BaseCommand {
+    public PostponeCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception {
+        try {
+            String[] stringArr = taskString.strip().split(" ");
+            Integer index = Integer.parseInt(stringArr[0]);
+            Task targetTask = taskList.getTask(index);
+            if(targetTask.getCompleted()){
+                throw new Exception("Task has been completed! Unable to edit...");
+            }
+            if (targetTask instanceof Deadline) {
+                if (stringArr[1].equals(Deadline.keyword)) {
+                    String dateString = taskString
+                            .substring(taskString.indexOf(Deadline.keyword) + Deadline.keyword.length());
+                    BaseDate newDate = new BaseDate(dateString);
+                    ((Deadline) targetTask).setDeadline(newDate);
+                } else {
+                    throw new MarioWrongFormat();
+                }
+            } else if (targetTask instanceof Event) {
+                if (taskString.contains(Event.keyword1) && taskString.contains(Event.keyword2)) {
+                    String dateString = taskString.substring(
+                            taskString.indexOf(Event.keyword1) + Event.keyword1.length(),
+                            taskString.indexOf(Event.keyword2));
+                    String dateString1 = taskString.substring(
+                            taskString.indexOf(Event.keyword2) + Event.keyword2.length(),
+                            taskString.length());
+                    if (dateString.isBlank()) {
+                        throw new MarioMissingDateTime();
+                    }
+                    if (dateString1.isBlank()) {
+                        throw new MarioMissingDateTime();
+                    }
+
+                    taskString = taskString.substring(0, taskString.indexOf(Event.keyword1));
+                    if (taskString.isBlank()) {
+                        throw new MarioMissingTask();
+                    }
+                    BaseDate starDate = new BaseDate(dateString);
+                    BaseDate endDate = new BaseDate(dateString1);
+                    if (endDate.isBefore(starDate)) {
+                        throw new Exception("End date cannot be before start date\n");
+                    }
+                    ((Event) targetTask).setDate(starDate, endDate);
+                } else {
+                    throw new MarioWrongFormat();
+                }
+            }
+            return String.format("Task date has been updated!\n%s", targetTask.toString());
+        } catch (NumberFormatException e) {
+            throw new Exception("Please provide a valid task index to mark!");
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Templates.TaskList;
+
+public class MarkCommand extends BaseCommand {
+
+    public MarkCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception {
+        try {
+            Integer index = Integer.parseInt(taskString);
+            return taskList.markTask(index);
+        } catch (NumberFormatException e) {
+            throw new Exception("Please provide a valid task index to mark!");
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Exceptions.MarioMissingDateTime;
+import Exceptions.MarioMissingTask;
+import Exceptions.MarioWrongFormat;
+import Templates.BaseDate;
+import Templates.TaskList;
+import Templates.Task.Deadline;
+
+public class DeadlineCommand extends BaseCommand {
+    public DeadlineCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception {
+        try {
+            if (taskString.contains(Deadline.keyword)) {
+
+                String dateString = taskString.substring(taskString.indexOf(Deadline.keyword) + Deadline.keyword.length(),
+                        taskString.length()).strip();
+                if (dateString.isBlank()) {
+                    throw new MarioMissingDateTime();
+                }
+                taskString = taskString.substring(0, taskString.indexOf(Deadline.keyword));
+                if (taskString.isBlank()) {
+                    throw new MarioMissingTask();
+                }
+                BaseDate deadlineDate = new BaseDate(dateString);
+                Deadline newDeadline = new Deadline(taskString, deadlineDate);
+                return taskList.addTask(newDeadline);
+            } else {
+                throw new MarioWrongFormat();
+            }
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Templates.TaskList;
+
+public class FindCommand extends BaseCommand {
+
+    public FindCommand(String taskString){
+        super(false, taskString);
+    }
+    public String execute(TaskList taskList) throws Exception{
+        try {
+            return (taskList.findTask(taskString));
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
+
+package Command;
+
+import Exceptions.MarioErrorExecutingCommand;
+import Templates.BaseDate;
+import Templates.TaskList;
+
+public class FinddateCommand extends BaseCommand {
+
+    public FinddateCommand(String taskString) {
+        super(false, taskString);
+    }
+
+    public String execute(TaskList taskList) throws Exception {
+        try {
+            String dateString = taskString.strip();
+            BaseDate deadlineDate = new BaseDate(dateString);
+            return (taskList.findDate(deadlineDate));
+        } catch (Exception e) {
+            throw new MarioErrorExecutingCommand(e);
+        }
+    }
+}
