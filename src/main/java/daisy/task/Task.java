@@ -18,4 +18,8 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", (this.isDone)? "X":" ", this.taskName);
     }
+
+    public String save() {
+        return String.format("%s,%s", (this.isDone)? "1":"0", this.taskName);
+    }
 }
