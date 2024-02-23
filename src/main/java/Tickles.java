@@ -5,8 +5,8 @@ import java.util.List;
 public class Tickles {
 
     private static boolean stillGoing = true;
-    private static int totalTasks = 0;
-    private static List<Task> list = new ArrayList<>();
+    protected static int totalTasks = 0;
+    protected static List<Task> list = new ArrayList<>();
     public static void main(String[] args) {
         String logo =
             "╱╭╮╱╱╱╱╭╮╱╭╮\n" +
@@ -17,6 +17,7 @@ public class Tickles {
             "╱╰━┻┻━━┻╯╰┻━┻━━┻━━╯\n";
         System.out.println("Hello from\n" + logo);
         System.out.println(" What can I do for you?");
+        FileHandler.loadTickles();
         while (stillGoing) {
             promptUser();
         }
@@ -24,22 +25,33 @@ public class Tickles {
 
     // Prompts user for input, and handles the special input cases "bye", "unmark"/"mark", "list".
     public static void promptUser() {
+
         Scanner in = new Scanner(System.in);
         String prompt = in.nextLine();
 
-//        switch (prompt) {
-//        case "bye":
-//            stillGoing = false;
-//            printThis("Bye. Hope to see you again soon! Mr. Tickles will miss you.");
-//        case "list":
-//            printList();
-//        }
-
         if (prompt.equals("bye")) {
             stillGoing = false;
+            FileHandler.save();
             printThis("Bye. Hope to see you again soon! Mr. Tickles will miss you.");
         } else if (prompt.equals("list")) {
             printList();
+        } else if (prompt.length() >= 8 && prompt.substring(0,6).equals("delete")) {
+            int taskNo;
+            try {
+                taskNo = Integer.parseInt(prompt.substring(7,8));
+            } catch (NumberFormatException e) {
+                taskNo = Integer.MAX_VALUE;
+                System.out.println("This task number is not in your list");
+            }
+            if (taskNo <= totalTasks) {
+                Task theTask = list.get(taskNo - 1);
+                totalTasks -= 1;
+                list.remove(taskNo -1);
+                printThis("Noted. I've removed this task: \n " + theTask.type() + "[" + theTask.getStatusIcon() + "]" + theTask.getDescription() +
+                        "\nNow you have " + totalTasks + " task" + pluralChecker() + " in the list.");
+            } else {
+                printThis("This task number is not in your list");
+            }
         } else if (prompt.length() >= 8 && prompt.substring(0,6).equals("unmark")) {
             //kind of ugly in my opinion, would like tips on how to avoid repeating code here but can't think of a way that
             //avoids magic numbers
@@ -106,7 +118,7 @@ public class Tickles {
                 String[] split = str.substring(6).split(" /to | /from ");
                 task = new Event(split[0], split[1], split[2]);
             } catch (Exception e) {
-                printThis("Need to specify the time of the event using /to and /from");
+                printThis("Need to specify the time ocd ..f the event using /to and /from");
                 task = null;
             }
         } else if (str.contains("todo")) {
