@@ -86,9 +86,9 @@ public class FileManager {
                     printInvalidFormatWarning(line);
                 }
             }
-            System.out.println("Tasks loaded successfully!");
+            //System.out.println("Tasks loaded successfully!");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
+            System.out.println("Dobby has no saved tasks.");
         }
     }
 
