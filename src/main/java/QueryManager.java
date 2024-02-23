@@ -50,8 +50,7 @@ public class QueryManager {
                     System.out.println("Can I double check that you said: " + currentQuery.getArgument());
                     return -1;
                 case "todo":
-                    Task task = new Task();
-                    task.setDescription(argument);
+                    Task task = new Task(false, argument);
                     list.addTask(task);
                     return -1;
                 case "deadline":
@@ -62,6 +61,9 @@ public class QueryManager {
                 case "event":
                     EventTask event = new EventTask(false, argument);
                     list.addTask(event);
+                    return -1;
+                case "delete":
+                    list.deleteTask(argument);
                     return -1;
             }
         } catch (SalmonNotInListException e) {
