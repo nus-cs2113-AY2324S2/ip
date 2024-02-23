@@ -1,8 +1,8 @@
 import doraemonexceptions.EmptyListException;
-import doraemonexceptions.ExceedListException;
 import doraemonexceptions.InValidCommandException;
 import doraemonexceptions.IsEmptyException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Main {
@@ -36,10 +36,10 @@ public class Main {
         System.out.println(task.formatTask());
     }
 
-    public static void loadData() {
+    public static void loadData(ArrayList<Todo> list) throws FileNotFoundException {
         File storedFile = new File("data/doraemon.txt");
         if (storedFile.exists()) {
-            Scanner dataInput = new Scanner(storedFiled);
+            Scanner dataInput = new Scanner(storedFile);
             while (dataInput.hasNext()) {
                 list.add(new Todo(dataInput.nextLine().substring(7)));
             }
@@ -57,11 +57,14 @@ public class Main {
         String end;
         Scanner in = new Scanner(System.in);
         printGreetings();
-        loadData();
+        try {
+            loadData(list);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, creating new file to store inputs!");
+        }
         String temp = in.nextLine();
         while (!temp.equals("bye")) {
             try {
-                //query
                 if (temp.equals("list")) {
                     if (taskNum == 0) {
                         throw new EmptyListException();
