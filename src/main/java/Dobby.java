@@ -17,7 +17,5 @@ public class Dobby {
         fileManager.loadTasksFromFile(taskmanager);
         taskmanager.userCommand();
     }
-
-
-
+    
 }
