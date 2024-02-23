@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 
+import static yuki.Constants.TODO_INDICATOR;
+import static yuki.Constants.DEADLINE_INDICATOR;
+import static yuki.Constants.EVENT_INDICATOR;
+
 public class Yuki {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -24,19 +28,21 @@ public class Yuki {
     private static final String PATH_TO_FILE = "data/tasks.txt";
 
     public static void readFile() throws FileNotFoundException {
-        File f = new File(PATH_TO_FILE);
-        Scanner s = new Scanner(f);
+        File inputFile = new File(PATH_TO_FILE);
+        Scanner inputScanner = new Scanner(inputFile);
         String line;
-        while (s.hasNext()) {
-            line = s.nextLine();
-            if (line.charAt(7) == 'T') {
-                Task t = new Todo(line.substring(10));
+        String taskDescription;
+        while (inputScanner.hasNext()) {
+            line = inputScanner.nextLine();
+            taskDescription = line.substring(10);
+            if (line.charAt(7) == TODO_INDICATOR) {
+                Task t = new Todo(taskDescription);
                 tasks.add(t);
-            } else if (line.charAt(7) == 'D') {
-                Task t = new Deadline(line.substring(10));
+            } else if (line.charAt(7) == DEADLINE_INDICATOR) {
+                Task t = new Deadline(taskDescription);
                 tasks.add(t);
-            } else if (line.charAt(7) == 'E') {
-                Task t = new Event(line.substring(10));
+            } else if (line.charAt(7) == EVENT_INDICATOR) {
+                Task t = new Event(taskDescription);
                 tasks.add(t);
             } else {
                 System.out.println("error in input file");
@@ -47,8 +53,8 @@ public class Yuki {
     public static void writeFile() throws IOException {
         File dataDirectory = new File("data");
         if (!dataDirectory.exists()) {
-            boolean directoryCreated = dataDirectory.mkdirs(); // create directory to save in.
-            if (!directoryCreated) {
+            boolean hasDirectoryCreated = dataDirectory.mkdirs(); // create directory to save in.
+            if (!hasDirectoryCreated) {
                 // Handle the case where directory creation fails
                 throw new IOException("Failed to create the 'data' directory.");
             }

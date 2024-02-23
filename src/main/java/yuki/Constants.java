@@ -14,4 +14,8 @@ public class Constants {
     protected static final String EVENT_COMMAND = "event";
     protected static final String HELP_COMMAND = "help";
     protected static final String EXIT_COMMAND = "exit";
+
+    protected static final char TODO_INDICATOR = 'T';
+    protected static final char DEADLINE_INDICATOR = 'D';
+    protected static final char EVENT_INDICATOR = 'E';
 }
