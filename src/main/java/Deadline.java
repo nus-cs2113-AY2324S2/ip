@@ -33,10 +33,6 @@ public class Deadline extends Task {
         return "DEADLINE";
     }
     @Override
-    public String getLabel() {
-        return label;
-    }
-    @Override
     public String getRange() {
         return due;
     }

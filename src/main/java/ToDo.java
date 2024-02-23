@@ -14,10 +14,6 @@ public class ToDo extends Task {
         return "TODO";
     }
     @Override
-    public String getLabel() {
-        return label;
-    }
-    @Override
     public String getRange() {
         return "";
     }

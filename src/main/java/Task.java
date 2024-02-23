@@ -16,7 +16,9 @@ public abstract class Task {
         this.isCompleted = value;
     }
     public abstract String getType();
-    public abstract String getLabel();
+    public String getLabel(){
+        return label;
+    };
     public abstract String getRange();
 
     @Override

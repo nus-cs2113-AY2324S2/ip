@@ -37,10 +37,6 @@ public class Event extends Task{
         return "EVENT";
     }
     @Override
-    public String getLabel() {
-        return label;
-    }
-    @Override
     public String getRange() {
         return from + ":" + to;
     }
