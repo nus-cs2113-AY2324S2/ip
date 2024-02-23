@@ -17,13 +17,17 @@ public class Task {
         isDone = true;
     }
 
-    public void markAsNotDone() { isDone = false; }
+    public void markAsNotDone() {
+        isDone = false;
+    }
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public static int getTaskCount() { return taskCount; }
+    public String getDescription() {
+        return DESCRIPTION;
+    }
 
     @Override
     public String toString() {

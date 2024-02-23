@@ -1,5 +1,6 @@
 package gab.ui;
 
+import gab.task.Task;
 import gab.task.TaskList;
 import java.util.Scanner;
 
@@ -73,5 +74,14 @@ public class Ui {
     public static void printDeleteTask (int taskIndex, TaskList taskList) {
         System.out.println("Ok task deleted!");
         System.out.println("\t" + taskList.taskList.get(taskIndex).toString());
+    }
+
+    public static void printFoundTask (Task task, int taskCount, boolean isFound) {
+        if (isFound) {
+            System.out.println("All your matching tasks are here: ");
+            System.out.println(taskCount + ". " + task);
+        } else {
+            System.out.println("Yay! No task found...");
+        }
     }
 }

@@ -4,7 +4,7 @@ import gab.task.TaskList;
 import gab.task.ToDo;
 import gab.ui.Ui;
 
-public class TodoCommand implements Command {
+public class TodoCommand extends Command {
     private final String TASK_NAME;
 
     public TodoCommand(String task) {
