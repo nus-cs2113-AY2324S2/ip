@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -14,7 +13,7 @@ public class Kratos {
     private static final String FILE_PATH = "./data/tasks.txt";
 
     // Method to save tasks to a file
-    public static void saveTasksToFile() {
+    public static void saveTasks() {
         try {
             File file = new File(FILE_PATH);
             if (!file.getParentFile().exists()) {
@@ -32,8 +31,7 @@ public class Kratos {
     }
 
     // Method to load tasks from a file
-    // Method to load tasks from a file
-    public static void loadTasksFromFile() {
+    public static void loadTasks() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -58,10 +56,6 @@ public class Kratos {
             KratosException.handleException(e, "Error loading tasks from file: " + e.getMessage());
         }
     }
-
-
-
-    //public static int count = 0;
 
     // Method to greet the user
     public static void greet() {
@@ -152,7 +146,7 @@ public class Kratos {
     // Main method
     public static void main(String[] args) {
         greet();
-        loadTasksFromFile(); // Load tasks from file when the program boots up
+        loadTasks(); // Load tasks from file when the program boots up
         String userInput;
         Scanner in = new Scanner(System.in);
         try {
@@ -169,10 +163,10 @@ public class Kratos {
                     handleCommand(userInput);
                     break;
                 }
+                saveTasks();
             }
         } finally {
             in.close();
-            saveTasksToFile();
         }
     }
 
