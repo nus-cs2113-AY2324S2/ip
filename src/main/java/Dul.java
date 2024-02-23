@@ -18,14 +18,20 @@ public class Dul {
 
         while (!guyInput.equals("bye")) {
             guyInput = in.nextLine();
-            listInput(guyInput);
+            try {
+                listInput(guyInput);
+            } catch (DulException e) {
+                System.out.println(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         System.out.println("Bye. Hope to see you again soon!");
         in.close();
     }
 
-    public static void listInput(String input) {
+    public static void listInput(String input) throws DulException {
         String[] command = input.split(" ", 2);
         switch (command[0]) {
             case "list":
@@ -38,9 +44,15 @@ public class Dul {
                 markTaskNotDone(Integer.parseInt(command[1]) - 1);
                 break;
             case "todo":
+                if (command.length < 2 || command[1].trim().isEmpty()) {
+                    throw new IllegalArgumentException("Do not leave the description of a todo empty.");
+                }
                 addTodoTask(command[1]);
                 break;
             case "deadline":
+                if (command.length < 2 || !command[1].contains("/by")) {
+                    throw new IllegalArgumentException("I need you to give me the description and deadline (/by).");
+                }
                 addDeadlineTask(command[1]);
                 break;
             case "event":
@@ -49,7 +61,11 @@ public class Dul {
             case "bye":
                 break;
             default:
-                addTask(command[0]);
+                if (!input.contains(" ")) {
+                    throw new DulException("OH NO!!! I do not understand");
+                } else {
+                    addTask(input);
+                }
                 break;
         }
     }
@@ -109,6 +125,12 @@ public class Dul {
         tasks[index].markNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + tasks[index].toString());
+    }
+}
+
+class DulException extends Exception {
+    public DulException(String message) {
+        super(message);
     }
 }
 
