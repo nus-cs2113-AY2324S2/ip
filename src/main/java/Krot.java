@@ -1,17 +1,14 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
 import java.util.regex.Pattern;
-
 import static java.lang.Integer.parseInt;
 
 public class Krot {
-    static final String NAME = "Krot"; // Static variable for the bot's name
-    static final String FILE_PATH = "../../../data/taskList.txt";
-    static ArrayList<Task> tasks = new ArrayList<>(); // Static variable list of all the tasks
-    static boolean hasEnded = false; // Static variable to end the chatbot
+    private static final String NAME = "Krot"; // Static variable for the bot's name
+    private static final String FILE_PATH = "../../../data/taskList.txt";
+    private static ArrayList<Task> tasks = new ArrayList<>(); // Static variable list of all the tasks
+    private static boolean hasEnded = false; // Static variable to end the chatbot
 
     public static void printName() {
         // Prints the name of bot when replying
@@ -191,7 +188,7 @@ public class Krot {
         printSeparator();
     }
 
-    public static void markTask(String[] line, String key) throws ArrayIndexOutOfBoundsException, IndexOutOfBoundsException {
+    public static void markTask(String[] line, String key) throws IndexOutOfBoundsException {
         // Marks or unmarks tasks
         printSeparator();
         printName();
@@ -286,8 +283,8 @@ public class Krot {
         FileReader fileReader = new FileReader(FILE_PATH);
         try {
             tasks = fileReader.getTasks();
-        } catch (FileNotFoundException e) {
-            return;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

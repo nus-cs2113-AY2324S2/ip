@@ -1,5 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.DirectoryIteratorException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,11 +14,15 @@ public class FileReader {
 
     public FileReader (String path) {
         this.filePath = path;
+
         this.tasks = new ArrayList<>();
     }
 
-    public ArrayList<Task> getTasks() throws FileNotFoundException {
+    public ArrayList<Task> getTasks() throws IOException, DirectoryCannotBeMadeException {
         File f = new File(filePath);
+        if (!f.exists()) {
+            createNewFile();
+        }
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String line = s.nextLine();
@@ -39,5 +48,25 @@ public class FileReader {
             }
         }
         return tasks;
+    }
+
+    public void createNewFile() throws DirectoryCannotBeMadeException, IOException {
+        boolean isDirMade = false;
+        boolean isFileMade = false;
+        File directory = new File("../../../data");
+        if (!directory.exists()) {
+            isDirMade = directory.mkdir();
+        }
+        if (!isDirMade) {
+            throw new DirectoryCannotBeMadeException("Data directory could not be made");
+        }
+        File tasksData = new File(filePath);
+        if (!tasksData.exists()) {
+            isFileMade = tasksData.createNewFile();
+        }
+    }
+
+    public void makeFile() {
+
     }
 }
