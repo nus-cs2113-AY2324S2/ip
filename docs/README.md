@@ -5,10 +5,6 @@ The Mario Task Manager is a Java-based application designed to assist users in m
 
 ## Classes and Packages
 
-### UI Package
-- **MarioUI**: The main class for the user interface, handling the initialization of the GUI components and user interactions.
-- **ResponseStreamer**: A utility class to animate the display of responses in the GUI.
-
 ### Logic Package
 - **Mario**: The core logic handler for task management, including loading and saving tasks.
 - **Parser**: Parses user input into commands to be executed by the system.
@@ -40,6 +36,7 @@ Run `MarioUI` to start the application. Use the input field to enter commands an
 - **deadline**: Add a task with a deadline.
 - **event**: Add an event with start and end dates.
 - **list**: List all tasks.
+- **delete**: Delete all or specific tasks.
 - **bye**: Exit the application.
 
 This documentation provides a comprehensive overview of the Mario Task Manager application structure and functionality.
