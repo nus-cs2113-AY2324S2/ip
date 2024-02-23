@@ -8,6 +8,7 @@ import helpy.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -116,6 +117,14 @@ public class Helpy {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void updateFile() throws IOException{
+        FileWriter helpyWriter = new FileWriter(filePath);
+        for (Task task : taskList) {
+            task.saveToFile(filePath);
+        }
+        helpyWriter.close();
+    }
+
     public static void processCommand(String command, ArrayList<Task> taskList) {
 
         if (command.startsWith("mark") || command.startsWith("unmark")) {
@@ -132,12 +141,15 @@ public class Helpy {
             try {
                 int taskIndex = Integer.parseInt(taskNum) - 1;
                 markTask(taskList.get(taskIndex), commandStartsWith);
+                updateFile();
             } catch (NumberFormatException e) {
                 printMessage("Task number provided is invalid! " +
                         "Did you enter wrongly? You typed: " + command);
             } catch (IndexOutOfBoundsException e) {
                 printMessage("Task number doesn't exist! " +
                         "Did you enter wrongly? You typed: " + command);
+            } catch (IOException e) {
+                printMessage("Error occurred when trying to update file");
             }
             return;
         }

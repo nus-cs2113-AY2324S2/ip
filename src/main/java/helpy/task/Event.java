@@ -24,6 +24,7 @@ public class Event extends Task{
                 + " (from: " + eventFrom + " to: " + eventTo + ")";
     }
 
+    @Override
     public void saveToFile(String filePath) throws IOException {
         FileWriter helpyWriter = new FileWriter(filePath, true);
         String isDone = isDone() ? "1" : "0";
