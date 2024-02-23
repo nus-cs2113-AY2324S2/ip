@@ -1,12 +1,20 @@
 package geepee.system;
 
 import java.util.Scanner;
-import geepee.exceptions.*;
-import geepee.task.list.*;
-import geepee.task.*;
+import geepee.exceptions.EmptyDescriptionException;
+import geepee.exceptions.InvalidCommandException;
+import geepee.exceptions.MissingDeadlineException;
+import geepee.exceptions.MissingFromException;
+import geepee.exceptions.MissingToException;
+import geepee.task.list.List;
+import geepee.task.list.ListMessage;
+import geepee.task.Todo;
+import geepee.task.Deadline;
+import geepee.task.Event;
 
 public abstract class InputHandler {
 
+    private static final int COMMAND_INDEX = 0;
     private static Scanner in = new Scanner(System.in);
 
     private static void handleTodo(List list, String line) {
@@ -14,7 +22,7 @@ public abstract class InputHandler {
             String todoDescription = InputParser.getTodoDescription(line);
             list.addTask(new Todo(todoDescription));
         } catch (EmptyDescriptionException e) {
-            SystemMessage.printEmptyTodoDescriptionMessage();
+            System.out.println(e.getEmptyTodoMessage());
         }
     }
 
@@ -25,9 +33,9 @@ public abstract class InputHandler {
             String deadlineBy = InputParser.getDeadlineBy(line, byIndex);
             list.addTask(new Deadline(deadlineDescription, deadlineBy));
         } catch (EmptyDescriptionException e) {
-            SystemMessage.printEmptyDeadlineDescriptionMessage();
+            System.out.println(e.getEmptyDeadlineMessage());
         } catch (MissingDeadlineException e) {
-            SystemMessage.printMissingDeadlineMessage();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -40,11 +48,9 @@ public abstract class InputHandler {
             String eventTo = InputParser.getEventTo(line, toIndex);
             list.addTask(new Event(eventDescription, eventFrom, eventTo));
         } catch (EmptyDescriptionException e) {
-            SystemMessage.printEmptyEventDescriptionMessage();
-        } catch (MissingFromException e) {
-            SystemMessage.printMissingFromMessage();
-        } catch (MissingToException e) {
-            SystemMessage.printMissingToMessage();
+            System.out.println(e.getEmptyEventMessage());
+        } catch (MissingFromException | MissingToException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -63,11 +69,11 @@ public abstract class InputHandler {
     }
 
     public static void handleUserInput(List list, String line) throws InvalidCommandException {
-        String command = line.split(" ")[0];
+        String command = line.split(" ")[COMMAND_INDEX];
         if (command.equals("") || command.equals("bye")) {
             return;
         } else if (command.equals("list")) {
-            ListMessage.printAllTasks(list);
+            list.getAllTasks();
         } else if (command.equals("mark") || command.equals("unmark")) {
             handleTaskStatusChange(list, line, command);
         } else if (command.equals("todo")) {
@@ -83,7 +89,7 @@ public abstract class InputHandler {
         }
     }
 
-    public static String receiveUserInput() {
+    public static String getUserInput() {
         return in.nextLine().trim();
     }
 }

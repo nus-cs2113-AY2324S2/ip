@@ -3,7 +3,8 @@ package geepee.task.list;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import geepee.task.Task;
-import geepee.system.*;
+import geepee.system.SystemMessage;
+import geepee.system.FileHandler;
 
 public class List {
 
@@ -38,6 +39,10 @@ public class List {
 
     public int getSize() {
         return tasks.size();
+    }
+
+    public void getAllTasks() {
+        ListMessage.printAllTasks(tasks);
     }
 
     public void updateFile() {

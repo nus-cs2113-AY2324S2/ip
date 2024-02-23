@@ -1,5 +1,6 @@
 package geepee.task.list;
 
+import java.util.ArrayList;
 import geepee.system.SystemMessage;
 import geepee.task.Task;
 
@@ -20,39 +21,39 @@ public class ListMessage {
     }
 
     protected static void printTaskStatusMessage(boolean isDone, Task task) {
-        SystemMessage.printHorizontalLine();
+        System.out.println(SystemMessage.getHorizontalLine());
         if (isDone) {
             System.out.println("    Nice! I've marked this task as done:");
         } else {
             System.out.println("    OK, I've marked this task as not done yet:");
         }
         System.out.println("      " + task);
-        SystemMessage.printHorizontalLine();
+        System.out.println(SystemMessage.getHorizontalLine());
     }
 
     protected static void printAfterAddingTask(int size, Task task) {
-        SystemMessage.printHorizontalLine();
+        System.out.println(SystemMessage.getHorizontalLine());
         printTaskAddedMessage(task);
         printListSummary(size);
-        SystemMessage.printHorizontalLine();
+        System.out.println(SystemMessage.getHorizontalLine());
     }
 
     protected static void printAfterRemovingTask(int size, Task task) {
-        SystemMessage.printHorizontalLine();
+        System.out.println(SystemMessage.getHorizontalLine());
         printTaskRemovedMessage(task);
         printListSummary(size);
-        SystemMessage.printHorizontalLine();
+        System.out.println(SystemMessage.getHorizontalLine());
     }
 
-    public static void printAllTasks(List list) {
-        SystemMessage.printHorizontalLine();
+    protected static void printAllTasks(ArrayList<Task> tasks) {
+        System.out.println(SystemMessage.getHorizontalLine());
         System.out.println("    Here are the current tasks in your list:");
-        for (int i = 0; i < list.tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + list.tasks.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("    " + (i + 1) + "." + tasks.get(i));
         }
-        if (list.tasks.size() == 0) {
+        if (tasks.size() == 0) {
             System.out.println("    There are no tasks in your list!");
         }
-        SystemMessage.printHorizontalLine();
+        System.out.println(SystemMessage.getHorizontalLine());
     }
 }

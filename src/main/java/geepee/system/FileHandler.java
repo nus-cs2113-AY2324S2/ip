@@ -6,7 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import geepee.task.*;
+import geepee.task.Task;
+import geepee.task.Todo;
+import geepee.task.Deadline;
+import geepee.task.Event;
 
 public class FileHandler {
 

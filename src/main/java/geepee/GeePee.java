@@ -1,7 +1,8 @@
 package geepee;
 
 import java.io.File;
-import geepee.system.*;
+import geepee.system.InputHandler;
+import geepee.system.SystemMessage;
 import geepee.task.list.List;
 import geepee.exceptions.InvalidCommandException;
 
@@ -14,11 +15,11 @@ public class GeePee {
         String line = "";
         while (!line.equals("bye")) {
             try {
-                line = InputHandler.receiveUserInput();
+                line = InputHandler.getUserInput();
                 InputHandler.handleUserInput(list, line);
                 list.updateFile();
             } catch (InvalidCommandException e) {
-                SystemMessage.printInvalidCommandMessage();
+                System.out.println(e.getMessage());
             }
         }
     }
