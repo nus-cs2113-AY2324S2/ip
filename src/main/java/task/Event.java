@@ -1,4 +1,5 @@
 package task;
+
 import command.JohnException;
 
 public class Event extends Task {
@@ -31,6 +32,12 @@ public class Event extends Task {
 
     }
 
+    public Event(String name, String from, String to) {
+        super(name);
+        this.from = from;
+        this.to = to;
+    }
+
     private boolean checkValidInput(String input) {
         return input.contains("/from") && input.contains("/to");
     }
@@ -38,6 +45,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.trim() + " to: " + to.trim() + ")";
+    }
+
+    @Override
+    public String getDataStorageString() {
+        return "e" + DATA_SEPERATOR + this.name + DATA_SEPERATOR + this.from + DATA_SEPERATOR + this.to;
     }
 
 }

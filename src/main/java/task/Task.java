@@ -1,8 +1,10 @@
 package task;
+
 public abstract class Task {
 
     protected String name;
     protected boolean isCompleted = false;
+    public final static String DATA_SEPERATOR = ";";
 
     public Task() {
         name = "Unnamed";
@@ -46,4 +48,7 @@ public abstract class Task {
         System.out.print(this.name);
     }
 
+    public String getDataStorageString() {
+        return "t" + DATA_SEPERATOR + this.name;
+    }
 }

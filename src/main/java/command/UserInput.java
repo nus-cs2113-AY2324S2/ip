@@ -1,4 +1,5 @@
 package command;
+
 import java.util.Scanner;
 
 import task.Deadline;
@@ -53,7 +54,7 @@ public class UserInput {
             break;
 
         default:
-            System.out.println("Please input a valid command");
+            // System.out.println("Please input a valid command");
             break;
         }
     }
