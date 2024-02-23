@@ -1,24 +1,51 @@
-# Duke project template
+# Quokka Chatbot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to Quokka, your personal task management chatbot! Quokka helps you manage your tasks efficiently through a simple and intuitive interface. This guide will walk you through the features and commands supported by Quokka.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+1. **Task Management**: Quokka allows you to add, delete, mark as done, and list tasks.
+2. **Task Types**: You can create different types of tasks such as Todo, Deadline, and Event.
+3. **Date and Time Parsing**: Quokka understands dates and times in various formats.
+4. **Keyword Search**: Find tasks quickly by searching for keywords.
+5. **Data Persistence**: Quokka saves your tasks to a file for easy retrieval.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Commands
+
+### Adding Tasks
+
+- **Todo**: `todo [description]` - Adds a todo task with the given description.
+- **Deadline**: `deadline [description] /by [date/time]` - Adds a deadline task with the given description and due date/time.
+- **Event**: `event [description] /from [start] /to [end]` - Adds an event task with the given description and start/end times.
+
+### Managing Tasks
+
+- **List**: `list` - Displays all tasks in the task list.
+- **Mark as Done**: `mark [task number]` - Marks the task with the specified number as done.
+- **Mark as Not Done**: `unmark [task number]` - Marks the task with the specified number as not done.
+- **Delete**: `delete [task number]` - Deletes the task with the specified number from the task list.
+- **Find**: `find [keyword]` - Searches for tasks containing the specified keyword in their descriptions.
+
+### Exiting
+
+- **Exit**: `bye` - Exits Quokka.
+
+## Date and Time Formats
+
+- **Deadline**: `dd/MM/yyyy HHmm` (e.g., 18/2/2024 1800)
+
+## Example Usage
+
+1. Add a todo task: `todo Read a book`
+2. Add a deadline task: `deadline Submit report /by 31/12/2024 1900`
+3. Add an event task: `event Team meeting /from 2pm /to 5pm`
+4. List all tasks: `list`
+5. Mark a task as done: `mark 1`
+6. Find tasks containing a keyword: `find report`
+7. Exit Quokka: `bye`
+
+## Tips
+
+- Make sure to provide clear and concise task descriptions.
+- Use the keyword search feature to quickly find relevant tasks.
+- Double-check date and time formats when adding deadline or event tasks.
