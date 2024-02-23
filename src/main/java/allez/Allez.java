@@ -38,11 +38,15 @@ public class Allez {
         boolean hasEnded = false;
 
         printGreeting();
+        SaveManager saveManager = new SaveManager("./data/data.txt");
+        tasks = saveManager.loadSave();
+        taskCount = Task.getNumberOfTasks();
 
         while(!hasEnded) {
             hasEnded = executeCommands();
         }
 
+        saveManager.writeSave(tasks);
         printExit();
     }
 
@@ -228,5 +232,9 @@ public class Allez {
 
     private static void printHyphens() {
         System.out.println("__________________________________________________");
+    }
+
+    private static void loadSavedFile() {
+
     }
 }

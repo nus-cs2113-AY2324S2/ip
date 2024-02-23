@@ -3,6 +3,11 @@ package allez.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+
+    public static int getNumberOfTasks() {
+        return numberOfTasks;
+    }
+
     private static int numberOfTasks = 0;
 
     public Task(String description) {
