@@ -9,7 +9,7 @@ import exceptions.MissingDeadlineException;
 import exceptions.MissingStartException;
 import tasks.*;
 
-public class Data {
+public class LoadData {
     public static ArrayList<Task> savedTasks = new ArrayList<>(100);
     public static void loadTodo(String description) throws EmptyTaskException {
         if (description.isBlank()) {
