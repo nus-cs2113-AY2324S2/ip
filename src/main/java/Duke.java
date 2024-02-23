@@ -1,8 +1,16 @@
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/taskCategory.txt";
+
+    static ArrayList<Task> listOfItems = new ArrayList<>();
+
+    //variable stores the number of tasks being added
+    static int sizeOfAddedItems = 0;
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -10,18 +18,17 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        ArrayList<Task> listOfItems = new ArrayList<>();
 
         System.out.println(logo);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Brennan!");
         System.out.println("What can I do for you?\n");
 
+        loadTasksFromFile();
+
         //String that stores the input entered by the user
         String input;
 
-        //variable stores the number of tasks being added
-        int sizeOfAddedItems = 0;
 
         Scanner in = new Scanner(System.in);
 
@@ -113,9 +120,12 @@ public class Duke {
                 else {
                     throw new IllegalArgumentException();
                 }
+
             } catch (Exception e) {
                 DukeException.handleException(e, input);
             }
+
+            saveTasksToFile();
         }
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
@@ -139,7 +149,52 @@ public class Duke {
 
         listOfItems.remove(indexTask-1);
     }
-    
+
+    public static void saveTasksToFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs(); // Create directories if they don't exist
+            }
+            file.createNewFile(); // Create the file if it doesn't exist
+            try (FileWriter writer = new FileWriter(file)) {
+                for (int i = 0; i < sizeOfAddedItems; i++) {
+                    writer.write(listOfItems.get(i).toFileString() + "\n");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Method to load tasks from a file
+    public static void loadTasksFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                if (task != null) {
+                    listOfItems.add(sizeOfAddedItems++, task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // Handle the case where the file doesn't exist
+            System.err.println("File not found. Creating a new file...");
+            System.err.println("File created. Please enter your commands.");
+            File file = new File(FILE_PATH);
+            try {
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs(); // Create directories if they don't exist
+                }
+                file.createNewFile();
+            } catch (IOException ioException) {
+                System.err.println("Error creating a new file: " + ioException.getMessage());
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
 }
 
 

@@ -7,11 +7,11 @@ public class Event extends Task {
         super(description);
         typeOfTask = "E";
 
-        int dividerIndexFrom = description.indexOf("/");
-        int dividerIndexTo = description.lastIndexOf("/");
+        int dividerIndexFrom = description.indexOf("from");
+        int dividerIndexTo = description.lastIndexOf("to");
 
-        setStartingDate(description.substring(dividerIndexFrom + 6, dividerIndexTo - 1));
-        setEndingDate(description.substring(dividerIndexTo + 4));
+        setStartingDate(description.substring(dividerIndexFrom + 5, dividerIndexTo - 1));
+        setEndingDate(description.substring(dividerIndexTo + 3));
 
         if (dividerIndexFrom == -1) {
             setStartingDate(null);
@@ -40,5 +40,10 @@ public class Event extends Task {
 
     public void setEndingDate(String endingDate) {
         this.endingDate = endingDate;
+    }
+
+    @Override
+    public String toFileString() {
+        return "E|" + super.toFileString() + "|" + startingDate + "|" + endingDate; // Prefix with "E" to indicate Event
     }
 }
