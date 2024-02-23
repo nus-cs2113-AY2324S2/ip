@@ -2,28 +2,35 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Alice {
+    private static final String LINE = "____________________________________________________________";
+    private static final String GREETING_MESSAGE = "yoo i'm alice! ur virtual bestie here to keep track of ur vibes";
+    private static final String FAREWELL_MESSAGE = "bye bestie! catch ya later, and remember to stay hydrated <3";
+    private static final String HELP_MESSAGE = "Feelin' lost? Just type 'help' and I'll be right here with the deets again!";
+    private static final String INVALID_INPUT_MESSAGE = "ayo my bad i can't seem to understand ya, try saying smt valid, or type 'help'";
+
+
+
     public static void main(String[] args) throws AliceException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
-        String line = "____________________________________________________________";
 
-        System.out.println(line);
-        System.out.println("yoo i'm alice! ur virtual bestie here to keep track of ur vibes");
-        System.out.println("what's poppin? u can tell me stuff to remember or type 'bye' to dip");
-        System.out.println(line);
+        System.out.println(LINE);
+        System.out.println(GREETING_MESSAGE);
+        System.out.println("what's poppin? u can tell me stuff to remember, or type 'bye' to dip");
+        System.out.println(LINE);
 
         while (true) {
             String input = scanner.nextLine();
 
             try {
                 if (input.equals("bye")) {
-                    System.out.println(line);
-                    System.out.println("bye bestie! catch ya later, and remember to stay hydrated <3");
-                    System.out.println(line);
+                    System.out.println(LINE);
+                    System.out.println(FAREWELL_MESSAGE);
+                    System.out.println(LINE);
                     break;
                 } else if (input.equals("help")) {
                     // Respond to the help command by listing available commands
-                    System.out.println(line);
+                    System.out.println(LINE);
                     System.out.println("okay bestie, here's what u can throw at me to help ya <3 :");
                     System.out.println("  - 'list': Peek at all that you gotta get done");
                     System.out.println("  - 'todo [description]': Got something new to remember? I gotchu girlie!");
@@ -32,10 +39,10 @@ public class Alice {
                     System.out.println("  - 'mark [task number]': Finshed a task? YAY good job bestie ill help mark it off for ya");
                     System.out.println("  - 'unmark [task number]': Took a lil step back? No worries, we can get back to it later u got this!");
                     System.out.println("  - 'bye': Need to head off somewhere? I'll catch ya later! Rememeber that ur amazing bestie :)");
-                    System.out.println("Feelin' lost? Just type 'help' and I'll be right here with the deets again!");
-                    System.out.println(line);
+                    System.out.println(HELP_MESSAGE);
+                    System.out.println(LINE);
                 } else if (input.startsWith("list")) {
-                    System.out.println(line);
+                    System.out.println(LINE);
                     if (tasks.isEmpty()) {
                         System.out.println("this list is emptier than my motivation on a monday morning lol");
                     } else {
@@ -44,22 +51,22 @@ public class Alice {
                             System.out.println((i + 1) + ". " + tasks.get(i).toString());
                         }
                     }
-                    System.out.println(line);
+                    System.out.println(LINE);
                 } else if (input.startsWith("todo ")) {
-                    handleTodo(input, tasks, line);
+                    handleTodo(input, tasks, LINE);
                 } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-                    handleMarkUnmark(input, tasks, line);
+                    handleMarkUnmark(input, tasks, LINE);
                 } else if (input.startsWith("deadline ")) {
-                    handleDeadline(input, tasks, line);
+                    handleDeadline(input, tasks, LINE);
                 } else if (input.startsWith("event ")) {
-                    handleEvent(input, tasks, line);
+                    handleEvent(input, tasks, LINE);
                 } else {
-                    throw new AliceException("ayo my bad i can't seem to understand ya, try saying smt valid, or type 'help'");
+                    throw new AliceException(INVALID_INPUT_MESSAGE);
                 }
             } catch (AliceException e){
-                System.out.println(line);
+                System.out.println(LINE);
                 System.out.println(e.getMessage());
-                System.out.println(line);
+                System.out.println(LINE);
             }
         }
         scanner.close();
