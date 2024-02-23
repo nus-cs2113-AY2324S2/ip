@@ -19,11 +19,15 @@ public class MoodSprite {
                                         + "   ██                  ██\n"
                                         + "     ██████████████████ \n\n";
 
-    public String getHappy() {
+    private static final String LINEBREAK = "----------------------------------------------------------";
+
+    public static String getHappy() {
         return HAPPY;
     }
 
-    public String getIdle() {
+    public static String getIdle() {
         return IDLE;
     }
+
+    public static String getLineBreak() {return LINEBREAK;}
 }
