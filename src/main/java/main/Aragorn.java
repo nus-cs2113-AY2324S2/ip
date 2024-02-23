@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+
 import exceptions.AragornException;
 import utilities.FileHandler;
 import utilities.InputParser;
@@ -12,10 +13,10 @@ import java.util.Scanner;
 public class Aragorn {
 
     private static final String LINE =  "    __________________________________________________________\n";
-    private static final String GREET = "    Hello! I am main.Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
+    private static final String GREET = "    Hello! I am Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
             "    the heir of Isildur Elendil's son of Gondor.\n" +
             "    What can I do for you?\n";
-    private static final String EXIT = "    Bye. Hope to see you again soon!\n";
+    private static final String EXIT = "    Farewell. Hope to see you again soon!\n";
     private static final String TAB = "    ";
 
     private static final String commandList = "    Here is a list of commands:\n" +
@@ -32,9 +33,12 @@ public class Aragorn {
             "\n" +
             "    \"unmark <task number>\": Marks the corresponding task in the list as incomplete.\n" +
             "\n" +
+            "    \"delete <task number>\": Removes the corresponding task from the list.\n" +
+            "\n" +
             "    \"/help\": Displays this list of commands.\n" +
             "\n" +
             "    \"bye\": Closes the program.\n";
+    
     private static final ArrayList<Task> list = new ArrayList<>();
 
     public static void main(String[] args) throws AragornException {
@@ -43,12 +47,13 @@ public class Aragorn {
         } catch (IOException e) {
             System.out.println("File read error");
         }
-        System.out.println(LINE + GREET + LINE);
+        System.out.println(LINE + GREET + LINE + "\n" + commandList + LINE);
         int index;
         String icon;
         Scanner in = new Scanner(System.in);
         while(true) {
-            String userInput = in.nextLine();
+            String userInput;
+            userInput = in.nextLine();
             String commandType = InputParser.commandIdentifier(userInput);
             try {
                 InputParser input = new InputParser(userInput.trim(), commandType);
@@ -71,7 +76,7 @@ public class Aragorn {
                             System.out.println(TAB + (i + 1) + ". " + list.get(i).taskString());
                         }
                         System.out.println("\n");
-                        printRemainingTasks(remainingTasks, list);
+                        printRemainingTasks(remainingTasks);
                         break;
 
                     case "UNMARK":
@@ -86,7 +91,7 @@ public class Aragorn {
                             remainingTasks += 1;
                             System.out.println(LINE + TAB + "OK, I've marked this task as incomplete:\n" + TAB +
                                     "   " + list.get(index).taskString() + "\n");
-                            printRemainingTasks(remainingTasks, list);
+                            printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
                             System.out.println(LINE + "    Task index is not in the list\n" + LINE);
                         } catch (ArrayIndexOutOfBoundsException e) {
@@ -106,7 +111,7 @@ public class Aragorn {
                             remainingTasks -= 1;
                             System.out.println(LINE + TAB + "Nice! I've marked this task as done:\n" + TAB +
                                     "   " + list.get(index).taskString() + "\n");
-                            printRemainingTasks(remainingTasks, list);
+                            printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
                             System.out.println(LINE + "    Task index is not in the list\n" + LINE);
                         } catch (ArrayIndexOutOfBoundsException e) {
@@ -124,7 +129,7 @@ public class Aragorn {
                             System.out.println(LINE + TAB + "I've deleted this task from the list:\n" + TAB +
                                     "   " + list.get(index).taskString() + "\n");
                             list.remove(index);
-                            printRemainingTasks(remainingTasks, list);
+                            printRemainingTasks(remainingTasks);
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println(LINE + "    Invalid tasks.Task\n" + LINE);
                         } catch (IndexOutOfBoundsException e) {
@@ -140,7 +145,7 @@ public class Aragorn {
                         list.add(newTask);
                         printAddTask(newTask);
                         remainingTasks += 1;
-                        printRemainingTasks(remainingTasks, list);
+                        printRemainingTasks(remainingTasks);
                         break;
 
                     case "DEADLINE":
@@ -152,7 +157,7 @@ public class Aragorn {
                             list.add(newDeadline);
                             printAddTask(newDeadline);
                             remainingTasks += 1;
-                            printRemainingTasks(remainingTasks, list);
+                            printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
                             break;
                         }
@@ -167,7 +172,7 @@ public class Aragorn {
                             list.add(newEvent);
                             printAddTask(newEvent);
                             remainingTasks += 1;
-                            printRemainingTasks(remainingTasks, list);
+                            printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
                             break;
                         }
@@ -193,12 +198,13 @@ public class Aragorn {
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
                 System.out.println(LINE + "    Invalid task index format\n" + LINE);
             }
+            writeFile();
         }
     }
 
     private static void readFile() throws IOException {
         try {
-            List<String> entries = FileHandler.readFile("D:\\Files,Docu\\Docs\\CG2113_Proj\\ip\\ip\\src\\main\\data\\AragornList.txt");
+            List<String> entries = FileHandler.readFile("./ip/data/AragornList.txt");
             list.clear();
 
             for (String entry : entries) {
@@ -215,7 +221,7 @@ public class Aragorn {
                 System.out.println(TAB + (i + 1) + ". " + list.get(i).taskString());
             }
          } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.out.println("No file found! Creating new file.");
         }
     }
 
@@ -257,7 +263,7 @@ public class Aragorn {
             for (Task newTask : list) {
                 formattedEntries.add(newTask.toFileString());
             }
-            FileHandler.writeFile("D:\\Files,Docu\\Docs\\CG2113_Proj\\ip\\ip\\src\\main\\data\\AragornList.txt", formattedEntries);
+            FileHandler.writeFile("./ip/data/AragornList.txt", formattedEntries);
         } catch (IOException e) {
             System.out.println("Error writing file: " + e.getMessage());
         }
@@ -268,8 +274,8 @@ public class Aragorn {
         System.out.println(TAB + list.taskString() + "\n");
     }
 
-    private static void printRemainingTasks(int remainingTasks, ArrayList<Task> list) {
-        System.out.println("    You have " + remainingTasks + " / " + list.size() + " remaining tasks in the list.\n" + LINE);
+    private static void printRemainingTasks(int remainingTasks) {
+        System.out.println("    You have " + remainingTasks + " / " + Aragorn.list.size() + " remaining tasks in the list.\n" + LINE);
     }
 
 }
