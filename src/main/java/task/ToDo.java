@@ -1,6 +1,6 @@
 package task;
 
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     public ToDo(String name) {
         super(name);
@@ -10,5 +10,5 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
-    
+
 }

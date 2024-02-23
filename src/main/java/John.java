@@ -1,7 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 import command.UserInput;
+import command.Database;
 import task.Task;
 
 public class John {
@@ -12,6 +15,8 @@ public class John {
     public static void main(String[] args) {
 
         printWelcomeMessage();
+        readData();
+
         Scanner in = new Scanner(System.in);
         System.out.println(LINE_BREAK);
         String userInput = in.next();
@@ -22,8 +27,25 @@ public class John {
             System.out.println(LINE_BREAK);
         }
 
+        storeData();
         printExitMessage();
 
+    }
+
+    private static void storeData() {
+        try {
+            Database.storeData(taskList);
+        } catch (IOException e) {
+            System.out.println("Error storing data.");
+        }
+    }
+
+    private static void readData() {
+        try {
+            Database.readData(taskList);
+        } catch (FileNotFoundException e) {
+            System.out.println("No previous data found");
+        }
     }
 
     private static void printExitMessage() {
