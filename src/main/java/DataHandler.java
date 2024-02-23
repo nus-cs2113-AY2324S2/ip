@@ -10,14 +10,23 @@ import java.util.Scanner;
 
 public class DataHandler {
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAdd);
         fw.close();
     }
 
+    public static void tasksToFile(Task[] taskList) throws IOException {
+        for(Task task : taskList){
+            if (task == null) break;
+            String stringToWrite = task.getBadge() + "," + (task.getStatusIcon().equals("X") ? 1 : 0)
+                    + "," + task.description;
+            writeToFile("data/data.txt", stringToWrite);
+        }
+    }
+
     private static Task[] readFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); 
-        Scanner s = new Scanner(f); 
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
         Task[] taskList = new Task[Spike.MAX_TASK];
         for (int i = 0; s.hasNext(); i++) {
             taskList[i] = processData(s.nextLine());
