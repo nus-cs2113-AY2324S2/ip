@@ -24,12 +24,11 @@ public class Spike {
         displayWelcomeMsg();
 
         ArrayList<Task> inputList = new ArrayList<>();
-        int iter = 0;
         Scanner in = new Scanner(System.in);
 
         while (true) {
             try {
-                startChatbot(in, inputList, iter);
+                startChatbot(in, inputList);
                 displayByeMsg();
                 break;
             } catch (CommandNotFoundException e) {
@@ -42,7 +41,7 @@ public class Spike {
         }
     }
 
-    private static void startChatbot(Scanner in, ArrayList<Task> inputList, int iter)
+    private static void startChatbot(Scanner in, ArrayList<Task> inputList)
             throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException {
         outerLoop:
         while (true) {
@@ -50,7 +49,6 @@ public class Spike {
             switch (input.split(" ")[0]) {
             case "list":
                 displayList(inputList);
-                iter -= 1;
                 break;
             case "mark":
                 if (MARK_TASK_INDEX > input.length()) {
@@ -62,7 +60,6 @@ public class Spike {
                 }
                 inputList.get(indexMark).setDone(true);
                 displayMarkMsg(indexMark, inputList);
-                iter -= 1;
                 break;
             case "unmark":
                 if (UNMARK_TASK_INDEX > input.length()) {
@@ -74,42 +71,41 @@ public class Spike {
                 }
                 inputList.get(indexUnmark).setDone(false);
                 displayUnmarkMsg(indexUnmark, inputList);
-                iter -= 1;
                 break;
             case "todo":
-                inputList.add(new Todo(processTodo(input)));
-                displayAcknowledgement(inputList, iter);
+                Task newTodo = new Todo(processTodo(input));
+                inputList.add(newTodo);
+                displayAcknowledgement(newTodo, inputList.size());
                 break;
             case "deadline":
-                inputList.add(new Deadline(processDeadline(input)));
-                displayAcknowledgement(inputList, iter);
+                Task newDeadline = new Todo(processDeadline(input));
+                inputList.add(newDeadline);
+                displayAcknowledgement(newDeadline, inputList.size());
                 break;
             case "event":
-                inputList.add(new Event(processEvent(input)));
-                displayAcknowledgement(inputList, iter);
+                Task newEvent = new Todo(processEvent(input));
+                inputList.add(newEvent);
+                displayAcknowledgement(newEvent, inputList.size());
                 break;
             case "delete":
                 int indexDelete = Integer.parseInt(input.substring(DELETE_TASK_INDEX)) - 1;
                 inputList.remove(indexDelete);
-                iter -= 1;
                 break;
             case "bye":
                 break outerLoop;
             default:
-                iter -= 1;
                 throw new CommandNotFoundException();
                 //System.out.println("Not valid");
             }
-            iter += 1;
         }
     }
 
-    private static void displayAcknowledgement(ArrayList<Task> inputList, int iter) {
-        char Badge = getBadge(inputList.get(iter));
+    private static void displayAcknowledgement(Task inputObj, int arrayLength) {
+        char Badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("Got it. I've added this task:");
-        System.out.println(" [" + Badge + "]" + "[ ] " + inputList.get(iter).description);
-        System.out.println("Now you have " + (iter + 1) + " tasks in the list.");
+        System.out.println(" [" + Badge + "]" + "[ ] " + inputObj.description);
+        System.out.println("Now you have " + arrayLength + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 
