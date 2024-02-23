@@ -14,5 +14,9 @@ event something /fromokok/tookok
 mark 1
 list
 mark 300
+delete 3
+list
+delete test
+delete 100
 ok
 bye

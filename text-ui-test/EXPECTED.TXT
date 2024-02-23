@@ -1,39 +1,68 @@
-_________________________
+__________________________________________________
 Hello! I'm Allez
 What can I do for you?
-_________________________
+__________________________________________________
 List is currently empty
+__________________________________________________
 Please input a number only
+__________________________________________________
 Please input a number within current number of tasks
+__________________________________________________
 Please add a description of your task
+__________________________________________________
 Got it. I've added this task:
 	[T][ ] Fung Wen Wu: Answer CS2113 tutorial questions
 Now you have 1 tasks in the list.
+__________________________________________________
 Got it. I've added this task:
 	[D][ ] weekly CS2113 quiz (by: Monday 9pm)
 Now you have 2 tasks in the list.
+__________________________________________________
 Please input deadline for the task in a format as shown below
 deadline <description> /by <deadline>
+__________________________________________________
 Please input deadline for the task in a format as shown below
 deadline <description> /by <deadline>
+__________________________________________________
 Here are the tasks in your list:
 	1. [T][ ] Fung Wen Wu: Answer CS2113 tutorial questions
 	2. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
+__________________________________________________
 Got it. I've added this task:
 	[E][ ] CS2113 lecture (from: Friday 4pm to: Friday 6pm)
 Now you have 3 tasks in the list.
+__________________________________________________
 Please input event for the task in a format as shown below
 event <description> /from <start> /to <end>
+__________________________________________________
 Please input event for the task in a format as shown below
 event <description> /from <start> /to <end>
+__________________________________________________
 Please input event for the task in a format as shown below
 event <description> /from <start> /to <end>
+__________________________________________________
 Nice! I've marked this task as done:
 	[T][X] Fung Wen Wu: Answer CS2113 tutorial questions
+__________________________________________________
 Here are the tasks in your list:
 	1. [T][X] Fung Wen Wu: Answer CS2113 tutorial questions
 	2. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
 	3. [E][ ] CS2113 lecture (from: Friday 4pm to: Friday 6pm)
+__________________________________________________
 Please input a number within current number of tasks
+__________________________________________________
+Aight. I've removed this task:
+	[E][ ] CS2113 lecture (from: Friday 4pm to: Friday 6pm)
+Now you have 2 tasks in the list.
+__________________________________________________
+Here are the tasks in your list:
+	1. [T][X] Fung Wen Wu: Answer CS2113 tutorial questions
+	2. [D][ ] weekly CS2113 quiz (by: Monday 9pm)
+__________________________________________________
+Please input a number only
+__________________________________________________
+Please input a number within current number of tasks
+__________________________________________________
 Invalid command. Please try again.
+__________________________________________________
 Bye. Hope to see you again soon!
