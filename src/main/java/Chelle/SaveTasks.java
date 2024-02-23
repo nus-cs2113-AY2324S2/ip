@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class SaveTasks {
 
-    private static final String FILE_PATH = "./src/main/java/Chelle/ChelleTasks.txt";
+    private static final String FILE_PATH = "./ChelleTasks.txt";
 
     public static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();

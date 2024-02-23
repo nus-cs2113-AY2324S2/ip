@@ -6,7 +6,7 @@ import ChelleCommands.*;
 import ChelleExceptions.*;
 
 public class Chelle {
-    private static final String FILE_PATH = "./src/main/java/Chelle/ChelleTasks.txt";
+    private static final String FILE_PATH = "./ChelleTasks.txt";
 
 
     public static void main(String[] args) {
