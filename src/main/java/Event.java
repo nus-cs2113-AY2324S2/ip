@@ -24,6 +24,14 @@ public class Event extends Task{
     public void setEndOfEvent(String endOfEvent) {
         this.endOfEvent = endOfEvent;
     }
+
+    public String taskInFileFormat() {
+        boolean isDone = false;
+        if (getStatusIcon().equals("[X]")) {
+            isDone = true;
+        }
+        return "E | " + (isDone ? "1" : "0") + " | " + this.description+ " | " + getStartOfEvent() + "-" + getEndOfEvent() + "\n";
+    }
     @Override
     public void printTask() {
         System.out.println(taskType + getStatusIcon() + " " + description + " (from: " + startOfEvent + " to: " + endOfEvent + ")");

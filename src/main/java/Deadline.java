@@ -14,6 +14,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String taskInFileFormat() {
+        boolean isDone = false;
+        if (getStatusIcon().equals("[X]")) {
+            isDone = true;
+        }
+        return "D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + getBy() + "\n";
+    }
     @Override
     public void printTask() {
         System.out.println(taskType + getStatusIcon() + " " + description + " (by:" + by + ")");

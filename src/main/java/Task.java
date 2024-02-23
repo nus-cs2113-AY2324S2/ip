@@ -12,19 +12,23 @@ public class Task {
         String numberExtracted = userCommand.replaceAll("[^0-9]", "");
         return Integer.parseInt(numberExtracted);
     }
-
+    public void setDone(Boolean status) {
+        this.isDone = status;
+    }
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void markAsDone() {
-        this.isDone = true;
+    public void markAsDoneOrNotDone(String[] arrayOfCommand) {
+        if (arrayOfCommand[0].equals("mark")) {
+            this.isDone = true;
+        } else {
+            this.isDone = false;
+        }
     }
-
-    public void markAsNotDone() {
-        this.isDone = false;
+    public String taskInFileFormat() {
+        return getStatusIcon() + " " + this.description;
     }
-
     public void printTask() {
         System.out.println(getStatusIcon() + " " + description);
     }
