@@ -160,7 +160,7 @@ public class TaskList {
         if (isValidIndex(index)) {
             Task deletedTask = taskList.remove(index);
             taskCount -= 1;
-            System.out.println("Okay, Doby has removed this task:");
+            System.out.println("Okay, Dobby has removed this task:");
             taskFileManager.saveTasksToFile(this);
             System.out.println(" " + deletedTask);
             System.out.println("You now have " + taskList.size() + " tasks.");
