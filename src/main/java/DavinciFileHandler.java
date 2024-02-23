@@ -9,6 +9,7 @@ public class DavinciFileHandler {
 
     public static List<String> readFile(String filePath) throws IOException {
         Path myPath = Paths.get(filePath);
+        Ui.printMessage("Loading past tasks from " + filePath);
         createDirectories(myPath.getParent());
 
         if (!Files.exists(myPath)) {

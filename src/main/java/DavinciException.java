@@ -1,4 +1,4 @@
-class DavinciException extends Exception {
+public class DavinciException extends Exception {
     public DavinciException(String text) {
         super(text);
     }

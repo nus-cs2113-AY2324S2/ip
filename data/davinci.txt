@@ -1,1 +1,3 @@
-todo/eat/1
+todo/finish dinner/1
+deadline/go and finish cs2113 assignment/2359/0
+event/go to VivoCity/6pm/1130pm/0

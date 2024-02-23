@@ -1,8 +1,17 @@
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Ui {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
+    public static final int SPLIT_INTO_TWO_PARTS = 2;
+    public static final String TODO = "todo";
+    public static final String DEADLINE = "deadline";
+    public static final String EVENT = "event";
+    public static final String BYE = "bye";
+    public static final String DELETE = "delete";
+    public static final String GOODBYE = "Goodbye... It may be a mere few seconds for you but an eternity for me.";
+
 
     public static void printStartingMessage() {
         System.out.println(LINE_SEPARATOR);
@@ -20,6 +29,38 @@ public class Ui {
         System.out.println("Type 'delete <index>' to delete a task from your list.");
         System.out.println("See ya bucko!");
         System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Handles user commands and performs corresponding actions based on the input.
+     */
+    public static void userCommand() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String userInput = Ui.getUserInput();
+            if (userInput.equalsIgnoreCase(BYE)) {
+                Ui.printMessage(GOODBYE);
+                break;
+            }
+            if (userInput.toLowerCase().startsWith(TODO) ||
+                    userInput.toLowerCase().startsWith(DEADLINE) ||
+                    userInput.toLowerCase().startsWith(EVENT)) {
+                TaskList.handleUserInput(userInput);
+            } else if (userInput.toLowerCase().startsWith(DELETE)) {
+                try {
+                    String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
+                    TaskList.ableToDelete(parts);
+                } catch (DavinciException e) {
+                    Ui.printMessage("Error: " + e.getMessage());
+                } catch (NumberFormatException e) {
+                    Ui.printMessage("Error: Invalid task index format.");
+                }
+            } else {
+                Parser.parseUserInput(userInput, TaskList.getTaskList());
+            }
+        }
+        scanner.close();
     }
 
     public static String getUserInput() {
