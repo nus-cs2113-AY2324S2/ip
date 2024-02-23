@@ -6,7 +6,7 @@ import static java.lang.Integer.parseInt;
 
 public class Krot {
     private static final String NAME = "Krot"; // Static variable for the bot's name
-    private static final String FILE_PATH = "../../../data/taskList.txt";
+    private static final String FILE_PATH = "./data/taskList.txt";
     private static ArrayList<Task> tasks = new ArrayList<>(); // Static variable list of all the tasks
     private static boolean hasEnded = false; // Static variable to end the chatbot
 
