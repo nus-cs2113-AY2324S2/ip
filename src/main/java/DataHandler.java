@@ -24,7 +24,7 @@ public class DataHandler {
         }
     }
 
-    private static Task[] readFileContents(String filePath) throws FileNotFoundException {
+    public static Task[] readFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         Task[] taskList = new Task[Spike.MAX_TASK];
