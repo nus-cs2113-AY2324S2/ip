@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Helpy {
+    public static ArrayList<Task> taskList = new ArrayList<>();
     public static final String HORIZONTAL_LINE = "______________________\n";
 
     public static void greetUser() {
@@ -53,6 +54,29 @@ public class Helpy {
         }
 
         System.out.println("\t" + task);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void deleteTask(String command) {
+        String taskNum = command.replace("delete", "");
+        taskNum = taskNum.trim();
+        int taskIndex = Integer.parseInt(taskNum) - 1;
+        Task removedTask = taskList.remove(taskIndex);
+        int numOfTasks = taskList.toArray().length;
+
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Got it, I've removed this task from the list:\n" +
+                "\t" + removedTask);
+        switch (numOfTasks) {
+        case 0:
+            System.out.println("There are no more tasks left in the list.");
+            break;
+        case 1:
+            System.out.println("There is 1 task left in the list.");
+            break;
+        default:
+            System.out.println("There are " + numOfTasks + " tasks left in the list.");
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -124,6 +148,17 @@ public class Helpy {
                         "event <description> /from <start date> /to <end date>");
                 return;
             }
+        } else if (command.startsWith("delete")) {
+            try {
+                deleteTask(command);
+            } catch (NumberFormatException e) {
+                printMessage("Task number provided is invalid! " +
+                        "Did you enter wrongly? You typed: " + command);
+            } catch (IndexOutOfBoundsException e) {
+                printMessage("Task number doesn't exist! " +
+                        "Did you enter wrongly? You typed: " + command);
+            }
+            return;
         } else {
             printMessage("I don't understand the command \"" + command
                     + "\". Can you check that you typed correctly?");
@@ -137,7 +172,6 @@ public class Helpy {
 
         Scanner in = new Scanner(System.in);
         String command = "";
-        ArrayList<Task> taskList = new ArrayList<>();
 
         while (!command.equals("bye")) {
             command = in.nextLine();
