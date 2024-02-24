@@ -37,7 +37,7 @@ public class Deadline extends TaskList {
         try {
             return "[D]" + super.toString() + " (by:" + getBy() + ")";
         } catch (DukeException e) {
-            System.out.println(String.valueOf(e.getMessage()));
+            System.out.println(e.getMessage());
             throw new RuntimeException();
         }
     }

@@ -6,14 +6,8 @@ import java.util.Scanner;
 
 import tasks.TaskList;
 
-import static main.Command.removeElementFromBothArrays;
-import static main.Command.addTask;
-import static main.Command.userMarkOrUnmark;
-import static main.Command.userList;
-import static main.Command.saveDataIntoListString;
-import static main.Command.Commands;
 
-
+import static main.Command.*;
 import static storage.Storage.loadData;
 import static storage.Storage.changePresentationFormat;
 
@@ -43,8 +37,8 @@ public class Parser {
 
                 case "list":
                     if (splitInput.length != 1) {
-                        System.out.println("No suitable command found. Please try again!");
-                        break;
+                        System.out.println("This command requires no additional argument. Please try again!");
+                        continue;
                     }
                     userList(taskList);
                     continue;
@@ -76,6 +70,15 @@ public class Parser {
                     if (removeElementFromBothArrays(taskList, stringList, splitInput)) {
                         continue;
                     }
+
+                case "find":
+                    if (splitInput.length != 2) {
+                        System.out.println("This command requires exactly 1 argument. Please try again!");
+                        continue;
+                    }
+                    findMatchingTasks(splitInput[1], taskList, stringList);
+                    continue;
+
 
                 default:
                     System.out.println("No suitable command found. Please try again!");

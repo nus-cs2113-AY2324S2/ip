@@ -15,6 +15,36 @@ public class Command {
     }
 
 
+    public static void findMatchingTasks(String keyword, ArrayList<TaskList> listTask, ArrayList<String> listString) {
+        ArrayList<String> searchList = new ArrayList<>();
+        int index;
+        int counter = 1;
+
+        System.out.println("____________________________________________________________\n " +
+                "Here are the matching tasks in your list:"
+        );
+
+        for (String s : listString) {
+            if (s.startsWith("Marked:")) {
+                searchList.add(s.substring(7));
+                continue;
+            }
+            searchList.add(s.substring(10));
+        }
+
+        for (String task : searchList) {
+            if (task.contains(keyword)) {
+                index = searchList.indexOf(task);
+                System.out.println(String.valueOf(counter) + '.' + listTask.get(index));
+                counter += 1;
+            }
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+
+
+
     /**
      * Removes task from both arrays.
      * @param listTask list of tasks in Task type.
