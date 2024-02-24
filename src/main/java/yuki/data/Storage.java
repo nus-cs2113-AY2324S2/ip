@@ -62,6 +62,7 @@ public class Storage {
                     + item.taskType + " " + item.description + "\n");
             index++;
         }
+        System.out.println("Successfully written into data file.");
         writer.close();
     }
 
