@@ -177,6 +177,7 @@ public class Kowalski {
                 System.out.println("  " + currentTask.get(taskNumber - 1));
                 printCurrentTaskMessage(currentTask.size()-1);
                 currentTask.remove(taskNumber-1);
+                writeText();
             } catch (IndexOutOfBoundsException e){
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
             }

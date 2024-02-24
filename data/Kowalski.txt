@@ -1,3 +1,2 @@
 E | X | go for swimming | Sat 6pm - 7pm
-T | X | code 2113
-D | 0 | ST Assignment | tmr
+T | 0 | code 2113
