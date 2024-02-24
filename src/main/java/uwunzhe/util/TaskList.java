@@ -8,7 +8,6 @@ import uwunzhe.tasks.TaskType;
 import uwunzhe.tasks.Todo;
 import uwunzhe.tasks.Deadline;
 import uwunzhe.tasks.Event;
-import uwunzhe.util.Ui;
 
 public class TaskList {
     private static ArrayList<Task> list = new ArrayList<Task>();
