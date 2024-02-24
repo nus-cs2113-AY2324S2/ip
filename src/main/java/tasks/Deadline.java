@@ -23,7 +23,8 @@ public class Deadline extends TaskList {
      */
     public String getBy() throws DukeException{
         String[] splitLine = description.split("/by");
-        if (splitLine.length != 2) {
+        String[] commandLine = splitLine[0].split(" ");
+        if (commandLine.length < 2 || splitLine.length != 2 || splitLine[1].equals(" ")) {
             throw new DukeException("Invalid Syntax! Please try again!");
         }
         return splitLine[1];

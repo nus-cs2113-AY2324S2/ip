@@ -67,16 +67,15 @@ public class Parser {
                     continue;
 
                 case "delete":
-                    if (removeElementFromBothArrays(taskList, stringList, splitInput)) {
-                        continue;
-                    }
+                    removeElementFromBothArrays(taskList, stringList, splitInput);
+                    continue;
 
                 case "find":
-                    if (splitInput.length != 2) {
-                        System.out.println("This command requires exactly 1 argument. Please try again!");
+                    if (splitInput.length == 2) {
+                        findMatchingTasks(splitInput[1], taskList, stringList);
                         continue;
                     }
-                    findMatchingTasks(splitInput[1], taskList, stringList);
+                    System.out.println("This command requires exactly 1 argument. Please try again!");
                     continue;
 
 

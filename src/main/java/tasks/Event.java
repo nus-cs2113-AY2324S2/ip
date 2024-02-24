@@ -18,8 +18,9 @@ public class Event extends TaskList {
         String date;
         try {
             String[] splitLine = description.split("/from");
+            String[] commandLine = splitLine[0].split(" ");
             String[] durationLine = splitLine[1].split("/to");
-            if (splitLine.length != 2 || durationLine.length != 2) {
+            if (commandLine.length < 2 || splitLine.length != 2 || durationLine.length != 2 || durationLine[0].equals("  ") || durationLine[1].equals(" ")) {
                 throw new DukeException("Invalid Syntax! Please try again!");
             }
             date = " (from:" + durationLine[0]  + "to:" + durationLine[1] + ")";

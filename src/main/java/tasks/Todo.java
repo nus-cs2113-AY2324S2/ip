@@ -1,5 +1,7 @@
 package tasks;
 
+import main.DukeException;
+
 import static main.Ui.printHeaders;
 
 public class Todo extends TaskList {
@@ -22,6 +24,14 @@ public class Todo extends TaskList {
         String[] splitLine = description.split("\\s+");
         StringBuilder action = new StringBuilder();
 
+        if (splitLine.length < 2) {
+            try {
+                throw new DukeException("Invalid Syntax! Please try again!");
+            } catch (DukeException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         //obtain the action of the task
         for (int i = 1; i < splitLine.length; i += 1) {
             action.append(splitLine[i]).append(" ");
@@ -30,8 +40,10 @@ public class Todo extends TaskList {
     }
 
     public void toPrint() {
-        if (newInput) {
-            printHeaders();
+        if (toString() != null) {
+            if (newInput) {
+                printHeaders();
+            }
         }
     }
 }

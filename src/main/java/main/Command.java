@@ -50,9 +50,8 @@ public class Command {
      * @param listTask list of tasks in Task type.
      * @param listString list of tasks in String type.
      * @param splitLine words of user input split by whitespace.
-     * @return true if removing of task from both arrays is successful.
      */
-    public static boolean removeElementFromBothArrays(ArrayList<TaskList> listTask, ArrayList<String> listString, String[] splitLine) {
+    public static void removeElementFromBothArrays(ArrayList<TaskList> listTask, ArrayList<String> listString, String[] splitLine) {
         try {
             int index = Integer.parseInt(splitLine[1]) - 1;
             TaskList t = listTask.get(index);
@@ -63,11 +62,9 @@ public class Command {
                     "Noted. I've removed this task:\n" +
                     t + "\n" +
                     "Now you have " + listTask.size() + " tasks in the list.");
-        } catch(IndexOutOfBoundsException e) {
+        } catch(IndexOutOfBoundsException| NumberFormatException e) {
             System.out.println("Invalid index, please try again!");
-            return false;
         }
-        return true;
     }
 
     /**
@@ -115,7 +112,7 @@ public class Command {
                 break;
 
             case Event:
-                if (checkMinimumArguments(splitLine, 8)) {
+                if (checkMinimumArguments(splitLine, 6)) {
                     success = false;
                     break;
                 }
@@ -206,7 +203,7 @@ public class Command {
     public static boolean checkMinimumArguments(String[] splitLine, int number) {
         try {
             if (splitLine.length < number) {
-                throw new DukeException("Minimally " + number + " arguments, please try again!");
+                throw new DukeException("Invalid syntax, please try again!");
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());
