@@ -1,5 +1,4 @@
-T | 0 | borrow book
-T | 0 | club
-T | 0 | fuck
-D | 0 | suckdick | 123
-T | 0 | eat noodle
+T | 0 | go kenny uncle house
+E | 0 | club tonight | midnight | tomorrow morning
+D | 0 | study for cg2023 mid term | tuesday
+T | 0 | wash teeth

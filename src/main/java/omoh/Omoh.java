@@ -16,6 +16,12 @@ import java.io.File;
 
 public class Omoh {
     public static void main(String[] args) {
+        // Create directory if it doesn't exist
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdirs(); // This will create the necessary directories
+        }
+
         //code to create new file in data directory
         File f = new File("data/output.txt");
         try {
