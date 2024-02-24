@@ -4,4 +4,4 @@ D,false,assignment 1 ,2024-02-24
 T,false,assignemtn2
 E,false,movie , 4pm , 6pm
 T,true,feed cat
-D,false,new task ,2024-03-03
+T,false,movie
