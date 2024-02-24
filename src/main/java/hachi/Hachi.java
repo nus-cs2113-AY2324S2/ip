@@ -1,7 +1,12 @@
 package hachi;
 
 import hachi.data.HachiException;
-import hachi.data.task.*;
+import hachi.data.task.Deadline;
+import hachi.data.task.Event;
+import hachi.data.task.Task;
+import hachi.data.task.TaskType;
+import hachi.data.task.Todo;
+import hachi.storage.Storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,7 +58,8 @@ public class Hachi {
         System.out.println("\t'unmark <#>' to mark task number # as incomplete,");
         System.out.println("\t'todo <task name>' to create a to-do,");
         System.out.println("\t'deadline <task name> /by <by date>' to create a task with a deadline,");
-        System.out.println("\t'event <task name> /from <start> /to <end>' to create an event with a start and end date,");
+        System.out.println("\t'event <task name> /from <start> /to <end>' to create an event " +
+                "with a start and end date,");
         System.out.println("\t'bye' to stop chatting :('");
         System.out.println("\tAnd if you need to see this again, type 'help'!");
         spacerInsert("medium", true);
@@ -105,10 +111,10 @@ public class Hachi {
         spacerInsert("medium", true);
 
         System.out.println("\tThe following are in your list:");
-        taskArrayList.forEach(task -> {
+        tasksArrayList.forEach(task -> {
             String taskType = task.getTaskType();
             String statusIcon = task.getStatusIcon();
-            int currentIndex = taskArrayList.indexOf(task);
+            int currentIndex = tasksArrayList.indexOf(task);
             System.out.print("\t" + (currentIndex + 1) + ": ");
             System.out.print("[" + taskType + "] ");
             System.out.print("[" + statusIcon + "] ");
@@ -155,7 +161,7 @@ public class Hachi {
             toAdd = new Event(name, fromDate, toDate);
         }
 
-        taskArrayList.add(toAdd);
+        tasksArrayList.add(toAdd);
         System.out.println("\tAdded to list: " + toAdd.getName());
     }
 
@@ -183,10 +189,10 @@ public class Hachi {
      */
 
     public static void markOrUnmarkTask(int index, boolean isMark) {
-        taskArrayList.get(index).setCompleteness(isMark);
+        tasksArrayList.get(index).setCompleteness(isMark);
         System.out.println("\tSure, I've done as you requested:");
 
-        Task currentTask = taskArrayList.get(index);
+        Task currentTask = tasksArrayList.get(index);
         String taskType = currentTask.getTaskType();
         String statusIcon = currentTask.getStatusIcon();
         System.out.print("\t" + (index + 1) + ": ");
@@ -201,17 +207,17 @@ public class Hachi {
         int taskNumber = getDeleteTaskNumber(cleanedInput);
         HachiException.checkOutOfBounds(taskNumber);
 
-        Task toDelete = taskArrayList.get(taskNumber - 1);
-        String taskType = toDelete.getTaskType();
-        String statusIcon = toDelete.getStatusIcon();
+        Task taskToDelete = tasksArrayList.get(taskNumber - 1);
+        String taskType = taskToDelete.getTaskType();
+        String statusIcon = taskToDelete.getStatusIcon();
         Task.decrementTotalNumTasks();
 
         System.out.println("\tSure, I've done as you requested.");
         System.out.print("\t[" + taskType + "] ");
-        System.out.print("[" + statusIcon + "] " + toDelete.getName());
+        System.out.print("[" + statusIcon + "] " + taskToDelete.getName());
         System.out.println(" has been deleted from your list.");
 
-        taskArrayList.remove(taskNumber - 1);
+        tasksArrayList.remove(taskNumber - 1);
     }
 
     private static int getDeleteTaskNumber(String cleanedInput) throws HachiException {
@@ -238,6 +244,16 @@ public class Hachi {
         }
 
         return taskNumber;
+    }
+
+    private static String getFirstWordOfInput(int indexOfSpace, String cleanedInput) {
+        String firstWord;
+        if (indexOfSpace == -1) { // check for single-word inputs
+            firstWord = cleanedInput;
+        } else {
+            firstWord = cleanedInput.substring(0, indexOfSpace);
+        }
+        return firstWord;
     }
 
     /**
@@ -339,11 +355,7 @@ public class Hachi {
                 String firstWord;
                 int indexOfSpace = cleanedInput.indexOf(" ");
 
-                if (indexOfSpace == -1) { // check for single-word inputs
-                    firstWord = cleanedInput;
-                } else {
-                    firstWord = cleanedInput.substring(0, indexOfSpace);
-                }
+                firstWord = getFirstWordOfInput(indexOfSpace, cleanedInput);
 
                 switch (firstWord) {
                 case "MARK":

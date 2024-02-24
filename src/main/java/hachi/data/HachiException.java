@@ -11,9 +11,12 @@ public class HachiException extends Exception{
     public static final String EMPTY_TASK_LIST_MESSAGE = "It appears you have no tasks at the moment...";
     public static final String EMPTY_TASK_DESCRIPTION_MESSAGE = "Where's the task description? " +
             "Type 'help' without quotes if you need to see the format! ";
-    public static final String MISSING_DEADLINE_BY_DATE_MESSAGE = "Looks like you're missing the complete-by date! Remember: /by <date here>!";
-    public static final String MISSING_EVENT_START_END_DATE_MESSAGE = "Your start or end dates have some formatting issues. It's: /from <start date> /to <end date>";
-    public static final String LIST_OUT_OF_BOUNDS_MESSAGE = "Woah, I'm not so sure if that task exists. You might want to check that task number again.";
+    public static final String MISSING_DEADLINE_BY_DATE_MESSAGE = "Looks like you're missing the complete-by date! " +
+            "Remember: /by <date here>!";
+    public static final String MISSING_EVENT_START_END_DATE_MESSAGE = "Your start or end dates have some formatting " +
+            "issues. It's: /from <start date> /to <end date>";
+    public static final String LIST_OUT_OF_BOUNDS_MESSAGE = "Woah, I'm not so sure if that task exists. You might " +
+            "want to check that task number again.";
     public static final String CORRUPTED_SAVE_MESSAGE = "The data stored looks corrupted. Getting rid of it.";
     public HachiException (String errorMessage) {
         super(errorMessage);
