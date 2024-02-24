@@ -1,79 +1,39 @@
 import Exceptions.*;
-import FileManagerPackage.FileManager;
-import PrintMessages.Messages;
+import FileManagerPackage.Storage;
+import PrintMessages.UI;
 import Tasks.*;
-import commands.*;
+import UserInputs.Parser;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Duke {
+
+    private Storage storage;
+    private TaskList tasks;
+    private UI ui;
+
     public static void main(String[] args) {
-        Messages.printsGreeting();
-        startProgramme();
+        UI ui = new UI();
+        ui.printsGreeting();
+        startProgramme(ui);
     }
 
-    private static void startProgramme() {
+    private static void startProgramme(UI ui) {
         try {
-            ArrayList<Task> list = new ArrayList<>();
             Scanner input = new Scanner(System.in);
-
-            File f = FileManager.getFile();
+            File f = Storage.getFile();
             Scanner s = new Scanner(f);
-            FileManager.readFile(s, list);
+            TaskList taskList = new TaskList(s);
 
-            startListening(input, list);
+            Parser.startListening(input, taskList.taskList, ui);
         } catch (ThawException e) {
-            handleError(e);
+            ui.handleError(e);
         } catch (IOException e) {
             System.out.println("     An error occurred while reading file: " + e.getMessage());
         }
     }
 
-    private static void startListening(Scanner input, ArrayList<Task> list) throws ThawException {
-        boolean canExit = false;
-        while (!canExit) {
-            String usersInput = input.nextLine();
 
-            if (usersInput.strip().equals("bye")) {
-                canExit = true;
-                Messages.printGoodByeMessage();
-            } else if (usersInput.strip().equals("list")) {
-                Messages.printList(list);
-            } else {
-               editTask(usersInput.strip(), list);
-            }
-        }
-    }
-
-    private static void editTask(String usersInput, ArrayList<Task> task) {
-        try {
-            if (usersInput.startsWith("mark")) {
-                MarkTask.markTask(task, usersInput);
-            } else if (usersInput.startsWith("unmark")) {
-                UnmarkTask.unmarkTask(task, usersInput);
-            } else if (usersInput.startsWith("delete")) {
-                DeleteTask.deleteTask(task, usersInput);
-            } else if (usersInput.startsWith("todo") || usersInput.startsWith("deadline") || usersInput.startsWith("event")) {
-                AddTask.addTask(usersInput, task);
-                Messages.printAcknowledgementMessage(task);
-            } else {
-                throw new ThawException("Invalid command");
-            }
-        } catch (ThawException e) {
-            handleError(e);
-        }
-        FileManager.saveData(task);
-    }
-
-    private static void handleError(ThawException e) {
-        if (e.getMessage().startsWith("Empty command")) {
-            System.out.println("OOPS!!! The description of a " + e.getMessage().substring(14) +" cannot be empty.");
-        } else if (e.getMessage().equals("Invalid command")) {
-            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-    }
 }

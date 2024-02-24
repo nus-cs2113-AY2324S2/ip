@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import Exceptions.ThawException;
 import Tasks.*;
 
-public class AddTask extends EditTask {
+public class AddTask extends Command {
     public static void addTask(String usersInput, ArrayList<Task> list) throws ThawException {
         if (!commandWithoutDescription(usersInput)) {
             if (usersInput.startsWith("todo")) {

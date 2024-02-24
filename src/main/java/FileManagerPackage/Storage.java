@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     public static void readFile(Scanner s, ArrayList<Task> list) {
         int currentIteration = 0;
         while (s.hasNext()) {

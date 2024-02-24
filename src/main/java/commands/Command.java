@@ -1,6 +1,6 @@
 package commands;
 
-public class EditTask {
+public class Command {
     public static boolean commandWithoutDescription(String usersInput) {
         return  usersInput.equals("unmark")   ||
                 usersInput.equals("mark")     ||
