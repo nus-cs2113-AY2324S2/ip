@@ -43,6 +43,10 @@ public class Task {
         System.out.println("  >> " + this.taskName);
     }
 
+    public void deleteTask() {
+        System.out.println("deleted task");
+    }
+
     public void printRespond() {
         System.out.println("Okay! i've added to ur tasklist:");
         System.out.print(" >> ");

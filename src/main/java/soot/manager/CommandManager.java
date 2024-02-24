@@ -58,6 +58,12 @@ public class CommandManager {
                 taskList[listIndex].markUndone();
                 drawLine();
                 break;
+            case "delete":
+                inputTask = input.substring(7);
+                listIndex = Integer.parseInt(inputTask) - 1;
+                taskList[listIndex].deleteTask();
+                drawLine();
+                break;
             case "todo":
                 inputTask = input.substring(5);
                 taskList[listCounter] = new Todo(inputTask, listCounter);
