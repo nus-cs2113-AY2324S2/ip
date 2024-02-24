@@ -1,6 +1,7 @@
 package uwunzhe.commands;
 
 import uwunzhe.util.TaskList;
+import uwunzhe.util.Ui;
 import uwunzhe.handler.Storage;
 import uwunzhe.exceptions.UwunzheException;
 
@@ -19,10 +20,11 @@ public class DeleteCommand extends Command {
      * Deletes a task from the list.
      * 
      * @param taskList The list of tasks.
+     * @param ui The user interface.
      * @param storage The storage handler.
      * @throws UwunzheException If the task does not exist.
      */
-    public void execute(TaskList taskList, Storage storage)
+    public void execute(TaskList taskList, Ui ui, Storage storage)
             throws UwunzheException {
         try {
             int index = Integer.parseInt(this.taskString) - 1;

@@ -1,6 +1,7 @@
 package uwunzhe.commands;
 
 import uwunzhe.util.TaskList;
+import uwunzhe.util.Ui;
 import uwunzhe.handler.Storage;
 import uwunzhe.exceptions.UwunzheException;
 
@@ -19,9 +20,10 @@ public class ExitCommand extends Command {
      * Exits the bot.
      * 
      * @param taskList The list of tasks.
+     * @param ui The user interface.
      * @param storage The storage handler.
      */
-    public void execute(TaskList taskList, Storage storage)
+    public void execute(TaskList taskList, Ui ui, Storage storage)
             throws UwunzheException {
         if (this.taskString.length() > 0) {
             throw new UwunzheException("Extra... Value?!");
