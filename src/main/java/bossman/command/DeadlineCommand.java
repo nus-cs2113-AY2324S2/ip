@@ -5,11 +5,13 @@ import bossman.exceptions.commandexceptions.InvalidDeadlineCommandException;
 import bossman.task.Deadline;
 import bossman.task.Task;
 import bossman.task.TaskList;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand implements Command {
     private TaskList userTasks;
     private String taskDescription;
-    private String by;
+    private LocalDate by;
 
     public DeadlineCommand(TaskList userTasks, String commandArgs) throws InvalidDeadlineCommandException {
         this.userTasks = userTasks;
@@ -21,7 +23,12 @@ public class DeadlineCommand implements Command {
         }
 
         taskDescription = deadlineArgParts[0];
-        by = deadlineArgParts[1];
+
+        try {
+            by = LocalDate.parse(deadlineArgParts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new InvalidDeadlineCommandException("Invalid deadline date");
+        }
     }
 
     @Override
