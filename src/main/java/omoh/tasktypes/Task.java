@@ -2,6 +2,14 @@ package omoh.tasktypes;
 import omoh.Omoh;
 
 import omoh.customexceptions.EmptyTaskNumberException;
+import omoh.customexceptions.EmptyTodoException;
+import omoh.customexceptions.CorruptedFileException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Task {
     protected static Task[] tasks;
@@ -29,6 +37,72 @@ public class Task {
             System.out.println(serialNumber + "." + tasks[i].toString());
             serialNumber += 1;
         }
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("data/output.txt");
+        for(int i = 0; i < totalTasks ; i++) {
+            String taskType = tasks[i].type;
+            int isMark = tasks[i].isDone ? 1 : 0;
+
+            switch (taskType) {
+            case "T":
+                fw.write(taskType + " | " + isMark + " | " + tasks[i].description);
+                break;
+            case "D":
+                Deadline deadline = (Deadline) tasks[i]; // Casting to Deadline
+                fw.write(taskType + " | " + isMark + " | " + tasks[i].description + " | " + deadline.getBy());
+                break;
+            case "E":
+                Event event = (Event) tasks[i]; //Casting to event
+                fw.write(taskType + " | " + isMark + " | " + tasks[i].description +
+                        " | " + event.getFrom() + " | " + event.getTo());
+                break;
+            }
+            fw.write(System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    public static void readFile() throws FileNotFoundException, EmptyTodoException, CorruptedFileException {
+        //open file for reading
+        File f = new File("data/output.txt");
+        Scanner s = new Scanner(f);
+        Task.initArray();
+        int iteration = 0;
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
+            // Process each line (splitting by "|", for example)
+            String[] parts = line.split("\\|"); // Split the line by "|"
+            if (parts.length < 3 || parts.length > 5 ) {
+                throw new CorruptedFileException();
+            }
+            String command;
+
+            if (parts[0].trim().startsWith("T")) {
+                command = "todo " + parts[2].trim();
+                Todo.addTodo(command);
+            } else if (parts[0].trim().startsWith("D")) {
+                command = "deadline " + parts[2].trim() + " /by " + parts[3].trim() ;
+                Deadline.addDeadline(command);
+            } else if (parts[0].trim().startsWith("E")) {
+                command = "event " + parts[2].trim() + " /from " + parts[3].trim()
+                        + " /to " + parts[4].trim();
+                Event.addEvent(command);
+            }
+
+            if (parts[1].trim().equals("1")) {
+                command = "mark " + iteration + 1;
+                modifyDoneState(iteration + 1, command);
+                printMarkTask(iteration + 1, command);
+            } else {
+                command = "unmark " + iteration + 1;
+                modifyDoneState(iteration + 1, command);
+            }
+
+            iteration++;
+        }
+        s.close();
     }
 
     public String getStatusIcon() {

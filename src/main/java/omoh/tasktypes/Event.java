@@ -5,6 +5,7 @@ import omoh.Omoh;
 
 
 public class Event extends Task {
+
     protected String from;
     protected String to;
 
@@ -13,6 +14,14 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
         this.type = "E";
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
     }
 
     public static Event extractEvent (String input) throws IllegalEventInput {

@@ -1,5 +1,6 @@
 package omoh;
 
+import omoh.customexceptions.CorruptedFileException;
 import omoh.customexceptions.EmptyTaskNumberException;
 import omoh.customexceptions.EmptyTodoException;
 import omoh.tasktypes.Deadline;
@@ -7,14 +8,37 @@ import omoh.tasktypes.Event;
 import omoh.tasktypes.Task;
 import omoh.tasktypes.Todo;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 
 
 public class Omoh {
     public static void main(String[] args) {
+        // Create directory if it doesn't exist
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdirs(); // This will create the necessary directories
+        }
+
+        //code to create new file in data directory
+        File f = new File("data/output.txt");
+        try {
+            Task.readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (EmptyTodoException e) {
+            System.out.println("Todo task empty");
+        } catch (CorruptedFileException e) {
+            System.out.println("Output.txt file format is wrong. File corrupted.");
+        }
         printWelcomeMessage();
-        //initialise the size 100 array
-        Task.initArray();
+        //initialise the size 100 array if it was not initialised previously
+        if(Task.totalTasks == 0) {
+            Task.initArray();
+        }
         readUserInput();
         bye();
     }
@@ -38,7 +62,14 @@ public class Omoh {
         printHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
         printHorizontalLine();
+        try {
+            Task.writeToFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong" + e.getMessage());
+        }
     }
+
+
 
     //Method reads in what user types
     //If bye is not typed, we check 2 conditions
