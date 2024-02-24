@@ -25,6 +25,7 @@ public class Event extends Task{
         this.to = to;
     }
 
+    @Override
     public char getTaskType(){
         return TASK_TYPE;
     }

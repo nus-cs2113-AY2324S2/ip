@@ -15,6 +15,7 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    @Override
     public char getTaskType(){
         return TASK_TYPE;
     }

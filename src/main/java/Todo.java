@@ -5,6 +5,7 @@ public class Todo extends Task{
         super(description);
     }
 
+    @Override
     public char getTaskType(){
         return TASK_TYPE;
     }
