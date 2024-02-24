@@ -1,18 +1,34 @@
 package main;
 
-import tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static main.Command.*;
-import static storage.Storage.loadData;
 
-public class Duke {
+import tasks.TaskList;
+
+import static main.Command.removeElementFromBothArrays;
+import static main.Command.addTask;
+import static main.Command.userMarkOrUnmark;
+import static main.Command.userList;
+import static main.Command.saveDataIntoListString;
+import static main.Command.Commands;
+
+
+import static storage.Storage.loadData;
+import static storage.Storage.changePresentationFormat;
+
+public class Parser {
+
+
+    /**
+     * Run the specific function based on the type of user input supplied.
+     */
+
     public static void userInput() throws DukeException {
         Scanner scanner = new Scanner(System.in);
-        String originalUserInput, modifiedUserInput;
+        String originalUserInput;
         ArrayList<String> stringList = loadData();
-        ArrayList<Task> taskList = changePresentationFormat(stringList);
+        ArrayList<TaskList> taskList = changePresentationFormat(stringList);
 
         // Start of user input
         while (true) {
@@ -40,19 +56,19 @@ public class Duke {
 
                 case "todo":
                     if (addTask(taskList, originalUserInput, splitInput, Commands.Todo)) {
-                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
+                        saveDataIntoListString (taskList, stringList, originalUserInput);
                     }
                     continue;
 
                 case "deadline":
                     if (addTask(taskList, originalUserInput, splitInput, Commands.Deadline)) {
-                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
+                        saveDataIntoListString (taskList, stringList, originalUserInput);
                     }
                     continue;
 
                 case "event":
                     if (addTask(taskList, originalUserInput, splitInput, Commands.Event)) {
-                        saveDataIntoBothArrays (taskList, stringList, originalUserInput);
+                        saveDataIntoListString (taskList, stringList, originalUserInput);
                     }
                     continue;
 
@@ -68,13 +84,5 @@ public class Duke {
             scanner.close();
             return;
         }
-    }
-
-    public static void main(String[] args) throws DukeException {
-        System.out.println("____________________________________________________________\n" +
-                "Hello! I'm Bob\n" +
-                "What can I do for you?\n" +
-                "____________________________________________________________");
-        userInput();
     }
 }
