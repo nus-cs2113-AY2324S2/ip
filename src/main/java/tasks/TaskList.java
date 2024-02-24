@@ -25,6 +25,9 @@ public class TaskList {
     }
 
 
+    /**
+     * Returns the type of task and their action.
+     */
     public String toString() {
         String[] original = description.split("/"); // split the original input by /
         String value = String.valueOf(original[0]); //obtain the task and action

@@ -105,8 +105,6 @@ public class Command {
     }
 
 
-    // Function to mark or unmark tasks
-
     /**
      * Mark or unmark the task to be completed based on user's command.
      * @param command either mark or unmark.

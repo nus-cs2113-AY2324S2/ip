@@ -29,6 +29,9 @@ public class Deadline extends TaskList {
         return splitLine[1];
     }
 
+    /**
+     * Returns the type of task and their action.
+     */
     @Override
     public String toString() {
         try {
