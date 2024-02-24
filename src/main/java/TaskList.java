@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a collection of tasks and provides methods to manipulate the task list.
+ */
 public class TaskList {
 
     public static final String DATA_DIRECTORY = "./ip/data";
@@ -109,7 +112,7 @@ public class TaskList {
     /**
      * Reads a line from the file and converts it to a Task object.
      *
-     * @param line The line read from the file.
+     * @param line The line read from the text file.
      * @return The Task object created from the line.
      * @throws DavinciException If there is an issue with the file format.
      */
@@ -153,7 +156,7 @@ public class TaskList {
      * Creates a Task object based on the command and tokens.
      *
      * @param command The command specifying the type of task.
-     * @param tokens  The tokens representing task details.
+     * @param tokens The tokens representing task details.
      * @return The Task object created based on the command and tokens.
      */
     private static Task commandCases(String command, String[] tokens) {
@@ -179,7 +182,7 @@ public class TaskList {
      * Checks if a task already exists in the provided list of tasks.
      *
      * @param tasks The list of tasks to check.
-     * @param task  The task to check for existence.
+     * @param task The task to check for existence.
      * @return True if the task already exists, false otherwise.
      */
     private static boolean containsTask(List<Task> tasks, Task task) {
