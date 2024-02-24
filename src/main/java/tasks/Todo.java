@@ -6,7 +6,6 @@ public class Todo extends TaskList {
 
     boolean newInput;
 
-    // Constructor
     public Todo(String description,  boolean newInput) {
         super(description);
         setNewInput(newInput);

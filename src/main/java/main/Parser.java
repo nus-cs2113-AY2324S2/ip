@@ -15,7 +15,7 @@ public class Parser {
 
 
     /**
-     * Run the specific function based on the type of user input supplied.
+     * Runs the specific function based on the type of user input supplied.
      */
 
     public static void userInput() throws DukeException {
@@ -27,7 +27,7 @@ public class Parser {
         // Start of user input
         while (true) {
             originalUserInput = scanner.nextLine();
-            String[] splitInput = originalUserInput.split("\\s+"); // split by whitespaces
+            String[] splitInput = originalUserInput.split("\\s+");
             String command = splitInput[0]; // main command of user
 
             switch (command) {
