@@ -53,6 +53,12 @@ class Event extends Task {
     }
 }
 
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
+    }
+}
+
 public class MyChatBot {
     public static void main(String[] args) {
         String chatBotName = "Rose";
@@ -61,91 +67,76 @@ public class MyChatBot {
         int taskCount = 0;
 
         printLine();
-        System.out.println("Hii! I'm " + chatBotName :);
+        System.out.println("Hello! I'm " + chatBotName);
         System.out.println("What can I do for you today?");
         printLine();
 
         while (true) {
             String userInput = scanner.nextLine().trim();
 
-            if (userInput.equalsIgnoreCase("bye")) {
-                printLine();
-                System.out.println("Byeeee. Hope to see you again soon!");
-                printLine();
-                break;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                printLine();
-                if (taskCount == 0) {
-                    System.out.println("Your task list is empty.");
-                } else {
-                    System.out.println("Here are the tasks in your list for now:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
-                    }
-                }
-                printLine();
-            } else if (userInput.toLowerCase().startsWith("deadline")) {
-                String[] parts = userInput.split("/by", 2);
-                if (parts.length > 1) {
-                    tasks[taskCount] = new Deadline(parts[0].substring(9).trim(), parts[1].trim());
+            try {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    printLine();
+                    System.out.println("Bye. Hope to see you again soon!");
+                    printLine();
+                    break;
+                } else if (userInput.startsWith("todo")) {
+                    handleToDo(userInput, tasks, taskCount);
                     taskCount++;
-                    printAddedTask(tasks, taskCount);
-                } else {
-                    System.out.println("Invalid deadline format. Please use 'deadline [task] /by [time]'.");
-                }
-            } else if (userInput.toLowerCase().startsWith("event")) {
-                String[] parts = userInput.substring(6).trim().split(" ", 3); // Assuming format "event description start end"
-                if (parts.length >= 3) {
-                    String description = parts[0];
-                    String start = parts[1];
-                    String end = parts[2];
-                    tasks[taskCount] = new Event(description, start, end);
+                } else if (userInput.startsWith("deadline")) {
+                    handleDeadline(userInput, tasks, taskCount);
                     taskCount++;
-                    printAddedTask(tasks, taskCount);
+                } else if (userInput.startsWith("event")) {
+                    handleEvent(userInput, tasks, taskCount);
+                    taskCount++;
                 } else {
-                    System.out.println("Invalid event format. Please use 'event [description] [start date/time] to [end date/time]'.");
+                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
-            } else if (userInput.toLowerCase().startsWith("todo")) {
-                String task = userInput.substring(5).trim();
-                tasks[taskCount] = new Task(task);
-                taskCount++;
-                printAddedTask(tasks, taskCount);
-            } else if (userInput.toLowerCase().startsWith("mark ")) {
-                int index = Integer.parseInt(userInput.substring(5)) - 1;
-                if (index >= 0 && index < taskCount) {
-                    tasks[index].markAsDone();
-                    printLine();
-                    System.out.println("Good Job! I've marked this task as done :)):");
-                    System.out.println("  " + tasks[index]);
-                    printLine();
-                } else {
-                    System.out.println("Invalid task number.");
-                }
-            } else if (userInput.toLowerCase().startsWith("unmark ")) {
-                int index = Integer.parseInt(userInput.substring(7)) - 1;
-                if (index >= 0 && index < taskCount) {
-                    tasks[index].markAsNotDone();
-                    printLine();
-                    System.out.println("Oh no ! I've marked this task as not done yet :((:");
-                    System.out.println("  " + tasks[index]);
-                    printLine();
-                } else {
-                    System.out.println("Invalid task number.");
-                }
-            } else {
+            } catch (DukeException e) {
                 printLine();
-                System.out.println("I didn't understand that. Please try again.");
+                System.out.println(e.getMessage());
                 printLine();
             }
         }
         scanner.close();
     }
 
+    private static void handleToDo(String userInput, Task[] tasks, int taskCount) throws DukeException {
+        String description = userInput.stripLeading().replaceFirst("todo", "").trim();
+        if (description.isEmpty()) {
+            throw new DukeException("The description of a todo can't be empty.");
+        }
+        tasks[taskCount] = new Task(description);
+        printAddedTask(tasks, taskCount);
+    }
+
+    private static void handleDeadline(String userInput, Task[] tasks, int taskCount) throws DukeException {
+        String[] parts = userInput.split("/by", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("The timing for a deadline can't be empty.");
+        }
+        tasks[taskCount] = new Deadline(parts[0].replaceFirst("deadline", "").trim(), parts[1].trim());
+        printAddedTask(tasks, taskCount);
+    }
+
+    private static void handleEvent(String userInput, Task[] tasks, int taskCount) throws DukeException {
+        String[] parts = userInput.split("/at", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new DukeException("The timing for an event can't be empty.");
+        }
+        String description = parts[0].replaceFirst("event", "").trim();
+        String[] times = parts[1].trim().split("to", 2);
+        if (times.length < 2 || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
+            throw new DukeException("Both start and end times for an event must be given.");
+        }
+        tasks[taskCount] = new Event(description, times[0].trim(), times[1].trim());
+        printAddedTask(tasks, taskCount);
+    }
     private static void printAddedTask(Task[] tasks, int taskCount) {
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("  " + tasks[taskCount]);
+        System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
         printLine();
     }
 
@@ -153,4 +144,3 @@ public class MyChatBot {
         System.out.println("____________________________________________________________");
     }
 }
-
