@@ -16,11 +16,16 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL1.TXT
+REM run the program, feed commands from input1.txt file and redirect the output to the ACTUAL1.TXT
 java -classpath ..\bin uwunzhe.Uwunzhe < input1.txt > ACTUAL1.TXT
-java -classpath ..\bin uwunzhe.Uwunzhe < input2.txt > ACTUAL2.TXT
 
 REM compare the output to the expected output
 FC ACTUAL1.TXT EXPECTED1.TXT
+FC .\data\uwunzhe.txt EXPECTED_DATA1.TXT
+
+REM run the program again, feed commands from input2.txt file and redirect the output to the ACTUAL2.TXT
+java -classpath ..\bin uwunzhe.Uwunzhe < input2.txt > ACTUAL2.TXT
+
+REM compare the output to the expected output
 FC ACTUAL2.TXT EXPECTED2.TXT
-FC .\data\uwunzhe.txt EXPECTED_DATA.TXT
+FC .\data\uwunzhe.txt EXPECTED_DATA2.TXT

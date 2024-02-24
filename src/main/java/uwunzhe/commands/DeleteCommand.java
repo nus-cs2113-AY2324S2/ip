@@ -24,7 +24,17 @@ public class DeleteCommand extends Command {
      */
     public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
-        taskList.deleteItem(this.taskString);
-        storage.saveData(taskList);
+        try {
+            int index = Integer.parseInt(this.taskString) - 1;
+            taskList.deleteItem(index);
+
+            storage.saveData(taskList);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new UwunzheException("Huhhhhhhh? I cannot find!");
+
+        } catch (NumberFormatException e) {
+            throw new UwunzheException("Something something not adding up...");
+        }
     }
 }

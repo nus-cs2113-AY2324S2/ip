@@ -23,6 +23,9 @@ public class ExitCommand extends Command {
      */
     public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
+        if (this.taskString.length() > 0) {
+            throw new UwunzheException("Extra... Value?!");
+        }
         return;
     }
 

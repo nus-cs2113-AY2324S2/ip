@@ -1,5 +1,7 @@
 package uwunzhe.tasks;
 
+import uwunzhe.util.Ui;
+
 public abstract class Task {
     protected String name;
     protected String type;
@@ -44,14 +46,14 @@ public abstract class Task {
      */
     public void setStatus(boolean newStatus) {
         if (newStatus) {
-            System.out.println("Good job team! We did it!");
+            Ui.println("Good job team! We did it!");
         } else {
-            System.out.println("Worryhands! You haven't finished this yet...");
+            Ui.println("Worryhands! You haven't finished this yet...");
         }
 
         this.isDone = newStatus;
-        System.out.print(" ");
-        System.out.println(this);        
+        Ui.print(" ");
+        Ui.printlnTask(this);        
     }
 
     /**

@@ -42,78 +42,30 @@ public class TaskList {
     public void printSize() {
         int size = getSize();
         if (size == 0) {
-            System.out.println("No more taskies! Yay!");
+            Ui.println("No more taskies! Yay!");
         } else {
-        System.out.println("We only have uhhhh " + size
+        Ui.println("We only have uhhhh " + size
                 + " more thing" + (size > 1 ? "s" : "") + " left to go!");
         }
     }
 
     /**
-     * Prints the task.
-     * 
-     * @param task
-     */
-    public void printTask(Task task) {
-        System.out.println(task);
-    }
-
-    /**
-     * Prints the task with leading text.
-     * 
-     * @param task
-     * @param leading
-     */
-    public void printTask(Task task, String leading) {
-        System.out.print(leading);
-        System.out.println(task);
-    }
-
-    /**
-     * Prints the task at the specified index.
-     * 
-     * @param index
-     */
-    public void printTask(int index) {
-        System.out.println(list.get(index));
-    }
-
-    /**
-     * Prints the task at the specified index with leading text.
-     * 
-     * @param index
-     * @param leading
-     */
-    public void printTask(int index, String leading) {
-        System.out.print(leading);
-        System.out.println(list.get(index));
-    }
-
-    /**
     * Marks a task as done or not done.
     * 
+    * @param command The command from the user.
     * @param index The index of the task in the list.
-    * @param status The status of the task.
     * @return None
     */
-    public void setItemStatus(String command, String indexString) throws UwunzheException {
-        try {
-            int index = Integer.parseInt(indexString) - 1;
-            boolean newStatus = command.equals("mark");
-            boolean prevStatus = list.get(index).getStatus();
-
-            if (prevStatus == newStatus) {
-                throw new UwunzheException("No no no, not again...");
-            }
-
-            list.get(index).setStatus(newStatus);
-
-        } catch (IndexOutOfBoundsException e) {
-            throw new UwunzheException("Huhhhhhhh? I cannot find!");
-
-        } catch (NumberFormatException e) {
-            throw new UwunzheException("Something something not adding up...");
+    public void setItemStatus(String command, int index) throws UwunzheException {
+        boolean newStatus = command.equals("mark");
+        boolean prevStatus = list.get(index).getStatus();
+        
+        // Check if completion status is already the same
+        if (prevStatus == newStatus) {
+            throw new UwunzheException("No no no, not again...");
         }
+
+        list.get(index).setStatus(newStatus);
     }
 
     /**
@@ -149,8 +101,8 @@ public class TaskList {
             }
 
             size++;
-            System.out.println("Okey dokey here we go");
-            printTask(size - 1, " ");
+            Ui.println("Okey dokey here we go");
+            Ui.printlnTask(this, size - 1, " ");
             printSize();
 
         } catch (IndexOutOfBoundsException e) {
@@ -217,24 +169,14 @@ public class TaskList {
      * 
      * @param index
      * @return None
-     * @throws UwunzheException
      */
-    public void deleteItem(String index) throws UwunzheException {
-        try {
-            int i = Integer.parseInt(index) - 1;
-            Task toRemove = list.get(i);
-            list.remove(i);   
-            size--;
-            
-            System.out.println("There goes that task!");
-            printTask(toRemove, " ");
-            printSize();
-
-        } catch (IndexOutOfBoundsException e) {
-            throw new UwunzheException("Huhhhhhhh? I cannot find!");
-
-        } catch (NumberFormatException e) {
-            throw new UwunzheException("Something something not adding up...");
-        }
+    public void deleteItem(int index) {
+        Task toRemove = list.get(index);
+        list.remove(index);   
+        size--;
+        
+        Ui.println("There goes that task!");
+        Ui.printlnTask(toRemove, " ");
+        printSize();
     }
 }
