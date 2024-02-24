@@ -11,24 +11,44 @@ public class Ui {
     public static final String BYE = "bye";
     public static final String DELETE = "delete";
     public static final String GOODBYE = "Goodbye... It may be a mere few seconds for you but an eternity for me.";
+    public static final String SUP = "Sup! I'm DavinciBot! I was the smartest man alive," +
+            " but now I am just a list maker.";
+    public static final String ENTER_COMMANDS = "Enter commands, and I will echo them back to you, " +
+            "as well as add them to your list.";
+    public static final String ITEMS_IN_PREVIOUS_LIST = "If there were things in your list that you previously had, " +
+            "I will show what you have told me previously.";
+    public static final String TYPE_BYE_TO_END_THE_CONVERSATION = "Type 'bye' to end the conversation.";
+    public static final String TYPE_LIST_TO_SEE_YOUR_TO_DO_LIST = "Type 'list' to see your to-do list.";
+    public static final String TYPE_MARK_TO_MARK_A_TASK_AS_DONE = "Type 'mark' to mark a task as done.";
+    public static final String TYPE_UNMARK_TO_MARK_A_TASK_AS_NOT_DONE = "Type 'unmark' to mark a task as not done.";
+    public static final String TYPE_TODO_WORK_TO_ADD_A_TASK_TO_THE_LIST = "Type 'todo <work>' " +
+            "to add a task to the list.";
+    public static final String BYE_BYE = "See ya bucko!";
+    public static final String TYPE_FIND_KEYWORD_TO_LIST_ALL_THE_TASKS_THAT_HAVE_THOSE_KEYWORDS =
+            "Type 'find <keyword>' to list all the tasks that have those keywords.";
+    public static final String TYPE_DELETE_INDEX_TO_DELETE_A_TASK_FROM_YOUR_LIST = "Type 'delete <index>' to" +
+            " delete a task from your list.";
+    public static final String TYPE_EVENT_DESCRIPTION_FROM_START_TO_END_TO_ADD_AN_EVENT_TO_THE_LIST =
+            "Type 'event <description> /from <start> /to <end>' to add an event to the list.";
+    public static final String TYPE_DEADLINE_DESCRIPTION_BY_DEADLINE_TO_ADD_A_TASK_WITH_A_DEADLINE_TO_THE_LIST =
+            "Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.";
 
 
     public static void printStartingMessage() {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("Sup! I'm DavinciBot! I was the smartest man alive, but now I am just a list maker.");
-        System.out.println("Enter commands, and I will echo them back to you, as well as add them to your list.");
-        System.out.println("If there were things in your list that you previously had," +
-                " I will show what you have told me previously.");
-        System.out.println("Type 'bye' to end the conversation.");
-        System.out.println("Type 'list' to see your to-do list.");
-        System.out.println("Type 'mark' to mark a task as done.");
-        System.out.println("Type 'unmark' to mark a task as not done.");
-        System.out.println("Type 'todo <work>' to add a task to the list.");
-        System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
-        System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
-        System.out.println("Type 'delete <index>' to delete a task from your list.");
-        System.out.println("Type 'find <keyword>' to list all the tasks that have those keywords.");
-        System.out.println("See ya bucko!");
+        System.out.println(SUP);
+        System.out.println(ENTER_COMMANDS);
+        System.out.println(ITEMS_IN_PREVIOUS_LIST);
+        System.out.println(TYPE_BYE_TO_END_THE_CONVERSATION);
+        System.out.println(TYPE_LIST_TO_SEE_YOUR_TO_DO_LIST);
+        System.out.println(TYPE_MARK_TO_MARK_A_TASK_AS_DONE);
+        System.out.println(TYPE_UNMARK_TO_MARK_A_TASK_AS_NOT_DONE);
+        System.out.println(TYPE_TODO_WORK_TO_ADD_A_TASK_TO_THE_LIST);
+        System.out.println(TYPE_DEADLINE_DESCRIPTION_BY_DEADLINE_TO_ADD_A_TASK_WITH_A_DEADLINE_TO_THE_LIST);
+        System.out.println(TYPE_EVENT_DESCRIPTION_FROM_START_TO_END_TO_ADD_AN_EVENT_TO_THE_LIST);
+        System.out.println(TYPE_DELETE_INDEX_TO_DELETE_A_TASK_FROM_YOUR_LIST);
+        System.out.println(TYPE_FIND_KEYWORD_TO_LIST_ALL_THE_TASKS_THAT_HAVE_THOSE_KEYWORDS);
+        System.out.println(BYE_BYE);
         System.out.println(LINE_SEPARATOR);
     }
 
