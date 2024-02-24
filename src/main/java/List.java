@@ -1,8 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class List {
+    public static final String DATA_FOLDER = "./data/";
+    public static final String DATA_FILE = "tasks.txt";
+
     Task[] tasks = new Task[100];
     private int taskCount = 0;
 
@@ -75,8 +79,28 @@ public class List {
     }
 
     public void loadTasks() throws FileNotFoundException {
-        File f = new File("./src/data/vibes.txt");
-        Scanner s  = new Scanner(f);
+        File folder = new File(DATA_FOLDER);
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                System.err.println("Failed to create data folder.");
+                return;
+            }
+        }
+
+        File file = new File(DATA_FOLDER + DATA_FILE);
+        if (!file.exists()) {
+            try {
+                if (!file.createNewFile()) {
+                    System.err.println("Failed to create data file.");
+                    return;
+                }
+            } catch (IOException e) {
+                System.err.println("An error occurred while creating the data file: " + e.getMessage());
+                return;
+            }
+        }
+
+        Scanner s  = new Scanner(file);
         while (s.hasNext()){
             readTask(s.nextLine());
         }
