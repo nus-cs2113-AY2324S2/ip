@@ -67,6 +67,8 @@ public class Alice {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // Used Java collection class ArrayList<Task>
         ArrayList<Task> tasks = new ArrayList<>();
 
         // Load tasks from file
