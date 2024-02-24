@@ -6,9 +6,9 @@ public class Todo extends Task {
     }
     @Override
     public void printDelete() {
-        super.printRespond();
+        super.printDelete();
         System.out.println(" " + this.taskName);
-        //super.printTaskCount();
+        super.printTaskCount();
     }
 
     @Override

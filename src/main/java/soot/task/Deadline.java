@@ -20,8 +20,8 @@ public class Deadline extends Task {
         System.out.print("[D]");
     }
     @Override
-    public void printTask() {
-        super.printTask();
+    public void printTask(int index) {
+        super.printTask(index);
         System.out.println("    >> by: " + dueDate + "!!");
     }
 }

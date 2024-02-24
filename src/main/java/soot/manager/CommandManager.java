@@ -9,14 +9,11 @@ import soot.task.Todo;
 import java.util.ArrayList;
 
 public class CommandManager {
-    public static int listCounter;
-    public static final int LIST_SIZE = 100;
-    //public static Task[] taskList; //public static?
     ArrayList<Task> taskList;
+    public static int listCounter;
 
     public CommandManager() {
         taskList = new ArrayList<>();
-        //taskList = new Task[LIST_SIZE];
         listCounter = 0;
     }
 
@@ -41,13 +38,13 @@ public class CommandManager {
                 return true;
             case "list":
                 System.out.println("tasks to be done:");
-                if (listCounter == 0) {
+                if (taskList.size() == 0) {
                     System.out.println("  >> nothing so far :)");
                     drawLine();
                     break;
                 }
-                for (int i = 0; i < listCounter; i++) {
-                    taskList.get(i).printTask();
+                for (int i = 0; i < taskList.size(); i++) {
+                    taskList.get(i).printTask(i+1);
                 }
                 drawLine();
                 break;
@@ -69,15 +66,15 @@ public class CommandManager {
 
                 taskList.get(listIndex).printDelete();
                 taskList.remove(listIndex);
-                listCounter = listCounter-1;
+                listCounter--;
                 drawLine();
                 break;
             case "todo":
                 inputTask = input.substring(5);
-                taskList.add(new Todo(inputTask, listCounter));
-                taskList.get(listCounter).printRespond();
-                drawLine();
+                taskList.add(new Todo(inputTask, taskList.size()));
                 listCounter++;
+                taskList.get(taskList.size()-1).printRespond();
+                drawLine();
                 break;
             case "deadline":
                 inputTask = input.substring(9);
@@ -86,10 +83,10 @@ public class CommandManager {
                 String taskName = inputTask.substring(0, deadlineIndex - 1);
                 String dueDate = inputTask.substring(deadlineIndex + 4);
 
-                taskList.add(new Deadline(taskName, listCounter, dueDate));
-                taskList.get(listCounter).printRespond();
-                drawLine();
+                taskList.add(new Deadline(taskName, taskList.size(), dueDate));
                 listCounter++;
+                taskList.get(taskList.size()-1).printRespond();
+                drawLine();
                 break;
             case "event":
                 inputTask = input.substring(6);
@@ -103,10 +100,10 @@ public class CommandManager {
                 String startDate = timeLine.substring(0, endIndex - 1);
                 String endDate = timeLine.substring(endIndex + 4);
 
-                taskList.add(new Event(taskName, listCounter, startDate, endDate));
-                taskList.get(listCounter).printRespond();
-                drawLine();
+                taskList.add(new Event(taskName, taskList.size(), startDate, endDate));
                 listCounter++;
+                taskList.get(taskList.size()-1).printRespond();
+                drawLine();
                 break;
             default:
                 System.out.println("  !! this isn't a command i recognise...\n  sorry, pls try again");
@@ -127,6 +124,11 @@ public class CommandManager {
             System.out.print("_");
         }
         System.out.println("");
+    }
+
+    public int getListSize() {
+        int listSize = taskList.size();
+        return listSize;
     }
 
 }
