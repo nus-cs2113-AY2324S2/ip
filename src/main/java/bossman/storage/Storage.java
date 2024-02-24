@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Storage {
@@ -39,7 +40,7 @@ public class Storage {
                     break;
 
                 case "D":
-                    String by = formattedData[3];
+                    LocalDate by = LocalDate.parse(formattedData[3].trim());
                     Task deadlineTask = new Deadline(description, isMark, by);
                     TASK_LIST.addTask(deadlineTask);
                     break;
