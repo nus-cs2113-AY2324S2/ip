@@ -1,4 +1,5 @@
 public class Event extends Task{
+    private final static char TASK_TYPE = 'E';
     protected String from;
     protected String to;
 
@@ -22,6 +23,11 @@ public class Event extends Task{
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    @Override
+    public char getTaskType(){
+        return TASK_TYPE;
     }
 
     @Override
