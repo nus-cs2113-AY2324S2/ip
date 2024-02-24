@@ -91,6 +91,9 @@ public class Task {
                 command = "mark " + iteration + 1;
                 modifyDoneState(iteration + 1, command);
                 printMarkTask(iteration + 1, command);
+            } else {
+                command = "unmark " + iteration + 1;
+                modifyDoneState(iteration + 1, command);
             }
 
             iteration++;

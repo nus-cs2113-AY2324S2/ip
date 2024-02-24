@@ -1,5 +1,5 @@
-T | 1 | borrow book
+T | 0 | borrow book
 T | 0 | club
 T | 0 | fuck
-D | 1 | suckdick | 123
+D | 0 | suckdick | 123
 T | 0 | eat noodle
