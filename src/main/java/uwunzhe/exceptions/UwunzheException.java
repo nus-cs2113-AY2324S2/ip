@@ -1,5 +1,7 @@
 package uwunzhe.exceptions;
 
+import uwunzhe.util.Ui;
+
 public class UwunzheException extends Exception {
     /**
      * Constructor for UwunzheException.
@@ -16,6 +18,6 @@ public class UwunzheException extends Exception {
      * @param e The exception to be printed.
      */
     public static void printException(UwunzheException e) {
-        System.out.println(e.getMessage());
+        Ui.println(e.getMessage());
     }
 }

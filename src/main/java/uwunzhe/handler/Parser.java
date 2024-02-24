@@ -6,6 +6,7 @@ import uwunzhe.commands.ListCommand;
 import uwunzhe.commands.MarkUnmarkCommand;
 import uwunzhe.commands.AddCommand;
 import uwunzhe.commands.DeleteCommand;
+import uwunzhe.commands.FindCommand;
 import uwunzhe.commands.ExitCommand;
 
 public class Parser {
@@ -36,7 +37,7 @@ public class Parser {
             throws UwunzheException {
         switch (command) {
         case "list":
-            return new ListCommand(command, "");
+            return new ListCommand(command, taskString);
 
         case "mark":
         case "unmark":
@@ -50,8 +51,11 @@ public class Parser {
         case "delete":
             return new DeleteCommand(command, taskString);
 
+        case "find":
+            return new FindCommand(command, taskString);
+
         case "bye":
-            return new ExitCommand(command, "");
+            return new ExitCommand(command, taskString);
 
         default:
             // Add message for invalid input
