@@ -6,6 +6,12 @@ import Kowalski.tasks.Event;
 import Kowalski.tasks.Task;
 import Kowalski.tasks.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +21,9 @@ import java.util.InputMismatchException;
 public class Kowalski {
 
     private static final String DIVIDING_LINE = "____________________________________________________________";
+    private static final String TEXT_FILE_FOLDER = "data";
+    private static final String TEXT_FILE_DIRECTORY = "/Kowalski.txt";
+
 
     public static List <Task> currentTask = new ArrayList<>();
     public static Scanner in = new Scanner (System.in);
@@ -38,7 +47,7 @@ public class Kowalski {
         System.out.println("Type 'list' to see your to-do list.");
         System.out.println("Type 'mark' to mark a task as done.");
         System.out.println("Type 'unmark' to mark a task as not done.");
-        System.out.println("Type 'todo <work>' to add a task to the list.");
+        System.out.println("Type 'todo <description>' to add a task to the list.");
         System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
         System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
         System.out.println("Type 'delete <index>' to delete a task from your list.");
@@ -166,6 +175,7 @@ public class Kowalski {
                 currentTask.get(taskNumber - 1).markAsNotDone();
                 System.out.println( "C'mon Skipper, you're much better than that! I've marked this task as undone:");
                 System.out.println("  " + currentTask.get(taskNumber - 1));
+                writeText();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
                 System.out.println(DIVIDING_LINE);
@@ -187,6 +197,7 @@ public class Kowalski {
                 currentTask.get(taskNumber - 1).markAsDone();
                 System.out.println( "Way to go Skipper! I've marked this task as done:");
                 System.out.println("  " + currentTask.get(taskNumber - 1));
+                writeText();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
                 System.out.println(DIVIDING_LINE);
@@ -205,6 +216,7 @@ public class Kowalski {
             System.out.println("Skipper you've got this work to do:");
             System.out.println("  " + currentTask.get( lastTaskIndex));
             printCurrentTaskMessage(currentTask.size());
+            writeText();
             System.out.println(DIVIDING_LINE);
             break;
 
@@ -223,6 +235,7 @@ public class Kowalski {
                 System.out.println("Skipper, I have recorded this deadline:");
                 System.out.println("  " + currentTask.get( lastTaskIndex));
                 printCurrentTaskMessage(currentTask.size());
+                writeText();
                 System.out.println(DIVIDING_LINE);
             } catch (KowalskiException e){
                 System.out.println("Skipper your inputs are wrong! Try again!");
@@ -245,6 +258,7 @@ public class Kowalski {
                 System.out.println("Skipper I've noted this event in my calendar:");
                 System.out.println("  " + currentTask.get(lastTaskIndex));
                 printCurrentTaskMessage(currentTask.size());
+                writeText();
                 System.out.println(DIVIDING_LINE);
             } catch (KowalskiException e) {
                 System.out.println("Skipper your inputs are wrong! Try again!");
@@ -259,6 +273,32 @@ public class Kowalski {
             printHelpCommands();
             System.out.println(DIVIDING_LINE);
             break;
+        }
+    }
+
+    public static void writeText(){
+        List <String> lines = new ArrayList<>();
+        for (Task task:currentTask){
+            lines.add(task.textFileInputString());
+        }
+        System.out.println("Kowalski analysing...");
+        writeTextFile(lines);
+    }
+
+    public static void writeTextFile(List <String> lines) {
+        try {
+            Path parentPath = Paths.get(TEXT_FILE_FOLDER);
+            createTextFileFolder(parentPath);
+
+            FileWriter writer = new FileWriter(TEXT_FILE_FOLDER+TEXT_FILE_DIRECTORY);
+            for (String line : lines) {
+                writer.write(line + "\n");
+
+            }
+            System.out.println("Kowalski Analysis Complete!");
+            writer.close();
+        } catch (IOException e){
+            System.out.println("Kowalski Analysis failed - Issue with directory/text file!");
         }
     }
 
