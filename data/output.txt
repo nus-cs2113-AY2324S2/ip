@@ -1,5 +1,4 @@
-T | 1 | drink
-T | 0 | go darren house
-D | 0 | ip | tomorrow
-T | 1 | darren
-E | 1 | club | tonight | tomorrow
+T | 1 | borrow book
+T | 0 | club
+T | 0 | fuck
+D | 1 | suckdick | 123

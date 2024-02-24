@@ -7,6 +7,7 @@ import omoh.tasktypes.Event;
 import omoh.tasktypes.Task;
 import omoh.tasktypes.Todo;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,9 +18,18 @@ public class Omoh {
     public static void main(String[] args) {
         //code to create new file in data directory
         File f = new File("data/output.txt");
+        try {
+            Task.readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (EmptyTodoException e) {
+            System.out.println("Todo task empty");
+        }
         printWelcomeMessage();
-        //initialise the size 100 array
-        Task.initArray();
+        //initialise the size 100 array if it was not initialised previously
+        if(Task.totalTasks == 0) {
+            Task.initArray();
+        }
         readUserInput();
         bye();
     }

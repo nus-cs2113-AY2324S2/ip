@@ -2,10 +2,13 @@ package omoh.tasktypes;
 import omoh.Omoh;
 
 import omoh.customexceptions.EmptyTaskNumberException;
+import omoh.customexceptions.EmptyTodoException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Task {
     protected static Task[] tasks;
@@ -58,6 +61,32 @@ public class Task {
             fw.write(System.lineSeparator());
         }
         fw.close();
+    }
+
+    public static void readFile() throws FileNotFoundException, EmptyTodoException {
+        //open file for reading
+        File f = new File("data/output.txt");
+        Scanner s = new Scanner(f);
+        Task.initArray();
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
+            // Process each line (splitting by "|", for example)
+            String[] parts = line.split("\\|"); // Split the line by "|"
+            String command;
+
+            if (parts[0].trim().startsWith("T")) {
+                command = "todo " + parts[2].trim();
+                Todo.addTodo(command);
+            } else if (parts[0].trim().startsWith("D")) {
+                command = "deadline " + parts[2].trim() + " /by " + parts[3].trim() ;
+                Deadline.addDeadline(command);
+            } else if (parts[0].trim().startsWith("E")) {
+                command = "event " + parts[2].trim() + " /from " + parts[3].trim()
+                        + " /to " + parts[4].trim();
+                Event.addEvent(command);
+            }
+        }
+        s.close();
     }
 
     public String getStatusIcon() {
