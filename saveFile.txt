@@ -1,3 +1,12 @@
-1. [T][0] sdklfjds
+1. [T][1] sdklfjds
 2. [D][1] kslfj s(by: sdf)
-3. [E][0] sdlkfjs (from: dsf sdto f ds)
+3. [E][1] sdlkfjs (from: dsf sdto f ds)
+4. [T][1] dlskfjs
+5. [T][1] flkdsj
+6. [T][0] klsdafj
+7. [T][0] skldafj
+8. [D][0] skdfj (by: ds)
+9. [E][0] klsdj (from: ds to sd )
+10. [D][1] dskflj (by: d s)
+11. [E][1] kdslfj (from: dsf sdto f ds)
+12. [E][0] klsdfj (from: sd sdto  dsds)

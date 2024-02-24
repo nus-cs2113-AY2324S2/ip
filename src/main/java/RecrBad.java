@@ -121,11 +121,9 @@ public class RecrBad {
         System.out.println("Todo added!");
         System.out.println(displayListItem(tasks, tasks.size() - 1));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
-        displayListItem(tasks, tasks.size() - 1);
-        System.out.println(System.lineSeparator() + "Congrats, now have " + tasks.size() + " tasks");
     }
 
-    private static void deleteOperation(ArrayList<Task> tasks, String[] req) throws InvalidParamsException {
+    private static void deleteOperation(ArrayList<Task> tasks, String[] req, String FILE_PATH) throws InvalidParamsException {
         // check for input validity
         if (req.length < 2) {
             throw new InvalidParamsException("Invalid delete operation");
@@ -141,9 +139,11 @@ public class RecrBad {
             throw new InvalidParamsException("Out of bounds delete index");
         }
         // delete Task
+        writeToFile(FILE_PATH, displayList(tasks));
         System.out.println("Good riddance, task deleted!");
-        displayListItem(tasks, taskIndex - 1);
+        System.out.println(displayListItem(tasks, taskIndex - 1));
         tasks.remove(taskIndex - 1);
+        System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
 
@@ -193,7 +193,7 @@ public class RecrBad {
             boolean isMark = !line.toUpperCase().contains("UNMARK");
             markOperation(tasks, req, isMark, FILE_PATH, isReadMode);
         } else if (req[0].equalsIgnoreCase("DELETE")) {
-            deleteOperation(tasks, req);
+            deleteOperation(tasks, req, FILE_PATH);
         } else if (req[0].equalsIgnoreCase("TODO")) {
             addTodoTask(req, line, tasks, FILE_PATH, isReadMode); // change tasks to ArrayList<TAsk>, f void now
         } else if (req[0].equalsIgnoreCase("DEADLINE")) {
@@ -212,7 +212,7 @@ public class RecrBad {
      * list                 to displayList,
      * mark/unmark [index]  to mark item
      */
-    public static void main(String[] args) { // Ctrl B to see def, shift F10 to run, Ctrl Alt L reformat
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         PrintHelper.sayHi();
         ArrayList<Task> tasks = new ArrayList<>();
@@ -264,8 +264,7 @@ public class RecrBad {
      * convert each line in textFile to a Task
      **/
     private static void readFile(String FILE_PATH, ArrayList<Task> tasks, boolean isReadMode) throws InvalidParamsException {
-        // check directory got file?
-        // if no file, create the file
+        // get absoluteFilePath
         String currentDirectory = System.getProperty("user.dir");
         java.nio.file.Path path = java.nio.file.Paths.get(currentDirectory);
         String absoluteFilePath = path + "/" + FILE_PATH;
@@ -290,7 +289,6 @@ public class RecrBad {
 
             throw new InvalidParamsException("File not found");
         }
-        int lineNum = 1;
 
         while (s.hasNext()) {
             String lineInFile = s.nextLine(); // read line in file
@@ -298,15 +296,14 @@ public class RecrBad {
             // create the command input line
             String command = "";
             // process lines in saveFile.txt
-
-            int START_INDEX_OF_TYPE = lineInFile.indexOf('[') + 1;
-            int START_INDEX_OF_MARK = START_INDEX_OF_TYPE + 3;
-            int START_INDEX_OF_DESCRIPTION = START_INDEX_OF_MARK + 3;
+            int START_INDEX_OF_TYPE = lineInFile.indexOf('[') + 1; // format of text: "1. [T][1] startOfTaskDescription"
+            int START_INDEX_OF_MARK = START_INDEX_OF_TYPE + 3; // mark index is 3 positions to the right
+            int START_INDEX_OF_DESCRIPTION = START_INDEX_OF_MARK + 3; // description index is 3 more positions to the right
 
             // getType
             char type = lineInFile.charAt(START_INDEX_OF_TYPE);
             try {
-                if (type == 'T') { // is a TODO
+                if (type == 'T') {
                     command += "todo ";
                 } else if (type == 'D') {
                     command += "deadline ";
@@ -344,7 +341,7 @@ public class RecrBad {
                 taskDescription += "/";
                 taskDescription += lineInFile.substring(midIndexToChange + 3, endIndexToChange);
             }
-            // process input for todo
+            // process input
             if (type == 'T') {
                 taskDescription = lineInFile.substring(START_INDEX_OF_DESCRIPTION);
             }
@@ -353,12 +350,15 @@ public class RecrBad {
 
             // get mark / unmark
             String markCommand;
-            boolean isMark;
             try {
                 if (lineInFile.charAt(START_INDEX_OF_MARK) == '0') {
                     // do nothing as task is unmark by default
                 } else if (lineInFile.charAt(START_INDEX_OF_MARK) == '1') {
-                    markCommand = "mark " + lineNum;
+                    // get task Index
+                    int indexAfterTaskIndex = lineInFile.indexOf('.');
+                    int taskIndex = Integer.parseInt(lineInFile.substring(0, indexAfterTaskIndex));
+                    // create mark command
+                    markCommand = "mark " + taskIndex;
                     processUserInput(tasks, markCommand, FILE_PATH, isReadMode);
                 } else {
                     throw new InvalidParamsException(lineInFile + "has invalid mark/unmark parameter");
@@ -366,7 +366,6 @@ public class RecrBad {
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidParamsException(lineInFile + "has no mark/unmark parameter");
             }
-            lineNum += 1;
         }
     }
 }
