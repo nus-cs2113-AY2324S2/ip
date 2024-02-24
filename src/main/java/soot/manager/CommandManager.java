@@ -6,13 +6,17 @@ import soot.task.Event;
 import soot.task.Task;
 import soot.task.Todo;
 
+import java.util.ArrayList;
+
 public class CommandManager {
     public static int listCounter;
     public static final int LIST_SIZE = 100;
-    public static Task[] taskList; //public static?
+    //public static Task[] taskList; //public static?
+    ArrayList<Task> taskList;
 
     public CommandManager() {
-        taskList = new Task[LIST_SIZE];
+        taskList = new ArrayList<>();
+        //taskList = new Task[LIST_SIZE];
         listCounter = 0;
     }
 
@@ -27,7 +31,7 @@ public class CommandManager {
         }
         return input.substring(0, spaceIndex);
     }
-    public static boolean isInputBye(String input) {
+    public boolean isInputBye(String input) {
         String inputCommand = input;
         try {
             inputCommand = getCommand(input);
@@ -42,32 +46,33 @@ public class CommandManager {
                     drawLine();
                     break;
                 }
-                for (int i = 0; i < listCounter; i++)
-                    taskList[i].printTask();
+                for (int i = 0; i < listCounter; i++) {
+                    taskList.get(i).printTask();
+                }
                 drawLine();
                 break;
             case "done":
                 inputTask = input.substring(5);
                 int listIndex = Integer.parseInt(inputTask) - 1;
-                taskList[listIndex].markDone();
+                taskList.get(listIndex).markDone();
                 drawLine();
                 break;
             case "unmark":
                 inputTask = input.substring(7);
                 listIndex = Integer.parseInt(inputTask) - 1;
-                taskList[listIndex].markUndone();
+                taskList.get(listIndex).markUndone();
                 drawLine();
                 break;
             case "delete":
                 inputTask = input.substring(7);
                 listIndex = Integer.parseInt(inputTask) - 1;
-                taskList[listIndex].deleteTask();
+                taskList.get(listIndex).deleteTask();
                 drawLine();
                 break;
             case "todo":
                 inputTask = input.substring(5);
-                taskList[listCounter] = new Todo(inputTask, listCounter);
-                taskList[listCounter].printRespond();
+                taskList.add(new Todo(inputTask, listCounter));
+                taskList.get(listCounter).printRespond();
                 drawLine();
                 listCounter++;
                 break;
@@ -78,8 +83,8 @@ public class CommandManager {
                 String taskName = inputTask.substring(0, deadlineIndex - 1);
                 String dueDate = inputTask.substring(deadlineIndex + 4);
 
-                taskList[listCounter] = new Deadline(taskName, listCounter, dueDate);
-                taskList[listCounter].printRespond();
+                taskList.add(new Deadline(taskName, listCounter, dueDate));
+                taskList.get(listCounter).printRespond();
                 drawLine();
                 listCounter++;
                 break;
@@ -95,8 +100,8 @@ public class CommandManager {
                 String startDate = timeLine.substring(0, endIndex - 1);
                 String endDate = timeLine.substring(endIndex + 4);
 
-                taskList[listCounter] = new Event(taskName, listCounter, startDate, endDate);
-                taskList[listCounter].printRespond();
+                taskList.add(new Event(taskName, listCounter, startDate, endDate));
+                taskList.get(listCounter).printRespond();
                 drawLine();
                 listCounter++;
                 break;
