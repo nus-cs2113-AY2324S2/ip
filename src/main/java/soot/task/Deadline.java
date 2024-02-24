@@ -14,6 +14,7 @@ public class Deadline extends Task {
         System.out.println(" " + this.taskName + " (by: " + dueDate + "!)");
         super.printTaskCount();
     }
+
     @Override
     public void printTaskType() {
         System.out.print("[D]");

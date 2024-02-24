@@ -11,6 +11,13 @@ public class Event extends Task {
     }
 
     @Override
+    public void printDelete() {
+        super.printDelete();
+        System.out.println(" " + this.taskName + " (from: " + startDate + " ~~ to: " + endDate + "!)");
+        //super.printTaskCount();
+    }
+
+    @Override
     public void printRespond() {
         super.printRespond();
         System.out.println(" " + this.taskName + " (from: " + startDate + " ~~ to: " + endDate + "!)");

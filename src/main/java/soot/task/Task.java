@@ -43,8 +43,12 @@ public class Task {
         System.out.println("  >> " + this.taskName);
     }
 
-    public void deleteTask() {
-        System.out.println("deleted task");
+    //TODO: index of other elements are not updated
+    public void printDelete() {
+        System.out.println("okay, i will remove this task from your list: ");
+        System.out.print("  >> ");
+        printTaskType();
+//        printCheckbox();
     }
 
     public void printRespond() {

@@ -66,7 +66,10 @@ public class CommandManager {
             case "delete":
                 inputTask = input.substring(7);
                 listIndex = Integer.parseInt(inputTask) - 1;
-                taskList.get(listIndex).deleteTask();
+
+                taskList.get(listIndex).printDelete();
+                taskList.remove(listIndex);
+                listCounter = listCounter-1;
                 drawLine();
                 break;
             case "todo":
