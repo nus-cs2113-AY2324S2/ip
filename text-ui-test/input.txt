@@ -4,12 +4,11 @@ todo read book
 deadline
 deadline /by
 deadline return book /by
-deadline return book /by 2 march 2024
+deadline return book /by 2024-03-02 18:16
 event
 event /from /to
 event book signing /from /to
-event book signing /from 1 march 2024 /to
-event book signing /from 1 march 2024 /to 30 march 2024
+event book signing /from 2024-03-01 02:30 /to 2024-03-30 21:40
 list
 mark
 mark 100
