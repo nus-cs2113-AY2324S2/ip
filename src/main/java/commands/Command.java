@@ -7,6 +7,7 @@ public class Command {
                 usersInput.equals("delete")   ||
                 usersInput.equals("todo")     ||
                 usersInput.equals("deadline") ||
-                usersInput.equals("event");
+                usersInput.equals("event")    ||
+                usersInput.equals("find");
     }
 }

@@ -8,12 +8,15 @@ import java.util.Scanner;
 public class TaskList {
     public ArrayList<Task> taskList;
 
+    public TaskList() {
+        taskList = new ArrayList<Task>();
+    }
     public TaskList(Scanner s) {
         taskList = new ArrayList<Task>();
         Storage.readFile(s, taskList);
     }
 
-    public void add(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 
@@ -27,5 +30,11 @@ public class TaskList {
 
     public void markNotDone(int i) {
         taskList.get(i).setDone(false);
+    }
+
+    public void printTask() {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i).getStatusIcon());
+        }
     }
 }

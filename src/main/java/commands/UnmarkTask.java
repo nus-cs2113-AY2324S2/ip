@@ -8,7 +8,7 @@ public class UnmarkTask extends Command {
         if (!commandWithoutDescription(usersInput)) {
             int taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
             System.out.println("OK, I've marked this task as not done yet:");
-            task.get(taskIndex).setDone(true);
+            task.get(taskIndex).setDone(false);
             System.out.println(task.get(taskIndex).getStatusIcon());
         } else if (commandWithoutDescription(usersInput)) {
             throw new ThawException("Empty command " + usersInput);
