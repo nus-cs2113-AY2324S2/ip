@@ -138,7 +138,7 @@ public class Alice {
         }
         scanner.close();
     }
-    
+
     private static void handleDelete(String input, ArrayList<Task> tasks, String line) throws AliceException{
         try{
             // Removes non-digits and parse into int, then subtracts 1 for zero-based index
@@ -150,12 +150,15 @@ public class Alice {
             // Remove task from list
             Task removedTask = tasks.remove(taskNumber);
             System.out.println(line);
-            System.out.println("gotcha, ive made task "+ taskNumber + " go poof!");
+            System.out.println("gotcha, ive made task "+ (taskNumber + 1) + " go poof!");
             System.out.println(" " + removedTask);
             System.out.println("now u got " + tasks.size() + " tasks in ur list.");
             System.out.println(line);
+            saveTasks(tasks);
         } catch (NumberFormatException e){
             throw new AliceException("ayo do tell me the specific task number to be deleted yea?");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
