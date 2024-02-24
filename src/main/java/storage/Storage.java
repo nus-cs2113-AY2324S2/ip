@@ -15,12 +15,16 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "data/tasklist.txt";
+    private static String filePath;
 
-    public static TaskList readFile() throws JingHaoExceptions, IOException{
+    public Storage(String file) {
+        filePath = file;
+    }
+
+    public TaskList readFile() throws JingHaoExceptions, IOException{
         TaskList currentList = new TaskList();
         try {
-            File f = new File(FILE_PATH);
+            File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String currentLine = s.nextLine();
@@ -40,27 +44,27 @@ public class Storage {
                     updateCheck(newEvent, informations[1], currentList);
                     break;
                 default:
-                    throw new JingHaoExceptions();
+                    throw new JingHaoExceptions("Error!! Invalid task in storage :(");
                 }
             }
         } catch (FileNotFoundException e) {
             System.out.println("Please restart the bot.");
-            File f = new File(FILE_PATH);
+            File f = new File(filePath);
             f.getParentFile().mkdirs();
             f.createNewFile();
         }
         return currentList;
     }
 
-    public static void updateCheck(Task task, String information, TaskList list) throws FileNotFoundException {
+    public void updateCheck(Task task, String information, TaskList list) throws FileNotFoundException {
         if(information.equalsIgnoreCase("TRUE")) {
             task.check();
         }
         list.add(task);
     }
 
-    public static void updateDisk(TaskList taskList) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
+    public void updateDisk(TaskList taskList) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
         for (Task item: taskList) {
             fw.write(item.toDiskFormat());
         }

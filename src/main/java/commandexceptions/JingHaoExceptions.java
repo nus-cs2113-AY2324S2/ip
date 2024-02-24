@@ -1,5 +1,8 @@
 package commandexceptions;
 
 public class JingHaoExceptions extends Exception {
-    //no code needed
+
+    public JingHaoExceptions(String message) {
+        super(message);
+    }
 }
