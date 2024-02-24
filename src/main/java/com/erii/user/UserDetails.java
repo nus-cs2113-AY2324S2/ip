@@ -4,75 +4,90 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-/**
- * The UserDetails class provides methods to retrieve user details such as name, birthday, and gender.
- */
 public class UserDetails {
-    private static final Scanner scanner = new Scanner(System.in);
-    private static final Pattern datePattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
-    private static String UserName = "";
-    private static String UserBirthday = "";
-    private static String UserGender = "";
+    private String userName = "";
+    private String userBirthday = "";
+    private String userGender = "";
+    private Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Prompts the user to enter their full name and validates the input.
-     *
-     * @return the user's full name
-     */
-    public static String getName() {
+    public UserDetails() {
+        // Constructor to initialize the UserDetails instance
+    }
+
+    public void setUserName(String userName) {
+        // Instance method to set the user's name
+        this.userName = userName;
+    }
+
+    public void setUserBirthday(String userBirthday) {
+        // Instance method to set the user's birthday
+        this.userBirthday = userBirthday;
+    }
+
+    public void setUserGender(String userGender) {
+        // Instance method to set the user's gender
+        this.userGender = userGender;
+    }
+
+    public String getUserName() {
+        // Getter for user's name
+        return this.userName;
+    }
+
+    public String getUserBirthday() {
+        // Getter for user's birthday
+        return this.userBirthday;
+    }
+
+    public String getUserGender() {
+        // Getter for user's gender
+        return this.userGender;
+    }
+
+    public void inputName() {
+        // Method to input user's name
         System.out.println("Please enter your full name (First Name Last Name): ");
         String name;
+
         while (true) {
             name = scanner.nextLine().trim();
-            // Simple check to ensure the input contains at least two words for first and last name
             if (name.split("\\s+").length >= 2) {
+                this.userName = name;
                 break;
             } else {
                 System.out.println("Invalid name. Please enter both your first name and last name.");
             }
         }
-        UserName = name;
-        return name;
     }
 
-    /**
-     * Prompts the user to enter their birthday in DD/MM/YYYY format and validates the input.
-     *
-     * @return the user's birthday
-     */
-    public static String getBirthday() {
+    public void inputBirthday() {
+        // Method to input user's birthday
         System.out.println("Please enter your birthday (DD/MM/YYYY): ");
         String birthday;
+        Pattern datePattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
+
         while (true) {
             birthday = scanner.nextLine().trim();
             Matcher matcher = datePattern.matcher(birthday);
             if (matcher.matches()) {
+                this.userBirthday = birthday;
                 break;
             } else {
                 System.out.println("Invalid format. Please enter your birthday in DD/MM/YYYY format.");
             }
         }
-        UserBirthday = birthday;
-        return birthday;
     }
 
-    /**
-     * Prompts the user to select their gender and returns the selected gender.
-     *
-     * @return the user's selected gender
-     */
-    public static String getGenderSelection() {
+    public void inputGender() {
+        // Method to input user's gender
         System.out.println("Please enter your gender: ");
         System.out.println("1. Male");
         System.out.println("2. Female");
         System.out.println("3. Other");
-        System.out.print("Enter the number corresponding to your choice: ");
-
         String gender = "";
+
         while (true) {
             String input = scanner.nextLine().trim();
-
             switch (input) {
                 case "1":
                     gender = "Male";
@@ -87,19 +102,8 @@ public class UserDetails {
                     System.out.println("Invalid option selected. Please enter 1, 2, or 3.");
                     continue;
             }
-            break; // Exit the loop once a valid input is received.
+            this.userGender = gender;
+            break;
         }
-        UserGender = gender;
-        return gender; // Return the selected gender.
-    }
-    
-    public static String getUserName() {
-        return UserName;
-    }
-    public static String getUserBirthday() {
-        return UserBirthday;
-    }
-    public static String getUserGender() {
-        return UserGender;
     }
 }

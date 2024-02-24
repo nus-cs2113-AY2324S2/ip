@@ -64,7 +64,7 @@ public class TaskManager {
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "[T]" + getStatusIcon() + " " + description + " <" + priority + "> ";
         }
     }
@@ -73,49 +73,60 @@ public class TaskManager {
         protected String by;
 
         public Deadline(String name, String description, String by, Priority priority) {
-            super(name, description, priority); // Fixed: Correctly initialize the parent class
+            super(name, description, priority);
             this.by = by;
         }
 
+        public String getBy() {
+            return this.by;
+        }
+
         @Override
-        public String toString(){
+        public String toString() {
             return "[D]" + super.getStatusIcon() + " " + description + " <" + priority + "> " + " (by: " + by + ")";
         }
     }
 
-    public class Event extends Task {
+    public class Event extends Todo {
         protected String start;
         protected String end;
         protected boolean isDone; // Added completion status
-    
+
         public Event(String name, String description, String start, String end, Priority priority) {
             super(name, description, priority);
             this.start = start;
             this.end = end;
             this.isDone = false; // Initialize as not done
         }
-    
+
         public void setDone(boolean done) {
             isDone = done;
         }
-    
+
+        public String getStart() {
+            return this.start;
+        }
+
+        public String getEnd() {
+            return this.end;
+        }
+
         @Override
         public String getStatusIcon() {
             return isDone ? "[X]" : "[ ]"; // Display X for done, space for not done
         }
-    
+
         @Override
         public String toString() {
             return "[E]" + getStatusIcon() + " " + description + " <" + priority + "> " + " (from: " + start + " to: " + end + ")";
         }
     }
 
-
     private List<Task> tasks = new ArrayList<>();
 
-    public int listSize(){
+    public int listSize() {
         return tasks.size();
-    } 
+    }
 
     public void addTask(Task task) {
         tasks.add(task);
@@ -142,17 +153,6 @@ public class TaskManager {
         tasks.sort((Task t1, Task t2) -> t1.getName().compareTo(t2.getName()));
         System.out.println("Tasks sorted by type.");
     }
-
-    // public void sortListByDeadline() {
-    //     tasks.sort((Task t1, Task t2) -> {
-    //         if (t1 instanceof Deadline && t2 instanceof Deadline) {
-    //             return ((Deadline) t1).by.compareTo(((Deadline) t2).by);
-    //         } else {
-    //             return 0;
-    //         }
-    //     });
-    //     System.out.println("Tasks sorted by deadline.");
-    // }
 
     public void markTaskAsDone(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
@@ -187,17 +187,21 @@ public class TaskManager {
         }
     }
 
+    public List<Task> getAllTasks() {
+        return new ArrayList<>(tasks); // Returns a copy of the current tasks
+    }
+
     /**
      * Validates and converts a string representation of priority to the Priority enum.
+     *
      * @param priorityString The string representation of priority.
      * @return The Priority enum value if valid, otherwise throws an IllegalArgumentException.
      */
-    public static Priority validateAndConvertPriority(String priorityString) throws IllegalArgumentException{
+    public static Priority validateAndConvertPriority(String priorityString) throws IllegalArgumentException {
         try {
             return Priority.valueOf(priorityString.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D).");
         }
     }
-    
 }
