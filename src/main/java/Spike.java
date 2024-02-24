@@ -6,6 +6,7 @@ import Tasks.Todo;
 import Exceptions.ArgumentNotFoundException;
 import Exceptions.CommandNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Spike {
@@ -17,17 +18,17 @@ public class Spike {
     public static final int EVENT_TASK_INDEX = 6;
     public static final int DEADLINE_TASK_INDEX = 9;
     public static final int TODO_TASK_INDEX = 5;
+    public static final int DELETE_TASK_INDEX = 7;
 
     public static void main(String[] args) {
         displayWelcomeMsg();
 
-        Task[] inputList = new Task[MAX_TASK];
-        int iter = 0;
+        ArrayList<Task> inputList = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
         while (true) {
             try {
-                startChatbot(in, inputList, iter);
+                startChatbot(in, inputList);
                 displayByeMsg();
                 break;
             } catch (CommandNotFoundException e) {
@@ -40,7 +41,7 @@ public class Spike {
         }
     }
 
-    private static void startChatbot(Scanner in, Task[] inputList, int iter)
+    private static void startChatbot(Scanner in, ArrayList<Task> inputList)
             throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException {
         outerLoop:
         while (true) {
@@ -48,61 +49,73 @@ public class Spike {
             switch (input.split(" ")[0]) {
             case "list":
                 displayList(inputList);
-                iter -= 1;
                 break;
             case "mark":
                 if (MARK_TASK_INDEX > input.length()) {
                     throw new ArgumentNotFoundException();
                 }
                 int indexMark = Integer.parseInt(input.substring(MARK_TASK_INDEX)) - 1;
-                if (inputList[indexMark] == null){
+                if (inputList.get(indexMark) == null){
                     throw new TaskNotFoundException();
                 }
-                inputList[indexMark].setDone(true);
+                inputList.get(indexMark).setDone(true);
                 displayMarkMsg(indexMark, inputList);
-                iter -= 1;
                 break;
             case "unmark":
                 if (UNMARK_TASK_INDEX > input.length()) {
                     throw new ArgumentNotFoundException();
                 }
                 int indexUnmark = Integer.parseInt(input.substring(UNMARK_TASK_INDEX)) - 1;
-                if (inputList[indexUnmark] == null){
+                if (inputList.get(indexUnmark) == null){
                     throw new TaskNotFoundException();
                 }
-                inputList[indexUnmark].setDone(false);
+                inputList.get(indexUnmark).setDone(false);
                 displayUnmarkMsg(indexUnmark, inputList);
-                iter -= 1;
                 break;
             case "todo":
-                inputList[iter] = new Todo(processTodo(input));
-                displayAcknowledgement(inputList, iter);
+                Task newTodo = new Todo(processTodo(input));
+                inputList.add(newTodo);
+                displayAcknowledgement(newTodo, inputList.size());
                 break;
             case "deadline":
-                inputList[iter] = new Deadline(processDeadline(input));
-                displayAcknowledgement(inputList, iter);
+                Task newDeadline = new Todo(processDeadline(input));
+                inputList.add(newDeadline);
+                displayAcknowledgement(newDeadline, inputList.size());
                 break;
             case "event":
-                inputList[iter] = new Event(processEvent(input));
-                displayAcknowledgement(inputList, iter);
+                Task newEvent = new Todo(processEvent(input));
+                inputList.add(newEvent);
+                displayAcknowledgement(newEvent, inputList.size());
+                break;
+            case "delete":
+                int indexDelete = Integer.parseInt(input.substring(DELETE_TASK_INDEX)) - 1;
+                displayDeleteMsg(inputList.get(indexDelete), inputList.size());
+                inputList.remove(indexDelete);
                 break;
             case "bye":
                 break outerLoop;
             default:
-                iter -= 1;
                 throw new CommandNotFoundException();
                 //System.out.println("Not valid");
             }
-            iter += 1;
         }
     }
 
-    private static void displayAcknowledgement(Task[] inputList, int iter) {
-        char Badge = getBadge(inputList[iter]);
+    private static void displayDeleteMsg(Task inputObj, int arrayLength){
+        char Badge = getBadge(inputObj);
+        System.out.println(DIVIDER);
+        System.out.println("I've removed this task:");
+        System.out.println(" [" + Badge + "]" + "["+ inputObj.getStatusIcon() +"] " + inputObj.description);
+        System.out.println("Now you have " + (arrayLength - 1) + " tasks in the list.");
+        System.out.println(DIVIDER);
+    }
+
+    private static void displayAcknowledgement(Task inputObj, int arrayLength) {
+        char Badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("Got it. I've added this task:");
-        System.out.println(" [" + Badge + "]" + "[ ] " + inputList[iter].description);
-        System.out.println("Now you have " + (iter + 1) + " tasks in the list.");
+        System.out.println(" [" + Badge + "]" + "[ ] " + inputObj.description);
+        System.out.println("Now you have " + arrayLength + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 
@@ -138,11 +151,11 @@ public class Spike {
         System.out.println(DIVIDER);
     }
 
-    private static void displayList(Task[] inputList) {
+    private static void displayList(ArrayList<Task> inputList) {
         System.out.println(DIVIDER);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < inputList.length; i++) {
-            Task value = inputList[i];
+        for (int i = 0; i < inputList.size(); i++) {
+            Task value = inputList.get(i);
             if (value == null) {
                 break;
             }
@@ -165,21 +178,21 @@ public class Spike {
         return Badge;
     }
 
-    private static void displayUnmarkMsg(int index, Task[] inputList) {
-        char Badge = getBadge(inputList[index]);
+    private static void displayUnmarkMsg(int index, ArrayList<Task> inputList) {
+        char Badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println((index + 1) + ".[" + Badge + "]" + "[ ] "
-                + inputList[index].description);
+                + inputList.get(index).description);
         System.out.println(DIVIDER);
     }
 
-    private static void displayMarkMsg(int index, Task[] inputList) {
-        char Badge = getBadge(inputList[index]);
+    private static void displayMarkMsg(int index, ArrayList<Task> inputList) {
+        char Badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println((index + 1) + ".[" + Badge + "]" + "[X] "
-                + inputList[index].description);
+                + inputList.get(index).description);
         System.out.println(DIVIDER);
     }
 
