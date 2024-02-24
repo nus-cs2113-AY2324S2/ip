@@ -68,6 +68,7 @@ public class Task {
         File f = new File("data/output.txt");
         Scanner s = new Scanner(f);
         Task.initArray();
+        int iteration = 0;
         while (s.hasNextLine()) {
             String line = s.nextLine();
             // Process each line (splitting by "|", for example)
@@ -85,6 +86,14 @@ public class Task {
                         + " /to " + parts[4].trim();
                 Event.addEvent(command);
             }
+
+            if (parts[1].trim().equals("1")) {
+                command = "mark " + iteration + 1;
+                modifyDoneState(iteration + 1, command);
+                printMarkTask(iteration + 1, command);
+            }
+
+            iteration++;
         }
         s.close();
     }
