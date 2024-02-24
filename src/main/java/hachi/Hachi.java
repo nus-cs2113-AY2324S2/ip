@@ -6,7 +6,6 @@ import hachi.data.task.Event;
 import hachi.data.task.Task;
 import hachi.data.task.TaskType;
 import hachi.data.task.Todo;
-import hachi.storage.Storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,7 +25,16 @@ import java.util.Scanner;
 
 public class Hachi {
 
-    private static ArrayList<Task> taskArrayList = new ArrayList<>();
+    private static ArrayList<Task> tasksArrayList = new ArrayList<>();
+    static String filePath = "hachidata/hachidata.txt";
+    protected static File f = new File(filePath);
+    protected static File folder = new File("hachidata");
+
+    public static void initializeData() throws IOException {
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+    }
 
     /**
      * Prints a greeting to the user in the console
@@ -265,7 +273,7 @@ public class Hachi {
     }
 
     private static void loadFile(ArrayList<Task> taskArrayList) throws FileNotFoundException, HachiException {
-        File taskFile = new File("src/main/java/hachi.txt");
+        File taskFile = new File(filePath);
         Scanner s = new Scanner(taskFile);
 
         while (s.hasNext()) {
@@ -298,14 +306,14 @@ public class Hachi {
 
     private static void save(ArrayList<Task> taskArrayList) throws IOException {
         try {
-            FileWriter fw = new FileWriter("src/main/java/hachi.txt", false);
+            FileWriter fw = new FileWriter(filePath, false);
             fw.write("");
             fw.close(); // to clear text file
         } catch (IOException e) {
             System.out.println("\n\tCreating new task list save...");
         }
 
-        FileWriter fw = new FileWriter("src/main/java/hachi.txt");
+        FileWriter fw = new FileWriter(filePath);
         for (Task task : taskArrayList) {
             if (task != null) {
                 fw.write(task.getSaveFormat() + "\n");
@@ -331,16 +339,17 @@ public class Hachi {
      * @param args Command line arguments - not used.
      */
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         boolean isBye = false;
         boolean isUpdated = false;
         spacerInsert("medium", false);
         printGreetingMessage();
         printHelpMessage();
+        initializeData();
 
         try {
-            loadFile(taskArrayList);
+            loadFile(tasksArrayList);
         } catch (FileNotFoundException e) {
             System.out.println("Error finding save file. Creating empty task list.");
         } catch (HachiException e) {
@@ -409,7 +418,7 @@ public class Hachi {
             } finally {
                 if (isUpdated) { // save if there is a file update
                     try {
-                        save(taskArrayList);
+                        save(tasksArrayList);
                     } catch (IOException e) {
                         System.out.println("There was an error saving tasks.");
                     }
