@@ -10,6 +10,7 @@ import static java.lang.Integer.parseInt;
 public class Davvy {
     private static final String BOT_NAME = "Tasking.Davvy";
     private static boolean isExitStatus;
+
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -25,6 +26,19 @@ public class Davvy {
             break;
         }
         printLine();
+    }
+
+    private static void handleDeadline(String commandArg) {
+        String[] newCommandArg = commandArg.split("/by", 2);
+        Deadline inputDeadline = new Deadline(newCommandArg[0], newCommandArg[1]);
+        TaskList.addTask(inputDeadline);
+    }
+
+    private static void handleEvent(String commandArg) {
+        String[] newCommandArg = commandArg.split("/from", 2);
+        String[] newCommandArg2 = newCommandArg[1].split("/to", 2);
+        Events inputEvent = new Events(newCommandArg[0], newCommandArg2[0], newCommandArg2[1]);
+        TaskList.addTask(inputEvent);
     }
 
     public void startChat() {
@@ -101,9 +115,7 @@ public class Davvy {
             break;
         case "deadline":
             if (commandArg.contains("/by")) {
-                String[] newCommandArg = commandArg.split("/by", 2);
-                Deadline inputDeadline = new Deadline(newCommandArg[0], newCommandArg[1]);
-                TaskList.addTask(inputDeadline);
+                handleDeadline(commandArg);
             } else {
                 printLine();
                 System.out.println("Please put a date!");
@@ -112,10 +124,7 @@ public class Davvy {
             break;
         case "event":
             if (commandArg.contains("/from") && commandArg.contains("/to")) {
-                String[] newCommandArg = commandArg.split("/from", 2);
-                String[] newCommandArg2 = newCommandArg[1].split("/to", 2);
-                Events inputEvent = new Events(newCommandArg[0], newCommandArg2[0], newCommandArg2[1]);
-                TaskList.addTask(inputEvent);
+                handleEvent(commandArg);
             } else {
                 printLine();
                 System.out.println("Please put a correct time!");
