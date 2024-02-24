@@ -14,13 +14,10 @@ public class Event extends Task {
         this.from = description.substring(fromIndex + 5, toIndex - 1);
         this.to = description.substring(toIndex + 3);
         if (this.description.isEmpty()) {
-            Task.totalTasks--;
             throw new QuillException();
         } else if (this.from.isEmpty()) {
-            Task.totalTasks--;
             throw new EmptyDateException("from");
         } else if (this.to.isEmpty()) {
-            Task.totalTasks--;
             throw new EmptyDateException("to");
         }
     }

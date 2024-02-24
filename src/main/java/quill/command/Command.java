@@ -2,6 +2,7 @@ package quill.command;
 
 import quill.storage.Save;
 import quill.task.Task;
+import quill.task.TaskList;
 import quill.ui.TextUi;
 
 import java.util.ArrayList;
@@ -15,6 +16,6 @@ public abstract class Command {
         this.parameter = parameter;
     }
 
-    public void execute (ArrayList<Task> tasks, TextUi ui, Save save) {
+    public void execute (TaskList tasks, TextUi ui, Save save) {
     }
 }

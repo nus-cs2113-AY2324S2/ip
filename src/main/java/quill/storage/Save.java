@@ -1,10 +1,7 @@
 package quill.storage;
 
 import quill.exception.QuillException;
-import quill.task.Deadline;
-import quill.task.Event;
-import quill.task.Task;
-import quill.task.Todo;
+import quill.task.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,8 +29,8 @@ public class Save {
         }
     }
 
-    public static ArrayList<Task> readFile() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public static TaskList readFile() {
+        TaskList tasks = new TaskList();
         File file = new File("./data/quill.txt");
         if (!file.exists()) {
             createNewFile();
@@ -45,7 +42,7 @@ public class Save {
                 String line = s.nextLine();
 
                 Task task = getTask(line);
-                tasks.add(task);
+                tasks.addTask(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error" + e.getMessage());
@@ -86,11 +83,11 @@ public class Save {
         return task;
     }
 
-    public static void writeToFile(ArrayList<Task> tasks) {
+    public static void writeToFile(TaskList tasks) {
         try {
             PrintWriter fw = new PrintWriter("./data/quill.txt");
-            for (Task task: tasks) {
-                fw.println(task.saveTask());
+            for (int i = 0; i < tasks.getTotalTasks(); i++) {
+                fw.println(tasks.getTask(i).saveTask());
             }
             fw.close();
         } catch (IOException e) {

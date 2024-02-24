@@ -1,6 +1,7 @@
 package quill.ui;
 
 import quill.task.Task;
+import quill.task.TaskList;
 
 import java.util.Scanner;
 
@@ -22,16 +23,15 @@ public class TextUi {
     }
 
     public static void showAddTask(Task tasks) {
-        System.out.println(DIVIDER + "\nGot it. I've added this task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println(tasks.toString());
-        System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + DIVIDER);
+        System.out.println("Now you have " + TaskList.getTotalTasks() + " tasks in the list.");
     }
 
     public static void showDeleteTask(Task tasks) {
-        System.out.println(DIVIDER + "\nGot it. I've removed this task:");
+        System.out.println("Got it. I've removed this task:");
         System.out.println(tasks.toString());
-        Task.removeTask();
-        System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + DIVIDER);
+        System.out.println("Now you have " + (TaskList.getTotalTasks() - 1) + " tasks in the list.");
     }
 
     public static void showDivider() {
@@ -39,6 +39,17 @@ public class TextUi {
     }
 
     public static void showGoodbyeMessage() {
-        System.out.println(DIVIDER + "\nBye! Hope to see you again soon!\n" + DIVIDER);
+        System.out.println("Bye! Hope to see you again soon!");
+    }
+
+    public static void showList(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("Zero tasks. Add something already.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < TaskList.getTotalTasks(); i++) {
+                System.out.println(i + 1 + "." + tasks.getTask(i).toString());
+            }
+        }
     }
 }

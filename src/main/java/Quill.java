@@ -4,10 +4,7 @@ import quill.exception.EmptyDateException;
 import quill.exception.QuillException;
 import quill.parser.Parser;
 import quill.storage.Save;
-import quill.task.Deadline;
-import quill.task.Event;
-import quill.task.Task;
-import quill.task.Todo;
+import quill.task.*;
 import quill.ui.TextUi;
 
 import java.util.ArrayList;
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 public class Quill {
     private static TextUi ui;
     private static Save save;
-    private static ArrayList<Task> tasks;
+    private static TaskList tasks;
 
     public Quill() {
         ui = new TextUi();
@@ -27,8 +24,10 @@ public class Quill {
         Command c;
         do {
             String line = ui.getUserCommand();
+            TextUi.showDivider();
             c = Parser.parse(line);
             c.execute(tasks, ui, save);
+            TextUi.showDivider();
         } while (!ExitCommand.isExit(c));
     }
 

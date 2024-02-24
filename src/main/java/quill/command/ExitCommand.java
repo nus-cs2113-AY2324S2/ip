@@ -2,6 +2,7 @@ package quill.command;
 
 import quill.storage.Save;
 import quill.task.Task;
+import quill.task.TaskList;
 import quill.ui.TextUi;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, TextUi ui, Save save) {
+    public void execute(TaskList tasks, TextUi ui, Save save) {
         Save.writeToFile(tasks);
         TextUi.showGoodbyeMessage();
     }
