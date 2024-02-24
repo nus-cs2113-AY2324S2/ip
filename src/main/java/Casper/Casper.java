@@ -17,7 +17,6 @@ public class Casper {
     }
     public void run(){
         ui.echoGreetings();
-        storage.loadSaveFile();
         Scanner inputScanner = new Scanner(System.in);
         boolean isRunning = true;
         while (isRunning) {
