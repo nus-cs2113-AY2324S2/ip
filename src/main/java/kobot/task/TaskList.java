@@ -137,7 +137,13 @@ public class TaskList {
             Ui.printInvalidStorageEntryErrorMessage();
         }
     }
-    
+
+    /**
+     * Converts the task list to format used
+     * for local storage.
+     * 
+     * @return List of tasks in storage format.
+     */
     public String toStorageFormat() {
         StringBuilder storage = new StringBuilder(EMPTY_STRING);
         
