@@ -298,6 +298,11 @@ public class Kowalski {
         }
     }
 
+    /**
+     * This function takes in the lines of code from the Kowalski.txt and processes them to
+     * list out all the previous tasks which we had saved.
+     * @param fileInput: String containing each line of input from Kowalski.txt
+     */
     public static void restoreTaskList(String fileInput){
         String [] inputArray = fileInput.split("\\s*\\|\\s*");
         switch (inputArray[0].trim()){
@@ -336,6 +341,10 @@ public class Kowalski {
         }
     }
 
+    /**
+     * Read text file accesses Kowalski.txt and calls the restoreTaskList function
+     * @throws IOException when unable to get the Kowalski file or has any input errors
+     */
     public static void readTextFile() throws IOException{
         try {
             createTextFileFolder(Paths.get(TEXT_FILE_FOLDER));
@@ -358,6 +367,10 @@ public class Kowalski {
         }
     }
 
+    /**
+     * Function which is called to generate an arrayList "lines" which updates according to the users' inputs.
+     * Calls the writeTextFile function to update Kowalski.txt
+     */
     public static void writeText(){
         List <String> lines = new ArrayList<>();
         for (Task task:currentTask){
@@ -368,6 +381,10 @@ public class Kowalski {
         writeTextFile(lines);
     }
 
+    /**
+     * Accesses the Kowalski.txt and updates it in the correct format.
+     * @param lines: Arraylist containing the processed current tasks in the CurrentTask
+     */
     public static void writeTextFile(List <String> lines) {
         try {
             Path parentPath = Paths.get(TEXT_FILE_FOLDER);
@@ -385,6 +402,11 @@ public class Kowalski {
         }
     }
 
+    /**
+     * Used to create the data folder to store the Kowalski.txt file
+     * @param parentPath: Path file containing the path we intend to make Kowalski.txt in
+     * @throws IOException whenever the input for the path or creation of the directory is improper
+     */
     public static void createTextFileFolder(Path parentPath ) throws IOException{
         try {
             Files.createDirectories(parentPath);
