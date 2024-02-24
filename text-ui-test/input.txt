@@ -1,0 +1,30 @@
+help
+deadline return book /by 2024-08-05 1500
+event project meeting /from 2024-08-24 1500 /to 2024-08-24 1700
+todo borrow book
+list
+unmark 1
+mark 1
+unmark 1
+mark 2
+unmark 2
+list
+deadline
+deadline 1
+deadline return book /by 2024-01-05 1500
+deadline return book /by 2024-08-05 150
+event
+event 1
+event project meeting /from 2024-01-24 1500 /to 2024-08-24 1700
+event project meeting /from 2024-08-24 1500 /to 2024-08-24 170
+todo 1
+todo
+list
+delete 1
+list
+delete 4
+find
+find fake tasks
+find duck
+find meeting
+bye
