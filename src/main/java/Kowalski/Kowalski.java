@@ -6,6 +6,8 @@ import Kowalski.tasks.Event;
 import Kowalski.tasks.Task;
 import Kowalski.tasks.Todo;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -23,6 +25,7 @@ public class Kowalski {
     private static final String DIVIDING_LINE = "____________________________________________________________";
     private static final String TEXT_FILE_FOLDER = "data";
     private static final String TEXT_FILE_DIRECTORY = "/Kowalski.txt";
+    private static final String FULL_FILE_PATH = TEXT_FILE_FOLDER+TEXT_FILE_DIRECTORY;
 
 
     public static List <Task> currentTask = new ArrayList<>();
@@ -276,12 +279,73 @@ public class Kowalski {
         }
     }
 
+    public static void restoreTaskList(String fileInput){
+        String [] inputArray = fileInput.split("\\s*\\|\\s*");
+        switch (inputArray[0].trim()){
+        case "T":
+            Task newToDoTask = new Todo(inputArray[2].trim());
+            if (inputArray[1].trim().equals("X")) {
+                newToDoTask.markAsDone();
+            } else {
+                newToDoTask.markAsNotDone();
+            }
+            currentTask.add(newToDoTask);
+            break;
+
+        case "D":
+            Task newDeadlineTask = new Deadline(inputArray[2].trim(), inputArray[3].trim());
+            if (inputArray[1].trim().equals("X")) {
+                newDeadlineTask.markAsDone();
+            } else {
+                newDeadlineTask.markAsNotDone();
+            }
+            currentTask.add(newDeadlineTask);
+            break;
+        case "E":
+            String [] fromAndTo = inputArray[3].trim().split(" - ");
+            Task newEventTask = new Event(inputArray[2].trim(), fromAndTo[0].trim(), fromAndTo[1].trim());
+            if (inputArray[1].trim().equals("X")) {
+                newEventTask.markAsDone();
+            } else {
+                newEventTask.markAsNotDone();
+            }
+            currentTask.add(newEventTask);
+            break;
+        default:
+            System.out.println("Kowalski Analysis Error: Text File Corrupted!");
+            break;
+        }
+    }
+
+    public static void readTextFile() throws IOException{
+        try {
+            createTextFileFolder(Paths.get(TEXT_FILE_FOLDER));
+            Path filePath = Paths.get(FULL_FILE_PATH);
+            if (!Files.exists(filePath)){
+                System.out.println("Creating new Kowalski.txt file");
+                Files.createFile(filePath);
+            }
+            FileReader fileReader = new FileReader(TEXT_FILE_FOLDER + TEXT_FILE_DIRECTORY);
+            BufferedReader line = new BufferedReader(fileReader);
+            System.out.println("Kowalski retrieving previous data...");
+            while (line.ready()) {
+                restoreTaskList(line.readLine());
+            }
+            System.out.println("Kowalski Data Retrieval Complete!");
+            System.out.println(DIVIDING_LINE);
+        } catch (IOException e){
+            System.out.println("Kowalski Data Retrieval Failed!");
+            throw e;
+        }
+    }
+
     public static void writeText(){
         List <String> lines = new ArrayList<>();
         for (Task task:currentTask){
             lines.add(task.textFileInputString());
         }
-        System.out.println("Kowalski analysing...");
+        System.out.println(DIVIDING_LINE);
+        System.out.println("Kowalski analysing inputs...");
         writeTextFile(lines);
     }
 
@@ -290,18 +354,18 @@ public class Kowalski {
             Path parentPath = Paths.get(TEXT_FILE_FOLDER);
             createTextFileFolder(parentPath);
 
-            FileWriter writer = new FileWriter(TEXT_FILE_FOLDER+TEXT_FILE_DIRECTORY);
+            FileWriter writer = new FileWriter(FULL_FILE_PATH);
             for (String line : lines) {
                 writer.write(line + "\n");
 
             }
-            System.out.println("Kowalski Analysis Complete!");
+            System.out.println("Task recorded in the Text file!");
             writer.close();
         } catch (IOException e){
             System.out.println("Kowalski Analysis failed - Issue with directory/text file!");
         }
     }
-    
+
     public static void createTextFileFolder(Path parentPath ) throws IOException{
         try {
             Files.createDirectories(parentPath);
@@ -321,8 +385,9 @@ public class Kowalski {
         System.out.println(DIVIDING_LINE);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         printIntro();
+        readTextFile();
         String userCommand = processInput(in.next());
 
         while (!(userCommand.equals("bye"))){
