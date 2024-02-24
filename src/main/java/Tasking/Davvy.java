@@ -3,12 +3,13 @@ package Tasking;
 import NewExceptions.EmptyArgumentException;
 import NewExceptions.EmptyStatementException;
 
+import java.awt.print.Printable;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
 public class Davvy {
-    private static final String BOT_NAME = "Tasking.Davvy";
+    private static final String BOT_NAME = "Davvy";
     private static boolean isExitStatus;
 
     public static void printLine() {
@@ -48,20 +49,17 @@ public class Davvy {
         while (!isExitStatus) {
             try {
                 String[] parsedInput = processInput(in.nextLine());
+                printLine();
                 processCommand(parsedInput);
             } catch (EmptyStatementException e) {
-                printLine();
                 System.out.println("Please type something >:(");
             } catch (NumberFormatException e) {
-                printLine();
                 System.out.println("Exception thrown: " + e);
                 System.out.println("Please Enter A Valid Number");
             } catch (IndexOutOfBoundsException e) {
-                printLine();
                 System.out.println("Exception thrown: " + e);
                 System.out.println("There is no such task!");
             } catch (EmptyArgumentException e) {
-                printLine();
                 System.out.println("Please enter a proper argument >:(");
             }
             finally {
@@ -82,7 +80,7 @@ public class Davvy {
         }
         // String Cleaning
         processedInput[0] = processedInput[0].trim().toLowerCase();
-        processedInput[1] = processedInput[1].isEmpty() ? "" : processedInput[1];
+        processedInput[1] = processedInput[1].isEmpty() ? "" : processedInput[1].trim();
         return processedInput;
     }
 
@@ -117,24 +115,25 @@ public class Davvy {
             if (commandArg.contains("/by")) {
                 handleDeadline(commandArg);
             } else {
-                printLine();
                 System.out.println("Please put a date!");
-                printLine();
             }
             break;
         case "event":
             if (commandArg.contains("/from") && commandArg.contains("/to")) {
                 handleEvent(commandArg);
             } else {
-                printLine();
                 System.out.println("Please put a correct time!");
-                printLine();
+            }
+            break;
+        case "delete":
+            if (commandArg.matches("[0-9]+")) {
+                TaskList.deleteTask(Integer.parseInt(commandArg));
+            } else {
+                System.out.println("Please enter a number!");
             }
             break;
         default:
-            printLine();
             System.out.println("Unknown Command, type something I know please!");
-            printLine();
             break;
         }
     }

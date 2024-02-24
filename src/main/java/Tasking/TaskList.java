@@ -6,11 +6,17 @@ public class TaskList {
 
     public static void addTask(Task userTask) {
         list.add(userTask);
-        Davvy.printLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println(" " + userTask);
         System.out.println(" Now you have " + list.size() + " tasks in the list.");
-        Davvy.printLine();
+    }
+
+    public static void deleteTask(int index) {
+        Task task = list.get(index - 1);
+        list.remove(index - 1);
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println(" " + task);
+        System.out.println(" Now you have " + list.size() + " tasks in the list.");
     }
 
     public static Task getTask(int taskNumber) {
@@ -22,12 +28,10 @@ public class TaskList {
     }
 
     public static void printList() {
-        Davvy.printLine();
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             System.out.print(" " + (i+1) + ".");
             System.out.println(list.get(i));
         }
-        Davvy.printLine();
     }
 }
