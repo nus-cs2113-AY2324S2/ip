@@ -6,13 +6,15 @@ import Tasks.Todo;
 import Exceptions.ArgumentNotFoundException;
 import Exceptions.CommandNotFoundException;
 
+
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Spike {
     private static final String CHATBOT = "Spike";
     public static final String DIVIDER = "_________________________________________________";
-    public static final int MAX_TASK = 100;
     public static final int MARK_TASK_INDEX = 5;
     public static final int UNMARK_TASK_INDEX = 7;
     public static final int EVENT_TASK_INDEX = 6;
@@ -20,10 +22,11 @@ public class Spike {
     public static final int TODO_TASK_INDEX = 5;
     public static final int DELETE_TASK_INDEX = 7;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         displayWelcomeMsg();
 
-        ArrayList<Task> inputList = new ArrayList<>();
+
+        ArrayList<Task> inputList = DataHandler.readFileContents(DataHandler.FILE_PATH);
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -37,12 +40,15 @@ public class Spike {
                 System.out.println("Argument Not Found! Please Try Again");
             } catch (TaskNotFoundException e){
                 System.out.println("Task Not Found! Please Try Again");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
+
     private static void startChatbot(Scanner in, ArrayList<Task> inputList)
-            throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException {
+            throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException, IOException {
         outerLoop:
         while (true) {
             String input = in.nextLine();
@@ -96,8 +102,8 @@ public class Spike {
                 break outerLoop;
             default:
                 throw new CommandNotFoundException();
-                //System.out.println("Not valid");
             }
+            DataHandler.tasksToFile(inputList);
         }
     }
 

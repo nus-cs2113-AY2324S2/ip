@@ -5,6 +5,7 @@ import Tasks.Task;
 public class Deadline extends Task {
     private final static char BADGE = 'D';
 
+    @Override
     public char getBadge() {
         return BADGE;
     }
