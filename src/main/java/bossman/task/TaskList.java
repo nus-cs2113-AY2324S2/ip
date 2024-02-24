@@ -15,6 +15,23 @@ public class TaskList {
         TASKS.add(task);
     }
 
+    public void findTask(String taskDescription) {
+        String message = "Matching tasks: " + System.lineSeparator();
+
+        int counter = 1;
+
+        for (Task t: TASKS) {
+            if (t.getTask().contains(taskDescription)) {
+                Ui.printMessageNoSepSameLine(counter + ". ");
+                t.printTask();
+                counter += 1;
+                Ui.printMessageNoSepNewLine("");
+            }
+        }
+
+        Ui.printSep();
+    }
+
     public void removeTask(int taskId) throws IndexOutOfBoundsException {
         if (isValidTask(taskId)) {
             Task toDeleteTask = TASKS.get(taskId - 1);

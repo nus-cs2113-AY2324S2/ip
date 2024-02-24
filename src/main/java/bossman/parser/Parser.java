@@ -1,14 +1,6 @@
 package bossman.parser;
 
-import bossman.command.Command;
-import bossman.command.ByeCommand;
-import bossman.command.DeadlineCommand;
-import bossman.command.DeleteCommand;
-import bossman.command.EventCommand;
-import bossman.command.ListCommand;
-import bossman.command.MarkCommand;
-import bossman.command.UnmarkCommand;
-import bossman.command.ToDoCommand;
+import bossman.command.*;
 import bossman.exceptions.BossManExceptions;
 import bossman.exceptions.commandexceptions.UnknownCommandException;
 import bossman.task.TaskList;
@@ -42,6 +34,9 @@ public class Parser {
 
         case "delete":
             return new DeleteCommand(userTasks, commandArgs);
+
+        case "find":
+            return new FindCommand(userTasks, commandArgs);
 
         default:
             throw new UnknownCommandException("Unknown command");
