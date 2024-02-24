@@ -1,4 +1,7 @@
-T | 0 | go kenny uncle house
+T | 1 | go kenny uncle house
 E | 0 | club tonight | midnight | tomorrow morning
 D | 0 | study for cg2023 mid term | tuesday
 T | 0 | wash teeth
+T | 1 | 123
+T | 1 | amrk 5
+T | 0 | ad

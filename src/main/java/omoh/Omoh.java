@@ -1,5 +1,6 @@
 package omoh;
 
+import omoh.customexceptions.CorruptedFileException;
 import omoh.customexceptions.EmptyTaskNumberException;
 import omoh.customexceptions.EmptyTodoException;
 import omoh.tasktypes.Deadline;
@@ -30,6 +31,8 @@ public class Omoh {
             System.out.println("File not found");
         } catch (EmptyTodoException e) {
             System.out.println("Todo task empty");
+        } catch (CorruptedFileException e) {
+            System.out.println("Output.txt file format is wrong. File corrupted.");
         }
         printWelcomeMessage();
         //initialise the size 100 array if it was not initialised previously

@@ -3,6 +3,7 @@ import omoh.Omoh;
 
 import omoh.customexceptions.EmptyTaskNumberException;
 import omoh.customexceptions.EmptyTodoException;
+import omoh.customexceptions.CorruptedFileException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,7 +64,7 @@ public class Task {
         fw.close();
     }
 
-    public static void readFile() throws FileNotFoundException, EmptyTodoException {
+    public static void readFile() throws FileNotFoundException, EmptyTodoException, CorruptedFileException {
         //open file for reading
         File f = new File("data/output.txt");
         Scanner s = new Scanner(f);
@@ -73,6 +74,9 @@ public class Task {
             String line = s.nextLine();
             // Process each line (splitting by "|", for example)
             String[] parts = line.split("\\|"); // Split the line by "|"
+            if (parts.length < 3 || parts.length > 5 ) {
+                throw new CorruptedFileException();
+            }
             String command;
 
             if (parts[0].trim().startsWith("T")) {
