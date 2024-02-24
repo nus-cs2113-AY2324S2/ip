@@ -8,10 +8,33 @@ import omoh.tasktypes.Task;
 import omoh.tasktypes.Todo;
 
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 
 
 public class Omoh {
     public static void main(String[] args) {
+        //code to create new file in data directory
+        File f = new File("data/output.txt");
+        System.out.println("full path " + f.getAbsolutePath());
+
+        try {
+            boolean fileCreated = false;
+            fileCreated = f.createNewFile();
+            if (fileCreated) {
+                System.out.println("File created successfully.");
+                System.out.println("file exists?:" + f.exists());
+                System.out.println("is directory?: " + f.isDirectory());
+            } else {
+                System.out.println("File already exists.");
+                System.out.println("file exists?:" + f.exists());
+                System.out.println("is directory?: " + f.isDirectory());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         printWelcomeMessage();
         //initialise the size 100 array
         Task.initArray();
