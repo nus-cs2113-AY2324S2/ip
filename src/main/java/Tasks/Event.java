@@ -1,25 +1,42 @@
 package Tasks;
 
 import Tasks.Task;
+import UserInputs.Parser;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Event extends Task {
-    protected String event;
+    protected LocalTime fromTime;
+    protected LocalDate fromDate;
+    protected LocalTime toTime;
+    protected LocalDate toDate;
 
-    public Event(String description, String event) {
+    protected String DateTimeString;
+
+    public Event(String description, LocalDate fromDate, LocalTime fromTime, LocalDate toDate, LocalTime toTime) {
         super(description);
-        this.event = event;
+        this.fromTime = fromTime;
+        this.fromDate = fromDate;
+        this.toTime = toTime;
+        this.toDate = toDate;
+        this.DateTimeString = "from: " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " +
+                fromTime.format(DateTimeFormatter.ofPattern("h:mma")) + " to: " +
+                toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " " + toTime.format(DateTimeFormatter.ofPattern("h:mma"));
     }
 
     @Override
     public String getStatusIcon() {
-        return (isDone ? "[E][X] " + super.description + " (" + event + ")": "[E][ ] " + super.description + " (" + event + ")"); // mark done task with X
+        return (isDone ? "[E][X] " + super.description + " (" + DateTimeString + ")": "[E][ ] " + super.description + " (" + DateTimeString + ")"); // mark done task with X
     }
 
     @Override
     public String printFileFormat() {
-        String toBePrinted = this.event;
-        toBePrinted = toBePrinted.replace("to:", "-");
-        toBePrinted = toBePrinted.replace("from: ", "");
-        return super.printFileFormat() + " | " + toBePrinted;
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        return super.printFileFormat() + " | " + fromDate.format(inputFormatter) + " " + fromTime.format(inputTimeFormatter) + " - " + toDate.format(inputFormatter) + " " + toTime.format(inputTimeFormatter);
     }
 }

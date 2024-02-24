@@ -18,6 +18,7 @@ public class Duke {
         UI ui = new UI();
         ui.printsGreeting();
         startProgramme(ui);
+
     }
 
     private static void startProgramme(UI ui) {
