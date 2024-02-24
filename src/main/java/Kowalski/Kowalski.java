@@ -6,6 +6,14 @@ import Kowalski.tasks.Event;
 import Kowalski.tasks.Task;
 import Kowalski.tasks.Todo;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +23,10 @@ import java.util.InputMismatchException;
 public class Kowalski {
 
     private static final String DIVIDING_LINE = "____________________________________________________________";
+    private static final String TEXT_FILE_FOLDER = "data";
+    private static final String TEXT_FILE_DIRECTORY = "/Kowalski.txt";
+    private static final String FULL_FILE_PATH = TEXT_FILE_FOLDER+TEXT_FILE_DIRECTORY;
+
 
     public static List <Task> currentTask = new ArrayList<>();
     public static Scanner in = new Scanner (System.in);
@@ -38,7 +50,7 @@ public class Kowalski {
         System.out.println("Type 'list' to see your to-do list.");
         System.out.println("Type 'mark' to mark a task as done.");
         System.out.println("Type 'unmark' to mark a task as not done.");
-        System.out.println("Type 'todo <work>' to add a task to the list.");
+        System.out.println("Type 'todo <description>' to add a task to the list.");
         System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
         System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
         System.out.println("Type 'delete <index>' to delete a task from your list.");
@@ -184,6 +196,7 @@ public class Kowalski {
                 currentTask.get(taskNumber - 1).markAsNotDone();
                 System.out.println( "C'mon Skipper, you're much better than that! I've marked this task as undone:");
                 System.out.println("  " + currentTask.get(taskNumber - 1));
+                writeText();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
                 System.out.println(DIVIDING_LINE);
@@ -205,6 +218,7 @@ public class Kowalski {
                 currentTask.get(taskNumber - 1).markAsDone();
                 System.out.println( "Way to go Skipper! I've marked this task as done:");
                 System.out.println("  " + currentTask.get(taskNumber - 1));
+                writeText();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
                 System.out.println(DIVIDING_LINE);
@@ -223,6 +237,7 @@ public class Kowalski {
             System.out.println("Skipper you've got this work to do:");
             System.out.println("  " + currentTask.get( lastTaskIndex));
             printCurrentTaskMessage(currentTask.size());
+            writeText();
             System.out.println(DIVIDING_LINE);
             break;
 
@@ -241,6 +256,7 @@ public class Kowalski {
                 System.out.println("Skipper, I have recorded this deadline:");
                 System.out.println("  " + currentTask.get( lastTaskIndex));
                 printCurrentTaskMessage(currentTask.size());
+                writeText();
                 System.out.println(DIVIDING_LINE);
             } catch (KowalskiException e){
                 System.out.println("Skipper your inputs are wrong! Try again!");
@@ -263,6 +279,7 @@ public class Kowalski {
                 System.out.println("Skipper I've noted this event in my calendar:");
                 System.out.println("  " + currentTask.get(lastTaskIndex));
                 printCurrentTaskMessage(currentTask.size());
+                writeText();
                 System.out.println(DIVIDING_LINE);
             } catch (KowalskiException e) {
                 System.out.println("Skipper your inputs are wrong! Try again!");
@@ -280,6 +297,104 @@ public class Kowalski {
         }
     }
 
+    public static void restoreTaskList(String fileInput){
+        String [] inputArray = fileInput.split("\\s*\\|\\s*");
+        switch (inputArray[0].trim()){
+        case "T":
+            Task newToDoTask = new Todo(inputArray[2].trim());
+            if (inputArray[1].trim().equals("X")) {
+                newToDoTask.markAsDone();
+            } else {
+                newToDoTask.markAsNotDone();
+            }
+            currentTask.add(newToDoTask);
+            break;
+
+        case "D":
+            Task newDeadlineTask = new Deadline(inputArray[2].trim(), inputArray[3].trim());
+            if (inputArray[1].trim().equals("X")) {
+                newDeadlineTask.markAsDone();
+            } else {
+                newDeadlineTask.markAsNotDone();
+            }
+            currentTask.add(newDeadlineTask);
+            break;
+        case "E":
+            String [] fromAndTo = inputArray[3].trim().split(" - ");
+            Task newEventTask = new Event(inputArray[2].trim(), fromAndTo[0].trim(), fromAndTo[1].trim());
+            if (inputArray[1].trim().equals("X")) {
+                newEventTask.markAsDone();
+            } else {
+                newEventTask.markAsNotDone();
+            }
+            currentTask.add(newEventTask);
+            break;
+        default:
+            System.out.println("Kowalski Analysis Error: Text File Corrupted!");
+            break;
+        }
+    }
+
+    public static void readTextFile() throws IOException{
+        try {
+            createTextFileFolder(Paths.get(TEXT_FILE_FOLDER));
+            Path filePath = Paths.get(FULL_FILE_PATH);
+            if (!Files.exists(filePath)){
+                System.out.println("Creating new Kowalski.txt file");
+                Files.createFile(filePath);
+            }
+            FileReader fileReader = new FileReader(TEXT_FILE_FOLDER + TEXT_FILE_DIRECTORY);
+            BufferedReader line = new BufferedReader(fileReader);
+            System.out.println("Kowalski retrieving previous data...");
+            while (line.ready()) {
+                restoreTaskList(line.readLine());
+            }
+            System.out.println("Kowalski Data Retrieval Complete!");
+            System.out.println(DIVIDING_LINE);
+        } catch (IOException e){
+            System.out.println("Kowalski Data Retrieval Failed!");
+            throw e;
+        }
+    }
+
+    public static void writeText(){
+        List <String> lines = new ArrayList<>();
+        for (Task task:currentTask){
+            lines.add(task.textFileInputString());
+        }
+        System.out.println(DIVIDING_LINE);
+        System.out.println("Kowalski analysing inputs...");
+        writeTextFile(lines);
+    }
+
+    public static void writeTextFile(List <String> lines) {
+        try {
+            Path parentPath = Paths.get(TEXT_FILE_FOLDER);
+            createTextFileFolder(parentPath);
+
+            FileWriter writer = new FileWriter(FULL_FILE_PATH);
+            for (String line : lines) {
+                writer.write(line + "\n");
+
+            }
+            System.out.println("Task recorded in the Text file!");
+            writer.close();
+        } catch (IOException e){
+            System.out.println("Kowalski Analysis failed - Issue with directory/text file!");
+        }
+    }
+
+    public static void createTextFileFolder(Path parentPath ) throws IOException{
+        try {
+            Files.createDirectories(parentPath);
+        } catch (FileAlreadyExistsException ignored){
+            //Ignore this error if file exists
+        } catch (IOException e){
+            System.out.println("Skipper, I am unable to create the data directory for you!");
+            throw e;
+        }
+    }
+
     /**
      * Prints out the message to end conversation with the user
      */
@@ -288,8 +403,9 @@ public class Kowalski {
         System.out.println(DIVIDING_LINE);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         printIntro();
+        readTextFile();
         String userCommand = processInput(in.next());
 
         while (!(userCommand.equals("bye"))){

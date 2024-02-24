@@ -10,6 +10,23 @@ public class Event extends Task {
         this.endDayAndTime = endDayAndTime;
     }
 
+    public String getStartDayAndTime() {
+        return startDayAndTime;
+    }
+
+    public String getEndDayAndTime() {
+        return endDayAndTime;
+    }
+
+    @Override
+    public String textFileInputString(){
+        return String.format("E | %s | %s | %s - %s",
+                isDone? "X" : "0",
+                getDescription().trim(),
+                getStartDayAndTime(),
+                getEndDayAndTime());
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startDayAndTime + " to: " + endDayAndTime + ")";
