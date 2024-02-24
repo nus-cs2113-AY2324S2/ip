@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
@@ -45,6 +46,12 @@ public class Vibes {
             break;
         default:
             throw new CommandNotFoundException();
+        }
+
+        try {
+            taskList.writeToFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
