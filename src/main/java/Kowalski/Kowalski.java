@@ -301,6 +301,17 @@ public class Kowalski {
             System.out.println("Kowalski Analysis failed - Issue with directory/text file!");
         }
     }
+    
+    public static void createTextFileFolder(Path parentPath ) throws IOException{
+        try {
+            Files.createDirectories(parentPath);
+        } catch (FileAlreadyExistsException ignored){
+            //Ignore this error if file exists
+        } catch (IOException e){
+            System.out.println("Skipper, I am unable to create the data directory for you!");
+            throw e;
+        }
+    }
 
     /**
      * Prints out the message to end conversation with the user
