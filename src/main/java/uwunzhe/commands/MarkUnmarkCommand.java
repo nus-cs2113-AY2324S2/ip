@@ -29,7 +29,7 @@ public class MarkUnmarkCommand extends Command {
             taskList.setItemStatus(this.commandString, index);
 
             storage.saveData(taskList);
-            
+
         } catch (IndexOutOfBoundsException e) {
             throw new UwunzheException("Huhhhhhhh? I cannot find!");
 

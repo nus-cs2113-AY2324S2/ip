@@ -9,4 +9,11 @@ unmark 2
 mark 2
 mark 1
 list
+list abcd
+bye 1234
+deadline abc /by 32
+find qwerty
+find abc
+find
+find qwertyuiop
 bye
