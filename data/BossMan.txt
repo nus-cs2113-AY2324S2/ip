@@ -4,3 +4,4 @@ D,false,assignment 1 , 2pm
 T,false,assignemtn2
 E,false,movie , 4pm , 6pm
 T,true,feed cat
+T,false,movie
