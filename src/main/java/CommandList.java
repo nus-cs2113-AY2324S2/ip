@@ -44,41 +44,41 @@ public enum CommandList {
         }
     }
 
-    public static void executeMark(CommandParser readUserCommand) {
-        Formatter.printMarkDoneNotif(readUserCommand);
+    public static void executeMark(CommandParser userCommandReader) {
+        Formatter.printMarkDoneNotif(userCommandReader);
     }
 
-    public static void executeUnmark(CommandParser readUserCommand) {
-        Formatter.printMarkUndoneNotif(readUserCommand);
+    public static void executeUnmark(CommandParser userCommandReader) {
+        Formatter.printMarkUndoneNotif(userCommandReader);
     }
 
-    public static void executeDelete(CommandParser readUserCommand) {
-        int index = Integer.parseInt(readUserCommand.getArgumentTokens()[0]) - 1;
-        Formatter.printDeleteNotif(readUserCommand);
-        CommandExecutor.tasks.remove(index);
+    public static void executeDelete(CommandParser userCommandReader) {
+        int index = Integer.parseInt(userCommandReader.getArgumentTokens()[0]) - 1;
+        Task removedTask = CommandExecutor.tasks.remove(index);
+        Formatter.printDeleteNotif(removedTask);
 
     }
 
-    public static void executeTodo(CommandParser readUserCommand) {
-        Todo newTodo = new Todo(readUserCommand.getArgumentTokens()[0]);
+    public static void executeTodo(CommandParser userCommandReader) {
+        Todo newTodo = new Todo(userCommandReader.getArgumentTokens()[0]);
         CommandExecutor.tasks.add(newTodo);
-        Formatter.printTaskNotif(readUserCommand);
+        Formatter.printTaskNotif(newTodo);
     }
 
-    public static void executeDeadline(CommandParser readUserCommand) {
-        Deadline newDeadline = new Deadline(readUserCommand.getArgumentTokens()[0], readUserCommand.getArgumentTokens()[1]);
+    public static void executeDeadline(CommandParser userCommandReader) {
+        Deadline newDeadline = new Deadline(userCommandReader.getArgumentTokens()[0], userCommandReader.getArgumentTokens()[1]);
         CommandExecutor.tasks.add(newDeadline);
-        Formatter.printTaskNotif(readUserCommand);
+        Formatter.printTaskNotif(newDeadline);
     }
 
-    public static void executeEvent(CommandParser readUserCommand) {
-        String description = readUserCommand.getArgumentTokens()[0];
-        String startTime = readUserCommand.getArgumentTokens()[1];
-        String endTime = readUserCommand.getArgumentTokens()[2];
+    public static void executeEvent(CommandParser userCommandReader) {
+        String description = userCommandReader.getArgumentTokens()[0];
+        String startTime = userCommandReader.getArgumentTokens()[1];
+        String endTime = userCommandReader.getArgumentTokens()[2];
 
         Event newEvent = new Event(description, startTime, endTime);
         CommandExecutor.tasks.add(newEvent);
-        Formatter.printTaskNotif(readUserCommand);
+        Formatter.printTaskNotif(newEvent);
     }
 }
 

@@ -6,13 +6,13 @@ public class CommandExecutor {
     static ArrayList<Task> tasks = new ArrayList<Task>();
     static Scanner in = new Scanner(System.in);
     static String userInput;
-    static CommandParser readUserCommand;
+    static CommandParser userCommandReader;
     public static void beginListening() {
         userInput = in.nextLine();
     }
     public static void processInput() throws ProcessInputException{
         try {
-            readUserCommand = new CommandParser(userInput);
+            userCommandReader = new CommandParser(userInput);
         } catch (IllegalCommandException e) {
             Formatter.printErrorWrongCommand();
             throw new ProcessInputException();
@@ -26,7 +26,7 @@ public class CommandExecutor {
     }
 
     public static void executeCommand() {
-            CommandList selectedCommand = CommandList.valueOf(readUserCommand.getCommandName());
+            CommandList selectedCommand = CommandList.valueOf(userCommandReader.getCommandName());
             switch (selectedCommand) {
             case BYE:
                 CommandList.executeBye();
@@ -35,22 +35,22 @@ public class CommandExecutor {
                 CommandList.executeList();
                 break;
             case MARK:
-                CommandList.executeMark(readUserCommand);
+                CommandList.executeMark(userCommandReader);
                 break;
             case TODO:
-                CommandList.executeTodo(readUserCommand);
+                CommandList.executeTodo(userCommandReader);
                 break;
             case DELETE:
-                CommandList.executeDelete(readUserCommand);
+                CommandList.executeDelete(userCommandReader);
                 break;
             case EVENT:
-                CommandList.executeEvent(readUserCommand);
+                CommandList.executeEvent(userCommandReader);
                 break;
             case UNMARK:
-                CommandList.executeUnmark(readUserCommand);
+                CommandList.executeUnmark(userCommandReader);
                 break;
             case DEADLINE:
-                CommandList.executeDeadline(readUserCommand);
+                CommandList.executeDeadline(userCommandReader);
                 break;
             default:
                 Formatter.printErrorUnknown();

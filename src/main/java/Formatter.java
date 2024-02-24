@@ -31,7 +31,7 @@ public class Formatter {
         printWrapper("〓");
         System.out.println("\t Here are the tasks in your list:");
         for (int i = 0; i < CommandExecutor.tasks.size(); i++) {
-            System.out.printf(" \t%d. %s\n", (i + 1), CommandExecutor.tasks.get(i).toString());
+            System.out.printf(" \t%d. %s\n", (i + 1), CommandExecutor.tasks.get(i));
         }
         printWrapper("〓");
     }
@@ -59,18 +59,18 @@ public class Formatter {
             printErrorIndexOutOfRange();
         }
     }
-    public static void printTaskNotif(CommandParser readUserCommand) {
+    public static void printTaskNotif(Task newTask) {
         printWrapper("_");
         System.out.println("\t Got it. I've added this task:");
-        System.out.printf("\t\t%s\n",CommandExecutor.tasks.get(CommandExecutor.tasks.size() - 1).toString());
+        System.out.printf("\t\t%s\n", newTask);
         System.out.printf("\t Now you have %d tasks in the list.\n",CommandExecutor.tasks.size());
         printWrapper("_");
     }
-    public static void printDeleteNotif(CommandParser readUserCommand) {
+    public static void printDeleteNotif(Task removedTask) {
         printWrapper("_");
         System.out.println("\t Noted. I've removed this task:");
-        System.out.printf("\t\t%s\n",CommandExecutor.tasks.get(CommandExecutor.tasks.size() - 1).toString());
-        System.out.printf("\t Now you have %d tasks in the list.\n",CommandExecutor.tasks.size() - 1);
+        System.out.printf("\t\t%s\n", removedTask);
+        System.out.printf("\t Now you have %d tasks in the list.\n",CommandExecutor.tasks.size());
         printWrapper("_");
     }
     public static void printErrorWrongCommand() {
