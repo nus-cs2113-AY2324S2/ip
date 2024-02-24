@@ -24,7 +24,7 @@ public final class Ui {
      * @param s
      * @return None
      */
-    public void print(String s) {
+    public static void print(String s) {
         System.out.print(s);
     }
 
@@ -34,8 +34,44 @@ public final class Ui {
      * @param task
      * @return None
      */
-    public void print(Task task) {
+    public static void printTask(Task task) {
         System.out.print(task);
+    }
+
+    /**
+     * Prints the string literal of a task with leading text.
+     * 
+     * @param task
+     * @param leading
+     * @return None
+     */
+    public static void printTask(Task task, String leading) {
+        System.out.print(leading);
+        System.out.print(task);
+    }
+
+    /**
+     * Prints the string literal of a task at the specified index.
+     * 
+     * @param taskList
+     * @param index
+     * @return None
+     */
+    public static void printTask(TaskList taskList, int index) {
+        System.out.print(taskList.getTask(index));
+    }
+
+    /**
+     * Prints the string literal of a task at the specified index with leading text.
+     * 
+     * @param taskList
+     * @param index
+     * @param leading
+     * @return None
+     */
+    public static void printTask(TaskList taskList, int index, String leading) {
+        System.out.print(leading);
+        System.out.print(taskList.getTask(index));
     }
 
     /**
@@ -44,7 +80,7 @@ public final class Ui {
      * @param s
      * @return None
      */
-    public void println(String s) {
+    public static void println(String s) {
         System.out.println(s);
     }
 
@@ -54,8 +90,44 @@ public final class Ui {
      * @param task
      * @return None
      */
-    public void println(Task task) {
+    public static void printlnTask(Task task) {
         System.out.println(task);
+    }
+
+    /**
+     * Prints the string literal of a task with leading text and a newline character.
+     * 
+     * @param task
+     * @param leading
+     * @return None
+     */
+    public static void printlnTask(Task task, String leading) {
+        System.out.print(leading);
+        System.out.println(task);
+    }
+
+    /**
+     * Prints the string literal of a task at the specified index with a newline character.
+     * 
+     * @param taskList
+     * @param index
+     * @return None
+     */
+    public static void printlnTask(TaskList taskList, int index) {
+        System.out.println(taskList.getTask(index));
+    }
+
+    /**
+     * Prints the string literal of a task at the specified index with leading text and a newline character.
+     * 
+     * @param taskList
+     * @param index
+     * @param leading
+     * @return None
+     */
+    public static void printlnTask(TaskList taskList, int index, String leading) {
+        System.out.print(leading);
+        System.out.println(taskList.getTask(index));
     }
 
     /**

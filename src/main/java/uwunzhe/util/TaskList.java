@@ -8,6 +8,7 @@ import uwunzhe.tasks.TaskType;
 import uwunzhe.tasks.Todo;
 import uwunzhe.tasks.Deadline;
 import uwunzhe.tasks.Event;
+import uwunzhe.util.Ui;
 
 public class TaskList {
     private static ArrayList<Task> list = new ArrayList<Task>();
@@ -42,51 +43,11 @@ public class TaskList {
     public void printSize() {
         int size = getSize();
         if (size == 0) {
-            System.out.println("No more taskies! Yay!");
+            Ui.println("No more taskies! Yay!");
         } else {
-        System.out.println("We only have uhhhh " + size
+        Ui.println("We only have uhhhh " + size
                 + " more thing" + (size > 1 ? "s" : "") + " left to go!");
         }
-    }
-
-    /**
-     * Prints the task.
-     * 
-     * @param task
-     */
-    public void printTask(Task task) {
-        System.out.println(task);
-    }
-
-    /**
-     * Prints the task with leading text.
-     * 
-     * @param task
-     * @param leading
-     */
-    public void printTask(Task task, String leading) {
-        System.out.print(leading);
-        System.out.println(task);
-    }
-
-    /**
-     * Prints the task at the specified index.
-     * 
-     * @param index
-     */
-    public void printTask(int index) {
-        System.out.println(list.get(index));
-    }
-
-    /**
-     * Prints the task at the specified index with leading text.
-     * 
-     * @param index
-     * @param leading
-     */
-    public void printTask(int index, String leading) {
-        System.out.print(leading);
-        System.out.println(list.get(index));
     }
 
     /**
@@ -141,8 +102,8 @@ public class TaskList {
             }
 
             size++;
-            System.out.println("Okey dokey here we go");
-            printTask(size - 1, " ");
+            Ui.println("Okey dokey here we go");
+            Ui.printlnTask(this, size - 1, " ");
             printSize();
 
         } catch (IndexOutOfBoundsException e) {
@@ -215,8 +176,8 @@ public class TaskList {
         list.remove(index);   
         size--;
         
-        System.out.println("There goes that task!");
-        printTask(toRemove, " ");
+        Ui.println("There goes that task!");
+        Ui.printlnTask(toRemove, " ");
         printSize();
     }
 }

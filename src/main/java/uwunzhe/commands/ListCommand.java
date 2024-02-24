@@ -23,7 +23,7 @@ public class ListCommand extends Command {
      * @param taskList The list of tasks.
      * @param storage The storage handler.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) 
+    public void execute(TaskList taskList, Storage storage) 
             throws UwunzheException {
         if (this.taskString.length() > 0) {
             throw new UwunzheException("Extra... Value?!");
@@ -35,12 +35,12 @@ public class ListCommand extends Command {
             throw new UwunzheException("You KAIBAI-ing");
         }
 
-        System.out.println("Yay! List!");
+        Ui.println("Yay! List!");
         Task task;
         for (int i = 0; i < size; i++) {
             task = taskList.getTask(i);
-            ui.print(i + 1 + ".");
-            ui.println(task);
+            Ui.print(i + 1 + ".");
+            Ui.printlnTask(task);
         }
     }
 }

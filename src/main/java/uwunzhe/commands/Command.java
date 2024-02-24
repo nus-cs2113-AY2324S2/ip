@@ -23,12 +23,11 @@ public abstract class Command {
      * Executes the command based on user input.
      * 
      * @param taskList The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage handler.
      * @return True if the list has been updated, false otherwise.
      * @throws UwunzheException If the command is invalid.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage)
+    public abstract void execute(TaskList taskList, Storage storage)
             throws UwunzheException;
 
     /**

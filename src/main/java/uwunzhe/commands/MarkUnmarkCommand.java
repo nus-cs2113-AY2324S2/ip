@@ -20,11 +20,10 @@ public class MarkUnmarkCommand extends Command {
      * Marks the task as done.
      * 
      * @param taskList The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage handler.
      * @throws UwunzheException If the task does not exist or input is invalid.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
         try {
             int index = Integer.parseInt(taskString) - 1;

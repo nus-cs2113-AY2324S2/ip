@@ -20,10 +20,9 @@ public class ExitCommand extends Command {
      * Exits the bot.
      * 
      * @param taskList The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage handler.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
         if (this.taskString.length() > 0) {
             throw new UwunzheException("Extra... Value?!");

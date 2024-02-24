@@ -20,10 +20,30 @@ public class FindCommand extends Command {
      * Finds a task from the list.
      * 
      * @param taskList The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage handler.
      * @throws UwunzheException If the task does not exist.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Storage storage)
+            throws UwunzheException {
+        if (this.taskString.length() == 0) {
+            throw new UwunzheException("No Value :(");
+        }
+
+        int size = taskList.getSize();
+        int counter = 0;
+        String taskDescription;
+
+        for (int i = 0; i < size; i++) {
+            taskDescription = taskList.getTask(i).getName();
+            if (taskDescription.contains(this.taskString)) {
+                counter++;
+                String counterString = Integer.toString(counter) + ".";
+                Ui.printlnTask(taskList, i, counterString);
+            }
+        }
+
+        if (counter == 0) {
+            Ui.println("Dun hv...");
+        }
     }
 }

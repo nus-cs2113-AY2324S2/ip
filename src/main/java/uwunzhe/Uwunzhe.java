@@ -43,7 +43,7 @@ public class Uwunzhe {
             try {
                 String input = ui.getInput();
                 Command c = inputHandler.parseInput(input);
-                c.execute(taskList, ui, storageHandler);
+                c.execute(taskList, storageHandler);
                 isRunning = !(c.isExit());
 
             } catch (UwunzheException e) {

@@ -20,11 +20,10 @@ public class DeleteCommand extends Command {
      * Deletes a task from the list.
      * 
      * @param taskList The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage handler.
      * @throws UwunzheException If the task does not exist.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
         try {
             int index = Integer.parseInt(this.taskString) - 1;

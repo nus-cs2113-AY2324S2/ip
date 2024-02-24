@@ -20,11 +20,10 @@ public class AddCommand extends Command {
      * Adds a task to the list.
      * 
      * @param taskList The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage handler.
      * @throws UwunzheException If the task is invalid.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage)
+    public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
         taskList.addItem(this.commandString, this.taskString);
         storage.saveData(taskList);
