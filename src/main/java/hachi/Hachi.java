@@ -277,27 +277,27 @@ public class Hachi {
         Scanner s = new Scanner(taskFile);
 
         while (s.hasNext()) {
-            String[] line = s.nextLine().split(" \\| ");
+            String[] lines = s.nextLine().split(" \\| ");
             Task toAdd;
 
-            switch (line[0]){
+            switch (lines[0]){
             case "T":
-                toAdd = new Todo(line[2]);
+                toAdd = new Todo(lines[2]);
                 break;
 
             case "D":
-                toAdd = new Deadline(line[2], line[3]);
+                toAdd = new Deadline(lines[2], lines[3]);
                 break;
 
             case "E":
-                toAdd = new Event(line[2], line[3], line[4]);
+                toAdd = new Event(lines[2], lines[3], lines[4]);
                 break;
 
             default:
                 throw new HachiException(HachiException.CORRUPTED_SAVE_MESSAGE);
             }
 
-            if (line[1].equals("X")) {
+            if (lines[1].equals("X")) {
                 toAdd.setCompleteness(true);
             }
             taskArrayList.add(toAdd);
