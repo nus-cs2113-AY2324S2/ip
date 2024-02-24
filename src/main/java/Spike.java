@@ -6,6 +6,8 @@ import Tasks.Todo;
 import Exceptions.ArgumentNotFoundException;
 import Exceptions.CommandNotFoundException;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Spike {
@@ -18,11 +20,14 @@ public class Spike {
     public static final int DEADLINE_TASK_INDEX = 9;
     public static final int TODO_TASK_INDEX = 5;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         displayWelcomeMsg();
-
-        Task[] inputList = new Task[MAX_TASK];
+        Task[] inputList = DataHandler.readFileContents(DataHandler.FILE_PATH);
         int iter = 0;
+        for (Task t : inputList){
+            if (t == null) break;
+            iter++;
+        }
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -36,12 +41,14 @@ public class Spike {
                 System.out.println("Argument Not Found! Please Try Again");
             } catch (TaskNotFoundException e){
                 System.out.println("Task Not Found! Please Try Again");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
     private static void startChatbot(Scanner in, Task[] inputList, int iter)
-            throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException {
+            throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException, IOException {
         outerLoop:
         while (true) {
             String input = in.nextLine();
@@ -94,6 +101,7 @@ public class Spike {
                 //System.out.println("Not valid");
             }
             iter += 1;
+            DataHandler.tasksToFile(inputList);
         }
     }
 
