@@ -4,19 +4,35 @@ import bossman.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TaskList class manages a list of tasks.
+ * It provides methods to add tasks, remove tasks, find tasks,
+ * mark tasks as done, unmark tasks, and print tasks.
+ */
 public class TaskList {
     private final List<Task> TASKS;
+
 
     public TaskList() {
         this.TASKS = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to be added
+     */
     public void addTask(Task task) {
         TASKS.add(task);
     }
 
+    /**
+     * Finds and print tasks in the task list containing a specified description.
+     *
+     * @param taskDescription the description to search for in tasks
+     */
     public void findTask(String taskDescription) {
-        String message = "Matching tasks: " + System.lineSeparator();
+        Ui.printMessageNoSepNewLine("Matching tasks:");
 
         int counter = 1;
 
@@ -32,6 +48,12 @@ public class TaskList {
         Ui.printSep();
     }
 
+    /**
+     * Removes a task from the task list.
+     *
+     * @param taskId the ID of the task to be removed
+     * @throws IndexOutOfBoundsException if the task ID is invalid
+     */
     public void removeTask(int taskId) throws IndexOutOfBoundsException {
         if (isValidTask(taskId)) {
             Task toDeleteTask = TASKS.get(taskId - 1);
@@ -50,6 +72,9 @@ public class TaskList {
         return TASKS;
     }
 
+    /**
+     * Prints all tasks in the task list and number them in order.
+     */
     public void printTasks() {
         Ui.printMessageNoSepNewLine("Todo List:");
 
@@ -65,6 +90,11 @@ public class TaskList {
         Ui.printSep();
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param taskId the ID of the task to be marked as done
+     */
     public void markTask(int taskId)  {
         if (isValidTask(taskId)) {
             this.TASKS.get(taskId - 1).setMark();
@@ -75,6 +105,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task as done.
+     *
+     * @param taskId the ID of the task to be marked as not done
+     */
     public void unmarkTask(int taskId) {
         if (isValidTask(taskId)) {
             this.TASKS.get(taskId - 1).setUnmark();
@@ -85,11 +120,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the task at the specified index.
+     *
+     * @param taskId the ID of the task to be printed
+     */
     private void echo(int taskId) {
         this.TASKS.get(taskId - 1).printTask();
         Ui.printNewLineWithSep();
     }
 
+    /**
+     * Checks if a task ID is valid.
+     *
+     * @param taskId the ID of the task to be validated
+     * @return true if the task ID is valid, false otherwise
+     */
     public boolean isValidTask(int taskId) {
         return taskId > 0 && taskId <= TASKS.size();
     }

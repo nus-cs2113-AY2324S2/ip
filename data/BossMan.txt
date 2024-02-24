@@ -2,6 +2,8 @@ E,false,networking,sunday 2pm,sunday 3pm
 D,false,code ,2024-02-24
 D,false,assignment 1 ,2024-02-24
 T,false,assignemtn2
-E,false,movie , 4pm , 6pm
 T,true,feed cat
 T,false,movie
+T,false,homework
+D,false,ppt slides ,2024-11-11
+E,false,mystery event , now , then
