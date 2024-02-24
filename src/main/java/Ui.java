@@ -27,6 +27,7 @@ public class Ui {
         System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
         System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
         System.out.println("Type 'delete <index>' to delete a task from your list.");
+        System.out.println("Type 'find <keyword>' to list all the tasks that have those keywords.");
         System.out.println("See ya bucko!");
         System.out.println(LINE_SEPARATOR);
     }
@@ -75,23 +76,49 @@ public class Ui {
             System.out.println("No tasks entered yet.");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                String taskType;
-                Task task = taskList.get(i);
-                if (task instanceof Deadline) {
-                    taskType = "[D]";
-                } else if (task instanceof Todo) {
-                    taskType = "[T]";
-                } else {
-                    taskType = "[E]";
-                }
-                System.out.println((i + 1) + ". " + taskType +
-                        " [" + task.getStatusIcon() + "] " +
-                        task.getDescription());
-            }
+            checkForTask(taskList);
         }
         System.out.println(LINE_SEPARATOR);
     }
+
+    public static void displayFindTask(List<Task> taskList) {
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("These are the tasks that matches your search: ");
+        checkForTask(taskList);
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public static void displaySingleTask(Task task) {
+        String taskType;
+        if (task instanceof Deadline) {
+            taskType = "[D]";
+        } else if (task instanceof Todo) {
+            taskType = "[T]";
+        } else {
+            taskType = "[E]";
+        }
+        System.out.println(taskType +
+                " [" + task.getStatusIcon() + "] " +
+                task.getDescription());
+    }
+
+    private static void checkForTask(List<Task> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            String taskType;
+            Task task = taskList.get(i);
+            if (task instanceof Deadline) {
+                taskType = "[D]";
+            } else if (task instanceof Todo) {
+                taskType = "[T]";
+            } else {
+                taskType = "[E]";
+            }
+            System.out.println((i + 1) + ". " + taskType +
+                    " [" + task.getStatusIcon() + "] " +
+                    task.getDescription());
+        }
+    }
+
 
     public static void printMessage(String message) {
         System.out.println(LINE_SEPARATOR);

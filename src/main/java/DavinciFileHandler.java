@@ -7,6 +7,13 @@ import java.util.List;
 
 public class DavinciFileHandler {
 
+    /**
+     * Reads the contents of a file and returns them as a list of strings.
+     *
+     * @param filePath The path to the file to be read.
+     * @return A list of strings representing the lines of the file.
+     * @throws IOException If an I/O error occurs.
+     */
     public static List<String> readFile(String filePath) throws IOException {
         Path myPath = Paths.get(filePath);
         Ui.printMessage("Loading past tasks from " + filePath);
@@ -24,6 +31,13 @@ public class DavinciFileHandler {
         return Files.readAllLines(myPath);
     }
 
+    /**
+     * Writes a list of strings to a file.
+     *
+     * @param filePath The path to the file to be written.
+     * @param lines The list of strings to be written to the file.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void writeFile(String filePath, List<String> lines) throws IOException {
         Path myPath = Paths.get(filePath);
         createDirectories(myPath.getParent());
@@ -37,10 +51,16 @@ public class DavinciFileHandler {
         }
     }
 
+    /**
+     * Creates directories for a given path if they do not exist.
+     *
+     * @param directory The path to the directory to be created.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void createDirectories(Path directory) throws IOException {
         try {
             Files.createDirectories(directory);
-        } catch (FileAlreadyExistsException ignored) { //ignore if the file exists
+        } catch (FileAlreadyExistsException ignored) { // ignore if the file exists
         } catch (IOException e) {
             System.out.println("Error creating directories: " + e.getMessage());
             throw e;

@@ -34,8 +34,10 @@ public class TaskList {
      */
     public static void deleteTask(int taskIndex) throws DavinciException {
         if (taskIndex >= 0 && taskIndex < taskList.size()) {
+            Task deletedTask = taskList.get(taskIndex);
             taskList.remove(taskIndex);
-            Ui.printMessage("Noted. I've removed this task:");
+            System.out.println("Noted. I've removed this task:");
+            Ui.displaySingleTask(deletedTask);
             Ui.displayTaskList(taskList);
             writeFile();
         } else {
@@ -291,8 +293,6 @@ public class TaskList {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < TaskList.getTaskList().size()) {
                 deleteTask(taskIndex);
-                Ui.printMessage("Noted. I've removed this task:");
-                Ui.displayTaskList(TaskList.getTaskList());
             } else {
                 throw new DavinciException("Invalid task index.");
             }
@@ -301,5 +301,3 @@ public class TaskList {
         }
     }
 }
-
-
