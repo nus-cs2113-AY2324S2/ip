@@ -1,0 +1,5 @@
+T | 1 | drink
+T | 0 | go darren house
+D | 0 | ip | tomorrow
+T | 1 | darren
+E | 1 | club | tonight | tomorrow

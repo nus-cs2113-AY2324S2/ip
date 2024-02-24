@@ -3,6 +3,10 @@ import omoh.Omoh;
 
 import omoh.customexceptions.EmptyTaskNumberException;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Task {
     protected static Task[] tasks;
     public static int totalTasks = 0;
@@ -29,6 +33,31 @@ public class Task {
             System.out.println(serialNumber + "." + tasks[i].toString());
             serialNumber += 1;
         }
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("data/output.txt");
+        for(int i = 0; i < totalTasks ; i++) {
+            String taskType = tasks[i].type;
+            int isMark = tasks[i].isDone ? 1 : 0;
+
+            switch (taskType) {
+            case "T":
+                fw.write(taskType + " | " + isMark + " | " + tasks[i].description);
+                break;
+            case "D":
+                Deadline deadline = (Deadline) tasks[i]; // Casting to Deadline
+                fw.write(taskType + " | " + isMark + " | " + tasks[i].description + " | " + deadline.getBy());
+                break;
+            case "E":
+                Event event = (Event) tasks[i]; //Casting to event
+                fw.write(taskType + " | " + isMark + " | " + tasks[i].description +
+                        " | " + event.getFrom() + " | " + event.getTo());
+                break;
+            }
+            fw.write(System.lineSeparator());
+        }
+        fw.close();
     }
 
     public String getStatusIcon() {
