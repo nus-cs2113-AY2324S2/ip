@@ -3,6 +3,8 @@ package Tasking;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static ReadWriteToFile.ReadWriteFile.rewriteFile;
+
 public class TaskList {
     private static ArrayList<Task> list = new ArrayList<>();
 
@@ -13,16 +15,17 @@ public class TaskList {
             System.out.println(" Got it. mark I've added this task:");
             System.out.println(" " + userTask);
             System.out.println(" Now you have " + list.size() + " tasks in the list.");
-            Davvy.writeData(userTask, true);
+            Davvy.writeData(userTask);
         }
     }
 
-    public static void deleteTask(int index) {
+    public static void deleteTask(int index) throws IOException {
         Task task = list.get(index - 1);
         list.remove(index - 1);
         System.out.println(" Noted. I've removed this task:");
         System.out.println(" " + task);
         System.out.println(" Now you have " + list.size() + " tasks in the list.");
+        rewriteFile();
     }
 
     public static Task getTask(int taskNumber) {

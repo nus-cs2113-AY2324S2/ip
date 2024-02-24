@@ -18,19 +18,20 @@ public class Davvy {
     }
 
     private static void printStatement(String statementType) {
-        printLine();
         switch (statementType) {
         case "greetings":
+            printLine();
             System.out.println(" Hello! I'm " + BOT_NAME + "\n" + " What can I do for you?");
+            printLine();
             break;
         case "goodbye":
             System.out.println(" Bye. Hope to see you again soon!");
+            printLine();
             break;
         }
-        printLine();
     }
 
-    public static void writeData(Task task, boolean isAppend) throws IOException {
+    public static void writeData(Task task) throws IOException {
         int status = task.isDone ? 1 : 0;
         String data = "";
         // Formatting data into different string to be saved in file
@@ -43,7 +44,7 @@ public class Davvy {
             data = "D | " + status + " | " + task.description + " | "
                     + ((Deadline) task).dueDate;
         }
-        ReadWriteFile.writeToFile(data, isAppend);
+        ReadWriteFile.writeToFile(data);
     }
 
     private static void handleDeadline(String commandArg) throws IOException {
@@ -66,24 +67,27 @@ public class Davvy {
         try {
             ReadWriteFile.readFile();
             while (!isExitStatus) {
-                String[] parsedInput = processInput(in.nextLine());
-                printLine();
-                processCommand(parsedInput);
+                try {
+                    String[] parsedInput = processInput(in.nextLine());
+                    printLine();
+                    processCommand(parsedInput);
+                } catch (EmptyStatementException e) {
+                    printLine();
+                    System.out.println("Please type something >:(");
+                } catch (NumberFormatException e) {
+                    System.out.println("Exception thrown: " + e.getMessage());
+                    System.out.println("Please Enter A Valid Number");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Exception thrown: " + e.getMessage());
+                    System.out.println("There is no such task!");
+                } catch (EmptyArgumentException e) {
+                    System.out.println("Please enter a proper argument >:(");
+                } finally {
+                    printLine();
+                }
             }
-        } catch (EmptyStatementException e) {
-            System.out.println("Please type something >:(");
-        } catch (NumberFormatException e) {
-            System.out.println("Exception thrown: " + e.getMessage());
-            System.out.println("Please Enter A Valid Number");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Exception thrown: " + e.getMessage());
-            System.out.println("There is no such task!");
-        } catch (EmptyArgumentException e) {
-            System.out.println("Please enter a proper argument >:(");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
-        }
-        finally {
             printLine();
         }
     }
@@ -119,7 +123,7 @@ public class Davvy {
             break;
         case "unmark":
             taskIndex = parseInt(commandArg.trim()) - 1;
-            TaskList.getTask(taskIndex).markNotDone();
+            TaskList.getTask(taskIndex).markNotDone(true);
             break;
         case "bye":
             isExitStatus = true;
@@ -146,6 +150,7 @@ public class Davvy {
             }
             break;
         case "delete":
+            // This regex refers to all numbers
             if (commandArg.matches("[0-9]+")) {
                 TaskList.deleteTask(Integer.parseInt(commandArg));
             } else {

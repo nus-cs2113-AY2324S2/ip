@@ -2,6 +2,10 @@ package Tasking;
 
 import Tasking.Davvy;
 
+import java.io.IOException;
+
+import static ReadWriteToFile.ReadWriteFile.rewriteFile;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -20,18 +24,22 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markDone(boolean isPrint) {
+    public void markDone(boolean isPrint) throws IOException {
         isDone = true;
         if (isPrint) {
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println(this);
+            rewriteFile();
         }
     }
 
-    public void markNotDone() {
+    public void markNotDone(boolean isPrint) throws IOException {
         isDone = false;
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println(" " + this);
+        if (isPrint) {
+            System.out.println(" OK, I've marked this task as not done yet:");
+            System.out.println(" " + this);
+            rewriteFile();
+        }
     }
 
     @Override

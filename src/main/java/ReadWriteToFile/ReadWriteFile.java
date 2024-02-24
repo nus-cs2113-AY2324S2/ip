@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class ReadWriteFile {
 
-    private static final String DIRECTORY_PATH = "./data/";
-    private static final String FILE_PATH = DIRECTORY_PATH + "/davvy.txt";
+    public static final String DIRECTORY_PATH = "./data/";
+    public static final String FILE_PATH = DIRECTORY_PATH + "/davvy.txt";
 
     public static void createFile() throws IOException {
         File directory = new File(DIRECTORY_PATH);
@@ -23,11 +23,20 @@ public class ReadWriteFile {
             file.createNewFile(); // Not a must to assign its return value
         }
     }
-    public static void writeToFile(String textToAppend, boolean isAppend) throws IOException {
+    public static void writeToFile(String textToAppend) throws IOException {
         createFile();
-        FileWriter fw = new FileWriter(FILE_PATH, isAppend);
+        FileWriter fw = new FileWriter(FILE_PATH, true);
         fw.write(textToAppend + "\n");
         fw.close();
+    }
+
+    public static void rewriteFile() throws IOException {
+        File file = new File(FILE_PATH);
+        file.delete();
+        file.createNewFile();
+        for (int i = 0; i < TaskList.listLength(); i++) {
+            Davvy.writeData(TaskList.getTask(i));
+        }
     }
 
     public static void readFile() throws IOException {
@@ -44,10 +53,12 @@ public class ReadWriteFile {
                     task = new Todo(" " + data[2].trim());
                     break;
                 case "D":
-                    task = new Deadline(" " + data[2].trim(), data[3].trim());
+                    task = new Deadline(" " + data[2].trim() + " ",
+                            " " + data[3].trim() + " ");
                     break;
                 case "E":
-                    task = new Events(" " + data[2].trim(), data[3].trim(), data[4].trim());
+                    task = new Events(" " + data[2].trim(),
+                            " " + data[3].trim() + " ", " " + data[4].trim());
                     break;
                 default:
                     System.out.println("Unknown Data type found in file");
@@ -58,6 +69,8 @@ public class ReadWriteFile {
                     TaskList.addTask(task, true);
                     if (data[1].contains("1")) {
                         task.markDone(false);
+                    } else {
+                        task.markNotDone(false);
                     }
                 }
             }
@@ -66,5 +79,4 @@ public class ReadWriteFile {
             System.out.println("Exception thrown: " + e.getMessage());
         }
     }
-
 }
