@@ -2,7 +2,7 @@
  * The DavinciBot class is a simple to-do list application that allows users
  * to manage tasks, including adding, marking as done, deleting, listing tasks
  * and finding tasks.
- * The DavinicBot will also display tasks from the past if the user had interacted
+ * The DaviniciBot will also display tasks from the past if the user had interacted
  * with the chatbot before.
  */
 public class DavinciBot {

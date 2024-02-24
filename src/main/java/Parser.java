@@ -27,7 +27,7 @@ public class Parser {
      * Parses user input and performs actions based on pre-set commands.
      *
      * @param userInput The user input to be parsed.
-     * @param taskList  The list of tasks to be changed based on the command.
+     * @param taskList The list of tasks to be changed based on the command.
      */
     public static void parseUserInput(String userInput, List<Task> taskList) {
         if (userInput.isEmpty()) {
@@ -53,7 +53,7 @@ public class Parser {
      * Finds tasks in the task list that match the given keyword and displays them.
      *
      * @param userInput The user input containing the "find" keyword.
-     * @param taskList  The list of tasks to search for matching tasks.
+     * @param taskList The list of tasks to search for matching tasks.
      */
     private static void findTask(String userInput, List<Task> taskList) {
         String keyword = userInput.substring(FIND.length()).trim().toLowerCase();
@@ -77,7 +77,7 @@ public class Parser {
      * Marks a task as completed.
      *
      * @param userInput The user input containing the "mark" command and task index.
-     * @param taskList  The list of tasks to update based on the completion status.
+     * @param taskList The list of tasks to update based on the completion status.
      */
     private static void completeTask(String userInput, List<Task> taskList) {
         try {
@@ -93,7 +93,7 @@ public class Parser {
     /**
      * Checks if a task can be marked as completed and updates the task list accordingly.
      *
-     * @param parts    The split parts of the user input containing the task index.
+     * @param parts The split parts of the user input containing the task index.
      * @param taskList The list of tasks to update based on the completion status.
      * @throws DavinciException If the task index is invalid.
      */
@@ -117,7 +117,7 @@ public class Parser {
      * Unmarks a completed task.
      *
      * @param userInput The user input containing the "unmark" command and task index.
-     * @param taskList  The list of tasks to update based on the completion status.
+     * @param taskList The list of tasks to update based on the completion status.
      */
     private static void unmarkTask(String userInput, List<Task> taskList) {
         try {
@@ -133,7 +133,7 @@ public class Parser {
     /**
      * Checks if a completed task can be unmarked and updates the task list accordingly.
      *
-     * @param parts    The split parts of the user input containing the task index.
+     * @param parts The split parts of the user input containing the task index.
      * @param taskList The list of tasks to update based on the completion status.
      * @throws DavinciException If the task index is invalid.
      */
