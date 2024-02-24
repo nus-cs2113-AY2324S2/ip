@@ -24,6 +24,10 @@ public class Task {
         return Integer.parseInt(indexToMark) - 1;
     }
 
+    public String toFileString() {
+        return null;
+    }
+
     public String toString() {
         return "[" + getStatusIcon() + "]" + description;
     }

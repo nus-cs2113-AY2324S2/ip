@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = TaskFile.load();
     public static void addTask(String line) {
         Greet greet = new Greet();
         Task task;
@@ -19,6 +19,7 @@ public class Duke {
             return;
         }
         tasks.add(task);
+        TaskFile.save(tasks);
         greet.printFormat();
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
@@ -28,6 +29,8 @@ public class Duke {
 
     public static void deleteTask(int indexToDelete) {
         tasks.remove(indexToDelete);
+        TaskFile.save(tasks);
+
     }
 
     public static void printList() {
@@ -95,6 +98,7 @@ public class Duke {
                     Task taskToMark = tasks.get(indexToMark);
                     greet.printFormat();
                     taskToMark.setIsDone();
+                    TaskFile.save(tasks);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(taskToMark);
                     greet.printFormat();
@@ -107,6 +111,7 @@ public class Duke {
                     Task taskToUnmark = tasks.get(indexToUnmark);
                     greet.printFormat();
                     taskToUnmark.setIsNotDone();
+                    TaskFile.save(tasks);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(taskToUnmark);
                     greet.printFormat();
