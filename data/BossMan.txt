@@ -1,6 +1,6 @@
 E,false,networking,sunday 2pm,sunday 3pm
-D,false,code , tonight
-D,false,assignment 1 , 2pm
+D,false,code ,2024-02-24
+D,false,assignment 1 ,2024-02-24
 T,false,assignemtn2
 E,false,movie , 4pm , 6pm
 T,true,feed cat

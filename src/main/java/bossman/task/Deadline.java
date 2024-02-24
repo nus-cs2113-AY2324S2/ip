@@ -2,9 +2,11 @@ package bossman.task;
 
 import bossman.ui.Ui;
 
+import java.time.LocalDate;
+
 public class Deadline extends Todo {
-    private final String BY;
-    public Deadline(String task, boolean isMark, String by) {
+    private final LocalDate BY;
+    public Deadline(String task, boolean isMark, LocalDate by) {
         super(task, isMark);
         this.BY = by;
         this.typeSymbol = "[D]";
