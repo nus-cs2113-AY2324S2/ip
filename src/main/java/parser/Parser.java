@@ -27,7 +27,7 @@ public class Parser {
             return new EventCommand(description);
         case "delete":
             return new DeleteCommand(description);
-        case "Bye":
+        case "bye":
             return new ByeCommand();
         default:
             throw new JingHaoExceptions("Unknown command encountered! Please try again.");
