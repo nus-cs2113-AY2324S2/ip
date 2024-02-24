@@ -10,8 +10,9 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class Davvy {
-    private static final String BOT_NAME = "Tasking.Davvy";
+    private static final String BOT_NAME = "Davvy";
     private static boolean isExitStatus;
+
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -45,6 +46,19 @@ public class Davvy {
         ReadWriteFile.writeToFile(data, isAppend);
     }
 
+    private static void handleDeadline(String commandArg) throws IOException {
+        String[] newCommandArg = commandArg.split("/by", 2);
+        Deadline inputDeadline = new Deadline(newCommandArg[0], newCommandArg[1]);
+        TaskList.addTask(inputDeadline,false);
+    }
+
+    private static void handleEvent(String commandArg) throws IOException {
+        String[] newCommandArg = commandArg.split("/from", 2);
+        String[] newCommandArg2 = newCommandArg[1].split("/to", 2);
+        Events inputEvent = new Events(newCommandArg[0], newCommandArg2[0], newCommandArg2[1]);
+        TaskList.addTask(inputEvent, false);
+    }
+
     public void startChat() {
         printStatement("greetings");
         isExitStatus = false;
@@ -53,21 +67,18 @@ public class Davvy {
             ReadWriteFile.readFile();
             while (!isExitStatus) {
                 String[] parsedInput = processInput(in.nextLine());
+                printLine();
                 processCommand(parsedInput);
             }
         } catch (EmptyStatementException e) {
-            printLine();
             System.out.println("Please type something >:(");
         } catch (NumberFormatException e) {
-            printLine();
             System.out.println("Exception thrown: " + e.getMessage());
             System.out.println("Please Enter A Valid Number");
         } catch (IndexOutOfBoundsException e) {
-            printLine();
             System.out.println("Exception thrown: " + e.getMessage());
             System.out.println("There is no such task!");
         } catch (EmptyArgumentException e) {
-            printLine();
             System.out.println("Please enter a proper argument >:(");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
@@ -89,7 +100,7 @@ public class Davvy {
         }
         // String Cleaning
         processedInput[0] = processedInput[0].trim().toLowerCase();
-        processedInput[1] = processedInput[1].isEmpty() ? "" : processedInput[1];
+        processedInput[1] = processedInput[1].isEmpty() ? "" : processedInput[1].trim();
         return processedInput;
     }
 
@@ -122,31 +133,27 @@ public class Davvy {
             break;
         case "deadline":
             if (commandArg.contains("/by")) {
-                String[] newCommandArg = commandArg.split("/by", 2);
-                Deadline inputDeadline = new Deadline(newCommandArg[0], newCommandArg[1]);
-                TaskList.addTask(inputDeadline,false);
+                handleDeadline(commandArg);
             } else {
-                printLine();
                 System.out.println("Please put a date!");
-                printLine();
             }
             break;
         case "event":
             if (commandArg.contains("/from") && commandArg.contains("/to")) {
-                String[] newCommandArg = commandArg.split("/from", 2);
-                String[] newCommandArg2 = newCommandArg[1].split("/to", 2);
-                Events inputEvent = new Events(newCommandArg[0], newCommandArg2[0], newCommandArg2[1]);
-                TaskList.addTask(inputEvent, false);
+                handleEvent(commandArg);
             } else {
-                printLine();
                 System.out.println("Please put a correct time!");
-                printLine();
+            }
+            break;
+        case "delete":
+            if (commandArg.matches("[0-9]+")) {
+                TaskList.deleteTask(Integer.parseInt(commandArg));
+            } else {
+                System.out.println("Please enter a number!");
             }
             break;
         default:
-            printLine();
             System.out.println("Unknown Command, type something I know please!");
-            printLine();
             break;
         }
     }
