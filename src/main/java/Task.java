@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -17,15 +19,15 @@ public class Task {
         this.isDone = true;
     }
 
-    public static void addTask(String text, Task[] tasks, int num) throws InvalidTodoSyntaxException {
+    public static void addTask(String text, ArrayList<Task> tasksArrayList, int num) throws InvalidTodoSyntaxException {
         // Todo
         if (text.startsWith("todo")) {
             if (text.length() < "todo".length() + 2) {
                 throw new InvalidTodoSyntaxException();
             } else {
-                tasks[num] = new ToDo(text);
+                tasksArrayList.add(new ToDo(text));
                 System.out.println("Bala-lala. I've added this task:" + System.lineSeparator()
-                        + "[T] " + "[ ] " + tasks[num].description);
+                        + "[T] " + "[ ] " + tasksArrayList.get(num).description);
             }
         }
 
@@ -34,9 +36,9 @@ public class Task {
             if (text.length() < "deadline".length() + 2) {
                 System.out.println("OH NOOO! Please enter the deadline task name.");
             } else {
-                tasks[num] = new Deadline(text);
+                tasksArrayList.add(new Deadline(text));
                 System.out.println("Bala-lala. I've added this task:" + System.lineSeparator()
-                        + "[D] " + "[ ] " + tasks[num].description);
+                        + "[D] " + "[ ] " + tasksArrayList.get(num).description);
             }
         }
         // Event
@@ -44,9 +46,9 @@ public class Task {
             if (text.length() < "event".length() + 2) {
                 System.out.println("OH NOOO! Please enter the event task name.");
             } else {
-                tasks[num] = new Event(text);
+                tasksArrayList.add(new Event(text));
                 System.out.println("Bala-lala. I've added this task:" + System.lineSeparator()
-                        + "[E] " + "[ ] " + tasks[num].description);
+                        + "[E] " + "[ ] " + tasksArrayList.get(num).description);
             }
         }
         // ERROR
@@ -56,4 +58,10 @@ public class Task {
 
     }
 
+    public static void deleteTask(int taskIndex,  ArrayList<Task> taskArrayList) {
+        String removedTask = taskArrayList.get(taskIndex).description;
+        taskArrayList.remove(taskIndex);
+        System.out.println("Bala-lala. I've removed this task:");
+        System.out.println(removedTask);
+    }
 }
