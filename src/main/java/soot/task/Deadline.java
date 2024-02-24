@@ -1,11 +1,18 @@
 package soot.task;
 
 public class Deadline extends Task {
-    private String dueDate;
+    protected String dueDate;
 
-    public Deadline(String taskName, int counter, String dueDate) {
-        super(taskName, counter);
+    public Deadline(String taskName, String dueDate) {
+        super(taskName);
         this.dueDate = dueDate;
+    }
+
+    @Override
+    public void printDelete() {
+        super.printDelete();
+        System.out.println(" " + this.taskName + " (by: " + dueDate + "!)");
+        super.printTaskCount();
     }
 
     @Override

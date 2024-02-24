@@ -7,9 +7,8 @@ public class Task {
 //    protected int index;
     protected boolean isDone;
 
-    public Task(String input, int counter) {
+    public Task(String input) {
         this.taskName = input;
-//        this.index = counter + 1;
         this.isDone = false;
     }
     public void printCheckbox() {

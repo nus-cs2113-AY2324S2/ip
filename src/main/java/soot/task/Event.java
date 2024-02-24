@@ -1,20 +1,20 @@
 package soot.task;
 
 public class Event extends Task {
-    String startDate;
-    String endDate;
-
-    public Event(String taskName, int counter, String startDate, String endDate) {
-        super(taskName, counter);
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+    protected String startDate;
+    protected String endDate;
 
     @Override
     public void printDelete() {
         super.printDelete();
         System.out.println(" " + this.taskName + " (from: " + startDate + " ~~ to: " + endDate + "!)");
         super.printTaskCount();
+    }
+
+    public Event(String taskName, String startDate, String endDate) {
+        super(taskName);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override

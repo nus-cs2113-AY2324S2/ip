@@ -1,8 +1,8 @@
 package soot.task;
 
 public class Todo extends Task {
-    public Todo(String input, int counter) {
-        super(input, counter);
+    public Todo(String input) {
+        super(input);
     }
     @Override
     public void printDelete() {

@@ -64,14 +64,14 @@ public class CommandManager {
                 inputTask = input.substring(7);
                 listIndex = Integer.parseInt(inputTask) - 1;
 
+                listCounter--;
                 taskList.get(listIndex).printDelete();
                 taskList.remove(listIndex);
-                listCounter--;
                 drawLine();
                 break;
             case "todo":
                 inputTask = input.substring(5);
-                taskList.add(new Todo(inputTask, taskList.size()));
+                taskList.add(new Todo(inputTask));
                 listCounter++;
                 taskList.get(taskList.size()-1).printRespond();
                 drawLine();
@@ -83,7 +83,7 @@ public class CommandManager {
                 String taskName = inputTask.substring(0, deadlineIndex - 1);
                 String dueDate = inputTask.substring(deadlineIndex + 4);
 
-                taskList.add(new Deadline(taskName, taskList.size(), dueDate));
+                taskList.add(new Deadline(taskName, dueDate));
                 listCounter++;
                 taskList.get(taskList.size()-1).printRespond();
                 drawLine();
@@ -100,7 +100,7 @@ public class CommandManager {
                 String startDate = timeLine.substring(0, endIndex - 1);
                 String endDate = timeLine.substring(endIndex + 4);
 
-                taskList.add(new Event(taskName, taskList.size(), startDate, endDate));
+                taskList.add(new Event(taskName, startDate, endDate));
                 listCounter++;
                 taskList.get(taskList.size()-1).printRespond();
                 drawLine();
