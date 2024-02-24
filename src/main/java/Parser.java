@@ -1,6 +1,9 @@
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Parses user input and performs actions based on pre-set commands.
+ */
 public class Parser {
     public static final String ARE_YOU_MUTE = "... are you mute?";
     public static final String GOODBYE = "Goodbye... It may be a mere few seconds for you but an eternity for me.";
@@ -15,10 +18,17 @@ public class Parser {
     public static final String UNMARK = "unmark";
     public static final String FIND = "find";
     public static final int SPLIT_INTO_TWO_PARTS = 2;
-    public static final String AIN_T_NO_DAMN_TASK_THAT_CONTAINS_THIS_KEYWORD_BUDDY = "Ain't no damn task that contains this keyword buddy.";
-    public static final String HELLO_ITS_ME_WHAT_ARE_YOU_TRYING_TO_SEARCH_FOR_BUDDY = "Hello, its me. What are you trying to search for buddy?";
+    public static final String AIN_T_NO_DAMN_TASK_THAT_CONTAINS_THIS_KEYWORD_BUDDY = "Ain't no damn task that " +
+            "contains this keyword buddy.";
+    public static final String HELLO_ITS_ME_WHAT_ARE_YOU_TRYING_TO_SEARCH_FOR_BUDDY = "Hello, its me." +
+            " What are you trying to search for buddy?";
 
-
+    /**
+     * Parses user input and performs actions based on pre-set commands.
+     *
+     * @param userInput The user input to be parsed.
+     * @param taskList  The list of tasks to be changed based on the command.
+     */
     public static void parseUserInput(String userInput, List<Task> taskList) {
         if (userInput.isEmpty()) {
             Ui.printMessage(ARE_YOU_MUTE);
@@ -39,6 +49,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds tasks in the task list that match the given keyword and displays them.
+     *
+     * @param userInput The user input containing the "find" keyword.
+     * @param taskList  The list of tasks to search for matching tasks.
+     */
     private static void findTask(String userInput, List<Task> taskList) {
         String keyword = userInput.substring(FIND.length()).trim().toLowerCase();
 
@@ -57,7 +73,12 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Marks a task as completed.
+     *
+     * @param userInput The user input containing the "mark" command and task index.
+     * @param taskList  The list of tasks to update based on the completion status.
+     */
     private static void completeTask(String userInput, List<Task> taskList) {
         try {
             String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
@@ -69,6 +90,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if a task can be marked as completed and updates the task list accordingly.
+     *
+     * @param parts    The split parts of the user input containing the task index.
+     * @param taskList The list of tasks to update based on the completion status.
+     * @throws DavinciException If the task index is invalid.
+     */
     private static void checkIfTaskCanBeCompleted(String[] parts, List<Task> taskList) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
@@ -85,6 +113,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Unmarks a completed task.
+     *
+     * @param userInput The user input containing the "unmark" command and task index.
+     * @param taskList  The list of tasks to update based on the completion status.
+     */
     private static void unmarkTask(String userInput, List<Task> taskList) {
         try {
             String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
@@ -96,6 +130,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if a completed task can be unmarked and updates the task list accordingly.
+     *
+     * @param parts    The split parts of the user input containing the task index.
+     * @param taskList The list of tasks to update based on the completion status.
+     * @throws DavinciException If the task index is invalid.
+     */
     private static void checkIfTaskCanBeUnmarked(String[] parts, List<Task> taskList) throws DavinciException {
         if (parts.length > 1) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
@@ -111,4 +152,5 @@ public class Parser {
             throw new DavinciException(SPECIFY_INDEX + " to unmark.");
         }
     }
+
 }

@@ -1,7 +1,10 @@
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * The Ui class handles user interactions and provides methods for printing messages,
+ * displaying task lists, and processing user commands.
+ */
 public class Ui {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     public static final int SPLIT_INTO_TWO_PARTS = 2;
@@ -12,7 +15,9 @@ public class Ui {
     public static final String DELETE = "delete";
     public static final String GOODBYE = "Goodbye... It may be a mere few seconds for you but an eternity for me.";
 
-
+    /**
+     * Prints the starting message and instructions for using DavinciBot.
+     */
     public static void printStartingMessage() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Sup! I'm DavinciBot! I was the smartest man alive, but now I am just a list maker.");
@@ -81,13 +86,23 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays the tasks that match the user's search keyword.
+     *
+     * @param taskList The list of tasks to be displayed.
+     */
     public static void displayFindTask(List<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("These are the tasks that matches your search: ");
+        System.out.println("These are the tasks that match your search: ");
         checkForTask(taskList);
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Displays a single task with the correct task icon.
+     *
+     * @param task The task to be displayed.
+     */
     public static void displaySingleTask(Task task) {
         String taskType;
         if (task instanceof Deadline) {
@@ -119,13 +134,17 @@ public class Ui {
         }
     }
 
-
     public static void printMessage(String message) {
         System.out.println(LINE_SEPARATOR);
         System.out.println(message);
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Echoes the last added task.
+     *
+     * @param taskList The list of tasks to get the last added task.
+     */
     public static void echoTask(List<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
         Task addedTask = taskList.get(taskList.size() - 1);

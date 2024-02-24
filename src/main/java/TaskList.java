@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a collection of tasks and provides methods to manipulate the task list.
+ */
 public class TaskList {
 
     public static final String DATA_DIRECTORY = "./ip/data";

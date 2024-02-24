@@ -5,6 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
 
+/**
+ * Handles file operations such as reading and writing tasks to a file, and creating directories.
+ */
 public class DavinciFileHandler {
 
     /**
