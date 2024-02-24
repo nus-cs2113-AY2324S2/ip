@@ -15,7 +15,7 @@ public class Task {
         return description;
     }
     public String getStatus(){
-        return (isDone ? "X" : " "); // mark done task w X
+        return (isDone ? "1" : "0"); // 1 == done
     }
     public void markAsDone(){
         isDone = true;
