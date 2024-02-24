@@ -1,4 +1,5 @@
 public class Deadline extends Task{
+    private final static char TASK_TYPE = 'D';
     protected String by;
 
     public Deadline (String description, String by){
@@ -12,6 +13,10 @@ public class Deadline extends Task{
 
     public void setBy(String by) {
         this.by = by;
+    }
+
+    public char getTaskType(){
+        return TASK_TYPE;
     }
 
     @Override
