@@ -15,7 +15,10 @@ public class Constants {
     protected static final String HELP_COMMAND = "help";
     protected static final String EXIT_COMMAND = "exit";
 
-    protected static final char TODO_INDICATOR = 'T';
-    protected static final char DEADLINE_INDICATOR = 'D';
-    protected static final char EVENT_INDICATOR = 'E';
+    public static final char TODO_INDICATOR = 'T';
+    public static final char DEADLINE_INDICATOR = 'D';
+    public static final char EVENT_INDICATOR = 'E';
+
+    public static final int TASK_INDICATOR_INDEX = 7;
+    public static final int TASK_DESCRIPTION_INDEX = 10;
 }
