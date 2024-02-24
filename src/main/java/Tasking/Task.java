@@ -9,15 +9,23 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public Task(String description, boolean status) {
+        this.description = description;
+        this.isDone = status;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-    public void markDone() {
+    public void markDone(boolean isPrint) {
         isDone = true;
-        Davvy.printLine();
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println(this);
-        Davvy.printLine();
+        if (isPrint) {
+            Davvy.printLine();
+            System.out.println(" Nice! I've marked this task as done:");
+            System.out.println(this);
+            Davvy.printLine();
+        }
     }
     public void markNotDone() {
         isDone = false;

@@ -1,15 +1,22 @@
 package Tasking;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
 public class TaskList {
     private static ArrayList<Task> list = new ArrayList<>();
-    public static void addTask(Task userTask) {
+
+    public static void addTask(Task userTask, boolean isInitMode) throws IOException {
         list.add(userTask);
-        Davvy.printLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println(" " + userTask);
-        System.out.println(" Now you have " + list.size() + " tasks in the list.");
-        Davvy.printLine();
+        if (!isInitMode) {
+            // Used for normal task adding, printing not needed when initialising
+            Davvy.printLine();
+            System.out.println(" Got it. mark I've added this task:");
+            System.out.println(" " + userTask);
+            System.out.println(" Now you have " + list.size() + " tasks in the list.");
+            Davvy.printLine();
+            Davvy.writeData(userTask, true);
+        }
     }
     public static Task getTask(int taskNumber) {
         return list.get(taskNumber);
