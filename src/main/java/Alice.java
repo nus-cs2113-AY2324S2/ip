@@ -223,25 +223,42 @@ public class Alice {
         saveTasks(tasks);
     }
 
-    private static void handleEvent(String input, ArrayList<Task> tasks, String line) throws AliceException, IOException {
-
-        if (!input.contains("/to") || !input.contains("/from")){
+    private static EventTime parseEventTimes(String input) throws AliceException {
+        if (!input.contains("/to") || !input.contains("/from")) {
             throw new AliceException("ayo event commands must include '/from' and '/to' so that i'll know when your event starts and ends yea?");
         }
 
-        String[] parts = input.substring(6).split(" /from ", 2);
+        String[] parts = input.split(" /from ", 2);
 
-        if (!parts[1].contains(" /to ")){
+        if (!parts[1].contains(" /to ")) {
             throw new AliceException("ayo the event time must be specified with '/from' followed by '/to' yea?");
         }
 
         String[] timeParts = parts[1].split(" /to ", 2);
 
-        if(timeParts.length < 2){
+        if (timeParts.length < 2) {
             throw new AliceException("ayo do specify both the start and end times for your event yea?");
         }
 
-        Task newTask = new Event(parts[0], timeParts[0], timeParts[1]);
+        return new EventTime(parts[0], timeParts[0], timeParts[1]);
+    }
+
+    private static class EventTime {
+        String description;
+        String startTime;
+        String endTime;
+
+        EventTime(String description, String startTime, String endTime) {
+            this.description = description;
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
+    }
+
+    private static void handleEvent(String input, ArrayList<Task> tasks, String line) throws AliceException, IOException {
+        EventTime eventTime = parseEventTimes(input.substring(6));
+
+        Task newTask = new Event(eventTime.description, eventTime.startTime, eventTime.endTime);
         tasks.add(newTask);
         System.out.println(line);
         System.out.println("ayy noted down an event, don't forget girlie: ");
@@ -250,4 +267,5 @@ public class Alice {
         System.out.println(line);
         saveTasks(tasks);
     }
+
 }
