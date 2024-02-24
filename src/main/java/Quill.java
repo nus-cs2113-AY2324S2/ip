@@ -1,29 +1,22 @@
+import org.w3c.dom.Text;
 import quill.exception.EmptyDateException;
 import quill.exception.QuillException;
 import quill.task.Deadline;
 import quill.task.Event;
 import quill.task.Task;
 import quill.task.Todo;
+import quill.ui.TextUi;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Quill {
-    public static final String horizontalLine = "____________________________________________________________";
-    public static void printAddTask(Task tasks) {
-        System.out.println(horizontalLine + "\nGot it. I've added this task:");
-        System.out.println(tasks.toString());
-        System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
-    }
+    private static TextUi ui;
 
     public static void printDeleteTask(String line, ArrayList<Task> tasks) {
         try {
             int taskNumber = Integer.parseInt(line) - 1;
-            String message = tasks.get(taskNumber).toString();
+            TextUi.showDeleteTask(tasks.get(taskNumber));
             tasks.remove(taskNumber);
-            Task.removeTask();
-            System.out.println(horizontalLine + "\nGot it. I've removed this task:");
-            System.out.println(message);
-            System.out.println("Now you have " + Task.getTotalTasks() + " tasks in the list.\n" + horizontalLine);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
         } catch (NumberFormatException e) {
@@ -36,12 +29,15 @@ public class Quill {
             int taskNumber = Integer.parseInt(line) - 1;
             if (isDone) {
                 tasks.get(taskNumber).markAsDone();
-                System.out.println(horizontalLine + "\nNice! I've marked this task as done:");
+                TextUi.showDivider();
+                System.out.println("Nice! I've marked this task as done:");
             } else {
                 tasks.get(taskNumber).markAsNotDone();
-                System.out.println(horizontalLine + "\nOK, I've marked this task as not done yet:");
+                TextUi.showDivider();
+                System.out.println("OK, I've marked this task as not done yet:");
             }
-            System.out.println(tasks.get(taskNumber).toString() + "\n" + horizontalLine);
+            System.out.println(tasks.get(taskNumber).toString());
+            TextUi.showDivider();
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
         } catch (NumberFormatException e) {
@@ -51,16 +47,12 @@ public class Quill {
 
 
     public static void main(String[] args) {
-        String name = "Quill";
+        TextUi.showWelcomeMessage();
         String line;
         ArrayList<Task> tasks;
         tasks = Save.readFile();
-        Scanner in = new Scanner(System.in);
-
-        System.out.println(horizontalLine + "\nHello! I'm " + name + ".");
-        System.out.println("What can i do for you?\n" + horizontalLine);
-
-        line = in.nextLine();
+        ui = new TextUi();
+        line = ui.getUserCommand();
 
         while(true) {
             String command;
@@ -76,18 +68,20 @@ public class Quill {
             switch(command) {
             case "bye":
                 Save.writeToFile(tasks);
-                System.out.println(horizontalLine + "\nBye! Hope to see you again soon!\n" + horizontalLine);
+                TextUi.showGoodbyeMessage();
                 return;
             case "list":
                 if (Task.isEmpty()) {
-                    System.out.println(horizontalLine + "\nZero tasks. Add something already.");
+                    TextUi.showDivider();
+                    System.out.println("Zero tasks. Add something already.");
                 } else {
-                    System.out.println(horizontalLine + "\nHere are the tasks in your list:");
+                    TextUi.showDivider();
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < Task.getTotalTasks(); i++) {
                         System.out.println(i + 1 + "." + tasks.get(i).toString());
                     }
                 }
-                System.out.println(horizontalLine);
+                TextUi.showDivider();
                 break;
             case "mark":
                 performMarkOrUnmark(line, tasks, true);
@@ -100,13 +94,13 @@ public class Quill {
                     System.out.println("No empty descriptions allowed for todos. Fill it in!");
                 } else {
                     tasks.add(new Todo(line));
-                    printAddTask(tasks.get(taskNumber));
+                    TextUi.showAddTask(tasks.get(taskNumber));
                 }
                 break;
             case "deadline":
                 try {
                     tasks.add(new Deadline(line));
-                    printAddTask(tasks.get(taskNumber));
+                    TextUi.showAddTask(tasks.get(taskNumber));
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Seriously? You call that a deadline?");
                     System.out.println("It's 'deadline [task] /by [date]'. Get it right!");
@@ -122,7 +116,7 @@ public class Quill {
             case "event":
                 try {
                     tasks.add(new Event(line));
-                    printAddTask(tasks.get(taskNumber));
+                    TextUi.showAddTask(tasks.get(taskNumber));
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Seriously? You call that an event?");
                     System.out.println("It's 'event [task] /from [date] /to [date]'. Get it right!");
@@ -141,7 +135,7 @@ public class Quill {
                 System.out.println("bye, list, todo, deadline, event, mark, unmark, delete. Got it? Next!");
                 break;
             }
-            line = in.nextLine();
+            line = ui.getUserCommand();
         }
     }
 }

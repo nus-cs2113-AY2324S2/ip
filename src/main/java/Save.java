@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Save {
     private static void createNewFile() {
-        File file = new File("data/quill.txt");
+        File file = new File("./data/quill.txt");
         File directory = new File(file.getParent());
         try {
             if (!directory.exists()) {
@@ -32,7 +32,7 @@ public class Save {
 
     public static ArrayList<Task> readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File("data/quill.txt");
+        File file = new File("./data/quill.txt");
         if (!file.exists()) {
             createNewFile();
             return tasks;
@@ -86,7 +86,7 @@ public class Save {
 
     public static void writeToFile(ArrayList<Task> tasks) {
         try {
-            PrintWriter fw = new PrintWriter("data/quill.txt");
+            PrintWriter fw = new PrintWriter("./data/quill.txt");
             for (Task task: tasks) {
                 fw.println(task.saveTask());
             }
@@ -98,7 +98,7 @@ public class Save {
 
     public static void appendToFIle(Task task) {
         try {
-            FileWriter fw = new FileWriter("data/quill.txt", true); // create a FileWriter in append mode
+            FileWriter fw = new FileWriter("./data/quill.txt", true); // create a FileWriter in append mode
             fw.write(task.toString());
             fw.close();
         } catch (IOException e) {
