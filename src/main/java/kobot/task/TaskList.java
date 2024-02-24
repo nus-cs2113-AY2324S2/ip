@@ -70,7 +70,7 @@ public class TaskList {
             index++;
         }
     }
-
+    
     /**
      * Marks a specified task as done.
      *
@@ -147,5 +147,18 @@ public class TaskList {
         }
         
         return String.valueOf(storage);
+    }
+    
+    public void findTasks(String keyword) {
+        System.out.println("Tasks containing \"" + keyword + "\":");
+        
+        int index = 1;
+        for (Task task:taskList) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.print(index + ". ");
+                System.out.println(task);
+                index++;
+            }
+        }
     }
 }
