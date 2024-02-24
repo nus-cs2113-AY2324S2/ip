@@ -24,24 +24,45 @@ public class Deadline extends Task {
         this.by = convertBy(by);
     }
 
+    /**
+     * Converts the string that the user input as the time into a LocalDateTime variable.
+     *
+     * @param by String input of deadline
+     * @return Deadline in the correct format as a LocalDateTime variable
+     * @throws DukeException If there is an error in user input.
+     */
     private LocalDateTime convertBy(String by) throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         int ISOLength = 10;
         if (by.length() == ISOLength) {
             by += " 2359";
         }
+        LocalDateTime parsedBy = getParsedBy(by, formatter);
+        if (parsedBy.isBefore(LocalDateTime.now())) {
+            String DeadlineOverMsg = "Time Out....\n\t OOPS!!! Your deadline is long due!";
+            throw new DukeException(DeadlineOverMsg);
+        }
+        return parsedBy;
+    }
+
+    /**
+     * Parses the time string into LocalDateTime.
+     *
+     * @param time String input of time
+     * @param formatter Specified formatter
+     * @return Date and Time of the specified format
+     * @throws DukeException If there is an error in user input.
+     */
+    private LocalDateTime getParsedBy(String time, DateTimeFormatter formatter) throws DukeException {
         LocalDateTime parsedBy;
         try {
-            parsedBy = LocalDateTime.parse(by, formatter);
+            parsedBy = LocalDateTime.parse(time, formatter);
         } catch (DateTimeException e) {
-            throw new DukeException("Time Out....\n\t " +
+            String exceptionMsg = "Time Out....\n\t " +
                     "OOPS!!! The format of a deadline task is wrong!\n\t " +
                     "TASK /by DEADLINE (in date: yyyy-mm-dd time: HHmm format)\n\t " +
-                    "Example: deadline return book /by 2024-05-01 1800");
-        }
-        if (parsedBy.isBefore(LocalDateTime.now())) {
-            throw new DukeException("Time Out....\n\t " +
-                    "OOPS!!! Your deadline is long due!");
+                    "Example: deadline return book /by 2024-05-01 1800";
+            throw new DukeException(exceptionMsg);
         }
         return parsedBy;
     }

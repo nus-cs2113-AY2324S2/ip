@@ -37,6 +37,7 @@ FaizBot is a desktop chatbot for managing your task list, optimised for use via 
 ------------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
 > <strong><img class="emoji" title=":information_source:" alt=":information_source:" src="https://github.githubassets.com/images/icons/emoji/unicode/2139.png" height="20" width="20"> Notes about the command format: </strong>
 > * Words in `UPPER_CASE` are the parameters to be supplied by the user. <br>
 > e.g. in `todo TASK`, `TASK` is a parameter which can be used as `todo return book`.
@@ -70,6 +71,7 @@ Now you have 1 task in the list.
 Adds a deadline task that are tasks with a specific deadline.
 
 Format: `deadline TASK /by YYYYMMDD HHMM`
+
 > <img class="emoji" title=":bulb:" alt=":bulb:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png" height="20" width="20"> <strong>Tip: </strong> If the time `HHMM` is not given, it will be autofilled as 2359 hrs.
 
 Examples:
@@ -91,6 +93,7 @@ Now you have 2 tasks in the list.
 Adds an event task that are tasks with a start and end date/time.
 
 Format: `event TASK /from YYYYMMDD HHMM /to YYYYMMDD HHMM`
+
 > <img class="emoji" title=":bulb:" alt=":bulb:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a1.png" height="20" width="20"> <strong>Tip: </strong> If the start/end time `HHMM` is not given, it will be autofilled as 0000 hrs for start and 2359 hrs for end.
 
 Examples:

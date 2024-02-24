@@ -37,23 +37,38 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
+        Task newDeadline = getNewDeadline();
+        storage.addTask(newDeadline.toDisk());
+        taskList.add(newDeadline);
+        String msg = (taskList.size() > 1) ? "tasks" : "task";
+        ui.printMessage("Got it. I've added this task:\n\t   " + newDeadline
+                + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
+    }
+
+    /**
+     * Converts the input string into a deadline task.
+     *
+     * @return A new deadline task
+     * @throws DukeException If there is an error in user input.
+     */
+    private Task getNewDeadline() throws DukeException {
+        final String EXCEPTION = "Exceed Charge....\n\t " +
+                "OOPS!!! The description of a deadline task cannot be empty.\n\t " +
+                "deadline: Adds a deadline task to task list.\n\t " +
+                "Parameters: TASK /by DEADLINE (in date: yyyy-mm-dd time: HHmm format)\n\t " +
+                "Example: deadline return book /by 2024-05-01 1800";
         String[] details = INPUT.split("/by");
-        if (INPUT.isEmpty() || details.length != 2 || details[0].trim().isEmpty() || details[1].trim().isEmpty()) {
-            throw new DukeException("Exceed Charge....\n\t " +
-                    "OOPS!!! The description of a deadline task cannot be empty.\n\t " +
-                    "deadline: Adds a deadline task to task list.\n\t " +
-                    "Parameters: TASK /by DEADLINE (in date: yyyy-mm-dd time: HHmm format)\n\t " +
-                    "Example: deadline return book /by 2024-05-01 1800");
-        } else {
-            String description = details[0].trim();
-            String by = details[1].trim();
-            Task newDeadline = new Deadline(description, by);
-            storage.addTask(newDeadline.toDisk());
-            taskList.add(newDeadline);
-            String msg = (taskList.size() > 1) ? "tasks" : "task";
-            ui.printMessage("Got it. I've added this task:\n\t   " + newDeadline
-                    + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
+        boolean isEmptyInput = INPUT.isEmpty();
+        boolean isWrongDeadline = details.length != 2;
+        if (isEmptyInput || isWrongDeadline) {
+            throw new DukeException(EXCEPTION);
         }
+        String description = details[0].trim();
+        String by = details[1].trim();
+        if (description.isEmpty() || by.isEmpty()) {
+            throw new DukeException(EXCEPTION);
+        }
+        return new Deadline(description, by);
     }
 
     /**

@@ -20,15 +20,16 @@ import duke.task.Event;
  * Responsible for loading/saving of the task data from/to the text file.
  */
 public class Storage {
+
     private final String FILEPATH;
 
     /**
      * Constructs a new Storage object with the specified filepath.
      *
-     * @param FILEPATH The filepath of the saved text file containing the tasks.
+     * @param filePath The filepath of the saved text file containing the tasks.
      */
-    public Storage(String FILEPATH) {
-        this.FILEPATH = FILEPATH;
+    public Storage(String filePath) {
+        this.FILEPATH = filePath;
     }
 
     /**

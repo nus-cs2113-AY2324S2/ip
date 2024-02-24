@@ -37,19 +37,19 @@ public class TodoCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
         if (INPUT.isEmpty()) {
-            throw new DukeException("Exceed Charge....\n\t " +
+            String todoEmptyMsg = "Exceed Charge....\n\t " +
                     "OOPS!!! The description of a todo task cannot be empty.\n\t " +
                     "todo: Adds a todo task to task list.\n\t " +
                     "Parameters: TASK\n\t " +
-                    "Example: todo borrow book");
-        } else {
-            Task newTodo = new Todo(INPUT);
-            storage.addTask(newTodo.toDisk());
-            taskList.add(newTodo);
-            String msg = (taskList.size() > 1) ? "tasks" : "task";
-            ui.printMessage("Got it. I've added this task:\n\t   " + newTodo
-                    + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
+                    "Example: todo borrow book";
+            throw new DukeException(todoEmptyMsg);
         }
+        Task newTodo = new Todo(INPUT);
+        storage.addTask(newTodo.toDisk());
+        taskList.add(newTodo);
+        String msg = (taskList.size() > 1) ? "tasks" : "task";
+        ui.printMessage("Got it. I've added this task:\n\t   " + newTodo
+                + "\n\t Now you have " + taskList.size() + " " + msg + " in the list.");
     }
 
     /**

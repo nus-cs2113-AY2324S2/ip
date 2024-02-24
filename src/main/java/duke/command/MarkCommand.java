@@ -21,14 +21,14 @@ public class MarkCommand implements Command {
      */
     public MarkCommand(String index) throws DukeException {
         if (index.isEmpty()) {
-            throw new DukeException("Exceed Charge....\n\t " +
+            String indexEmptyMsg = "Exceed Charge....\n\t " +
                     "OOPS!!! The index of a task to be marked as done cannot be empty.\n\t " +
                     "mark: marks a task in the task list as done.\n\t " +
                     "Parameters: INDEX\n\t " +
-                    "Example: mark 1");
-        } else {
-            this.INDEX = Integer.parseInt(index.trim()) - 1;
+                    "Example: mark 1";
+            throw new DukeException(indexEmptyMsg);
         }
+        this.INDEX = Integer.parseInt(index.trim()) - 1;
     }
 
     /**
@@ -43,14 +43,13 @@ public class MarkCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (INDEX < 0 || INDEX >= taskList.size()) {
-            throw new DukeException("Exceed Charge....\n\t " +
-                    "OOPS!!! Unable to mark invalid task as done.");
-        } else {
-            Task doneTask = taskList.get(INDEX);
-            doneTask.markAsDone();
-            storage.editTaskList(taskList);
-            ui.printMessage("Nice! I've marked this task as done:\n\t   " + doneTask);
+            String indexOutOfBoundsMsg = "Exceed Charge....\n\t OOPS!!! Unable to mark invalid task as done.";
+            throw new DukeException(indexOutOfBoundsMsg);
         }
+        Task doneTask = taskList.get(INDEX);
+        doneTask.markAsDone();
+        storage.editTaskList(taskList);
+        ui.printMessage("Nice! I've marked this task as done:\n\t   " + doneTask);
     }
 
     /**

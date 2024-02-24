@@ -8,7 +8,8 @@ import java.util.Scanner;
  */
 public class Ui {
     Scanner sc;
-    static final String HORIZONTAL_LINE = "\t_____________________________________________________________________\n";
+    static final String HORIZONTAL_LINE = "\t___________________________________________________________" +
+            "__________________________________\n";
 
     /**
      * Constructs a new Ui object and initialises the Scanner for taking in user input.

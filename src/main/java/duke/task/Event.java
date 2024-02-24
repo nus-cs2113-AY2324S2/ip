@@ -26,32 +26,58 @@ public class Event extends Task {
         this.from = convertTime(from, true);
         this.to = convertTime(to, false);
         if (this.to.isBefore(this.from)) {
-            throw new DukeException("Time Out....\n\t " +
-                    "OOPS!!! Your event ended before it could start!");
+            String wrongEndMsg = "Time Out....\n\t " +
+                    "OOPS!!! Your event ended before it could start!";
+            throw new DukeException(wrongEndMsg);
         }
     }
 
+    /**
+     * Converts the string that the user input as the time into a LocalDateTime variable.
+     *
+     * @param time String input of time
+     * @param start Whether the time to be converted is the start of the event
+     * @return Time in the correct format as a LocalDateTime variable
+     * @throws DukeException If there is an error in user input.
+     */
     private LocalDateTime convertTime(String time, boolean start) throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         int ISOLength = 10;
+        String startTime = " 0000";
+        String endTime = " 2359";
         if (time.length() == ISOLength) {
             if (start) {
-                time += " 0000";
+                time += startTime;
             } else {
-                time += " 2359";
+                time += endTime;
             }
         }
+        LocalDateTime parsedTime = getParsedTime(time, formatter);
+        if (parsedTime.isBefore(LocalDateTime.now())) {
+            String eventOverMsg = "Time Out....\n\t OOPS!!! Your event is long over!";
+            throw new DukeException(eventOverMsg);
+        }
+        return parsedTime;
+    }
+
+    /**
+     * Parses the time string into LocalDateTime.
+     *
+     * @param time String input of time
+     * @param formatter Specified formatter
+     * @return Date and Time of the specified format
+     * @throws DukeException If there is an error in user input.
+     */
+    private LocalDateTime getParsedTime(String time, DateTimeFormatter formatter) throws DukeException {
         LocalDateTime parsedTime;
         try {
             parsedTime = LocalDateTime.parse(time, formatter);
         } catch (DateTimeException e) {
-            throw new DukeException("Time Out....\n\t " +
+            String exceptionMsg = "Time Out....\n\t " +
                     "OOPS!!! The format of an event task is wrong!\n\t " +
                     "TASK /from START TIME /to END TIME (both in date: yyyy-mm-dd time: HHmm format)\n\t " +
-                    "Example: event meet friends /from 2024-05-01 0610 /to 2024-06-01 1720");
-        }
-        if (parsedTime.isBefore(LocalDateTime.now())) {
-            throw new DukeException("Time Out....\n\t OOPS!!! Your event is long over!");
+                    "Example: event meet friends /from 2024-05-01 0610 /to 2024-06-01 1720";
+            throw new DukeException(exceptionMsg);
         }
         return parsedTime;
     }
