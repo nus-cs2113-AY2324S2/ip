@@ -13,6 +13,8 @@ import bob.exceptions.InvalidArgumentException;
 import bob.exceptions.InvalidCommandException;
 import bob.exceptions.InvalidTaskNumberException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.MatchResult;
 
 public class Parser {
@@ -57,16 +59,20 @@ public class Parser {
 
     private Command getTaskCreationCommand(TaskManager taskManager, String userCommand, String[] arguments) {
         String taskName = arguments[0];
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         if (userCommand.equals("TODO")) {
             return new TodoCommand(taskManager, taskName);
         } else if (userCommand.equals("DEADLINE")) {
             String dueDate = arguments[1];
-            return new DeadlineCommand(taskManager, taskName, dueDate);
+            LocalDateTime dueDateTime = LocalDateTime.parse(dueDate, dateTimeFormatter);
+            return new DeadlineCommand(taskManager, taskName, dueDateTime);
         } else {
             String startDate = arguments[1];
             String endDate = arguments[2];
-            return new EventCommand(taskManager, taskName, startDate, endDate);
+            LocalDateTime startDateTime = LocalDateTime.parse(startDate, dateTimeFormatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(endDate, dateTimeFormatter);
+            return new EventCommand(taskManager, taskName, startDateTime, endDateTime);
         }
     }
 

@@ -2,11 +2,13 @@ package bob.command;
 
 import bob.utils.TaskManager;
 
+import java.time.LocalDateTime;
+
 public class DeadlineCommand extends Command {
     private final String taskName;
-    private final String dueDate;
+    private final LocalDateTime dueDate;
 
-    public DeadlineCommand(TaskManager taskManager, String taskName, String dueDate) {
+    public DeadlineCommand(TaskManager taskManager, String taskName, LocalDateTime dueDate) {
         super(taskManager);
         this.taskName = taskName;
         this.dueDate = dueDate;
