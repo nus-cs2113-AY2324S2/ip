@@ -31,15 +31,38 @@ Mark a task as done by specifying the index within the list, and returns a 'X', 
 All the tasks in the list would be updated to the textfile whenever a change is made to the list, i.e. deletion, addition or marking/unmarking of a task. This ensures that the items that a user has input into their list would be saved should the programme crash.
 
 ## Commands
-- **todo <description>**: Add a to-do task.
-- **deadline <description> /by <deadline>**: Add a task with a deadline.
-- **event <description> /from <start time> /to <end time>**: Add an event with start and end dates.
+- **todo (description)**: Add a to-do task.
+- **deadline (description) /by (deadline)**: Add a task with a deadline.
+- **event (description) /from (start time) /to (end time)**: Add an event with start and end dates.
 - **list**: List all tasks.
-- **delete <index in list>**: Delete tasks.
-- **mark <index>**: Mark tasks as completed.
-- **unmark <index>**: Mark tasks as not completed.
-- **find <word>**: Returns all tasks in the list which contains that specified word.
+- **delete (index in list)**: Delete tasks.
+- **mark (index)**: Mark tasks as completed.
+- **unmark (index)**: Mark tasks as not completed.
+- **find (word)**: Returns all tasks in the list which contains that specified word.
 - **bye**: Exit the application.
+
+### Example input/output
+What do you want me to do? `Event Attend banquet dinner in Marina Bay Sands /from 6pm /to 11pm`
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+What do you want me to do? `list`
+____________________________________________________________
+Here are the tasks in your list:
+1. [E] [ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+____________________________________________________________
+
+What do you want me to do? mark 1
+____________________________________________________________
+Nice job! I've marked this task as done :D
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [E] [X] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+____________________________________________________________
 
 ## Usage
 1. Download the latest Jar releasse.
