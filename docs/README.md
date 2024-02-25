@@ -4,16 +4,16 @@
 The DavinciBot is a simple to-do list application made in Java that allows users to manage tasks, including adding, marking as done, deleting, listing tasks and finding tasks. The DaviniciBot will also display tasks from the past if the user had interacted with the chatbot before.
 
 ### Classes
-- `DavinciBot (Main class)`
-- `DaviniciException (Custom exceptions for task management)`
-- `DavinciFileHandler (Handles file operations such as reading and writing)`
-- `Deadline (Handles Deadline task specific outputs)`
-- `Event (Handles Event task specific outputs)`
-- `Todo (Handles Todo task specific outputs)`
-- `Parser (Parses user input and performs actions based on pre-set commands)`
-- `Task (Represents a general task with a description and completion status)`
-- `TaskList (Represents a collection of tasks and provides methods to manipulate the task list.)`
-- `Ui (Handles interactions with the user and gives displays messages based on the user's input)` 
+- **DavinciBot (Main class)**
+- **DaviniciException (Custom exceptions for task management)**
+- **DavinciFileHandler (Handles file operations such as reading and writing)**
+- **Deadline (Handles Deadline task specific outputs)**
+- **Event (Handles Event task specific outputs)**
+- **Todo (Handles Todo task specific outputs)**
+- **Parser (Parses user input and performs actions based on pre-set commands)**
+- **Task (Represents a general task with a description and completion status)**
+- **TaskList (Represents a collection of tasks and provides methods to manipulate the task list.)**
+- **Ui (Handles interactions with the user and gives displays messages based on the user's input)**
 
 ## Features 
 - Add, delete, mark and unmark tasks.
@@ -44,17 +44,17 @@ All the tasks in the list would be updated to the textfile whenever a change is 
 ### Example input/output
 - What do you want me to do? `Event Attend banquet dinner in Marina Bay Sands /from 6pm /to 11pm`
   - Got it. I've added this task:
-  - [E][ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+  - `[E][ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)`
   - Now you have 1 tasks in the list.
 
 - What do you want me to do? `list`
   - Here are the tasks in your list:
-  - 1. [E] [ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+  - `1. [E] [ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)`
 
 - What do you want me to do? `mark 1`
   - Nice job! I've marked this task as done :D
   - Here are the tasks in your list:
-  - 1. [E] [X] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+  - `1. [E] [X] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)`
 
 ## Usage
 1. Download the latest Jar releasse.
