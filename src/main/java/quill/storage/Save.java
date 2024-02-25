@@ -4,7 +4,6 @@ import quill.exception.QuillException;
 import quill.task.*;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Save {
@@ -86,7 +85,7 @@ public class Save {
     public static void writeToFile(TaskList tasks) {
         try {
             PrintWriter fw = new PrintWriter("./data/quill.txt");
-            for (int i = 0; i < tasks.getTotalTasks(); i++) {
+            for (int i = 0; i < TaskList.getTotalTasks(); i++) {
                 fw.println(tasks.getTask(i).saveTask());
             }
             fw.close();

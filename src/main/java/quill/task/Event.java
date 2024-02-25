@@ -3,32 +3,39 @@ package quill.task;
 import quill.exception.EmptyDateException;
 import quill.exception.QuillException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
-    public Event(String description) throws QuillException {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+    public Event(String description) throws QuillException, DateTimeParseException {
         super(description);
         int fromIndex = description.indexOf("/from");
         this.description = description.substring(0, fromIndex);
-        int toIndex = description.indexOf("/to");
-        this.from = description.substring(fromIndex + 5, toIndex - 1);
-        this.to = description.substring(toIndex + 3);
         if (this.description.isEmpty()) {
             throw new QuillException();
-        } else if (this.from.isEmpty()) {
-            throw new EmptyDateException("from");
-        } else if (this.to.isEmpty()) {
-            throw new EmptyDateException("to");
         }
+        int toIndex = description.indexOf("/to");
+        this.from = LocalDateTime.parse(description.substring(fromIndex + 5, toIndex - 1)
+                        .replace('T', ' '),
+                DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
+        this.to = LocalDateTime.parse(description.substring(toIndex + 3)
+                        .replace('T', ' '),
+                DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + from + " to:" + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
+        String formattedFrom = from.format(formatter);
+        String formattedTo = to.format(formatter);
+        return "[E]" + super.toString() + "(from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 
     @Override
     public String saveTask() {
-        return "E | " + super.saveTask() + "/from" + from + " /to" + to;
+        return "E | " + super.saveTask() + "/from " + from + " /to " + to;
     }
 }

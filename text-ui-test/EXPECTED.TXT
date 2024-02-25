@@ -15,42 +15,39 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Seriously? You call that a deadline?
-It's 'deadline [task] /by [date]'. Get it right!
+It's 'deadline [task] /by yyyy-MM-dd HH:mm'. Get it right!
 ____________________________________________________________
 ____________________________________________________________
 No empty descriptions allowed for deadline. Fill it in!
 ____________________________________________________________
 ____________________________________________________________
-No date after by? Seriously?
+Listen, it's simple: /by yyyy-MM-dd HH:mm.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: 2 march 2024)
+[D][ ] return book (by: 02 Mar 2024 06:16 PM)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Seriously? You call that an event?
-It's 'event [task] /from [date] /to [date]'. Get it right!
+It's 'event [task] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'. Get it right!
 ____________________________________________________________
 ____________________________________________________________
 No empty descriptions allowed for event. Fill it in!
 ____________________________________________________________
 ____________________________________________________________
-No date after from? Seriously?
-____________________________________________________________
-____________________________________________________________
-No date after to? Seriously?
+Listen, it's simple: /by yyyy-MM-dd HH:mm.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
+[E][ ] book signing (from: 01 Mar 2024 02:30 AM to: 30 Mar 2024 09:40 PM)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
-2.[D][ ] return book (by: 2 march 2024)
-3.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
+2.[D][ ] return book (by: 02 Mar 2024 06:16 PM)
+3.[E][ ] book signing (from: 01 Mar 2024 02:30 AM to: 30 Mar 2024 09:40 PM)
 ____________________________________________________________
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
@@ -65,8 +62,8 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: 2 march 2024)
-3.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
+2.[D][ ] return book (by: 02 Mar 2024 06:16 PM)
+3.[E][ ] book signing (from: 01 Mar 2024 02:30 AM to: 30 Mar 2024 09:40 PM)
 ____________________________________________________________
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
@@ -81,8 +78,8 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
-2.[D][ ] return book (by: 2 march 2024)
-3.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
+2.[D][ ] return book (by: 02 Mar 2024 06:16 PM)
+3.[E][ ] book signing (from: 01 Mar 2024 02:30 AM to: 30 Mar 2024 09:40 PM)
 ____________________________________________________________
 ____________________________________________________________
 Listen up! Numbers only, got it? Don't bother with anything else
@@ -97,8 +94,8 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[D][ ] return book (by: 2 march 2024)
-2.[E][ ] book signing (from: 1 march 2024 to: 30 march 2024)
+1.[D][ ] return book (by: 02 Mar 2024 06:16 PM)
+2.[E][ ] book signing (from: 01 Mar 2024 02:30 AM to: 30 Mar 2024 09:40 PM)
 ____________________________________________________________
 ____________________________________________________________
 Enough with the gibberish. Stick to the commands I understand:

@@ -6,6 +6,7 @@ import quill.storage.Save;
 import quill.task.*;
 import quill.ui.TextUi;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class AddCommand extends Command{
@@ -31,12 +32,13 @@ public class AddCommand extends Command{
                 TextUi.showAddTask(tasks.getTask(taskNumber));
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Seriously? You call that a deadline?");
-                System.out.println("It's 'deadline [task] /by [date]'. Get it right!");
-                break;
-            } catch (EmptyDateException e) {
+                System.out.println("It's 'deadline [task] /by yyyy-MM-dd HH:mm'. Get it right!");
                 break;
             } catch (QuillException e) {
                 System.out.println("No empty descriptions allowed for deadline. Fill it in!");
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
                 break;
             }
             break;
@@ -46,8 +48,9 @@ public class AddCommand extends Command{
                 TextUi.showAddTask(tasks.getTask(taskNumber));
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Seriously? You call that an event?");
-                System.out.println("It's 'event [task] /from [date] /to [date]'. Get it right!");
-            } catch (EmptyDateException e) {
+                System.out.println("It's 'event [task] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'. Get it right!");
+            } catch (DateTimeParseException e) {
+                System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
                 break;
             } catch (QuillException e) {
                 System.out.println("No empty descriptions allowed for event. Fill it in!");
