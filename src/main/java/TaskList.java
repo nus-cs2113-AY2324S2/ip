@@ -16,6 +16,26 @@ public class TaskList {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String UNKNOWN_TASK_TYPE = "Unknown task type. Please use 'todo', 'deadline', or 'event'.";
+    public static final String NOTED_I_VE_REMOVED_THIS_TASK = "Noted. I've removed this task:";
+    public static final String INVALID_TASK_INDEX = "Invalid task index.";
+    public static final String ERROR_WRITING_FILE = "Error writing file: ";
+    public static final String GOT_IT_I_VE_ADDED_A_TASK_FROM_THE_FILE = "Got it. I've added a task from the file:";
+    public static final String ERROR_READING_FILE = "Error reading file: ";
+    public static final String ERROR = "Error: ";
+    public static final String ERROR_CREATING_DATA_DIRECTORY = "Error creating data directory: ";
+    public static final String ONE = "1";
+    public static final String CORRUPTED_FILE = "Corrupted file";
+    public static final String UNKNOWN_TASK_TYPE1 = "Unknown task type: ";
+    public static final String COME_ON_MAN_SPECIFY_THE = "Come on man, specify the ";
+    public static final String TASK = " task.";
+    public static final String COME_ON_MAN_PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END = "Come on man. Please use: event <description> /from <start> /to <end>";
+    public static final String FROM = "/from";
+    public static final String TO = "/to";
+    public static final String WHATCHA_DOING_BRUH_LISTEN = "Whatcha' doing bruh, listen. ";
+    public static final String PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END = "Please use: event <description> /from <start> /to <end>";
+    public static final String BY = "/by";
+    public static final String CRAPPY_FORMATTING_PLEASE_USE_DEADLINE_DESCRIPTION_BY_DEADLINE = "Crappy formatting. Please use: deadline <description> /by <deadline>";
+    public static final String PLEASE_SPECIFY_THE_TASK_INDEX_TO_DELETE = "Please specify the task index to delete.";
     public static List<Task> taskList = new ArrayList<>();
 
     /**
@@ -39,12 +59,12 @@ public class TaskList {
         if (taskIndex >= 0 && taskIndex < taskList.size()) {
             Task deletedTask = taskList.get(taskIndex);
             taskList.remove(taskIndex);
-            System.out.println("Noted. I've removed this task:");
+            System.out.println(NOTED_I_VE_REMOVED_THIS_TASK);
             Ui.displaySingleTask(deletedTask);
             Ui.displayTaskList(taskList);
             writeFile();
         } else {
-            throw new DavinciException("Invalid task index.");
+            throw new DavinciException(INVALID_TASK_INDEX);
         }
     }
 
@@ -69,7 +89,7 @@ public class TaskList {
             }
             DavinciFileHandler.writeFile(DATA_FILE_PATH, lines);
         } catch (IOException e) {
-            Ui.printMessage("Error writing file: " + e.getMessage());
+            Ui.printMessage(ERROR_WRITING_FILE + e.getMessage());
         }
     }
 
@@ -86,15 +106,15 @@ public class TaskList {
                 Task task = readLine(line);
                 if (task != null && !containsTask(taskList, task)) {
                     taskList.add(task);
-                    Ui.printMessage("Got it. I've added a task from the file:");
+                    Ui.printMessage(GOT_IT_I_VE_ADDED_A_TASK_FROM_THE_FILE);
                     System.out.println(taskList.get(taskList.size() - 1).toString());
                     Ui.displayTaskList(taskList);
                 }
             }
         } catch (IOException e) {
-            Ui.printMessage("Error reading file: " + e.getMessage());
+            Ui.printMessage(ERROR_READING_FILE + e.getMessage());
         } catch (DavinciException e) {
-            Ui.printMessage("Error: " + e.getMessage());
+            Ui.printMessage(ERROR + e.getMessage());
         }
     }
 
@@ -105,7 +125,7 @@ public class TaskList {
         try {
             DavinciFileHandler.createDirectories(Paths.get(DATA_DIRECTORY));
         } catch (IOException e) {
-            Ui.printMessage("Error creating data directory: " + e.getMessage());
+            Ui.printMessage(ERROR_CREATING_DATA_DIRECTORY + e.getMessage());
         }
     }
 
@@ -120,7 +140,7 @@ public class TaskList {
         try {
             String[] tokens = line.split("/");
             String command = tokens[0].toLowerCase();
-            boolean isDone = tokens[tokens.length - 1].equals("1");
+            boolean isDone = tokens[tokens.length - 1].equals(ONE);
             Task newTask = commandCases(command, tokens);
             if (newTask == null) {
                 return null;
@@ -133,7 +153,7 @@ public class TaskList {
             }
             return null;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DavinciException("Corrupted file");
+            throw new DavinciException(CORRUPTED_FILE);
         }
     }
 
@@ -172,7 +192,7 @@ public class TaskList {
             newTask = new Event(tokens[1], tokens[2], tokens[3]);
             break;
         default:
-            System.out.println("Unknown task type: " + command);
+            System.out.println(UNKNOWN_TASK_TYPE1 + command);
             return null;
         }
         return newTask;
@@ -213,7 +233,7 @@ public class TaskList {
             Scanner taskScanner = new Scanner(userInput);
             String taskType = taskScanner.next().toLowerCase();
             if (!taskScanner.hasNext()) {
-                throw new DavinciException("Come on man, specify the " + taskType + " task.");
+                throw new DavinciException(COME_ON_MAN_SPECIFY_THE + taskType + TASK);
             }
             String description = taskScanner.nextLine().trim();
             switch (taskType) {
@@ -230,7 +250,7 @@ public class TaskList {
                 throw new DavinciException(UNKNOWN_TASK_TYPE);
             }
         } catch (DavinciException e) {
-            Ui.printMessage("Error: " + e.getMessage());
+            Ui.printMessage(ERROR + e.getMessage());
         }
     }
 
@@ -241,18 +261,18 @@ public class TaskList {
      * @throws DavinciException If there is an issue with the event task format.
      */
     private static void executeEventTask(String description) throws DavinciException {
-        String[] eventParts = description.split("/from", SPLIT_INTO_TWO_PARTS);
+        String[] eventParts = description.split(FROM, SPLIT_INTO_TWO_PARTS);
         if (eventParts.length == 2) {
-            String[] eventTimeParts = eventParts[1].split("/to", SPLIT_INTO_TWO_PARTS);
+            String[] eventTimeParts = eventParts[1].split(TO, SPLIT_INTO_TWO_PARTS);
             if (eventTimeParts.length == 2) {
                 addTask(new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim()));
                 Ui.echoTask(getTaskList());
             } else {
-                throw new DavinciException("Come on man. Please use: event <description> /from <start> /to <end>");
+                throw new DavinciException(COME_ON_MAN_PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END);
             }
         } else {
-            throw new DavinciException("Whatcha' doing bruh, listen. " +
-                    "Please use: event <description> /from <start> /to <end>");
+            throw new DavinciException(WHATCHA_DOING_BRUH_LISTEN +
+                    PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END);
         }
         writeFile();
     }
@@ -264,12 +284,12 @@ public class TaskList {
      * @throws DavinciException If there is an issue with the deadline task format.
      */
     private static void executeDeadlineTask(String description) throws DavinciException {
-        String[] deadlineParts = description.split("/by", SPLIT_INTO_TWO_PARTS);
+        String[] deadlineParts = description.split(BY, SPLIT_INTO_TWO_PARTS);
         if (deadlineParts.length == 2) {
             addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
             Ui.echoTask(getTaskList());
         } else {
-            throw new DavinciException("Crappy formatting. Please use: deadline <description> /by <deadline>");
+            throw new DavinciException(CRAPPY_FORMATTING_PLEASE_USE_DEADLINE_DESCRIPTION_BY_DEADLINE);
         }
         writeFile();
     }
@@ -297,10 +317,10 @@ public class TaskList {
             if (taskIndex >= 0 && taskIndex < TaskList.getTaskList().size()) {
                 deleteTask(taskIndex);
             } else {
-                throw new DavinciException("Invalid task index.");
+                throw new DavinciException(INVALID_TASK_INDEX);
             }
         } else {
-            throw new DavinciException("Please specify the task index to delete.");
+            throw new DavinciException(PLEASE_SPECIFY_THE_TASK_INDEX_TO_DELETE);
         }
     }
 }
