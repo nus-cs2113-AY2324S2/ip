@@ -42,24 +42,19 @@ All the tasks in the list would be updated to the textfile whenever a change is 
 - **bye**: Exit the application.
 
 ### Example input/output
-What do you want me to do? `Event Attend banquet dinner in Marina Bay Sands /from 6pm /to 11pm`
+- What do you want me to do? `Event Attend banquet dinner in Marina Bay Sands /from 6pm /to 11pm`
+  - Got it. I've added this task:
+  - [E][ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+  - Now you have 1 tasks in the list.
 
-Got it. I've added this task:
-[E][ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
-Now you have 1 tasks in the list.
+- What do you want me to do? `list`
+  - Here are the tasks in your list:
+  - 1. [E] [ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
 
-
-What do you want me to do? `list`
-
-Here are the tasks in your list:
-1. [E] [ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
-
-
-What do you want me to do? `mark 1`
-
-Nice job! I've marked this task as done :D
-Here are the tasks in your list:
-1. [E] [X] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
+- What do you want me to do? `mark 1`
+  - Nice job! I've marked this task as done :D
+  - Here are the tasks in your list:
+  - 1. [E] [X] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
 
 ## Usage
 1. Download the latest Jar releasse.
