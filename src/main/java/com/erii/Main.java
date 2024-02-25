@@ -1,9 +1,9 @@
 package com.erii;
 
-import com.erii.user.UserDetails;
 import java.util.List;
 import com.erii.core.Erii;
 import com.erii.core.TaskManager;
+import com.erii.user.UserDetails;
 import com.erii.data.DataStorage;
 import com.erii.ui.ControlPanel;
 
@@ -19,6 +19,8 @@ public class Main {
         ControlPanel controlPanel = new ControlPanel(taskManager, storage, userDetails);
 
         Erii.main(args);
+
+        System.out.println("Initializing Kassel Academy...");
 
         if (userDetails == null || userDetails.getUserName() == null || userDetails.getUserName().isEmpty()) {
             userDetails = new UserDetails();
@@ -40,8 +42,9 @@ public class Main {
 
         List<TaskManager.Task> loadedTasks = storage.loadTasks(taskManager);
         for (TaskManager.Task task : loadedTasks) {
-            taskManager.addTask(task);
+            taskManager.loadTask(task);
         }
+        taskManager.listTasks();
 
         controlPanel.start();
     }

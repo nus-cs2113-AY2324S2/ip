@@ -4,8 +4,10 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * The UserDetails class represents the details of a user.
+ * It contains information such as the user's name, birthday, and gender.
  */
 public class UserDetails {
     private String userName = "";
