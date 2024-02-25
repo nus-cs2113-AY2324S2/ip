@@ -1,11 +1,19 @@
 package com.erii.ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import com.erii.user.UserDetails;
 import com.erii.core.TaskManager;
 import com.erii.data.DataStorage;
 
+/**
+ * The ControlPanel class represents the user interface control panel for managing tasks.
+ * It provides methods for displaying a menu, adding tasks, marking tasks as done, deleting tasks, and exiting the program.
+ */
 public class ControlPanel {
     private TaskManager taskManager;
     private DataStorage storage;
@@ -34,7 +42,7 @@ public class ControlPanel {
                         addTodoTask(inputAddTask);
                         break;
                     case "3":
-                        System.out.println("Please enter the deadline task description, deadline date and priority (e.g., submit report /by 2021-09-30 /SS):");
+                        System.out.println("Please enter the deadline task description, deadline date and priority (e.g., submit report /by 2021-09-30 18:30 /SS):");
                         String inputAddDeadline = scanner.nextLine().trim();
                         addDeadlineTask(inputAddDeadline);
                         break;
@@ -53,6 +61,16 @@ public class ControlPanel {
                         String inputDelete = scanner.nextLine().trim();
                         deleteTask(inputDelete);
                         break;
+                    case "7": // Assuming "7" is the new option for listing tasks by date
+                        System.out.println("Please enter the date in yyyy-MM-dd format to list tasks:");
+                        String dateString = scanner.nextLine().trim();
+                        try {
+                            LocalDateTime date = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            taskManager.listTasksOn(date);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Invalid date format. Please enter the date in yyyy-MM-dd format.");
+                        }
+                        break;
                     case "X":
                         System.out.println("Saving changes...");
                         storage.saveUserDetails(userDetails);
@@ -69,6 +87,7 @@ public class ControlPanel {
         }
     }
 
+    // Display the menu options
     private static void menu() {
         System.out.println("How may I assist you today?");
         System.out.println("1. List tasks");
@@ -77,16 +96,18 @@ public class ControlPanel {
         System.out.println("4. Add an event task");
         System.out.println("5. Mark a task as done");
         System.out.println("6. Delete a task");
+        System.out.println("7. List tasks on a specific date");
         System.out.println("X. Exit");
         System.out.print("Enter the symbol corresponding to your choice: ");
     }
 
+    // List all tasks
     private void listTasks() {
         taskManager.listTasks();
     }
 
+    // Add a todo task
     private void addTodoTask(String input) {
-        // Splitting the input at " /" to separate description and priority
         String[] parts = input.split(" ?/ ?");
         if (parts.length < 2 || parts[1].isEmpty()) {
             System.out.println("\"Incorrect format. Please ensure the task description is followed by '/' and a priority value (e.g., 'slain a dragon /SS').\"");
@@ -100,53 +121,70 @@ public class ControlPanel {
             System.out.println("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D, E).");
             return;
         }
-        // Assuming the name and description of the task are the same for simplicity
         taskManager.addTask(taskManager.new Todo("Todo", description, priority));
         storage.saveTasks(taskManager.getAllTasks());
     }
 
+
     private void addDeadlineTask(String input) {
-        String[] parts = input.split(" ?/by |  ?/ ?");
-        if (parts.length < 3 || parts[1].isEmpty() || parts[2].isEmpty()) {
-            System.out.println("Incorrect format. Please ensure the task description is followed by '/by' and a deadline date, and then a priority value (e.g., 'submit report /by 2021-09-30 /SS').");
+        // Adjusted split regex to account for spaces accurately
+        String[] parts = input.split(" ?/by | ?/ ?");
+        if (parts.length < 3) {
+            System.out.println("Incorrect format. Please follow the correct input format 'description /by yyyy-MM-dd HH:mm /priority'.");
             return;
         }
         String description = parts[0];
-        String by = parts[1];
-        TaskManager.Priority priority;
+        // Corrected to assume the parts include date and time together without needing to concatenate with "|"
+        String dateTimeString = parts[1]; // This should be in "yyyy-MM-dd HH:mm" format directly from the input
+        LocalDateTime by;
         try {
-            priority = TaskManager.Priority.valueOf(parts[2].trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D, E).");
+            // Adjusted the formatter pattern to match the expected input "yyyy-MM-dd HH:mm"
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            by = LocalDateTime.parse(dateTimeString, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date and time. Please enter in yyyy-MM-dd HH:mm format.");
             return;
         }
+        TaskManager.Priority priority = TaskManager.Priority.valueOf(parts[2].trim().toUpperCase());
         taskManager.addTask(taskManager.new Deadline("Deadline", description, by, priority));
         storage.saveTasks(taskManager.getAllTasks());
     }
+    
 
+
+    // Add an event task
     private void addEventTask(String input) {
-        String[] parts = input.split(" /from | /to |  ?/ ?");
-        if (parts.length < 4 || parts[1].isEmpty() || parts[2].isEmpty() || parts[3].isEmpty()) {
-            System.out.println("Incorrect format. Please ensure the task description is followed by '/from', a start date, '/to', an end date, and then a priority value (e.g., 'project meeting /from 2021-09-30 /to 2021-10-01 /S').");
+        String[] parts = input.split(" ?/from | ?/to | ?/");
+        if (parts.length < 4) {
+            System.out.println("Incorrect format. Please ensure the task description is followed by '/from', a start date, '/to', an end date, and then a priority value.");
             return;
         }
         String description = parts[0];
-        String start = parts[1];
-        String end = parts[2];
+        String startDateString = parts[1];
+        String endDateString = parts[2];
         TaskManager.Priority priority;
+    
         try {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = LocalDate.parse(startDateString, dateFormatter);
+            LocalDate endDate = LocalDate.parse(endDateString, dateFormatter);
             priority = TaskManager.Priority.valueOf(parts[3].trim().toUpperCase());
+            taskManager.addTask(taskManager.new Event("Event", description, startDate, endDate, priority));
+            storage.saveTasks(taskManager.getAllTasks());
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please enter the date in yyyy-MM-dd format.");
+            return;
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid priority. Please enter a valid priority value (SS, S, A, B, C, D, E).");
             return;
         }
-        taskManager.addTask(taskManager.new Event("Event", description, start, end, priority));
-        storage.saveTasks(taskManager.getAllTasks());
     }
+    
 
+    // Mark a task as done
     private void markTaskAsDone(String input) {
         try {
-            int taskNumber = Integer.parseInt(input.substring(5)) - 1; // Adjust for zero-based index
+            int taskNumber = Integer.parseInt(input.substring(5)) - 1;
             if (taskNumber < 0 || taskNumber >= taskManager.listSize()) {
                 System.out.println("Task number is out of range. Please enter a valid task number.");
                 System.out.println("Current number of tasks: " + taskManager.listSize());
@@ -159,9 +197,10 @@ public class ControlPanel {
         }
     }
 
+    // Delete a task
     private void deleteTask(String input) {
         try {
-            int taskNumber = Integer.parseInt(input) - 1; // Adjust for zero-based index
+            int taskNumber = Integer.parseInt(input) - 1;
             if (taskNumber < 0 || taskNumber >= taskManager.listSize()) {
                 System.out.println("Task number is out of range. Please enter a valid task number.");
                 System.out.println("Current number of tasks: " + taskManager.listSize());

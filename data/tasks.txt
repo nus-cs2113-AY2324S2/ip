@@ -1,2 +1,3 @@
-T|0|D|Slap myself
-T|0|S|???
+T|0|S|s
+T|0|S|d
+T|0|S|project meeting|2021-09-30|2021-10-01
