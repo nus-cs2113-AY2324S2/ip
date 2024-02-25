@@ -5,14 +5,19 @@ import bob.command.Command;
 import bob.command.DeadlineCommand;
 import bob.command.DeleteCommand;
 import bob.command.EventCommand;
+import bob.command.FindCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.TodoCommand;
 import bob.command.UnmarkCommand;
 import bob.exceptions.InvalidArgumentException;
 import bob.exceptions.InvalidCommandException;
+import bob.exceptions.InvalidDateTimeException;
 import bob.exceptions.InvalidTaskNumberException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.MatchResult;
 
 /**
@@ -31,32 +36,28 @@ public class Parser {
      * @throws InvalidCommandException If invalid commands are provided by the User.
      */
     public Command processUserCommand(String userCommand, TaskManager taskManager, Ui userInterface) throws
-            InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException {
-            String[] arguments;
+            InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException, InvalidDateTimeException {
+        String[] arguments;
 
-            switch (userCommand) {
-            case "LIST":
-                return new ListCommand(taskManager);
-            case "MARK":
-            case "UNMARK":
-            case "DELETE":
-                try {
-                    arguments = parseArguments(userCommand, userInterface);
-                    int taskId = Integer.parseInt(arguments[0]);
-                    return getTaskUtilityCommand(taskManager, userCommand, taskId);
-                } catch (NumberFormatException exception) {
-                    throw new InvalidTaskNumberException(userCommand);
-                }
-            case "TODO":
-            case "DEADLINE":
-            case "EVENT":
-                arguments = parseArguments(userCommand, userInterface);
-                return getTaskCreationCommand(taskManager, userCommand, arguments);
-            case "BYE":
-                return new ByeCommand(taskManager);
-            default:
-                throw new InvalidCommandException();
-            }
+        switch (userCommand) {
+        case "LIST":
+            return new ListCommand(taskManager);
+        case "FIND":
+        case "MARK":
+        case "UNMARK":
+        case "DELETE":
+            arguments = parseArguments(userCommand, userInterface);
+            return getTaskUtilityCommand(taskManager, userCommand, arguments);
+        case "TODO":
+        case "DEADLINE":
+        case "EVENT":
+            arguments = parseArguments(userCommand, userInterface);
+            return getTaskCreationCommand(taskManager, userCommand, arguments);
+        case "BYE":
+            return new ByeCommand(taskManager);
+        default:
+            throw new InvalidCommandException();
+        }
     }
 
     /**
@@ -64,10 +65,23 @@ public class Parser {
      *
      * @param taskManager TaskManager instance belonging to the current instance of the program.
      * @param userCommand Command String provided by the User. Must be a "utility" command.
-     * @param taskId ID of the Task to be modified.
+     * @param arguments String array of arguments provided by the User.
      * @return Command corresponding to the User's input.
      */
-    private Command getTaskUtilityCommand(TaskManager taskManager, String userCommand, int taskId) {
+    private Command getTaskUtilityCommand(TaskManager taskManager, String userCommand, String[] arguments) throws
+            InvalidTaskNumberException {
+        if (userCommand.equals("FIND")) {
+            String keyword = arguments[0];
+            return new FindCommand(taskManager, keyword);
+        }
+
+        int taskId;
+        try {
+            taskId = Integer.parseInt(arguments[0]);
+        } catch (NumberFormatException exception) {
+            throw new InvalidTaskNumberException(userCommand);
+        }
+
         if (userCommand.equals("MARK")) {
             return new MarkCommand(taskManager, taskId);
         } else if (userCommand.equals("UNMARK")) {
@@ -85,18 +99,51 @@ public class Parser {
      * @param arguments String array of arguments provided by the User. Used to create the appropriate Task.
      * @return Command corresponding to the User's input.
      */
-    private Command getTaskCreationCommand(TaskManager taskManager, String userCommand, String[] arguments) {
+    private Command getTaskCreationCommand(TaskManager taskManager, String userCommand, String[] arguments) throws
+        InvalidDateTimeException, InvalidArgumentException {
         String taskName = arguments[0];
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
         if (userCommand.equals("TODO")) {
             return new TodoCommand(taskManager, taskName);
         } else if (userCommand.equals("DEADLINE")) {
             String dueDate = arguments[1];
-            return new DeadlineCommand(taskManager, taskName, dueDate);
+            LocalDateTime dueDateTime;
+
+            try {
+                dueDateTime = LocalDateTime.parse(dueDate, dateTimeFormatter);
+            } catch (DateTimeParseException exception) {
+                throw new InvalidArgumentException("DEADLINE");
+            }
+
+            if (!dueDateTime.isAfter(currentDateTime)) {
+                throw new InvalidDateTimeException(userCommand, InvalidDateTimeException.INVALID_END_TIME);
+            }
+
+            return new DeadlineCommand(taskManager, taskName, dueDateTime);
         } else {
             String startDate = arguments[1];
             String endDate = arguments[2];
-            return new EventCommand(taskManager, taskName, startDate, endDate);
+            LocalDateTime startDateTime;
+            LocalDateTime endDateTime;
+
+            try {
+                startDateTime = LocalDateTime.parse(startDate, dateTimeFormatter);
+                endDateTime = LocalDateTime.parse(endDate, dateTimeFormatter);
+            } catch (DateTimeParseException exception) {
+                throw new InvalidArgumentException("EVENT");
+            }
+
+            if (!endDateTime.isAfter(currentDateTime)) {
+                throw new InvalidDateTimeException(userCommand, InvalidDateTimeException.INVALID_END_TIME);
+            }
+
+            if (startDateTime.isAfter(endDateTime)) {
+                throw new InvalidDateTimeException(userCommand, InvalidDateTimeException.START_AFTER_END);
+            }
+
+            return new EventCommand(taskManager, taskName, startDateTime, endDateTime);
         }
     }
 

@@ -1,16 +1,20 @@
 package bob.task;
 
-public class Event extends Task {
-    private final String startDate;
-    private final String endDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    private Event(String taskName, boolean isCompleted, String startDate, String endDate) {
+public class Event extends Task {
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    private Event(String taskName, boolean isCompleted, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskName, isCompleted);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Event(String taskName, String startDate, String endDate) {
+    public Event(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskName, false);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -22,7 +26,7 @@ public class Event extends Task {
      * @return String representation of the Task start date.
      */
     public String getStartDate() {
-        return this.startDate;
+        return this.startDate.toString();
     }
 
     /**
@@ -31,7 +35,7 @@ public class Event extends Task {
      * @return String representation of the Task end date.
      */
     public String getEndDate() {
-        return this.endDate;
+        return this.endDate.toString();
     }
 
     public Task markTaskAsComplete() {
@@ -44,6 +48,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", this.startDate, this.endDate);
+        String startDateFormatted = startDate.format(DATE_TIME_FORMATTER);
+        String endDateFormatted = endDate.format(DATE_TIME_FORMATTER);
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", startDateFormatted, endDateFormatted);
     }
 }

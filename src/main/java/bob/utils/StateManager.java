@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,12 +100,15 @@ public class StateManager {
                 taskManager.addTodo(taskName);
                 break;
             case "D":
-                String taskDueDate = tokenizedTask.get(3);
+                String dueDatetimeString = tokenizedTask.get(3);
+                LocalDateTime taskDueDate = LocalDateTime.parse(dueDatetimeString);
                 taskManager.addDeadline(taskName, taskDueDate);
                 break;
             case "E":
-                String taskStartDate = tokenizedTask.get(3);
-                String taskEndDate = tokenizedTask.get(4);
+                String startDatetimeString = tokenizedTask.get(3);
+                String endDatetimeString = tokenizedTask.get(4);
+                LocalDateTime taskStartDate = LocalDateTime.parse(startDatetimeString);
+                LocalDateTime taskEndDate = LocalDateTime.parse(endDatetimeString);
                 taskManager.addEvent(taskName, taskStartDate, taskEndDate);
                 break;
             }

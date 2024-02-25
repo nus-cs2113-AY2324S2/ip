@@ -1,17 +1,22 @@
 package bob.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Deadline Task class. Used to represent Tasks with a due date.
  */
 public class Deadline extends Task {
-    private final String dueDate;
+    private final LocalDateTime dueDate;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    private Deadline(String taskName, boolean isCompleted, String dueDate) {
+
+    private Deadline(String taskName, boolean isCompleted, LocalDateTime dueDate) {
         super(taskName, isCompleted);
         this.dueDate = dueDate;
     }
 
-    public Deadline(String taskName, String dueDate) {
+    public Deadline(String taskName, LocalDateTime dueDate) {
         super(taskName, false);
         this.dueDate = dueDate;
     }
@@ -22,7 +27,7 @@ public class Deadline extends Task {
      * @return String representation of the Task due date.
      */
     public String getDueDate() {
-        return this.dueDate;
+        return this.dueDate.toString();
     }
 
     public Task markTaskAsComplete() {
@@ -35,6 +40,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", this.dueDate);
+        String dueDateFormatted = dueDate.format(DATE_TIME_FORMATTER);
+        return "[D]" + super.toString() + String.format(" (by: %s)", dueDateFormatted);
     }
 }

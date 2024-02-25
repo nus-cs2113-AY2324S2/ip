@@ -1,5 +1,6 @@
 package bob.utils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -87,7 +88,7 @@ public class TaskManager {
      * @param dueDate Due date of the Deadline Task.
      * @return Result String from the addition operation.
      */
-    public String addDeadline(String taskName, String dueDate) {
+    public String addDeadline(String taskName, LocalDateTime dueDate) {
         Task newDeadline = new Deadline(taskName, dueDate);
         return addNewTask(newDeadline);
     }
@@ -100,7 +101,7 @@ public class TaskManager {
      * @param endDate End date of the Event Task.
      * @return Result String from the addition operation.
      */
-    public String addEvent(String taskName, String startDate, String endDate) {
+    public String addEvent(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         Task newEvent = new Event(taskName, startDate, endDate);
         return addNewTask(newEvent);
     }
@@ -165,5 +166,20 @@ public class TaskManager {
         output += String.format(" Now you have %d tasks in the list.", taskCount);
 
         return output;
+    }
+
+    public String findTask(String keyword) {
+        StringBuilder output = new StringBuilder(" Here are the matching tasks in your list:\n");
+
+        for (int i = 0; i < taskCount; i++) {
+            Task currentTask = tasks.get(i);
+            int currentTaskId = i + 1;
+            String currentTaskName = currentTask.getTaskName();
+            if (currentTaskName.contains(keyword)) {
+                output.append(String.format(" %d.%s\n", currentTaskId, currentTask));
+            }
+        }
+
+        return output.toString().stripTrailing();
     }
 }

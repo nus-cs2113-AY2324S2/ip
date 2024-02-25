@@ -5,8 +5,8 @@ mark 1
 list
 unmark 1
 list
-deadline more things to do /by the next few weeks...!
-event some event to attend /from whatever date... /to hopefully this event ends soon!!
+deadline more things to do /by 30/04/2024 23:59
+event some event to attend /from 01/01/2024 00:00 /to 31/12/2024 23:59
 mark 3
 list
 todo junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
@@ -22,4 +22,8 @@ deadline something
 deadline something /until another day
 event something /by now
 event something /from tomorrow
+deadline dummy /by 2027
+deadline dummy /by 01/01/1999 00:00
+event dummy /from 2026 /to 2028
+event dummy /from 24/08/2025 00:00 /to 01/01/2025 00:00
 bye
