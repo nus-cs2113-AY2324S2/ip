@@ -20,7 +20,8 @@ Casper is a chatbot-like desktop app for tracking and managing your tasks using 
      What can I do for you?
     _______________________________________________________________________
 ```
-6. To execute a command, type in the command and press the Enter key. Typing an unrecognized command will prompt a list of valid keywords to try as such: 
+6. To execute a command, type in the command and press the Enter key. Typing an unrecognized command will prompt a list of valid keywords to try as such:
+   
 ```dtd   
     _______________________________________________________________________
      Pardon? I didn't quite understand "help"
