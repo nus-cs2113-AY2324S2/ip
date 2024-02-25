@@ -3,7 +3,6 @@ package MainRuntime;
 import Exceptions.*;
 import Tasks.*;
 
-import javax.lang.model.type.NullType;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -110,7 +109,7 @@ public class GermaBot {
         if (idxOfEndDate == -1) {
             throw new MissingDeadlineException();
         }
-        String date = description.substring( idxOfEndDate + 4);
+        String date = description.substring(idxOfEndDate + 4);
         String toDoTask = description.substring(0, idxOfEndDate - 1);
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
@@ -195,7 +194,6 @@ public class GermaBot {
             } catch (IOException e) {
                 System.out.println("Uh oh, I could not save that to the file...");
             }
-
         }
         else if (input.startsWith("event")) {
             try {
@@ -211,6 +209,16 @@ public class GermaBot {
             }
         } else {
             throw new UnknownInputException();
+        }
+    }
+
+    public static void printList() {
+        System.out.println("Gotcha! Here are your tasks:");
+        for (int i = 0; i < counter; i++) {
+            if (toDoList.get(i) == null) {
+                break;
+            }
+            System.out.println(i + 1 + ". " + toDoList.get(i));
         }
     }
 
@@ -242,14 +250,8 @@ public class GermaBot {
                     System.out.println("Umm... You haven't added any Tasks yet... Let's try adding " +
                             "some now!");
                 } else {
-                    System.out.println("Gotcha! Here are your tasks:");
-                    for (int i = 0; i < counter; i++) {
-                        if (toDoList.get(i) == null) {
-                            break;
-                        }
-                        System.out.println(i + 1 + ". " + toDoList.get(i));
+                    printList();
                     }
-                }
             } else if (input.contains("unmark")) {
                 int idx = getIdx(input);
                 toDoList.get(idx).setDone(false);
