@@ -226,7 +226,7 @@ public class Byte {
                 addTask(new ToDo(description));
                 break;
             case "D":
-                String by = parts[DEADLINE_TIME_INDEX ];
+                String by = parts[DEADLINE_TIME_INDEX];
                 addTask(new Deadline(description, by));
                 break;
             case "E":
