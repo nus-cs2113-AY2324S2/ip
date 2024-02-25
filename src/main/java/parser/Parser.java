@@ -1,6 +1,15 @@
 package parser;
 
-import command.*;
+import command.Command;
+import command.FindCommand;
+import command.TodoCommand;
+import command.EventCommand;
+import command.DeadlineCommand;
+import command.ListCommand;
+import command.DeleteCommand;
+import command.ByeCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
 
 import commandexceptions.JingHaoExceptions;
 import tasktype.TaskList;
@@ -29,6 +38,8 @@ public class Parser {
             return new DeleteCommand(description);
         case "bye":
             return new ByeCommand();
+        case "find":
+            return new FindCommand(description);
         default:
             throw new JingHaoExceptions("Unknown command encountered! Please try again.");
         }
