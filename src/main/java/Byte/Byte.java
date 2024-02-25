@@ -31,14 +31,18 @@ public class Byte {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         runByte(scanner);
-        if (tasksChanged){
-            try{
+        handleSaveChanges();
+        scanner.close();
+    }
+
+    private static void handleSaveChanges() {
+        if (tasksChanged) {
+            try {
                 saveTasksToFile();
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
         }
-        scanner.close();
     }
 
     public static void runByte(Scanner scanner){
