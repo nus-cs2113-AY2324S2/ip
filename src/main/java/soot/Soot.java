@@ -3,6 +3,7 @@ import soot.manager.CommandManager;
 import soot.manager.SavedFileManager;
 import soot.manager.GreetingManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,6 +38,12 @@ public class Soot {
             line = in.nextLine(); //user input
             drawLine();
             isBye = commandManager.isInputBye(line);
+        }
+
+        try {
+            SavedFileManager.saveFinalFile();
+        } catch (IOException e) {
+            System.out.println("there was a problem saving your tasks to the hard disk...");
         }
         GreetingManager.greetGoodbye();
     }

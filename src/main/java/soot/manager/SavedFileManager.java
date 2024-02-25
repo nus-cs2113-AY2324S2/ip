@@ -49,4 +49,36 @@ public class SavedFileManager {
         }
         System.out.println(Arrays.toString(taskInfo));
     }
+
+
+    public static void saveFinalFile() throws IOException {
+        FileWriter fw = new FileWriter("saved-data/saved.txt");
+        for (int i = 0; i < CommandManager.taskList.size(); i++) {
+            String stringToSave = formatTaskLine(CommandManager.taskList.get(i));
+            fw.write(stringToSave + "\n");
+        }
+        fw.close();
+    }
+
+    public static String formatTaskLine(Task task) {
+        String formattedLine;
+        int taskDone = task.isDone ? 1 : 0;
+        switch (task.taskType) {
+        case TODO:
+            formattedLine = "T ; " + taskDone + " ; " + task.taskName;
+            break;
+        case DEADLINE:
+            Deadline deadline = (Deadline) task;
+            formattedLine = "D ; " + taskDone + " ; " + deadline.taskName + " ; " + deadline.dueDate;
+            break;
+        case EVENT:
+            Event event = (Event) task;
+            formattedLine = "E ; " + taskDone + " ; " + event.taskName + " ; " + event.startDate + " ; " + event.endDate;
+            break;
+        default:
+            formattedLine = "i could not read this task";
+            System.out.println("task of unknown type detected");
+        }
+        return formattedLine;
+    }
 }

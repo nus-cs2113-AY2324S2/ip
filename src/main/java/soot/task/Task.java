@@ -3,9 +3,9 @@ package soot.task;
 import soot.manager.CommandManager;
 
 public class Task {
-    protected String taskName;
-//    protected int index;
-    protected boolean isDone;
+    public String taskName;
+    public boolean isDone;
+    public taskType taskType;
 
     public Task(String input, Boolean isDone) {
         this.taskName = input;

@@ -1,11 +1,12 @@
 package soot.task;
 
 public class Event extends Task {
-    protected String startDate;
-    protected String endDate;
+    public String startDate;
+    public String endDate;
 
     public Event(String taskName, Boolean isDone, String startDate, String endDate) {
         super(taskName, isDone);
+        this.taskType = soot.task.taskType.EVENT;
         this.startDate = startDate;
         this.endDate = endDate;
     }
