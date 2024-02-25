@@ -1,36 +1,37 @@
 package alpaca.logic;
 
-import alpaca.UI.ResponseManager;
-import alpaca.file.FileSaver;
+import alpaca.ui.Ui;
+import alpaca.storage.Storage;
 import alpaca.tasks.*;
 import alpaca.exceptions.InvalidCommandException;
 import alpaca.exceptions.InvalidIndexException;
 
+
 public class LogicManager {
     private TaskList taskList;
-    private ResponseManager responseManager;
+    private Ui ui;
 
-    public LogicManager(ResponseManager responseManager) {
+    public LogicManager(Ui ui) {
         this.taskList = TaskLoader.loadTask();
-        this.responseManager = responseManager;
+        this.ui = ui;
     }
 
     public void executeCommand (String command, String details) throws InvalidCommandException{
         switch (command) {
         case "list":
-            responseManager.printTaskList(taskList);
+            ui.printTaskList(taskList);
             break;
         case "mark":
         case "unmark":
             markUnmarkTask(details, command.equals("mark"));
-            FileSaver.startFileWriter(taskList.saveTask());
+            Storage.startFileWriter(taskList.saveTask());
             break;
         case "delete":
             deleteTask(details);
-            FileSaver.startFileWriter(taskList.saveTask());
+            Storage.startFileWriter(taskList.saveTask());
             break;
         case "bye":
-            responseManager.printGoodbye();
+            ui.printGoodbye();
             System.exit(0);
             break;
         default:
@@ -52,8 +53,8 @@ public class LogicManager {
 
     private void addTask(Task task) {
         taskList.addTask(task);
-        responseManager.printAddTask(task, taskList.getTotalTaskNumber());
-        FileSaver.startFileWriter(taskList.saveTask());
+        ui.printAddTask(task, taskList.getTotalTaskNumber());
+        Storage.startFileWriter(taskList.saveTask());
     }
 
     private void deleteTask(String details) {
@@ -63,9 +64,9 @@ public class LogicManager {
                 throw new InvalidIndexException();
             }
             taskList.deleteTask(taskIndex);
-            responseManager.printLine();
+            ui.printLine();
         } catch (InvalidIndexException e) {
-            ResponseManager.printErrorMessage(e.toString());
+            ui.printErrorMessage(e.toString());
         }
     }
 
@@ -80,9 +81,9 @@ public class LogicManager {
             } else {
                 taskList.unmarkTask(taskIndex);
             }
-            responseManager.printLine();
+            ui.printLine();
         } catch (InvalidIndexException e) {
-            ResponseManager.printErrorMessage(e.toString());
+            ui.printErrorMessage(e.toString());
         }
     }
 }

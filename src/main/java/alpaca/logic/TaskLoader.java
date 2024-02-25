@@ -1,14 +1,14 @@
 package alpaca.logic;
 
 import alpaca.tasks.TaskList;
-import alpaca.file.FileReader;
+import alpaca.storage.Storage;
 
 public class TaskLoader {
     public static TaskList loadTask() {
-        if (!FileReader.isFileExist()) {
-            FileReader.createEmptyFile();
+        if (!Storage.isFileExist()) {
+            Storage.createEmptyFile();
             return new TaskList();
         }
-        return FileReader.restoreTask();
+        return Storage.restoreTask();
     }
 }

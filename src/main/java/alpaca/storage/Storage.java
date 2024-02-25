@@ -1,14 +1,16 @@
-package alpaca.file;
+package alpaca.storage;
 
-import alpaca.UI.ResponseManager;
+import alpaca.ui.Ui;
 import alpaca.tasks.*;
 import alpaca.exceptions.InvalidFileException;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.FileWriter;
 import java.util.Scanner;
 
-public class FileReader {
+
+public class Storage {
     private static final String FILE_PATH = "data/Alpaca.txt";
     private static final File file = new File(FILE_PATH);
 
@@ -27,7 +29,7 @@ public class FileReader {
                 }
             }
         } catch (InvalidFileException e) {
-            ResponseManager.printErrorMessage(e.toString());
+            Ui.printErrorMessage(e.toString());
         }
     }
 
@@ -54,11 +56,11 @@ public class FileReader {
         try {
             if (file.createNewFile()) { // Use the shared File instance
                 System.out.println("No existing task list, file created: " + file.getName());
-                ResponseManager.printLine();
+                Ui.printLine();
             }
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file.");
-            ResponseManager.printLine();
+            Ui.printLine();
         }
     }
 
@@ -67,7 +69,7 @@ public class FileReader {
             readFileContents(tasks);
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
-            ResponseManager.printLine();
+            Ui.printLine();
         }
         return tasks;
     }
@@ -76,5 +78,20 @@ public class FileReader {
         TaskList tasks = new TaskList();
         startFileReader(tasks);
         return tasks;
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void startFileWriter(String taskList) {
+        String filePath = "data/Alpaca.txt";
+        try {
+            writeToFile(filePath, taskList);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 }

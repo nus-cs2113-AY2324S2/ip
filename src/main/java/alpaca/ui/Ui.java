@@ -1,9 +1,9 @@
-package alpaca.UI;
+package alpaca.ui;
 
-import alpaca.tasks.TaskList;
 import alpaca.tasks.Task;
+import alpaca.tasks.TaskList;
 
-public class ResponseManager {
+public class Ui {
     private static final String LOGO = "           _      _____        _____          \n" +
         "     /\\   | |    |  __ \\ /\\   / ____|   /\\    \n" +
         "    /  \\  | |    | |__) /  \\ | |       /  \\   \n" +

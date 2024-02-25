@@ -1,16 +1,16 @@
-package alpaca.UI;
+package alpaca.parser;
 
 import java.util.Scanner;
 
+import alpaca.ui.Ui;
 import alpaca.file.FileSaver;
 import alpaca.logic.LogicManager;
 import alpaca.exceptions.EmptyTaskDescriptionException;
 import alpaca.exceptions.InvalidCommandException;
-
-public class InputManager {
+public class Parser {
     private Scanner scanner;
 
-    public InputManager() {
+    public Parser() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -54,9 +54,9 @@ public class InputManager {
                     break;
                 }
             } catch (InvalidCommandException e) {
-                ResponseManager.printErrorMessage(e.toString());
+                Ui.printErrorMessage(e.toString());
             } catch (EmptyTaskDescriptionException e){
-                ResponseManager.printErrorMessage(e.getMessage());
+                Ui.printErrorMessage(e.getMessage());
             }
         }
     }

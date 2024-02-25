@@ -1,0 +1,2 @@
+T | 1 | borrow book
+E | 1 | research meeting | Sun 8pm-10pm

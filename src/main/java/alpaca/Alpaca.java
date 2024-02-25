@@ -2,17 +2,17 @@ package alpaca;
 
 import alpaca.file.FileReader;
 import alpaca.logic.LogicManager;
-import alpaca.UI.ResponseManager;
-import alpaca.UI.InputManager;
+import alpaca.ui.Ui;
+import alpaca.parser.Parser;
 
 public class Alpaca {
     public static void startConversation() {
-        ResponseManager responseManager = new ResponseManager();
-        LogicManager logicManager = new LogicManager(responseManager);
-        InputManager inputManager = new InputManager();
+        Ui ui = new Ui();
+        LogicManager logicManager = new LogicManager(ui);
+        Parser Parser = new Parser();
 
-        responseManager.printGreeting();
-        inputManager.listenForInput(logicManager);
+        ui.printGreeting();
+        Parser.listenForInput(logicManager);
     }
 
     public static void main(String[] args) {
