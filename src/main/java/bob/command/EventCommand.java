@@ -2,12 +2,14 @@ package bob.command;
 
 import bob.utils.TaskManager;
 
+import java.time.LocalDateTime;
+
 public class EventCommand extends Command {
     private final String taskName;
-    private final String startDate;
-    private final String endDate;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
 
-    public EventCommand(TaskManager taskManager, String taskName, String startDate, String endDate) {
+    public EventCommand(TaskManager taskManager, String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskManager);
         this.taskName = taskName;
         this.startDate = startDate;

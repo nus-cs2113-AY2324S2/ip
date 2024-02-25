@@ -11,13 +11,17 @@ import bob.command.TodoCommand;
 import bob.command.UnmarkCommand;
 import bob.exceptions.InvalidArgumentException;
 import bob.exceptions.InvalidCommandException;
+import bob.exceptions.InvalidDateTimeException;
 import bob.exceptions.InvalidTaskNumberException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.MatchResult;
 
 public class Parser {
     public Command processUserCommand(String userCommand, TaskManager taskManager, Ui userInterface) throws
-            InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException {
+            InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException, InvalidDateTimeException {
             String[] arguments;
 
             switch (userCommand) {
@@ -55,18 +59,51 @@ public class Parser {
         }
     }
 
-    private Command getTaskCreationCommand(TaskManager taskManager, String userCommand, String[] arguments) {
+    private Command getTaskCreationCommand(TaskManager taskManager, String userCommand, String[] arguments) throws
+            InvalidDateTimeException, InvalidArgumentException {
         String taskName = arguments[0];
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
         if (userCommand.equals("TODO")) {
             return new TodoCommand(taskManager, taskName);
         } else if (userCommand.equals("DEADLINE")) {
             String dueDate = arguments[1];
-            return new DeadlineCommand(taskManager, taskName, dueDate);
+            LocalDateTime dueDateTime;
+
+            try {
+                dueDateTime = LocalDateTime.parse(dueDate, dateTimeFormatter);
+            } catch (DateTimeParseException exception) {
+                throw new InvalidArgumentException("DEADLINE");
+            }
+
+            if (!dueDateTime.isAfter(currentDateTime)) {
+                throw new InvalidDateTimeException(userCommand, InvalidDateTimeException.INVALID_END_TIME);
+            }
+
+            return new DeadlineCommand(taskManager, taskName, dueDateTime);
         } else {
             String startDate = arguments[1];
             String endDate = arguments[2];
-            return new EventCommand(taskManager, taskName, startDate, endDate);
+            LocalDateTime startDateTime;
+            LocalDateTime endDateTime;
+
+            try {
+                startDateTime = LocalDateTime.parse(startDate, dateTimeFormatter);
+                endDateTime = LocalDateTime.parse(endDate, dateTimeFormatter);
+            } catch (DateTimeParseException exception) {
+                throw new InvalidArgumentException("EVENT");
+            }
+
+            if (!endDateTime.isAfter(currentDateTime)) {
+                throw new InvalidDateTimeException(userCommand, InvalidDateTimeException.INVALID_END_TIME);
+            }
+
+            if (startDateTime.isAfter(endDateTime)) {
+                throw new InvalidDateTimeException(userCommand, InvalidDateTimeException.START_AFTER_END);
+            }
+
+            return new EventCommand(taskManager, taskName, startDateTime, endDateTime);
         }
     }
 

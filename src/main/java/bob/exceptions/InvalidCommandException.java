@@ -8,8 +8,8 @@ public class InvalidCommandException extends Exception {
             "  mark <task number>\n" +
             "  unmark <task number>\n" +
             "  todo <task name>\n" +
-            "  deadline <task name> /by <due date>\n" +
-            "  event <task name> /from <start date> /to <end date>\n" +
+            "  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)\n" +
+            "  event <task name> /from <start date> /to <end date> (date format: dd/mm/yyyy hh:mm)\n" +
             "  bye";
 
     @Override

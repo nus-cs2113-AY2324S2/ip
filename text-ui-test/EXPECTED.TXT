@@ -38,23 +38,23 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
-   [D][ ] more things to do (by: the next few weeks...!)
+   [D][ ] more things to do (by: 30/04/2024 23:59)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
-   [E][ ] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+   [E][ ] some event to attend (from: 01/01/2024 00:00 to: 31/12/2024 23:59)
  Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Nice! I've marked this task as done:
-   [E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+   [E][X] some event to attend (from: 01/01/2024 00:00 to: 31/12/2024 23:59)
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
  1.[T][ ] something to do
- 2.[D][ ] more things to do (by: the next few weeks...!)
- 3.[E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+ 2.[D][ ] more things to do (by: 30/04/2024 23:59)
+ 3.[E][X] some event to attend (from: 01/01/2024 00:00 to: 31/12/2024 23:59)
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
@@ -64,19 +64,19 @@ ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
  1.[T][ ] something to do
- 2.[D][ ] more things to do (by: the next few weeks...!)
- 3.[E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+ 2.[D][ ] more things to do (by: 30/04/2024 23:59)
+ 3.[E][X] some event to attend (from: 01/01/2024 00:00 to: 31/12/2024 23:59)
  4.[T][ ] junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
 ____________________________________________________________
 ____________________________________________________________
  Noted. I've removed this task:
-   [D][ ] more things to do (by: the next few weeks...!)
+   [D][ ] more things to do (by: 30/04/2024 23:59)
  Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
  1.[T][ ] something to do
- 2.[E][X] some event to attend (from: whatever date... to: hopefully this event ends soon!!)
+ 2.[E][X] some event to attend (from: 01/01/2024 00:00 to: 31/12/2024 23:59)
  3.[T][ ] junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
 ____________________________________________________________
 ____________________________________________________________
@@ -88,8 +88,8 @@ ____________________________________________________________
   mark <task number>
   unmark <task number>
   todo <task name>
-  deadline <task name> /by <due date>
-  event <task name> /from <start date> /to <end date>
+  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)
+  event <task name> /from <start date> /to <end date> (date format: dd/mm/yyyy hh:mm)
   bye
 ____________________________________________________________
 ____________________________________________________________
@@ -120,25 +120,49 @@ ____________________________________________________________
  Please ensure your command is properly formatted!
 
  Usage:
-  deadline <task name> /by <due date>
+  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)
 ____________________________________________________________
 ____________________________________________________________
  Please ensure your command is properly formatted!
 
  Usage:
-  deadline <task name> /by <due date>
+  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)
 ____________________________________________________________
 ____________________________________________________________
  Please ensure your command is properly formatted!
 
  Usage:
-  event <task name> /from <start date> /to <end date>
+  event <task name> /from <start date> /to <end date> (date format: dd/mm/yyyy hh:mm)
 ____________________________________________________________
 ____________________________________________________________
  Please ensure your command is properly formatted!
 
  Usage:
-  event <task name> /from <start date> /to <end date>
+  event <task name> /from <start date> /to <end date> (date format: dd/mm/yyyy hh:mm)
+____________________________________________________________
+____________________________________________________________
+ Please ensure your command is properly formatted!
+
+ Usage:
+  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)
+____________________________________________________________
+____________________________________________________________
+ Please enter a valid end date/time!
+
+ Usage:
+  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)
+____________________________________________________________
+____________________________________________________________
+ Please ensure your command is properly formatted!
+
+ Usage:
+  event <task name> /from <start date> /to <end date> (date format: dd/mm/yyyy hh:mm)
+____________________________________________________________
+____________________________________________________________
+ Please ensure that the Event does not start after its end date!
+
+ Usage:
+  event <task name> /from <start date> /to <end date> (date format: dd/mm/yyyy hh:mm)
 ____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!

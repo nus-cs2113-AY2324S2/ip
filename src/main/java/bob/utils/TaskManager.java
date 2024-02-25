@@ -1,5 +1,6 @@
 package bob.utils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -63,12 +64,12 @@ public class TaskManager {
         return addNewTask(newTodo);
     }
 
-    public String addDeadline(String taskName, String dueDate) {
+    public String addDeadline(String taskName, LocalDateTime dueDate) {
         Task newDeadline = new Deadline(taskName, dueDate);
         return addNewTask(newDeadline);
     }
 
-    public String addEvent(String taskName, String startDate, String endDate) {
+    public String addEvent(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         Task newEvent = new Event(taskName, startDate, endDate);
         return addNewTask(newEvent);
     }
