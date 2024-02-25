@@ -7,12 +7,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        UserUi userUi = new UserUi();
+
         try {
             SaveFile.createFiles();
         } catch (IOException e) {
-            UserUi.printErrorIO();
+            userUi.printErrorIO();
         } catch (SecurityException e) {
-            UserUi.printErrorSecurity();
+            userUi.printErrorSecurity();
         }
 
         List taskList = new List();
@@ -20,22 +22,22 @@ public class Main {
         try {
             SaveFile.loadData(taskList);
         } catch (FileNotFoundException e) {
-            UserUi.printErrorFileNotFound();
+            userUi.printErrorFileNotFound();
         } catch (EmptyTaskNameException e) {
-            UserUi.printErrorCorruptedFile();
+            userUi.printErrorCorruptedFile();
         } catch (IllegalListIndexException e) {
-            UserUi.printErrorCorruptedFile();
+            userUi.printErrorCorruptedFile();
         } catch (EmptyByException e) {
-            UserUi.printErrorCorruptedFile();
+            userUi.printErrorCorruptedFile();
         } catch (EmptyFromException e ) {
-            UserUi.printErrorCorruptedFile();
+            userUi.printErrorCorruptedFile();
         } catch (EmptyToException e) {
-            UserUi.printErrorCorruptedFile();
+            userUi.printErrorCorruptedFile();
         } catch (UnknownTaskException e) {
-            UserUi.printErrorCorruptedFile();
+            userUi.printErrorCorruptedFile();
         }
 
-        UserUi.printWelcomeMessage();
+        userUi.printWelcomeMessage();
 
         String input;
         Scanner in = new Scanner(System.in);
@@ -43,14 +45,14 @@ public class Main {
         while (true) {
             input = in.nextLine();
 
-            UserUi.printMessageBorder();
+            userUi.printMessageBorder();
             switch (input) {
             case "list":
                 taskList.listAll();
                 break;
             case "bye":
-                UserUi.printByeMessage();
-                UserUi.printMessageBorder();
+                userUi.printByeMessage();
+                userUi.printMessageBorder();
                 System.exit(0);
             default:
                 if (input.startsWith("unmark")) {
@@ -59,20 +61,20 @@ public class Main {
                     try {
                         index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
                     } catch (NumberFormatException e) {
-                        UserUi.printErrorNoId();
-                        UserUi.printUsageUnmark();
+                        userUi.printErrorNoId();
+                        userUi.printUsageUnmark();
                         break;
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorNoId();
-                        UserUi.printUsageUnmark();
+                        userUi.printErrorNoId();
+                        userUi.printUsageUnmark();
                         break;
                     }
 
                     try {
                         taskList.unmarkTask(index);
                     } catch (IllegalListIndexException e) {
-                        UserUi.printErrorInvalidId();
-                        UserUi.printUsageUnmark();
+                        userUi.printErrorInvalidId();
+                        userUi.printUsageUnmark();
                         break;
                     }
                 } else if (input.startsWith("mark")) {
@@ -81,20 +83,20 @@ public class Main {
                     try {
                         index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
                     } catch (NumberFormatException e) {
-                        UserUi.printErrorNoId();
-                        UserUi.printUsageMark();
+                        userUi.printErrorNoId();
+                        userUi.printUsageMark();
                         break;
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorNoId();
-                        UserUi.printUsageMark();
+                        userUi.printErrorNoId();
+                        userUi.printUsageMark();
                         break;
                     }
 
                     try {
                         taskList.markTask(index);
                     } catch (IllegalListIndexException e) {
-                        UserUi.printErrorInvalidId();
-                        UserUi.printUsageMark();
+                        userUi.printErrorInvalidId();
+                        userUi.printUsageMark();
                         break;
                     }
                 } else if (input.startsWith("todo")) {
@@ -103,16 +105,16 @@ public class Main {
                     try {
                         description = input.substring(input.indexOf(" ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorNoTaskName();
-                        UserUi.printUsageUsageTodo();
+                        userUi.printErrorNoTaskName();
+                        userUi.printUsageUsageTodo();
                         break;
                     }
 
                     try {
                         taskList.addTodo(description);
                     } catch (EmptyTaskNameException e) {
-                        UserUi.printErrorNoTaskName();
-                        UserUi.printUsageUsageTodo();
+                        userUi.printErrorNoTaskName();
+                        userUi.printUsageUsageTodo();
                         break;
                     }
                 } else if (input.startsWith("deadline")) {
@@ -122,28 +124,28 @@ public class Main {
                     try {
                         description = input.substring(input.indexOf(" "), input.indexOf(" /by ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorInvalidFormat();
-                        UserUi.printUsageDeadline();
+                        userUi.printErrorInvalidFormat();
+                        userUi.printUsageDeadline();
                         break;
                     }
 
                     try {
                         by = input.substring(input.indexOf(" /by ") + 4).trim();
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorInvalidFormat();
-                        UserUi.printUsageDeadline();
+                        userUi.printErrorInvalidFormat();
+                        userUi.printUsageDeadline();
                         break;
                     }
 
                     try {
                         taskList.addDeadline(description, by);
                     } catch (EmptyTaskNameException e) {
-                        UserUi.printErrorNoTaskName();
-                        UserUi.printUsageDeadline();
+                        userUi.printErrorNoTaskName();
+                        userUi.printUsageDeadline();
                         break;
                     } catch (EmptyByException e) {
-                        UserUi.printErrorNoBy();
-                        UserUi.printUsageDeadline();
+                        userUi.printErrorNoBy();
+                        userUi.printUsageDeadline();
                         break;
                     }
                 } else if (input.startsWith("event")) {
@@ -154,40 +156,40 @@ public class Main {
                     try {
                         description = input.substring(input.indexOf(" "), input.indexOf(" /from ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorInvalidFormat();
-                        UserUi.printUsageEvent();
+                        userUi.printErrorInvalidFormat();
+                        userUi.printUsageEvent();
                         break;
                     }
 
                     try {
                         from = input.substring(input.indexOf("/from") + 5, input.indexOf(" /to ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorInvalidFormat();
-                        UserUi.printUsageEvent();
+                        userUi.printErrorInvalidFormat();
+                        userUi.printUsageEvent();
                         break;
                     }
 
                     try {
                         to = input.substring(input.indexOf("/to ") + 3).trim();
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorInvalidFormat();
-                        UserUi.printUsageEvent();
+                        userUi.printErrorInvalidFormat();
+                        userUi.printUsageEvent();
                         break;
                     }
 
                     try {
                         taskList.addEvent(description, from, to);
                     } catch (EmptyTaskNameException e) {
-                        UserUi.printErrorNoTaskName();
-                        UserUi.printUsageEvent();
+                        userUi.printErrorNoTaskName();
+                        userUi.printUsageEvent();
                         break;
                     } catch (EmptyFromException e) {
-                        UserUi.printErrorNoFrom();
-                        UserUi.printUsageEvent();
+                        userUi.printErrorNoFrom();
+                        userUi.printUsageEvent();
                         break;
                     } catch (EmptyToException e) {
-                        UserUi.printErrorNoTo();
-                        UserUi.printUsageEvent();
+                        userUi.printErrorNoTo();
+                        userUi.printUsageEvent();
                         break;
                     }
                 } else if(input.startsWith("delete")) {
@@ -195,28 +197,28 @@ public class Main {
                     try {
                         index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
                     } catch (NumberFormatException e) {
-                        UserUi.printErrorNoId();
-                        UserUi.printUsageDelete();
+                        userUi.printErrorNoId();
+                        userUi.printUsageDelete();
                         break;
                     } catch (StringIndexOutOfBoundsException e) {
-                        UserUi.printErrorNoId();
-                        UserUi.printUsageDelete();
+                        userUi.printErrorNoId();
+                        userUi.printUsageDelete();
                         break;
                     }
 
                     try {
                         taskList.deleteTask(index);
                     } catch (IllegalListIndexException e) {
-                        UserUi.printErrorInvalidId();
-                        UserUi.printUsageDelete();
+                        userUi.printErrorInvalidId();
+                        userUi.printUsageDelete();
                         break;
                     }
                 } else {
-                    UserUi.printUnknownCommandMessage();
+                    userUi.printUnknownCommandMessage();
                 }
             }
 
-            UserUi.printMessageBorder();
+            userUi.printMessageBorder();
         }
     }
 }
