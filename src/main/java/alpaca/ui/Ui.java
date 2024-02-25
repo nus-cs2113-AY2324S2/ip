@@ -23,14 +23,14 @@ public class Ui {
     public static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
-    public void printGreeting() {
+    public static void printGreeting() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(HORIZONTAL_LINE);
         System.out.println(GREET_MESSAGE);
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void printGoodbye() {
+    public static void printGoodbye() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(GOODBYE_MESSAGE);
         System.out.println(HORIZONTAL_LINE);

@@ -3,7 +3,6 @@ package alpaca.parser;
 import java.util.Scanner;
 
 import alpaca.ui.Ui;
-import alpaca.file.FileSaver;
 import alpaca.logic.LogicManager;
 import alpaca.exceptions.EmptyTaskDescriptionException;
 import alpaca.exceptions.InvalidCommandException;
