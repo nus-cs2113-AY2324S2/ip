@@ -1,5 +1,8 @@
 package bob.task;
 
+/**
+ * Deadline Task class. Used to represent Tasks with a due date.
+ */
 public class Deadline extends Task {
     private final String dueDate;
 
@@ -13,6 +16,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Due date getter method.
+     *
+     * @return String representation of the Task due date.
+     */
     public String getDueDate() {
         return this.dueDate;
     }

@@ -11,7 +11,15 @@ import bob.utils.Ui;
 
 import java.io.IOException;
 
+/**
+ * Entry point for the Bob Chat-Bot. The Chat-Bot will interact with the User and obtain their input.
+ */
 public class Bob {
+    /**
+     * Runs the program until termination by the User.
+     *
+     * @throws IOException If the program has no read/write access to ./data/state.txt.
+     */
     public void run() throws IOException {
         Ui userInterface = new Ui();
         userInterface.printLogo();
@@ -34,6 +42,8 @@ public class Bob {
                 userInterface.print(executionResult);
             } catch (IOException | InvalidCommandException | InvalidTaskNumberException |
                      InvalidArgumentException exception) {
+                // Todo: Account for IOException handling when program cannot write to state file. Consider throwing
+                // a RuntimeException.
                 userInterface.clearInput();
                 userInterface.print(exception.getMessage());
             }

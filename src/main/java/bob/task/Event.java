@@ -16,10 +16,20 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    /**
+     * Start date getter method.
+     *
+     * @return String representation of the Task start date.
+     */
     public String getStartDate() {
         return this.startDate;
     }
 
+    /**
+     * End date getter method.
+     *
+     * @return String representation of the Task end date.
+     */
     public String getEndDate() {
         return this.endDate;
     }

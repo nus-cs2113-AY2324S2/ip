@@ -8,6 +8,9 @@ import bob.task.Event;
 import bob.task.Task;
 import bob.task.Todo;
 
+/**
+ * Handles the storage and management of Tasks. Task operations (add, delete, list) are done by the TaskManager.
+ */
 public class TaskManager {
     private final List<Task> tasks;
     private int taskCount;
@@ -17,6 +20,11 @@ public class TaskManager {
         this.taskCount = 0;
     }
 
+    /**
+     * Tokenize Tasks. Task properties/variables are set as individual elements of the inner List.
+     *
+     * @return List of Lists of String. Each inner List represents a tokenized Task.
+     */
     public List<List<String>> tokenizeTasks() {
         List<List<String>> tokenizedTaskList = new ArrayList<>();
 
@@ -44,7 +52,10 @@ public class TaskManager {
     }
 
     /**
-     * Add new Task to Task array
+     * Add a new Task to the Task List.
+     *
+     * @param newTask New Task to be added.
+     * @return Result String from the operation performed.
      */
     private String addNewTask(Task newTask) {
         String output = " Got it. I've added this task:\n";
@@ -58,23 +69,46 @@ public class TaskManager {
         return output;
     }
 
+    /**
+     * Add a new Todo Task.
+     *
+     * @param taskName Name of Todo Task to be added.
+     * @return Result String from the addition operation.
+     */
     public String addTodo(String taskName) {
         Task newTodo = new Todo(taskName);
         return addNewTask(newTodo);
     }
 
+    /**
+     * Add a new Deadline Task.
+     *
+     * @param taskName Name of Deadline Task to be added.
+     * @param dueDate Due date of the Deadline Task.
+     * @return Result String from the addition operation.
+     */
     public String addDeadline(String taskName, String dueDate) {
         Task newDeadline = new Deadline(taskName, dueDate);
         return addNewTask(newDeadline);
     }
 
+    /**
+     * Add a new Event Task.
+     *
+     * @param taskName Name of Event Task to be added.
+     * @param startDate Start date of the Event Task.
+     * @param endDate End date of the Event Task.
+     * @return Result String from the addition operation.
+     */
     public String addEvent(String taskName, String startDate, String endDate) {
         Task newEvent = new Event(taskName, startDate, endDate);
         return addNewTask(newEvent);
     }
 
     /**
-     * List out tasks (completed/uncompleted) in Task array
+     * List out all Tasks in the Task List.
+     *
+     * @return String representation of all Tasks in the Task List.
      */
     public String listTasks() {
         StringBuilder output = new StringBuilder(" Here are the tasks in your list:\n");
@@ -89,7 +123,11 @@ public class TaskManager {
     }
 
     /**
-     * Update progress of Task in Task array
+     * Update the progress of a Task in the Task List.
+     *
+     * @param taskId ID of the Task to be updated.
+     * @param command The operation to be performed on the Task (mark/unmark).
+     * @return Result String from the update operation.
      */
     public String updateTaskProgress(int taskId, String command) {
         String output;
@@ -111,6 +149,12 @@ public class TaskManager {
         return output;
     }
 
+    /**
+     * Deletes a Task from the Task List.
+     *
+     * @param taskId ID of the Task to be deleted.
+     * @return Result String from the deletion operation.
+     */
     public String deleteTask(int taskId) {
         int currentTaskIndex = taskId - 1;
         Task taskToDelete = tasks.remove(currentTaskIndex);

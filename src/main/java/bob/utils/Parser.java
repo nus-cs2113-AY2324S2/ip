@@ -15,7 +15,21 @@ import bob.exceptions.InvalidTaskNumberException;
 
 import java.util.regex.MatchResult;
 
+/**
+ * Parses User inputs and generates the appropriate Commands.
+ */
 public class Parser {
+    /**
+     * Returns the appropriate Command based off the User's input.
+     *
+     * @param userCommand Command String provided by the User (e.g. LIST, DEADLINE etc.).
+     * @param taskManager TaskManager instance belonging to the current instance of the program.
+     * @param userInterface Ui instance belonging to the current instance of the program.
+     * @return Command corresponding to the user's input.
+     * @throws InvalidTaskNumberException If invalid task ID is provided for MARK, UNMARK, DELETE commands.
+     * @throws InvalidArgumentException If arguments are not formatted correctly in the User input.
+     * @throws InvalidCommandException If invalid commands are provided by the User.
+     */
     public Command processUserCommand(String userCommand, TaskManager taskManager, Ui userInterface) throws
             InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException {
             String[] arguments;
@@ -45,6 +59,14 @@ public class Parser {
             }
     }
 
+    /**
+     * Returns a Task "Utility" Command (e.g. mark, unmark, delete)
+     *
+     * @param taskManager TaskManager instance belonging to the current instance of the program.
+     * @param userCommand Command String provided by the User. Must be a "utility" command.
+     * @param taskId ID of the Task to be modified.
+     * @return Command corresponding to the User's input.
+     */
     private Command getTaskUtilityCommand(TaskManager taskManager, String userCommand, int taskId) {
         if (userCommand.equals("MARK")) {
             return new MarkCommand(taskManager, taskId);
@@ -55,6 +77,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Task "Creation" Command (e.g. todo, deadline, event)
+     *
+     * @param taskManager TaskManager instance belonging to the current instance of the program.
+     * @param userCommand Command String provided by the User. Must be a "creation" command.
+     * @param arguments String array of arguments provided by the User. Used to create the appropriate Task.
+     * @return Command corresponding to the User's input.
+     */
     private Command getTaskCreationCommand(TaskManager taskManager, String userCommand, String[] arguments) {
         String taskName = arguments[0];
 
@@ -71,7 +101,12 @@ public class Parser {
     }
 
     /**
-     * Parse arguments provided (e.g., /from, /by, /to)
+     * Parse arguments provided by the User from standard input.
+     *
+     * @param userCommand Command String provided by the User.
+     * @param userInterface Ui instance belonging to the current instance of the program.
+     * @return String array of arguments provided by the User.
+     * @throws InvalidArgumentException If arguments are not provided in the expected format.
      */
     private String[] parseArguments(String userCommand, Ui userInterface) throws InvalidArgumentException {
         int expectedArgumentCount;

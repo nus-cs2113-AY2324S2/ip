@@ -1,5 +1,8 @@
 package bob.exceptions;
 
+/**
+ * Bob Exception for invalid arguments provided by the User.
+ */
 public class InvalidArgumentException extends Exception {
     private final String command;
     private static final String ERROR_MESSAGE = " Please ensure your command is properly formatted!\n\n";
