@@ -30,4 +30,8 @@ public abstract class Task {
         String status = isDone ? "[X]" : "[ ]";
         return "[" + getType() + "]" + status + " " + description;
     }
+
+    public String saveString() {
+        return getType() + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }

@@ -1,4 +1,9 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +24,7 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public void addTask(String description) throws DukeException{
+    public void addTask(String description) throws DukeException {
         Scanner scanner = new Scanner(description);
         scanner.useDelimiter(" ");
         String taskType = scanner.next().toLowerCase();
@@ -67,7 +72,7 @@ public class Duke {
 
     public void deleteTask(int index) {
         if (index >= 0 && index <= tasks.size()) {
-            Task deletedTask = tasks.remove(index-1);
+            Task deletedTask = tasks.remove(index - 1);
             System.out.println("Noted. I've removed this task:");
             System.out.println(deletedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -76,17 +81,67 @@ public class Duke {
         }
     }
 
+    public void loadTasksFromFile(List<Task> tasks) {
+        try {
+            FileReader fileReader = new FileReader(FILE_PATH);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                Task task = createTaskFromString(line);
+                tasks.add(task);
+            }
+
+            bufferedReader.close();
+            System.out.println("Tasks loaded from file: " + FILE_PATH + " already!");
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    private Task createTaskFromString(String taskString) {
+        String[] parts = taskString.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = null;
+        switch (type) {
+            case "D":
+                String deadline = parts[3];
+                task = new Deadline(description, deadline);
+                break;
+            case "E":
+                String start = parts[3].split(" - ")[0];
+                String end = parts[3].split(" - ")[1];
+                task = new Event(description, start, end);
+                break;
+            case "T":
+                task = new Todo(description);
+                break;
+        }
+
+        if (isDone && task != null){
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
     public static void saveTasksToFile(List<Task> tasks) {
         try {
-            File file = new File(FILE_PATH);
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
+            // Create the folder if it doesn't exist
+            File folder = new File("./data");
+            if (!folder.exists()) {
+                folder.mkdir();
             }
+
+            // Create the file if it doesn't exist
+            File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.createNewFile();
             }
-
-            FileWriter fileWriter = new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             for (Task task : tasks) {
@@ -190,6 +245,7 @@ public class Duke {
     public static void main(String[] args) {
         Duke chatbot = new Duke("aoliba");
 
+        chatbot.loadTasksFromFile(chatbot.tasks);
         chatbot.greet();
         chatbot.echoCommands();
         saveTasksToFile(chatbot.tasks);
