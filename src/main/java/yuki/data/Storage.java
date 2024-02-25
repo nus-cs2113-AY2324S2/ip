@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 import static yuki.Constants.*;
 
+/**
+ * Methods to read from and write to data file.
+ */
 public class Storage {
 
     private static File dataFile;
@@ -25,9 +28,11 @@ public class Storage {
         pathToFile = fileName;
     }
 
-
+    /**
+     * Attempts to load tasks from input data file into an ArrayList of Task.
+     */
     public ArrayList<Task> loadData() {
-        ArrayList<Task> taskList = null;
+        ArrayList<Task> taskList = new ArrayList<>();
         try {
             ArrayList<String> dataItems = readFile();
             taskList = parse(dataItems);
@@ -37,6 +42,13 @@ public class Storage {
         return taskList;
     }
 
+
+    /**
+     * Attempts to write details of Tasks into data file.
+     *
+     * @param tasks ArrayList of Tasks.
+     * @throws IOException if unable to create the output directory or output text file.
+     */
     public static void writeFile(ArrayList<Task> tasks) throws IOException {
 
         if (dataFile.exists()) {
@@ -66,10 +78,12 @@ public class Storage {
         writer.close();
     }
 
-
+    /**
+     * Finds and reads input file.
+     */
     private ArrayList<String> readFile() throws IOException {
         if (!dataFile.exists()) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException("No input file found, will create a new one.");
         }
         if (dataFile.length() == 0) {
             System.out.println("empty file");
@@ -79,6 +93,9 @@ public class Storage {
     }
 
 
+    /**
+     * Parses content of input file.
+     */
     private ArrayList<Task> parse(ArrayList<String> dataItems) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String line : dataItems) {

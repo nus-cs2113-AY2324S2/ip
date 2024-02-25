@@ -24,6 +24,10 @@ public class Yuki {
         ui.sayByeToUser();
     }
 
+    /**
+     * Main execution loop.
+     * Runs until the user enters "exit" into the command line.
+     */
     public void runCommandLoopUntilExitCommand() {
         String userInput = ui.getUserInput();
         String parsedCommand = InputParser.parseCommand(userInput);
