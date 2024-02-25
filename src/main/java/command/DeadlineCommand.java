@@ -1,6 +1,5 @@
 package command;
 
-import commandexceptions.InvalidDeadlineCommandException;
 import commandexceptions.JingHaoExceptions;
 import storage.Storage;
 import tasktype.Deadline;
@@ -17,14 +16,15 @@ public class DeadlineCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JingHaoExceptions {
+        boolean isFromFile = false;
         String[] deadlineDescription = userInput.split("/by");
         if(deadlineDescription.length != 2) {
-            String invalidDeadline = "Use: deadline (Deadline description) + /by + (date)";
+            String invalidDeadline = "Use: deadline (Deadline description) + /by + (YYYY-MM-DD)";
             throw new JingHaoExceptions(invalidDeadline);
         }
-        String description = deadlineDescription[0];
-        String date = deadlineDescription[1];
-        Task newDeadline = new Deadline(description, date);
+        String description = deadlineDescription[0].trim();
+        String date = deadlineDescription[1].trim();
+        Task newDeadline = new Deadline(description, date, isFromFile);
         taskList.add(newDeadline);
         System.out.println("Got it. I've added this task:\n " + newDeadline);
         ui.printTotalTask(taskList.size());

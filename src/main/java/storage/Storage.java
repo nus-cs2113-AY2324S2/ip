@@ -23,6 +23,7 @@ public class Storage {
 
     public TaskList readFile() throws JingHaoExceptions, IOException{
         TaskList currentList = new TaskList();
+        boolean isFromFile = true;
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
@@ -36,25 +37,29 @@ public class Storage {
                     updateCheck(newTodo, informations[1], currentList);
                     break;
                 case "D":
-                    Deadline newDeadline = new Deadline(informations[2], informations[3]);
-                    updateCheck(newDeadline, informations[1], currentList);
+                    String date = informations[3].replace("T", " ").replace(":","");
+                    Deadline newDeadline = new Deadline(informations[2], date, isFromFile);
+                    updateCheck(newDeadline,informations[1], currentList);
                     break;
                 case "E":
-                    Event newEvent = new Event(informations[2], informations[3], informations[4]);
+                    String start = informations[3].replace("T", " ").replace(":","");
+                    String end = informations[4].replace("T", " ").replace(":","");
+                    Event newEvent = new Event(informations[2], start, end, isFromFile);
                     updateCheck(newEvent, informations[1], currentList);
                     break;
                 default:
-                    throw new JingHaoExceptions("Error!! Invalid task in storage :(");
+                    throw new JingHaoExceptions("~~~~~~~~~~~~~~~~Error!! Corrupted datafile~~~~~~~~~~~~~~~~~~\n" +
+                            "\n             Deleting corrupted data file :(\n");
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Please restart the bot.");
             File f = new File(filePath);
             f.getParentFile().mkdirs();
             f.createNewFile();
         }
         return currentList;
     }
+
 
     public void updateCheck(Task task, String information, TaskList list) throws FileNotFoundException {
         if(information.equalsIgnoreCase("TRUE")) {
