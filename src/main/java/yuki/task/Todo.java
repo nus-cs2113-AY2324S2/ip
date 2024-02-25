@@ -1,5 +1,8 @@
 package yuki.task;
 
+/**
+ * Represents a todo.
+ */
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {

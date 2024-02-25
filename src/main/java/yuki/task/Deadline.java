@@ -1,5 +1,8 @@
 package yuki.task;
 
+/**
+ * Represents a deadline, which has a deadline date in its description.
+ */
 public class Deadline extends Task {
 
     public Deadline(String description, boolean isDone) {
