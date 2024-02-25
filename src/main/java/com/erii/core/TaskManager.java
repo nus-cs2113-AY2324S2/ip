@@ -2,132 +2,175 @@ package com.erii.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+
+
+/**
+ * The TaskManager class represents a task manager that manages a list of tasks.
+ * It provides methods to add, delete, mark tasks as done, and perform sorting operations on the task list.
+ */
 public class TaskManager {
 
+    // Define the Priority enum
     public enum Priority {
         SS, S, A, B, C, D
     }
 
+    // Define the abstract Task class
     public abstract class Task {
         protected String name;
         protected String description;
         protected Priority priority;
 
+        // Constructor for Task class
         public Task(String name, String description, Priority priority) {
             this.name = name;
             this.description = description;
             this.priority = priority;
         }
 
+        // Getter for name
         public String getName() {
             return name;
         }
 
+        // Getter for description
         public String getDescription() {
             return description;
         }
 
+        // Getter for priority
         public Priority getPriority() {
             return priority;
         }
 
+        // Setter for priority
         public void setPriority(Priority priority) {
             this.priority = priority;
         }
 
+        // Abstract method to get status icon
         public abstract String getStatusIcon();
 
+        // Abstract method to convert Task to string
         @Override
         public abstract String toString();
     }
 
+    // Define the Todo class, which extends Task
     public class Todo extends Task {
         protected boolean isDone;
 
+        // Constructor for Todo class
         public Todo(String name, String description, Priority priority) {
             super(name, description, priority);
             isDone = false;
         }
 
+        // Setter for isDone
         public void setDone(boolean done) {
             isDone = done;
         }
 
+        // Getter for isDone
         public boolean isDone() {
             return isDone;
         }
 
+        // Get the status icon for Todo
         @Override
         public String getStatusIcon() {
-            return (isDone ? "[X]" : "[ ]"); // mark done task with X
+            return (isDone ? "[X]" : "[ ]");
         }
 
+        // Convert Todo to string
         @Override
         public String toString() {
             return "[T]" + getStatusIcon() + " " + description + " <" + priority + "> ";
         }
     }
 
+    // Define the Deadline class, which extends Todo
     public class Deadline extends Todo {
-        protected String by;
+        protected LocalDateTime by;
 
-        public Deadline(String name, String description, String by, Priority priority) {
+        // Constructor for Deadline class
+        public Deadline(String name, String description, LocalDateTime by, Priority priority) {
             super(name, description, priority);
             this.by = by;
         }
 
-        public String getBy() {
+        // Getter for by
+        public LocalDateTime getBy() {
             return this.by;
         }
 
+        public void setBy(LocalDateTime by) {
+            this.by = by;
+        }
+
+        // Convert Deadline to string
         @Override
         public String toString() {
-            return "[D]" + super.getStatusIcon() + " " + description + " <" + priority + "> " + " (by: " + by + ")";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            String formattedDate = by.format(formatter);
+            return "[D]" + super.getStatusIcon() + " " + description + " <" + priority + "> " + " (by: " + formattedDate + ")";
         }
     }
 
+    // Define the Event class, which extends Todo
     public class Event extends Todo {
-        protected String start;
-        protected String end;
-        protected boolean isDone; // Added completion status
+        protected boolean isDone;
+        protected LocalDate start;
+        protected LocalDate end;
 
-        public Event(String name, String description, String start, String end, Priority priority) {
+        // Constructor for Event class
+        public Event(String name, String description, LocalDate start, LocalDate end, Priority priority) {
             super(name, description, priority);
             this.start = start;
             this.end = end;
-            this.isDone = false; // Initialize as not done
         }
 
+        // Setter for isDone
         public void setDone(boolean done) {
             isDone = done;
         }
 
-        public String getStart() {
+        // Getter for start
+        public LocalDate getStart() {
             return this.start;
         }
 
-        public String getEnd() {
+        // Getter for end
+        public LocalDate getEnd() {
             return this.end;
         }
 
+        // Get the status icon for Event
         @Override
         public String getStatusIcon() {
-            return isDone ? "[X]" : "[ ]"; // Display X for done, space for not done
+            return isDone ? "[X]" : "[ ]";
         }
 
+            // Convert Event to string
         @Override
         public String toString() {
-            return "[E]" + getStatusIcon() + " " + description + " <" + priority + "> " + " (from: " + start + " to: " + end + ")";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            return "[E]" + getStatusIcon() + " " + description + " <" + priority + "> " + " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
         }
     }
 
     private List<Task> tasks = new ArrayList<>();
 
+    // Get the size of the task list
     public int listSize() {
         return tasks.size();
     }
 
+    // Add a task to the task list
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
@@ -136,6 +179,7 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    // List all tasks in the task list
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -144,28 +188,30 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    // Sort the task list by priority
     public void sortListByPriority() {
         tasks.sort((Task t1, Task t2) -> t1.getPriority().compareTo(t2.getPriority()));
         System.out.println("Tasks sorted by priority.");
     }
 
+    // Sort the task list by type
     public void sortListByType() {
         tasks.sort((Task t1, Task t2) -> t1.getName().compareTo(t2.getName()));
         System.out.println("Tasks sorted by type.");
     }
 
+    // Mark a task as done
     public void markTaskAsDone(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.get(taskIndex);
             if (task instanceof Todo) {
                 ((Todo) task).setDone(true);
             } else if (task instanceof Event) {
-                ((Event) task).setDone(true); // Mark Event as done
+                ((Event) task).setDone(true);
             } else {
                 System.out.println("This task type cannot be marked as done.");
                 return;
             }
-            // Print completion message for both Todos and Events
             System.out.println("----------------------------------");
             System.out.println("Task completed");
             System.out.println(task);
@@ -175,6 +221,7 @@ public class TaskManager {
         }
     }
 
+    // Delete a task from the task list
     public void deleteTask(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.remove(taskIndex);
@@ -187,16 +234,31 @@ public class TaskManager {
         }
     }
 
+    // Get a copy of all tasks in the task list
     public List<Task> getAllTasks() {
-        return new ArrayList<>(tasks); // Returns a copy of the current tasks
+        return new ArrayList<>(tasks);
     }
 
-    /**
-     * Validates and converts a string representation of priority to the Priority enum.
-     *
-     * @param priorityString The string representation of priority.
-     * @return The Priority enum value if valid, otherwise throws an IllegalArgumentException.
-     */
+    public void listTasksOn(LocalDateTime date) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    System.out.println("Tasks on " + date.format(formatter) + ":");
+    for (Task task : tasks) {
+        if (task instanceof Deadline) {
+            if (((Deadline) task).getBy().isEqual(date)) {
+                System.out.println(task);
+            }
+        }
+        // Include similar logic for Event if it also uses LocalDateTime
+        if (task instanceof Event) {
+            if (((Event) task).getStart().isEqual(date.toLocalDate()) && ((Event) task).getEnd().isEqual(date.toLocalDate())) {
+                System.out.println(task);
+            }
+        }
+    }
+}
+
+
+    // Validate and convert a priority string to Priority enum
     public static Priority validateAndConvertPriority(String priorityString) throws IllegalArgumentException {
         try {
             return Priority.valueOf(priorityString.toUpperCase());

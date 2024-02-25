@@ -4,40 +4,79 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The UserDetails class represents the details of a user.
+ */
 public class UserDetails {
     private String userName = "";
     private String userBirthday = "";
     private String userGender = "";
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Constructs a new UserDetails instance.
+     */
     public UserDetails() {
         // Constructor to initialize the UserDetails instance
     }
 
+    /**
+     * Sets the user name.
+     * 
+     * @param userName the user name to set
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     * Sets the user birthday.
+     * 
+     * @param userBirthday the user birthday to set
+     */
     public void setUserBirthday(String userBirthday) {
         this.userBirthday = userBirthday;
     }
 
+    /**
+     * Sets the user gender.
+     * 
+     * @param userGender the user gender to set
+     */
     public void setUserGender(String userGender) {
         this.userGender = userGender;
     }
 
+    /**
+     * Gets the user name.
+     * 
+     * @return the user name
+     */
     public String getUserName() {
         return this.userName;
     }
 
+    /**
+     * Gets the user birthday.
+     * 
+     * @return the user birthday
+     */
     public String getUserBirthday() {
         return this.userBirthday;
     }
 
+    /**
+     * Gets the user gender.
+     * 
+     * @return the user gender
+     */
     public String getUserGender() {
         return this.userGender;
     }
 
+    /**
+     * Prompts the user to input their name.
+     */
     public void inputName() {
         System.out.println("Please enter your full name (First Name Last Name): ");
         String name;
@@ -53,6 +92,9 @@ public class UserDetails {
         }
     }
 
+    /**
+     * Prompts the user to input their birthday.
+     */
     public void inputBirthday() {
         System.out.println("Please enter your birthday (DD/MM/YYYY): ");
         String birthday;
@@ -70,6 +112,9 @@ public class UserDetails {
         }
     }
 
+    /**
+     * Prompts the user to input their gender.
+     */
     public void inputGender() {
         System.out.println("Please enter your gender: ");
         System.out.println("1. Male");

@@ -7,6 +7,10 @@ import com.erii.core.TaskManager;
 import com.erii.data.DataStorage;
 import com.erii.ui.ControlPanel;
 
+/**
+ * The main class of the program.
+ * It initializes the necessary objects and starts the program execution.
+ */
 public class Main {
     public static void main(String[] args) {
         DataStorage storage = new DataStorage();
