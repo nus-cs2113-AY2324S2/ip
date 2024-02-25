@@ -10,7 +10,7 @@ public class Main {
         UserUi userUi = new UserUi();
 
         try {
-            SaveFile.createFiles();
+            Storage.createFiles();
         } catch (IOException e) {
             userUi.printErrorIO();
         } catch (SecurityException e) {
@@ -20,7 +20,7 @@ public class Main {
         List taskList = new List();
 
         try {
-            SaveFile.loadData(taskList);
+            Storage.loadData(taskList);
         } catch (FileNotFoundException e) {
             userUi.printErrorFileNotFound();
         } catch (EmptyTaskNameException e) {

@@ -38,7 +38,7 @@ public class List {
         addTask(newTask);
 
         try {
-            SaveFile.saveTodo(newTask);
+            Storage.saveTodo(newTask);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -57,7 +57,7 @@ public class List {
         addTask(newTask);
 
         try {
-            SaveFile.saveDeadLine(newTask);
+            Storage.saveDeadLine(newTask);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -78,7 +78,7 @@ public class List {
         addTask(newTask);
 
         try {
-            SaveFile.saveEvent(newTask);
+            Storage.saveEvent(newTask);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -94,7 +94,7 @@ public class List {
         taskList.get(index - 1).setTaskAsDone();
 
         try {
-            SaveFile.refreshSave(taskList);
+            Storage.refreshSave(taskList);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -110,7 +110,7 @@ public class List {
         taskList.get(index - 1).setTaskAsNotDone();
 
         try {
-            SaveFile.refreshSave(taskList);
+            Storage.refreshSave(taskList);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -127,7 +127,7 @@ public class List {
         taskList.remove(index - 1);
 
         try {
-            SaveFile.refreshSave(taskList);
+            Storage.refreshSave(taskList);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import misty.exception.*;
 import misty.task.*;
 
-public class SaveFile {
+public class Storage {
     public static void createFiles() throws IOException, SecurityException {
         File dir = new File("data");
         File dataFile = new File("data/misty.txt");
