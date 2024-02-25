@@ -14,8 +14,19 @@ import command.UnmarkCommand;
 import commandexceptions.JingHaoExceptions;
 import tasktype.TaskList;
 
+/**
+ * Parser class determines the type of command based on user's input and
+ * maps it to the corresponding command with the required task descriptions
+ * given by the user.
+ */
 public class Parser {
 
+    /**
+     * Determines the command based on user input and returns the corresponding command object.
+     * @param userInput the input string provided by the user.
+     * @return Type of command object to be executed.
+     * @throws JingHaoExceptions If the type of command is not part of the list of commands.
+     */
     public static Command parse(String userInput) throws JingHaoExceptions {
 
         String[] words = userInput.split(" ", 2);
