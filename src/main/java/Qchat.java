@@ -26,7 +26,8 @@ public class Qchat {
            System.out.print(GOODBYE_GREETING);
            break;
        case "list":
-           Todolist.HandleList();
+           ListManager Listmanager = null;
+           ListManager.HandleList();
            break;
 
 
