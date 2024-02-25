@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Ui {
     private static Scanner in;
     public Ui () {
-        this.in = new Scanner(System.in);
+        in = new Scanner(System.in);
     }
 
     /**

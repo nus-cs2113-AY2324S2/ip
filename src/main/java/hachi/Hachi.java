@@ -260,8 +260,6 @@ public class Hachi {
         boolean isUpdated = false;
         boolean isBye = false;
 
-        Scanner in = new Scanner(System.in);
-
         Ui.spacerInsert("medium", false);
         Ui.printGreetingMessage();
         Ui.printHelpMessage();
