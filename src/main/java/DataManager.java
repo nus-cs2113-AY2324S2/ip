@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class DataManager {
+
     private static void writeToFile(String filePath, String textToAppend, boolean isAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, isAppend);
         fw.write(textToAppend);
@@ -48,7 +49,7 @@ public class DataManager {
         File f = new File(filePath);
         if (!f.exists()) {
             try {
-                f.createNewFile()
+                f.createNewFile();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
