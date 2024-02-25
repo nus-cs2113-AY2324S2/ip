@@ -34,7 +34,7 @@ public class Byte {
         if (tasksChanged){
             try{
                 saveTasksToFile();
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
         }
