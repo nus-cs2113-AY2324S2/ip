@@ -2,8 +2,6 @@ package com.erii.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,9 +9,8 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * The TaskManager class represents a task management system that allows users to manage tasks.
- * It provides functionality to add tasks, list tasks, mark tasks as done, delete tasks, and search for tasks.
- * Tasks can be of different types, such as Todo, Deadline, and Event, each with its own properties and behaviors.
+ * The TaskManager class represents a task manager that manages a list of tasks.
+ * It provides methods to add, delete, mark tasks as done, and perform sorting operations on the task list.
  */
 public class TaskManager {
 
@@ -180,11 +177,6 @@ public class TaskManager {
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
-    }
-
-    // Load a task from Text to the task list
-    public void loadTask(Task task) {
-        tasks.add(task);
     }
 
     // List all tasks in the task list

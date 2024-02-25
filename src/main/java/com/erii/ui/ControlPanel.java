@@ -12,8 +12,7 @@ import com.erii.data.DataStorage;
 
 /**
  * The ControlPanel class represents the user interface control panel for managing tasks.
- * It provides options for listing tasks, adding tasks, marking tasks as done, deleting tasks,
- * and searching for tasks. It interacts with the TaskManager, DataStorage, and UserDetails classes.
+ * It provides methods for displaying a menu, adding tasks, marking tasks as done, deleting tasks, and exiting the program.
  */
 public class ControlPanel {
     private TaskManager taskManager;
