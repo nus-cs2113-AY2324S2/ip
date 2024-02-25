@@ -1,5 +1,6 @@
 package soot.manager;
 
+import soot.Soot;
 import soot.task.Deadline;
 import soot.task.Event;
 import soot.task.Task;
@@ -23,11 +24,12 @@ public class SavedFileManager {
             readFile.add(s.nextLine());
         }
         s.close();
+        System.out.println("a previously saved file was found!\nyour data will be loaded in now :)");
+        Soot.drawLine();
         return readFile;
     }
 
     public static void loadSavedTasks(String line) {
-        System.out.println("line:" + line);
         String[] taskInfo = line.split(" ; ", 0);
         boolean isTaskDone = !taskInfo[1].trim().equals("0");
 
@@ -47,7 +49,6 @@ public class SavedFileManager {
         default:
             System.out.println("something went wrong, perhaps an invalid task type?");
         }
-        System.out.println(Arrays.toString(taskInfo));
     }
 
 

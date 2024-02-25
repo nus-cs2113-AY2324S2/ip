@@ -12,27 +12,24 @@ import java.io.FileNotFoundException;
 
 public class Soot {
     public static void main(String[] args) {
+        drawLine(); //initial greeting
+        GreetingManager.greetUser();
+
         String line;
         Scanner in = new Scanner(System.in);
         CommandManager commandManager = new CommandManager();
-
-
         try {
-            System.out.println("a previously saved file was found!\nyour data will be loaded in now :)");
             ArrayList<String> savedFile = SavedFileManager.readSavedFile("saved-data/saved.txt");
             for (int i = 0; i < savedFile.size(); i++) {
                 SavedFileManager.loadSavedTasks(savedFile.get(i));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, will be created immediately");
+            System.out.println("No file was found, i will create one immediately");
+            drawLine();
             File savedData = new File("saved-data/saved.txt");
-            System.out.println("absolute path: " + savedData.getAbsolutePath());
         }
 
         boolean isBye = false;
-
-        drawLine(); //initial greeting
-        GreetingManager.greetUser();
 
         while (!isBye) {
             line = in.nextLine(); //user input
