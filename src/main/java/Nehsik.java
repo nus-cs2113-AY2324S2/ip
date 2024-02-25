@@ -4,13 +4,14 @@ public class Nehsik {
     public static final int MARK_TASK_INDEX = 5;
     public static final int UNMARK_TASK_INDEX = 7;
     public static final int TODO_DESCRIPTION_POSITION = 5;
-
+    public static final String DATA_FILE_PATH = "./nehsik.txt";
 
     public static void main(String[] args) {
         displayGreetings();
 
         Scanner in = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
+        DataManager.loadTasksFromFile(DATA_FILE_PATH, taskList);
 
         while (true) {
             try {
@@ -41,6 +42,8 @@ public class Nehsik {
                 System.out.println(e.getMessage());
                 printLine();
             }
+
+            DataManager.saveTasksToFile(DATA_FILE_PATH, taskList);
         }
 
         in.close();
