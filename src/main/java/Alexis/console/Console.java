@@ -48,7 +48,7 @@ public class Console {
         while (true) {
             try {
                 String line = in.nextLine();
-                Command command = Command.getFirstWord(line);
+                Command command = Parser.parseCommand(line);
 
                 if (command == null) {
                     continue;
@@ -85,7 +85,7 @@ public class Console {
     }
 
     private static void printNewTaskToConsole(TaskList tasks, String line, Command command) throws MissingFieldException {
-        String description = Command.getDescription(line);
+        String description = Parser.parseDescription(line);
         if (description.trim().isEmpty()) {
             throw new MissingFieldException();
         }
