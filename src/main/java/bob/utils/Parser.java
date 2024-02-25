@@ -1,77 +1,109 @@
 package bob.utils;
 
+import bob.command.ByeCommand;
+import bob.command.Command;
+import bob.command.DeadlineCommand;
+import bob.command.DeleteCommand;
+import bob.command.EventCommand;
+import bob.command.ListCommand;
+import bob.command.MarkCommand;
+import bob.command.TodoCommand;
+import bob.command.UnmarkCommand;
 import bob.exceptions.InvalidArgumentException;
 import bob.exceptions.InvalidCommandException;
+import bob.exceptions.InvalidTaskNumberException;
 
-import java.util.Scanner;
 import java.util.regex.MatchResult;
 
 public class Parser {
-    private final Scanner inputReader;
+    public Command processUserCommand(String userCommand, TaskManager taskManager, Ui userInterface) throws
+            InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException {
+            String[] arguments;
 
-    public Parser() {
-        this.inputReader = new Scanner(System.in);
+            switch (userCommand) {
+            case "LIST":
+                return new ListCommand(taskManager);
+            case "MARK":
+            case "UNMARK":
+            case "DELETE":
+                try {
+                    arguments = parseArguments(userCommand, userInterface);
+                    int taskId = Integer.parseInt(arguments[0]);
+                    return getTaskUtilityCommand(taskManager, userCommand, taskId);
+                } catch (NumberFormatException exception) {
+                    throw new InvalidTaskNumberException(userCommand);
+                }
+            case "TODO":
+            case "DEADLINE":
+            case "EVENT":
+                arguments = parseArguments(userCommand, userInterface);
+                return getTaskCreationCommand(taskManager, userCommand, arguments);
+            case "BYE":
+                return new ByeCommand(taskManager);
+            default:
+                throw new InvalidCommandException();
+            }
     }
 
-    /**
-     * Parse user command (e.g., list, deadline, bye)
-     */
-    public Command parseCommand() throws InvalidCommandException {
-        try {
-            return Command.valueOf(inputReader.next().toUpperCase());
-        } catch (IllegalArgumentException exception) {
-            clearInput();
-            throw new InvalidCommandException();
+    private Command getTaskUtilityCommand(TaskManager taskManager, String userCommand, int taskId) {
+        if (userCommand.equals("MARK")) {
+            return new MarkCommand(taskManager, taskId);
+        } else if (userCommand.equals("UNMARK")) {
+            return new UnmarkCommand(taskManager, taskId);
+        } else {
+            return new DeleteCommand(taskManager, taskId);
+        }
+    }
+
+    private Command getTaskCreationCommand(TaskManager taskManager, String userCommand, String[] arguments) {
+        String taskName = arguments[0];
+
+        if (userCommand.equals("TODO")) {
+            return new TodoCommand(taskManager, taskName);
+        } else if (userCommand.equals("DEADLINE")) {
+            String dueDate = arguments[1];
+            return new DeadlineCommand(taskManager, taskName, dueDate);
+        } else {
+            String startDate = arguments[1];
+            String endDate = arguments[2];
+            return new EventCommand(taskManager, taskName, startDate, endDate);
         }
     }
 
     /**
      * Parse arguments provided (e.g., /from, /by, /to)
      */
-    public String[] parseArguments(Command userCommand) throws InvalidArgumentException {
+    private String[] parseArguments(String userCommand, Ui userInterface) throws InvalidArgumentException {
         int expectedArgumentCount;
 
+        // Set regex format based on command type
         switch (userCommand) {
-        case DEADLINE:
-            inputReader.findInLine("(.+) /by (.+)"); // Set regex format
+        case "DEADLINE":
+            userInterface.findInLine("(.+) /by (.+)");
             expectedArgumentCount = 2;
             break;
-        case EVENT:
-            inputReader.findInLine("(.+) /from (.+) /to (.+)"); // Set regex format
+        case "EVENT":
+            userInterface.findInLine("(.+) /from (.+) /to (.+)");
             expectedArgumentCount = 3;
             break;
         default:
-            inputReader.findInLine(" (.+)"); // Set regex format
+            userInterface.findInLine(" (.+)");
             expectedArgumentCount = 1;
             break;
         }
 
         try {
-            MatchResult argumentMatches = inputReader.match();
-            String[] arguments = new String[expectedArgumentCount]; // Return arguments in String array
+            MatchResult argumentMatches = userInterface.match();
+            String[] arguments = new String[expectedArgumentCount];
 
             for (int i = 1; i <= expectedArgumentCount; i++) {
-                // Extract provided arguments
+                // Extract provided arguments into array
                 arguments[i - 1] = argumentMatches.group(i).strip();
             }
 
             return arguments;
         } catch (IllegalStateException exception) {
-            clearInput();
             throw new InvalidArgumentException(userCommand);
         }
-    }
-
-    public boolean isDone(Command userCommand) {
-        return userCommand.equals(Command.BYE);
-    }
-
-    public void clearInput() {
-        // Force Scanner to jump to next line
-        inputReader.nextLine();
-    }
-
-    public boolean hasMoreInput() {
-        return inputReader.hasNext();
     }
 }
