@@ -55,7 +55,7 @@ Here are the tasks in your list:
 1. [E] [ ] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)
 ____________________________________________________________
 
-What do you want me to do? mark 1
+What do you want me to do? `mark 1`
 ____________________________________________________________
 Nice job! I've marked this task as done :D
 ____________________________________________________________
