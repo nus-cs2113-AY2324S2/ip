@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,15 +9,22 @@ public class Baymax {
                 + "What can I do for you today?" + System.lineSeparator() + System.lineSeparator());
 
         ArrayList<Task> taskArrayList = new ArrayList<>();
-        int num = 0;
+        int index = 0;
         String text;
+
+        // Load Tasks from File
+        try {
+            FileManager.loadTasks(taskArrayList);
+        } catch (IOException e) {
+            System.out.println("ERROR OCCURRED.");
+        }
 
         while(true) {
 
             try {
-
                 Scanner in = new Scanner(System.in);
                 text = in.nextLine();
+
                 // "bye" -- terminate
                 if (text.equalsIgnoreCase("bye")) {
                     break;
@@ -38,9 +46,9 @@ public class Baymax {
                     System.out.println("[ ] " + taskArrayList.get(position).description);
                 }
 
-                // "tasks" -- displays tasks
+                // "list" -- displays tasks
                 else if (text.equalsIgnoreCase("list")) {
-                    for (int i = 0; i < num; i++) {
+                    for (int i = 0; i < taskArrayList.size(); i++) {
                         if (taskArrayList.get(i) == null) {
                             break;
                         }
@@ -51,15 +59,15 @@ public class Baymax {
 
                 // ADD TASK
                 else if (text.startsWith(("todo")) || text.startsWith("deadline") || text.startsWith("event")) {
-                    Task.addTask(text, taskArrayList, num);
-                    num++;
+                    Task.addTask(text, taskArrayList, taskArrayList.size());
+                    index++;
                 }
 
                 // DELETE TASK
                 else if (text.startsWith("delete")) {
                     int deleteIndex = Integer.parseInt(text.substring("delete".length() + 1)) - 1;
                     Task.deleteTask(deleteIndex,taskArrayList);
-                    num--;
+                    index--;
                 }
 
                 // "{other words}" -- REJECT
@@ -69,6 +77,13 @@ public class Baymax {
             } catch (InvalidTodoSyntaxException e) {
                 InvalidTodoSyntaxException.handleInvalidTodoSyntaxException();
             }
+        }
+
+        // SAVE THE FILE
+        try {
+            FileManager.saveTasks(taskArrayList, taskArrayList.size());
+        } catch (IOException e) {
+            System.out.println("ERROR SAVING FILE.");
         }
 
         System.out.println("I hope you are satisfied with my service! Goodbye.");

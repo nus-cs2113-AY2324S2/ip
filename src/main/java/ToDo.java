@@ -1,9 +1,12 @@
 public class ToDo extends Task{
 
     public ToDo(String description) {
-        super(description.substring(5));
+        super(description);
         this.type = "T";
     }
 
-
+    @Override
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }

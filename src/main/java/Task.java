@@ -19,15 +19,21 @@ public class Task {
         this.isDone = true;
     }
 
+    public String toFileString() {
+        return null;
+    }
+
     public static void addTask(String text, ArrayList<Task> tasksArrayList, int num) throws InvalidTodoSyntaxException {
         // Todo
         if (text.startsWith("todo")) {
             if (text.length() < "todo".length() + 2) {
                 throw new InvalidTodoSyntaxException();
             } else {
-                tasksArrayList.add(new ToDo(text));
+                String todoDescription = text.substring(5);
+                tasksArrayList.add(new ToDo(todoDescription));
                 System.out.println("Bala-lala. I've added this task:" + System.lineSeparator()
                         + "[T] " + "[ ] " + tasksArrayList.get(num).description);
+
             }
         }
 
@@ -36,7 +42,8 @@ public class Task {
             if (text.length() < "deadline".length() + 2) {
                 System.out.println("OH NOOO! Please enter the deadline task name.");
             } else {
-                tasksArrayList.add(new Deadline(text));
+                String deadlineDescription = text.substring(9,text.indexOf("/by")) + "(by: " + text.substring(text.indexOf("/by") + 4) + ")";
+                tasksArrayList.add(new Deadline(deadlineDescription));
                 System.out.println("Bala-lala. I've added this task:" + System.lineSeparator()
                         + "[D] " + "[ ] " + tasksArrayList.get(num).description);
             }
@@ -46,7 +53,9 @@ public class Task {
             if (text.length() < "event".length() + 2) {
                 System.out.println("OH NOOO! Please enter the event task name.");
             } else {
-                tasksArrayList.add(new Event(text));
+                String eventDescription = text.substring(6, text.indexOf(" /from")) + " (from: " + text.substring(text.indexOf("/from") + 6, text.indexOf(" /to"))
+                        + " to: " + text.substring(text.indexOf("/to") + 4) + ")";
+                tasksArrayList.add(new Event(eventDescription));
                 System.out.println("Bala-lala. I've added this task:" + System.lineSeparator()
                         + "[E] " + "[ ] " + tasksArrayList.get(num).description);
             }
@@ -58,7 +67,7 @@ public class Task {
 
     }
 
-    public static void deleteTask(int taskIndex,  ArrayList<Task> taskArrayList) {
+    public static void deleteTask(int taskIndex, ArrayList<Task> taskArrayList) {
         String removedTask = taskArrayList.get(taskIndex).description;
         taskArrayList.remove(taskIndex);
         System.out.println("Bala-lala. I've removed this task:");
