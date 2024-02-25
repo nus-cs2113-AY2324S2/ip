@@ -1,12 +1,10 @@
 package bob.exceptions;
 
-import bob.utils.Command;
-
 public class InvalidArgumentException extends Exception {
-    private final Command command;
+    private final String command;
     private static final String ERROR_MESSAGE = " Please ensure your command is properly formatted!\n\n";
 
-    public InvalidArgumentException(Command command) {
+    public InvalidArgumentException(String command) {
         this.command = command;
     }
 
@@ -15,22 +13,22 @@ public class InvalidArgumentException extends Exception {
         String errorMessage = ERROR_MESSAGE + " Usage:\n";
 
         switch (this.command) {
-        case DELETE:
+        case "DELETE":
             errorMessage += "  delete <task number>";
             break;
-        case MARK:
+        case "MARK":
             errorMessage += "  mark <task number>";
             break;
-        case UNMARK:
+        case "UNMARK":
             errorMessage += "  unmark <task number>";
             break;
-        case TODO:
+        case "TODO":
             errorMessage += "  todo <task name>" ;
             break;
-        case DEADLINE:
+        case "DEADLINE":
             errorMessage += "  deadline <task name> /by <due date>";
             break;
-        case EVENT:
+        case "EVENT":
             errorMessage += "  event <task name> /from <start date> /to <end date>";
             break;
         }
