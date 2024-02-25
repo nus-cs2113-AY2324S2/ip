@@ -1,6 +1,9 @@
 package jeff;
 
 import jeff.exceptions.CorruptFileException;
+import jeff.tasks.Deadline;
+import jeff.tasks.Event;
+import jeff.tasks.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;

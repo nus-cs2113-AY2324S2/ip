@@ -1,4 +1,9 @@
-package jeff;
+package jeff.commands;
+
+import jeff.Command;
+import jeff.Printer;
+import jeff.Storage;
+import jeff.Task;
 
 public class MarkCommand extends Command {
     private final int index;

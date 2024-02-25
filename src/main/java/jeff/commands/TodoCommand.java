@@ -1,4 +1,7 @@
-package jeff;
+package jeff.commands;
+
+import jeff.*;
+import jeff.tasks.Todo;
 
 public class TodoCommand extends Command {
     private final String description;

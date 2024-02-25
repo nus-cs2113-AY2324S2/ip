@@ -1,4 +1,7 @@
-package jeff;
+package jeff.commands;
+
+import jeff.*;
+import jeff.tasks.Deadline;
 
 public class DeadlineCommand extends Command {
     private final String description;

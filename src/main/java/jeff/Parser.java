@@ -1,5 +1,13 @@
 package jeff;
 
+import jeff.commands.ByeCommand;
+import jeff.commands.DeadlineCommand;
+import jeff.commands.DeleteCommand;
+import jeff.commands.EventCommand;
+import jeff.commands.ListCommand;
+import jeff.commands.MarkCommand;
+import jeff.commands.TodoCommand;
+import jeff.commands.UnmarkCommand;
 import jeff.exceptions.InvalidCommandException;
 import jeff.exceptions.InvalidDeadlineSyntaxException;
 import jeff.exceptions.InvalidDeleteSyntaxException;
@@ -27,6 +35,7 @@ public class Parser {
     private static final String MARK_STRING = "mark";
     private static final String UNMARK_STRING = "unmark";
     private static final String DELETE_STRING = "delete";
+
     public static Command parseCommand(String userInput) throws
             InvalidCommandException,
             InvalidTodoSyntaxException,

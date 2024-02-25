@@ -1,4 +1,6 @@
-package jeff;
+package jeff.commands;
+
+import jeff.*;
 
 public class DeleteCommand extends Command {
     private final int index;

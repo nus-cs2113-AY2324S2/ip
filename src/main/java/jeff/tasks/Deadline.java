@@ -1,4 +1,6 @@
-package jeff;
+package jeff.tasks;
+
+import jeff.Task;
 
 public class Deadline extends Task {
     protected String by;

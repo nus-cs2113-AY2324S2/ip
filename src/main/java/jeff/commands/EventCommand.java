@@ -1,4 +1,7 @@
-package jeff;
+package jeff.commands;
+
+import jeff.*;
+import jeff.tasks.Event;
 
 public class EventCommand extends Command {
     private final String description;

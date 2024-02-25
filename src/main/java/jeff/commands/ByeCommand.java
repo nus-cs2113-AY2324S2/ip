@@ -1,4 +1,7 @@
-package jeff;
+package jeff.commands;
+
+import jeff.Command;
+import jeff.Printer;
 
 public class ByeCommand extends Command {
     @Override
