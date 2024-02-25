@@ -22,7 +22,7 @@ Casper is a chatbot-like desktop app for tracking and managing your tasks using 
 ```
 6. To execute a command, type in the command and press the Enter key. Typing an unrecognized command will prompt a list of valid keywords to try as such: 
 ```dtd
-help    
+    help    
     _______________________________________________________________________
      Pardon? I didn't quite understand "help"
      Maybe refer to the following list of commands?
@@ -45,12 +45,12 @@ help
 Exits the program. 
 \
 Format: `bye`
-<br></br>
+<br>
 ### List out all your tasks: `list`
 Lists out all your current tasks.
 \
 Format: `list`
-<br></br>
+<br>
 ### Mark a task as done: `mark`
 Marks a given task as done.
 \
@@ -61,7 +61,7 @@ Format: `mark INDEX`
 
 Examples:
 - `mark 1` Marks the first task in the list.
-<br></br>
+<br>
 ### Un-mark a task: `unmark`
 Un-marks a given task as not done.
 \
@@ -73,7 +73,7 @@ Format: `unmark INDEX`
 
 Examples:
 - `unmark 3` Un-marks the 3rd task in the list.
-<br></br>
+<br>
 ### Add a todo task: `todo`
 Adds a task to your list of type "todo".
 \
@@ -82,7 +82,7 @@ Format: `todo DESCRIPTION`
 - `DESCRIPTION` is the description of your todo task.
 Examples:
 - `todo Take out the trash` Adds the task of type "todo" with a description "Take out the trash" to your task list.
-<br></br>
+<br>
 ### Add a deadline: `deadline`
 Adds a task of type "deadline" to your list.
 \
@@ -94,7 +94,7 @@ Format: `deadline DESCRIPTION /by BYDATE`
 Examples:
 - `deadline Take out the trash /by 13-02-24` Adds a deadline with a description "Take out the trash" to be done by "13-02-24" to your task list.
 - `deadline Take out the trash /by tomorrow` Adds a deadline description "Take out the trash" to be done by "tomorrow" to your task list.
-<br></br>
+<br>
 ### Add an event : `event`
 Adds a task of type "event" to your list.
 \
@@ -106,7 +106,7 @@ Format: `event DESCRIPTION /from FROMDATE /to TODATE`
 Examples:
 - `event summer break /from next week /to next month` Adds an event called "summer break" dating from "next week" to "next month" to your list.
 - `event summer break /from 01-01-24 /to 01-05-24` Adds an event called "summer break" dating from "01-01-24" to "01-05-24" to your list.
-<br></br>
+<br>
 ### Delete a task: `delete`
 Deletes a task from your list.
 \
@@ -118,7 +118,7 @@ Format: `delete INDEX`
 
 Examples:
 - `delete 5` Deletes the 5th task in your list.
-<br></br>
+<br>
 ### Find related tasks: `find`
 Finds a task from your list given a keyword.
 \
