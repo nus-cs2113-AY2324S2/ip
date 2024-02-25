@@ -1,5 +1,12 @@
 # User Guide for Quill
 
+## Quick Start
+1. Ensure you have `Java-11` installed on your computer
+2. Download the `ip.jar` from the project GitHub
+3. Copy the jar file to your desired folder
+4. Open a command prompt in the same directory as the jar file
+5. Run `java -jar ip.jar` to run the application.
+
 ## Features 
 
 ### Task list
