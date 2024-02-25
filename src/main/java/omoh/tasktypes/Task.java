@@ -45,20 +45,21 @@ public class Task {
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter("data/output.txt");
         for(int i = 0; i < totalTasks ; i++) {
-            String taskType = tasks[i].type;
-            int isMark = tasks[i].isDone ? 1 : 0;
+            String taskType = tasks.get(i).type;
+
+            int isMark = tasks.get(i).isDone ? 1 : 0;
 
             switch (taskType) {
             case "T":
-                fw.write(taskType + " | " + isMark + " | " + tasks[i].description);
+                fw.write(taskType + " | " + isMark + " | " + tasks.get(i).description);
                 break;
             case "D":
-                Deadline deadline = (Deadline) tasks[i]; // Casting to Deadline
-                fw.write(taskType + " | " + isMark + " | " + tasks[i].description + " | " + deadline.getBy());
+                Deadline deadline = (Deadline) tasks.get(i); // Casting to Deadline
+                fw.write(taskType + " | " + isMark + " | " + tasks.get(i).description + " | " + deadline.getBy());
                 break;
             case "E":
-                Event event = (Event) tasks[i]; //Casting to event
-                fw.write(taskType + " | " + isMark + " | " + tasks[i].description +
+                Event event = (Event) tasks.get(i); //Casting to event
+                fw.write(taskType + " | " + isMark + " | " + tasks.get(i).description +
                         " | " + event.getFrom() + " | " + event.getTo());
                 break;
             }
@@ -96,11 +97,11 @@ public class Task {
 
             if (parts[1].trim().equals("1")) {
                 command = "mark " + iteration + 1;
-                modifyDoneState(iteration + 1, command);
+                modifyDoneStateOrDelete(iteration + 1, command);
                 printMarkTask(iteration + 1, command);
             } else {
                 command = "unmark " + iteration + 1;
-                modifyDoneState(iteration + 1, command);
+                modifyDoneStateOrDelete(iteration + 1, command);
             }
 
             iteration++;
