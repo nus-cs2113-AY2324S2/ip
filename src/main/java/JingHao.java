@@ -30,9 +30,9 @@ public class JingHao {
             taskList = this.storage.readFile();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
-            return;
         } catch (JingHaoExceptions e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println(e.getMessage());
+            taskList = new TaskList();
         }
     }
 
