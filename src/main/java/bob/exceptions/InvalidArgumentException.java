@@ -26,10 +26,10 @@ public class InvalidArgumentException extends Exception {
             errorMessage += "  todo <task name>" ;
             break;
         case "DEADLINE":
-            errorMessage += "  deadline <task name> /by <due date>";
+            errorMessage += "  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)";
             break;
         case "EVENT":
-            errorMessage += "  event <task name> /from <start date> /to <end date>";
+            errorMessage += "  event <task name> /from <start date> /to <end date> (date format: dd/mm/yyyy hh:mm)";
             break;
         }
 
