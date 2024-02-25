@@ -2,7 +2,8 @@ package Casper;
 
 
 public class Parser {
-    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo", "delete"};
+    private static final String[] keywordList = {"bye", "list", "mark", "unmark",
+            "deadline", "event", "todo", "delete", "find"};
 
     public static Command parse(String userInput) throws CasperUnrecognizedKeywordException {
         validateInputKeyword(userInput);
@@ -31,6 +32,7 @@ public class Parser {
         case "list":
         case "mark":
         case "unmark":
+        case "find":
             return new EditCommand(true, commandPrefix, userInput);
         case "event":
         case "deadline":

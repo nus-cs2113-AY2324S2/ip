@@ -6,10 +6,16 @@ public class TaskList {
     private final ArrayList<Task> taskList;
     private int noOfTasks;
 
+    public TaskList(){
+        this.taskList = new ArrayList<Task>();
+        this.noOfTasks = 0;
+    }
+
     public TaskList(ArrayList<Task> taskList){
         this.taskList = taskList;
         this.noOfTasks = taskList.size();
     }
+
     public ArrayList<Task> getTaskList(){
         return this.taskList;
     }
@@ -54,6 +60,17 @@ public class TaskList {
             System.out.println("     You have no tasks this time around.");
         } else {
             System.out.println("     Here are the tasks in your list:");
+            for (int i=1; i<=noOfTasks; i++) {
+                System.out.println("     "+i+". "+taskList.get(i-1));
+            }
+        }
+    }
+
+    public void echoFoundTasks(){
+        if (noOfTasks==0) {
+            System.out.println("     That does not sound like a task you have.");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
             for (int i=1; i<=noOfTasks; i++) {
                 System.out.println("     "+i+". "+taskList.get(i-1));
             }

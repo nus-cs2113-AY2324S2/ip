@@ -15,6 +15,7 @@ public class Casper {
         storage = new Storage(pathToSaveDirectory, saveFilename, ui);
         tasks = new TaskList(storage.loadSaveFile());
     }
+
     public void run(){
         ui.echoGreetings();
         Scanner inputScanner = new Scanner(System.in);
@@ -30,6 +31,7 @@ public class Casper {
             }
         }
     }
+
     public static void main(String[] args) {
         new Casper(pathToSaveDirectory, saveFilename).run();
     }
