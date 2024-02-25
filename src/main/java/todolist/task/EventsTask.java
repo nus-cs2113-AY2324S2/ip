@@ -1,6 +1,7 @@
 package todolist.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 
 public class EventsTask extends Task {
@@ -36,9 +37,9 @@ public class EventsTask extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedStartDateTime = this.startDateTime.format(formatter);
-        String formattedEndDateTime = this.startDateTime.format(formatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM dd, uuuu hh:mm:ss a", Locale.ENGLISH);
+        String formattedStartDateTime = this.startDateTime.format(outputFormatter);
+        String formattedEndDateTime = this.startDateTime.format(outputFormatter);
         return "[E]" + super.toString() + " (from: " + formattedStartDateTime + " to: " + formattedEndDateTime + ")";
     }
 

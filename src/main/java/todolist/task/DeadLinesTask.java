@@ -1,6 +1,7 @@
 package todolist.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DeadLinesTask extends Task {
     private final LocalDateTime deadline;
@@ -31,8 +32,8 @@ public class DeadLinesTask extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDeadline = this.deadline.format(formatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM dd, uuuu hh:mm:ss a", Locale.ENGLISH);
+        String formattedDeadline = this.deadline.format(outputFormatter);
         return "[D]" + super.toString() + " (by: " + formattedDeadline + ")";
     }
 
