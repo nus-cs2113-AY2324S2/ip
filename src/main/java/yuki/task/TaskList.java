@@ -153,6 +153,7 @@ public class TaskList {
             break;
         case Constants.HELP_COMMAND:
             Utils.printInstructions();
+            break;
         default:
             Utils.printInvalidCommandWarning();
             Utils.printInstructions();
