@@ -22,7 +22,7 @@ Example: todo read book
 Add a deadline task to the list of tasks.
 
 Format: `deadline TASK /by TIME`
-- Not allowed to use `/by` in any input 
+- Not allowed to use `/by` in any parameters. 
 
 Example: deadline return book /by June 6th
 
@@ -32,7 +32,7 @@ Example: deadline return book /by June 6th
 Add an event task to the list of tasks.
 
 Format: `event TASK /from TIME /to TIME`
-- Not allowed to use `/from` and `/to` in any input
+- Not allowed to use `/from` and `/to` in any parameters.
 
 Example: event project meeting /from Aug 6th 2pm /to 4pm
 
