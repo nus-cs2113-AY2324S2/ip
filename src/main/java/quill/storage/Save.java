@@ -6,7 +6,15 @@ import quill.task.*;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * The Save Class handles the reading from and writing
+ * task data to a file as well as creating a new file.
+ */
 public class Save {
+
+    /**
+     * Creates a memory file at the specified file path.
+     */
     private static void createNewFile() {
         File file = new File("./data/quill.txt");
         File directory = new File(file.getParent());
@@ -28,6 +36,11 @@ public class Save {
         }
     }
 
+    /**
+     * Reads tasks from a specified file and returns them as a TaskList of Task objects.
+     *
+     * @return A TaskList of Task of objects read from the file.
+     */
     public static TaskList readFile() {
         TaskList tasks = new TaskList();
         File file = new File("./data/quill.txt");
@@ -39,7 +52,6 @@ public class Save {
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String line = s.nextLine();
-
                 Task task = getTask(line);
                 tasks.addTask(task);
             }
@@ -51,6 +63,13 @@ public class Save {
         return tasks;
     }
 
+    /**
+     * Reformat a string as a Task object.
+     *
+     * @param line The string to be reformatted.
+     * @return The Task object containing the reformatted string.
+     * @throws QuillException If the string is of invalid format.
+     */
     private static Task getTask(String line) throws QuillException {
         String[] parts = line.split("\\s*\\|\\s*");
         if (parts.length < 3) {
@@ -82,6 +101,11 @@ public class Save {
         return task;
     }
 
+    /**
+     * Write the TaskList into the specified file.
+     *
+     * @param tasks The TaskList to be written into the file.
+     */
     public static void writeToFile(TaskList tasks) {
         try {
             PrintWriter fw = new PrintWriter("./data/quill.txt");
@@ -94,6 +118,11 @@ public class Save {
         }
     }
 
+    /**
+     * Add a task to the end of the specified file.
+     *
+     * @param task The task to be added to the file.
+     */
     public static void appendToFIle(Task task) {
         try {
             FileWriter fw = new FileWriter("./data/quill.txt", true); // create a FileWriter in append mode
