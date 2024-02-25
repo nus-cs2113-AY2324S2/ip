@@ -1,5 +1,7 @@
 package ui;
 
+import tasktype.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
