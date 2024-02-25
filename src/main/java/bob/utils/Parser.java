@@ -23,7 +23,7 @@ import java.util.regex.MatchResult;
 public class Parser {
     public Command processUserCommand(String userCommand, TaskManager taskManager, Ui userInterface) throws
             InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException, InvalidDateTimeException {
-            String[] arguments;
+        String[] arguments;
 
         switch (userCommand) {
         case "LIST":
