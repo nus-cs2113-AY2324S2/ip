@@ -165,6 +165,8 @@ public class TaskList {
         case Constants.MARK_COMMAND:
             try {
                 markTask(userInput, Constants.MARK_COMMAND);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage() + "\nPlease enter an index");
             } catch (YukiExceptions.InvalidIndexException e) {
                 System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                 listTasks();
@@ -173,6 +175,8 @@ public class TaskList {
         case Constants.UNMARK_COMMAND:
             try {
                 markTask(userInput, Constants.UNMARK_COMMAND);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage() + "\nPlease enter an index");
             } catch (YukiExceptions.InvalidIndexException e) {
                 System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                 listTasks();
@@ -181,6 +185,8 @@ public class TaskList {
         case Constants.DELETE_COMMAND:
             try {
                 deleteTask(userInput);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage() + "\nPlease enter an index");
             } catch (YukiExceptions.InvalidIndexException e) {
                 System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                 listTasks();
