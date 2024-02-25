@@ -23,19 +23,24 @@ public class EditCommand extends Command{
                 editTaskStatus();
                 break;
             case "list":
-                ui.printLine();
-                tasks.echoTaskList();
-                ui.printLine();
+                echoTasks();
                 break;
+                
         }
-        storage.handleSaveFile(this.tasks);
+        storage.handleSaveFile(tasks);
     }
 
-    public void editTaskStatus(){
+    private void editTaskStatus(){
         try{
             tasks.handleMarkTask(userInput);
         } catch (CasperInvalidInputException e){
             ui.wrapEchoMessage(e.getExceptionNote());
         }
+    }
+
+    private void echoTasks(){
+        ui.printLine();
+        tasks.echoTaskList();
+        ui.printLine();
     }
 }

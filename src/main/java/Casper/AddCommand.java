@@ -6,11 +6,13 @@ public class AddCommand extends Command{
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+
     public AddCommand(boolean isRunning, String prefix, String userInput){
         super(isRunning);
         this.userInput = userInput;
         this.prefix = prefix;
     }
+
     @Override
     public void execute(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
@@ -29,6 +31,7 @@ public class AddCommand extends Command{
         }
         storage.handleSaveFile(tasks);
     }
+
     private static Task getEvent(String userInput) throws StringIndexOutOfBoundsException {
         int fromIndex = userInput.indexOf("/from") + "/from".length();
         int toIndex = userInput.indexOf("/to") + "/to".length();
