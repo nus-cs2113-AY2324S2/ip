@@ -10,11 +10,12 @@ import Tasks.Task;
 import Tasks.ToDo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class GermaBot {
     static int counter = 0;
     static final String LINE= "____________________________________________";
-    static Task[] toDoList = new Task[100];
+    static ArrayList<Task> toDoList = new ArrayList<>();
     public static int getIdx(String input) {
         return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
     }
@@ -24,7 +25,7 @@ public class GermaBot {
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
         }
-        toDoList[counter] = new ToDo(toDoTask);
+        toDoList.add(new ToDo(toDoTask));
         counter++;
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
     }
@@ -43,7 +44,7 @@ public class GermaBot {
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
         }
-        toDoList[counter] = new Deadline(description.substring(0, idxOfEndDate - 1), date);
+        toDoList.add(new Deadline(description.substring(0, idxOfEndDate - 1), date));
         counter++;
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
                 " You have to finish this by "  + date + ", so be reminded!");
@@ -72,7 +73,7 @@ public class GermaBot {
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
         }
-        toDoList[counter] = new Event(description.substring(0, idxOfFrom - 1), startDate, endDate);
+        toDoList.add(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate));
         counter++;
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
                 " This will happen from " + startDate + " to " + endDate + ", so please remember to mark it" +
@@ -113,7 +114,7 @@ public class GermaBot {
     }
 
     public static void main(String[] args) {
-        String WelcomeMessage = "Hello! MainRuntime.GermaBot here! \n"
+        String WelcomeMessage = "Hello! GermaBot here! \n"
                 + "What may I do for you this fine day?";
         System.out.println(LINE);
         System.out.println(WelcomeMessage);
@@ -126,35 +127,33 @@ public class GermaBot {
                 break;
             }
             if (input.equals("list")) {
-                if (toDoList[0] == null) {
+                if (toDoList.isEmpty()) {
                     System.out.println("Umm... You haven't added any Tasks yet... Let's try adding " +
                             "some now!");
                 } else {
-                    int printCounter = 1;
                     System.out.println("Gotcha! Here are your tasks:");
                     for (int i = 0; i < counter; i++) {
-                        if (toDoList[i] == null) {
+                        if (toDoList.get(i) == null) {
                             break;
                         }
-                        System.out.println(printCounter + ". " + toDoList[i].toString());
-                        printCounter++;
+                        System.out.println(i + 1 + ". " + toDoList.get(i));
                     }
                 }
             } else if (input.contains("unmark")) {
                 int idx = getIdx(input);
-                toDoList[idx].setDone(false);
+                toDoList.get(idx).setDone(false);
                 System.out.println("Aww, not done? Okay, I'll mark this task as undone: "
-                        + "[" + toDoList[idx].getStatusIcon() + "] " + toDoList[idx].getDescription());
+                        + "[" + toDoList.get(idx).getStatusIcon() + "] " + toDoList.get(idx).getDescription());
             } else if (input.contains("mark")) {
                 int idx = getIdx(input);
-                toDoList[idx].setDone(true);
+                toDoList.get(idx).setDone(true);
                 System.out.println("Good job! I'll mark this task as done: "
-                        + "[" + toDoList[idx].getStatusIcon() + "] " + toDoList[idx].getDescription());
+                        + "[" + toDoList.get(idx).getStatusIcon() + "] " + toDoList.get(idx).getDescription());
             } else {
                 try {
                     createTask(input);
                 } catch (UnknownInputException e){
-                    System.out.println("Uhh.. I'm sorry but I'm not quite sure what '" + input + "' means..." +
+                    System.out.println("Uhh.. I'm sorry but I'm not quite sure what in the world '" + input + "' means..." +
                             " Remember to include the Task Type in front of the input!!");
                 }
             }
