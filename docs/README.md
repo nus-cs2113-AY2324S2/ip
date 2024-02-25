@@ -7,6 +7,7 @@ Casper is a chatbot-like desktop app for tracking and managing your tasks using 
 3.  Copy the file to a directory where you want to use Casper.
 4. Open a command terminal, navigate to the directory where the `.jar` file is located.
 5. Run `java -jar ip.jar` to run the application. You should be greeted with the following:
+
 ```dtd
     Starting
        ___ __ _ ___ _ __   ___ _ __
@@ -45,11 +46,13 @@ Casper is a chatbot-like desktop app for tracking and managing your tasks using 
 Exits the program. 
 \
 Format: `bye`
+
 <br>
 ### List out all your tasks: `list`
 Lists out all your current tasks.
 \
 Format: `list`
+
 <br>
 ### Mark a task as done: `mark`
 Marks a given task as done.
