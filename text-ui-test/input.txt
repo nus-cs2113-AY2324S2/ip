@@ -13,6 +13,7 @@ todo junk character check !@#$%^&*()-+_=`~[]{};:'"<>,./?\|
 list
 delete 2
 list
+find some
 blah
 mark
 unmark
