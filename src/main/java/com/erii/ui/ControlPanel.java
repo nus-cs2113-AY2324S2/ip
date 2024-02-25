@@ -18,53 +18,54 @@ public class ControlPanel {
     }
 
     public void start() {
-        Scanner scanner = new Scanner(System.in);
-        menu();
-
-        while (scanner.hasNextLine()) {
-            String choice = scanner.nextLine().trim();
-
-            switch (choice) {
-                case "1":
-                    listTasks();
-                    break;
-                case "2":
-                    System.out.println("Please enter the task description and priority (e.g., slain a dragon /S):");
-                    String inputAddTask = scanner.nextLine().trim();
-                    addTodoTask(inputAddTask);
-                    break;
-                case "3":
-                    System.out.println("Please enter the deadline task description, deadline date and priority (e.g., submit report /by 2021-09-30 /SS):");
-                    String inputAddDeadline = scanner.nextLine().trim();
-                    addDeadlineTask(inputAddDeadline);
-                    break;
-                case "4":
-                    System.out.println("Please enter the event description, start date, end date and priority (e.g., project meeting /from 2021-09-30 /to 2021-10-01 /S):");
-                    String inputAddEvent = scanner.nextLine().trim();
-                    addEventTask(inputAddEvent);
-                    break;
-                case "5":
-                    System.out.println("Please enter the task number to mark as done:");
-                    String inputMark = scanner.nextLine().trim();
-                    markTaskAsDone(inputMark);
-                    break;
-                case "6":
-                    System.out.println("Choose the task you want to delete: ");
-                    String inputDelete = scanner.nextLine().trim();
-                    deleteTask(inputDelete);
-                    break;
-                case "X":
-                    System.out.println("Saving changes...");
-                    storage.saveUserDetails(userDetails);
-                    System.out.println("Changes saved. Exiting.");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Unknown command. Please try again.");
-                    break;
-            }
-
+        try (Scanner scanner = new Scanner(System.in)) {
             menu();
+
+            while (scanner.hasNextLine()) {
+                String choice = scanner.nextLine().trim();
+
+                switch (choice) {
+                    case "1":
+                        listTasks();
+                        break;
+                    case "2":
+                        System.out.println("Please enter the task description and priority (e.g., slain a dragon /S):");
+                        String inputAddTask = scanner.nextLine().trim();
+                        addTodoTask(inputAddTask);
+                        break;
+                    case "3":
+                        System.out.println("Please enter the deadline task description, deadline date and priority (e.g., submit report /by 2021-09-30 /SS):");
+                        String inputAddDeadline = scanner.nextLine().trim();
+                        addDeadlineTask(inputAddDeadline);
+                        break;
+                    case "4":
+                        System.out.println("Please enter the event description, start date, end date and priority (e.g., project meeting /from 2021-09-30 /to 2021-10-01 /S):");
+                        String inputAddEvent = scanner.nextLine().trim();
+                        addEventTask(inputAddEvent);
+                        break;
+                    case "5":
+                        System.out.println("Please enter the task number to mark as done:");
+                        String inputMark = scanner.nextLine().trim();
+                        markTaskAsDone(inputMark);
+                        break;
+                    case "6":
+                        System.out.println("Choose the task you want to delete: ");
+                        String inputDelete = scanner.nextLine().trim();
+                        deleteTask(inputDelete);
+                        break;
+                    case "X":
+                        System.out.println("Saving changes...");
+                        storage.saveUserDetails(userDetails);
+                        System.out.println("Changes saved. Exiting.");
+                        scanner.close();
+                        return;
+                    default:
+                        System.out.println("Unknown command. Please try again.");
+                        break;
+                }
+
+                menu();
+            }
         }
     }
 

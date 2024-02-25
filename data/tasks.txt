@@ -1,1 +1,3 @@
-T|0|S|hi
+T|0|D|Slap myself
+T|0|C|sleep|2024-02-25|2024-03-03
+T|0|S|???
