@@ -66,7 +66,7 @@ public class DataManager {
                     int splitIndexEvent2 = line.indexOf(INFORMATION_SEPARATOR, splitIndexEvent1 + 1);
                     toDoList.getToDoListArray().add(new EventsTask(line.substring(TASK_NAME_POSITION, splitIndexEvent1 - 1),
                             isMarked != UNMARKED,
-                            LocalDateTime.parse(line.substring(splitIndexEvent1 + 1, splitIndexEvent2 - 1)),
+                            LocalDateTime.parse(line.substring(splitIndexEvent1 + 1, splitIndexEvent2)),
                             LocalDateTime.parse(line.substring(splitIndexEvent2 + 1))));
                     break;
                 case TASK_TODOTASK:
