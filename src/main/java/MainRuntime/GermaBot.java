@@ -90,7 +90,8 @@ public class GermaBot {
     }
 
     public static void createTodo(String input) throws EmptyTaskException, IOException {
-        String toDoTask = input.substring(input.indexOf("todo ") + 5);
+        int idxBetweenTodoAndDescription = 5;
+        String toDoTask = input.substring(input.indexOf("todo ") + idxBetweenTodoAndDescription);
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
         }
@@ -109,7 +110,8 @@ public class GermaBot {
         if (idxOfEndDate == -1) {
             throw new MissingDeadlineException();
         }
-        String date = description.substring(idxOfEndDate + 4);
+        int idxToDateFromEndDate = 4;
+        String date = description.substring(idxOfEndDate + idxToDateFromEndDate);
         String toDoTask = description.substring(0, idxOfEndDate - 1);
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
@@ -132,11 +134,13 @@ public class GermaBot {
         if (idxOfBy == -1) {
             throw new MissingDeadlineException();
         }
-        String startDate = description.substring(idxOfFrom + 6, idxOfBy - 1);
+        int idxFromFromToStartDate = 6;
+        String startDate = description.substring(idxOfFrom + idxFromFromToStartDate, idxOfBy - 1);
         if (startDate.isBlank()) {
             throw new MissingStartDateException();
         }
-        String endDate = description.substring(idxOfBy + 4);
+        int idxFromByToEndDate = 4;
+        String endDate = description.substring(idxOfBy + idxFromByToEndDate);
         if (endDate.isBlank()) {
             throw new MissingDeadlineException();
         }
