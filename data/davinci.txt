@@ -1,3 +1,1 @@
-event/homework/7am/10am/0
-deadline/dinner/7pm/0
-todo/all my homework/0
+event/Attend banquet dinner in Marina Bay Sands/6pm/11pm/1

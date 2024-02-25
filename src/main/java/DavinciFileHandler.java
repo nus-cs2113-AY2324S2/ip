@@ -10,6 +10,13 @@ import java.util.List;
  */
 public class DavinciFileHandler {
 
+    public static final String ERROR_CREATING_DIRECTORIES = "Error creating directories: ";
+    public static final String ERROR_WRITING_FILE = "Error writing file: ";
+    public static final String WRITING_TO_FILE = "Writing to file: ";
+    public static final String ERROR_CREATING_FILE = "Error creating file: ";
+    public static final String CREATING_FILE = "Creating file: ";
+    public static final String LOADING_PAST_TASKS_FROM = "Loading past tasks from ";
+
     /**
      * Reads the contents of a file and returns them as a list of strings.
      *
@@ -19,15 +26,15 @@ public class DavinciFileHandler {
      */
     public static List<String> readFile(String filePath) throws IOException {
         Path myPath = Paths.get(filePath);
-        Ui.printMessage("Loading past tasks from " + filePath);
+        Ui.printMessage(LOADING_PAST_TASKS_FROM + filePath);
         createDirectories(myPath.getParent());
 
         if (!Files.exists(myPath)) {
             try {
-                System.out.println("Creating file: " + filePath);
+                System.out.println(CREATING_FILE + filePath);
                 Files.createFile(myPath);
             } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
+                System.out.println(ERROR_CREATING_FILE + e.getMessage());
                 throw e;
             }
         }
@@ -46,10 +53,10 @@ public class DavinciFileHandler {
         createDirectories(myPath.getParent());
 
         try {
-            System.out.println("Writing to file: " + filePath);
+            System.out.println(WRITING_TO_FILE + filePath);
             Files.write(myPath, lines);
         } catch (IOException e) {
-            System.out.println("Error writing file: " + e.getMessage());
+            System.out.println(ERROR_WRITING_FILE + e.getMessage());
             throw e;
         }
     }
@@ -65,7 +72,7 @@ public class DavinciFileHandler {
             Files.createDirectories(directory);
         } catch (FileAlreadyExistsException ignored) { // ignore if the file exists
         } catch (IOException e) {
-            System.out.println("Error creating directories: " + e.getMessage());
+            System.out.println(ERROR_CREATING_DIRECTORIES + e.getMessage());
             throw e;
         }
     }
