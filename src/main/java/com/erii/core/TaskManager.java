@@ -240,22 +240,43 @@ public class TaskManager {
     }
 
     public void listTasksOn(LocalDateTime date) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    System.out.println("Tasks on " + date.format(formatter) + ":");
-    for (Task task : tasks) {
-        if (task instanceof Deadline) {
-            if (((Deadline) task).getBy().isEqual(date)) {
-                System.out.println(task);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        System.out.println("Tasks on " + date.format(formatter) + ":");
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                if (((Deadline) task).getBy().isEqual(date)) {
+                    System.out.println(task);
+                }
             }
-        }
-        // Include similar logic for Event if it also uses LocalDateTime
-        if (task instanceof Event) {
-            if (((Event) task).getStart().isEqual(date.toLocalDate()) && ((Event) task).getEnd().isEqual(date.toLocalDate())) {
-                System.out.println(task);
+            // Include similar logic for Event if it also uses LocalDateTime
+            if (task instanceof Event) {
+                if (((Event) task).getStart().isEqual(date.toLocalDate()) && ((Event) task).getEnd().isEqual(date.toLocalDate())) {
+                    System.out.println(task);
+                }
             }
         }
     }
-}
+
+    // Method to search tasks by keyword
+    public void findTasks(String keyword) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+
+        int matchCount = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println((i + 1) + "." + task);
+                matchCount++;
+            }
+        }
+
+        if (matchCount == 0) {
+            System.out.println("No matching tasks found.");
+        }
+
+        System.out.println("____________________________________________________________");
+    }
 
 
     // Validate and convert a priority string to Priority enum

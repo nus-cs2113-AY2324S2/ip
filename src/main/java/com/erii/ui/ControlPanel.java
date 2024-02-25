@@ -71,6 +71,11 @@ public class ControlPanel {
                             System.out.println("Invalid date format. Please enter the date in yyyy-MM-dd format.");
                         }
                         break;
+                    case "8": // Assuming "8" is the new option for search
+                        System.out.println("Enter a keyword to search for tasks:");
+                        String keyword = scanner.nextLine().trim();
+                        taskManager.findTasks(keyword);
+                        break;
                     case "X":
                         System.out.println("Saving changes...");
                         storage.saveUserDetails(userDetails);
@@ -97,6 +102,7 @@ public class ControlPanel {
         System.out.println("5. Mark a task as done");
         System.out.println("6. Delete a task");
         System.out.println("7. List tasks on a specific date");
+        System.out.println("8. Search for a task by keyword");
         System.out.println("X. Exit");
         System.out.print("Enter the symbol corresponding to your choice: ");
     }
