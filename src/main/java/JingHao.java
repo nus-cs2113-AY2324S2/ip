@@ -17,12 +17,20 @@ import ui.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the JingHao CLI chatbot application.
+ * JingHao allows users to track and manage their tasks, as well as to store tasks in data storage.
+ */
 public class JingHao {
 
     protected static Ui ui;
     protected static TaskList taskList;
     protected final Storage storage;
 
+    /**
+     * Constructs a BossMan instance.
+     * Initializes the TaskList and Storage objects.
+     */
     public JingHao(String filePath) {
         ui = new Ui();
         this.storage = new Storage(filePath);
@@ -36,6 +44,11 @@ public class JingHao {
         }
     }
 
+    /**
+     * Starts the JingHao chatbot application.
+     * Displays a greeting message to the user, reads user input,
+     * execute user commands, and saves tasks to file.
+     */
     public void start() {
         ui.greetUser();
         boolean isExit = false;
