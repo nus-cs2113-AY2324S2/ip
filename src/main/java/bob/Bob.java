@@ -3,6 +3,7 @@ package bob;
 import bob.command.Command;
 import bob.exceptions.InvalidArgumentException;
 import bob.exceptions.InvalidCommandException;
+import bob.exceptions.InvalidDateTimeException;
 import bob.exceptions.InvalidTaskNumberException;
 import bob.utils.Parser;
 import bob.utils.TaskManager;
@@ -33,7 +34,7 @@ public class Bob {
                 String executionResult = currentCommand.executeCommand();
                 userInterface.print(executionResult);
             } catch (IOException | InvalidCommandException | InvalidTaskNumberException |
-                     InvalidArgumentException exception) {
+                     InvalidArgumentException | InvalidDateTimeException exception) {
                 userInterface.clearInput();
                 userInterface.print(exception.getMessage());
             }

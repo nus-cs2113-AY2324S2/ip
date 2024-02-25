@@ -1,20 +1,25 @@
 package bob.task;
 
-public class Deadline extends Task {
-    private final String dueDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    private Deadline(String taskName, boolean isCompleted, String dueDate) {
+public class Deadline extends Task {
+    private final LocalDateTime dueDate;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+
+    private Deadline(String taskName, boolean isCompleted, LocalDateTime dueDate) {
         super(taskName, isCompleted);
         this.dueDate = dueDate;
     }
 
-    public Deadline(String taskName, String dueDate) {
+    public Deadline(String taskName, LocalDateTime dueDate) {
         super(taskName, false);
         this.dueDate = dueDate;
     }
 
     public String getDueDate() {
-        return this.dueDate;
+        return this.dueDate.toString();
     }
 
     public Task markTaskAsComplete() {
@@ -27,6 +32,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", this.dueDate);
+        String dueDateFormatted = dueDate.format(DATE_TIME_FORMATTER);
+        return "[D]" + super.toString() + String.format(" (by: %s)", dueDateFormatted);
     }
 }
