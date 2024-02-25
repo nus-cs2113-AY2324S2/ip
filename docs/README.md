@@ -56,8 +56,8 @@ addTask Complete the project report /S
 
 The task is added to the user's list with the specified priority, enhancing their productivity and task management.
 
-! Got it. I've added this task: Complete the project report <S>
-! Now you have [number] tasks in the list.
+Got it. I've added this task: Complete the project report <S>
+Now you have [number] tasks in the list.
 
 ### listTasks - List All Tasks
 **Description:**
