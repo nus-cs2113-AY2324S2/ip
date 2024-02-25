@@ -1,5 +1,8 @@
 package Casper;
 
+/**
+ * An implementation of <code>Command</code> focusing on commands that add tasks into the list.
+ */
 public class AddCommand extends Command{
     private String userInput;
     private String prefix;
@@ -13,6 +16,13 @@ public class AddCommand extends Command{
         this.prefix = prefix;
     }
 
+    /**
+     * Executes adding a task to the given <code>TaskList</code>, and saves it to the save file.
+     *
+     * @param ui An instance of <code>Ui</code>.
+     * @param tasks An instance of <code>TaskList</code>.
+     * @param storage An instance of <code>Storage</code>.
+     */
     @Override
     public void execute(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
@@ -48,7 +58,7 @@ public class AddCommand extends Command{
         return new Event(eventDesc, from, to);
     }
 
-    public void handleEvent(String userInput) {
+    private void handleEvent(String userInput) {
         try{
             Task newTask = getEvent(userInput);
             tasks.addTask(newTask);
@@ -71,7 +81,7 @@ public class AddCommand extends Command{
         return new Deadline(deadlineDesc, by);
     }
 
-    public void handleDeadline(String userInput){
+    private void handleDeadline(String userInput){
         try{
             Task newTask = getDeadline(userInput);
             tasks.addTask(newTask);
@@ -90,7 +100,7 @@ public class AddCommand extends Command{
         return new Todo(todoDesc);
     }
 
-    public void handleTodo(String userInput) {
+    private void handleTodo(String userInput) {
         try{
             Task newTask = getTodo(userInput);
             tasks.addTask(newTask);

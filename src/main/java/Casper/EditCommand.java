@@ -1,5 +1,9 @@
 package Casper;
 
+/**
+ * An implementation of <code>Command</code> focusing on commands that edits the status of tasks or
+ * lists tasks (i.e. list, find).
+ */
 public class EditCommand extends Command{
     private String prefix;
     private String userInput;
@@ -12,6 +16,13 @@ public class EditCommand extends Command{
         this.userInput = userInput;
     }
 
+    /**
+     * Executes the marking/un-marking of tasks, or any task that involves listing out tasks.
+     *
+     * @param ui An instance of <code>Ui</code>.
+     * @param tasks An instance of <code>TaskList</code>.
+     * @param storage An instance of <code>Storage</code>.
+     */
     @Override
     public void execute(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
