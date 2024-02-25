@@ -1,0 +1,4 @@
+T | 0 | hw
+T | 0 | hw2
+E | 1 | meet | 2pm | 8pm
+D | 0 | read book | 6pm
