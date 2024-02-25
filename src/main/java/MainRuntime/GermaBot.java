@@ -1,9 +1,6 @@
 package MainRuntime;
 
-import Exceptions.EmptyTaskException;
-import Exceptions.MissingDeadlineException;
-import Exceptions.MissingStartDateException;
-import Exceptions.UnknownInputException;
+import Exceptions.*;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -80,15 +77,37 @@ public class GermaBot {
                 " on your calender! (Or ask me!)");
     }
 
+    public static void deleteTask(String input) throws TaskNotFoundException {
+        int idxToDelete = getIdx(input);
+        if (idxToDelete >= counter) {
+            throw new TaskNotFoundException();
+        } else {
+            System.out.println("Okay! I've removed this task from your To Do List:");
+            System.out.println(toDoList.get(idxToDelete));
+            toDoList.remove(idxToDelete);
+            System.out.println("Now you have, let me count... " + toDoList.size() + " items left in your " +
+                    "To Do List!");
+            counter--;
+        }
+    }
+
     public static void createTask(String input) throws UnknownInputException {
-        if (input.contains("todo")) {
+        if (input.startsWith("delete")) {
+            try {
+                deleteTask(input);
+            } catch (TaskNotFoundException e) {
+                System.out.println("Sorry but... There is no task number " + (getIdx(input) + 1) + "... " +
+                        "Let's try again!");
+            }
+        }
+        else if (input.startsWith("todo")) {
             try {
                 createTodo(input);
             } catch (EmptyTaskException e) {
                 System.out.println("Uh oh, you did not specify a task to add! Let's try again!");
             }
         }
-        else if (input.contains("deadline")) {
+        else if (input.startsWith("deadline")) {
             try {
                 createDeadline(input);
             } catch (EmptyTaskException e) {
@@ -98,7 +117,7 @@ public class GermaBot {
             }
 
         }
-        else if (input.contains("event")) {
+        else if (input.startsWith("event")) {
             try {
                 createEvent(input);
             } catch (EmptyTaskException e) {
