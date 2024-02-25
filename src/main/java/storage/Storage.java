@@ -57,12 +57,12 @@ public class Storage {
 
 
     /**
-     * Load data from file
+     * Load data from file in string data type
      */
      public static ArrayList<String> loadData() {
         ArrayList<String> listString = new ArrayList<>();
 
-        //try to create a file if it does not exist
+        // Try to create a file if it does not exist
         try {
             if (!f.exists()) {
                 boolean created = f.createNewFile();
@@ -73,7 +73,6 @@ public class Storage {
                 }
             }
 
-            //take in all the lines in string data type
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 listString.add(s.nextLine());
@@ -87,10 +86,9 @@ public class Storage {
 
 
     /**
-     * save the list of tasks in our file as string Data type.
+     * Save the list of tasks in our file as string Data type.
      * @param listString list of tasks in type String.
      */
-
     public static void saveData(ArrayList<String> listString) {
         try (FileWriter fw = new FileWriter(f)) {
             for (String task : listString) {

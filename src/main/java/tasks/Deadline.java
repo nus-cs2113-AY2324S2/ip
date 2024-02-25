@@ -1,9 +1,6 @@
 package tasks;
 import main.DukeException;
 
-import static main.Ui.printHeaders;
-
-
 public class Deadline extends TaskList {
     protected boolean newInput;
 
@@ -23,16 +20,16 @@ public class Deadline extends TaskList {
      */
     public String getBy() throws DukeException{
         String[] splitLine = description.split("/by");
-        String[] commandLine = splitLine[0].split(" ");
-        if (commandLine.length < 2 || splitLine.length != 2 || splitLine[1].equals(" ")) {
+        String[] commandLine = splitLine[0].split("\\s+");
+
+        /* Ensures that user only enters one /by, and all required fields are entered */
+        if (commandLine.length < 2 | splitLine.length != 2 | splitLine[1].equals(" ")) {
             throw new DukeException("Invalid Syntax! Please try again!");
         }
         return splitLine[1];
     }
 
-    /**
-     * Returns the type of task and their action.
-     */
+    /* Returns the type of task and their action. */
     @Override
     public String toString() {
         try {
@@ -43,10 +40,8 @@ public class Deadline extends TaskList {
         }
     }
     public void toPrint() throws DukeException {
-        if (getBy() != null) {
-            if (newInput) {
+        if (getBy() != null && newInput) {
                 printHeaders();
-            }
         }
     }
 }

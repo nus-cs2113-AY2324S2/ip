@@ -10,11 +10,13 @@ import tasks.Todo;
 import static storage.Storage.saveData;
 
 public class Command {
-    public enum Commands {
-        Todo, Deadline, Event
-    }
 
-
+    /**
+     * Returns a list of tasks that contains the keyword.
+     * @param keyword word to search in tasks.
+     * @param listTask list of tasks in Task data type.
+     * @param listString list of tasks in String data type.
+     */
     public static void findMatchingTasks(String keyword, ArrayList<TaskList> listTask, ArrayList<String> listString) {
         ArrayList<String> searchList = new ArrayList<>();
         int index;
@@ -43,8 +45,6 @@ public class Command {
     }
 
 
-
-
     /**
      * Removes task from both arrays.
      * @param listTask list of tasks in Task type.
@@ -68,115 +68,135 @@ public class Command {
     }
 
     /**
-     * Adds task into the array of type Task.
-     * @param listTask list of tasks in Task type.
+     * @param listTask list of tasks in Task data type.
      * @param originalUserInput user input.
-     * @param splitLine words of user input split by whitespace.
-     * @param typeOfTask special data type for the 3 tasks.
-     * @return true if adding of task into array of type Task is successful.
+     * @param splitLine input split by whitespaces stored in an array.
+     * @return the status of adding a ToDo task.
      */
-    public static boolean addTask(ArrayList<TaskList> listTask, String originalUserInput, String[] splitLine, Commands typeOfTask) {
-        TaskList t;
+    public static boolean addToDo(ArrayList<TaskList> listTask, String originalUserInput, String[] splitLine) {
+        TaskList task;
         boolean success = true;
 
-
-        switch (typeOfTask) {
-            case Todo:
-                if (checkMinimumArguments(splitLine, 2)) {
-                    success = false;
-                    break;
-                }
-                try {
-                    t = new Todo(originalUserInput, true);
-                    System.out.println(t);
-                    listTask.add(t);
-                } catch (RuntimeException e) {
-                    System.out.println("Invalid Syntax, please try again!");
-                    success = false;
-                }
-                break;
-
-            case Deadline:
-                if (checkMinimumArguments(splitLine, 4)) {
-                    success = false;
-                    break;
-                }
-                try {
-                    t = new Deadline(originalUserInput, true);
-                    System.out.println(t);
-                    listTask.add(t);
-                } catch (DukeException e) {
-                    System.out.println("Invalid Syntax, please try again!");
-                    success = false;
-                }
-                break;
-
-            case Event:
-                if (checkMinimumArguments(splitLine, 6)) {
-                    success = false;
-                    break;
-                }
-                try {
-                    t = new Event(originalUserInput, true);
-                    System.out.println(t);
-                    listTask.add(t);
-                } catch (RuntimeException e) {
-                    System.out.println("Invalid Syntax, please try again!");
-                    success = false;
-                }
-                break;
-
+        if (checkMinimumArguments(splitLine, 2)) {
+            success = false;
+            return success;
+        }
+        try {
+            task = new Todo(originalUserInput, true);
+            System.out.println(task);
+            listTask.add(task);
+        } catch (RuntimeException e) {
+            System.out.println("Invalid Syntax, please try again!");
+            success = false;
         }
         return success;
-
     }
 
+    /**
+     * @param listTask list of tasks in Task data type.
+     * @param originalUserInput user input.
+     * @param splitLine input split by whitespaces stored in an array.
+     * @return the status of adding a Deadline task.
+     */
+    public static boolean addDeadline(ArrayList<TaskList> listTask, String originalUserInput, String[] splitLine) {
+        TaskList task;
+        boolean success = true;
+
+        if (checkMinimumArguments(splitLine, 4)) {
+            success = false;
+            return success;
+        }
+        try {
+            task = new Deadline(originalUserInput, true);
+            System.out.println(task);
+            listTask.add(task);
+        } catch (RuntimeException | DukeException e) {
+            System.out.println("Invalid Syntax, please try again!");
+            success = false;
+        }
+        return success;
+    }
 
     /**
-     * Mark or unmark the task to be completed based on user's command.
-     * @param command either mark or unmark.
+     * @param listTask list of tasks in Task data type.
+     * @param originalUserInput user input.
+     * @param splitLine input split by whitespaces stored in an array.
+     * @return the status of adding an Event task.
+     */
+    public static boolean addEvent(ArrayList<TaskList> listTask, String originalUserInput, String[] splitLine) {
+        TaskList task;
+        boolean success = true;
+
+        if (checkMinimumArguments(splitLine, 6)) {
+            success = false;
+            return success;
+        }
+        try {
+            task = new Event(originalUserInput, true);
+            System.out.println(task);
+            listTask.add(task);
+        } catch (RuntimeException e) {
+            System.out.println("Invalid Syntax, please try again!");
+            success = false;
+        }
+        return success;
+    }
+
+    /**
+     * Mark the task to be completed.
      * @param userInput user's input.
      * @param listTask  list of tasks in Task type.
      * @param listString list of tasks in String type.
      */
-    public static void userMarkOrUnmark(String command, String userInput, ArrayList<TaskList> listTask, ArrayList<String> listString) {
+    public static void markTasks(String userInput, ArrayList<TaskList> listTask, ArrayList<String> listString) {
         int index;
         String originalString, modifiedString;
-        TaskList t;
+        TaskList task;
 
-        if (command.equals("mark")) {
-            try {
-                index = Integer.parseInt(userInput.substring(5));
-                originalString = listString.get(index - 1);
-                modifiedString = originalString.replace("notMarked:", "Marked:");
-                listString.set(index - 1, modifiedString);
+        try {
+            index = Integer.parseInt(userInput.substring(5));
+            originalString = listString.get(index - 1);
+            modifiedString = originalString.replace("notMarked:", "Marked:");
+            listString.set(index - 1, modifiedString);
 
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("Task number is not a valid number or index out of bounds!");
-                return;
-            }
-            t = listTask.get(index - 1);
-            t.isDone =  true;
-            System.out.println("Nice! I've marked this task as done:");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println("Task number is not a valid number or index out of bounds!");
+            return;
         }
+        task = listTask.get(index - 1);
+        task.isDone =  true;
+        System.out.println("Nice! I've marked this task as done:");
 
-        else {
-            try {
-                index = Integer.parseInt(userInput.substring(7));
-                originalString = listString.get(index - 1);
-                modifiedString = originalString.replace("Marked:", "notMarked:");
-                listString.set(index - 1, modifiedString);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("Task number is not a valid number or index out of bounds!");
-                return;
-            }
-            t = listTask.get(index - 1);
-            t.isDone =  false;
-            System.out.println("OK, I've marked this task as not done yet:");
+        saveData(listString);
+        System.out.println(task);
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Unmark the task to be uncompleted.
+     * @param userInput user's input.
+     * @param listTask  list of tasks in Task type.
+     * @param listString list of tasks in String type.
+     */
+    public static void unMarkTasks(String userInput, ArrayList<TaskList> listTask, ArrayList<String> listString) {
+        int index;
+        String originalString, modifiedString;
+
+        try {
+            index = Integer.parseInt(userInput.substring(7));
+            originalString = listString.get(index - 1);
+            modifiedString = originalString.replace("Marked:", "notMarked:");
+            listString.set(index - 1, modifiedString);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println("Task number is not a valid number or index out of bounds!");
+            return;
         }
+        TaskList task = listTask.get(index - 1);
+        task.isDone =  false;
+        System.out.println("OK, I've marked this task as not done yet:");
 
-        saveData(listString); //update the saved list as well
-        System.out.println(t);
+        saveData(listString);
+        System.out.println(task);
         System.out.println("____________________________________________________________");
     }
 
@@ -184,7 +204,7 @@ public class Command {
      * Prints out the list of tasks for the user.
      * @param listTask list of tasks in Task type.
      */
-    public static void userList(ArrayList<TaskList> listTask) {
+    public static void printList(ArrayList<TaskList> listTask) {
         for (TaskList task : listTask) {
             if (task == null) {
                 break;
@@ -213,10 +233,10 @@ public class Command {
     }
 
     /**
-     * Saves task into array of string data type, and into the file.
+     * Adds task into array of string data type, and save into the file.
      * @param listTask list of tasks in Task type.
      * @param listString list of tasks in String type.
-     * @param userInput the exact format of the user input
+     * @param userInput the exact format of the user input.
      */
     public static void saveDataIntoListString (ArrayList<TaskList> listTask, ArrayList<String> listString, String userInput) {
         String savedLine;

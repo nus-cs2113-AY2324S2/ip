@@ -2,8 +2,6 @@ package tasks;
 
 import main.DukeException;
 
-import static main.Ui.printHeaders;
-
 public class Todo extends TaskList {
 
     boolean newInput;
@@ -19,6 +17,7 @@ public class Todo extends TaskList {
     }
 
 
+    /* Returns the type of task and their action. */
     @Override
     public String toString() {
         String[] splitLine = description.split("\\s+");
@@ -40,10 +39,8 @@ public class Todo extends TaskList {
     }
 
     public void toPrint() {
-        if (toString() != null) {
-            if (newInput) {
+        if (toString() != null && newInput) {
                 printHeaders();
-            }
         }
     }
 }
