@@ -61,6 +61,14 @@ public class TaskList {
         System.out.println("Deleted task number " + (indexTask) + ": " + toDelete.description);
     }
 
+    public void findTask(String line) {
+        String keyword = InputParser.parseDescription(line);
+        System.out.println("Tasks found:");
+        taskData.stream()
+                .filter(task -> task.description.contains(keyword))
+                .forEach(System.out::println);
+    }
+
     public void addTodo(String input) throws YukiExceptions.InvalidDescriptionException {
         data = InputParser.parseInput(input.substring(Constants.LENGTH_TODO_COMMAND));
         if (data[0].isEmpty()) {
@@ -69,6 +77,7 @@ public class TaskList {
         description = data[0];
         Task t = new Todo(description, false);
         taskData.add(t);
+        Utils.printTaskAddedMessage();
         System.out.println(t);
         reportNumberOfTasks();
     }
@@ -81,6 +90,7 @@ public class TaskList {
         description = data[0] + " (by:" + data[1] + ")";
         Task t = new Deadline(description, false);
         taskData.add(t);
+        Utils.printTaskAddedMessage();
         System.out.println(t);
         reportNumberOfTasks();
     }
@@ -93,6 +103,7 @@ public class TaskList {
         description = data[0] + " (from: " + data[1] + " to: " + data[2] + ")";
         Task t = new Event(description, false);
         taskData.add(t);
+        Utils.printTaskAddedMessage();
         System.out.println(t);
         reportNumberOfTasks();
     }
@@ -126,6 +137,9 @@ public class TaskList {
                 System.out.println(e.getMessage() + "\nPlease enter a valid index\n");
                 listTasks();
             }
+            break;
+        case Constants.FIND_COMMAND:
+            findTask(userInput);
             break;
         case Constants.TODO_COMMAND:
             try {
