@@ -1,4 +1,4 @@
-# Erii User Guide
+# Erii
 Erii is a versatile Java project designed to streamline task management and productivity with a story-based user experience. This README outlines the setup process and provides an overview of Erii's functionalities.
 
 ## Setting up in IntelliJ
