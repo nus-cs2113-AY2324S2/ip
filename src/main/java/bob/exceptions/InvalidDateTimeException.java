@@ -3,8 +3,8 @@ package bob.exceptions;
 public class InvalidDateTimeException extends Exception {
     private final String command;
     private final String errorType;
-    public static final String INVALID_END_TIME = "Please enter a valid end date/time!\n\n";
-    public static final String START_AFTER_END = "Please ensure that the Event does not start after its end date!\n\n";
+    public static final String INVALID_END_TIME = " Please enter a valid end date/time!\n\n";
+    public static final String START_AFTER_END = " Please ensure that the Event does not start after its end date!\n\n";
 
     public InvalidDateTimeException(String command, String errorType) {
         this.command = command;
