@@ -6,6 +6,7 @@ public class FeatureMessages {
         System.out.println("[mark X] Mark number X task as Done");
         System.out.println("[unmark X] Mark number X task as UnDone");
         System.out.println("[delete X] Delete number X task");
+        System.out.println("[find XXX] Find related tasks with XXX");
         System.out.println("[todo XXX] Add a todo task");
         System.out.println("[deadline XXX /by yyyy-MM-dd HH:mm:ss] Add a deadline task");
         System.out.println("[event XXX /from yyyy-MM-dd HH:mm:ss /to yyyy-MM-dd HH:mm:ss] Add a Event task");
