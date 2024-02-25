@@ -3,7 +3,7 @@ package misty;
 import misty.task.Task;
 import java.util.ArrayList;
 
-public class Parser {
+public class UserUi {
     public static void printMessageBorder() {
         System.out.println("\t--------------------------------------------------");
     }

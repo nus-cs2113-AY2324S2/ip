@@ -17,11 +17,11 @@ public class List {
     }
 
     public void printTaskCount() {
-        Parser.printTaskCount(taskList.size());
+        UserUi.printTaskCount(taskList.size());
     }
 
     private void printAddTaskMessage(Task newTask) {
-        Parser.printAddTaskMessage(newTask);
+        UserUi.printAddTaskMessage(newTask);
         printTaskCount();
     }
 
@@ -40,7 +40,7 @@ public class List {
         try {
             SaveFile.saveTodo(newTask);
         } catch (IOException e) {
-            Parser.printErrorIO();
+            UserUi.printErrorIO();
         }
 
         printAddTaskMessage(newTask);
@@ -59,7 +59,7 @@ public class List {
         try {
             SaveFile.saveDeadLine(newTask);
         } catch (IOException e) {
-            Parser.printErrorIO();
+            UserUi.printErrorIO();
         }
 
         printAddTaskMessage(newTask);
@@ -80,7 +80,7 @@ public class List {
         try {
             SaveFile.saveEvent(newTask);
         } catch (IOException e) {
-            Parser.printErrorIO();
+            UserUi.printErrorIO();
         }
 
         printAddTaskMessage(newTask);
@@ -96,10 +96,10 @@ public class List {
         try {
             SaveFile.refreshSave(taskList);
         } catch (IOException e) {
-            Parser.printErrorIO();
+            UserUi.printErrorIO();
         }
 
-        Parser.printTaskMarkAsDone(taskList.get(index-1));
+        UserUi.printTaskMarkAsDone(taskList.get(index-1));
     }
 
     public void unmarkTask(int index) throws IllegalListIndexException {
@@ -112,10 +112,10 @@ public class List {
         try {
             SaveFile.refreshSave(taskList);
         } catch (IOException e) {
-            Parser.printErrorIO();
+            UserUi.printErrorIO();
         }
 
-        Parser.printTaskUnmarkAsNotDone(taskList.get(index - 1));
+        UserUi.printTaskUnmarkAsNotDone(taskList.get(index - 1));
     }
 
     public void deleteTask(int index) throws IllegalListIndexException {
@@ -129,15 +129,15 @@ public class List {
         try {
             SaveFile.refreshSave(taskList);
         } catch (IOException e) {
-            Parser.printErrorIO();
+            UserUi.printErrorIO();
         }
 
-        Parser.printDeleteTask(temp);
+        UserUi.printDeleteTask(temp);
         printTaskCount();
     }
 
     public void listAll() {
-        Parser.printList(taskList, taskList.size());
+        UserUi.printList(taskList, taskList.size());
     }
 
     public void loadTodo(String description) throws EmptyTaskNameException {
