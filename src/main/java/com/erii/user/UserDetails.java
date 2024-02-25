@@ -15,37 +15,30 @@ public class UserDetails {
     }
 
     public void setUserName(String userName) {
-        // Instance method to set the user's name
         this.userName = userName;
     }
 
     public void setUserBirthday(String userBirthday) {
-        // Instance method to set the user's birthday
         this.userBirthday = userBirthday;
     }
 
     public void setUserGender(String userGender) {
-        // Instance method to set the user's gender
         this.userGender = userGender;
     }
 
     public String getUserName() {
-        // Getter for user's name
         return this.userName;
     }
 
     public String getUserBirthday() {
-        // Getter for user's birthday
         return this.userBirthday;
     }
 
     public String getUserGender() {
-        // Getter for user's gender
         return this.userGender;
     }
 
     public void inputName() {
-        // Method to input user's name
         System.out.println("Please enter your full name (First Name Last Name): ");
         String name;
 
@@ -61,7 +54,6 @@ public class UserDetails {
     }
 
     public void inputBirthday() {
-        // Method to input user's birthday
         System.out.println("Please enter your birthday (DD/MM/YYYY): ");
         String birthday;
         Pattern datePattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
@@ -79,7 +71,6 @@ public class UserDetails {
     }
 
     public void inputGender() {
-        // Method to input user's gender
         System.out.println("Please enter your gender: ");
         System.out.println("1. Male");
         System.out.println("2. Female");
