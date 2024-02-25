@@ -40,6 +40,10 @@ public class Excution {
                 this.command = new Bye(parser);
                 break;
             }
+            case "find":{
+                this.command = new Find(parser);
+                break;
+            }
             default:{
                 throw new Command_Not_Exist();
             }
