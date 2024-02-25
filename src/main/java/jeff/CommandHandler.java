@@ -1,6 +1,11 @@
 package jeff;
 
-import jeff.exceptions.*;
+import jeff.exceptions.InvalidDeadlineSyntaxException;
+import jeff.exceptions.InvalidDeleteSyntaxException;
+import jeff.exceptions.InvalidEventSyntaxException;
+import jeff.exceptions.InvalidMarkSyntaxException;
+import jeff.exceptions.InvalidTodoSyntaxException;
+import jeff.exceptions.InvalidUnmarkSyntaxException;
 
 public class CommandHandler {
     private static final int TODO_DESCRIPTION_INDEX = 5;
