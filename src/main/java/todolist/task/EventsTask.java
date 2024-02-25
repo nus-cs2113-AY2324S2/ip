@@ -1,30 +1,33 @@
 package todolist.task;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class EventsTask extends Task {
-    private final String startDate;
-    private final String endDate;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
 
     /**
      * Constructor for EventsTask
      * @param name the name of the task
-     * @param startDate the start date of the task
-     * @param endDate the end date of the task
+     * @param startDateTime the start date of the task
+     * @param endDateTime the end date of the task
      */
-    public EventsTask(String name, String startDate, String endDate) {
+    public EventsTask(String name, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(name);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
-    public EventsTask(String name, boolean isDone, String startDate, String endDate) {
+    public EventsTask(String name, boolean isDone, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(name, isDone);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     @Override
     public String storeDataString() {
-        return "E" + "|" + (this.isDone ? 1 : 0) + "|" + this.name + "|" + this.startDate + "|" + this.endDate;
+        return "E" + "|" + (this.isDone ? 1 : 0) + "|" + this.name + "|" + this.startDateTime + "|" + this.endDateTime;
     }
 
     /**
@@ -33,6 +36,10 @@ public class EventsTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedStartDateTime = this.startDateTime.format(formatter);
+        String formattedEndDateTime = this.startDateTime.format(formatter);
+        return "[E]" + super.toString() + " (from: " + formattedStartDateTime + " to: " + formattedEndDateTime + ")";
     }
+
 }

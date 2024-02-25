@@ -6,6 +6,7 @@ import todolist.task.Task;
 import todolist.task.ToDoTask;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class DataManager {
@@ -54,8 +55,8 @@ public class DataManager {
                     int splitIndexEvent2 = line.indexOf(INFORMATION_SEPARATOR, splitIndexEvent1 + 1);
                     toDoList.getToDoListArray().add(new EventsTask(line.substring(TASK_NAME_POSITION, splitIndexEvent1 - 1),
                             isMarked != UNMARKED,
-                            line.substring(splitIndexEvent1 + 1, splitIndexEvent2 - 1),
-                            line.substring(splitIndexEvent2 + 1)));
+                            LocalDateTime.parse(line.substring(splitIndexEvent1 + 1, splitIndexEvent2 - 1)),
+                            LocalDateTime.parse(line.substring(splitIndexEvent2 + 1))));
                     break;
                 case TASK_TODOTASK:
                     toDoList.getToDoListArray().add(new ToDoTask(line.substring(TASK_NAME_POSITION), isMarked != UNMARKED));
@@ -64,7 +65,7 @@ public class DataManager {
                     int splitIndexDeadline = line.indexOf(INFORMATION_SEPARATOR, TASK_NAME_POSITION);
                     toDoList.getToDoListArray().add(new DeadLinesTask(line.substring(TASK_NAME_POSITION, splitIndexDeadline - 1),
                             isMarked != UNMARKED,
-                            line.substring(splitIndexDeadline + 1)));
+                            LocalDateTime.parse(line.substring(splitIndexDeadline + 1))));
                     break;
                 default:
                     throw new IOException();
