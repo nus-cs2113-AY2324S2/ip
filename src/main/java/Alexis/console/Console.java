@@ -55,7 +55,7 @@ public class Console {
                 }
                 switch (command) {
                 case BYE:
-                    Save.saveToLocalDisk(tasks);
+                    Storage.saveToLocalDisk(tasks);
                     return;
                 case LIST:
                     printTaskListToConsole(tasks);
@@ -75,7 +75,7 @@ public class Console {
                     printNewTaskToConsole(tasks, line, command);
                     break;
                 case SAVE:
-                    Save.saveToLocalDisk(tasks);
+                    Storage.saveToLocalDisk(tasks);
                     break;
                 }
             } catch (MissingFieldException e) {

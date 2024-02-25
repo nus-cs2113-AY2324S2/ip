@@ -13,7 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Save {
+public abstract class Storage {
     private static final String FILE_NAME = "Alexis.txt";
     private static final String DIR_NAME = "./data/";
     private static final String FILE_PATH = DIR_NAME + FILE_NAME;
