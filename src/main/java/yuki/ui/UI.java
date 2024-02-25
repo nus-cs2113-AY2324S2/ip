@@ -1,5 +1,7 @@
 package yuki.ui;
 
+import yuki.Utils;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -12,6 +14,14 @@ public class UI {
 
     public UI (InputStream in) {
         this.in = new Scanner(in);
+    }
+
+    public void greetUser() {
+        Utils.printWelcomeMessage();
+    }
+
+    public void sayByeToUser() {
+        Utils.printExitMessage();
     }
 
     public String getUserInput() {

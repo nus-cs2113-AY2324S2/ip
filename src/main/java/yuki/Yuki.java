@@ -19,9 +19,9 @@ public class Yuki {
     }
 
     public void run() {
-        Utils.printWelcomeMessage();
+        ui.greetUser();
         runCommandLoopUntilExitCommand();
-        Utils.printExitMessage();
+        ui.sayByeToUser();
     }
 
     public void runCommandLoopUntilExitCommand() {
