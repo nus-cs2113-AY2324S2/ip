@@ -58,29 +58,3 @@ public class Parser {
     }
 }
 
-
-
-//            case "bye":
-//                return false;
-//            case "list":
-//                echoTaskList();
-//                break;
-//            case "mark":
-//                //fallthrough
-//            case "unmark":
-//                handleMarkTask(userInput);
-//                break;
-//            case "event":
-//                handleEvent(userInput);
-//                break;
-//            case "deadline":
-//                handleDeadline(userInput);
-//                break;
-//            case "todo":
-//                handleTodo(userInput);
-//                break;
-//            case "delete":
-//                deleteTask(userInput);
-//                break;
-//            default:
-//                break;

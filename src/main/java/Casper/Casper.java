@@ -6,7 +6,8 @@ public class Casper {
     private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
-    private static final String[] keywordList = {"bye", "list", "mark", "unmark", "deadline", "event", "todo", "delete"};
+    private static final String[] keywordList = {"bye", "list", "mark", "unmark",
+            "deadline", "event", "todo", "delete", "find"};
     private static final String pathToSaveDirectory = "./save/";
     private static final String saveFilename= "savedCasper.txt";
 
