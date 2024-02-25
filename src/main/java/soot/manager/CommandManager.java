@@ -7,9 +7,10 @@ import soot.task.Task;
 import soot.task.Todo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommandManager {
-    ArrayList<Task> taskList;
+    static ArrayList<Task> taskList;
     public static int listCounter;
 
     public CommandManager() {
@@ -71,7 +72,7 @@ public class CommandManager {
                 break;
             case "todo":
                 inputTask = input.substring(5);
-                taskList.add(new Todo(inputTask));
+                taskList.add(new Todo(inputTask, false));
                 listCounter++;
                 taskList.get(taskList.size()-1).printRespond();
                 drawLine();
@@ -82,8 +83,7 @@ public class CommandManager {
                 int deadlineIndex = inputTask.indexOf('/');
                 String taskName = inputTask.substring(0, deadlineIndex - 1);
                 String dueDate = inputTask.substring(deadlineIndex + 4);
-
-                taskList.add(new Deadline(taskName, dueDate));
+                taskList.add(new Deadline(taskName, false, dueDate));
                 listCounter++;
                 taskList.get(taskList.size()-1).printRespond();
                 drawLine();
@@ -99,8 +99,7 @@ public class CommandManager {
 
                 String startDate = timeLine.substring(0, endIndex - 1);
                 String endDate = timeLine.substring(endIndex + 4);
-
-                taskList.add(new Event(taskName, startDate, endDate));
+                taskList.add(new Event(taskName, false, startDate, endDate));
                 listCounter++;
                 taskList.get(taskList.size()-1).printRespond();
                 drawLine();
@@ -130,5 +129,4 @@ public class CommandManager {
         int listSize = taskList.size();
         return listSize;
     }
-
 }

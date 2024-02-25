@@ -3,13 +3,13 @@ package soot.task;
 import soot.manager.CommandManager;
 
 public class Task {
-    protected String taskName;
-//    protected int index;
-    protected boolean isDone;
+    public String taskName;
+    public boolean isDone;
+    public taskType taskType;
 
-    public Task(String input) {
+    public Task(String input, Boolean isDone) {
         this.taskName = input;
-        this.isDone = false;
+        this.isDone = isDone;
     }
     public void printCheckbox() {
         if (isDone) {
@@ -57,6 +57,7 @@ public class Task {
         printCheckbox();
     }
 
+    //TODO: after a task is marked done/undone, the taskCount printed when another task is added is unchanged
     public void printTaskCount() {
         int taskCount = CommandManager.listCounter;
         System.out.println("you now have " + taskCount + " tasks left...");

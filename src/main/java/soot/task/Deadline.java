@@ -1,10 +1,11 @@
 package soot.task;
 
 public class Deadline extends Task {
-    protected String dueDate;
+    public String dueDate;
 
-    public Deadline(String taskName, String dueDate) {
-        super(taskName);
+    public Deadline(String taskName, Boolean isDone, String dueDate) {
+        super(taskName, isDone);
+        this.taskType = soot.task.taskType.DEADLINE;
         this.dueDate = dueDate;
     }
 
