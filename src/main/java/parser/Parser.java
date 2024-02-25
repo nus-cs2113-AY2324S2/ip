@@ -12,7 +12,6 @@ import command.MarkCommand;
 import command.UnmarkCommand;
 
 import commandexceptions.JingHaoExceptions;
-import tasktype.TaskList;
 
 /**
  * Parser class determines the type of command based on user's input and

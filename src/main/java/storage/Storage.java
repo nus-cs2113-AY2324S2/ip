@@ -14,13 +14,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the file storage of the JingHao chatbot.
+ * Responsible for saving and loading of the task data to and fro the text file.
+ */
 public class Storage {
     private static String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified filepath.
+     *
+     * @param file The filepath of the saved text file containing the tasks.
+     */
     public Storage(String file) {
         filePath = file;
     }
 
+    /**
+     * Loads the task list from the text file and returns the TaskList.
+     *
+     * @return The taskList with the loaded tasks.
+     * @throws JingHaoExceptions If there is an error loading the tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     public TaskList readFile() throws JingHaoExceptions, IOException{
         TaskList currentList = new TaskList();
         boolean isFromFile = true;
@@ -60,14 +76,26 @@ public class Storage {
         return currentList;
     }
 
-
-    public void updateCheck(Task task, String information, TaskList list) throws FileNotFoundException {
+    /**
+     * Updates the status of the task based on the loaded data before adding it to the list.
+     *
+     * @param task The type of task (Todo/Deadline/Event).
+     * @param information The details of the task.
+     * @param list The taskList containing the loaded tasks from text file.
+     */
+    public void updateCheck(Task task, String information, TaskList list) {
         if(information.equalsIgnoreCase("TRUE")) {
             task.check();
         }
         list.add(task);
     }
 
+    /**
+     * Updates the list of tasks to the text file.
+     *
+     * @param taskList The TaskList containing the tasks to be saved.
+     * @throws IOException If there is an error appending the new task.
+     */
     public void updateDisk(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task item: taskList) {
