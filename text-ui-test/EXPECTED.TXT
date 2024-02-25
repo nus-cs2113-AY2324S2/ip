@@ -1,5 +1,4 @@
-Greetings! I'm Blue, your personal chatbot assistant. How may I be of service?
-No saved tasks found, starting from scratch.
+Greetings! I'm Blue, a command line task assistant.
 added: forage for wood
 added: start a fire
 added: the dance of the magpie frings
