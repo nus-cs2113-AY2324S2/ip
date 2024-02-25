@@ -89,13 +89,15 @@ public class Formatter {
     public static void printErrorBadTokens() {
         System.out.println("\t CommandExecutor: Bad Token Error, please check your arguments");
     }
-    public static void printErrorArgumentsMismatch(int argumentCount,int correctArgumentCount) {
-        System.out.printf("\t SyntaxChecker: Too %s arguments. Given: %d - Expected: %d\n",
-                argumentCount < correctArgumentCount ? "few" : "many", argumentCount, correctArgumentCount);
+    public static void printErrorArgumentsMismatch(String userCommandName, int userArgumentCount, int correctArgumentCount) {
+        System.out.printf("\t SyntaxAnalyser: Command %s contains too %s arguments. Given: %d - Expected: %d\n",
+                userCommandName, 
+                userArgumentCount < correctArgumentCount ? "few" : "many", 
+                userArgumentCount, correctArgumentCount);
     }
-    public static void printErrorWrongArgumentType(String commandName, String regex, int argumentPosition) {
-        System.out.printf("\t SyntaxChecker: %s expects the %dth argument to be %s\n",
-                commandName, argumentPosition + 1, regex);
+    public static void printErrorWrongArgumentType(String COMMAND_NAME, String regex, int argumentPosition) {
+        System.out.printf("\t SyntaxAnalyser: %s expects the %dth argument to be %s\n",
+                COMMAND_NAME, argumentPosition + 1, regex);
     }
     public static void printErrorIndexOutOfRange() {
         System.out.println("\t List: Selected index not in range. Try again.");

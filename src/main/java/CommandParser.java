@@ -1,50 +1,65 @@
 public class CommandParser {
-    private String commandName = null;
-    private int argumentCount = 0;
+    private String COMMAND_NAME;
     private String[] argumentTokens = {};
-    private String separator;
-    public CommandParser(String userInput) throws IllegalCommandException, ArgumentMismatchException, BadTokenException{
-        String commandToken = userInput.split(" ", 2)[0];
-        String otherToken;
-        if (!SyntaxChecker.validateCommandToken(commandToken)) {
+
+    public CommandParser(String userInput) throws IllegalCommandException, ArgumentMismatchException, BadTokenException {
+        //default case: User enters a valid command, the command expects no arguments
+        final String[] NAME_ARGSTR_PAIR = parseIntoNameAndArgumentString(userInput); //NAME_ARGSTR_PAIR is either size 1 or 2
+        final String USER_COMMAND_NAME = getUserCommandName(NAME_ARGSTR_PAIR);
+        COMMAND_NAME = USER_COMMAND_NAME.toUpperCase();
+        final String USER_ARGUMENT_STRING;
+
+        if (!SyntaxAnalyser.validateUserCommandName(USER_COMMAND_NAME)) {
+            COMMAND_NAME = "NOT_A_COMMAND";
             throw new IllegalCommandException();
-        }
-        else if (!SyntaxChecker.hasArgument(userInput)) {
-            commandName = commandToken.toUpperCase();
-            if (!SyntaxChecker.isArgumentMatch(commandName,argumentCount)) {
-                throw new ArgumentMismatchException(commandName, argumentCount);
-            }
-        }
-        else {
-            commandName = commandToken.toUpperCase();
-            otherToken = userInput.split(" ", 2)[1];
-            separator = setSeparator();
-            argumentTokens = otherToken.split(separator, CommandList.getArgumentCount(commandName));
-            argumentCount = argumentTokens.length;
-            if (!SyntaxChecker.validateTokens(commandName, argumentTokens, argumentCount)) {
+        } else if (hasArgumentString(NAME_ARGSTR_PAIR)) {
+            USER_ARGUMENT_STRING = getUserArgumentString(NAME_ARGSTR_PAIR);
+            final String ARG_SEPARATOR = " /";
+            argumentTokens = parseIntoTokens(USER_ARGUMENT_STRING, ARG_SEPARATOR);
+
+            if (!hasCorrectUserArgumentCount()) {
+                throw new ArgumentMismatchException(COMMAND_NAME, argumentTokens.length);
+            } else if (!SyntaxAnalyser.validateTokens(COMMAND_NAME, argumentTokens)) {
                 throw new BadTokenException();
             }
+        } else if (!hasCorrectUserArgumentCount()) {
+            throw new ArgumentMismatchException(COMMAND_NAME, argumentTokens.length);
         }
     }
 
-    private String setSeparator() {
-        boolean isDelimitedWithSpaces = CommandList.valueOf(commandName).ordinal() < 5;
-        if (isDelimitedWithSpaces) {
-            return " ";
-        }
-        return " /";
+    private static String getUserArgumentString(String[] NAME_ARGSTR_PAIR) {
+        return NAME_ARGSTR_PAIR[1];
+    }
+
+    private static String getUserCommandName(String[] NAME_ARGSTR_PAIR) {
+        return NAME_ARGSTR_PAIR[0];
+    }
+
+    private String[] parseIntoTokens(final String USER_ARGUMENT_STRING, final String separator) {
+        final int EXPECTED_ARGUMENT_COUNT = SyntaxAnalyser.getArgumentCount(COMMAND_NAME);
+        return USER_ARGUMENT_STRING.split(separator, EXPECTED_ARGUMENT_COUNT);
+    }
+
+    private boolean hasCorrectUserArgumentCount() {
+        int userArgumentCount = argumentTokens.length;
+        int correctArgumentCount = SyntaxAnalyser.getArgumentCount(COMMAND_NAME);
+        return correctArgumentCount == userArgumentCount;
+    }
+
+    private static boolean hasArgumentString(String[] NAME_ARGSTR_PAIR) {
+        return NAME_ARGSTR_PAIR.length == 2;
+    }
+
+    private static String[] parseIntoNameAndArgumentString(String userInput) {
+        final String NAME_ARGSTR_SEPARATOR = " ";
+        return userInput.split(NAME_ARGSTR_SEPARATOR, 2);
     }
 
     public String getCommandName() {
-        return commandName;
+        return COMMAND_NAME;
     }
-    public int getArgumentCount() {
-        return argumentCount;
-    }
+
     public String[] getArgumentTokens() {
         return argumentTokens;
-    }
-    public String getSeparator() {
-        return separator;
     }
 }

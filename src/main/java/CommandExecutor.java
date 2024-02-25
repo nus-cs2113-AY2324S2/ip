@@ -17,7 +17,9 @@ public class CommandExecutor {
             Formatter.printErrorWrongCommand();
             throw new ProcessInputException();
         } catch (ArgumentMismatchException e1) {
-            SyntaxChecker.isArgumentMatch(e1.commandName,e1.argumentCount);
+            int userArgumentCount = e1.userArgumentCount;
+            int correctArgumentCount = SyntaxAnalyser.getArgumentCount(e1.userCommandName);
+            Formatter.printErrorArgumentsMismatch(e1.userCommandName, userArgumentCount, correctArgumentCount);
             throw new ProcessInputException();
         } catch (BadTokenException e2) {
             Formatter.printErrorBadTokens();
@@ -40,9 +42,6 @@ public class CommandExecutor {
             case TODO:
                 CommandList.executeTodo(userCommandReader);
                 break;
-            case DELETE:
-                CommandList.executeDelete(userCommandReader);
-                break;
             case EVENT:
                 CommandList.executeEvent(userCommandReader);
                 break;
@@ -51,6 +50,9 @@ public class CommandExecutor {
                 break;
             case DEADLINE:
                 CommandList.executeDeadline(userCommandReader);
+                break;
+            case DELETE:
+                CommandList.executeDelete(userCommandReader);
                 break;
             default:
                 Formatter.printErrorUnknown();

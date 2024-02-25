@@ -1,8 +1,8 @@
 public class ArgumentMismatchException extends Exception{
-    public String commandName;
-    public int argumentCount;
-    public ArgumentMismatchException(String commandName, int argumentCount) {
-        this.commandName = commandName;
-        this.argumentCount = argumentCount;
+    public String userCommandName;
+    public int userArgumentCount;
+    public ArgumentMismatchException(String userCommandName, int userArgumentCount) {
+        this.userCommandName = userCommandName;
+        this.userArgumentCount = userArgumentCount;
     }
 }
