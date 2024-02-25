@@ -6,13 +6,14 @@ import soot.task.Event;
 import soot.task.Task;
 import soot.task.Todo;
 
+import java.util.ArrayList;
+
 public class CommandManager {
+    ArrayList<Task> taskList;
     public static int listCounter;
-    public static final int LIST_SIZE = 100;
-    public static Task[] taskList; //public static?
 
     public CommandManager() {
-        taskList = new Task[LIST_SIZE];
+        taskList = new ArrayList<>();
         listCounter = 0;
     }
 
@@ -27,7 +28,7 @@ public class CommandManager {
         }
         return input.substring(0, spaceIndex);
     }
-    public static boolean isInputBye(String input) {
+    public boolean isInputBye(String input) {
         String inputCommand = input;
         try {
             inputCommand = getCommand(input);
@@ -37,33 +38,43 @@ public class CommandManager {
                 return true;
             case "list":
                 System.out.println("tasks to be done:");
-                if (listCounter == 0) {
+                if (taskList.size() == 0) {
                     System.out.println("  >> nothing so far :)");
                     drawLine();
                     break;
                 }
-                for (int i = 0; i < listCounter; i++)
-                    taskList[i].printTask();
+                for (int i = 0; i < taskList.size(); i++) {
+                    taskList.get(i).printTask(i+1);
+                }
                 drawLine();
                 break;
             case "done":
                 inputTask = input.substring(5);
                 int listIndex = Integer.parseInt(inputTask) - 1;
-                taskList[listIndex].markDone();
+                taskList.get(listIndex).markDone();
                 drawLine();
                 break;
             case "unmark":
                 inputTask = input.substring(7);
                 listIndex = Integer.parseInt(inputTask) - 1;
-                taskList[listIndex].markUndone();
+                taskList.get(listIndex).markUndone();
+                drawLine();
+                break;
+            case "delete":
+                inputTask = input.substring(7);
+                listIndex = Integer.parseInt(inputTask) - 1;
+
+                listCounter--;
+                taskList.get(listIndex).printDelete();
+                taskList.remove(listIndex);
                 drawLine();
                 break;
             case "todo":
                 inputTask = input.substring(5);
-                taskList[listCounter] = new Todo(inputTask, listCounter);
-                taskList[listCounter].printRespond();
-                drawLine();
+                taskList.add(new Todo(inputTask));
                 listCounter++;
+                taskList.get(taskList.size()-1).printRespond();
+                drawLine();
                 break;
             case "deadline":
                 inputTask = input.substring(9);
@@ -72,10 +83,10 @@ public class CommandManager {
                 String taskName = inputTask.substring(0, deadlineIndex - 1);
                 String dueDate = inputTask.substring(deadlineIndex + 4);
 
-                taskList[listCounter] = new Deadline(taskName, listCounter, dueDate);
-                taskList[listCounter].printRespond();
-                drawLine();
+                taskList.add(new Deadline(taskName, dueDate));
                 listCounter++;
+                taskList.get(taskList.size()-1).printRespond();
+                drawLine();
                 break;
             case "event":
                 inputTask = input.substring(6);
@@ -89,10 +100,10 @@ public class CommandManager {
                 String startDate = timeLine.substring(0, endIndex - 1);
                 String endDate = timeLine.substring(endIndex + 4);
 
-                taskList[listCounter] = new Event(taskName, listCounter, startDate, endDate);
-                taskList[listCounter].printRespond();
-                drawLine();
+                taskList.add(new Event(taskName, startDate, endDate));
                 listCounter++;
+                taskList.get(taskList.size()-1).printRespond();
+                drawLine();
                 break;
             default:
                 System.out.println("  !! this isn't a command i recognise...\n  sorry, pls try again");
@@ -113,6 +124,11 @@ public class CommandManager {
             System.out.print("_");
         }
         System.out.println("");
+    }
+
+    public int getListSize() {
+        int listSize = taskList.size();
+        return listSize;
     }
 
 }

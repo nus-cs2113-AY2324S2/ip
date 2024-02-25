@@ -4,12 +4,11 @@ import soot.manager.CommandManager;
 
 public class Task {
     protected String taskName;
-    protected int index;
+//    protected int index;
     protected boolean isDone;
 
-    public Task(String input, int counter) {
+    public Task(String input) {
         this.taskName = input;
-        this.index = counter + 1;
         this.isDone = false;
     }
     public void printCheckbox() {
@@ -19,7 +18,7 @@ public class Task {
             System.out.print("[ ]");
         }
     }
-    public void printTask() {
+    public void printTask(int index) {
         System.out.print(index + ".");
         printTaskType();
         printCheckbox();
@@ -43,6 +42,14 @@ public class Task {
         System.out.println("  >> " + this.taskName);
     }
 
+    //TODO: index of other elements are not updated
+    public void printDelete() {
+        System.out.println("okay, i will remove this task from your list: ");
+        System.out.print("  >> ");
+        printTaskType();
+        printCheckbox();
+    }
+
     public void printRespond() {
         System.out.println("Okay! i've added to ur tasklist:");
         System.out.print(" >> ");
@@ -51,7 +58,7 @@ public class Task {
     }
 
     public void printTaskCount() {
-        int taskCount = CommandManager.listCounter + 1;
+        int taskCount = CommandManager.listCounter;
         System.out.println("you now have " + taskCount + " tasks left...");
     }
 
