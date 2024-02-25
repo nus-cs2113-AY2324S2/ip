@@ -7,9 +7,9 @@ public class Task {
 //    protected int index;
     protected boolean isDone;
 
-    public Task(String input) {
+    public Task(String input, Boolean isDone) {
         this.taskName = input;
-        this.isDone = false;
+        this.isDone = isDone;
     }
     public void printCheckbox() {
         if (isDone) {

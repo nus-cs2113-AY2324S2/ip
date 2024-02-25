@@ -3,8 +3,8 @@ package soot.task;
 public class Deadline extends Task {
     private String dueDate;
 
-    public Deadline(String taskName, String dueDate) {
-        super(taskName);
+    public Deadline(String taskName, Boolean isDone, String dueDate) {
+        super(taskName, isDone);
         this.dueDate = dueDate;
     }
 
