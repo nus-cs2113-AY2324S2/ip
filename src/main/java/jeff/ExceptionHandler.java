@@ -46,7 +46,7 @@ public class ExceptionHandler {
     }
 
     public static void handleFileNotFoundException() {
-        FileManager.createNewFile();
+        Storage.createNewFile();
         Printer.printIndent("File not found. data/jeff.txt created.");
         Printer.printDivider();
     }

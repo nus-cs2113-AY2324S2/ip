@@ -35,7 +35,7 @@ public class CommandHandler {
         String description = userInput.substring(TODO_DESCRIPTION_INDEX);
         Todo todo = new Todo(description);
         TaskList.add(todo);
-        FileManager.appendTask(todo);
+        Storage.appendTask(todo);
         Printer.printAddTask();
     }
 
@@ -51,7 +51,7 @@ public class CommandHandler {
         }
         Deadline deadline = new Deadline(description, by);
         TaskList.add(deadline);
-        FileManager.appendTask(deadline);
+        Storage.appendTask(deadline);
         Printer.printAddTask();
     }
 
@@ -69,7 +69,7 @@ public class CommandHandler {
         }
         Event event = new Event(description, from, to);
         TaskList.add(event);
-        FileManager.appendTask(event);
+        Storage.appendTask(event);
         Printer.printAddTask();
     }
 
@@ -85,7 +85,7 @@ public class CommandHandler {
             int currentIndex = Integer.parseInt(userInput.substring(MARK_INDEX)) - 1;
             Task currentTask = TaskList.get(currentIndex);
             currentTask.mark();
-            FileManager.updateMarkStatus(currentIndex, true);
+            Storage.updateMarkStatus(currentIndex, true);
             Printer.printMarkTask(currentTask);
         } catch (Exception e) {
             throw new InvalidMarkSyntaxException();
@@ -104,7 +104,7 @@ public class CommandHandler {
             int currentIndex = Integer.parseInt(userInput.substring(UNMARK_INDEX)) - 1;
             Task currentTask = TaskList.get(currentIndex);
             currentTask.unmark();
-            FileManager.updateMarkStatus(currentIndex, false);
+            Storage.updateMarkStatus(currentIndex, false);
             Printer.printUnmarkTask(currentTask);
         } catch (Exception e) {
             throw new InvalidUnmarkSyntaxException();
@@ -122,7 +122,7 @@ public class CommandHandler {
         try {
             int currentIndex = Integer.parseInt(userInput.substring(UNMARK_INDEX)) - 1;
             Task deletedTask = TaskList.remove(currentIndex);
-            FileManager.deleteTask(currentIndex);
+            Storage.deleteTask(currentIndex);
             Printer.printDeleteTask(deletedTask);
         } catch (Exception e) {
             throw new InvalidDeleteSyntaxException();

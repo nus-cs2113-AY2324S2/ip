@@ -9,7 +9,7 @@ import jeff.exceptions.InvalidTodoSyntaxException;
 import jeff.exceptions.InvalidUnmarkSyntaxException;
 import java.util.Scanner;
 
-public class UserInterface {
+public class Ui {
     public static void handleUserInput() {
         Scanner in = new Scanner(System.in);
         while (true) {

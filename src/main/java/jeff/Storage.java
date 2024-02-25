@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     private static final String EXPECTED_FILE_PATH = "data/jeff.txt";
     private static final int MARK_INDEX = 4;
 
