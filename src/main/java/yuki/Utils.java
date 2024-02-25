@@ -18,6 +18,10 @@ public class Utils {
         printLine();
     }
 
+    public static void printTaskAddedMessage() {
+        System.out.println("new todo for you:");
+    }
+
     public static void printInstructions() {
         System.out.println("Accepted commands are:");
         System.out.println("help: shows available commands\n");
