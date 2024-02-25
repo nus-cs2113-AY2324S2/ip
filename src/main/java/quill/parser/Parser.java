@@ -1,17 +1,18 @@
 package quill.parser;
 
 import quill.command.*;
-import quill.exception.EmptyDateException;
-import quill.exception.QuillException;
-import quill.storage.Save;
-import quill.task.Deadline;
-import quill.task.Event;
-import quill.task.Task;
-import quill.task.Todo;
-import quill.ui.TextUi;
 
+/**
+ * The Parser Class handles the parsing of user input into valid commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns an appropriate Command object.
+     *
+     * @param input The user input.
+     * @return A Command object corresponding to the parsed command.
+     */
     public static Command parse(String input) {
         String command;
         int index = input.indexOf(" ");
@@ -22,7 +23,7 @@ public class Parser {
             command = input;
             input = "";
         }
-        Command c = null;
+        Command c;
         switch(command) {
         case "bye":
             c = new ExitCommand(command, input);
@@ -51,4 +52,5 @@ public class Parser {
         }
         return c;
     }
+
 }

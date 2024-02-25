@@ -1,21 +1,35 @@
 package quill.command;
 
-import quill.exception.EmptyDateException;
 import quill.exception.QuillException;
-import quill.storage.Save;
 import quill.task.*;
 import quill.ui.TextUi;
 
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
+/**
+ * The AddCommand Class represents a command for adding a task to the Quill application.
+ * It extends the Command class and includes specific behavior for adding different types of tasks.
+ */
 public class AddCommand extends Command{
+
+    /**
+     * Constructs the AddCommand object with the specified commandWord and parameter.
+     *
+     * @param commandWord The command word.
+     * @param parameter The user input excluding the command word.
+     */
     public AddCommand(String commandWord, String parameter) {
         super(commandWord, parameter);
     }
 
+    /**
+     * Executes the AddCommand to add the latest task to the task list.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface for displaying messages.
+     */
     @Override
-    public void execute(TaskList tasks, TextUi ui, Save save) {
+    public void execute(TaskList tasks, TextUi ui) {
         int taskNumber = TaskList.getTotalTasks();
         switch (commandWord) {
         case "todo":
