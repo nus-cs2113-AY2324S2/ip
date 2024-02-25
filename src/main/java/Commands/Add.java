@@ -7,7 +7,13 @@ import Utils.Parser;
 import Utils.Storage;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 public class Add extends Command{
     protected String taskDescription;
@@ -15,7 +21,17 @@ public class Add extends Command{
     public Add(Parser parser){
         super(parser);
         this.taskDate = parser.getTaskDate();
-        this.taskDescription = parser.getTaskDescription();
+        try {
+            LocalDate date = LocalDate.parse(taskDate);
+
+            this.taskDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US));
+        }catch(DateTimeParseException e){
+            System.out.println("\tYou can also use date format like 2023-07-30");
+        }
+        finally {
+            this.taskDescription = parser.getTaskDescription();
+        }
+
     }
 
     @Override
