@@ -67,7 +67,7 @@ public class TaskList {
             throw new YukiExceptions.InvalidDescriptionException("Invalid description");
         }
         description = data[0];
-        Task t = new Todo(description);
+        Task t = new Todo(description, false);
         taskData.add(t);
         System.out.println(t);
         reportNumberOfTasks();
@@ -79,7 +79,7 @@ public class TaskList {
             throw new YukiExceptions.InvalidDescriptionException("Invalid description");
         }
         description = data[0] + " (by:" + data[1] + ")";
-        Task t = new Deadline(description);
+        Task t = new Deadline(description, false);
         taskData.add(t);
         System.out.println(t);
         reportNumberOfTasks();
@@ -91,7 +91,7 @@ public class TaskList {
             throw new YukiExceptions.InvalidDescriptionException("Invalid description");
         }
         description = data[0] + " (from: " + data[1] + " to: " + data[2] + ")";
-        Task t = new Event(description);
+        Task t = new Event(description, false);
         taskData.add(t);
         System.out.println(t);
         reportNumberOfTasks();
