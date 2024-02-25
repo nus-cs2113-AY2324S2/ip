@@ -14,8 +14,12 @@ public class DataManager {
     private static final char TASK_TODOTASK = 'T';
     private static final char TASK_DEADLINE = 'D';
     private static final char INFORMATION_SEPARATOR = '|';
+    private static final char TASK_TYPE_POSITION = 0;
     private static final int  MARK_STATUS_POSITION = 2;
     private static final int TASK_NAME_POSITION = 4;
+
+    private static final char MARKED = '1';
+    private static final char UNMARKED = '0';
 
 
     public DataManager(String filePath) {
@@ -41,25 +45,25 @@ public class DataManager {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.dataFile.getName()))) {
             String line;
             while (!Objects.equals(line = reader.readLine(), FILE_END_STRING)) {
-                char isDone = line.charAt(MARK_STATUS_POSITION);
-                switch (line.charAt(0)) {
+                char isMarked = line.charAt(MARK_STATUS_POSITION);
+                switch (line.charAt(TASK_TYPE_POSITION)) {
                 case TASK_EVENT:
                     //get name
                     int splitIndexEvent1 = line.indexOf(INFORMATION_SEPARATOR, TASK_NAME_POSITION);
                     //get start and end time
                     int splitIndexEvent2 = line.indexOf(INFORMATION_SEPARATOR, splitIndexEvent1 + 1);
                     toDoList.getToDoListArray().add(new EventsTask(line.substring(TASK_NAME_POSITION, splitIndexEvent1 - 1),
-                            isDone != '0',
+                            isMarked != UNMARKED,
                             line.substring(splitIndexEvent1 + 1, splitIndexEvent2 - 1),
                             line.substring(splitIndexEvent2 + 1)));
                     break;
                 case TASK_TODOTASK:
-                    toDoList.getToDoListArray().add(new ToDoTask(line.substring(TASK_NAME_POSITION), isDone != '0'));
+                    toDoList.getToDoListArray().add(new ToDoTask(line.substring(TASK_NAME_POSITION), isMarked != UNMARKED));
                     break;
                 case TASK_DEADLINE:
-                    int splitIndexDeadline = line.indexOf('|', TASK_NAME_POSITION);
+                    int splitIndexDeadline = line.indexOf(INFORMATION_SEPARATOR, TASK_NAME_POSITION);
                     toDoList.getToDoListArray().add(new DeadLinesTask(line.substring(TASK_NAME_POSITION, splitIndexDeadline - 1),
-                            isDone != '0',
+                            isMarked != UNMARKED,
                             line.substring(splitIndexDeadline + 1)));
                     break;
                 default:
