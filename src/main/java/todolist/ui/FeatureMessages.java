@@ -1,6 +1,10 @@
 package todolist.ui;
 
 public class FeatureMessages {
+
+    /**
+     * Show the intro message for the feature
+     */
     public static void featureIntroMessage() {
         System.out.println("[list] Show your Todolist tasks");
         System.out.println("[mark X] Mark number X task as Done");

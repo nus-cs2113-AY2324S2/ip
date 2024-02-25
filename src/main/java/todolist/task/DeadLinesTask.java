@@ -16,11 +16,21 @@ public class DeadLinesTask extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Constructor for DeadLinesTask
+     * @param name the name of the task
+     * @param isDone the status of the task
+     * @param deadline the deadline of the task
+     */
     public DeadLinesTask(String name, boolean isDone, LocalDateTime deadline) {
         super(name, isDone);
         this.deadline = deadline;
     }
 
+    /**
+     * Get the deadline of the task
+     * @return the deadline of the task
+     */
     @Override
     public String storeDataString() {
         return "D" + "|" + (this.isDone ? 1 : 0) + "|" + this.name + "|" + this.deadline;

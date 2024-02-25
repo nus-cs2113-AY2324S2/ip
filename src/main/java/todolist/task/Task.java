@@ -13,6 +13,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Constructor for Task
+     * @param name the name of the Task
+     * @param isDone the status of the Task
+     */
     public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;

@@ -147,6 +147,10 @@ public class ToDoList {
         System.out.println("Now you have " + this.toDoListArray.size() + " task(s) in the list");
     }
 
+    /**
+     * Delete a task from the ToDoList
+     * @param index the index of the task to be deleted
+     */
     public void deleteTask(int index) {
         try {
             String taskNameString = index + ". " + this.toDoListArray.get(index - 1).toString();

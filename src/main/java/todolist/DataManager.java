@@ -23,10 +23,17 @@ public class DataManager {
     private static final char UNMARKED = '0';
 
 
+    /**
+     * Constructor for DataManager
+     * @param filePath the file path of the data file
+     */
     public DataManager(String filePath) {
         this.dataFile = new File(filePath);
     }
 
+    /**
+     * Create a new data file if it does not exist
+     */
     public void createLocalDataFile() {
         try {
             if (this.dataFile.createNewFile()) {
@@ -42,6 +49,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * Load data from the data file
+     * @param toDoList the ToDoList to load the data to
+     */
     public void loadDataTodoList(ToDoList toDoList) {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.dataFile.getName()))) {
             String line;
@@ -77,12 +88,22 @@ public class DataManager {
         }
     }
 
+    /**
+     * Write data to the data file
+     * @param toDoList the ToDoList to write the data from
+     * @throws IOException if an error occurs
+     */
     public void writeToFile(ToDoList toDoList) throws IOException {
         FileWriter fw = new FileWriter(this.dataFile.getName());
         fw.write(storeDataString(toDoList));
         fw.close();
     }
 
+    /**
+     * Store the data to a string
+     * @param toDoList the ToDoList to store the data from
+     * @return the string representation of the data
+     */
     private String storeDataString(ToDoList toDoList) {
         StringBuilder dataString = new StringBuilder();
         for (Task task : toDoList.getToDoListArray()) {

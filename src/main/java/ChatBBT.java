@@ -42,6 +42,10 @@ public class ChatBBT {
         messageDivider();
     }
 
+    /**
+     * Main method
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         // create a new file
         DataManager dataManager = new DataManager(FILE_PATH);

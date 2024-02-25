@@ -20,12 +20,23 @@ public class EventsTask extends Task {
         this.endDateTime = endDateTime;
     }
 
+    /**
+     * Constructor for EventsTask
+     * @param name the name of the task
+     * @param isDone the status of the task
+     * @param startDateTime the start date of the task
+     * @param endDateTime the end date of the task
+     */
     public EventsTask(String name, boolean isDone, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(name, isDone);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
 
+    /**
+     * Get the start date of the task
+     * @return the start date of the task
+     */
     @Override
     public String storeDataString() {
         return "E" + "|" + (this.isDone ? 1 : 0) + "|" + this.name + "|" + this.startDateTime + "|" + this.endDateTime;
