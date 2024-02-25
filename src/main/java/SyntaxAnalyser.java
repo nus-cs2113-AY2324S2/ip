@@ -1,19 +1,22 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SyntaxAnalyser {
-    private static String VALID_TASK_INDEX_REGEX = "^[0-9]{1,3}$";
+    private static String VALID_INDEX_REGEX = "^[0-9]{1,3}$";
+//    private static String getValidIndexRegex(int size) {
+//    }
     private static final String UNRESTRICTED_CHAR_LENGTH_REGEX = ".+";
     private static final String[][] lutRegexSeq = {
             {},
             {},
-            {VALID_TASK_INDEX_REGEX},
-            {VALID_TASK_INDEX_REGEX},
+            {VALID_INDEX_REGEX},
+            {VALID_INDEX_REGEX},
             {UNRESTRICTED_CHAR_LENGTH_REGEX},
             {UNRESTRICTED_CHAR_LENGTH_REGEX, UNRESTRICTED_CHAR_LENGTH_REGEX},
             {UNRESTRICTED_CHAR_LENGTH_REGEX, UNRESTRICTED_CHAR_LENGTH_REGEX, UNRESTRICTED_CHAR_LENGTH_REGEX},
-            {VALID_TASK_INDEX_REGEX},
+            {VALID_INDEX_REGEX},
             //insert new command syntax here
     };
 

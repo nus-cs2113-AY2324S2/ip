@@ -15,11 +15,23 @@ public enum CommandList {
     }
 
     public static void executeMark(CommandParser userCommandReader) {
-        Formatter.printMarkDoneNotif(userCommandReader);
+        int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
+        if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
+            CommandExecutor.tasks.get(userSelectedIndex - 1).markAsDone();
+            Formatter.printMarkDoneNotif(userSelectedIndex - 1);
+        } else {
+            Formatter.printErrorIndexOutOfRange();
+        }
     }
 
     public static void executeUnmark(CommandParser userCommandReader) {
-        Formatter.printMarkUndoneNotif(userCommandReader);
+        int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
+        if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
+            CommandExecutor.tasks.get(userSelectedIndex - 1).markAsNotDone();
+            Formatter.printMarkUndoneNotif(userSelectedIndex - 1);
+        } else {
+            Formatter.printErrorIndexOutOfRange();
+        }
     }
 
     public static void executeTodo(CommandParser userCommandReader) {
@@ -44,9 +56,13 @@ public enum CommandList {
         Formatter.printTaskNotif(newEvent);
     }
     public static void executeDelete(CommandParser userCommandReader) {
-        int index = Integer.parseInt(userCommandReader.getArgumentTokens()[0]) - 1;
-        Task removedTask = CommandExecutor.tasks.remove(index);
-        Formatter.printDeleteNotif(removedTask);
+        int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
+        if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
+            Task removedTask = CommandExecutor.tasks.remove(userSelectedIndex - 1);
+            Formatter.printDeleteNotif(removedTask);
+        } else {
+            Formatter.printErrorIndexOutOfRange();
+        }
     }
 
     //insert new command here

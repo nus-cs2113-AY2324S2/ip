@@ -36,28 +36,14 @@ public class Formatter {
         printWrapper("〓");
     }
 
-    public static void printMarkDoneNotif(CommandParser readUserCommand) {
-        int userSelectedIndex = Integer.parseInt(readUserCommand.getArgumentTokens()[0]);
-        if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
-            CommandExecutor.tasks.get(userSelectedIndex - 1).markAsDone();
-
-            System.out.println("\t Nice! I've marked this task as done:");
-            System.out.printf("\t %s.\n", CommandExecutor.tasks.get(userSelectedIndex - 1));
-        } else {
-            printErrorIndexOutOfRange();
-        }
+    public static void printMarkDoneNotif(int index) {
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.printf("\t %s.\n", CommandExecutor.tasks.get(index));
     }
 
-    public static void printMarkUndoneNotif(CommandParser readUserCommand) {
-        int userSelectedIndex = Integer.parseInt(readUserCommand.getArgumentTokens()[0]);
-        if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
-            CommandExecutor.tasks.get(userSelectedIndex - 1).markAsNotDone();
-
-            System.out.println("\t OK, I've marked this task as not done yet:");
-            System.out.printf("\t %s.\n", CommandExecutor.tasks.get(userSelectedIndex - 1));
-        } else {
-            printErrorIndexOutOfRange();
-        }
+    public static void printMarkUndoneNotif(int index) {
+        System.out.println("\t OK, I've marked this task as not done yet:");
+        System.out.printf("\t %s.\n", CommandExecutor.tasks.get(index));
     }
     public static void printTaskNotif(Task newTask) {
         printWrapper("_");
@@ -96,8 +82,24 @@ public class Formatter {
                 userArgumentCount, correctArgumentCount);
     }
     public static void printErrorWrongArgumentType(String COMMAND_NAME, String regex, int argumentPosition) {
-        System.out.printf("\t SyntaxAnalyser: %s expects the %dth argument to be %s\n",
-                COMMAND_NAME, argumentPosition + 1, regex);
+        int userRanking = argumentPosition + 1;
+        String rankingSuffix;
+        switch (userRanking) {
+        case 1:
+            rankingSuffix = "st";
+            break;
+        case 2:
+            rankingSuffix = "nd";
+            break;
+        case 3:
+            rankingSuffix = "rd";
+            break;
+        default:
+            rankingSuffix = "th";
+            break;
+        }
+        System.out.printf("\t SyntaxAnalyser: %s expects the %d%s argument to be %s\n",
+                COMMAND_NAME, userRanking, rankingSuffix, regex);
     }
     public static void printErrorIndexOutOfRange() {
         System.out.println("\t List: Selected index not in range. Try again.");
