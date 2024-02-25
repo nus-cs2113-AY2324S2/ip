@@ -264,7 +264,7 @@ public class TaskList {
         String[] eventParts = description.split(FROM, SPLIT_INTO_TWO_PARTS);
         if (eventParts.length == 2) {
             String[] eventTimeParts = eventParts[1].split(TO, SPLIT_INTO_TWO_PARTS);
-            if (eventTimeParts.length == 2) {
+            if (eventTimeParts.length == 2 && !eventTimeParts[0].trim().isEmpty() && !eventTimeParts[1].trim().isEmpty()) {
                 addTask(new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim()));
                 Ui.echoTask(getTaskList());
             } else {
@@ -285,7 +285,7 @@ public class TaskList {
      */
     private static void executeDeadlineTask(String description) throws DavinciException {
         String[] deadlineParts = description.split(BY, SPLIT_INTO_TWO_PARTS);
-        if (deadlineParts.length == 2) {
+        if (deadlineParts.length == 2 && !deadlineParts[1].trim().isEmpty()) {
             addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
             Ui.echoTask(getTaskList());
         } else {
