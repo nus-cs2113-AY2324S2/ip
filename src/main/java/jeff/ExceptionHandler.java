@@ -62,4 +62,16 @@ public class ExceptionHandler {
         Printer.printDivider();
         System.exit(1);
     }
+
+    public static void handleUnableToMarkException() {
+        Printer.printUnableToMark();
+    }
+
+    public static void handleUnableToUnmarkException() {
+        Printer.printUnableToUnmark();
+    }
+
+    public static void handleUnableToDeleteException() {
+        Printer.printUnableToDelete();
+    }
 }

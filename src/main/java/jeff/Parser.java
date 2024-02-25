@@ -1,13 +1,17 @@
 package jeff;
 
+import jeff.exceptions.InvalidCommandException;
 import jeff.exceptions.InvalidDeadlineSyntaxException;
 import jeff.exceptions.InvalidDeleteSyntaxException;
 import jeff.exceptions.InvalidEventSyntaxException;
 import jeff.exceptions.InvalidMarkSyntaxException;
 import jeff.exceptions.InvalidTodoSyntaxException;
 import jeff.exceptions.InvalidUnmarkSyntaxException;
+import jeff.exceptions.UnableToDeleteException;
+import jeff.exceptions.UnableToMarkException;
+import jeff.exceptions.UnableToUnmarkException;
 
-public class CommandHandler {
+public class Parser {
     private static final int TODO_DESCRIPTION_INDEX = 5;
     private static final int DEADLINE_DESCRIPTION_INDEX = 9;
     private static final int DEADLINE_BY_INDEX_LENGTH = 4;
@@ -23,23 +27,48 @@ public class CommandHandler {
     private static final String MARK_STRING = "mark";
     private static final String UNMARK_STRING = "unmark";
     private static final String DELETE_STRING = "delete";
-
-    public static void handleList() {
-        Printer.printTasks();
+    public static Command parseCommand(String userInput) throws
+            InvalidCommandException,
+            InvalidTodoSyntaxException,
+            InvalidDeadlineSyntaxException,
+            InvalidEventSyntaxException,
+            InvalidMarkSyntaxException,
+            InvalidUnmarkSyntaxException,
+            InvalidDeleteSyntaxException,
+            UnableToMarkException,
+            UnableToUnmarkException,
+            UnableToDeleteException {
+        userInput = userInput.trim();
+        if (userInput.equals("list")) {
+            return new ListCommand();
+        } else if (userInput.equals("todo") || userInput.startsWith("todo ")) {
+            return parseTodo(userInput);
+        } else if (userInput.equals("deadline") || userInput.startsWith("deadline ")) {
+            return parseDeadline(userInput);
+        } else if (userInput.equals("event") || userInput.startsWith("event ")) {
+            return parseEvent(userInput);
+        } else if (userInput.equals("mark") || userInput.startsWith("mark ")) {
+            return parseMark(userInput);
+        } else if (userInput.equals("unmark") || userInput.startsWith("unmark ")) {
+            return parseUnmark(userInput);
+        } else if (userInput.equals("delete") || userInput.startsWith("delete ")) {
+            return parseDelete(userInput);
+        } else if (userInput.equals("bye")) {
+            return new ByeCommand();
+        } else {
+            throw new InvalidCommandException();
+        }
     }
 
-    public static void handleTodo(String userInput) throws InvalidTodoSyntaxException {
+    private static Command parseTodo(String userInput) throws InvalidTodoSyntaxException {
         if (userInput.equals(TODO_STRING)) {
             throw new InvalidTodoSyntaxException();
         }
         String description = userInput.substring(TODO_DESCRIPTION_INDEX);
-        Todo todo = new Todo(description);
-        TaskList.add(todo);
-        Storage.appendTask(todo);
-        Printer.printAddTask();
+        return new TodoCommand(description);
     }
 
-    public static void handleDeadline(String userInput) throws InvalidDeadlineSyntaxException {
+    private static Command parseDeadline(String userInput) throws InvalidDeadlineSyntaxException {
         int byIndex = userInput.indexOf(BY_STRING) + 1;
         if (byIndex == 0) {
             throw new InvalidDeadlineSyntaxException();
@@ -49,13 +78,10 @@ public class CommandHandler {
         if (description.isEmpty()) {
             throw new InvalidDeadlineSyntaxException();
         }
-        Deadline deadline = new Deadline(description, by);
-        TaskList.add(deadline);
-        Storage.appendTask(deadline);
-        Printer.printAddTask();
+        return new DeadlineCommand(description, by);
     }
 
-    public static void handleEvent(String userInput) throws InvalidEventSyntaxException {
+    private static Command parseEvent(String userInput) throws InvalidEventSyntaxException {
         int fromIndex = userInput.indexOf(FROM_STRING) + 1;
         int toIndex = userInput.indexOf(TO_STRING) + 1;
         if (fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex) {
@@ -67,16 +93,12 @@ public class CommandHandler {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new InvalidEventSyntaxException();
         }
-        Event event = new Event(description, from, to);
-        TaskList.add(event);
-        Storage.appendTask(event);
-        Printer.printAddTask();
+        return new EventCommand(description, from, to);
     }
 
-    public static void handleMark(String userInput) throws InvalidMarkSyntaxException {
+    private static Command parseMark(String userInput) throws UnableToMarkException, InvalidMarkSyntaxException {
         if (TaskList.isEmpty()) {
-            Printer.printUnableToMark();
-            return;
+            throw new UnableToMarkException();
         }
         if (userInput.equals(MARK_STRING)) {
             throw new InvalidMarkSyntaxException();
@@ -84,18 +106,15 @@ public class CommandHandler {
         try {
             int currentIndex = Integer.parseInt(userInput.substring(MARK_INDEX)) - 1;
             Task currentTask = TaskList.get(currentIndex);
-            currentTask.mark();
-            Storage.updateMarkStatus(currentIndex, true);
-            Printer.printMarkTask(currentTask);
+            return new MarkCommand(currentIndex, currentTask);
         } catch (Exception e) {
             throw new InvalidMarkSyntaxException();
         }
     }
 
-    public static void handleUnmark(String userInput) throws InvalidUnmarkSyntaxException {
+    private static Command parseUnmark(String userInput) throws UnableToUnmarkException, InvalidUnmarkSyntaxException {
         if (TaskList.isEmpty()) {
-            Printer.printUnableToUnmark();
-            return;
+            throw new UnableToUnmarkException();
         }
         if (userInput.equals(UNMARK_STRING)) {
             throw new InvalidUnmarkSyntaxException();
@@ -103,33 +122,25 @@ public class CommandHandler {
         try {
             int currentIndex = Integer.parseInt(userInput.substring(UNMARK_INDEX)) - 1;
             Task currentTask = TaskList.get(currentIndex);
-            currentTask.unmark();
-            Storage.updateMarkStatus(currentIndex, false);
-            Printer.printUnmarkTask(currentTask);
+            return new UnmarkCommand(currentIndex, currentTask);
         } catch (Exception e) {
             throw new InvalidUnmarkSyntaxException();
         }
     }
 
-    public static void handleDelete(String userInput) throws InvalidDeleteSyntaxException {
+    private static Command parseDelete(String userInput) throws UnableToDeleteException, InvalidDeleteSyntaxException {
         if (TaskList.isEmpty()) {
-            Printer.printUnableToDelete();
-            return;
+            throw new UnableToDeleteException();
         }
         if (userInput.equals(DELETE_STRING)) {
             throw new InvalidDeleteSyntaxException();
         }
         try {
             int currentIndex = Integer.parseInt(userInput.substring(UNMARK_INDEX)) - 1;
-            Task deletedTask = TaskList.remove(currentIndex);
-            Storage.deleteTask(currentIndex);
-            Printer.printDeleteTask(deletedTask);
+            Task currentTask = TaskList.get(currentIndex);
+            return new DeleteCommand(currentIndex, currentTask);
         } catch (Exception e) {
             throw new InvalidDeleteSyntaxException();
         }
-    }
-
-    public static void handleBye() {
-        Printer.printBye();
     }
 }

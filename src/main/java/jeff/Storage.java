@@ -1,4 +1,6 @@
 package jeff;
+
+import jeff.exceptions.CorruptFileException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
