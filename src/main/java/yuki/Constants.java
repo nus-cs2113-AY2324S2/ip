@@ -1,5 +1,8 @@
 package yuki;
 
+/**
+ * Constants used in app.
+ */
 public class Constants {
     public static final int LENGTH_TODO_COMMAND = 4;
     public static final int LENGTH_DEADLINE_COMMAND = 8;
@@ -24,4 +27,7 @@ public class Constants {
     public static final int TASK_INDICATOR_INDEX = 7;
     public static final int TASK_DESCRIPTION_INDEX = 10;
     public static final int TASK_COMPLETION_INDEX = 3;
+
+    // for mark, unmark, and delete commands, where in the user's input to find index of task referred to.
+    public static final int TASK_INDEX = 1;
 }
