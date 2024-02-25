@@ -74,10 +74,12 @@ addTask Complete the project report /S
 
 The task is added to the user's list with the specified priority, enhancing their productivity and task management.
 
-! "Got it. I've added this task: Complete the project report <S>"
-! Now you have [number] tasks in the list.
+Got it. I've added this task: Complete the project report <S\>
+
+Now you have [number] tasks in the list.
 
 ### listTasks - List All Tasks
+
 **Description:**
 
 Displays all tasks currently in the user's list, providing a comprehensive overview of pending, completed, and scheduled tasks.
@@ -91,7 +93,7 @@ listTasks
 A list of all tasks, along with their details such as status, description, and priority, is displayed to the user.
 
 Here are the tasks in your list:
-"1. [T][ ] Complete the project report <S>"
+1. [T][ ] Complete the project report <S\>
 
 ### markTaskAsDone - Mark a Task as Done
 
