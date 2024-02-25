@@ -1,0 +1,3 @@
+T | 1 | Read a book
+D | 0 | Finish IP | tmr
+E | 1 | Do NOT drop out (IMPOSSIBLE) | now | end of semester
