@@ -6,7 +6,7 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = by.trim();
     }
     @Override
     public String get_date(){return by;}
