@@ -3,6 +3,9 @@ package bob.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline Task class. Used to represent Tasks with a due date.
+ */
 public class Deadline extends Task {
     private final LocalDateTime dueDate;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -18,6 +21,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Due date getter method.
+     *
+     * @return String representation of the Task due date.
+     */
     public String getDueDate() {
         return this.dueDate.toString();
     }
