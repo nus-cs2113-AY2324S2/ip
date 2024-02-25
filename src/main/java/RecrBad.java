@@ -21,7 +21,8 @@ public class RecrBad {
      */
     private static String displayList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "List is empty!" + System.lineSeparator() + PrintHelper.printCommandsList();
+            return "List is empty!" + System.lineSeparator()
+                    + PrintHelper.printCommandsList() + System.lineSeparator();
         }
         int count = 0;
         StringBuilder fullList = new StringBuilder();
@@ -159,10 +160,16 @@ public class RecrBad {
         if (req.length < 2) {
             throw new InvalidParamsException("invalid mark/ unmark operation");
         }
-        int taskNum = Integer.parseInt(req[1]);
-        if (tasks.size() < taskNum || taskNum < 1) {
-            throw new InvalidParamsException("No such taskNum");
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(req[1]);
+            if (tasks.size() < taskNum || taskNum < 1) {
+                throw new InvalidParamsException("No such taskNum");
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidParamsException("Invalid taskNum");
         }
+
         // process input
         if (isMark) { // (isMark = true) == mark as done
             tasks.get(taskNum - 1).markAsDone();
@@ -228,12 +235,13 @@ public class RecrBad {
         }
 
         isReadMode = false; // switch to writing mode
-        while (true) {
+        boolean isRun = true;
+        while (isRun) {
             PrintHelper.printLine();
             String line = in.nextLine(); // reads input
 
             try {
-                processUserInput(tasks, line, FILE_PATH, isReadMode);
+                isRun = processUserInput(tasks, line, FILE_PATH, isReadMode);
             } catch (InvalidParamsException e) {
                 System.out.println(e.getMessage()); // prints out error message
             }
@@ -273,8 +281,7 @@ public class RecrBad {
         File f = new File(absoluteFilePath);
         try {
             if (f.createNewFile()) {
-                System.out.println("File created: " + f.getName()
-                        + System.lineSeparator() + path);
+                System.out.println("File created: " + f.getName() + "@" + path);
             } else {
                 System.out.println("File " + f.getName() + " already exists");
             }
@@ -289,32 +296,45 @@ public class RecrBad {
 
             throw new InvalidParamsException("File not found");
         }
-
+        int lineNum = 1; // keeps track of current lineNum
         while (s.hasNext()) {
             String lineInFile = s.nextLine(); // read line in file
 
-            // create the command input line
-            String command = "";
             // process lines in saveFile.txt
             int START_INDEX_OF_TYPE = lineInFile.indexOf('[') + 1; // format of text: "1. [T][1] startOfTaskDescription"
             int START_INDEX_OF_MARK = START_INDEX_OF_TYPE + 3; // mark index is 3 positions to the right
             int START_INDEX_OF_DESCRIPTION = START_INDEX_OF_MARK + 3; // description index is 3 more positions to the right
 
+            // checks validity of index TODO
+            if ((lineInFile.indexOf('[') == -1) ||
+                    (START_INDEX_OF_TYPE + 1 > lineInFile.length()) ||
+                    (START_INDEX_OF_MARK + 1 > lineInFile.length()) ||
+                    (START_INDEX_OF_DESCRIPTION + 1 > lineInFile.length())) {
+                throw new InvalidParamsException(lineInFile + " is not valid");
+            }
+
+            // create the command input line
+            String command = "";
+
             // getType
             char type = lineInFile.charAt(START_INDEX_OF_TYPE);
-            try {
-                if (type == 'T') {
-                    command += "todo ";
-                } else if (type == 'D') {
-                    command += "deadline ";
-                } else if (type == 'E') {
-                    command += "event ";
-                } else {
-                    throw new InvalidParamsException(lineInFile + " is not a valid command");
-                }
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidParamsException("invalid command");
+            if (type == 'T') {
+                command += "todo ";
+            } else if (type == 'D') {
+                command += "deadline ";
+            } else if (type == 'E') {
+                command += "event ";
+            } else {
+                throw new InvalidParamsException(lineInFile + " type is not valid");
             }
+
+            // getMark
+            char mark = lineInFile.charAt(START_INDEX_OF_MARK);
+            if (mark != '0' && mark != '1') {
+                throw new InvalidParamsException("invalid mark");
+            }
+
+            // getDescription
             String taskDescription = "";
             // process input for deadline params
             if (type == 'D') {
@@ -325,9 +345,7 @@ public class RecrBad {
                 taskDescription += lineInFile.substring(START_INDEX_OF_DESCRIPTION, startIndexToChange);
                 taskDescription += "/";
                 taskDescription += lineInFile.substring(startIndexToChange + 5, endIndexToChange);
-            }
-            // process input for event params
-            if (type == 'E') {
+            } else if (type == 'E') { // process input for event params
                 // change "(from: " to "/"
                 // change "to " to "/"
                 // change ")" to "" ie last elem
@@ -340,32 +358,23 @@ public class RecrBad {
                 taskDescription += lineInFile.substring(startIndexToChange + 7, midIndexToChange);
                 taskDescription += "/";
                 taskDescription += lineInFile.substring(midIndexToChange + 3, endIndexToChange);
-            }
-            // process input
-            if (type == 'T') {
+            } else { // type == 'T'
                 taskDescription = lineInFile.substring(START_INDEX_OF_DESCRIPTION);
             }
             command += taskDescription;
+
+            // process command in file
             processUserInput(tasks, command, FILE_PATH, isReadMode);
 
-            // get mark / unmark
-            String markCommand;
-            try {
-                if (lineInFile.charAt(START_INDEX_OF_MARK) == '0') {
-                    // do nothing as task is unmark by default
-                } else if (lineInFile.charAt(START_INDEX_OF_MARK) == '1') {
-                    // get task Index
-                    int indexAfterTaskIndex = lineInFile.indexOf('.');
-                    int taskIndex = Integer.parseInt(lineInFile.substring(0, indexAfterTaskIndex));
-                    // create mark command
-                    markCommand = "mark " + taskIndex;
-                    processUserInput(tasks, markCommand, FILE_PATH, isReadMode);
-                } else {
-                    throw new InvalidParamsException(lineInFile + "has invalid mark/unmark parameter");
-                }
-            } catch (IndexOutOfBoundsException e) {
-                throw new InvalidParamsException(lineInFile + "has no mark/unmark parameter");
+            // create mark command (for mark tasks only)
+            if (mark == '1') {
+                // create mark command
+                String markCommand;
+                markCommand = "mark " + lineNum;
+                processUserInput(tasks, markCommand, FILE_PATH, isReadMode);
             }
+
+            lineNum += 1;
         }
     }
 }
