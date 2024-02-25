@@ -39,13 +39,14 @@ public class AddCommand extends Command{
             } else {
                 tasks.addTask(new Todo(parameter));
                 TextUi.showAddTask(tasks.getTask(taskNumber));
-                Save.appendToFIle(tasks.getTask(taskNumber));
+                Save.writeToFile(tasks);
             }
             break;
         case "deadline":
             try {
                 tasks.addTask(new Deadline(parameter));
                 TextUi.showAddTask(tasks.getTask(taskNumber));
+                Save.writeToFile(tasks);
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Seriously? You call that a deadline?");
                 System.out.println("It's 'deadline [task] /by yyyy-MM-dd HH:mm'. Get it right!");
@@ -62,6 +63,7 @@ public class AddCommand extends Command{
             try {
                 tasks.addTask(new Event(parameter));
                 TextUi.showAddTask(tasks.getTask(taskNumber));
+                Save.writeToFile(tasks);
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Seriously? You call that an event?");
                 System.out.println("It's 'event [task] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'. Get it right!");

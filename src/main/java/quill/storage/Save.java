@@ -118,19 +118,4 @@ public class Save {
         }
     }
 
-    /**
-     * Add a task to the end of the specified file.
-     *
-     * @param task The task to be added to the file.
-     */
-    public static void appendToFIle(Task task) {
-        try {
-            FileWriter fw = new FileWriter("./data/quill.txt", true);
-            fw.write(System.lineSeparator());
-            fw.write(task.saveTask());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error appending file" + e.getMessage());
-        }
-    }
 }
