@@ -54,10 +54,14 @@ public class Nehsik {
 
     private static void displayTaskList(ArrayList<Task> taskList) {
         printLine();
-        System.out.println("Here are the tasks in your list:");
         int taskListSize = taskList.size();
-        for (int i = 0; i < taskListSize; i++) {
-            System.out.println((i + 1) + "." + taskList.get(i).toString());
+        if (taskListSize > 0) {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskListSize; i++) {
+                System.out.println((i + 1) + "." + taskList.get(i).toString());
+            }
+        } else {
+            System.out.println("You have no tasks");
         }
         printLine();
     }
@@ -66,6 +70,11 @@ public class Nehsik {
         if (command.length() < MARK_TASK_INDEX) {
             throw new NehsikException("Please mention the task number you would like to mark");
         }
+
+        if (command.charAt(MARK_TASK_INDEX - 1) != ' ') {
+            throw new NehsikException("Invalid Command");
+        }
+
         int taskNum = Integer.parseInt(command.substring(MARK_TASK_INDEX)) - 1;
         int taskListSize = taskList.size();
         if (taskNum >= taskListSize || taskNum < 0) {
@@ -82,6 +91,11 @@ public class Nehsik {
         if (command.length() < UNMARK_TASK_INDEX) {
             throw new NehsikException("Please mention the task number you would like to unmark");
         }
+
+        if (command.charAt(UNMARK_TASK_INDEX - 1) != ' ') {
+            throw new NehsikException("Invalid Command");
+        }
+
         int taskNum = Integer.parseInt(command.substring(UNMARK_TASK_INDEX)) - 1;
         int taskListSize = taskList.size();
         if (taskNum >= taskListSize || taskNum < 0) {
@@ -152,6 +166,11 @@ public class Nehsik {
         if (command.length() < DELETE_TASK_INDEX) {
             throw new NehsikException("Please mention the task number you would like to delete");
         }
+
+        if (command.charAt(DELETE_TASK_INDEX - 1) != ' ') {
+            throw new NehsikException("Invalid Command");
+        }
+
         int taskNum = Integer.parseInt(command.substring(DELETE_TASK_INDEX)) - 1;
         int taskListSize = taskList.size();
         if (taskNum >= taskListSize || taskNum < 0) {
@@ -181,14 +200,14 @@ public class Nehsik {
 
     private static void displayGreetings() {
         printLine();
-        System.out.println("Hello! I'm Nehsik");
-        System.out.println("What can I do for you?");
+        System.out.println("Hala habibi! Shlonik? Shakhbarak?");
+        System.out.println("I'm Nehsik, What can I do for you?");
         printLine();
     }
 
     private static void displayExitMessage() {
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Yalla bye. Ka Mal Lah!");
         printLine();
     }
 }
