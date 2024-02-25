@@ -64,7 +64,7 @@ public class ChatBBT {
                 input.close();
                 break;
             case "list":
-                newToDoList.execute(input);
+                newToDoList.execute(input, dataManager);
                 break;
             default:
                 System.out.println("Invalid command");

@@ -1,4 +1,4 @@
-package todolist;
+package todolist.ui;
 
 public class ErrorMessages {
     public static final String ERROR_MESSAGE_TASK_DOES_NOT_EXIST = "Task does not exist";

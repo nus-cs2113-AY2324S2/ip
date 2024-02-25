@@ -2,6 +2,7 @@ package todolist;
 
 import todolist.task.DeadLinesTask;
 import todolist.task.EventsTask;
+import todolist.task.Task;
 import todolist.task.ToDoTask;
 
 import java.io.*;
@@ -17,7 +18,6 @@ public class DataManager {
     private static final char TASK_TYPE_POSITION = 0;
     private static final int  MARK_STATUS_POSITION = 2;
     private static final int TASK_NAME_POSITION = 4;
-
     private static final char MARKED = '1';
     private static final char UNMARKED = '0';
 
@@ -74,5 +74,20 @@ public class DataManager {
         } catch (IOException | StringIndexOutOfBoundsException e) {
             System.err.println("Data file damaged, please continue");
         }
+    }
+
+    public void writeToFile(ToDoList toDoList) throws IOException {
+        FileWriter fw = new FileWriter(this.dataFile.getName());
+        fw.write(storeDataString(toDoList));
+        fw.close();
+    }
+
+    private String storeDataString(ToDoList toDoList) {
+        StringBuilder dataString = new StringBuilder();
+        for (Task task : toDoList.getToDoListArray()) {
+            dataString.append(task.storeDataString()).append("\n");
+        }
+        dataString.append("#end");
+        return dataString.toString();
     }
 }

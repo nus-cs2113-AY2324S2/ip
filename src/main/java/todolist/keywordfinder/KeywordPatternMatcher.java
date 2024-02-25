@@ -94,8 +94,4 @@ public class KeywordPatternMatcher {
         return matcher.matches();
     }
 
-    public static void messageDivider() {
-        System.out.println("------------------------------------------");
-    }
-
 }
