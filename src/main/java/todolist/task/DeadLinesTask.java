@@ -1,19 +1,22 @@
 package todolist.task;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DeadLinesTask extends Task {
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructor for DeadLinesTask
      * @param name the name of the task
      * @param deadline the deadline of the task
      */
-    public DeadLinesTask(String name, String deadline) {
+    public DeadLinesTask(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
 
-    public DeadLinesTask(String name, boolean isDone, String deadline) {
+    public DeadLinesTask(String name, boolean isDone, LocalDateTime deadline) {
         super(name, isDone);
         this.deadline = deadline;
     }
@@ -29,7 +32,9 @@ public class DeadLinesTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM dd, uuuu hh:mm:ss a", Locale.ENGLISH);
+        String formattedDeadline = this.deadline.format(outputFormatter);
+        return "[D]" + super.toString() + " (by: " + formattedDeadline + ")";
     }
 
 }

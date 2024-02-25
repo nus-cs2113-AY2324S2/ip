@@ -1,10 +1,13 @@
 package todolist.keywordfinder;
+import java.time.LocalDateTime;
 
 import todolist.task.DeadLinesTask;
 import todolist.task.EventsTask;
 import todolist.task.Task;
 import todolist.task.ToDoTask;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +26,7 @@ public class KeywordPatternMatcher {
     //INCORRECT PATTERN
     private static final String TODOTASK_FEATURE_PATTERN_INCORRECT = "^todo .*";
 
+    private static final String DATE_TIME_PATTERN = "uuuu-MM-dd HH:mm:ss"; //date time pattern
 
     private static final int SPACE_OFFSET = 1; //keyword " " offset
     private static final int BY_OFFSET = 4; //keyword "/by" offset
@@ -55,12 +59,14 @@ public class KeywordPatternMatcher {
             return Keyword.event;
         } else if (matchesPattern(this.inputText, TODOTASK_FEATURE_PATTERN_INCORRECT)) {
             return Keyword.todoError;
-        } else if (matchesPattern(this.inputText, DELETE_TASK_FEATURE_PATTERN)){
+        } else if (matchesPattern(this.inputText, DELETE_TASK_FEATURE_PATTERN)) {
             return Keyword.delete;
         } else {
             return Keyword.none;
         }
     }
+
+
 
     public int findNumberIndex() {
         int spacePosition = getSpaceCharacterPosition(this.inputText);
@@ -74,16 +80,24 @@ public class KeywordPatternMatcher {
                 return new ToDoTask(this.inputText.substring(spacePosition + SPACE_OFFSET));
             } else if (this.keywordType == Keyword.deadline) {
                 int keywordPosition = this.inputText.indexOf("/by");
-                return new DeadLinesTask(this.inputText.substring(spacePosition + SPACE_OFFSET, keywordPosition - 1),
-                        this.inputText.substring(keywordPosition + BY_OFFSET));
+                String name = this.inputText.substring(spacePosition + SPACE_OFFSET, keywordPosition - 1);
+                String deadline = this.inputText.substring(keywordPosition + BY_OFFSET);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+                LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
+                return new DeadLinesTask(name, parsedDateTime);
             } else {
                 int keywordPosition1 = this.inputText.indexOf("/from"); // check /from keyword position
                 int keywordPosition2 = this.inputText.indexOf("/to"); // check /to keyword position
+                String name = this.inputText.substring(spacePosition + SPACE_OFFSET, keywordPosition1 - 1);
+                String startDateTime = this.inputText.substring(keywordPosition1 + FROM_OFFSET, keywordPosition2 - 1);
+                String endDateTime = this.inputText.substring(keywordPosition2 + TO_OFFSET);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+                LocalDateTime parsedStartDateTime = LocalDateTime.parse(startDateTime, formatter);
+                LocalDateTime parsedEndDateTime = LocalDateTime.parse(endDateTime, formatter);
                 return new EventsTask(this.inputText.substring(spacePosition + SPACE_OFFSET, keywordPosition1 - 1),
-                        this.inputText.substring(keywordPosition1 + FROM_OFFSET, keywordPosition2 - 1),
-                        this.inputText.substring(keywordPosition2 + TO_OFFSET));
+                        parsedStartDateTime, parsedEndDateTime);
             }
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
             return null;
         }
     }
