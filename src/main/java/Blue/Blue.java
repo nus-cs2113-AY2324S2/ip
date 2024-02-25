@@ -25,14 +25,13 @@ public class Blue {
         if (request.getCommand() == InputCommand.undefined) {
             return 2;
         }
-        TaskManager tmMaster = new TaskManager(request);
-        tmMaster.performRequest();
+        new TaskManager(request).performRequest();
         return 1;
     }
 
     public static void main(String[] args) {
         talk(WELCOME_MESSAGE);
-        TaskManager tmMaster = new TaskManager();
+        new StorageHandler().restoreTasks();
         Scanner in = new Scanner(System.in);
         InputParser blueParser = new InputParser();
         Input userInput;
