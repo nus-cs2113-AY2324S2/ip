@@ -31,10 +31,10 @@ public class Event extends Task {
         int toIndex = description.indexOf("/to");
         this.from = LocalDateTime.parse(description.substring(fromIndex + 5, toIndex - 1)
                         .replace('T', ' '),
-                DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
+                        DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
         this.to = LocalDateTime.parse(description.substring(toIndex + 3)
                         .replace('T', ' '),
-                DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
+                        DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
     }
 
     /**
