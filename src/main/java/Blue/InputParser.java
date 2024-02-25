@@ -1,6 +1,6 @@
 package Blue;
 
-public class InputParser extends Blue {
+public class InputParser {
     private Input parsedInput;
 
     public Input getParsedInput() {
@@ -9,17 +9,15 @@ public class InputParser extends Blue {
 
     public void parse(String line) {
         InputCommand command = InputCommand.undefined;
-        int taskIndex = -1;
-        Task taskToAdd = new Task();
         try {
             command = parseRequest(line);
-            taskIndex = parseIndex(line, command);
-            taskToAdd = parseTask(line, command);
+            int taskIndex = parseIndex(line, command);
+            Task taskToAdd = parseTask(line, command);
+            parsedInput = new Input(command, taskIndex, taskToAdd);
         } catch (IllegalInput e) {
             command = InputCommand.undefined;
-            talk(String.valueOf(e));
-        } finally {
-            parsedInput = new Input(command, taskIndex, taskToAdd);
+            String errorMessage = e.getMessage();
+            parsedInput = new Input(command, errorMessage);
         }
     }
 

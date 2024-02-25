@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class StorageHandler extends Blue {
+public class StorageHandler {
     public static final String DATA_DIR_PATH = "data";
     public static final String TASK_FILE_PATH = DATA_DIR_PATH + "/tasks.txt";
 
@@ -22,7 +22,7 @@ public class StorageHandler extends Blue {
                 taskManager.addTask(savedTask, false);
             }
         } catch (FileNotFoundException e) {
-            talk("No saved tasks found, starting from scratch.");
+            // No saved tasks found, start from scratch
         }
     }
 
@@ -47,25 +47,24 @@ public class StorageHandler extends Blue {
         return restoredTask;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public boolean hasSavedTasks(ArrayList<Task> tasks) {
         new File(DATA_DIR_PATH).mkdirs();
         File taskFile = new File(TASK_FILE_PATH);
         try {
             taskFile.createNewFile();
         } catch (IOException e) {
-            talk("Failed to save tasks.");
-            return;
+            return false;
         }
         boolean isAppend = false;
         for (Task task : tasks) {
             try {
                 writeTaskToFile(task, isAppend);
             } catch (IOException e) {
-                talk("Failed to save tasks.");
-                return;
+                return false;
             }
             isAppend = true;
         }
+        return true;
     }
 
     private void writeTaskToFile(Task task, boolean isAppend) throws IOException {

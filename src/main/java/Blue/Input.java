@@ -4,9 +4,15 @@ public class Input {
     private InputCommand command;
     private int taskIndex;
     private Task taskToAdd;
+    private String errorMessage;
 
     Input(InputCommand command) {
         this.command = command;
+    }
+
+    Input(InputCommand command, String errorMessage) {
+        this.command = command;
+        this.errorMessage = errorMessage;
     }
 
     Input(InputCommand command, int taskIndex, Task taskToAdd) {
@@ -23,5 +29,16 @@ public class Input {
     }
     public Task getTaskToAdd() {
         return taskToAdd;
+    }
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public boolean isExit() {
+        return command == InputCommand.bye;
+    }
+
+    public boolean isUndefined() {
+        return command == InputCommand.undefined;
     }
 }
