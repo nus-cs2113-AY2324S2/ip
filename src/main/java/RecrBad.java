@@ -140,10 +140,10 @@ public class RecrBad {
             throw new InvalidParamsException("Out of bounds delete index");
         }
         // delete Task
-        writeToFile(FILE_PATH, displayList(tasks));
         System.out.println("Good riddance, task deleted!");
         System.out.println(displayListItem(tasks, taskIndex - 1));
         tasks.remove(taskIndex - 1);
+        writeToFile(FILE_PATH, displayList(tasks));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
