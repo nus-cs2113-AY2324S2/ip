@@ -35,6 +35,18 @@ public class Ui {
             "Type 'event <description> /from <start> /to <end>' to add an event to the list.";
     public static final String TYPE_DEADLINE_DESCRIPTION_BY_DEADLINE_TO_ADD_A_TASK_WITH_A_DEADLINE_TO_THE_LIST =
             "Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.";
+    public static final String ERROR = "Error: ";
+    public static final String ERROR_INVALID_TASK_INDEX_FORMAT = "Error: Invalid task index format.";
+    public static final String WHAT_DO_YOU_WANT_ME_TO_DO = "What do you want me to do? ";
+    public static final String NO_TASKS_ENTERED_YET = "No tasks entered yet.";
+    public static final String HERE_ARE_THE_TASKS_IN_YOUR_LIST = "Here are the tasks in your list:";
+    public static final String THESE_ARE_THE_TASKS_THAT_MATCH_YOUR_SEARCH = "These are the tasks that match your search: ";
+    public static final String D = "[D]";
+    public static final String T = "[T]";
+    public static final String E = "[E]";
+    public static final String GOT_IT_I_VE_ADDED_THIS_TASK = "Got it. I've added this task:";
+    public static final String NOW_YOU_HAVE = "Now you have ";
+    public static final String TASKS_IN_THE_LIST = " tasks in the list.";
 
     /**
      * Prints the starting message and instructions for using DavinciBot.
@@ -78,9 +90,9 @@ public class Ui {
                     String[] parts = userInput.split(" ", SPLIT_INTO_TWO_PARTS);
                     TaskList.ableToDelete(parts);
                 } catch (DavinciException e) {
-                    Ui.printMessage("Error: " + e.getMessage());
+                    Ui.printMessage(ERROR + e.getMessage());
                 } catch (NumberFormatException e) {
-                    Ui.printMessage("Error: Invalid task index format.");
+                    Ui.printMessage(ERROR_INVALID_TASK_INDEX_FORMAT);
                 }
             } else {
                 Parser.parseUserInput(userInput, TaskList.getTaskList());
@@ -89,18 +101,28 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Gets user input from the console.
+     *
+     * @return User input as a trimmed string.
+     */
     public static String getUserInput() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("What do you want me to do? ");
+        System.out.print(WHAT_DO_YOU_WANT_ME_TO_DO);
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Displays the current task list.
+     *
+     * @param taskList The list of tasks to be displayed.
+     */
     public static void displayTaskList(List<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
         if (taskList.isEmpty()) {
-            System.out.println("No tasks entered yet.");
+            System.out.println(NO_TASKS_ENTERED_YET);
         } else {
-            System.out.println("Here are the tasks in your list:");
+            System.out.println(HERE_ARE_THE_TASKS_IN_YOUR_LIST);
             checkForTask(taskList);
         }
         System.out.println(LINE_SEPARATOR);
@@ -113,7 +135,7 @@ public class Ui {
      */
     public static void displayFindTask(List<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("These are the tasks that match your search: ");
+        System.out.println(THESE_ARE_THE_TASKS_THAT_MATCH_YOUR_SEARCH);
         checkForTask(taskList);
         System.out.println(LINE_SEPARATOR);
     }
@@ -126,27 +148,32 @@ public class Ui {
     public static void displaySingleTask(Task task) {
         String taskType;
         if (task instanceof Deadline) {
-            taskType = "[D]";
+            taskType = D;
         } else if (task instanceof Todo) {
-            taskType = "[T]";
+            taskType = T;
         } else {
-            taskType = "[E]";
+            taskType = E;
         }
         System.out.println(taskType +
                 " [" + task.getStatusIcon() + "] " +
                 task.getDescription());
     }
 
+    /**
+     * Displays tasks in the given task list with their corresponding task types and status icons.
+     *
+     * @param taskList The list of tasks to be displayed.
+     */
     private static void checkForTask(List<Task> taskList) {
         for (int i = 0; i < taskList.size(); i++) {
             String taskType;
             Task task = taskList.get(i);
             if (task instanceof Deadline) {
-                taskType = "[D]";
+                taskType = D;
             } else if (task instanceof Todo) {
-                taskType = "[T]";
+                taskType = T;
             } else {
-                taskType = "[E]";
+                taskType = E;
             }
             System.out.println((i + 1) + ". " + taskType +
                     " [" + task.getStatusIcon() + "] " +
@@ -168,9 +195,9 @@ public class Ui {
     public static void echoTask(List<Task> taskList) {
         System.out.println(LINE_SEPARATOR);
         Task addedTask = taskList.get(taskList.size() - 1);
-        System.out.println("Got it. I've added this task:");
+        System.out.println(GOT_IT_I_VE_ADDED_THIS_TASK);
         System.out.println(addedTask.toString());
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println(NOW_YOU_HAVE + taskList.size() + TASKS_IN_THE_LIST);
         System.out.println(LINE_SEPARATOR);
     }
 }
