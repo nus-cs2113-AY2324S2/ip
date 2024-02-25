@@ -7,9 +7,10 @@ import soot.task.Task;
 import soot.task.Todo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommandManager {
-    ArrayList<Task> taskList;
+    static ArrayList<Task> taskList;
     public static int listCounter;
 
     public CommandManager() {
@@ -120,24 +121,5 @@ public class CommandManager {
     public int getListSize() {
         int listSize = taskList.size();
         return listSize;
-    }
-
-    public void addSavedTask(String line) {
-        String[] taskInfo = line.split(" | ");
-        boolean isTaskDone = !taskInfo[1].equals("0");
-
-        switch (taskInfo[0]) {
-        case ("T"):
-            taskList.add(new Todo(taskInfo[2], isTaskDone));
-            listCounter++;
-        case ("D"):
-            taskList.add(new Deadline(taskInfo[2], isTaskDone, taskInfo[3]));
-            listCounter++;
-        case ("E"):
-            taskList.add(new Event(taskInfo[2], isTaskDone, taskInfo[3], taskInfo[4]));
-            listCounter++;
-        default:
-            System.out.println("something went wrong, perhaps an invalid task type?");
-        }
     }
 }
