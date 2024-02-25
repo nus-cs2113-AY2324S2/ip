@@ -40,7 +40,7 @@ public class Storage {
     public static void writeFile(ArrayList<Task> tasks) throws IOException {
 
         if (dataFile.exists()) {
-            System.out.println("found input data file.");
+            System.out.println("Found data file.");
         } else if (!dataFile.getParentFile().exists()) {
             // create directory to save in.
             boolean hasDirectoryCreated = dataFile.getParentFile().mkdirs();
@@ -84,17 +84,18 @@ public class Storage {
         for (String line : dataItems) {
             String taskDescription = line.substring(TASK_DESCRIPTION_INDEX);
             char taskType = line.charAt(TASK_INDICATOR_INDEX);
+            boolean isCompleted = line.charAt(TASK_COMPLETION_INDEX) == COMPLETION_INDICATOR;
             switch (taskType) {
             case TODO_INDICATOR:
-                Todo todo = new Todo(taskDescription);
+                Todo todo = new Todo(taskDescription, isCompleted);
                 tasks.add(todo);
                 break;
             case DEADLINE_INDICATOR:
-                Deadline deadline = new Deadline(taskDescription);
+                Deadline deadline = new Deadline(taskDescription, isCompleted);
                 tasks.add(deadline);
                 break;
             case EVENT_INDICATOR:
-                Event event = new Event(taskDescription);
+                Event event = new Event(taskDescription, isCompleted);
                 tasks.add(event);
                 break;
             default:

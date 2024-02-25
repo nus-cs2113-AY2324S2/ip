@@ -18,7 +18,9 @@ public class Constants {
     public static final char TODO_INDICATOR = 'T';
     public static final char DEADLINE_INDICATOR = 'D';
     public static final char EVENT_INDICATOR = 'E';
+    public static final char COMPLETION_INDICATOR = 'X';
 
     public static final int TASK_INDICATOR_INDEX = 7;
     public static final int TASK_DESCRIPTION_INDEX = 10;
+    public static final int TASK_COMPLETION_INDEX = 3;
 }
