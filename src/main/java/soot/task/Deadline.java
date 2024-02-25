@@ -3,8 +3,8 @@ package soot.task;
 public class Deadline extends Task {
     private String dueDate;
 
-    public Deadline(String taskName, int counter, String dueDate) {
-        super(taskName, counter);
+    public Deadline(String taskName, String dueDate) {
+        super(taskName);
         this.dueDate = dueDate;
     }
 
@@ -19,8 +19,8 @@ public class Deadline extends Task {
         System.out.print("[D]");
     }
     @Override
-    public void printTask() {
-        super.printTask();
+    public void printTask(int index) {
+        super.printTask(index);
         System.out.println("    >> by: " + dueDate + "!!");
     }
 }

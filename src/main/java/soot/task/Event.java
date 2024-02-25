@@ -1,11 +1,11 @@
 package soot.task;
 
 public class Event extends Task {
-    String startDate;
-    String endDate;
+    protected String startDate;
+    protected String endDate;
 
-    public Event(String taskName, int counter, String startDate, String endDate) {
-        super(taskName, counter);
+    public Event(String taskName, String startDate, String endDate) {
+        super(taskName);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -21,8 +21,8 @@ public class Event extends Task {
         System.out.print("[E]");
     }
     @Override
-    public void printTask() {
-        super.printTask();
+    public void printTask(int index) {
+        super.printTask(index);
         System.out.println("    >> from: " + startDate + " ~~ to: " + endDate);
     }
 }
