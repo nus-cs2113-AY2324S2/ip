@@ -35,6 +35,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "new todo for you:\n[ ]" + taskType + " " + description;
+        return "[" + getStatusIcon() + "]" + taskType + " " + description;
     }
 }
