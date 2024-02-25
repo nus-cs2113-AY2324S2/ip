@@ -5,6 +5,7 @@ import bob.command.Command;
 import bob.command.DeadlineCommand;
 import bob.command.DeleteCommand;
 import bob.command.EventCommand;
+import bob.command.FindCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.TodoCommand;
@@ -18,34 +19,43 @@ import java.util.regex.MatchResult;
 public class Parser {
     public Command processUserCommand(String userCommand, TaskManager taskManager, Ui userInterface) throws
             InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException {
-            String[] arguments;
+        String[] arguments;
 
-            switch (userCommand) {
-            case "LIST":
-                return new ListCommand(taskManager);
-            case "MARK":
-            case "UNMARK":
-            case "DELETE":
-                try {
-                    arguments = parseArguments(userCommand, userInterface);
-                    int taskId = Integer.parseInt(arguments[0]);
-                    return getTaskUtilityCommand(taskManager, userCommand, taskId);
-                } catch (NumberFormatException exception) {
-                    throw new InvalidTaskNumberException(userCommand);
-                }
-            case "TODO":
-            case "DEADLINE":
-            case "EVENT":
-                arguments = parseArguments(userCommand, userInterface);
-                return getTaskCreationCommand(taskManager, userCommand, arguments);
-            case "BYE":
-                return new ByeCommand(taskManager);
-            default:
-                throw new InvalidCommandException();
-            }
+        switch (userCommand) {
+        case "LIST":
+            return new ListCommand(taskManager);
+        case "FIND":
+        case "MARK":
+        case "UNMARK":
+        case "DELETE":
+            arguments = parseArguments(userCommand, userInterface);
+            return getTaskUtilityCommand(taskManager, userCommand, arguments);
+        case "TODO":
+        case "DEADLINE":
+        case "EVENT":
+            arguments = parseArguments(userCommand, userInterface);
+            return getTaskCreationCommand(taskManager, userCommand, arguments);
+        case "BYE":
+            return new ByeCommand(taskManager);
+        default:
+            throw new InvalidCommandException();
+        }
     }
 
-    private Command getTaskUtilityCommand(TaskManager taskManager, String userCommand, int taskId) {
+    private Command getTaskUtilityCommand(TaskManager taskManager, String userCommand, String[] arguments) throws
+            InvalidTaskNumberException {
+        if (userCommand.equals("FIND")) {
+            String keyword = arguments[0];
+            return new FindCommand(taskManager, keyword);
+        }
+
+        int taskId;
+        try {
+            taskId = Integer.parseInt(arguments[0]);
+        } catch (NumberFormatException exception) {
+            throw new InvalidTaskNumberException(userCommand);
+        }
+
         if (userCommand.equals("MARK")) {
             return new MarkCommand(taskManager, taskId);
         } else if (userCommand.equals("UNMARK")) {

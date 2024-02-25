@@ -122,4 +122,19 @@ public class TaskManager {
 
         return output;
     }
+
+    public String findTask(String keyword) {
+        StringBuilder output = new StringBuilder(" Here are the matching tasks in your list:\n");
+
+        for (int i = 0; i < taskCount; i++) {
+            Task currentTask = tasks.get(i);
+            int currentTaskId = i + 1;
+            String currentTaskName = currentTask.getTaskName();
+            if (currentTaskName.contains(keyword)) {
+                output.append(String.format(" %d.%s\n", currentTaskId, currentTask));
+            }
+        }
+
+        return output.toString().stripTrailing();
+    }
 }
