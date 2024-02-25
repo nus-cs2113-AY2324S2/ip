@@ -50,8 +50,7 @@ public class UserInterface {
                 ExceptionHandler.handleInvalidUnmarkSyntaxException();
             } catch (InvalidDeleteSyntaxException e) {
                 ExceptionHandler.handleInvalidDeleteSyntaxException();
-            }
-            finally {
+            } finally {
                 Printer.printDivider();
             }
         }
