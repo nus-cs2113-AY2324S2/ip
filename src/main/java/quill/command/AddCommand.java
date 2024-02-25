@@ -31,51 +31,76 @@ public class AddCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, TextUi ui) {
-        int taskNumber = TaskList.getTotalTasks();
         switch (commandWord) {
         case "todo":
-            if (parameter.isEmpty()) {
-                System.out.println("No empty descriptions allowed for todos. Fill it in!");
-            } else {
-                tasks.addTask(new Todo(parameter));
-                TextUi.showAddTask(tasks.getTask(taskNumber));
-                Save.writeToFile(tasks);
-            }
+            handleAddTodo(tasks);
             break;
         case "deadline":
-            try {
-                tasks.addTask(new Deadline(parameter));
-                TextUi.showAddTask(tasks.getTask(taskNumber));
-                Save.writeToFile(tasks);
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Seriously? You call that a deadline?");
-                System.out.println("It's 'deadline [task] /by yyyy-MM-dd HH:mm'. Get it right!");
-                break;
-            } catch (QuillException e) {
-                System.out.println("No empty descriptions allowed for deadline. Fill it in!");
-                break;
-            } catch (DateTimeParseException e) {
-                System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
-                break;
-            }
+            handleAddDeadline(tasks);
             break;
         case "event":
-            try {
-                tasks.addTask(new Event(parameter));
-                TextUi.showAddTask(tasks.getTask(taskNumber));
-                Save.writeToFile(tasks);
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Seriously? You call that an event?");
-                System.out.println("It's 'event [task] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'. Get it right!");
-            } catch (DateTimeParseException e) {
-                System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
-                break;
-            } catch (QuillException e) {
-                System.out.println("No empty descriptions allowed for event. Fill it in!");
-            }
+            handleAddEvent(tasks);
             break;
         default:
             System.out.println("Error adding task: unknown task type");
+        }
+    }
+
+    /**
+     * Adds todo task to the task list and save it to storage.
+     *
+     * @param tasks The list of tasks.
+     */
+    public void handleAddTodo(TaskList tasks) {
+        int taskNumber = TaskList.getTotalTasks();
+        if (parameter.isEmpty()) {
+            System.out.println("No empty descriptions allowed for todos. Fill it in!");
+        } else {
+            tasks.addTask(new Todo(parameter));
+            TextUi.showAddTask(tasks.getTask(taskNumber));
+            Save.writeToFile(tasks);
+        }
+    }
+
+    /**
+     * Adds deadline task to the task list and save it to storage.
+     *
+     * @param tasks The list of tasks.
+     */
+    public void handleAddDeadline(TaskList tasks) {
+        int taskNumber = TaskList.getTotalTasks();
+        try {
+            tasks.addTask(new Deadline(parameter));
+            TextUi.showAddTask(tasks.getTask(taskNumber));
+            Save.writeToFile(tasks);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Seriously? You call that a deadline?");
+            System.out.println("It's 'deadline [task] /by yyyy-MM-dd HH:mm'. Get it right!");
+        } catch (QuillException e) {
+            System.out.println("No empty descriptions allowed for deadline. Fill it in!");
+        } catch (DateTimeParseException e) {
+            System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
+        }
+    }
+
+    /**
+     * Adds event task to the task list and save it to storage.
+     *
+     * @param tasks The list of tasks.
+     */
+    public void handleAddEvent(TaskList tasks) {
+        int taskNumber = TaskList.getTotalTasks();
+        try {
+            tasks.addTask(new Event(parameter));
+            TextUi.showAddTask(tasks.getTask(taskNumber));
+            Save.writeToFile(tasks);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Seriously? You call that an event?");
+            System.out.println("It's 'event [task] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'. Get it right!");
+        } catch (DateTimeParseException e) {
+            System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
+        } catch (QuillException e) {
+            System.out.println("No empty descriptions allowed for event. Fill it in!");
         }
     }
 }

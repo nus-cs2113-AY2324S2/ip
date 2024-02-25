@@ -107,8 +107,12 @@ public class TextUi {
         }
     }
 
+    /**
+     * Displays error message for unknown commands.
+     */
     public static void showUnknownMessage() {
         System.out.println("Enough with the gibberish. Stick to the commands I understand:");
         System.out.println("bye, list, todo, deadline, event, mark, unmark, delete, find. Got it? Next!");
     }
+
 }
