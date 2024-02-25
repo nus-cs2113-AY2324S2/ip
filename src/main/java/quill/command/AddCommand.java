@@ -1,6 +1,7 @@
 package quill.command;
 
 import quill.exception.QuillException;
+import quill.storage.Save;
 import quill.task.*;
 import quill.ui.TextUi;
 
@@ -38,6 +39,7 @@ public class AddCommand extends Command{
             } else {
                 tasks.addTask(new Todo(parameter));
                 TextUi.showAddTask(tasks.getTask(taskNumber));
+                Save.appendToFIle(tasks.getTask(taskNumber));
             }
             break;
         case "deadline":

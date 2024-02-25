@@ -1,5 +1,6 @@
 package quill.command;
 
+import quill.storage.Save;
 import quill.task.TaskList;
 import quill.ui.TextUi;
 
@@ -31,6 +32,7 @@ public class DeleteCommand extends Command{
             int taskNumber = Integer.parseInt(parameter) - 1;
             TextUi.showDeleteTask(tasks.getTask(taskNumber));
             tasks.removeTask(taskNumber);
+            Save.writeToFile(tasks);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
         } catch (NumberFormatException e) {

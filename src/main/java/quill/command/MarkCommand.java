@@ -1,5 +1,6 @@
 package quill.command;
 
+import quill.storage.Save;
 import quill.task.TaskList;
 import quill.ui.TextUi;
 
@@ -37,6 +38,7 @@ public class MarkCommand extends Command{
                 System.out.println("OK, I've marked this task as not done yet:");
             }
             System.out.println(tasks.getTask(taskNumber).toString());
+            Save.writeToFile(tasks);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             System.out.println("Hey, wake up! That task? Non-existent. Try something real.");
         } catch (NumberFormatException e) {

@@ -102,11 +102,11 @@ Nothing. Tough luck.
 ____________________________________________________________
 ____________________________________________________________
 Here are the matching tasks in your list:
-1.[D][ ] return book (by: 2 march 2024)
+1.[D][ ] return book (by: 02 Mar 2024 06:16 PM)
 ____________________________________________________________
 ____________________________________________________________
 Enough with the gibberish. Stick to the commands I understand:
-bye, list, todo, deadline, event, mark, unmark, delete. Got it? Next!
+bye, list, todo, deadline, event, mark, unmark, delete, find. Got it? Next!
 ____________________________________________________________
 ____________________________________________________________
 Bye! Hope to see you again soon!

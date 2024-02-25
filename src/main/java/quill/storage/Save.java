@@ -125,8 +125,9 @@ public class Save {
      */
     public static void appendToFIle(Task task) {
         try {
-            FileWriter fw = new FileWriter("./data/quill.txt", true); // create a FileWriter in append mode
-            fw.write(task.toString());
+            FileWriter fw = new FileWriter("./data/quill.txt", true);
+            fw.write(System.lineSeparator());
+            fw.write(task.saveTask());
             fw.close();
         } catch (IOException e) {
             System.out.println("Error appending file" + e.getMessage());
