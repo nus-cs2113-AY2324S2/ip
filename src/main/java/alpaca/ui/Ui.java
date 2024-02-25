@@ -1,7 +1,9 @@
 package alpaca.ui;
 
+import alpaca.parser.Parser;
 import alpaca.tasks.Task;
 import alpaca.tasks.TaskList;
+import java.util.Scanner;
 
 public class Ui {
     private static final String LOGO = "           _      _____        _____          \n" +
@@ -19,6 +21,19 @@ public class Ui {
     private static final String GREET_MESSAGE = "Baa-baa-baa, I'm Alpaca!\n"
         + "How can I assist you today?\n";
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon, baa-baa-baa!\n";
+
+    private Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void listenForInput(Parser parser) {
+        while (scanner.hasNextLine()) {
+            String receivedMessage = scanner.nextLine().trim();
+            parser.parseCommand(receivedMessage);
+        }
+    }
 
     public static void printLine() {
         System.out.println(HORIZONTAL_LINE);

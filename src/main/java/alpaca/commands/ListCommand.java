@@ -5,7 +5,7 @@ import alpaca.ui.Ui;
 
 public class ListCommand extends AlpacaCommand{
 
-    ListCommand(Ui ui, TaskList tasks) {
+    public ListCommand(Ui ui, TaskList tasks) {
         super(ui, tasks);
     }
 

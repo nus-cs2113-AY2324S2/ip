@@ -9,7 +9,7 @@ public class MarkUnmarkCommand extends AlpacaCommand{
     private int index;
     private boolean isMark;
 
-    MarkUnmarkCommand(Ui ui, int index, boolean isMark, TaskList tasks) {
+    public MarkUnmarkCommand(Ui ui, int index, boolean isMark, TaskList tasks) {
         super(ui, tasks);
         this.index = index;
         this.isMark = isMark;

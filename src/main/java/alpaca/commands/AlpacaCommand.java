@@ -7,10 +7,10 @@ public abstract class AlpacaCommand {
     protected TaskList tasks;
     protected Ui ui;
 
-    AlpacaCommand () {
+    public AlpacaCommand () {
     }
 
-    AlpacaCommand (Ui ui, TaskList tasks) {
+    public AlpacaCommand (Ui ui, TaskList tasks) {
         this.ui = ui;
         this.tasks = tasks;
     }

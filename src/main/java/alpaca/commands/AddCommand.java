@@ -7,7 +7,7 @@ import alpaca.ui.Ui;
 
 public class AddCommand extends AlpacaCommand{
     private Task newTask;
-    AddCommand(Ui ui,Task newTask, TaskList tasks) {
+    public AddCommand(Ui ui,Task newTask, TaskList tasks) {
         super(ui, tasks);
         this.newTask = newTask;
     }

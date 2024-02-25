@@ -1,18 +1,24 @@
 package alpaca;
 
-import alpaca.file.FileReader;
-import alpaca.logic.LogicManager;
+import alpaca.storage.Storage;
+import alpaca.tasks.TaskList;
 import alpaca.ui.Ui;
 import alpaca.parser.Parser;
 
 public class Alpaca {
     public static void startConversation() {
         Ui ui = new Ui();
-        LogicManager logicManager = new LogicManager(ui);
-        Parser Parser = new Parser();
-
+        Parser parser = new Parser(ui, loadTask());
         ui.printGreeting();
-        Parser.listenForInput(logicManager);
+        ui.listenForInput(parser);
+    }
+
+    public static TaskList loadTask() {
+        if (!Storage.isFileExist()) {
+            Storage.createEmptyFile();
+            return new TaskList();
+        }
+        return Storage.restoreTask();
     }
 
     public static void main(String[] args) {
