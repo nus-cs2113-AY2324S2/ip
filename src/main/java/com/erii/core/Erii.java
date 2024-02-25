@@ -1,5 +1,9 @@
 package com.erii.core;
 
+/**
+ * The Erii class represents a program that prints out the ASCII art of the word "Erii".
+ * It contains the main method which executes the program.
+ */
 public class Erii {
     public static void main(String[] args) {
         String art = 
