@@ -16,13 +16,20 @@ public class CommandHandler {
     private static final int EVENT_TO_INDEX_LENGTH = 4;
     private static final int MARK_INDEX = 5;
     private static final int UNMARK_INDEX = 7;
+    private static final String TODO_STRING = "todo";
+    private static final String BY_STRING = " /by ";
+    private static final String FROM_STRING = " /from ";
+    private static final String TO_STRING = " /to ";
+    private static final String MARK_STRING = "mark";
+    private static final String UNMARK_STRING = "unmark";
+    private static final String DELETE_STRING = "delete";
 
     public static void handleList() {
         Printer.printTasks();
     }
 
     public static void handleTodo(String userInput) throws InvalidTodoSyntaxException {
-        if (userInput.equals("todo")) {
+        if (userInput.equals(TODO_STRING)) {
             throw new InvalidTodoSyntaxException();
         }
         String description = userInput.substring(TODO_DESCRIPTION_INDEX);
@@ -33,7 +40,7 @@ public class CommandHandler {
     }
 
     public static void handleDeadline(String userInput) throws InvalidDeadlineSyntaxException {
-        int byIndex = userInput.indexOf(" /by ") + 1;
+        int byIndex = userInput.indexOf(BY_STRING) + 1;
         if (byIndex == 0) {
             throw new InvalidDeadlineSyntaxException();
         }
@@ -49,8 +56,8 @@ public class CommandHandler {
     }
 
     public static void handleEvent(String userInput) throws InvalidEventSyntaxException {
-        int fromIndex = userInput.indexOf(" /from ") + 1;
-        int toIndex = userInput.indexOf(" /to ") + 1;
+        int fromIndex = userInput.indexOf(FROM_STRING) + 1;
+        int toIndex = userInput.indexOf(TO_STRING) + 1;
         if (fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex) {
             throw new InvalidEventSyntaxException();
         }
@@ -71,7 +78,7 @@ public class CommandHandler {
             Printer.printUnableToMark();
             return;
         }
-        if (userInput.equals("mark")) {
+        if (userInput.equals(MARK_STRING)) {
             throw new InvalidMarkSyntaxException();
         }
         try {
@@ -90,7 +97,7 @@ public class CommandHandler {
             Printer.printUnableToUnmark();
             return;
         }
-        if (userInput.equals("unmark")) {
+        if (userInput.equals(UNMARK_STRING)) {
             throw new InvalidUnmarkSyntaxException();
         }
         try {
@@ -109,7 +116,7 @@ public class CommandHandler {
             Printer.printUnableToDelete();
             return;
         }
-        if (userInput.equals("delete")) {
+        if (userInput.equals(DELETE_STRING)) {
             throw new InvalidDeleteSyntaxException();
         }
         try {
