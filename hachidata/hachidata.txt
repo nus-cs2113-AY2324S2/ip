@@ -1,2 +1,0 @@
-T |   | fly
-T | X | swim
