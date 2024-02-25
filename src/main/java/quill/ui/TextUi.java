@@ -3,6 +3,7 @@ package quill.ui;
 import quill.task.Task;
 import quill.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TextUi {
@@ -52,4 +53,16 @@ public class TextUi {
             }
         }
     }
+
+    public static void showFindList(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("Nothing. Tough luck.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + "." + tasks.get(i).toString());
+            }
+        }
+    }
+
 }

@@ -22,5 +22,7 @@ delete
 delete 100
 delete 1
 list
+find blah
+find return
 blah
 bye

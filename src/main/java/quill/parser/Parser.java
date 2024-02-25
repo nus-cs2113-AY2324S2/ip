@@ -42,6 +42,9 @@ public class Parser {
         case "delete":
             c = new DeleteCommand(command, input);
             break;
+        case "find":
+            c = new FindCommand(command, input);
+            break;
         default:
             c= new UnknownCommand(command, input);
             break;
