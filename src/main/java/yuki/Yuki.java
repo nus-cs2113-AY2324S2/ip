@@ -8,14 +8,13 @@ import java.io.IOException;
 
 public class Yuki {
 
-    private static Storage storage;
     private TaskList taskData;
 
     private static UI ui;
 
     public Yuki(String filePath) {
         ui = new UI();
-        storage = new Storage(filePath);
+        Storage storage = new Storage(filePath);
         taskData = new TaskList(storage.loadData());
     }
 
