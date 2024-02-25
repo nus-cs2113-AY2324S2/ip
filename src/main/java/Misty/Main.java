@@ -8,19 +8,20 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         UserUi userUi = new UserUi();
+        Storage storage = new Storage();
 
         try {
-            Storage.createFiles();
+            storage.createFiles();
         } catch (IOException e) {
             userUi.printErrorIO();
         } catch (SecurityException e) {
             userUi.printErrorSecurity();
         }
 
-        List taskList = new List();
+        List taskList = new List(storage);
 
         try {
-            Storage.loadData(taskList);
+            storage.loadData(taskList);
         } catch (FileNotFoundException e) {
             userUi.printErrorFileNotFound();
         } catch (EmptyTaskNameException e) {

@@ -10,10 +10,16 @@ import misty.exception.*;
 import misty.task.*;
 
 public class Storage {
-    public static void createFiles() throws IOException, SecurityException {
-        File dir = new File("data");
-        File dataFile = new File("data/misty.txt");
-
+    private final static  String DEFAULT_DATA_FOLDER_NAME = "data";
+    private final static String DEFAULT_DATA_FILE_NAME = "misty.txt";
+    private String filePath;
+    private File dir = new File(DEFAULT_DATA_FOLDER_NAME);
+    private File dataFile;
+    public Storage() {
+        this.filePath = DEFAULT_DATA_FOLDER_NAME + "/" + DEFAULT_DATA_FILE_NAME;
+        dataFile = new File(filePath);
+    }
+    public void createFiles() throws IOException, SecurityException {
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -23,10 +29,15 @@ public class Storage {
         }
     }
 
-    public static void loadData(List taskList) throws FileNotFoundException, EmptyTaskNameException,
+    private void writeToFile(String data) throws IOException {
+        FileWriter fileWriter = new FileWriter(dataFile, true);
+        fileWriter.write(data);
+        fileWriter.close();
+    }
+
+    public void loadData(List taskList) throws FileNotFoundException, EmptyTaskNameException,
             IllegalListIndexException, EmptyByException, EmptyFromException, EmptyToException,
             UnknownTaskException {
-        File dataFile = new File("data/misty.txt");
         Scanner scanner = new Scanner(dataFile);
         int taskCount = 0;
         String[] parameters;
@@ -61,34 +72,24 @@ public class Storage {
         }
     }
 
-    public static void saveTodo(Todo todo) throws IOException {
-        File dataFile = new File("data/misty.txt");
-        FileWriter fileWriter = new FileWriter(dataFile, true);
+    public void saveTodo(Todo todo) throws IOException {
         String data = String.format("T | %s | %s\n",(todo.getIsDone() ? "1" : "0") ,todo.getTaskName());
-        fileWriter.write(data);
-        fileWriter.close();
+        writeToFile(data);
     }
 
-    public static void saveDeadLine(Deadline deadline) throws IOException {
-        File dataFile = new File("data/misty.txt");
-        FileWriter fileWriter = new FileWriter(dataFile, true);
+    public void saveDeadLine(Deadline deadline) throws IOException {
         String data = String.format("D | %s | %s | %s\n",(deadline.getIsDone() ? "1" : "0")
                 ,deadline.getTaskName(), deadline.getBy());
-        fileWriter.write(data);
-        fileWriter.close();
+        writeToFile(data);
     }
 
-    public static void saveEvent(Event event) throws IOException {
-        File dataFile = new File("data/misty.txt");
-        FileWriter fileWriter = new FileWriter(dataFile, true);
+    public void saveEvent(Event event) throws IOException {
         String data = String.format("E | %s | %s | %s | %s\n",(event.getIsDone() ? "1" : "0")
                 ,event.getTaskName(), event.getFrom(), event.getTo());
-        fileWriter.write(data);
-        fileWriter.close();
+        writeToFile(data);
     }
 
-    public static void refreshSave(ArrayList list) throws IOException {
-        File dataFile = new File("data/misty.txt");
+    public void refreshSave(ArrayList list) throws IOException {
         FileWriter fileWriter = new FileWriter(dataFile);
         fileWriter.write("");
 

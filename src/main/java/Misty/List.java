@@ -11,9 +11,11 @@ import java.io.IOException;
 
 public class List {
     private ArrayList<Task> taskList;
+    private Storage storage;
 
-    public List() {
+    public List(Storage storage) {
         taskList = new ArrayList<>();
+        this.storage = storage;
     }
 
     public void printTaskCount() {
@@ -38,7 +40,7 @@ public class List {
         addTask(newTask);
 
         try {
-            Storage.saveTodo(newTask);
+            storage.saveTodo(newTask);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -57,7 +59,7 @@ public class List {
         addTask(newTask);
 
         try {
-            Storage.saveDeadLine(newTask);
+            storage.saveDeadLine(newTask);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -78,7 +80,7 @@ public class List {
         addTask(newTask);
 
         try {
-            Storage.saveEvent(newTask);
+            storage.saveEvent(newTask);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -94,7 +96,7 @@ public class List {
         taskList.get(index - 1).setTaskAsDone();
 
         try {
-            Storage.refreshSave(taskList);
+            storage.refreshSave(taskList);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -110,7 +112,7 @@ public class List {
         taskList.get(index - 1).setTaskAsNotDone();
 
         try {
-            Storage.refreshSave(taskList);
+            storage.refreshSave(taskList);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
@@ -127,7 +129,7 @@ public class List {
         taskList.remove(index - 1);
 
         try {
-            Storage.refreshSave(taskList);
+            storage.refreshSave(taskList);
         } catch (IOException e) {
             UserUi.printErrorIO();
         }
