@@ -8,9 +8,10 @@ public class InputParser {
     private static final String TASK_DATA_PREFIX_EVENT_END = "/to ";
     static final String regexMatcher = TASK_DATA_PREFIX_DEADLINE + "|"
             + TASK_DATA_PREFIX_EVENT_START + "|" + TASK_DATA_PREFIX_EVENT_END;
+    private static final int INDEX_COMMAND = 0;
 
     public static String parseCommand(String userInput) {
-        return userInput.trim().split(" ")[0];
+        return userInput.trim().split(" ")[INDEX_COMMAND];
     }
 
     public static String[] parseInput(String userInput){
