@@ -1,5 +1,8 @@
 package yuki;
 
+/**
+ * Utility functions for printing message to user.
+ */
 public class Utils {
     public static void printLine() {
         System.out.println("---------------------------------------------");
