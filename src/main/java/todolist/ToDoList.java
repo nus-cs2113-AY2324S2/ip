@@ -93,6 +93,9 @@ public class ToDoList {
                 case todoError:
                     ErrorMessages.todoTaskFormatIncorrectErrorMessage();
                     break;
+                case find:
+                    findTask(keywordFinder.findSearchInput());
+                    break;
                 default:
                     // the method will return null if the input is incorrect
                     if (keywordFinder.processKeywordInput() == null) { 
@@ -118,6 +121,20 @@ public class ToDoList {
     public void printToDoList() {
         System.out.println("Here are the tasks in your list:");
         System.out.println(this);
+    }
+
+    private void findTask(String searchText) {
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 1;
+        for (Task item : this.toDoListArray) {
+            if (item.getName().contains(searchText)) {
+                System.out.println(count + "." + item);
+                count++;
+            }
+        }
+        if (count == 1) {
+            System.out.println("No matching tasks found");
+        }
     }
 
     /**

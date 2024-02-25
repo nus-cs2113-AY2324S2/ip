@@ -20,6 +20,7 @@ public class KeywordPatternMatcher {
     private static final String MARK_FEATURE_PATTERN = "^mark \\d+$"; //mark
     private static final String UNMARK_FEATURE_PATTERN = "^unmark \\d+$"; //unmark
     private static final String DELETE_TASK_FEATURE_PATTERN = "^delete \\d+$"; //delete
+    private static final String FIND_TASK_FEATURE_PATTERN = "^find .+"; //find
     private static final String TODOTASK_FEATURE_PATTERN = "^todo .+"; //todoItem
     private static final String DEADLINESTASK_FEATURE_PATTERN = "^deadline .*"; //todoItem
     private static final String EVENTSTASK_PATTERN = "^event .*"; //todoItem
@@ -61,12 +62,17 @@ public class KeywordPatternMatcher {
             return Keyword.todoError;
         } else if (matchesPattern(this.inputText, DELETE_TASK_FEATURE_PATTERN)) {
             return Keyword.delete;
+        } else if (matchesPattern(this.inputText,FIND_TASK_FEATURE_PATTERN)) {
+          return Keyword.find;
         } else {
             return Keyword.none;
         }
     }
 
-
+    public String findSearchInput() {
+        int spacePosition = getSpaceCharacterPosition(this.inputText);
+        return this.inputText.substring(spacePosition + SPACE_OFFSET);
+    }
 
     public int findNumberIndex() {
         int spacePosition = getSpaceCharacterPosition(this.inputText);
