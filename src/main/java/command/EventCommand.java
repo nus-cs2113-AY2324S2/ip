@@ -1,6 +1,5 @@
 package command;
 
-import commandexceptions.InvalidEventCommandException;
 import commandexceptions.JingHaoExceptions;
 import storage.Storage;
 import tasktype.Event;
@@ -17,9 +16,10 @@ public class EventCommand implements Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JingHaoExceptions {
+        boolean isFromFile = false;
         String[] eventDescriptions = userInput.split("/from", 2);
-        String invalidEvent ="Invalid Deadline Command Format!\n" +
-                "Use: deadline (Deadline description) + /by + (date)\n";
+        String invalidEvent ="Invalid event Command Format!\n" +
+                "Use: event (Event description) + /from + (YYYY-MM-DD) + /to + (YYYY-MM-DD) \n";
 
         if(eventDescriptions.length != 2 || eventDescriptions[0].isBlank() || eventDescriptions[1].isBlank()) {
             throw new JingHaoExceptions(invalidEvent);
@@ -29,9 +29,9 @@ public class EventCommand implements Command {
         if(eventTime.length != 2 || eventTime[0].isBlank() || eventTime[1].isBlank()) {
             throw new JingHaoExceptions(invalidEvent);
         }
-        String fromDate = eventTime[0];
-        String toDate = eventTime[1];
-        Task newEvent = new Event(description,fromDate,toDate);
+        String fromDate = eventTime[0].trim();
+        String toDate = eventTime[1].trim();
+        Task newEvent = new Event(description,fromDate,toDate, isFromFile);
         taskList.add(newEvent);
         System.out.println("Got it. I've added this task:\n " +newEvent);
         ui.printTotalTask(taskList.size());
