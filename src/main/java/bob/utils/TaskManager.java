@@ -91,12 +91,12 @@ public class TaskManager {
     /**
      * Update progress of Task in Task array
      */
-    public String updateTaskProgress(int taskId, Command command) {
+    public String updateTaskProgress(int taskId, String command) {
         String output;
         int currentTaskIndex = taskId - 1; // Index in array is ID - 1
         Task currentTask = tasks.get(currentTaskIndex);
 
-        if (command.equals(Command.MARK)) {
+        if (command.equals("MARK")) {
             output = " Nice! I've marked this task as done:\n";
             currentTask = currentTask.markTaskAsComplete();
         } else {
