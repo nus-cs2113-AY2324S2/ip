@@ -1,16 +1,29 @@
 package Casper;
 
+/**
+ * Parser is a class whose sole functionality is to verify the validity of the user's input and translate
+ * them to the <code>Command</code> class to be executed.
+ */
 
 public class Parser {
     private static final String[] keywordList = {"bye", "list", "mark", "unmark",
             "deadline", "event", "todo", "delete", "find"};
 
-    public static Command parse(String userInput) throws CasperUnrecognizedKeywordException {
+    /**
+     * Returns a <code>Command</code> based on the user's input.
+     *
+     * @param userInput The user's raw string input.
+     * @return A <code>Command</code> based on <code>userInput</code>.
+     * @throws CasperUnrecognizedKeywordException If the keyword in <code>userInput</code> is unrecognized.
+     */
+    public static Command parse(String userInput)
+            throws CasperUnrecognizedKeywordException {
         validateInputKeyword(userInput);
         return handleKeywordRouting(userInput);
     }
 
-    public static void validateInputKeyword(String userInput) throws CasperUnrecognizedKeywordException {
+    private static void validateInputKeyword(String userInput)
+            throws CasperUnrecognizedKeywordException {
         String userInputKeyword = userInput.split(" ")[0];
         boolean isValidKeyword = false;
         for(String keyword : keywordList){
@@ -24,7 +37,7 @@ public class Parser {
         }
     }
 
-    public static Command handleKeywordRouting(String userInput){
+    private static Command handleKeywordRouting(String userInput){
         String commandPrefix = userInput.split(" ")[0];
         switch (commandPrefix) {
         case "bye":

@@ -1,5 +1,9 @@
 package Casper;
 
+
+/**
+ * An implementation of <code>Command</code> focusing on commands that deletes a task from the list.
+ */
 public class DeleteCommand extends Command{
     private String userInput;
     private Ui ui;
@@ -10,6 +14,13 @@ public class DeleteCommand extends Command{
         this.userInput = userInput;
     }
 
+    /**
+     * Executes deleting a task to the given <code>TaskList</code>, and updates the save file.
+     *
+     * @param ui An instance of <code>Ui</code>.
+     * @param tasks An instance of <code>TaskList</code>.
+     * @param storage An instance of <code>Storage</code>.
+     */
     @Override
     public void execute(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
@@ -20,7 +31,7 @@ public class DeleteCommand extends Command{
         storage.handleSaveFile(tasks);
     }
 
-    public void deleteTask(String userInput){
+    private void deleteTask(String userInput){
         try{
             int targetTaskNumber = tasks.validateTargetedInput(userInput);
             Task taskToRemove = tasks.getTask(targetTaskNumber-1);

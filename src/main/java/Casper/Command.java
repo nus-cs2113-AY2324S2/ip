@@ -1,5 +1,8 @@
 package Casper;
 
+/**
+ * An abstract class representing a general command to be executed.
+ */
 public abstract class Command {
     public boolean isRunning;
     public Command(boolean isRunning){
