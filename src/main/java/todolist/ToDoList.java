@@ -1,18 +1,12 @@
 package todolist;
 import todolist.keywordfinder.Keyword;
 import todolist.keywordfinder.KeywordPatternMatcher;
-import todolist.task.DeadLinesTask;
-import todolist.task.EventsTask;
 import todolist.task.Task;
-import todolist.task.ToDoTask;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 public class ToDoList {
     private final ArrayList<Task> toDoListArray;
@@ -23,6 +17,10 @@ public class ToDoList {
      */
     public ToDoList() {
         this.toDoListArray = new ArrayList<>();
+    }
+
+    public ArrayList<Task> getToDoListArray() {
+        return toDoListArray;
     }
 
     /**
@@ -199,41 +197,6 @@ public class ToDoList {
         }
         dataString.append("#end");
         return dataString.toString();
-    }
-
-    public void loadData() {
-        String filePath = "ChatBBTData.txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while (!Objects.equals(line = reader.readLine(), "#end")) {
-                char isDone = line.charAt(2);
-                switch(line.charAt(0)){
-                case 'E' :
-                    //get name
-                    int splitIndexEvent1 = line.indexOf('|',4);
-                    //get start and end time
-                    int splitIndexEvent2 = line.indexOf('|',splitIndexEvent1 + 1);
-                    this.toDoListArray.add(new EventsTask(line.substring(4,splitIndexEvent1 - 1),
-                            isDone != '0',
-                            line.substring(splitIndexEvent1 + 1, splitIndexEvent2 -1),
-                            line.substring(splitIndexEvent2 + 1)));
-                    break;
-                case 'T' :
-                    this.toDoListArray.add(new ToDoTask(line.substring(4), isDone != '0'));
-                    break;
-                case 'D' :
-                    int splitIndexDeadline = line.indexOf('|',4);
-                    this.toDoListArray.add(new DeadLinesTask(line.substring(4,splitIndexDeadline - 1),
-                            isDone != '0',
-                            line.substring(splitIndexDeadline + 1)));
-                    break;
-                default:
-                    throw new IOException();
-                }
-            }
-        } catch (IOException | StringIndexOutOfBoundsException e) {
-            System.err.println("Data file damaged, please continue");
-        }
     }
 
 }

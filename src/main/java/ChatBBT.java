@@ -1,11 +1,13 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.channels.ScatteringByteChannel;
 import java.util.Scanner;
 import todolist.ToDoList;
+import todolist.DataManager;
 
 public class ChatBBT {
+
+    private static final String FILE_PATH = "ChatBBTData.txt";
 
     /**
      * Print the exit message
@@ -40,33 +42,17 @@ public class ChatBBT {
         messageDivider();
     }
 
-    public static void createLocalDataFile() {
-        String filePath = "ChatBBTData.txt";
-        try {
-            // Create a File object
-            File file = new File(filePath);
-            // Check if the file already exists
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getAbsolutePath());
-                FileWriter fw = new FileWriter("ChatBBTData.txt");
-                fw.write("#end");
-                fw.close();
-            } else {
-                System.out.println("App data stored in " + file.getAbsolutePath());
-            }
-            System.out.println("Please do not delete the file");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-        }
-    }
-
     public static void main(String[] args) {
-        createLocalDataFile();
+        // create a new file
+        DataManager dataManager = new DataManager(FILE_PATH);
+        dataManager.createLocalDataFile();
+        // create a new ToDoList
+        ToDoList newToDoList = new ToDoList();
+        dataManager.loadDataTodoList(newToDoList);
+
         greetingMessage();
         Scanner input = new Scanner(System.in);
         boolean isFinished = false;
-        ToDoList newToDoList = new ToDoList();
-        newToDoList.loadData();
 
         while(!isFinished) {
             featureIntroMessage();
