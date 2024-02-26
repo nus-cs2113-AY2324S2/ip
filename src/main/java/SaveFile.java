@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SaveFile {
-    private static final String FILE_PATH = "./data/duke.txt";
+    static final String FILE_PATH = "Duke.txt";
+    protected static File file = new File(FILE_PATH);
     static ArrayList<Task> tasks = Duke.tasks;
 
     public static void loadTasksFromFile() {
         try {
-            File file = new File(FILE_PATH);
             if (file.exists()) {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNextLine()) {
