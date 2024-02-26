@@ -1,13 +1,13 @@
 package bob.utils;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.ArrayList;
-
 import bob.task.Deadline;
 import bob.task.Event;
 import bob.task.Task;
 import bob.task.Todo;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles the storage and management of Tasks. Task operations (add, delete, list) are done by the TaskManager.
@@ -85,7 +85,7 @@ public class TaskManager {
      * Add a new Deadline Task.
      *
      * @param taskName Name of Deadline Task to be added.
-     * @param dueDate Due date of the Deadline Task.
+     * @param dueDate  Due date of the Deadline Task.
      * @return Result String from the addition operation.
      */
     public String addDeadline(String taskName, LocalDateTime dueDate) {
@@ -96,9 +96,9 @@ public class TaskManager {
     /**
      * Add a new Event Task.
      *
-     * @param taskName Name of Event Task to be added.
+     * @param taskName  Name of Event Task to be added.
      * @param startDate Start date of the Event Task.
-     * @param endDate End date of the Event Task.
+     * @param endDate   End date of the Event Task.
      * @return Result String from the addition operation.
      */
     public String addEvent(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
@@ -126,7 +126,7 @@ public class TaskManager {
     /**
      * Update the progress of a Task in the Task List.
      *
-     * @param taskId ID of the Task to be updated.
+     * @param taskId  ID of the Task to be updated.
      * @param command The operation to be performed on the Task (mark/unmark).
      * @return Result String from the update operation.
      */

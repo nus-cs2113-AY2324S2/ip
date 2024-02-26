@@ -4,8 +4,8 @@ package bob.exceptions;
  * Bob Exception for invalid arguments provided by the User.
  */
 public class InvalidArgumentException extends Exception {
-    private final String command;
     private static final String ERROR_MESSAGE = " Please ensure your command is properly formatted!\n\n";
+    private final String command;
 
     public InvalidArgumentException(String command) {
         this.command = command;
@@ -26,7 +26,7 @@ public class InvalidArgumentException extends Exception {
             errorMessage += "  unmark <task number>";
             break;
         case "TODO":
-            errorMessage += "  todo <task name>" ;
+            errorMessage += "  todo <task name>";
             break;
         case "DEADLINE":
             errorMessage += "  deadline <task name> /by <due date> (date format: dd/mm/yyyy hh:mm)";

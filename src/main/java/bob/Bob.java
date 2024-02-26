@@ -6,8 +6,8 @@ import bob.exceptions.InvalidCommandException;
 import bob.exceptions.InvalidDateTimeException;
 import bob.exceptions.InvalidTaskNumberException;
 import bob.utils.Parser;
-import bob.utils.TaskManager;
 import bob.utils.StateManager;
+import bob.utils.TaskManager;
 import bob.utils.Ui;
 
 import java.io.IOException;

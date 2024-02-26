@@ -4,8 +4,8 @@ package bob.exceptions;
  * Bob Exception for invalid task numbers provided by the User.
  */
 public class InvalidTaskNumberException extends Exception {
-    private final String command;
     public static final String ERROR_MESSAGE = " Please provide a valid task number!\n\n";
+    private final String command;
 
     public InvalidTaskNumberException(String command) {
         this.command = command;
@@ -17,7 +17,7 @@ public class InvalidTaskNumberException extends Exception {
 
         if (command.equals("MARK")) {
             errorMessage += "  mark <task number>";
-        } else if (command.equals("UNMARK")){
+        } else if (command.equals("UNMARK")) {
             errorMessage += "  unmark <task number>";
         } else {
             errorMessage += "  delete <task number>";

@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Deadline Task class. Used to represent Tasks with a due date.
  */
 public class Deadline extends Task {
-    private final LocalDateTime dueDate;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private final LocalDateTime dueDate;
 
 
     private Deadline(String taskName, boolean isCompleted, LocalDateTime dueDate) {
