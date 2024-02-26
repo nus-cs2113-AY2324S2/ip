@@ -13,8 +13,15 @@ import geepee.task.Event;
 
 public abstract class InputHandler {
 
+    /** Index of user's command in a String array */
     private static final int COMMAND_INDEX = 0;
 
+    /**
+     * Adds a new todo task to a given list.
+     * 
+     * @param list List where the todo task is to be added.
+     * @param line Line of user input.
+     */
     private static void handleTodo(List list, String line) {
         try {
             String todoDescription = InputParser.getTodoDescription(line);
@@ -24,6 +31,12 @@ public abstract class InputHandler {
         }
     }
 
+    /**
+     * Adds a new deadline task to a given list.
+     * 
+     * @param list List where the deadline task is to be added.
+     * @param line Line of user input.
+     */
     private static void handleDeadline(List list, String line) {
         try {
             int byIndex = line.indexOf("/by");
@@ -37,6 +50,12 @@ public abstract class InputHandler {
         }
     }
 
+    /**
+     * Adds a new event task to a given list.
+     * 
+     * @param list List where the event task is to be added.
+     * @param line Line of user input.
+     */
     private static void handleEvent(List list, String line) {
         try {
             int fromIndex = line.indexOf("/from");
@@ -52,6 +71,12 @@ public abstract class InputHandler {
         }
     }
 
+    /**
+     * Deletes a task from a given list.
+     * 
+     * @param list List where the task is to be deleted.
+     * @param line Line of user input.
+     */
     private static void handleDelete(List list, String line) {
         try {
             int taskIndex = InputParser.getTaskIndex(line);
@@ -72,6 +97,13 @@ public abstract class InputHandler {
         }
     }
 
+    /**
+     * Changes the completion status of a task in a given list.
+     * 
+     * @param list List where the task's completion status is to be changed.
+     * @param line Line of user input.
+     * @param command String to determine the task's new completion status.
+     */
     private static void handleTaskStatusChange(List list, String line, String command) {
         try {
             int taskIndex = InputParser.getTaskIndex(line);
@@ -83,6 +115,13 @@ public abstract class InputHandler {
         }
     }
 
+    /**
+     * Determines an action to perform on a list based on given user input.
+     * 
+     * @param list List to perform the action on.
+     * @param line Line of user input.
+     * @throws InvalidCommandException If the command is not captured in the if-else blocks.
+     */
     public static void handleUserInput(List list, String line) throws InvalidCommandException {
         String command = line.split(" ")[COMMAND_INDEX];
         if (command.equals("") || command.equals("bye")) {

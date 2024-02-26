@@ -1,15 +1,17 @@
 package geepee.system;
 
 public abstract class SystemMessage {
-
-    public static final String TODO_TEMPLATE = "\"todo {description}\"";
-    public static final String DEADLINE_TEMPLATE = "\"deadline {description} /by {deadline}\"";
-    public static final String EVENT_TEMPLATE = "\"event {description} /from {from} /to {to}\"";
-
+    
+    /**
+     * Returns a string representing a horizontal line.
+     */
     public static String getHorizontalLine() {
         return "    ________________________________________________";
     }
 
+    /**
+     * Prints welcome message.
+     */
     public static void printWelcomeMessage() {
         System.out.println(getHorizontalLine());
         System.out.println("    Hello! I'm GeePee, your friendly chatbot assistant!");
@@ -17,17 +19,26 @@ public abstract class SystemMessage {
         System.out.println(getHorizontalLine());
     }
 
+    /**
+     * Prints exit message.
+     */
     public static void printExitMessage() {
         System.out.println(getHorizontalLine());
         System.out.println("    Bye! Hope to see you again soon!");
         System.out.println(getHorizontalLine());
     }
 
+    /**
+     * Prints error message for FileNotFound exceptions.
+     */
     public static void printFileNotFoundMessage() {
         System.out.println(getHorizontalLine());
         System.out.println("    No file found! The initialised list will be empty.");
     }
 
+    /**
+     * Prints error message for IO exceptions.
+     */
     public static void printIOExceptionMessage() {
         System.out.println(getHorizontalLine());
         System.out.println("    Unable to overwrite file!");

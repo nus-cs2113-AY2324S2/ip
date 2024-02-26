@@ -8,35 +8,54 @@ import geepee.exceptions.MissingIndexException;
 
 public abstract class InputParser {
 
-    // constant to determine required padding to extract the name of a Todo object
+    /** Required padding to extract description of a todo task */
     private static final int TODO_PADDING = 5;
 
-    // constants to determine required padding to extract the name of a Deadline
-    // object, and when it needs to be completed by
+    /** Required padding to extract description of a deadline task */
     private static final int DEADLINE_PADDING = 9;
+    /** Required padding to extract the deadline of a deadline task */
     private static final int BY_PADDING = 3;
 
-    // constants to determine required padding to extract the name of a Event
-    // object, and when it starts and ends
+    /** Required padding to extract the description of an event task */
     private static final int EVENT_PADDING = 6;
+    /** Required padding to extract the start of an event task */
     private static final int FROM_PADDING = 5;
+    /** Required padding to extract the end of an event task */
     private static final int TO_PADDING = 3;
 
+    /** Required padding to extract the index of a task */
     private static final int TASK_INDEX_PADDING = 7;
 
+    /** Required padding to extract the keyword from user input */
     private static final int KEYWORD_PADDING = 5;
 
+    /**
+     * Extracts the description of a todo task from a line of user input.
+     * 
+     * @param line Line of user input.
+     * @return Description of todo task.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
     public static String getTodoDescription(String line) throws EmptyDescriptionException {
-        //check for empty todo description
+        // check for empty todo description
         if (line.equals("todo")) {
             throw new EmptyDescriptionException();
         }
         return line.substring(TODO_PADDING).trim();
     }
 
+    /**
+     * Extracts the description of a deadline task from a line of user input.
+     * 
+     * @param line Line of user input.
+     * @param byIndex Index of "/by" keyword.
+     * @return Description of deadline task.
+     * @throws EmptyDescriptionException If the description is empty.
+     * @throws MissingDeadlineException If the "/by" keyword is missing.
+     */
     public static String getDeadlineDescription(String line, int byIndex) 
             throws EmptyDescriptionException, MissingDeadlineException {
-        //check for empty deadline description and lack of "/by" keyword
+        // check for empty deadline description and lack of "/by" keyword
         if (line.equals("deadline")) {
             throw new EmptyDescriptionException();
         } else if (byIndex == -1) {
@@ -44,15 +63,23 @@ public abstract class InputParser {
         }
         String deadlineDescription = line.substring(DEADLINE_PADDING, byIndex).trim();
         
-        //account for edge case where deadline description is whitespace
+        // account for edge case where deadline description is whitespace
         if (deadlineDescription.equals("")) {
             throw new EmptyDescriptionException();
         }
         return deadlineDescription;
     }
 
+    /**
+     * Extracts the deadline of a deadline task from a line of user input.
+     * 
+     * @param line Line of user input.
+     * @param byIndex Index of "/by" keyword.
+     * @return Deadline of deadline task.
+     * @throws MissingDeadlineException If the deadline is empty.
+     */
     public static String getDeadlineBy(String line, int byIndex) throws MissingDeadlineException {
-        //check for empty deadline do by
+        // check for empty deadline
         if (byIndex + BY_PADDING > line.length() - 1) {
             throw new MissingDeadlineException();
         }
@@ -60,9 +87,18 @@ public abstract class InputParser {
         return deadlineBy;
     }
 
+    /**
+     * Extracts the description of an event task from a line of user input.
+     * 
+     * @param line Line of user input.
+     * @param fromIndex Index of "/from" keyword.
+     * @return Description of event task.
+     * @throws EmptyDescriptionException If the description is empty.
+     * @throws MissingFromException If the "/from" keyword is missing.
+     */
     public static String getEventDescription(String line, int fromIndex)
             throws EmptyDescriptionException, MissingFromException {
-        //check for empty event description and lack of "/from" keyword
+        // check for empty event description and lack of "/from" keyword
         if (line.equals("event")) {
             throw new EmptyDescriptionException();
         } else if (fromIndex == -1) {
@@ -70,16 +106,26 @@ public abstract class InputParser {
         }
         String eventDescription = line.substring(EVENT_PADDING, fromIndex).trim();
         
-        //account for edge case where event description is whitespace
+        // account for edge case where event description is whitespace
         if (eventDescription.equals("")) {
             throw new EmptyDescriptionException();
         }
         return eventDescription;
     }
 
+    /**
+     * Extracts the start of an event task from a line of user input.
+     * 
+     * @param line Line of user input.
+     * @param fromIndex Index of "/from" keyword.
+     * @param toIndex Index of "/to" keyword.
+     * @return Start of the event task.
+     * @throws MissingFromException If the start of the event is empty.
+     * @throws MissingToException If the "/to" keyword is missing.
+     */
     public static String getEventFrom(String line, int fromIndex, int toIndex)
             throws MissingFromException, MissingToException {
-        //check for empty event start (from) and lack of "/to" keyword
+        // check if start of event is empty and lack of "/to" keyword
         if (fromIndex + FROM_PADDING > line.length() - 1) {
             throw new MissingFromException();
         } else if (toIndex == -1) {
@@ -87,15 +133,23 @@ public abstract class InputParser {
         }
         String eventFrom = line.substring(fromIndex + FROM_PADDING, toIndex).trim();
 
-        //account for edge case where event start (from) description is whitespace
+        // account for edge case where start of event is whitespace
         if (eventFrom.equals("")) {
             throw new MissingFromException();
         }
         return eventFrom;
     }
 
+    /**
+     * Extracts the end of an event task from a line of user input.
+     * 
+     * @param line Line of user input.
+     * @param toIndex Index of "/to" keyword.
+     * @return End of the event task.
+     * @throws MissingToException If the end of the event is empty.
+     */
     public static String getEventTo(String line, int toIndex) throws MissingToException {
-        //check for empty event end (to)
+        // check if end of event is empty
         if (toIndex + TO_PADDING > line.length() - 1) {
             throw new MissingToException();
         }
@@ -103,6 +157,12 @@ public abstract class InputParser {
         return eventTo;
     }
 
+    /**
+     * Extracts the index of a task from line of user input.
+     * 
+     * @param line Line of user input.
+     * @return Index of the task.
+     */
     public static int getTaskIndex(String line) throws MissingIndexException {
         if (line.equals("delete") || line.equals("mark") || line.equals("unmark")) {
             throw new MissingIndexException();
