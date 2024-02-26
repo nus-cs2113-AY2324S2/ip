@@ -5,12 +5,13 @@ import jeff.Printer;
 import jeff.Storage;
 import jeff.TaskList;
 import jeff.tasks.Deadline;
+import java.time.LocalDate;
 
 public class DeadlineCommand extends Command {
     private final String description;
-    private final String by;
+    private final LocalDate by;
 
-    public DeadlineCommand(String description, String by) {
+    public DeadlineCommand(String description, LocalDate by) {
         this.description = description;
         this.by = by;
     }

@@ -11,7 +11,7 @@ import jeff.exceptions.InvalidUnmarkSyntaxException;
 import jeff.exceptions.UnableToDeleteException;
 import jeff.exceptions.UnableToMarkException;
 import jeff.exceptions.UnableToUnmarkException;
-
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Ui {
@@ -29,7 +29,7 @@ public class Ui {
                 ExceptionHandler.handleInvalidCommandException();
             } catch (InvalidTodoSyntaxException e) {
                 ExceptionHandler.handleInvalidTodoSyntaxException();
-            } catch (InvalidDeadlineSyntaxException e) {
+            } catch (InvalidDeadlineSyntaxException | DateTimeParseException e) {
                 ExceptionHandler.handleInvalidDeadlineSyntaxException();
             } catch (InvalidEventSyntaxException e) {
                 ExceptionHandler.handleInvalidEventSyntaxException();
