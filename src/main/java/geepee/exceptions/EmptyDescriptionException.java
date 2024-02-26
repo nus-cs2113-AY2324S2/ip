@@ -14,6 +14,7 @@ public class EmptyDescriptionException extends Exception {
     public static final String DEADLINE_TEMPLATE = "\"deadline {description} /by {deadline}\"";
     /** Template of correct event input */
     public static final String EVENT_TEMPLATE = "\"event {description} /from {from} /to {to}\"";
+    public static final String KEYWORD_TEMPLATE = "\"find {keyword}\"";
 
     /**
      * Returns a string of the error message when the user tries to initialise a todo task
@@ -42,6 +43,12 @@ public class EmptyDescriptionException extends Exception {
     public String getEmptyEventMessage() {
         String message = "    The description of an event cannot be empty! The correct input is " +
                 EVENT_TEMPLATE;
+        return HORIZONTAL_LINE + NEWLINE + message + NEWLINE + HORIZONTAL_LINE;
+    }
+
+    public String getEmptyKeywordMessage() {
+        String message = "    The keyword to look for is empty! The correct input is " +
+                KEYWORD_TEMPLATE;
         return HORIZONTAL_LINE + NEWLINE + message + NEWLINE + HORIZONTAL_LINE;
     }
 }

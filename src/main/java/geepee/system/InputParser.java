@@ -4,6 +4,7 @@ import geepee.exceptions.EmptyDescriptionException;
 import geepee.exceptions.MissingDeadlineException;
 import geepee.exceptions.MissingFromException;
 import geepee.exceptions.MissingToException;
+import geepee.exceptions.MissingIndexException;
 
 public abstract class InputParser {
 
@@ -22,8 +23,11 @@ public abstract class InputParser {
     /** Required padding to extract the end of an event task */
     private static final int TO_PADDING = 3;
 
-    /** Index of task in a String array */
-    private static final int TASK_INDEX = 1;
+    /** Required padding to extract the index of a task */
+    private static final int TASK_INDEX_PADDING = 7;
+
+    /** Required padding to extract the keyword from user input */
+    private static final int KEYWORD_PADDING = 5;
 
     /**
      * Extracts the description of a todo task from a line of user input.
@@ -159,8 +163,19 @@ public abstract class InputParser {
      * @param line Line of user input.
      * @return Index of the task.
      */
-    public static int getTaskIndex(String line) {
-        String[] words = line.split(" ");
-        return Integer.parseInt(words[TASK_INDEX]) - 1;
+    public static int getTaskIndex(String line) throws MissingIndexException {
+        if (line.equals("delete") || line.equals("mark") || line.equals("unmark")) {
+            throw new MissingIndexException();
+        }
+        String index = line.substring(TASK_INDEX_PADDING).trim();
+        return Integer.parseInt(index) - 1;
+    }
+
+    public static String getKeyword(String line) throws EmptyDescriptionException {
+        if (line.equals("find")) {
+            throw new EmptyDescriptionException();
+        }
+        String keyword = line.substring(KEYWORD_PADDING).trim();
+        return keyword;
     }
 }

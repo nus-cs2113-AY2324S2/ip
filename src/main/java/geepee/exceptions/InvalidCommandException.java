@@ -9,7 +9,8 @@ public class InvalidCommandException extends Exception {
     /** String representing a horizontal line */
     public static final String HORIZONTAL_LINE = SystemMessage.getHorizontalLine();
     /** Error message */
-    public static final String MESSAGE = "    Invalid command! Valid commands are: todo, event, deadline, list";
+    public static final String MESSAGE = "    Invalid command! Valid commands are: todo, event, deadline, list, " +
+            "mark, unmark, delete, find";
 
     /**
      * Initialises an instance of the InvalidCommandException class.

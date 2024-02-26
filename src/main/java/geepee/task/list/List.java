@@ -55,6 +55,19 @@ public class List {
     }
 
     /**
+     * Prints tasks from the lists that are relevant to the given keyword.
+     */
+    public void findTasksFromKeyword(String keyword) {
+        ArrayList<Task> relevantTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                relevantTasks.add(task);
+            }
+        }
+        ListMessage.printRelevantTasks(relevantTasks);
+    }
+
+    /**
      * Returns the size of the list.
      */
     public int getSize() {
