@@ -2,75 +2,129 @@ package jeff;
 
 import java.io.IOException;
 
+/**
+ * Provides static methods for handling various types of exceptions that may occur during program execution.
+ */
 public class ExceptionHandler {
+
+    /**
+     * Handles the invalid command exception by printing an error message and listing valid commands.
+     */
     public static void handleInvalidCommandException() {
         Printer.printIndent("Invalid command.");
         Printer.printIndent("List of valid commands:");
         Printer.printIndent("list, todo, deadline, event, mark, unmark, bye");
     }
 
+    /**
+     * Handles the invalid todo syntax exception by printing an error message.
+     * Provides guidance on the correct syntax for creating a todo task.
+     */
     public static void handleInvalidTodoSyntaxException() {
         Printer.printIndent("Invalid todo syntax.");
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("todo [description]");
     }
 
+    /**
+     * Handles the invalid deadline syntax exception by printing an error message.
+     * Provides guidance on the correct syntax for creating a deadline task.
+     */
     public static void handleInvalidDeadlineSyntaxException() {
         Printer.printIndent("Invalid deadline syntax.");
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("deadline [description] /by [by]");
     }
 
+    /**
+     * Handles the invalid event syntax exception by printing an error message.
+     * Provides guidance on the correct syntax for creating an event task.
+     */
     public static void handleInvalidEventSyntaxException() {
         Printer.printIndent("Invalid event syntax.");
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("event [description] /from [from] /to [to]");
     }
 
+    /**
+     * Handles the invalid mark syntax exception by printing an error message.
+     * Provides guidance on the correct syntax for marking a task.
+     */
     public static void handleInvalidMarkSyntaxException() {
         Printer.printIndent("Invalid mark syntax.");
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("mark [any number from 1 to " + TaskList.size() + "]");
     }
 
+    /**
+     * Handles the invalid unmark syntax exception by printing an error message.
+     * Provides guidance on the correct syntax for unmarking a task.
+     */
     public static void handleInvalidUnmarkSyntaxException() {
         Printer.printIndent("Invalid unmark syntax.");
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("unmark [any number from 1 to " + TaskList.size() + "]");
     }
 
+    /**
+     * Handles the invalid delete syntax exception by printing an error message.
+     * Provides guidance on the correct syntax for deleting a task.
+     */
     public static void handleInvalidDeleteSyntaxException() {
         Printer.printIndent("Invalid delete syntax.");
         Printer.printIndent("Correct syntax should be:");
         Printer.printIndent("delete [any number from 1 to " + TaskList.size() + "]");
     }
 
+    /**
+     * Handles the file not found exception by creating a new file and printing a message.
+     */
     public static void handleFileNotFoundException() {
         Storage.createNewFile();
         Printer.printIndent("File not found. data/jeff.txt created.");
         Printer.printDivider();
     }
 
+    /**
+     * Handles the corrupt file exception by printing an error message and exits the program.
+     */
     public static void handleCorruptFileException() {
         Printer.printIndent("File is corrupt. Content not in expected format.");
         Printer.printDivider();
         System.exit(1);
     }
 
+    /**
+     * Handles the IOException by printing the specific error message from the exception and exits the program.
+     *
+     * @param e The IOException that occurred.
+     */
     public static void handleIOException(IOException e) {
         Printer.printIndent("Something went wrong: " + e.getMessage());
         Printer.printDivider();
         System.exit(1);
     }
 
+    /**
+     * Handles the exception when unable to mark a task.
+     * It prints a message indicating the inability to mark the task.
+     */
     public static void handleUnableToMarkException() {
         Printer.printUnableToMark();
     }
 
+    /**
+     * Handles the exception when unable to unmark a task.
+     * It prints a message indicating the inability to unmark the task.
+     */
     public static void handleUnableToUnmarkException() {
         Printer.printUnableToUnmark();
     }
 
+    /**
+     * Handles the exception when unable to delete a task.
+     * It prints a message indicating the inability to delete the task.
+     */
     public static void handleUnableToDeleteException() {
         Printer.printUnableToDelete();
     }

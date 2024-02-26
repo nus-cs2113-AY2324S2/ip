@@ -13,7 +13,16 @@ import jeff.exceptions.UnableToUnmarkException;
 
 import java.util.Scanner;
 
+/**
+ * Serves as the interface between the user and the application.
+ */
 public class Ui {
+
+    /**
+     * Handles user input by continuously reading input from the standard input (keyboard),
+     * parsing it into commands, and executing the corresponding commands.
+     * It continues processing user input until an exit command is received.
+     */
     public static void handleUserInput() {
         Scanner in = new Scanner(System.in);
         boolean isExit = false;

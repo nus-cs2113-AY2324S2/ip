@@ -10,10 +10,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Provides methods for loading tasks from and saving tasks to an external file.
+ */
 public class Storage {
     private static final String EXPECTED_FILE_PATH = "data/jeff.txt";
     private static final int MARK_INDEX = 4;
 
+    /**
+     * Reads the contents of the storage file.
+     * Creates corresponding Task objects and adds them to the TaskList.
+     * If the file is not found or its contents are corrupt, appropriate exception handling is performed.
+     */
     public static void loadTasks() {
         try {
             File f = new File(EXPECTED_FILE_PATH);
@@ -33,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a task to the storage file.
+     *
+     * @param task The task to append to the storage file.
+     */
     public static void appendTask(Task task) {
         try {
             FileWriter fw = new FileWriter(EXPECTED_FILE_PATH, true); // create a FileWriter in append mode
@@ -44,6 +57,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the storage file at the specified index.
+     *
+     * @param index The index of the task to be deleted from the storage file.
+     */
     public static void deleteTask(int index) {
         try {
             File f = new File(EXPECTED_FILE_PATH);
@@ -68,6 +86,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the mark status of a task in the storage file at the specified index.
+     *
+     * @param index The index of the task whose mark status is to be updated.
+     * @param mark The new mark status to be set for the task. {@code true} to mark the task. {@code false} to unmark the task.
+     */
     public static void updateMarkStatus(int index, boolean mark) {
         char newMarkStatus = mark ? '1' : '0';
 
@@ -96,6 +120,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file named "jeff.txt" in the "data" directory.
+     * If the "data" directory does not exist, it creates the directory first.
+     * If the file already exists, no action is taken.
+     * If an IOException occurs during the file creation process, it is handled appropriately.
+     */
     public static void createNewFile() {
         String directoryPath = "data";
         String fileName = "jeff.txt";
