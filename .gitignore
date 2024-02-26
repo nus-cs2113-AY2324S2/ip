@@ -3,6 +3,13 @@
 /out/
 /*.iml
 
+# class files
+*.class
+
+#
+*.jar
+*.exe
+
 # Gradle build files
 /.gradle/
 /build/
@@ -15,3 +22,4 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+nehsik.txt
