@@ -76,10 +76,11 @@ public abstract class InputHandler {
      * 
      * @param list List where the task is to be deleted.
      * @param line Line of user input.
+     * @param command Command given by user to delete task.
      */
-    private static void handleDelete(List list, String line) {
+    private static void handleDelete(List list, String line, String command) {
         try {
-            int taskIndex = InputParser.getTaskIndex(line);
+            int taskIndex = InputParser.getTaskIndex(line, command);
             if (taskIndex >= 0 && taskIndex < list.getSize()) {
                 list.deleteTask(taskIndex);
             }
@@ -88,6 +89,12 @@ public abstract class InputHandler {
         }
     }
 
+    /**
+     * Finds tasks that are relevant to a keyword from a given list.
+     * 
+     * @param list List where relevant tasks are to be located.
+     * @param line Line of user input.
+     */
     private static void handleFind(List list, String line) {
         try {
             String keyword = InputParser.getKeyword(line);
@@ -102,11 +109,11 @@ public abstract class InputHandler {
      * 
      * @param list List where the task's completion status is to be changed.
      * @param line Line of user input.
-     * @param command String to determine the task's new completion status.
+     * @param command Command given by user to mark task complete/incomplete.
      */
     private static void handleTaskStatusChange(List list, String line, String command) {
         try {
-            int taskIndex = InputParser.getTaskIndex(line);
+            int taskIndex = InputParser.getTaskIndex(line, command);
             if (taskIndex >= 0 && taskIndex < list.getSize()) {
                 list.changeTaskStatus(taskIndex, (command.equals("mark") ? true : false));
             }
@@ -137,7 +144,7 @@ public abstract class InputHandler {
         } else if (command.equals("event")) {
             handleEvent(list, line);
         } else if (command.equals("delete")) {
-            handleDelete(list, line);
+            handleDelete(list, line, command);
         } else if (command.equals("find")) {
             handleFind(list, line);
         } else {

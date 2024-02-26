@@ -17,7 +17,7 @@ public class EmptyDescriptionException extends Exception {
     public static final String KEYWORD_TEMPLATE = "\"find {keyword}\"";
 
     /**
-     * Returns a string of the error message when the user tries to initialise a todo task
+     * Returns a string containing an error message when the user tries to initialise a todo task
      * with an empty description.
      */
     public String getEmptyTodoMessage() {
@@ -27,7 +27,7 @@ public class EmptyDescriptionException extends Exception {
     }
 
     /**
-     * Returns a string of the error message when the user tries to initialise a deadline task
+     * Returns a string containing an error message when the user tries to initialise a deadline task
      * with an empty description.
      */
     public String getEmptyDeadlineMessage() {
@@ -37,7 +37,7 @@ public class EmptyDescriptionException extends Exception {
     }
 
     /**
-     * Returns a string of the error message when the user tries to initialise an event task
+     * Returns a string containing an error message when the user tries to initialise an event task
      * with an empty description.
      */
     public String getEmptyEventMessage() {
@@ -46,6 +46,10 @@ public class EmptyDescriptionException extends Exception {
         return HORIZONTAL_LINE + NEWLINE + message + NEWLINE + HORIZONTAL_LINE;
     }
 
+    /**
+     * Returns a string containing an error message when the user tries to perform a find operation
+     * without providing a keyword.
+     */
     public String getEmptyKeywordMessage() {
         String message = "    The keyword to look for is empty! The correct input is " +
                 KEYWORD_TEMPLATE;

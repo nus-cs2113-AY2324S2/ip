@@ -24,7 +24,8 @@ public abstract class InputParser {
     private static final int TO_PADDING = 3;
 
     /** Required padding to extract the index of a task */
-    private static final int TASK_INDEX_PADDING = 7;
+    private static final int DELETE_UNMARK_PADDING = 7;
+    private static final int MARK_PADDING = 5;
 
     /** Required padding to extract the keyword from user input */
     private static final int KEYWORD_PADDING = 5;
@@ -158,19 +159,32 @@ public abstract class InputParser {
     }
 
     /**
-     * Extracts the index of a task from line of user input.
+     * Extracts the index of a task from user input for the mark/unmark/delete operations.
      * 
      * @param line Line of user input.
-     * @return Index of the task.
+     * @param command Command given by user input.
+     * @return Index of the task for mark/unmark/delete operations.
      */
-    public static int getTaskIndex(String line) throws MissingIndexException {
+    public static int getTaskIndex(String line, String command) throws MissingIndexException {
         if (line.equals("delete") || line.equals("mark") || line.equals("unmark")) {
             throw new MissingIndexException();
         }
-        String index = line.substring(TASK_INDEX_PADDING).trim();
+        String index = "";
+        if (command.equals("delete") || command.equals("unmark")) {
+            index = line.substring(DELETE_UNMARK_PADDING).trim();
+        } else if (command.equals("mark")) {
+            index = line.substring(MARK_PADDING).trim();
+        }
         return Integer.parseInt(index) - 1;
     }
 
+    /**
+     * Extracts the keyword from user input for the find operation.
+     * 
+     * @param line Line of user input.
+     * @return Keyword for find operation.
+     * @throws EmptyDescriptionException If the keyword is empty.
+     */
     public static String getKeyword(String line) throws EmptyDescriptionException {
         if (line.equals("find")) {
             throw new EmptyDescriptionException();
