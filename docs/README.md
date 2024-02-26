@@ -18,11 +18,11 @@ This is a chatbot that can track your list of tasks, and prompt you to complete 
 
 Follow these steps to get started with Yuki.
 
-1. **Compile the Code:**
-    - Compile the Java source code using your preferred Java compiler.
+1. **Download the latest JAR File:**
+    - Download the latest release from https://github.com/yuki-zmstr/ip
 
 2. **Run the JAR File:**
-    - Execute the compiled JAR file to launch the chatbot.
+    - Execute the JAR file to launch the chatbot.
 
 3. **Interact with the Chatbot:**
     - Follow the on-screen instructions to add tasks and manage your to-do list.
@@ -56,12 +56,11 @@ Now you have 2 tasks in the list.
 ---------------------------------------------
 Enter command: 
 
-> event trip to US /from 1 Jan /to 8 Jan
-[Command entered: event trip to US /from 1 Jan /to 8 Jan]
+> mark 2
+[Command entered: mark 2]
 ---------------------------------------------
-new todo for you:
-[ ][E] trip to US  (from: 1 Jan  to: 8 Jan)
-Now you have 3 tasks in the list.
+Good job.
+[X][D] homework  (by:7pm)
 ---------------------------------------------
 Enter command: 
 
@@ -70,9 +69,8 @@ Enter command:
 ---------------------------------------------
 Wake up your idea and do these tasks:
 1.[ ] [T] clean house
-2.[ ] [D] homework  (by:7pm)
-3.[ ] [E] trip to US  (from: 1 Jan  to: 8 Jan)
-Now you have 3 tasks in the list.
+2.[X] [D] homework  (by:7pm)
+Now you have 2 tasks in the list.
 ---------------------------------------------
 Enter command: 
 
