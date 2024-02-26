@@ -25,18 +25,17 @@ public class Add extends Command{
     protected String taskDate;
     public Add(Parser parser){
         super(parser);
-        this.taskDate = parser.getTaskDate();
-        try {
-            LocalDate date = LocalDate.parse(taskDate);
+        if(parser.getTaskDate()!=null) {
+            this.taskDate = parser.getTaskDate();
+            try {
+                LocalDate date = LocalDate.parse(taskDate);
 
-            this.taskDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US));
-        }catch(DateTimeParseException e){
-            System.out.println("\tYou can also use date format like 2023-07-30");
+                this.taskDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US));
+            } catch (DateTimeParseException e) {
+                System.out.println("\tYou can also use date format like 2023-07-30");
+            }
         }
-        finally {
-            this.taskDescription = parser.getTaskDescription();
-        }
-
+        this.taskDescription = parser.getTaskDescription();
     }
     /**
      * Execute the Add command with a given task

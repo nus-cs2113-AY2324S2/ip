@@ -24,10 +24,10 @@ public class Parser {
             this.taskDate = task_date.replace("by ", "");
         } else if (instruction.startsWith("event")) {
             this.type = "event";
-            String task_date = splitInstruction[1].split("/", 2)[1];
+            String date = splitInstruction[1].split("/", 2)[1];
             this.taskDescription = splitInstruction[1].split("/", 2)[0];
-            this.taskDate = task_date.replace("/", "");
-            this.taskDate = task_date.replace("from ", "");
+            this.taskDate = date.replace("/", "");
+            this.taskDate = taskDate.replace("from ", "");
         } else if (instruction.startsWith("todo")) {
             this.type = "todo";
             this.taskDescription = splitInstruction[1];
