@@ -37,6 +37,16 @@ public class List {
         ListMessage.printTaskStatusMessage(isDone, tasks.get(index));
     }
 
+    public void findTasksFromKeyword(String keyword) {
+        ArrayList<Task> relevantTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                relevantTasks.add(task);
+            }
+        }
+        ListMessage.printRelevantTasks(relevantTasks);
+    }
+
     public int getSize() {
         return tasks.size();
     }

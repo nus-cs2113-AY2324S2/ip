@@ -4,6 +4,7 @@ import geepee.exceptions.EmptyDescriptionException;
 import geepee.exceptions.MissingDeadlineException;
 import geepee.exceptions.MissingFromException;
 import geepee.exceptions.MissingToException;
+import geepee.exceptions.MissingIndexException;
 
 public abstract class InputParser {
 
@@ -21,7 +22,9 @@ public abstract class InputParser {
     private static final int FROM_PADDING = 5;
     private static final int TO_PADDING = 3;
 
-    private static final int TASK_INDEX = 1;
+    private static final int TASK_INDEX_PADDING = 7;
+
+    private static final int KEYWORD_PADDING = 5;
 
     public static String getTodoDescription(String line) throws EmptyDescriptionException {
         //check for empty todo description
@@ -100,8 +103,19 @@ public abstract class InputParser {
         return eventTo;
     }
 
-    public static int getTaskIndex(String line) {
-        String[] words = line.split(" ");
-        return Integer.parseInt(words[TASK_INDEX]) - 1;
+    public static int getTaskIndex(String line) throws MissingIndexException {
+        if (line.equals("delete") || line.equals("mark") || line.equals("unmark")) {
+            throw new MissingIndexException();
+        }
+        String index = line.substring(TASK_INDEX_PADDING).trim();
+        return Integer.parseInt(index) - 1;
+    }
+
+    public static String getKeyword(String line) throws EmptyDescriptionException {
+        if (line.equals("find")) {
+            throw new EmptyDescriptionException();
+        }
+        String keyword = line.substring(KEYWORD_PADDING).trim();
+        return keyword;
     }
 }

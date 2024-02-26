@@ -4,7 +4,7 @@ import java.util.Scanner;
 import geepee.task.list.List;
 import geepee.exceptions.InvalidCommandException;
 
-public class UI {
+public abstract class UI {
 
     private static Scanner in = new Scanner(System.in);
 
