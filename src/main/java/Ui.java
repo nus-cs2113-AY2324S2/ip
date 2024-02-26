@@ -42,6 +42,7 @@ public class Ui {
         processUserCommand(userInput);
     }
 
+
     /**
      * Processes user commands based on the provided input.
      * The method gets the next user command until the user decides to exit.
@@ -52,25 +53,38 @@ public class Ui {
         while (continueReceivingUserInputs) {
             userInput = userInput.toLowerCase();
             if (userInput.equals("bye")) {
+                System.out.println();
                 System.out.println("Bye. I will be awaiting your next order! =)");
                 continueReceivingUserInputs = false;
             } else if (userInput.equals("list")) {
+                System.out.println();
                 taskManager.showListContents();
+                System.out.println();
                 userInput = myScanner.nextLine();
             } else if (userInput.contains("mark")) {
+                System.out.println();
                 taskManager.changeTaskStatus(userInput);
+                System.out.println();
                 userInput = myScanner.nextLine();
             } else if (userInput.contains("todo") || userInput.contains("event") || userInput.contains("deadline")){
+                System.out.println();
                 taskManager.addListContents(userInput);
+                System.out.println();
                 userInput = myScanner.nextLine();
             } else if (userInput.contains("delete")) {
+                System.out.println();
                 taskManager.deleteTask(userInput);
+                System.out.println();
                 userInput = myScanner.nextLine();
             } else if (userInput.contains("find")) {
+                System.out.println();
                 taskManager.findTask(userInput);
+                System.out.println();
                 userInput = myScanner.nextLine();
             } else {
+                System.out.println();
                 System.out.println("Please enter a valid command. Here have a cup of tea as you think of your next command. =/");
+                System.out.println();
                 userInput = myScanner.nextLine();
                 processUserCommand(userInput);
             }
