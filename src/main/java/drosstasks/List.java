@@ -32,6 +32,20 @@ public class List {
         size++;
     }
 
+
+    // Method to delete a task from the list by index
+    public void deleteTask(int index) throws IndexOutOfBoundsException {
+        int zeroBasedIndex = index - 1;
+        if (zeroBasedIndex < 0 || zeroBasedIndex >= size) {
+            throw new IndexOutOfBoundsException("Task index out of range.");
+        }
+        for (int i = zeroBasedIndex; i < size - 1; i++) {
+            tasks[i] = tasks[i + 1];
+        }
+        tasks[size - 1] = null;
+        size--;
+    }
+
     // Method to print the last added task
     public void printLastTask() {
         if (size > 0) {
@@ -43,7 +57,7 @@ public class List {
 
     //Method to toggle check task as done by index
     public void markDoneByIndex(int index){
-        tasks[index-1].completeTask();
+        tasks[index-1].checkTask();
     }
 
     //Method to toggle check task as undone by index

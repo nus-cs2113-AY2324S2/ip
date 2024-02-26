@@ -12,7 +12,7 @@ public class Task {
 
 
     // Mark the task as completed
-    public void completeTask() {
+    public void checkTask() {
         this.isCompleted = true;
     }
 
