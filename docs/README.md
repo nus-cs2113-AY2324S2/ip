@@ -1,29 +1,66 @@
 # User Guide
 
-## Features 
+## Features
 
-### Feature-ABC
+Words in `UPPER_CASE` are the parameters to be supplied by the user.
+e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
-Description of the feature.
+### Adding a Todo task: `todo`
 
-### Feature-XYZ
+Adds a todo task to the list.
 
-Description of the feature.
+Format: `todo DESCRIPTION`
 
-## Usage
+### Adding a Deadline task: `deadline`
 
-### `Keyword` - Describe action
+Adds a deadline task to the list.
 
-Describe the action and its outcome.
+Format: `deadline DESCRIPTION /by DEADLINE`
 
-Example of usage: 
+### Adding an Event task: `event`
 
-`keyword (optional arguments)`
+Adds an event task to the list.
 
-Expected outcome:
+Format: `event DESCRIPTION /from START /to END`
 
-Description of the outcome.
+### Listing all tasks: `list`
 
-```
-expected output
-```
+Shows a list of all tasks in the list.
+
+Format: `list`
+
+### Marking a task as complete: `mark`
+
+Marks a task as completed.
+
+Format: `mark INDEX`
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, ...
+
+### Marking a task as incomplete: `unmark`
+
+Marks a task as uncompleted.
+
+Format: `unmark INDEX`
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, ...
+
+### Deleting a task: `delete`
+
+Deletes the specified task from the list.
+
+Format: `delete INDEX`
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer 1, 2, 3, ...
+
+### Finding relevant tasks: `find`
+
+Finds tasks whose descriptions contain the given keyword.
+
+Format: `find KEYWORD`
+
+### Exiting the program: `bye`
+
+Exits the program.
+
+Format: `exit`
