@@ -268,9 +268,11 @@ Bye. Hope to see you again soon!
 > Storage data will be saved in directory `data` in your home directory. <BR>
 > Corrupted data file will be deleted immediately upon running the bot.
 
+
 JingHao data are saved in the hard disk automatically after any command that changes the data. <br>
 There is no need to save manually.
 <br>
+
 --------------------
 ## FAQ
 
