@@ -21,8 +21,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Compiled class file
 Asuka.class
 
-# test text file
-local-asuka.txt
-
 ./out/*
 src/main/java/META-INF/MANIFEST.MF
+local-asuka.txt

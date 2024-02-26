@@ -1,2 +1,1 @@
-Todo|true|read a book|NA
-Event|false|check email |9pm to 10pm
+Todo|true|add a book|NA

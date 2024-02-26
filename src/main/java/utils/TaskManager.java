@@ -64,16 +64,16 @@ public class TaskManager {
     public static void mark(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
         int taskNumber;
         taskNumber = Integer.parseInt(inputs[1]);
-        System.out.println(constants.BREAKLINE);
         if (taskNumber > 0 && taskNumber <= taskCount) {
+            System.out.println(constants.BREAKLINE);
             System.out.println("Nice! I've marked this task as done: ");
             tasks.get(taskNumber - 1).markAsDone();
             tasks.get(taskNumber - 1).printTask();
+            System.out.println(constants.BREAKLINE);
         }
         else {
             throw new TaskIndexOutOfBoundsException(taskCount);
         }
-        System.out.println(constants.BREAKLINE);
     }
 
     public static void unmark(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
