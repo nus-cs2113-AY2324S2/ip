@@ -57,7 +57,7 @@ All the tasks in the list would be updated to the textfile whenever a change is 
   - `1. [E] [X] Attend banquet dinner in Marina Bay Sands (from: 6pm to: 11pm)`
 
 ## Usage
-1. Download the latest Jar releasse.
+1. Download the latest Jar release.
 2. Move the Jar file into an empty folder.
 3. In terminal, cd to the directory that the Jar file is in.
 4. Run the command java -jar {filename}.jar (i.e., run the command in the same folder as the jar file).
