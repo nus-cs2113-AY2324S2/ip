@@ -37,6 +37,9 @@ public class DeadlineCommand implements Command {
 
         }
         taskDescription = taskDetails[0].trim();
+        if (taskDescription.isEmpty()) {
+            throw new BeefyException("Quit fooling me, I do not see any task to add!");
+        }
         try {
             taskBy = LocalDateTime.parse(taskDetails[1].trim());
         } catch (DateTimeParseException e) {

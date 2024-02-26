@@ -38,6 +38,9 @@ public class EventCommand implements Command {
                     + currDateTime.plusHours(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
         }
         taskDescription = taskDetails[0].trim();
+        if (taskDescription.isEmpty()) {
+            throw new BeefyException("Quit fooling me, I do not see any task to add!");
+        }
         try {
             taskFrom = LocalDateTime.parse(taskDetails[1].trim());
             taskTo = LocalDateTime.parse(taskDetails[2].trim());
