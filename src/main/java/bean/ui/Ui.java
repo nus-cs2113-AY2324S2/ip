@@ -16,6 +16,7 @@ public class Ui {
     private static final String MESSAGE_LIST_HEADER = "    These are the tasks in your list:";
     private static final String MESSAGE_TASK_DONE = "    Hey, looks like you're done with this task:\n   ";
     private static final String MESSAGE_CURRENT_NUMTASKS = "    You currently have ";
+    private static final String MESSAGE_FIND_TASKS = "    Hey, these are the matching tasks in your list:";
     private static final String EXCEPTION_INVALID_TASK_NUMBER = "    Sorry, that was an invalid task number.";
     private static final String EXCEPTION_NO_VALUE_FOR_REQUIRED_FIELDS = "    Exception: no value for required fields";
     private static final String EXCEPTION_NO_SUCH_COMMAND = "    Sorry, I don't understand that command";
@@ -40,6 +41,12 @@ public class Ui {
 
     public static void printIOException(Exception e) {
         System.out.println(EXCEPTION_IO + e.getMessage());
+        System.out.println(SEPARATOR);
+    }
+
+    public static void printFoundTasks(TaskList listOfMatches) {
+        System.out.println(MESSAGE_FIND_TASKS);
+        System.out.println(listOfMatches.toString());
         System.out.println(SEPARATOR);
     }
 

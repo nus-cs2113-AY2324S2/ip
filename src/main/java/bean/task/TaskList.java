@@ -8,14 +8,20 @@ import java.util.Arrays;
 public class TaskList {
     private ArrayList<Task> tasks;
     private int numTasks;
-    private int numTasksDone;
 
     public int getNumTasks() {
         return numTasks;
     }
 
-    public int getNumTasksDone() {
-        return numTasksDone;
+    public TaskList findTask(String query) {
+        ArrayList<Task> ListOfTaskMatches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(query)) {
+                ListOfTaskMatches.add(task);
+            }
+        }
+
+        return new TaskList(ListOfTaskMatches);
     }
 
     public Task addTask(String description) throws NoValueException {
@@ -41,9 +47,6 @@ public class TaskList {
 
     public Task removeTask(int index) {
         Task deletedTask = tasks.remove(index);
-        if (deletedTask.checkDone()) {
-            numTasksDone -= 1;
-        }
         numTasks -= 1;
         return deletedTask;
     }
@@ -51,10 +54,8 @@ public class TaskList {
     public Task markTask(int index, boolean isDone) {
         if (isDone) {
             tasks.get(index).setDone();
-            numTasksDone += 1;
         } else {
             tasks.get(index).setUndone();
-            numTasksDone -= 1;
         }
         return tasks.get(index);
     }
@@ -62,7 +63,11 @@ public class TaskList {
     public TaskList() {
         tasks = new ArrayList<>();
         numTasks = 0;
-        numTasksDone = 0;
+    }
+
+    public TaskList(ArrayList<Task> taskArrayList) {
+        tasks = taskArrayList;
+        numTasks = taskArrayList.size();
     }
 
     public String toString() {
