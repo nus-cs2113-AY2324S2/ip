@@ -4,6 +4,12 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task object.
+     *
+     * @param description Description of the task.
+     * @throws NoValueException If description is null.
+     */
     public Task(String description) throws NoValueException {
         if(description == null) {
             throw new NoValueException();
@@ -12,6 +18,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string containing a command that can regenerate the task
+     * when passed into bean.Bean.processAndExecute().
+     *
+     * @return the required command
+     */
     public abstract String toCommand();
 
     public String toString() {

@@ -7,9 +7,20 @@ import bean.task.Task;
 import bean.task.TaskList;
 import bean.ui.Ui;
 
+/**
+ * Class for the Bean chatbot. Its methods only consist of those to do with processing commands.
+ */
 public class Bean {
     private static final String FILE_PATH = "./src/main/java/bean/data/tasks.txt";
 
+    /**
+     * Edits the listOfTasks or prints required information to the UI
+     * according to the command passed in by the user.
+     *
+     * @param line String representing user's input
+     * @param listOfTasks TaskList to be edited
+     * @param isForLoading Silently processes commands to add tasks if set to true.
+     */
     public static void processAndExecute(String line, TaskList listOfTasks, boolean isForLoading) {
         Parser userLine = new Parser(line);
         switch (userLine.getCommand()) {
@@ -63,6 +74,12 @@ public class Bean {
         }
     }
 
+    /**
+     * Deletes the required task from listOfTasks.
+     * Prints error message if the task number is invalid/does not exist.
+     *
+     * @param listOfTasks TaskList for task to be deleted from
+     */
     private static void processDeleteCommand(TaskList listOfTasks, Parser userLine) {
         try {
             int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
@@ -76,6 +93,13 @@ public class Bean {
         return;
     }
 
+    /**
+     * Adds an Event task to the listOfTasks.
+     *
+     * @param userLine Parser representing user's input
+     * @param listOfTasks TaskList for Event to be added to
+     * @param isForLoading Silently adds Event to listOfTasks if set to true
+     */
     private static void processEventCommand(TaskList listOfTasks, boolean isForLoading, Parser userLine) {
         boolean taskIsDone;
         try {
@@ -100,6 +124,13 @@ public class Bean {
         }
     }
 
+    /**
+     * Adds a Deadline task to the listOfTasks.
+     *
+     * @param userLine Parser representing user's input
+     * @param listOfTasks TaskList for Deadline to be added to
+     * @param isForLoading Silently adds Deadline to listOfTasks if set to true
+     */
     private static void processDeadlineCommand(TaskList listOfTasks, boolean isForLoading, Parser userLine) {
         boolean taskIsDone;
         try {
@@ -123,6 +154,13 @@ public class Bean {
         }
     }
 
+    /**
+     * Adds a Todo task to the listOfTasks.
+     *
+     * @param userLine Parser representing user's input
+     * @param listOfTasks TaskList for Todo to be added to
+     * @param isForLoading Silently adds Todo to listOfTasks if set to true
+     */
     private static void processTodoCommand(TaskList listOfTasks, boolean isForLoading, Parser userLine) {
         boolean taskIsDone;
         try {
@@ -145,6 +183,12 @@ public class Bean {
         }
     }
 
+    /**
+     * Unmarks a particular task from the listOfTasks.
+     *
+     * @param userLine Parser representing user's input
+     * @param listOfTasks TaskList containing task to be unmarked
+     */
     private static void processUnmarkCommand(TaskList listOfTasks, Parser userLine) {
         try {
             int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
@@ -157,6 +201,12 @@ public class Bean {
         }
     }
 
+    /**
+     * Marks a particular task from the listOfTasks.
+     *
+     * @param userLine Parser representing user's input
+     * @param listOfTasks TaskList containing task to be marked
+     */
     private static void processMarkCommand(TaskList listOfTasks, Parser userLine) {
         try {
             int taskIndex = Integer.parseInt(userLine.getArgument()) - 1;
@@ -169,6 +219,9 @@ public class Bean {
         }
     }
 
+    /**
+     * The main method running the chatbot
+     */
     public static void main(String[] args) {
         Storage storage = new Storage(FILE_PATH);
         TaskList listOfTasks = storage.loadTaskList();

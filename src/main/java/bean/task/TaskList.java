@@ -24,6 +24,12 @@ public class TaskList {
         return new TaskList(ListOfTaskMatches);
     }
 
+    /**
+     * Adds a Todo to the TaskList
+     *
+     * @param description Description of Todo
+     * @throws NoValueException if <code>description</code> is null
+     */
     public Task addTask(String description) throws NoValueException {
         Task newTask = new ToDo(description);
         numTasks += 1;
@@ -31,6 +37,13 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * Adds a Deadline to the TaskList
+     *
+     * @param description Description of Deadline
+     * @param by Description of time it is due
+     * @throws NoValueException if <code>description</code> or <code>by</code> is null
+     */
     public Task addTask(String description, String by) throws NoValueException {
         Task newTask = new Deadline(description, by);
         numTasks += 1;
@@ -38,6 +51,14 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * Adds an Event to the TaskList
+     *
+     * @param description Description of Deadline
+     * @param start Description of start time
+     * @param end Description of end time
+     * @throws NoValueException if <code>description</code>, <code>start</code> or <code>end</code> is null
+     */
     public Task addTask(String description, String start, String end) throws NoValueException {
         Task newTask = new Event(description, start, end);
         numTasks += 1;
@@ -45,12 +66,24 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * Removes a Task from the TaskList
+     *
+     * @param index Index of the task in the TaskList to be removed
+     */
     public Task removeTask(int index) {
         Task deletedTask = tasks.remove(index);
         numTasks -= 1;
         return deletedTask;
     }
 
+    /**
+     * Marks a Task in the TaskList as done/not done
+     *
+     * @param index Index of the task to be marked
+     * @param isDone Whether task is to be marked done or undone
+     * @return Task that was just marked done/not done
+     */
     public Task markTask(int index, boolean isDone) {
         if (isDone) {
             tasks.get(index).setDone();
@@ -83,6 +116,12 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Returns a String of commands that can recreate the entire TaskList when passed through
+     * bean.Bean.processAndExecute()
+     *
+     * @return multiple line-separated commands that can recreate the TaskList
+     */
     public String toCommand() {
         StringBuilder result = new StringBuilder();
         for (Task task : tasks) {

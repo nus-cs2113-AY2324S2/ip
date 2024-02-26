@@ -12,6 +12,10 @@ import java.util.Scanner;
 
 import static bean.Bean.processAndExecute;
 
+/**
+ * Represents a storage handler. A Storage object can save and load a TaskList
+ * to and from a particular filePath.
+ */
 public class Storage {
     public Storage(String filePath){
         this.filePath = Path.of(filePath);
@@ -19,6 +23,11 @@ public class Storage {
 
     private final Path filePath;
 
+    /**
+     * Loads all tasks stored in filePath.
+     *
+     * @return TaskList of all tasks stored in filePath.
+     */
     public TaskList loadTaskList() {
         TaskList listOfTasks = new TaskList();
         File taskArchive = filePath.toFile();
@@ -47,6 +56,12 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * Saves the new list of tasks to the file in filePath.
+     * The contents of the file are overwritten.
+     *
+     * @param listOfTasks Updated list of tasks.
+     */
     public void saveTaskList(TaskList listOfTasks) {
         Ui.printSavingTasks();
         try {
