@@ -23,6 +23,9 @@ import jeff.exceptions.UnableToUnmarkException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and converts it into executable commands.
+ */
 public class Parser {
     private static final int TODO_DESCRIPTION_INDEX = 5;
     private static final int DEADLINE_DESCRIPTION_INDEX = 9;
@@ -42,6 +45,22 @@ public class Parser {
     private static final String DELETE_STRING = "delete";
     private static final String FIND_STRING = "find";
 
+    /**
+     * Parses the user input to determine the corresponding command to execute.
+     *
+     * @param userInput String representing the user input.
+     * @return Command object representing the parsed command.
+     * @throws InvalidCommandException If the user input does not match any valid command.
+     * @throws InvalidTodoSyntaxException If the todo command syntax is invalid.
+     * @throws InvalidDeadlineSyntaxException If the deadline command syntax is invalid.
+     * @throws InvalidEventSyntaxException If the event command syntax is invalid.
+     * @throws InvalidMarkSyntaxException If the mark command syntax is invalid.
+     * @throws InvalidUnmarkSyntaxException If the unmark command syntax is invalid.
+     * @throws InvalidDeleteSyntaxException If the delete command syntax is invalid.
+     * @throws UnableToMarkException If TaskList is empty and unable to mark a task.
+     * @throws UnableToUnmarkException If TaskList is empty and unable to unmark a task.
+     * @throws UnableToDeleteException If TaskList is empty and unable to delete a task.
+     */
     public static Command parseCommand(String userInput) throws
             InvalidCommandException,
             InvalidTodoSyntaxException,
