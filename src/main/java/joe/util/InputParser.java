@@ -109,15 +109,23 @@ public class InputParser {
         return deadlineTime;
     }
 
-    public static String[] getEventTime(String message) throws JoeException {
+    public static LocalDateTime[] getEventTime(String message) throws JoeException {
         if (!message.contains(EVENT_START_FLAG) || !message.contains(EVENT_END_FLAG)) {
             throw new JoeException();
         }
-        String[] eventDurations = new String[2];
+
         int startIndex = message.indexOf(EVENT_START_FLAG);
         int endIndex = message.indexOf(EVENT_END_FLAG);
-        eventDurations[0] = message.substring(startIndex, endIndex).replace(EVENT_START_FLAG, "").trim();
-        eventDurations[1] = message.substring(endIndex).replace(EVENT_END_FLAG, "").trim();
+        String startDate = message.substring(startIndex, endIndex).replace(EVENT_START_FLAG, "").trim();
+        String endDate = message.substring(endIndex).replace(EVENT_END_FLAG, "").trim();
+
+        LocalDateTime[] eventDurations = new LocalDateTime[2];
+        try {
+            eventDurations[0] = LocalDateTime.parse(startDate, INPUT_TIME_FORMAT);
+            eventDurations[1] = LocalDateTime.parse(endDate, INPUT_TIME_FORMAT);
+        } catch (DateTimeException e) {
+            throw new JoeException();
+        }
         return eventDurations;
     }
 }

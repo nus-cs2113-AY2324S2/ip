@@ -26,9 +26,11 @@ public class Printer {
     protected static final String TODO_EMPTY_TASK_ERROR = H_LINE + "??? YOU NEED TO GIVE YOUR TASK A NAME\n"
             + "\ttodo --TASK--\n" + H_LINE;
     protected static final String DEADLINE_INPUT_ERROR = H_LINE + "INVALID DEADLINE LOL\nPLEASE USE /by TO INDICATE "
-            + "DEADLINE TIME\n\tdeadline --TASK-- /by --TIME--\n" + H_LINE;
+            + "DEADLINE TIME\n\tdeadline --TASK-- /by --DATE TIME--\n\tINPUT DATE TIME IN THE FORMAT: dd-mm-yyyy HHmm\n"
+            + H_LINE;
     protected static final String EVENT_INPUT_ERROR = H_LINE + "INVALID EVENT LOL\nPLEASE USE /from AND /to TO "
-            + "INDICATE EVENT DURATION\n\tevent --TASK-- /from --START TIME-- /to --END TIME--\n" + H_LINE;
+            + "INDICATE EVENT DURATION\n\tevent --TASK-- /from --START DATE TIME-- /to --END DATE TIME--\n"
+            + "\tINPUT DATE TIME IN THE FORMAT: dd-mm-yyyy HHmm\n" + H_LINE;
     protected static final String DELETE_MESSAGE = H_LINE + "COOL BEANS I WILL REMOVE THAT TASK:";
     protected static final String DELETE_ERROR = H_LINE + "SORRY BUT I CAN'T DELETE WHATEVER YOU'RE REFERRING TO BRO\n"
             + "\tUSE A VALID INTEGER PLEASE: \"delete --INTEGER--\"\n" + H_LINE;

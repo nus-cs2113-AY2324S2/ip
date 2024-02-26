@@ -16,7 +16,7 @@ public class FileParser {
     protected static final char EVENT_SYMBOL = 'e';
     protected static final char DONE_SYMBOL = 'X';
     protected static final String SEPARATOR = "#";
-    protected static final DateTimeFormatter SAVED_DATE_FORMAT = DateTimeFormatter.ofPattern("d MM yyyy HHmm");
+    protected static final DateTimeFormatter SAVED_DATE_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mma");
 
     public static Task readTaskData(String taskData) throws JoeException {
         char taskSymbol = taskData.charAt(0);
@@ -44,7 +44,9 @@ public class FileParser {
             if (eventData.length != 3) {
                 throw new JoeException();
             }
-            task = new Event(eventData[0], eventData[1], eventData[2]);
+            LocalDateTime start = convertDateTime(eventData[1]);
+            LocalDateTime end = convertDateTime(eventData[2]);
+            task = new Event(eventData[0], start, end);
             break;
         default:
             throw new JoeException();
