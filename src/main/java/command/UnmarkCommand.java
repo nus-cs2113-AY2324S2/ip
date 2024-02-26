@@ -37,7 +37,7 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JingHaoExceptions {
-        if(index < 0 || index > taskList.size()) {
+        if(index < 0 || index >= taskList.size()) {
             String invalidIndex = "Selected index is not within the size. PLease input a valid index.";
             throw new JingHaoExceptions(invalidIndex);
         }
