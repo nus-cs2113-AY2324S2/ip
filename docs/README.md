@@ -1,4 +1,4 @@
-# User Guide
+# GeePee User Guide
 
 ## Features
 
@@ -58,6 +58,9 @@ Format: `delete INDEX`
 Finds tasks whose descriptions contain the given keyword.
 
 Format: `find KEYWORD`
+- Only the task descriptions are searched.
+- The search is case-sensitive e.g. `book` will not match `Book`
+- Only full words will be matched e.g. `book` will not match `books`
 
 ### Exiting the program: `bye`
 
