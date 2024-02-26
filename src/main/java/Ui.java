@@ -52,7 +52,7 @@ public class Ui {
         while (continueReceivingUserInputs) {
             userInput = userInput.toLowerCase();
             if (userInput.equals("bye")) {
-                System.out.println("Bye. I will be awaiting your next order! ☺");
+                System.out.println("Bye. I will be awaiting your next order! =)");
                 continueReceivingUserInputs = false;
             } else if (userInput.equals("list")) {
                 taskManager.showListContents();
@@ -70,7 +70,7 @@ public class Ui {
                 taskManager.findTask(userInput);
                 userInput = myScanner.nextLine();
             } else {
-                System.out.println("Please enter a valid command. Here have a cup of tea as you think of your next command. ☕");
+                System.out.println("Please enter a valid command. Here have a cup of tea as you think of your next command. =/");
                 userInput = myScanner.nextLine();
                 processUserCommand(userInput);
             }
