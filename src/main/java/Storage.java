@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private static String FILE_PATH = "Data/Jeff.txt";
+    private static final String FILE_PATH = "Data/Jeff.txt";
     private static ArrayList<Task> savedList;
     protected static Ui userInterface;
 
@@ -78,7 +78,7 @@ public class Storage {
         return null;
     }
 
-    
+
 
 
     public static void deserializeTasks() {
