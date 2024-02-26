@@ -5,6 +5,7 @@ import natsu.command.AddEventCommand;
 import natsu.command.AddTodoCommand;
 import natsu.command.ByeCommand;
 import natsu.command.DeleteCommand;
+import natsu.command.FindCommand;
 import natsu.command.ListCommand;
 import natsu.command.MarkCommand;
 import natsu.command.UnmarkCommand;
@@ -33,7 +34,10 @@ public class Parser {
                 new ListCommand();
             } else if (userInput.startsWith("delete")) {
                 new DeleteCommand(userInput);
-            } else {
+            } else if (userInput.startsWith("find")) {
+                new FindCommand(userInput);
+            }
+            else {
                 throw new InvalidCommandException("     I'm terribly sorry, but I do not know what that means. Please try again!");
             }
         } catch (InvalidCommandException e) {
