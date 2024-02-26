@@ -1,5 +1,8 @@
 package Task;
-
+/**
+ * Represents the Deadline Task. A <code>Deadline</code> object corresponds to
+ * a Deadline Task
+ */
 public class Deadline extends Task {
 
     protected String by;

@@ -1,7 +1,10 @@
 package Task;
-
+/**
+ * Represents the Event Task. A <code>Event</code> object corresponds to
+ * a Event Task
+ */
 public class Event extends Task {
-    private String eventTime;
+    private final String eventTime;
     public Event(String description, String eventTime){
         super(description);
         this.eventTime=eventTime.trim();

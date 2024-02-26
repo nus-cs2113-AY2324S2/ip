@@ -6,7 +6,10 @@ import Utils.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * Represents the Mark Command. A <code>Mark</code> object corresponds to
+ * a Mark Command
+ */
 public class Mark extends Command{
     int markNumber;
     public Mark(Parser parser){

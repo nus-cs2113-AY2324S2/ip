@@ -1,5 +1,7 @@
 package Task;
-
+/**
+ * Represents aTask. A basic Class of <code>Task</code> object
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

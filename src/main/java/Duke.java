@@ -1,17 +1,18 @@
-import Commands.Excution;
+import Commands.Execution;
 import DukeException.Command_Not_Exist;
-import DukeException.No_Description;
 
 import java.util.ArrayList;
 import java.io.IOException;
 
-import Task.Event;
-import Task.Todo;
-import Task.Deadline;
 import Task.Task;
 import Utils.Parser;
 import Utils.Storage;
 import Utils.Ui;
+
+/**
+ * Represents the mean ChatBot. A <code>Duck</code> object corresponds to
+ * a ChatBot.
+ */
 
 public class Duke {
     private Storage storage;
@@ -26,6 +27,11 @@ public class Duke {
             System.out.println("IOExeption occurs");
         }
     }
+
+    /**
+     * The run function of the ChatBot, run the ChatBot
+     */
+
     public static void run() {
         //init the parameters to be used
         Duke duke = new Duke();
@@ -39,9 +45,9 @@ public class Duke {
                 String instruction = duke.ui.readCommand();
                 duke.ui.printLine();
                 Parser parser = new Parser(instruction);
-                Excution excution = new Excution(parser, tasksList);
-                excution.runCommand();
-                isExit = excution.isExit(parser);
+                Execution execution = new Execution(parser, tasksList);
+                execution.runCommand();
+                isExit = execution.isExit(parser);
             }catch(Command_Not_Exist e){
                 System.out.println("\tInput Error: Command does not exist!");
             }catch (IOException e){

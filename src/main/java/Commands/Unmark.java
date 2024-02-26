@@ -7,6 +7,10 @@ import Utils.Storage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the Unmark Command. A <code>Unmark </code> object corresponds to
+ * a Unmark  Command
+ */
 public class Unmark extends Command{
     int markNumber;
     public Unmark(Parser parser){

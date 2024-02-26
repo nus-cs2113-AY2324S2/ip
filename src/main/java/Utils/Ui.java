@@ -2,6 +2,10 @@ package Utils;
 
 import java.util.Scanner;
 
+/**
+ * Represents the UI of the ChatBot. A <code>Storage</code> object corresponds to
+ * a UI of ChatBot to manage the interaction with User. i.e Print welcome message.
+ */
 public class Ui {
 
     public static void showWelcome(){

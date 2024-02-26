@@ -8,6 +8,11 @@ import Utils.Storage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the Delete Command. A <code>Delete</code> object corresponds to
+ * a Delete Command
+ */
+
 public class Delete extends Command{
     int deleteNumber;
     public Delete(Parser parser){

@@ -7,11 +7,23 @@ import Task.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-public class Excution {
+/**
+ * Represents the Execution process. A <code>execution</code> object corresponds to
+ * a execution process which is going to wrong.
+ */
+public class Execution {
     protected Command command;
     protected ArrayList<Task> tasksList;
-    public Excution(Parser parser , ArrayList<Task> tasksList) throws Command_Not_Exist {
+
+    /**
+     * Construction function of the execution create the command according to user input parser
+     *
+     * @param tasksList represent the tasksList of the ChatBot
+     * @param parser represent the parser of the user input Command
+     * @throws Command_Not_Exist if user input a command does not exist
+     */
+
+    public Execution(Parser parser , ArrayList<Task> tasksList) throws Command_Not_Exist {
         this.tasksList = tasksList;
         switch (parser.getType()){
             case "list":{

@@ -5,6 +5,10 @@ import Utils.Parser;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the Find Command. A <code>Find</code> object corresponds to
+ * a Find Command
+ */
 public class Find extends Command{
     protected String keyWord;
     public Find(Parser parser){

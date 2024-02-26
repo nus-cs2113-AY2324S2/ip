@@ -1,5 +1,9 @@
 package Utils;
 
+/**
+ * Represents the Parser. A <code>Parser</code> object corresponds to
+ * a Parser use to separate the input command
+ */
 public class Parser {
     private String type = null;
     private String taskDate = null;

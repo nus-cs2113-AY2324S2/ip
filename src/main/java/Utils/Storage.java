@@ -7,7 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Represents the Storage of the ChatBot. A <code>Storage</code> object corresponds to
+ * a Storage of ChatBot to manage the memory of the ChatBot.
+ */
 public class Storage {
     ArrayList<Task> task_list;
     public Storage(ArrayList<Task> task_list){
