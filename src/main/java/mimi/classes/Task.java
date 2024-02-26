@@ -1,5 +1,5 @@
 package mimi.classes;
-import static mimi.Duke.FILE_DELIMINITER;
+import static mimi.helper.Storage.FILE_DELIMINITER;
 
 public class Task {
     private String name;

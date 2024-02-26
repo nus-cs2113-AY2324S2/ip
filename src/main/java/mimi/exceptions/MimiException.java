@@ -26,6 +26,8 @@ public class MimiException {
 
     public final static String FILE_CORRUPTED_MSG = "file is corrupted. " + "Please check the file again.";
 
+    public final static String LOAD_ERROR_MSG = "Unable to load file. Please ensure /data/mimi.logs exists.";
+
     public static class InsufficientParameters extends Exception {
         public InsufficientParameters(String message) {
             super("\u001B[31mError: " + message + "\u001B[0m");
@@ -48,5 +50,12 @@ public class MimiException {
         public FileCorrupted(String message) {
             super("\u001B[31mError: " + message + "\u001B[0m");
         }
+    }
+
+    public static class LoadError extends Exception {
+        public LoadError(String message) {
+            super("\u001B[31mError: " + message + "\u001B[0m");
+        }
+
     }
 }

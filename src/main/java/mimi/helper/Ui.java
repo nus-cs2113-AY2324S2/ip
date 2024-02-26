@@ -61,7 +61,7 @@ public class Ui {
         return indexNumber + ". " + task;
     }
 
-    private void printMessage(Task task, ArrayList<Task> taskList){
+    private static void printMessage(Task task, ArrayList<Task> taskList){
         System.out.println("\t" + formatTask(task));
         System.out.println("Now you have " + Integer.toString(taskList.size()) + " tasks in the list");
     }
@@ -74,14 +74,14 @@ public class Ui {
         }
     }
 
-    public void printMarkTask(ArrayList<Task> list, int index) {
+    public static void printMarkTask(ArrayList<Task> list, int index) {
         System.out.println("-------------------------------------------");
         System.out.println("OK, I've marked this task as done");
         System.out.println(formatTask(list.get(index), index));
         System.out.println("-------------------------------------------");
     }
 
-    public void printUnmarkTask(ArrayList<Task> list, int index) {
+    public static void printUnmarkTask(ArrayList<Task> list, int index) {
         System.out.println("-------------------------------------------");
         System.out.println("OK, I've marked this task as not done yet");
         System.out.println(formatTask(list.get(index), index));
@@ -95,17 +95,24 @@ public class Ui {
     }
 
 
-    public void printSuccessMessage(Task task, ArrayList<Task> taskList) {
+    public static void printSuccessMessage(Task task, ArrayList<Task> taskList) {
         System.out.println("-------------------------------------------");
         System.out.println("Got it. I've added this task:");
         printMessage(task, taskList);
         System.out.println("-------------------------------------------");
     }
 
-    public void printDeleteMessage(Task task, ArrayList<Task> taskList) {
+    public static void printDeleteMessage(Task task, ArrayList<Task> taskList) {
         System.out.println("-------------------------------------------");
         System.out.println("Noted. I've removed this task:");
         printMessage(task, taskList);
+        System.out.println("-------------------------------------------");
+    }
+
+    public void listTasks(ArrayList<Task> taskList) {
+        System.out.println("-------------------------------------------");
+        System.out.println("Here are the tasks in your list:");
+        printTasks(taskList);
         System.out.println("-------------------------------------------");
     }
 

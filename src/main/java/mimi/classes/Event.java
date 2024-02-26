@@ -1,6 +1,6 @@
 package mimi.classes;
 import mimi.exceptions.MimiException;
-import static mimi.Duke.FILE_DELIMINITER;
+import static mimi.helper.Storage.FILE_DELIMINITER;
 
 public class Event extends Task {
     private String startTime;
