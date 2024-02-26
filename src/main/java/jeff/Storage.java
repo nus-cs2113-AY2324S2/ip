@@ -135,7 +135,7 @@ public class Storage {
             return type.equals("T");
         }
         String[] lastParam = params[3].split("-");
-        if (lastParam.length == 1) {
+        if (lastParam.length == 3) {
             if (!type.equals("D")) {
                 return false;
             }
