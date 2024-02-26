@@ -18,6 +18,8 @@ import jeff.exceptions.InvalidUnmarkSyntaxException;
 import jeff.exceptions.UnableToDeleteException;
 import jeff.exceptions.UnableToMarkException;
 import jeff.exceptions.UnableToUnmarkException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     private static final int TODO_DESCRIPTION_INDEX = 5;
@@ -77,13 +79,14 @@ public class Parser {
         return new TodoCommand(description);
     }
 
-    private static Command parseDeadline(String userInput) throws InvalidDeadlineSyntaxException {
+    private static Command parseDeadline(String userInput) throws InvalidDeadlineSyntaxException, DateTimeParseException {
         int byIndex = userInput.indexOf(BY_STRING) + 1;
         if (byIndex == 0) {
             throw new InvalidDeadlineSyntaxException();
         }
         String description = userInput.substring(DEADLINE_DESCRIPTION_INDEX, byIndex);
-        String by = userInput.substring(byIndex + DEADLINE_BY_INDEX_LENGTH);
+        String byString = userInput.substring(byIndex + DEADLINE_BY_INDEX_LENGTH);
+        LocalDate by = LocalDate.parse(byString);
         if (description.isEmpty()) {
             throw new InvalidDeadlineSyntaxException();
         }

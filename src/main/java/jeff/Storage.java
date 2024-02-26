@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Storage {
@@ -156,7 +157,8 @@ public class Storage {
         if (line.charAt(0) == 'T') {
             task = new Todo(description);
         } else if (line.charAt(0) == 'D') {
-            String by = params[3];
+            String byString = params[3];
+            LocalDate by = LocalDate.parse(byString);
             task = new Deadline(description, by);
         } else if (line.charAt(0) == 'E') {
             String[] lastParam = params[3].split("-");
