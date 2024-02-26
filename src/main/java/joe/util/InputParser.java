@@ -25,6 +25,12 @@ public class InputParser {
     protected static final String DELETE_COMMAND = "delete";
     protected static final int INVALID_TASK_NUMBER = -69;
 
+    /**
+     * Returns an executable command according to the input command word
+     *
+     * @param input Input string of user
+     * @return Command to execute
+     */
     public static Command getCommand(String input) {
         Command command;
         String commandName = getCommandName(input);
@@ -68,6 +74,13 @@ public class InputParser {
         return command;
     }
 
+    /**
+     * Returns the command word in the user input,
+     * which is separated by first whitespace in the user input.
+     *
+     * @param input User input
+     * @return Name of Command
+     */
     public static String getCommandName(String input) {
         if (!input.contains(" ")) {
             return input;
@@ -75,6 +88,13 @@ public class InputParser {
         return input.substring(0, input.indexOf(" "));
     }
 
+    /**
+     * Returns a string containing the arguments in the user input,
+     * which is the string of characters after the first whitespace
+     *
+     * @param input User input
+     * @return A string containing the arguments of the input
+     */
     public static String getMessage(String input) {
         if (!input.contains(" ")) {
             return "";
@@ -82,6 +102,13 @@ public class InputParser {
         return input.substring(input.indexOf(" ")).trim();
     }
 
+    /**
+     * Returns the name of a task from a string containing the user arguments from the user input
+     *
+     * @param message Arguments from the user input
+     * @return A task name
+     * @throws JoeException if the input argument does not contain a valid flag
+     */
     public static String getTaskName(String message) throws JoeException {
         if (!message.contains(FLAG_INDICATOR)) {
             throw new JoeException();

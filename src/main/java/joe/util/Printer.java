@@ -1,5 +1,8 @@
 package joe.util;
 
+/**
+ * Handles output messages to the user on the command line
+ */
 public class Printer {
     protected static final String H_LINE = "____________________________________________________________\n";
     protected static final String GREET_MESSAGE = H_LINE + "HI I'M JOE\n" + "WHAT CAN I DO FOR YOU\n" + H_LINE;
