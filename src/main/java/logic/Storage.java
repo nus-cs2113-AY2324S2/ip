@@ -59,6 +59,7 @@ public class Storage {
             }
         }
         System.out.println("Successfully loaded data!");
+        System.out.println("Current number of tasks: " + taskManager.currIndex);
         return taskManager;
     }
 
@@ -75,6 +76,7 @@ public class Storage {
     private void loadToDo(String data, boolean taskDoneStatus) {
         String taskName = data.substring(6);
         taskManager.tasks.add(new ToDo(taskName, taskDoneStatus));
+        taskManager.currIndex++;
     }
 
     private void loadDeadline(String data, boolean taskDoneStatus) {
@@ -82,6 +84,7 @@ public class Storage {
         String taskName = data.substring(6, commaAfterTaskNameIndex);
         String byWhen = data.substring(commaAfterTaskNameIndex + 2);
         taskManager.tasks.add(new Deadline(taskName, taskDoneStatus, byWhen));
+        taskManager.currIndex++;
     }
 
     private void loadEvent(String data, boolean taskDoneStatus) {
@@ -91,6 +94,7 @@ public class Storage {
         String fromWhen = data.substring(commaAfterTaskNameIndex + 2, commaAfterFromDateTimeIndex);
         String toWhen = data.substring(commaAfterFromDateTimeIndex + 2);
         taskManager.tasks.add(new Event(taskName, taskDoneStatus, fromWhen, toWhen));
+        taskManager.currIndex++;
     }
 
     public void saveDataToTextFile() throws IOException {
