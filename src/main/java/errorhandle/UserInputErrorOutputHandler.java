@@ -10,7 +10,7 @@ public class UserInputErrorOutputHandler {
         formatter = new Formatter();
     }
 
-    public void printUndefinedTaskError() {
+    public void printUndefinedCommandError() {
         formatter.printDividingLine();
         System.out.println("\tUnknown Command!");
         formatter.printDividingLine();
@@ -18,7 +18,7 @@ public class UserInputErrorOutputHandler {
 
     public void printNoTaskContentError(String taskType) {
         formatter.printDividingLine();
-        System.out.println("\tOh nooooo!! The description of " + taskType + "is missing!!");
+        System.out.println("\tOh nooooo!! The description of " + taskType + " is missing!!");
         formatter.printDividingLine();
     }
 

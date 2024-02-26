@@ -1,4 +1,4 @@
-package memory;
+package storage;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -7,21 +7,18 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import task.*;
 
 import static constant.NormalConstant.TASK_SAVE_PATH;
 import static constant.NormalConstant.TEMP_TASK_SAVE_PATH;
 
-public class FileAccess {
+public class Storage {
 
-    public void readFile(ArrayList<Task> list) throws FileNotFoundException {
+    public void readFile(TaskList taskList) throws FileNotFoundException {
         try {
             Files.createDirectories(Paths.get("./data"));
         } catch (IOException e) {
-            System.out.println("Fail to create directory!!!" + e.getMessage());
+            System.out.println("Fail to create directory!!!\n" + e.getMessage());
         }
 
         File file = new File(TASK_SAVE_PATH);
@@ -29,19 +26,20 @@ public class FileAccess {
             try {
                 Files.createFile(Paths.get(TASK_SAVE_PATH));
             } catch (IOException e) {
-                System.out.println("Fail to create File!!!" + e.getMessage());
+                System.out.println("Fail to create File!!!\n" + e.getMessage());
             }
             return;
         }
+
         Scanner fileContent = new Scanner(file);
         while (fileContent.hasNext()) {
             String content = fileContent.nextLine();
-            handleFileContent(list, content);
+            handleFileContent(taskList, content);
         }
         fileContent.close();
     }
 
-    public void handleFileContent(ArrayList<Task> list, String content) {
+    public void handleFileContent(TaskList taskList, String content) {
         String[] detail = content.split(" [|] ");
         int index = 0;
         if (!(detail.length >= 3 && detail.length <= 5)) {
@@ -66,7 +64,7 @@ public class FileAccess {
                 newTask = new ToDo("Corrupted File");
                 break;
             }
-            list.add(newTask);
+            taskList.addTask(newTask);
         }
     }
 
@@ -93,6 +91,65 @@ public class FileAccess {
             break;
         }
         return taskFileFormat;
+    }
+
+    public void markTask(Task currentTask) throws IOException {
+        File oldFile = new File(TASK_SAVE_PATH);
+        File tempFile = new File(TEMP_TASK_SAVE_PATH);
+
+        BufferedReader reader = new BufferedReader(new FileReader(oldFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        String lineToChange = changeTaskToTextFormat(currentTask);
+        currentTask.changeStatus(true);
+        String currentLine;
+
+        while ((currentLine = reader.readLine()) != null) {
+            if (currentLine.trim().equals(lineToChange)) {
+                writer.write(changeTaskToTextFormat(currentTask) + System.lineSeparator());
+            }else {
+                writer.write(currentLine + System.lineSeparator());
+            }
+        }
+
+        writer.close();
+        reader.close();
+
+        Path taskPath = Paths.get(TASK_SAVE_PATH);
+        Path tempTaskPath = Paths.get(TEMP_TASK_SAVE_PATH);
+
+        Files.delete(taskPath);
+        Files.copy(tempTaskPath, taskPath);
+        Files.delete(tempTaskPath);
+    }
+
+    public void unmarkTask(Task currentTask) throws IOException {
+        File oldFile = new File(TASK_SAVE_PATH);
+        File tempFile = new File(TEMP_TASK_SAVE_PATH);
+
+        BufferedReader reader = new BufferedReader(new FileReader(oldFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        String lineToChange = changeTaskToTextFormat(currentTask);
+        currentTask.changeStatus(false);
+        String currentLine;
+
+        while ((currentLine = reader.readLine()) != null) {
+            if (currentLine.trim().equals(lineToChange)) {
+                currentTask.changeStatus(false);
+                writer.write(changeTaskToTextFormat(currentTask) + System.lineSeparator());
+            } else {
+                writer.write(currentLine + System.lineSeparator());
+            }
+        }
+
+        writer.close();
+        reader.close();
+
+        Path taskPath = Paths.get(TASK_SAVE_PATH);
+        Path tempTaskPath = Paths.get(TEMP_TASK_SAVE_PATH);
+
+        Files.delete(taskPath);
+        Files.copy(tempTaskPath, taskPath);
+        Files.delete(tempTaskPath);
     }
 
     public void deleteTask(Task currentTask) throws IOException {
