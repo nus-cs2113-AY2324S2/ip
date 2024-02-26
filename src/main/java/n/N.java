@@ -8,12 +8,16 @@ import n.task.Type;
 import n.task.Task;
 import n.task.Event;
 
+import java.io.FileNotFoundException;
+import java.nio.file.LinkOption;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
 import java.nio.file.Path;
 
 public class N {
@@ -215,19 +219,88 @@ public class N {
 
     }
     public static void saveTaskList() {
-        Path filePath = Paths.get("src", "data", FILENAME);
+        Path filePath = Path.of("./src/Data/n.txt");
         try {
             Files.deleteIfExists(filePath);
             Files.createFile(filePath);
-            Files.write(filePath, ("Task List:\n").getBytes(), java.nio.file.StandardOpenOption.APPEND);
+            Files.write(filePath, ("Task List:\n").getBytes(), StandardOpenOption.APPEND);
             for (Task task : taskList) {
                 // Write each task into the text file
-                Files.write(filePath, (task.toString()+"\n").getBytes(), java.nio.file.StandardOpenOption.APPEND);
+                Files.write(filePath, (task.toString()+"\n").getBytes(), StandardOpenOption.APPEND);
             }
-            Files.write(filePath, ("Number of Tasks: " +taskList.size()).getBytes(), java.nio.file.StandardOpenOption.APPEND);
+            Files.write(filePath, ("Number of Tasks: " +taskList.size()).getBytes(), StandardOpenOption.APPEND);
             printMessage("Your Task List has been saved, find it at "+filePath);
         } catch (IOException e) {
             System.out.println(SAVE_AS_FILE_ERROR);
+            e.printStackTrace();
+        }
+    }
+    public static void getToDoTask(String taskDescription) throws EmptyTaskDescriptionException {
+        String task = taskDescription.substring(11);
+        taskList.add(new ToDo(task,taskList.size()));
+        //mark task if task has been done
+        if (taskDescription.charAt(8) == 'X') {
+            taskList.get(taskList.size() - 1).setDone(true);
+        }
+    }
+    public static void getEventTask(String taskDescription) {
+        int fromIndex = taskDescription.indexOf("(from:");
+        int toIndex = taskDescription.indexOf("to:");
+        String task = taskDescription.substring(11, fromIndex).trim();
+        String fromTime = taskDescription.substring(fromIndex + 6, toIndex);
+        String toTime = taskDescription.substring(toIndex + 3, taskDescription.length() - 1);
+        taskList.add(new Event(task + " /from " + fromTime + " /to " +toTime, taskList.size()));
+        //mark task if task has been done
+        if (taskDescription.charAt(8) == 'X') {
+            taskList.get(taskList.size() - 1).setDone(true);
+        }
+    }
+    public static void getDeadlineTask(String taskDescription) throws EmptyTaskDescriptionException {
+        int deadlineIndex = taskDescription.indexOf("(by");
+        String task = taskDescription.substring(11, deadlineIndex);
+        String deadline = taskDescription.substring(deadlineIndex + 4, taskDescription.length() - 1).trim();
+        taskList.add(new Deadline(task + " /by " + deadline, taskList.size()));
+        if (taskDescription.charAt(8) == 'X') {
+            taskList.get(taskList.size() - 1).setDone(true);
+        }
+    }
+    public static void loadTaskList() throws FileNotFoundException, EmptyTaskDescriptionException {
+        if (Files.exists(Path.of("./src/Data/n.txt"), LinkOption.NOFOLLOW_LINKS)) {
+            File initialTaskList = new File("./src/Data/n.txt");
+            Scanner s = new Scanner(initialTaskList);
+            while (s.hasNextLine()){
+                String taskDescription = s.nextLine();
+                if (taskDescription.equals("Task List:") || taskDescription.startsWith("Number of Tasks")) {
+                    continue;
+                }
+                char taskTypeSymbol = taskDescription.charAt(4);
+                Type taskType = Type.ToDo;
+                // switch to determine task type for each task in the list
+                switch (taskTypeSymbol) {
+                    case ('T'):
+                        taskType = Type.ToDo;
+                        break;
+                    case ('D'):
+                        taskType = Type.Deadline;
+                        break;
+                    case('E'):
+                        taskType = Type.Event;
+                        break;
+                }
+                // switch to create task based to task type
+                switch (taskType) {
+                    case ToDo:
+                        getToDoTask(taskDescription.substring(11));
+                        break;
+                    case Event:
+                        getEventTask(taskDescription.substring(11));
+                        break;
+                    case Deadline:
+                        getDeadlineTask(taskDescription.substring(11));
+                        break;
+                }
+            }
+            s.close();
         }
     }
 
@@ -257,9 +330,10 @@ public class N {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, EmptyTaskDescriptionException {
         System.out.println("Hello from\n" + LOGO);
         printMessage("Hello! I'm N :) \n" + "    What can I do for you?");
+        loadTaskList();
         Scanner in = new Scanner(System.in);
         handleMessages(in);
     }
