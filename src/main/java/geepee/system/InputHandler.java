@@ -4,6 +4,7 @@ import geepee.exceptions.EmptyDescriptionException;
 import geepee.exceptions.InvalidCommandException;
 import geepee.exceptions.MissingDeadlineException;
 import geepee.exceptions.MissingFromException;
+import geepee.exceptions.MissingIndexException;
 import geepee.exceptions.MissingToException;
 import geepee.task.list.List;
 import geepee.task.Todo;
@@ -52,16 +53,33 @@ public abstract class InputHandler {
     }
 
     private static void handleDelete(List list, String line) {
-        int taskIndex = InputParser.getTaskIndex(line);
-        if (taskIndex >= 0 && taskIndex < list.getSize()) {
-            list.deleteTask(taskIndex);
+        try {
+            int taskIndex = InputParser.getTaskIndex(line);
+            if (taskIndex >= 0 && taskIndex < list.getSize()) {
+                list.deleteTask(taskIndex);
+            }
+        } catch (MissingIndexException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void handleFind(List list, String line) {
+        try {
+            String keyword = InputParser.getKeyword(line);
+            list.findTasksFromKeyword(keyword);
+        } catch (EmptyDescriptionException e) {
+            System.out.println(e.getEmptyKeywordMessage());
         }
     }
 
     private static void handleTaskStatusChange(List list, String line, String command) {
-        int taskIndex = InputParser.getTaskIndex(line);
-        if (taskIndex >= 0 && taskIndex < list.getSize()) {
-            list.changeTaskStatus(taskIndex, (command.equals("mark") ? true : false));
+        try {
+            int taskIndex = InputParser.getTaskIndex(line);
+            if (taskIndex >= 0 && taskIndex < list.getSize()) {
+                list.changeTaskStatus(taskIndex, (command.equals("mark") ? true : false));
+            }
+        } catch (MissingIndexException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -81,6 +99,8 @@ public abstract class InputHandler {
             handleEvent(list, line);
         } else if (command.equals("delete")) {
             handleDelete(list, line);
+        } else if (command.equals("find")) {
+            handleFind(list, line);
         } else {
             throw new InvalidCommandException();
         }
