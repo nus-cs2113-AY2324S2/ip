@@ -80,6 +80,26 @@ public class TaskManager {
         Printer.printHeaderLine();
     }
 
+    public void listTasksWithKeyword(String keyword) throws JoeException {
+        if (keyword.isEmpty()){
+            throw new JoeException();
+        }
+
+        Printer.printFindMessage(keyword);
+        boolean hasMatch = false;
+        for (int i = 0; i < numberOfTasks; i++) {
+            if (tasks.get(i).getTaskName().contains(keyword)) {
+                System.out.println((i + 1) + "." + tasks.get(i).getTaskStatus());
+                hasMatch = true;
+            }
+        }
+        if (!hasMatch) {
+            Printer.printNoMatchMessage();
+        }
+
+        Printer.printHeaderLine();
+    }
+
     public void toggleTaskMarkedStatus(int taskNumber, boolean isMark) throws JoeException {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
             throw new JoeException();
