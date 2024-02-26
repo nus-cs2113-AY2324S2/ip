@@ -3,13 +3,11 @@ package yuki;
 import yuki.data.Storage;
 import yuki.task.TaskList;
 import yuki.ui.UI;
-
 import java.io.IOException;
 
 public class Yuki {
 
     private TaskList taskData;
-
     private static UI ui;
 
     public Yuki(String filePath) {

@@ -8,6 +8,9 @@ public class Utils {
         System.out.println("---------------------------------------------");
     }
 
+    /**
+     * Greets user in command line.
+     */
     public static void printWelcomeMessage() {
         printLine();
         System.out.println("I am Yuki, your personal chat bot and your evil twin.");
@@ -15,16 +18,25 @@ public class Utils {
         printLine();
     }
 
+    /**
+     * Prints message to user when exiting program.
+     */
     public static void printExitMessage() {
         printLine();
         System.out.println("Breaks are only for the weak.");
         printLine();
     }
 
+    /**
+     * Prints message to user when new task has been added.
+     */
     public static void printTaskAddedMessage() {
         System.out.println("new todo for you:");
     }
 
+    /**
+     * Prints list of accepted instructions.
+     */
     public static void printInstructions() {
         System.out.println("Accepted commands are:");
         System.out.println("help: shows available commands\n");
@@ -42,6 +54,9 @@ public class Utils {
         System.out.println("\tInput Example: event birthday party /from 1 Jan /to 4 Jan");
     }
 
+    /**
+     * Print warning when an unrecognised command is entered.
+     */
     public static void printInvalidCommandWarning() {
         System.out.println("Invalid command.");
         printLine();

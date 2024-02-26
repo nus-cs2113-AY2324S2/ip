@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import static yuki.Constants.*;
+import yuki.Constants;
 
 /**
  * Methods to read from and write to data file.
@@ -99,19 +99,19 @@ public class Storage {
     private ArrayList<Task> parse(ArrayList<String> dataItems) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String line : dataItems) {
-            String taskDescription = line.substring(TASK_DESCRIPTION_INDEX);
-            char taskType = line.charAt(TASK_INDICATOR_INDEX);
-            boolean isCompleted = line.charAt(TASK_COMPLETION_INDEX) == COMPLETION_INDICATOR;
+            String taskDescription = line.substring(Constants.TASK_DESCRIPTION_INDEX);
+            char taskType = line.charAt(Constants.TASK_INDICATOR_INDEX);
+            boolean isCompleted = line.charAt(Constants.TASK_COMPLETION_INDEX) == Constants.COMPLETION_INDICATOR;
             switch (taskType) {
-            case TODO_INDICATOR:
+            case Constants.TODO_INDICATOR:
                 Todo todo = new Todo(taskDescription, isCompleted);
                 tasks.add(todo);
                 break;
-            case DEADLINE_INDICATOR:
+            case Constants.DEADLINE_INDICATOR:
                 Deadline deadline = new Deadline(taskDescription, isCompleted);
                 tasks.add(deadline);
                 break;
-            case EVENT_INDICATOR:
+            case Constants.EVENT_INDICATOR:
                 Event event = new Event(taskDescription, isCompleted);
                 tasks.add(event);
                 break;
@@ -122,5 +122,4 @@ public class Storage {
         }
         return tasks;
     }
-
 }

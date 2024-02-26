@@ -1,28 +1,32 @@
 package yuki;
 
+import static yuki.Constants.INDEX_COMMAND;
+import static yuki.Constants.INDEX_DESCRIPTION;
+import static yuki.Constants.regexMatcher;
+
 /**
  * Methods to parse input by the user.
  */
 public class InputParser {
-
-    // Prefix strings to identify dates inputted by user.
-    private static final String TASK_DATA_PREFIX_DEADLINE = "/by ";
-    private static final String TASK_DATA_PREFIX_EVENT_START = "/from ";
-    private static final String TASK_DATA_PREFIX_EVENT_END = "/to ";
-    static final String regexMatcher = TASK_DATA_PREFIX_DEADLINE + "|"
-            + TASK_DATA_PREFIX_EVENT_START + "|" + TASK_DATA_PREFIX_EVENT_END;
-    private static final int INDEX_COMMAND = 0;
-    private static final int INDEX_DESCRIPTION= 1;
 
     /**
      * Returns command entered by the user, expected to be at beginning of string.
      * Error handling in TaskList.java
      *
      * @param userInput input from the user in the command line.
+     * @return the command keyword. e.g. list, mark, unmark.
      */
     public static String parseCommand(String userInput) {
         return userInput.trim().split(" ")[INDEX_COMMAND];
     }
+
+    /**
+     * Returns description entered by the user, expected to be after the command.
+     * Error handling in TaskList.java
+     *
+     * @param userInput input from the user in the command line.
+     * @return the part of the user input after the command. e.g. homework /by 9pm
+     */
     public static String parseDescription(String userInput) {
         return userInput.trim().split(" ")[INDEX_DESCRIPTION];
     }

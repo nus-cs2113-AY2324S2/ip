@@ -1,14 +1,10 @@
 package yuki.task;
-
 import yuki.Constants;
-
 import yuki.InputParser;
 import yuki.Utils;
 import yuki.exceptions.YukiExceptions;
 
 import java.util.ArrayList;
-
-import static yuki.Constants.TASK_INDEX;
 
 /**
  * Represents list of tasks.
@@ -62,7 +58,7 @@ public class TaskList {
         if (input.split(" ").length < 2) {
             throw new ArrayIndexOutOfBoundsException("Index for marking not found.");
         }
-        int indexTask = Integer.parseInt(input.split(" ")[TASK_INDEX]);
+        int indexTask = Integer.parseInt(input.split(" ")[Constants.TASK_INDEX]);
         if (indexTask <= 0 || indexTask > taskData.size()) {
             throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
         }
@@ -87,7 +83,7 @@ public class TaskList {
         if (input.split(" ").length < 2) {
             throw new ArrayIndexOutOfBoundsException("Index for marking not found.");
         }
-        int indexTask = Integer.parseInt(input.split(" ")[TASK_INDEX]);
+        int indexTask = Integer.parseInt(input.split(" ")[Constants.TASK_INDEX]);
         if (indexTask <= 0 || indexTask > taskData.size()) {
             throw new YukiExceptions.InvalidIndexException("Invalid index for marking: " + indexTask);
         }
@@ -96,8 +92,13 @@ public class TaskList {
         System.out.println("Deleted task number " + (indexTask) + ": " + toDelete.description);
     }
 
-    public void findTask(String line) {
-        String keyword = InputParser.parseDescription(line);
+    /**
+     * Finds and reports tasks that contain a keyword inputted by user.
+     *
+     * @param userInput input from user in the command line.
+     */
+    public void findTask(String userInput) {
+        String keyword = InputParser.parseDescription(userInput);
         System.out.println("Tasks found:");
         taskData.stream()
                 .filter(task -> task.description.contains(keyword))

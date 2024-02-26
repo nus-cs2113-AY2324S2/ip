@@ -1,7 +1,7 @@
 package yuki.task;
 
 /**
- * Represents a todo.
+ * Represents a todo, with  a description.
  */
 public class Todo extends Task {
 
