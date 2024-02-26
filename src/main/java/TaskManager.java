@@ -11,21 +11,53 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The TaskManager class manages tasks and their operations.
+ * It provides methods to interact with tasks, such as adding, deleting, and marking tasks as done.
+ */
 public class TaskManager {
+    /**
+     * The file path for storing task data.
+     */
     public static final String DATA_TXT_FILE_PATH = "./data.txt";
+
+    /**
+     * The number of items currently stored in the task manager.
+     */
     private static int numItems;
+
+    /**
+     * An ArrayList to store tasks.
+     */
     ArrayList<Task> taskArrayList = new ArrayList<>();
+
+    /**
+     * TaskList object to manage tasks.
+     */
     TaskList myTaskList = new TaskList(taskArrayList);
 
+    /**
+     * String representation of required inputs for different task types.
+     */
     public final String TODO_REQUIRED_INPUTS = "'todo <task>'";
     public final String DEADLINE_REQUIRED_INPUTS = "'Deadline <task> /by <due date>'";
     public final String EVENT_REQUIRED_INPUTS = "'Event <task> /from <start date> /to <end date>'";
 
-
+    /**
+     * Constructs a new TaskManager object.
+     * Initializes the number of items to 0.
+     */
     public TaskManager() {
         numItems = 0;
     }
 
+    /**
+     * Adds task contents to the task list based on the user input.
+     * Handles various types of tasks like Todo, Deadline, and Event.
+     * Adds task contents to the data.txt file
+     *
+     * @param userInput The user input containing task information to be processed and added.
+     */
     public void addListContents(String userInput) {
         try {
             String[] taskInformation = Parser.processTaskInformation(userInput);
@@ -61,6 +93,23 @@ public class TaskManager {
 
     }
 
+    /**
+     * Formats task information into a string to append to the task list data file.
+     * This method accepts an array of task information and creates a string
+     * representation based on the task type (Todo, Deadline, or Event).
+     *
+     * @param taskInformation An array containing task information.
+     *                        For Todo tasks: taskInformation[0] = "todo", taskInformation[1] = task description.
+     *                        For Deadline tasks: taskInformation[0] = "deadline", taskInformation[1] = task description,
+     *                        taskInformation[2] = deadline.
+     *                        For Event tasks: taskInformation[0] = "event", taskInformation[1] = event description,
+     *                        taskInformation[2] = event start date, taskInformation[3] = event end date.
+     * @return A string representation of the task formatted for appending to the task list data file.
+     *         For example, "T,0,taskDescription" for Todo tasks,
+     *         "D,0,taskDescription,deadline" for Deadline tasks,
+     *         "E,0,eventDescription,eventDate,eventTime" for Event tasks.
+     *         Returns "error" if the task type is not recognized.
+     */
     public static String formatDataToAppend(String[] taskInformation) {
         String output;
         switch (taskInformation[0]) {
@@ -82,6 +131,19 @@ public class TaskManager {
         return output;
     }
 
+    /**
+     * Adds a new task to the task list based on the provided task information.
+     * This method creates a new task object depending on the task type and adds it to the task list.
+     *
+     * @param taskInformation An array containing task information.
+     *                        For Todo tasks: taskInformation[0] = "todo", taskInformation[1] = task description.
+     *                        For Deadline tasks: taskInformation[0] = "deadline", taskInformation[1] = task description,
+     *                        taskInformation[2] = deadline.
+     *                        For Event tasks: taskInformation[0] = "event", taskInformation[1] = event description,
+     *                        taskInformation[2] = event start date, taskInformation[3] = event end date.
+     * @param isDone          A boolean value indicating whether the task is already done or not.
+     *                        'true' if the task is done, 'false' otherwise.
+     */
     private static void addByTaskToTaskArray(String[] taskInformation, boolean isDone) {
         switch (taskInformation[0]) {
         case ("todo"):
@@ -107,11 +169,25 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Prints an error message indicating that the user's task description lacks inputs.
+     * This method provides guidance on how to correctly format the task description.
+     *
+     * @param userInput      The user input that triggered the error.
+     * @param errorType      The type of task for which inputs are lacking (e.g., "todo", "deadline", "event").
+     * @param requiredInputs The required format for the task description that should be entered.
+     *                       For example, "todo <description>", "deadline <description> /by <deadline>", "event <description> /at <date> <time>".
+     */
     private static void lackInputsErrorMessage(String userInput, String errorType, String requiredInputs) {
         System.out.println("Your " + errorType + " task description seems to lack inputs. What you entered was " + userInput +
                 ". Try typing it as " + requiredInputs);
     }
 
+    /**
+     * Displays the contents of the task list.
+     * If the list is empty, it prints a message indicating so.
+     * Otherwise, it prints the tasks along with their indices in the list.
+     */
     public void showListContents() {
         if (numItems == 0) {
             System.out.println("List is empty. Please enter something first.");
@@ -124,6 +200,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Checks if a given string represents a valid integer.
+     *
+     * @param number The string to be checked for integer validity.
+     * @return true if the string represents a valid integer, false otherwise.
+     */
     public static boolean isStringInteger(String number) {
         try {
             Integer.parseInt(number);
@@ -133,6 +215,12 @@ public class TaskManager {
         return true;
     }
 
+    /**
+     * Changes the status of a task based on the user input.
+     * If the user input is not valid, the method prints out an error message.
+     *
+     * @param userInput The user input indicating the task ID and whether to mark or unmark the task.
+     */
     public void changeTaskStatus(String userInput) {
         if (!isValidTaskId(userInput, "changeTaskStatus")) {
             return;
@@ -165,6 +253,14 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Checks if the user input contains a valid task ID.
+     * The method also ensures that the input follows the expected command structure for a specific purpose.
+     *
+     * @param userInput The user input to be validated, containing task information.
+     * @param purpose   A string indicating the purpose of the validation. Valid values are "deleteTask" or "changeTaskStatus".
+     * @return true if the user input is valid, false otherwise.
+     */
     public boolean isValidTaskId(String userInput, String purpose) {
         userInput = userInput.toLowerCase();
         String[] wordArray = userInput.split(" ");
@@ -192,6 +288,12 @@ public class TaskManager {
         return true;
     }
 
+    /**
+     * Deletes a task from the task list based on the provided user input.
+     * If the user input is not valid, the method returns without making any changes and prints out an error message.
+     *
+     * @param userInput The user input indicating the task ID to be deleted.
+     */
     public void deleteTask(String userInput) {
         if (!isValidTaskId(userInput, "deleteTask")) {
             return;
@@ -210,6 +312,20 @@ public class TaskManager {
         TaskList.delete(id);
     }
 
+    /**
+     * Loads tasks from the provided data array list into the task list.
+     * Each element in the data array list represents a line of task data.
+     *
+     * @param dataArrayList An ArrayList containing lines of task data to be loaded.
+     *                      Each line represents a task in a specific format.
+     *                      For example, "T,0,taskDescription" for Todo tasks,
+     *                      "D,0,taskDescription,deadline" for Deadline tasks,
+     *                      "E,0,eventDescription,startDate,endDate" for Event tasks.
+     *                      The second element indicates whether the task is done (1) or not done (0).
+     *                      The format is expected to be consistent across all lines.
+     *                      If the file is corrupted, the method clears the file, restarts it,
+     *                      resets the task count, and clears the task list.
+     */
     public static void loadTasks(ArrayList<String> dataArrayList) {
         for (String line : dataArrayList) {
             try {
@@ -229,6 +345,7 @@ public class TaskManager {
                 return;
             }
         }
+        System.out.println("File loaded successfully!");
     }
 
 }

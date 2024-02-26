@@ -3,12 +3,31 @@ import Exceptions.DeadlineLackInputsException;
 import Exceptions.EventLackInputsException;
 import Exceptions.TodoLackInputsException;
 
+/**
+ * The Parser class handles parsing user input and task data.
+ * It provides methods for processing user input into task information and loading task data from files.
+ */
 public class Parser {
+    /**
+     * The user input to be parsed.
+     */
     protected String userInput;
-    
+
+    /**
+     * Constructs a new Parser object.
+     * This constructor initializes the Parser object.
+     */
     public Parser () {}
-    
-    // no error checking for processing task information has been implemented (e.g. deadline but no /by)
+
+    /**
+     * Processes the user input to extract task information.
+     *
+     * @param userInput The user input representing a task to be processed.
+     * @return An array containing task information, such as task type, description, and date/time.
+     * @throws TodoLackInputsException    If the user input for a todo task lacks required inputs.
+     * @throws DeadlineLackInputsException If the user input for a deadline task lacks required inputs.
+     * @throws EventLackInputsException    If the user input for an event task lacks required inputs.
+     */
     public static String[] processTaskInformation(String userInput) throws TodoLackInputsException, DeadlineLackInputsException, EventLackInputsException {
         userInput = userInput.toLowerCase();
         String[] wordArray = userInput.split(" ");
@@ -50,12 +69,25 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Processes the user input to extract the task ID for marking or deleting a task.
+     *
+     * @param userInput The user input representing a command to mark or delete a task.
+     * @return The ID of the task to be marked or deleted.
+     */
     public static int processTaskIdforMarkingAndDeletingTask(String userInput) {
         userInput = userInput.toLowerCase();
         String[] wordArray = userInput.split(" ");
         return Integer.parseInt(wordArray[1]) - 1;
     }
 
+    /**
+     * Processes task data loaded from a file.
+     *
+     * @param data The task data loaded from the file.
+     * @return An array containing task information loaded from the file.
+     * @throws CorruptedFileException If the loaded task data is corrupted or incomplete.
+     */
     public static String[] processTaskLoadingData(String data) throws CorruptedFileException {
         String[] wordArray = data.split(",");
         String[] output = new String[5];
