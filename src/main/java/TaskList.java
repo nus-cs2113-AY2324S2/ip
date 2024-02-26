@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class List {
+public class TaskList {
     protected ArrayList<Task> tasks;
 
     public void generateList(){

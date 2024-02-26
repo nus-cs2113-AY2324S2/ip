@@ -5,13 +5,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Saver {
+public class Storage {
     private static String FILE_PATH = "Data/Jeff.txt";
     private static ArrayList<Task> savedList;
 
 
 
-    public Saver(ArrayList<Task> toSave){
+    public Storage(ArrayList<Task> toSave){
         savedList = toSave;
     }
 
