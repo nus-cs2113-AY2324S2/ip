@@ -46,6 +46,10 @@ public class Utils {
         System.out.println("\tInput Example: mark 1\n");
         System.out.println("unmark: marks a task as undone");
         System.out.println("\tInput Example: unmark 1\n");
+        System.out.println("delete: deletes a task");
+        System.out.println("\tInput Example: delete 1\n");
+        System.out.println("find: finds tasks with a given keyword");
+        System.out.println("\tInput Example: find homework\n");
         System.out.println("todo: adds a todo");
         System.out.println("\tInput Example: todo read book\n");
         System.out.println("deadline: adds a deadline");
