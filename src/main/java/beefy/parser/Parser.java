@@ -5,7 +5,20 @@ import beefy.command.Command;
 import beefy.command.*;
 import beefy.task.TaskList;
 
+/**
+ * Represents the input parser of Beefy chatbot.
+ * Parses user input into command and details of the command.
+ * Generates the respective Command objects based on the parsed command keyword.
+ */
 public class Parser {
+    /**
+     * Parses user input into command and details, and creates the corresponding Command object.
+     *
+     * @param userTasks list of tasks added by User.
+     * @param userInput User input to be parsed.
+     * @return Command object to be executed.
+     * @throws BeefyException If the user input is not part of the command list.
+     */
     public static Command determineCommand(TaskList userTasks, String userInput) throws BeefyException {
         String[] userWords = userInput.trim().split("\\s+", 2);
         String userCommand = userWords[0];
