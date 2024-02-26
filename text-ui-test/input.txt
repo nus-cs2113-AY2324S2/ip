@@ -1,0 +1,15 @@
+todo Read book
+todo Watch lecture
+deadline Submit assignment /by Monday 10pm
+deadline Pay bills /by 30th July
+event Sister's birthday party /from Saturday 5pm /to Saturday 8pm
+event Conference /from 15th Aug 9am /to 15th Aug 5pm
+mark 1
+mark 2
+unmark 1
+list
+Go grocery shopping
+mark 6
+unmark 3
+list
+bye

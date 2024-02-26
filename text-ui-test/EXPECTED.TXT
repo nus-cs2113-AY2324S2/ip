@@ -1,7 +1,78 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    ____________________________________________________________
+     Hello! I'm Natsu
+     What can I do for you?
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] Read book
+     Now you have 1 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] Watch lecture
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] Submit assignment (by: Monday 10pm)
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] Pay bills (by: 30th July)
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] Sister's birthday party (from: Saturday 5pm to: Saturday 8pm)
+     Now you have 5 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] Conference (from: 15th Aug 9am to: 15th Aug 5pm)
+     Now you have 6 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [T][X] Read book
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [T][X] Watch lecture
+    ____________________________________________________________
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [T][ ] Read book
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[T][ ] Read book
+     2.[T][X] Watch lecture
+     3.[D][ ] Submit assignment (by: Monday 10pm)
+     4.[D][ ] Pay bills (by: 30th July)
+     5.[E][ ] Sister's birthday party (from: Saturday 5pm to: Saturday 8pm)
+     6.[E][ ] Conference (from: 15th Aug 9am to: 15th Aug 5pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     I'm terribly sorry, but I do not know what that means. Please try again!
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [E][X] Conference (from: 15th Aug 9am to: 15th Aug 5pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     OK, I've marked this task as not done yet:
+       [D][ ] Submit assignment (by: Monday 10pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[T][ ] Read book
+     2.[T][X] Watch lecture
+     3.[D][ ] Submit assignment (by: Monday 10pm)
+     4.[D][ ] Pay bills (by: 30th July)
+     5.[E][ ] Sister's birthday party (from: Saturday 5pm to: Saturday 8pm)
+     6.[E][X] Conference (from: 15th Aug 9am to: 15th Aug 5pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Bye. Hope to see you again soon!
+    ____________________________________________________________
