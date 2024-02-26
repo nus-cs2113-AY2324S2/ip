@@ -26,4 +26,12 @@ public class DukeException extends Exception {
             throw new DukeException();
         }
     }
+
+    public static void checkKeyword (String line) throws DukeException {
+        String[] userInput = line.split(" ");
+        if (userInput.length == 1) {
+            System.out.println("OOPS!!! No keyword included");
+            throw new DukeException();
+        }
+    }
 }
