@@ -1,21 +1,13 @@
 import command.Command;
-import commandexceptions.InvalidDeadlineCommandException;
-import commandexceptions.InvalidEventCommandException;
-import commandexceptions.InvalidTodoCommandException;
 import commandexceptions.JingHaoExceptions;
 
 import parser.Parser;
-import tasktype.Deadline;
-import tasktype.Event;
-import tasktype.Task;
-import tasktype.Todo;
 import tasktype.TaskList;
 
 import storage.Storage;
 import ui.Ui;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Represents the JingHao CLI chatbot application.
