@@ -1,6 +1,12 @@
 package natsu.command;
 
+/**
+ * Contains constants used for parsing and handling commands within the application.
+ * This includes lengths for command strings to help with parsing user input and
+ * specific indicators for parsing command arguments.
+ */
 public class CommandConstants {
+
     public static final int MARK_COMMAND_LENGTH = 5;
     public static final int UNMARK_COMMAND_LENGTH = 7;
     public static final int TODO_COMMAND_LENGTH = 5;

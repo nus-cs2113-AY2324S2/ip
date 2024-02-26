@@ -13,7 +13,18 @@ import java.io.IOException;
 import java.io.File;
 import java.nio.file.Paths;
 
+/**
+ * Handles the storage of tasks in a file, including reading from and writing to the file.
+ * Ensures that tasks persist between application sessions by saving them to a specified file path.
+ */
 public class Storage {
+
+    /**
+     * Saves the current list of tasks to the specified file.
+     * Iterates over each task in the list and writes its string representation to the file.
+     *
+     * @param filePath The path of the file where tasks will be saved.
+     */
     public static void saveTasksToFile(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : list) {
@@ -24,6 +35,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Ensures that the directory for the specified file path exists.
+     * If the directory does not exist, it is created.
+     *
+     * @param filePath The file path whose directory should be checked and possibly created.
+     */
     public static void ensureDirectoryExists(String filePath) {
         File file = new java.io.File(filePath);
         File parentDir = file.getParentFile();
@@ -32,6 +49,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file at the specified file path.
+     * Before creating the file, it ensures that the directory path exists.
+     *
+     * @param filePath The path of the file to be created.
+     */
     public static void createFile(String filePath) {
         ensureDirectoryExists(filePath);
         try {
@@ -42,6 +65,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from a file and adds them to the task list.
+     * Parses each line of the file to reconstruct tasks and their states (done or not done).
+     */
     public static void readFile() {
         try {
             String filePath = Paths.get(System.getProperty("user.dir"), "data", "tasks.txt").toString();
@@ -62,6 +89,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the tasks file and reconstructs the corresponding Task object.
+     *
+     * @param line   The line from the tasks file representing a task.
+     * @param isDone The completion status of the task.
+     * @return A new instance of {@link Task}, which can be a {@link Todo}, {@link Deadline}, or {@link Event}.
+     */
     private static Task getTask(String line, boolean isDone) {
         Task task;
         if (line.startsWith("[D]")) {
