@@ -1,5 +1,8 @@
 package jeff;
 
+import jeff.exceptions.InvalidCharacterInDescriptionException;
+import jeff.exceptions.InvalidCharacterInFromException;
+import jeff.exceptions.InvalidCharacterInToException;
 import jeff.exceptions.InvalidCommandException;
 import jeff.exceptions.InvalidDeadlineSyntaxException;
 import jeff.exceptions.InvalidDeleteSyntaxException;
@@ -50,6 +53,12 @@ public class Ui {
                 ExceptionHandler.handleInvalidDeleteSyntaxException();
             } catch (InvalidFindSyntaxException e) {
                 ExceptionHandler.handleInvalidFindSyntaxException();
+            } catch (InvalidCharacterInDescriptionException e) {
+                ExceptionHandler.handleInvalidCharacterInDescriptionException();
+            } catch (InvalidCharacterInFromException e) {
+                ExceptionHandler.handleInvalidCharacterInFromException();
+            } catch (InvalidCharacterInToException e) {
+                ExceptionHandler.handleInvalidCharacterInToException();
             } catch (UnableToMarkException e) {
                 ExceptionHandler.handleUnableToMarkException();
             } catch (UnableToUnmarkException e) {

@@ -113,7 +113,7 @@ public class ExceptionHandler {
 
     /**
      * Handles the exception when unable to mark a task.
-     * It prints a message indicating the inability to mark the task.
+     * Prints a message indicating the inability to mark the task.
      */
     public static void handleUnableToMarkException() {
         Printer.printUnableToMark();
@@ -121,7 +121,7 @@ public class ExceptionHandler {
 
     /**
      * Handles the exception when unable to unmark a task.
-     * It prints a message indicating the inability to unmark the task.
+     * Prints a message indicating the inability to unmark the task.
      */
     public static void handleUnableToUnmarkException() {
         Printer.printUnableToUnmark();
@@ -129,9 +129,33 @@ public class ExceptionHandler {
 
     /**
      * Handles the exception when unable to delete a task.
-     * It prints a message indicating the inability to delete the task.
+     * Prints a message indicating the inability to delete the task.
      */
     public static void handleUnableToDeleteException() {
         Printer.printUnableToDelete();
+    }
+
+    /**
+     * Handles the exception when an invalid character '|' is found in the task description.
+     * Prints a message indicating that '|' should not be used in the task description.
+     */
+    public static void handleInvalidCharacterInDescriptionException() {
+        Printer.printIndent("Please do not use '|' in the task description.");
+    }
+
+    /**
+     * Handles the exception when an invalid character '|' or '-' is found after "/from" in an event command.
+     * Prints a message indicating that '|' or '-' should not be used after "/from" in an event command.
+     */
+    public static void handleInvalidCharacterInFromException() {
+        Printer.printIndent("Please do not use '|' or '-' after /from.");
+    }
+
+    /**
+     * Handles the exception when an invalid character '|' or '-' is found after "/to" in an event command.
+     * Prints a message indicating that '|' or '-' should not be used after "/to" in an event command.
+     */
+    public static void handleInvalidCharacterInToException() {
+        Printer.printIndent("Please do not use '|' or '-' after /to.");
     }
 }

@@ -9,6 +9,9 @@ import jeff.commands.ListCommand;
 import jeff.commands.MarkCommand;
 import jeff.commands.TodoCommand;
 import jeff.commands.UnmarkCommand;
+import jeff.exceptions.InvalidCharacterInDescriptionException;
+import jeff.exceptions.InvalidCharacterInFromException;
+import jeff.exceptions.InvalidCharacterInToException;
 import jeff.exceptions.InvalidCommandException;
 import jeff.exceptions.InvalidDeadlineSyntaxException;
 import jeff.exceptions.InvalidDeleteSyntaxException;
@@ -70,6 +73,9 @@ public class Parser {
             InvalidUnmarkSyntaxException,
             InvalidDeleteSyntaxException,
             InvalidFindSyntaxException,
+            InvalidCharacterInDescriptionException,
+            InvalidCharacterInFromException,
+            InvalidCharacterInToException,
             UnableToMarkException,
             UnableToUnmarkException,
             UnableToDeleteException {
@@ -97,20 +103,31 @@ public class Parser {
         }
     }
 
-    private static Command parseTodo(String userInput) throws InvalidTodoSyntaxException {
+    private static Command parseTodo(String userInput) throws
+            InvalidTodoSyntaxException,
+            InvalidCharacterInDescriptionException {
         if (userInput.equals(TODO_STRING)) {
             throw new InvalidTodoSyntaxException();
         }
         String description = userInput.substring(TODO_DESCRIPTION_INDEX);
+        if (description.contains("|")) {
+            throw new InvalidCharacterInDescriptionException();
+        }
         return new TodoCommand(description);
     }
 
-    private static Command parseDeadline(String userInput) throws InvalidDeadlineSyntaxException, DateTimeParseException {
+    private static Command parseDeadline(String userInput) throws
+            InvalidDeadlineSyntaxException,
+            InvalidCharacterInDescriptionException,
+            DateTimeParseException {
         int byIndex = userInput.indexOf(BY_STRING) + 1;
         if (byIndex == 0) {
             throw new InvalidDeadlineSyntaxException();
         }
         String description = userInput.substring(DEADLINE_DESCRIPTION_INDEX, byIndex);
+        if (description.contains("|")) {
+            throw new InvalidCharacterInDescriptionException();
+        }
         String byString = userInput.substring(byIndex + DEADLINE_BY_INDEX_LENGTH);
         LocalDate by = LocalDate.parse(byString);
         if (description.isEmpty()) {
@@ -119,15 +136,28 @@ public class Parser {
         return new DeadlineCommand(description, by);
     }
 
-    private static Command parseEvent(String userInput) throws InvalidEventSyntaxException {
+    private static Command parseEvent(String userInput) throws
+            InvalidEventSyntaxException,
+            InvalidCharacterInDescriptionException,
+            InvalidCharacterInFromException,
+            InvalidCharacterInToException {
         int fromIndex = userInput.indexOf(FROM_STRING) + 1;
         int toIndex = userInput.indexOf(TO_STRING) + 1;
         if (fromIndex == 0 || toIndex == 0 || fromIndex >= toIndex) {
             throw new InvalidEventSyntaxException();
         }
         String description = userInput.substring(EVENT_DESCRIPTION_INDEX, fromIndex);
+        if (description.contains("|")) {
+            throw new InvalidCharacterInDescriptionException();
+        }
         String from = userInput.substring(fromIndex + EVENT_FROM_INDEX_LENGTH, toIndex);
+        if (from.contains("|") || from.contains("-")) {
+            throw new InvalidCharacterInFromException();
+        }
         String to = userInput.substring(toIndex + EVENT_TO_INDEX_LENGTH);
+        if (to.contains("|") || to.contains("-")) {
+            throw new InvalidCharacterInToException();
+        }
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new InvalidEventSyntaxException();
         }
