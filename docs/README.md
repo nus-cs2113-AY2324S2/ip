@@ -33,13 +33,13 @@ The tasks can be searched for using a keyword
 
 ## Usage
 
-### `add` - Adds a task to be tracked
+### `todo/deadline/event` - Adds a task to be tracked
 
-Example of usage: add borrow book
+Example of usage: todo borrow book
 
-Todo task: add 'task description' <br>
-Deadline: add 'task description' /by 'deadline' <br>
-Event: add 'task description' /from 'startDate' /to 'endDate'
+Todo: todo 'task description' <br>
+Deadline: deadline 'task description' /by 'deadline' <br>
+Event: event 'task description' /from 'startDate' /to 'endDate'
 
 ```
 Got it. I've added this task:
