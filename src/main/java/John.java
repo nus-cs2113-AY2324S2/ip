@@ -1,53 +1,18 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.List;
 import command.UserInput;
-import command.Database;
-import task.Task;
+import command.TaskList;
 
 public class John {
-
-    private static List<Task> taskList = new ArrayList<>();
-    public static final String LINE_BREAK = "----------------------";
 
     public static void main(String[] args) {
 
         printWelcomeMessage();
-        readData();
+        TaskList.readData();
 
-        Scanner in = new Scanner(System.in);
-        System.out.println(LINE_BREAK);
-        String userInput = in.next();
+        UserInput.loopInterface();
 
-        while (!userInput.equalsIgnoreCase("bye")) {
-            UserInput.parseInput(userInput, in, taskList);
-            System.out.println(LINE_BREAK);
-            userInput = in.next();
-        }
-
-        storeData();
+        TaskList.storeData();
         printExitMessage();
 
-    }
-
-    private static void storeData() {
-        try {
-            Database.storeData(taskList);
-        } catch (IOException e) {
-            System.out.println("Error storing data.");
-        }
-    }
-
-    private static void readData() {
-        try {
-            Database.readData(taskList);
-            System.out.println("Read in previous " + taskList.size() + " entries.");
-            
-        } catch (FileNotFoundException e) {
-            System.out.println("No previous data found");
-        }
     }
 
     private static void printExitMessage() {
