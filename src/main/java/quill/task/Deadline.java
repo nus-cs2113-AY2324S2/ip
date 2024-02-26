@@ -15,18 +15,18 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline task with the specified task description and completion date.
      *
-     * @param description The description of the event task including completion date.
+     * @param input The description of the event task including completion date.
      * @throws QuillException If the task description is empty.
      * @throws DateTimeParseException If the format completion date is incorrect.
      */
-    public Deadline(String description) throws QuillException, DateTimeParseException {
-        super(description);
-        int index = description.indexOf("/by");
-        this.description = description.substring(0, index);
+    public Deadline(String input) throws QuillException, DateTimeParseException {
+        super(input);
+        int index = input.indexOf("/by");
+        this.description = input.substring(0, index);
         if (this.description.isEmpty()) {
             throw new QuillException("No empty descriptions allowed for deadline. Fill it in!");
         }
-        this.by = LocalDateTime.parse(description.substring(index + 3)
+        this.by = LocalDateTime.parse(input.substring(index + 3)
                         .replace('T', ' '),
                         DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
     }
