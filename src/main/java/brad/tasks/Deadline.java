@@ -1,8 +1,8 @@
-package Brad.Tasks;
+package brad.tasks;
 
-public class Deadline extends Task {
+public class Deadline extends Tasks {
     private String time;
-    public Deadline (String description, String time, boolean isDone) {
+    public Deadline(String description, String time, boolean isDone) {
         super(description, isDone);
         this.time = time;
     }

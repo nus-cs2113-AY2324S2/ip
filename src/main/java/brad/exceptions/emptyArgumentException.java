@@ -1,4 +1,4 @@
-package Brad.Exceptions;
+package brad.exceptions;
 
 public class emptyArgumentException extends Exception {
 }

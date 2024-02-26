@@ -1,10 +1,10 @@
-package Brad.Tasks;
+package brad.tasks;
 
-public class Task {
+public class Tasks {
     private String description;
     private boolean isDone;
 
-    protected Task(String description, boolean isDone) {
+    protected Tasks(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }

@@ -1,10 +1,10 @@
-package Brad;
+package brad;
 
-import Brad.Exceptions.emptyArgumentException;
-import Brad.Exceptions.invalidNumberException;
-import Brad.Exceptions.dataCorruptedException;
-import Brad.Tasks.List;
-import Brad.Tasks.TaskType;
+import brad.exceptions.emptyArgumentException;
+import brad.exceptions.invalidNumberException;
+import brad.exceptions.dataCorruptedException;;
+import brad.tasks.TaskList;
+import brad.tasks.TaskType;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -12,19 +12,29 @@ import java.util.Scanner;
 
 
 public class Brad {
-    private static List inputList = new List();
+    private static TaskList tasklist = new TaskList();
     private static boolean toSave = true;
+
+    // define literals
     private static final String SEPARATOR = "__________________________________________________________";
+    private static final String LIST = "list";
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String TODO = "todo";
+    private static final String DEADLINE = "deadline";
+
+    private static final String EVENT = "event";
+
+    private static final String DELETE = "delete";
+
 
     public static void main(String[] args) {
         greetUser();
         boolean canInitialize = true;
         try {
-            inputList.initializeFile();
+            tasklist.initializeFile();
         } catch (FileNotFoundException e) {
-            printOutput("File is not found. Make sure that the " +
-                    "data file is located in: 'data/data.md'\n" +
-                    "I'm unable to save.");
+            printFileNotFound();
             toSave = false;
         } catch (dataCorruptedException e) {
             printOutput("File is corrupted! Please check the file.\n" +
@@ -33,11 +43,11 @@ public class Brad {
         }
         Scanner userInput = new Scanner(System.in);
         if (canInitialize) {
-            if (inputList.listSize() != 0) {
-                printOutput((inputList.getList()));
+            if (tasklist.listSize() != 0) {
+                printOutput((tasklist.getList()));
             } else if (toSave) {
                 try {
-                    inputList.addHeader();
+                    tasklist.addHeader();
                 } catch (IOException e) {
                     printOutput("Something went wrong\n" +
                             "Error message: " + e.getMessage());
@@ -53,39 +63,39 @@ public class Brad {
                 break;
             }
             switch (command) {
-                case "list":
-                    printOutput("Here are the tasks in your list:\n" + inputList.getList());
+                case LIST:
+                    printOutput("Here are the tasks in your list:\n" + tasklist.getList());
                     break;
-                case "mark":
+                case MARK:
                     try {
                         doMarkAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
                         printOutput("Uh oh. Please enter a number to mark the corresponding " +
                                 "task as done");
                     } catch (invalidNumberException e) {
-                        printOutput("No! >:( Exceeded existing list size of: " + inputList.listSize() +
+                        printOutput("No! >:( Exceeded existing list size of: " + tasklist.listSize() +
                                 "\nPlease enter a valid number.\n");
                     }
                     break;
-                case "unmark":
+                case UNMARK:
                     try {
                         doUnmarkAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
                             printOutput("Uh oh. Please enter a number to mark the corresponding " +
                                     "task as undone");
                         } catch (invalidNumberException e) {
-                            printOutput("No! >:( Exceeded existing list size of: " + inputList.listSize() +
+                            printOutput("No! >:( Exceeded existing list size of: " + tasklist.listSize() +
                                             "\nPlease enter a valid number.\n");
                     }
                     break;
-                case "todo":
+                case TODO:
                     try {
                         doTodoAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
                         printOutput("Hey, you can't give me an empty todo!");
                     }
                     break;
-                case "deadline":
+                case DEADLINE:
                     try {
                         doDeadlineAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
@@ -93,20 +103,20 @@ public class Brad {
                                 "specified due date!");
                     }
                     break;
-                case "event":
+                case EVENT:
                     try {
                         doEventAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
                         printOutput("Hey, you can't give me an event with no start & end time!");
                     }
                     break;
-                case "delete":
+                case DELETE:
                     try {
                         doDeleteAction(splitInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | emptyArgumentException e) {
                         printOutput("Uh oh. Please enter a number to delete this task");
                     } catch (invalidNumberException e) {
-                        printOutput("No! >:( Exceeded existing list size of: " + inputList.listSize()  +
+                        printOutput("No! >:( Exceeded existing list size of: " + tasklist.listSize()  +
                                 "\nPlease enter a valid number.\n");
                     }
                     break;
@@ -119,7 +129,7 @@ public class Brad {
     }
 
     private static void greetUser() {
-        final String name = "Brad";
+        final String name = "brad";
         System.out.println("Hello I am " + name + ".\n");
         System.out.println("How can I help you today?\n");
     }
@@ -136,15 +146,15 @@ public class Brad {
         if (input.isBlank()) {
             throw new emptyArgumentException();
         }
-        if (taskNumber > inputList.listSize()) {
+        if (taskNumber > tasklist.listSize()) {
             throw new invalidNumberException();
         }
-        inputList.markAsDone(taskNumber, true);
-        String message = "Nice! I've marked this task as done: \n" + inputList.getTask(taskNumber);
+        tasklist.markAsDone(taskNumber, true);
+        String message = "Nice! I've marked this task as done: \n" + tasklist.getTask(taskNumber);
         printOutput(message);
         if (toSave) {
             try {
-                inputList.updateFile();
+                tasklist.updateFile();
             } catch (IOException e) {
                 printOutput(("Something went wrong!\n Error message: " +
                         e.getMessage()));
@@ -158,15 +168,15 @@ public class Brad {
         if (input.isBlank()) {
             throw new emptyArgumentException();
         }
-        if (taskNumber > inputList.listSize()) {
+        if (taskNumber > tasklist.listSize()) {
             throw new invalidNumberException();
         }
-        inputList.markAsDone(taskNumber, false);
-        String message = "Ok. I've marked this task as not done yet: \n" + inputList.getTask(taskNumber);
+        tasklist.markAsDone(taskNumber, false);
+        String message = "Ok. I've marked this task as not done yet: \n" + tasklist.getTask(taskNumber);
         printOutput(message);
         if (toSave) {
             try {
-                inputList.updateFile();
+                tasklist.updateFile();
             } catch (IOException e) {
                 printOutput(("Something went wrong!\n Error message: " +
                         e.getMessage()));
@@ -175,17 +185,17 @@ public class Brad {
     }
 
     private static void doTodoAction(String input) throws emptyArgumentException {
-        if (input.isBlank() || !input.contains("/by")) {
+        if (input.isBlank()) {
             throw new emptyArgumentException();
         }
-        inputList.addToList(input, TaskType.TODO, false, toSave);
-        int size = inputList.listSize();
-        String message = "Got it. I've added this task:\n" + inputList.getTask(size)
+        tasklist.addToList(input, TaskType.TODO, false, toSave);
+        int size = tasklist.listSize();
+        String message = "Got it. I've added this task:\n" + tasklist.getTask(size)
                 + "\n Now you have " + size + " tasks in the list.";
         printOutput(message);
         if (toSave) {
             try {
-                inputList.updateFile();
+                tasklist.updateFile();
             } catch (IOException e) {
                 printOutput("Something went wrong, error data: " + e.getMessage());
             }
@@ -196,14 +206,14 @@ public class Brad {
         if (input.isBlank() || !input.contains("/by")) {
             throw new emptyArgumentException();
         }
-        inputList.addToList(input, TaskType.DEADLINE, false, toSave);
-        int size = inputList.listSize();
-        String message = "Got it. I've added this task:\n" + inputList.getTask(size)
+        tasklist.addToList(input, TaskType.DEADLINE, false, toSave);
+        int size = tasklist.listSize();
+        String message = "Got it. I've added this task:\n" + tasklist.getTask(size)
                 + "\n Now you have " + size + " tasks in the list.";
         printOutput(message);
         if (toSave) {
             try {
-                inputList.updateFile();
+                tasklist.updateFile();
             } catch (IOException e) {
                 printOutput("Something went wrong, error data: " + e.getMessage());
             }
@@ -214,14 +224,14 @@ public class Brad {
         if (input.isBlank() || !input.contains("/from") || !input.contains("/to")) {
             throw new emptyArgumentException();
         }
-        inputList.addToList(input, TaskType.EVENT, false, toSave);
-        int size = inputList.listSize();
-        String message = "Got it. I've added this task:\n" + inputList.getTask(size)
+        tasklist.addToList(input, TaskType.EVENT, false, toSave);
+        int size = tasklist.listSize();
+        String message = "Got it. I've added this task:\n" + tasklist.getTask(size)
                 + "\n Now you have " + size + " tasks in the list.";
         printOutput(message);
         if (toSave) {
             try {
-                inputList.updateFile();
+                tasklist.updateFile();
             } catch (IOException e) {
                 printOutput("Something went wrong, error data: " + e.getMessage());
             }
@@ -234,20 +244,27 @@ public class Brad {
             throw new emptyArgumentException();
         }
         int taskNumber = Integer.parseInt(input);
-        if (taskNumber > inputList.listSize()) {
+        if (taskNumber > tasklist.listSize()) {
             throw new invalidNumberException();
         }
-        int size = inputList.listSize() - 1;
-        String message = "Got it. I've removed this task:\n" + inputList.getTask(taskNumber)
+        int size = tasklist.listSize() - 1;
+        String message = "Got it. I've removed this task:\n" + tasklist.getTask(taskNumber)
                 + "\n Now you have " + size + " tasks in the list.";
-        inputList.deleteTask(taskNumber);
+        tasklist.deleteTask(taskNumber);
         printOutput(message);
         if (toSave) {
             try {
-                inputList.updateFile();
+                tasklist.updateFile();
             } catch (IOException e) {
                 printOutput("Something went wrong, error data: " + e.getMessage());
             }
         }
     }
+
+    private static void printFileNotFound() {
+        printOutput("File is not found. Make sure that the " +
+                "data file is located in: 'data/data.md'\n" +
+                "I'm unable to save.");
+    }
 }
+

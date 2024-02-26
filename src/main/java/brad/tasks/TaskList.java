@@ -1,4 +1,4 @@
-package Brad.Tasks;
+package brad.tasks;
 
 import java.util.ArrayList;
 
@@ -8,11 +8,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Brad.Exceptions.dataCorruptedException;
+import brad.exceptions.dataCorruptedException;
 
-public class List {
-    private ArrayList<Task> inputList = new ArrayList<Task>();
+public class TaskList {
+    private ArrayList<Tasks> taskList = new ArrayList<>();
     private final String FILE_PATH = "data/data.md";
+    private final String FILE_HEADER = "|Task Type | Done | Description | Time |\n"
+            + "|----------|------|-------------|------|\n";
 
     public void initializeFile()
             throws FileNotFoundException, dataCorruptedException {
@@ -41,7 +43,12 @@ public class List {
             String time = input[4].strip();
             switch (type) {
                 case "Event":
-                    addToList(description + "/from " + time, TaskType.EVENT, isCompleted, false);
+                    int toIndex = time.indexOf("to");
+                    String beforeTo = time.substring(0, toIndex);
+                    String afterTo = time.substring(toIndex);
+                    String amendedTime = beforeTo + '/' + afterTo;
+                    //System.out.println(description + " /from " + amendedTime);
+                    addToList(description + " /from " + amendedTime, TaskType.EVENT, isCompleted, false);
                     break;
                 case "Deadline":
                     addToList(description + " /by " + time, TaskType.DEADLINE, isCompleted, false);
@@ -55,13 +62,14 @@ public class List {
         }
     }
     public void addToList(String input, TaskType type, boolean isDone, boolean canSave) {
-        Task newTask;
+        Tasks newTask;
         if (type == TaskType.EVENT) {
-            int timeIndex = input.indexOf("/from");
-            String description = input.substring(0, timeIndex).strip();
-            String time = input.substring(timeIndex + "/from ".length()).strip();
-            time = time.replace("/", "");
-            newTask = new Event(description, time, isDone);
+            int fromIndex = input.indexOf("/from");
+            int toIndex = input.indexOf("/to");
+            String description = input.substring(0, fromIndex).strip();
+            String startTime = input.substring(fromIndex + "/from ".length(), toIndex).trim();
+            String endTime = input.substring(toIndex + "/to ".length()).trim();
+            newTask = new Event(description, startTime, endTime, isDone);
         } else if (type == TaskType.DEADLINE) {
             int timeIndex = input.indexOf("/by");
             String description = input.substring(0, timeIndex).strip();
@@ -70,57 +78,57 @@ public class List {
         } else if (type == TaskType.TODO) {
             newTask = new Todo(input, isDone);
         } else {
-            newTask = new Task(input, isDone);
+            newTask = new Tasks(input, isDone);
         }
-        inputList.add(newTask);
+        taskList.add(newTask);
 
     }
+
     public String getList() {
         String output = "";
-        for (int i = 1; i <= inputList.size(); i++) {
+        for (int i = 1; i <= taskList.size(); i++) {
             output +=  i  + ". " + getTask(i) + "\n";
         }
         return output;
     }
 
     public String getTask(int n) {
-        String output = inputList.get(n - 1).getFullDescription();
+        String output = taskList.get(n - 1).getFullDescription();
         return output;
     }
 
     public void markAsDone(int n, boolean isDone) {
-        inputList.get(n - 1).setIsDone(isDone);
+        taskList.get(n - 1).setIsDone(isDone);
     }
 
     public int listSize() {
-        return inputList.size();
+        return taskList.size();
     }
 
     public void deleteTask(int n) {
-        inputList.remove(n - 1);
+        taskList.remove(n - 1);
     }
 
     public void addHeader() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        fw.write("|Task Type | Done | Description | Time |\n"
-                + "|----------|------|-------------|------|\n");
+        fw.write(FILE_HEADER);
         fw.close();
     }
 
     public void updateFile() throws IOException {
         addHeader();
-        for (Task task : inputList) {
+        for (Tasks task : taskList) {
             appendTaskToFile(task);
         }
     }
 
-    public void appendTaskToFile(Task task) throws IOException {
+    public void appendTaskToFile(Tasks task) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH, true);
         fw.write(toMarkdown(task));
         fw.close();
     }
 
-    private String toMarkdown(Task task) {
+    private String toMarkdown(Tasks task) {
         String type = task.getClass().getSimpleName();
         boolean taskIsDone = task.getIsDone();
         String description = task.getTaskDescription();
