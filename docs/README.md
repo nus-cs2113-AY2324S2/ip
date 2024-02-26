@@ -50,7 +50,8 @@ a detailed explanation of all the available commands.
 --------------------------------------------------------------
 ## Features
 
-> [!NOTE] Notes about the command format:
+> [!NOTE] 
+> Notes about the command format:
 > * `Description` is the parameters to be supplied by the user. <br>
     > For example, in`todo Description`, the command `todo return book` 
     takes in the parameter `return book`as`Description`.
@@ -79,7 +80,7 @@ Now you have 1 tasks in the list.
 ~~~
 
 ### Adding a Deadline task - `deadline`
-> [!IMPORTANT] <br>
+> [!IMPORTANT]
 > 1. If the time `HHMM` is not given, the time will be defaulted to 2359.
 > 2. If the time given is already over, an error message will be shown.
 > 
@@ -110,8 +111,8 @@ Now you have 3 tasks in the list.
 
 ### Adding an Event task - `event`
 > [!IMPORTANT]
-> 1. If the time `HHMM` is not given, the time will be defaulted to 2359.
-> 2. If the end date/time is earlier than start date/time, an error will be shown.
+>  1. If the time `HHMM` is not given, the time will be defaulted to 2359.
+>  2. If the end date/time is earlier than start date/time, an error will be shown.
 
 Adds an event task into the task list, with the specific start date/time and end date/time.
 
@@ -151,7 +152,8 @@ Here are the tasks in your list:
 ~~~
 
 ### Marking task as complete - `mark`
->[!NOTE] `Description` refers to the `index` of the task in the list to be marked.
+>[!NOTE] 
+> `Description` refers to the `index` of the task in the list to be marked.
 
 Marks the specified task in the task list as complete.
 
@@ -189,7 +191,8 @@ OK, I've marked this task as not done yet:
 ~~~
 
 ### Find tasks by keyword - `find`
->[!NOTE] `Description` refers to the keyword.
+>[!NOTE] 
+> `Description` refers to the keyword.
 
 
 Find a task by searching for a keyword.
@@ -217,7 +220,8 @@ There are no matching task found.
 ~~~
 
 ### Delete a Task - `delete`
->[!NOTE] `Description` refers to the `index` of the task in the list to be deleted.
+>[!NOTE] 
+> `Description` refers to the `index` of the task in the list to be deleted.
 
 Deletes the specified task from the task list.
 
