@@ -53,30 +53,42 @@ BossMan automatically saves all your task data to a text file. When you start Bo
 Create a todo type of task for BossMan to track.
 
 Syntax:
-`todo <your_task_description>`
+```
+todo <your_task_description>
+```
 
 Example of usage:
-`todo homework`
+```
+todo homework
+```
 
 Expected outcome:
 BossMan will read your todo description, and echo it back to you via console after adding it to your task list.
-`Added:[T][ ] homework
-Now you have 10 tasks in the list.`
+```
+Added:[T][ ] homework
+Now you have 10 tasks in the list.
+```
 
 #### `deadline` - Add a Deadline Task
 Create a deadline type of task for BossMan to track.
 Deadlines have a due date, a compulsory parameter that must be included.
 
 Syntax:
-`deadline <description> /by <YYYY-MM-dd>`
+```
+deadline <description> /by <YYYY-MM-dd>
+```
 
 Example of usage:
-`deadline assignment 3 /by 2024-06-15`
+```
+deadline assignment 3 /by 2024-06-15
+```
 
 Expected outcome:
 BossMan will read your deadline and due date, and echo it back to you via console after adding it to your task list.
-`Added:[D][ ] assignment 3 (do by:2024-06-15)
-Now you have 11 tasks in the list.`
+```
+Added:[D][ ] assignment 3 (do by:2024-06-15)
+Now you have 11 tasks in the list.
+```
 
 ### `event` - Add an Event Task
 Create an event type of task for BossMan to track.
@@ -84,99 +96,139 @@ Events have a from and to time/ date. Unlike deadline, there is no restriction f
 These are compulsory parameters that must be included.
 
 Syntax:
-`event <description> /from <from time/date> /to <to time/date>`
+```
+event <description> /from <from time/date> /to <to time/date>
+```
 
 Example of usage:
-`event hackathon /from tuesday 2pm /to wednesday 6pm`
+```
+event hackathon /from tuesday 2pm /to wednesday 6pm
+```
 
 Expected outcome:
 BossMan will read your event, from and to dates, and will echo it back to you via console after adding it to your task list.
-`Added:[E][ ] hackathon  (from: tuesday 2pm  to: wednesday 6pm)
-Now you have 12 tasks in the list.`
+```
+Added:[E][ ] hackathon  (from: tuesday 2pm  to: wednesday 6pm)
+Now you have 12 tasks in the list.
+```
 
 ### `list` - Get your Task List
 Get your list of tasks.
 The list contains an overview of each tasks' status.
 
 Example of usage:
-`list`
+```
+list
+```
 
 Expected outcome:
 Returns your task list, with tasks sorted in chronological order when it was added.
-`Todo List:
+```
+Todo List:
 1. [D][ ] ppt slides (do by:2024-11-11)
 2. [T][ ] homework
-3. [E][ ] hackathon  (from: tuesday 2pm  to: wednesday 6pm)`
+3. [E][ ] hackathon  (from: tuesday 2pm  to: wednesday 6pm)
+```
 
 ### `mark` - Tag task as done
 Marks a task in the tasklist as done.
 The task number is the number of the task from running list. If the task is already done, BossMan will still go ahead and mark it done again.
 
 Syntax:
-`mark <task_number>`
+```
+mark <task_number>
+```
 
 Example of usage:
-`mark 2`
+```
+mark 2
+```
 
 Expected outcome:
 BossMan tags the task as done and echos it back to you.
-`Nice! I've marked this task as done:
-[T][x] homework`
+```
+Nice! I've marked this task as done:
+[T][x] homework
+```
 
 ### unmark - Tag task as undone
 Marks a task in the tasklist as NOT done.
 The task number is the number of the task from running list. If the task is already not done, BossMan will still go ahead and mark it as undone again.
 
 Syntax:
-`unmark <task_number>`
+```
+unmark <task_number>
+```
 
 Example of usage:
-`unmark 2`
+```
+unmark 2
+```
 
 Expected outcome:
 BossMan tags the task as not done and echos it back to you.
-`OK, I've marked this task as not done yet:
-[T][ ] homework`
+```
+OK, I've marked this task as not done yet:
+[T][ ] homework
+```
 
 ### `delete` - Remove a Task
 Removes a task from your task list. The task number is the number of the task from running list.
 
 Syntax:
-`delete <task_number>`
+```
+delete <task_number>
+```
 
 Example of usage:
-`delete 2`
+```
+delete 2
+```
 
 Expected outcome:
 BossMan removes the task matching the task number from your tasklist. After that, BossMan echoes the removed task back to you.
-`Removed task: [T][ ] homework`
+```
+Removed task: [T][ ] homework
+```
 
 ### find - Query for a task
 Ask BossMan to find all tasks that contain search query keyword.
 
 Syntax:
-`find <query_keyword>`
+```
+find <query_keyword>
+```
 
 Example of usage:
-`find hackathon`
+```
+find hackathon
+```
 
 Expected outcome:
 BossMan filters out all tasks whose descriptions contains query keyword.
-`Matching tasks:
-1. [E][ ] hackathon  (from: tuesday 2pm  to: wednesday 6pm)`
+```
+Matching tasks:
+1. [E][ ] hackathon  (from: tuesday 2pm  to: wednesday 6pm)
+```
 
 ### bye - Exit BossMan
 Exits BossMan application, returning you to your shell.
 
 Syntax:
-`bye`
+```
+bye
+```
 
 Example of usage:
-`bye`
+```
+bye
+```
 
 Expected outcome:
 BossMan says goodbye.
-`Bye. Hope to see you again soon!`
+```
+Bye. Hope to see you again soon!
+```
 
 
 
