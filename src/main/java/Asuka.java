@@ -84,7 +84,8 @@ public class Asuka {
             java.io.FileWriter writer = new java.io.FileWriter(f);
             for (int i = 0; i < taskCount; i++) {
                 Task task = tasks.get(i);
-                writer.write(task.getTaskType() + " " + task.getIsDone() + " " + task.getDescription() + "\n");
+                writer.write(task.getTaskType() + "|" + task.getIsDone() + "|" + task.getDescription() + "|"
+                        + task.getTime() + "\n");
             }
             writer.close();
         } catch (java.io.IOException e) {
@@ -104,15 +105,14 @@ public class Asuka {
                 System.out.println("No task in your list.");
             }
             while (s.hasNext()) {
-                String[] inputs = s.nextLine().split(" ", 3);
+                //System.out.print(taskCount + 1 + ". " + s.nextLine());
+                String[] inputs = s.nextLine().split("\\|", 4);
                 if (inputs[0].equalsIgnoreCase("todo")) {
                     tasks.add(taskCount, new Todo(inputs[2]));
                 } else if (inputs[0].equalsIgnoreCase("deadline")) {
-                    inputs = inputs[2].split("/", 2);
-                    tasks.add(taskCount, new Deadline(inputs[0] + "(" + inputs[1] + ")"));
+                    tasks.add(taskCount, new Deadline(inputs[2], inputs[3]));
                 } else if (inputs[0].equalsIgnoreCase("event")){
-                    inputs = inputs[2].split("/", 3);
-                    tasks.add(taskCount, new Event(inputs[0] + "(" + inputs[1] + inputs[2] + ")"));
+                    tasks.add(taskCount, new Event(inputs[2], (inputs[3])));
                 } else {
                     System.out.println("Invalid task type. File might be corrupted.");
                     break;

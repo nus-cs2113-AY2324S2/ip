@@ -24,7 +24,7 @@ public class TaskManager {
                 System.out.println(constants.BREAKLINE);
                 return taskCount;
             }
-            tasks.add(taskCount, new Deadline(inputs[0] + "(" + inputs[1] + ")"));
+            tasks.add(taskCount, new Deadline(inputs[0], inputs[1]));
         } else {
             inputs = inputs[1].split("/", 3);
             if (inputs.length != 3)
@@ -33,7 +33,7 @@ public class TaskManager {
                 System.out.println(constants.BREAKLINE);
                 return taskCount;
             }
-            tasks.add(taskCount, new Event(inputs[0] + "(" + inputs[1] + inputs[2] + ")"));
+            tasks.add(taskCount, new Event(inputs[0], inputs[1] + inputs[2]));
         }
         taskCount++;
         System.out.println("Got it. I've added this task:");

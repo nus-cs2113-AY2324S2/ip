@@ -2,11 +2,13 @@ package classes;
 
 public class Task {
     protected String description;
+    protected String time;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.time = "NA";
     }
 
     public void markAsDone() {
@@ -27,6 +29,14 @@ public class Task {
 
     public String getTaskType() {
         return "Task";
+    }
+
+    public String getTime() {
+        return this.time;
+    }
+
+    public String setTime(String time) {
+        return this.time = time;
     }
 
     public void printTask() {
