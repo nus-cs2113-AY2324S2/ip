@@ -1,9 +1,12 @@
 package logic;
 
-import exceptions.*;
+import exceptions.DeadlineNoByDateTimeException;
+import exceptions.EventNoFromDateTimeException;
+import exceptions.EventNoToDateTimeException;
+import exceptions.EventToBeforeFromException;
+import exceptions.TaskNoNameException;
 import tasks.Deadline;
 import tasks.Event;
-import tasks.Task;
 import tasks.ToDo;
 
 public class Parser {
@@ -20,7 +23,7 @@ public class Parser {
         return new ToDo(taskName);
     }
 
-    private static Deadline processDeadline(String taskToAdd) throws Exception {
+    public static Deadline processDeadline(String taskToAdd) throws Exception {
         if (!(taskToAdd.contains("/by "))) {
             throw new DeadlineNoByDateTimeException();
         }
@@ -36,7 +39,7 @@ public class Parser {
         return new Deadline(taskName, byWhen);
     }
 
-    private static Event processEvent(String taskToAdd) throws Exception {
+    public static Event processEvent(String taskToAdd) throws Exception {
         if (!(taskToAdd.contains("/from "))) {
             throw new EventNoFromDateTimeException();
         }
