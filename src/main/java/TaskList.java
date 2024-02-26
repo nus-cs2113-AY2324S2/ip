@@ -2,16 +2,16 @@ import java.util.ArrayList;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
+    protected Ui userInterface;
 
-    public void generateList(){
+    public void generateList(Ui uiComponent){
         tasks = new ArrayList<>();
+        userInterface = uiComponent;
     }
 
     public void insertTask(Task task){
         tasks.add(task);
-        System.out.println("Got it. I've added this task");
-        System.out.println(task.getDescription());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        userInterface.listInsertionMessage(task.getDescription(), tasks.size());
     }
 
     public ArrayList<Task> getTasks(){
@@ -22,27 +22,22 @@ public class TaskList {
         this.tasks = aList;
     }
 
-    public void listTasks(){
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i += 1){
-            System.out.println((i +1) + ". "+ tasks.get(i).getDescription());
-        }
+    public void listTasks(ArrayList<Task> tasks){
+        userInterface.printTasks(tasks);
     }
 
     public void markIndex(int index){
-        System.out.println("Nice Ive marked this task as completed ");
+        userInterface.taskMarkedMessage();
         tasks.get(index - 1).markTask();
     }
 
     public void unmarkIndex(int index){
-        System.out.println("OK, I have unchecked this task");
+        userInterface.taskUnmarkedMessage();
         tasks.get(index - 1).unmarkTask();
     }
 
-    public void deleteIndex(int index){
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(index - 1).getDescription());
-        tasks.remove(index - 1);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    public void deleteIndex(int taskNumber){
+        userInterface.taskRemovedMessage(taskNumber, tasks.get(taskNumber - 1).getDescription());
+        tasks.remove(taskNumber - 1);
     }
 }

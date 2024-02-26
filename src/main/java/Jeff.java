@@ -1,16 +1,17 @@
 
 public class Jeff {
     public static void main(String[] args) throws JeffException.InvalidKeywordException {
-        List list = new List();
-        list.generateList();
-        int taskIndex;
+        Ui userInterface = new Ui();
+        TaskList list = new TaskList();
+        Storage saveInstance = new Storage(list.getTasks(), userInterface);
         String description;
-        Saver saveInstance = new Saver(list.getTasks());
-        Saver.deserializeTasks();
-        list.setTasks(saveInstance.getSavedList());
+        int taskIndex;
 
-        System.out.println("Hello! My name is Jeff.");
-        System.out.println("What can I do for you?");
+
+        list.generateList(userInterface);
+        Storage.deserializeTasks();
+        list.setTasks(saveInstance.getSavedList());
+        userInterface.greetingMessage();
 
 
         boolean isChatting = true;
@@ -22,7 +23,7 @@ public class Jeff {
 
                 switch (userFirstWord) {
                     case "list":
-                        list.listTasks();
+                        list.listTasks(list.getTasks());
                         break;
 
                     case "bye":
@@ -34,14 +35,14 @@ public class Jeff {
                     case "mark":
                         taskIndex = Parser.getFirstInt(userInput);
                         list.markIndex(taskIndex);
-                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.setSavedList(list.getTasks());
                         saveInstance.uploadTasks();
                         break;
 
                     case "unmark":
                         taskIndex = Parser.getFirstInt(userInput);
                         list.unmarkIndex(taskIndex);
-                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.setSavedList(list.getTasks());
                         saveInstance.uploadTasks();
                         break;
 
@@ -49,7 +50,7 @@ public class Jeff {
                         description = Parser.extractDescription(userInput);
                         String deadLine = Parser.extractStartTime(userInput);
                         list.insertTask(new Deadline(description, deadLine, false));
-                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.setSavedList(list.getTasks());
                         saveInstance.uploadTasks();
                         break;
 
@@ -59,21 +60,21 @@ public class Jeff {
                         String start = Parser.extractStartTime(userInput);
                         String end = Parser.extractEndTime(userInput);
                         list.insertTask(new Event(description, start, end, false));
-                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.setSavedList(list.getTasks());
                         saveInstance.uploadTasks();
                         break;
 
 
                     case "todo":
                         list.insertTask(new Todo(Parser.extractDescription(userInput), false));
-                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.setSavedList(list.getTasks());
                         saveInstance.uploadTasks();
                         break;
 
                     case "remove":
                         taskIndex = Parser.getFirstInt(userInput);
                         list.deleteIndex(taskIndex);
-                        saveInstance.setSavedList(list.tasks);
+                        saveInstance.setSavedList(list.getTasks());
                         saveInstance.uploadTasks();
                         break;
 
@@ -85,6 +86,6 @@ public class Jeff {
                             " USE todo, deadline or event only. THANKS");
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
+            userInterface.goodbyeMessage();
     }
 }
