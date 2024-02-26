@@ -1,12 +1,9 @@
 package main;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import logic.UserInterface;
 import logic.TaskManager;
 import logic.Storage;
-import tasks.Task;
 
 public class Dor {
     public static void main(String[] args) {

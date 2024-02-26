@@ -1,7 +1,5 @@
 package logic;
 
-import tasks.Task;
-
 import java.util.Scanner;
 public class UserInterface {
     public static final int MARK_LENGTH = 5;

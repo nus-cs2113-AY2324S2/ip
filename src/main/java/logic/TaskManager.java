@@ -1,11 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 import exceptions.DeadlineNoByDateTimeException;
 import exceptions.EventNoFromDateTimeException;
 import exceptions.EventNoToDateTimeException;
