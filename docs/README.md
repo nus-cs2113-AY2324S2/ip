@@ -33,7 +33,7 @@ Expected outcome:
 <br/>
 
 ### `delete` - Delete a Task with it's index
-Example of usage:`delete 3`
+Example of usage:`delete 3`  
 Expected outcome:
 ```
 ------------------------------------------------------------------
@@ -46,7 +46,7 @@ Expected outcome:
 <br/>
 
 ### `mark` - Mark a Task as Down
-Example of usage:`mark 3`
+Example of usage:`mark 3`  
 Expected outcome:
 ```
 ------------------------------------------------------------------
@@ -57,7 +57,7 @@ Expected outcome:
 <br/>
 
 ### `unmark` - Unmark a Task
-Example of usage:`unmark 3`
+Example of usage:`unmark 3`  
 Expected outcome:
 ```
 ------------------------------------------------------------------
@@ -68,7 +68,7 @@ Expected outcome:
 <br/>
 
 ### `find` - Find the task with a given name
-Example of usage:`find homework`
+Example of usage:`find homework`  
 Expected outcome:
 ```
 ------------------------------------------------------------------
@@ -80,7 +80,7 @@ Expected outcome:
 <br/>
 
 ### `todo` - Add the todo task to the list
-Example of usage:`todo sleep`
+Example of usage:`todo sleep`  
 Expected outcome:
 ```
 ------------------------------------------------------------------
@@ -93,7 +93,7 @@ Expected outcome:
 <br/>
 
 ### `deadline` - Add the Deadline task to the list
-Example of usage:`deadline finish the IP /by 2024-03-08`
+Example of usage:`deadline finish the IP /by 2024-03-08`  
 Expected outcome:
 ```
 ------------------------------------------------------------------
@@ -106,7 +106,7 @@ Expected outcome:
 <br/>
 
 ### `event` - Add the event task to the list
-Example of usage:`deadline finish the IP /by 2024-03-08`
+Example of usage:`deadline finish the IP /by 2024-03-08`  
 Expected outcome:
 ```
 ------------------------------------------------------------------
@@ -121,6 +121,6 @@ Expected outcome:
 
 ### `bye` - Exit the mean program
 
-## QA
+## QA & Contact
 If you encounter any problems or want to contact with me, feel free to contact me at
 **yzhanglp0730@gmail.com**. You can also visit my [personal website](yzhanglp.com) for my information!
