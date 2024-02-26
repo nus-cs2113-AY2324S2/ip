@@ -2,8 +2,9 @@ package natsu.command;
 
 import natsu.exception.InvalidCommandException;
 import natsu.task.Todo;
-import natsu.util.Printer;
-import static natsu.util.TaskManager.list;
+import natsu.util.Ui;
+
+import static natsu.util.TaskList.list;
 
 public class AddTodoCommand {
 
@@ -14,6 +15,6 @@ public class AddTodoCommand {
         String todoDescription = userInput.substring(CommandConstants.TODO_COMMAND_LENGTH).trim();
         Todo todo = new Todo(todoDescription);
         list.add(todo);
-        Printer.printTaskAdded(todo.toString());
+        Ui.printTaskAdded(todo.toString());
     }
 }

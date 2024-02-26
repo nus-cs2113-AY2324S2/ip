@@ -1,11 +1,19 @@
-package natsu.command;
+package natsu.util;
 
+import natsu.command.AddDeadlineCommand;
+import natsu.command.AddEventCommand;
+import natsu.command.AddTodoCommand;
+import natsu.command.ByeCommand;
+import natsu.command.DeleteCommand;
+import natsu.command.ListCommand;
+import natsu.command.MarkCommand;
+import natsu.command.UnmarkCommand;
 import natsu.exception.InvalidCommandException;
 
-import static natsu.util.Printer.printLine;
-import static natsu.util.TaskSaver.saveTasksToFile;
+import static natsu.util.Ui.printLine;
+import static natsu.util.Storage.saveTasksToFile;
 
-public class CommandExecutor {
+public class Parser {
     public static Boolean executeCommand(String userInput) {
         try {
             if (userInput.startsWith("bye")) {

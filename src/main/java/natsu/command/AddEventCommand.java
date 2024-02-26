@@ -2,9 +2,9 @@ package natsu.command;
 
 import natsu.exception.InvalidCommandException;
 import natsu.task.Event;
-import natsu.util.Printer;
+import natsu.util.Ui;
 
-import static natsu.util.TaskManager.list;
+import static natsu.util.TaskList.list;
 
 public class AddEventCommand {
 
@@ -18,7 +18,7 @@ public class AddEventCommand {
         }
         Event event = getEvent(userInput);
         list.add(event);
-        Printer.printTaskAdded(event.toString());
+        Ui.printTaskAdded(event.toString());
     }
 
     private static Event getEvent(String userInput) throws InvalidCommandException {

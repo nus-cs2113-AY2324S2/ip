@@ -1,7 +1,6 @@
 package natsu.command;
 
-import natsu.task.Task;
-import static natsu.util.Printer.printList;
+import static natsu.util.Ui.printList;
 
 public class ListCommand {
     public ListCommand() {

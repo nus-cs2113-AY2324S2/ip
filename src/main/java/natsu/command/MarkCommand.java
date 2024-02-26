@@ -2,8 +2,8 @@ package natsu.command;
 
 import natsu.exception.InvalidCommandException;
 
-import static natsu.util.Printer.printTaskDone;
-import static natsu.util.TaskManager.list;
+import static natsu.util.Ui.printTaskDone;
+import static natsu.util.TaskList.list;
 
 public class MarkCommand {
     public MarkCommand(String userInput) throws InvalidCommandException {

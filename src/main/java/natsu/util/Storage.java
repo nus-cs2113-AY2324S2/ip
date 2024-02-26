@@ -5,7 +5,7 @@ import natsu.task.Event;
 import natsu.task.Task;
 import natsu.task.Todo;
 
-import static natsu.util.TaskManager.list;
+import static natsu.util.TaskList.list;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.io.File;
 import java.nio.file.Paths;
 
-public class TaskSaver {
+public class Storage {
     public static void saveTasksToFile(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (int i = 0; i < list.size(); i++) {
-                writer.write(list.get(i).toString() + "\n");
+            for (Task task : list) {
+                writer.write(task.toString() + "\n");
             }
         } catch (IOException e) {
             System.out.println("     An error occurred while saving tasks to file: " + e.getMessage());

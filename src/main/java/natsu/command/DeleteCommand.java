@@ -3,8 +3,8 @@ package natsu.command;
 import natsu.exception.InvalidCommandException;
 import natsu.task.Task;
 
-import static natsu.util.Printer.printTaskDeleted;
-import static natsu.util.TaskManager.list;
+import static natsu.util.Ui.printTaskDeleted;
+import static natsu.util.TaskList.list;
 
 public class DeleteCommand {
     public DeleteCommand(String userInput) throws InvalidCommandException {

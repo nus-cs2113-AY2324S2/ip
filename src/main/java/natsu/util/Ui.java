@@ -1,9 +1,8 @@
 package natsu.util;
 
-import natsu.task.Task;
-import static natsu.util.TaskManager.list;
+import static natsu.util.TaskList.list;
 
-public class Printer {
+public class Ui {
 
     public static void printLine() {
         System.out.println("    ____________________________________________________________");
