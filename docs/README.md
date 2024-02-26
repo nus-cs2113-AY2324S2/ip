@@ -21,8 +21,9 @@ Follow these steps to get started with Yuki.
 1. **Download the latest JAR File:**
     - Download the latest release from https://github.com/yuki-zmstr/ip
 
-2. **Run the JAR File:**
+2. **Run the JAR File from the command line:**
     - Execute the JAR file to launch the chatbot.
+    - `java -jar ip.jar`
 
 3. **Interact with the Chatbot:**
     - Follow the on-screen instructions to add tasks and manage your to-do list.
