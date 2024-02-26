@@ -1,6 +1,7 @@
 package hachi;
 
 import hachi.data.HachiException;
+import hachi.data.TaskList;
 import hachi.data.task.Deadline;
 import hachi.data.task.Event;
 import hachi.data.task.Task;
@@ -28,125 +29,19 @@ import java.util.Scanner;
 
 public class Hachi {
     private Ui ui;
+    private static TaskList tasksArrayList;
 
-    private static ArrayList<Task> tasksArrayList = new ArrayList<>();
     static String filePath = "hachidata/hachidata.txt";
     protected static File folder = new File("hachidata");
 
-    public static void initializeData() throws IOException {
+    public static void initializeData() throws SecurityException {
         // to move to Storage class
         if (!folder.exists()) {
             folder.mkdir();
         }
     }
 
-    /**
-     * Retrieves the current list of tasks and prints it to
-     * the console for the user to see.
-     *
-     * @throws HachiException If the current list is empty.
-     */
-
-    public static void retrieveList() throws HachiException{
-        // to move to TaskList class
-        int numTasks = Task.getTotalNumTasks();
-
-        HachiException.checkEmptyList(numTasks);
-        Ui.spacerInsert("medium", true);
-        Ui.printTaskList(tasksArrayList);
-    }
-
-    /**
-     * Given a task's name and the list of tasks, add a new task into the list.
-     * Depending on the user's input, can create subclass of tasks: Todos, Deadlines and Events.
-     *
-     * @param taskType Type of task to be added. (Todo, Event, Deadline)
-     * @param line The line of text given by the user.
-     * @param cleanInput The cleaned line of text that will be used to determine the instruction.
-     */
-
-    public static void addTask(TaskType taskType, String line, String cleanInput) throws HachiException {
-        // to move to TaskList class
-        Task toAdd;
-        HachiException.checkValidDescription(line);
-
-        if (taskType == TaskType.TODO) {
-            int indexOfTodo = cleanInput.indexOf("TODO") + 5;
-            String name = line.substring(indexOfTodo).trim();
-            toAdd = new Todo(name);
-        } else if (taskType == TaskType.DEADLINE) {
-            // parse deadline here
-            int indexOfName = cleanInput.indexOf("DEADLINE") + 9;
-            int indexOfBy = cleanInput.indexOf("/BY") + 3;
-            HachiException.checkDeadlineByDate(indexOfBy);
-
-            String name = line.substring(indexOfName, indexOfBy - 3).trim();
-            String byDate = line.substring(indexOfBy).trim();
-            toAdd = new Deadline(name, byDate);
-        } else {
-            // parse to and from dates here
-            int indexOfName = cleanInput.indexOf("EVENT") + 6;
-            int indexOfStart = cleanInput.indexOf("/FROM") + 5;
-            int indexOfEnd = cleanInput.indexOf("/TO") + 3;
-            HachiException.checkEventDates(indexOfStart, indexOfEnd);
-
-            String name = line.substring(indexOfName, indexOfStart - 5);
-            String fromDate = line.substring(indexOfStart, indexOfEnd - 3).trim();
-            String toDate = line.substring(indexOfEnd).trim();
-            toAdd = new Event(name, fromDate, toDate);
-        }
-
-        tasksArrayList.add(toAdd);
-        Ui.printAddTaskMessage(toAdd);
-    }
-
-    /**
-     * Function that cleans the user input for mark or unmark requests
-     * and completes the function call as required.
-     *
-     * @param cleanedInput Cleaned input string from user.
-     */
-
-    public static void markOrUnmarkHandler(String cleanedInput) throws HachiException{
-        // to move to TaskList class
-        int numTasks = Task.getTotalNumTasks();
-        HachiException.checkEmptyList(numTasks);
-        int taskNumber = getMarkTaskNumber(cleanedInput);
-        HachiException.checkOutOfBounds(taskNumber);
-        markOrUnmarkTask(taskNumber - 1, !cleanedInput.contains("UNMARK"));
-    }
-
-    /**
-     * Given a task's index and the list of tasks,
-     * mark that task as complete or incomplete.
-     *
-     * @param index Index of the task to be marked.
-     * @param isMark True if task is to be marked as complete, false otherwise
-     */
-
-    public static void markOrUnmarkTask(int index, boolean isMark) {
-        // to move to TaskList class
-        tasksArrayList.get(index).setCompleteness(isMark);
-        Ui.printAfterMarkOrUnmark(tasksArrayList, index);
-    }
-
-    private static void deleteTask(String cleanedInput) throws HachiException {
-        // to move to TaskList class
-        int numTasks = Task.getTotalNumTasks();
-        HachiException.checkEmptyList(numTasks);
-        int taskNumber = getDeleteTaskNumber(cleanedInput);
-        HachiException.checkOutOfBounds(taskNumber);
-
-        Task taskToDelete = tasksArrayList.get(taskNumber - 1);
-        String taskType = taskToDelete.getTaskType();
-        String statusIcon = taskToDelete.getStatusIcon();
-        Task.decrementTotalNumTasks();
-
-        Ui.printTaskDeleteMessage(taskType, statusIcon, taskToDelete);
-        tasksArrayList.remove(taskNumber - 1);
-    }
-
-    private static int getDeleteTaskNumber(String cleanedInput) throws HachiException {
+    public static int getDeleteTaskNumber(String cleanedInput) throws HachiException {
         // to move to Parser class
         int indexOfTaskNum = cleanedInput.indexOf("DELETE") + 6; // find index of task number
         int taskNumber = 0;
@@ -160,7 +55,7 @@ public class Hachi {
         return taskNumber;
     }
 
-    private static int getMarkTaskNumber(String cleanedInput) throws HachiException {
+    public static int getMarkTaskNumber(String cleanedInput) throws HachiException {
         // to move to Parser class
         int indexOfTaskNum = cleanedInput.indexOf("MARK") + 4; // find index of task number
         int taskNumber = 0;
@@ -254,8 +149,9 @@ public class Hachi {
      * @param args Command line arguments - not used.
      */
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Ui ui = new Ui();
+        tasksArrayList = new TaskList();
 
         boolean isUpdated = false;
         boolean isBye = false;
@@ -267,7 +163,7 @@ public class Hachi {
 
         // maybe place load file try-catch block in Hachi constructor
         try {
-            loadFile(tasksArrayList);
+            loadFile(TaskList.getTasksArrayList());
         } catch (FileNotFoundException e) {
             System.out.println("Error finding save file. Creating empty task list.");
         } catch (HachiException e) {
@@ -289,16 +185,16 @@ public class Hachi {
                 switch (firstWord) {
                 case "MARK":
                 case "UNMARK":
-                    markOrUnmarkHandler(cleanedInput);
+                    TaskList.markOrUnmarkHandler(cleanedInput);
                     isUpdated = true;
                     break;
 
                 case "LIST":
-                    retrieveList();
+                    TaskList.retrieveTaskList();
                     break;
 
                 case "DELETE":
-                    deleteTask(cleanedInput);
+                    TaskList.deleteTask(cleanedInput);
                     isUpdated = true;
                     break;
 
@@ -315,7 +211,7 @@ public class Hachi {
                         currentTask = TaskType.TODO;
                     }
 
-                    addTask(currentTask, userInput, cleanedInput);
+                    TaskList.addTask(currentTask, userInput, cleanedInput);
                     isUpdated = true;
                     break;
 
@@ -339,7 +235,7 @@ public class Hachi {
                 // consider splitting this section from the main try block
                 if (isUpdated) { // save if there is a file update
                     try {
-                        save(tasksArrayList);
+                        save(TaskList.getTasksArrayList());
                     } catch (IOException e) {
                         System.out.println("There was an error saving tasks.");
                     }
