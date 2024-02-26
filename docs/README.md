@@ -97,5 +97,5 @@ Here are the matching tasks in your list:
 Example of usage: bye
 
 ```
-Bye. I will be awaiting your next order! ☺
+Bye. I will be awaiting your next order! =)
 ```
