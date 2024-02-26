@@ -1,6 +1,10 @@
 package jeff.commands;
 
-import jeff.*;
+import jeff.Command;
+import jeff.Printer;
+import jeff.Storage;
+import jeff.Task;
+import jeff.TaskList;
 
 public class DeleteCommand extends Command {
     private final int index;

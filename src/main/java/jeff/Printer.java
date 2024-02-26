@@ -1,5 +1,7 @@
 package jeff;
 
+import java.util.ArrayList;
+
 public class Printer {
     private static final String INDENT = "     ";
     private static final String DIVIDER = "    ____________________________________________________________";
@@ -28,6 +30,17 @@ public class Printer {
         for (int i = 0; i < TaskList.size(); i++) {
             printIndent((i + 1) + "." + TaskList.get(i));
         }
+    }
+
+    public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        printIndent("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            printIndent((i + 1) + "." + matchingTasks.get(i));
+        }
+    }
+
+    public static void printNoMatchingTasks() {
+        printIndent("No matching tasks found.");
     }
 
     public static void printAddTask() {
