@@ -64,8 +64,9 @@ public class Storage {
                     updateCheck(newEvent, informations[1], currentList);
                     break;
                 default:
-                    throw new JingHaoExceptions("~~~~~~~~~~~~~~~~Error!! Corrupted datafile~~~~~~~~~~~~~~~~~~\n" +
-                            "\n             Deleting corrupted data file :(\n");
+                    String corruptedFile= "~~~~~~~~~~~~~~~~Error!! Corrupted datafile~~~~~~~~~~~~~~~~~~\n" +
+                            "\n             Deleting corrupted data file :(\n";
+                    throw new JingHaoExceptions(corruptedFile);
                 }
             }
         } catch (FileNotFoundException e) {

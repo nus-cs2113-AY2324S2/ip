@@ -43,7 +43,8 @@ public class DeadlineCommand implements Command {
         String date = deadlineDescription[1].trim();
         Task newDeadline = new Deadline(description, date, isFromFile);
         taskList.add(newDeadline);
-        System.out.println("Got it. I've added this task:\n " + newDeadline);
+        String addedInList = "Got it. I've added this task:\n ";
+        ui.printWithoutDivider(addedInList +newDeadline);
         ui.printTotalTask(taskList.size());
     }
 

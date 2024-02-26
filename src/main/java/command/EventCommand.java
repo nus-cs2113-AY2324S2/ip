@@ -50,7 +50,8 @@ public class EventCommand implements Command {
         String toDate = eventTime[1].trim();
         Task newEvent = new Event(description,fromDate,toDate, isFromFile);
         taskList.add(newEvent);
-        System.out.println("Got it. I've added this task:\n " +newEvent);
+        String addedInList = "Got it. I've added this task:\n ";
+        ui.printWithoutDivider(addedInList +newEvent);
         ui.printTotalTask(taskList.size());
     }
 
