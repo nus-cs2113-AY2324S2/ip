@@ -1,6 +1,7 @@
 package beefy.task;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import beefy.BeefyException;
@@ -61,8 +62,8 @@ public class TaskList {
      * @param isInitialize Determines if function is executed when copying task data over from disk.
      * @return Deadline task that is added.
      */
-    public Task addTask(String taskDescription, String by, boolean isInitialize) {
-        Deadline userTask = new Deadline(taskDescription, by);
+    public Task addTask(String taskDescription, LocalDateTime by, boolean isInitialize) {
+        beefy.task.Deadline userTask = new beefy.task.Deadline(taskDescription, by);
         tasks.add(userTask);
         numberOfTasks++;
         if (!isInitialize) {
@@ -81,8 +82,8 @@ public class TaskList {
      * @param isInitialize Determines if function is executed when copying task data over from disk.
      * @return Event task that is added.
      */
-    public Task addTask(String taskDescription, String from, String to, boolean isInitialize) {
-        Event userTask = new Event(taskDescription, from, to);
+    public Task addTask(String taskDescription, LocalDateTime from, LocalDateTime to, boolean isInitialize) {
+        beefy.task.Event userTask = new beefy.task.Event(taskDescription, from, to);
         tasks.add(userTask);
         numberOfTasks++;
         if (!isInitialize) {
@@ -113,16 +114,16 @@ public class TaskList {
      * @throws BeefyException if task has already been marked.
      */
     public void markTask(int taskId, boolean isInitialize) throws BeefyException {
-            Task selectedTask = tasks.get(taskId - 1);
-            if (selectedTask.getStatus()) {
-                throw new BeefyException("Are you blind mate?");
-            } else {
-                selectedTask.setMark();
-                if (isInitialize) {
-                    Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
-                            + selectedTask);
-                }
+        Task selectedTask = tasks.get(taskId - 1);
+        if (selectedTask.getStatus()) {
+            throw new BeefyException("Are you blind mate?");
+        } else {
+            selectedTask.setMark();
+            if (isInitialize) {
+                Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
+                        + selectedTask);
             }
+        }
     }
 
     /**
@@ -156,5 +157,22 @@ public class TaskList {
         numberOfTasks--;
         Ui.printMessage("---" + delTaskDescription + " has been removed from task list!---" + System.lineSeparator()
                 + "---Number of Tasks in List: " + numberOfTasks + "---");
+    }
+
+    /**
+     * Find all tasks that contain a certain phrase from taskList.
+     *
+     * @param taskDescription Phrase to be searched for.
+     */
+    public void findTask(String taskDescription) {
+        String message = "Here are the matching tasks in your list: " + System.lineSeparator();
+        int taskCount = 1;
+        for (Task userTask : tasks) {
+            if (userTask.getDescription().contains(taskDescription)) {
+                message += taskCount + ". " + userTask + System.lineSeparator();
+                taskCount += 1;
+            }
+        }
+        Ui.printMessage(message);
     }
 }
