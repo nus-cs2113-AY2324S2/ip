@@ -50,10 +50,12 @@ public class BossMan {
             String userInput = SCANNER.nextLine();
 
             //execute user command if it is valid else throw exception
+            //save tasks to file after each command
             try {
                 Command userCommand = Parser.determineCommand(TASK_LIST, userInput);
                 userCommand.execute();
                 isExit = userCommand.isExit();
+                DATA_STORAGE.saveTasksToFile();
             } catch (BossManExceptions | IOException e) {
                 Ui.printMessageWithSepNewLine(e.getMessage());
             }
