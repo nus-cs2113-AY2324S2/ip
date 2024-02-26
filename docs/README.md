@@ -27,8 +27,103 @@ Follow these steps to get started with Yuki.
 3. **Interact with the Chatbot:**
     - Follow the on-screen instructions to add tasks and manage your to-do list.
 
-## Example Usage
+## Commands
 
+### 1. Viewing help : `help`
+Shows instructions to use the chatbot
+
+Format: `help`
+
+### 2. Adding a todo : `todo`
+Adds todo with a description.
+
+Format: `todo read book`
+
+Example:
+
+```plaintext
+> todo clean house
+[Command entered: todo clean house]
+---------------------------------------------
+new todo for you:
+[ ][T] clean house
+Now you have 1 tasks in the list.
+---------------------------------------------
+```
+
+### 3. Adding a deadline : `deadline`
+Adds a deadline with a to-complete date.
+
+Format: `deadline wash clothes /by Sunday`
+
+Example:
+```plaintext
+> deadline homework /by 7pm
+[Command entered: deadline homework /by 7pm]
+---------------------------------------------
+new todo for you:
+[ ][D] homework  (by:7pm)
+Now you have 2 tasks in the list.
+---------------------------------------------
+```
+
+### 4. Adding an event : `event`
+Adds an event with a start date and en date.
+
+Format: `event birthday party /from 1 Jan /to 4 Jan`
+
+Example:
+```plaintext
+> event trip to US /from 1 Jan /to 8 Jan
+[Command entered: event trip to US /from 1 Jan /to 8 Jan]
+---------------------------------------------
+new todo for you:
+[ ][E] trip to US  (from: 1 Jan  to: 8 Jan)
+Now you have 3 tasks in the list.
+---------------------------------------------
+```
+
+### 5. Marking a task as done : `mark`
+Marks a task of a given index as done.
+
+Format: `mark 1`
+
+Example:
+```plaintext
+> mark 2
+[Command entered: mark 2]
+---------------------------------------------
+Good job.
+[X][D] homework  (by:7pm)
+---------------------------------------------
+```
+
+### 6. Marking a task as not done : `unmark`
+Marks a task of a given index as not done.
+
+Format: `unmark 1`
+
+### 7. Deleting a task : `delete`
+Deleting a task of a given index.
+
+Format: `delete 1`
+
+### 8. Finding tasks : `find`
+Finds tasks that contain a given keyword.
+
+Format: `find homework`
+
+### 9. List tasks : `list`
+Lists all tasks.
+
+Format: `list`
+
+### 10. Exit program : `exit`
+Exits program.
+
+Format: `exit`
+
+## Example usage
 ```plaintext
 $ java -jar ip.jar
 
@@ -83,6 +178,6 @@ Breaks are only for the weak.
 ---------------------------------------------
 ```
 
-Other instructions can be found using the `help` command.
+More instructions can also be found using the `help` command.
 
 Have fun with the chatbot!
