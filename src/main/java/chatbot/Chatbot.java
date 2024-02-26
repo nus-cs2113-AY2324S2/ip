@@ -18,6 +18,7 @@ public class Chatbot {
     private final ArrayList<Task> taskList = new ArrayList<>();
     private int listLength = 0;
     private boolean isExit = false;
+    private boolean isReading = false;
     String input;
     Task selectedItem;
     Scanner in = new Scanner(System.in);
@@ -26,7 +27,7 @@ public class Chatbot {
         this.CHATBOT_NAME = name;
     }
     public void writeToFile() throws IOException {
-        FileWriter fileWriter = new FileWriter("data\\chatbot.txt");
+        FileWriter fileWriter = new FileWriter(".\\data\\chatbot.txt");
         for (int i = 0; i < listLength; i += 1) {
             Task task = taskList.get(i);
             fileWriter.write(task.isDone() + "@" + task.getTaskName() + "@" + task.getCommand() + "\n");
@@ -34,7 +35,8 @@ public class Chatbot {
         fileWriter.close();
     }
     public void read() throws FileNotFoundException, ChatbotException {
-        File f = new File("data\\chatbot.txt");
+        this.isReading = true;
+        File f = new File(".\\data\\chatbot.txt");
         Scanner s = new Scanner(f);
         String dataLine = "";
         while (s.hasNext()) {
@@ -47,27 +49,7 @@ public class Chatbot {
             String command = dataArray[1];
             String description = dataArray[2];
 
-            //this.execute(command, description); //this one prints messages as well; find a way to remove
-            switch (command) {
-            case "todo":
-                selectedItem = new Todo(description);
-                taskList.add(selectedItem);
-                listLength += 1;
-                break;
-            case "deadline":
-                selectedItem = new Deadline(description);
-                taskList.add(selectedItem);
-                listLength += 1;
-                break;
-            case "event":
-                selectedItem = new Event(description);
-                taskList.add(selectedItem);
-                listLength += 1;
-                break;
-            default:
-                throw new ChatbotException("Text file formatting error. Fix it and try again. ");
-            }
-
+            this.execute(command, description);
             if (isMarked) {
                 selectedItem = taskList.get(listLength - 1);
                 selectedItem.markAsDone();
@@ -160,7 +142,9 @@ public class Chatbot {
             }
             selectedItem = taskList.get(inputNum - 1);
             selectedItem.markAsNotDone();
-            printResponse(command);
+            if (!isReading) {
+                printResponse(command);
+            }
             break;
         case "mark":
             inputNum = new Scanner(input).useDelimiter("\\D+").nextInt();
@@ -169,7 +153,9 @@ public class Chatbot {
             }
             selectedItem = taskList.get(inputNum - 1);
             selectedItem.markAsDone();
-            printResponse(command);
+            if (!isReading) {
+                printResponse(command);
+            }
             break;
         case "delete":
             inputNum = new Scanner(input).useDelimiter("\\D+").nextInt();
@@ -177,30 +163,38 @@ public class Chatbot {
                 throw new ChatbotException("You only have " + listLength + " task(s). Choose one of them. ");
             }
             selectedItem = taskList.get(inputNum - 1);
-            printResponse(command);
+            if (!isReading) {
+                printResponse(command);
+            }
             taskList.remove(inputNum - 1);
             listLength -= 1;
             break;
         case "todo":
             selectedItem = new Todo(description);
-            printResponse(command);
             taskList.add(selectedItem);
             listLength += 1;
-            printLength();
+            if (!isReading) {
+                printResponse(command);
+                printLength();
+            }
             break;
         case "deadline":
             selectedItem = new Deadline(description);
-            printResponse(command);
             taskList.add(selectedItem);
             listLength += 1;
-            printLength();
+            if (!isReading) {
+                printResponse(command);
+                printLength();
+            }
             break;
         case "event":
             selectedItem = new Event(description);
-            printResponse(command);
             taskList.add(selectedItem);
             listLength += 1;
-            printLength();
+            if (!isReading) {
+                printResponse(command);
+                printLength();
+            }
             break;
         case "help":
             printResponse(command);
@@ -211,6 +205,7 @@ public class Chatbot {
     }
 
     public void run() {
+        this.isReading = false;
         do {
             try {
                 System.out.println("-------------------");
