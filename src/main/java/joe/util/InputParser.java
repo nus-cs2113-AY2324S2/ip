@@ -10,6 +10,10 @@ import joe.command.ListCommand;
 import joe.command.ToggleMarkCommand;
 import joe.task.TaskType;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class InputParser {
     protected static final String FLAG_INDICATOR = "/";
     protected static final String DEADLINE_FLAG =  FLAG_INDICATOR + "by";
@@ -24,7 +28,7 @@ public class InputParser {
     protected static final String NEW_EVENT_COMMAND = "event";
     protected static final String DELETE_COMMAND = "delete";
     protected static final int INVALID_TASK_NUMBER = -69;
-
+    protected static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     public static Command getCommand(String input) {
         Command command;
         String commandName = getCommandName(input);
@@ -89,11 +93,20 @@ public class InputParser {
         return message.substring(0, message.indexOf(FLAG_INDICATOR)).trim();
     }
 
-    public static String getDeadlineTime(String message) throws JoeException{
+    public static LocalDateTime getDeadlineTime(String message) throws JoeException{
         if (!message.contains(DEADLINE_FLAG)) {
             throw new JoeException();
         }
-        return message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
+        String time =  message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
+
+        LocalDateTime deadlineTime;
+        try {
+            deadlineTime = LocalDateTime.parse(time, INPUT_TIME_FORMAT);
+        } catch (DateTimeException e) {
+            throw new JoeException();
+        }
+
+        return deadlineTime;
     }
 
     public static String[] getEventTime(String message) throws JoeException {
