@@ -52,7 +52,7 @@ public class UserInterface {
                     break;
                 default:
                     try {
-                        taskManager.addTask(input, false);
+                        taskManager.addTask(input);
                         storage.saveDataToTextFile();
                     } catch (Exception e) {
                         printError(e);

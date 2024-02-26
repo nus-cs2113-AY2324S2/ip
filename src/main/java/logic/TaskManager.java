@@ -27,7 +27,7 @@ public class TaskManager {
         this.currIndex = 0;
     }
 
-    public void addTask(String taskToAdd, boolean taskDoneStatus) throws Exception {
+    public void addTask(String taskToAdd) throws Exception {
         String[] taskAsArray = taskToAdd.split(" ");
         if (taskAsArray.length == 1) {
             throw new TaskNoNameException();
@@ -35,18 +35,18 @@ public class TaskManager {
         String taskType = taskAsArray[0];
         switch (taskType) {
         case "todo":
-            processToDo(taskToAdd, taskDoneStatus);
+            processToDo(taskToAdd);
             break;
         case "deadline":
             try {
-                processDeadline(taskToAdd, taskDoneStatus);
+                processDeadline(taskToAdd);
             } catch (DeadlineNoByDateTimeException e) {
                 throw new DeadlineNoByDateTimeException();
             }
             break;
         case "event":
             try {
-                processEvent(taskToAdd, taskDoneStatus);
+                processEvent(taskToAdd);
             } catch (EventNoFromDateTimeException e) {
                 throw new EventNoFromDateTimeException();
             } catch (EventNoToDateTimeException e) {
@@ -61,13 +61,13 @@ public class TaskManager {
         printAndIncrementAfterAddTask();
     }
     
-    private void processToDo(String taskToAdd, boolean taskDoneStatus) {
+    private void processToDo(String taskToAdd) {
         String taskName;
         taskName = taskToAdd.substring(TODO_LENGTH);
         tasks.add(new ToDo(taskName));
     }
 
-    private void processDeadline(String taskToAdd, boolean taskDoneStatus) throws Exception {
+    private void processDeadline(String taskToAdd) throws Exception {
         if (!(taskToAdd.contains("/by "))) {
             throw new DeadlineNoByDateTimeException();
         }
@@ -83,7 +83,7 @@ public class TaskManager {
         tasks.add(new Deadline(taskName, byWhen));
     }
 
-    private void processEvent(String taskToAdd, boolean taskDoneStatus) throws Exception {
+    private void processEvent(String taskToAdd) throws Exception {
         if (!(taskToAdd.contains("/from "))) {
             throw new EventNoFromDateTimeException();
         }
