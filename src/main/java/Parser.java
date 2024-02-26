@@ -21,6 +21,8 @@ public class Parser {
             addEventTask(userInput, tasks);
         } else if (userInput.startsWith("delete")) {
             deleteTask(userInput, tasks);
+        } else if (userInput.startsWith("find")) {
+            findTask(userInput, tasks);
         } else {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :(");
             throw new DukeException();
@@ -99,5 +101,23 @@ public class Parser {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void findTask(String userInput, TaskList tasks) throws DukeException {
+        DukeException.checkKeyword(userInput);
+        String keyword = userInput.substring(5).trim();
+        boolean isFound = false;
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                isFound = true;
+                System.out.println(" " + (i + 1) + "." + task);
+            }
+        }
+        if (!isFound) {
+            System.out.println("No matching tasks found.");
+            throw new DukeException();
+        }
     }
 }
