@@ -11,6 +11,21 @@ public class List {
         this.size = 0;
     }
 
+    //Method that returns the size of the current list
+    public int getSize(){
+        return size;
+    }
+
+    //Method to return task object based on index
+    public Task getTask(int index){
+        for (int i=0; i < size; i++){
+            if (i == index){
+                return tasks[i];
+            }
+        }
+        return null;
+    }
+
     // Overloaded Method to add a deadline to the list
     public void addTask(String taskDescription, String taskDeadline){
         tasks[size] = new Deadline(taskDescription, taskDeadline);
