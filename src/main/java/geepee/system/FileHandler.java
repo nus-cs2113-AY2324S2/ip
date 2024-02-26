@@ -34,9 +34,10 @@ public class FileHandler {
         fw.close();
     }
 
-    public void addFileContentsToList(ArrayList<Task> tasks) throws FileNotFoundException {
+    public ArrayList<Task> getTasksFromFile() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        ArrayList<Task> tasks = new ArrayList<>();
         String line = "";
         while (s.hasNext()) {
             line = s.nextLine();
@@ -52,9 +53,10 @@ public class FileHandler {
                         taskStatus));
             }
         }
+        return tasks;
     }
 
-    public void overwriteFileWithNewList(ArrayList<Task> tasks) {
+    public void writeTasks(ArrayList<Task> tasks) {
         try {
             String newData = "";
             for (Task task : tasks) {

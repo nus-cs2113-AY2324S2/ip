@@ -13,10 +13,10 @@ public class List {
 
     public List(String filePath) {
         try {
-            tasks = new ArrayList<>();
             fileHandler = new FileHandler(filePath);
-            fileHandler.addFileContentsToList(tasks);
+            tasks = fileHandler.getTasksFromFile();
         } catch (FileNotFoundException e) {
+            tasks = new ArrayList<>();
             SystemMessage.printFileNotFoundMessage();
         }
     }
@@ -45,7 +45,7 @@ public class List {
         ListMessage.printAllTasks(tasks);
     }
 
-    public void updateFile() {
-        fileHandler.overwriteFileWithNewList(tasks);
+    public void writeTasksToFile() {
+        fileHandler.writeTasks(tasks);
     }
 }

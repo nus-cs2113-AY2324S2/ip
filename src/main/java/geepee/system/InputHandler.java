@@ -1,13 +1,11 @@
 package geepee.system;
 
-import java.util.Scanner;
 import geepee.exceptions.EmptyDescriptionException;
 import geepee.exceptions.InvalidCommandException;
 import geepee.exceptions.MissingDeadlineException;
 import geepee.exceptions.MissingFromException;
 import geepee.exceptions.MissingToException;
 import geepee.task.list.List;
-import geepee.task.list.ListMessage;
 import geepee.task.Todo;
 import geepee.task.Deadline;
 import geepee.task.Event;
@@ -15,7 +13,6 @@ import geepee.task.Event;
 public abstract class InputHandler {
 
     private static final int COMMAND_INDEX = 0;
-    private static Scanner in = new Scanner(System.in);
 
     private static void handleTodo(List list, String line) {
         try {
@@ -87,9 +84,5 @@ public abstract class InputHandler {
         } else {
             throw new InvalidCommandException();
         }
-    }
-
-    public static String getUserInput() {
-        return in.nextLine().trim();
     }
 }
