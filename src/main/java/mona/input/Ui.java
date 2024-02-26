@@ -1,5 +1,7 @@
 package mona.input;
 
+import mona.output.ConsolePrint;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -7,6 +9,7 @@ public class Ui {
 
     public Ui() {
         this.in = new Scanner(System.in);
+        ConsolePrint.greet();
     }
 
     public String getUserInput() {

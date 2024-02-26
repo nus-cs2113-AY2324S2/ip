@@ -1,37 +1,41 @@
 import mona.input.InputParser;
+import mona.input.Ui;
 import mona.output.ConsolePrint;
 import mona.manager.TaskManager;
+import mona.task.Task;
 import mona.util.Constants;
 
 import mona.storage.Storage;
 
 import java.util.Scanner;
 public class Mona {
-    public static void main(String[] args) {
 
-        ConsolePrint.greet();
+    private Ui ui;
+    private Storage storage;
+    private TaskManager taskManager;
 
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        Storage storage = new Storage(Constants.DATA_FILE_PATH);
-        TaskManager taskManager = new TaskManager(storage.loadData());
+    public Mona() {
+        this.ui = new Ui();
+        this.storage = new Storage(Constants.DATA_FILE_PATH);
+        this.taskManager = new TaskManager((this.storage).loadData());
+    }
 
-        while (true) {
-            InputParser input = new InputParser(line);
+    public void run() {
+        String userCommand = ui.getUserInput();
 
-            if (!input.isValidInput()) {
-                line = in.nextLine();
-                continue;
+        while (!userCommand.equals("bye")) {
+            InputParser input = new InputParser(userCommand);
+
+            if (input.isValidInput()) {
+                taskManager.executeCommand(input.getCommandTypeAndParams());
+                storage.saveToStorage(taskManager.getTasks());
             }
 
-            taskManager.executeCommand(input.getCommandTypeAndParams());
-            storage.saveToStorage(taskManager.getTasks());
-
-            if (input.getCommandTypeAndParams()[Constants.INDEX_COMMAND_TYPE].equals("bye")) {
-                ConsolePrint.exit();
-                break;
-            }
-            line = in.nextLine();
+            userCommand = ui.getUserInput();
         }
+        ConsolePrint.exit();
+    }
+    public static void main(String[] args) {
+        new Mona().run();
     }
 }
