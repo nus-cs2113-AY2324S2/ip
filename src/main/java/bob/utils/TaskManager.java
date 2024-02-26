@@ -168,6 +168,12 @@ public class TaskManager {
         return output;
     }
 
+    /**
+     * Finds a Task in the Task List.
+     *
+     * @param keyword Keyword to search for.
+     * @return String representation of all Tasks matching the keyword provided.
+     */
     public String findTask(String keyword) {
         StringBuilder output = new StringBuilder(" Here are the matching tasks in your list:\n");
 

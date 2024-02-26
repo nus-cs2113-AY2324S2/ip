@@ -1,5 +1,8 @@
 package bob.exceptions;
 
+/**
+ * Bob Exception for invalid date/times provided by the User.
+ */
 public class InvalidDateTimeException extends Exception {
     private final String command;
     private final String errorType;
