@@ -119,7 +119,7 @@ public class TaskList {
             throw new BeefyException("Are you blind mate?");
         } else {
             selectedTask.setMark();
-            if (isInitialize) {
+            if (!isInitialize) {
                 Ui.printMessage("Nice one mate! I've marked this task as done:" + System.lineSeparator()
                         + selectedTask);
             }
@@ -139,7 +139,7 @@ public class TaskList {
             throw new BeefyException("Are you blind mate?");
         } else {
             selectedTask.setUnmark();
-            if (isInitialize) {
+            if (!isInitialize) {
                 Ui.printMessage("WHY?! I've marked this task as not done:" + System.lineSeparator()
                         + selectedTask);
             }
