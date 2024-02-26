@@ -15,7 +15,7 @@ public class Storage {
 
     private TaskManager taskManager;
 
-    public Storage(String filePath) {
+    public Storage(String filePath) throws IOException {
         if (new File("./data").mkdir()) {
             System.out.println("data folder created");
         } else {
@@ -28,7 +28,8 @@ public class Storage {
                 System.out.println("dor.txt found");
             }
         } catch (IOException e) {
-            System.out.println("ERROR: Could not create or find dor.txt!");
+            throw new IOException();
+
         }
         this.dataFile = new File(filePath);
         this.taskManager = new TaskManager();
@@ -98,7 +99,7 @@ public class Storage {
     }
 
     public void saveDataToTextFile() throws IOException {
-        FileWriter fw = new FileWriter("./data/dor.txt");
+        FileWriter fw = new FileWriter(dataFile);
         for (int i = 0; i < taskManager.currIndex; i++) {
             Task currTask = taskManager.tasks.get(i);
             String data = processData(currTask);
