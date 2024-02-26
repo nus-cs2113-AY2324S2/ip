@@ -26,7 +26,7 @@ public class Event extends Task {
         int fromIndex = description.indexOf("/from");
         this.description = description.substring(0, fromIndex);
         if (this.description.isEmpty()) {
-            throw new QuillException();
+            throw new QuillException("No empty descriptions allowed for event. Fill it in!");
         }
         int toIndex = description.indexOf("/to");
         this.from = LocalDateTime.parse(description.substring(fromIndex + 5, toIndex - 1)
@@ -35,6 +35,9 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(description.substring(toIndex + 3)
                         .replace('T', ' '),
                         DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm"));
+        if (to.isBefore(from)) {
+            throw new QuillException("Quick tip: 'from' should precede 'to', unless you've mastered time bending.");
+        }
     }
 
     /**

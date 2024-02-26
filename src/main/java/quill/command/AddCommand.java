@@ -77,7 +77,7 @@ public class AddCommand extends Command{
             System.out.println("Seriously? You call that a deadline?");
             System.out.println("It's 'deadline [task] /by yyyy-MM-dd HH:mm'. Get it right!");
         } catch (QuillException e) {
-            System.out.println("No empty descriptions allowed for deadline. Fill it in!");
+            System.out.println(e.getMessage());
         } catch (DateTimeParseException e) {
             System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
         }
@@ -100,7 +100,7 @@ public class AddCommand extends Command{
         } catch (DateTimeParseException e) {
             System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
         } catch (QuillException e) {
-            System.out.println("No empty descriptions allowed for event. Fill it in!");
+            System.out.println(e.getMessage());
         }
     }
 }

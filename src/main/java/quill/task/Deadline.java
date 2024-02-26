@@ -24,7 +24,7 @@ public class Deadline extends Task {
         int index = description.indexOf("/by");
         this.description = description.substring(0, index);
         if (this.description.isEmpty()) {
-            throw new QuillException();
+            throw new QuillException("No empty descriptions allowed for deadline. Fill it in!");
         }
         this.by = LocalDateTime.parse(description.substring(index + 3)
                         .replace('T', ' '),

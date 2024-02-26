@@ -30,13 +30,30 @@ public class FindCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, TextUi ui) {
+        ArrayList<Task> matchingTask;
+        try {
+            matchingTask = iterateTask(tasks);
+            TextUi.showFindList(matchingTask);
+        } catch (NullPointerException e) {
+            System.out.println("Searching for nothing? Well, you're in luck! You've hit the jackpot of emptiness");
+        }
+    }
+
+    /**
+     * Iterate through the list to find matching tasks.
+     * @param tasks The list of tasks.
+     * @return The list containing matching tasks.
+     */
+    public ArrayList<Task> iterateTask(TaskList tasks) {
+        if (parameter.isEmpty()) {
+            parameter = null;
+        }
         ArrayList<Task> matchingTask = new ArrayList<>();
         for (int i = 0; i < TaskList.getTotalTasks(); i++) {
             if (tasks.getTask(i).getDescription().contains(parameter)) {
                 matchingTask.add(tasks.getTask(i));
             }
         }
-        TextUi.showFindList(matchingTask);
+        return matchingTask;
     }
-
 }
