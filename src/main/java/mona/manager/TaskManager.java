@@ -18,13 +18,16 @@ import java.util.ArrayList;
 public class TaskManager {
     public static int noOfTasks;
     protected ArrayList<Task> tasks;
-    protected TaskStorage taskStorage;
 
-    public TaskManager() {
-        tasks = new ArrayList<>();
-        noOfTasks = 0;
-        this.taskStorage = new TaskStorage(Constants.DATA_FILE_PATH);
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
+
+    public TaskManager(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        noOfTasks = tasks.size();
+    }
+
     public void executeCommand(String[] commandTypeAndParams) {
         String commandType = commandTypeAndParams[Constants.INDEX_COMMAND_TYPE];
 
@@ -71,52 +74,7 @@ public class TaskManager {
             noOfTasks -= 1;
             break;
         default:
-            taskStorage.saveToStorage(tasks);
-        }
-    }
-
-    public void loadFromStorage() {
-        File dataFolder = new File(Constants.DATA_FOLDER_PATH);
-        File dataFile = new File(dataFolder, Constants.DATA_FILE_NAME);
-
-        // Check if the data folder exists, if not create it
-        if (!dataFolder.exists()) {
-            boolean wasDirectoryMade = dataFolder.mkdirs();
-            if (!wasDirectoryMade) {
-                System.out.println("Could not create data directory.");
-                return; // Stop further execution
-            }
-        }
-
-        // Check if the data file exists, if not create it
-        if (!dataFile.exists()) {
-            try {
-                boolean wasFileCreated = dataFile.createNewFile();
-                if (!wasFileCreated) {
-                    System.out.println("Could not create data file.");
-                    return; // Stop further execution
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        try {
-            File f = new File(Constants.DATA_FILE_PATH); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                String nextLine = s.nextLine();
-
-                String[] processedInput = taskStorage.parseSavedInput(nextLine);
-                InputParser input = new InputParser(processedInput[0]);
-                executeCommand(input.getCommandTypeAndParams());
-
-                if (processedInput[1].equals("DONE")) {
-                    tasks.get(noOfTasks - 1).markAsDone();
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            //doNothing?
         }
     }
 }

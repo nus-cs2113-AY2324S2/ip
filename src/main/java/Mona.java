@@ -15,8 +15,8 @@ public class Mona {
 
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-        TaskManager taskManager = new TaskManager();
-        taskManager.loadFromStorage();
+        TaskStorage storage = new TaskStorage(Constants.DATA_FILE_PATH);
+        TaskManager taskManager = new TaskManager(storage.loadData());
 
         while (true) {
             InputParser input = new InputParser(line);
@@ -27,6 +27,7 @@ public class Mona {
             }
 
             taskManager.executeCommand(input.getCommandTypeAndParams());
+            storage.saveToStorage(taskManager.getTasks());
 
             if (input.getCommandTypeAndParams()[Constants.INDEX_COMMAND_TYPE].equals("bye")) {
                 ConsolePrint.exit();

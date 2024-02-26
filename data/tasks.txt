@@ -1,5 +1,4 @@
-T | 1 | HI
-E | 0 | please work /from omg /to i wanna cry
+E | 1 | work /from 2pm /to 4pm
 T | 0 | hi
-D | 1 | do bodyweight workout /by tmr 2359
-
+D | 0 | soccer practice /by Sunday 2359
+E | 1 | Coldplay Concert /from 6pm /to 8pm

@@ -2,14 +2,18 @@ package mona.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import mona.exception.MonaException;
 import mona.input.InputParser;
 import mona.manager.TaskManager;
+import mona.output.ConsolePrint;
 import mona.task.Deadline;
 import mona.task.Event;
 import mona.task.Task;
@@ -23,28 +27,19 @@ public class TaskStorage {
         this.filePath = filePath;
     }
 
-    public static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
-
     public void saveToStorage(ArrayList<Task> tasks) {
-        String textToAdd = generateTextToAdd(tasks);
+        String textToSave = generateTextToSave(tasks);
 
         try {
             FileWriter fw = new FileWriter(filePath);
-            fw.write(textToAdd);
-            fw.write("\n"); // adding newline to EOF
+            fw.write(textToSave);
             fw.close();
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public static String generateTextToAdd(ArrayList<Task> tasks) {
+    public static String generateTextToSave(ArrayList<Task> tasks) {
         String textToAdd = "";
         for (Task task: tasks) {
             if (task != null) {
@@ -64,10 +59,8 @@ public class TaskStorage {
 
         if (task instanceof Deadline){
             output += "D | ";
-
         } else if (task instanceof Event) {
             output += "E | ";
-
         } else if (task instanceof Todo) {
             output += "T | ";
         }
@@ -76,30 +69,115 @@ public class TaskStorage {
         return output;
     }
 
-    public String[] parseSavedInput(String line) {
-        String[] savedInputElements = line.split("\\|");
+    public ArrayList<Task> loadData() {
+        ArrayList<Task> taskList = null;
+        try {
+            ArrayList<String> dataItems = readFile();
+            taskList = parse(dataItems);
+        } catch (IOException | MonaException e) {
+            e.printStackTrace();
+        }
+        return taskList;
+    }
 
-        String taskType = savedInputElements[0].trim();
-        String[] outputString = new String[2];
-        
+    private ArrayList<String> readFile() throws MonaException, IOException {
+        File dataFolder = new File(Constants.DATA_FOLDER_PATH);
+        File dataFile = new File(dataFolder, Constants.DATA_FILE_NAME);
+
+        // Check if the 'data' directory exists, if not create it
+        if (!dataFolder.exists()) {
+            boolean wasDirectoryMade = dataFolder.mkdirs();
+            if (!wasDirectoryMade) {
+                throw new MonaException("Could not create data directory.");
+            }
+        }
+
+        // Check if the 'tasks.txt' file exists, if not create it
+        if (!dataFile.exists()) {
+            try {
+                boolean wasFileCreated = dataFile.createNewFile();
+                if (!wasFileCreated) {
+                    throw new MonaException("Could not create data file.");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        ArrayList<String> dataItems = (ArrayList<String>) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
+        return dataItems;
+    }
+
+    private ArrayList<Task> parse(ArrayList<String> dataItems) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (String line : dataItems) {
+            if (line == null) {
+                break;
+            }
+            String[] commandTypeAndParams = getCommandTypeAndParams(line);
+            boolean isTaskDone = getTaskDoneStatus(line);
+            String taskType = commandTypeAndParams[Constants.INDEX_COMMAND_TYPE];
+            switch (taskType) {
+            case("todo"):
+                Task newTodo = new Todo(commandTypeAndParams[Constants.INDEX_DESCRIPTION]);
+                if (isTaskDone) {
+                    newTodo.markAsDone();
+                }
+                tasks.add(newTodo);
+                break;
+            case("deadline"):
+                Task newDeadline = new Deadline(commandTypeAndParams[Constants.INDEX_DESCRIPTION],
+                        commandTypeAndParams[Constants.INDEX_DEADLINE]);
+                if (isTaskDone) {
+                    newDeadline.markAsDone();
+                }
+                tasks.add(newDeadline);
+                break;
+            case("event"):
+                Task newEvent = new Event(commandTypeAndParams[Constants.INDEX_DESCRIPTION],
+                        commandTypeAndParams[Constants.INDEX_FROM_DATE],
+                        commandTypeAndParams[Constants.INDEX_TO_DATE]);
+                if (isTaskDone) {
+                    newEvent.markAsDone();
+                }
+                tasks.add(newEvent);
+                break;
+            default:
+                System.out.println("Unknown task encountered. Skipping");
+                break;
+            }
+        }
+        return tasks;
+    }
+
+    private static boolean getTaskDoneStatus(String inputLine) {
+        String[] inputElements = inputLine.split("\\|");
+
+        if (inputElements[1].trim().equals("1")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static String[] getCommandTypeAndParams(String inputLine) {
+        String[] inputElements = inputLine.split("\\|");
+        String command = "";
+        String taskType = inputElements[0].trim();
+
         switch(taskType) {
         case("T"):
-            outputString[0] = "todo " + savedInputElements[2].trim();
+            command = "todo " + inputElements[2].trim();
             break;
         case("D"):
-            outputString[0] = "deadline " + savedInputElements[2].trim();
+            command = "deadline " + inputElements[2].trim();
             break;
         case("E"):
-            outputString[0] = "event " + savedInputElements[2].trim();
+            command = "event " + inputElements[2].trim();
             break;
         }
 
-        if (savedInputElements[1].trim().equals("1")) {
-            outputString[1] = "DONE";
-        } else {
-            outputString[1] = "NOT DONE";
-        }
-
-        return outputString;
+        InputParser inputParser = new InputParser(command);
+        return inputParser.getCommandTypeAndParams();
     }
 }
