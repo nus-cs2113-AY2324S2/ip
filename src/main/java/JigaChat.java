@@ -1,25 +1,22 @@
 import java.nio.charset.StandardCharsets;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class JigaChat {
-    static protected ArrayList<Task> taskList = new ArrayList<>();
-    static protected int taskCounter = 0;
     static protected DataFile previousData = new DataFile();
-    static protected InputHandler InputHandler = new InputHandler();
+    static protected Parser Parser = new Parser();
 
     private void initialisePreviousData() {
         try {
             String input;
             Scanner readPreviousData = new Scanner(previousData.data);
             input = readPreviousData.nextLine();
-            taskCounter = Integer.parseInt(input);
+            TaskHandler.taskCounter = Integer.parseInt(input);
             while (readPreviousData.hasNext()) {
                 input = readPreviousData.nextLine();
-                InputHandler.readCommandWithoutPrints(input);
+                Parser.readCommandWithoutPrints(input);
             }
         }
         catch(FileNotFoundException e) {
@@ -63,7 +60,7 @@ public class JigaChat {
             String input;
             Scanner in = new Scanner(System.in, StandardCharsets.UTF_8);
             input = in.nextLine();
-            InputHandler.readCommand(input, chat);
+            Parser.readCommand(input, chat);
         }
     }
 }

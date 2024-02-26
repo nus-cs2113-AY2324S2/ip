@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class InputHandler {
+public class Parser {
     protected static void readCommandWithoutPrints(String input) {
         String[] commands = new String[2];
         commands = input.split(" ", 2);
@@ -13,14 +13,14 @@ public class InputHandler {
             System.out.println("Bye. Hope to see you again soon!");
             System.exit(0);
         case "delete":
-                CommandHandler.removeFromListWithoutPrints(Integer.parseInt(commands[1]) - 1);
+                TaskHandler.removeFromListWithoutPrints(Integer.parseInt(commands[1]) - 1);
             return;
         case "list":
             Printer.printList();
             return;
         case "mark":
             try {
-                JigaChat.taskList.get(Integer.parseInt(commands[1]) - 1).markAsDoneWithoutPrints();
+                TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsDoneWithoutPrints();
             }
             catch(NullPointerException e) {
             }
@@ -30,7 +30,7 @@ public class InputHandler {
             return;
         case "unmark":
             try {
-                JigaChat.taskList.get(Integer.parseInt(commands[1]) - 1).markAsUndoneWithoutPrints();
+                TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsUndoneWithoutPrints();
             }
             catch(NullPointerException e) {
                 System.out.println(commands[1] + " is not in your list!");
@@ -41,7 +41,7 @@ public class InputHandler {
             return;
         }
         try {
-            CommandHandler.addToListWithoutPrints(commands);
+            TaskHandler.addToListWithoutPrints(commands);
         }
         catch(InvalidCommandException e) {
         }
@@ -67,7 +67,7 @@ public class InputHandler {
         case "delete":
             try {
                 jigaChat.previousData.appendToFile(input + "\n");
-                CommandHandler.removeFromList(Integer.parseInt(commands[1]) - 1);
+                TaskHandler.removeFromList(Integer.parseInt(commands[1]) - 1);
             }
             catch(NumberFormatException e) {
                 Printer.printDeleteCommand();
@@ -83,7 +83,7 @@ public class InputHandler {
             return;
         case "mark":
             try {
-                jigaChat.taskList.get(Integer.parseInt(commands[1]) - 1).markAsDone();
+                TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsDone();
                 System.out.println("JigaChat has marked task " + (Integer.parseInt(commands[1])) + " as done!");
                 jigaChat.previousData.appendToFile(input + "\n");
             }
@@ -98,7 +98,7 @@ public class InputHandler {
             return;
         case "unmark":
             try {
-                jigaChat.taskList.get(Integer.parseInt(commands[1]) - 1).markAsUndone();
+                TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsUndone();
                 System.out.println("JigaChat has marked task " + (Integer.parseInt(commands[1])) + " as not done!");
                 jigaChat.previousData.appendToFile(input + "\n");
             }
@@ -113,7 +113,7 @@ public class InputHandler {
             return;
         }
         try {
-            CommandHandler.addToList(commands);
+            TaskHandler.addToList(commands);
             jigaChat.previousData.appendToFile(input + "\n");
         }
         catch(InvalidCommandException e) {

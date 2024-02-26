@@ -38,11 +38,11 @@ public class Printer {
     }
 
     protected static void printList() {
-        if (JigaChat.taskCounter == 0) {
+        if (TaskHandler.taskCounter == 0) {
             System.out.println ("Your list is empty!");
             return;
         }
-        if (JigaChat.taskCounter != 1) {
+        if (TaskHandler.taskCounter != 1) {
             System.out.print("Here are the tasks");
         }
         else {
@@ -50,9 +50,9 @@ public class Printer {
         }
         System.out.println(" in your list:");
 
-        for (int i = 0; i < JigaChat.taskCounter; i ++) {
+        for (int i = 0; i < TaskHandler.taskCounter; i ++) {
             System.out.print((i + 1) + ". ");
-            JigaChat.taskList.get(i).printTask();
+            TaskHandler.taskList.get(i).printTask();
         }
     }
 }
