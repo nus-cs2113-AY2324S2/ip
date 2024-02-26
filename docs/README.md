@@ -1,5 +1,5 @@
 ### BossMan User Guide
-BossMan is the individual project component for CS2113, AY23/24 Semester 2
+BossMan is the individual project component for CS2113, AY23/24 Semester 2.
 BossMan is CLI task management assistant that allows users to track tasks like todos, deadlines and events.
 
 ## Table of Contents
@@ -23,7 +23,9 @@ BossMan is CLI task management assistant that allows users to track tasks like t
 
 ## Starting BossMan
 To start `BossMan` Using the `jar` file, go to the containing folder for BossMan. Then, on your terminal of choice, run:
-`-$ java -jar ip.jar`
+```
+``-$ java -jar ip.jar
+```
 
 ## Features
 BossMan comes with features for you to manage your daily tasks using CLI.
@@ -70,8 +72,9 @@ Now you have 10 tasks in the list.
 ```
 
 #### `deadline` - Add a Deadline Task
-Create a deadline type of task for BossMan to track.
-Deadlines have a due date, a compulsory parameter that must be included.
+Create a deadline type of task for BossMan to track.  
+Deadlines have a due date, a compulsory parameter that must be included.  
+The date format must be formatted as shown below.
 
 Syntax:
 ```
@@ -91,9 +94,10 @@ Now you have 11 tasks in the list.
 ```
 
 ### `event` - Add an Event Task
-Create an event type of task for BossMan to track.
-Events have a from and to time/ date. Unlike deadline, there is no restriction for the format for from and to parameters.
-These are compulsory parameters that must be included.
+Create an event type of task for BossMan to track.  
+Events have a from and to time/ date. These are compulsory parameters.  
+Unlike deadline, there is no restriction for the format for from and to parameters.  
+
 
 Syntax:
 ```
@@ -131,8 +135,9 @@ Todo List:
 ```
 
 ### `mark` - Tag task as done
-Marks a task in the tasklist as done.
-The task number is the number of the task from running list. If the task is already done, BossMan will still go ahead and mark it done again.
+Marks a task in the tasklist as done.  
+The task number is the number of the task from running list.  
+If the task is already done, BossMan will still go ahead and mark it done again.
 
 Syntax:
 ```
@@ -152,8 +157,9 @@ Nice! I've marked this task as done:
 ```
 
 ### `unmark` - Tag task as undone
-Marks a task in the tasklist as NOT done.
-The task number is the number of the task from running list. If the task is already not done, BossMan will still go ahead and mark it as undone again.
+Marks a task in the tasklist as NOT done.  
+The task number is the number of the task from running list.  
+If the task is already not done, BossMan will still go ahead and mark it as undone again.
 
 Syntax:
 ```
@@ -173,7 +179,8 @@ OK, I've marked this task as not done yet:
 ```
 
 ### `delete` - Remove a Task
-Removes a task from your task list. The task number is the number of the task from running list.
+Removes a task from your task list.   
+The task number is the number of the task from running list.
 
 Syntax:
 ```
