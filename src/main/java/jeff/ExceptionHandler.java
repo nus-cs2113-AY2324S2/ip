@@ -45,6 +45,12 @@ public class ExceptionHandler {
         Printer.printIndent("delete [any number from 1 to " + TaskList.size() + "]");
     }
 
+    public static void handleInvalidFindSyntaxException() {
+        Printer.printIndent("Invalid find syntax.");
+        Printer.printIndent("Correct syntax should be:");
+        Printer.printIndent("find [text to find]");
+    }
+
     public static void handleFileNotFoundException() {
         Storage.createNewFile();
         Printer.printIndent("File not found. data/jeff.txt created.");

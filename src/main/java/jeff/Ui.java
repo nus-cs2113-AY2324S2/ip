@@ -4,6 +4,7 @@ import jeff.exceptions.InvalidCommandException;
 import jeff.exceptions.InvalidDeadlineSyntaxException;
 import jeff.exceptions.InvalidDeleteSyntaxException;
 import jeff.exceptions.InvalidEventSyntaxException;
+import jeff.exceptions.InvalidFindSyntaxException;
 import jeff.exceptions.InvalidMarkSyntaxException;
 import jeff.exceptions.InvalidTodoSyntaxException;
 import jeff.exceptions.InvalidUnmarkSyntaxException;
@@ -38,6 +39,8 @@ public class Ui {
                 ExceptionHandler.handleInvalidUnmarkSyntaxException();
             } catch (InvalidDeleteSyntaxException e) {
                 ExceptionHandler.handleInvalidDeleteSyntaxException();
+            } catch (InvalidFindSyntaxException e) {
+                ExceptionHandler.handleInvalidFindSyntaxException();
             } catch (UnableToMarkException e) {
                 ExceptionHandler.handleUnableToMarkException();
             } catch (UnableToUnmarkException e) {
