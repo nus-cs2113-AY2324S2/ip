@@ -27,4 +27,27 @@ public class TaskList {
     public static void clearList() {
         taskArrayList.clear();
     }
+
+    public static void findAndPrint(String keyword) {
+        boolean hasMatch = false;
+        ArrayList<Task> tempTaskList = new ArrayList<>();
+        for (Task task : taskArrayList) {
+            if (task.getContent().contains(keyword)) {
+                hasMatch = true;
+                tempTaskList.add(task);
+            }
+        }
+        if (hasMatch) {
+            String taskPlural = tempTaskList.size() == 1 ? "task" : "tasks";
+            System.out.println("Here are the matching " + taskPlural + " in your list:");
+            int iterator = 0;
+            for (Task task : tempTaskList) {
+                iterator += 1;
+                System.out.println(iterator + ". " + task);
+            }
+        }
+        else {
+            System.out.println("No matches found");
+        }
+    }
 }

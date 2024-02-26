@@ -49,7 +49,6 @@ public class TaskManager {
         } catch (EventLackInputsException e) {
             lackInputsErrorMessage(userInput, "event", EVENT_REQUIRED_INPUTS);
         } catch (IndexOutOfBoundsException e) {
-            // update this if /help is added
             if (userInput.contains("deadline")) {
                 lackInputsErrorMessage(userInput, "deadline", DEADLINE_REQUIRED_INPUTS);
             } else if (userInput.contains("event")) {
@@ -231,4 +230,14 @@ public class TaskManager {
         }
     }
 
+    public static void findTask(String userInput) {
+        String[] wordArray = userInput.split(" ");
+        if (wordArray.length == 2) {
+            String keyWord = wordArray[1].toLowerCase().trim();
+            TaskList.findAndPrint(keyWord);
+        }
+        else {
+            System.out.println("Your input was " + userInput + " .Please enter it in the format of find '<name of item>'");
+        }
+    }
 }

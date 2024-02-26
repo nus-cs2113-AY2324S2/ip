@@ -36,6 +36,9 @@ public class Ui {
             } else if (userInput.contains("delete")) {
                 taskManager.deleteTask(userInput);
                 userInput = myScanner.nextLine();
+            } else if (userInput.contains("find")) {
+                taskManager.findTask(userInput);
+                userInput = myScanner.nextLine();
             } else {
                 System.out.println("Please enter a valid command. Here have a cup of tea as you think of your next command. ☕");
                 userInput = myScanner.nextLine();
