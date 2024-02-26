@@ -1,11 +1,17 @@
 package jeff;
+
+import jeff.exceptions.CorruptFileException;
+import jeff.tasks.Deadline;
+import jeff.tasks.Event;
+import jeff.tasks.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     private static final String EXPECTED_FILE_PATH = "data/jeff.txt";
     private static final int MARK_INDEX = 4;
 
@@ -151,7 +157,8 @@ public class FileManager {
         if (line.charAt(0) == 'T') {
             task = new Todo(description);
         } else if (line.charAt(0) == 'D') {
-            String by = params[3];
+            String byString = params[3];
+            LocalDate by = LocalDate.parse(byString);
             task = new Deadline(description, by);
         } else if (line.charAt(0) == 'E') {
             String[] lastParam = params[3].split("-");

@@ -1,13 +1,15 @@
 package jeff;
 
 public class Printer {
+    private static final String INDENT = "     ";
+    private static final String DIVIDER = "    ____________________________________________________________";
+
     public static void printIndent(String s) {
-        System.out.println("     " + s);
+        System.out.println(INDENT + s);
     }
 
     public static void printDivider() {
-        String divider = "    ____________________________________________________________";
-        System.out.println(divider);
+        System.out.println(DIVIDER);
     }
 
     public static void printWelcome() {

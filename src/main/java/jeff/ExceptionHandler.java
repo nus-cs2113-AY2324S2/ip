@@ -18,7 +18,7 @@ public class ExceptionHandler {
     public static void handleInvalidDeadlineSyntaxException() {
         Printer.printIndent("Invalid deadline syntax.");
         Printer.printIndent("Correct syntax should be:");
-        Printer.printIndent("deadline [description] /by [by]");
+        Printer.printIndent("deadline [description] /by [yyyy-mm-dd]");
     }
 
     public static void handleInvalidEventSyntaxException() {
@@ -46,7 +46,7 @@ public class ExceptionHandler {
     }
 
     public static void handleFileNotFoundException() {
-        FileManager.createNewFile();
+        Storage.createNewFile();
         Printer.printIndent("File not found. data/jeff.txt created.");
         Printer.printDivider();
     }
@@ -61,5 +61,17 @@ public class ExceptionHandler {
         Printer.printIndent("Something went wrong: " + e.getMessage());
         Printer.printDivider();
         System.exit(1);
+    }
+
+    public static void handleUnableToMarkException() {
+        Printer.printUnableToMark();
+    }
+
+    public static void handleUnableToUnmarkException() {
+        Printer.printUnableToUnmark();
+    }
+
+    public static void handleUnableToDeleteException() {
+        Printer.printUnableToDelete();
     }
 }
