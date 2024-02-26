@@ -12,11 +12,9 @@ public class Duke {
 
         Ui.showWelcomeMessage();
 
-        // Create a Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
-        // Continue reading user input until "bye" is entered
         while (true) {
             userInput = scanner.nextLine();
 
@@ -35,7 +33,6 @@ public class Duke {
             Ui.printLine();
         }
 
-        // Close the Scanner
         scanner.close();
     }
 }

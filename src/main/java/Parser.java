@@ -6,6 +6,13 @@ public class Parser {
 
     static int taskIndex;
 
+    /**
+     * Checks which function is inputted and carries out that function
+     *
+     * @param userInput Text inputted by use in the bot
+     * @param tasks list of tasks
+     * @throws DukeException if input is not any of the listed functions
+     */
     public static void parseCommand(String userInput, TaskList tasks) throws DukeException {
         if (userInput.equalsIgnoreCase("list")) {
             listTasks(tasks);
