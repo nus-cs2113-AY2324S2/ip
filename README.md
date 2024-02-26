@@ -88,4 +88,3 @@ Breaks are only for the weak.
 Other instructions can be found using the `help` command.
 
 Have fun with the chatbot!
-
