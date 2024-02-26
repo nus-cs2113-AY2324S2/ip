@@ -1,6 +1,7 @@
 package hachi.storage;
 
 import hachi.data.HachiException;
+import hachi.data.TaskList;
 import hachi.data.task.Deadline;
 import hachi.data.task.Event;
 import hachi.data.task.Task;
@@ -29,15 +30,6 @@ public class Storage {
         }
     }
 
-    public static void save() throws IOException {
-        saveHandler();
-    }
-
-    public ArrayList<Task> load() throws Exception {
-        readFile();
-        return tasksArrayList;
-    }
-
     private static void saveHandler() throws IOException {
         initializeData();
 
@@ -62,7 +54,7 @@ public class Storage {
         fw.close();
     }
 
-    private static void readFile() throws FileNotFoundException, HachiException {
+    public static void readFile() throws FileNotFoundException, HachiException {
         File taskFile = new File(filePath);
         Scanner s = new Scanner(taskFile);
 

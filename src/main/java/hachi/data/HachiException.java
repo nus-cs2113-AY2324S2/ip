@@ -54,7 +54,7 @@ public class HachiException extends Exception{
     public static void checkOutOfBounds (int taskNumber) throws HachiException{
         int currentLastTask = Task.getTotalNumTasks();
 
-        if (taskNumber > currentLastTask) {
+        if (taskNumber > currentLastTask || taskNumber <= 0) {
             throw new HachiException(LIST_OUT_OF_BOUNDS_MESSAGE);
         }
     }

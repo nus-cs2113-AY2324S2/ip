@@ -1,12 +1,10 @@
 package hachi.data;
 
 import hachi.data.task.*;
+import hachi.parser.Parser;
 import hachi.ui.Ui;
 
 import java.util.ArrayList;
-
-import static hachi.Hachi.getDeleteTaskNumber;
-import static hachi.Hachi.getMarkTaskNumber;
 
 public class TaskList {
     private static ArrayList<Task> tasksArrayList;
@@ -84,11 +82,7 @@ public class TaskList {
     public static void deleteTask(String cleanedInput) throws HachiException {
         int numTasks = Task.getTotalNumTasks();
         HachiException.checkEmptyList(numTasks);
-
-        // this line below needs to be updated when Parser class is created
-        int taskNumber = getDeleteTaskNumber(cleanedInput);
-        // this line above needs to be updated when Parser class is created
-
+        int taskNumber = Parser.getDeleteTaskNumber(cleanedInput);
         HachiException.checkOutOfBounds(taskNumber);
 
         Task taskToDelete = tasksArrayList.get(taskNumber - 1);
@@ -123,10 +117,7 @@ public class TaskList {
     public static void markOrUnmarkHandler(String cleanedInput) throws HachiException{
         int numTasks = Task.getTotalNumTasks();
         HachiException.checkEmptyList(numTasks);
-
-        // this line below needs to be updated when Parser class is created
-        int taskNumber = getMarkTaskNumber(cleanedInput);
-        // this line above needs to be updated when Parser class is created
+        int taskNumber = Parser.getMarkTaskNumber(cleanedInput);
 
         HachiException.checkOutOfBounds(taskNumber);
         TaskList.markOrUnmarkTask(taskNumber - 1, !cleanedInput.contains("UNMARK"));
