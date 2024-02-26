@@ -219,7 +219,7 @@ public class N {
 
     }
     public static void saveTaskList() {
-        Path filePath = Path.of("./src/Data/n.txt");
+        Path filePath = Path.of("./n.txt");
         try {
             Files.deleteIfExists(filePath);
             Files.createFile(filePath);
@@ -265,7 +265,7 @@ public class N {
         }
     }
     public static void loadTaskList() throws FileNotFoundException, EmptyTaskDescriptionException {
-        if (Files.exists(Path.of("./src/Data/n.txt"), LinkOption.NOFOLLOW_LINKS)) {
+        if (Files.exists(Path.of("./n.txt"), LinkOption.NOFOLLOW_LINKS)) {
             File initialTaskList = new File("./src/Data/n.txt");
             Scanner s = new Scanner(initialTaskList);
             while (s.hasNextLine()){
