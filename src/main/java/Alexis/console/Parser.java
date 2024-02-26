@@ -9,7 +9,7 @@ public abstract class Parser {
         try {
             return Command.valueOf(firstWord.toUpperCase());
         } catch (IllegalArgumentException e) {
-            Console.printCommandErrorMessage();
+            Ui.printCommandErrorMessage();
             return null;
         }
     }

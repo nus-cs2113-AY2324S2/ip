@@ -1,6 +1,6 @@
 package Alexis;
 
-import Alexis.console.Console;
+import Alexis.console.Ui;
 import Alexis.console.Storage;
 import Alexis.task.TaskList;
 
@@ -17,8 +17,8 @@ public class Alexis {
         }
         Scanner in = new Scanner(System.in);
 
-        Console.printWelcomeMessage();
-        Console.processUserInput(tasks, in);
-        Console.printGoodbyeMessage();
+        Ui.printWelcomeMessage();
+        Ui.processUserInput(tasks, in);
+        Ui.printGoodbyeMessage();
     }
 }

@@ -1,5 +1,7 @@
 package Alexis.task;
 
+import Alexis.console.Ui;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -56,7 +58,7 @@ public class TaskList {
         }
         Task task = tasks.get(number - 1);
         task.markAsDone();
-        System.out.println(Console.MARK_DONE_MESSAGE);
+        System.out.println(Ui.MARK_DONE_MESSAGE);
         System.out.print("\t");
         printTask(task, -1);
     }
@@ -68,18 +70,18 @@ public class TaskList {
         }
         Task task = tasks.get(number - 1);
         task.markAsNotDone();
-        System.out.println(Console.MARK_UNDONE_MESSAGE);
+        System.out.println(Ui.MARK_UNDONE_MESSAGE);
         System.out.print("\t");
         printTask(task, -1);
     }
 
     private boolean isNotValid(Integer number) {
         if (number == null) {
-            System.out.println(Console.MISSING_TASK_INDEX_MESSAGE);
+            System.out.println(Ui.MISSING_TASK_INDEX_MESSAGE);
             return true;
         }
         if (number <= 0 || number > numberOfTasks) {
-            System.out.println(Console.INVALID_TASK_INDEX_MESSAGE);
+            System.out.println(Ui.INVALID_TASK_INDEX_MESSAGE);
             return true;
         }
         return false;
@@ -87,7 +89,7 @@ public class TaskList {
 
     public void printTasks() {
         int taskIndex = 1;
-        System.out.println(Console.LIST_MESSAGE);
+        System.out.println(Ui.LIST_MESSAGE);
         for (Task task : tasks){
             printTask(task, taskIndex);
             taskIndex++;
@@ -118,10 +120,10 @@ public class TaskList {
     }
 
     private void printDeleteTaskMessage(Task task) {
-        System.out.println(Console.REMOVE_MESSAGE);
+        System.out.println(Ui.REMOVE_MESSAGE);
         System.out.print("\t");
         printTask(task, -1);
-        System.out.printf(Console.LIST_UPDATE_MESSAGE, numberOfTasks);
+        System.out.printf(Ui.LIST_UPDATE_MESSAGE, numberOfTasks);
     }
 
     public Integer extractInt(String input) {
