@@ -25,7 +25,7 @@ public class UI {
     }
 
     public String getUserInput() {
-        System.out.println("Enter command: ");
+        System.out.println("Enter command:");
         String fullInputLine = in.nextLine();
 
         System.out.println("[Command entered: " + fullInputLine + "]");;

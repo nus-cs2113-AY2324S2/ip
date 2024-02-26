@@ -1,3 +1,5 @@
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo clean house
+deadline homework /by 7pm
+event trip to US /from 1 Jan /to 8 Jan
+list
 exit
