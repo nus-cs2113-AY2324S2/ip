@@ -151,7 +151,7 @@ Nice! I've marked this task as done:
 [T][x] homework
 ```
 
-### unmark - Tag task as undone
+### `unmark` - Tag task as undone
 Marks a task in the tasklist as NOT done.
 The task number is the number of the task from running list. If the task is already not done, BossMan will still go ahead and mark it as undone again.
 
@@ -191,7 +191,7 @@ BossMan removes the task matching the task number from your tasklist. After that
 Removed task: [T][ ] homework
 ```
 
-### find - Query for a task
+### `find` - Query for a task
 Ask BossMan to find all tasks that contain search query keyword.
 
 Syntax:
@@ -211,7 +211,7 @@ Matching tasks:
 1. [E][ ] hackathon  (from: tuesday 2pm  to: wednesday 6pm)
 ```
 
-### bye - Exit BossMan
+### `bye` - Exit BossMan
 Exits BossMan application, returning you to your shell.
 
 Syntax:
