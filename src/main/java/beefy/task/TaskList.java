@@ -7,10 +7,17 @@ import beefy.BeefyException;
 import beefy.storage.Storage;
 import beefy.ui.Ui;
 
+/**
+ * Represents the lists of tasks of Beefy chatbot.
+ * The taskList contains all the tasks managed by Beefy chatbot.
+ */
 public class TaskList {
     private int numberOfTasks;
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new TaskList object with an empty list.
+     */
     public TaskList() {
         numberOfTasks = 0;
         tasks = new ArrayList<Task>();
@@ -28,6 +35,13 @@ public class TaskList {
         return tasks.get(taskId);
     }
 
+    /**
+     * Adds a new Todo task into taskList
+     *
+     * @param taskDescription Description of task to be added.
+     * @param isInitialize Determines if function is executed when copying task data over from disk.
+     * @return Todo task that is added.
+     */
     public Task addTask(String taskDescription, boolean isInitialize) {
         ToDo userTask = new ToDo(taskDescription);
         tasks.add(userTask);
@@ -39,6 +53,14 @@ public class TaskList {
         return userTask;
     }
 
+    /**
+     * Adds a new Deadline task into taskList
+     *
+     * @param taskDescription Description of task to be added.
+     * @param by Date that deadline task has to be done by.
+     * @param isInitialize Determines if function is executed when copying task data over from disk.
+     * @return Deadline task that is added.
+     */
     public Task addTask(String taskDescription, String by, boolean isInitialize) {
         Deadline userTask = new Deadline(taskDescription, by);
         tasks.add(userTask);
@@ -50,6 +72,15 @@ public class TaskList {
         return userTask;
     }
 
+    /**
+     * Adds a new Event task into taskList
+     *
+     * @param taskDescription Description of task to be added.
+     * @param from Start date of event task.
+     * @param to End date of event task.
+     * @param isInitialize Determines if function is executed when copying task data over from disk.
+     * @return Event task that is added.
+     */
     public Task addTask(String taskDescription, String from, String to, boolean isInitialize) {
         Event userTask = new Event(taskDescription, from, to);
         tasks.add(userTask);
@@ -61,6 +92,9 @@ public class TaskList {
         return userTask;
     }
 
+    /**
+     * List out all task in taskList.
+     */
     public void listOut() {
         String message = "Here are the tasks in your list:\n";
         for (int i = 0; i < numberOfTasks - 1; i++) {
@@ -71,6 +105,13 @@ public class TaskList {
         Ui.printMessage(message);
     }
 
+    /**
+     * Mark a task in taskList as done.
+     *
+     * @param taskId Id of task to be marked.
+     * @param isInitialize Determines if function is executed when copying task data over from disk.
+     * @throws BeefyException if task has already been marked.
+     */
     public void markTask(int taskId, boolean isInitialize) throws BeefyException {
             Task selectedTask = tasks.get(taskId - 1);
             if (selectedTask.getStatus()) {
@@ -84,6 +125,13 @@ public class TaskList {
             }
     }
 
+    /**
+     * Mark a task in taskList as not done.
+     *
+     * @param taskId Id of task to be marked as not done.
+     * @param isInitialize Determines if function is executed when copying task data over from disk.
+     * @throws BeefyException if task has already been marked.
+     */
     public void unmarkTask(int taskId, boolean isInitialize) throws BeefyException {
         Task selectedTask = tasks.get(taskId - 1);
         if (!selectedTask.getStatus()) {
@@ -97,7 +145,12 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(int taskId) throws BeefyException {
+    /**
+     * Delete a task from taskList.
+     *
+     * @param taskId Id of task to be deleted.
+     */
+    public void deleteTask(int taskId) {
         String delTaskDescription = tasks.get(taskId - 1).getDescription();
         tasks.remove(taskId - 1);
         numberOfTasks--;

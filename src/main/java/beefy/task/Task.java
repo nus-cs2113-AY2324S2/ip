@@ -1,5 +1,9 @@
 package beefy.task;
 
+
+/**
+ * Represents the general Task of Beefy chatbot.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
