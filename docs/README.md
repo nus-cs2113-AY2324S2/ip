@@ -2,27 +2,22 @@
 
 Gab is a **Command Line Interface (CLI)** desktop app for managing your tasks (todo, deadline and event). 
 
-## Features 
-* [Adding a new todo task: `todo`](#Adding-a-todo-task)
-* [Adding a new deadline task: `deadline`](#Adding-a-deadline-task)
-* [Adding a new event task: `event`](#Adding-a-event-task)
-* [Listing all task: `list`](#List-all-tasks)
-* [Mark task as done: `mark`](#Mark-task-as-done)
-* [Mark task as not done: `unmark`](#Mark-task-as-not-done)
-* [Find task that contains keyword: `find`](#Find-task)
-* [Delete task: `delete`](#Delete-task)
-* [Exit program: `exit`](#Exit-program)
-### Feature-ABC
+## Features
+* [Adding a new todo task: `todo`](#adding-a-new-todo-task-todo)
+* [Adding a new deadline task: `deadline`](#adding-a-new-deadline-task-deadline)
+* [Adding a new event task: `event`](#adding-a-new-event-task-event)
+* [Listing all tasks: `list`](#listing-all-tasks-list)
+* [Mark task as done: `mark`](#mark-task-as-done-mark)
+* [Mark task as not done: `unmark`](#mark-task-as-not-done-unmark)
+* [Find task that contains keyword: `find`](#find-task-that-contains-keyword-find)
+* [Delete task: `delete`](#delete-task-delete)
+* [Exit program: `bye`](#exit-program-bye)
 
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
 
 ## Usage
 
-### Adding a todo task: `todo` 
+
+### Adding a new todo task: `todo`
 Create a todo task with just the task name.
 
 Format: `todo TASK_NAME`
@@ -40,7 +35,7 @@ Now you have 1 task(s)
 _________________________________________
 
 ```
-### Adding a deadline task: `deadline`
+### Adding a new deadline task: `deadline`
 Create a deadline task with a name and deadline.
 
 Format: `deadline TASK_NAME /by DEADLINE`
@@ -59,7 +54,7 @@ _________________________________________
 
 ```
 
-### Adding a deadline task: `event`
+### Adding a new event task: `event`
 Create a deadline task with a name, start and end date.
 
 Format: `event TASK_NAME /from START_DATE /to END_DATE`
@@ -78,7 +73,7 @@ _________________________________________
 
 ```
 
-### List all tasks: `list`
+### Listing all tasks: `list`
 List all the task in a numbered list from the task list.
 
 Format: `list`
@@ -135,7 +130,7 @@ _________________________________________
 
 ```
 
-### Find task: `find`
+### Find task that contains keyword: `find`
 Un-mark task to show that it is not done
 
 Format: `find KEYWORD`
@@ -182,13 +177,13 @@ _________________________________________
 
 ```
 
-### Mark task as done: `bye`
+### Exit program: `bye`
 Exits the program
 
-Format: `exit`
+Format: `bye`
 
 Examples:
-* exit
+* bye
 
 Expected outcome:
 ```
