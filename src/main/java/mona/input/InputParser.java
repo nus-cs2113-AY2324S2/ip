@@ -26,27 +26,19 @@ public class InputParser {
     }
 
     public void extractCommandTypeFromString(String line) {
-        // checking for "list" and "bye", the 2 single word commands
+        // checking specifically for "list", as it is a single word command
         if (line.equals("list")) {
             commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = "list";
-            return;
-        }
-        if (line.equals("bye")) {
-            commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = "bye";
             return;
         }
 
         try {
             int endIndex = line.indexOf(" ");
 
-            this.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = line.substring(0, endIndex);
+            this.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = line.substring(0, endIndex).trim();
 
-            inputValidator.commandTypeChecker(commandTypeAndParams);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Invalid command detected!");
-            isValidInput = false;
-        } catch (MonaException e) {
-            System.out.println(e.getMessage());
             isValidInput = false;
         }
     }
@@ -72,9 +64,6 @@ public class InputParser {
             this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
 
             inputValidator.todoCommandChecker(commandTypeAndParams);
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! The description of a todo cannot be empty");
-            isValidInput = false;
         } catch (MonaException e) {
             System.out.println(e.getMessage());
             isValidInput = false;
@@ -147,6 +136,13 @@ public class InputParser {
         case ("event"):
             extractDetailsFromEventString(line);
             break;
+        case("list"):
+            break;
+        // default case is for invalid commands
+        default:
+            isValidInput = false;
+            System.out.println("Invalid command detected!");
         }
+
     }
 }

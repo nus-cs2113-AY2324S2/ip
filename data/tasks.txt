@@ -1,4 +1,4 @@
 E | 1 | work /from 2pm /to 4pm
 T | 0 | hi
-D | 0 | soccer practice /by Sunday 2359
-E | 1 | Coldplay Concert /from 6pm /to 8pm
+D | 1 | soccer practice /by Sunday 2359
+T | 1 | say hi to mom

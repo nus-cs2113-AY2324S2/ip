@@ -13,6 +13,6 @@ public class Ui {
     }
 
     public String getUserInput() {
-        return in.nextLine();
+        return in.nextLine().trim();
     }
 }

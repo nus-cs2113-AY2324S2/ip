@@ -21,7 +21,7 @@ public class InputValidator {
     }
     public void markUnmarkDeleteCommandChecker(String[] commandTypeAndParams) throws
             MonaException, NumberFormatException {
-        // Checking if description field is empty
+        // Checking if description (number) field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
             throw new MonaException("OOPS!!! The description of this command cannot be empty");
         }
