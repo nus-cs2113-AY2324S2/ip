@@ -7,8 +7,7 @@ import mimi.classes.ToDo;
 import mimi.exceptions.MimiException;
 
 import java.util.ArrayList;
-import static mimi.helper.Storage.FILE_DELIMINITER;
-import static mimi.helper.Storage.DEADLINE_DELIMITER;
+
 public class TaskList {
 
     private static ArrayList<Task> taskList;
@@ -26,16 +25,7 @@ public class TaskList {
 
     public void addToDo(String[] inputs) {
         try {
-
-            if (inputs.length != 2) {
-                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_TODO_PARAMETERS_MSG);
-            }
-
-            if (inputs[1].isBlank()) {
-                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_TODO_FORMAT_MSG);
-            }
-
-            ToDo toDo = new ToDo(inputs[1]);
+            ToDo toDo = Parser.processsToDoFromInput(inputs);
             appendIntoTaskList(toDo);
             Ui.printSuccessMessage(toDo, taskList);
         } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
@@ -45,13 +35,7 @@ public class TaskList {
 
     public void addDeadline(String[] inputs) {
         try {
-            // Throws exception if deadline parameters are incomplete
-            if (inputs.length < 2) {
-                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_DEADLINE_PARAMETERS_MSG);
-            }
-
-            String[] splitInputs = inputs[1].split(DEADLINE_DELIMITER, 2);
-            Deadline deadline = Deadline.processDeadline(splitInputs);
+            Deadline deadline = Parser.processDeadlineFromInput(inputs);
             appendIntoTaskList(deadline);
             Ui.printSuccessMessage(deadline, taskList);
         } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {
@@ -61,11 +45,7 @@ public class TaskList {
 
     public void addEvent(String[] inputs) {
         try {
-            if (inputs.length != 2) {
-                throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS_MSG);
-            }
-
-            Event event = Event.processEvent(inputs[1]);
+            Event event = Parser.processEventFromInput(inputs);
             appendIntoTaskList(event);
             Ui.printSuccessMessage(event, taskList);
         } catch (MimiException.InsufficientParameters | MimiException.IncorrectFormat e) {

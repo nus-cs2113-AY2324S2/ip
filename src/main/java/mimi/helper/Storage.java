@@ -35,7 +35,7 @@ public class Storage {
         try{
             File file = new File(filePath);
             Scanner fileScanner = new Scanner(file);
-            fileScanner.useDelimiter(Storage.FILE_DELIMINITER);
+            fileScanner.useDelimiter("\n");
             return fileScanner;
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -43,20 +43,7 @@ public class Storage {
         }
     }
 
-    private static ToDo loadToDo(String taskName, String taskStatus) throws MimiException.FileCorrupted {
-        ToDo toDo = new ToDo(taskName);
 
-        if (taskStatus.equals("true")) {
-            // mark as done
-            toDo.markAsDone();
-        } else if (taskStatus.equals("false")) {
-            toDo.markAsUndone();
-        } else {
-            throw new MimiException.FileCorrupted(MimiException.FILE_CORRUPTED_MSG);
-        }
-
-        return toDo;
-    }
 
     private static String[] processTask(String[] task) throws
             MimiException.IncorrectFormat,
@@ -89,22 +76,15 @@ public class Storage {
                 String taskName = taskDetails[2];
                 switch (taskType) {
                 case "T":
-                    ToDo toDo = loadToDo(taskName, taskStatus);
+                    ToDo toDo = Parser.processToDoFromStorage(taskName, taskStatus);
                     appendIntoTaskList(toDo);
                     break;
                 case "D":
-                    String until = task[3];
-                    String[] deadlineParameter = {taskName, until};
-                    Deadline deadline = Deadline.processDeadline(deadlineParameter);
+                    Deadline deadline = Parser.processDeadlineFromStorage(task);
                     appendIntoTaskList(deadline);
                     break;
                 case "E":
-                    String to = task[3];
-                    String from = task[4];
-                    Event event = Event.processEvent(taskName, to, from);
-                    if (taskStatus.equals("true")) {
-                        event.markAsDone();
-                    }
+                    Event event = Parser.processEventFromStorage(task);
                     appendIntoTaskList(event);
                     break;
                 default:

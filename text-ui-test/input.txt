@@ -31,4 +31,6 @@ delete 1
 todo borrow, from john
 deadline return, this book /by Tuesday
 event a new test, this is it /from Mon 3pm /to Mon 5pm
+mark 1
+mark 2
 bye

@@ -33,7 +33,7 @@ fi
 
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java/mimi -Xlint:none -d ../bin ../src/main/java/mimi/classes/*.java  ../src/main/java/mimi/helper/*.java ../src/main/java/mimi/*.java ../src/main/java/mimi/exceptions/*.java
+if ! javac -cp ../src/main/java/mimi -Xlint:none -d ../bin ../src/main/java/mimi/classes/*.java  ../src/main/java/mimi/helper/*.java   ../src/main/java/mimi/*.java ../src/main/java/mimi/exceptions/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1

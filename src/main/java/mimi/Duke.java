@@ -21,10 +21,7 @@ public class Duke {
 
     private static Ui ui;
     private static Storage storage;
-
     private static TaskList tasks;
-
-
 
     public static void main(String[] args) {
 
