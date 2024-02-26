@@ -1,5 +1,6 @@
 package tool;
 
+import command.CommandType;
 import exception.InputException;
 public class MessageDecoder {
     private static final String DEADLINE_PREFIX = "/by";
@@ -20,14 +21,37 @@ public class MessageDecoder {
 
     public static String[] separateCommand(String message) {
         int splitLimit = 2;
-        String[] processedMessage = message.trim().split("\\s+", splitLimit);
+        String[] processedMessage = 
+                message.toLowerCase().trim().split("\\s+", splitLimit);
         if (processedMessage.length != splitLimit) {
             return new String[] {processedMessage[0], ""};
         }
         return processedMessage;
     }
 
-    public static String decodeTodo(String message) throws InputException {
+    public static String[] decodeInput(CommandType type, String message) throws InputException {
+        switch (type) {
+        case TODO:
+            return decodeTodo(message);
+
+        case DEADLINE:
+            return decodeDeadline(message);
+
+        case EVENT:
+            return decodeEvent(message);
+
+        case MARK:
+        case UNMARK:
+        case DELETE:
+            return decodeIndex(message);
+
+        default:
+            return new String[] {""};
+
+        }
+    }
+
+    private static String[] decodeTodo(String message) throws InputException {
         if (message.matches(BLANK)) {
             throw new InputException(ResponseManager.BLANK_MSG_ERROR);
         }
@@ -36,10 +60,10 @@ public class MessageDecoder {
                     ResponseManager.TODO);
         }
 
-        return message;
+        return new String[] {message};
     }
 
-    public static String[] decodeDeadline(String message) throws InputException {
+    private static String[] decodeDeadline(String message) throws InputException {
         if (!message.matches(DEADLINE_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
                     ResponseManager.DEADLINE);
@@ -58,29 +82,33 @@ public class MessageDecoder {
         return decoded;
     }
 
-    public static String[] decodeEvent(String message) throws InputException {
+    private static String[] decodeEvent(String message) throws InputException {
         if (!message.matches(EVENT_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
                     ResponseManager.EVENT);
         }
-        int indexOfStartPrefix = message.indexOf(EVENT_START_PREFIX);
-        int indexOfEndPrefix = message.indexOf(EVENT_END_PREFIX);
-        int endOfTaskName = Math.min(indexOfStartPrefix, indexOfEndPrefix);
+        int indexOfFrom = message.indexOf(EVENT_START_PREFIX);
+        int indexOfTo = message.indexOf(EVENT_END_PREFIX);
+
+        return getFromNTo(message, indexOfFrom, indexOfTo);
+    }
+
+    private static String[] getFromNTo(String message,
+            int indexOfFrom, int indexOfTo) throws InputException {
         String[] decoded = new String[EVENT_INFO_COUNT];
-
-        decoded[TASK_NAME_INDEX] = message.substring(0, endOfTaskName).trim();
-
-        if (indexOfEndPrefix > indexOfStartPrefix) {
+        if (indexOfTo > indexOfFrom) {
+            decoded[TASK_NAME_INDEX] = message.substring(0, indexOfFrom).trim();
             decoded[START_DATE_INDEX] = removePrefixMark(
-                    message.substring(indexOfStartPrefix, indexOfEndPrefix).trim(), EVENT_START_PREFIX).trim();
-            decoded[END_DATE_INDEX] = removePrefixMark(message.substring(indexOfEndPrefix).trim(),
+                    message.substring(indexOfFrom, indexOfTo), EVENT_START_PREFIX).trim();
+            decoded[END_DATE_INDEX] = removePrefixMark(message.substring(indexOfTo).trim(),
                     EVENT_END_PREFIX).trim();
-            return decoded;
+        } else {
+            decoded[TASK_NAME_INDEX] = message.substring(0, indexOfTo).trim();
+            decoded[END_DATE_INDEX] = removePrefixMark(
+                    message.substring(indexOfTo, indexOfFrom), EVENT_END_PREFIX).trim();
+            decoded[START_DATE_INDEX] = removePrefixMark(message.substring(indexOfFrom).trim(),
+                    EVENT_START_PREFIX).trim();
         }
-        decoded[END_DATE_INDEX] = removePrefixMark(
-                message.substring(indexOfEndPrefix, indexOfStartPrefix).trim(), EVENT_END_PREFIX).trim();
-        decoded[START_DATE_INDEX] = removePrefixMark(message.substring(indexOfStartPrefix).trim(),
-                EVENT_START_PREFIX).trim();
 
         for (String msg : decoded) {
             if (msg.matches(BLANK)) {
@@ -90,17 +118,17 @@ public class MessageDecoder {
         return decoded;
     }
 
-    public static int decodeIndex(String message) throws InputException {
+    private static String[] decodeIndex(String message) throws InputException {
         if (message.matches(BLANK)) {
             throw new InputException(ResponseManager.BLANK_MSG_ERROR);
         }
         if (!message.matches(NUMERIC)) {
             throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
-        return Integer.parseInt(message);
+        return new String[] {message};
     }
 
-    public static String removePrefixMark(String rawText, String sign) {
+    private static String removePrefixMark(String rawText, String sign) {
         return rawText.replace(sign, "");
     }
 }

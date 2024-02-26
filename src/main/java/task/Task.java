@@ -2,7 +2,7 @@ package task;
 
 import java.io.Serializable;
 
-public class Task implements Serializable {
+public abstract class Task implements Serializable {
     protected boolean isDone;
     protected final String description;
 

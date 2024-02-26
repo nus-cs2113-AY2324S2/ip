@@ -4,9 +4,10 @@ import exception.InputException;
 import tool.ResponseManager;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList implements Serializable {
-    private final ArrayList<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();

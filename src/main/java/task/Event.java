@@ -1,8 +1,8 @@
 package task;
 
 public class Event extends Task {
-    protected String startTime;
-    protected String dueTime;
+    private final String startTime;
+    private final String dueTime;
     private static final int TASK_NAME_INDEX = 0;
     private static final int START_DATE_INDEX = 1;
     private static final int END_DATE_INDEX = 2;

@@ -70,15 +70,15 @@ public class ResponseManager {
     public static void printActionOnTasks(String action, String msgTobePrinted) {
         switch(action) {
         case "mark":
-            indentPrint(MARKED_MESSAGE + " " + msgTobePrinted);
+            indentPrint(MARKED_MESSAGE + " " + msgTobePrinted + END_LINE);
             break;
 
         case "unmark":
-            indentPrint(UNMARKED_MESSAGE + " " + msgTobePrinted);
+            indentPrint(UNMARKED_MESSAGE + " " + msgTobePrinted + END_LINE);
             break;
 
         case "delete":
-            indentPrint(DELETE_MESSAGE + " " + msgTobePrinted);
+            indentPrint(DELETE_MESSAGE + " " + msgTobePrinted + END_LINE);
 
         default:
             break;
