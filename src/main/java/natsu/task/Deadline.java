@@ -1,5 +1,9 @@
 package natsu.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a deadline task with a specific due date or time.
  * A deadline task is a task that needs to be completed before a particular date/time.
@@ -15,7 +19,12 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        try {
+            LocalDateTime date = LocalDateTime.parse(by.trim(), DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+            this.by = date.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+        } catch (DateTimeParseException e) {
+            this.by = by;
+        }
     }
 
     /**
