@@ -7,11 +7,11 @@ public class Deadline extends Task{
     protected String deadline;
 
     public Deadline() {
-        super(null, false);
+        super(null);
     }
 
-    public Deadline(String line, boolean isDone) throws KyreneMissingTimeException {
-        super(line, isDone);
+    public Deadline(String line) throws KyreneMissingTimeException {
+        super(line);
         taskType = "D";
         int dividerIndex = line.indexOf("/by");
         if(dividerIndex == -1){

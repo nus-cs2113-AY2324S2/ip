@@ -7,15 +7,15 @@ public class Task {
     protected String taskType;
 
     public Task() {
-        this(null, false);
+        this(null);
     }
 
-    public Task(String taskName, boolean isDone) {
+    public Task(String taskName) {
         if(taskName == null) {
             return;
         }
         setTaskName(taskName);
-        setDone(isDone);
+        setDone(false);
         taskType = null;
     }
 
