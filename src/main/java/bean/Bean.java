@@ -48,6 +48,10 @@ public class Bean {
             processEventCommand(listOfTasks, isForLoading, userLine);
             break;
         }
+        case "find": {
+            processFindCommand(listOfTasks, userLine);
+            break;
+        }
         case "delete": {
             processDeleteCommand(listOfTasks, userLine);
             break;
@@ -57,6 +61,16 @@ public class Bean {
                 Ui.printNoSuchCommand();
             }
             break;
+        }
+    }
+
+    private static void processFindCommand(TaskList listOfTasks, Parser userLine) {
+        try {
+            String query = userLine.getArgument();
+            TaskList listOfMatches = listOfTasks.findTask(query);
+            Ui.printFoundTasks(listOfMatches);
+        } catch (NoValueException e) {
+            Ui.printNoValueForFields();
         }
     }
 
