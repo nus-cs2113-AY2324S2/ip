@@ -1,29 +1,24 @@
 package mona.storage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import mona.exception.MonaException;
 import mona.input.InputParser;
-import mona.manager.TaskManager;
-import mona.output.ConsolePrint;
 import mona.task.Deadline;
 import mona.task.Event;
 import mona.task.Task;
 import mona.task.Todo;
 import mona.util.Constants;
 
-public class TaskStorage {
+public class Storage {
     protected String filePath;
 
-    public TaskStorage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 

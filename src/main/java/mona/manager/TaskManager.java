@@ -1,7 +1,5 @@
 package mona.manager;
 
-import mona.input.InputParser;
-import mona.storage.TaskStorage;
 import mona.output.ConsolePrint;
 import mona.task.Deadline;
 import mona.task.Event;
@@ -9,10 +7,6 @@ import mona.task.Task;
 import mona.task.Todo;
 import mona.util.Constants;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class TaskManager {
