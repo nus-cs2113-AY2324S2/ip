@@ -78,6 +78,7 @@ Got it. I've added this task:
  [T][ ] Read book
 Now you have 1 tasks in the list.
 ~~~
+<br>
 
 ### Adding a Deadline task - `deadline`
 > [!IMPORTANT]
@@ -108,6 +109,7 @@ Got it. I've added this task:
  [D][ ] Complete CS2113 UG (By: 8 Mar 2024 2359)
 Now you have 3 tasks in the list.
 ~~~
+<br>
 
 ### Adding an Event task - `event`
 > [!IMPORTANT]
@@ -134,6 +136,7 @@ Got it. I've added this task:
  [E][ ] CS2113 IP (From: 15 Jan 2024 0000 To: 8 Mar 2024 2359)
 Now you have 5 tasks in the list.
 ~~~
+<br>
 
 ### List all tasks - `list`
 Displays all tasks in the task list on the screen.
@@ -150,6 +153,7 @@ Here are the tasks in your list:
 4.[E][ ] Return book (From: 25 Feb 2024 2300 To: 29 Feb 2024 1800)
 5.[E][ ] CS2113 IP (From: 15 Jan 2024 0000 To: 8 Mar 2024 2359)
 ~~~
+<br>
 
 ### Marking task as complete - `mark`
 >[!NOTE] 
@@ -170,9 +174,11 @@ JingHao will display a message similar to the following upon receiving the `mark
 Nice! I've marked this task as done: 
 [D][X] Complete CS2113 UG (By: 8 Mar 2024 2359)
 ~~~
+<br>
 
 ### Marking tasks as incomplete - `unmark`
->[!NOTE] `Description` refers to the `index` of the task in the list to be marked.
+>[!NOTE] 
+> `Description` refers to the `index` of the task in the list to be marked.
 
 Marks the specified task in the task list as incomplete.
 
@@ -189,10 +195,11 @@ JingHao will display a message similar to the following upon receiving the `unma
 OK, I've marked this task as not done yet: 
 [D][ ] Complete CS2113 UG (By: 8 Mar 2024 2359)
 ~~~
+<br>
 
 ### Find tasks by keyword - `find`
 >[!NOTE] 
-> `Description` refers to the keyword.
+> `Description` refers to the `keyword`.
 
 
 Find a task by searching for a keyword.
@@ -218,6 +225,7 @@ Otherwise, JingHao will display the following message if there are no matches.
 ~~~
 There are no matching task found.
 ~~~
+<br>
 
 ### Delete a Task - `delete`
 >[!NOTE] 
@@ -239,6 +247,7 @@ Noted. I have removed this task:
 [T][ ] Read book
 Now you have 4 tasks in the list.
 ~~~
+<br>
 
 ### Exiting the chatbot - `bye`
 Exits the chatbot.
@@ -252,6 +261,7 @@ JingHao will display the following message upon input of the `bye` command.
 ~~~
 Bye. Hope to see you again soon!
 ~~~
+<br>
 
 ### Saving the storage data
 > [!CAUTION]
@@ -260,7 +270,8 @@ Bye. Hope to see you again soon!
 
 JingHao data are saved in the hard disk automatically after any command that changes the data. <br>
 There is no need to save manually.
-
+<br>
+--------------------
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? <br>
