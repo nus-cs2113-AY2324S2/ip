@@ -23,7 +23,11 @@ public class Todo {
     }
 
     public String formatTask() {
-        return (getType() + getStatus() + " " + getDescription());
+        return (type + status + description);
+    }
+
+    public String getWriteFormat() {
+        return (type + status + description);
     }
 
     public void markStatus() {

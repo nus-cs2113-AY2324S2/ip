@@ -19,6 +19,11 @@ public class Event extends Todo {
     }
 
     public String formatTask() {
-        return (type + status + " " + description + "(from:" + start + "to:" + end + ")");
+
+        return (type + status + description + "(from:" + start + "to:" + end + ")");
+    }
+
+    public String getWriteFormat() {
+        return (type + status + description + "/from" + start + "/to" + end);
     }
 }

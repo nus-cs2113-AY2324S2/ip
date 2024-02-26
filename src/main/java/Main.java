@@ -1,11 +1,16 @@
 import doraemonexceptions.EmptyListException;
 import doraemonexceptions.InValidCommandException;
 import doraemonexceptions.IsEmptyException;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class Main {
+    public static final String PATHNAME = "src/data/prevData";
     public static void printLine() {
         System.out.println("____________________________________________________________");
     }
@@ -35,32 +40,73 @@ public class Main {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.formatTask());
     }
-
-    public static void loadData(ArrayList<Todo> list) throws FileNotFoundException {
-        File storedFile = new File("data/doraemon.txt");
-        if (storedFile.exists()) {
-            Scanner dataInput = new Scanner(storedFile);
-            while (dataInput.hasNext()) {
-                list.add(new Todo(dataInput.nextLine().substring(7)));
-            }
-        }
+    private static void addTodo(ArrayList<Todo> list, String task, int taskNum) {
+        list.add(taskNum, new Todo(task));
+    }
+    private static void addDeadline(ArrayList<Todo> list, String task, int taskNum) {
+            int pos = task.indexOf("/");
+            String description = task.substring(0, pos);
+            String date = task.substring(pos + 3);
+            list.add(taskNum, new Deadline(description, date));
     }
 
+    private static void addEvent(ArrayList<Todo> list, String task, int taskNum) {
+        int pos = task.indexOf("/");
+        String description = task.substring(0, pos);
+        task = task.substring(pos + 5);
+        pos = task.indexOf("/");
+        String start = task.substring(0, pos);
+        String end = task.substring(pos + 3);
+        list.add(taskNum, new Event(description, start, end)) ;
+    }
+
+    public static int loadData(ArrayList<Todo> list) throws FileNotFoundException {
+        File storedFile = new File(PATHNAME);
+        int taskNum = 0;
+        if (!storedFile.exists()) {
+            throw new FileNotFoundException();
+        } else {
+            Scanner dataInput = new Scanner(storedFile);
+            while (dataInput.hasNext()) {
+                String currTask = dataInput.nextLine();
+                String type = currTask.substring(1,2);
+                currTask = currTask.substring(6); //trim off [T][ ]
+                switch (type) {
+                case "T":
+                    addTodo(list, currTask, taskNum);
+                    break;
+                case "D":
+                    addDeadline(list, currTask, taskNum);
+                    break;
+                case "E":
+                    addEvent(list, currTask, taskNum);
+                    break;
+                default:
+                    //if it is none of the valid types, do not add task
+                    taskNum--;
+                }
+                taskNum++;
+            }
+        }
+        return taskNum;
+    }
+
+    private static void writeTask(Todo task) throws IOException {
+        FileWriter file = new FileWriter(PATHNAME, true);
+        file.write(task.getWriteFormat() + System.lineSeparator());
+        file.close();
+    }
 
     public static void main(String[] args) {
         ArrayList<Todo> list = new ArrayList<>();
         int taskNum = 0;
-        int pos;
-        String description;
-        String date;
-        String start;
-        String end;
         Scanner in = new Scanner(System.in);
         printGreetings();
         try {
-            loadData(list);
+            taskNum = loadData(list);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, creating new file to store inputs!");
+            System.out.println("Something went wrong, please try again!");
+            printLine();
         }
         String temp = in.nextLine();
         while (!temp.equals("bye")) {
@@ -74,26 +120,22 @@ public class Main {
                     }
                     printLine();
                 } else if (temp.startsWith("todo")) {
-                    temp = temp.substring(5); //trim "todo"
-                    list.add(taskNum, new Todo(temp));
+                    temp = temp.substring(4); //trim off command
+                    addTodo(list, temp, taskNum);
                     printMessage(list.get(taskNum), taskNum + 1);
+                    writeTask(list.get(taskNum));
                     taskNum++;
                 } else if (temp.startsWith("deadline")) {
-                    pos = temp.indexOf("/");
-                    description = temp.substring(8, pos);
-                    date = temp.substring(pos + 3);
-                    list.add(taskNum, new Deadline(description, date)) ;
+                    temp = temp.substring(8); //trim off command
+                    addDeadline(list, temp, taskNum);
                     printMessage(list.get(taskNum), taskNum + 1);
+                    writeTask(list.get(taskNum));
                     taskNum++;
                 } else if (temp.startsWith("event")) {
-                    pos = temp.indexOf("/");
-                    description = temp.substring(5, pos);
-                    temp = temp.substring(pos + 5);
-                    pos = temp.indexOf("/");
-                    start = temp.substring(0, pos);
-                    end = temp.substring(pos + 3);
-                    list.add(taskNum, new Event(description, start, end)) ;
+                    temp = temp.substring(5); //trim off command
+                    addEvent(list, temp, taskNum);
                     printMessage(list.get(taskNum), taskNum + 1);
+                    writeTask(list.get(taskNum));
                     taskNum++;
                 } else if (temp.startsWith("mark")) {
                     temp = temp.substring(5); //trim "mark"
@@ -125,6 +167,8 @@ public class Main {
                 System.out.println("The list is empty! Please add something!");
                 printLine();
                 temp = in.nextLine();
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
         }
         System.out.println("Bye. Have a great day!");
