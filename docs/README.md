@@ -66,4 +66,4 @@ Format: `find KEYWORD`
 
 Exits the program.
 
-Format: `exit`
+Format: `bye`
