@@ -1,16 +1,15 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-public class UserInterface {
+public class Ui {
     public static final String DATA_TXT_FILE_PATH = "./data.txt";
     Scanner myScanner = new Scanner(System.in);
     TaskManager taskManager = new TaskManager();
 
     private boolean continueReceivingUserInputs = true;
 
-    public UserInterface() {
+    public Ui() {
         try {
-            FileProcessor.startUpCheck(DATA_TXT_FILE_PATH);
+            Storage.startUpCheck(DATA_TXT_FILE_PATH);
         }
         catch (IOException e) {
             System.out.println("input output error");

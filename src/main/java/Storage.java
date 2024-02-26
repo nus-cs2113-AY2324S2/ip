@@ -1,11 +1,8 @@
-import Tasks.Task;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.ArrayList;
 
-public class FileProcessor {
+public class Storage {
 
     public static void printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path

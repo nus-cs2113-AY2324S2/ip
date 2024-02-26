@@ -9,7 +9,7 @@ public class Sebastian {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Sebastian, your humble butler\n" +
                 "What can I do for you?");
-        UserInterface myUserInterface = new UserInterface();
+        Ui myUserInterface = new Ui();
     }
 
 }

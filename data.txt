@@ -1,3 +1,4 @@
 T,1,hw
 E,0,lunch,1pm,2pm
 D,1,homework,1pm
+T,0,dinner

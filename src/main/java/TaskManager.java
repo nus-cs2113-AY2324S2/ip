@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class TaskManager {
     public static final String DATA_TXT_FILE_PATH = "./data.txt";
     private static int numItems;
-    public static ArrayList<Task> taskArrayList = new ArrayList<>();
+    ArrayList<Task> taskArrayList = new ArrayList<>();
+    TaskList myTaskList = new TaskList(taskArrayList);
 
     public final String TODO_REQUIRED_INPUTS = "'todo <task>'";
     public final String DEADLINE_REQUIRED_INPUTS = "'Deadline <task> /by <due date>'";
@@ -30,15 +31,15 @@ public class TaskManager {
             String[] taskInformation = Parser.processTaskInformation(userInput);
             addByTaskToTaskArray(taskInformation, false);
             System.out.println("Got it. I've added this task:");
-            System.out.println(taskArrayList.get(numItems));
+            System.out.println(TaskList.get(numItems));
             String taskPluralString = numItems > 1 ? " tasks" : " task";
             System.out.println("Now you have " + (numItems + 1) + taskPluralString + " in the list.");
             String dataToAppend = formatDataToAppend(taskInformation);
             if (numItems == 0) {
-                FileProcessor.writeToFile(DATA_TXT_FILE_PATH, dataToAppend);
+                Storage.writeToFile(DATA_TXT_FILE_PATH, dataToAppend);
             }
             else {
-                FileProcessor.appendToFile(DATA_TXT_FILE_PATH, dataToAppend);
+                Storage.appendToFile(DATA_TXT_FILE_PATH, dataToAppend);
             }
             numItems += 1;
         } catch (TodoLackInputsException e) {
@@ -84,15 +85,15 @@ public class TaskManager {
     private static void addByTaskToTaskArray(String[] taskInformation, boolean isDone) {
         switch (taskInformation[0]) {
         case ("todo"):
-            taskArrayList.add(new Todo(taskInformation[1], isDone));
+            TaskList.add(new Todo(taskInformation[1], isDone));
             break;
 
         case ("deadline"):
-            taskArrayList.add(new Deadline(taskInformation[1], isDone, taskInformation[2]));
+            TaskList.add(new Deadline(taskInformation[1], isDone, taskInformation[2]));
             break;
 
         case ("event"):
-            taskArrayList.add(new Event(taskInformation[1], isDone, taskInformation[2],
+            TaskList.add(new Event(taskInformation[1], isDone, taskInformation[2],
                     taskInformation[3]));
             break;
 
@@ -118,7 +119,7 @@ public class TaskManager {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < numItems; i += 1) {
                 System.out.print(i + 1 + ". ");
-                System.out.println(taskArrayList.get(i));
+                System.out.println(TaskList.get(i));
             }
         }
     }
@@ -141,26 +142,26 @@ public class TaskManager {
 
         if (userInput.contains("unmark")) {
             try {
-                FileProcessor.changeTaskStatusData(DATA_TXT_FILE_PATH, id + 1, 0);
+                Storage.changeTaskStatusData(DATA_TXT_FILE_PATH, id + 1, 0);
             } catch (FileNotFoundException e) {
                 System.out.println("could not unmark task");
                 return;
             }
-            taskArrayList.get(id).setDone(false);
+            TaskList.setDone(id, false);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(taskArrayList.get(id));
+            System.out.println(TaskList.get(id));
         }
         // must contain mark at this point
         else {
             try {
-                FileProcessor.changeTaskStatusData(DATA_TXT_FILE_PATH, id + 1, 1);
+                Storage.changeTaskStatusData(DATA_TXT_FILE_PATH, id + 1, 1);
             } catch (FileNotFoundException e) {
                 System.out.println("could not mark task");
                 return;
             }
-            taskArrayList.get(id).setDone(true);
+            TaskList.setDone(id, true);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(taskArrayList.get(id));
+            System.out.println(TaskList.get(id));
         }
     }
 
@@ -197,16 +198,16 @@ public class TaskManager {
         }
         int id = Parser.processTaskIdforMarkingAndDeletingTask(userInput);
         System.out.println("Noted. I've removed this task:");
-        System.out.println(taskArrayList.get(id));
+        System.out.println(TaskList.get(id));
         numItems -= 1;
         String taskPluralString = numItems > 1 ? " tasks" : " task";
         System.out.println("Now you have " + numItems + taskPluralString + " in the list.");
         try {
-            FileProcessor.removeLineData(DATA_TXT_FILE_PATH, id + 1);
+            Storage.removeLineData(DATA_TXT_FILE_PATH, id + 1);
         } catch (FileNotFoundException e) {
             System.out.println("unable to delete task. Please ensure that you have input the correct command");
         }
-        taskArrayList.remove(id);
+        TaskList.delete(id);
     }
 
     public static void loadTasks(ArrayList<String> dataArrayList) {
@@ -221,10 +222,10 @@ public class TaskManager {
                 numItems += 1;
             } catch (CorruptedFileException e) {
                 System.out.println("File is corrupted");
-                FileProcessor.clearFile(DATA_TXT_FILE_PATH);
+                Storage.clearFile(DATA_TXT_FILE_PATH);
                 System.out.println("Successfully restarted file");
                 numItems = 0;
-                taskArrayList.clear();
+                TaskList.clearList();
                 return;
             }
         }
