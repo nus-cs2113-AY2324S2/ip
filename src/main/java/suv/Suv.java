@@ -19,7 +19,7 @@ public class Suv {
         TaskManager taskManager = new TaskManager();
 
         String input = in.nextLine();
-        taskManager.fetchData();
+        FileStorage.fetchData();
         while(!input.equals("bye")) {
             taskManager.handleInput(input);
             input = in.nextLine();

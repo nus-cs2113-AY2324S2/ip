@@ -1,2 +1,2 @@
-[T][ ] buy icer cream
-[T][ ] book
+[D][X] read (by: sunday)
+[T][ ] read book
