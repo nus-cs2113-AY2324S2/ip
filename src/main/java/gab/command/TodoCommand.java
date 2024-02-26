@@ -25,7 +25,6 @@ public class TodoCommand extends Command {
      *
      * @param taskList arraylist of task
      */
-
     @Override
     public void execute (TaskList taskList) {
         ToDo newToDo = new ToDo(TASK_NAME);

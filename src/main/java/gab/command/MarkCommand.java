@@ -7,7 +7,6 @@ import gab.ui.Ui;
 /**
  * Command to mark task as done
  */
-
 public class MarkCommand extends Command {
     private final int INDEX_TASK;
 
@@ -25,7 +24,6 @@ public class MarkCommand extends Command {
      *
      * @param taskList arraylist of task
      */
-
     @Override
     public void execute (TaskList taskList) {
         int index = INDEX_TASK - 1;

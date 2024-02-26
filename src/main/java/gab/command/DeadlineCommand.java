@@ -7,7 +7,6 @@ import gab.ui.Ui;
 /**
  * Command to add new deadline in taskList
  */
-
 public class DeadlineCommand extends Command {
     private final String TASK_NAME;
     private final String BY;
@@ -18,7 +17,6 @@ public class DeadlineCommand extends Command {
      * @param taskName deadline task name to display
      * @param by deadline of task
      */
-
     public DeadlineCommand (String taskName, String by) {
         this.TASK_NAME = taskName;
         this.BY = by;
@@ -29,7 +27,6 @@ public class DeadlineCommand extends Command {
      *
      * @param taskList arraylist of task
      */
-
     @Override
     public void execute (TaskList taskList) {
         Deadline newDeadline = new Deadline(TASK_NAME, BY);

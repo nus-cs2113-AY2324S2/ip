@@ -7,7 +7,6 @@ import java.util.Scanner;
 /**
  * Ui class for printing and displaying tasks
  */
-
 public class Ui {
     public static final String LOGO =
                       "  _____           __ \n"
@@ -22,7 +21,6 @@ public class Ui {
     /**
      * Print welcome message
      */
-
     public static void printWelcome() {
         System.out.println(LOGO);
         System.out.println("\tI am Gab the Bot! Nice to meet you!");
@@ -32,16 +30,15 @@ public class Ui {
     /**
      * Print line after every command
      */
-
     public static void printLine() {
         System.out.println(LINE);
     }
 
     /**
      * Retrieve user input to parse
+     *
      * @return the task name
      */
-
     public static String getTask() {
         String taskDescription;
         Scanner in = new Scanner(System.in);
@@ -55,7 +52,6 @@ public class Ui {
      *
      * @param taskList array list of tasks
      */
-
     public static void listTask(TaskList taskList) { //using the array to list the tasks
         printLine();
         System.out.println("All your tasks are here");
@@ -70,7 +66,6 @@ public class Ui {
      *
      * @param taskCount total number of task in array list
      */
-
     public static void printTaskCount (int taskCount) {
         System.out.println("Now you have " + taskCount + " task(s)");
         printLine();
@@ -78,9 +73,9 @@ public class Ui {
 
     /**
      * Print message to react to new to do task added
+     *
      * @param toDoTask to do task name
      */
-
     public static void printTodoTask (String toDoTask) {
         printLine();
         System.out.println("Oh no! One new task added...");
@@ -92,7 +87,6 @@ public class Ui {
      *
      * @param deadlineTask deadline task name
      */
-
     public static void printDeadlineTask (String deadlineTask) {
         printLine();
         System.out.println("Ok! Watch the deadline!");
@@ -104,7 +98,6 @@ public class Ui {
      *
      * @param eventTask event task name
      */
-
     public static void printEventTask (String eventTask) {
         printLine();
         System.out.println("Weehoo! Enjoy the event!");
@@ -117,7 +110,6 @@ public class Ui {
      * @param taskIndex task index to mark as done
      * @param taskList array list of tasks
      */
-
     public static void printMarkTask (int taskIndex, TaskList taskList) {
         printLine();
         System.out.println("One done!");
@@ -131,7 +123,6 @@ public class Ui {
      * @param taskIndex task index to mark as not done
      * @param taskList array list of tasks
      */
-
     public static void printUnmarkTask (int taskIndex, TaskList taskList) {
         printLine();
         System.out.println("Oh no!");
@@ -145,7 +136,6 @@ public class Ui {
      * @param taskIndex task index to delete
      * @param taskList array of task list
      */
-
     public static void printDeleteTask (int taskIndex, TaskList taskList) {
         printLine();
         System.out.println("Ok task deleted!");
@@ -159,7 +149,6 @@ public class Ui {
      * @param taskCount index the task
      * @param isFound whether keyword is found or not
      */
-
     public static void printFoundTask (Task task, int taskCount, boolean isFound) {
         if (isFound) {
             System.out.println(taskCount + ". " + task);

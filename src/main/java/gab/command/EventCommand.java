@@ -19,7 +19,6 @@ public class EventCommand extends Command {
      * @param startDate event start date
      * @param endDate event end date
      */
-
     public EventCommand(String taskName, String startDate, String endDate) {
         this.TASK_NAME = taskName;
         this.START_DATE = startDate;
@@ -32,7 +31,6 @@ public class EventCommand extends Command {
      *
      * @param taskList arraylist of task
      */
-
     @Override
     public void execute (TaskList taskList) {
         Event newEvent = new Event(TASK_NAME, START_DATE, END_DATE);

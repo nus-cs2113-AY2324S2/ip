@@ -26,7 +26,6 @@ public class Event extends Task {
      *
      * @return string format of event task to be printed
      */
-
     @Override
     public String toString() {
         return EVENT_STATUS + super.toString() + " " + "(from: " + START_TIME + " to: " + END_TIME + ")";
@@ -37,7 +36,6 @@ public class Event extends Task {
      *
      * @return format of event task to be display
      */
-
     @Override
     public String toFileFormat() {
         return EVENT_STATUS + super.toFileFormat() + " | " + "from: " + START_TIME + " to: " + END_TIME;

@@ -5,7 +5,6 @@ import gab.exception.GabException;
 /**
  * Super class of Deadline, Event and Todo
  */
-
 public class Task {
     private final String DESCRIPTION;
     private boolean isDone;
@@ -14,7 +13,6 @@ public class Task {
      * Initialise a new task class with name and whether task isDone
      * @param description task name
      */
-
     public Task (String description) {
         this.DESCRIPTION = description;
         this.isDone = false;
@@ -23,7 +21,6 @@ public class Task {
     /**
      * Updates task to be done
      */
-
     public void markAsDone() {
         isDone = true;
     }
@@ -31,7 +28,6 @@ public class Task {
     /**
      * Update task as not done
      */
-
     public void markAsNotDone() {
         isDone = false;
     }
@@ -41,7 +37,6 @@ public class Task {
      *
      * @return task completion status
      */
-
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
@@ -60,7 +55,6 @@ public class Task {
      *
      * @return format of string to print
      */
-
     @Override
     public String toString() {
         return getStatusIcon() + " " + DESCRIPTION; //will be over ride by subclass
@@ -71,7 +65,6 @@ public class Task {
      *
      * @return file format of task to be saved in data file
      */
-
     public String toFileFormat() {
         return " | " + (this.isDone? "1" : "0") + " | " + this.DESCRIPTION;
     }
@@ -84,7 +77,6 @@ public class Task {
      * @return task created based on task type
      * @throws GabException thrown when error format is wrong or corrupted
      */
-
     public static Task loadFromFile(String line) throws GabException {
         String[] savedArray = line.split(" \\| ");
         String taskStatus = savedArray[0];

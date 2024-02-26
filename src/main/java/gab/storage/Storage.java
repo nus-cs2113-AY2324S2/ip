@@ -9,7 +9,6 @@ import java.io.*;
 /**
  * Class storage to save and load data to and from external data file
  */
-
 public class Storage {
     public String filePath;
 
@@ -25,7 +24,6 @@ public class Storage {
      * @throws IOException thrown when there is an input/output error
      * @throws GabException thrown when there is a file format error
      */
-
     public TaskList loadTaskList() throws IOException, GabException {
         TaskList taskList = new TaskList();
         String readLine;
@@ -52,7 +50,6 @@ public class Storage {
      * @param taskList arraylist of tasks
      * @throws GabException thrown when there is an error in saving tasks
      */
-
     public void saveTask(TaskList taskList) throws GabException {
         try {
             BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(filePath));

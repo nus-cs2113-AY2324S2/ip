@@ -7,7 +7,6 @@ import gab.ui.Ui;
 /**
  * Command to un mark task if not done
  */
-
 public class UnmarkCommand extends Command {
     private final String INDEX_TASK;
 
@@ -26,7 +25,6 @@ public class UnmarkCommand extends Command {
      *
      * @param taskList arraylist of task
      */
-
     @Override
     public void execute (TaskList taskList) {
         int index = Integer.parseInt(INDEX_TASK) - 1;

@@ -23,7 +23,6 @@ public class Deadline extends Task {
      *
      * @return string format of deadline task to be printed
      */
-
     @Override
     public String toString() {
         return DEADLINE_STATUS + super.toString() + " " + "(by: " + BY + ")"; //superclass is task
@@ -34,7 +33,6 @@ public class Deadline extends Task {
      *
      * @return format of deadline task to be display
      */
-
     @Override
     public String toFileFormat() {
         return DEADLINE_STATUS + super.toFileFormat() + " | " + BY;

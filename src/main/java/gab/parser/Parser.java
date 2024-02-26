@@ -7,7 +7,6 @@ import gab.command.*;
 /**
  * Parser class to parse inputs by the user
  */
-
 public class Parser {
     public static final int TODO_START_INDEX = 5;
     public static final int DEADLINE_START_INDEX = 9;
@@ -20,7 +19,6 @@ public class Parser {
      * @return to do command to be executed
      * @throws GabException error to be thrown when input is incomplete
      */
-
     public static Command parseToDo(String task) throws GabException {
         if (task.length() <= TODO_START_INDEX) {
             throw new GabException("Incomplete input! Correct usage: todo [Task name]");
@@ -35,11 +33,9 @@ public class Parser {
     /**
      * Parse input into deadline function and check for exceptions
      *
-     * task user input for adding deadline
      * @return deadline command to be executed
      * @throws GabException error to be thrown when input is incomplete
      */
-
     public static Command parseDeadline(String task) throws GabException {
         if (task.length() <= DEADLINE_START_INDEX) {
             throw new GabException("Incomplete input! Correct usage: deadline [Task name] /by [Due date]");
@@ -68,7 +64,6 @@ public class Parser {
      * @return event command to be executed
      * @throws GabException error to be thrown when input is incomplete
      */
-
     public static Command parseEvent(String task) throws GabException {
         if (task.length() <= EVENT_START_INDEX) {
             throw new GabException("Incomplete input! Correct usage: event [Event name] /from [Start date] /to [End date]");
@@ -101,7 +96,6 @@ public class Parser {
      * @return list command that list out tasks from taskList
      * @throws GabException thrown when 'list' is not used correctly
      */
-
     public static Command listTask(String taskDescription) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
 
@@ -119,7 +113,6 @@ public class Parser {
      * @return bye command which exits the program
      * @throws GabException thrown when 'bye' is not used correctly
      */
-
     public static Command exitBot (String taskDescription) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
 
@@ -137,7 +130,6 @@ public class Parser {
      * @return markCommand that marks a task
      * @throws GabException thrown when input is incomplete for erroneous
      */
-
     public static Command markTask(String taskDescription, TaskList taskList) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
 
@@ -167,7 +159,6 @@ public class Parser {
      * @return un-mark Command that marks a task
      * @throws GabException thrown when input is incomplete for erroneous
      */
-
     public static Command UnmarkTask(String taskDescription, TaskList taskList) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
 
@@ -197,7 +188,6 @@ public class Parser {
      * @return return delete command which deletes a task
      * @throws GabException thrown when input is incomplete or erroneous
      */
-
     public static Command DeleteTask (String taskDescription, TaskList taskList) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
 
@@ -226,7 +216,6 @@ public class Parser {
      * @return find command which displays task that matches input
      * @throws GabException thrown when input is incomplete
      */
-
     public static Command FindTask (String taskDescription) throws GabException {
         String[] task = taskDescription.trim().split("\\s+");
 

@@ -15,7 +15,6 @@ public class FindCommand extends Command {
      *
      * @param taskToFind keyword to find in tasks
      */
-
     public FindCommand(String taskToFind) {
         this.taskToFind = taskToFind;
     }
