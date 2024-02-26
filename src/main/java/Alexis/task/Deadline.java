@@ -1,5 +1,7 @@
 package Alexis.task;
 
+import Alexis.console.Ui;
+
 public class Deadline extends Task {
     protected String by;
 
@@ -20,7 +22,7 @@ public class Deadline extends Task {
             String taskDeadline = input.substring(keywordIndex + keyword.length()).trim();
             return new Deadline(description, taskDeadline);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please indicate the deadline of your task.");
+            System.out.println(Ui.MISSING_DEADLINE_ERROR);
             return null;
         }
     }

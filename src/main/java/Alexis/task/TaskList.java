@@ -24,9 +24,9 @@ public class TaskList {
     }
 
     private void printAddTaskMessage(Task task) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println(Ui.ADD_MESSAGE);
         System.out.print("\t" + task);
-        System.out.printf("Now you have %d tasks in the list.\n", numberOfTasks);
+        System.out.printf(Ui.LIST_UPDATE_MESSAGE, numberOfTasks);
     }
 
     public void addTask(TaskType taskType, String input) {

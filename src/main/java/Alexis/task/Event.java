@@ -1,5 +1,7 @@
 package Alexis.task;
 
+import Alexis.console.Ui;
+
 public class Event extends Task {
     protected String start;
     protected String end;
@@ -29,7 +31,7 @@ public class Event extends Task {
             String taskEnd = input.substring(keywordToIndex + keywordTo.length()).trim();
             return new Event(description, taskStart, taskEnd);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please indicate the start and end dates/times for your event properly.");
+            System.out.println(Ui.MISSING_EVENT_START_OR_END_DATE_ERROR);
             return null;
         }
     }
