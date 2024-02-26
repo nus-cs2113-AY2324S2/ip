@@ -98,7 +98,7 @@ public class AddCommand extends Command{
             System.out.println("Seriously? You call that an event?");
             System.out.println("It's 'event [task] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'. Get it right!");
         } catch (DateTimeParseException e) {
-            System.out.println("Listen, it's simple: /by yyyy-MM-dd HH:mm.");
+            System.out.println("Listen, it's simple: /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
         } catch (QuillException e) {
             System.out.println(e.getMessage());
         }
