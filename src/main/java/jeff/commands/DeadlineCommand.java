@@ -1,14 +1,18 @@
 package jeff.commands;
 
-import jeff.*;
+import jeff.Command;
+import jeff.Printer;
+import jeff.Storage;
+import jeff.TaskList;
 import jeff.tasks.Deadline;
+import java.time.LocalDate;
 
 /**
  * Represents a command to add a deadline task.
  */
 public class DeadlineCommand extends Command {
     private final String description;
-    private final String by;
+    private final LocalDate by;
 
     /**
      * Constructs a DeadlineCommand object with the given description and deadline date.
@@ -16,7 +20,7 @@ public class DeadlineCommand extends Command {
      * @param description Description of the deadline task.
      * @param by Deadline date of the deadline task.
      */
-    public DeadlineCommand(String description, String by) {
+    public DeadlineCommand(String description, LocalDate by) {
         this.description = description;
         this.by = by;
     }

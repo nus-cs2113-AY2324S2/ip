@@ -1,5 +1,7 @@
 package jeff;
 
+import java.util.ArrayList;
+
 /**
  * Provides static methods for printing messages to the standard output.
  */
@@ -54,6 +56,17 @@ public class Printer {
      * Prints a confirmation message after adding a task.
      * Informs the user about the updated total number of tasks in the list.
      */
+    public static void printMatchingTasks(ArrayList<Task> matchingTasks) {
+        printIndent("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            printIndent((i + 1) + "." + matchingTasks.get(i));
+        }
+    }
+
+    public static void printNoMatchingTasks() {
+        printIndent("No matching tasks found.");
+    }
+
     public static void printAddTask() {
         printIndent("Got it. I've added this task:");
         printIndent("  " + TaskList.back());

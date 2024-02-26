@@ -33,7 +33,7 @@ public class ExceptionHandler {
     public static void handleInvalidDeadlineSyntaxException() {
         Printer.printIndent("Invalid deadline syntax.");
         Printer.printIndent("Correct syntax should be:");
-        Printer.printIndent("deadline [description] /by [by]");
+        Printer.printIndent("deadline [description] /by [yyyy-mm-dd]");
     }
 
     /**
@@ -79,6 +79,12 @@ public class ExceptionHandler {
     /**
      * Handles the file not found exception by creating a new file and printing a message.
      */
+    public static void handleInvalidFindSyntaxException() {
+        Printer.printIndent("Invalid find syntax.");
+        Printer.printIndent("Correct syntax should be:");
+        Printer.printIndent("find [text to find]");
+    }
+
     public static void handleFileNotFoundException() {
         Storage.createNewFile();
         Printer.printIndent("File not found. data/jeff.txt created.");

@@ -1,6 +1,9 @@
 package jeff.commands;
 
-import jeff.*;
+import jeff.Command;
+import jeff.Printer;
+import jeff.Storage;
+import jeff.TaskList;
 import jeff.tasks.Todo;
 
 /**

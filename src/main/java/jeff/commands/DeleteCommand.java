@@ -1,6 +1,10 @@
 package jeff.commands;
 
-import jeff.*;
+import jeff.Command;
+import jeff.Printer;
+import jeff.Storage;
+import jeff.Task;
+import jeff.TaskList;
 
 /**
  * Represents a command to delete a task.

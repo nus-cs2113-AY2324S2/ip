@@ -1,6 +1,8 @@
 package jeff.tasks;
 
 import jeff.Task;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a deadline task
@@ -8,7 +10,8 @@ import jeff.Task;
  * such as storing the deadline date and formatting the task description.
  */
 public class Deadline extends Task {
-    protected String by;
+    private static final String PATTERN = "MMM d yyyy";
+    protected LocalDate by;
 
     /**
      * Constructs a Deadline object with the given description and deadline date.
@@ -16,7 +19,7 @@ public class Deadline extends Task {
      * @param description Description of the deadline task.
      * @param by Deadline date of the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -28,7 +31,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        String byFormatted = by.format(DateTimeFormatter.ofPattern(PATTERN));
+        return "[D]" + super.toString() + "(by: " + byFormatted + ")";
     }
 
     /**
@@ -38,6 +42,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D" + super.toFileString() + " | " + by.trim();
+        return "D" + super.toFileString() + " | " + by;
     }
 }
