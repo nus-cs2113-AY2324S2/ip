@@ -48,7 +48,7 @@ public class InputParser {
 
             this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
 
-            inputValidator.markUnmarkDeleteCommandChecker(commandTypeAndParams);
+            inputValidator.checkMarkUnmarkDeleteCommand(commandTypeAndParams);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! This description of a mark/unmark command cannot be empty");
             isValidInput = false;
@@ -63,7 +63,7 @@ public class InputParser {
 
             this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
 
-            inputValidator.todoCommandChecker(commandTypeAndParams);
+            inputValidator.checkTodoCommand(commandTypeAndParams);
         } catch (MonaException e) {
             System.out.println(e.getMessage());
             isValidInput = false;
@@ -79,7 +79,7 @@ public class InputParser {
             this.commandTypeAndParams[Constants.INDEX_DEADLINE] = line.substring(deadlineIndex
                     + Constants.BY_PREFIX.length()).trim();
 
-            inputValidator.deadlineCommandChecker(commandTypeAndParams);
+            inputValidator.checkDeadlineCommand(commandTypeAndParams);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! Remember to key in /by to let me know when the deadline is!");
             isValidInput = false;
@@ -100,7 +100,7 @@ public class InputParser {
             this.commandTypeAndParams[Constants.INDEX_TO_DATE] = line.substring(toIndex
                     + Constants.TO_PREFIX.length()).trim();
 
-            inputValidator.eventCommandChecker(commandTypeAndParams);
+            inputValidator.checkEventCommand(commandTypeAndParams);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Invalid input format detected!");
             isValidInput = false;

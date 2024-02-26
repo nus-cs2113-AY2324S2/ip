@@ -7,19 +7,13 @@ import mona.manager.TaskManager;
 public class InputValidator {
     public InputValidator() {
     }
-    public void commandTypeChecker(String[] commandTypeAndParams) throws MonaException {
-        // Checking if commandType field is empty
-        if (commandTypeAndParams[Constants.INDEX_COMMAND_TYPE].isEmpty()) {
-            throw new MonaException("No command detected. Try again!");
-        }
-    }
-    public void todoCommandChecker(String[] commandTypeAndParams) throws MonaException {
+    public void checkTodoCommand(String[] commandTypeAndParams) throws MonaException {
         // Checking if description field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
             throw new MonaException("OOPS!!! The description of a todo cannot be empty");
         }
     }
-    public void markUnmarkDeleteCommandChecker(String[] commandTypeAndParams) throws
+    public void checkMarkUnmarkDeleteCommand(String[] commandTypeAndParams) throws
             MonaException, NumberFormatException {
         // Checking if description (number) field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
@@ -39,14 +33,14 @@ public class InputValidator {
             throw new MonaException("OOPS! Number doesn't correspond to a stored task. Try again!");
         }
     }
-    public void deadlineCommandChecker(String[] commandTypeAndParams) throws MonaException {
+    public void checkDeadlineCommand(String[] commandTypeAndParams) throws MonaException {
         // Checking if description field OR if deadline field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()
                 || commandTypeAndParams[Constants.INDEX_DEADLINE].isEmpty()) {
             throw new MonaException("OOPS!!! Missing fields detected. Try again!");
         }
     }
-    public void eventCommandChecker(String[] commandTypeAndParams) throws MonaException {
+    public void checkEventCommand(String[] commandTypeAndParams) throws MonaException {
         //Checking if description field OR /to field OR /from field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()
                 || commandTypeAndParams[Constants.INDEX_FROM_DATE].isEmpty()
