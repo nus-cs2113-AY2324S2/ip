@@ -1,3 +1,6 @@
 T | 0 | hello
-E | 1 | hello | 21st feb | 22nd feb
-D | 0 | hiiiii | 3pm
+D | 0 | hi | 3pm
+T | 0 | coffee bagel
+T | 0 | what are you doing
+T | 0 | coffee cake
+E | 0 | what is this coffee | 3pm | 2pm

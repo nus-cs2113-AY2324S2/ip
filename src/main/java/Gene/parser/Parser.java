@@ -1,10 +1,7 @@
 package Gene.parser;
 
 import Gene.GeneException;
-import Gene.command.DeadlineCommand;
-import Gene.command.EventCommand;
-import Gene.command.MarkCommand;
-import Gene.command.TodoCommand;
+import Gene.command.*;
 import Gene.task.TaskList;
 import Gene.ui.Ui;
 
@@ -16,6 +13,10 @@ public class Parser {
         switch (action) {
             case "list":
                 taskList.printListItems();
+                break;
+
+            case "find":
+                FindCommand.execute(command, taskList);
                 break;
 
             case "mark":
@@ -49,6 +50,7 @@ public class Parser {
                 System.out.println("- todo <Task Description>");
                 System.out.println("- deadline <Task Description> /by <Date>");
                 System.out.println("- event <Task Description> /from <Date> /to <Date>");
+                System.out.println("- find <keyword>");
                 Ui.printLineSeparation();
                 break;
         }
