@@ -1,2 +1,4 @@
-E- -find a job-morning-night
+E-X-find a job-morning-night
 D- -find a job-morning
+T- -chicken
+D- -get jobs for me-5/6/2000

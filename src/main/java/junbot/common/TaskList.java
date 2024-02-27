@@ -5,18 +5,22 @@ import junbot.tasks.Event;
 import junbot.tasks.Todo;
 import junbot.error.InvalidInputException;
 import junbot.tasks.Task;
+import junbot.ui.Ui;
 
 import java.util.ArrayList;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
+    protected Ui ui;
 
     public TaskList(ArrayList<Task> tasks){
         this.tasks = tasks;
+        ui = new Ui();
     }
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
+        ui = new Ui();
     }
 
     public ArrayList<Task> getTasksList() {
@@ -90,6 +94,35 @@ public class TaskList {
         Task task = this.getTasksList().get(listPosition);
         task.unmarkTask();
         return task;
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size()-1; i++) {
+            String taskDescription = tasks.get(i).getDescription();
+
+            if (taskDescription.contains(keyword)){
+                foundTasks.add(tasks.get(i));
+            }
+        }
+
+        return foundTasks;
+
+    }
+
+    public void printMatchingTasks(String keyword){
+        int taskNumber = 1;
+        ArrayList<Task> foundTasks = findTasks(keyword);
+
+        System.out.println("Here are the matching tasks in your list: ");
+        ui.printDivider();
+        for(int i = 0; i < foundTasks.size(); i++){
+            System.out.print( taskNumber + ". ");
+            System.out.println(foundTasks.get(i));
+            taskNumber += 1;
+        }
+        ui.printDivider();
     }
 
 }
