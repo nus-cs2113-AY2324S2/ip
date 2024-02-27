@@ -131,9 +131,14 @@ public class TaskManager {
         System.out.println("Now you have " + numOfTasks + " tasks in the list");
     }
 
+    /**
+     * Finds and prints out all tasks that contain a keyword
+     *
+     * @param keyword String that a task should contain to be found
+     */
     public void findTask(String keyword) {
         int count = 0;
-        for (int i = 0; i < currIndex; i++) {
+        for (int i = 0; i < numOfTasks; i++) {
             Task currTask = tasks.get(i);
             if (currTask.getName().contains(keyword)) {
                 count++;
