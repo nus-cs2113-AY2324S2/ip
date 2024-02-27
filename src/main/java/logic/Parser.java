@@ -21,6 +21,26 @@ public abstract class Parser {
     public static final int TO_LENGTH = 4;
 
     /**
+     * Checks if the task type is valid, defined as being one of "todo", "deadline" or "event"
+     *
+     * @param taskType The task type specified by the user
+     * @return True if the task type is valid, false otherwise
+     */
+    public static boolean checkTaskTypeIsValid(String taskType) {
+        boolean toReturn = false;
+        if (taskType.equals("todo")) {
+            toReturn = true;
+        }
+        if (taskType.equals("deadline")) {
+            toReturn = true;
+        }
+        if (taskType.equals("event")) {
+            toReturn = true;
+        }
+        return toReturn;
+    }
+
+    /**
      * Returns the ToDo-type task specified in the user input. Determines the name of the task from the input
      *
      * @param input The user input specifying the task

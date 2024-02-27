@@ -40,10 +40,13 @@ public class TaskManager {
      */
     public void addTask(String input) throws Exception {
         String[] inputAsArray = input.split(" ");
+        String taskType = inputAsArray[0];
+        if (Parser.checkTaskTypeIsValid(taskType) == false) {
+            throw new InvalidInputException();
+        }
         if (inputAsArray.length == 1) {
             throw new TaskNoNameException();
         }
-        String taskType = inputAsArray[0];
         switch (taskType) {
         case "todo":
             tasks.add(Parser.processToDo(input));
