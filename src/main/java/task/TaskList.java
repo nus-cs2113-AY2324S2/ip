@@ -42,4 +42,18 @@ public class TaskList {
         }
         formatter.printDividingLine();
     }
+
+    public void printTaskListWithCondition(String condition) {
+        int index = 0;
+        formatter.printDividingLine();
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (Task task : tasks) {
+            if (task.getDescription().contains(condition)) {
+                System.out.println("\t" + (index + 1) + "." + task.getIdentity()
+                        + task.getStatusIcon() + " " + task);
+                index++;
+            }
+        }
+        formatter.printDividingLine();
+    }
 }
