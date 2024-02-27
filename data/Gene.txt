@@ -1,3 +1,1 @@
-T | 1 | hello
-E | 1 | yoooo | 8pm | midnight
-E | 0 | wassuppppp | 3pm | 5pm
+T | 0 | hello

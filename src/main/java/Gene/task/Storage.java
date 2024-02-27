@@ -1,4 +1,5 @@
 package Gene.task;
+
 import Gene.GeneException;
 
 import java.io.BufferedReader;
@@ -10,23 +11,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
-    private final String FILE_PATH = "data/Gene.txt";
+    private final String FILE_PATH = "./data/Gene.txt";
 
     // Method to load tasks from file when chat bot starts up
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
             File file = new File(FILE_PATH);
-            if (file.exists()) {
-                BufferedReader br = new BufferedReader(new FileReader(FILE_PATH));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(" \\| ");
-                    Task task = getTask(parts);
-                    taskList.add(task);
+            if (!file.exists()) {
+                System.out.println("Creating new file...");
+                File directory = new File("./data");
+                if (!directory.exists()) {
+                    directory.mkdirs();
                 }
-                br.close();
+                file.createNewFile();
             }
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                Task task = getTask(parts);
+                taskList.add(task);
+            }
+            br.close();
+
         } catch (IOException | GeneException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
@@ -64,7 +73,7 @@ public class Storage {
             BufferedWriter writer = new BufferedWriter(fileWriter);
             for (Task task : tasks) {
                 String taskType = task.taskType;
-                writer.write(taskType + " | " + (task.isDone() ? "1" : "0") 
+                writer.write(taskType + " | " + (task.isDone() ? "1" : "0")
                         + " | " + task.toFileString() + System.lineSeparator());
             }
             writer.close();
