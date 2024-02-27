@@ -113,7 +113,7 @@ public class InputParser {
             commandType = "DEADLINE";
         } else if (userInput.trim().startsWith("event")) {
             commandType = "EVENT";
-        } else if (userInput.trim().equals("/help")) {
+        } else if (userInput.trim().equals("help")) {
             commandType = "HELP";
         } else {
             commandType = "INVALID";

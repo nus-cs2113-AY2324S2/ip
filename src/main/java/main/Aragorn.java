@@ -3,11 +3,13 @@ package main;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-
 import exceptions.AragornException;
 import utilities.FileHandler;
 import utilities.InputParser;
-import tasks.*;
+import tasks.Task;
+import tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
 import java.util.Scanner;
 
 public class Aragorn {
@@ -35,19 +37,19 @@ public class Aragorn {
             "\n" +
             "    \"delete <task number>\": Removes the corresponding task from the list.\n" +
             "\n" +
-            "    \"/help\": Displays this list of commands.\n" +
+            "    \"help\": Displays this list of commands.\n" +
             "\n" +
             "    \"bye\": Closes the program.\n";
     
     private static final ArrayList<Task> list = new ArrayList<>();
 
     public static void main(String[] args) throws AragornException {
+        System.out.println(LINE + GREET + LINE + "\n" + commandList + LINE);
         try {
             readFile();
         } catch (IOException e) {
             System.out.println("File read error");
         }
-        System.out.println(LINE + GREET + LINE + "\n" + commandList + LINE);
         int index;
         String icon;
         Scanner in = new Scanner(System.in);
@@ -66,17 +68,7 @@ public class Aragorn {
 
                 switch (commandType) {
                     case "LIST":
-                        if (list.isEmpty()) {
-                            System.out.println(LINE + "    List is empty. Add tasks to view them here.\n" + LINE);
-                            break;
-                        }
-                        System.out.println(LINE);
-                        System.out.println("    Here are the tasks in your list: ");
-                        for (int i = 0; i < list.size(); i += 1) {
-                            System.out.println(TAB + (i + 1) + ". " + list.get(i).taskString());
-                        }
-                        System.out.println("\n");
-                        printRemainingTasks(remainingTasks);
+                        listCommand(remainingTasks);
                         break;
 
                     case "UNMARK":
@@ -138,44 +130,15 @@ public class Aragorn {
                         break;
 
                     case "TODO":
-                        if (input.getSplitInput()[0].trim().isEmpty()) {
-                            break;
-                        }
-                        ToDo newTask = new ToDo(input.getSplitInput()[0].trim(), false);
-                        list.add(newTask);
-                        printAddTask(newTask);
-                        remainingTasks += 1;
-                        printRemainingTasks(remainingTasks);
+                        todoCommand(input, remainingTasks);
                         break;
 
                     case "DEADLINE":
-                        try {
-                            if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty()) {
-                                break;
-                            }
-                            Deadline newDeadline = new Deadline(input.getSplitInput()[0].trim(), false, input.getSplitInput()[1].trim());
-                            list.add(newDeadline);
-                            printAddTask(newDeadline);
-                            remainingTasks += 1;
-                            printRemainingTasks(remainingTasks);
-                        } catch (NullPointerException e) {
-                            break;
-                        }
+                        deadlineCommand(input, remainingTasks);
                         break;
 
                     case "EVENT":
-                        try {
-                            if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty() || input.getSplitInput()[2].isEmpty()) {
-                                break;
-                            }
-                            Event newEvent = new Event(input.getSplitInput()[0].trim(), false, input.getSplitInput()[1].trim(), input.getSplitInput()[2].trim());
-                            list.add(newEvent);
-                            printAddTask(newEvent);
-                            remainingTasks += 1;
-                            printRemainingTasks(remainingTasks);
-                        } catch (NullPointerException e) {
-                            break;
-                        }
+                        eventCommand(input, remainingTasks);
                         break;
 
                     case "HELP":
@@ -200,6 +163,61 @@ public class Aragorn {
             }
             writeFile();
         }
+    }
+
+    private static void eventCommand(InputParser input, int remainingTasks) {
+        try {
+            if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty() || input.getSplitInput()[2].isEmpty()) {
+                return;
+            }
+            Event newEvent = new Event(input.getSplitInput()[0].trim(), false, input.getSplitInput()[1].trim(), input.getSplitInput()[2].trim());
+            list.add(newEvent);
+            printAddTask(newEvent);
+            remainingTasks += 1;
+            printRemainingTasks(remainingTasks);
+        } catch (NullPointerException e) {
+            return;
+        }
+    }
+
+    private static void deadlineCommand(InputParser input, int remainingTasks) {
+        try {
+            if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty()) {
+                return;
+            }
+            Deadline newDeadline = new Deadline(input.getSplitInput()[0].trim(), false, input.getSplitInput()[1].trim());
+            list.add(newDeadline);
+            printAddTask(newDeadline);
+            remainingTasks += 1;
+            printRemainingTasks(remainingTasks);
+        } catch (NullPointerException e) {
+            return;
+        }
+    }
+
+    private static void todoCommand(InputParser input, int remainingTasks) {
+        if (input.getSplitInput()[0].trim().isEmpty()) {
+            return;
+        }
+        ToDo newTask = new ToDo(input.getSplitInput()[0].trim(), false);
+        list.add(newTask);
+        printAddTask(newTask);
+        remainingTasks += 1;
+        printRemainingTasks(remainingTasks);
+    }
+
+    private static void listCommand(int remainingTasks) {
+        if (list.isEmpty()) {
+            System.out.println(LINE + "    List is empty. Add tasks to view them here.\n" + LINE);
+            return;
+        }
+        System.out.println(LINE);
+        System.out.println("    Here are the tasks in your list: ");
+        for (int i = 0; i < list.size(); i += 1) {
+            System.out.println(TAB + (i + 1) + ". " + list.get(i).taskString());
+        }
+        System.out.println("\n");
+        printRemainingTasks(remainingTasks);
     }
 
     private static void readFile() throws IOException {
