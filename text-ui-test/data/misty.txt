@@ -1,0 +1,2 @@
+T | 0 | eat ramen
+D | 0 | 2113T assignment | next week lecture

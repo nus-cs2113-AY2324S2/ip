@@ -1,7 +1,7 @@
 package misty;
 
+import misty.command.*;
 import misty.exception.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,8 +18,8 @@ public class Parser {
         this.userUi = userUi;
     }
 
-    public void parseCommand(String userInput, List taskList) throws EmptyParameterException,
-            IllegalListIndexException, UnknownCommandException, InvalidParameterFormatException {
+    public Command parseCommand(String userInput, List taskList) throws IllegalListIndexException,
+            UnknownCommandException, InvalidParameterFormatException {
         Matcher matcher = COMMAND_FORMAT.matcher(userInput);
         if(!matcher.matches()) {
             throw new UnknownCommandException();
@@ -30,41 +30,35 @@ public class Parser {
         int index;
 
         switch(commandWord.trim()) {
-        case "list":
-            taskList.listAll();
-            break;
+        case ListCommand.COMMAND_STRING:
+            return new ListCommand();
 
-        case "bye":
-            userUi.printByeMessage();
-            userUi.printMessageBorder();
-            System.exit(0);
+        case ByeCommand.COMMAND_STRING:
+            return new ByeCommand();
 
-        case "todo":
-            taskList.addTodo(arguments.trim());
-            break;
+        case TodoCommand.COMMAND_STRING:
+            return new TodoCommand((arguments.trim()));
 
-        case "deadline":
+        case DeadlineCommand.COMMAND_STRING:
             matcher = DEADLINE_FORMAT.matcher(arguments);
             if (!matcher.matches()) {
                 userUi.printUsageDeadline();
                 throw new InvalidParameterFormatException();
             }
 
-            taskList.addDeadline(matcher.group("taskName").trim(), matcher.group("by").trim());
-            break;
+            return new DeadlineCommand(matcher.group("taskName").trim(), matcher.group("by").trim());
 
-        case "event":
+        case EventCommand.COMMAND_STRING:
             matcher = EVENT_FORMAT.matcher(arguments);
             if (!matcher.matches()) {
                 userUi.printUsageEvent();
                 throw new InvalidParameterFormatException();
             }
 
-            taskList.addEvent(matcher.group("taskName").trim(), matcher.group("from").trim(),
+            return new EventCommand(matcher.group("taskName").trim(), matcher.group("from").trim(),
                     matcher.group("to").trim());
-            break;
 
-        case "mark":
+        case MarkCommand.COMMAND_STRING:
             matcher = INDEX_FORMAT.matcher(arguments.trim());
             if (!matcher.matches()) {
                 userUi.printUsageMark();
@@ -72,10 +66,9 @@ public class Parser {
             }
 
             index = Integer.parseInt(matcher.group("index"));
-            taskList.markTask(index);
-            break;
+            return new MarkCommand(index);
 
-        case "unmark":
+        case UnmarkCommand.COMMAND_STRING:
             matcher = INDEX_FORMAT.matcher(arguments.trim());
             if (!matcher.matches()) {
                 userUi.printUsageUnmark();
@@ -83,10 +76,9 @@ public class Parser {
             }
 
             index = Integer.parseInt(matcher.group("index"));
-            taskList.unmarkTask(index);
-            break;
+            return new UnmarkCommand(index);
 
-        case "delete":
+        case DeleteCommand.COMMAND_STRING:
             matcher = INDEX_FORMAT.matcher(arguments.trim());
             if (!matcher.matches()) {
                 userUi.printUsageDelete();
@@ -94,8 +86,7 @@ public class Parser {
             }
 
             index = Integer.parseInt(matcher.group("index"));
-            taskList.deleteTask(index);
-            break;
+            return new DeleteCommand(index);
 
         default:
             throw new UnknownCommandException();

@@ -1,9 +1,9 @@
 package misty;
 
+import misty.command.Command;
 import misty.exception.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,16 +32,15 @@ public class Main {
         String userInput;
 
         while (true) {
-            userInput = userUi.getUserCommand();
-            userUi.printMessageBorder();
             try {
-                parser.parseCommand(userInput, taskList);
+                userInput = userUi.getUserCommand();
+                userUi.printMessageBorder();
+                Command c = parser.parseCommand(userInput, taskList);
+                c.execute(taskList, storage, userUi);
             } catch (UnknownCommandException e) {
                 userUi.printUnknownCommandMessage();
             } catch (InvalidParameterFormatException e) {
                 userUi.printErrorInvalidFormat();
-            } catch (EmptyParameterException e) {
-                userUi.printErrorEmptyParameter();
             } catch (IllegalListIndexException e) {
                 userUi.printErrorInvalidId();
             }
