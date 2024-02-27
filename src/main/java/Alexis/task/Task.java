@@ -1,5 +1,8 @@
 package Alexis.task;
 
+/**
+ * The Task class represents a task with a description and completion status.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -17,7 +20,7 @@ public abstract class Task {
         return isDone;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -29,6 +32,11 @@ public abstract class Task {
         isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task, including its status icon and description.
+     *
+     * @return A string representation of the task.
+     */
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);

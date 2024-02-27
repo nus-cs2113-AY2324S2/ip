@@ -6,6 +6,10 @@ import Alexis.task.TaskType;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class handles all user interactions of Alexis. It is responsible for printing messages to the console,
+ * processing user input, and executing commands based on the parsed input.
+ */
 public class Ui {
     private final static String NAME = "   ('-.                 ('-.  ) (`-.               .-')    \n"
             + "  ( OO ).-.           _(  OO)  ( OO ).            ( OO ).  \n"
@@ -33,8 +37,6 @@ public class Ui {
     public final static String REMOVE_MESSAGE = "Noted. I've removed this task:";
     public final static String LIST_UPDATE_MESSAGE = "Now you have %d tasks in the list\n";
 
-
-
     public static void printWelcomeMessage() {
         System.out.println(NAME);
         System.out.println(LINE_BREAK);
@@ -48,12 +50,18 @@ public class Ui {
         System.out.println(LINE_BREAK);
     }
 
-    public static void printDescriptionErrorMessage() {
+    private static void printDescriptionErrorMessage() {
         System.out.println(LINE_BREAK);
         System.out.println(MISSING_DESCRIPTION_ERROR);
         System.out.println(LINE_BREAK);
     }
 
+    /**
+     * Processes the user input from the console and performs actions based on the parsed commands.
+     *
+     * @param tasks The task list to operate on.
+     * @param in The scanner used to read the user input.
+     */
     public static void processUserInput(TaskList tasks, Scanner in) {
         while (true) {
             try {
@@ -94,6 +102,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a newly added task to the console.
+     *
+     * @param tasks The task list to add the new task into.
+     * @param line The input line containing the command and description of the new task.
+     * @param command The command indicating the task type to be added.
+     * @throws MissingFieldException If the description is missing.
+     */
     private static void printNewTaskToConsole(TaskList tasks, String line, Command command) throws MissingFieldException {
         String description = Parser.parseDescription(line);
         if (description.trim().isEmpty()) {

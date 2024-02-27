@@ -2,6 +2,10 @@ package Alexis.task;
 
 import Alexis.console.Ui;
 
+
+/**
+ * The Event class represents an event task with a specific start and end date or time.
+ */
 public class Event extends Task {
     protected String start;
     protected String end;
@@ -20,6 +24,15 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Returns an Event object from a user input string.
+     * The input must contain a description, a start date and an end date separated by keywords "/from" and "/to"
+     * respectively.
+     *
+     * @param input User input string for the Deadline object.
+     * @return Event object or null if the input format is incorrect.
+     * @throws IndexOutOfBoundsException If keywords "/from" or "/to" is missing.
+     */
     protected static Event getEvent(String input) {
         String keywordFrom = "/from";
         String keywordTo = "/to";
@@ -36,6 +49,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return A string representation of the task with symbol "E" denoting task type.
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to %s)\n", super.toString(), this.start, this.end);
