@@ -6,12 +6,17 @@ import joe.task.Event;
 import joe.task.Task;
 import joe.task.ToDo;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class FileParser {
     protected static final char TODO_SYMBOL = 't';
     protected static final char DEADLINE_SYMBOL = 'd';
     protected static final char EVENT_SYMBOL = 'e';
     protected static final char DONE_SYMBOL = 'X';
     protected static final String SEPARATOR = "#";
+    protected static final DateTimeFormatter SAVED_DATE_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mma");
 
     public static Task readTaskData(String taskData) throws JoeException {
         char taskSymbol = taskData.charAt(0);
@@ -31,14 +36,17 @@ public class FileParser {
             if (deadlineData.length != 2) {
                 throw new JoeException();
             }
-            task = new Deadline(deadlineData[0], deadlineData[1]);
+            LocalDateTime by = convertDateTime(deadlineData[1]);
+            task = new Deadline(deadlineData[0], by);
             break;
         case EVENT_SYMBOL:
             String[] eventData = splitData(taskInput);
             if (eventData.length != 3) {
                 throw new JoeException();
             }
-            task = new Event(eventData[0], eventData[1], eventData[2]);
+            LocalDateTime start = convertDateTime(eventData[1]);
+            LocalDateTime end = convertDateTime(eventData[2]);
+            task = new Event(eventData[0], start, end);
             break;
         default:
             throw new JoeException();
@@ -46,6 +54,14 @@ public class FileParser {
 
         task.setDone(isDone);
         return task;
+    }
+
+    protected static LocalDateTime convertDateTime(String dateTime) throws JoeException {
+        try {
+            return LocalDateTime.parse(dateTime, SAVED_DATE_FORMAT);
+        } catch (DateTimeException e) {
+            throw new JoeException();
+        }
     }
 
     protected static String[] splitData(String data) {

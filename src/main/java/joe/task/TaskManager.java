@@ -6,6 +6,7 @@ import joe.util.InputParser;
 import joe.util.Printer;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -34,18 +35,18 @@ public class TaskManager {
             break;
         case DEADLINE:
             String deadlineName = InputParser.getTaskName(message);
-            String deadlineTime = InputParser.getDeadlineTime(message);
-            if (deadlineName.isEmpty() || deadlineTime.isEmpty()) {
+            if (deadlineName.isEmpty()) {
                 throw new JoeException();
             }
+            LocalDateTime deadlineTime = InputParser.getDeadlineTime(message);
             t = new Deadline(deadlineName, deadlineTime);
             break;
         case EVENT:
             String eventName = InputParser.getTaskName(message);
-            String[] eventDuration = InputParser.getEventTime(message);
-            if (eventName.isEmpty() || eventDuration[0].isEmpty() || eventDuration[1].isEmpty()) {
+            if (eventName.isEmpty()) {
                 throw new JoeException();
             }
+            LocalDateTime[] eventDuration = InputParser.getEventTime(message);
             t = new Event(eventName, eventDuration[0], eventDuration[1]);
             break;
         default:
