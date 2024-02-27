@@ -33,7 +33,7 @@ public class UserInterface {
             String input = reader.nextLine();
             String command = input.split(" ")[0];
             if (command.equals("unmark")) {
-                int taskIndex = Character.getNumericValue(input.charAt(UNMARK_LENGTH)) - 1;
+                int taskIndex = Parser.processIndex(input);
                 try {
                     taskManager.markTask(taskIndex, false);
                     storage.saveDataToTextFile();
@@ -41,7 +41,7 @@ public class UserInterface {
                     printError(e);
                 }
             } else if (command.equals("mark")) {
-                int taskIndex = Character.getNumericValue(input.charAt(MARK_LENGTH)) - 1;
+                int taskIndex = Parser.processIndex(input);
                 try {
                     taskManager.markTask(taskIndex, true);
                     storage.saveDataToTextFile();
@@ -49,7 +49,7 @@ public class UserInterface {
                     printError(e);
                 }
             } else if (command.equals("delete")) {
-                int deleteIndex = Character.getNumericValue(input.charAt(DELETE_LENGTH)) - 1;
+                int deleteIndex = Parser.processIndex(input);
                 try {
                     taskManager.deleteTask(deleteIndex);
                     storage.saveDataToTextFile();

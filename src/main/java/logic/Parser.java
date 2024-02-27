@@ -88,4 +88,14 @@ public abstract class Parser {
         String toWhen = input.substring(toWhenIndex);
         return new Event(taskName, fromWhen, toWhen);
     }
+
+    /**
+     * Returns the index specified in the user input for task marking and deletion
+     *
+     * @param input The user input specifying the index
+     * @return The task index specified by the user as an int
+     */
+    public static int processIndex(String input) {
+        return Integer.parseInt(input.split(" ")[1]) - 1;
+    }
 }
