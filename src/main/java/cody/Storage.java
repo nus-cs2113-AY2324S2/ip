@@ -37,46 +37,72 @@ public class Storage {
         }
     }
 
+
     public static void loadTasksFromFile(ArrayList<Task> tasks) {
         File file = new File(FILE_PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split(" \\| ");
-                String type = parts[0].trim();
-                boolean isDone = parts[1].trim().equals("1");
-                String description = parts[2].trim();
-
-                Task task = null;
-                switch (type) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    String[] deadlineParts = description.split(" \\(by: ");
-                    String deadlineDescription = deadlineParts[0].trim();
-                    String by = deadlineParts.length > 1 ? deadlineParts[1].replace(")", "").trim() : "No deadline specified";
-                    task = new Deadline(deadlineDescription, by);
-                    break;
-                case "E":
-                    String[] eventParts = description.split(" \\(from: | to: ");
-                    String eventDescription = eventParts[0].trim();
-                    String from = eventParts.length > 1 ? eventParts[1].trim() : "No start time specified";
-                    String to = eventParts.length > 2 ? eventParts[2].replace(")", "").trim() : "No end time specified";
-                    task = new Event(eventDescription, from, to);
-                    break;
-                }
-
+                Task task = parseFile(line);
                 if (task != null) {
-                    if (isDone) {
-                        task.markTask(true);
-                    }
                     tasks.add(task);
                 }
             }
-            System.out.println(" You have " + tasks.size() + " tasks saved in your list. Enter 'list' to view them");
+            System.out.println("You have " + tasks.size() + " tasks saved in your list. Enter 'list' to view them");
         } catch (FileNotFoundException e) {
-            System.out.println(" You have no saved tasks. A new task list will be created for you");
+            System.out.println("You have no saved tasks. A new task list will be created for you");
         }
+    }
+
+
+    private static Task parseFile(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid saved task format: " + line);
+        }
+
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        Task task;
+        switch (TaskType.valueOf(type)) {
+        case T:
+            task = new Todo(description);
+            break;
+        case D:
+            task = parseDeadline(description);
+            break;
+        case E:
+            task = parseEvent(description);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown saved task type: " + type);
+        }
+
+        if (isDone) {
+            task.markTask(true);
+        }
+
+        return task;
+    }
+
+    private static Task parseDeadline(String description) {
+        String[] parts = description.split(" \\(by: ");
+        String taskDescription = parts[0].trim();
+        String by = parts.length > 1 ? parts[1].replace(")", "").trim() : "No deadline specified";
+        return new Deadline(taskDescription, by);
+    }
+
+    private static Task parseEvent(String description) {
+        String[] parts = description.split(" \\(from: | to: ");
+        String taskDescription = parts[0].trim();
+        String from = parts.length > 1 ? parts[1].trim() : "No start time specified";
+        String to = parts.length > 2 ? parts[2].replace(")", "").trim() : "No end time specified";
+        return new Event(taskDescription, from, to);
+    }
+
+    private enum TaskType {
+        T, D, E
     }
 }
