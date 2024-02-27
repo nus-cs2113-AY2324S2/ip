@@ -8,7 +8,7 @@ import alpaca.parser.Parser;
 public class Alpaca {
     public static void startConversation() {
         Ui ui = new Ui();
-        Parser parser = new Parser(ui, loadTask());
+        Parser parser = new Parser(loadTask());
         ui.printGreeting();
         ui.listenForInput(parser);
     }

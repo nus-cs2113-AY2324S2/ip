@@ -9,8 +9,8 @@ public class MarkUnmarkCommand extends AlpacaCommand{
     private int index;
     private boolean isMark;
 
-    public MarkUnmarkCommand(Ui ui, int index, boolean isMark, TaskList tasks) {
-        super(ui, tasks);
+    public MarkUnmarkCommand(int index, boolean isMark, TaskList tasks) {
+        super(tasks);
         this.index = index;
         this.isMark = isMark;
     }
@@ -26,9 +26,9 @@ public class MarkUnmarkCommand extends AlpacaCommand{
             } else {
                 tasks.unmarkTask(index);
             }
-            ui.printLine();
+            Ui.printLine();
         } catch (InvalidIndexException e) {
-            ui.printErrorMessage(e.toString());
+            Ui.printErrorMessage(e.toString());
         }
     }
 }

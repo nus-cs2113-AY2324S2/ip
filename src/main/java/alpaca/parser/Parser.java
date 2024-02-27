@@ -9,12 +9,10 @@ import alpaca.tasks.*;
 
 public class Parser {
 
-    private TaskList tasks;
-    private Ui ui;
+    private final TaskList tasks;
 
-    public Parser(Ui ui,TaskList tasks) {
+    public Parser(TaskList tasks) {
         this.tasks = tasks;
-        this.ui = ui;
     }
 
     public void parseCommand(String receivedMessage) {
@@ -29,7 +27,7 @@ public class Parser {
                 if (details.trim().isEmpty()) {
                     throw new EmptyTaskDescriptionException("The description of a todo cannot be empty.");
                 }
-                AddCommand addTodoCommand = new AddCommand(ui, new Todo(details), tasks);
+                AddCommand addTodoCommand = new AddCommand(new Todo(details), tasks);
                 addTodoCommand.execute();
                 break;
             case "deadline":
@@ -37,7 +35,7 @@ public class Parser {
                 if (deadlineParts.length != 2) {
                     throw new EmptyTaskDescriptionException("The description of a todo cannot be empty.");
                 }
-                AddCommand addDeadlineCommand = new AddCommand(ui, new Deadline(deadlineParts[0], deadlineParts[1]), tasks);
+                AddCommand addDeadlineCommand = new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]), tasks);
                 addDeadlineCommand.execute();
                 break;
             case "event":
@@ -49,7 +47,7 @@ public class Parser {
                 if (timeParts.length != 2) {
                     throw new EmptyTaskDescriptionException("The title, start time, or end time of an event cannot be empty.");
                 }
-                AddCommand addEventCommand = new AddCommand(ui, new Event(eventParts[0], timeParts[0], timeParts[1]), tasks);
+                AddCommand addEventCommand = new AddCommand(new Event(eventParts[0], timeParts[0], timeParts[1]), tasks);
                 addEventCommand.execute();
                 break;
             default:
@@ -68,19 +66,19 @@ public class Parser {
     public void executeCommand (String command, String details) throws InvalidCommandException{
         switch (command) {
         case "list":
-            ListCommand listCommand = new ListCommand(ui, tasks);
+            ListCommand listCommand = new ListCommand(tasks);
             listCommand.execute();
             break;
         case "mark":
         case "unmark":
             int index = Integer.parseInt(details) - 1;
             boolean isMark = command.equals("mark");
-            MarkUnmarkCommand markUnmarkCommand = new MarkUnmarkCommand(ui, index, isMark, tasks);
+            MarkUnmarkCommand markUnmarkCommand = new MarkUnmarkCommand(index, isMark, tasks);
             markUnmarkCommand.execute();
             break;
         case "delete":
             index = Integer.parseInt(details) - 1;
-            DeleteCommand deleteCommand = new DeleteCommand(ui, index, tasks);
+            DeleteCommand deleteCommand = new DeleteCommand(index, tasks);
             deleteCommand.execute();
             break;
         case "bye":

@@ -51,14 +51,14 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void printTaskList(TaskList taskList) {
+    public static void printTaskList(TaskList taskList) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
         System.out.print(taskList.listTasks());
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void printAddTask(Task task, int listCount) {
+    public static void printAddTask(Task task, int listCount) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Got it. I've added this task: " + System.lineSeparator() + task);
         System.out.println("Now you have " + listCount + " tasks in the list.");

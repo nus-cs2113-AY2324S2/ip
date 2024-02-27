@@ -5,13 +5,13 @@ import alpaca.ui.Ui;
 
 public class ListCommand extends AlpacaCommand{
 
-    public ListCommand(Ui ui, TaskList tasks) {
-        super(ui, tasks);
+    public ListCommand(TaskList tasks) {
+        super(tasks);
     }
 
     @Override
     public void execute(){
-        ui.printTaskList(tasks);
+        Ui.printTaskList(tasks);
     }
 
 }

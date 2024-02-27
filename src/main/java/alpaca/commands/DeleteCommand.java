@@ -8,8 +8,8 @@ import alpaca.ui.Ui;
 public class DeleteCommand extends AlpacaCommand{
     private int index;
 
-    public DeleteCommand (Ui ui, int index, TaskList tasks) {
-        super(ui, tasks);
+    public DeleteCommand (int index, TaskList tasks) {
+        super(tasks);
         this.index = index;
     }
     @Override
@@ -19,9 +19,9 @@ public class DeleteCommand extends AlpacaCommand{
                 throw new InvalidIndexException();
             }
             tasks.deleteTask(index);
-            ui.printLine();
+            Ui.printLine();
         } catch (InvalidIndexException e) {
-            ui.printErrorMessage(e.toString());
+            Ui.printErrorMessage(e.toString());
         }
     }
 }

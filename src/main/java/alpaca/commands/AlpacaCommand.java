@@ -1,17 +1,14 @@
 package alpaca.commands;
 
 import alpaca.tasks.TaskList;
-import alpaca.ui.Ui;
 
 public abstract class AlpacaCommand {
     protected TaskList tasks;
-    protected Ui ui;
 
     public AlpacaCommand () {
     }
 
-    public AlpacaCommand (Ui ui, TaskList tasks) {
-        this.ui = ui;
+    public AlpacaCommand (TaskList tasks) {
         this.tasks = tasks;
     }
 
