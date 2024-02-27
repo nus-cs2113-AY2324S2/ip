@@ -113,7 +113,7 @@ public class Parser {
      * @param markUnmarkString The input given by the user that either starts with mark or unmark
      * @return An object array that contains either {-1, null} if invalid input, or {index of item, true/false (mark or unmark)}
      */
-    public static Object[] parseMarkUnmark(String markUnmarkString) throws Errors.InvalidMarkUnmarkException, Errors.InvalidMarkUnmarkIndexException {
+    public static Object[] parseMarkUnmark(String markUnmarkString, int taskListSize) throws Errors.InvalidMarkUnmarkException, Errors.InvalidMarkUnmarkIndexException {
         String[] markList = markUnmarkString.split(" ", 2);
 
         if (markList.length != 2) {
@@ -123,14 +123,14 @@ public class Parser {
         int markItem = Integer.parseInt(markList[1]) - 1;
         String markAction = markList[0];
 
-        if (markItem > TaskHandler.taskList.size()) {
+        if (markItem > taskListSize) {
             throw new Errors.InvalidMarkUnmarkIndexException();
         }
 
         return new Object[]{markItem, markAction.equals("mark")};
     }
 
-    public static int parseDelete(String deleteString) throws Errors.InvalidDeleteException, Errors.TaskNotFoundException {
+    public static int parseDelete(String deleteString, int taskListSize) throws Errors.InvalidDeleteException, Errors.TaskNotFoundException {
         String[] deleteList = deleteString.split(" ", 2);
         if (deleteList.length != 2) {
             throw new Errors.InvalidDeleteException();
@@ -138,7 +138,7 @@ public class Parser {
 
         int deleteItem = Integer.parseInt(deleteList[1]) - 1;
 
-        if (deleteItem > TaskHandler.taskList.size()) {
+        if (deleteItem > taskListSize) {
             throw new Errors.TaskNotFoundException();
         }
 

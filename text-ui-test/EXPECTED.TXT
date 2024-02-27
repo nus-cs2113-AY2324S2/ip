@@ -13,6 +13,7 @@ usage: todo [item]
        list
        mark/unmark [index]
        delete [index]
+       save
        bye
 [batman]: [artemis]: invalid todo given. please enter "todo <task>"
 [batman]: [artemis]: you have added this task:

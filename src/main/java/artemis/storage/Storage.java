@@ -1,17 +1,17 @@
-package artemis.processing;
+package artemis.storage;
 
 import artemis.errors.Errors;
+import artemis.processing.Parser;
 import artemis.tasks.Deadline;
 import artemis.tasks.Event;
 import artemis.tasks.Task;
 import artemis.tasks.ToDo;
-import artemis.ui.UserInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ListIterator;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -21,18 +21,44 @@ import java.util.Scanner;
     taskData format: [T/D/E] | [M/U] | TaskName | Other Info (due, from/to)
  */
 
-public class Save {
-    private static final String SAVE_FILEPATH = "./save.txt";
+public class Storage {
+    private static final String DEFAULT_SAVE_FILEPATH = "./save.txt";
 
-    public static void loadSave() throws Errors.CorruptedSaveException, FileNotFoundException {
-        File saveFile = new File(SAVE_FILEPATH);
+    private final String path;
+
+    private String username;
+    private ArrayList<Task> taskList;
+
+    public Storage() throws Errors.CorruptedSaveException {
+        this(DEFAULT_SAVE_FILEPATH);
+    }
+
+    public Storage(String filePath) throws Errors.CorruptedSaveException {
+        this.path = filePath;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void loadSave() throws Errors.CorruptedSaveException, FileNotFoundException {
+        this.taskList = new ArrayList<>();
+        File saveFile = new File(this.path);
+
+        if (!saveFile.exists() || !saveFile.isFile()) {
+            throw new FileNotFoundException();
+        }
 
         Scanner fileScan = new Scanner(saveFile);
 
         boolean usernameFound = false;
         while (fileScan.hasNext()) {
             if (!usernameFound) {
-                UserInterface.username = fileScan.nextLine();
+                this.username = fileScan.nextLine();
                 usernameFound = true;
             }
 
@@ -41,24 +67,21 @@ public class Save {
                 String taskName = currentTaskArray[2];
                 boolean isDone = currentTaskArray[1].equals("M");
                 Task currentTask = Parser.parseSaveData(currentTaskArray, taskName, isDone);
-                TaskHandler.taskList.add(currentTask);
+
+                this.taskList.add(currentTask);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new Errors.CorruptedSaveException();
             }
-
-
         }
 
         System.out.println("[artemis]: saved data successfully retrieved!");
     }
 
-    public static void saveData() {
-        try (FileWriter fw = new FileWriter(SAVE_FILEPATH, false)) {
-            fw.write(UserInterface.username + System.lineSeparator());
+    public void saveData(String username, ArrayList<Task> taskList) {
+        try (FileWriter fw = new FileWriter(DEFAULT_SAVE_FILEPATH, false)) {
+            fw.write(username + System.lineSeparator());
 
-            for (ListIterator<Task> it = TaskHandler.taskList.listIterator(); it.hasNext();) {
-                Task currentTask = it.next();
-
+            for (Task currentTask : taskList) {
                 Class<? extends Task> currentClass = currentTask.getClass();
                 String currentOutput = formatSaveData(currentTask, currentClass);
 
@@ -73,7 +96,7 @@ public class Save {
 
     }
 
-    private static String formatSaveData(Task currentTask, Class<? extends Task> currentClass) {
+    private String formatSaveData(Task currentTask, Class<? extends Task> currentClass) {
         String currentOutput = "";
         String currentTaskName = currentTask.getTaskName();
         String isDoneString = currentTask.getIsDone() ? "M" : "U";
