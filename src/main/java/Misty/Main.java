@@ -40,14 +40,13 @@ public class Main {
 
         userUi.printWelcomeMessage();
 
-        String input;
-        Scanner in = new Scanner(System.in);
+        String userInput;
 
         while (true) {
-            input = in.nextLine();
+            userInput = userUi.getUserCommand();
 
             userUi.printMessageBorder();
-            switch (input) {
+            switch (userInput) {
             case "list":
                 taskList.listAll();
                 break;
@@ -56,11 +55,11 @@ public class Main {
                 userUi.printMessageBorder();
                 System.exit(0);
             default:
-                if (input.startsWith("unmark")) {
+                if (userInput.startsWith("unmark")) {
                     int index;
 
                     try {
-                        index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                        index = Integer.parseInt(userInput.substring(userInput.indexOf(" ")).trim());
                     } catch (NumberFormatException e) {
                         userUi.printErrorNoId();
                         userUi.printUsageUnmark();
@@ -78,11 +77,11 @@ public class Main {
                         userUi.printUsageUnmark();
                         break;
                     }
-                } else if (input.startsWith("mark")) {
+                } else if (userInput.startsWith("mark")) {
                     int index;
 
                     try {
-                        index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                        index = Integer.parseInt(userInput.substring(userInput.indexOf(" ")).trim());
                     } catch (NumberFormatException e) {
                         userUi.printErrorNoId();
                         userUi.printUsageMark();
@@ -100,11 +99,11 @@ public class Main {
                         userUi.printUsageMark();
                         break;
                     }
-                } else if (input.startsWith("todo")) {
+                } else if (userInput.startsWith("todo")) {
                     String description;
 
                     try {
-                        description = input.substring(input.indexOf(" ")).trim();
+                        description = userInput.substring(userInput.indexOf(" ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
                         userUi.printErrorNoTaskName();
                         userUi.printUsageUsageTodo();
@@ -118,12 +117,12 @@ public class Main {
                         userUi.printUsageUsageTodo();
                         break;
                     }
-                } else if (input.startsWith("deadline")) {
+                } else if (userInput.startsWith("deadline")) {
                     String description;
                     String by;
 
                     try {
-                        description = input.substring(input.indexOf(" "), input.indexOf(" /by ")).trim();
+                        description = userInput.substring(userInput.indexOf(" "), userInput.indexOf(" /by ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
                         userUi.printErrorInvalidFormat();
                         userUi.printUsageDeadline();
@@ -131,7 +130,7 @@ public class Main {
                     }
 
                     try {
-                        by = input.substring(input.indexOf(" /by ") + 4).trim();
+                        by = userInput.substring(userInput.indexOf(" /by ") + 4).trim();
                     } catch (StringIndexOutOfBoundsException e) {
                         userUi.printErrorInvalidFormat();
                         userUi.printUsageDeadline();
@@ -149,13 +148,13 @@ public class Main {
                         userUi.printUsageDeadline();
                         break;
                     }
-                } else if (input.startsWith("event")) {
+                } else if (userInput.startsWith("event")) {
                     String description;
                     String from;
                     String to;
 
                     try {
-                        description = input.substring(input.indexOf(" "), input.indexOf(" /from ")).trim();
+                        description = userInput.substring(userInput.indexOf(" "), userInput.indexOf(" /from ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
                         userUi.printErrorInvalidFormat();
                         userUi.printUsageEvent();
@@ -163,7 +162,7 @@ public class Main {
                     }
 
                     try {
-                        from = input.substring(input.indexOf("/from") + 5, input.indexOf(" /to ")).trim();
+                        from = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf(" /to ")).trim();
                     } catch (StringIndexOutOfBoundsException e) {
                         userUi.printErrorInvalidFormat();
                         userUi.printUsageEvent();
@@ -171,7 +170,7 @@ public class Main {
                     }
 
                     try {
-                        to = input.substring(input.indexOf("/to ") + 3).trim();
+                        to = userInput.substring(userInput.indexOf("/to ") + 3).trim();
                     } catch (StringIndexOutOfBoundsException e) {
                         userUi.printErrorInvalidFormat();
                         userUi.printUsageEvent();
@@ -193,10 +192,10 @@ public class Main {
                         userUi.printUsageEvent();
                         break;
                     }
-                } else if(input.startsWith("delete")) {
+                } else if(userInput.startsWith("delete")) {
                     int index;
                     try {
-                        index = Integer.parseInt(input.substring(input.indexOf(" ")).trim());
+                        index = Integer.parseInt(userInput.substring(userInput.indexOf(" ")).trim());
                     } catch (NumberFormatException e) {
                         userUi.printErrorNoId();
                         userUi.printUsageDelete();

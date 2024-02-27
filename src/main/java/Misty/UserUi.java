@@ -2,8 +2,16 @@ package misty;
 
 import misty.task.Task;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UserUi {
+    String userInput;
+    Scanner in = new Scanner(System.in);
+
+    public String getUserCommand() {
+        userInput = in.nextLine();
+        return userInput;
+    }
 
     public void printMessageBorder() {
         System.out.println("\t--------------------------------------------------");
