@@ -24,8 +24,6 @@ public class CommandIdentifier {
             commandType = Constants.EVENT;
         } else if (userInput.trim().equals(Constants.HELP.toLowerCase())) {
             commandType = Constants.HELP;
-        } else if (userInput.trim().startsWith(Constants.FIND.toLowerCase())) {
-            commandType = Constants.FIND;
         } else {
             commandType = Constants.INVALID;
         }

@@ -63,7 +63,6 @@ public final class Constants {
     public static final String MARK = "MARK";
     public static final String UNMARK = "UNMARK";
     public static final String DELETE = "DELETE";
-    public static final String FIND = "FIND";
     public static final String HELP = "HELP";
     public static final String BYE = "BYE";
     public static final String INVALID = "INVALID";
@@ -77,7 +76,6 @@ public final class Constants {
     public static final String EMPTYDEADLINE = LINE + "    Deadline condition is empty!\n" + LINE;
     public static final String EMPTYEVENTSTART = LINE + "    Start condition is empty!\n" + LINE;
     public static final String EMPTYEVENTEND = LINE + "    End condition is empty!\n" + LINE;
-    public static final String EMPTYFIND = LINE + "    No matches found :(\n" + LINE;
 
     public static void printRemainingTasks(int remainingTasks, int size) {
         System.out.println("    You have " + remainingTasks + " / " + size + " remaining tasks in the list.\n" + LINE);
