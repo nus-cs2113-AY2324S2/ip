@@ -1,4 +1,4 @@
-package junbot.command;
+package junbot.tasks;
 
 public class Event extends Todo {
     protected String startDate;

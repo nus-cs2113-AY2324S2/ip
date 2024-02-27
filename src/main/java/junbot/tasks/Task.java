@@ -1,4 +1,4 @@
-package junbot.task;
+package junbot.tasks;
 
 public class Task {
     protected String description;

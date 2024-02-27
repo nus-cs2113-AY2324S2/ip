@@ -1,6 +1,6 @@
-package junbot.command;
+package junbot.tasks;
 
-import junbot.task.Task;
+import junbot.tasks.Task;
 
 public class Todo extends Task {
     protected String tag;

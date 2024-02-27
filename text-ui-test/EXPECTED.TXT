@@ -2,78 +2,58 @@ ____________________________________________________________
 Hello! I'm JunBot
 What can I do for you?
 ____________________________________________________________
-
 Enter a valid command
 ____________________________________________________________
 Got it. I've added this tasks:
 [T][ ] find a job
 Now you have 1 tasks in the list
 ____________________________________________________________
-
 Include a /by for deadline
 ____________________________________________________________
 Got it. I've added this tasks:
 [D][ ] find a job (by: tuesday 10pm)
 Now you have 2 tasks in the list
 ____________________________________________________________
-
 ____________________________________________________________
 Got it. I've added this tasks:
 [E][ ] dancing (from: mon 2pm to: tuesday 9am)
 Now you have 3 tasks in the list
 ____________________________________________________________
-
 ____________________________________________________________
-
 Here are the tasks in your list: 
 1. [T][ ] find a job
 2. [D][ ] find a job (by: tuesday 10pm)
 3. [E][ ] dancing (from: mon 2pm to: tuesday 9am)
 ____________________________________________________________
-
-
 ____________________________________________________________
 Nice! I've marked this task as done:
-
 [E][X] dancing (from: mon 2pm to: tuesday 9am)
 ____________________________________________________________
 ____________________________________________________________
-
 Here are the tasks in your list: 
 1. [T][ ] find a job
 2. [D][ ] find a job (by: tuesday 10pm)
 3. [E][X] dancing (from: mon 2pm to: tuesday 9am)
 ____________________________________________________________
-
-
 ____________________________________________________________
 Ok, I've marked this task as not done yet:
-
 [E][ ] dancing (from: mon 2pm to: tuesday 9am)
 ____________________________________________________________
 ____________________________________________________________
-
 Here are the tasks in your list: 
 1. [T][ ] find a job
 2. [D][ ] find a job (by: tuesday 10pm)
 3. [E][ ] dancing (from: mon 2pm to: tuesday 9am)
 ____________________________________________________________
-
-
 ____________________________________________________________
 Noted. I've removed this task:
-
 [D][ ] find a job (by: tuesday 10pm)
 ____________________________________________________________
 ____________________________________________________________
-
 Here are the tasks in your list: 
 1. [T][ ] find a job
 2. [E][ ] dancing (from: mon 2pm to: tuesday 9am)
 ____________________________________________________________
-
-
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
-
