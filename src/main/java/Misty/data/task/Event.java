@@ -68,4 +68,12 @@ public class Event extends Task {
                 (isFromDateFormat ? getFullFromDate() : getFrom()) + " to: " +
                 (isToDateFormat ? getFullToDate() : getTo()) + ")";
     }
+
+    public boolean isBetweenDate(LocalDate localDate) {
+        if (isFromDateFormat && isToDateFormat) {
+            return ((localDate.isAfter(fromDate) && localDate.isBefore(toDate))
+                    || localDate.equals(fromDate) || localDate.equals(toDate));
+        }
+        return false;
+    }
 }

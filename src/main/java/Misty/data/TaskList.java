@@ -151,29 +151,20 @@ public class TaskList {
 
     public void check(LocalDate localDate) {
         int index = 1;
+        boolean isValid = false;
         userUi.printCheckMessage(localDate);
-
         for (Task task : taskList) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-
-                if (deadline.getIsByDateFormat()) {
-                    if (localDate.equals(((Deadline) task).getByDate())) {
-                        System.out.println(String.format("\t%d.%s", index, task));
-                        index++;
-                    }
-                }
+                isValid = deadline.isSameDate(localDate);
             } else if (task instanceof Event) {
                 Event event = (Event) task;
+                isValid = event.isBetweenDate(localDate);
+            }
 
-                if (event.getIsFromDateFormat() && event.getIsToDateFormat()) {
-                    if (localDate.isBefore(event.getToDate()) && localDate.isAfter(event.getFromDate()) ||
-                            localDate.equals(event.getToDate()) ||
-                            localDate.equals(event.getFromDate())) {
-                        System.out.println(String.format("\t%d.%s", index, task));
-                        index++;
-                    }
-                }
+            if (isValid) {
+                System.out.println(String.format("\t%d.%s", index, task));
+                index++;
             }
         }
     }

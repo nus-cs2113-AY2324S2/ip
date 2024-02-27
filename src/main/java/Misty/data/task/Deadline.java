@@ -39,4 +39,12 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + getStatus() + " " + getTaskName() + " (by: " + (isByDateFormat ? getFullByDate() : getBy()) + ")";
     }
+
+    public boolean isSameDate(LocalDate localDate) {
+        if (isByDateFormat) {
+            return byDate.equals(localDate);
+        }
+        return false;
+    }
+
 }
