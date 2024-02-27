@@ -1,9 +1,9 @@
 package junbot.parser;
 
 import junbot.error.InvalidInputException;
-
 import java.io.IOException;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Parser {
 
 
@@ -27,6 +27,15 @@ public class Parser {
             commandIndicator = command;
         }
         return commandIndicator;
+    }
+
+    public LocalDate parseDate(String date) throws InvalidInputException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            return LocalDate.parse(date, formatter);
+        } catch (Exception e) {
+            throw new InvalidInputException("Invalid date/time format. Please provide the date in the format 'd/M/yyyy HHmm'.");
+        }
     }
 
 }
