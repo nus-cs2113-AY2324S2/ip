@@ -1,4 +1,6 @@
-package utilities;
+package utilities.file;
+
+import ui.Constants;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,10 +26,10 @@ public class FileHandler {
 
         try (FileWriter fw = new FileWriter(filePath)) {
             for (String entry : entries) {
-                fw.write(entry + "\n");
+                fw.write(entry + Constants.NEWLINE);
             }
         } catch (IOException e) {
-            System.out.println("Unable to write file: " + e.getMessage());
+            System.out.println(Constants.FILEWRITEERROR + e.getMessage());
             throw e;
         }
     }
@@ -37,7 +39,7 @@ public class FileHandler {
             Files.createDirectories(directory);
         } catch (FileAlreadyExistsException ignored) {
         } catch (IOException e) {
-            System.out.println("Unable to create directory: " + e.getMessage());
+            System.out.println(Constants.CREATEDIRECTORYERROR + e.getMessage());
             throw e;
         }
     }
