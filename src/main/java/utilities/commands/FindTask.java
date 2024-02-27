@@ -28,7 +28,7 @@ public class FindTask {
         }
 
         DisplayList.listCommand(tasksFound);
-        System.out.println(Constants.TAB + tasksFound.size() + " matching tasks found!");
+        System.out.println(Constants.TAB + tasksFound.size() + Constants.FINDTASK);
         System.out.println(Constants.LINE);
     }
 }

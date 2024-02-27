@@ -26,6 +26,8 @@ public final class Constants {
                     "\n" +
                     "    \"delete <task number>\": Removes the corresponding task from the list.\n" +
                     "\n" +
+                    "    \"find <keyword>\": Displays the tasks containing the keyword.\n" +
+                    "\n" +
                     "    \"help\": Displays this list of commands.\n" +
                     "\n" +
                     "    \"bye\": Closes the program.\n";
@@ -78,6 +80,7 @@ public final class Constants {
     public static final String EMPTYEVENTSTART = LINE + "    Start condition is empty!\n" + LINE;
     public static final String EMPTYEVENTEND = LINE + "    End condition is empty!\n" + LINE;
     public static final String EMPTYFIND = LINE + "    No matched found. :(\n" + LINE;
+    public static final String FINDTASK = " matching tasks found!";
 
     public static void printRemainingTasks(int remainingTasks, int size) {
         System.out.println("    You have " + remainingTasks + " / " + size + " remaining tasks in the list.\n" + LINE);
