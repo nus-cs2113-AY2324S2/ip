@@ -11,8 +11,8 @@ import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
 
 public class FileHandler {
-    public static List<String> readFile(String filePath) throws IOException {
-        Path textFile = Paths.get(filePath);
+    protected static List<String> readFile() throws IOException {
+        Path textFile = Paths.get(Constants.FILEPATH);
         createDirectories(textFile.getParent());
         if (!Files.exists(textFile)) {
             Files.createFile(textFile);
@@ -20,11 +20,11 @@ public class FileHandler {
         return Files.readAllLines(textFile);
     }
 
-    public static void writeFile(String filePath, List<String> entries) throws IOException {
-        Path textFile = Paths.get(filePath);
+    protected static void writeFile(List<String> entries) throws IOException {
+        Path textFile = Paths.get(Constants.FILEPATH);
         createDirectories(textFile.getParent());
 
-        try (FileWriter fw = new FileWriter(filePath)) {
+        try (FileWriter fw = new FileWriter(Constants.FILEPATH)) {
             for (String entry : entries) {
                 fw.write(entry + Constants.NEWLINE);
             }
@@ -34,7 +34,7 @@ public class FileHandler {
         }
     }
 
-    public static void createDirectories(Path directory) throws IOException {
+    protected static void createDirectories(Path directory) throws IOException {
         try {
             Files.createDirectories(directory);
         } catch (FileAlreadyExistsException ignored) {

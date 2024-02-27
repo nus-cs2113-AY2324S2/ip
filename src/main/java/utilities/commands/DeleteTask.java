@@ -5,7 +5,7 @@ import ui.Constants;
 import utilities.file.InputParser;
 
 public class DeleteTask {
-    public static void deleteTask(InputParser input, int remainingTasks) {
+    protected static void deleteTask(InputParser input, int remainingTasks) {
         try {
             int index = Integer.parseInt(input.getSplitInput()[0]);
             String icon = Aragorn.getList().get(index).getStatusIcon();

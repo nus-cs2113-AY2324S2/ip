@@ -6,7 +6,7 @@ import utilities.file.InputParser;
 
 public class UnmarkTask {
 
-    public static void unmarkTask(InputParser input, int remainingTasks) {
+    protected static void unmarkTask(InputParser input, int remainingTasks) {
         try {
             int index = Integer.parseInt(input.getSplitInput()[0]);
             String icon = Aragorn.getList().get(index).getStatusIcon();

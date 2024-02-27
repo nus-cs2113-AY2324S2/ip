@@ -14,7 +14,7 @@ import java.util.List;
 public class FileReader {
     public static void readFile() throws IOException {
         try {
-            List<String> entries = FileHandler.readFile(Constants.FILEPATH);
+            List<String> entries = FileHandler.readFile();
             Aragorn.getList().clear();
 
             for (String entry : entries) {

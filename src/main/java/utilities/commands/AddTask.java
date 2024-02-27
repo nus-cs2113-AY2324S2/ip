@@ -10,7 +10,7 @@ import utilities.file.InputParser;
 
 public class AddTask {
 
-    public static void eventCommand(InputParser input, int remainingTasks) {
+    protected static void eventCommand(InputParser input, int remainingTasks) {
         try {
             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty() || input.getSplitInput()[2].isEmpty()) {
                 return;
@@ -25,7 +25,7 @@ public class AddTask {
         }
     }
 
-    public static void deadlineCommand(InputParser input, int remainingTasks) {
+    protected static void deadlineCommand(InputParser input, int remainingTasks) {
         try {
             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty()) {
                 return;
@@ -40,7 +40,7 @@ public class AddTask {
         }
     }
 
-    public static void todoCommand(InputParser input, int remainingTasks) {
+    protected static void todoCommand(InputParser input, int remainingTasks) {
         if (input.getSplitInput()[0].trim().isEmpty()) {
             return;
         }

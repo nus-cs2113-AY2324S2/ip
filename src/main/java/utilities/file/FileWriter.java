@@ -15,7 +15,7 @@ public class FileWriter {
             for (Task newTask : Aragorn.getList()) {
                 formattedEntries.add(newTask.toFileString());
             }
-            FileHandler.writeFile(Constants.FILEPATH, formattedEntries);
+            FileHandler.writeFile(formattedEntries);
         } catch (IOException e) {
             System.out.println(Constants.FILEWRITEERROR + e.getMessage() + Constants.NEWLINE + Constants.LINE);
         }
