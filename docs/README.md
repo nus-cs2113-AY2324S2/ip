@@ -5,7 +5,7 @@ Bean is a CLI-based chatbot that can keep track of tasks for the user. Download 
 ## Getting started
 1. Ensure that you have Java 11 installed on your computer.
 1. Open the terminal on your computer.
-1. Change the directory to that where the `bean.jar` file is located. For example:
+1. Change the directory to that where the `bean.jar` file is located. For example, if bean.jar is in your `downloads` folder in Windows:
 ```
 PS C:\Users\bucks> cd Downloads
 PS C:\Users\bucks\Downloads> ls
