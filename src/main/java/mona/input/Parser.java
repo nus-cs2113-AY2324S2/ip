@@ -3,12 +3,12 @@ package mona.input;
 import mona.exception.MonaException;
 import mona.util.Constants;
 
-public class InputParser {
+public class Parser {
     protected String[] commandTypeAndParams;
     protected String line;
     protected boolean isValidInput;
     protected InputValidator inputValidator;
-    public InputParser(String line) {
+    public Parser(String line) {
         this.commandTypeAndParams = new String[4];
         this.line = line;
         this.isValidInput = true; // set to true initially, any error caught will set it to false

@@ -9,7 +9,7 @@ import mona.util.Constants;
 
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     public static int noOfTasks;
     protected ArrayList<Task> tasks;
 
@@ -17,7 +17,7 @@ public class TaskManager {
         return tasks;
     }
 
-    public TaskManager(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         noOfTasks = tasks.size();
     }

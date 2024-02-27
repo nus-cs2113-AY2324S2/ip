@@ -2,7 +2,7 @@ package mona.input;
 
 import mona.exception.MonaException;
 import mona.util.Constants;
-import mona.manager.TaskManager;
+import mona.manager.TaskList;
 
 public class InputValidator {
     public InputValidator() {
@@ -29,7 +29,7 @@ public class InputValidator {
 
         // Checking if number provided is out of bounds (negative or more than the number of tasks stored)
         int markUnmarkIndex = Integer.parseInt(commandTypeAndParams[Constants.INDEX_DESCRIPTION]) - 1;
-        if (markUnmarkIndex < 0 || markUnmarkIndex >= TaskManager.noOfTasks) {
+        if (markUnmarkIndex < 0 || markUnmarkIndex >= TaskList.noOfTasks) {
             throw new MonaException("OOPS! Number doesn't correspond to a stored task. Try again!");
         }
     }

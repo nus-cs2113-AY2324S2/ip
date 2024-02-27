@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import mona.exception.MonaException;
-import mona.input.InputParser;
+import mona.input.Parser;
 import mona.task.Deadline;
 import mona.task.Event;
 import mona.task.Task;
@@ -172,7 +172,7 @@ public class Storage {
             break;
         }
 
-        InputParser inputParser = new InputParser(command);
+        Parser inputParser = new Parser(command);
         return inputParser.getCommandTypeAndParams();
     }
 }
