@@ -1,8 +1,6 @@
 package ui;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import format.Formatter;
 import parser.Parser;
@@ -11,8 +9,6 @@ import storage.Storage;
 import task.TaskList;
 
 import java.util.Scanner;
-
-import static constant.NormalConstant.CORRECT_TASK_CREATION;
 
 
 public class Ui {
@@ -32,7 +28,7 @@ public class Ui {
         try {
             storage.readFile(taskList);
         } catch (FileNotFoundException e) {
-            System.out.println("Can not find your file!!!\n" + e.getMessage());
+            System.out.println("\tCan not find your file!!!\n" + e.getMessage());
         }
 
         String userInput = in.nextLine().trim();
@@ -51,13 +47,10 @@ public class Ui {
     }
 
     public void printWelcomeMessage() {
-
         System.out.println("Hello from\n" + formatter.generateLogo());
         formatter.printDividingLine();
         System.out.println("\tHi!, I'm 'Noob'");
         System.out.println("\tWhat can I do for you?");
-        formatter.printDividingLine();
-        formatter.printFunctionality();
         formatter.printDividingLine();
     }
 
