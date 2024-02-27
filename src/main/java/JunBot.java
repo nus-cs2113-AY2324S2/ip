@@ -200,6 +200,13 @@ public class JunBot {
 
     }
 
+
+    public static void findTasks(String command) throws IOException{
+        String keyword = parser.removeCommandIndicator(command, "find");
+        tasks.printMatchingTasks(keyword);
+    }
+
+
     /**
      * Handles different types of commands based on the command type.
      * Executes corresponding functions for each command.
@@ -231,6 +238,9 @@ public class JunBot {
             break;
         case "delete":
             deleteTask(userInput);
+            break;
+        case "find":
+            findTasks(userInput);
             break;
         default:
             System.out.println("Enter a valid command");

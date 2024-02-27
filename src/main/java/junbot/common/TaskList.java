@@ -1,22 +1,30 @@
 package junbot.common;
-
+import junbot.parser.Parser;
 import junbot.tasks.Deadline;
 import junbot.tasks.Event;
 import junbot.tasks.Todo;
 import junbot.error.InvalidInputException;
 import junbot.tasks.Task;
+import junbot.ui.Ui;
+import java.time.LocalDate;
 
 import java.util.ArrayList;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
+    protected Ui ui;
+    protected Parser parser;
 
     public TaskList(ArrayList<Task> tasks){
         this.tasks = tasks;
+        ui = new Ui();
+        parser = new Parser();
     }
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
+        ui = new Ui();
+        parser = new Parser();
     }
 
     public ArrayList<Task> getTasksList() {
@@ -46,7 +54,12 @@ public class TaskList {
         String[] details = new String[2];
         details = description.split("/by", 2);
 
-        Task userTask = new Deadline(details[0].trim(), details[1].trim());
+        String deadlineDescription = details[0].trim();
+        String deadlineDateTimeString = details[1].trim();
+
+        LocalDate deadlineDate = parser.parseDate(deadlineDateTimeString);
+
+        Task userTask = new Deadline(deadlineDescription, deadlineDate);
         tasks.add(userTask);
         return userTask;
     }
@@ -68,7 +81,14 @@ public class TaskList {
         String[] details = new String[3];
         details = description.split("/from|/to", 3);
 
-        Task userTask = new Event(details[0].trim(), details[1].trim(), details[2].trim());
+        String eventDescription = details[0].trim();
+        String eventStartDateString = details[1].trim();
+        String eventEndDateString = details[2].trim();
+
+        LocalDate startDate = parser.parseDate(eventStartDateString);
+        LocalDate endDate = parser.parseDate(eventEndDateString);
+
+        Task userTask = new Event(eventDescription, startDate, endDate);
         tasks.add(userTask);
         return userTask;
     }
@@ -93,24 +113,6 @@ public class TaskList {
     }
 
     /**
-     * Checks if a given list position is valid.
-     *
-     * @param command The input command.
-     * @return True if the list position < size of tasks list and > 0, false otherwise.
-     */
-    public boolean isValidListPosition(String command) {
-        if (command == null) {
-            return false;
-        }
-        try {
-            int listPosition = Integer.parseInt(command);
-            return listPosition <= this.tasks.size() && listPosition > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    /**
      * Marks a task as done in the task list.
      *
      * @param listPosition The position of the task in the list.
@@ -132,6 +134,35 @@ public class TaskList {
         Task task = this.getTasksList().get(listPosition);
         task.unmarkTask();
         return task;
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size()-1; i++) {
+            String taskDescription = tasks.get(i).getDescription();
+
+            if (taskDescription.contains(keyword)){
+                foundTasks.add(tasks.get(i));
+            }
+        }
+
+        return foundTasks;
+
+    }
+
+    public void printMatchingTasks(String keyword){
+        int taskNumber = 1;
+        ArrayList<Task> foundTasks = findTasks(keyword);
+
+        System.out.println("Here are the matching tasks in your list: ");
+        ui.printDivider();
+        for(int i = 0; i < foundTasks.size(); i++){
+            System.out.print( taskNumber + ". ");
+            System.out.println(foundTasks.get(i));
+            taskNumber += 1;
+        }
+        ui.printDivider();
     }
 
 }
