@@ -2,6 +2,7 @@ package gary;
 
 import gary.exception.*;
 import gary.task.*;
+import gary.ui.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -26,7 +27,8 @@ public class Gary {
 
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
-        greetings();
+
+        Ui.greetings();
 
         File file = createFile();
         readFileStorage(file);
@@ -35,11 +37,7 @@ public class Gary {
         line = in.nextLine();
 
         runCommandUntilExit(line, file, in);
-        exitProgramme();
-    }
-
-    private static void exitProgramme() {
-        System.out.println("Bye. Hope to see you again!");
+        Ui.exitProgramme();
     }
 
     private static File createFile() {
@@ -335,15 +333,5 @@ public class Gary {
         } catch (StringIndexOutOfBoundsException e) {
             throw new MissingEventToException();
         }
-    }
-
-    private static void greetings() {
-        System.out.println("Hello! I'm Gary");
-        System.out.println("                    0   0   ______");
-        System.out.println("                    | v | /oooooooo\\");
-        System.out.println("                    |   |/OOOOOOOOOO\\");
-        System.out.println("                    ===================");
-        System.out.println("|   |   |   |   |   |   |   |   |   |   |   |");
-        System.out.println("What can I do for you?");
     }
 }
