@@ -83,6 +83,9 @@ public class Parser {
             index = Integer.parseInt(matcher.group("index"));
             return new DeleteCommand(index);
 
+        case CheckCommand.COMMAND_STRING:
+            return new CheckCommand(arguments.trim());
+
         default:
             throw new UnknownCommandException();
         }

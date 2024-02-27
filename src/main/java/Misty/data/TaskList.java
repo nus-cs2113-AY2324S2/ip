@@ -7,6 +7,8 @@ import misty.data.task.Event;
 import misty.data.task.Task;
 import misty.data.task.Todo;
 import misty.ui.UserUi;
+import java.time.LocalDate;
+
 
 import java.util.ArrayList;
 
@@ -145,6 +147,26 @@ public class TaskList {
 
     public void listAll() {
         userUi.printList(taskList, taskList.size());
+    }
+
+    public void check(LocalDate localDate) {
+        int index = 1;
+        boolean isValid = false;
+        userUi.printCheckMessage(localDate);
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                isValid = deadline.isSameDate(localDate);
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                isValid = event.isBetweenDate(localDate);
+            }
+
+            if (isValid) {
+                System.out.println(String.format("\t%d.%s", index, task));
+                index++;
+            }
+        }
     }
 
     public void loadTodo(String description) throws CorruptedFileException {

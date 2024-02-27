@@ -1,0 +1,4 @@
+T | 0 | eat ramen
+D | 0 | 2113T assignment | next week lecture
+D | 0 | homework | 2024-06-02
+E | 0 | concert | 2024-05-06 | 2024-07-07

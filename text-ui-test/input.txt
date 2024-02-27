@@ -14,4 +14,8 @@ unmark a
 list
 delete 3
 list
+deadline homework /by 2024-06-02
+event concert /from 2024-05-06 /to 2024-07-07
+list
+check 2024-06-02
 bye
