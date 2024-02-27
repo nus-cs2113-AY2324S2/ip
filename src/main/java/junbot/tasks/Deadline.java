@@ -1,9 +1,10 @@
 package junbot.tasks;
-
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 public class Deadline extends Todo {
-    protected String endDate;
+    protected LocalDate endDate;
 
-    public Deadline(String description, String endDate) {
+    public Deadline(String description, LocalDate endDate) {
         super(description);
         this.endDate = endDate;
         this.tag = "D";
@@ -11,12 +12,17 @@ public class Deadline extends Todo {
 
     @Override
     public String getEndDate() {
-        return this.endDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        String endDateString = endDate.format(formatter);
+        return endDateString;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + endDate + ")";
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedDeadline = this.endDate.format(outputFormatter);
+
+        return super.toString() + " (by: " + formattedDeadline + ")";
     }
 
 }
