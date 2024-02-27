@@ -27,6 +27,11 @@ public class UserInputErrorOutputHandler {
         System.out.println("\tPlease add a spacing between " + identity + " and 'number'");
         formatter.printDividingLine();
     }
+    public void printNoSpacingErrorForFind() {
+        formatter.printDividingLine();
+        System.out.println("\tPlease add a spacing between 'find' and 'theTaskContentYouWantToFind'");
+        formatter.printDividingLine();
+    }
 
     public void printInputNotNumberError(String identity) {
         formatter.printDividingLine();

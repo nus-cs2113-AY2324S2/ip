@@ -45,6 +45,7 @@ public class MarkCommand extends Command {
     }
 
     public void prepareMarkCommand(String unpreparedMarkCommand, TaskList taskList) {
+        unpreparedMarkCommand = unpreparedMarkCommand.trim();
         try {
             Integer.parseInt(unpreparedMarkCommand);
         } catch (NumberFormatException e) {
