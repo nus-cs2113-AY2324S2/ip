@@ -1,20 +1,23 @@
-package misty;
+package misty.data;
 
-import misty.exception.*;
-import misty.task.Deadline;
-import misty.task.Event;
-import misty.task.Task;
-import misty.task.Todo;
+import misty.data.exception.*;
+import misty.storage.Storage;
+import misty.data.task.Deadline;
+import misty.data.task.Event;
+import misty.data.task.Task;
+import misty.data.task.Todo;
+import misty.ui.UserUi;
+
 import java.util.ArrayList;
 
 import java.io.IOException;
 
-public class List {
+public class TaskList {
     private ArrayList<Task> taskList;
     private Storage storage;
     private UserUi userUi;
 
-    public List(Storage storage, UserUi userUi) {
+    public TaskList(Storage storage, UserUi userUi) {
         taskList = new ArrayList<>();
         this.storage = storage;
         this.userUi = userUi;

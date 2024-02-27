@@ -1,7 +1,11 @@
 package misty;
 
 import misty.command.Command;
-import misty.exception.*;
+import misty.data.TaskList;
+import misty.data.exception.*;
+import misty.parser.Parser;
+import misty.storage.Storage;
+import misty.ui.UserUi;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -10,7 +14,7 @@ public class Main {
         UserUi userUi = new UserUi();
         Parser parser = new Parser(userUi);
         Storage storage = new Storage();
-        List taskList = new List(storage, userUi);
+        TaskList taskList = new TaskList(storage, userUi);
 
         try {
             storage.createFiles();

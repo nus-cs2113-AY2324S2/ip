@@ -1,9 +1,8 @@
 package misty.command;
 
-import misty.List;
-import misty.Storage;
-import misty.UserUi;
-
+import misty.data.TaskList;
+import misty.storage.Storage;
+import misty.ui.UserUi;
 import java.util.regex.Pattern;
 public abstract class Command {
     public static final String COMMAND_STRING = "command";
@@ -12,6 +11,6 @@ public abstract class Command {
     public Command() {
     }
 
-    public abstract void execute(List taskList, Storage storage, UserUi userUi);
+    public abstract void execute(TaskList taskList, Storage storage, UserUi userUi);
 
 }

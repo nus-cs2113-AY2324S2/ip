@@ -1,8 +1,8 @@
 package misty.command;
 
-import misty.List;
-import misty.Storage;
-import misty.UserUi;
+import misty.data.TaskList;
+import misty.storage.Storage;
+import misty.ui.UserUi;
 
 public class ListCommand extends Command {
     public static final String COMMAND_STRING = "list";
@@ -11,7 +11,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(List taskList, Storage storate, UserUi userUi ) {
+    public void execute(TaskList taskList, Storage storate, UserUi userUi ) {
         taskList.listAll();
     }
 }

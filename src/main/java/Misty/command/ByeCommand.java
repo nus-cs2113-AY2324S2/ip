@@ -1,8 +1,8 @@
 package misty.command;
 
-import misty.List;
-import misty.Storage;
-import misty.UserUi;
+import misty.data.TaskList;
+import misty.storage.Storage;
+import misty.ui.UserUi;
 
 public class ByeCommand extends Command {
     public static final String COMMAND_STRING = "bye";
@@ -10,7 +10,7 @@ public class ByeCommand extends Command {
     public ByeCommand() {
     }
 
-    public void execute(List taskList, Storage storage, UserUi userUi) {
+    public void execute(TaskList taskList, Storage storage, UserUi userUi) {
         userUi.printByeMessage();
         userUi.printMessageBorder();
         System.exit(0);

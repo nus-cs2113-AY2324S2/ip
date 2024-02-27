@@ -1,4 +1,4 @@
-package misty.task;
+package misty.data.task;
 
 public class Task {
     private String taskName;

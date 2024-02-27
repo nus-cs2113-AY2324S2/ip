@@ -1,9 +1,10 @@
-package misty;
+package misty.parser;
 
+import misty.data.TaskList;
 import misty.command.*;
-import misty.exception.*;
+import misty.data.exception.*;
+import misty.ui.UserUi;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Parser {
     private UserUi userUi;
@@ -12,7 +13,7 @@ public class Parser {
         this.userUi = userUi;
     }
 
-    public Command parseCommand(String userInput, List taskList) throws IllegalListIndexException,
+    public Command parseCommand(String userInput, TaskList taskList) throws IllegalListIndexException,
             UnknownCommandException, InvalidParameterFormatException {
         Matcher matcher = Command.COMMAND_FORMAT.matcher(userInput);
         if(!matcher.matches()) {

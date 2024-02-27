@@ -1,10 +1,9 @@
 package misty.command;
 
-import misty.List;
-import misty.Storage;
-import misty.UserUi;
-import misty.exception.EmptyParameterException;
-
+import misty.data.TaskList;
+import misty.storage.Storage;
+import misty.ui.UserUi;
+import misty.data.exception.EmptyParameterException;
 import java.util.regex.Pattern;
 
 public class EventCommand extends Command {
@@ -22,7 +21,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(List taskList, Storage storage, UserUi userUi) {
+    public void execute(TaskList taskList, Storage storage, UserUi userUi) {
         try {
             taskList.addEvent(taskName, from, to);
         } catch (EmptyParameterException e) {

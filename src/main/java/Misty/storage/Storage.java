@@ -1,4 +1,4 @@
-package misty;
+package misty.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
-import misty.exception.*;
-import misty.task.*;
+import misty.data.TaskList;
+import misty.data.exception.*;
+import misty.data.task.*;
 
 public class Storage {
     private final static  String DEFAULT_DATA_FOLDER_NAME = "data";
@@ -37,7 +38,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public void loadData(List taskList) throws FileNotFoundException, CorruptedFileException {
+    public void loadData(TaskList taskList) throws FileNotFoundException, CorruptedFileException {
         Scanner scanner = new Scanner(dataFile);
         int taskCount = 0;
         String[] parameters;

@@ -1,6 +1,6 @@
-package misty;
+package misty.ui;
 
-import misty.task.Task;
+import misty.data.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
