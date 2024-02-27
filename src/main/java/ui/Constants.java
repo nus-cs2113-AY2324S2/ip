@@ -1,6 +1,5 @@
 package ui;
 
-//import main.Aragorn;
 import tasks.Task;
 
 public final class Constants {
@@ -9,9 +8,8 @@ public final class Constants {
     public static final String GREET = "    Hello! I am Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
                     "    the heir of Isildur Elendil's son of Gondor.\n" +
                     "    What can I do for you?\n";
-    public static final String EXIT = "    Farewell. Hope to see you again soon!\n";
+    public static final String EXIT = "    Farewell. May we meet again!\n";
     public static final String TAB = "    ";
-
     public static final String COMMANDLIST = "    Here is a list of commands:\n" +
                     "\n" +
                     "    \"list\": Displays list of tasks.\n" +
@@ -37,11 +35,8 @@ public final class Constants {
     public static final String CREATEDIRECTORYERROR = "Unable to create directory: ";
     public static final String ALREADYUNMARKED = LINE + "    This task has already been unmarked.\n" + LINE;
     public static final String ALREADYMARKED = LINE + "    This task has already been marked.\n" + LINE;
-
     public static final String ADDEDTASK = LINE + "    Got it. I've added this task:";
-
-    public static final String FILEREADLIST = "    Here are the tasks currently in your list: ";
-
+    public static final String INVALIDFORMAT = LINE + "    Invalid format!\n" + LINE;
     public static final String NOFILE = "No file found! Creating new file.";
     public static final String FILEPATH = "./ip/data/AragornList.txt";
     public static final String CURRENTLIST = "    Here are the tasks in your list: ";
@@ -52,15 +47,12 @@ public final class Constants {
     public static final String HELPMESSAGE = LINE + COMMANDLIST + LINE;
     public static final String BYEMESSAGE = LINE + TAB + EXIT + LINE;
     public static final String TASKTYPEERROR = LINE + "    Task type error: ";
-
     public static final String INVALIDINDEXFORMAT = LINE + "    Invalid task index format\n" + LINE;
     public static final String INVALIDINDEX = LINE + "    Task index is not in the list\n" + LINE;
     public static final String INVALIDTASK = LINE + "    Invalid Task\n" + LINE;
     public static final String DELETETASK = LINE + TAB + "I've deleted this task from the list:\n" + TAB + "   ";
     public static final String MARKTASK = LINE + TAB + "Nice! I've marked this task as done:\n" + TAB + "   ";
     public static final String UNMARKTASK = LINE + TAB + "OK, I've marked this task as incomplete:\n" + TAB + "   ";
-
-
     public static final String NEWLINE = "\n";
     public static final String COMPLETE = "X";
     public static final String INCOMPLETE = " ";
@@ -77,18 +69,23 @@ public final class Constants {
     public static final String DOT = ". ";
     public static final String ONE = "1";
     public static final String BAR = "\\|";
+    public static final String BYREGEX = "/by";
+    public static final String FROMREGEX = "/from";
+    public static final String TOREGEX = "/to";
+    public static final String EMPTYDESCRIPTION = LINE + "    Task description is empty!\n" + LINE;
+    public static final String EMPTYDEADLINE = LINE + "    Deadline condition is empty!\n" + LINE;
+    public static final String EMPTYEVENTSTART = LINE + "    Start condition is empty!\n" + LINE;
+    public static final String EMPTYEVENTEND = LINE + "    End condition is empty!\n" + LINE;
 
     public static void printRemainingTasks(int remainingTasks, int size) {
         System.out.println("    You have " + remainingTasks + " / " + size + " remaining tasks in the list.\n" + LINE);
     }
-
-    public static Task taskTypeError(String taskType) {
-    System.out.println("Task type error: " + taskType);
-    return null;
-    }
-
-    protected static void printAddTask(Task list) {
+    public static void printAddTask(Task list) {
         System.out.println(ADDEDTASK);
-        System.out.println(TAB + list.taskString() + "\n");
+        System.out.println(TAB + list.taskString() + NEWLINE);
+    }
+    public static Task taskTypeError(String taskType) {
+        System.out.println(TASKTYPEERROR + taskType);
+        return null;
     }
 }

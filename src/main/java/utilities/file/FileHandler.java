@@ -1,4 +1,4 @@
-package utilities;
+package utilities.file;
 
 import ui.Constants;
 
@@ -26,7 +26,7 @@ public class FileHandler {
 
         try (FileWriter fw = new FileWriter(filePath)) {
             for (String entry : entries) {
-                fw.write(entry + "\n");
+                fw.write(entry + Constants.NEWLINE);
             }
         } catch (IOException e) {
             System.out.println(Constants.FILEWRITEERROR + e.getMessage());
