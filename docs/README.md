@@ -17,11 +17,13 @@ Event tracks the task description, start date and end date.
 You can add and delete tasks as well as mark or unmark them based on whether they are 
 completed and list all tasks.
 <br> <br>The format is as follows:
-- add 'task'
-- delete 'taskNum'
+- todo/deadline/event 'task'
+- list
 - mark 'taskNum'
 - unmark 'taskNum'
-- list
+- delete 'taskNum'
+- find 'task description'
+
 
 ### Saves the task on a txt file
 
