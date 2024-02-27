@@ -1,24 +1,84 @@
-# Duke project template
+# User Guide for John Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+John Chatbot is a terminal chatbot capable of managing a user's tasks. By default, it stores the user's tasks in a text file
+called **John.txt** in the **same directory as the jar file**.
 
-## Setting up in Intellij
+## Running the chatbot
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Prerequisites: Have java *(verson >= 11)* installed.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Create an empty folder, put the provided jar file inside, and run it from terminal
+with 
+```
+java -jar ./John.jar
+```
+
+### Task types
+
+- Event: Task with ```Name```, ```From date/time``` and ```To date/time```
+- Deadline: Task with ```Name``` and ```Deadline```
+- ToDo: Task with ```Name```
+
+# Features
+
+- Add a ToDo task ```todo```
+- Add an Event task ```event```
+- Add a Deadline task ```deadline```
+- Mark/Unmark a task ```mark``` / ```unmark```
+- List all tasks ```list```
+- Find certain tasks ```find```
+- Remove a task ```delete```
+
+### Adding a task
+
+The format for adding specific tasks are ask follows. The command keyword is not case sensitive, but the /*vars* are. An error will be thrown if a blank is found when a string is expected.
+
+**Formats**:
+- Event: ```event NAME /from STRING /to STRING```
+- Deadline: ```deadline NAME /by STRING```
+- Todo: ```todo NAME```
+
+Examples: 
+- ```deadline have a dream /from now /to I wake up```
+- ```todo do my laundry```
+
+### Mark/Unmark tasks: ```mark``` / ```unmark```
+
+**Format**: ```mark/unmark NUMBER```
+
+Firstly, the task Id must be retrieved. This can be done easily using the command ```find <string to search for>```. 
+
+Next, use ```mark x``` or ```unmark x``` to set the state of the task to the desired state.
+
+Example usage: 
+- ```mark 3```
+- ```unmark 5```
+
+### List: ```list```
+
+**Format**: ```list```
+
+By typing list, the user can print out all existing tasks into the command line.
+
+*Example output*:
+```1. [T][ ] do my laundry```
+
+### Find: ```find```
+
+**Format**: ```find STRING```
+
+The command looks through all existing tasks, and prints them out if their name contains the string query.
+
+### Delete: ```delete```
+
+**Format**: ```delete NUMBER```
+
+As with *mark/unmark*, the Id of the task to be deleted must first be obtained. afterwards, typing the command in the given format will delete said task from the list.
+
+Once deleted, said task **CANNOT** be retrieved.
+
+# Known Issues
+-Chatbot has little to no personality (cause I have no creativity. :upside_down_face: )
+
+
+
