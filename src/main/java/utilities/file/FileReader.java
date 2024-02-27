@@ -7,7 +7,6 @@ import tasks.Task;
 import tasks.ToDo;
 import ui.Constants;
 import utilities.commands.DisplayList;
-
 import java.io.IOException;
 import java.util.List;
 

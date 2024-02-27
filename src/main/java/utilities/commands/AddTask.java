@@ -7,7 +7,6 @@ import tasks.ToDo;
 import ui.Constants;
 import utilities.file.InputParser;
 
-
 public class AddTask {
 
     protected static void eventCommand(InputParser input, int remainingTasks) {

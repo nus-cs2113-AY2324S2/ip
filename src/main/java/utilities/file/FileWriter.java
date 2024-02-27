@@ -3,7 +3,6 @@ package utilities.file;
 import main.Aragorn;
 import tasks.Task;
 import ui.Constants;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
