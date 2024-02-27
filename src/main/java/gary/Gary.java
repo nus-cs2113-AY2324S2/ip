@@ -28,58 +28,34 @@ public class Gary {
         Scanner in = new Scanner(System.in);
         greetings();
 
-        int todosCount = 0;
+        File file = createFile();
+        readFileStorage(file);
 
+        String line;
+        line = in.nextLine();
+
+        runCommandUntilExit(line, file, in);
+        exitProgramme();
+    }
+
+    private static void exitProgramme() {
+        System.out.println("Bye. Hope to see you again!");
+    }
+
+    private static File createFile() {
         File file = new File(FILE_PATH);
         try {
             Boolean isFileCreated = file.createNewFile();
         } catch (IOException e) {
             System.out.println("FILE NOT CREATED");
         }
+        return file;
+    }
 
-        try {
-            BufferedReader fileReader = new BufferedReader(new FileReader(file));
-            String lineText = fileReader.readLine();
-            String[] lineWords;
-            String command;
-
-            while (lineText != null) {
-                // convert each line into TASK_todo/deadline/event, then store in the array list todos
-                lineWords = lineText.split(" \\| ");
-                command = lineWords[0];
-                String description = lineWords[2];
-
-                if (command.equalsIgnoreCase("TODO")) {
-                    todos.add(new Todo(description));
-                } else if (command.equalsIgnoreCase("DEADLINE")) {
-                    String by = lineWords[3];
-                    todos.add(new Deadline(description, by));
-                } else if (command.equalsIgnoreCase("EVENT")){
-                    String from = lineWords[3];
-                    String to = lineWords[4];
-                    todos.add(new Event(description, from, to));
-                }
-                todosCount += 1;
-
-                // Update task status in array list todos
-                String taskStatus = lineWords[1];
-                if (taskStatus.equalsIgnoreCase("1")) {
-                    Task currentTask = todos.get(todosCount - 1);
-                    currentTask.markAsDone();
-                }
-
-                lineText = fileReader.readLine();
-            }
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("FILE NOT FOUND!!!");
-        }
-
-        String line;
-        line = in.nextLine();
+    private static void runCommandUntilExit(String line, File file, Scanner in) throws IOException {
         String[] lineWords;
         String command;
-
+        int todosCount = todos.size();
         while (!(line.toUpperCase().contains("BYE"))) {
             lineWords = line.split(" ");
             command = lineWords[0];
@@ -144,8 +120,47 @@ public class Gary {
             }
             line = in.nextLine();
         }
+    }
 
-        System.out.println("Bye. Hope to see you again!");
+    private static void readFileStorage(File file) throws IOException {
+        try {
+            BufferedReader fileReader = new BufferedReader(new FileReader(file));
+            String lineText = fileReader.readLine();
+            String[] lineWords;
+            String command;
+            int todosCount = 0;
+
+            while (lineText != null) {
+                // convert each line into TASK_todo/deadline/event, then store in the array list todos
+                lineWords = lineText.split(" \\| ");
+                command = lineWords[0];
+                String description = lineWords[2];
+
+                if (command.equalsIgnoreCase("TODO")) {
+                    todos.add(new Todo(description));
+                } else if (command.equalsIgnoreCase("DEADLINE")) {
+                    String by = lineWords[3];
+                    todos.add(new Deadline(description, by));
+                } else if (command.equalsIgnoreCase("EVENT")){
+                    String from = lineWords[3];
+                    String to = lineWords[4];
+                    todos.add(new Event(description, from, to));
+                }
+                todosCount += 1;
+
+                // Update task status in array list todos
+                String taskStatus = lineWords[1];
+                if (taskStatus.equalsIgnoreCase("1")) {
+                    Task currentTask = todos.get(todosCount - 1);
+                    currentTask.markAsDone();
+                }
+
+                lineText = fileReader.readLine();
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("FILE NOT FOUND!!!");
+        }
     }
 
     private static String getTaskSymbol(Task currentTask) {
