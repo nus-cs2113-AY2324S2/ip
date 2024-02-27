@@ -14,11 +14,17 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/gab/Gab.java` file, right-click it, and choose `Run gab.Gab.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+   
+```
+  _____           __ 
+/  ____|         |  |
+|  |  __   ____  |  |__
+|  | |_  |/  _   |  -   \
+|  |__|  |  (_|  | |_)   |
+\_______ |__ ,_ |_.___ /
+
+    I am Gab the Bot! Nice to meet you!
+    Anything I can help you with?
+    What do you want to do?: 
+
+```
