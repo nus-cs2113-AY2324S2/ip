@@ -18,6 +18,9 @@ import java.util.Date;
 
 import static constant.NormalConstant.*;
 
+/**
+ * Represent an eventCommand
+ */
 public class EventCommand extends Command {
     public static final String identity = "event";
     Formatter formatter;
@@ -41,6 +44,11 @@ public class EventCommand extends Command {
         prepareEventCommand(userCommandText.substring(spaceIndex + 1));
     }
 
+    /**
+     * Execute eventCommand, add new eventTask to the taskList and save that task on the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         String trimFrom = from.trim();
@@ -65,6 +73,11 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Make eventCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     */
     public void prepareEventCommand(String unpreparedUserCommand) {
         if (unpreparedUserCommand.toLowerCase().startsWith(identity)) {
             userInputError.printNoTaskContentError(identity);

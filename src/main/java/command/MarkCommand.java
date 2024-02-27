@@ -8,6 +8,9 @@ import task.TaskList;
 
 import java.io.IOException;
 
+/**
+ * Represent a markCommand
+ */
 public class MarkCommand extends Command {
     public int taskIndex;
     Formatter formatter;
@@ -29,6 +32,11 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Execute markCommand, mark specified task in the taskList and save that changes on the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         formatter.printDividingLine();
@@ -44,17 +52,22 @@ public class MarkCommand extends Command {
         formatter.printDividingLine();
     }
 
-    public void prepareMarkCommand(String unpreparedMarkCommand, TaskList taskList) {
-        unpreparedMarkCommand = unpreparedMarkCommand.trim();
+    /**
+     * Make markCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     * @param taskList              Instance of Class <code>TaskList</code>
+     */
+    public void prepareMarkCommand(String unpreparedUserCommand, TaskList taskList) {
         try {
-            Integer.parseInt(unpreparedMarkCommand);
+            Integer.parseInt(unpreparedUserCommand);
         } catch (NumberFormatException e) {
             userInputError.printInputNotNumberError("'" + identity + "'");
             setIfNoError(false);
             return;
         }
 
-        taskIndex = Integer.parseInt(unpreparedMarkCommand);
+        taskIndex = Integer.parseInt(unpreparedUserCommand);
         if (taskIndex > taskList.getSize()) {
             userInputError.printRequestTaskOutOfBoundError();
             setIfNoError(false);

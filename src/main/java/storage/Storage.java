@@ -12,8 +12,17 @@ import task.*;
 import static constant.NormalConstant.TASK_SAVE_PATH;
 import static constant.NormalConstant.TEMP_TASK_SAVE_PATH;
 
+/**
+ * Save the tasks one the local disk
+ */
 public class Storage {
 
+    /**
+     * Read the file from the local disk and store in variable <code>taskList</code>
+     *
+     * @param taskList Instance of Class <code>TaskList</code> to store the saved data
+     * @throws FileNotFoundException
+     */
     public void readFile(TaskList taskList) throws FileNotFoundException {
         try {
             Files.createDirectories(Paths.get("./data"));
@@ -39,6 +48,12 @@ public class Storage {
         fileContent.close();
     }
 
+    /**
+     * Convert the task format on the local disk to the <code>Arraylist</code> format
+     *
+     * @param taskList Instance of Class <code>TaskList</code> to store the saved data
+     * @param content  the format of the task on the local disk
+     */
     public void handleFileContent(TaskList taskList, String content) {
         String[] detail = content.split(" [|] ");
         int index = 0;
@@ -93,6 +108,12 @@ public class Storage {
         return taskFileFormat;
     }
 
+    /**
+     * Change the file on the local disk when marking a task
+     *
+     * @param currentTask
+     * @throws IOException
+     */
     public void markTask(Task currentTask) throws IOException {
         File oldFile = new File(TASK_SAVE_PATH);
         File tempFile = new File(TEMP_TASK_SAVE_PATH);
@@ -106,7 +127,7 @@ public class Storage {
         while ((currentLine = reader.readLine()) != null) {
             if (currentLine.trim().equals(lineToChange)) {
                 writer.write(changeTaskToTextFormat(currentTask) + System.lineSeparator());
-            }else {
+            } else {
                 writer.write(currentLine + System.lineSeparator());
             }
         }
@@ -122,6 +143,12 @@ public class Storage {
         Files.delete(tempTaskPath);
     }
 
+    /**
+     * Change the file on the local disk when unmarking a task
+     *
+     * @param currentTask
+     * @throws IOException
+     */
     public void unmarkTask(Task currentTask) throws IOException {
         File oldFile = new File(TASK_SAVE_PATH);
         File tempFile = new File(TEMP_TASK_SAVE_PATH);
@@ -152,6 +179,12 @@ public class Storage {
         Files.delete(tempTaskPath);
     }
 
+    /**
+     * Change the file on the local disk when deleting a task
+     *
+     * @param currentTask
+     * @throws IOException
+     */
     public void deleteTask(Task currentTask) throws IOException {
         File oldFile = new File(TASK_SAVE_PATH);
         File tempFile = new File(TEMP_TASK_SAVE_PATH);
@@ -179,6 +212,12 @@ public class Storage {
         Files.delete(tempTaskPath);
     }
 
+    /**
+     * Change the file on the local disk when a new task is added
+     *
+     * @param currentTask
+     * @throws IOException
+     */
     public void saveTask(Task currentTask) throws IOException {
         FileWriter fileWriter = new FileWriter(TASK_SAVE_PATH, true);
         String taskFileFormat = changeTaskToTextFormat(currentTask);

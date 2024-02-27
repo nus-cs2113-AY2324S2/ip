@@ -8,7 +8,10 @@ import task.TaskList;
 
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
+/**
+ * Represent a deleteCommand
+ */
+public class DeleteCommand extends Command {
     public int taskIndex;
     Formatter formatter;
     public static final String identity = "delete";
@@ -28,6 +31,12 @@ public class DeleteCommand extends Command{
             prepareDeleteCommand(userCommandText.substring(spaceIndex + 1), taskList);
         }
     }
+
+    /**
+     * Execute deleteCommand, delete specified task in the taskList and remove that task from the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         formatter.printDividingLine();
@@ -44,16 +53,23 @@ public class DeleteCommand extends Command{
         System.out.println("\tNow you have " + taskList.getSize() + " tasks in the list.");
         formatter.printDividingLine();
     }
-    public void prepareDeleteCommand(String unpreparedDeleteCommand, TaskList taskList){
+
+    /**
+     * Make deleteCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     * @param taskList                Instance of Class <code>TaskList</code>
+     */
+    public void prepareDeleteCommand(String unpreparedUserCommand, TaskList taskList) {
         try {
-            Integer.parseInt(unpreparedDeleteCommand);
+            Integer.parseInt(unpreparedUserCommand);
         } catch (NumberFormatException e) {
             userInputError.printInputNotNumberError("'" + identity + "'");
             setIfNoError(false);
             return;
         }
 
-        taskIndex = Integer.parseInt(unpreparedDeleteCommand);
+        taskIndex = Integer.parseInt(unpreparedUserCommand);
         if (taskIndex > taskList.getSize()) {
             userInputError.printRequestTaskOutOfBoundError();
             setIfNoError(false);

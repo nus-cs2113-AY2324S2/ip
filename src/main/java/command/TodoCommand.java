@@ -9,6 +9,9 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represent a todoCommand
+ */
 public class TodoCommand extends Command {
     public static final String identity = "todo";
     Storage storage;
@@ -23,6 +26,11 @@ public class TodoCommand extends Command {
         prepareTodoCommand(userCommandText.substring(spaceIndex + 1));
     }
 
+    /**
+     * Execute todoCommand, add new todoTask to the taskList and save that task on the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         Task t = new ToDo(content.trim());
@@ -35,6 +43,11 @@ public class TodoCommand extends Command {
         }
     }
 
+    /**
+     * Make todoCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     */
     public void prepareTodoCommand(String unpreparedUserCommand) {
         if (unpreparedUserCommand.toLowerCase().startsWith(identity)) {
             userInputError.printNoTaskContentError(identity);

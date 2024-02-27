@@ -10,7 +10,9 @@ import task.TaskList;
 
 import java.util.Scanner;
 
-
+/**
+ * Interact with User
+ */
 public class Ui {
 
     protected Formatter formatter;

@@ -4,6 +4,9 @@ import format.Formatter;
 
 import java.util.ArrayList;
 
+/**
+ * Maintain a list of task with extra functionalities
+ */
 public class TaskList {
 
     protected ArrayList<Task> tasks;
@@ -12,10 +15,6 @@ public class TaskList {
     public TaskList() {
         tasks = new ArrayList<>();
         formatter = new Formatter();
-    }
-
-    public ArrayList<Task> getTasks() {
-        return tasks;
     }
 
     public void addTask(Task t) {
@@ -43,14 +42,15 @@ public class TaskList {
         }
         formatter.printDividingLine();
     }
-    public void printTaskListWithCondition(String condition){
+
+    public void printTaskListWithCondition(String condition) {
         int index = 0;
         formatter.printDividingLine();
         System.out.println("\tHere are the matching tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            if(tasks.get(i).getDescription().contains(condition)) {
-                System.out.println("\t" + (index + 1) + "." + tasks.get(i).getIdentity()
-                        + tasks.get(i).getStatusIcon() + " " + tasks.get(i));
+        for (Task task : tasks) {
+            if (task.getDescription().contains(condition)) {
+                System.out.println("\t" + (index + 1) + "." + task.getIdentity()
+                        + task.getStatusIcon() + " " + task);
                 index++;
             }
         }

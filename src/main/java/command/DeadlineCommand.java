@@ -17,6 +17,9 @@ import java.time.format.DateTimeParseException;
 
 import static constant.NormalConstant.*;
 
+/**
+ * Represent a deadlineCommand
+ */
 public class DeadlineCommand extends Command {
     Formatter formatter;
     public final String identity = "deadline";
@@ -41,6 +44,11 @@ public class DeadlineCommand extends Command {
         prepareDeadlineCommand(userCommandText.substring(spaceIndex + 1));
     }
 
+    /**
+     * Execute deadlineCommand, add new deadlineTask to the taskList and save that task on the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         String trimBy = by.trim();
@@ -63,6 +71,11 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Make deadlineCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     */
     public void prepareDeadlineCommand(String unpreparedUserCommand) {
         if (unpreparedUserCommand.toLowerCase().startsWith(identity)) {
             userInputError.printNoTaskContentError(identity);
