@@ -97,7 +97,7 @@
 	4.[E][ ] concert (from: MONDAY, May 6 2024 to: SUNDAY, Jul 7 2024)
 	--------------------------------------------------
 	--------------------------------------------------
-	Here are the tasks occuring on Jun 2 2024:
+	Here are the tasks occurring on Jun 2 2024:
 	1.[D][ ] homework (by: SUNDAY, Jun 2 2024)
 	2.[E][ ] concert (from: MONDAY, May 6 2024 to: SUNDAY, Jul 7 2024)
 	--------------------------------------------------

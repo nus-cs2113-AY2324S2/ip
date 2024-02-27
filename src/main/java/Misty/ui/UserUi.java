@@ -75,7 +75,7 @@ public class UserUi {
     }
 
     public void printCheckMessage(LocalDate localDate) {
-        System.out.println(String.format("\tHere are the tasks occuring on %s:",
+        System.out.println(String.format("\tHere are the tasks occurring on %s:",
                 localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
     }
 
