@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import exceptions.AragornException;
+import utilities.CommandIdentifier;
+import ui.Constants;
 import utilities.FileHandler;
 import utilities.InputParser;
 import tasks.Task;
@@ -14,41 +16,14 @@ import java.util.Scanner;
 
 public class Aragorn {
 
-    private static final String LINE =  "    __________________________________________________________\n";
-    private static final String GREET = "    Hello! I am Aragorn son of Arathorn, and am called Elessar, the Elfstone, Dúnadan,\n" +
-            "    the heir of Isildur Elendil's son of Gondor.\n" +
-            "    What can I do for you?\n";
-    private static final String EXIT = "    Farewell. Hope to see you again soon!\n";
-    private static final String TAB = "    ";
-
-    private static final String commandList = "    Here is a list of commands:\n" +
-            "\n" +
-            "    \"list\": Displays list of tasks.\n" +
-            "\n" +
-            "    \"todo <description>\": Adds a Todo task to the list.\n" +
-            "\n" +
-            "    \"deadline <description> /by <deadline>\": Adds a task and its deadline to the list.\n" +
-            "\n" +
-            "    \"event <description> /from <start> /to <end>\": Adds an event and its start and end conditions to the list.\n" +
-            "\n" +
-            "    \"mark <task number>\": Marks the corresponding task in the list as completed.\n" +
-            "\n" +
-            "    \"unmark <task number>\": Marks the corresponding task in the list as incomplete.\n" +
-            "\n" +
-            "    \"delete <task number>\": Removes the corresponding task from the list.\n" +
-            "\n" +
-            "    \"help\": Displays this list of commands.\n" +
-            "\n" +
-            "    \"bye\": Closes the program.\n";
-    
     private static final ArrayList<Task> list = new ArrayList<>();
 
     public static void main(String[] args) throws AragornException {
-        System.out.println(LINE + GREET + LINE + "\n" + commandList + LINE);
+        System.out.println(Constants.HELLOMESSAGE);
         try {
             readFile();
         } catch (IOException e) {
-            System.out.println("File read error");
+            System.out.println(Constants.FILEREADERROR);
         }
         int index;
         String icon;
@@ -56,110 +31,107 @@ public class Aragorn {
         while(true) {
             String userInput;
             userInput = in.nextLine();
-            String commandType = InputParser.commandIdentifier(userInput);
+            String commandType = CommandIdentifier.commandIdentifier(userInput);
             try {
                 InputParser input = new InputParser(userInput.trim(), commandType);
                 int remainingTasks = 0;
                 for (Task i : list) {
-                    if (i.getStatusIcon().equals(" ")) {
+                    if (i.getStatusIcon().equals(Constants.INCOMPLETE)) {
                         remainingTasks += 1;
                     }
                 }
 
                 switch (commandType) {
-                    case "LIST":
+                    case Constants.LIST:
                         listCommand(remainingTasks);
                         break;
 
-                    case "UNMARK":
+                    case Constants.UNMARK:
                         try {
                             index = Integer.parseInt(input.getSplitInput()[0]);
                             icon = list.get(index).getStatusIcon();
-                            if (icon.equals(" ")) {
-                                System.out.println(LINE + "    This task has already been unmarked.\n" + LINE);
+                            if (icon.equals(Constants.INCOMPLETE)) {
+                                System.out.println(Constants.ALREADYUNMARKED);
                                 break;
                             }
                             list.get(index).markAsUndone();
                             remainingTasks += 1;
-                            System.out.println(LINE + TAB + "OK, I've marked this task as incomplete:\n" + TAB +
-                                    "   " + list.get(index).taskString() + "\n");
+                            System.out.println(Constants.UNMARKTASK + list.get(index).taskString() + Constants.NEWLINE);
                             printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
-                            System.out.println(LINE + "    Task index is not in the list\n" + LINE);
+                            System.out.println(Constants.INVALIDINDEX);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println(LINE + "    Invalid tasks.Task\n" + LINE);
+                            System.out.println(Constants.INVALIDTASK);
                         }
                         break;
 
-                    case "MARK":
+                    case Constants.MARK:
                         try {
                             index = Integer.parseInt(input.getSplitInput()[0]);
                             icon = list.get(index).getStatusIcon();
-                            if (icon.equals("X")) {
-                                System.out.println(LINE + "    This task has already been marked.\n" + LINE);
+                            if (icon.equals(Constants.COMPLETE)) {
+                                System.out.println(Constants.ALREADYMARKED);
                                 break;
                             }
                             list.get(index).markAsDone();
                             remainingTasks -= 1;
-                            System.out.println(LINE + TAB + "Nice! I've marked this task as done:\n" + TAB +
-                                    "   " + list.get(index).taskString() + "\n");
+                            System.out.println(Constants.MARKTASK + list.get(index).taskString() + Constants.NEWLINE);
                             printRemainingTasks(remainingTasks);
                         } catch (NullPointerException e) {
-                            System.out.println(LINE + "    Task index is not in the list\n" + LINE);
+                            System.out.println(Constants.INVALIDINDEX);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println(LINE + "    Invalid tasks.Task\n" + LINE);
+                            System.out.println(Constants.INVALIDTASK);
                         }
                         break;
 
-                    case "DELETE":
+                    case Constants.DELETE:
                         try {
                             index = Integer.parseInt(input.getSplitInput()[0]);
                             icon = list.get(index).getStatusIcon();
-                            if (icon.equals(" ")) {
+                            if (icon.equals(Constants.INCOMPLETE)) {
                                 remainingTasks -= 1;
                             }
-                            System.out.println(LINE + TAB + "I've deleted this task from the list:\n" + TAB +
-                                    "   " + list.get(index).taskString() + "\n");
+                            System.out.println(Constants.DELETETASK + list.get(index).taskString() + Constants.NEWLINE);
                             list.remove(index);
                             printRemainingTasks(remainingTasks);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println(LINE + "    Invalid tasks.Task\n" + LINE);
+                            System.out.println(Constants.INVALIDTASK);
                         } catch (IndexOutOfBoundsException e) {
-                            System.out.println(LINE + "    Task index is not in the list\n" + LINE);
+                            System.out.println(Constants.INVALIDINDEX);
                         }
                         break;
 
-                    case "TODO":
+                    case Constants.TODO:
                         todoCommand(input, remainingTasks);
                         break;
 
-                    case "DEADLINE":
+                    case Constants.DEADLINE:
                         deadlineCommand(input, remainingTasks);
                         break;
 
-                    case "EVENT":
+                    case Constants.EVENT:
                         eventCommand(input, remainingTasks);
                         break;
 
-                    case "HELP":
-                        System.out.println(LINE + commandList + LINE);
+                    case Constants.HELP:
+                        System.out.println(Constants.HELPMESSAGE);
                         break;
 
-                    case "INVALID":
+                    case Constants.INVALID:
                         if (userInput.trim().isEmpty()) {
-                            System.out.println(LINE + "    Input is empty. Use \"/help\" command to view the list of commands\n" + LINE);
+                            System.out.println(Constants.EMPTYINPUT);
                         } else {
-                            System.out.println(LINE + "    Your input is invalid. Use the \"/help\" command to view the list of commands.\n" + LINE);
+                            System.out.println(Constants.INVALIDINPUT);
                         }
                         break;
 
-                    case "BYE":
-                        System.out.println(LINE + TAB + EXIT + LINE);
+                    case Constants.BYE:
+                        System.out.println(Constants.BYEMESSAGE);
                         writeFile();
                         return;
                 }
             } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                System.out.println(LINE + "    Invalid task index format\n" + LINE);
+                System.out.println(Constants.INVALIDINDEXFORMAT);
             }
             writeFile();
         }
@@ -208,21 +180,21 @@ public class Aragorn {
 
     private static void listCommand(int remainingTasks) {
         if (list.isEmpty()) {
-            System.out.println(LINE + "    List is empty. Add tasks to view them here.\n" + LINE);
+            System.out.println(Constants.EMPTYLIST);
             return;
         }
-        System.out.println(LINE);
-        System.out.println("    Here are the tasks in your list: ");
+        System.out.println(Constants.LINE);
+        System.out.println(Constants.CURRENTLIST);
         for (int i = 0; i < list.size(); i += 1) {
-            System.out.println(TAB + (i + 1) + ". " + list.get(i).taskString());
+            System.out.println(Constants.TAB + (i + 1) + Constants.DOT + list.get(i).taskString());
         }
-        System.out.println("\n");
+        System.out.println(Constants.NEWLINE);
         printRemainingTasks(remainingTasks);
     }
 
     private static void readFile() throws IOException {
         try {
-            List<String> entries = FileHandler.readFile("./ip/data/AragornList.txt");
+            List<String> entries = FileHandler.readFile(Constants.FILEPATH);
             list.clear();
 
             for (String entry : entries) {
@@ -234,45 +206,49 @@ public class Aragorn {
                 return;
             }
 
-            System.out.println("    Here are the tasks in your list: ");
+            System.out.println(Constants.FILEREADLIST);
             for (int i = 0; i < list.size(); i += 1) {
-                System.out.println(TAB + (i + 1) + ". " + list.get(i).taskString());
+                System.out.println(Constants.TAB + (i + 1) + Constants.DOT + list.get(i).taskString());
             }
          } catch (IOException e) {
-            System.out.println("No file found! Creating new file.");
+            System.out.println(Constants.NOFILE);
         }
     }
 
     private static Task formatEntry(String entry) {
         Task newTask;
         try {
-            String[] formattedEntry = entry.split("\\|");
+            String[] formattedEntry = entry.split(Constants.BAR);
             String taskType = formattedEntry[0].toUpperCase();
-            boolean done = formattedEntry[1].equals("1");
+            boolean done = formattedEntry[1].equals(Constants.ONE);
             switch (taskType) {
-                case "TODO":
+                case Constants.TODO:
                     newTask = new ToDo(formattedEntry[2], done);
 
                     break;
 
-                case "DEADLINE":
+                case Constants.DEADLINE:
                     newTask = new Deadline(formattedEntry[2], done, formattedEntry[3]);
                     break;
 
-                case "EVENT":
+                case Constants.EVENT:
                     newTask = new Event(formattedEntry[2], done, formattedEntry[3], formattedEntry[4]);
                     break;
 
                 default:
-                    System.out.println("Task type error: " + taskType);
-                    return null;
+                    return taskTypeError(taskType);
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("File Error!");
+            System.out.println(Constants.FILEERROR);
             return null;
         }
         return newTask;
+    }
+
+    private static Task taskTypeError(String taskType) {
+        System.out.println(Constants.TASKTYPEERROR + taskType);
+        return null;
     }
 
     private static void writeFile() {
@@ -281,19 +257,20 @@ public class Aragorn {
             for (Task newTask : list) {
                 formattedEntries.add(newTask.toFileString());
             }
-            FileHandler.writeFile("./ip/data/AragornList.txt", formattedEntries);
+            FileHandler.writeFile(Constants.FILEPATH, formattedEntries);
         } catch (IOException e) {
-            System.out.println("Error writing file: " + e.getMessage());
+            System.out.println(Constants.FILEWRITEERROR + e.getMessage() + Constants.NEWLINE + Constants.LINE);
         }
     }
 
     private static void printAddTask(Task list) {
-        System.out.println(LINE + "    Got it. I've added this task:");
-        System.out.println(TAB + list.taskString() + "\n");
+        System.out.println(Constants.ADDEDTASK);
+        System.out.println(Constants.TAB + list.taskString() + Constants.NEWLINE);
     }
 
     private static void printRemainingTasks(int remainingTasks) {
-        System.out.println("    You have " + remainingTasks + " / " + Aragorn.list.size() + " remaining tasks in the list.\n" + LINE);
+        int size = list.size();
+        Constants.printRemainingTasks(remainingTasks, size);
     }
 
 }
