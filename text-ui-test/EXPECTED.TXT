@@ -80,5 +80,27 @@
 	2.[D][ ] 2113T assignment (by: next week lecture)
 	--------------------------------------------------
 	--------------------------------------------------
+	Got it. I've added this task:
+		[D][ ] homework (by: SUNDAY, Jun 2 2024)
+	You now have 3 tasks in the list.
+	--------------------------------------------------
+	--------------------------------------------------
+	Got it. I've added this task:
+		[E][ ] concert (from: MONDAY, May 6 2024 to: SUNDAY, Jul 7 2024)
+	You now have 4 tasks in the list.
+	--------------------------------------------------
+	--------------------------------------------------
+	Here are the tasks in your list:
+	1.[T][ ] eat ramen
+	2.[D][ ] 2113T assignment (by: next week lecture)
+	3.[D][ ] homework (by: SUNDAY, Jun 2 2024)
+	4.[E][ ] concert (from: MONDAY, May 6 2024 to: SUNDAY, Jul 7 2024)
+	--------------------------------------------------
+	--------------------------------------------------
+	Here are the tasks occuring on Jun 2 2024:
+	1.[D][ ] homework (by: SUNDAY, Jun 2 2024)
+	2.[E][ ] concert (from: MONDAY, May 6 2024 to: SUNDAY, Jul 7 2024)
+	--------------------------------------------------
+	--------------------------------------------------
 	Bye! Hope to see you again soon!
 	--------------------------------------------------
