@@ -15,6 +15,8 @@ Data will be stored in a task list and saved locally on your computer.
     - [Find tasks by description: `find`](#find-tasks-by-description-find)
     - [Exit the program: `bye`](#exit-the-program-bye)
 
+<br>
+
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest `jeff.jar` from [here](https://github.com/awesomesjh/ip/releases/tag/A-Release)
@@ -28,6 +30,8 @@ and use the `java -jar jeff.jar` command to run the application.
    - `delete 3`: Deletes the 3rd task shown in the current task list.
    - `bye`: Exit the app.
 6. Refer to the [Features](#features) below for details of each command.
+
+<br>
 
 ## Features
 **Notes about command format:**
@@ -62,6 +66,7 @@ Format: `todo [description]`
 Example:
 - `todo go for a walk`: 
 Adds a todo task with the description `go for a walk` to the task list.
+
 ```
 Got it. I've added this task:
   [T][ ] go for a walk
@@ -82,6 +87,7 @@ Format: `deadline [description] /by [yyyy-mm-dd]`
 Example:
 - `deadline project /by 2024-03-08`: 
 Adds a deadline task with the description `project` and deadline `2024-03-08` to the task list.
+
 ```
 Got it. I've added this task:
   [D][ ] project (by: Mar 8 2024)
@@ -102,6 +108,7 @@ Format: `event [description] /from [from] /to [to]`
 Example:
 - `event exam /from 9am /to 11am`:
 Adds an event task with the description `exam`, start time `9am` and end time `11am` to the task list.
+
 ```
 Got it. I've added this task:
   [E][ ] exam (from: 9am to: 11am)
@@ -120,6 +127,7 @@ Format: `mark [index]`
 Example:
 - `mark 1`:
 Marks the 1st task in the current task list.
+
 ```
 Nice! I've marked this task as done:
   [T][X] go for a walk
@@ -137,6 +145,7 @@ Format: `unmark [index]`
 Example:
 - `unmark 1`:
 Unmarks the 1st task in the current task list.
+
 ```
 OK, I've marked this task as not done yet:
   [T][ ] go for a walk
@@ -154,6 +163,7 @@ Format: `delete [index]`
 Example:
 - `delete 1`:
 Deletes the 1st task from the current task list.
+
 ```
 Noted. I've removed this task:
   [T][ ] go for a walk
@@ -171,6 +181,7 @@ Format: `find [text]`
 Example:
 - `find exam`:
 List out all tasks with the description containing the text `exam`.
+
 ```
 Here are the matching tasks in your list:
 1.[E][ ] exam (from: 9am to: 11am)
