@@ -4,6 +4,7 @@ import cody.tasks.Deadline;
 import cody.tasks.Event;
 import cody.tasks.Task;
 import cody.tasks.Todo;
+import cody.Ui;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -13,23 +14,21 @@ import java.io.FileNotFoundException;
 
 public class TaskManager {
     ArrayList<Task> tasks;
-    private static final String BORDER = "______________________________________________________________\n";
 
     private void printList() {
-        System.out.print(BORDER + " Here are the tasks in your list:\n");
+        String listString = " Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println(" " + (i + 1) + ". [" + task.getTaskType() + "] "
+            listString += " " + (i + 1) + ". [" + task.getTaskType() + "] "
                     + "[" + task.getStatusIcon() + "] "
-                    + task.getDescription());
+                    + task.getDescription() + "\n";
         }
-        System.out.print(BORDER);
+        Ui.printMessage(listString);
     }
 
     private void markTask(int index) {
-        System.out.print(BORDER + " Good job! I've marked this task as done:\n"
-                + " [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription() + "\n"
-                + BORDER);
+        Ui.printMessage(" Good job! I've marked this task as done:\n"
+                + " [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription() + "\n");
     }
 
     private void handleMarking(String input) {
@@ -40,11 +39,9 @@ public class TaskManager {
             tasks.get(index).markTask(isDone);
             markTask(index);
         } catch (NumberFormatException e) {
-            System.out.print(BORDER + " Task number is invalid\n"
-                    + " Please enter a valid number\n" + BORDER);
+            System.err.println(" Task number is invalid. Please enter a valid number");
         } catch (IndexOutOfBoundsException e) {
-            System.out.print(BORDER + " Task number is out of range\n"
-                    + " Please enter a number between 1 and " + tasks.size() + "\n" + BORDER);
+            System.err.println(" Task number is out of range. Please enter a number between 1 and " + tasks.size());
         }
     }
 
@@ -54,7 +51,7 @@ public class TaskManager {
             tasks.add(task);
             printTask(task);
         } catch (CodyException e) {
-            System.out.print(BORDER + e.getMessage() + BORDER);
+            System.err.println(e.getMessage());
         }
     }
 
@@ -113,10 +110,9 @@ public class TaskManager {
 
 
     private void printTask(Task task) {
-        System.out.print(BORDER + " Got it. I've added this task:\n"
+        Ui.printMessage(" Got it. I've added this task:\n"
                 + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n"
-                + BORDER);
+                + " Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
     private void deleteTask(String input) {
@@ -136,10 +132,9 @@ public class TaskManager {
     }
 
     private void printDeleteTask(Task task) {
-        System.out.print(BORDER + " Noted. I've removed this task:\n"
+        Ui.printMessage(" Noted. I've removed this task:\n"
                 + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n"
-                + BORDER);
+                + " Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
     public void loadTasksFromFile(String filePath) {
