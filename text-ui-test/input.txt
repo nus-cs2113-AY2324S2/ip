@@ -1,0 +1,12 @@
+list
+list
+todo respond to S
+mark 2
+event buy groceries /from Monday 4pm /to 6pm
+mark 2
+unmark 2
+deadline return library book /by 1st March
+list
+bye
+
+
