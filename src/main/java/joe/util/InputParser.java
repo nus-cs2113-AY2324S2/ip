@@ -10,6 +10,10 @@ import joe.command.ListCommand;
 import joe.command.ToggleMarkCommand;
 import joe.task.TaskType;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class InputParser {
     protected static final String FLAG_INDICATOR = "/";
     protected static final String DEADLINE_FLAG =  FLAG_INDICATOR + "by";
@@ -24,7 +28,7 @@ public class InputParser {
     protected static final String NEW_EVENT_COMMAND = "event";
     protected static final String DELETE_COMMAND = "delete";
     protected static final int INVALID_TASK_NUMBER = -69;
-
+    protected static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     public static Command getCommand(String input) {
         Command command;
         String commandName = getCommandName(input);
@@ -89,22 +93,39 @@ public class InputParser {
         return message.substring(0, message.indexOf(FLAG_INDICATOR)).trim();
     }
 
-    public static String getDeadlineTime(String message) throws JoeException{
+    public static LocalDateTime getDeadlineTime(String message) throws JoeException{
         if (!message.contains(DEADLINE_FLAG)) {
             throw new JoeException();
         }
-        return message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
+        String time =  message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
+
+        LocalDateTime deadlineTime;
+        try {
+            deadlineTime = LocalDateTime.parse(time, INPUT_TIME_FORMAT);
+        } catch (DateTimeException e) {
+            throw new JoeException();
+        }
+
+        return deadlineTime;
     }
 
-    public static String[] getEventTime(String message) throws JoeException {
+    public static LocalDateTime[] getEventTime(String message) throws JoeException {
         if (!message.contains(EVENT_START_FLAG) || !message.contains(EVENT_END_FLAG)) {
             throw new JoeException();
         }
-        String[] eventDurations = new String[2];
+
         int startIndex = message.indexOf(EVENT_START_FLAG);
         int endIndex = message.indexOf(EVENT_END_FLAG);
-        eventDurations[0] = message.substring(startIndex, endIndex).replace(EVENT_START_FLAG, "").trim();
-        eventDurations[1] = message.substring(endIndex).replace(EVENT_END_FLAG, "").trim();
+        String startDate = message.substring(startIndex, endIndex).replace(EVENT_START_FLAG, "").trim();
+        String endDate = message.substring(endIndex).replace(EVENT_END_FLAG, "").trim();
+
+        LocalDateTime[] eventDurations = new LocalDateTime[2];
+        try {
+            eventDurations[0] = LocalDateTime.parse(startDate, INPUT_TIME_FORMAT);
+            eventDurations[1] = LocalDateTime.parse(endDate, INPUT_TIME_FORMAT);
+        } catch (DateTimeException e) {
+            throw new JoeException();
+        }
         return eventDurations;
     }
 }

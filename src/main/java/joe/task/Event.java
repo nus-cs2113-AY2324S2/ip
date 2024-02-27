@@ -1,16 +1,21 @@
 package joe.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     protected static final String EVENT_SYMBOL = "[E]";
-    protected String startDate;
-    protected String endDate;
+    protected LocalDateTime startDate;
+    protected LocalDateTime endDate;
+    protected static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy hh:mma");
+
 
     @Override
     public TaskType getTaskType() {
         return TaskType.EVENT;
     }
 
-    public Event(String taskName, String startDate, String endDate) {
+    public Event(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskName);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -18,6 +23,7 @@ public class Event extends Task {
 
     @Override
     public String getTaskStatus() {
-        return EVENT_SYMBOL + super.getTaskStatus() + " (from: " + startDate + " to: " + endDate + ")";
+        return EVENT_SYMBOL + super.getTaskStatus()
+                + " (from: " + startDate.format(FORMATTER) + " to: " + endDate.format(FORMATTER) + ")";
     }
 }
