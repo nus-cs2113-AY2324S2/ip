@@ -63,6 +63,9 @@ public class Duke {
             case "delete":
                 tasks.deleteTask(inputs);
                 break;
+            case "find":
+                tasks.findTask(inputs);
+                break;
             default:
                 // raise invalid instruction
                 try {

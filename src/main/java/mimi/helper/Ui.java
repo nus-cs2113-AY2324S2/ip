@@ -61,17 +61,22 @@ public class Ui {
         return indexNumber + ". " + task;
     }
 
-    private static void printMessage(Task task, ArrayList<Task> taskList){
+    private static void printMessage(Task task, ArrayList<Task> taskList) {
         System.out.println("\t" + formatTask(task));
         System.out.println("Now you have " + Integer.toString(taskList.size()) + " tasks in the list");
     }
 
 
     // PUBLIC ACCESSIBLE METHODS FOR PRINTING
-    public void printTasks(ArrayList<Task> taskList){
-        for (Task t : taskList) {
-            System.out.println(formatTask(t, taskList.indexOf(t)));
+    public static void printTasks(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            System.out.println("\u001B[31mYou have no tasks in your list\u001B[0m");
+        } else {
+            for (Task t : taskList) {
+                System.out.println(formatTask(t, taskList.indexOf(t)));
+            }
         }
+
     }
 
     public static void printMarkTask(ArrayList<Task> list, int index) {
@@ -85,6 +90,13 @@ public class Ui {
         System.out.println("-------------------------------------------");
         System.out.println("OK, I've marked this task as not done yet");
         System.out.println(formatTask(list.get(index), index));
+        System.out.println("-------------------------------------------");
+    }
+
+    public static void printTaskFound(ArrayList<Task> taskFound) {
+        System.out.println("-------------------------------------------");
+        System.out.println("Here are the matching tasks in your list:");
+        printTasks(taskFound);
         System.out.println("-------------------------------------------");
     }
 
