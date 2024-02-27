@@ -71,6 +71,11 @@ public class UserUi {
         }
     }
 
+    public void printFindTask() {
+        System.out.println("\tHere are the matching tasks in the list:");
+    }
+
+
     public void printErrorEmptyParameter() {
         System.out.println("\tEmpty parameters detected! Please check usage above fill in all fields");
     }
@@ -121,5 +126,9 @@ public class UserUi {
 
     public void printUsageDelete() {
         System.out.println("\tDelete command syntax: delete <task id>");
+    }
+
+    public void printUsageFind() {
+        System.out.println("\tFind command syntax: find <keyword>");
     }
 }
