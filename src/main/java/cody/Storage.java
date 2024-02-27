@@ -50,7 +50,7 @@ public class Storage {
             }
             System.out.println("You have " + tasks.size() + " tasks saved in your list. Enter 'list' to view them");
         } catch (FileNotFoundException e) {
-            System.out.println("You have no saved tasks. A new task list will be created for you");
+            System.out.println("You have no tasks saved. A new task list will be created for you");
         }
     }
 
