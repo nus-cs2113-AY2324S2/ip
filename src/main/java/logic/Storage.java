@@ -33,7 +33,6 @@ public class Storage {
             }
         } catch (IOException e) {
             throw new IOException();
-
         }
         this.dataFile = new File(filePath);
         this.taskManager = new TaskManager();
@@ -114,26 +113,18 @@ public class Storage {
 
     private String processData(Task currTask) {
         String data;
-        String doneStatusAlt;
+        String doneStatusOneAndZero;
         if (currTask.getDoneStatus().equals("X")) {
-            doneStatusAlt = "1";
+            doneStatusOneAndZero = "1";
         } else {
-            doneStatusAlt = "0";
+            doneStatusOneAndZero = "0";
         }
-        data = currTask.getType() + ", " + doneStatusAlt + ", " + currTask.getName();
+        data = currTask.getType() + ", " + doneStatusOneAndZero + ", " + currTask.getName();
         if (currTask.getType().equals("D")) {
-            data = data + ", " + appendByDateTimeToData((Deadline) currTask);
+            data = data + ", " + ((Deadline) currTask).getBy();
         } else if (currTask.getType().equals("E")) {
-            data = data + ", " + appendFromToDateTimeToData((Event) currTask);
+            data = data + ", " + ((Event) currTask).getFrom() + ", " + ((Event) currTask).getTo();
         }
         return data;
-    }
-
-    public String appendByDateTimeToData(Deadline data) {
-        return data.getBy();
-    }
-
-    public String appendFromToDateTimeToData(Event data) {
-        return (data.getFrom() + ", " + data.getTo());
     }
 }
