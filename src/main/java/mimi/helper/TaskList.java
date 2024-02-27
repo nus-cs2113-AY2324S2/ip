@@ -91,6 +91,18 @@ public class TaskList {
         }
     }
 
+    public void findTask (String [] inputs){
+        ArrayList<Task> taskFound = new ArrayList<>();
+        String keyword = inputs[1];
+        for(Task t: taskList){
+            if (t.getName().contains(keyword)){
+                taskFound.add(t);
+            }
+        }
+        Ui.printTaskFound(taskFound);
+    }
+
+
     public static void appendIntoTaskList(Task newTask) {
         taskList.add(newTask);
     }
