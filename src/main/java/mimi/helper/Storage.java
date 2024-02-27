@@ -14,23 +14,30 @@ import java.util.Scanner;
 
 import static mimi.helper.TaskList.appendIntoTaskList;
 
+/**
+ * This class is used to handle the loading and saving of tasks to the /data/mimi.logs file.*
+ *
+ * @author Justin
+ * @version 0.2
+ * @since 0.2
+ */
 public class Storage {
 
-    private String filePath;
-    public final static String FILE_DELIMINITER = "|";
+    private final String filePath;
+    public final static String FILE_DELIMITER = "|";
     public final static String DEADLINE_DELIMITER = "/by";
     public Storage (String filePath){
         this.filePath = filePath;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
+    /**
+     * This method creates a scanner object to read the file.
+     *
+     * @param filePath the path of the file to be read
+     * @return a scanner object to read the file
+     * @throws MimiException.LoadError if the file/directory is not found
+     */
     private static Scanner createFileScanner(String filePath) throws MimiException.LoadError {
         try{
             File file = new File(filePath);
@@ -43,11 +50,17 @@ public class Storage {
         }
     }
 
-
+    /**
+     * This method is used to check if the task parameters are in the correct format.
+     *
+     * @param task  a String array in the form of {taskType, taskStatus, taskName}
+     * @return      a String array in the form of {taskType, taskStatus, taskName}
+     * @throws MimiException.IncorrectFormat if the task is in the wrong format
+     * @throws MimiException.FileCorrupted if the file is corrupted
+     */
 
     private static String[] processTask(String[] task) throws
             MimiException.IncorrectFormat,
-            MimiException.InsufficientParameters,
             MimiException.FileCorrupted{
 
         if (task.length < 3) {
@@ -64,12 +77,19 @@ public class Storage {
         taskDetails[2] = task[2]; // taskName
         return taskDetails;
     }
+
+    /**
+     * Loads the /data/mimi.logs file, processes the tasks, and
+     * adds them to a static taskList in the TaskList class.
+     *
+     * @throws MimiException.FileCorrupted if the file is corrupted and cannot be properly read or parsed
+     **/
     public void loadFile() throws MimiException.FileCorrupted {
         try {
             Scanner fileScanner = createFileScanner(this.filePath);
 
             while (fileScanner.hasNext()) {
-                String[] task = fileScanner.next().split("\\" + FILE_DELIMINITER);
+                String[] task = fileScanner.next().split("\\" + FILE_DELIMITER);
                 String[] taskDetails = processTask(task);
                 String taskType = taskDetails[0];
                 String taskStatus = taskDetails[1];
@@ -103,6 +123,13 @@ public class Storage {
         }
     }
 
+    /**
+     * This method is called everytime a user make changes to the static taskList object in the TaskList class.
+     * It saves the taskList to the /data/mimi.logs file.
+     *
+     * @param taskList  the list of tasks to be saved
+     * @param filePath  the path of the file to be saved
+     */
     public void saveFile(ArrayList<Task> taskList, String filePath) {
         try {
             File file = new File(filePath);
