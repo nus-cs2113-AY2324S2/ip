@@ -9,6 +9,9 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
 
+/**
+ * Class used to parse user input when adding tasks
+ */
 public class Parser {
     public static final int TODO_LENGTH= 5;
     public static final int DEADLINE_LENGTH = 9;
@@ -17,12 +20,26 @@ public class Parser {
     public static final int FROM_LENGTH = 6;
     public static final int TO_LENGTH = 4;
 
+    /**
+     * Returns the ToDo-type task specified in the user input. Determines the name of the task from the input
+     *
+     * @param input The user input specifying the task
+     * @return ToDo-type task
+     */
     public static ToDo processToDo(String input) {
         String taskName;
         taskName = input.substring(TODO_LENGTH);
         return new ToDo(taskName);
     }
 
+    /**
+     * Returns the Deadline-type task specified in the user input. Determines the name and due date/time of the
+     * task from the input
+     *
+     * @param input The user input specifying the task
+     * @return Deadline-type task
+     * @throws Exception If task lacks a name
+     */
     public static Deadline processDeadline(String input) throws Exception {
         if (!(input.contains("/by "))) {
             throw new DeadlineNoByDateTimeException();
@@ -39,6 +56,14 @@ public class Parser {
         return new Deadline(taskName, byWhen);
     }
 
+    /**
+     * Returns the Event-type task specified in the user input. Determines the name, start date/time and
+     * end date/time of the task rom the input
+     *
+     * @param input The user input specifying the task
+     * @return Event-type task
+     * @throws Exception If task lacks a name
+     */
     public static Event processEvent(String input) throws Exception {
         if (!(input.contains("/from "))) {
             throw new EventNoFromDateTimeException();
