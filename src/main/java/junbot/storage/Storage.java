@@ -43,7 +43,7 @@ public class Storage {
         }
 
         Scanner s = new Scanner(f);
-        int counter = 1;
+        int counter = 0;
 
         while (s.hasNext()){
             String[] commands = s.nextLine().split("-");
