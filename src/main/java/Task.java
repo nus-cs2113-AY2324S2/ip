@@ -1,41 +1,43 @@
 public class Task {
 
-  protected String description;
-  protected boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-  public Task(String description) {
-        this.description=description;
-        this.isDone=false;
-  }
+    /**
+     * Constructor for Task
+     *
+     * @param description task description
+     */
+    public Task(String description) {
+        this.description = description;
+        isDone = false;
+    }
 
-  public String getDescription() {
-    return this.description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  /*
-  public void setDescription(String description) {
-    this.description=description;
-  }
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
 
-  public boolean getIsDone() {
-        return this.isDone;
-  }*/
+    /**
+     *  Returns string specifying completion status of task in array list
+     *
+     * @return string "[X]" or "[ ]" depending on whether instance member isDone contains true or false
+     */
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+    }
 
-  public void markAsDone() {
-    this.isDone=true;
-  }
-
-  public void markAsNotDone() {
-    this.isDone=false;
-  }
-
-  public String getStatusIcon() {
-    return (isDone ? "[X]" : "[ ]"); // mark done task with X
-  }
-
-  public String toString() {
-    return getStatusIcon() + getDescription();
-  }
+    /**
+     * Returns task description and whether it has been completed or not
+     *
+     * @return completion status of task and task description as string
+     */
+    public String toString() {
+        return getStatusIcon() + getDescription();
+    }
 
 
 }

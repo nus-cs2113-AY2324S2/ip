@@ -1,24 +1,27 @@
 public class Deadline extends Task {
 
-  protected String by;
+    protected String by;
 
-  public Deadline(String description, String by) {
-    super(description);
-    this.by = by;
-  }
+    /**
+     * Constructor for Deadline
+     *
+     * @param description task description
+     * @param by deadline by which to complete task
+     */
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
 
-  /*
-  public String getBy() {
-    return this.by;
-  }
-
-  public String setBy() {
-    return this.by;
-  }*/
-
-  @Override
-  public String toString() {
-    return "[D]" + super.toString() + " (by: " + this.by + ")";
-  }
+    /**
+     * Returns task description, whether it has been completed , label for Deadline subclass
+     * and its deadline
+     *
+     * @return [D] label, completion status of task, task description, task deadline as strin
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
+    }
 
 }
