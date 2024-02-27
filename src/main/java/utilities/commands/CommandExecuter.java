@@ -19,7 +19,7 @@ public class CommandExecuter {
 
             switch (commandType) {
                 case Constants.LIST:
-                    DisplayList.listCommand();
+                    DisplayList.listCommand(Aragorn.getList());
                     Constants.printRemainingTasks(remainingTasks, Aragorn.getList().size());
                     break;
 
@@ -49,6 +49,10 @@ public class CommandExecuter {
 
                 case Constants.HELP:
                     System.out.println(Constants.HELPMESSAGE);
+                    break;
+
+                case Constants.FIND:
+                    FindTasks.findTasks(input, Aragorn.getList());
                     break;
 
                 case Constants.INVALID:

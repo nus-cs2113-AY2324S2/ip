@@ -25,7 +25,8 @@ public class FileReader {
                 return;
             }
 
-            DisplayList.listCommand();
+            DisplayList.listCommand(Aragorn.getList());
+            System.out.println(Constants.LINE);
          } catch (IOException e) {
             System.out.println(Constants.NOFILE);
         }

@@ -27,6 +27,10 @@ public class Task {
         return description;
     }
 
+    public String getDescriptionOnly() {
+        return description;
+    }
+
     public void setDone(boolean done) {
         isDone = done;
     }
