@@ -1,5 +1,8 @@
 package joe.task;
 
+/**
+ * ToDo subclass that inherits from Task
+ */
 public class ToDo extends Task {
     protected static final String TODO_SYMBOL = "[T]";
 

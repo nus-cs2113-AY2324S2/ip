@@ -9,6 +9,9 @@ import joe.task.TaskManager;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main class of the chatbot Joe
+ */
 public class Joe {
     protected static TaskManager taskManager;
 

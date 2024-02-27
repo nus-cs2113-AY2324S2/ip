@@ -12,6 +12,9 @@ import joe.JoeException;
 import joe.task.TaskManager;
 import joe.task.Task;
 
+/**
+ * Handles all file IO reading and writing
+ */
 public class FileManager {
     protected static final String DATA_PATH = "./data/";
     protected static final String FILE_NAME = "tasklist.txt";

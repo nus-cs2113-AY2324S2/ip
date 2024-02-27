@@ -5,6 +5,10 @@ import joe.task.TaskManager;
 import joe.task.TaskType;
 import joe.util.Printer;
 
+/**
+ * Command indicating a new task command, implements the Command interface.
+ * New tasks include todo, deadline and event
+ */
 public class NewTaskCommand implements Command {
     protected String arguments;
     protected TaskType type;
@@ -14,6 +18,11 @@ public class NewTaskCommand implements Command {
         this.arguments = message;
     }
 
+    /**
+     * Executes the add command according to the instance's TaskType
+     *
+     * @param taskManager the TaskManager instance used by Joe
+     */
     @Override
     public void executeCommand(TaskManager taskManager) {
         try {

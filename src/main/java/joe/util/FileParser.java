@@ -10,6 +10,9 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parser for tasks and data from save text files
+ */
 public class FileParser {
     protected static final char TODO_SYMBOL = 't';
     protected static final char DEADLINE_SYMBOL = 'd';

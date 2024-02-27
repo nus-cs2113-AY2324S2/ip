@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Manages all command actions for the tasks in the task lists
+ */
 public class TaskManager {
     protected ArrayList<Task> tasks;
     protected int numberOfTasks;
