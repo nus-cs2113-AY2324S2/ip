@@ -1,6 +1,6 @@
 package tasks;
 
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone;
 
@@ -38,9 +38,7 @@ public class Task {
         isDone = false;
     }
 
-    public String getType() {
-        return "Task";
-    }
+    public abstract String getType();
 
     @Override
     public String toString() {
