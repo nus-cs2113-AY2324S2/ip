@@ -66,7 +66,7 @@ Format: `delete --INDEX--`
 
 ### Finding a task: `find`
 Lists all tasks that matches or contains a keyword\
-Format: `find --KEYWORD--`\
+Format: `find --KEYWORD--`
 - `KEYWORD` is case-sensitive, e.g. `homework` does not match `Homework`
 
 Example: `find assignment`
