@@ -61,6 +61,11 @@ public class Ui {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
+    /**
+     * Reads a command input from the user.
+     *
+     * @return The command inputted by the user.
+     */
     public String readCommand() {
         return userInputScanner.nextLine();
     }
