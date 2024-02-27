@@ -4,9 +4,11 @@ import misty.List;
 import misty.Storage;
 import misty.UserUi;
 import misty.exception.EmptyParameterException;
+import java.util.regex.Pattern;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_STRING = "deadline";
+    public static final Pattern COMMAND_FORMAT = Pattern.compile("(?<taskName>.*)\\s/by\\s(?<by>.*)");
     protected String taskName;
     protected String by;
 

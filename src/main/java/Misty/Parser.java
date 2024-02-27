@@ -8,19 +8,13 @@ import java.util.regex.Pattern;
 public class Parser {
     private UserUi userUi;
 
-    private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
-    private static final Pattern DEADLINE_FORMAT = Pattern.compile("(?<taskName>.*)\\s/by\\s(?<by>.*)");
-    private static final Pattern EVENT_FORMAT =
-            Pattern.compile("(?<taskName>.*)\\s/from\\s(?<from>.*)\\s/to\\s(?<to>.*)");
-    private static final Pattern INDEX_FORMAT = Pattern.compile("(?<index>\\d+)");
-
     public Parser(UserUi userUi) {
         this.userUi = userUi;
     }
 
     public Command parseCommand(String userInput, List taskList) throws IllegalListIndexException,
             UnknownCommandException, InvalidParameterFormatException {
-        Matcher matcher = COMMAND_FORMAT.matcher(userInput);
+        Matcher matcher = Command.COMMAND_FORMAT.matcher(userInput);
         if(!matcher.matches()) {
             throw new UnknownCommandException();
         }
@@ -40,7 +34,7 @@ public class Parser {
             return new TodoCommand((arguments.trim()));
 
         case DeadlineCommand.COMMAND_STRING:
-            matcher = DEADLINE_FORMAT.matcher(arguments);
+            matcher = DeadlineCommand.COMMAND_FORMAT.matcher(arguments);
             if (!matcher.matches()) {
                 userUi.printUsageDeadline();
                 throw new InvalidParameterFormatException();
@@ -49,7 +43,7 @@ public class Parser {
             return new DeadlineCommand(matcher.group("taskName").trim(), matcher.group("by").trim());
 
         case EventCommand.COMMAND_STRING:
-            matcher = EVENT_FORMAT.matcher(arguments);
+            matcher = EventCommand.COMMAND_FORMAT.matcher(arguments);
             if (!matcher.matches()) {
                 userUi.printUsageEvent();
                 throw new InvalidParameterFormatException();
@@ -59,7 +53,7 @@ public class Parser {
                     matcher.group("to").trim());
 
         case MarkCommand.COMMAND_STRING:
-            matcher = INDEX_FORMAT.matcher(arguments.trim());
+            matcher = MarkCommand.COMMAND_FORMAT.matcher(arguments.trim());
             if (!matcher.matches()) {
                 userUi.printUsageMark();
                 throw new IllegalListIndexException();
@@ -69,7 +63,7 @@ public class Parser {
             return new MarkCommand(index);
 
         case UnmarkCommand.COMMAND_STRING:
-            matcher = INDEX_FORMAT.matcher(arguments.trim());
+            matcher = UnmarkCommand.COMMAND_FORMAT.matcher(arguments.trim());
             if (!matcher.matches()) {
                 userUi.printUsageUnmark();
                 throw new IllegalListIndexException();
@@ -79,7 +73,7 @@ public class Parser {
             return new UnmarkCommand(index);
 
         case DeleteCommand.COMMAND_STRING:
-            matcher = INDEX_FORMAT.matcher(arguments.trim());
+            matcher = DeleteCommand.COMMAND_FORMAT.matcher(arguments.trim());
             if (!matcher.matches()) {
                 userUi.printUsageDelete();
                 throw new IllegalListIndexException();

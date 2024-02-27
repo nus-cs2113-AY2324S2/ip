@@ -5,8 +5,11 @@ import misty.Storage;
 import misty.UserUi;
 import misty.exception.IllegalListIndexException;
 
+import java.util.regex.Pattern;
+
 public class UnmarkCommand extends Command{
     public static final String COMMAND_STRING = "unmark";
+    public static final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)");
     protected int index;
 
     public UnmarkCommand(int index) {

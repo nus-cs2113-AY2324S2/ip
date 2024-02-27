@@ -5,8 +5,11 @@ import misty.Storage;
 import misty.UserUi;
 import misty.exception.IllegalListIndexException;
 
+import java.util.regex.Pattern;
+
 public class DeleteCommand extends Command {
     public static final String COMMAND_STRING = "delete";
+    public static final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)");
     protected int index;
 
     public DeleteCommand(int index) {

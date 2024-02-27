@@ -5,8 +5,12 @@ import misty.Storage;
 import misty.UserUi;
 import misty.exception.EmptyParameterException;
 
+import java.util.regex.Pattern;
+
 public class EventCommand extends Command {
     public static final String COMMAND_STRING = "event";
+    public static final Pattern COMMAND_FORMAT =
+            Pattern.compile("(?<taskName>.*)\\s/from\\s(?<from>.*)\\s/to\\s(?<to>.*)");
     protected String taskName;
     protected String from;
     protected String to;
