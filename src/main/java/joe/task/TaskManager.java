@@ -18,11 +18,23 @@ public class TaskManager {
         numberOfTasks = 0;
     }
 
+    /**
+     * Adds a task to the array list
+     *
+     * @param t Task to add
+     */
     public void addTask(Task t) {
         tasks.add(t);
         numberOfTasks++;
     }
 
+    /**
+     * Adds a task to the array list accordingly from the user input.
+     *
+     * @param type Task type indicating the type of task to be added
+     * @param message User input arguments
+     * @throws JoeException if task to be added cannot be created, or the input arguments are invalid
+     */
     public void addTask(TaskType type, String message) throws JoeException {
         if (message.isEmpty()) {
             throw new JoeException();
@@ -60,6 +72,12 @@ public class TaskManager {
         saveList();
     }
 
+    /**
+     * Deletes a task from the array list
+     *
+     * @param taskNumber Index of the task to remove
+     * @throws JoeException if the task number is more than the size of the array list, or is a negative integer
+     */
     public void deleteTask(int taskNumber) throws JoeException {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
             throw new JoeException();
@@ -73,6 +91,9 @@ public class TaskManager {
         saveList();
     }
 
+    /**
+     * List all tasks currently in the array list
+     */
     public void listTasks() {
         Printer.printListMessage();
         for (int i = 0; i < numberOfTasks; i++) {
@@ -81,6 +102,12 @@ public class TaskManager {
         Printer.printHeaderLine();
     }
 
+    /**
+     * List all tasks currently in the array list that contains a keyword input by the user
+     *
+     * @param keyword a String containing the keyword to search for
+     * @throws JoeException if the input keyword is an empty string
+     */
     public void listTasksWithKeyword(String keyword) throws JoeException {
         if (keyword.isEmpty()){
             throw new JoeException();
@@ -101,6 +128,13 @@ public class TaskManager {
         Printer.printHeaderLine();
     }
 
+    /**
+     * Sets the mark status of a task accordingly
+     *
+     * @param taskNumber Index of the task to toggle
+     * @param isMark Boolean to determine to mark or unmark task
+     * @throws JoeException if the task number is more than the size of the array list, or is a negative integer
+     */
     public void toggleTaskMarkedStatus(int taskNumber, boolean isMark) throws JoeException {
         if (taskNumber > numberOfTasks || taskNumber <= 0) {
             throw new JoeException();
@@ -117,6 +151,9 @@ public class TaskManager {
         saveList();
     }
 
+    /**
+     * Saves the current list to the system. Prints error message if unable to save
+     */
     protected void saveList() {
         try {
             FileManager.saveData(tasks);

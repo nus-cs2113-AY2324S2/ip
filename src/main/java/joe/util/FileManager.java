@@ -17,6 +17,14 @@ public class FileManager {
     protected static final String FILE_NAME = "tasklist.txt";
     protected static final String SAVE_FILE_PATH = DATA_PATH + FILE_NAME;
 
+    /**
+     * Loads and reads data from a designated text file from the path specified in the class.
+     * Parses each line of data into a task subclass and added to a task list in the TaskManager class.
+     * If data is corrupted, prints to the UI the number of corrupted lines.
+     *
+     * @param taskManager TaskManager instance to store all parsed tasks
+     * @throws FileNotFoundException if specified path is unable to be opened or found
+     */
     public static void loadData(TaskManager taskManager) throws FileNotFoundException {
         File directory = new File(DATA_PATH);
         if (!directory.exists()) {
@@ -47,6 +55,12 @@ public class FileManager {
         s.close();
     }
 
+    /**
+     * Saves all tasks currently in the task list by writing into a text file.
+     *
+     * @param tasks List of tasks to save
+     * @throws IOException if text file cannot be opened or accessed for whatever reason
+     */
     public static void saveData(ArrayList<Task> tasks) throws IOException {
         File saveFile = new File(SAVE_FILE_PATH);
         if (!saveFile.createNewFile()) {

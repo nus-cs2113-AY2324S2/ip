@@ -31,6 +31,13 @@ public class InputParser {
     protected static final String FIND_COMMAND = "find";
     protected static final int INVALID_TASK_NUMBER = -69;
     protected static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+    /**
+     * Returns an executable command according to the input command word
+     *
+     * @param input Input string of user
+     * @return a Command to execute
+     */
     public static Command getCommand(String input) {
         Command command;
         String commandName = getCommandName(input);
@@ -77,6 +84,13 @@ public class InputParser {
         return command;
     }
 
+    /**
+     * Returns the command name in the user input,
+     * which is separated by first whitespace in the user input.
+     *
+     * @param input User input
+     * @return a String of the command name
+     */
     public static String getCommandName(String input) {
         if (!input.contains(" ")) {
             return input;
@@ -84,6 +98,13 @@ public class InputParser {
         return input.substring(0, input.indexOf(" "));
     }
 
+    /**
+     * Returns a string containing the arguments in the user input,
+     * which is the string of characters after the first whitespace
+     *
+     * @param input User input
+     * @return a String containing the arguments of the input
+     */
     public static String getArguments(String input) {
         if (!input.contains(" ")) {
             return "";
@@ -91,6 +112,13 @@ public class InputParser {
         return input.substring(input.indexOf(" ")).trim();
     }
 
+    /**
+     * Returns the name of a task from a string containing the user arguments from the user input
+     *
+     * @param message Arguments from the user input
+     * @return a String of a task name
+     * @throws JoeException if the input argument does not contain a valid flag
+     */
     public static String getTaskName(String message) throws JoeException {
         if (!message.contains(FLAG_INDICATOR)) {
             throw new JoeException();
@@ -98,6 +126,13 @@ public class InputParser {
         return message.substring(0, message.indexOf(FLAG_INDICATOR)).trim();
     }
 
+    /**
+     * Gets the deadline time from the user input argument
+     *
+     * @param message User input
+     * @return a LocalDateTime containing the task deadline
+     * @throws JoeException if the input argument does not contain the deadline flag
+     */
     public static LocalDateTime getDeadlineTime(String message) throws JoeException{
         if (!message.contains(DEADLINE_FLAG)) {
             throw new JoeException();
@@ -114,6 +149,14 @@ public class InputParser {
         return deadlineTime;
     }
 
+    /**
+     * Gets the event start and end times from the user input argument
+     *
+     * @param message User input
+     * @return a LocalDateTime array of fixed size 2 containing the event start time and end time
+     * at index 0 and 1 respectively
+     * @throws JoeException if the input argument does not contain the event flags
+     */
     public static LocalDateTime[] getEventTime(String message) throws JoeException {
         if (!message.contains(EVENT_START_FLAG) || !message.contains(EVENT_END_FLAG)) {
             throw new JoeException();

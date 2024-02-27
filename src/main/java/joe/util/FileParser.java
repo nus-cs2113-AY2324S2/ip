@@ -18,6 +18,15 @@ public class FileParser {
     protected static final String SEPARATOR = "#";
     protected static final DateTimeFormatter SAVED_DATE_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy hh:mma");
 
+    /**
+     * Returns a task subclass after parsing the input string data.
+     * Task type is indicated in the first character in the data string.
+     * The task's marked status is indicated in the third character in the data string.
+     *
+     * @param taskData Input string data from save file
+     * @return Task subclass
+     * @throws JoeException if data string is not in the correct data format (corrupted data)
+     */
     public static Task readTaskData(String taskData) throws JoeException {
         char taskSymbol = taskData.charAt(0);
         boolean isDone = taskData.charAt(2) == DONE_SYMBOL;
@@ -56,6 +65,13 @@ public class FileParser {
         return task;
     }
 
+    /**
+     * Converts a String containing a date and time into a LocalDateTime object
+     *
+     * @param dateTime String of a date and time
+     * @return a LocalDateTime object parsed from the input string
+     * @throws JoeException if the input string does not match the set format
+     */
     protected static LocalDateTime convertDateTime(String dateTime) throws JoeException {
         try {
             return LocalDateTime.parse(dateTime, SAVED_DATE_FORMAT);

@@ -1,5 +1,8 @@
 package joe.util;
 
+/**
+ * Handles output messages to the user on the command line
+ */
 public class Printer {
     protected static final String H_LINE = "____________________________________________________________\n";
     protected static final String GREET_MESSAGE = H_LINE + "HI I'M JOE\n" + "WHAT CAN I DO FOR YOU\n" + H_LINE;
@@ -9,9 +12,10 @@ public class Printer {
             + H_LINE + "YOU CAN USE THESE COMMANDS:\n\nbye\n\tEXIT JOE"
             + "\n\nlist\n\tLIST ALL YOUR TASKS THAT I'VE RECORDED"
             + "\n\ntodo --TASK--\ndeadline --TASK-- /by --TIME--\nevent --TASK-- /from --START TIME-- /to --END TIME--"
-            + "\n\tADD A TODO/DEADLINE/EVENT TASK"
-            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\t MARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE"
-            + "\n\ndelete --TASK NUMBER--\n\t DELETE A TASK (NUMBER IN LIST) FROM THE LIST\n"
+            + "\n\tADD A TODO/DEADLINE/EVENT TASK\n\tINPUT DATE TIME IN THE FORMAT: dd-mm-yyyy HHmm"
+            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\tMARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE"
+            + "\n\ndelete --TASK NUMBER--\n\tDELETE A TASK (NUMBER IN LIST) FROM THE LIST"
+            + "\n\nfind --KEYWORD--\n\tFIND ALL TASKS CONTAINING A KEYWORD\n"
             + H_LINE;
     protected static final String EXIT_INPUT_ERROR = H_LINE + "SORRY I DON'T UNDERSTAND :( DID YOU MEAN\n\tbye\n"
             + H_LINE;
