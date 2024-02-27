@@ -35,6 +35,8 @@ public class Parser {
                 command = new DeleteCommand(userCommandText, taskList);
             } else if (userCommandTextLowerCase.startsWith("mark")) {
                 command = new MarkCommand(userCommandText, taskList);
+            } else if (userCommandTextLowerCase.startsWith("find")) {
+                command = new FindCommand(userCommandTextLowerCase);
             } else if (userCommandTextLowerCase.startsWith("todo")) {
                 command = new TodoCommand(userCommandText);
             } else if (userCommandTextLowerCase.startsWith("deadline")) {
