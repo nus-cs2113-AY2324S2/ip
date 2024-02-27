@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    private String by; // Deadline time
+    protected String by; // Due date/time
 
     public Deadline(String description, String by) {
         super(description);
@@ -8,7 +8,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return  description + " (by: " + by + ")";
     }
 }
-

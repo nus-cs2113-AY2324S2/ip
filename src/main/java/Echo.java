@@ -1,13 +1,15 @@
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Echo {
     static String break_line = "----------------------------------------";
+    private static Task[] list = new Task[1];
+    private static int count = 0;
 
     public void startEchoing() {
-        Task[] list = new Task[1];
-        int count = 0;
+
         Scanner scanner = new Scanner(System.in);
+        TaskList taskList = new TaskList(list, count);
 
         while (true) {
             System.out.println("What can I do for you?");
@@ -18,134 +20,117 @@ public class Echo {
 
             switch (parts[0].toLowerCase()) {
 
-
+            case "bye":
+                Bye.sayGoodbye();
+                break;
 
             case "list":
-                System.out.println(break_line);
-                System.out.println("Here are your tasks in your list:");
-
-                for (int i = 0; i < count; i++) {
-                    String statusIcon = list[i].getStatusIcon();
-                    System.out.println(" " + (i + 1) + ".[" + statusIcon + "]" + list[i]);
-                }
-                System.out.println(break_line);
+                taskList.listTasks();
                 break;
-
-            case "todo":
-                if (parts.length < 2) {
-                    System.out.println("Todo description is missing.");
-                    break;
-                }
-                if (count == list.length) {
-                    list = Arrays.copyOf(list, count * 2);
-                }
-                // Joining all parts of the input after the first part (which is "todo")
-                String todoDescription = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-                list[count] = new ToDo(todoDescription);
-                count++;
-                System.out.println(break_line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  [T][ ] " + todoDescription);
-                System.out.println("Now you have " + count + " tasks in the list.");
-                System.out.println(break_line);
-                break;
-
-            case "deadline":
-                if (!input.toLowerCase().startsWith("deadline")) {
-                    // Handle this as a generic task or provide a specific message
-                    System.out.println("Command not recognized. Please use 'deadline' for deadline tasks.");
-                    break;
-                }
-
-                String deadlineInput = input.substring("deadline".length()).trim();
-                if (!deadlineInput.contains("/by ")) {
-                    System.out.println("Deadline time is missing. Please use '/by' to specify the deadline.");
-                    break;
-                }
-
-                String[] deadlineParts = deadlineInput.split(" /by ", 2);
-                if (count == list.length) {
-                    list = Arrays.copyOf(list, count * 2);
-                }
-
-                list[count] = new Deadline(deadlineParts[0], deadlineParts[1]);
-                count++;
-                System.out.println(break_line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  [D][ ] " + deadlineParts[0] + " (by: " + deadlineParts[1] + ")");
-                System.out.println("Now you have " + count + " tasks in the list.");
-                System.out.println(break_line);
-                break;
-
-            case "event":
-                if (!input.toLowerCase().startsWith("event")) {
-                    // Handle this as a generic task or provide a specific message
-                    System.out.println("Command not recognized. Please use 'event' for event tasks.");
-                    break;
-                }
-
-                String eventInput = input.substring("event".length()).trim();
-                if (!eventInput.contains("/from ") || !eventInput.contains("/to ")) {
-                    System.out.println("Event time details are missing. Please use '/from' and '/to' to specify the event timing.");
-                    break;
-                }
-
-                String[] eventParts = eventInput.split(" /from ", 2);
-                String[] timeParts = eventParts[1].split(" /to ", 2);
-                if (count == list.length) {
-                    list = Arrays.copyOf(list, count * 2);
-                }
-
-                list[count] = new Event(eventParts[0], timeParts[0], timeParts[1]);
-                count++;
-                System.out.println(break_line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  [E][ ] " + eventParts[0] + " (from: " + timeParts[0] + " to: " + timeParts[1] + ")");
-                System.out.println("Now you have " + count + " tasks in the list.");
-                System.out.println(break_line);
-                break;
-
-            case "clearlist":
-                Arrays.fill(list, null); // Clearing the list
-                count = 0; // Resetting the count
-                System.out.println(break_line);
-                System.out.println("The List has been cleared!");
-                System.out.println(break_line);
-                break;
-
-            case "bye":
-                scanner.close();
-                System.out.println("Kkkkkk thanks bye ");
-                return;
 
             case "mark":
                 if (parts.length > 1) {
-                    int taskNumber = Integer.parseInt(parts[1]) - 1;
-                    if (taskNumber >= 0 && taskNumber < count) {
-                        list[taskNumber].markAsDone();
-                        System.out.println("Yo I have marked task" + (taskNumber + 1) + " as done.");
+                    try {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        taskList.markTask(taskNumber);
+                    } catch (NumberFormatException e) {
                         System.out.println(break_line);
-                        ;
-                    } else {
-                        System.out.println("Oops.Seems like you have input a invalid task number!");
+                        System.out.println("Please enter a valid task number.");
                         System.out.println(break_line);
                     }
+                } else {
+                    System.out.println(break_line);
+                    System.out.println("Please specify which task to mark as done.");
+                    System.out.println(break_line);
                 }
                 break;
 
             case "unmark":
                 if (parts.length > 1) {
-                    int taskNumber = Integer.parseInt(parts[1]) - 1;
-                    if (taskNumber >= 0 && taskNumber < count) {
-                        list[taskNumber].unmarkAsDone();
-                        System.out.println("Yo I have unmarked task" + (taskNumber + 1));
+                    try {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        taskList.unmarkTask(taskNumber);
+                    } catch (NumberFormatException e) {
                         System.out.println(break_line);
-                    } else {
-                        System.out.println("Oops.Seems like you have input a invalid task number!");
+                        System.out.println("Please enter a valid task number.");
                         System.out.println(break_line);
                     }
+                } else {
+                    System.out.println(break_line);
+                    System.out.println("Please specify which task to mark as not done.");
+                    System.out.println(break_line);
                 }
                 break;
+
+            case "clearlist":
+                taskList.clearList();
+                break;
+
+            case "todo":
+                String description = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                if (description.isEmpty()) {
+                    System.out.println(break_line);
+                    System.out.println("ToDo requires a description.");
+                    System.out.println(break_line);
+                } else {
+                    taskList.addTodo(input);
+                }
+                break;
+
+            case "deadline":
+                if (!input.toLowerCase().startsWith("deadline")) {
+                    // Handle this as a generic task or provide a specific message
+                    System.out.println(break_line);
+                    System.out.println("Command not recognized. Please use 'deadline' for deadline tasks.");
+                    System.out.println(break_line);
+                    break;
+                }
+
+                String deadlineInput = input.substring("deadline".length()).trim();
+                if (!deadlineInput.contains("/by ")) {
+                    System.out.println(break_line);
+                    System.out.println("Deadline time is missing. Please use '/by' to specify the deadline.");
+                    System.out.println(break_line);
+                    break;
+                } else {
+                    taskList.addDeadline(input);
+                }
+
+                break;
+
+            case "event":
+                // Example input: event project meeting /from 2/10/2019 2pm /to 2/10/2019 4pm
+                if (!input.toLowerCase().startsWith("event")) {
+                    // Handle this as a generic task or provide a specific message
+                    System.out.println(break_line);
+                    System.out.println("Command not recognized. Please use 'event' for event tasks.");
+                    System.out.println(break_line);
+                    break;
+                }
+
+                String eventInput = input.substring("event".length()).trim();
+                if (!eventInput.contains("/from ") || !eventInput.contains("/to ")) {
+                    System.out.println(break_line);
+                    System.out.println("Event time details are missing. Please use '/from' and '/to' to specify the event timing.");
+                    System.out.println(break_line);
+                    break;
+                } else {
+                    taskList.addEvent(input);
+                }
+                break;
+
+            case "delete":
+                if (parts.length < 2) {
+                    System.out.println("Please specify the task number to delete.");
+                } else {
+                    try {
+                        int taskNumber = Integer.parseInt(parts[1]);
+                        taskList.deleteTask(taskNumber);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a valid task number.");
+                    }
+                }
+
 
             case "help":
                 System.out.println(break_line);
@@ -158,19 +143,19 @@ public class Echo {
                 System.out.println("'todo [description]' to add a new ToDo task");
                 System.out.println("'deadline [description] /by [time]' to add a new Deadline");
                 System.out.println("'event [description] /from [start time] /to [end time]' to add a new Event");
+                System.out.println("'delete' plus a number to delete that task.");
                 System.out.println(break_line);
                 break;
-
 
             default:
                 System.out.println(break_line);
-                System.out.println("Sorry, I didn't understand that command.");
+                System.out.println("Sorry, Hiko doesn't understand that command.");
                 System.out.println("Type 'help' for a list of valid commands.");
                 System.out.println(break_line);
                 break;
-
             }
         }
     }
+
 
 }
