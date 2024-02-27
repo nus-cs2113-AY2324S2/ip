@@ -10,7 +10,7 @@ import tasks.Event;
 import tasks.ToDo;
 
 /**
- * Class used to parse user input when adding tasks
+ * Class used to parse user input
  */
 public abstract class Parser {
     public static final int TODO_LENGTH= 5;
