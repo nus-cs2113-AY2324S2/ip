@@ -5,7 +5,7 @@ import cody.tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TaskManager {
+public class TaskList {
     ArrayList<Task> tasks;
 
     public void printList() {
@@ -74,7 +74,7 @@ public class TaskManager {
                 + " Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
-    public TaskManager() {
+    public TaskList() {
         tasks = new ArrayList<>();
         Storage.loadTasksFromFile(tasks);
         Scanner in = new Scanner(System.in);

@@ -4,7 +4,7 @@ public class Cody {
 
     public static void main(String[] args) {
         Ui.greet();
-        TaskManager taskManager = new TaskManager();
+        TaskList taskList = new TaskList();
         Ui.exit();
     }
 }

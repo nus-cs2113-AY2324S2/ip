@@ -21,15 +21,15 @@ public class Parser {
         }
     }
 
-    public static void handleCommand(String input, TaskManager taskManager) {
+    public static void handleCommand(String input, TaskList taskList) {
         if (input.equals("list")) {
-            taskManager.printList();
+            taskList.printList();
         } else if (input.startsWith("delete")) {
-            taskManager.deleteTask(input);
+            taskList.deleteTask(input);
         } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-            taskManager.handleMarking(input);
+            taskList.handleMarking(input);
         } else if (!input.equals("bye")) {
-            taskManager.addTask(input);
+            taskList.addTask(input);
         }
     }
 
