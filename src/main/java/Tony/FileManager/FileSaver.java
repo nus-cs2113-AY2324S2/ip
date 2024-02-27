@@ -44,6 +44,7 @@ public class FileSaver {
     }
 
     public static void updateFile() throws IOException {
+        checkForEmptyList();
         for (int i = 0; i < tasks.size(); i++) {
             String listItem = tasks.get(i).toString();
             char type = listItem.charAt(1);
@@ -64,7 +65,15 @@ public class FileSaver {
                 String eventLine = saveEvent(event);
                 saveData(eventLine, isAppend);
                 break;
+            default:
+                saveData("", false);
             }
+        }
+    }
+
+    private static void checkForEmptyList() throws IOException {
+        if (tasks.isEmpty()) {
+            saveData("", false);
         }
     }
 

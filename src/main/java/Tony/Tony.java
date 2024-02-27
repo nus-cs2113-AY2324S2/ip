@@ -63,7 +63,6 @@ public class Tony {
         try {
             String[] subCommand = line.split(" ");
             int num = Integer.parseInt(subCommand[1]);
-            System.out.println(num);
             checkNumberWithinRange(num);
             deleteATask(subCommand[0], num);
         } catch (NumberFormatException nfe) {
