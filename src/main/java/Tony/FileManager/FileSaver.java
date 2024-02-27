@@ -2,11 +2,12 @@ package Tony.FileManager;
 import Tony.task.Todo;
 import Tony.task.Deadline;
 import Tony.task.Event;
-import Tony.Tony;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import static Tony.UI.Ui.tasks;
 
 public class FileSaver {
     protected static final String DATA_PATH = "./data/tonytask.txt";
@@ -43,23 +44,23 @@ public class FileSaver {
     }
 
     public static void updateFile() throws IOException {
-        for (int i = 0; i < Tony.tasks.size(); i++) {
-            String listItem = Tony.tasks.get(i).toString();
+        for (int i = 0; i < tasks.size(); i++) {
+            String listItem = tasks.get(i).toString();
             char type = listItem.charAt(1);
             boolean isAppend = i != 0;
             switch (type) {
             case 'T':
-                Todo todo = (Todo) Tony.tasks.get(i);
+                Todo todo = (Todo) tasks.get(i);
                 String todoLine = saveTodo(todo);
                 saveData(todoLine, isAppend);
                 break;
             case 'D':
-                Deadline deadline = (Deadline) Tony.tasks.get(i);
+                Deadline deadline = (Deadline) tasks.get(i);
                 String deadlineLine = saveDeadline(deadline);
                 saveData(deadlineLine, isAppend);
                 break;
             case 'E':
-                Event event = (Event) Tony.tasks.get(i);
+                Event event = (Event) tasks.get(i);
                 String eventLine = saveEvent(event);
                 saveData(eventLine, isAppend);
                 break;

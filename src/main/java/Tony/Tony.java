@@ -2,31 +2,30 @@ package Tony;
 
 import Tony.FileManager.FileLoader;
 import Tony.FileManager.FileSaver;
+
+import Tony.UI.Ui;
 import Tony.task.Deadline;
 import Tony.task.Event;
-import Tony.task.Task;
 import Tony.task.Todo;
 
-import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Tony {
-    public static final String LINE_BREAKER = "__________________________________________________"
-            + System.lineSeparator();
-    public static ArrayList<Task> tasks = new ArrayList<>();
+import static Tony.UI.Ui.tasks;
+import static Tony.UI.Ui.LINE_BREAKER;
 
+public class Tony {
     public static void main(String[] args) throws IOException {
-        printWelcomeMessage();
+        Ui.printWelcomeMessage();
         FileLoader.checkFileExists();
         Scanner userInput = new Scanner(System.in);
         while(userInput.hasNextLine()) {
             String line = userInput.nextLine();
             if(line.equals("bye")){
-                printByeMessage();
+                Ui.printByeMessage();
                 return;
             } else if(line.equals("list")) {
-                listTasks();
+                Ui.printTaskList();
             } else if(line.contains("mark")) {
                 try {
                     String[] subCommand = line.split(" ");
@@ -47,40 +46,37 @@ public class Tony {
                             + " cannot be empty." + System.lineSeparator() + LINE_BREAKER);
                 }
             } else if(line.startsWith("delete")) {
-                try {
-                    String[] subCommand = line.split(" ");
-                    int num = Integer.parseInt(subCommand[1]);
-                    System.out.println(num);
-                    checkNumberWithinRange(num);
-                    deleteATask(subCommand[0], num);
-                } catch (NumberFormatException nfe) {
-                    System.out.println("Suggest only number after 'delete'!");
-                } catch (TonyException e) {
-                    System.out.println("To delete a task, suggest a number available in the list!");
-                }
+                deleteCommand(line);
             }else {
-                System.out.println("Please begin input with the following words: "
-                        + System.lineSeparator()
-                        + "'todo / deadline / event / delete / mark'");
+                checkCommandWord();
             }
         }
     }
 
-    private static void deleteATask(String subCommand, int num) throws IOException {
-        printAddOrDeleteTask(subCommand, num-1);
-        tasks.remove(num-1);
-        FileSaver.updateFile();
+    private static void checkCommandWord() {
+        System.out.println("Please begin input with the following words: "
+                + System.lineSeparator()
+                + "'todo / deadline / event / delete / mark'");
     }
 
-    private static void listTasks() {
-        System.out.println(LINE_BREAKER);
-        System.out.println("\tHere are the tasks in your list:");
-        for(Task t : tasks) {
-            int numbering = tasks.indexOf(t) + 1;
-            System.out.println("\t" + numbering + "."
-                    + t);
+    private static void deleteCommand(String line) throws IOException {
+        try {
+            String[] subCommand = line.split(" ");
+            int num = Integer.parseInt(subCommand[1]);
+            System.out.println(num);
+            checkNumberWithinRange(num);
+            deleteATask(subCommand[0], num);
+        } catch (NumberFormatException nfe) {
+            System.out.println("Suggest only number after 'delete'!");
+        } catch (TonyException e) {
+            System.out.println("To delete a task, suggest a number available in the list!");
         }
-        System.out.println(LINE_BREAKER);
+    }
+
+    private static void deleteATask(String subCommand, int num) throws IOException {
+        Ui.printAddOrDeleteTask(subCommand, num-1);
+        tasks.remove(num-1);
+        FileSaver.updateFile();
     }
 
     private static void checkNumberWithinRange(int num) throws TonyException {
@@ -106,19 +102,8 @@ public class Tony {
         }
         FileSaver.updateFile();
     }
-    private static void printByeMessage() {
-        System.out.println(
-                LINE_BREAKER
-                        + "Bye. Hope to see you again soon!"
-                        + System.lineSeparator()
-                        + LINE_BREAKER);
-    }
-    private static void printWelcomeMessage() {
-        String chatBot = "Hello! I'm TONY\n"
-                + "What can I do for you?\n"
-                + LINE_BREAKER;
-        System.out.println(chatBot);
-    }
+
+
     private static void addATask(String userInput) throws TonyException, IOException {
         if(userInput.startsWith("todo")) {
             String[] toDoTask = userInput.split("todo");
@@ -143,7 +128,7 @@ public class Tony {
         String[] description = eventTask[1].split("/from | /to");
         Event event = new Event(description[0], description[1], description[2]);
         tasks.add(event);
-        printAddOrDeleteTask(description[0] ,tasks.indexOf(event));
+        Ui.printAddOrDeleteTask(description[0] ,tasks.indexOf(event));
         String eventLine = FileSaver.saveEvent(event);
         FileSaver.saveData(eventLine, true);
     }
@@ -151,29 +136,16 @@ public class Tony {
         String[] description = deadlineTask[1].split("/by");
         Deadline deadline = new Deadline(description[0], description[1]);
         tasks.add(deadline);
-        printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
+        Ui.printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
         String deadllineLine = FileSaver.saveDeadline(deadline);
         FileSaver.saveData(deadllineLine, true);
     }
     private static void addTodoTask(String[] toDoTask)  throws IOException {
         Todo todo = new Todo(toDoTask[1]);
         tasks.add(todo);
-        printAddOrDeleteTask(toDoTask[0], tasks.indexOf(todo));
+        Ui.printAddOrDeleteTask(toDoTask[0], tasks.indexOf(todo));
         String todoLine = FileSaver.saveTodo(todo);
         FileSaver.saveData(todoLine, true);
     }
-    private static void printAddOrDeleteTask(String command, int index) {
-        String deleteOrAdd = (command.equals("delete") ? "removed" : "added");
-        int taskSize = (command.equals("delete") ? tasks.size() - 1  : tasks.size());
-        System.out.println(
-                LINE_BREAKER
-                    + "\t Got it. I've " + deleteOrAdd
-                    + " this task:"
-                    + System.lineSeparator()
-                    + "\t\t " + tasks.get(index)
-                    + System.lineSeparator()
-                    + "\t Now you have " + taskSize + " tasks in the list."
-                    + System.lineSeparator()
-                    + LINE_BREAKER);
-    }
+
 }
