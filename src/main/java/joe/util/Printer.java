@@ -39,6 +39,10 @@ public class Printer {
     protected static final String LOAD_ERROR = H_LINE + "SORRY I COULDN'T GET YOUR PREVIOUS DATA"
             + "\n\t maybe it got corrupted lol\n" + H_LINE;
     protected static final String SAVE_ERROR = H_LINE + "SORRY I CURRENTLY CAN'T SAVE YOUR LIST MY BAD LOL\n" + H_LINE;
+    protected static final String FIND_LIST_MESSAGE = H_LINE + "HERE ARE ALL TASKS WITH KEYWORD: ";
+    protected static final String FIND_NO_MATCH_MESSAGE = "SORRY MAN THERE'S NO TASK WITH THAT KEYWORD";
+    protected static final String FIND_ERROR = H_LINE + "YOU HAVE TO ENTER A WORD FOR ME TO FIND IT BRO\n\t"
+            + "USE A WORD PLEASE: \"find --KEYWORD--\"\n" + H_LINE;
 
     public static void printHeaderLine() {
         System.out.println(H_LINE);
@@ -120,5 +124,17 @@ public class Printer {
 
     public static void printLoadError() {
         System.out.println(LOAD_ERROR);
+    }
+
+    public static void printFindMessage(String keyword) {
+        System.out.println(FIND_LIST_MESSAGE + keyword);
+    }
+
+    public static void printNoMatchMessage() {
+        System.out.println(FIND_NO_MATCH_MESSAGE);
+    }
+
+    public static void printFindError() {
+        System.out.println(FIND_ERROR);
     }
 }

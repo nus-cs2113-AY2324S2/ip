@@ -8,6 +8,7 @@ import joe.command.InvalidCommand;
 import joe.command.NewTaskCommand;
 import joe.command.ListCommand;
 import joe.command.ToggleMarkCommand;
+import joe.command.FindCommand;
 import joe.task.TaskType;
 
 import java.time.DateTimeException;
@@ -27,12 +28,13 @@ public class InputParser {
     protected static final String NEW_DEADLINE_COMMAND = "deadline";
     protected static final String NEW_EVENT_COMMAND = "event";
     protected static final String DELETE_COMMAND = "delete";
+    protected static final String FIND_COMMAND = "find";
     protected static final int INVALID_TASK_NUMBER = -69;
     protected static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     public static Command getCommand(String input) {
         Command command;
         String commandName = getCommandName(input);
-        String arguments = getMessage(input);
+        String arguments = getArguments(input);
 
         int taskNumber = INVALID_TASK_NUMBER;
         try {
@@ -64,6 +66,9 @@ public class InputParser {
         case DELETE_COMMAND:
             command = new DeleteCommand(taskNumber);
             break;
+        case FIND_COMMAND:
+            command = new FindCommand(arguments);
+            break;
         default:
             command = new InvalidCommand();
             break;
@@ -79,7 +84,7 @@ public class InputParser {
         return input.substring(0, input.indexOf(" "));
     }
 
-    public static String getMessage(String input) {
+    public static String getArguments(String input) {
         if (!input.contains(" ")) {
             return "";
         }
