@@ -10,11 +10,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        UserUi userUi = new UserUi();
-        Parser parser = new Parser(userUi);
-        Storage storage = new Storage();
-        TaskList taskList = new TaskList(storage, userUi);
+    private UserUi userUi;
+    private Parser parser;
+    private Storage storage;
+    private TaskList taskList;
+
+    public Main() {
+        userUi = new UserUi();
+        parser = new Parser(userUi);
+        storage = new Storage();
+        taskList = new TaskList(storage, userUi);
 
         try {
             storage.createFiles();
@@ -31,7 +36,9 @@ public class Main {
         } catch (CorruptedFileException e) {
             userUi.printErrorCorruptedFile();
         }
+    }
 
+    public void run() {
         userUi.printWelcomeMessage();
         String userInput;
 
@@ -51,5 +58,9 @@ public class Main {
 
             userUi.printMessageBorder();
         }
+    }
+
+    public static void main(String[] args) {
+        new Main().run();
     }
 }
