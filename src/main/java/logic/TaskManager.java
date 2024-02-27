@@ -56,8 +56,8 @@ public class TaskManager {
     private void printAndIncrementAfterAddTask() {
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(numOfTasks));
-        System.out.println("Now you have " + (numOfTasks +1) + " tasks in the list");
         numOfTasks++;
+        System.out.println("Now you have " + numOfTasks + " tasks in the list");
     }
     
     public void markTask(int taskIndex, boolean isDone) throws Exception {
@@ -89,7 +89,7 @@ public class TaskManager {
         System.out.println("Okay. I've removed this task:");
         System.out.println(tasks.get(deleteIndex));
         tasks.remove(deleteIndex);
-        System.out.println("Now you have " + (numOfTasks - 1) + " tasks in the list");
         numOfTasks--;
+        System.out.println("Now you have " + numOfTasks + " tasks in the list");
     }
 }
