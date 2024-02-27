@@ -3,14 +3,16 @@ import customexceptions.UnknownPromptException;
 import interactions.*;
 import customexceptions.IncompletePromptException;
 
+import java.util.ArrayList;
+
 public class ToDoList extends TaskList {
     public ToDoList() {
-        super.currSize = 0;
-        super.list = new ToDo[100];
+        super.list = new ArrayList<>();
     }
+
     private String extractToDoOrDate(String line, String keyword) {
         int index = line.indexOf(keyword) + keyword.length();
-        String nextWord;
+        String nextWord; // any commands that require a 'next' word
         switch (keyword) {
         case "event":
             nextWord = " from";
@@ -33,6 +35,7 @@ public class ToDoList extends TaskList {
         }
         return line.substring(index).trim();
     }
+
     public void addNewTask(String line, String type) throws IncompletePromptException {
         String toDoDescription = extractToDoOrDate(line, type);
         ToDo newToDo = new ToDo(toDoDescription);
@@ -60,10 +63,10 @@ public class ToDoList extends TaskList {
             }
             break;
         }
-        super.list[currSize++] = newToDo;
+        super.list.add(newToDo);
         System.out.println("Got it. I've added this task:");
         System.out.print(INDENT);
         newToDo.print();
-        System.out.println(INDENT + "Now you have " + currSize + " task" + (currSize > 1 ? "s " : " ") + "in the list");
+        countTasks();
     }
 }

@@ -9,8 +9,8 @@ public class Moby {
         String[] words = line.split(" ");
         String keyword = words[0];
         String[] botInstructions = Chatbot.INSTRUCTIONS;
+        boolean isTypo = bot.isTypo(keyword);
         if (words.length == 1) {
-            boolean isTypo = bot.isTypo(line);
             if (Arrays.binarySearch(botInstructions, keyword) >= 0) {
                 throw new IncompletePromptException();
             }
@@ -18,6 +18,7 @@ public class Moby {
                 throw new UnknownPromptException();
             }
         } else {
+            int index;
             switch (keyword) {
             case "echo":
                 bot.echo(line);
@@ -26,10 +27,10 @@ public class Moby {
                 bot.rename(line);
                 break;
             case "mark":
-                list.mark(line, true);
+                list.mark(bot.parseIndex(line, keyword), true);
                 break;
             case "unmark":
-                list.mark(line, false);
+                list.mark(bot.parseIndex(line, keyword), false);
                 break;
             case "todo":
                 list.addNewTask(line, "todo");
@@ -40,8 +41,13 @@ public class Moby {
             case "event":
                 list.addNewTask(line, "event");
                 break;
+            case "delete":
+                list.deleteTask(bot.parseIndex(line, keyword));
+                break;
             default:
-                throw new UnknownPromptException();
+                if (!isTypo) {
+                    throw new UnknownPromptException();
+                }
             }
         }
     }
