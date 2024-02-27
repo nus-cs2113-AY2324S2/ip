@@ -1,6 +1,6 @@
 # Bean the chatbot
 
-Bean is a CLI-based chatbot that can keep track of tasks for the user. Download the latest version of Bean [here](https://github.com/pqienso/ip/releases).
+Bean is a CLI-based chatbot that can keep track of tasks for the user. Download the latest version of Bean [here](https://github.com/pqienso/ip/releases). Here's a quick user guide to using Bean:
 
 ## Getting started
 1. Ensure that you have Java installed on your computer.
@@ -31,7 +31,7 @@ PS C:\Users\bucks\Downloads> java -jar bean.jar
    -------------------------------------------------
 ```
 
-## User guide: Commands and features
+## Commands and features
 Once you've gotten Bean up and running (with the welcome message showing), the following are the commands that can be used:
 ### Viewing your tasks
 Bean keeps a list of all your tasks. To view them, simply type `list`. If this your first time using Bean, Bean will display an empty list:
