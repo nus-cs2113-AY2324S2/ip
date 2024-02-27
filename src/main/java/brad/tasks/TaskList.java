@@ -8,60 +8,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import brad.exceptions.dataCorruptedException;
+import brad.exceptions.emptyArgumentException;
+import brad.exceptions.invalidCommandException;
+import brad.exceptions.invalidNumberException;
+import brad.parser.Command;
+
 
 public class TaskList {
     private ArrayList<Tasks> taskList = new ArrayList<>();
     private final String FILE_PATH = "data/data.md";
-    private final String FILE_HEADER = "|Task Type | Done | Description | Time |\n"
-            + "|----------|------|-------------|------|\n";
 
-    public void initializeFile()
-            throws FileNotFoundException, dataCorruptedException {
-        File file = new File(FILE_PATH);
-        try {
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getAbsolutePath());
-                System.out.println("file exists?: " + file.exists());
-                System.out.println("is Directory?: " + file.isDirectory());
-            } else {
-                System.out.println("File already exists!");
-            }
-        } catch (IOException e) {
-            System.out.println("Error creating file: " + e.getMessage());
-        }
-        Scanner s = new Scanner(file);
-        while (s.hasNext()) {
-            String[] input = s.nextLine().split("\\|");
-            if (input[1].strip().equals("Task Type") || input[1].strip().equals("----------")) {
-                continue;
-            }
-
-            String type = input[1].strip();
-            boolean isCompleted = Boolean.parseBoolean(input[2].strip());
-            String description = input[3].strip();
-            String time = input[4].strip();
-            switch (type) {
-                case "Event":
-                    int toIndex = time.indexOf("to");
-                    String beforeTo = time.substring(0, toIndex);
-                    String afterTo = time.substring(toIndex);
-                    String amendedTime = beforeTo + '/' + afterTo;
-                    //System.out.println(description + " /from " + amendedTime);
-                    addToList(description + " /from " + amendedTime, TaskType.EVENT, isCompleted, false);
-                    break;
-                case "Deadline":
-                    addToList(description + " /by " + time, TaskType.DEADLINE, isCompleted, false);
-                    break;
-                case "Todo":
-                    addToList(description, TaskType.TODO, isCompleted, false);
-                    break;
-                default:
-                    throw new dataCorruptedException();
-            }
-        }
+    public ArrayList<Tasks> getTaskList() {
+        return taskList;
     }
-    public void addToList(String input, TaskType type, boolean isDone, boolean canSave) {
+
+
+        public String getList() {
+        String output = "";
+        for (int i = 1; i <= taskList.size(); i++) {
+            output +=  i  + ". " + getTask(i) + "\n";
+        }
+        return output;
+    }
+    public void addToList(String input, TaskType type, boolean isDone) {
         Tasks newTask;
         if (type == TaskType.EVENT) {
             int fromIndex = input.indexOf("/from");
@@ -84,13 +53,6 @@ public class TaskList {
 
     }
 
-    public String getList() {
-        String output = "";
-        for (int i = 1; i <= taskList.size(); i++) {
-            output +=  i  + ". " + getTask(i) + "\n";
-        }
-        return output;
-    }
 
     public String getTask(int n) {
         String output = taskList.get(n - 1).getFullDescription();
@@ -109,33 +71,87 @@ public class TaskList {
         taskList.remove(n - 1);
     }
 
-    public void addHeader() throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        fw.write(FILE_HEADER);
-        fw.close();
-    }
-
-    public void updateFile() throws IOException {
-        addHeader();
-        for (Tasks task : taskList) {
-            appendTaskToFile(task);
+    public String executeCommand(Command command, String userInput)
+            throws invalidCommandException, emptyArgumentException, invalidNumberException {
+        String message = "";
+        switch (command) {
+            case MARK:
+                message = doMarkAction(userInput);
+                break;
+            case UNMARK:
+                message = doUnmarkAction(userInput);
+                break;
+            case TODO:
+                message = doTodoAction(userInput);
+                break;
+            case DEADLINE:
+                message = doDeadlineAction(userInput);
+                break;
+            case EVENT:
+                message = doEventAction(userInput);
+                break;
+            case DELETE:
+                message = doDeleteAction(userInput);
+                break;
+            default:
+                throw new invalidCommandException();
         }
+        return message;
     }
 
-    public void appendTaskToFile(Tasks task) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true);
-        fw.write(toMarkdown(task));
-        fw.close();
-    }
-
-    private String toMarkdown(Tasks task) {
-        String type = task.getClass().getSimpleName();
-        boolean taskIsDone = task.getIsDone();
-        String description = task.getTaskDescription();
-        String time = "";
-        if (!type.equals("Todo")) {
-            time = task.getTime();
+    private String doMarkAction(String input) throws
+            invalidNumberException, emptyArgumentException {
+        int taskNumber = Integer.parseInt(input);
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
         }
-        return "| " + type + " | " + taskIsDone + " | " + description + " | " + time + " |\n";
+        if (taskNumber > listSize()) {
+            throw new invalidNumberException();
+        }
+        markAsDone(taskNumber, true);
+        return getTask(taskNumber);
+    }
+
+    private String doUnmarkAction(String input) throws
+            invalidNumberException, emptyArgumentException {
+        int taskNumber = Integer.parseInt(input);
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        if (taskNumber > listSize()) {
+            throw new invalidNumberException();
+        }
+        markAsDone(taskNumber, false);
+        return getTask(taskNumber);
+    }
+
+    private String doTodoAction(String input) {
+        addToList(input, TaskType.TODO, false);
+        return getTask(listSize());
+    }
+
+    private String doDeadlineAction(String input) {
+        addToList(input, TaskType.DEADLINE, false);
+        return getTask(listSize());
+    }
+
+    private String doEventAction(String input) {
+        addToList(input, TaskType.EVENT, false);
+        return getTask(listSize());
+    }
+
+    private String doDeleteAction(String input) throws
+            emptyArgumentException, invalidNumberException {
+        if (input.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        int taskNumber = Integer.parseInt(input);
+        if (taskNumber > listSize()) {
+            throw new invalidNumberException();
+        }
+        String task = getTask(taskNumber);
+        deleteTask(taskNumber);
+        return task;
     }
 }
+
