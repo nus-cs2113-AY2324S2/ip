@@ -8,7 +8,12 @@ import joe.command.InvalidCommand;
 import joe.command.NewTaskCommand;
 import joe.command.ListCommand;
 import joe.command.ToggleMarkCommand;
+import joe.command.FindCommand;
 import joe.task.TaskType;
+
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class InputParser {
     protected static final String FLAG_INDICATOR = "/";
@@ -23,18 +28,20 @@ public class InputParser {
     protected static final String NEW_DEADLINE_COMMAND = "deadline";
     protected static final String NEW_EVENT_COMMAND = "event";
     protected static final String DELETE_COMMAND = "delete";
+    protected static final String FIND_COMMAND = "find";
     protected static final int INVALID_TASK_NUMBER = -69;
+    protected static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     /**
      * Returns an executable command according to the input command word
      *
      * @param input Input string of user
-     * @return Command to execute
+     * @return a Command to execute
      */
     public static Command getCommand(String input) {
         Command command;
         String commandName = getCommandName(input);
-        String arguments = getMessage(input);
+        String arguments = getArguments(input);
 
         int taskNumber = INVALID_TASK_NUMBER;
         try {
@@ -66,6 +73,9 @@ public class InputParser {
         case DELETE_COMMAND:
             command = new DeleteCommand(taskNumber);
             break;
+        case FIND_COMMAND:
+            command = new FindCommand(arguments);
+            break;
         default:
             command = new InvalidCommand();
             break;
@@ -75,11 +85,11 @@ public class InputParser {
     }
 
     /**
-     * Returns the command word in the user input,
+     * Returns the command name in the user input,
      * which is separated by first whitespace in the user input.
      *
      * @param input User input
-     * @return Name of Command
+     * @return a String of the command name
      */
     public static String getCommandName(String input) {
         if (!input.contains(" ")) {
@@ -93,9 +103,9 @@ public class InputParser {
      * which is the string of characters after the first whitespace
      *
      * @param input User input
-     * @return A string containing the arguments of the input
+     * @return a String containing the arguments of the input
      */
-    public static String getMessage(String input) {
+    public static String getArguments(String input) {
         if (!input.contains(" ")) {
             return "";
         }
@@ -106,7 +116,7 @@ public class InputParser {
      * Returns the name of a task from a string containing the user arguments from the user input
      *
      * @param message Arguments from the user input
-     * @return A task name
+     * @return a String of a task name
      * @throws JoeException if the input argument does not contain a valid flag
      */
     public static String getTaskName(String message) throws JoeException {
@@ -118,32 +128,52 @@ public class InputParser {
 
     /**
      * Gets the deadline time from the user input argument
+     *
      * @param message User input
-     * @return a String containing the task deadline
+     * @return a LocalDateTime containing the task deadline
      * @throws JoeException if the input argument does not contain the deadline flag
      */
-    public static String getDeadlineTime(String message) throws JoeException{
+    public static LocalDateTime getDeadlineTime(String message) throws JoeException{
         if (!message.contains(DEADLINE_FLAG)) {
             throw new JoeException();
         }
-        return message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
+        String time =  message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
+
+        LocalDateTime deadlineTime;
+        try {
+            deadlineTime = LocalDateTime.parse(time, INPUT_TIME_FORMAT);
+        } catch (DateTimeException e) {
+            throw new JoeException();
+        }
+
+        return deadlineTime;
     }
 
     /**
      * Gets the event start and end times from the user input argument
+     *
      * @param message User input
-     * @return a String array of fixed size 2 containing the event start time and end time at index 0 and 1 respectively
+     * @return a LocalDateTime array of fixed size 2 containing the event start time and end time
+     * at index 0 and 1 respectively
      * @throws JoeException if the input argument does not contain the event flags
      */
-    public static String[] getEventTime(String message) throws JoeException {
+    public static LocalDateTime[] getEventTime(String message) throws JoeException {
         if (!message.contains(EVENT_START_FLAG) || !message.contains(EVENT_END_FLAG)) {
             throw new JoeException();
         }
-        String[] eventDurations = new String[2];
+
         int startIndex = message.indexOf(EVENT_START_FLAG);
         int endIndex = message.indexOf(EVENT_END_FLAG);
-        eventDurations[0] = message.substring(startIndex, endIndex).replace(EVENT_START_FLAG, "").trim();
-        eventDurations[1] = message.substring(endIndex).replace(EVENT_END_FLAG, "").trim();
+        String startDate = message.substring(startIndex, endIndex).replace(EVENT_START_FLAG, "").trim();
+        String endDate = message.substring(endIndex).replace(EVENT_END_FLAG, "").trim();
+
+        LocalDateTime[] eventDurations = new LocalDateTime[2];
+        try {
+            eventDurations[0] = LocalDateTime.parse(startDate, INPUT_TIME_FORMAT);
+            eventDurations[1] = LocalDateTime.parse(endDate, INPUT_TIME_FORMAT);
+        } catch (DateTimeException e) {
+            throw new JoeException();
+        }
         return eventDurations;
     }
 }

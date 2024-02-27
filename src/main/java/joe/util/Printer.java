@@ -12,9 +12,10 @@ public class Printer {
             + H_LINE + "YOU CAN USE THESE COMMANDS:\n\nbye\n\tEXIT JOE"
             + "\n\nlist\n\tLIST ALL YOUR TASKS THAT I'VE RECORDED"
             + "\n\ntodo --TASK--\ndeadline --TASK-- /by --TIME--\nevent --TASK-- /from --START TIME-- /to --END TIME--"
-            + "\n\tADD A TODO/DEADLINE/EVENT TASK"
-            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\t MARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE"
-            + "\n\ndelete --TASK NUMBER--\n\t DELETE A TASK (NUMBER IN LIST) FROM THE LIST\n"
+            + "\n\tADD A TODO/DEADLINE/EVENT TASK\n\tINPUT DATE TIME IN THE FORMAT: dd-mm-yyyy HHmm"
+            + "\n\nmark --TASK NUMBER--\nunmark --TASK NUMBER--\n\tMARK/UNMARK YOUR TASK (NUMBER IN LIST) DONE"
+            + "\n\ndelete --TASK NUMBER--\n\tDELETE A TASK (NUMBER IN LIST) FROM THE LIST"
+            + "\n\nfind --KEYWORD--\n\tFIND ALL TASKS CONTAINING A KEYWORD\n"
             + H_LINE;
     protected static final String EXIT_INPUT_ERROR = H_LINE + "SORRY I DON'T UNDERSTAND :( DID YOU MEAN\n\tbye\n"
             + H_LINE;
@@ -29,9 +30,11 @@ public class Printer {
     protected static final String TODO_EMPTY_TASK_ERROR = H_LINE + "??? YOU NEED TO GIVE YOUR TASK A NAME\n"
             + "\ttodo --TASK--\n" + H_LINE;
     protected static final String DEADLINE_INPUT_ERROR = H_LINE + "INVALID DEADLINE LOL\nPLEASE USE /by TO INDICATE "
-            + "DEADLINE TIME\n\tdeadline --TASK-- /by --TIME--\n" + H_LINE;
+            + "DEADLINE TIME\n\tdeadline --TASK-- /by --DATE TIME--\n\tINPUT DATE TIME IN THE FORMAT: dd-mm-yyyy HHmm\n"
+            + H_LINE;
     protected static final String EVENT_INPUT_ERROR = H_LINE + "INVALID EVENT LOL\nPLEASE USE /from AND /to TO "
-            + "INDICATE EVENT DURATION\n\tevent --TASK-- /from --START TIME-- /to --END TIME--\n" + H_LINE;
+            + "INDICATE EVENT DURATION\n\tevent --TASK-- /from --START DATE TIME-- /to --END DATE TIME--\n"
+            + "\tINPUT DATE TIME IN THE FORMAT: dd-mm-yyyy HHmm\n" + H_LINE;
     protected static final String DELETE_MESSAGE = H_LINE + "COOL BEANS I WILL REMOVE THAT TASK:";
     protected static final String DELETE_ERROR = H_LINE + "SORRY BUT I CAN'T DELETE WHATEVER YOU'RE REFERRING TO BRO\n"
             + "\tUSE A VALID INTEGER PLEASE: \"delete --INTEGER--\"\n" + H_LINE;
@@ -40,6 +43,10 @@ public class Printer {
     protected static final String LOAD_ERROR = H_LINE + "SORRY I COULDN'T GET YOUR PREVIOUS DATA"
             + "\n\t maybe it got corrupted lol\n" + H_LINE;
     protected static final String SAVE_ERROR = H_LINE + "SORRY I CURRENTLY CAN'T SAVE YOUR LIST MY BAD LOL\n" + H_LINE;
+    protected static final String FIND_LIST_MESSAGE = H_LINE + "HERE ARE ALL TASKS WITH KEYWORD: ";
+    protected static final String FIND_NO_MATCH_MESSAGE = "SORRY MAN THERE'S NO TASK WITH THAT KEYWORD";
+    protected static final String FIND_ERROR = H_LINE + "YOU HAVE TO ENTER A WORD FOR ME TO FIND IT BRO\n\t"
+            + "USE A WORD PLEASE: \"find --KEYWORD--\"\n" + H_LINE;
 
     public static void printHeaderLine() {
         System.out.println(H_LINE);
@@ -121,5 +128,17 @@ public class Printer {
 
     public static void printLoadError() {
         System.out.println(LOAD_ERROR);
+    }
+
+    public static void printFindMessage(String keyword) {
+        System.out.println(FIND_LIST_MESSAGE + keyword);
+    }
+
+    public static void printNoMatchMessage() {
+        System.out.println(FIND_NO_MATCH_MESSAGE);
+    }
+
+    public static void printFindError() {
+        System.out.println(FIND_ERROR);
     }
 }

@@ -17,6 +17,10 @@ public abstract class Task {
         return statusIcon + " " + taskName;
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
