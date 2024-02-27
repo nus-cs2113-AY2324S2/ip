@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Reply {
     public static final String PARTITION_LINE = "____________________________________________________________";
 
@@ -8,6 +10,7 @@ public class Reply {
 
     // List Errors
     public static final String EMPTY_LIST = "List is empty.";
+    public static final String NO_RESULTS = "There are no results that match your search query.\n";
 
     // Storage Replies
     public static final String SAVE_ERROR = "File save failed.\nWrite error occurred:\n";
@@ -93,4 +96,18 @@ public class Reply {
     public static void printInvalidCommand() {
         System.err.println("Custom Exception Caught!" + "\n" + Reply.INVALID_COMMAND);
     }
+
+    public static void printSearch(ArrayList<Task> filteredList) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        int taskIndex = 0;
+
+        for (Task t : filteredList) {
+            System.out.println((taskIndex + 1) + ". "  + filteredList.get(taskIndex));
+            taskIndex++;
+        }
+
+        printLine();
+    }
+
 }
