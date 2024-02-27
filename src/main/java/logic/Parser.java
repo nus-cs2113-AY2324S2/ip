@@ -12,7 +12,7 @@ import tasks.ToDo;
 /**
  * Class used to parse user input when adding tasks
  */
-public class Parser {
+public abstract class Parser {
     public static final int TODO_LENGTH= 5;
     public static final int DEADLINE_LENGTH = 9;
     public static final int EVENT_LENGTH = 6;
