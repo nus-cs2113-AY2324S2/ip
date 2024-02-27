@@ -25,6 +25,14 @@ public class Storage {
         return this.filepath;
     }
 
+    /**
+     * Loads tasks from the storage file. Creates a new tasks.txt file if file does not exist.
+     *
+     * @return The list of tasks loaded from the storage file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws InvalidInputException If the input is invalid.
+     * @throws JunBotException If there is an issue with the JunBot.
+     */
     public ArrayList<Task> load() throws IOException, InvalidInputException, JunBotException {
         File f = new File(filepath);
         if(!f.exists()){
@@ -64,6 +72,12 @@ public class Storage {
         return tasks.getTasksList();
     }
 
+    /**
+     * Updates the storage file with the provided list of tasks.
+     *
+     * @param tasks The list of tasks to be written to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void updateFile(ArrayList<Task> tasks) throws IOException{
         FileWriter fw = new FileWriter(this.filepath);
         for (Task task : tasks) {
