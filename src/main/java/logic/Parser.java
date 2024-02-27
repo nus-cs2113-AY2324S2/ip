@@ -9,6 +9,9 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
 
+/**
+ * Class used to parse user input when adding tasks
+ */
 public class Parser {
     public static final int TODO_LENGTH= 5;
     public static final int DEADLINE_LENGTH = 9;
@@ -17,50 +20,72 @@ public class Parser {
     public static final int FROM_LENGTH = 6;
     public static final int TO_LENGTH = 4;
 
-    public static ToDo processToDo(String taskToAdd) {
+    /**
+     * Returns the ToDo-type task specified in the user input. Determines the name of the task from the input
+     *
+     * @param input The user input specifying the task
+     * @return ToDo-type task
+     */
+    public static ToDo processToDo(String input) {
         String taskName;
-        taskName = taskToAdd.substring(TODO_LENGTH);
+        taskName = input.substring(TODO_LENGTH);
         return new ToDo(taskName);
     }
 
-    public static Deadline processDeadline(String taskToAdd) throws Exception {
-        if (!(taskToAdd.contains("/by "))) {
+    /**
+     * Returns the Deadline-type task specified in the user input. Determines the name and due date/time of the
+     * task from the input
+     *
+     * @param input The user input specifying the task
+     * @return Deadline-type task
+     * @throws Exception If task lacks a name
+     */
+    public static Deadline processDeadline(String input) throws Exception {
+        if (!(input.contains("/by "))) {
             throw new DeadlineNoByDateTimeException();
         }
         String taskName;
-        int firstBackslashIndex = taskToAdd.indexOf("/");
+        int firstBackslashIndex = input.indexOf("/");
         if (firstBackslashIndex == DEADLINE_LENGTH) {
             // occurs when task is not given a name
             throw new TaskNoNameException();
         }
-        taskName = taskToAdd.substring(DEADLINE_LENGTH, firstBackslashIndex - 1);
+        taskName = input.substring(DEADLINE_LENGTH, firstBackslashIndex - 1);
         int byWhenIndex = firstBackslashIndex + BY_LENGTH;
-        String byWhen = taskToAdd.substring(byWhenIndex);
+        String byWhen = input.substring(byWhenIndex);
         return new Deadline(taskName, byWhen);
     }
 
-    public static Event processEvent(String taskToAdd) throws Exception {
-        if (!(taskToAdd.contains("/from "))) {
+    /**
+     * Returns the Event-type task specified in the user input. Determines the name, start date/time and
+     * end date/time of the task rom the input
+     *
+     * @param input The user input specifying the task
+     * @return Event-type task
+     * @throws Exception If task lacks a name
+     */
+    public static Event processEvent(String input) throws Exception {
+        if (!(input.contains("/from "))) {
             throw new EventNoFromDateTimeException();
         }
-        if (!(taskToAdd.contains("/to "))) {
+        if (!(input.contains("/to "))) {
             throw new EventNoToDateTimeException();
         }
-        if (taskToAdd.indexOf("/to ") < taskToAdd.indexOf("/from ")) {
+        if (input.indexOf("/to ") < input.indexOf("/from ")) {
             throw new EventToBeforeFromException();
         }
         String taskName;
-        int firstBackslashIndex = taskToAdd.indexOf("/");
+        int firstBackslashIndex = input.indexOf("/");
         if (firstBackslashIndex == EVENT_LENGTH) {
             // occurs when task is not given a name
             throw new TaskNoNameException();
         }
-        taskName = taskToAdd.substring(EVENT_LENGTH, firstBackslashIndex - 1);
+        taskName = input.substring(EVENT_LENGTH, firstBackslashIndex - 1);
         int fromWhenIndex = firstBackslashIndex + FROM_LENGTH;
-        int secondBackslashIndex = taskToAdd.indexOf("/", fromWhenIndex + 1);
+        int secondBackslashIndex = input.indexOf("/", fromWhenIndex + 1);
         int toWhenIndex = secondBackslashIndex + TO_LENGTH;
-        String fromWhen = taskToAdd.substring(fromWhenIndex, secondBackslashIndex - 1);
-        String toWhen = taskToAdd.substring(toWhenIndex);
+        String fromWhen = input.substring(fromWhenIndex, secondBackslashIndex - 1);
+        String toWhen = input.substring(toWhenIndex);
         return new Event(taskName, fromWhen, toWhen);
     }
 }
