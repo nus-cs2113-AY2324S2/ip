@@ -3,9 +3,6 @@ package command;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-/**
- * Class to process the user's inputs.
- */
 public class UserInput {
 
     public final static String LIST_COMMAND = "list";
@@ -21,10 +18,6 @@ public class UserInput {
 
     public static Scanner in = new Scanner(System.in);
 
-    /**
-     * Main loop for interaction with the chat bot.
-     * Loop continues until the user inputs the bye command.
-     */
     public static void loopInterface() {
         String userInput = in.next();
 
@@ -37,11 +30,6 @@ public class UserInput {
         }
     }
 
-    /**
-     * Parses a user's inputs into the relevant methods.
-     * 
-     * @param input Command given by the user.
-     */
     public static void parseInput(String input) {
 
         int taskId;

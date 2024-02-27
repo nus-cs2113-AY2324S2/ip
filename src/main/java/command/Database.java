@@ -13,9 +13,6 @@ import task.ToDo;
 
 import java.util.List;
 
-/**
- * Class to read and store user's tasks in a text file.
- */
 public class Database {
 
     public final static String FILE_PATH = "John.txt";
@@ -25,12 +22,6 @@ public class Database {
     private final static String EVENT_IDENTIFIER = "e";
     private final static String TODO_IDENTIFIER = "t";
 
-    /**
-     * Reads in a user's stored tasks into a given task list.
-     * 
-     * @param taskList Task list to store the tasks to.
-     * @throws FileNotFoundException Thrown if the storage file is missing.
-     */
     public static void readData(List<Task> taskList) throws FileNotFoundException {
 
         File f = new File(FILE_PATH);
@@ -43,12 +34,6 @@ public class Database {
         data.close();
     }
 
-    /**
-     * Stores each task in a given task list into a storage text file.
-     * 
-     * @param taskList List of tasks to store.
-     * @throws IOException Thrown if the storage file cannot be created.
-     */
     public static void storeData(List<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
 
@@ -64,12 +49,6 @@ public class Database {
         fw.write(System.lineSeparator());
     }
 
-    /**
-     * Reads in a line from the storage file and adds it to the task list.
-     * 
-     * @param taskList Task list to add the task to.
-     * @param dataLine String containing the information of the task.
-     */
     private static void loadDataLine(List<Task> taskList, String dataLine) {
         String[] separated = dataLine.split(DATA_SEPERATOR);
 
@@ -95,7 +74,7 @@ public class Database {
 
     private static void readTodoData(List<Task> taskList, String[] separated) {
         try {
-            taskList.add(new ToDo(separated[1], Boolean.parseBoolean(separated[2])));
+            taskList.add(new ToDo(separated[1]));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Corrupted Todo data found.");
         }
@@ -103,7 +82,7 @@ public class Database {
 
     private static void readDeadlineData(List<Task> taskList, String[] separated) {
         try {
-            taskList.add(new Deadline(separated[1], separated[2], Boolean.parseBoolean(separated[3])));
+            taskList.add(new Deadline(separated[1], separated[2]));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Corrupted Deadline data found.");
         }
@@ -111,7 +90,7 @@ public class Database {
 
     private static void readEventData(List<Task> taskList, String[] separated) {
         try {
-            taskList.add(new Event(separated[1], separated[2], separated[3], Boolean.parseBoolean(separated[4])));
+            taskList.add(new Event(separated[1], separated[2], separated[3]));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Corrupted Event data found.");
         }
