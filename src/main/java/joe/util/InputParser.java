@@ -116,6 +116,12 @@ public class InputParser {
         return message.substring(0, message.indexOf(FLAG_INDICATOR)).trim();
     }
 
+    /**
+     * Gets the deadline time from the user input argument
+     * @param message User input
+     * @return a String containing the task deadline
+     * @throws JoeException if the input argument does not contain the deadline flag
+     */
     public static String getDeadlineTime(String message) throws JoeException{
         if (!message.contains(DEADLINE_FLAG)) {
             throw new JoeException();
@@ -123,6 +129,12 @@ public class InputParser {
         return message.substring(message.indexOf(DEADLINE_FLAG)).replace(DEADLINE_FLAG, "").trim();
     }
 
+    /**
+     * Gets the event start and end times from the user input argument
+     * @param message User input
+     * @return a String array of fixed size 2 containing the event start time and end time at index 0 and 1 respectively
+     * @throws JoeException if the input argument does not contain the event flags
+     */
     public static String[] getEventTime(String message) throws JoeException {
         if (!message.contains(EVENT_START_FLAG) || !message.contains(EVENT_END_FLAG)) {
             throw new JoeException();
