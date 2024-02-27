@@ -1,0 +1,66 @@
+package misty;
+
+import misty.command.Command;
+import misty.data.TaskList;
+import misty.data.exception.*;
+import misty.parser.Parser;
+import misty.storage.Storage;
+import misty.ui.UserUi;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class Main {
+    private UserUi userUi;
+    private Parser parser;
+    private Storage storage;
+    private TaskList taskList;
+
+    public Main() {
+        userUi = new UserUi();
+        parser = new Parser(userUi);
+        storage = new Storage();
+        taskList = new TaskList(storage, userUi);
+
+        try {
+            storage.createFiles();
+        } catch (IOException e) {
+            userUi.printErrorIO();
+        } catch (SecurityException e) {
+            userUi.printErrorSecurity();
+        }
+
+        try {
+            storage.loadData(taskList);
+        } catch (FileNotFoundException e) {
+            userUi.printErrorFileNotFound();
+        } catch (CorruptedFileException e) {
+            userUi.printErrorCorruptedFile();
+        }
+    }
+
+    public void run() {
+        userUi.printWelcomeMessage();
+        String userInput;
+
+        while (true) {
+            try {
+                userInput = userUi.getUserCommand();
+                userUi.printMessageBorder();
+                Command c = parser.parseCommand(userInput, taskList);
+                c.execute(taskList, storage, userUi);
+            } catch (UnknownCommandException e) {
+                userUi.printUnknownCommandMessage();
+            } catch (InvalidParameterFormatException e) {
+                userUi.printErrorInvalidFormat();
+            } catch (IllegalListIndexException e) {
+                userUi.printErrorInvalidId();
+            }
+
+            userUi.printMessageBorder();
+        }
+    }
+
+    public static void main(String[] args) {
+        new Main().run();
+    }
+}
