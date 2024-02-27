@@ -11,7 +11,7 @@ import bean.ui.Ui;
  * Class for the Bean chatbot. Its methods only consist of those to do with processing commands.
  */
 public class Bean {
-    private static final String FILE_PATH = "./src/main/java/bean/data/tasks.txt";
+    private static final String FILE_PATH = "tasks.txt";
 
     /**
      * Edits the listOfTasks or prints required information to the UI
