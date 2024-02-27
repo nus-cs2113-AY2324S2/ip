@@ -11,6 +11,12 @@
 8. [find tasks by keyword](#find)
 9. [exit the program](#bye)
 
+## Usage
+1. In order for the program to work, you need to have Java 11 installed on your computer.
+2. Download the latest release of MimiChat from https://github.com/JustinSoh/ip/releases
+3. Run the program using the command `java -jar MimiChat.jar` in the terminal.
+4. Make sure that there is a /data folder in the root of the program directory. This is where the data will be stored.
+5. You can now start using the program.
 
 ## Add ToDo Task
 
