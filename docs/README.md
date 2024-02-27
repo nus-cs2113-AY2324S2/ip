@@ -8,18 +8,6 @@ Bean is a CLI-based chatbot that can keep track of tasks for the user. Download 
 3. Change the directory to that where the `bean.jar` file is located. For example, if `bean.jar` is in your `downloads` folder in Windows:
 ```
 PS C:\Users\bucks> cd Downloads
-PS C:\Users\bucks\Downloads> ls
-
-
-    Directory: C:\Users\bucks\Downloads
-
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----         27/2/2024  12:26 pm          15426 bean.jar
-                        .
-                        .
-                        .
 ```
 4. Use `java -jar bean.jar` to start the Bean chatbot. You should see a welcome message:
 ```
