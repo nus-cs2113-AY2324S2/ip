@@ -1,13 +1,8 @@
 package duke.tasks;
 
-
 import duke.DukeException;
-
-import java.io.File;
+import duke.Ui;
 import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class TaskList {
     /** Array of tasks */
     private ArrayList<Task> tasks;
@@ -26,18 +21,17 @@ public class TaskList {
 
     /**
      * Removes task from the task list
+     *
      * @param taskNumber The task number
      */
-    public void removeTask(int taskNumber) throws DukeException{
+    public void removeTask(int taskNumber, Ui ui) throws DukeException{
         if(taskNumber > tasks.size()){
             throw new DukeException("Can't delete task as task is not found!");
         }
-        System.out.println("     Fine! I've removed this task:");
         int indexOfTask = taskNumber - 1;
-        System.out.println("      " + tasks.get(indexOfTask));
+        Task removedTask = tasks.get(indexOfTask);
         tasks.remove(indexOfTask);
-        System.out.println("     Now you have " + tasks.size() + " tasks in the list");
-
+        ui.printRemoveTask(tasks, removedTask);
     }
 
     /**
@@ -48,9 +42,8 @@ public class TaskList {
         if(taskNumber > tasks.size()){
             throw new DukeException("Task not found!");
         }
-        System.out.println("     Nice! I've marked this task as done:");
         tasks.get(taskNumber-1).setTaskStatus(true);
-        System.out.println("      " + tasks.get(taskNumber-1));
+
     }
 
     /**
@@ -61,9 +54,7 @@ public class TaskList {
         if(taskNumber > tasks.size()){
             throw new DukeException("Task not found!");
         }
-        System.out.println("     OK, I've marked this task as not done yet:");
         tasks.get(taskNumber-1).setTaskStatus(false);
-        System.out.println("      " + tasks.get(taskNumber-1));
     }
 
     /**
@@ -82,32 +73,18 @@ public class TaskList {
     }
 
     /**
-     * returns the number of tasks in the list
-     * @return the number of tasks
+     * returns The number of tasks in the list
+     * @return The number of tasks
      */
     public int getNoOfTasks(){
         return tasks.size();
     }
 
     /**
-     * Saves the current task list into duke.txt
-     * @throws IOException
+     * Returns the task list
+     * @return The entire task list
      */
-    public void saveTaskList() throws IOException {
-        FileWriter fw = new FileWriter("duke.txt");
-
-        for (Task task : tasks) {
-            if (task instanceof ToDos) {
-                fw.write("T/ ");
-            } else if (task instanceof Events) {
-                fw.write("E/ ");
-            } else if (task instanceof Deadlines) {
-                fw.write("D/ ");
-            }
-            fw.write((task.getTaskStatus() ? "1 /" : "0 /") + task.getTask() + System.lineSeparator());
-        }
-        fw.close();
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
-
-
 }
