@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Task Type-Deadline
+ */
 public class Deadline extends Task {
     protected String by;
 

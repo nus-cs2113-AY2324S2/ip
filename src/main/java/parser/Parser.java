@@ -10,7 +10,9 @@ import java.io.IOException;
 import storage.Storage;
 import ui.Ui;
 
-
+/**
+ * Deal with user command
+ */
 public class Parser {
     protected Formatter formatter;
     protected UserInputErrorOutputHandler userInputError;
@@ -22,6 +24,12 @@ public class Parser {
         ui = new Ui();
     }
 
+    /**
+     * Convert the original input into the corresponding command
+     *
+     * @param userCommandText Original user input
+     * @param taskList        Instance of Class <code>TaskList</code>
+     */
     public void parseCommand(String userCommandText, TaskList taskList) {
         Command command = null;
 

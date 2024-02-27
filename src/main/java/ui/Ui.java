@@ -14,7 +14,9 @@ import java.util.Scanner;
 
 import static constant.NormalConstant.CORRECT_TASK_CREATION;
 
-
+/**
+ * Interact with User
+ */
 public class Ui {
 
     protected Formatter formatter;

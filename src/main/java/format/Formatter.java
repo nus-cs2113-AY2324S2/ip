@@ -1,5 +1,8 @@
 package format;
 
+/**
+ * Format the output
+ */
 public class Formatter {
     public void printDividingLine() {
         System.out.println("\t__________________________________________________");

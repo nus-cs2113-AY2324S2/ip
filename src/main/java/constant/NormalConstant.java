@@ -1,4 +1,8 @@
 package constant;
+
+/**
+ * To store normal constant
+ */
 public class NormalConstant {
     public static final String TASK_SAVE_PATH = "./data/Task.txt";
     public static final String TEMP_TASK_SAVE_PATH = "./data/Temp.txt";

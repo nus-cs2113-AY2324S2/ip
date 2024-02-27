@@ -9,6 +9,9 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represent a deadlineCommand
+ */
 public class DeadlineCommand extends Command {
     public final String identity = "deadline";
     Storage storage;
@@ -24,6 +27,11 @@ public class DeadlineCommand extends Command {
         prepareDeadlineCommand(userCommandText.substring(spaceIndex + 1));
     }
 
+    /**
+     * Execute deadlineCommand, add new deadlineTask to the taskList and save that task on the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         Task t = new Deadline(content.trim(), by.trim());
@@ -36,6 +44,11 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Make deadlineCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     */
     public void prepareDeadlineCommand(String unpreparedUserCommand) {
         if (unpreparedUserCommand.toLowerCase().startsWith(identity)) {
             userInputError.printNoTaskContentError(identity);

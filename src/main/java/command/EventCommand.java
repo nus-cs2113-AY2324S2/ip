@@ -9,6 +9,9 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represent an eventCommand
+ */
 public class EventCommand extends Command {
     public static final String identity = "event";
     Storage storage;
@@ -25,6 +28,11 @@ public class EventCommand extends Command {
         prepareEventCommand(userCommandText.substring(spaceIndex + 1));
     }
 
+    /**
+     * Execute eventCommand, add new eventTask to the taskList and save that task on the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         Task t = new Event(content.trim(), from.trim(), to.trim());
@@ -37,6 +45,11 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Make eventCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     */
     public void prepareEventCommand(String unpreparedUserCommand) {
         if (unpreparedUserCommand.toLowerCase().startsWith(identity)) {
             userInputError.printNoTaskContentError(identity);

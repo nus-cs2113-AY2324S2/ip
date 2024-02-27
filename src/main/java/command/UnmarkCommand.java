@@ -8,6 +8,9 @@ import task.TaskList;
 
 import java.io.IOException;
 
+/**
+ * Represent an unmarkCommand
+ */
 public class UnmarkCommand extends Command {
     public int taskIndex;
     Formatter formatter;
@@ -29,6 +32,11 @@ public class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Execute unmarkCommand, unmark specified task in the taskList and save that changes on the local disk
+     *
+     * @param taskList Instance of Class <code>TaskList</code>
+     */
     @Override
     public void execute(TaskList taskList) {
         formatter.printDividingLine();
@@ -44,16 +52,22 @@ public class UnmarkCommand extends Command {
         formatter.printDividingLine();
     }
 
-    public void prepareUnmarkCommand(String unpreparedUnmarkCommand, TaskList taskList) {
+    /**
+     * Make markCommand ready to execute
+     *
+     * @param unpreparedUserCommand user command that may have input error
+     * @param taskList              Instance of Class <code>TaskList</code>
+     */
+    public void prepareUnmarkCommand(String unpreparedUserCommand, TaskList taskList) {
         try {
-            Integer.parseInt(unpreparedUnmarkCommand);
+            Integer.parseInt(unpreparedUserCommand);
         } catch (NumberFormatException e) {
             userInputError.printInputNotNumberError("'" + identity + "'");
             setIfNoError(false);
             return;
         }
 
-        taskIndex = Integer.parseInt(unpreparedUnmarkCommand);
+        taskIndex = Integer.parseInt(unpreparedUserCommand);
         if (taskIndex > taskList.getSize()) {
             userInputError.printRequestTaskOutOfBoundError();
             setIfNoError(false);

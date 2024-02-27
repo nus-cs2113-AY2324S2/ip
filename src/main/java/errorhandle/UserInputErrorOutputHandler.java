@@ -2,6 +2,9 @@ package errorhandle;
 
 import format.Formatter;
 
+/**
+ * Generate messages when the input command is in wrong format
+ */
 public class UserInputErrorOutputHandler {
 
     protected Formatter formatter;
