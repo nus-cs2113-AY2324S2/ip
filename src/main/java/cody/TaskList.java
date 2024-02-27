@@ -32,9 +32,9 @@ public class TaskList {
             tasks.get(index).markTask(isDone);
             markTask(index);
         } catch (NumberFormatException e) {
-            System.err.println(" Task number is invalid. Please enter a valid number");
+            System.out.println(" Task number is invalid. Please enter a valid number");
         } catch (IndexOutOfBoundsException e) {
-            System.err.println(" Task number is out of range. You have " + tasks.size() + " tasks in the list");
+            System.out.println(" Task number is out of range. You have " + tasks.size() + " tasks in the list");
         }
     }
 
@@ -44,7 +44,7 @@ public class TaskList {
             tasks.add(task);
             printTask(task);
         } catch (CodyException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -55,16 +55,16 @@ public class TaskList {
     }
 
     public void deleteTask(String input) {
-        String[] parts = input.split(" ");
-        int index = Integer.parseInt(parts[1]) - 1;
         try {
+            String[] parts = input.split(" ");
+            int index = Integer.parseInt(parts[1]) - 1;
             Task task = tasks.get(index);
             tasks.remove(index);
             printDeleteTask(task);
         } catch (NumberFormatException e) {
-            System.err.println(" Task number is invalid. Please enter a valid number");
+            System.out.println(" Task number is invalid. Please enter a valid number");
         } catch (IndexOutOfBoundsException e) {
-            System.err.println(" Task number is out of range. You have " + tasks.size() + " tasks in the list");
+            System.out.println(" Task number is out of range. You have " + tasks.size() + " tasks in the list");
         }
     }
 
