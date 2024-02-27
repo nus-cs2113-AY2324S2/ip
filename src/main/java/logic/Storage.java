@@ -11,6 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 public class Storage {
+    public static final int TASK_TYPE_INDEX = 0;
+    public static final int TASK_DONE_STATUS_INDEX = 3;
+    public static final int TASK_NAME_INDEX = 6;
+    public static final int COMMA_AND_SPACE_LENGTH = 2;
     private File dataFile;
 
     private TaskManager taskManager;
@@ -45,7 +49,7 @@ public class Storage {
         }
         while (s.hasNext()) {
             String data = s.nextLine();
-            String taskType = data.substring(0, 1);
+            String taskType = String.valueOf(data.charAt(TASK_TYPE_INDEX));
             boolean taskDoneStatus = processTaskDoneStatus(data);
             switch (taskType) {
             case "T":
@@ -66,7 +70,7 @@ public class Storage {
 
     private boolean processTaskDoneStatus(String data) {
         boolean taskDoneStatus;
-        if (data.substring(3, 4).equals("1")){
+        if (String.valueOf(data.charAt(TASK_DONE_STATUS_INDEX)).equals("1")){
             taskDoneStatus = true;
         } else {
             taskDoneStatus = false;
@@ -75,25 +79,25 @@ public class Storage {
     }
 
     private void loadToDo(String data, boolean taskDoneStatus) {
-        String taskName = data.substring(6);
+        String taskName = data.substring(TASK_NAME_INDEX);
         taskManager.tasks.add(new ToDo(taskName, taskDoneStatus));
         taskManager.currIndex++;
     }
 
     private void loadDeadline(String data, boolean taskDoneStatus) {
-        int commaAfterTaskNameIndex = data.indexOf(',', 6);
-        String taskName = data.substring(6, commaAfterTaskNameIndex);
-        String byWhen = data.substring(commaAfterTaskNameIndex + 2);
+        int commaAfterTaskNameIndex = data.indexOf(',', TASK_NAME_INDEX);
+        String taskName = data.substring(TASK_NAME_INDEX, commaAfterTaskNameIndex);
+        String byWhen = data.substring(commaAfterTaskNameIndex + COMMA_AND_SPACE_LENGTH);
         taskManager.tasks.add(new Deadline(taskName, taskDoneStatus, byWhen));
         taskManager.currIndex++;
     }
 
     private void loadEvent(String data, boolean taskDoneStatus) {
-        int commaAfterTaskNameIndex = data.indexOf(',', 6);
-        String taskName = data.substring(6, commaAfterTaskNameIndex);
-        int commaAfterFromDateTimeIndex = data.indexOf(",", commaAfterTaskNameIndex + 1);
-        String fromWhen = data.substring(commaAfterTaskNameIndex + 2, commaAfterFromDateTimeIndex);
-        String toWhen = data.substring(commaAfterFromDateTimeIndex + 2);
+        int commaAfterTaskNameIndex = data.indexOf(',', TASK_NAME_INDEX);
+        String taskName = data.substring(TASK_NAME_INDEX, commaAfterTaskNameIndex);
+        int commaAfterFromDateTimeIndex = data.indexOf(",", commaAfterTaskNameIndex + COMMA_AND_SPACE_LENGTH);
+        String fromWhen = data.substring(commaAfterTaskNameIndex + COMMA_AND_SPACE_LENGTH, commaAfterFromDateTimeIndex);
+        String toWhen = data.substring(commaAfterFromDateTimeIndex + COMMA_AND_SPACE_LENGTH);
         taskManager.tasks.add(new Event(taskName, taskDoneStatus, fromWhen, toWhen));
         taskManager.currIndex++;
     }
