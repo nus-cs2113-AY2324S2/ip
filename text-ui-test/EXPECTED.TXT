@@ -10,8 +10,10 @@ added: build a hut
 Task forage for wood marked as done.
 Task start a fire marked as done.
 Please specify a task index
+1. start a fire [X] by: night
 Task start a fire deleted.
 Task the dance of the magpie frings deleted.
+No tasks found.
 1. forage for wood [X]
 2. build a hut [ ]
 Till we meet again.

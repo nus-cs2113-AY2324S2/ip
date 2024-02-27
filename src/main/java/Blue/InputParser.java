@@ -13,11 +13,12 @@ public class InputParser {
             command = parseRequest(line);
             int taskIndex = parseIndex(line, command);
             Task taskToAdd = parseTask(line, command);
-            parsedInput = new Input(command, taskIndex, taskToAdd);
+            String taskQuery = parseTaskQuery(line, command);
+            parsedInput = new Input(command, taskIndex, taskToAdd, taskQuery);
         } catch (IllegalInput e) {
             command = InputCommand.undefined;
             String errorMessage = e.getMessage();
-            parsedInput = new Input(command, errorMessage);
+            parsedInput = new Input(errorMessage);
         }
     }
 
@@ -32,6 +33,8 @@ public class InputParser {
             return InputCommand.delete;
         case "todo":
             return InputCommand.todo;
+        case "find":
+            return InputCommand.find;
         case "deadline":
             return InputCommand.deadline;
         case "event":
@@ -85,6 +88,17 @@ public class InputParser {
             return new Event(taskDescription, taskStart, taskDeadline);
         default:
             return new Task();
+        }
+    }
+
+    private String parseTaskQuery(String line, InputCommand command) throws IllegalInput {
+        String taskQuery = "";
+        switch (command) {
+            case find:
+                taskQuery = line.substring(4).trim();
+                return taskQuery;
+            default:
+                return taskQuery;
         }
     }
 }
