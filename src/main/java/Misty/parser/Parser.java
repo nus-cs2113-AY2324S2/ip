@@ -86,6 +86,9 @@ public class Parser {
         case CheckCommand.COMMAND_STRING:
             return new CheckCommand(arguments.trim());
 
+        case FindCommand.COMMAND_STRING:
+            return new FindCommand(arguments.trim());
+
         default:
             throw new UnknownCommandException();
         }

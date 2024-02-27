@@ -204,4 +204,23 @@ public class TaskList {
         taskList.get(index - 1).setTaskAsDone();
     }
 
+    public void find(String keyword) throws EmptyParameterException {
+        if (keyword.isEmpty()) {
+            userUi.printUsageFind();
+            throw new EmptyParameterException();
+        }
+
+        userUi.printFindTask();
+        String taskName;
+        int index = 1;
+
+        for (Task task : taskList) {
+            taskName = task.getTaskName();
+            if (taskName.contains(keyword)) {
+                System.out.println(String.format("\t%d.%s", index, task));
+                index++;
+            }
+        }
+    }
+
 }

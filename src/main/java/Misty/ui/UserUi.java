@@ -79,6 +79,10 @@ public class UserUi {
                 localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
     }
 
+    public void printFindTask() {
+        System.out.println("\tHere are the matching tasks in the list:");
+    }
+
     public void printErrorEmptyParameter() {
         System.out.println("\tEmpty parameters detected! Please check usage above fill in all fields");
     }
@@ -137,5 +141,9 @@ public class UserUi {
 
     public void printUsageCheck() {
         System.out.println("\tCheck command syntax: check <date in yyyy-mm-dd format>");
+    }
+
+    public void printUsageFind() {
+        System.out.println("\tFind command syntax: find <keyword>");
     }
 }
