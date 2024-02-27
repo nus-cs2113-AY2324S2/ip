@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class TaskManager {
     ArrayList<Task> tasks;
 
-    private void printList() {
+    public void printList() {
         String listString = " Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -24,7 +24,7 @@ public class TaskManager {
                 + " [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription() + "\n");
     }
 
-    private void handleMarking(String input) {
+    public void handleMarking(String input) {
         try {
             String[] parts = input.split(" ");
             int index = Integer.parseInt(parts[1]) - 1;
@@ -38,7 +38,7 @@ public class TaskManager {
         }
     }
 
-    private void addTask(String input) {
+    public void addTask(String input) {
         try {
             Task task = Parser.createTaskFromInput(input);
             tasks.add(task);
@@ -54,7 +54,7 @@ public class TaskManager {
                 + " Now you have " + tasks.size() + " tasks in the list.\n");
     }
 
-    private void deleteTask(String input) {
+    public void deleteTask(String input) {
         String[] parts = input.split(" ");
         int index = Integer.parseInt(parts[1]) - 1;
         try {
@@ -81,15 +81,7 @@ public class TaskManager {
         String input = in.nextLine();
 
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                printList();
-            } else if (input.startsWith("delete")) {
-                deleteTask(input);
-            } else if (input.startsWith("mark") || input.startsWith("unmark")) {
-                handleMarking(input);
-            } else {
-                addTask(input);
-            }
+            Parser.handleCommand(input, this);
             input = in.nextLine();
         }
         Storage.saveTasks(tasks);

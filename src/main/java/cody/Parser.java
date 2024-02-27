@@ -21,6 +21,18 @@ public class Parser {
         }
     }
 
+    public static void handleCommand(String input, TaskManager taskManager) {
+        if (input.equals("list")) {
+            taskManager.printList();
+        } else if (input.startsWith("delete")) {
+            taskManager.deleteTask(input);
+        } else if (input.startsWith("mark") || input.startsWith("unmark")) {
+            taskManager.handleMarking(input);
+        } else if (!input.equals("bye")) {
+            taskManager.addTask(input);
+        }
+    }
+
     private static Todo createTodoTask(String input) throws CodyException {
         if (input.length() <= 5) {
             throw new CodyException(" The description of a todo cannot be empty."
