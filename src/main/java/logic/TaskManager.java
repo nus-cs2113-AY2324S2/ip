@@ -12,11 +12,11 @@ import tasks.Task;
 
 public class TaskManager {
 
-    protected int currIndex;
+    protected int numOfTasks;
     protected ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskManager() {
-        this.currIndex = 0;
+        this.numOfTasks = 0;
     }
 
     public void addTask(String input) throws Exception {
@@ -55,13 +55,13 @@ public class TaskManager {
 
     private void printAndIncrementAfterAddTask() {
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(currIndex));
-        System.out.println("Now you have " + (currIndex+1) + " tasks in the list");
-        currIndex++;
+        System.out.println(tasks.get(numOfTasks));
+        System.out.println("Now you have " + (numOfTasks +1) + " tasks in the list");
+        numOfTasks++;
     }
     
     public void markTask(int taskIndex, boolean isDone) throws Exception {
-        if (taskIndex < 0 || taskIndex >= currIndex) {
+        if (taskIndex < 0 || taskIndex >= numOfTasks) {
             throw new InputIndexOutOfBoundsException();
         }
         Task targetTask = tasks.get(taskIndex);
@@ -77,19 +77,19 @@ public class TaskManager {
     }
 
     public void listTasks() {
-        for (int i = 0; i < currIndex; i++) {
+        for (int i = 0; i < numOfTasks; i++) {
             System.out.println((i+1) + ". " + tasks.get(i));
         }
     }
 
     public void deleteTask(int deleteIndex) throws Exception {
-        if (deleteIndex < 0 || deleteIndex >= currIndex) {
+        if (deleteIndex < 0 || deleteIndex >= numOfTasks) {
             throw new InputIndexOutOfBoundsException();
         }
         System.out.println("Okay. I've removed this task:");
         System.out.println(tasks.get(deleteIndex));
         tasks.remove(deleteIndex);
-        System.out.println("Now you have " + (currIndex - 1) + " tasks in the list");
-        currIndex--;
+        System.out.println("Now you have " + (numOfTasks - 1) + " tasks in the list");
+        numOfTasks--;
     }
 }

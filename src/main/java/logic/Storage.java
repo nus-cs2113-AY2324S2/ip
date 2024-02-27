@@ -64,7 +64,7 @@ public class Storage {
             }
         }
         System.out.println("Successfully loaded data!");
-        System.out.println("Current number of tasks: " + taskManager.currIndex);
+        System.out.println("Current number of tasks: " + taskManager.numOfTasks);
         return taskManager;
     }
 
@@ -81,7 +81,7 @@ public class Storage {
     private void loadToDo(String data, boolean taskDoneStatus) {
         String taskName = data.substring(TASK_NAME_INDEX);
         taskManager.tasks.add(new ToDo(taskName, taskDoneStatus));
-        taskManager.currIndex++;
+        taskManager.numOfTasks++;
     }
 
     private void loadDeadline(String data, boolean taskDoneStatus) {
@@ -89,7 +89,7 @@ public class Storage {
         String taskName = data.substring(TASK_NAME_INDEX, commaAfterTaskNameIndex);
         String byWhen = data.substring(commaAfterTaskNameIndex + COMMA_AND_SPACE_LENGTH);
         taskManager.tasks.add(new Deadline(taskName, taskDoneStatus, byWhen));
-        taskManager.currIndex++;
+        taskManager.numOfTasks++;
     }
 
     private void loadEvent(String data, boolean taskDoneStatus) {
@@ -99,12 +99,12 @@ public class Storage {
         String fromWhen = data.substring(commaAfterTaskNameIndex + COMMA_AND_SPACE_LENGTH, commaAfterFromDateTimeIndex);
         String toWhen = data.substring(commaAfterFromDateTimeIndex + COMMA_AND_SPACE_LENGTH);
         taskManager.tasks.add(new Event(taskName, taskDoneStatus, fromWhen, toWhen));
-        taskManager.currIndex++;
+        taskManager.numOfTasks++;
     }
 
     public void saveDataToTextFile() throws IOException {
         FileWriter fw = new FileWriter(dataFile);
-        for (int i = 0; i < taskManager.currIndex; i++) {
+        for (int i = 0; i < taskManager.numOfTasks; i++) {
             Task currTask = taskManager.tasks.get(i);
             String data = processData(currTask);
             fw.write(data + System.lineSeparator());
