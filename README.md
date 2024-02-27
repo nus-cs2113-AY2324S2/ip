@@ -3,7 +3,7 @@
 Bean is a CLI-based chatbot that can keep track of tasks for the user. Download the latest version of Bean [here](https://github.com/pqienso/ip/releases). Here's a quick user guide to using Bean:
 
 ## Getting started
-1. Ensure that you have Java installed on your computer.
+1. Ensure that you have Java 11 installed on your computer.
 1. Open the terminal on your computer.
 1. Change the directory to that where the `bean.jar` file is located. For example:
 ```
