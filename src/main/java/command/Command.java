@@ -41,4 +41,5 @@ public abstract class Command {
     public boolean getIfNoError() {
         return ifNoError;
     }
+
 }

@@ -35,6 +35,10 @@ public class Parser {
 
         if (userCommandText.equalsIgnoreCase("list")) {
             taskList.printTaskList();
+        } else if (userCommandText.equalsIgnoreCase("help")) {
+            formatter.printDividingLine();
+            formatter.printFunctionality();
+            formatter.printDividingLine();
         } else {
             String userCommandTextLowerCase = userCommandText.toLowerCase();
             if (userCommandTextLowerCase.startsWith("unmark")) {
