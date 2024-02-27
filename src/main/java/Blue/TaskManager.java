@@ -26,6 +26,9 @@ public class TaskManager {
         case delete:
             deleteTask(request.getTaskIndex());
             break;
+        case find:
+            listTasks(request.getTaskQuery());
+            break;
         case todo:
         case deadline:
         case event:
@@ -46,6 +49,20 @@ public class TaskManager {
             count += 1;
         }
     }
+
+    private void listTasks(String query) {
+        int count = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(query)) {
+                taskManagerUi.talk((count + 1) + ". " + task);
+                count += 1;
+            }
+        }
+        if (count == 0) {
+            taskManagerUi.talk("No tasks found.");
+        }
+    }
+
 
     private void markTask(int taskIndex) {
         if (taskIndex < 0 || taskIndex >= numTasks) {

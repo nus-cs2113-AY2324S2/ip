@@ -3,6 +3,7 @@ package Blue;
 public class Input {
     private InputCommand command;
     private int taskIndex;
+    private String taskQuery;
     private Task taskToAdd;
     private String errorMessage;
 
@@ -10,15 +11,16 @@ public class Input {
         this.command = command;
     }
 
-    Input(InputCommand command, String errorMessage) {
-        this.command = command;
+    Input(String errorMessage) {
+        command = InputCommand.undefined;
         this.errorMessage = errorMessage;
     }
 
-    Input(InputCommand command, int taskIndex, Task taskToAdd) {
+    Input(InputCommand command, int taskIndex, Task taskToAdd, String taskQuery) {
         this.command = command;
         this.taskIndex = taskIndex;
         this.taskToAdd = taskToAdd;
+        this.taskQuery = taskQuery;
     }
     
     public InputCommand getCommand() {
@@ -29,6 +31,9 @@ public class Input {
     }
     public Task getTaskToAdd() {
         return taskToAdd;
+    }
+    public String getTaskQuery() {
+        return taskQuery;
     }
     public String getErrorMessage() {
         return errorMessage;
