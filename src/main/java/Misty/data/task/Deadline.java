@@ -23,12 +23,20 @@ public class Deadline extends Task {
     public String getBy() {
         return by;
     }
-    public String getByDate() {
+
+    public LocalDate getByDate() {
+        return byDate;
+    }
+    public String getFullByDate() {
         return byDate.getDayOfWeek() + ", " + byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    public boolean getIsByDateFormat() {
+        return isByDateFormat;
     }
 
     @Override
     public String toString() {
-        return "[D]" + getStatus() + " " + getTaskName() + " (by: " + (isByDateFormat ? getByDate() : getBy()) + ")";
+        return "[D]" + getStatus() + " " + getTaskName() + " (by: " + (isByDateFormat ? getFullByDate() : getBy()) + ")";
     }
 }

@@ -37,21 +37,35 @@ public class Event extends Task {
     public String getFrom() {
         return from;
     }
-    public String getFromDate() {
-        return fromDate.getDayOfWeek() + ", " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    public LocalDate getFromDate() {
+        return fromDate;
     }
 
     public String getTo() {
         return to;
     }
-    public String getToDate() {
+    public LocalDate getToDate() {
+        return toDate;
+    }
+    public boolean getIsFromDateFormat() {
+        return isFromDateFormat;
+    }
+    public boolean getIsToDateFormat() {
+        return isToDateFormat;
+    }
+
+    public String getFullFromDate() {
+        return fromDate.getDayOfWeek() + ", " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    public String getFullToDate() {
         return toDate.getDayOfWeek() + ", " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
     public String toString() {
         return "[E]" + getStatus() + " " + getTaskName() + " (from: " +
-                (isFromDateFormat ? getFromDate() : getFrom()) + " to: " +
-                (isToDateFormat ? getToDate() : getTo()) + ")";
+                (isFromDateFormat ? getFullFromDate() : getFrom()) + " to: " +
+                (isToDateFormat ? getFullToDate() : getTo()) + ")";
     }
 }

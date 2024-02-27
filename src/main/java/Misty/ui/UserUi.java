@@ -1,8 +1,11 @@
 package misty.ui;
 
 import misty.data.task.Task;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 public class UserUi {
     String userInput;
@@ -71,6 +74,11 @@ public class UserUi {
         }
     }
 
+    public void printCheckMessage(LocalDate localDate) {
+        System.out.println(String.format("\tHere are the tasks occuring on %s:",
+                localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
+    }
+
     public void printErrorEmptyParameter() {
         System.out.println("\tEmpty parameters detected! Please check usage above fill in all fields");
     }
@@ -99,6 +107,10 @@ public class UserUi {
         System.out.println("------WARNING! Data file corrupted. Unable to load task list!------");
     }
 
+    public void printErrorInvalidDateFormat() {
+        System.out.println("\tDate provided not in correct format! Please check usage above and enter again");
+    }
+
     public void printUsageUsageTodo() {
         System.out.println("\tTodo command syntax: todo <task name>");
     }
@@ -121,5 +133,9 @@ public class UserUi {
 
     public void printUsageDelete() {
         System.out.println("\tDelete command syntax: delete <task id>");
+    }
+
+    public void printUsageCheck() {
+        System.out.println("\tCheck command syntax: check <date in yyyy-mm-dd format>");
     }
 }
