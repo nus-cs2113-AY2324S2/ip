@@ -92,4 +92,21 @@ public class TaskManager {
         System.out.println("Now you have " + (currIndex - 1) + " tasks in the list");
         currIndex--;
     }
+
+    public void findTask(String keyword) {
+        int count = 0;
+        for (int i = 0; i < currIndex; i++) {
+            Task currTask = tasks.get(i);
+            if (currTask.getName().contains(keyword)) {
+                count++;
+                if (count == 1) {
+                    System.out.println("Here are the tasks that contain the keyword: ");
+                }
+                System.out.println(count + ". " + currTask);
+            }
+        }
+        if (count == 0) {
+            System.out.println("No matching tasks found");
+        }
+    }
 }
