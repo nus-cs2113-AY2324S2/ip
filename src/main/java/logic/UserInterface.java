@@ -56,6 +56,8 @@ public class UserInterface {
                 } catch (Exception e) {
                     printError(e);
                 }
+            } else if (command.equals("find")) {
+                taskManager.findTask(input.split(" ")[1]);
             } else {
                 switch (input) {
                 case "bye":
