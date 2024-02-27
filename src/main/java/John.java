@@ -1,6 +1,9 @@
 import command.UserInput;
 import command.TaskList;
 
+/**
+ * Entry point for activating the chatbot
+ */
 public class John {
 
     public static void main(String[] args) {

@@ -10,10 +10,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A collection of tasks input and stored by the user. Contains several methods
+ * for interacting with said tasks.
+ */
 public class TaskList {
 
     public static List<Task> taskList = new ArrayList<>();
 
+    /**
+     * Stores the user's tasks into a text file.
+     */
     public static void storeData() {
         try {
             Database.storeData(taskList);
@@ -22,6 +29,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Reads in a user's tasks from a text file.
+     */
     public static void readData() {
         try {
             Database.readData(taskList);
@@ -32,6 +42,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints out every task currently stored into the command line.
+     */
     public static void printLists() {
 
         for (int i = 1; i <= taskList.size(); i += 1) {
@@ -40,6 +53,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Mark a given task as complete
+     * 
+     * @param taskID Id number of the task to mark as complete.
+     */
     public static void markTask(int taskID) {
         try {
 
@@ -54,6 +72,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a given task as incomplete.
+     * 
+     * @param taskID Id number of the task to mark as incomplete.
+     */
     public static void unmarkTask(int taskID) {
         try {
 
@@ -68,6 +91,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a ToDo type task into the task list.
+     * 
+     * @param input User input for the task's name.
+     */
     public static void addTodo(String input) {
 
         taskList.add(new ToDo(input.trim()));
@@ -75,6 +103,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds a Deadline type task into the task list.
+     * 
+     * @param input User input containing the relevant parameters.
+     */
     public static void addDeadline(String input) {
         try {
 
@@ -88,6 +121,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an Event type task into the task list.
+     * 
+     * @param input User input containing the relevant parameters.
+     */
     public static void addEvent(String input) {
         try {
 
@@ -101,6 +139,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a given task from the task list.
+     * 
+     * @param taskId Id of the task to be deleted.
+     */
     public static void deleteTask(int taskId) {
 
         try {
@@ -112,6 +155,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Looks for tasks with the given input string in their name.
+     * Prints out all relevant tasks into the command line.
+     * 
+     * @param query Input string to look for.
+     * @throws JohnException Thrown if an empty query is given.
+     */
     public static void findTasks(String query) throws JohnException {
 
         if (query.isBlank()) {
