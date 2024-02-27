@@ -1,6 +1,9 @@
 package artemis.ui;
 
 public class Messages {
+    /**
+     * Banner for Artemis
+     */
     public static void printBanner() {
         String logo = "  __ _ _ __| |_ ___ _ __ ___ (_)___" + System.lineSeparator() +
                 " / _` | '__| __/ _ \\ '_ ` _ \\| / __|" + System.lineSeparator() +
@@ -10,6 +13,9 @@ public class Messages {
         System.out.println(logo);
     }
 
+    /**
+     * Goodbye message
+     */
     public static void printGoodbye() {
         System.out.println("======================================");
         System.out.println("goodbye! hope to see you again soon!");
@@ -17,6 +23,11 @@ public class Messages {
 
     }
 
+    /**
+     * Prints the help message
+     *
+     * @param username The string of the username given
+     */
     public static void printHelp(String username) {
         System.out.printf("welcome to your personal list, %s!%s", username, System.lineSeparator());
         System.out.println("usage: todo [item]");
