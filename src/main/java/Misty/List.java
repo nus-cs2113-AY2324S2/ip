@@ -33,9 +33,10 @@ public class List {
         taskList.add(newTask);
     }
 
-    public void addTodo(String description) throws EmptyTaskNameException {
+    public void addTodo(String description) throws EmptyParameterException {
         if (description.isEmpty()) {
-            throw new EmptyTaskNameException();
+            userUi.printUsageUsageTodo();
+            throw new EmptyParameterException();
         }
 
         Todo newTask = new Todo(description);
@@ -50,11 +51,10 @@ public class List {
         printAddTaskMessage(newTask);
     }
 
-    public void addDeadline(String description, String by) throws EmptyTaskNameException, EmptyByException {
-        if (description.isEmpty()) {
-            throw new EmptyTaskNameException();
-        } else if (by.isEmpty()) {
-            throw new EmptyByException();
+    public void addDeadline(String description, String by) throws EmptyParameterException {
+        if (description.isEmpty() || by.isEmpty()) {
+            userUi.printUsageDeadline();
+            throw new EmptyParameterException();
         }
 
         Deadline newTask = new Deadline(description, by);
@@ -69,13 +69,10 @@ public class List {
         printAddTaskMessage(newTask);
     }
 
-    public void addEvent(String description, String from, String to) throws EmptyTaskNameException, EmptyFromException, EmptyToException {
-        if (description.isEmpty()) {
-            throw new EmptyTaskNameException();
-        } else if (from.isEmpty()) {
-            throw new EmptyFromException();
-        } else if (to.isEmpty()) {
-            throw new EmptyToException();
+    public void addEvent(String description, String from, String to) throws EmptyParameterException {
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            userUi.printUsageEvent();
+            throw new EmptyParameterException();
         }
 
         Event newTask = new Event(description, from, to);
@@ -92,6 +89,7 @@ public class List {
 
     public void markTask(int index) throws IllegalListIndexException {
         if (index <= 0 || index > taskList.size()) {
+            userUi.printUsageMark();
             throw new IllegalListIndexException();
         }
 
@@ -108,6 +106,7 @@ public class List {
 
     public void unmarkTask(int index) throws IllegalListIndexException {
         if (index <= 0 || index > taskList.size()) {
+            userUi.printUsageUnmark();
             throw new IllegalListIndexException();
         }
 
@@ -124,6 +123,7 @@ public class List {
 
     public void deleteTask(int index) throws IllegalListIndexException {
         if (index <= 0 || index > taskList.size()) {
+            userUi.printUsageDelete();
             throw new IllegalListIndexException();
         }
 
@@ -144,42 +144,36 @@ public class List {
         userUi.printList(taskList, taskList.size());
     }
 
-    public void loadTodo(String description) throws EmptyTaskNameException {
+    public void loadTodo(String description) throws CorruptedFileException {
         if (description.isEmpty()) {
-            throw new EmptyTaskNameException();
+            throw new CorruptedFileException();
         }
 
         Todo newTask = new Todo(description);
         addTask(newTask);
     }
 
-    public void loadDeadline(String description, String by) throws EmptyTaskNameException, EmptyByException {
-        if (description.isEmpty()) {
-            throw new EmptyTaskNameException();
-        } else if (by.isEmpty()) {
-            throw new EmptyByException();
+    public void loadDeadline(String description, String by) throws CorruptedFileException {
+        if (description.isEmpty() || by.isEmpty()) {
+            throw new CorruptedFileException();
         }
 
         Deadline newTask = new Deadline(description, by);
         addTask(newTask);
     }
 
-    public void loadEvent(String description, String from, String to) throws EmptyTaskNameException, EmptyFromException, EmptyToException {
-        if (description.isEmpty()) {
-            throw new EmptyTaskNameException();
-        } else if (from.isEmpty()) {
-            throw new EmptyFromException();
-        } else if (to.isEmpty()) {
-            throw new EmptyToException();
+    public void loadEvent(String description, String from, String to) throws CorruptedFileException {
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new CorruptedFileException();
         }
 
         Event newTask = new Event(description, from, to);
         addTask(newTask);
     }
 
-    public void loadMark(int index) throws IllegalListIndexException {
+    public void loadMark(int index) throws CorruptedFileException {
         if (index <= 0 || index > taskList.size()) {
-            throw new IllegalListIndexException();
+            throw new CorruptedFileException();
         }
 
         taskList.get(index - 1).setTaskAsDone();

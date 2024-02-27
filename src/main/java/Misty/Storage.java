@@ -37,9 +37,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public void loadData(List taskList) throws FileNotFoundException, EmptyTaskNameException,
-            IllegalListIndexException, EmptyByException, EmptyFromException, EmptyToException,
-            UnknownTaskException {
+    public void loadData(List taskList) throws FileNotFoundException, CorruptedFileException {
         Scanner scanner = new Scanner(dataFile);
         int taskCount = 0;
         String[] parameters;
@@ -69,7 +67,7 @@ public class Storage {
                     taskList.loadMark(taskCount);
                 }
             } else {
-                throw new UnknownTaskException();
+                throw new CorruptedFileException();
             }
         }
     }

@@ -71,35 +71,16 @@ public class UserUi {
         }
     }
 
-    public void printErrorMissingParam() {
-        System.out.println("\tIncorrect format, there are missing parameters");
-    }
-    public void printErrorNoTaskName() {
-        System.out.println("\tPlease enter name of task");
-    }
-
-    public void printErrorNoBy() {
-        System.out.println("\tPlease enter when task is due (/by)");
-    }
-
-    public void printErrorNoFrom() {
-        System.out.println("\tPlease enter when the event starts (/from)");
-    }
-
-    public void printErrorNoTo() {
-        System.out.println("\tPlease enter when the event ends (/to)");
+    public void printErrorEmptyParameter() {
+        System.out.println("\tEmpty parameters detected! Please check usage above fill in all fields");
     }
 
     public void printErrorInvalidFormat() {
-        System.out.println("\tInvalid Format! Please enter again");
-    }
-
-    public void printErrorNoId() {
-        System.out.println("\tPlease enter a task ID");
+        System.out.println("\tInvalid Format! Please check usage above and enter again");
     }
 
     public void printErrorInvalidId() {
-        System.out.println("\tPlease enter a valid task id");
+        System.out.println("\tInvalid ID! Please check task id and enter again");
     }
 
     public void printErrorIO() {
@@ -123,7 +104,7 @@ public class UserUi {
     }
 
     public void printUsageDeadline() {
-        System.out.println("\tDeadline commnad syntax: deadline <task name> /by <deadline>");
+        System.out.println("\tDeadline command syntax: deadline <task name> /by <deadline>");
     }
 
     public void printUsageEvent() {
