@@ -12,18 +12,20 @@ import java.io.IOException;
 public class List {
     private ArrayList<Task> taskList;
     private Storage storage;
+    private UserUi userUi;
 
-    public List(Storage storage) {
+    public List(Storage storage, UserUi userUi) {
         taskList = new ArrayList<>();
         this.storage = storage;
+        this.userUi = userUi;
     }
 
     public void printTaskCount() {
-        UserUi.printTaskCount(taskList.size());
+        userUi.printTaskCount(taskList.size());
     }
 
     private void printAddTaskMessage(Task newTask) {
-        UserUi.printAddTaskMessage(newTask);
+        userUi.printAddTaskMessage(newTask);
         printTaskCount();
     }
 
@@ -42,7 +44,7 @@ public class List {
         try {
             storage.saveTodo(newTask);
         } catch (IOException e) {
-            UserUi.printErrorIO();
+            userUi.printErrorIO();
         }
 
         printAddTaskMessage(newTask);
@@ -61,7 +63,7 @@ public class List {
         try {
             storage.saveDeadLine(newTask);
         } catch (IOException e) {
-            UserUi.printErrorIO();
+            userUi.printErrorIO();
         }
 
         printAddTaskMessage(newTask);
@@ -82,7 +84,7 @@ public class List {
         try {
             storage.saveEvent(newTask);
         } catch (IOException e) {
-            UserUi.printErrorIO();
+            userUi.printErrorIO();
         }
 
         printAddTaskMessage(newTask);
@@ -98,10 +100,10 @@ public class List {
         try {
             storage.refreshSave(taskList);
         } catch (IOException e) {
-            UserUi.printErrorIO();
+            userUi.printErrorIO();
         }
 
-        UserUi.printTaskMarkAsDone(taskList.get(index-1));
+        userUi.printTaskMarkAsDone(taskList.get(index-1));
     }
 
     public void unmarkTask(int index) throws IllegalListIndexException {
@@ -114,10 +116,10 @@ public class List {
         try {
             storage.refreshSave(taskList);
         } catch (IOException e) {
-            UserUi.printErrorIO();
+            userUi.printErrorIO();
         }
 
-        UserUi.printTaskUnmarkAsNotDone(taskList.get(index - 1));
+        userUi.printTaskUnmarkAsNotDone(taskList.get(index - 1));
     }
 
     public void deleteTask(int index) throws IllegalListIndexException {
@@ -131,15 +133,15 @@ public class List {
         try {
             storage.refreshSave(taskList);
         } catch (IOException e) {
-            UserUi.printErrorIO();
+            userUi.printErrorIO();
         }
 
-        UserUi.printDeleteTask(temp);
+        userUi.printDeleteTask(temp);
         printTaskCount();
     }
 
     public void listAll() {
-        UserUi.printList(taskList, taskList.size());
+        userUi.printList(taskList, taskList.size());
     }
 
     public void loadTodo(String description) throws EmptyTaskNameException {

@@ -18,7 +18,7 @@ public class Main {
             userUi.printErrorSecurity();
         }
 
-        List taskList = new List(storage);
+        List taskList = new List(storage, userUi);
 
         try {
             storage.loadData(taskList);

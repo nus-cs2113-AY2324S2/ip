@@ -15,10 +15,12 @@ public class Storage {
     private String filePath;
     private File dir = new File(DEFAULT_DATA_FOLDER_NAME);
     private File dataFile;
+
     public Storage() {
         this.filePath = DEFAULT_DATA_FOLDER_NAME + "/" + DEFAULT_DATA_FILE_NAME;
         dataFile = new File(filePath);
     }
+
     public void createFiles() throws IOException, SecurityException {
         if (!dir.exists()) {
             dir.mkdir();
