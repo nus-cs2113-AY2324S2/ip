@@ -28,6 +28,12 @@ public class InputParser {
                 this.splitInput[2] = null;
                 break;
 
+            case Constants.FIND:
+                this.splitInput[0] = userInput.substring(5).trim();
+                this.splitInput[1] = null;
+                this.splitInput[2] = null;
+                break;
+
             case Constants.TODO:
                 try {
                     this.splitInput[0] = userInput.substring(4).trim();
