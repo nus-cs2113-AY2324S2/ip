@@ -24,4 +24,7 @@ public class Errors {
 
     public static class CorruptedSaveException extends Exception {
     }
+
+    public static class InvalidFindException extends Exception {
+    }
 }

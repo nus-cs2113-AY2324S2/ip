@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
@@ -90,7 +91,7 @@ public class UserInterface {
                     currentTask = taskHandler.createEvent(userInput);
                     break;
                 case LIST:
-                    printList();
+                    printList(null);
                     continue;
                 case MARK:
                 case UNMARK:
@@ -101,7 +102,6 @@ public class UserInterface {
 
                     continue;
                 case BYE:
-
                     return;
                 case DELETE:
                     int deleteItem = Parser.parseDelete(userInput, this.taskHandler.taskList.size());
@@ -109,6 +109,10 @@ public class UserInterface {
                     continue;
                 case SAVE:
                     storage.saveData(username, taskHandler.taskList);
+                    continue;
+                case FIND:
+                    String findItem = Parser.parseFind(userInput);
+                    printList(findItem);
                     continue;
                 case UNKNOWN:
                 default:
@@ -135,20 +139,40 @@ public class UserInterface {
                 out.println("[artemis]: invalid delete. please enter \"delete <list item number>\".");
             } catch (Errors.TaskNotFoundException e) {
                 out.println("[artemis]: the task you are requesting to delete does not exist!");
+            } catch (Errors.InvalidFindException e) {
+                out.println("[artemis]: invalid find gien. please enter \"find [keyword]\".");
             }
         }
     }
 
-    public void printList() {
+    public void printList(String toFind) {
         if (taskHandler.taskList.isEmpty()) {
             out.println("[artemis]: Your list is empty!");
             return;
         }
 
-        out.println("[artemis]: Your list is as such:");
-        for (ListIterator<Task> it = taskHandler.taskList.listIterator(); it.hasNext(); ) {
-            Task currentTask = it.next();
-            out.printf("%d. %s\n", it.nextIndex(), currentTask);
+        if (toFind == null) {
+            out.println("[artemis]: Your list is as such:");
+            for (ListIterator<Task> it = taskHandler.taskList.listIterator(); it.hasNext(); ) {
+                Task currentTask = it.next();
+                out.printf("%d. %s\n", it.nextIndex(), currentTask);
+            }
+        } else {
+            ArrayList<Task> tempList = taskHandler.taskList;
+
+            List<Task> filteredList =  tempList.stream()
+                    .filter((task -> task.getTaskName().contains(toFind)))
+                    .toList();
+
+            if (filteredList.isEmpty()) {
+                out.printf("[artemis]: couldn't find any tasks with %s\n", toFind);
+            } else {
+                out.printf("[artemis]: here are matching tasks with the keyword: %s\n", toFind);
+                for (ListIterator<Task> it = filteredList.listIterator(); it.hasNext(); ) {
+                    Task currentTask = it.next();
+                    out.printf("%d. %s\n", it.nextIndex(), currentTask);
+                }
+            }
         }
     }
 
