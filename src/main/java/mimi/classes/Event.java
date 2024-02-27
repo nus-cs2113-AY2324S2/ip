@@ -1,6 +1,11 @@
 package mimi.classes;
 import mimi.exceptions.MimiException;
-import static mimi.helper.Storage.FILE_DELIMINITER;
+import static mimi.helper.Storage.FILE_DELIMITER;
+
+/**
+ * This class represents an Event task, which is a task that has a specific start and end time.
+ * It inherits from the Task class and overrides the toString and toFileString method.
+ */
 
 public class Event extends Task {
     private String startTime;
@@ -27,59 +32,25 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
-    public static Event processEvent(String input) throws
-            MimiException.IncorrectFormat,
-            MimiException.InsufficientParameters {
-
-        // Further process the deadline input
-        try {
-            String[] inputs = input.split("/from", 2);
-            String[] duration = inputs[1].split("/to", 2);
-
-            // Check if the inputs are complete
-            String taskName = inputs[0];
-            String startDate = duration[0].strip();
-            String endDate = duration[1].strip();
-
-            // Throws an error if parameters is incomplete
-            if (taskName.isBlank() || startDate.isBlank() || endDate.isBlank()) {
-                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT_MSG);
-            }
-
-            return new Event(taskName, startDate, endDate);
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS_MSG);
-        }
-    }
-
-    public static Event processEvent(String taskName, String startDate, String endDate) throws
-            MimiException.IncorrectFormat,
-            MimiException.InsufficientParameters {
-
-        // Further process the deadline input
-        try {
-            // Check if the inputs are complete
-            // Throws an error if parameters is incomplete
-            if (taskName.isBlank() || startDate.isBlank() || endDate.isBlank()) {
-                throw new MimiException.IncorrectFormat(MimiException.INCORRECT_EVENT_FORMAT_MSG);
-            }
-            return new Event(taskName, startDate, endDate);
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MimiException.InsufficientParameters(MimiException.INSUFFICIENT_EVENT_PARAMETERS_MSG);
-        }
-    }
-
-
+    /**
+     * This method overrides the toString method in the Task class.
+     * It returns a string representation of the Event task.
+     * e.g. [E][✘] return book (from: 2021-08-21 to: 2021-08-22)
+     * @return a string representation of the Event task
+     */
     @Override
     public String toString(){
         String duration = "(from: " + this.getStartTime() + " to: " + this.getEndTime() + ")";
         return "[E]" + super.toString() + duration;
     }
-
+    /**
+     * This method overrides the toFileString method in the Task class.
+     * It returns a string representation of the Event task to be written to the file.
+     * e.g. E|false|return book|2021-08-21|2021-08-22
+     * @return a string representation of the Event task to be written to the file
+     */
     @Override
     public String toFileString(){
-        return "E" + FILE_DELIMINITER  + super.toFileString() + FILE_DELIMINITER+ this.getStartTime() + FILE_DELIMINITER + this.getEndTime();
+        return "E" + FILE_DELIMITER + super.toFileString() + FILE_DELIMITER + this.getStartTime() + FILE_DELIMITER + this.getEndTime();
     }
 }
