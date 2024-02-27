@@ -7,7 +7,9 @@ todo build a hut
 mark 1
 mark 2
 mark not-a-number
+find fire
 delete 2
 delete 2
+find dance
 list
 bye
