@@ -1,16 +1,15 @@
 package gary.storage;
 
-import gary.task.Deadline;
-import gary.task.Event;
-import gary.task.Task;
-import gary.task.Todo;
+import gary.task.*;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Storage {
     public static final String FILE_PATH = "./gary.txt";
@@ -65,5 +64,43 @@ public class Storage {
             System.out.println("FILE NOT FOUND!!!");
         }
         return todos;
+    }
+
+    public static void writeTaskToTxt(File file, int todosCount, ArrayList<Task> todos) throws IOException {
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
+            for (int i = 0; i < todosCount; i += 1) {
+                writeFormattedString(todos, i, fileWriter);
+            }
+            fileWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("FILE NOT FOUND!!!");
+        }
+    }
+
+    private static void writeFormattedString(ArrayList<Task> todos, int i, BufferedWriter fileWriter) throws IOException {
+        Task currentTask = todos.get(i);
+        String description = currentTask.getTaskDescription();
+        String taskStatus = currentTask.getTaskStatus() ? "1" : "0";
+        TaskType taskType = currentTask.getTaskType();
+
+        switch(taskType) {
+        case DEADLINE:
+            Deadline deadline = (Deadline) currentTask;
+            String by = deadline.getBy();
+            fileWriter.write(taskType + " | " + taskStatus + " | "
+                    + description + " | " + by + "\n");
+            break;
+        case EVENT:
+            Event event = (Event) currentTask;
+            String from = event.getFrom();
+            String to = event.getTo();
+            fileWriter.write(taskType + " | " + taskStatus + " | "
+                    + description + " | " + from + " | " + to + "\n");
+            break;
+        case TODO:
+            fileWriter.write(taskType + " | " + taskStatus + " | " + description + "\n");
+            break;
+        }
     }
 }

@@ -15,16 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Gary {
-//    public static final int TODO_DESCRIPTION_START_INDEX = 5;
-//    public static final int DEADLINE_DESCRIPTION_START_INDEX = 9;
-//    public static final int DEADLINE_BY_SPACE_LENGTH = 4;
-//    public static final int EVENT_DESCRIPTION_START_INDEX = 6;
-//    public static final int EVENT_FROM_SPACE_LENGTH = 6;
-//    public static final int EVENT_TO_SPACE_LENGTH = 4;
-
     public static ArrayList<Task> todos = new ArrayList<>();
-
-//    public static final String FILE_PATH = "./gary.txt";
 
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
@@ -53,7 +44,7 @@ public class Gary {
             } else if (command.equalsIgnoreCase("MARK")) {
                 try {
                     TaskList.processMark(todos, lineWords);
-                    writeTaskToTxt(file, todosCount, todos);
+                    Storage.writeTaskToTxt(file, todosCount, todos);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! You don't have that much task");
                 } catch (NumberFormatException e) {
@@ -62,7 +53,7 @@ public class Gary {
             } else if (command.equalsIgnoreCase("UNMARK")) {
                 try {
                     TaskList.processUnmark(todos, lineWords);
-                    writeTaskToTxt(file, todosCount, todos);
+                    Storage.writeTaskToTxt(file, todosCount, todos);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! You don't have that much task");
                 } catch (NumberFormatException e) {
@@ -72,7 +63,7 @@ public class Gary {
                 try {
                     TaskList.processDelete(todos, lineWords, todosCount);
                     todosCount -= 1;
-                    writeTaskToTxt(file, todosCount, todos);
+                    Storage.writeTaskToTxt(file, todosCount, todos);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("OOPS!!! You don't have that much task");
                 } catch (NumberFormatException e) {
@@ -89,7 +80,7 @@ public class Gary {
                     todos.get(todosCount - 1).printAdd(todosCount);
 
                     // write all task to txt file
-                    writeTaskToTxt(file, todosCount, todos);
+                    Storage.writeTaskToTxt(file, todosCount, todos);
                 } catch (UnknownCommandException e) {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (MissingTodoDescriptionException e) {
@@ -108,44 +99,6 @@ public class Gary {
 
             }
             line = in.nextLine();
-        }
-    }
-
-    private static void writeTaskToTxt(File file, int todosCount, ArrayList<Task> todos) throws IOException {
-        try {
-            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
-            for (int i = 0; i < todosCount; i += 1) {
-                writeFormattedString(todos, i, fileWriter);
-            }
-            fileWriter.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("FILE NOT FOUND!!!");
-        }
-    }
-
-    private static void writeFormattedString(ArrayList<Task> todos, int i, BufferedWriter fileWriter) throws IOException {
-        Task currentTask = todos.get(i);
-        String description = currentTask.getTaskDescription();
-        String taskStatus = currentTask.getTaskStatus() ? "1" : "0";
-        TaskType taskType = currentTask.getTaskType();
-
-        switch(taskType) {
-        case DEADLINE:
-            Deadline deadline = (Deadline) currentTask;
-            String by = deadline.getBy();
-            fileWriter.write(taskType + " | " + taskStatus + " | "
-                    + description + " | " + by + "\n");
-            break;
-        case EVENT:
-            Event event = (Event) currentTask;
-            String from = event.getFrom();
-            String to = event.getTo();
-            fileWriter.write(taskType + " | " + taskStatus + " | "
-                    + description + " | " + from + " | " + to + "\n");
-            break;
-        case TODO:
-            fileWriter.write(taskType + " | " + taskStatus + " | " + description + "\n");
-            break;
         }
     }
 }
