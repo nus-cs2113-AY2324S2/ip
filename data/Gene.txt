@@ -1,3 +1,4 @@
 T | 0 | hello
-E | 1 | hello | 21st feb | 22nd feb
-D | 0 | hiiiii | 3pm
+D | 0 | eat breadfast | 2019-10-29 1745
+E | 1 | hello | 2020-10-09 1015 | 2020-10-10 1018
+D | 0 | hello | 2019-10-05 1528
