@@ -9,7 +9,7 @@ public class DeadlineCommand {
         String[] parts = command.replaceFirst("\\S+", "").split("/");
         if (parts.length < 2) {
             throw new GeneException("Invalid deadline format." + System.lineSeparator()
-                    + "Use format: deadline (Task Description) /by (Date)");
+                    + "Use format: deadline <Task Description> /by <Date>");
         }
         Deadline newDeadline = new Deadline(parts[0].trim(), parts[1]
                 .replace("by", "").trim());

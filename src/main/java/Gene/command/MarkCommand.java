@@ -18,7 +18,7 @@ public class MarkCommand {
         String[] parts = command.split(" ");
         if (parts.length < 2 || !isNumeric(parts[1])) {
             throw new GeneException("Please provide a valid task number." + System.lineSeparator()
-                    + "Use Format: mark/unmark (number)");
+                    + "Use Format: mark/unmark <number>");
         }
         int taskNumber = Integer.parseInt(parts[1]);
 

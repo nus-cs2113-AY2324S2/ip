@@ -1,6 +1,10 @@
-package Gene.task;
+package Gene.storage;
 
 import Gene.GeneException;
+import Gene.task.Deadline;
+import Gene.task.Event;
+import Gene.task.Task;
+import Gene.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

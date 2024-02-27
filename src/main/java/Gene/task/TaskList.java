@@ -1,6 +1,7 @@
 package Gene.task;
 
-import Gene.Gene;
+import Gene.storage.Storage;
+import Gene.ui.Ui;
 import Gene.GeneException;
 
 import java.util.ArrayList;
@@ -21,11 +22,11 @@ public class TaskList {
     public void addTask(Task newTask) {
         toDoList.add(newTask);
         saveTasksToFile();
-        Gene.printLineSeparation();
+        Ui.printLineSeparation();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + newTask);
         System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
-        Gene.printLineSeparation();
+        Ui.printLineSeparation();
     }
 
     private boolean isValidTaskNumber(int taskNumber) {
@@ -37,10 +38,10 @@ public class TaskList {
             Task task = toDoList.get(taskNumber - 1);
             task.setDone(true);
             saveTasksToFile();
-            Gene.printLineSeparation();
+            Ui.printLineSeparation();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("   " + task.getStatusIcon() + " " + task.description);
-            Gene.printLineSeparation();
+            Ui.printLineSeparation();
         } else {
             System.out.println("ERROR: Invalid task number. Please provide a valid task number.");
         }
@@ -51,23 +52,23 @@ public class TaskList {
             Task task = toDoList.get(taskNumber - 1);
             task.setDone(false);
             saveTasksToFile();
-            Gene.printLineSeparation();
+            Ui.printLineSeparation();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("   " + task.getStatusIcon() + " " + task.description);
-            Gene.printLineSeparation();
+            Ui.printLineSeparation();
         } else {
             System.out.println("Invalid task number. Please provide a valid task number.");
         }
     }
 
     public void printListItems() {
-        Gene.printLineSeparation();
+        Ui.printLineSeparation();
         System.out.println("Here are the items in your list:");
         for (int i = 0; i < toDoList.size(); i++) {
             Task task = toDoList.get(i);
             System.out.println((i + 1) + ". " + task);
         }
-        Gene.printLineSeparation();
+        Ui.printLineSeparation();
     }
 
     public void deleteListItem(String command) throws GeneException {
@@ -83,7 +84,7 @@ public class TaskList {
         toDoList.remove(taskNumber - 1);
         saveTasksToFile();
         System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
-        Gene.printLineSeparation();
+        Ui.printLineSeparation();
     }
 
 
