@@ -52,7 +52,7 @@ public class CommandExecuter {
                     break;
 
                 case Constants.FIND:
-                    FindTasks.findTasks(input, Aragorn.getList());
+                    FindTask.findTasks(input, Aragorn.getList());
                     break;
 
                 case Constants.INVALID:
