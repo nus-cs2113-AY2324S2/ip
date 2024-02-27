@@ -7,15 +7,10 @@ list
 unmark 2
 list
 todo
-deadline
-event
-mark
-unmark
 deadline /by
-deadline Assignment 100 /by
 event /from /to
-event Test /from /to monday
-event Test /from tomorrow /to
+mark b
+unmark a
 list
 delete 3
 list
