@@ -3,6 +3,9 @@ package joe.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event subclass that inherits from Task
+ */
 public class Event extends Task {
     protected static final String EVENT_SYMBOL = "[E]";
     protected LocalDateTime startDate;

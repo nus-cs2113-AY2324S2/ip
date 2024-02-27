@@ -3,6 +3,9 @@ package joe.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline subclass that inherits from Task
+ */
 public class Deadline extends Task {
     protected static final String DEADLINE_SYMBOL = "[D]";
     protected LocalDateTime finishBy;

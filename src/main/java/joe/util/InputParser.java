@@ -15,6 +15,9 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parser for user inputs
+ */
 public class InputParser {
     protected static final String FLAG_INDICATOR = "/";
     protected static final String DEADLINE_FLAG =  FLAG_INDICATOR + "by";

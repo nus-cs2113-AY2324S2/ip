@@ -48,96 +48,177 @@ public class Printer {
     protected static final String FIND_ERROR = H_LINE + "YOU HAVE TO ENTER A WORD FOR ME TO FIND IT BRO\n\t"
             + "USE A WORD PLEASE: \"find --KEYWORD--\"\n" + H_LINE;
 
+    /**
+     * Prints a header line onto the output console
+     */
     public static void printHeaderLine() {
         System.out.println(H_LINE);
     }
 
+    /**
+     * Prints a greeting message onto the output console
+     */
     public static void printGreeting() {
         System.out.println(GREET_MESSAGE);
     }
 
+    /**
+     * Prints an exit message onto the output console
+     */
     public static void printExitMessage() {
         System.out.println(EXIT_MESSAGE);
     }
 
+    /**
+     * Prints a message onto the output console for when the list command is executed
+     */
     public static void printListMessage() {
         System.out.println(LIST_MESSAGE);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an error in exiting the program
+     */
     public static void printExitError() {
         System.out.println(EXIT_INPUT_ERROR);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an error executing the list command
+     */
     public static void printListError() {
         System.out.println(LIST_INPUT_ERROR);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an invalid command word input by the user
+     */
     public static void printDefaultError() {
         System.out.println(DEFAULT_ERROR);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an error executing the mark or unmark command
+     */
     public static void printInvalidMarkError() {
         System.out.println(INVALID_MARK_ERROR);
     }
 
+    /**
+     * Prints a message onto the console for when the mark command is executed
+     */
     public static void printMarkMessage() {
         System.out.println(MARK_MESSAGE);
     }
 
+    /**
+     * Prints a message onto the console for when the unmark command is executed
+     */
     public static void printUnmarkMessage() {
         System.out.println(UNMARK_MESSAGE);
     }
 
+    /**
+     * Prints a message containing the number of tasks currently in the task list onto the console
+     *
+     * @param numOfTasks a non-negative integer containing the number of tasks in the task list
+     */
     public static void printNumOfTasks(int numOfTasks) {
         System.out.println(TASKS_NUMBER_MESSAGE + numOfTasks);
         System.out.println(H_LINE);
     }
 
+    /**
+     * Prints a message for when a task is newly added to the task list
+     *
+     * @param task a String of the task description to print
+     * @param numOfTasks a non-negative integer containing the number of tasks in the task list
+     */
     public static void printTaskAddingMessage(String task, int numOfTasks) {
         System.out.println(TASK_ADDED_MESSAGE + "  " + task);
         printNumOfTasks(numOfTasks);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an empty string input as a todo by the user
+     */
     public static void printToDoEmptyError() {
         System.out.println(TODO_EMPTY_TASK_ERROR);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an invalid input in the user's deadline command input
+     */
     public static void printDeadlineInputError() {
         System.out.println(DEADLINE_INPUT_ERROR);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an invalid input in the user's event command input
+     */
     public static void printEventInputError() {
         System.out.println(EVENT_INPUT_ERROR);
     }
 
+    /**
+     * Prints a message for when the delete command is executed
+     */
     public static void printDeleteMessage() {
         System.out.println(DELETE_MESSAGE);
     }
+
+    /**
+     * Prints an error message onto the console for when there is an error executing the delete command
+     */
     public static void printDeleteError() {
         System.out.println(DELETE_ERROR);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an error reading data from the save text file and
+     * prints the number of lines in the text file that were corrupted
+     *
+     * @param numOfLines a positive integer indicating the number of corrupted lines in the file
+     */
     public static void printCorruptedFileError(int numOfLines) {
         System.out.println(FILE_CORRUPT_ERROR + numOfLines);
         printHeaderLine();
     }
 
+    /**
+     * Prints an error message onto the console for when there is an error in saving the task list into a text file
+     */
     public static void printSaveError() {
         System.out.println(SAVE_ERROR);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an error loading and reading data from a text file
+     */
     public static void printLoadError() {
         System.out.println(LOAD_ERROR);
     }
 
+    /**
+     * Prints a message for when the find command is executed
+     *
+     * @param keyword a String of the keyword to be found in the find command
+     */
     public static void printFindMessage(String keyword) {
         System.out.println(FIND_LIST_MESSAGE + keyword);
     }
 
+    /**
+     * Prints a message for when the find command is executed and no matching keyword is found among all tasks
+     * in the task list
+     */
     public static void printNoMatchMessage() {
         System.out.println(FIND_NO_MATCH_MESSAGE);
     }
 
+    /**
+     * Prints an error message onto the console for when there is an error executing the find command
+     */
     public static void printFindError() {
         System.out.println(FIND_ERROR);
     }

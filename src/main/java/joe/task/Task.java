@@ -12,15 +12,30 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a full description of the task
+     *
+     * @return a String of the task description
+     */
     public String getTaskStatus() {
         String statusIcon = isDone ? MARKED_STATUS : UNMARKED_STATUS;
         return statusIcon + " " + taskName;
     }
 
+    /**
+     * Returns the task name
+     *
+     * @return a String of the task name
+     */
     public String getTaskName() {
         return taskName;
     }
 
+    /**
+     * Sets the boolean parameter isDone of the task accordingly
+     *
+     * @param isDone a boolean to set isDone of the task
+     */
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
