@@ -5,10 +5,10 @@ Dor is a CLI chatbot that helps users track their tasks.
 1. Quick Start
 2. Features
    - Add
+   - List
    - Delete
    - Mark
    - Find
-   - List
    - Save
    - Quit
 
@@ -22,28 +22,77 @@ Dor is a CLI chatbot that helps users track their tasks.
 
 ## Features 
 
-### Feature-ABC
+- Input is case-sensitive
+- Words in UPPER_CASE are parameters
+- Parameter order must follow that specified in the SYNOPSIS of the command
+- Parameters in curly braces must match one of the options specified in the DESCRIPTION of the command
+- Items in square brackets are to be included or omitted as specified in the DESCRIPTION of the command
 
-Description of the feature.
+### Adding tasks
 
-### Feature-XYZ
+SYNOPSIS
+   `{TASK_TYPE} [TASK_NAME] [/by DEADLINE_DUE_DATE_TIME] [/from EVENT_START_DATE_TIME] [/to EVENT_END_DATE_TIME]`
 
-Description of the feature.
+DESCRIPTION
+   - Adds a task to be tracked by the chatbot
+   - The added task is marked as not done
+   - {TASK_TYPE} must match one of "todo", "deadline" or "event"
+   - [/by DEADLINE_DUE_DATE_TIME] is to be included if {TASK_TYPE} is "deadline" and refers to the due date/time of the task, omitted otherwise
+   - [/from EVENT_START_DATE_TIME] is to be included if {TASK_TYPE} is "event" and refers to the start date/time of the event, omitted otherwise
+   - [/to EVENT_END_DATE_TIME] is to be included if {TASK_TYPE} is "event" and refers to the end date/time of the event, omitted otherwise
 
-## Usage
+EXAMPLES
+   - `todo go shopping`
+   - `deadline assignment 1 /by 15 may`
+   - `event friend's birthday party /from 14 april 2pm /to 6pm`
 
-### `Keyword` - Describe action
+### Listing tasks: list
 
-Describe the action and its outcome.
+SYNOPSIS
+   `list`
 
-Example of usage: 
+DESCRIPTION
+   - Lists all tasks tracked by the chatbot
 
-`keyword (optional arguments)`
+### Deleting tasks: delete
 
-Expected outcome:
+SYNOPSIS
+   `delete INDEX`
 
-Description of the outcome.
+DESCRIPTION
+   - Deletes the task at INDEX
+   - INDEX refers to the index number shown in the task list displayed by `list`
 
-```
-expected output
-```
+### Marking tasks
+
+SYNOPSIS
+   `{MARK_OR_UNMARK} INDEX`
+
+DESCRIPTION
+   - Marks the task at INDEX as done or not done, represented by "X" and " " respectively in the task list displayed by `list`
+   - {MARK_OR_UNMARK} must match one of "mark" or "unmark"
+   - INDEX refers to the index number shown in the task list displayed by `list`
+
+### Finding tasks: find
+
+SYNOPSIS
+   `find KEYWORD`
+
+DESCRIPTION
+   - Lists all tasks containing KEYWORD (case sensitive)
+
+### Saving data
+
+Task data is automatically saved by the chatbot to the data file `./data/dor.txt` following any command that changes a task
+
+### Loading data
+
+Task data is automatically loaded by the chatbot from the data file `./data/dor.txt` on startup
+
+### Quitting the chatbot: bye
+
+SYNOPSIS
+   `bye`
+
+DESCRIPTION
+   - Quits the chatbot
