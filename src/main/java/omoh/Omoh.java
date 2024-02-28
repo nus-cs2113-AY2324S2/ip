@@ -21,6 +21,7 @@ public class Omoh {
         Task.createOutputFile();
         printWelcomeMessage();
         //initialise the size 100 array if it was not initialised previously
+        //because if tasks were already initialised from reading output.txt, we don't need to initialise the array again
         if(Task.totalTasks == 0) {
             Task.initArray();
         }
