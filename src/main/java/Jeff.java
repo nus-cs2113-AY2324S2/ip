@@ -1,16 +1,15 @@
-
 public class Jeff {
     public static void main(String[] args) throws JeffException.InvalidKeywordException {
-        List list = new List();
-        list.generateList();
-        int taskIndex;
-        String description;
-        Storage saveInstance = new Storage(list.getTasks());
+        Ui userInterface = new Ui();
+        TaskList list = new TaskList();
+        Storage saveInstance = new Storage(list.getTasks(), userInterface);
+        Logic processor = new Logic(list, saveInstance);
+
+
+        list.generateList(userInterface);
         Storage.deserializeTasks();
         list.setTasks(saveInstance.getSavedList());
-
-        System.out.println("Hello! My name is Jeff.");
-        System.out.println("What can I do for you?");
+        userInterface.greetingMessage();
 
 
         boolean isChatting = true;
@@ -19,64 +18,32 @@ public class Jeff {
                 String userInput = Parser.getUserInput();
                 String userFirstWord = Parser.getFirstWord(userInput);
 
-
                 switch (userFirstWord) {
                     case "list":
-                        list.listTasks();
+                        list.listTasks(list.getTasks());
                         break;
-
                     case "bye":
                         isChatting = false;
                         saveInstance.uploadTasks();
-
                         break;
-
                     case "mark":
-                        taskIndex = Parser.getFirstInt(userInput);
-                        list.markIndex(taskIndex);
-                        saveInstance.setSavedList(list.tasks);
-                        saveInstance.uploadTasks();
+                        processor.markLogic(userInput);
                         break;
-
                     case "unmark":
-                        taskIndex = Parser.getFirstInt(userInput);
-                        list.unmarkIndex(taskIndex);
-                        saveInstance.setSavedList(list.tasks);
-                        saveInstance.uploadTasks();
+                        processor.unmarkLogic(userInput);
                         break;
-
                     case "deadline":
-                        description = Parser.extractDescription(userInput);
-                        String deadLine = Parser.extractStartTime(userInput);
-                        list.insertTask(new Deadline(description, deadLine, false));
-                        saveInstance.setSavedList(list.tasks);
-                        saveInstance.uploadTasks();
+                        processor.deadlineLogic( userInput);
                         break;
-
-
                     case "event":
-                        description = Parser.extractDescription(userInput);
-                        String start = Parser.extractStartTime(userInput);
-                        String end = Parser.extractEndTime(userInput);
-                        list.insertTask(new Event(description, start, end, false));
-                        saveInstance.setSavedList(list.tasks);
-                        saveInstance.uploadTasks();
+                        processor.eventLogic(userInput);
                         break;
-
-
                     case "todo":
-                        list.insertTask(new Todo(Parser.extractDescription(userInput), false));
-                        saveInstance.setSavedList(list.tasks);
-                        saveInstance.uploadTasks();
+                        processor.todoLogic(userInput);
                         break;
-
                     case "remove":
-                        taskIndex = Parser.getFirstInt(userInput);
-                        list.deleteIndex(taskIndex);
-                        saveInstance.setSavedList(list.tasks);
-                        saveInstance.uploadTasks();
+                        processor.removeLogic(userInput);
                         break;
-
                     default:
                         throw new JeffException.InvalidKeywordException("");
                 }
@@ -85,6 +52,6 @@ public class Jeff {
                             " USE todo, deadline or event only. THANKS");
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
+            userInterface.goodbyeMessage();
     }
 }

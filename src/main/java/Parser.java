@@ -1,11 +1,10 @@
 import java.util.Scanner;
 
 public class Parser {
-
-
     public static String getFirstWord(String userInput){
         return userInput = userInput.split(" ")[0];
     }
+
 
     public static String getUserInput(){
         String line;
@@ -13,6 +12,7 @@ public class Parser {
         line = in.nextLine();
         return line;
     }
+
 
     public static int getFirstInt(String userInput){
         String numberString = "0";
@@ -24,6 +24,7 @@ public class Parser {
         }
         return Integer.parseInt(numberString);
     }
+
 
     public static String extractDescription(String userInput){
         try {
@@ -40,6 +41,7 @@ public class Parser {
             throw new IllegalArgumentException("ERROR IN THE INPUT STRING");
         }
     }
+
 
     public static String extractStartTime(String userInput){
         String[] words = userInput.split(" ");
