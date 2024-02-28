@@ -41,4 +41,15 @@ public class Ui {
                 + System.lineSeparator()
                 + "\t Now you have " + taskSize + " tasks in the list.");
     }
+    public void findCommand(String[] findTask) {
+        String keyword = findTask[1].trim();
+        System.out.println("\tHere are the matching tasks in your list:");
+        int numbering = 0;
+        for (Task t : tasks) {
+            if(t.description.contains(keyword)) {
+                System.out.println("\t" + (numbering + 1) + ". " + t);
+                numbering++;
+            }
+        }
+    }
 }
