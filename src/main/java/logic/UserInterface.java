@@ -58,21 +58,16 @@ public class UserInterface {
                 }
             } else if (command.equals("find")) {
                 taskManager.findTask(input.split(" ")[1]);
+            } else if (command.equals("bye")) {
+                return;
+            } else if (command.equals("list")) {
+                taskManager.listTasks();
             } else {
-                switch (input) {
-                case "bye":
-                    return;
-                case "list":
-                    taskManager.listTasks();
-                    break;
-                default:
-                    try {
-                        taskManager.addTask(input);
-                        storage.saveDataToTextFile();
-                    } catch (Exception e) {
-                        printError(e);
-                    }
-                    //Fallthrough
+                try {
+                    taskManager.addTask(input);
+                    storage.saveDataToTextFile();
+                } catch (Exception e) {
+                    printError(e);
                 }
             }
         }
