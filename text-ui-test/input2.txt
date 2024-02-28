@@ -11,7 +11,7 @@ mark 1
 list
 list abcd
 bye 1234
-deadline abc /by 32
+deadline abc /by 2024-03-12
 find qwerty
 find abc
 find

@@ -141,7 +141,7 @@ public class TaskList {
         String taskEnd = nameEnd[1];
 
         LocalDate end = DateHandler.parseDate(taskEnd);
-        
+
         list.add(new Deadline(taskName, end));
     }
 
@@ -162,6 +162,10 @@ public class TaskList {
 
         LocalDate start = DateHandler.parseDate(taskStart);
         LocalDate end = DateHandler.parseDate(taskEnd);
+
+        if (start.isAfter(end)) {
+            throw new UwunzheException(ExceptionMessages.INVALID_DATE_RANGE);
+        }
 
         list.add(new Event(taskName, start, end));
     }
