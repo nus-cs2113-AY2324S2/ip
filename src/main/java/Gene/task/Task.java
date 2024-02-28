@@ -1,5 +1,8 @@
 package Gene.task;
 
+/**
+ * Represents the general task of the Gene chatbot.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

@@ -3,11 +3,21 @@ package Gene.command;
 import Gene.task.Event;
 import Gene.GeneException;
 import Gene.task.TaskList;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command to add events to the task list.
+ */
 public class EventCommand {
+
+    /**
+     * Execute the event command, adding the event task into the user task list.
+     *
+     * @param command User input of the event command.
+     * @param taskList User list of tasks.
+     * @throws GeneException if there is any formatting issues
+     */
     public static void execute(String command, TaskList taskList) throws GeneException {
         String[] parts = command.replaceFirst("\\S+", "").split("/");
         if (parts.length < 3) {

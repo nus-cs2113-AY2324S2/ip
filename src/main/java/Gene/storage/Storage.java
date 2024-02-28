@@ -16,10 +16,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+
+/**
+ * Represents the file storage of the Gene chatbot.
+ * Responsible for saving or loading tasks information to/from the text file.
+ */
 public class Storage {
     private final String FILE_PATH = "./data/Gene.txt";
 
-    // Method to load tasks from file when chat bot starts up
+    /**
+     * Loads the task list data from the text file and returns the task list.
+     *
+     * @return The task list with the loaded tasks.
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
@@ -48,6 +57,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Create new tasks objects based on the task type to be added in the task list.
+     *
+     * @param parts The task data from the task list to be processed.
+     * @return A task object based on the task type.
+     * @throws GeneException if there is any unknown task type.
+     */
     private Task getTask(String[] parts) throws GeneException {
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -76,12 +92,17 @@ public class Storage {
         return task;
     }
 
+
     private LocalDateTime parseDateTime(String dateTimeString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(dateTimeString, formatter);
     }
 
-
+    /**
+     * Save tasks to the text file after changes are made to the task list.
+     *
+     * @param tasks The task list of all tasks.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
