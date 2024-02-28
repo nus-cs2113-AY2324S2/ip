@@ -29,7 +29,7 @@ public class Storage {
                     list.add(new Deadline(currentLine[2], date, time));
                     break;
                 case "T":
-                    list.add(new Todo(currentLine[2], currentLine[2]));
+                    list.add(new Todo(currentLine[2]));
                     break;
                 case "E":
                     String[] duration = currentLine[3].split("\\s*\\ - \\s*");

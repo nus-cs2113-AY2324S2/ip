@@ -31,8 +31,17 @@ public class UI {
         System.out.print("Now you have " + task.size() + " task in the list.");
     }
 
-    public static void printFoundCommandAcknowledgementMessage() {
-        System.out.println("Here are thematching tasks in your list:");
+    public void printFoundCommandAcknowledgementMessage() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public void printMarkTaskAcknowledgementMessage(ArrayList<Task> taskList, int taskIndex) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(taskList.get(taskIndex).getStatusIcon());
+    }
+    public void printUnmarkTaskAcknowledgementMessage(ArrayList<Task> taskList, int taskIndex) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(taskList.get(taskIndex).getStatusIcon());
     }
 
     public void handleError(ThawException e) {

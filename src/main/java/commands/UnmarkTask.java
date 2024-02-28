@@ -7,14 +7,14 @@ import java.util.ArrayList;
  * 
  */
 public class UnmarkTask extends Command {
-    public static void unmarkTask(ArrayList<Task> task, String usersInput) throws ThawException {
-        if (!commandWithoutDescription(usersInput)) {
+    public final String className = "unmark";
+    public UnmarkTask(ArrayList<Task> task, String usersInput) throws ThawException {
+        if (commandWithoutDescription(usersInput)) {
+            throw new ThawException("Empty command " + className);
+        } else if (!commandWithoutDescription(usersInput)) {
             int taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
-            System.out.println("OK, I've marked this task as not done yet:");
             task.get(taskIndex).setDone(false);
-            System.out.println(task.get(taskIndex).getStatusIcon());
-        } else if (commandWithoutDescription(usersInput)) {
-            throw new ThawException("Empty command " + usersInput);
+            ui.printUnmarkTaskAcknowledgementMessage(task, taskIndex);
         }
     }
 }

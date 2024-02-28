@@ -13,6 +13,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
+    /**
+     * This function is to be called after the program boot up and print the acknowledgement message
+     * Contionously run to process user's input
+     * @param input the user's input from the terminal
+     * @param list ArrayList that is initialised previously and passed onto this function to be populated
+     * @param ui used to print messages based on the user's input
+     * @throws ThawException customised error handling exception
+     */
     public static void startListening(Scanner input, ArrayList<Task> list, UI ui) throws ThawException {
         boolean canExit = false;
         while (!canExit) {
@@ -29,29 +37,49 @@ public class Parser {
         }
     }
 
+    /**
+     * Process user's inputs that are commands which edit the existing list of task
+     * @param usersInput the string for user's input
+     * @param task ArrayList of task
+     * @param ui used to print error messages
+     */
     private static void editTask(String usersInput, ArrayList<Task> task, UI ui) {
         try {
-            if (usersInput.startsWith("mark")) {
-                MarkTask.markTask(task, usersInput);
-            } else if (usersInput.startsWith("unmark")) {
-                UnmarkTask.unmarkTask(task, usersInput);
-            } else if (usersInput.startsWith("delete")) {
-                DeleteTask.deleteTask(task, usersInput);
-            } else if (usersInput.startsWith("todo") || usersInput.startsWith("deadline") || usersInput.startsWith("event")) {
-                AddTask.addTask(usersInput, task);
-                ui.printAcknowledgementMessage(task);
-            } else if (usersInput.startsWith("find")) {
-                Find.find(usersInput, task);
-            } else {
-                throw new ThawException("Invalid command");
+            String firstWord = usersInput.split("\\s+")[0];
+            Command commandTask;
+            switch (firstWord) {
+                case "mark":
+                    commandTask = new MarkTask(task, usersInput);
+                    break;
+                case "unmark":
+                    commandTask = new UnmarkTask(task, usersInput);
+                    break;
+                case "delete":
+                    commandTask = new DeleteTask(task, usersInput);
+                    break;
+                case "todo":
+                    commandTask = new AddTodoTask(task, usersInput);
+                    break;
+                case "deadline":
+                    commandTask = new AddDeadlineTask(task, usersInput);
+                    break;
+                case "event":
+                    commandTask = new AddEventTask(task, usersInput);
+                    break;
+                default:
+                    throw new ThawException("Invalid command");
             }
         } catch (ThawException e) {
             ui.handleError(e);
         }
-        Storage.saveData(task);
     }
 
-
+    /**
+     * Process userinput string to get a date formatted variable.
+     * Used for reading the data in a saved file in the Storage Class.
+     * @param inputDateTimeString string that is read from the saved file
+     * @return
+     */
     public static LocalDate processDate(String inputDateTimeString) {
         String inputDateString = inputDateTimeString.strip();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");

@@ -3,13 +3,10 @@ package Tasks;
 import Tasks.Task;
 
 public class Todo extends Task {
-    protected String toDoDescription;
     public String duration;
 
-    public Todo(String description, String toDoDescription) {
+    public Todo(String description) {
         super(description);
-        this.toDoDescription = toDoDescription;
-        this.duration = "";
     }
 
     @Override

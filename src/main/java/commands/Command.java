@@ -1,9 +1,15 @@
 package commands;
+import Exceptions.ThawException;
+import FileManagerPackage.Storage;
+
+import PrintMessages.UI;
+
 
 /**
  *  Check if the given parameter (the userinput) is an empty command, meaning just the command word alone
  */
 public class Command {
+    UI ui = new UI();
     public static boolean commandWithoutDescription(String usersInput) {
         return  usersInput.equals("unmark")   ||
                 usersInput.equals("mark")     ||
