@@ -1,11 +1,11 @@
-package Tony.UI;
+package Tony.utility;
 
 import Tony.task.Task;
 
 import java.util.ArrayList;
 
 public class Ui {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
     public static final String LINE_BREAKER = "__________________________________________________"
             + System.lineSeparator();
 
