@@ -70,6 +70,7 @@ public class TaskList {
      * @param task input given by user
      * @param userAdded inidicate if user is adding event or adding
      *                  task when loading from file
+     * @throws TaskListFullException if trying to add task when taskList is full (more than 100)
      */
     public void addTask(Task task, boolean userAdded) {
         try {
@@ -101,6 +102,12 @@ public class TaskList {
         }
     }
 
+    /**
+     *  prints task which match the user input
+     *  if not found, user will be informed
+     *
+     * @param keyword keyword to search for in the taskList
+     */
     public void findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task: taskList) {
