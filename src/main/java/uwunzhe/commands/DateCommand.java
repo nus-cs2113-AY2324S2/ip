@@ -36,6 +36,7 @@ public class DateCommand extends Command {
 
         for (int i = 0; i < size; i++) {
             Task task = taskList.getTask(i);
+            
             if (task.getTaskType().equals(TaskType.DEADLINE.getType())) {
                 Deadline deadline = (Deadline) task;
                 LocalDate end = deadline.getDeadline();
@@ -58,6 +59,10 @@ public class DateCommand extends Command {
                     Ui.printlnTask(taskList, i, counterString);
                 }
             }
+        }
+
+        if (counter == 0) {
+            Ui.println("Dun hv...");
         }
     }
 }
