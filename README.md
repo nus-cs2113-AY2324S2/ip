@@ -50,7 +50,7 @@ java -jar ThawBot.jar
      Now you have 1 task in the list.
      ```
     
-3. Deadline: deadline <br>
+2. Deadline: deadline <br>
      Format: deadline NAME /by DUE_DATE DUE_TIME <br>
      DUE_DATE is in mm-dd-yy (e.g. 01-04-2024 is displayed as Jan 4 2024. Note cannot replace the "-" with "/"). <br>
      DUE_TIME is in HHMM (e.g. 2359 is displayed as 11:59pm). <br>
@@ -65,7 +65,7 @@ java -jar ThawBot.jar
      Now you have 2 task in the list.
      ```
    
-5. Event: event <br>
+3. Event: event <br>
      Format: event NAME /from START_DATE START_TIME /to END_DATE END_TIME <br>
      START_DATE and END_DATE is in mm-dd-yy (e.g. 01-04-2024 is displayed as Jan 4 2024. Note cannot replace the "-" with "/"). <br>
      START_TIME and END_TIME is in HHMM (e.g. 2359 is displayed as 11:59pm). <br>
@@ -80,7 +80,7 @@ java -jar ThawBot.jar
      ```bash
 
 #### Deleting task:
-**delete: Deletes a task** <br>
+1. **delete: Deletes a task** <br>
      Format: delete NUMBER <br>
      NUMBER is the task index or the number that the task is labelled with which can be seen when using the list function. <br>
      Example: delete 2 (it will delete the second tasks in the list and shift all the tasks at the bottom up). <br><br>
@@ -94,7 +94,7 @@ java -jar ThawBot.jar
      ```
 
 #### Looking at the tasks 
-**list: List out all the added tasks** <br>
+1. **list: List out all the added tasks** <br>
      Format: list <br>
      Will list out all the added tasks. <br>
      Example: <br>
@@ -109,7 +109,7 @@ java -jar ThawBot.jar
      
 
 #### Finding specific task: 
-**find: Find a task using a keyword** <br>
+1. **find: Find a task using a keyword** <br>
      Format: find KEYWORD <br> 
      Will find the task in the task list that contains the particular KEYWORD. <br>
      Example: <br>
@@ -148,8 +148,8 @@ java -jar ThawBot.jar
      Nice! I've unmarked this task as not done:
      [T][ ] eat
      ```
-     #### Leaving the program
-     **bye: terminate the program** <br>
+#### Leaving the program
+1. **bye: terminate the program** <br>
      Format: bye <br>
      Will terminate the program but saves the file before it does that. <br>
      Example: <br>
