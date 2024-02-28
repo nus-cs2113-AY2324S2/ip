@@ -66,7 +66,7 @@ Marks a completed task as undone.
 Example of usage:
 
 `unmark 1`
-Expected outcome:
+Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/c7300cbe-cd01-4ec5-8efe-dfd3587e2c02)
 
 ### `delete` - Delete a Task
@@ -76,7 +76,7 @@ Removes a task from your task list.
 Example of usage:
 
 `delete 1`
-Expected outcome:
+Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/d0cb910d-e76b-448a-a19e-2f73deffaa94)
 
 ### `find` - Find Tasks by Keyword
@@ -86,7 +86,7 @@ Searches for tasks containing specific keywords.
 Example of usage:
 
 `find formula`
-Expected outcome:
+Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/1714c394-d026-4cc1-9ea6-8b11828f0eeb)
  
 
