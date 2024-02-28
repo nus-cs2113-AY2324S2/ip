@@ -1,4 +1,4 @@
 package misty.data.exception;
 
-public class CorruptedFileException extends Exception{
+public class CorruptedFileException extends Exception {
 }
