@@ -21,6 +21,8 @@ public class Ui {
         formatter = new Formatter();
     }
 
+    /**
+     * Read the input from user and use <code>Parse</code> class to further deal with the input     */
     public void startConversation() {
         Parser parser = new Parser();
         Scanner in = new Scanner(System.in);

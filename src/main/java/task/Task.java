@@ -6,7 +6,7 @@ package task;
 public abstract class Task {
     protected String description;
     /**
-     * If this task is done by the user
+     * If this task is marked as done by the user
      */
     protected boolean isDone;
     /**

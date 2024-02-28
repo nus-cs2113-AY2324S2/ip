@@ -30,6 +30,7 @@ public class UserInputErrorOutputHandler {
         System.out.println("\tPlease add a spacing between " + identity + " and 'number'");
         formatter.printDividingLine();
     }
+
     public void printNoSpacingErrorForFind() {
         formatter.printDividingLine();
         System.out.println("\tPlease add a spacing between 'find' and 'theTaskContentYouWantToFind'");
@@ -39,6 +40,12 @@ public class UserInputErrorOutputHandler {
     public void printInputNotNumberError(String identity) {
         formatter.printDividingLine();
         System.out.println("\tPlease type " + identity + " + 'NUMBER'!");
+        formatter.printDividingLine();
+    }
+
+    public void printWrongDateFormatError() {
+        formatter.printDividingLine();
+        System.out.println("\tUnsupported Date Format!");
         formatter.printDividingLine();
     }
 

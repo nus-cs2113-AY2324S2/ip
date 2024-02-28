@@ -1,5 +1,8 @@
 import ui.Ui;
 
+/**
+ * Main class for Noob chabot
+ */
 public class Noob {
     public static void main(String[] args) {
         Ui ui = new Ui();
