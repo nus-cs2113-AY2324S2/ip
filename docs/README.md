@@ -23,6 +23,8 @@ List all tasks in task list
 
 Adds a todo task to your task list.
 
+format: todo <<description>>
+
 Example of usage: 
 
 `todo Buy lunch`
