@@ -24,8 +24,7 @@ public class Gary {
         String line;
         line = in.nextLine();
 
-        Parser.runCommandUntilExit(line, file, in, todos);
-        Ui.exitProgramme();
+        // Handle all user commands in loop until exit
+        Parser.runCommand(line, file, in, todos);
     }
-
 }

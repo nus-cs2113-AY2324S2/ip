@@ -7,13 +7,14 @@ import gary.command.MarkCommand;
 import gary.command.UnmarkCommand;
 import gary.command.AddCommand;
 import gary.command.DeleteCommand;
+import gary.command.ExitCommand;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-    public static void runCommandUntilExit(String line, File file, Scanner in, ArrayList<Task> todos) {
+    public static void runCommand(String line, File file, Scanner in, ArrayList<Task> todos) {
         String[] lineWords;
         String command;
         Command userCommand;
@@ -35,5 +36,8 @@ public class Parser {
             userCommand.handleCommand();
             line = in.nextLine();
         }
+
+        userCommand = new ExitCommand();
+        userCommand.handleCommand();
     }
 }
