@@ -73,9 +73,9 @@ public class Main {
     }
 
     /**
-     * Starts chatbot
+     * Starts chatbot.
      *
-     * @param args Command line arguments - Not needed
+     * @param args Command line arguments - Not needed.
      */
     public static void main(String[] args) {
         new Main().run();
