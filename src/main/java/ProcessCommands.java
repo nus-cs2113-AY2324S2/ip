@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ProcessCommands {
-    private TaskList taskList;
+    private final TaskList taskList;
 
     public ProcessCommands(TaskList tasklist) {
         this.taskList = tasklist;
@@ -30,6 +30,9 @@ public class ProcessCommands {
                 break;
             case "delete":
                 taskList.deleteTask(Integer.parseInt(commandParts[1])-1);
+                break;
+            case "find":
+                taskList.findTasks(commandParts[1]);
                 break;
             default:
                 System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised

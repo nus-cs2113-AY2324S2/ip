@@ -45,6 +45,8 @@ public class TaskList {
      *  Adds task of "event" type
      *
      * @param commandParts user command to handle
+     * @param userAdded inidicate if user is adding event or adding
+     *                  event when loading from file
      *
      **/
     public void addEvent(String[] commandParts, boolean userAdded) {
@@ -63,37 +65,11 @@ public class TaskList {
     }
 
     /**
-     *  marks specified task
-     *
-     *  @param commandParts user command to handle
-     *
-     **/
-    public void markTask(String[] commandParts) {
-        if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
-            System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
-        } else {
-            markTaskIndex(Integer.parseInt(commandParts[1]) - 1);
-        }
-    }
-
-    /**
-     *  Unmarks specified task*
-     *
-     * @param commandParts user command to handle
-     *
-     **/
-    public void unmarkTask(String[] commandParts) {
-        if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
-            System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
-        } else {
-            unmarkTaskIndex(Integer.parseInt(commandParts[1]) - 1);
-        }
-    }
-
-    /**
      * Adds user input into taskList
      *
      * @param task input given by user
+     * @param userAdded inidicate if user is adding event or adding
+     *                  task when loading from file
      */
     public void addTask(Task task, boolean userAdded) {
         try {
@@ -125,6 +101,24 @@ public class TaskList {
         }
     }
 
+    public void findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task: taskList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("☹ Dobby could not find the Task.");
+        } else {
+            System.out.println("Dobby found " + matchingTasks.size() + " matching tasks.");
+            for (int i = 0 ; i < matchingTasks.size() ; i+=1) {
+                System.out.println(" " + (i+1) + ". " + matchingTasks.get(i));
+            }
+        }
+    }
+
     /**
      * list out current tasks and displays task status
      */
@@ -138,6 +132,34 @@ public class TaskList {
             System.out.println("  " + (i+1) + ". [" + taskList.get(i).getType() + "]" + taskList.get(i));
         }
         printLineBreak();
+    }
+
+    /**
+     *  marks specified task
+     *
+     *  @param commandParts user command to handle
+     *
+     **/
+    public void markTask(String[] commandParts) {
+        if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
+            System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
+        } else {
+            markTaskIndex(Integer.parseInt(commandParts[1]) - 1);
+        }
+    }
+
+    /**
+     *  Unmarks specified task*
+     *
+     * @param commandParts user command to handle
+     *
+     **/
+    public void unmarkTask(String[] commandParts) {
+        if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
+            System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
+        } else {
+            unmarkTaskIndex(Integer.parseInt(commandParts[1]) - 1);
+        }
     }
 
     /**
