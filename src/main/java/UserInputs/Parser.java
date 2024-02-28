@@ -11,6 +11,9 @@ import commands.UnmarkTask;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     public static void startListening(Scanner input, ArrayList<Task> list, UI ui) throws ThawException {
@@ -50,4 +53,15 @@ public class Parser {
     }
 
 
+    public static LocalDate processDate(String inputDateTimeString) {
+        String inputDateString = inputDateTimeString.strip();
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        return LocalDate.parse(inputDateString, inputFormatter);
+    }
+
+    public static LocalTime processTime(String inputDateTimeString) {
+        String inputTimeString = inputDateTimeString.strip();
+        DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+        return LocalTime.parse(inputTimeString, inputTimeFormatter);
+    }
 }
