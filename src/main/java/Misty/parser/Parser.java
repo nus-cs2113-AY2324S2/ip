@@ -1,10 +1,22 @@
 package misty.parser;
 
-import misty.data.TaskList;
-import misty.command.*;
-import misty.data.exception.*;
-import misty.ui.UserUi;
 import java.util.regex.Matcher;
+import misty.command.ByeCommand;
+import misty.command.CheckCommand;
+import misty.command.Command;
+import misty.command.DeadlineCommand;
+import misty.command.DeleteCommand;
+import misty.command.EventCommand;
+import misty.command.FindCommand;
+import misty.command.ListCommand;
+import misty.command.MarkCommand;
+import misty.command.TodoCommand;
+import misty.command.UnmarkCommand;
+import misty.data.TaskList;
+import misty.data.exception.IllegalListIndexException;
+import misty.data.exception.InvalidParameterFormatException;
+import misty.data.exception.UnknownCommandException;
+import misty.ui.UserUi;
 
 public class Parser {
     private UserUi userUi;
