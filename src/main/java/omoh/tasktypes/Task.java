@@ -192,6 +192,14 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+
+    public static void createFileDirectory () {
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdirs(); // This will create the necessary directories
+        }
+    }
+
 }
 
 
