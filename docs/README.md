@@ -58,7 +58,9 @@ Expected outcome: <br />
 ### `mark` - Mark a Task as Done
 
 Marks a task as completed.
+
 format: mark < task index >
+
 Example of usage:
 
 `mark 1`
@@ -68,6 +70,8 @@ Expected outcome: <br />
 ### `unmark` - Mark a Task as Undone
 
 Marks a completed task as undone.
+
+format: unmark < task index >
 
 Example of usage:
 
@@ -79,6 +83,8 @@ Expected outcome: <br />
 
 Removes a task from your task list.
 
+format: delete < task index >
+
 Example of usage:
 
 `delete 1`
@@ -87,7 +93,9 @@ Expected outcome: <br />
 
 ### `find` - Find Tasks by Keyword
 
-Searches for tasks containing specific keywords.
+Searches for tasks containing specific keywords. returns a list of tasks with matching keywords
+
+format: find < keyword >
 
 Example of usage:
 
