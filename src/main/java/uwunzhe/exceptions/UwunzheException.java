@@ -11,6 +11,15 @@ public class UwunzheException extends Exception {
     public UwunzheException(String message) {
         super(message);
     }
+
+    /**
+     * Constructor for UwunzheException.
+     * 
+     * @param message The cause of the exception using enum {@link ExceptionMessages}.
+     */
+    public UwunzheException(ExceptionMessages message) {
+        super(message.getMessage());
+    }
     
     /**
      * Prints the exception message.

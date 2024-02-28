@@ -13,6 +13,7 @@ import uwunzhe.tasks.Todo;
 import uwunzhe.tasks.Deadline;
 import uwunzhe.tasks.Event;
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 
 public class Storage {
     // Storage directory constants
@@ -38,7 +39,7 @@ public class Storage {
         try {
             storage.createNewFile();
         } catch (IOException | SecurityException e) {
-            throw new UwunzheException("Storage file oopsies!");
+            throw new UwunzheException(ExceptionMessages.STORAGE_FILE_NOT_CREATED);
         }
 
         // Load data from file
@@ -62,7 +63,7 @@ public class Storage {
             }
             sc.close();
         } catch (FileNotFoundException e) {
-            throw new UwunzheException("Storage file oopsies!");
+            throw new UwunzheException(ExceptionMessages.STORAGE_FILE_NOT_READ);
         }
     }
 
@@ -80,7 +81,7 @@ public class Storage {
 
         // Check if data is valid
         if (!isDone && !isNotDone) {
-            throw new UwunzheException("EEK! Storage data!");
+            throw new UwunzheException(ExceptionMessages.INVALID_STORAGE_CONTENT);
         }
 
         if (data[0].equals(TaskType.TODO.getType())) {
@@ -91,7 +92,7 @@ public class Storage {
             task = new Event(data[2], data[3], data[4], isDone);
         } else {
             // Invalid data
-            throw new UwunzheException("EEK! Storage data!");
+            throw new UwunzheException(ExceptionMessages.INVALID_STORAGE_CONTENT);
         }
 
         // Add task to list
@@ -116,7 +117,7 @@ public class Storage {
 
             fw.close();
         } catch (IOException e) {
-            throw new UwunzheException("Storage file oopsies!");
+            throw new UwunzheException(ExceptionMessages.STORAGE_FILE_NOT_WRITTEN);
         }
     }
 }

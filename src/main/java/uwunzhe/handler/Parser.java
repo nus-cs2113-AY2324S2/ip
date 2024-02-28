@@ -1,6 +1,7 @@
 package uwunzhe.handler;
 
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 import uwunzhe.commands.Command;
 import uwunzhe.commands.ListCommand;
 import uwunzhe.commands.MarkUnmarkCommand;
@@ -62,7 +63,7 @@ public class Parser {
 
         default:
             // Add message for invalid input
-            throw new UwunzheException("OH NO! I cannot understand!");
+            throw new UwunzheException(ExceptionMessages.INVALID_COMMAND);
         }
     }
 }

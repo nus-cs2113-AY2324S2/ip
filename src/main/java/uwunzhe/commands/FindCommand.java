@@ -4,6 +4,7 @@ import uwunzhe.util.TaskList;
 import uwunzhe.util.Ui;
 import uwunzhe.handler.Storage;
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 
 public class FindCommand extends Command {
     /**
@@ -26,7 +27,7 @@ public class FindCommand extends Command {
     public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
         if (this.taskString.length() == 0) {
-            throw new UwunzheException("No Value :(");
+            throw new UwunzheException(ExceptionMessages.EXPECTED_EXTRA_COMMAND);
         }
 
         int size = taskList.getSize();

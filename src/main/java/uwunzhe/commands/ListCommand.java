@@ -5,6 +5,7 @@ import uwunzhe.util.Ui;
 import uwunzhe.handler.Storage;
 import uwunzhe.tasks.Task;
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 
 public class ListCommand extends Command {
     /**
@@ -27,13 +28,13 @@ public class ListCommand extends Command {
     public void execute(TaskList taskList, Storage storage) 
             throws UwunzheException {
         if (this.taskString.length() > 0) {
-            throw new UwunzheException("Extra... Value?!");
+            throw new UwunzheException(ExceptionMessages.UNEXPECTED_EXTRA_COMMAND);
         }
                 
         int size = taskList.getSize();
 
         if (size == 0) {
-            throw new UwunzheException("You KAIBAI-ing");
+            throw new UwunzheException(ExceptionMessages.EMPTY_LIST);
         }
 
         Ui.println("Yay! List!");

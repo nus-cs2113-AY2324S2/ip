@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import uwunzhe.tasks.Task;
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 import uwunzhe.tasks.TaskType;
 import uwunzhe.tasks.Todo;
 import uwunzhe.tasks.Deadline;
@@ -60,7 +61,7 @@ public class TaskList {
         
         // Check if completion status is already the same
         if (prevStatus == newStatus) {
-            throw new UwunzheException("No no no, not again...");
+            throw new UwunzheException(ExceptionMessages.COMMAND_REPEATED);
         }
 
         list.get(index).setStatus(newStatus);
@@ -76,7 +77,7 @@ public class TaskList {
     public void addItem(String command, String description) throws UwunzheException {
         // Error if empty string
         if (description.equals("")) {
-            throw new UwunzheException("ACKSHUALLY you are missing something...");
+            throw new UwunzheException(ExceptionMessages.EXPECTED_EXTRA_DESCRIPTION);
         }
         
         // Convert String command to TaskType enum
@@ -102,7 +103,7 @@ public class TaskList {
             printSize();
 
         } catch (IndexOutOfBoundsException e) {
-            throw new UwunzheException("ACKSHUALLY you are missing something...");
+            throw new UwunzheException(ExceptionMessages.EXPECTED_EXTRA_DESCRIPTION);
         }
     }
 

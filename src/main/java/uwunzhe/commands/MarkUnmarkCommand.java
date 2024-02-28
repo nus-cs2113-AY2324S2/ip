@@ -3,6 +3,7 @@ package uwunzhe.commands;
 import uwunzhe.util.TaskList;
 import uwunzhe.handler.Storage;
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 
 public class MarkUnmarkCommand extends Command {
     /**
@@ -31,10 +32,10 @@ public class MarkUnmarkCommand extends Command {
             storage.saveData(taskList);
 
         } catch (IndexOutOfBoundsException e) {
-            throw new UwunzheException("Huhhhhhhh? I cannot find!");
+            throw new UwunzheException(ExceptionMessages.UNABLE_TO_FIND_TASK);
 
         } catch (NumberFormatException e) {
-            throw new UwunzheException("Something something not adding up...");
+            throw new UwunzheException(ExceptionMessages.UNABLE_TO_CONVERT_TYPE);
         }
     }
 }
