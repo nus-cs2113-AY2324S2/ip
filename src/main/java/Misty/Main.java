@@ -13,7 +13,7 @@ import misty.storage.Storage;
 import misty.ui.UserUi;
 
 /**
- *
+ * Runs chatbot application.
  */
 public class Main {
     private UserUi userUi;
@@ -48,7 +48,7 @@ public class Main {
     }
 
     /**
-     * Executes main code of chatbot.
+     * Executes main function of chatbot.
      */
     public void run() {
         userUi.printWelcomeMessage();
@@ -73,7 +73,7 @@ public class Main {
     }
 
     /**
-     * Runs chatbot application.
+     * Starts chatbot
      *
      * @param args Command line arguments - Not needed
      */
