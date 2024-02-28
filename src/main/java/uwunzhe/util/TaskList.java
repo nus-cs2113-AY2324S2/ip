@@ -14,10 +14,11 @@ public class TaskList {
     private static int size = 0;
 
     /**
+     * Returns the object of type {@link Task} at index i.
      * List access operator.
      * 
-     * @param index
-     * @return Task
+     * @param index The index of the task in the list.
+     * @return Task object at index i.
      */
     public Task getTask(int index) {
         return list.get(index);
@@ -26,8 +27,7 @@ public class TaskList {
     /**
      * Returns the size of the list.
      * 
-     * @param None
-     * @return The size of the list.
+     * @return Size of the list.
      */
     public int getSize() {
         return size;
@@ -35,9 +35,6 @@ public class TaskList {
 
     /**
      * Prints the size of the list with flavour text.
-     * 
-     * @param None
-     * @return None
      */
     public void printSize() {
         int size = getSize();
@@ -51,10 +48,11 @@ public class TaskList {
 
     /**
     * Marks a task as done or not done.
-    * 
+    * Throws an exception if the command is repeated. 
+    *
     * @param command The command from the user.
     * @param index The index of the task in the list.
-    * @return None
+    * @throws UwunzheException If the command is repeated.
     */
     public void setItemStatus(String command, int index) throws UwunzheException {
         boolean newStatus = command.equals("mark");
@@ -70,12 +68,10 @@ public class TaskList {
 
     /**
      * Adds a task of specified type to the list.
-     * Overloaded method.
      * 
-     * @param taskName
-     * @param type
-     * @return None
-     * @throws UwunzheException
+     * @param taskName The name of the task.
+     * @param type The type of the task as a string.
+     * @throws UwunzheException If the command is invalid.
      */
     public void addItem(String command, String description) throws UwunzheException {
         // Error if empty string
@@ -113,8 +109,7 @@ public class TaskList {
     /**
      * Adds a task object to the list. Updates size.
      * 
-     * @param task
-     * @return None
+     * @param task The task object to be added, of type {@link Task}.
      */
     public void addItem(Task task) {
         list.add(task);
@@ -124,8 +119,7 @@ public class TaskList {
     /**
      * Adds a todo to the list. Updates size.
      * 
-     * @param description
-     * @return None
+     * @param description The description of the todo.
      */
     public void addTodo(String description) {
         // String name = description;
@@ -134,9 +128,9 @@ public class TaskList {
 
     /**
      * Adds a deadline to the list. Updates size.
+     * Parses description to obtain deadline using regex.
      * 
-     * @param description
-     * @return None
+     * @param description The description of the deadline.
      */
     public void addDeadline(String description) {
         String[] nameEnd = description.split(" /by ", 2);
@@ -148,9 +142,9 @@ public class TaskList {
 
     /**
      * Adds an event to the list. Updates size.
+     * Parses description to obtain start and end times using regex.
      * 
-     * @param description
-     * @return None
+     * @param description The description of the event.
      */
     public void addEvent(String description) {
         String[] nameTimes = description.split(" /from ", 2);
@@ -165,10 +159,9 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the list.
+     * Deletes a task from the list based on index of the task.
      * 
-     * @param index
-     * @return None
+     * @param index The index of the task in the list.
      */
     public void deleteItem(int index) {
         Task toRemove = list.get(index);

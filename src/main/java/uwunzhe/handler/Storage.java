@@ -15,6 +15,7 @@ import uwunzhe.tasks.Event;
 import uwunzhe.exceptions.UwunzheException;
 
 public class Storage {
+    // Storage directory constants
     private static File storage;
     private final static String STORAGE_FOLDER_PATH = "./data";
     private final static String STORAGE_PATH = STORAGE_FOLDER_PATH + "/uwunzhe.txt";
@@ -23,7 +24,8 @@ public class Storage {
     /**
      * Constructor for StorageHandler.
      * 
-     * @param taskList The list of tasks to be updated.
+     * @param taskList The list of tasks to be updated, of type {@link TaskList}.
+     * @throws UwunzheException If the storage file cannot be created.
      */
     public Storage(TaskList taskList) throws UwunzheException {
         // Create data folder if it does not exist
@@ -47,6 +49,7 @@ public class Storage {
      * Loads data from the storage file.
      * 
      * @param taskList The list of tasks to load to.
+     * @throws UwunzheException If the storage file cannot be found.
      */
     public void loadData(TaskList taskList) throws UwunzheException {
         try {
@@ -66,8 +69,9 @@ public class Storage {
     /**
      * Creates a task from a line in the saved data and adds it to the list.
      * 
-     * @param taskList The list of tasks to add to.
-     * @param data The data to create the task from.
+     * @param taskList The list of tasks to add to, of type {@link TaskList}.
+     * @param data Array of strings representing the data to create the task from.
+     * @throws UwunzheException If the storage data is invalid.
      */
     public void createTask(TaskList taskList, String[] data) throws UwunzheException {
         boolean isDone = data[1].equals("1");
@@ -98,6 +102,7 @@ public class Storage {
      * Saves the data to the storage file.
      * 
      * @param taskList The list of tasks to save.
+     * @throws UwunzheException If the storage file cannot be written to.
      */
     public void saveData(TaskList taskList) throws UwunzheException {
         try {

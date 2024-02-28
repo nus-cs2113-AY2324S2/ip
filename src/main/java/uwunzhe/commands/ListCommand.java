@@ -20,8 +20,9 @@ public class ListCommand extends Command {
     /**
      * Prints the list of tasks.
      * 
-     * @param taskList The list of tasks.
-     * @param storage The storage handler.
+     * @param taskList The list of tasks of type {@link TaskList}.
+     * @param storage The storage handler of tyle {@link Storage}.
+     * @throws UwunzheException If the command is invalid or if the list is empty.
      */
     public void execute(TaskList taskList, Storage storage) 
             throws UwunzheException {

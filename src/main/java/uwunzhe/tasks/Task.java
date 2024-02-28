@@ -10,7 +10,7 @@ public abstract class Task {
     /**
      * Constructor for Task.
      * 
-     * @param name The name of the task.
+     * @param name The name of the task as a string.
      */
     public Task(String name) {
         this.name = name;
@@ -21,7 +21,6 @@ public abstract class Task {
     /**
      * Returns the name of the task.
      * 
-     * @param None
      * @return The name of the task.
      */
     public String getName() {
@@ -31,8 +30,7 @@ public abstract class Task {
     /**
      * Returns the status of the task.
      * 
-     * @param None
-     * @return The status of the task.
+     * @return Task status.
      */
     public boolean getStatus() {
         return this.isDone;
@@ -41,8 +39,7 @@ public abstract class Task {
     /**
      * Sets the status of the task.
      * 
-     * @param newStatus
-     * @return None
+     * @param newStatus The new status of the task.
      */
     public void setStatus(boolean newStatus) {
         if (newStatus) {
@@ -59,7 +56,6 @@ public abstract class Task {
     /**
      * Returns the type of the task.
      * 
-     * @param None
      * @return The type of the task.
      */
     public String getTaskType() {
@@ -70,7 +66,6 @@ public abstract class Task {
      * Prints the task and its status in one line.
      * By default, task type is empty.
      * 
-     * @param None
      * @return String representation of the task.
      */
     @Override

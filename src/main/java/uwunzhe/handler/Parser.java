@@ -13,9 +13,9 @@ public class Parser {
     /**
      * Parses the input and calls the appropriate function.
      * 
-     * @param input The input from the user.
-     * @return If the task list was updated.
-     * @throws UwunzheException
+     * @param input The string input from the user.
+     * @return Object of type {@link Command} containing details of command to be executed.
+     * @throws UwunzheException If the command is invalid.
      */
     public Command parseInput(String input) throws UwunzheException {
         String[] splitInput = input.split(" ", 2);
@@ -28,10 +28,10 @@ public class Parser {
     /**
      * Parses the command and calls the appropriate function.
      * 
-     * @param command The command from the user.
-     * @param taskString The task from the user.
-     * @return Object containing details of command to be executed.
-     * @throws UwunzheException
+     * @param command The string command from the user.
+     * @param taskString The string containing details of the task to be executed.
+     * @return Object of type {@link Command} containing details of command to be executed.
+     * @throws UwunzheException If the command is invalid.
      */
     public Command parseCommand (String command, String taskString)
             throws UwunzheException {
@@ -40,11 +40,14 @@ public class Parser {
             return new ListCommand(command, taskString);
 
         case "mark":
+        // Fallthrough
         case "unmark":
             return new MarkUnmarkCommand(command, taskString);
 
         case "todo":
+        // Fallthrough
         case "deadline":
+        // Fallthrough
         case "event":
             return new AddCommand(command, taskString);
 

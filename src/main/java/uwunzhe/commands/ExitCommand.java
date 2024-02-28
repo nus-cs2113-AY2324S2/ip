@@ -18,8 +18,9 @@ public class ExitCommand extends Command {
     /**
      * Exits the bot.
      * 
-     * @param taskList The list of tasks.
-     * @param storage The storage handler.
+     * @param taskList The list of tasks of type {@link TaskList}.
+     * @param storage The storage handler of tyle {@link Storage}.
+     * @throws UwunzheException If the command is invalid.
      */
     public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
@@ -30,7 +31,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Checks if the command is an exit command.
+     * Returns whether the current command is an exit comamnd or not.
      * 
      * @return True if the command is an exit command, false otherwise.
      */

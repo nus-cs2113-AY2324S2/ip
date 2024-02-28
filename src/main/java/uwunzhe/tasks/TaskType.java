@@ -10,7 +10,7 @@ public enum TaskType {
     /**
      * Constructor for TaskType.
      * 
-     * @param type The type of task.
+     * @param type The type of task as a string.
      */
     TaskType(String type) {
         this.type = type;
@@ -19,7 +19,6 @@ public enum TaskType {
     /**
      * Gets the type of the task.
      * 
-     * @param None
      * @return The type of the task.
      */
     public String getType() {

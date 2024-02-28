@@ -18,8 +18,8 @@ public class MarkUnmarkCommand extends Command {
     /**
      * Marks the task as done.
      * 
-     * @param taskList The list of tasks.
-     * @param storage The storage handler.
+     * @param taskList The list of tasks of type {@link TaskList}.
+     * @param storage The storage handler of tyle {@link Storage}.
      * @throws UwunzheException If the task does not exist or input is invalid.
      */
     public void execute(TaskList taskList, Storage storage)

@@ -18,9 +18,9 @@ public class AddCommand extends Command {
     /**
      * Adds a task to the list.
      * 
-     * @param taskList The list of tasks.
-     * @param storage The storage handler.
-     * @throws UwunzheException If the task is invalid.
+     * @param taskList The list of tasks of type {@link TaskList}.
+     * @param storage The storage handler of tyle {@link Storage}.
+     * @throws UwunzheException If the command is invalid.
      */
     public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
