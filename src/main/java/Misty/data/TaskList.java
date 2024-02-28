@@ -13,30 +13,58 @@ import misty.data.task.Todo;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Creates task list to store tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private Storage storage;
     private UserUi userUi;
 
+    /**
+     * Constructs TaskList object.
+     *
+     * @param storage Storage object used to save data to hard disk.
+     * @param userUi UserUi object used to interact with user.
+     */
     public TaskList(Storage storage, UserUi userUi) {
         taskList = new ArrayList<>();
         this.storage = storage;
         this.userUi = userUi;
     }
 
+    /**
+     * Prints number of tasks in task list to the screen.
+     */
     public void printTaskCount() {
         userUi.printTaskCount(taskList.size());
     }
 
+    /**
+     * Prints to screen that a task has been added to task list.
+     *
+     * @param newTask Task object that has been added to task list.
+     */
     private void printAddTaskMessage(Task newTask) {
         userUi.printAddTaskMessage(newTask);
         printTaskCount();
     }
 
+    /**
+     * Adds task to task list.
+     *
+     * @param newTask Task object to be added to task list.
+     */
     private void addTask(Task newTask) {
         taskList.add(newTask);
     }
 
+    /**
+     * Adds todo task to task list.
+     *
+     * @param description Name of todo task.
+     * @throws EmptyParameterException If name is empty.
+     */
     public void addTodo(String description) throws EmptyParameterException {
         if (description.isEmpty()) {
             userUi.printUsageUsageTodo();
@@ -55,6 +83,13 @@ public class TaskList {
         printAddTaskMessage(newTask);
     }
 
+    /**
+     * Adds deadline to task list.
+     *
+     * @param description Name of deadline.
+     * @param by Due date of deadline.
+     * @throws EmptyParameterException If name or due date is empty.
+     */
     public void addDeadline(String description, String by) throws EmptyParameterException {
         if (description.isEmpty() || by.isEmpty()) {
             userUi.printUsageDeadline();
@@ -73,6 +108,14 @@ public class TaskList {
         printAddTaskMessage(newTask);
     }
 
+    /**
+     * Adds event to task list.
+     *
+     * @param description Name of event.
+     * @param from Start date of event.
+     * @param to End date of event.
+     * @throws EmptyParameterException If name, start date or end date is empty.
+     */
     public void addEvent(String description, String from, String to) throws EmptyParameterException {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             userUi.printUsageEvent();
@@ -91,6 +134,12 @@ public class TaskList {
         printAddTaskMessage(newTask);
     }
 
+    /**
+     * Marks task, setting it as done.
+     *
+     * @param index Index of task in task list.
+     * @throws IllegalListIndexException If index <= 0 or index > size of task list.
+     */
     public void markTask(int index) throws IllegalListIndexException {
         if (index <= 0 || index > taskList.size()) {
             userUi.printUsageMark();
@@ -108,6 +157,12 @@ public class TaskList {
         userUi.printTaskMarkAsDone(taskList.get(index-1));
     }
 
+    /**
+     * Unmarks task, setting it as not done.
+     *
+     * @param index Index of task in task list.
+     * @throws IllegalListIndexException If index <= 0 or index > size of task list.
+     */
     public void unmarkTask(int index) throws IllegalListIndexException {
         if (index <= 0 || index > taskList.size()) {
             userUi.printUsageUnmark();
@@ -125,6 +180,12 @@ public class TaskList {
         userUi.printTaskUnmarkAsNotDone(taskList.get(index - 1));
     }
 
+    /**
+     * Deletes task from task list.
+     *
+     * @param index Index of task in task list.
+     * @throws IllegalListIndexException If index <= 0 or index > size of task list.
+     */
     public void deleteTask(int index) throws IllegalListIndexException {
         if (index <= 0 || index > taskList.size()) {
             userUi.printUsageDelete();
@@ -144,10 +205,18 @@ public class TaskList {
         printTaskCount();
     }
 
+    /**
+     * Prints all tasks in task list to screen.
+     */
     public void listAll() {
         userUi.printList(taskList, taskList.size());
     }
 
+    /**
+     * Checks which tasks are occurring on a specific date and prints them to screen.
+     *
+     * @param localDate Date to be compared to tasks.
+     */
     public void check(LocalDate localDate) {
         int index = 1;
         boolean isValid = false;
@@ -168,6 +237,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Loads todo task from save file.
+     *
+     * @param description Name of todo task.
+     * @throws CorruptedFileException If todo task format is incorrect.
+     */
     public void loadTodo(String description) throws CorruptedFileException {
         if (description.isEmpty()) {
             throw new CorruptedFileException();
@@ -177,6 +252,13 @@ public class TaskList {
         addTask(newTask);
     }
 
+    /**
+     * Loads deadline from save file.
+     *
+     * @param description Name of deadline.
+     * @param by Due date of deadline.
+     * @throws CorruptedFileException If deadline format is incorrect.
+     */
     public void loadDeadline(String description, String by) throws CorruptedFileException {
         if (description.isEmpty() || by.isEmpty()) {
             throw new CorruptedFileException();
@@ -186,6 +268,14 @@ public class TaskList {
         addTask(newTask);
     }
 
+    /**
+     * Loads event from save file.
+     *
+     * @param description Name of event.
+     * @param from Start date of event.
+     * @param to End date of event.
+     * @throws CorruptedFileException If event format is incorrect.
+     */
     public void loadEvent(String description, String from, String to) throws CorruptedFileException {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new CorruptedFileException();
@@ -195,6 +285,12 @@ public class TaskList {
         addTask(newTask);
     }
 
+    /**
+     * Marks tasks if it's also marked in save file.
+     *
+     * @param index Index of task to be marked.
+     * @throws CorruptedFileException If index <= 0 or index > size of task list.
+     */
     public void loadMark(int index) throws CorruptedFileException {
         if (index <= 0 || index > taskList.size()) {
             throw new CorruptedFileException();
@@ -203,6 +299,12 @@ public class TaskList {
         taskList.get(index - 1).setTaskAsDone();
     }
 
+    /**
+     * Finds tasks that matches keyword passed as a parameter.
+     *
+     * @param keyword String to be compared to tasks.
+     * @throws EmptyParameterException If keyword is empty.
+     */
     public void find(String keyword) throws EmptyParameterException {
         if (keyword.isEmpty()) {
             userUi.printUsageFind();
