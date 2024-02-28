@@ -12,10 +12,22 @@ public class UnmarkCommand extends Command{
             Pattern.compile("(?<index>\\d+)");
     protected int index;
 
+    /**
+     * Constructs UnmarkCommand object.
+     *
+     * @param index Index of task to be unmarked in task list.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes unmark command to unmark a task in task list.
+     *
+     * @param taskList ArrayList containing all tasks.
+     * @param storage Storage object used to save data to hard disk.
+     * @param userUi UserUi object used to interact with user.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage, UserUi userUi) {
         try {

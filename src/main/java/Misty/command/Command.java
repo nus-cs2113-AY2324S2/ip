@@ -10,8 +10,18 @@ public abstract class Command {
     public static final Pattern COMMAND_FORMAT =
             Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
 
+    /**
+     * Constructs Command object - Not used due to class being abstract.
+     */
     public Command() {
     }
 
+    /**
+     * Executes command - Not used due to class being abstract.
+     *
+     * @param taskList ArrayList containing all tasks.
+     * @param storage Storage object used to save data to hard disk.
+     * @param userUi UserUi object used to interact with user.
+     */
     public abstract void execute(TaskList taskList, Storage storage, UserUi userUi);
 }

@@ -13,11 +13,24 @@ public class DeadlineCommand extends Command {
     private String taskName;
     private String by;
 
+    /**
+     * Constructs DeadlineCommand object.
+     *
+     * @param taskName Name of deadline.
+     * @param by Due date/time of deadline.
+     */
     public DeadlineCommand(String taskName, String by) {
         this.taskName = taskName;
         this.by = by;
     }
 
+    /**
+     * Executes deadline command to add deadline to task list.
+     *
+     * @param taskList ArrayList containing all tasks.
+     * @param storage Storage object used to save data to hard disk.
+     * @param userUi UserUi object used to interact with user.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage, UserUi userUi) {
         try {

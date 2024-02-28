@@ -12,10 +12,22 @@ public class DeleteCommand extends Command {
             Pattern.compile("(?<index>\\d+)");
     private int index;
 
+    /**
+     * Constructs DeleteCommand object.
+     *
+     * @param index Index of task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes delete command to remove a task from task list.
+     *
+     * @param taskList ArrayList containing all tasks.
+     * @param storage Storage object used to save data to hard disk.
+     * @param userUi UserUi object used to interact with user.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage, UserUi userUi) {
         try {
