@@ -12,6 +12,10 @@ public class FileManager {
     private final String fileName = "tasks.txt";
     private final Path directoryPath = Paths.get(System.getProperty("user.home"),  "DobbyData");
 
+    /**
+     * creates folder to store text file of
+     * task list if not yet created
+     */
     private void createDirectoryIfNotExists() {
         try {
             if (!Files.exists(directoryPath)) {
@@ -22,7 +26,11 @@ public class FileManager {
         }
     }
 
-
+    /**
+     * writes tasks in tasklist to text file in Dobbydata folder
+     * @param taskList tasklist to convert to text file
+     *
+     */
     public void saveTasksToFile(TaskList taskList) {
         createDirectoryIfNotExists();
         Path filePath = directoryPath.resolve(fileName);
@@ -52,6 +60,12 @@ public class FileManager {
         return "0";
     }
 
+    /**
+     * searhes for tasks.txt file in Dobbydata folder, created it if does not exist
+     * iterates through entire text file and transfer data
+     * to task list in program
+     * @param taskList list of tasks to transfer to
+     */
     public void loadTasksFromFile(TaskList taskList) {
         createDirectoryIfNotExists();
         Path filePath = directoryPath.resolve(fileName);
