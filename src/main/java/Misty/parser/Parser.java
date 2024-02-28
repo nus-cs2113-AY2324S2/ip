@@ -18,13 +18,31 @@ import misty.data.exception.InvalidParameterFormatException;
 import misty.data.exception.UnknownCommandException;
 import misty.ui.UserUi;
 
+/**
+ * Parses commands provided by user.
+ */
 public class Parser {
     private UserUi userUi;
 
+    /**
+     * Constructs Parser object.
+     *
+     * @param userUi UserUi object used to interact with user.
+     */
     public Parser(UserUi userUi) {
         this.userUi = userUi;
     }
 
+    /**
+     * Parse command given by user and decides what to execute next.
+     *
+     * @param userInput String input provided by the user to chatbot.
+     * @param taskList TaskList object used to store all tasks.
+     * @return Command object corresponding to the appropriate command provided by user.
+     * @throws IllegalListIndexException If index <= 0 or index > size of task list.
+     * @throws UnknownCommandException If command provided by user is unknown.
+     * @throws InvalidParameterFormatException If parameters given by user is not in expected format.
+     */
     public Command parseCommand(String userInput, TaskList taskList) throws IllegalListIndexException,
             UnknownCommandException, InvalidParameterFormatException {
         Matcher matcher = Command.COMMAND_FORMAT.matcher(userInput);
