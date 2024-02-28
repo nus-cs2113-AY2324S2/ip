@@ -36,6 +36,9 @@ public class UI {
             System.out.println("OOPS!!! The description of a " + e.getMessage().substring(14) +" cannot be empty.");
         } else if (e.getMessage().equals("Invalid command")) {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } else if (e.getMessage().equals("Invalid date time format")) {
+            System.out.println("OOOOOPSZZZZ! I'm sorry, there may be an error with the date format in your input. \n" +
+                    "Please ensure that the date and time format is in dd-MM-yy format + space + HHmm");
         }
     }
 }
