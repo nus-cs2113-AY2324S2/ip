@@ -11,7 +11,6 @@ You don't need to manually sae as changes to the task list will automatically be
 Entering dates in the form yyyy-mm-dd will automatically be translated to reader friendly format:
 `eg 2024-01-13  -> Sunday, Jan 13 2024`
 
-
 ### 3. Add tasks with only task name - `todo` 
 You can add tasks with only a task name to the task list.
 
