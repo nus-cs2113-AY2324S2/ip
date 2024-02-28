@@ -77,7 +77,7 @@ java -jar ThawBot.jar
      ```bash
      [E][ ] CG2023 exam (from: Jan 1 2100 3:00PM to: Jan 1 2100 5:00PM)
      Now you have 3 task in the list.
-     ```bash
+     ```
 
 #### Deleting task:
 1. **delete: Deletes a task** <br>
