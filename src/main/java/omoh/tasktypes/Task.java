@@ -71,26 +71,6 @@ public class Task {
         fw.close();
     }
 
-    public static void readFile() throws FileNotFoundException, CorruptedFileException, EmptyTodoException {
-        //open file for reading
-        File f = new File("data/output.txt");
-        Scanner s = new Scanner(f);
-        Task.initArray();
-        //iteration required so that programme knows which task to mark as done
-        int iteration = 0;
-        while (s.hasNextLine()) {
-            String line = s.nextLine();
-            // Process each line (splitting by "|", for example)
-            String[] parts = line.split("\\|"); // Split the line by "|"
-            if (parts.length < 3 || parts.length > 5 ) {
-                throw new CorruptedFileException();
-            }
-            processFileText(parts, iteration);
-            iteration++;
-        }
-        s.close();
-    }
-
     //method that extracts the task number to mark or unmark
     public static int extractTaskNumber(String input) throws NumberFormatException, EmptyTaskNumberException {
         String keyword;
