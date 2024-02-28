@@ -4,50 +4,38 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.List;
 import java.util.stream.Collectors;
 
-public class TaskListFile {
-    private final List<Task> taskList;
+public class Storage {
     private final String fileName;
     private final File taskFile;
     private static final String delimiter = "\\|";
     private static final SimpleDateFormat formatter =
             new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
-    TaskListFile(String fileName) {
-        List<Task> taskList1;
+    Storage(String fileName) {
         this.fileName = fileName;
         this.taskFile = new File(fileName);
-        try {
-            taskList1 = this.decodeTasks();
-        } catch (FileNotFoundException e) {
-            taskList1 = new ArrayList<>();
-        }
-        this.taskList = taskList1;
     }
-    TaskListFile(String fileName, List<Task> taskList) throws IOException {
+    Storage(String fileName, TaskList taskList) throws IOException {
         this.fileName = fileName;
         this.taskFile = new File(fileName);
-        this.taskList = taskList;
-
         try {
             if (this.taskFile.createNewFile()) {
                 System.out.printf("File created %s%n",this.fileName);
             } else {
-                System.out.println("File exists, adding tasks to file");
+                System.out.println("File exists, adding/deleting tasks to file");
             }
-            this.writeFile(this.taskFile);
+            this.writeFile(this.taskFile, taskList);
         } catch (IOException e) {
             System.out.println("Error creating files " + e.getMessage());
         }
     }
 
-    List<Task> decodeTasks() throws FileNotFoundException {
-        List<Task> loadList = new ArrayList<>();
+    TaskList decodeTasks() throws FileNotFoundException {
+        TaskList loadList = new TaskList();
         Scanner s = new Scanner(this.taskFile);
         while (s.hasNext()) {
             String inputLine = s.nextLine();
@@ -56,14 +44,14 @@ public class TaskListFile {
                 if (inputLine.startsWith("T")) {
                     boolean status = words[1].equals("X");
                     String description = words[2];
-                    loadList.add(new ToDo(description, status));
+                    loadList = loadList.add(new ToDo(description, status));
                     continue;
                 }
                 if (inputLine.startsWith("D")) {
                     boolean status = words[1].equals("X");
                     String description = words[2];
                     Date timestamp = formatter.parse(words[3]);
-                    loadList.add(new Deadline(
+                    loadList = loadList.add(new Deadline(
                             description, status, timestamp));
                     continue;
                 }
@@ -72,7 +60,8 @@ public class TaskListFile {
                     String description = words[2];
                     Date from = formatter.parse(words[3]);
                     Date to = formatter.parse(words[4]);
-                    loadList.add(new Event(description, status, from, to));
+                    loadList = loadList.add(
+                            new Event(description, status, from, to));
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("File corrupted");
@@ -85,13 +74,13 @@ public class TaskListFile {
         return loadList;
     }
 
-    void writeFile(File file) throws IOException {
+    void writeFile(File file, TaskList updatedList) throws IOException {
         FileWriter fw = new FileWriter(file);
-        fw.write(this.encodeTasks());
+        fw.write(this.encodeTasks(updatedList));
         fw.close();
     }
-    String encodeTasks() {
-        return this.taskList.stream().map(
+    String encodeTasks(TaskList updatedList) {
+        return updatedList.getTasks().stream().map(
                 Task::encodeString).collect(
                         Collectors.joining("\n")) + "\n";
     }
@@ -106,8 +95,8 @@ public class TaskListFile {
         }
     }
 
-    TaskListFile updateTaskListFile(List<Task> newList) throws IOException {
-        return new TaskListFile(this.fileName, newList);
+    Storage updateStorage(TaskList newList) throws IOException {
+        return new Storage(this.fileName, newList);
     }
 
 
