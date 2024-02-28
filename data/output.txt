@@ -1,4 +1,2 @@
-T | 0 | go delta
-T | 1 | grab hockey stick
-T | 0 | asdf
-T | 0 | asdf
+T | 0 | grab hockey stick
+T | 1 | homework

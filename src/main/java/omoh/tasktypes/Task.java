@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Task {
-    public static ArrayList<Task> tasks;
+    protected static ArrayList<Task> tasks;
     public static int totalTasks = 0;
     protected String description;
     protected boolean isDone;
