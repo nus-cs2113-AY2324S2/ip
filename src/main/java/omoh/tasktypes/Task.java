@@ -167,7 +167,8 @@ public class Task {
     }
 
     //creates output.txt file to store data
-    public static void createOutputFile () {
+    //also reads output file
+    public static void createOrReadOutputFile () {
         //code to create new file in data directory
         File f = new File("data/output.txt");
         try {
