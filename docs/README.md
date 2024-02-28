@@ -43,6 +43,7 @@ Commands are explained [below](#Usage).
 ### Local Storage
 
 Uwunzhe saves past data locally, allowing users to access past data even after restarting the application.
+Data is saved to `./data/uwunzhe.txt` in the same directory as the `uwunzhe.jar` file.
 
 ## Usage
 
