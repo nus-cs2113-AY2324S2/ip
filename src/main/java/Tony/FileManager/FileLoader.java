@@ -1,10 +1,10 @@
 package Tony.FileManager;
 
-import Tony.UI.Ui;
 import Tony.task.Task;
 import Tony.task.Todo;
 import Tony.task.Deadline;
 import Tony.task.Event;
+import Tony.utility.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 public class FileLoader {
     protected static final String DATA_PATH = "./data/tonytask.txt";
-    protected static final String SEPARATOR = " \\| ";
     private ArrayList<Task> tasks;
 
     public FileLoader(ArrayList<Task> tasks) {
@@ -37,28 +36,11 @@ public class FileLoader {
         Scanner scanner = new Scanner(file);
         int lineCount = 0;
         while (scanner.hasNextLine()) {
-            String lineFromFile = scanner.nextLine();
-            String[] taskSplit = lineFromFile.split(SEPARATOR);
-            String taskSymbol = taskSplit[0].trim();
-            boolean isDone = taskSplit[1].trim().equals("1");
-            switch (taskSymbol) {
-            case "T":
-                tasks.add(new Todo(taskSplit[2].trim()));
-                break;
-            case "D":
-                tasks.add(new Deadline(taskSplit[2].trim(), taskSplit[3].trim()));
-                break;
-            case "E":
-                String[] fromAndTo = taskSplit[3].split("to");
-                tasks.add(new Event(taskSplit[2].trim(), fromAndTo[0].trim(), fromAndTo[1].trim()));
-                break;
-            }
-            if (isDone) {
-                tasks.get(lineCount).markDone();
-            } else {
-                tasks.get(lineCount).markNotDone();
-            }
+            Parser parser = new Parser(tasks);
+            parser.extractLineFromFile(scanner, lineCount);
             lineCount++;
         }
     }
+
+
 }
