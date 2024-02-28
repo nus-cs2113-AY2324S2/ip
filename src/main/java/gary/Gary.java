@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Gary {
     public static ArrayList<Task> todos = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
         Ui.greetings();

@@ -24,7 +24,7 @@ public class Storage {
         return file;
     }
 
-    public static ArrayList<Task> readFileStorage(File file) throws IOException {
+    public static ArrayList<Task> readFileStorage(File file) {
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(file));
             String lineText = fileReader.readLine();
@@ -62,11 +62,13 @@ public class Storage {
             fileReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("FILE NOT FOUND!!!");
+        } catch (IOException e) {
+            System.out.println("Failed to read file");
         }
         return todos;
     }
 
-    public static void writeTaskToTxt(File file, int todosCount, ArrayList<Task> todos) throws IOException {
+    public static void writeTaskToTxt(File file, int todosCount, ArrayList<Task> todos) {
         try {
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
             for (int i = 0; i < todosCount; i += 1) {
@@ -75,6 +77,8 @@ public class Storage {
             fileWriter.close();
         } catch (FileNotFoundException e) {
             System.out.println("FILE NOT FOUND!!!");
+        } catch (IOException e) {
+            System.out.println("Failed to write to file");
         }
     }
 
