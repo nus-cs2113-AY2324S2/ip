@@ -18,6 +18,10 @@ public class Event extends Task {
         this.dueTime = dueTime;
     }
 
+    public boolean containsTime(String keyword) {
+        return startTime.contains(keyword) || dueTime.contains(keyword);
+    }
+
     @Override
     public String toString() {
         String status = isDone ? "X" : " ";
