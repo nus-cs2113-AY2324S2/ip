@@ -2,13 +2,15 @@ package misty.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.FileWriter;
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import misty.data.TaskList;
-import misty.data.exception.*;
-import misty.data.task.*;
+import misty.data.exception.CorruptedFileException;
+import misty.data.task.Deadline;
+import misty.data.task.Event;
+import misty.data.task.Todo;
 
 public class Storage {
     private final static  String DEFAULT_DATA_FOLDER_NAME = "data";
