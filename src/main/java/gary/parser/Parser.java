@@ -1,6 +1,12 @@
 package gary.parser;
 
-import gary.exception.*;
+import gary.exception.MissingDeadlineByException;
+import gary.exception.UnknownCommandException;
+import gary.exception.MissingTodoDescriptionException;
+import gary.exception.MissingDeadlineDescriptionException;
+import gary.exception.MissingEventFromException;
+import gary.exception.MissingEventToException;
+import gary.exception.MissingEventDescriptionException;
 import gary.storage.Storage;
 import gary.task.Task;
 import gary.task.TaskList;
