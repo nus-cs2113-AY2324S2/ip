@@ -1,14 +1,18 @@
 # User Guide
+meet Dobby, your personal task manager to help you stay organised and ontop of all your tasks
 
 ## Features 
+#**Add Tasks**
+Dobby allows you to add various types of tasks such as todo, deadline, and event.
 
-### Feature-ABC
+#**Mark Tasks**
+You can mark tasks as completed to keep track of your progress.
 
-Description of the feature.
+#**Delete Tasks**
+Remove tasks that are no longer needed from your task list.
 
-### Feature-XYZ
-
-Description of the feature.
+#**Find Tasks**
+Search for tasks containing specific keywords to quickly locate relevant tasks.
 
 ## Usage
 
