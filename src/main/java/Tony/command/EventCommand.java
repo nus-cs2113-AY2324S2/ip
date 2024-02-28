@@ -4,6 +4,7 @@ import Tony.FileManager.FileSaver;
 import Tony.TonyException;
 import Tony.task.Event;
 import Tony.task.Task;
+import Tony.utility.Parser;
 import Tony.utility.Ui;
 
 import java.io.IOException;
@@ -14,9 +15,10 @@ public class EventCommand implements Command {
     private ArrayList<Task> tasks;
     private FileSaver fileSaver;
     private Ui ui;
-
-    public EventCommand(String line) {
+    private final Parser parser;
+    public EventCommand(String line, Parser parser) {
         this.USER_INPUT = line;
+        this.parser = parser;
     }
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) throws IOException, TonyException {
@@ -26,17 +28,11 @@ public class EventCommand implements Command {
         String[] eventTask = USER_INPUT.split("event");
 
         try {
-            checkArrayLength(eventTask);
+            parser.checkArrayLength(eventTask);
             addEventCommand(eventTask);
         } catch (TonyException e) {
-            System.out.println("OOPS!! The description of " + USER_INPUT
-                    + " cannot be empty." + System.lineSeparator());
-        }
-    }
-
-    private static void checkArrayLength(String[] eventTask) throws TonyException {
-        if (eventTask.length != 2) {
-            throw new TonyException();
+            System.out.println("OOPS!! The description of '" + USER_INPUT
+                    + "' cannot be empty." + System.lineSeparator());
         }
     }
 

@@ -4,6 +4,7 @@ import Tony.FileManager.FileSaver;
 import Tony.TonyException;
 import Tony.task.Deadline;
 import Tony.task.Task;
+import Tony.utility.Parser;
 import Tony.utility.Ui;
 
 import java.io.IOException;
@@ -14,9 +15,11 @@ public class DeadlineCommand implements Command {
     private ArrayList<Task> tasks;
     private FileSaver fileSaver;
     private Ui ui;
+    private final Parser parser;
 
-    public DeadlineCommand(String line) {
+    public DeadlineCommand(String line, Parser parser) {
         this.USER_INPUT = line;
+        this.parser = parser;
     }
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) throws IOException, TonyException {
@@ -25,17 +28,11 @@ public class DeadlineCommand implements Command {
         this.fileSaver = fileSaver;
         String[] deadlineTask = USER_INPUT.split("deadline");
         try {
-            checkArrayLength(deadlineTask);
+            parser.checkArrayLength(deadlineTask);
             addDeadlineCommand(deadlineTask);
         } catch (TonyException e) {
             System.out.println("OOPS!! The description of '" + USER_INPUT
                     + "' cannot be empty." + System.lineSeparator());
-        }
-    }
-
-    private static void checkArrayLength(String[] deadlineTask) throws TonyException {
-        if (deadlineTask.length != 2) {
-            throw new TonyException();
         }
     }
 

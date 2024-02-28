@@ -32,11 +32,11 @@ public class Parser {
         } else if (line.contains("mark")) {
             return new MarkCommand(line, parser);
         } else if (line.startsWith("todo")) {
-            return new ToDoCommand(line);
+            return new ToDoCommand(line, parser);
         } else if (line.startsWith("deadline")) {
-            return new DeadlineCommand(line);
+            return new DeadlineCommand(line, parser);
         } else if (line.startsWith("event")) {
-            return new EventCommand(line);
+            return new EventCommand(line, parser);
         }else if (line.startsWith("delete")) {
             return new DeleteCommand(line, parser);
         } else {
@@ -66,6 +66,11 @@ public class Parser {
             tasks.get(lineCount).markDone();
         } else {
             tasks.get(lineCount).markNotDone();
+        }
+    }
+    public void checkArrayLength(String[] taskArrayString) throws TonyException {
+        if (taskArrayString.length != 2) {
+            throw new TonyException();
         }
     }
 
