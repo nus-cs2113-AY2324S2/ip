@@ -59,4 +59,13 @@ public class Deadline extends Task {
         return String.format("%s%s%d%s%s%s%s",
                 this.type, delimiter, completion, delimiter, this.name, delimiter, endString);
     }
+
+    /**
+     * Returns the end time of the deadline as a LocalDate type.
+     * 
+     * @return The end time of the deadline.
+     */
+    public LocalDate getDeadline() {
+        return this.end;
+    }
 }

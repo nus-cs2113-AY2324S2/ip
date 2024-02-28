@@ -8,6 +8,7 @@ import uwunzhe.commands.MarkUnmarkCommand;
 import uwunzhe.commands.AddCommand;
 import uwunzhe.commands.DeleteCommand;
 import uwunzhe.commands.FindCommand;
+import uwunzhe.commands.DateCommand;
 import uwunzhe.commands.ExitCommand;
 
 public class Parser {
@@ -57,6 +58,9 @@ public class Parser {
 
         case "find":
             return new FindCommand(command, taskString);
+
+        case "date":
+            return new DateCommand(command, taskString);
 
         case "bye":
             return new ExitCommand(command, taskString);

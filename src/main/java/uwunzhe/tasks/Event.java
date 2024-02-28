@@ -67,4 +67,22 @@ public class Event extends Task {
                 this.type, delimiter, completion, delimiter, this.name,
                 delimiter, startString, delimiter, endString);
     }
+
+    /**
+     * Returns the start time of the event as a LocalDate type.
+     * 
+     * @return The start time of the event.
+     */
+    public LocalDate getStart() {
+        return this.start;
+    }
+
+    /**
+     * Returns the end time of the event as a LocalDate type.
+     * 
+     * @return The end time of the event.
+     */
+    public LocalDate getEnd() {
+        return this.end;
+    }
 }
