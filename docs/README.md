@@ -47,6 +47,8 @@ Expected outcome: <br />
 
 Adds a event to your task list.
 
+format: event < description > /from < start time/date > /to < end time/date >
+
 Example of usage: 
 
 `event formula 1 race /from sunday 9pm /to 11pm`
@@ -56,7 +58,7 @@ Expected outcome: <br />
 ### `mark` - Mark a Task as Done
 
 Marks a task as completed.
-
+format: mark < task index >
 Example of usage:
 
 `mark 1`
