@@ -1,5 +1,5 @@
-E | 1 | watch sunset | 630 | 730
-T | 0 | refactor code
-T | 0 | cs2113 lecture
-D | 0 | ee2211 lecture | yesterday
-E | 0 | club | sat | sun
+T | 1 | whack
+T | 1 | shit
+T | 0 | eat
+T | 1 | olist
+T | 0 | go toilet

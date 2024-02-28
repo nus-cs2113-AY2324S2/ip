@@ -111,21 +111,18 @@ public class Task {
 
     //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
     public static void modifyDoneStateOrDelete(int taskNumber, String input) throws IndexOutOfBoundsException {
-        //only executes if taskNumber is valid
-        if (taskNumber != -1) {
             if (input.startsWith("mark")) {
                 tasks.get(taskNumber - 1).isDone = true;
                 printMarkTask(taskNumber, input);
             } else if (input.startsWith("unmark")){
                 tasks.get(taskNumber - 1).isDone = false;
                 printMarkTask(taskNumber, input);
-            } else {
+            } else if (input.startsWith("delete")){
                 if (totalTasks == 0 || totalTasks < taskNumber) {
                     throw new IndexOutOfBoundsException();
                 }
                 printDeleteTask(taskNumber);
             }
-        }
     }
 
     //method that prints out the task that was deleted
