@@ -5,10 +5,24 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManager {
-    private final String fileName = "data/tasks.txt";
+    private final String fileName = "Dobbydata/tasks.txt";
+    private final String directoryPath = System.getProperty("user.home") + File.separator + "Dobbydata";
 
+    private void createDirectoryIfNotExists() {
+        File directory = new File(directoryPath);
+        try {
+            if (!directory.exists()) {
+                if (!directory.mkdirs()) {
+                    throw new IOException("Failed to create directory: " + directoryPath); // Throw IOException if directory creation failed
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage()); // Print error message
+        }
+    }
 
     public void saveTasksToFile(TaskList taskList) {
+        createDirectoryIfNotExists();
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
@@ -35,6 +49,7 @@ public class FileManager {
     }
 
     public void loadTasksFromFile(TaskList taskList) {
+        createDirectoryIfNotExists();
         try (Scanner scanner = new Scanner(new File(fileName))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
