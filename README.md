@@ -18,10 +18,10 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 ### Features
 #### Adding task:
-1. Todo: todo
-     Format: todo NAME
-     Example: todo sleep.
-2. Deadline: deadline
+1. Todo: todo <br>
+     Format: todo NAME <br>
+     Example: todo sleep. <br>
+2. Deadline: deadline <br>
      Format: deadline NAME /by DUE_DATE DUE_TIME
      DUE_DATE is in mm-dd-yy (e.g. 01-04-2024 is displayed as Jan 4 2024. Note cannot replace the "-" with "/").
      DUE_TIME is in HHMM (e.g. 2359 is displayed as 11:59pm).
