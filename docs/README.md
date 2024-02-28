@@ -15,7 +15,7 @@ java -jar earl.jar
 ## Quick Reference
 |Command   |Parameters                          |Explanation                            |
 |----------|------------------------------------|---------------------------------------|
-|`list`    |None                                |[`list`](@Printing Todo List: `list`)  |
+|`list`    |None                                |[list](@Printing Todo List: `list`)    |
 |`todo`    |<task name>                         |                                       |
 |`deadline`|<task name> /by <deadline>          |                                       |
 |`event`   |<task name> /from <start> /to <end> |                                       |
