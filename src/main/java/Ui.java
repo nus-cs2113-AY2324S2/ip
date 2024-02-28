@@ -38,12 +38,12 @@ public class Ui {
                 Scanner in = new Scanner(System.in);
                 String userInput = in.nextLine();
                 if (userInput.equals("list")) {
-                    Task.listTasks(tasks, index);
+                    Parser.listTasks(tasks, index);
                     System.out.println(LINE_SEPARATOR + "\n");
                 } else if (userInput.startsWith("mark ")) {
-                    Task.markTask(tasks, userInput, index);
+                    Parser.markTask(tasks, userInput, index);
                 } else if (userInput.startsWith("unmark ")) {
-                    Task.unmarkTask(tasks, userInput, index);
+                    Parser.unmarkTask(tasks, userInput, index);
                 } else if (userInput.startsWith("todo ")) {
                     index = ToDo.addToDo(tasks, userInput, index);
                 } else if (userInput.startsWith("deadline ")) {
@@ -51,7 +51,7 @@ public class Ui {
                 } else if (userInput.startsWith("event ")) {
                     index = Event.addEvent(tasks, userInput, index);
                 } else if (userInput.startsWith("delete ")) {
-                    index = Task.deleteTask(tasks,userInput,index);
+                    index = Parser.deleteTask(tasks,userInput,index);
                 } else if (userInput.startsWith("bye")) {
                     isFinished = exitMessage();
                 } else {
