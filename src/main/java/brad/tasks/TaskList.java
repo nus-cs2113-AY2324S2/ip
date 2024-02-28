@@ -48,7 +48,6 @@ public class TaskList {
 
     }
 
-
     public String getTask(int n) {
         String output = taskList.get(n - 1).getFullDescription();
         return output;
