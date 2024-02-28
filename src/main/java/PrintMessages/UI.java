@@ -29,7 +29,7 @@ public class UI {
     public void printAcknowledgementMessage(ArrayList<Task> task) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task.get(task.size() - 1).getStatusIcon());
-        System.out.print("Now you have " + task.size() + " task in the list.");
+        System.out.println("Now you have " + task.size() + " task in the list.");
     }
 
     public void printFoundCommandAcknowledgementMessage() {
