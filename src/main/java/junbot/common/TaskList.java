@@ -15,7 +15,7 @@ public class TaskList {
     protected Ui ui;
     protected Parser parser;
 
-    public TaskList(ArrayList<Task> tasks){
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         ui = new Ui();
         parser = new Parser();
@@ -31,7 +31,7 @@ public class TaskList {
         return this.tasks;
     }
 
-    public int getSize(){
+    public int getSize() {
         return getTasksList().size();
     }
 
@@ -136,6 +136,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Finds a task in the task list containing the inputted keyword, returns an ArrayList of all found tasks
+     *
+     * @param keyword the word to find in task list
+     * @return The ArrayList containing all found tasks
+     */
     public ArrayList<Task> findTasks(String keyword) {
 
         ArrayList<Task> foundTasks = new ArrayList<>();
@@ -151,15 +157,20 @@ public class TaskList {
 
     }
 
-    public void printMatchingTasks(String keyword){
+    /**
+     * Prints all matching tasks which contains the inputted keyword
+     *
+     * @param keyword the word to find in task list
+     */
+    public void printMatchingTasks(String keyword) {
         int taskNumber = 1;
         ArrayList<Task> foundTasks = findTasks(keyword);
 
         System.out.println("Here are the matching tasks in your list: ");
         ui.printDivider();
-        for(int i = 0; i < foundTasks.size(); i++){
-            System.out.print( taskNumber + ". ");
-            System.out.println(foundTasks.get(i));
+        for (Task foundTask : foundTasks) {
+            System.out.print(taskNumber + ". ");
+            System.out.println(foundTask);
             taskNumber += 1;
         }
         ui.printDivider();

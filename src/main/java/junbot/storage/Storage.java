@@ -5,6 +5,7 @@ import junbot.error.InvalidInputException;
 import junbot.error.JunBotException;
 import junbot.tasks.Task;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,33 +22,19 @@ public class Storage {
         this.tasks = new TaskList();
     }
 
-    public String getFilepath(){
-        return this.filepath;
-    }
-
     /**
-     * Loads tasks from the storage file. Creates a new tasks.txt file if file does not exist.
+     * Loads all entries from tasks.txt and returns a TaskList containing all imported tasks
      *
-     * @return The list of tasks loaded from the storage file.
-     * @throws IOException If an I/O error occurs while reading the file.
-     * @throws InvalidInputException If the input is invalid.
-     * @throws JunBotException If there is an issue with the JunBot.
+     * @return TaskList containing all imported tasks
+     * @throws InvalidInputException If any inputs are invalid when importing commands
      */
-    public ArrayList<Task> load() throws IOException, InvalidInputException, JunBotException {
-        File f = new File(filepath);
-        if(!f.exists()){
-            Path path = Paths.get(filepath);
-            Files.createDirectories(path.getParent());
-            Files.createFile(path);
-            throw new JunBotException();
-        }
-
+    public TaskList importCommands(TaskList tasks, File f) throws FileNotFoundException, InvalidInputException {
         Scanner s = new Scanner(f);
         int counter = 0;
 
-        while (s.hasNext()){
+        while (s.hasNext()) {
             String[] commands = s.nextLine().split("-");
-            switch (commands[0]){
+            switch (commands[0]) {
             case "T":
                 tasks.addTodo("todo " + commands[2]);
                 break;
@@ -69,6 +56,29 @@ public class Storage {
             counter += 1;
         }
 
+        return tasks;
+
+    }
+
+    /**
+     * Loads tasks from the storage file. Creates a new tasks.txt file if file does not exist.
+     *
+     * @return The list of tasks loaded from the storage file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws InvalidInputException If the input is invalid.
+     * @throws JunBotException If there is an issue with the JunBot.
+     */
+    public ArrayList<Task> load() throws IOException, InvalidInputException, JunBotException {
+        File f = new File(filepath);
+        if(!f.exists()){
+            Path path = Paths.get(filepath);
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+            throw new JunBotException();
+        }
+
+        this.tasks = importCommands(this.tasks, f);
+
         return tasks.getTasksList();
     }
 
@@ -78,7 +88,7 @@ public class Storage {
      * @param tasks The list of tasks to be written to the file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void updateFile(ArrayList<Task> tasks) throws IOException{
+    public void updateFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filepath);
         for (Task task : tasks) {
             String taskType = task.getTag();

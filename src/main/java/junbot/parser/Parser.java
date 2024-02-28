@@ -1,11 +1,9 @@
 package junbot.parser;
 
 import junbot.error.InvalidInputException;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 public class Parser {
-
 
     /**
      * Converts a list number (as string) to an array index. A task with a displayed list number n would have
@@ -49,6 +47,14 @@ public class Parser {
         return commandIndicator;
     }
 
+    /**
+     * Parses the input date string into a LocalDate object.
+     *
+     * @param date The date string to be parsed.
+     * @return A LocalDate object representing the parsed date.
+     * @throws InvalidInputException If the input date string is in an invalid format.
+     *
+     */
     public LocalDate parseDate(String date) throws InvalidInputException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");

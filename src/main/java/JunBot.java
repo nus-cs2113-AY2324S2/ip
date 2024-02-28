@@ -9,7 +9,6 @@ import junbot.ui.Ui;
 import java.io.IOException;
 
 public class JunBot {
-    private static String FILEPATH = "./data/tasks.txt";
     private static Ui ui;
     private static Storage storage;
     private static TaskList tasks;
@@ -22,7 +21,7 @@ public class JunBot {
      *
      * @param filePath The filepath of the storage file.
      */
-    public JunBot(String filePath){
+    public JunBot(String filePath) {
         try {
             ui = new Ui();
             storage = new Storage(filePath);
@@ -183,7 +182,7 @@ public class JunBot {
      * @param command The command input by the user.
      * @throws IOException If an I/O error occurs while updating the storage file.
      */
-    public static void deleteTask(String command) throws IOException{
+    public static void deleteTask(String command) throws IOException {
         String listNumber = parser.removeCommandIndicator(command, "delete");
         int taskArrayIndex = parser.convertToArrayIndex(listNumber);
 
@@ -201,7 +200,7 @@ public class JunBot {
     }
 
 
-    public static void findTasks(String command) throws IOException{
+    public static void findTasks(String command) throws IOException {
         String keyword = parser.removeCommandIndicator(command, "find");
         tasks.printMatchingTasks(keyword);
     }
@@ -279,7 +278,8 @@ public class JunBot {
      * @throws IOException If an I/O error occurs while handling user input.
      * @throws InvalidInputException If the user input is invalid from the relevant function
      */
-    public static void main(String[] args) throws IOException, InvalidInputException{
+    public static void main(String[] args) throws IOException, InvalidInputException {
+        String FILEPATH = "./data/tasks.txt";
         new JunBot(FILEPATH);
         ui.printWelcomeMessage();
         handleUserInput();

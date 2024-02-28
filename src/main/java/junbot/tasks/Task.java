@@ -26,19 +26,19 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getTag(){
+    public String getTag() {
         return " ";
     }
 
-    public String getStartDate(){
+    public String getStartDate() {
         return " ";
     }
 
-    public String getEndDate(){
+    public String getEndDate() {
         return " ";
     }
 
-    public void printTask() {
+    public void printTask()  {
         System.out.print("[" + this.getStatusIcon() + "] " + this.description + "\n");
     }
 

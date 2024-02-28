@@ -1,7 +1,6 @@
 package junbot.ui;
-import junbot.error.InvalidInputException;
+
 import junbot.tasks.Task;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,45 +18,45 @@ public class Ui {
     public void printDivider(){
         System.out.println(DIVIDER);
     }
-    public void printWelcomeMessage(){
+    public void printWelcomeMessage() {
         printDivider();
         System.out.println(GREETING);
         printDivider();
     }
 
-    public void printGoodbyeMessage(){
+    public void printGoodbyeMessage() {
         printDivider();
         System.out.println(GOODBYE);
         printDivider();
     }
 
-    public void printDeleteSuccessMessage(Task userTask){
+    public void printDeleteSuccessMessage(Task userTask) {
         printDivider();
         System.out.println("Noted. I've removed this task:");
         System.out.println(userTask);
         printDivider();
     }
 
-    public void printAddSuccessMessage(Task userTask){
+    public void printAddSuccessMessage(Task userTask) {
         System.out.println("Got it. I've added this tasks:");
         System.out.println(userTask);
     }
 
-    public void printUnmarkSuccessMessage(Task userTask){
+    public void printUnmarkSuccessMessage(Task userTask) {
         printDivider();
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(userTask);
         printDivider();
     }
 
-    public void printMarkSuccessMessage(Task userTask){
+    public void printMarkSuccessMessage(Task userTask) {
         printDivider();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(userTask);
         printDivider();
     }
 
-    public void printNumTasks(ArrayList<Task> tasks){
+    public void printNumTasks(ArrayList<Task> tasks) {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
