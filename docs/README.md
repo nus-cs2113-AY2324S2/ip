@@ -17,7 +17,7 @@ Dor is a CLI chatbot that helps users track their tasks.
 
 1. Ensure you have Java 11 or above installed on your computer.
 2. Download the latest `Dor.jar` file from JianJiaT/ip/Releases on GitHub.
-3. Open a command terminal and cd to the folder you put the JAR file in
+3. Open a command terminal and `cd` to the folder you put the JAR file in
 4. Enter `java -jar Dor.jar` into the terminal to run the chatbot
 5. Refer to the Features section below for details of each command
 
@@ -64,6 +64,7 @@ DESCRIPTION
 ### Deleting tasks: delete
 
 SYNOPSIS
+
    `delete INDEX`
 
 DESCRIPTION
@@ -90,7 +91,11 @@ SYNOPSIS
    `find KEYWORD`
 
 DESCRIPTION
-   - Lists all tasks containing KEYWORD (case sensitive)
+   - Lists all tasks containing KEYWORD in their name (case sensitive)
+
+EXAMPLES
+   - `find cook` lists "todo cook meat" and "event cooking competition /from 6pm /to 8pm"
+   - `find dance` lists "todo dance" but not "todo DANCE"
 
 
 ### Saving data
