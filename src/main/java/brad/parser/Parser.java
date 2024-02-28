@@ -11,6 +11,7 @@ public class Parser {
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
     private static final String DELETE = "delete";
+    private static final String FIND = "find";
     private static final String BYE = "bye";
     private Command command;
     private String userInput = "";
@@ -54,6 +55,8 @@ public class Parser {
                 return Command.EVENT;
             case DELETE:
                 return Command.DELETE;
+            case FIND:
+                return Command.FIND;
             case BYE:
                 hasArgument = false;
                 return Command.BYE;

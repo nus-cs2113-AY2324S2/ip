@@ -2,12 +2,6 @@ package brad.tasks;
 
 import java.util.ArrayList;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
 import brad.exceptions.emptyArgumentException;
 import brad.exceptions.invalidCommandException;
 import brad.exceptions.invalidNumberException;
@@ -23,13 +17,14 @@ public class TaskList {
     }
 
 
-        public String getList() {
+    public String getList() {
         String output = "";
         for (int i = 1; i <= taskList.size(); i++) {
             output +=  i  + ". " + getTask(i) + "\n";
         }
         return output;
     }
+
     public void addToList(String input, TaskType type, boolean isDone) {
         Tasks newTask;
         if (type == TaskType.EVENT) {
@@ -73,7 +68,7 @@ public class TaskList {
 
     public String executeCommand(Command command, String userInput)
             throws invalidCommandException, emptyArgumentException, invalidNumberException {
-        String message = "";
+        String message;
         switch (command) {
             case MARK:
                 message = doMarkAction(userInput);
@@ -92,6 +87,9 @@ public class TaskList {
                 break;
             case DELETE:
                 message = doDeleteAction(userInput);
+                break;
+            case FIND:
+                message = doFindAction(userInput);
                 break;
             default:
                 throw new invalidCommandException();
@@ -152,6 +150,24 @@ public class TaskList {
         String task = getTask(taskNumber);
         deleteTask(taskNumber);
         return task;
+    }
+
+    private String doFindAction(String keyword) throws
+            emptyArgumentException {
+        ArrayList <Tasks> matchedTasks = new ArrayList<>();
+        if (keyword.isBlank()) {
+            throw new emptyArgumentException();
+        }
+        String message = "";
+        int index = 1;
+        for (Tasks tasks : taskList) {
+            if (tasks.getTaskDescription().contains(keyword)) {
+                message += index + ". " + tasks.getFullDescription();
+                message += "\n";
+                index += 1;
+            }
+        }
+        return message;
     }
 }
 
