@@ -39,6 +39,7 @@ public class AddEventTask extends Command  {
             taskList.add(new Event(usersInput.substring(6, startIndex - 1),fromDate, fromTime, toDate, toTime));
             ui.printAcknowledgementMessage(taskList);
             Storage.saveData(taskList);
+
         }
     }
 }

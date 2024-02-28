@@ -41,8 +41,14 @@ public class UI {
         System.out.println(taskList.get(taskIndex).getStatusIcon());
     }
     public void printUnmarkTaskAcknowledgementMessage(ArrayList<Task> taskList, int taskIndex) {
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked this task as not done:");
         System.out.println(taskList.get(taskIndex).getStatusIcon());
+    }
+
+    public void printDeleteTaskAcknowledgementMessage(ArrayList<Task> taskList, int taskIndex) {
+        System.out.println(taskList.get(taskIndex).getStatusIcon());
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("Now you have " + (taskList.size() - 1) + " tasks in the list.");
     }
 
     /**

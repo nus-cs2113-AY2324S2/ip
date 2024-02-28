@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Exceptions.ThawException;
+import FileManagerPackage.Storage;
 import Tasks.*;
 
 /**
@@ -23,10 +24,9 @@ public class DeleteTask extends Command {
             throw new ThawException("Empty command " + usersInput);
         } else if (!commandWithoutDescription(usersInput)){
             int taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(task.get(taskIndex).getStatusIcon());
-            System.out.println("Now you have " + (task.size() - 1) + " tasks in the list.");
+            ui.printDeleteTaskAcknowledgementMessage(task, taskIndex);
             task.remove(taskIndex);
+            Storage.saveData(task);
         }
     }
 }

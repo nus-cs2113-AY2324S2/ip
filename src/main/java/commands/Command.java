@@ -35,11 +35,11 @@ public class Command {
     public static boolean correctDateTimeFormat(String userInput) {
         if (userInput.startsWith("deadline")) {
             String lengthOfDateTimeString = userInput.substring(userInput.indexOf("/by") + 3).strip();
-            return lengthOfDateTimeString.length() == 13;
+            return lengthOfDateTimeString.length() == 15;
         } else if (userInput.startsWith("event")) {
             String lengthOfFirstDateTime = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf("/to")).strip();
             String lengthOfSecondDateTime = userInput.substring(userInput.indexOf("/to") + 4).strip();
-            return lengthOfFirstDateTime.length() == 13 && lengthOfSecondDateTime.length() == 13;
+            return lengthOfFirstDateTime.length() == 15 && lengthOfSecondDateTime.length() == 15;
         } else {
             return false;
         }
