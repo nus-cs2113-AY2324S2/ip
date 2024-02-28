@@ -36,7 +36,7 @@ public class Parser {
         } else if (line.startsWith("deadline")) {
             return new DeadlineCommand(line);
         } else if (line.startsWith("event")) {
-
+            return new EventCommand(line);
         }else if (line.startsWith("delete")) {
             deleteTaskCommand(line);
         } else {
@@ -75,40 +75,10 @@ public class Parser {
         }
     }
 
-    public void checkFirstWordOfTaskCommand(String userInput) throws IOException {
-        try {
-            addATaskCommandParser(userInput);
-        } catch (TonyException e) {
-            System.out.println("OOPS!! The description of " + userInput
-                    + " cannot be empty." + System.lineSeparator());
-        }
-    }
-
     public void checkFirstCommandWord() {
         System.out.println("Please begin input with the following words: "
                 + System.lineSeparator()
                 + "'todo / deadline / event / delete / mark'");
-    }
-
-    private void addATaskCommandParser(String userInput) throws TonyException, IOException {
-        if (userInput.startsWith("event")) {
-            String[] eventTask = userInput.split("event");
-            checkArrayLength(eventTask);
-            addEventCommand(eventTask);
-        }
-    }
-    private void checkArrayLength(String[] task_list) throws TonyException {
-        if (task_list.length != 2) {
-            throw new TonyException();
-        }
-    }
-    private void addEventCommand(String[] eventTask) throws IOException {
-        String[] description = eventTask[1].split("/from | /to");
-        Event event = new Event(description[0], description[1], description[2]);
-        tasks.add(event);
-        ui.printAddOrDeleteTask(description[0], tasks.indexOf(event));
-        String eventLine = fileSaver.saveEvent(event);
-        fileSaver.saveData(eventLine, true);
     }
 
     public void deleteTaskCommand(String line) throws IOException {
