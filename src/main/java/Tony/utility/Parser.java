@@ -2,10 +2,7 @@ package Tony.utility;
 
 import Tony.FileManager.FileSaver;
 import Tony.TonyException;
-import Tony.command.ByeCommand;
-import Tony.command.Command;
-import Tony.command.ListCommand;
-import Tony.command.MarkCommand;
+import Tony.command.*;
 import Tony.task.Deadline;
 import Tony.task.Event;
 import Tony.task.Task;
@@ -34,10 +31,13 @@ public class Parser {
             return new ListCommand();
         } else if (line.contains("mark")) {
             return new MarkCommand(line, parser);
-        } else if (line.startsWith("todo") || line.startsWith("deadline")
-                || line.startsWith("event")) {
-            checkFirstWordOfTaskCommand(line);
-        } else if (line.startsWith("delete")) {
+        } else if (line.startsWith("todo")) {
+            return new ToDoCommand(line);
+        } else if (line.startsWith("deadline")) {
+
+        } else if (line.startsWith("event")) {
+
+        }else if (line.startsWith("delete")) {
             deleteTaskCommand(line);
         } else {
             checkFirstCommandWord();
@@ -92,9 +92,7 @@ public class Parser {
 
     private void addATaskCommandParser(String userInput) throws TonyException, IOException {
         if (userInput.startsWith("todo")) {
-            String[] toDoTask = userInput.split("todo");
-            checkArrayLength(toDoTask);
-            addTodoCommand(toDoTask);
+
         } else if (userInput.startsWith("deadline")) {
             String[] deadlineTask = userInput.split("deadline");
             checkArrayLength(deadlineTask);
@@ -105,8 +103,8 @@ public class Parser {
             addEventCommand(eventTask);
         }
     }
-    private void checkArrayLength(String[] toDoTask) throws TonyException {
-        if (toDoTask.length != 2) {
+    private void checkArrayLength(String[] task_list) throws TonyException {
+        if (task_list.length != 2) {
             throw new TonyException();
         }
     }
@@ -126,14 +124,6 @@ public class Parser {
         ui.printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
         String deadlineLine = fileSaver.saveDeadline(deadline);
         fileSaver.saveData(deadlineLine, true);
-    }
-
-    private void addTodoCommand(String[] toDoTask) throws IOException {
-        Todo todo = new Todo(toDoTask[1]);
-        tasks.add(todo);
-        ui.printAddOrDeleteTask(toDoTask[0], tasks.indexOf(todo));
-        String todoLine = fileSaver.saveTodo(todo);
-        fileSaver.saveData(todoLine, true);
     }
 
 

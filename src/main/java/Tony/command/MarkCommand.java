@@ -21,7 +21,7 @@ public class MarkCommand implements Command{
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) {
         this.tasks = tasks;
-        this.fileSaver = new FileSaver(this.tasks);
+        this.fileSaver = fileSaver;
         try {
             String[] subCommand = USER_INPUT.split(" ");
             int num = Integer.parseInt(subCommand[1]);
