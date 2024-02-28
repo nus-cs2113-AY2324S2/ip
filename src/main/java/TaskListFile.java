@@ -2,7 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +15,8 @@ public class TaskListFile {
     private final String fileName;
     private final File taskFile;
     private static final String delimiter = "\\|";
+    private static final SimpleDateFormat formatter =
+            new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
     TaskListFile(String fileName) {
         List<Task> taskList1;
@@ -57,7 +62,7 @@ public class TaskListFile {
                 if (inputLine.startsWith("D")) {
                     boolean status = words[1].equals("X");
                     String description = words[2];
-                    String timestamp = words[3];
+                    Date timestamp = formatter.parse(words[3]);
                     loadList.add(new Deadline(
                             description, status, timestamp));
                     continue;
@@ -65,12 +70,15 @@ public class TaskListFile {
                 if (inputLine.startsWith("E")) {
                     boolean status = words[1].equals("X");
                     String description = words[2];
-                    String from = words[3];
-                    String to = words[4];
+                    Date from = formatter.parse(words[3]);
+                    Date to = formatter.parse(words[4]);
                     loadList.add(new Event(description, status, from, to));
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("File corrupted");
+                throw new RuntimeException(e);
+            } catch (ParseException e) {
+                System.out.println("Date corrupted");
                 throw new RuntimeException(e);
             }
         }
