@@ -81,8 +81,7 @@ public class Omoh {
                 try {
                     Todo.addTodo(line);
                 } catch (EmptyTodoException e) {
-                    System.out.println("Todo cannot be empty! Please key in input in this format [Todo] [task] " +
-                            "example: todo hang clothes");
+                    e.printStackTrace();
                 }
             }
             else if (line.startsWith("event")) {
