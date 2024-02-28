@@ -5,6 +5,7 @@ import Gene.ui.Ui;
 import Gene.GeneException;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Gene.command.MarkCommand.isNumeric;
 
@@ -89,6 +90,29 @@ public class TaskList {
         for (int i = 0; i < toDoList.size(); i++) {
             Task task = toDoList.get(i);
             System.out.println((i + 1) + ". " + task);
+        }
+        if (toDoList.isEmpty()) {
+            System.out.println("  <empty list>");
+        }
+        Ui.printLineSeparation();
+    }
+    
+    public void findListItems(String keyword) {
+        Ui.printLineSeparation();
+        System.out.println("Here are the matching tasks in your list:");
+        int listOrder = 0;
+        for (Task task : toDoList) {
+            String[] phrases = task.description.split(" ");
+            for (String words : phrases) {
+                if (Objects.equals(words, keyword)) {
+                    System.out.println((listOrder+1) + ". " + task);
+                    listOrder++;
+                    break;
+                }
+            }
+        }
+        if (listOrder == 0) {
+            System.out.println("  <empty list>");
         }
         Ui.printLineSeparation();
     }
