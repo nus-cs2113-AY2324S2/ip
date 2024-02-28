@@ -71,11 +71,12 @@ public class Task {
         fw.close();
     }
 
-    public static void readFile() throws FileNotFoundException, EmptyTodoException, CorruptedFileException {
+    public static void readFile() throws FileNotFoundException, CorruptedFileException, EmptyTodoException {
         //open file for reading
         File f = new File("data/output.txt");
         Scanner s = new Scanner(f);
         Task.initArray();
+        //iteration required so that programme knows which task to mark as done
         int iteration = 0;
         while (s.hasNextLine()) {
             String line = s.nextLine();
@@ -107,7 +108,6 @@ public class Task {
         int taskNumber = Integer.parseInt(numberString);
         return taskNumber;
     }
-
 
     //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
     public static void modifyDoneStateOrDelete(int taskNumber, String input) throws IndexOutOfBoundsException {
