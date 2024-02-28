@@ -193,6 +193,7 @@ public class Task {
     }
 
 
+    //function creates directory for output.txt file if it is not present
     public static void createFileDirectory () {
         File directory = new File("data");
         if (!directory.exists()) {
