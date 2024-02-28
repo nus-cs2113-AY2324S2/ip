@@ -46,7 +46,6 @@ public class FileManager {
                     fileWriter.write(" /from " + events.From + " /to " + events.To);
                 }
                 fileWriter.write("\n");
-                //System.out.println(directoryPath);
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
