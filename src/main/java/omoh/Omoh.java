@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Omoh {
     public static void main(String[] args) {
         Storage.createFileDirectory();
-        Task.createOrReadOutputFile();
+        Storage.createOrReadOutputFile();
         printWelcomeMessage();
         //initialise the size 100 array if it was not initialised previously
         //because if tasks were already initialised from reading output.txt, we don't need to initialise the array again

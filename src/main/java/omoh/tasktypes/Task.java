@@ -168,19 +168,19 @@ public class Task {
 
     //creates output.txt file to store data
     //also reads output file
-    public static void createOrReadOutputFile () {
-        //code to create new file in data directory
-        File f = new File("data/output.txt");
-        try {
-            Task.readFile();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (EmptyTodoException e) {
-            System.out.println("Todo task empty");
-        } catch (CorruptedFileException e) {
-            System.out.println("Output.txt file format is wrong. File corrupted.");
-        }
-    }
+//    public static void createOrReadOutputFile () {
+//        //code to create new file in data directory
+//        File f = new File("data/output.txt");
+//        try {
+//            Task.readFile();
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found");
+//        } catch (EmptyTodoException e) {
+//            System.out.println("Todo task empty");
+//        } catch (CorruptedFileException e) {
+//            System.out.println("Output.txt file format is wrong. File corrupted.");
+//        }
+//    }
 
     //processes the output.txt file. According to the text it adds tasks and marks tasks
     public static void processFileText (String[] parts, int iteration) throws EmptyTodoException {

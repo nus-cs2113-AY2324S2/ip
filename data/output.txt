@@ -1,4 +1,4 @@
-T | 0 | shit
-T | 1 | eat
-T | 1 | go delta
-E | 1 | coaching | 6pm | 7pm
+T | 1 | shit
+T | 0 | go delta
+E | 0 | coaching | 6pm | 7pm
+T | 1 | leave
