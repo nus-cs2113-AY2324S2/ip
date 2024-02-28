@@ -1,4 +1,4 @@
 package omoh.customexceptions;
 
-public class EmptyTodoException extends Exception{
+public class EmptyTodoException extends Exception {
 }
