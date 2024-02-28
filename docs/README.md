@@ -125,6 +125,12 @@ Example of usage:
 `list`
 Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/1714c394-d026-4cc1-9ea6-8b11828f0eeb)
+
+### `bye` - exits dobby
+
+ends the program
+
+format: bye
  
 
 
