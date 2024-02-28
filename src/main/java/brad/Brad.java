@@ -9,13 +9,9 @@ import brad.exceptions.invalidNumberException;
 import brad.exceptions.dataCorruptedException;
 import brad.storage.Storage;
 import brad.tasks.TaskList;
-import brad.tasks.TaskType;
 import brad.ui.Ui;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import java.util.EmptyStackException;
-import java.util.Scanner;
 
 
 public class Brad {
@@ -24,11 +20,25 @@ public class Brad {
     private static Ui ui = new Ui();
     private static boolean toSave = true;
 
+    /**
+     * Main loop of the program.
+     * Greets the user and checks if file exists. If everything is good,
+     * enable task saving function.
+     * The chatbot will then run continuously to query for user input.
+     * Program exits immediately if user types "bye".
+     */
     public static void main(String[] args) {
         ui.greetUser();
-        run(canInitialize());
+        boolean canInitialize = canInitialize();
+        run(canInitialize);
     }
 
+    /**
+     * Checks if file can be found locally and if it can be loaded successfully.
+     * If file exists, print out the existing content (if any) and enable saving function
+     *
+     * @return if program can be initialized successfully to take in user input
+     */
     public static boolean canInitialize() {
         boolean canStart = true;
         try {
@@ -40,11 +50,7 @@ public class Brad {
             ui.printDataCorrupted();
             canStart = false;
         }
-        return canStart;
-    }
-
-    private static void run(boolean canInitialize) {
-        if (canInitialize) {
+        if (canStart) {
             if (tasklist.listSize() != 0) {
                 ui.printAllTasks(tasklist);
             } else if (toSave) {
@@ -56,6 +62,14 @@ public class Brad {
                 }
             }
         }
+        return canStart;
+    }
+
+    /**
+     * The main program that parses, executes commands and updates the file (if it exists)
+     * @param canInitialize boolean if program can start taking in user input
+     */
+    private static void run(boolean canInitialize) {
         while (canInitialize) {
             String userInput = ui.getUserInput();
             Parser parser = new Parser();

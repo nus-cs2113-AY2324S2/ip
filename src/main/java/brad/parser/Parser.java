@@ -25,6 +25,13 @@ public class Parser {
         return userInput;
     }
 
+    /**
+     * Parses user command and interprets it
+     * @param input full user input
+     * @throws ArrayIndexOutOfBoundsException if accidentally accessed an invalid array index
+     * @throws emptyArgumentException if no command is given
+     * @throws invalidCommandException if command is invalid based on command types
+     */
     public void parseCommand(String input) throws
             ArrayIndexOutOfBoundsException, emptyArgumentException, invalidCommandException {
         String[] splitInput = input.split(" ", 2);
@@ -37,6 +44,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Identify the type of user command
+     * @param input user command input
+     * @return corresponding command
+     * @throws invalidCommandException if command is invalid based on command types
+     */
     private Command interpretInput(String input) throws
             invalidCommandException {
         switch (input) {

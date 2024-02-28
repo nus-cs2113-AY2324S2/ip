@@ -29,12 +29,19 @@ public class Ui {
         this.out = out;
     }
 
+    /**
+     * Greets user
+     */
     public void greetUser() {
         final String name = "brad";
         System.out.println("Hello I am " + name + ".\n");
         System.out.println("How can I help you today?\n");
     }
 
+    /**
+     * Reads user input from the command line
+     * @return user input
+     */
     public String getUserInput() {
         String userInput = in.nextLine();
         while (userInput.trim().isEmpty()) {
@@ -42,6 +49,11 @@ public class Ui {
         }
         return userInput;
     }
+
+    /**
+     * Generic function to print out messages with separators
+     * @param message message to be printed out
+     */
     public void printOutput(String message) {
         System.out.println(SEPARATOR);
         System.out.println(message);
@@ -54,15 +66,16 @@ public class Ui {
                 "I'm unable to save.");
     }
 
+    /**
+     *
+     */
     public void printDataCorrupted() {
         printOutput("File is corrupted! Please check the file.\n" +
                 "Exiting program...\n");
     }
 
     public void printError(String message) {
-        printOutput(SEPARATOR);
         printOutput(message);
-        printOutput(SEPARATOR);
     }
 
     public void printMissingArgument(Command command) {
@@ -103,10 +116,21 @@ public class Ui {
         printOutput("No! >:( Exceeded existing list size of: " + listSize +
                                 "\nPlease enter a valid number.\n");
     }
+
+    /**
+     * Prints all tasks from the task list
+     * @param tasklist Current list of tasks
+     */
     public void printAllTasks(TaskList tasklist) {
         printOutput(tasklist.getList());
     }
 
+    /**
+     * Prints results to user based on input command
+     * @param task task input by the user
+     * @param command command input by user
+     * @param size current size of list
+     */
     public void showResult(String task, Command command, int size) {
         switch (command) {
             case TODO:
@@ -132,6 +156,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Function to print message if user adds a task to the list
+     * @param task task input by user
+     * @param size updated size of list
+     * @param command command input by user
+     */
     public void printAddActionResult(String task, int size, String command)
     {
         String message = "Got it. I've added a \n" + command  + ":\n" + task

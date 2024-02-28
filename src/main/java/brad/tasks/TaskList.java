@@ -16,7 +16,10 @@ public class TaskList {
         return taskList;
     }
 
-
+    /**
+     * Returns the entire task list
+     * @return full list of tasks
+     */
     public String getList() {
         String output = "";
         for (int i = 1; i <= taskList.size(); i++) {
@@ -25,6 +28,12 @@ public class TaskList {
         return output;
     }
 
+    /**
+     * Add user input task to the list based on the type
+     * @param input full user input
+     * @param type user command type
+     * @param isDone boolean to mark task as not done yet
+     */
     public void addToList(String input, TaskType type, boolean isDone) {
         Tasks newTask;
         if (type == TaskType.EVENT) {
@@ -48,11 +57,21 @@ public class TaskList {
 
     }
 
+    /**
+     * Gets nth task on the task list
+     * @param n the task number on the list
+     * @return task queried
+     */
     public String getTask(int n) {
         String output = taskList.get(n - 1).getFullDescription();
         return output;
     }
 
+    /**
+     * Marks nth task on the list as done or not done
+     * @param n the task number on the list
+     * @param isDone if task is to be marked as done or not done
+     */
     public void markAsDone(int n, boolean isDone) {
         taskList.get(n - 1).setIsDone(isDone);
     }
@@ -65,6 +84,16 @@ public class TaskList {
         taskList.remove(n - 1);
     }
 
+    /**
+     * Calls the corresponding action to process user input based on command given
+     * @param command input command
+     * @param userInput user string input
+     * @return message to be printed based on processed input
+     * @throws invalidCommandException if user command is not valid
+     * @throws emptyArgumentException if no argument (task) is given
+     * @throws invalidNumberException if user is trying to access a task number that
+     * is greater of the list size
+     */
     public String executeCommand(Command command, String userInput)
             throws invalidCommandException, emptyArgumentException, invalidNumberException {
         String message;
@@ -96,6 +125,13 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Mark task as done
+     * @param input task to be mark as done
+     * @return marked task to be printed for user
+     * @throws invalidNumberException if input number is invalid on task list
+     * @throws emptyArgumentException if no task number is specified
+     */
     private String doMarkAction(String input) throws
             invalidNumberException, emptyArgumentException {
         int taskNumber = Integer.parseInt(input);
@@ -109,6 +145,13 @@ public class TaskList {
         return getTask(taskNumber);
     }
 
+    /**
+     * Mark task as not done
+     * @param input task to be mark as not done
+     * @return unmarked task to be printed for user
+     * @throws invalidNumberException if input number is invalid on task list
+     * @throws emptyArgumentException if no task number is specified
+     */
     private String doUnmarkAction(String input) throws
             invalidNumberException, emptyArgumentException {
         int taskNumber = Integer.parseInt(input);
@@ -122,21 +165,46 @@ public class TaskList {
         return getTask(taskNumber);
     }
 
+    /**
+     * Categorize task as a TODO
+     * and add to the task list
+     * @param input task to be added as a TODO
+     * @return task that was added
+     */
     private String doTodoAction(String input) {
         addToList(input, TaskType.TODO, false);
         return getTask(listSize());
     }
 
+    /**
+     * Categorize task as a DEADLINE
+     * and add to the task list
+     * @param input task to be added as a DEADLINE
+     * @return task that was added
+     */
     private String doDeadlineAction(String input) {
         addToList(input, TaskType.DEADLINE, false);
         return getTask(listSize());
     }
 
+    /**
+     * Categorize task as an EVENT
+     * and add to the task list
+     * @param input task to be added as a EVENT
+     * @return task that was added
+     */
     private String doEventAction(String input) {
         addToList(input, TaskType.EVENT, false);
         return getTask(listSize());
     }
 
+    /**
+     * Delete a user specified task from the list
+     * @param input task to be deleted
+     * @return task that was deleted
+     * @throws emptyArgumentException if no task is specified
+     * @throws invalidNumberException if task number is invalid
+     */
     private String doDeleteAction(String input) throws
             emptyArgumentException, invalidNumberException {
         if (input.isBlank()) {
@@ -151,9 +219,14 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Find a task from the list based on the given keyword
+     * @param keyword keyword to base the search on
+     * @return task(s) that contain the specified keyword
+     * @throws emptyArgumentException if no keyword is specified by user
+     */
     private String doFindAction(String keyword) throws
             emptyArgumentException {
-        ArrayList <Tasks> matchedTasks = new ArrayList<>();
         if (keyword.isBlank()) {
             throw new emptyArgumentException();
         }
