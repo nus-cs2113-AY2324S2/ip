@@ -67,41 +67,8 @@ public class FileManager {
                     String description = parts[2];
                     Task task = null;
 
-                    switch (type) {
-                    case "T":
-                        task = new Task(description);
-                        break;
-                    case "D":
-                        String[] deadlineParts = description.split(" /by ", 2);
-                        if (deadlineParts.length == 2) {
-                            task = new Deadline(deadlineParts[0], deadlineParts[1]);
-                        } else {
-                            printInvalidFormatWarning(line);
-                        }
-                        break;
-                    case "E":
-                        String[] eventParts = description.split(" /from ", 2);
-                        if (eventParts.length == 2) {
-                            String[] endDateParts = eventParts[1].split(" /to ", 2);
-                            if (endDateParts.length == 2) {
-                                task = new Events(eventParts[0], endDateParts[0], endDateParts[1]);
-                            } else {
-                                printInvalidFormatWarning(line);
-                            }
-                        } else {
-                            printInvalidFormatWarning(line);
-                        }
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Invalid task type: " + type);
-                    }
-
-                    if (task != null) {
-                        if (isDone) {
-                            task.markTask();
-                        }
-                        taskList.addTask(task, false);
-                    }
+                    task = getTask(type, task, description, line);
+                    transferTasktoList(taskList, task, isDone);
                 } else {
                     printInvalidFormatWarning(line);
                 }
@@ -109,6 +76,55 @@ public class FileManager {
         } catch (FileNotFoundException e) {
             System.out.println("Dobby has no tasks");
         }
+    }
+
+    private static void transferTasktoList(TaskList taskList, Task task, boolean isDone) {
+        if (task != null) {
+            if (isDone) {
+                task.markTask();
+            }
+            taskList.addTask(task, false);
+        }
+    }
+
+    /**
+     * sorts the tasks in tasl.txt into the relevant tast type
+     * @param type type of task (todo,event,deadline)
+     * @param task current task that is being retrieved
+     * @param description description of task
+     * @param line entire line in text file
+     * @return extracted task
+     */
+    private static Task getTask(String type, Task task, String description, String line) {
+        switch (type) {
+        case "T":
+            task = new Task(description);
+            break;
+        case "D":
+            String[] deadlineParts = description.split(" /by ", 2);
+            if (deadlineParts.length == 2) {
+                task = new Deadline(deadlineParts[0], deadlineParts[1]);
+            } else {
+                printInvalidFormatWarning(line);
+            }
+            break;
+        case "E":
+            String[] eventParts = description.split(" /from ", 2);
+            if (eventParts.length == 2) {
+                String[] endDateParts = eventParts[1].split(" /to ", 2);
+                if (endDateParts.length == 2) {
+                    task = new Events(eventParts[0], endDateParts[0], endDateParts[1]);
+                } else {
+                    printInvalidFormatWarning(line);
+                }
+            } else {
+                printInvalidFormatWarning(line);
+            }
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid task type: " + type);
+        }
+        return task;
     }
 
     private static void printInvalidFormatWarning(String line) {
