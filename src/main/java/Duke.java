@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,17 @@ public class Duke {
         for (int i = 0; i < tasks.size(); ++i) {
             System.out.printf("%s. %s%n",(i + 1), tasks.get(i));
         }
+    }
 
+    public static void findTasks(List<Task> tasks, String keyword) {
+        StringBuilder results = new StringBuilder();
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task task = tasks.get(i);
+            if (task.toString().contains(keyword)) {
+                results.append(String.format("%s. %s%n", (i + 1), tasks.get(i)));
+            }
+        }
+        System.out.println(results.toString());
     }
     public static void main(String[] args) {
         String chatbot = "Jing Xiang";
@@ -149,6 +160,17 @@ public class Duke {
                     }
                     continue;
                 }
+
+                if (line.startsWith("find")) {
+                    try {
+                        String keyword = words[1];
+                        findTasks(tasks, keyword);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(e + " clownnnnn");
+                    }
+                    continue;
+                }
+
                 try {
                     throw new JxExceptions("gibberish");
                 } catch(JxExceptions e) {
