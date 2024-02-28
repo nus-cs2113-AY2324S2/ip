@@ -164,7 +164,7 @@ public class Parser {
                 }
             }
         if(!isFound){
-            System.out.println("No matching tasks in the list.");
+            System.out.println("No matching tasks in the list. Please try again!");
         }
     }
     private static void printLine() {
