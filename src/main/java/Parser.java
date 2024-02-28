@@ -3,7 +3,7 @@ import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandManager {
+public class Parser {
     private static final Pattern MARK_PATTERN =
             Pattern.compile("mark (?<taskIndex>\\d+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern UNMARK_PATTERN =

@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.util.Scanner;
 import java.io.IOException;
@@ -29,7 +28,7 @@ public class Storage {
             Scanner s = new Scanner(textFile);
             while (s.hasNext()) {
                 String line = s.nextLine();
-                Task task = CommandManager.parseTaskFromTextFileLine(line);
+                Task task = Parser.parseTaskFromTextFileLine(line);
 
                 listOfTasks.add(task);
             }
