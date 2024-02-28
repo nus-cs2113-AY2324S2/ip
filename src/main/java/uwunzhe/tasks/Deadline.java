@@ -1,7 +1,11 @@
 package uwunzhe.tasks;
 
+import java.time.LocalDate;
+
+import uwunzhe.handler.DateHandler;
+
 public class Deadline extends Task {
-    private String end;
+    private LocalDate end;
 
     /**
      * Constructor for Deadline.
@@ -9,7 +13,7 @@ public class Deadline extends Task {
      * @param name The name of the deadline.
      * @param end The end time of the deadline.
      */
-    public Deadline(String name, String end) {
+    public Deadline(String name, LocalDate end) {
         super(name);
         this.type = TaskType.DEADLINE.getType();
         this.end = end;
@@ -22,7 +26,7 @@ public class Deadline extends Task {
      * @param end The end time of the deadline.
      * @param isDone The status of the deadline.
      */
-    public Deadline(String name, String end, boolean isDone) {
+    public Deadline(String name, LocalDate end, boolean isDone) {
         super(name);
         this.type = TaskType.DEADLINE.getType();
         this.end = end;
@@ -37,8 +41,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String completion = this.isDone ? "X" : " ";
+        String endString = DateHandler.formatDate(this.end);
         return String.format("[%s][%s] %s (by: %s)",
-                this.type, completion, this.name, this.end);
+                this.type, completion, this.name, endString);
     }
 
     /**
@@ -49,7 +54,18 @@ public class Deadline extends Task {
      */
     public String toStorageString(String delimiter) {
         int completion = this.isDone ? 1 : 0;
+        String endString = DateHandler.dateToStorageString(this.end);
+
         return String.format("%s%s%d%s%s%s%s",
-                this.type, delimiter, completion, delimiter, this.name, delimiter, this.end);
+                this.type, delimiter, completion, delimiter, this.name, delimiter, endString);
+    }
+
+    /**
+     * Returns the end time of the deadline as a LocalDate type.
+     * 
+     * @return The end time of the deadline.
+     */
+    public LocalDate getDeadline() {
+        return this.end;
     }
 }

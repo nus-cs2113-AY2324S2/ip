@@ -1,7 +1,11 @@
 package uwunzhe.tasks;
 
+import java.time.LocalDate;
+
+import uwunzhe.handler.DateHandler;
+
 public class Event extends Task {
-    private String start, end;
+    private LocalDate start, end;
 
     /**
      * Constructor for Event.
@@ -10,7 +14,7 @@ public class Event extends Task {
      * @param start The start time of the event.
      * @param end The end time of the event.
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, LocalDate start, LocalDate end) {
         super(name);
         this.type = TaskType.EVENT.getType();
         this.start = start;
@@ -25,7 +29,7 @@ public class Event extends Task {
      * @param end The end time of the event.
      * @param isDone The status of the event.
      */
-    public Event(String name, String start, String end, boolean isDone) {
+    public Event(String name, LocalDate start, LocalDate end, boolean isDone) {
         super(name);
         this.type = TaskType.EVENT.getType();
         this.start = start;
@@ -41,8 +45,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         String completion = this.isDone ? "X" : " ";
+        String startString = DateHandler.formatDate(this.start);
+        String endString = DateHandler.formatDate(this.end);
+
         return String.format("[%s][%s] %s (from: %s to: %s)",
-                this.type, completion, this.name, this.start, this.end);
+                this.type, completion, this.name, startString, endString);
     }
 
     /**
@@ -53,8 +60,29 @@ public class Event extends Task {
      */
     public String toStorageString(String delimiter) {
         int completion = this.isDone ? 1 : 0;
+        String startString = DateHandler.dateToStorageString(this.start);
+        String endString = DateHandler.dateToStorageString(this.end);
+
         return String.format("%s%s%d%s%s%s%s%s%s",
                 this.type, delimiter, completion, delimiter, this.name,
-                delimiter, this.start, delimiter, this.end);
+                delimiter, startString, delimiter, endString);
+    }
+
+    /**
+     * Returns the start time of the event as a LocalDate type.
+     * 
+     * @return The start time of the event.
+     */
+    public LocalDate getStart() {
+        return this.start;
+    }
+
+    /**
+     * Returns the end time of the event as a LocalDate type.
+     * 
+     * @return The end time of the event.
+     */
+    public LocalDate getEnd() {
+        return this.end;
     }
 }
