@@ -1,4 +1,6 @@
-package suv;
+package suv.Task;
+
+import suv.Task.Task;
 
 import java.util.ArrayList;
 

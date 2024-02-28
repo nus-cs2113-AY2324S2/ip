@@ -1,14 +1,17 @@
-package suv;
+package suv.Task;
+
+import suv.Task.Deadline;
+import suv.Task.Event;
+import suv.Task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Paths;
 
-import static suv.TaskList.tasksList;
+import static suv.Task.TaskList.tasksList;
 
 public class FileStorage {
     public static void ensureDirectoryExists(String filePath) {

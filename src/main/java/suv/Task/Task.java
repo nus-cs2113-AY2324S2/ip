@@ -1,4 +1,4 @@
-package suv;
+package suv.Task;
 
 public class Task {
     protected String description;

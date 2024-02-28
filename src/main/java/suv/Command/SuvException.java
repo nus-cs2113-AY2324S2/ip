@@ -1,9 +1,9 @@
-package suv;
+package suv.Command;
 
 public class SuvException extends Exception{
-    String warning;
+    public String warning;
 
-    SuvException(String warning) {
+    public SuvException(String warning) {
         this.warning = warning;
     }
 }

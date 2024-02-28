@@ -1,7 +1,8 @@
-package suv;
+package suv.Helpers;
 
-import java.util.ArrayList;
-import static suv.TaskList.tasksList;
+import suv.Task.Task;
+
+import static suv.Task.TaskList.tasksList;
 
 public class Ui {
     final static String LINE = "____________________________________________________________\n";
