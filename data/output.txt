@@ -1,2 +1,5 @@
-T | 0 | test
-T | 0 | test
+T | 1 | eat lunch
+E | 1 | coaching | 6pm | 7pm
+D | 0 | 2026 quiz | tomorrow
+T | 0 | teach ean
+T | 1 | do all my tasks

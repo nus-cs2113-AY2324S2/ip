@@ -201,6 +201,21 @@ public class Task {
         }
     }
 
+    //creates output.txt file to store data
+    public static void createOutputFile () {
+        //code to create new file in data directory
+        File f = new File("data/output.txt");
+        try {
+            Task.readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (EmptyTodoException e) {
+            System.out.println("Todo task empty");
+        } catch (CorruptedFileException e) {
+            System.out.println("Output.txt file format is wrong. File corrupted.");
+        }
+    }
+
 }
 
 

@@ -18,18 +18,7 @@ import java.io.File;
 public class Omoh {
     public static void main(String[] args) {
         Task.createFileDirectory();
-
-        //code to create new file in data directory
-        File f = new File("data/output.txt");
-        try {
-            Task.readFile();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (EmptyTodoException e) {
-            System.out.println("Todo task empty");
-        } catch (CorruptedFileException e) {
-            System.out.println("Output.txt file format is wrong. File corrupted.");
-        }
+        Task.createOutputFile();
         printWelcomeMessage();
         //initialise the size 100 array if it was not initialised previously
         if(Task.totalTasks == 0) {
