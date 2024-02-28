@@ -13,18 +13,18 @@ java -jar earl.jar
 ```
 
 ## Quick Reference
-|Command   |Parameters                          |Explanation
-|----------|------------------------------------|
-|`list`    |None                                |[`list`](@Printing Todo List: `list`)
-|`todo`    |<task name>                         |
-|`deadline`|<task name> /by <deadline>          |
-|`event`   |<task name> /from <start> /to <end> |
-|`mark`    |<index>                             |
-|`unmark`  |<index>                             |
-|`delete`  |<index>                             |
-|`find`    |<description experession>           |
-|`date`    |<date>                              |
-|`bye`     |None                                |
+|Command   |Parameters                          |Explanation                            |
+|----------|------------------------------------|---------------------------------------|
+|`list`    |None                                |[`list`](@Printing Todo List: `list`)  |
+|`todo`    |<task name>                         |                                       |
+|`deadline`|<task name> /by <deadline>          |                                       |
+|`event`   |<task name> /from <start> /to <end> |                                       |
+|`mark`    |<index>                             |                                       |
+|`unmark`  |<index>                             |                                       |
+|`delete`  |<index>                             |                                       |
+|`find`    |<description experession>           |                                       |
+|`date`    |<date>                              |                                       |
+|`bye`     |None                                |                                       |
 
 ## Features 
 
