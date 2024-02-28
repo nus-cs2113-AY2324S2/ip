@@ -209,7 +209,7 @@ public class TaskList {
      * Prints all tasks in task list to screen.
      */
     public void listAll() {
-        userUi.printList(taskList, taskList.size());
+        userUi.printList(taskList);
     }
 
     /**
