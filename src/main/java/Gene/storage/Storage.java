@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -73,18 +75,27 @@ public class Storage {
                 break;
             case "D":
                 String by = parts[3];
-                task = new Deadline(description, by);
+                LocalDateTime deadlineDateTime = parseDateTime(by);
+                task = new Deadline(description, deadlineDateTime);
                 break;
             case "E":
                 String from = parts[3];
                 String to = parts[4];
-                task = new Event(description, from, to);
+                LocalDateTime eventStartDateTime = parseDateTime(from);
+                LocalDateTime eventEndDateTime = parseDateTime(to);
+                task = new Event(description, eventStartDateTime, eventEndDateTime);
                 break;
             default:
                 throw new GeneException("Unknown task type found in file.");
         }
         task.setDone(isDone);
         return task;
+    }
+
+
+    private LocalDateTime parseDateTime(String dateTimeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return LocalDateTime.parse(dateTimeString, formatter);
     }
 
     /**
