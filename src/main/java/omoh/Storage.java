@@ -2,7 +2,10 @@ package omoh;
 
 import omoh.customexceptions.CorruptedFileException;
 import omoh.customexceptions.EmptyTodoException;
+import omoh.tasktypes.Deadline;
+import omoh.tasktypes.Event;
 import omoh.tasktypes.Task;
+import omoh.tasktypes.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -51,9 +54,33 @@ public class Storage {
             if (parts.length < 3 || parts.length > 5 ) {
                 throw new CorruptedFileException();
             }
-            Task.processFileText(parts, iteration);
+            processFileText(parts, iteration);
             iteration++;
         }
         s.close();
+    }
+
+    //processes the output.txt file. According to the text it adds tasks and marks tasks
+    public static void processFileText (String[] parts, int iteration) throws EmptyTodoException {
+        String command;
+        switch (parts[0].trim().charAt(0)) {
+        case 'T':
+            command = "todo " + parts[2].trim();
+            Todo.addTodo(command);
+            break;
+        case 'D':
+            command = "deadline " + parts[2].trim() + " /by " + parts[3].trim();
+            Deadline.addDeadline(command);
+            break;
+        case 'E':
+            command = "event " + parts[2].trim() + " /from " + parts[3].trim() + " /to " + parts[4].trim();
+            Event.addEvent(command);
+            break;
+        }
+
+        if (parts[1].trim().equals("1")) {
+            command = "mark " + iteration + 1;
+            Task.modifyDoneStateOrDelete(iteration + 1, command);
+        }
     }
 }

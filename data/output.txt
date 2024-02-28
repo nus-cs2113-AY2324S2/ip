@@ -1,3 +1,4 @@
-T | 1 | go delta
-E | 0 | coaching | 6pm | 7pm
+T | 0 | go delta
 T | 1 | grab hockey stick
+T | 0 | asdf
+T | 0 | asdf
