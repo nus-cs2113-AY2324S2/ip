@@ -29,10 +29,20 @@ public class Ui {
 
     private static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * A method to get the instance of the Ui scanner
+     * @return Scanner instance
+     */
     public static Scanner getScanner() {
         return scanner;
     }
 
+    /**
+     * Greets the user and displays the welcome message.
+     * <p>
+     * This method prints a welcome message to the standard output, including the Carrot logo,
+     * a greeting message, and a prompt for user input.
+     */
     public static void greetUser() {
         System.out.println("Hello from\n" + logo);
         System.out.println(MESSAGE_DIVIDER);
@@ -45,12 +55,25 @@ public class Ui {
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Prints the help command and syntax to the standard output.
+     * <p>
+     * This method prints the list of available commands and their syntax to the standard output.
+     */
     public static void printHelpCommand() {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println(COMMAND_LIST);
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints a standard error message for an invalid command.
+     * <p>
+     * This method prints an error message to the standard output indicating
+     * that the entered command is of invalid format.
+     * <p>
+     * It provides guidance on how to view available commands and their syntax by typing "help".
+     */
     public static void printInvalidCommand() {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("Invalid command");
@@ -58,6 +81,15 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints an error message for an invalid task index.
+     * <p>
+     * This method prints an error message to the standard output indicating that the entered task index is not valid.
+     * Non Valid indices are non integer values within the range of tasklist
+     * <p>
+     * It provides guidance on how to view available task indices by typing "list",
+     * along with the correct usage syntax for commands requiring a task index.
+     */
     public static void printInvalidTaskIndexError() {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("ERROR: Invalid task index. " +
@@ -66,6 +98,15 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints a message indicating the status change of a task.
+     * <p>
+     * This method prints a message to the standard output indicating the marked status of a specified task
+     * The message includes the task details
+     *
+     * @param isDone a boolean flag indicating whether the task is marked as done
+     * @param task   the task whose status has been changed
+     */
     public static void printChangedTaskStatus(boolean isDone, Task task) {
         System.out.println(MESSAGE_DIVIDER);
         if (isDone == true) {
@@ -77,6 +118,14 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints a message confirming the addition of a task.
+     * <p>
+     * This method prints a message to the standard output indicating that a task has been added successfully.
+     *
+     * @param task       the task that has been added
+     * @param listOfTasks the list of tasks after the addition
+     */
     public static void printAddedTask(Task task, ArrayList<Task> listOfTasks) {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("Got it. I've added this task:");
@@ -85,6 +134,14 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints a message confirming the deletion of a task.
+     * <p>
+     * This method prints a message to the standard output indicating that a task has been deleted successfully.
+     *
+     * @param task       the task that has been deleted
+     * @param listOfTasks the list of tasks after the deletion
+     */
     public static void printDeletedTask(Task task, ArrayList<Task> listOfTasks) {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("Noted. I've removed this task:");
@@ -93,6 +150,14 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints the list of tasks.
+     * <p>
+     * This method prints the list of tasks to the standard output, along with their indices.
+     * If the list is empty, it prints a message indicating that no tasks have been added.
+     *
+     * @param listOfTasks the list of tasks to be printed
+     */
     public static void printListItems(ArrayList<Task> listOfTasks) {
         int numberOfTasks = listOfTasks.size();
 
@@ -108,12 +173,25 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints an error message for failed input reading.
+     * <p>
+     * This method prints an error message to the standard output indicating that reading input has failed,
+     * resulting in the program's termination.
+     * <p>
+     * It is typically used to handle scenarios such as reaching the end of input.
+     */
     public static void printScannerInputError() {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("Failed to read input. Exiting Program...");
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints a farewell message.
+     * <p>
+     * This method prints a farewell message to the standard output, indicating the program's termination.
+     */
     public static void sayGoodbye() {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");

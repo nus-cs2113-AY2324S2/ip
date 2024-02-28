@@ -24,7 +24,13 @@ import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Parses user input from input scanner and text file storage,
+ * and provides methods to extract command types and command arguments
+ */
 public class Parser {
+
+    // Regular expressions for parsing user commands from Scanner input
     private static final Pattern MARK_PATTERN =
             Pattern.compile("mark (?<taskIndex>\\d+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern UNMARK_PATTERN =
@@ -44,6 +50,7 @@ public class Parser {
     private static final Pattern EXIT_PATTERN =
             Pattern.compile("bye", Pattern.CASE_INSENSITIVE);
 
+    // Regular expressions for parsing task data from text file storage lines
     private static final Pattern TODO_DATA_PATTERN =
             Pattern.compile("T \\| (?<isDone>true|false) \\| \"(?<description>.+?)\"");
     private static final Pattern DEADLINE_DATA_PATTERN =
@@ -52,6 +59,7 @@ public class Parser {
             Pattern.compile("E \\| (?<isDone>true|false) \\| \"(?<description>.+?)\" \\| " +
                     "\"(?<from>.+?)\" \\| \"(?<to>.+?)\"");
 
+    // Maps command types to corresponding regular expressions and command objects
     private static Map<CommandType, Pattern> commandPatternMap = initCommandPatternMap();
     private static Map<CommandType, Command> commandClassMap = initCommandClassMap();
 
@@ -88,6 +96,12 @@ public class Parser {
         return commandClassMap;
     }
 
+    /**
+     * Parses the user input and returns the corresponding Command class.
+     *
+     * @param userInput the user input string
+     * @return an instance of the command class corresponding to the user input
+     */
     public static Command getCommandType(String userInput) {
         for (Map.Entry<CommandType, Pattern> entry : commandPatternMap.entrySet()) {
             // Retrieve the Pattern associated with the command in the entry
@@ -107,6 +121,14 @@ public class Parser {
         return new InvalidCommand();
     }
 
+
+    /**
+     * Parses the command arguments from the user input based on the command type.
+     *
+     * @param command   the command type in enum format
+     * @param userInput the user input string
+     * @return an array of command arguments that corresponds to the command
+     */
     public static String[] getCommandArguments(CommandType command, String userInput) {
         Matcher matcher = commandPatternMap.get(command).matcher(userInput);
         if (!matcher.matches()) {
@@ -139,6 +161,12 @@ public class Parser {
         return arguments;
     }
 
+    /**
+     * Parses a task from the storage text file line.
+     *
+     * @param line the text file line representing a task
+     * @return the parsed task object
+     */
     public static Task parseTaskFromTextFileLine(String line) {
         Pattern[] dataPatterns = {TODO_DATA_PATTERN, DEADLINE_DATA_PATTERN, EVENT_DATA_PATTERN};
 
