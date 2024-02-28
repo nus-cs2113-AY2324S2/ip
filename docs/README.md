@@ -3,6 +3,12 @@
 Uwunzhe is a Command Line Interface (CLI) application which helps to keep track of upcoming tasks.
 Consists of flavour text based on a certain special individual.
 
+## Table of Contents
+1. [Getting Started](#getting-started)
+2. [Quick Reference](#quick-reference)
+3. [Features](#features)
+4. [Usage](#usage)
+
 ## Getting Started
 
 1. Make sure you have Java 11 installed on your computer. Note that it does not work on newer versions of Java.
