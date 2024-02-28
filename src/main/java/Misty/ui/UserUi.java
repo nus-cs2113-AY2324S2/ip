@@ -1,11 +1,10 @@
 package misty.ui;
 
-import misty.data.task.Task;
-
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
+import misty.data.task.Task;
 
 public class UserUi {
     String userInput;
@@ -84,35 +83,35 @@ public class UserUi {
     }
 
     public void printErrorEmptyParameter() {
-        System.out.println("\tEmpty parameters detected! Please check usage above fill in all fields");
+        System.out.println("\tEmpty parameters detected! Please fill in all fields");
     }
 
     public void printErrorInvalidFormat() {
-        System.out.println("\tInvalid Format! Please check usage above and enter again");
+        System.out.println("\tInvalid Format! Please enter again");
     }
 
     public void printErrorInvalidId() {
-        System.out.println("\tInvalid ID! Please check task id and enter again");
+        System.out.println("\tInvalid ID! Please enter again");
     }
 
     public void printErrorIO() {
-        System.out.println("------WARNING! I/O Error detected. Unable to save changes to task list!------");
+        System.out.println("------WARNING! I/O Error detected. Unable to save changes!------");
     }
 
     public void printErrorSecurity() {
-        System.out.println("------WARNING! File access denied. Unable to save changes to task list!------");
+        System.out.println("------WARNING! File access denied. Unable to save changes!------");
     }
 
     public void printErrorFileNotFound() {
-        System.out.println("------WARNING! Data file not found. Unable to load task list!------");
+        System.out.println("------WARNING! Data file not found. Unable to load!------");
     }
 
     public void printErrorCorruptedFile() {
-        System.out.println("------WARNING! Data file corrupted. Unable to load task list!------");
+        System.out.println("------WARNING! Data file corrupted. Unable to load!------");
     }
 
     public void printErrorInvalidDateFormat() {
-        System.out.println("\tDate provided not in correct format! Please check usage above and enter again");
+        System.out.println("\tDate provided not in correct format! Please enter again");
     }
 
     public void printUsageUsageTodo() {
