@@ -15,10 +15,22 @@ public class Storage {
     private static final SimpleDateFormat formatter =
             new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
+    /**
+     * Constructor for Storage
+     *
+     * @param fileName path of the file for data to be saved
+     */
     Storage(String fileName) {
         this.fileName = fileName;
         this.taskFile = new File(fileName);
     }
+
+    /**
+     * Constructor for Storage
+     *
+     * @param fileName path of the file for data to be saved
+     * @param taskList list of tasks to be written in the file
+     */
     Storage(String fileName, TaskList taskList) {
         this.fileName = fileName;
         this.taskFile = new File(fileName);
@@ -34,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Decodes strings in data file and returns a list of tasks
+     *
+     * @return list of tasks
+     */
     TaskList decodeTasks() throws FileNotFoundException {
         TaskList loadList = new TaskList();
         Scanner s = new Scanner(this.taskFile);
@@ -74,27 +91,44 @@ public class Storage {
         return loadList;
     }
 
+    /**
+     * Writes tp data file with encoded strings from list of tasks
+     *
+     * @param file file to be written to
+     * @param updatedList list of tasks to be written
+     */
     void writeFile(File file, TaskList updatedList) throws IOException {
         FileWriter fw = new FileWriter(file);
         fw.write(this.encodeTasks(updatedList));
         fw.close();
     }
+    /**
+     * Iterates through list of tasks, encodes them
+     * and concatenates all of them into a result string
+     *
+     * @param updatedList list of tasks to be written
+     * @return result string of all encoded tasks
+     */
     String encodeTasks(TaskList updatedList) {
         return updatedList.getTasks().stream().map(
                 Task::encodeString).collect(
                         Collectors.joining("\n")) + "\n";
     }
 
+    /**
+     * Getter for filename
+     *
+     * @return filename path of the file for data to be saved
+     */
     String getFileName() {
         return this.fileName;
     }
-    void printFile() throws FileNotFoundException {
-        Scanner s = new Scanner(this.taskFile);
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
 
+    /**
+     * Returns a new Storage based on new list of tasks
+     *
+     * @return storage with new list of tasks
+     */
     Storage updateStorage(TaskList newList) throws IOException {
         return new Storage(this.fileName, newList);
     }

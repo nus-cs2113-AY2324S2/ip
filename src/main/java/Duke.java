@@ -6,12 +6,21 @@ public class Duke {
     private final Ui userInterface;
     private final Scanner scanner;
 
+    /**
+     * Constructor for Duke.
+     *
+     * @param filename filename of stored tasks.
+     */
      Duke(String filename) {
         this.filename = filename;
         this.userInterface = new Ui();
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * main driver loop that runs the command line interface
+     *
+     */
     public void run() {
         TaskList tasks;
         Storage file;
@@ -46,6 +55,11 @@ public class Duke {
             throw new RuntimeException(ex);
         }
     }
+
+    /**
+     * main to run the command line interface
+     *
+     */
     public static void main(String[] args) {
         String filename = "data.txt";
         new Duke(filename).run();
