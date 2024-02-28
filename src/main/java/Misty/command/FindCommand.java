@@ -7,7 +7,7 @@ import misty.ui.UserUi;
 
 public class FindCommand extends Command {
     public static final String COMMAND_STRING = "find";
-    protected String keyword;
+    private String keyword;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;

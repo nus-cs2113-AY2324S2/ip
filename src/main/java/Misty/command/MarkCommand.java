@@ -1,15 +1,16 @@
 package misty.command;
 
+import java.util.regex.Pattern;
 import misty.data.TaskList;
+import misty.data.exception.IllegalListIndexException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
-import misty.data.exception.IllegalListIndexException;
-import java.util.regex.Pattern;
 
 public class MarkCommand extends Command{
     public static final String COMMAND_STRING = "mark";
-    public static final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)");
-    protected int index;
+    public static final Pattern COMMAND_FORMAT =
+            Pattern.compile("(?<index>\\d+)");
+    private int index;
 
     public MarkCommand(int index) {
         this.index = index;

@@ -1,16 +1,15 @@
 package misty.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import misty.data.TaskList;
 import misty.storage.Storage;
 import misty.ui.UserUi;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class CheckCommand extends Command {
     public static final String COMMAND_STRING = "check";
-    protected String check;
-    protected LocalDate dateCheck;
+    private String check;
+    private LocalDate dateCheck;
 
     public CheckCommand(String check) {
         this.check = check;

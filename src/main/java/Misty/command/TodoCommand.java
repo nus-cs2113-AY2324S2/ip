@@ -1,13 +1,13 @@
 package misty.command;
 
 import misty.data.TaskList;
+import misty.data.exception.EmptyParameterException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
-import misty.data.exception.EmptyParameterException;
 
 public class TodoCommand extends Command {
     public static final String COMMAND_STRING = "todo";
-    protected String taskName;
+    private String taskName;
 
     public TodoCommand(String taskName) {
         this.taskName = taskName;
