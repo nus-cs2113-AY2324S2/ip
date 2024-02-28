@@ -18,7 +18,7 @@ public class Storage {
     /**
      * Constructor for Storage
      *
-     * @param filename path of the file for data to be saved
+     * @param fileName path of the file for data to be saved
      */
     Storage(String fileName) {
         this.fileName = fileName;
@@ -28,7 +28,7 @@ public class Storage {
     /**
      * Constructor for Storage
      *
-     * @param filename path of the file for data to be saved
+     * @param fileName path of the file for data to be saved
      * @param taskList list of tasks to be written in the file
      */
     Storage(String fileName, TaskList taskList) {

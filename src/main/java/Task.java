@@ -32,7 +32,7 @@ public class Task {
      * Constructor for Task class
      * Creates a new Task based on current attributes in the class
      *
-     * @param Task Task class
+     * @param a Task class
      * @param status status of the task
      */
     Task(Task a, boolean status){
