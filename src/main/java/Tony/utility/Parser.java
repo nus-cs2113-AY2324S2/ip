@@ -38,7 +38,7 @@ public class Parser {
         } else if (line.startsWith("event")) {
             return new EventCommand(line);
         }else if (line.startsWith("delete")) {
-            deleteTaskCommand(line);
+            return new DeleteCommand(line, parser);
         } else {
             checkFirstCommandWord();
         }
@@ -81,22 +81,5 @@ public class Parser {
                 + "'todo / deadline / event / delete / mark'");
     }
 
-    public void deleteTaskCommand(String line) throws IOException {
-        try {
-            String[] subCommand = line.split(" ");
-            int num = Integer.parseInt(subCommand[1]);
-            checkNumberWithinRange(num);
-            deleteATask(subCommand[0], num);
-        } catch (NumberFormatException nfe) {
-            System.out.println("Suggest only number after 'delete'!");
-        } catch (TonyException e) {
-            System.out.println("To delete a task, suggest a number available in the list!");
-        }
-    }
 
-    public void deleteATask(String subCommand, int num) throws IOException {
-        ui.printAddOrDeleteTask(subCommand, num - 1);
-        tasks.remove(num - 1);
-        fileSaver.updateFile();
-    }
 }
