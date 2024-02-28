@@ -10,6 +10,7 @@ Dor is a CLI chatbot that helps users track their tasks.
    - Mark
    - Find
    - Save
+   - Load
    - Quit
 
 
@@ -26,6 +27,7 @@ Dor is a CLI chatbot that helps users track their tasks.
 
 - Input is case-sensitive
 - Words in UPPER_CASE are parameters
+- Extraneous parameters are ignored
 - Parameter order must follow that specified in the SYNOPSIS of the command
 - Parameters in curly braces must match one of the options specified in the DESCRIPTION of the command
 - Items in square brackets are to be included or omitted as specified in the DESCRIPTION of the command
