@@ -35,22 +35,16 @@ public class Save {
             if (line.startsWith("T")) {
                 ToDo loadToDo = new ToDo(line.substring(4));
                 tasks.add(loadToDo);
-//                System.out.println(loadToDo);
             } else if (line.startsWith("D")) {
                 String deadlineName = line.split(" \\| by: ")[0].substring(4);
                 String deadlineBy = line.split(": ")[1];
                 Deadline loadDeadline = new Deadline(deadlineName, deadlineBy);
                 tasks.add(loadDeadline);
-//                System.out.println("deadlinename: " + deadlineName);
-//                System.out.println("deadlineby: " + deadlineBy);
             } else if (line.startsWith("E")) {
                 String eventName = line.split(" \\| from: ")[0].substring(4);
                 String eventBy = line.split("from: ")[1].split("by: ")[1];
                 String eventFrom = line.split("from: ")[1].split(" \\| by: ")[0];
-                System.out.println("eventname: " + eventName);
-                System.out.println("eventby: " + eventBy);
-                System.out.println("eventfrom: " + eventFrom);
-                Event loadEvent = new Event(eventName, eventFrom, eventBy);
+                Event loadEvent = new Event(eventName, eventFrom + " ", eventBy);
                 tasks.add(loadEvent);
             }
             index++;
