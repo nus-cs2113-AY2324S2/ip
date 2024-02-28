@@ -181,7 +181,7 @@ public class TaskList {
         for (int i = 0 ; i < taskCount ; i += 1) {
             System.out.println("  " + (i+1) + ". [" + taskList.get(i).getType() + "]" + taskList.get(i));
         }
-        System.out.println("~~~~~~~~~~~~~~~~");
+        printLineBreak();
     }
 
     /**
@@ -212,7 +212,7 @@ public class TaskList {
             taskFileManager.saveTasksToFile(this);
             System.out.println("OK, Dobby has marked this task as done:");
             System.out.println("  " + taskList.get(taskIndex));
-            System.out.println("~~~~~~~~~~~~~~~~");
+            printLineBreak();
             }
     }
 
