@@ -1,6 +1,5 @@
 package Tony.utility;
 
-import Tony.FileManager.FileSaver;
 import Tony.TonyException;
 import Tony.command.*;
 import Tony.task.Deadline;
@@ -15,12 +14,8 @@ import java.util.Scanner;
 public class Parser {
     protected static final String SEPARATOR = " \\| ";
     private final ArrayList<Task> tasks;
-    private final FileSaver fileSaver;
-    private final Ui ui;
     public Parser(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.ui = new Ui(this.tasks);
-        this.fileSaver = new FileSaver(this.tasks);
     }
 
     public Command parse(String line) throws IOException {
@@ -40,9 +35,8 @@ public class Parser {
         }else if (line.startsWith("delete")) {
             return new DeleteCommand(line, parser);
         } else {
-            checkFirstCommandWord();
+            return new CommandChecker(parser);
         }
-        return null;
     }
 
     public void extractLineFromFile(Scanner scanner, int lineCount) {
@@ -83,7 +77,7 @@ public class Parser {
     public void checkFirstCommandWord() {
         System.out.println("Please begin input with the following words: "
                 + System.lineSeparator()
-                + "'todo / deadline / event / delete / mark'");
+                + "'list / todo / deadline / event / delete / mark' ");
     }
 
 
