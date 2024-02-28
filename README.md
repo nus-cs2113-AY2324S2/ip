@@ -102,7 +102,7 @@ java -jar ThawBot.jar
      list
      ```
      Output: <br>
-     ```bash
+     ```
      1. [T][ ] eat
      2. [E][ ] CG2023 exam (from: Jan 1 2100 3:00PM to: Jan 1 2100 5:00PM)
      ```
@@ -117,7 +117,7 @@ java -jar ThawBot.jar
      find eat
      ```
      Output: <br>
-     ``` bash
+     ```bash
      Here are the matching tasks in your list:
      1. [T][ ] eat
      ```
