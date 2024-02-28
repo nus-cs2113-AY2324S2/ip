@@ -20,7 +20,7 @@ public class UI {
     }
 
     public void printList(ArrayList<Task> task) {
-        for (int i = 0; i < task.size(); i ++) {
+        for (int i = 0; i < task.size(); i++) {
             System.out.println((i + 1) + ". " + task.get(i).getStatusIcon());
         }
     }
@@ -29,6 +29,10 @@ public class UI {
         System.out.println("Got it. I've added this task:");
         System.out.println(task.get(task.size() - 1).getStatusIcon());
         System.out.print("Now you have " + task.size() + " task in the list.");
+    }
+
+    public static void printFoundCommandAcknowledgementMessage() {
+        System.out.println("Here are thematching tasks in your list:");
     }
 
     public void handleError(ThawException e) {
