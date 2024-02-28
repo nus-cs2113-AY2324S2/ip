@@ -1,5 +1,6 @@
 |Task Type | Done | Description | Time |
 |----------|------|-------------|------|
-| Deadline | false | as0 | tmr |
-| Deadline | false | as1 | sun |
-| Event | false | lolol | 9pm to: 12pm |
+| Todo | false | 1 |  |
+| Todo | true | 2 |  |
+| Todo | false | read book |  |
+| Deadline | false | return book | sun |

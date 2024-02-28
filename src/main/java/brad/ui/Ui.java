@@ -127,6 +127,8 @@ public class Ui {
             case DELETE:
                 printDeleteActionResult(task, size);
                 break;
+            case FIND:
+                printFindActionResult(task);
         }
     }
 
@@ -150,6 +152,17 @@ public class Ui {
     public void printDeleteActionResult(String task, int size) {
         String message = "Got it. I've removed this task:\n" + task
                 + "\n Now you have " + size + " tasks in the list.";
+        printOutput(message);
+    }
+
+    public void printFindActionResult(String result) {
+        String message = "";
+        if (result.isEmpty()) {
+            message += "Yikes! I can't find that task :(";
+        } else {
+            message += "Here are the matching tasks in your list:\n" +
+                    result;
+        }
         printOutput(message);
     }
 }
