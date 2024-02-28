@@ -12,6 +12,7 @@ Dor is a CLI chatbot that helps users track their tasks.
    - Save
    - Quit
 
+
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed on your computer.
@@ -19,6 +20,7 @@ Dor is a CLI chatbot that helps users track their tasks.
 3. Open a command terminal and cd to the folder you put the JAR file in
 4. Enter `java -jar Dor.jar` into the terminal to run the chatbot
 5. Refer to the Features section below for details of each command
+
 
 ## Features 
 
@@ -28,9 +30,11 @@ Dor is a CLI chatbot that helps users track their tasks.
 - Parameters in curly braces must match one of the options specified in the DESCRIPTION of the command
 - Items in square brackets are to be included or omitted as specified in the DESCRIPTION of the command
 
+
 ### Adding tasks
 
 SYNOPSIS
+
    `{TASK_TYPE} [TASK_NAME] [/by DEADLINE_DUE_DATE_TIME] [/from EVENT_START_DATE_TIME] [/to EVENT_END_DATE_TIME]`
 
 DESCRIPTION
@@ -46,13 +50,16 @@ EXAMPLES
    - `deadline assignment 1 /by 15 may`
    - `event friend's birthday party /from 14 april 2pm /to 6pm`
 
+
 ### Listing tasks: list
 
 SYNOPSIS
+
    `list`
 
 DESCRIPTION
    - Lists all tasks tracked by the chatbot
+
 
 ### Deleting tasks: delete
 
@@ -63,9 +70,11 @@ DESCRIPTION
    - Deletes the task at INDEX
    - INDEX refers to the index number shown in the task list displayed by `list`
 
+
 ### Marking tasks
 
 SYNOPSIS
+
    `{MARK_OR_UNMARK} INDEX`
 
 DESCRIPTION
@@ -73,25 +82,31 @@ DESCRIPTION
    - {MARK_OR_UNMARK} must match one of "mark" or "unmark"
    - INDEX refers to the index number shown in the task list displayed by `list`
 
+
 ### Finding tasks: find
 
 SYNOPSIS
+
    `find KEYWORD`
 
 DESCRIPTION
    - Lists all tasks containing KEYWORD (case sensitive)
 
+
 ### Saving data
 
 Task data is automatically saved by the chatbot to the data file `./data/dor.txt` following any command that changes a task
+
 
 ### Loading data
 
 Task data is automatically loaded by the chatbot from the data file `./data/dor.txt` on startup
 
+
 ### Quitting the chatbot: bye
 
 SYNOPSIS
+
    `bye`
 
 DESCRIPTION
