@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Omoh {
     public static void main(String[] args) {
-        Task.createFileDirectory();
+        Storage.createFileDirectory();
         Task.createOutputFile();
         printWelcomeMessage();
         //initialise the size 100 array if it was not initialised previously

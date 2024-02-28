@@ -166,15 +166,6 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-
-    //function creates directory for output.txt file if it is not present
-    public static void createFileDirectory () {
-        File directory = new File("data");
-        if (!directory.exists()) {
-            directory.mkdirs(); // This will create the necessary directories
-        }
-    }
-
     //creates output.txt file to store data
     public static void createOutputFile () {
         //code to create new file in data directory
