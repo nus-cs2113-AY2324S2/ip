@@ -1,1 +1,3 @@
-1[T][ ] stellaris
+1|D|| |slay the spire(by:1)
+2|T|| | stellaris
+3|E|| | hades(from: 1):(by: 2)

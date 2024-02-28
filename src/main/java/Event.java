@@ -1,6 +1,7 @@
 public class Event extends Deadline{
     String starttime;
     String Icon="E";
+
     public Event(boolean isDone, String description, String endtime, String starttime) {
         super(isDone, description, endtime);
         this.starttime = starttime;
@@ -8,7 +9,7 @@ public class Event extends Deadline{
 
     @Override
     public String toString(){
-        String DoneIcon = isDone? "x":" ";
-        return "["+Icon+"]"+"["+DoneIcon+"]"+ " "+ description + "(from: "+starttime+ "):(by: "+endtime+")" ;
+        String DoneIcon = this.isDone? "x":" ";
+        return "["+Icon+"]"+"["+DoneIcon+"]"+ " "+ this.description + "(from: "+starttime+ ") (by: "+this.endtime+")" ;
     }
 }

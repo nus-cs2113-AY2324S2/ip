@@ -10,7 +10,7 @@ public class Deadline extends Todo{
     @Override
     public String toString(){
         String DoneIcon = isDone? "x":" ";
-        return "["+Icon+"]"+"["+DoneIcon+"]"+ description + "(by:"+ endtime+")";
+        return "["+Icon+"]"+"["+DoneIcon+"] "+ description + "(by:"+ endtime+")";
     }
 
 }

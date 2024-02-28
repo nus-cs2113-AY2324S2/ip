@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -84,8 +82,14 @@ public class ListManager {
 
 
     static void HandleList()  {
-        PrintList();
+
         String command ="";
+        try {
+            ReadFile();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        PrintList();
 
         while(!command.equals("quit")){
             command = in.nextLine();
@@ -140,6 +144,26 @@ public class ListManager {
 
     }
 
+    private static void ReadFile() throws FileNotFoundException {
+        File file = new File("list.txt");
+        if (!file.exists()) {
+            return;
+        }
+        else {
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            try {
+                String line;
+                while ((line = reader.readLine()) != null) {// process every line
+                    ProcessSavedLine(line);
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
+
     private static void SaveList() throws IOException {
         File file = new File("list.txt");
 
@@ -155,8 +179,8 @@ public class ListManager {
             if(t == null){
                 continue;
             }
-            fw.write( (todolist.indexOf(t)+1) + t.toString() +"\n");
-
+            String content =(todolist.indexOf(t)+1) + t.toString() +"\n";
+            fw.write(content.replace("[","|").replace("]","|") );
         }
         fw.close();
 
@@ -259,6 +283,57 @@ public class ListManager {
     }
 
 
+
+
+    private static void ProcessSavedLine(String line) {
+
+        String Done = "|"+"([x ])"+"|";
+
+        Boolean isDone ;
+        if(line.contains("| |")){
+            isDone = false;
+        }else if(line.contains("|x|")){
+
+            isDone = true;
+        }else{
+            System.out.println("unexpected format");
+            return;
+        }
+        String description;
+        String starttime;
+        String endtime;
+
+        if(line.contains("|T|")){
+            String parts = line.substring(7);
+            description = parts;
+            Todo task = new Todo(isDone,description.trim());
+            todolist.add(task);
+        }else if(line.contains("|D|")){
+
+            //String[] parts = line.split(Done,2);
+            String parts = line.substring(7);
+            String[] contents = parts.split("" +
+                    "by:",2);
+            description = contents[0].replace("(","");
+            endtime = contents[1].replace(")","");
+            Deadline task= new Deadline(isDone,description.trim(),endtime.trim());
+            todolist.add(task);
+
+        }else if(line.contains("|E|")){
+            String parts = line.substring(7);
+            String[] contents = parts.split( "from:",2);
+            description = contents[0].replace("(","");
+            String[] time= contents[1].split("by:",2 );
+            starttime = time[0].replace("(","").replace(")","");
+            endtime = time[1].replace("(","").replace(")","");
+            Event task = new Event(isDone,description.trim(),endtime.trim(),starttime.trim());
+            todolist.add(task);
+        }else{
+            System.out.println("unexpected format");
+            return;
+        }
+
+    }
 }
 
 
