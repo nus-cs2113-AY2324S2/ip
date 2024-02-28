@@ -1,18 +1,8 @@
 package omoh;
 
-import omoh.customexceptions.CorruptedFileException;
-import omoh.customexceptions.EmptyTaskNumberException;
-import omoh.customexceptions.EmptyTodoException;
-import omoh.tasktypes.Deadline;
-import omoh.tasktypes.Event;
 import omoh.tasktypes.Task;
-import omoh.tasktypes.Todo;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
 
 
 public class Omoh {
