@@ -1,6 +1,11 @@
 package Chat.tasks;
 
 public class Todos extends Task{
+    /**
+     * Construct a Todos class that takes in task description.
+     * Inherits from superclass task.
+     * @param description The description of the task of subclass todos.
+     */
     public Todos(String description) {
         super(description);
         this.type = TaskType.TODO;

@@ -17,30 +17,13 @@ public class Evelyn {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-    //    public static void main(String[] args) {
-//        Ui ui = new Ui();
-//        Storage storage = new Storage();
-//        try {
-//            TaskList taskList = storage.loadTasks();
-//            ui.showWelcomeMessage();
-//            Parser parser = new Parser(taskList);
-//            boolean isExit = false;
-//            while (!isExit) {
-//                System.out.println("type your command: ");
-//                String userInput = ui.getUserInput();
-//                parser.parse(userInput);
-//                if (userInput.equals("bye")) {
-//                    isExit = true;
-//                }
-//            }
-//            storage.saveTasks(taskList);
-//            ui.showGoodbyeMessage();
-//        } catch (FileNotFoundException e) {
-//            ui.showError("File not found: " + e.getMessage());
-//        } catch (InvalidIndex e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+
+    /**
+     * Create an instance of Evelyn class.
+     * Initialise the Ui and Storage.
+     * If there is a file for data storage, write into the file.
+     * Or else create a new TaskList.
+     */
     public Evelyn() {
         ui = new Ui();
         storage = new Storage();
@@ -52,6 +35,15 @@ public class Evelyn {
         }
     }
 
+    /**
+     * Run the application for a Ui.
+     * Show a greeting message.
+     * Initialise a Parser object in the task list.
+     * If the user do not key in "bye", enter the loop for continuous command.
+     * Save the task at the end of commands.
+     * Show a bye message when exited.
+     * @throws InvalidIndex if index is out of bound.
+     */
     public void run() throws InvalidIndex {
         ui.showWelcomeMessage();
         Parser parser = new Parser(tasks);
@@ -68,6 +60,11 @@ public class Evelyn {
         ui.showGoodbyeMessage();
     }
 
+    /**
+     * Start running the whole program
+     * @param args Takes in the command line.
+     * @throws InvalidIndex If an index is invalid or out of bound.
+     */
     public static void main(String[] args) throws InvalidIndex {
         new Evelyn().run();
     }

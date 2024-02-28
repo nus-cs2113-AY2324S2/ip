@@ -11,17 +11,26 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Gets user input.
+     * @return The input as string type.
+     */
     public String getUserInput() {
         return scanner.nextLine();
     }
 
+    /**
+     * Show a welcome message to the user.
+     */
     public void showWelcomeMessage() {
         showLine();
         System.out.println("Hello! I'm Evelyn");
         System.out.println("What can I do for you?");
         showLine();
     }
-
+    /**
+     * Show a goodbye message to the user.
+     */
     public void showGoodbyeMessage() {
         showLine();
         System.out.println("Bye. Hope to see you again soon!");
@@ -35,12 +44,5 @@ public class Ui {
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
-
-    public void showMessage(String message) {
-        System.out.println(message);
-    }
-
-    public void showTaskList(String taskList) {
-        System.out.println(taskList);
-    }
+    
 }
