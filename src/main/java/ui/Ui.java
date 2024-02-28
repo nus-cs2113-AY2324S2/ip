@@ -27,7 +27,11 @@ public class Ui {
                     "8. bye - Exit the program\n" +
                     "9. help - Show available commands";
 
-    public static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static Scanner getScanner() {
+        return scanner;
+    }
 
     public static void greetUser() {
         System.out.println("Hello from\n" + logo);
@@ -101,6 +105,12 @@ public class Ui {
                 System.out.println(i + "." + listOfTasks.get(i - 1));
             }
         }
+        System.out.println(MESSAGE_DIVIDER);
+    }
+
+    public static void printScannerInputError() {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("Failed to read input. Exiting Program...");
         System.out.println(MESSAGE_DIVIDER);
     }
 

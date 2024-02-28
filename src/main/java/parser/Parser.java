@@ -4,8 +4,21 @@ import carrot.task.Deadline;
 import carrot.task.Event;
 import carrot.task.Task;
 import carrot.task.Todo;
-import carrot.command.CommandType;
 
+import carrot.command.CommandType;
+import carrot.command.Command;
+import carrot.command.HelpCommand;
+import carrot.command.TodoCommand;
+import carrot.command.DeadlineCommand;
+import carrot.command.EventCommand;
+import carrot.command.MarkCommand;
+import carrot.command.UnmarkCommand;
+import carrot.command.ListCommand;
+import carrot.command.DeleteCommand;
+import carrot.command.ExitCommand;
+import carrot.command.InvalidCommand;
+
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.HashMap;
@@ -39,9 +52,10 @@ public class Parser {
             Pattern.compile("E \\| (?<isDone>true|false) \\| \"(?<description>.+?)\" \\| " +
                     "\"(?<from>.+?)\" \\| \"(?<to>.+?)\"");
 
-    private static Map<CommandType, Pattern> commandPatternMap = initCommandTypes();
+    private static Map<CommandType, Pattern> commandPatternMap = initCommandPatternMap();
+    private static Map<CommandType, Command> commandClassMap = initCommandClassMap();
 
-    private static Map<CommandType, Pattern> initCommandTypes() {
+    private static Map<CommandType, Pattern> initCommandPatternMap() {
         Map<CommandType, Pattern> commandPatternMap = new HashMap<>();
 
         commandPatternMap.put(CommandType.EXIT, EXIT_PATTERN);
@@ -57,7 +71,24 @@ public class Parser {
         return commandPatternMap;
     }
 
-    public static CommandType getCommandType(String userInput) {
+    private static Map<CommandType, Command> initCommandClassMap() {
+        Map<CommandType, Command> commandClassMap = new HashMap<>();
+
+        commandClassMap.put(CommandType.HELP, new HelpCommand());
+        commandClassMap.put(CommandType.LIST, new ListCommand());
+        commandClassMap.put(CommandType.TODO, new TodoCommand());
+        commandClassMap.put(CommandType.DEADLINE, new DeadlineCommand());
+        commandClassMap.put(CommandType.EVENT, new EventCommand());
+        commandClassMap.put(CommandType.DELETE, new DeleteCommand());
+        commandClassMap.put(CommandType.MARK, new MarkCommand());
+        commandClassMap.put(CommandType.UNMARK, new UnmarkCommand());
+        commandClassMap.put(CommandType.EXIT, new ExitCommand());
+        commandClassMap.put(CommandType.INVALID, new InvalidCommand());
+
+        return commandClassMap;
+    }
+
+    public static Command getCommandType(String userInput) {
         for (Map.Entry<CommandType, Pattern> entry : commandPatternMap.entrySet()) {
             // Retrieve the Pattern associated with the command in the entry
             Pattern commandPattern = entry.getValue();
@@ -67,11 +98,13 @@ public class Parser {
 
             // Check if the entire input sequence matches the pattern
             if (matcher.matches()) {
-                // If there is a match, return the corresponding command.CommandType
-                return entry.getKey();
+                // If there is a match, return the corresponding Command
+                CommandType commandtype = entry.getKey();
+                Command command = commandClassMap.getOrDefault(commandtype, new InvalidCommand());
+                return command;
             }
         }
-        return CommandType.INVALID;
+        return new InvalidCommand();
     }
 
     public static String[] getCommandArguments(CommandType command, String userInput) {
