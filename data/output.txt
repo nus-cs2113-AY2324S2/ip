@@ -1,3 +1,6 @@
-D | 1 | ee2026 quiz | tomorrow
-D | 0 | club | tonight
-E | 1 | clb study | 9am | 6pm
+D | 0 | ee2026 quiz | tomorrow
+D | 1 | club | tonight
+E | 0 | clb study | 9am | 6pm
+T | 0 | take milo
+E | 0 | lecture | monday | monday
+D | 1 | 2113 | 8 march
