@@ -21,7 +21,7 @@ JunBot is a **desktop app for task management, created for use via a Command Lin
 ## Quick Start
 
 1. Ensure you have Java 11 installed on your computer.
-2. Download the latest `JunBot.jar` from [here](#) (replace "#" with the actual link).
+2. Download the latest `JunBot.jar`.
 3. Copy the file to the folder you want to use as the home folder for your JunBot.
 4. Open a command terminal, navigate to the folder containing the JAR file, and run the command `java -jar JunBot.jar` to execute the application.
 5. Type the desired command in the command box and press Enter to execute it. For example, typing `list` and pressing Enter will display all tasks in the list.
