@@ -2,7 +2,9 @@ package omoh;
 
 import omoh.customexceptions.EmptyTaskNumberException;
 import omoh.customexceptions.IllegalDeadlineInput;
+import omoh.customexceptions.IllegalEventInput;
 import omoh.tasktypes.Deadline;
+import omoh.tasktypes.Event;
 
 public class Parser {
 
@@ -41,5 +43,25 @@ public class Parser {
         return taskAndDeadlineString;
     }
 
+
+    public static Event extractEvent (String input) throws IllegalEventInput {
+        //splits string according to /by keyword
+        String[] parts = input.split("/from|/to");
+        if (parts.length < 3) {
+            throw new IllegalEventInput();
+        }
+        //extracts task portion from input, after deadline keyword
+        String eventDescription = parts[0].substring("event".length()).trim();
+        //extracts from and to portion from input
+        String eventFrom = parts[1].trim();
+        String eventTo = parts[2].trim();
+
+        Event eventDetails  = new Event(eventDescription, eventFrom, eventTo);
+
+        if (eventFrom.isEmpty() || eventTo.isEmpty()) {
+            throw new IllegalEventInput();
+        }
+        return eventDetails;
+    }
 
 }

@@ -1,5 +1,3 @@
-T | 1 | homework
-T | 0 | collect milo
-E | 0 | clbv study | tomorrow | evening
-D | 0 | ee2026 quiz | tomorrow
+D | 1 | ee2026 quiz | tomorrow
 D | 0 | club | tonight
+E | 1 | clb study | 9am | 6pm

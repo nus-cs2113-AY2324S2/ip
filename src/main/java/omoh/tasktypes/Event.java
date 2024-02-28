@@ -1,5 +1,6 @@
 package omoh.tasktypes;
 
+import omoh.Parser;
 import omoh.customexceptions.IllegalEventInput;
 import omoh.Omoh;
 
@@ -24,25 +25,6 @@ public class Event extends Task {
         return to;
     }
 
-    public static Event extractEvent (String input) throws IllegalEventInput {
-        Event eventDetails  = new Event("random","random", "random");
-        //splits string according to /by keyword
-        String[] parts = input.split("/from|/to");
-        if (parts.length < 3) {
-            throw new IllegalEventInput();
-        }
-        //extracts task portion from input, after deadline keyword
-        eventDetails.description = parts[0].substring("event".length()).trim();
-        //extracts from and to portion from input
-        eventDetails.from = parts[1].trim();
-        eventDetails.to = parts[2].trim();
-        if (eventDetails.to.isEmpty() || eventDetails.from.isEmpty()) {
-            throw new IllegalEventInput();
-        }
-        return eventDetails;
-    }
-
-
     public static void addEventMessage (Event description) {
         Omoh.printHorizontalLine();
         System.out.println("Got it. I've added this task:");
@@ -54,7 +36,8 @@ public class Event extends Task {
 
     public static void addEvent (String input) {
         try {
-            Event extractedInfo = extractEvent(input);
+            Event extractedInfo = Parser.extractEvent(input);
+
             Task.tasks.add(new Event(extractedInfo.description, extractedInfo.from, extractedInfo.to));
             Task.totalTasks++;
             Event.addEventMessage(extractedInfo);
