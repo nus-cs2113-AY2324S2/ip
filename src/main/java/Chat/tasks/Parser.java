@@ -10,6 +10,7 @@ public class Parser {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     private static TaskList taskList;
 
@@ -52,6 +53,10 @@ public class Parser {
             break;
         case COMMAND_DELETE:
             deleteTask(arguments);
+            printLine();
+            break;
+        case COMMAND_FIND:
+            findTasks(arguments);
             printLine();
             break;
         default:
@@ -143,6 +148,23 @@ public class Parser {
             System.out.println("Invalid task index, please try again!");
         } catch (NumberFormatException e){
             System.out.println("Please key in a number after 'delete'");
+        }
+    }
+
+    private static void findTasks(String keyword){
+        boolean isFound = false;
+        for (int i = 0; i < taskList.getSize(); i++){
+            Task task = taskList.getTask(i);
+            if(task.getDescription().contains(keyword)){
+                if(!isFound) {
+                    System.out.println("Here are the matching tasks in your list:");
+                    isFound = true;
+                }
+                System.out.println((i+1) + "."+ task.toString());
+                }
+            }
+        if(!isFound){
+            System.out.println("No matching tasks in the list.");
         }
     }
     private static void printLine() {
