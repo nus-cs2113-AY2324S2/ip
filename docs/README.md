@@ -10,7 +10,7 @@ _____        _     _
                            __/ |
                           |___/
 ```
-Meet Dobby, your personal task manager to help you stay organised and ontop of all your tasks
+Meet Dobby, your personal task manager to help you stay organised and on top of all your tasks
 
 ## Features 
 #**Add Tasks**
