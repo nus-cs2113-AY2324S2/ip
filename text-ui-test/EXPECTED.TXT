@@ -108,6 +108,7 @@ Here are the matching tasks in your list:
 Here are the matching tasks in your list:
 [31mYou have no tasks in your list[0m
 -------------------------------------------
+[31mError: find parameters is incomplete. Proper syntax: find [keyword][0m
 -------------------------------------------
 Bye. Hope to see you again soon!
 -------------------------------------------

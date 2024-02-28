@@ -45,7 +45,6 @@ public class Storage {
             fileScanner.useDelimiter("\n");
             return fileScanner;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             throw new MimiException.LoadError(MimiException.LOAD_ERROR_MSG);
         }
     }

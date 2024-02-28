@@ -10,6 +10,7 @@
 7. [delete a task](#delete)
 8. [find tasks by keyword](#find)
 9. [exit the program](#bye)
+10. [troubleshoot](#troubleshoot)
 
 ## Usage
 1. In order for the program to work, you need to have Java 11 installed on your computer.
@@ -17,6 +18,7 @@
 3. Run the program using the command `java -jar MimiChat.jar` in the terminal.
 4. Make sure that there is a /data folder in the root of the program directory. This is where the data will be stored.
 5. You can now start using the program.
+
 
 ## Add ToDo Task
 
@@ -203,6 +205,18 @@ Expected outcome:
 ```
 Bye. Hope to see you again soon!
 ```
+
+## Troubleshoot
+### 1. I keep receiving the `Error: Unable to load file`
+- Please ensure /data folder exists in the root directory
+  ```
+  directory
+  |--- mimichat.jar
+  |--- /data 
+  ```
+### 2. I have already created the `/data` folder, why do I still see the error?
+- Please ensure that the `/data` folder is in the same directory as the `mimichat.jar` file.
+- If so, then you can ignore the error as the system will automatically create the mimi.logs file once you enter a new task.
 
 
 

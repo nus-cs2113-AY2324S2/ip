@@ -33,6 +33,9 @@ public class MimiException {
     public final static String INSUFFICIENT_INDEX_PARAMETERS_MSG = "delete/mark/unmark parameters is incomplete. " +
             "Proper syntax: delete/mark/unmark [task number]";
 
+    public final static String INSUFFICIENT_FIND_PARAMETERS_MSG = "find parameters is incomplete. " +
+            "Proper syntax: find [keyword]";
+
     public final static String TASK_NOT_FOUND_MSG = "task not found. " + "Please check the task number again.";
 
     public final static String FILE_CORRUPTED_MSG = "file is corrupted. " + "Please check the file again.";
