@@ -1,3 +1,7 @@
+package carrot.task;
+
+import carrot.storage.Storage;
+import carrot.ui.Ui;
 import java.util.ArrayList;
 
 public class TaskList {

@@ -1,3 +1,5 @@
+package carrot.command;
+
 public enum CommandType {
     MARK,
     UNMARK,

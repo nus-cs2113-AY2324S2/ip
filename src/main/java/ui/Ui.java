@@ -1,3 +1,7 @@
+package carrot.ui;
+
+import carrot.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -1,3 +1,12 @@
+import carrot.task.Task;
+import carrot.task.Todo;
+import carrot.task.TaskList;
+import carrot.task.Event;
+import carrot.task.Deadline;
+import carrot.command.CommandType;
+import carrot.parser.Parser;
+import carrot.ui.Ui;
+
 import java.util.Scanner;
 
 public class Carrot {

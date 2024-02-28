@@ -1,3 +1,11 @@
+package carrot.parser;
+
+import carrot.task.Deadline;
+import carrot.task.Event;
+import carrot.task.Task;
+import carrot.task.Todo;
+import carrot.command.CommandType;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.HashMap;
@@ -49,7 +57,7 @@ public class Parser {
         return commandPatternMap;
     }
 
-    protected static CommandType getCommandType(String userInput) {
+    public static CommandType getCommandType(String userInput) {
         for (Map.Entry<CommandType, Pattern> entry : commandPatternMap.entrySet()) {
             // Retrieve the Pattern associated with the command in the entry
             Pattern commandPattern = entry.getValue();
@@ -59,14 +67,14 @@ public class Parser {
 
             // Check if the entire input sequence matches the pattern
             if (matcher.matches()) {
-                // If there is a match, return the corresponding CommandType
+                // If there is a match, return the corresponding command.CommandType
                 return entry.getKey();
             }
         }
         return CommandType.INVALID;
     }
 
-    protected static String[] getCommandArguments(CommandType command, String userInput) {
+    public static String[] getCommandArguments(CommandType command, String userInput) {
         Matcher matcher = commandPatternMap.get(command).matcher(userInput);
         if (!matcher.matches()) {
             return null;
@@ -98,7 +106,7 @@ public class Parser {
         return arguments;
     }
 
-    protected static Task parseTaskFromTextFileLine(String line) {
+    public static Task parseTaskFromTextFileLine(String line) {
         Pattern[] dataPatterns = {TODO_DATA_PATTERN, DEADLINE_DATA_PATTERN, EVENT_DATA_PATTERN};
 
         for (int i = 0; i < dataPatterns.length; i++) {

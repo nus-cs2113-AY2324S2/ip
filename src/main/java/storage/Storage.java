@@ -1,3 +1,8 @@
+package carrot.storage;
+
+import carrot.task.Task;
+import carrot.parser.Parser;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -33,7 +38,7 @@ public class Storage {
                 listOfTasks.add(task);
             }
         } catch (IOException e) {
-            System.out.println("Unable to load from Storage: " + e.getMessage());
+            System.out.println("Unable to load from storage.Storage: " + e.getMessage());
         }
 
         return listOfTasks;
@@ -46,7 +51,7 @@ public class Storage {
             fw.write(task.toFileFormat() + "\n");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Unable to save Task Data: " + e.getMessage());
+            System.out.println("Unable to save task.Task Data: " + e.getMessage());
         }
     }
 
@@ -60,7 +65,7 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-            System.out.println("Unable to save Task Data: " + e.getMessage());
+            System.out.println("Unable to save task.Task Data: " + e.getMessage());
         }
     }
 }
