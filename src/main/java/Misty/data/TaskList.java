@@ -1,18 +1,17 @@
 package misty.data;
 
-import misty.data.exception.*;
-import misty.storage.Storage;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import misty.data.exception.CorruptedFileException;
+import misty.data.exception.EmptyParameterException;
+import misty.data.exception.IllegalListIndexException;
 import misty.data.task.Deadline;
 import misty.data.task.Event;
 import misty.data.task.Task;
 import misty.data.task.Todo;
+import misty.storage.Storage;
 import misty.ui.UserUi;
-import java.time.LocalDate;
-
-
-import java.util.ArrayList;
-
-import java.io.IOException;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -222,5 +221,4 @@ public class TaskList {
             }
         }
     }
-
 }
