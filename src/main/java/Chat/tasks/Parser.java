@@ -18,6 +18,14 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses the input line and execute respective commands.
+     * The command could include exit the program, list the tasks, mark and unmark a task,
+     * add todos, deadlines, events classes,
+     * delete a task, and search for keywords.
+     * @param input The input to be parsed by the Parse class.
+     * @throws InvalidIndex If the index is invalid or out of bound.
+     */
     public static void parse(String input) throws InvalidIndex {
         String[] inputs = input.trim().split("\\s+", 2);
         String commandWord = inputs[0];

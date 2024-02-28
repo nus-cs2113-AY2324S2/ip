@@ -12,6 +12,10 @@ public class Task {
     protected boolean isDone;
     public String time;
 
+    /**
+     * Construct a Task object which takes in description of the task.
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -20,21 +24,45 @@ public class Task {
         shortType = this.type.name().substring(0, 1);
     }
 
+    /**
+     * Return the description of the task which is protected.
+     * @return Description of the task.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Override the default toString method to restructure the format.
+     * @return A reformatted task representation, in String.
+     */
     @Override
     public String toString() {
         return  " " + getStatusIcon() + " " + getDescription();
     }
 
+    /**
+     * Change the status icon according to its isDone status.
+     * @return The icon representing the completion of a task.
+     * [X] is done, [ ] is not done.
+     */
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
+
+    /**
+     * Return the completion status of a task.
+     * @return "1" if isDone, "0" is not done.
+     */
     public String numisDone(){
         return (isDone ? "1" : "0");
     }
+
+    /**
+     * Mark a task as done.
+     * @throws RepeatMark If the task is already marked as done.
+     */
     public void markAsDone() throws RepeatMark {
         if(isDone){
             throw new RepeatMark();
@@ -43,12 +71,24 @@ public class Task {
 
     }
 
+    /**
+     * Mark a task as not done.
+     * @throws RepeatUnmark If the task is already marked as not done.
+     */
+
     public void markAsNotDone() throws RepeatUnmark {
         if(!isDone){
             throw new RepeatUnmark();
         }
         isDone = false;
     }
+
+    /**
+     * Read the string command from either user or txt file and add to the taskList.
+     * @param taskString The string command from either user or txt file.
+     * @return The task object from the string.
+     * @throws RepeatMark If the task is already marked as done or not done.
+     */
     public static Task fromString(String taskString) throws RepeatMark {
         String[] parts = taskString.split("\\|");
         String type = parts[0].trim();
