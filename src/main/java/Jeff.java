@@ -5,8 +5,8 @@ public class Jeff {
         list.generateList();
         int taskIndex;
         String description;
-        Saver saveInstance = new Saver(list.getTasks());
-        Saver.deserializeTasks();
+        Storage saveInstance = new Storage(list.getTasks());
+        Storage.deserializeTasks();
         list.setTasks(saveInstance.getSavedList());
 
         System.out.println("Hello! My name is Jeff.");
