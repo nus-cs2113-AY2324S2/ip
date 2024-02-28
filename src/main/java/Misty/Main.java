@@ -12,12 +12,18 @@ import misty.parser.Parser;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ *
+ */
 public class Main {
     private UserUi userUi;
     private Parser parser;
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Initialises core objects and creates/loads save file.
+     */
     public Main() {
         userUi = new UserUi();
         parser = new Parser(userUi);
@@ -41,6 +47,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes main code of chatbot.
+     */
     public void run() {
         userUi.printWelcomeMessage();
         String userInput;
@@ -63,6 +72,11 @@ public class Main {
         }
     }
 
+    /**
+     * Runs chatbot application.
+     *
+     * @param args Command line arguments - Not needed
+     */
     public static void main(String[] args) {
         new Main().run();
     }
