@@ -70,7 +70,6 @@ public class TaskList {
      * @param task input given by user
      * @param userAdded inidicate if user is adding event or adding
      *                  task when loading from file
-     * @throws TaskListFullException if trying to add task when taskList is full (more than 100)
      */
     public void addTask(Task task, boolean userAdded) {
         try {
