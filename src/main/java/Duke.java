@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.List;
 
@@ -16,6 +19,8 @@ public class Duke {
         String deadline = "deadline";
         String event = "event";
         String filename = "data.txt";
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "dd/MM/yyyy hh:mm:ss");
         List<Task> tasks;
         TaskListFile file;
         Scanner input = new Scanner(System.in);
@@ -24,7 +29,19 @@ public class Duke {
             file = new TaskListFile(filename);
             tasks = file.decodeTasks();
             while (true) {
-                System.out.println("stop clowning and type sth");
+                System.out.println("------------stop clowning and type sth------------");
+                System.out.println(
+                        "Any dates must be in dd/mm/yyyy hh:mm:ss. " +
+                                "Be precise!");
+                System.out.println(
+                        """
+                                sample task inputs
+                                todo <description>
+                                deadline <description> /by <dd/mm/yyyy hh:mm:ss>
+                                event <description> /from <dd/mm/yyyy hh:mm:ss> /to <dd/mm/yyyy hh:mm:ss>
+                                """
+                );
+                System.out.println("--------------------------------------------------");
                 String line = input.nextLine();
                 if (line.equals("bye")) {
                     break;
@@ -51,12 +68,17 @@ public class Duke {
                     try {
                         String[] deadlineDescription =
                                 words[1].split("/by", 2);
+                        Date timestamp = formatter.parse(deadlineDescription[1]);
                         tasks.add(new Deadline(deadlineDescription[0],
-                                deadlineDescription[1].trim()));
+                                timestamp));
                         file = file.updateTaskListFile(tasks);
                     } catch(IndexOutOfBoundsException e) {
                         System.out.println(
                                 "clown! add something after deadline!");
+                    } catch (ParseException e) {
+                        System.out.println(
+                                "clown! Be precise! write time proper!"
+                        );
                     }
                     continue;
                 }
@@ -66,12 +88,18 @@ public class Duke {
                         String[] eventDescription = words[1].split("/from", 2);
                         String[] timeWords = eventDescription[1].split(
                                 "/to", 2);
-                        tasks.add(new Event(eventDescription[0].trim(),
-                                timeWords[0].trim(), timeWords[1].trim()));
+                        String description = eventDescription[0];
+                        Date from = formatter.parse(timeWords[0]);
+                        Date to = formatter.parse(timeWords[1]);
+                        tasks.add(new Event(description, from, to));
                         file = file.updateTaskListFile(tasks);
                     } catch(IndexOutOfBoundsException e) {
                         System.out.println(
                                 "clown! add something after event!");
+                    } catch (ParseException e) {
+                        System.out.println(
+                                "clown! Be precise! write time proper!"
+                        );
                     }
                     continue;
                 }

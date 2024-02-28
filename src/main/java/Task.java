@@ -1,22 +1,22 @@
 public class Task {
-    private final String input;
+    private final String description;
     private final String type;
     private final boolean status;
 
-    Task(String input, String type) {
-        this.input = input;
+    Task(String description, String type) {
+        this.description = description;
         this.type = type;
         this.status = false;
     }
 
-    Task(String input, String type, boolean status) {
-        this.input = input;
+    Task(String description, String type, boolean status) {
+        this.description = description;
         this.type = type;
         this.status = status;
     }
 
     Task(Task a, boolean status){
-        this.input = a.input;
+        this.description = a.description;
         this.type = a.type;
         this.status = status;
     }
@@ -29,8 +29,8 @@ public class Task {
         return new Task(this,false);
     }
 
-    String getInput() {
-        return this.input;
+    String getDescription() {
+        return this.description;
     }
     String getType() {
         return this.type;
@@ -42,12 +42,12 @@ public class Task {
 
     String encodeString() {
         return String.format("%s|%s|%s",
-                this.type, this.status ? "X" : " ", this.input);
+                this.type, this.status ? "X" : " ", this.description);
     }
 
     @Override
     public String toString() {
         return String.format(
-                "%s|%s|%s",this.type, this.status ? "X" : " ", this.input);
+                "%s|%s|%s",this.type, this.status ? "X" : " ", this.description);
     }
 }
