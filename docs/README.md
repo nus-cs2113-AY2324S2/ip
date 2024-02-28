@@ -23,7 +23,7 @@ List all tasks in task list
 
 Adds a todo task to your task list.
 
-format: todo <description>
+format: todo < description >
 
 Example of usage: 
 
@@ -34,6 +34,8 @@ Expected outcome: <br />
 ### `deadline` - Add a Deadline Task 
 
 Adds a task with a deadline to your task list.
+
+format: deadline < description > /by < deadline >
 
 Example of usage: 
 
