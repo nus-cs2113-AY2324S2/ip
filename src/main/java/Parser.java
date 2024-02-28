@@ -8,7 +8,7 @@ public class Parser {
     private final TaskList taskList;
     private final Storage storage;
     private static final SimpleDateFormat formatter = new SimpleDateFormat(
-            "dd/MM/yyyy hh:mm:ss");;
+            "dd/MM/yyyy hh:mm:ss");
     private static final String todo = "todo";
     private static final String deadline = "deadline";
     private static final String event = "event";
@@ -23,8 +23,13 @@ public class Parser {
         String inputString = this.input;
         TaskList newList = this.taskList;
         Storage newStorage = this.storage;
+        String rightParam;
         String[] words = inputString.split(" ", 2);
-        String rightParam = words[1];
+        try {
+            rightParam = words[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new JxExceptions("Gibberish");
+        }
         if (inputString.startsWith(todo)) {
             try {
                 newList = newList.add(new ToDo(rightParam));
@@ -88,6 +93,10 @@ public class Parser {
                 newStorage = newStorage.updateStorage(newList);
                 newList.printTasks();
             }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println(
+                        "clown! mark the indexes properly!");
+            }
             catch (NumberFormatException e) {
                 System.out.println("You are not marking an index!!!");
             } catch (IOException e) {
@@ -103,6 +112,10 @@ public class Parser {
                 newList = newList.set(listIndex - 1, unmarkedTask);
                 newStorage = newStorage.updateStorage(newList);
                 newList.printTasks();
+            }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println(
+                        "clown! mark the indexes properly!");
             }
             catch (NumberFormatException e) {
                 System.out.println("You are not unmarking an index!!!");

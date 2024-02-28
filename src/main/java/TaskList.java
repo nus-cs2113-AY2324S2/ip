@@ -47,7 +47,7 @@ public class TaskList {
         for (int i = 0; i < this.size(); ++i) {
             result.append(String.format("%s. %s%n", (i + 1), this.get(i)));
         }
-        System.out.println(result.toString());
+        System.out.println(result);
     }
 
     void findTasks(String keyword) {
@@ -58,7 +58,7 @@ public class TaskList {
                 results.append(String.format("%s. %s%n", (i + 1), this.get(i)));
             }
         }
-        System.out.println(results.toString());
+        System.out.println(results);
     }
 
 }

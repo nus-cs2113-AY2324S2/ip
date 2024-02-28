@@ -19,6 +19,16 @@ public class Deadline extends Task {
     }
 
     @Override
+    Deadline markTask() {
+        return new Deadline(this.getDescription(), true, this.timestamp);
+    }
+
+    @Override
+    Deadline unmarkTask() {
+        return new Deadline(this.getDescription(), false, this.timestamp);
+    }
+
+    @Override
     String encodeString() {
         String type = super.getType();
         String status = super.getStatus() ? "X" : " ";

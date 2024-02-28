@@ -21,6 +21,15 @@ public class Event extends Task {
     }
 
     @Override
+    Event markTask() {
+        return new Event(this.getDescription(), true, this.from, this.to);
+    }
+
+    @Override
+    Event unmarkTask() {
+        return new Event(this.getDescription(), false, this.from, this.to);
+    }
+    @Override
     String encodeString() {
         String type = super.getType();
         String status = super.getStatus() ? "X" : " ";

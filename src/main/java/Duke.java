@@ -31,17 +31,19 @@ public class Duke {
                     tasks.printTasks();
                     continue;
                 }
-                Parser help = new Parser(line, tasks, file);
-                Parser newHelp = help.parseParams();
-                tasks = newHelp.getTaskList();
-                file = newHelp.getStorage();
+                try {
+                    Parser help = new Parser(line, tasks, file);
+                    Parser newHelp = help.parseParams();
+                    tasks = newHelp.getTaskList();
+                    file = newHelp.getStorage();
+                } catch (JxExceptions e) {
+                    System.out.println(e.getMessage());
+                }
             }
             userInterface.printLeaveMessage();
         } catch (IOException ex) {
             System.out.println("Error when handling files " + ex.getMessage());
             throw new RuntimeException(ex);
-        } catch (JxExceptions e) {
-            System.out.println(e.getMessage());
         }
     }
     public static void main(String[] args) {

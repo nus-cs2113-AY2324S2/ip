@@ -19,7 +19,7 @@ public class Storage {
         this.fileName = fileName;
         this.taskFile = new File(fileName);
     }
-    Storage(String fileName, TaskList taskList) throws IOException {
+    Storage(String fileName, TaskList taskList) {
         this.fileName = fileName;
         this.taskFile = new File(fileName);
         try {
