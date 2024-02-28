@@ -33,8 +33,8 @@ public class ToDoCommand implements Command{
             parser.checkArrayLength(toDoTask);
             addTodoCommand(toDoTask);
         } catch (TonyException e) {
-            System.out.println("OOPS!! The description of " + USER_INPUT
-                    + " cannot be empty." + System.lineSeparator());
+            System.out.println("OOPS!! The description of '" + USER_INPUT
+                    + "' cannot be empty." + System.lineSeparator());
         }
 
     }

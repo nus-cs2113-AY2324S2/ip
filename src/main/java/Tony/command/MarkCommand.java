@@ -24,16 +24,18 @@ public class MarkCommand implements Command{
         this.fileSaver = fileSaver;
         try {
             String[] subCommand = USER_INPUT.split(" ");
+            parser.checkArrayLength(subCommand);
             int num = Integer.parseInt(subCommand[1]);
             parser.checkNumberWithinRange(num);
             markTaskCommand(subCommand, num);
         } catch (NumberFormatException nfe) {
-            System.out.println("Suggest only number after 'mark'!");
+            System.out.println("Suggest a number after 'mark'!");
         } catch (TonyException | IOException e) {
             System.out.println("To mark a task, suggest a number available in the list!");
         }
     }
     public void markTaskCommand(String[] subCommand, int num) throws IOException {
+
         if (subCommand[0].equals("mark")) {
             tasks.get(num - 1).markDone();
             System.out.println("\tNice! I've marked this task as done:"

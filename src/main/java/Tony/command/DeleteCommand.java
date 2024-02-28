@@ -31,6 +31,7 @@ public class DeleteCommand implements Command {
     private void deleteTaskCommand(String line) throws IOException {
         try {
             String[] subCommand = line.split(" ");
+            parser.checkArrayLength(subCommand);
             int num = Integer.parseInt(subCommand[1]);
             parser.checkNumberWithinRange(num);
             deleteATask(subCommand[0], num);
