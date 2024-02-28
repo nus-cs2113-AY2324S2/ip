@@ -1,5 +1,7 @@
 DEADLINE | 1 | task 2  | friday
 EVENT | 0 | lecture  | 4pm  | 6pm
-EVENT | 1 | task 3  | today  | tomorrow
+EVENT | 0 | task 3  | today  | tomorrow
 TODO | 1 | task 1
-DEADLINE | 0 | task 5  | 5th
+EVENT | 1 | tutorial  | today  | tomorrow
+DEADLINE | 0 | ip  | march
+DEADLINE | 1 | task 5  | 5th
