@@ -213,6 +213,13 @@ public class Task {
             modifyDoneStateOrDelete(iteration + 1, command);
         }
     }
+
+    //Method that prints all the tasks stored in myTaskList array
+    public static void printAllTasks() {
+        Omoh.printHorizontalLine();
+        Task.getAllTasks();
+        Omoh.printHorizontalLine();
+    }
 }
 
 

@@ -44,11 +44,4 @@ public class Omoh {
             System.out.println("Something went wrong" + e.getMessage());
         }
     }
-
-    //Method that prints all the tasks stored in myTaskList array
-    public static void printAllTasks() {
-        printHorizontalLine();
-        Task.getAllTasks();
-        printHorizontalLine();
-    }
 }

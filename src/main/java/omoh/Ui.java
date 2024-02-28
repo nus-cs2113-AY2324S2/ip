@@ -24,7 +24,7 @@ public class Ui {
             if (line.trim().isEmpty()) {
                 System.out.println("Please enter a non empty Input!");
             } else if (line.equalsIgnoreCase("list")) {
-                Omoh.printAllTasks();
+                Task.printAllTasks();
             } else if (line.startsWith("deadline")) {
                 Deadline.addDeadline(line);
             }
