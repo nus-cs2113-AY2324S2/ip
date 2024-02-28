@@ -2,6 +2,7 @@ package Tony.utility;
 
 import Tony.FileManager.FileSaver;
 import Tony.TonyException;
+import Tony.command.ByeCommand;
 import Tony.command.Command;
 import Tony.command.ListCommand;
 import Tony.command.MarkCommand;
@@ -28,12 +29,11 @@ public class Parser {
     public Command parse(String line) throws IOException {
         Parser parser = new Parser(tasks);
         if (line.equals("bye")) {
-            ui.printByeMessage();
+            return new ByeCommand();
         } else if (line.equals("list")) {
             return new ListCommand();
         } else if (line.contains("mark")) {
             return new MarkCommand(line, parser);
-
         } else if (line.startsWith("todo") || line.startsWith("deadline")
                 || line.startsWith("event")) {
             checkFirstWordOfTaskCommand(line);
