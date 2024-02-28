@@ -7,6 +7,7 @@ public enum CommandType {
     LIST,
     TODO,
     DEADLINE,
+    FIND,
     EVENT,
     HELP,
     EXIT,

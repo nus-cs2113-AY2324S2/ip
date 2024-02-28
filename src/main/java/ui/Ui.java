@@ -181,6 +181,36 @@ public class Ui {
      * <p>
      * It is typically used to handle scenarios such as reaching the end of input.
      */
+    public static void printFindTaskOutput(ArrayList<Task> listOfTasks, String word) {
+        int numberOfTasks = listOfTasks.size();
+
+        System.out.println(MESSAGE_DIVIDER);
+        if (numberOfTasks == 0) {
+            System.out.println("No tasks added. Add a task before using \"find\" command");
+        } else {
+            boolean foundMatch = false;
+
+            for (int i = 1; i <= numberOfTasks; i++) {
+                String task = listOfTasks.get(i-1).toString().toLowerCase();
+                String matchingWord = word.toLowerCase();
+
+                if (task.contains(matchingWord)) {
+                    if (!foundMatch) {
+                        System.out.printf("Here are the task(s) that contains \"%s\" in your list:\n", word);
+                        foundMatch = true;
+                    }
+                    System.out.println(i + "." + listOfTasks.get(i - 1));
+                }
+            }
+
+            if (!foundMatch) {
+                System.out.printf("There is no matching task that contains \"%s\"\n", word);
+                System.out.println("Use \"list\" command to view all tasks available");
+            }
+        }
+        System.out.println(MESSAGE_DIVIDER);
+    }
+
     public static void printScannerInputError() {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("Failed to read input. Exiting Program...");
