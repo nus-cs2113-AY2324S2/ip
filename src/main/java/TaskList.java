@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class TaskList {
     private final ArrayList<Task> taskList;
@@ -12,8 +12,6 @@ public class TaskList {
         this.taskList = new ArrayList<>();
         this.taskCount = 0;
         this.taskFileManager = new FileManager();
-
-        //taskFileManager.loadTasksFromFile(this);
     }
 
     public Task get(int index) {
@@ -26,48 +24,6 @@ public class TaskList {
 
     public int size() {
         return taskCount;
-    }
-
-    /**
-     *  Seperates the unser input into the type of task
-     *  and adds them to the list
-     *
-     * @param command user command to handle
-     *
-     **/
-    private void processTaskCommand(String command) {
-        try {
-            String[] commandParts = command.split(" ", 2);
-            String taskType = commandParts[0];
-
-            switch (taskType) {
-            case "todo":
-                addTask(new Task(commandParts[1]), true);
-                break;
-            case "deadline":
-                addDeadlineTask(commandParts, true);
-                break;
-            case "event":
-                addEvent(commandParts, true);
-                break;
-            case "mark":
-                markTask(commandParts);
-                break;
-            case "unmark":
-                unmarkTask(commandParts);
-                break;
-            case "delete":
-                deleteTask(Integer.parseInt(commandParts[1])-1);
-                break;
-            default:
-                System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised
-                break;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid command format. Provide valid input");
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid command format. Input a valid number");
-        }
     }
 
     /**
@@ -112,7 +68,7 @@ public class TaskList {
      *  @param commandParts user command to handle
      *
      **/
-    private void markTask(String[] commandParts) {
+    public void markTask(String[] commandParts) {
         if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
             System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
         } else {
@@ -126,7 +82,7 @@ public class TaskList {
      * @param commandParts user command to handle
      *
      **/
-    private void unmarkTask(String[] commandParts) {
+    public void unmarkTask(String[] commandParts) {
         if (commandParts.length == 1 || !isValidIndex(Integer.parseInt(commandParts[1]) - 1)) {
             System.out.println("Invalid command format for marking a task. Use 'mark <index>'.");
         } else {
@@ -240,30 +196,6 @@ public class TaskList {
     private static void printLineBreak() {
         System.out.println("~~~~~~~~~~~~~~~~");
     }
-
-    public void userCommand() {
-        while(true) {
-            String command;
-            Scanner in = new Scanner(System.in);
-            command = in.nextLine().toLowerCase();
-            String[] commandParts = command.split(" ", 2);
-
-            switch (commandParts[0]) {
-            case "bye":
-                System.out.println("~~~~~~~~~~~~~~~~\nDobby say's BYE!");
-                return;
-            case "list":
-                listTasks();
-                break;
-            default:
-                processTaskCommand(command);
-                break;
-            }
-
-        }
-    }
-
-
 
 }
 
