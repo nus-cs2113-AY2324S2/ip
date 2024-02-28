@@ -1,0 +1,6 @@
+todo Wei Jie: Answer CS2113 Tutorial Questions
+deadline weekly cs2113 quiz /by Monday 9Pm
+list
+event 2113 lecture /from Friday 4 /to 6pm
+mark 1
+list
