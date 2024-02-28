@@ -3,6 +3,7 @@ package Tony.utility;
 import Tony.FileManager.FileSaver;
 import Tony.TonyException;
 import Tony.command.Command;
+import Tony.command.ListCommand;
 import Tony.command.MarkCommand;
 import Tony.task.Deadline;
 import Tony.task.Event;
@@ -29,7 +30,7 @@ public class Parser {
         if (line.equals("bye")) {
             ui.printByeMessage();
         } else if (line.equals("list")) {
-            ui.printTaskList();
+            return new ListCommand();
         } else if (line.contains("mark")) {
             return new MarkCommand(line, parser);
 
