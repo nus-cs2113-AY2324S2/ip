@@ -7,24 +7,25 @@ import java.util.List;
 
 public class Storage {
     private static final String FILE_PATH = "Data/Jeff.txt";
-    private static ArrayList<Task> savedList;
-    protected static Ui userInterface;
+    private static ArrayList<Task> savedTasks;
+    private static Ui userInterface;
 
 
-
-    public Storage(ArrayList<Task> toSave, Ui uiComponent){
-        savedList = toSave;
+    public Storage(ArrayList<Task> tasksToSave, Ui uiComponent){
+        savedTasks = tasksToSave;
         userInterface = uiComponent;
-
     }
 
-    public void setSavedList(ArrayList<Task> toSave){
-        savedList = toSave;
+
+    public void setSavedList(ArrayList<Task> tasksToSave){
+        savedTasks = tasksToSave;
     }
+
 
     public ArrayList<Task> getSavedList(){
-        return savedList;
+        return savedTasks;
     }
+
 
     public void uploadTasks() { //takes string form of list and puts it in file
         List<String> serialisedList = serialiseTasks();
@@ -40,12 +41,13 @@ public class Storage {
 
 
     private List<String> serialiseTasks(){ //turns the list of tasks into strings
-        List<String> serialisedList = new ArrayList<>();
-        for(Task task : savedList){
-            serialisedList.add(task.getDescription());
+        List<String> serialisedTasks = new ArrayList<>();
+        for(Task task : savedTasks){
+            serialisedTasks.add(task.getDescription());
         }
-        return serialisedList;
+        return serialisedTasks;
     }
+
 
     private static Task deserializeTodo(String description, Task task, boolean isDone, String line){
         description = line.substring(6).trim();
@@ -80,10 +82,9 @@ public class Storage {
 
 
 
-
     public static void deserializeTasks() {
         List<String> lines;
-        savedList = new ArrayList<>();
+        savedTasks = new ArrayList<>();
         try {
             lines = Files.readAllLines(Paths.get(FILE_PATH));
         } catch (IOException e) {
@@ -110,7 +111,7 @@ public class Storage {
                     break;
             }
             if (task != null) {
-                savedList.add(task);
+                savedTasks.add(task);
             }
         }
     }
