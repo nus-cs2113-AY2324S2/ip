@@ -139,7 +139,7 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyword) {
 
         ArrayList<Task> foundTasks = new ArrayList<>();
-        for (int i = 0; i < tasks.size()-1; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             String taskDescription = tasks.get(i).getDescription();
 
             if (taskDescription.contains(keyword)){
