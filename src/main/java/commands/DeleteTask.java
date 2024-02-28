@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import Exceptions.ThawException;
 import Tasks.*;
 
+/**
+ *
+ */
+
 public class DeleteTask extends Command {
     public static void deleteTask(ArrayList<Task> task, String usersInput) throws ThawException {
         if (!commandWithoutDescription(usersInput)) {
