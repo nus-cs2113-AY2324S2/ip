@@ -1,61 +1,19 @@
 # Misty Chatbot: User Guide
 
-## Features 
+## Features
 
-### 1. Add tasks with only task name
-
-You can add tasks with only a task name to the task list.
-
-### 2. Add tasks with deadlines
-
-You can add tasks with a due dates to the task list.
-
-### 3. Add tasks with start and end dates
-
-You can add tasks which has both a start and end date to the task list.
-
-### 4. List all tasks
-
-You can show all tasks in the task list.
-
-### 5. Mark tasks as completed
-
-You can mark tasks to set them as completed in the task list.
-
-### 6. Unmark tasks as not completed
-
-You can Unmark tasks to set them as not completed in the task list.
-
-### 7. Delete tasks
-
-You can remove tasks from the task lists.
-
-### 8. Find tasks
-
-You can search tasks that contains a keyword in their name.
-
-### 9. Check which tasks will occur on a specific date
-
-You can search tasks that will occur on a specific date.
-Will show deadlines with due date on that specified date.
-Will show events that are happening on that specified date.
-
-### 10. Save task list automatically
+### 1. Automatic Save
 
 You don't need to manually sae as changes to the task list will automatically be saved to a text file on your computer.
 
-### 11. Auto interprets date formats
+### 2. Auto date format interpreter
 
-Entering dates in the form yyyy-mm-dd will automatically be translated to reader friendly dates:
-eg 2024-01-13  -> Sunday, Jan 13 2024
+Entering dates in the form yyyy-mm-dd will automatically be translated to reader friendly format:
+`eg 2024-01-13  -> Sunday, Jan 13 2024`
 
-### 12. Exit chatbot
 
-You can exit the chatbot when you are done using it.
-
-## Usage
-
-### `todo` - Add tasks with only task name
+### 3. Add tasks with only task name - `todo` 
+You can add tasks with only a task name to the task list.
 
 Format: `todo <task name>`
 
@@ -85,7 +43,9 @@ todo Clean House
 	--------------------------------------------------
 ```
 
-### `deadline` - Add tasks with deadlines
+### 4. Add tasks with deadlines - `deadline`
+
+You can add tasks with a due dates to the task list.
 
 Format: `deadline <task name> /by <due date>`
 
@@ -115,7 +75,9 @@ deadline quiz /by 2024-06-06
 	--------------------------------------------------
 ```
 
-### `event` - Add tasks with start and end dates
+### 5. Add tasks with start and end dates - `event`
+
+You can add tasks which has both a start and end date to the task list.
 
 Format: `eveny <task name> /from <start date> /to <end date>`
 
@@ -145,7 +107,9 @@ event competition /from 2024-07-08 /to 2024-07-09
 	--------------------------------------------------
 ```
 
-### `list` - List all tasks
+### 6. List all tasks - `list`
+
+You can show all tasks in the task list.
 
 Format: `list`
 
@@ -169,7 +133,9 @@ list
 	--------------------------------------------------
 ```
 
-### `mark` - Mark tasks as completed
+### 7. Mark tasks as completed - `mark`
+
+You can mark tasks to set them as completed in the task list.
 
 Format: `mark <task index>`
 
@@ -226,7 +192,9 @@ list
 	--------------------------------------------------
 ```
 
-### `unmark` - Unmark tasks as not completed
+### 8. Unmark tasks as not completed - `unmark`
+
+You can Unmark tasks to set them as not completed in the task list.
 
 Format: `unmark <task index>`
 
@@ -283,7 +251,9 @@ list
 	--------------------------------------------------
 ```
 
-### `delete` - Delete tasks
+### 9. Delete tasks - `delete`
+
+You can remove tasks from the task lists.
 
 Format: `delete <task index>`
 
@@ -339,7 +309,9 @@ list
 	--------------------------------------------------
 ```
 
-### `find` - Find tasks
+### 10. Find tasks - `find`
+
+You can search tasks that contains a keyword in their name.
 
 Format: `find <keyword>`
 
@@ -380,7 +352,11 @@ find co
 	--------------------------------------------------
 ```
 
-### `check` - Check which tasks will occur on a specific date
+### 11. Check which tasks will occur on a specific date - `check`
+
+You can search tasks that will occur on a specific date.
+Will show deadlines with due date on that specified date.
+Will show events that are happening on that specified date.
 
 Note the date entered must of the format yyyy-mm-dd.
 
@@ -424,7 +400,9 @@ check 2024-07-07
 	--------------------------------------------------
 ```
 
-### `bye` - Exit chatbot
+### 12. Exit chatbot - `bye`
+
+You can exit the chatbot when you are done using it.
 
 Format: `bye`
 
