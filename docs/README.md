@@ -1,12 +1,4 @@
 # User Guide
-_____        _     _ <br />
-|  __ \      | |   | | <br />
-| |  | | ___ | |__ | |__  _   _ <br />
-| |  | |/ _ \| '_ \| '_ \| | | | <br />
-| |__| | |_| | |_) | |_) | |_| | <br />
-|_____/ \___/|_.__/|_.__/ \__, | <br />
-                           __/ | <br />
-                          |___/ <br />
 Meet Dobby, your personal task manager to help you stay organised and ontop of all your tasks
 
 ## Features 
