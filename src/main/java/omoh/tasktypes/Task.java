@@ -2,14 +2,9 @@ package omoh.tasktypes;
 import omoh.Omoh;
 
 import omoh.customexceptions.EmptyTaskNumberException;
-import omoh.customexceptions.EmptyTodoException;
-import omoh.customexceptions.CorruptedFileException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 import java.util.ArrayList;
 
