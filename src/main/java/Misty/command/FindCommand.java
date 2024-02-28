@@ -5,6 +5,9 @@ import misty.data.exception.EmptyParameterException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Finds tasks matching a specific keyword in task list.
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_STRING = "find";
     private String keyword;

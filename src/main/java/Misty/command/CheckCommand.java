@@ -6,6 +6,9 @@ import misty.data.TaskList;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Finds tasks occuring on specific date.
+ */
 public class CheckCommand extends Command {
     public static final String COMMAND_STRING = "check";
     private String check;

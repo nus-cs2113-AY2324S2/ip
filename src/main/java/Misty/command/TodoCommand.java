@@ -5,6 +5,9 @@ import misty.data.exception.EmptyParameterException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Adds a todo task in task list.
+ */
 public class TodoCommand extends Command {
     public static final String COMMAND_STRING = "todo";
     private String taskName;

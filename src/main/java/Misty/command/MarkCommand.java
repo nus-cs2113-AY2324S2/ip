@@ -6,6 +6,9 @@ import misty.data.exception.IllegalListIndexException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Marks a task in task list.
+ */
 public class MarkCommand extends Command{
     public static final String COMMAND_STRING = "mark";
     public static final Pattern COMMAND_FORMAT =

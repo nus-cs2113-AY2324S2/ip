@@ -6,6 +6,9 @@ import misty.data.exception.IllegalListIndexException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Unmarks a task from task list.
+ */
 public class UnmarkCommand extends Command{
     public static final String COMMAND_STRING = "unmark";
     public static final Pattern COMMAND_FORMAT =

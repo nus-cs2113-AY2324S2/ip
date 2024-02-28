@@ -6,6 +6,9 @@ import misty.storage.Storage;
 import misty.ui.UserUi;
 import misty.data.exception.EmptyParameterException;
 
+/**
+ * Adds deadline to task list.
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_STRING = "deadline";
     public static final Pattern COMMAND_FORMAT =

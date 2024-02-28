@@ -4,6 +4,9 @@ import misty.data.TaskList;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Exits chatbot.
+ */
 public class ByeCommand extends Command {
     public static final String COMMAND_STRING = "bye";
 

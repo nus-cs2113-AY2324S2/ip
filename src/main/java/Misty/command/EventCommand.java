@@ -6,6 +6,9 @@ import misty.data.exception.EmptyParameterException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Adds an event to task list.
+ */
 public class EventCommand extends Command {
     public static final String COMMAND_STRING = "event";
     public static final Pattern COMMAND_FORMAT =

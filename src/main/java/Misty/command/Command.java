@@ -5,6 +5,9 @@ import misty.data.TaskList;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Serves as template for all command classes.
+ */
 public abstract class Command {
     public static final String COMMAND_STRING = "command";
     public static final Pattern COMMAND_FORMAT =

@@ -6,6 +6,9 @@ import misty.data.exception.IllegalListIndexException;
 import misty.storage.Storage;
 import misty.ui.UserUi;
 
+/**
+ * Removes a task from task list.
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_STRING = "delete";
     public static final Pattern COMMAND_FORMAT =
