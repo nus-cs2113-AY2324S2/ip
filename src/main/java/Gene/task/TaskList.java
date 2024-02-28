@@ -127,7 +127,7 @@ public class TaskList {
         String[] parts = command.split(" ");
         if (parts.length < 2 || !isNumeric(parts[1]) || Integer.parseInt(parts[1]) > toDoList.size()) {
             throw new GeneException("Please provide a valid task number." + System.lineSeparator()
-                    + "Use Format: delete (number)");
+                    + "Use Format: delete <number>");
         }
 
         int taskNumber = Integer.parseInt(parts[1]);

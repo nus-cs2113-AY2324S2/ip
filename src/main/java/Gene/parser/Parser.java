@@ -56,13 +56,28 @@ public class Parser {
                 taskList.deleteListItem(command);
                 break;
 
+            case "help":
+                Ui.printLineSeparation();
+                System.out.println("Here is a list of commands you can do:");
+                System.out.println("- list");
+                System.out.println("- todo <Task Description>");
+                System.out.println("- deadline <Task Description> /by <yyyy-MM-dd HHmm>");
+                System.out.println("- event <Task Description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+                System.out.println("- mark/unmark <Task Number>");
+                System.out.println("- delete <Task Number>");
+                System.out.println("- find <keyword>");
+                Ui.printLineSeparation();
+                break;
+
             default:
                 Ui.printLineSeparation();
                 System.out.println("Please add a valid command:");
                 System.out.println("- list");
                 System.out.println("- todo <Task Description>");
-                System.out.println("- deadline <Task Description> /by <Date>");
-                System.out.println("- event <Task Description> /from <Date> /to <Date>");
+                System.out.println("- deadline <Task Description> /by <yyyy-MM-dd HHmm>");
+                System.out.println("- event <Task Description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+                System.out.println("- mark/unmark <Task Number>");
+                System.out.println("- delete <Task Number>");
                 System.out.println("- find <keyword>");
                 Ui.printLineSeparation();
                 break;
