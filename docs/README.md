@@ -1,5 +1,5 @@
 # User Guide
-meet Dobby, your personal task manager to help you stay organised and ontop of all your tasks
+Meet Dobby, your personal task manager to help you stay organised and ontop of all your tasks
 
 ## Features 
 #**Add Tasks**
@@ -26,7 +26,7 @@ Adds a todo task to your task list.
 Example of usage: 
 
 `todo Buy lunch`
-Expected outcome:
+Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/d7305494-ca6a-40ff-b86b-64240ca7c0c7)
 
 ### `deadline` - Add a Deadline Task 
