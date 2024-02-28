@@ -45,4 +45,8 @@ public class MarkCommand implements Command{
         }
         fileSaver.updateFile();
     }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

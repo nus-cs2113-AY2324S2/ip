@@ -12,4 +12,8 @@ public class ByeCommand implements Command {
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) {
         ui.printByeMessage();
     }
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }

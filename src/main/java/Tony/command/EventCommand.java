@@ -44,4 +44,8 @@ public class EventCommand implements Command {
         String eventLine = fileSaver.saveEvent(event);
         fileSaver.saveData(eventLine, true);
     }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

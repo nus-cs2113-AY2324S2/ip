@@ -46,4 +46,8 @@ public class ToDoCommand implements Command{
         String todoLine = fileSaver.saveTodo(todo);
         fileSaver.saveData(todoLine, true);
     }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

@@ -11,4 +11,8 @@ public class ListCommand implements Command {
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) {
         ui.printTaskList();
     }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

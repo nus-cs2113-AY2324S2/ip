@@ -14,8 +14,7 @@ public class Tony {
     private final ArrayList<Task> tasks;
     private final FileLoader fileLoader;
     private final FileSaver fileSaver;
-    public static final String LINE_BREAKER = "__________________________________________________"
-            + System.lineSeparator();
+    public static final String LINE_BREAKER = "__________________________________________________";
 
     public Tony() {
         this.tasks = new ArrayList<>();
@@ -30,12 +29,14 @@ public class Tony {
         fileLoader.checkFileExists();
         Scanner userInput = new Scanner(System.in);
         Parser parser = new Parser(tasks);
-        while (userInput.hasNextLine()) {
-            System.out.println(LINE_BREAKER);
+        boolean isExit = false;
+        while (!isExit) {
             String line = userInput.nextLine();
-            Command c = parser.parse(line);
-            c.execute(tasks, ui, fileSaver);
             System.out.println(LINE_BREAKER);
+            Command command = parser.parse(line);
+            command.execute(tasks, ui, fileSaver);
+            System.out.println(LINE_BREAKER);
+            isExit = command.isExit();
         }
         userInput.close();
     }

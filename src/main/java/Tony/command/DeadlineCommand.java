@@ -44,4 +44,9 @@ public class DeadlineCommand implements Command {
         String deadlineLine = fileSaver.saveDeadline(deadline);
         fileSaver.saveData(deadlineLine, true);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

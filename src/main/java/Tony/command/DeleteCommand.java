@@ -46,4 +46,8 @@ public class DeleteCommand implements Command {
         tasks.remove(num - 1);
         fileSaver.updateFile();
     }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }
