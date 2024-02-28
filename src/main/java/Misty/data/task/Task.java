@@ -12,6 +12,7 @@ public class Task {
     public String getTaskName() {
         return taskName;
     }
+
     public String getStatus() {
         return (isDone ? "[X]" : "[ ]");
     }
@@ -19,9 +20,11 @@ public class Task {
     public boolean getIsDone() {
         return isDone;
     }
+
     public void setTaskAsDone() {
         isDone = true;
     }
+
     public void setTaskAsNotDone() {
         isDone = false;
     }

@@ -12,7 +12,6 @@ public class Event extends Task {
     private LocalDate fromDate;
     private LocalDate toDate;
 
-
     public Event (String taskName, String from, String to) {
         super(taskName);
         this.from = from;
@@ -31,42 +30,31 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             isToDateFormat = false;
         }
-
     }
 
     public String getFrom() {
         return from;
     }
-    public LocalDate getFromDate() {
-        return fromDate;
-    }
 
     public String getTo() {
         return to;
     }
-    public LocalDate getToDate() {
-        return toDate;
-    }
-    public boolean getIsFromDateFormat() {
-        return isFromDateFormat;
-    }
-    public boolean getIsToDateFormat() {
-        return isToDateFormat;
-    }
 
     public String getFullFromDate() {
-        return fromDate.getDayOfWeek() + ", " + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return fromDate.getDayOfWeek() + ", "
+                + fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public String getFullToDate() {
-        return toDate.getDayOfWeek() + ", " + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return toDate.getDayOfWeek() + ", "
+                + toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + getStatus() + " " + getTaskName() + " (from: " +
-                (isFromDateFormat ? getFullFromDate() : getFrom()) + " to: " +
-                (isToDateFormat ? getFullToDate() : getTo()) + ")";
+        return "[E]" + getStatus() + " " + getTaskName() + " (from: "
+                + (isFromDateFormat ? getFullFromDate() : getFrom()) + " to: "
+                + (isToDateFormat ? getFullToDate() : getTo()) + ")";
     }
 
     public boolean isBetweenDate(LocalDate localDate) {

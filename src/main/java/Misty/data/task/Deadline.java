@@ -27,8 +27,10 @@ public class Deadline extends Task {
     public LocalDate getByDate() {
         return byDate;
     }
+
     public String getFullByDate() {
-        return byDate.getDayOfWeek() + ", " + byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return byDate.getDayOfWeek() + ", "
+                + byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public boolean getIsByDateFormat() {
@@ -37,7 +39,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + getStatus() + " " + getTaskName() + " (by: " + (isByDateFormat ? getFullByDate() : getBy()) + ")";
+        return "[D]" + getStatus() + " " + getTaskName() + " (by: "
+                + (isByDateFormat ? getFullByDate() : getBy()) + ")";
     }
 
     public boolean isSameDate(LocalDate localDate) {
@@ -46,5 +49,4 @@ public class Deadline extends Task {
         }
         return false;
     }
-
 }
