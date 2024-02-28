@@ -1,6 +1,5 @@
 T | 0 | hello
-D | 0 | hi | 3pm
-T | 0 | coffee bagel
-T | 0 | what are you doing
-T | 0 | coffee cake
-E | 0 | what is this coffee | 3pm | 2pm
+D | 0 | eat breadfast | 2019-10-29 1745
+E | 1 | hello | 2020-10-09 1015 | 2020-10-10 1018
+D | 0 | hello | 2019-10-05 1528
+
