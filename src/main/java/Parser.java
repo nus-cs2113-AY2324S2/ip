@@ -13,12 +13,26 @@ public class Parser {
     private static final String deadline = "deadline";
     private static final String event = "event";
 
+    /**
+     * Constructor for Parser class
+     *
+     * @param input input from user
+     * @param taskList list of tasks added by the user
+     * @param storage file handling class to save user modifications
+     */
     Parser(String input, TaskList taskList, Storage storage) {
         this.input = input;
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Creates new tasklist and storage based on user input
+     * Returns new Parser with the newly created tasklist and storage
+     *
+     * @return Parser with newly created tasklist and storage
+     * @throws JxExceptions If user input undefined input
+     */
     Parser parseParams() throws JxExceptions {
         String inputString = this.input;
         TaskList newList = this.taskList;
@@ -61,7 +75,6 @@ public class Parser {
             }
             return new Parser(inputString, newList, newStorage);
         }
-
         if (inputString.startsWith(event)) {
             try {
                 String[] eventDescription = rightParam.split("/from", 2);
@@ -125,7 +138,6 @@ public class Parser {
             }
             return new Parser(inputString, newList, newStorage);
         }
-
         if (inputString.startsWith("delete")) {
             try {
                 int listIndex = Integer.parseInt(rightParam);
@@ -159,14 +171,26 @@ public class Parser {
         return new Parser(inputString, newList, newStorage);
     }
 
+    /**
+     * Getter for input
+     * @return input attribute
+     */
     String getInput() {
         return this.input;
     }
 
+    /**
+     * Getter for taskList
+     * @return taskList attribute
+     */
     TaskList getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Getter for storage
+     * @return storage attribute
+     */
     Storage getStorage() {
         return this.storage;
     }

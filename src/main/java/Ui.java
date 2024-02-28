@@ -11,14 +11,27 @@ public class Ui {
             --------------------------------------------------
             """;
     private static final String leaveMessage = "Good day clown";
+
+    /**
+     * Constructor for Ui
+     *
+     */
     Ui() {
         System.out.println(greeting);
     }
 
+    /**
+     * Prints input message
+     *
+     */
     void printInputMessage() {
         System.out.println(inputMessage);
     }
 
+    /**
+     * Prints leave message
+     *
+     */
     void printLeaveMessage() {
         System.out.println(leaveMessage);
     }
