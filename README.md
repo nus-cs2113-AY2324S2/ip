@@ -17,7 +17,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   ![image](https://github.com/ThawTunZan/ip/assets/110762796/16817972-5027-4d10-a020-99188c037a1f)
 
 ### Features
-Adding task:
+#### Adding task:
 1. Todo: todo
      Format: todo NAME
      Example: todo sleep.
@@ -32,24 +32,24 @@ Adding task:
      START_TIME and END_TIME is in HHMM (e.g. 2359 is displayed as 11:59pm).
      Example: event CG2023 exam /from 01-01-2100 1500 /to 01-01-2100 1700 .
 
-Deleting task:
+#### Deleting task:
 Delete: delete
      Format: delete NUMBER
      NUMBER is the task index or the number that the task is labelled with which can be seen when using the list function.
      Example: delete 2 (it will delete the second tasks in the list and shift all the tasks at the bottom up).
 
-Looking at the tasks
+#### Looking at the tasks
 List: list 
      Format: list
      Will list out all the added tasks.
 
-Finding specific task:
+#### Finding specific task:
 Find: find
      Format: find KEYWORD
      Will find the task in the task list that contains the particular KEYWORD.
      Example: find homework.
 
-Marking certain task as complete
+#### Marking certain task as complete
 1. Mark: mark
      Format: mark NUMBER
      Will mark the task with the associated number as done.
@@ -62,7 +62,17 @@ Marking certain task as complete
      Example: unmark 2.
      Will unmark the second task in the task list as not done (for example finish homework) as done which will be displayed without a cross when the user lists out the tasklist in the future.
 
-Leaving the program
+#### Leaving the program
 Exiting: bye
      Format: bye
      Will terminate the program but saves the file before it does that.
+#### Installation
+
+1. Download the latest release of ThawBot from the [releases page](
+2. Extract the downloaded zip file to a folder on your computer.
+3. Open a terminal or command prompt and navigate to the folder where you extracted the zip file.
+4. Run the following command to start ThawBot:
+
+```bash
+java -jar ThawBot.jar
+```
