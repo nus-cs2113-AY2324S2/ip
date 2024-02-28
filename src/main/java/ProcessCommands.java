@@ -7,6 +7,13 @@ public class ProcessCommands {
         this.taskList = tasklist;
     }
 
+    /**
+     * identifies the command type and passes the command
+     * to the relevant method in TaskList
+     * @param command user command to handle
+     * @throws ArrayIndexOutOfBoundsException if command format is invalid
+     * @throws NumberFormatException if a number in a command is invalid
+     */
     private void processTaskCommand(String command) {
         try {
             String[] commandParts = command.split(" ", 2);
@@ -40,11 +47,16 @@ public class ProcessCommands {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid command format. Provide valid input");
+            throw e;
         } catch (NumberFormatException e) {
             System.out.println("Invalid command format. Input a valid number");
+            throw e;
         }
     }
 
+    /**
+     * reads user command and passes it to the suitable method
+     */
     public void userCommand() {
         while(true) {
             String command;
