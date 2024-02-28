@@ -47,7 +47,13 @@ public class Task {
 
     @Override
     public String toString() {
+        String type = this.type;
+        String status = this.status ? "X" : " ";
+        String description = this.description;
         return String.format(
-                "%s|%s|%s",this.type, this.status ? "X" : " ", this.description);
+                "%s|%s|%s",
+                type,
+                status,
+                description);
     }
 }
