@@ -34,7 +34,7 @@ public class Parser {
         } else if (line.startsWith("todo")) {
             return new ToDoCommand(line);
         } else if (line.startsWith("deadline")) {
-
+            return new DeadlineCommand(line);
         } else if (line.startsWith("event")) {
 
         }else if (line.startsWith("delete")) {
@@ -91,13 +91,7 @@ public class Parser {
     }
 
     private void addATaskCommandParser(String userInput) throws TonyException, IOException {
-        if (userInput.startsWith("todo")) {
-
-        } else if (userInput.startsWith("deadline")) {
-            String[] deadlineTask = userInput.split("deadline");
-            checkArrayLength(deadlineTask);
-            addDeadlineCommand(deadlineTask);
-        } else if (userInput.startsWith("event")) {
+        if (userInput.startsWith("event")) {
             String[] eventTask = userInput.split("event");
             checkArrayLength(eventTask);
             addEventCommand(eventTask);
@@ -116,16 +110,6 @@ public class Parser {
         String eventLine = fileSaver.saveEvent(event);
         fileSaver.saveData(eventLine, true);
     }
-
-    private void addDeadlineCommand(String[] deadlineTask) throws IOException {
-        String[] description = deadlineTask[1].split("/by");
-        Deadline deadline = new Deadline(description[0], description[1]);
-        tasks.add(deadline);
-        ui.printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
-        String deadlineLine = fileSaver.saveDeadline(deadline);
-        fileSaver.saveData(deadlineLine, true);
-    }
-
 
     public void deleteTaskCommand(String line) throws IOException {
         try {
