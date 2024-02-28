@@ -36,7 +36,7 @@ Adds a task with a deadline to your task list.
 Example of usage: 
 
 `Deadline complete assignment /by today 9pm`
-Expected outcome:
+Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/c7a1a728-5b3b-48bc-a0b0-7be0008d5462)
 
 ### `event` - Add a event Task
@@ -46,7 +46,7 @@ Adds a event to your task list.
 Example of usage: 
 
 `event formula 1 race /from sunday 9pm /to 11pm`
-Expected outcome:
+Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/fcbf896f-d622-4459-9dfe-f2c6f017f20a)
 
 ### `mark` - Mark a Task as Done
@@ -56,7 +56,7 @@ Marks a task as completed.
 Example of usage:
 
 `mark 1`
-Expected outcome:
+Expected outcome: <br />
 ![image](https://github.com/Mmaxx15/ip/assets/88656341/774d69da-20f7-4d96-86f6-eff2eeef1f44)
 
 ### `unmark` - Mark a Task as Undone
