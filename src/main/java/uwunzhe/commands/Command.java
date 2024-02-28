@@ -8,7 +8,7 @@ public abstract class Command {
     protected String taskString;
 
     /**
-     * Constructor for Command.
+     * Constructor for Command class.
      * 
      * @param commandString The command from the user.
      * @param taskString The string appended to the command to be executed.
@@ -21,16 +21,15 @@ public abstract class Command {
     /**
      * Executes the command based on user input.
      * 
-     * @param taskList The list of tasks.
-     * @param storage The storage handler.
-     * @return True if the list has been updated, false otherwise.
+     * @param taskList The list of tasks of type {@link TaskList}.
+     * @param storage The storage handler of tyle {@link Storage}.
      * @throws UwunzheException If the command is invalid.
      */
     public abstract void execute(TaskList taskList, Storage storage)
             throws UwunzheException;
 
     /**
-     * Checks if the command is an exit command.
+     * Returns whether the current command is an exit comamnd or not.
      * 
      * @return True if the command is an exit command, false otherwise.
      */
