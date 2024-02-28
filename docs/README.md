@@ -1,4 +1,4 @@
-# User Guide
+# Dor User Guide
 
 Dor is a CLI chatbot that helps users track their tasks.
 
