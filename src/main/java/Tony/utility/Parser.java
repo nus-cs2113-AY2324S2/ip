@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Tony.utility.Ui.LINE_BREAKER;
-
 public class Parser {
     protected static final String SEPARATOR = " \\| ";
     private ArrayList<Task> tasks;
@@ -56,10 +54,10 @@ public class Parser {
 
     public void checkFirstWordOfTaskCommand(String line) throws IOException {
         try {
-            addATaskCommand(line);
+            addATaskCommandParser(line);
         } catch (TonyException e) {
-            System.out.println(LINE_BREAKER + "OOPS!! The description of " + line
-                    + " cannot be empty." + System.lineSeparator() + LINE_BREAKER);
+            System.out.println("OOPS!! The description of " + line
+                    + " cannot be empty." + System.lineSeparator());
         }
     }
 
@@ -69,7 +67,7 @@ public class Parser {
                 + "'todo / deadline / event / delete / mark'");
     }
 
-    private void addATaskCommand(String userInput) throws TonyException, IOException {
+    private void addATaskCommandParser(String userInput) throws TonyException, IOException {
         if (userInput.startsWith("todo")) {
             String[] toDoTask = userInput.split("todo");
             checkArrayLength(toDoTask);
@@ -103,8 +101,8 @@ public class Parser {
         Deadline deadline = new Deadline(description[0], description[1]);
         tasks.add(deadline);
         ui.printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
-        String deadllineLine = fileSaver.saveDeadline(deadline);
-        fileSaver.saveData(deadllineLine, true);
+        String deadlineLine = fileSaver.saveDeadline(deadline);
+        fileSaver.saveData(deadlineLine, true);
     }
 
     private void addTodoCommand(String[] toDoTask) throws IOException {
@@ -118,18 +116,12 @@ public class Parser {
     public void markTaskCommand(String[] subCommand, int num) throws IOException {
         if (subCommand[0].equals("mark")) {
             tasks.get(num - 1).markDone();
-            System.out.println(
-                    LINE_BREAKER
-                            + "\tNice! I've marked this task as done:"
-                            + System.lineSeparator() + tasks.get(num - 1) + System.lineSeparator()
-                            + LINE_BREAKER);
+            System.out.println("\tNice! I've marked this task as done:"
+                            + System.lineSeparator() + tasks.get(num - 1));
         } else {
             tasks.get(num - 1).markNotDone();
-            System.out.println(
-                    LINE_BREAKER
-                            + "\tOK, I've marked this task as not done yet:"
-                            + System.lineSeparator() + tasks.get(num - 1) + System.lineSeparator()
-                            + LINE_BREAKER);
+            System.out.println("\tOK, I've marked this task as not done yet:"
+                            + System.lineSeparator() + tasks.get(num - 1));
         }
         fileSaver.updateFile();
     }
