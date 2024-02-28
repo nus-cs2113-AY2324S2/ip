@@ -40,7 +40,7 @@ public class Ui {
             }
             else if (line.startsWith("mark") || line.startsWith("unmark") || line.startsWith("delete")) {
                 try {
-                    int taskNumber = Task.extractTaskNumber(line);
+                    int taskNumber = Parser.extractTaskNumber(line);
                     Task.modifyDoneStateOrDelete(taskNumber, line);
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter valid number without alphabets after mark or unmark or delete " +

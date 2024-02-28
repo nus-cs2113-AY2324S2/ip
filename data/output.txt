@@ -1,2 +1,3 @@
-T | 0 | grab hockey stick
-T | 1 | homework
+T | 0 | homework
+T | 0 | collect milo
+E | 1 | clbv study | tomorrow | evening
