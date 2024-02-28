@@ -5,9 +5,10 @@ import Tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The UI class handles printing various messages and information to the console.
+ */
 public class UI {
-    public UI() {
-    }
 
     public void printsGreeting() {
         String greetingMessage = "Hello! I'm ThawBot!\nWhat can I do for you?\n";
@@ -44,6 +45,11 @@ public class UI {
         System.out.println(taskList.get(taskIndex).getStatusIcon());
     }
 
+    /**
+     * Handles and prints error messages based on the given exception.
+     *
+     * @param e The ThawException representing the error.
+     */
     public void handleError(ThawException e) {
         if (e.getMessage().startsWith("Empty command")) {
             System.out.println("OOPS!!! The description of a " + e.getMessage().substring(14) +" cannot be empty.");

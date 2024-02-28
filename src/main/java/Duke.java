@@ -8,6 +8,10 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The Duke class represents the main entry point for the ThawBot application.
+ * It initializes the necessary components and starts the program.
+ */
 public class Duke {
 
     private Storage storage;
@@ -22,8 +26,9 @@ public class Duke {
     }
 
     /**
+     * Starts the ThawBot program by initializing necessary components and handling user input.
      *
-     * @param ui
+     * @param ui The UI object for printing messages to the user.
      */
     private static void startProgramme(UI ui) {
         try {
@@ -39,6 +44,4 @@ public class Duke {
             System.out.println("     An error occurred while reading file: " + e.getMessage());
         }
     }
-
-
 }

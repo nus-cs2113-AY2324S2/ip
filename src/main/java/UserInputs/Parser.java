@@ -12,10 +12,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Parser class is responsible for processing user input, creating and executing commands.
+ */
 public class Parser {
     /**
-     * This function is to be called after the program boot up and print the acknowledgement message
-     * Contionously run to process user's input
+     * This function is called after the program boot-up to continuously process user input.
+     *
      * @param input the user's input from the terminal
      * @param list ArrayList that is initialised previously and passed onto this function to be populated
      * @param ui used to print messages based on the user's input
@@ -38,47 +41,56 @@ public class Parser {
     }
 
     /**
-     * Process user's inputs that are commands which edit the existing list of task
-     * @param usersInput the string for user's input
-     * @param task ArrayList of task
-     * @param ui used to print error messages
+     * Edits tasks based on user input by creating and executing the corresponding command.
+     *
+     * @param usersInput The user's input from the terminal.
+     * @param task       The ArrayList of tasks.
+     * @param ui         The UI object for printing messages.
      */
     private static void editTask(String usersInput, ArrayList<Task> task, UI ui) {
         try {
             String firstWord = usersInput.split("\\s+")[0];
-            Command commandTask;
-            switch (firstWord) {
-                case "mark":
-                    commandTask = new MarkTask(task, usersInput);
-                    break;
-                case "unmark":
-                    commandTask = new UnmarkTask(task, usersInput);
-                    break;
-                case "delete":
-                    commandTask = new DeleteTask(task, usersInput);
-                    break;
-                case "todo":
-                    commandTask = new AddTodoTask(task, usersInput);
-                    break;
-                case "deadline":
-                    commandTask = new AddDeadlineTask(task, usersInput);
-                    break;
-                case "event":
-                    commandTask = new AddEventTask(task, usersInput);
-                    break;
-                default:
-                    throw new ThawException("Invalid command");
-            }
+            Command commandTask = createCommandTask(firstWord, task, usersInput);
         } catch (ThawException e) {
             ui.handleError(e);
         }
     }
 
     /**
-     * Process userinput string to get a date formatted variable.
+     * Creates a command task based on the user's input command.
+     *
+     * @param command    The command keyword extracted from the user's input.
+     * @param task       The ArrayList of tasks.
+     * @param usersInput The user's input from the terminal.
+     * @return Command   The instantiated command task.
+     * @throws ThawException Customized error handling exception.
+     */
+    private static Command createCommandTask(String command, ArrayList<Task> task, String usersInput) throws ThawException {
+        switch (command) {
+            case "mark":
+                return new MarkTask(task, usersInput);
+            case "unmark":
+                return new UnmarkTask(task, usersInput);
+            case "delete":
+                return new DeleteTask(task, usersInput);
+            case "todo":
+                return new AddTodoTask(task, usersInput);
+            case "deadline":
+                return new AddDeadlineTask(task, usersInput);
+            case "event":
+                return new AddEventTask(task, usersInput);
+            case "find":
+                return new FindTask(task, usersInput);
+            default:
+                throw new ThawException("Invalid command");
+        }
+    }
+
+    /**
+     * Process user's input string to get a date formatted variable.
      * Used for reading the data in a saved file in the Storage Class.
      * @param inputDateTimeString string that is read from the saved file
-     * @return
+     * @return LocalDate a class from java.time package
      */
     public static LocalDate processDate(String inputDateTimeString) {
         String inputDateString = inputDateTimeString.strip();
@@ -86,6 +98,12 @@ public class Parser {
         return LocalDate.parse(inputDateString, inputFormatter);
     }
 
+    /**
+     * Process user's input string to get a time formatted variable.
+     * Used for reading the data in a saved file in the Storage Class.
+     * @param inputDateTimeString string that is read from the saved file
+     * @return LocalTime a class from java.time package
+     */
     public static LocalTime processTime(String inputDateTimeString) {
         String inputTimeString = inputDateTimeString.strip();
         DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("HHmm");

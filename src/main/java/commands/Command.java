@@ -4,12 +4,18 @@ import FileManagerPackage.Storage;
 
 import PrintMessages.UI;
 
-
 /**
- *  Check if the given parameter (the userinput) is an empty command, meaning just the command word alone
+ * The Command class provides utility methods for command-related operations.
  */
 public class Command {
     UI ui = new UI();
+
+    /**
+     * Checks if the given parameter (userInput) is an empty command, meaning just the command word alone.
+     *
+     * @param usersInput The user's input for the command.
+     * @return True if the command is without a description, false otherwise.
+     */
     public static boolean commandWithoutDescription(String usersInput) {
         return  usersInput.equals("unmark")   ||
                 usersInput.equals("mark")     ||
@@ -20,33 +26,22 @@ public class Command {
                 usersInput.equals("find");
     }
 
-    public static boolean isACommandWithDateTime(String usersInput) {
-        return usersInput.startsWith("deadline") || usersInput.startsWith("event");
-    }
+    /**
+     * Checks if the date and time format in the user's input is correct for deadline and event commands.
+     *
+     * @param userInput The user's input for the command.
+     * @return True if the date and time format is correct, false otherwise.
+     */
     public static boolean correctDateTimeFormat(String userInput) {
         if (userInput.startsWith("deadline")) {
             String lengthOfDateTimeString = userInput.substring(userInput.indexOf("/by") + 3).strip();
-            return countDashes(userInput) >= 2 && lengthOfDateTimeString.length() == 15 ;
+            return lengthOfDateTimeString.length() == 13;
         } else if (userInput.startsWith("event")) {
             String lengthOfFirstDateTime = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf("/to")).strip();
             String lengthOfSecondDateTime = userInput.substring(userInput.indexOf("/to") + 4).strip();
-            return countDashes(userInput) >= 4 && lengthOfFirstDateTime.length() == 15 && lengthOfSecondDateTime.length() == 15;
+            return lengthOfFirstDateTime.length() == 13 && lengthOfSecondDateTime.length() == 13;
         } else {
             return false;
         }
-    }
-
-    private static int countDashes(String input) {
-        int count = 0;
-
-        // Loop through each character in the input string
-        for (int i = 0; i < input.length(); i++) {
-            // Check if the character is "/"
-            if (input.charAt(i) == '-') {
-                count++;
-            }
-        }
-
-        return count;
     }
 }

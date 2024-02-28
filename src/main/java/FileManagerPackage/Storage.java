@@ -16,11 +16,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles file input/output operations for managing tasks.
+ */
 public class Storage {
+
+    /**
+     * Reads the data from the file and populates the task list.
+     *
+     * @param s       The Scanner object for reading from the file.
+     * @param list    The list to store tasks.
+     */
     public static void readFile(Scanner s, ArrayList<Task> list) {
         int currentIteration = 0;
         while (s.hasNext()) {
             String[] currentLine = s.nextLine().split("\\s*\\|\\s*");
+
             switch (currentLine[0]) {
                 case "D":
                     String inputDateString = currentLine[3].strip();
@@ -33,17 +44,14 @@ public class Storage {
                     break;
                 case "E":
                     String[] duration = currentLine[3].split("\\s*\\ - \\s*");
-                    duration[0] = duration[0].strip();
-                    duration[1] = duration[1].strip();
 
-                    LocalDate dateFrom = Parser.processDate(duration[0].substring(0, duration[0].length()- 5));
-                    LocalTime timeFrom = Parser.processTime(duration[0].substring(duration[0].length()- 4));
-                    LocalDate dateTo = Parser.processDate(duration[1].substring(0, duration[1].length()- 5));
-                    LocalTime timeTo = Parser.processTime(duration[1].substring(duration[0].length()- 4));
+                    LocalDate dateFrom = Parser.processDate(duration[0].strip().substring(0, duration[0].length()- 5));
+                    LocalTime timeFrom = Parser.processTime(duration[0].strip().substring(duration[0].length()- 4));
+                    LocalDate dateTo = Parser.processDate(duration[1].strip().substring(0, duration[1].length()- 5));
+                    LocalTime timeTo = Parser.processTime(duration[1].strip().substring(duration[0].length()- 4));
                     list.add(new Event(currentLine[2],dateFrom, timeFrom, dateTo, timeTo));
                     break;
             }
-
             if (currentLine[1].equals("1")) {
                 list.get(currentIteration).setDone(true);
             }
@@ -51,6 +59,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the directory and file exist; creates them if not.
+     *
+     * @param f     The file object to check/create.
+     * @param filePath The path of the file.
+     */
     private static void checkIfDirExist(File f, String filePath) {
         if (!f.exists()) {
             File file = new File(filePath);
@@ -67,6 +81,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves the file object representing the task data file.
+     *
+     * @return The File object representing the task data file.
+     */
     public static File getFile() {
         String filePath = Paths.get(System.getProperty("user.dir"), "data", "ThawBot.txt").toString();
         File f = new File(filePath);
@@ -74,6 +93,11 @@ public class Storage {
         return f;
     }
 
+    /**
+     * Saves the task list data to the file.
+     *
+     * @param list    The list of task to be saved
+     */
     public static void saveData(ArrayList<Task> list) {
         try {
             final String filePath = "data/ThawBot.txt";
