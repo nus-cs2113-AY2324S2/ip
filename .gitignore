@@ -17,3 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 Dobby executable/Individual Project.jar
 data/tasks.txt
+tasks.txt

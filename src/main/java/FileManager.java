@@ -3,27 +3,30 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 public class FileManager {
-    private final String fileName = "Dobbydata/tasks.txt";
-    private final String directoryPath = System.getProperty("user.home") + File.separator + "Dobbydata";
+
+    private final String fileName = "tasks.txt";
+    private final Path directoryPath = Paths.get(System.getProperty("user.home"),  "DobbyData");
 
     private void createDirectoryIfNotExists() {
-        File directory = new File(directoryPath);
         try {
-            if (!directory.exists()) {
-                if (!directory.mkdirs()) {
-                    throw new IOException("Failed to create directory: " + directoryPath); // Throw IOException if directory creation failed
-                }
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);
             }
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage()); // Print error message
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
+
     public void saveTasksToFile(TaskList taskList) {
         createDirectoryIfNotExists();
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
+        Path filePath = directoryPath.resolve(fileName);
+        try (FileWriter fileWriter = new FileWriter(filePath.toFile())) {
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.get(i);
                 fileWriter.write(task.getType() + " | " + taskStatus(task) + " | " + task.description);
@@ -35,6 +38,7 @@ public class FileManager {
                     fileWriter.write(" /from " + events.From + " /to " + events.To);
                 }
                 fileWriter.write("\n");
+                //System.out.println(directoryPath);
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
@@ -50,12 +54,14 @@ public class FileManager {
 
     public void loadTasksFromFile(TaskList taskList) {
         createDirectoryIfNotExists();
-        try (Scanner scanner = new Scanner(new File(fileName))) {
+        Path filePath = directoryPath.resolve(fileName);
+        File file = filePath.toFile();
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
 
-                if (parts.length == 3) { // Ensure valid format
+                if (parts.length == 3) {
                     String type = parts[0];
                     boolean isDone = parts[1].equals("1");
                     String description = parts[2];
@@ -101,7 +107,7 @@ public class FileManager {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Dobby has no saved tasks.");
+            System.out.println("Dobby has no tasks");
         }
     }
 
