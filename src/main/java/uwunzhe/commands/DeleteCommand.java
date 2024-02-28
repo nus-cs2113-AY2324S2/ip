@@ -3,6 +3,7 @@ package uwunzhe.commands;
 import uwunzhe.util.TaskList;
 import uwunzhe.handler.Storage;
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 
 public class DeleteCommand extends Command {
     /**
@@ -18,9 +19,9 @@ public class DeleteCommand extends Command {
     /**
      * Deletes a task from the list.
      * 
-     * @param taskList The list of tasks.
-     * @param storage The storage handler.
-     * @throws UwunzheException If the task does not exist.
+     * @param taskList The list of tasks of type {@link TaskList}.
+     * @param storage The storage handler of tyle {@link Storage}.
+     * @throws UwunzheException If the task does not exist or if the command is invalid.
      */
     public void execute(TaskList taskList, Storage storage)
             throws UwunzheException {
@@ -31,10 +32,10 @@ public class DeleteCommand extends Command {
             storage.saveData(taskList);
 
         } catch (IndexOutOfBoundsException e) {
-            throw new UwunzheException("Huhhhhhhh? I cannot find!");
+            throw new UwunzheException(ExceptionMessages.UNABLE_TO_FIND_TASK);
 
         } catch (NumberFormatException e) {
-            throw new UwunzheException("Something something not adding up...");
+            throw new UwunzheException(ExceptionMessages.UNABLE_TO_CONVERT_TYPE);
         }
     }
 }

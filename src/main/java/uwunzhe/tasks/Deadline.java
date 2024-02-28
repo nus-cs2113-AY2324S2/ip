@@ -32,7 +32,6 @@ public class Deadline extends Task {
     /**
      * Prints the task and its status in one line.
      * 
-     * @param None
      * @return String representation of the task.
      */
     @Override

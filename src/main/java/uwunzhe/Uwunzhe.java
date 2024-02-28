@@ -15,9 +15,6 @@ public class Uwunzhe {
 
     /**
      * Initializes the necessary handlers.
-     * 
-     * @param None
-     * @return None
      */
     public static boolean init() {
         try {
@@ -31,10 +28,7 @@ public class Uwunzhe {
     }
 
     /**
-     * The main loop of the bot, handles user input.
-     * 
-     * @param None
-     * @return None
+     * The main loop of the bot.
      */
     public static void loop() {
         boolean isRunning = true;
@@ -56,7 +50,7 @@ public class Uwunzhe {
     }
 
     /**
-     * The main method of the bot.
+     * Main method of the bot.
      * 
      * @param args
      */

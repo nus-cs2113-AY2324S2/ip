@@ -21,8 +21,7 @@ public final class Ui {
     /**
      * Prints a string.
      * 
-     * @param s
-     * @return None
+     * @param s The string to be printed.
      */
     public static void print(String s) {
         System.out.print(s);
@@ -31,8 +30,7 @@ public final class Ui {
     /**
      * Prints the string literal of a task.
      * 
-     * @param task
-     * @return None
+     * @param task The task to be printed, of type {@link Task}.
      */
     public static void printTask(Task task) {
         System.out.print(task);
@@ -41,9 +39,8 @@ public final class Ui {
     /**
      * Prints the string literal of a task with leading text.
      * 
-     * @param task
-     * @param leading
-     * @return None
+     * @param task The task to be printed, of type {@link Task}.
+     * @param leading The leading text.
      */
     public static void printTask(Task task, String leading) {
         System.out.print(leading);
@@ -53,9 +50,8 @@ public final class Ui {
     /**
      * Prints the string literal of a task at the specified index.
      * 
-     * @param taskList
-     * @param index
-     * @return None
+     * @param taskList The list of tasks, of type {@link TaskList}.
+     * @param index The index of the task in the list.
      */
     public static void printTask(TaskList taskList, int index) {
         System.out.print(taskList.getTask(index));
@@ -64,10 +60,9 @@ public final class Ui {
     /**
      * Prints the string literal of a task at the specified index with leading text.
      * 
-     * @param taskList
-     * @param index
-     * @param leading
-     * @return None
+     * @param taskList The list of tasks, of type {@link TaskList}.
+     * @param index The index of the task in the list.
+     * @param leading The leading text.
      */
     public static void printTask(TaskList taskList, int index, String leading) {
         System.out.print(leading);
@@ -77,8 +72,7 @@ public final class Ui {
     /**
      * Prints a string with a newline character.
      * 
-     * @param s
-     * @return None
+     * @param s The string to be printed.
      */
     public static void println(String s) {
         System.out.println(s);
@@ -87,8 +81,7 @@ public final class Ui {
     /**
      * Prints the string literal of a task with a newline character.
      * 
-     * @param task
-     * @return None
+     * @param task The task to be printed, of type {@link Task}.
      */
     public static void printlnTask(Task task) {
         System.out.println(task);
@@ -97,9 +90,8 @@ public final class Ui {
     /**
      * Prints the string literal of a task with leading text and a newline character.
      * 
-     * @param task
-     * @param leading
-     * @return None
+     * @param task The task to be printed, of type {@link Task}.
+     * @param leading The leading text.
      */
     public static void printlnTask(Task task, String leading) {
         System.out.print(leading);
@@ -109,9 +101,8 @@ public final class Ui {
     /**
      * Prints the string literal of a task at the specified index with a newline character.
      * 
-     * @param taskList
-     * @param index
-     * @return None
+     * @param taskList The list of tasks, of type {@link TaskList}.
+     * @param index The index of the task in the list.
      */
     public static void printlnTask(TaskList taskList, int index) {
         System.out.println(taskList.getTask(index));
@@ -120,10 +111,9 @@ public final class Ui {
     /**
      * Prints the string literal of a task at the specified index with leading text and a newline character.
      * 
-     * @param taskList
-     * @param index
-     * @param leading
-     * @return None
+     * @param taskList The list of tasks, of type {@link TaskList}.
+     * @param index The index of the task in the list.
+     * @param leading The leading text.
      */
     public static void printlnTask(TaskList taskList, int index, String leading) {
         System.out.print(leading);
@@ -132,9 +122,6 @@ public final class Ui {
 
     /**
      * Prints the logo of the bot.
-     * 
-     * @param None
-     * @return None
      */
     public void printLogo() {
         println(logo);
@@ -143,19 +130,13 @@ public final class Ui {
 
     /**
      * Prints a horizontal line.
-     * 
-     * @param None
-     * @return None
      */
     public void addLineBreak() {
         println(lineString);
     }
 
     /**
-     * Initializes the bot, prints the logo and a welcome message.
-     * 
-     * @param None
-     * @return None
+     * Prints the logo and a welcome message.
      */
     public void printInitMsg() {
         printLogo();
@@ -165,10 +146,7 @@ public final class Ui {
     }
 
     /**
-     * Exits the bot, prints a goodbye message.
-     * 
-     * @param None
-     * @return None
+     * Prints a goodbye message.
      */
     public void printExitMsg() {
         println("Good night my positive mentality flen, "
@@ -179,8 +157,7 @@ public final class Ui {
     /**
      * Gets user input.
      * 
-     * @param None
-     * @return The user input.
+     * @return The user input as a string.
      */
     public String getInput() {
         addLineBreak();
@@ -192,10 +169,9 @@ public final class Ui {
 
     /**
      * Gets user input.
-     * Overloaded method.
      * 
      * @param leadingString The string to print before the user input.
-     * @return The user input.
+     * @return The user input as a string.
      */
     public String getInput(String leadingString) {
         addLineBreak();
@@ -207,9 +183,6 @@ public final class Ui {
     
     /**
      * Closes the scanner object.
-     * 
-     * @param None
-     * @return None
      */
     public void closeScanner() {
         this.sc.close();

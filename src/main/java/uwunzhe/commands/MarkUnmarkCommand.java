@@ -3,6 +3,7 @@ package uwunzhe.commands;
 import uwunzhe.util.TaskList;
 import uwunzhe.handler.Storage;
 import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 
 public class MarkUnmarkCommand extends Command {
     /**
@@ -18,8 +19,8 @@ public class MarkUnmarkCommand extends Command {
     /**
      * Marks the task as done.
      * 
-     * @param taskList The list of tasks.
-     * @param storage The storage handler.
+     * @param taskList The list of tasks of type {@link TaskList}.
+     * @param storage The storage handler of tyle {@link Storage}.
      * @throws UwunzheException If the task does not exist or input is invalid.
      */
     public void execute(TaskList taskList, Storage storage)
@@ -31,10 +32,10 @@ public class MarkUnmarkCommand extends Command {
             storage.saveData(taskList);
 
         } catch (IndexOutOfBoundsException e) {
-            throw new UwunzheException("Huhhhhhhh? I cannot find!");
+            throw new UwunzheException(ExceptionMessages.UNABLE_TO_FIND_TASK);
 
         } catch (NumberFormatException e) {
-            throw new UwunzheException("Something something not adding up...");
+            throw new UwunzheException(ExceptionMessages.UNABLE_TO_CONVERT_TYPE);
         }
     }
 }
