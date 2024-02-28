@@ -6,27 +6,40 @@ import Tony.FileManager.FileSaver;
 import Tony.UI.Ui;
 import Tony.task.Deadline;
 import Tony.task.Event;
+import Tony.task.Task;
 import Tony.task.Todo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Tony.UI.Ui.tasks;
 import static Tony.UI.Ui.LINE_BREAKER;
 
 public class Tony {
-    public static void main(String[] args) throws IOException {
-        Ui.printWelcomeMessage();
-        FileLoader.checkFileExists();
+    private final FileSaver fileSaver;
+    private final FileLoader fileLoader;
+    private final Ui ui;
+    private final ArrayList<Task> tasks;
+
+    public Tony() {
+        this.tasks = new ArrayList<>();
+        this.ui = new Ui(this.tasks);
+        this.fileSaver = new FileSaver(this.tasks);
+        this.fileLoader = new FileLoader(this.tasks);
+    }
+
+    public void run() throws Exception {
+        ui.printWelcomeMessage();
+        fileLoader.checkFileExists();
         Scanner userInput = new Scanner(System.in);
-        while(userInput.hasNextLine()) {
+        while (userInput.hasNextLine()) {
             String line = userInput.nextLine();
-            if(line.equals("bye")){
-                Ui.printByeMessage();
+            if (line.equals("bye")) {
+                ui.printByeMessage();
                 return;
-            } else if(line.equals("list")) {
-                Ui.printTaskList();
-            } else if(line.contains("mark")) {
+            } else if (line.equals("list")) {
+                ui.printTaskList();
+            } else if (line.contains("mark")) {
                 try {
                     String[] subCommand = line.split(" ");
                     int num = Integer.parseInt(subCommand[1]);
@@ -37,7 +50,7 @@ public class Tony {
                 } catch (TonyException e) {
                     System.out.println("To mark a task, suggest a number available in the list!");
                 }
-            } else if(line.startsWith("todo") || line.startsWith("deadline")
+            } else if (line.startsWith("todo") || line.startsWith("deadline")
                     || line.startsWith("event")) {
                 try {
                     addATask(line);
@@ -45,12 +58,16 @@ public class Tony {
                     System.out.println(LINE_BREAKER + "OOPS!! The description of " + line
                             + " cannot be empty." + System.lineSeparator() + LINE_BREAKER);
                 }
-            } else if(line.startsWith("delete")) {
+            } else if (line.startsWith("delete")) {
                 deleteCommand(line);
-            }else {
+            } else {
                 checkCommandWord();
             }
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Tony().run();
     }
 
     private static void checkCommandWord() {
@@ -59,7 +76,7 @@ public class Tony {
                 + "'todo / deadline / event / delete / mark'");
     }
 
-    private static void deleteCommand(String line) throws IOException {
+    private void deleteCommand(String line) throws IOException {
         try {
             String[] subCommand = line.split(" ");
             int num = Integer.parseInt(subCommand[1]);
@@ -72,79 +89,83 @@ public class Tony {
         }
     }
 
-    private static void deleteATask(String subCommand, int num) throws IOException {
-        Ui.printAddOrDeleteTask(subCommand, num-1);
-        tasks.remove(num-1);
-        FileSaver.updateFile();
+    private void deleteATask(String subCommand, int num) throws IOException {
+        ui.printAddOrDeleteTask(subCommand, num - 1);
+        tasks.remove(num - 1);
+        fileSaver.updateFile();
     }
 
-    private static void checkNumberWithinRange(int num) throws TonyException {
-        if(num > tasks.size()) {
+    private void checkNumberWithinRange(int num) throws TonyException {
+        if (num > tasks.size()) {
             throw new TonyException();
         }
     }
-    private static void markTasks(String[] subCommand, int num) throws IOException {
-        if(subCommand[0].equals("mark")) {
-            tasks.get(num-1).markDone();
+
+
+    private void markTasks(String[] subCommand, int num) throws IOException {
+        if (subCommand[0].equals("mark")) {
+            tasks.get(num - 1).markDone();
             System.out.println(
                     LINE_BREAKER
-                        + "\tNice! I've marked this task as done:"
-                        + System.lineSeparator() + tasks.get(num-1) + System.lineSeparator()
-                        + LINE_BREAKER);
+                            + "\tNice! I've marked this task as done:"
+                            + System.lineSeparator() + tasks.get(num - 1) + System.lineSeparator()
+                            + LINE_BREAKER);
         } else {
-            tasks.get(num-1).markNotDone();
+            tasks.get(num - 1).markNotDone();
             System.out.println(
                     LINE_BREAKER
-                        + "\tOK, I've marked this task as not done yet:"
-                        + System.lineSeparator() + tasks.get(num-1) + System.lineSeparator()
-                        + LINE_BREAKER);
+                            + "\tOK, I've marked this task as not done yet:"
+                            + System.lineSeparator() + tasks.get(num - 1) + System.lineSeparator()
+                            + LINE_BREAKER);
         }
-        FileSaver.updateFile();
+        fileSaver.updateFile();
     }
 
-
-    private static void addATask(String userInput) throws TonyException, IOException {
-        if(userInput.startsWith("todo")) {
+    private void addATask(String userInput) throws TonyException, IOException {
+        if (userInput.startsWith("todo")) {
             String[] toDoTask = userInput.split("todo");
             checkArrayLength(toDoTask);
             addTodoTask(toDoTask);
-        } else if(userInput.startsWith("deadline")) {
+        } else if (userInput.startsWith("deadline")) {
             String[] deadlineTask = userInput.split("deadline");
             checkArrayLength(deadlineTask);
             addDeadlineTask(deadlineTask);
-        } else if(userInput.startsWith("event")) {
+        } else if (userInput.startsWith("event")) {
             String[] eventTask = userInput.split("event");
             checkArrayLength(eventTask);
             addEventTask(eventTask);
         }
     }
-    private static void checkArrayLength(String[] toDoTask) throws TonyException {
-        if(toDoTask.length != 2) {
+
+    private void checkArrayLength(String[] toDoTask) throws TonyException {
+        if (toDoTask.length != 2) {
             throw new TonyException();
         }
     }
-    private static void addEventTask(String[] eventTask)  throws IOException {
+
+    private void addEventTask(String[] eventTask) throws IOException {
         String[] description = eventTask[1].split("/from | /to");
         Event event = new Event(description[0], description[1], description[2]);
         tasks.add(event);
-        Ui.printAddOrDeleteTask(description[0] ,tasks.indexOf(event));
-        String eventLine = FileSaver.saveEvent(event);
-        FileSaver.saveData(eventLine, true);
+        ui.printAddOrDeleteTask(description[0], tasks.indexOf(event));
+        String eventLine = fileSaver.saveEvent(event);
+        fileSaver.saveData(eventLine, true);
     }
-    private static void addDeadlineTask(String[] deadlineTask)  throws IOException {
+
+    private void addDeadlineTask(String[] deadlineTask) throws IOException {
         String[] description = deadlineTask[1].split("/by");
         Deadline deadline = new Deadline(description[0], description[1]);
         tasks.add(deadline);
-        Ui.printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
-        String deadllineLine = FileSaver.saveDeadline(deadline);
-        FileSaver.saveData(deadllineLine, true);
-    }
-    private static void addTodoTask(String[] toDoTask)  throws IOException {
-        Todo todo = new Todo(toDoTask[1]);
-        tasks.add(todo);
-        Ui.printAddOrDeleteTask(toDoTask[0], tasks.indexOf(todo));
-        String todoLine = FileSaver.saveTodo(todo);
-        FileSaver.saveData(todoLine, true);
+        ui.printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
+        String deadllineLine = fileSaver.saveDeadline(deadline);
+        fileSaver.saveData(deadllineLine, true);
     }
 
+    private void addTodoTask(String[] toDoTask) throws IOException {
+        Todo todo = new Todo(toDoTask[1]);
+        tasks.add(todo);
+        ui.printAddOrDeleteTask(toDoTask[0], tasks.indexOf(todo));
+        String todoLine = fileSaver.saveTodo(todo);
+        fileSaver.saveData(todoLine, true);
+    }
 }

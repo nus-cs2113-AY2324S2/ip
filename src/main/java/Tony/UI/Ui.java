@@ -5,20 +5,22 @@ import Tony.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
     public static final String LINE_BREAKER = "__________________________________________________"
             + System.lineSeparator();
-    public Ui() {
 
+    public Ui(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
-    public static void printWelcomeMessage() {
+
+    public void printWelcomeMessage() {
         String chatBot = "Hello! I'm TONY\n"
                 + "What can I do for you?\n"
                 + LINE_BREAKER;
         System.out.println(chatBot);
     }
 
-    public static void printByeMessage() {
+    public void printByeMessage() {
         System.out.println(
                 LINE_BREAKER
                         + "Bye. Hope to see you again soon!"
@@ -26,7 +28,7 @@ public class Ui {
                         + LINE_BREAKER);
     }
 
-    public static void printTaskList() {
+    public void printTaskList() {
         System.out.println(LINE_BREAKER);
         System.out.println("\tHere are the tasks in your list:");
         for(Task t : tasks) {
@@ -37,7 +39,7 @@ public class Ui {
         System.out.println(LINE_BREAKER);
     }
 
-    public static void printAddOrDeleteTask(String command, int index) {
+    public void printAddOrDeleteTask(String command, int index) {
         String deleteOrAdd = (command.equals("delete") ? "removed" : "added");
         int taskSize = (command.equals("delete") ? tasks.size() - 1  : tasks.size());
         System.out.println(

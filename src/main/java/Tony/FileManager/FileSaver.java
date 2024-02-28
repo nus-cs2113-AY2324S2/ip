@@ -1,4 +1,6 @@
 package Tony.FileManager;
+import Tony.UI.Ui;
+import Tony.task.Task;
 import Tony.task.Todo;
 import Tony.task.Deadline;
 import Tony.task.Event;
@@ -6,14 +8,17 @@ import Tony.task.Event;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import static Tony.UI.Ui.tasks;
+import java.util.ArrayList;
 
 public class FileSaver {
     protected static final String DATA_PATH = "./data/tonytask.txt";
     protected static final String SEPARATOR = " | ";
+    private ArrayList<Task> tasks;
+    public FileSaver(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
 
-    public static String saveTodo(Todo todo) {
+    public String saveTodo(Todo todo) {
         char type = 'T';
         String description = todo.description;
         int doneStatus = todo.toString().contains("[X]") ? 1 : 0;
@@ -22,7 +27,7 @@ public class FileSaver {
         return toDoText;
     }
 
-    public static String saveDeadline(Deadline deadline) {
+    public String saveDeadline(Deadline deadline) {
         char type = 'D';
         int doneStatus = deadline.toString().contains("[X]") ? 1 : 0;
         String description = deadline.description;
@@ -32,7 +37,7 @@ public class FileSaver {
         return deadlineText;
     }
 
-    public static String saveEvent(Event event) {
+    public String saveEvent(Event event) {
         char type = 'E';
         int doneStatus = event.toString().contains("[X]") ? 1 : 0;
         String description = event.description;
@@ -43,7 +48,7 @@ public class FileSaver {
         return eventText;
     }
 
-    public static void updateFile() throws IOException {
+    public void updateFile() throws IOException {
         checkForEmptyList();
         for (int i = 0; i < tasks.size(); i++) {
             String listItem = tasks.get(i).toString();
@@ -71,13 +76,13 @@ public class FileSaver {
         }
     }
 
-    private static void checkForEmptyList() throws IOException {
+    private void checkForEmptyList() throws IOException {
         if (tasks.isEmpty()) {
             saveData("", false);
         }
     }
 
-    public static void saveData(String taskCommand, boolean isAppend) throws IOException {
+    public void saveData(String taskCommand, boolean isAppend) throws IOException {
         File file = new File(DATA_PATH);
         FileWriter fw = new FileWriter(file, isAppend);
         fw.write(taskCommand);

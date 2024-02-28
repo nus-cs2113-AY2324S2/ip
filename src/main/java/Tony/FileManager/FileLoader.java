@@ -1,5 +1,7 @@
 package Tony.FileManager;
 
+import Tony.UI.Ui;
+import Tony.task.Task;
 import Tony.task.Todo;
 import Tony.task.Deadline;
 import Tony.task.Event;
@@ -7,14 +9,18 @@ import Tony.task.Event;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
-import static Tony.UI.Ui.tasks;
 
 public class FileLoader {
     protected static final String DATA_PATH = "./data/tonytask.txt";
     protected static final String SEPARATOR = " \\| ";
-    public static void checkFileExists() throws IOException {
+    private ArrayList<Task> tasks;
+
+    public FileLoader(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+    public void checkFileExists() throws IOException {
         File directory = new File("./data/");
         if (!directory.exists()) {
             directory.mkdirs();
@@ -27,7 +33,7 @@ public class FileLoader {
         loadDataFromFile(file);
     }
 
-    private static void loadDataFromFile(File file) throws FileNotFoundException {
+    private void loadDataFromFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         int lineCount = 0;
         while (scanner.hasNextLine()) {
