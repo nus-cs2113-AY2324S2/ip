@@ -13,18 +13,18 @@ java -jar earl.jar
 ```
 
 ## Quick Reference
-|Command   |Parameters                          |Explanation                            |
-|----------|------------------------------------|---------------------------------------|
-|`list`    |None                                |[`list`](#printing-todo-list-list)     |
-|`todo`    |<task name>                         |                                       |
-|`deadline`|<task name> /by <deadline>          |                                       |
-|`event`   |<task name> /from <start> /to <end> |                                       |
-|`mark`    |<index>                             |                                       |
-|`unmark`  |<index>                             |                                       |
-|`delete`  |<index>                             |                                       |
-|`find`    |<description experession>           |                                       |
-|`date`    |<date>                              |                                       |
-|`bye`     |None                                |                                       |
+|Command                                    |Parameters                          |
+|-------------------------------------------|------------------------------------|
+|[`list`](#printing-todo-list-list)         |None                                |
+|[`todo`](#adding-to-dos-todo)              |<task name>                         |
+|[`deadline`](#adding-deadlines-deadline)   |<task name> /by <deadline>          |
+|[`event`](#adding-events-event)            |<task name> /from <start> /to <end> |
+|[`mark`](#mark-completion-mark)            |<index>                             |
+|[`unmark`](#unmark-completion-unmark)      |<index>                             |
+|[`delete`](#deleting-a-task-delete)        |<index>                             |
+|[`find`](#finding-a-task-find)             |<description experession>           |
+|[`date`](#find-a-date-date)                |<date>                              |
+|[`bye`](#exiting-the-application-bye)      |None                                |
 
 ## Features 
 
