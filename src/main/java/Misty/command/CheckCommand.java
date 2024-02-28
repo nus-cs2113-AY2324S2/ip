@@ -26,7 +26,7 @@ public class CheckCommand extends Command {
     /**
      * Executes check command to find tasks occurring on specific date.
      *
-     * @param taskList ArrayList containing all tasks.
+     * @param taskList TaskList object containing all tasks.
      * @param storage Storage object used to save data to hard disk.
      * @param userUi UserUi object used to interact with user.
      */

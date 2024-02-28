@@ -37,7 +37,7 @@ public class Parser {
      * Parse command given by user and decides what to execute next.
      *
      * @param userInput String input provided by the user to chatbot.
-     * @param taskList TaskList object used to store all tasks.
+     * @param taskList TaskList object containing all tasks.
      * @return Command object corresponding to the appropriate command provided by user.
      * @throws IllegalListIndexException If index <= 0 or index > size of task list.
      * @throws UnknownCommandException If command provided by user is unknown.

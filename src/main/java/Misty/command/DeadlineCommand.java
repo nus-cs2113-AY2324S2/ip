@@ -30,7 +30,7 @@ public class DeadlineCommand extends Command {
     /**
      * Executes deadline command to add deadline to task list.
      *
-     * @param taskList ArrayList containing all tasks.
+     * @param taskList TaskList object containing all tasks.
      * @param storage Storage object used to save data to hard disk.
      * @param userUi UserUi object used to interact with user.
      */

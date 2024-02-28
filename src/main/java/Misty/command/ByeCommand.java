@@ -19,7 +19,7 @@ public class ByeCommand extends Command {
     /**
      * Executes bye command and exits program.
      *
-     * @param taskList ArrayList containing all tasks.
+     * @param taskList TaskList object containing all tasks.
      * @param storage Storage object used to save data to hard disk.
      * @param userUi UserUi object used to interact with user.
      */

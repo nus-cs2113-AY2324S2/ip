@@ -27,7 +27,7 @@ public class MarkCommand extends Command{
     /**
      * Executes mark command to mark a task as done in task list.
      *
-     * @param taskList ArrayList containing all tasks.
+     * @param taskList TaskList object containing all tasks.
      * @param storage Storage object used to save data to hard disk.
      * @param userUi UserUi object used to interact with user.
      */
