@@ -16,18 +16,14 @@ Search for tasks containing specific keywords to quickly locate relevant tasks.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - Add a todo Task
 
-Describe the action and its outcome.
+Adds a todo task to your task list.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo Buy lunch`
 
 Expected outcome:
+![image](https://github.com/Mmaxx15/ip/assets/88656341/d7305494-ca6a-40ff-b86b-64240ca7c0c7)
 
-Description of the outcome.
-
-```
-expected output
-```
