@@ -1,7 +1,6 @@
 package Tony.command;
 
 import Tony.FileManager.FileSaver;
-import Tony.TonyException;
 import Tony.task.Task;
 import Tony.utility.Parser;
 import Tony.utility.Ui;
@@ -15,7 +14,7 @@ public class CommandChecker implements Command{
         this.parser = parser;
     }
     @Override
-    public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) throws IOException, TonyException {
+    public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) throws IOException {
         parser.checkFirstCommandWord();
     }
 

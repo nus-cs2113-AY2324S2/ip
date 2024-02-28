@@ -7,6 +7,7 @@ import Tony.utility.Parser;
 import Tony.utility.Ui;
 import Tony.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,8 +22,7 @@ public class Tony {
         this.fileLoader = new FileLoader(this.tasks);
         this.fileSaver = new FileSaver(this.tasks);
     }
-
-    public void run() throws Exception {
+    public void run() throws IOException {
         Ui ui = new Ui(tasks);
         ui.printWelcomeMessage();
         System.out.println(LINE_BREAKER);

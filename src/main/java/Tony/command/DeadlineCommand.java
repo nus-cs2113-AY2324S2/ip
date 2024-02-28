@@ -22,7 +22,7 @@ public class DeadlineCommand implements Command {
         this.parser = parser;
     }
     @Override
-    public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) throws IOException, TonyException {
+    public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) throws IOException {
         this.tasks = tasks;
         this.ui = ui;
         this.fileSaver = fileSaver;
