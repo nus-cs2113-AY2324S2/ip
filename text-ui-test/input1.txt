@@ -1,0 +1,33 @@
+list
+lst
+todo
+todo abc
+todo 123 def 345
+list
+deadline
+deadline qwerty /by 2024-02-28
+deadline sgdsq /by 02-09-19
+deadline z12cv /by asd 123
+deadline ancs /by /by /by 1232
+deadline 0000
+list
+event
+event 12ujk /from 2024-01-04 /to 2024-01-05
+event amdasd /from 2023-12-20 /to 2024-01-10
+event afdw /from 2024-02-08 /to 2023-12-01
+event pks /from q3a cvse /to ned iho
+event 7ubj /from /to
+event /from vbj /to
+list
+mark 1
+mark -1
+list
+mark 2
+unmark 1
+unmark -2
+mark abc
+unmark 1a
+list
+mark
+unmark
+bye
