@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 
 import uwunzhe.util.TaskList;
 import uwunzhe.tasks.Task;
@@ -47,24 +48,35 @@ public class Storage {
     }
 
     /**
+     * Initializes the scanner for the storage file.
+     * 
+     * @return The scanner for the storage file.
+     * @throws UwunzheException If the storage file cannot be found.
+     */
+    public Scanner initStorageScanner() throws UwunzheException {
+        try {
+            return new Scanner(storage);
+        } catch (FileNotFoundException e) {
+            throw new UwunzheException(ExceptionMessages.STORAGE_FILE_NOT_READ);
+        }
+    }
+
+    /**
      * Loads data from the storage file.
      * 
      * @param taskList The list of tasks to load to.
      * @throws UwunzheException If the storage file cannot be found.
      */
     public void loadData(TaskList taskList) throws UwunzheException {
-        try {
-            Scanner sc = new java.util.Scanner(storage);
-            while (sc.hasNextLine()) {
+        Scanner sc = initStorageScanner();
+        while (sc.hasNextLine()) {
+            try {
                 String data = sc.nextLine();
                 String[] dataStrings = data.split(SEPARATOR);
-                // For now we assume the list is empty
                 createTask(taskList, dataStrings);
-            }
-            sc.close();
-        } catch (FileNotFoundException e) {
-            throw new UwunzheException(ExceptionMessages.STORAGE_FILE_NOT_READ);
+            } catch (UwunzheException e) {} // Ignore invalid data
         }
+        sc.close();
     }
 
     /**
@@ -86,10 +98,16 @@ public class Storage {
 
         if (data[0].equals(TaskType.TODO.getType())) {
             task = new Todo(data[2], isDone);
+
         } else if (data[0].equals(TaskType.DEADLINE.getType())) {
-            task = new Deadline(data[2], data[3], isDone);
+            LocalDate endString = DateHandler.parseDate(data[3]);
+            task = new Deadline(data[2], endString, isDone);
+
         } else if (data[0].equals(TaskType.EVENT.getType())) {
-            task = new Event(data[2], data[3], data[4], isDone);
+            LocalDate startString = DateHandler.parseDate(data[3]);
+            LocalDate endString = DateHandler.parseDate(data[4]);
+            task = new Event(data[2], startString, endString, isDone);
+
         } else {
             // Invalid data
             throw new UwunzheException(ExceptionMessages.INVALID_STORAGE_CONTENT);

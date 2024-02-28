@@ -12,7 +12,8 @@ public enum ExceptionMessages {
     STORAGE_FILE_NOT_WRITTEN ("Storage file oopsies!"),
     INVALID_STORAGE_CONTENT ("EEK! Storage data!"),
     COMMAND_REPEATED ("No no no, not again..."),
-    EXPECTED_EXTRA_DESCRIPTION ("ACKSHUALLY you are missing something...");
+    EXPECTED_EXTRA_DESCRIPTION ("ACKSHUALLY you are missing something..."),
+    INVALID_DATE_FORMAT ("Semo date is that?");
 
     private final String message;
 

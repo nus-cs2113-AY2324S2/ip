@@ -1,14 +1,16 @@
 package uwunzhe.util;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 import uwunzhe.tasks.Task;
-import uwunzhe.exceptions.UwunzheException;
-import uwunzhe.exceptions.ExceptionMessages;
 import uwunzhe.tasks.TaskType;
 import uwunzhe.tasks.Todo;
 import uwunzhe.tasks.Deadline;
 import uwunzhe.tasks.Event;
+import uwunzhe.handler.DateHandler;
+import uwunzhe.exceptions.UwunzheException;
+import uwunzhe.exceptions.ExceptionMessages;
 
 public class TaskList {
     private static ArrayList<Task> list = new ArrayList<Task>();
@@ -133,12 +135,14 @@ public class TaskList {
      * 
      * @param description The description of the deadline.
      */
-    public void addDeadline(String description) {
+    public void addDeadline(String description) throws UwunzheException {
         String[] nameEnd = description.split(" /by ", 2);
         String taskName = nameEnd[0];
         String taskEnd = nameEnd[1];
 
-        list.add(new Deadline(taskName, taskEnd));
+        LocalDate end = DateHandler.parseDate(taskEnd);
+        
+        list.add(new Deadline(taskName, end));
     }
 
     /**
@@ -147,7 +151,7 @@ public class TaskList {
      * 
      * @param description The description of the event.
      */
-    public void addEvent(String description) {
+    public void addEvent(String description) throws UwunzheException {
         String[] nameTimes = description.split(" /from ", 2);
         String times = nameTimes[1];
 
@@ -156,7 +160,10 @@ public class TaskList {
         String taskStart = startEnd[0];
         String taskEnd = startEnd[1];
 
-        list.add(new Event(taskName, taskStart, taskEnd));
+        LocalDate start = DateHandler.parseDate(taskStart);
+        LocalDate end = DateHandler.parseDate(taskEnd);
+
+        list.add(new Event(taskName, start, end));
     }
 
     /**

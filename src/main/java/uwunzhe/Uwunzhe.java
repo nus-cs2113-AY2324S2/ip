@@ -16,14 +16,13 @@ public class Uwunzhe {
     /**
      * Initializes the necessary handlers.
      */
-    public static boolean init() {
+    public static void init() {
         try {
             inputHandler = new Parser();
             storageHandler = new Storage(taskList);
-            return true; // init successful
+            // Ignores invalid formats in the storage file.
         } catch (UwunzheException e) {
             UwunzheException.printException(e);
-            return false; // init failed
         }
     }
 
@@ -55,14 +54,9 @@ public class Uwunzhe {
      * @param args
      */
     public static void main(String[] args) {
+        init();
         ui.printInitMsg();
-
-        boolean isInit = init();
-        if (isInit) {
-            // Start the main loop if init is successful
-            loop();
-        }
-
+        loop();
         ui.printExitMsg();
     }
 }
