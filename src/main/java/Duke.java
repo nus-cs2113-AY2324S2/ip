@@ -21,6 +21,10 @@ public class Duke {
 
     }
 
+    /**
+     *
+     * @param ui
+     */
     private static void startProgramme(UI ui) {
         try {
             Scanner input = new Scanner(System.in);

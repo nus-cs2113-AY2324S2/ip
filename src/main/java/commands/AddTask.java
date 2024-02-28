@@ -7,7 +7,16 @@ import Exceptions.ThawException;
 import Tasks.*;
 import UserInputs.Parser;
 
+/**
+ *
+ */
 public class AddTask extends Command {
+    /**
+     *
+     * @param usersInput
+     * @param list
+     * @throws ThawException
+     */
     public static void addTask(String usersInput, ArrayList<Task> list) throws ThawException {
         if (!commandWithoutDescription(usersInput)) {
             if (usersInput.startsWith("todo")) {
