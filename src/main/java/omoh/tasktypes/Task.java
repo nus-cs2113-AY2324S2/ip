@@ -32,6 +32,9 @@ public class Task {
         this.type = "T";
     }
 
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
 
     public static void getAllTasks() {
         System.out.println("Here are the tasks in your list:");
@@ -107,10 +110,6 @@ public class Task {
             iteration++;
         }
         s.close();
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
     }
 
     //method that extracts the task number to mark or unmark
