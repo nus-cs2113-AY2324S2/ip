@@ -1,13 +1,16 @@
 package misty;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import misty.command.Command;
 import misty.data.TaskList;
-import misty.data.exception.*;
+import misty.data.exception.CorruptedFileException;
+import misty.data.exception.IllegalListIndexException;
+import misty.data.exception.InvalidParameterFormatException;
+import misty.data.exception.UnknownCommandException;
 import misty.parser.Parser;
 import misty.storage.Storage;
 import misty.ui.UserUi;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Main {
     private UserUi userUi;
