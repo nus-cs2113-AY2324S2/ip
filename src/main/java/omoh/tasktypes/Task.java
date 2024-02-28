@@ -84,29 +84,7 @@ public class Task {
             if (parts.length < 3 || parts.length > 5 ) {
                 throw new CorruptedFileException();
             }
-            String command;
-
-            if (parts[0].trim().startsWith("T")) {
-                command = "todo " + parts[2].trim();
-                Todo.addTodo(command);
-            } else if (parts[0].trim().startsWith("D")) {
-                command = "deadline " + parts[2].trim() + " /by " + parts[3].trim() ;
-                Deadline.addDeadline(command);
-            } else if (parts[0].trim().startsWith("E")) {
-                command = "event " + parts[2].trim() + " /from " + parts[3].trim()
-                        + " /to " + parts[4].trim();
-                Event.addEvent(command);
-            }
-
-            if (parts[1].trim().equals("1")) {
-                command = "mark " + iteration + 1;
-                modifyDoneStateOrDelete(iteration + 1, command);
-                printMarkTask(iteration + 1, command);
-            } else {
-                command = "unmark " + iteration + 1;
-                modifyDoneStateOrDelete(iteration + 1, command);
-            }
-
+            processFileText(parts, iteration);
             iteration++;
         }
         s.close();
@@ -215,6 +193,29 @@ public class Task {
         }
     }
 
+    //processes the output.txt file. According to the text it adds tasks and marks tasks
+    public static void processFileText (String[] parts, int iteration) throws EmptyTodoException {
+        String command;
+        switch (parts[0].trim().charAt(0)) {
+        case 'T':
+            command = "todo " + parts[2].trim();
+            Todo.addTodo(command);
+            break;
+        case 'D':
+            command = "deadline " + parts[2].trim() + " /by " + parts[3].trim();
+            Deadline.addDeadline(command);
+            break;
+        case 'E':
+            command = "event " + parts[2].trim() + " /from " + parts[3].trim() + " /to " + parts[4].trim();
+            Event.addEvent(command);
+            break;
+        }
+
+        if (parts[1].trim().equals("1")) {
+            command = "mark " + iteration + 1;
+            modifyDoneStateOrDelete(iteration + 1, command);
+        }
+    }
 }
 
 
