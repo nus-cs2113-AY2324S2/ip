@@ -10,6 +10,7 @@ import carrot.command.Command;
 import carrot.command.HelpCommand;
 import carrot.command.TodoCommand;
 import carrot.command.DeadlineCommand;
+import carrot.command.FindCommand;
 import carrot.command.EventCommand;
 import carrot.command.MarkCommand;
 import carrot.command.UnmarkCommand;
@@ -35,6 +36,8 @@ public class Parser {
             Pattern.compile("list", Pattern.CASE_INSENSITIVE);
     private static final Pattern TODO_PATTERN =
             Pattern.compile("todo (?<taskDescription>.+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern FIND_PATTERN =
+            Pattern.compile("find (?<taskDescription>.+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern DEADLINE_PATTERN =
             Pattern.compile("deadline (?<taskDescription>.+) /(?<by>.+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern EVENT_PATTERN =
@@ -54,6 +57,7 @@ public class Parser {
 
     private static Map<CommandType, Pattern> commandPatternMap = initCommandPatternMap();
     private static Map<CommandType, Command> commandClassMap = initCommandClassMap();
+    private static Map<CommandType, String[]> commandGroupMap = initCommandGroupMap();
 
     private static Map<CommandType, Pattern> initCommandPatternMap() {
         Map<CommandType, Pattern> commandPatternMap = new HashMap<>();
@@ -65,6 +69,7 @@ public class Parser {
         commandPatternMap.put(CommandType.DELETE, DELETE_PATTERN);
         commandPatternMap.put(CommandType.LIST, LIST_PATTERN);
         commandPatternMap.put(CommandType.TODO, TODO_PATTERN);
+        commandPatternMap.put(CommandType.FIND, FIND_PATTERN);
         commandPatternMap.put(CommandType.DEADLINE, DEADLINE_PATTERN);
         commandPatternMap.put(CommandType.EVENT, EVENT_PATTERN);
 
@@ -82,10 +87,25 @@ public class Parser {
         commandClassMap.put(CommandType.DELETE, new DeleteCommand());
         commandClassMap.put(CommandType.MARK, new MarkCommand());
         commandClassMap.put(CommandType.UNMARK, new UnmarkCommand());
+        commandClassMap.put(CommandType.FIND, new FindCommand());
         commandClassMap.put(CommandType.EXIT, new ExitCommand());
         commandClassMap.put(CommandType.INVALID, new InvalidCommand());
 
         return commandClassMap;
+    }
+
+    private static Map<CommandType, String[]> initCommandGroupMap() {
+        Map<CommandType, String[]> commandGroupMap = new HashMap<>();
+
+        commandGroupMap.put(CommandType.MARK, new String[]{"taskIndex"});
+        commandGroupMap.put(CommandType.UNMARK, new String[]{"taskIndex"});
+        commandGroupMap.put(CommandType.DELETE, new String[]{"taskIndex"});
+        commandGroupMap.put(CommandType.TODO, new String[]{"taskDescription"});
+        commandGroupMap.put(CommandType.FIND, new String[]{"taskDescription"});
+        commandGroupMap.put(CommandType.DEADLINE, new String[]{"taskDescription", "by"});
+        commandGroupMap.put(CommandType.EVENT, new String[]{"taskDescription", "from", "to"});
+
+        return commandGroupMap;
     }
 
     public static Command getCommandType(String userInput) {
@@ -113,29 +133,13 @@ public class Parser {
             return null;
         }
 
-        String[] arguments = new String[3];
+        String[] groupNames = commandGroupMap.get(command);
+        String[] arguments = new String[groupNames.length];
 
-        switch (command) {
-        case MARK:
-        case UNMARK:
-        case DELETE:
-            arguments[0] = matcher.group("taskIndex");
-            break;
-        case TODO:
-            arguments[0] = matcher.group("taskDescription");
-            break;
-        case DEADLINE:
-            arguments[0] = matcher.group("taskDescription");
-            arguments[1] = matcher.group("by");
-            break;
-        case EVENT:
-            arguments[0] = matcher.group("taskDescription");
-            arguments[1] = matcher.group("from");
-            arguments[2] = matcher.group("to");
-            break;
-        default:
-            return null;
+        for (int i = 0; i < groupNames.length; i++) {
+            arguments[i] = matcher.group(groupNames[i]);
         }
+
         return arguments;
     }
 
