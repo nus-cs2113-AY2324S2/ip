@@ -1,32 +1,42 @@
 # User guide of chatbot Noob
 
-Hi, this chatbot is still a Noob.  
-***Need upgrade.......***    
-He has following features:
+Hi, this chatbot is still a Noob. He can store and save tasks for you.
 
-## Feature: Echo
+***Need upgrade.........................***
 
-He can echo what you type.
+He has the following features:
 
-## Feature: Store three types of task.Task
+## Features
 
-He can store what you type as a task
-* Type `todo` + `taskContent` to record a **todo** task 
+### Store three types of tasks: `todo` / `deadline` / `event`
+
+* Type `todo` + `taskContent` to record a **todo** task
 * Type `deadline` + `taskContent` + `/by` + `dates/times` to record a **deadline** task
 * Type `event` + `taskContent` + `/from` + `dates/times` + `/to` + `dates/times` to record a **event** task
 
+### List all tasks: `list`
 
-## Feature: List
+* Type `list` to list what he has stored for you
 
-Type `list` to list what he has stored for you
+### Mark / Unmark tasks: `mark` / `unmark`
 
-## Feature: Marking
+* Type `mark` + `number` to mark tasks as done
+* Type `unmark` + `number` to mark tasks as not done
 
-1. Type `mark` + `number` to mark tasks as done
-2. Type `unmark` + `number` to mark tasks as not done
+### Delete tasks: `delete`
 
-## Feature: Bye
+* Type `delete` + `number` to delete tasks
 
-Type `bye` to say goodbye to him
+### Find tasks: `find`
+
+* Type `find` + `taskContent` to find tasks
+* Type `find` + `Date` to find tasks
+
+### Saving the tasks
+* Task data are saved in the hard disk automatically after any command that changes the data.
+
+### Exit the chatbot: `bye`
+
+* Type `bye` to say goodbye to him
 
 # Hope you have fun with Noob!
