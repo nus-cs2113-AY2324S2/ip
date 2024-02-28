@@ -1,9 +1,6 @@
 package Tony.FileManager;
 
 import Tony.task.Task;
-import Tony.task.Todo;
-import Tony.task.Deadline;
-import Tony.task.Event;
 import Tony.utility.Parser;
 
 import java.io.File;

@@ -26,7 +26,7 @@ public class Ui {
         System.out.println("\tHere are the tasks in your list:");
         for(Task t : tasks) {
             int numbering = tasks.indexOf(t) + 1;
-            System.out.println("\t" + numbering + "."
+            System.out.println("\t" + numbering + ". "
                     + t);
         }
     }
@@ -35,10 +35,10 @@ public class Ui {
         String deleteOrAdd = (command.equals("delete") ? "removed" : "added");
         int taskSize = (command.equals("delete") ? tasks.size() - 1  : tasks.size());
         System.out.println("\t Got it. I've " + deleteOrAdd
-                        + " this task:"
-                        + System.lineSeparator()
-                        + "\t\t " + tasks.get(index)
-                        + System.lineSeparator()
-                        + "\t Now you have " + taskSize + " tasks in the list.");
+                + " this task:"
+                + System.lineSeparator()
+                + "\t\t " + tasks.get(index)
+                + System.lineSeparator()
+                + "\t Now you have " + taskSize + " tasks in the list.");
     }
 }

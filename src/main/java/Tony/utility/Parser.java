@@ -2,6 +2,8 @@ package Tony.utility;
 
 import Tony.FileManager.FileSaver;
 import Tony.TonyException;
+import Tony.command.Command;
+import Tony.command.MarkCommand;
 import Tony.task.Deadline;
 import Tony.task.Event;
 import Tony.task.Task;
@@ -13,13 +15,33 @@ import java.util.Scanner;
 
 public class Parser {
     protected static final String SEPARATOR = " \\| ";
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
     private final FileSaver fileSaver;
     private final Ui ui;
     public Parser(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.ui = new Ui(this.tasks);
         this.fileSaver = new FileSaver(this.tasks);
+    }
+
+    public Command parse(String line) throws IOException {
+        Parser parser = new Parser(tasks);
+        if (line.equals("bye")) {
+            ui.printByeMessage();
+        } else if (line.equals("list")) {
+            ui.printTaskList();
+        } else if (line.contains("mark")) {
+            return new MarkCommand(line, parser);
+
+        } else if (line.startsWith("todo") || line.startsWith("deadline")
+                || line.startsWith("event")) {
+            checkFirstWordOfTaskCommand(line);
+        } else if (line.startsWith("delete")) {
+            deleteTaskCommand(line);
+        } else {
+            checkFirstCommandWord();
+        }
+        return null;
     }
 
     public void extractLineFromFile(Scanner scanner, int lineCount) {
@@ -52,11 +74,11 @@ public class Parser {
         }
     }
 
-    public void checkFirstWordOfTaskCommand(String line) throws IOException {
+    public void checkFirstWordOfTaskCommand(String userInput) throws IOException {
         try {
-            addATaskCommandParser(line);
+            addATaskCommandParser(userInput);
         } catch (TonyException e) {
-            System.out.println("OOPS!! The description of " + line
+            System.out.println("OOPS!! The description of " + userInput
                     + " cannot be empty." + System.lineSeparator());
         }
     }
@@ -113,18 +135,7 @@ public class Parser {
         fileSaver.saveData(todoLine, true);
     }
 
-    public void markTaskCommand(String[] subCommand, int num) throws IOException {
-        if (subCommand[0].equals("mark")) {
-            tasks.get(num - 1).markDone();
-            System.out.println("\tNice! I've marked this task as done:"
-                            + System.lineSeparator() + tasks.get(num - 1));
-        } else {
-            tasks.get(num - 1).markNotDone();
-            System.out.println("\tOK, I've marked this task as not done yet:"
-                            + System.lineSeparator() + tasks.get(num - 1));
-        }
-        fileSaver.updateFile();
-    }
+
     public void deleteTaskCommand(String line) throws IOException {
         try {
             String[] subCommand = line.split(" ");
