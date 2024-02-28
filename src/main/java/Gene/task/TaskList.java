@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 import static Gene.command.MarkCommand.isNumeric;
 
+/**
+ * Represents the list of tasks of the Gene chatbot.
+ * The task list contains a list of all the tasks that the user has input.
+ */
 public class TaskList {
     private ArrayList<Task> toDoList = new ArrayList<>();
     private final Storage fileData = new Storage();
@@ -19,6 +23,11 @@ public class TaskList {
         fileData.saveTasksToFile(toDoList);
     }
 
+    /**
+     * Adds a new task into the task list.
+     *
+     * @param newTask Task object to be added into the task list.
+     */
     public void addTask(Task newTask) {
         toDoList.add(newTask);
         saveTasksToFile();
@@ -33,6 +42,11 @@ public class TaskList {
         return taskNumber > 0 && taskNumber <= toDoList.size();
     }
 
+    /**
+     * Use to mark a completed task as done.
+     *
+     * @param taskNumber The task number that the user wish to mark as done.
+     */
     public void markTaskAsDone(int taskNumber) {
         if (isValidTaskNumber(taskNumber)) {
             Task task = toDoList.get(taskNumber - 1);
@@ -47,6 +61,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Use to mark a task as not done.
+     *
+     * @param taskNumber The task number that the user wish to mark as undone.
+     */
     public void markTaskAsNotDone(int taskNumber) {
         if (isValidTaskNumber(taskNumber)) {
             Task task = toDoList.get(taskNumber - 1);
@@ -61,6 +80,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Print out a list of all the tasks in the tasks list.
+     */
     public void printListItems() {
         Ui.printLineSeparation();
         System.out.println("Here are the items in your list:");
@@ -71,6 +93,12 @@ public class TaskList {
         Ui.printLineSeparation();
     }
 
+    /**
+     * Delete a task from the task list.
+     *
+     * @param command Delete command from the user input.
+     * @throws GeneException if there is any formatting issues.
+     */
     public void deleteListItem(String command) throws GeneException {
         String[] parts = command.split(" ");
         if (parts.length < 2 || !isNumeric(parts[1]) || Integer.parseInt(parts[1]) > toDoList.size()) {

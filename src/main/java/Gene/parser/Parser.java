@@ -8,7 +8,20 @@ import Gene.command.TodoCommand;
 import Gene.task.TaskList;
 import Gene.ui.Ui;
 
+
+/**
+ * Represents the input parser of the Gene chatbot.
+ * Execute the respective commands based on the parsed command.
+ */
 public class Parser {
+
+    /**
+     * Parses user input into the command type, and execute the respective command.
+     *
+     * @param taskList List of tasks added by user.
+     * @param command User input to be parsed.
+     * @throws GeneException if the user input is not part of the command list.
+     */
     public static void processCommand(TaskList taskList, String command) throws GeneException {
         String[] parts = command.split(" ");
         String action = parts[0].toLowerCase();
