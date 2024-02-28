@@ -1,3 +1,4 @@
+#000000
 # User Guide
 Meet Dobby, your personal task manager to help you stay organised and ontop of all your tasks
 
