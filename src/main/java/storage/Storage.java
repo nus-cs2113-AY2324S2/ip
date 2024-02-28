@@ -10,11 +10,19 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Provides methods to handle loading and saving tasks to storage.
+ */
 public class Storage {
 
     private static String textFilePath = "data/listOfTasks.txt";
     private static String directoryPath = "data";
 
+    /**
+     * Loads the list of tasks from the text file storage.
+     *
+     * @return the list of tasks loaded from storage in ArrayList format
+     */
     public static ArrayList<Task> loadListOfTasks() {
         ArrayList<Task> listOfTasks = new ArrayList<>();
 
@@ -44,17 +52,11 @@ public class Storage {
         return listOfTasks;
     }
 
-    // Unused Function
-    public static void writeTaskToStorage(Task task) {
-        try {
-            FileWriter fw = new FileWriter(textFilePath, true);
-            fw.write(task.toFileFormat() + "\n");
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Unable to save task.Task Data: " + e.getMessage());
-        }
-    }
-
+    /**
+     * Writes all tasks from ArrayList to text file storage.
+     *
+     * @param listOfTasks the list of tasks to be written to storage
+     */
     public static void writeAllTasksToStorage(ArrayList<Task> listOfTasks) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(textFilePath));
