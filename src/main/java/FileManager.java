@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManager {
-    private final String fileName = "C:\\Users\\koala\\OneDrive - National University of Singapore\\" +
-                                    "Desktop\\NUS\\Y2S2\\CS2113\\Individual Project./data/tasks.txt";
+    private final String fileName = "data/tasks.txt";
 
 
     public void saveTasksToFile(TaskList taskList) {
@@ -86,7 +85,6 @@ public class FileManager {
                     printInvalidFormatWarning(line);
                 }
             }
-            //System.out.println("Tasks loaded successfully!");
         } catch (FileNotFoundException e) {
             System.out.println("Dobby has no saved tasks.");
         }
