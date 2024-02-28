@@ -18,20 +18,10 @@ import java.io.File;
 public class Omoh {
     public static void main(String[] args) {
         Task.createFileDirectory();
-
-        //code to create new file in data directory
-        File f = new File("data/output.txt");
-        try {
-            Task.readFile();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (EmptyTodoException e) {
-            System.out.println("Todo task empty");
-        } catch (CorruptedFileException e) {
-            System.out.println("Output.txt file format is wrong. File corrupted.");
-        }
+        Task.createOutputFile();
         printWelcomeMessage();
         //initialise the size 100 array if it was not initialised previously
+        //because if tasks were already initialised from reading output.txt, we don't need to initialise the array again
         if(Task.totalTasks == 0) {
             Task.initArray();
         }
@@ -91,8 +81,7 @@ public class Omoh {
                 try {
                     Todo.addTodo(line);
                 } catch (EmptyTodoException e) {
-                    System.out.println("Todo cannot be empty! Please key in input in this format [Todo] [task] " +
-                            "example: todo hang clothes");
+                    e.printStackTrace();
                 }
             }
             else if (line.startsWith("event")) {
@@ -109,8 +98,7 @@ public class Omoh {
                     System.out.println("Please enter valid number within boundaries of list. " +
                             "Example: if list only has 2 items, dont enter beyond 2");
                 } catch (EmptyTaskNumberException e) {
-                    System.out.println("Please enter a number after mark or unmark or delete " +
-                            "Example: mark 1");
+                    e.printStackTrace();
                 }
             } else {
                 Task.addTask(line);

@@ -1,2 +1,5 @@
-T | 0 | test
-T | 0 | test
+T | 1 | whack
+T | 1 | shit
+T | 0 | eat
+T | 1 | olist
+T | 0 | go toilet

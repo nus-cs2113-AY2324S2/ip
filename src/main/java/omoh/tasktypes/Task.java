@@ -32,6 +32,9 @@ public class Task {
         this.type = "T";
     }
 
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
 
     public static void getAllTasks() {
         System.out.println("Here are the tasks in your list:");
@@ -68,11 +71,12 @@ public class Task {
         fw.close();
     }
 
-    public static void readFile() throws FileNotFoundException, EmptyTodoException, CorruptedFileException {
+    public static void readFile() throws FileNotFoundException, CorruptedFileException, EmptyTodoException {
         //open file for reading
         File f = new File("data/output.txt");
         Scanner s = new Scanner(f);
         Task.initArray();
+        //iteration required so that programme knows which task to mark as done
         int iteration = 0;
         while (s.hasNextLine()) {
             String line = s.nextLine();
@@ -81,36 +85,10 @@ public class Task {
             if (parts.length < 3 || parts.length > 5 ) {
                 throw new CorruptedFileException();
             }
-            String command;
-
-            if (parts[0].trim().startsWith("T")) {
-                command = "todo " + parts[2].trim();
-                Todo.addTodo(command);
-            } else if (parts[0].trim().startsWith("D")) {
-                command = "deadline " + parts[2].trim() + " /by " + parts[3].trim() ;
-                Deadline.addDeadline(command);
-            } else if (parts[0].trim().startsWith("E")) {
-                command = "event " + parts[2].trim() + " /from " + parts[3].trim()
-                        + " /to " + parts[4].trim();
-                Event.addEvent(command);
-            }
-
-            if (parts[1].trim().equals("1")) {
-                command = "mark " + iteration + 1;
-                modifyDoneStateOrDelete(iteration + 1, command);
-                printMarkTask(iteration + 1, command);
-            } else {
-                command = "unmark " + iteration + 1;
-                modifyDoneStateOrDelete(iteration + 1, command);
-            }
-
+            processFileText(parts, iteration);
             iteration++;
         }
         s.close();
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
     }
 
     //method that extracts the task number to mark or unmark
@@ -131,24 +109,20 @@ public class Task {
         return taskNumber;
     }
 
-
     //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
     public static void modifyDoneStateOrDelete(int taskNumber, String input) throws IndexOutOfBoundsException {
-        //only executes if taskNumber is valid
-        if (taskNumber != -1) {
             if (input.startsWith("mark")) {
                 tasks.get(taskNumber - 1).isDone = true;
                 printMarkTask(taskNumber, input);
             } else if (input.startsWith("unmark")){
                 tasks.get(taskNumber - 1).isDone = false;
                 printMarkTask(taskNumber, input);
-            } else {
+            } else if (input.startsWith("delete")){
                 if (totalTasks == 0 || totalTasks < taskNumber) {
                     throw new IndexOutOfBoundsException();
                 }
                 printDeleteTask(taskNumber);
             }
-        }
     }
 
     //method that prints out the task that was deleted
@@ -193,6 +167,7 @@ public class Task {
     }
 
 
+    //function creates directory for output.txt file if it is not present
     public static void createFileDirectory () {
         File directory = new File("data");
         if (!directory.exists()) {
@@ -200,6 +175,44 @@ public class Task {
         }
     }
 
+    //creates output.txt file to store data
+    public static void createOutputFile () {
+        //code to create new file in data directory
+        File f = new File("data/output.txt");
+        try {
+            Task.readFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (EmptyTodoException e) {
+            System.out.println("Todo task empty");
+        } catch (CorruptedFileException e) {
+            System.out.println("Output.txt file format is wrong. File corrupted.");
+        }
+    }
+
+    //processes the output.txt file. According to the text it adds tasks and marks tasks
+    public static void processFileText (String[] parts, int iteration) throws EmptyTodoException {
+        String command;
+        switch (parts[0].trim().charAt(0)) {
+        case 'T':
+            command = "todo " + parts[2].trim();
+            Todo.addTodo(command);
+            break;
+        case 'D':
+            command = "deadline " + parts[2].trim() + " /by " + parts[3].trim();
+            Deadline.addDeadline(command);
+            break;
+        case 'E':
+            command = "event " + parts[2].trim() + " /from " + parts[3].trim() + " /to " + parts[4].trim();
+            Event.addEvent(command);
+            break;
+        }
+
+        if (parts[1].trim().equals("1")) {
+            command = "mark " + iteration + 1;
+            modifyDoneStateOrDelete(iteration + 1, command);
+        }
+    }
 }
 
 
