@@ -10,8 +10,8 @@ public class Duck {
 
         ArrayList<Task> tasks = new ArrayList<>(); //stores Tasks in ArrayList called tasks
         int index = 0; //index of where the userInput is stored in texts
-        Save.createNewFile();
-        index = Save.readFile(tasks,index);
+        Storage.createNewFile();
+        index = Storage.readFile(tasks,index);
         Ui.handleUserInput(tasks, index);
     }
 

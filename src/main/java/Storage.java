@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Save {
+public class Storage {
 
     protected static final Path FILE_PATH = Path.of("./data/duck.txt");
 
