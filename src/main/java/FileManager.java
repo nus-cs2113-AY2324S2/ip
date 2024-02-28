@@ -61,7 +61,7 @@ public class FileManager {
     }
 
     /**
-     * searhes for tasks.txt file in Dobbydata folder, created it if it does not exist
+     * searhes for tasks.txt file in Dobbydata folder, created it if does not exist
      * iterates through entire text file and transfer data
      * to task list in program
      * @param taskList list of tasks to transfer to
