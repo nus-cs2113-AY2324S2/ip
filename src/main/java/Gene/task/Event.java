@@ -1,10 +1,13 @@
 package Gene.task;
 
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -13,10 +16,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     public String toFileString() {
-        return super.toFileString() + " | " + from + " | " + to;
+        return super.toFileString() + " | " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | "
+                + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
