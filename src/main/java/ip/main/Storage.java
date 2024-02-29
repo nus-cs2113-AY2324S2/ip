@@ -12,9 +12,11 @@ import java.io.FileWriter;
 import java.util.Scanner;
 
 public class Storage {
-    private static File file;
+    private File file;
+    private Ui ui;
 
-    public Storage(String filePath) throws IOException {
+    public Storage(String filePath, Ui ui) throws IOException {
+        this.ui = ui;
         file = new File(filePath);
 
         if (! file.getParentFile().exists()) {
@@ -44,10 +46,10 @@ public class Storage {
                     tasks.add(new Event(isDone, dataLine[2], dataLine[3], dataLine[4]));
                     break;
                 default:
-                    System.out.println("I have no idea what this is: " + str);
+                    ui.printWithoutLeadingSpace("I have no idea what this is: " + str);
                 }
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Missing information: " + str);
+                ui.printWithoutLeadingSpace("Missing information: " + str);
             }
         }
     }
@@ -74,7 +76,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Unable to update data file!");
+            ui.printWithoutLeadingSpace("Unable to update data file!");
         }
     }
 }

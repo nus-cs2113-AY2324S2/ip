@@ -10,12 +10,12 @@ import java.io.IOException;
 public class Duke {
     private static Storage storage;
     private static Ui ui = new Ui();
-    private static TaskList tasks = new TaskList();
+    private static TaskList tasks = new TaskList(ui);
 
     public static void main(String[] args) {
         ui.introduce();
         try {
-            storage = new Storage("./data/task_list.txt");
+            storage = new Storage("./data/task_list.txt", ui);
         } catch (IOException e) {
             ui.printWithoutLeadingSpace("Unable to create data file!");
             return;
@@ -41,33 +41,31 @@ public class Duke {
             }
 
             if (line.equals("list")) {
-                printTaskList();
+                tasks.printTaskList();
                 continue;
             }
 
-            try {
-                if (line.startsWith("mark")) {
-                    markTask(line);
+            if (line.startsWith("mark")) {
+                boolean shouldUpdate = tasks.markTask(line);
+                if (shouldUpdate) {
                     storage.updateStoredData(tasks);
-                    continue;
                 }
-
-                if (line.startsWith("unmark")) {
-                    unmarkTask(line);
-                    storage.updateStoredData(tasks);
-                    continue;
-                }
-
-                if (line.startsWith("delete")) {
-                    deleteTask(line);
-                    storage.updateStoredData(tasks);
-                    continue;
-                }
-            } catch (IndexOutOfBoundsException e) {
-                ui.print("Please provide a number from 1 to " + tasks.size());
                 continue;
-            } catch (NumberFormatException e) {
-                ui.print("Please input an integer");
+            }
+
+            if (line.startsWith("unmark")) {
+                boolean shouldUpdate = tasks.unmarkTask(line);
+                if (shouldUpdate) {
+                    storage.updateStoredData(tasks);
+                }
+                continue;
+            }
+
+            if (line.startsWith("delete")) {
+                boolean shouldUpdate = tasks.deleteTask(line);
+                if (shouldUpdate) {
+                    storage.updateStoredData(tasks);
+                }
                 continue;
             }
 
@@ -80,61 +78,14 @@ public class Duke {
 
     private static boolean addTask(String line) {
         if (line.startsWith("todo")) {
-            try {
-                tasks.add(new Todo(line));
-            } catch (StringIndexOutOfBoundsException e) {
-                ui.print("Please input in the form 'todo <description>'");
-                return false;
-            }
+            return tasks.addTodo(line);
         } else if (line.startsWith("deadline")) {
-            try {
-                tasks.add(new Deadline(line));
-            } catch (StringIndexOutOfBoundsException e) {
-                ui.print("Please input in the form 'deadline <description> /by <when>'");
-                return false;
-            }
+            return tasks.addDeadline(line);
         } else if (line.startsWith("event")) {
-            try {
-                tasks.add(new Event(line));
-            } catch (StringIndexOutOfBoundsException e) {
-                ui.print("Please input in the form 'event <description> /from <when> /to <when>'");
-                return false;
-            }
+            return tasks.addEvent(line);
         } else {
             ui.print("Possible commands: bye, list, mark, unmark, todo, deadline, event");
             return false;
         }
-
-        ui.print("New task added: " + tasks.get(tasks.size() - 1).getDetails());
-        ui.print("Current number of tasks: " + tasks.size());
-        return true;
-    }
-
-    private static void deleteTask(String line) {
-        int indexDeleted = Integer.parseInt((line.substring(7))) - 1;
-        ui.print("Task removed: " + tasks.get(indexDeleted).getDetails());
-        tasks.remove(indexDeleted);
-        ui.print("Current number of tasks: " + tasks.size());
-    }
-
-    private static void printTaskList() {
-        ui.print("Here is your list of tasks:");
-        for (int i = 0; i < tasks.size(); i++) {
-            ui.print((i + 1) + "." + tasks.get(i).getDetails());
-        }
-    }
-
-    private static void markTask(String line) {
-        int indexMarked = Integer.parseInt(line.substring(5)) - 1;
-        tasks.get(indexMarked).setDone(true);
-        ui.print("Nice! I've marked this task as done:");
-        ui.print(tasks.get(indexMarked).getDetails());
-    }
-
-    private static void unmarkTask(String line) {
-        int indexUnmarked = Integer.parseInt(line.substring(7)) - 1;
-        tasks.get(indexUnmarked).setDone(false);
-        ui.print("OK, I've marked this task as not done yet:");
-        ui.print(tasks.get(indexUnmarked).getDetails());
     }
 }
