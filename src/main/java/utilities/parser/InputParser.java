@@ -14,11 +14,6 @@ public class InputParser {
                 break;
 
             case Constants.UNMARK:
-                this.splitInput[0] = String.valueOf(Integer.parseInt(userInput.substring(7).trim()) - 1);
-                this.splitInput[1] = null;
-                this.splitInput[2] = null;
-                break;
-
             case Constants.DELETE:
                 this.splitInput[0] = String.valueOf(Integer.parseInt(userInput.substring(7).trim()) - 1);
                 this.splitInput[1] = null;
