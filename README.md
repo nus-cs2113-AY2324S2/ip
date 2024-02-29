@@ -75,8 +75,7 @@ Deletes a task from task list according to task number provided
 * `TASK_NUMBER` must not be empty
 
 Examples:
-* delete 1
-* delete 2
+* `list` followed by `delete 1 `deletes the first task in the task list.
 
 ### Listing all tasks: `list`
 Shows a list of all tasks in task list
@@ -86,8 +85,8 @@ Finds matching task(s) in task list based on a keyword provided
 * `KEYWORD` must not be empty
 
 Examples:
-* find books
-* find study
+* `find books` returns `read books` and `return book to book drop`
+* `find study` returns `study at library` and `study tonight`
 
 ### Exiting the program: `bye`
 Exits programe and saves the task list into ../data/output.txt file
