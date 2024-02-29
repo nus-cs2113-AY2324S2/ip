@@ -61,7 +61,6 @@ public class Ui {
                 Task.findMatchingTasks(line);
             }
             else {
-                Task.addTask(line);
                 Task.printAddedTask();
             }
             line = in.nextLine();

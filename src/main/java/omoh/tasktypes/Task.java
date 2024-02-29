@@ -148,15 +148,6 @@ public class Task {
         Omoh.printHorizontalLine();
     }
 
-    /**
-     * Adds a task with the given description.
-     *
-     * @param taskDescription The description of the task to be added.
-     */
-    public static void addTask(String taskDescription) {
-        tasks.add(new Task(taskDescription));
-        totalTasks++;
-    }
 
     /**
      * Prints a message indicating that a task has been added.
