@@ -1,5 +1,6 @@
 package omoh;
 
+import omoh.customexceptions.EmptyFindException;
 import omoh.customexceptions.EmptyTaskNumberException;
 import omoh.customexceptions.IllegalDeadlineInput;
 import omoh.customexceptions.IllegalEventInput;
@@ -81,5 +82,16 @@ public class Parser {
             throw new IllegalEventInput();
         }
         return eventDetails;
+    }
+
+    //extract keyword to find
+    public static String extractKeyword(String input) throws EmptyFindException {
+        //split by empty space
+        String[] parts = input.split(" ");
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new EmptyFindException();
+        }
+        //parts[1] contains the keyword
+        return parts[1];
     }
 }

@@ -1,6 +1,8 @@
 package omoh.tasktypes;
 import omoh.Omoh;
 
+import omoh.Parser;
+import omoh.customexceptions.EmptyFindException;
 import omoh.customexceptions.EmptyTaskNumberException;
 
 import java.io.FileWriter;
@@ -180,6 +182,44 @@ public class Task {
     public static void printAllTasks() {
         Omoh.printHorizontalLine();
         Task.getAllTasks();
+        Omoh.printHorizontalLine();
+    }
+
+
+    //finds matching tasks based on user input
+    public static void findMatchingTasks (String line) {
+        try {
+            String keyword = Parser.extractKeyword(line);
+            ArrayList<String> findResult = searchTasks(keyword);
+            printFindResults(findResult);
+        } catch (EmptyFindException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<String> searchTasks(String keyword) {
+        ArrayList<String> findResult = new ArrayList<>();
+        for (int i = 0; i < totalTasks; i++) {
+            if (tasks.get(i).description.contains(keyword)) {
+                findResult.add(tasks.get(i).toString());
+            }
+        }
+        return findResult;
+    }
+
+    public static void printFindResults(ArrayList<String> findResult) {
+        Omoh.printHorizontalLine();
+        if(findResult.isEmpty()) {
+            System.out.println("There were no matching tasks found :(");
+            Omoh.printHorizontalLine();
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        int serialNumber = 1;
+        for (String s : findResult) {
+            System.out.println(serialNumber + "." + s);
+            serialNumber++;
+        }
         Omoh.printHorizontalLine();
     }
 }
