@@ -1,5 +1,9 @@
 package kapwa;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import data.FileAccess;
 import exception.KapwaException;
 import task.Deadline;
 import task.Event;
@@ -7,13 +11,7 @@ import task.Task;
 import task.Todo;
 
 public class TaskManager {
-    private Task[] tasks;
-    private int taskCount;
-
-    public TaskManager(int capacity) {
-        tasks = new Task[capacity];
-        taskCount = 0;
-    }
+    private ArrayList<Task> tasks = new ArrayList<>();  
 
     public void addTask(String inputLine) throws KapwaException {
         String[] parts = inputLine.split(" ", 2);
@@ -56,29 +54,34 @@ public class TaskManager {
         }
 
         if (newTask != null) {
-            tasks[taskCount++] = newTask;
+            tasks.add(newTask); 
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + newTask);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            try {
+                FileAccess.appendToFile("kapwa.txt", newTask.toStoreString() + "\n");
+            } catch (IOException e) {
+                System.out.println("An error occurred while writing to file.");
+            }
         }
     }
 
     public void displayTaskList() throws KapwaException{
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             throw new KapwaException("There are no tasks in the list.");
         }
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
     public void markTask(int taskNumber, boolean isDone) {
-        if (taskNumber < 1 || taskNumber > taskCount) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             System.out.println("Task number is invalid.");
             return;
         }
-        Task task = tasks[taskNumber - 1];
+        Task task = tasks.get(taskNumber - 1);
         if (isDone) {
             task.markAsDone();
             System.out.println("Nice! I've marked this task as done:");
@@ -87,5 +90,17 @@ public class TaskManager {
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println("  " + task);
+    }
+
+    public void deleteTask(int taskNumber) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            System.out.println("Task number is invalid.");
+            return;
+        }
+        Task task = tasks.get(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
