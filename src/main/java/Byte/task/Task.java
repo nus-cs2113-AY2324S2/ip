@@ -4,29 +4,33 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
     }
 
-    public void markAsNotDone(){
+    public void markAsNotDone() {
         isDone = false;
     }
 
-    public String getStatusIcon(){
-        return (isDone ? "[X]" : "[ ]" );
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]");
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getStatusIcon() + " " + description;
     }
 
     public String toFileString() {
         return "";
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 }
