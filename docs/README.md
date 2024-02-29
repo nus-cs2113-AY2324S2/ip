@@ -48,7 +48,7 @@ ConvoCraft is a CLI application to help users manage their tasks.
 - Adds a deadline task to the task list.
 - Format: `deadline DESCRIPTION /by DATE`
 - Example: `deadline return book /by 2021-09-30`
-> [!WARNING]
+> [WARNING]
 > * The description of the task cannot be empty.
 > * The date must be specified
 
@@ -57,7 +57,7 @@ ConvoCraft is a CLI application to help users manage their tasks.
 - Adds an event task to the task list.
 - Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 - Example: `event project meeting /from 2021-10-01 /to 2021-10-02`
-> [!WARNING]
+> [WARNING]
 > * The description of the task cannot be empty.
 > * The start date and end date must be specified.
 
@@ -79,7 +79,7 @@ ConvoCraft is a CLI application to help users manage their tasks.
 - Format: `delete INDEX`
 - Example: `delete 2`
 
-> [!TIP] Specifying a task index
+> [TIP] Specifying a task index
 > * Wherever the task index is required, it should be a non-negative integer.
 > * The task index refers to the index number shown in the displayed task list.
 > * Get the task index by using [list](#listing-all-tasks-list) or [find](#finding-a-task-find)
