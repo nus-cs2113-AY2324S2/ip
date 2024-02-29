@@ -1,15 +1,27 @@
 package Bobble;
 
 import Bobble.task.*;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Bobble {
+    private static final String FILE_NAME = "./data/bobble.txt";
 
     private static ArrayList<Task> taskList = new ArrayList<>();
     public static final String LINE_WRAP = "____________________________________________________________\n";
 
+
+
     public static void main(String[] args) {
+        try {
+            taskList = new FileManager().loadSavedList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         start();
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
@@ -74,6 +86,7 @@ public class Bobble {
                 task.toString() + "\nNow you have " + (taskList.size() - 1) +
                 " task(s) in the list.\n" + LINE_WRAP);
         taskList.remove(taskNumber);
+        FileManager.saveWholeList(taskList);
     }
 
     private static void listResponse() {
@@ -88,12 +101,14 @@ public class Bobble {
         taskList.get(taskNumber).setDone(true);
         System.out.println("Nice! I've marked this task as done:\n" +
                 task.toString() + "\n" + LINE_WRAP);
+        FileManager.saveWholeList(taskList);
     }
 
     private static void unmarkResponse(Task task, int taskNumber) {
         taskList.get(taskNumber).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" +
                 task.toString() + "\n" + LINE_WRAP);
+        FileManager.saveWholeList(taskList);
     }
 
     public static String[] getCommandAndDesc(String input) {
@@ -106,6 +121,7 @@ public class Bobble {
                 task.toString() +
                 "\nNow you have " + taskList.size() + " task(s) in the list.\n" +
                 LINE_WRAP);
+        FileManager.saveAddedTask(taskList);
     }
 
     //Greets user
