@@ -58,11 +58,8 @@ public class CheeseBot {
             try {
                 String input = UI.printInputPrompt();
                 UI.printDivider();
-                PARSER.validateInput(input);
-
-                String[] arguments = PARSER.parseInput(input);
+                String[] arguments = PARSER.validateAndParseInput(input);
                 String command = arguments[0];
-
                 if (PARSER.isBye(command)) {
                     break;
                 }

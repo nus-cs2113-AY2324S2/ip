@@ -20,72 +20,18 @@ public class Parser {
      * @param input Input supplied by the user of CheeseBot.
      * @return An array of fixed size of 4, consisting of the parsed components.
      */
-    public String[] parseInput(String input) {
-        String[] parsed = new String[4];
-        int spaceIndex = input.indexOf(" ");
-        if (spaceIndex == -1) {
-            parsed[0] = input;
-            return parsed;
-        }
-
-        String command = input.substring(0, spaceIndex);
-        String taskName;
-        String keyword;
-        parsed[0] = command;
-
-        switch (command) {
-        case "find":
-            keyword = input.substring(spaceIndex + 1);
-            parsed[1] = keyword;
-            break;
-
-        case "todo":
-            taskName = input.substring(spaceIndex + 1);
-            parsed[1] = taskName;
-            break;
-
-        case "deadline":
-            int byIndex = input.indexOf("/by ");
-
-            taskName = input.substring(spaceIndex + 1, byIndex - 1);
-            String by = input.substring(byIndex + 4);
-            parsed[1] = taskName;
-            parsed[2] = by;
-            break;
-
-        case "event":
-            int fromIndex = input.indexOf(" /from");
-            int toIndex = input.indexOf(" /to");
-
-            taskName = input.substring(spaceIndex + 1, fromIndex);
-            String from = input.substring(fromIndex + 7, toIndex);
-            String to = input.substring(toIndex + 5);
-            parsed[1] = taskName;
-            parsed[2] = from;
-            parsed[3] = to;
-            break;
-
-        case "mark":
-            //Fallthrough
-        case "unmark":
-            //Fallthrough
-        case "delete":
-            String taskNumber = input.substring(spaceIndex + 1);
-            parsed[1] = taskNumber;
-            break;
-        }
-        return parsed;
-    }
-    private static void validateSingleWordCommand(String input) throws InvalidInputException {
+    private static String[] parseSingleWordCommand(String input) throws InvalidInputException {
         // for case of single word commands with no space
         if (input.equals("list") || input.equals("bye") || input.equals("help")) {
-            return;
+            String[] parsed = new String[4];
+            parsed[0] = input;
+            return parsed;
         }
         // for commands where >1 arguments are needed
         throw new InvalidInputException("\tWrong command usage or no such command!");
     }
 
-    private static void validateEventInput(String input) throws InvalidEventException {
+    private static String[] validateAndParseEventInput(String input) throws InvalidEventException {
         int spaceIndex = input.indexOf(" ");
         int fromIndex = input.indexOf(" /from");
         int toIndex = input.indexOf(" /to");
@@ -154,10 +100,20 @@ public class Parser {
 
         if (start.isAfter(end)) {
             throw new InvalidEventException("\tSTART_TIME cannot be after END_TIME!");
+        } else if (start.isEqual(end)) {
+            throw new InvalidEventException("\tEND_TIME cannot end on the same time as START_TIME");
         }
+
+        String[] parsed = new String[4];
+        parsed[0] = "event";
+        parsed[1] = taskName;
+        parsed[2] = from;
+        parsed[3] = to;
+        return parsed;
     }
 
-    private static void validateIntegerInput(String input, int spaceIndex) throws InvalidInputException{
+    private static String[] validateAndParseIntegerInput(String input) throws InvalidInputException{
+        int spaceIndex = input.indexOf(" ");
         int taskNumber = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
         if (taskNumber >= CheeseBot.tasksList.getNumberOfTasks()) {
             throw new InvalidInputException("\tInvalid number! Number must be less than the number of tasks ("
@@ -167,8 +123,12 @@ public class Parser {
         if (taskNumber < 0) {
             throw new InvalidInputException("\tInvalid number! Task number must be more than 0.");
         }
+        String[] parsed = new String[4];
+        parsed[0] = input.substring(0, spaceIndex);
+        parsed[1] = String.valueOf(taskNumber);
+        return parsed;
     }
-    private static void validateDeadlineInput(String input) throws InvalidInputException {
+    private static String[] validateAndParseDeadlineInput(String input) throws InvalidInputException {
         int byIndex = input.indexOf(" /by");
         int spaceIndex = input.indexOf(" ");
 
@@ -197,10 +157,16 @@ public class Parser {
 
         String deadline = input.substring(byIndex + 5);
         try {
-            LocalDateTime parsed = LocalDateTime.parse(deadline, CheeseBot.INPUT_FORMAT);
+            LocalDateTime by = LocalDateTime.parse(deadline, CheeseBot.INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             throw new InvalidDeadlineException("\tWrong time and date format for DEADLINE!");
         }
+
+        String[] parsed = new String[4];
+        parsed[0] = "deadline";
+        parsed[1] = taskName;
+        parsed[2] = deadline;
+        return parsed;
     }
 
     /**
@@ -213,42 +179,54 @@ public class Parser {
      * @throws InvalidInputException Throws InvalidInputException if there is not an exact number of expected arguments for
      * that particular command.
      */
-    public void validateInput(String input) throws InvalidInputException {
+    public String[] validateAndParseInput(String input) throws InvalidInputException {
         if (input.isEmpty()) {
             throw new InvalidInputException("\tInput is empty! Please type something.");
         }
 
-        int spaceIndex = input.indexOf(" ");
-        if (spaceIndex == -1) {
-            validateSingleWordCommand(input);
-            return;
+        String[] parsed;
+        if (!input.contains(" ")) {
+            parsed = parseSingleWordCommand(input);
+            return parsed;
         }
 
-        String command = input.substring(0, spaceIndex);
+        String command = input.substring(0, input.indexOf(' '));
         switch (command) {
         case "todo":
             //Fallthrough
         case "find":
-            return;
+            parsed = parseDoubleWordCommand(input);
+            break;
 
         case "deadline":
-            validateDeadlineInput(input);
-            return;
+            parsed = validateAndParseDeadlineInput(input);
+            break;
 
         case "event":
-            validateEventInput(input);
-            return;
+            parsed = validateAndParseEventInput(input);
+            break;
 
         case "mark":
             //Fallthrough
         case "unmark":
             //Fallthrough
         case "delete":
-            validateIntegerInput(input, spaceIndex);
-            return;
+            parsed = validateAndParseIntegerInput(input);
+            break;
 
         default: // case where there is a space but command does not match any
             throw new InvalidInputException("\tNo such command!");
         }
+        return parsed;
+    }
+
+    private String[] parseDoubleWordCommand(String input) {
+        int spaceIndex = input.indexOf(' ');
+        String command = input.substring(0, spaceIndex);
+        String argument = input.substring(spaceIndex + 1);
+        String[] parsed = new String[4];
+        parsed[0] = command;
+        parsed[1] = argument;
+        return parsed;
     }
 }

@@ -101,7 +101,7 @@ public class TasksList {
             return;
         }
 
-        int taskNumber = Integer.parseInt(arguments[1]) - 1;
+        int taskNumber = Integer.parseInt(arguments[1]);
         Task taskToEdit = tasks.get(taskNumber);
 
         if (isAlreadyMarked(isDone, taskToEdit) || isAlreadyUnmarked(isDone, taskToEdit)) {
@@ -148,7 +148,7 @@ public class TasksList {
      * @param arguments The array containing arguments supplied by user for the delete command.
      */
     public void delete(String[] arguments) {
-        int taskNumber = Integer.parseInt(arguments[1]) - 1;
+        int taskNumber = Integer.parseInt(arguments[1]);
         Task taskToDelete = tasks.get(taskNumber);
 
         tasks.remove(taskToDelete);
