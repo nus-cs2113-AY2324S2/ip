@@ -25,7 +25,7 @@ __________________________________________________
 
 ### Adding a todo task: `todo TASK_DESCRIPTION`
 Adds a todo task into the task list.
-* TASK_DESCRIPTION must not be empty.
+* `TASK_DESCRIPTION` must not be empty.
 
 Examples:
 * todo eat lunch
@@ -33,9 +33,9 @@ Examples:
 
 ### Adding a deadline task: `deadline TASK_DESCRIPTION /by DATE`
 Adds a deadline task into the task list.
-* TASK_DESCRIPTION must not be empty.
-* DATE must not be empty
-* /by must be included
+* `TASK_DESCRIPTION` must not be empty.
+* `DATE` must not be empty
+* `/by` must be included
 
 Examples:
 * deadline cs2113 ip /by wednesday
@@ -43,9 +43,9 @@ Examples:
 
 ### Adding a event task: `event TASK_DESCRIPTION /from DATE /to DATE`
 Adds a event task into the task list.
-* TASK_DESCRIPTION must not be empty.
-* DATE must not be empty
-* /from and /to must be included
+* `TASK_DESCRIPTION` must not be empty.
+* `DATE` must not be empty
+* `/from` and `/to` must be included
 
 Examples:
 * event cs2113 lecture /from 4pm /to 6pm
@@ -53,8 +53,8 @@ Examples:
 
 ### Marking a task: `mark TASK_NUMBER`
 Marks a task in task list as completed. X stands for completed, empty stands for not completed.
-* TASK_NUMBER must be a positive integer within number of total tasks.
-* TASK_NUMBER must not be empty
+* `TASK_NUMBER` must be a positive integer within number of total tasks.
+* `TASK_NUMBER` must not be empty
 
 Examples:
 * mark 1
@@ -62,8 +62,8 @@ Examples:
 
 ### Unmarking a task: `unmark TASK_NUMBER`
 Marks a task in task list as not completed. X stands for completed, empty stands for not completed.
-* TASK_NUMBER must be a positive integer within number of total tasks.
-* TASK_NUMBER must not be empty
+* `TASK_NUMBER` must be a positive integer within number of total tasks.
+* `TASK_NUMBER` must not be empty
 
 Examples:
 * unmark 1
@@ -71,8 +71,8 @@ Examples:
 
 ### Deleting a task: `delete TASK_NUMBER`
 Deletes a task from task list according to task number provided
-* TASK_NUMBER must be a positive integer within number of total tasks.
-* TASK_NUMBER must not be empty
+* `TASK_NUMBER` must be a positive integer within number of total tasks.
+* `TASK_NUMBER` must not be empty
 
 Examples:
 * delete 1
@@ -83,7 +83,7 @@ Shows a list of all tasks in task list
 
 ### Finding tasks based on keyword: `find KEYWORD`
 Finds matching task(s) in task list based on a keyword provided
-* KEYWORD must not be empty
+* `KEYWORD` must not be empty
 
 Examples:
 * find books
