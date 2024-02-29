@@ -23,7 +23,7 @@ public class Event extends TaskList {
             String[] commandLine = splitLine[0].split("\\s+");
             String[] durationLine = splitLine[1].split("/to");
 
-            /* Ensures that user only enters one /from and one /to, and all required fields are entered */
+            /* Ensures that user only enters one /from and one /to, and all required fields are entered. */
             if (commandLine.length < 2 | splitLine.length != 2 | durationLine.length != 2 | durationLine[0].equals("  ") | durationLine[1].equals(" ")) {
                 throw new DukeException("Invalid Syntax! Please try again!");
             }

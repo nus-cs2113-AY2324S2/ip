@@ -29,12 +29,12 @@ public class TaskList {
     /* Returns the type of task and their action. */
     public String toString() {
         String[] original = description.split("/");
-        String value = String.valueOf(original[0]); // Obtain the task and action
+        String value = String.valueOf(original[0]); // Obtain the task and action.
 
         String[] splitLine = value.split("\\s+");
         StringBuilder action = new StringBuilder();
 
-        // Obtain the action of the task
+        // Obtain the action of the task.
         for (int i = 1; i < splitLine.length; i += 1) {
             action.append(splitLine[i]).append(" ");
         }

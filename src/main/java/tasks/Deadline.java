@@ -16,13 +16,13 @@ public class Deadline extends TaskList {
 
     /**
      * Returns the date of deadline.
-     * @throws DukeException if number of by in user input is != 2
+     * @throws DukeException if number of by in user input is != 2.
      */
     public String getBy() throws DukeException{
         String[] splitLine = description.split("/by");
         String[] commandLine = splitLine[0].split("\\s+");
 
-        /* Ensures that user only enters one /by, and all required fields are entered */
+        /* Ensures that user only enters one /by, and all required fields are entered. */
         if (commandLine.length < 2 | splitLine.length != 2 | splitLine[1].equals(" ")) {
             throw new DukeException("Invalid Syntax! Please try again!");
         }

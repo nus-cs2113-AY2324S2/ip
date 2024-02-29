@@ -57,7 +57,7 @@ public class Storage {
 
 
     /**
-     * Load data from file in string data type
+     * Load data from file in string data type.
      */
      public static ArrayList<String> loadData() {
         ArrayList<String> listString = new ArrayList<>();

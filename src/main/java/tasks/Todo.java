@@ -31,7 +31,7 @@ public class Todo extends TaskList {
             }
         }
 
-        //obtain the action of the task
+        //obtain the action of the task.
         for (int i = 1; i < splitLine.length; i += 1) {
             action.append(splitLine[i]).append(" ");
         }
