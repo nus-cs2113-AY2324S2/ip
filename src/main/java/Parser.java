@@ -173,10 +173,13 @@ public class Parser {
     }
 
     private static String[] validateAndParseIntegerInput(String input) throws InvalidInputException {
+        if (TASKS_LIST.getNumberOfTasks() == 0) {
+            throw new InvalidInputException("\tList is empty! Nothing can be deleted.");
+        }
         int spaceIndex = input.indexOf(SPACE);
         int taskNumber = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
         if (taskNumber >= TASKS_LIST.getNumberOfTasks()) {
-            throw new InvalidInputException("\tInvalid number! Number must be less than the number of tasks ("
+            throw new InvalidInputException("\tInvalid number! Number cannot be more than the total number of tasks ("
                     + TASKS_LIST.getNumberOfTasks() + ").");
         }
 
