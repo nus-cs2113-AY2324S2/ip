@@ -129,6 +129,16 @@ public class Task {
         Task.getAllTasks();
         Omoh.printHorizontalLine();
     }
+    //finds matching tasks based on user input
+    public static void findMatchingTasks (String line) {
+        try {
+            String keyword = Parser.extractKeyword(line);
+            ArrayList<String> findResult = searchTasks(keyword);
+            printFindResults(findResult);
+        } catch (EmptyFindException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
