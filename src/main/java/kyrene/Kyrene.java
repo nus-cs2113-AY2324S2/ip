@@ -13,28 +13,30 @@ public class Kyrene {
     private final static String FOLDER_PATH = "./data/";
 
     private TaskList tasks;
-    private Ui ui;
     private Storage storage;
 
+    public TaskList getTasks() {
+        return tasks;
+    }
+
     public Kyrene() {
-        ui = new Ui();
         storage = new Storage(FILE_PATH, FOLDER_PATH);
         try {
-            tasks = storage.load(ui);
+            tasks = storage.load();
         } catch (FileNotFoundException e) {
-            storage.createFile(ui);
+            storage.createFile();
             tasks = new TaskList();
         }
     }
 
     public void run() {
-        ui.showHello();
+        Ui.showHello();
         boolean isExit = false;
         while (!isExit) {
-            String fullCommand = ui.readCommand();
-            ui.showDivider();
+            String fullCommand = Ui.readCommand();
+            Ui.showDivider();
             Command c = Parser.parse(fullCommand);
-            c.execute(tasks, ui, storage);
+            c.execute(tasks, storage);
             isExit = c.isExit();
         }
     }

@@ -55,17 +55,15 @@ public class Storage {
         clearWriter.close();
 
         FileWriter fw = new FileWriter(getFilePath(), true);
-        Task task;
         int taskCount = tasks.size();
-        for (int i = 0; i < taskCount; i ++) {
-            task = tasks.get(i);
+        for (Task task : tasks) {
             fw.write(task.format());
         }
         fw.close();
     }
 
-    public TaskList load(Ui ui) throws FileNotFoundException {
-        ui.showLoadingFile(getFilePath());
+    public TaskList load() throws FileNotFoundException {
+        Ui.showLoadingFile(getFilePath());
         TaskList tasks = new TaskList();
         File f = new File(getFilePath());
         Scanner s = new Scanner(f);
@@ -80,42 +78,42 @@ public class Storage {
                 task = line.substring("false ".length());
             }
             try {
-                loadTask(task, isDone, tasks, ui);
+                loadTask(task, isDone, tasks);
             } catch (KyreneMissingTaskException | KyreneInvalidCommandException e) {
-                ui.showErrorFileCorrupted(lineNumber);
+                Ui.showErrorFileCorrupted(lineNumber);
             }
             lineNumber ++;
         }
-        ui.showSuccessLoadingFile(getFilePath());
+        Ui.showSuccessLoadingFile(getFilePath());
         return tasks;
     }
 
-    public void createFile(Ui ui) {
-        ui.showErrorFileNotFound(getFilePath());
+    public void createFile() {
+        Ui.showErrorFileNotFound(getFilePath());
         Path folderPath = Paths.get(getFolderPath());
         Path filePath = Paths.get(getFilePath());
         if (Files.exists(folderPath)) {
             try {
                 Files.createFile(filePath);
             } catch (IOException ex) {
-                ui.showErrorCreatingFileFailed();
+                Ui.showErrorCreatingFileFailed();
                 return;
             }
         } else {
-            ui.showErrorFolderNotFound(getFolderPath());
+            Ui.showErrorFolderNotFound(getFolderPath());
             try {
                 Files.createDirectory(folderPath);
                 Files.createFile(filePath);
             } catch (IOException ex) {
-                ui.showErrorCreatingFolderFailed();
+                Ui.showErrorCreatingFolderFailed();
                 return;
             }
-            ui.showSuccessCreatingFolder(getFolderPath());
+            Ui.showSuccessCreatingFolder(getFolderPath());
         }
-        ui.showSuccessCreatingFile(getFilePath());
+        Ui.showSuccessCreatingFile(getFilePath());
     }
 
-    public void loadTask(String sentence, boolean isDone, TaskList tasks, Ui ui) throws KyreneInvalidCommandException, KyreneMissingTaskException {
+    public void loadTask(String sentence, boolean isDone, TaskList tasks) throws KyreneInvalidCommandException, KyreneMissingTaskException {
         String[] words = sentence.split(" ");
         String classType = words[0];
 
@@ -133,7 +131,7 @@ public class Storage {
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
-                ui.showErrorMissingTime();
+                Ui.showErrorMissingTime();
                 return;
             }
             break;
@@ -143,7 +141,7 @@ public class Storage {
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
-                ui.showErrorMissingTime();
+                Ui.showErrorMissingTime();
                 return;
             }
             break;
