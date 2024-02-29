@@ -15,6 +15,11 @@ public class Deadline extends Task {
         this.type = "D";
     }
 
+    /**
+     * Returns a string representation of the Deadline task.
+     *
+     * @return A string representing the Deadline task, including its task status, description, and due date.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
@@ -24,6 +29,11 @@ public class Deadline extends Task {
         return by;
     }
 
+    /**
+     * Prints a message indicating that a Deadline task has been added.
+     *
+     * @param description The Deadline task that has been added.
+     */
     public static void printDeadline (Deadline description) {
         Omoh.printHorizontalLine();
         System.out.println("Got it. I've added this task:");
@@ -33,6 +43,11 @@ public class Deadline extends Task {
     }
 
 
+    /**
+     * Adds a Deadline task based on the input string.
+     *
+     * @param input The input string containing the Deadline task description and due date.
+     */
     public static void addDeadline (String input) {
         try {
             Deadline extractedInfo = Parser.extractTaskAndDueDate(input);
