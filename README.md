@@ -5,6 +5,15 @@ Welcome to the Omoh chatbot user guide!
 
 - [Setting up in Intellij](#setting-up-in-intellij)
 - [Features](#features)
+   - [Adding a todo task: `todo TASK_DESCRIPTION`](#adding-a-todo-task-todo-task_description)
+   - [Adding a deadline task: `deadline TASK_DESCRIPTION /by DATE`](#adding-a-deadline-task-deadline-task_description-by-date)
+   - [Adding an event task: `event TASK_DESCRIPTION /from DATE /to DATE`](#adding-a-event-task-event-task_description-from-date-to-date)
+   - [Marking a task: `mark TASK_NUMBER`](#marking-a-task-mark-task_number)
+   - [Unmarking a task: `unmark TASK_NUMBER`](#unmarking-a-task-unmark-task_number)
+   - [Deleting a task: `delete TASK_NUMBER`](#deleting-a-task-delete-task_number)
+   - [Listing all tasks: `list`](#listing-all-tasks-list)
+   - [Finding tasks based on keyword: `find KEYWORD`](#finding-tasks-based-on-keyword-find-keyword)
+   - [Exiting the program: `bye`](#exiting-the-program-bye)
 
 ## Setting up in Intellij
 
