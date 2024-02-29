@@ -1,3 +1,9 @@
+import InvalidInputExceptions.InvalidDeadlineException;
+import InvalidInputExceptions.InvalidInputException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 /**
  * Helper class used to parse input supplied by user into CheeseBot.
  */
@@ -114,18 +120,38 @@ public class Parser {
             throw new InvalidInputException("\tInvalid number! Task number must be more than 0.");
         }
     }
-    private static void validateDeadlineInput(String input) throws InvalidInputException{
-        int byIndex = input.indexOf("/by");
+    private static void validateDeadlineInput(String input) throws InvalidInputException {
+        int byIndex = input.indexOf(" /by");
         int spaceIndex = input.indexOf(" ");
 
-        if (spaceIndex + 1 == byIndex) {
-            throw new InvalidInputException("\tMissing task name!");
-        }
         if (byIndex == -1 ) {
-            throw new InvalidInputException("\tMissing '/by' flag!");
+            throw new InvalidDeadlineException("\tMissing '/by' flag!");
         }
-        if (byIndex + 4 > input.length()) {
-            throw new InvalidInputException("\tMissing deadline!");
+
+        if (spaceIndex == byIndex || spaceIndex + 1 == byIndex) {
+            //case where there is no task name input
+            throw new InvalidDeadlineException("\tMissing TASK_NAME!");
+        }
+
+        String taskName = input.substring(spaceIndex + 1, byIndex).strip();
+        if (taskName.isEmpty()) {
+            throw new InvalidDeadlineException("\tMissing TASK_NAME!");
+        }
+
+        if (input.charAt(byIndex + 4) != ' ') {
+            throw new InvalidDeadlineException("\tInvalid format! Please provide a space between /by and DEADLINE");
+        }
+
+        if (byIndex + 5 > input.length()) {
+            //case where input ends immediately after /by flag
+            throw new InvalidDeadlineException("\tMissing DEADLINE!");
+        }
+
+        String deadline = input.substring(byIndex + 5);
+        try {
+            LocalDateTime parsed = LocalDateTime.parse(deadline, CheeseBot.INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDeadlineException("\tWrong time and date format for DEADLINE!");
         }
     }
 
