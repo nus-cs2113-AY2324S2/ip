@@ -11,7 +11,7 @@ public class FileParser {
     protected static final char DEADLINE_SYMBOL = 'd';
     protected static final char EVENT_SYMBOL = 'e';
     protected static final char MARKED = 'X';
-    protected static final String SEPARATOR = " ";
+    protected static final String SEPARATOR = "-";
 
     public static Task readTask(String taskData) throws TimException {
         char taskSymbol = taskData.charAt(0);
@@ -61,8 +61,8 @@ public class FileParser {
     public static String getEventData(String taskInfo) {
         String doneSymbol = taskInfo.contains("[X]") ? String.valueOf(MARKED) : "o";
         String taskName = taskInfo.substring(taskInfo.indexOf("] ") + 1, taskInfo.indexOf("(from: ")).trim();
-        String eventStart = taskInfo.substring(taskInfo.indexOf("(from: ") + 7, taskInfo.indexOf(" to: "));
-        String eventEnd = taskInfo.substring(taskInfo.indexOf(" to: ") + 5, taskInfo.lastIndexOf(")"));
+        String eventStart = taskInfo.substring(taskInfo.indexOf("(from: ") + 7, taskInfo.indexOf(" to "));
+        String eventEnd = taskInfo.substring(taskInfo.indexOf(" to ") + 5, taskInfo.lastIndexOf(")"));
 
         return EVENT_SYMBOL + SEPARATOR + doneSymbol + SEPARATOR + taskName + SEPARATOR + eventStart + SEPARATOR + eventEnd;
     }
