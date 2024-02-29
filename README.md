@@ -10,6 +10,6 @@ A chatbot that helps you keep track of the tasks you need to do
 ### If you move the jar file to a different folder, remember to navigate to that folder before running any commands
 1. Download the [latest release](https://github.com/alalal47/ip/releases/tag/A-Release) of JigaChat
 2. Open a terminal of your choice and navigate to the folder where the jar file is downloaded
-3. Run the chatbot by typing java -jar JigaChatIP.jar
+3. Run the chatbot by typing `java -jar JigaChatIP.jar`
 4. Type "help" to open the help menu and learn how to use the various functions of the chatbot
 5. Type bye to exit and close the chatbot
