@@ -137,6 +137,12 @@ Here are the matching tasks in your list:
 2.[D][X] return book (by: Sunday)
 __________________________________________________
 Please enter non empty keyword after find! for example, find book
+Please enter a valid user command!
+You may refer to the user guide for more information about valid user commands :)
+Please enter a valid user command!
+You may refer to the user guide for more information about valid user commands :)
+Please enter a valid user command!
+You may refer to the user guide for more information about valid user commands :)
 __________________________________________________
 Bye. Hope to see you again soon!
 __________________________________________________
