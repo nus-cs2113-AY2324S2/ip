@@ -7,6 +7,11 @@ import Byte.task.Task;
 import Byte.task.TaskList;
 import Byte.task.ToDo;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Parser {
     private static final int TASK_TYPE_INDEX = 0;
     private static final int STATUS_INDEX = 1;
@@ -50,7 +55,8 @@ public class Parser {
                 return new ToDo(description, isDone);
             case "D":
                 String by = parts[DEADLINE_TIME_INDEX];
-                return new Deadline(description, by, isDone);
+                LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return new Deadline(description, deadlineDate, isDone);
             case "E":
                 String startTime = parts[EVENT_START_TIME_INDEX];
                 String endTime = parts[EVENT_END_TIME_INDEX];
@@ -96,8 +102,14 @@ public class Parser {
         if (by.isEmpty()) {
             throw new ByteException("The deadline date cannot be empty.");
         }
-        Task deadline = new Deadline(description, by);
-        return addTask(deadline, tasks);
+
+        try {
+            LocalDate deadlineDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Task deadline = new Deadline(description, deadlineDate);
+            return addTask(deadline, tasks);
+        } catch (DateTimeException e) {
+            throw new ByteException("Invalid date format. Please use yyyy-MM-dd.");
+        }
     }
 
     private static String addEventTask(String userInput, TaskList tasks) throws ByteException {
