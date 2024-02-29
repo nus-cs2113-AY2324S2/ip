@@ -1,10 +1,10 @@
 # JigaChat, a task tracking chatbot!
 A CLI based chatbot that helps you keep track of the tasks you need to do
-    *Remembers your previous session so you dont have to keep it running
-    *Quickly list all your tasks for a quick overview
-    *Find tasks by name
-    *Delete tasks once they are done
-    *Three different types of tasks, To Dos, Deadlines and Events to suit your needs
+    -Remembers your previous session so you dont have to keep it running
+    -Quickly list all your tasks for a quick overview
+    -Find tasks by name
+    -Delete tasks once they are done
+    -Three different types of tasks, To Dos, Deadlines and Events to suit your needs
 
 ## How to run
 ### If you move the jar file to a different folder, remember to navigate to that folder before running any commands
