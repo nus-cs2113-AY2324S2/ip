@@ -1,9 +1,7 @@
 package ip.main;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.File;
-import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -13,7 +11,7 @@ import ip.task.Deadline;
 import ip.task.Event;
 
 public class Duke {
-    private static File file = new File("./data/task_list.txt");
+    private static Storage storage;
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -27,79 +25,17 @@ public class Duke {
         System.out.println("Hello! I'm Charlie!\n" + logo);
         System.out.println("What can I do for you?");
 
-        if (! file.getParentFile().exists()) {
-            file.getParentFile().mkdir();
-        }
-        if (! file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Unable to create data file!");
-                return;
-            }
-        }
+        storage = new Storage("./data/task_list.txt");
+
 
         try {
-            readStoredData();
+            storage.readStoredData(tasks);
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
             return;
         }
         
         readInputAndExecute();
-    }
-
-    private static void readStoredData() throws FileNotFoundException {
-        Scanner s = new Scanner(file);
-        while (s.hasNext()) {
-            String str = s.nextLine();
-            String[] dataLine = str.split(" :: ");
-            try {
-                boolean isDone = (Integer.parseInt(dataLine[1]) == 1);
-
-                switch (dataLine[0]) {
-                case "T":
-                    tasks.add(new Todo(isDone, dataLine[2]));
-                    break;
-                case "D":
-                    tasks.add(new Deadline(isDone, dataLine[2], dataLine[3]));
-                    break;
-                case "E":
-                    tasks.add(new Event(isDone, dataLine[2], dataLine[3], dataLine[4]));
-                    break;
-                default:
-                    System.out.println("I have no idea what this is: " + str);
-                }
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Missing information: " + str);
-            }
-        }
-    }
-
-    private static void updateStoredData() {
-        try {
-            FileWriter fw = new FileWriter("./data/task_list.txt");
-            for (int i = 0; i < tasks.size(); i++) {
-                Task taskToWrite = tasks.get(i);
-                String isDoneString = taskToWrite.getDone() ? "1" : "0";
-                String description = taskToWrite.getDescription();
-
-                if (Todo.class.isInstance(taskToWrite)) {
-                    fw.write("T :: " + isDoneString + " :: " + description + "\n");
-                } else if (Deadline.class.isInstance(taskToWrite)) {
-                    Deadline deadlineToWrite = (Deadline) taskToWrite;
-                    fw.write("D :: " + isDoneString + " :: " + description
-                            + " :: " + deadlineToWrite.getBy() + "\n");
-                } else {
-                    Event eventToWrite = (Event) taskToWrite;
-                    fw.write("E :: " + isDoneString + " :: " + description + " :: "
-                            + eventToWrite.getFrom() + " :: " + eventToWrite.getTo() + "\n");
-                }
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Unable to update data file!");
-        }
     }
 
     private static void readInputAndExecute() {
@@ -120,19 +56,19 @@ public class Duke {
             try {
                 if (line.startsWith("mark")) {
                     markTask(line);
-                    updateStoredData();
+                    storage.updateStoredData(tasks);
                     continue;
                 }
 
                 if (line.startsWith("unmark")) {
                     unmarkTask(line);
-                    updateStoredData();
+                    storage.updateStoredData(tasks);
                     continue;
                 }
 
                 if (line.startsWith("delete")) {
                     deleteTask(line);
-                    updateStoredData();
+                    storage.updateStoredData(tasks);
                     continue;
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -145,7 +81,7 @@ public class Duke {
 
             boolean shouldUpdate = addTask(line);
             if (shouldUpdate) {
-                updateStoredData();
+                storage.updateStoredData(tasks);
             }
         }
     }
