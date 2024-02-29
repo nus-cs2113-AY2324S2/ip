@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import static suv.Task.TaskList.tasksList;
 
 public class FileStorage {
+    final static int TODO_DESCRIPTION_START_INDEX = 6;
     public static void ensureDirectoryExists(String filePath) {
         File file = new java.io.File(filePath);
         File parentDir = file.getParentFile();
@@ -56,7 +57,7 @@ public class FileStorage {
                 boolean isDone = task.contains("[X]");
                 String text = task.substring(7);
                 if(task.startsWith("[T]")){
-                    Todo newTask = new Todo(task.split("]")[1].trim());
+                    Todo newTask = new Todo(task.substring(TODO_DESCRIPTION_START_INDEX).trim());
 
                     newTask.isDone = isDone;
                     tasksList.add(newTask);

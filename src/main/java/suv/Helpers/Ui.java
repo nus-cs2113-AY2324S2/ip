@@ -52,4 +52,17 @@ public class Ui {
         }
         System.out.println(LINE);
     }
+
+    public static void printMatchingTasks(String word){
+        System.out.println(LINE + " Here are the matching tasks in your list:");
+        int matchingTasksIndex = 1;
+        for(int i = 0; i < tasksList.size(); i++){
+            int index = i + 1;
+            if(tasksList.get(i).toString().contains(word)) {
+                System.out.println(" " + matchingTasksIndex + "." + tasksList.get(i));
+                matchingTasksIndex += 1;
+            }
+        }
+        System.out.println(LINE);
+    }
 }
