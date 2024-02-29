@@ -7,7 +7,8 @@
 * Three different types of tasks, To Dos, Deadlines and Events to suit your needs
 
 ## How to run
-### If you move the jar file to a different folder, remember to navigate to that folder before running any commands
+> [!IMPORTANT]
+> ### If you move the jar file to a different folder, remember to navigate to that folder before running any commands
 
 1. Download the [latest release](https://github.com/alalal47/ip/releases/tag/A-Release) of JigaChat
 2. Make sure you have java installed
