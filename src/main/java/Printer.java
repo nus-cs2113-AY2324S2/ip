@@ -1,4 +1,7 @@
 public class Printer {
+    /**
+     * Prints all the functions that the chatbot has, as well as the commands to use them and how to use them
+     */
     protected static void printCommandList() {
         printTodoCommand();
         printDeadlineCommand();
@@ -42,6 +45,9 @@ public class Printer {
         System.out.println("find [description]                          Finds matching tasks in your list");
     }
 
+    /**
+     * Prints all the tasks in the task list
+     */
     protected static void printList() {
         if (TaskHandler.taskCounter == 0) {
             System.out.println ("Your list is empty!");

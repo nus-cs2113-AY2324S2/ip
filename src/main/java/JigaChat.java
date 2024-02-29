@@ -8,6 +8,9 @@ public class JigaChat {
     static protected DataFile previousData = new DataFile();
     static protected Parser Parser = new Parser();
 
+    /**
+     * Initialises the user's previous data from the previousData text file
+     */
     private void initialisePreviousData() {
         try {
             String input;
@@ -23,6 +26,11 @@ public class JigaChat {
         }
     }
 
+    /**
+     * Starts the chatbot, initialises the previous data as well as handles certain prints that are only used on
+     * startup
+     * @param args not expected
+     */
     public static void main(String[] args) {
         System.out.println("Hello! I'm JigaChat");
         System.out.println("What can I do for you? Type [help] to learn how to use JigaChat!");
@@ -60,7 +68,7 @@ public class JigaChat {
             String input;
             Scanner in = new Scanner(System.in, StandardCharsets.UTF_8);
             input = in.nextLine();
-            Parser.readCommand(input, chat);
+            Parser.readCommand(input);
         }
     }
 }
