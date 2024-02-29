@@ -1,5 +1,9 @@
 package gary.task;
 
+/**
+ * Deadline class deals with task with deadline as the type, performing functions specifically
+ * for a deadline task.
+ */
 public class Deadline extends Task{
     protected String by;
     public Deadline(String taskDescription, String by) {
@@ -8,11 +12,21 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    /**
+     * Take the task and get its deadline by to be returned.
+     *
+     * @return deadline by of task
+     */
     public String getBy() {
         return this.by;
     }
 
-    //function to print when user adds a task
+
+    /**
+     * print messages when user adds a task with deadline type.
+     *
+     * @param todosCount number of tasks in the array list.
+     */
     @Override
     public void printAdd(int todosCount) {
         System.out.println("Got it! I've added this task: ");
@@ -22,7 +36,11 @@ public class Deadline extends Task{
         System.out.println("Now you have " + todosCount + " tasks in your list.");
     }
 
-    //function to print when user list tasks
+    /**
+     * print task in a certain format with its details, including the deadline description and by.
+     *
+     * @param todoCount number of tasks in the array list.
+     */
     @Override
     public void printTask(int todoCount) {
         System.out.println((todoCount + 1)
