@@ -7,18 +7,29 @@ import hachi.ui.Ui;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static ArrayList<Task> tasksArrayList;
+    private final ArrayList<Task> tasksArrayList;
+    private final Ui ui;
 
     public TaskList () {
         tasksArrayList = new ArrayList<>();
+        ui = new Ui();
     }
 
     public TaskList (ArrayList<Task> tasksArrayList) {
-        TaskList.tasksArrayList = tasksArrayList;
+        this.tasksArrayList = tasksArrayList;
+        ui = new Ui();
     }
 
-    public static ArrayList<Task> getTasksArrayList() {
+    public ArrayList<Task> getTasksArrayList() {
         return tasksArrayList;
+    }
+
+    public int getSize () {
+        return tasksArrayList.size();
+    }
+
+    public Task getSpecifiedTask (int index) {
+        return tasksArrayList.get(index);
     }
 
     /**
@@ -28,12 +39,12 @@ public class TaskList {
      * @throws HachiException If the current list is empty.
      */
 
-    public static void retrieveTaskList() throws HachiException{
+    public void retrieveTaskList() throws HachiException{
         int numTasks = Task.getTotalNumTasks();
 
         HachiException.checkEmptyList(numTasks);
-        Ui.spacerInsert("medium", true);
-        Ui.printTaskList(tasksArrayList);
+        ui.spacerInsert();
+        ui.printTaskList(tasksArrayList);
     }
 
     /**
@@ -45,7 +56,7 @@ public class TaskList {
      * @param cleanInput The cleaned line of text that will be used to determine the instruction.
      */
 
-    public static void addTask(TaskType taskType, String line, String cleanInput) throws HachiException {
+    public void addTask(TaskType taskType, String line, String cleanInput) throws HachiException {
         Task toAdd;
         HachiException.checkValidDescription(line);
 
@@ -76,10 +87,10 @@ public class TaskList {
         }
 
         tasksArrayList.add(toAdd);
-        Ui.printAddTaskMessage(toAdd);
+        ui.printAddTaskMessage(toAdd);
     }
 
-    public static void deleteTask(String cleanedInput) throws HachiException {
+    public void deleteTask(String cleanedInput) throws HachiException {
         int numTasks = Task.getTotalNumTasks();
         HachiException.checkEmptyList(numTasks);
         int taskNumber = Parser.getDeleteTaskNumber(cleanedInput);
@@ -90,7 +101,7 @@ public class TaskList {
         String statusIcon = taskToDelete.getStatusIcon();
         Task.decrementTotalNumTasks();
 
-        Ui.printTaskDeleteMessage(taskType, statusIcon, taskToDelete);
+        ui.printTaskDeleteMessage(taskType, statusIcon, taskToDelete);
         tasksArrayList.remove(taskNumber - 1);
     }
 
@@ -102,9 +113,9 @@ public class TaskList {
      * @param isMark True if task is to be marked as complete, false otherwise
      */
 
-    public static void markOrUnmarkTask(int index, boolean isMark) {
+    public void markOrUnmarkTask(int index, boolean isMark) {
         tasksArrayList.get(index).setCompleteness(isMark);
-        Ui.printAfterMarkOrUnmark(tasksArrayList, index);
+        ui.printAfterMarkOrUnmark(tasksArrayList, index);
     }
 
     /**
@@ -114,12 +125,16 @@ public class TaskList {
      * @param cleanedInput Cleaned input string from user.
      */
 
-    public static void markOrUnmarkHandler(String cleanedInput) throws HachiException{
+    public void markOrUnmarkHandler(String cleanedInput) throws HachiException{
         int numTasks = Task.getTotalNumTasks();
         HachiException.checkEmptyList(numTasks);
         int taskNumber = Parser.getMarkTaskNumber(cleanedInput);
 
         HachiException.checkOutOfBounds(taskNumber);
-        TaskList.markOrUnmarkTask(taskNumber - 1, !cleanedInput.contains("UNMARK"));
+        markOrUnmarkTask(taskNumber - 1, !cleanedInput.contains("UNMARK"));
+    }
+
+    public void add (Task toAdd) {
+        tasksArrayList.add(toAdd);
     }
 }

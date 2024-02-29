@@ -12,12 +12,14 @@ import hachi.ui.Ui;
 
 public class Parser {
     private Ui ui;
+    private TaskList tasksList;
 
-    public Parser (Ui ui) {
+    public Parser (Ui ui, TaskList tasksList) {
         this.ui = ui;
+        this.tasksList = tasksList;
     }
 
-    public static String processUserCommand (String firstWord, String cleanedInput, String userInput)
+    public String processUserCommand (String firstWord, String cleanedInput, String userInput)
             throws HachiException {
 
         String userCommand = "notBye";
@@ -25,15 +27,15 @@ public class Parser {
         switch (firstWord) {
         case "MARK":
         case "UNMARK":
-            TaskList.markOrUnmarkHandler(cleanedInput);
+            tasksList.markOrUnmarkHandler(cleanedInput);
             break;
 
         case "LIST":
-            TaskList.retrieveTaskList();
+            tasksList.retrieveTaskList();
             break;
 
         case "DELETE":
-            TaskList.deleteTask(cleanedInput);
+            tasksList.deleteTask(cleanedInput);
             break;
 
         case "TODO":
@@ -49,17 +51,17 @@ public class Parser {
                 currentTask = TaskType.TODO;
             }
 
-            TaskList.addTask(currentTask, userInput, cleanedInput);
+            tasksList.addTask(currentTask, userInput, cleanedInput);
             break;
 
         case "BYE":
         case "GOODBYE":
-            Ui.printGoodbyeMessage();
+            ui.printGoodbyeMessage();
             userCommand = "BYE";
             break;
 
         case "HELP":
-            Ui.printHelpMessage();
+            ui.printHelpMessage();
             break;
 
         default:
@@ -70,7 +72,7 @@ public class Parser {
         return userCommand;
     }
 
-    public static String getFirstWordOfInput(int indexOfSpace, String cleanedInput) {
+    public String getFirstWordOfInput(int indexOfSpace, String cleanedInput) {
         String firstWord;
         if (indexOfSpace == -1) { // check for single-word inputs
             firstWord = cleanedInput;

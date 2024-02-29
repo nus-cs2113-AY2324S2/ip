@@ -2,96 +2,42 @@ package hachi;
 
 import hachi.data.HachiException;
 import hachi.data.TaskList;
-import hachi.data.task.Deadline;
-import hachi.data.task.Event;
-import hachi.data.task.Task;
-import hachi.data.task.Todo;
 import hachi.parser.Parser;
 import hachi.storage.Storage;
 import hachi.ui.Ui;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Scanner;
 
 /**
- * This program currently starts the chatbot with a greeting,
- * awaits user input for commands relating to a to-do task manager
- * and ends off the program with a goodbye message.
+ * This file represents the main class of the chatbot called Hachi
+ * and is also the entry point of the program.
  *
  * @author clarencepohh
  * @version 06/02/2024
  */
 
 public class Hachi {
-    private Ui ui;
-    private static TaskList taskList;
-    private Storage storage;
+    private static Ui ui;
+    private static TaskList tasksList;
+    private static Storage storage;
 
-    static String filePath = "hachidata/hachidata.txt";
-    protected static File folder = new File("hachidata");
 
-    public static void initializeData() throws SecurityException {
-        // to move to Storage class
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-    }
-
+    /**
+     * The constructor for Hachi class.
+     * Initializes the required Ui, Storage and TaskList classes.
+     *
+     * @param filePath The file path for save data of the user's task list.
+     */
     
-    private static void save(ArrayList<Task> taskArrayList) throws IOException {
-        // to move to Storage class
+    public Hachi(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            FileWriter fw = new FileWriter(filePath, false);
-            fw.write("");
-            fw.close(); // to clear text file
-        } catch (IOException e) {
-            System.out.println("\n\tCreating new task list save...");
-        }
-
-        FileWriter fw = new FileWriter(filePath);
-        for (Task task : taskArrayList) {
-            if (task != null) {
-                fw.write(task.getSaveFormat() + "\n");
-            } else break;
-        }
-        fw.close();
-    }
-
-    private static void loadFile(ArrayList<Task> taskArrayList) throws FileNotFoundException, HachiException {
-        // to move to Storage class
-        File taskFile = new File(filePath);
-        Scanner s = new Scanner(taskFile);
-
-        while (s.hasNext()) {
-            String[] lines = s.nextLine().split(" \\| ");
-            Task toAdd;
-
-            switch (lines[0]){
-            case "T":
-                toAdd = new Todo(lines[2]);
-                break;
-
-            case "D":
-                toAdd = new Deadline(lines[2], lines[3]);
-                break;
-
-            case "E":
-                toAdd = new Event(lines[2], lines[3], lines[4]);
-                break;
-
-            default:
-                throw new HachiException(HachiException.CORRUPTED_SAVE_MESSAGE);
-            }
-
-            if (lines[1].equals("X")) {
-                toAdd.setCompleteness(true);
-            }
-            taskArrayList.add(toAdd);
+            tasksList = new TaskList(storage.load());
+        } catch (HachiException | FileNotFoundException e) {
+            ui.printFileLoadingError();
         }
     }
 
@@ -110,51 +56,42 @@ public class Hachi {
      * <p>6. add an event to the list of task with "event <event name> /from <start date> /to <end date>"
      * <p>7. retrieve a list of chatbot commands with "help"
      *
-     * @param args Command line arguments - not used.
      */
 
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        Storage storage = new Storage();
-        taskList = new TaskList();
+    public void runHachi() {
+        Parser parser = new Parser(ui, tasksList);
 
-        Ui.spacerInsert("medium", false);
-        Ui.printGreetingMessage();
-        Ui.printHelpMessage();
-        initializeData();
-
-        // maybe place load file try-catch block in Hachi constructor
-        try {
-            loadFile(TaskList.getTasksArrayList());
-        } catch (FileNotFoundException e) {
-            System.out.println("Error finding save file. Creating empty task list.");
-        } catch (HachiException e) {
-            System.out.println("Save file is corrupted. Creating empty task list.");
-        }
+        ui.spacerInsert();
+        ui.printGreetingMessage();
+        ui.printHelpMessage();
+        storage.initializeData();
 
         String command = null;
 
         do {
             try {
-                // extract main TRY block as Parser method
-                String userInput = Ui.getUserInput();
-                String cleanedInput = Ui.cleanUserInput(userInput);
+                String userInput = ui.getUserInput();
+                String cleanedInput = ui.cleanUserInput(userInput);
                 String firstWord;
                 int indexOfSpace = cleanedInput.indexOf(" ");
-                firstWord = Parser.getFirstWordOfInput(indexOfSpace, cleanedInput);
+                firstWord = parser.getFirstWordOfInput(indexOfSpace, cleanedInput);
 
-                command = Parser.processUserCommand(firstWord, cleanedInput, userInput);
+                command = parser.processUserCommand(firstWord, cleanedInput, userInput);
             } catch (HachiException e) {
                 System.out.println(e.getMessage());
             }
             
-            Ui.spacerInsert("medium", true);
+            ui.spacerInsert();
         } while (!Objects.equals(command, "BYE"));
 
         try {
-            save(TaskList.getTasksArrayList());
+            storage.saveHandler();
         } catch (IOException e) {
             System.out.println("There was an error saving tasks.");
         }
+    }
+
+    public static void main(String[] args) {
+        new Hachi("hachidata/hachidata.txt").runHachi();
     }
 }

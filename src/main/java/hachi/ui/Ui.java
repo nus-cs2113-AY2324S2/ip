@@ -21,7 +21,7 @@ public class Ui {
      * with the bot's name, Hachi.
      */
 
-    public static void printGreetingMessage() {
+    public void printGreetingMessage() {
         String logo = "._. ._.  ._____.  ._____.  ._. ._.  ._.\n"
                 + "| | | |  | ._. |  |  ___|  | | | |  | |\n"
                 + "| |_| |  | |_| |  | |      | |_| |  | |\n"
@@ -29,7 +29,7 @@ public class Ui {
                 + "|_| |_|  |_| |_|  |_____|  |_| |_|  |_|\n";
 
         System.out.println("Hey, Hachi Here!\n" + logo + "How can I assist you today?\n");
-        spacerInsert("medium", false);
+        spacerInsert();
     }
 
     /**
@@ -38,8 +38,8 @@ public class Ui {
      *
      */
 
-    public static void printHelpMessage() {
-        spacerInsert("medium", true);
+    public void printHelpMessage() {
+        spacerInsert();
         System.out.println("You can use the following commands:");
         System.out.println("\t'list' to retrieve your current list of tasks,");
         System.out.println("\t'mark <#>' to mark task number # as complete,");
@@ -50,42 +50,21 @@ public class Ui {
                 "with a start and end date,");
         System.out.println("\t'bye' to stop chatting :('");
         System.out.println("\tAnd if you need to see this again, type 'help'!");
-        spacerInsert("medium", true);
+        spacerInsert();
     }
 
     /**
      * Prints to the console a spacer line made of tildes.
      * Function call has option to choose length of the spacer,
      * as well as whether there is a 4-space indent before the spacer.
-     *
-     * @param length The desired length of the spacer line. Medium is chosen by default.
-     * @param hasTab Whether the spacer line has a 4-space indent.
      */
 
-    public static void spacerInsert(String length, boolean hasTab) {
-        String spacer;
-
-        if (hasTab) {
-            System.out.print("\t");
-        }
-
-        switch (length) {
-        case "small": // 20 tildes
-            spacer = "~~~~~~~~~~~~~~~~~~~~";
-            break;
-        case "medium": // 40 tildes
-        default:
-            spacer = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-            break;
-        case "large": // 60 tildes
-            spacer = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-            break;
-        }
-
-        System.out.println(spacer);
+    public void spacerInsert() {
+        System.out.print("\t");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public static void printTaskDeleteMessage(String taskType, String statusIcon, Task taskToDelete) {
+    public void printTaskDeleteMessage(String taskType, String statusIcon, Task taskToDelete) {
         System.out.println("\tSure, I've done as you requested.");
         System.out.print("\t[" + taskType + "] ");
         System.out.print("[" + statusIcon + "] " + taskToDelete.getName());
@@ -96,19 +75,19 @@ public class Ui {
      * Prints to the console a goodbye message for the user.
      */
 
-    public static void printGoodbyeMessage() {
+    public void printGoodbyeMessage() {
         System.out.println("\tGoodbye! Hope you have a marvelous day.");
     }
 
-    public static String getUserInput() {
+    public String getUserInput() {
         return in.nextLine();
     }
 
-    public static String cleanUserInput(String input) {
+    public String cleanUserInput(String input) {
         return input.toUpperCase().trim();
     }
 
-    public static void printAfterMarkOrUnmark (ArrayList<Task> tasksArrayList, int index) {
+    public void printAfterMarkOrUnmark (ArrayList<Task> tasksArrayList, int index) {
         Task currentTask = tasksArrayList.get(index);
         String taskType = currentTask.getTaskType();
         String statusIcon = currentTask.getStatusIcon();
@@ -120,11 +99,11 @@ public class Ui {
         System.out.println(currentTask.getName());
     }
 
-    public static void printAddTaskMessage(Task toAdd) {
+    public void printAddTaskMessage(Task toAdd) {
         System.out.println("\tAdded to list: " + toAdd.getName());
     }
 
-    public static void printTaskList(ArrayList<Task> tasksArrayList) {
+    public void printTaskList(ArrayList<Task> tasksArrayList) {
         System.out.println("\tThe following are in your list:");
         tasksArrayList.forEach(task -> {
             String taskType = task.getTaskType();
@@ -135,5 +114,9 @@ public class Ui {
             System.out.print("[" + statusIcon + "] ");
             System.out.println(task.getName());
         });
+    }
+
+    public void printFileLoadingError () {
+        System.out.println("There was an error finding save files. Creating a new save...");
     }
 }

@@ -16,21 +16,22 @@ import java.util.Scanner;
 
 
 public class Storage {
-    private static String filePath = "hachidata/hachidata.txt";
-    private static ArrayList<Task> tasksArrayList;
-    protected static File folder = new File("hachidata");
+    private String filePath;
+    private TaskList tasksList;
+    protected File folder = new File("hachidata");
 
-    public Storage () {
-        tasksArrayList = new ArrayList<>();
+    public Storage (String filePath) {
+        this.filePath = filePath;
+        this.tasksList = new TaskList();
     }
 
-    public static void initializeData() throws SecurityException{
+    public void initializeData() throws SecurityException{
         if (!folder.exists()) {
             folder.mkdir();
         }
     }
 
-    private static void saveHandler() throws IOException {
+    public void saveHandler() throws IOException {
         initializeData();
 
         try {
@@ -42,19 +43,16 @@ public class Storage {
         }
 
         FileWriter fw = new FileWriter(filePath);
-        if (tasksArrayList != null) {
-            for (Task task : tasksArrayList) {
-                if (task != null) {
-                    fw.write(task.getSaveFormat() + "\n");
-                } else {
-                    break;
-                }
+
+        if (tasksList != null) {
+            for (int i = 0; i < tasksList.getSize(); i++) {
+                fw.write((tasksList.getSpecifiedTask(i).getSaveFormat()) + "\n");
             }
         }
         fw.close();
     }
 
-    public static void readFile() throws FileNotFoundException, HachiException {
+    public void readFile() throws FileNotFoundException, HachiException {
         File taskFile = new File(filePath);
         Scanner s = new Scanner(taskFile);
 
@@ -83,17 +81,12 @@ public class Storage {
                 toAdd.setCompleteness(true);
             }
 
-            tasksArrayList.add(toAdd);
+            tasksList.add(toAdd);
         }
     }
 
-    public static void retrieveFileOnStartup() {
-        try {
-            readFile();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error finding save file. Creating empty task list.");
-        } catch (HachiException e) {
-            System.out.println("Save file is corrupted. Creating empty task list.");
-        }
+    public ArrayList<Task> load() throws HachiException, FileNotFoundException {
+        readFile();
+        return tasksList.getTasksArrayList();
     }
 }
