@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +11,9 @@ public class ChatBot {
     private String chatbotName;
     private List<Task> tasks;
     private Scanner in;
+    private static final String FILENAME = "text.txt";
+    private static final String DIRECTORY = "src/data";
+
 
     public ChatBot(String chatbotName) {
         this.chatbotName = chatbotName;
@@ -52,14 +56,28 @@ public class ChatBot {
         }
     }
 
-    public void saveTasksToFile(String filename) {
-        Path filePath = Paths.get("src", "data", filename); // Use the filename provided as an argument
+    public void saveTasksToFile() {
+        // Get the current working directory
+        String currentDirectory = System.getProperty("user.dir");
+
+        // Define the relative path to the file
+        String relativeFilePath = Paths.get(currentDirectory, DIRECTORY, FILENAME).toString();
+
+        Path filePath = Paths.get(relativeFilePath);
+
         try {
-            Files.deleteIfExists(filePath); // Delete existing file if it exists
-            Files.createFile(filePath); // Create a new file
+            // Create the parent directory if it doesn't exist
+            Files.createDirectories(filePath.getParent());
+
+            // Check if the file already exists
+            if (!Files.exists(filePath)) {
+                // Create the file if it doesn't exist
+                Files.createFile(filePath);
+            }
+
+            // Write tasks to the file
             for (Task task : tasks) {
-                // Convert each task to a string representation and write it to the file
-                Files.write(filePath, (task.toFileString() + System.lineSeparator()).getBytes(), java.nio.file.StandardOpenOption.APPEND);
+                Files.write(filePath, (task.toFileString() + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
             }
             System.out.println("Tasks have been saved to " + filePath);
         } catch (IOException e) {
@@ -67,8 +85,6 @@ public class ChatBot {
             e.printStackTrace();
         }
     }
-
-
 
     private void deleteTask(String taskNumber) throws ChatBotExceptions{
 
@@ -206,6 +222,6 @@ public class ChatBot {
 
         ChatBot chatBot = new ChatBot("EDITH");
         chatBot.startChat();
-        chatBot.saveTasksToFile("text.txt");
+        chatBot.saveTasksToFile();
     }
 }
