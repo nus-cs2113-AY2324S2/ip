@@ -68,7 +68,7 @@ public class TaskList {
             // parse deadline here
             int indexOfName = cleanInput.indexOf("DEADLINE") + 9;
             int indexOfBy = cleanInput.indexOf("/BY") + 3;
-            HachiException.checkDeadlineByDate(indexOfBy);
+            HachiException.checkDeadlineByDate(indexOfBy, line);
 
             String name = line.substring(indexOfName, indexOfBy - 3).trim();
             String byDate = line.substring(indexOfBy).trim();

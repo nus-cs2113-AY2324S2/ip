@@ -41,6 +41,9 @@ public class HachiException extends Exception{
 
     public static void checkDeadlineByDate (int indexOfBy) throws HachiException {
         if (indexOfBy == 2) {
+    public static void checkDeadlineByDate (int indexOfBy, String line) throws HachiException {
+        String[] afterBySubstring = line.split("/by");
+        if (afterBySubstring.length == 1 || indexOfBy == 2 || afterBySubstring[1].isBlank()) {
             throw new HachiException(MISSING_DEADLINE_BY_DATE_MESSAGE);
         }
     }
