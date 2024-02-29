@@ -1,4 +1,5 @@
 import InvalidInputExceptions.InvalidDeadlineException;
+import InvalidInputExceptions.InvalidEventException;
 import InvalidInputExceptions.InvalidInputException;
 
 import java.time.LocalDateTime;
@@ -53,12 +54,12 @@ public class Parser {
             break;
 
         case "event":
-            int fromIndex = input.indexOf("/from ");
-            int toIndex = input.indexOf("/to ");
+            int fromIndex = input.indexOf(" /from");
+            int toIndex = input.indexOf(" /to");
 
-            taskName = input.substring(spaceIndex + 1, fromIndex - 1);
-            String from = input.substring(fromIndex + 6, toIndex - 1);
-            String to = input.substring(toIndex + 4);
+            taskName = input.substring(spaceIndex + 1, fromIndex);
+            String from = input.substring(fromIndex + 7, toIndex);
+            String to = input.substring(toIndex + 5);
             parsed[1] = taskName;
             parsed[2] = from;
             parsed[3] = to;
@@ -84,28 +85,75 @@ public class Parser {
         throw new InvalidInputException("\tWrong command usage or no such command!");
     }
 
-    private static void validateEventInput(String input) throws InvalidInputException{
+    private static void validateEventInput(String input) throws InvalidEventException {
         int spaceIndex = input.indexOf(" ");
-        int fromIndex = input.indexOf("/from");
-        int toIndex = input.indexOf("/to");
+        int fromIndex = input.indexOf(" /from");
+        int toIndex = input.indexOf(" /to");
 
-        if (fromIndex == spaceIndex + 1) {
-            throw new InvalidInputException("\tMissing task name!");
+        if (fromIndex == spaceIndex || fromIndex == spaceIndex + 1) {
+            //case where there is no task name input
+            throw new InvalidEventException("\tMissing TASK_NAME!");
+        }
 
-        } else if (fromIndex == -1) {
-            throw new InvalidInputException("\tMissing '/from' flag!");
+        if (fromIndex == -1) {
+            throw new InvalidEventException("\tMissing '/from' flag!");
+        }
 
-        } else if (fromIndex + 6 > input.length() || fromIndex + 6 == toIndex) {
-            throw new InvalidInputException("\tMissing /from argument!");
+        if (toIndex == -1) {
+            throw new InvalidEventException("\tMissing '/to' flag!");
+        }
 
-        } else if (toIndex == -1) {
-            throw new InvalidInputException("\tMissing '/to' flag!");
+        if (fromIndex > toIndex) {
+            //case where /to is placed in front of /from
+            throw new InvalidEventException("\tWrong order of flags!");
+        }
 
-        } else if (toIndex + 4 > input.length()) {
-            throw new InvalidInputException("\tMissing '/to' argument!");
+        String taskName = input.substring(spaceIndex + 1, fromIndex).strip();
+        if (taskName.isEmpty()) {
+            throw new InvalidEventException("\tMissing TASK_NAME!");
+        }
 
-        } else if (fromIndex > toIndex) {
-            throw new InvalidInputException("\tWrong order of flags!");
+        if (fromIndex + 7 > input.length()) {
+            //case where input ends immediately after /from
+            throw new InvalidEventException("\tMissing START_TIME!");
+        }
+
+        if (fromIndex + 7 >= toIndex) {
+            //case where argument for /from is missing
+            throw new InvalidEventException("\tMissing START_TIME!");
+        }
+
+        if (input.charAt(fromIndex + 6) != ' ') {
+            throw new InvalidEventException("\tInvalid format! Please provide a space between /from and START_TIME");
+        }
+
+        String from = input.substring(fromIndex + 7, toIndex);
+        LocalDateTime start;
+        try {
+            start = LocalDateTime.parse(from, CheeseBot.INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new InvalidEventException("\tWrong time and date format for START_TIME!");
+        }
+
+        if (toIndex + 4 >= input.length()) {
+            //case where input ends immediately after /to
+            throw new InvalidEventException("\tMissing END_TIME!");
+        }
+
+        if (input.charAt(toIndex + 4) != ' ') {
+            throw new InvalidEventException("\tInvalid format! Please provide a space between /to and END_TIME");
+        }
+
+        String to = input.substring(toIndex + 5);
+        LocalDateTime end;
+        try {
+            end = LocalDateTime.parse(to, CheeseBot.INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new InvalidEventException("\tWrong time and date format for END_TIME!");
+        }
+
+        if (start.isAfter(end)) {
+            throw new InvalidEventException("\tSTART_TIME cannot be after END_TIME!");
         }
     }
 
