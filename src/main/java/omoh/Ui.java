@@ -10,12 +10,18 @@ import omoh.tasktypes.Todo;
 import java.util.Scanner;
 
 public class Ui {
-    //Method reads in what user types
-    //If bye is not typed, we check 2 conditions
-    //if list is typed, list out all tasks
-    //if mark or unmark is typed, mark or unmark the task in tasklist
-    //if none of the above, add the typed input to task list
-    //If bye is typed, function exits
+    /**
+     * Reads user input from the console and performs corresponding actions based on the input.
+     * The method continues reading input until the user enters "bye".
+     * Actions performed based on input:
+     * - If input is empty, prompts the user to enter a non-empty input.
+     * - If input is "list", prints all tasks.
+     * - If input starts with "deadline", adds a deadline task.
+     * - If input starts with "todo", adds a todo task.
+     * - If input starts with "event", adds an event task.
+     * - If input starts with "mark", "unmark", or "delete", modifies task status or deletes a task.
+     * - Otherwise, adds a general task.
+     */
     public static void readUserInput() {
         String line;
         Scanner in = new Scanner(System.in);
