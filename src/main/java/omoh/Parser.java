@@ -7,8 +7,15 @@ import omoh.tasktypes.Deadline;
 import omoh.tasktypes.Event;
 
 public class Parser {
-
-    //method that extracts the task number to mark or unmark
+    /**
+     * Extracts the task number from the input string.
+     * Used when user wants to mark tasks or delete tasks
+     *
+     * @param input The input string containing the task number.
+     * @return The extracted task number.
+     * @throws NumberFormatException if the task number is not a valid integer.
+     * @throws EmptyTaskNumberException if the input string is empty after removing the keyword.
+     */
     public static int extractTaskNumber(String input) throws NumberFormatException, EmptyTaskNumberException {
         String keyword;
         if (input.startsWith("mark")) {
@@ -26,7 +33,13 @@ public class Parser {
         return taskNumber;
     }
 
-    //returns the Task and due date for Deadline
+    /**
+     * Extracts the task description and due date for a Deadline task from the input string.
+     *
+     * @param input The input string containing the task description and due date.
+     * @return The extracted Deadline task with its description and due date.
+     * @throws IllegalDeadlineInput if the input string does not follow the required format.
+     */
     public static Deadline extractTaskAndDueDate (String input) throws IllegalDeadlineInput {
         //splits string according to /by keyword
         String[] parts = input.split("/by");
@@ -43,7 +56,13 @@ public class Parser {
         return taskAndDeadlineString;
     }
 
-
+    /**
+     * Extracts the event details from the input string.
+     *
+     * @param input The input string containing the event description, start date, and end date.
+     * @return The extracted Event object with its description, start date, and end date.
+     * @throws IllegalEventInput if the input string does not follow the required format.
+     */
     public static Event extractEvent (String input) throws IllegalEventInput {
         //splits string according to /by keyword
         String[] parts = input.split("/from|/to");
@@ -63,5 +82,4 @@ public class Parser {
         }
         return eventDetails;
     }
-
 }
