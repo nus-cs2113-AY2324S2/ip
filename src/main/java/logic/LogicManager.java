@@ -27,12 +27,9 @@ public class LogicManager {
     private int getTaskIndex (String taskIndexString) throws InvalidTaskIndex {
         try {
             int taskIndex = Integer.parseInt(taskIndexString);
-            if (!this.listKeeper.isValidTaskIndex(taskIndex)) {
-                throw new InvalidTaskIndex();
-            }
             return taskIndex;
         } catch (NumberFormatException e) {
-            throw new InvalidTaskIndex();
+            throw new InvalidTaskIndex("You must specify an integer as the task index");
         }
     }
 
@@ -74,9 +71,7 @@ public class LogicManager {
             EmptyTaskDescription, InvalidTaskArguments, Confusion {
 
         String[] words = currentInput.split(" ");
-        if (!Keywords.doosInputHaveCorrectNumOfArguments(words)) {
-            throw new IllegalNumberOfArguments();
-        }
+        Keywords.verifyInputSize(words);
 
         String commandType = words[0];
         switch (commandType) {

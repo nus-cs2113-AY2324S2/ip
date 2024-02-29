@@ -1,5 +1,8 @@
 package ui;
 
+import exceptions.IllegalNumberOfArguments;
+import tasks.ListKeeper;
+
 public class Keywords {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
@@ -34,17 +37,45 @@ public class Keywords {
         }
     }
 
+    private static String getSampleInput(String keyword) {
+        switch (keyword) {
+        case Keywords.LIST:
+            return ListKeeper.getSampleListCommand();
+        case Keywords.DELETE:
+            return ListKeeper.getSampleDeleteCommand();
+        case Keywords.MARK:
+            return ListKeeper.getSampleMarkCommand();
+        case Keywords.UNMARK:
+            return ListKeeper.getSampleUnmarkCommand();
+        default:
+            return "";
+        }
+    }
+
     private static boolean hasInputSizeRequirements(String commandType) {
         return commandType.equals(Keywords.LIST) || commandType.equals(Keywords.DELETE)
                 || commandType.equals(Keywords.MARK) || commandType.equals(Keywords.UNMARK);
     }
 
-    public static boolean doosInputHaveCorrectNumOfArguments(String[] words) {
+    public static boolean doesInputHaveCorrectNumOfArguments(String[] words) {
         String commandType = words[0];
         if (Keywords.hasInputSizeRequirements(commandType)) {
             int numOfArguments = words.length;
             return numOfArguments == Keywords.getExpectedInputSize(commandType);
         }
         return true;
+    }
+
+    public static void verifyInputSize(String[] words) throws IllegalNumberOfArguments {
+        String commandType = words[0];
+        if (!Keywords.hasInputSizeRequirements(commandType)) {
+            return;
+        }
+        int numOfArgumentsSupplied = words.length;
+        int numOfArgumentsExpected = Keywords.getExpectedInputSize(commandType);
+        if (numOfArgumentsSupplied == numOfArgumentsExpected) {
+            return;
+        }
+        throw new IllegalNumberOfArguments(numOfArgumentsSupplied, numOfArgumentsExpected, getSampleInput(commandType));
     }
 }
