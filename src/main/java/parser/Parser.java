@@ -7,6 +7,11 @@ import storage.FileStorage;
 
 import java.io.IOException;
 
+/**
+ * The Parser class handles user input by parsing it to execute the
+ * correct commands.
+ */
+
 public class Parser {
     public static final String EXIT_COMMAND = "bye";
     public static final String LIST_COMMAND = "list";
@@ -16,6 +21,16 @@ public class Parser {
     public static final String MARK_COMMAND = "mark";
     public static final String UNMARK_COMMAND = "unmark";
     public static final String DELETE_COMMAND = "delete";
+
+    /**
+     * Scans the user input for the appropriate commands and handles them
+     * accordingly.
+     * @param input the input from the user
+     * @param tasks the ArrayList of tasks
+     * @throws NullPointerException when there is no user input
+     * @throws IOException when there is an error with saving to the file
+     * @throws BaronException when there is an error with the user input
+     */
 
     public static void parseInput(String input, TaskList tasks) throws NullPointerException, IOException, BaronException {
         String[] inputArray = input.split(" ", 2);

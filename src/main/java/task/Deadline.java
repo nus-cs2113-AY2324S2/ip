@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * Representation of a Deadline task.
+ */
+
 public class Deadline extends Task {
     private String deadline;
 

@@ -12,6 +12,11 @@ import baronException.EventMissingToException;
 
 import parser.Parser;
 
+/**
+ * The TaskList class allows users manage tasks by adding, deleting and marking
+ * them as done or undone.
+ */
+
 public class TaskList {
     public static final String TODO_TASK = "T";
     public static final String DEADLINE_TASK = "D";
@@ -37,6 +42,10 @@ public class TaskList {
         taskCount += 1;
     }
 
+    /**
+     * Prints all current tasks in the task list.
+     */
+
     public void displayTasksList() {
         if (tasks.isEmpty()) {
             System.out.println("\tYour list does not contain any tasks.");
@@ -51,6 +60,12 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Marks a task as done.
+     * @param taskIndex the number of the task to be marked as done
+     * @throws IndexOutOfBoundsException when the index is out of range
+     */
+
     public void markTask(int taskIndex) throws IndexOutOfBoundsException {
         try {
             tasks.get(taskIndex).markAsDone();
@@ -58,6 +73,12 @@ public class TaskList {
             System.out.println("Invalid task number. Please enter a valid task number\n");
         }
     }
+
+    /**
+     * Marks a task as undone.
+     * @param taskIndex the number of the task to be marked as undone
+     * @throws IndexOutOfBoundsException when the index is out of range
+     */
 
     public void unmarkTask(int taskIndex) throws IndexOutOfBoundsException {
         try {
@@ -84,6 +105,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     * @param taskIndex the index of the task to be removed
+     */
+
     public void deleteTask(int taskIndex) {
         try {
             Task task = tasks.get(taskIndex);
@@ -98,6 +124,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Increments the task count when a valid task is added and prints the
+     * details of the task.
+     */
+
     public void validTaskAdded() {
         taskCount += 1;
         System.out.println("\tGot it. I've added this task:");
@@ -105,6 +136,12 @@ public class TaskList {
         System.out.println("\tNow you have " + taskCount
                 + (taskCount == 1 ? " task" : " tasks") + " in the list.\n");
     }
+
+    /**
+     * Adds a new ToDo task to the task list.
+     * @param userInput the string containing the ToDo details
+     * @throws ArrayIndexOutOfBoundsException when the ToDo description is empty
+     */
 
     public void handleToDo(String[] userInput) throws ArrayIndexOutOfBoundsException {
         try {
@@ -117,6 +154,12 @@ public class TaskList {
             System.out.println("Error: " + e.getMessage() + "\n");
         }
     }
+
+    /**
+     * Adds a new Deadline task to the task list.
+     * @param userInput the string containing the Deadline details
+     * @throws ArrayIndexOutOfBoundsException when the Deadline description is empty
+     */
 
     public void handleDeadline(String[] userInput) throws ArrayIndexOutOfBoundsException {
         try {
@@ -136,6 +179,12 @@ public class TaskList {
             System.out.println("Error: " + e.getMessage() + "\n");
         }
     }
+
+    /**
+     * Adds a new Event task to the task list.
+     * @param userInput the string containing the Event details
+     * @throws ArrayIndexOutOfBoundsException when the Event description is empty
+     */
 
     public void handleEvent(String[] userInput) throws ArrayIndexOutOfBoundsException {
         try {
@@ -162,6 +211,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Loads existing data on file and converts them into their correct type of
+     * tasks and their correct descriptions.
+     * @param inputArray the string containing the type of task and its details
+     */
+
     public static void readTaskFromFile(String inputArray) {
         String[] taskDetails = inputArray.split("\\|");
         String status = taskDetails[1].trim();
@@ -176,7 +231,7 @@ public class TaskList {
             Task tempDeadline = new Deadline(description, deadline);
             tempDeadline.setDone(status);
             tasks.add(tempDeadline);
-        } else {
+        } else if (inputArray.startsWith(EVENT_TASK)) {
             String eventInfo = taskDetails[3].trim();
             String[] eventParts = eventInfo.split("\\s+", 2);
             String eventStart = eventParts[0];
@@ -184,6 +239,8 @@ public class TaskList {
             Task tempEvent = new Event(description, eventStart, eventEnd);
             tempEvent.setDone(status);
             tasks.add(tempEvent);
+        } else {
+            System.out.println("Invalid data in file.");
         }
         incrementTaskCount();
     }
