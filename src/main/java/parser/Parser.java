@@ -16,6 +16,7 @@ public class Parser {
     public static final String MARK_COMMAND = "mark";
     public static final String UNMARK_COMMAND = "unmark";
     public static final String DELETE_COMMAND = "delete";
+    public static final String FIND_COMMAND = "find";
 
     public static void parseInput(String input, TaskList tasks) throws NullPointerException, IOException, BaronException {
         String[] inputArray = input.split(" ", 2);
@@ -41,6 +42,8 @@ public class Parser {
         } else if (input.startsWith(DELETE_COMMAND)) {
             int taskIndex = Integer.parseInt(inputArray[1]) - 1;
             tasks.deleteTask(taskIndex);
+        } else if (input.startsWith(FIND_COMMAND)) {
+            tasks.findTasks(inputArray);
         } else {
             System.out.println("Sorry but that is not a valid command. Please enter a valid command.");
         }
