@@ -86,6 +86,8 @@ public class Storage {
     public void readFromInputFile(File inFile) throws FileNotFoundException {
         Scanner scanner = new Scanner(inFile);
 
+        int tasksLoaded = 0;
+
         while (scanner.hasNext()) {
             String nextLine = scanner.nextLine();
             String[] arguments = nextLine.split(" \\| ");
@@ -114,6 +116,11 @@ public class Storage {
                 TASKS_LIST.addTask(newEvent);
                 break;
             }
+            tasksLoaded++;
+        }
+
+        if (tasksLoaded > 0) {
+            System.out.println("\tSuccessfully loaded " + tasksLoaded + " tasks from save file.");
         }
         scanner.close();
     }

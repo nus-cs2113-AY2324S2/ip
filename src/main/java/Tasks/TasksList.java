@@ -11,10 +11,7 @@ import static java.util.stream.Collectors.toList;
 public class TasksList {
     private final ArrayList<Task> TASKS = new ArrayList<>();
 
-    /**
-     * Lists all the tasks stored in the array of tasks.
-     */
-    public void printFilteredList(ArrayList<Task> filteredList) {
+    private void printFilteredList(ArrayList<Task> filteredList) {
         if (filteredList.isEmpty()) {
             System.out.println("\tThere are no matches!");
             return;
@@ -27,11 +24,6 @@ public class TasksList {
             i += 1;
         }
     }
-    public void find(String[] arguments) {
-        String keyword = arguments[1].toLowerCase();
-        ArrayList<Task> filteredList = filterTasksByKeyword(keyword);
-        printFilteredList(filteredList);
-    }
 
     private ArrayList<Task> filterTasksByKeyword(String keyword) {
         return (ArrayList<Task>) TASKS.stream()
@@ -39,11 +31,16 @@ public class TasksList {
                 .collect(toList());
     }
 
-    public void listTasks() {
-        if (isTasksListEmpty()) {
-            return;
-        }
-        printTasksList();
+    /**
+     * Searches the array of tasks for tasks that contains the keyword. Then prints out in a similar way to the list
+     * command. Searching is not case-sensitive.
+     *
+     * @param arguments Arguments for the find command. Specifically only the keyword in arguments[1].
+     */
+    public void find(String[] arguments) {
+        String keyword = arguments[1].toLowerCase();
+        ArrayList<Task> filteredList = filterTasksByKeyword(keyword);
+        printFilteredList(filteredList);
     }
 
     /**
@@ -53,8 +50,6 @@ public class TasksList {
      */
     public void addTask(Task newTask) {
         TASKS.add(newTask);
-        System.out.println("\tYou have added: " + newTask.getTaskName());
-        System.out.println("\tYou have a total of " + TASKS.size() + " completed and uncompleted tasks.");
     }
 
     private void printTasksList() {
@@ -84,6 +79,16 @@ public class TasksList {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Lists out all the tasks that are currently stored.
+     */
+    public void listTasks() {
+        if (isTasksListEmpty()) {
+            return;
+        }
+        printTasksList();
     }
 
     /**
@@ -141,15 +146,13 @@ public class TasksList {
      * task number of the task in the current most updated list which the user wishes to delete.
      *
      * @param arguments The array containing arguments supplied by user for the delete command.
+     * @return The task that was deleted
      */
-    public void delete(String[] arguments) {
+    public Task delete(String[] arguments) {
         int taskNumber = Integer.parseInt(arguments[1]);
         Task taskToDelete = TASKS.get(taskNumber);
-
         TASKS.remove(taskToDelete);
-        System.out.println("\t Done! I have deleted the following task.");
-        System.out.println(taskToDelete);
-        System.out.println("\tNow you have " + TASKS.size() + " tasks in your list");
+        return taskToDelete;
     }
 
     /**
@@ -184,6 +187,12 @@ public class TasksList {
         fw.close();
     }
 
+    /**
+     * Used to enquire how many tasks are currently stored in the array of tasks. Returns an integer corresponding to
+     * size of the array of tasks.
+     *
+     * @return the number of tasks in the array of tasks.
+     */
     public int getNumberOfTasks() {
         return TASKS.size();
     }

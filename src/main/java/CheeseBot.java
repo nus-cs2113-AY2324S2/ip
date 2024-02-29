@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class CheeseBot {
     protected final static TasksList TASKS_LIST = new TasksList();
-    private final Parser PARSER = new Parser();
-    private final Ui UI = new Ui();
+    private static final Parser PARSER = new Parser();
+    protected static final Ui UI = new Ui();
     private static final Storage STORAGE = new Storage();
     private final static String inFilePath = "./data/CheeseBot.txt";
     private final static String outFilePath = "./data/temp.txt";
@@ -41,7 +41,8 @@ public class CheeseBot {
             break;
 
         case "delete":
-            TASKS_LIST.delete(arguments);
+            Task deletedTask = TASKS_LIST.delete(arguments);
+            UI.printDeleted(deletedTask, TASKS_LIST.getNumberOfTasks());
             break;
 
         case "find":
@@ -72,13 +73,14 @@ public class CheeseBot {
     }
 
     private void run() {
-        UI.printGreeting();
+        UI.printDivider();
         try {
             STORAGE.readFromInputFile(inFile);
         } catch (FileNotFoundException e) {
             STORAGE.createFile(inFile);
         }
         STORAGE.createFile(outFile);
+        UI.printGreeting();
         UI.printDivider();
         inputLoop();
         STORAGE.storeData(inFile, outFile);
@@ -95,7 +97,6 @@ public class CheeseBot {
      *
      * @param arguments The required parsed arguments for each specific task type.
      */
-    
     public static void addTask(String[] arguments) {
         String command = arguments[0];
         String taskName = arguments[1];
@@ -116,5 +117,6 @@ public class CheeseBot {
             TASKS_LIST.addTask(new Event(taskName, start, end));
             break;
         }
+        UI.printAdded(taskName, TASKS_LIST.getNumberOfTasks());
     }
 }

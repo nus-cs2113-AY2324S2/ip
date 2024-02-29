@@ -1,3 +1,6 @@
+import Tasks.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -8,15 +11,25 @@ public class Ui {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final String DIVIDER = "\t-------------------------------------------------------------------";
 
+    /**
+     * Prints out a line of dashes to the command-line interface. Used to make the screen neater.
+     */
     public void printDivider() {
         System.out.println(DIVIDER);
     }
+
+    /**
+     * Prints out the greeting when CheeseBot is booted up. Used to welcome the user.
+     */
     public void printGreeting() {
         printDivider();
         String greeting = "\tHello! I'm CheeseBot\n" + "\tWhat can I do for you?";
         System.out.println(greeting);
     }
 
+    /**
+     * Prints out the farewell when user types in "bye" to end session. Used to indicate end of session.
+     */
     public void printFarewell() {
         String farewell = "\tBye. Hope to see you again soon!";
         System.out.println(farewell);
@@ -82,6 +95,29 @@ public class Ui {
         String inputPrompt = "\tPlease input your desired action or type 'help' for a list of commands: ";
         System.out.println(inputPrompt);
         return SCANNER.nextLine().strip();
+    }
 
+    /**
+     * Invoked when a task is added into the array of tasks. Prints to screen the task added and the updated number of
+     * tasks stored.
+     *
+     * @param taskName Name of the task added
+     * @param numberOfTasks Latest number of tasks in array
+     */
+    public void printAdded(String taskName, int numberOfTasks) {
+        System.out.println("\tYou have added: " + taskName);
+        System.out.println("\tYou have a total of " + numberOfTasks + " completed and uncompleted tasks.");
+    }
+
+    /**
+     * Invoked when a task is deleted from the array of tasks. Prints to screen the task deleted and the updated number
+     * of tasks stored.
+     * @param deletedTask Task that was deleted
+     * @param numberOfTasks Latest number of tasks in array
+     */
+    public void printDeleted(Task deletedTask, int numberOfTasks) {
+        System.out.println("\tDone! I have deleted the following task.");
+        System.out.println(deletedTask);
+        System.out.println("\tNow you have " + numberOfTasks + " tasks in your list");
     }
 }
