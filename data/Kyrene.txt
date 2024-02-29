@@ -1,4 +1,4 @@
-true todo play bg3
 false deadline submit iP /by 2024-03-08 2359
 false event trip to jb /from 2024-03-01 0000 /to 2024-03-02 2359
 false event midterm exams /from 2024-03-09 0000 /to 2024-03-16 2359
+false deadline finish EE2211 as2 /by 2024-03-03 2359

@@ -15,10 +15,6 @@ public class Kyrene {
     private TaskList tasks;
     private Storage storage;
 
-    public TaskList getTasks() {
-        return tasks;
-    }
-
     public Kyrene() {
         storage = new Storage(FILE_PATH, FOLDER_PATH);
         try {
@@ -35,9 +31,14 @@ public class Kyrene {
         while (!isExit) {
             String fullCommand = Ui.readCommand();
             Ui.showDivider();
-            Command c = Parser.parse(fullCommand);
-            c.execute(tasks, storage);
-            isExit = c.isExit();
+            try {
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, storage);
+                isExit = c.isExit();
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException c) {
+                Ui.showErrorInvalidCommand();
+            }
+
         }
     }
 
