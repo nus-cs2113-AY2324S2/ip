@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 
 public class SaveManager {
-    private static String tasksFilePath = "data/tasks.txt";
+    private static String tasksFilePath = "./data/tasks.txt";
     private final File tasksFile = new File(SaveManager.tasksFilePath);
 
     private static void printDataNotSavedWarning() {
