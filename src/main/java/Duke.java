@@ -70,6 +70,8 @@ public class Duke {
             unmarkTask(userInput);
         } else if (userInput.startsWith("delete ")) {
             deleteTask(userInput);
+        } else if (userInput.startsWith("find ")) {
+            findTasks(userInput.substring(5));
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :(");
         }
@@ -228,6 +230,28 @@ public class Duke {
             writer.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Find tasks matching a keyword in the description
+    private static void findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            System.out.println("____________________________________________________________");
+            System.out.println("No tasks found matching the keyword.");
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("____________________________________________________________");
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+            System.out.println("____________________________________________________________");
         }
     }
 }

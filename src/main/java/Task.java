@@ -1,3 +1,5 @@
+import java.util.Collection;
+
 public class Task {
     private String description;
     public boolean isDone;
@@ -23,5 +25,9 @@ public class Task {
     public String toFileString() {
         String status = isDone ? "1" : "0";
         return status + " | " + description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
