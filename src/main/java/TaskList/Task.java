@@ -1,7 +1,7 @@
-package Sinep;
+package TaskList;
 
 public class Task {
-    protected String description;
+    public String description;
     protected boolean isDone;
     public Task(String description) {
         this.description = description;// Description of the task

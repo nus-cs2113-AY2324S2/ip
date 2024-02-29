@@ -1,4 +1,4 @@
-package Sinep;
+package TaskList;
 
 public class Todo extends Task {
     public Todo(String description) {
