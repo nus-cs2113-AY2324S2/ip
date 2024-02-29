@@ -6,6 +6,7 @@ public class Event extends Task{
 
     public Event(String description, String From, String to) {
         super(description);
+        this.type = "E";
         this.from = From;
         this.to = to;
     }
@@ -25,7 +26,7 @@ public class Event extends Task{
     @Override
     public String toString() {
         String isDoneIcon = super.isDone ? "X" : " ";
-        return "[E][" + isDoneIcon + "] " + super.description + " (from: " + from + " to: " + to + ")";
+        return "[" + type + "][" + isDoneIcon + "] " + super.description + " (from: " + from + " to: " + to + ")";
     }
 }
 

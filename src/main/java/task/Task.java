@@ -3,6 +3,7 @@ package task;
 
 public abstract class Task {
     String description;
+    String type;
     boolean isDone;
 
     Task(String description) {
@@ -22,6 +23,11 @@ public abstract class Task {
     public String toString() {
         String statusIcon = isDone ? "X" : " ";
         return "[" + statusIcon + "] " + description;
+    }
+
+    public String toStoreString() {
+        String statusIcon = isDone ? "1" : "0";
+        return type +  " | " + statusIcon + " | " + description;
     }
 }
 

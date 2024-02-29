@@ -1,13 +1,11 @@
 package kapwa;
 
 import exception.KapwaException;
-
 import java.util.Scanner;
 
-public class Kapwa {
+public class Kapwa{
     private static final String DIVIDER_LINE = "____________________________________________________________";
-    private static TaskManager taskManager = new TaskManager(100);
-
+    private static TaskManager taskManager = new TaskManager();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         displayWelcomeMessage();
@@ -27,6 +25,9 @@ public class Kapwa {
                 } else if (inputLine.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(inputLine.replaceAll("\\D+", ""));
                     taskManager.markTask(taskNumber, false);
+                } else if (inputLine.startsWith("delete ")) {
+                    int taskNumber = Integer.parseInt(inputLine.replaceAll("\\D+", ""));
+                    taskManager.deleteTask(taskNumber);
                 } else {
                     taskManager.addTask(inputLine);
                 }
