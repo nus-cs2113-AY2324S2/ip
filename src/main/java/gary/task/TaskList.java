@@ -49,6 +49,7 @@ public class TaskList {
      * @throws MissingTodoDescriptionException if description for todo is empty.
      * @throws MissingDeadlineByException if no "/by" or no date given for "/by" in deadline.
      * @throws MissingDeadlineDescriptionException if description for deadline is empty.
+     * @throws DateTimeParseException if date given is not in yyyy-mm-dd format.
      * @throws MissingEventFromException if no "/from" or no description given for "/from" in event.
      * @throws MissingEventToException if no "/to" or no description given for "/to" in event.
      * @throws MissingEventDescriptionException if description for event is empty.
@@ -123,6 +124,13 @@ public class TaskList {
         System.out.println("Now you have " + (todosCount - 1) + " tasks in the list.");
     }
 
+    /**
+     * Process users' command to find tasks based on a given keyword. Tasks found to have the
+     * keyword is printed.
+     *
+     * @param keyword keyword to find in tasks description.
+     * @param todos array list that stores and manages the task while programme is running.
+     */
     public static void processFind(String keyword, ArrayList<Task> todos) {
         int findTaskNumber = 0;
         System.out.println("Here are the matching tasks in your list:");
@@ -163,6 +171,7 @@ public class TaskList {
      * @param line user input to the terminal.
      * @throws MissingDeadlineByException if no "/by" or no date given for "/by" in deadline.
      * @throws MissingDeadlineDescriptionException if description for deadline is empty.
+     * @throws DateTimeParseException if date given is not in yyyy-mm-dd format.
      */
     private static void createNewDeadline(ArrayList<Task> todos, String line)
             throws MissingDeadlineByException, MissingDeadlineDescriptionException,
