@@ -1,7 +1,16 @@
 package gary.task;
 
-import gary.exception.*;
+import gary.exception.UnknownCommandException;
+import gary.exception.MissingTodoDescriptionException;
+import gary.exception.MissingDeadlineByException;
+import gary.exception.MissingDeadlineDescriptionException;
+import gary.exception.MissingEventToException;
+import gary.exception.MissingEventFromException;
+import gary.exception.MissingEventDescriptionException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +55,7 @@ public class TaskList {
      */
     public static void processAddTask(String command, ArrayList<Task> todos, String line)
             throws UnknownCommandException, MissingTodoDescriptionException,
-            MissingDeadlineByException, MissingDeadlineDescriptionException,
+            MissingDeadlineByException, MissingDeadlineDescriptionException, DateTimeParseException,
             MissingEventFromException, MissingEventToException, MissingEventDescriptionException {
         if (command.equalsIgnoreCase("TODO")) {
             createNewTodo(todos, line);
@@ -114,6 +123,19 @@ public class TaskList {
         System.out.println("Now you have " + (todosCount - 1) + " tasks in the list.");
     }
 
+    public static void processFind(String keyword, ArrayList<Task> todos) {
+        int findTaskNumber = 0;
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (Task currentTask : todos) {
+            if (!(currentTask.getTaskDescription().contains(keyword))) {
+                continue;
+            }
+            currentTask.printTask(findTaskNumber);
+            findTaskNumber += 1;
+        }
+    }
+
     /**
      * New todo is created by calling Todo class and added to the ArrayList. If todo description
      * is missing from users' input, error is caught and more detailed exception is thrown to
@@ -143,7 +165,8 @@ public class TaskList {
      * @throws MissingDeadlineDescriptionException if description for deadline is empty.
      */
     private static void createNewDeadline(ArrayList<Task> todos, String line)
-            throws MissingDeadlineByException, MissingDeadlineDescriptionException {
+            throws MissingDeadlineByException, MissingDeadlineDescriptionException,
+            DateTimeParseException {
         if (!(line.contains("/by"))) {
             throw new MissingDeadlineByException();
         }
@@ -155,11 +178,13 @@ public class TaskList {
         }
 
         try {
-            String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH);
+            String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH).strip();
             if (deadlineBy.isBlank()) {
                 throw new MissingDeadlineByException();
             }
-            todos.add(new Deadline(deadlineDescription, deadlineBy));
+            LocalDate deadlineByDate = LocalDate.parse(deadlineBy);
+            String formattedDeadlineDate = deadlineByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            todos.add(new Deadline(deadlineDescription, formattedDeadlineDate));
         } catch (StringIndexOutOfBoundsException e) {
             throw new MissingDeadlineByException();
         }

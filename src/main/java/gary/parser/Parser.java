@@ -1,13 +1,15 @@
 package gary.parser;
 
-import gary.task.Task;
 import gary.command.Command;
-import gary.command.ListCommand;
-import gary.command.MarkCommand;
-import gary.command.UnmarkCommand;
 import gary.command.AddCommand;
 import gary.command.DeleteCommand;
 import gary.command.ExitCommand;
+import gary.command.FindCommand;
+import gary.command.ListCommand;
+import gary.command.MarkCommand;
+import gary.command.UnmarkCommand;
+
+import gary.task.Task;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,6 +45,8 @@ public class Parser {
                 userCommand = new UnmarkCommand(file, todos, lineWords);
             } else if (command.equalsIgnoreCase("DELETE")) {
                 userCommand = new DeleteCommand(file, todos, lineWords);
+            } else if (command.equalsIgnoreCase("FIND")) {
+                userCommand = new FindCommand(line, todos);
             } else {
                 userCommand = new AddCommand(line, file, todos, command);
             }

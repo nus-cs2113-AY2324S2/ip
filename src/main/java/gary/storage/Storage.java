@@ -1,6 +1,10 @@
 package gary.storage;
 
-import gary.task.*;
+import gary.task.Task;
+import gary.task.Deadline;
+import gary.task.Event;
+import gary.task.Todo;
+import gary.task.TaskType;
 
 import java.io.File;
 import java.io.FileReader;
