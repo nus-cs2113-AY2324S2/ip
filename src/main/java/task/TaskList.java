@@ -166,7 +166,7 @@ public class TaskList {
             }
             String taskDetails = userInput[1];
             int dividerPosition = taskDetails.indexOf("/by");
-            String description = taskDetails.substring(0, dividerPosition);
+            String description = taskDetails.substring(0, dividerPosition - 1);
             String deadline = taskDetails.substring(dividerPosition + 4);
             tasks.add(new Deadline(description, deadline));
             validTaskAdded();
@@ -195,7 +195,7 @@ public class TaskList {
             String taskDetails = userInput[1];
             int firstDividerPosition = taskDetails.indexOf("/from");
             int secondDividerPosition = taskDetails.indexOf("to");
-            String description = taskDetails.substring(0, firstDividerPosition);
+            String description = taskDetails.substring(0, firstDividerPosition - 1);
             String eventStart = taskDetails.substring(firstDividerPosition + 6, secondDividerPosition - 1);
             String eventEnd = taskDetails.substring(secondDividerPosition + 3);
             tasks.add(new Event(description, eventStart, eventEnd));
