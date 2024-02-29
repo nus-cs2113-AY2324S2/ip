@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Logic {
     private final TaskList list;
     private final Storage saveInstance;
@@ -54,5 +56,10 @@ public class Logic {
         list.deleteIndex(taskIndex);
         saveInstance.setSavedList(list.getTasks());
         saveInstance.uploadTasks();
+    }
+
+    public void findLogic(String userInput) {
+        String keyword = Parser.extractDescription(userInput);
+        list.findKeyword(keyword);
     }
 }
