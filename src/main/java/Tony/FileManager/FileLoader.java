@@ -13,9 +13,19 @@ public class FileLoader {
     protected static final String DATA_PATH = "./data/tonytask.txt";
     private ArrayList<Task> tasks;
 
+    /**
+     * Represents a <code>FileLoader</code> object that loads the tonytask.txt file if available.
+     * Or create a new file if not found.
+     * @param tasks is the current list of tasks to save from the file.
+     */
     public FileLoader(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
+    /**
+     * Check if a directory and file exists. Else, program will create one.
+     * @throws IOException if there is error in locating the file in specified path.
+     */
     public void checkFileExists() throws IOException {
         File directory = new File("./data/");
         if (!directory.exists()) {
@@ -28,6 +38,12 @@ public class FileLoader {
         }
         loadDataFromFile(file);
     }
+
+    /**
+     * Load data from file line by line.
+     * @param file File found in path
+     * @throws FileNotFoundException If there is error locating file.
+     */
 
     private void loadDataFromFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);

@@ -17,7 +17,7 @@ public class Tony {
     private final FileSaver fileSaver;
     public static final String LINE_BREAKER = "__________________________________________________";
     /**
-     * Instantiate a new {@code Tony} object.
+     * Represents a new {@code Tony} object.
      */
     public Tony() {
         this.tasks = new ArrayList<>();
