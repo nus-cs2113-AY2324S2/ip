@@ -97,15 +97,15 @@ public class ListKeeper {
     }
 
     public void printMatchingTasks(String[] keywordsToFind) {
-        int printIndex = 1;
-        for (Task task : this.tasks) {
+        boolean hasMatchingTasks = false;
+        for (int taskIndex = 0; taskIndex < this.tasks.size(); taskIndex++) {
+            Task task = this.tasks.get(taskIndex);
             if (task.hasKeywords(keywordsToFind)) {
-                System.out.println(printIndex + ". " + task);
-                printIndex++;
+                hasMatchingTasks = true;
+                System.out.println(taskIndex + 1 + ". " + task);
             }
         }
-        boolean hasFoundMatchingTasks = printIndex != 1;
-        if (!hasFoundMatchingTasks) {
+        if (!hasMatchingTasks) {
             System.out.println("No matching tasks");
         }
     }
