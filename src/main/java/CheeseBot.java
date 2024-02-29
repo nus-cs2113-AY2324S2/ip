@@ -1,18 +1,18 @@
+import InvalidInputExceptions.InvalidInputException;
 import Tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Main executable class that controls program flow
  */
 public class CheeseBot {
-    protected final static TasksList tasksList = new TasksList();
-    private final Parser PARSER = new Parser();
-    private final Ui UI = new Ui();
+    protected final static TasksList TASKS_LIST = new TasksList();
+    private static final Parser PARSER = new Parser();
+    protected static final Ui UI = new Ui();
     private static final Storage STORAGE = new Storage();
     private final static String inFilePath = "./data/CheeseBot.txt";
     private final static String outFilePath = "./data/temp.txt";
@@ -25,15 +25,15 @@ public class CheeseBot {
 
         switch (command) {
         case "list":
-            tasksList.listTasks();
+            TASKS_LIST.listTasks();
             break;
 
         case "mark":
-            tasksList.mark(arguments, true);
+            TASKS_LIST.mark(arguments, true);
             break;
 
         case "unmark":
-            tasksList.mark(arguments, false);
+            TASKS_LIST.mark(arguments, false);
             break;
 
         case "help":
@@ -41,11 +41,12 @@ public class CheeseBot {
             break;
 
         case "delete":
-            tasksList.delete(arguments);
+            Task deletedTask = TASKS_LIST.delete(arguments);
+            UI.printDeleted(deletedTask, TASKS_LIST.getNumberOfTasks());
             break;
 
         case "find":
-            tasksList.find(arguments);
+            TASKS_LIST.find(arguments);
             break;
 
         default:
@@ -58,31 +59,28 @@ public class CheeseBot {
             try {
                 String input = UI.printInputPrompt();
                 UI.printDivider();
-                PARSER.validateInput(input);
-
-                String[] arguments = PARSER.parseInput(input);
+                String[] arguments = PARSER.validateAndParseInput(input);
                 String command = arguments[0];
-
                 if (PARSER.isBye(command)) {
                     break;
                 }
                 botAction(arguments);
+                UI.printDivider();
             } catch (InvalidInputException e) {
                 // No action required. Just catch the exception.
-            } finally {
-                UI.printDivider();
             }
         }
     }
 
     private void run() {
-        UI.printGreeting();
+        UI.printDivider();
         try {
             STORAGE.readFromInputFile(inFile);
         } catch (FileNotFoundException e) {
             STORAGE.createFile(inFile);
         }
         STORAGE.createFile(outFile);
+        UI.printGreeting();
         UI.printDivider();
         inputLoop();
         STORAGE.storeData(inFile, outFile);
@@ -99,34 +97,26 @@ public class CheeseBot {
      *
      * @param arguments The required parsed arguments for each specific task type.
      */
-    
-    public static void addTask(String[] arguments) throws InvalidInputException {
+    public static void addTask(String[] arguments) {
         String command = arguments[0];
         String taskName = arguments[1];
 
         switch (command) {
         case "todo":
-            tasksList.addTask(new Todo(taskName));
+            TASKS_LIST.addTask(new Todo(taskName));
             break;
 
         case "deadline":
-            try {
-                LocalDateTime by = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
-                tasksList.addTask(new Deadline(taskName, by));
-                break;
-            } catch (DateTimeParseException e) {
-                throw new InvalidInputException("Wrong time and date format for deadline task!");
-            }
+            LocalDateTime by = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
+            TASKS_LIST.addTask(new Deadline(taskName, by));
+            break;
 
         case "event":
-            try {
-                LocalDateTime start = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
-                LocalDateTime end = LocalDateTime.parse(arguments[3], INPUT_FORMAT);
-                tasksList.addTask(new Event(taskName, start, end));
-                break;
-            } catch (DateTimeParseException e) {
-                throw new InvalidInputException("Wrong time and date format for event task!");
-            }
+            LocalDateTime start = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
+            LocalDateTime end = LocalDateTime.parse(arguments[3], INPUT_FORMAT);
+            TASKS_LIST.addTask(new Event(taskName, start, end));
+            break;
         }
+        UI.printAdded(taskName, TASKS_LIST.getNumberOfTasks());
     }
 }
