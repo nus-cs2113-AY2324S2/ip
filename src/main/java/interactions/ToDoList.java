@@ -1,12 +1,18 @@
 package interactions;
 import customexceptions.UnknownPromptException;
 import interactions.*;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import customexceptions.IncompletePromptException;
 
-public class ToDoList extends TaskList {
+public class ToDoList {
+    protected ArrayList<ToDo> list;
+    int currSize;
+    protected static final String INDENT = "      ";
     public ToDoList() {
-        super.currSize = 0;
-        super.list = new ToDo[100];
+        currSize = 0;
+        list = new ArrayList<>();
     }
     private String extractToDoOrDate(String line, String keyword) {
         int index = line.indexOf(keyword) + keyword.length();
@@ -60,10 +66,42 @@ public class ToDoList extends TaskList {
             }
             break;
         }
-        super.list[currSize++] = newToDo;
+        list.add(currSize, newToDo);
+        currSize++;
+        //super.list[currSize++] = newToDo;
         System.out.println("Got it. I've added this task:");
         System.out.print(INDENT);
         newToDo.print();
         System.out.println(INDENT + "Now you have " + currSize + " task" + (currSize > 1 ? "s " : " ") + "in the list");
+    }
+    public void mark(String line, boolean isMark) {
+        int index = Integer.parseInt(line.substring(isMark ? 5 : 7));
+        Task markedTask = list.get(index - 1);
+        if (markedTask.isMarked() == isMark) {
+            System.out.println("This task is already set as " + (isMark ? "marked." : "unmarked."));
+            return;
+        }
+        if (isMark) {
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.print(INDENT);
+        markedTask.setMarked(isMark);
+        markedTask.print();
+    }
+    public void printList() {
+        System.out.println("Here are the tasks in your list:");
+        if (currSize > 0) {
+            for (int i = 0; i < currSize; i++) {
+                System.out.print("      ");
+                //Task task = list[i];
+                Task task = list.get(i);
+                System.out.print(i + 1 + ".");
+                task.print();
+            }
+        } else {
+            System.out.println(INDENT + "There's nothing in this list.");
+        }
     }
 }
