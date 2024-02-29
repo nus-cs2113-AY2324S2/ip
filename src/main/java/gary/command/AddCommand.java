@@ -1,11 +1,13 @@
 package gary.command;
 
 import gary.exception.*;
+import gary.parser.Parser;
 import gary.storage.Storage;
 import gary.task.Task;
 import gary.task.TaskList;
 
 import java.io.File;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class AddCommand extends Command {
@@ -35,7 +37,7 @@ public class AddCommand extends Command {
         } catch (MissingTodoDescriptionException e) {
             System.out.println("OOPS!!! The description of a todo cannot be empty");
         } catch (MissingDeadlineByException e) {
-            System.out.println("OOPS!!! Deadline must contain '/by' and its description");
+            System.out.println("OOPS!!! Deadline must contain '/by' and its date");
         } catch (MissingDeadlineDescriptionException e) {
             System.out.println("OOPS!!! The description of a deadline cannot be empty");
         } catch (MissingEventFromException e) {
@@ -44,6 +46,8 @@ public class AddCommand extends Command {
             System.out.println("OOPS!!! Event must contain '/to' and its description");
         } catch (MissingEventDescriptionException e) {
             System.out.println("OOPS!!! The description of an event cannot be empty");
+        } catch (DateTimeParseException e) {
+            System.out.println("OOPS!!! Deadline '/by' date must be in yyyy-mm-dd format");
         }
     }
 }
