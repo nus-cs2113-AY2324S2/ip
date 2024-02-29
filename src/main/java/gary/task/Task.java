@@ -1,5 +1,8 @@
 package gary.task;
 
+/**
+ * Manages the task, including its description, task type, and status.
+ */
 public class Task {
     private String taskDescription;
     private Boolean isDone;
