@@ -20,10 +20,16 @@ mark 1
 list
 unmark 1
 unmark 1
-mark 50
+mark 5
 unmark 50
 
 list
 deadline Assingment /by
 delete 100
+find book
+list
+mark 1
+mark 2
+find book
+find
 bye
