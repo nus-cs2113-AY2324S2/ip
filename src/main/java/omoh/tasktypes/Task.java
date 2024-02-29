@@ -1,6 +1,7 @@
 package omoh.tasktypes;
 import omoh.Omoh;
 
+import omoh.Parser;
 import omoh.customexceptions.EmptyTaskNumberException;
 
 import java.io.FileWriter;
@@ -129,6 +130,8 @@ public class Task {
         Task.getAllTasks();
         Omoh.printHorizontalLine();
     }
+
+
     //finds matching tasks based on user input
     public static void findMatchingTasks (String line) {
         try {
