@@ -15,9 +15,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Storage class deals with storing users' tasks and its details when users add or modify tasks
+ * into a txt file.
+ */
 public class Storage {
     public static final String FILE_PATH = "./gary.txt";
     public static ArrayList<Task> todos = new ArrayList<>();
+
+    /**
+     * Create a txt file at a given file path when file doesn't exist, or
+     * open the existing txt file.
+     *
+     * @return txt file.
+     */
     public static File createFile() {
         File file = new File(FILE_PATH);
         try {
@@ -28,6 +39,13 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Read txt files that store users' tasks and store in ArrayList to be processed while
+     * programme is running.
+     *
+     * @param file txt file to store the tasks.
+     * @return ArrayList consisting of all tasks users have.
+     */
     public static ArrayList<Task> readFileStorage(File file) {
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(file));
@@ -72,6 +90,14 @@ public class Storage {
         return todos;
     }
 
+    /**
+     * Write the tasks inside the ArrayList todos into the txt file. Handles error
+     * if file trying to be written to doesn't exist or there's failure when writing the file.
+     *
+     * @param file txt file to store the tasks.
+     * @param todosCount number of tasks in the array list.
+     * @param todos array list that stores and manages the task while programme is running.
+     */
     public static void writeTaskToTxt(File file, int todosCount, ArrayList<Task> todos) {
         try {
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
@@ -86,8 +112,18 @@ public class Storage {
         }
     }
 
-    private static void writeFormattedString(ArrayList<Task> todos, int i, BufferedWriter fileWriter) throws IOException {
-        Task currentTask = todos.get(i);
+    /**
+     * Format the task stored in ArrayList and write it into the given txt file. Throws
+     * exception when writing process failed.
+     *
+     * @param todos array list that stores and manages the task while programme is running.
+     * @param taskIndex index of task.
+     * @param fileWriter txt file opened as write.
+     * @throws IOException if writing process failed or interrupted.
+     */
+    private static void writeFormattedString(ArrayList<Task> todos, int taskIndex, BufferedWriter fileWriter)
+            throws IOException {
+        Task currentTask = todos.get(taskIndex);
         String description = currentTask.getTaskDescription();
         String taskStatus = currentTask.getTaskStatus() ? "1" : "0";
         TaskType taskType = currentTask.getTaskType();
