@@ -5,14 +5,19 @@ import interactions.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import customexceptions.IncompletePromptException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ToDoList {
     protected ArrayList<ToDo> list;
-    int currSize;
+    protected int currSize;
     protected static final String INDENT = "      ";
     public ToDoList() {
-        currSize = 0;
         list = new ArrayList<>();
+        currSize = 0;
     }
     private String extractToDoOrDate(String line, String keyword) {
         int index = line.indexOf(keyword) + keyword.length();
@@ -68,7 +73,6 @@ public class ToDoList {
         }
         list.add(currSize, newToDo);
         currSize++;
-        //super.list[currSize++] = newToDo;
         System.out.println("Got it. I've added this task:");
         System.out.print(INDENT);
         newToDo.print();
@@ -95,7 +99,6 @@ public class ToDoList {
         if (currSize > 0) {
             for (int i = 0; i < currSize; i++) {
                 System.out.print("      ");
-                //Task task = list[i];
                 Task task = list.get(i);
                 System.out.print(i + 1 + ".");
                 task.print();
@@ -103,5 +106,18 @@ public class ToDoList {
         } else {
             System.out.println(INDENT + "There's nothing in this list.");
         }
+    }
+    public void saveFile(String filePath) throws IOException {
+        File f = new File(filePath);
+        if (!f.exists()) {
+            throw new FileNotFoundException();
+        }
+        FileWriter fw = new FileWriter(filePath);
+        for (ToDo task : list) {
+            //System.out.println("HELLO");
+            fw.write(task.lineToWrite() + System.lineSeparator());
+            //fw.write("TESTING");
+        }
+        fw.close();
     }
 }
