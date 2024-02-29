@@ -4,14 +4,18 @@ import kyrene.exception.KyreneInvalidCommandException;
 import kyrene.exception.KyreneMissingTaskException;
 import kyrene.exception.KyreneMissingTimeException;
 import kyrene.exception.KyreneTaskNotFoundException;
+import kyrene.parser.Parser;
 import kyrene.task.Deadline;
 import kyrene.task.Event;
+import kyrene.task.Task;
 import kyrene.task.Todo;
 import kyrene.taskList.TaskList;
 import kyrene.ui.Ui;
 import kyrene.storage.Storage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Command {
 
@@ -51,72 +55,78 @@ public class Command {
         return isExit;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         switch (command) {
         case BYE:
-            handleBye(ui);
+            handleBye();
             break;
         case LIST:
-            handleList(tasks, ui);
+            handleList(tasks);
             break;
         case ADD:
             try {
-                handleAdd(tasks, ui, storage);
+                handleAdd(tasks, storage);
             } catch (KyreneMissingTaskException e) {
-                ui.showErrorMissingTask();
+                Ui.showErrorMissingTask();
             } catch (KyreneInvalidCommandException e) {
-                ui.showErrorInvalidCommand();
+                Ui.showErrorInvalidCommand();
             }
             break;
         case DELETE:
             try {
-                handleDelete(tasks, ui, storage);
+                handleDelete(tasks, storage);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
                 int taskCount = tasks.size();
-                ui.showErrorTaskNotExist(taskCount);
+                Ui.showErrorTaskNotExist(taskCount);
             }  catch (IndexOutOfBoundsException e) {
-                ui.showErrorInvalidCommand();
+                Ui.showErrorInvalidCommand();
             }
             break;
         case MARK:
             try {
-                handleMark(tasks, ui, storage, true);
+                handleMark(tasks, storage, true);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
                 int taskCount = tasks.size();
-                ui.showErrorTaskNotExist(taskCount);
+                Ui.showErrorTaskNotExist(taskCount);
             } catch (IndexOutOfBoundsException e) {
-                ui.showErrorInvalidCommand();
+                Ui.showErrorInvalidCommand();
             }
             break;
         case UNMARK:
             try {
-                handleMark(tasks, ui, storage, false);
+                handleMark(tasks, storage, false);
             } catch (NumberFormatException | KyreneTaskNotFoundException e) {
                 int taskCount = tasks.size();
-                ui.showErrorTaskNotExist(taskCount);
+                Ui.showErrorTaskNotExist(taskCount);
             } catch (IndexOutOfBoundsException e) {
-                ui.showErrorInvalidCommand();
+                Ui.showErrorInvalidCommand();
             }
             break;
+        case AT:
+            handleAT(tasks);
+            break;
+        case DUE:
+            handleDue(tasks);
+            break;
         default:
-            handleError(ui);
+            handleError();
             break;
         }
     }
 
-    private void handleError(Ui ui) {
-        ui.showErrorInvalidCommand();
+    private void handleError() {
+        Ui.showErrorInvalidCommand();
     }
 
-    private void handleBye(Ui ui) {
-        ui.showBye();
+    private void handleBye() {
+        Ui.showBye();
     }
 
-    private void handleList(TaskList tasks, Ui ui) {
-        ui.showTasks(tasks);
+    private void handleList(TaskList tasks) {
+        Ui.showTasks(tasks);
     }
 
-    private void handleMark(TaskList tasks, Ui ui, Storage storage, boolean isDone) throws KyreneTaskNotFoundException {
+    private void handleMark(TaskList tasks, Storage storage, boolean isDone) throws KyreneTaskNotFoundException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new KyreneTaskNotFoundException();
         }
@@ -125,13 +135,13 @@ public class Command {
         try {
             storage.write(tasks);
         } catch (IOException e) {
-            ui.showErrorWriteToFileFailed();
+            Ui.showErrorWriteToFileFailed();
         }
 
-        ui.showSuccessMarkingTask(taskNumber, isDone);
+        Ui.showSuccessMarkingTask(taskNumber, isDone);
     }
 
-    private void handleAdd(TaskList tasks, Ui ui, Storage storage) throws KyreneInvalidCommandException, KyreneMissingTaskException {
+    private void handleAdd(TaskList tasks, Storage storage) throws KyreneInvalidCommandException, KyreneMissingTaskException {
         assert description != null;
         String[] words = description.split(" ");
         String classType = words[0];
@@ -139,28 +149,28 @@ public class Command {
         switch (classType) {
         case "todo":
             try {
-                tasks.add(new Todo(description.substring("todo".length() + 1)));
+                tasks.add(new Todo(description.substring("todo ".length())));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             }
             break;
         case "deadline":
             try {
-                tasks.add(new Deadline(description.substring("deadline".length() + 1)));
+                tasks.add(new Deadline(description.substring("deadline ".length())));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
-                ui.showErrorMissingTime();
+                Ui.showErrorMissingTime();
                 return;
             }
             break;
         case "event":
             try {
-                tasks.add(new Event(description.substring("event".length() + 1)));
+                tasks.add(new Event(description.substring("event ".length())));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new KyreneMissingTaskException();
             } catch (KyreneMissingTimeException e) {
-                ui.showErrorMissingTime();
+                Ui.showErrorMissingTime();
                 return;
             }
             break;
@@ -171,15 +181,15 @@ public class Command {
         try {
             storage.write(tasks);
         } catch (IOException e) {
-            ui.showErrorWriteToFileFailed();
+            Ui.showErrorWriteToFileFailed();
         }
 
         int taskCount = tasks.size();
         String taskAdded = tasks.get(taskCount - 1).toString();
-        ui.showSuccessAddingTask(taskAdded, taskCount);
+        Ui.showSuccessAddingTask(taskAdded, taskCount);
     }
 
-    private void handleDelete(TaskList tasks, Ui ui, Storage storage) throws KyreneTaskNotFoundException {
+    private void handleDelete(TaskList tasks, Storage storage) throws KyreneTaskNotFoundException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new KyreneTaskNotFoundException();
         }
@@ -189,11 +199,33 @@ public class Command {
         try {
             storage.write(tasks);
         } catch (IOException e) {
-            ui.showErrorWriteToFileFailed();
+            Ui.showErrorWriteToFileFailed();
         } finally {
             int taskCount = tasks.size();
-            ui.showSuccessDeletingTask(taskDeleted, taskCount);
+            Ui.showSuccessDeletingTask(taskDeleted, taskCount);
         }
+    }
+
+    private void handleAT(TaskList tasks) {
+        LocalDate date = Parser.parseDate(description);
+        TaskList eventList = new TaskList();
+        for (Task task : tasks) {
+            if (task.getTaskType().equals("E") && ((Event) task).isAt(date)){
+                eventList.add(task);
+            }
+        }
+        Ui.showTasks(eventList);
+    }
+
+    private void handleDue(TaskList tasks) {
+        LocalDateTime time = Parser.parseTime(description);
+        TaskList deadlineList = new TaskList();
+        for (Task task : tasks) {
+            if (task.getTaskType().equals("D") && ((Deadline) task).isBefore(time)){
+                deadlineList.add(task);
+            }
+        }
+        Ui.showTasks(deadlineList);
     }
 
 }

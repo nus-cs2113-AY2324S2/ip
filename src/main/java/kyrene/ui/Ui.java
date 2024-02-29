@@ -19,17 +19,21 @@ public class Ui {
     private final static String ERROR_FILE_CREATION_FAILED = "    Error! File creation failed.\n";
     private final static String ERROR_FILE_CORRUPTED = "    Error! File loaded is corrupted.\n";
     private final static String ERROR_TASK_NOT_EXIST = "    Error! This task does not exist.\n";
-    private final static String ERROR_MISSING_TASK = "    Error! Your task description is missing.\n    For creating tasks, please type \"[task type (todo/deadline/event)] [task description]\"([] is to be omitted).\n    For example:\n        todo have a nice day\n    or\n        deadline get a cup of coffee /by 9am\n    or\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
-    private final static String ERROR_MISSING_TIME = "    Error! Your deadline/event task created is incomplete in terms of time.\n    For creating deadline task, please type \"deadline [task description] /by [time]\"([] is to be omitted).\n    For example:\n        deadline get a cup of coffee /by 9pm\n    For creating event task, please type \"event [task description] /from [starting time] /to [ending time]\"([] is to be omitted).\n    For example:\n        event celebrate birthday /from 27th Oct 1700 /to 2359\n";
-    private final static String ERROR_INVALID_COMMAND = "    Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark [task index]\n        unmark [task index]\n        delete [task index]\n        [task type (todo/deadline/event)] [task description]\n        bye\n";
-
+    private final static String ERROR_MISSING_TASK = "    Error! Your task description is missing.\n    For creating tasks, please type \"[task type (todo/deadline/event)] [task description]\"([] is to be omitted).\n    For example:\n        todo have a nice day\n    or\n        deadline get a cup of coffee /by 2024-02-29 0900\n    or\n        event celebrate birthday /from 2024-10-27 1700 /to 2359\n";
+    private final static String ERROR_MISSING_TIME = "    Error! Your deadline/event task created is incomplete in terms of time.\n    For creating deadline task, please type \"deadline [task description] /by [time]\"([] is to be omitted).\n    For example:\n        deadline get a cup of coffee /by 2024-02-29 0900\n    For creating event task, please type \"event [task description] /from [starting time] /to [ending time]\"([] is to be omitted).\n    For example:\n        event celebrate birthday /from 2023-10-27 1700 /to 2359\n";
+    private final static String ERROR_INVALID_COMMAND = "    Error! This command is invalid. Some available commands are ([] is to be omitted):\n        list\n        mark [task index]\n        unmark [task index]\n        delete [task index]\n        [task type (todo/deadline/event)] [task description]\n        due [due time] (to check which deadlines before the given time)\n        at [date] (to check which events at the given date)\n        bye\n";
+    private final static String ERROR_INVALID_DDL_TIME_FORMAT = "    Error! The format of input deadline date and time is invalid.\n    Please re-enter the time of deadline as [Year-Month-Date HourMinute]([] is to be omitted).\n    For example:\n        2024-02-29 0900\n        2024-02-29\n        0900\n";
+    private final static String ERROR_INVALID_EVENT_START_TIME_FORMAT = "    Error! The format of input event start date and time is invalid.\n    Please re-enter the start time of event as [Year-Month-Date HourMinute]([] is to be omitted).\n    For example:\n        2024-02-29 0900\n        2024-02-29\n        0900\n";
+    private final static String ERROR_INVALID_EVENT_END_TIME_FORMAT = "    Error! The format of input event end date and time is invalid.\n    Please re-enter the end time of event as [Year-Month-Date HourMinute]([] is to be omitted).\n    For example:\n        2024-02-29 0900\n        2024-02-29\n        0900\n";
+    private final static String ERROR_INVALID_DATE_FORMAT = "    Error! The format of input date is invalid.\n    Please re-enter the date as [Year-Month-Date]([] is to be omitted).\n    For example:\n        2024-02-29\n";
+    private final static String ERROR_INVALID_TIME_FORMAT = "    Error! The format of input time is invalid.\n    Please re-enter the time as [Year-Month-Date HourMinute]([] is to be omitted).\n    For example:\n        2024-02-29 0900\n        2024-02-29\n        0900\n";
     public Ui() {}
 
-    public void showDivider() {
+    public static void showDivider() {
         System.out.printf("%s\n", DIVIDER);
     }
 
-    public void showHello() {
+    public static void showHello() {
         showDivider();
         System.out.printf("%s\n", LOGO);
         showDivider();
@@ -37,12 +41,12 @@ public class Ui {
         showDivider();
     }
 
-    public void showBye() {
+    public static void showBye() {
         System.out.printf("%s\n", BYE);
         showDivider();
     }
 
-    public void showTaskCount(int taskCount) {
+    public static void showTaskCount(int taskCount) {
         if(taskCount < 2){
             System.out.printf("    Now you have %d task(including finished ones) in your list.\n\n", taskCount);
         }
@@ -50,68 +54,93 @@ public class Ui {
             System.out.printf("    Now you have %d tasks(including finished ones) in your list.\n\n", taskCount);
         }
     }
-    public void showErrorMissingTime() {
+    public static void showErrorMissingTime() {
         System.out.printf("%s\n", ERROR_MISSING_TIME);
         showDivider();
     }
 
-    public void showErrorWriteToFileFailed() {
+    public static void showErrorWriteToFileFailed() {
         System.out.printf("%s\n", ERROR_WRITE_TO_FILE_FAILED);
         showDivider();
     }
 
-    public void showErrorTaskNotExist(int taskCount) {
+    public static void showErrorTaskNotExist(int taskCount) {
         System.out.printf("%s", ERROR_TASK_NOT_EXIST);
         showTaskCount(taskCount);
         showDivider();
     }
 
-    public void showErrorMissingTask() {
+    public static void showErrorMissingTask() {
         System.out.printf("%s\n", ERROR_MISSING_TASK);
         showDivider();
     }
 
-    public void showErrorInvalidCommand() {
+    public static void showErrorInvalidCommand() {
         System.out.printf("%s\n", ERROR_INVALID_COMMAND);
         showDivider();
     }
 
-    public void showErrorFileCorrupted(int lineNumber) {
+    public static void showErrorFileCorrupted(int lineNumber) {
         System.out.printf("%s    Error occurs at line %d.\n", ERROR_FILE_CORRUPTED, lineNumber);
         showDivider();
     }
 
-    public void showErrorFileNotFound(String filePath) {
+    public static void showErrorFileNotFound(String filePath) {
         System.out.printf("    File %s is not found. Trying to create file...\n", filePath);
     }
 
-    public void showErrorFolderNotFound(String folderPath) {
+    public static void showErrorFolderNotFound(String folderPath) {
         System.out.printf("    Folder %s is not found. Trying to create folder...\n", folderPath);
     }
 
-    public void showErrorCreatingFileFailed() {
+    public static void showErrorCreatingFileFailed() {
         System.out.printf("%s\n", ERROR_FILE_CREATION_FAILED);
         showDivider();
     }
 
-    public void showErrorCreatingFolderFailed() {
+    public static void showErrorCreatingFolderFailed() {
         System.out.printf("%s\n", ERROR_FOLDER_CREATION_FAILED);
         showDivider();
     }
 
-    public void showSuccessAddingTask(String taskAdded, int taskCount) {
+    public static void showErrorInvalidDateFormat() {
+        System.out.printf("%s\n", ERROR_INVALID_DATE_FORMAT);
+        showDivider();
+    }
+
+    public static void showErrorInvalidTimeFormat() {
+        System.out.printf("%s\n", ERROR_INVALID_TIME_FORMAT);
+        showDivider();
+    }
+
+    public static void showErrorInvalidDdlTimeFormat() {
+        System.out.printf("%s\n", ERROR_INVALID_DDL_TIME_FORMAT);
+        showDivider();
+    }
+
+    public static void showErrorInvalidEventStartTimeFormat() {
+        System.out.printf("%s\n", ERROR_INVALID_EVENT_START_TIME_FORMAT);
+        showDivider();
+    }
+
+    public static void showErrorInvalidEventEndTimeFormat() {
+        System.out.printf("%s\n", ERROR_INVALID_EVENT_END_TIME_FORMAT);
+        showDivider();
+    }
+
+    public static void showSuccessAddingTask(String taskAdded, int taskCount) {
         System.out.printf("    Task has been successfully added: %s\n", taskAdded);
         showTaskCount(taskCount);
         showDivider();
     }
 
-    public void showSuccessDeletingTask(String taskDeleted, int taskCount) {
+    public static void showSuccessDeletingTask(String taskDeleted, int taskCount) {
         System.out.printf("    Sure! I have successfully deleted this task from your list:\n        %s\n", taskDeleted);
         showTaskCount(taskCount);
         showDivider();
     }
 
-    public void showSuccessMarkingTask(int taskNumber, boolean isDone) {
+    public static void showSuccessMarkingTask(int taskNumber, boolean isDone) {
         if (isDone) {
             System.out.printf("    Congrats! Task %d is done!\n\n", taskNumber);
         } else {
@@ -120,22 +149,22 @@ public class Ui {
         showDivider();
     }
 
-    public void showSuccessLoadingFile(String filePath) {
+    public static void showSuccessLoadingFile(String filePath) {
         System.out.printf("    File %s has been loaded.\n", filePath);
         showDivider();
     }
 
-    public void showSuccessCreatingFolder(String folderPath) {
+    public static void showSuccessCreatingFolder(String folderPath) {
         System.out.printf("    Folder %s is successfully created.\n", folderPath);
     }
 
-    public void showSuccessCreatingFile(String filePath) {
+    public static void showSuccessCreatingFile(String filePath) {
         System.out.printf("    File %s is successfully created.\n", filePath);
         showDivider();
     }
 
-    public void showTasks(TaskList tasks) {
-        System.out.println("    Here is your to-do list:");
+    public static void showTasks(TaskList tasks) {
+        System.out.println("    Here is your to-do list of required tasks:");
         for(int i = 0; i < tasks.size(); i++){
             System.out.printf("        %d.%s\n", i + 1, tasks.get(i).toString());
         }
@@ -144,11 +173,11 @@ public class Ui {
         showDivider();
     }
 
-    public void showLoadingFile(String filePath) {
+    public static void showLoadingFile(String filePath) {
         System.out.printf("    Loading file %s ...\n", filePath);
     }
 
-    public String readCommand() {
+    public static String readCommand() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }

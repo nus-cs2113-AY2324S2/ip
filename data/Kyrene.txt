@@ -1,5 +1,4 @@
-false todo play bg3
-true deadline finish iP week 6 /by Sunday
-false deadline revision /by recess week
-true event KECD dinner /from Sunday 1730 /to 2200
-false deadline finish iP week 7 /by Sunday
+true todo play bg3
+false deadline submit iP /by 2024-03-08 2359
+false event trip to jb /from 2024-03-01 0000 /to 2024-03-02 2359
+false event midterm exams /from 2024-03-09 0000 /to 2024-03-16 2359
