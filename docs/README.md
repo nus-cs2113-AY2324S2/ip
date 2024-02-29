@@ -1,5 +1,5 @@
 # Carrot  User Guide
-***
+
 Carrot is a **task management application**, designed for use through a **command-line interface (CLI)**
 
 - [Quick Start](#quick-start)
@@ -32,7 +32,8 @@ Carrot is a **task management application**, designed for use through a **comman
         - `list`: Shows all the recorded task so far
         - `bye`: Exits the application
 6. Refer to [**Command Summary**](#command-summary) for the list of commands available. 
-   - Alternatively, head to **Features** right below for more details on each command.
+7. Alternatively, head to [**Features**](#features) right below for more details on each command.
+
 ---
 ## Features
 > [!NOTE]
@@ -225,15 +226,16 @@ please delete the text file and rerun the program.
 
 ***
 ## Command Summary
-| Command   | Description                           | Format                       |
-|-----------|---------------------------------------|------------------------------|
-| `todo`    | Adds a todo task to the task list.    | `todo DESCRIPTION`           |
-| `deadline`| Adds a deadline task to the task list.| `deadline DESCRIPTION /BY`   |
-| `event`   | Adds an event task to the task list.  | `event DESCRIPTION /FROM /TO`|
-| `mark`    | Mark a task as completed              | `mark TASKINDEX`             |
-| `unmark`  | Mark a task as not completed          | `unmark TASKINDEX`           |
-| `delete`  | Delete a task item from the list      | `delete TASKINDEX`           |
-| `find`    | Locate a recorded task by word        | `find WORD`                  |
-| `list`    | Shows all recorded task               | `list`                       |
-| `help`    | Shows list of commands in CLI         | `help`                       |
-| `bye`     | Exits the application                 | `bye`                        |
+
+| Command    | Description                           | Format                        |
+|------------|---------------------------------------|-------------------------------|
+| `todo`     | Adds a todo task to the task list.    | `todo DESCRIPTION`            |
+| `deadline` | Adds a deadline task to the task list | `deadline DESCRIPTION /BY`    |
+| `event`    | Adds an event task to the task list   | `event DESCRIPTION /FROM /TO` |
+| `mark`     | Mark a task as completed              | `mark TASKINDEX`              |
+| `unmark`   | Mark a task as not completed          | `unmark TASKINDEX`            |
+| `delete`   | Delete a task item from the list      | `delete TASKINDEX`            |
+| `find`     | Locate a recorded task by word        | `find WORD`                   |
+| `list`     | Shows all recorded task               | `list`                        |
+| `help`     | Shows list of commands in CLI         | `help`                        |
+| `bye`      | Exits the application                 | `bye`                         |
