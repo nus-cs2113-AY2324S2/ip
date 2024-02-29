@@ -1,6 +1,4 @@
 import Tasks.Task;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -117,7 +115,7 @@ public class Ui {
      */
     public void printDeleted(Task deletedTask, int numberOfTasks) {
         System.out.println("\tDone! I have deleted the following task.");
-        System.out.println(deletedTask);
+        System.out.println("\t\t" + deletedTask);
         System.out.println("\tNow you have " + numberOfTasks + " tasks in your list");
     }
 }

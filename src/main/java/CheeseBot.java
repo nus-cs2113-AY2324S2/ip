@@ -10,15 +10,16 @@ import java.time.format.DateTimeFormatter;
  * Main executable class that controls program flow
  */
 public class CheeseBot {
-    protected final static TasksList TASKS_LIST = new TasksList();
-    private static final Parser PARSER = new Parser();
-    protected static final Ui UI = new Ui();
-    private static final Storage STORAGE = new Storage();
+    public final static DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private final static String inFilePath = "./data/CheeseBot.txt";
     private final static String outFilePath = "./data/temp.txt";
     private final static File inFile = new File(inFilePath);
     private final static File outFile = new File(outFilePath);
-    public final static DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected final static TasksList TASKS_LIST = new TasksList();
+    private static final Parser PARSER = new Parser();
+    protected static final Ui UI = new Ui();
+    private static final Storage STORAGE = new Storage();
+
 
     private void botAction(String[] arguments) throws InvalidInputException {
         String command = arguments[0];
@@ -73,7 +74,6 @@ public class CheeseBot {
     }
 
     private void run() {
-        UI.printDivider();
         try {
             STORAGE.readFromInputFile(inFile);
         } catch (FileNotFoundException e) {
