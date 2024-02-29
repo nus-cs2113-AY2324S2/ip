@@ -13,18 +13,18 @@ public class UserInterface {
         this.logicManager = logicManager;
     }
 
+    private void formatCurrentInput() {
+        this.currentInput = this.currentInput.trim();
+    }
     private void readNextLine() {
         do {
-            currentInput = scanner.nextLine();
-        } while (currentInput.isEmpty());
+            this.currentInput = scanner.nextLine();
+            this.formatCurrentInput();
+        } while (this.currentInput.isEmpty());
     }
     
     private boolean isExitCommandGiven() {
-        return currentInput.startsWith(Keywords.BYE);
-    }
-
-    private void formatCurrentInput() {
-        currentInput = currentInput.trim();
+        return this.currentInput.startsWith(Keywords.BYE);
     }
 
     private void printCurrentInput() {
@@ -57,8 +57,7 @@ public class UserInterface {
             if (isExitCommandGiven()) {
                 return;
             }
-            formatCurrentInput();
-            logicManager.processCommand(currentInput);
+            this.logicManager.processCommand(currentInput);
             HorizontalGenerator.printHorizontal();
         }
     }

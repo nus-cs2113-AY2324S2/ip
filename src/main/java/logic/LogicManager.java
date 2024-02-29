@@ -133,7 +133,6 @@ public class LogicManager {
      * @param currentInput the input command
      */
     public void processCommand(String currentInput) {
-        currentInput = currentInput.trim();
         if (currentInput.isEmpty()) {
             return;
         }
