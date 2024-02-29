@@ -8,7 +8,6 @@ import gary.parser.Parser;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
-import java.io.IOException;
 
 public class Gary {
     public static ArrayList<Task> todos = new ArrayList<>();
