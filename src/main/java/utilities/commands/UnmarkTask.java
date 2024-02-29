@@ -2,7 +2,7 @@ package utilities.commands;
 
 import main.Aragorn;
 import ui.Constants;
-import utilities.file.InputParser;
+import utilities.parser.InputParser;
 
 public class UnmarkTask {
 

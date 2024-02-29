@@ -2,7 +2,7 @@ package utilities.commands;
 
 import tasks.Task;
 import ui.Constants;
-import utilities.file.InputParser;
+import utilities.parser.InputParser;
 
 import java.util.ArrayList;
 

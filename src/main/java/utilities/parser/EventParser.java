@@ -1,4 +1,4 @@
-package utilities.file;
+package utilities.parser;
 
 import exceptions.AragornException;
 import ui.Constants;

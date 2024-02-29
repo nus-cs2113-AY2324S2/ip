@@ -5,7 +5,7 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
 import ui.Constants;
-import utilities.file.InputParser;
+import utilities.parser.InputParser;
 
 public class AddTask {
 

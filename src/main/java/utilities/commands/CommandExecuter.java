@@ -3,7 +3,7 @@ package utilities.commands;
 import main.Aragorn;
 import tasks.Task;
 import ui.Constants;
-import utilities.file.InputParser;
+import utilities.parser.InputParser;
 
 public class CommandExecuter {
     public static void ExecuteCommand(String userInput, String commandType) {
