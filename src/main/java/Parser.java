@@ -1,4 +1,14 @@
+/**
+ * The Parser class is responsible for parsing commands and file lines.
+ */
 public class Parser {
+
+    /**
+     * Parses the command provided in the input line.
+     *
+     * @param line The input line containing the command.
+     * @throws InvalidInputException If the input command is invalid.
+     */
     public static void parseCommand(String line) throws InvalidInputException {
         String[] parts = line.split(" ", 2);
         String command = parts[0].trim();
@@ -53,6 +63,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a line from the file and adds the corresponding task to the task list.
+     *
+     * @param line The line to be parsed from the file.
+     * @throws InvalidInputException If the input format in the file is invalid.
+     */
     public static void parseFileLine(String line) throws InvalidInputException {
         String[] parts = line.split("\\|");
 

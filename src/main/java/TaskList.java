@@ -2,31 +2,64 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 
+/**
+ * The TaskList class manages the list of tasks and provides methods to handle various tasks.
+ */
 public class TaskList {
+    /** The list of tasks. */
     public static ArrayList<Task> list = new ArrayList<>();
+    /** The storage object to interact with file storage. */
     private final Storage storage;
+    /** Indicates whether the task list is active. */
     static Boolean isActive = true;
 
+    /**
+     * Constructs a TaskList object with the specified storage.
+     *
+     * @param storage The storage object to interact with file storage.
+     */
     public TaskList(Storage storage) {
         this.storage = storage;
     }
 
+    /**
+     * Sets the activity status of the task list.
+     *
+     * @param value The value to set for the activity status.
+     */
     public static void setActive(Boolean value) {
         isActive = value;
     }
 
-    public void loadTasks() throws FileNotFoundException, InvalidInputException{
+    /**
+     * Loads tasks from storage.
+     *
+     * @throws FileNotFoundException    If the tasks file is not found.
+     * @throws InvalidInputException    If the input format in the file is invalid.
+     */
+    public void loadTasks() throws FileNotFoundException, InvalidInputException {
         storage.loadTasks();
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public static ArrayList<Task> getList() {
         return list;
     }
 
+    /**
+     * Handles the "bye" command.
+     */
     static void handleByeTask() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Handles the "list" command.
+     */
     static void handleListTask() {
         if (list.isEmpty()) {
             System.out.println("Your to-do list is empty.");
@@ -37,6 +70,13 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Handles the "delete" command.
+     *
+     * @param line The command line.
+     * @throws InvalidInputException If the task number is invalid.
+     */
     static void handleDeleteTask(String line) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
@@ -52,6 +92,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the "mark" command.
+     *
+     * @param line The command line.
+     * @throws InvalidInputException If the task number is invalid or the input is incorrect.
+     */
     static void handleMarkTask(String line) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
@@ -69,6 +115,12 @@ public class TaskList {
         taskScanner.close();
     }
 
+    /**
+     * Handles the "unmark" command.
+     *
+     * @param line The command line.
+     * @throws InvalidInputException If the task number is invalid or the input is incorrect.
+     */
     static void handleUnmarkTask(String line) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
@@ -86,6 +138,12 @@ public class TaskList {
         taskScanner.close();
     }
 
+    /**
+     * Handles the "deadline" command.
+     *
+     * @param line The command line.
+     * @throws InvalidInputException If the input format is incorrect.
+     */
     static void handleDeadlineTask(String line) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
@@ -99,9 +157,15 @@ public class TaskList {
         String description = remaining.substring(0, DESCRIPTION_END_INDEX).trim();
         String by = remaining.substring(BY_START_INDEX).trim();
         list.add(new Deadline(description, by, false));
-        System.out.println("Added: " + list.getLast() + "\nNow you have " + list.size() + " items in the list!");
+        System.out.println("Added: " + list.get(list.size() - 1) + "\nNow you have " + list.size() + " items in the list!");
     }
 
+    /**
+     * Handles the "event" command.
+     *
+     * @param line The command line.
+     * @throws InvalidInputException If the input format is incorrect.
+     */
     static void handleEventTask(String line) throws InvalidInputException {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
@@ -121,18 +185,27 @@ public class TaskList {
         String from = remaining.substring(FROM_START_INDEX, toIndex).trim();
         String to = remaining.substring(TO_START_INDEX).trim();
         list.add(new Events(description, from, to, false));
-        System.out.println("Added: " + list.getLast() + "\nNow you have " + list.size() + " items in the list!");
+        System.out.println("Added: " + list.get(list.size() - 1) + "\nNow you have " + list.size() + " items in the list!");
     }
 
-
+    /**
+     * Handles the "todo" command.
+     *
+     * @param line The command line.
+     */
     static void handleTodoTask(String line) {
         Scanner taskScanner = new Scanner(line);
         taskScanner.next();
         String remaining = taskScanner.nextLine().trim();
         list.add(new ToDo(remaining, false));
-        System.out.println("Added: " + list.getLast() + "\nNow you have " + list.size() + " items in the list!");
+        System.out.println("Added: " + list.get(list.size() - 1) + "\nNow you have " + list.size() + " items in the list!");
     }
 
+    /**
+     * Handles the "find" command.
+     *
+     * @param line The command line.
+     */
     static void handleFindTask(String line) {
         String query = line.substring("find".length()).trim();
         ArrayList<Task> matchingTasks = findTasks(query);
@@ -146,6 +219,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks matching the given query.
+     *
+     * @param query The search query.
+     * @return The list of matching tasks.
+     */
     private static ArrayList<Task> findTasks(String query) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : list) {
@@ -156,6 +235,12 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Checks if the task number is valid.
+     *
+     * @param taskNumber The task number to check.
+     * @return True if the task number is valid, otherwise false.
+     */
     private static boolean isValidTaskNumber(int taskNumber) {
         return taskNumber >= 0 && taskNumber < list.size();
     }
