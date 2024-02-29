@@ -180,12 +180,8 @@ public class TaskList {
         System.out.println("    " + "--------------");
     }
 
-    public static void keywordCatcher(String userInput) throws InvalidKeywordException, MissingDescriptionException {
-        String[] taskTypeList = {"todo", "deadline", "event"};
+    public static void detailCatcher(String userInput) throws MissingDescriptionException {
         String[] inputBreakdown = userInput.split(" ");
-        if (!Arrays.asList(taskTypeList).contains(inputBreakdown[0])){
-            throw new InvalidKeywordException();
-        }
         if (inputBreakdown.length<2){
             throw new MissingDescriptionException();
         }

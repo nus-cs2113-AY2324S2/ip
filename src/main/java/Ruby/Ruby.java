@@ -44,47 +44,31 @@ public class Ruby {
      */
     private static void processor(){
         String [] userInputs = inputCatcher();
+    private static void run(){
+        t1.setTaskList(s1.loadFile());
+        String[] userInputs = p1.inputParser(u1.readUserInput());
 
-        while (checkout(userInputs)) {
+        while (p1.isTerminateCommand()) {
             switch (userInputs[0].toLowerCase()){
             case "list":
                 t1.showTaskList();
                 break;
             case "mark":
-                try {
-                    t1.markTask(Integer.parseInt(userInputs[1]));
-                }catch (NumberFormatException e){
-                    print ("Sorry, please input number.");
-                }catch (NullPointerException | IndexOutOfBoundsException ee){
-                    print ("Sorry, I cannot find your task.");
-                }
+                p1.parseMarkTask(t1);
                 break;
             case "unmark":
-                try {
-                    t1.unmarkTask(Integer.parseInt(userInputs[1]));
-                }catch (NumberFormatException e){
-                    print ("Sorry, please input number.");
-                }catch (NullPointerException | IndexOutOfBoundsException ee){
-                    print ("Sorry, I cannot find your task.");
-                }
+                p1.parseUnmarkTask(t1);
                 break;
             case "delete":
-                try {
-                    t1.deleteTask(Integer.parseInt(userInputs[1]));
-                }catch (NumberFormatException e){
-                    print ("Sorry, please input number.");
-                }catch (NullPointerException | IndexOutOfBoundsException ee){
-                    print ("Sorry, I cannot find your task.");
-                }
+                p1.parseDeleteTask(t1);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                p1.parseAddTask(t1);
                 break;
             default:
-                try{
-                    t1.addTask(userInput);
-                }catch (ArrayIndexOutOfBoundsException e){
-                    print ("ArrayIndexOutOfBoundsException");
-                }catch(StringIndexOutOfBoundsException e){
-                    print ("StringIndexOutOfBoundsException");
-                }
+                p1.parseDefault();
                 break;
             }
             t1.saveToFile();
