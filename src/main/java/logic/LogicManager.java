@@ -20,10 +20,7 @@ public class LogicManager {
         this.listKeeper = listKeeper;
     }
 
-    private void executeList(String[] words) throws IllegalNumberOfArguments {
-        if (words.length != Keywords.getExpectedInputSize(Keywords.LIST)) {
-            throw new IllegalNumberOfArguments();
-        }
+    private void executeList(String[] words) {
         this.listKeeper.printList();
     }
 
@@ -45,20 +42,14 @@ public class LogicManager {
     }
 
     private void executeMark (String[] words)
-        throws IllegalNumberOfArguments, InvalidTaskIndex {
-        if (words.length != Keywords.getExpectedInputSize(Keywords.MARK)) {
-            throw new IllegalNumberOfArguments();
-        }
+        throws InvalidTaskIndex {
         int taskIndex = getTaskIndex(words);
         boolean isCompleted = words[0].equals(Keywords.MARK);
         this.listKeeper.processMark(taskIndex, isCompleted);
     }
 
     private void executeDelete (String[] words)
-        throws  IllegalNumberOfArguments, InvalidTaskIndex {
-        if (words.length != Keywords.getExpectedInputSize(Keywords.DELETE)) {
-            throw new IllegalNumberOfArguments();
-        }
+        throws InvalidTaskIndex {
         int taskIndex = getTaskIndex(words);
         this.listKeeper.deleteTask(taskIndex);
     }
@@ -91,8 +82,11 @@ public class LogicManager {
             EmptyTaskDescription, InvalidTaskArguments, Confusion {
 
         String[] words = currentInput.split(" ");
-        String commandType = words[0];
+        if (!Keywords.doosInputHaveCorrectNumOfArguments(words)) {
+            throw new IllegalNumberOfArguments();
+        }
 
+        String commandType = words[0];
         switch (commandType) {
         case Keywords.LIST:
             executeList(words);

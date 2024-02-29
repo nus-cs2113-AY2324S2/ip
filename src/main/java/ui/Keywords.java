@@ -19,7 +19,7 @@ public class Keywords {
      * @param keyword the keyword to check
      * @return the expected number of inputs
      */
-    public static int getExpectedInputSize(String keyword) {
+    private static int getExpectedInputSize(String keyword) {
         switch (keyword) {
         case Keywords.LIST:
             return 1;
@@ -32,5 +32,19 @@ public class Keywords {
         default:
             return 1;
         }
+    }
+
+    private static boolean hasInputSizeRequirements(String commandType) {
+        return commandType.equals(Keywords.LIST) || commandType.equals(Keywords.DELETE)
+                || commandType.equals(Keywords.MARK) || commandType.equals(Keywords.UNMARK);
+    }
+
+    public static boolean doosInputHaveCorrectNumOfArguments(String[] words) {
+        String commandType = words[0];
+        if (Keywords.hasInputSizeRequirements(commandType)) {
+            int numOfArguments = words.length;
+            return numOfArguments == Keywords.getExpectedInputSize(commandType);
+        }
+        return true;
     }
 }
