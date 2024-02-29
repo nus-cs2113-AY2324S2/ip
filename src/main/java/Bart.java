@@ -8,58 +8,65 @@ import java.util.Scanner;
 
 public class Bart {
     private static final String LINE = "____________________________________________________________";
+    private static Storage storage;
     private static Ui ui = new Ui();
     private static final String FILE_PATH = "./data/Bart.txt";
-    private static final ArrayList<Task> tasksList = new ArrayList<>();
+    private static final TaskList tasksList = new TaskList();
 
     public static void main(String[] args) {
-        loadTasks();
         ui.greetUser();
+        try {
+            storage = new Storage(FILE_PATH);
+        } catch (IOException e) {
+            ui.println("Unable to create data file!");
+            return;
+        }
+        storage.loadTasks();
         manageTask();
         saveTasks();
         byeUser();
     }
 
-    private static void loadTasks() {
-        try {
-            File file = new File(FILE_PATH);
-
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
-
-                String taskType = parts[0].trim();
-                boolean isDone = parts[1].trim().equals("1");
-                String taskDescription = parts[2];
-
-                Task task = null;
-                switch (taskType) {
-                    case "T":
-                        task = new Todo("todo" + taskDescription);
-                        break;
-                    case "D":
-                        task = new Deadline("deadline" + taskDescription);
-                        break;
-                    case "E":
-                        task = new Event("event" + taskDescription);
-                        break;
-                    default:
-                        ui.println("Unknown task type: " + taskType);
-                        continue;
-                }
-                if (isDone) {
-                    task.markAsDone();
-                }
-                tasksList.add(task);
-            }
-            scanner.close();
-        }  catch (ArrayIndexOutOfBoundsException e) {
-            ui.println("No file loaded, creating new load file");
-        } catch (FileNotFoundException e) {
-            ui.println("Data file does not exist. Starting with an empty task list.");
-        }
-    }
+//    private static void loadTasks() {
+//        try {
+//            File file = new File(FILE_PATH);
+//
+//            Scanner s = new Scanner(file);
+//            while (s.hasNextLine()) {
+//                String line = s.nextLine();
+//                String[] parts = line.split("\\|");
+//
+//                String taskType = parts[0].trim();
+//                boolean isDone = parts[1].trim().equals("1");
+//                String taskDescription = parts[2];
+//
+//                Task task = null;
+//                switch (taskType) {
+//                    case "T":
+//                        task = new Todo("todo" + taskDescription);
+//                        break;
+//                    case "D":
+//                        task = new Deadline("deadline" + taskDescription);
+//                        break;
+//                    case "E":
+//                        task = new Event("event" + taskDescription);
+//                        break;
+//                    default:
+//                        ui.println("Unknown task type: " + taskType);
+//                        continue;
+//                }
+//                if (isDone) {
+//                    task.markAsDone();
+//                }
+//                tasksList.add(task);
+//            }
+//            s.close();
+//        }  catch (ArrayIndexOutOfBoundsException e) {
+//            ui.println("No file loaded, creating new load file");
+//        } catch (FileNotFoundException e) {
+//            ui.println("Data file does not exist. Starting with an empty task list.");
+//        }
+//    }
 
     private static void saveTasks() {
         File file = new File("./data/Bart.txt");
@@ -179,12 +186,12 @@ public class Bart {
     }
 
     private static void deleteTask(String command) {
-        int taskIndex = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
-        if (taskIndex >= 0 && taskIndex < tasksList.size()) {
-            Task deletedTask = tasksList.remove(taskIndex);
-            ui.println(LINE + "\nNoted. I've removed this task:\n");
-            ui.println(deletedTask.toString());
-            ui.println("Now you have " + tasksList.size() + " tasks in the list.\n");
+        int indexToDelete = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
+        if (indexToDelete >= 0 && indexToDelete < tasksList.size()) {
+            ui.println(LINE + "\nNoted. I've removed this task:");
+            ui.println("   "+ tasksList.get(indexToDelete).toString());
+            tasksList.remove(indexToDelete);
+            ui.println("Now you have " + tasksList.size() + " tasks in the list.\n" + LINE);
         } else {
             ui.println(LINE + "\nInvalid task number.\n" + LINE);
         }
