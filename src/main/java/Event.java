@@ -9,6 +9,13 @@ public class Event extends Task {
         this.taskType = "[E]";
     }
 
+    public Event(boolean isDone, String description, String from, String to) {
+        super(description);
+        this.isDone = isDone;
+        this.from = from;
+        this.to = to;
+        this.taskType = "[E]";
+    }
     private void extractDescription(String description) {
         String[] parts = description.split(" /from ", 2);
         if (description.trim().equalsIgnoreCase("event")) {
@@ -22,6 +29,14 @@ public class Event extends Task {
 
         this.from = parts[0];
         this.to = parts[1];
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
     }
 
     @Override

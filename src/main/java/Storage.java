@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class Storage {
     private static File file;
-    public static final ArrayList<Task> tasksList = new ArrayList<>();
-
 
     public Storage(String FILE_PATH) throws IOException {
         file = new File(FILE_PATH);
@@ -21,42 +19,40 @@ public class Storage {
         }
     }
 
-    public void loadTasks() {
+    public void loadTasks(TaskList tasks) {
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
+                String[] parts = line.split("\\s*\\|\\s*", -1);
 
                 String taskType = parts[0].trim();
                 boolean isDone = parts[1].trim().equals("1");
-                String taskDescription = parts[2];
+                String taskDescription = parts[2].trim();
 
-                Task task = null;
                 switch (taskType) {
                     case "T":
-                        task = new Todo("todo" + taskDescription);
+                        tasks.add(new Todo(isDone, taskDescription));
                         break;
                     case "D":
-                        task = new Deadline("deadline" + taskDescription);
+                        String deadlineBy = parts[3].trim();
+                        tasks.add(new Deadline(isDone, taskDescription, deadlineBy));
                         break;
                     case "E":
-                        task = new Event("event" + taskDescription);
+                        String eventFrom = parts[3].trim();
+                        String eventTo = parts[4].trim();
+                        tasks.add(new Event(isDone, taskDescription, eventFrom, eventTo));
                         break;
                     default:
                         System.out.println("Unknown task type: " + taskType);
-                        continue;
+                        break;
                 }
-                if (isDone) {
-                    task.markAsDone();
-                }
-                tasksList.add(task);
             }
             scanner.close();
-        }  catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("No file loaded, creating new load file");
         } catch (FileNotFoundException e) {
             System.out.println("Data file does not exist. Starting with an empty task list.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid data format in file.");
         }
     }
 }

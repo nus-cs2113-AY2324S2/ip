@@ -21,7 +21,7 @@ public class Bart {
             ui.println("Unable to create data file!");
             return;
         }
-        storage.loadTasks();
+        storage.loadTasks(tasksList);
         manageTask();
         saveTasks();
         byeUser();
@@ -82,7 +82,15 @@ public class Bart {
                     String description = task.description;
                     String mark = task.isDone ? "1" : "0";
                     String taskType = task.getTaskType().replace("]", "").replace("[", "").trim();
-                    writer.write(taskType + " | " + mark + " | " + description + System.lineSeparator());
+                    writer.write(taskType + " | " + mark + " | " + description);
+                    if (Deadline.class.isInstance(task)) {
+                        Deadline deadlineTask = (Deadline) task;
+                        writer.write(" | " + deadlineTask.getBy());
+                    } else if (Event.class.isInstance(task)) {
+                        Event eventTask = (Event) task;
+                        writer.write(" | " + eventTask.getFrom() + " | " + eventTask.getTo());
+                    }
+                    writer.write(System.lineSeparator());
                 }
             }
         } catch (IOException e) {
