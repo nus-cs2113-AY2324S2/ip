@@ -23,7 +23,7 @@ public class FileLoader {
     }
 
     /**
-     * Check if a directory and file exists. Else, program will create one.
+     * Checks if a directory and file exists. Else, program will create one.
      * @throws IOException if there is error in locating the file in specified path.
      */
     public void checkFileExists() throws IOException {
@@ -40,7 +40,7 @@ public class FileLoader {
     }
 
     /**
-     * Load data from file line by line.
+     * Loads data from file line by line.
      * @param file File found in path
      * @throws FileNotFoundException If there is error locating file.
      */
