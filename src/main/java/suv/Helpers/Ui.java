@@ -6,6 +6,16 @@ import static suv.Task.TaskList.tasksList;
 
 public class Ui {
     final static String LINE = "____________________________________________________________\n";
+
+    public static void printWelcomeMessage(){
+        String name = "Suv";
+        System.out.println(LINE +
+                " Hello! I'm " + name + "\n" +
+                " What can I do for you?\n" +
+                LINE
+        );
+    }
+
     public static void printAddTodoMessage(Task newTask, int size){
         System.out.println(LINE +
                 " Got it. I've added this task:\n" + "  " + newTask +

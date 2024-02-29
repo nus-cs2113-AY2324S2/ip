@@ -1,2 +1,4 @@
-[D][X] read (by: sunday)
+[T][ ] [
+[D][X] buy bread (by: Sunday)
+[E][ ] carnival (from: 2pm to: 4pm)
 [T][ ] [
