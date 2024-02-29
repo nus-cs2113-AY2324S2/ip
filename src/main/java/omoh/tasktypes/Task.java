@@ -153,6 +153,22 @@ public class Task {
         }
         return findResult;
     }
+
+    public static void printFindResults(ArrayList<String> findResult) {
+        Omoh.printHorizontalLine();
+        if(findResult.isEmpty()) {
+            System.out.println("There were no matching tasks found :(");
+            Omoh.printHorizontalLine();
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        int serialNumber = 1;
+        for (String s : findResult) {
+            System.out.println(serialNumber + "." + s);
+            serialNumber++;
+        }
+        Omoh.printHorizontalLine();
+    }
 }
 
 
