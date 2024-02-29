@@ -1,24 +1,25 @@
-# Duke project template
+# User Guide for Bob
+Bob is a one-stop solution to track your daily tasks!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+### Main features of Bob:
+- Text-based CLI
+- Three types of tasks: _Todo_, _Deadline_ and _Event_
+- Add and delete tasks from task list
+- Mark and Unmark done tasks accordingly
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Quick Start
+1.Install [Java 11](https://www.oracle.com/java/technologies/downloads/#java11).
+
+2.Download the jar file [here](https://github.com/EdmundTangg/ip/releases/tag/A-Release).
+
+3.Copy the file to the folder you want to use as the home folder for the jar file.
+
+4.Open a command terminal, cd into the folder you put the jar file in.
+
+5.Run this command: `java -jar ip.jar`
+
+
+
+

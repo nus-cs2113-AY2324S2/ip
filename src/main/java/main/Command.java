@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import tasks.Deadline;
 import tasks.Event;
@@ -49,11 +50,13 @@ public class Command {
      * Removes task from both arrays.
      * @param listTask list of tasks in Task type.
      * @param listString list of tasks in String type.
-     * @param splitLine words of user input split by whitespace.
+     * @param originalUserInput words of user input.
      */
-    public static void removeElementFromBothArrays(ArrayList<TaskList> listTask, ArrayList<String> listString, String[] splitLine) {
+    public static void removeElementFromBothArrays(ArrayList<TaskList> listTask, ArrayList<String> listString, String originalUserInput) {
         try {
-            int index = Integer.parseInt(splitLine[1]) - 1;
+            String[] newInput = originalUserInput.split("delete");
+            int index = Integer.parseInt(newInput[1].trim()) - 1;
+
             TaskList t = listTask.get(index);
             listTask.remove(index);
             listString.remove(index);
@@ -178,7 +181,7 @@ public class Command {
      * @param listTask  list of tasks in Task type.
      * @param listString list of tasks in String type.
      */
-    public static void unMarkTasks(String userInput, ArrayList<TaskList> listTask, ArrayList<String> listString) {
+    public static void unmarkTasks(String userInput, ArrayList<TaskList> listTask, ArrayList<String> listString) {
         int index;
         String originalString, modifiedString;
 

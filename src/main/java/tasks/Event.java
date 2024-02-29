@@ -23,13 +23,16 @@ public class Event extends TaskList {
             String[] commandLine = splitLine[0].split("\\s+");
             String[] durationLine = splitLine[1].split("/to");
 
+            boolean emptyFieldsPresent = commandLine.length < 2 | durationLine[0].equals("  ") | durationLine[1].equals(" ");
+            boolean violationOfParameters = splitLine.length != 2 | durationLine.length != 2;
+
             /* Ensures that user only enters one /from and one /to, and all required fields are entered. */
-            if (commandLine.length < 2 | splitLine.length != 2 | durationLine.length != 2 | durationLine[0].equals("  ") | durationLine[1].equals(" ")) {
+            if (emptyFieldsPresent | violationOfParameters) {
                 throw new DukeException("Invalid Syntax! Please try again!");
             }
             date = " (from:" + durationLine[0]  + "to:" + durationLine[1] + ")";
-
             return "[E]" + super.toString() + date;
+
         } catch (DukeException e) {
             throw new RuntimeException(e);
         }

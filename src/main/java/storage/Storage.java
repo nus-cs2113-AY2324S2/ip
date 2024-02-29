@@ -22,15 +22,20 @@ public class Storage {
      */
     public static ArrayList<TaskList> changePresentationFormat(ArrayList<String> listString) throws DukeException {
         ArrayList<TaskList> listTask = new ArrayList<>();
-        String[] splitEntireLine, splitInput;
-        String mark, command;
+        String[] splitEntireLine = new String[0], splitInput;
+        String mark = null, command = null;
+        TaskList t;
         for (String task: listString) {
-            TaskList t;
-            splitEntireLine = task.split(":", 2); // split by whitespaces
-            mark = splitEntireLine[0];
-            splitInput = splitEntireLine[1].split(" ");
-            command = splitInput[0];
-
+            try {
+                splitEntireLine = task.split(":", 2); // split by whitespaces
+                mark = splitEntireLine[0];
+                splitInput = splitEntireLine[1].split(" ");
+                command = splitInput[0];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Unable to read the tasks in file successfully, Bob will stop running now.");
+                System.exit(1);
+            }
+            
             switch (command) {
                 case "todo":
                     t = new Todo(splitEntireLine[1], false);

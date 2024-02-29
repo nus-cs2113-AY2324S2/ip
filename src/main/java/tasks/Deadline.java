@@ -23,7 +23,10 @@ public class Deadline extends TaskList {
         String[] commandLine = splitLine[0].split("\\s+");
 
         /* Ensures that user only enters one /by, and all required fields are entered. */
-        if (commandLine.length < 2 | splitLine.length != 2 | splitLine[1].equals(" ")) {
+        boolean emptyFieldsPresent = commandLine.length < 2 | splitLine[1].equals(" ");
+        boolean violationOfParameters = splitLine.length != 2;
+
+        if (emptyFieldsPresent | violationOfParameters) {
             throw new DukeException("Invalid Syntax! Please try again!");
         }
         return splitLine[1];
