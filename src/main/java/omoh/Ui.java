@@ -51,7 +51,10 @@ public class Ui {
                 } catch (EmptyTaskNumberException e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else if (line.startsWith("find")) {
+                Task.findMatchingTasks(line);
+            }
+            else {
                 Task.addTask(line);
                 Task.printAddedTask();
             }
