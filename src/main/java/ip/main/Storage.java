@@ -14,18 +14,14 @@ import java.util.Scanner;
 public class Storage {
     private static File file;
 
-    public Storage(String filePath) {
+    public Storage(String filePath) throws IOException {
         file = new File(filePath);
 
         if (! file.getParentFile().exists()) {
             file.getParentFile().mkdir();
         }
         if (! file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Unable to create data file!");
-            }
+            file.createNewFile();
         }
     }
 
