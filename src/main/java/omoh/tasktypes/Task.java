@@ -16,21 +16,37 @@ public class Task {
 
     protected String type;
 
-    //initialise the ArrayList when called. This function is called in main once
+    /**
+     * Initializes the tasks ArrayList.
+     * This method is called once in the main method to initialize the tasks ArrayList.
+     */
     public static void initArray() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a Task with the given description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.type = "T";
     }
 
+    /**
+     * Returns the status icon of the task (X for done, empty for not done).
+     *
+     * @return The status icon of the task.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Gets all tasks and prints them.
+     */
     public static void getAllTasks() {
         System.out.println("Here are the tasks in your list:");
         int serialNumber = 1;
@@ -40,6 +56,13 @@ public class Task {
         }
     }
 
+    /**
+     * Writes tasks to the output file.
+     * Format of tasks is shown below
+     * taskType | isMark | description | etc
+     *
+     * @throws IOException if an I/O error occurs while writing to the file.
+     */
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter("data/output.txt");
         for(int i = 0; i < totalTasks ; i++) {
@@ -66,7 +89,13 @@ public class Task {
         fw.close();
     }
 
-    //method that modifies whether task is done or not done, depending on keyword mark or unmark detected
+    /**
+     * Modifies the status of a task (done or not done) or deletes a task.
+     *
+     * @param taskNumber The number of the task to be modified or deleted.
+     * @param input The user input specifying whether to mark, unmark, or delete the task.
+     * @throws IndexOutOfBoundsException if the task number is invalid.
+     */
     public static void modifyDoneStateOrDelete(int taskNumber, String input) throws IndexOutOfBoundsException {
             if (input.startsWith("mark")) {
                 tasks.get(taskNumber - 1).isDone = true;
@@ -82,7 +111,11 @@ public class Task {
             }
     }
 
-    //method that prints out the task that was deleted
+    /**
+     * Prints a message indicating that a task has been deleted.
+     *
+     * @param index The index of the task that is to be deleted.
+     */
     public static void printDeleteTask(int index) {
         //need to print out task that we deleted before we actually remove it because
         //once we remove th task, we can't retrieve it anymore
@@ -95,7 +128,12 @@ public class Task {
         Omoh.printHorizontalLine();
     }
 
-    //method that prints out the task that has been marked done or unmarked
+    /**
+     * Prints a message indicating that a task has been marked as done or not done.
+     *
+     * @param index The index of the task that has been marked.
+     * @param input The user input specifying whether to mark the task as done or not done.
+     */
     public static void printMarkTask(int index, String input) {
         Omoh.printHorizontalLine();
         if (input.startsWith("mark")) {
@@ -108,22 +146,37 @@ public class Task {
         Omoh.printHorizontalLine();
     }
 
+    /**
+     * Adds a task with the given description.
+     *
+     * @param taskDescription The description of the task to be added.
+     */
     public static void addTask(String taskDescription) {
         tasks.add(new Task(taskDescription));
         totalTasks++;
     }
 
+    /**
+     * Prints a message indicating that a task has been added.
+     */
     public static void printAddedTask() {
         Omoh.printHorizontalLine();
         System.out.println("added: " + tasks.get(totalTasks - 1).description);
         Omoh.printHorizontalLine();
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string representing the task, including its status icon and description.
+     */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    //Method that prints all the tasks stored in myTaskList array
+    /**
+     * Prints all tasks stored in the tasks ArrayList.
+     */
     public static void printAllTasks() {
         Omoh.printHorizontalLine();
         Task.getAllTasks();
