@@ -5,6 +5,6 @@ package util;
  */
 public class HorizontalGenerator {
     public static void printHorizontal() {
-        System.out.println("-----------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
     }
 }
