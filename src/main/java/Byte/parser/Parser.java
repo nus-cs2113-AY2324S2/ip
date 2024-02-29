@@ -10,7 +10,7 @@ import Byte.task.ToDo;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class Parser {
     private static final int TASK_TYPE_INDEX = 0;
@@ -39,6 +39,8 @@ public class Parser {
                 return markTask(argument, tasks);
             case "unmark":
                 return unmarkTask(argument, tasks);
+            case "find":
+                return findTasks(argument, tasks);
             default:
                 throw new ByteException("I'm sorry, but I don't know what that means.");
         }
@@ -180,6 +182,21 @@ public class Parser {
         }
         tasks.addTask(task);
         return "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getAllTasks().size() + " tasks in the list.";
+    }
+
+    private static String findTasks(String keyword, TaskList tasks) {
+        List<Task> foundTasks = tasks.findTasksByKeyword(keyword);
+        if (foundTasks.isEmpty()) {
+            return "No matching tasks found.";
+        } else {
+            StringBuilder foundTasksMessage = new StringBuilder("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                Task task = foundTasks.get(i);
+                String taskString = String.format("%d. %s", i + 1, task);
+                foundTasksMessage.append(taskString).append("\n");
+            }
+            return foundTasksMessage.toString();
+        }
     }
 
 }
