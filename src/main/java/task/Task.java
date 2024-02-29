@@ -55,4 +55,11 @@ public abstract class Task {
     public String getIdentity() {
         return identity;
     }
+    public boolean getCanSearchDate() {
+        return false;
+    }
+
+    public void setCanSearchDate(boolean canSearchDate){
+
+    }
 }

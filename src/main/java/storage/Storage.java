@@ -4,13 +4,15 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import task.*;
 
-import static constant.NormalConstant.TASK_SAVE_PATH;
-import static constant.NormalConstant.TEMP_TASK_SAVE_PATH;
+import static constant.NormalConstant.*;
 
 /**
  * Save the tasks one the local disk
@@ -70,10 +72,23 @@ public class Storage {
             case "D":
                 newTask = new Deadline(detail[2], detail[3]);
                 newTask.changeStatus(Integer.parseInt(detail[1]) == 1);
+                try{
+                    LocalDateTime.parse(newTask.getBy(), DateTimeFormatter.ofPattern(DISPLAY_LOCAL_DATE_FORMAT));
+                    newTask.setCanSearchDate(true);
+                } catch (DateTimeParseException e) {
+                    newTask.setCanSearchDate(false);
+                }
                 break;
             case "E":
                 newTask = new Event(detail[2], detail[3], detail[4]);
                 newTask.changeStatus(Integer.parseInt(detail[1]) == 1);
+                try{
+                    LocalDateTime.parse(newTask.getFrom(), DateTimeFormatter.ofPattern(DISPLAY_LOCAL_DATE_FORMAT));
+                    LocalDateTime.parse(newTask.getTo(), DateTimeFormatter.ofPattern(DISPLAY_LOCAL_DATE_FORMAT));
+                    newTask.setCanSearchDate(true);
+                } catch (DateTimeParseException e) {
+                    newTask.setCanSearchDate(false);
+                }
                 break;
             default:
                 newTask = new ToDo("Corrupted File");

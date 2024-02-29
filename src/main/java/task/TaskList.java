@@ -80,13 +80,13 @@ public class TaskList {
             boolean ifYearMatch = false;
             boolean ifDayOfYearMatch = false;
 
-            if (task instanceof Deadline) {
+            if (task instanceof Deadline && task.getCanSearchDate()) {
                 LocalDateTime currentTask =
                         LocalDateTime.parse(task.getBy(), DateTimeFormatter.ofPattern(DISPLAY_LOCAL_DATE_FORMAT));
 
                 ifYearMatch = timeCondition.getYear() == currentTask.getYear();
                 ifDayOfYearMatch = ifYearMatch && (timeCondition.getDayOfYear() == currentTask.getDayOfYear());
-            } else if (task instanceof Event) {
+            } else if (task instanceof Event && task.getCanSearchDate()) {
                 LocalDateTime currentTaskFrom =
                         LocalDateTime.parse(task.getFrom(), DateTimeFormatter.ofPattern(DISPLAY_LOCAL_DATE_FORMAT));
                 LocalDateTime currentTaskTo =
@@ -101,18 +101,9 @@ public class TaskList {
 
                 ifYearMatch = (yearOfCurrentTaskFrom <= yearOfTimeCondition)
                         && (yearOfCurrentTaskTo >= yearOfTimeCondition);
-                ifDayOfYearMatch = ifYearMatch && (yearOfCurrentTaskFrom < yearOfTimeCondition
-                        && yearOfCurrentTaskTo > yearOfTimeCondition)
-                        || (yearOfCurrentTaskFrom < yearOfTimeCondition
-                        && yearOfCurrentTaskTo == yearOfTimeCondition
-                        && dayOfYearOfCurrentTaskTo >= dayOfYearOfTimeCondition)
-                        || (yearOfCurrentTaskFrom == yearOfTimeCondition
-                        && yearOfCurrentTaskTo > yearOfTimeCondition
-                        && dayOfYearOfCurrentTaskFrom <= dayOfYearOfTimeCondition)
-                        || (yearOfCurrentTaskFrom == yearOfTimeCondition
-                        && yearOfCurrentTaskTo == yearOfTimeCondition
-                        && dayOfYearOfCurrentTaskFrom <= dayOfYearOfTimeCondition
-                        && dayOfYearOfCurrentTaskTo >= dayOfYearOfTimeCondition);
+                ifDayOfYearMatch = isIfDayOfYearMatch(ifYearMatch, yearOfCurrentTaskFrom, yearOfTimeCondition,
+                        yearOfCurrentTaskTo, dayOfYearOfCurrentTaskTo, dayOfYearOfTimeCondition,
+                        dayOfYearOfCurrentTaskFrom);
             }
             if (ifYearMatch && ifDayOfYearMatch) {
                 System.out.println("\t" + (index + 1) + "." + task.getIdentity()
@@ -121,5 +112,23 @@ public class TaskList {
             }
         }
         formatter.printDividingLine();
+    }
+
+    private boolean isIfDayOfYearMatch(boolean ifYearMatch, int yearOfCurrentTaskFrom,
+                                       int yearOfTimeCondition, int yearOfCurrentTaskTo,
+                                       int dayOfYearOfCurrentTaskTo, int dayOfYearOfTimeCondition,
+                                       int dayOfYearOfCurrentTaskFrom) {
+        return ifYearMatch && (yearOfCurrentTaskFrom < yearOfTimeCondition
+                && yearOfCurrentTaskTo > yearOfTimeCondition)
+                || (yearOfCurrentTaskFrom < yearOfTimeCondition
+                && yearOfCurrentTaskTo == yearOfTimeCondition
+                && dayOfYearOfCurrentTaskTo >= dayOfYearOfTimeCondition)
+                || (yearOfCurrentTaskFrom == yearOfTimeCondition
+                && yearOfCurrentTaskTo > yearOfTimeCondition
+                && dayOfYearOfCurrentTaskFrom <= dayOfYearOfTimeCondition)
+                || (yearOfCurrentTaskFrom == yearOfTimeCondition
+                && yearOfCurrentTaskTo == yearOfTimeCondition
+                && dayOfYearOfCurrentTaskFrom <= dayOfYearOfTimeCondition
+                && dayOfYearOfCurrentTaskTo >= dayOfYearOfTimeCondition);
     }
 }

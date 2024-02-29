@@ -28,10 +28,6 @@ public class DeadlineCommand extends Command {
     protected LocalDateTime date;
     protected boolean canSearchDate;
 
-    public boolean getCanSearchDate() {
-        return canSearchDate;
-    }
-
     public DeadlineCommand(String userCommandText) {
         formatter = new Formatter();
         storage = new Storage();
@@ -59,6 +55,7 @@ public class DeadlineCommand extends Command {
         }
 
         Task t = new Deadline(content.trim(), trimBy);
+        t.setCanSearchDate(canSearchDate);
         taskList.addTask(t);
         ui.printNewTaskAddedMessage(t, taskList);
 

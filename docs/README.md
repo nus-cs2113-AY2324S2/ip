@@ -15,7 +15,7 @@ He has the following features:
     * `year-month-day hour:minute[AM/PM]`
     * `month/day/year hour:minute[AM/PM]`
     * `year.month.day hour:minute[AM/PM]`  
-      ***See examples of command for more details***
+      ***See command examples for more details***
 
 ### Viewing help: `help`
 
@@ -24,8 +24,8 @@ He has the following features:
 ### Store three types of tasks: `todo` / `deadline` / `event`
 
 * Type `todo` + `TASKCONTENT` to record a **todo** task
-* Type `deadline` + `TASKCONTENT` + `/by` + `DATES/TIMES` to record a **deadline** task
-* Type `event` + `TASKCONTENT` + `/from` + `DATES/TIMES` + `/to` + `DATES/TIMES` to record a **event** task
+* Type `deadline` + `TASKCONTENT` + `/by` + `DATES + TIMES` to record a **deadline** task
+* Type `event` + `TASKCONTENT` + `/from` + `DATES + TIMES` + `/to` + `DATES/TIMES` to record a **event** task
 
 Examples:
 
@@ -58,7 +58,7 @@ Examples:
 ### Find tasks: `find`
 
 * Type `find` + `TASKCONTENT` to find tasks
-* Type `find` + `DATE/TIMES` to find tasks
+* Type `find` + `/at` + `DATE` to find tasks
 
 Examples:
 

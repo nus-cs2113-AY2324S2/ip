@@ -62,6 +62,7 @@ public class EventCommand extends Command {
         }
 
         Task t = new Event(content.trim(), trimFrom, trimTo);
+        t.setCanSearchDate(canSearchDate);
         taskList.addTask(t);
         ui.printNewTaskAddedMessage(t, taskList);
         try {
