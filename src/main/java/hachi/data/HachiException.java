@@ -4,9 +4,13 @@ import hachi.data.task.Task;
 
 /**
  * Represent the error handling class for the chatbot Hachi.
+ *
+ * @author clarencepohh
+ * @version 29/02/2024
+ *
  */
 
-public class HachiException extends Exception{
+public class HachiException extends Exception {
     public static final String INVALID_INPUT_MESSAGE = "Not marvelous! I'm not sure what you're saying here...";
     public static final String EMPTY_TASK_LIST_MESSAGE = "It appears you have no tasks at the moment...";
     public static final String EMPTY_TASK_DESCRIPTION_MESSAGE = "Where's the task description? " +
@@ -18,19 +22,42 @@ public class HachiException extends Exception{
     public static final String LIST_OUT_OF_BOUNDS_MESSAGE = "Woah, I'm not so sure if that task exists. You might " +
             "want to check that task number again.";
     public static final String CORRUPTED_SAVE_MESSAGE = "The data stored looks corrupted. Getting rid of it.";
+
     public HachiException (String errorMessage) {
         super(errorMessage);
     }
 
+    /**
+     * Prints to the console when an unrecognised input is given by the user.
+     *
+     * @throws HachiException If the input is not recognised.
+     */
+
     public static void invalidInput() throws HachiException {
         throw new HachiException(INVALID_INPUT_MESSAGE);
     }
+
+    /**
+     * Checks if the task list is empty and prints an error message if command
+     * given requires a populated task list to be executed.
+     *
+     * @param numTasks The number of tasks currently in the task list.
+     * @throws HachiException If numTasks is 0.
+     */
 
     public static void checkEmptyList(int numTasks) throws HachiException {
         if (numTasks == 0) {
             throw new HachiException(EMPTY_TASK_LIST_MESSAGE);
         }
     }
+
+    /**
+     * Checks if the user input for task-creation related commands (todo, event, deadline)
+     * contains a task description, and prints an error message to the console if it is missing.
+     *
+     * @param line The String containing the whole user input.
+     * @throws HachiException if there is no task description.
+     */
 
     public static void checkValidDescription (String line) throws HachiException {
         String[] userWords = line.split(" ");
@@ -39,8 +66,15 @@ public class HachiException extends Exception{
         }
     }
 
-    public static void checkDeadlineByDate (int indexOfBy) throws HachiException {
-        if (indexOfBy == 2) {
+    /**
+     * Checks if deadlines to be created have a by date, and prints an error message to
+     * the console if it is missing. Also checks if deadlines have the required "/by" command.
+     *
+     * @param indexOfBy The int representing the index of the character after "/by" in the input string.
+     * @param line The String containing the whole user input.
+     * @throws HachiException If the required input format is incorrect.
+     */
+
     public static void checkDeadlineByDate (int indexOfBy, String line) throws HachiException {
         String[] afterBySubstring = line.split("/by");
         if (afterBySubstring.length == 1 || indexOfBy == 2 || afterBySubstring[1].isBlank()) {
@@ -48,11 +82,44 @@ public class HachiException extends Exception{
         }
     }
 
-    public static void checkEventDates (int indexOfStart, int indexOfEnd) throws HachiException {
-        if (indexOfEnd == 2 || indexOfStart == 4) {
+    /**
+     * Checks if events to be created have a from and to date, and prints an error message to
+     * the console if they are missing. Also checks if events have the required "/from" and "/to" commands.
+     *
+     * @param indexOfStart The int representing the index of the character after "/from" in the input string.
+     * @param indexOfEnd The int representing the index of the character after "/to" in the input string.
+     * @param line The string containing the whole user input.
+     * @throws HachiException If the required input format is incorrect.
+     */
+
+    public static void checkEventDates (int indexOfStart, int indexOfEnd, String line) throws HachiException {
+        boolean isMissingDate = false;
+        boolean isDateEmpty = false;
+
+        String substringWithFrom = line.substring(indexOfStart - 5, indexOfEnd - 4);
+        String substringWithTo = line.substring(indexOfEnd - 4);
+
+        String[] afterFromSubstring = substringWithFrom.split("/from");
+        String[] afterToSubstring = substringWithTo.split("/to");
+
+        if (afterFromSubstring.length == 1 || afterToSubstring.length == 1) {
+            isMissingDate = true;
+        } else if (afterFromSubstring[1].isBlank() || afterToSubstring[1].isBlank()) {
+            isDateEmpty = true;
+        }
+
+        if (indexOfEnd == 2 || indexOfStart == 4 || isMissingDate || isDateEmpty) {
             throw new HachiException(MISSING_EVENT_START_END_DATE_MESSAGE);
         }
     }
+
+    /**
+     * Checks if the task to be accessed exists within the current task list, and prints an
+     * error message to the console if it is out of bounds.
+     *
+     * @param taskNumber The int representing the task number of the task to be accessed.
+     * @throws HachiException If taskNumber is out of bounds of the task list.
+     */
 
     public static void checkOutOfBounds (int taskNumber) throws HachiException{
         int currentLastTask = Task.getTotalNumTasks();

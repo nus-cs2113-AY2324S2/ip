@@ -48,6 +48,7 @@ public class Ui {
         System.out.println("\t'deadline <task name> /by <by date>' to create a task with a deadline,");
         System.out.println("\t'event <task name> /from <start> /to <end>' to create an event " +
                 "with a start and end date,");
+        System.out.println("\t'delete <task number> to delete a previously created entry,");
         System.out.println("\t'bye' to stop chatting :('");
         System.out.println("\tAnd if you need to see this again, type 'help'!");
         spacerInsert();

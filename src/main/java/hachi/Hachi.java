@@ -15,7 +15,7 @@ import java.util.Objects;
  * and is also the entry point of the program.
  *
  * @author clarencepohh
- * @version 06/02/2024
+ * @version 29/02/2024
  */
 
 public class Hachi {
@@ -30,7 +30,7 @@ public class Hachi {
      *
      * @param filePath The file path for save data of the user's task list.
      */
-    
+
     public Hachi(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -45,6 +45,7 @@ public class Hachi {
     /**
      * The main program that starts the chatbot.
      * Prints to the console for the user to read its messages.
+     * Retrieves user data upon startup and creates a save file if saved data is not found.
      * Greets the user and awaits user input.
      * <p>
      * Chatbot can:
@@ -54,7 +55,8 @@ public class Hachi {
      * <p>4. add a to-do to the list of task with "todo <event name>"
      * <p>5. add a deadline to the list of task with "deadline <event name> /by <by date>"
      * <p>6. add an event to the list of task with "event <event name> /from <start date> /to <end date>"
-     * <p>7. retrieve a list of chatbot commands with "help"
+     * <p>7. delete an existing task from the list of tasks with "delete <task number>"
+     * <p>8. retrieve a list of chatbot commands with "help"
      *
      */
 
@@ -90,6 +92,12 @@ public class Hachi {
             System.out.println("There was an error saving tasks.");
         }
     }
+
+    /**
+     * The main function of Hachi chatbot.
+     *
+     * @param args Command line arguments - not in use.
+     */
 
     public static void main(String[] args) {
         new Hachi("hachidata/hachidata.txt").runHachi();

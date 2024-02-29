@@ -78,7 +78,7 @@ public class TaskList {
             int indexOfName = cleanInput.indexOf("EVENT") + 6;
             int indexOfStart = cleanInput.indexOf("/FROM") + 5;
             int indexOfEnd = cleanInput.indexOf("/TO") + 3;
-            HachiException.checkEventDates(indexOfStart, indexOfEnd);
+            HachiException.checkEventDates(indexOfStart, indexOfEnd, line);
 
             String name = line.substring(indexOfName, indexOfStart - 5);
             String fromDate = line.substring(indexOfStart, indexOfEnd - 3).trim();
