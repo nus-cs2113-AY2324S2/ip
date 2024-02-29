@@ -14,6 +14,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public static String getSampleEvent() {
+        return Keywords.EVENT + " <task name>" + Keywords.FROM + "<start time>" + Keywords.TO + "<end time>"
+                + System.lineSeparator() + "For example, " + Keywords.EVENT + " project meeting" + Keywords.FROM
+                + "2/12/2021 2pm" + Keywords.TO + "2/12/2021 4pm";
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
@@ -42,7 +48,7 @@ public class Event extends Task {
             int idxOfEnd = currentInput.indexOf(Keywords.TO);
             boolean hasStartEnd = idxOfStart != -1 && idxOfEnd != -1;
             if (!hasStartEnd) {
-                throw new InvalidTaskArguments();
+                throw new InvalidTaskArguments(getSampleEvent());
             }
 
             String taskName = currentInput.substring(Keywords.EVENT.length(), idxOfStart);
@@ -60,7 +66,7 @@ public class Event extends Task {
             return new Event(taskName, start, end, isCompleted);
 
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskArguments();
+            throw new InvalidTaskArguments(getSampleEvent());
         }
 
     }

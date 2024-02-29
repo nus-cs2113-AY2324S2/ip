@@ -11,6 +11,19 @@ public class ListKeeper {
         this.tasks = new ArrayList<>();
     }
 
+    public static String getSampleListCommand() {
+        return "To list all tasks: list";
+    }
+    public static String getSampleDeleteCommand() {
+        return "To delete the task at index x: delete x";
+    }
+    public static String getSampleMarkCommand() {
+        return "To mark the task at index x as completed: mark x";
+    }
+    public static String getSampleUnmarkCommand() {
+        return "To mark the task at index x as not completed: unmark x";
+    }
+
     /**
      * Adds the task to the list of tasks.
      * @param task a task object to be added to the list

@@ -9,6 +9,11 @@ public class ToDo extends Task {
         super(taskName, isCompleted);
     }
 
+    public static String getSampleToDo() {
+        return Keywords.TODO + " <task name>" + System.lineSeparator() 
+                + "For example, " + Keywords.TODO + " read book";
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
@@ -41,7 +46,7 @@ public class ToDo extends Task {
             return new ToDo(taskName, isCompleted);
 
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskArguments();
+            throw new InvalidTaskArguments(getSampleToDo());
         }
 
     }

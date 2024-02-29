@@ -12,6 +12,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public static String getSampleDeadline() {
+        return Keywords.DEADLINE + " <task name>" + Keywords.BY + "<deadline>" + System.lineSeparator()
+                + "For example, " + Keywords.DEADLINE + " return book" + Keywords.BY + "June 6th";
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
@@ -38,7 +43,7 @@ public class Deadline extends Task {
             int idxOfDeadline = currentInput.indexOf(Keywords.BY);
             boolean hasDeadline = idxOfDeadline != -1;
             if (!hasDeadline) {
-                throw new InvalidTaskArguments();
+                throw new InvalidTaskArguments(getSampleDeadline());
             }
 
             String taskName = currentInput.substring(Keywords.DEADLINE.length(), idxOfDeadline);
@@ -53,7 +58,7 @@ public class Deadline extends Task {
             return new Deadline(taskName, by, isCompleted);
 
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskArguments();
+            throw new InvalidTaskArguments(getSampleDeadline());
         }
     }
 }
