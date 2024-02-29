@@ -1,10 +1,10 @@
+import InvalidInputExceptions.InvalidInputException;
 import Tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Main executable class that controls program flow
@@ -100,7 +100,7 @@ public class CheeseBot {
      * @param arguments The required parsed arguments for each specific task type.
      */
     
-    public static void addTask(String[] arguments) throws InvalidInputException {
+    public static void addTask(String[] arguments) {
         String command = arguments[0];
         String taskName = arguments[1];
 
@@ -110,23 +110,15 @@ public class CheeseBot {
             break;
 
         case "deadline":
-            try {
-                LocalDateTime by = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
-                tasksList.addTask(new Deadline(taskName, by));
-                break;
-            } catch (DateTimeParseException e) {
-                throw new InvalidInputException("Wrong time and date format for deadline task!");
-            }
+            LocalDateTime by = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
+            tasksList.addTask(new Deadline(taskName, by));
+            break;
 
         case "event":
-            try {
-                LocalDateTime start = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
-                LocalDateTime end = LocalDateTime.parse(arguments[3], INPUT_FORMAT);
-                tasksList.addTask(new Event(taskName, start, end));
-                break;
-            } catch (DateTimeParseException e) {
-                throw new InvalidInputException("Wrong time and date format for event task!");
-            }
+            LocalDateTime start = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
+            LocalDateTime end = LocalDateTime.parse(arguments[3], INPUT_FORMAT);
+            tasksList.addTask(new Event(taskName, start, end));
+            break;
         }
     }
 }
