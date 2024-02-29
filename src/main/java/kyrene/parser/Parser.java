@@ -6,15 +6,14 @@ import kyrene.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public static Command parse(String sentence) throws NumberFormatException, IndexOutOfBoundsException {
+    public static Command parse(String sentence) throws NumberFormatException, ArrayIndexOutOfBoundsException, StringIndexOutOfBoundsException {
         String[] commands = sentence.split(" ");
-        String command = commands[0];
+        String command = commands[0].toLowerCase();
         int taskNumber;
 
         switch (command) {
@@ -35,6 +34,8 @@ public class Parser {
             return new Command(Commands.AT, sentence.substring("at ".length()));
         case "due":
             return new Command(Commands.DUE, sentence.substring("due ".length()));
+        case "find":
+            return new Command(Commands.FIND, commands[1]);
         default:
             return new Command(Commands.ADD, sentence);
         }

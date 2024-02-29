@@ -108,6 +108,9 @@ public class Command {
         case DUE:
             handleDue(tasks);
             break;
+        case FIND:
+            handleFind(tasks);
+            break;
         default:
             handleError();
             break;
@@ -208,24 +211,34 @@ public class Command {
 
     private void handleAT(TaskList tasks) {
         LocalDate date = Parser.parseDate(description);
-        TaskList eventList = new TaskList();
+        TaskList events = new TaskList();
         for (Task task : tasks) {
             if (task.getTaskType().equals("E") && ((Event) task).isAt(date)){
-                eventList.add(task);
+                events.add(task);
             }
         }
-        Ui.showTasks(eventList);
+        Ui.showEvents(events);
     }
 
     private void handleDue(TaskList tasks) {
         LocalDateTime time = Parser.parseTime(description);
-        TaskList deadlineList = new TaskList();
+        TaskList deadlines = new TaskList();
         for (Task task : tasks) {
             if (task.getTaskType().equals("D") && ((Deadline) task).isBefore(time)){
-                deadlineList.add(task);
+                deadlines.add(task);
             }
         }
-        Ui.showTasks(deadlineList);
+        Ui.showDeadlines(deadlines);
+    }
+
+    private void handleFind(TaskList tasks) {
+        TaskList matches = new TaskList();
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(description)) {
+                matches.add(task);
+            }
+        }
+        Ui.showMatches(matches);
     }
 
 }
