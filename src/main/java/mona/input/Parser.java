@@ -150,6 +150,9 @@ public class Parser {
             break;
         case("list"):
             break;
+        case("find"):
+            extractDetailsFromFindString(line);
+            break;
         // default case is for invalid commands
         default:
             isValidInput = false;
