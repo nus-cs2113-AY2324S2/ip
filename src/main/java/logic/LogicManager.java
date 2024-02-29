@@ -24,31 +24,28 @@ public class LogicManager {
         this.listKeeper.printList();
     }
 
-    private int getTaskIndex (String[] words) throws InvalidTaskIndex {
-        String taskIndexString = words[1];
-        int taskIndex;
-
+    private int getTaskIndex (String taskIndexString) throws InvalidTaskIndex {
         try {
-            taskIndex = Integer.parseInt(taskIndexString);
+            int taskIndex = Integer.parseInt(taskIndexString);
+            if (!this.listKeeper.isValidTaskIndex(taskIndex)) {
+                throw new InvalidTaskIndex();
+            }
+            return taskIndex;
         } catch (NumberFormatException e) {
             throw new InvalidTaskIndex();
         }
-
-        if (!this.listKeeper.isValidTaskIndex(taskIndex)) {
-            throw new InvalidTaskIndex();
-        }
-
-        return taskIndex;
     }
 
     private void executeMark (String[] words) throws InvalidTaskIndex {
-        int taskIndex = getTaskIndex(words);
+        String taskIndexString = words[1];
+        int taskIndex = getTaskIndex(taskIndexString);
         boolean isCompleted = words[0].equals(Keywords.MARK);
         this.listKeeper.processMark(taskIndex, isCompleted);
     }
 
     private void executeDelete (String[] words) throws InvalidTaskIndex {
-        int taskIndex = getTaskIndex(words);
+        String taskIndexString = words[1];
+        int taskIndex = getTaskIndex(taskIndexString);
         this.listKeeper.deleteTask(taskIndex);
     }
 
