@@ -8,6 +8,6 @@ public class Ui {
     }
 
     public void showErrorMessage(String message) {
-        System.out.println("Error: " + message);
+        System.out.println(message);
     }
 }
