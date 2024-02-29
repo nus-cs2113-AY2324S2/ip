@@ -35,7 +35,6 @@ public class Deadline extends Task {
 
     public static void addDeadline (String input) {
         try {
-//            Deadline extractedInfo = Parser.extractTaskAndDueDate(input);
             Deadline extractedInfo = Parser.extractTaskAndDueDate(input);
             Task.tasks.add(new Deadline(extractedInfo.description, extractedInfo.by));
             Task.totalTasks++;
