@@ -2,6 +2,7 @@ package omoh.tasktypes;
 import omoh.Omoh;
 
 import omoh.Parser;
+import omoh.customexceptions.EmptyFindException;
 import omoh.customexceptions.EmptyTaskNumberException;
 
 import java.io.FileWriter;
