@@ -149,25 +149,6 @@ public class Task {
     }
 
     /**
-     * Adds a task with the given description.
-     *
-     * @param taskDescription The description of the task to be added.
-     */
-    public static void addTask(String taskDescription) {
-        tasks.add(new Task(taskDescription));
-        totalTasks++;
-    }
-
-    /**
-     * Prints a message indicating that a task has been added.
-     */
-    public static void printAddedTask() {
-        Omoh.printHorizontalLine();
-        System.out.println("added: " + tasks.get(totalTasks - 1).description);
-        Omoh.printHorizontalLine();
-    }
-
-    /**
      * Returns a string representation of the task.
      *
      * @return A string representing the task, including its status icon and description.

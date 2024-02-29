@@ -59,10 +59,9 @@ public class Ui {
                 }
             } else if (line.startsWith("find")) {
                 Task.findMatchingTasks(line);
-            }
-            else {
-                Task.addTask(line);
-                Task.printAddedTask();
+            } else {
+                System.out.println("Please enter a valid user command!\n" +
+                        "You may refer to the user guide for more information about valid user commands :)");
             }
             line = in.nextLine();
         }
