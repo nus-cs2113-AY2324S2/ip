@@ -15,33 +15,25 @@ public class Deadline extends Task {
         this.type = "D";
     }
 
+    /**
+     * Returns a string representation of the Deadline task.
+     *
+     * @return A string representing the Deadline task, including its task status, description, and due date.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-//    public static Deadline extractTaskAndDueDate (String input) throws IllegalDeadlineInput {
-//        Deadline taskAndDeadlineString = new Deadline("random","random");
-//        //splits string according to /by keyword
-//        String[] parts = input.split("/by");
-//        //if array is not size 2, means that we are missing inputs
-//        if (parts.length != 2) {
-//            throw new IllegalDeadlineInput();
-//        }
-//        //extracts task portion from input, after deadline keyword
-//        taskAndDeadlineString.description = parts[0].substring("deadline".length()).trim();
-//        //extracts deadline portion from input
-//        taskAndDeadlineString.by = parts[1].trim();
-//        if (taskAndDeadlineString.description.isEmpty() || taskAndDeadlineString.by.isEmpty()) {
-//            throw new IllegalDeadlineInput();
-//        }
-//        return taskAndDeadlineString;
-//    }
-
     public String getBy() {
         return by;
     }
 
+    /**
+     * Prints a message indicating that a Deadline task has been added.
+     *
+     * @param description The Deadline task that has been added.
+     */
     public static void printDeadline (Deadline description) {
         Omoh.printHorizontalLine();
         System.out.println("Got it. I've added this task:");
@@ -51,9 +43,13 @@ public class Deadline extends Task {
     }
 
 
+    /**
+     * Adds a Deadline task based on the input string.
+     *
+     * @param input The input string containing the Deadline task description and due date.
+     */
     public static void addDeadline (String input) {
         try {
-//            Deadline extractedInfo = Parser.extractTaskAndDueDate(input);
             Deadline extractedInfo = Parser.extractTaskAndDueDate(input);
             Task.tasks.add(new Deadline(extractedInfo.description, extractedInfo.by));
             Task.totalTasks++;

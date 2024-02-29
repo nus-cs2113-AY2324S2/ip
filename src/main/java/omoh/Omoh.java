@@ -19,13 +19,21 @@ public class Omoh {
         bye();
     }
 
-    //Method that prints horizontal line using "_" char
+    /**
+     * Prints a horizontal line consisting of "_" characters.
+     * The line is 50 characters long.
+     */
     public static void printHorizontalLine() {
         for (int i = 0; i < 50; i++) {
             System.out.print("_");
         }
         System.out.println("");
     }
+
+    /**
+     * Prints a welcome message with the Omoh name.
+     * The message includes a horizontal line above and below it.
+     */
     public static void printWelcomeMessage() {
         printHorizontalLine();
         System.out.println("Hello! I'm Omoh");

@@ -14,7 +14,10 @@ import java.util.Scanner;
 public class Storage {
 
 
-    //function creates directory for output.txt file if it is not present
+    /**
+     * Creates the directory for the output.txt file if it does not exist.
+     * The directory named "data" will be created if it is not already present.
+     */
     public static void createFileDirectory () {
         File directory = new File("data");
         if (!directory.exists()) {
@@ -22,8 +25,11 @@ public class Storage {
         }
     }
 
-    //creates output.txt file to store data
-    //also reads output file
+    /**
+     * Creates or reads the output.txt file.
+     * If the file does not exist, it creates a new one in the "data" directory.
+     * If the file exists, it attempts to read its contents.
+     */
     public static void createOrReadOutputFile () {
         //code to create new file in data directory
         File f = new File("data/output.txt");
@@ -39,7 +45,13 @@ public class Storage {
     }
 
 
-    //Method to read and process the output.txt file
+    /**
+     * Reads and processes the output.txt file.
+     *
+     * @throws FileNotFoundException if the output.txt file is not found.
+     * @throws CorruptedFileException if the output.txt file format is incorrect or corrupted.
+     * @throws EmptyTodoException if a todo task in the output.txt file is empty.
+     */
     public static void readFile() throws FileNotFoundException, CorruptedFileException, EmptyTodoException {
         //open file for reading
         File f = new File("data/output.txt");
@@ -60,7 +72,14 @@ public class Storage {
         s.close();
     }
 
-    //processes the output.txt file. According to the text it adds tasks and marks tasks
+    /**
+     * Processes the content of the output.txt file.
+     * Adds tasks and marks tasks as done based on the text content.
+     *
+     * @param parts An array containing the parts of a line from the output.txt file.
+     * @param iteration The iteration count for identifying tasks.
+     * @throws EmptyTodoException if a todo task in the output.txt file is empty.
+     */
     public static void processFileText (String[] parts, int iteration) throws EmptyTodoException {
         String command;
         switch (parts[0].trim().charAt(0)) {
