@@ -3,7 +3,6 @@ package Byte.task;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TaskList {
 
     private final List<Task> tasks;
@@ -38,6 +37,16 @@ public class TaskList {
 
     public int size() {
         return tasks.size();
+    }
+
+    public List<Task> findTasksByKeyword(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
     }
 }
 
