@@ -143,6 +143,16 @@ public class Task {
             e.printStackTrace();
         }
     }
+
+    public static ArrayList<String> searchTasks(String keyword) {
+        ArrayList<String> findResult = new ArrayList<>();
+        for (int i = 0; i < totalTasks; i++) {
+            if (tasks.get(i).description.contains(keyword)) {
+                findResult.add(tasks.get(i).toString());
+            }
+        }
+        return findResult;
+    }
 }
 
 
