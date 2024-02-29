@@ -3,10 +3,19 @@ package suv.Helpers;
 import suv.Command.*;
 import suv.Task.FileStorage;
 
-
+/**
+ * The Parser class is responsible for parsing user input and executing corresponding commands.
+ * It handles user input and invokes appropriate command objects based on the input.
+ */
 public class Parser {
     final static String LINE = "____________________________________________________________\n";
 
+    /**
+     * Handles the user input by parsing it and executing the corresponding command.
+     *
+     * @param input The user input to be processed.
+     * @throws SuvException If there is an error processing the input.
+     */
     public void handleInput(String input) throws SuvException{
         try {
             if(input.equals("bye")){

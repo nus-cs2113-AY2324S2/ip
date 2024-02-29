@@ -1,9 +1,5 @@
 package suv.Task;
 
-import suv.Task.Deadline;
-import suv.Task.Event;
-import suv.Task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,8 +9,17 @@ import java.nio.file.Paths;
 
 import static suv.Task.TaskList.tasksList;
 
+/**
+ * The FileStorage class provides methods to handle file operations for task storage.
+ */
 public class FileStorage {
     final static int TODO_DESCRIPTION_START_INDEX = 6;
+
+    /**
+     * Ensures that the directory containing the specified file path exists.
+     *
+     * @param filePath The file path for which the directory needs to be ensured.
+     */
     public static void ensureDirectoryExists(String filePath) {
         File file = new java.io.File(filePath);
         File parentDir = file.getParentFile();
@@ -23,16 +28,27 @@ public class FileStorage {
         }
     }
 
+    /**
+     * Creates a file at the specified file path.
+     *
+     * @param filePath The path at which the file needs to be created.
+     */
     public static void createFile(String filePath) {
         ensureDirectoryExists(filePath);
         try {
             FileWriter file = new FileWriter(filePath);
             file.close();
         } catch (IOException e) {
-            System.out.println("     An error occurred while creating file: " + e.getMessage());
+            System.out.println(" An error occurred while creating file: " + e.getMessage());
         }
     }
 
+    /**
+     * Saves the tasks from the tasksList to a file at the specified file path.
+     *
+     * @param filePath The path of the file where tasks are to be saved.
+     * @throws IOException If an I/O error occurs while saving tasks to the file.
+     */
     public static void saveTasksToFile(String filePath) {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (int i = 0; i < tasksList.size(); i++) {
@@ -40,10 +56,16 @@ public class FileStorage {
                 fw.write(out + "\n");
             }
         } catch (IOException e) {
-            System.out.println("     An error occurred while saving tasks to file: " + e.getMessage());
+            System.out.println(" An error occurred while saving tasks to file: " + e.getMessage());
         }
     }
 
+    /**
+     * Fetches tasks data from the file at the default data location.
+     * If the file doesn't exist, it creates a new file.
+     *
+     * @throws FileNotFoundException If the file containing tasks data is not found.
+     */
     public static void fetchData()  {
         String filePath = Paths.get(System.getProperty("user.dir"), "data", "data.txt").toString();
         java.io.File file = new java.io.File(filePath);

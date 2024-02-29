@@ -2,4 +2,3 @@
 [D][X] buy bread (by: Sunday)
 [E][ ] carnival (from: 2pm to: 4pm)
 [T][ ] return book
-
