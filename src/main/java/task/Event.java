@@ -1,5 +1,9 @@
 package task;
 
+/**
+ * Representation of a Event task.
+ */
+
 public class Event extends Task {
     private String eventStart;
     private String eventEnd;
