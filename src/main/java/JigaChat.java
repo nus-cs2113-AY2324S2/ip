@@ -47,7 +47,7 @@ public class JigaChat {
                 }
             }
             catch(IOException e) {
-                System.out.println("the hell?");
+                System.out.println("File writing/reading failed!");
             }
         }
         else {
@@ -61,6 +61,7 @@ public class JigaChat {
                     chat.previousData.writeToFile("0");
                 }
                 catch(IOException ex) {
+                    System.out.println("File writing/reading failed!");
                 }
             }
         }

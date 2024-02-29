@@ -27,6 +27,7 @@ public class Parser {
                 Printer.printDeleteCommand();
             }
             catch (IOException e) {
+                System.out.println("File writing/reading failed!");
             }
             return;
         case "list":
@@ -45,6 +46,7 @@ public class Parser {
                 Printer.printMarkCommand();
             }
             catch (IOException e) {
+                System.out.println("File writing/reading failed!");
             }
             return;
         case "unmark":
@@ -60,6 +62,7 @@ public class Parser {
                 Printer.printUnmarkCommand();
             }
             catch (IOException e) {
+                System.out.println("File writing/reading failed!");
             }
             return;
         case "find":
@@ -82,6 +85,7 @@ public class Parser {
             System.out.println("Type [help] to learn how to add tasks");
         }
         catch(IOException e) {
+            System.out.println("File writing/reading failed!");
         }
     }
 
@@ -114,6 +118,7 @@ public class Parser {
                 TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsDoneWithoutPrints();
             }
             catch (NullPointerException e) {
+                System.out.println("File writing/reading failed!");
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 Printer.printMarkCommand();

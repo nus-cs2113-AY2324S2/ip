@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 public class DataFile {
-    File data = new File("data/tasks.txt");
+    File data = new File("tasks.txt");
 
     /**
      * Writes a String to the data File
