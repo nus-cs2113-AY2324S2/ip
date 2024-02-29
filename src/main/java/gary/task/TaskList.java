@@ -4,10 +4,13 @@ import gary.exception.UnknownCommandException;
 import gary.exception.MissingTodoDescriptionException;
 import gary.exception.MissingDeadlineByException;
 import gary.exception.MissingDeadlineDescriptionException;
-import gary.exception.MissingEventFromException;
 import gary.exception.MissingEventToException;
+import gary.exception.MissingEventFromException;
 import gary.exception.MissingEventDescriptionException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -26,7 +29,7 @@ public class TaskList {
 
     public static void processAddTask(String command, ArrayList<Task> todos, String line)
             throws UnknownCommandException, MissingTodoDescriptionException,
-            MissingDeadlineByException, MissingDeadlineDescriptionException,
+            MissingDeadlineByException, MissingDeadlineDescriptionException, DateTimeParseException,
             MissingEventFromException, MissingEventToException, MissingEventDescriptionException {
         if (command.equalsIgnoreCase("TODO")) {
             createNewTodo(todos, line);
@@ -94,7 +97,8 @@ public class TaskList {
     }
 
     private static void createNewDeadline(ArrayList<Task> todos, String line)
-            throws MissingDeadlineByException, MissingDeadlineDescriptionException {
+            throws MissingDeadlineByException, MissingDeadlineDescriptionException,
+            DateTimeParseException {
         if (!(line.contains("/by"))) {
             throw new MissingDeadlineByException();
         }
@@ -106,11 +110,13 @@ public class TaskList {
         }
 
         try {
-            String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH);
+            String deadlineBy = line.substring(bySlashIndex + DEADLINE_BY_SPACE_LENGTH).strip();
             if (deadlineBy.isBlank()) {
                 throw new MissingDeadlineByException();
             }
-            todos.add(new Deadline(deadlineDescription, deadlineBy));
+            LocalDate deadlineByDate = LocalDate.parse(deadlineBy);
+            String formattedDeadlineDate = deadlineByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            todos.add(new Deadline(deadlineDescription, formattedDeadlineDate));
         } catch (StringIndexOutOfBoundsException e) {
             throw new MissingDeadlineByException();
         }
