@@ -119,16 +119,9 @@ public class LogicManager {
         }
         try {
             executeCommand(currentInput);
-        } catch (IllegalNumberOfArguments e) {
-            System.out.println("You provided too few or too many arguments");
-        } catch (InvalidTaskIndex e) {
-            System.out.println("Task specified does not exist");
-        } catch (EmptyTaskDescription e) {
-            System.out.println("Task description cannot be empty");
-        } catch (InvalidTaskArguments e) {
-            System.out.println("Not a valid task");
-        } catch (Confusion e) {
-            System.out.println("I'm very very confused~~~");
+        } catch (IllegalNumberOfArguments | InvalidTaskIndex |
+                 EmptyTaskDescription | InvalidTaskArguments | Confusion e) {
+            System.out.println(e.getMessage());
         }
     }
 }
