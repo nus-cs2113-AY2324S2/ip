@@ -2,6 +2,7 @@ package tasks;
 
 import storage.SaveManager;
 import java.util.ArrayList;
+import exceptions.InvalidTaskIndex;
 import java.io.IOException;
 
 public class ListKeeper {
@@ -24,6 +25,16 @@ public class ListKeeper {
         return "To mark the task at index x as not completed: unmark x";
     }
 
+    private void verifyTaskIndex(int inputIndex) throws InvalidTaskIndex {
+        if (inputIndex >= 1 && inputIndex <= this.tasks.size()) {
+            return;
+        }
+        if (this.tasks.isEmpty()) {
+            throw new InvalidTaskIndex("The list is empty");
+        }
+        throw new InvalidTaskIndex("The task index is invalid. Select a task index between 1 and " + this.tasks.size());
+    }
+
     /**
      * Adds the task to the list of tasks.
      * @param task a task object to be added to the list
@@ -37,7 +48,8 @@ public class ListKeeper {
      * Deletes the task at the specified index.
      * @param taskIndex the index of the task to be deleted
      */
-    public void deleteTask(int taskIndex) {
+    public void deleteTask(int taskIndex) throws InvalidTaskIndex {
+        verifyTaskIndex(taskIndex);
         Task removedTask = this.tasks.get(taskIndex - 1);
         this.tasks.remove(taskIndex - 1);
         System.out.println("Removed task: " + removedTask);
@@ -53,21 +65,14 @@ public class ListKeeper {
         }
     }
 
-    /**
-     * Checks if the input index is a valid task index.
-     * @param inputIndex the index to be checked
-     * @return true if the index is valid, false otherwise
-     */
-    public boolean isValidTaskIndex(int inputIndex) {
-        return inputIndex >= 1 && inputIndex <= this.tasks.size();
-    }
 
     /**
      * Marks the task specified as completed or not completed.
      * @param inputIndex the index of the task to be marked
      * @param isCompleted whether the task is to be marked as completed or not completed
      */
-    public void processMark(int inputIndex, boolean isCompleted) {
+    public void processMark(int inputIndex, boolean isCompleted) throws InvalidTaskIndex{
+        verifyTaskIndex(inputIndex);
         Task task = this.tasks.get(inputIndex - 1);
         task.mark(isCompleted);
     }
