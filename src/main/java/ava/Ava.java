@@ -10,11 +10,13 @@ import java.util.ArrayList;
 
 public class Ava {
 
-    private Storage storage;
-    private TaskList tasks;
+    private final Storage storage;
+    private final TaskList tasks;
 
     public Ava(String filePath) {
         storage = new Storage(filePath);
+        tasks = new TaskList();
+        storage.loadFile(tasks);
     }
 
     public static void main(String[] args) {
@@ -29,8 +31,6 @@ public class Ava {
 
     public void mainProcess() {
         boolean isExit = false;
-        ArrayList<Task> tasks = new ArrayList<>();
-        storage.loadFile(tasks);
         Scanner in = new Scanner(System.in);
         while (!isExit) {
             String task = in.nextLine();
