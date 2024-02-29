@@ -1,4 +1,7 @@
 package suv.Task;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import suv.Task.Task;
 
@@ -18,7 +21,12 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        try {
+            LocalDateTime deadlineDate = LocalDateTime.parse(by.trim(), DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+            this.by = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
+        } catch (DateTimeParseException e) {
+            this.by = by;
+        }
     }
 
     /**
