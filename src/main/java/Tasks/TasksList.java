@@ -9,8 +9,7 @@ import static java.util.stream.Collectors.toList;
  * Helper class to manage task-related operations. Primarily manages the array of tasks stored.
  */
 public class TasksList {
-    private int numberOfTasks = 0;
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> TASKS = new ArrayList<>();
 
     /**
      * Lists all the tasks stored in the array of tasks.
@@ -35,7 +34,7 @@ public class TasksList {
     }
 
     private ArrayList<Task> filterTasksByKeyword(String keyword) {
-        return (ArrayList<Task>) tasks.stream()
+        return (ArrayList<Task>) TASKS.stream()
                 .filter(t -> t.getTaskName().toLowerCase().contains(keyword))
                 .collect(toList());
     }
@@ -53,10 +52,9 @@ public class TasksList {
      * @param newTask A Task to be added. Can be of 1 of the 3 inherited types of Task (Todo, Deadline or Event).
      */
     public void addTask(Task newTask) {
-        tasks.add(newTask);
-        numberOfTasks++;
+        TASKS.add(newTask);
         System.out.println("\tYou have added: " + newTask.getTaskName());
-        System.out.println("\tYou have a total of " + numberOfTasks + " completed and uncompleted tasks.");
+        System.out.println("\tYou have a total of " + TASKS.size() + " completed and uncompleted tasks.");
     }
 
     private void printTasksList() {
@@ -64,7 +62,7 @@ public class TasksList {
         System.out.println("\tHere's your current list of tasks:");
 
         int i = 0;
-        for (Task task: tasks) {
+        for (Task task: TASKS) {
             if (!task.isTaskDone()) {
                 isAllTasksDone = false;
             }
@@ -73,7 +71,7 @@ public class TasksList {
             i += 1;
         }
 
-        System.out.println("\tNow you have " + numberOfTasks + " tasks in your list.");
+        System.out.println("\tNow you have " + TASKS.size() + " tasks in your list.");
 
         if (isAllTasksDone) {
             System.out.println("\tExcellent! You have completed all your tasks!");
@@ -81,7 +79,7 @@ public class TasksList {
     }
 
     private boolean isTasksListEmpty() {
-        if (tasks.isEmpty()) {
+        if (TASKS.isEmpty()) {
             System.out.println("\tThere are no tasks in your list! Please add some tasks.");
             return true;
         }
@@ -102,7 +100,7 @@ public class TasksList {
         }
 
         int taskNumber = Integer.parseInt(arguments[1]);
-        Task taskToEdit = tasks.get(taskNumber);
+        Task taskToEdit = TASKS.get(taskNumber);
 
         if (isAlreadyMarked(isDone, taskToEdit) || isAlreadyUnmarked(isDone, taskToEdit)) {
             return;
@@ -137,9 +135,6 @@ public class TasksList {
         }
         return false;
     }
-    public int getNumberOfTasks() {
-        return numberOfTasks;
-    }
 
     /**
      * Deletes a specific task, which is specified by the task number. Mainly uses arguments[1] which corresponds to the
@@ -149,13 +144,12 @@ public class TasksList {
      */
     public void delete(String[] arguments) {
         int taskNumber = Integer.parseInt(arguments[1]);
-        Task taskToDelete = tasks.get(taskNumber);
+        Task taskToDelete = TASKS.get(taskNumber);
 
-        tasks.remove(taskToDelete);
-        numberOfTasks--;
+        TASKS.remove(taskToDelete);
         System.out.println("\t Done! I have deleted the following task.");
         System.out.println(taskToDelete);
-        System.out.println("\tNow you have " + numberOfTasks + " tasks in your list");
+        System.out.println("\tNow you have " + TASKS.size() + " tasks in your list");
     }
 
     /**
@@ -167,7 +161,7 @@ public class TasksList {
      */
     public void outputDataIntoFile(String outputFilePath) throws IOException {
         FileWriter fw = new FileWriter(outputFilePath);
-        for (Task task: tasks) {
+        for (Task task: TASKS) {
             String output = task.getTaskType() +  " | " + task.getTaskName();
             switch (task.getTaskType()) {
             case "D":
@@ -188,5 +182,9 @@ public class TasksList {
         }
 
         fw.close();
+    }
+
+    public int getNumberOfTasks() {
+        return TASKS.size();
     }
 }

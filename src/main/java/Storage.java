@@ -1,5 +1,6 @@
 import Tasks.Deadline;
 import Tasks.Event;
+import Tasks.TasksList;
 import Tasks.Todo;
 
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.Scanner;
  * Storage helper class to load from and store into save file.
  */
 public class Storage {
+    private static final TasksList TASKS_LIST = CheeseBot.TASKS_LIST;
 
     /**
      * Takes in 2 files: an input file and a temporary output file. Stores data into temporary output file, then
@@ -34,7 +36,7 @@ public class Storage {
 
     private static void storeDataIntoTempFile(String outFilePath) {
         try {
-            CheeseBot.tasksList.outputDataIntoFile(outFilePath);
+            TASKS_LIST.outputDataIntoFile(outFilePath);
         } catch (IOException e) {
             System.out.println("Cannot save to output file!");
             System.exit(1);
@@ -94,14 +96,14 @@ public class Storage {
             case "T":
                 Todo newTodo = new Todo(taskName);
                 newTodo.setTaskDone(isTaskDone);
-                CheeseBot.tasksList.addTask(newTodo);
+                TASKS_LIST.addTask(newTodo);
                 break;
 
             case "D":
                 LocalDateTime by = LocalDateTime.parse(arguments[2]);
                 Deadline newDeadline = new Deadline(taskName, by);
                 newDeadline.setTaskDone(isTaskDone);
-                CheeseBot.tasksList.addTask(newDeadline);
+                TASKS_LIST.addTask(newDeadline);
                 break;
 
             case "E":
@@ -109,7 +111,7 @@ public class Storage {
                 LocalDateTime to = LocalDateTime.parse(arguments[3]);
                 Event newEvent = new Event(taskName, from, to);
                 newEvent.setTaskDone(isTaskDone);
-                CheeseBot.tasksList.addTask(newEvent);
+                TASKS_LIST.addTask(newEvent);
                 break;
             }
         }

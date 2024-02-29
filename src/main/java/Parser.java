@@ -1,14 +1,24 @@
 import InvalidInputExceptions.InvalidDeadlineException;
 import InvalidInputExceptions.InvalidEventException;
 import InvalidInputExceptions.InvalidInputException;
+import Tasks.TasksList;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
  * Helper class used to parse input supplied by user into CheeseBot.
  */
 public class Parser {
+    private static final TasksList TASKS_LIST = CheeseBot.TASKS_LIST;
+    private static final DateTimeFormatter INPUT_FORMAT = CheeseBot.INPUT_FORMAT;
+    private static final String SPACE = " ";
+    private static final String BY = " /by";
+    private static final String FROM = " /from";
+    private static final String TO = " /to";
+
+
     public boolean isBye(String command) {
         return command.equals("bye");
     }
@@ -32,9 +42,9 @@ public class Parser {
     }
 
     private static String[] validateAndParseEventInput(String input) throws InvalidEventException {
-        int spaceIndex = input.indexOf(" ");
-        int fromIndex = input.indexOf(" /from");
-        int toIndex = input.indexOf(" /to");
+        int spaceIndex = input.indexOf(SPACE);
+        int fromIndex = input.indexOf(FROM);
+        int toIndex = input.indexOf(TO);
 
         if (fromIndex == spaceIndex || fromIndex == spaceIndex + 1) {
             //case where there is no task name input
@@ -76,7 +86,7 @@ public class Parser {
         String from = input.substring(fromIndex + 7, toIndex);
         LocalDateTime start;
         try {
-            start = LocalDateTime.parse(from, CheeseBot.INPUT_FORMAT);
+            start = LocalDateTime.parse(from, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             throw new InvalidEventException("\tWrong time and date format for START_TIME!");
         }
@@ -93,7 +103,7 @@ public class Parser {
         String to = input.substring(toIndex + 5);
         LocalDateTime end;
         try {
-            end = LocalDateTime.parse(to, CheeseBot.INPUT_FORMAT);
+            end = LocalDateTime.parse(to, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             throw new InvalidEventException("\tWrong time and date format for END_TIME!");
         }
@@ -113,11 +123,11 @@ public class Parser {
     }
 
     private static String[] validateAndParseIntegerInput(String input) throws InvalidInputException{
-        int spaceIndex = input.indexOf(" ");
+        int spaceIndex = input.indexOf(SPACE);
         int taskNumber = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
-        if (taskNumber >= CheeseBot.tasksList.getNumberOfTasks()) {
+        if (taskNumber >= TASKS_LIST.getNumberOfTasks()) {
             throw new InvalidInputException("\tInvalid number! Number must be less than the number of tasks ("
-                    + CheeseBot.tasksList.getNumberOfTasks() + ").");
+                    + TASKS_LIST.getNumberOfTasks() + ").");
         }
 
         if (taskNumber < 0) {
@@ -129,8 +139,8 @@ public class Parser {
         return parsed;
     }
     private static String[] validateAndParseDeadlineInput(String input) throws InvalidInputException {
-        int byIndex = input.indexOf(" /by");
-        int spaceIndex = input.indexOf(" ");
+        int byIndex = input.indexOf(BY);
+        int spaceIndex = input.indexOf(SPACE);
 
         if (byIndex == -1 ) {
             throw new InvalidDeadlineException("\tMissing '/by' flag!");
@@ -157,7 +167,7 @@ public class Parser {
 
         String deadline = input.substring(byIndex + 5);
         try {
-            LocalDateTime by = LocalDateTime.parse(deadline, CheeseBot.INPUT_FORMAT);
+            LocalDateTime by = LocalDateTime.parse(deadline, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             throw new InvalidDeadlineException("\tWrong time and date format for DEADLINE!");
         }
@@ -185,12 +195,12 @@ public class Parser {
         }
 
         String[] parsed;
-        if (!input.contains(" ")) {
+        if (!input.contains(SPACE)) {
             parsed = parseSingleWordCommand(input);
             return parsed;
         }
 
-        String command = input.substring(0, input.indexOf(' '));
+        String command = input.substring(0, input.indexOf(SPACE));
         switch (command) {
         case "todo":
             //Fallthrough
@@ -221,7 +231,7 @@ public class Parser {
     }
 
     private String[] parseDoubleWordCommand(String input) {
-        int spaceIndex = input.indexOf(' ');
+        int spaceIndex = input.indexOf(SPACE);
         String command = input.substring(0, spaceIndex);
         String argument = input.substring(spaceIndex + 1);
         String[] parsed = new String[4];

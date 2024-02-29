@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * Main executable class that controls program flow
  */
 public class CheeseBot {
-    protected final static TasksList tasksList = new TasksList();
+    protected final static TasksList TASKS_LIST = new TasksList();
     private final Parser PARSER = new Parser();
     private final Ui UI = new Ui();
     private static final Storage STORAGE = new Storage();
@@ -25,15 +25,15 @@ public class CheeseBot {
 
         switch (command) {
         case "list":
-            tasksList.listTasks();
+            TASKS_LIST.listTasks();
             break;
 
         case "mark":
-            tasksList.mark(arguments, true);
+            TASKS_LIST.mark(arguments, true);
             break;
 
         case "unmark":
-            tasksList.mark(arguments, false);
+            TASKS_LIST.mark(arguments, false);
             break;
 
         case "help":
@@ -41,11 +41,11 @@ public class CheeseBot {
             break;
 
         case "delete":
-            tasksList.delete(arguments);
+            TASKS_LIST.delete(arguments);
             break;
 
         case "find":
-            tasksList.find(arguments);
+            TASKS_LIST.find(arguments);
             break;
 
         default:
@@ -64,10 +64,9 @@ public class CheeseBot {
                     break;
                 }
                 botAction(arguments);
+                UI.printDivider();
             } catch (InvalidInputException e) {
                 // No action required. Just catch the exception.
-            } finally {
-                UI.printDivider();
             }
         }
     }
@@ -103,18 +102,18 @@ public class CheeseBot {
 
         switch (command) {
         case "todo":
-            tasksList.addTask(new Todo(taskName));
+            TASKS_LIST.addTask(new Todo(taskName));
             break;
 
         case "deadline":
             LocalDateTime by = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
-            tasksList.addTask(new Deadline(taskName, by));
+            TASKS_LIST.addTask(new Deadline(taskName, by));
             break;
 
         case "event":
             LocalDateTime start = LocalDateTime.parse(arguments[2], INPUT_FORMAT);
             LocalDateTime end = LocalDateTime.parse(arguments[3], INPUT_FORMAT);
-            tasksList.addTask(new Event(taskName, start, end));
+            TASKS_LIST.addTask(new Event(taskName, start, end));
             break;
         }
     }

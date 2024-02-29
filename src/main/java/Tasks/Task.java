@@ -25,8 +25,8 @@ public abstract class Task {
         return isTaskDone;
     }
 
-    public void setTaskDone(boolean taskDone) {
-        isTaskDone = taskDone;
+    public void setTaskDone(boolean newValue) {
+        isTaskDone = newValue;
     }
 
     public String getStatusIcon() {

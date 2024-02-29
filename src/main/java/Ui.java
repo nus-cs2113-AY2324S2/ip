@@ -15,7 +15,6 @@ public class Ui {
         printDivider();
         String greeting = "\tHello! I'm CheeseBot\n" + "\tWhat can I do for you?";
         System.out.println(greeting);
-        printDivider();
     }
 
     public void printFarewell() {
