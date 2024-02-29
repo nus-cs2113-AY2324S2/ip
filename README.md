@@ -1,6 +1,11 @@
 # Omoh 
 Welcome to the Omoh chatbot user guide!
 
+## Content Page
+
+- [Setting up in Intellij](#setting-up-in-intellij)
+- [Features](#features)
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
