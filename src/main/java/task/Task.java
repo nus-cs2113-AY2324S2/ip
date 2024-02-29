@@ -28,11 +28,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (this.isDone ? "X" : " ");
     }
 
     public String getTaskDetails() {
-        return "[T][" + getStatusIcon() + "] " + description;
+        return "[T][" + this.getStatusIcon() + "] " + this.description;
     }
 
     public String getTaskAsString() {
@@ -45,5 +45,4 @@ public class Task {
         }
         return "0";
     }
-
 }

@@ -6,6 +6,6 @@ public class ToDo extends Task {
     }
 
     public String getTaskAsString() {
-        return "T | " + getDoneAsInteger() + " | " + description;
+        return "T | " + this.getDoneAsInteger() + " | " + this.description;
     }
 }

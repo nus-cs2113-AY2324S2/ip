@@ -1,4 +1,4 @@
-package baron;
+package storage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,43 +18,56 @@ public class FileStorage {
         try {
             File directory = new File(FILE_DIRECTORY);
             if (!directory.exists()) {
-                boolean directoryCreated = directory.mkdir();
-                if (directoryCreated) {
-                    System.out.println("Data folder created successfully.\n");
-                } else {
-                    System.out.println("Failed to create data folder.\n");
-                }
+                createDirectory(directory);
             }
             File file = new File(FILE_PATH);
             if (file.exists()) {
                 readDataFromFile(file);
             } else {
-                boolean fileCreated = file.createNewFile();
-                if (fileCreated) {
-                    System.out.println("Data file created successfully.\n");
-                } else {
-                    System.out.println("Failed to create data file.\n");
-                }
+                createFile(file);
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage() + "\n");
         }
     }
 
+    public static void createDirectory(File directory) {
+        boolean directoryCreated = directory.mkdir();
+
+        if (directoryCreated) {
+            System.out.println("Data folder created successfully.\n");
+        } else {
+            System.out.println("Failed to create data folder.\n");
+        }
+    }
+
+    public static void createFile(File file) throws IOException {
+        boolean fileCreated = file.createNewFile();
+
+        if (fileCreated) {
+            System.out.println("Data file created successfully.\n");
+        } else {
+            System.out.println("Failed to create data file.\n");
+        }
+    }
+
     public static void readDataFromFile(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
         System.out.println("Retrieving file details.");
+
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             System.out.println(line);
             TaskList.readTaskFromFile(line);
         }
+
         System.out.println();
         sc.close();
     }
 
     public static void save() throws IOException {
         File file = new File(FILE_PATH);
+
         if (!file.exists()) {
             boolean fileCreated = file.createNewFile();
             if (fileCreated) {
@@ -67,9 +80,11 @@ public class FileStorage {
     }
     public static void saveFile(File file) throws IOException {
         FileWriter fw = new FileWriter(file);
+
         for (int i = 0; i < TaskList.getLength(); i += 1) {
             fw.write(TaskList.getTasks().get(i).getTaskAsString() + "\n");
         }
+
         System.out.println("\nWriting successful.\n");
         fw.close();
     }

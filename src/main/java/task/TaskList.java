@@ -1,7 +1,15 @@
 package task;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import baronException.BaronException;
+import baronException.DeadlineMissingByException;
+import baronException.EmptyDeadlineDescriptionException;
+import baronException.EmptyEventDescriptionException;
+import baronException.EmptyToDoDescriptionException;
+import baronException.EventMissingFromException;
+import baronException.EventMissingToException;
+
 import parser.Parser;
 
 public class TaskList {
@@ -47,25 +55,32 @@ public class TaskList {
         try {
             tasks.get(taskIndex).markAsDone();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please enter a valid task number");
+            System.out.println("Invalid task number. Please enter a valid task number\n");
         }
     }
 
     public void unmarkTask(int taskIndex) throws IndexOutOfBoundsException {
         try {
-            this.tasks.get(taskIndex).unmarkAsDone();
+            tasks.get(taskIndex).unmarkAsDone();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid task number. Please enter a valid task number\n");
         }
     }
 
-    public void addTask(String taskType, String[] userInput) {
-        if (taskType.equals(Parser.TODO_COMMAND)) {
+    public void addTask(String taskType, String[] userInput) throws BaronException {
+        switch (taskType) {
+        case Parser.TODO_COMMAND:
             handleToDo(userInput);
-        } else if (taskType.equals(Parser.DEADLINE_COMMAND)) {
+            break;
+        case Parser.DEADLINE_COMMAND:
             handleDeadline(userInput);
-        } else {
+            break;
+        case Parser.EVENT_COMMAND:
             handleEvent(userInput);
+            break;
+        default:
+            System.out.println("Sorry but that is not a valid command. Please enter a valid command.");
+            break;
         }
     }
 
@@ -93,38 +108,57 @@ public class TaskList {
 
     public void handleToDo(String[] userInput) throws ArrayIndexOutOfBoundsException {
         try {
+            if (userInput[1].isEmpty()) {
+                throw new EmptyToDoDescriptionException("Todo task description cannot be empty.\n");
+            }
             tasks.add(new ToDo(userInput[1]));
             validTaskAdded();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("ToDo task description cannot be empty. Please try again.");
+        } catch (EmptyToDoDescriptionException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: " + e.getMessage() + "\n");
         }
     }
 
-    public void handleDeadline(String[] userInput) {
+    public void handleDeadline(String[] userInput) throws ArrayIndexOutOfBoundsException {
         try {
+            if (userInput[1].isEmpty()) {
+                throw new EmptyDeadlineDescriptionException("Deadline task description cannot be empty.\n");
+            }
+            if (!userInput[1].contains("/by"))          {
+                throw new DeadlineMissingByException("Deadline task should contain /by.");
+            }
             String taskDetails = userInput[1];
-            int dividerPosition = taskDetails.indexOf('/');
+            int dividerPosition = taskDetails.indexOf("/by");
             String description = taskDetails.substring(0, dividerPosition);
             String deadline = taskDetails.substring(dividerPosition + 4);
             tasks.add(new Deadline(description, deadline));
             validTaskAdded();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Deadline task description cannot be empty. Please try again.");
+        } catch (EmptyDeadlineDescriptionException | ArrayIndexOutOfBoundsException | DeadlineMissingByException e) {
+            System.out.println("Error: " + e.getMessage() + "\n");
         }
     }
 
-    public void handleEvent(String[] userInput) {
+    public void handleEvent(String[] userInput) throws ArrayIndexOutOfBoundsException {
         try {
+            if (userInput[1].isEmpty()) {
+                throw new EmptyEventDescriptionException("Event task description cannot be empty.\n");
+            }
+            if (!userInput[1].contains("/from"))          {
+                throw new EventMissingFromException("Event task should contain /from.");
+            }
+            if (!userInput[1].contains("/to"))          {
+                throw new EventMissingToException("Event task should contain /to.");
+            }
             String taskDetails = userInput[1];
-            int firstDividerPosition = taskDetails.indexOf('/');
+            int firstDividerPosition = taskDetails.indexOf("/from");
             int secondDividerPosition = taskDetails.indexOf("to");
             String description = taskDetails.substring(0, firstDividerPosition);
             String eventStart = taskDetails.substring(firstDividerPosition + 6, secondDividerPosition - 1);
             String eventEnd = taskDetails.substring(secondDividerPosition + 3);
             tasks.add(new Event(description, eventStart, eventEnd));
             validTaskAdded();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Event task description cannot be empty. Please try again.");
+        } catch (EmptyEventDescriptionException | ArrayIndexOutOfBoundsException | EventMissingToException
+                 | EventMissingFromException e) {
+            System.out.println("Error: " + e.getMessage() + "\n");
         }
     }
 
@@ -132,6 +166,7 @@ public class TaskList {
         String[] taskDetails = inputArray.split("\\|");
         String status = taskDetails[1].trim();
         String description = taskDetails[2].trim();
+
         if (inputArray.startsWith(TODO_TASK)) {
             Task tempToDo = new ToDo(description);
             tempToDo.setDone(status);

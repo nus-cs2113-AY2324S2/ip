@@ -1,8 +1,9 @@
 package parser;
 
 import baron.Baron;
+import baronException.BaronException;
 import task.TaskList;
-import baron.FileStorage;
+import storage.FileStorage;
 
 import java.io.IOException;
 
@@ -16,8 +17,9 @@ public class Parser {
     public static final String UNMARK_COMMAND = "unmark";
     public static final String DELETE_COMMAND = "delete";
 
-    public static void parseInput(String input, TaskList tasks) throws NullPointerException, IOException {
+    public static void parseInput(String input, TaskList tasks) throws NullPointerException, IOException, BaronException {
         String[] inputArray = input.split(" ", 2);
+
         if (input.equals(EXIT_COMMAND)) {
             FileStorage.save();
             Baron.printExitMessage();
@@ -44,4 +46,3 @@ public class Parser {
         }
     }
 }
-

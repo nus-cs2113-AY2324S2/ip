@@ -12,11 +12,13 @@ public class Event extends Task {
 
     @Override
     public String getTaskDetails() {
-        return "[E][" + getStatusIcon() + "] " + description + " (from: " + eventStart + " to: " + eventEnd + ")";
+        return "[E][" + this.getStatusIcon() + "] " + this.description + " (from: "
+                + this.eventStart + " to: " + this.eventEnd + ")";
     }
 
     @Override
     public String getTaskAsString() {
-        return "E | " + getDoneAsInteger() + " | " + description + " | " + eventStart + " " + eventEnd;
+        return "E | " + this.getDoneAsInteger() + " | " + this.description + " | "
+                + this.eventStart + " " + this.eventEnd;
     }
 }
