@@ -20,7 +20,7 @@ public class LogicManager {
         this.listKeeper = listKeeper;
     }
 
-    private void executeList(String[] words) {
+    private void executeList() {
         this.listKeeper.printList();
     }
 
@@ -41,33 +41,28 @@ public class LogicManager {
         return taskIndex;
     }
 
-    private void executeMark (String[] words)
-        throws InvalidTaskIndex {
+    private void executeMark (String[] words) throws InvalidTaskIndex {
         int taskIndex = getTaskIndex(words);
         boolean isCompleted = words[0].equals(Keywords.MARK);
         this.listKeeper.processMark(taskIndex, isCompleted);
     }
 
-    private void executeDelete (String[] words)
-        throws InvalidTaskIndex {
+    private void executeDelete (String[] words) throws InvalidTaskIndex {
         int taskIndex = getTaskIndex(words);
         this.listKeeper.deleteTask(taskIndex);
     }
 
-    private void executeToDo(String currentInput)
-        throws EmptyTaskDescription, InvalidTaskArguments {
+    private void executeToDo(String currentInput) throws EmptyTaskDescription, InvalidTaskArguments {
         ToDo todo = ToDo.getTask(currentInput);
         this.listKeeper.addToList(todo);
     }
 
-    private void executeDeadline(String currentInput)
-        throws EmptyTaskDescription, InvalidTaskArguments {
+    private void executeDeadline(String currentInput) throws EmptyTaskDescription, InvalidTaskArguments {
         Deadline deadline = Deadline.getTask(currentInput);
         this.listKeeper.addToList(deadline);
     }
 
-    private void executeEvent(String currentInput)
-        throws EmptyTaskDescription, InvalidTaskArguments {
+    private void executeEvent(String currentInput) throws EmptyTaskDescription, InvalidTaskArguments {
         Event event = Event.getTask(currentInput);
         this.listKeeper.addToList(event);
     }
@@ -89,7 +84,7 @@ public class LogicManager {
         String commandType = words[0];
         switch (commandType) {
         case Keywords.LIST:
-            executeList(words);
+            executeList();
             break;
 
         case Keywords.MARK:
