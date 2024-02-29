@@ -1,6 +1,12 @@
 package gary.task;
 
-import gary.exception.*;
+import gary.exception.UnknownCommandException;
+import gary.exception.MissingTodoDescriptionException;
+import gary.exception.MissingDeadlineByException;
+import gary.exception.MissingDeadlineDescriptionException;
+import gary.exception.MissingEventFromException;
+import gary.exception.MissingEventToException;
+import gary.exception.MissingEventDescriptionException;
 
 import java.util.ArrayList;
 
@@ -63,6 +69,19 @@ public class TaskList {
         System.out.println("Noted, I've removed this task:");
         System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
         System.out.println("Now you have " + (todosCount - 1) + " tasks in the list.");
+    }
+
+    public static void processFind(String keyword, ArrayList<Task> todos) {
+        int findTaskNumber = 0;
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (Task currentTask : todos) {
+            if (!(currentTask.getTaskDescription().contains(keyword))) {
+                continue;
+            }
+            currentTask.printTask(findTaskNumber);
+            findTaskNumber += 1;
+        }
     }
 
     private static void createNewTodo(ArrayList<Task> todos, String line)
