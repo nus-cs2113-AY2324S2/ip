@@ -73,7 +73,7 @@ Shows a list of tasks that we are tracking.
 Format: `list`
 
 
-### Finding a task: `find KEYWORD`
+### Finding a task: `find`
 Shows a list of tasks which contain a keyword.
 
 Format: `find KEYWORD`
