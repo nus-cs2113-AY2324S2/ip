@@ -31,8 +31,8 @@ public class Deadline extends Task {
      * Parses the input to get the task name and deadline.
      * @param currentInput the input to be parsed
      * @return a Deadline task
-     * @throws EmptyTaskDescription
-     * @throws InvalidTaskArguments
+     * @throws EmptyTaskDescription if the task description is empty
+     * @throws InvalidTaskArguments if the format of the deadline is invalid
      */
     public static Deadline getTask (String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {

@@ -24,6 +24,12 @@ public class LogicManager {
         this.listKeeper.printList();
     }
 
+    /**
+     * Parses the input to get the task index.
+     * @param taskIndexString the input to be parsed
+     * @return the task index
+     * @throws InvalidTaskIndex if the input is not an integer
+     */
     private int getTaskIndex (String taskIndexString) throws InvalidTaskIndex {
         try {
             int taskIndex = Integer.parseInt(taskIndexString);
@@ -111,6 +117,7 @@ public class LogicManager {
 
     /**
      * Processes the input command and executes the corresponding action
+     * Prints error messages if the input is invalid
      * @param currentInput the input command
      */
     public void processCommand(String currentInput) {

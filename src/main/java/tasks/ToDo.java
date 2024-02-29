@@ -28,8 +28,8 @@ public class ToDo extends Task {
      * Parses the input to get the task name.
      * @param currentInput the input to be parsed
      * @return a ToDo task
-     * @throws EmptyTaskDescription
-     * @throws InvalidTaskArguments
+     * @throws EmptyTaskDescription if the task description is empty
+     * @throws InvalidTaskArguments if the format of the todo is invalid
      */
     public static ToDo getTask(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {
@@ -39,7 +39,7 @@ public class ToDo extends Task {
 
             String taskName = currentInput.substring(Keywords.TODO.length());
             taskName = taskName.trim();
-            
+
             if (taskName.isEmpty()) {
                 throw new EmptyTaskDescription();
             }

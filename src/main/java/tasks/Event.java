@@ -35,8 +35,8 @@ public class Event extends Task {
      * Parses the input to get the task name, start and end.
      * @param currentInput the input to be parsed
      * @return an Event task
-     * @throws EmptyTaskDescription
-     * @throws InvalidTaskArguments
+     * @throws EmptyTaskDescription if the task description is empty
+     * @throws InvalidTaskArguments if the format of the event is invalid
      */
     public static Event getTask(String currentInput)
         throws EmptyTaskDescription, InvalidTaskArguments {

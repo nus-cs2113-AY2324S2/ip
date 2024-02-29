@@ -37,6 +37,11 @@ public class Keywords {
         }
     }
 
+    /**
+     * Returns the sample input for a given keyword.
+     * @param keyword the keyword to check
+     * @return the sample input
+     */
     private static String getSampleInput(String keyword) {
         switch (keyword) {
         case Keywords.LIST:
@@ -57,6 +62,11 @@ public class Keywords {
                 || commandType.equals(Keywords.MARK) || commandType.equals(Keywords.UNMARK);
     }
 
+    /**
+     * Verifies that the input size is correct for the given command.
+     * @param words the input to be verified
+     * @throws IllegalNumberOfArguments if the input size is incorrect
+     */
     public static void verifyInputSize(String[] words) throws IllegalNumberOfArguments {
         String commandType = words[0];
         if (!Keywords.hasInputSizeRequirements(commandType)) {

@@ -25,6 +25,12 @@ public class ListKeeper {
         return "To mark the task at index x as not completed: unmark x";
     }
 
+    /**
+     * Verifies that the task index is valid.
+     * A valid task index is between 1 and the number of tasks in the list.
+     * @param inputIndex the index of the task to be verified
+     * @throws InvalidTaskIndex if the task index is invalid
+     */
     private void verifyTaskIndex(int inputIndex) throws InvalidTaskIndex {
         if (inputIndex >= 1 && inputIndex <= this.tasks.size()) {
             return;
@@ -47,6 +53,7 @@ public class ListKeeper {
     /**
      * Deletes the task at the specified index.
      * @param taskIndex the index of the task to be deleted
+     * @throws InvalidTaskIndex if the task index is invalid
      */
     public void deleteTask(int taskIndex) throws InvalidTaskIndex {
         verifyTaskIndex(taskIndex);
@@ -55,9 +62,6 @@ public class ListKeeper {
         System.out.println("Removed task: " + removedTask);
     }
 
-    /**
-     * Prints the list of tasks.
-     */
     public void printList() {
         System.out.println("You have " + this.tasks.size() + " tasks");
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -69,6 +73,7 @@ public class ListKeeper {
      * Marks the task specified as completed or not completed.
      * @param inputIndex the index of the task to be marked
      * @param isCompleted whether the task is to be marked as completed or not completed
+     * @throws InvalidTaskIndex if the task index is invalid
      */
     public void processMark(int inputIndex, boolean isCompleted) throws InvalidTaskIndex{
         verifyTaskIndex(inputIndex);
@@ -95,6 +100,10 @@ public class ListKeeper {
         }
     }
 
+    /**
+     * Prints the tasks that contain at least one of the keywords.
+     * @param keywordsToFind keywords mentioned by the user
+     */
     public void printMatchingTasks(String[] keywordsToFind) {
         boolean hasMatchingTasks = false;
         for (int taskIndex = 0; taskIndex < this.tasks.size(); taskIndex++) {
