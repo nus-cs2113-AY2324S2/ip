@@ -1,3 +1,5 @@
-[D][X] read (by: sunday)
-[T][ ] [
-[D][ ] return book (by: Dec 02 2023 06:00 PM)
+[T][ ] read book
+[D][X] buy bread (by: Sunday)
+[E][ ] carnival (from: 2pm to: 4pm)
+[T][ ] return book
+
