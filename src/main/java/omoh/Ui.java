@@ -60,9 +60,6 @@ public class Ui {
             } else if (line.startsWith("find")) {
                 Task.findMatchingTasks(line);
             }
-            else {
-                Task.printAddedTask();
-            }
             line = in.nextLine();
         }
     }

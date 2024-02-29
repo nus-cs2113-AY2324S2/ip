@@ -148,16 +148,6 @@ public class Task {
         Omoh.printHorizontalLine();
     }
 
-
-    /**
-     * Prints a message indicating that a task has been added.
-     */
-    public static void printAddedTask() {
-        Omoh.printHorizontalLine();
-        System.out.println("added: " + tasks.get(totalTasks - 1).description);
-        Omoh.printHorizontalLine();
-    }
-
     /**
      * Returns a string representation of the task.
      *
