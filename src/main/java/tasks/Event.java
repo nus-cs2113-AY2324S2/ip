@@ -42,20 +42,18 @@ public class Event extends Task {
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {
             boolean isCompleted = currentInput.contains(Task.IS_COMPLETED_STRING);
-            currentInput = currentInput.replaceAll(Task.IS_COMPLETED_STRING, "");
+            currentInput = Task.removeIsCompletedString(currentInput);
 
             int idxOfStart = currentInput.indexOf(Keywords.FROM);
             int idxOfEnd = currentInput.indexOf(Keywords.TO);
             boolean hasStartEnd = idxOfStart != -1 && idxOfEnd != -1;
-            if (!hasStartEnd) {
+            boolean isStartBeforeEnd = idxOfStart < idxOfEnd;
+            if (!hasStartEnd || !isStartBeforeEnd) {
                 throw new InvalidTaskArguments(getSampleEvent());
             }
 
             String taskName = currentInput.substring(Keywords.EVENT.length(), idxOfStart);
             taskName = taskName.trim();
-            if (taskName.isEmpty()) {
-                throw new EmptyTaskDescription();
-            }
 
             String start = currentInput.substring(idxOfStart + Keywords.FROM.length(), idxOfEnd);
             start = start.trim();
@@ -63,6 +61,9 @@ public class Event extends Task {
             String end = currentInput.substring(idxOfEnd + Keywords.TO.length());
             end = end.trim();
 
+            if (taskName.isEmpty()) {
+                throw new EmptyTaskDescription();
+            }
             return new Event(taskName, start, end, isCompleted);
 
         } catch (IndexOutOfBoundsException e) {

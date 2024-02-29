@@ -38,7 +38,7 @@ public class Deadline extends Task {
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {
             boolean isCompleted = currentInput.contains(Task.IS_COMPLETED_STRING);
-            currentInput = currentInput.replaceAll(Task.IS_COMPLETED_STRING, "");
+            currentInput = Task.removeIsCompletedString(currentInput);
 
             int idxOfDeadline = currentInput.indexOf(Keywords.BY);
             boolean hasDeadline = idxOfDeadline != -1;
@@ -48,13 +48,13 @@ public class Deadline extends Task {
 
             String taskName = currentInput.substring(Keywords.DEADLINE.length(), idxOfDeadline);
             taskName = taskName.trim();
-            if (taskName.isEmpty()) {
-                throw new EmptyTaskDescription();
-            }
 
             String by = currentInput.substring(idxOfDeadline + Keywords.BY.length());
             by = by.trim();
 
+            if (taskName.isEmpty()) {
+                throw new EmptyTaskDescription();
+            }
             return new Deadline(taskName, by, isCompleted);
 
         } catch (IndexOutOfBoundsException e) {

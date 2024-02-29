@@ -26,6 +26,9 @@ public abstract class Task {
         }
         return "";
     }
+    protected static String removeIsCompletedString(String input) {
+        return input.replaceAll(Task.IS_COMPLETED_STRING, "");
+    }
 
     @Override
     public String toString() {

@@ -65,7 +65,6 @@ public class ListKeeper {
         }
     }
 
-
     /**
      * Marks the task specified as completed or not completed.
      * @param inputIndex the index of the task to be marked

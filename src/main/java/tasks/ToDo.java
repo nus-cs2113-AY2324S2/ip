@@ -35,14 +35,14 @@ public class ToDo extends Task {
         throws EmptyTaskDescription, InvalidTaskArguments {
         try {
             boolean isCompleted = currentInput.contains(Task.IS_COMPLETED_STRING);
-            currentInput = currentInput.replaceAll(Task.IS_COMPLETED_STRING, "");
+            currentInput = Task.removeIsCompletedString(currentInput);
 
             String taskName = currentInput.substring(Keywords.TODO.length());
             taskName = taskName.trim();
+            
             if (taskName.isEmpty()) {
                 throw new EmptyTaskDescription();
             }
-
             return new ToDo(taskName, isCompleted);
 
         } catch (IndexOutOfBoundsException e) {
