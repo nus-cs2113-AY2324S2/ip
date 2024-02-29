@@ -1,16 +1,7 @@
 package suv.Helpers;
 
+import suv.Command.*;
 import suv.Task.FileStorage;
-import suv.Command.SuvException;
-import suv.Command.AddEventCommand;
-import suv.Command.AddTodoCommand;
-import suv.Command.AddDeadlineCommand;
-import suv.Command.MarkCommand;
-import suv.Command.UnMarkCommand;
-import suv.Command.PrintListCommand;
-import suv.Command.ByeCommand;
-import suv.Command.DeleteTaskCommand;
-
 
 /**
  * The Parser class is responsible for parsing user input and executing corresponding commands.
@@ -29,20 +20,22 @@ public class Parser {
         try {
             if(input.equals("bye")){
                 new ByeCommand();
-            } else if (input.equals("list")){
+            } else if (input.startsWith("list")){
                 new PrintListCommand();
-            } else if (input.contains("unmark")){
+            } else if (input.startsWith("unmark")){
                 new UnMarkCommand(input);
-            } else if (input.contains("mark")){
+            } else if (input.startsWith("mark")){
                 new MarkCommand(input);
-            } else if(input.contains("todo")){
+            } else if(input.startsWith("todo")){
                 new AddTodoCommand(input);
-            }else if(input.contains("deadline")){
+            } else if(input.startsWith("deadline")){
                 new AddDeadlineCommand(input);
-            } else if(input.contains("event")){
+            } else if(input.startsWith("event")){
                 new AddEventCommand(input);
-            } else if(input.contains("delete")){
+            } else if(input.startsWith("delete")){
                 new DeleteTaskCommand(input);
+            } else if(input.startsWith("find")) {
+                new FindTasksCommand(input);
             } else {
                 throw new SuvException(LINE +"Oh no! I am not sure what you mean.");
             }
