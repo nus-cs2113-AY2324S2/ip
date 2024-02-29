@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.Arrays;
 public class Moby {
-    protected static void chat(Chatbot bot, ToDoList list, String line)
+    protected static void chat(Chatbot bot, TaskList list, String line)
             throws IncompletePromptException, UnknownPromptException {
         String[] words = line.split(" ");
         String keyword = words[0];
@@ -29,10 +29,10 @@ public class Moby {
                 bot.rename(line);
                 break;
             case "mark":
-                list.mark(bot.parseIndex(line, keyword), true);
+                list.mark(line, true);
                 break;
             case "unmark":
-                list.mark(bot.parseIndex(line, keyword), false);
+                list.mark(line, false);
                 break;
             case "todo":
                 list.addNewTask(line, "todo");
@@ -56,7 +56,7 @@ public class Moby {
 
     public static void main(String[] args) {
         Chatbot bot = new Chatbot();
-        ToDoList list = new ToDoList();
+        TaskList list = new TaskList();
         bot.greet();
         String line;
         Scanner in = new Scanner(System.in);

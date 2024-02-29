@@ -1,6 +1,2 @@
-T | [/]
-T | [ ]
-T | [/]
-T | [ ]
-E | [ ] | qdcwdqa b -> cdwa
-D | [ ] | tmre
+T | [ ] | this
+D | [/] | hw | tmr

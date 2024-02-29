@@ -2,7 +2,7 @@ package interactions;
 import java.util.Scanner;
 import interactions.Chatbot;
 public class Task {
-    private String task;
+    protected String task;
     private boolean isMarked;
 
     public void setHaveToDo(boolean haveToDo) {

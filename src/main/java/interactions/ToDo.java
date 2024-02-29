@@ -56,7 +56,7 @@ public class ToDo extends Task {
         else if (isEvent) {
             additionalInfo = eventFrom + " -> " + eventTo;
         }
-        return taskType + " | " + checkbox +
+        return taskType + " | " + checkbox + " | " + super.task +
                 (taskType.equals("T") ? "" : " | " + additionalInfo);
     }
     @Override
