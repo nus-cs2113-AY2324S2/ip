@@ -27,25 +27,6 @@ public class UserInterface {
         return this.currentInput.startsWith(Keywords.BYE);
     }
 
-    private void printCurrentInput() {
-        HorizontalGenerator.printHorizontal();
-        System.out.println(currentInput);
-        HorizontalGenerator.printHorizontal();
-    }
-
-    /**
-     * Echoes the user input back to the user.
-     */
-    public void echo() {
-        while (true) {
-            readNextLine();
-            if (isExitCommandGiven()) {
-                return;
-            }
-            printCurrentInput();
-        }
-    }
-
     /**
      * Runs the main loop of the program.
      * Reads the user input and passes it to the LogicManager for processing.

@@ -57,15 +57,6 @@ public class Keywords {
                 || commandType.equals(Keywords.MARK) || commandType.equals(Keywords.UNMARK);
     }
 
-    public static boolean doesInputHaveCorrectNumOfArguments(String[] words) {
-        String commandType = words[0];
-        if (Keywords.hasInputSizeRequirements(commandType)) {
-            int numOfArguments = words.length;
-            return numOfArguments == Keywords.getExpectedInputSize(commandType);
-        }
-        return true;
-    }
-
     public static void verifyInputSize(String[] words) throws IllegalNumberOfArguments {
         String commandType = words[0];
         if (!Keywords.hasInputSizeRequirements(commandType)) {
