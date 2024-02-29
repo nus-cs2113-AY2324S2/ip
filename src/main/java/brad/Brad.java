@@ -47,6 +47,7 @@ public class Brad {
             ui.printFileNotFound();
             toSave = false;
         } catch (dataCorruptedException e) {
+            e.printStackTrace();
             ui.printDataCorrupted();
             canStart = false;
         }
@@ -77,6 +78,7 @@ public class Brad {
                 parser.parseCommand(userInput);
                 Command command = parser.getCommand();
                 if (command == Command.BYE) {
+                    ui.bidFarewell();
                     break;
                 }
                 if (command == Command.LIST) {

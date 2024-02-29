@@ -17,9 +17,9 @@ public class Storage {
     private final String FILE_HEADER = "|Task Type | Done | Description | Time |\n"
             + "|----------|------|-------------|------|\n";
 
-    private final String EVENT = "event";
-    private final String DEADLINE = "deadline";
-    private final String TODO = "todo";
+    private final String EVENT = "Event";
+    private final String DEADLINE = "Deadline";
+    private final String TODO = "Todo";
     /**
      * Create a new file if found.
      * Load file from file and interpret stored data and populate the tasklist
@@ -34,7 +34,6 @@ public class Storage {
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getAbsolutePath());
                 System.out.println("file exists?: " + file.exists());
-                System.out.println("is Directory?: " + file.isDirectory());
             } else {
                 System.out.println("File already exists!");
             }

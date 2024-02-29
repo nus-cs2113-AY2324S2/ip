@@ -33,11 +33,14 @@ public class Ui {
      * Greets user
      */
     public void greetUser() {
-        final String name = "brad";
+        final String name = "Brad";
         System.out.println("Hello I am " + name + ".\n");
         System.out.println("How can I help you today?\n");
     }
 
+    public void bidFarewell() {
+        printOutput(":( Shutting down...\n Hope to see you again!");
+    }
     /**
      * Reads user input from the command line
      * @return user input
