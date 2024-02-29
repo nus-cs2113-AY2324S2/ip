@@ -167,14 +167,14 @@ read and loaded everytime the programme is restarted.
 ---
 
 ## Command Summary
-| Command  | Format                                                  |
-|----------|---------------------------------------------------------|
-| todo     | `todo TODO_DESCRIPTION`                                 |
-| deadline | `deadline DEADLINE_DESCRIPTION /by yyyy-mm-dd`          |
-| event    | `event EVENT_DESCRIPTION /from START_TIME /to END_TIME` |
-| list     | `list`                                                  |
-| mark     | `mark TASK_NUMBER`                                      |
-| unmark   | `unmark TASK_NUMBER`                                    |
-| delete   | `delete TASK_NUMBER`                                    |
-| find     | `find KEYWORD`                                          |
-| exit     | `bye`                                                   |
+| Command   | Format                                                   |
+|:----------|:---------------------------------------------------------|
+| todo      | `todo TODO_DESCRIPTION`                                  |
+| deadline  | `deadline DEADLINE_DESCRIPTION /by yyyy-mm-dd`           |
+| event     | `event EVENT_DESCRIPTION /from START_TIME /to END_TIME`  |
+| list      | `list`                                                   |
+| mark      | `mark TASK_NUMBER`                                       |
+| unmark    | `unmark TASK_NUMBER`                                     |
+| delete    | `delete TASK_NUMBER`                                     |
+| find      | `find KEYWORD`                                           |
+| exit      | `bye`                                                    |
