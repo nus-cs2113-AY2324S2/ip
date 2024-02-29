@@ -1,14 +1,9 @@
 package task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import baronException.BaronException;
-import baronException.DeadlineMissingByException;
-import baronException.EmptyDeadlineDescriptionException;
-import baronException.EmptyEventDescriptionException;
-import baronException.EmptyToDoDescriptionException;
-import baronException.EventMissingFromException;
-import baronException.EventMissingToException;
+import baronException.*;
 
 import parser.Parser;
 
@@ -39,7 +34,7 @@ public class TaskList {
 
     public void displayTasksList() {
         if (tasks.isEmpty()) {
-            System.out.println("\tYour list does not contain any tasks.");
+            System.out.println("\tYour list does not contain any tasks.\n");
         } else {
             int taskNumber = 1;
             System.out.println("\tHere are the tasks in your list:");
@@ -47,8 +42,8 @@ public class TaskList {
                 System.out.println("\t" + taskNumber + "." + task.getTaskDetails());
                 taskNumber += 1;
             }
+            System.out.println();
         }
-        System.out.println();
     }
 
     public void markTask(int taskIndex) throws IndexOutOfBoundsException {
@@ -186,5 +181,29 @@ public class TaskList {
             tasks.add(tempEvent);
         }
         incrementTaskCount();
+    }
+
+    public void findTasks(String[] userInput) throws ArrayIndexOutOfBoundsException {
+        try {
+            if (userInput[1].isEmpty()) {
+                throw new EmptyFindDescriptionException("Find keyword cannot be empty.\n");
+            }
+            if (tasks.isEmpty()) {
+                System.out.println("\tYour list does not contain any tasks.\n");
+            } else {
+                String keyword = userInput[1];
+                int taskNumber = 1;
+                System.out.println("\tHere are the matching tasks in your list:");
+                for (Task task : tasks) {
+                    if (task.getDescription().contains(keyword)) {
+                        System.out.println("\t" + taskNumber + "." + task.getTaskDetails());
+                        taskNumber += 1;
+                    }
+                }
+                System.out.println();
+            }
+        } catch (EmptyFindDescriptionException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: " + e.getMessage() + "\n");
+        }
     }
 }

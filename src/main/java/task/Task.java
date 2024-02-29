@@ -45,4 +45,8 @@ public class Task {
         }
         return "0";
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
