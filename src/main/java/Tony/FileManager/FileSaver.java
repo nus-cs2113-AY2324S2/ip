@@ -16,7 +16,7 @@ public class FileSaver {
     private ArrayList<Task> tasks;
 
     /**
-     * Represents a <code>FileSaver</code> object that saves tasks added by user.
+     * Represents a {@code FileSaver} object that saves tasks added by user.
      * @param tasks is the current list of tasks to save into the file.
      */
     public FileSaver(ArrayList<Task> tasks) {
@@ -101,8 +101,8 @@ public class FileSaver {
     }
 
     /**
-     * Checks if the list is empty, then when updating the file,
-     * then the file should also be empty.
+     * Checks if the <code>tasks</code> list is empty, then when updating the file,
+     * the file should also be empty.
      * @throws IOException If there is error locating file to save the data into.
      */
 

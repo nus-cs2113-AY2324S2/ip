@@ -8,7 +8,7 @@ public class Ui {
     private final ArrayList<Task> tasks;
 
     /**
-     * Represents a <code>Ui</code> object that prints texts on program.
+     * Represents a {@code Ui} object that prints texts on program.
      * @param tasks the current <code>tasks</code> list.
      */
     public Ui(ArrayList<Task> tasks) {
@@ -46,8 +46,8 @@ public class Ui {
     }
 
     /**
-     * Prints message when user add/delete a tasks into/from <code>tasks</code> list.
-     * @param command is the <code>command</code> command entered by user.
+     * Prints message when user <code>add/delete</code> a task into/from <code>tasks</code> list.
+     * @param command is the <code>delete</code> command entered by user.
      * @param index is used to retrieve task from the <code>tasks</code> list based on the given index.
      */
     public void printAddOrDeleteTask(String command, int index) {

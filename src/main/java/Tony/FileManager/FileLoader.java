@@ -14,7 +14,7 @@ public class FileLoader {
     private ArrayList<Task> tasks;
 
     /**
-     * Represents a <code>FileLoader</code> object that loads the tonytask.txt file if available.
+     * Represents a {@code FileLoader} object that loads the tonytask.txt file if available.
      * Or create a new file if not found.
      * @param tasks is the current list of tasks to save from the file.
      */
@@ -23,7 +23,7 @@ public class FileLoader {
     }
 
     /**
-     * Checks if a directory and file exists. Else, program will create one.
+     * Checks if a directory and file exists. Else, program will create.
      * @throws IOException if there is error in locating the file in specified path.
      */
     public void checkFileExists() throws IOException {
@@ -42,7 +42,7 @@ public class FileLoader {
     /**
      * Loads data from file line by line.
      * @param file File found in path
-     * @throws FileNotFoundException If there is error locating file.
+     * @throws FileNotFoundException If there is error locating <code>file</code>.
      */
 
     private void loadDataFromFile(File file) throws FileNotFoundException {

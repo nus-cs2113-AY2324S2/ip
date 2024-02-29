@@ -16,7 +16,7 @@ public class Parser {
     private final ArrayList<Task> tasks;
 
     /**
-     * Represents a <code>Parser</code> object that takes in user input
+     * Represents a {@code Parser} object that takes in user input
      * and processes the command accordingly.
      * @param tasks the current list of <code>tasks</code> to add each tasks into.
      */
@@ -27,7 +27,7 @@ public class Parser {
     /**
      * Parses user input and process the command based on the first word entered
      * @param line is the String that user entered
-     * @return A new <code>Command</code> object created according to user command.
+     * @return A new {@code Command} object created according to user command.
      */
 
     public Command parse(String line) {
