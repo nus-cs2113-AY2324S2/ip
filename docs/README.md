@@ -53,10 +53,14 @@ Format: `help`
 
 ### Adding a task
 
-There are 3 types of tasks you may add:
-1. [A to-do task no deadlines](#adding-a-to-do-task-todo)
-2. [A to-do task with a deadline](#adding-a-to-do-task-with-deadline-deadline)
-3. [An event with a start and end time](#adding-an-event-event)
+There are 3 types of tasks you may add. If you are unsure what kind of tasks you should use, here's a summary of the 
+tasks:
+
+| Task Type | Deadline? | Start Time? | End Time? |
+|-----------|-----------|-------------|-----------|
+| To-do     | No        | No          | No        |
+| Deadline  | Yes       | No          | No        |
+| Event     | No        | Yes         | Yes       |
 
 #### Adding a to-do task: `todo`
 Adds a to-do task into your list of tasks.
@@ -118,11 +122,53 @@ Deletes a particular task from the list of tasks using its task number. You may 
 Format: `delete TASK_NUMBER`.  
 Example usage: `delete 3`
 
+Example: Suppose you use `list` and have the following tasks stored.
+```
+Here's your current list of tasks:
+    1. [T][ ] Task
+    2. [E][ ] Event (from: Jan 01 2024 12:00AM to: Dec 31 2024 11:59 PM)
+    3. [D][ ] Deadline (by: Oct 10 2024 10:10 AM)
+Now you have 3 tasks in your list.
+```
+And you want to delete task 2, using `delete 2`.
+
+The expected output should be:
+```
+Done! I have deleted the following task.
+    [E][ ] b (from: Jan 01 2024 12:00 AM to: Dec 31 2024 11:59 PM)
+Now you have 2 tasks in your list
+```
+Using `list` once more:
+```
+Here's your current list of tasks:
+    1. [T][ ] Task
+    2. [D][ ] Deadline (by: Oct 10 2024 10:10 AM)
+Now you have 2 tasks in your list.
+```
+> Note that the task numbering in the list have changed. Be careful when trying deleting multiple tasks at once.
+
 ### Searching tasks by keyword: `find`
 Displays all tasks whose names contains the keyword.
 
 Format: `find KEYWORD`  
 Example usage: `find assignment`
+
+Example: Suppose you use `list` and have the following tasks stored.
+```
+Here's your current list of tasks:
+    1.[T][ ] revise lecture 1
+    2.[D][ ] revise for test 1 (by: Aug 08 2024 11:59 PM)
+    3.[T][ ] code side project
+Now you have 3 tasks in your list.
+```
+And you want to find all the tasks with the keyword "revise", using `find revise`.
+
+Expected output should be:
+```
+The following matches what you are trying to find:
+    1.[T][ ] revise lecture 1
+    2.[D][ ] revise for test 1 (by: Aug 08 2024 11:59 PM)
+```
 
 ### Marking a task as completed: `mark`
 Marks a particular task as completed. You may obtain a task's task number by using [`list`](#listing-tasks-list).
@@ -130,11 +176,47 @@ Marks a particular task as completed. You may obtain a task's task number by usi
 Format: `mark TASK_NUMBER`  
 Example usage: `mark 2`
 
+Example: Suppose you use `list` and have the following tasks stored.
+```
+Here's your current list of tasks:
+    1. [T][ ] Task
+    2. [E][ ] Event (from: Jan 01 2024 12:00AM to: Dec 31 2024 11:59 PM)
+    3. [D][ ] Deadline (by: Oct 10 2024 10:10 AM)
+Now you have 3 tasks in your list.
+```
+You have completed task 3 and want to mark it as complete, using `mark 3`.
+
+The expected output should be:
+```
+Well done, you are one step closer to finishing your tasks!
+    I've marked this task done for you:
+        3. [D][X] Deadline (by: Oct 10 2024 10:10 AM)
+```
+> Note that the `X` in the task indicates the task is completed.
+
 ### Marking a task as uncompleted: `unmark`
 Marks a particular task as uncompleted. You may obtain a task's task number by using [`list`](#listing-tasks-list).
 
 Format: `unmark TASK_NUMBER`  
-Example usage: `unmark 2`
+Example usage: `unmark 3`
+
+Example: Suppose you use `list` and have the following tasks stored.
+```
+Here's your current list of tasks:
+    1. [T][ ] Task
+    2. [E][ ] Event (from: Jan 01 2024 12:00AM to: Dec 31 2024 11:59 PM)
+    3. [D][X] Deadline (by: Oct 10 2024 10:10 AM)
+Now you have 3 tasks in your list.
+```
+You realised you did not complete task 3 and want to mark it as incomplete, using `unmark 3`.
+
+The expected output should be:
+```
+No worries, let's do our best!
+    I've unmarked this task done for you:
+        3. [D][ ] Deadline (by: Oct 10 2024 10:10 AM)
+```
+> Note that the lack of `X` in the task indicates the task is uncompleted.
 
 ### Exiting the program: `bye`
 Exits the program safely. This will also automatically save your to-do list.
