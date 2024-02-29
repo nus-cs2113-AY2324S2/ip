@@ -19,10 +19,8 @@ public class Todo extends Task{
      * Overrides the markedTask method in the Task class to include todo-specific details in the confirmation message.
      */
     @Override
-    public void markedTask() {
-        this.hasDone=true;
-        System.out.println("    " + "--------------");
-        System.out.println("    " + "Nice! I've marked this task as done:");
+    public void markTaskAsComplete() {
+        super.markTaskAsComplete();
         System.out.println("      [T]" + "[X] "+this.name);
         System.out.println("    " + "--------------");
     }
@@ -32,10 +30,8 @@ public class Todo extends Task{
      * Overrides the unmarkedTask method in the Task class to include todo-specific details in the confirmation message.
      */
     @Override
-    public void unmarkedTask() {
-        this.hasDone=false;
-        System.out.println("    " + "--------------");
-        System.out.println("    " + "OK, I've marked this task as not done yet:");
+    public void markTaskAsIncomplete() {
+        super.markTaskAsIncomplete();
         System.out.println("      [T]" + "[ ] "+this.name);
         System.out.println("    " + "--------------");
     }

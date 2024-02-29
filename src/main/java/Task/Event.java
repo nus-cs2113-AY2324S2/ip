@@ -27,11 +27,9 @@ public class Event extends Task{
      * Overrides the markedTask method in the Task class to include event-specific details in the confirmation message.
      */
     @Override
-    public void markedTask() {
-        this.hasDone=true;
-        System.out.println("    " + "--------------");
-        System.out.println("    " + "Nice! I've marked this task as done:");
-        System.out.println("      [E]" + "[X] "+this.name);
+    public void markTaskAsComplete() {
+        super.markTaskAsComplete();
+        System.out.println("      [E]" + "[X] " + this.name);
         System.out.println("    " + "--------------");
     }
 
@@ -40,11 +38,9 @@ public class Event extends Task{
      * Overrides the unmarkedTask method in the Task class to include event-specific details in the confirmation message.
      */
     @Override
-    public void unmarkedTask() {
-        this.hasDone=false;
-        System.out.println("    " + "--------------");
-        System.out.println("    " + "OK, I've marked this task as not done yet:");
-        System.out.println("      [E]" + "[ ] "+this.name);
+    public void markTaskAsIncomplete() {
+        super.markTaskAsIncomplete();
+        System.out.println("      [E]" + "[ ] " + this.name);
         System.out.println("    " + "--------------");
     }
 

@@ -24,24 +24,20 @@ public class Task {
      * Marks this task as completed.
      * Prints a confirmation message including the task's name.
      */
-    public void markedTask(){
+    public void markTaskAsComplete(){
         this.hasDone=true;
-        System.out.println("    " + "--------------");
+        System.out.println("    " + "-----RUBY-----");
         System.out.println("    " + "Nice! I've marked this task as done:");
-        System.out.println("    " + "[X] "+this.name);
-        System.out.println("    " + "--------------");
     }
 
     /**
      * Marks this task as not completed.
      * Prints a confirmation message indicating the task is not done yet.
      */
-    public void unmarkedTask(){
+    public void markTaskAsIncomplete(){
         this.hasDone=false;
-        System.out.println("    " + "--------------");
+        System.out.println("    " + "-----RUBY-----");
         System.out.println("    " + "OK, I've marked this task as not done yet:");
-        System.out.println("    " + "[ ] "+this.name);
-        System.out.println("    " + "--------------");
     }
 
     /**
