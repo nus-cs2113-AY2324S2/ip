@@ -3,37 +3,50 @@ public class Parser {
         String[] parts = line.split(" ", 2);
         String command = parts[0].trim();
 
+        final String COMMAND_BYE = "bye";
+        final String COMMAND_LIST = "list";
+        final String COMMAND_MARK = "mark";
+        final String COMMAND_UNMARK = "unmark";
+        final String COMMAND_DEADLINE = "deadline";
+        final String COMMAND_TODO = "todo";
+        final String COMMAND_EVENT = "event";
+        final String COMMAND_DELETE = "delete";
+        final String COMMAND_FIND = "find";
+
         switch (command) {
-            case "bye":
+            case COMMAND_BYE:
                 TaskList.handleByeTask();
                 TaskList.setActive(false);
                 break;
-            case "list":
+            case COMMAND_LIST:
                 TaskList.handleListTask();
                 break;
-            case "mark":
+            case COMMAND_MARK:
                 TaskList.handleMarkTask(line);
                 Storage.saveToFile();
                 break;
-            case "unmark":
+            case COMMAND_UNMARK:
                 TaskList.handleUnmarkTask(line);
                 Storage.saveToFile();
                 break;
-            case "deadline":
+            case COMMAND_DEADLINE:
                 TaskList.handleDeadlineTask(line);
                 Storage.saveToFile();
                 break;
-            case "todo":
+            case COMMAND_TODO:
                 TaskList.handleTodoTask(line);
                 Storage.saveToFile();
                 break;
-            case "event":
+            case COMMAND_EVENT:
                 TaskList.handleEventTask(line);
                 Storage.saveToFile();
                 break;
-            case "delete":
+            case COMMAND_DELETE:
                 TaskList.handleDeleteTask(line);
                 Storage.saveToFile();
+                break;
+            case COMMAND_FIND:
+                TaskList.handleFindTask(line);
                 break;
             default:
                 throw new InvalidInputException("Invalid command: " + command);

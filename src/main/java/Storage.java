@@ -24,7 +24,7 @@ public class Storage {
         }
     }
 
-    public void loadTasks(TaskList tasks) throws FileNotFoundException, InvalidInputException {
+    public void loadTasks() throws FileNotFoundException, InvalidInputException {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             return;

@@ -24,6 +24,7 @@ public class Floda {
                 String line = scanner.nextLine().trim();
                 Parser.parseCommand(line);
             } catch (InvalidInputException e) {
+                ui.showErrorMessage(e.getMessage());
             }
         }
         scanner.close();
