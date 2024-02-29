@@ -13,7 +13,7 @@ public class Parser {
             System.out.println("Bye. Hope to see you again soon!");
             System.exit(0);
         case "delete":
-                TaskHandler.removeFromListWithoutPrints(Integer.parseInt(commands[1]) - 1);
+            TaskHandler.removeFromListWithoutPrints(Integer.parseInt(commands[1]) - 1);
             return;
         case "list":
             Printer.printList();
@@ -22,9 +22,9 @@ public class Parser {
             try {
                 TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsDoneWithoutPrints();
             }
-            catch(NullPointerException e) {
+            catch (NullPointerException e) {
             }
-            catch(ArrayIndexOutOfBoundsException e) {
+            catch (ArrayIndexOutOfBoundsException e) {
                 Printer.printMarkCommand();
             }
             return;
@@ -32,10 +32,10 @@ public class Parser {
             try {
                 TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsUndoneWithoutPrints();
             }
-            catch(NullPointerException e) {
+            catch (NullPointerException e) {
                 System.out.println(commands[1] + " is not in your list!");
             }
-            catch(ArrayIndexOutOfBoundsException e) {
+            catch (ArrayIndexOutOfBoundsException e) {
                 Printer.printUnmarkCommand();
             }
             return;
@@ -45,10 +45,7 @@ public class Parser {
         }
         catch(InvalidCommandException e) {
         }
-        catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("Type [help] to learn how to add tasks");
-        }
-        catch(StringIndexOutOfBoundsException e) {
+        catch(ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             System.out.println("Type [help] to learn how to add tasks");
         }
     }
@@ -66,16 +63,13 @@ public class Parser {
             System.exit(0);
         case "delete":
             try {
-                jigaChat.previousData.appendToFile(input + "\n");
+                JigaChat.previousData.appendToFile(input + "\n");
                 TaskHandler.removeFromList(Integer.parseInt(commands[1]) - 1);
             }
-            catch(NumberFormatException e) {
+            catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 Printer.printDeleteCommand();
             }
-            catch(ArrayIndexOutOfBoundsException e) {
-                Printer.printDeleteCommand();
-            }
-            catch(IOException e){
+            catch (IOException e) {
             }
             return;
         case "list":
@@ -85,44 +79,49 @@ public class Parser {
             try {
                 TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsDone();
                 System.out.println("JigaChat has marked task " + (Integer.parseInt(commands[1])) + " as done!");
-                jigaChat.previousData.appendToFile(input + "\n");
+                JigaChat.previousData.appendToFile(input + "\n");
             }
-            catch(NullPointerException e) {
+            catch (NullPointerException e) {
                 System.out.println(commands[1] + " is not in your list!");
             }
-            catch(ArrayIndexOutOfBoundsException e) {
+            catch (ArrayIndexOutOfBoundsException e) {
                 Printer.printMarkCommand();
             }
-            catch(IOException e) {
+            catch (IOException e) {
             }
             return;
         case "unmark":
             try {
                 TaskHandler.taskList.get(Integer.parseInt(commands[1]) - 1).markAsUndone();
                 System.out.println("JigaChat has marked task " + (Integer.parseInt(commands[1])) + " as not done!");
-                jigaChat.previousData.appendToFile(input + "\n");
+                JigaChat.previousData.appendToFile(input + "\n");
             }
-            catch(NullPointerException e) {
+            catch (NullPointerException e) {
                 System.out.println(commands[1] + " is not in your list!");
             }
-            catch(ArrayIndexOutOfBoundsException e) {
+            catch (ArrayIndexOutOfBoundsException e) {
                 Printer.printUnmarkCommand();
             }
-            catch(IOException e) {
+            catch (IOException e) {
+            }
+            return;
+        case "find":
+            try {
+                TaskHandler.findInTaskList(commands[1]);
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+                Printer.printFindCommand();
             }
             return;
         }
         try {
             TaskHandler.addToList(commands);
-            jigaChat.previousData.appendToFile(input + "\n");
+            JigaChat.previousData.appendToFile(input + "\n");
         }
         catch(InvalidCommandException e) {
             System.out.println("Command " + input + " is not recognised!");
         }
-        catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("Type [help] to learn how to add tasks");
-        }
-        catch(StringIndexOutOfBoundsException e) {
+        catch(ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             System.out.println("Type [help] to learn how to add tasks");
         }
         catch(IOException e) {

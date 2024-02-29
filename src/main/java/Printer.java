@@ -7,6 +7,7 @@ public class Printer {
         printDeleteCommand();
         printMarkCommand();
         printUnmarkCommand();
+        printFindCommand();
     }
 
     protected static void printUnmarkCommand() {
@@ -35,6 +36,10 @@ public class Printer {
 
     static void printDeleteCommand() {
         System.out.println("delete [task index]                         Removes a task from your list");
+    }
+
+    protected static void printFindCommand() {
+        System.out.println("find [description]                          Finds matching tasks in your list");
     }
 
     protected static void printList() {
