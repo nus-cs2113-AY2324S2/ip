@@ -46,6 +46,19 @@ public class ToDo extends Task {
         this.haveDeadline = false;
         this.isEvent = false;
     }
+    protected String lineToWrite() {
+        String taskType = haveToDo ? "T" : haveDeadline ? "D" : isEvent ? "E" : "U";
+        String checkbox = isMarked() ? "[/]" : "[ ]";
+        String additionalInfo = "";
+        if (haveDeadline) {
+            additionalInfo = deadline;
+        }
+        else if (isEvent) {
+            additionalInfo = eventFrom + " -> " + eventTo;
+        }
+        return taskType + " | " + checkbox +
+                (taskType.equals("T") ? "" : " | " + additionalInfo);
+    }
     @Override
     public void print() {
         String taskType = "[ ]";

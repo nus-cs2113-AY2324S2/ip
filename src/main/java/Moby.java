@@ -1,6 +1,8 @@
 import customexceptions.IncompletePromptException;
 import interactions.*;
 import customexceptions.*;
+
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Arrays;
 public class Moby {
@@ -69,6 +71,11 @@ public class Moby {
                 } catch (UnknownPromptException e) {
                     System.out.println("Sorry, I do not understand what you're saying.");
                 }
+            }
+            try {
+                list.saveFile("./data/list.txt");
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
         }
         bot.exit();
