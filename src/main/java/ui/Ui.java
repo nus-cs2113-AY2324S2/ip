@@ -23,9 +23,10 @@ public class Ui {
                     "4. mark <taskindex> - Mark a task as done\n" +
                     "5. unmark <taskindex> - Mark a task as not done\n" +
                     "6. delete <taskindex> - delete a task from the list\n" +
-                    "7. list - List all tasks recorded\n" +
-                    "8. bye - Exit the program\n" +
-                    "9. help - Show available commands";
+                    "7. find <word> - search a task from the list that contains <word>\n" +
+                    "8. list - List all tasks recorded\n" +
+                    "9. bye - Exit the program\n" +
+                    "10. help - Show available commands";
 
     private static Scanner scanner = new Scanner(System.in);
 

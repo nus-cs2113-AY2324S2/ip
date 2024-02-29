@@ -102,12 +102,6 @@ public class Parser {
         return commandClassMap;
     }
 
-    /**
-     * Parses the user input and returns the corresponding Command class.
-     *
-     * @param userInput the user input string
-     * @return an instance of the command class corresponding to the user input
-     */
     private static Map<CommandType, String[]> initCommandGroupMap() {
         Map<CommandType, String[]> commandGroupMap = new HashMap<>();
 
@@ -122,6 +116,12 @@ public class Parser {
         return commandGroupMap;
     }
 
+    /**
+     * Parses the user input and returns the corresponding Command class.
+     *
+     * @param userInput the user input string
+     * @return an instance of the command class corresponding to the user input
+     */
     public static Command getCommandType(String userInput) {
         for (Map.Entry<CommandType, Pattern> entry : commandPatternMap.entrySet()) {
             // Retrieve the Pattern associated with the command in the entry
