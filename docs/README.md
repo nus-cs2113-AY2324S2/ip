@@ -1,4 +1,4 @@
-# Gary User Guide :open_book:
+# Gary User Guide :book:
 
 Gary is a interactive and easy to use Command Line Interface application to manage your available tasks.
 
