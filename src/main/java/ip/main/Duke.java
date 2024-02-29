@@ -1,18 +1,15 @@
 package ip.main;
 
-import java.io.FileNotFoundException;
-import java.io.File;
-import java.util.Scanner;
-import java.util.ArrayList;
-
-import ip.task.Task;
 import ip.task.Todo;
 import ip.task.Deadline;
 import ip.task.Event;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Duke {
     private static Storage storage;
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static TaskList tasks = new TaskList();
 
     public static void main(String[] args) {
         String logo = "  ____   _   _      __     ______    _       _  _____\n" +

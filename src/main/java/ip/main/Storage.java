@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -30,7 +29,7 @@ public class Storage {
         }
     }
 
-    public void readStoredData(ArrayList<Task> tasks) throws FileNotFoundException {
+    public void readStoredData(TaskList tasks) throws FileNotFoundException {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String str = s.nextLine();
@@ -57,7 +56,7 @@ public class Storage {
         }
     }
 
-    public void updateStoredData(ArrayList<Task> tasks) {
+    public void updateStoredData(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter("./data/task_list.txt");
             for (int i = 0; i < tasks.size(); i++) {
