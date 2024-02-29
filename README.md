@@ -1,10 +1,10 @@
-# Omoh 
-Welcome to the Omoh chatbot user guide!
+# :robot: Omoh :robot:	
+Welcome to the Omoh chatbot user guide! :heart_on_fire:	
 
-## Content Page
+## :page_with_curl: Content Page :page_with_curl:	
 
-- [Setting up in Intellij](#setting-up-in-intellij)
-- [Features](#features)
+- [Setting up in Intellij](#wrenchsetting-up-in-intellij-wrench)
+- [Features](#musclefeatures-muscle)
    - [Adding a todo task: `todo TASK_DESCRIPTION`](#adding-a-todo-task-todo-task_description)
    - [Adding a deadline task: `deadline TASK_DESCRIPTION /by DATE`](#adding-a-deadline-task-deadline-task_description-by-date)
    - [Adding an event task: `event TASK_DESCRIPTION /from DATE /to DATE`](#adding-a-event-task-event-task_description-from-date-to-date)
@@ -15,7 +15,7 @@ Welcome to the Omoh chatbot user guide!
    - [Finding tasks based on keyword: `find KEYWORD`](#finding-tasks-based-on-keyword-find-keyword)
    - [Exiting the program: `bye`](#exiting-the-program-bye)
 
-## Setting up in Intellij
+## :wrench:	Setting up in Intellij :wrench:	
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
@@ -35,7 +35,7 @@ What can I do for you?
 __________________________________________________
 ```
 
-## Features
+## :muscle:	Features :muscle:	
 
 
 ### Adding a todo task: `todo TASK_DESCRIPTION`
