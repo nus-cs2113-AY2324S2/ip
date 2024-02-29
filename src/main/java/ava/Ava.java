@@ -5,22 +5,32 @@ import ava.task.Event;
 import ava.task.Task;
 import ava.task.ToDo;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ava {
 
+    private Storage storage;
+    private TaskList tasks;
+
+    public Ava(String filePath) {
+        storage = new Storage(filePath);
+    }
+
     public static void main(String[] args) {
+        new Ava("./data/ava.txt").run();
+    }
+
+    public void run() {
         greet();
         mainProcess();
         exit();
     }
 
-    public static void mainProcess() {
+    public void mainProcess() {
         boolean isExit = false;
         ArrayList<Task> tasks = new ArrayList<>();
-        DataFile.loadFile(tasks);
+        storage.loadFile(tasks);
         Scanner in = new Scanner(System.in);
         while (!isExit) {
             String task = in.nextLine();
@@ -32,13 +42,13 @@ public class Ava {
                 continue;
             } else if (task.contains("mark")) {
                 markTask(tasks, task);
-                DataFile.saveTasks(tasks);
+                storage.saveTasks(tasks);
                 continue;
             } else if (task.startsWith("todo")) {
                 try {
                     addTask(tasks, task, "todo");
-                } catch (EmptyDescriptionException e) {
-                    dealWithEmptyDescriptionException("todo");
+                } catch (EmptyTaskNameException e) {
+                    printEmptyTaskNameExceptionMessage("todo");
                     continue;
                 }
             } else if (task.startsWith("deadline")) {
@@ -46,11 +56,11 @@ public class Ava {
                     try {
                         addTask(tasks, task, "deadline");
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        dealWithFormatException();
+                        printDateFormatExceptionMessage();
                         continue;
                     }
-                } catch (EmptyDescriptionException e) {
-                    dealWithEmptyDescriptionException("deadline");
+                } catch (EmptyTaskNameException e) {
+                    printEmptyTaskNameExceptionMessage("deadline");
                     continue;
                 }
             } else if (task.startsWith("event")) {
@@ -58,39 +68,39 @@ public class Ava {
                     try {
                         addTask(tasks, task, "event");
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        dealWithFormatException();
+                        printDateFormatExceptionMessage();
                         continue;
                     }
-                } catch (EmptyDescriptionException e) {
-                    dealWithEmptyDescriptionException("event");
+                } catch (EmptyTaskNameException e) {
+                    printEmptyTaskNameExceptionMessage("event");
                     continue;
                 }
             } else if (task.startsWith("delete")) {
                 deleteTask(tasks, task);
-                DataFile.saveTasks(tasks);
+                storage.saveTasks(tasks);
                 continue;
             } else {
-                dealWithUnknownException();
+                printUnknownCommandExceptionMessage();
                 continue;
             }
             printAfterAddingTask(tasks);
-            DataFile.saveTasks(tasks);
+            storage.saveTasks(tasks);
         }
     }
 
-    private static void dealWithUnknownException() {
+    private static void printUnknownCommandExceptionMessage() {
         printLine();
         System.out.println("(⊙_⊙)? I'm sorry!!! But I don't know what that means.");
         printLine();
     }
 
-    private static void dealWithFormatException() {
+    private static void printDateFormatExceptionMessage() {
         printLine();
         System.out.println("(⊙_⊙)? You need to specify the date after '/'");
         printLine();
     }
 
-    private static void dealWithEmptyDescriptionException(String type) {
+    private static void printEmptyTaskNameExceptionMessage(String type) {
         printLine();
         switch (type) {
         case "todo":
@@ -106,13 +116,16 @@ public class Ava {
         printLine();
     }
 
-    public static void addTask(ArrayList<Task> tasks, String task, String type) throws EmptyDescriptionException {
+    public static void addTask(ArrayList<Task> tasks, String task, String type) throws EmptyTaskNameException {
         task = task.replace(type, "");
+
         if (task.isEmpty()) {
-            throw new EmptyDescriptionException();
+            throw new EmptyTaskNameException();
         }
+
         String[] taskAndDate = task.split("/");
         taskAndDate[0] = taskAndDate[0].trim();
+
         switch (type) {
         case "todo":
             tasks.add(new ToDo(taskAndDate[0]));
@@ -139,17 +152,17 @@ public class Ava {
         printLine();
     }
 
-    public static int extractNumber(String type, String command) {
+    public static int extractTaskNumber(String type, String command) {
         command = command.replace(type, "");
         return Integer.parseInt(command) - 1;
     }
 
     public static void deleteTask(ArrayList<Task> tasks, String command) {
-        int taskDeleted;
+        int taskNumberToBeDeleted;
         try {
             try {
-                taskDeleted = extractNumber("delete ", command);
-                Task deletedTask = tasks.get(taskDeleted);
+                taskNumberToBeDeleted = extractTaskNumber("delete ", command);
+                Task deletedTask = tasks.get(taskNumberToBeDeleted);
                 printLine();
                 System.out.println("Noted!!! I've removed this task:");
                 System.out.println(deletedTask);
@@ -178,11 +191,11 @@ public class Ava {
         try {
             try {
                 if (isMark) {
-                    taskChanged = extractNumber("mark ", command);
+                    taskChanged = extractTaskNumber("mark ", command);
                     tasks.get(taskChanged).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
                 } else {
-                    taskChanged = extractNumber("unmark ", command);
+                    taskChanged = extractTaskNumber("unmark ", command);
                     tasks.get(taskChanged).markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                 }

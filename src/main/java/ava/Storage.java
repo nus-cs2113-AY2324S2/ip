@@ -8,30 +8,21 @@ import ava.task.ToDo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 
-public class DataFile {
-    protected static final String FILE_PATH = "data/ava.txt";
+public class Storage {
+    private String filePath = "./data/ava.txt";
 
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File file = new File(filePath); // create a File for the given file path
-        if (!file.exists()) {
-            createFile();
-        } else {
-            Scanner s = new Scanner(file); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                System.out.println(s.nextLine());
-            }
-        }
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
-    private static void createFile() {
+    private void createFile() {
         try {
-            File dataFile = new File(FILE_PATH);
+            File dataFile = new File(filePath);
             if (!dataFile.getParentFile().exists()) {
                 Files.createDirectories(dataFile.getParentFile().toPath());
             }
@@ -40,30 +31,30 @@ public class DataFile {
         }
     }
 
-    protected static void writeToFile(String textToAdd, boolean isAppend) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, isAppend);
+    protected void writeToFile(String textToAdd, boolean isAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, isAppend);
         fw.write(textToAdd + System.lineSeparator());
         fw.close();
     }
 
-    protected static void saveTasks(ArrayList<Task> tasks) {
+    protected void saveTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             try {
-                DataFile.writeToFile("", false);
+                this.writeToFile("", false);
                 return;
             } catch (IOException e) {
                 System.out.println("⊙﹏⊙ Not able to save your task.");
             }
         }
         try {
-            DataFile.writeToFile(tasks.get(0).toString(), false);
+            this.writeToFile(tasks.get(0).toString(), false);
         } catch (IOException e) {
             System.out.println("⊙﹏⊙ Not able to save your task.");
         }
         int i = 1;
         while (i < tasks.size()) {
             try {
-                DataFile.writeToFile(tasks.get(i).toString(), true);
+                this.writeToFile(tasks.get(i).toString(), true);
                 i += 1;
             } catch (IOException e) {
                 System.out.println("⊙﹏⊙ Not able to save your task.");
@@ -71,8 +62,8 @@ public class DataFile {
         }
     }
 
-    protected static void loadFile(ArrayList<Task> tasks) {
-        File dataFile = new File(FILE_PATH);
+    protected void loadFile(ArrayList<Task> tasks) {
+        File dataFile = new File(filePath);
         try {
             Scanner s = new Scanner(dataFile); // create a Scanner using the File as the source
             while (s.hasNext()) {
@@ -83,7 +74,7 @@ public class DataFile {
         }
     }
 
-    protected static void loadTask(String line, ArrayList<Task> tasks) {
+    protected void loadTask(String line, ArrayList<Task> tasks) {
         line = line.replace("[", "");
         line = line.replace("]", "");
         boolean isCompleted;
