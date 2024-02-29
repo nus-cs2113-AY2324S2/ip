@@ -16,12 +16,18 @@ public class Tony {
     private final FileLoader fileLoader;
     private final FileSaver fileSaver;
     public static final String LINE_BREAKER = "__________________________________________________";
-
+    /**
+     * Instantiate a new {@code Tony} object.
+     */
     public Tony() {
         this.tasks = new ArrayList<>();
         this.fileLoader = new FileLoader(this.tasks);
         this.fileSaver = new FileSaver(this.tasks);
     }
+    /**
+     * This method runs the Tony chatbot
+     * @throws IOException if there is an error creating a File object
+     */
     public void run() throws IOException {
         Ui ui = new Ui(tasks);
         ui.printWelcomeMessage();
@@ -40,8 +46,11 @@ public class Tony {
         }
         userInput.close();
     }
-
-    public static void main(String[] args) throws Exception {
+    /**
+     * This is the start of Tony the chatbot.
+     * @throws IOException if there is an error creating a File object in the run().
+     */
+    public static void main(String[] args) throws IOException {
         new Tony().run();
     }
 }
