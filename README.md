@@ -23,6 +23,7 @@ __________________________________________________
 
 ## Features
 
+
 ### Adding a todo task: `todo TASK_DESCRIPTION`
 Adds a todo task into the task list.
 * `TASK_DESCRIPTION` must not be empty.
@@ -30,6 +31,7 @@ Adds a todo task into the task list.
 Examples:
 * todo eat lunch
 * todo study for cs2113
+
 
 ### Adding a deadline task: `deadline TASK_DESCRIPTION /by DATE`
 Adds a deadline task into the task list.
@@ -41,6 +43,7 @@ Examples:
 * deadline cs2113 ip /by wednesday
 * deadline cs1010 mid term revision /by 10th March 2024
 
+
 ### Adding a event task: `event TASK_DESCRIPTION /from DATE /to DATE`
 Adds a event task into the task list.
 * `TASK_DESCRIPTION` must not be empty.
@@ -51,6 +54,7 @@ Examples:
 * event cs2113 lecture /from 4pm /to 6pm
 * event CDE career fair /from 29th Feb 10am /to 29th feb 10pm
 
+
 ### Marking a task: `mark TASK_NUMBER`
 Marks a task in task list as completed. X stands for completed, empty stands for not completed.
 * `TASK_NUMBER` must be a positive integer within number of total tasks.
@@ -59,6 +63,7 @@ Marks a task in task list as completed. X stands for completed, empty stands for
 Examples:
 * mark 1
 * mark 2
+
 
 ### Unmarking a task: `unmark TASK_NUMBER`
 Marks a task in task list as not completed. X stands for completed, empty stands for not completed.
@@ -69,6 +74,7 @@ Examples:
 * unmark 1
 * unmark 2
 
+
 ### Deleting a task: `delete TASK_NUMBER`
 Deletes a task from task list according to task number provided
 * `TASK_NUMBER` must be a positive integer within number of total tasks.
@@ -77,8 +83,10 @@ Deletes a task from task list according to task number provided
 Examples:
 * `list` followed by `delete 1 `deletes the first task in the task list.
 
+
 ### Listing all tasks: `list`
 Shows a list of all tasks in task list
+
 
 ### Finding tasks based on keyword: `find KEYWORD`
 Finds matching task(s) in task list based on a keyword provided
@@ -88,6 +96,6 @@ Examples:
 * `find books` returns `read books` and `return book to book drop`
 * `find study` returns `study at library` and `study tonight`
 
+
 ### Exiting the program: `bye`
 Exits programe and saves the task list into ../data/output.txt file
-
