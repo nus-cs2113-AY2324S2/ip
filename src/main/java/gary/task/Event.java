@@ -1,5 +1,9 @@
 package gary.task;
 
+/**
+ * Event class deals with task with event as the type, performing functions specifically
+ * for an event task.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -10,15 +14,29 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Take the task and get its event start to be returned.
+     *
+     * @return event starting (from).
+     */
     public String getFrom() {
         return this.from;
     }
 
+    /**
+     * Take the task and get its event end to be returned.
+     *
+     * @return event end (to).
+     */
     public String getTo() {
         return this.to;
     }
 
-    //function to print when user adds a task
+    /**
+     * print message when user adds a task with event type.
+     *
+     * @param todosCount number of tasks in the array list.
+     */
     @Override
     public void printAdd(int todosCount) {
         System.out.println("Got it! I've added this task: ");
@@ -28,7 +46,12 @@ public class Event extends Task {
         System.out.println("Now you have " + todosCount + " tasks in your list.");
     }
 
-    //function to print when user list tasks
+    /**
+     * print task in a certain format with its details, including the event description,
+     * start (from), and end (to).
+     *
+     * @param todoCount number of tasks in the array list.
+     */
     @Override
     public void printTask(int todoCount) {
         System.out.println((todoCount + 1)
