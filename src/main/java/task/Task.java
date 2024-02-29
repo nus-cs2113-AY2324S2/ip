@@ -50,6 +50,11 @@ public class Task {
         return "[T][" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns task details as a string to be written to a file.
+     * @return the string to the written to the file
+     */
+    
     public String getTaskAsString() {
         return "";
     }
