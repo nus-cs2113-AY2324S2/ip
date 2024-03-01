@@ -62,7 +62,7 @@ public class Parser {
                     ui.printLine();
                     int taskNumber = Integer.parseInt(sentence[1]);
                     taskList.checkTask(taskNumber);
-                    ui.printMarkTaskAsDone(taskList.getTasks(), taskNumber);
+                    ui.printMarkTaskAsDone(taskList.getTaskList(), taskNumber);
                     ui.printLine();
 
                 } else if (line.startsWith("unmark")) {
@@ -75,7 +75,7 @@ public class Parser {
                     ui.printLine();
                     int taskNumber = Integer.parseInt(sentence[1]);
                     taskList.uncheckTask(taskNumber);
-                    ui.printMarkTaskAsNotDone(taskList.getTasks(), taskNumber);
+                    ui.printMarkTaskAsNotDone(taskList.getTaskList(), taskNumber);
                     ui.printLine();
 
                 } else if (line.startsWith("deadline")) {
@@ -128,6 +128,16 @@ public class Parser {
                     int taskNumber = Integer.parseInt(sentence[1]);
                     taskList.removeTask(taskNumber, ui);
                     ui.printLine();
+
+                } else if (line.startsWith("find")){
+                    String[] sentence = line.split(" ");
+                    if (sentence.length < 2 || sentence[1].isBlank()){
+                        throw new PoratoException("Please do not give a empty description\nFind format: find me");
+                    }
+                    ui.printLine();
+                    taskList.listReleventTasks(sentence[1]);
+                    ui.printLine();
+
 
                 } else if (line.startsWith("help")) {
                     // Prints all the valid commands

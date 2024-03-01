@@ -4,6 +4,7 @@ import porato.PoratoException;
 import porato.Ui;
 import java.util.ArrayList;
 
+
 /**
  * Represents the list of tasks the user has.
  * It contains methods to add, remove, search, check and uncheck tasks.
@@ -89,7 +90,27 @@ public class TaskList {
      * Returns the task list
      * @return The entire task list
      */
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTaskList() {
         return tasks;
+    }
+
+    /**
+     * Lists all the tasks with description or keywords that are relevant
+     * @param description The task description the user wants to find
+     */
+    public void listReleventTasks(String description){
+        System.out.println("     Here are the relevant tasks in your list:");
+        int taskCount = 0;
+        for (Task task: tasks) {
+            if (task == null) {
+                break;
+            } else if (task.getTask().contains(description)){
+                taskCount++;
+                System.out.println("     " + taskCount +"." + task);
+            }
+
+
+        }
+
     }
 }

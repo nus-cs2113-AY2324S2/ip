@@ -71,7 +71,7 @@ public class Storage {
     public void saveTaskList(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
-        for (Task task : taskList.getTasks()) {
+        for (Task task : taskList.getTaskList()) {
             if (task instanceof ToDos) {
                 fw.write("T/ ");
             } else if (task instanceof Events) {
