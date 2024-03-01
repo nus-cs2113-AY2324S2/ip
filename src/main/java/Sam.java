@@ -12,12 +12,13 @@ public class Sam {
         int numItems = countTasks(records);
 
         // Printing the logo and greeting message
-        String logo = "  _________   _____      _____   \n" +
-                " /   _____/  /  _  \\    /     \\  \n" +
-                " \\_____  \\  /  /_\\  \\  /  \\ /  \\ \n" +
-                " /        \\/    |    \\/    Y    \\\n" +
-                "/_______  /\\____|__  /\\____|__  /\n" +
-                "        \\/         \\/         \\/ ";
+        String logo = "   _____\n" +
+                "  / ____|\n" +
+                " | (___   __ _ _ __ ___\n" +
+                "  \\___ \\ / _` | '_ ` _ \\\n" +
+                "  ____) | (_| | | | | | |\n" +
+                " |_____/ \\__,_|_| |_| |_|\n" +
+                "";
         System.out.println("Hello! I'm SAM\n" + logo + "\n" + "What can I do for you?\n");
 
         System.out.println("Here's what you got saved:");
