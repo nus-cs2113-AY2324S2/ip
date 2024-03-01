@@ -1,3 +1,5 @@
+package Helper;
+
 public class Parser {
     public static Task parseTaskFromString(String line) {
         Task task = null;

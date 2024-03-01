@@ -1,3 +1,5 @@
+package Helper;
+
 import Exceptions.*;
 
 import java.util.ArrayList;
@@ -100,7 +102,7 @@ public class TaskManager {
                     "Invalid task index for marking: " + (taskIndex + INDEX_OFFSET));
         }
         if (taskList.get(taskIndex).isDone) {
-            userInterface.printTaskAlreadyMarked("Task is already marked as done");
+            userInterface.printTaskAlreadyMarked("Helper.Task is already marked as done");
         } else {
             taskList.get(taskIndex).setAsDone();
             userInterface.printTaskMarked(taskList.get(taskIndex));
@@ -116,7 +118,7 @@ public class TaskManager {
         }
 
         if (!taskList.get(taskIndex).isDone) {
-            userInterface.printTaskAlreadyUnmarked("Task is already marked as undone");
+            userInterface.printTaskAlreadyUnmarked("Helper.Task is already marked as undone");
         } else {
             taskList.get(taskIndex).setAsNotDone();
             userInterface.printTaskUnmarked(taskList.get(taskIndex));

@@ -1,3 +1,5 @@
+package Helper;
+
 import Exceptions.*;
 
 import java.util.ArrayList;
@@ -120,13 +122,14 @@ public class UserInterface {
 
     public void printLoadFileError(LoadFileException e){
         System.out.println(LINE);
-        System.out.println(TAB_SPACE + "Unable to load File " + e.getMessage());
-        System.out.println(TAB_SPACE + "Please Check your File path");
+        System.out.println(TAB_SPACE + "Unable to load File. " + e.getMessage());
+        System.out.println(TAB_SPACE + "Please Check your File path.");
+        System.out.println(TAB_SPACE + "Continuing will create a new file in the destination path");
         System.out.println(LINE);
     }
     public void printUnableToSave(SaveFileException e){
         System.out.println(LINE);
-        System.out.println(TAB_SPACE + "Unable to Save File " + e.getMessage());
+        System.out.println(TAB_SPACE + "Unable to Save File. " + e.getMessage());
         System.out.println(TAB_SPACE + "Please Check your File path");
         System.out.println(LINE);
 
