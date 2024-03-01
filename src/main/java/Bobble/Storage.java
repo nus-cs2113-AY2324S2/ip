@@ -1,4 +1,9 @@
-package Bobble.task;
+package Bobble;
+
+import Bobble.task.Deadline;
+import Bobble.task.Event;
+import Bobble.task.Task;
+import Bobble.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,26 +12,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager extends ArrayList<Task> {
+public class Storage {
     private static final String FILE_PATH = "./data/bobble.txt";
     private static final String DIRECTORY_PATH = "./data";
     private static final String DIVIDER = "\\|";
     private ArrayList<Task> savedTaskList;
 
-    public FileManager() {
+    public Storage() {
         savedTaskList = new ArrayList<>();
     }
 
-//    public ArrayList<Task> getSavedList() {
-//        savedTaskList = loadSavedTasks();
-//        return this.savedTaskList;
-//    }
-
     public ArrayList<Task> loadSavedList() throws IOException {
-        //if file(Path) does not exist, create a new file, return empty ArrayList
-        //else
-        //read file, parse file by "|", then input into savedtaskList
-        // Check if the file exists
         File directory = new File(DIRECTORY_PATH);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
@@ -41,7 +37,7 @@ public class FileManager extends ArrayList<Task> {
             try {
                 file.createNewFile();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new IOException("Failed to create file: " + directory.getAbsolutePath());
             }
             return savedTaskList;
         }
@@ -89,7 +85,6 @@ public class FileManager extends ArrayList<Task> {
         }
     }
 
-    // Method to add a task to the task list
     public static void saveAddedTask(ArrayList<Task> taskList) {
         saveList(taskList.get(taskList.size() - 1).toString()); // Save tasks to file whenever the task list changes
     }
@@ -105,7 +100,6 @@ public class FileManager extends ArrayList<Task> {
         }
     }
 
-    // call function every time you add/delete a function
     private static void saveList(String taskToString) {
         //for each task in ArrayList savedTaskList, get Class + isDone + Desc of each based on type.
         String taskType = taskToString.substring(1, 2);
@@ -147,7 +141,7 @@ public class FileManager extends ArrayList<Task> {
     }
 
     private static void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(FileManager.FILE_PATH, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(Storage.FILE_PATH, true); // create a FileWriter in append mode
         fw.write(textToAppend + "\n");
         fw.close();
     }
