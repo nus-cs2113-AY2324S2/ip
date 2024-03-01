@@ -109,6 +109,18 @@ public class Parser {
             isValidInput = false;
         }
     }
+    public void extractDetailsFromFindString(String line) {
+        try {
+            int descriptionIndex = line.indexOf(" ");
+
+            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
+
+            inputValidator.checkFindCommand(commandTypeAndParams);
+        } catch (MonaException e) {
+            System.out.println(e.getMessage());
+            isValidInput = false;
+        }
+    }
     public void parseInput(String line) {
         extractCommandTypeFromString(line);
 
@@ -137,6 +149,9 @@ public class Parser {
             extractDetailsFromEventString(line);
             break;
         case("list"):
+            break;
+        case("find"):
+            extractDetailsFromFindString(line);
             break;
         // default case is for invalid commands
         default:

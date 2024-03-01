@@ -7,7 +7,9 @@ import mona.task.Task;
 import mona.task.Todo;
 import mona.util.Constants;
 
+import java.io.Console;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     public static int noOfTasks;
@@ -67,6 +69,12 @@ public class TaskList {
             ConsolePrint.printDeleteTaskStatement(deletedTask, noOfTasks - 1);
             noOfTasks -= 1;
             break;
+        case("find"):
+            String keyword = commandTypeAndParams[Constants.INDEX_DESCRIPTION];
+            ArrayList<Task> filteredTasks = (ArrayList<Task>)tasks.stream()
+                    .filter(t -> t.getDescription().contains(keyword))
+                    .collect(Collectors.toList());
+            ConsolePrint.printFilteredList(filteredTasks, keyword);
         default:
             //doNothing?
         }
