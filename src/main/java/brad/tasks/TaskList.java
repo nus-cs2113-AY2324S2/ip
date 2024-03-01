@@ -35,26 +35,40 @@ public class TaskList {
      * @param isDone boolean to mark task as not done yet
      */
     public void addToList(String input, TaskType type, boolean isDone) {
-        Tasks newTask;
+        Tasks newTask = null;
         if (type == TaskType.EVENT) {
-            int fromIndex = input.indexOf("/from");
-            int toIndex = input.indexOf("/to");
-            String description = input.substring(0, fromIndex).strip();
-            String startTime = input.substring(fromIndex + "/from ".length(), toIndex).trim();
-            String endTime = input.substring(toIndex + "/to ".length()).trim();
-            newTask = new Event(description, startTime, endTime, isDone);
+            try {
+                int fromIndex = input.indexOf("/from");
+                int toIndex = input.indexOf("/to");
+                String description = input.substring(0, fromIndex).strip();
+                String startTime = input.substring(fromIndex + "/from ".length(), toIndex).trim();
+                String endTime = input.substring(toIndex + "/to ".length()).trim();
+                newTask = new Event(description, startTime, endTime, isDone);
+                taskList.add(newTask);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Uh oh, please enter the appropriate command!");
+                System.out.println("event <task> /from <start time> /to <end time>");
+            }
+
         } else if (type == TaskType.DEADLINE) {
-            int timeIndex = input.indexOf("/by");
-            String description = input.substring(0, timeIndex).strip();
-            String time = input.substring(timeIndex + "/by ".length()).strip();
-            newTask = new Deadline(description, time, isDone);
+            try {
+                int timeIndex = input.indexOf("/by");
+                String description = input.substring(0, timeIndex).strip();
+                String time = input.substring(timeIndex + "/by ".length()).strip();
+                newTask = new Deadline(description, time, isDone);
+                taskList.add(newTask);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Uh oh, please enter the appropriate command!");
+                System.out.println("deadline <task> /by <time>");
+            }
+
         } else if (type == TaskType.TODO) {
             newTask = new Todo(input, isDone);
+            taskList.add(newTask);
         } else {
             newTask = new Tasks(input, isDone);
+            taskList.add(newTask);
         }
-        taskList.add(newTask);
-
     }
 
     /**

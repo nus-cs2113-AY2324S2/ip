@@ -22,9 +22,10 @@ public class Brad {
 
     /**
      * Main loop of the program.
-     * Greets the user and checks if file exists. If everything is good,
-     * enable task saving function.
-     * The chatbot will then run continuously to query for user input.
+     * Greets the user and checks if file exists. If everything is in order,
+     * enable task saving function. It is disabled if file doesn't exist.
+     * The Brad chatbot will then run continuously to query for user input if data
+     * is not corrupted. Prompts user to check the file if it is corrupted.
      * Program exits immediately if user types "bye".
      */
     public static void main(String[] args) {

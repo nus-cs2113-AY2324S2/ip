@@ -8,12 +8,17 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.nio.file.Paths;
 
 import brad.tasks.Tasks;
 import brad.tasks.TaskList;
 
 public class Storage {
-    private final String FILE_PATH = "data/data.md";
+    private static final String DIRECTORY_PATH = Paths.get(".", "data").toString();
+    private static final String FILE_NAME =  "data.md";
+    private static final String FILE_PATH = Paths.get(DIRECTORY_PATH, FILE_NAME).toString();
+    private static final File file = new File(FILE_PATH);
+
     private final String FILE_HEADER = "|Task Type | Done | Description | Time |\n"
             + "|----------|------|-------------|------|\n";
 
@@ -21,25 +26,29 @@ public class Storage {
     private final String DEADLINE = "Deadline";
     private final String TODO = "Todo";
     /**
-     * Create a new file if found.
+     * Create a new directory & file if not found.
      * Load file from file and interpret stored data and populate the tasklist
      * @param tasklist current list of tasks
-     * @throws FileNotFoundException
-     * @throws dataCorruptedException
+     * @throws FileNotFoundException if file cannot be found
+     * @throws dataCorruptedException if data in file is corrupted
      */
     public void initializeFile(TaskList tasklist)
             throws FileNotFoundException, dataCorruptedException {
-        File file = new File(FILE_PATH);
         try {
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getAbsolutePath());
-                System.out.println("file exists?: " + file.exists());
+            if (!file.exists()) {
+                File directory = new File (DIRECTORY_PATH);
+                directory.mkdir();
+                file.createNewFile();
+                addHeader();
+                System.out.println("File created :" + file.getAbsolutePath());
+                System.out.println("File exists? :" + file.exists());
             } else {
                 System.out.println("File already exists!");
             }
         } catch (IOException e) {
             System.out.println("Error creating file: " + e.getMessage());
         }
+
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String[] input = s.nextLine().split("\\|");
@@ -73,7 +82,7 @@ public class Storage {
 
     /**
      * Adds file header for the markdown file
-     * @throws IOException
+     * @throws IOException if something else is wrong
      */
     public void addHeader() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
@@ -84,7 +93,7 @@ public class Storage {
     /**
      * Updates entire file with list of tasks
      * @param tasklist current list of tasks
-     * @throws IOException
+     * @throws IOException if something else is wrong
      */
     public void updateFile(TaskList tasklist) throws IOException {
         addHeader();
@@ -96,7 +105,7 @@ public class Storage {
     /**
      * Write new tasks to the file
      * @param task task to be written
-     * @throws IOException
+     * @throws IOException if something else is wrong
      */
     public void appendTaskToFile(Tasks task) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH, true);

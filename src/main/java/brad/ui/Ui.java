@@ -8,14 +8,9 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String SEPARATOR = "__________________________________________________________";
-    private static final String LIST = "list";
-    private static final String MARK = "mark";
-    private static final String UNMARK = "unmark";
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
-    private static final String DELETE = "delete";
-    private static final String BYE = "bye";
 
     private final PrintStream out;
     private final Scanner in;
@@ -167,7 +162,7 @@ public class Ui {
      */
     public void printAddActionResult(String task, int size, String command)
     {
-        String message = "Got it. I've added a \n" + command  + ":\n" + task
+        String message = "The latest task on your list is: \n" + task
             + "\n Now you have " + size + " tasks in the list.";
         printOutput(message);
     }

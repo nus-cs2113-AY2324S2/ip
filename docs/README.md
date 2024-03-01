@@ -41,7 +41,7 @@ Hello I am Brad.
 How can I help you today?
 
 File created: C:\Users\djleong01\Desktop\Uni stuff\Y2S2\CS2113\ip\data\data.md
-file exists?: true
+File exists?: true
 ```
 
 If this is not the first time you are running Brad, you should see something like the following:
@@ -95,10 +95,9 @@ Successful addition of task to the list
 ```
 todo CS2113 Quiz
 __________________________________________________________
-Got it. I've added a 
-todo:
+The latest task on your list is: 
 [T][ ] CS2113 Quiz
- Now you have 1 tasks in the list.
+ Now you have 4 tasks in the list.
 __________________________________________________________
 ```
 
@@ -122,12 +121,10 @@ Successful addition of task to the list with time information stored.
 ```
 deadline release iP Jar file /by Sunday
 __________________________________________________________
-Got it. I've added a 
-deadline:
+The latest task on your list is: 
 [D][ ] release iP Jar file (by: Sunday)
- Now you have 2 tasks in the list.
+ Now you have 5 tasks in the list.
 __________________________________________________________
-
 ```
 ### `event` -  Add an Event Task
 Adds an Event task to the list of task. It takes in the task description along with time information
@@ -150,10 +147,9 @@ Successful addition of task to the list with time information stored.
 ```
 event Ed Sheeran concert /from 7pm /to 11pm
 __________________________________________________________
-Got it. I've added a 
-event:
+The latest task on your list is: 
 [E][ ] Ed Sheeran concert (from: 7pm to: 11pm)
- Now you have 3 tasks in the list.
+ Now you have 6 tasks in the list.
 __________________________________________________________
 
 ```
@@ -179,10 +175,14 @@ Expected outcome:
 A list of all current tasks.
 ```
 list
+list
 __________________________________________________________
-1. [T][ ] CS2113 Quiz
-2. [D][ ] release iP Jar file (by: Sunday)
-3. [E][ ] Ed Sheeran concert (from: 7pm to: 11pm)
+1. [T][ ] task 1
+2. [D][ ] task 2 (by: tmr)
+3. [E][ ] task 3 (from: 3pm to: 6pm)
+4. [T][ ] CS2113 Quiz
+5. [D][ ] release iP Jar file (by: Sunday)
+6. [E][ ] Ed Sheeran concert (from: 7pm to: 11pm)
 
 __________________________________________________________
 
@@ -196,18 +196,17 @@ Changes will be saved to the local file.
 
 Example of usage:
 
-`mark 2`
+`mark 5`
 
 Expected outcome:
 
 The `X` symbol appearing in the second box `[]` of the specified task description.
 ```
-mark 2
+mark 5
 __________________________________________________________
 Nice! I've marked this task as done:
 [D][X] release iP Jar file (by: Sunday)
 __________________________________________________________
-
 ```
 ### `unmark` -  Unmark a Task as Not Done
 Marks a task as not done or incomplete. Once unmarked, the `X` symbol on the `list` command will disappear.
@@ -217,19 +216,18 @@ Changes will be saved to the local file.
 
 Example of usage:
 
-`unmark 2`
+`unmark 5`
 
 Expected outcome:
 
 The `X` symbol that was previously in the second box `[]` of the specified task
 description will be removed.
 ```
-unmark 2
+unmark 5
 __________________________________________________________
 Nice! I've marked this task as not done:
 [D][ ] release iP Jar file (by: Sunday)
 __________________________________________________________
-
 ```
 ### `delete` -  Delete a Task
 Deletes a task from the current list.
@@ -239,17 +237,17 @@ Changes will be saved to the local file.
 
 Example of usage:
 
-`delete 1`
+`delete 4`
 
 Expected outcome:
 
 The task is removed from the list and local file.
 ```
-delete 1
+delete 4
 __________________________________________________________
 Got it. I've removed this task:
 [T][ ] CS2113 Quiz
- Now you have 2 tasks in the list.
+ Now you have 5 tasks in the list.
 __________________________________________________________
 ```
 
