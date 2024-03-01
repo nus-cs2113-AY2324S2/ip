@@ -25,6 +25,7 @@ public class Messages {
         System.out.println("       list");
         System.out.println("       mark/unmark [index]");
         System.out.println("       delete [index]");
+        System.out.println("       find [keyword]");
         System.out.println("       save");
         System.out.println("       bye");
     }

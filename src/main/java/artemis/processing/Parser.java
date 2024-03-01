@@ -8,7 +8,7 @@ import artemis.tasks.ToDo;
 
 public class Parser {
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, FIND, UNKNOWN
     }
 
     public static Command parseCommand(String userInput) {
@@ -17,39 +17,19 @@ public class Parser {
             return Command.UNKNOWN;
         }
         String commandToken = userInputList[0].toUpperCase();
-        Command returnValue;
-
-        switch (commandToken) {
-        case "TODO":
-            returnValue = Command.TODO;
-            break;
-        case "DEADLINE":
-            returnValue = Command.DEADLINE;
-            break;
-        case "EVENT":
-            returnValue = Command.EVENT;
-            break;
-        case "LIST":
-            returnValue = Command.LIST;
-            break;
-        case "BYE":
-            returnValue = Command.BYE;
-            break;
-        case "MARK":
-            returnValue = Command.MARK;
-            break;
-        case "UNMARK":
-            returnValue = Command.UNMARK;
-            break;
-        case "DELETE":
-            returnValue = Command.DELETE;
-            break;
-        case "SAVE":
-            returnValue = Command.SAVE;
-            break;
-        default:
-            returnValue = Command.UNKNOWN;
-        }
+        Command returnValue = switch (commandToken) {
+            case "TODO" -> Command.TODO;
+            case "DEADLINE" -> Command.DEADLINE;
+            case "EVENT" -> Command.EVENT;
+            case "LIST" -> Command.LIST;
+            case "BYE" -> Command.BYE;
+            case "MARK" -> Command.MARK;
+            case "UNMARK" -> Command.UNMARK;
+            case "DELETE" -> Command.DELETE;
+            case "SAVE" -> Command.SAVE;
+            case "FIND" -> Command.FIND;
+            default -> Command.UNKNOWN;
+        };
 
         return returnValue;
     }
@@ -174,5 +154,14 @@ public class Parser {
             throw new Errors.CorruptedSaveException();
         }
         return currentTask;
+    }
+
+    public static String parseFind(String findString) throws Errors.InvalidFindException {
+        String[] findList = findString.split(" ", 2);
+        if (findList.length == 1) {
+            throw new Errors.InvalidFindException();
+        }
+
+        return findList[1];
     }
 }
