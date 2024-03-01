@@ -7,13 +7,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     private static final String FILE_PATH = "./data/bobble.txt";
     private static final String DIRECTORY_PATH = "./data";
     private static final String DIVIDER = "\\|";
     private ArrayList<Task> savedTaskList;
 
-    public FileManager() {
+    public Storage() {
         savedTaskList = new ArrayList<>();
     }
 
@@ -135,7 +135,7 @@ public class FileManager {
     }
 
     private static void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(FileManager.FILE_PATH, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(Storage.FILE_PATH, true); // create a FileWriter in append mode
         fw.write(textToAppend + "\n");
         fw.close();
     }
