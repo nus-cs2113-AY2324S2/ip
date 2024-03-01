@@ -1,8 +1,8 @@
 package Nick.command;
 
-import Nick.TaskList;
-import Nick.Ui;
-import Nick.Storage;
+import Nick.task.TaskList;
+import Nick.ui.Ui;
+import Nick.storage.Storage;
 
 public class ByeCommand extends Command {
 

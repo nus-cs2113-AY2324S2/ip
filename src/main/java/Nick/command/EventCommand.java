@@ -1,9 +1,8 @@
 package Nick.command;
 
-import Nick.Storage;
-import Nick.TaskList;
-import Nick.Ui;
-import Nick.task.Deadline;
+import Nick.storage.Storage;
+import Nick.task.TaskList;
+import Nick.ui.Ui;
 import Nick.task.Event;
 import Nick.task.Task;
 

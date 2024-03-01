@@ -1,4 +1,4 @@
-package Nick;
+package Nick.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import Nick.NickException;
 import Nick.task.Task;
 import Nick.task.Todo;
 import Nick.task.Deadline;

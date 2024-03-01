@@ -1,6 +1,10 @@
 package Nick;
 
 import Nick.command.Command;
+import Nick.parser.Parser;
+import Nick.storage.Storage;
+import Nick.task.TaskList;
+import Nick.ui.Ui;
 
 public class Nick {
     private Storage storage;

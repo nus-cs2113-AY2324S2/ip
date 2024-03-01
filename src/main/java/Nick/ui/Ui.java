@@ -1,4 +1,4 @@
-package Nick;
+package Nick.ui;
 
 import Nick.Nick;
 

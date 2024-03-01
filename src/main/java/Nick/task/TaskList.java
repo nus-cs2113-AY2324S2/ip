@@ -1,4 +1,4 @@
-package Nick;
+package Nick.task;
 
 import Nick.task.Task;
 
