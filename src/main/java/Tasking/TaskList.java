@@ -43,4 +43,16 @@ public class TaskList {
             System.out.println(list.get(i));
         }
     }
+
+    public static void findList(String s) {
+        System.out.println(" Here are the matching tasks in your list:");
+        int j = 0;
+        for (Task task : list) {
+            if (task.description.contains(s)) {
+                System.out.print(" " + (j + 1) + ".");
+                System.out.println(task);
+                j++;
+            }
+        }
+    }
 }

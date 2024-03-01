@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Davvy {
+
     public static void writeData(Task task) throws IOException {
         int status = task.isDone ? 1 : 0;
         String data = "";
@@ -48,7 +49,6 @@ public class Davvy {
             while (!isExitStatus) {
                 try {
                     String[] parsedInput = Parser.processInput(in.nextLine());
-                    Ui.printLine();
                     isExitStatus = Parser.processCommand(parsedInput);
                 } catch (EmptyStatementException e) {
                     Ui.printLine();
