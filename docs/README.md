@@ -1,9 +1,9 @@
-#Suv User Guide
+# Suv User Guide
 Welcome to **Suv!** This tool is designed to streamline your task management, helping you stay on top of your tasks, deadlines, and events effortlessly.
 
-##Features
+## Features
 
-###Add Task
+### Add Task
 You can add three types of tasks: 
 1. To-dos 
 2. Deadlines 
@@ -11,29 +11,29 @@ You can add three types of tasks:
    
 Each task type helps categorize your tasks for better organization.
 
-###List Tasks
+### List Tasks
 Displays all your tasks, including To-dos, Deadlines, and Events, along with their status (completed or pending) and additional information if there's any.
 
-###Mark Task as done
+### Mark Task as done
 Mark any task as completed based on its list number. This feature helps you track your progress effectively.
 
-###Mark Task as uncompleted
+### Mark Task as uncompleted
 Unmark any completed task based on its list number. This feature helps you manage your completed tasks easily.
 
-###Delete Task
+### Delete Task
 Delete tasks that are no longer relevant or were added by mistake.
 
-###Find Tasks
+### Find Tasks
 Search for tasks by keywords to quickly find specific tasks in your list.
 
-###Save Data
+### Save Data
 All your tasks are automatically saved and loaded when you start the program again.
 
-##Getting Started
+## Getting Started
 
-###Prerequisites
+### Prerequisites
 Make sure you have Java 11 or later installed on your computer.
-Installation
+### Installation
 
 1. Download the latest release of Suv from the releases page.
 2. Extract the downloaded zip file to a folder on your computer.
@@ -114,7 +114,7 @@ A new Event task "Football Practice" with the date "Friday 4pm to 6pm" is added 
 ----------------------------------------------------------------
 ```
 ----------------------------------------------------------------
-###`list` - List all Tasks
+### `list` - List all Tasks
 Displays all your tasks, including To-dos, Deadlines, and Events, along with their status (completed or pending).
 
 **Example of usage:**
@@ -133,7 +133,7 @@ All your tasks are displayed in a list format.
 ----------------------------------------------------------------
 ```
 ----------------------------------------------------------------
-###`mark` - Mark Task as Completed
+### `mark` - Mark Task as Completed
 Marks a task as completed based on its list number.
 
 **Example of usage:**
@@ -151,7 +151,7 @@ The first task in your list is marked as completed.
 ----------------------------------------------------------------
 ```
 ----------------------------------------------------------------
-###`unmark` - Mark completed task as not done
+### `unmark` - Mark completed task as not done
 Unmarks a completed task based on its list number.
 
 **Example of usage:**
@@ -169,7 +169,7 @@ The first completed task in your list is restored as pending.
 ----------------------------------------------------------------
 ```
 ----------------------------------------------------------------
-###`delete` - Remove Task
+### `delete` - Remove Task
 Removes a task from your list based on its list number.
 
 **Example of usage:**
@@ -188,7 +188,7 @@ The first task in your list is removed.
 ----------------------------------------------------------------
 ```
 ----------------------------------------------------------------
-###`find` - Find Tasks
+### `find` - Find Tasks
 Search for tasks by keywords to quickly find specific tasks in your list.
 
 **Example of usage:**
