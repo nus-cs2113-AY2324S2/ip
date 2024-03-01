@@ -25,7 +25,7 @@ ___
 
 ## Quick Start
 1. Ensure you have Java `11` installed in your Computer.
-2. Download the latest `gary.jar` from here.
+2. Download the latest `gary.jar` from [here](https://github.com/Elyovs/ip/releases/download/A-Jar-Released/iP.jar).
 3. Copy the file to the folder you want to use as the _home folder_.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gary.jar` 
 command to run the application.
