@@ -35,6 +35,27 @@ public class TaskList {
         }
     }
 
+    public void find(String line) {
+        String keyword;
+        try {
+            keyword = line.substring(5);
+        } catch (StringIndexOutOfBoundsException e) {
+            ui.print("Please provide a keyword");
+            return;
+        }
+        int matchingCount = 0;
+        ui.print("Here are the tasks containing '" + keyword + "':");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDetails().contains(keyword)) {
+                matchingCount++;
+                ui.print(matchingCount + "." + tasks.get(i).getDetails());
+            }
+        }
+        if (matchingCount == 0) {
+            ui.print("There are no matching tasks");
+        }
+    }
+
     public boolean markTask(String line) {
         int indexMarked;
         try {

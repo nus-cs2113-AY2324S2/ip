@@ -12,6 +12,10 @@ public class Parser {
             tasks.printTaskList();
             return false;
         }
+        if (line.startsWith("find")) {
+            tasks.find(line);
+            return false;
+        }
         if (line.startsWith("mark")) {
             return tasks.markTask(line);
         }
