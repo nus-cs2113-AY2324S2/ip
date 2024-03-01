@@ -1,10 +1,17 @@
-package duke;
+package porato;
 
-import duke.tasks.*;
-
+import porato.tasks.Task;
+import porato.tasks.TaskList;
+import porato.tasks.ToDos;
+import porato.tasks.Deadlines;
+import porato.tasks.Events;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents a parser that responds to the user inputs
+ * It takes in user inputs and carries out the corresponding commands based on the user input
+ */
 public class Parser {
 
     /**
@@ -48,8 +55,9 @@ public class Parser {
                 } else if (line.startsWith("mark")) {
                     // Marks the task in the list
                     String[] sentence = line.split(" ");
+                    // Checks if the description of the task is empty or non-numerical
                     if (sentence.length < 2 || !isNumeric(sentence[1])) {
-                        throw new DukeException("Please do not give a non numeric or empty description\nMark format: mark 1");
+                        throw new PoratoException("Please do not give a non numeric or empty description\nMark format: mark 1");
                     }
                     ui.printLine();
                     int taskNumber = Integer.parseInt(sentence[1]);
@@ -60,8 +68,9 @@ public class Parser {
                 } else if (line.startsWith("unmark")) {
                     // Unmarks the task in the list
                     String[] sentence = line.split(" ");
+                    // Checks if the task number of the task is empty or non-numerical
                     if (sentence.length < 2 || !isNumeric(sentence[1])) {
-                        throw new DukeException("Please do not give a non numeric or empty description\nUnmark format: unmark 1");
+                        throw new PoratoException("Please do not give a non numeric or empty description\nUnmark format: unmark 1");
                     }
                     ui.printLine();
                     int taskNumber = Integer.parseInt(sentence[1]);
@@ -72,8 +81,9 @@ public class Parser {
                 } else if (line.startsWith("deadline")) {
                     // Adds a deadline task into the list
                     String[] sentence = line.split("deadline|/by");
+                    // Checks if the description of the task is empty or incomplete
                     if (sentence.length < 3 || sentence[1].isBlank() || sentence[2].isBlank()) {
-                        throw new DukeException("ERROR!?!? deadline has an incomplete or empty description mortal!\nDeadline format: deadline help me /by Mon 2pm");
+                        throw new PoratoException("ERROR!?!? deadline has an incomplete or empty description mortal!\nDeadline format: deadline help me /by Mon 2pm");
                     }
                     Task newTask = new Deadlines(sentence[1], sentence[2]);
                     taskList.addTask(newTask);
@@ -84,8 +94,9 @@ public class Parser {
                 } else if (line.startsWith("event")) {
                     // Adds an event task into the list
                     String[] sentence = line.split("event|/from|/to");
+                    // Checks if the description of the task is empty or incomplete
                     if (sentence.length < 4 || sentence[1].isBlank() || sentence[2].isBlank() || sentence[3].isBlank()) {
-                        throw new DukeException("ERROR!?!? event has an incomplete or empty description mortal!\nEvent format: event help me /from Mon 2pm /to 3pm");
+                        throw new PoratoException("ERROR!?!? event has an incomplete or empty description mortal!\nEvent format: event help me /from Mon 2pm /to 3pm");
                     }
                     Task newTask = new Events(sentence[1], sentence[2], sentence[3]);
                     taskList.addTask(newTask);
@@ -98,7 +109,7 @@ public class Parser {
                     String[] sentence = line.split("todo");
                     // Checks if the description of the task is empty
                     if (sentence.length < 2 || sentence[1].isBlank()) {
-                        throw new DukeException("ERROR!?!? todo has to have a description mortal!\nTodo format: todo help me");
+                        throw new PoratoException("ERROR!?!? todo has to have a description mortal!\nTodo format: todo help me");
                     }
                     Task newTask = new ToDos(sentence[1]);
                     taskList.addTask(newTask);
@@ -109,8 +120,9 @@ public class Parser {
                 } else if (line.startsWith("delete")) {
                     // Deletes the task in the list
                     String[] sentence = line.split(" ");
+                    // Checks if the description of the task is empty or non-numerical
                     if (sentence.length < 2 || !isNumeric(sentence[1])) {
-                        throw new DukeException("Please do not give a non numeric or empty description\nDelete format: delete 1");
+                        throw new PoratoException("Please do not give a non numeric or empty description\nDelete format: delete 1");
                     }
                     ui.printLine();
                     int taskNumber = Integer.parseInt(sentence[1]);
@@ -122,13 +134,13 @@ public class Parser {
                     ui.printCommands();
                 } else {
                     // Throws an invalid command error
-                    throw new DukeException("I do not understand this command mortal\nType help for help");
+                    throw new PoratoException("I do not understand this command mortal\nType help for help");
                 }
                 // Saves the task list into duke.txt
                 storage.saveTaskList(taskList);
 
-            } catch (DukeException e) {
-                ui.printDukeError(e);
+            } catch (PoratoException e) {
+                ui.printPoratoError(e);
             } catch (IOException e) {
                 ui.printFileCantSave();
             }

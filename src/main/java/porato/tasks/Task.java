@@ -1,5 +1,9 @@
-package duke.tasks;
+package porato.tasks;
 
+/**
+ * Represents tasks that the user have
+ * It contains methods that can set the task status to be complete or incomplete.
+ */
 public class Task {
    /** Task description */
     private String task;

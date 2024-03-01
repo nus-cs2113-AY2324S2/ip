@@ -1,30 +1,38 @@
-package duke;
+package porato;
 
-import duke.tasks.*;
-
+import porato.tasks.Task;
+import porato.tasks.Events;
+import porato.tasks.ToDos;
+import porato.tasks.Deadlines;
+import porato.tasks.TaskList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of the task list
+ * It contains methods to save and load the text file from a directory on the computer
+ */
 public class Storage {
-    private String filepath;
+    /** The file path of the storage file */
+    private String filePath;
 
     public Storage(String filepath){
-        this.filepath = filepath;
+        this.filePath = filepath;
     }
     /**
      * Loads the file contents into the task list
      * @param tasklist The task list
      * @throws FileNotFoundException File is not found exception
-     * @throws DukeException File is corrupted exception
+     * @throws PoratoException File is corrupted exception
      */
-    public void loadFile(TaskList tasklist) throws FileNotFoundException, DukeException {
+    public void loadFile(TaskList tasklist) throws FileNotFoundException, PoratoException {
         // Creates a file object
-        File dukeFile = new File(filepath);
+        File poratoFile = new File(filePath);
         // Create a Scanner using the File as the source
-        Scanner line = new Scanner(dukeFile);
+        Scanner line = new Scanner(poratoFile);
         // Loads the file contents into the task list
         while (line.hasNext()) {
             String[] sentence = line.nextLine().split("/");
@@ -51,17 +59,17 @@ public class Storage {
                 }
                 break;
             default:
-                throw new DukeException("File is corrupted or has invalid format");
+                throw new PoratoException("File is corrupted or has invalid format");
             }
         }
     }
 
     /**
-     * Saves the current task list into duke.txt
+     * Saves the current task list into the file in that file path
      * @throws IOException
      */
     public void saveTaskList(TaskList taskList) throws IOException {
-        FileWriter fw = new FileWriter(filepath);
+        FileWriter fw = new FileWriter(filePath);
 
         for (Task task : taskList.getTasks()) {
             if (task instanceof ToDos) {
