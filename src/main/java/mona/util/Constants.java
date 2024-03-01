@@ -41,4 +41,7 @@ public final class Constants {
     public static final String DATA_FILE_PATH = "data/tasks.txt";
     public static final String DATA_FOLDER_PATH = "./data/";
     public static final String DATA_FILE_NAME = "tasks.txt";
+
+    public static final String DATE_TIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
+    public static final String DATE_TIME_OUTPUT_FORMAT = "MMM dd YYYY, hh:mm a";
 }
