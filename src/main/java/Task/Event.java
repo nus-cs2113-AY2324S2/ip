@@ -1,12 +1,17 @@
 package Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
  * Represents an event task in the chatbot application.
  * An event task includes start and end times in addition to the base task properties.
  */
 public class Event extends Task{
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
+    DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM dd uuuu", Locale.ENGLISH);
 
     /**
      * Constructs a new Event task with specified name, task number, start time, and end time.
@@ -16,7 +21,7 @@ public class Event extends Task{
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String name, boolean hasDone, String from, String to) {
+    public Event(String name, boolean hasDone, LocalDate from, LocalDate to) {
         super(name, hasDone);
         this.from = from; // The start time of the event
         this.to = to; // The end time of the event
@@ -55,11 +60,11 @@ public class Event extends Task{
         }else{
             System.out.print("[ ] ");
         }
-        System.out.println(name + " (from: " + from+" to: "+ to+ ")");
+        System.out.println(name + " (from: " + from.format(dTF) + " to: " + to.format(dTF) + ")");
     }
 
     @Override
     public String toString() {
-        return "E | " + (hasDone? 1 : 0) + " | " + name + " | " + from + " - "  + to;
+        return "E | " + (hasDone? 1 : 0) + " | " + name + " | " + from.toString() + " - "  + to.toString();
     }
 }
