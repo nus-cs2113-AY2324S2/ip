@@ -11,10 +11,22 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from the data file and saving tasks in the file
+ */
 public class Storage {
     private File file;
     private Ui ui;
 
+    /**
+     * Constructor to initialise the file and ui attributes.
+     * If the data file or the directory does not exist in the
+     * hard disk yet, they will be created
+     *
+     * @param filePath relative file path of the data file
+     * @param ui the user interface interacting with the user
+     * @throws IOException if unable to create data file
+     */
     public Storage(String filePath, Ui ui) throws IOException {
         this.ui = ui;
         file = new File(filePath);
@@ -27,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads in all the stored tasks in the data file
+     *
+     * @param tasks the list of tasks
+     * @throws FileNotFoundException if the data file does not exist
+     */
     public void readStoredData(TaskList tasks) throws FileNotFoundException {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
@@ -54,6 +72,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the tasks into the data file
+     *
+     * @param tasks the list of tasks
+     */
     public void updateStoredData(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter("./data/task_list.txt");
