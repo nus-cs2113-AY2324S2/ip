@@ -1,10 +1,8 @@
 package Tasking;
 
-import Tasking.Davvy;
-
 import java.io.IOException;
 
-import static ReadWriteToFile.ReadWriteFile.rewriteFile;
+import static Storage.Storage.rewriteFile;
 
 public class Task {
     protected String description;

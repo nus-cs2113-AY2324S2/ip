@@ -3,7 +3,7 @@ package Tasking;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static ReadWriteToFile.ReadWriteFile.rewriteFile;
+import static Storage.Storage.rewriteFile;
 
 public class TaskList {
     private static ArrayList<Task> list = new ArrayList<>();

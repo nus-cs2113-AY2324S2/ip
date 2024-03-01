@@ -1,4 +1,4 @@
-package ReadWriteToFile;
+package Storage;
 
 import Tasking.*;
 
@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ReadWriteFile {
+public class Storage {
 
     public static final String DIRECTORY_PATH = "./data/";
     public static final String FILE_PATH = DIRECTORY_PATH + "/davvy.txt";
