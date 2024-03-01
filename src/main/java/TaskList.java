@@ -72,6 +72,36 @@ public class TaskList {
         tasks.get(tasks.size() - 1).printTask(tasks.size());
     }
 
+    public void markTask(String command, boolean mark) {
+        int taskIndex = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.get(taskIndex);
+            if (mark) {
+                task.markAsDone();
+                ui.println(LINE + "\nNice! I've marked this task as done:");
+            } else {
+                task.markAsUndone();
+                ui.println(LINE + "\nOK, I've marked this task as not done yet:");
+            }
+            ui.println("   " + task.getTaskType() + task.getTaskMark() +
+                        " " + task.description + "\n" + LINE );
+        } else {
+            ui.println(LINE + "\nInvalid task number.\n" + LINE);
+        }
+    }
+
+    public void listTasks() {
+        ui.println(LINE + "\nHere are the tasks in your list:");
+        //Edge case: If list empty
+        if (tasks.isEmpty()) {
+            ui.println("Nothing added here....");
+        }
+        for (int i = 0; i < tasks.size(); i++) {
+            ui.println("  "+ (i + 1) + "." + tasks.get(i).toString());
+        }
+        ui.println(LINE);
+    }
+
     public void deleteTask(String command) {
         int indexToDelete = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
         if (indexToDelete >= 0 && indexToDelete < tasks.size()) {
@@ -98,11 +128,11 @@ public class TaskList {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.println("No matching tasks found for keyword: " + keyword + "\n" + LINE);
+            ui.println(LINE + "\nNo matching tasks found for keyword: " + keyword + "\n" + LINE);
         } else {
-            ui.println("Here are the matching tasks in your list:");
+            ui.println(LINE + "\nHere are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.println((i + 1) + ". " + matchingTasks.get(i).toString());
+                ui.println("   " + (i + 1) + ". " + matchingTasks.get(i).toString());
             }
             ui.println(LINE);
         }
