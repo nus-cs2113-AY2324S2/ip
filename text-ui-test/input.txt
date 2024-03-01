@@ -1,0 +1,6 @@
+todo do CS2113
+deadline CS2113 iP /by today
+event CS2113 lecture /from 4 /to 6 pm
+mark 1
+list
+bye

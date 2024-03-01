@@ -1,0 +1,8 @@
+DEADLINE | 1 | task 2  | friday
+EVENT | 0 | lecture  | 4pm  | 6pm
+EVENT | 0 | task 3  | today  | tomorrow
+TODO | 1 | task 1
+EVENT | 1 | tutorial  | today  | tomorrow
+DEADLINE | 0 | ip  | march
+DEADLINE | 1 | task 5  | 5th
+DEADLINE | 0 | task 6  | Jan 01 2024
