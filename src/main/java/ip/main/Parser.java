@@ -1,8 +1,21 @@
 package ip.main;
 
+/**
+ * Deals with making sense of the user command
+ */
 public class Parser {
     private boolean hasEnded = false;
 
+    /**
+     * Identifies the type of command from the input and executes the command.
+     * Reminds the user when the input is invalid.
+     * Returns to the caller whether the data file needs to be updated
+     *
+     * @param line the user's input
+     * @param ui the user interface interacting with the user
+     * @param tasks the list of tasks
+     * @return whether the data file needs to be updated
+     */
     public boolean parseInput(String line, Ui ui, TaskList tasks) {
         if (line.equals("bye")) {
             hasEnded = true;
@@ -38,6 +51,9 @@ public class Parser {
         return false;
     }
 
+    /**
+     * @return whether the program should end
+     */
     public boolean getEnded() {
         return hasEnded;
     }
