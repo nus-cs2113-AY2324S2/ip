@@ -5,7 +5,7 @@ package hachi.data.task;
  * and a class-level element that tracks the total number of tasks currently active.
  *
  * @author clarencepohh
- * @version 30/01/2024
+ * @version 01/03/2024
  */
 
 public class Task {
@@ -74,6 +74,11 @@ public class Task {
         return totalNumTasks;
     }
 
+    /**
+     * Decrements the class-level counter of total number of tasks active.
+     *
+     */
+
     public static void decrementTotalNumTasks() {
         totalNumTasks -= 1;
     }
@@ -90,9 +95,21 @@ public class Task {
         return (isCompleted ? "X" : " ");
     }
 
+    /**
+     * Returns the task type of the specified task.
+     *
+     * @return ? which represents an unclassified task.
+     */
+
     public String getTaskType() {
         return "?";
     }
+
+    /**
+     * Returns the String save format used to save Hachi task data.
+     *
+     * @return ? which represents an unclassified task.
+     */
 
     public String getSaveFormat () {
         return "?";
