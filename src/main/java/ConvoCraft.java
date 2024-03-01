@@ -19,15 +19,29 @@ public class ConvoCraft {
     }
 
     public static void main(String[] args) {
-        ListKeeper listKeeper = new ListKeeper();
+        UserInterface userInterface = new UserInterface();
+        ListKeeper listKeeper = new ListKeeper(userInterface);
         SaveManager saveManager = new SaveManager();
-        LogicManager logicManager = new LogicManager(listKeeper);
-        UserInterface userInterface = new UserInterface(logicManager);
+        LogicManager logicManager = new LogicManager(listKeeper, userInterface);
 
         saveManager.loadData(logicManager);
 
         printWelcomeMessage();
-        userInterface.manageList();
+        while (true) {
+            userInterface.readNextLine();
+            if (userInterface.isExitCommandGiven()) {
+                break;
+            }
+
+            userInterface.startAtomicSection();
+            logicManager.processCommand(userInterface.getCurrentInput());
+
+            userInterface.lockUI(true);
+            listKeeper.saveTasksData(saveManager);
+            userInterface.lockUI(false);
+
+            userInterface.endAtomicSection();
+        }
         printExitMessage();
 
         listKeeper.saveTasksData(saveManager);
