@@ -52,14 +52,14 @@ public class Sam {
                 case "mark":
                     // Marking a task as done
                     listIndex = Integer.parseInt(words[1]) - 1;
-                    markCheck(listIndex, numItems);
+                    indexCheck(listIndex, numItems);
                     records[listIndex].setStatus(true);
                     System.out.println("Nice! I've marked this task as done:\n" + records[listIndex]);
                     break;
                 case "unmark":
                     // Marking a task as not done
                     listIndex = Integer.parseInt(words[1]) - 1;
-                    markCheck(listIndex, numItems);
+                    indexCheck(listIndex, numItems);
                     records[listIndex].setStatus(false);
                     System.out.println("OK, I've marked this task as not done yet:\n" + records[listIndex]);
                     break;
@@ -201,7 +201,7 @@ public class Sam {
         return numItems;
     }
 
-    private static void markCheck(int listIndex, int numItems) throws InvalidInputException {
+    private static void indexCheck(int listIndex, int numItems) throws SamException {
         if (listIndex < 0 || listIndex >= numItems) {
             if (listIndex < 0) {
                 System.out.println("No can do, the list starts at 1.");
