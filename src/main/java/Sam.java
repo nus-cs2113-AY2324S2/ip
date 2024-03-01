@@ -5,216 +5,212 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Sam {
-    private static final String FILE_PATH = "data/sam.txt";
+	private static final String FILE_PATH = "data/sam.txt";
 
-    public static void main(String[] args) {
-        // Load tasks from file when the program starts up
-        ArrayList<Task> records = loadTasksFromFile();
-        int numItems = countTasks(records);
+	public static void main(String[] args) {
+		// Load tasks from file when the program starts up
+		ArrayList<Task> records = loadTasksFromFile();
+		int numItems = countTasks(records);
 
-        // Printing the logo and greeting message
-        String logo = "   _____\n" +
-                "  / ____|\n" +
-                " | (___   __ _ _ __ ___\n" +
-                "  \\___ \\ / _` | '_ ` _ \\\n" +
-                "  ____) | (_| | | | | | |\n" +
-                " |_____/ \\__,_|_| |_| |_|\n" +
-                "";
-        System.out.println("Hello! I'm SAM\n" + logo + "\n" + "What can I do for you?\n");
+		// Printing the logo and greeting message
+		String logo = "   _____\n" +
+				"  / ____|\n" +
+				" | (___   __ _ _ __ ___\n" +
+				"  \\___ \\ / _` | '_ ` _ \\\n" +
+				"  ____) | (_| | | | | | |\n" +
+				" |_____/ \\__,_|_| |_| |_|\n" +
+				"";
+		System.out.println("Hello! I'm SAM\n" + logo + "\n" + "What can I do for you?\n");
 
-        System.out.println("Here's what you got saved:");
-        for (int j = 0; j < numItems; j++) {
-            System.out.println((j + 1) + "." + records.get(j));
-        }
-        printLine();
+		System.out.println("Here's what you got saved:");
+		for (int j = 0; j < numItems; j++) {
+			System.out.println((j + 1) + "." + records.get(j));
+		}
+		printLine();
 
-        // Initializing scanner to read user input
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
+		// Initializing scanner to read user input
+		Scanner in = new Scanner(System.in);
+		String line = in.nextLine();
 
-        // Array to store tasks
-        int listIndex; // Index for tasks
+		// Array to store tasks
+		int listIndex; // Index for tasks
 
-        // Main loop
-        while (!line.equals("bye")) {
-            String[] words = line.split(" ");
-            printLine();
-            try {
-                // Checking user input
-                switch (words[0]) {
-                case "list":
-                    // Listing tasks
-                    System.out.println("Here are the tasks in your list:");
-                    for (int j = 0; j < numItems; j++) {
-                        System.out.println((j + 1) + "." + records.get(j));
-                    }
-                    System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
-                    break;
-                case "mark":
-                    // Marking a task as done
-                    listIndex = Integer.parseInt(words[1]) - 1;
-                    indexCheck(listIndex, numItems);
-                    records.get(listIndex).setStatus(true);
-                    System.out.println("Nice! I've marked this task as done:\n" + records.get(listIndex));
-                    break;
-                case "unmark":
-                    // Marking a task as not done
-                    listIndex = Integer.parseInt(words[1]) - 1;
-                    indexCheck(listIndex, numItems);
-                    records.get(listIndex).setStatus(false);
-                    System.out.println("OK, I've marked this task as not done yet:\n" + records.get(listIndex));
-                    break;
-                case "todo":
-                    // Adding a new todo task
-                    String todoDescription = line.substring(5); // Extracting description
-                    records.add(numItems, new Todo(todoDescription));
-                    System.out.println("Got it. I've added this task:\n" + records.get(numItems));
-                    numItems++;
-                    break;
-                case "deadline":
-                    // Adding a new deadline task
-                    String deadlineDescription = line.substring(9); // Extracting description
-                    String[] deadlineParts = deadlineDescription.split(" /by ");
-                    records.add(numItems, new Deadline(deadlineParts[0], deadlineParts[1]));
-                    System.out.println("Got it. I've added this task:\n" + records.get(numItems));
-                    numItems++;
-                    break;
+		// Main loop
+		while (!line.equals("bye")) {
+			String[] words = line.split(" ");
+			printLine();
+			try {
+				// Checking user input
+				switch (words[0]) {
+				case "list":
+					// Listing tasks
+					System.out.println("Here are the tasks in your list:");
+					for (int j = 0; j < numItems; j++) {
+						System.out.println((j + 1) + "." + records.get(j));
+					}
+					System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
+					break;
+				case "mark":
+					// Marking a task as done
+					listIndex = Integer.parseInt(words[1]) - 1;
+					indexCheck(listIndex, numItems);
+					records.get(listIndex).setStatus(true);
+					System.out.println("Nice! I've marked this task as done:\n" + records.get(listIndex));
+					break;
+				case "unmark":
+					// Marking a task as not done
+					listIndex = Integer.parseInt(words[1]) - 1;
+					indexCheck(listIndex, numItems);
+					records.get(listIndex).setStatus(false);
+					System.out.println("OK, I've marked this task as not done yet:\n" + records.get(listIndex));
+					break;
+				case "todo":
+					// Adding a new todo task
+					String todoDescription = line.substring(5); // Extracting description
+					records.add(numItems, new Todo(todoDescription));
+					System.out.println("Got it. I've added this task:\n" + records.get(numItems));
+					numItems++;
+					break;
+				case "deadline":
+					// Adding a new deadline task
+					String deadlineDescription = line.substring(9); // Extracting description
+					String[] deadlineParts = deadlineDescription.split(" /by ");
+					records.add(numItems, new Deadline(deadlineParts[0], deadlineParts[1]));
+					System.out.println("Got it. I've added this task:\n" + records.get(numItems));
+					numItems++;
+					break;
 
-                case "event":
-                    // Adding a new event task
-                    String eventDescription = line.substring(6); // Extracting description
-                    String[] eventParts = eventDescription.split(" /from | /to ");
-                    records.add(numItems, new Event(eventParts[0], eventParts[1], eventParts[2]));
-                    System.out.println("Got it. I've added this task:\n" + records.get(numItems));
-                    numItems++;
-                    break;
-                case "delete":
-                    // Deleting a task
-                    listIndex = Integer.parseInt(words[1]) - 1;
-                    indexCheck(listIndex, numItems);
-                    if (listIndex < 0 || listIndex >= numItems) {
-                        System.out.println("That was outta range. Use list to see the current tasks.");
-                    } else {
-                        System.out.println("Noted. I've removed this task:\n" + records.get(listIndex));
-                        // Shift remaining tasks to fill the gap
-                        for (int i = listIndex; i < numItems - 1; i++) {
-                            records.set(i, records.get(i + 1));
-                        }
-                        numItems--;
-                        System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
-                    }
-                    break;
-                default:
-                    // Invalid command
-                    System.out.println("No valid command detected, please try again.");
-                }
-                saveTasksToFile(records, numItems);
-                printLine();
-                line = in.nextLine();
-            } catch (SamException e) {
-                System.out.println("Try again!");
-                printLine();
-                line = in.nextLine(); // Prompt for new input
-            } catch (NumberFormatException e) {
-                System.out.println("That's not a number!");
-                printLine();
-                line = in.nextLine(); // Prompt for new input
-            } catch (IndexOutOfBoundsException e) {
-                switch (words[0]) {
-                case "todo":
-                    System.out.println("I am expecting: todo <description>");
-                    break;
-                case "deadline":
-                    System.out.println("I am expecting: deadline <description> /by <date>");
-                    break;
-                case "event":
-                    System.out.println("I am expecting: event <description> /from <date> /to <date>");
-                    break;
-                default:
-                    break;
-                }
-                System.out.println("Try again!");
-                printLine();
-                line = in.nextLine();
-            }
-        }
-        // Exiting message
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
-    }
+				case "event":
+					// Adding a new event task
+					String eventDescription = line.substring(6); // Extracting description
+					String[] eventParts = eventDescription.split(" /from | /to ");
+					records.add(numItems, new Event(eventParts[0], eventParts[1], eventParts[2]));
+					System.out.println("Got it. I've added this task:\n" + records.get(numItems));
+					numItems++;
+					break;
+				case "delete":
+					// Deleting a task
+					listIndex = Integer.parseInt(words[1]) - 1;
+					indexCheck(listIndex, numItems);
+					System.out.println("Noted. I've removed this task:\n" + records.get(listIndex));
+					// Shift remaining tasks to fill the gap
+					for (int i = listIndex; i < numItems - 1; i++) {
+						records.set(i, records.get(i + 1));
+					}
+					numItems--;
+					System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
+					break;
+				default:
+					// Invalid command
+					System.out.println("No valid command detected, please try again.");
+				}
+				saveTasksToFile(records, numItems);
+				printLine();
+				line = in.nextLine();
+			} catch (SamException e) {
+				System.out.println("Try again!");
+				printLine();
+				line = in.nextLine(); // Prompt for new input
+			} catch (NumberFormatException e) {
+				System.out.println("That's not a number!");
+				printLine();
+				line = in.nextLine(); // Prompt for new input
+			} catch (IndexOutOfBoundsException e) {
+				switch (words[0]) {
+				case "todo":
+					System.out.println("I am expecting: todo <description>");
+					break;
+				case "deadline":
+					System.out.println("I am expecting: deadline <description> /by <date>");
+					break;
+				case "event":
+					System.out.println("I am expecting: event <description> /from <date> /to <date>");
+					break;
+				default:
+					break;
+				}
+				System.out.println("Try again!");
+				printLine();
+				line = in.nextLine();
+			}
+		}
+		// Exiting message
+		System.out.println("Bye. Hope to see you again soon!");
+		printLine();
+	}
 
-    private static void saveTasksToFile(ArrayList<Task> records, int numItems) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            for (int i = 0; i < numItems; i++) {
-                bw.write(records.get(i).saveTask());
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	private static void saveTasksToFile(ArrayList<Task> records, int numItems) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
+			for (int i = 0; i < numItems; i++) {
+				bw.write(records.get(i).saveTask());
+				bw.newLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    private static ArrayList<Task> loadTasksFromFile() {
-        ArrayList<Task> records = new ArrayList<>();
-        File file = new File(FILE_PATH);
+	private static ArrayList<Task> loadTasksFromFile() {
+		ArrayList<Task> records = new ArrayList<>();
+		File file = new File(FILE_PATH);
 
-        // Check if the directory and file exist, create them if they don't
-        if (!file.exists()) {
-            try {
-                File directory = new File("data");
-                if (!directory.exists()) {
-                    directory.mkdir();
-                }
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error creating the file: " + e.getMessage());
-            }
-        }
+		// Check if the directory and file exist, create them if they don't
+		if (!file.exists()) {
+			try {
+				File directory = new File("data");
+				if (!directory.exists()) {
+					directory.mkdir();
+				}
+				file.createNewFile();
+			} catch (IOException e) {
+				System.out.println("Error creating the file: " + e.getMessage());
+			}
+		}
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            int i = 0;
-            while ((line = br.readLine()) != null) {
-                String[] words = line.split(" \\| ");
-                if (words[0].equals("E")) {
-                    records.set(i, new Event(words[2], words[3], words[4]));
-                } else if (words[0].equals("D")) {
-                    records.set(i, new Deadline(words[2], words[3]));
-                } else if (words[0].equals("T")) {
-                    records.set(i, new Todo(words[2]));
-                }
-                records.get(i).setStatus(words[1].equals("1"));
-                i++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return records;
-    }
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			String line;
+			int i = 0;
+			while ((line = br.readLine()) != null) {
+				String[] words = line.split(" \\| ");
+				if (words[0].equals("E")) {
+					records.set(i, new Event(words[2], words[3], words[4]));
+				} else if (words[0].equals("D")) {
+					records.set(i, new Deadline(words[2], words[3]));
+				} else if (words[0].equals("T")) {
+					records.set(i, new Todo(words[2]));
+				}
+				records.get(i).setStatus(words[1].equals("1"));
+				i++;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return records;
+	}
 
 
-    static int countTasks(ArrayList<Task> records) {
-        int numItems = 0;
-        for (Task record : records) {
-            if (record != null) {
-                numItems++;
-            }
-        }
-        return numItems;
-    }
+	static int countTasks(ArrayList<Task> records) {
+		int numItems = 0;
+		for (Task record : records) {
+			if (record != null) {
+				numItems++;
+			}
+		}
+		return numItems;
+	}
 
-    private static void indexCheck(int listIndex, int numItems) throws SamException {
-        if (listIndex < 0 || listIndex >= numItems) {
-            if (listIndex < 0) {
-                System.out.println("No can do, the list starts at 1.");
-            } else {
-                System.out.println("Hey lil bro, you have only " + numItems + " things in the list.");
-            }
-            throw new SamException();
-        }
-    }
+	private static void indexCheck(int listIndex, int numItems) throws SamException {
+		if (listIndex < 0 || listIndex >= numItems) {
+			if (listIndex < 0) {
+				System.out.println("No can do, the list starts at 1.");
+			} else {
+				System.out.println("Hey lil bro, you have only " + numItems + " things in the list.");
+			}
+			throw new SamException();
+		}
+	}
 
-    private static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
+	private static void printLine() {
+		System.out.println("____________________________________________________________");
+	}
 }
