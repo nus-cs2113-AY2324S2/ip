@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UserInterface {
     private String username;
@@ -162,7 +163,7 @@ public class UserInterface {
 
             List<Task> filteredList =  tempList.stream()
                     .filter((task -> task.getTaskName().contains(toFind)))
-                    .toList();
+                    .collect(Collectors.toList());
 
             if (filteredList.isEmpty()) {
                 out.printf("[artemis]: couldn't find any tasks with %s\n", toFind);
