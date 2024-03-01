@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager extends ArrayList<Task> {
+public class FileManager {
     private static final String FILE_PATH = "./data/bobble.txt";
     private static final String DIRECTORY_PATH = "./data";
     private static final String DIVIDER = "\\|";
@@ -17,16 +17,7 @@ public class FileManager extends ArrayList<Task> {
         savedTaskList = new ArrayList<>();
     }
 
-//    public ArrayList<Task> getSavedList() {
-//        savedTaskList = loadSavedTasks();
-//        return this.savedTaskList;
-//    }
-
     public ArrayList<Task> loadSavedList() throws IOException {
-        //if file(Path) does not exist, create a new file, return empty ArrayList
-        //else
-        //read file, parse file by "|", then input into savedtaskList
-        // Check if the file exists
         File directory = new File(DIRECTORY_PATH);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
@@ -46,7 +37,6 @@ public class FileManager extends ArrayList<Task> {
             return savedTaskList;
         }
 
-        // If the file exists, read its contents
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -89,7 +79,6 @@ public class FileManager extends ArrayList<Task> {
         }
     }
 
-    // Method to add a task to the task list
     public static void saveAddedTask(ArrayList<Task> taskList) {
         saveList(taskList.get(taskList.size() - 1).toString()); // Save tasks to file whenever the task list changes
     }
@@ -105,7 +94,6 @@ public class FileManager extends ArrayList<Task> {
         }
     }
 
-    // call function every time you add/delete a function
     private static void saveList(String taskToString) {
         //for each task in ArrayList savedTaskList, get Class + isDone + Desc of each based on type.
         String taskType = taskToString.substring(1, 2);
