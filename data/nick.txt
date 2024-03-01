@@ -3,4 +3,5 @@ todo | 1 | join sports club
 todo | 0 | drink juice
 todo | 0 | buy bread
 event | 0 | attend concert /from Jan 2024 /to April 2024
-event | 0 | ctf competition /from Sat 10am /to Sat 5pm
+event | 1 | ctf competition /from Sat 10am /to Sat 5pm
+deadline | 0 | eat watermelon /by 2017-02-27
