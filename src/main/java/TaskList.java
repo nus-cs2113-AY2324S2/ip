@@ -80,4 +80,19 @@ public class TaskList {
         userInterface.taskRemovedMessage(taskNumber, tasks.get(taskNumber - 1).getDescription());
         tasks.remove(taskNumber - 1);
     }
+
+
+    public void findKeyword(String keyword){
+        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        for (Task item : tasks){
+            String[] words = item.getDescription().split("\\s+"); //splits at either 1 or 2 spaces
+            for (String word : words){
+                if (word.equals(keyword)){
+                    foundTasks.add(item);
+                    break;
+                }
+            }
+        }
+        userInterface.keywordMessage(foundTasks);
+    }
 }

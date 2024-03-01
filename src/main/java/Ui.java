@@ -94,4 +94,13 @@ public class Ui {
     public void showFileNotFoundException(){
         System.out.println("File not found, creating a new one.");
     }
+
+    public void keywordMessage(ArrayList<Task> foundTasks) {
+        if (foundTasks.isEmpty()){
+            System.out.println("Unfortunately, there were no matches for your search");
+        } else{
+            System.out.println("I found something!");
+            printTasks(foundTasks);
+        }
+    }
 }

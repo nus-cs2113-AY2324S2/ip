@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+
 /**
  * Defines a class that handles high level processing of the user's commands.
  */
@@ -92,5 +95,10 @@ public class Logic {
         list.deleteIndex(taskIndex);
         saveInstance.setSavedList(list.getTasks());
         saveInstance.uploadTasks();
+    }
+
+    public void findLogic(String userInput) {
+        String keyword = Parser.extractDescription(userInput);
+        list.findKeyword(keyword);
     }
 }

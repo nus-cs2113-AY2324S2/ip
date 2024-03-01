@@ -44,12 +44,14 @@ public class Jeff {
                     case "remove":
                         processor.removeLogic(userInput);
                         break;
+                    case "find":
+                        processor.findLogic(userInput);
+                        break;
                     default:
                         throw new JeffException.InvalidKeywordException("");
                 }
             } catch (JeffException.InvalidKeywordException e) {
-                    throw new JeffException.InvalidKeywordException("SORRY I DONT UNDERSTAND THAT KEYWORD PLEASE" +
-                            " USE todo, deadline or event only. THANKS");
+                    throw new JeffException.InvalidKeywordException("SORRY I DONT UNDERSTAND THAT KEYWORD");
             }
         }
             userInterface.goodbyeMessage();
