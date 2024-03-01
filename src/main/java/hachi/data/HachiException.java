@@ -138,6 +138,15 @@ public class HachiException extends Exception {
         }
     }
 
+    /**
+     * Function that checks if the user input after the 'find' command is valid, and prints an
+     * error message to the console if it is invalid.
+     *
+     * @param indexOfFind The int representing the index of the character after 'find' in the input string.
+     * @param cleanedInput The String containing the cleaned whole user input.
+     * @throws HachiException If the user input is invalid.
+     */
+
     public static void checkFindTaskDescription (int indexOfFind, String cleanedInput) throws HachiException {
         boolean isMissingDescription = false;
 
@@ -157,6 +166,14 @@ public class HachiException extends Exception {
             throw new HachiException(MISSING_FIND_DESCRIPTION_MESSAGE);
         }
     }
+
+    /**
+     * Function that checks if the returned task list that contains tasks matching the user's
+     * requested keyword is empty, and prints an error message to the console if it is empty.
+     *
+     * @param foundTasksList The ArrayList<Task> containing the tasks found to be matching.
+     * @throws HachiException If foundTasksList is empty. 
+     */
 
     public static void checkForEmptyFoundTaskList (ArrayList<Task> foundTasksList) throws HachiException{
         if (foundTasksList.isEmpty()) {
