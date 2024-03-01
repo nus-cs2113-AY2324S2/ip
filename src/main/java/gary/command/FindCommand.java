@@ -11,17 +11,17 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
     public static final int FIND_KEYWORD_START_INDEX = 5;
     private String line;
-    private ArrayList<Task> todos;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for FindCommand class, taking in ArrayList of task and users' input.
      *
      * @param line user input to the terminal.
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      */
-    public FindCommand(String line, ArrayList<Task> todos) {
+    public FindCommand(String line, ArrayList<Task> tasks) {
         this.line = line;
-        this.todos = todos;
+        this.tasks = tasks;
     }
 
     /**
@@ -40,6 +40,6 @@ public class FindCommand extends Command {
             System.out.println("OOPS!!! Find keyword cannot be empty");
             return;
         }
-        TaskList.processFind(keyword, todos);
+        TaskList.processFind(keyword, tasks);
     }
 }

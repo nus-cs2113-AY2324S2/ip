@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class DeleteCommand extends Command {
     private File file;
-    private ArrayList<Task> todos;
+    private ArrayList<Task> tasks;
     private String[] lineWords;
 
     /**
@@ -20,12 +20,12 @@ public class DeleteCommand extends Command {
      * Parameters will be used to handle users' command.
      *
      * @param file txt file to store the tasks.
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param lineWords user input to the terminal, that has been split into array.
      */
-    public DeleteCommand(File file, ArrayList<Task> todos, String[] lineWords) {
+    public DeleteCommand(File file, ArrayList<Task> tasks, String[] lineWords) {
         this.file = file;
-        this.todos = todos;
+        this.tasks = tasks;
         this.lineWords = lineWords;
     }
 
@@ -37,10 +37,10 @@ public class DeleteCommand extends Command {
     @Override
     public void handleCommand() {
         try {
-            int todosCount = this.todos.size();
-            TaskList.processDelete(this.todos, this.lineWords, todosCount);
+            int todosCount = this.tasks.size();
+            TaskList.processDelete(this.tasks, this.lineWords, todosCount);
             todosCount -= 1;
-            Storage.writeTaskToTxt(this.file, todosCount, this.todos);
+            Storage.writeTaskToTxt(this.file, todosCount, this.tasks);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("OOPS!!! You don't have that much task");
         } catch (NumberFormatException e) {

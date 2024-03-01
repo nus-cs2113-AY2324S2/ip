@@ -35,26 +35,26 @@ public class Event extends Task {
     /**
      * print message when user adds a task with event type.
      *
-     * @param todosCount number of tasks in the array list.
+     * @param tasksCount number of tasks in the array list.
      */
     @Override
-    public void printAdd(int todosCount) {
+    public void printAdd(int tasksCount) {
         System.out.println("Got it! I've added this task: ");
         System.out.println("  [E][ ] "
                 + this.getTaskDescription()
                 + "(from: " + this.from + "to: " + this.to + ")");
-        System.out.println("Now you have " + todosCount + " tasks in your list.");
+        System.out.println("Now you have " + tasksCount + " tasks in your list.");
     }
 
     /**
      * print task in a certain format with its details, including the event description,
      * start (from), and end (to).
      *
-     * @param todoCount number of tasks in the array list.
+     * @param taskNumber task number in the array list.
      */
     @Override
-    public void printTask(int todoCount) {
-        System.out.println((todoCount + 1)
+    public void printTask(int taskNumber) {
+        System.out.println((taskNumber + 1)
                 + ".[E]"
                 + "[" + (this.getTaskStatus() ? "X" : " ") + "] "
                 + this.getTaskDescription()

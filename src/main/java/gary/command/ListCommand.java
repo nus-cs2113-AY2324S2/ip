@@ -10,19 +10,19 @@ import java.util.ArrayList;
  * have been added previously.
  */
 public class ListCommand extends Command {
-    private ArrayList<Task> todos;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for ListCommand to take in the array list of tasks available.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      */
-    public ListCommand(ArrayList<Task> todos) {
-        this.todos = todos;
+    public ListCommand(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void handleCommand() {
-        int todosCount = this.todos.size();
-        TaskList.processList(todosCount, this.todos);
+        int tasksCount = this.tasks.size();
+        TaskList.processList(tasksCount, this.tasks);
     }
 }

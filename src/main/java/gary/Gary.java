@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.io.File;
 
 public class Gary {
-    public static ArrayList<Task> todos = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -18,12 +18,12 @@ public class Gary {
         Ui.greetings();
 
         File file = Storage.createFile();
-        todos = Storage.readFileStorage(file);
+        tasks = Storage.readFileStorage(file);
 
         String line;
         line = in.nextLine();
 
         // Handle all user commands in loop until exit
-        Parser.runCommand(line, file, in, todos);
+        Parser.runCommand(line, file, in, tasks);
     }
 }

@@ -28,12 +28,12 @@ public class TaskList {
      * list out all the task available in the ArrayList by iterating through every element
      * in the ArrayList todos.
      *
-     * @param todosCount number of tasks in the array list.
+     * @param tasksCount number of tasks in the array list.
      * @param todos array list that stores and manages the task while programme is running.
      */
-    public static void processList(int todosCount, ArrayList<Task> todos) {
+    public static void processList(int tasksCount, ArrayList<Task> todos) {
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < todosCount; i += 1) {
+        for(int i = 0; i < tasksCount; i += 1) {
             todos.get(i).printTask(i);
         }
     }
@@ -43,7 +43,7 @@ public class TaskList {
      * Throws exception if users' command is unknown or missing description.
      *
      * @param command type of task user wants to add.
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param line user input to the terminal.
      * @throws UnknownCommandException if command given by user is unknown to programme.
      * @throws MissingTodoDescriptionException if description for todo is empty.
@@ -54,16 +54,16 @@ public class TaskList {
      * @throws MissingEventToException if no "/to" or no description given for "/to" in event.
      * @throws MissingEventDescriptionException if description for event is empty.
      */
-    public static void processAddTask(String command, ArrayList<Task> todos, String line)
+    public static void processAddTask(String command, ArrayList<Task> tasks, String line)
             throws UnknownCommandException, MissingTodoDescriptionException,
             MissingDeadlineByException, MissingDeadlineDescriptionException, DateTimeParseException,
             MissingEventFromException, MissingEventToException, MissingEventDescriptionException {
         if (command.equalsIgnoreCase("TODO")) {
-            createNewTodo(todos, line);
+            createNewTodo(tasks, line);
         } else if (command.equalsIgnoreCase("DEADLINE")) {
-            createNewDeadline(todos, line);
+            createNewDeadline(tasks, line);
         } else if (command.equalsIgnoreCase("EVENT")) {
-            createNewEvent(todos, line);
+            createNewEvent(tasks, line);
         } else {
             throw new UnknownCommandException();
         }
@@ -73,11 +73,11 @@ public class TaskList {
      * Process users' command to mark the available task as done. Marked task will be printed
      * out to give confirmation to users.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param lineWords user input to the terminal, that has been split into array.
      */
-    public static void processMark(ArrayList<Task> todos, String[] lineWords) {
-        Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
+    public static void processMark(ArrayList<Task> tasks, String[] lineWords) {
+        Task currentTask = tasks.get(Integer.parseInt(lineWords[1]) - 1);
         currentTask.markAsDone();
         String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
         String taskType = getTaskSymbol(currentTask);
@@ -90,11 +90,11 @@ public class TaskList {
      * Process users' command to unmark available task as not done. Task unmaerked will be printed
      * out to give confirmation to users.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param lineWords user input to the terminal, that has been split into array.
      */
-    public static void processUnmark(ArrayList<Task> todos, String[] lineWords) {
-        Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
+    public static void processUnmark(ArrayList<Task> tasks, String[] lineWords) {
+        Task currentTask = tasks.get(Integer.parseInt(lineWords[1]) - 1);
         currentTask.unmarkAsDone();
         String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
         String taskType = getTaskSymbol(currentTask);
@@ -108,20 +108,20 @@ public class TaskList {
      * given by users from the list. Deleted task will be printed out and updated number of task
      * is shown.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param lineWords user input to the terminal, that has been split into array.
-     * @param todosCount number of tasks in the array list.
+     * @param taskNumber task number in the array list.
      */
-    public static void processDelete(ArrayList<Task> todos, String[] lineWords, int todosCount) {
-        Task currentTask = todos.get(Integer.parseInt(lineWords[1]) - 1);
+    public static void processDelete(ArrayList<Task> tasks, String[] lineWords, int taskNumber) {
+        Task currentTask = tasks.get(Integer.parseInt(lineWords[1]) - 1);
         int taskIndex = Integer.parseInt(lineWords[1]) - 1;
         String taskStatus = currentTask.getTaskStatus() ? "X" : " ";
         String taskType = getTaskSymbol(currentTask);
         String taskDescription = currentTask.getTaskDescription();
-        todos.remove(taskIndex);
+        tasks.remove(taskIndex);
         System.out.println("Noted, I've removed this task:");
         System.out.println(" [" + taskType + "][" + taskStatus + "] " + taskDescription);
-        System.out.println("Now you have " + (todosCount - 1) + " tasks in the list.");
+        System.out.println("Now you have " + (taskNumber - 1) + " tasks in the list.");
     }
 
     /**
@@ -129,13 +129,13 @@ public class TaskList {
      * keyword is printed.
      *
      * @param keyword keyword to find in tasks description.
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      */
-    public static void processFind(String keyword, ArrayList<Task> todos) {
+    public static void processFind(String keyword, ArrayList<Task> tasks) {
         int findTaskNumber = 0;
         System.out.println("Here are the matching tasks in your list:");
 
-        for (Task currentTask : todos) {
+        for (Task currentTask : tasks) {
             if (!(currentTask.getTaskDescription().contains(keyword))) {
                 continue;
             }
@@ -149,14 +149,14 @@ public class TaskList {
      * is missing from users' input, error is caught and more detailed exception is thrown to
      * be handled.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param line user input to the terminal.
      * @throws MissingTodoDescriptionException if description for todo is empty.
      */
-    private static void createNewTodo(ArrayList<Task> todos, String line)
+    private static void createNewTodo(ArrayList<Task> tasks, String line)
             throws MissingTodoDescriptionException {
         try {
-            todos.add(new Todo(line.substring(TODO_DESCRIPTION_START_INDEX)));
+            tasks.add(new Todo(line.substring(TODO_DESCRIPTION_START_INDEX)));
         } catch(StringIndexOutOfBoundsException e) {
             throw new MissingTodoDescriptionException();
         }
@@ -167,13 +167,13 @@ public class TaskList {
      * description is not provided, by description is not provided or no "/by" in the input,
      * error is caught and more detailed exception is thrown to be handled.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param line user input to the terminal.
      * @throws MissingDeadlineByException if no "/by" or no date given for "/by" in deadline.
      * @throws MissingDeadlineDescriptionException if description for deadline is empty.
      * @throws DateTimeParseException if date given is not in yyyy-mm-dd format.
      */
-    private static void createNewDeadline(ArrayList<Task> todos, String line)
+    private static void createNewDeadline(ArrayList<Task> tasks, String line)
             throws MissingDeadlineByException, MissingDeadlineDescriptionException,
             DateTimeParseException {
         if (!(line.contains("/by"))) {
@@ -193,7 +193,7 @@ public class TaskList {
             }
             LocalDate deadlineByDate = LocalDate.parse(deadlineBy);
             String formattedDeadlineDate = deadlineByDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            todos.add(new Deadline(deadlineDescription, formattedDeadlineDate));
+            tasks.add(new Deadline(deadlineDescription, formattedDeadlineDate));
         } catch (StringIndexOutOfBoundsException e) {
             throw new MissingDeadlineByException();
         }
@@ -204,13 +204,13 @@ public class TaskList {
      * is not provided, no "/from" and its description, or no "/to" and its description, error is
      * caught and more detailed exception is thrown to be handled.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param line user input to the terminal.
      * @throws MissingEventFromException if no "/from" or no description given for "/from" in event.
      * @throws MissingEventToException if no "/to" or no description given for "/to" in event.
      * @throws MissingEventDescriptionException if description for event is empty.
      */
-    private static void createNewEvent(ArrayList<Task> todos, String line)
+    private static void createNewEvent(ArrayList<Task> tasks, String line)
             throws MissingEventFromException, MissingEventToException,
             MissingEventDescriptionException {
         if (!(line.contains("/from"))) {
@@ -239,7 +239,7 @@ public class TaskList {
             if (eventTo.isBlank()) {
                 throw new MissingEventToException();
             }
-            todos.add(new Event(eventDescription, eventFrom, eventTo));
+            tasks.add(new Event(eventDescription, eventFrom, eventTo));
         } catch (StringIndexOutOfBoundsException e) {
             throw new MissingEventToException();
         }

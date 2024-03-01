@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class Storage {
     public static final String FILE_PATH = "./gary.txt";
-    public static ArrayList<Task> todos = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Create a txt file at a given file path when file doesn't exist, or
@@ -52,7 +52,7 @@ public class Storage {
             String lineText = fileReader.readLine();
             String[] lineWords;
             String command;
-            int todosCount = 0;
+            int tasksCount = 0;
 
             while (lineText != null) {
                 // convert each line into TASK_todo/deadline/event, then store in the array list todos
@@ -61,21 +61,21 @@ public class Storage {
                 String description = lineWords[2];
 
                 if (command.equalsIgnoreCase("TODO")) {
-                    todos.add(new Todo(description));
+                    tasks.add(new Todo(description));
                 } else if (command.equalsIgnoreCase("DEADLINE")) {
                     String by = lineWords[3];
-                    todos.add(new Deadline(description, by));
+                    tasks.add(new Deadline(description, by));
                 } else if (command.equalsIgnoreCase("EVENT")){
                     String from = lineWords[3];
                     String to = lineWords[4];
-                    todos.add(new Event(description, from, to));
+                    tasks.add(new Event(description, from, to));
                 }
-                todosCount += 1;
+                tasksCount += 1;
 
                 // Update task status in array list todos
                 String taskStatus = lineWords[1];
                 if (taskStatus.equalsIgnoreCase("1")) {
-                    Task currentTask = todos.get(todosCount - 1);
+                    Task currentTask = tasks.get(tasksCount - 1);
                     currentTask.markAsDone();
                 }
 
@@ -87,7 +87,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Failed to read file");
         }
-        return todos;
+        return tasks;
     }
 
     /**
@@ -95,14 +95,14 @@ public class Storage {
      * if file trying to be written to doesn't exist or there's failure when writing the file.
      *
      * @param file txt file to store the tasks.
-     * @param todosCount number of tasks in the array list.
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasksCount number of tasks in the array list.
+     * @param tasks array list that stores and manages the task while programme is running.
      */
-    public static void writeTaskToTxt(File file, int todosCount, ArrayList<Task> todos) {
+    public static void writeTaskToTxt(File file, int tasksCount, ArrayList<Task> tasks) {
         try {
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
-            for (int i = 0; i < todosCount; i += 1) {
-                writeFormattedString(todos, i, fileWriter);
+            for (int i = 0; i < tasksCount; i += 1) {
+                writeFormattedString(tasks, i, fileWriter);
             }
             fileWriter.close();
         } catch (FileNotFoundException e) {
@@ -116,14 +116,14 @@ public class Storage {
      * Format the task stored in ArrayList and write it into the given txt file. Throws
      * exception when writing process failed.
      *
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param taskIndex index of task.
      * @param fileWriter txt file opened as write.
      * @throws IOException if writing process failed or interrupted.
      */
-    private static void writeFormattedString(ArrayList<Task> todos, int taskIndex, BufferedWriter fileWriter)
+    private static void writeFormattedString(ArrayList<Task> tasks, int taskIndex, BufferedWriter fileWriter)
             throws IOException {
-        Task currentTask = todos.get(taskIndex);
+        Task currentTask = tasks.get(taskIndex);
         String description = currentTask.getTaskDescription();
         String taskStatus = currentTask.getTaskStatus() ? "1" : "0";
         TaskType taskType = currentTask.getTaskType();

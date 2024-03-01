@@ -13,23 +13,23 @@ public class Todo extends Task {
     /**
      * print message when user adds a task with todo type.
      *
-     * @param todosCount number of tasks in the array list.
+     * @param tasksCount number of tasks in the array list.
      */
     @Override
-    public void printAdd(int todosCount) {
+    public void printAdd(int tasksCount) {
         System.out.println("Got it! I've added this task: ");
         System.out.println("  [T][ ] " + this.getTaskDescription());
-        System.out.println("Now you have " + todosCount + " tasks in your list.");
+        System.out.println("Now you have " + tasksCount + " tasks in your list.");
     }
 
     /**
      * print task in a certain format with its details, including the todo description.
      *
-     * @param todoCount number of tasks in the array list.
+     * @param taskNumber task number in the array list.
      */
     @Override
-    public void printTask(int todoCount) {
-        System.out.println((todoCount + 1)
+    public void printTask(int taskNumber) {
+        System.out.println((taskNumber + 1)
                 + ".[T]"
                 + "[" + (this.getTaskStatus() ? "X" : " ") + "] "
                 + this.getTaskDescription());

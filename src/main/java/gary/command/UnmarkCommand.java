@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class UnmarkCommand extends Command {
     private File file;
-    private ArrayList<Task> todos;
+    private ArrayList<Task> tasks;
     private String[] lineWords;
 
     /**
@@ -21,12 +21,12 @@ public class UnmarkCommand extends Command {
      * need to be updated, todos, and lineWords as parameter.
      *
      * @param file txt file to store the tasks.
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param lineWords user input to the terminal, that has been split into array.
      */
-    public UnmarkCommand(File file, ArrayList<Task> todos, String[] lineWords) {
+    public UnmarkCommand(File file, ArrayList<Task> tasks, String[] lineWords) {
         this.file = file;
-        this.todos = todos;
+        this.tasks = tasks;
         this.lineWords = lineWords;
     }
 
@@ -37,9 +37,9 @@ public class UnmarkCommand extends Command {
     @Override
     public void handleCommand() {
         try {
-            int todosCount = this.todos.size();
-            TaskList.processUnmark(this.todos, this.lineWords);
-            Storage.writeTaskToTxt(this.file, todosCount, this.todos);
+            int tasksCount = this.tasks.size();
+            TaskList.processUnmark(this.tasks, this.lineWords);
+            Storage.writeTaskToTxt(this.file, tasksCount, this.tasks);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("OOPS!!! You don't have that much task");
         } catch (NumberFormatException e) {

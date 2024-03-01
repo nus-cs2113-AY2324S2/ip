@@ -23,7 +23,7 @@ public class AddCommand extends Command {
 
     private String line;
     private File file;
-    private ArrayList<Task> todos;
+    private ArrayList<Task> tasks;
     private String command;
 
     /**
@@ -31,13 +31,13 @@ public class AddCommand extends Command {
      *
      * @param line user input to the terminal.
      * @param file txt file to store the tasks.
-     * @param todos array list that stores and manages the task while programme is running.
+     * @param tasks array list that stores and manages the task while programme is running.
      * @param command type of task user wants to add.
      */
-    public AddCommand(String line, File file, ArrayList<Task> todos, String command) {
+    public AddCommand(String line, File file, ArrayList<Task> tasks, String command) {
         this.line = line;
         this.file = file;
-        this.todos = todos;
+        this.tasks = tasks;
         this.command = command;
     }
 
@@ -48,11 +48,11 @@ public class AddCommand extends Command {
     @Override
     public void handleCommand() {
         try {
-            int todosCount = this.todos.size();
-            TaskList.processAddTask(this.command, this.todos, this.line);
-            todosCount += 1;
-            this.todos.get(todosCount - 1).printAdd(todosCount);
-            Storage.writeTaskToTxt(file, todosCount, this.todos);
+            int tasksCount = this.tasks.size();
+            TaskList.processAddTask(this.command, this.tasks, this.line);
+            tasksCount += 1;
+            this.tasks.get(tasksCount - 1).printAdd(tasksCount);
+            Storage.writeTaskToTxt(file, tasksCount, this.tasks);
         } catch (UnknownCommandException e) {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         } catch (MissingTodoDescriptionException e) {
