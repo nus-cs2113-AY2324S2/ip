@@ -4,6 +4,10 @@ import Nick.storage.Storage;
 import Nick.task.TaskList;
 import Nick.ui.Ui;
 
+/**
+ * Represents the Mark command which inherits from the Command class.
+ * It includes the execute method which marks a task as completed from the ArrayList tasks.
+ */
 public class MarkCommand extends Command {
     String arguments;
 
@@ -11,6 +15,13 @@ public class MarkCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Marks a task from the ArrayList tasks as completed via markAsDone() method.
+     *
+     * @param tasks ArrayList of Task objects.
+     * @param ui Ui object.
+     * @param storage Storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int number = Integer.parseInt(arguments);

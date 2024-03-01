@@ -13,6 +13,9 @@ import Nick.task.Todo;
 import Nick.task.Deadline;
 import Nick.task.Event;
 
+/**
+ * Creates a storage object which deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     File f;
     Scanner s;
@@ -23,6 +26,11 @@ public class Storage {
     public static final int DEADLINE_OFFSET_IDX = 4;
     public static final String FORMAT_LINES = "____________________________________________________________";
 
+    /**
+     * Initialize a new file and scanner object.
+     *
+     * @param filePath Filepath of file to be saved or loaded from.
+     */
     public Storage(String filePath) {
         try {
             f = new File(filePath);
@@ -33,6 +41,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads all commands from the file.
+     *
+     * @return ArrayList tasks.
+     * @throws NickException Exception object.
+     */
     public ArrayList<Task> load() throws NickException {
         while (s.hasNext()) {
             String lineData = s.nextLine();
@@ -42,6 +56,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Loads all data command from input file at file path.
+     *
+     * @param command Full input command from user.
+     * @param taskType Task command.
+     * @param userTasks ArrayList of task objects.
+     */
     public static void loadData(String command, String taskType, ArrayList<Task> userTasks) {
         Task task;
         String taskName;
@@ -93,6 +114,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Save all data and overwrites input file at file path.
+     *
+     * @param userTasks Arraylist of task objects.
+     */
     public static void saveData(ArrayList<Task> userTasks) {
         try {
             new FileWriter("data/nick.txt", false).close();

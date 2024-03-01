@@ -6,6 +6,10 @@ import Nick.storage.Storage;
 import Nick.task.TaskList;
 import Nick.ui.Ui;
 
+/**
+ * The Nick class serves as the main class for Nick chatbot.
+ * It includes the run method to start the chatbot.
+ */
 public class Nick {
     private Storage storage;
     private TaskList tasks;
@@ -22,6 +26,9 @@ public class Nick {
         }
     }
 
+    /**
+     * Run the Nick chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
