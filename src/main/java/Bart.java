@@ -1,9 +1,10 @@
-import java.util.NoSuchElementException;
+
 import java.io.IOException;
 
 
 public class Bart {
     private static final String LINE = "____________________________________________________________";
+
     private static Storage storage;
     private static Ui ui = new Ui();
     private static final String FILE_PATH = "./data/Bart.txt";
@@ -46,8 +47,8 @@ public class Bart {
                 } else {
                     tasksList.addNewTask(command);
                 }
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid input: " + command);
+            } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
+                System.out.println(LINE + "\nERROR! Needs number input after: " + command + "\n" + LINE);
             }
         }
     }

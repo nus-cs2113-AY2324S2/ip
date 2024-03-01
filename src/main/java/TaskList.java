@@ -116,9 +116,6 @@ public class TaskList {
     public void findTasks(String command) {
         String keyword = command.substring(5).trim().toLowerCase();
 
-        if (keyword.trim().equalsIgnoreCase("find")) {
-            throw new IllegalArgumentException();
-        }
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : tasks) {
