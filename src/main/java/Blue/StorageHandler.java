@@ -7,10 +7,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The part of Blue that handles disk write and access.
+ */
 public class StorageHandler {
     public static final String DATA_DIR_PATH = "data";
     public static final String TASK_FILE_PATH = DATA_DIR_PATH + "/tasks.txt";
 
+    /**
+     * Restores previously saved tasks from TASK_FILE_PATH if such a file exists, do nothing otherwise.
+     *
+     * Assumes text found in TASK_FILE_PATH is properly formatted.
+     */
     public void restoreTasks() {
         File taskFile = new File(TASK_FILE_PATH);
         try {
@@ -24,6 +32,32 @@ public class StorageHandler {
         } catch (FileNotFoundException e) {
             // No saved tasks found, start from scratch
         }
+    }
+
+    /**
+     * Writes tasks in their text-parsable format to TASK_FILE_PATH.
+     *
+     * @param tasks An array list of all tasks to save to disk.
+     * @return True if tasks have been saved to TASK_FILE_PATH successfully, false otherwise.
+     */
+    public boolean hasSavedTasks(ArrayList<Task> tasks) {
+        new File(DATA_DIR_PATH).mkdirs();
+        File taskFile = new File(TASK_FILE_PATH);
+        try {
+            taskFile.createNewFile();
+        } catch (IOException e) {
+            return false;
+        }
+        boolean isAppend = false;
+        for (Task task : tasks) {
+            try {
+                writeTaskToFile(task, isAppend);
+            } catch (IOException e) {
+                return false;
+            }
+            isAppend = true;
+        }
+        return true;
     }
 
     private Task restoreTask(String[] savedDetails) {
@@ -45,26 +79,6 @@ public class StorageHandler {
             restoredTask.setDone();
         }
         return restoredTask;
-    }
-
-    public boolean hasSavedTasks(ArrayList<Task> tasks) {
-        new File(DATA_DIR_PATH).mkdirs();
-        File taskFile = new File(TASK_FILE_PATH);
-        try {
-            taskFile.createNewFile();
-        } catch (IOException e) {
-            return false;
-        }
-        boolean isAppend = false;
-        for (Task task : tasks) {
-            try {
-                writeTaskToFile(task, isAppend);
-            } catch (IOException e) {
-                return false;
-            }
-            isAppend = true;
-        }
-        return true;
     }
 
     private void writeTaskToFile(Task task, boolean isAppend) throws IOException {

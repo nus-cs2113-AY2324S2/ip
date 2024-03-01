@@ -1,5 +1,8 @@
 package Blue;
 
+/**
+ * Encapsulates the logic and behaviour of a parser to Blue.
+ */
 public class InputParser {
     private Input parsedInput;
 
@@ -7,6 +10,11 @@ public class InputParser {
         return parsedInput;
     }
 
+    /**
+     * Parses a well-formed input regardless of whether user input is well-formed.
+     *
+     * @param line The string of user input to parse.
+     */
     public void parse(String line) {
         InputCommand command = InputCommand.undefined;
         try {
@@ -22,6 +30,13 @@ public class InputParser {
         }
     }
 
+    /**
+     * Returns a request of type InputCommand understandable to Blue
+     *
+     * @param line The string of user input to parse.
+     * @return An enum of InputCommand.
+     * @throws IllegalInput If parsed request does not match an enum of InputCommand.
+     */
     private InputCommand parseRequest(String line) throws IllegalInput {
         String parsedRequest = line.trim().split(" ")[0];
         switch (parsedRequest) {
@@ -46,6 +61,14 @@ public class InputParser {
         }
     }
 
+    /**
+     * Returns the index of a task to handle, -1 if no task to handle.
+     *
+     * @param line The string of user input to parse.
+     * @param command User command.
+     * @return Index of a task if command is appropriate, -1 otherwise.
+     * @throws IllegalInput If parsed index is misformed i.e not an integer.
+     */
     private int parseIndex(String line, InputCommand command) throws IllegalInput {
         switch (command) {
         case mark:
@@ -67,6 +90,14 @@ public class InputParser {
         }
     }
 
+    /**
+     * Returns a task with details provided by the user.
+     *
+     * @param line The string of user input to parse.
+     * @param command User command.
+     * @return Task of appropriate type and details parsed from line.
+     * @throws IllegalInput If task is misformed.
+     */
     private Task parseTask(String line, InputCommand command) throws IllegalInput {
         String taskDescription;
         String taskDeadline;
@@ -91,7 +122,14 @@ public class InputParser {
         }
     }
 
-    private String parseTaskQuery(String line, InputCommand command) throws IllegalInput {
+    /**
+     * Returns a string query to tasks.
+     *
+     * @param line The string of user input to parse.
+     * @param command User command.
+     * @return A string matching the query parsed from line.
+     */
+    private String parseTaskQuery(String line, InputCommand command) {
         String taskQuery = "";
         switch (command) {
             case find:
