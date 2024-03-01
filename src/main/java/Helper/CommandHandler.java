@@ -5,6 +5,14 @@ import Exceptions.InvalidEventFormatException;
 import Exceptions.InvalidTodoFormatException;
 
 public class CommandHandler {
+    public static final String BYE = "bye";
+    public static final String MARK = "mark";
+    public static final String UNMARK = "unmark";
+    public static final String LIST = "list";
+    public static final String DELETE = "delete";
+    public static final String DEADLINE = "deadline";
+    public static final String EVENT = "event";
+    public static final String TODO = "todo";
     private TaskManager taskManager;
     private UserInterface userInterface;
 
@@ -17,24 +25,24 @@ public class CommandHandler {
     public static final int DELETE_BEGIN_INDEX = 7;
     public static final int COMMAND_START_INDEX = 0;
     public static final int INDEX_OFFSET = 1;
-    public static final int START_INDEX = 0;
+
     public void handleCommand(String input) {
         String inputType = input.split(" ")[COMMAND_START_INDEX];
         switch (inputType.toLowerCase()) {
-        case "bye":
+        case BYE:
             userInterface.sayGoodbye();
             System.exit(0);
             break;
-        case "mark":
+        case MARK:
             markTask(input);
             break;
-        case "unmark":
+        case UNMARK:
             unmarkTask(input);
             break;
-        case "list":
+        case LIST:
             taskManager.printTaskList();
             break;
-        case "delete":
+        case DELETE:
             deleteTask(input);
             break;
         default:
@@ -48,13 +56,13 @@ public class CommandHandler {
         String taskType = taskDescription.split(" ")[COMMAND_START_INDEX];
         try {
             switch (taskType) {
-            case "deadline":
+            case DEADLINE:
                 taskManager.addDeadlineTask(taskDescription);
                 break;
-            case "event":
+            case EVENT:
                 taskManager.addEventTask(taskDescription);
                 break;
-            case "todo":
+            case TODO:
                 taskManager.addTodoTask(taskDescription);
                 break;
             default:

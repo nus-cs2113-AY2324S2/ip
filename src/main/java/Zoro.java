@@ -5,6 +5,9 @@ import Helper.UserInterface;
 import java.util.Scanner;
 
 public class Zoro {
+
+    public static final String BYE = "bye";
+
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
         Scanner in = new Scanner(System.in);
@@ -16,7 +19,7 @@ public class Zoro {
         while (isRunning) {
             String input = UserInterface.getUserInput(in);
             commandHandler.handleCommand(input);
-            if (input.equalsIgnoreCase("bye")) {
+            if (input.equalsIgnoreCase(BYE)) {
                 isRunning = false;
             }
         }

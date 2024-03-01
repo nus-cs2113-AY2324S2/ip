@@ -2,15 +2,12 @@ package Helper;
 
 import Exceptions.LoadFileException;
 import Exceptions.SaveFileException;
-import Helper.Parser;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-// Helper.Storage.java
 public class Storage {
     private final String filePath;
 
