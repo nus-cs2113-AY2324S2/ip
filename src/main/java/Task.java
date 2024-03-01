@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class Task {
-    private static ArrayList<Task> allTasks = new ArrayList<>();
+    private static final ArrayList<Task> allTasks = new ArrayList<>();
     private static final String LINE = "____________________________________________________________";
     public String description;
     protected String taskType;
@@ -14,6 +14,9 @@ public class Task {
         allTasks.add(this);
     }
 
+    public String getDescription() {
+        return description;
+    }
     public static ArrayList<Task> getAllTasks() {
         return allTasks;
     }
@@ -45,6 +48,5 @@ public class Task {
         System.out.println(LINE + "\nGot it. I've added this task:");
         System.out.println("  " + this);
         System.out.println("Now you have " + (count) + " tasks in the list.\n" + LINE);
-
     }
 }

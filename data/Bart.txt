@@ -2,3 +2,6 @@ T | 0 | ahhh
 T | 1 | huh?
 E | 0 | ajsjd sjfaf | fdfes | dd d
 D | 1 | ssadjd | ds
+T | 0 | huh
+T | 0 | wah huh
+D | 0 | huh | ssss

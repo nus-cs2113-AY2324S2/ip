@@ -30,7 +30,7 @@ public class Bart {
             command = ui.getInput();
 
             if (command.equals("help")) {
-                printHelp();
+                ui.printHelp();
             } else if (command.equals("bye")) {
                 break;
             } else if (command.equals("list")) {
@@ -40,53 +40,18 @@ public class Bart {
             } else if (command.startsWith("unmark")) {
                 markTask(command, false);
             } else if (command.startsWith("delete")) {
-                deleteTask(command);
-            } else {
-                addNewTask(command);
+                tasksList.deleteTask(command);
+            } else if (command.startsWith("find")) {
+                try {
+                    tasksList.findTasks(command);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid search input: " + command);
+                }
+            }
+            else {
+                tasksList.addNewTask(command);
             }
         }
-    }
-
-    private static void addNewTask(String command) {
-        String[] commandParts = command.split(" ");
-        String tasking = commandParts[0];
-
-        switch (tasking) {
-            case "todo":
-                try {
-                    tasksList.add(new Todo(command));
-                } catch (IllegalArgumentException e) {
-                    ui.println(LINE + "\nOOPS!!! The description of a todo cannot be empty.\n" + LINE);
-                    return;
-                }
-                break;
-            case "deadline":
-                try {
-                    tasksList.add(new Deadline(command));
-                } catch (IllegalArgumentException e) {
-                    ui.println(LINE + "\nOOPS!!! The description of a deadline cannot be empty.\n" + LINE);
-                    return;
-                } catch (NoSuchElementException e) {
-                    ui.println(LINE + "\nOOPS!!! Try this format: deadline <task> /by <time>.\n" + LINE);
-                    return;
-                }
-                break;
-            case "event":
-                try {
-                    tasksList.add(new Event(command));
-                } catch (IllegalArgumentException e) {
-                    ui.println(LINE + "\nOOPS!!! The description of a event cannot be empty.\n" + LINE);
-                    return;
-                } catch (NoSuchElementException e) {
-                    ui.println(LINE + "\nOOPS!!! Try this format: event <task> /from <start_time> /to <end_time>.\n" + LINE);
-                    return;
-                }
-                break;
-            default:
-                ui.println(LINE + "\nOOPS!!! I'm sorry, but I don't know what that means :-(\n" + LINE);
-                return;
-        }
-        tasksList.get(tasksList.size() - 1).printTask(tasksList.size());
     }
 
     public static void listTasks() {
@@ -116,28 +81,5 @@ public class Bart {
         } else {
             ui.println(LINE + "\nInvalid task number.\n" + LINE);
         }
-    }
-
-    private static void deleteTask(String command) {
-        int indexToDelete = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
-        if (indexToDelete >= 0 && indexToDelete < tasksList.size()) {
-            ui.println(LINE + "\nNoted. I've removed this task:");
-            ui.println("   "+ tasksList.get(indexToDelete).toString());
-            tasksList.remove(indexToDelete);
-            ui.println("Now you have " + tasksList.size() + " tasks in the list.\n" + LINE);
-        } else {
-            ui.println(LINE + "\nInvalid task number.\n" + LINE);
-        }
-    }
-
-    public static void printHelp() {
-        ui.println(LINE + "\n'list' lists all current tasks" +
-            "\n'mark <#>' marks tasks with X" +
-            "\n'unmark <#>' unmarks tasks by removing the X" +
-            "\n'todo <task>' creates a to-do" +
-            "\n'deadline <task> /by <time>' creates a task with deadline" +
-            "\n'event <task> /from <time> /to <time>' creates a to-do" +
-            "\n'bye' to quit\n" + LINE);
-
     }
 }
