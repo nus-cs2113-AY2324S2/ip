@@ -2,19 +2,7 @@ import javax.swing.*;
 import java.util.Scanner;
 
 public class Qchat {
-
-   static final String  WELCOME_GREETING = new String(
-           "Qchat ,A truly humanized intelligent voice assisstant \n"
-                   +"knows better about life and better about you\n"
-                   +"What can I do for you?\n"
-                   +"----------------------------------------------------------------\n") ;
-   static final String GOODBYE_GREETING = new String(
-           "--------------------------------------------------------\n" +
-            "goodbye\n"+ "Qchat, your life-long trusted companion\n");
-
-
-
-
+    static UI ui = new UI();
    static String CommandReader(){
 
        Scanner in = new Scanner(System.in);
@@ -23,7 +11,7 @@ public class Qchat {
 
        switch (command){
        case "Bye":
-           System.out.print(GOODBYE_GREETING);
+           ui.Goodbye();
            break;
        case "list":
            ListManager Listmanager = null;
@@ -50,7 +38,8 @@ public class Qchat {
 
     public static void main(String[] args) {
 
-       System.out.print(WELCOME_GREETING);
+
+       ui.Greeting();
        String command = "" ;
        while(!command.equals("Bye")){
 
