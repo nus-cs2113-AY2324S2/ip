@@ -1,15 +1,7 @@
 package Nick.parser;
 
 import Nick.NickException;
-import Nick.command.Command;
-import Nick.command.ByeCommand;
-import Nick.command.ListCommand;
-import Nick.command.MarkCommand;
-import Nick.command.UnmarkCommand;
-import Nick.command.DeleteCommand;
-import Nick.command.TodoCommand;
-import Nick.command.DeadlineCommand;
-import Nick.command.EventCommand;
+import Nick.command.*;
 
 public class Parser {
 
@@ -35,6 +27,8 @@ public class Parser {
             return new DeadlineCommand(arguments);
         case "event":
             return new EventCommand(arguments);
+        case "find":
+            return new FindCommand(arguments);
         default:
             throw new NickException();
         }
