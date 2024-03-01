@@ -13,6 +13,12 @@ public class Storage {
     public static final String DIRECTORY_PATH = "./data/";
     public static final String FILE_PATH = DIRECTORY_PATH + "/davvy.txt";
 
+    /**
+     * Checks if both the directory and the file exists. If either or both do not, it will be
+     * created
+     *
+     * @throws IOException if there was an issue creating the file
+     */
     public static void createFile() throws IOException {
         File directory = new File(DIRECTORY_PATH);
         if (!directory.exists()) {
@@ -23,6 +29,13 @@ public class Storage {
             file.createNewFile(); // Not a must to assign its return value
         }
     }
+
+    /**
+     * Writes data to file
+     *
+     * @param textToAppend the string to be added into storage
+     * @throws IOException if there was an issue writing into the file
+     */
     public static void writeToFile(String textToAppend) throws IOException {
         createFile();
         FileWriter fw = new FileWriter(FILE_PATH, true);
@@ -30,6 +43,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Completely re-writes all data onto a fresh file
+     *
+     * @throws IOException if there was an issue deleting/writing into the file
+     */
     public static void rewriteFile() throws IOException {
         File file = new File(FILE_PATH);
         file.delete();
@@ -39,6 +57,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Uses a scanner to read data line by line from the input file, before breaking it down
+     * and initialising the data into the program before the user is allowed to start interacting
+     * with the bot
+     *
+     * @throws IOException if there is an issue reading data from the file
+     */
     public static void readFile() throws IOException {
         try {
             createFile();

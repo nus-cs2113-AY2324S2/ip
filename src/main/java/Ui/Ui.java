@@ -7,6 +7,10 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints hello and goodbye
+     * @param statementType string to determine whether it is hello or goodbye
+     */
     public static void printStatement(String statementType) {
         switch (statementType) {
         case "greetings":
