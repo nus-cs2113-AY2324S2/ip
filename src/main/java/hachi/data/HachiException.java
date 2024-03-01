@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Represent the error handling class for the chatbot Hachi.
  *
  * @author clarencepohh
- * @version 29/02/2024
+ * @version 01/03/2024
  *
  */
 
@@ -172,7 +172,7 @@ public class HachiException extends Exception {
      * requested keyword is empty, and prints an error message to the console if it is empty.
      *
      * @param foundTasksList The ArrayList<Task> containing the tasks found to be matching.
-     * @throws HachiException If foundTasksList is empty. 
+     * @throws HachiException If foundTasksList is empty.
      */
 
     public static void checkForEmptyFoundTaskList (ArrayList<Task> foundTasksList) throws HachiException{
