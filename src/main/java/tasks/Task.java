@@ -41,6 +41,7 @@ public abstract class Task {
     /**
      * Marks the task as completed or not completed.
      * @param isCompleted whether the task is to be marked as completed or not completed
+     * @return a feedback message indicating the task's completion status
      */
     public String mark(boolean isCompleted) {
         this.isCompleted = isCompleted;
