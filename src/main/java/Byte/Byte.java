@@ -9,13 +9,20 @@ import Byte.ui.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
-
+/**
+ * Represents the main class for the Byte chatbot application.
+ */
 public class Byte {
     private static final String FILE_PATH = "./data/byte.txt";
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructs a new Byte chatbot instance.
+     *
+     * @param filePath The file path for storing task data.
+     */
     public Byte(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,11 +34,19 @@ public class Byte {
         }
     }
 
+    /**
+     * Main method to start the Byte chatbot application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
 
         new Byte(FILE_PATH).run();
     }
 
+    /**
+     * Runs the Byte chatbot application.
+     */
     public void run() {
         ui.printTasks(tasks);
         ui.printWelcomeMessage();
