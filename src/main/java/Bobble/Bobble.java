@@ -2,6 +2,7 @@ package Bobble;
 
 import Bobble.task.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Bobble {
 
     public static void main(String[] args) {
         try {
-            taskList = new Storage().loadSavedList();
+            taskList = new FileManager().loadSavedList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -85,7 +86,7 @@ public class Bobble {
                 task.toString() + "\nNow you have " + (taskList.size() - 1) +
                 " task(s) in the list.\n" + LINE_WRAP);
         taskList.remove(taskNumber);
-        Storage.saveWholeList(taskList);
+        FileManager.saveWholeList(taskList);
     }
 
     private static void listResponse() {
@@ -100,14 +101,14 @@ public class Bobble {
         taskList.get(taskNumber).setDone(true);
         System.out.println("Nice! I've marked this task as done:\n" +
                 task.toString() + "\n" + LINE_WRAP);
-        Storage.saveWholeList(taskList);
+        FileManager.saveWholeList(taskList);
     }
 
     private static void unmarkResponse(Task task, int taskNumber) {
         taskList.get(taskNumber).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" +
                 task.toString() + "\n" + LINE_WRAP);
-        Storage.saveWholeList(taskList);
+        FileManager.saveWholeList(taskList);
     }
 
     public static String[] getCommandAndDesc(String input) {
@@ -120,7 +121,7 @@ public class Bobble {
                 task.toString() +
                 "\nNow you have " + taskList.size() + " task(s) in the list.\n" +
                 LINE_WRAP);
-        Storage.saveAddedTask(taskList);
+        FileManager.saveAddedTask(taskList);
     }
 
     //Greets user
