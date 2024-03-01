@@ -14,6 +14,9 @@ import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Represents the user interface for Artemis.
+ */
 public class UserInterface {
     private String username;
     private final Scanner in;
@@ -21,21 +24,38 @@ public class UserInterface {
     private TaskHandler taskHandler;
     private Storage storage;
 
+    /**
+     * Creates a UserInterface instance with the standard input and output streams.
+     */
     public UserInterface() {
         this(System.in, System.out);
     }
 
+    /**
+     * Creates a UserInterface instance with the given input and output streams.
+     *
+     * @param in  The input stream.
+     * @param out The output stream.
+     */
     public UserInterface(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }
 
+    /**
+     * Displays the first run message to the user
+     */
     public void showFirstRunMessage() {
         Messages.printBanner();
         requestUsername();
         Messages.printHelp(username);
     }
 
+    /**
+     * Initializes the User Interface, to be called on start up
+     *
+     * @param args Command line arguments
+     */
     public void initialize(String[] args) {
         try {
             if (args.length > 0) {
@@ -63,6 +83,9 @@ public class UserInterface {
     }
 
 
+    /**
+     * Requests the user for a username
+     */
     public void requestUsername() {
         out.println("hello! i'm artemis. what is your name?");
         out.print("[unknown user]: ");
@@ -70,7 +93,9 @@ public class UserInterface {
     }
 
 
-
+    /**
+     * The main interface for users to enter commands
+     */
     public void commandLine() {
         String userInput;
         Task currentTask;
@@ -146,6 +171,9 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Prints the task list that is currently assigned
+     */
     public void printList(String toFind) {
         if (taskHandler.taskList.isEmpty()) {
             out.println("[artemis]: Your list is empty!");
