@@ -1,20 +1,19 @@
 package kapwa;
 
 import exception.KapwaException;
-import java.util.Scanner;
 
 public class Kapwa{
-    private static final String DIVIDER_LINE = "____________________________________________________________";
-    private static TaskManager taskManager = new TaskManager();
+    private static final Ui ui = new Ui();
+    private static final TaskManager taskManager = new TaskManager();
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        displayWelcomeMessage();
+        ui.showWelcome();
         String inputLine;
 
         while (true) {
-            inputLine = scanner.nextLine().trim();
+            inputLine = ui.readCommand();
             try {
-                System.out.println(DIVIDER_LINE);
+                ui.showLine();
                 if ("bye".equals(inputLine)) {
                     break;
                 } else if ("list".equals(inputLine)) {
@@ -32,26 +31,13 @@ public class Kapwa{
                     taskManager.addTask(inputLine);
                 }
             } catch (KapwaException e) {
-                System.out.println("An error occurred: " + e.getMessage());
+                ui.showError(e.getMessage());
             } finally {
-                System.out.println(DIVIDER_LINE);
+                ui.showLine();
             }
         }
 
-        System.out.println("Bye. Hope to see you again soon!");
-        scanner.close();
-    }
-
-    private static void displayWelcomeMessage() {
-        String logo = " _  __    _    ____  __        __    _    _ \n"
-                + "| |/ /   / \\  |  _ \\ \\ \\      / /   / \\  | |\n"
-                + "| ' /   / _ \\ | |_) | \\ \\ /\\ / /   / _ \\ | |\n"
-                + "| . \\  / ___ \\|  __/   \\ V  V /   / ___ \\|_|\n"
-                + "|_|\\_\\/_/   \\_\\_|       \\_/\\_/   /_/   \\_(_)\n";
-
-        System.out.println("Hello from Kapwa\n" + logo +
-                "Hello! I'm Kapwa\n" +
-                "What can I do for you?\n" +
-                DIVIDER_LINE);
+        ui.showGoodByeMessage();
+        ui.closeScanner();
     }
 }
