@@ -153,6 +153,24 @@ public class Parser {
         }
     }
     /**
+     * Extracts details for 'find' commands from the input line. The detail to be extracted
+     * is the keyword or phrase to be searched for.
+     *
+     * @param line The input line from which the details are to be extracted.
+     */
+    public void extractDetailsFromFindString(String line) {
+        try {
+            int descriptionIndex = line.indexOf(" ");
+
+            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
+
+            inputValidator.checkFindCommand(commandTypeAndParams);
+        } catch (MonaException e) {
+            System.out.println(e.getMessage());
+            isValidInput = false;
+        }
+    }
+    /**
      * Parses the input line and extracts the command type and details.
      *
      * @param line The input line to be parsed.
@@ -185,6 +203,9 @@ public class Parser {
             extractDetailsFromEventString(line);
             break;
         case("list"):
+            break;
+        case("find"):
+            extractDetailsFromFindString(line);
             break;
         // default case is for invalid commands
         default:

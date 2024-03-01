@@ -78,4 +78,10 @@ public class InputValidator {
             throw new MonaException("OOPS!! Missing fields detected. Try again!");
         }
     }
+    public void checkFindCommand(String[] commandTypeAndParams) throws MonaException {
+        // Checking if description field is empty
+        if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
+            throw new MonaException("OOPS!!! What do you want me to find?");
+        }
+    }
 }
