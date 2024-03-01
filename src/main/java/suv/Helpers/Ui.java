@@ -65,19 +65,19 @@ public class Ui {
     /**
      * Prints a message confirming the marking of a task as done.
      *
-     * @param description The description of the task that was marked.
+     * @param task The task that was marked.
      */
-    public static void printMarkMessage(String description){
-        System.out.println(LINE + " Nice! I've marked this task as done:\n" + "   [X] " + description + "\n" + LINE);
+    public static void printMarkMessage(Task task){
+        System.out.println(LINE + " Nice! I've marked this task as done:\n " + task + "\n" + LINE);
     }
 
     /**
      * Prints a message confirming the marking of a task as not done yet.
      *
-     * @param description The description of the task that was unmarked.
+     * @param task The task that was unmarked.
      */
-    public static void printUnmarkMessage(String description){
-        System.out.println(LINE + " OK, I've marked this task as not done yet:\n" + "   [ ] " + description+ "\n" + LINE);
+    public static void printUnmarkMessage(Task task){
+        System.out.println(LINE + " OK, I've marked this task as not done yet:\n " + task + "\n" + LINE);
     }
 
     /**

@@ -21,6 +21,6 @@ public class MarkCommand {
         int n = Integer.parseInt(input.split(" ")[1]);
         Task currentTask = tasksList.get(n - 1);
         currentTask.mark();
-        Ui.printMarkMessage(currentTask.getDescription());
+        Ui.printMarkMessage(currentTask);
     }
 }

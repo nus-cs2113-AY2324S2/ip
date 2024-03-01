@@ -37,6 +37,7 @@ public class Suv {
             parser.handleInput(input);
             input = in.nextLine();
         }
+        Ui.printByeMessage();
     }
 
     /**
