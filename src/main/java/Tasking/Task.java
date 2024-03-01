@@ -22,6 +22,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Mark tasks in the ArrayList as done
+     * @param isPrint Passes in a boolean which enables the printing of message onto console
+     * @throws IOException if there was an issue writing data into the file
+     */
     public void markDone(boolean isPrint) throws IOException {
         isDone = true;
         if (isPrint) {
@@ -31,6 +36,11 @@ public class Task {
         }
     }
 
+    /**
+     * Unmark tasks in the ArrayList
+     * @param isPrint Passes in a boolean which enables the printing of message onto console
+     * @throws IOException if there was an issue writing data into the file
+     */
     public void markNotDone(boolean isPrint) throws IOException {
         isDone = false;
         if (isPrint) {

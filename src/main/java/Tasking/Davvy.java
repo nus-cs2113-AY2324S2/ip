@@ -10,6 +10,14 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Davvy {
+
+    /**
+     * This method takes a task object and modifies it into a different set of string according
+     * to its type, for storage and ease of parsing subsequently when reading from storage
+     *
+     * @param task pass in the task to be added into storage
+     * @throws IOException if there is an issue reading/writing from/into storage
+     */
     public static void writeData(Task task) throws IOException {
         int status = task.isDone ? 1 : 0;
         String data = "";
@@ -26,19 +34,10 @@ public class Davvy {
         Storage.writeToFile(data);
     }
 
-    public static void handleDeadline(String commandArg) throws IOException {
-        String[] newCommandArg = commandArg.split("/by", 2);
-        Deadline inputDeadline = new Deadline(newCommandArg[0], newCommandArg[1]);
-        TaskList.addTask(inputDeadline,false);
-    }
-
-    public static void handleEvent(String commandArg) throws IOException {
-        String[] newCommandArg = commandArg.split("/from", 2);
-        String[] newCommandArg2 = newCommandArg[1].split("/to", 2);
-        Events inputEvent = new Events(newCommandArg[0], newCommandArg2[0], newCommandArg2[1]);
-        TaskList.addTask(inputEvent, false);
-    }
-
+    /**
+     * Starts the chatbot and ensures continuous user input until terminated.
+     * Handles error messages as well
+     */
     public void startChat() {
         Ui.printStatement("greetings");
         boolean isExitStatus = false;
@@ -71,6 +70,9 @@ public class Davvy {
         }
     }
 
+    /**
+     * Prints end statement when the chatbot has been terminated
+     */
     public void endChat() {
         Ui.printStatement("goodbye");
     }
