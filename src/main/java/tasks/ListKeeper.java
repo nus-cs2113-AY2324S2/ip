@@ -3,13 +3,17 @@ package tasks;
 import storage.SaveManager;
 import java.util.ArrayList;
 import exceptions.InvalidTaskIndex;
+import ui.UserInterface;
+
 import java.io.IOException;
 
 public class ListKeeper {
     private ArrayList<Task> tasks;
+    private final UserInterface userInterface;
 
-    public ListKeeper() {
+    public ListKeeper(UserInterface userInterface) {
         this.tasks = new ArrayList<>();
+        this.userInterface = userInterface;
     }
 
     public static String getSampleListCommand() {
@@ -47,7 +51,7 @@ public class ListKeeper {
      */
     public void addToList(Task task) {
         this.tasks.add(task);
-        System.out.println("Added task: " + task);
+        this.userInterface.print("Added task: " + task);
     }
 
     /**
@@ -59,13 +63,13 @@ public class ListKeeper {
         verifyTaskIndex(taskIndex);
         Task removedTask = this.tasks.get(taskIndex - 1);
         this.tasks.remove(taskIndex - 1);
-        System.out.println("Removed task: " + removedTask);
+        this.userInterface.print("Removed task: " + removedTask);
     }
 
     public void printList() {
-        System.out.println("You have " + this.tasks.size() + " tasks");
+        this.userInterface.print("You have " + this.tasks.size() + " tasks");
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println(i + 1 + ". " + this.tasks.get(i));
+            this.userInterface.print(i + 1 + ". " + this.tasks.get(i));
         }
     }
 
@@ -78,7 +82,8 @@ public class ListKeeper {
     public void processMark(int inputIndex, boolean isCompleted) throws InvalidTaskIndex{
         verifyTaskIndex(inputIndex);
         Task task = this.tasks.get(inputIndex - 1);
-        task.mark(isCompleted);
+        String feedback = task.mark(isCompleted);
+        this.userInterface.print(feedback);
     }
 
     /**
@@ -92,11 +97,11 @@ public class ListKeeper {
                 return;
             }
             for (Task task : this.tasks) {
-                System.out.println("Saving: " + task);
+                this.userInterface.print("Saving: " + task);
                 saveManager.writeToFile(task.getStringRepresentation());
             }
         } catch (IOException e) {
-            System.out.println("Data could not be saved");
+            this.userInterface.print("Data could not be saved");
         }
     }
 
@@ -110,11 +115,11 @@ public class ListKeeper {
             Task task = this.tasks.get(taskIndex);
             if (task.hasKeywords(keywordsToFind)) {
                 hasMatchingTasks = true;
-                System.out.println(taskIndex + 1 + ". " + task);
+                this.userInterface.print(taskIndex + 1 + ". " + task);
             }
         }
         if (!hasMatchingTasks) {
-            System.out.println("No matching tasks");
+            this.userInterface.print("No matching tasks");
         }
     }
 }

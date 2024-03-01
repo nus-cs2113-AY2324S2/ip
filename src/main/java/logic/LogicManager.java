@@ -10,14 +10,17 @@ import tasks.Event;
 import tasks.ListKeeper;
 import tasks.ToDo;
 import ui.Keywords;
+import ui.UserInterface;
 
 import java.util.Arrays;
 
 public class LogicManager {
     private final ListKeeper listKeeper;
+    private final UserInterface userInterface;
 
-    public LogicManager(ListKeeper listKeeper) {
+    public LogicManager(ListKeeper listKeeper, UserInterface userInterface) {
         this.listKeeper = listKeeper;
+        this.userInterface = userInterface;
     }
 
     private void executeList() {
@@ -128,7 +131,7 @@ public class LogicManager {
             executeCommand(currentInput);
         } catch (IllegalNumberOfArguments | InvalidTaskIndex |
                  EmptyTaskDescription | InvalidTaskArguments | Confusion e) {
-            System.out.println(e.getMessage());
+            this.userInterface.print(e.getMessage());
         }
     }
 }

@@ -42,14 +42,16 @@ public abstract class Task {
      * Marks the task as completed or not completed.
      * @param isCompleted whether the task is to be marked as completed or not completed
      */
-    public void mark(boolean isCompleted) {
+    public String mark(boolean isCompleted) {
         this.isCompleted = isCompleted;
+        String feedback = "";
         if (this.isCompleted) {
-            System.out.println("Nice! I've marked this task as done: ");
+            feedback += "Nice! I've marked this task as done: ";
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            feedback += "OK, I've marked this task as not done yet:";
         }
-        System.out.println("  " + this);
+        feedback += System.lineSeparator() + "  " + this;
+        return feedback;
     }
 
     /**
