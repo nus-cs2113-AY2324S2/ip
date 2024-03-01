@@ -3,11 +3,23 @@ package mona.input;
 import mona.exception.MonaException;
 import mona.util.Constants;
 
+/**
+ * Parses and validates user input commands for the task manager application.
+ * Stores the input commands in a String array, 'commandTypeAndParams'.
+ * Elements of this array can be accessed via indexing.
+ */
 public class Parser {
     protected String[] commandTypeAndParams;
     protected String line;
     protected boolean isValidInput;
     protected InputValidator inputValidator;
+
+    /**
+     * Constructor for Parser. Initializes the 'commandTypeAndParams' String array, input line,
+     * input validation status, and the input validator. Parses the input line.
+     *
+     * @param line The input line to be parsed.
+     */
     public Parser(String line) {
         this.commandTypeAndParams = new String[4];
         this.line = line;
@@ -24,7 +36,11 @@ public class Parser {
     public boolean isValidInput() {
         return isValidInput;
     }
-
+    /**
+     * Extracts the command type from the input line. The command type is the first word of the input line.
+     *
+     * @param line The input line from which the command type is to be extracted.
+     */
     public void extractCommandTypeFromString(String line) {
         // checking specifically for "list", as it is a single word command
         if (line.equals("list")) {
@@ -42,6 +58,12 @@ public class Parser {
             isValidInput = false;
         }
     }
+    /**
+     * Extracts details for 'mark', 'unmark', or 'delete' commands from the input line.
+     * The detail to be extracted is a number, which corresponds to a specific task in the TaskList.
+     *
+     * @param line The input line from which the details are to be extracted.
+     */
     public void extractDetailsFromMarkUnmarkDeleteString(String line) {
         try {
             int descriptionIndex = line.indexOf(" ");
@@ -57,6 +79,12 @@ public class Parser {
             isValidInput = false;
         }
     }
+    /**
+     * Extracts details for 'todo' commands from the input line. The detail to be extracted
+     * is the description of the 'todo' command.
+     *
+     * @param line The input line from which the details are to be extracted.
+     */
     public void extractDetailsFromTodoString(String line) {
         try {
             int descriptionIndex = line.indexOf(" ");
@@ -69,6 +97,13 @@ public class Parser {
             isValidInput = false;
         }
     }
+    /**
+     * Extracts details for 'deadline' commands from the input line. The details to be extracted are
+     * 1) the description of the deadline task, and
+     * 2) the due date, prefixed with a '/by'.
+     *
+     * @param line The input line from which the details are to be extracted.
+     */
     public void extractDetailsFromDeadlineString(String line) {
 
         try {
@@ -88,6 +123,14 @@ public class Parser {
             isValidInput = false;
         }
     }
+    /**
+     * Extracts details for 'event' commands from the input line. The details to be extracted are
+     * 1) the description of the event task,
+     * 2) the start date, prefixed with a '/from', and
+     * 3) the end date, prefixed with a '/to'.
+     *
+     * @param line The input line from which the details are to be extracted.
+     */
     public void extractDetailsFromEventString(String line) {
         try {
             int descriptionIndex = line.indexOf(" ");
@@ -109,6 +152,12 @@ public class Parser {
             isValidInput = false;
         }
     }
+    /**
+     * Extracts details for 'find' commands from the input line. The detail to be extracted
+     * is the keyword or phrase to be searched for.
+     *
+     * @param line The input line from which the details are to be extracted.
+     */
     public void extractDetailsFromFindString(String line) {
         try {
             int descriptionIndex = line.indexOf(" ");
@@ -121,6 +170,11 @@ public class Parser {
             isValidInput = false;
         }
     }
+    /**
+     * Parses the input line and extracts the command type and details.
+     *
+     * @param line The input line to be parsed.
+     */
     public void parseInput(String line) {
         extractCommandTypeFromString(line);
 

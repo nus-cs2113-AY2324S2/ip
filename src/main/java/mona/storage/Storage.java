@@ -15,13 +15,25 @@ import mona.task.Task;
 import mona.task.Todo;
 import mona.util.Constants;
 
+/**
+ * Handles storage operations, such as saving and loading tasks to and from a .txt file.
+ */
 public class Storage {
     protected String filePath;
 
+    /**
+     * Constructor for Storage. Initializes the relative file path for storage.
+     *
+     * @param filePath The relative path to the .txt file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
+    /**
+     * Saves the list of tasks to the storage (.txt) file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveToStorage(ArrayList<Task> tasks) {
         String textToSave = generateTextToSave(tasks);
 
@@ -34,6 +46,13 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * Generates a string representation of the list of tasks for storage. It does so by
+     * calling the 'generateSavedTaskFormat' method for each task in the list of tasks.
+     *
+     * @param tasks The list of tasks to be converted into a string.
+     * @return The string representation of the tasks.
+     */
     public static String generateTextToSave(ArrayList<Task> tasks) {
         String textToAdd = "";
         for (Task task: tasks) {
@@ -44,6 +63,16 @@ public class Storage {
         return textToAdd;
     }
 
+    /**
+     * Generates a string representation of a single task for storage.
+     * For example, the task 'todo work' that is not yet done will be converted into: " T | 0 | hi "
+     * T -> indicating a 'todo' task
+     * 0 -> indicating that it is not done
+     * hi -> the description of this 'todo' task
+     *
+     * @param task The task to be converted into a string.
+     * @return The string representation of the task.
+     */
     public static String generateSavedTaskFormat(Task task) {
         String output = "";
         String isDone = "0";
@@ -63,7 +92,11 @@ public class Storage {
 
         return output;
     }
-
+    /**
+     * Loads tasks from the storage file into a list.
+     *
+     * @return The list of tasks loaded from the file.
+     */
     public ArrayList<Task> loadData() {
         ArrayList<Task> taskList = null;
         try {
@@ -74,7 +107,14 @@ public class Storage {
         }
         return taskList;
     }
-
+    /**
+     * Reads the storage file and returns its contents as a list of strings, where each line is
+     * treated as a String object.
+     *
+     * @return The list of strings read from the file.
+     * @throws MonaException If there is an issue creating the data directory or file.
+     * @throws IOException If there is an issue reading the file.
+     */
     private ArrayList<String> readFile() throws MonaException, IOException {
         File dataFolder = new File(Constants.DATA_FOLDER_PATH);
         File dataFile = new File(dataFolder, Constants.DATA_FILE_NAME);
@@ -99,10 +139,16 @@ public class Storage {
             }
         }
 
-        ArrayList<String> dataItems = (ArrayList<String>) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
+        ArrayList<String> dataItems = (ArrayList<String>)
+                Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
         return dataItems;
     }
-
+    /**
+     * Parses a list of strings (obtained from the 'readFile' method) into a list of tasks.
+     *
+     * @param dataItems The list of strings to be parsed.
+     * @return The list of tasks parsed from the strings.
+     */
     private ArrayList<Task> parse(ArrayList<String> dataItems) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String line : dataItems) {
@@ -144,7 +190,13 @@ public class Storage {
         }
         return tasks;
     }
-
+    /**
+     * Determines the completion status of a task from its string representation (the representation
+     * in the .txt file)
+     *
+     * @param inputLine The string representation of the task.
+     * @return True if the task is marked as done, false otherwise.
+     */
     private static boolean getTaskDoneStatus(String inputLine) {
         String[] inputElements = inputLine.split("\\|");
 
@@ -154,7 +206,13 @@ public class Storage {
             return false;
         }
     }
-
+    /**
+     * Extracts the command type and parameters from the string representation of a task (the representation
+     * in the .txt file)
+     *
+     * @param inputLine The string representation of the task.
+     * @return An array containing the command type and parameters.
+     */
     private static String[] getCommandTypeAndParams(String inputLine) {
         String[] inputElements = inputLine.split("\\|");
         String command = "";
