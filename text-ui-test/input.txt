@@ -14,10 +14,12 @@ event charity fundraising gala dinner /from sunday 5pm
 event charity fundraising gala dinner /from sunday 5pm /to sunday 11pm
 list
 mark 2
+find joker
 list
 unmark 2
 mark 10
 delete 1
+find batarangs
 list
 delete 2
 bye

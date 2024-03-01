@@ -8,7 +8,7 @@ import artemis.tasks.ToDo;
 
 public class Parser {
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, FIND, UNKNOWN
     }
 
     /**
@@ -24,7 +24,6 @@ public class Parser {
         }
         String commandToken = userInputList[0].toUpperCase();
         Command returnValue;
-
         switch (commandToken) {
         case "TODO":
             returnValue = Command.TODO;
@@ -53,8 +52,12 @@ public class Parser {
         case "SAVE":
             returnValue = Command.SAVE;
             break;
+        case "FIND":
+            returnValue = Command.FIND;
+            break;
         default:
             returnValue = Command.UNKNOWN;
+            break;
         }
 
         return returnValue;
@@ -220,5 +223,14 @@ public class Parser {
             throw new Errors.CorruptedSaveException();
         }
         return currentTask;
+    }
+
+    public static String parseFind(String findString) throws Errors.InvalidFindException {
+        String[] findList = findString.split(" ", 2);
+        if (findList.length == 1) {
+            throw new Errors.InvalidFindException();
+        }
+
+        return findList[1];
     }
 }
