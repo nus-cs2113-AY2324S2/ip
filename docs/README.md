@@ -19,14 +19,17 @@ Porato is a **desktop app for managing tasks using a Command Line Interface**.
 
 ## Quick start
 1. Ensure you have java 11 installed in your computer.
-2. Download the ip.jar file from [here]().
+2. Download the ip.jar file from [here](https://github.com/daryltay415/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the home folder for the Porato.
 4. Open a command terminal, `cd` into the same folder that you the jar file in, and use the `jave -jar ip.jar` command to run the application.
 5. Type the command into the command prompt and press Enter to execute it. e.g. typing `help` and then pressing enter will list out all the available commands the user can input into the command prompt.
 6. Refer to the Features below for details of each command
 ## Features
 
-
+> [!NOTE] about the command format :  
+> * The words that are in `UPPER_CASE` represents the parameters that the users are required to input
+> e.g. `todo TASK`, `TASK` is a parameter which can be used as `todo add me`.
+> * Commands such as `help`, `list` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. e.g. `help 123` will just be intepreted as `help`.
 ### Viewing help : `help`
 
 Shows a list of commands the user can input
@@ -98,7 +101,7 @@ Expected outcome :
 
 ### Adding a event task : `event`
 
-Adds a event task into the task list
+Adds an event task into the task list
 
 Format : `event TASK /from START_DATE /to END_DATE`
 
@@ -176,7 +179,10 @@ Examples of usage :
 Expected outcome :
 
 ```
-to be continued
+    ____________________________________________________________
+     Here are the relevant tasks in your list:
+     1.[T][ ] fix computer
+    ____________________________________________________________
 ```
 ### Marking a task : `mark`
 
