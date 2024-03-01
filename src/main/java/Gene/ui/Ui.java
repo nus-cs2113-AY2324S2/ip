@@ -21,6 +21,7 @@ public class Ui {
         printLineSeparation();
         System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
+        System.out.println(System.lineSeparator() + "Tip: type <help> to see a list of commands!");
         printLineSeparation();
 
         // Read user input in a loop

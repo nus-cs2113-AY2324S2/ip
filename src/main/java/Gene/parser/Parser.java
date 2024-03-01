@@ -71,7 +71,7 @@ public class Parser {
 
             default:
                 Ui.printLineSeparation();
-                System.out.println("Please add a valid command:");
+                System.out.println("ERROR: Please add a valid command:");
                 System.out.println("- list");
                 System.out.println("- todo <Task Description>");
                 System.out.println("- deadline <Task Description> /by <yyyy-MM-dd HHmm>");
