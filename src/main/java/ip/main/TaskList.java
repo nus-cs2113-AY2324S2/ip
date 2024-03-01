@@ -7,19 +7,37 @@ import ip.task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Contains the list of task
+ */
 public class TaskList {
     private static ArrayList<Task> tasks;
     private static Ui ui;
 
+    /**
+     * Constructor to initialise the tasks and ui attributes
+     *
+     * @param ui the user interface interacting with the user
+     */
     public TaskList(Ui ui) {
         tasks = new ArrayList<>();
         TaskList.ui = ui;
     }
 
+    /**
+     * Returns the size of the task list
+     *
+     * @return the number of tasks in the list
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Adds a new task to the task list
+     *
+     * @param task the new task to be added to the list
+     */
     public void add(Task task) {
         tasks.add(task);
     }
@@ -28,6 +46,10 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Prints the entire list of tasks, including details of
+     * the task type, whether it is done, and the description
+     */
     public void printTaskList() {
         ui.print("Here is your list of tasks:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -35,6 +57,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Processes the user's input to identify the index that
+     * needs to be marked as completed and marks the task
+     *
+     * @param line the user's input
+     * @return whether a task has been successfully marked
+     */
     public boolean markTask(String line) {
         int indexMarked;
         try {
@@ -52,6 +81,13 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Processes the user's input to identify the index that
+     * needs to be unmarked as not completed and unmarks the task
+     *
+     * @param line the user's input
+     * @return whether a task has been successfully unmarked
+     */
     public boolean unmarkTask(String line) {
         int indexUnmarked;
         try {
@@ -69,6 +105,13 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Processes the user's input to identify the index that
+     * needs to be deleted and removes the task
+     *
+     * @param line the user's input
+     * @return whether the task has been successfully deleted
+     */
     public boolean deleteTask(String line) {
         int indexDeleted;
         try {
@@ -86,6 +129,12 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Adds a Todo to the list of tasks
+     *
+     * @param line the user's input
+     * @return whether the Todo has been successfully added
+     */
     public boolean addTodo(String line) {
         try {
             tasks.add(new Todo(line));
@@ -98,6 +147,12 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Adds a Deadline to the list of tasks
+     *
+     * @param line the user's input
+     * @return whether the Deadline has been successfully added
+     */
     public boolean addDeadline(String line) {
         try {
             tasks.add(new Deadline(line));
@@ -110,6 +165,12 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Adds an Event to the list of tasks
+     *
+     * @param line the user's input
+     * @return whether the Event has been successfully added
+     */
     public boolean addEvent(String line) {
         try {
             tasks.add(new Event(line));
