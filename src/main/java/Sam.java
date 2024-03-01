@@ -90,6 +90,7 @@ public class Sam {
                 case "delete":
                     // Deleting a task
                     listIndex = Integer.parseInt(words[1]) - 1;
+					indexCheck(listIndex, numItems);
                     if (listIndex < 0 || listIndex >= numItems) {
                         System.out.println("That was outta range. Use list to see the current tasks.");
                     } else {
