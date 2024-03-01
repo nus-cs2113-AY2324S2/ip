@@ -36,9 +36,9 @@ public class ConvoCraft {
             userInterface.startAtomicSection();
             logicManager.processCommand(userInterface.getCurrentInput());
 
-            userInterface.lockUI(true);
+            userInterface.setUILockStatus(true);
             listKeeper.saveTasksData(saveManager);
-            userInterface.lockUI(false);
+            userInterface.setUILockStatus(false);
 
             userInterface.endAtomicSection();
         }

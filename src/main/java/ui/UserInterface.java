@@ -13,7 +13,11 @@ public class UserInterface {
         this.isUILocked = false;
     }
 
-    public void lockUI(boolean isUILocked) {
+    /**
+     * Locks or unlocks the UI.
+     * @param isUILocked whether the UI is to be locked or unlocked
+     */
+    public void setUILockStatus(boolean isUILocked) {
         this.isUILocked = isUILocked;
     }
 
