@@ -1,2 +1,5 @@
 T/ 1 / help me
 E/ 1 / killer / 6pm friday / 6pm monday
+T/ 0 / eat
+T/ 1 / eat spagethhi
+T/ 0 / eat ice cream
