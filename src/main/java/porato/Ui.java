@@ -1,13 +1,15 @@
-package duke;
+package porato;
 
-import duke.tasks.Task;
-import duke.tasks.TaskList;
+import porato.tasks.Task;
+import porato.tasks.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the user interface of the bot
+ * It contains all the responses of the bot to the user when the user inputs a command
+ */
 public class Ui {
-
-
 
     /**
      * Prints a line
@@ -22,12 +24,12 @@ public class Ui {
     public void printCommands(){
         printLine();
         System.out.println("    These are the commands available:");
-        System.out.println("    list\n    mark\n    unmark\n    todo\n    deadline\n    event\n    delete\n    help");
+        System.out.println("    list\n    mark INDEX\n    unmark INDEX\n    todo TASK\n    deadline TASK /by DATE\n    event TASK /from START_DATE /to END_DATE\n    delete INDEX\n    help");
         printLine();
     }
 
     /**
-     * Greets the user when the program starts
+     * Prints out a greeting to the user
      */
     public void printGreeting(){
         printLine();
@@ -37,7 +39,7 @@ public class Ui {
     }
 
     /**
-     * Shows the user what task has been added
+     * Prints what task has been added
      */
     public void printAddTask(Task newTask, TaskList taskList){
         System.out.println("     Got it. I've added this task:");
@@ -57,8 +59,8 @@ public class Ui {
 
     /**
      * Prints out the marked task
-     * @param tasks the array of tasks
-     * @param taskNumber the task number
+     * @param tasks The array of tasks
+     * @param taskNumber The task number
      */
     public void printMarkTaskAsDone(ArrayList<Task> tasks, int taskNumber){
         System.out.println("     Nice! I've marked this task as done:");
@@ -67,8 +69,8 @@ public class Ui {
 
     /**
      * Prints the removed task
-     * @param tasks the array of tasks
-     * @param removedTask the removed task
+     * @param tasks The array of tasks
+     * @param removedTask The removed task
      */
     public void printRemoveTask(ArrayList<Task> tasks, Task removedTask){
         System.out.println("     Fine! I've removed this task:");
@@ -89,7 +91,7 @@ public class Ui {
      * Prints the duke error message
      * @param e The duke exception error
      */
-    public void printDukeError(DukeException e){
+    public void printPoratoError(PoratoException e){
         System.out.println(e.getMessage());
     }
 

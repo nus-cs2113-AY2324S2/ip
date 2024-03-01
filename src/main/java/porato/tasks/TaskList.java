@@ -1,10 +1,14 @@
-package duke.tasks;
+package porato.tasks;
 
-import duke.DukeException;
-import duke.Ui;
+import porato.PoratoException;
+import porato.Ui;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
+
+/**
+ * Represents the list of tasks the user has.
+ * It contains methods to add, remove, search, check and uncheck tasks.
+ */
 public class TaskList {
     /** Array of tasks */
     private ArrayList<Task> tasks;
@@ -26,9 +30,9 @@ public class TaskList {
      *
      * @param taskNumber The task number
      */
-    public void removeTask(int taskNumber, Ui ui) throws DukeException{
+    public void removeTask(int taskNumber, Ui ui) throws PoratoException{
         if(taskNumber > tasks.size()){
-            throw new DukeException("Can't delete task as task is not found!");
+            throw new PoratoException("Can't delete task as task is not found!");
         }
         int indexOfTask = taskNumber - 1;
         Task removedTask = tasks.get(indexOfTask);
@@ -40,9 +44,9 @@ public class TaskList {
      * Checks the task in the task list
      * @param taskNumber The task number
      */
-    public void checkTask(int taskNumber) throws DukeException{
+    public void checkTask(int taskNumber) throws PoratoException{
         if(taskNumber > tasks.size()){
-            throw new DukeException("Task not found!");
+            throw new PoratoException("Task not found!");
         }
         tasks.get(taskNumber-1).setTaskStatus(true);
 
@@ -52,9 +56,9 @@ public class TaskList {
      * Unchecks the task in the task list
      * @param taskNumber The task number
      */
-    public void uncheckTask(int taskNumber) throws DukeException{
+    public void uncheckTask(int taskNumber) throws PoratoException{
         if(taskNumber > tasks.size()){
-            throw new DukeException("Task not found!");
+            throw new PoratoException("Task not found!");
         }
         tasks.get(taskNumber-1).setTaskStatus(false);
     }

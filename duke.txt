@@ -1,5 +1,11 @@
 T/ 1 / help me
 E/ 1 / killer / 6pm friday / 6pm monday
+<<<<<<< HEAD
+T/ 0 / 3
+E/ 1 / kill me / 2pm / 5pm
+D/ 0 / kill it / 6pm
+=======
 T/ 0 / eat
 T/ 1 / eat spagethhi
 T/ 0 / eat ice cream
+>>>>>>> master

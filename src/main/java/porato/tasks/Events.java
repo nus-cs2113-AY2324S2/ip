@@ -1,9 +1,11 @@
-package duke.tasks;
+package porato.tasks;
 
+/**
+ * Represents the event tasks
+ * It has a start date and end date
+ */
 public class Events extends Task{
-    /** Task start date */
     private String startDate;
-    /** Task end date */
     private String endDate;
     public Events(String line, String startDate, String endDate) {
         super(line);

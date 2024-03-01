@@ -1,5 +1,10 @@
-package duke.tasks;
+package porato.tasks;
 
+/**
+ * Represents the deadline tasks.
+ * It inherits from the Task class.
+ * It contains a deadline date
+ */
 public class Deadlines extends Task{
     /** Task deadline */
     private String by;

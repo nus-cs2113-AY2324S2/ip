@@ -1,29 +1,26 @@
-package duke;
+package porato;
 
-import duke.tasks.TaskList;
+import porato.tasks.TaskList;
 import java.io.FileNotFoundException;
-public class Duke {
-    // Creates a class of TaskList
+
+public class Porato {
     private TaskList taskList;
-    // Creates a class of Storage
     private Storage storage;
-    // Creates a class of Ui
     private Ui ui;
-    // Creates a class of Parser
     private Parser parser;
 
-    public Duke(){
+    public Porato(){
         parser = new Parser();
         taskList = new TaskList();
-        storage = new Storage("duke.txt");
+        storage = new Storage("porato.txt");
         ui = new Ui();
-        // Loads Duke.txt file
+        // Loads porato.txt file
         try{
             storage.loadFile(taskList);
         } catch (FileNotFoundException e){
             ui.printFileNotFound();
-        } catch (DukeException e) {
-            ui.printDukeError(e);
+        } catch (PoratoException e) {
+            ui.printPoratoError(e);
         }
     }
 
@@ -41,7 +38,7 @@ public class Duke {
     }
     public static void main(String[] args) {
         // Runs the bot
-        new Duke().runBot();
+        new Porato().runBot();
     }
 }
 
