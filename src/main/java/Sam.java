@@ -55,7 +55,6 @@ public class Sam {
                     markCheck(listIndex, numItems);
                     records[listIndex].setStatus(true);
                     System.out.println("Nice! I've marked this task as done:\n" + records[listIndex]);
-                    saveTasksToFile(records, numItems);
                     break;
                 case "unmark":
                     // Marking a task as not done
@@ -63,7 +62,6 @@ public class Sam {
                     markCheck(listIndex, numItems);
                     records[listIndex].setStatus(false);
                     System.out.println("OK, I've marked this task as not done yet:\n" + records[listIndex]);
-                    saveTasksToFile(records, numItems);
                     break;
                 case "todo":
                     // Adding a new todo task
@@ -71,7 +69,6 @@ public class Sam {
                     records[numItems] = new Todo(todoDescription);
                     System.out.println("Got it. I've added this task:\n" + records[numItems]);
                     numItems++;
-                    saveTasksToFile(records, numItems);
                     break;
                 case "deadline":
                     // Adding a new deadline task
@@ -80,7 +77,6 @@ public class Sam {
                     records[numItems] = new Deadline(deadlineParts[0], deadlineParts[1]);
                     System.out.println("Got it. I've added this task:\n" + records[numItems]);
                     numItems++;
-                    saveTasksToFile(records, numItems);
                     break;
 
                 case "event":
@@ -90,7 +86,6 @@ public class Sam {
                     records[numItems] = new Event(eventParts[0], eventParts[1], eventParts[2]);
                     System.out.println("Got it. I've added this task:\n" + records[numItems]);
                     numItems++;
-                    saveTasksToFile(records, numItems);
                     break;
                 case "delete":
                     // Deleting a task
@@ -111,6 +106,7 @@ public class Sam {
                     // Invalid command
                     System.out.println("No valid command detected, please try again.");
                 }
+                saveTasksToFile(records, numItems);
                 printLine();
                 line = in.nextLine();
             } catch (InvalidInputException e) {
