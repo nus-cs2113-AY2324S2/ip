@@ -11,8 +11,19 @@ import Nick.command.TodoCommand;
 import Nick.command.DeadlineCommand;
 import Nick.command.EventCommand;
 
+/**
+ * Creates a parser object which parse the input command from the user.
+ * Subsequently, it returns the corresponding command object.
+ */
 public class Parser {
 
+    /**
+     * Parse the input command from the user and returns the corresponding command object.
+     *
+     * @param fullCommand Input command from user.
+     * @return Corresponding command object.
+     * @throws NickException Exception object.
+     */
     public static Command parse(String fullCommand) throws NickException {
         String[] commands = fullCommand.split(" ", 2);
         String command = commands[0];

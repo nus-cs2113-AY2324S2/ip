@@ -6,6 +6,10 @@ import Nick.ui.Ui;
 import Nick.task.Event;
 import Nick.task.Task;
 
+/**
+ * Represents the Event command which inherits from the Command class.
+ * It includes the execute method which adds an Event task to the ArrayList tasks.
+ */
 public class EventCommand extends Command {
     String taskName;
     String arguments;
@@ -14,6 +18,14 @@ public class EventCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Executes by creating an Event task from the task description, /from and /to arguments.
+     * Adds the created Event task into ArrayList tasks and prints the add tasks message.
+     *
+     * @param tasks ArrayList of Task objects.
+     * @param ui Ui object.
+     * @param storage Storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int fromIndex = arguments.indexOf("/from");

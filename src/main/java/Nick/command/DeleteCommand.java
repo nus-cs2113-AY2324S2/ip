@@ -5,6 +5,10 @@ import Nick.task.TaskList;
 import Nick.ui.Ui;
 import Nick.task.Task;
 
+/**
+ * Represents the Delete command which inherits from the Command class.
+ * It includes the execute method which removes a task from the ArrayList tasks.
+ */
 public class DeleteCommand extends Command {
     String arguments;
 
@@ -12,6 +16,13 @@ public class DeleteCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Executes the command by deleting the task from ArrayList task based on integer from argument.
+     *
+     * @param tasks ArrayList of Task objects.
+     * @param ui Ui object.
+     * @param storage Storage object.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int number = Integer.parseInt(arguments);
