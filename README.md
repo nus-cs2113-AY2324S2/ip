@@ -63,7 +63,7 @@ Examples:
 Examples:
 
 * `find read book`
-* `find 2023.10.23`
+* `find /at 2023.10.23`
 
 ### Saving the tasks
 
