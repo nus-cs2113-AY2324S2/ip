@@ -17,9 +17,9 @@ public class DeadlineCommand {
      * Execute the deadline command, adding the deadline task into
      * the user task list.
      *
-     * @param command User input of the dateline command.
+     * @param command  User input of the dateline command.
      * @param taskList User list of task.
-     * @throws GeneException if there is any formatting issues.
+     * @throws GeneException If there are any formatting issues.
      */
     public static void execute(String command, TaskList taskList) throws GeneException {
         String[] parts = command.replaceFirst("\\S+", "").split("/by");
@@ -32,7 +32,6 @@ public class DeadlineCommand {
         String by = parts[1].trim();
 
         LocalDateTime deadlineDateTime = parseDeadlineDateTime(by);
-
         Deadline newDeadline = new Deadline(description, deadlineDateTime);
         taskList.addTask(newDeadline);
     }

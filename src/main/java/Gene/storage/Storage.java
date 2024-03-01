@@ -26,6 +26,7 @@ public class Storage {
 
     /**
      * Loads the task list data from the text file and returns the task list.
+     * Creates a new storage text file if there is no existing file.
      *
      * @return The task list with the loaded tasks.
      */
@@ -50,7 +51,6 @@ public class Storage {
                 taskList.add(task);
             }
             br.close();
-
         } catch (IOException | GeneException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
@@ -60,27 +60,27 @@ public class Storage {
     /**
      * Create new tasks objects based on the task type to be added in the task list.
      *
-     * @param parts The task data from the task list to be processed.
+     * @param taskData The task data from the task list to be processed.
      * @return A task object based on the task type.
      * @throws GeneException if there is any unknown task type.
      */
-    private Task getTask(String[] parts) throws GeneException {
-        String taskType = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
+    private Task getTask(String[] taskData) throws GeneException {
+        String taskType = taskData[0];
+        boolean isDone = taskData[1].equals("1");
+        String description = taskData[2];
         Task task;
         switch (taskType) {
             case "T":
                 task = new Todo(description);
                 break;
             case "D":
-                String by = parts[3];
+                String by = taskData[3];
                 LocalDateTime deadlineDateTime = parseDateTime(by);
                 task = new Deadline(description, deadlineDateTime);
                 break;
             case "E":
-                String from = parts[3];
-                String to = parts[4];
+                String from = taskData[3];
+                String to = taskData[4];
                 LocalDateTime eventStartDateTime = parseDateTime(from);
                 LocalDateTime eventEndDateTime = parseDateTime(to);
                 task = new Event(description, eventStartDateTime, eventEndDateTime);

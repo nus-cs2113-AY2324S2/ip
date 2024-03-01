@@ -3,6 +3,7 @@ package Gene.command;
 import Gene.task.Event;
 import Gene.GeneException;
 import Gene.task.TaskList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,9 +15,9 @@ public class EventCommand {
     /**
      * Execute the event command, adding the event task into the user task list.
      *
-     * @param command User input of the event command.
+     * @param command  User input of the event command.
      * @param taskList User list of tasks.
-     * @throws GeneException if there is any formatting issues
+     * @throws GeneException If there are any formatting issues.
      */
     public static void execute(String command, TaskList taskList) throws GeneException {
         String[] parts = command.replaceFirst("\\S+", "").split("/");
@@ -28,7 +29,6 @@ public class EventCommand {
         String from = parts[1].replace("from", "").trim();
         String to = parts[2].replace("to", "").trim();
 
-        // Parse the event start and end date and time
         LocalDateTime eventStartDateTime = parseDateTime(from);
         LocalDateTime eventEndDateTime = parseDateTime(to);
 

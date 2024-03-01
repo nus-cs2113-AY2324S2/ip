@@ -3,7 +3,7 @@ package Gene;
 import Gene.ui.Ui;
 
 /**
- * Represents the Gene chatbot application
+ * Represents the Gene chatbot application.
  * Gene is a chatbot that helps the user with task management.
  */
 public class Gene {

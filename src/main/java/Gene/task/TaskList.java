@@ -16,6 +16,7 @@ import static Gene.command.MarkCommand.isNumeric;
 public class TaskList {
     private ArrayList<Task> toDoList = new ArrayList<>();
     private final Storage fileData = new Storage();
+
     public TaskList() {
         toDoList = fileData.loadTasksFromFile();
     }
@@ -96,7 +97,7 @@ public class TaskList {
         }
         Ui.printLineSeparation();
     }
-    
+
     public void findListItems(String keyword) {
         Ui.printLineSeparation();
         System.out.println("Here are the matching tasks in your list:");
@@ -105,7 +106,7 @@ public class TaskList {
             String[] phrases = task.description.split(" ");
             for (String words : phrases) {
                 if (Objects.equals(words, keyword)) {
-                    System.out.println((listOrder+1) + ". " + task);
+                    System.out.println((listOrder + 1) + ". " + task);
                     listOrder++;
                     break;
                 }
@@ -121,7 +122,7 @@ public class TaskList {
      * Delete a task from the task list.
      *
      * @param command Delete command from the user input.
-     * @throws GeneException if there is any formatting issues.
+     * @throws GeneException If there are any formatting issues.
      */
     public void deleteListItem(String command) throws GeneException {
         String[] parts = command.split(" ");

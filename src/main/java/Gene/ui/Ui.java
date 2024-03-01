@@ -7,6 +7,10 @@ import Gene.task.TaskList;
 
 import java.util.Scanner;
 
+
+/**
+ * Represents the user interface related functionalities such as prompting for user input
+ */
 public class Ui {
     private static final String BOT_NAME = "Gene";
     private static final String SEPARATION = "____________________________________________________________";
@@ -17,6 +21,10 @@ public class Ui {
         System.out.println(SEPARATION);
     }
 
+    /**
+     * Prints the greeting message when the user first starts the Gene Bot.
+     * Continuously prompt for user input to be parsed as a command.
+     */
     public void startChat() {
         printLineSeparation();
         System.out.println("Hello! I'm " + BOT_NAME);
@@ -33,6 +41,7 @@ public class Ui {
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             }
+
             try {
                 Parser.processCommand(taskList, userInput);
             } catch (GeneException e) {
