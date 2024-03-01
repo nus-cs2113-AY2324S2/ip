@@ -16,11 +16,11 @@ ConvoCraft is a CLI application to help users manage their tasks.
 
 ## Quick Start
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest `ConvoCraft.jar` from [here](https://github.com/STeng618/ip/releases)
+2. Download the latest `CS2113_IP.jar` from [here](https://github.com/STeng618/ip/releases)
 3. Copy the file to the folder you want to use as the home folder for your ConvoCraft.
 4. Run the jar file using the following command:
    ```
-   java -jar ConvoCraft.jar
+   java -jar CS2113_IP.jar
    ```
 
 ## Features
