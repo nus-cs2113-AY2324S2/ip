@@ -75,14 +75,14 @@ public class Storage {
                 Task task = null;
                 switch (data[0].trim()) {
                 case "T":
-                    task = new Todo(" " + data[2].trim());
+                    task = new Todo(data[2].trim());
                     break;
                 case "D":
-                    task = new Deadline(" " + data[2].trim() + " ",
+                    task = new Deadline(data[2].trim() + " ",
                             " " + data[3].trim() + " ");
                     break;
                 case "E":
-                    task = new Events(" " + data[2].trim(),
+                    task = new Events(data[2].trim(),
                             " " + data[3].trim() + " ", " " + data[4].trim());
                     break;
                 default:

@@ -2,7 +2,11 @@ package Parser;
 
 import NewExceptions.EmptyArgumentException;
 import NewExceptions.EmptyStatementException;
-import Tasking.*;
+
+import Tasking.TaskList;
+import Tasking.Todo;
+import Tasking.Davvy;
+import Ui.Ui;
 
 import java.io.IOException;
 
@@ -72,6 +76,9 @@ public class Parser {
             IOException {
         String commandType = input[0];
         String commandArg = input[1];
+        if (!commandType.equalsIgnoreCase("bye")) {
+            Ui.printLine();
+        }
         int taskIndex;
 
         switch (commandType) {
@@ -116,6 +123,9 @@ public class Parser {
             } else {
                 System.out.println("Please enter a number!");
             }
+            break;
+        case "find":
+            TaskList.findList(commandArg);
             break;
         default:
             System.out.println("Unknown Command, type something I know please!");
