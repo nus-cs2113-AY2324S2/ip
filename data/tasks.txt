@@ -1,4 +1,5 @@
 E | 1 | work /from 2pm /to 4pm
 T | 0 | hi
-D | 1 | soccer practice /by Sunday 2359
 T | 1 | say hi to mom
+D | 0 | run24k /by 2024-12-05 1830
+D | 0 | run12k /by Sunday 2359
