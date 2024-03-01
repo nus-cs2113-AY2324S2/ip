@@ -109,7 +109,7 @@ public class Sam {
                 saveTasksToFile(records, numItems);
                 printLine();
                 line = in.nextLine();
-            } catch (InvalidInputException e) {
+            } catch (SamException e) {
                 System.out.println("Try again!");
                 printLine();
                 line = in.nextLine(); // Prompt for new input
@@ -208,7 +208,7 @@ public class Sam {
             } else {
                 System.out.println("Hey lil bro, you have only " + numItems + " things in the list.");
             }
-            throw new InvalidInputException();
+            throw new SamException();
         }
     }
 
