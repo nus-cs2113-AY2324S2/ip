@@ -71,16 +71,16 @@ public class Parser {
      * @return String for the starting time of an event.
      */
     public static String extractStartTime(String userInput){
-        String[] words = userInput.split(" ");
-        String startTime = null;
+        int firstSlashIndex = userInput.indexOf("/");
+        int secondSlashIndex = userInput.indexOf("/", firstSlashIndex + 1);
 
-        for (String word : words) {
-            if (word.startsWith("/")) {
-                startTime = word;
-                break;
-            }
+        if (firstSlashIndex != -1 && secondSlashIndex != -1) {
+            return userInput.substring(firstSlashIndex + 1, secondSlashIndex).trim();
+        } else if (firstSlashIndex != -1) {
+            return userInput.substring(firstSlashIndex + 1).trim();
         }
-        return startTime.replace("/", "");
+
+        return "";
     }
 
 
@@ -91,19 +91,10 @@ public class Parser {
      * @return String for the ending time of an event.
      */
     public static String extractEndTime(String userInput) {
-        String[] words = userInput.split(" ");
-        int importantPartsFound = 0;
-        String endTime = null;
-
-        for (String word : words) {
-            if (word.startsWith("/")) {
-                importantPartsFound++;
-                if (importantPartsFound == 2) {
-                    endTime = word;
-                    break;
-                }
-            }
+        int secondSlashIndex = userInput.indexOf("/", userInput.indexOf("/") + 1);
+        if (secondSlashIndex != -1) {
+            return userInput.substring(secondSlashIndex + 1).trim();
         }
-        return endTime.replace("/", "");
+        return "";
     }
 }
