@@ -1,4 +1,4 @@
-# User Guide
+# User Guide for Jeff
 This is Jeff, a chatbot that keeps track of your daily tasks.
 This guide is a simple user guide to get you started with Jeff.
 
