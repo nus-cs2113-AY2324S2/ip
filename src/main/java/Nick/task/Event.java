@@ -1,4 +1,4 @@
-package command;
+package Nick.task;
 
 public class Event extends Task {
     protected String symbol = "E";

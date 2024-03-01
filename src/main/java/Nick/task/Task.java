@@ -1,4 +1,4 @@
-package command;
+package Nick.task;
 
 public class Task {
     protected boolean isDone = false;

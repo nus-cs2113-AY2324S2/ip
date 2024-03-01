@@ -1,4 +1,4 @@
-package command;
+package Nick.task;
 
 public class Deadline extends Task {
     protected String symbol = "D";
