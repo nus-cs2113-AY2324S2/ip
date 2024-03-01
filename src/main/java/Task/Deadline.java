@@ -1,11 +1,16 @@
 package Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 /**
  * Represents a deadline task in the chatbot application.
  * A deadline task includes a due date in addition to the base task properties.
  */
 public class Deadline extends Task {
-    protected String by; // The deadline date for the task
+    protected LocalDate by; // The deadline date for the task
+    DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM dd uuuu", Locale.ENGLISH);
 
     /**
      * Constructs a new Deadline task with specified name, task number, and deadline date.
@@ -14,7 +19,7 @@ public class Deadline extends Task {
      * @param hasDone The completed status.
      * @param by The deadline date for the task.
      */
-    public Deadline(String name, boolean hasDone, String by) {
+    public Deadline(String name, boolean hasDone, LocalDate by) {
         super(name, hasDone);
         this.by = by;
     }
@@ -53,11 +58,11 @@ public class Deadline extends Task {
         }else{
             System.out.print("[ ] ");
         }
-        System.out.println(name + " (by: " + by +")");
+        System.out.println(name + " (by: " + by.format(dTF) +")");
     }
 
     @Override
     public String toString() {
-        return "D | " + (hasDone? 1 : 0) + " | " + name + " | " + by;
+        return "D | " + (hasDone? 1 : 0) + " | " + name + " | " + by.toString();
     }
 }

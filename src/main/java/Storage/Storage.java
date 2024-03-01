@@ -7,8 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Storage {
     private ArrayList<Task> listRead() throws IOException, ArrayIndexOutOfBoundsException {
@@ -30,11 +30,11 @@ public class Storage {
                 taskList.add(new Todo(taskName,hasDone));
                 break;
             case "D":
-                taskList.add(new Deadline(taskName, hasDone, result[3]));
+                taskList.add(new Deadline(taskName, hasDone, LocalDate.parse(result[3])));
                 break;
             case "E":
                 String[] duration = result[3].split(" - ");
-                taskList.add(new Event(taskName, hasDone, duration[0],duration[1]));
+                taskList.add(new Event(taskName, hasDone, LocalDate.parse(duration[0]), LocalDate.parse(duration[1])));
                 break;
             default:
                 break;

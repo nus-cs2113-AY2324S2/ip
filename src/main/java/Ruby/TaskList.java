@@ -1,7 +1,8 @@
 package Ruby;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import Exception.*;
 import Task.*;
 
@@ -13,6 +14,7 @@ import Task.*;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
+
 
     /**
      * Adds a task to the task list based on user input.
@@ -28,26 +30,49 @@ public class TaskList {
             print("Ruby requires more details about your task.");
             return;
         }
+
         String[] inputSplitBySlash = userInput.split(" /");
+
         switch (userInput.split(" ")[0].toLowerCase()){
         case "todo":
             taskList.add(new Todo(userInput.substring(5), false));
+            printTaskAddMessage();
             break;
         case "deadline":
-            String name = inputSplitBySlash[0].substring(9);
-            String by = inputSplitBySlash[1].substring(3);
-            taskList.add(new Deadline(name, false,by));
+            addDeadline(inputSplitBySlash);
             break;
         case "event":
-            name = inputSplitBySlash[0].substring(6);
-            String from = inputSplitBySlash[1].substring(5);
-            String to = inputSplitBySlash[2].substring(3);
-            taskList.add(new Event(name,false, from, to));
+            addEvent(inputSplitBySlash);
             break;
         default:
             break;
         }
-        printTaskAddMessage();
+    }
+
+    private void addEvent(String[] inputSplitBySlash) {
+        String name = inputSplitBySlash[0].substring(6);
+        String fromString = inputSplitBySlash[1].substring(5);
+        String toString = inputSplitBySlash[2].substring(3);
+        try {
+            LocalDate from = LocalDate.parse(fromString);
+            LocalDate to = LocalDate.parse(toString);
+            taskList.add(new Event(name,false, from, to));
+            printTaskAddMessage();
+        }catch (DateTimeException e){
+            print("Sorry, the date you should input as format: yyyy-mm-dd.");
+        }
+    }
+
+    private void addDeadline(String[] inputSplitBySlash) {
+        String name = inputSplitBySlash[0].substring(9);
+        String byString = inputSplitBySlash[1].substring(3);
+        try {
+            LocalDate by = LocalDate.parse(byString);
+            taskList.add(new Deadline(name, false,by));
+            printTaskAddMessage();
+        }catch (DateTimeException e){
+            print("Sorry, the date you should input as format: yyyy-mm-dd.");
+        }
     }
 
     /**
