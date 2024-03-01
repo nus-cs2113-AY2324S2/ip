@@ -97,6 +97,11 @@ public class Logic {
         saveInstance.uploadTasks();
     }
 
+    /**
+     * Prints a list of all tasks that contains a specific keyword.
+     *
+     * @param userInput Raw user input containing a keyword.
+     */
     public void findLogic(String userInput) {
         String keyword = Parser.extractDescription(userInput);
         list.findKeyword(keyword);

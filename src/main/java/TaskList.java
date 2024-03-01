@@ -77,13 +77,13 @@ public class TaskList {
      * @param taskNumber index, with respect to the listed numbers, of a task.
      */
     public void deleteIndex(int taskNumber){
-        userInterface.taskRemovedMessage(taskNumber, tasks.get(taskNumber - 1).getDescription());
+        userInterface.taskRemovedMessage(tasks.get(taskNumber - 1).getDescription(), tasks.size());
         tasks.remove(taskNumber - 1);
     }
 
 
     public void findKeyword(String keyword){
-        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task item : tasks){
             String[] words = item.getDescription().split("\\s+"); //splits at either 1 or 2 spaces
             for (String word : words){

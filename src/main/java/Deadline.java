@@ -3,7 +3,6 @@
  */
 public class Deadline extends Task{
     protected String by;
-    protected static String TYPE = "deadline";
 
     /**
      * Creates an instance of a deadline task with a description, "by" date and a completeness.

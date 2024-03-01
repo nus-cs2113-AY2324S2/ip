@@ -1,3 +1,7 @@
+/**
+ * Defines main class that instantiates the Ui, Storage, Logic and TaskList.
+ * Also handles the logic for the first keyword from the user.
+ */
 public class Jeff {
     public static void main(String[] args) throws JeffException.InvalidKeywordException {
         Ui userInterface = new Ui();

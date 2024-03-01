@@ -27,11 +27,20 @@ public class Storage {
     }
 
 
+    /**
+     * Saves a copy of the current list created by the user.
+     *
+     * @param tasksToSave The list of tasks created by the user
+     */
     public void setSavedList(ArrayList<Task> tasksToSave){
         savedTasks = tasksToSave;
     }
 
-
+    /**
+     * Returns temporarily held list of tasks within the Storage instance.
+     *
+     * @return List of Tasks
+     */
     public ArrayList<Task> getSavedList(){
         return savedTasks;
     }

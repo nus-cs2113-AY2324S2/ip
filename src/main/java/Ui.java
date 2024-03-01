@@ -69,14 +69,13 @@ public class Ui {
     /**
      * Prints out a message indicating a task has been removed from the list
      *
-     * @param taskNumber Index of the task.
      * @param description Description of that task.
+     * @param currentSize Current size of the list.
      */
-    public void taskRemovedMessage(int taskNumber, String description){
-        int index = taskNumber - 1;
+    public void taskRemovedMessage(String description, int currentSize){
         System.out.println("Noted. I've removed this task:");
         System.out.println(description);
-        System.out.println("Now you have " + (taskNumber - 1) + " tasks in the list.");
+        System.out.println("Now you have " + (currentSize - 1) + " tasks in the list.");
     }
 
 
