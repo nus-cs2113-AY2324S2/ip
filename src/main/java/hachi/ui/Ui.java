@@ -1,5 +1,6 @@
 package hachi.ui;
 
+import hachi.data.HachiException;
 import hachi.data.task.Task;
 
 import java.util.ArrayList;
@@ -106,18 +107,28 @@ public class Ui {
 
     public void printTaskList(ArrayList<Task> tasksArrayList) {
         System.out.println("\tThe following are in your list:");
-        tasksArrayList.forEach(task -> {
+        printFromTasksList(tasksArrayList);
+    }
+
+    public void printFileLoadingError () {
+        System.out.println("There was an error finding save files. Creating a new save...");
+    }
+
+    public void printFoundTasks (ArrayList<Task> foundTasksList) throws HachiException {
+        HachiException.checkForEmptyFoundTaskList(foundTasksList);
+        System.out.println("I found these matching tasks in your task list: ");
+        printFromTasksList(foundTasksList);
+    }
+
+    private void printFromTasksList(ArrayList<Task> tasksList) {
+        tasksList.forEach(task -> {
             String taskType = task.getTaskType();
             String statusIcon = task.getStatusIcon();
-            int currentIndex = tasksArrayList.indexOf(task);
+            int currentIndex = tasksList.indexOf(task);
             System.out.print("\t" + (currentIndex + 1) + ": ");
             System.out.print("[" + taskType + "] ");
             System.out.print("[" + statusIcon + "] ");
             System.out.println(task.getName());
         });
-    }
-
-    public void printFileLoadingError () {
-        System.out.println("There was an error finding save files. Creating a new save...");
     }
 }

@@ -5,6 +5,7 @@ import hachi.parser.Parser;
 import hachi.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private final ArrayList<Task> tasksArrayList;
@@ -134,7 +135,24 @@ public class TaskList {
         markOrUnmarkTask(taskNumber - 1, !cleanedInput.contains("UNMARK"));
     }
 
+    /**
+     * Function that adds a task to the task list.
+     *
+     * @param toAdd The task to be added to the task list.
+     */
+
     public void add (Task toAdd) {
         tasksArrayList.add(toAdd);
+    }
+
+    public ArrayList<Task> findTask (String cleanedInput) throws HachiException{
+        int indexOfFind = cleanedInput.indexOf("FIND") + 5;
+        HachiException.checkFindTaskDescription(indexOfFind, cleanedInput);
+
+        String substringToFind = cleanedInput.substring(indexOfFind);
+
+        return (ArrayList<Task>) tasksArrayList.stream()
+                .filter((task -> task.getName().toUpperCase().contains(substringToFind)))
+                .collect(Collectors.toList());
     }
 }

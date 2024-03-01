@@ -2,6 +2,8 @@ package hachi.data;
 
 import hachi.data.task.Task;
 
+import java.util.ArrayList;
+
 /**
  * Represent the error handling class for the chatbot Hachi.
  *
@@ -22,6 +24,9 @@ public class HachiException extends Exception {
     public static final String LIST_OUT_OF_BOUNDS_MESSAGE = "Woah, I'm not so sure if that task exists. You might " +
             "want to check that task number again.";
     public static final String CORRUPTED_SAVE_MESSAGE = "The data stored looks corrupted. Getting rid of it.";
+    public static final String MISSING_FIND_DESCRIPTION_MESSAGE = "What exactly do you want to find? Please state it" +
+            " after '/find'.";
+    public static final String EMPTY_FOUND_TASK_LIST = "Looks like there aren't any tasks like that...";
 
     public HachiException (String errorMessage) {
         super(errorMessage);
@@ -104,8 +109,12 @@ public class HachiException extends Exception {
 
         if (afterFromSubstring.length == 1 || afterToSubstring.length == 1) {
             isMissingDate = true;
-        } else if (afterFromSubstring[1].isBlank() || afterToSubstring[1].isBlank()) {
-            isDateEmpty = true;
+        } else try {
+            if (afterFromSubstring[1].isBlank() || afterToSubstring[1].isBlank()) {
+                isDateEmpty = true;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new HachiException(MISSING_EVENT_START_END_DATE_MESSAGE);
         }
 
         if (indexOfEnd == 2 || indexOfStart == 4 || isMissingDate || isDateEmpty) {
@@ -128,6 +137,33 @@ public class HachiException extends Exception {
             throw new HachiException(LIST_OUT_OF_BOUNDS_MESSAGE);
         }
     }
+
+    public static void checkFindTaskDescription (int indexOfFind, String cleanedInput) throws HachiException {
+        boolean isMissingDescription = false;
+
+        String[] afterFromSubstring = cleanedInput.split("FIND");
+
+        if (afterFromSubstring.length == 1) {
+            isMissingDescription = true;
+        } else try {
+            if (afterFromSubstring[1].isBlank()) {
+                throw new HachiException(MISSING_FIND_DESCRIPTION_MESSAGE);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            isMissingDescription = true;
+        }
+
+        if (isMissingDescription || indexOfFind == 4) {
+            throw new HachiException(MISSING_FIND_DESCRIPTION_MESSAGE);
+        }
+    }
+
+    public static void checkForEmptyFoundTaskList (ArrayList<Task> foundTasksList) throws HachiException{
+        if (foundTasksList.isEmpty()) {
+            throw new HachiException(EMPTY_FOUND_TASK_LIST);
+        }
+    }
+
     @Override
     public String toString() {
         return super.getMessage();

@@ -16,8 +16,8 @@ import java.util.Scanner;
 
 
 public class Storage {
-    private String filePath;
-    private TaskList tasksList;
+    private final String filePath;
+    private final TaskList tasksList;
     protected File folder = new File("hachidata");
 
     public Storage (String filePath) {

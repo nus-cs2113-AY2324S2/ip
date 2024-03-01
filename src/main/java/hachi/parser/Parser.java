@@ -2,8 +2,11 @@ package hachi.parser;
 
 import hachi.data.HachiException;
 import hachi.data.TaskList;
+import hachi.data.task.Task;
 import hachi.data.task.TaskType;
 import hachi.ui.Ui;
+
+import java.util.ArrayList;
 
 /**
  * Parses user input in order to determine instructions for the chatbot.
@@ -11,8 +14,8 @@ import hachi.ui.Ui;
  */
 
 public class Parser {
-    private Ui ui;
-    private TaskList tasksList;
+    private final Ui ui;
+    private final TaskList tasksList;
 
     public Parser (Ui ui, TaskList tasksList) {
         this.ui = ui;
@@ -54,14 +57,19 @@ public class Parser {
             tasksList.addTask(currentTask, userInput, cleanedInput);
             break;
 
-        case "BYE":
-        case "GOODBYE":
-            ui.printGoodbyeMessage();
-            userCommand = "BYE";
+        case "FIND":
+            ArrayList<Task> foundTasksList = tasksList.findTask(cleanedInput);
+            ui.printFoundTasks(foundTasksList);
             break;
 
         case "HELP":
             ui.printHelpMessage();
+            break;
+
+        case "BYE":
+        case "GOODBYE":
+            ui.printGoodbyeMessage();
+            userCommand = "BYE";
             break;
 
         default:
