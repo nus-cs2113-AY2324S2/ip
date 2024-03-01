@@ -1,16 +1,18 @@
 package Blue;
 
+/**
+ * Represents an event that occurs within a certain time.
+ */
 public class Event extends Deadline {
     private String from;
 
-    private String getFrom() {
-        return from;
-    }
-
-    private void setFrom(String from) {
-        this.from = from;
-    }
-
+    /**
+     * A constructor for new Event object.
+     *
+     * @param description A description of the event.
+     * @param from The start of the event.
+     * @param to The end of the event.
+     */
     public Event(String description, String from, String to) {
         super(description, to);
         this.from = from;

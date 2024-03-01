@@ -2,6 +2,10 @@ package Blue;
 
 import java.util.ArrayList;
 
+/**
+ * A task manager that keeps track of all tasks.
+ * Further, it directly acts on this list of tasks as requested by the user.
+ */
 public class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int numTasks = 0;
@@ -11,10 +15,18 @@ public class TaskManager {
     public TaskManager() {
     }
 
+    /**
+     * Instantiates a task manager to perform a request.
+     *
+     * @param request The request this particular instance of task manager is to perform.
+     */
     public TaskManager(Input request) {
         this.request = request;
     }
 
+    /**
+     * Performs the request; saving the new task list to disk after doing so.
+     */
     public void performRequest() {
         switch (request.getCommand()) {
         case list:
@@ -42,6 +54,20 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task Task to add.
+     * @param isNew Indicates whether this task is one newly received from the user, or restored from disk.
+     */
+    public void addTask(Task task, boolean isNew) {
+        tasks.add(task);
+        numTasks += 1;
+        if (isNew) {
+            taskManagerUi.talk("added: " + task.getDescription());
+        }
+    }
+
     private void listTasks() {
         int count = 0;
         for (Task task : tasks) {
@@ -63,7 +89,6 @@ public class TaskManager {
         }
     }
 
-
     private void markTask(int taskIndex) {
         if (taskIndex < 0 || taskIndex >= numTasks) {
             taskManagerUi.talk("Task not found.");
@@ -82,13 +107,5 @@ public class TaskManager {
         taskManagerUi.talk("Task " + tasks.get(taskIndex).getDescription() + " deleted.");
         tasks.remove(taskIndex);
         numTasks -= 1;
-    }
-
-    public void addTask(Task task, boolean isNew) {
-        tasks.add(task);
-        numTasks += 1;
-        if (isNew) {
-            taskManagerUi.talk("added: " + task.getDescription());
-        }
     }
 }
