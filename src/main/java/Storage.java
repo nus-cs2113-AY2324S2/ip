@@ -55,4 +55,29 @@ public class Storage {
             System.out.println("Invalid data format in file.");
         }
     }
+
+    public void saveTasks() {
+        File file = new File("./data/Bart.txt");
+
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Task task: Task.getAllTasks()) {
+                if (task != null) {
+                    String description = task.description;
+                    String mark = task.isDone ? "1" : "0";
+                    String taskType = task.getTaskType().replace("]", "").replace("[", "").trim();
+                    writer.write(taskType + " | " + mark + " | " + description);
+                    if (Deadline.class.isInstance(task)) {
+                        Deadline deadlineTask = (Deadline) task;
+                        writer.write(" | " + deadlineTask.getBy());
+                    } else if (Event.class.isInstance(task)) {
+                        Event eventTask = (Event) task;
+                        writer.write(" | " + eventTask.getFrom() + " | " + eventTask.getTo());
+                    }
+                    writer.write(System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Saving error: " + e.getMessage());
+        }
+    }
 }

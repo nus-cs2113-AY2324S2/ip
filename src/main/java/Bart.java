@@ -1,10 +1,6 @@
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
+
 
 public class Bart {
     private static final String LINE = "____________________________________________________________";
@@ -23,79 +19,8 @@ public class Bart {
         }
         storage.loadTasks(tasksList);
         manageTask();
-        saveTasks();
-        byeUser();
-    }
-
-//    private static void loadTasks() {
-//        try {
-//            File file = new File(FILE_PATH);
-//
-//            Scanner s = new Scanner(file);
-//            while (s.hasNextLine()) {
-//                String line = s.nextLine();
-//                String[] parts = line.split("\\|");
-//
-//                String taskType = parts[0].trim();
-//                boolean isDone = parts[1].trim().equals("1");
-//                String taskDescription = parts[2];
-//
-//                Task task = null;
-//                switch (taskType) {
-//                    case "T":
-//                        task = new Todo("todo" + taskDescription);
-//                        break;
-//                    case "D":
-//                        task = new Deadline("deadline" + taskDescription);
-//                        break;
-//                    case "E":
-//                        task = new Event("event" + taskDescription);
-//                        break;
-//                    default:
-//                        ui.println("Unknown task type: " + taskType);
-//                        continue;
-//                }
-//                if (isDone) {
-//                    task.markAsDone();
-//                }
-//                tasksList.add(task);
-//            }
-//            s.close();
-//        }  catch (ArrayIndexOutOfBoundsException e) {
-//            ui.println("No file loaded, creating new load file");
-//        } catch (FileNotFoundException e) {
-//            ui.println("Data file does not exist. Starting with an empty task list.");
-//        }
-//    }
-
-    private static void saveTasks() {
-        File file = new File("./data/Bart.txt");
-
-        File parentDir = file.getParentFile();
-        if (!parentDir.exists()) {
-            parentDir.mkdirs();
-        }
-
-        try (FileWriter writer = new FileWriter(file)) {
-            for (Task task: Task.getAllTasks()) {
-                if (task != null) {
-                    String description = task.description;
-                    String mark = task.isDone ? "1" : "0";
-                    String taskType = task.getTaskType().replace("]", "").replace("[", "").trim();
-                    writer.write(taskType + " | " + mark + " | " + description);
-                    if (Deadline.class.isInstance(task)) {
-                        Deadline deadlineTask = (Deadline) task;
-                        writer.write(" | " + deadlineTask.getBy());
-                    } else if (Event.class.isInstance(task)) {
-                        Event eventTask = (Event) task;
-                        writer.write(" | " + eventTask.getFrom() + " | " + eventTask.getTo());
-                    }
-                    writer.write(System.lineSeparator());
-                }
-            }
-        } catch (IOException e) {
-            ui.println("Saving error: " + e.getMessage());
-        }
+        storage.saveTasks();
+        ui.byeUser();
     }
 
     public static void manageTask() {
@@ -203,10 +128,6 @@ public class Bart {
         } else {
             ui.println(LINE + "\nInvalid task number.\n" + LINE);
         }
-    }
-
-    private static void byeUser() {
-        ui.println(LINE + "\nBye. Hope to see you again soon!\n" + LINE);
     }
 
     public static void printHelp() {

@@ -17,6 +17,9 @@ public class Ui {
         System.out.println(logo + "\nHello! I'm Bartholomew, but you can call me Bart for short :)");
         System.out.println("What can I do for you?\nType 'help' for a list of available commands!\n" + LINE);
     }
+    public void byeUser() {
+        System.out.println(LINE + "\nBye. Hope to see you again soon!\n" + LINE);
+    }
 
     public void println(String s) {
         System.out.println(s);
