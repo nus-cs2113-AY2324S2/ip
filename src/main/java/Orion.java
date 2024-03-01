@@ -31,8 +31,10 @@ public class Orion {
             handleDeadline(input);
         } else if (input.startsWith("event")) {
             handleEvent(input);
-        } else if ("list".equals(input)) {
+        } else if (input.equals("list")) {
             listTasks();
+        } else if (input.startsWith("delete")) {
+            deleteTask(input);
         } else {
             throw new OrionException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -75,6 +77,19 @@ public class Orion {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    private static void deleteTask(String input) throws OrionException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]) - 1; // Convert to zero-based index
+            Task removedTask = tasks.remove(index); // This will throw IndexOutOfBoundsException if the index is invalid
+            System.out.println("Noted. I've removed this task:\n  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new OrionException("Sorry, but there's no task with that number.");
+        } catch (NumberFormatException e) {
+            throw new OrionException("I need a number to know which task to delete.");
         }
     }
 
