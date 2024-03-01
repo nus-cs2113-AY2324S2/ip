@@ -3,12 +3,22 @@ package ip.main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Contains the entry point of the chatbot program
+ */
 public class Duke {
     private static Storage storage;
     private static Ui ui = new Ui();
     private static Parser parser = new Parser();
     private static TaskList tasks = new TaskList(ui);
 
+    /**
+     * The entry point of the application.
+     * The bot introduces itself and loads previously stored data
+     * before the user can start giving instructions
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         ui.introduce();
         try {
@@ -28,6 +38,11 @@ public class Duke {
         readInputAndExecute();
     }
 
+    /**
+     * Repeatedly reads in the user's input and execute the commands
+     * given, updating the data file when needed.
+     * Stops when the user says "bye"
+     */
     private static void readInputAndExecute() {
         String line;
         while (true) {
