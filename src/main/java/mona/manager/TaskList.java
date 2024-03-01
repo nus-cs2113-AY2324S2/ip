@@ -9,6 +9,10 @@ import mona.util.Constants;
 
 import java.util.ArrayList;
 
+/**
+ * Manages the list of tasks. Contains methods to update the values in the list, based on the
+ * user commands.
+ */
 public class TaskList {
     public static int noOfTasks;
     protected ArrayList<Task> tasks;
@@ -21,7 +25,11 @@ public class TaskList {
         this.tasks = tasks;
         noOfTasks = tasks.size();
     }
-
+    /**
+     * Executes the given command to update the task list accordingly.
+     *
+     * @param commandTypeAndParams A String array containing the command type and its parameters.
+     */
     public void executeCommand(String[] commandTypeAndParams) {
         String commandType = commandTypeAndParams[Constants.INDEX_COMMAND_TYPE];
 
