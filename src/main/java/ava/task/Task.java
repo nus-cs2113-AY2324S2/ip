@@ -4,24 +4,14 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    private static int numberOfTasks = 0;
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        if (description.equals("list") || description.contains("mark")) {
-            return;
-        }
-        numberOfTasks += 1;
     }
 
     public Task(String description, boolean isCompleted) {
         this.description = description;
         this.isDone = isCompleted;
-        if (description.equals("list") || description.contains("mark")) {
-            return;
-        }
-        numberOfTasks += 1;
     }
 
     @Override
@@ -44,9 +34,5 @@ public class Task {
 
     public String getDescription() {
         return description;
-    }
-
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
     }
 }
