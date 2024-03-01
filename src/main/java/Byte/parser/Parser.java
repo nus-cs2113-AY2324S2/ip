@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Parses user input and performs corresponding actions on tasks.
+ */
 public class Parser {
     private static final int TASK_TYPE_INDEX = 0;
     private static final int STATUS_INDEX = 1;
@@ -20,6 +23,14 @@ public class Parser {
     private static final int EVENT_START_TIME_INDEX = 3;
     private static final int EVENT_END_TIME_INDEX = 4;
 
+    /**
+     * Parses user input and performs corresponding actions on tasks.
+     *
+     * @param userInput The user input to parse.
+     * @param tasks     The task list on which to perform actions.
+     * @return A string representing the response to the user input.
+     * @throws ByteException If an error occurs during parsing or task handling.
+     */
     public static String parse(String userInput, TaskList tasks) throws ByteException {
         String[] parts = userInput.split(" ", 2);
         String command = parts[0];
@@ -46,6 +57,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a task from a string representation.
+     *
+     * @param line The string representation of the task.
+     * @return The parsed task.
+     * @throws ByteException If an error occurs during parsing.
+     */
     public static Task parseTaskFromLine(String line) throws ByteException {
         String[] parts = line.split(" \\| ");
         String type = parts[TASK_TYPE_INDEX];
@@ -68,10 +86,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the user input is an exit command.
+     *
+     * @param userInput The user input to check.
+     * @return true if the input is an exit command, otherwise false.
+     */
     public static boolean isExitCommand(String userInput) {
         return userInput.equals("bye");
     }
 
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @param tasks The task list containing the tasks to be listed.
+     * @return A string representing the list of tasks.
+     */
     private static String listTasks(TaskList tasks) {
         StringBuilder taskListBuilder = new StringBuilder();
         for (int i = 0; i < tasks.getAllTasks().size(); i++) {
@@ -80,6 +110,14 @@ public class Parser {
         return taskListBuilder.toString();
     }
 
+    /**
+     * Adds a todo task to the task list.
+     *
+     * @param argument The description of the todo task.
+     * @param tasks    The task list to which the task should be added.
+     * @return A string representing the response to adding the task.
+     * @throws ByteException If the todo description is empty.
+     */
     private static String addTodoTask(String argument, TaskList tasks) throws ByteException {
         if (argument.isEmpty()) {
             throw new ByteException("The description of a todo cannot be empty.");
@@ -89,7 +127,14 @@ public class Parser {
         return addTask(todo, tasks);
     }
 
-
+    /**
+     * Adds a deadline task to the task list.
+     *
+     * @param userInput The user input specifying the deadline task.
+     * @param tasks     The task list to which the task should be added.
+     * @return A string representing the response to adding the task.
+     * @throws ByteException If the deadline task format is invalid or the date is invalid.
+     */
     private static String addDeadlineTask(String userInput, TaskList tasks) throws ByteException {
         String[] parts = userInput.trim().split("/by", 2);
         if (parts.length != 2) {
@@ -114,6 +159,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds an event task to the task list.
+     *
+     * @param userInput The user input specifying the event task.
+     * @param tasks     The task list to which the task should be added.
+     * @return A string representing the response to adding the task.
+     * @throws ByteException If the event task format is invalid.
+     */
     private static String addEventTask(String userInput, TaskList tasks) throws ByteException {
         String trimmedInput = userInput.trim();
         if (!trimmedInput.contains(" /from ") || !trimmedInput.contains(" /to ")) {
@@ -136,7 +189,14 @@ public class Parser {
         return addTask(event, tasks);
     }
 
-
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param argument The index of the task to be deleted.
+     * @param tasks    The task list from which the task should be deleted.
+     * @return A string representing the response to deleting the task.
+     * @throws ByteException If the task index is invalid.
+     */
     private static String deleteTask(String argument, TaskList tasks) throws ByteException {
         try {
             int index = Integer.parseInt(argument) - 1;
@@ -148,6 +208,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as done in the task list.
+     *
+     * @param argument The index of the task to be marked as done.
+     * @param tasks    The task list containing the task to be marked.
+     * @return A string representing the response to marking the task as done.
+     * @throws ByteException If the task index is invalid or the task is already marked as done.
+     */
     private static String markTask(String argument, TaskList tasks) throws ByteException {
         try {
             int index = Integer.parseInt(argument) - 1;
@@ -162,6 +230,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as not done in the task list.
+     *
+     * @param argument The index of the task to be marked as not done.
+     * @param tasks    The task list containing the task to be marked.
+     * @return A string representing the response to marking the task as not done.
+     * @throws ByteException If the task index is invalid or the task is already marked as not done.
+     */
     private static String unmarkTask(String argument, TaskList tasks) throws ByteException {
         try {
             int index = Integer.parseInt(argument) - 1;
@@ -176,6 +252,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task  The task to be added.
+     * @param tasks The task list to which the task should be added.
+     * @return A string representing the response to adding the task.
+     */
     private static String addTask(Task task, TaskList tasks) {
         if (task.isDone()) {
             task.markAsDone();
@@ -184,6 +267,13 @@ public class Parser {
         return "Got it. I've added this task:\n " + task + "\nNow you have " + tasks.getAllTasks().size() + " tasks in the list.";
     }
 
+    /**
+     * Finds tasks in the task list that contain a specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @param tasks   The task list in which to search for the keyword.
+     * @return A string representing the matching tasks found.
+     */
     private static String findTasks(String keyword, TaskList tasks) {
         List<Task> foundTasks = tasks.findTasksByKeyword(keyword);
         if (foundTasks.isEmpty()) {
