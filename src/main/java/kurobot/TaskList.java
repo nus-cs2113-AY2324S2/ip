@@ -9,26 +9,30 @@ public class TaskList {
 
     private ArrayList<Task> tasks;
     private int taskNum;
-    private static final int LINE_LEN = 60;
-    private static final String LINE =  "-".repeat(LINE_LEN);
+    private final int LINE_LEN = 60;
+    private final String LINE =  "-".repeat(LINE_LEN);
 
-    public TaskList(ArrayList<Task> prevTasks, int taskNum) {
+    private Parser parserInput;
+
+    public TaskList(ArrayList<Task> prevTasks, int taskNum, String userInput) {
         tasks = prevTasks;
         this.taskNum = taskNum;
+        parserInput = new Parser(userInput);
     }
 
-    public ArrayList<Task> addTodo(String userInput) throws InvalidDescriptionException {
-        //check if description was given
-        String[] words = userInput.split(" ",2);
-        if (words.length < 2){
-            throw new InvalidDescriptionException();
+    public ArrayList<Task> addTodo() {
+        try{
+            parserInput.parserToDo();
+            String taskName = parserInput.getTaskName();
+            Todo task = new Todo(taskName, false);
+            tasks.add(task);
+            taskNum++;
+            printAddedTask(task);
+        } catch (InvalidDescriptionException e) {
+            System.out.println(LINE);
+            System.out.println("Hmmm.. what is the task about?");
+            System.out.println(LINE);
         }
-
-        String taskName = words[1];
-        Todo task = new Todo(taskName, false);
-        tasks.add(task);
-        taskNum++;
-        printAddedTask(task);
         return tasks;
     }
 
@@ -52,98 +56,89 @@ public class TaskList {
         return taskNum;
     }
 
-    public ArrayList<Task> addDeadline(String userInput) throws InvalidDescriptionException, InvalidTimeException {
-        //check if description was given
-        String[] words = userInput.split(" ",2);
-        if (words.length < 2){
-            throw new InvalidDescriptionException();
+    public ArrayList<Task> addDeadline() {
+        try{
+            parserInput.parserDeadline();
+            String taskName = parserInput.getTaskName();
+            String by = parserInput.getDeadline();
+            Deadline task = new Deadline(taskName, by, false);
+            tasks.add(task);
+            taskNum++;
+            printAddedTask(task);
+        } catch (InvalidDescriptionException e) {
+        System.out.println(LINE);
+        System.out.println("Heyyy~ don't forget your task");
+        System.out.println(LINE);
+        } catch (InvalidTimeException e) {
+        System.out.println(LINE);
+        System.out.println("Did you forget your due date? :p");
+        System.out.println(LINE);
         }
-        String description = words[1];
-
-        //check if due date was given
-        String[] phrases = description.split("/by", 2);
-        if (phrases.length < 2){
-            throw new InvalidTimeException();
-        }
-        String taskName = phrases[0];
-        String by = phrases[1].strip();
-
-        Deadline task = new Deadline(taskName, by, false);
-        tasks.add(task);
-        taskNum++;
-        printAddedTask(task);
         return tasks;
     }
 
-    public ArrayList<Task> addEvent(String userInput) throws InvalidDescriptionException, InvalidTimeException {
-        //check if description was given
-        String[] words = userInput.split(" ",2);
-        if (words.length < 2){
-            throw new InvalidDescriptionException();
-        }
-        String description = words[1];
-
-        //check if duration was given
-        String[] phrases = description.split("/from",2);
-        if (phrases.length < 2){
-            throw new InvalidTimeException();
-        }
-        String taskName = phrases[0];
-
-        //check if both "from" and "to" was given
-        String[] period = phrases[1].split("/to",2);
-        if(period.length < 2){
-            throw new InvalidTimeException();
-        }
-        String from = period[0].strip();
-        String to = period[1].strip();
-
-        Event task = new Event(taskName, from, to, false);
-        tasks.add(task);
-        taskNum++;
-        printAddedTask(task);
-        return tasks;
-    }
-
-    public ArrayList<Task> markTask(String userInput, boolean status) throws InvalidDescriptionException {
-        //check if task number was given
-        String[] words = userInput.split(" ");
-        if (words.length != 2){
-            throw new InvalidDescriptionException();
-        }
-
-        //get task number
-        String taskIndex = words[1];
-        int i = Integer.parseInt(taskIndex);
+    public ArrayList<Task> addEvent() {
         try {
-            if (status) {
-                tasks.get(i - 1).mark();
-            } else {
-                tasks.get(i - 1).unmark();
+            parserInput.parserEvent();
+            String taskName = parserInput.getTaskName();
+            String from = parserInput.getStart();
+            String to = parserInput.getEnd();
+            Event task = new Event(taskName, from, to, false);
+            tasks.add(task);
+            taskNum++;
+            printAddedTask(task);
+        } catch (InvalidDescriptionException e) {
+            System.out.println(LINE);
+            System.out.println("aiyoyo, how can you forget the event XD");
+            System.out.println(LINE);
+        } catch (InvalidTimeException e) {
+            System.out.println(LINE);
+            System.out.println("uhoh! don't forget the timings!");
+            System.out.println(LINE);
+        }
+        return tasks;
+    }
+
+    public ArrayList<Task> markTask(boolean status) {
+        try {
+            parserInput.parserTaskIndex();
+            int i = parserInput.getIndex();
+            try {
+                if (status) {
+                    tasks.get(i - 1).mark();
+                } else {
+                    tasks.get(i - 1).unmark();
+                }
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(LINE);
+                System.out.println("there's no such task though...");
+                System.out.println(LINE);
             }
-        } catch (IndexOutOfBoundsException e){
+        } catch (InvalidDescriptionException e) {
             System.out.println(LINE);
-            System.out.println("there's no such task though...");
+            System.out.println("mhmm.. which task? >.<");
             System.out.println(LINE);
         }
         return tasks;
     }
 
-    public ArrayList<Task> deleteTask(String userInput) throws InvalidDescriptionException {
-        String[] words = userInput.split(" ");
-        if (words.length != 2){
-            throw new InvalidDescriptionException();
-        }
-
-        String taskIndex = words[1];
-        int i = Integer.parseInt(taskIndex);
+    public ArrayList<Task> deleteTask() {
         try {
-            taskNum--;
-            printDeletedTask(tasks.get(i-1));
-            tasks.remove(tasks.get(i - 1));
-        } catch (IndexOutOfBoundsException e){
+            parserInput.parserTaskIndex();
+            int i = parserInput.getIndex();
+            try {
+                Task deleteTask = tasks.get(i - 1);
+                taskNum--;
+                printDeletedTask(deleteTask);
+                tasks.remove(deleteTask);
+            } catch (IndexOutOfBoundsException e){
+                System.out.println(LINE);
+                System.out.println("there's no such task hmmm");
+                System.out.println(LINE);
+            }
+        } catch (InvalidDescriptionException e) {
             System.out.println(LINE);
-            System.out.println("there's no such task hmmm");
+            System.out.println("what task?");
             System.out.println(LINE);
         }
         return tasks;

@@ -59,11 +59,9 @@ public class KuroBot {
     }
 
     private static void manageTasks(String input) throws InvalidCommandException {
-        //extract command keyword from input
-        String[] words = input.split(" ",2);
-        //first phrase given is the command keyword
-        String command = words[0];
-        amendTasks = new TaskList(tasks, taskNum);
+        Parser parserInput= new Parser(input);
+        String command = parserInput.parserCommand();
+        amendTasks = new TaskList(tasks, taskNum, input);
         switch (command) {
         case "bye":
             end();
@@ -72,70 +70,26 @@ public class KuroBot {
             printTasks();
             break;
         case "mark":
-            try {
-                tasks = amendTasks.markTask(input, true);
-            } catch (InvalidDescriptionException e) {
-                System.out.println(LINE);
-                System.out.println("mhmm.. which task have you completed? >.<");
-                System.out.println(LINE);
-            }
+            tasks = amendTasks.markTask(true);
             break;
         case "unmark":
-            try {
-                tasks = amendTasks.markTask(input, false);
-            } catch (InvalidDescriptionException e) {
-                System.out.println(LINE);
-                System.out.println("oopsie, what task should I unmark?");
-                System.out.println(LINE);
-            }
+            tasks = amendTasks.markTask(false);
             break;
         case "todo":
-            try {
-                tasks = amendTasks.addTodo(input);
-                taskNum = amendTasks.getTaskNum();
-            } catch (InvalidDescriptionException e) {
-                System.out.println(LINE);
-                System.out.println("Hmmm.. what is the task about?");
-                System.out.println(LINE);
-            }
+            tasks = amendTasks.addTodo();
+            taskNum = amendTasks.getTaskNum();
             break;
         case "deadline":
-            try {
-                tasks = amendTasks.addDeadline(input);
-                taskNum = amendTasks.getTaskNum();
-            } catch (InvalidDescriptionException e) {
-                System.out.println(LINE);
-                System.out.println("Heyyy~ don't forget your task");
-                System.out.println(LINE);
-            } catch (InvalidTimeException e) {
-                System.out.println(LINE);
-                System.out.println("Did you forget your due date? :p");
-                System.out.println(LINE);
-            }
+            tasks = amendTasks.addDeadline();
+            taskNum = amendTasks.getTaskNum();
             break;
         case "event":
-            try {
-                tasks = amendTasks.addEvent(input);
-                taskNum = amendTasks.getTaskNum();
-            } catch (InvalidDescriptionException e) {
-                System.out.println(LINE);
-                System.out.println("aiyoyo, how can you forget the event XD");
-                System.out.println(LINE);
-            } catch (InvalidTimeException e) {
-                System.out.println(LINE);
-                System.out.println("uhoh! don't forget the timings!");
-                System.out.println(LINE);
-            }
+            tasks = amendTasks.addEvent();
+            taskNum = amendTasks.getTaskNum();
             break;
         case "delete":
-            try {
-                tasks = amendTasks.deleteTask(input);
-                taskNum = amendTasks.getTaskNum();
-            } catch (InvalidDescriptionException e) {
-                System.out.println(LINE);
-                System.out.println("what task?");
-                System.out.println(LINE);
-            }
+            tasks = amendTasks.deleteTask();
+            taskNum = amendTasks.getTaskNum();
             break;
         default:
             throw new InvalidCommandException();
