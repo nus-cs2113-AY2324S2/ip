@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Storage {
-    private String filePath = "./data/ava.txt";
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
