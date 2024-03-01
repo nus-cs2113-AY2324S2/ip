@@ -1,8 +1,19 @@
 package hachi.data.task;
 
+/**
+ * Represents an Event Task with the elements task name, its completeness status
+ * and a class-level element that tracks the total number of tasks currently active.
+ * Overrides superclass Task which adds a start and end date which represents
+ * the starting date of the event and the ending date of the event respectively.
+ *
+ * @author clarencepohh
+ * @version 01/03/2024
+ */
+
 public class Event extends Task {
     protected String startDate;
     protected String endDate;
+
     /**
      * Constructor for new tasks given its name.
      * Tasks are initialized as incomplete.
@@ -19,15 +30,36 @@ public class Event extends Task {
         this.endDate = end;
     }
 
+    /**
+     * Returns the task type of the specified task.
+     * Override function of superclass Task.
+     *
+     * @return E which represents an Event task.
+     */
+
     @Override
     public String getTaskType() {
         return "E";
     }
 
+    /**
+     * Returns the name of the task that invokes this function.
+     * Override function of superclass Task.
+     *
+     * @return Returns the string of the task's name, including the start and end date.
+     */
+
     @Override
     public String getName () {
         return name + "(from: " + startDate + " to: " + endDate + ")";
     }
+
+    /**
+     * Returns the String save format used to save Hachi task data.
+     * Override function of superclass Task.
+     *
+     * @return The required save format including the task type, status icon, name, start and end date.
+     */
 
     @Override
     public String getSaveFormat () {
