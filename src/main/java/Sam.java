@@ -2,13 +2,14 @@ import java.io.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Sam {
     private static final String FILE_PATH = "data/sam.txt";
 
     public static void main(String[] args) {
         // Load tasks from file when the program starts up
-        Task[] records = loadTasksFromFile();
+        ArrayList<Task> records = loadTasksFromFile();
         int numItems = countTasks(records);
 
         // Printing the logo and greeting message
@@ -23,7 +24,7 @@ public class Sam {
 
         System.out.println("Here's what you got saved:");
         for (int j = 0; j < numItems; j++) {
-            System.out.println((j + 1) + "." + records[j]);
+            System.out.println((j + 1) + "." + records.get(j));
         }
         printLine();
 
@@ -45,7 +46,7 @@ public class Sam {
                     // Listing tasks
                     System.out.println("Here are the tasks in your list:");
                     for (int j = 0; j < numItems; j++) {
-                        System.out.println((j + 1) + "." + records[j]);
+                        System.out.println((j + 1) + "." + records.get(j));
                     }
                     System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
                     break;
@@ -53,29 +54,29 @@ public class Sam {
                     // Marking a task as done
                     listIndex = Integer.parseInt(words[1]) - 1;
                     indexCheck(listIndex, numItems);
-                    records[listIndex].setStatus(true);
-                    System.out.println("Nice! I've marked this task as done:\n" + records[listIndex]);
+                    records.get(listIndex).setStatus(true);
+                    System.out.println("Nice! I've marked this task as done:\n" + records.get(listIndex));
                     break;
                 case "unmark":
                     // Marking a task as not done
                     listIndex = Integer.parseInt(words[1]) - 1;
                     indexCheck(listIndex, numItems);
-                    records[listIndex].setStatus(false);
-                    System.out.println("OK, I've marked this task as not done yet:\n" + records[listIndex]);
+                    records.get(listIndex).setStatus(false);
+                    System.out.println("OK, I've marked this task as not done yet:\n" + records.get(listIndex));
                     break;
                 case "todo":
                     // Adding a new todo task
                     String todoDescription = line.substring(5); // Extracting description
-                    records[numItems] = new Todo(todoDescription);
-                    System.out.println("Got it. I've added this task:\n" + records[numItems]);
+                    records.add(numItems, new Todo(todoDescription));
+                    System.out.println("Got it. I've added this task:\n" + records.get(numItems));
                     numItems++;
                     break;
                 case "deadline":
                     // Adding a new deadline task
                     String deadlineDescription = line.substring(9); // Extracting description
                     String[] deadlineParts = deadlineDescription.split(" /by ");
-                    records[numItems] = new Deadline(deadlineParts[0], deadlineParts[1]);
-                    System.out.println("Got it. I've added this task:\n" + records[numItems]);
+                    records.add(numItems, new Deadline(deadlineParts[0], deadlineParts[1]));
+                    System.out.println("Got it. I've added this task:\n" + records.get(numItems));
                     numItems++;
                     break;
 
@@ -83,21 +84,21 @@ public class Sam {
                     // Adding a new event task
                     String eventDescription = line.substring(6); // Extracting description
                     String[] eventParts = eventDescription.split(" /from | /to ");
-                    records[numItems] = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                    System.out.println("Got it. I've added this task:\n" + records[numItems]);
+                    records.add(numItems, new Event(eventParts[0], eventParts[1], eventParts[2]));
+                    System.out.println("Got it. I've added this task:\n" + records.get(numItems));
                     numItems++;
                     break;
                 case "delete":
                     // Deleting a task
                     listIndex = Integer.parseInt(words[1]) - 1;
-					indexCheck(listIndex, numItems);
+                    indexCheck(listIndex, numItems);
                     if (listIndex < 0 || listIndex >= numItems) {
                         System.out.println("That was outta range. Use list to see the current tasks.");
                     } else {
-                        System.out.println("Noted. I've removed this task:\n" + records[listIndex]);
+                        System.out.println("Noted. I've removed this task:\n" + records.get(listIndex));
                         // Shift remaining tasks to fill the gap
                         for (int i = listIndex; i < numItems - 1; i++) {
-                            records[i] = records[i + 1];
+                            records.set(i, records.get(i + 1));
                         }
                         numItems--;
                         System.out.println("Now you have " + numItems + (numItems == 1 ? " task " : " tasks ") + "in the list.");
@@ -142,10 +143,10 @@ public class Sam {
         printLine();
     }
 
-    private static void saveTasksToFile(Task[] records, int numItems) {
+    private static void saveTasksToFile(ArrayList<Task> records, int numItems) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (int i = 0; i < numItems; i++) {
-                bw.write(records[i].saveTask());
+                bw.write(records.get(i).saveTask());
                 bw.newLine();
             }
         } catch (IOException e) {
@@ -153,8 +154,8 @@ public class Sam {
         }
     }
 
-    private static Task[] loadTasksFromFile() {
-        Task[] records = new Task[100];
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> records = new ArrayList<>();
         File file = new File(FILE_PATH);
 
         // Check if the directory and file exist, create them if they don't
@@ -176,13 +177,13 @@ public class Sam {
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(" \\| ");
                 if (words[0].equals("E")) {
-                    records[i] = new Event(words[2], words[3], words[4]);
+                    records.set(i, new Event(words[2], words[3], words[4]));
                 } else if (words[0].equals("D")) {
-                    records[i] = new Deadline(words[2], words[3]);
+                    records.set(i, new Deadline(words[2], words[3]));
                 } else if (words[0].equals("T")) {
-                    records[i] = new Todo(words[2]);
+                    records.set(i, new Todo(words[2]));
                 }
-                records[i].setStatus(words[1].equals("1"));
+                records.get(i).setStatus(words[1].equals("1"));
                 i++;
             }
         } catch (IOException e) {
@@ -192,7 +193,7 @@ public class Sam {
     }
 
 
-    static int countTasks(Task[] records) {
+    static int countTasks(ArrayList<Task> records) {
         int numItems = 0;
         for (Task record : records) {
             if (record != null) {
