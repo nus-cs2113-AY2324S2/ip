@@ -1,6 +1,2 @@
-T | 0 | hello
-E | 1 | wassup | 2013-09-05 0012 | 2018-10-25 1250
-T | 1 | hsdds
-E | 1 | helloooo | 2018-08-23 1201 | 2018-08-23 1230
-T | 0 | hi
-D | 0 | hi | 2018-12-05 2300
+T | 0 | finish my homework
+E | 1 | internship interview with GovTech | 2024-06-19 1000 | 2024-06-19 1100

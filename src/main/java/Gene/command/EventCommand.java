@@ -22,7 +22,7 @@ public class EventCommand {
         String[] parts = command.replaceFirst("\\S+", "").split("/");
         if (parts.length < 3) {
             throw new GeneException("Invalid event format." + System.lineSeparator() +
-                    "Use Format: event <Task Description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+                    "Use Format: event <task_description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
         }
         String description = parts[0].trim();
         String from = parts[1].replace("from", "").trim();

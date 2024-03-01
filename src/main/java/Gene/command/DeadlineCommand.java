@@ -25,7 +25,7 @@ public class DeadlineCommand {
         String[] parts = command.replaceFirst("\\S+", "").split("/by");
         if (parts.length < 2) {
             throw new GeneException("Invalid deadline format." + System.lineSeparator()
-                    + "Use format: deadline <Task Description> /by <yyyy-MM-dd HHmm>");
+                    + "Use format: deadline <task_description> /by <yyyy-MM-dd HHmm>");
         }
 
         String description = parts[0].trim();

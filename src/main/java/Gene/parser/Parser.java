@@ -60,12 +60,13 @@ public class Parser {
                 Ui.printLineSeparation();
                 System.out.println("Here is a list of commands you can do:");
                 System.out.println("- list");
-                System.out.println("- todo <Task Description>");
-                System.out.println("- deadline <Task Description> /by <yyyy-MM-dd HHmm>");
-                System.out.println("- event <Task Description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
-                System.out.println("- mark/unmark <Task Number>");
-                System.out.println("- delete <Task Number>");
+                System.out.println("- todo <task_description>");
+                System.out.println("- deadline <task_description> /by <yyyy-MM-dd HHmm>");
+                System.out.println("- event <task_description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+                System.out.println("- mark/unmark <task_number>");
+                System.out.println("- delete <task_number>");
                 System.out.println("- find <keyword>");
+                System.out.println("- bye");
                 Ui.printLineSeparation();
                 break;
 
@@ -73,12 +74,13 @@ public class Parser {
                 Ui.printLineSeparation();
                 System.out.println("ERROR: Please add a valid command:");
                 System.out.println("- list");
-                System.out.println("- todo <Task Description>");
-                System.out.println("- deadline <Task Description> /by <yyyy-MM-dd HHmm>");
-                System.out.println("- event <Task Description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
-                System.out.println("- mark/unmark <Task Number>");
-                System.out.println("- delete <Task Number>");
+                System.out.println("- todo <task_description>");
+                System.out.println("- deadline <task_description> /by <yyyy-MM-dd HHmm>");
+                System.out.println("- event <task_description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+                System.out.println("- mark/unmark <task_number>");
+                System.out.println("- delete <task_number>");
                 System.out.println("- find <keyword>");
+                System.out.println("- bye");
                 Ui.printLineSeparation();
                 break;
         }
