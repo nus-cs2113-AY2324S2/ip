@@ -98,11 +98,7 @@ ConvoCraft is a CLI application to help users manage their tasks.
 
 ### Saving the data
 
-- ConvoCraft data are saved in the hard disk if the application is closed properly using the `bye` command.
-> [CAUTION]
-> * The application will not be able to save your data if you force close the application.
-> * Please use the `bye` command to exit the application.
-> * Do not modify the data file manually.
+- ConvoCraft data are automatically saved in the hard disk after any command that changes the data.
 
 ## Command Summary
 
