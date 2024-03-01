@@ -1,14 +1,9 @@
-import Exceptions.InvalidDeadlineFormatException;
-import Exceptions.InvalidEventFormatException;
-import Exceptions.InvalidTodoFormatException;
+import Exceptions.*;
+
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class TaskManager {
-    // private static final String FILE_PATH = "./data/tasks.txt";
     private static final String FILE_PATH = "." + File.separator + "data" + File.separator + "tasks.txt";
 
     public static final int DEADLINE_BEGIN_INDEX = 8;
@@ -52,7 +47,7 @@ public class TaskManager {
         }
     }
 
-    private void addDeadlineTask(String taskDescription) throws InvalidDeadlineFormatException {
+    protected void addDeadlineTask(String taskDescription) throws InvalidDeadlineFormatException {
         String[] taskDetails = taskDescription.substring(DEADLINE_BEGIN_INDEX).split("/by");
         if (taskDetails.length == DEADLINE_MAX_PARTS) {
             index += INDEX_OFFSET;
@@ -63,7 +58,7 @@ public class TaskManager {
         }
     }
 
-    private void addEventTask(String taskDescription) throws InvalidEventFormatException {
+    protected void addEventTask(String taskDescription) throws InvalidEventFormatException {
         String[] taskDetails = taskDescription.substring(EVENT_BEGIN_INDEX).split("/from|/to");
         if (taskDetails.length == EVENT_MAX_PARTS) {
             index += INDEX_OFFSET;
@@ -75,7 +70,7 @@ public class TaskManager {
         }
     }
 
-    private void addTodoTask(String taskDescription) throws InvalidTodoFormatException {
+    protected void addTodoTask(String taskDescription) throws InvalidTodoFormatException {
         String taskDetails = taskDescription.substring(TODO_BEGIN_INDEX).trim();
         if (!taskDetails.isEmpty()) {
             index += INDEX_OFFSET;
@@ -137,78 +132,23 @@ public class TaskManager {
         loadTasksFromFile();
     }
 
-    private void loadTasksFromFile() {
-        File dataDirectory = new File("data");
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdir();
+    private void loadTasksFromFile(){
+        Storage storage = new Storage(FILE_PATH);
+        try {
+            ArrayList<Task> tasks = storage.load();
+            taskList.addAll(tasks);
+            index = tasks.size();
+        } catch (LoadFileException e) {
+            userInterface.printLoadFileError(e);
         }
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error creating tasks file: " + e.getMessage() + "\n \n"
-                        + "Your Tasks wont be written to the file");
-                return;
-            }
-        }
-
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Task task = parseTaskFromString(line);
-                if (task != null) {
-                    taskList.add(task);
-                    index++;
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage() + "\n"
-                    + "Your Tasks wont be written to the file");
-        }
-    }
-
-    private Task parseTaskFromString(String line) {
-        Task task = null;
-        String[] parts = line.split(" \\| ");
-        if (parts.length >= 3) {
-            String taskType = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-            switch (taskType) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    String by = parts[3];
-                    task = new Deadline(description, by);
-                    break;
-                case "E":
-                    String from = parts[3];
-                    String to = parts[4];
-                    task = new Event(description, from, to);
-                    break;
-                default:
-                    System.out.println("Unknown task type: " + taskType);
-            }
-            if (task != null && isDone) {
-                task.setAsDone();
-            }
-        } else {
-            System.out.println("Invalid task format: " + line);
-        }
-        return task;
     }
 
     public void saveTasksToFile() {
+        Storage storage = new Storage(FILE_PATH);
         try {
-            FileWriter writer = new FileWriter(FILE_PATH);
-            for (int i = 0; i < index; i++) {
-                writer.write(taskList.get(i).toFileString() + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
+            storage.saveTasksToFile(taskList);
+        } catch (SaveFileException e) {
+            userInterface.printUnableToSave(e);
         }
     }
 

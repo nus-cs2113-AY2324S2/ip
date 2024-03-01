@@ -1,6 +1,4 @@
-import Exceptions.InvalidDeadlineFormatException;
-import Exceptions.InvalidEventFormatException;
-import Exceptions.InvalidTodoFormatException;
+import Exceptions.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -118,6 +116,20 @@ public class UserInterface {
         System.out.println(TAB_SPACE + "Invalid task index: " + e.getMessage());
         System.out.println(TAB_SPACE + "Please enter a valid task index to mark or unmark.");
         System.out.println(LINE);
+    }
+
+    public void printLoadFileError(LoadFileException e){
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Unable to load File " + e.getMessage());
+        System.out.println(TAB_SPACE + "Please Check your File path");
+        System.out.println(LINE);
+    }
+    public void printUnableToSave(SaveFileException e){
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Unable to Save File " + e.getMessage());
+        System.out.println(TAB_SPACE + "Please Check your File path");
+        System.out.println(LINE);
+
     }
 
 }
