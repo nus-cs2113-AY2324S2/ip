@@ -1,3 +1,5 @@
+package sam.task;
+
 public class Event extends Task {
 
     private String description;
@@ -5,7 +7,7 @@ public class Event extends Task {
     private String end;
 
     public Event(String description, String start, String end) {
-        super(""); // Call the constructor of Task with an empty string or the appropriate arguments
+        super(""); // Call the constructor of sam.task.Task with an empty string or the appropriate arguments
         this.description = description;
         this.start = start;
         this.end = end;

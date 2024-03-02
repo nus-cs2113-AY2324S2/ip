@@ -1,3 +1,8 @@
+import sam.task.Deadline;
+import sam.task.Event;
+import sam.task.Task;
+import sam.task.Todo;
+
 import java.util.ArrayList;
 
 class TaskList {

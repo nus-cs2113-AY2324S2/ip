@@ -1,3 +1,8 @@
+import sam.task.Deadline;
+import sam.task.Event;
+import sam.task.Task;
+import sam.task.Todo;
+
 class Parser {
 	public static void parseCommand(String line, TaskList taskList) throws SamException {
 		String[] words = line.split(" ");
