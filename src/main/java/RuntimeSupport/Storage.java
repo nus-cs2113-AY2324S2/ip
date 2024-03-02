@@ -27,6 +27,13 @@ public class Storage {
             if (!file.exists()) {
                 file.createNewFile();
             }
+
+            if (file.createNewFile())
+            {
+                System.out.println("No existing storage file detected.");
+                System.out.println("New storage file has been created at " + filePath);
+            }
+
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
 

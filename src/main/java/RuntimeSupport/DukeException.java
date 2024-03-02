@@ -8,19 +8,23 @@ public class DukeException extends Throwable {
 
         if (error instanceof NullPointerException) {
 
-            System.out.println("Alert! Galactic navigation systems report a phantom destination. The operation: " + line + " cannot be done because the event does not exist!");
+            System.out.println("Alert! Galactic navigation systems report a phantom destination.");
+            System.out.println("The operation: " + line + " cannot be done because the event does not exist!");
 
         } else if (error instanceof StringIndexOutOfBoundsException) {
 
-            System.out.println("Uh-oh! Our canvas is blank. The description of the " + line + " event cannot be empty!");
+            System.out.println("Uh-oh! Our canvas is blank!");
+            System.out.println("The description of the " + line + " event cannot be empty!");
 
         } else if (error instanceof ArrayIndexOutOfBoundsException && line.contains(("delete"))) {
 
-            System.out.println("Uh-Oh! There is nothing to delete here! Please specify a valid task number to delete!");
+            System.out.println("Uh-Oh! There is nothing to delete here! " +
+                    "Please specify a valid task number to delete!");
 
-        } else if (error instanceof ArrayIndexOutOfBoundsException) {
+        } else if (error instanceof ArrayIndexOutOfBoundsException && !line.contains("mark")) {
 
-            System.out.println("Echo... echo... Your event's lost in the echo chamber. The event input: " + line + " cannot be recognized by the bot! :(" + "\n");
+            System.out.println("Echo... echo... Your event's lost in the echo chamber.");
+            System.out.println("The event input: " + line + " cannot be recognized by the bot! :(");
             System.out.println("Please input the event details using the following format:");
             System.out.println("todo [todo event name].");
             System.out.println("deadline [deadline event name] /by [time].");
@@ -29,9 +33,12 @@ public class DukeException extends Throwable {
         } else if (error instanceof IOException) {
 
             System.out.println("Uh-Oh! An error occurred while saving or loading tasks: " + line);
+        } else if (line.contains("mark")){
+
+            System.out.println("Oops! The task does not exist. Maybe you got the wrong number. :(");
         } else {
 
-            System.out.println("Oops! I've no clue what that means, or the task does not exist. Could you enlighten me, please?");
+            System.out.println("I'm sorry, but I don't know what that means :-()");
         }
 
         System.out.println(BREAK_LINE);
