@@ -12,6 +12,10 @@ import java.util.ArrayList;
  */
 public class FindTask extends Command {
 
+    private final String CLASS_NAME = "find";
+
+    private final int STARTING_INDEX_OF_TASK = 5;
+
     /**
      * Constructs a FindTask command with the specified user's input and list of tasks.
      *
@@ -22,11 +26,11 @@ public class FindTask extends Command {
     public FindTask(ArrayList<Task> tasks, String usersInput)  throws ThawException {
         TaskList foundTasks = new TaskList();
         if (commandWithoutDescription(usersInput)) {
-            throw new ThawException("Empty command " + usersInput);
+            throw new ThawException("Empty command " + CLASS_NAME);
         } else if (!commandWithoutDescription(usersInput)) {
             ui.printFoundCommandAcknowledgementMessage();
             for (Task task : tasks) {
-                if (task.getDescription().contains(usersInput.substring(5))) {
+                if (task.getDescription().contains(usersInput.substring(STARTING_INDEX_OF_TASK))) {
                     foundTasks.addTask(task);
                 }
             }

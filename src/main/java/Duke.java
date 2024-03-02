@@ -13,9 +13,6 @@ import java.io.IOException;
  * It initializes the necessary components and starts the program.
  */
 public class Duke {
-
-    private Storage storage;
-    private TaskList tasks;
     private UI ui;
 
     public static void main(String[] args) {

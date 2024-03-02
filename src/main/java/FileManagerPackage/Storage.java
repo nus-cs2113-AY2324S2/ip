@@ -21,6 +21,8 @@ import java.util.Scanner;
  */
 public class Storage {
 
+    protected static final int DATE_LENGTH = 5;
+    private static final int TIME_LENGTH = 4;
     /**
      * Reads the data from the file and populates the task list.
      *
@@ -35,8 +37,8 @@ public class Storage {
             switch (currentLine[0]) {
                 case "D":
                     String inputDateString = currentLine[3].strip();
-                    LocalDate date = Parser.processDate(inputDateString.substring(0, inputDateString.length() - 5));
-                    LocalTime time = Parser.processTime(inputDateString.substring(inputDateString.length() - 4));
+                    LocalDate date = Parser.processDate(inputDateString.substring(0, inputDateString.length() - DATE_LENGTH));
+                    LocalTime time = Parser.processTime(inputDateString.substring(inputDateString.length() - TIME_LENGTH));
                     list.add(new Deadline(currentLine[2], date, time));
                     break;
                 case "T":
@@ -45,10 +47,10 @@ public class Storage {
                 case "E":
                     String[] duration = currentLine[3].split("\\s*\\ - \\s*");
 
-                    LocalDate dateFrom = Parser.processDate(duration[0].strip().substring(0, duration[0].length()- 5));
-                    LocalTime timeFrom = Parser.processTime(duration[0].strip().substring(duration[0].length()- 4));
-                    LocalDate dateTo = Parser.processDate(duration[1].strip().substring(0, duration[1].length()- 5));
-                    LocalTime timeTo = Parser.processTime(duration[1].strip().substring(duration[0].length()- 4));
+                    LocalDate dateFrom = Parser.processDate(duration[0].strip().substring(0, duration[0].length()- DATE_LENGTH));
+                    LocalTime timeFrom = Parser.processTime(duration[0].strip().substring(duration[0].length()- TIME_LENGTH));
+                    LocalDate dateTo = Parser.processDate(duration[1].strip().substring(0, duration[1].length()- DATE_LENGTH));
+                    LocalTime timeTo = Parser.processTime(duration[1].strip().substring(duration[0].length()- TIME_LENGTH));
                     list.add(new Event(currentLine[2],dateFrom, timeFrom, dateTo, timeTo));
                     break;
             }

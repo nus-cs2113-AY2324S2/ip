@@ -10,6 +10,13 @@ import PrintMessages.UI;
 public class Command {
     UI ui = new UI();
 
+    protected static final int LEN_OF_SLASH_BY = 3;
+    protected static final int LEN_OF_SLASH_TO = 3;
+
+    protected static final int LEN_OF_SLASH_FROM = 5;
+
+    protected static final int DATE_TIME_STRING_LEN = 15;
+
     /**
      * Checks if the given parameter (userInput) is an empty command, meaning just the command word alone.
      *
@@ -34,12 +41,17 @@ public class Command {
      */
     public static boolean correctDateTimeFormat(String userInput) {
         if (userInput.startsWith("deadline")) {
-            String lengthOfDateTimeString = userInput.substring(userInput.indexOf("/by") + 3).strip();
+            String lengthOfDateTimeString = userInput.substring(userInput.indexOf("/by") +
+                    LEN_OF_SLASH_BY).strip();
             return lengthOfDateTimeString.length() == 15;
         } else if (userInput.startsWith("event")) {
-            String lengthOfFirstDateTime = userInput.substring(userInput.indexOf("/from") + 5, userInput.indexOf("/to")).strip();
-            String lengthOfSecondDateTime = userInput.substring(userInput.indexOf("/to") + 4).strip();
-            return lengthOfFirstDateTime.length() == 15 && lengthOfSecondDateTime.length() == 15;
+            String lengthOfFirstDateTime = userInput.substring(userInput.indexOf("/from") +
+                    LEN_OF_SLASH_FROM, userInput.indexOf("/to")).strip();
+
+            String lengthOfSecondDateTime = userInput.substring(userInput.indexOf("/to") + LEN_OF_SLASH_TO).strip();
+
+            return lengthOfFirstDateTime.length() == DATE_TIME_STRING_LEN &&
+                    lengthOfSecondDateTime.length() == DATE_TIME_STRING_LEN;
         } else {
             return false;
         }

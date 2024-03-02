@@ -29,7 +29,8 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         this.byTime = byTime;
-        this.deadLineString = by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + byTime.format(DateTimeFormatter.ofPattern("h:mma"));
+        this.deadLineString = by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " +
+                byTime.format(DateTimeFormatter.ofPattern("h:mma"));
     }
 
     /**
@@ -39,7 +40,8 @@ public class Deadline extends Task {
      */
     @Override
     public String getStatusIcon() {
-        return (isDone ? "[D][X] " + super.description + " (by: " + deadLineString + ")": "[D][ ] " + super.description + " (by: " + deadLineString + ")"); // mark done task with X
+        return (isDone ? "[D][X] " + super.description + " (by: " + deadLineString + ")": "[D][ ] " +
+                super.description + " (by: " + deadLineString + ")"); // mark done task with X
     }
 
     /**
@@ -51,6 +53,7 @@ public class Deadline extends Task {
     public String printFileFormat() {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
-        return super.printFileFormat() + " | " + this.by.format(inputFormatter) + " " + this.byTime.format(inputTimeFormatter);
+        return super.printFileFormat() + " | " + this.by.format(inputFormatter) + " " +
+                this.byTime.format(inputTimeFormatter);
     }
 }

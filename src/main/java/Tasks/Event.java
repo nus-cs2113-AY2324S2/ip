@@ -47,7 +47,8 @@ public class Event extends Task {
      */
     @Override
     public String getStatusIcon() {
-        return (isDone ? "[E][X] " + super.description + " (" + DateTimeString + ")": "[E][ ] " + super.description + " (" + DateTimeString + ")"); // mark done task with X
+        return (isDone ? "[E][X] " + super.description + " (" + DateTimeString + ")": "[E][ ] " + super.description +
+                " (" + DateTimeString + ")"); // mark done task with X
     }
 
     /**
@@ -59,6 +60,8 @@ public class Event extends Task {
     public String printFileFormat() {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
-        return super.printFileFormat() + " | " + fromDate.format(inputFormatter) + " " + fromTime.format(inputTimeFormatter) + " - " + toDate.format(inputFormatter) + " " + toTime.format(inputTimeFormatter);
+        return super.printFileFormat() + " | " + fromDate.format(inputFormatter) + " " +
+                fromTime.format(inputTimeFormatter) + " - " + toDate.format(inputFormatter) + " " +
+                toTime.format(inputTimeFormatter);
     }
 }

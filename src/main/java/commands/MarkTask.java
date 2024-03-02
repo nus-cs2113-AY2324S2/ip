@@ -10,6 +10,10 @@ import java.util.ArrayList;
  */
 public class MarkTask extends Command {
 
+    private final String CLASS_NAME = "mark";
+
+    private final int INDEX_OF_TASK = 5;
+
     /**
      * Constructs a MarkTask command with the specified list of tasks and user's input.
      *
@@ -19,9 +23,9 @@ public class MarkTask extends Command {
      */
     public MarkTask(ArrayList<Task> task, String usersInput) throws ThawException  {
         if (commandWithoutDescription(usersInput)) {
-            throw new ThawException("Empty command " + usersInput);
+            throw new ThawException("Empty command " + CLASS_NAME);
         } else if (!commandWithoutDescription(usersInput)) {
-            int taskIndex = Integer.parseInt(usersInput.substring(5)) - 1;
+            int taskIndex = Integer.parseInt(usersInput.substring(INDEX_OF_TASK)) - 1;
             task.get(taskIndex).setDone(true);
             ui.printMarkTaskAcknowledgementMessage(task, taskIndex);
         }

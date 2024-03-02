@@ -12,6 +12,10 @@ import Tasks.*;
  */
 public class DeleteTask extends Command {
 
+    private final String CLASS_NAME = "delete";
+
+    private final int INDEX_OF_TASK = 7;
+
     /**
      * Constructs a new {@code DeleteTask} command with the specified list of tasks and user's input.
      *
@@ -21,9 +25,9 @@ public class DeleteTask extends Command {
      */
     public DeleteTask(ArrayList<Task> task, String usersInput) throws ThawException {
         if (commandWithoutDescription(usersInput)) {
-            throw new ThawException("Empty command " + usersInput);
+            throw new ThawException("Empty command " + CLASS_NAME);
         } else if (!commandWithoutDescription(usersInput)){
-            int taskIndex = Integer.parseInt(usersInput.substring(7)) - 1;
+            int taskIndex = Integer.parseInt(usersInput.substring(INDEX_OF_TASK)) - 1;
             ui.printDeleteTaskAcknowledgementMessage(task, taskIndex);
             task.remove(taskIndex);
             Storage.saveData(task);

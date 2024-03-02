@@ -11,10 +11,13 @@ import java.util.ArrayList;
  * It extends the Command class and requires the list of tasks and the user's input.
  */
 public class AddTodoTask extends Command {
+
+    private final int LEN_OF_TODO = 5;
+
     /**
      * The name of the command class (used for error messages).
      */
-    public final String className = "todo";
+    public final String CLASS_NAME = "todo";
 
     /**
      * Constructs a new {@code AddTodoTask} command with the specified list of tasks and user's input.
@@ -25,9 +28,9 @@ public class AddTodoTask extends Command {
      */
     public AddTodoTask(ArrayList<Task> taskList, String usersInput) throws ThawException {
         if (commandWithoutDescription(usersInput)) {
-            throw new ThawException("Empty command " + className);
+            throw new ThawException("Empty command " + CLASS_NAME);
         } else if (!commandWithoutDescription(usersInput)) {
-            String taskDesc = usersInput.substring(5);
+            String taskDesc = usersInput.substring(LEN_OF_TODO);
             taskList.add(new Todo(taskDesc));
             ui.printAcknowledgementMessage(taskList);
             Storage.saveData(taskList);

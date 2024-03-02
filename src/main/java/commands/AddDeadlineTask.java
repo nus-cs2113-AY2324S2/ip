@@ -16,10 +16,15 @@ import java.util.ArrayList;
  */
 public class AddDeadlineTask extends Command {
 
+    private final int LEN_OF_SLASH_BY = 4;
+    private final int LEN_OF_TIME = 4;
+
+    private final int LEN_OF_DEADLINE = 9;
+
     /**
      * The name of the command class (used for error messages).
      */
-    public final String className = "deadline";
+    public final String CLASS_NAME = "deadline";
 
     /**
      * Constructs a new {@code AddDeadlineTask} command with the specified list of tasks and user's input.
@@ -30,12 +35,14 @@ public class AddDeadlineTask extends Command {
      */
     public AddDeadlineTask(ArrayList<Task> taskList, String usersInput) throws ThawException {
         if (commandWithoutDescription(usersInput)) {
-            throw new ThawException("Empty command " + className);
+            throw new ThawException("Empty command " + CLASS_NAME);
         } else if (!commandWithoutDescription(usersInput)) {
             int startingIndex = usersInput.indexOf("/by");
-            LocalDate date = Parser.processDate(usersInput.substring(startingIndex + 4, usersInput.length() - 4));
-            LocalTime time = Parser.processTime(usersInput.substring(usersInput.length() - 4));
-            taskList.add(new Deadline(usersInput.substring(9, startingIndex - 1), date, time));
+            LocalDate date = Parser.processDate(usersInput.substring(startingIndex + LEN_OF_SLASH_BY,
+                    usersInput.length() - LEN_OF_TIME));
+
+            LocalTime time = Parser.processTime(usersInput.substring(usersInput.length() - LEN_OF_TIME));
+            taskList.add(new Deadline(usersInput.substring(LEN_OF_DEADLINE, startingIndex - 1), date, time));
             ui.printAcknowledgementMessage(taskList);
             Storage.saveData(taskList);
         }
