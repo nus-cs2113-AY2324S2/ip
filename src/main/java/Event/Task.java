@@ -10,7 +10,6 @@ public class Task {
         this.description = description;
         this.isDone = false; //Initialize the status of the new task to not done.
         this.eventType = null;
-
     }
 
     public void markAsNotDone() {
@@ -36,6 +35,10 @@ public class Task {
 
     public String toStorageString() {
         return "";
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
 
