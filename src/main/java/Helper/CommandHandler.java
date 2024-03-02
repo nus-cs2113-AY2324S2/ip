@@ -1,5 +1,6 @@
 package Helper;
 
+import Exceptions.InvalidDateTimeFormatException;
 import Exceptions.InvalidDeadlineFormatException;
 import Exceptions.InvalidEventFormatException;
 import Exceptions.InvalidTodoFormatException;
@@ -83,6 +84,8 @@ public class CommandHandler {
             userInterface.printInvalidTodoFormat(e);
         } catch (InvalidEventFormatException e) {
             userInterface.printInvalidEventFormat(e);
+        } catch (InvalidDateTimeFormatException e) {
+            userInterface.printInvalidDateTimeFormat(e);
         }
     }
 

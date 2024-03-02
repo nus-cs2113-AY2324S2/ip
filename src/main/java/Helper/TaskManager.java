@@ -4,6 +4,9 @@ import Exceptions.*;
 
 import java.util.ArrayList;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class TaskManager {
     private static final String FILE_PATH = "." + File.separator + "data" + File.separator + "tasks.txt";
@@ -22,53 +25,62 @@ public class TaskManager {
     private int index = 0;
     UserInterface userInterface = new UserInterface();
 
-    public void addTask(String taskDescription) {
-        String taskType = taskDescription.split(" ")[START_INDEX];
-        try {
-            switch (taskType) {
-                case "deadline":
-                    addDeadlineTask(taskDescription);
-                    break;
-                case "event":
-                    addEventTask(taskDescription);
-                    break;
-                case "todo":
-                    addTodoTask(taskDescription);
-                    break;
-                default:
-                    throw new NoSuchMethodException();
-            }
-        } catch (NoSuchMethodException e) {
-            userInterface.printInvalidTaskType(taskDescription);
-        } catch (InvalidDeadlineFormatException e) {
-            userInterface.printInvalidDeadlineFormat(e);
-        } catch (InvalidTodoFormatException e) {
-            userInterface.printInvalidTodoFormat(e);
-        } catch (InvalidEventFormatException e) {
-            userInterface.printInvalidEventFormat(e);
-        }
-    }
-
-    protected void addDeadlineTask(String taskDescription) throws InvalidDeadlineFormatException {
+    protected void addDeadlineTask(String taskDescription)
+            throws InvalidDeadlineFormatException, InvalidDateTimeFormatException {
         String[] taskDetails = taskDescription.substring(DEADLINE_BEGIN_INDEX).split("/by");
+
         if (taskDetails.length == DEADLINE_MAX_PARTS) {
+            String description = taskDetails[PART_0].trim();
+            String by = taskDetails[PART_1].trim();
+            if (!by.contains(" ")) {
+                by += " 00:00";
+            }
+            if (isInvalidDateTimeFormat(by)) {
+                throw new InvalidDateTimeFormatException("Invalid deadline date format: " + by);
+            }
+
             index += INDEX_OFFSET;
-            taskList.add(new Deadline(taskDetails[PART_0].trim(), taskDetails[PART_1].trim()));
+            taskList.add(new Deadline(description, by));
             userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidDeadlineFormatException("Invalid deadline format.");
         }
     }
 
-    protected void addEventTask(String taskDescription) throws InvalidEventFormatException {
+    protected void addEventTask(String taskDescription)
+            throws InvalidEventFormatException, InvalidDateTimeFormatException {
         String[] taskDetails = taskDescription.substring(EVENT_BEGIN_INDEX).split("/from|/to");
+
         if (taskDetails.length == EVENT_MAX_PARTS) {
+            String description = taskDetails[PART_0].trim();
+            String from = taskDetails[PART_1].trim();
+            String to = taskDetails[PART_2].trim();
+
+            if (!from.contains(" ")) {
+                from += " 00:00";
+            }
+            if (!to.contains(" ")) {
+                to += " 00:00";
+            }
+
+            if (isInvalidDateTimeFormat(from) || isInvalidDateTimeFormat(to)) {
+                throw new InvalidDateTimeFormatException("Invalid event date/time format: " + from + " or " + to);
+            }
+
             index += INDEX_OFFSET;
-            taskList.add(new Event(taskDetails[PART_0].trim(), taskDetails[PART_1].trim(),
-                    taskDetails[PART_2].trim()));
+            taskList.add(new Event(description, from, to));
             userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidEventFormatException("Invalid event format. ");
+        }
+    }
+
+    private boolean isInvalidDateTimeFormat(String dateTime) {
+        try {
+            LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+            return false;
+        } catch (DateTimeParseException e) {
+            return true;
         }
     }
 
@@ -129,12 +141,11 @@ public class TaskManager {
         userInterface.printTaskList(taskList, index);
     }
 
-
     public TaskManager() {
         loadTasksFromFile();
     }
 
-    private void loadTasksFromFile(){
+    private void loadTasksFromFile() {
         Storage storage = new Storage(FILE_PATH);
         try {
             ArrayList<Task> tasks = storage.load();
