@@ -82,9 +82,25 @@ public class Krot {
             break;
         case "find":
             try {
-                LocalDate date = parser.findParser(line);
-                ArrayList<Task> filteredList = taskList.findByDate(date);
-                ui.listTasks(filteredList);
+                if (line.contains("/title")) {
+                    String title = parser.findFromTitleParser(line);
+                    ArrayList<Task> filteredList = taskList.findFromTitle(title);
+                    if (filteredList.isEmpty()) {
+                        ui.printError(new EmptyInputException("There's no task with that title :(").getMessage());
+                    } else {
+                        ui.listTasks(filteredList);
+                    }
+                } else if (line.contains("/date")) {
+                    try {
+                        LocalDate date = parser.findParser(line);
+                        ArrayList<Task> filteredList = taskList.findByDate(date);
+                        ui.listTasks(filteredList);
+                    } catch (Exception e) {
+                        ui.printError(e.getMessage());
+                    }
+                } else {
+                    ui.printError(new InvalidInputException("Enter a valid title with the initializer /title <keyword>").getMessage());
+                }
             } catch (Exception e) {
                 ui.printError(e.getMessage());
             }

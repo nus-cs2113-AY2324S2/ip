@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 import static java.lang.Integer.parseInt;
 
 public class Parser {
+    private static final int BY_PADDING = 3;
+    private static final int FROM_PADDING = 5;
+    private static final int TITLE_PADDING = 6;
 
     public String checkKey(String line) throws Exception {
         // Checks the keywords and runs the corresponding responses
@@ -70,7 +73,7 @@ public class Parser {
         if (byIndex == -1) {
             throw new ArrayIndexOutOfBoundsException("Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>"); // Throws exception if initializer not found
         }
-        end = dateAndTimeParser(line.substring(byIndex + 3).strip());
+        end = dateAndTimeParser(line.substring(byIndex + BY_PADDING).strip());
         ArrayList<Object> parsed = new ArrayList<>();
         parsed.add(title);
         parsed.add(end);
@@ -94,8 +97,8 @@ public class Parser {
         if (fromIndex == -1 || toIndex == -1) {
             throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-DD>T<HH-MM> or don't try at all"); // Throws exception if initializers not found
         }
-        start = dateAndTimeParser(line.substring(fromIndex + 5, toIndex).strip());
-        end = dateAndTimeParser(line.substring(line.indexOf("/to") + 3).strip());
+        start = dateAndTimeParser(line.substring(fromIndex + FROM_PADDING, toIndex).strip());
+        end = dateAndTimeParser(line.substring(line.indexOf("/to") + BY_PADDING).strip());
         ArrayList<Object> parsed = new ArrayList<>();
         parsed.add(title);
         parsed.add(start);
@@ -121,12 +124,21 @@ public class Parser {
 
     public LocalDate findParser(String line) throws Exception {
         LocalDate date;
-        if (line.contains("/date")) {
-            int index = line.indexOf("/date") + 5;
-            date = dateParser(line.substring(index).strip());
-        } else {
-            throw new InvalidInputException("Enter a valid date with the initializer /date <YYYY-MM-DD>");
-        }
+        int index = line.indexOf("/date") + 5;
+        date = dateParser(line.substring(index).strip());
         return date;
+    }
+
+    public String findFromTitleParser(String line) throws Exception {
+        if (line.contains("/title")) {
+            int index = line.indexOf("/title") + TITLE_PADDING;
+            String title = line.substring(index).strip();
+            if (title.isBlank()) {
+                throw new EmptyInputException("What task are you searching for?");
+            }
+            return title;
+        } else {
+            throw new InvalidInputException("Enter a valid title with the initializer /title <keyword>");
+        }
     }
 }

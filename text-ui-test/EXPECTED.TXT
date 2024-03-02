@@ -226,4 +226,29 @@ Enter a date in the format <YYYY-MM-DD>
 You:
 -
 Krot:
+Enter a valid title with the initializer /title <keyword>
+-
+You:
+-
+Krot:
+Enter a valid title with the initializer /title <keyword>
+-
+You:
+-
+Krot:
+What task are you searching for?
+-
+You:
+-
+Krot:
+There's no task with that title :(
+-
+You:
+-
+Krot:
+1.[E][ ] birthday party (from: 6pm 7 Dec to: 10pm 7 Dec)
+-
+You:
+-
+Krot:
 Bye. Hope to see you again soon!

@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -86,5 +87,9 @@ public class TaskList {
             throw new NullPointerException("You have no tasks due by this date");
         }
         return filteredList;
+    }
+
+    public ArrayList<Task> findFromTitle(String keyword) {
+        return (ArrayList<Task>)tasks.stream().filter(task -> task.task.contains(keyword)).collect(Collectors.toList());
     }
 }
