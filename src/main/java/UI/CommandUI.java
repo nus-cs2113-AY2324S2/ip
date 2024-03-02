@@ -1,6 +1,8 @@
 package UI;
 
 import Sinep.Sinep;
+import TaskList.Deadline;
+import TaskList.Event;
 import TaskList.Task;
 import TaskList.Todo;
 
@@ -30,26 +32,72 @@ public class CommandUI {
         System.out.println(BackboneUI.line);
     }
 
+
+    /**
+     * Prints a message indicating a Todo task has been added.
+     *
+     * @param newTodo The Todo task that has been added.
+     */
     public static void todoAddMessage(Todo newTodo) {
         System.out.println(BackboneUI.line + BackboneUI.newLine + "Added to task list:" + BackboneUI.newLine + newTodo);
         System.out.println("Now you have " + Sinep.taskList.size() + " tasks in the list." + BackboneUI.newLine + BackboneUI.line);
     }
 
-    public static void commandAddMessage(String newDeadline) {
-        System.out.println(BackboneUI.line + BackboneUI.newLine + "Added to task list:" + BackboneUI.newLine + newDeadline);
+    /**
+     * Prints a message indicating a Deadline task has been added, along with any warning messages.
+     *
+     * @param message The Deadline task that has been added.
+     */
+    public static void commandDeadlineMessage(Deadline message) {
+        String warningMessage = message.getWarningMessage();
+        String realMessage = message.toString();
+        System.out.println(BackboneUI.line + BackboneUI.newLine +
+                (warningMessage != null ? warningMessage + BackboneUI.newLine : "") +
+                "Added to task list:" + BackboneUI.newLine + realMessage);
         System.out.println("Now you have " + Sinep.taskList.size() + " tasks in the list." + BackboneUI.newLine + BackboneUI.line);
     }
 
+    /**
+     * Prints a message indicating an Event task has been added, along with any warning messages.
+     *
+     * @param message The Event task that has been added.
+     */
+    public static void commandEventMessage(Event message) {
+        String warningMessage = message.getWarningMessage();
+        String realMessage = message.toString();
+        System.out.println(BackboneUI.line + BackboneUI.newLine +
+                (warningMessage != null ? warningMessage + BackboneUI.newLine : "") +
+                "Added to task list:" + BackboneUI.newLine + realMessage);
+        System.out.println("Now you have " + Sinep.taskList.size() + " tasks in the list." + BackboneUI.newLine + BackboneUI.line);
+    }
+
+    /**
+     * Prints a message indicating a task has been marked as not done.
+     *
+     * @param taskIndex    The index of the task that has been unmarked.
+     * @param markingTask  The task that has been unmarked.
+     */
     public static void printUnmark(int taskIndex, Task markingTask) {
-        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! handleTask.Task " + (taskIndex + 1) + " marked as undone:");
+        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! Task " + (taskIndex + 1) + " marked as undone:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + BackboneUI.newLine + BackboneUI.line);
     }
 
+    /**
+     * Prints a message indicating a task has been marked as done.
+     *
+     * @param taskIndex    The index of the task that has been marked.
+     * @param markingTask  The task that has been marked.
+     */
     public static void printMark(int taskIndex, Task markingTask) {
-        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! handleTask.Task " + (taskIndex + 1) + " marked as done:");
+        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! Task " + (taskIndex + 1) + " marked as done:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + BackboneUI.newLine + BackboneUI.line);
     }
 
+    /**
+     * Prints a message indicating a task has been deleted.
+     *
+     * @param taskIndex The index of the task that has been deleted.
+     */
     public static void printDelete(int taskIndex) {
         System.out.println(BackboneUI.line);
         System.out.println("Noted. I have removed this task:");
