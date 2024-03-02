@@ -1,7 +1,7 @@
 # User Guide
 Porato is a **desktop app for managing tasks using a Command Line Interface**.
-* [Quick start](#Quick-start)
-* [Features](#Features)
+* [Quick start](#quick-start)
+* [Features](#features)
   * [Viewing help : `help`](#viewing-help--help)
   * [Adding a todo task : `todo`](#adding-a-todo-task--todo)
   * [Adding a deadline task : `deadline`](#adding-a-deadline-task--deadline)
@@ -26,7 +26,7 @@ Porato is a **desktop app for managing tasks using a Command Line Interface**.
 6. Refer to the Features below for details of each command
 ## Features
 
-> :notebook: Notes about the command format :
+> 📒 Notes about the command format :
 > * The words that are in `UPPER_CASE` represents the parameters that the users are required to input
 > e.g. `todo TASK`, `TASK` is a parameter which can be used as `todo add me`.
 > * Commands such as `help`, `list` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. e.g. `help 123` will just be intepreted as `help`.
