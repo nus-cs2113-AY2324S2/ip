@@ -1,0 +1,4 @@
+[T][ ]  aaaa
+[E][ ]  wahhhh (from: 3pm to: 2pm)
+[D][X]  arghhhhhh (by: 4pm)
+[T][ ]  sobsob

@@ -1,10 +1,43 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Miku {
     static final int TOTAL_LIST_SIZE = 100;
     static final String LINE_BREAK = "______________________";
+    static final String FILE_PATH = "./data/miku.txt";
     static Task[] storedList = new Task[TOTAL_LIST_SIZE];
     static int numberOfListItems = 0;
+
+
+
+    public static void writeToFile(String filePath, String textToAdd) {
+        try {
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
+            FileWriter f = new FileWriter(filePath, false);
+            f.write(textToAdd);
+            f.close();
+        } catch (IOException e) {
+            System.out.println("file not found");
+        }
+    }
+
+    public static void appendToFile(String filePath, String textToAppend) {
+        try {
+            FileWriter f = new FileWriter(filePath, true);
+            f.write(textToAppend);
+            f.close();
+        } catch (IOException e) {
+            System.out.println("file is not found!");
+        }
+    }
 
     public static void newTodo(String newItem) throws MikuException {
         String[] itemString = newItem.split("todo");
@@ -144,11 +177,20 @@ public class Miku {
             System.out.println(LINE_BREAK);
 
             if (newItem.equals("list")) {
-                 printList(storedList, numberOfListItems);
+                printList(storedList, numberOfListItems);
             } else {
                 String[] splitCommand = newItem.split(" ");
                 runProcess(storedList, splitCommand, newItem);
+                }
+
+            if (numberOfListItems > 0) {
+                writeToFile(FILE_PATH, storedList[0].toString() + System.lineSeparator());
+
+                for (int i = 1; i < numberOfListItems; i++) {
+                    appendToFile(FILE_PATH, storedList[i].toString() + System.lineSeparator());
+                }
             }
+
 
             System.out.println(LINE_BREAK);
             newItem = in.nextLine();

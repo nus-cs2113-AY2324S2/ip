@@ -14,5 +14,4 @@ public class Todo extends Task{
         System.out.println("Got it! I've added this task:\n" + this.toString());
         System.out.println("Now you have " + (numberOfListItems + 1) + " tasks in the list!");
     }
-
 }
