@@ -20,7 +20,7 @@ public class CommandChecker implements Command{
 
     /**
      * Executes the <code>checkFirstCommandWord</code> method.
-     * @param tasks is the current list of <code>tasks</code> to save from the file.
+     * @param tasks is the current list of <code>tasks</code> to save to the file.
      * @param ui is the user interface of that prints texts on program.
      * @param fileSaver is object used to save data into the file.
      */
