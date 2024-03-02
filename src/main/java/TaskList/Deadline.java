@@ -18,7 +18,6 @@ public class Deadline extends Task {
     public Deadline(String description) {
         super(description);
         String[] descriptionParts = description.split("/by ", 2);
-        //this.description = description;
         this.description = descriptionParts.length >= 1 ? descriptionParts[0].trim() : "";
         if (descriptionParts.length > 1) {
             this.rawDateTime = descriptionParts[1].trim(); // Store the raw date string

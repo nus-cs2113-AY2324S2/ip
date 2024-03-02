@@ -4,15 +4,11 @@ import ExceptionHandling.InvalidCommandException;
 import ExceptionHandling.InvalidCommandMessageException;
 import ExceptionHandling.InvalidTaskIndexException;
 import Parser.CommandParse;
-import Sinep.*;
 import UI.BackboneUI;
 import UI.CommandUI;
 import UI.ExceptionUI;
-
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
-
 import static Sinep.Sinep.taskList;
 
 public class HandleTask {
@@ -28,53 +24,27 @@ public class HandleTask {
     public static boolean taskCommands(String command, Scanner scanner, String input) {
         switch (command) {
             case "bye":
-                CommandUI.printBye();
-                scanner.close();
-                return true;
+                return byeCommand(scanner);
             case "list":
                 CommandUI.printList();
                 break;
             case "mark":
-                try {
-                    markList(input);
-                } catch (InvalidTaskIndexException e){
-                    ExceptionUI.printInvalidTaskIndex();
-                }
+                markCommand(input);
                 break;
             case "unmark":
-                try {
-                    unmarkList(input);
-                } catch (InvalidTaskIndexException e){
-                    ExceptionUI.printInvalidTaskIndex();
-                }
+                unmarkCommand(input);
                 break;
             case "todo":
-                try {
-                    addTodo(input);
-                } catch (InvalidCommandMessageException e) {
-                    ExceptionUI.printInvalidTodoMessage();
-                }
+                todoCommand(input);
                 break;
             case "deadline":
-                try {
-                    addDeadline(input);
-                } catch (InvalidCommandMessageException e) {
-                    ExceptionUI.printInvalidDeadlineMessage();
-                }
+                deadlineCommand(input);
                 break;
             case "event":
-                try {
-                    addEvent(input);
-                } catch (InvalidCommandMessageException e) {
-                    ExceptionUI.printInvalidEventMessage();
-                }
+                eventCommand(input);
                 break;
             case "delete":
-                try {
-                    deleteTask(input);
-                } catch (InvalidTaskIndexException | InvalidCommandMessageException e) {
-                    ExceptionUI.printInvalidDeleteIndex();
-                }
+                deleteCommand(input);
                 break;
             case "find":
                 findTask(input.split(" ", 2)[1]);
@@ -87,6 +57,60 @@ public class HandleTask {
                 }
         }
         return false;
+    }
+
+    private static void deleteCommand(String input) {
+        try {
+            deleteTask(input);
+        } catch (InvalidTaskIndexException | InvalidCommandMessageException e) {
+            ExceptionUI.printInvalidDeleteIndex();
+        }
+    }
+
+    private static void eventCommand(String input) {
+        try {
+            addEvent(input);
+        } catch (InvalidCommandMessageException e) {
+            ExceptionUI.printInvalidEventMessage();
+        }
+    }
+
+    private static void deadlineCommand(String input) {
+        try {
+            addDeadline(input);
+        } catch (InvalidCommandMessageException e) {
+            ExceptionUI.printInvalidDeadlineMessage();
+        }
+    }
+
+    private static void todoCommand(String input) {
+        try {
+            addTodo(input);
+        } catch (InvalidCommandMessageException e) {
+            ExceptionUI.printInvalidTodoMessage();
+        }
+    }
+
+    private static void unmarkCommand(String input) {
+        try {
+            unmarkList(input);
+        } catch (InvalidTaskIndexException e){
+            ExceptionUI.printInvalidTaskIndex();
+        }
+    }
+
+    private static void markCommand(String input) {
+        try {
+            markList(input);
+        } catch (InvalidTaskIndexException e){
+            ExceptionUI.printInvalidTaskIndex();
+        }
+    }
+
+    private static boolean byeCommand(Scanner scanner) {
+        CommandUI.printBye();
+        scanner.close();
+        return true;
     }
 
     /**
