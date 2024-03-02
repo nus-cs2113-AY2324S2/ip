@@ -1,5 +1,8 @@
 package chatbot.tasks;
 
+/**
+ * Represents a general task.
+ */
 public abstract class Task {
     private String description;
     private String input;

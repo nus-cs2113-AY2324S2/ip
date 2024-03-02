@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
+/**
+ * Represents a Event task with a start and end date.
+ */
 public class Event extends Task {
     private final String startTime;
     private final String endTime;

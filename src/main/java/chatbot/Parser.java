@@ -3,7 +3,19 @@ package chatbot;
 import chatbot.commands.*;
 import chatbot.tasks.TaskList;
 
+/**
+ * Represents the chatbot's parser.
+ * Parses input into commands.
+ */
 public class Parser {
+    /**
+     * Parses input into commands, creates, and returns a Command object.
+     *
+     * @param taskList The list of tasks.
+     * @param input User input to be parsed.
+     * @return The command.
+     * @throws ChatbotException If the command entered is invalid.
+     */
     public static Command readCommand(TaskList taskList, String input) throws ChatbotException {
         String[] inputArray = input.split(" ", 2);
         String commandName = inputArray[0];

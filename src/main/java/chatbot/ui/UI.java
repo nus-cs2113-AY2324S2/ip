@@ -2,6 +2,10 @@ package chatbot.ui;
 
 import chatbot.tasks.Task;
 
+/**
+ * Represents the user interface for the chatbot.
+ * Contains the messages to be printed.
+ */
 public class UI {
     public static void printSeparator() {
         System.out.println("------------------------------");
@@ -22,6 +26,7 @@ public class UI {
         System.out.println("Want to know what I can do? \n" +
                 "I can add 'todo', 'deadline', and 'event' tasks. \n" +
                 "Or 'list', 'mark', 'unmark', and 'delete' tasks. \n" +
+                "Use 'find' to look for a specific task. \n" +
                 "Also, type 'bye' to exit. I suggest this one. ");
         printSeparator();
     }

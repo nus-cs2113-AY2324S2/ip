@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
+/**
+ * Represents a Deadline Task with a single date.
+ */
 public class Deadline extends Task {
     private final String startTime;
     public Deadline(String description) throws ChatbotException {
