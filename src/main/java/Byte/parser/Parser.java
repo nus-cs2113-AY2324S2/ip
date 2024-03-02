@@ -104,6 +104,7 @@ public class Parser {
      */
     private static String listTasks(TaskList tasks) {
         StringBuilder taskListBuilder = new StringBuilder();
+        taskListBuilder.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.getAllTasks().size(); i++) {
             taskListBuilder.append((i + 1)).append(". ").append(tasks.getAllTasks().get(i)).append("\n");
         }
