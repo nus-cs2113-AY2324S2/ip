@@ -5,6 +5,13 @@ import Exceptions.*;
 import java.util.ArrayList;
 import java.io.File;
 
+/**
+ * The TaskManager class manages tasks by providing methods to add, delete,
+ * mark, unmark, and print tasks.
+ * It also calls functions from Storage class to handle loading tasks from
+ * a file and saving tasks to a file.
+ */
+
 public class TaskManager {
     private static final String FILE_PATH = "." + File.separator + "data" + File.separator + "tasks.txt";
 
@@ -22,32 +29,12 @@ public class TaskManager {
     private int index = 0;
     UserInterface userInterface = new UserInterface();
 
-    public void addTask(String taskDescription) {
-        String taskType = taskDescription.split(" ")[START_INDEX];
-        try {
-            switch (taskType) {
-                case "deadline":
-                    addDeadlineTask(taskDescription);
-                    break;
-                case "event":
-                    addEventTask(taskDescription);
-                    break;
-                case "todo":
-                    addTodoTask(taskDescription);
-                    break;
-                default:
-                    throw new NoSuchMethodException();
-            }
-        } catch (NoSuchMethodException e) {
-            userInterface.printInvalidTaskType(taskDescription);
-        } catch (InvalidDeadlineFormatException e) {
-            userInterface.printInvalidDeadlineFormat(e);
-        } catch (InvalidTodoFormatException e) {
-            userInterface.printInvalidTodoFormat(e);
-        } catch (InvalidEventFormatException e) {
-            userInterface.printInvalidEventFormat(e);
-        }
-    }
+    /**
+     * Adds a deadline task to the task list.
+     *
+     * @param taskDescription The description of the deadline task.
+     * @throws InvalidDeadlineFormatException If the deadline format is invalid.
+     */
 
     protected void addDeadlineTask(String taskDescription) throws InvalidDeadlineFormatException {
         String[] taskDetails = taskDescription.substring(DEADLINE_BEGIN_INDEX).split("/by");
@@ -59,6 +46,13 @@ public class TaskManager {
             throw new InvalidDeadlineFormatException("Invalid deadline format.");
         }
     }
+
+    /**
+     * Adds an Event task to the task list.
+     *
+     * @param taskDescription The description of the Event task.
+     * @throws InvalidEventFormatException If the Event format is invalid.
+     */
 
     protected void addEventTask(String taskDescription) throws InvalidEventFormatException {
         String[] taskDetails = taskDescription.substring(EVENT_BEGIN_INDEX).split("/from|/to");
@@ -72,6 +66,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a Todo task to the task list.
+     *
+     * @param taskDescription The description of the deadline task.
+     * @throws InvalidTodoFormatException If the deadline format is invalid.
+     */
+
     protected void addTodoTask(String taskDescription) throws InvalidTodoFormatException {
         String taskDetails = taskDescription.substring(TODO_BEGIN_INDEX).trim();
         if (!taskDetails.isEmpty()) {
@@ -82,6 +83,13 @@ public class TaskManager {
             throw new InvalidTodoFormatException("Invalid todo format. ");
         }
     }
+
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     * @throws IndexOutOfBoundsException If the task index is out of bounds.
+     */
 
     public void deleteTask(int taskIndex) throws IndexOutOfBoundsException {
         if (taskIndex < index || taskIndex >= START_INDEX) {
@@ -94,6 +102,13 @@ public class TaskManager {
                     index);
         }
     }
+
+    /**
+     * Marks a task as done.
+     *
+     * @param taskIndex The index of the task to be marked.
+     * @throws IndexOutOfBoundsException If the task index is out of bounds.
+     */
 
     public void markTask(int taskIndex) throws IndexOutOfBoundsException {
 
@@ -110,6 +125,13 @@ public class TaskManager {
 
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param taskIndex The index of the task to be unmarked.
+     * @throws IndexOutOfBoundsException If the task index is out of bounds.
+     */
+
     public void unmarkTask(int taskIndex) throws IndexOutOfBoundsException {
 
         if (taskIndex >= index || taskIndex < START_INDEX) {
@@ -125,16 +147,28 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Prints the list of tasks.
+     */
+
     public void printTaskList() {
         userInterface.printTaskList(taskList, index);
     }
 
+    /**
+     * Constructs a TaskManager object and loads tasks from the file.
+     */
 
     public TaskManager() {
         loadTasksFromFile();
     }
 
-    private void loadTasksFromFile(){
+    /**
+     * Loads tasks from the file stored at FILE_PATH.
+     * Calls helping function from Storage class to load data
+     */
+
+    private void loadTasksFromFile() {
         Storage storage = new Storage(FILE_PATH);
         try {
             ArrayList<Task> tasks = storage.load();
@@ -144,6 +178,11 @@ public class TaskManager {
             userInterface.printLoadFileError(e);
         }
     }
+
+    /**
+     * Saves tasks to the file at the location specified in FILE_PATH.
+     * Calls helping function from Storage class to save data
+     */
 
     public void saveTasksToFile() {
         Storage storage = new Storage(FILE_PATH);

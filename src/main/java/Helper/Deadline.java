@@ -1,17 +1,43 @@
 package Helper;
 
+/**
+ * The Deadline class represents a task with a deadline.
+ * It inherits from the Task class and adds functionality specific to Deadline tasks.
+ */
+
 public class Deadline extends Task {
     private String by;
+
+    /**
+     * Constructs a Deadline object with the given description and deadline.
+     *
+     * @param description Description of the task.
+     * @param by The deadline time for the task.
+     */
 
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Returns a string representation of the Deadline object.
+     * The representation includes the task type identifier, description, and deadline.
+     *
+     * @return A string representation of the Deadline object.
+     */
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * Returns a string representation of the Deadline object in a format suitable for file storage.
+     * The representation includes the task type identifier, status, description, and deadline.
+     *
+     * @return A string representation of the Deadline object for file storage.
+     */
 
     @Override
     public String toFileString() {

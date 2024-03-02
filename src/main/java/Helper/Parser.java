@@ -1,10 +1,22 @@
 package Helper;
 
+/**
+ * The Parser class is responsible for parsing tasks fetched from the file.
+ * It handles saved tasks and creates appropriate task objects based on the identifier.
+ */
+
 public class Parser {
 
     public static final String TASK = "T";
     public static final String DEADLINE = "D";
     public static final String EVENT = "E";
+
+    /**
+     * Handles the task stored in the file by parsing it and creating appropriate task objects.
+     *
+     * @param line The task being processed.
+     * @return task The task being returned with appropriate details parsed from the file
+     */
 
     public static Task parseTaskFromString(String line) {
         Task task = null;
