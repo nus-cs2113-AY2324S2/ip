@@ -121,6 +121,23 @@ public class TaskList {
         System.out.println("    " + "--------------");
     }
 
+    public void findTask (String userInput){
+        String keyword = userInput.substring(5).toLowerCase();
+        System.out.println("    " + "-----RUBY-----");
+        System.out.println("    " + "Here are the matching tasks in your list:");
+        int count = 1;
+        for (Task curTask: taskList){
+            if (curTask.name.toLowerCase().contains(keyword)){
+                System.out.print("      " + (count) +".");
+                curTask.printTask();
+                count ++;
+            }
+        }
+        if (count == 1){
+            System.out.println("    " + "No task found.");
+        }
+        System.out.println("    " + "--------------");
+    }
     /**
      * Prints all tasks in the task list.
      * Displays a numbered list of tasks along with their completion status and details.
