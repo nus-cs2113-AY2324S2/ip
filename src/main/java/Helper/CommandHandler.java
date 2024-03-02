@@ -1,5 +1,6 @@
 package Helper;
 
+import Exceptions.InvalidDateTimeFormatException;
 import Exceptions.InvalidDeadlineFormatException;
 import Exceptions.InvalidEventFormatException;
 import Exceptions.InvalidTodoFormatException;
@@ -20,6 +21,7 @@ public class CommandHandler {
         this.taskManager = taskManager;
         this.userInterface = userInterface;
     }
+
     public static final int MARK_BEGIN_INDEX = 5;
     public static final int UNMARK_BEGIN_INDEX = 7;
     public static final int DELETE_BEGIN_INDEX = 7;
@@ -76,6 +78,8 @@ public class CommandHandler {
             userInterface.printInvalidTodoFormat(e);
         } catch (InvalidEventFormatException e) {
             userInterface.printInvalidEventFormat(e);
+        } catch (InvalidDateTimeFormatException e) {
+            userInterface.printInvalidDateTimeFormat(e);
         }
     }
 
