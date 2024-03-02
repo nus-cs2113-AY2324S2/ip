@@ -2,21 +2,17 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     @Override
