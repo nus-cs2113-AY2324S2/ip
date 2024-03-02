@@ -52,6 +52,10 @@ public class Parser {
                 Task removedTask = tasks.removeTask(index);
                 ui.showTaskDeleted(removedTask, tasks.getSize());
                 break;
+            case "find":
+                String keyword = command.substring(command.indexOf(" ") + 1);
+                ui.showFoundResults(tasks.findTasks(keyword));
+                break;
             default:
                 ui.showError("I'm sorry, but I don't know what that means :-(");
                 break;
