@@ -9,28 +9,34 @@ import java.util.Scanner;
  * @author nkotaa
  */
 public class Blue {
-    private static final String WELCOME_MESSAGE = "Greetings! I'm Blue, a command line task assistant.";
-    private static final String GOODBYE_MESSAGE = "Till we meet again.";
+    private Ui blueUi;
+    private TaskManager blueTaskManager;
 
-    private static void run() {
-        new StorageHandler().restoreTasks();
-        Ui blueUi = new Ui();
-        blueUi.talk(WELCOME_MESSAGE);
-        for (Input userRequest = blueUi.getRequest(); !userRequest.isExit();
-                userRequest = blueUi.getRequest()) {
-            if (userRequest.isUndefined()) {
-                blueUi.warn(userRequest.getErrorMessage());
-                continue;
+    /**
+     * Class constructor for Blue.
+     */
+    public Blue() {
+        blueUi = new Ui();
+        blueTaskManager = new TaskManager(blueUi);
+    }
+
+    private void run() {
+        blueUi.greet();
+        Input userRequest = blueUi.getRequest(); 
+        while (userRequest.isNotExit()) {
+            while (userRequest.isUndefined()) {
+                userRequest = blueUi.getRequest();
             }
-            new TaskManager(userRequest).performRequest();
+            blueTaskManager.performRequest(userRequest);
+            userRequest = blueUi.getRequest();
         }
-        blueUi.talk(GOODBYE_MESSAGE);
+        blueUi.farewell();
     }
 
     /**
      * The main method of our program
      */
     public static void main(String[] args) {
-        run();
+        new Blue().run();
     }
 }

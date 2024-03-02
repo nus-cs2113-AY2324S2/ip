@@ -1,7 +1,7 @@
 package Blue;
 
 /**
- * Defines an encapsulation of commands and command arguments well understood by Blue.
+ * Defines an encapsulation of a command and command arguments to be understood by Blue.
  */
 public class Input {
     private InputCommand command;
@@ -11,28 +11,45 @@ public class Input {
     private String errorMessage;
 
     /**
-     * Class level constructor for ill-defined inputs.
+     * Class level constructor for inputs without an argument.
      *
-     * @param errorMessage Error message pertaining to how input is ill-defined.
+     * @param command User command.
      */
-    public Input(String errorMessage) {
-        command = InputCommand.undefined;
-        this.errorMessage = errorMessage;
+    public Input(InputCommand command) {
+        this.command = command;
     }
 
     /**
-     * Class level constructor for well-defined inputs.
+     * Class level constructor for task index based inputs.
      *
      * @param command User command.
-     * @param taskIndex Task index of task to handle.
-     * @param taskToAdd Task to add.
-     * @param taskQuery String query for task.
+     * @param taskIndex Index of task to manage.
      */
-    public Input(InputCommand command, int taskIndex, Task taskToAdd, String taskQuery) {
+    public Input(InputCommand command, int taskIndex) {
         this.command = command;
         this.taskIndex = taskIndex;
-        this.taskToAdd = taskToAdd;
+    }
+
+    /**
+     * Class level constructor for task query inputs.
+     *
+     * @param command User command.
+     * @param taskQuery String query for task.
+     */
+    public Input(InputCommand command, String taskQuery) {
+        this.command = command;
         this.taskQuery = taskQuery;
+    }
+
+    /**
+     * Class level constructor for task adding inputs.
+     *
+     * @param command User command.
+     * @param taskToAdd Task to add.
+     */
+    public Input(InputCommand command, Task taskToAdd) {
+        this.command = command;
+        this.taskToAdd = taskToAdd;
     }
 
     /**
@@ -85,8 +102,8 @@ public class Input {
      *
      * @return True if command is an enum bye, false otherwise.
      */
-    public boolean isExit() {
-        return command == InputCommand.bye;
+    public boolean isNotExit() {
+        return command != InputCommand.bye;
     }
 
     /**

@@ -15,23 +15,25 @@ public class StorageHandler {
     public static final String TASK_FILE_PATH = DATA_DIR_PATH + "/tasks.txt";
 
     /**
-     * Restores previously saved tasks from TASK_FILE_PATH if such a file exists, do nothing otherwise.
+     * Returns an ArrayList of saved tasks if TASK_FILE_PATH exists, an empty ArrayList otherwise.
+     * Assumes TASK_FILE_PATH is a properly formatted text file.
      *
-     * Assumes text found in TASK_FILE_PATH is properly formatted.
+     * @return An ArrayList of tasks.
      */
-    public void restoreTasks() {
+    public ArrayList<Task> restoreTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
         File taskFile = new File(TASK_FILE_PATH);
         try {
             Scanner s = new Scanner(taskFile);
-            TaskManager taskManager = new TaskManager();
             while (s.hasNext()) {
                 String[] savedTaskDetails = s.nextLine().split("\\|");
                 Task savedTask = restoreTask(savedTaskDetails);
-                taskManager.addTask(savedTask, false);
+                tasks.add(savedTask);
             }
         } catch (FileNotFoundException e) {
             // No saved tasks found, start from scratch
         }
+        return tasks;
     }
 
     /**

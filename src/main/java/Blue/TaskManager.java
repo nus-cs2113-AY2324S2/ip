@@ -7,27 +7,24 @@ import java.util.ArrayList;
  * Further, it directly acts on this list of tasks as requested by the user.
  */
 public class TaskManager {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int numTasks = 0;
+    private static final String TASK_NOT_FOUND_MESSAGE = "Task not found.";
+    private static ArrayList<Task> tasks;
     private static Ui taskManagerUi;
-    private Input request;
-
-    public TaskManager() {
-    }
 
     /**
-     * Instantiates a task manager to perform a request.
+     * Public constructor for task manager.
      *
-     * @param request The request this particular instance of task manager is to perform.
+     * @param taskManagerUi The UI with which the task manager responds to requests.
      */
-    public TaskManager(Input request) {
-        this.request = request;
+    public TaskManager(Ui taskManagerUi) {
+        tasks = new StorageHandler().restoreTasks();
+        this.taskManagerUi = taskManagerUi;
     }
 
     /**
      * Performs the request; saving the new task list to disk after doing so.
      */
-    public void performRequest() {
+    public void performRequest(Input request) {
         switch (request.getCommand()) {
         case list:
             listTasks();
@@ -40,11 +37,11 @@ public class TaskManager {
             break;
         case find:
             listTasks(request.getTaskQuery());
-            break;
+            return;
         case todo:
         case deadline:
         case event:
-            addTask(request.getTaskToAdd(), true);
+            addTask(request.getTaskToAdd());
             break;
         default:
         }
@@ -60,12 +57,9 @@ public class TaskManager {
      * @param task Task to add.
      * @param isNew Indicates whether this task is one newly received from the user, or restored from disk.
      */
-    public void addTask(Task task, boolean isNew) {
+    private void addTask(Task task) {
         tasks.add(task);
-        numTasks += 1;
-        if (isNew) {
-            taskManagerUi.talk("added: " + task.getDescription());
-        }
+        taskManagerUi.talk("added: " + task.getDescription());
     }
 
     private void listTasks() {
@@ -85,13 +79,13 @@ public class TaskManager {
             }
         }
         if (count == 0) {
-            taskManagerUi.talk("No tasks found.");
+            taskManagerUi.talk(TASK_NOT_FOUND_MESSAGE);
         }
     }
 
     private void markTask(int taskIndex) {
-        if (taskIndex < 0 || taskIndex >= numTasks) {
-            taskManagerUi.talk("Task not found.");
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            taskManagerUi.talk(TASK_NOT_FOUND_MESSAGE);
             return;
         }
         Task taskToMark = tasks.get(taskIndex);
@@ -100,12 +94,11 @@ public class TaskManager {
     }
 
     private void deleteTask(int taskIndex) {
-        if (taskIndex < 0 || taskIndex >= numTasks) {
-            taskManagerUi.talk("Task not found.");
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            taskManagerUi.talk(TASK_NOT_FOUND_MESSAGE);
             return;
         }
         taskManagerUi.talk("Task " + tasks.get(taskIndex).getDescription() + " deleted.");
         tasks.remove(taskIndex);
-        numTasks -= 1;
     }
 }

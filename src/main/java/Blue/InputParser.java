@@ -4,29 +4,37 @@ package Blue;
  * Encapsulates the logic and behaviour of a parser to Blue.
  */
 public class InputParser {
-    private Input parsedInput;
-
-    public Input getParsedInput() {
-        return parsedInput;
-    }
 
     /**
-     * Parses a well-formed input regardless of whether user input is well-formed.
+     * Returns a well-formed input regardless of whether user input is well-formed.
      *
-     * @param line The string of user input to parse.
+     * @param line The string of user text to parse.
+     * @return A request for Blue parsed from line.
      */
-    public void parse(String line) {
-        InputCommand command = InputCommand.undefined;
+    public Input parse(String line) throws IllegalInput {
         try {
-            command = parseRequest(line);
-            int taskIndex = parseIndex(line, command);
-            Task taskToAdd = parseTask(line, command);
-            String taskQuery = parseTaskQuery(line, command);
-            parsedInput = new Input(command, taskIndex, taskToAdd, taskQuery);
+            InputCommand command = parseRequest(line);
+            switch (command) {
+            case list:
+            case bye:
+                return new Input(command);
+            case find:
+                String taskQuery = parseTaskQuery(line);
+                return new Input(command, taskQuery);
+            case mark:
+            case delete:
+                int taskIndex = parseIndex(line, command);
+                return new Input(command, taskIndex);
+            case todo:
+            case deadline:
+            case event:
+                Task taskToAdd = parseTask(line, command);
+                return new Input(command, taskToAdd);
+            default:
+                throw new IllegalInput();
+            }
         } catch (IllegalInput e) {
-            command = InputCommand.undefined;
-            String errorMessage = e.getMessage();
-            parsedInput = new Input(errorMessage);
+            throw e;
         }
     }
 
@@ -126,17 +134,10 @@ public class InputParser {
      * Returns a string query to tasks.
      *
      * @param line The string of user input to parse.
-     * @param command User command.
      * @return A string matching the query parsed from line.
      */
-    private String parseTaskQuery(String line, InputCommand command) {
-        String taskQuery = "";
-        switch (command) {
-            case find:
-                taskQuery = line.substring(4).trim();
-                return taskQuery;
-            default:
-                return taskQuery;
-        }
+    private String parseTaskQuery(String line) {
+        String taskQuery = line.substring(4);
+        return taskQuery;
     }
 }
