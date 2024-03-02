@@ -13,6 +13,9 @@ public class CommandHandler {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String TODO = "todo";
+    public static final int KEYWORD_BEGIN_INDEX = 5;
+    public static final String FIND = "find";
+
     private TaskManager taskManager;
     private UserInterface userInterface;
 
@@ -20,6 +23,7 @@ public class CommandHandler {
         this.taskManager = taskManager;
         this.userInterface = userInterface;
     }
+
     public static final int MARK_BEGIN_INDEX = 5;
     public static final int UNMARK_BEGIN_INDEX = 7;
     public static final int DELETE_BEGIN_INDEX = 7;
@@ -44,6 +48,9 @@ public class CommandHandler {
             break;
         case DELETE:
             deleteTask(input);
+            break;
+        case FIND:
+            findTasks(input);
             break;
         default:
             addTask(input);
@@ -110,5 +117,11 @@ public class CommandHandler {
         } catch (NumberFormatException e) {
             userInterface.printInvalidInputIndex(e);
         }
+    }
+
+    private void findTasks(String input) {
+        String keyword = input.substring(KEYWORD_BEGIN_INDEX).trim();
+        taskManager.findTasksByKeyword(keyword);
+
     }
 }

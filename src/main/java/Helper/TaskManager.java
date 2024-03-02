@@ -154,4 +154,14 @@ public class TaskManager {
         }
     }
 
+    public void findTasksByKeyword(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.description.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        userInterface.printFoundTasks(matchingTasks, taskList);
+    }
+
 }

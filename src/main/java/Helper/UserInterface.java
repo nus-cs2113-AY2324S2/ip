@@ -135,4 +135,15 @@ public class UserInterface {
 
     }
 
+    public void printFoundTasks(ArrayList<Task> foundTasks, ArrayList<Task> taskList) {
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            int originalIndex = taskList.indexOf(foundTasks.get(i)) + INDEX_OFFSET;
+            System.out.println(
+                    TAB_SPACE + (i + INDEX_OFFSET) + foundTasks.get(i) + ". (Original Index: " + originalIndex + ") ");
+        }
+        System.out.println(LINE);
+    }
+
 }
