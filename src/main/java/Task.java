@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class Task {
     protected String task;
     protected boolean isDone;
@@ -15,11 +17,11 @@ public class Task {
         return "";
     }
 
-    public String getStart() {
-        return "";
+    public LocalDateTime getStart() {
+        return null;
     }
 
-    public String getEnd() {
-        return "";
+    public LocalDateTime getEnd() {
+        return null;
     }
 }

@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task{
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
     protected String taskType;
 
-    public Event(String task, String start, String end, String taskType) {
+    public Event(String task, LocalDateTime start, LocalDateTime end, String taskType) {
         super(task);
         this.start = start;
         this.end = end;
@@ -16,12 +18,12 @@ public class Event extends Task{
     }
 
     @Override
-    public String getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
     @Override
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 }

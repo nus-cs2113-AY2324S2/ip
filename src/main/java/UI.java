@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class UI {
@@ -18,6 +20,7 @@ public class UI {
         System.out.println("\tMark the tasks as done: mark <taskNumber>");
         System.out.println("\tUnmark the tasks as done: unmark <taskNumber>");
         System.out.println("\tDelete the task: delete <taskNumber>");
+        System.out.println("\tFind all the tasks due from now to desired date: find /date <YYYY-MM-DD>");
         System.out.println("\tEnd the chat session: bye");
     }
 
@@ -73,9 +76,15 @@ public class UI {
                 + (task.isDone ? "X" : " ")
                 + "] "
                 + task.task
-                + (task.getTaskType().equalsIgnoreCase("E") ? " (from: " + task.getStart() + " " : "")
-                + (task.getTaskType().equalsIgnoreCase("E") ? "to: " + task.getEnd() + ")" :
-                task.getTaskType().equalsIgnoreCase("D") ? " (by: " + task.getEnd() + ")" : ""));
+                + (task.getTaskType().equalsIgnoreCase("E") ? " (from: " + reformatDate(task.getStart()) + " " : "")
+                + (task.getTaskType().equalsIgnoreCase("E") ? "to: " + reformatDate(task.getEnd()) + ")" :
+                task.getTaskType().equalsIgnoreCase("D") ? " (by: " + reformatDate(task.getEnd()) + ")" : ""));
+    }
+
+    public String reformatDate(LocalDateTime date) {
+        String dateTime;
+        dateTime = date.format(DateTimeFormatter.ofPattern("dd MMM yy hh:mma"));
+        return dateTime;
     }
 
     public void printMarkMessage(Task task) {

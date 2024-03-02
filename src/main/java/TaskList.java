@@ -1,10 +1,12 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    public TaskList(ArrayList<Task> taskList) {
-        this.tasks = taskList;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public ArrayList<Task> getTasks() {
@@ -32,7 +34,7 @@ public class TaskList {
         return t;
     }
 
-    public Task createEvent(String title, String start, String end) throws StringIndexOutOfBoundsException, EmptyInputException {
+    public Task createEvent(String title, LocalDateTime start, LocalDateTime end) throws StringIndexOutOfBoundsException {
         // Creates new event
         Task task;
         task = new Event(title, start, end, "E");
@@ -40,7 +42,7 @@ public class TaskList {
         return task;
     }
 
-    public Task createDeadline(String title, String dueDate) throws ArrayIndexOutOfBoundsException, EmptyInputException {
+    public Task createDeadline(String title, LocalDateTime dueDate) throws ArrayIndexOutOfBoundsException {
         // Creates new deadline task
         Task task;
         task = new Deadline(title, dueDate, "D");
@@ -67,5 +69,22 @@ public class TaskList {
             throw new IndexOutOfBoundsException("I can't delete a task that isn't there...");
         }
         return task;
+    }
+
+    public ArrayList<Task> findByDate(LocalDate date) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        try {
+            for(Task task : this.tasks) {
+                if (task.getEnd() == null) {
+                    continue;
+                }
+                if (task.getEnd().toLocalDate().isEqual(date) || task.getEnd().toLocalDate().isBefore(date)) {
+                    filteredList.add(task);
+                }
+            }
+        } catch (NullPointerException e) {
+            throw new NullPointerException("You have no tasks due by this date");
+        }
+        return filteredList;
     }
 }
