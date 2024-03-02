@@ -1,12 +1,41 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Miku {
     static final String LINE_BREAK = "______________________";
+    static final String FILE_PATH = "./data/miku.txt";
     static ArrayList<Task> storedList = new ArrayList<>();
     static int numberOfListItems = 0;
 
+    public static void writeToFile(String filePath, String textToAdd) {
+        try {
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
+            FileWriter f = new FileWriter(filePath, false);
+            f.write(textToAdd);
+            f.close();
+        } catch (IOException e) {
+            System.out.println("file not found");
+        }
+    }
+
+    public static void appendToFile(String filePath, String textToAppend) {
+        try {
+            FileWriter f = new FileWriter(filePath, true);
+            f.write(textToAppend);
+            f.close();
+        } catch (IOException e) {
+            System.out.println("file is not found!");
+        }
+    }
 
     private static String[] getEventArgument(String newItem) {
         return newItem.split("event|/from|/to");
@@ -165,7 +194,7 @@ public class Miku {
         }
     }
 
-    public static void editListStatus(ArrayList<Task> storedList, String[] splitCommand, String newItem) {
+    public static void editListStatus(ArrayList<Task> storedList, String[] splitCommand) {
         switch (splitCommand[0]) {
         case "mark":
             try {
@@ -238,9 +267,16 @@ public class Miku {
             } else if (splitCommand[0].matches("todo|event|deadline")) {
                 addTask(splitCommand, newItem);
             } else if (splitCommand[0].matches("mark|unmark|delete")) {
-                editListStatus(storedList, splitCommand, newItem);
+                editListStatus(storedList, splitCommand);
             } else {
                 System.out.println("You typed something wrongly, I don't know what that means (ㅠ﹏ㅠ)");
+            }
+
+            if (numberOfListItems > 0) {
+                writeToFile(FILE_PATH, storedList.get(0).toString() + System.lineSeparator());
+                for (int i = 1; i < numberOfListItems; i++) {
+                    appendToFile(FILE_PATH, storedList.get(i).toString() + System.lineSeparator());
+                }
             }
 
             System.out.println(LINE_BREAK);
