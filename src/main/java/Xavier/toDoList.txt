@@ -1,2 +1,1 @@
-T|1| buy groceries
-E|0| birthday party |4pm |6pm
+E|0| Jason Lienardi attend CS2113 lecture |Friday 23 Feb 2024 4pm |6pm
