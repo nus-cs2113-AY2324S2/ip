@@ -17,8 +17,8 @@ public class ManageInputs {
     }
 
 
-
-    private static int fillFileContents(ArrayList<Task> tasks, String filePath, int index, boolean isInTxt) throws IOException, UnexpectedCommandException {//updates index
+//file -> tasks
+    private static int fillFileContents(ArrayList<Task> tasks, String filePath, int index) throws IOException, UnexpectedCommandException {//updates index
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
 
@@ -32,13 +32,19 @@ public class ManageInputs {
             } else if (sLine.contains("[T]")) {
                 dealWithTodo(tasks, index, sLine, true);
             }
+            boolean isInTxt = false;
             index++;
         }
-        isInTxt = false;
+
         return index;
     }
 
-
+private void saveToFile(ArrayList<Task> tasks, int index) throws IOException{
+    new FileWriter("TaskList.txt", false).close();
+    for (int TaskIndex = 0; TaskIndex < index; TaskIndex ++) {
+        writeToFile("TaskList.txt", tasks.get(TaskIndex));
+    }
+}
 
     public static void dealWithEvent(ArrayList<Task> tasks, int index, String line, boolean isInTxt) throws UnexpectedCommandException, IOException {
         int indexTo = line.lastIndexOf("to");
@@ -77,10 +83,8 @@ public class ManageInputs {
         } else {
             from = line.substring(indexFrom + 6, indexTo - 1);
             to = line.substring(indexTo + 4, line.length() - 1);
-            description = line.substring(5, indexFrom - 1);
-        } //when uncomment this, cannot add but reads file contents properly
-        //when commented, can add but cannot read file contents properly
-        //System.out.println(isInTxt);
+            description = line.substring(6, indexFrom - 1);
+        }
 
         tasks.add(index, new Event(description, from, to));
     }
@@ -150,7 +154,7 @@ public class ManageInputs {
 
     public ManageInputs(ArrayList<Task> tasks, int index, String line) throws IOException, UnexpectedCommandException {
         boolean isInTxt = false;
-        index = fillFileContents(tasks, "TaskList.txt", index, isInTxt);
+        index = fillFileContents(tasks, "TaskList.txt", index);
 
         while (!line.equals("bye")) {
             Boolean isValidCommand = false;
@@ -166,12 +170,14 @@ public class ManageInputs {
                 tasks.get(idx - 1).markAsDone();
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(tasks.get(idx - 1));
+                saveToFile(tasks, index);
             } else if (inputs[0].equals("unmark")) {//unmark done
                 isValidCommand = true;
                 int idx = Integer.parseInt(inputs[1]);
                 tasks.get(idx - 1).unmarkDone();
                 System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println(tasks.get(idx - 1));
+                saveToFile(tasks, index);
             } else if (line.equals("list")) {//lists tasks
                 isValidCommand = true;
                 System.out.println("Here are the tasks in your list: ");
@@ -181,10 +187,7 @@ public class ManageInputs {
                 }
             } else if (line.equals("bye")) {//exit chat
                 isValidCommand = true;
-
-
-
-
+                saveToFile(tasks, index);
                 break;
             } else if (inputs[0].equals("event") || inputs[0].equals("todo") || inputs[0].equals("deadline")) {//add items
                 try {
@@ -217,12 +220,15 @@ public class ManageInputs {
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (inputs[0].equals("delete")) {
                 isValidCommand = true;
+                fillFileContents(tasks, "TaskList.txt", index);
                 int idx = Integer.parseInt(inputs[1]);
                 System.out.println("Noted. I've removed this task: ");
                 System.out.println(tasks.get(idx - 1));
                 tasks.remove(idx - 1);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 index--;
+                System.out.println("Now you have " + index + " tasks in the list.");
+                saveToFile(tasks, index);
+
             } else {
                 try {
                     handleEmptyInput(line);
