@@ -1,4 +1,4 @@
-package chatbot.task;
+package chatbot.tasks;
 
 public class Todo extends Task {
     public Todo(String description) {
@@ -12,5 +12,8 @@ public class Todo extends Task {
     }
     public String getData() {
         return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription();
+    }
+    public void printData() {
+        System.out.println(this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription());
     }
 }

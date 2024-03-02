@@ -1,4 +1,4 @@
-package chatbot.task;
+package chatbot.tasks;
 
 import chatbot.ChatbotException;
 
@@ -24,5 +24,9 @@ public class Event extends Task {
     public String getData() {
         return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription()
                 + " (from: " + this.startTime + ", to: " + this.endTime + ")";
+    }
+    public void printData() {
+        System.out.println(this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription()
+                + " (from: " + this.startTime + ", to: " + this.endTime + ")");
     }
 }

@@ -1,4 +1,2 @@
-false@todo@test 1
-true@deadline@test 2 /by aaa
-false@deadline@return book /by Sunday
-false@event@project meeting /from Mon 2pm /to 4pm
+false@todo@borrow book
+true@deadline@return book /by Sunday

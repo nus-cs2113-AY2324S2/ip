@@ -1,39 +1,32 @@
-package chatbot.task;
+package chatbot.tasks;
 
 public abstract class Task {
     private String description;
-    private String command;
+    private String input;
     private boolean isDone = false;
     public Task(String description) {
         this.description = description;
-        this.command = description;
+        this.input = description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public String getDescription() {
         return description;
     }
-
     public String getCommand() {
-        return command;
+        return input;
     }
     public boolean isDone() {
         return isDone;
     }
-
     public void markAsDone() {
         this.isDone = true;
     }
-
     public void markAsNotDone() {
         this.isDone = false;
     }
-
     public abstract String getTypeDisplay();
-
     public String getMarkDisplay() {
         if (this.isDone()) {
             return "[X]";
@@ -43,4 +36,5 @@ public abstract class Task {
     }
     public abstract String getTaskName();
     public abstract String getData();
+    public abstract void printData();
 }

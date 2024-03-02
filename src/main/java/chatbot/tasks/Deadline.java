@@ -1,4 +1,4 @@
-package chatbot.task;
+package chatbot.tasks;
 
 import chatbot.ChatbotException;
 
@@ -24,5 +24,9 @@ public class Deadline extends Task {
     public String getData() {
         return this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription()
                 + "(by: " + this.startTime + ")";
+    }
+    public void printData() {
+        System.out.println(this.getTypeDisplay() + this.getMarkDisplay() + " " + this.getDescription()
+                + "(by: " + this.startTime + ")");
     }
 }
