@@ -23,6 +23,11 @@ public class UI {
         System.out.println(NEW_LINE + "Bye. Hope to see you again soon!\n" + NEW_LINE);
     }
 
+    /**
+     * Gets the different user inputs (list, mark, unmark, todo, deadline, event, remove, find),
+     * and handles the inputs inside Task
+     * Exits the programme with "bye"
+     */
     public static boolean getUserInput () {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
@@ -64,13 +69,21 @@ public class UI {
                 } catch (Exception e) {
                     System.out.println("Error removing task");
                 }
+            } else if (input.startsWith("find ")) {
+                try {
+                    Task.findTask(input);
+                } catch (Exception e) {
+                    System.out.println("Error removing task");
+                }
             } else {
                 System.out.println(NEW_LINE + "Sorry, I don't recognise that input\n"
                         + "Hint: Use todo/event/deadline [task] to list tasks\n"
                         + "OR Use mark/unmark/remove [task number] to edit tasks\n"
+                        + "OR find [task] to search for tasks\n"
                         + NEW_LINE);
             }
             return false;
         }
     }
+
 }

@@ -7,22 +7,34 @@ import storage.Storage;
 import java.io.IOException;
 import exceptions.DuplicateMarkException;
 import exceptions.EmptyTaskException;
-import exceptions.DuplicateUnmarkException;
+import parser.Parse;
 
+/**
+ * Represents an array of tasks
+ * Supports operations on tasks: add, mark, unmark, delete, find
+ */
 public class Task {
     public static int taskLength = 0;
     public static ArrayList<Task> list = new ArrayList<>();
     public static final String NEW_LINE = "____________________________________________________________\n";
     public String description;
     public boolean isDone;
-    protected String taskType;
+    public String taskType;
 
     public Task(String description, boolean taskDone) {
         this.description = description;
         this.isDone = taskDone;
     }
 
-    //Create a new task
+    /**
+     * Adds either a todo, deadline or event
+     *
+     * @param taskType input from user in the command line.
+     * @param taskDone true if task is done, false otherwise
+     * @param task description of tasks
+     * @param quietLoad set to true to display task when created by user, but set to false when loading tasks from a
+     *                  save file to avoid unnecessary displaying of tasks
+     */
     public static void createTask(String taskType, boolean taskDone, String task, boolean quietLoad) {
         switch (taskType) {
         case "todo":
@@ -40,6 +52,12 @@ public class Task {
         }
     }
 
+    /**
+     * Removes the task given by the index
+     *
+     * @param taskNumber index of task to be deleted
+     * @throws IOException if index is out of range
+     */
     public static void deleteTask(int taskNumber) {
         Task task = list.get(taskNumber);
         list.remove(taskNumber);
@@ -52,7 +70,14 @@ public class Task {
         System.out.println(NEW_LINE + "Okay, I've removed: " + task.description + "\n" + NEW_LINE);
     }
 
-    //Handle different types of tasks
+    /**
+     * Process the type of user input and proceeds with the appropriate task formatting, creation and exceptions
+     *
+     * @param input user input's to be processed
+     * @throws EmptyTaskException if the task is empty
+     * @throws IndexOutOfBoundsException if task is out of bounds
+     * @throws IOException for other types of exceptions
+     */
     public static void handleTasks(String input) throws EmptyTaskException {
         int index = input.indexOf(" ");
         String taskType = input.substring(0, index);
@@ -62,16 +87,9 @@ public class Task {
         switch (taskType) {
         case "deadline":
             try {
-                //Empty deadline exception
-                String deadlineContent = taskContent.split("/by ")[0];
-                if (deadlineContent.trim().isEmpty()) {
-                    throw new EmptyTaskException();
-                } else {
-                    String deadlineTiming = taskContent.split("/by ")[1];
-                    taskFinal = taskContent.split("/")[0] + " (by: " + deadlineTiming + ")";
-                    createTask(taskType, false, taskFinal, false);
-                    Storage.saveFile(list);
-                }
+                taskFinal = Parse.formatDeadline(taskContent);
+                createTask(taskType, false, taskFinal, false);
+                Storage.saveFile(list);
             }
             catch (IndexOutOfBoundsException e) {
                 System.out.println("Cannot parse deadline start date!\n"
@@ -84,18 +102,9 @@ public class Task {
 
         case "event":
             try {
-                //empty event exception
-                String eventContent = taskContent.split("/from ")[0];
-                if (eventContent.trim().isEmpty()) {
-                    throw new EmptyTaskException();
-                } else {
-                    String eventTiming = taskContent.split("/from ")[1];
-                    String eventFrom = eventTiming.split("/to ")[0];
-                    String eventTo = eventTiming.split("/to ")[1];
-                    taskFinal = taskContent.split("/")[0] + " (from: " + eventFrom + " to: " + eventTo + ")";
-                    createTask(taskType, false, taskFinal, false);
-                    Storage.saveFile(list);
-                }
+                taskFinal = Parse.formatEvent(taskContent);
+                createTask(taskType, false, taskFinal, false);
+                Storage.saveFile(list);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Cannot parse event start/end date!\n"
                         +  "Format: event [task] /from [start time] /to [end time]");
@@ -104,7 +113,6 @@ public class Task {
             }
             break;
 
-        //case for T0D0
         default:
             if (taskContent.trim().isEmpty()) {
                 throw new EmptyTaskException();
@@ -119,7 +127,6 @@ public class Task {
         }
     }
 
-    //show current tasks
     public static void showTasks() {
         System.out.println(NEW_LINE);
         System.out.println("Your current tasks");
@@ -130,6 +137,29 @@ public class Task {
         System.out.print(NEW_LINE);
     }
 
+    /**
+     * Finds the task matching user inputs and displays them
+     *
+     * @param task keyword to match inputs
+     */
+    public static void findTask(String task) {
+        String keyword = task.split("find ")[1].trim();
+        int count = 0;
+        for (Task item: list) {
+            if (item.description.contains(keyword)) {
+                System.out.print((count + 1) + ". ");
+                System.out.println(item.getTask());
+                count++;
+            }
+        }
+    }
+
+    /**
+     * Marks the corresponding task in list
+     *
+     * @param taskNumber the task to be marked
+     * @throws DuplicateMarkException exception thrown if a task if marked again
+     */
     public static void mark(int taskNumber) throws DuplicateMarkException {
         if (list.get(taskNumber - 1).isDone) {
             throw new DuplicateMarkException();
@@ -144,11 +174,17 @@ public class Task {
         }
     }
 
+    /**
+     * Unmark the corresponding task in list
+     *
+     * @param taskNumber the task to be unmarked
+     * @throws DuplicateMarkException exception thrown if a task if unmarked again
+     */
     public static void unMark(int taskNumber) throws DuplicateUnmarkException{
         if (!list.get(taskNumber - 1).isDone) {
             throw new DuplicateUnmarkException();
         } else {
-            list.get(taskNumber - 1).markAsDone();
+            list.get(taskNumber - 1).markNotDone();
             try {
                 Storage.saveFile(list);
             } catch (IOException e){
@@ -166,6 +202,9 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Format the task, taskType and description
+     */
     public String getTask() {
         String taskType;
         if (this.getClass().toString().equals("class tasks.Todo")) {
@@ -177,23 +216,6 @@ public class Task {
         }
         this.taskType = taskType;
         return (taskType + "[" + (isDone ? "X" : " ") + "]" + this.description);
-    }
-
-    public String getTime() {
-        String output = "";
-        try {
-        if (this.taskType.equals("[D]")) {
-            String initial = this.getTask().split("by:")[1];
-            output = initial.split("\\)")[0];
-        } else if (this.taskType.equals("[E]")) {
-            String initialFrom = (this.getTask().split("from:")[1]).split("to:")[0];
-            String initialTo = (this.getTask().split("to:")[1]).split("\\)")[0];
-            output = initialFrom.trim() + " to: " + initialTo.trim();
-        }
-        } catch (Exception e) {
-            System.out.println("Error loading data:" + e.getMessage());
-        }
-        return output;
     }
 
 }

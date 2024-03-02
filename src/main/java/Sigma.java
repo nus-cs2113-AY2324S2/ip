@@ -9,7 +9,7 @@ public class Sigma {
         //Load file at the start
         try {
             Storage.loadFile();
-            System.out.println("Done :D");
+            System.out.println("\nFiles loaded successfully!");
         } catch (FileNotFoundException e) {
             System.out.println("No file found to load!");
         }
