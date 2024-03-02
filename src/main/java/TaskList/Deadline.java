@@ -53,6 +53,5 @@ public class Deadline extends Task {
         String dateTimeString = (dateTime != null ) ? dateTime.format(OUTPUT_FORMATTER) : this.rawDateTime;
         return "[D]" + getStatusIcon() + " " + description + " (by: " + dateTimeString + ")";
     }
-
-
+    
 }
