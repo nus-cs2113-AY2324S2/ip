@@ -46,6 +46,7 @@ public class Storage {
                 System.out.println("⊙﹏⊙ Not able to save your task.");
             }
         }
+
         try {
             this.writeToFile(tasks.get(0).toString(), false);
         } catch (IOException e) {
@@ -77,32 +78,34 @@ public class Storage {
     protected void loadTask(String line, ArrayList<Task> tasks) {
         line = line.replace("[", "");
         line = line.replace("]", "");
-        boolean isCompleted;
-        isCompleted = (line.charAt(1) == ('X'));
-        if (line.startsWith("T")) {
-            line = line.substring(2);
-            line = line.trim();
+
+        char type = line.charAt(0);
+        boolean isCompleted = (line.charAt(1) == ('X'));
+
+        line = line.substring(3);
+        if (type == 'T') {
             tasks.add(new ToDo(line, isCompleted));
-        } else if (line.startsWith("D")) {
-            line = line.substring(2);
-            line = line.trim();
-            String[] taskAndDate = line.split("\\(");
-            taskAndDate[0] = taskAndDate[0].trim();
-            taskAndDate[1] = taskAndDate[1].replace(")", "");
-            taskAndDate[1] = taskAndDate[1].replace(":", "");
-            taskAndDate[1] = taskAndDate[1].trim();
+        } else if (type == 'D') {
+            String[] taskAndDate = changeTaskFormat(line, type);
             tasks.add(new Deadline(taskAndDate[0], taskAndDate[1], isCompleted));
-        } else if (line.startsWith("E")) {
-            line = line.substring(2);
-            line = line.trim();
-            String[] taskAndDate = line.split("\\(from:|to:");
-            for (String part : taskAndDate) {
-                part = part.trim();
-            }
-            taskAndDate[2] = taskAndDate[2].substring(0, taskAndDate[2].length() - 1);
-            String startDate = "from" + taskAndDate[1];
-            String endDate = "to" + taskAndDate[2];
-            tasks.add(new Event(taskAndDate[0], startDate, endDate, isCompleted));
+        } else if (type == 'E') {
+            String[] taskAndDate = changeTaskFormat(line, type);
+            tasks.add(new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2], isCompleted));
         }
+    }
+
+    protected String[] changeTaskFormat(String line, char type) {
+        String[] taskAndDate;
+        if (type == 'D') {
+            taskAndDate = line.split("\\(by:");
+            taskAndDate[1] = "by" + taskAndDate[1];
+            taskAndDate[1] = taskAndDate[1].substring(0, taskAndDate[1].length() - 1);
+        } else {
+            taskAndDate = line.split("\\(from:|to:");
+            taskAndDate[1] = "from" + taskAndDate[1];
+            taskAndDate[2] = "to" + taskAndDate[2];
+            taskAndDate[2] = taskAndDate[2].substring(0, taskAndDate[2].length() - 1);
+        }
+        return taskAndDate;
     }
 }

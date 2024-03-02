@@ -41,7 +41,7 @@ public class Parser {
     }
 
     public static int extractTaskNumber(String type, String command) {
-        command = command.replace(type, "");
-        return Integer.parseInt(command) - 1;
+        String taskNumber = command.replace(type, "");
+        return Integer.parseInt(taskNumber) - 1;
     }
 }

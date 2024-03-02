@@ -78,6 +78,7 @@ public class Ui {
         String addedTask = tasks.get(tasks.size() - 1).toString();
         out.println("Got it! I've added this task:");
         out.println(addedTask);
+
         if (tasks.size() == 1) {
             out.println("Now you have " + 1 + " task in the list~~~");
         } else {
