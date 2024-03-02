@@ -15,7 +15,6 @@ import Task.*;
 public class TaskList {
     private ArrayList<Task> taskList;
 
-
     /**
      * Adds a task to the task list based on user input.
      * The task can be of types: todo, deadline, event, or a general task.
@@ -138,30 +137,6 @@ public class TaskList {
         }
         System.out.println("    " + "--------------");
     }
-    /**
-     * Prints all tasks in the task list.
-     * Displays a numbered list of tasks along with their completion status and details.
-     */
-    public void showTaskList() {
-        System.out.println("    " + "-----RUBY-----");
-        System.out.println("    " + "Here are the tasks in your list:");
-        for (int i=0; i < taskList.size(); i++){
-            System.out.print("    " + (i+1) +".");
-            taskList.get(i).printTask();
-        }
-        System.out.println("    " + "--------------");
-    }
-
-    /**
-     * Prints a formatted message to the console.
-     *
-     * @param thingToPrint The message to be printed.
-     */
-    private static void print(String thingToPrint){
-        System.out.println("    " + "---REMINDER---");
-        System.out.println("    " + thingToPrint);
-        System.out.println("    " + "--------------");
-    }
 
     public static void detailCatcher(String userInput) throws MissingDescriptionException {
         String[] inputBreakdown = userInput.split(" ");
@@ -177,5 +152,30 @@ public class TaskList {
     public void setTaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
         showTaskList();
+    }
+
+    /**
+     * Prints all tasks in the task list.
+     * Displays a numbered list of tasks along with their completion status and details.
+     */
+    public void showTaskList() {
+        System.out.println("    " + "-----RUBY-----");
+        System.out.println("    " + "Here are the tasks in your list:");
+        for (int i=0; i < taskList.size(); i++){
+            System.out.print("    " + (i+1) +".");
+            taskList.get(i).printTask();
+        }
+        System.out.println("    " + "--------------");
+    }
+    
+    /**
+     * Prints a formatted message to the console.
+     *
+     * @param thingToPrint The message to be printed.
+     */
+    private static void print(String thingToPrint){
+        System.out.println("    " + "---REMINDER---");
+        System.out.println("    " + thingToPrint);
+        System.out.println("    " + "--------------");
     }
 }

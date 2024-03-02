@@ -71,6 +71,10 @@ public class Parser {
         }
     }
 
+    public void parseFindTask(TaskList t1){
+        t1.findTask(userInput);
+    }
+
     public static void keywordCatcher(String userInput) throws InvalidKeywordException {
         String[] taskTypeList = {"todo", "deadline", "event"};
         String[] inputBreakdown = userInput.split(" ");
