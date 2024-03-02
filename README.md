@@ -1,24 +1,132 @@
-# Duke project template
+# Sinep User Guide
+A CLI Chatbot to track and manage tasks.
+***
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Features
+***
 
-## Setting up in Intellij
+### 1. Add a Todo Task
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Adds a task of type TODO to the list. This is for tasks that do not have a deadline.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Format : ``` todo DESCRIPTION ```
+
+Example command: `todo study tonight` <br>
+Example output:
+```
+Added to Task List: 
+[T][ ] study tonight
+```
+<br>
+
+### 2. Add a Deadline Task
+
+Adds a task of type DEADLINE to the list. This is for tasks that has one deadline.
+
+Format : ``` deadline DESCRIPTION /by DEADLINE ```
+
+Example command: `deadline study /by tonight` <br>
+Example output:
+```
+Added to Task List: 
+[D][ ] study (by: tonight)
+```
+<br>
+
+### 3. Add an Event Task
+
+Adds a task of type EVENT to the list. This is for tasks that has a time period.
+
+Format : ``` event DESCRIPTION /from START_DATE /to END_DATE ```
+
+Example command: `event study /from 22-03-24 /to 23-03-24` <br>
+Example output:
+```
+Added to Task List: 
+[E][ ] study (from: 22-03-24 to: 23-03-24)
+```
+<br>
+
+### 4. Mark Task
+
+Marks a task as done.
+
+Format : ``` mark INDEX ```
+
+Example command: `mark 1` <br>
+Example output:
+```
+Got it! Task 1 marked as done:
+[X] study
+```
+<br>
+
+### 5. Unmark Task
+
+Marks a task as undone.
+
+Format : ``` unmark INDEX ```
+
+Example command: `unmark 1` <br>
+Example output:
+```
+Got it! Task 1 unmarked as done:
+[ ] study
+```
+<br>
+
+### 6. Delete Task
+
+Delete a task from the list.
+
+Format : ``` delete INDEX ```
+
+Example command: `delete 1` <br>
+Example output:
+```
+Noted. I have removed this task:
+[T][0] study
+Now you have 7 tasks left.
+```
+<br>
+
+### 7. Find Task
+
+Find a task from the list.
+
+Format : ``` find KEYWORD ```
+
+Example command: `Find study` <br>
+Example output:
+```
+Here are the matching tasks in your list:
+1.[T][ ] study
+```
+<br>
+
+### 8. List
+
+Gives a list of current tasks
+
+Format : ``` list ```
+
+Example command: `list` <br>
+Example output:
+```
+Here are the current tasks in your list:
+1.[T][ ] study
+```
+<br>
+
+### 9. Exit Programme
+
+Exit the Programme
+
+Format : ``` byer ```
+
+Example command: `bye` <br>
+Example output:
+```
+Bye. Hope to see you again soon!
+```
+<br>

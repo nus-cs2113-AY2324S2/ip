@@ -78,7 +78,7 @@ public class CommandUI {
      * @param markingTask  The task that has been unmarked.
      */
     public static void printUnmark(int taskIndex, Task markingTask) {
-        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! handleTask.Task " + (taskIndex + 1) + " marked as undone:");
+        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! Task " + (taskIndex + 1) + " marked as undone:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + BackboneUI.newLine + BackboneUI.line);
     }
 
@@ -89,7 +89,7 @@ public class CommandUI {
      * @param markingTask  The task that has been marked.
      */
     public static void printMark(int taskIndex, Task markingTask) {
-        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! handleTask.Task " + (taskIndex + 1) + " marked as done:");
+        System.out.println(BackboneUI.line + BackboneUI.newLine + "Got it! Task " + (taskIndex + 1) + " marked as done:");
         System.out.println(markingTask.getStatusIcon() + " " + markingTask.description + BackboneUI.newLine + BackboneUI.line);
     }
 

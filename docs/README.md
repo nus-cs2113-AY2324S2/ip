@@ -56,7 +56,7 @@ Format : ``` mark INDEX ```
 Example command: `mark 1` <br>
 Example output:
 ```
-Got it! handleTask.Task 1 marked as done:
+Got it! Task 1 marked as done:
 [X] study
 ```
 <br>
@@ -70,7 +70,7 @@ Format : ``` unmark INDEX ```
 Example command: `unmark 1` <br>
 Example output:
 ```
-Got it! handleTask.Task 1 unmarked as done:
+Got it! Task 1 unmarked as done:
 [ ] study
 ```
 <br>
