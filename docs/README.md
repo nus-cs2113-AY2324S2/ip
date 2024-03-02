@@ -2,20 +2,20 @@
 Porato is a **desktop app for managing tasks using a Command Line Interface**.
 * [Quick start](#Quick-start)
 * [Features](#Features)
-  * [Viewing help: `help`](#Viewing-help--help)
-  * [Adding a todo task : `todo`](#Adding-a-todo-task--todo)
-  * [Adding a deadline task : `deadline`](#Adding-a-deadline-task--deadline)
-  * [Adding a event task : `event`](#Adding-a-event-task--event)
-  * [Deleting a task: `delete`](#Deleting-a-task--delete)
-  * [Listing all the tasks : `list`](#Listing-all-the-tasks--list)
-  * [Locating a specific task : `find`](#Locating-a-specific-task--find)
-  * [Marking a task : `mark`](#Marking-a-task--mark)
-  * [Unmarking a task : `unmark`](#Unmarking-a-task--unmark)
-  * [Exiting the program : `bye`](#Exiting-the-program--bye)
-  * [Saving the data](#Saving-the-data)
-  * [Loading the data](#Loading-the-data)
-  * [Editing the data file](#Editing-the-data-file)
-* [Command summary](#Command-summary)
+  * [Viewing help : `help`](#viewing-help--help)
+  * [Adding a todo task : `todo`](#adding-a-todo-task--todo)
+  * [Adding a deadline task : `deadline`](#adding-a-deadline-task--deadline)
+  * [Adding a event task : `event`](#adding-a-event-task--event)
+  * [Deleting a task : `delete`](#deleting-a-task--delete)
+  * [Listing all the tasks : `list`](#listing-all-the-tasks--list)
+  * [Locating a specific task : `find`](#locating-a-specific-task--find)
+  * [Marking a task : `mark`](#marking-a-task--mark)
+  * [Unmarking a task : `unmark`](#unmarking-a-task--unmark)
+  * [Exiting the program : `bye`](#exiting-the-program--bye)
+  * [Saving the data](#saving-the-data)
+  * [Loading the data](#loading-the-data)
+  * [Editing the data file](#editing-the-data-file)
+* [Command summary](#command-summary)
 
 ## Quick start
 1. Ensure you have java 11 installed in your computer.
@@ -26,7 +26,7 @@ Porato is a **desktop app for managing tasks using a Command Line Interface**.
 6. Refer to the Features below for details of each command
 ## Features
 
-> [!NOTE] about the command format :  
+> :notebook: Notes about the command format :
 > * The words that are in `UPPER_CASE` represents the parameters that the users are required to input
 > e.g. `todo TASK`, `TASK` is a parameter which can be used as `todo add me`.
 > * Commands such as `help`, `list` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. e.g. `help 123` will just be intepreted as `help`.
