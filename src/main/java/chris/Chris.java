@@ -1,3 +1,14 @@
+package chris;
+
+import chris.customexceptions.illegalDeadlineInput;
+import chris.customexceptions.illegalEventInput;
+import chris.customexceptions.illegalTaskNumberInput;
+import chris.customexceptions.illegalToDoInput;
+import chris.tasktypes.Deadline;
+import chris.tasktypes.Event;
+import chris.tasktypes.ToDo;
+import chris.tasktypes.taskList;
+
 import java.util.Scanner;
 
 public class Chris {
@@ -33,24 +44,24 @@ public class Chris {
             if (line.startsWith("todo")) {
                 try {
                     tasks.addTask(new ToDo(line.substring(5).trim()));
-                    System.out.println("ToDo added!");
+                    System.out.println("chris.tasktypes.ToDo added!");
                     printLine();
                 } catch (illegalToDoInput e) {
-                    System.out.println("You've entered an illegal ToDo input, it should be in the form [todo] [description]");
+                    System.out.println("You've entered an illegal chris.tasktypes.ToDo input, it should be in the form [todo] [description]");
                 }
             } else if (line.startsWith("deadline")) {
                 try {
                     tasks.addTask(new Deadline(line.substring(9).split("/by")));
-                    System.out.println("Deadline added!");
+                    System.out.println("chris.tasktypes.Deadline added!");
                     printLine();
                 } catch (illegalDeadlineInput e) {
-                    System.out.println("You've entered an illegal Deadline input, it should be in the form [deadline] [description] [/by] [time]");
+                    System.out.println("You've entered an illegal chris.tasktypes.Deadline input, it should be in the form [deadline] [description] [/by] [time]");
                 }
 
             } else if (line.startsWith("event")) {
                 try {
                     tasks.addTask(new Event(line.substring(6).split("/from|/to")));
-                    System.out.println("Event added!");
+                    System.out.println("chris.tasktypes.Event added!");
                     printLine();
                 } catch (illegalEventInput e) {
                     System.out.println("You've entered an illegal event input, it should be in the form [event] [description] [/from] [time] [/to] [time]");

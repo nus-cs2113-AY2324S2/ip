@@ -1,8 +1,12 @@
+package chris.tasktypes;
+
+import chris.customexceptions.illegalEventInput;
+
 public class Event extends Task {
     protected String to;
     protected String from;
 
-    public Event(String[] eventInfo) throws illegalEventInput{
+    public Event(String[] eventInfo) throws illegalEventInput {
         super(eventInfo[0]);
         if (eventInfo.length != 3) {
             throw new illegalEventInput();

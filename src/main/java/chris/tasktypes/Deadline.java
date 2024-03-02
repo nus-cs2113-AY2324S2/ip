@@ -1,7 +1,11 @@
+package chris.tasktypes;
+
+import chris.customexceptions.illegalDeadlineInput;
+
 public class Deadline extends Task {
     protected String by;
 
-    public Deadline(String[] deadlineInfo) throws illegalDeadlineInput{
+    public Deadline(String[] deadlineInfo) throws illegalDeadlineInput {
         super(deadlineInfo[0]);
         if (deadlineInfo.length != 2) {
             throw new illegalDeadlineInput();
