@@ -41,7 +41,7 @@ Make sure you have Java 11 or later installed on your computer.
 4. Run the following command to start Suv application:
 
 ```bash
-java -jar suv.jar
+java -jar ip.jar
 ```
 
 If the application started successfully, it will display the following welcome message.
@@ -64,7 +64,7 @@ Adds a simple task with no additional information.
 
 **Expected outcome:**
 
-A new Todo task "read book" is added to your task list.
+A new Todo task "Buy bread" is added to your task list.
 
 ```plaintext
 ----------------------------------------------------------------
