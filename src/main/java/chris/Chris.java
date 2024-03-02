@@ -8,6 +8,7 @@ import chris.tasktypes.Deadline;
 import chris.tasktypes.Event;
 import chris.tasktypes.ToDo;
 import chris.tasktypes.taskList;
+import chris.tasktypes.Task;
 
 import java.util.Scanner;
 
@@ -44,7 +45,7 @@ public class Chris {
             if (line.startsWith("todo")) {
                 try {
                     tasks.addTask(new ToDo(line.substring(5).trim()));
-                    System.out.println("chris.tasktypes.ToDo added!");
+                    System.out.println("ToDo added!");
                     printLine();
                 } catch (illegalToDoInput e) {
                     System.out.println("You've entered an illegal chris.tasktypes.ToDo input, it should be in the form [todo] [description]");
@@ -52,7 +53,7 @@ public class Chris {
             } else if (line.startsWith("deadline")) {
                 try {
                     tasks.addTask(new Deadline(line.substring(9).split("/by")));
-                    System.out.println("chris.tasktypes.Deadline added!");
+                    System.out.println("Deadline added!");
                     printLine();
                 } catch (illegalDeadlineInput e) {
                     System.out.println("You've entered an illegal chris.tasktypes.Deadline input, it should be in the form [deadline] [description] [/by] [time]");
@@ -61,7 +62,7 @@ public class Chris {
             } else if (line.startsWith("event")) {
                 try {
                     tasks.addTask(new Event(line.substring(6).split("/from|/to")));
-                    System.out.println("chris.tasktypes.Event added!");
+                    System.out.println("Event added!");
                     printLine();
                 } catch (illegalEventInput e) {
                     System.out.println("You've entered an illegal event input, it should be in the form [event] [description] [/from] [time] [/to] [time]");
@@ -70,6 +71,15 @@ public class Chris {
                 String taskNumber = line.substring(5);
                 try {
                     tasks.markTask(taskNumber);
+                } catch (illegalTaskNumberInput e) {
+                    System.out.println("You've entered an illegal task number, it should be a number within the size of the list.");
+                }
+            } else if (line.startsWith("delete")) {
+                String taskNumber = line.substring(7);
+                try {
+                    Task deletedTask = tasks.deleteTask(taskNumber);
+                    System.out.println("The following task has been deleted");
+                    System.out.println(deletedTask);
                 } catch (illegalTaskNumberInput e) {
                     System.out.println("You've entered an illegal task number, it should be a number within the size of the list.");
                 }
