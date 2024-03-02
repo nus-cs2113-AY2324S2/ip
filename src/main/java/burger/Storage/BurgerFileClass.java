@@ -1,6 +1,7 @@
-package burger;
+package burger.Storage;
 
-import burger.list.List;
+import burger.TaskList.Task;
+import burger.TaskList.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +18,7 @@ public class BurgerFileClass {
     static final String PATHNAME = java.nio.file.Paths.get("data","burger.txt")
               .normalize().toString();
 
-    public static void readFromFile(String filePath, List list) throws IOException {
+    public static void readFromFile(String filePath, TaskList list) throws IOException {
         Files.createDirectories(Paths.get("data"));
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -26,14 +27,23 @@ public class BurgerFileClass {
             char currTDE = currLineArray[TDEINDEX].charAt(0);
             char currMark = currLineArray[MARKINDEX].charAt(0);
             String currTask = currLineArray[TASKINDEX];
-            list.addFromSaveFile(currTDE, currMark, currTask);
+            addFromSaveFile(currTDE, currMark, currTask, list);
             list.totalTasks++;
         }
     }
 
-    public static void setSaveFile(String filePath, List newList) {
+    public static void addFromSaveFile(char tde, char mark, String task, TaskList list) { // move to storage
+        Task currTask = new Task(task, tde);
+        if (mark == 'X') {
+            currTask.markDone();
+        }
+        list.add(currTask);
+    }
+
+    public static void setSaveFile(TaskList newList) {
+        System.out.print("Saving file");
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(PATHNAME);
             int i = 0;
             String textToWrite;
             while (i < newList.totalTasks) {
@@ -52,8 +62,8 @@ public class BurgerFileClass {
 
     }
 
-    public static List getSaveFile() {
-        List newList = new List();
+    public static TaskList getSaveFile() {
+        TaskList newList = new TaskList();
         try {
             readFromFile(PATHNAME, newList);
             System.out.println("File is found!");

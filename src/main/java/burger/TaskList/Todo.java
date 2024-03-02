@@ -1,4 +1,4 @@
-package burger.task;
+package burger.TaskList;
 
 public class Todo extends Task {
     public Todo(String task) {
