@@ -69,7 +69,4 @@ public class Ui {
         }
         System.out.println(BREAK_LINE);
     }
-
-
-
 }
