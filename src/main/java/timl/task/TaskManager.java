@@ -4,10 +4,11 @@ import timl.exceptions.EmptyException;
 import timl.utility.Printer;
 import timl.utility.TextParser;
 import timl.exceptions.TimException;
+
 import java.util.ArrayList;
 
 public class TaskManager {
-    public static ArrayList<Task> list = new ArrayList<Task>();
+    public static ArrayList<Task> list = new ArrayList<>();
     public void addTask(Task t) {
         list.add(t);
     }
@@ -73,8 +74,8 @@ public class TaskManager {
          Events newEvent = new Events(taskName, eventDurations[0], eventDurations[1]);
          list.add(newEvent);
          Printer.printLine();
-         System.out.println("   " + newEvent.getStatus());
-         System.out.println("   Now you have " + list.size() + " task in the list.");
+         System.out.println("    " + newEvent.getStatus());
+         System.out.println("    Now you have " + list.size() + " task in the list.");
          Printer.printLine();
      }
     public static void delete(int taskIndex) throws TimException {
@@ -85,6 +86,26 @@ public class TaskManager {
         System.out.println("     " + list.get(taskIndex).getStatus());
         list.remove(taskIndex);
         System.out.println("     Now you have " + list.size() + " task in the list.");
+        Printer.printLine();
+    }
+    public static void find(String keyword){
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (Task i : list){
+            if (i.description.contains(keyword)) {
+                indexes.add(list.indexOf(i));
+            }
+        }
+
+        if (indexes.isEmpty()) {
+            Printer.printFoundNothingMessage();
+            return;
+        }
+        Printer.printFindOpening();
+        int k = 1;
+        for (int i : indexes) {
+            System.out.println("    " + k + ": " + list.get(i).getStatus());
+            k ++;
+        }
         Printer.printLine();
     }
 }
