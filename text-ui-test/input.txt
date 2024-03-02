@@ -6,13 +6,13 @@ deadline
 deadline assignment
 deadline assignment /hgu
 deadline assignment /by
-deadline assignment /by 6 jun
+deadline assignment /by 2024-06-06T13:00
 event
 event birthday party
 event birthday party /fff /bee
 event birthday party /from /to
-event birthday party /from 6pm 7 Dec /to
-event birthday party /from 6pm 7 Dec /to 10pm 7 Dec
+event birthday party /from 2024-12-07T18:00 /to
+event birthday party /from 2024-12-07T18:00 /to 2024-12-07T22:00
 list
 mark
 mark number one

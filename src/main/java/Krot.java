@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Krot {
@@ -52,8 +54,8 @@ public class Krot {
             break;
         case "deadline":
             try {
-                String[] deadlineDetails = parser.deadlineParser(line);
-                task = taskList.createDeadline(deadlineDetails[0], deadlineDetails[1]);
+                ArrayList<Object> deadlineDetails = parser.deadlineParser(line);
+                task = taskList.createDeadline((String)deadlineDetails.get(0), (LocalDateTime)deadlineDetails.get(1));
                 ui.printCreateTaskMessage(task, taskList.getTasks().size());
             } catch (Exception e) { // Catches if wrong initializer
                 ui.printError(e.getMessage());
@@ -61,8 +63,8 @@ public class Krot {
             break;
         case "event":
             try {
-                String[] eventDetails = parser.eventParser(line);
-                task = taskList.createEvent(eventDetails[0], eventDetails[1], eventDetails[2]);
+                ArrayList<Object> eventDetails = parser.eventParser(line);
+                task = taskList.createEvent((String)eventDetails.get(0), (LocalDateTime)eventDetails.get(1), (LocalDateTime)eventDetails.get(2));
                 ui.printCreateTaskMessage(task, taskList.getTasks().size());
             } catch (Exception e) { // Catches if wrong initializer is used
                 ui.printError(e.getMessage());

@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class UI {
@@ -73,9 +75,15 @@ public class UI {
                 + (task.isDone ? "X" : " ")
                 + "] "
                 + task.task
-                + (task.getTaskType().equalsIgnoreCase("E") ? " (from: " + task.getStart() + " " : "")
-                + (task.getTaskType().equalsIgnoreCase("E") ? "to: " + task.getEnd() + ")" :
-                task.getTaskType().equalsIgnoreCase("D") ? " (by: " + task.getEnd() + ")" : ""));
+                + (task.getTaskType().equalsIgnoreCase("E") ? " (from: " + reformatDate(task.getStart()) + " " : "")
+                + (task.getTaskType().equalsIgnoreCase("E") ? "to: " + reformatDate(task.getEnd()) + ")" :
+                task.getTaskType().equalsIgnoreCase("D") ? " (by: " + reformatDate(task.getEnd()) + ")" : ""));
+    }
+
+    public String reformatDate(LocalDateTime date) {
+        String dateTime;
+        dateTime = date.format(DateTimeFormatter.ofPattern("dd MMM yy hh:mma"));
+        return dateTime;
     }
 
     public void printMarkMessage(Task task) {

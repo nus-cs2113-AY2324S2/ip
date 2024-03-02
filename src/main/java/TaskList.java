@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -32,7 +33,7 @@ public class TaskList {
         return t;
     }
 
-    public Task createEvent(String title, String start, String end) throws StringIndexOutOfBoundsException, EmptyInputException {
+    public Task createEvent(String title, LocalDateTime start, LocalDateTime end) throws StringIndexOutOfBoundsException, EmptyInputException {
         // Creates new event
         Task task;
         task = new Event(title, start, end, "E");
@@ -40,7 +41,7 @@ public class TaskList {
         return task;
     }
 
-    public Task createDeadline(String title, String dueDate) throws ArrayIndexOutOfBoundsException, EmptyInputException {
+    public Task createDeadline(String title, LocalDateTime dueDate) throws ArrayIndexOutOfBoundsException, EmptyInputException {
         // Creates new deadline task
         Task task;
         task = new Deadline(title, dueDate, "D");
