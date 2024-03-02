@@ -1,51 +1,16 @@
 import java.util.Scanner;
 
 public class Incy {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
 
-    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-
-    public static final String LINE_STRING_TOP = ANSI_GREEN + "____________________________________________________________\n\n" ;
-    public static final String LINE_STRING_BOTTOM = ANSI_GREEN + "____________________________________________________________\n" + ANSI_BLUE ;
     
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[Constants.MAX_TASKS];
         int taskCount = 0;
-        String logo = "              [38;2;0;0;0m▄[38;2;0;0;0m▄   [38;2;0;0;0m▄[38;2;0;0;0m▄[38;2;0;0;0m[48;2;189;189;189m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m        \n" + //
-                        "    [38;2;0;0;0m▄[38;2;0;0;0m▄[38;2;0;0;0m▀     [38;2;0;0;0m▄[38;2;0;0;0m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;0;0;0m[48;2;255;255;255m▀[0m[38;2;0;0;0m[48;2;189;189;189m▀[0m[38;2;0;0;0m[48;2;189;189;189m▀[0m[38;2;189;189;189m[48;2;189;189;189m▀[0m[38;2;189;189;189m[48;2;189;189;189m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m         \n" + //
-                        "  [38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀     [38;2;0;0;0m▄[38;2;0;0;0m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀[38;2;189;189;189m[48;2;0;0;0m▀[0m[38;2;189;189;189m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀         [38;2;0;0;0m▄\n" + //
-                        "  [38;2;0;0;0m▀[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;0;0;0m▄ [38;2;0;0;0m▄[38;2;0;0;0m[48;2;255;255;255m▀[0m[38;2;0;0;0m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;189;189;189m▀[0m[38;2;255;255;255m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀         [38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;0;0;0m▄[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀\n" + //
-                        "    [38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;189;189;189m[48;2;189;189;189m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m          [38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m \n" + //
-                        "   [38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;255;255;255m[48;2;255;255;255m▀[0m[38;2;189;189;189m[48;2;65;65;65m▀[0m[38;2;189;189;189m[48;2;189;189;189m▀[0m[38;2;65;65;65m[48;2;189;189;189m▀[0m[38;2;0;0;0m[48;2;173;66;58m▀[0m[38;2;0;0;0m▄   [38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀[38;2;0;0;0m▀  \n" + //
-                        "   [38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;173;66;58m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;255;255;255m[48;2;189;189;189m▀[0m[38;2;255;255;255m[48;2;189;189;189m▀[0m[38;2;189;189;189m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;255;255;255m▀[0m[38;2;90;197;189m[48;2;66;156;140m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;189;189;189m[48;2;173;66;58m▀[0m[38;2;214;90;66m[48;2;214;90;66m▀[0m[38;2;214;90;66m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;115;115;99m[48;2;65;65;65m▀[0m[38;2;115;115;99m[48;2;0;0;0m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;115;115;99m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m    \n" + //
-                        "    [38;2;0;0;0m▀[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;214;90;66m[48;2;173;66;58m▀[0m[38;2;214;90;66m[48;2;173;66;58m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;189;189;189m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;255;132;99m[48;2;255;132;99m▀[0m[38;2;255;132;99m[48;2;214;90;66m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;115;115;99m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m [38;2;0;0;0m▀[38;2;0;0;0m▀[38;2;0;0;0m▀     \n" + //
-                        "    [38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;255;132;99m[48;2;173;66;58m▀[0m[38;2;0;0;0m[48;2;255;132;99m▀[0m[38;2;0;0;0m[48;2;173;66;58m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;255;132;99m▀[0m[38;2;214;90;66m[48;2;255;132;99m▀[0m[38;2;173;66;58m[48;2;214;90;66m▀[0m[38;2;214;90;66m[48;2;214;90;66m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;115;115;99m[48;2;65;65;65m▀[0m[38;2;115;115;99m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m          \n" + //
-                        " [38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀[38;2;0;0;0m▀[38;2;255;132;99m[48;2;0;0;0m▀[0m[38;2;255;132;99m[48;2;255;132;99m▀[0m[38;2;255;132;99m[48;2;214;90;66m▀[0m[38;2;173;66;58m[48;2;214;90;66m▀[0m[38;2;255;132;99m[48;2;214;90;66m▀[0m[38;2;214;90;66m[48;2;214;90;66m▀[0m[38;2;214;90;66m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀[38;2;0;0;0m▀[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;0;0;0m▄[38;2;0;0;0m▄[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m▄[38;2;0;0;0m▄ \n" + //
-                        "[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀   [38;2;0;0;0m▀[38;2;214;90;66m[48;2;0;0;0m▀[0m[38;2;214;90;66m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m▄[38;2;0;0;0m▄[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀[38;2;0;0;0m▀   \n" + //
-                        " [38;2;0;0;0m▀[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀      [38;2;0;0;0m▄[38;2;0;0;0m▄[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;115;115;99m▀[0m[38;2;115;115;99m[48;2;65;65;65m▀[0m[38;2;115;115;99m[48;2;115;115;99m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀     \n" + //
-                        "         [38;2;0;0;0m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;65;65;65m▀[0m[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m[48;2;65;65;65m▀[0m[38;2;115;115;99m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀[38;2;115;115;99m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀        \n" + //
-                        "          [38;2;0;0;0m▀ [38;2;0;0;0m▀[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀[38;2;65;65;65m[48;2;0;0;0m▀[0m[38;2;0;0;0m▀ [38;2;0;0;0m▀            \n" + //
-                        "[0m\n";
 
-        System.out.println(LINE_STRING_TOP + ANSI_CYAN + "Oi bruv! I'm\n" + logo + ANSI_CYAN + "Wotcha need from me today?\n" + LINE_STRING_BOTTOM);
+        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Oi bruv! I'm\n" + Constants.LOGO + Constants.ANSI_CYAN + "Wotcha need from me today?\n" + Constants.LINE_STRING_BOTTOM);
 
         while (true) {
             input = scanner.nextLine();
@@ -58,25 +23,24 @@ public class Incy {
             } else if (input.startsWith("unmark ")) {
                 handleMarkCommand(input, tasks, taskCount, false);
             } else {
-                handleAddTask(input, tasks, taskCount);
-                taskCount++;
+                taskCount = handleAddTask(input, tasks, taskCount);
             }
         }
 
-        System.out.println(LINE_STRING_TOP + ANSI_CYAN + "Cya later mate!\n" + LINE_STRING_BOTTOM);
+        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Cya later mate!\n" + Constants.LINE_STRING_BOTTOM);
         scanner.close();
     }
 
     private static void handleListCommand(Task[] tasks, int taskCount) {
-        System.out.println(LINE_STRING_BOTTOM);
+        System.out.println(Constants.LINE_STRING_BOTTOM);
         if (taskCount == 0) {
-            System.out.println(ANSI_RED + "Blimey, your list is empty, innit?\n");
+            System.out.println(Constants.ANSI_RED + "Blimey, your list is empty, innit?");
         } else {
             for (int i = 0; i < taskCount; i++) {
-                System.out.println(ANSI_CYAN + (i + 1) + ". " + tasks[i]);
+                System.out.println(Constants.ANSI_CYAN + (i + 1) + ". " + tasks[i]);
             }
         }
-        System.out.println(LINE_STRING_BOTTOM);
+        System.out.println(Constants.LINE_STRING_BOTTOM);
     }
 
     private static void handleMarkCommand(String input, Task[] tasks, int taskCount, boolean markAsDone) {
@@ -87,16 +51,57 @@ public class Incy {
             } else {
                 tasks[index].markAsNotDone();
             }
-            System.out.println(LINE_STRING_TOP + ANSI_CYAN + "Done with this one:\n  " + tasks[index] + "\n" + LINE_STRING_BOTTOM);
+            System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Done with this one:\n  " + tasks[index] + "\n" + Constants.LINE_STRING_BOTTOM);
         }
     }
 
-    private static void handleAddTask(String input, Task[] tasks, int taskCount) {
+    private static int handleAddTask(String input, Task[] tasks, int taskCount) {
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+        String taskInfo = parts.length > 1 ? parts[1] : "";
+    
         if (taskCount >= tasks.length) {
-            System.out.println(LINE_STRING_TOP + ANSI_RED + "The list is full. Can't add more tasks!\n" + LINE_STRING_BOTTOM);
-        } else {
-            tasks[taskCount] = new Task(input);
-            System.out.println(LINE_STRING_TOP + ANSI_CYAN + "Task added: " + input + "\n" + LINE_STRING_BOTTOM);
+            System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_RED + "The list is full. Can't add more tasks!\n" + Constants.LINE_STRING_BOTTOM);
+            return taskCount;
         }
+    
+        Task newTask = null;
+    
+        switch (command.toLowerCase()) {
+            case "todo":
+                newTask = new Todo(taskInfo);
+                break;
+            case "deadline":
+                String[] deadlineParts = taskInfo.split(" /by ", 2);
+                if (deadlineParts.length < 2) {
+                    System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_RED + "Error: Invalid deadline format. Please use 'deadline [task] /by [date/time]'.\n" + Constants.LINE_STRING_BOTTOM);
+                    return taskCount;
+                }
+                newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+                break;
+            case "event":
+                String[] eventParts = taskInfo.split(" /from ", 2);
+                String[] eventTime = eventParts.length > 1 ? eventParts[1].split(" /to ", 2) : new String[0];
+                if (eventParts.length < 2 || eventTime.length < 2) {
+                    System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_RED + "Error: Invalid event format. Please use 'event [task] /from [start time] /to [end time]'.\n" + Constants.LINE_STRING_BOTTOM);
+                    return taskCount;
+                }
+                newTask = new Event(eventParts[0], eventTime[0], eventTime[1]);
+                break;
+            default:
+                newTask = new Todo(input);
+        }
+    
+        if (newTask != null) {
+            tasks[taskCount] = newTask;
+            System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Sorted! Your task's in the bag, innit mate:\n" 
+                + "  " + newTask + "\n" 
+                + "You're now juggling " + (taskCount + 1) + " tasks on your list, innit.\n" 
+                + Constants.LINE_STRING_BOTTOM);
+            
+            return taskCount + 1;
+        }
+        return taskCount;
     }
+        
 }
