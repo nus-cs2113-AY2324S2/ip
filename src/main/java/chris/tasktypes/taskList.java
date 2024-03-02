@@ -22,10 +22,10 @@ public class taskList {
         try {
             int index = Integer.parseInt(taskNumber);
             try {
-                if (tasks.get(index).markTask()) {
-                    System.out.println("chris.tasktypes.Task marked!");
+                if (tasks.get(index - 1).markTask()) {
+                    System.out.println("Task marked!");
                 } else {
-                    System.out.println("chris.tasktypes.Task unmarked!");
+                    System.out.println("Task unmarked!");
                 }
             } catch (IndexOutOfBoundsException e) {
                 throw new illegalTaskNumberInput();
@@ -33,7 +33,24 @@ public class taskList {
         } catch (NumberFormatException e) {
             throw new illegalTaskNumberInput();
         }
+    }
 
+    public Task deleteTask(String taskNumber) throws illegalTaskNumberInput {
+        if (taskNumber.trim().isEmpty()) {
+            throw new illegalTaskNumberInput();
+        }
+        try {
+            int index = Integer.parseInt(taskNumber);
+            try {
+                Task deletedTask = tasks.remove(index - 1);
+                taskCount--;
+                return deletedTask;
+            } catch (IndexOutOfBoundsException e) {
+                throw new illegalTaskNumberInput();
+            }
+        } catch (NumberFormatException e) {
+            throw new illegalTaskNumberInput();
+        }
     }
 
     public int getTaskCount() {
