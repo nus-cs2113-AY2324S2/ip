@@ -15,7 +15,8 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void markTask() {
+    public boolean markTask() {
         isDone = !isDone;
+        return isDone;
     }
 }
