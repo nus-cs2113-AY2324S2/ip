@@ -1,40 +1,33 @@
 package Xavier;
 
-import java.util.Scanner;
+import Exceptions.XavierException;
 
 public class Xavier {
-    public static final String LINE = "_________________________________________________________________";
     public static final String FILEPATH = "/Users/jasonlienardi/Documents/CS2113/ip/src/main/java/Xavier/toDoList.txt";
-    static Scanner input = new Scanner(System.in);
-    public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
-        printWelcomeMessage();
-        taskManager.readFile(FILEPATH);
-        while (true) {
-            String command = input.nextLine();
-            System.out.println(LINE);
-            if (command.equals("bye")) {
-                exit();
-                return;
-            }
-            else {
-                taskManager.handleCommand(command);
-            }
-            System.out.println(LINE);
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Xavier(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.readFile());
+        } catch (XavierException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
-
-    private static void printWelcomeMessage() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm " + "Xavier");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+    public void run() {
+        ui.printWelcomeMessage();
+        Parser parser = new Parser();
+        while (!ui.isExit) {
+            ui.readCommand(parser, tasks, ui, storage, FILEPATH);
+        }
     }
-
-    private static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
-        input.close();
+    public static void main(String[] args) {
+        new Xavier(FILEPATH).run();
     }
 }
 

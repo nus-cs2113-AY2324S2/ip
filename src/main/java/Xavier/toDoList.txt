@@ -1,1 +1,4 @@
 E|0| Jason Lienardi attend CS2113 lecture |Friday 23 Feb 2024 4pm |6pm
+T|1| return book
+D|1| cs2113 assignment |tonight
+E|0| mario bday |1pm |3pm
