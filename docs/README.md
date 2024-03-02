@@ -18,8 +18,6 @@ If you can type fast, Nick Chatbot can help manage your day-to-day tasks faster 
   * [Saving the tasks](#saving-the-tasks)
   * [Loading the tasks](#loading-the-tasks)
 
----
-
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your computer.
 2. Download the latest nick.jar.
@@ -77,12 +75,18 @@ Examples:
 ### Marking a task: `mark`
 Mark a task as done.
 
-Format: `mark 1`
+Format: `mark [index]`
+
+Examples:
+* `mark 1`
 
 ### Un-marking a task: `unmark`
 Unmark a task as undone.
 
-Format: `unmark 1`
+Format: `unmark [index]`
+
+Examples:
+* `unmark 1`
 
 ### Exiting the program: `bye`
 Exit Nick Chatbot.
