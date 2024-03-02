@@ -1,3 +1,7 @@
+package chris.tasktypes;
+
+import chris.customexceptions.illegalToDoInput;
+
 public class ToDo extends Task {
     public ToDo(String description) throws illegalToDoInput {
         super(description);

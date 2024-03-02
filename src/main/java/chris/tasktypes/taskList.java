@@ -1,3 +1,7 @@
+package chris.tasktypes;
+
+import chris.customexceptions.illegalTaskNumberInput;
+
 import java.util.ArrayList;
 public class taskList {
     protected static ArrayList<Task> tasks;
@@ -11,7 +15,7 @@ public class taskList {
         taskCount++;
     }
 
-    public void markTask(String taskNumber) throws illegalTaskNumberInput{
+    public void markTask(String taskNumber) throws illegalTaskNumberInput {
         if (taskNumber.trim().isEmpty()) {
             throw new illegalTaskNumberInput();
         }
@@ -19,9 +23,9 @@ public class taskList {
             int index = Integer.parseInt(taskNumber);
             try {
                 if (tasks.get(index).markTask()) {
-                    System.out.println("Task marked!");
+                    System.out.println("chris.tasktypes.Task marked!");
                 } else {
-                    System.out.println("Task unmarked!");
+                    System.out.println("chris.tasktypes.Task unmarked!");
                 }
             } catch (IndexOutOfBoundsException e) {
                 throw new illegalTaskNumberInput();
