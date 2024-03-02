@@ -13,6 +13,9 @@ public class Printer {
     protected static final String DEFAULT_ERROR = "    ____________________________________________________________\n" +
             "     OOF that's an Invalid message :(\n" +
             "    ____________________________________________________________";
+    protected static final String FOUND_NOTHING = "    ____________________________________________________________\n" +
+            "     SIR I FOUND NOTHING :(\n" +
+            "    ____________________________________________________________";
     protected static final String INVALID_MESSAGE = "    ____________________________________________________________\n" +
             "     OOF that's an Invalid number :(\n" +
             "    ____________________________________________________________";
@@ -22,6 +25,8 @@ public class Printer {
     protected static final String INVALID_DEADLINE = "    ____________________________________________________________\n" +
             "     SORRY THAT IS AN INVALID DEADLINE WITH MISSING PARAMS :(\n" +
             "    ____________________________________________________________";
+    protected static final String FIND_STATEMENT = "    ____________________________________________________________\n" +
+            "     HERE ARE YOUR MATCHING TASKS IN YOUR LIST: ";
     protected static final String DELETE_ERROR = "    ____________________________________________________________\n" +
             "     SORRY I CAT DELETE THAT TASK. YOUR PARAMS MUST BE WRONG.\n" +
             "    ____________________________________________________________";
@@ -49,7 +54,7 @@ public class Printer {
     }
 
     public static void printLine() {
-        System.out.println("    ____________________________________________________________\n");
+        System.out.println("    ____________________________________________________________");
     }
     public static void printMarkedOpening() {
         System.out.println("    ____________________________________________________________\n" +
@@ -87,9 +92,16 @@ public class Printer {
     }
     public static void printIOException(){
     System.out.println(IO_EXCEPTION);
-}
+    }
     public static void printInvalidDelete() {
         System.out.println(DELETE_ERROR);
     }
+    public static void printFindOpening() {
+        System.out.println(FIND_STATEMENT);
+    }
+    public static void printFoundNothingMessage(){
+        System.out.println(FOUND_NOTHING);
+    }
 }
+
 
