@@ -1,1 +1,3 @@
-D | 0 | todo |  2022
+D | 1 | list | 2022
+E | 0 | list | 2 to 4
+T | 0 | list

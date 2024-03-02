@@ -35,14 +35,6 @@ public class Task {
         return this.getTasksIcon() + this.getTasksStatus() + " " + this.description;
     }
 
-    public void print(int count) {
-
-        System.out.println("Voilà! \uD83D\uDCDC Got it. I've added this task:");
-        System.out.println("  " + this);
-        System.out.println("Now you have " + (count) + " tasks in the list." + "\n" + BREAK_LINE);
-
-    }
-
     public String toStorageString() {
         return "";
     }
