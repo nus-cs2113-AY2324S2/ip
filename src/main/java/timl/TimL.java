@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.lang.String;
 
+/**
+ * The main class of chatbot TimL
+ */
 public class TimL {
     public static void respondToCommand(String response){
         String command = TextParser.extractCommand(response);
@@ -49,7 +52,7 @@ public class TimL {
                     TaskManager.addDeadline(message);
                 }catch (ArrayIndexOutOfBoundsException e){
                     Printer.printTaskOverflow();
-                }catch (TimException | IndexOutOfBoundsException e) {
+                }catch (EmptyException | IndexOutOfBoundsException e) {
                     Printer.printInvalidDeadline();
                 }
                 break;
@@ -58,7 +61,7 @@ public class TimL {
                     TaskManager.addEvent(message);
                 }catch (ArrayIndexOutOfBoundsException e) {
                     Printer.printTaskOverflow();
-                } catch (TimException | IndexOutOfBoundsException e) {
+                } catch (EmptyException | IndexOutOfBoundsException e) {
                     Printer.printInvalidEvent();
                 }
                 break;

@@ -2,6 +2,9 @@ package timl.task;
 
 import timl.task.Task;
 
+/**
+ * Todo subclass that inherits from Task
+ */
 public class Todo extends Task {
     protected static final String ASSIGNED_SYMBOL = "[T]";
 

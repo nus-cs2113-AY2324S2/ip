@@ -1,5 +1,8 @@
 package timl.utility;
 
+/**
+ * Handles output messages to the user
+ */
 public class Printer {
     protected static final String GREETING = "    ____________________________________________________________\n" +
             "     Hello! I'm TimL\n" +

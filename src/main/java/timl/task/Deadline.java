@@ -1,5 +1,8 @@
 package timl.task;
 
+/**
+ * Deadline subclass that inherits from Task
+ */
 public class Deadline extends Task {
     protected static final String ASSIGNED_SYMBOL = "[D]";
     protected String by;

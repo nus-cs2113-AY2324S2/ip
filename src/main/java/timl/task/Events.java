@@ -1,5 +1,8 @@
 package timl.task;
 
+/**
+ * Event subclass that inherits from Task
+ */
 public class Events extends Task {
     protected static final String ASSIGNED_SYMBOL = "[E]";
     protected String startDate;
