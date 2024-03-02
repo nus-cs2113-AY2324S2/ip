@@ -1,7 +1,7 @@
 package RuntimeSupport;
 import java.io.IOException;
 
-public class DukeException {
+public class DukeException extends Throwable {
 
     static String BREAK_LINE = "____________________________________________________________";
     public static void handleException(Exception error, String line) {

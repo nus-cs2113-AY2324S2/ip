@@ -5,19 +5,24 @@ import Event.Task;
 import RuntimeSupport.DukeException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
+import RuntimeSupport.Storage;
 
 public class Duke {
     static final String FILE_PATH = "./duke.txt";
     static String BREAK_LINE = "____________________________________________________________";
     static ArrayList<Task> tasks = new ArrayList<>();
     static String line = "";
+
     public static void main(String[] args) {
 
-        loadTasks();
+        Storage storage = new Storage(FILE_PATH);
+
+        try {
+            tasks = storage.load();
+        } catch (DukeException e) {
+            System.out.println("Failed to load tasks: " + e.getMessage());
+        }
+
         System.out.println(BREAK_LINE + "\nHello! I'm 550W.\nWhat can I do for you?\n" + BREAK_LINE);
         Scanner in = new Scanner(System.in);
 
@@ -27,8 +32,12 @@ public class Duke {
                 System.out.println(BREAK_LINE);
 
                 if (line.equals("bye")) {
-                    saveTasks(); //Save tasks before exiting.
-                    break; //Break out of the loop immediately when bye command is entered, quitting the program.
+                    try {
+                        storage.save(tasks); // Ensure the latest changes are saved before exiting
+                    } catch (DukeException e) {
+                        System.out.println("Failed to save tasks: " + e.getMessage());
+                    }
+                    break;
                 }
 
                 if (line.startsWith("delete")) {
@@ -85,105 +94,17 @@ public class Duke {
                     System.out.println(BREAK_LINE);
                 }
 
-                saveTasks();
+                try {
+                    storage.save(tasks);
+                } catch (DukeException e) {
+                    System.out.println("Failed to save tasks: " + e.getMessage());
+                }
 
             } catch (Exception error) {
-
                 DukeException.handleException(error, line);
             }
         }
 
-        System.out.println("Bye. Hope to see you again soon!" + BREAK_LINE);
-    }
-
-    private static void saveTasks() {
-        try {
-
-            FileWriter writer = new FileWriter(FILE_PATH, false);
-
-            for (Task task : tasks) {
-
-                String type = "";
-                if (task instanceof ToDo) {
-                    type = "T";
-                } else if (task instanceof Deadline) {
-                    type = "D";
-                } else if (task instanceof Event) {
-                    type = "E";
-                }
-
-                String status = task.isDone ? "1" : "0"; //Marked as 1 if it is done and 0 if it is not done.
-                String details = task.description;
-
-                String extra = "";
-                if (task instanceof Deadline) {
-
-                    extra = ((Deadline)task).by; //Account for the /by part of the deadline task input.
-                } else if (task instanceof Event) {
-
-                    extra = ((Event)task).from + " to " + ((Event)task).to; //Account for the /from and /to part of the event input.
-                }
-
-                String lineToSave = type + " | " + status + " | " + details;
-                if (!extra.isEmpty()) {
-                    lineToSave += " | " + extra; //Generate the lines to be saved in the txt file.
-                }
-
-                writer.write(lineToSave + System.lineSeparator());
-            }
-
-            writer.close(); //To close up writing operation.
-        } catch (Exception error) {
-
-            DukeException.handleException(error, line);
-        }
-    }
-
-    private static void loadTasks() {
-
-        try {
-
-            File file = new File(FILE_PATH);
-
-            if (!file.exists()) {
-                return; // Exit if file doesn't exist.
-            }
-
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(" \\| ");
-                Task task = null;
-
-                switch (parts[0]) {
-
-                case "T":
-                    task = new ToDo("todo " + parts[2]);
-                    break;
-                case "D":
-                    task = new Deadline("deadline " + parts[2] + " /by " + parts[3]);
-                    break;
-                case "E":
-                    task = new Event("event " + parts[2] + " /from " + parts[3].split(" to ")[0] + " /to " + parts[3].split(" to ")[1]);
-                    break;
-                }
-
-                if (task != null) {
-
-                    if ("1".equals(parts[1])) {
-                        task.markAsDone();
-                    }
-
-                    tasks.add(task);
-                }
-            }
-
-            reader.close();
-        } catch (Exception error) {
-
-            DukeException.handleException(error, line);
-        }
+        System.out.println("Bye. Hope to see you again soon!\n" + BREAK_LINE);
     }
 }
