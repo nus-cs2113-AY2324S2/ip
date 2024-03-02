@@ -20,6 +20,7 @@ public class UI {
         System.out.println("\tMark the tasks as done: mark <taskNumber>");
         System.out.println("\tUnmark the tasks as done: unmark <taskNumber>");
         System.out.println("\tDelete the task: delete <taskNumber>");
+        System.out.println("\tFind all the tasks due from now to desired date: find /date <YYYY-MM-DD>");
         System.out.println("\tEnd the chat session: bye");
     }
 

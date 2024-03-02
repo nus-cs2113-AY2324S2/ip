@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -34,6 +35,16 @@ public class Parser {
         return date;
     }
 
+    public LocalDate dateParser(String line) {
+        LocalDate date;
+        try {
+            date = LocalDate.parse(line);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Enter a date in the format <YYYY-MM-DD>", e.getParsedString(), e.getErrorIndex());
+        }
+        return date;
+    }
+
     public String todoParser(String line) throws Exception {
         String title;
         try {
@@ -60,9 +71,6 @@ public class Parser {
             throw new ArrayIndexOutOfBoundsException("Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>"); // Throws exception if initializer not found
         }
         end = dateAndTimeParser(line.substring(byIndex + 3).strip());
-//        if (end.isBlank()) {
-//            throw new EmptyInputException("Enter a due date for this task"); // Throws exception if due date is blank
-//        }
         ArrayList<Object> parsed = new ArrayList<>();
         parsed.add(title);
         parsed.add(end);
@@ -88,9 +96,6 @@ public class Parser {
         }
         start = dateAndTimeParser(line.substring(fromIndex + 5, toIndex).strip());
         end = dateAndTimeParser(line.substring(line.indexOf("/to") + 3).strip());
-//        if (start.isBlank() || end.isBlank()) {
-//            throw new EmptyInputException("When is this event happening?"); // Throws exception if durations are blank
-//        }
         ArrayList<Object> parsed = new ArrayList<>();
         parsed.add(title);
         parsed.add(start);
@@ -112,5 +117,16 @@ public class Parser {
             throw new ArrayIndexOutOfBoundsException("Which task you trying to delete?");
         }
         return taskIndex;
+    }
+
+    public LocalDate findParser(String line) throws Exception {
+        LocalDate date;
+        if (line.contains("/date")) {
+            int index = line.indexOf("/date") + 5;
+            date = dateParser(line.substring(index).strip());
+        } else {
+            throw new InvalidInputException("Enter a valid date with the initializer /date <YYYY-MM-DD>");
+        }
+        return date;
     }
 }

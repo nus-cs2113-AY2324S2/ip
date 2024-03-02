@@ -10,6 +10,7 @@ Here's a list of commands that I take:
 	Mark the tasks as done: mark <taskNumber>
 	Unmark the tasks as done: unmark <taskNumber>
 	Delete the task: delete <taskNumber>
+	Find all the tasks due from now to desired date: find /date <YYYY-MM-DD>
 	End the chat session: bye
 -
 You:
@@ -24,6 +25,7 @@ Here's a list of commands that I take:
 	Mark the tasks as done: mark <taskNumber>
 	Unmark the tasks as done: unmark <taskNumber>
 	Delete the task: delete <taskNumber>
+	Find all the tasks due from now to desired date: find /date <YYYY-MM-DD>
 	End the chat session: bye
 -
 You:
@@ -184,6 +186,42 @@ You:
 Krot:
 1.[D][X] assignment (by: 06 Jun 24 01:00pm)
 2.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+-
+You:
+-
+Krot:
+Enter a valid date with the initializer /date <YYYY-MM-DD>
+-
+You:
+-
+Krot:
+Enter a valid date with the initializer /date <YYYY-MM-DD>
+-
+You:
+-
+Krot:
+Enter a date in the format <YYYY-MM-DD>
+-
+You:
+-
+Krot:
+Enter a date in the format <YYYY-MM-DD>
+-
+You:
+-
+Krot:
+1.[D][X] assignment (by: 06 Jun 24 01:00pm)
+-
+You:
+-
+Krot:
+1.[D][X] assignment (by: 06 Jun 24 01:00pm)
+2.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+-
+You:
+-
+Krot:
+Enter a date in the format <YYYY-MM-DD>
 -
 You:
 -

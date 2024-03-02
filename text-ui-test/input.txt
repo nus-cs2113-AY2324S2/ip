@@ -28,4 +28,11 @@ delete the task
 delete 10
 delete 1
 list
+find
+find /time
+find /date
+find /date random
+find /date 2024-06-06
+find /date 2025-06-06
+find /date 2025-06-06T11:00
 bye

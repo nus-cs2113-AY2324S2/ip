@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -75,6 +76,15 @@ public class Krot {
                 int listIndex = parser.deleteParser(line);
                 task = taskList.deleteTask(listIndex - 1);
                 ui.printDeleteMessage(task, listIndex, taskList.getTasks().size());
+            } catch (Exception e) {
+                ui.printError(e.getMessage());
+            }
+            break;
+        case "find":
+            try {
+                LocalDate date = parser.findParser(line);
+                ArrayList<Task> filteredList = taskList.findByDate(date);
+                ui.listTasks(filteredList);
             } catch (Exception e) {
                 ui.printError(e.getMessage());
             }
