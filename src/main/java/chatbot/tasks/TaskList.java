@@ -1,5 +1,7 @@
 package chatbot.tasks;
 
+import chatbot.ui.UI;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -33,5 +35,17 @@ public class TaskList {
     public void delete(int taskNum) {
         tasks.remove(taskNum);
         listLength -= 1;
+    }
+    public void find(String keyWords) {
+        int numFound = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyWords)) {
+                task.printData();
+                numFound += 1;
+            }
+        }
+        if (numFound == 0) {
+            UI.printNoMatch();
+        }
     }
 }
