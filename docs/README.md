@@ -1,7 +1,5 @@
 # Nick Chatbot User Guide
 
----
-
 Nick Chatbot is a task manager desktop app, optimized for use via a Command Line Interface (CLI). 
 If you can type fast, Nick Chatbot can help manage your day-to-day tasks faster than ever. 
 
@@ -30,8 +28,6 @@ If you can type fast, Nick Chatbot can help manage your day-to-day tasks faster 
 command to run the application.
 5. Type any command and press Enter to execute it.
 6. Refer to the [Features](#Features) below for details of each command.
-
----
 
 ## Features 
 
