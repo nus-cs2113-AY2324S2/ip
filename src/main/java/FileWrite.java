@@ -12,6 +12,7 @@ public class FileWrite {
     }
 
     public void writeToFile() throws IOException {
+        // Writes the task list to file to store in local files
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
             fw.write(task.getTaskType()

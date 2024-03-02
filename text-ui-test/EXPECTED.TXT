@@ -88,7 +88,12 @@ Krot:
 You:
 -
 Krot:
-Which task are u trying to mark
+Which task are u referring to
+-
+You:
+-
+Krot:
+Enter a valid task number to mark
 -
 You:
 -
@@ -105,13 +110,28 @@ Wow good job at clearing a task! I,ve marked this task as done:
 You:
 -
 Krot:
-Which task are u trying to unmark
+Task 1 is already marked done
+-
+You:
+-
+Krot:
+Which task are u referring to
+-
+You:
+-
+Krot:
+Enter a valid task number to mark
 -
 You:
 -
 Krot:
 More to do? I've marked this task as not done yet:
 [T][ ] read book
+-
+You:
+-
+Krot:
+Task 1 is already unmarked
 -
 You:
 -
@@ -134,6 +154,7 @@ Krot:
 Deleted task 1 from the list.
 [T][ ] read book
 You now have 2 tasks to complete.
+-
 You:
 -
 Krot:

@@ -14,9 +14,13 @@ event birthday party /from 6pm 7 Dec /to
 event birthday party /from 6pm 7 Dec /to 10pm 7 Dec
 list
 mark
+mark number one
 mark 1
 mark 2
+mark 1
 unmark
+unmark number one
+unmark 1
 unmark 1
 delete
 delete the task
