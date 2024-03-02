@@ -11,7 +11,6 @@ import java.io.IOException;
 
 
 public class Sinep {
-
     public static final String FILE_PATH = "src/main/java/Sinep/Sinep.txt";
     public static ArrayList<Task> taskList = new ArrayList<>();
 
