@@ -227,7 +227,7 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printLoadFileError(LoadFileException e){
+    public void printLoadFileError(LoadFileException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Unable to load File. " + e.getMessage());
         System.out.println(TAB_SPACE + "Please Check your File path.");
@@ -241,12 +241,19 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printUnableToSave(SaveFileException e){
+
+    public void printUnableToSave(SaveFileException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Unable to Save File. " + e.getMessage());
         System.out.println(TAB_SPACE + "Please Check your File path");
         System.out.println(LINE);
+    }
 
+    public void printInvalidDateTimeFormat(InvalidDateTimeFormatException e) {
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Invalid format: " + e.getMessage());
+        System.out.println(TAB_SPACE + "Please use valid date and time format DD/MM/YYY HH:MM ");
+        System.out.println(LINE);
     }
 
 }

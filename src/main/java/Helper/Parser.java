@@ -7,6 +7,12 @@ package Helper;
 
 public class Parser {
 
+    private static final int PART_0 = 0;
+    private static final int PART_1 = 1;
+    private static final int PART_2 = 2;
+    private static final int PART_3 = 3;
+    private static final int PART_4 = 4;
+    private static final String DONE = "1";
     public static final String TASK = "T";
     public static final String DEADLINE = "D";
     public static final String EVENT = "E";
@@ -22,20 +28,20 @@ public class Parser {
         Task task = null;
         String[] parts = line.split(" \\| ");
         if (parts.length >= 3) {
-            String taskType = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
+            String taskType = parts[PART_0];
+            boolean isDone = parts[PART_1].equals(DONE);
+            String description = parts[PART_2];
             switch (taskType) {
             case TASK:
                 task = new Todo(description);
                 break;
             case DEADLINE:
-                String by = parts[3];
+                String by = parts[PART_3];
                 task = new Deadline(description, by);
                 break;
             case EVENT:
-                String from = parts[3];
-                String to = parts[4];
+                String from = parts[PART_3];
+                String to = parts[PART_4];
                 task = new Event(description, from, to);
                 break;
             default:
