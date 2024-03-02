@@ -7,6 +7,7 @@ public class Deadline extends Task {
     protected String rawDateTime;
     protected LocalDate dateTime;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
+    private static final DateTimeFormatter INPUT_FORMATTER2 = DateTimeFormatter.ofPattern("MMMM d yyyy");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMMM d yyyy");
     private String warningMessage;
 
@@ -23,9 +24,13 @@ public class Deadline extends Task {
             this.rawDateTime = descriptionParts[1].trim(); // Store the raw date string
             try {
                 this.dateTime = LocalDate.parse(this.rawDateTime, INPUT_FORMATTER);
-            } catch (DateTimeParseException e) {
-                this.warningMessage = "Advice: " + this.rawDateTime + " is invalid dead format. Please use DD-MM-YYY.";
-                this.dateTime = null; // Ensure dateTime is null if parsing fails
+            } catch (DateTimeParseException e1) {
+                try {
+                    this.dateTime = LocalDate.parse(this.rawDateTime, INPUT_FORMATTER2);
+                } catch (DateTimeParseException e2) {
+                    this.warningMessage = "Advice: " + this.rawDateTime + " is an invalid date format. Please use 'dd-MM-yyyy' or 'MMMM d yyyy'.";
+                    this.dateTime = null; // Ensure dateTime is null if parsing fails
+                }
             }
         } else {
             this.rawDateTime = "";

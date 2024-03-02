@@ -8,6 +8,7 @@ public class Event extends Task {
     protected LocalDate startDateTime;
     protected LocalDate endDateTime;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
+    private static final DateTimeFormatter INPUT_FORMATTER2 = DateTimeFormatter.ofPattern("MMMM d yyyy");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMMM d yyyy");
 
     private String warningMessage;
@@ -29,11 +30,18 @@ public class Event extends Task {
                 try {
                     this.startDateTime = LocalDate.parse(this.rawStartDateTime, INPUT_FORMATTER);
                     this.endDateTime = LocalDate.parse(this.rawEndDateTime, INPUT_FORMATTER);
-                } catch (DateTimeParseException e) {
-                    this.warningMessage = "Advice: " + this.rawStartDateTime + " and " + this.rawEndDateTime + " is invalid dead format. Please use DD-MM-YYY.";
-                    this.startDateTime = null;
-                    this.endDateTime = null;
+                } catch (DateTimeParseException e1) {
+                    try {
+                        this.startDateTime = LocalDate.parse(this.rawStartDateTime, INPUT_FORMATTER2);
+                        this.endDateTime = LocalDate.parse(this.rawEndDateTime, INPUT_FORMATTER2);
+                    } catch (DateTimeParseException e2) {
+                        this.startDateTime = null;
+                        this.endDateTime = null;
+                        this.warningMessage = "Advice: " + this.rawStartDateTime + " and " + this.rawEndDateTime +
+                                " are invalid date formats. Please use 'dd-MM-yyyy' or 'MMMM d yyyy'.";
+                    }
                 }
+
             } else {
                 this.rawStartDateTime = "";
                 this.rawEndDateTime = "";
