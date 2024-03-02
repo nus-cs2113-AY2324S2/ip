@@ -29,6 +29,8 @@ public class Parser {
             }
         } else if (task.startsWith("delete")) {
             tasks.deleteTask(task);
+        } else if (task.startsWith("find")) {
+            tasks.findTask(task);
         } else {
             ui.printUnknownCommandExceptionMessage();
         }
