@@ -40,4 +40,10 @@ public class UI {
     public static void printDeleteReply() {
         System.out.println("Deleted. ");
     }
+    public static void printFindReply() {
+        System.out.println("Here they are: ");
+    }
+    public static void printNoMatch() {
+        System.out.println("Wait, there are no matches. ");
+    }
 }

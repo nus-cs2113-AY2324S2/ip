@@ -1,5 +1,7 @@
 package chatbot.tasks;
 
+import chatbot.ui.UI;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -36,5 +38,16 @@ public class TaskList {
     }
     public void markLast() {
         tasks.get(listLength - 1).markAsDone();
+    public void find(String keyWords) {
+        int numFound = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyWords)) {
+                task.printData();
+                numFound += 1;
+            }
+        }
+        if (numFound == 0) {
+            UI.printNoMatch();
+        }
     }
 }

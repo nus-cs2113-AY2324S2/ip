@@ -30,6 +30,8 @@ public class Parser {
             return new EventCommand(taskList, description);
         case "help":
             return new HelpCommand();
+        case "find":
+            return new FindCommand(taskList, description);
         default:
             throw new ChatbotException("I don't know what that is. Type 'help' for help. ");
         }
