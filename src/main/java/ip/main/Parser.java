@@ -47,7 +47,7 @@ public class Parser {
         if (line.startsWith("event")) {
             return tasks.addEvent(line);
         }
-        ui.print("Possible commands: bye, list, mark, unmark, todo, deadline, event");
+        ui.print("Possible commands: bye, list, find, mark, unmark, todo, deadline, event");
         return false;
     }
 

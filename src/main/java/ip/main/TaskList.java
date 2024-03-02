@@ -57,6 +57,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Processes the user's input to identify the keyword
+     * and lists the tasks containing the keyword
+     *
+     * @param line the user's input
+     */
     public void find(String line) {
         String keyword;
         try {
