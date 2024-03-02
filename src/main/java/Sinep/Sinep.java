@@ -14,6 +14,13 @@ public class Sinep {
 
     public static final String FILE_PATH = "src/main/java/Sinep/Sinep.txt";
     public static ArrayList<Task> taskList = new ArrayList<>();
+
+    /**
+     * The main method that initializes the application, loads existing tasks, and processes user input, then save tasks.
+     *
+     * @param args Command-line arguments(not used).
+     * @throws IOException If there is an issue with loading or saving tasks to the file.
+     */
     public static void main(String[] args) throws IOException {
         StorageCommand.loadTaskFile(taskList);
         Scanner scanner = new Scanner(System.in);

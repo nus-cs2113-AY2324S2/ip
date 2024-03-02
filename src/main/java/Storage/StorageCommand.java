@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StorageCommand {
+
+    /**
+     * Loads tasks from a file and populates them into the provided taskList.
+     *
+     * @param taskList The list to populate with the loaded tasks.
+     * @throws IOException If there is an issue accessing the file.
+     */
     public static void loadTaskFile(ArrayList<Task> taskList) throws IOException {
         File taskFile = new File(Sinep.FILE_PATH);
         if (!taskFile.exists()) {
@@ -45,7 +52,6 @@ public class StorageCommand {
                     }
                 } else if (nextLine.startsWith("[D]")) {
                     String command = CommandParse.getDeadlineCommand(nextLine);
-                    System.out.println(command);
                     taskList.add(new Deadline(command));
                     if (nextLine.charAt(4) == 'X') {
                         Task markingTask = taskList.get(counter);
@@ -69,6 +75,13 @@ public class StorageCommand {
         }
     }
 
+    /**
+     * Writes text to a file, with an option to append or overwrite the file.
+     *
+     * @param textToAdd The text to be written to the file.
+     * @param isAppend  If true, the text will be appended to the file; if false, the file will be overwritten.
+     * @throws IOException If there is an issue writing to the file.
+     */
     protected static void writeToFile(String textToAdd, boolean isAppend) throws IOException {
         File taskFile = new File(Sinep.FILE_PATH);
         if (!taskFile.getParentFile().exists() && taskFile.getParentFile().mkdirs()) {
@@ -79,6 +92,11 @@ public class StorageCommand {
         fw.close();
     }
 
+    /**
+     * Saves the current state of the task list to a file.
+     *
+     * @param taskList The list of tasks to save.
+     */
     public static void saveTasks(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
             try {
