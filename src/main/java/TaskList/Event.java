@@ -61,8 +61,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String startDateTimeString = (startDateTime != null ) ? startDateTime.format(OUTPUT_FORMATTER) : this.rawStartDateTime;
-        String endDateTimeString = (endDateTime != null ) ? endDateTime.format(OUTPUT_FORMATTER) : this.rawEndDateTime;
-        return "[E]" + getStatusIcon() + " " + description + " (from: " + startDateTimeString + " to: " + endDateTimeString + ")";
+        String startDateTimeString = (this.startDateTime != null ) ? this.startDateTime.format(OUTPUT_FORMATTER) : this.rawStartDateTime;
+        String endDateTimeString = (this.endDateTime != null ) ? this.endDateTime.format(OUTPUT_FORMATTER) : this.rawEndDateTime;
+        return "[E]" + getStatusIcon() + " " + this.description + " (from: " + startDateTimeString + " to: " + endDateTimeString + ")";
     }
 }

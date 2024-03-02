@@ -43,6 +43,6 @@ public class Task {
      * @return A string representation of the task.
      */
     public String toString() {
-        return getStatusIcon() + " " + description; //combine the status and task description for easier listing
+        return getStatusIcon() + " " + this.description; //combine the status and task description for easier listing
     }
 }
