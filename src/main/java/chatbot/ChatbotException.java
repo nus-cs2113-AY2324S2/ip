@@ -1,5 +1,7 @@
 package chatbot;
 
+import chatbot.ui.UI;
+
 public class ChatbotException extends Exception{
     private final String description;
     public ChatbotException(String description) {
@@ -7,5 +9,6 @@ public class ChatbotException extends Exception{
     }
     public void printDescription() {
         System.out.println(description);
+        UI.printSeparator();
     }
 }

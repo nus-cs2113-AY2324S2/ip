@@ -33,8 +33,7 @@ public class Parser {
         case "find":
             return new FindCommand(taskList, description);
         default:
-            throw new ChatbotException("I don't know what that is. Type 'help' for help. \n " +
-                    "------------------------------");
+            throw new ChatbotException("I don't know what that is. Type 'help' for help. ");
         }
     }
 }

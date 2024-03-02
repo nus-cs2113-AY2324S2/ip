@@ -1,6 +1,7 @@
 package chatbot;
 
 import chatbot.commands.Command;
+import chatbot.commands.MarkCommand;
 import chatbot.tasks.Task;
 import chatbot.tasks.TaskList;
 
@@ -29,6 +30,9 @@ public class Storage {
             String description = dataArray[2];
             Command newCommand = Parser.readCommand(taskList, command + " " + description);
             newCommand.execute(true);
+            if (isMarked) {
+                taskList.markLast();
+            }
         }
         return taskList;
     }

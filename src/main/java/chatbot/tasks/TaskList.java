@@ -36,6 +36,8 @@ public class TaskList {
         tasks.remove(taskNum);
         listLength -= 1;
     }
+    public void markLast() {
+        tasks.get(listLength - 1).markAsDone();
     public void find(String keyWords) {
         int numFound = 0;
         for (Task task : tasks) {
