@@ -25,6 +25,9 @@ public class Krot {
         case "bye":
             ui.hasEnded = true;
             break;
+        case "commands":
+            ui.printUserGuide();
+            break;
         case "list":
             ui.listTasks(taskList.getTasks());
             break;
@@ -83,6 +86,7 @@ public class Krot {
         String line;
         ui.printSeparator();
         ui.greeting();
+        ui.printUserGuide();
         Scanner in = new Scanner(System.in);
         while (!ui.hasEnded) {
             ui.printSeparator();

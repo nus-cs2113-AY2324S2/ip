@@ -8,6 +8,19 @@ public class UI {
         this.hasEnded = false;
     }
 
+    public void printUserGuide() {
+        System.out.println("Here's a list of commands that I take:");
+        System.out.println("\tOpen the commands list: commands");
+        System.out.println("\tSee your list of tasks: list");
+        System.out.println("\tAdd a task to the list: todo <task>");
+        System.out.println("\tAdd a task with deadline to the list: deadline <task> /by <date>");
+        System.out.println("\tAdd an event to the list: event <event name> /from <date> /to <date>");
+        System.out.println("\tMark the tasks as done: mark <taskNumber>");
+        System.out.println("\tUnmark the tasks as done: unmark <taskNumber>");
+        System.out.println("\tDelete the task: delete <taskNumber>");
+        System.out.println("\tEnd the chat session: bye");
+    }
+
     public void printUser() {
         System.out.println("You:");
     }

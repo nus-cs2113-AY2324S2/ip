@@ -1,6 +1,30 @@
 -
 Hello! I'm Krot
 What can I do for you?
+Here's a list of commands that I take:
+	Open the commands list: commands
+	See your list of tasks: list
+	Add a task to the list: todo <task>
+	Add a task with deadline to the list: deadline <task> /by <date>
+	Add an event to the list: event <event name> /from <date> /to <date>
+	Mark the tasks as done: mark <taskNumber>
+	Unmark the tasks as done: unmark <taskNumber>
+	Delete the task: delete <taskNumber>
+	End the chat session: bye
+-
+You:
+-
+Krot:
+Here's a list of commands that I take:
+	Open the commands list: commands
+	See your list of tasks: list
+	Add a task to the list: todo <task>
+	Add a task with deadline to the list: deadline <task> /by <date>
+	Add an event to the list: event <event name> /from <date> /to <date>
+	Mark the tasks as done: mark <taskNumber>
+	Unmark the tasks as done: unmark <taskNumber>
+	Delete the task: delete <taskNumber>
+	End the chat session: bye
 -
 You:
 -
