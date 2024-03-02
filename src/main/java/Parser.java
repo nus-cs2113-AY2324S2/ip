@@ -2,6 +2,8 @@ import java.util.regex.Pattern;
 import static java.lang.Integer.parseInt;
 
 public class Parser {
+    private static final int BY_PADDING = 3;
+    private static final int FROM_PADDING = 5;
 
     public String checkKey(String line) throws Exception {
         // Checks the keywords and runs the corresponding responses
@@ -46,7 +48,7 @@ public class Parser {
         if (byIndex == -1) {
             throw new ArrayIndexOutOfBoundsException("Enter a due date with the initializer /by"); // Throws exception if initializer not found
         }
-        end = line.substring(byIndex + 3).strip();
+        end = line.substring(byIndex + BY_PADDING).strip();
         if (end.isBlank()) {
             throw new EmptyInputException("Enter a due date for this task"); // Throws exception if due date is blank
         }
@@ -71,8 +73,8 @@ public class Parser {
         if (fromIndex == -1 || toIndex == -1) {
             throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <start> /to <end> or don't try at all"); // Throws exception if initializers not found
         }
-        start = line.substring(fromIndex + 5, toIndex).strip();
-        end = line.substring(line.indexOf("/to") + 3).strip();
+        start = line.substring(fromIndex + FROM_PADDING, toIndex).strip();
+        end = line.substring(line.indexOf("/to") + BY_PADDING).strip();
         if (start.isBlank() || end.isBlank()) {
             throw new EmptyInputException("When is this event happening?"); // Throws exception if durations are blank
         }
