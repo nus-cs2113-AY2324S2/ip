@@ -4,13 +4,14 @@ import timl.exceptions.EmptyException;
 import timl.utility.Printer;
 import timl.utility.TextParser;
 import timl.exceptions.TimException;
+
 import java.util.ArrayList;
 
 /**
  * Manages and executes all commands related to the Array List
  */
 public class TaskManager {
-    public static ArrayList<Task> list = new ArrayList<Task>();
+    public static ArrayList<Task> list = new ArrayList<>();
     public void addTask(Task t) {
         list.add(t);
     }
@@ -134,6 +135,26 @@ public class TaskManager {
         System.out.println("     " + list.get(taskIndex).getStatus());
         list.remove(taskIndex);
         System.out.println("     Now you have " + list.size() + " task in the list.");
+        Printer.printLine();
+    }
+    public static void find(String keyword){
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (Task i : list){
+            if (i.description.contains(keyword)) {
+                indexes.add(list.indexOf(i));
+            }
+        }
+
+        if (indexes.isEmpty()) {
+            Printer.printFoundNothingMessage();
+            return;
+        }
+        Printer.printFindOpening();
+        int k = 1;
+        for (int i : indexes) {
+            System.out.println("    " + k + ": " + list.get(i).getStatus());
+            k ++;
+        }
         Printer.printLine();
     }
 }

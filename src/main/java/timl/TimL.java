@@ -26,7 +26,7 @@ public class TimL {
                 try {
                     taskIndex = Integer.parseInt(message) - 1;
                     TaskManager.mark(taskIndex);
-                }catch (NumberFormatException | TimException e){
+                } catch (NumberFormatException | TimException e){
                     Printer.printInvalidNumber();
                 }
                 break;
@@ -34,44 +34,47 @@ public class TimL {
                 try {
                     taskIndex = Integer.parseInt(message) - 1;
                     TaskManager.unMark(taskIndex);
-                }catch (NumberFormatException | TimException e){
+                } catch (NumberFormatException | TimException e){
                     Printer.printInvalidNumber();
                 }
                 break;
             case "todo":
                 try {
                     TaskManager.addToDo(message);
-                }catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e){
                     Printer.printTaskOverflow();
-                }catch (EmptyException e){
+                } catch (EmptyException e){
                     Printer.printEmptyTodoCommand();
                 }
                 break;
             case "deadline":
-                try{
+                try {
                     TaskManager.addDeadline(message);
-                }catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e){
                     Printer.printTaskOverflow();
-                }catch (EmptyException | IndexOutOfBoundsException e) {
+                } catch (EmptyException | IndexOutOfBoundsException e) {
                     Printer.printInvalidDeadline();
                 }
                 break;
             case "event":
                 try {
                     TaskManager.addEvent(message);
-                }catch (ArrayIndexOutOfBoundsException e) {
+                } catch (ArrayIndexOutOfBoundsException e) {
                     Printer.printTaskOverflow();
                 } catch (EmptyException | IndexOutOfBoundsException e) {
                     Printer.printInvalidEvent();
                 }
                 break;
             case "delete":
-                try{
+                try {
                     taskIndex = Integer.parseInt(message) - 1;
                     TaskManager.delete(taskIndex);
-                }catch (NumberFormatException | TimException e){
+                } catch (NumberFormatException | TimException e){
                     Printer.printInvalidDelete();
                 }
+                break;
+            case "find":
+                TaskManager.find(message);
                 break;
             default:
                 Printer.printDefaultError();

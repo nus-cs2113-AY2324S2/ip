@@ -15,6 +15,9 @@ public class Events extends Task {
     }
     @Override
     public String getStatus(){
-        return ASSIGNED_SYMBOL + super.getStatus() + " (from: " + startDate + " to " + endDate + ")";
+        return ASSIGNED_SYMBOL + super.getStatus() + " (from: " + startDate + " to: " + endDate + ")";
     }
 }
+
+
+

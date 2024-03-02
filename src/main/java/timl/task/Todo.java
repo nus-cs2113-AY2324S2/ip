@@ -1,6 +1,5 @@
 package timl.task;
 
-import timl.task.Task;
 
 /**
  * Todo subclass that inherits from Task
