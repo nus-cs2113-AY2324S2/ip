@@ -1,4 +1,8 @@
-public class ToDos extends Task{
+package todoPackage;
+
+import taskPackage.Task;
+
+public class ToDos extends Task {
 
 
     public ToDos(String description) {

@@ -1,3 +1,9 @@
+import taskPackage.Deadlines;
+import edithExceptionPackage.ChatBotExceptions;
+import taskPackage.Events;
+import taskPackage.Task;
+import taskPackage.ToDos;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,10 +21,11 @@ public class ChatBot {
     private static final String DIRECTORY = "src/data";
 
 
-    public ChatBot(String chatbotName) {
+    public ChatBot(String chatbotName) throws ChatBotExceptions {
         this.chatbotName = chatbotName;
         this.tasks = new ArrayList<>();
         this.in = new Scanner(System.in);
+        loadTasksFromFile();
     }
 
     public void startChat() {
@@ -29,32 +36,42 @@ public class ChatBot {
             String command = in.nextLine().trim();
 
             try {
-                if (command.equalsIgnoreCase("bye")) {
+                switch (command.toLowerCase()) {
+                case "bye":
                     printFormattedMessage("Bye. Hope to see you again soon!");
-                    break;
-                } else if (command.equalsIgnoreCase("list")) {
+                    return;
+                case "list":
                     printTaskList();
-                } else if (command.startsWith("mark ")) {
+                    break;
+                case "mark":
                     markTaskAsDone(command.substring(5));
-                } else if (command.startsWith("unmark ")) {
+                    break;
+                case "unmark":
                     unmarkTaskAsDone(command.substring(7));
-                } else if (command.startsWith("todo ")) {
+                    break;
+                case "todo":
                     addTask(command.substring(5), "todo");
-                } else if (command.startsWith("event ")) {
+                    break;
+                case "event":
                     addTask(command.substring(6), "event");
-                } else if (command.startsWith("deadline ")) {
+                    break;
+                case "deadline":
                     addTask(command.substring(9), "deadline");
-                } else if (command.startsWith("delete ")) {
+                    break;
+                case "delete":
                     deleteTask(command.substring(7));
-                }else {
+                    break;
+                default:
                     printFormattedMessage("Unknown command. Please enter 'todo', 'event', " +
                             "'deadline', 'list', 'mark', 'unmark', 'delete', or 'bye'.");
+                    break;
                 }
             } catch (ChatBotExceptions e) {
                 printFormattedMessage(e.getMessage());
             }
         }
     }
+
 
     public void saveTasksToFile() {
         // Get the current working directory
@@ -69,13 +86,10 @@ public class ChatBot {
             // Create the parent directory if it doesn't exist
             Files.createDirectories(filePath.getParent());
 
-            // Check if the file already exists
-            if (!Files.exists(filePath)) {
-                // Create the file if it doesn't exist
-                Files.createFile(filePath);
-            }
-
             // Write tasks to the file
+            // Use StandardOpenOption.TRUNCATE_EXISTING to clear the file before writing
+            Files.write(filePath, "".getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+
             for (Task task : tasks) {
                 Files.write(filePath, (task.toFileString() + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
             }
@@ -86,10 +100,70 @@ public class ChatBot {
         }
     }
 
-    private void deleteTask(String taskNumber) throws ChatBotExceptions{
+
+    private void loadTasksFromFile() {
+        String currentDirectory = System.getProperty("user.dir");
+        String relativeFilePath = Paths.get(currentDirectory, DIRECTORY, FILENAME).toString();
+        Path filePath = Paths.get(relativeFilePath);
+
+        try {
+            if (Files.exists(filePath)) {
+                List<String> lines = Files.readAllLines(filePath);
+                for (String line : lines) {
+                    if (line.trim().isEmpty()) {
+                        // Skip empty lines
+                        continue;
+                    }
+                    String[] parts = line.split(" \\| ");
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+                    String additionalInfo = "";
+
+                    // Check if there are additional parts for Deadline and Event tasks
+                    if (parts.length > 3) {
+                        additionalInfo = parts[3];
+                    }
+
+                    Task task;
+                    switch (type) {
+                    case "T":
+                        task = new ToDos(description, isDone);
+                        break;
+                    case "D":
+                        task = new Deadlines(description, additionalInfo, isDone);
+                        break;
+                    case "E":
+                        if (!additionalInfo.isEmpty()) {
+                            String[] eventInfo = additionalInfo.split(" ");
+                            String fromDate = eventInfo[0];
+                            String toDate = eventInfo[1];
+                            task = new Events(description, fromDate, toDate, isDone);
+                        } else {
+                            task = new Events(description, "", "", isDone);
+                        }
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid task type: " + type);
+                    }
+                    tasks.add(task);
+                }
+                System.out.println("Tasks have been loaded from " + filePath);
+            } else {
+                System.out.println("No tasks file found at " + filePath);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks from " + filePath);
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void deleteTask(String taskNumber) throws ChatBotExceptions {
 
         if (tasks.isEmpty()) {
-            throw new ChatBotExceptions("No tasks to delete. Task list is empty.");
+            throw new ChatBotExceptions("No tasks to delete. taskPackage.Task list is empty.");
         }
 
         try {
@@ -111,7 +185,7 @@ public class ChatBot {
         Task newTask;
 
         if (taskType.equals("todo")) {
-            newTask = new ToDos(taskDescription);
+            newTask = new ToDos(taskDescription, false); // Initialize isDone as false
         } else if (taskType.equals("deadline")) {
             String[] parts = taskDescription.split(" by ");
             if (parts.length < 2) {
@@ -120,7 +194,7 @@ public class ChatBot {
             }
             String description = parts[0];
             String byDate = parts[1];
-            newTask = new Deadlines(description, byDate);
+            newTask = new Deadlines(description, byDate, false);
         } else if (taskType.equals("event")) {
             String[] parts = taskDescription.split(" from | to ");
             if (parts.length < 3) {
@@ -130,7 +204,7 @@ public class ChatBot {
             String description = parts[0];
             String fromDate = parts[1];
             String toDate = parts[2];
-            newTask = new Events(description, fromDate, toDate);
+            newTask = new Events(description, fromDate, toDate, false); // Initialize isDone as false
         } else {
             throw new ChatBotExceptions("Invalid command.");
         }
@@ -218,7 +292,7 @@ public class ChatBot {
         System.out.println(horizontalLines);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ChatBotExceptions {
 
         ChatBot chatBot = new ChatBot("EDITH");
         chatBot.startChat();

@@ -1,4 +1,8 @@
-public class Deadlines extends Task{
+package deadlinesPackage;
+
+import taskPackage.Task;
+
+public class Deadlines extends Task {
 
     protected String by;
 
