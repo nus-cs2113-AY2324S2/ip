@@ -2,6 +2,11 @@ package chatbot.tasks;
 
 import chatbot.ChatbotException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
+
 public class Deadline extends Task {
     private final String startTime;
     public Deadline(String description) throws ChatbotException {
@@ -11,7 +16,13 @@ public class Deadline extends Task {
             throw new ChatbotException("Formatting error. Use /by to state timing. ");
         }
         this.setDescription(descriptionList[0]);
-        this.startTime = descriptionList[1];
+        try {
+            LocalDate inputTime = LocalDate.parse(descriptionList[1]);
+            this.startTime = inputTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+        } catch (DateTimeParseException e) {
+            throw new ChatbotException("Date format error. Use YYYY-MM-DD. ");
+        }
+
     }
     public String getTypeDisplay() {
         return "[D]";

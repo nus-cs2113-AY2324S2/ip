@@ -34,4 +34,7 @@ public class TaskList {
         tasks.remove(taskNum);
         listLength -= 1;
     }
+    public void markLast() {
+        tasks.get(listLength - 1).markAsDone();
+    }
 }

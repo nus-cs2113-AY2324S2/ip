@@ -31,8 +31,7 @@ public class Parser {
         case "help":
             return new HelpCommand();
         default:
-            throw new ChatbotException("I don't know what that is. Type 'help' for help. \n " +
-                    "------------------------------");
+            throw new ChatbotException("I don't know what that is. Type 'help' for help. ");
         }
     }
 }

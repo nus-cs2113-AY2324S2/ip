@@ -2,6 +2,11 @@ package chatbot.tasks;
 
 import chatbot.ChatbotException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
+
 public class Event extends Task {
     private final String startTime;
     private final String endTime;
@@ -12,8 +17,14 @@ public class Event extends Task {
             throw new ChatbotException("Formatting error. Use /from and /to to state timings. ");
         }
         this.setDescription(descriptionList[0]);
-        this.startTime = descriptionList[1].split("from ")[1];
-        this.endTime = descriptionList[2].split("to ")[1];
+        try {
+            LocalDate inputStartTime = LocalDate.parse(descriptionList[1].split("from ")[1]);
+            LocalDate inputEndTime = LocalDate.parse(descriptionList[1].split("from ")[1]);
+            this.startTime = inputStartTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+            this.endTime = inputEndTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+        } catch (DateTimeParseException e) {
+            throw new ChatbotException("Date format error. Use YYYY-MM-DD. ");
+        }
     }
     public String getTypeDisplay() {
         return "[E]";

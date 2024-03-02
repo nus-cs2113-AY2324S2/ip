@@ -32,17 +32,9 @@ public class Chatbot {
             UI.printFileExits();
         }
     }
-    public void writeToFile() throws IOException {
-        FileWriter fileWriter = new FileWriter(".\\data\\chatbot.txt");
-        for (int i = 0; i < taskList.getListLength(); i += 1) {
-            Task task = taskList.get(i);
-            fileWriter.write(task.isDone() + "@" + task.getTaskName() + "@" + task.getCommand() + "\n");
-        }
-        fileWriter.close();
-    }
     public void exit() throws IOException {
         UI.printBye();
-        writeToFile();
+        Storage.writeFile(taskList);
     }
     public void run() {
         do {
