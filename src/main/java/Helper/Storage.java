@@ -51,13 +51,20 @@ public class Storage {
 
     /**
      * Saves the given list of tasks to the file specified by the file path.
+     * If the folder data doesn't exist it will create new folder at that location
+     * If the file tasks.txt doesn't exist it will create new file at in the data folder
      *
      * @param taskList The list of tasks to be saved to the file.
      * @throws SaveFileException If an error occurs while saving tasks to the file.
      */
 
     public void saveTasksToFile(ArrayList<Task> taskList) throws SaveFileException {
-        try (FileWriter writer = new FileWriter(filePath)) {
+        File file = new File(filePath);
+        File folder = file.getParentFile();
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        try (FileWriter writer = new FileWriter(file)) {
             for (Task task : taskList) {
                 writer.write(task.toFileString() + "\n");
             }
