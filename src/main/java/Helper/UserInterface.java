@@ -257,12 +257,12 @@ public class UserInterface {
             System.out.println(
                     TAB_SPACE + (i + INDEX_OFFSET) + foundTasks.get(i) + ". (Original Index: " + originalIndex + ") ");
         }
+        System.out.println(LINE);
     }
         public void printInvalidDateTimeFormat (InvalidDateTimeFormatException e){
             System.out.println(LINE);
             System.out.println(TAB_SPACE + "Invalid format: " + e.getMessage());
             System.out.println(TAB_SPACE + "Please use valid date and time format DD/MM/YYY HH:MM ");
-
             System.out.println(LINE);
         }
 
