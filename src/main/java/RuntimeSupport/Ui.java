@@ -2,19 +2,24 @@ package RuntimeSupport;
 import java.util.Scanner;
 import Event.Task;
 import Event.TaskList;
+import java.util.List;
 
 public class Ui {
     private final Scanner scanner;
     static String BREAK_LINE = "____________________________________________________________";
+
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     public void showLine() {
         System.out.println(BREAK_LINE);
     }
+
     public String readCommand() {
         return scanner.nextLine();
     }
+
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
         System.out.println(BREAK_LINE);
@@ -66,6 +71,18 @@ public class Ui {
         System.out.println("Abracadabra! Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
             System.out.println((i + 1) + ". " + tasks.getTask(i));
+        }
+        System.out.println(BREAK_LINE);
+    }
+
+    public void showFoundResults(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("Ah! There are no such tasks in my storage list!");
+        } else {
+            System.out.println("Here you go! Those are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
         }
         System.out.println(BREAK_LINE);
     }

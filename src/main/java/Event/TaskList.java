@@ -1,5 +1,6 @@
 package Event;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -38,5 +39,15 @@ public class TaskList {
 
     public void markTaskAsNotDone(int index) {
         tasks.get(index).markAsNotDone();
+    }
+
+    public List<Task> findTasks(String word) {
+        List<Task> matchingTask = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(word)) {
+                matchingTask.add(task);
+            }
+        }
+        return matchingTask;
     }
 }
