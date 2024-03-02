@@ -32,14 +32,18 @@ public class Incy {
     }
 
     private static void processInput(String input, TaskManager taskManager) {
-        if ("list".equalsIgnoreCase(input)) {
-            taskManager.handleListCommand();
-        } else if (input.startsWith("mark ")) {
-            taskManager.handleMarkCommand(input, true);
-        } else if (input.startsWith("unmark ")) {
-            taskManager.handleMarkCommand(input, false);
-        } else {
-            taskManager.handleAddTask(input);
+        try {
+            if ("list".equalsIgnoreCase(input)) {
+                taskManager.handleListCommand();
+            } else if (input.startsWith("mark ")) {
+                taskManager.handleMarkCommand(input, true);
+            } else if (input.startsWith("unmark ")) {
+                taskManager.handleMarkCommand(input, false);
+            } else {
+                taskManager.handleAddTask(input);
+            }
+        } catch (IncyException e) {
+            System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_RED + e.getMessage() + "\n" + Constants.LINE_STRING_BOTTOM);
         }
     }
 }
@@ -72,17 +76,15 @@ class TaskManager {
         return index >= 0 && index < taskCount;
     }
 
-    void handleAddTask(String input) {
+    void handleAddTask(String input) throws IncyException {
         if (taskCount >= tasks.length) {
             System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_RED + "The list chocked a block, mate. Can't shove more stuff in it!\n" + Constants.LINE_STRING_BOTTOM);
             return;
         }
 
         Task newTask = TaskFactory.createTask(input);
-        if (newTask != null) {
-            tasks[taskCount++] = newTask;
-            printTaskAddedMessage(newTask);
-        }
+        tasks[taskCount++] = newTask;
+        printTaskAddedMessage(newTask);
     }
 
     private void printTaskAddedMessage(Task task) {
@@ -94,21 +96,31 @@ class TaskManager {
     }
 }
 
+
+class IncyException extends Exception {
+    public IncyException(String message) {
+        super(message);
+    }
+}
+
 class TaskFactory {
-    static Task createTask(String input) {
+    static Task createTask(String input) throws IncyException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         String taskInfo = parts.length > 1 ? parts[1] : "";
 
         switch (command.toLowerCase()) {
             case "todo":
+                if (taskInfo.isEmpty()) {
+                    throw new IncyException("Oi! You can't have a todo with no description!");
+                }
                 return new Todo(taskInfo);
             case "deadline":
                 return createDeadline(taskInfo);
             case "event":
                 return createEvent(taskInfo);
             default:
-                return new Todo(input);
+                throw new IncyException("Hol' up bruv, I dun get what that means...");
         }
     }
 
