@@ -28,4 +28,9 @@ delete the task
 delete 10
 delete 1
 list
+find
+find /jfj
+find /title
+find /title ijefi
+find /title party
 bye

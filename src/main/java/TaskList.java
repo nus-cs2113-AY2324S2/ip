@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -67,5 +68,9 @@ public class TaskList {
             throw new IndexOutOfBoundsException("I can't delete a task that isn't there...");
         }
         return task;
+    }
+
+    public ArrayList<Task> findFromTitle(String keyword) {
+        return (ArrayList<Task>)tasks.stream().filter(task -> task.task.contains(keyword)).collect(Collectors.toList());
     }
 }

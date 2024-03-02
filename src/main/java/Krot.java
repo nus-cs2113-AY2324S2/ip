@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Krot {
@@ -73,6 +74,23 @@ public class Krot {
                 int listIndex = parser.deleteParser(line);
                 task = taskList.deleteTask(listIndex - 1);
                 ui.printDeleteMessage(task, listIndex, taskList.getTasks().size());
+            } catch (Exception e) {
+                ui.printError(e.getMessage());
+            }
+            break;
+        case "find":
+            try {
+                if (line.contains("/title")) {
+                    String title = parser.findFromTitleParser(line);
+                    ArrayList<Task> filteredList = taskList.findFromTitle(title);
+                    if (filteredList.isEmpty()) {
+                        ui.printError(new EmptyInputException("There's no task with that title :(").getMessage());
+                    } else {
+                        ui.listTasks(filteredList);
+                    }
+                } else {
+                    ui.printError(new InvalidInputException("Enter a valid title with the initializer /title <keyword>").getMessage());
+                }
             } catch (Exception e) {
                 ui.printError(e.getMessage());
             }

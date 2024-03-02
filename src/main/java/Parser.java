@@ -4,6 +4,7 @@ import static java.lang.Integer.parseInt;
 public class Parser {
     private static final int BY_PADDING = 3;
     private static final int FROM_PADDING = 5;
+    private static final int TITLE_PADDING = 6;
 
     public String checkKey(String line) throws Exception {
         // Checks the keywords and runs the corresponding responses
@@ -96,5 +97,18 @@ public class Parser {
             throw new ArrayIndexOutOfBoundsException("Which task you trying to delete?");
         }
         return taskIndex;
+    }
+
+    public String findFromTitleParser(String line) throws Exception {
+        if (line.contains("/title")) {
+            int index = line.indexOf("/title") + TITLE_PADDING;
+            String title = line.substring(index).strip();
+            if (title.isBlank()) {
+                throw new EmptyInputException("What task are you searching for?");
+            }
+            return title;
+        } else {
+            throw new InvalidInputException("Enter a valid title with the initializer /title <keyword>");
+        }
     }
 }
