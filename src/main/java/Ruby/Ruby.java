@@ -46,6 +46,9 @@ public class Ruby {
             case "event":
                 p1.parseAddTask(t1);
                 break;
+            case "find":
+                p1.parseFindTask(t1);
+                break;
             default:
                 p1.parseDefault();
                 break;
