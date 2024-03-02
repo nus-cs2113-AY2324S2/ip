@@ -29,6 +29,7 @@ public class DeadlineCommand implements Command {
 
     /**
      * Executes the <code>addDeadlineCommand</code> method to add Deadline task into list.
+     * checks if there are no words after deadline keyword
      * @param tasks is the current list of <code>tasks</code> to save to the file.
      * @param ui is the user interface of that prints texts on program.
      * @param fileSaver is object used to save data into the file.
@@ -50,7 +51,8 @@ public class DeadlineCommand implements Command {
     }
 
     /**
-     * Processes the <code>deadlineTask</code> String by splitting the String at '/by' and saves into current task list.
+     * Processes the <code>deadlineTask</code> String by splitting the String at '/by'
+     * and saves into current <code>tasks</code> list.
      * @param deadlineTask array String after deadline keyword.
      * @throws IOException If there is error in saving data into file.
      */
@@ -68,7 +70,6 @@ public class DeadlineCommand implements Command {
      * Returns <code>false</code> if command not entered <code>bye</code>
      * @return <code>false</code> and does not exit program.
      */
-
     @Override
     public boolean isExit() {
         return false;
