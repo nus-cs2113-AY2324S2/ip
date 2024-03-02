@@ -3,7 +3,7 @@
 John Chatbot is a terminal chatbot capable of managing a user's tasks. By default, it stores the user's tasks in a text file
 called **John.txt** in the **same directory as the jar file**.
 
-## Running the chatbot
+### Running the chatbot
 
 Prerequisites: Have java *(verson >= 11)* installed.
 
@@ -52,7 +52,7 @@ Removes a task.
 
 # Usage
 
-### Adding a task
+## Adding a task
 
 The format for adding specific tasks are ask follows. The command keyword is not case sensitive, but the /*vars* are. An error will be thrown if a blank is found when a string is expected.
 
@@ -62,17 +62,21 @@ The format for adding specific tasks are ask follows. The command keyword is not
 - Todo: ```todo NAME```
 
 *Example usage*: 
+
 - ```event have a dream /from now /to I wake up```
 - ```todo do my laundry```
 - ```deadline finish my homework /by tomorrow```
 
 *Expected outcome*:
+
 If the arguments were entered correctly, the task should be added successfully.
 
 *Example output*:
+
 ``` Added deadline finish my homework ```
 
-### ```mark``` / ```unmark``` : Mark/Unmark tasks
+
+## ```mark``` / ```unmark``` : Mark/Unmark tasks
 
 **Format**: ```mark/unmark NUMBER```
 
@@ -81,36 +85,49 @@ Firstly, the task Id must be retrieved. This can be done easily using the comman
 Next, use ```mark x``` or ```unmark x``` to set the state of the task to the desired state.
 
 *Example usage*: 
+
 - ```mark 3```
 - ```unmark 5```
 
 *Expected outcome*:
+
 If a valid number is entered, a response marking the task will be shown.
 
 *Example output*:
-``` Marking as done:``` 
-```[T][X] do the laundry ```
 
-```Marking as undone:```
-```[T][ ] do the laundry ```
+``` 
+Marking as done:
+[T][X] do the laundry 
+```
+
+```
+Marking as undone:
+[T][ ] do the laundry 
+```
 
 
-### List: ```list```: Listing all tasks
+## List: ```list```: Listing all tasks
 
 **Format**: ```list```
 
 By typing list, the user can print out all existing tasks into the command line.
 
 *Example usage*: 
+
 - ```list```
 
 *Expected outcome*:
+
 All tasks will be printed out in the console.
 
 *Example output*:
-```1. [T][ ] do my laundry```
-```2. [D][ ] do my homework (by: tomorrow)```
-```3. [E][X] attend lecture (from: now to: later)```
+
+```
+1. [T][ ] do my laundry
+2. [D][ ] do my homework (by: tomorrow)
+3. [E][X] attend lecture (from: now to: later)
+```
+
 
 ### Find: ```find``` : Finding keywords
 
@@ -119,17 +136,23 @@ All tasks will be printed out in the console.
 The command looks through all existing tasks, and prints them out if their name contains the string query.
 
 *Example usage*: 
+
 - ```find lecture```
 - ```find homework```
 
 *Expected outcome*:
+
 All tasks containing the keywords in their name will be printed out.
 
 *Example output*:
+
 __Input:__``` find do```
-```2. [T][ ] do my laundry```
-```7. [D][ ] do my homework (by: tomorrow)```
-```9. [E][X] do my will and testament (from: now to: later)```
+
+```
+2. [T][ ] do my laundry
+7. [D][ ] do my homework (by: tomorrow)
+9. [E][X] do my will and testament (from: now to: later)
+```
 
 ### Delete: ```delete``` : Deleting a task
 
@@ -140,14 +163,19 @@ As with *mark/unmark*, the Id of the task to be deleted must first be obtained. 
 Once deleted, said task **CANNOT** be retrieved.
 
 *Example usage*: 
+
 - ```delete 3```
 
 *Expected outcome*:
+
 Task of the given id number will be deleted.
 
 *Example output*:
-``` Removing Task: ```
-``` [D] do my homework (by: later)```
+
+```
+Removing Task: 
+[D] do my homework (by: later)
+```
 
 ### ```bye``` : Exit the program:
 
