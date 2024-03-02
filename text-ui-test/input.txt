@@ -10,3 +10,6 @@ avengers assemble
 todomistake
 deadline /by missing description
 event no end /from now
+delete 1
+delete 1
+delete 1

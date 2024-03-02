@@ -19,7 +19,7 @@ public class Task {
 
     // Method to get the status icon of the task
     public String getStatusIcon(){
-        return (this.isDone() ? "[X] " : "[ ] ");
+        return (this.isDone() ? "[X]" : "[ ]");
     }
 
     public String saveTask() {

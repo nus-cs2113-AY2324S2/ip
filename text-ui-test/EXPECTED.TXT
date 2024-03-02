@@ -39,23 +39,36 @@ Now you have 0 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 No can do, the list starts at 1.
-Try again!
+Please try again.
 ____________________________________________________________
 ____________________________________________________________
 Hey lil bro, you have only 0 things in the list.
-Try again!
+Please try again.
 ____________________________________________________________
 ____________________________________________________________
-No valid command detected, please try again.
+No valid command detected.
+Please try again.
 ____________________________________________________________
 ____________________________________________________________
-No valid command detected, please try again.
+No valid command detected.
+Please try again.
 ____________________________________________________________
 ____________________________________________________________
-I am expecting: deadline <description> /by <date>
-Try again!
+You forgot to add a description for this task.
+Please try again.
 ____________________________________________________________
 ____________________________________________________________
-I am expecting: event <description> /from <date> /to <date>
-Try again!
+You messed up the event format: event <description> /from <date> /to <date>
+Please try again.
 ____________________________________________________________
+____________________________________________________________
+Hey lil bro, you have only 0 things in the list.
+Please try again.
+____________________________________________________________
+____________________________________________________________
+Hey lil bro, you have only 0 things in the list.
+Please try again.
+____________________________________________________________
+____________________________________________________________
+Hey lil bro, you have only 0 things in the list.
+Please try again.

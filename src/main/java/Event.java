@@ -13,7 +13,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + getStatusIcon() + description + " (" + start + " to " + end + ")";
+        return "[E]" + getStatusIcon() + " " + description + " (" + start + " to " + end + ")";
     }
 
     @Override
