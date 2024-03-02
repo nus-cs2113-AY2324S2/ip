@@ -1,3 +1,5 @@
+package sam.task;
+
 public class Task {
     // Fields to store task information
     protected String description; // Description of the task
