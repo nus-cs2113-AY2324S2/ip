@@ -13,14 +13,14 @@ public class Reply {
 
     // List Errors
     public static final String EMPTY_LIST = "List is empty.";
-    public static final String NO_RESULTS = "There are no results that match your search query.\n";
+    public static final String NO_RESULTS = "There are no results that match your search query.";
 
     // Storage Replies
     public static final String SAVE_ERROR = "File save failed.\nWrite error occurred:\n";
     public static final String MISSING_FILE = "Data file not found/corrupted. Starting with an empty list.";
     public static final String LOAD_ERROR = "File read error:\n" + "Error at task number = ";
-    public static final String ERROR_CORRUPT = "\nFile is corrupted. Ceasing any further data imports.";
-    public static final String SUCCESSFUL_LOAD = "Prior data file found\n" + "Previous data has been imported.\n";
+    public static final String CORRUPT_ERROR = "\nFile is corrupted. Ceasing any further data imports.";
+    public static final String SUCCESSFUL_LOAD = "Prior data file found\n" + "Previous data has been imported.";
 
 
 
@@ -38,7 +38,6 @@ public class Reply {
         printLine();
         System.out.println("Commands List:" + "\n");
         System.out.println("list - prints out the List");
-        System.out.println("man - procures utility commands' usage");
         System.out.println("help - procures command list");
         System.out.println("bye - terminates the bot");
         printLine();
@@ -48,6 +47,7 @@ public class Reply {
         System.out.println("mark - indicates an item on the List as done");
         System.out.println("unmark - indicates an item on the List as not done");
         System.out.println("delete - deletes a task from the List");
+        System.out.println("find - searches for a task from the List containing the keyword");
         printLine();
         System.out.println("todo format: todo *parameter*");
         System.out.println("event format: event *parameter* /from *start time* /to *end time*");
@@ -55,6 +55,8 @@ public class Reply {
         System.out.println("unmark format: unmark *index*");
         System.out.println("mark format: mark *index*");
         System.out.println("delete format: delete *index*");
+        System.out.println("find format: find *keyword*");
+        printLine();
     }
 
 

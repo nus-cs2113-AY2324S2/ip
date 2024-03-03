@@ -86,7 +86,7 @@ public class Persistence {
 
                     }
                 } catch (IllegalArgumentException e) {
-                    Reply.printException(e, Reply.LOAD_ERROR + (taskCount + 1) + Reply.ERROR_CORRUPT);
+                    Reply.printException(e, Reply.LOAD_ERROR + (taskCount + 1) + Reply.CORRUPT_ERROR);
                     break;
                 }
 

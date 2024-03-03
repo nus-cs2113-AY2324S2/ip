@@ -177,11 +177,10 @@ public class CommandHandling {
         markTask.setCompleted(command == Command.MARK); // Use enum for logic
 
         if (command == Command.MARK) {
-            System.out.println("Nice! I've marked this task as done:");
+            Reply.printReply("Nice! I've marked this task as done:", String.valueOf(markTask));
         } else {
-            System.out.println("Okay, I've marked this task as not done yet:");
+            Reply.printReply("Okay, I've marked this task as not done yet:", String.valueOf(markTask));
         }
-        System.out.println(markTask);
     }
     /**
      * Deletes a specified task from the list based on the provided user input.
