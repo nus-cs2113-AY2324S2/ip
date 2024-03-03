@@ -1,5 +1,5 @@
 # Chatbot Colin User Guide
-Welcome to the Chatbot Colin User Guide! This guide provides instructions on how to use the chatbot effectivel
+Welcome to the Chatbot Colin User Guide! This guide provides instructions on how to use the chatbot effectively.
 
 ## Introduction
 The chatbot is designed to assist you with managing tasks, providing you a bot to store your tasks in a list, with features such as adding and deleting tasks, marking and finding specific tasks.
