@@ -38,8 +38,4 @@ public class Task {
         return " ";
     }
 
-    public void printTask()  {
-        System.out.print("[" + this.getStatusIcon() + "] " + this.description + "\n");
-    }
-
 }
