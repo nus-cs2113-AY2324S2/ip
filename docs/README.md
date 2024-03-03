@@ -1,6 +1,12 @@
 # Xavier User Guide
 
-## Features 
+## Features
+
+### List tasks: list
+
+Lists all tasks in the task list
+
+Format: list
 
 ### Adding a Todo: todo
 
@@ -41,6 +47,8 @@ Format: mark INDEX
 Examples:
 - mark 1
 
+Tip: You can perform _list_ to view the current list of tasks before choosing which one to mark as done.
+
 ### Unmark a task (set as not done): unmark
 
 Unmarks the specifed task in the task list (set as not done)
@@ -49,6 +57,8 @@ Format: unmark INDEX
 
 Examples:
 - unmark 2
+
+Tip: Tip: You can perform _list_ to view the current list of tasks before choosing which one to unmark.
 
 ### Delete a task: delete
 
@@ -59,11 +69,4 @@ Format: delete INDEX
 Examples:
 - delete 1
 
-### List tasks: list
-
-Lists all tasks in the task list
-
-Format: list
-
-Examples:
-- list
+Tip: You can perform _list_ to view the current list of tasks before choosing which one to delete.
