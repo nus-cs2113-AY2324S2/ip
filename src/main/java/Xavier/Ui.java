@@ -2,7 +2,9 @@ package Xavier;
 
 import Exceptions.InvalidInputException;
 import Exceptions.NoInputException;
+import Tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -74,5 +76,16 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
         input.close();
         isExit = true;
+    }
+
+    public void printSearchResult(ArrayList<Task> itemList) {
+        TaskList taskList = new TaskList(itemList);
+        System.out.println("Here are the matching tasks in your list:");
+        taskList.printList();
+    }
+
+    public void list(TaskList taskList) {
+        System.out.println("Here are the tasks in your list:");
+        taskList.printList();
     }
 }
