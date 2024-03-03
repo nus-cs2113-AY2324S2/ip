@@ -35,17 +35,17 @@ To do so, simply type in the following:
 - **To unmark an event by its index in the list:** unmark [index]
 - **To delete an event by its index in the list:** delete [index]
 - **To find events by keyword:** find [keyword]
-- **To exit the chat bot:** bye
+- **To exit the chatbot:** bye
 
-The list may or may not expand in the future. It depends on if i have enough time to finish the EE2026 project or not. Which i heard will take a lot, a lot, a lot of time.
+The list may or may not expand in the future. It depends on if I have enough time to finish the EE2026 project or not. Which I heard will take a lot, a lot, a lot of time.
 
 ## How to store it?
 
 Good thing that you also also asked.
 
-Guess what? Every event you inputted will be stored via magic in a text file known as "duke.txt". It is right beside the ip.jar file.
+Guess what? Every event you input will be stored via magic in a text file known as "duke.txt". It is right beside the ip.jar file.
 
-If this is the first time you run ip.jar or, you accidently deleted the duke.txt file, it is ok. When the jar file is ran it will automatically create one in the default directory.
+If this is the first time you run ip.jar or, you accidentally deleted the duke.txt file, it is ok. When the jar file is run it will automatically create one in the default directory.
 
 ## Any pre-requisite?
 
