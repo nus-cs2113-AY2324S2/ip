@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import jake.storage.Storage;
 // import jake.storage.Storage;
 import jake.task.TaskList;
 import jake.ui.Ui;
@@ -13,14 +14,15 @@ import jake.ui.Ui;
 
 public class Jake {
 
-    static final String savedTaskFilePath = "./ip/src/main/java/jake/data/tasks.txt";
+    static final String savedTaskFilePath = "./src/main/java/jake/data/tasks.txt";
     
     private static Ui ui = new Ui();
     private static TaskList tasks = new TaskList();
-    // private static Storage storage = new Storage(savedTaskFilePath);
 
-    // static final String home = System.getProperty("user.home");
-    // static final java.nio.file.Path savedTaskFilePath = java.nio.file.Paths.get(home, "ip", "src", "main", "java", "jake", "data");
+    ///////////////////////////////////////////////////////////////////
+    private static Storage storage = new Storage(savedTaskFilePath);
+
+    // private static Storage storage = new Storage(savedTaskFilePath);
 
     // private static void saveTasks() {
     //     try {
@@ -34,7 +36,7 @@ public class Jake {
     //     }
     // }
 
-    // private static void loadTasks() {
+    // private static void loadTasks(String filePath, TaskList tasks) {
     //     try {
     //         File savedFile = new File(savedTaskFilePath);
     //         Scanner savedFileScanner = new Scanner(savedFile);
@@ -49,8 +51,12 @@ public class Jake {
     //     }
     // }
 
+
+    ///////////////////////////////////////////////////////////////////
+
+
     public static void main(String[] args) throws JakeException {
-        // loadTasks();
+        storage.loadTasks(tasks);
         ui.showGreeting();
         Scanner myScanner = new Scanner(System.in);
         String userInput= "";
@@ -75,7 +81,7 @@ public class Jake {
             case "mark":
             case "unmark":
                 tasks.toggleTask(userInput, taskType);
-                // tasks.saveTasks();
+                storage.saveTasks(tasks);
                 break;
             case "delete":
                 tasks.deleteTask(userInput);
@@ -84,7 +90,7 @@ public class Jake {
             case "event":
                 try {
                     tasks.addInputtedTask(userInput, taskType);
-                    // tasks.saveTasks();
+                    storage.saveTasks(tasks);
                     break;
                 } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                     ui.showInvalidCommand();

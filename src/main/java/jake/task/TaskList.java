@@ -13,7 +13,14 @@ public class TaskList {
     private static Ui ui = new Ui();
     private static ArrayList<Task> commands = new ArrayList<>();
 
-    // List out all tasks
+    public int size() {
+        return commands.size();
+    }
+
+    public Task get(int index) {
+        return commands.get(index);
+    }
+
     public void listTasks() {
         ui.showListedTasks();
         for (int i = 0; i < commands.size(); i++){
