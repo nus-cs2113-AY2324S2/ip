@@ -65,8 +65,21 @@ public class Command {
     }
 
     public static void deleteTask(TaskList tasks, String sentence) {
-        int toBeDeleted = Parser.parseDeleteOrMark(sentence);
-        String taskToBeDeleted = tasks.get(toBeDeleted).toString();
+        int toBeDeleted = -1;
+        String taskToBeDeleted;
+        try {
+            toBeDeleted = Parser.parseDeleteOrMark(sentence);
+            taskToBeDeleted = tasks.get(toBeDeleted).toString();
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            Ui.printError();
+            Ui.printMissingNumber();
+            return;
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printError();
+            Ui.printMarkExceedRange(toBeDeleted + 1);
+            return;
+        }
+        
         tasks.remove(toBeDeleted);
         Ui.printTaskDeleted(taskToBeDeleted);
         Ui.printTaskNumber(tasks.size());
@@ -98,10 +111,18 @@ public class Command {
     }
 
     public static void mark(TaskList tasks, String sentence, boolean isBegin) {
-        int toBeMarked = Parser.parseDeleteOrMark(sentence);
+        int toBeMarked;
+        try {
+            toBeMarked = Parser.parseDeleteOrMark(sentence);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            Ui.printError();
+            Ui.printMissingNumber();
+            return;
+        }
         String instruction = Parser.parse(sentence);
 
-        if (toBeMarked >= tasks.size()) {
+        if (toBeMarked >= tasks.size() || toBeMarked <= -1) {
+            Ui.printError();
             Ui.printMarkExceedRange(toBeMarked + 1);
             return;
         }

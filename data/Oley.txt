@@ -1,11 +1,6 @@
-0todo bxjak
-0todo bxjak
-0todo bxjak
-0todo bxjak
-0todo www
-0todo www
+1todo www
 0todo 1
 0todo cry
-0deadline kiss /by 2024-04-02-1234
 0event uuu /from 2024-03-04-0000 /to 2024-05-04-1234
-0deadline djiej /by 2024-04-02-1223
+1deadline djiej /by 2024-04-02-1223
+0event alsdk /from 2024-11-11-1111 /to 2025-11-11-1111

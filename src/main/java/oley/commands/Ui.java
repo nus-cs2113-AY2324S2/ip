@@ -3,6 +3,7 @@ package oley.commands;
 import oley.tasks.Task;
 import oley.tasks.TaskList;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Ui {
@@ -45,11 +46,11 @@ public class Ui {
     }
 
     public static void printCorrectFormat(String string) {
-        if (string == "from") {
+        if (Objects.equals(string, "from")) {
             System.out.println("    Please re-enter the starting time of the event!");
-        } else if (string == "to") {
+        } else if (Objects.equals(string, "to")) {
             System.out.println("    Please re-enter the ending time of the event!");
-        } else if (string == "by") {
+        } else if (Objects.equals(string, "by")) {
             System.out.println("    Please re-enter the due time of the task!");
         }
         System.out.println("    The accepted format of timing should be yyyy-MM-dd-HHmm.");
@@ -118,7 +119,7 @@ public class Ui {
     }
 
     public static void printMarkExceedRange(int taskNumber) {
-        System.out.println("    You have not created Task " + taskNumber + " yet. Jiayous. I will always support you. ( * ~~ * )");
+        System.out.println("    Task " + taskNumber + " does not exist!");
     }
 
     public static void printMarkedAlready() {
@@ -174,5 +175,9 @@ public class Ui {
 
     public static void printToBeforeFrom() {
         System.out.println("    OOPS! The end time is before the starting time. Please change it to sometime after the starting time.");
+    }
+
+    public static void printMissingNumber() {
+        System.out.println("    The number of task should be provided! (>.<)");
     }
 }
