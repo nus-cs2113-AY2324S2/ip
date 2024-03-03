@@ -10,7 +10,7 @@ public class Ui {
 
     public static void lineBreaker() {
         System.out.println(" ");
-        System.out.println("    ♥~~~~~♥~~~~~♥~~~~~♥~~~~~♥~~~~~♥~~~~~♥~~~~~♥");
+        System.out.println("    *~~~~~*~~~~~*~~~~~*~~~~~*~~~~~*~~~~~*~~~~~*");
     }
 
     public static void printGreeting() {
@@ -28,11 +28,11 @@ public class Ui {
     }
 
     public static void printFileNotFound() {
-        System.out.println("    OOPS, the file does not exist! I will now create one for you~ (๑･∀･๑)");
+        System.out.println("    OOPS, the file does not exist! I will now create one for you~ (*o*)");
     }
 
     public static void printFileNotCreated() {
-        System.out.println("    Sorry! I am unable to create file for you.(・ε・｀)");
+        System.out.println("    Sorry! I am unable to create file for you. (>.<)");
     }
 
     public static void printFileCorrupted() {
@@ -44,12 +44,12 @@ public class Ui {
     }
 
     public static void printDeadlineNotSpecified() {
-        System.out.println("    A specific deadline would be better for you to complete your task on time! ( •̀ .̫ •́ )✧");
+        System.out.println("    A specific deadline would be better for you to complete your task on time! (* ^ *)");
         System.out.println("    You may use /by to indicate the time.");
     }
 
     public static void printEventNotSpecified() {
-        System.out.println("    A specific timing of the event would be clearer! ( •̀ .̫ •́ )✧");
+        System.out.println("    A specific timing of the event would be clearer! (* ^ *)");
         System.out.println("    You may use /from and /to to indicate the starting and ending time.");
     }
 
@@ -70,7 +70,7 @@ public class Ui {
     }
 
     public static void printTaskDeleted(String taskToBeDeleted) {
-        System.out.println("    Sure! (❛◡❛✿) I have removed this task:");
+        System.out.println("    Sure! (0 u 0) I have removed this task:");
         System.out.println("    " + taskToBeDeleted);
     }
 
@@ -79,7 +79,7 @@ public class Ui {
     }
 
     public static void exit() {
-        System.out.println("    Bye~ Feel free to talk to me anytime. I will always be here waiting for you. ฅʕ•̫͡•");
+        System.out.println("    Bye~ Feel free to talk to me anytime. I will always be here waiting for you. (0~0)");
     }
 
     public static void printTasks() {
@@ -91,7 +91,7 @@ public class Ui {
     }
 
     public static void printMarkExceedRange(int taskNumber) {
-        System.out.println("    You have not created Task " + taskNumber + " yet. Jiayous. I will always support you. ฅ •ﻌ•♡");
+        System.out.println("    You have not created Task " + taskNumber + " yet. Jiayous. I will always support you. ( * ~~ * )");
     }
 
     public static void printMarkedAlready() {
@@ -113,15 +113,15 @@ public class Ui {
     }
 
     public static void printFailToDelete() {
-        System.out.println("    The task you are trying to delete does not exist! (๑•́ ₃•̀๑)");
+        System.out.println("    The task you are trying to delete does not exist! (>.<)");
     }
 
     public static void printMissingDescription() {
-        System.out.println("    The description of a task cannot be empty! (๑•́ ₃•̀๑)");
+        System.out.println("    The description of a task cannot be empty! (>.<)");
     }
 
     public static void printInstructionNotUnderstood() {
-        System.out.println("    So sorry, I do not understand the commands. I will try to improve!! (•̀_•́)");
+        System.out.println("    So sorry, I do not understand the commands. I will try to improve!! (o ^ o)");
         System.out.println("    Meanwhile, you can use todo, deadline or event to indicate the type of tasks.");
     }
 
