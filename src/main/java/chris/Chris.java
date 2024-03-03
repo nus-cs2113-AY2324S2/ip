@@ -80,7 +80,6 @@ public class Chris {
     public static void saveTasks(String filePath) throws IOException {
         FileWriter f = new FileWriter(filePath);
         for (int i = 0; i < tasks.getTaskCount(); i++) {
-            System.out.println(tasks.getTask(i).saveString());
             f.write(tasks.getTask(i).saveString());
             f.write(System.lineSeparator());
         }
