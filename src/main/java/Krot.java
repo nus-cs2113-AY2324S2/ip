@@ -23,6 +23,7 @@ public class Krot {
     }
 
     public void generateResponse(String key, String line) {
+        // Calls the respective functions based off commands
         Task task;
         switch (key) {
         case "bye":
@@ -65,7 +66,8 @@ public class Krot {
         case "event":
             try {
                 ArrayList<Object> eventDetails = parser.eventParser(line);
-                task = taskList.createEvent((String)eventDetails.get(0), (LocalDateTime)eventDetails.get(1), (LocalDateTime)eventDetails.get(2));
+                task = taskList.createEvent((String)eventDetails.get(0),
+                        (LocalDateTime)eventDetails.get(1), (LocalDateTime)eventDetails.get(2));
                 ui.printCreateTaskMessage(task, taskList.getTasks().size());
             } catch (Exception e) { // Catches if wrong initializer is used
                 ui.printError(e.getMessage());
@@ -99,7 +101,8 @@ public class Krot {
                         ui.printError(e.getMessage());
                     }
                 } else {
-                    ui.printError(new InvalidInputException("Enter a valid title with the initializer /title <keyword>").getMessage());
+                    ui.printError(new InvalidInputException(
+                            "Enter a valid key or date with the initializer /title <keyword> or /date <YYYY-MM-DD>").getMessage());
                 }
             } catch (Exception e) {
                 ui.printError(e.getMessage());
@@ -111,6 +114,7 @@ public class Krot {
     }
 
     public void run() {
+        // Runs the bot
         String line;
         ui.printSeparator();
         ui.greeting();

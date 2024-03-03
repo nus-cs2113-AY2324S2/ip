@@ -11,6 +11,7 @@ public class UI {
     }
 
     public void printUserGuide() {
+        // Prints user guide
         System.out.println("Here's a list of commands that I take:");
         System.out.println("\tOpen the commands list: commands");
         System.out.println("\tSee your list of tasks: list");
@@ -25,6 +26,7 @@ public class UI {
     }
 
     public void printUser() {
+        // Prints user
         System.out.println("You:");
     }
 
@@ -82,6 +84,7 @@ public class UI {
     }
 
     public String reformatDate(LocalDateTime date) {
+        // Formats date into different format
         String dateTime;
         dateTime = date.format(DateTimeFormatter.ofPattern("dd MMM yy hh:mma"));
         return dateTime;

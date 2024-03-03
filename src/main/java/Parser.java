@@ -17,6 +17,7 @@ public class Parser {
     }
 
     public int parseIndexToMark(String line) throws Exception {
+        // Finds the index to mark
         int index;
         try {
             index = parseInt(line.split(" ")[1]) - 1;
@@ -29,6 +30,7 @@ public class Parser {
     }
 
     public LocalDateTime dateAndTimeParser(String line) {
+        // Converts string into LocalDateTime object
         LocalDateTime date;
         try {
             date = LocalDateTime.parse(line);
@@ -39,6 +41,7 @@ public class Parser {
     }
 
     public LocalDate dateParser(String line) {
+        // Converts String into LocalDate object
         LocalDate date;
         try {
             date = LocalDate.parse(line);
@@ -49,6 +52,7 @@ public class Parser {
     }
 
     public String todoParser(String line) throws Exception {
+        // Finds the task title from the user inputs
         String title;
         try {
             title = line.split(" ", 2)[1];
@@ -59,6 +63,7 @@ public class Parser {
     }
 
     public ArrayList<Object> deadlineParser(String line) throws Exception {
+        // Finds the task title and deadline from the user inputs
         String title;
         LocalDateTime end;
         try {
@@ -81,6 +86,7 @@ public class Parser {
     }
 
     public ArrayList<Object> eventParser(String line) throws Exception {
+        // Finds the task title, start and deadline from the user inputs
         String title;
         LocalDateTime start;
         LocalDateTime end;
@@ -107,6 +113,7 @@ public class Parser {
     }
 
     public int deleteParser(String line) throws Exception {
+        // Finds the index of the task to be deleted
         Pattern pattern = Pattern.compile("^[0-9]+$");
         String taskNumber;
         int taskIndex;
@@ -123,6 +130,7 @@ public class Parser {
     }
 
     public LocalDate findParser(String line) throws Exception {
+        // Extract date from user input to find in list
         LocalDate date;
         int index = line.indexOf("/date") + 5;
         date = dateParser(line.substring(index).strip());
@@ -130,6 +138,7 @@ public class Parser {
     }
 
     public String findFromTitleParser(String line) throws Exception {
+        // Extract Title from user input to find in list
         if (line.contains("/title")) {
             int index = line.indexOf("/title") + TITLE_PADDING;
             String title = line.substring(index).strip();

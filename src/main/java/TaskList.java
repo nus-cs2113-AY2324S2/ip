@@ -73,6 +73,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> findByDate(LocalDate date) {
+        // Finds the tasks in the list that matches date
         ArrayList<Task> filteredList = new ArrayList<>();
         try {
             for(Task task : this.tasks) {
@@ -90,6 +91,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> findFromTitle(String keyword) {
+        // Finds the tasks in the list that matches title
         return (ArrayList<Task>)tasks.stream().filter(task -> task.task.contains(keyword)).collect(Collectors.toList());
     }
 }
