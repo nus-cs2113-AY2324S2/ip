@@ -9,7 +9,7 @@ public class Todo extends Task{
     }
     @Override
     public String toFileString() {
-        return "T|" + super.toFileString(); // Prefix with "T" to indicate Todo
+        return "T|" + super.toFileString();
     }
 }
 

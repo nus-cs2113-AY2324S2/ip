@@ -1,20 +1,16 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
-
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
-
     public void markAsDone() {
         this.isDone = true;
     }
-
     public void unmarkAsDone() {
         this.isDone = false;
     }
@@ -26,6 +22,7 @@ public class Task {
         return description + "|" + (isDone ? "1" : "0");
     }
 
+    //@@author PradeepM
     public static Task fromString(String fileString) {
         String[] parts = fileString.split("\\|");
         String taskType = parts[0];
@@ -54,6 +51,7 @@ public class Task {
 
         return task;
     }
+    //@@author PradeepM
 
 
 }

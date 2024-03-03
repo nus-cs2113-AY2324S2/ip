@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class Duke {
     private static final String FILE_PATH = "./data/tasks.txt";
-//    public static Task[] tasks = new Task[100];
-//    public static int taskCount = 0;
-static ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm LeoDas");
@@ -17,16 +16,13 @@ static ArrayList<Task> tasks = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
 
-
         while (true) {
             try {
+                //@@author Nikhil
                 String userInput = scanner.nextLine();
-
                 if ("bye".equalsIgnoreCase(userInput)) {
                     break;
-
                 }
-
                 if ("list".equalsIgnoreCase(userInput)) {
                     System.out.println("____________________________________________________________");
                     System.out.println("Here are the tasks in your list:");
@@ -40,23 +36,20 @@ static ArrayList<Task> tasks = new ArrayList<>();
                 } else if (userInput.startsWith("unmark")) {
                     processTask(userInput, tasks, false);
                 } else if (userInput.startsWith("todo")) {
-
                     String description = userInput.substring(4).trim();
-
                     if (description.isEmpty()) {
                         throw new DukeException("OOPSSSSSSS!!! The task's description is empty! Please do specify!");
                     }
-
                     Todo newTodo = new Todo(description);
                     tasks.add(newTodo);
-
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTodo);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    //@@author Nikhil
                 } else if (userInput.startsWith("deadline")) {
-
+                    //@@author Nikhil
                     String content = userInput.substring(8).trim();
                     int index = content.indexOf("/by");
                     if (index == -1) {
@@ -71,40 +64,36 @@ static ArrayList<Task> tasks = new ArrayList<>();
                         System.out.println("  " + newDeadline);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("____________________________________________________________");
+                        //@@author Nikhil
                     }
                 } else if (userInput.startsWith("event")) {
+                    //@@author PradeepM
                     String content = userInput.substring(5).trim();
-
                     String[] parts = content.split("/from | /to ");
-
                     if (parts.length < 3) {
                         throw new DukeException("Please use the format: event [description] /from [start time] /to [end time]");
                     }
-
                     String description = parts[0].trim();
                     String from = parts[1].trim();
                     String to = parts[2].trim();
-
                     Event newEvent = new Event(description, from, to);
                     tasks.add(newEvent);
-
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newEvent);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    //@@author PradeepM
                 } else if (userInput.startsWith("delete")) {
+                    //@@author PradeepM
                     int taskNumber;
                     try {
                         taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                         if (taskNumber <= 0 || taskNumber > tasks.size()) {
                             throw new DukeException("Invalid task number!");
                         }
-
                         Task deletedTask = tasks.get(taskNumber - 1);
-
                         tasks.remove(taskNumber - 1);
-
                         System.out.println("____________________________________________________________");
                         System.out.println("Noted. I've removed this task: ");
                         System.out.println("  " + deletedTask);
@@ -119,6 +108,7 @@ static ArrayList<Task> tasks = new ArrayList<>();
                         System.out.println(de.getMessage());
                         System.out.println("____________________________________________________________");
                     }
+                    //@@author PradeepM
                 } else {
                     throw new DukeException("OOPSSSSSSS!!! What is that? Please type in ? :(");
                 }
@@ -134,6 +124,8 @@ static ArrayList<Task> tasks = new ArrayList<>();
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
+
+    //@@author Nikhil
     public static void processTask(String userInput, ArrayList<Task> tasks, boolean mark) {
         int taskNumber;
         try {
@@ -159,6 +151,9 @@ static ArrayList<Task> tasks = new ArrayList<>();
             System.out.println("That task doesn't exist!");
         }
     }
+    //@@author Nikhil
+
+    //@@author PradeepM
     public static void save() {
         try {
             File file = new File(FILE_PATH);
@@ -175,7 +170,9 @@ static ArrayList<Task> tasks = new ArrayList<>();
             System.err.println("Error saving tasks to file: " + e.getMessage());
         }
     }
+    //@@author PradeepM
 
+    //@@author Nikhil
     public static void load() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -197,5 +194,5 @@ static ArrayList<Task> tasks = new ArrayList<>();
             System.err.println("Error loading tasks from file: " + e.getMessage());
         }
     }
+    //@@author Nikhil
 }
-
