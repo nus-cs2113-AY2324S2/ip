@@ -1,4 +1,4 @@
-package deadlinesPackage;
+package taskPackage;
 
 import taskPackage.Task;
 
@@ -6,9 +6,9 @@ public class Deadlines extends Task {
 
     protected String by;
 
-    public Deadlines(String description, String by) {
+    public Deadlines(String description, String by, boolean isDone) {
 
-        super(description);
+        super(description, isDone);
         this.by = by;
     }
 

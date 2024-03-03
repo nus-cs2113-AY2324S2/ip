@@ -1,13 +1,13 @@
-package todoPackage;
+package taskPackage;
 
 import taskPackage.Task;
 
 public class ToDos extends Task {
 
 
-    public ToDos(String description) {
+    public ToDos(String description, boolean isDone) {
 
-        super(description);
+        super(description, isDone);
     }
 
     @Override
