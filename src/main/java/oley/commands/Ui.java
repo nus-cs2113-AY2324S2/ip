@@ -63,6 +63,13 @@ public class Ui {
         }
     }
 
+    public static void printTasksWithKeyword(TaskList tasks) {
+        System.out.println("    Here are the tasks containing the keyword:");
+        for (Task task : tasks) {
+            System.out.println("    " + task.toString());
+        }
+    }
+
     public static void printDeadlineNotSpecified() {
         System.out.println("    A specific deadline would be better for you to complete your task on time! (* ^ *)");
         System.out.println("    You may use /by to indicate the time.");
@@ -136,8 +143,12 @@ public class Ui {
         System.out.println("    The task you are trying to delete does not exist! (>.<)");
     }
 
-    public static void printFailToFindTasks() {
+    public static void printFailToFindTiming() {
         System.out.println("    Please provide a specific timing! (>.<)");
+    }
+
+    public static void printFailToFindTasks() {
+        System.out.println("    Please provide one keyword to search! (>.<)");
     }
 
     public static void printMissingDescription() {

@@ -148,11 +148,25 @@ public class Command {
             return;
         }
         for (Task task : tasks) {
-            if (task.getTime().isBefore(d)) {
+            if (task.getClass() == Event.class && task.getTime().isBefore(d)) {
+                inDuration.add(task);
+            }
+            if (task.getClass() == Deadline.class && task.getTime().isBefore(d)) {
                 inDuration.add(task);
             }
         }
         Ui.printTasksWithinTime(inDuration);
+    }
+
+    public void findTask(TaskList tasks, String sentence) {
+        String keyWord = Parser.parseFind(sentence);
+        TaskList tasksContainingKeyWord = new TaskList();
+        for (Task task: tasks) {
+            if (task.getTaskName().contains(keyWord)) {
+                tasksContainingKeyWord.add(task);
+            }
+        }
+        Ui.printTasksWithKeyword(tasksContainingKeyWord);
     }
 
     public void execute(TaskList tasks) {
@@ -186,8 +200,19 @@ public class Command {
                 tasksBeforeTime(tasks, message);
             } catch (IndexOutOfBoundsException e) {
                 Ui.printError();
+                Ui.printFailToFindTiming();
+            }
+            Ui.lineBreaker();
+            break;
+        case "find":
+            try {
+                findTask(tasks, message);
+            } catch (IndexOutOfBoundsException e) {
+                Ui.printError();
                 Ui.printFailToFindTasks();
             }
+            Ui.lineBreaker();
+            break;
         default:
             try {
                 addTask(tasks, message, false);
