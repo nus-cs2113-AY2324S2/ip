@@ -57,9 +57,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(filename);
             StringBuilder sb = new StringBuilder();
-//            for(int i = 0; i < TaskList.getTaskCount(); i++) {
-//                sb.append(TaskList.taskList[i]).append(TaskList.separator);
-//            }
+
             for (Task task : TaskList.taskList) {
                 sb.append(task).append(TaskList.separator);
             }
@@ -67,8 +65,6 @@ public class Storage {
             fw.write(String.valueOf(sb));
             fw.close();
         } catch (IOException e) {
-            //System.out.println("Issues with updating the file");
-            //e.printStackTrace();
             createFile();
         }
     }

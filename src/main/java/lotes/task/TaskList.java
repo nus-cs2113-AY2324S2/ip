@@ -179,10 +179,7 @@ public class TaskList {
         String des = description.substring(7);
 
         if (taskType.equals("T")) {
-//            System.out.println("T");
-//            System.out.println(des);
             if (isMarked.equals("X")) {
-//                System.out.println(isMarked);
                 Task newTask = new ToDo(des, true);
                 taskList.add(newTask);
 
@@ -193,14 +190,10 @@ public class TaskList {
             }
 
         } else if (taskType.equals("D")) {
-//            System.out.println("D");
-//            System.out.println(des);
             String[] by = des.split("by: ");
             String byDate = by[1].substring(0, by[1].length() - 1);
-//            System.out.println(byDate);
-            if (isMarked.equals("X")) {
-//                System.out.println(isMarked);
 
+            if (isMarked.equals("X")) {
                 Task newTask = new Deadline(des, byDate, true);
                 taskList.add(newTask);
             } else {
@@ -209,16 +202,11 @@ public class TaskList {
             }
 
         } else if (taskType.equals("E")) {
-//            System.out.println("E");
-//            System.out.println(des);
             String[] from = des.split("from: ");
             String[] to = from[1].split(" to: ");
             String toTime = to[1].substring(0, to[1].length() - 1);
-//            System.out.println(to[0]);
-//            System.out.println(toTime);
-            if (isMarked.equals("X")) {
-//                System.out.println(isMarked);
 
+            if (isMarked.equals("X")) {
                 Task newTask = new Event(des, to[0], toTime, true);
                 taskList.add(newTask);
             } else {
@@ -226,7 +214,6 @@ public class TaskList {
                 taskList.add(newTask);
             }
         }
-
     }
 
 }
