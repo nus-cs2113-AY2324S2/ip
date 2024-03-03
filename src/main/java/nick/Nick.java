@@ -6,6 +6,8 @@ import nick.storage.Storage;
 import nick.task.TaskList;
 import nick.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * The Nick class serves as the main class for Nick chatbot.
  * It includes the run method to start the chatbot.

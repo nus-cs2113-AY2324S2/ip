@@ -23,8 +23,7 @@ public class Event extends Task {
             fromDate = LocalDate.parse(from);
             toDate = LocalDate.parse(to);
         }
-        catch (DateTimeParseException e) {
-            System.out.println(e.toString());
+        catch (DateTimeParseException ignored) {
         }
     }
 

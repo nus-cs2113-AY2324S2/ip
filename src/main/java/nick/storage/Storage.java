@@ -19,6 +19,7 @@ import nick.task.Event;
 public class Storage {
     File f;
     Scanner s;
+    String filePath;
     ArrayList<Task> tasks = new ArrayList<>();
 
     public static final int TO_OFFSET_IDX = 4;
@@ -32,13 +33,7 @@ public class Storage {
      * @param filePath Filepath of file to be saved or loaded from.
      */
     public Storage(String filePath) {
-        try {
-            f = new File(filePath);
-            s = new Scanner(f);
-        }
-        catch (FileNotFoundException e) {
-            System.out.println(e.toString());
-        }
+        this.filePath = filePath;
     }
 
     /**
@@ -48,10 +43,16 @@ public class Storage {
      * @throws NickException Exception object.
      */
     public ArrayList<Task> load() throws NickException {
-        while (s.hasNext()) {
-            String lineData = s.nextLine();
-            String taskType = lineData.split(" ")[0];
-            loadData(lineData, taskType, tasks);
+        try {
+            f = new File(filePath);
+            s = new Scanner(f);
+            while (s.hasNext()) {
+                String lineData = s.nextLine();
+                String taskType = lineData.split(" ")[0];
+                loadData(lineData, taskType, tasks);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("I am unable to load any data as data/nick.txt does not exist!");
         }
         return tasks;
     }
@@ -139,8 +140,7 @@ public class Storage {
             }
             fw.close();
         }
-        catch (IOException e) {
-            System.out.println(e.toString());
+        catch (IOException ignored) {
         }
     }
 }
