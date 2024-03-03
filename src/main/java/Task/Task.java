@@ -2,12 +2,11 @@ package Task;
 
 /**
  * Represents a task in the chatbot application.
- * A task has a name, a completion status, and a unique task number.
+ * A task has a name, and a completion status.
  */
 public class Task {
     public String name; // The name or description of the task
     public boolean hasDone; // The completion status of the task
-//    public int taskNo; // The unique number assigned to the task
 
     /**
      * Constructs a new Task with the specified name and task number.

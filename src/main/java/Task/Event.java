@@ -9,8 +9,8 @@ import java.util.Locale;
  * An event task includes start and end times in addition to the base task properties.
  */
 public class Event extends Task{
-    protected LocalDate from;
-    protected LocalDate to;
+    protected LocalDate from; // The start date of the event
+    protected LocalDate to; // The end date of the event
     DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MMM dd uuuu", Locale.ENGLISH);
 
     /**
