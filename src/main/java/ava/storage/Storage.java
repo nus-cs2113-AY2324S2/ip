@@ -1,4 +1,4 @@
-package ava;
+package ava.storage;
 
 import ava.task.Deadline;
 import ava.task.Event;
@@ -13,6 +13,9 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private final String filePath;
 
@@ -20,6 +23,9 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates a data file at filePath.
+     */
     private void createFile() {
         try {
             File dataFile = new File(filePath);
@@ -31,13 +37,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes to a file or appends to a file.
+     */
     protected void writeToFile(String textToAdd, boolean isAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, isAppend);
         fw.write(textToAdd + System.lineSeparator());
         fw.close();
     }
 
-    protected void saveTasks(ArrayList<Task> tasks) {
+    /**
+     * Saves all the tasks in the TaskList to filePath.
+     */
+    public void saveTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             try {
                 this.writeToFile("", false);
@@ -63,7 +75,11 @@ public class Storage {
         }
     }
 
-    protected void loadFile(ArrayList<Task> tasks) {
+    /**
+     * Scans a data file at filePath, then loads tasks scanned to the TaskList.
+     * If there is no data file at filePath, create a data file at filePath.
+     */
+    public void loadFile(ArrayList<Task> tasks) {
         File dataFile = new File(filePath);
         try {
             Scanner s = new Scanner(dataFile); // create a Scanner using the File as the source
@@ -75,6 +91,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a line to the correct format, then adds it to the TaskList.
+     */
     protected void loadTask(String line, ArrayList<Task> tasks) {
         line = line.replace("[", "");
         line = line.replace("]", "");
@@ -94,6 +113,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a line to the correct format for tasks with type deadline and event.
+     */
     protected String[] changeTaskFormat(String line, char type) {
         String[] taskAndDate;
         if (type == 'D') {

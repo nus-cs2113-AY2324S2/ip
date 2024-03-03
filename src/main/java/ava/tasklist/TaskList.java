@@ -1,5 +1,8 @@
-package ava;
+package ava.tasklist;
 
+import ava.ui.Ui;
+import ava.exception.EmptyTaskNameException;
+import ava.parser.Parser;
 import ava.task.Deadline;
 import ava.task.Event;
 import ava.task.Task;
@@ -7,6 +10,10 @@ import ava.task.ToDo;
 
 import java.util.ArrayList;
 
+/**
+ * Contains the task list.
+ * It has operations to add/delete/mark/find tasks in the list.
+ */
 public class TaskList extends ArrayList<Task> {
     private final Ui ui;
 
@@ -15,8 +22,14 @@ public class TaskList extends ArrayList<Task> {
         this.ui = ui;
     }
 
-    public void addTask(String task, String type) throws EmptyTaskNameException {
-        task = task.replace(type, "");
+    /**
+     * Adds a task to the TaskList based on the command entered.
+     *
+     * @param command Command entered. Format: "todo task" "deadline task /by deadline" or
+     *                "event task /from startDate /to endDate"
+     */
+    public void addTask(String command, String type) throws EmptyTaskNameException {
+        String task = command.replace(type, "");
 
         if (task.isEmpty()) {
             throw new EmptyTaskNameException();
@@ -38,6 +51,11 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Deletes a task from the TaskList based on the command entered.
+     *
+     * @param command Command entered. Format: "delete int"
+     */
     public void deleteTask(String command) {
         int taskNumberToBeDeleted;
         try {
@@ -52,6 +70,13 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Marks or unmarks a task in the TaskList based on the command entered.
+     * It catches NumberFormatException when a number is not followed by "mark" or "unmark".
+     * It catches IndexOutOfBoundsException when user wants to mark a task which does not exist.
+     *
+     * @param command Command entered. Format: "mark int" or "unmark int"
+     */
     public void markTask(String command) {
         boolean isMark = true;
         int taskChanged;

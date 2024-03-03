@@ -1,14 +1,14 @@
 package ava;
 
-import ava.task.Deadline;
-import ava.task.Event;
-import ava.task.Task;
-import ava.task.ToDo;
-import ava.Parser;
+import ava.parser.Parser;
+import ava.storage.Storage;
+import ava.tasklist.TaskList;
+import ava.ui.Ui;
 
-import java.util.Scanner;
-import java.util.ArrayList;
-
+/**
+ * Entry point of the Address Book application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Ava {
 
     protected final Storage storage;
@@ -28,12 +28,19 @@ public class Ava {
         new Ava("./data/ava.txt").run();
     }
 
+    /**
+     * Runs the chatbot until termination.
+     */
     public void run() {
         ui.greet();
         mainProcess();
         ui.exit();
     }
 
+    /**
+     * Reads and executes command repeatedly until parser.isExit() is true.
+     * parser.isExit() returns true when a "bye" command is read.
+     */
     public void mainProcess() {
         while (!parser.isExit()) {
             String task = ui.getUserCommand();

@@ -1,5 +1,8 @@
 package ava.task;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     protected String deadline;
 
@@ -15,6 +18,9 @@ public class Deadline extends Task {
         this.deadline = deadlineEntered;
     }
 
+    /**
+     * Converts a Deadline object to a string.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(" + this.deadline + ")";

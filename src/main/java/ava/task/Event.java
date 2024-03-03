@@ -1,5 +1,8 @@
 package ava.task;
 
+/**
+ * Represents a task with a start date and an end date.
+ */
 public class Event extends Task {
     protected String startDate;
     protected String endDate;
@@ -20,6 +23,9 @@ public class Event extends Task {
         this.endDate = endDateEntered;
     }
 
+    /**
+     * Converts an Event object to a string.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(" + this.startDate + this.endDate + ")";
