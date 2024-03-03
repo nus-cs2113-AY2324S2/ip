@@ -8,8 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class AppendData {
-    private static String filePath = "src/data/peekay.txt";
-
     public static void appendToDo(ToDo input, FileWriter fw) throws IOException {
         String description = input.getDescription();
         String taskType = input.getTaskType();
