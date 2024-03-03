@@ -66,6 +66,8 @@ public class TaskManager {
                 handleDelete(command);
                 int taskIndex = Integer.parseInt(command.substring(7));
                 storage.deleteText(taskIndex);
+            } else if (command.startsWith("find")) {
+                handleFind(command);
             } else {
                 System.out.println("Invalid input. What is " + command + "?");
             }
@@ -141,6 +143,21 @@ public class TaskManager {
         taskList.remove(taskIndex - 1);
         taskCount -= 1;
         System.out.println("    Now you have " + taskCount + " tasks in the list");
+        System.out.println(Ui.LINE);
+    }
+
+    private void handleFind(String command) {
+        String keyword = command.substring(5).trim().toLowerCase();
+        int index = 1;
+        System.out.println(Ui.LINE);
+        System.out.println("    Here are the matching tasks in your list:");
+        for (Task t : taskList) {
+            if (t.description.toLowerCase().contains(keyword)) {
+                System.out.print("    " + index + ".");
+                t.print();
+                index++;
+            }
+        }
         System.out.println(Ui.LINE);
     }
 }
