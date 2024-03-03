@@ -3,12 +3,12 @@
 A chatbot meticulously crafted through countless sleepless nights, fueled by an unyielding passion for CS2113 and an endless supply of coffee, all while stationed before a 14-inch screen.
 
 Hello from:
- .________._______________  __      __ 
- |   ____/|   ____/\   _  \/  \    /  \
- |____  \ |____  \ /  /_\  \   \/\/   /
- /       \/       \\  \_/   \        / 
-/______  /______  / \_____  /\__/\  /  
-       \/       \/        \/      \/   
+    ________________ _       __
+   / ____/ ____/ __ \ |     / /
+  /___ \/___ \/ / / / | /| / / 
+ ____/ /___/ / /_/ /| |/ |/ /  
+/_____/_____/\____/ |__/|__/   
+                               
 
 
 ## How to run it?
@@ -35,21 +35,27 @@ To do so, simply type in the following:
 - **To unmark an event by its index in the list:** unmark [index]
 - **To delete an event by its index in the list:** delete [index]
 - **To find events by keyword:** find [keyword]
-- **To exit the chat bot:** bye
+- **To exit the chatbot:** bye
 
-The list may or may not expand in the future. It depends on if i have enough time to finish the EE2026 project or not. Which i heard will take a lot, a lot, a lot of time.
+The list may or may not expand in the future. It depends on if I have enough time to finish the EE2026 project or not. Which I heard will take a lot, a lot, a lot of time.
 
 ## How to store it?
 
 Good thing that you also also asked.
 
-Guess what? Every event you inputted will be stored via magic in a text file known as "duke.txt". It is right beside the ip.jar file.
+Guess what? Every event you input will be stored via magic in a text file known as "duke.txt". It is right beside the ip.jar file.
 
-If this is the first time you run ip.jar or, you accidently deleted the duke.txt file, it is ok. When the jar file is ran it will automatically create one in the default directory.
+If this is the first time you run ip.jar or, you accidentally deleted the duke.txt file, it is ok. When the jar file is run it will automatically create one in the default directory.
 
 ## Any pre-requisite?
 
 Java, i guess? Preferably java 11.
 
+ .________._______________  __      __ 
+ |   ____/|   ____/\   _  \/  \    /  \
+ |____  \ |____  \ /  /_\  \   \/\/   /
+ /       \/       \\  \_/   \        / 
+/______  /______  / \_____  /\__/\  /  
+       \/       \/        \/      \/   
 
 ### This document is updated on 03/03/2024.
