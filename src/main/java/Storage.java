@@ -5,9 +5,17 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the loading and saving of tasks from/to a file.
+ */
 public class Storage {
     private static File file;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * @param FILE_PATH File path to store tasks.
+     * @throws IOException If an I/O error occurs while creating the file.
+     */
     public Storage(String FILE_PATH) throws IOException {
         file = new File(FILE_PATH);
 
@@ -19,6 +27,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and adds them to the specified TaskList.
+     * @param tasks TaskList to which tasks will be added.
+     */
     public void loadTasks(TaskList tasks) {
         try {
             Scanner scanner = new Scanner(file);
@@ -56,6 +68,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to the file.
+     */
     public void saveTasks() {
         File file = new File("./data/Bart.txt");
 
