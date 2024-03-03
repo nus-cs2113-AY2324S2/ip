@@ -24,7 +24,12 @@ public class Parser {
                     }
                     int taskToUnmark = Integer.parseInt(input.split(" ")[1]) - 1;
                     return new UpdateCommand(taskToUnmark, false);
-                case ("todo"):
+                case("find"):
+                    if (!input.contains(" ")) {
+                        throw new OGFException("Did not indicate task to search", false);
+                    }
+                    return new FindCommand(input.split(" ")[1]);
+                    case ("todo"):
                     if (!input.contains(" ") || input.indexOf(" ") == input.length() - 1) {
                         throw new OGFException("Did not write anything after \"todo\", dont waste my time and yours pls", false);
                     }
