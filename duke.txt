@@ -1,3 +1,2 @@
-D | 0 | play | 2023-04-05 1600
-E | 1 | play games | 2000-08-31 2359 to 2024-03-03 2359
-T | 0 | play
+T | 1 | borrow book
+E | 1 | project meeting | 2024-04-01 1400 to 2024-04-01 1800
