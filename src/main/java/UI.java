@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/** UI class responsible for generating all responses to the CLI */
 public class UI {
     protected static final String NAME = "Krot"; // Static variable for the bot's name
     protected boolean hasEnded; // Static variable to end the chatbot
@@ -10,6 +11,7 @@ public class UI {
         this.hasEnded = false;
     }
 
+    /** Prints the User Guide for a list of commands */
     public void printUserGuide() {
         // Prints user guide
         System.out.println("Here's a list of commands that I take:");
@@ -57,6 +59,11 @@ public class UI {
         hasEnded = true;
     }
 
+    /**
+     * Prints the list of tasks as a numbered list.
+     *
+     * @param tasks List of tasks.
+     */
     public void listTasks(ArrayList<Task> tasks) {
         // Prints the list of tasks
         int i = 1;
@@ -70,6 +77,11 @@ public class UI {
         }
     }
 
+    /**
+     * Prints an individual task in the proper format.
+     *
+     * @param task Task to print.
+     */
     public void printTask(Task task) {
         // Prints specified task
         System.out.println("["
@@ -83,6 +95,12 @@ public class UI {
                 task.getTaskType().equalsIgnoreCase("D") ? " (by: " + reformatDate(task.getEnd()) + ")" : ""));
     }
 
+    /**
+     * Formats the date keyed by user and prints it in alternative way.
+     *
+     * @param date Date keyed in by user.
+     * @return Returns the reformatted date.
+     */
     public String reformatDate(LocalDateTime date) {
         // Formats date into different format
         String dateTime;
@@ -90,6 +108,7 @@ public class UI {
         return dateTime;
     }
 
+    /** Prints the response message after marking/unmarking a task */
     public void printMarkMessage(Task task) {
         // Prints response message after marking
         if (task.isDone) {
@@ -100,6 +119,7 @@ public class UI {
         printTask(task);
     }
 
+    /** Prints the response message after creating a task */
     public void printCreateTaskMessage(Task task, int size) {
         // Prints response message after creating a task
         System.out.println("More tasks to do! I've added:");
@@ -107,6 +127,7 @@ public class UI {
         System.out.println("Get to working, you now have " + size + " tasks in the list!");
     }
 
+    /** Prints the response message after deleting a task */
     public void printDeleteMessage(Task task, int index, int size) {
         // Prints response message after deleting a task
         System.out.println("Deleted task " + index + " from the list.");
