@@ -95,6 +95,17 @@ public class Ui {
         }
     }
 
+    public void printAfterFindingTask(ArrayList<Task> tasks, int noOfMatchedTask, int indexOfTask) {
+        if (noOfMatchedTask == 1) {
+            out.println("Here are the the matching tasks in your list:");
+        }
+        out.println((noOfMatchedTask) + "." + tasks.get(indexOfTask));
+    }
+
+    public void printAfterNoTaskFound() {
+        out.println("No matched task is found!!!");
+    }
+
     public void greet() {
         printLine();
         out.println(" Hello!!! AvavaAVA!!! Here is Ava!!!");
