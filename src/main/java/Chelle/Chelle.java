@@ -2,12 +2,13 @@ package Chelle;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import ChelleCommands.*;
-import ChelleExceptions.*;
+import ChelleCommands.CommandType;
+import ChelleCommands.HandleCommand;
+import ChelleCommands.Task;
+import ChelleExceptions.InvalidCommandFormatException;
 
 public class Chelle {
     private static final String FILE_PATH = "./ChelleTasks.txt";
-
 
     public static void main(String[] args) {
         // Load tasks from the hard disk when the chatbot starts up
@@ -41,10 +42,15 @@ public class Chelle {
                 break;
 
             case MARK:
+                // Fallthrough
             case UNMARK:
+                // Fallthrough
             case TODO:
+                // Fallthrough
             case DEADLINE:
+                // Fallthrough
             case EVENT:
+                // Fallthrough
             case DELETE:
                 try {
                     handleCommand(userInput, tasks, userCommand);
@@ -52,7 +58,6 @@ public class Chelle {
                     break;
                 }
                 break;
-
             default:
                 System.out.println("Chelle: Invalid command. Please start your command with one of the following commands: \n" +
                         "'list', 'mark', 'unmark', 'todo', 'deadline', 'event', or 'delete'.");
@@ -74,94 +79,23 @@ public class Chelle {
     private static void handleCommand(String userInput, ArrayList<Task> tasks, CommandType command) throws InvalidCommandFormatException {
         switch (command) {
         case MARK:
-            if (userInput.length() < 6) {
-                throw new InvalidCommandFormatException(command);
-            } else {
-                userInput = userInput.substring(5);
-            }
-
-            try {
-                int taskIndex = Integer.parseInt(userInput) - 1;
-                if (isValidTaskIndex(taskIndex, tasks)) {
-                    tasks.get(taskIndex).markDone();
-                    System.out.println("Chelle: Nice! I've marked this task as done:\n        " +
-                            tasks.get(taskIndex).toString());
-                } else {
-                    System.out.println("Chelle: Invalid task index.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Chelle: Invalid task index.");
-            }
+            HandleCommand.handleMarkCommand(userInput, tasks);
             break;
-
         case UNMARK:
-            if (userInput.length() < 8) {
-                throw new InvalidCommandFormatException(command);
-            } else {
-                userInput = userInput.substring(7);
-            }
-
-            try {
-                int taskIndex = Integer.parseInt(userInput) - 1;
-                if (isValidTaskIndex(taskIndex, tasks)) {
-                    tasks.get(taskIndex).markUndone();
-                    System.out.println("Chelle: OK, I've marked this task as not done yet:\n        " +
-                            tasks.get(taskIndex).toString());
-                } else {
-                    System.out.println("Chelle: Invalid task index.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Chelle: Invalid task index.");
-            }
+            HandleCommand.handleUnmarkCommand(userInput, tasks);
             break;
-
         case TODO:
-            if (userInput.length() < 6) {
-                throw new InvalidCommandFormatException(command);
-            } else {
-                tasks.add(new ToDo(userInput.substring(5)));
-                Task.addMessage(tasks);
-            }
+            HandleCommand.handleToDoCommand(userInput, tasks);
             break;
-
         case DEADLINE:
-            if (userInput.length() < 10 || !userInput.contains("/by")) {
-                throw new InvalidCommandFormatException(command);
-            } else {
-                tasks.add(new Deadline(userInput.substring(9)));
-                Task.addMessage(tasks);
-            }
+            HandleCommand.handleDeadlineCommand(userInput, tasks);
             break;
-
         case EVENT:
-            if (userInput.length() < 7 || !(userInput.indexOf("/from") < userInput.indexOf("/to")) || !(userInput.contains("/from"))){
-                throw new InvalidCommandFormatException(command);
-            } else {
-                tasks.add(new Event(userInput.substring(6)));
-                Task.addMessage(tasks);
-            }
+            HandleCommand.handleEventCommand(userInput, tasks);
             break;
-
         case DELETE:
-            if (userInput.length() < 8) {
-                throw new InvalidCommandFormatException(CommandType.DELETE);
-            } else {
-                userInput = userInput.substring(7);
-            }
-
-            try {
-                int taskIndex = Integer.parseInt(userInput) - 1;
-                if (isValidTaskIndex(taskIndex, tasks)) {
-                    Task.delMessage(tasks, taskIndex);
-                    tasks.remove(taskIndex);
-                } else {
-                    System.out.println("Chelle: Invalid task index.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Chelle: Invalid task index.");
-            }
+            HandleCommand.handleDeleteCommand(userInput, tasks);
             break;
-
         default:
             System.out.println("Chelle: Error");
             break;
