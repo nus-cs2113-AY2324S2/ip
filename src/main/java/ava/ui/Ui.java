@@ -122,7 +122,6 @@ public class Ui {
         }
     }
 
-
     public void printAfterFindingTask(ArrayList<Task> tasks, int noOfMatchedTask, int indexOfTask) {
         if (noOfMatchedTask == 1) {
             out.println("Here are the the matching tasks in your list:");
