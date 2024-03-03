@@ -4,7 +4,7 @@ import main.DukeException;
 
 public class Todo extends TaskList {
 
-    boolean newInput;
+    private boolean newInput;
 
     public Todo(String description,  boolean newInput) {
         super(description);

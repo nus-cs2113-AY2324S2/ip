@@ -53,10 +53,11 @@ public class Storage {
 
             if (mark.equals("Marked")) {
                 assert t != null;
-                t.isDone = true;
+                t.setIsDone(true);
             }
             else if (mark.equals("notMarked")) {
-                t.isDone = false;
+                assert t != null;
+                t.setIsDone(false);
             }
             else {
                 System.out.println("Unable to read the tasks in file successfully, Bob will stop running now.");

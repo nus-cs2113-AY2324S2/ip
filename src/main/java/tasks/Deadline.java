@@ -2,7 +2,7 @@ package tasks;
 import main.DukeException;
 
 public class Deadline extends TaskList {
-    protected boolean newInput;
+    private boolean newInput;
 
     public Deadline(String description, boolean newInput) throws DukeException {
         super(description);

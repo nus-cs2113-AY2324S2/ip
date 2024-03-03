@@ -1,7 +1,7 @@
 package tasks;
 public class TaskList {
     protected String description;
-    public boolean isDone;
+    private boolean isDone;
 
     public TaskList(String description) {
         setDescription(description);
@@ -14,6 +14,10 @@ public class TaskList {
 
     public void setDone() {
         this.isDone = false;
+    }
+
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {

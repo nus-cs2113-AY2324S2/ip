@@ -1,10 +1,9 @@
 package tasks;
 import main.DukeException;
 
-
 public class Event extends TaskList {
 
-    protected boolean newInput;
+    private boolean newInput;
     public Event(String description, boolean newInput) {
         super(description);
         setNewInput(newInput);

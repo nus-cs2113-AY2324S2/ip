@@ -167,7 +167,8 @@ public class Command {
             return;
         }
         task = listTask.get(index - 1);
-        task.isDone =  true;
+        //task.isDone =  true;
+        task.setIsDone(true);
         System.out.println("Nice! I've marked this task as done:");
 
         saveData(listString);
@@ -195,7 +196,8 @@ public class Command {
             return;
         }
         TaskList task = listTask.get(index - 1);
-        task.isDone =  false;
+        //task.isDone =  false;
+        task.setIsDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
 
         saveData(listString);
