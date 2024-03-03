@@ -1,10 +1,10 @@
-package Nick.command;
+package nick.command;
 
-import Nick.storage.Storage;
-import Nick.task.TaskList;
-import Nick.ui.Ui;
-import Nick.task.Event;
-import Nick.task.Task;
+import nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
+import nick.task.Event;
+import nick.task.Task;
 
 /**
  * Represents the Event command which inherits from the Command class.

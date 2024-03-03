@@ -1,6 +1,7 @@
-package Nick.ui;
+package nick.ui;
 
-import Nick.Nick;
+import nick.Nick;
+import nick.NickException;
 
 import java.util.Scanner;
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-    public void showError(String errorMessage) {
-        System.out.println("You have encountered the following error: " + errorMessage);
+    public void showError() {
+        System.out.println("Hmm I'm not sure what you're asking me to do.\nPlease refer to the user guide!");
     }
 }

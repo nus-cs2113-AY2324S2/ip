@@ -1,7 +1,7 @@
-package Nick.parser;
+package nick.parser;
 
-import Nick.NickException;
-import Nick.command.*;
+import nick.NickException;
+import nick.command.*;
 
 /**
  * Creates a parser object which parse the input command from the user.

@@ -1,10 +1,10 @@
-package Nick;
+package nick;
 
-import Nick.command.Command;
-import Nick.parser.Parser;
-import Nick.storage.Storage;
-import Nick.task.TaskList;
-import Nick.ui.Ui;
+import nick.command.Command;
+import nick.parser.Parser;
+import nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
 
 /**
  * The Nick class serves as the main class for Nick chatbot.
@@ -27,7 +27,7 @@ public class Nick {
     }
 
     /**
-     * Run the Nick chatbot.
+     * Runs the Nick chatbot.
      */
     public void run() {
         ui.showWelcome();
@@ -40,7 +40,7 @@ public class Nick {
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (NickException e) {
-                ui.showError(e.getMessage());
+                ui.showError();
             } finally {
                 ui.showLine();
             }

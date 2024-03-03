@@ -1,4 +1,4 @@
-package Nick.storage;
+package nick.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import Nick.NickException;
-import Nick.task.Task;
-import Nick.task.Todo;
-import Nick.task.Deadline;
-import Nick.task.Event;
+import nick.NickException;
+import nick.task.Task;
+import nick.task.Todo;
+import nick.task.Deadline;
+import nick.task.Event;
 
 /**
  * Creates a storage object which deals with loading tasks from the file and saving tasks in the file.
@@ -68,7 +68,7 @@ public class Storage {
         String taskName;
         int taskDescriptionIndex = taskType.length() + 7;
         int taskDescriptionEndIndex = command.indexOf("/") - 1;
-        boolean taskDone = command.contains("1");
+        boolean taskDone = command.contains("| 1 |");
 
         switch (taskType) {
         case "todo":
@@ -76,7 +76,6 @@ public class Storage {
                 taskName = command.substring(taskDescriptionIndex);
                 task = new Todo(taskName, taskDone);
                 userTasks.add(task);
-                //taskCount++;
                 break;
             }
             catch (StringIndexOutOfBoundsException exception) {
@@ -91,7 +90,6 @@ public class Storage {
             String deadline = command.substring(deadlineIndex);
             task = new Deadline(taskName, deadline, taskDone);
             userTasks.add(task);
-            //taskCount++;
             break;
         case "event":
             int fromIndex = command.indexOf("/from");
@@ -101,7 +99,6 @@ public class Storage {
             String to = command.substring(toIndex + TO_OFFSET_IDX);
             task = new Event(taskName, from, to, taskDone);
             userTasks.add(task);
-            //taskCount++;
             break;
         default:
             try {
@@ -109,7 +106,7 @@ public class Storage {
             }
             catch (NickException exception) {
                 System.out.println(FORMAT_LINES + System.lineSeparator() +
-                        "Invalid Nick.command!!! Please try again.");
+                        "Invalid command! Please try again.");
             }
         }
     }
@@ -123,17 +120,21 @@ public class Storage {
         try {
             new FileWriter("data/nick.txt", false).close();
             FileWriter fw = new FileWriter("data/nick.txt", true);
+
             for (int i = 0; i < userTasks.size(); i++) {
-                System.out.println("\t" + Integer.toString(i + 1) + "." + userTasks.get(i));
+                System.out.println("\t" + (i + 1) + "." + userTasks.get(i));
                 String done = (userTasks.get(i).getDoneStatus()) ? "1" : "0";
                 if (userTasks.get(i) instanceof Todo) {
                     fw.write("todo " + "| " + done + " | " + userTasks.get(i).description + "\n");
                 }
                 else if (userTasks.get(i) instanceof Deadline) {
-                    fw.write("deadline " + "| " + done + " | " + userTasks.get(i).description + " /by " + ((Deadline) userTasks.get(i)).getDeadline() + "\n");
+                    fw.write("deadline " + "| " + done + " | " + userTasks.get(i).description + " /by "
+                            + ((Deadline) userTasks.get(i)).getDeadline() + "\n");
                 }
                 else if (userTasks.get(i) instanceof Event) {
-                    fw.write("event " + "| " + done + " | " + userTasks.get(i).description + " /from " + ((Event) userTasks.get(i)).getFrom() + " /to " + ((Event) userTasks.get(i)).getTo() + "\n");
+                    fw.write("event " + "| " + done + " | " + userTasks.get(i).description + " /from "
+                            + ((Event) userTasks.get(i)).getFrom() + " /to "
+                            + ((Event) userTasks.get(i)).getTo() + "\n");
                 }
             }
             fw.close();

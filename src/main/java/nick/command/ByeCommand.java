@@ -1,8 +1,8 @@
-package Nick.command;
+package nick.command;
 
-import Nick.task.TaskList;
-import Nick.ui.Ui;
-import Nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
+import nick.storage.Storage;
 
 /**
  * Represents the Bye command which inherits from the Command class.

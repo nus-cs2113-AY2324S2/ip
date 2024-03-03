@@ -1,8 +1,8 @@
-package Nick.command;
+package nick.command;
 
-import Nick.storage.Storage;
-import Nick.task.TaskList;
-import Nick.ui.Ui;
+import nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
 
 /**
  * Represents the Mark command which inherits from the Command class.
@@ -34,9 +34,6 @@ public class MarkCommand extends Command {
                 "] " +
                 tasks.tasks.get(number - 1).description);
         ui.showLine();
-    }
-
-    public boolean isExit() {
-        return false;
+        Storage.saveData(tasks.tasks);
     }
 }

@@ -1,6 +1,4 @@
-package Nick.task;
-
-import Nick.task.Task;
+package nick.task;
 
 import java.util.ArrayList;
 

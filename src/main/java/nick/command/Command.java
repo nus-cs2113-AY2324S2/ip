@@ -1,8 +1,8 @@
-package Nick.command;
+package nick.command;
 
-import Nick.task.TaskList;
-import Nick.ui.Ui;
-import Nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
+import nick.storage.Storage;
 
 /**
  * An abstract Command class at the top of the type hierarchy for the rest of the commands.

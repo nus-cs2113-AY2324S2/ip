@@ -1,8 +1,8 @@
-package Nick.command;
+package nick.command;
 
-import Nick.storage.Storage;
-import Nick.task.TaskList;
-import Nick.ui.Ui;
+import nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
 
 public class FindCommand extends Command {
     private TaskList tasks;

@@ -1,8 +1,8 @@
-package Nick.command;
+package nick.command;
 
-import Nick.storage.Storage;
-import Nick.task.TaskList;
-import Nick.ui.Ui;
+import nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
 
 /**
  * Represents the List command which inherits from the Command class.
@@ -11,7 +11,7 @@ import Nick.ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * Iterate through each task object in the ArrayList and prints out each task object.
+     * Iterates through each task object in the ArrayList and prints out each task object.
      *
      * @param tasks ArrayList of Task objects.
      * @param ui Ui object.

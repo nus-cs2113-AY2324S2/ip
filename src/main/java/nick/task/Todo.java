@@ -1,4 +1,4 @@
-package Nick.task;
+package nick.task;
 
 public class Todo extends Task {
     protected String symbol = "T";

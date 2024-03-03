@@ -1,4 +1,4 @@
-package Nick.task;
+package nick.task;
 
 public class Task {
     protected boolean isDone = false;

@@ -1,10 +1,10 @@
-package Nick.command;
+package nick.command;
 
-import Nick.storage.Storage;
-import Nick.task.TaskList;
-import Nick.ui.Ui;
-import Nick.task.Deadline;
-import Nick.task.Task;
+import nick.storage.Storage;
+import nick.task.TaskList;
+import nick.ui.Ui;
+import nick.task.Deadline;
+import nick.task.Task;
 
 /**
  * Represents the Deadline command which inherits from the Command class.
@@ -13,6 +13,7 @@ import Nick.task.Task;
 public class DeadlineCommand extends Command {
     String taskName;
     String arguments;
+    String deadline;
 
     public DeadlineCommand(String arguments) {
         this.arguments = arguments;
@@ -28,14 +29,28 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        int DEADLINE_OFFSET_IDX = 4;
-        int taskDescriptionEndIndex = arguments.indexOf("/") - 1;
-        int deadlineIndex = arguments.indexOf("/by") + DEADLINE_OFFSET_IDX;
-        taskName = arguments.substring(0, taskDescriptionEndIndex);
-        String deadline = arguments.substring(deadlineIndex);
+        setTaskName();
+        setDeadline();
         Task task = new Deadline(taskName, deadline);
         tasks.tasks.add(task);
         ui.printAddTaskMsg(task.toString(), tasks.tasks.size());
         Storage.saveData(tasks.tasks);
+    }
+
+    /**
+     * Set the deadline command's taskName.
+     */
+    protected void setTaskName() {
+        int taskDescriptionEndIndex = arguments.indexOf("/") - 1;
+        this.taskName = arguments.substring(0, taskDescriptionEndIndex);
+    }
+
+    /**
+     * Set the deadline command's deadline.
+     */
+    protected void setDeadline() {
+        int DEADLINE_OFFSET_IDX = 4;
+        int deadlineIndex = arguments.indexOf("/by") + DEADLINE_OFFSET_IDX;
+        this.deadline = arguments.substring(deadlineIndex);
     }
 }
