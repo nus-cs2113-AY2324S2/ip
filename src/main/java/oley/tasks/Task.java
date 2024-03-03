@@ -1,4 +1,5 @@
 package oley.tasks;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Task {
@@ -29,6 +30,10 @@ public class Task {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
+    }
+
+    public LocalDateTime getTime() {
+        return LocalDateTime.now();
     }
 
     public String toString() {
