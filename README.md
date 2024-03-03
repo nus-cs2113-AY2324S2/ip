@@ -1,24 +1,72 @@
-# Duke project template
+# Sigma - Your own personal chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a chatbot that can track your list of different tasks, as well as marking them when done. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### 1. Task Management
+- **Add Tasks:** Add a new task according to their type - todo, deadline or event
+- **View Tasks:** List all tasks to get an overview of your workload.
+- **Mark as Done or not Done:** Mark tasks as complete or not complete.
+- **Delete Tasks:** Delete Tasks from the current list.
+- **Find Tasks:** Find Tasks using a keyword.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### 2. Command-Line Interface
+- **User-Friendly Commands:** Intuitive and easy-to-use commands for seamless interaction.
+
+### 3. Time formatting
+**For deadlines and events:** Formats the time as MM DD YYYY if input is in YYYY-MM-DD
+
+## Getting Started
+
+Follow these steps to get started.
+
+1. **Compile the Code:**
+   - Compile the Java source code using your preferred Java compiler.
+
+2. **Run the JAR File:**
+   - Execute the compiled JAR file to launch the chatbot.
+
+3. **Interact with the Chatbot:**
+   - Follow the on-screen instructions to add tasks and manage your to-do list.
+
+## Example Usage
+
+```plaintext
+____________________________________________________________
+Hello! I'm Sigma
+What can I do for you?
+____________________________________________________________
+
+todo buy milk
+____________________________________________________________
+Okay, I've added:  buy milk
+____________________________________________________________
+
+deadline CS2113-exam /by 2024-03-28
+____________________________________________________________
+Okay, I've added:  CS2113-exam  (by: Mar 28 2024)
+____________________________________________________________
+
+event party /from 2024-04-01 /to 2024-04-02
+____________________________________________________________
+Okay, I've added:  party  (from: Apr 1 2024 to: Apr 2 2024)
+____________________________________________________________
+
+mark 1
+Good job! I've marked task 1 as done
+list
+____________________________________________________________
+
+Your current tasks
+1. [T][X] buy milk
+2. [D][ ] CS2113-exam  (by: Mar 28 2024)
+3. [E][ ] party  (from: Apr 1 2024 to: Apr 2 2024)
+____________________________________________________________
+bye
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+Thank you for using Sigma!
