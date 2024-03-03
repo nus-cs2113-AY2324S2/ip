@@ -16,7 +16,7 @@ public class Ui  {
         System.out.println("Welcome! I'm your \n" + logo + "Nice to meet you!");
     }
 
-    private void printBreakLine(){
+    public void printBreakLine(){
         System.out.println(("____________________________________________________________"));
     }
 
