@@ -34,7 +34,6 @@ public class UI {
         if (input.equals("bye")) {
             return true;
         } else {
-
             if (input.equals("list")) {
                 Task.showTasks();
             } else if (input.startsWith("mark ")) {
