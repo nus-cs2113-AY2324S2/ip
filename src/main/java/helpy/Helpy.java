@@ -247,8 +247,9 @@ public class Helpy {
     }
 
     public static void main(String[] args) {
+        Ui ui = new Ui();
         loadTasks(filePath);
-        greetUser(isNewUser);
+        ui.greetUser();
 
         Scanner in = new Scanner(System.in);
         String command = "";
@@ -257,7 +258,7 @@ public class Helpy {
             command = in.nextLine();
             switch (command) {
             case "bye":
-                printMessage("Goodbye, see you next time!");
+                ui.sayGoodbye();
                 break;
             case "list":
                 listTasks(taskList);
