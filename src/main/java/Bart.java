@@ -1,7 +1,9 @@
 import java.util.NoSuchElementException;
 import java.io.IOException;
 
-
+/**
+ * The Bart class manages tasks through various commands provided by the user.
+ */
 public class Bart {
     private static final String LINE = "____________________________________________________________";
     private static Storage storage;
@@ -9,6 +11,11 @@ public class Bart {
     private static final String FILE_PATH = "./data/Bart.txt";
     private static final TaskList tasksList = new TaskList();
 
+    /**
+     * The main initializes the program to load and manage tasks,
+     * then saves tasks after taking "bye" as input.
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         ui.greetUser();
         try {
@@ -23,6 +30,9 @@ public class Bart {
         ui.byeUser();
     }
 
+    /**
+     * Manages tasks based on input "command" until input "bye".
+     */
     public static void manageTask() {
         String command;
 
@@ -47,6 +57,12 @@ public class Bart {
         }
     }
 
+    /**
+     * Adds a new task based on the provided command.
+     * @param command String input representing the task to add.
+     * @throws IllegalArgumentException if description is empty.
+     * @throws NoSuchElementException if invalid format.
+     */
     private static void addNewTask(String command) {
         String[] commandParts = command.split(" ");
         String tasking = commandParts[0];
@@ -89,6 +105,9 @@ public class Bart {
         tasksList.get(tasksList.size() - 1).printTask(tasksList.size());
     }
 
+    /**
+     * Lists all current tasks.
+     */
     public static void listTasks() {
         ui.println(LINE + "\nHere are the tasks in your list:");
         //Edge case: If list empty
@@ -101,6 +120,11 @@ public class Bart {
         ui.println(LINE);
     }
 
+    /**
+     * Marks or unmarks a task.
+     * @param command String input representing the task to mark or unmark.
+     * @param mark Boolean indicating whether the task should be marked (true) or unmarked (false).
+     */
     public static void markTask(String command, boolean mark) {
         int taskIndex = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
         if (taskIndex >= 0 && taskIndex < tasksList.size()) {
@@ -118,6 +142,10 @@ public class Bart {
         }
     }
 
+    /**
+     * Deletes a task.
+     * @param command String input representing the task to delete.
+     */
     private static void deleteTask(String command) {
         int indexToDelete = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
         if (indexToDelete >= 0 && indexToDelete < tasksList.size()) {
@@ -130,6 +158,9 @@ public class Bart {
         }
     }
 
+    /**
+     * Prints a help message with available commands.
+     */
     public static void printHelp() {
         ui.println(LINE + "\n'list' lists all current tasks" +
             "\n'mark <#>' marks tasks with X" +
