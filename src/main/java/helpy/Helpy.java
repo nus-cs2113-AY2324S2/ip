@@ -7,14 +7,14 @@ import helpy.task.Task;
 import helpy.task.Todo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Helpy {
-    public static String filePath = "data/helpy.txt";
+    public static boolean isNewUser = true;
+    public static String filePath = "./data/helpy.txt";
     public static ArrayList<Task> taskList = new ArrayList<>();
     public static final String HORIZONTAL_LINE = "______________________\n";
     public static final String name =
@@ -51,12 +51,21 @@ public class Helpy {
         }
     }
 
-    public static void loadTasks(String filePath) throws FileNotFoundException {
+    public static void loadTasks(String filePath) {
         File savedTasks = new File(filePath);
-        Scanner scanner = new Scanner(savedTasks);
-        while (scanner.hasNext()) {
-            String taskInfo = scanner.nextLine();
-            processData(taskInfo);
+        savedTasks.getParentFile().mkdirs();
+        try {
+            if (!savedTasks.createNewFile()) {
+                isNewUser = false;
+                Scanner scanner = new Scanner(savedTasks);
+                while (scanner.hasNext()) {
+                    String taskInfo = scanner.nextLine();
+                    processData(taskInfo);
+                }
+            }
+        } catch (IOException e) {
+            printMessage("Error when attempting to create save file.\n"
+                    + "Data will not be saved.");
         }
     }
 
@@ -238,12 +247,7 @@ public class Helpy {
     }
 
     public static void main(String[] args) {
-        boolean isNewUser = false;
-        try {
-            loadTasks(filePath);
-        } catch (FileNotFoundException e) {
-            isNewUser = true;
-        }
+        loadTasks(filePath);
         greetUser(isNewUser);
 
         Scanner in = new Scanner(System.in);
