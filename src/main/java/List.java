@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 public class List {
 
     public static void addTask(ArrayList<Task> tasks, Task task) {
@@ -15,7 +17,8 @@ public class List {
 
     public static void handleTasks(ArrayList<Task> tasks) {
         if (List.getTotal(tasks) == Constant.ARRAY_START_INDEX) {
-            throw new CustomException(Reply.EMPTY_LIST);
+            Reply.printReply(Reply.EMPTY_LIST);
+            return;
         }
 
         int taskIndex = 1;
@@ -25,5 +28,26 @@ public class List {
             taskIndex++;
         }
     }
+
+    public static void searchList(ArrayList<Task> tasks, String userInput) {
+        String query = userInput.substring(Constant.FIND_OFFSET).trim();
+        if (query.isEmpty()) {
+            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+        }
+
+        ArrayList<Task> filteredList = filteredByString(tasks, query);
+        if (filteredList.isEmpty()) {
+            Reply.printReply(Reply.NO_RESULTS);
+        } else {
+            Reply.printSearch(filteredList);
+        }
+
+    }
+    public static ArrayList<Task> filteredByString(ArrayList<Task> tasks, String filterString) {
+        return (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getLabel().contains(filterString))
+                .collect(Collectors.toList());
+    }
+
 
 }
