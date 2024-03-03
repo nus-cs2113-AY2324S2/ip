@@ -16,12 +16,25 @@ import java.util.List;
  * Parses user input and performs corresponding actions on tasks.
  */
 public class Parser {
+
+    private static final int COMMAND_INDEX = 0;
     private static final int TASK_TYPE_INDEX = 0;
+    private static final int DEADLINE_DESCRIPTION = 0;
+    private static final int EVENT_DESCRIPTION = 0;
+    private static final int START_TIME_INDEX = 0;
+    private static final int END_TIME_INDEX = 1;
+    private static final int ARGUMENT_INDEX = 1;
+    private static final int DEADLINE_BY = 1;
     private static final int STATUS_INDEX = 1;
+    private static final int TIMING_INDEX = 1;
+    private static final int SPLIT_LIMIT = 2;
     private static final int DESCRIPTION_INDEX = 2;
+    private static final int COMMAND_ARGUMENT_LIMIT = 2;
     private static final int DEADLINE_TIME_INDEX = 3;
     private static final int EVENT_START_TIME_INDEX = 3;
     private static final int EVENT_END_TIME_INDEX = 4;
+    private static final String FROM_DELIMITER = " /from ";
+    private static final String TO_DELIMITER = " /to ";
 
     /**
      * Parses user input and performs corresponding actions on tasks.
@@ -32,9 +45,9 @@ public class Parser {
      * @throws ByteException If an error occurs during parsing or task handling.
      */
     public static String parse(String userInput, TaskList tasks) throws ByteException {
-        String[] parts = userInput.split(" ", 2);
-        String command = parts[0];
-        String argument = parts.length > 1 ? parts[1] : "";
+        String[] parts = userInput.split(" ", COMMAND_ARGUMENT_LIMIT);
+        String command = parts[COMMAND_INDEX];
+        String argument = parts.length > ARGUMENT_INDEX ? parts[ARGUMENT_INDEX] : "";
         switch (command) {
             case "list":
                 return tasks.getAllTasks().isEmpty() ? "Task list is empty." : listTasks(tasks);
@@ -137,12 +150,12 @@ public class Parser {
      * @throws ByteException If the deadline task format is invalid or the date is invalid.
      */
     private static String addDeadlineTask(String userInput, TaskList tasks) throws ByteException {
-        String[] parts = userInput.trim().split("/by", 2);
-        if (parts.length != 2) {
+        String[] parts = userInput.trim().split("/by", COMMAND_ARGUMENT_LIMIT);
+        if (parts.length != COMMAND_ARGUMENT_LIMIT) {
             throw new ByteException("Invalid deadline task format. Please specify deadline using /by.");
         }
-        String description = parts[0];
-        String by = parts[1].trim();
+        String description = parts[DEADLINE_DESCRIPTION];
+        String by = parts[DEADLINE_BY].trim();
 
         if (description.isEmpty()) {
             throw new ByteException("The description of a deadline cannot be empty.");
@@ -170,14 +183,18 @@ public class Parser {
      */
     private static String addEventTask(String userInput, TaskList tasks) throws ByteException {
         String trimmedInput = userInput.trim();
-        if (!trimmedInput.contains(" /from ") || !trimmedInput.contains(" /to ")) {
+        String[] parts = trimmedInput.split(FROM_DELIMITER, SPLIT_LIMIT);
+
+        if (parts.length != 2) {
             throw new ByteException("Invalid event task format. Please specify event timing using /from and /to.");
         }
-        String descriptionPart = trimmedInput.split(" /from ", 2)[0];
-        String timingPart = trimmedInput.split(" /from ", 2)[1];
-        String[] timingDetails = timingPart.split(" /to ", 2);
-        String startTime = timingDetails.length > 0 ? timingDetails[0].trim() : "";
-        String endTime = timingDetails.length > 1 ? timingDetails[1].trim() : "";
+
+        String descriptionPart = parts[EVENT_DESCRIPTION];
+        String timingPart = parts[TIMING_INDEX];
+        String[] timingDetails = timingPart.split(TO_DELIMITER, SPLIT_LIMIT);
+
+        String startTime = timingDetails.length > 0 ? timingDetails[START_TIME_INDEX].trim() : "";
+        String endTime = timingDetails.length > 1 ? timingDetails[END_TIME_INDEX].trim() : "";
 
         if (descriptionPart.isEmpty()) {
             throw new ByteException("The description of an event cannot be empty.");
