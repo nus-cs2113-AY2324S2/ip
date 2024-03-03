@@ -7,18 +7,22 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileProcessor {
+public class Storage {
 
-    public static String textContent;
+    public String textContent;
 
-    public static void appendTextContent(String content) {
+    Storage() {
+        textContent = "";
+    }
+
+    public void appendTextContent(String content) {
         textContent += (content + '\n');
     }
 
-    public static ArrayList<String> readFile(String filePath) throws FileNotFoundException {
+    public ArrayList<String> readFile(String filePath) throws FileNotFoundException {
         ArrayList<String> input = new ArrayList<>();
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
+        File file = new File(filePath);
+        Scanner s = new Scanner(file);
         while (s.hasNext()) {
             input.add(s.nextLine());
         }
@@ -26,13 +30,13 @@ public class FileProcessor {
         return input;
     }
 
-    public static void writeFile(String filePath, String textToAdd) throws IOException {
+    public void writeFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
-    public static String convertCommandToText (String command) {
+    public String convertCommandToText (String command) {
         String trimmedCommand = command.trim();
         String text = "";
         if (command.startsWith("todo")) {
@@ -53,18 +57,18 @@ public class FileProcessor {
         return text;
     }
 
-    public static void markText(boolean isDone, int index) {
+    public void markText(boolean isDone, int index) {
         String[] textArray = textContent.split("\n");
         String mark = isDone ? "1" : "0";
         String newString = textArray[index-1].substring(0, 2) + mark + textArray[index-1].substring(3);
         textArray[index-1] = newString;
         textContent = "";
         for (int i = 0; i < textArray.length; i++) {
-            FileProcessor.appendTextContent(textArray[i]);
+            appendTextContent(textArray[i]);
         }
     }
 
-    public static void deleteText(int index) {
+    public void deleteText(int index) {
         String[] textArray = textContent.split("\n");
         textContent = "";
         for (int i = 0; i < textArray.length; i++) {

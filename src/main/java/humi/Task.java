@@ -9,10 +9,6 @@ public class Task {
         this.description = "";
         this.isDone = false;
     }
-    Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
 
     public void printTaskType() {
         switch (taskType) {
@@ -41,21 +37,21 @@ public class Task {
 
     public void mark() {
         isDone = true;
-        System.out.println(Humi.LINE);
+        System.out.println(Ui.LINE);
         System.out.print("     Nice! I've marked this task as done:\n     ");
         printTaskType();
         printMark();
         System.out.println(description);
-        System.out.println(Humi.LINE);
+        System.out.println(Ui.LINE);
     }
 
     public void unmark() {
         isDone = false;
-        System.out.println(Humi.LINE);
+        System.out.println(Ui.LINE);
         System.out.print("     OK, I've marked this task as not done yet:\n     ");
         printTaskType();
         printMark();
         System.out.println(description);
-        System.out.println(Humi.LINE);
+        System.out.println(Ui.LINE);
     }
 }
