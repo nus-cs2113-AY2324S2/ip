@@ -1,18 +1,45 @@
 import java.util.ArrayList;
+/**
+ * Represents management and display of the task list.
+ */
 public class List {
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param tasks The list of tasks to be modified.
+     * @param task The new task to be added.
+     */
     public static void addTask(ArrayList<Task> tasks, Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Returns the total number of tasks in the list.
+     *
+     * @param tasks The list of tasks to be counted.
+     * @return The total number of tasks in the list.
+     */
     public static int getTotal (ArrayList<Task> tasks) {
         return tasks.size();
     }
 
+    /**
+     * Removes a task from the list based on its index.
+     *
+     * @param tasks The list of tasks to be modified.
+     * @param index The index of the task to be removed.
+     * @throws IndexOutOfBoundsException If the provided index is out of bounds.
+     */
     public static void removeTask(ArrayList<Task> tasks, int index) {
         tasks.remove(index);
     }
 
+    /**
+     * Prints the details of all tasks in the list, or displays a message if the list is empty.
+     *
+     * @param tasks The list of tasks to be displayed.
+     */
     public static void handleTasks(ArrayList<Task> tasks) {
         if (List.getTotal(tasks) == Constant.ARRAY_START_INDEX) {
             throw new CustomException(Reply.EMPTY_LIST);

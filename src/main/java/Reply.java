@@ -1,3 +1,6 @@
+/**
+ * Represents the user interface of the Jarvas bot.
+ */
 public class Reply {
     public static final String PARTITION_LINE = "____________________________________________________________";
 
@@ -17,9 +20,16 @@ public class Reply {
 
 
 
+    /**
+     * Prints a horizontal line.
+     */
     public static void printLine() {
         System.out.println(PARTITION_LINE);
     }
+
+    /**
+     * Prints the help message.
+     */
     public static void printHelp() {
         printLine();
         System.out.println("Commands List:" + "\n");
@@ -44,12 +54,24 @@ public class Reply {
     }
 
 
+    /**
+     * Prints a formatted message containing the original user input sandwiched between two horizontal lines.
+     *
+     * @param reply The user input string to be formatted.
+     */
     public static void printReply(String reply) {
         printLine();
         System.out.println(reply);
         printLine();
     }
 
+    /**
+     * Prints a formatted message containing the original user input sandwiched between two horizontal lines.
+     * Prints two user input strings separated by a newline character
+     *
+     * @param firstString The first user input string to be formatted.
+     * @param secondString The second user input string to be formatted.
+     */
     public static void printReply(String firstString, String secondString) {
         printLine();
         System.out.println(firstString);
@@ -58,7 +80,14 @@ public class Reply {
     }
 
 
-    public static void printReply(Task task, int total){
+    /**
+     * Prints a formatted message to feedback a newly added task back to the user,
+     * followed by the updated tally of the tasks list, sandwiched between two horizontal lines.
+     *
+     * @param task The {@code Task} object added to the tasks list.
+     * @param total The total number of tasks in the tasks list.
+     */
+    public static void printReply(Task task, int total) {
         printLine();
         System.out.println("Got it. I've added: ");
         System.out.println(task);
@@ -70,6 +99,9 @@ public class Reply {
         printLine();
     }
 
+    /**
+     * Prints an ASCII Art depicting the word 'Jarvas'.
+     */
     public static void printArt() {
         System.out.println(" _____                                  ");
         System.out.println("(___  )                                 ");
@@ -78,14 +110,25 @@ public class Reply {
         System.out.println("( )_| |( (_| || |   | \\_/ |( (_| |\\__, \\");
         System.out.println("`\\___/'`\\__,_)(_)   `\\___/'`\\__,_)(____/");
     }
-    public static void printWelcomeMessage(){
+
+    /**
+     * Prints the startup message.
+     */
+    public static void printWelcomeMessage() {
         printArt();
         printReply("Hello! I'm Jarvas", "What can I do for you?");
     }
-    public static void printGoodbyeMessage(){
+    /**
+     * Prints the shutdown message.
+     */
+    public static void printGoodbyeMessage() {
         printReply("Have a good day!", "Bye, see you soon!");
     }
 
+    /**
+     * Prints out the error message if any.
+     * @param e A string representing the error message to print.
+     */
     public static void printException(CustomException e) {
         System.err.println("Custom Exception Caught!" + "\n" + e.getMessage());
     }

@@ -1,5 +1,7 @@
 import java.io.File;
-
+/**
+ * Represents all constant variables, excluding pre-programmed error replies, used in the Jarvas bot.
+ */
 public class Constant {
 
     // Used in CommandHandling.java
