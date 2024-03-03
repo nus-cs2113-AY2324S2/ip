@@ -6,13 +6,17 @@ Bart is a desktop app for listing out your everyday tasks, optimized for use via
 ### Viewing help: `help`
 
 Shows a list of available commands.
+
 Format: `help`
 
 ### Adding Tasks and their types: `todo` `deadline` `event`
 
 Adds task into a list.
+
 Todo Format: `todo [TASK]`
+
 Deadline Format: `deadline [TASK] /by [TIME]`
+
 Event Format: `event [TASK] /from [START_TIME] /to [END_TIME]`
 
 Examples:
@@ -23,11 +27,13 @@ Examples:
 ### Listing all tasks: `list`
 
 Shows a list of tasks.
+
 Format: `list`
 
 ### Deleting a task: `delete`
 
 Deletes a task at given index.
+
 Format: `delete [INDEX]`
 
 Example: 
@@ -36,7 +42,9 @@ Example:
 ### Marking and Unmarking: `mark` `unmark`
 
 Marks or unmarks a task in the list at given index.
+
 Mark Format: `mark [INDEX]`
+
 Unmark Format: `unmark [INDEX]`
 
 Examples:
@@ -46,4 +54,5 @@ Examples:
 ### Exit and save Bart: `bye`
 
 Exits the program and saves the list in a file located in `./data/Bart.txt`. 
+
 This save file is automatically loaded when Bart is opened again
