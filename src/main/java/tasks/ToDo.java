@@ -1,7 +1,7 @@
 package tasks;
 
 public class ToDo extends tasks.Task {
-   public String taskType = "T";
+   private String taskType = "T";
 
    public ToDo(String description){
        super(description);

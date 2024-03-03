@@ -4,7 +4,7 @@ package tasks;
 
 public class Event extends Task {
 
-    public String taskType = "E";
+    private String taskType = "E";
     private String startDate;
     private String endDate;
 

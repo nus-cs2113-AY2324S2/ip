@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import static savedData.LoadData.loadData;
 import static savedData.AppendData.*;
+import static savedData.UploadData.updateFile;
 public class HandleInput {
     static String line = "\t____________________________________________________________";
     static ArrayList<Task> tasks = new ArrayList<>(100);
@@ -34,6 +35,12 @@ public class HandleInput {
     }
 
     private static void sayBye() {
+
+        try {
+            updateFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Could not save changes to file.");
+        }
         System.out.println("\t Bye. Hope to see you again soon!");
     }
 
@@ -44,11 +51,11 @@ public class HandleInput {
         }
         ToDo newEntry = new ToDo(todo);
         tasks.add(newEntry);
-        try {
-            appendToDo(newEntry);
-        } catch (IOException e){
-            System.out.println("Could not save to file.");
-        }
+//        try {
+//            appendToDo(newEntry);
+//        } catch (IOException e){
+//            System.out.println("Could not save to file.");
+//        }
         echo(input);
     }
 
@@ -66,11 +73,11 @@ public class HandleInput {
         String date = description.substring(by + 4);
         Deadline newEntry = new Deadline(deadline,date);
         tasks.add(newEntry);
-        try {
-            appendDeadline(newEntry);
-        } catch (IOException e){
-            System.out.println("Could not save to file.");
-        }
+//        try {
+//            appendDeadline(newEntry);
+//        } catch (IOException e){
+//            System.out.println("Could not save to file.");
+//        }
         echo(input);
     }
 
@@ -83,11 +90,11 @@ public class HandleInput {
         }
         Event newEntry = getEvent(description, from);
         tasks.add(newEntry);
-        try {
-            appendEvent(newEntry);
-        } catch (IOException e){
-            System.out.println("Could not save to file.");
-        }
+//        try {
+//            appendEvent(newEntry);
+//        } catch (IOException e){
+//            System.out.println("Could not save to file.");
+//        }
         echo(input);
     }
 

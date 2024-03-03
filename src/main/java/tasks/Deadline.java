@@ -2,7 +2,7 @@ package tasks;
 
 public class Deadline extends Task {
 
-    public String taskType = "D";
+    private String taskType = "D";
     private String endDate;
     public Deadline(String description, String date){
         super(description);

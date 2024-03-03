@@ -1,6 +1,6 @@
 package tasks;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -16,7 +16,7 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    public abstract String getTaskType();
     public boolean isDone() {
         return isDone;
     }
