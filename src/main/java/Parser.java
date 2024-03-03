@@ -1,4 +1,13 @@
+/**
+ * Class that holds the parse method
+ */
 public class Parser {
+    /**
+     *
+     * @param input String input that user entered into the CLI
+     * @return Command to be executed later
+     * @throws OGFException Exception to be handled in main body
+     */
     public static Command parse(String input) throws OGFException{
         try {
             switch (input.split(" ")[0]) {

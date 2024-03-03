@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Includes methods for messages to show to the user, i.e. intro, error messages, confirmation messages
+/**
+ * Class that includes methods for printing common messages and getting input from the user.
+ */
 public class Ui  {
     public void printIntroMessage(){
         String logo = "\n" +
@@ -20,6 +22,10 @@ public class Ui  {
         System.out.println(("____________________________________________________________"));
     }
 
+    /**
+     * Gets input from the user typing commands into the CLI.
+     * @return Returns the user input as one String.
+     */
     public String getInput(){
         System.out.println("What can I do for you?");
         Scanner inputScanner = new Scanner(System.in);

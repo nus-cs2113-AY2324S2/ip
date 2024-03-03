@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class FindCommand extends Command{
     private String searchTerm;
     FindCommand(String searchTerm){

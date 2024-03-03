@@ -1,3 +1,6 @@
+/**
+ * Class for to do tasks
+ */
 public class Todo extends Task {
     Todo(String task){
         super(task);

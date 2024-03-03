@@ -1,5 +1,8 @@
 import java.io.IOException;
 
+/**
+ * A Command that stores a Task that when executed, adds that Task to the task list and stores it in hardware
+ */
 public class AddCommand extends Command{
     private final Task task;
 
