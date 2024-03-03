@@ -4,7 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the Storage interface using object serialization for the Jarvas bot.
+ * Used for reading and writing from data files.
+ */
 public class Persistence {
+    /**
+     * Saves the list of tasks to a file using object serialization.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws CustomException If an error occurs during file operations.
+     */
     public static void saveTasks(ArrayList<Task> tasks) throws CustomException {
         try (FileWriter writer = new FileWriter(Constant.FILE_NAME)) {
 
@@ -21,6 +31,15 @@ public class Persistence {
         }
     }
 
+    /**
+     * Verifies the integrity of the data file, checking if it exists and if it's readable.
+     * If the file doesn't exist, it creates one, a message is printed indicating a missing file
+     * and the program continues with an empty list.
+     * If the file exists but cannot be read, an exception is thrown.
+     *
+     * @param data The {@code File} object representing the data file to be verified.
+     * @throws IOException If an I/O error occurs during file operations.
+     */
     public static void verifyIntegrity(File data) throws IOException {
         if (data.createNewFile() && data.canRead()) {
             Reply.printReply(Reply.MISSING_FILE);
@@ -29,6 +48,14 @@ public class Persistence {
         }
     }
 
+    /**
+     * Loads a list of tasks from a given specific file name using object deserialization.
+     * If the file doesn't exist or is empty, an empty list is returned.
+     *
+     * @param tasks The list of tasks to be loaded into that may be empty initially.
+     * @throws CustomException If an error occurs during file operations or the file
+     * representing the saved tasks cannot be found.
+     */
     public static void loadTasks(ArrayList<Task> tasks) throws CustomException {
         int taskCount = 0;
 
@@ -71,7 +98,15 @@ public class Persistence {
         }
     }
 
-    // Convert a string back to a Deadline object
+    /**
+     * Converts a string array representing a saved Deadline task back into a Deadline object
+     * and adds it to the tasks list.
+     *
+     * @param tasks The list of tasks to add the Deadline to.
+     * @param task The string array representing the saved Deadline task.
+     * @param taskCount The current number of tasks in the list.
+     * @throws CustomException If an error occurs during task creation.
+     */
     public static void spawnDeadline(ArrayList<Task> tasks,String[] task, int taskCount) throws CustomException {
 
         String label = task[1].trim();
@@ -84,7 +119,15 @@ public class Persistence {
         updateCompletion(tasks, isCompleted, taskCount);
     }
 
-    // Convert a string back to an Event object
+    /**
+     * Converts a string array representing a saved Event task back into an Event object
+     * and adds it to the tasks list.
+     *
+     * @param tasks The list of tasks to add the Event to.
+     * @param task The string array representing the saved Event task.
+     * @param taskCount The current number of tasks in the list.
+     * @throws CustomException If an error occurs during task creation.
+     */
     public static void spawnEvent(ArrayList<Task> tasks,String[] task, int taskCount) throws CustomException {
 
         String label = task[1].trim();
@@ -99,7 +142,15 @@ public class Persistence {
     }
 
 
-    // Convert a string back to a ToDo object
+    /**
+     * Converts a string array representing a saved ToDo task back into a ToDo object
+     * and adds it to the tasks list.
+     *
+     * @param tasks The list of tasks to add the ToDo to.
+     * @param task The string array representing the saved ToDo task.
+     * @param taskCount The current number of tasks in the list.
+     * @throws CustomException If an error occurs during task creation.
+     */
     public static void spawnToDo(ArrayList<Task> tasks,String[] task, int taskCount) throws CustomException {
         String label = task[1].trim();
         boolean isCompleted = !task[3].trim().isEmpty();
@@ -110,6 +161,14 @@ public class Persistence {
         updateCompletion(tasks, isCompleted, taskCount);
     }
 
+    /**
+     * Updates the completion status of a task in the tasks list based on a provided boolean value.
+     *
+     * @param tasks The list of tasks to update.
+     * @param value A boolean value representing the new completion status (true for completed, false for incomplete).
+     * @param taskCount The index of the task in the list to update.
+     * @throws CustomException If an error occurs during task update.
+     */
     public static void updateCompletion(ArrayList<Task> tasks, boolean value, int taskCount) throws CustomException {
         try {
             tasks.get(taskCount).setCompleted(value);
