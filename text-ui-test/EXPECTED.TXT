@@ -190,12 +190,12 @@ Krot:
 You:
 -
 Krot:
-Enter a valid date with the initializer /date <YYYY-MM-DD>
+Enter a valid key or date with the initializer /title <keyword> or /date <YYYY-MM-DD>
 -
 You:
 -
 Krot:
-Enter a valid date with the initializer /date <YYYY-MM-DD>
+Enter a valid key or date with the initializer /title <keyword> or /date <YYYY-MM-DD>
 -
 You:
 -
@@ -222,6 +222,31 @@ You:
 -
 Krot:
 Enter a date in the format <YYYY-MM-DD>
+-
+You:
+-
+Krot:
+Enter a valid key or date with the initializer /title <keyword> or /date <YYYY-MM-DD>
+-
+You:
+-
+Krot:
+Enter a valid key or date with the initializer /title <keyword> or /date <YYYY-MM-DD>
+-
+You:
+-
+Krot:
+What task are you searching for?
+-
+You:
+-
+Krot:
+There's no task with that title :(
+-
+You:
+-
+Krot:
+1.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
 -
 You:
 -

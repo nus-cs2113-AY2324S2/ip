@@ -22,8 +22,8 @@ public class FileReader {
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String line = s.nextLine();
-            String[] taskSegments = line.split("\\|");
-            if (taskSegments[0].equalsIgnoreCase("T")) {
+            String[] taskSegments = line.split("\\|"); // Split based of |
+            if (taskSegments[0].equalsIgnoreCase("T")) { // Checks task type
                 Task task = new Todo(taskSegments[2], taskSegments[0]);
                 if (taskSegments[1].equals("1")) {
                     task.markDone();
