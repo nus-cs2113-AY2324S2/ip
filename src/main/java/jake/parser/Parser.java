@@ -55,6 +55,10 @@ public class Parser {
                     ui.showInvalidCommand();
                     break;
                 } 
+            case "find":
+                String keyword = userInput.substring(userInput.indexOf(" ")+1);
+                tasks.findTask(keyword);
+                break;
             default:
                 ui.showInvalidCommand();
             }

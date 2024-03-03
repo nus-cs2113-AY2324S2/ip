@@ -15,4 +15,5 @@ public class Messages {
     public static final String MESSAGE_TASK_DELETED = MESSAGE_LINE_STRING + "Got it! I have successfully removed: \n" + 
             "    " + "%1$s \n" + "You have a total of %2$d tasks in the list \n" + MESSAGE_LINE_STRING;
     public static final String MESSAGE_TASK_ERROR_ENCOUNTERED = "Something went wrong...: %1$s";
+    public static final String MESSAGE_TASK_FIND_TASK = MESSAGE_LINE_STRING + "Here are the matching tasks in your list: \n";
 }
