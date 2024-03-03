@@ -1,3 +1,6 @@
+/**
+ * Deals with interactions with the user
+ */
 public class Ui {
     public static void showWelcomeMessage() {
         printLine();

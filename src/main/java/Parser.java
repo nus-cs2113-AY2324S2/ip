@@ -2,6 +2,9 @@ import task.*;
 
 import java.util.ArrayList;
 
+/**
+ * Deals with making sense of the user command
+ */
 public class Parser {
 
     static int taskIndex;

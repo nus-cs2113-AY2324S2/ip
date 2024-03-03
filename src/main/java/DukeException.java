@@ -2,6 +2,9 @@ import task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Deals with different exceptions for user input
+ */
 public class DukeException extends Exception {
 
     /**
