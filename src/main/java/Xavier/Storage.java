@@ -28,8 +28,19 @@ public class Storage {
      * Checks if file exists, otherwise creates new file
      */
     public void createOrCheckFile() {
-        File file = new File(filePath);
         try {
+            File fileDir = new File("./data");
+            if (!fileDir.exists()) {
+                boolean created = fileDir.mkdirs();
+                if (created) {
+                    System.out.println("Created data directory");
+                }
+                else {
+                    System.out.println("Unable to create data directory");
+                }
+            }
+
+            File file = new File(filePath);
             if (!file.exists()) {
                 boolean created = file.createNewFile();
                 if (created) {
