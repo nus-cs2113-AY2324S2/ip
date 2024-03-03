@@ -26,6 +26,22 @@ public class Byte {
     public Byte(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        initializeComponents();
+    }
+
+    /**
+     * Main method to start the Byte chatbot application.
+     *
+     * @param args Command-line arguments.
+     */
+    public static void main(String[] args) {
+        new Byte(FILE_PATH).run();
+    }
+
+    /**
+     * Initializes components required for the chatbot.
+     */
+    private void initializeComponents() {
         try {
             tasks = new TaskList(storage.load());
         } catch (ByteException e) {
@@ -35,27 +51,32 @@ public class Byte {
     }
 
     /**
-     * Main method to start the Byte chatbot application.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-
-        new Byte(FILE_PATH).run();
-    }
-
-    /**
      * Runs the Byte chatbot application.
      */
     public void run() {
+        printWelcomeMessage();
+        processUserInput();
+        printGoodbye();
+        saveTasksToFile();
+    }
+
+    /**
+     * Prints the welcome message.
+     */
+    private void printWelcomeMessage() {
         ui.printTasks(tasks);
         ui.printWelcomeMessage();
+    }
+
+    /**
+     * Processes user input until the exit command is received.
+     */
+    private void processUserInput() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
                 String userInput = scanner.nextLine();
                 if (Parser.isExitCommand(userInput)) {
-                    ui.printGoodbye();
                     break;
                 }
                 String response = Parser.parse(userInput, tasks);
@@ -65,12 +86,27 @@ public class Byte {
             }
         }
         scanner.close();
+    }
+
+    /**
+     * Prints the goodbye message.
+     */
+    private void printGoodbye() {
+        ui.printGoodbye();
+    }
+
+    /**
+     * Saves tasks to the storage file.
+     */
+    private void saveTasksToFile() {
         try {
             storage.save(tasks.getAllTasks());
         } catch (IOException e) {
             ui.printError("Error saving tasks to file.");
         }
     }
+
+
 }
 
 
