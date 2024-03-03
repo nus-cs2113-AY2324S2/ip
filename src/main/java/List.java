@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 /**
  * Represents management and display of the task list.
  */
@@ -38,11 +40,12 @@ public class List {
     /**
      * Prints the details of all tasks in the list, or displays a message if the list is empty.
      *
-     * @param tasks The list of tasks to be displayed.
+     * @param tasks The list of tasks to be printed.
      */
     public static void handleTasks(ArrayList<Task> tasks) {
         if (List.getTotal(tasks) == Constant.ARRAY_START_INDEX) {
-            throw new CustomException(Reply.EMPTY_LIST);
+            Reply.printReply(Reply.EMPTY_LIST);
+            return;
         }
 
         int taskIndex = 1;
@@ -51,6 +54,33 @@ public class List {
             System.out.println(taskIndex + ". "  + task.toString());
             taskIndex++;
         }
+    }
+
+    /**
+     * Searches all tasks in the provided list matching the search query parameter
+     * or displays a message if there are no matches.
+     *
+     * @param tasks The list of tasks to be searched.
+     * @param userInput A string representing the user input, typically containing a search query.
+     *                  The expected format is "find" followed by a space and the desired search term.
+     * @throws CustomException If the user input is empty, indicating a missing search term.
+     */
+    public static void searchList(ArrayList<Task> tasks, String userInput) {
+        String query = userInput.substring(Constant.FIND_OFFSET).trim();
+        if (query.isEmpty()) {
+            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+        }
+
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getLabel().contains(query))
+                .collect(Collectors.toList());
+
+        if (filteredList.isEmpty()) {
+            Reply.printReply(Reply.NO_RESULTS);
+        } else {
+            Reply.printSearch(filteredList);
+        }
+
     }
 
 }

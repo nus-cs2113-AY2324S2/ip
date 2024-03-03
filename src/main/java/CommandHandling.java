@@ -74,6 +74,12 @@ public class CommandHandling {
 
                     break;
                 }
+                case FIND: {
+
+                    List.searchList(tasks, userInput);
+
+                    break;
+                }
                 default: {
                     throw new CustomException(Reply.INVALID_COMMAND);
                 }
