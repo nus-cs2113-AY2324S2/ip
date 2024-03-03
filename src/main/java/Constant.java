@@ -10,6 +10,7 @@ public class Constant {
     public static final int EVENT_OFFSET = 5;
     public static final int DEADLINE_OFFSET = 8;
     public static final int DELETE_OFFSET = 6;
+    public static final int FIND_OFFSET = 4;
     public static final int ARRAY_START_INDEX = 0;
 
     // Used in Persistence.java
