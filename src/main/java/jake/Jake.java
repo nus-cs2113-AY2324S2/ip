@@ -5,30 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import jake.storage.Storage;
-import jake.task.Deadline;
-import jake.task.Event;
-import jake.task.Task;
+// import jake.storage.Storage;
 import jake.task.TaskList;
-import jake.task.ToDo;
+import jake.ui.Ui;
 
-// import static jake.common.Messages.MESSAGE_LINE_STRING;
-import static jake.common.Messages.MESSAGE_GREETING;
-import static jake.common.Messages.MESSAGE_GOODBYE;
-import static jake.common.Messages.MESSAGE_INVALID_COMMAND;
-// import static jake.common.Messages.MESSAGE_INVALID_FILEPATH;
-// import static jake.common.Messages.MESSAGE_LISTED_TASKS;
-// import static jake.common.Messages.MESSAGE_TASK_DOES_NOT_EXIST;
-// import static jake.common.Messages.MESSAGE_TASK_MARKED;
-// import static jake.common.Messages.MESSAGE_TASK_UNMARKED;
-// import static jake.common.Messages.MESSAGE_TASK_ADDED;
-// import static jake.common.Messages.MESSAGE_TASK_DELETED;
-// import static jake.common.Messages.MESSAGE_TASK_ERROR_ENCOUNTERED;
+
 
 public class Jake {
 
     static final String savedTaskFilePath = "./ip/src/main/java/jake/data/tasks.txt";
-
+    
+    private static Ui ui = new Ui();
     private static TaskList tasks = new TaskList();
     // private static Storage storage = new Storage(savedTaskFilePath);
 
@@ -64,7 +51,7 @@ public class Jake {
 
     public static void main(String[] args) throws JakeException {
         // loadTasks();
-        System.out.println(MESSAGE_GREETING);
+        ui.showGreeting();
         Scanner myScanner = new Scanner(System.in);
         String userInput= "";
 
@@ -80,7 +67,7 @@ public class Jake {
 
             switch (taskType) {
             case "bye":
-                System.out.println(MESSAGE_GOODBYE);
+                ui.showGoodbye();
                 break;
             case "list":
                 tasks.listTasks();
@@ -100,11 +87,11 @@ public class Jake {
                     // tasks.saveTasks();
                     break;
                 } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                    System.out.println(MESSAGE_INVALID_COMMAND);
+                    ui.showInvalidCommand();
                     break;
                 } 
             default:
-                System.out.println(MESSAGE_INVALID_COMMAND);
+                ui.showInvalidCommand();
             }
         } while (!userInput.equals("bye"));
 

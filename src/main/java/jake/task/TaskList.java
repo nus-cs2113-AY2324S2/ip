@@ -2,29 +2,24 @@ package jake.task;
 
 import java.util.ArrayList;
 
-import static jake.common.Messages.MESSAGE_LINE_STRING;
-// import static jake.common.Messages.MESSAGE_GREETING;
-// import static jake.common.Messages.MESSAGE_GOODBYE;
-// import static jake.common.Messages.MESSAGE_INVALID_COMMAND;
-// import static jake.common.Messages.MESSAGE_INVALID_FILEPATH;
-import static jake.common.Messages.MESSAGE_LISTED_TASKS;
-import static jake.common.Messages.MESSAGE_TASK_DOES_NOT_EXIST;
-import static jake.common.Messages.MESSAGE_TASK_MARKED;
-import static jake.common.Messages.MESSAGE_TASK_UNMARKED;
+import jake.ui.Ui;
+
 import static jake.common.Messages.MESSAGE_TASK_ADDED;
 import static jake.common.Messages.MESSAGE_TASK_DELETED;
-// import static jake.common.Messages.MESSAGE_TASK_ERROR_ENCOUNTERED;
+
 
 public class TaskList {
+
+    private static Ui ui = new Ui();
     private static ArrayList<Task> commands = new ArrayList<>();
 
     // List out all tasks
     public void listTasks() {
-        System.out.println(MESSAGE_LISTED_TASKS);
+        ui.showListedTasks();
         for (int i = 0; i < commands.size(); i++){
             System.out.println(Integer.toString(i+1) + "." + commands.get(i));
         }
-        System.out.println(MESSAGE_LINE_STRING);
+        ui.showLineString();
     }
 
     // Retrieve task number from user input. Used in toggleTask() & delete()
@@ -37,15 +32,15 @@ public class TaskList {
     public void toggleTask(String userInput, String taskType) {
         int taskNumber = retrieveTaskNumber(userInput);
         if (taskNumber>commands.size()){
-            System.out.println(MESSAGE_TASK_DOES_NOT_EXIST);
+            ui.showNonexistentTask();
         } else if (taskType.equals("unmark")){
-            System.out.println(MESSAGE_TASK_UNMARKED);
+            ui.showTaskUnmarked();
             commands.get(taskNumber-1).markTask(false);
         } else {
-            System.out.println(MESSAGE_TASK_MARKED);
+            ui.showTaskMarked();
             commands.get(taskNumber-1).markTask(true);
         }
-        System.out.println(MESSAGE_LINE_STRING);
+        ui.showLineString();
     }
 
     // Add tasks (Based off individual inputs)
@@ -106,7 +101,7 @@ public class TaskList {
             System.out.printf(MESSAGE_TASK_DELETED, commands.get(taskNumber-1), commands.size()-1);
             commands.remove(taskNumber-1);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(MESSAGE_TASK_DOES_NOT_EXIST);
+            ui.showNonexistentTask();
         }
     }
 }
