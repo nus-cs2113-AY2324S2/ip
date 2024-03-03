@@ -53,16 +53,14 @@ public class TaskManager {
             return;
         }
 
-        if (newTask != null) {
-            tasks.add(newTask); 
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + newTask);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            try {
-                FileAccess.appendToFile("kapwa.txt", newTask.toStoreString() + "\n");
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to file.");
-            }
+        tasks.add(newTask);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + newTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        try {
+            FileAccess.appendToFile("kapwa.txt", newTask.toStoreString() + "\n");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to file.");
         }
     }
 
