@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that reads the tasks stored in local storage.
+ *
+ * @param path Relative file path of the file.
+ * @param tasks List of tasks loaded.
+ */
 public class FileReader {
     protected String filePath;
     protected ArrayList<Task> tasks;
@@ -13,6 +19,12 @@ public class FileReader {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns task list after looping over all the lines in the .txt file storage is read and tasks are created.
+     *
+     * @throws IOException If file cannot be read.
+     * @throws DirectoryCannotBeMadeException If Directory cannot be made on local.
+     */
     public ArrayList<Task> getTasks() throws IOException, DirectoryCannotBeMadeException {
         // Reads the txt file to get the tasks stored in local
         File f = new File(filePath);
@@ -46,6 +58,12 @@ public class FileReader {
         return tasks;
     }
 
+    /**
+     * Creates a new file if there is no storage file detected.
+     *
+     * @throws DirectoryCannotBeMadeException If Directory cannot be made on local.
+     * @throws IOException If file cannot be read.
+     */
     public void createNewFile() throws DirectoryCannotBeMadeException, IOException {
         // Creates a new file in the desired file path
         boolean isDirMade = false;
