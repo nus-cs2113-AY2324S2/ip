@@ -15,7 +15,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws UnexpectedCommandException, EmptyLineException, IOException {
+    public static void main(String[] args) throws UnexpectedCommandException, EmptyLineException, IOException, FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         //greeting
@@ -26,12 +26,25 @@ public class Duke {
             printFileContents("TaskList.txt");
 
         } catch (FileNotFoundException e) {
-            File f = new File("TaskList.txt");
             System.out.println("File not found");
-            System.out.println("File created: " + f.getAbsolutePath());
         }
         int index = 0;//number of items in the list
         String line = " ";
+        File f = new File("TaskList.txt");
+        if (!f.exists()) {
+            try {
+                if (f.createNewFile()) {
+                    System.out.println("File created: " + f.getAbsolutePath());
+                } else {
+                    System.out.println("File creation failed.");
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("File already exists: " + f.getAbsolutePath());
+        }
 
         new ManageInputs(tasks, index, line);
     }

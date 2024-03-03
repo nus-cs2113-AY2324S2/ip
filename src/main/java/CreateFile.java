@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class CreateFile {
-    public static void main(String[] args) {
+    public static void CreateFile(){
         File f = new File("TaskList.txt");
         if (!f.exists()) {
             try {
