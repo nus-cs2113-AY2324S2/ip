@@ -1,5 +1,8 @@
 package gandalf;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
     private final String userInput;
     private String eventItem;
@@ -85,7 +88,9 @@ public class Parser {
             int endIndex = line.indexOf("(by:");
             String description = line.substring(6, endIndex).trim();
             String deadline = line.substring(endIndex + 5, line.length() - 1).trim();
-            parsedTask = "deadline " + description + " /by " + deadline;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            LocalDate date = LocalDate.parse(deadline, formatter);
+            parsedTask = "deadline " + description + " /by " + date;
         } else if (line.startsWith("[E]")) {
             // Event task
             int fromIndex = line.indexOf("(from:") + 6;

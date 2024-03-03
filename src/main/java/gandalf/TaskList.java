@@ -31,7 +31,7 @@ public class TaskList {
         
         int indexToDelete = Parser.parseIndex(userInput);
 
-        if (indexToDelete > listTasks.size()) {
+        if (indexToDelete > listTasks.size() || indexToDelete < 0) {
             throw new InvalidTaskDeletionException();
         }
 

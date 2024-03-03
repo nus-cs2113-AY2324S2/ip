@@ -70,7 +70,15 @@ public class Ui {
             printEmptyFindArgumentMessage();
         } catch (InvalidDeadlineFormatException e) {
             printInvalidDeadlineDateFormat();
+        } catch (NumberFormatException e) {
+            printNumberFormatErrorMessage();
         }
+    }
+
+    private static void printNumberFormatErrorMessage() {
+        System.out.println(LINE);
+        System.out.println("Please type in a valid number after your command.");
+        System.out.println(LINE);
     }
 
     private static void printEmptyFindArgumentMessage() {
