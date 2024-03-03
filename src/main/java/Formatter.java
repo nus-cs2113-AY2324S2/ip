@@ -2,6 +2,9 @@ public class Formatter {
     final static String botName = "Howard Smith";
     final static String emojiGrinning = "\uD83D\uDE00";
     final static String emojiConfused = "\uD83D\uDE35\u200D\uD83D\uDCAB";
+    public static String appendNewLine(String str) {
+        return String.format("%s\n", str);
+    }
     public static void printWrapper(String wrapWith) {
         System.out.print("\t");
         for (int i = 0; i < 60; i++) {
@@ -103,5 +106,10 @@ public class Formatter {
     }
     public static void printErrorIndexOutOfRange() {
         System.out.println("\t List: Selected index not in range. Try again.");
+    }
+    public static void printFileCorruptionError(int lineNum) {
+        System.out.println("Cache file is corrupted at line " + lineNum);
+        System.out.println("Failed to load cache");
+        System.out.println("Program will start with empty list");
     }
 }

@@ -16,4 +16,8 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("%s (%s)", super.toString(), deadline);
     }
+    @Override
+    public String toString(boolean isFormatCache) {
+        return String.format("%s | %s", super.toString(isFormatCache), deadline);
+    }
 }

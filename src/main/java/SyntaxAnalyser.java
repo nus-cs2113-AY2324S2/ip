@@ -23,6 +23,7 @@ public class SyntaxAnalyser {
     public static int getArgumentCount(String COMMAND_NAME) {
         return getRegexSeq(COMMAND_NAME).length;
     }
+
     public static String[] getRegexSeq(String COMMAND_NAME) {
         return lutRegexSeq[CommandList.valueOf(COMMAND_NAME).ordinal()];
     }

@@ -14,4 +14,8 @@ public class Todo extends Task {
     public String toString() {
         return String.format("%s", super.toString());
     }
+    @Override
+    public String toString(boolean isFormatCache) {
+        return String.format("%s", super.toString(isFormatCache));
+    }
 }

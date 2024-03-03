@@ -29,6 +29,7 @@ public class CommandExecutor {
 
     public static void executeCommand() {
             CommandList selectedCommand = CommandList.valueOf(userCommandReader.getCommandName());
+            int userSelectedIndex;
             switch (selectedCommand) {
             case BYE:
                 CommandList.executeBye();
@@ -37,22 +38,28 @@ public class CommandExecutor {
                 CommandList.executeList();
                 break;
             case MARK:
-                CommandList.executeMark(userCommandReader);
+                userSelectedIndex = CommandList.executeMark(userCommandReader);
+                CacheManager.updateCache();
                 break;
             case TODO:
-                CommandList.executeTodo(userCommandReader);
+                Todo newTodo = CommandList.executeTodo(userCommandReader);
+                CacheManager.updateCache(newTodo);
                 break;
             case EVENT:
-                CommandList.executeEvent(userCommandReader);
+                Event newEvent = CommandList.executeEvent(userCommandReader);
+                CacheManager.updateCache(newEvent);
                 break;
             case UNMARK:
-                CommandList.executeUnmark(userCommandReader);
+                userSelectedIndex = CommandList.executeUnmark(userCommandReader);
+                CacheManager.updateCache();
                 break;
             case DEADLINE:
-                CommandList.executeDeadline(userCommandReader);
+                Deadline newDeadline = CommandList.executeDeadline(userCommandReader);
+                CacheManager.updateCache(newDeadline);
                 break;
             case DELETE:
-                CommandList.executeDelete(userCommandReader);
+                userSelectedIndex = CommandList.executeDelete(userCommandReader);
+                CacheManager.updateCache();
                 break;
             default:
                 Formatter.printErrorUnknown();

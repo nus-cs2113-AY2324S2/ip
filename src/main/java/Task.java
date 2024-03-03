@@ -15,7 +15,9 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
-
+    public int getStatusFlag() {
+        return (isDone ? 1 : 0);
+    }
     public void markAsDone() {
         isDone = true;
     }
@@ -31,5 +33,8 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%s][%s] %s", this.getType(), this.getStatusIcon(), this.description);
+    }
+    public String toString(boolean isFormatCache) {
+            return String.format("%s | %d | %s", this.getType(), this.getStatusFlag(), this.description);
     }
 }

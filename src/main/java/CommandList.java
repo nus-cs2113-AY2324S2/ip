@@ -14,7 +14,7 @@ public enum CommandList {
         }
     }
 
-    public static void executeMark(CommandParser userCommandReader) {
+    public static int executeMark(CommandParser userCommandReader) {
         int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
         if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
             CommandExecutor.tasks.get(userSelectedIndex - 1).markAsDone();
@@ -22,9 +22,10 @@ public enum CommandList {
         } else {
             Formatter.printErrorIndexOutOfRange();
         }
+        return userSelectedIndex;
     }
 
-    public static void executeUnmark(CommandParser userCommandReader) {
+    public static int executeUnmark(CommandParser userCommandReader) {
         int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
         if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
             CommandExecutor.tasks.get(userSelectedIndex - 1).markAsNotDone();
@@ -32,21 +33,24 @@ public enum CommandList {
         } else {
             Formatter.printErrorIndexOutOfRange();
         }
+        return userSelectedIndex;
     }
 
-    public static void executeTodo(CommandParser userCommandReader) {
+    public static Todo executeTodo(CommandParser userCommandReader) {
         Todo newTodo = new Todo(userCommandReader.getArgumentTokens()[0]);
         CommandExecutor.tasks.add(newTodo);
         Formatter.printTaskNotif(newTodo);
+        return newTodo;
     }
 
-    public static void executeDeadline(CommandParser userCommandReader) {
+    public static Deadline executeDeadline(CommandParser userCommandReader) {
         Deadline newDeadline = new Deadline(userCommandReader.getArgumentTokens()[0], userCommandReader.getArgumentTokens()[1]);
         CommandExecutor.tasks.add(newDeadline);
         Formatter.printTaskNotif(newDeadline);
+        return newDeadline;
     }
 
-    public static void executeEvent(CommandParser userCommandReader) {
+    public static Event executeEvent(CommandParser userCommandReader) {
         String description = userCommandReader.getArgumentTokens()[0];
         String startTime = userCommandReader.getArgumentTokens()[1];
         String endTime = userCommandReader.getArgumentTokens()[2];
@@ -54,8 +58,9 @@ public enum CommandList {
         Event newEvent = new Event(description, startTime, endTime);
         CommandExecutor.tasks.add(newEvent);
         Formatter.printTaskNotif(newEvent);
+        return newEvent;
     }
-    public static void executeDelete(CommandParser userCommandReader) {
+    public static int executeDelete(CommandParser userCommandReader) {
         int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
         if (userSelectedIndex <= CommandExecutor.tasks.size() && userSelectedIndex > 0) {
             Task removedTask = CommandExecutor.tasks.remove(userSelectedIndex - 1);
@@ -63,6 +68,7 @@ public enum CommandList {
         } else {
             Formatter.printErrorIndexOutOfRange();
         }
+        return userSelectedIndex;
     }
 
     //insert new command here

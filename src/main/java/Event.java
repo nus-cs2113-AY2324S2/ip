@@ -18,4 +18,8 @@ public class Event extends Task {
     public String toString() {
         return String.format("%s (%s %s)", super.toString(), startTime, endTime);
     }
+    @Override
+    public String toString(boolean isFormatCache) {
+        return String.format("%s | %s | %s", super.toString(isFormatCache), startTime, endTime);
+    }
 }

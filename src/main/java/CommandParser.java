@@ -17,12 +17,12 @@ public class CommandParser {
             final String ARG_SEPARATOR = " /";
             argumentTokens = parseIntoTokens(USER_ARGUMENT_STRING, ARG_SEPARATOR);
 
-            if (!hasCorrectUserArgumentCount()) {
+            if (!isCorrectUserArgumentCount()) {
                 throw new ArgumentMismatchException(COMMAND_NAME, argumentTokens.length);
             } else if (!SyntaxAnalyser.validateTokens(COMMAND_NAME, argumentTokens)) {
                 throw new BadTokenException();
             }
-        } else if (!hasCorrectUserArgumentCount()) {
+        } else if (!isCorrectUserArgumentCount()) {
             throw new ArgumentMismatchException(COMMAND_NAME, argumentTokens.length);
         }
     }
@@ -40,7 +40,7 @@ public class CommandParser {
         return USER_ARGUMENT_STRING.split(separator, EXPECTED_ARGUMENT_COUNT);
     }
 
-    private boolean hasCorrectUserArgumentCount() {
+    private boolean isCorrectUserArgumentCount() {
         int userArgumentCount = argumentTokens.length;
         int correctArgumentCount = SyntaxAnalyser.getArgumentCount(COMMAND_NAME);
         return correctArgumentCount == userArgumentCount;
