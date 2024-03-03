@@ -32,18 +32,27 @@ public class Ui {
     }
 
     public void printIntroName() {
-        try {
-            String name = new String(Files.readAllBytes(Paths.get("name.txt")));
-            System.out.print(name);
-        } catch (IOException exception) {
-            LOGGER.severe(exception.toString());
-        }
+            System.out.println("\n" +
+                    "         ,--.\n" +
+                    "       ,--.'|                         ,-.\n" +
+                    "   ,--,:  : |  ,--,               ,--/ /|\n" +
+                    ",`--.'`|  ' :,--.'|             ,--. :/ |\n" +
+                    "|   :  :  | ||  |,              :  : ' /\n" +
+                    ":   |   \\ | :`--'_       ,---.  |  '  /\n" +
+                    "|   : '  '; |,' ,'|     /     \\ '  |  :\n" +
+                    "'   ' ;.    ;'  | |    /    / ' |  |   \\\n" +
+                    "|   | | \\   ||  | :   .    ' /  '  : |. \\\n" +
+                    "'   : |  ; .''  : |__ '   ; :__ |  | ' \\ \\\n" +
+                    "|   | '`--'  |  | '.'|'   | '.'|'  : |--'\n" +
+                    "'   : |      ;  :    ;|   :    :;  |,'\n" +
+                    ";   |.'      |  ,   /  \\   \\  / '--'\n" +
+                    "'---'         ---`-'    `----'\n");
     }
 
     public void showWelcome() {
         printIntroName();
         System.out.println("____________________________________________________________");
-        System.out.println("Welcome to the Ultimate Nick.Nick Bot!");
+        System.out.println("Welcome to the Ultimate Nick ChatBot!");
         System.out.println("What can I do for you?\n");
     }
 
