@@ -1,5 +1,9 @@
 package ava.task;
 
+/**
+ * Represents a task.
+ * Its field "description" is the name of the task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -14,6 +18,9 @@ public class Task {
         this.isDone = isCompleted;
     }
 
+    /**
+     * Converts a Task object to a string.
+     */
     @Override
     public String toString() {
         return "[" + this.getStatusIcon()
