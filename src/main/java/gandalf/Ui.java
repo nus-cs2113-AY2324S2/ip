@@ -1,12 +1,14 @@
 package gandalf;
 
 import action.Task;
+
 import exception.EmptyFindException;
 import exception.IncompleteCommandException;
 import exception.InvalidKeywordException;
 import exception.InvalidTaskDeletionException;
 import exception.InvalidTaskIndexException;
 import exception.MissingDescriptionException;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,6 +67,8 @@ public class Ui {
             printIncompleteCommandMessage();
         } catch (EmptyFindException e) {
             printEmptyFindArgumentMessage();
+        } catch (InvalidDeadlineFormatException e) {
+            printInvalidDeadlineDateFormat();
         }
     }
 
@@ -76,6 +80,12 @@ public class Ui {
 
     private static boolean hasSaidFind(String userInput) {
         return userInput.startsWith("find");
+    }
+
+    private static void printInvalidDeadlineDateFormat() {
+        System.out.println(LINE);
+        System.out.println("Deadline format is invalid (yyyy-mm-dd).");
+        System.out.println(LINE);
     }
 
     public static void printAddItemMessage() {
