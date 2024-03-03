@@ -16,7 +16,7 @@ public class Lotes {
 
         Storage.readFile();
 
-        Parser.interpretUserInput(inputCommand, taskList); // Interprets the user input
+        Parser.interpretUserInput(inputCommand, taskList);
     }
 
 }

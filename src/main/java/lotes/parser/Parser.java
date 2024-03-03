@@ -53,6 +53,8 @@ public class Parser {
         default:
             if(command.length < 2) {
                 throw new LotesException();
+            } else {
+                System.out.println("I do not understand!");
             }
         }
 
