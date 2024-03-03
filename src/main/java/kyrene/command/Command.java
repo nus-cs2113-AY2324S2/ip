@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command that consists a main command word,
+ * possibly a description or task number to describe the target of the command,
+ * and an exit flag to indicate whether to exit the programme or not.
+ */
 public class Command {
 
     private Commands command;
@@ -31,12 +36,19 @@ public class Command {
         this.isExit = true;
     }
 
+    /**
+     * Construct a command of BYE or LIST, otherwise INVALID command.
+     */
     public Command(Commands command) {
         this.command = command;
         this.taskNumber = -1;
         this.description = null;
         this.isExit = (command == Commands.BYE) || (command == Commands.INVALID);
     }
+
+    /**
+     * Construct a command of MARK, UNMARK, or DELETE, otherwise INVALID command.
+     */
     public Command(Commands command, int taskNumber) {
         this.command = command;
         this.taskNumber = taskNumber;
@@ -44,6 +56,9 @@ public class Command {
         this.isExit = (command == Commands.BYE) || (command == Commands.INVALID);
     }
 
+    /**
+     * Construct a command of ADD, AT, DUE ,or FIND, otherwise INVALID command.
+     */
     public Command(Commands command, String description) {
         this.command = command;
         this.taskNumber = -1;
@@ -51,10 +66,21 @@ public class Command {
         this.isExit = (command == Commands.BYE) || (command == Commands.INVALID);
     }
 
+    /**
+     * Returns the exit flag indicating whether to exit the programme.
+     *
+     * @return Whether to exit the programme.
+     */
     public boolean isExit() {
         return isExit;
     }
 
+    /**
+     * Identify and execute the command.
+     *
+     * @param tasks A task list containing all existing tasks.
+     * @param storage A storage object to read and write to specific file.
+     */
     public void execute(TaskList tasks, Storage storage) {
         switch (command) {
         case BYE:
@@ -117,19 +143,39 @@ public class Command {
         }
     }
 
+    /**
+     * Handle the invalid command error by displaying the error message.
+     */
     private void handleError() {
         Ui.showErrorInvalidCommand();
     }
 
+    /**
+     * Handle the BYE command by displaying exit message.
+     */
     private void handleBye() {
         Ui.showBye();
     }
 
+    /**
+     * Handle LIST command by listing all tasks within the task list.
+     *
+     * @param tasks A task list containing all existing tasks.
+     */
     private void handleList(TaskList tasks) {
         Ui.showTasks(tasks);
     }
 
-    private void handleMark(TaskList tasks, Storage storage, boolean isDone) throws KyreneTaskNotFoundException {
+    /**
+     * Handle MARK command by marking the specified task in the task list
+     * as done or not done depending on the input.
+     *
+     * @param tasks A task list containing all existing tasks.
+     * @param storage A storage object to read and write to specific file.
+     * @param isDone True for marking as done, otherwise marking as not done.
+     */
+    private void handleMark(TaskList tasks, Storage storage, boolean isDone)
+            throws KyreneTaskNotFoundException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new KyreneTaskNotFoundException();
         }
@@ -144,12 +190,17 @@ public class Command {
         Ui.showSuccessMarkingTask(taskNumber, isDone);
     }
 
-    private void handleAdd(TaskList tasks, Storage storage) throws KyreneInvalidCommandException, KyreneMissingTaskException {
-        assert description != null;
-        String[] words = description.split(" ");
-        String classType = words[0];
+    /**
+     * Handle ADD command by adding the input task into the task list.
+     *
+     * @param tasks A task list containing all existing tasks.
+     * @param storage A storage object to read and write to specific file.
+     */
+    private void handleAdd(TaskList tasks, Storage storage)
+            throws KyreneInvalidCommandException, KyreneMissingTaskException {
+        String taskType = Parser.parseTaskType(description);
 
-        switch (classType) {
+        switch (taskType) {
         case "todo":
             try {
                 tasks.add(new Todo(description.substring("todo ".length())));
@@ -192,7 +243,14 @@ public class Command {
         Ui.showSuccessAddingTask(taskAdded, taskCount);
     }
 
-    private void handleDelete(TaskList tasks, Storage storage) throws KyreneTaskNotFoundException {
+    /**
+     * Handle DELETE command by deleting the specified task in the task list.
+     *
+     * @param tasks A task list containing all existing tasks.
+     * @param storage A storage object to read and write to specific file.
+     */
+    private void handleDelete(TaskList tasks, Storage storage)
+            throws KyreneTaskNotFoundException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new KyreneTaskNotFoundException();
         }
@@ -209,6 +267,12 @@ public class Command {
         }
     }
 
+    /**
+     * Handle AT command by searching and listing out all events in the task list
+     * that happen at the specified time.
+     *
+     * @param tasks A task list containing all existing tasks.
+     */
     private void handleAT(TaskList tasks) {
         LocalDate date = Parser.parseDate(description);
         TaskList events = new TaskList();
@@ -220,6 +284,12 @@ public class Command {
         Ui.showEvents(events);
     }
 
+    /**
+     * Handle DUE command by searching and listing out all deadlines in the task list
+     * that due before the specified time.
+     *
+     * @param tasks A task list containing all existing tasks.
+     */
     private void handleDue(TaskList tasks) {
         LocalDateTime time = Parser.parseTime(description);
         TaskList deadlines = new TaskList();
@@ -231,6 +301,12 @@ public class Command {
         Ui.showDeadlines(deadlines);
     }
 
+    /**
+     * Handle FIND command by searching and listing out all tasks in the task list
+     * that match with the key word.
+     *
+     * @param tasks A task list containing all existing tasks.
+     */
     private void handleFind(TaskList tasks) {
         TaskList matches = new TaskList();
         for (Task task : tasks) {

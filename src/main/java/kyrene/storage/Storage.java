@@ -19,6 +19,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Represents a storage object that is used to read from and write to the file provided specific file path.
+ */
 public class Storage {
 
     private String filePath;
@@ -28,40 +31,77 @@ public class Storage {
         this(null, null);
     }
 
+    /**
+     * Construct a storage object with file path and folder path of the target file.
+     *
+     * @param filePath String represents the path of the target file.
+     * @param folderPath String represents the path of the folder that stores the target file.
+     */
     public Storage(String filePath, String folderPath) {
         setFilePath(filePath);
         setFolderPath(folderPath);
     }
 
+    /**
+     * Set the file path of the target file with the input string.
+     *
+     * @param filePath String represents the path of the target file.
+     */
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Set the folder path of folder that store the target file with the input string.
+     *
+     * @param folderPath String represents the path of the target file.
+     */
     public void setFolderPath(String folderPath) {
         this.folderPath = folderPath;
     }
 
+    /**
+     * Returns the string representing the file path of the target file.
+     *
+     * @return The path of the target file.
+     */
     public String getFilePath() {
         return filePath;
     }
 
+    /**
+     * Returns the string representing the path of the folder that stores the target file.
+     *
+     * @return The path of the folder that stores the target file.
+     */
     public String getFolderPath() {
         return folderPath;
     }
 
+    /**
+     * Write the entire task list to the target file.
+     *
+     * @param tasks A task list containing all existing tasks.
+     * @throws IOException If an error relating to file access occurs.
+     */
     public void write(TaskList tasks) throws IOException {
         FileWriter clearWriter = new FileWriter(getFilePath());
         clearWriter.write("");
         clearWriter.close();
 
         FileWriter fw = new FileWriter(getFilePath(), true);
-        int taskCount = tasks.size();
         for (Task task : tasks) {
             fw.write(task.format());
         }
         fw.close();
     }
 
+    /**
+     * Read the existing task list from the target file.
+     *
+     * @return A task list containing all existing tasks loaded from the target file.
+     * @throws FileNotFoundException If the target file is not found by the given file path.
+     */
     public TaskList load() throws FileNotFoundException {
         Ui.showLoadingFile(getFilePath());
         TaskList tasks = new TaskList();
@@ -88,6 +128,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Create file under the given file path,
+     * and create folder if folder under the given folder path does not exist.
+     */
     public void createFile() {
         Ui.showErrorFileNotFound(getFilePath());
         Path folderPath = Paths.get(getFolderPath());
@@ -113,6 +157,15 @@ public class Storage {
         Ui.showSuccessCreatingFile(getFilePath());
     }
 
+    /**
+     * Load a single task into the task list.
+     *
+     * @param sentence String containing all information of the task being loaded.
+     * @param isDone Indicates the done status of the task. True for done, otherwise not done.
+     * @param tasks A task list containing all existing tasks.
+     * @throws KyreneInvalidCommandException If the file has been corrupted.
+     * @throws KyreneMissingTaskException If the file has been corrupted.
+     */
     public void loadTask(String sentence, boolean isDone, TaskList tasks) throws KyreneInvalidCommandException, KyreneMissingTaskException {
         String[] words = sentence.split(" ");
         String classType = words[0];
