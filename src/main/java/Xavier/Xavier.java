@@ -7,7 +7,7 @@ import Exceptions.XavierException;
  * Initializes the application and starts the interaction with the user.
  */
 public class Xavier {
-    public static final String FILEPATH = "/Users/jasonlienardi/Documents/CS2113/ip/src/main/java/Xavier/toDoList.txt";
+    public static final String FILEPATH = "./toDoList.txt";
 
     private Storage storage;
     private TaskList tasks;
