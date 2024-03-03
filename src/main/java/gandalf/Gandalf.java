@@ -31,26 +31,9 @@ public class Gandalf {
     }
 
     private static void startProgram() {
-        while (true) {
-            String userInput = getUserInput();
-            if (hasSaidBye(userInput)) {
-                System.out.println(LINE);
-                return;
-            }
-            else if (isMakeList(userInput)) {
-                makeList();
-                return;
-            } else {
-                echoMessage(userInput);
-            }
-            System.out.println(LINE);
-        }
-    }
-
-    private static void makeList() {
 
         loadData();
-        makeListWelcomeMessage();
+        printWelcomeMessage();
 
         while (true) {
             String userInput = getUserInput();
@@ -168,7 +151,7 @@ public class Gandalf {
         return dataToSave.toString();
     }
 
-    private static void makeListWelcomeMessage() {
+    private static void printWelcomeMessage() {
         System.out.println(LINE);
         System.out.println("What would you like to be added to the list?");
         System.out.println(LINE);
@@ -192,10 +175,8 @@ public class Gandalf {
 
     private static void startMessage() {
         System.out.println(LINE);
-        System.out.println("Hello! I'm Gandalf");
-        System.out.println("What can I do for you? I'll start by repeating your words.");
-        System.out.println("Type (make list) to create a To-Do List.");
-        System.out.println(LINE);
+        System.out.println("Hello! I'm Gandalf, your favorite personal assistant.");
+        System.out.println("Please wait while I load your previous To-Do List.");
     }
 
     private static void echoMessage(String text) {

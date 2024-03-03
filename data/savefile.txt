@@ -1,3 +1,1 @@
-[T][ ] eat
-[D][X] sleep (by: 11 pm)
-[E][ ] do homework (from: 4 pm to: 6pm)
+[T][X] hello
