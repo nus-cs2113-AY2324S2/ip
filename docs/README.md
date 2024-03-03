@@ -70,3 +70,12 @@ Examples:
 - delete 1
 
 Tip: You can perform _list_ to view the current list of tasks before choosing which one to delete.
+
+### Find a task: find
+
+Finds tasks that contain the specified keyword from the task list
+
+Format: find KEYWORD
+
+Examples:
+- find book
