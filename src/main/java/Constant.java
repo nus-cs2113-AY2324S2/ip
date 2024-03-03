@@ -1,6 +1,6 @@
 import java.io.File;
 /**
- * Represents all constant variables, excluding pre-programmed error replies, used in the Jarvas bot.
+ * Represents all constant variables used in the Jarvas bot.
  */
 public class Constant {
 
@@ -28,4 +28,20 @@ public class Constant {
     public static final int DEADLINE_PARAMETERS = 2;
     public static final int DEADLINE_BY_OFFSET = 3;
 
+
+    // Formatted Replies
+    public static final String PARTITION_LINE = "____________________________________________________________";
+    // Input Errors
+    public static final String INVALID_COMMAND = "Invalid command. Enter 'help' to view available commands.";
+    public static final String UNSPECIFIED_PARAMETER = "Parameter is unspecified.";
+    public static final String INVALID_PARAMETER = "Parameter is invalid and out of bounds";
+    // List Errors
+    public static final String EMPTY_LIST = "List is empty.";
+    public static final String NO_RESULTS = "There are no results that match your search query.";
+    // Storage Replies
+    public static final String SAVE_ERROR = "File save failed.\nWrite error occurred:\n";
+    public static final String MISSING_FILE = "Data file not found/corrupted. Starting with an empty list.";
+    public static final String LOAD_ERROR = "File read error:\n" + "Error at task number = ";
+    public static final String CORRUPT_ERROR = "\nFile is corrupted. Ceasing any further data imports.";
+    public static final String SUCCESSFUL_LOAD = "Prior data file found\n" + "Previous data has been imported.";
 }

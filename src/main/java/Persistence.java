@@ -27,7 +27,7 @@ public class Persistence {
             writer.close();
 
         } catch (IOException e) {
-            throw new CustomException(Reply.SAVE_ERROR);
+            throw new CustomException(Constant.SAVE_ERROR);
         }
     }
 
@@ -42,11 +42,11 @@ public class Persistence {
      */
     public static void verifyIntegrity(File data) throws IOException {
         if (data.createNewFile()) {
-            Reply.printReply(Reply.MISSING_FILE);
+            Reply.printReply(Constant.MISSING_FILE);
         } else if (data.canRead()) {
-            Reply.printReply(Reply.SUCCESSFUL_LOAD);
+            Reply.printReply(Constant.SUCCESSFUL_LOAD);
         } else {
-            Reply.printReply(Reply.MISSING_FILE);
+            Reply.printReply(Constant.MISSING_FILE);
         }
     }
 
@@ -86,7 +86,7 @@ public class Persistence {
 
                     }
                 } catch (IllegalArgumentException e) {
-                    Reply.printException(e, Reply.LOAD_ERROR + (taskCount + 1) + Reply.CORRUPT_ERROR);
+                    Reply.printException(e, Constant.LOAD_ERROR + (taskCount + 1) + Constant.CORRUPT_ERROR);
                     break;
                 }
 
@@ -94,7 +94,7 @@ public class Persistence {
             }
 
         } catch (Exception e) {
-            throw new CustomException(Reply.LOAD_ERROR + (taskCount + 1));
+            throw new CustomException(Constant.LOAD_ERROR + (taskCount + 1));
         }
     }
 

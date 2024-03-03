@@ -44,7 +44,7 @@ public class List {
      */
     public static void handleTasks(ArrayList<Task> tasks) {
         if (List.getTotal(tasks) == Constant.ARRAY_START_INDEX) {
-            Reply.printReply(Reply.EMPTY_LIST);
+            Reply.printReply(Constant.EMPTY_LIST);
             return;
         }
 
@@ -70,7 +70,7 @@ public class List {
     public static void searchList(ArrayList<Task> tasks, String userInput) {
         String query = userInput.substring(Constant.FIND_OFFSET).trim();
         if (query.isEmpty()) {
-            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
         }
 
         ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
@@ -78,7 +78,7 @@ public class List {
                 .collect(Collectors.toList());
 
         if (filteredList.isEmpty()) {
-            Reply.printReply(Reply.NO_RESULTS);
+            Reply.printReply(Constant.NO_RESULTS);
         } else {
             Reply.printSearch(filteredList);
         }

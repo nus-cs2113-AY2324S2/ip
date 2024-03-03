@@ -81,7 +81,7 @@ public class CommandHandling {
                     break;
                 }
             } catch (IllegalArgumentException e) {
-                Reply.printException(e, Reply.INVALID_COMMAND);
+                Reply.printException(e, Constant.INVALID_COMMAND);
             } catch (CustomException e) {
                 Reply.printException(e);
             }
@@ -103,7 +103,7 @@ public class CommandHandling {
         int taskCount = List.getTotal(tasks);
         String eventDetails = userInput.substring(Constant.EVENT_OFFSET).trim();
         if (eventDetails.isEmpty()) {
-            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
         }
         String[] eventParameters = Event.getInterval(eventDetails);
         String eventLabel = eventParameters[0];
@@ -124,7 +124,7 @@ public class CommandHandling {
         int taskCount = List.getTotal(tasks);
         String deadlineDetails = userInput.substring(Constant.DEADLINE_OFFSET).trim();
         if (deadlineDetails.isEmpty()) {
-            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
         }
         String[] deadlineParameters = Deadline.getDeadline(deadlineDetails);
         String deadlineLabel = deadlineParameters[0];
@@ -145,7 +145,7 @@ public class CommandHandling {
         int taskCount = List.getTotal(tasks);
         String label = userInput.substring(Constant.TODO_OFFSET).trim();
         if (label.isEmpty()) {
-            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
         }
         ToDo toDo = new ToDo(label);
 
@@ -165,12 +165,12 @@ public class CommandHandling {
     private static void handleMarkUnmark(String userInput, ArrayList<Task> tasks, Command command) throws CustomException {
         String index = userInput.substring(command == Command.MARK ? Constant.MARK_OFFSET : Constant.UNMARK_OFFSET).trim();
         if (index.isEmpty()) {
-            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
         }
 
         int taskIndex = Integer.parseInt(index) - 1;
         if (taskIndex < 0 || taskIndex >= List.getTotal(tasks)) {
-            throw new CustomException(Reply.INVALID_PARAMETER);
+            throw new CustomException(Constant.INVALID_PARAMETER);
         }
 
         Task markTask = tasks.get(taskIndex);
@@ -192,20 +192,20 @@ public class CommandHandling {
     public static void deleteItem(ArrayList<Task> tasks, String userInput) throws CustomException {
         String index = userInput.substring(Constant.DELETE_OFFSET).trim();
         if (index.isEmpty()) {
-            throw new CustomException(Reply.UNSPECIFIED_PARAMETER);
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
         }
 
         try {
             int taskIndex = Integer.parseInt(index) - 1;
             if (taskIndex < 0 || taskIndex >= List.getTotal(tasks)) {
-                throw new CustomException(Reply.INVALID_PARAMETER);
+                throw new CustomException(Constant.INVALID_PARAMETER);
             }
 
             Reply.printReply("Deleted: " + (taskIndex + 1) + ". " + tasks.get(taskIndex));
             List.removeTask(tasks, taskIndex);
 
         } catch (NumberFormatException e) {
-            throw new CustomException(Reply.INVALID_PARAMETER);
+            throw new CustomException(Constant.INVALID_PARAMETER);
         }
     }
 

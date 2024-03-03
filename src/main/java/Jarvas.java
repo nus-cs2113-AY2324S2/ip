@@ -16,7 +16,7 @@ public class Jarvas {
         try {
             CommandHandling.processInput(tasks);
         } catch (IOException e) {
-            throw new CustomException(Reply.SAVE_ERROR + e.getMessage());
+            throw new CustomException(Constant.SAVE_ERROR + e.getMessage());
         } catch (CustomException e) {
             Reply.printException(e);
         } finally {
