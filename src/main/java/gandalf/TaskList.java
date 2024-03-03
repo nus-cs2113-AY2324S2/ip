@@ -29,15 +29,15 @@ public class TaskList {
                 insertIndex += 1;
             }
         } catch (InvalidKeywordException e) {
-            printInvalidKeywordMessage();
+            Ui.printInvalidKeywordMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
-            printListIsFullMessage();
+            Ui.printListIsFullMessage();
         } catch (MissingDescriptionException e) {
-            printMissingDescriptionMessage();
+            Ui.printMissingDescriptionMessage();
         } catch (InvalidTaskIndexException e) {
-            printInvalidTaskIndexMessage();
+            Ui.printInvalidTaskIndexMessage();
         } catch (InvalidTaskDeletionException e) {
-            printInvalidTaskDeletionMessage();
+            Ui.printInvalidTaskDeletionMessage();
         }
     }
 
