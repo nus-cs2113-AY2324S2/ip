@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import Exception.*;
 import Task.*;
 
-
 /**
  * Manages a list of tasks for the chatbot.
  * Supports adding tasks of different types (todo, deadline, event),
@@ -16,11 +15,10 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * Adds a task to the task list based on user input.
-     * The task can be of types: todo, deadline, event, or a general task.
-     * Parses the user input to determine the task type and details.
+     * Adds a task based on user input.
+     * The task can be of type todo, deadline, or event.
      *
-     * @param userInput The full command entered by the user to add a task.
+     * @param userInput The command and details entered by the user.
      */
     public void addTask(String userInput){
         try {
@@ -48,6 +46,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an Event task to the task list.
+     * Parses start and end dates from the user input and creates an event task if the dates are valid.
+     * Prints a message if the date format is incorrect.
+     *
+     * @param inputSplitBySlash User input split by slashes, containing task details and dates.
+     */
     private void addEvent(String[] inputSplitBySlash) {
         String name = inputSplitBySlash[0].substring(6);
         String fromString = inputSplitBySlash[1].substring(5);
@@ -62,6 +67,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a Deadline task to the task list.
+     * Parses the deadline date from the user input and creates a deadline task if the date is valid.
+     * Prints a message if the date format is incorrect.
+     *
+     * @param inputSplitBySlash User input split by slashes, containing task details and the deadline date.
+     */
     private void addDeadline(String[] inputSplitBySlash) {
         String name = inputSplitBySlash[0].substring(9);
         String byString = inputSplitBySlash[1].substring(3);
@@ -93,7 +105,7 @@ public class TaskList {
      *
      * @param n The index of the task in the task list (0-based).
      */
-    public void markTask (int n){
+    public void markTaskAsCompleted(int n){
         taskList.get(n-1).markTaskAsComplete();
     }
 
@@ -103,10 +115,16 @@ public class TaskList {
      *
      * @param n The index of the task in the task list (0-based).
      */
-    public void unmarkTask (int n){
+    public void markTaskAsIncompleted(int n){
         taskList.get(n-1).markTaskAsIncomplete();
     }
 
+    /**
+     * Deletes a task from the list based on its index.
+     *
+     * @param n The index of the task to delete, 1-based.
+     * @throws IndexOutOfBoundsException If the specified index is invalid.
+     */
     public void deleteTask (int n) throws IndexOutOfBoundsException{
         if ((n > taskList.size())|(n <= 0)){
             throw new IndexOutOfBoundsException();
@@ -120,6 +138,11 @@ public class TaskList {
         System.out.println("    " + "--------------");
     }
 
+    /**
+     * Finds and displays tasks that match a given keyword.
+     *
+     * @param userInput The search command and keyword entered by the user.
+     */
     public void findTask (String userInput){
         String keyword = userInput.substring(5).toLowerCase();
         System.out.println("    " + "-----RUBY-----");
@@ -138,20 +161,17 @@ public class TaskList {
         System.out.println("    " + "--------------");
     }
 
+    /**
+     * Validates that the user input has the necessary details for a task.
+     *
+     * @param userInput The user's input to validate.
+     * @throws MissingDescriptionException If the input does not contain necessary details.
+     */
     public static void detailCatcher(String userInput) throws MissingDescriptionException {
         String[] inputBreakdown = userInput.split(" ");
         if (inputBreakdown.length<2){
-            throw new MissingDescriptionException();
+            throw new MissingDescriptionException("Missing Description.");
         }
-    }
-
-    public ArrayList<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
-        showTaskList();
     }
 
     /**
@@ -177,5 +197,14 @@ public class TaskList {
         System.out.println("    " + "---REMINDER---");
         System.out.println("    " + thingToPrint);
         System.out.println("    " + "--------------");
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+        showTaskList();
     }
 }

@@ -1,12 +1,13 @@
-package Ruby; /**
- * Main class for the chatbot named Ruby.
- * Ruby assists users in recording and organizing their daily tasks.
- * It interacts with users through the command line, processing commands to manage tasks.
- */
+package Ruby;
 import Ui.Ui;
 import Storage.Storage;
 import Parser.Parser;
 
+/**
+ * Main class for the chatbot named Ruby.
+ * Ruby assists users in recording and organizing their daily tasks.
+ * It interacts with users through the command line, processing commands to manage tasks.
+ */
 public class Ruby {
     private static final Storage s1 = new Storage();
     private static final TaskList t1 = new TaskList();
