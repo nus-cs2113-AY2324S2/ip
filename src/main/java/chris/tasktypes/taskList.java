@@ -15,6 +15,10 @@ public class taskList {
         taskCount++;
     }
 
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
     public void markTask(String taskNumber) throws illegalTaskNumberInput {
         if (taskNumber.trim().isEmpty()) {
             throw new illegalTaskNumberInput();
