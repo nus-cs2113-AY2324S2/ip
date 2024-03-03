@@ -1,6 +1,20 @@
 // Task.java
 package task;
 
+/**
+ * Represents a Task abstract class in Kapwa
+ * 
+ * @see Task
+ * @see Todo
+ * @see Deadline
+ * @see Event
+ * 
+ * @author yyangda
+ * @version 0.1
+ * @since 2024-03-03
+ * 
+ */
+
 public abstract class Task {
     String description;
     String type;

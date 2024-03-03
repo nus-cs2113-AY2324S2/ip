@@ -1,5 +1,16 @@
 package task;
 
+/**
+ * Represents an Event in Kapwa
+ * 
+ * @see Task
+ * 
+ * @author yyangda
+ * @version 0.1
+ * @since 2024-03-03
+ * 
+ */
+
 public class Event extends Task{
     protected String from;
     protected String to;
@@ -23,6 +34,7 @@ public class Event extends Task{
         this.from = From;
     }
 
+    
     @Override
     public String toString() {
         String isDoneIcon = super.isDone ? "X" : " ";
