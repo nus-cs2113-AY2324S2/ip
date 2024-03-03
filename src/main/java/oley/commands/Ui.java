@@ -1,6 +1,7 @@
 package oley.commands;
 
 import oley.tasks.Task;
+import oley.tasks.TaskList;
 
 import java.util.Scanner;
 
@@ -41,6 +42,25 @@ public class Ui {
 
     public static void printError() {
         System.out.println("    OOPS, we have encountered an error!");
+    }
+
+    public static void printCorrectFormat(String string) {
+        if (string == "from") {
+            System.out.println("    Please re-enter the starting time of the event!");
+        } else if (string == "to") {
+            System.out.println("    Please re-enter the ending time of the event!");
+        } else if (string == "by") {
+            System.out.println("    Please re-enter the due time of the task!");
+        }
+        System.out.println("    The accepted format of timing should be yyyy-MM-dd-HHmm.");
+        System.out.println("    For example, 2024-06-07-2359.");
+    }
+
+    public static void printTasksWithinTime(TaskList tasks) {
+        System.out.println("    Here are the tasks before the timing:");
+        for (Task task : tasks) {
+            System.out.println("    " + task.toString());
+        }
     }
 
     public static void printDeadlineNotSpecified() {
@@ -116,6 +136,10 @@ public class Ui {
         System.out.println("    The task you are trying to delete does not exist! (>.<)");
     }
 
+    public static void printFailToFindTasks() {
+        System.out.println("    Please provide a specific timing! (>.<)");
+    }
+
     public static void printMissingDescription() {
         System.out.println("    The description of a task cannot be empty! (>.<)");
     }
@@ -131,5 +155,13 @@ public class Ui {
         message = in.nextLine();
         Ui.lineBreaker();
         return message;
+    }
+
+    public static void printDeadlinePassed() {
+        System.out.println("    OOPS! The deadline is passed already. Please change it to sometime after now.");
+    }
+
+    public static void printToBeforeFrom() {
+        System.out.println("    OOPS! The end time is before the starting time. Please change it to sometime after the starting time.");
     }
 }

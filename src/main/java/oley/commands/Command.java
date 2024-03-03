@@ -8,6 +8,8 @@ import oley.tasks.TaskList;
 import oley.tasks.TimingNotFoundException;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Command {
     private boolean isExit;
@@ -135,6 +137,24 @@ public class Command {
         }
     }
 
+    public void tasksBeforeTime(TaskList tasks, String sentence) {
+        TaskList inDuration = new TaskList();
+        LocalDateTime d;
+        try {
+            d = Parser.parseTiming(sentence);
+        } catch (DateTimeParseException e) {
+            Ui.printError();
+            Ui.printCorrectFormat("");
+            return;
+        }
+        for (Task task : tasks) {
+            if (task.getTime().isBefore(d)) {
+                inDuration.add(task);
+            }
+        }
+        Ui.printTasksWithinTime(inDuration);
+    }
+
     public void execute(TaskList tasks) {
         String message = Ui.readCommand();
         String instruction = Parser.parse(message);
@@ -148,9 +168,6 @@ public class Command {
             Ui.lineBreaker();
             break;
         case "mark":
-            mark(tasks, message, false);
-            Ui.lineBreaker();
-            break;
         case "unmark":
             mark(tasks, message, false);
             Ui.lineBreaker();
@@ -164,6 +181,13 @@ public class Command {
             }
             Ui.lineBreaker();
             break;
+        case "time":
+            try {
+                tasksBeforeTime(tasks, message);
+            } catch (IndexOutOfBoundsException e) {
+                Ui.printError();
+                Ui.printFailToFindTasks();
+            }
         default:
             try {
                 addTask(tasks, message, false);
