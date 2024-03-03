@@ -14,58 +14,22 @@ public class TaskManager {
         this.storage = storage;
     }
 
-    // add task from text file
-    public void addTask(String inputString) {
-        String[] taskComponents = inputString.split("/");
-        String taskType = taskComponents[0];
-        boolean isDone = (taskComponents[1].equals("1"));
-        String description = taskComponents[2];
-
-        if (taskType.equals("T")) {
-            taskList.add(new TodoTask(description, isDone));
-            taskCount++;
-        } else if (taskType.equals("D")) {
-            String deadline = taskComponents[3];
-            taskList.add(new DeadlineTask(description, deadline, isDone));
-            taskCount++;
-        } else if (taskType.equals("E")) {
-            String startDate = taskComponents[3];
-            String endDate = taskComponents[4];
-            taskList.add(new EventTask(description, startDate, endDate, isDone));
-            taskCount++;
-        } else {
-            System.out.println("Invalid text, cannot add new task.");
-        }
-    }
-
     public void handleCommand(String command) {
         try {
             if (command.equals("list")) {
                 handleList();
             } else if (command.startsWith("todo")) {
                 handleTodo(command);
-                String text = storage.convertCommandToText(command);
-                storage.appendTextContent(text);
             } else if (command.startsWith("deadline")) {
                 handleDeadline(command);
-                String text = storage.convertCommandToText(command);
-                storage.appendTextContent(text);
             } else if (command.startsWith("event")) {
                 handleEvent(command);
-                String text = storage.convertCommandToText(command);
-                storage.appendTextContent(text);
             } else if (command.startsWith("mark")) {
-                int taskIndex = Integer.parseInt(command.substring(5));
-                taskList.get(taskIndex - 1).mark();
-                storage.markText(true, taskIndex);
+                handleMark(command);
             } else if (command.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(command.substring(7));
-                taskList.get(taskIndex - 1).unmark();
-                storage.markText(false, taskIndex);
+                handleUnmark(command);
             } else if (command.startsWith("delete")) {
                 handleDelete(command);
-                int taskIndex = Integer.parseInt(command.substring(7));
-                storage.deleteText(taskIndex);
             } else if (command.startsWith("find")) {
                 handleFind(command);
             } else {
@@ -86,64 +50,46 @@ public class TaskManager {
         System.out.println(Ui.LINE);
     }
 
-    private void handleTodo(String command) throws HumiException {
-        String trimmedCommand = command.trim();
-        if (trimmedCommand.length() > 4) {
-            String description = trimmedCommand.substring(5);
+    private void handleTodo(String command) {
+        try {
+            Parser.parseCommand(command);
+            String description = Parser.todoDescription;
             taskList.add(new TodoTask(description));
             taskCount += 1;
-        } else {
-            throw new HumiException("Description of a todo cannot be empty.");
+            String text = Parser.convertCommandToText(command);
+            storage.appendTextContent(text);
+        } catch (HumiException e) {
+            System.out.println(e.message);
         }
     }
 
-    private void handleDeadline(String command) throws HumiException{
-        String trimmedCommand = command.trim();
-        if (trimmedCommand.length() > 8) {
-            String[] splitArray = trimmedCommand.split("/");
-            if (splitArray.length >= 2) {
-                String description = splitArray[0].substring(9);
-                String deadline = splitArray[1].substring(3);
-                deadline = Parser.parseDateAndTime(deadline);
-                taskList.add(new DeadlineTask(description, deadline));
-                taskCount += 1;
-            } else {
-                throw new HumiException("Please specify the deadline date.");
-            }
-        } else {
-            throw new HumiException("Description of a deadline cannot be empty.");
+    private void handleDeadline(String command) {
+        try {
+            Parser.parseCommand(command);
+            String description = Parser.deadlineDescription;
+            String deadline = Parser.deadlineDate;
+            taskList.add(new DeadlineTask(description, deadline));
+            taskCount += 1;
+            String text = Parser.convertCommandToText(command);
+            storage.appendTextContent(text);
+        } catch (HumiException e) {
+            System.out.println(e.message);
         }
     }
 
     private void handleEvent(String command) throws HumiException {
-        String trimmedCommand = command.trim();
-        if (trimmedCommand.length() > 5) {
-            String[] splitArray = trimmedCommand.split("/");
-            if (splitArray.length >= 3) {
-                String description = splitArray[0].substring(6);
-                String startDate = splitArray[1].substring(5).trim();
-                startDate = Parser.parseDateAndTime(startDate);
-                String endDate = splitArray[2].substring(3);
-                endDate = Parser.parseDateAndTime(endDate);
-                taskList.add(new EventTask(description, startDate, endDate));
-                taskCount += 1;
-            } else {
-                throw new HumiException("Please specify both the start date and end date");
-            }
-        } else {
-            throw new HumiException("Description of an event cannot be empty.");
+        try {
+            Parser.parseCommand(command);
+            String description = Parser.eventDescription;
+            String startDate = Parser.eventStartDate;
+            String endDate = Parser.eventEndDate;
+            taskList.add(new EventTask(description, startDate, endDate));
+            taskCount += 1;
+            String text = Parser.convertCommandToText(command);
+            storage.appendTextContent(text);
+        } catch (HumiException e) {
+            System.out.println(e.message);
         }
-    }
-
-    private void handleDelete(String command) {
-        System.out.println(Ui.LINE);
-        System.out.print("    Noted. I've removed this task:\n      ");
-        int taskIndex = Integer.parseInt(command.substring(7));
-        taskList.get(taskIndex - 1).print();
-        taskList.remove(taskIndex - 1);
-        taskCount -= 1;
-        System.out.println("    Now you have " + taskCount + " tasks in the list");
-        System.out.println(Ui.LINE);
     }
 
     private void handleFind(String command) {
@@ -159,5 +105,69 @@ public class TaskManager {
             }
         }
         System.out.println(Ui.LINE);
+    }
+
+    private void handleMark(String command) throws HumiException {
+        try {
+            Parser.parseCommand(command);
+            int taskIndex = Parser.taskIndex;
+            taskList.get(taskIndex - 1).mark();
+            storage.markText(true, taskIndex);
+        } catch (HumiException e) {
+            System.out.println(e.message);
+        }
+    }
+
+    private void handleUnmark(String command) throws HumiException {
+        try {
+            Parser.parseCommand(command);
+            int taskIndex = Parser.taskIndex;
+            taskList.get(taskIndex - 1).unmark();
+            storage.markText(false, taskIndex);
+        } catch (HumiException e) {
+            System.out.println(e.message);
+        }
+    }
+
+    private void handleDelete(String command) {
+        try {
+            Parser.parseCommand(command);
+            int taskIndex = Parser.taskIndex;
+            System.out.println(Ui.LINE);
+            System.out.print("    Noted. I've removed this task:\n      ");
+            taskList.get(taskIndex - 1).print();
+            taskList.remove(taskIndex - 1);
+            taskCount -= 1;
+            System.out.println("    Now you have " + taskCount + " tasks in the list");
+            System.out.println(Ui.LINE);
+            storage.deleteText(taskIndex);
+        } catch (HumiException e) {
+            System.out.println(e.message);
+        }
+    }
+
+
+    // add task from text file
+    public void loadTask(String inputString) {
+        String[] taskComponents = inputString.split("/");
+        String taskType = taskComponents[0];
+        boolean isDone = (taskComponents[1].equals("1"));
+        String description = taskComponents[2];
+
+        if (taskType.equals("T")) {
+            taskList.add(new TodoTask(description, isDone));
+            taskCount++;
+        } else if (taskType.equals("D")) {
+            String deadline = taskComponents[3];
+            taskList.add(new DeadlineTask(description, deadline, isDone));
+            taskCount++;
+        } else if (taskType.equals("E")) {
+            String startDate = taskComponents[3];
+            String endDate = taskComponents[4];
+            taskList.add(new EventTask(description, startDate, endDate, isDone));
+            taskCount++;
+        } else {
+            System.out.println("Invalid text, cannot add new task.");
+        }
     }
 }

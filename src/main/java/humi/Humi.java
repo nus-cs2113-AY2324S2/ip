@@ -25,19 +25,28 @@ public class Humi {
             ArrayList<String> inputFile = storage.readFile("data/list.txt");
             if (!inputFile.isEmpty()) {
                 for (String s : inputFile) {
-                    taskManager.addTask(s);
+                    taskManager.loadTask(s);
                     storage.appendTextContent(s);
                 }
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found, attempting to create file.");
             try {
+                File dataFolder = new File("./data");
+                if (!dataFolder.exists()) {
+                    System.out.println("Folder not found, attempting to create folder.");
+                    if (dataFolder.mkdirs()) {
+                        System.out.println("Data folder has been created successfully.");
+                    } else {
+                        System.err.println("Failed to create data folder.");
+                    }
+                }
                 File textFile = new File("data/list.txt");
                 if (textFile.createNewFile()) {
                     System.out.println("File has been created.");
                 }
             } catch (IOException err) {
-                System.out.println("Fail to create file. Have you created the folder \"data\"?");
+                System.out.println("Failed to create file.");
             }
         }
 

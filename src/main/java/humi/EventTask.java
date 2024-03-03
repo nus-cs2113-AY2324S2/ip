@@ -12,7 +12,7 @@ public class EventTask extends Task{
 
         System.out.println(Ui.LINE);
         System.out.println("     Got it. I've added this task:");
-        System.out.println("       [E][ ] " + description + "from: " + startDate + " to: " + endDate);
+        System.out.println("       [E][ ] " + description + " from: " + startDate + " to: " + endDate);
         System.out.println("     Now you have " + (TaskManager.taskCount + 1) + " tasks in the list.");
         System.out.println(Ui.LINE);
     }
@@ -29,6 +29,6 @@ public class EventTask extends Task{
     public void print() {
         printTaskType();
         printMark();
-        System.out.println(description + "from: " + startDate + " to: " + endDate);
+        System.out.println(description + " from: " + startDate + " to: " + endDate);
     }
 }

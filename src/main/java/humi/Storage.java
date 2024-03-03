@@ -36,27 +36,6 @@ public class Storage {
         fw.close();
     }
 
-    public String convertCommandToText (String command) {
-        String trimmedCommand = command.trim();
-        String text = "";
-        if (command.startsWith("todo")) {
-            String description = trimmedCommand.substring(5);
-            text = "T/0/" + description;
-        } else if (command.startsWith("deadline")) {
-            String[] splitArray = trimmedCommand.split("/");
-            String description = splitArray[0].substring(9);
-            String deadline = splitArray[1].substring(3);
-            text = "D/0/" + description + "/" + deadline;
-        } else if (command.startsWith("event")) {
-            String[] splitArray = trimmedCommand.split("/");
-            String description = splitArray[0].substring(6);
-            String startDate = splitArray[1].substring(5);
-            String endDate = splitArray[2].substring(3);
-            text = "E/0/" + description + "/" + startDate + "/" + endDate;
-        }
-        return text;
-    }
-
     public void markText(boolean isDone, int index) {
         String[] textArray = textContent.split("\n");
         String mark = isDone ? "1" : "0";

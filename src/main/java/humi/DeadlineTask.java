@@ -10,7 +10,7 @@ public class DeadlineTask extends Task {
 
         System.out.println(Ui.LINE);
         System.out.println("     Got it. I've added this task:");
-        System.out.println("       [D][ ] " + description + "by: " + deadline);
+        System.out.println("       [D][ ] " + description + " by: " + deadline);
         System.out.println("     Now you have " + (TaskManager.taskCount + 1) + " tasks in the list.");
         System.out.println(Ui.LINE);
     }
@@ -26,6 +26,6 @@ public class DeadlineTask extends Task {
     public void print() {
         printTaskType();
         printMark();
-        System.out.println(description + "by: " + this.deadline);
+        System.out.println(description + " by: " + this.deadline);
     }
 }
