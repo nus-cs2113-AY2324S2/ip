@@ -34,6 +34,7 @@ public class Parser {
      * @throws InvalidTaskNumberException If invalid task ID is provided for MARK, UNMARK, DELETE commands.
      * @throws InvalidArgumentException   If arguments are not formatted correctly in the User input.
      * @throws InvalidCommandException    If invalid commands are provided by the User.
+     * @throws InvalidDateTimeException   If invalid datetime is provided by the User.
      */
     public Command processUserCommand(String userCommand, TaskManager taskManager, Ui userInterface) throws
             InvalidTaskNumberException, InvalidArgumentException, InvalidCommandException, InvalidDateTimeException {

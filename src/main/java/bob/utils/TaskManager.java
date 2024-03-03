@@ -16,6 +16,9 @@ public class TaskManager {
     private final List<Task> tasks;
     private int taskCount;
 
+    /**
+     * Creates a new TaskManager Object.
+     */
     public TaskManager() {
         this.tasks = new ArrayList<>();
         this.taskCount = 0;

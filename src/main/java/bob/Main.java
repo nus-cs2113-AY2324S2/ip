@@ -2,6 +2,9 @@ package bob;
 
 import java.io.IOException;
 
+/**
+ * Main Class.
+ */
 public class Main {
     /**
      * Main method. Initializes the Bob Chat-Bot.

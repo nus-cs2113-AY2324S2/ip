@@ -16,6 +16,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Constructor to create a Deadline Task Object.
+     * @param taskName Name of Deadline Task.
+     * @param dueDate Due datetime of Deadline Task.
+     */
     public Deadline(String taskName, LocalDateTime dueDate) {
         super(taskName, false);
         this.dueDate = dueDate;

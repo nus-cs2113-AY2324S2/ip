@@ -13,6 +13,9 @@ public class Ui {
     private static final String SEPARATOR = "____________________________________________________________";
     private final Scanner inputReader;
 
+    /**
+     * Creates a new Ui Object.
+     */
     public Ui() {
         this.inputReader = new Scanner(System.in);
     }

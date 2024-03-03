@@ -3,6 +3,9 @@ package bob.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event Task class. Used to represent Tasks with a start date and end date.
+ */
 public class Event extends Task {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private final LocalDateTime startDate;
@@ -14,6 +17,12 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    /**
+     * Constructor to create an Event Task Object.
+     * @param taskName Name of Event Task.
+     * @param startDate Start datetime of Event Task.
+     * @param endDate End datetime of Event Task.
+     */
     public Event(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskName, false);
         this.startDate = startDate;

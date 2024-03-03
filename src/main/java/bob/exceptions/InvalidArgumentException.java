@@ -7,6 +7,10 @@ public class InvalidArgumentException extends Exception {
     private static final String ERROR_MESSAGE = " Please ensure your command is properly formatted!\n\n";
     private final String command;
 
+    /**
+     * Creates InvalidArgumentException.
+     * @param command Type of command which triggered the exception.
+     */
     public InvalidArgumentException(String command) {
         this.command = command;
     }

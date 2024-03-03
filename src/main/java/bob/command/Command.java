@@ -9,6 +9,10 @@ import bob.utils.TaskManager;
 abstract public class Command {
     protected final TaskManager taskManager;
 
+    /**
+     * Abstract constructor for a Command Object.
+     * @param taskManager Current TaskManager instance.
+     */
     public Command(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
