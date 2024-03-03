@@ -59,6 +59,10 @@ public class AddTask {
                 index--;
                 PrintTask.printMultipleToFile(tasks, false);
                 break;
+            case "find":
+                String toFind = text.replace("find ", "");
+                SearchTasks.printMatchedTasks(toFind, tasks);
+                break;
             default:
                 Task task = new Task(text);
                 tasks.add(task);

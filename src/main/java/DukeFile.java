@@ -28,7 +28,6 @@ public class DukeFile {
             String lastLine = "";
             while (s.hasNext()) {
                 lastLine = s.nextLine();
-                PrintText.print(lastLine);
             }
             int index = Integer.parseInt(lastLine.split("\\.")[0]);
             return index;
