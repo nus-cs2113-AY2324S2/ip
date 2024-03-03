@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +23,7 @@ public class Krot {
     }
 
     public void generateResponse(String key, String line) {
+        // Calls the respective functions based off commands
         Task task;
         switch (key) {
         case "bye":
@@ -53,8 +56,8 @@ public class Krot {
             break;
         case "deadline":
             try {
-                String[] deadlineDetails = parser.deadlineParser(line);
-                task = taskList.createDeadline(deadlineDetails[0], deadlineDetails[1]);
+                ArrayList<Object> deadlineDetails = parser.deadlineParser(line);
+                task = taskList.createDeadline((String)deadlineDetails.get(0), (LocalDateTime)deadlineDetails.get(1));
                 ui.printCreateTaskMessage(task, taskList.getTasks().size());
             } catch (Exception e) { // Catches if wrong initializer
                 ui.printError(e.getMessage());
@@ -62,8 +65,9 @@ public class Krot {
             break;
         case "event":
             try {
-                String[] eventDetails = parser.eventParser(line);
-                task = taskList.createEvent(eventDetails[0], eventDetails[1], eventDetails[2]);
+                ArrayList<Object> eventDetails = parser.eventParser(line);
+                task = taskList.createEvent((String)eventDetails.get(0),
+                        (LocalDateTime)eventDetails.get(1), (LocalDateTime)eventDetails.get(2));
                 ui.printCreateTaskMessage(task, taskList.getTasks().size());
             } catch (Exception e) { // Catches if wrong initializer is used
                 ui.printError(e.getMessage());
@@ -88,8 +92,17 @@ public class Krot {
                     } else {
                         ui.listTasks(filteredList);
                     }
+                } else if (line.contains("/date")) {
+                    try {
+                        LocalDate date = parser.findParser(line);
+                        ArrayList<Task> filteredList = taskList.findByDate(date);
+                        ui.listTasks(filteredList);
+                    } catch (Exception e) {
+                        ui.printError(e.getMessage());
+                    }
                 } else {
-                    ui.printError(new InvalidInputException("Enter a valid title with the initializer /title <keyword>").getMessage());
+                    ui.printError(new InvalidInputException(
+                            "Enter a valid key or date with the initializer /title <keyword> or /date <YYYY-MM-DD>").getMessage());
                 }
             } catch (Exception e) {
                 ui.printError(e.getMessage());
@@ -101,6 +114,7 @@ public class Krot {
     }
 
     public void run() {
+        // Runs the bot
         String line;
         ui.printSeparator();
         ui.greeting();

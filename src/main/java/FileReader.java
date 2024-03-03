@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,21 +22,21 @@ public class FileReader {
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String line = s.nextLine();
-            String[] taskSegments = line.split("\\|");
-            if (taskSegments[0].equalsIgnoreCase("T")) {
+            String[] taskSegments = line.split("\\|"); // Split based of |
+            if (taskSegments[0].equalsIgnoreCase("T")) { // Checks task type
                 Task task = new Todo(taskSegments[2], taskSegments[0]);
                 if (taskSegments[1].equals("1")) {
                     task.markDone();
                 }
                 tasks.add(task);
             } else if (taskSegments[0].equalsIgnoreCase("D")) {
-                Task task = new Deadline(taskSegments[2], taskSegments[3], taskSegments[0]);
+                Task task = new Deadline(taskSegments[2], LocalDateTime.parse(taskSegments[3]), taskSegments[0]);
                 if (taskSegments[1].equals("1")) {
                     task.markDone();
                 }
                 tasks.add(task);
             } else {
-                Task task = new Event(taskSegments[2], taskSegments[3], taskSegments[4], taskSegments[0]);
+                Task task = new Event(taskSegments[2], LocalDateTime.parse(taskSegments[3]), LocalDateTime.parse(taskSegments[4]), taskSegments[0]);
                 if (taskSegments[1].equals("1")) {
                     task.markDone();
                 }

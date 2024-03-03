@@ -18,8 +18,8 @@ public class FileWrite {
             fw.write(task.getTaskType()
                     + "|" + (task.isDone ? 1 : 0)
                     + "|" + task.task
-                    + (task.getStart().isBlank() ? "" : "|" + task.getStart())
-                    + (task.getEnd().isBlank() ? "" : "|" + task.getEnd()) + System.lineSeparator());
+                    + (task.getStart() == null ? "" : "|" + task.getStart())
+                    + (task.getEnd() == null ? "" : "|" + task.getEnd()) + System.lineSeparator());
         }
         fw.close();
     }

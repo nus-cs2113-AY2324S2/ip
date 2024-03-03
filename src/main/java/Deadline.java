@@ -1,8 +1,10 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task{
-    protected String end;
+    protected LocalDateTime end;
     protected String taskType;
 
-    public Deadline(String task, String end, String taskType) {
+    public Deadline(String task, LocalDateTime end, String taskType) {
         super(task);
         this.end = end;
         this.taskType = taskType;
@@ -14,7 +16,7 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 }

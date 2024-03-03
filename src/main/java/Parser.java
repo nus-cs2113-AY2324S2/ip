@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import static java.lang.Integer.parseInt;
 
@@ -13,6 +17,7 @@ public class Parser {
     }
 
     public int parseIndexToMark(String line) throws Exception {
+        // Finds the index to mark
         int index;
         try {
             index = parseInt(line.split(" ")[1]) - 1;
@@ -24,7 +29,30 @@ public class Parser {
         return index;
     }
 
+    public LocalDateTime dateAndTimeParser(String line) {
+        // Converts string into LocalDateTime object
+        LocalDateTime date;
+        try {
+            date = LocalDateTime.parse(line);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Enter a date in the format <YYYY-MM-DD>T<HH-MM>", e.getParsedString(), e.getErrorIndex());
+        }
+        return date;
+    }
+
+    public LocalDate dateParser(String line) {
+        // Converts String into LocalDate object
+        LocalDate date;
+        try {
+            date = LocalDate.parse(line);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Enter a date in the format <YYYY-MM-DD>", e.getParsedString(), e.getErrorIndex());
+        }
+        return date;
+    }
+
     public String todoParser(String line) throws Exception {
+        // Finds the task title from the user inputs
         String title;
         try {
             title = line.split(" ", 2)[1];
@@ -34,9 +62,10 @@ public class Parser {
         return title;
     }
 
-    public String[] deadlineParser(String line) throws Exception {
+    public ArrayList<Object> deadlineParser(String line) throws Exception {
+        // Finds the task title and deadline from the user inputs
         String title;
-        String end;
+        LocalDateTime end;
         try {
             title = line.split("/")[0].split(" ", 2)[1].strip();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -47,20 +76,20 @@ public class Parser {
         }
         int byIndex = line.indexOf("/by");
         if (byIndex == -1) {
-            throw new ArrayIndexOutOfBoundsException("Enter a due date with the initializer /by"); // Throws exception if initializer not found
+            throw new ArrayIndexOutOfBoundsException("Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>"); // Throws exception if initializer not found
         }
-        end = line.substring(byIndex + BY_PADDING).strip();
-        if (end.isBlank()) {
-            throw new EmptyInputException("Enter a due date for this task"); // Throws exception if due date is blank
-        }
-        String[] parsed = {title, end};
+        end = dateAndTimeParser(line.substring(byIndex + BY_PADDING).strip());
+        ArrayList<Object> parsed = new ArrayList<>();
+        parsed.add(title);
+        parsed.add(end);
         return parsed;
     }
 
-    public String[] eventParser(String line) throws Exception {
+    public ArrayList<Object> eventParser(String line) throws Exception {
+        // Finds the task title, start and deadline from the user inputs
         String title;
-        String start;
-        String end;
+        LocalDateTime start;
+        LocalDateTime end;
         try {
             title = line.split("/")[0].split(" ", 2)[1].strip();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -72,18 +101,19 @@ public class Parser {
             throw new EmptyInputException("Why is the task description blank!"); // Throws exception if task is blank
         }
         if (fromIndex == -1 || toIndex == -1) {
-            throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <start> /to <end> or don't try at all"); // Throws exception if initializers not found
+            throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-DD>T<HH-MM> or don't try at all"); // Throws exception if initializers not found
         }
-        start = line.substring(fromIndex + FROM_PADDING, toIndex).strip();
-        end = line.substring(line.indexOf("/to") + BY_PADDING).strip();
-        if (start.isBlank() || end.isBlank()) {
-            throw new EmptyInputException("When is this event happening?"); // Throws exception if durations are blank
-        }
-        String[] parsed = {title, start,end};
+        start = dateAndTimeParser(line.substring(fromIndex + FROM_PADDING, toIndex).strip());
+        end = dateAndTimeParser(line.substring(line.indexOf("/to") + BY_PADDING).strip());
+        ArrayList<Object> parsed = new ArrayList<>();
+        parsed.add(title);
+        parsed.add(start);
+        parsed.add(end);
         return parsed;
     }
 
     public int deleteParser(String line) throws Exception {
+        // Finds the index of the task to be deleted
         Pattern pattern = Pattern.compile("^[0-9]+$");
         String taskNumber;
         int taskIndex;
@@ -99,7 +129,16 @@ public class Parser {
         return taskIndex;
     }
 
+    public LocalDate findParser(String line) throws Exception {
+        // Extract date from user input to find in list
+        LocalDate date;
+        int index = line.indexOf("/date") + 5;
+        date = dateParser(line.substring(index).strip());
+        return date;
+    }
+
     public String findFromTitleParser(String line) throws Exception {
+        // Extract Title from user input to find in list
         if (line.contains("/title")) {
             int index = line.indexOf("/title") + TITLE_PADDING;
             String title = line.substring(index).strip();

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class Storage {
     private final String FILE_PATH;
-    private ArrayList<Task> taskList;
 
     public Storage(String filePath) {
         this.FILE_PATH = filePath;
@@ -13,8 +12,7 @@ public class Storage {
         // Reads from the local txt file to obtain tasks
         FileReader fileReader = new FileReader(FILE_PATH);
         try {
-            this.taskList = fileReader.getTasks();
-            return taskList;
+            return fileReader.getTasks();
         } catch (Exception e) {
             throw e;
         }
