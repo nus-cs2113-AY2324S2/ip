@@ -39,13 +39,13 @@ public class TaskList {
      * Adds a deadline task to the task list. This method parses the full user input and obtains the name,
      * and end date of the given task, and returns the newly added deadline task
      *
-     * @param description The full deadline command inputted by user
+     * @param command The full deadline command inputted by user
      * @return The deadline task added to the list.
      * @throws InvalidInputException If the input is invalid.
      */
-    public Task addDeadline(String description) throws InvalidInputException {
-
-        description = description.replace("deadline", "").trim();
+    public Task addDeadline(String command) throws InvalidInputException {
+        String description;
+        description = command.replace("deadline", "").trim();
 
         if (!description.contains("/by")) {
             throw new InvalidInputException("Include a /by for deadline");
@@ -68,12 +68,13 @@ public class TaskList {
      * Adds an event task to the task list. This method parses the full user input and obtains the name,
      * start date and end date of the given task, and returns the newly added event task
      *
-     * @param description The full event command inputted by user
+     * @param command The full event command inputted by user
      * @return The event task added to the list.
      * @throws InvalidInputException If the input does not include a /from and /to
      */
-    public Task addEvent(String description) throws InvalidInputException {
-        description = description.replace("event", "").trim();
+    public Task addEvent(String command) throws InvalidInputException {
+        String description;
+        description = command.replace("event", "").trim();
         if (!description.contains("/from") || !description.contains("/to")) {
             throw new InvalidInputException("Include a /from and /to for event");
         }
@@ -101,8 +102,9 @@ public class TaskList {
      * @return The todo task added to the list.
      * @throws InvalidInputException If the input is does not have format todo <task>.
      */
-    public Task addTodo(String description) throws InvalidInputException {
-        description = description.replace("todo", "").trim();
+    public Task addTodo(String command) throws InvalidInputException {
+        String description;
+        description = command.replace("todo", "").trim();
         if(description.isEmpty()){
             throw new InvalidInputException("Please state a task : todo <task>");
         }
@@ -143,7 +145,6 @@ public class TaskList {
      * @return The ArrayList containing all found tasks
      */
     public ArrayList<Task> findTasks(String keyword) {
-
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             String taskDescription = tasks.get(i).getDescription();
@@ -152,13 +153,12 @@ public class TaskList {
                 foundTasks.add(tasks.get(i));
             }
         }
-
         return foundTasks;
-
     }
 
     /**
-     * Prints all matching tasks which contains the inputted keyword
+     * Prints all matching tasks which contains the inputted keyword. Method first uses findTasks() function to create
+     * a ArrayList containing all found tasks, before printing all elements of obtained ArrayList
      *
      * @param keyword the word to find in task list
      */
@@ -175,5 +175,4 @@ public class TaskList {
         }
         ui.printDivider();
     }
-
 }
