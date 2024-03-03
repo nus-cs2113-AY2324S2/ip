@@ -77,26 +77,26 @@ public class Storage {
                 taskList.loadTodo(parameters[2].trim());
                 taskCount++;
 
-                if (parameters[1].contains("1")) {
-                    taskList.loadMark(taskCount);
-                }
+                loadMarkIfNeeded(taskList, parameters, taskCount);
             } else if (parameters[0].contains("D")) {
                 taskList.loadDeadline(parameters[2].trim(), parameters[3].trim());
                 taskCount++;
 
-                if (parameters[1].contains("1")) {
-                    taskList.loadMark(taskCount);
-                }
+                loadMarkIfNeeded(taskList, parameters, taskCount);
             } else if (parameters[0].contains("E")) {
                 taskList.loadEvent(parameters[2].trim(), parameters[3].trim(), parameters[4].trim());
                 taskCount++;
 
-                if (parameters[1].contains("1")) {
-                    taskList.loadMark(taskCount);
-                }
+                loadMarkIfNeeded(taskList, parameters, taskCount);
             } else {
                 throw new CorruptedFileException();
             }
+        }
+    }
+
+    private static void loadMarkIfNeeded(TaskList taskList, String[] parameters, int taskCount) throws CorruptedFileException {
+        if (parameters[1].contains("1")) {
+            taskList.loadMark(taskCount);
         }
     }
 
