@@ -28,69 +28,63 @@ public class CommandHandling {
                 Command command = Command.valueOf(instruction);
 
                 switch (command) {
-                case BYE: {
+                case BYE:
                     return;
-                }
+
                 case MARK:
-                case UNMARK: {
+                case UNMARK:
 
                     handleMarkUnmark(userInput, tasks, command);
 
                     break;
-                }
-                case LIST: {
+
+                case LIST:
 
                     List.handleTasks(tasks);
 
                     break;
-                }
-                case TODO: {
+
+                case TODO:
 
                     handleToDo(tasks, userInput);
 
                     break;
-                }
-                case EVENT: {
+
+                case EVENT:
 
                     handleEvent(tasks, userInput);
 
                     break;
-                }
-                case DEADLINE: {
+
+                case DEADLINE:
 
                     handleDeadline(tasks, userInput);
 
                     break;
-                }
-                case HELP: {
+
+                case HELP:
 
                     Reply.printHelp();
 
                     break;
-                }
-                case DELETE: {
+
+                case DELETE:
 
                     deleteItem(tasks, userInput);
 
                     break;
-                }
-                case FIND: {
+
+                case FIND:
 
                     List.searchList(tasks, userInput);
 
                     break;
                 }
-                default: {
-                    throw new CustomException(Reply.INVALID_COMMAND);
-                }
-                }
             } catch (IllegalArgumentException e) {
-                Reply.printInvalidCommand();
+                Reply.printException(e, Reply.INVALID_COMMAND);
             } catch (CustomException e) {
                 Reply.printException(e);
             }
-
-            Reply.printLine();
 
             Persistence.saveTasks(tasks);
             userInput = in.nextLine();
@@ -211,8 +205,7 @@ public class CommandHandling {
             Reply.printReply("Deleted: " + (taskIndex + 1) + ". " + tasks.get(taskIndex));
             List.removeTask(tasks, taskIndex);
 
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new CustomException(Reply.INVALID_PARAMETER);
         }
     }

@@ -54,6 +54,8 @@ public class List {
             System.out.println(taskIndex + ". "  + task.toString());
             taskIndex++;
         }
+
+        Reply.printLine();
     }
 
     /**

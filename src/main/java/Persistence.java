@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents the Storage interface using object serialization for the Jarvas bot.
+ * Represents the Storage interface for the Jarvas bot.
  * Used for reading and writing from data files.
  */
 public class Persistence {
     /**
-     * Saves the list of tasks to a file using object serialization.
+     * Saves the list of tasks to a file.
      *
      * @param tasks The list of tasks to be saved.
      * @throws CustomException If an error occurs during file operations.
@@ -33,7 +33,7 @@ public class Persistence {
 
     /**
      * Verifies the integrity of the data file, checking if it exists and if it's readable.
-     * If the file doesn't exist, it creates one, a message is printed indicating a missing file
+     * If not, it creates a data file, a message is printed indicating the missing file
      * and the program continues with an empty list.
      * If the file exists but cannot be read, an exception is thrown.
      *
@@ -41,15 +41,17 @@ public class Persistence {
      * @throws IOException If an I/O error occurs during file operations.
      */
     public static void verifyIntegrity(File data) throws IOException {
-        if (data.createNewFile() && data.canRead()) {
+        if (data.createNewFile()) {
             Reply.printReply(Reply.MISSING_FILE);
-        } else {
+        } else if (data.canRead()) {
             Reply.printReply(Reply.SUCCESSFUL_LOAD);
+        } else {
+            Reply.printReply(Reply.MISSING_FILE);
         }
     }
 
     /**
-     * Loads a list of tasks from a given specific file name using object deserialization.
+     * Loads tasks to the list of tasks from a given specific file name.
      * If the file doesn't exist or is empty, an empty list is returned.
      *
      * @param tasks The list of tasks to be loaded into that may be empty initially.
@@ -67,34 +69,32 @@ public class Persistence {
                 String[] task = scanner.nextLine().split(":");
                 String input = task[0].trim();
 
-                Command command = Command.valueOf(input);
+                try {
+                    Command command = Command.valueOf(input);
 
-                switch(command){
-                case TODO: {
-                    spawnToDo(tasks, task, taskCount);
+                    switch (command) {
+                    case TODO:
+                        spawnToDo(tasks, task, taskCount);
+                        break;
+                    case DEADLINE:
+                        spawnDeadline(tasks, task, taskCount);
+                        break;
+
+                    case EVENT:
+                        spawnEvent(tasks, task, taskCount);
+                        break;
+
+                    }
+                } catch (IllegalArgumentException e) {
+                    Reply.printException(e, Reply.LOAD_ERROR + (taskCount + 1) + Reply.ERROR_CORRUPT);
                     break;
                 }
-                case DEADLINE: {
-                    spawnDeadline(tasks, task, taskCount);
-                    break;
-                }
-                case EVENT: {
-                    spawnEvent(tasks, task, taskCount);
-                    break;
-                }
-                }
+
                 taskCount++;
             }
 
-
-        } catch (IOException e) {
-            if (!new File(Constant.FILE_NAME).exists()) {
-                Reply.printReply(Reply.MISSING_FILE);
-            } else {
-                throw new CustomException(Reply.LOAD_ERROR + taskCount);
-            }
-        } catch (CustomException e) {
-            Reply.printException(e);
+        } catch (Exception e) {
+            throw new CustomException(Reply.LOAD_ERROR + (taskCount + 1));
         }
     }
 

@@ -17,8 +17,9 @@ public class Reply {
 
     // Storage Replies
     public static final String SAVE_ERROR = "File save failed.\nWrite error occurred:\n";
-    public static final String MISSING_FILE = "Data file not found. Starting with an empty list.";
+    public static final String MISSING_FILE = "Data file not found/corrupted. Starting with an empty list.";
     public static final String LOAD_ERROR = "File read error:\n" + "Error at task number = ";
+    public static final String ERROR_CORRUPT = "\nFile is corrupted. Ceasing any further data imports.";
     public static final String SUCCESSFUL_LOAD = "Prior data file found\n" + "Previous data has been imported.\n";
 
 
@@ -134,12 +135,18 @@ public class Reply {
      */
     public static void printException(CustomException e) {
         System.err.println("Custom Exception Caught!" + "\n" + e.getMessage());
+        Reply.printLine();
     }
 
-    public static void printInvalidCommand() {
-        System.err.println("Custom Exception Caught!" + "\n" + Reply.INVALID_COMMAND);
+    /**
+     * Prints out the error message if any.
+     * @param e A string representing the error message to print.
+     * @param input A string representing a custom error message to print.
+     */
+    public static void printException(Exception e, String input) {
+        System.err.println("Custom Exception Caught!\n" + input + "\n\n" + e.getMessage());
+        Reply.printLine();
     }
-
 
     /**
      * Prints out the search results.
@@ -160,4 +167,3 @@ public class Reply {
     }
 
 }
-
