@@ -7,6 +7,9 @@ import Tasks.Task;
 import Tasks.Todo;
 import java.util.ArrayList;
 
+/**
+ * Represents a todolist
+ */
 public class TaskList {
     ArrayList<Task> itemList;
 
@@ -18,6 +21,7 @@ public class TaskList {
         this.itemList = itemList;
     }
 
+    /** Lists all items in todo list  */
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < itemList.size(); i++) {
@@ -52,17 +56,35 @@ public class TaskList {
         itemList.remove(index);
     }
 
+    /** Returns number of items in list
+     *
+     * @return number of items in the list
+     */
     public int getSize() {
         return itemList.size();
     }
+
+    /** Returns specific task
+     *
+     * @param index index of desired task
+     * @return task
+     */
     public String getTask(int index) {
         return itemList.get(index).toString();
     }
 
+    /** Returns last task added
+     *
+     * @return last task
+     */
     public String getLastTask() {
         return itemList.get(itemList.size()-1).toString();
     }
 
+    /** Returns todo List as an ArrayList<Task>
+     *
+     * @return list of tasks
+     */
     public ArrayList<Task> getItemList() {
         return itemList;
     }

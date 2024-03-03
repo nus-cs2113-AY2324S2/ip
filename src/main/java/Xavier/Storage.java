@@ -13,13 +13,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles writing and reading a file
+ */
 public class Storage {
 
+    /** Specifies the path to the file containing the todo list  */
     protected String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Checks if file exists, otherwise creates new file
+     */
     public void createOrCheckFile() {
         File file = new File(filePath);
         try {
@@ -34,23 +41,37 @@ public class Storage {
         }
     }
 
-    //writing files
+    /**
+     * Appends task to file
+     *
+     * @throws IOException if unable to write to file
+     */
     private void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend + "\n");
         fw.close();
     }
 
-    private void writeToFile() throws IOException {
+    /**
+     * Clears file before writing to it
+     *
+     * @throws IOException if unable to write to file
+     */
+    private void clearFile() throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write("");
         fw.close();
     }
 
+    /**
+     * Encodes the {@code TaskList} object into a data file for storage.
+     *
+     * @param taskList the list of task and list related operations
+     */
     public void saveFile(TaskList taskList) {
         createOrCheckFile();
         try {
-            writeToFile();
+            clearFile();
             for (Task task : taskList.getItemList()) {
                 if (task instanceof Todo) {
                     Todo todo = (Todo) task;
@@ -68,13 +89,18 @@ public class Storage {
         }
     }
 
-    //reading files
+    /**
+     * Decodes the storage data file into an ArrayList of tasks
+     *
+     * @return ArrayList of tasks decoded from file
+     * @throws XavierException if unable to read file
+     */
     public ArrayList<Task> readFile() throws XavierException {
         createOrCheckFile();
         ArrayList<Task> itemList = new ArrayList<>();
         try {
             File f = new File(filePath); // create a File for the given file path
-            if (!f.exists()) {
+            if (!f.canRead()) {
                 throw new XavierException();
             }
             Scanner s = new Scanner(f); // create a Scanner using the File as the source

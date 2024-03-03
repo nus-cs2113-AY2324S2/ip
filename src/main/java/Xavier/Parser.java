@@ -3,17 +3,30 @@ package Xavier;
 import Exceptions.InvalidInputException;
 import Exceptions.NoInputException;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
-    public void parse(String command, TaskList taskList, Ui ui, Storage storage, String filePath) throws InvalidInputException, NoInputException {
+    /**
+     * Parses the input and executes the corresponding command.
+     *
+     * @param command input command from the user
+     * @param taskList the list of task and list related operations
+     * @param ui the Ui object which handles printing to the user interface
+     * @param storage the Storage object which handles saving and reading the file
+     * @throws InvalidInputException If user inputs invalid command
+     * @throws NoInputException If user inputs improper command format
+     */
+    public void parse(String command, TaskList taskList, Ui ui, Storage storage) throws InvalidInputException, NoInputException {
         if (command.equals("list")) {
             taskList.printList();
         } else if (command.startsWith("mark") || command.startsWith(("unmark"))) {
-            handleMarkAsDone(command, taskList, ui, storage, filePath);
+            handleMarkAsDone(command, taskList, ui, storage);
         } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
-            handleAddTask(command, taskList, ui, storage, filePath);
+            handleAddTask(command, taskList, ui, storage);
         } else if (command.startsWith("delete")) {
-            handleDeleteTask(command, taskList, ui, storage, filePath);
+            handleDeleteTask(command, taskList, ui, storage);
         } else if (command.equals("bye")) {
             ui.exit();
         } else {
@@ -21,7 +34,15 @@ public class Parser {
         }
     }
 
-    public static void handleMarkAsDone(String command, TaskList taskList, Ui ui, Storage storage, String filePath) {
+    /**
+     * Marks or unmarks the specified task as done
+     *
+     * @param command input command from the user
+     * @param taskList the list of task and list related operations
+     * @param ui the Ui object which handles printing to the user interface
+     * @param storage the storage object which handles saving and reading the file
+     */
+    public static void handleMarkAsDone(String command, TaskList taskList, Ui ui, Storage storage) {
         String[] stringArray = command.split(" ");
         int index = Integer.parseInt(stringArray[1]) - 1;
         if (command.startsWith("mark")) {
@@ -34,7 +55,17 @@ public class Parser {
         storage.saveFile(taskList);
     }
 
-    public static void handleAddTask(String command, TaskList taskList, Ui ui, Storage storage, String filePath) throws InvalidInputException, NoInputException {
+    /**
+     * Adds task to the todo list
+     *
+     * @param command input command from the user
+     * @param taskList the list of task and list related operations
+     * @param ui the Ui object which handles printing to the user interface
+     * @param storage the storage object which handles saving and reading the file
+     * @throws InvalidInputException If user inputs invalid command
+     * @throws NoInputException If user inputs improper command format
+     */
+    public static void handleAddTask(String command, TaskList taskList, Ui ui, Storage storage) throws InvalidInputException, NoInputException {
         String[] stringArray = command.split(" ");
         if (stringArray.length == 1) {
             throw new NoInputException();
@@ -68,7 +99,15 @@ public class Parser {
         storage.saveFile(taskList);
     }
 
-    public static void handleDeleteTask(String command, TaskList taskList, Ui ui, Storage storage, String filePath) {
+    /**
+     * Deletes task to the todo list
+     *
+     * @param command input command from the user
+     * @param taskList the list of task and list related operations
+     * @param ui the Ui object which handles printing to the user interface
+     * @param storage the storage object which handles saving and reading the file
+     */
+    public static void handleDeleteTask(String command, TaskList taskList, Ui ui, Storage storage) {
         String[] stringArray = command.split(" ");
         int index = Integer.parseInt(stringArray[1]) - 1;
         ui.printDeleteTaskMessage(taskList, index);
