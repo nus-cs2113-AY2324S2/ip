@@ -23,7 +23,7 @@ public class Chatbot {
      * Initiates the chatbot, causing it to print a greeting and
      * read existing tasks from a text file.
      */
-    public void initiate() {
+    public void initiate() throws IOException {
         UI.printGreeting();
         Storage storage = new Storage();
         try {
@@ -31,7 +31,12 @@ public class Chatbot {
         } catch (ChatbotException e) {
             e.printDescription();
         } catch (FileNotFoundException e) {
-            System.out.println("No file found. ");
+            Storage.createFile();
+            try {
+                taskList = storage.readFile();
+            } catch (ChatbotException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (taskList.getListLength() > 0) {
             UI.printFileExits();

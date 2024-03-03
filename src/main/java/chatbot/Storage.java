@@ -1,7 +1,6 @@
 package chatbot;
 
 import chatbot.commands.Command;
-import chatbot.commands.MarkCommand;
 import chatbot.tasks.Task;
 import chatbot.tasks.TaskList;
 
@@ -18,6 +17,17 @@ public class Storage {
     private static final String FILE_PATH = "data/chatbot.txt";
 
     /**
+     * Creates a new file if one does nor yet exist.
+     *
+     * @throws IOException If IO exception occurs.
+     */
+    public static void createFile() throws IOException {
+        File f = new File(FILE_PATH);
+        f.getParentFile().mkdirs();
+        f.createNewFile();
+    }
+
+    /**
      * Reads a text file.
      *
      * @return The list of tasks read from the file.
@@ -28,7 +38,7 @@ public class Storage {
         TaskList taskList = new TaskList();
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
-        String dataLine = "";
+        String dataLine;
         while(s.hasNext()) {
             dataLine = s.nextLine();
             String[] dataArray = dataLine.split("@");
