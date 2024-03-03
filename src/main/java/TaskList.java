@@ -1,35 +1,68 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * The TaskList class represents an ArrayList of tasks and its methods.
+ */
 public class TaskList {
     private static final String LINE = "____________________________________________________________";
     private static Ui ui = new Ui();
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList using ArrayList.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     * @return Number of tasks.
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Checks if the TaskList is empty.
+     * @return true if the TaskList is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    /**
+     * Adds a task to the TaskList.
+     * @param task Task to be added.
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Removes a task from the TaskList based on its index.
+     * @param index Index of the task to be removed.
+     */
     public void remove(int index) {
         tasks.remove(index);
     }
 
+    /**
+     * Retrieves a task from the TaskList based on its index.
+     * @param index Index of the task to be retrieved.
+     * @return Task based on its index.
+     */
     public Task get(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Adds a new task based on the provided command.
+     * @param command String input representing the task to add.
+     * @throws IllegalArgumentException if description is empty.
+     * @throws NoSuchElementException if invalid format.
+     */
     public void addNewTask(String command) {
         String[] commandParts = command.split(" ");
         String tasking = commandParts[0];
@@ -72,6 +105,11 @@ public class TaskList {
         tasks.get(tasks.size() - 1).printTask(tasks.size());
     }
 
+    /**
+     * Marks or unmarks a task.
+     * @param command String input representing the task to mark or unmark.
+     * @param mark Boolean indicating whether the task should be marked (true) or unmarked (false).
+     */
     public void markTask(String command, boolean mark) {
         int taskIndex = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
@@ -90,6 +128,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all current tasks.
+     */
     public void listTasks() {
         ui.println(LINE + "\nHere are the tasks in your list:");
         //Edge case: If list empty
@@ -102,6 +143,10 @@ public class TaskList {
         ui.println(LINE);
     }
 
+    /**
+     * Deletes a task.
+     * @param command String input representing the task to delete.
+     */
     public void deleteTask(String command) {
         int indexToDelete = Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;
         if (indexToDelete >= 0 && indexToDelete < tasks.size()) {
@@ -113,6 +158,13 @@ public class TaskList {
             ui.println(LINE + "\nInvalid task number.\n" + LINE);
         }
     }
+
+    /**
+     * Finds tasks containing a specified keyword in their description.
+     * Searches through the tasks list and adds tasks that contain the keyword to a new list.
+     * Prints the matching tasks or a message indicating no matches found.
+     * @param command String containing the keyword to search for
+     */
     public void findTasks(String command) {
         String keyword = command.substring(5).trim().toLowerCase();
 

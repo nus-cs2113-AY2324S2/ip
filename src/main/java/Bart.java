@@ -1,7 +1,9 @@
 
 import java.io.IOException;
 
-
+/**
+ * The Bart class manages tasks through various commands provided by the user.
+ */
 public class Bart {
     private static final String LINE = "____________________________________________________________";
 
@@ -10,6 +12,11 @@ public class Bart {
     private static final String FILE_PATH = "./data/Bart.txt";
     private static final TaskList tasksList = new TaskList();
 
+    /**
+     * The main initializes the program to load and manage tasks,
+     * then saves tasks after taking "bye" as input.
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         ui.greetUser();
         try {
@@ -24,6 +31,9 @@ public class Bart {
         ui.byeUser();
     }
 
+    /**
+     * Manages tasks based on input "command" until input "bye".
+     */
     public static void manageTask() {
         String command;
 
