@@ -7,6 +7,7 @@ import exception.InvalidTaskDeletionException;
 import exception.InvalidTaskIndexException;
 import exception.MissingDescriptionException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,21 +32,21 @@ public class Ui {
                 Storage.saveTasks(listTasks);
                 return;
             } else {
-                handleUserInput(userInput, listTasks);
+                handleUserInput(userInput, listTasks, false);
             }
         }
     }
 
-    public static void handleUserInput(String userInput, ArrayList<Task> listTasks)  {
+    public static void handleUserInput(String userInput, ArrayList<Task> listTasks, boolean hideInput)  {
         try {
             if (hasSaidMarkOrUnmark(userInput)) {
-                TaskList.handleTasksMarkings(userInput, listTasks);
+                TaskList.handleTasksMarkings(userInput, listTasks, hideInput);
             } else if (hasSaidDelete(userInput)) {
                 TaskList.deleteUserTasks(userInput, listTasks);
             } else if (hasSaidList(userInput)) {
                 printListOfTasks(listTasks);
             } else {
-                TaskList.insertUserTasks(userInput, listTasks);
+                TaskList.insertUserTasks(userInput, listTasks, hideInput);
             }
         } catch (InvalidKeywordException e) {
             printInvalidKeywordMessage();
@@ -63,7 +64,6 @@ public class Ui {
     }
 
     public static void printAddItemMessage() {
-        System.out.println(LINE);
         System.out.println("What would you like to be added to the list?");
         System.out.println(LINE);
     }
@@ -93,6 +93,7 @@ public class Ui {
     }
 
     private static void printIncompleteCommandMessage() {
+        System.out.println(LINE);
         System.out.println("Your command is incomplete.");
         System.out.println(LINE);
     }
@@ -105,11 +106,13 @@ public class Ui {
     public static void printFileNotFoundMessage() {
         System.out.println(LINE);
         System.out.println("File not found. You may start creating your new list.");
+        System.out.println(LINE);
     }
 
     public static void printEmptyFileMessage() {
         System.out.println(LINE);
         System.out.println("Your safe file is empty. You may start creating your new list.");
+        System.out.println(LINE);
     }
 
     public static void printListIsFullMessage() {
@@ -198,6 +201,22 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + listTasks.get(insertIndex));
+    }
+
+    public static void printFailedDirectoryCreationMessage() {
+        System.out.println("Failed to create data directory.");
+    }
+
+    public static void printSuccessfulDirectoryCreationMessage() {
+        System.out.println("Data directory created successfully.");
+    }
+
+    public static void printSuccessfulSaveMessage() {
+        System.out.println("Content has been saved to the file successfully.");
+    }
+
+    public static void printCorruptedWriteMessage(IOException e) {
+        System.out.println("An error occurred while writing to the file: " + e.getMessage());
     }
 
 }

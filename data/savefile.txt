@@ -1,1 +1,1 @@
-[T][X] eat breakfast /by tomorrow
+[D][X] eat breakfast (by: tmrw)

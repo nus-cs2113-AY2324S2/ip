@@ -17,10 +17,6 @@ public class TaskList {
 
     public static int insertIndex = 0;
 
-    public static ArrayList<Task> initializeTasks() {
-        return new ArrayList<>();
-    }
-
     public static void deleteUserTasks(String userInput, ArrayList<Task> listTasks)
             throws InvalidTaskDeletionException {
         if (listTasks.isEmpty() || userInput.trim().length() == 6) {
@@ -39,22 +35,22 @@ public class TaskList {
         Ui.printNumberOfTasks(insertIndex);
     }
 
-    public static void insertUserTasks (String userInput, ArrayList<Task> listTasks)
+    public static void insertUserTasks (String userInput, ArrayList<Task> listTasks, boolean hideInput)
             throws InvalidKeywordException, MissingDescriptionException,
             InvalidTaskIndexException, IncompleteCommandException {
         if (userInput.startsWith("todo")) {
-            handleToDoTasks(userInput, listTasks, insertIndex);
+            handleToDoTasks(userInput, listTasks, insertIndex, hideInput);
         } else if (userInput.startsWith("deadline")) {
-            handleDeadlineTasks(userInput, listTasks, insertIndex);
+            handleDeadlineTasks(userInput, listTasks, insertIndex, hideInput);
         } else if (userInput.startsWith("event")) {
-            handleEventTasks(userInput, listTasks, insertIndex);
+            handleEventTasks(userInput, listTasks, insertIndex, hideInput);
         } else {
             throw new InvalidKeywordException();
         }
         insertIndex += 1;
     }
 
-    public static void handleEventTasks(String userInput, ArrayList<Task> listTasks, int insertIndex)
+    public static void handleEventTasks(String userInput, ArrayList<Task> listTasks, int insertIndex, boolean hideInput)
             throws IncompleteCommandException {
         if (!userInput.contains("/from") || !userInput.contains("/to")) {
             throw new IncompleteCommandException();
@@ -66,13 +62,17 @@ public class TaskList {
             String eventTo = parser.getEventTo();
 
             listTasks.add(insertIndex, new Event(eventItem, eventFrom, eventTo));
-            Ui.printTaskIsAddedMessage(listTasks, insertIndex);
+            if (!hideInput) {
+                Ui.printTaskIsAddedMessage(listTasks, insertIndex);
+            }
             insertIndex += 1;
-            Ui.printNumberOfTasks(insertIndex);
+            if (!hideInput) {
+                Ui.printNumberOfTasks(insertIndex);
+            }
         }
     }
 
-    public static void handleDeadlineTasks(String userInput, ArrayList<Task> listTasks, int insertIndex)
+    public static void handleDeadlineTasks(String userInput, ArrayList<Task> listTasks, int insertIndex, boolean hideInput)
             throws IncompleteCommandException {
         if (!userInput.contains("/by")) {
             throw new IncompleteCommandException();
@@ -83,13 +83,17 @@ public class TaskList {
             String deadlineDueBy = parser.getDeadlineDueBy();
 
             listTasks.add(insertIndex, new Deadline(deadlineItem, deadlineDueBy));
-            Ui.printTaskIsAddedMessage(listTasks, insertIndex);
+            if (!hideInput) {
+                Ui.printTaskIsAddedMessage(listTasks, insertIndex);
+            }
             insertIndex += 1;
-            Ui.printNumberOfTasks(insertIndex);
+            if (!hideInput) {
+                Ui.printNumberOfTasks(insertIndex);
+            }
         }
     }
 
-    public static void handleToDoTasks(String userInput, ArrayList<Task> listTasks, int insertIndex)
+    public static void handleToDoTasks(String userInput, ArrayList<Task> listTasks, int insertIndex, boolean hideInput)
             throws MissingDescriptionException {
         if (userInput.trim().length() == 4){
             throw new MissingDescriptionException();
@@ -98,19 +102,25 @@ public class TaskList {
             String toDoItem = parser.getToDoItem();
 
             listTasks.add(insertIndex, new ToDo(toDoItem));
-            Ui.printTaskIsAddedMessage(listTasks, insertIndex);
+            if (!hideInput) {
+                Ui.printTaskIsAddedMessage(listTasks, insertIndex);
+            }
             insertIndex += 1;
-            Ui.printNumberOfTasks(insertIndex);
+            if (!hideInput) {
+                Ui.printNumberOfTasks(insertIndex);
+            }
         }
     }
 
-    public static void handleTasksMarkings(String userInput, ArrayList<Task> listTasks)
+    public static void handleTasksMarkings(String userInput, ArrayList<Task> listTasks, boolean hideInput)
             throws InvalidTaskIndexException {
         if (userInput.startsWith("mark ")) {
             int indexToMark = Integer.parseInt(userInput.substring(5).trim());
             if (indexToMark >= 1 && indexToMark <= listTasks.size() && listTasks.get(indexToMark - 1) != null) {
                 listTasks.get(indexToMark - 1).markAsDone();
-                Ui.printTaskIsMarkedMessage(listTasks, indexToMark);
+                if (!hideInput) {
+                    Ui.printTaskIsMarkedMessage(listTasks, indexToMark);
+                }
             } else {
                 throw new InvalidTaskIndexException();
             }
@@ -118,7 +128,9 @@ public class TaskList {
             int indexToUnmark = Integer.parseInt(userInput.substring(7).trim());
             if (indexToUnmark >= 1 && indexToUnmark <= listTasks.size() && listTasks.get(indexToUnmark - 1) != null) {
                 listTasks.get(indexToUnmark - 1).unmarkAsDone();
-                Ui.printTaskIsUnmarkedMessage(listTasks, indexToUnmark);
+                if (!hideInput) {
+                    Ui.printTaskIsUnmarkedMessage(listTasks, indexToUnmark);
+                }
             } else {
                 throw new InvalidTaskIndexException();
             }

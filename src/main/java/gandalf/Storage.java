@@ -46,8 +46,10 @@ public class Storage {
             }
         }
         for (String previousTask : previousTasks) {
-            Ui.handleUserInput(previousTask, listTasks);
+            boolean hideInput = true;
+            Ui.handleUserInput(previousTask, listTasks, hideInput);
         }
+        Ui.handleUserInput("list", listTasks, false);
         load.close();
     }
 
@@ -61,12 +63,12 @@ public class Storage {
             writer.write(concatenatedData);
             writer.close();
 
-            printSuccessfulSaveMessage();
+            Ui.printSuccessfulSaveMessage();
 
         } catch (FailedDirectoryCreationException e) {
-            printFailedDirectoryCreationMessage();
+            Ui.printFailedDirectoryCreationMessage();
         } catch(IOException e) {
-            printCorruptedWriteMessage(e);
+            Ui.printCorruptedWriteMessage(e);
         }
     }
 
@@ -74,7 +76,7 @@ public class Storage {
         File dataDirectory = new File("./data");
         if (!dataDirectory.exists()) {
             if (dataDirectory.mkdirs()) {
-                printSuccessfulDirectoryCreationMessage();
+                Ui.printSuccessfulDirectoryCreationMessage();
             } else {
                 throw new FailedDirectoryCreationException();
             }
@@ -90,21 +92,4 @@ public class Storage {
         }
         return dataToSave.toString();
     }
-
-    private static void printFailedDirectoryCreationMessage() {
-        System.out.println("Failed to create data directory.");
-    }
-
-    private static void printSuccessfulDirectoryCreationMessage() {
-        System.out.println("Data directory created successfully.");
-    }
-
-    private static void printSuccessfulSaveMessage() {
-        System.out.println("Content has been saved to the file successfully.");
-    }
-
-    private static void printCorruptedWriteMessage(IOException e) {
-        System.out.println("An error occurred while writing to the file: " + e.getMessage());
-    }
-
 }
