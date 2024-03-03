@@ -1,5 +1,24 @@
 # Bob User Guide
 
+<!-- TOC -->
+* [Bob User Guide](#bob-user-guide)
+  * [Features](#features-)
+    * [Add Tasks](#add-tasks)
+    * [List Tasks](#list-tasks)
+    * [Delete Tasks](#delete-tasks)
+    * [Find Tasks](#find-tasks)
+    * [Update Task Statuses](#update-task-statuses)
+  * [Usage](#usage)
+    * [`todo` - Add a Todo Task](#todo---add-a-todo-task)
+    * [`deadline` - Add a Deadline Task](#deadline---add-a-deadline-task)
+    * [`event` - Add an Event Task](#event---add-an-event-task)
+    * [`list` - List out all Tasks](#list---list-out-all-tasks)
+    * [`delete` - Delete a Task](#delete---delete-a-task)
+    * [`find` - Find a Task](#find---find-a-task)
+    * [`mark` - Mark a Task as complete](#mark---mark-a-task-as-complete)
+    * [`unmark` - Mark a Task as incomplete](#unmark---mark-a-task-as-incomplete)
+<!-- TOC -->
+
 ## Features 
 
 ### Add Tasks
@@ -7,39 +26,35 @@
 Add a Task to your Task List! Choose from one of the three available Task types:
 * Todo (Tasks with no timeframe)
 * Deadline (Tasks with a due date)
-* Event (Tasks with a start and end date)
+* Event (Tasks with a start date and end date)
 
 ### List Tasks
 
-List out all Tasks in your Task List!
+List out all Tasks in your Task List.
 
 ### Delete Tasks
 
-Delete any unwanted Tasks from your Task List!
+Delete any unwanted Tasks from your Task List.
 
 ### Find Tasks
 
-Find Tasks in your Task List using a search keyword!
+Find Tasks in your Task List using a search keyword.
 
 ### Update Task Statuses
 
-Mark Tasks as done, or unmark them if they are incomplete.
+Mark Tasks as complete, or unmark them if they are incomplete.
 
 ## Usage
 
-### `todo` - Add a Todo Task to your Task List
+### `todo` - Add a Todo Task
 
 Add a new Todo Task to your Task List.
 
-`todo <task_name>`
+Format: `todo <task_name>`
 
-Example of usage: 
+Example: 
 
 `todo CS2113 Week 7 Quiz`
-
-Expected outcome:
-
-A new Todo Task is added to your Task List.
 
 ```
 ____________________________________________________________
@@ -49,21 +64,16 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### `deadline` - Add a Deadline Task to your Task List
+### `deadline` - Add a Deadline Task
 
 Add a new Deadline Task to your Task List.
 
-`deadline <task_name> /by <due_date>`
+Format: `deadline <task_name> /by <due_date>`
+* Note that the format of `due_date` is: `DD/MM/YYYY HH:MM`. Please ensure your times are in 24-hour format.
 
-`due_date` format: `DD/MM/YYYY HH:MM`
-
-Example of usage:
+Example:
 
 `deadline CS2040 Midterm Revision /by 21/03/2024 23:59`
-
-Expected outcome:
-
-A new Deadline Task is added to your Task List.
 
 ```
 ____________________________________________________________
@@ -73,21 +83,17 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### `event` - Add an Event Task to your Task List
+### `event` - Add an Event Task
 
 Add a new Event Task to your Task List.
 
-`event <task_name> /from <start_date> /to <end_date>`
+Format: `event <task_name> /from <start_date> /to <end_date>`
+* Note that the format of `start_date` and `end_date` are: `DD/MM/YYYY HH:MM`. 
+Please ensure your times are in 24-hour format.
 
-`start_date` and `end_date` format: `DD/MM/YYYY HH:MM`
-
-Example of usage:
+Example:
 
 `event NUS Hack&Roll /from 20/01/2024 10:00 /to 21/01/2024 18:00`
-
-Expected outcome:
-
-A new Event Task is added to your Task List.
 
 ```
 ____________________________________________________________
@@ -97,17 +103,13 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### `list` - List all Tasks in your Task List
+### `list` - List out all Tasks
 
-List all Tasks in your Task List.
+List out all Tasks in your Task List.
 
-Example of usage:
+Example:
 
 `list`
-
-Expected outcome:
-
-All Tasks in your Task List are listed.
 
 ```
 ____________________________________________________________
@@ -118,19 +120,15 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### `delete` - Delete a Task from your Task List
+### `delete` - Delete a Task
 
 Delete a Task from your Task List.
 
-`delete <task_id>`
+Format: `delete <task_id>`
 
-Example of usage:
+Example:
 
 `delete 2`
-
-Expected outcome:
-
-A new Event Task is added to your Task List.
 
 ```
 ____________________________________________________________
@@ -140,19 +138,15 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### `find` - Find a Task in your Task List using a search keyword
+### `find` - Find a Task
 
 Find a Task in your Task List using a search keyword.
 
-`find <keyword>`
+Format: `find <keyword>`
 
-Example of usage:
+Example:
 
 `find CS2113`
-
-Expected outcome:
-
-All Tasks containing the keyword in their name will be listed.
 
 ```
 ____________________________________________________________
@@ -161,19 +155,15 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### `mark` - Mark a Task as done
+### `mark` - Mark a Task as complete
 
-Mark a Task as done (completed).
+Mark a Task as complete.
 
-`mark <task_id>`
+Format: `mark <task_id>`
 
-Example of usage:
+Example:
 
 `mark 1`
-
-Expected outcome:
-
-The Task is marked as completed.
 
 ```
 ____________________________________________________________
@@ -186,15 +176,11 @@ ____________________________________________________________
 
 Mark a Task as incomplete.
 
-`unmark <task_id>`
+Format: `unmark <task_id>`
 
-Example of usage:
+Example:
 
 `unmark 1`
-
-Expected outcome:
-
-The Task is marked as incomplete.
 
 ```
 ____________________________________________________________
