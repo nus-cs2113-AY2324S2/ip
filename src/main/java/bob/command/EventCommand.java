@@ -14,10 +14,11 @@ public class EventCommand extends Command {
 
     /**
      * Creates an EventCommand Object.
+     *
      * @param taskManager Current TaskManager Instance
-     * @param taskName Name of Event Task
-     * @param startDate Start Date of Event Task
-     * @param endDate End Date of Event Task
+     * @param taskName    Name of Event Task
+     * @param startDate   Start Date of Event Task
+     * @param endDate     End Date of Event Task
      */
     public EventCommand(TaskManager taskManager, String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskManager);
@@ -28,6 +29,6 @@ public class EventCommand extends Command {
 
     @Override
     public String executeCommand() {
-        return taskManager.addEvent(this.taskName, this.startDate, this.endDate);
+        return taskManager.addEvent(taskName, startDate, endDate);
     }
 }

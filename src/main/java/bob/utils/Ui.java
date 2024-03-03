@@ -17,7 +17,7 @@ public class Ui {
      * Creates a new Ui Object.
      */
     public Ui() {
-        this.inputReader = new Scanner(System.in);
+        inputReader = new Scanner(System.in);
     }
 
     /**
@@ -84,22 +84,22 @@ public class Ui {
      * @param output Output String to be printed.
      */
     public void print(String output) {
-        System.out.println(SEPARATOR);
+        System.out.println(Ui.SEPARATOR);
         System.out.println(output);
-        System.out.println(SEPARATOR);
+        System.out.println(Ui.SEPARATOR);
     }
 
     /**
      * Print Welcome message.
      */
     public void printWelcome() {
-        print(WELCOME);
+        print(Ui.WELCOME);
     }
 
     /**
      * Print Exit message.
      */
     public void printExit() {
-        print(EXIT);
+        print(Ui.EXIT);
     }
 }

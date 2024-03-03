@@ -18,7 +18,7 @@ abstract public class Task {
      * @return Task Name String.
      */
     public String getTaskName() {
-        return this.taskName;
+        return taskName;
     }
 
     /**
@@ -27,7 +27,7 @@ abstract public class Task {
      * @return String value representing completion status. "1" for True, "0" for False.
      */
     public String getCompletionStatus() {
-        return (this.isCompleted) ? "1" : "0";
+        return (isCompleted) ? "1" : "0";
     }
 
     /**
@@ -46,6 +46,6 @@ abstract public class Task {
 
     @Override
     public String toString() {
-        return (isCompleted) ? String.format("[X] %s", this.taskName) : String.format("[ ] %s", this.taskName);
+        return (isCompleted) ? String.format("[X] %s", taskName) : String.format("[ ] %s", taskName);
     }
 }

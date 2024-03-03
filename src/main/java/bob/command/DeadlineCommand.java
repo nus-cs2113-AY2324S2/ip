@@ -13,9 +13,10 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates a DeadlineCommand Object.
+     *
      * @param taskManager Current TaskManager instance.
-     * @param taskName Name of Deadline Task to be created.
-     * @param dueDate Due Date of Deadline Task.
+     * @param taskName    Name of Deadline Task to be created.
+     * @param dueDate     Due Date of Deadline Task.
      */
     public DeadlineCommand(TaskManager taskManager, String taskName, LocalDateTime dueDate) {
         super(taskManager);
@@ -25,6 +26,6 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String executeCommand() {
-        return taskManager.addDeadline(this.taskName, this.dueDate);
+        return taskManager.addDeadline(taskName, dueDate);
     }
 }

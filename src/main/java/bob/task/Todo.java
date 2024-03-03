@@ -10,6 +10,7 @@ public class Todo extends Task {
 
     /**
      * Constructor to create a Todo Task Object.
+     *
      * @param taskName Name of Todo Task.
      */
     public Todo(String taskName) {
@@ -17,11 +18,11 @@ public class Todo extends Task {
     }
 
     public Task markTaskAsComplete() {
-        return new Todo(this.taskName, true);
+        return new Todo(taskName, true);
     }
 
     public Task markTaskAsIncomplete() {
-        return new Todo(this.taskName, false);
+        return new Todo(taskName, false);
     }
 
     @Override

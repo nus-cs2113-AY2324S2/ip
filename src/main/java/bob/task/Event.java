@@ -19,9 +19,10 @@ public class Event extends Task {
 
     /**
      * Constructor to create an Event Task Object.
-     * @param taskName Name of Event Task.
+     *
+     * @param taskName  Name of Event Task.
      * @param startDate Start datetime of Event Task.
-     * @param endDate End datetime of Event Task.
+     * @param endDate   End datetime of Event Task.
      */
     public Event(String taskName, LocalDateTime startDate, LocalDateTime endDate) {
         super(taskName, false);
@@ -35,7 +36,7 @@ public class Event extends Task {
      * @return String representation of the Task start date.
      */
     public String getStartDate() {
-        return this.startDate.toString();
+        return startDate.toString();
     }
 
     /**
@@ -44,21 +45,21 @@ public class Event extends Task {
      * @return String representation of the Task end date.
      */
     public String getEndDate() {
-        return this.endDate.toString();
+        return endDate.toString();
     }
 
     public Task markTaskAsComplete() {
-        return new Event(this.taskName, true, this.startDate, this.endDate);
+        return new Event(taskName, true, startDate, endDate);
     }
 
     public Task markTaskAsIncomplete() {
-        return new Event(this.taskName, false, this.startDate, this.endDate);
+        return new Event(taskName, false, startDate, endDate);
     }
 
     @Override
     public String toString() {
-        String startDateFormatted = startDate.format(DATE_TIME_FORMATTER);
-        String endDateFormatted = endDate.format(DATE_TIME_FORMATTER);
+        String startDateFormatted = startDate.format(Event.DATE_TIME_FORMATTER);
+        String endDateFormatted = endDate.format(Event.DATE_TIME_FORMATTER);
         return "[E]" + super.toString() + String.format(" (from: %s to: %s)", startDateFormatted, endDateFormatted);
     }
 }

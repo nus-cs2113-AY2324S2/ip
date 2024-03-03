@@ -8,6 +8,7 @@ import bob.utils.TaskManager;
 public class ByeCommand extends Command {
     /**
      * Creates a ByeCommand Object.
+     *
      * @param taskManager Current TaskManager instance.
      */
     public ByeCommand(TaskManager taskManager) {

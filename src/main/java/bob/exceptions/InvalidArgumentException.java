@@ -9,6 +9,7 @@ public class InvalidArgumentException extends Exception {
 
     /**
      * Creates InvalidArgumentException.
+     *
      * @param command Type of command which triggered the exception.
      */
     public InvalidArgumentException(String command) {
@@ -17,9 +18,9 @@ public class InvalidArgumentException extends Exception {
 
     @Override
     public String getMessage() {
-        String errorMessage = ERROR_MESSAGE + " Usage:\n";
+        String errorMessage = InvalidArgumentException.ERROR_MESSAGE + " Usage:\n";
 
-        switch (this.command) {
+        switch (command) {
         case "DELETE":
             errorMessage += "  delete <task number>";
             break;

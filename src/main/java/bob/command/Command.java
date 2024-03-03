@@ -11,9 +11,10 @@ abstract public class Command {
 
     /**
      * Abstract constructor for a Command Object.
+     *
      * @param taskManager Current TaskManager instance.
      */
-    public Command(TaskManager taskManager) {
+    protected Command(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
 

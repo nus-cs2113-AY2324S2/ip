@@ -11,8 +11,9 @@ public class UnmarkCommand extends Command {
 
     /**
      * Creates an UnmarkCommand Object.
+     *
      * @param taskManager Current TaskManager instance.
-     * @param taskId ID of Task to be marked as undone/incomplete.
+     * @param taskId      ID of Task to be marked as undone/incomplete.
      */
     public UnmarkCommand(TaskManager taskManager, int taskId) {
         super(taskManager);
@@ -22,7 +23,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String executeCommand() throws InvalidTaskNumberException {
         try {
-            return taskManager.updateTaskProgress(this.taskId, "UNMARK");
+            return taskManager.updateTaskProgress(taskId, "UNMARK");
         } catch (NullPointerException | IndexOutOfBoundsException exception) {
             throw new InvalidTaskNumberException("UNMARK");
         }

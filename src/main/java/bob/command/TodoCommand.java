@@ -10,8 +10,9 @@ public class TodoCommand extends Command {
 
     /**
      * Creates a TodoCommand Object.
+     *
      * @param taskManager Current TaskManager instance.
-     * @param taskName Name of Todo Task to be created.
+     * @param taskName    Name of Todo Task to be created.
      */
     public TodoCommand(TaskManager taskManager, String taskName) {
         super(taskManager);
@@ -20,6 +21,6 @@ public class TodoCommand extends Command {
 
     @Override
     public String executeCommand() {
-        return taskManager.addTodo(this.taskName);
+        return taskManager.addTodo(taskName);
     }
 }

@@ -17,7 +17,8 @@ public class InvalidDateTimeException extends Exception {
 
     /**
      * Creates InvalidDateTimeException.
-     * @param command Type of command which triggered the exception.
+     *
+     * @param command   Type of command which triggered the exception.
      * @param errorType Type of error.
      */
     public InvalidDateTimeException(String command, String errorType) {
@@ -29,10 +30,10 @@ public class InvalidDateTimeException extends Exception {
     public String getMessage() {
         String errorMessage;
 
-        if (errorType.equals(INVALID_END_TIME)) {
-            errorMessage = INVALID_END_TIME + " Usage:\n";
+        if (errorType.equals(InvalidDateTimeException.INVALID_END_TIME)) {
+            errorMessage = InvalidDateTimeException.INVALID_END_TIME + " Usage:\n";
         } else {
-            errorMessage = START_AFTER_END + " Usage:\n";
+            errorMessage = InvalidDateTimeException.START_AFTER_END + " Usage:\n";
         }
 
         if (command.equals("DEADLINE")) {

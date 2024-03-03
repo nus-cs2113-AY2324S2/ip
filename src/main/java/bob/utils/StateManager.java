@@ -44,7 +44,7 @@ public class StateManager {
      * @throws IOException If program cannot write to memory.
      */
     private static void write(String input) throws IOException {
-        File f = new File(DATA_STATE_FILEPATH);
+        File f = new File(StateManager.DATA_STATE_FILEPATH);
         if (!f.exists()) {
             f.getParentFile().mkdirs();
             f.createNewFile();
@@ -62,7 +62,7 @@ public class StateManager {
      * @throws IOException If program cannot read from memory.
      */
     public static TaskManager loadState() throws IOException {
-        File f = new File(DATA_STATE_FILEPATH);
+        File f = new File(StateManager.DATA_STATE_FILEPATH);
 
         if (f.exists()) {
             BufferedReader br = new BufferedReader(new FileReader(f));

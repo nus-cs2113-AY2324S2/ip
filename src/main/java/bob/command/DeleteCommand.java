@@ -11,8 +11,9 @@ public class DeleteCommand extends Command {
 
     /**
      * Creates a DeleteCommand Object.
+     *
      * @param taskManager Current TaskManager instance.
-     * @param taskId ID of Task to be deleted.
+     * @param taskId      ID of Task to be deleted.
      */
     public DeleteCommand(TaskManager taskManager, int taskId) {
         super(taskManager);
@@ -22,7 +23,7 @@ public class DeleteCommand extends Command {
     @Override
     public String executeCommand() throws InvalidTaskNumberException {
         try {
-            return taskManager.deleteTask(this.taskId);
+            return taskManager.deleteTask(taskId);
         } catch (NullPointerException | IndexOutOfBoundsException exception) {
             throw new InvalidTaskNumberException("DELETE");
         }

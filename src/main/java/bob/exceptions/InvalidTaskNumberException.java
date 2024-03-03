@@ -9,6 +9,7 @@ public class InvalidTaskNumberException extends Exception {
 
     /**
      * Creates InvalidTaskNumberException.
+     *
      * @param command Type of command which triggered the exception.
      */
     public InvalidTaskNumberException(String command) {
@@ -17,7 +18,7 @@ public class InvalidTaskNumberException extends Exception {
 
     @Override
     public String getMessage() {
-        String errorMessage = ERROR_MESSAGE + " Usage:\n";
+        String errorMessage = InvalidTaskNumberException.ERROR_MESSAGE + " Usage:\n";
 
         if (command.equals("MARK")) {
             errorMessage += "  mark <task number>";

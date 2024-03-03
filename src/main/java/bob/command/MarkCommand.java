@@ -11,8 +11,9 @@ public class MarkCommand extends Command {
 
     /**
      * Creates a MarkCommand Object.
+     *
      * @param taskManager Current TaskManager instance.
-     * @param taskId ID of Task to be marked as done.
+     * @param taskId      ID of Task to be marked as done.
      */
     public MarkCommand(TaskManager taskManager, int taskId) {
         super(taskManager);
@@ -22,7 +23,7 @@ public class MarkCommand extends Command {
     @Override
     public String executeCommand() throws InvalidTaskNumberException {
         try {
-            return taskManager.updateTaskProgress(this.taskId, "MARK");
+            return taskManager.updateTaskProgress(taskId, "MARK");
         } catch (NullPointerException | IndexOutOfBoundsException exception) {
             throw new InvalidTaskNumberException("MARK");
         }

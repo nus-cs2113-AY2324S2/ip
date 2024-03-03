@@ -18,8 +18,9 @@ public class Deadline extends Task {
 
     /**
      * Constructor to create a Deadline Task Object.
+     *
      * @param taskName Name of Deadline Task.
-     * @param dueDate Due datetime of Deadline Task.
+     * @param dueDate  Due datetime of Deadline Task.
      */
     public Deadline(String taskName, LocalDateTime dueDate) {
         super(taskName, false);
@@ -32,20 +33,20 @@ public class Deadline extends Task {
      * @return String representation of the Task due date.
      */
     public String getDueDate() {
-        return this.dueDate.toString();
+        return dueDate.toString();
     }
 
     public Task markTaskAsComplete() {
-        return new Deadline(this.taskName, true, this.dueDate);
+        return new Deadline(taskName, true, dueDate);
     }
 
     public Task markTaskAsIncomplete() {
-        return new Deadline(this.taskName, false, this.dueDate);
+        return new Deadline(taskName, false, dueDate);
     }
 
     @Override
     public String toString() {
-        String dueDateFormatted = dueDate.format(DATE_TIME_FORMATTER);
+        String dueDateFormatted = dueDate.format(Deadline.DATE_TIME_FORMATTER);
         return "[D]" + super.toString() + String.format(" (by: %s)", dueDateFormatted);
     }
 }

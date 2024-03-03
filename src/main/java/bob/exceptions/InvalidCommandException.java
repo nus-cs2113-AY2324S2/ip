@@ -17,6 +17,6 @@ public class InvalidCommandException extends Exception {
 
     @Override
     public String getMessage() {
-        return ERROR_MESSAGE + COMMAND_USAGE_MESSAGE;
+        return InvalidCommandException.ERROR_MESSAGE + InvalidCommandException.COMMAND_USAGE_MESSAGE;
     }
 }

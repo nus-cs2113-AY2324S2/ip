@@ -20,8 +20,8 @@ public class TaskManager {
      * Creates a new TaskManager Object.
      */
     public TaskManager() {
-        this.tasks = new ArrayList<>();
-        this.taskCount = 0;
+        tasks = new ArrayList<>();
+        taskCount = 0;
     }
 
     /**
