@@ -66,6 +66,8 @@ public class TaskManager {
                 handleDelete(command);
                 int taskIndex = Integer.parseInt(command.substring(7));
                 storage.deleteText(taskIndex);
+            } else if (command.startsWith("find")) {
+                handleFind(command);
             } else {
                 System.out.println("Invalid input. What is " + command + "?");
             }
@@ -102,6 +104,7 @@ public class TaskManager {
             if (splitArray.length >= 2) {
                 String description = splitArray[0].substring(9);
                 String deadline = splitArray[1].substring(3);
+                deadline = Parser.parseDateAndTime(deadline);
                 taskList.add(new DeadlineTask(description, deadline));
                 taskCount += 1;
             } else {
@@ -118,8 +121,10 @@ public class TaskManager {
             String[] splitArray = trimmedCommand.split("/");
             if (splitArray.length >= 3) {
                 String description = splitArray[0].substring(6);
-                String startDate = splitArray[1].substring(5);
+                String startDate = splitArray[1].substring(5).trim();
+                startDate = Parser.parseDateAndTime(startDate);
                 String endDate = splitArray[2].substring(3);
+                endDate = Parser.parseDateAndTime(endDate);
                 taskList.add(new EventTask(description, startDate, endDate));
                 taskCount += 1;
             } else {
@@ -138,6 +143,21 @@ public class TaskManager {
         taskList.remove(taskIndex - 1);
         taskCount -= 1;
         System.out.println("    Now you have " + taskCount + " tasks in the list");
+        System.out.println(Ui.LINE);
+    }
+
+    private void handleFind(String command) {
+        String keyword = command.substring(5).trim().toLowerCase();
+        int index = 1;
+        System.out.println(Ui.LINE);
+        System.out.println("    Here are the matching tasks in your list:");
+        for (Task t : taskList) {
+            if (t.description.toLowerCase().contains(keyword)) {
+                System.out.print("    " + index + ".");
+                t.print();
+                index++;
+            }
+        }
         System.out.println(Ui.LINE);
     }
 }
