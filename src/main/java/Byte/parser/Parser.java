@@ -221,6 +221,9 @@ public class Parser {
         try {
             int index = Integer.parseInt(argument) - 1;
             Task task = tasks.getTask(index);
+            if (task == null) {
+                throw new ByteException("Task not found.");
+            }
             if (task.isDone()) {
                 throw new ByteException("Task is already marked as done.");
             }
@@ -243,6 +246,9 @@ public class Parser {
         try {
             int index = Integer.parseInt(argument) - 1;
             Task task = tasks.getTask(index);
+            if (task == null) {
+                throw new ByteException("Task not found.");
+            }
             if (!task.isDone()) {
                 throw new ByteException("Task is already marked as not done.");
             }
