@@ -12,7 +12,7 @@ import exception.MissingDescriptionException;
 
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     // Constants
     public static final String LINE = "____________________________________________________________";
     public static int insertIndex = 0;
@@ -81,13 +81,10 @@ public class TaskManager {
             System.out.println(LINE);
         }
         else {
-            String removeEventString = userInput.replaceFirst("event", "").trim();
-            String[] firstPartition = removeEventString.split("/from");
-            String eventItem = firstPartition[0];
-            String fromAndToString = firstPartition[1];
-            String[] secondPartition = fromAndToString.split("/to");
-            String eventFrom = secondPartition[0];
-            String eventTo = secondPartition[1];
+            Parser parser = new Parser(userInput);
+            String eventItem = parser.getEventItem();
+            String eventFrom = parser.getEventFrom();
+            String eventTo = parser.getEventTo();
 
             listTasks.add(insertIndex, new Event(eventItem, eventFrom, eventTo));
             System.out.println(LINE);
@@ -105,11 +102,11 @@ public class TaskManager {
             System.out.println(LINE);
         }
         else {
-            String removeDeadlineString = userInput.replaceFirst("deadline", "").trim();
-            String[] parts = removeDeadlineString.split("/by");
-            String deadlineItem = parts[0];
-            String dueBy = parts[1];
-            listTasks.add(insertIndex, new Deadline(deadlineItem, dueBy));
+            Parser parser = new Parser(userInput);
+            String deadlineItem = parser.getDeadlineItem();
+            String deadlineDueBy = parser.getDeadlineDueBy();
+
+            listTasks.add(insertIndex, new Deadline(deadlineItem, deadlineDueBy));
             System.out.println(LINE);
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + listTasks.get(insertIndex));
@@ -124,7 +121,9 @@ public class TaskManager {
         if (userInput.trim().length() == 4){
             throw new MissingDescriptionException();
         } else {
-            String toDoItem = userInput.substring(4).trim();
+            Parser parser = new Parser(userInput);
+            String toDoItem = parser.getToDoItem();
+
             listTasks.add(insertIndex, new ToDo(toDoItem));
             System.out.println(LINE);
             System.out.println("Got it. I've added this task:");

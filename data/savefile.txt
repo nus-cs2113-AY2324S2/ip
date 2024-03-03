@@ -1,1 +1,3 @@
-[T][X] hello
+[E][ ] makan (from: hri ini to: besok)
+[D][ ] turu (by: besok)
+[T][ ] makan tai

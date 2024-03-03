@@ -14,7 +14,6 @@ public class Gandalf {
     // Constants
     public static final String LINE = "____________________________________________________________";
     public static final String BYE_STATEMENT = "bye";
-    public static final String MAKE_LIST_STATEMENT = "make list";
 
     // Task lists object
     static ArrayList<Task> listTasks = new ArrayList<>();
@@ -31,7 +30,6 @@ public class Gandalf {
     }
 
     private static void startProgram() {
-
         loadData();
         printWelcomeMessage();
 
@@ -41,9 +39,9 @@ public class Gandalf {
                 System.out.println(LINE);
                 return;
             } else if (hasSaidList(userInput)) {
-                TaskManager.printList(listTasks);
+                TaskList.printList(listTasks);
             } else {
-                TaskManager.handleUserTasks(userInput, listTasks);
+                TaskList.handleUserTasks(userInput, listTasks);
             }
         }
     }
@@ -73,46 +71,23 @@ public class Gandalf {
             int taskIndex = 1;
             while (load.hasNext()) {
                 String text = load.nextLine();
-                String parsedTask = parseTask(text);
-                previousTasks.add(parsedTask);
-                boolean marked = checkTasksMarkings(text);
-                if (marked) {
+                String parsedPreviousTask = Parser.parsePreviousTask(text);
+                previousTasks.add(parsedPreviousTask);
+                boolean isMarked = checkTasksMarkings(text);
+                if (isMarked) {
                     previousTasks.add("mark " + taskIndex);
                 }
                 taskIndex += 1;
             }
         }
         for (String previousTask : previousTasks) {
-            TaskManager.handleUserTasks(previousTask, listTasks);
+            TaskList.handleUserTasks(previousTask, listTasks);
         }
         load.close();
     }
 
     private static boolean checkTasksMarkings (String text) {
         return text.contains("[X]");
-    }
-
-    private static String parseTask(String line) {
-        String parsedTask = null;
-        if (line.startsWith("[T]")) {
-            // Todo task
-            parsedTask = "todo " + line.substring(6).trim();
-        } else if (line.startsWith("[D]")) {
-            // Deadline task
-            int endIndex = line.indexOf("(by:");
-            String description = line.substring(6, endIndex).trim();
-            String deadline = line.substring(endIndex + 5, line.length() - 1).trim();
-            parsedTask = "deadline " + description + " /by " + deadline;
-        } else if (line.startsWith("[E]")) {
-            // Event task
-            int fromIndex = line.indexOf("(from:") + 6;
-            int toIndex = line.indexOf("to:");
-            String description = line.substring(6, fromIndex - 7).trim();
-            String fromTime = line.substring(fromIndex, toIndex - 1).trim();
-            String toTime = line.substring(toIndex + 4, line.length() - 1).trim();
-            parsedTask = "event " + description + " /from " + fromTime + " /to " + toTime;
-        }
-        return parsedTask;
     }
 
     private static void saveTasks() {
@@ -165,10 +140,6 @@ public class Gandalf {
         return text.equals(BYE_STATEMENT);
     }
 
-    private static boolean isMakeList(String text) {
-        return text.equals(MAKE_LIST_STATEMENT);
-    }
-
     private static String getUserInput() {
         return in.nextLine();
     }
@@ -179,15 +150,9 @@ public class Gandalf {
         System.out.println("Please wait while I load your previous To-Do List.");
     }
 
-    private static void echoMessage(String text) {
-        System.out.println(LINE);
-        System.out.println(text);
-    }
-
     private static void endMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
         in.close();
     }
-    //testing
 }
