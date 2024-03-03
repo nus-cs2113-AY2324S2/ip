@@ -12,8 +12,7 @@ You may also keep track of your progress through the utility functions:
 2. Mark: to mark a task as complete or incomplete 
 3. Find: to search for a specific task through a keyword 
 4. Delete: to remove tasks from your list
-5. Save: to export your data into a file to synchronize your progress across instances
-ross runs!
+5. Save: to export your data into a file to synchronize your progress across runs!
 
 ## Usage
 ### Running Artemis 
