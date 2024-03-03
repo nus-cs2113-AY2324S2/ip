@@ -1,6 +1,7 @@
 package gandalf;
 
 import action.Task;
+import exception.FailedDirectoryCreationException;
 import exception.FileEmptyException;
 
 import java.io.File;
@@ -13,12 +14,13 @@ import java.util.Scanner;
 public class Storage {
     static ArrayList<String> previousTasks = new ArrayList<>();
 
+
     public static void loadData(ArrayList<Task> listTasks) {
         try {
             Ui.printLoadingMessage();
             loadTasks("data/savefile.txt", listTasks);
         } catch (FileNotFoundException e) {
-            Ui.printFileNotFoundMessage();;
+            Ui.printFileNotFoundMessage();
         } catch (FileEmptyException e) {
             Ui.printEmptyFileMessage();
         }
@@ -44,36 +46,40 @@ public class Storage {
             }
         }
         for (String previousTask : previousTasks) {
-            TaskList.handleUserTasks(previousTask, listTasks);
+            Ui.handleUserInput(previousTask, listTasks);
         }
         load.close();
     }
 
     public static void saveTasks(ArrayList<Task> listTasks) {
         try {
-            File dataDir = new File("./data");
-            if (!dataDir.exists()) {
-                if (dataDir.mkdirs()) {
-                    System.out.println("Data directory created successfully.");
-                } else {
-                    System.err.println("Failed to create data directory.");
-                    return;
-                }
-            }
 
+            createDirectory();
             String filePath = "./data/savefile.txt";
             FileWriter writer = new FileWriter(filePath);
             String concatenatedData = compileData(listTasks);
             writer.write(concatenatedData);
             writer.close();
 
-            System.out.println("Content has been saved to the file successfully.");
+            printSuccessfulSaveMessage();
 
-        } catch (IOException e) {
-            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        } catch (FailedDirectoryCreationException e) {
+            printFailedDirectoryCreationMessage();
+        } catch(IOException e) {
+            printCorruptedWriteMessage(e);
         }
     }
 
+    private static void createDirectory() throws FailedDirectoryCreationException {
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists()) {
+            if (dataDirectory.mkdirs()) {
+                printSuccessfulDirectoryCreationMessage();
+            } else {
+                throw new FailedDirectoryCreationException();
+            }
+        }
+    }
     private static String compileData(ArrayList<Task> listTasks) {
         StringBuilder dataToSave = new StringBuilder();
         for (Task listTask : listTasks) {
@@ -84,4 +90,21 @@ public class Storage {
         }
         return dataToSave.toString();
     }
+
+    private static void printFailedDirectoryCreationMessage() {
+        System.out.println("Failed to create data directory.");
+    }
+
+    private static void printSuccessfulDirectoryCreationMessage() {
+        System.out.println("Data directory created successfully.");
+    }
+
+    private static void printSuccessfulSaveMessage() {
+        System.out.println("Content has been saved to the file successfully.");
+    }
+
+    private static void printCorruptedWriteMessage(IOException e) {
+        System.out.println("An error occurred while writing to the file: " + e.getMessage());
+    }
+
 }

@@ -1,13 +1,17 @@
 package gandalf;
 
 import action.Task;
+import exception.IncompleteCommandException;
+import exception.InvalidKeywordException;
+import exception.InvalidTaskDeletionException;
+import exception.InvalidTaskIndexException;
+import exception.MissingDescriptionException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
 
-    // Scanner object
     static Scanner in = new Scanner(System.in);
 
     static ArrayList<Task> listTasks = new ArrayList<>();
@@ -15,7 +19,50 @@ public class Ui {
     public static final String LINE = "____________________________________________________________";
     public static final String BYE_STATEMENT = "bye";
 
-    private static void printWelcomeMessage() {
+    public static void startProgram() {
+
+        Storage.loadData(listTasks);
+        printAddItemMessage();
+
+        while (true) {
+            String userInput = getUserInput();
+            if (hasSaidBye(userInput)) {
+                System.out.println(LINE);
+                Storage.saveTasks(listTasks);
+                return;
+            } else {
+                handleUserInput(userInput, listTasks);
+            }
+        }
+    }
+
+    public static void handleUserInput(String userInput, ArrayList<Task> listTasks)  {
+        try {
+            if (hasSaidMarkOrUnmark(userInput)) {
+                TaskList.handleTasksMarkings(userInput, listTasks);
+            } else if (hasSaidDelete(userInput)) {
+                TaskList.deleteUserTasks(userInput, listTasks);
+            } else if (hasSaidList(userInput)) {
+                printListOfTasks(listTasks);
+            } else {
+                TaskList.insertUserTasks(userInput, listTasks);
+            }
+        } catch (InvalidKeywordException e) {
+            printInvalidKeywordMessage();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printListIsFullMessage();
+        } catch (MissingDescriptionException e) {
+            printMissingDescriptionMessage();
+        } catch (InvalidTaskIndexException e) {
+            printInvalidTaskIndexMessage();
+        } catch (InvalidTaskDeletionException e) {
+            printInvalidTaskDeletionMessage();
+        } catch (IncompleteCommandException e) {
+            printIncompleteCommandMessage();
+        }
+    }
+
+    public static void printAddItemMessage() {
         System.out.println(LINE);
         System.out.println("What would you like to be added to the list?");
         System.out.println(LINE);
@@ -33,7 +80,7 @@ public class Ui {
         return in.nextLine();
     }
 
-    public static void startMessage() {
+    public static void welcomeMessage() {
         System.out.println(LINE);
         System.out.println("Hello! I'm Gandalf, your favorite personal assistant.");
         System.out.println("Please wait while I load your previous To-Do List.");
@@ -45,23 +92,11 @@ public class Ui {
         in.close();
     }
 
-    public static void startProgram() {
-        Storage.loadData(listTasks);
-        printWelcomeMessage();
-
-        while (true) {
-            String userInput = getUserInput();
-            if (hasSaidBye(userInput)) {
-                System.out.println(LINE);
-                Storage.saveTasks(listTasks);
-                return;
-            } else if (hasSaidList(userInput)) {
-                TaskList.printList(listTasks);
-            } else {
-                TaskList.handleUserTasks(userInput, listTasks);
-            }
-        }
+    private static void printIncompleteCommandMessage() {
+        System.out.println("Your command is incomplete.");
+        System.out.println(LINE);
     }
+
     public static void printLoadingMessage () {
         System.out.println(LINE);
         System.out.println("Loading previous To-Do List....");
@@ -71,10 +106,12 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("File not found. You may start creating your new list.");
     }
+
     public static void printEmptyFileMessage() {
         System.out.println(LINE);
-        System.out.println("No save data found. You may start creating your new list.");
+        System.out.println("Your safe file is empty. You may start creating your new list.");
     }
+
     public static void printListIsFullMessage() {
         System.out.println(LINE);
         System.out.println("List is full. Cannot add more items.");
@@ -84,7 +121,10 @@ public class Ui {
     public static void printInvalidKeywordMessage() {
         System.out.println(LINE);
         System.out.println("Invalid keyword, the available keywords are:"
-                + "\n(todo), (deadline), (event)"
+                + "\n1. todo -> (todo [description])"
+                + "\n2. deadline -> (deadline [description] /by [due])"
+                + "\n3. event -> (event [description] /from [start time] /to [end time])"
+                + "\n4. list -> Shows all items on the To-Do list"
                 + "\nPlease try again.");
         System.out.println(LINE);
     }
@@ -106,4 +146,58 @@ public class Ui {
         System.out.println("Deletion unsuccessful, please try again.");
         System.out.println(LINE);
     }
+
+    private static boolean hasSaidMarkOrUnmark(String userInput) {
+        return (userInput.startsWith("mark ")  || userInput.startsWith("unmark "));
+    }
+
+    private static boolean hasSaidDelete(String userInput) {
+        return userInput.startsWith("delete");
+    }
+
+    public static void printListOfTasks(ArrayList<Task> listTasks) {
+        System.out.println(LINE);
+        System.out.println("Here are the tasks in your list:");
+        if (listTasks.isEmpty()) {
+            System.out.println("  [Whoops your list is empty]");
+        }
+        for (int i = 0; i < listTasks.size(); i++) {
+            if (listTasks.get(i) != null) {
+                System.out.println((i + 1) + ". " + listTasks.get(i));
+            }
+        }
+        System.out.println(LINE);
+    }
+
+    public static void printTaskIsUnmarkedMessage(ArrayList<Task> listTasks, int indexToUnmark) {
+        System.out.println(LINE);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("  " + listTasks.get(indexToUnmark - 1));
+        System.out.println(LINE);
+    }
+
+    public static void printTaskIsMarkedMessage(ArrayList<Task> listTasks, int indexToMark) {
+        System.out.println(LINE);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("  " + listTasks.get(indexToMark - 1));
+        System.out.println(LINE);
+    }
+
+    public static void printNumberOfTasks(int insertIndex) {
+        System.out.println("Now you have " + insertIndex + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    public static void printTaskIsDeletedMessage(ArrayList<Task> listTasks, int indexToDelete) {
+        System.out.println(LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + listTasks.get(indexToDelete - 1));
+    }
+
+    public static void printTaskIsAddedMessage(ArrayList<Task> listTasks, int insertIndex) {
+        System.out.println(LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + listTasks.get(insertIndex));
+    }
+
 }
