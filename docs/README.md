@@ -36,11 +36,13 @@ Got it! I've added this task:
 [E][ ] CS2113 homework(from: Monday to: Friday)
 ```
 
+
 ### Listing all tasks: `list`
 
 Shows a list of all tasks in the task list.
 
 Format: `list`
+
 
 ### Deleting a task: `delete`
 
@@ -51,6 +53,7 @@ Format: `delete INDEX`
 - The index refers to the index number shown after `list` command.
 - The index must be a positive integer 1, 2, 3, ...
 
+
 ### Marking a task as done: `mark`
 
 Marks a task in the task list as done.
@@ -59,6 +62,7 @@ Format: `mark INDEX`
 - Marks the task at the specified INDEX as done.
 - Description of the index is same as the description in `delete`.
 
+
 ### Marking a task as not done: `unmark`
 
 Marks a task in the task list as not done.
@@ -66,6 +70,7 @@ Marks a task in the task list as not done.
 Format: `unmark INDEX`
 - Marks the task at the specified INDEX as not done.
 - Description of the index is same as the description in `delete`.
+
 
 ### Finding a task by keyword: `find`
 
@@ -77,11 +82,13 @@ Format: `find KEYWORD`
 Examples:
 - `find CS2113` returns `[T][ ] CS2113 homework`, `[D][ ] CS2113 homework(by: Friday)` and `[E][ ] CS2113 homework(from: Monday to: Friday)`
 
+
 ### Exiting the program : `bye`
 
 Exits the program.
 
 Format: `bye`
+
 
 ### Saving the data
 
