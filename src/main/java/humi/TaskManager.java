@@ -102,6 +102,7 @@ public class TaskManager {
             if (splitArray.length >= 2) {
                 String description = splitArray[0].substring(9);
                 String deadline = splitArray[1].substring(3);
+                deadline = Parser.parseDateAndTime(deadline);
                 taskList.add(new DeadlineTask(description, deadline));
                 taskCount += 1;
             } else {
@@ -118,8 +119,10 @@ public class TaskManager {
             String[] splitArray = trimmedCommand.split("/");
             if (splitArray.length >= 3) {
                 String description = splitArray[0].substring(6);
-                String startDate = splitArray[1].substring(5);
+                String startDate = splitArray[1].substring(5).trim();
+                startDate = Parser.parseDateAndTime(startDate);
                 String endDate = splitArray[2].substring(3);
+                endDate = Parser.parseDateAndTime(endDate);
                 taskList.add(new EventTask(description, startDate, endDate));
                 taskCount += 1;
             } else {
