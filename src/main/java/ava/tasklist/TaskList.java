@@ -102,4 +102,22 @@ public class TaskList extends ArrayList<Task> {
 
         ui.printAfterMarkingTask(this, isMark, taskChanged);
     }
+
+    public void findTask(String command) {
+        int indexOfTask = 0;
+        int noOfMatchedTask = 0;
+        command = command.substring(5);
+
+        while (indexOfTask < this.size()) {
+            if (this.get(indexOfTask).toString().contains(command)) {
+                noOfMatchedTask += 1;
+                ui.printAfterFindingTask(this, noOfMatchedTask, indexOfTask);
+            }
+            indexOfTask += 1;
+        }
+
+        if (noOfMatchedTask == 0) {
+            ui.printAfterNoTaskFound();
+        }
+    }
 }
