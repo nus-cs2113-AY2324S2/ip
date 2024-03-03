@@ -27,7 +27,7 @@ public abstract class Task {
 
     public String toStoreString() {
         String statusIcon = isDone ? "1" : "0";
-        return type +  " | " + statusIcon + " | " + description;
+        return type +  " | " + statusIcon + " | " + this.toString();
     }
 }
 
