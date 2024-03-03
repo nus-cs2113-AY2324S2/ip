@@ -1,4 +1,6 @@
-D | 1 | test | monday
-T | 0 | swag
+T | 1 | nothing much
+T | 1 | lol
+T | 0 | dance away'
 T | 0 | nothing much
-E | 1 | swag | monday 2pm | tuesday 6pm
+D | 0 | wake up | 8pm
+E | 0 | church | 8pm | 9pm
