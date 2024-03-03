@@ -10,7 +10,19 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Manages the storage of tasks in a file.
+ * Allows for reading from and writing to the file, enabling persistence of tasks between sessions.
+ */
 public class Storage {
+
+    /**
+     * Reads tasks from the storage file and returns them as a list.
+     *
+     * @return An ArrayList of Task objects read from the file.
+     * @throws IOException If there's an error reading the file.
+     * @throws ArrayIndexOutOfBoundsException If the data in the file is in an unexpected format.
+     */
     private ArrayList<Task> listRead() throws IOException, ArrayIndexOutOfBoundsException {
         Files.createDirectories(Paths.get("./data"));
         String path = "./data/Ruby.txt";
@@ -44,6 +56,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Writes a list of tasks to the storage file.
+     *
+     * @param taskList The list of tasks to write to the file.
+     * @throws IOException If there's an error writing to the file.
+     */
     private void listWrite(ArrayList<Task> taskList) throws IOException {
         Files.createDirectories(Paths.get("./data"));
         FileWriter out = new FileWriter("./data/Ruby.txt", false);
@@ -54,6 +72,11 @@ public class Storage {
         out.close() ;
     }
 
+    /**
+     * Public method to save the current list of tasks to the file.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveToFile(ArrayList<Task> taskList){
         try{
             listWrite(taskList);
@@ -62,6 +85,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into a list.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     */
     public ArrayList<Task> loadFile(){
         try{
             return listRead();
