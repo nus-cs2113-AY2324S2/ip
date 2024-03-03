@@ -98,7 +98,7 @@ public class TaskList {
      * Adds a todo task to the task list. This method parses the entire full user input and obtains the name
      * of the todo task, and returns the newly added todo task
      *
-     * @param description The full todo command inputted by user
+     * @param command The full todo command inputted by user
      * @return The todo task added to the list.
      * @throws InvalidInputException If the input is does not have format todo <task>.
      */
