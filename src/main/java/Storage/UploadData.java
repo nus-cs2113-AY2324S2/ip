@@ -1,5 +1,6 @@
-package savedData;
+package Storage;
 
+import TaskList.TaskList;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -7,18 +8,16 @@ import tasks.ToDo;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import static savedData.AppendData.*;
+import static Storage.AppendData.*;
 
 public class UploadData {
 
-    private static final String FILE_PATH = "src/data/peekay.txt";
     private static final String ERROR_MESSAGE = "Error saving file.";
     private static boolean isFirstWrite = true;
-    public static void updateFile(ArrayList<Task> tasks) throws IOException {
-        for (Task task : tasks) {
-            FileWriter fw = new FileWriter(FILE_PATH, !isFirstWrite);
+    public static void updateFile(String filepath,TaskList tasks) throws IOException {
+        for (Task task : tasks.getAll()) {
+            FileWriter fw = new FileWriter(filepath, !isFirstWrite);
             if (task.getTaskType().equals("T")){
                 try {
                     appendToDo((ToDo) task, fw);

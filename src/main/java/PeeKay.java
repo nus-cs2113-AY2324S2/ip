@@ -1,14 +1,32 @@
-import static input.HandleInput.chat;
+import static Parser.Parser.chat;
+
+import Parser.Parser;
+import Storage.Storage;
+import TaskList.TaskList;
+import Ui.Ui;
+
+import java.io.FileNotFoundException;
+
 public class PeeKay {
 
-    static String line = "\t____________________________________________________________";
+    private TaskList tasks;
 
-    public static void main(String[] args) {
+    public PeeKay (String filepath) {
+        try {
+            tasks = new TaskList(Storage.load(filepath));
+        } catch (FileNotFoundException e) {
+            tasks = new TaskList();
+        }
+        Parser parser = new Parser(filepath,tasks);
+    }
+    public void run() {
+        Ui.showLine();
+        Ui.sayHi();
+        Ui.showLine();
 
-        System.out.println(line);
-        System.out.println("\t Hello! I'm PeeKay");
-        System.out.println("\t What can I do for you?");
-        System.out.println(line);
         chat();
+    }
+    public static void main(String[] args) {
+        new PeeKay("src/data/peekay.txt").run();
     }
 }

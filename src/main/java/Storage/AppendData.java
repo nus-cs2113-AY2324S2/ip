@@ -1,4 +1,4 @@
-package savedData;
+package Storage;
 
 import tasks.Deadline;
 import tasks.Event;
