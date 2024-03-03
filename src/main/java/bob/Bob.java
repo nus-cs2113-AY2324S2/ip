@@ -43,8 +43,6 @@ public class Bob {
                 userInterface.print(executionResult);
             } catch (IOException | InvalidCommandException | InvalidTaskNumberException |
                      InvalidArgumentException | InvalidDateTimeException exception) {
-                // Todo: Account for IOException handling when program cannot write to state file. Consider throwing
-                // a RuntimeException.
                 userInterface.clearInput();
                 userInterface.print(exception.getMessage());
             }

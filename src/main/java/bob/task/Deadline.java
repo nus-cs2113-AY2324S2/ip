@@ -28,7 +28,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Due date getter method.
+     * Returns the Due Date of the current Task.
+     * Due Date is formatted as a String in DD/MM/YYYY HH:MM format.
      *
      * @return String representation of the Task due date.
      */

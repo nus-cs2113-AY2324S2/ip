@@ -44,13 +44,18 @@ public class Parser {
         case "LIST":
             return new ListCommand(taskManager);
         case "FIND":
+            // Fallthrough
         case "MARK":
+            // Fallthrough
         case "UNMARK":
+            // Fallthrough
         case "DELETE":
             arguments = parseArguments(userCommand, userInterface);
             return getTaskUtilityCommand(taskManager, userCommand, arguments);
         case "TODO":
+            // Fallthrough
         case "DEADLINE":
+            // Fallthrough
         case "EVENT":
             arguments = parseArguments(userCommand, userInterface);
             return getTaskCreationCommand(taskManager, userCommand, arguments);

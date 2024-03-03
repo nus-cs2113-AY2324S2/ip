@@ -21,7 +21,7 @@ public class Ui {
     }
 
     /**
-     * Reads user commands from standard input.
+     * Reads user commands from standard input. Returns the user command as an uppercase String.
      *
      * @return User command as an uppercase String.
      */
@@ -39,6 +39,7 @@ public class Ui {
 
     /**
      * Checks if there is more input.
+     * Returns true if there is more input to read.
      *
      * @return Boolean value indicating if there is more input.
      */
@@ -57,6 +58,7 @@ public class Ui {
 
     /**
      * Attempts to return a match result from a regular expression scan.
+     * Returns the matched result, as per the provided regular expression String.
      *
      * @return Match result from the previous regular expression scan.
      */
@@ -79,7 +81,7 @@ public class Ui {
     }
 
     /**
-     * Format and print provided output String.
+     * Formats and prints provided output String.
      *
      * @param output Output String to be printed.
      */
@@ -90,14 +92,14 @@ public class Ui {
     }
 
     /**
-     * Print Welcome message.
+     * Prints Welcome message.
      */
     public void printWelcome() {
         print(Ui.WELCOME);
     }
 
     /**
-     * Print Exit message.
+     * Prints Exit message.
      */
     public void printExit() {
         print(Ui.EXIT);

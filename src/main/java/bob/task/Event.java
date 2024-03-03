@@ -31,7 +31,8 @@ public class Event extends Task {
     }
 
     /**
-     * Start date getter method.
+     * Returns the Start Date of the current Task.
+     * Start Date is formatted as a String in DD/MM/YYYY HH:MM format.
      *
      * @return String representation of the Task start date.
      */
@@ -40,7 +41,8 @@ public class Event extends Task {
     }
 
     /**
-     * End date getter method.
+     * Returns the End Date of the current Task.
+     * End Date is formatted as a String in DD/MM/YYYY HH:MM format.
      *
      * @return String representation of the Task end date.
      */

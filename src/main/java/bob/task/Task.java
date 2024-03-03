@@ -13,7 +13,7 @@ abstract public class Task {
     }
 
     /**
-     * Task Name getter method.
+     * Returns the name of the current Task.
      *
      * @return Task Name String.
      */
@@ -22,23 +22,25 @@ abstract public class Task {
     }
 
     /**
-     * Completion Status getter method.
+     * Returns the Completion Status of the Task.
+     * Completion Status is "1" if the Task is completed.
+     * Else, Completion Status is "0".
      *
-     * @return String value representing completion status. "1" for True, "0" for False.
+     * @return String value representing completion status.
      */
     public String getCompletionStatus() {
         return (isCompleted) ? "1" : "0";
     }
 
     /**
-     * Marks a Task as completed.
+     * Marks a Task as completed, and returns a new instance of the completed Task.
      *
      * @return New instance of the completed Task.
      */
     abstract public Task markTaskAsComplete();
 
     /**
-     * Marks a Task as incomplete.
+     * Marks a Task as incomplete, and returns a new instance of the incomplete Task.
      *
      * @return New instance of the incomplete Task.
      */

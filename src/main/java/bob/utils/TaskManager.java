@@ -25,7 +25,8 @@ public class TaskManager {
     }
 
     /**
-     * Tokenize Tasks. Task properties/variables are set as individual elements of the inner List.
+     * Tokenizes Tasks in the Task List.
+     * Task properties/variables are set as individual elements of the inner List.
      *
      * @return List of Lists of String. Each inner List represents a tokenized Task.
      */
@@ -56,7 +57,7 @@ public class TaskManager {
     }
 
     /**
-     * Add a new Task to the Task List.
+     * Adds a new Task to the Task List.
      *
      * @param newTask New Task to be added.
      * @return Result String from the operation performed.
@@ -74,7 +75,7 @@ public class TaskManager {
     }
 
     /**
-     * Add a new Todo Task.
+     * Adds a new Todo Task.
      *
      * @param taskName Name of Todo Task to be added.
      * @return Result String from the addition operation.
@@ -85,7 +86,7 @@ public class TaskManager {
     }
 
     /**
-     * Add a new Deadline Task.
+     * Adds a new Deadline Task.
      *
      * @param taskName Name of Deadline Task to be added.
      * @param dueDate  Due date of the Deadline Task.
@@ -97,7 +98,7 @@ public class TaskManager {
     }
 
     /**
-     * Add a new Event Task.
+     * Adds a new Event Task.
      *
      * @param taskName  Name of Event Task to be added.
      * @param startDate Start date of the Event Task.
@@ -110,7 +111,7 @@ public class TaskManager {
     }
 
     /**
-     * List out all Tasks in the Task List.
+     * Lists out all Tasks in the Task List.
      *
      * @return String representation of all Tasks in the Task List.
      */
@@ -127,7 +128,7 @@ public class TaskManager {
     }
 
     /**
-     * Update the progress of a Task in the Task List.
+     * Updates the progress of a Task in the Task List.
      *
      * @param taskId  ID of the Task to be updated.
      * @param command The operation to be performed on the Task (mark/unmark).

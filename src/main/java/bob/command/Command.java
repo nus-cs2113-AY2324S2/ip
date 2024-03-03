@@ -19,7 +19,7 @@ abstract public class Command {
     }
 
     /**
-     * Executes the current Command.
+     * Executes the current Command, and returns the execution result as a String.
      *
      * @return Result String of the executed Command.
      * @throws InvalidTaskNumberException If an invalid task number is provided to the Command.
@@ -28,6 +28,8 @@ abstract public class Command {
 
     /**
      * Checks if the current Command is an Exit Command (i.e. Bye)
+     * Returns true if the current Command is an Exit Command (i.e. Bye).
+     * Else, returns false.
      *
      * @return Boolean value denoting if the Command is an Exit Command.
      */

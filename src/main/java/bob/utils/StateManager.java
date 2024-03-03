@@ -12,16 +12,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Handles the loading and saving of Bob Chat-Bot state to local memory.
+ * Handles the loading and saving of Bob Chat-Bot state to local storage.
  */
 public class StateManager {
-    private static final String DATA_STATE_FILEPATH = "data/state.txt"; // Todo: Consider changing to Path object.
+    private static final String DATA_STATE_FILEPATH = "data/state.txt";
 
     /**
-     * Saves the current state of the Chat-Bot to local memory.
+     * Saves the current state of the Chat-Bot to local storage.
      *
      * @param taskManager TaskManager object belonging to the current instance of the Chat-Bot.
-     * @throws IOException If program cannot write to memory.
+     * @throws IOException If program cannot write to storage.
      */
     public static void saveState(TaskManager taskManager) throws IOException {
         List<List<String>> tokenizedTasks = taskManager.tokenizeTasks();
@@ -38,10 +38,10 @@ public class StateManager {
     }
 
     /**
-     * Writes local state to a state file in local memory.
+     * Writes local state to a state file in local storage.
      *
      * @param input String formatted Chat-Bot state.
-     * @throws IOException If program cannot write to memory.
+     * @throws IOException If program cannot write to storage.
      */
     private static void write(String input) throws IOException {
         File f = new File(StateManager.DATA_STATE_FILEPATH);
@@ -56,10 +56,10 @@ public class StateManager {
     }
 
     /**
-     * Loads the saved state of the Chat-Bot from local memory.
+     * Loads the saved state of the Chat-Bot from local storage.
      *
      * @return TaskManager instance with loaded tasks.
-     * @throws IOException If program cannot read from memory.
+     * @throws IOException If program cannot read from storage.
      */
     public static TaskManager loadState() throws IOException {
         File f = new File(StateManager.DATA_STATE_FILEPATH);
@@ -73,7 +73,7 @@ public class StateManager {
     }
 
     /**
-     * Loads state from a state file in local memory.
+     * Loads state from a state file in local storage.
      * State is passed in as a String Stream.
      *
      * @param taskStream Stream of String-formatted Tasks
