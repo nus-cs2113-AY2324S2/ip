@@ -1,3 +1,7 @@
 [T][X] eat
 [T][X] drink
 [T][X] sleep
+[T][ ] eat
+[T][ ] eat
+[T][ ] eat
+[T][ ] eat me

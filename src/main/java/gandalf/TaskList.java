@@ -5,6 +5,7 @@ import action.Event;
 import action.Task;
 import action.ToDo;
 
+import exception.EmptyFindException;
 import exception.IncompleteCommandException;
 import exception.InvalidKeywordException;
 import exception.InvalidTaskDeletionException;
@@ -141,4 +142,11 @@ public class TaskList {
         return indexToMark >= 1 && indexToMark <= listTasks.size() && listTasks.get(indexToMark - 1) != null;
     }
 
+    public static void findUserTasks(String userInput, ArrayList<Task> listTasks) throws EmptyFindException {
+        if (userInput.trim().equals("find")) {
+            throw new EmptyFindException();
+        }
+        String taskToFind = Parser.parseTaskToFind(userInput);
+        Ui.printMatchingListOfTasks (taskToFind, listTasks);
+    }
 }

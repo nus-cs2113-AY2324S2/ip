@@ -15,6 +15,10 @@ public class Parser {
         parseInput();
     }
 
+    public static String parseTaskToFind(String userInput) {
+        return userInput.replaceFirst("find","").trim();
+    }
+
     private void parseInput() {
         if (userInput.startsWith("event")) {
             String removeEventString = userInput.replaceFirst("event", "").trim();
