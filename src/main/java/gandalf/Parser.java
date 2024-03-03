@@ -29,7 +29,7 @@ public class Parser {
             String removeDeadlineString = userInput.replaceFirst("deadline", "").trim();
             String[] parts = removeDeadlineString.split("/by");
             deadlineItem = parts[0];
-            deadlineDueBy = parts[1];
+            deadlineDueBy = parts[1].trim();
         }
         else {
             toDoItem = userInput.substring(4).trim();

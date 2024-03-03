@@ -5,12 +5,12 @@ import action.Event;
 import action.Task;
 import action.ToDo;
 
-import exception.IncompleteCommandException;
-import exception.InvalidKeywordException;
-import exception.InvalidTaskDeletionException;
-import exception.InvalidTaskIndexException;
-import exception.MissingDescriptionException;
+import exception.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -37,7 +37,7 @@ public class TaskList {
 
     public static void insertUserTasks (String userInput, ArrayList<Task> listTasks, boolean hideInput)
             throws InvalidKeywordException, MissingDescriptionException,
-            InvalidTaskIndexException, IncompleteCommandException {
+            InvalidTaskIndexException, IncompleteCommandException, InvalidDeadlineFormatException {
         if (userInput.startsWith("todo")) {
             handleToDoTasks(userInput, listTasks, insertIndex, hideInput);
         } else if (userInput.startsWith("deadline")) {
@@ -73,7 +73,7 @@ public class TaskList {
     }
 
     public static void handleDeadlineTasks(String userInput, ArrayList<Task> listTasks, int insertIndex, boolean hideInput)
-            throws IncompleteCommandException {
+            throws IncompleteCommandException, InvalidDeadlineFormatException {
         if (!userInput.contains("/by")) {
             throw new IncompleteCommandException();
         }
@@ -82,13 +82,20 @@ public class TaskList {
             String deadlineItem = parser.getDeadlineItem();
             String deadlineDueBy = parser.getDeadlineDueBy();
 
-            listTasks.add(insertIndex, new Deadline(deadlineItem, deadlineDueBy));
-            if (!hideInput) {
-                Ui.printTaskIsAddedMessage(listTasks, insertIndex);
-            }
-            insertIndex += 1;
-            if (!hideInput) {
-                Ui.printNumberOfTasks(insertIndex);
+            try {
+                LocalDate deadlineDate = LocalDate.parse(deadlineDueBy);
+                String newDeadLineDateFormat = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
+                listTasks.add(insertIndex, new Deadline(deadlineItem, newDeadLineDateFormat));
+                if (!hideInput) {
+                    Ui.printTaskIsAddedMessage(listTasks, insertIndex);
+                }
+                insertIndex += 1;
+                if (!hideInput) {
+                    Ui.printNumberOfTasks(insertIndex);
+                }
+            } catch (DateTimeParseException e) {
+                throw new InvalidDeadlineFormatException();
             }
         }
     }

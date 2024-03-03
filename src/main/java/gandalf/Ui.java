@@ -1,11 +1,7 @@
 package gandalf;
 
 import action.Task;
-import exception.IncompleteCommandException;
-import exception.InvalidKeywordException;
-import exception.InvalidTaskDeletionException;
-import exception.InvalidTaskIndexException;
-import exception.MissingDescriptionException;
+import exception.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,7 +56,15 @@ public class Ui {
             printInvalidTaskDeletionMessage();
         } catch (IncompleteCommandException e) {
             printIncompleteCommandMessage();
+        } catch (InvalidDeadlineFormatException e) {
+            printInvalidDeadlineDateFormat();
         }
+    }
+
+    private static void printInvalidDeadlineDateFormat() {
+        System.out.println(LINE);
+        System.out.println("Deadline format is invalid (yyyy-mm-dd).");
+        System.out.println(LINE);
     }
 
     public static void printAddItemMessage() {
