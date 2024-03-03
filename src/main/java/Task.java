@@ -18,6 +18,18 @@ public class Task {
         this.type = type;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.type = ' ';
+    }
+
+    public Task(String description, char type, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.type = type;
+    }
+
     public String getStatusIcon() {
         return (isDone? "X" : " ");
     }

@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 
 public class Duke {
@@ -11,6 +12,10 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<>();
 
         DukeFile.main(args);
+
+        File newData = DukeFile.getFileData();
+
+        DukeFile.readFromFile(newData, tasks);
 
         AddTask.taskListManager(tasks);
 

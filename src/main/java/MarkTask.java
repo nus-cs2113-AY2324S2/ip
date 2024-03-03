@@ -43,6 +43,6 @@ public class MarkTask {
         } else {
             PrintText.printWithLinebreak("unknown instruction");
         }
-        PrintTask.printToFile(tasks.get(indexInList), indexToMark, false);
+        PrintTask.printMultipleToFile(tasks, false);
     }
 }
