@@ -1,7 +1,14 @@
 package gandalf;
 
 import action.Task;
-import exception.*;
+
+import exception.EmptyFindException;
+import exception.IncompleteCommandException;
+import exception.InvalidKeywordException;
+import exception.InvalidTaskDeletionException;
+import exception.InvalidTaskIndexException;
+import exception.MissingDescriptionException;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +48,8 @@ public class Ui {
                 TaskList.deleteUserTasks(userInput, listTasks);
             } else if (hasSaidList(userInput)) {
                 printListOfTasks(listTasks);
+            } else if (hasSaidFind(userInput)) {
+                TaskList.findUserTasks(userInput, listTasks);
             } else {
                 TaskList.insertUserTasks(userInput, listTasks, hideInput);
             }
@@ -56,9 +65,21 @@ public class Ui {
             printInvalidTaskDeletionMessage();
         } catch (IncompleteCommandException e) {
             printIncompleteCommandMessage();
+        } catch (EmptyFindException e) {
+            printEmptyFindArgumentMessage();
         } catch (InvalidDeadlineFormatException e) {
             printInvalidDeadlineDateFormat();
         }
+    }
+
+    private static void printEmptyFindArgumentMessage() {
+        System.out.println(LINE);
+        System.out.println("Incomplete find argument (find [task name]).");
+        System.out.println(LINE);
+    }
+
+    private static boolean hasSaidFind(String userInput) {
+        return userInput.startsWith("find");
     }
 
     private static void printInvalidDeadlineDateFormat() {
@@ -223,4 +244,22 @@ public class Ui {
         System.out.println("An error occurred while writing to the file: " + e.getMessage());
     }
 
+    public static void printMatchingListOfTasks(String taskToFind, ArrayList<Task> listTasks) {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        if (listTasks.isEmpty()) {
+            System.out.println("  [What do you want to find from an empty list. Haiyaa.]");
+        }
+        int matchingIndex = 0;
+        for (Task listTask : listTasks) {
+            if (listTask.toString().contains(taskToFind)) {
+                System.out.println((matchingIndex + 1) + ". " + listTask);
+                matchingIndex += 1;
+            }
+        }
+        if (matchingIndex == 0) {
+            System.out.println("  [No entries found]");
+        }
+        System.out.println(LINE);
+    }
 }
