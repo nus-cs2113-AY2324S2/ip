@@ -1,29 +1,69 @@
-# User Guide
+# Xavier User Guide
 
 ## Features 
 
-### Feature-ABC
+### Adding a Todo: todo
 
-Description of the feature.
+Adds a todo task to the task list
 
-### Feature-XYZ
+Format: todo TASK
 
-Description of the feature.
+Examples:
+- todo borrow book
+- todo buy groceries
 
-## Usage
+### Adding a Deadline: deadline
 
-### `Keyword` - Describe action
+Adds a deadline task to the task list
 
-Describe the action and its outcome.
+Format: deadline TASK /by DEADLINE
 
-Example of usage: 
+Examples:
+- deadline return book /by tomorrow
+- deadline CS2113 assignment /by 11.59pm
 
-`keyword (optional arguments)`
+### Adding a Event: event
 
-Expected outcome:
+Adds a even task to the task list
 
-Description of the outcome.
+Format: event TASK /from START /to END
 
-```
-expected output
-```
+Examples:
+- event John's birthday /from today 12pm /to 6pm
+- event CS2113 lecture /from tomorrow 10am /to 12pm
+
+### Mark a task as done: mark
+
+Marks the specifed task in the task list as done
+
+Format: mark INDEX
+
+Examples:
+- mark 1
+
+### Unmark a task (set as not done): unmark
+
+Unmarks the specifed task in the task list (set as not done)
+
+Format: unmark INDEX
+
+Examples:
+- unmark 2
+
+### Delete a task: delete
+
+Deletes the specifed task from the task list
+
+Format: delete INDEX
+
+Examples:
+- delete 1
+
+### List tasks: list
+
+Lists all tasks in the task list
+
+Format: list
+
+Examples:
+- list
