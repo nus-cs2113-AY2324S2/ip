@@ -29,6 +29,10 @@ public abstract class Task {
         String statusIcon = isDone ? "1" : "0";
         return type +  " | " + statusIcon + " | " + this.toString();
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
 
 
