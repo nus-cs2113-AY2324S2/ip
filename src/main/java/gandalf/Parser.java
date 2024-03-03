@@ -1,7 +1,7 @@
 package gandalf;
 
 public class Parser {
-    private String userInput;
+    private final String userInput;
     private String eventItem;
     private String eventFrom;
     private String eventTo;
@@ -33,6 +33,17 @@ public class Parser {
         }
         else {
             toDoItem = userInput.substring(4).trim();
+        }
+    }
+
+    public static int parseIndex(String userInput) {
+        if (userInput.startsWith("delete")) {
+            return Integer.parseInt(userInput.substring(6).trim());
+        } else if (userInput.startsWith("mark")) {
+            return Integer.parseInt(userInput.substring(5).trim());
+        } else {
+            // unmark
+            return Integer.parseInt(userInput.substring(7).trim());
         }
     }
 

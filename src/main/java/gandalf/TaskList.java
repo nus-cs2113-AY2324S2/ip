@@ -23,7 +23,7 @@ public class TaskList {
             throw new InvalidTaskDeletionException();
         }
         
-        int indexToDelete = Integer.parseInt(userInput.substring(6).trim());
+        int indexToDelete = Parser.parseIndex(userInput);
 
         if (indexToDelete > listTasks.size()) {
             throw new InvalidTaskDeletionException();
@@ -115,8 +115,8 @@ public class TaskList {
     public static void handleTasksMarkings(String userInput, ArrayList<Task> listTasks, boolean hideInput)
             throws InvalidTaskIndexException {
         if (userInput.startsWith("mark ")) {
-            int indexToMark = Integer.parseInt(userInput.substring(5).trim());
-            if (indexToMark >= 1 && indexToMark <= listTasks.size() && listTasks.get(indexToMark - 1) != null) {
+            int indexToMark = Parser.parseIndex(userInput);
+            if (isValidMarking(listTasks, indexToMark)) {
                 listTasks.get(indexToMark - 1).markAsDone();
                 if (!hideInput) {
                     Ui.printTaskIsMarkedMessage(listTasks, indexToMark);
@@ -125,8 +125,8 @@ public class TaskList {
                 throw new InvalidTaskIndexException();
             }
         } else {
-            int indexToUnmark = Integer.parseInt(userInput.substring(7).trim());
-            if (indexToUnmark >= 1 && indexToUnmark <= listTasks.size() && listTasks.get(indexToUnmark - 1) != null) {
+            int indexToUnmark = Parser.parseIndex(userInput);
+            if (isValidMarking(listTasks, indexToUnmark)) {
                 listTasks.get(indexToUnmark - 1).unmarkAsDone();
                 if (!hideInput) {
                     Ui.printTaskIsUnmarkedMessage(listTasks, indexToUnmark);
@@ -135,6 +135,10 @@ public class TaskList {
                 throw new InvalidTaskIndexException();
             }
         }
+    }
+
+    private static boolean isValidMarking(ArrayList<Task> listTasks, int indexToMark) {
+        return indexToMark >= 1 && indexToMark <= listTasks.size() && listTasks.get(indexToMark - 1) != null;
     }
 
 }

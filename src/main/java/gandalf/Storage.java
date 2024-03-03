@@ -18,7 +18,7 @@ public class Storage {
     public static void loadData(ArrayList<Task> listTasks) {
         try {
             Ui.printLoadingMessage();
-            loadTasks("data/savefile.txt", listTasks);
+            loadTasks("data/save-file.txt", listTasks);
         } catch (FileNotFoundException e) {
             Ui.printFileNotFoundMessage();
         } catch (FileEmptyException e) {
@@ -57,7 +57,7 @@ public class Storage {
         try {
 
             createDirectory();
-            String filePath = "./data/savefile.txt";
+            String filePath = "./data/save-file.txt";
             FileWriter writer = new FileWriter(filePath);
             String concatenatedData = compileData(listTasks);
             writer.write(concatenatedData);
