@@ -2,18 +2,23 @@ package Xavier;
 
 import Exceptions.InvalidInputException;
 import Exceptions.NoInputException;
+import Tasks.Task;
+
+import java.util.ArrayList;
 
 public class Parser {
 
     public void parse(String command, TaskList taskList, Ui ui, Storage storage, String filePath) throws InvalidInputException, NoInputException {
         if (command.equals("list")) {
-            taskList.printList();
+            ui.list(taskList);
         } else if (command.startsWith("mark") || command.startsWith(("unmark"))) {
             handleMarkAsDone(command, taskList, ui, storage, filePath);
         } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
             handleAddTask(command, taskList, ui, storage, filePath);
         } else if (command.startsWith("delete")) {
             handleDeleteTask(command, taskList, ui, storage, filePath);
+        } else if (command.startsWith("find")) {
+            ui.printSearchResult(handleFindTask(command, taskList, ui));
         } else if (command.equals("bye")) {
             ui.exit();
         } else {
@@ -74,6 +79,18 @@ public class Parser {
         ui.printDeleteTaskMessage(taskList, index);
         taskList.deleteTask(index);
         storage.saveFile(taskList);
+    }
+
+    public static ArrayList<Task> handleFindTask(String command, TaskList taskList, Ui ui) {
+        String[] stringArray = command.split(" ");
+        String keyword = stringArray[1];
+        ArrayList<Task> newTaskList = new ArrayList<>();
+        for (Task task : taskList.getItemList()) {
+            if (task.getDescription().contains(keyword)) {
+                newTaskList.add(task);
+            }
+        }
+        return newTaskList;
     }
 
 }
