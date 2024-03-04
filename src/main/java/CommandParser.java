@@ -22,7 +22,11 @@ public class CommandParser {
             } else if (userInput.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1; // Get task index
                 taskList.markTaskAsNotDone(taskIndex);
-            } else if (!userInput.startsWith("todo") && !userInput.startsWith("deadline") && !userInput.startsWith("event")) {
+            } else if (userInput.startsWith("find")) {
+                String keyword = userInput.substring(5); // 假设 "find " 后面跟着关键词
+                taskList.findTask(keyword);
+            }else if (!userInput.startsWith("todo") && !userInput.startsWith("deadline")
+                    && !userInput.startsWith("event") && !userInput.startsWith("find")) {
                 ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
             } else {
                 taskList.addTask(userInput);
