@@ -6,15 +6,15 @@ This chatbot helps users keep track of the various todos, deadlines and events t
 3. Enjoy! (?)
 
 ## Commands
-### OGFTask.Todo
+### Todo
 - Creates a todo that can be marked or unmarked
 - Usage: `todo {name of todo}`
 
-### OGFTask.Deadline
+### Deadline
 - Creates a deadline that can be marked or unmarked and has a due date
 - Usage: `deadline {name of deadline} /by {due date}`
 
-### OGFTask.Event
+### Event
 - Creates an event that can be marked or unmarked and has a start and end time
 - Usage: `event {name of event} /from {start time} /to {end time}`
 
