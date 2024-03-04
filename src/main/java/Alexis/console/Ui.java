@@ -22,11 +22,15 @@ public class Ui {
     private final static String GOODBYE = "Bye. Hope to see you again soon!";
     private final static String INVALID_COMMAND_ERROR = "Sorry bro I don't quite get what you wanna do. Please enter a valid command.";
     private final static String MISSING_DESCRIPTION_ERROR = "Sorry bro I don't know what task you wanna add. Please add a description.";
+    public final static String MISSING_FIND_DESCRIPTION_ERROR = "Sorry bro I don't know what task you are looking for. Please add a description.";
+    public final static String NO_MATCHING_TASK_MESSAGE = "Sorry bro looks like this task doesnt exist.";
+
     public  final static String MISSING_DEADLINE_ERROR = "Please indicate the deadline of your task.";
     public final static String MISSING_EVENT_START_OR_END_DATE_ERROR = "Please indicate the start and end dates/times for your event properly.";
     public final static String LIST_MESSAGE = "Here are the tasks in your list:";
     public final static String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:";
     public final static String MARK_UNDONE_MESSAGE = "OK, I've marked this task as not done yet:";
+    public final static String MATCHING_TASKS_MESSAGE = "Here are the matching tasks in your list:";
     public final static String MISSING_TASK_INDEX_MESSAGE = "Please tell me which task you are referring to.";
     public final static String INVALID_TASK_INDEX_MESSAGE = "Sorry, I can't find the task you are referring to.";
     public final static String ADD_MESSAGE = "Got it. I've added this task:";
@@ -76,6 +80,9 @@ public class Ui {
                 case UNMARK:
                     printUnmarkedItemToConsole(tasks, line);
                     break;
+                case FIND:
+                    printMatchingTasksToConsole(tasks, line);
+                    break;
                 case DELETE:
                     printDeletedTaskToConsole(tasks, line);
                     break;
@@ -96,9 +103,6 @@ public class Ui {
 
     private static void printNewTaskToConsole(TaskList tasks, String line, Command command) throws MissingFieldException {
         String description = Parser.parseDescription(line);
-        if (description.trim().isEmpty()) {
-            throw new MissingFieldException();
-        }
         printTaskToConsole(tasks, TaskType.valueOf(command.name()), description);
     }
 
@@ -123,6 +127,12 @@ public class Ui {
     private static void printTaskToConsole(TaskList tasks, TaskType todo, String description) {
         System.out.println(LINE_BREAK);
         tasks.addTask(todo, description);
+        System.out.println(LINE_BREAK);
+    }
+
+    private static void printMatchingTasksToConsole(TaskList tasks, String line) {
+        System.out.println(LINE_BREAK);
+        tasks.printMatchingTasksMessage(line);
         System.out.println(LINE_BREAK);
     }
 
