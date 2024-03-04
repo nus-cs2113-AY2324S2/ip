@@ -1,6 +1,5 @@
-package cody.storage;
+package cody;
 
-import cody.CodyException;
 import cody.tasks.Deadline;
 import cody.tasks.Event;
 import cody.tasks.Task;
@@ -20,7 +19,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void save(ArrayList<Task> tasks) throws CodyException {
+    public void save(ArrayList<Task> tasks) throws CodyException{
         File file = new File(filePath);
 
         File parentDir = file.getParentFile();
@@ -37,7 +36,7 @@ public class Storage {
                 writer.write(taskType + " | " + isDone + " | " + description + System.lineSeparator());
             }
         } catch (IOException e) {
-            throw new CodyException("Error saving tasks to file: " + e.getMessage());
+            throw new CodyException("An error occurred while writing to the file. Your tasks are not saved");
         }
     }
 
@@ -47,21 +46,22 @@ public class Storage {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                Task task = readFile(line);
+                Task task = parseFile(line);
                 if (task != null) {
                     tasks.add(task);
                 }
             }
+            Ui.printMessage(" You have " + tasks.size() + " tasks saved in your list. Enter 'list' to view them");
         } catch (FileNotFoundException e) {
-            throw new CodyException("You have no tasks saved");
+            throw new CodyException(" You have no tasks saved. A new task list will be created for you");
         }
         return tasks;
     }
 
-    private Task readFile(String line) throws CodyException {
+    private Task parseFile(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
-            throw new CodyException("Invalid saved task format: " + line);
+            throw new IllegalArgumentException("Invalid saved task format: " + line);
         }
 
         String type = parts[0].trim();
@@ -69,18 +69,18 @@ public class Storage {
         String description = parts[2].trim();
 
         Task task;
-        switch (type) {
-        case "T":
+        switch (TaskType.valueOf(type)) {
+        case T:
             task = new Todo(description);
             break;
-        case "D":
-            task = readDeadline(description);
+        case D:
+            task = parseDeadline(description);
             break;
-        case "E":
-            task = readEvent(description);
+        case E:
+            task = parseEvent(description);
             break;
         default:
-            throw new CodyException("Unknown saved task type: " + type);
+            throw new IllegalArgumentException("Unknown saved task type: " + type);
         }
 
         if (isDone) {
@@ -90,24 +90,23 @@ public class Storage {
         return task;
     }
 
-    private Task readDeadline(String description) throws CodyException {
+    private Task parseDeadline(String description) {
         String[] parts = description.split(" \\(by: ");
-        if (parts.length < 2) {
-            throw new CodyException("Invalid deadline format: " + description);
-        }
         String taskDescription = parts[0].trim();
-        String by = parts[1].replace(")", "").trim();
+        String by = parts.length > 1 ? parts[1].replace(")", "").trim() : "No deadline specified";
         return new Deadline(taskDescription, by);
     }
 
-    private Task readEvent(String description) throws CodyException {
+    private Task parseEvent(String description) {
         String[] parts = description.split(" \\(from: | to: ");
-        if (parts.length < 2) {
-            throw new CodyException("Invalid event format: " + description);
-        }
         String taskDescription = parts[0].trim();
-        String from = parts[1].trim();
-        String to = parts[2].replace(")", "").trim();
+        String from = parts.length > 1 ? parts[1].trim() : "No start time specified";
+        String to = parts.length > 2 ? parts[2].replace(")", "").trim() : "No end time specified";
         return new Event(taskDescription, from, to);
     }
+
+    private enum TaskType {
+        T, D, E
+    }
 }
+

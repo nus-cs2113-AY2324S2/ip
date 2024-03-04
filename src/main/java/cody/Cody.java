@@ -1,13 +1,10 @@
 package cody;
 
-import cody.storage.Storage;
-import cody.ui.Ui;
-
 public class Cody {
 
-    private final Storage storage;
-    private TaskList tasks;
-    private final Ui ui;
+private Storage storage;
+private TaskList tasks;
+private Ui ui;
 
     public Cody(String filePath) {
         ui = new Ui();
@@ -22,27 +19,23 @@ public class Cody {
 
     public void run() {
         ui.greet();
-        while (true) {
-            String fullCommand = ui.readCommand();
-            if (fullCommand.equals("bye")) {
-                ui.exit();
-                break;
-            }
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                String response = tasks.executeCommand(fullCommand);
-                ui.printMessage(response);
+                String fullCommand = ui.readCommand();
+                ui.printMessage(tasks.executeCommand(fullCommand));
+                isExit = tasks.isExit();
             } catch (CodyException e) {
                 ui.printException(e);
             }
         }
-        try {
-            storage.save(tasks.getTasks());
-        } catch (CodyException e) {
-            ui.printException(e);
-        }
+        ui.exit();
     }
+
 
     public static void main(String[] args) {
         new Cody("data/tasks.txt").run();
     }
 }
+
+
