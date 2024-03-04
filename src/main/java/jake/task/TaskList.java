@@ -1,12 +1,10 @@
 package jake.task;
 
 import java.util.ArrayList;
-
 import jake.ui.Ui;
 
 import static jake.common.Messages.MESSAGE_TASK_ADDED;
 import static jake.common.Messages.MESSAGE_TASK_DELETED;
-
 
 public class TaskList {
 
@@ -59,12 +57,12 @@ public class TaskList {
             break;
         case "deadline":
             String[] deadlineSections = userInput.split(" by ");
-            newTask = new Deadline(deadlineSections[0], deadlineSections[1]);;
+            newTask = new Deadline(deadlineSections[0], deadlineSections[1], false);;
             break;
         case "event":
             String[] eventSections = userInput.split(" from ");
             String[] eventTimings = eventSections[1].split(" to ");
-            newTask = new Event(eventSections[0], eventTimings[0], eventTimings[1]);
+            newTask = new Event(eventSections[0], eventTimings[0], eventTimings[1], false);
             break;
         default:
             return;
@@ -86,13 +84,15 @@ public class TaskList {
             // "\\" deals with PatternSyntaxException due to the (
             String[] deadlineSections = shortenedTask.split(" \\(by: "); 
             newTask = new Deadline("deadline" + deadlineSections[0], 
-                    deadlineSections[1].substring(0, deadlineSections[1].length()-1));;
+                    deadlineSections[1].substring(0, deadlineSections[1].length()-1), 
+                    true);;
             break;
         case 'E':
             String[] eventSections = shortenedTask.split(" \\(from: ");
             String[] eventTimings = eventSections[1].split(" to: ");
             newTask = new Event("event" + eventSections[0], eventTimings[0], 
-                    eventTimings[1].substring(0, eventTimings[1].length()-1));
+                    eventTimings[1].substring(0, eventTimings[1].length()-1),
+                    true);
             break;
         default:
             return;

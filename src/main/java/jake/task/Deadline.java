@@ -3,9 +3,9 @@ public class Deadline extends Task {
 
     protected String by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by, boolean isDateFormatted) {
         super(description.substring(9));
-        this.by = by;
+        this.by = isDateFormatted ? by : convertDateTime(by);
     }
 
     @Override
