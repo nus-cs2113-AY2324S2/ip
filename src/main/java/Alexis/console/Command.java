@@ -5,6 +5,7 @@ public enum Command {
     BYE,
     MARK,
     UNMARK,
+    FIND,
     TODO,
     DEADLINE,
     EVENT,
