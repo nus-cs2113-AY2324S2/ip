@@ -1,5 +1,10 @@
 package kvothe.task;
 
+/**
+ * Represents a task to be done in an specific moment.
+ * Contains a description, beginning (from) and end (to) .
+ * Inherits from Task.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

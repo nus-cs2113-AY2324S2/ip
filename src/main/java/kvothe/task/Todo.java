@@ -1,5 +1,10 @@
 package kvothe.task;
 
+/**
+ * Represents a task to be done. Simplest task.
+ * Contains a description.
+ * Inherits from Task.
+ */
 public class Todo extends Task {
 
         public Todo (String description){

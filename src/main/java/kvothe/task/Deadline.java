@@ -1,5 +1,10 @@
 package kvothe.task;
 
+/**
+ * Represents a task with a deadline.
+ * Contains a description and a deadline.
+ * Inherits from Task.
+ */
 public class Deadline extends Task {
     protected String by;
     public static final String[] args = {"/by"};
@@ -9,6 +14,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns the string representation of the task to be saved in the file.
+     * @return the string representation of the task to be saved in the file.
+     */
     public String toFileString(){
         return "D" + super.toFileString() + this.by + "|";
     }
