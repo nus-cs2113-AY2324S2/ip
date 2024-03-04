@@ -1,1 +1,5 @@
-[T][ ] yes
+[T][X] yes
+[D][ ] meeting (by: tomorrow)
+[E][ ] meeting (from: now to: later)
+[T][X] yes
+[D][ ] hello (by: now)
