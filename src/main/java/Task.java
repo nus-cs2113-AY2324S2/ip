@@ -6,18 +6,14 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    @Override
     public String getDescription() {
         return description;
     }
+
     @Override
-public String toString()
-
-{
-    return getStatusIcon() + " " + getDescription();
-
-    }
-    public String taskDescription() {
-        return  getStatusIcon() + " " + getDescription();
+    public String toString() {
+        return getStatusIcon() + " " + getDescription();
     }
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
@@ -25,12 +21,10 @@ public String toString()
     public Boolean changeStatus() {
         return this.isDone;
     }
-
-
-public void setDone() {
+    public void setDone() {
         this.isDone = true;
-}
- public void setNotDone() {
+    }
+    public void setNotDone() {
         this.isDone = false;
- }   //...
+    }
 }

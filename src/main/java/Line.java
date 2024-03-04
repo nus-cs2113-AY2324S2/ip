@@ -19,8 +19,5 @@ public class Line extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by: " + this.by + ")";
     }
-    @Override
-    public String taskDescription() {
-        return "[D]" + super.taskDescription() + "(by: " + this.by + ")";
+
     }
-}
