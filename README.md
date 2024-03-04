@@ -1,6 +1,6 @@
 # Jake: Your Personal Assistant
 ### Introducing Jake! Ever needed help tracking your tasks? Jake is designed to make task management easy and efficient, right from within your CLI
-<br>
+
 ## Feature Overview
 1. Add a task: [`toDo`](#todo)
 2. Add a deadline: [`deadline`](#deadline)
@@ -13,7 +13,7 @@
 9. Exit the program: [`bye`](#bye)
 10. Saving the data (#save)
 <br>
-<br>
+
 ## Add a task: `toDo` <a name="todo"></a>
 Adds a task to your task list
 
@@ -70,9 +70,6 @@ Examples:
 List out all the tasks in your task list
 
 Format: `list`
-
-Examples:
-- `list`
 <br>
 
 ## Find relevant tasks: `find` <a name="find"></a>
@@ -104,9 +101,6 @@ Examples:
 Exits the program
 
 Format: `bye`
-
-Examples:
-- `bye`
 <br>
 
 ## Saving the data <a name="save"></a>
