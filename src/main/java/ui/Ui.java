@@ -1,7 +1,9 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import taskList.TaskList;
+import tasks.Task;
 
 
 public class Ui {
@@ -40,5 +42,16 @@ public class Ui {
     public void listTasks(TaskList taskList) {
         System.out.println("Here are the tasks in your list: ");
         System.out.println(taskList.getFormattedTasks());
+    }
+
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("OOPS! No matching tasks found :<");
+        } else {
+            System.out.println("Alright! Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
     }
 }

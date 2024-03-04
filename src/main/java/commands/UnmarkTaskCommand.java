@@ -15,10 +15,10 @@ public class UnmarkTaskCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (taskIndex >= 0 && taskIndex < tasks.getTasks().size()) {
             tasks.markTaskAsNotDone(taskIndex);
-            ui.showTask("OK, I've marked this task as not done yet: \n"
+            ui.showTask("OK! I've marked this task as not done yet: \n"
                     + tasks.getTasks().get(taskIndex));
         } else {
-            ui.errorMessage("Task index out of bounds.");
+            ui.errorMessage("OOPS! Task index out of bounds :<");
         }
     }
 }

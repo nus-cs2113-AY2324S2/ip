@@ -13,7 +13,7 @@ public class ExitCommand extends Command {
             storage.saveTasks(tasks.getTasks());
             ui.exitMessage();
         } catch (IOException e) {
-            ui.errorMessage("An error occurred while saving tasks: " + e.getMessage());
+            ui.errorMessage("OOPS! An error occurred while saving tasks: " + e.getMessage());
         }
     }
 }
