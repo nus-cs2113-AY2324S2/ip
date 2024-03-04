@@ -58,6 +58,9 @@ public class Asuka {
                         myObj.close();
                         myObj = null;
                         break;
+                    case find:
+                        find(inputs, taskCount, tasks);
+                        break;
                     case null, default:
                         break;
                 }

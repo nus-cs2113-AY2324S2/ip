@@ -6,29 +6,41 @@ import exceptions.InvalidCommandException;
 
 public class Command{
     public enum Commands {
-        list, mark, unmark, add, delete, bye
+        list, mark, unmark, add, delete, find, bye
     }
 
-    public static Commands getCommands(String input, String[] inputs) throws EmptyIndexException, EmptyTaskException, InvalidCommandException {
+    public static Commands getCommands(String input, String[] inputs) throws EmptyIndexException, EmptyTaskException,
+            InvalidCommandException {
         if (inputs.length == 1) {
-            if ((inputs[0].equalsIgnoreCase("todo")) || (inputs[0].equalsIgnoreCase("deadline")) || (inputs[0].equalsIgnoreCase("event"))) {
+            if ((inputs[0].equalsIgnoreCase("todo")) || (inputs[0].equalsIgnoreCase("deadline"))
+                    || (inputs[0].equalsIgnoreCase("event"))
+                    || (inputs[0].equalsIgnoreCase("find"))) {
             throw new EmptyTaskException();
-            } else if ((inputs[0].equalsIgnoreCase("mark")) || (inputs[0].equalsIgnoreCase("unmark"))) {
+            } else if ((inputs[0].equalsIgnoreCase("mark"))
+                || (inputs[0].equalsIgnoreCase("unmark"))
+                || (inputs[0].equalsIgnoreCase("delete")) ) {
             throw new EmptyIndexException();
             }
         } else if (inputs.length >= 2) {
-            if ((inputs[0].equalsIgnoreCase("todo")) || (inputs[0].equalsIgnoreCase("deadline")) || (inputs[0].equalsIgnoreCase("event"))) {
+            if ((inputs[0].equalsIgnoreCase("todo")) || (inputs[0].equalsIgnoreCase("deadline"))
+                    || (inputs[0].equalsIgnoreCase("event"))) {
                 return Commands.add;
             }
         }
         if (inputs.length == 2) {
-            if (inputs[0].equalsIgnoreCase("mark") && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
+            if (inputs[0].equalsIgnoreCase("mark")
+                    && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
                 return Commands.mark;
-            } else if (inputs[0].equalsIgnoreCase("unmark") && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
+            } else if (inputs[0].equalsIgnoreCase("unmark")
+                    && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
                 return Commands.unmark;
-            } else if (inputs[0].equalsIgnoreCase("delete") && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
+            } else if (inputs[0].equalsIgnoreCase("delete")
+                    && Integer.parseInt(inputs[1]) <= constants.MAX_TASKS && Integer.parseInt(inputs[1]) > 0) {
                 return Commands.delete;
-            } else {
+            } else if (inputs[0].equalsIgnoreCase("find")) {
+                return Commands.find;
+            }
+            else {
                 throw new InvalidCommandException();
             }
         }
