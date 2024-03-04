@@ -27,7 +27,7 @@ public class Dross {
     }
 
     //Method to exit Dross bot
-    public static void goodbye() {
+    public static void printGoodbyeMessage() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
@@ -80,7 +80,12 @@ public class Dross {
             printLine();
             System.out.println("Yeah sure go ahead and mark that invisible task sir!");
             printLine();
+        } catch (IndexOutOfBoundsException e){
+            printLine();
+            System.out.println("Your mother task");
+            printLine();
         }
+
     }
 
 
@@ -128,7 +133,7 @@ public class Dross {
     }
 
     //Method to determine what to do based on the input entered
-    public static void receiveUserInput() {
+    public static void readAndParseUserInput() {
         String line = readLine();
         while (!line.equals("bye")) {
             if (line.startsWith("list")) {
@@ -142,6 +147,7 @@ public class Dross {
                 try {
                     int index = Integer.parseInt(line.split(" ")[1]);
                     drossTaskList.deleteTask(index);
+                    saveTasksToFile();
                     System.out.println("Task " + index + " successfully deleted boss");
                     printLine();
                 } catch (ArrayIndexOutOfBoundsException e){
@@ -159,7 +165,7 @@ public class Dross {
             }
             line = readLine();
         }
-        goodbye();
+        printGoodbyeMessage();
     }
 
     // Method to load tasks from file
@@ -177,7 +183,7 @@ public class Dross {
             while ((line = reader.readLine()) != null) {
                 // Determine the task type and completion status
                 String taskType = line.substring(1, 2); // Extracts "T", "D", or "E"
-                boolean isDone = line.substring(5, 6).equals("X"); // Checks if the task is completed
+                boolean isDone = line.substring(4,5).equals("x"); // Checks if the task is completed
 
                 // Extract the task details based on type
                 String taskDetails = line.substring(7).trim(); // Removes the prefix to get the details
@@ -218,6 +224,6 @@ public class Dross {
         System.out.println("What can I do for you?");
         printLine();
         loadTasksFromFile();
-        receiveUserInput();
+        readAndParseUserInput();
     }
 }

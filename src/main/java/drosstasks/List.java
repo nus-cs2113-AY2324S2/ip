@@ -1,41 +1,33 @@
 package drosstasks;
 import drosstasks.Event;
 import myexceptions.InvalidTodoException;
+import java.util.ArrayList;
 
 public class List {
-    private Task[] tasks;
-    private int size;
+    private ArrayList<Task> tasks;
 
     public List() {
-        this.tasks = new Task[100]; // initial capacity
-        this.size = 0;
+        this.tasks = new ArrayList<Task>(); // Use ArrayList instead of array
     }
 
     //Method that returns the size of the current list
     public int getSize(){
-        return size;
+        return tasks.size();
     }
 
     //Method to return task object based on index
     public Task getTask(int index){
-        for (int i=0; i < size; i++){
-            if (i == index){
-                return tasks[i];
-            }
-        }
-        return null;
+        return tasks.get(index);
     }
 
     // Overloaded Method to add a deadline to the list
     public void addTask(String taskDescription, String taskDeadline){
-        tasks[size] = new Deadline(taskDescription, taskDeadline);
-        size++;
+        tasks.add(new Deadline(taskDescription, taskDeadline));
     }
 
     // Overloaded Method to add an event to the list
     public void addTask(String taskDescription, String taskStart, String taskEnd) {
-        tasks[size] = new Event(taskDescription,taskStart, taskEnd);
-        size++;
+        tasks.add(new Event(taskDescription,taskStart, taskEnd));
     }
 
     // Method to add a task to the list
@@ -43,49 +35,48 @@ public class List {
         if (taskDescription.isEmpty()){
             throw new InvalidTodoException();
         }
-        tasks[size] = new ToDo(taskDescription);
-        size++;
+        tasks.add(new ToDo(taskDescription));
     }
-
 
     // Method to delete a task from the list by index
     public void deleteTask(int index) throws IndexOutOfBoundsException {
-        int zeroBasedIndex = index - 1;
-        if (zeroBasedIndex < 0 || zeroBasedIndex >= size) {
+        if (index < 0 || index > tasks.size()) {
             throw new IndexOutOfBoundsException("Task index out of range.");
         }
-        for (int i = zeroBasedIndex; i < size - 1; i++) {
-            tasks[i] = tasks[i + 1];
-        }
-        tasks[size - 1] = null;
-        size--;
+        tasks.remove(index-1);
     }
 
     // Method to print the last added task
     public void printLastTask() {
-        if (size > 0) {
-            System.out.println("Last added task: " + tasks[size - 1]);
+        if (!tasks.isEmpty()) {
+            System.out.println("Last added task: " + tasks.get(tasks.size() - 1));
         } else {
             System.out.println("The list is empty.");
         }
     }
 
     //Method to toggle check task as done by index
-    public void markDoneByIndex(int index){
-        tasks[index-1].checkTask();
+    public void markDoneByIndex(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index > tasks.size()) {
+            throw new IndexOutOfBoundsException("Task index out of range.");
+        }
+        tasks.get(index-1).checkTask();
     }
 
     //Method to toggle check task as undone by index
-    public void markUndoneByIndex(int index){
-        tasks[index-1].uncheckTask();
+    public void markUndoneByIndex(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index > tasks.size()) {
+            throw new IndexOutOfBoundsException("Task index out of range.");
+        }
+        tasks.get(index-1).uncheckTask();
     }
 
     // Method to print all tasks
     public void printAllTasks() {
-        if (size > 0) {
+        if (!tasks.isEmpty()) {
             System.out.println("All tasks:");
-            for (int i = 0; i < size; i++) {
-                Task currentTask = tasks[i]; // Assuming tasks[i] is a drosstasks.Task object
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currentTask = tasks.get(i);
                 System.out.print((i + 1) + ".");
                 System.out.println(currentTask);
             }
