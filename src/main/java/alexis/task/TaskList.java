@@ -108,6 +108,12 @@ public class TaskList {
         printTask(task, -1);
     }
 
+    /**
+     * Finds and displays tasks that contain the specified input string in their description.
+     *
+     * @param input The string to search for in task descriptions.
+     * @throws MissingFieldException If the input string is missing or empty.
+     */
     public void findTask(String input) throws MissingFieldException {
         String description = Parser.parseDescription(input);
         TaskList filteredList = filterByString(description);
@@ -124,6 +130,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Filters the list of tasks based on a given string and returns a new TaskList containing only the matching tasks.
+     *
+     * @param filterString The string to filter tasks by their description.
+     * @return A TaskList containing tasks whose descriptions contain the filterString.
+     */
     public TaskList filterByString(String filterString) {
         TaskList filteredList = new TaskList();
         filteredList.tasks = (ArrayList<Task>) tasks.stream()
@@ -132,6 +144,11 @@ public class TaskList {
         return filteredList;
     }
 
+    /**
+     * Prints the tasks that match the given input string by calling the findTask method.
+     *
+     * @param line The input string to search for in task descriptions.
+     */
     public void printMatchingTasksMessage(String line) {
         try {
             findTask(line);
