@@ -67,6 +67,7 @@ Finds all tasks that contains the inputted keyword from the task list
 Format: `find [KEYWORD]`
 
 Example: `find project`
+```
 
                            /\
                           /  \
@@ -85,3 +86,4 @@ Example: `find project`
                        :  : :      :
                        :__:-:__.;--'
                        '-'   '-'
+```
