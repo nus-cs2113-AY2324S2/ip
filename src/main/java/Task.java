@@ -1,9 +1,12 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected boolean isEmpty;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.isEmpty = false;
     }
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
