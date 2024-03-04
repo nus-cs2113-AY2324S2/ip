@@ -45,7 +45,7 @@ public class Utilities {
         printLine();
     }
 
-    public void goodbye() {
+    public void goodbyeMessage() {
         printLine();
         out.println("Bye. Hope to see you again soon!");
         printLine();

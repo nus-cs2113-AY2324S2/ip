@@ -11,10 +11,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class BurgerFileClass {
-    static final int TDEINDEX = 0;
-    static final int MARKINDEX = 1;
+    static final int TDE_INDEX = 0;
+    static final int MARK_INDEX = 1;
 
-    static final int TASKINDEX = 2;
+    static final int TASK_INDEX = 2;
 
     public static final String DEFAULT_PATHNAME = java.nio.file.Paths.get("data","burger.txt")
             .normalize().toString();
@@ -28,6 +28,13 @@ public class BurgerFileClass {
         pathName = filePath;
     }
 
+    /**
+     * Retrieves the save file if there is any from the file path.
+     * Prints out the list of tasks from the file.
+     * If the file cannot be found from the file path, it throws an error.
+     *
+     * @param newList the list to store the tasks from the save file.
+     */
     public static void getSaveFile(TaskList newList) {
         try {
             readFromFile(newList);
@@ -39,20 +46,34 @@ public class BurgerFileClass {
         }
     }
 
+    /**
+     * Reads the file from the file path and stores it inside the list.
+     *
+     * @param list the list to store the tasks from the save file.
+     * @throws IOException if the file cannot be found from the file path.
+     */
     public static void readFromFile(TaskList list) throws IOException {
         Files.createDirectories(Paths.get("data"));
         File f = new File(pathName); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             String[] currLineArray = s.nextLine().split("\\|");
-            char currTDE = currLineArray[TDEINDEX].charAt(0);
-            char currMark = currLineArray[MARKINDEX].charAt(0);
-            String currTask = currLineArray[TASKINDEX];
+            char currTDE = currLineArray[TDE_INDEX].charAt(0);
+            char currMark = currLineArray[MARK_INDEX].charAt(0);
+            String currTask = currLineArray[TASK_INDEX];
             addFromSaveFile(currTDE, currMark, currTask, list);
             list.totalTasks++;
         }
     }
 
+    /**
+     * Adds a task from the save file
+     *
+     * @param tde todo, deadline, event task type.
+     * @param mark whether the task is marked.
+     * @param task the name of the task.
+     * @param list the list to store the tasks.
+     */
     public static void addFromSaveFile(char tde, char mark, String task, TaskList list) {
         Task currTask = new Task(task, tde);
         if (mark == 'X') {
@@ -61,15 +82,21 @@ public class BurgerFileClass {
         list.add(currTask);
     }
 
-    public void setSaveFile(TaskList newList) {
+    /**
+     * Saves the current list to a file.
+     * Throws an error if file path cannot be found.
+     *
+     * @param list the list of tasks to be read from.
+     */
+    public void setSaveFile(TaskList list) {
         System.out.print("Saving file");
         try {
             FileWriter fw = new FileWriter(pathName);
             int i = 0;
             String textToWrite;
-            while (i < newList.totalTasks) {
-                textToWrite = newList.getTask(i).getTDE() + "|" + newList.getTask(i).getTick() + "|"
-                        + newList.getTask(i).getName();
+            while (i < list.totalTasks) {
+                textToWrite = list.getTask(i).getTDE() + "|" + list.getTask(i).getTick() + "|"
+                        + list.getTask(i).getName();
                 fw.write(textToWrite + System.lineSeparator());
                 System.out.print(".");
                 i++;

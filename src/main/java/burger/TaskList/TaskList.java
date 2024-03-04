@@ -12,15 +12,20 @@ public class TaskList {
 
     public int totalTasks;
 
-    final int KEYWORDIDX = 1;
+    final int KEYWORD_IDX = 1;
 
     public TaskList() {
         taskList = new ArrayList<>();
         totalTasks = 0;
     }
 
+    /**
+     * Finds the tasks which matches the keyword given by the user
+     *
+     * @param textArray user input in array type.
+     */
     public void findKeyword(String[] textArray) {
-        String keyword = textArray[KEYWORDIDX];
+        String keyword = textArray[KEYWORD_IDX];
         ArrayList<Integer> taskWithKeyword = new ArrayList<>();
         for (int i = 0; i < totalTasks; i++) {
             String[] taskArray = taskList.get(i).getName().split(" ");
@@ -46,6 +51,13 @@ public class TaskList {
         printLine();
     }
 
+    /**
+     * Returns the index of the task.
+     *
+     * @param textArray user input in array type.
+     * @return index of the task.
+     * @throws BurgerException if nothing is provided after the command
+     */
     public int getIdx(String[] textArray) throws BurgerException {
         try {
             StringBuilder idx = new StringBuilder();
@@ -57,6 +69,13 @@ public class TaskList {
             throw new BurgerException("Where is your number???");
         }
     }
+
+    /**
+     * Deletes task with the index given by the user.
+     * If the index is out of bounds, null is returned.
+     *
+     * @param idx index of task.
+     */
 
     public void deleteTask(int idx) {
         try {
@@ -91,6 +110,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds task to the list.
+     * Exceptions should be handled before passing to this command.
+     *
+     * @param task the task input in array type.
+     * @param command the type of task.
+     */
     public void handleAddTask(String[] task, String command) {
         switch (command) {
         case "todo":
@@ -240,7 +266,7 @@ public class TaskList {
     }
 
     /**
-     * Prints task list.
+     * Prints the entire task list.
      */
     public void printTaskList() {
         if (taskList.isEmpty()) {
