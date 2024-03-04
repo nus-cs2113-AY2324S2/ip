@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -8,7 +7,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Kratos {
-    public static final String LINE = "----------------------------------------------------------------";
+    private static Ui ui = new Ui();
     static ArrayList<Task> tasksList = new ArrayList<>();
     private static final String FILE_PATH = "./data/tasks.txt";
 
@@ -42,7 +41,7 @@ public class Kratos {
             }
         } catch (FileNotFoundException e) {
             // Handle the case where the file doesn't exist
-            KratosException.handleException(e, "Darkness shrouds the file. Forging its presence......");
+            KratosException.handleException(e, ui.fileNotFound);
             File file = new File(FILE_PATH);
             try {
                 if (!file.getParentFile().exists()) {
@@ -50,69 +49,14 @@ public class Kratos {
                 }
                 file.createNewFile();
             } catch (IOException ioException) {
-                KratosException.handleException(ioException, "A new file's birth marred by chaos. Restore order.\n" +
+
+                KratosException.handleException(ioException, ui.folderNotFound +
                         ioException.getMessage());
             }
         } catch (IOException e) {
-            KratosException.handleException(e, "Tasks trapped in the void. Break the chains of ignorance.\n" +
+            KratosException.handleException(e,ui.fileReadingError +
                     e.getMessage());
         }
-    }
-
-    // Method to greet the user
-    public static void greet() {
-        String logo = "──────────────────────────────\n" +
-                "───────────────────────▓▓▓▓───\n" +
-                "──────────────────────▓▓▓▓▓▓──\n" +
-                "─────────────────────▓▓▓▓▓▓▓▓─\n" +
-                "────────────────────▓▓▓▓▓▓▓▓──\n" +
-                "───────────────────▓▓▓▓▓▓▓▓───\n" +
-                "──────────────────▓▓▓▓▓▓▓▓────\n" +
-                "─────────────────▓▓▓▓▓▓▓▓─────\n" +
-                "─────────█──────▓▓▓▓▓▓▓▓──────\n" +
-                "────────██─────▓▓▓▓▓▓▓▓───────\n" +
-                "───────██──────▓▓▓▓▓▓▓▓▓──────\n" +
-                "─▀██▄─██───────▓▓▓▓▓▓▓▓██──▄█─\n" +
-                "─█████████▄─▄───▓▄▓▄████████──\n" +
-                "──█▀▀▀███████────███████▀▀▀██─\n" +
-                "─███▄▄██▄███▀─────███▄██▄▄███─\n" +
-                "─█─██████▀█────────▓████████▀─\n" +
-                "────██▀───▀─█────█──▓▓▓▓▓▓▓▓──\n" +
-                "────▄█▀──────█──█────▓▓▓▓▓▓▓▓─\n" +
-                "───▀█────────█──█─────▓▓▓▓▓▓▓─\n" +
-                "───▄█▀────▄▄█▀──▀█▄▄───▓▓▓▓▓▓─\n" +
-                "───█▄────█──█────█──█──▓▓▓▓▓▓─\n" +
-                "───█─────▀──────────▀──▓▓▓▓▓▓─\n" +
-                "────▀─────▀█──────█▀────▓▓▓───\n" +
-                "────────────▀▄▄▄▄▀──────▓▓────\n" +
-                "────────────────────────▓─────\n" +
-                "────────▄█████████████▄───────\n" +
-                "───────██▀▀▀▀▀▀▀▀▀▀▀▀▀██──────\n" +
-                "───────▀───────────────▀──────\n" +
-                "───────────█████████──────────\n" +
-                "────────────███████───────────\n" +
-                "──────────────███─────────────\n" +
-                "──────██▄█─▄─█████─▄─█▄██─────\n" +
-                "───────█████████████████──────\n" +
-                "────────███████████████───────\n" +
-                "─────────█████████████────────\n" +
-                "──────────███████████─────────\n" +
-                "──────────▀─███████─▀─────────\n" +
-                "────────────▀─███─▀───────────\n" +
-                "───────────────▀──────────────\n";
-        System.out.println(logo);
-        System.out.println(LINE);
-        System.out.println("Kratos commends you for your presence. Prepare for battle.\n" +
-                        "Enter your commands with purpose.");
-        System.out.println(LINE);
-    }
-
-    // Method to say goodbye
-    public static void end() {
-        System.out.println(LINE);
-        System.out.println("            Until the next battle, mortal.\n" +
-                "May your tasks be conquered with the ferocity of a god.");
-        System.out.println(LINE);
     }
 
     // Method to display marking of tasks
@@ -139,37 +83,27 @@ public class Kratos {
             }
         }
         
-        System.out.println(LINE);
+        System.out.println(ui.LINE);
         System.out.println(displayString);
         System.out.printf("         %s%n",  tasksList.get(taskNumber).toString());
-        System.out.println(LINE);
-    }
-
-    // Method to display tasks
-    public static void displayTasks(int count) {
-        System.out.println(LINE);
-        System.out.println("    Your list of Tasks");
-        for (int i = 0; i < count; i++) {
-            System.out.printf("     %d. %s%n", i + 1, tasksList.get(i).toString());
-        }
-        System.out.println(LINE);
+        System.out.println(ui.LINE);
     }
 
     // Main method
     public static void main(String[] args) {
-        greet();
+
+        ui.greet();
         loadTasks(); // Load tasks from file when the program boots up
         String userInput;
-        Scanner in = new Scanner(System.in);
         try {
             while (true) {
-                userInput = in.nextLine().trim();
+                userInput = ui.readCommand();
                 switch (userInput) {
                 case "bye":
-                    end();
+                    ui.end();
                     return;
                 case "list":
-                    displayTasks(tasksList.size());
+                    ui.displayTasks(tasksList.size(), tasksList);
                     break;
                 default:
                     handleCommand(userInput);
@@ -178,7 +112,7 @@ public class Kratos {
                 saveTasks();
             }
         } finally {
-            in.close();
+            ui.closeScanner();
         }
     }
 
@@ -194,7 +128,7 @@ public class Kratos {
             } else if (userInput.startsWith("event")) {
                 addEvent(userInput);
             } else if (userInput.startsWith("delete")) {
-                deleteEvent(userInput);
+                deleteTask(userInput);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -203,20 +137,15 @@ public class Kratos {
         }
     }
 
-    private static void deleteEvent(String userInput) {
+    private static void deleteTask(String userInput) {
         String[] deleteCommand = userInput.split(" ");
         int taskNumber = Integer.parseInt(deleteCommand[1].trim()) - 1;
         if (taskNumber < 0 || taskNumber >= tasksList.size()) {
             throw new IndexOutOfBoundsException();
         }
-        String displayString = "Task erased. Its existence now a whisper in the winds of fate.\n" +
-                "What's your next decree?";
-        System.out.println(LINE);
-        System.out.println(displayString);
-        System.out.printf("         %s%n",  tasksList.get(taskNumber).toString());
+        ui.taskDeleteMessage(taskNumber,tasksList);
         tasksList.remove(taskNumber);
-        System.out.println(tasksList.size() + " tasks linger, shadows yet unvanquished. How will you face them?");
-        System.out.println(LINE);
+        ui.taskRemainderDisplay(tasksList);
     }
 
     private static void addEvent(String userInput) {
@@ -234,10 +163,7 @@ public class Kratos {
         String[] timelineStrings = date.split("/to");
 
         tasksList.add(new Event(action, timelineStrings[0].trim(), timelineStrings[1].trim()));
-        System.out.println(LINE);
-        System.out.println("Event recorded. Destiny's hourglass turns.\n" +
-                "What now? Seize control or be swept by its sands?");
-        System.out.println(LINE);
+        ui.displayMessageSelector(events[0]);
     }
 
     private static void addTodo(String userInput) {
@@ -245,10 +171,7 @@ public class Kratos {
         String[] todoParts = userInput.split("\\s+", 2);
         String action = todoParts[1];
         tasksList.add(new Todo(action));
-        System.out.println(LINE);
-        System.out.println("Task noted. A duty without a deadline? Dangerous.\n" +
-                "What now? Forge ahead or risk oblivion?");
-        System.out.println(LINE);
+        ui.displayMessageSelector(todoParts[0]);
     }
 
     private static void addDeadline(String userInput) {
@@ -264,9 +187,8 @@ public class Kratos {
         String action = timelineParts[0];
         String item = timelineParts[1];
         tasksList.add(new Deadline(item, date));
-        System.out.println(LINE);
-        System.out.println("Deadline acknowledged. Time ticks away, mortal.\n" +
-                "What next? Embrace purpose or succumb to chaos?" );
-        System.out.println(LINE);
+        ui.displayMessageSelector(timelineParts[0]);
     }
+
+
 }
