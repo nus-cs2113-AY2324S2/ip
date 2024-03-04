@@ -21,16 +21,18 @@ public class Ui {
             + "  |  | |  | |      |  |  `---. /  .''  \\(_|  |   \\       / \n"
             + "  `--' `--' `------'  `------''--'   '--' `--'    `-----'  \n";
     protected final static String LINE_BREAK = "____________________________________________________________";
-    private final static String GREETING = "Hello, I'm Alexis.\n"
-            + "What can I do for you?";
+    private final static String GREETING = "Hello, I'm Alexis.\n" + "What can I do for you?";
     private final static String GOODBYE = "Bye. Hope to see you again soon!";
-    private final static String INVALID_COMMAND_ERROR = "Sorry bro I don't quite get what you wanna do. Please enter a valid command.";
-    private final static String MISSING_DESCRIPTION_ERROR = "Sorry bro I don't know what task you wanna add. Please add a description.";
-    public final static String MISSING_FIND_DESCRIPTION_ERROR = "Sorry bro I don't know what task you are looking for. Please add a description.";
+    private final static String INVALID_COMMAND_ERROR
+            = "Sorry bro I don't quite get what you wanna do. Please enter a valid command.";
+    private final static String MISSING_DESCRIPTION_ERROR
+            = "Sorry bro I don't know what task you wanna add. Please add a description.";
+    public final static String MISSING_FIND_DESCRIPTION_ERROR
+            = "Sorry bro I don't know what task you are looking for. Please add a description.";
     public final static String NO_MATCHING_TASK_MESSAGE = "Sorry bro looks like this task doesnt exist.";
-
     public  final static String MISSING_DEADLINE_ERROR = "Please indicate the deadline of your task.";
-    public final static String MISSING_EVENT_START_OR_END_DATE_ERROR = "Please indicate the start and end dates/times for your event properly.";
+    public final static String MISSING_EVENT_START_OR_END_DATE_ERROR
+            = "Please indicate the start and end dates/times for your event properly.";
     public final static String LIST_MESSAGE = "Here are the tasks in your list:";
     public final static String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:";
     public final static String MARK_UNDONE_MESSAGE = "OK, I've marked this task as not done yet:";
@@ -117,7 +119,8 @@ public class Ui {
      * @param command The command indicating the task type to be added.
      * @throws MissingFieldException If the description is missing.
      */
-    private static void printNewTaskToConsole(TaskList tasks, String line, Command command) throws MissingFieldException {
+    private static void printNewTaskToConsole(TaskList tasks, String line, Command command)
+            throws MissingFieldException {
         String description = Parser.parseDescription(line);
         printTaskToConsole(tasks, TaskType.valueOf(command.name()), description);
     }

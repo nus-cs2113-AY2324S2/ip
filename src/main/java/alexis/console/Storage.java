@@ -39,7 +39,8 @@ public class Storage {
             if (task instanceof ToDo) {
                 formattedTasks.append(String.format("%s | %d | %s\n", taskSymbol, taskStatus, taskDescription));
             } else {
-                formattedTasks.append(String.format("%s | %d | %s | %s\n", taskSymbol, taskStatus, taskDescription, taskDate));
+                formattedTasks.append(
+                        String.format("%s | %d | %s | %s\n", taskSymbol, taskStatus, taskDescription, taskDate));
             }
         }
         return formattedTasks.toString();
