@@ -47,9 +47,9 @@ public class Storage {
         }
         for (String previousTask : previousTasks) {
             boolean hideInput = true;
-            Ui.handleUserInput(previousTask, listTasks, hideInput);
+            Ui.handleUserCommand(previousTask, listTasks, hideInput);
         }
-        Ui.handleUserInput("list", listTasks, false);
+        Ui.handleUserCommand("list", listTasks, false);
         load.close();
     }
 

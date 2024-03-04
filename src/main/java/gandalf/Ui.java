@@ -24,24 +24,25 @@ public class Ui {
     public static final String LINE = "____________________________________________________________";
     public static final String BYE_STATEMENT = "bye";
 
-    public static void startProgram() {
+    public static boolean isExit = false;
 
-        Storage.loadData(listTasks);
-        printAddItemMessage();
-
-        while (true) {
-            String userInput = getUserInput();
-            if (hasSaidBye(userInput)) {
-                System.out.println(LINE);
-                Storage.saveTasks(listTasks);
-                return;
-            } else {
-                handleUserInput(userInput, listTasks, false);
-            }
+    public static void readUserInput() {
+        String userInput = getUserInput();
+        if (hasSaidBye(userInput)) {
+            isExit = true;
+            System.out.println(LINE);
+            Storage.saveTasks(listTasks);
+        } else {
+            handleUserCommand(userInput, listTasks, false);
         }
     }
 
-    public static void handleUserInput(String userInput, ArrayList<Task> listTasks, boolean hideInput)  {
+    static void initializeGandalf() {
+        Storage.loadData(listTasks);
+        printAddItemMessage();
+    }
+
+    public static void handleUserCommand(String userInput, ArrayList<Task> listTasks, boolean hideInput)  {
         try {
             if (hasSaidMarkOrUnmark(userInput)) {
                 TaskList.handleTasksMarkings(userInput, listTasks, hideInput);
@@ -73,6 +74,39 @@ public class Ui {
         } catch (NumberFormatException e) {
             printNumberFormatErrorMessage();
         }
+    }
+
+    public static void printMatchingListOfTasks(String taskToFind, ArrayList<Task> listTasks) {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        if (listTasks.isEmpty()) {
+            System.out.println("  [What do you want to find from an empty list. Haiyaa.]");
+        }
+        int matchingIndex = 0;
+        for (Task listTask : listTasks) {
+            if (listTask.toString().contains(taskToFind)) {
+                System.out.println((matchingIndex + 1) + ". " + listTask);
+                matchingIndex += 1;
+            }
+        }
+        if (matchingIndex == 0 && !listTasks.isEmpty()) {
+            System.out.println("  [No entries found]");
+        }
+        System.out.println(LINE);
+    }
+
+    public static void printListOfTasks(ArrayList<Task> listTasks) {
+        System.out.println(LINE);
+        System.out.println("Here are the tasks in your list:");
+        if (listTasks.isEmpty()) {
+            System.out.println("  [Whoops your list is empty]");
+        }
+        for (int i = 0; i < listTasks.size(); i++) {
+            if (listTasks.get(i) != null) {
+                System.out.println((i + 1) + ". " + listTasks.get(i));
+            }
+        }
+        System.out.println(LINE);
     }
 
     private static void printNumberFormatErrorMessage() {
@@ -114,13 +148,30 @@ public class Ui {
         return in.nextLine();
     }
 
-    public static void welcomeMessage() {
+    public static void printWelcomeMessage() {
         System.out.println(LINE);
         System.out.println("Hello! I'm Gandalf, your favorite personal assistant.");
         System.out.println("Please wait while I load your previous To-Do List.");
+        System.out.println("                           /\\");
+        System.out.println("                          /  \\");
+        System.out.println("                         |    |");
+        System.out.println("                       --:'''':--");
+        System.out.println("                         :'_' :");
+        System.out.println("                         _:\"\":\\___");
+        System.out.println("          ' '      ____.' :::     '._");
+        System.out.println("         . *=====<<=)           \\    :");
+        System.out.println("          .  '      '-'-'\\_      /'._.'");
+        System.out.println("                           \\====:_ \"\"");
+        System.out.println("                          .'     \\\\");
+        System.out.println("                         :       :");
+        System.out.println("                        /   :    \\");
+        System.out.println("                       :   .      '.");
+        System.out.println("                       :  : :      :");
+        System.out.println("                       :__:-:__.;--'");
+        System.out.println("                       '-'   '-'");
     }
 
-    public static void endMessage() {
+    public static void printEndMessage() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
         in.close();
@@ -192,20 +243,6 @@ public class Ui {
         return userInput.startsWith("delete");
     }
 
-    public static void printListOfTasks(ArrayList<Task> listTasks) {
-        System.out.println(LINE);
-        System.out.println("Here are the tasks in your list:");
-        if (listTasks.isEmpty()) {
-            System.out.println("  [Whoops your list is empty]");
-        }
-        for (int i = 0; i < listTasks.size(); i++) {
-            if (listTasks.get(i) != null) {
-                System.out.println((i + 1) + ". " + listTasks.get(i));
-            }
-        }
-        System.out.println(LINE);
-    }
-
     public static void printTaskIsUnmarkedMessage(ArrayList<Task> listTasks, int indexToUnmark) {
         System.out.println(LINE);
         System.out.println("OK, I've marked this task as not done yet:");
@@ -251,24 +288,5 @@ public class Ui {
 
     public static void printCorruptedWriteMessage(IOException e) {
         System.out.println("An error occurred while writing to the file: " + e.getMessage());
-    }
-
-    public static void printMatchingListOfTasks(String taskToFind, ArrayList<Task> listTasks) {
-        System.out.println(LINE);
-        System.out.println("Here are the matching tasks in your list:");
-        if (listTasks.isEmpty()) {
-            System.out.println("  [What do you want to find from an empty list. Haiyaa.]");
-        }
-        int matchingIndex = 0;
-        for (Task listTask : listTasks) {
-            if (listTask.toString().contains(taskToFind)) {
-                System.out.println((matchingIndex + 1) + ". " + listTask);
-                matchingIndex += 1;
-            }
-        }
-        if (matchingIndex == 0) {
-            System.out.println("  [No entries found]");
-        }
-        System.out.println(LINE);
     }
 }
