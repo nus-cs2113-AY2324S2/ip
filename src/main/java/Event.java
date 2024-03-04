@@ -4,10 +4,15 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
+        taskTypeLetter = "E";
         this.from = from;
         this.to = to;
     }
 
+    @Override
+    public String saveTaskDescription(){
+        return (super.saveTaskDescription() + "|" + this.from.trim() + "|" + this.to.trim());
+    }
     @Override
     public String toString() {
         return("[E]" + super.toString() + "(from:" + this.from + "to:" + this.to + ")");

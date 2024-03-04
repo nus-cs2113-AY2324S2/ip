@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Miku {
     static final String LINE_BREAK = "______________________";
@@ -34,6 +35,61 @@ public class Miku {
             f.close();
         } catch (IOException e) {
             System.out.println("file is not found!");
+        }
+    }
+
+    public static void loadData(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+
+        while (s.hasNextLine()) {
+            String[] loadedTask = s.nextLine().split("\\|");
+            transferLoadToArray(loadedTask);
+        }
+    }
+
+    public static void transferLoadToArray(String[] loadedTask) {
+        boolean isMarked = (loadedTask[1].equals("1"));
+        String loadedTaskDescription;
+        for (int i = 0; i < loadedTask.length; i ++) {
+            System.out.println(loadedTask[i]);
+        }
+
+        switch (loadedTask[0]) {
+        case "T":
+            loadedTaskDescription = (loadedTask[2]);
+            try {
+                newTodo("todo " + loadedTaskDescription);
+                storedList.get(numberOfListItems - 1).isDone = isMarked;
+            } catch (MikuException e) {
+                System.out.println("error in loading todo!");
+            }
+            break;
+        case "D":
+            loadedTaskDescription = ("deadline " + loadedTask[2] + "/by " + loadedTask[3]);
+            try {
+                newDeadline(loadedTaskDescription);
+                storedList.get(numberOfListItems - 1).isDone = isMarked;
+            } catch (MikuException e) {
+                System.out.println("error in loading deadline!");
+            } catch (wrongDeadlineArguments e) {
+                System.out.println("there's something wrong with the loaded deadline's arguments");
+            }
+            break;
+        case "E":
+            loadedTaskDescription = ("event " + loadedTask[2] + "/from " + loadedTask[3] + "/to " + loadedTask[4]);
+            try {
+                newEvent(loadedTaskDescription);
+                storedList.get(numberOfListItems - 1).isDone = isMarked;
+            } catch (MikuException e) {
+                System.out.println("error in loading event!");
+            } catch (wrongEventArguments e) {
+                System.out.println("there's something wrong with the loaded event's arguments");
+            }
+            break;
+        default:
+            System.out.println("there was an error loading the data.");
+            break;
         }
     }
 
@@ -91,7 +147,7 @@ public class Miku {
     }
 
 
-    public static void markTask(ArrayList<Task> storedList, String[] taskToMark)
+    public static void markTask(String[] taskToMark)
             throws MikuException, voidNumberOfItems, indexOutOfListBounds {
         if (taskToMark.length > 2 || taskToMark.length == 1) {
             throw new MikuException();
@@ -114,7 +170,7 @@ public class Miku {
     }
 
 
-    public static void unmarkTask(ArrayList<Task> storedList, String[] taskToUnmark)
+    public static void unmarkTask(String[] taskToUnmark)
             throws MikuException, voidNumberOfItems, indexOutOfListBounds {
         if (taskToUnmark.length > 2 || taskToUnmark.length == 1) {
             throw new MikuException();
@@ -136,7 +192,7 @@ public class Miku {
                 + "] " + storedList.get(listNumberIndex).description);
     }
 
-    public static void deleteTask(ArrayList<Task> storedList, String[] taskToDelete)
+    public static void deleteTask(String[] taskToDelete)
             throws MikuException, voidNumberOfItems, indexOutOfListBounds {
         if (taskToDelete.length > 2 || taskToDelete.length == 1) {
             throw new MikuException();
@@ -194,11 +250,11 @@ public class Miku {
         }
     }
 
-    public static void editListStatus(ArrayList<Task> storedList, String[] splitCommand) {
+    public static void editListStatus(String[] splitCommand) {
         switch (splitCommand[0]) {
         case "mark":
             try {
-                markTask(storedList, splitCommand);
+                markTask(splitCommand);
             } catch (MikuException e) {
                 System.out.println("You didn't properly input it");
             } catch (NumberFormatException e) {
@@ -211,7 +267,7 @@ public class Miku {
             break;
         case "unmark":
             try {
-                unmarkTask(storedList, splitCommand);
+                unmarkTask(splitCommand);
             } catch (MikuException e) {
                 System.out.println("You didn't properly input it");
             } catch (NumberFormatException e) {
@@ -224,7 +280,7 @@ public class Miku {
             break;
         case "delete":
             try {
-                deleteTask(storedList, splitCommand);
+                deleteTask(splitCommand);
             } catch (MikuException e) {
                 System.out.println("Check your delete arguments");
             } catch (NumberFormatException e) {
@@ -242,17 +298,23 @@ public class Miku {
 
     }
 
-    public static void printList(ArrayList<Task> storedList, int numberOfListItems) {
+    public static void printList(int numberOfListItems) {
         System.out.println("Here are your list items!");
         for (int i = 0; i < numberOfListItems; i++) {
             System.out.println((i + 1) + ". " + storedList.get(i).toString());
         }
     }
 
+
     public static void main(String[] args) {
         System.out.println(LINE_BREAK);
         System.out.println("Hello! I'm Miku!\n" + "What can I do for you?");
         System.out.println(LINE_BREAK);
+
+        try {
+            loadData(FILE_PATH);
+        } catch (FileNotFoundException ignored) {
+        }
 
         Scanner in = new Scanner(System.in);
         String newItem = in.nextLine();
@@ -263,19 +325,19 @@ public class Miku {
             String[] splitCommand = newItem.split(" ");
 
             if (newItem.equals("list")) {
-                printList(storedList, numberOfListItems);
+                printList(numberOfListItems);
             } else if (splitCommand[0].matches("todo|event|deadline")) {
                 addTask(splitCommand, newItem);
             } else if (splitCommand[0].matches("mark|unmark|delete")) {
-                editListStatus(storedList, splitCommand);
+                editListStatus(splitCommand);
             } else {
                 System.out.println("You typed something wrongly, I don't know what that means (ㅠ﹏ㅠ)");
             }
 
             if (numberOfListItems > 0) {
-                writeToFile(FILE_PATH, storedList.get(0).toString() + System.lineSeparator());
+                writeToFile(FILE_PATH, storedList.get(0).saveTaskDescription() + System.lineSeparator());
                 for (int i = 1; i < numberOfListItems; i++) {
-                    appendToFile(FILE_PATH, storedList.get(i).toString() + System.lineSeparator());
+                    appendToFile(FILE_PATH, storedList.get(i).saveTaskDescription() + System.lineSeparator());
                 }
             }
 
