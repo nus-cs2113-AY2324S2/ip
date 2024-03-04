@@ -17,7 +17,7 @@ public class Parser {
     private static boolean isRunning = true;
 
     public static String[] parseCommand(String input) {
-        String[] splitInputs = input.split(" ");
+        String[] splitInputs = input.split(" ", 2);
         splitInputs[0] = splitInputs[0].toUpperCase();
         return splitInputs;
     }
@@ -33,26 +33,26 @@ public class Parser {
                 isRunning = false;
                 break;
             case DELETE_COMMAND:
-                tasks.deleteTask(input);
+                tasks.deleteTask(commands[1]);
                 break;
             case LIST_COMMAND:
                 ArrayList<Task> importedTasks = tasks.exportTask();
                 UI.printTasks(importedTasks);
                 break;
             case MARK_COMMAND:
-                tasks.markTask(input);
+                tasks.markTask(commands[1]);
                 break;
             case UNMARK_COMMAND:
-                tasks.unmarkTask(input);
+                tasks.unmarkTask(commands[1]);
                 break;
             case TODO_COMMAND:
-                tasks.addTodo(input);
+                tasks.addTodo(commands[1]);
                 break;
             case DEADLINE_COMMAND:
-                tasks.addDeadline(input);
+                tasks.addDeadline(commands[1]);
                 break;
             case EVENT_COMMAND:
-                tasks.addEvent(input);
+                tasks.addEvent(commands[1]);
                 break;
             case HELP_COMMAND:
                 UI.printSike();

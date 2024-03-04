@@ -28,14 +28,12 @@ public class NyanBot {
     }
 
     public void runNyan() {
-        Scanner scanner = new Scanner(System.in);
         while (isRunning) {
-            String input = scanner.nextLine();
+            String input = UI.getCommand();
             Parser.processCommand(input, tasks);
             isRunning = Parser.getStatus();
             writeNyan();
         }
-        scanner.close();
         UI.printBye();
     }
 

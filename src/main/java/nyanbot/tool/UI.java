@@ -2,6 +2,7 @@ package nyanbot.tool;
 
 import nyanbot.task.Task;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UI {
     protected static final String LINE = "____________________";
@@ -32,6 +33,12 @@ public class UI {
 
     public static void printLine() {
         System.out.println(LINE);
+    }
+
+    public static String getCommand() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        return input;
     }
 
     public static void printBye() {

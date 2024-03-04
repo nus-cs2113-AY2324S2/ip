@@ -24,8 +24,7 @@ public class TaskList {
 
     public void deleteTask(String input) {
         try {
-            String[] splitInputs = input.split(" ");
-            int index = Integer.parseInt(splitInputs[1]) - 1;
+            int index = Integer.parseInt(input) - 1;
             this.tasks.remove(index);
             UI.printDeleteSuccess();
             UI.printTasks(this.tasks);
@@ -38,8 +37,7 @@ public class TaskList {
 
     public void markTask(String input) {
         try {
-            String[] splitInputs = input.split(" ");
-            int index = Integer.parseInt(splitInputs[1]) - 1;
+            int index = Integer.parseInt(input) - 1;
             this.tasks.get(index).markAsDone();
             UI.printMarkSuccess();
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -51,8 +49,7 @@ public class TaskList {
 
     public void unmarkTask(String input) {
         try {
-            String[] splitInputs = input.split(" ");
-            int index = Integer.parseInt(splitInputs[1]) - 1;
+            int index = Integer.parseInt(input) - 1;
             this.tasks.get(index).markAsUndone();
             UI.printUnmarkSuccess();
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
@@ -62,9 +59,8 @@ public class TaskList {
         }
     }
 
-    public void addTodo(String input) {
+    public void addTodo(String description) {
         try {
-            String description = input.substring(5);
             Todo todo = new Todo(description);
             this.addTask(todo);
         } catch (StringIndexOutOfBoundsException e) {
@@ -75,8 +71,8 @@ public class TaskList {
 
     public void addDeadline(String input) {
         try {
-            String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(9);
+            String[] splitInputs = input.split("//", 2);
+            String description = splitInputs[0];
             String date = splitInputs[1];
             Deadline deadline = new Deadline(description, date);
             addTask(deadline);
@@ -91,8 +87,8 @@ public class TaskList {
 
     public void addEvent(String input) {
         try {
-            String[] splitInputs = input.split("/");
-            String description = splitInputs[0].substring(6);
+            String[] splitInputs = input.split("//", 3);
+            String description = splitInputs[0];
             String start = splitInputs[1];
             String end = splitInputs[2];
             Event event = new Event(description, start, end);
