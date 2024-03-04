@@ -102,7 +102,6 @@ Here are the tasks in your list:
 4.[E][ ] open house (from: friday to sunday)
 5.[T][ ] clean house
 ____________________________________________________________
-File successfully saved.
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
