@@ -30,7 +30,8 @@ public class Messages {
      */
     public static void printHelp(String username) {
         System.out.printf("welcome to your personal list, %s!%s", username, System.lineSeparator());
-        System.out.println("usage: todo [item]");
+        System.out.println("usage: help");
+        System.out.println("       todo [item]");
         System.out.println("       deadline [item] /by [due date]");
         System.out.println("       event [item] /from [start] /to [end]");
         System.out.println("       list");

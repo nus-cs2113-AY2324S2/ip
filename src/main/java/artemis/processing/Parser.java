@@ -51,6 +51,9 @@ public class Parser {
         case "FIND":
             returnValue = Command.FIND;
             break;
+        case "HELP":
+            returnValue = Command.HELP;
+            break;
         default:
             returnValue = Command.UNKNOWN;
             break;
@@ -83,9 +86,9 @@ public class Parser {
         fromIndex = fromIndex + fromLength;
         toIndex = toIndex + toLength;
 
-        String eventName = eventString.substring(eventIndex, fromIndex - fromLength);
-        String startDateTime = eventString.substring(fromIndex, toIndex - toLength);
-        String endDateTime = eventString.substring(toIndex);
+        String eventName = eventString.substring(eventIndex, fromIndex - fromLength).trim();
+        String startDateTime = eventString.substring(fromIndex, toIndex - toLength).trim();
+        String endDateTime = eventString.substring(toIndex).trim();
 
         return new String[]{eventName, startDateTime, endDateTime};
     }
@@ -111,8 +114,8 @@ public class Parser {
         deadlineIndex = deadlineIndex + deadlineLength;
         byIndex = byIndex + byLength;
 
-        String deadlineName = deadlineString.substring(deadlineIndex, byIndex - byLength);
-        String dueDate = deadlineString.substring(byIndex);
+        String deadlineName = deadlineString.substring(deadlineIndex, byIndex - byLength).trim();
+        String dueDate = deadlineString.substring(byIndex).trim();
 
         return new String[]{deadlineName, dueDate};
     }
@@ -130,7 +133,7 @@ public class Parser {
             throw new Errors.InvalidTodoException();
         }
 
-        return parseInput[1];
+        return parseInput[1].trim();
     }
 
     /**
@@ -231,6 +234,6 @@ public class Parser {
     }
 
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, FIND, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, FIND, HELP, UNKNOWN
     }
 }

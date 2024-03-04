@@ -126,7 +126,6 @@ public class UserInterface {
                     int markItem = (int) parsedContent[0];
                     boolean isMarked = (boolean) parsedContent[1];
                     taskHandler.markUnmarkItem(markItem, isMarked);
-
                     continue;
                 case BYE:
                     return;
@@ -140,6 +139,9 @@ public class UserInterface {
                 case FIND:
                     String findItem = Parser.parseFind(userInput);
                     printList(findItem);
+                    continue;
+                case HELP:
+                    Messages.printHelp(username);
                     continue;
                 case UNKNOWN:
                 default:
