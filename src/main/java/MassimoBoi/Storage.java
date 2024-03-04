@@ -3,13 +3,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class FileClass {
+public class Storage {
 
-    public static void loadList(List<Task> taskList) throws FileNotFoundException {
+    public List<Task> loadList() throws FileNotFoundException {
+        List<Task> tasks = new ArrayList<>();
         File f = new File("./src/main/java/list.txt");
         Scanner s = new Scanner(f);
         while(s.hasNext()){
@@ -30,29 +32,30 @@ public class FileClass {
             if(line.contains("[X]")){
                 newTask.markAsDone();
             }
-            taskList.add(newTask);
+            tasks.add(newTask);
 
         }
+        return tasks;
     }
 
-    public static void addToFile(List<Task> taskList) throws IOException {
+    public void addToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter("./src/main/java/list.txt");
         String list = "";
-        for(Task task : taskList){
-            if(Objects.equals(task.taskType(), "[D]")){
-                String[] deadlineDescription = task.getDescription().split("\\(by:");
+        for(int i = 0; i < tasks.size(); i++){
+            if(Objects.equals(tasks.get(i).taskType(), "[D]")){
+                String[] deadlineDescription = tasks.get(i).getDescription().split("\\(by:");
                 String[] extractDeadline = deadlineDescription[1].split("\\)");
                 list += Objects.toString(deadlineDescription[0]+ "|" +
-                        extractDeadline[0] + "|" + task.taskType()) + "|" + Objects.toString(task.getStatus())  + "\n";
-            } else if (Objects.equals(task.taskType(),"[E]")){
-                String[] eventDescription = task.getDescription().split("\\(from:");
+                        extractDeadline[0] + "|" + tasks.get(i).taskType()) + "|" + Objects.toString(tasks.get(i).getStatus())  + "\n";
+            } else if (Objects.equals(tasks.get(i).taskType(),"[E]")){
+                String[] eventDescription = tasks.get(i).getDescription().split("\\(from:");
                 String[] extractFrom = eventDescription[1].split("to:");
                 String[] extractTo = extractFrom[1].split("\\)");
                 list += Objects.toString(eventDescription[0]+ "|" + extractFrom[0] + "|" + extractTo[0] + "|"
-                        + task.taskType()) + "|" + Objects.toString(task.getStatus())  + "\n";
+                        + tasks.get(i).taskType()) + "|" + Objects.toString(tasks.get(i).getStatus())  + "\n";
             }
             else {
-                list += Objects.toString(Objects.toString(task.getDescription())+ "|" + task.taskType()) + "|" + Objects.toString(task.getStatus())  + "\n";
+                list += Objects.toString(Objects.toString(tasks.get(i).getDescription())+ "|" + tasks.get(i).taskType()) + "|" + Objects.toString(tasks.get(i).getStatus())  + "\n";
             }
         }
         fw.write(list);
