@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Ui {
     private Scanner in = new Scanner(System.in);
 
-    private final static String logo =
+    private final static String LOGO =
             "  ____   _   _      __     ______    _       _  _____\n" +
             " / ___| | | | |    /  \\    |  _  \\  | |     | ||  ___|\n" +
             "| |     | |_| |   / /\\ \\   | |_| /  | |     | || |___\n" +
@@ -20,7 +20,7 @@ public class Ui {
      * The bot introduces itself to the user and prompts for input
      */
     public void introduce() {
-        printWithoutLeadingSpace("Hello! I'm Charlie!\n" + logo);
+        printWithoutLeadingSpace("Hello! I'm Charlie!\n" + LOGO);
         printWithoutLeadingSpace("What can I do for you?");
     }
 
@@ -49,5 +49,13 @@ public class Ui {
      */
     public String getInput() {
         return in.nextLine().trim();
+    }
+
+    /**
+     * Reminds the user when the first word in the input is not a valid command word
+     */
+    public void warnInvalidCommand() {
+        print("Invalid Command!");
+        print("Possible commands: bye, list, find, mark, unmark, todo, deadline, event");
     }
 }

@@ -49,26 +49,31 @@ public class Storage {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             String str = s.nextLine();
-            String[] dataLine = str.split(" :: ");
-            try {
-                boolean isDone = (Integer.parseInt(dataLine[1]) == 1);
+            processStoredTaskData(tasks, str);
+        }
+        ui.printWithoutLeadingSpace("Stored data has been read in!");
+    }
 
-                switch (dataLine[0]) {
-                case "T":
-                    tasks.add(new Todo(isDone, dataLine[2]));
-                    break;
-                case "D":
-                    tasks.add(new Deadline(isDone, dataLine[2], dataLine[3]));
-                    break;
-                case "E":
-                    tasks.add(new Event(isDone, dataLine[2], dataLine[3], dataLine[4]));
-                    break;
-                default:
-                    ui.printWithoutLeadingSpace("I have no idea what this is: " + str);
-                }
-            } catch (IndexOutOfBoundsException e) {
-                ui.printWithoutLeadingSpace("Missing information: " + str);
+    private void processStoredTaskData(TaskList tasks, String str) {
+        String[] dataLine = str.split(" :: ");
+        try {
+            boolean isDone = (Integer.parseInt(dataLine[1]) == 1);
+
+            switch (dataLine[0]) {
+            case "T":
+                tasks.add(new Todo(isDone, dataLine[2]));
+                break;
+            case "D":
+                tasks.add(new Deadline(isDone, dataLine[2], dataLine[3]));
+                break;
+            case "E":
+                tasks.add(new Event(isDone, dataLine[2], dataLine[3], dataLine[4]));
+                break;
+            default:
+                ui.printWithoutLeadingSpace("I have no idea what this is: " + str);
             }
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            ui.printWithoutLeadingSpace("I have no idea what this is: " + str);
         }
     }
 
@@ -82,24 +87,28 @@ public class Storage {
             FileWriter fw = new FileWriter("./data/task_list.txt");
             for (int i = 0; i < tasks.size(); i++) {
                 Task taskToWrite = tasks.get(i);
-                String isDoneString = taskToWrite.getDone() ? "1" : "0";
-                String description = taskToWrite.getDescription();
-
-                if (Todo.class.isInstance(taskToWrite)) {
-                    fw.write("T :: " + isDoneString + " :: " + description + "\n");
-                } else if (Deadline.class.isInstance(taskToWrite)) {
-                    Deadline deadlineToWrite = (Deadline) taskToWrite;
-                    fw.write("D :: " + isDoneString + " :: " + description
-                            + " :: " + deadlineToWrite.getBy() + "\n");
-                } else {
-                    Event eventToWrite = (Event) taskToWrite;
-                    fw.write("E :: " + isDoneString + " :: " + description + " :: "
-                            + eventToWrite.getFrom() + " :: " + eventToWrite.getTo() + "\n");
-                }
+                writeStoredTaskData(fw, taskToWrite);
             }
             fw.close();
         } catch (IOException e) {
             ui.printWithoutLeadingSpace("Unable to update data file!");
+        }
+    }
+
+    private void writeStoredTaskData(FileWriter fw, Task taskToWrite) throws IOException {
+        String isDoneString = taskToWrite.getDone() ? "1" : "0";
+        String description = taskToWrite.getDescription();
+
+        if (Todo.class.isInstance(taskToWrite)) {
+            fw.write("T :: " + isDoneString + " :: " + description + "\n");
+        } else if (Deadline.class.isInstance(taskToWrite)) {
+            Deadline deadlineToWrite = (Deadline) taskToWrite;
+            fw.write("D :: " + isDoneString + " :: " + description
+                    + " :: " + deadlineToWrite.getBy() + "\n");
+        } else {
+            Event eventToWrite = (Event) taskToWrite;
+            fw.write("E :: " + isDoneString + " :: " + description + " :: "
+                    + eventToWrite.getFrom() + " :: " + eventToWrite.getTo() + "\n");
         }
     }
 }

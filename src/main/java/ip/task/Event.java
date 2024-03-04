@@ -1,11 +1,11 @@
 package ip.task;
 
 /**
- * A subclass of the Task class. Contains the additional information
- * of when the event is from and to
+ * Represents an event task, containing the description of the task
+ * and whether the task has been marked as completed.
+ * Contains the additional information of when the event is from and to
  */
 public class Event extends Task {
-    private static final int TASK_START_INDEX = 6;
     private String from;
     private String to;
 
@@ -18,7 +18,7 @@ public class Event extends Task {
      * @param line the user's input
      */
     public Event(String line) {
-        super(line.substring(TASK_START_INDEX, line.indexOf("/from")));
+        super(line.substring(6, line.indexOf("/from")));
         from = line.substring(line.indexOf("/from") + 6, line.indexOf("/to"));
         to = line.substring(line.indexOf("/to") + 4);
     }

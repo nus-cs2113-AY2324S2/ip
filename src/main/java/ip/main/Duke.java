@@ -4,23 +4,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Contains the entry point of the chatbot program
+ * Represents the chatbot program
  */
 public class Duke {
     private static Storage storage;
     private static Ui ui = new Ui();
     private static Parser parser = new Parser();
     private static TaskList tasks = new TaskList(ui);
+    private static TaskListUpdater updater = new TaskListUpdater(ui);
 
     /**
      * The entry point of the application.
-     * The bot introduces itself and loads previously stored data
+     * The bot loads previously stored data and introduces itself
      * before the user can start giving instructions
      *
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        ui.introduce();
         try {
             storage = new Storage("./data/task_list.txt", ui);
         } catch (IOException e) {
@@ -35,6 +35,7 @@ public class Duke {
             return;
         }
 
+        ui.introduce();
         readInputAndExecute();
     }
 
@@ -47,7 +48,7 @@ public class Duke {
         String line;
         while (true) {
             line = ui.getInput();
-            boolean shouldUpdate = parser.parseInput(line, ui, tasks);
+            boolean shouldUpdate = parser.parseInput(line, ui, tasks, updater);
             if (shouldUpdate) {
                 storage.updateStoredData(tasks);
             }

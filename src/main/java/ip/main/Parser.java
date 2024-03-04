@@ -8,15 +8,15 @@ public class Parser {
 
     /**
      * Identifies the type of command from the input and executes the command.
-     * Reminds the user when the input is invalid.
      * Returns to the caller whether the data file needs to be updated
      *
      * @param line the user's input
      * @param ui the user interface interacting with the user
      * @param tasks the list of tasks
+     * @param updater the updater that updates the tasks list
      * @return whether the data file needs to be updated
      */
-    public boolean parseInput(String line, Ui ui, TaskList tasks) {
+    public boolean parseInput(String line, Ui ui, TaskList tasks, TaskListUpdater updater) {
         if (line.equals("bye")) {
             hasEnded = true;
             return false;
@@ -30,24 +30,24 @@ public class Parser {
             return false;
         }
         if (line.startsWith("mark")) {
-            return tasks.markTask(line);
+            return updater.markTask(tasks, line);
         }
         if (line.startsWith("unmark")) {
-            return tasks.unmarkTask(line);
+            return updater.unmarkTask(tasks, line);
         }
         if (line.startsWith("delete")) {
-            return tasks.deleteTask(line);
+            return updater.deleteTask(tasks, line);
         }
         if (line.startsWith("todo")) {
-            return tasks.addTodo(line);
+            return updater.addTodo(tasks, line);
         }
         if (line.startsWith("deadline")) {
-            return tasks.addDeadline(line);
+            return updater.addDeadline(tasks, line);
         }
         if (line.startsWith("event")) {
-            return tasks.addEvent(line);
+            return updater.addEvent(tasks, line);
         }
-        ui.print("Possible commands: bye, list, find, mark, unmark, todo, deadline, event");
+        ui.warnInvalidCommand();
         return false;
     }
 

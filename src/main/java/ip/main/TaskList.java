@@ -1,18 +1,16 @@
 package ip.main;
 
-import ip.task.Deadline;
-import ip.task.Event;
 import ip.task.Task;
-import ip.task.Todo;
 
 import java.util.ArrayList;
 
 /**
- * Contains the list of task
+ * Contains the list of tasks and provides methods to obtain information of the list.
+ * Also provides methods to add and remove tasks from the list
  */
 public class TaskList {
-    private static ArrayList<Task> tasks;
-    private static Ui ui;
+    private ArrayList<Task> tasks;
+    private Ui ui;
 
     /**
      * Constructor to initialise the tasks and ui attributes
@@ -21,7 +19,7 @@ public class TaskList {
      */
     public TaskList(Ui ui) {
         tasks = new ArrayList<>();
-        TaskList.ui = ui;
+        this.ui = ui;
     }
 
     /**
@@ -40,6 +38,10 @@ public class TaskList {
      */
     public void add(Task task) {
         tasks.add(task);
+    }
+
+    public void remove(int index) {
+        tasks.remove(index);
     }
 
     public Task get(int index) {
@@ -82,131 +84,5 @@ public class TaskList {
         if (matchingCount == 0) {
             ui.print("There are no matching tasks");
         }
-    }
-
-    /**
-     * Processes the user's input to identify the index that
-     * needs to be marked as completed and marks the task
-     *
-     * @param line the user's input
-     * @return whether a task has been successfully marked
-     */
-    public boolean markTask(String line) {
-        int indexMarked;
-        try {
-            indexMarked = Integer.parseInt(line.substring(5)) - 1;
-            tasks.get(indexMarked).setDone(true);
-        } catch (IndexOutOfBoundsException e) {
-            ui.print("Please provide a number from 1 to " + tasks.size());
-            return false;
-        } catch (NumberFormatException e) {
-            ui.print("Please input an integer");
-            return false;
-        }
-        ui.print("Nice! I've marked this task as done:");
-        ui.print(tasks.get(indexMarked).getDetails());
-        return true;
-    }
-
-    /**
-     * Processes the user's input to identify the index that
-     * needs to be unmarked as not completed and unmarks the task
-     *
-     * @param line the user's input
-     * @return whether a task has been successfully unmarked
-     */
-    public boolean unmarkTask(String line) {
-        int indexUnmarked;
-        try {
-            indexUnmarked = Integer.parseInt(line.substring(7)) - 1;
-            tasks.get(indexUnmarked).setDone(false);
-        } catch (IndexOutOfBoundsException e) {
-            ui.print("Please provide a number from 1 to " + tasks.size());
-            return false;
-        } catch (NumberFormatException e) {
-            ui.print("Please input an integer");
-            return false;
-        }
-        ui.print("OK, I've marked this task as not done yet:");
-        ui.print(tasks.get(indexUnmarked).getDetails());
-        return true;
-    }
-
-    /**
-     * Processes the user's input to identify the index that
-     * needs to be deleted and removes the task
-     *
-     * @param line the user's input
-     * @return whether the task has been successfully deleted
-     */
-    public boolean deleteTask(String line) {
-        int indexDeleted;
-        try {
-            indexDeleted = Integer.parseInt((line.substring(7))) - 1;
-            ui.print("Task removed: " + tasks.get(indexDeleted).getDetails());
-            tasks.remove(indexDeleted);
-        } catch (IndexOutOfBoundsException e) {
-            ui.print("Please provide a number from 1 to " + tasks.size());
-            return false;
-        } catch (NumberFormatException e) {
-            ui.print("Please input an integer");
-            return false;
-        }
-        ui.print("Current number of tasks: " + tasks.size());
-        return true;
-    }
-
-    /**
-     * Adds a Todo to the list of tasks
-     *
-     * @param line the user's input
-     * @return whether the Todo has been successfully added
-     */
-    public boolean addTodo(String line) {
-        try {
-            tasks.add(new Todo(line));
-        } catch (StringIndexOutOfBoundsException e) {
-            ui.print("Please input in the form 'todo <description>'");
-            return false;
-        }
-        ui.print("New task added: " + tasks.get(tasks.size() - 1).getDetails());
-        ui.print("Current number of tasks: " + tasks.size());
-        return true;
-    }
-
-    /**
-     * Adds a Deadline to the list of tasks
-     *
-     * @param line the user's input
-     * @return whether the Deadline has been successfully added
-     */
-    public boolean addDeadline(String line) {
-        try {
-            tasks.add(new Deadline(line));
-        } catch (StringIndexOutOfBoundsException e) {
-            ui.print("Please input in the form 'deadline <description> /by <when>'");
-            return false;
-        }
-        ui.print("New task added: " + tasks.get(tasks.size() - 1).getDetails());
-        ui.print("Current number of tasks: " + tasks.size());
-        return true;
-    }
-
-    /**
-     * Adds an Event to the list of tasks
-     *
-     * @param line the user's input
-     * @return whether the Event has been successfully added
-     */
-    public boolean addEvent(String line) {
-        try {
-            tasks.add(new Event(line));
-        } catch (StringIndexOutOfBoundsException e) {
-            ui.print("Please input in the form 'event <description> /from <when> /to <when>'");
-            return false;
-        }
-        ui.print("New task added: " + tasks.get(tasks.size() - 1).getDetails());
-        ui.print("Current number of tasks: " + tasks.size());
-        return true;
     }
 }

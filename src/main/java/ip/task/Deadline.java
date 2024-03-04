@@ -1,11 +1,11 @@
 package ip.task;
 
 /**
- * A subclass of the Task class. Contains the additional information
- * of when the deadline is by
+ * Represents a deadline task, containing the description of the task
+ * and whether the task has been marked as completed.
+ * Contains the additional information of when the deadline is by
  */
 public class Deadline extends Task {
-    private static final int TASK_START_INDEX = 9;
     private String by;
 
     /**
@@ -17,7 +17,7 @@ public class Deadline extends Task {
      * @param line the user's input
      */
     public Deadline(String line) {
-        super(line.substring(TASK_START_INDEX, line.indexOf("/by")));
+        super(line.substring(9, line.indexOf("/by")));
         by = line.substring(line.indexOf("/by") + 4);
     }
 

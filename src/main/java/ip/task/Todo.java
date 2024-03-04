@@ -1,10 +1,10 @@
 package ip.task;
 
 /**
- * A subclass of the Task class. Does not contain additional information
+ * Represents a todo task, containing the description of the task
+ * and whether the task has been marked as completed
  */
 public class Todo extends Task {
-    private static final int TASK_START_INDEX = 5;
 
     /**
      * Constructor to process the user's input and call the constructor of the
@@ -13,7 +13,7 @@ public class Todo extends Task {
      * @param line the user's input
      */
     public Todo(String line) {
-        super(line.substring(TASK_START_INDEX));
+        super(line.substring(5));
     }
 
     /**
