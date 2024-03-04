@@ -89,6 +89,19 @@ public class Wongster {
                 } else {
                     System.out.println("Please input a description for this event task!");
                 }
+            } else if(userInput.startsWith("delete")) {
+                int n = Integer.parseInt(userInput.split(" ")[1]);
+                Task currentTask = userList.get(n - 1);
+                ArrayList<Task> newTasks = new ArrayList<>();
+                for(int i = 0; i < userListItems; i++){
+                    if(i != n - 1) {
+                        newTasks.add(userList.get(i));
+                    }
+                }
+                userListItems--;
+                userList = newTasks;
+                System.out.println("Noted. I've removed this task:\n" + " " + currentTask +
+                        "\nNow you have " + userListItems +" tasks " + "in the list.\n");
             } else {
                 System.out.println("Please input a a proper task!");
                 System.out.println("Help: Tasks start with todo, deadline or event.");
@@ -97,3 +110,4 @@ public class Wongster {
         scanner.close();
     }
 }
+
