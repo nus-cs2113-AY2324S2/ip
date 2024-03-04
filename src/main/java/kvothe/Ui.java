@@ -60,7 +60,8 @@ public class Ui {
 
     public String readCommand() {
         Scanner in = new Scanner(System.in);
-        return in.nextLine();
+        this.line = in.nextLine();
+        return this.line;
     }
 
     public void showDelete(Task task, int size) {

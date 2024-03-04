@@ -1,9 +1,6 @@
-E|1|evento|g|hoy|
 T|1|cosas que hacer|
-D|0|examen|mañana|
-T|0|hacer mas|
 T|0|hhh hacer|
 T|0|fff|
 T|0|pr|
-E|0|rr|hoy|mañaa|
 D|0|hh|hoy|
+T|0|pruebaaa|

@@ -20,11 +20,12 @@ public class DeleteCommand extends Command{
 
         try{
             task = tasks.remove(index);
+            ui.showDelete(task, tasks.size());
+            storage.dumpToFile(tasks.getTasks());
         } catch (WrongArgumentsException e){
             ui.echo(e.getMessage());
         }
 
-        ui.showDelete(task, tasks.size());
-        storage.dumpToFile(tasks.getTasks());
+
     }
 }

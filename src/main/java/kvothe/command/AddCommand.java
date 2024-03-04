@@ -38,7 +38,7 @@ public class AddCommand extends Command{
         }
 
         tasks.add(newTask);
-        ui.echo("added: " + ui.getLine() + "\n\t\tnow you have " + tasks.size() + " tasks in the list");
+        ui.echo("added: " + tasks.get(tasks.size()-1) + "\n\t\tnow you have " + tasks.size() + " tasks in the list");
 
         storage.dumpToFile(tasks.getTasks());
     }
