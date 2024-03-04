@@ -1,7 +1,7 @@
-# **Bart: One of the Chatbots _ever_**
-> I love Bart stuff! - Koh Kai Jie
+# **Bart: One of the Chatbots _<span style="color:orange;">ever</span>_**
+> Greatest chatbot this month! - B.Bernard
 
-# <span style="color:navy;">User Guide</span>
+# <span style="color:orange;">User Guide</span>
 Bart is a desktop app for listing out your everyday tasks, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
 
 - [Quick Start](https://jackieneoceg.github.io/ip/#quick-start)
@@ -13,7 +13,7 @@ Bart is a desktop app for listing out your everyday tasks, optimized for use via
   - [Marking and Unmarking: `mark` `unmark`](https://jackieneoceg.github.io/ip/#marking-and-unmarking-mark-unmark)
   - [Exit and save Bart: `bye`](https://jackieneoceg.github.io/ip/#exit-and-save-bart-bye)
 
-## <span style="color:navy;">Quick Start</span>
+## <span style="color:Orange;">Quick Start</span>
 
 1. Ensure you have `Java 11` or above installed in your Computer.
 2. Download the latest `ip.jar` from [here](https://github.com/JackieNeoCEG/ip/).
@@ -38,10 +38,9 @@ Type 'help' for a list of available commands!
 ________________________________________________________________________________
 
 ```
+Refer to the [Features](https://jackieneoceg.github.io/ip/#features) list below for more information of the commands, type your input down and press `Enter`.
 
-5. Refer to the [Features](https://jackieneoceg.github.io/ip/#features) list below for more information of the commands, type your input down and press Enter.
-
-## <span style="color:navy;">Features</span> 
+## <span style="color:Orange;">Features</span> 
 
 ### <span style="color:coral;">Viewing **help**: `help`</span> 
 
@@ -49,15 +48,14 @@ Shows a list of available commands.
 
 Format: `help`
 
+<br>
 
 ### <span style="color:coral;">**Adding** Tasks and their types: `todo` `deadline` `event`</span> 
 
 Adds task into a list.
 
-Todo Format: `todo [TASK]`
-
-Deadline Format: `deadline [TASK] /by [TIME]`
-
+Todo Format: `todo [TASK]` <br>
+Deadline Format: `deadline [TASK] /by [TIME]`<br>
 Event Format: `event [TASK] /from [START_TIME] /to [END_TIME]`
 
 Examples:
@@ -65,6 +63,7 @@ Examples:
 - `deadline Rob the bank /by 12 noon`
 - `event Boston Tea Party /from 7pm 16/12/1776 /to 10pm 16/12/1776`
 
+<br>
 
 ### <span style="color:coral;">**Listing** all tasks: `list`</span> 
 
@@ -72,6 +71,7 @@ Shows a list of tasks.
 
 Format: `list`
 
+<br>
 
 ### <span style="color:coral;">**Deleting** a task: `delete`</span> 
 
@@ -82,6 +82,7 @@ Format: `delete [INDEX]`
 Example: 
 - `delete 3` Deletes the 3rd task in the list.
 
+<br>
 
 ### <span style="color:coral;">**Marking** and **Unmarking**: `mark` `unmark`</span> 
 
@@ -95,9 +96,10 @@ Examples:
 - `mark 7` Marks the 7th task in the list.
 -  `unmark 2` Removes the mark in the 2nd task in the list.
 
+<br>
 
 ### <span style="color:coral;">**Exit** and save Bart: `bye`</span> 
 
 Exits the program and saves the list in a file located in `./data/Bart.txt`. 
 
-This save file is automatically loaded when Bart is opened again
+This save file is _automatically loaded_ when Bart is opened again
