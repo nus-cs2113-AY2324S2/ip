@@ -1,10 +1,9 @@
 package nyanbot.tool;
 
 import nyanbot.task.Task;
-
 import java.util.ArrayList;
 
-public class Printer {
+public class UI {
     protected static final String LINE = "____________________";
     protected static final String SIKE_MESSAGE = "lmao u got siked wwwwwwwwww";
     protected static final String MARK_MESSAGE = "はい、markしました！";
