@@ -1,4 +1,4 @@
-package laika;
+package seedu.laika.task;
 public class Event extends Task{
 
     protected String from = " (from: ";

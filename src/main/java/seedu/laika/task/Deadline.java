@@ -1,5 +1,6 @@
-package laika;
-public class Deadline extends Task{
+package seedu.laika.task;
+
+public class Deadline extends Task {
 
     protected String by = " (by: ";
 

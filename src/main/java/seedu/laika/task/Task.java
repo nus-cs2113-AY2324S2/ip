@@ -1,4 +1,4 @@
-package laika;
+package seedu.laika.task;
 public class Task {
     protected String description;
 
