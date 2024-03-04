@@ -9,6 +9,17 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X

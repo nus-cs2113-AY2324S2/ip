@@ -1,31 +1,30 @@
-import java.util.Scanner;
+import java.io.IOException; // Make sure to import IOException
+import java.util.ArrayList;
 
 public class TaskManager {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
-        CommandParser commandParser = new CommandParser(taskList);
+        Ui ui = new Ui();
+        Storage storage = new Storage("./data/duke.txt");
+        ArrayList<Task> loadedTasks = storage.load(); // Load tasks from storage
+        TaskList taskList = new TaskList(loadedTasks); // Initialize TaskList with loaded tasks
+        CommandParser commandParser = new CommandParser(taskList, ui); // Initialize CommandParser with TaskList and Ui
 
-        System.out.println("Hello! I'm TaskManager Jamarcus \nWhat can I do for you?");
+        ui.showWelcome();
 
-
-        while (true) {
-            try {
-                String userInput = scanner.nextLine().trim();
-                if (userInput.equalsIgnoreCase("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                } else {
-                    commandParser.parseCommand(userInput);
+        boolean isExit = false;
+        while (!isExit) {
+            String userInput = ui.readCommand();
+            if (userInput.equalsIgnoreCase("bye")) {
+                ui.showGoodbye();
+                try {
+                    storage.save(taskList.getTasks()); // Attempt to save tasks before exiting
+                } catch (IOException e) { // Correctly handle the IOException
+                    ui.showError("An error occurred while saving tasks: " + e.getMessage());
                 }
-            } catch (HandleException e) {
-                System.out.println(e.getMessage());
-            } catch (Exception e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
+                isExit = true;
+            } else {
+                commandParser.parseCommand(userInput);
             }
         }
-
-        scanner.close();
     }
 }
-
