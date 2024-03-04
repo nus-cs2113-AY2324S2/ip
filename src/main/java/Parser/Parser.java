@@ -32,7 +32,7 @@ public class Parser {
         try {
             updateFile(filepath,tasks);
         } catch (IOException e) {
-            System.out.println("Could not save changes to file.");
+            printChangesNotSavedMessage();
         }
         closeApp();
     }
@@ -155,6 +155,17 @@ public class Parser {
         tasks.get(idx).setDone(true);
         printMarkedAsDoneMessage(tasks.get(idx));
     }
+
+    public static void findItems(String input) {
+        TaskList matchedItems = new TaskList();
+        for (Task task : tasks.getAll()){
+            if (task.getDescription().contains(input)){
+                matchedItems.add(task);
+            }
+        }
+        printMatchingTasks(matchedItems);
+    }
+
     public static void chat() {
         String input;
         do {
@@ -166,6 +177,8 @@ public class Parser {
                 unmarkItem(input);
             } else if (input.contains("mark")) {
                 markItem(input);
+            } else if (input.startsWith("find")) {
+                findItems(input.substring("find".length()).trim());
             } else {
                 handleInput(input);
             }
