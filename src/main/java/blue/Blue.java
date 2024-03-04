@@ -8,7 +8,7 @@ import blue.ui.Ui;
 
 /**
  * The Blue class constitutes the main logic of our chatbot application.
- * Broadly, it takes some request from standard input and handles if well-formed, giving a warning otherwise.
+ * Broadly, it takes some request from standard input and handles if well-formed, warning otherwise.
  *
  * @author nkotaa
  */
@@ -30,8 +30,7 @@ public class Blue {
         blueUi.greet();
         blueStorageHandler.restoreState();
         Input userRequest = new Input();
-        boolean isRunning = true;
-        while (isRunning) {
+        for (boolean isRunning = true; isRunning; isRunning = userRequest.isNotExit()) {
             try {
                 userRequest = blueUi.getRequest();
                 blueTaskManager.performRequest(userRequest);
@@ -39,7 +38,6 @@ public class Blue {
             } catch (IllegalInput e) {
                 blueUi.warn(e.getMessage());
             }
-            isRunning = userRequest.isNotExit();
         }
         blueUi.farewell();
     }

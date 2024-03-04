@@ -9,8 +9,13 @@ import java.util.Scanner;
  * Responsible for all user facing interactions through standard input/output.
  */
 public class Ui {
-    private static final String WELCOME_MESSAGE = "Greetings! I'm Blue, a command line task assistant.";
+    private static final String WELCOME_MESSAGE = "Welcome to Blue, a command line task assistant.";
     private static final String GOODBYE_MESSAGE = "Till we meet again.";
+    private static final String LINE_DIVIDER = "-------------------------------------------------------------";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+
     private static Scanner in;
     private static InputParser parser;
 
@@ -24,11 +29,11 @@ public class Ui {
     }
 
     public void greet() {
-        talk(WELCOME_MESSAGE);
+        talk(WELCOME_MESSAGE, ANSI_BLUE);
     }
 
     public void farewell() {
-        talk(GOODBYE_MESSAGE);
+        talk(GOODBYE_MESSAGE, ANSI_BLUE);
     }
 
     /**
@@ -53,7 +58,26 @@ public class Ui {
      * @param line The line of dialogue to print.
      */
     public void talk(String line) {
-        System.out.println(line);
+        printDivider();
+        System.out.println(" " + line);
+        printDivider();
+    }
+
+    /**
+     * Prints a single line of dialogue to standard output, usually acknowledging proper handling of request.
+     * 
+     * @param line The line of dialogue to print.
+     * @param colour What to colour this line of text.
+     */
+    public void talk(String line, String colour) {
+        talk(colour + line + ANSI_RESET);
+    }
+
+    /**
+     * Prints the divider.
+     */
+    private void printDivider() {
+        System.out.println(LINE_DIVIDER);
     }
 
     /**
@@ -63,15 +87,17 @@ public class Ui {
      * @param isNumbered Whether to prefix each line with a line number.
      */
     public void talk(String[] lines, boolean isNumbered) {
+        printDivider();
         int lineNumber = 1;
         for (String line : lines) {
             if (isNumbered) {
-                System.out.println(lineNumber + ". " + line);
+                System.out.println(" " + lineNumber + ". " + line);
                 lineNumber += 1;
             } else {
-                System.out.println(line);
+                System.out.println(" " + line);
             }
         }
+        printDivider();
     }
 
     /**
@@ -80,6 +106,6 @@ public class Ui {
      * @param line The line of warning to print.
      */
     public void warn(String line) {
-        System.out.println(line);
+        talk(line, ANSI_RED);
     }
 }
