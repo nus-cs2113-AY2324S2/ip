@@ -1,7 +1,7 @@
-# :robot: Omoh :robot:	
+# Omoh
 Welcome to the Omoh chatbot user guide! :heart_on_fire:	
 
-## :page_with_curl: Content Page :page_with_curl:	
+## Content Page	
 
 - [Setting up in Intellij](#wrenchsetting-up-in-intellij-wrench)
 - [Features](#musclefeatures-muscle)
@@ -15,7 +15,7 @@ Welcome to the Omoh chatbot user guide! :heart_on_fire:
    - [Finding tasks based on keyword: `find KEYWORD`](#finding-tasks-based-on-keyword-find-keyword)
    - [Exiting the program: `bye`](#exiting-the-program-bye)
 
-## :wrench:	**Setting up in Intellij** :wrench:	
+## **Setting up in Intellij** 
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
@@ -35,7 +35,7 @@ What can I do for you?
 __________________________________________________
 ```
 
-## :muscle:	**Features** :muscle:	
+## **Features** 	
 ### Adding a todo task: `todo TASK_DESCRIPTION`
 Adds a todo task into the task list.
 * `TASK_DESCRIPTION` must not be empty.
