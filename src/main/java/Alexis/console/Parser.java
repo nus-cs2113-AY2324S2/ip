@@ -2,6 +2,10 @@ package Alexis.console;
 
 import Alexis.exception.MissingFieldException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public abstract class Parser {
 
     public static Command parseCommand(String input) {
@@ -31,4 +35,17 @@ public abstract class Parser {
         return input.substring(firstSpace + 1).trim();
     }
 
+    public static String getDateTime(String input) {
+        String dateInput = "yyyy-MM-dd HHmm";
+        String dateOutput = "MMM dd yyyy, K.mm a";
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(dateInput);
+
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(dateOutput);
+            return dateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            return input;
+        }
+    }
 }
