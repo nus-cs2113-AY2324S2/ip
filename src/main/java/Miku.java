@@ -51,9 +51,6 @@ public class Miku {
     public static void transferLoadToArray(String[] loadedTask) {
         boolean isMarked = (loadedTask[1].equals("1"));
         String loadedTaskDescription;
-        for (int i = 0; i < loadedTask.length; i ++) {
-            System.out.println(loadedTask[i]);
-        }
 
         switch (loadedTask[0]) {
         case "T":
@@ -112,7 +109,6 @@ public class Miku {
         }
 
         storedList.add(new Todo(itemString[1]));
-        storedList.get(numberOfListItems).printTask(numberOfListItems);
         numberOfListItems++;
     }
 
@@ -127,7 +123,6 @@ public class Miku {
         }
 
         storedList.add(new Deadline(itemString[1], itemString[2]));
-        storedList.get(numberOfListItems).printTask(numberOfListItems);
         numberOfListItems++;
     }
 
@@ -142,8 +137,12 @@ public class Miku {
         }
 
         storedList.add(new Event(itemString[1], itemString[2], itemString[3]));
-        storedList.get(numberOfListItems).printTask(numberOfListItems);
         numberOfListItems++;
+    }
+
+
+    public static void printNewTask(){
+        storedList.get(numberOfListItems - 1).printTask(numberOfListItems - 1);
     }
 
 
@@ -328,6 +327,7 @@ public class Miku {
                 printList(numberOfListItems);
             } else if (splitCommand[0].matches("todo|event|deadline")) {
                 addTask(splitCommand, newItem);
+                printNewTask();
             } else if (splitCommand[0].matches("mark|unmark|delete")) {
                 editListStatus(splitCommand);
             } else {
