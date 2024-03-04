@@ -34,7 +34,9 @@ public class Parser {
             return new EventCommand(line, parser);
         }else if (line.startsWith("delete")) {
             return new DeleteCommand(line, parser);
-        } else {
+        } else if (line.startsWith("find")) {
+            return new FindCommand(line, parser);
+        }else {
             return new CommandChecker(parser);
         }
     }
