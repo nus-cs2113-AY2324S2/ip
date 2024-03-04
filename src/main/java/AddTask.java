@@ -42,7 +42,7 @@ public class AddTask {
      * according to the keywords identified.
      * Stop only when user input equals to "bye".
      *
-     * @param tasks Arraylist of tasks to be updated
+     * @param tasks Arraylist of tasks stored.
      */
     public static void taskListManager(ArrayList<Task> tasks) {
         int index = DukeFile.latestIndex();
