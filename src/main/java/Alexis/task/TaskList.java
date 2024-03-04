@@ -1,14 +1,18 @@
 package Alexis.task;
 
+import Alexis.console.Parser;
 import Alexis.console.Ui;
+import Alexis.exception.MissingFieldException;
 
 import java.util.ArrayList;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * The TaskList class represents a list of tasks. It provides methods to add, delete, mark, unmark and print tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int numberOfTasks;
 
     public ArrayList<Task> getTasks() {
@@ -102,6 +106,38 @@ public class TaskList {
         System.out.println(Ui.MARK_UNDONE_MESSAGE);
         System.out.print("\t");
         printTask(task, -1);
+    }
+
+    public void findTask(String input) throws MissingFieldException {
+        String description = Parser.parseDescription(input);
+        TaskList filteredList = filterByString(description);
+
+        if(!filteredList.tasks.isEmpty()) {
+            System.out.println(Ui.MATCHING_TASKS_MESSAGE);
+            int taskIndex = 1;
+            for (Task task : filteredList.tasks) {
+                printTask(task, taskIndex);
+                taskIndex++;
+            }
+        } else {
+            System.out.println(Ui.NO_MATCHING_TASK_MESSAGE);
+        }
+    }
+
+    public TaskList filterByString(String filterString) {
+        TaskList filteredList = new TaskList();
+        filteredList.tasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(filterString))
+                .collect(toList());
+        return filteredList;
+    }
+
+    public void printMatchingTasksMessage(String line) {
+        try {
+            findTask(line);
+        } catch (MissingFieldException e) {
+            System.out.println(Ui.MISSING_FIND_DESCRIPTION_ERROR);
+        }
     }
 
     /**
