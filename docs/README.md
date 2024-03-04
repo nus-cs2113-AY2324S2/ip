@@ -1,29 +1,78 @@
-# User Guide
+# Humi User Guide
 
-## Features 
+## Features
 
-### Feature-ABC
+### List all tasks: list
 
-Description of the feature.
+Prints all saved tasks in the list
 
-### Feature-XYZ
+Format: `list`
 
-Description of the feature.
 
-## Usage
+### Add Todo task: todo
 
-### `Keyword` - Describe action
+Adds a todo task to the task list
 
-Describe the action and its outcome.
+Format: `todo TASK`
 
-Example of usage: 
+Example: `todo Shopping`
 
-`keyword (optional arguments)`
 
-Expected outcome:
+### Add Deadline task: deadline
 
-Description of the outcome.
+Adds a deadline task to the task list
+Dates in the format of yyyy-mm-dd hh:mm will be reformatted into MMM-dd-yyyy hh:mm AM/PM
 
-```
-expected output
-```
+Format: `deadline TASK /by DEADLINE`
+
+Examples: 
+- `deadline Assignment /by 2024-10-15 18:30`
+- `deadline Lab report /by Tuesday`
+
+
+### Adding a Event: event
+
+Adds an event task to the task list
+Dates in the format of yyyy-mm-dd hh:mm will be reformatted into MMM-dd-yyyy hh:mm AM/PM
+
+Format: `event TASK /from START /to END`
+
+Examples:
+- `event PGP Party /from 2024-10-15 18:30 /to 19:30`
+- `event Career Fair /from Tuesday /to Friday`
+
+
+### Mark task: mark
+
+Sets a particular task in the task list as done
+
+Format: `mark INDEX`
+
+Example: `mark 4`
+
+
+### Unmark task: unmark
+
+Sets a particular task in the task list as not done
+
+Format: `unmark INDEX`
+
+Example: `unmark 3`
+
+
+### Delete task: delete
+
+Deletes a particular task from the task list
+
+Format: `delete INDEX`
+
+Example: `delete 2`
+
+
+### Find task: find
+
+Finds all tasks that contain a particular keyword from the task list
+
+Format: `find KEYWORD`
+
+Example: `find assignment`
