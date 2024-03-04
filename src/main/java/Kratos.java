@@ -116,7 +116,7 @@ public class Kratos {
     }
 
     // Method to display marking of tasks
-    public static void displayMarking(int taskNumber, String mark) {
+    public static void identifyAndMarkTasks(int taskNumber, String mark) {
         String displayString;
         if (mark.equals("mark")) {
             if (!tasksList.get(taskNumber).isDone) {
@@ -186,7 +186,7 @@ public class Kratos {
         try {
             if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(userInput.split(" ")[1]); //Extract task number
-                displayMarking(taskNumber - 1, userInput.split(" ")[0]);
+                identifyAndMarkTasks(taskNumber - 1, userInput.split(" ")[0]);
             } else if (userInput.startsWith("deadline")) {
                 addDeadline(userInput);
             } else if (userInput.startsWith("todo")) {
@@ -227,13 +227,13 @@ public class Kratos {
         String eventAndName = eventParts[0].trim();  // "event project meeting"
         String date = eventParts[1].trim();  // "Mon 2pm /to 4pm"
 
-        // Split the deadline into action and item
-        String[] event = eventAndName.split("\\s+", 2);
-        String action = event[1]; // project Meeting
+        // Split the event into action and item
+        String[] events = eventAndName.split("\\s+", 2);
+        String action = events[1]; // project Meeting
 
-        String[] timeline = date.split("/to");
+        String[] timelineStrings = date.split("/to");
 
-        tasksList.add(new Event(action, timeline[0].trim(), timeline[1].trim()));
+        tasksList.add(new Event(action, timelineStrings[0].trim(), timelineStrings[1].trim()));
         System.out.println(LINE);
         System.out.println("Event recorded. Destiny's hourglass turns.\n" +
                 "What now? Seize control or be swept by its sands?");
@@ -242,8 +242,8 @@ public class Kratos {
 
     private static void addTodo(String userInput) {
         // Split line into action and type
-        String[] actionAndType = userInput.split("\\s+", 2);
-        String action = actionAndType[1];
+        String[] todoParts = userInput.split("\\s+", 2);
+        String action = todoParts[1];
         tasksList.add(new Todo(action));
         System.out.println(LINE);
         System.out.println("Task noted. A duty without a deadline? Dangerous.\n" +
@@ -260,9 +260,9 @@ public class Kratos {
         String date = deadlineParts[1].trim();  // "Sunday"
 
         // Split the deadline into action and item
-        String[] actionAndItem = deadline.split("\\s+", 2);
-        String action = actionAndItem[0];
-        String item = actionAndItem[1];
+        String[] timelineParts = deadline.split("\\s+", 2);
+        String action = timelineParts[0];
+        String item = timelineParts[1];
         tasksList.add(new Deadline(item, date));
         System.out.println(LINE);
         System.out.println("Deadline acknowledged. Time ticks away, mortal.\n" +
