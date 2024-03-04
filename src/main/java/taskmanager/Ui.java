@@ -1,6 +1,6 @@
 package taskmanager;
 
-public class Messages {
+public class Ui {
     protected final static String VERTICAL_LINES = "    ____________________________________________________________";
     protected final static String FIVE_WHITE_SPACES = "     ";
 

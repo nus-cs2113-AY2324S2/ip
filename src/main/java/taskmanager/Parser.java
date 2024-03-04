@@ -2,33 +2,35 @@ package taskmanager;
 
 import newexceptions.InvalidDeleteIndexException;
 import newexceptions.InvalidInputException;
+import taskmanager.Task;
+import taskmanager.Ui;
 
 import java.util.ArrayList;
 
-public class ConditionHandlers {
+public class Parser {
     public static void listIsNotEmpty(ArrayList<Task> taskList, int taskCounter) {
-        Messages.startOfListMessage();
+        Ui.startOfListMessage();
         for (int i = 0; i < taskCounter; i += 1) {
             switch (taskList.get(i).getTaskType()) {
                 case "T":
-                    Messages.todoListMessage(i, taskList.get(i).getTaskType(),
+                    Ui.todoListMessage(i, taskList.get(i).getTaskType(),
                             taskList.get(i).getStatusIcon(), taskList.get(i).getDescription());
                     break;
                 case "D":
-                    Messages.deadlineListMessage(i, taskList.get(i).getTaskType(),
+                    Ui.deadlineListMessage(i, taskList.get(i).getTaskType(),
                             taskList.get(i).getStatusIcon(), taskList.get(i).getDescription(),
                             taskList.get(i).getEndDate());
                     break;
                 case "E":
-                    Messages.eventListMessage(i, taskList.get(i).getTaskType(),
+                    Ui.eventListMessage(i, taskList.get(i).getTaskType(),
                             taskList.get(i).getStatusIcon(), taskList.get(i).getDescription(),
                             taskList.get(i).getStartDate(), taskList.get(i).getEndDate());
                     break;
                 default:
-                    Messages.invalidTaskTypeMessage();
+                    Ui.invalidTaskTypeMessage();
             }
         }
-        Messages.printVerticalLines();
+        Ui.printVerticalLines();
     }
     public static void markTask(String receivedMessage, ArrayList<Task> taskList) {
         String number = "";
@@ -38,13 +40,13 @@ public class ConditionHandlers {
             }
         }
         if (number.isEmpty()) {
-            Messages.errorMessage();
+            Ui.errorMessage();
             System.out.println("     Sire you need to input a digit after mark");
             return;
         } else {
             taskList.get(Integer.parseInt(number) - 1).markAsDone();
         }
-        Messages.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
+        Ui.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
                 taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
                 taskList.get(Integer.parseInt(number) - 1).getDescription(), "complete");
     }
@@ -56,13 +58,13 @@ public class ConditionHandlers {
             }
         }
         if (number.isEmpty()) {
-            Messages.errorMessage();
+            Ui.errorMessage();
             System.out.println("     Sire you need to input a digit after unmark");
             return;
         } else {
             taskList.get(Integer.parseInt(number) - 1).markAsUndone();
         }
-        Messages.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
+        Ui.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
                 taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
                 taskList.get(Integer.parseInt(number) - 1).getDescription(), "incomplete");
     }
@@ -83,12 +85,12 @@ public class ConditionHandlers {
             taskList.add(taskCounter, new Task(splittedMessage[1]));
             taskList.get(taskCounter).setTaskType("todo");
             taskCounter += 1;
-            Messages.addTodoMessage(taskList.get(taskCounter - 1).getTaskType(),
+            Ui.addTodoMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
                     taskCounter);
             return taskCounter;
         } catch (InvalidInputException e) {
-            Messages.typoErrorMessage();
+            Ui.typoErrorMessage();
             return taskCounter;
         }
     }
@@ -120,12 +122,12 @@ public class ConditionHandlers {
             taskList.get(taskCounter).setTaskType("deadline");
             taskList.get(taskCounter).setEndDate(doubleSplittedMessage[1]);
             taskCounter += 1;
-            Messages.addDeadlineMessage(taskList.get(taskCounter - 1).getTaskType(),
+            Ui.addDeadlineMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
                     taskList.get(taskCounter - 1).getEndDate(), taskCounter);
             return taskCounter;
         } catch (InvalidInputException e) {
-            Messages.typoErrorMessage();
+            Ui.typoErrorMessage();
             return taskCounter;
         }
     }
@@ -164,13 +166,13 @@ public class ConditionHandlers {
             taskList.get(taskCounter).setStartDate(tripleSplittedMessage[0]);
             taskList.get(taskCounter).setEndDate(tripleSplittedMessage[1]);
             taskCounter += 1;
-            Messages.addEventMessage(taskList.get(taskCounter - 1).getTaskType(),
+            Ui.addEventMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
                     taskList.get(taskCounter - 1).getStartDate(), taskList.get(taskCounter - 1).getEndDate(),
                     taskCounter);
             return taskCounter;
         } catch (InvalidInputException e){
-            Messages.typoErrorMessage();
+            Ui.typoErrorMessage();
             return taskCounter;
         }
     }
@@ -184,7 +186,7 @@ public class ConditionHandlers {
                 }
             }
             if (number.isEmpty()) {
-                Messages.errorMessage();
+                Ui.errorMessage();
                 System.out.println("     Sire you need to input a digit after delete");
                 return taskCounter;
             }
@@ -194,17 +196,17 @@ public class ConditionHandlers {
             }
             switch(taskList.get(taskNumber - 1).getTaskType()) {
                 case "T":
-                    Messages.deleteTodoMessage(taskList.get(taskNumber - 1).getTaskType(),
+                    Ui.deleteTodoMessage(taskList.get(taskNumber - 1).getTaskType(),
                             taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
                             taskCounter - 1);
                     break;
                 case "D":
-                    Messages.deleteDeadlineMessage(taskList.get(taskNumber - 1).getTaskType(),
+                    Ui.deleteDeadlineMessage(taskList.get(taskNumber - 1).getTaskType(),
                             taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
                             taskList.get(taskNumber - 1).getEndDate(),taskCounter - 1);
                     break;
                 case "E":
-                    Messages.deleteEventMessage(taskList.get(taskNumber - 1).getTaskType(),
+                    Ui.deleteEventMessage(taskList.get(taskNumber - 1).getTaskType(),
                             taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
                             taskList.get(taskNumber - 1).getStartDate(), taskList.get(taskNumber - 1).getEndDate(),
                             taskCounter - 1);
@@ -222,8 +224,8 @@ public class ConditionHandlers {
             return taskCounter;
         }
         catch (InvalidDeleteIndexException e) {
-            Messages.typoErrorMessage();
-            Messages.invalidDeleteIndexMessage();
+            Ui.typoErrorMessage();
+            Ui.invalidDeleteIndexMessage();
             return taskCounter;
         }
     }

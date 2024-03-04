@@ -22,7 +22,7 @@ public class Task {
                 return this.description;
             }
         } catch (InvalidGetException e){
-            Messages.invalidTaskAttributeMessage();
+            Ui.invalidTaskAttributeMessage();
             return this.description;
         }
     }
@@ -43,7 +43,7 @@ public class Task {
                 return this.startDate;
             }
         } catch (InvalidGetException e){
-            Messages.invalidTaskAttributeMessage();
+            Ui.invalidTaskAttributeMessage();
             return this.startDate;
         }
     }
@@ -58,7 +58,7 @@ public class Task {
                 return this.endDate;
             }
         } catch (InvalidGetException e){
-            Messages.invalidTaskAttributeMessage();
+            Ui.invalidTaskAttributeMessage();
             return this.endDate;
         }
     }
@@ -74,7 +74,7 @@ public class Task {
                 this.taskType = "E";
                 break;
             default:
-                Messages.invalidTaskTypeMessage();
+                Ui.invalidTaskTypeMessage();
                 break;
         }
     }
@@ -86,7 +86,7 @@ public class Task {
                 return this.taskType;
             }
         } catch (InvalidGetException e){
-            Messages.invalidTaskAttributeMessage();
+            Ui.invalidTaskAttributeMessage();
             return this.taskType;
         }
     }

@@ -1,6 +1,9 @@
-todo run
+event ChinYanXu attend CS2113 lecture Friday 23 Feb 2024 /from 4 /to 6pm
+todo ee2026 assignment
+event cny gathering /from 11am /to 6pm
+event study /from 10pm /to 12am
+event go run /from 3pm /to 4pm
+deadline cs2113 /by 3345
+todo homework
+event dinner /from 6pm /to 7pm
 todo sleep
-todo breakfast
-event cg2271 /from 2pm /to 4pm
-event mecsasd /from 4 /to 33
-deadline tdy /by tdy
