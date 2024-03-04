@@ -220,7 +220,6 @@ public class Storage {
 
         try {
             writeToFile(formatFile(tasks));
-            System.out.println("File successfully saved.");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }

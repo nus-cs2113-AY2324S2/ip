@@ -79,29 +79,29 @@ public class Ui {
                 }
                 switch (command) {
                 case BYE:
-                    Storage.saveToLocalDisk(tasks);
                     return;
                 case LIST:
                     printTaskListToConsole(tasks);
                     break;
                 case MARK:
                     printMarkedItemToConsole(tasks, line);
+                    Storage.saveToLocalDisk(tasks);
                     break;
                 case UNMARK:
                     printUnmarkedItemToConsole(tasks, line);
+                    Storage.saveToLocalDisk(tasks);
                     break;
                 case FIND:
                     printMatchingTasksToConsole(tasks, line);
                     break;
                 case DELETE:
                     printDeletedTaskToConsole(tasks, line);
+                    Storage.saveToLocalDisk(tasks);
                     break;
                 case TODO:
                 case DEADLINE:
                 case EVENT:
                     printNewTaskToConsole(tasks, line, command);
-                    break;
-                case SAVE:
                     Storage.saveToLocalDisk(tasks);
                     break;
                 }
