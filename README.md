@@ -20,7 +20,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ------------------------------
    ```
 
-## Features
+## Features and usage
 1. 'todo [task description]': Adds a todo with a description.  
 2. 'deadline [task description] /by [date YYYY-MM-DD]': Adds a deadline with a description and date.
 3. 'event [task description] /from [date YYYY-MM-DD] /to [date YYYY-MM-DD]': Adds a event with a description and dates.
