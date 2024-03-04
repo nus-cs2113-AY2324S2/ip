@@ -1,6 +1,13 @@
+package OGFCommand;
+
+import OGFCore.OGFException;
+import OGFCore.Storage;
+import OGFCore.TaskList;
+import OGFCore.Ui;
+import OGFTask.*;
 public class FindCommand extends Command{
     private String searchTerm;
-    FindCommand(String searchTerm){
+    public FindCommand(String searchTerm){
         this.searchTerm = searchTerm;
     }
 

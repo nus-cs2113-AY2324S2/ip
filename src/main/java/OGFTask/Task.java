@@ -1,3 +1,5 @@
+package OGFTask;
+
 /**
  * Class for all tasks, i.e. to do, deadline and event
  */

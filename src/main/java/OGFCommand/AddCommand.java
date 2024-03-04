@@ -1,12 +1,19 @@
+package OGFCommand;
+
+import OGFCore.OGFException;
+import OGFCore.Storage;
+import OGFCore.TaskList;
+import OGFCore.Ui;
+
 import java.io.IOException;
 
 /**
- * A Command that stores a Task that when executed, adds that Task to the task list and stores it in hardware
+ * A OGFCommand.Command that stores a OGFTask.Task that when executed, adds that OGFTask.Task to the task list and stores it in hardware
  */
 public class AddCommand extends Command{
-    private final Task task;
+    private final OGFTask.Task task;
 
-    public AddCommand(Task task){
+    public AddCommand(OGFTask.Task task){
         this.task = task;
     }
 

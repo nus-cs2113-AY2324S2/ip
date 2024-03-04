@@ -1,9 +1,16 @@
+package OGFCommand;
+
+import OGFCore.OGFException;
+import OGFCore.Storage;
+import OGFCore.TaskList;
+import OGFCore.Ui;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command{
     private final int taskToDelete;
 
-    DeleteCommand(int task){
+    public DeleteCommand(int task){
         taskToDelete = task;
     }
 

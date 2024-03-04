@@ -1,6 +1,8 @@
+package OGFCore;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import OGFTask.*;
 /**
  * Class that includes methods for printing common messages and getting input from the user.
  */
@@ -68,8 +70,15 @@ public class Ui  {
         printBreakLine();
     }
 
-    public void printOGFException(OGFException error){
+    public boolean handleOGFException(OGFException error){
         System.out.println(error.getMessage());
         printBreakLine();
+
+        if (error.getFatal()){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }

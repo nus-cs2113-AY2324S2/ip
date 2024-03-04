@@ -1,12 +1,14 @@
+package OGFTask;
+
 /**
  * Class for to do tasks
  */
 public class Todo extends Task {
-    Todo(String task){
+    public Todo(String task){
         super(task);
     }
 
-    Todo(String task, boolean isDone){
+    public Todo(String task, boolean isDone){
         super(task, isDone);
     }
     @Override

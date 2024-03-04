@@ -1,5 +1,7 @@
-import java.util.ArrayList;
+package OGFCore;
 
+import java.util.ArrayList;
+import OGFTask.*;
 /**
  * Class that manages temporary list of tasks, i.e. adding, removing, editing
  */

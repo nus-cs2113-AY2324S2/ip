@@ -1,6 +1,9 @@
+package OGFCore;
+
 import java.io.IOException;
 import java.util.ArrayList;
-
+import OGFTask.*;
+import OGFCommand.Command;
 public class OGF {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -24,7 +27,7 @@ public class OGF {
             }
         }
         catch(IOException e){
-            System.out.println("There has been a fatal error in reading the storage file. Closing program :(");
+            System.out.println("There has been a fatal error in reading the storage file. Closing program :("); //made IOExceptions close the program because it is something that the user has to fix while the program is closed
             isRunning = false;
         }
         while (isRunning) {
@@ -34,10 +37,7 @@ public class OGF {
                 isRunning = command.execute(tempTasks, ui,listStorage);
             }
             catch (OGFException error){
-                ui.printOGFException(error);
-                if(error.getFatal()){
-                    isRunning = false;
-                }
+                isRunning = ui.handleOGFException(error);
             }
         }
     }

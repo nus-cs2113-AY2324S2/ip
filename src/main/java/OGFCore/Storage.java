@@ -1,8 +1,10 @@
+package OGFCore;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
+import OGFTask.*;
 // Manages file creation, reading and writing from file
 
 /**
@@ -22,9 +24,9 @@ public class Storage {
     }
 
     /**
-     * Converts a line from the text file to a Task
+     * Converts a line from the text file to a OGFTask.Task
      * @param data line from the hardware file
-     * @return Task
+     * @return OGFTask.Task
      * @throws OGFException Used for all errors
      */
     private static Task parseStoredTask(String data) throws OGFException {
@@ -42,8 +44,8 @@ public class Storage {
     }
 
     /**
-     * Converts the entire text file to a TaskList to be used by the program
-     * @return TaskList
+     * Converts the entire text file to a OGFCore.TaskList to be used by the program
+     * @return OGFCore.TaskList
      * @throws IOException Fatal exception that should be solved by the user
      * @throws OGFException Used for all other errors
      */
@@ -70,8 +72,8 @@ public class Storage {
     }
 
     /**
-     * Overwrites text file with TaskList from the program
-     * @param newerList TaskList from the Program
+     * Overwrites text file with OGFCore.TaskList from the program
+     * @param newerList OGFCore.TaskList from the Program
      * @throws IOException Fatal exception that should be solved by the user
      */
     public void updateFile(TaskList newerList) throws IOException {
@@ -84,7 +86,7 @@ public class Storage {
 
     /**
      * Appends task to file
-     * @param taskToAdd Task to add to file
+     * @param taskToAdd OGFTask.Task to add to file
      * @throws IOException Fatal exception that should be solved by the user
      */
     public void appendToFile(Task taskToAdd) throws IOException{

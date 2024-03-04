@@ -1,10 +1,17 @@
+package OGFCommand;
+
+import OGFCore.OGFException;
+import OGFCore.Storage;
+import OGFCore.TaskList;
+import OGFCore.Ui;
+
 import java.io.IOException;
 
 public class UpdateCommand extends Command{
     boolean isMark;
     int taskToMark;
 
-    UpdateCommand(int taskToMark, boolean isMark){
+    public UpdateCommand(int taskToMark, boolean isMark){
         this.taskToMark = taskToMark;
         this.isMark = isMark;
     }

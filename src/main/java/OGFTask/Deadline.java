@@ -1,15 +1,17 @@
+package OGFTask;
+
 /**
- * Class for Deadline tasks
+ * Class for OGFTask.Deadline tasks
  */
 public class Deadline extends Task{
     private final String deadlineString;
 
-    Deadline(String description, String deadline){
+    public Deadline(String description, String deadline){
         super(description);
         this.deadlineString = deadline;
     }
 
-    Deadline(String description, String deadline, boolean isDone){
+    public Deadline(String description, String deadline, boolean isDone){
         super(description, isDone);
         this.deadlineString = deadline;
     }
