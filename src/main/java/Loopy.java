@@ -33,32 +33,34 @@ public class Loopy {
         } else if (task.startsWith("mark")) {
             try {
                 markTaskAsDone(task);
-            } catch (LoopyExceptions exceptions){
+            } catch (LoopyExceptions exceptions) {
                 System.out.println("Warning! " + exceptions.getMessage());
             }
         } else if (task.startsWith("unmark")) {
             try {
                 markTaskAsUndone(task);
-            } catch (LoopyExceptions exceptions){
+            } catch (LoopyExceptions exceptions) {
                 System.out.println("Warning! " + exceptions.getMessage());
             }
         } else if (task.startsWith("todo")) {
             try {
                 addTodo(task); // Create Task object and add it to the list
-            } catch (LoopyExceptions exceptions){
+            } catch (LoopyExceptions exceptions) {
                 System.out.println("Warning! " + exceptions.getMessage());
             }
         } else if (task.startsWith("deadline")) {
             addDeadline(task);
         } else if (task.startsWith("event")) {
             addEvent(task);
+        } else if (task.startsWith("delete")) {
+            deleteTask(task);
         } else {
-            System.out.println("I don't know what you're saying...");
+            System.out.println("I don't know what you're saying...?");
         }
     }
 
     private static void addTodo(String task) throws LoopyExceptions {
-        if (task.length() <=5) {
+        if (task.length() <= 5) {
             throw new LoopyExceptions("Todo cannot be empty!");
         }
         if (task.length() > 5) {
@@ -107,31 +109,42 @@ public class Loopy {
     }
 
     private static void markTaskAsDone(String task) throws LoopyExceptions {
-            if (task.length() <=5) {
-                throw new LoopyExceptions("Please specify which task to mark.");
-            }
-            int taskIndex = Integer.parseInt(task.substring(5)) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                Task currentTask = tasks.get(taskIndex);
-                currentTask.markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(" " + currentTask);
-            } else {
-                //write some other error
-                throw new LoopyExceptions("Please specify which task to mark.");
-            }
+        if (task.length() <= 5) {
+            throw new LoopyExceptions("Please specify which task to mark.");
         }
+        int taskIndex = Integer.parseInt(task.substring(5)) - 1;
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task currentTask = tasks.get(taskIndex);
+            currentTask.markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(" " + currentTask);
+        } else {
+            //write some other error
+            throw new LoopyExceptions("Please specify which task to mark.");
+        }
+    }
 
 
     private static void markTaskAsUndone(String task) throws LoopyExceptions {
         int taskIndex = Integer.parseInt(task.substring(7)) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task currentTask = tasks.get(taskIndex);
+            Task currentTask = tasks.get(taskIndex); //retrieve this current task from tasks
             currentTask.markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(" " + currentTask);
         } else {
             throw new LoopyExceptions("Please specify which task to unmark.");
+        }
+    }
+
+    public static void deleteTask(String task) {
+        int taskIndex = Integer.parseInt(task.substring(7)) - 1;
+        Task currentTask = tasks.get(taskIndex); //retrieve this current task from tasks
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            System.out.println("I have deleted the task: ");
+            System.out.println(currentTask);
+            tasks.remove(taskIndex);
+            System.out.println("You now have " + tasks.size() + " tasks left");
         }
     }
 }
@@ -160,6 +173,7 @@ class Task {
     public String getDescription() {
         return description;
     }
+
     public String getType(){
         return "";
     }
@@ -210,7 +224,5 @@ class EventTask extends Task {
     public String toString() {
         return "[" + getType() + "]" + "[" + (isDone ? "X" : " ") + "] " + description + " (from: " + fromDate + " to: " + toDate + ")";
     }
-
-
 }
 
