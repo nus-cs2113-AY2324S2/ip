@@ -82,6 +82,11 @@ public class TaskList {
     }
 
 
+    /**
+     * Prints all tasks in the list that contain a specific keyword.
+     *
+     * @param keyword The keyword.
+     */
     public void findKeyword(String keyword){
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task item : tasks){

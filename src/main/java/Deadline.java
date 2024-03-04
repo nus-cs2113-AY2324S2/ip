@@ -28,14 +28,4 @@ public class Deadline extends Task{
     public String getDescription(){
         return ("[D][" + super.getStatusIcon() + "] " + this.description + " (by: " + by + ")");
     }
-
-
-    public void setBy(String item) {
-        this.by = item;
-    }
-
-
-    public String getBy(){
-        return this.by;
-    }
 }

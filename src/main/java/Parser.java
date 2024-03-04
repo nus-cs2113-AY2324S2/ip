@@ -5,7 +5,7 @@ import java.util.Scanner;
  */
 public class Parser {
     public static String getFirstWord(String userInput){
-        return userInput = userInput.split(" ")[0];
+        return userInput.split(" ")[0];
     }
 
 
