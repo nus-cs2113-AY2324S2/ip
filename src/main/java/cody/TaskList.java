@@ -2,13 +2,26 @@ package cody;
 
 import cody.tasks.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
-    public void printList() {
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public String executeCommand(String input) throws CodyException {
+        Parser.handleCommand(input, this);
+    }
+
+    public boolean isExit() {
+        return true;
+    }
+
+    public String printList() {
         String listString = " Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -16,7 +29,7 @@ public class TaskList {
                     + "[" + task.getStatusIcon() + "] "
                     + task.getDescription() + "\n";
         }
-        Ui.printMessage(listString);
+        return listString;
     }
 
     private void markTask(int index) {
@@ -95,7 +108,7 @@ public class TaskList {
 
     public TaskList() {
         tasks = new ArrayList<>();
-        Storage.loadTasksFromFile(tasks);
+        Storage.load(tasks);
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
@@ -103,7 +116,7 @@ public class TaskList {
             Parser.handleCommand(input, this);
             input = in.nextLine();
         }
-        Storage.saveTasks(tasks);
+        Storage.save(tasks);
     }
 }
 
