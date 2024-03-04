@@ -1,5 +1,5 @@
 T | 1 | lol
-T | 0 | nothing much
 D | 1 | wake up | 8pm
-E | 0 | church | 8pm | 9pm
-E | 1 | dance to the beat | 2pm | 10pm
+E | 1 | church | 8pm | 9pm
+E | 0 | dance to the beat | 2pm | 10pm
+D | 1 | nothing | none
