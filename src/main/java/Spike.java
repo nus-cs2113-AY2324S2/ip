@@ -10,15 +10,19 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Spike {
+    private static Ui ui;
+
     public static void main(String[] args) throws IOException {
-        Ui.displayWelcomeMsg();
+        ui = new Ui();
+
+        ui.displayWelcomeMsg();
         ArrayList<Task> inputList = DataHandler.readFileContents(DataHandler.FILE_PATH);
         Scanner in = new Scanner(System.in);
 
         while (true) {
             try {
                 startChatbot(in, inputList);
-                Ui.displayByeMsg();
+                ui.displayByeMsg();
                 break;
             } catch (CommandNotFoundException e) {
                 System.out.println("Command Not Found! Please Try Again");
@@ -40,36 +44,36 @@ public class Spike {
             String input = in.nextLine();
             switch (input.split(" ")[0]) {
             case "list":
-                Ui.displayList(inputList);
+                ui.displayList(inputList);
                 break;
             case "mark":
                 int indexMark = Parser.getIndexMark(inputList, input);
                 inputList.get(indexMark).setDone(true);
-                Ui.displayMarkMsg(indexMark, inputList);
+                ui.displayMarkMsg(indexMark, inputList);
                 break;
             case "unmark":
                 int indexUnmark = Parser.getIndexUnmark(inputList, input);
                 inputList.get(indexUnmark).setDone(false);
-                Ui.displayUnmarkMsg(indexUnmark, inputList);
+                ui.displayUnmarkMsg(indexUnmark, inputList);
                 break;
             case "todo":
                 Task newTodo = new Todo(Parser.processTodo(input));
                 inputList.add(newTodo);
-                Ui.displayAcknowledgement(newTodo, inputList.size());
+                ui.displayAcknowledgement(newTodo, inputList.size());
                 break;
             case "deadline":
                 Task newDeadline = new Todo(Parser.processDeadline(input));
                 inputList.add(newDeadline);
-                Ui.displayAcknowledgement(newDeadline, inputList.size());
+                ui.displayAcknowledgement(newDeadline, inputList.size());
                 break;
             case "event":
                 Task newEvent = new Todo(Parser.processEvent(input));
                 inputList.add(newEvent);
-                Ui.displayAcknowledgement(newEvent, inputList.size());
+                ui.displayAcknowledgement(newEvent, inputList.size());
                 break;
             case "delete":
                 int indexDelete = Parser.getIndexDelete(input);
-                Ui.displayDeleteMsg(inputList.get(indexDelete), inputList.size());
+                ui.displayDeleteMsg(inputList.get(indexDelete), inputList.size());
                 inputList.remove(indexDelete);
                 break;
             case "bye":

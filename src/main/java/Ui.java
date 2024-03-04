@@ -9,7 +9,7 @@ public class Ui {
     private static final String CHATBOT = "Spike";
     public static final String DIVIDER = "_________________________________________________";
 
-    protected static void displayList(ArrayList<Task> inputList) {
+    protected void displayList(ArrayList<Task> inputList) {
         System.out.println(DIVIDER);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < inputList.size(); i++) {
@@ -24,7 +24,7 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    protected static char getBadge(Task value) {
+    protected char getBadge(Task value) {
         char Badge = ' ';
         if (value instanceof Todo) {
             Badge = ((Todo) value).getBadge();
@@ -35,7 +35,7 @@ public class Ui {
         }
         return Badge;
     }
-    protected static void displayUnmarkMsg(int index, ArrayList<Task> inputList) {
+    protected void displayUnmarkMsg(int index, ArrayList<Task> inputList) {
         char Badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
         System.out.println("OK, I've marked this task as not done yet:");
@@ -44,7 +44,7 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    protected static void displayMarkMsg(int index, ArrayList<Task> inputList) {
+    protected void displayMarkMsg(int index, ArrayList<Task> inputList) {
         char Badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
         System.out.println("Nice! I've marked this task as done:");
@@ -53,20 +53,20 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    protected static void displayByeMsg() {
+    protected void displayByeMsg() {
         System.out.println(DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
     }
 
-    protected static void displayWelcomeMsg() {
+    protected void displayWelcomeMsg() {
         System.out.println(DIVIDER);
         System.out.println("Hello! I'm " + CHATBOT);
         System.out.println("What can I do for you?\n");
         System.out.println(DIVIDER);
     }
 
-    protected static void displayDeleteMsg(Task inputObj, int arrayLength){
+    protected void displayDeleteMsg(Task inputObj, int arrayLength){
         char Badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("I've removed this task:");
@@ -75,7 +75,7 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    protected static void displayAcknowledgement(Task inputObj, int arrayLength) {
+    protected void displayAcknowledgement(Task inputObj, int arrayLength) {
         char Badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("Got it. I've added this task:");
