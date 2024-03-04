@@ -1,3 +1,7 @@
+package seedu.salmonsan.data.task;
+
+import seedu.salmonsan.data.exception.SalmonMissingArgument;
+
 public class Task {
     protected boolean isDone;
     protected String description;
@@ -34,7 +38,7 @@ public class Task {
 
     /**
      *
-     * @return boolean isDone of Task
+     * @return boolean isDone of seedu.salmonsan.data.task.Task
      */
     public boolean getStatus() {
         return this.isDone;
@@ -42,7 +46,7 @@ public class Task {
 
     /**
      *
-     * @return String description of Task
+     * @return String description of seedu.salmonsan.data.task.Task
      */
     public String getDescription() {
         return this.description;

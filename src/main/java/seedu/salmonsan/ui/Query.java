@@ -1,3 +1,5 @@
+package seedu.salmonsan.ui;
+
 public class Query {
     // attributes of query
     // input must always be in lowercase
@@ -16,7 +18,7 @@ public class Query {
     }
 
     /**
-     * Parse string s to update attributes of Query.
+     * Parse string s to update attributes of seedu.salmonsan.ui.Query.
      * @param s
      */
     public void changeInput(String s) {

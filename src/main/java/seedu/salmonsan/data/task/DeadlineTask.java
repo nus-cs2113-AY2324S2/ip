@@ -1,12 +1,16 @@
-public class DeadlineTask extends Task{
+package seedu.salmonsan.data.task;
+
+import seedu.salmonsan.data.exception.SalmonMissingArgument;
+
+public class DeadlineTask extends Task {
     protected static String deadline;
 
 
-    public DeadlineTask() throws SalmonMissingArgument{
+    public DeadlineTask() throws SalmonMissingArgument {
         this(false, "DEFAULT /by DEFAULT");
     }
 
-    public DeadlineTask(boolean status, String description) throws SalmonMissingArgument{
+    public DeadlineTask(boolean status, String description) throws SalmonMissingArgument {
         this.isDone = status;
         this.description = setDeadline(description);
         this.type = "D";

@@ -1,3 +1,8 @@
+package seedu.salmonsan.data;
+
+import seedu.salmonsan.data.exception.SalmonNotInListException;
+import seedu.salmonsan.data.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,17 +150,17 @@ public class TasksList {
     }
 
     /**
-     * return Task at specific index in list (0 indexed)
+     * return seedu.salmonsan.data.task.Task at specific index in list (0 indexed)
      * @param i
-     * @return Task
+     * @return seedu.salmonsan.data.task.Task
      */
     public Task getTaskWithIndex(int i) {
         return this.list.get(i);
     }
 
     /**
-     * return the latest Task inserted
-     * @return Task
+     * return the latest seedu.salmonsan.data.task.Task inserted
+     * @return seedu.salmonsan.data.task.Task
      */
     public Task getLatestTask() {
         return this.list.get(this.noOfTasks - 1); // -1 to get index
