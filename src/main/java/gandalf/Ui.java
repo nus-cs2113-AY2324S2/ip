@@ -312,6 +312,7 @@ public class Ui {
         in.close();
     }
 
+    /** Prints an error message for incomplete command. */
     public static void printIncompleteCommandMessage() {
         System.out.println(LINE);
         System.out.println("Your command is incomplete.");
@@ -324,24 +325,28 @@ public class Ui {
         System.out.println("Loading previous To-Do List....");
     }
 
+    /** Prints a message indicating that the save-file has not been made. */
     public static void printFileNotFoundMessage() {
         System.out.println(LINE);
         System.out.println("File not found. You may start creating your new list.");
         System.out.println(LINE);
     }
 
+    /** Prints a message indicating that the save-file is empty. */
     public static void printEmptyFileMessage() {
         System.out.println(LINE);
         System.out.println("Your safe file is empty. You may start creating your new list.");
         System.out.println(LINE);
     }
 
+    /** Prints a message indicating that the list is full. */
     public static void printListIsFullMessage() {
         System.out.println(LINE);
         System.out.println("List is full. Cannot add more items.");
         System.out.println(LINE);
     }
 
+    /** Prints an error message for invalid command. */
     public static void printInvalidKeywordMessage() {
         System.out.println(LINE);
         System.out.println("Invalid keyword, the available keywords are:"
@@ -353,36 +358,43 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /** Prints an error message for missing description. */
     public static void printMissingDescriptionMessage() {
         System.out.println(LINE);
         System.out.println("Please fill in the description of the task.");
         System.out.println(LINE);
     }
 
+    /** Prints an error message for invalid task index. */
     public static void printInvalidTaskIndexMessage() {
         System.out.println(LINE);
         System.out.println("Invalid task index. Please try again.");
         System.out.println(LINE);
     }
 
+    /** Prints an error message for invalid task deletion. */
     public static void printInvalidTaskDeletionMessage() {
         System.out.println(LINE);
         System.out.println("Deletion unsuccessful, please try again.");
         System.out.println(LINE);
     }
 
+    /** Prints an error message indicating that directory creation failed. */
     public static void printFailedDirectoryCreationMessage() {
         System.out.println("Failed to create data directory.");
     }
 
+    /** Prints confirmation message for successful directory creation. */
     public static void printSuccessfulDirectoryCreationMessage() {
         System.out.println("Data directory created successfully.");
     }
 
+    /** Prints a confirmation message for successful write to save-file.txt. */
     public static void printSuccessfulSaveMessage() {
         System.out.println("Content has been saved to the file successfully.");
     }
 
+    /** Prints an error message indicating corrupted write to save-file.txt. */
     public static void printCorruptedWriteMessage(IOException e) {
         System.out.println("An error occurred while writing to the file: " + e.getMessage());
     }
