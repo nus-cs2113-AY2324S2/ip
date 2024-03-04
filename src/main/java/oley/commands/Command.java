@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents all acceptable valid commands and the way of processing them.
+ */
 public class Command {
     private boolean isExit;
 
@@ -18,10 +21,26 @@ public class Command {
         this.isExit = isExit;
     }
 
+    /**
+     * Returns whether the iteration of reading commands from users should stop.
+     *
+     * @return Whether continue reading in commands or not.
+     */
     public boolean isExit() {
         return isExit;
     }
 
+    /**
+     * Add a new task to the task list.
+     * If it is initialising, the message of tasks being successfully added will not be printed and tasks will not
+     * be added to the data file.
+     *
+     * @param tasks Task list that contains existing tasks.
+     * @param sentence Sentence entered by the user as a command.
+     * @param isBegin Boolean attribute that determines whether the program is initialising automatically from
+     *                the existing data file or following newly entered commands by users.
+     * @throws InputNotRecognizedException If the first word entered is not valid.
+     */
     public static void addTask(TaskList tasks, String sentence, boolean isBegin) throws InputNotRecognizedException {
         String instruction = Parser.parse(sentence);
         switch (instruction) {
@@ -64,6 +83,13 @@ public class Command {
         }
     }
 
+    /**
+     * Delete a task from the current task list.
+     * Deleting from data file is achieved by clearing the file and re-write the current task list to the file.
+     *
+     * @param tasks Task list that contains existing tasks.
+     * @param sentence Sentence entered by the user as a command.
+     */
     public static void deleteTask(TaskList tasks, String sentence) {
         int toBeDeleted = -1;
         String taskToBeDeleted;
@@ -101,6 +127,12 @@ public class Command {
         }
     }
 
+    /**
+     * Print all the tasks in the current list in the format of "No. [TYPE][ISDONE] TaskName ([TIMING])",
+     * e.g. 1.[T][] Sleep
+     *
+     * @param tasks Task list that contains existing tasks.
+     */
     public static void printTask(TaskList tasks) {
         Ui.printTasks();
         int i = 0;
@@ -110,6 +142,18 @@ public class Command {
         }
     }
 
+    /**
+     * Mark a task in the current task list as done or unmark it.
+     * If the index of task to be marked or unmarked is larger than the total number of tasks, a warning will be
+     * printed.
+     * If the task to be marked is already marked as done, or the task to be unmarked is not yet to be marked,
+     * a warning will be printed.
+     *
+     * @param tasks Task list that contains existing tasks.
+     * @param sentence Sentence entered by the user as a command.
+     * @param isBegin Boolean attribute that determines whether the program is initialising automatically from
+     *                the existing data file or following newly entered commands by users.
+     */
     public static void mark(TaskList tasks, String sentence, boolean isBegin) {
         int toBeMarked;
         try {
@@ -158,6 +202,15 @@ public class Command {
         }
     }
 
+    /**
+     * Print tasks that end before the given time.
+     * "todo" are not involved as it does not involve time.
+     * For "deadline", the ones with due time (by) before given time will be included.
+     * For "event", the ones with end time (to) before given time will be included.
+     *
+     * @param tasks Task list that contains existing tasks.
+     * @param sentence Sentence entered by the user as a command.
+     */
     public void tasksBeforeTime(TaskList tasks, String sentence) {
         TaskList inDuration = new TaskList();
         LocalDateTime d;
@@ -179,6 +232,12 @@ public class Command {
         Ui.printTasksWithinTime(inDuration);
     }
 
+    /**
+     * Print tasks that include the given single keyword.
+     *
+     * @param tasks Task list that contains existing tasks.
+     * @param sentence Sentence entered by the user as a command.
+     */
     public void findTask(TaskList tasks, String sentence) {
         String keyWord = Parser.parseFind(sentence);
         TaskList tasksContainingKeyWord = new TaskList();
@@ -190,6 +249,12 @@ public class Command {
         Ui.printTasksWithKeyword(tasksContainingKeyWord);
     }
 
+    /**
+     * Execute commands based on the first word entered by the user.
+     * If the first word is not recognised, there will be InputNotRecognizedException.
+     *
+     * @param tasks Task list that contains existing tasks.
+     */
     public void execute(TaskList tasks) {
         String message = Ui.readCommand();
         String instruction = Parser.parse(message);

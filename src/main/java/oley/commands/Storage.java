@@ -11,16 +11,31 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Represents methods that are used to make changes to the data file.
+ * It deals with writing to and deleting from data file, as well as load data file during initialisation.
+ */
 public class Storage {
-    public Storage() {
-    }
-
+    /**
+     * Append a new task to the data file.
+     *
+     * @param filePath Path to the file that contains the data.
+     * @param textToAppend Text that are adding to the end of the data file.
+     * @throws IOException If fail to write to the data file.
+     */
     public static void appendToFile (String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend + System.lineSeparator());
         fw.close();
     }
 
+    /**
+     * Re-write the tasks in the task list after some changes, e.g. delete, to the data file.
+     *
+     * @param filePath Path to the file that contains the data.
+     * @param tasks Task list that contains existing tasks.
+     * @throws IOException If fail to change the data file.
+     */
     public static void changeFile (String filePath, TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(tasks.get(0).format() + System.lineSeparator());
@@ -30,11 +45,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Clear all data in the data file by creating a new file in the same path.
+     *
+     * @param filePath Path to the file that contains the data.
+     * @throws IOException If fail to clear the data file.
+     */
     public static void clearFile (String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.close();
     }
 
+    /**
+     * Load tasks from the data file when initialising the chatbot.
+     *
+     * @param tasks Task list that contains existing tasks.
+     * @param file Path to the file that contains the data.
+     */
     public static void load(TaskList tasks, String file) {
         Scanner s;
         try {
