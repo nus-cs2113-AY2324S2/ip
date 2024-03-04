@@ -55,4 +55,19 @@ public class TaskList {
         }
         ui.displayMarking(taskNumber, tasksList, displayString);
     }
+    public static void findTasks(String keyword, ArrayList<Task> tasksList) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasksList) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("None dare to stand before your path,\n" +
+                    "for you have already vanquished them all.");
+        } else {
+            Ui.displayTasks(ui.FIND,matchingTasks);
+        }
+    }
 }

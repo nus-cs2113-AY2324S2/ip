@@ -30,7 +30,7 @@ public class KratosException extends Exception {
         String errorMessage;
         switch (command.split(" ")[0]) {
         case "todo":
-            errorMessage = Ui.taskMissing;
+            errorMessage = Ui.todoMissing;
             break;
         case "deadline":
             errorMessage = Ui.deadlineMissing;
