@@ -9,6 +9,16 @@ public class DukeFile {
     private static final String FILENAME = "./dukeData.txt";
     private static File dukeData;
 
+    /**
+     * Returns lateral location of the specified position.
+     * If the position is unset, NaN is returned.
+     *
+     * @param filePath File path where the file is located.
+     * @param textToAdd The line of text to write to the file.
+     * @param ifAppend Indicate if append the text at the end of the file (true)
+     *                 or overwrite the file (false).
+     * @throws IOException If file is not found at the indicated file path.
+     */
     private static void writeToFile(String filePath, String textToAdd, boolean ifAppend) throws IOException {
         FileWriter writer = new FileWriter(filePath, ifAppend);
         writer.write(textToAdd);
@@ -21,7 +31,6 @@ public class DukeFile {
             PrintText.printWithLinebreak("IOExceptions occurred");
         }
     }
-
 
     /**
      * Retrieve the index of the last line in a file at file path FILENAME.
