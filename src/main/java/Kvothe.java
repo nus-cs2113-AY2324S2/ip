@@ -33,7 +33,12 @@ public class Kvothe {
         echo(bye);
     }
 
-
+    /**
+     * Prints a line with indentation and optional top and bottom border
+     * @param line the line to print
+     * @param isTop true to print the top border
+     * @param isBottom true to print the bottom border
+     */
     private static void echo(String line, boolean isTop, boolean isBottom) {
         if (isTop) {
             System.out.println("\t\t____________________________________________________________");
@@ -47,6 +52,10 @@ public class Kvothe {
 
     }
 
+    /**
+     * Prints a line with indentation
+     * @param line the line to print
+     */
     private static void echo(String line) {
         System.out.println("\t\t____________________________________________________________");
         System.out.println("\t\t" + line);
@@ -54,7 +63,15 @@ public class Kvothe {
 
     }
 
-
+    /**
+     * Adds one task to the list
+     * @param line with the information of the task.
+     *             The first word is the command, and the rest is the description
+     *             of the task.
+     *
+     * @throws WrongArgumentsException if the line does not have the correct format
+     *            ie arguments missing, extra arguments ....
+     */
     private static void add(String line) throws WrongArgumentsException {
 
         String lineWords[] = line.split(" ");
@@ -86,6 +103,10 @@ public class Kvothe {
         Task.dumpToFile(tasks, FILEPATH);
     }
 
+    /**
+     * Deletes a task from the list
+     * @param index the index of the task to delete
+     */
     private static void delete(int index) {
         echo("Noted. I've removed this task:\n\t\t" + tasks.get(index - 1), true,false );
         tasks.remove(index - 1);
@@ -94,17 +115,25 @@ public class Kvothe {
         Task.dumpToFile(tasks, FILEPATH);
     }
 
+    /**
+     * Lists all the tasks in the list
+     */
     private static void list() {
         for (int i = 0; i < tasks.size(); i++) {
             echo(i + 1 + ". " + tasks.get(i), i == 0, i == tasks.size() - 1);
         }
     }
 
+    /**
+     * Marks a task as done
+     * @param index the index of the task to mark as done
+     */
     private static void done(int index) {
         tasks.get(index - 1).markAsDone();
         echo("Nice! I've marked this task as done:\n\t\t" + tasks.get(index - 1));
 
     }
+
 
     private static void mark(int index){
         tasks.get(index - 1).setIsDone(true);
@@ -112,12 +141,22 @@ public class Kvothe {
         Task.dumpToFile(tasks, FILEPATH);
     }
 
+    /**
+     * Marks a task as not done
+     * @param index the index of the task to mark as not done
+     */
     private static void unmark(int index){
         tasks.get(index - 1).setIsDone(false);
         echo("OK, I've marked this task as not done yet:\n\t\t" + tasks.get(index - 1));
         Task.dumpToFile(tasks, FILEPATH);
     }
 
+    /**
+     * Gets the task number of the task from a line of input with the format "command taskNumber"
+     * @param args line of input
+     * @return the task number
+     * @throws WrongArgumentsException if taskNumber is not a number of is not a valid index.
+     */
     private static int getTaskNumber(String[] args) throws WrongArgumentsException{
 
         int index = 0;
@@ -140,6 +179,10 @@ public class Kvothe {
 
     }
 
+    /**
+     * Interacts with the user. Reads one line and execute the input.
+     * The interaction stops when the user inputs "bye"
+     */
     public static void interact() {
         String stopWord = "bye";
         Scanner in = new Scanner(System.in);

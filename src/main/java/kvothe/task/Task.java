@@ -6,6 +6,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents a task; something to be done.
+ */
 public class Task {
 
     private String description;
@@ -17,6 +20,13 @@ public class Task {
     }
 
     //TODO: keep track of the received args
+    /**
+     * Parses the line and returns the arguments to create a new task.
+     * @param line the line to parse
+     * @param validArgs expected arguments for the task.
+     * @return the values for the arguments.
+     * @throws WrongArgumentsException if the arguments in the input are invalid
+     */
     public static String[] parseLine(String line, String[] validArgs) throws WrongArgumentsException {
 
         String args[] = line.split(" ");
@@ -69,7 +79,12 @@ public class Task {
         return newArgs;
     }
 
-
+    /**
+     * Parses the line and returns the arguments to create a new task of type TODO.
+     * @param line the line to parse
+     * @return the values for the arguments.
+     * @throws WrongArgumentsException if the arguments in the input are invalid
+     */
     public static String[] parseLine(String line) throws WrongArgumentsException {
 
         String args[] = line.split(" ");
@@ -124,6 +139,11 @@ public class Task {
         return  "|" + status + "|" + this.description + "|";
     }
 
+    /**
+     * Writes a task to a file.
+     * @param tasks the tasks to write to the file
+     * @param filename the name of the file where to write the tasks
+     */
     public static void dumpToFile(ArrayList<Task> tasks, String filename){
 
         try {
@@ -142,6 +162,11 @@ public class Task {
         }
     }
 
+    /**
+     * Reads tasks from a file and returns an array of tasks.
+     * @param filename the name of the file where to read the tasks
+     * @return the tasks read from the file
+     */
     public static ArrayList<Task> loadFromFile(String filename){
         ArrayList<Task> tasks = new ArrayList<Task>();
 
