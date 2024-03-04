@@ -54,6 +54,18 @@ public class Kvothe {
 
     }
 
+    private static void find(String word){
+
+        echo("Here are the matching tasks in your list:", true, false);
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getDescription().contains(word)){
+                echo(i + 1 + ". " + tasks.get(i), false, false);
+            }
+        }
+
+        echo("", false, true);
+    }
 
     private static void add(String line) throws WrongArgumentsException {
 
@@ -172,6 +184,9 @@ public class Kvothe {
                 case "delete":
                     taskNumber = getTaskNumber(lineWords);
                     delete(taskNumber);
+                    break;
+                case "find":
+                    find(lineWords[1]);
                     break;
                 default:
                     throw new WrongArgumentsException("Sorry. I do not support the method " + command);
