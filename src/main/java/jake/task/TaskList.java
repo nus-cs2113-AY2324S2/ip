@@ -11,14 +11,29 @@ public class TaskList {
     private static Ui ui = new Ui();
     private static ArrayList<Task> commands = new ArrayList<>();
 
+    /**
+     * Returns the number of tasks in TaskList
+     *
+     * @return Integer representing the number of tasks in TaskList
+     */
     public int size() {
         return commands.size();
     }
 
+    /**
+     * Returns a task from TaskList, based on the given index
+     *
+     * @param index Takes in an integer, representing the index of the task within TaskList 
+     * @return Task at the specified index
+     */
     public Task get(int index) {
         return commands.get(index);
     }
 
+    /**
+     * Iterates through TaskList, and prints out each task within the TaskList
+     *
+     */
     public void listTasks() {
         ui.showListedTasks();
         for (int i = 0; i < commands.size(); i++){
@@ -27,18 +42,31 @@ public class TaskList {
         ui.showLineString();
     }
 
-    // Retrieve task number from user input. Used in toggleTask() & delete()
+    /**
+     * Reads a string input, and returns the given index within this String
+     * For example, the string input "delete task 4" will return 4
+     *
+     * @param userInput Takes in a String, representing the user input 
+     * @return An integer represented in the user input string
+     */
     public int retrieveTaskNumber(String userInput) {
         int taskNumber = Integer.parseInt(userInput.substring(userInput.lastIndexOf(" ")+1));
         return taskNumber;
     }
 
-    // Mark or Unmark respective task.
-    public void toggleTask(String userInput, String taskType) {
+    /**
+     * Reads a string input, and extracts out the given index within this String
+     * For example, the string input "unmark task 4" will extract out the index 4
+     * Will mark/unmark the task at the specified index as completed/uncompleted
+     *
+     * @param userInput Takes in a String, representing the user input
+     * @param markOrUnmark Takes in a String, either "mark" or "unmark", to determine how to toggle the task
+     */
+    public void toggleTask(String userInput, String markOrUnmark) {
         int taskNumber = retrieveTaskNumber(userInput);
         if (taskNumber>commands.size()){
             ui.showNonexistentTask();
-        } else if (taskType.equals("unmark")){
+        } else if (markOrUnmark.equals("unmark")){
             ui.showTaskUnmarked();
             commands.get(taskNumber-1).markTask(false);
         } else {
@@ -48,7 +76,15 @@ public class TaskList {
         ui.showLineString();
     }
 
-    // Add tasks (Based off individual inputs)
+    /**
+     * Reads a user's input, and a task type
+     * Based on the task type (Event, ToDo, Deadline etc), creates the respective object using the user's input 
+     * addInputtedTask() is specifically used to deal with new user inputs only 
+     * It cannot deal with the saved tasks being loaded from the saved text file
+     *
+     * @param userInput Takes in the user's input command
+     * @param taskType Takes in a task type, such as "event"/"todo", which determines the object created
+     */
     public void addInputtedTask(String userInput, String taskType) {
         Task newTask;
         switch (taskType) {
@@ -71,7 +107,15 @@ public class TaskList {
         System.out.printf(MESSAGE_TASK_ADDED, newTask.toString(), commands.size());
     }
 
-    // Add tasks (Based off saved data from data.txt)
+    /**
+     * Reads a user's input, and a task type
+     * Based on the task type (Event, ToDo etc), creates the respective object using the user's input description
+     * addSavedTask() is specifically used to deal with the saved tasks being loaded from the saved text file only
+     * It cannot deal with new user inputs 
+     *
+     * @param userInput Takes in the user's input command
+     * @param taskType Takes in character representing task type, such as T for ToDo. Determines object created
+     */
     public void addSavedTask(String userInput, char taskType) {
         Task newTask;
         String shortenedTask = userInput.substring(6);
@@ -101,7 +145,13 @@ public class TaskList {
         commands.add(newTask);
     }
 
-    // Delete respective task
+    /**
+     * Reads a user input, and extracts out the given index within this String
+     * For example, the string input "delete task 4" will extract out the index 4
+     * Will delete the task at the specified index
+     *
+     * @param userInput Takes in a String, representing the user input
+     */
     public void deleteTask(String userInput) {
         int taskNumber = retrieveTaskNumber(userInput);
         try {
