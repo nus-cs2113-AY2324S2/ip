@@ -1,16 +1,67 @@
 package alexis.console;
 
 import alexis.exception.MissingFieldException;
+import alexis.task.TaskList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 /**
  * The Parser class is responsible for parsing user inputs and extracting relevant information
  * for further processing by the application.
  */
 public class Parser {
+
+    /**
+     * Processes the user input from the console and performs actions based on the parsed commands.
+     *
+     * @param tasks The task list to operate on.
+     * @param in The scanner used to read the user input.
+     */
+    public static void processUserInput(TaskList tasks, Scanner in) {
+        while (true) {
+            try {
+                String line = in.nextLine();
+                Command command = Parser.parseCommand(line);
+
+                if (command == null) {
+                    continue;
+                }
+                switch (command) {
+                case BYE:
+                    return;
+                case LIST:
+                    Ui.printTaskListToConsole(tasks);
+                    break;
+                case MARK:
+                    Ui.printMarkedItemToConsole(tasks, line);
+                    Storage.saveToLocalDisk(tasks);
+                    break;
+                case UNMARK:
+                    Ui.printUnmarkedItemToConsole(tasks, line);
+                    Storage.saveToLocalDisk(tasks);
+                    break;
+                case FIND:
+                    Ui.printMatchingTasksToConsole(tasks, line);
+                    break;
+                case DELETE:
+                    Ui.printDeletedTaskToConsole(tasks, line);
+                    Storage.saveToLocalDisk(tasks);
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    Ui.printNewTaskToConsole(tasks, line, command);
+                    Storage.saveToLocalDisk(tasks);
+                    break;
+                }
+            } catch (MissingFieldException e) {
+                Ui.printDescriptionErrorMessage();
+            }
+        }
+    }
 
     /**
      * Parses the first word of the user's input and returns the command to be executed.

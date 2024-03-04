@@ -56,59 +56,10 @@ public class Ui {
         System.out.println(LINE_BREAK);
     }
 
-    private static void printDescriptionErrorMessage() {
+    public static void printDescriptionErrorMessage() {
         System.out.println(LINE_BREAK);
         System.out.println(MISSING_DESCRIPTION_ERROR);
         System.out.println(LINE_BREAK);
-    }
-
-    /**
-     * Processes the user input from the console and performs actions based on the parsed commands.
-     *
-     * @param tasks The task list to operate on.
-     * @param in The scanner used to read the user input.
-     */
-    public static void processUserInput(TaskList tasks, Scanner in) {
-        while (true) {
-            try {
-                String line = in.nextLine();
-                Command command = Parser.parseCommand(line);
-
-                if (command == null) {
-                    continue;
-                }
-                switch (command) {
-                case BYE:
-                    return;
-                case LIST:
-                    printTaskListToConsole(tasks);
-                    break;
-                case MARK:
-                    printMarkedItemToConsole(tasks, line);
-                    Storage.saveToLocalDisk(tasks);
-                    break;
-                case UNMARK:
-                    printUnmarkedItemToConsole(tasks, line);
-                    Storage.saveToLocalDisk(tasks);
-                    break;
-                case FIND:
-                    printMatchingTasksToConsole(tasks, line);
-                    break;
-                case DELETE:
-                    printDeletedTaskToConsole(tasks, line);
-                    Storage.saveToLocalDisk(tasks);
-                    break;
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    printNewTaskToConsole(tasks, line, command);
-                    Storage.saveToLocalDisk(tasks);
-                    break;
-                }
-            } catch (MissingFieldException e) {
-                printDescriptionErrorMessage();
-            }
-        }
     }
 
     /**
@@ -119,25 +70,25 @@ public class Ui {
      * @param command The command indicating the task type to be added.
      * @throws MissingFieldException If the description is missing.
      */
-    private static void printNewTaskToConsole(TaskList tasks, String line, Command command)
+    public static void printNewTaskToConsole(TaskList tasks, String line, Command command)
             throws MissingFieldException {
         String description = Parser.parseDescription(line);
         printTaskToConsole(tasks, TaskType.valueOf(command.name()), description);
     }
 
-    private static void printTaskListToConsole(TaskList tasks) {
+    public static void printTaskListToConsole(TaskList tasks) {
         System.out.println(LINE_BREAK);
         tasks.printTasks();
         System.out.println(LINE_BREAK);
     }
 
-    private static void printMarkedItemToConsole(TaskList tasks, String line) {
+    public static void printMarkedItemToConsole(TaskList tasks, String line) {
         System.out.println(LINE_BREAK);
         tasks.markTask(line);
         System.out.println(LINE_BREAK);
     }
 
-    private static void printUnmarkedItemToConsole(TaskList tasks, String line) {
+    public static void printUnmarkedItemToConsole(TaskList tasks, String line) {
         System.out.println(LINE_BREAK);
         tasks.unmarkTask(line);
         System.out.println(LINE_BREAK);
@@ -149,13 +100,13 @@ public class Ui {
         System.out.println(LINE_BREAK);
     }
 
-    private static void printMatchingTasksToConsole(TaskList tasks, String line) {
+    public static void printMatchingTasksToConsole(TaskList tasks, String line) {
         System.out.println(LINE_BREAK);
         tasks.printMatchingTasksMessage(line);
         System.out.println(LINE_BREAK);
     }
 
-    private static void printDeletedTaskToConsole(TaskList tasks, String line) {
+    public static void printDeletedTaskToConsole(TaskList tasks, String line) {
         System.out.println(LINE_BREAK);
         tasks.deleteFromTaskList(line);
         System.out.println(LINE_BREAK);

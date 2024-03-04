@@ -1,5 +1,6 @@
 package alexis;
 
+import alexis.console.Parser;
 import alexis.console.Ui;
 import alexis.console.Storage;
 import alexis.task.TaskList;
@@ -18,7 +19,7 @@ public class Alexis {
         Scanner in = new Scanner(System.in);
 
         Ui.printWelcomeMessage();
-        Ui.processUserInput(tasks, in);
+        Parser.processUserInput(tasks, in);
         Ui.printGoodbyeMessage();
     }
 }
