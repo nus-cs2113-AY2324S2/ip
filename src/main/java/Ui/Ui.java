@@ -71,4 +71,11 @@ public class Ui {
     public static void printChangesNotSavedMessage(){
         System.out.println("\t Could not save changes to file.");
     }
+
+    public static void printMatchingTasks(TaskList tasks){
+        System.out.println("\t Here are the matching tasks in your list:");
+        for (int x = 0; x < tasks.size(); x++) {
+            System.out.println("\t  " + (x + 1) + "." + tasks.get(x).toString());
+        }
+    }
 }

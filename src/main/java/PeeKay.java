@@ -16,6 +16,7 @@ public class PeeKay {
             tasks = new TaskList(Storage.load(filepath));
         } catch (FileNotFoundException e) {
             tasks = new TaskList();
+            Ui.printLoadingErrorMessage();
         }
         Parser parser = new Parser(filepath,tasks);
     }
