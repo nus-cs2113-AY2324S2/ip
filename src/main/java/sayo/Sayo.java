@@ -1,13 +1,7 @@
 package sayo;
 
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Sayo {
 
@@ -37,9 +31,7 @@ public class Sayo {
             try {
                 input = scanner.nextLine().trim();
                 if (input.equals("list")) {
-                    for (int i = 0; i < items.getSize(); i++) {
-                        System.out.println((i + 1) + ". " + items.getTask(i));
-                    }
+                    ui.showList(items);
                 } else if (input.startsWith("mark")) {
                     int index = Parser.getIndexForMark(input);
                     if (index >= 0 && index < items.getSize()) {
@@ -103,7 +95,7 @@ public class Sayo {
                             ui.requestDeleteFormat();
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("Please enter a valid number after 'delete'.");
+                        ui.requestDeleteFormat();
                     }
                 } else if (input.startsWith("find")) {
                     String keyword = input.substring(5).trim();
@@ -114,13 +106,13 @@ public class Sayo {
                 }
             } catch (SayoException e) {
                 System.out.println(e.getMessage());
+                ui.showLine();
             }
 
         } while (!input.equals("bye"));
 
         ui.showGoodbyeMessage();
         scanner.close();
-
     }
 
     public static void main(String[] args) {
