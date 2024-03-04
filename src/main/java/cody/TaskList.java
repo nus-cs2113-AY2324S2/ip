@@ -21,7 +21,7 @@ public class TaskList {
 
     private void markTask(int index) {
         Ui.printMessage(" Good job! I've marked this task as done:\n"
-                + " [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription() + "\n");
+                + " [" + tasks.get(index).getStatusIcon() + "] " + tasks.get(index).getDescription());
     }
 
     public void handleMarking(String input) {
@@ -32,9 +32,9 @@ public class TaskList {
             tasks.get(index).markTask(isDone);
             markTask(index);
         } catch (NumberFormatException e) {
-            System.out.println(" Task number is invalid. Please enter a valid number");
+            Ui.printException(new CodyException(" Task number is invalid. Please enter a valid number"));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(" Task number is out of range. You have " + tasks.size() + " tasks in the list");
+            Ui.printException(new CodyException(" Task number is out of range. You have " + tasks.size() + " tasks"));
         }
     }
 
@@ -44,14 +44,14 @@ public class TaskList {
             tasks.add(task);
             printTask(task);
         } catch (CodyException e) {
-            System.out.println(e.getMessage());
+            Ui.printException(e);
         }
     }
 
     private void printTask(Task task) {
         Ui.printMessage(" Got it. I've added this task:\n"
                 + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n");
+                + " Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void deleteTask(String input) {
@@ -62,16 +62,16 @@ public class TaskList {
             tasks.remove(index);
             printDeleteTask(task);
         } catch (NumberFormatException e) {
-            System.out.println(" Task number is invalid. Please enter a valid number");
+            Ui.printException(new CodyException(" Task number is invalid. Please enter a valid number"));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(" Task number is out of range. You have " + tasks.size() + " tasks in the list");
+            Ui.printException(new CodyException(" Task number is out of range. You have " + tasks.size() + " tasks"));
         }
     }
 
     private void printDeleteTask(Task task) {
         Ui.printMessage(" Noted. I've removed this task:\n"
                 + " [" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + " Now you have " + tasks.size() + " tasks in the list.\n");
+                + " Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public TaskList() {
