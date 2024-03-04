@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a command to delete a task form an existing list of tasks.
+ */
 public class DeleteTask {
     /**
      * Delete a task from the stored list based on the user input.

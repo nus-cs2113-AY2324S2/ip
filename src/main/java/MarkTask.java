@@ -1,6 +1,9 @@
-import java.nio.InvalidMarkException;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to mark a task stored in the list.
+ * Print the task for user to see current task status.
+ */
 public class MarkTask {
     /**
      * Return the index of the task needed to be marked as written in the file.

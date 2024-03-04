@@ -1,6 +1,8 @@
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to print one or multiple tasks to the screen and file.
+ */
 public class PrintTask {
     /**
      * Print all the tasks stored in the list.

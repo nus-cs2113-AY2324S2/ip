@@ -5,6 +5,11 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents an add command where a new task is added to the existing list of task.
+ * String <code>FILENAME</code> represents the designated relative file path for the file.
+ * File <code>dukeData</code> represents the File object created to be updated.
+ */
 public class DukeFile {
     private static final String FILENAME = "./dukeData.txt";
     private static File dukeData;

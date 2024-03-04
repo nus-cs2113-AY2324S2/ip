@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a command to add new task based on user input.
+ */
 public class AddTask {
     /**
      * Check if user input words contains any valid task description.
@@ -17,7 +20,7 @@ public class AddTask {
     }
 
     /**
-     * Returns a new Task that is either of a special type toDo, event, deadline
+     * Returns a new Task that is either of a special type (toDo, event, deadline)
      * or not.
      *
      * @param description Text input by the user.

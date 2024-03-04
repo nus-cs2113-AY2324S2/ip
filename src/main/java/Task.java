@@ -1,3 +1,10 @@
+/**
+ * Represents a task.
+ * String <code>description</code> represents the textual description given to the task.
+ * boolean <code>isDone</code> represents the complete status of the task.
+ * Either done (true) or not done (false).
+ * char <code>type</code> represents the task type toDo, event, deadline or none of them.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
