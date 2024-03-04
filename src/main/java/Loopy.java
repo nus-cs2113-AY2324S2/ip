@@ -28,34 +28,44 @@ public class Loopy {
     }
 
     private static void processTask(String task) {
-        if (task.equals("list")) {
-            displayTaskList();
-        } else if (task.startsWith("mark")) {
-            try {
-                markTaskAsDone(task);
-            } catch (LoopyExceptions exceptions) {
-                System.out.println("Warning! " + exceptions.getMessage());
-            }
-        } else if (task.startsWith("unmark")) {
-            try {
-                markTaskAsUndone(task);
-            } catch (LoopyExceptions exceptions) {
-                System.out.println("Warning! " + exceptions.getMessage());
-            }
-        } else if (task.startsWith("todo")) {
-            try {
-                addTodo(task); // Create Task object and add it to the list
-            } catch (LoopyExceptions exceptions) {
-                System.out.println("Warning! " + exceptions.getMessage());
-            }
-        } else if (task.startsWith("deadline")) {
-            addDeadline(task);
-        } else if (task.startsWith("event")) {
-            addEvent(task);
-        } else if (task.startsWith("delete")) {
-            deleteTask(task);
-        } else {
-            System.out.println("I don't know what you're saying...?");
+        String[] command = task.split(" ");
+
+        switch (command[0].toLowerCase()){
+            case "list":
+                displayTaskList();
+                break;
+            case "mark":
+                try {
+                    markTaskAsDone(task);
+                } catch (LoopyExceptions exceptions) {
+                    System.out.println("Warning! " + exceptions.getMessage());
+                }
+                break;
+            case "unmark":
+                try {
+                    markTaskAsUndone(task);
+                } catch (LoopyExceptions exceptions) {
+                    System.out.println("Warning! " + exceptions.getMessage());
+                }
+                break;
+            case "todo":
+                try {
+                    addTodo(task); // Create Task object and add it to the list
+                } catch (LoopyExceptions exceptions) {
+                    System.out.println("Warning! " + exceptions.getMessage());
+                }
+                break;
+            case "deadline":
+                addDeadline(task);
+                break;
+            case "event":
+                addEvent(task);
+                break;
+            case "delete":
+                deleteTask(task);
+                break;
+            default:
+                System.out.println("I don't know what you're saying...?");
         }
     }
 
