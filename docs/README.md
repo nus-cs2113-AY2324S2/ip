@@ -38,6 +38,7 @@ Type 'help' for a list of available commands!
 ________________________________________________________________________________
 
 ```
+
 5. Refer to the [Features](https://jackieneoceg.github.io/ip/#features) list below for more information of the commands, type your input down and press Enter.
 
 ## <span style="color:navy;">Features</span> 
