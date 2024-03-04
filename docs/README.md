@@ -1,29 +1,123 @@
-# User Guide
+# User Guide for Sura Chatbot
 
 ## Features 
 
-### Feature-ABC
+### Add-Todo
 
-Description of the feature.
+Allows users to add a todo task to the list.
 
-### Feature-XYZ
+### Add Deadline
 
-Description of the feature.
+Enables users to add a task with a deadline to the list.
+
+### Add Event
+
+Facilitates users in adding an event task to the list.
+
+### Delete
+
+Allows users to delete a task from the list.
+
+### List
+
+Enables users to view all the tasks in the list.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - Add a todo task
 
-Describe the action and its outcome.
+Adds a todo task to the list.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo Buy groceries`
 
 Expected outcome:
 
-Description of the outcome.
+```
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Buy groceries
+Now you have 1 tasks in the list.
+____________________________________________________________
+```
 
+
+### `deadline` - Add a task with a deadline
+
+Adds a taskwith a deadline to the list.
+
+Example of usage: 
+
+`deadline Complete report /by 2024-03-10`
+
+Expected outcome:
 ```
-expected output
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Buy groceries
+  [D][ ] Complete report (by: Mar 10 2024)
+Now you have 2 task(s) in the list.
+____________________________________________________________
 ```
+
+
+### `event` - Add an event task
+
+Adds an event task to the list.
+
+Example of usage: 
+
+`event Project meeting /from 2 March 14:00 /to 2 March 15:00`
+
+Expected outcome:
+```
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Buy groceries
+  [D][ ] Complete report (by: Mar 10 2024)
+  [E][] Project meeting (from: 2 Mar 2024 14:00 to: 2 Mar 2024 15:00)
+Now you have 3 task(s) in the list.
+____________________________________________________________
+```
+
+
+### `delete` - Delete a task
+
+Deletes a task from the list.
+
+Example of usage: 
+
+`delete 1`
+
+Expected Outcome:
+```
+____________________________________________________________
+Noted. I've removed this task: 
+  [T][✘] Buy groceries
+Now you have 2 task(s) in the list.
+____________________________________________________________
+```
+
+
+### `list` - List down task
+
+Lists down the remaining tasks.
+
+Example of usage: 
+
+`list`
+
+Expected Outcome:
+```
+____________________________________________________________
+Here are the tasks in your list:
+[D][ ] Complete report (by: Mar 10 2024)
+[E][] Project meeting (from: 2 Mar 2024 14:00 to: 2 Mar 2024 15:00)
+Now you have 3 task(s) in the list.
+____________________________________________________________
+```
+
+
+
+
