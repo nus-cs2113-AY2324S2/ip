@@ -6,9 +6,15 @@ import classes.Task;
 import classes.Todo;
 import exceptions.TaskIndexOutOfBoundsException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TaskManager {
+
+    static DateTimeFormatter formatter
+            = DateTimeFormatter.ofPattern(
+            "yyyy/MM/dd HH:mm");
 
     /**
      * Adds a task to the list
@@ -31,7 +37,7 @@ public class TaskManager {
                 System.out.println(constants.BREAKLINE);
                 return taskCount;
             }
-            tasks.add(taskCount, new Deadline(inputs[0], inputs[1]));
+            tasks.add(taskCount, new Deadline(inputs[0], LocalDateTime.parse(inputs[1], formatter).toString()));
         } else {
             inputs = inputs[1].split("/", 3);
             if (inputs.length != 3)
