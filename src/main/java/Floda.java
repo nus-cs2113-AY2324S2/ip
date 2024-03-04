@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-
 public class Floda {
     private static final String NAME = "Floda";
     public static final String FILE_PATH = "./data/tasks.txt";
