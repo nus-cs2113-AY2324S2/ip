@@ -1,8 +1,10 @@
+import kvothe.exception.KvotheException;
 import kvothe.exception.WrongArgumentsException;
 import kvothe.task.Deadline;
 import kvothe.task.Event;
 import kvothe.task.Task;
 import kvothe.task.Todo;
+import kvothe.Storage;
 
 import java.lang.reflect.Array;
 import java.util.Scanner;
@@ -16,12 +18,23 @@ public class Kvothe {
     private static ArrayList<Task> tasks = new ArrayList<Task>(MAXTASKS);
 
     public static void main(String[] args) {
+
+        Storage storage = null;
+
+        try{
+            storage = new  Storage(FILEPATH);
+        } catch (KvotheException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+            return;
+        }
+
+
         String greeting = "Hello! I'm Kvothe.\n"
                 + "\t\tWhat can I do for you?\n";
 
         String bye = "Bye. Hope to see you again soon!";
 
-        tasks = Task.loadFromFile(FILEPATH);
+        tasks = storage.loadFromFile();
 
         echo(greeting, true, false);
 
