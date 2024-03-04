@@ -27,4 +27,9 @@ public class Deadlines extends Task {
 
         return super.getDescription() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toString() {
+        return "[D][" + getStatusIcon() + "] " + getDescription() + " (by: " + getByDate() + ")";
+    }
 }

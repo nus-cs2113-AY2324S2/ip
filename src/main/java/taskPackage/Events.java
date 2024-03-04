@@ -30,6 +30,12 @@ public class Events extends Task {
     }
 
     public String getToDate() {
+
         return toDate;
+    }
+
+    @Override
+    public String toString() {
+        return "[E][" + getStatusIcon() + "] " + getDescription() + " (from: " + getFromDate() + " to: " + getToDate() + ")";
     }
 }
