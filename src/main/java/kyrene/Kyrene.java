@@ -42,6 +42,7 @@ public class Kyrene {
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = Ui.readCommand();
+            Ui.showDivider();
             try {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, storage);

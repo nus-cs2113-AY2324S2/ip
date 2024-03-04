@@ -354,7 +354,6 @@ public class Ui {
      */
     public static String readCommand() {
         Scanner input = new Scanner(System.in);
-        showDivider();
         return input.nextLine();
     }
 
