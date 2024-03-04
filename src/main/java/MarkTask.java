@@ -2,6 +2,16 @@ import java.nio.InvalidMarkException;
 import java.util.ArrayList;
 
 public class MarkTask {
+    /**
+     * Return the index of the task needed to be marked as written in the file.
+     *
+     * @param userInputWords User input as an array of words.
+     * @param tasks Arraylist of tasks stored.
+     * @throws DukeExceptions.InvalidItemException If the index to mark is not
+     * a valid index/cannot be converted to an integer.
+     * @throws ArrayIndexOutOfBoundsException If the index input is out of the
+     * Arraylist's bound.
+     */
     public static int findIndexToMark(String[] userInputWords, ArrayList<Task> tasks) throws
             DukeExceptions.InvalidItemException, ArrayIndexOutOfBoundsException {
         try {
@@ -16,6 +26,12 @@ public class MarkTask {
         return indexFound;
     }
 
+    /**
+     * Mark a task listed in file based on user input given.
+     *
+     * @param userInputWords User input as an array of words.
+     * @param tasks Arraylist of tasks stored.
+     */
     public static void mark(String[] userInputWords, ArrayList<Task> tasks) {
         int indexToMark = -1;
         String isMarked = userInputWords[0];

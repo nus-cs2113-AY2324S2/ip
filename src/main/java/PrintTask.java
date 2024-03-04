@@ -1,6 +1,12 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PrintTask {
+    /**
+     * Print all the tasks stored in the list.
+     *
+     * @param tasks Arraylist of tasks stored.
+     */
     public static void list(ArrayList<Task> tasks) {
         int index = 1;
         PrintText.print("Here are the tasks in your list:");
@@ -14,6 +20,14 @@ public class PrintTask {
         }
     }
 
+    /**
+     * Print a task to the file at path FILENAME.
+     *
+     * @param input The task to be printed to the file.
+     * @param index The task index to be written in the file.
+     * @param ifAppend Indicate if append the text at the end of the file (true)
+     *                 or overwrite the file (false)
+     */
     public static void printToFile(Task input, int index, boolean ifAppend) {
         String output = "";
         String indexPrinted = index + ".";
@@ -24,6 +38,13 @@ public class PrintTask {
         DukeFile.updateFile(output, ifAppend);
     }
 
+    /**
+     * Print multiple tasks to the file at path FILENAME.
+     *
+     * @param tasks Arraylist of tasks stored.
+     * @param ifAppend Indicate if append the text at the end of the file (true)
+     *                 or overwrite the file (false)
+     */
     public static void printMultipleToFile(ArrayList<Task> tasks, boolean ifAppend) {
         int index = 1;
         String output = "";
@@ -38,6 +59,13 @@ public class PrintTask {
         DukeFile.updateFile(output, ifAppend);
     }
 
+    /**
+     * Print out the task with special type, toDo, event, or deadline.
+     * Task description is updated to the proper format.
+     *
+     * @param newTask The task to be printed.
+     * @param taskNum Total number of tasks in the list.
+     */
     public static void specialTask(Task newTask, int taskNum) {
         String intro = "Got it. I've added this task: \n";
         char type = newTask.getTypeIcon();
@@ -73,6 +101,12 @@ public class PrintTask {
         newTask.setDescription(taskDisplayed);
     }
 
+    /**
+     * Print out the task without special type, toDo, event, or deadline.
+     *
+     * @param newTask The task to be printed.
+     * @param taskNum Total number of tasks in the list.
+     */
     public static void normalTask(Task newTask, int taskNum) {
         String taskCount = String.format("Now you have %d tasks in the list.", taskNum);
         PrintText.printWithLinebreak("added: " + newTask.description + "\n" + taskCount);
