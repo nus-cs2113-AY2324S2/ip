@@ -1,4 +1,4 @@
-package Blue;
+package blue.task;
 
 /**
  * Represents an event that occurs within a certain time.

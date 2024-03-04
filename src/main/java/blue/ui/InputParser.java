@@ -1,4 +1,11 @@
-package Blue;
+package blue.ui;
+
+import blue.command.Input;
+import blue.command.InputCommand;
+import blue.exception.IllegalInput;
+import blue.task.Deadline;
+import blue.task.Event;
+import blue.task.Task;
 
 /**
  * Encapsulates the logic and behaviour of a parser to Blue.

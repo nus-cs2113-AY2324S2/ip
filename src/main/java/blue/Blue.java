@@ -1,4 +1,10 @@
-package Blue;
+package blue;
+
+import blue.command.Input;
+import blue.exception.IllegalInput;
+import blue.storage.StorageHandler;
+import blue.task.TaskManager;
+import blue.ui.Ui;
 
 /**
  * The Blue class constitutes the main logic of our chatbot application.

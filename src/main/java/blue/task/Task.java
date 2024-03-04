@@ -1,4 +1,4 @@
-package Blue;
+package blue.task;
 
 /**
  * Represents a general task.

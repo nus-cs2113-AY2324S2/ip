@@ -1,4 +1,6 @@
-package Blue;
+package blue.command;
+
+import blue.task.Task;
 
 /**
  * Defines an encapsulation of a command and command arguments to be understood by Blue.

@@ -1,4 +1,9 @@
-package Blue;
+package blue.storage;
+
+import blue.task.TaskManager;
+import blue.task.Deadline;
+import blue.task.Event;
+import blue.task.Task;
 
 import java.util.ArrayList;
 import java.io.File;

@@ -1,4 +1,4 @@
-package Blue;
+package blue.command;
 
 /**
  * Lists an enumeration of all acceptable input commands to Blue.

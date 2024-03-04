@@ -1,4 +1,7 @@
-package Blue;
+package blue.ui;
+
+import blue.exception.IllegalInput;
+import blue.command.Input;
 
 import java.util.Scanner;
 

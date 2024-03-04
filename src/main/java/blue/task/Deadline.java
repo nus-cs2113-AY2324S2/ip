@@ -1,4 +1,4 @@
-package Blue;
+package blue.task;
 
 /**
  * Represents a task that needs to be completed by a certain deadline.

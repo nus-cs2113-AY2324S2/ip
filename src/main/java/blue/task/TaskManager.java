@@ -1,7 +1,10 @@
-package Blue;
+package blue.task;
+
+import blue.command.Input;
+import blue.task.Task;
+import blue.ui.Ui;
 
 import java.util.ArrayList;
-import java.io.IOException;
 
 /**
  * A task manager that keeps track of all tasks, modifying this list as directed by the user.
