@@ -1,23 +1,24 @@
 package burger.Parser;
 
-import java.util.Scanner;
-
 import burger.TaskList.TaskList;
+import burger.UI.BurgerException;
+import burger.UI.Utilities;
 
 import static burger.Storage.BurgerFileClass.getSaveFile;
-import static burger.Storage.BurgerFileClass.setSaveFile;
-import static burger.UI.Utilities.*;
+import static burger.UI.Utilities.printLine;
+import static burger.UI.Utilities.printUnknownInputError;
+import static burger.UI.Utilities.printEmptyDescription;
+import static burger.UI.Utilities.printErrorMessage;
 
 public class Parser {
 
-    public static final int COMMANDIDX = 0;
+    public static final int COMMAND_IDX = 0;
 
-    public static void parseUserInput() {
-        TaskList myList = getSaveFile();
-        Scanner input = new Scanner(System.in);
+    public static void parseUserInput(TaskList myList, Utilities ui) {
+        getSaveFile(myList);
         boolean isPolling = true;
-        while (isPolling) { // move to parser
-            String text = input.nextLine();
+        while (isPolling) {
+            String text = ui.getUserInput();
             String[] textArray = text.split(" ");
             if (!isValidCommand(textArray, myList)) {
                 switch (text.trim().toLowerCase()) {
@@ -34,7 +35,6 @@ public class Parser {
                 }
             }
         }
-        setSaveFile(myList);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Parser {
         boolean isValid = true;
         int idx;
         try {
-            String command = textArray[COMMANDIDX];
+            String command = textArray[COMMAND_IDX];
             switch (command) {
             case "mark":
                 // fallthrough
@@ -77,6 +77,8 @@ public class Parser {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             printEmptyDescription();
+        } catch (BurgerException e) {
+            printErrorMessage(e);
         }
         return isValid;
     }

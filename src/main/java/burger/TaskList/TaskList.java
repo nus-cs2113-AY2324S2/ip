@@ -1,11 +1,8 @@
 package burger.TaskList;
 
-import burger.BurgerException;
+import burger.UI.BurgerException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.ListIterator;
 
 import static burger.UI.Utilities.*;
 
@@ -49,12 +46,16 @@ public class TaskList {
         printLine();
     }
 
-    public int getIdx(String[] textArray) {
-        StringBuilder idx = new StringBuilder();
-        for (int i = 1; i < textArray.length; i++) {
-            idx.append(textArray[i]);
+    public int getIdx(String[] textArray) throws BurgerException {
+        try {
+            StringBuilder idx = new StringBuilder();
+            for (int i = 1; i < textArray.length; i++) {
+                idx.append(textArray[i]);
+            }
+            return Integer.parseInt(idx.toString()) - 1;
+        } catch (NumberFormatException e) {
+            throw new BurgerException("Where is your number???");
         }
-        return Integer.parseInt(idx.toString()) - 1;
     }
 
     public void deleteTask(int idx) {
@@ -212,7 +213,7 @@ public class TaskList {
         try {
             Task currTask = getTask(idx);
             if (currTask == null) {
-                throw new BurgerException("Out of index");
+                throw new BurgerException("Tsk... Out of index, do you know how to count?");
             }
             if (command.equals("mark")) {
                 System.out.println("Nice! I've marked this task as done:");

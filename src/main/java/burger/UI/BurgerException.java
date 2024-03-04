@@ -1,4 +1,4 @@
-package burger;
+package burger.UI;
 
 public class BurgerException extends Exception{
     public BurgerException(String message) {

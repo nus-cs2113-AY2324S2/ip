@@ -1,6 +1,8 @@
 package burger.UI;
 
-import burger.BurgerException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class Utilities {
 
@@ -9,10 +11,28 @@ public class Utilities {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void welcomeMessage(String name) {
+    private final Scanner in;
+    private final PrintStream out;
+
+    public Utilities() {
+        this(System.in, System.out);
+    }
+
+    public Utilities(InputStream in, PrintStream out) {
+        this.in = new Scanner(in);
+        this.out = out;
+    }
+
+    public String getUserInput() {
+        String input = in.nextLine();
+        return input.trim();
+    }
+
+
+    public void welcomeMessage(String name) {
         printLine();
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?");
+        out.println("Hello! I'm " + name);
+        out.println("What can I do for you?");
         printLine();
     }
 
@@ -25,9 +45,9 @@ public class Utilities {
         printLine();
     }
 
-    public static void goodbye() {
+    public void goodbye() {
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        out.println("Bye. Hope to see you again soon!");
         printLine();
     }
 
@@ -54,7 +74,7 @@ public class Utilities {
 
     public static void printErrorMessage(BurgerException e) {
         printLine();
-        System.out.println("Tsk... Out of index, do you know how to count?");
+        System.out.println(e.getMessage());
         printLine();
     }
 }
