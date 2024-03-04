@@ -1,7 +1,8 @@
-package burger.UI;
+package burger;
 
 import static burger.Parser.Parser.parseUserInput;
-import static burger.UI.Utilities.*;
+import static burger.UI.Utilities.goodbye;
+import static burger.UI.Utilities.welcomeMessage;
 
 public class Burger {
 

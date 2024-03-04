@@ -3,6 +3,9 @@ package burger.TaskList;
 import burger.BurgerException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ListIterator;
 
 import static burger.UI.Utilities.*;
 
@@ -12,10 +15,40 @@ public class TaskList {
 
     public int totalTasks;
 
+    final int KEYWORDIDX = 1;
+
     public TaskList() {
         taskList = new ArrayList<>();
         totalTasks = 0;
     }
+
+    public void findKeyword(String[] textArray) {
+        String keyword = textArray[KEYWORDIDX];
+        ArrayList<Integer> taskWithKeyword = new ArrayList<>();
+        for (int i = 0; i < totalTasks; i++) {
+            String[] taskArray = taskList.get(i).getName().split(" ");
+            for (String s : taskArray) {
+                if (keyword.equals(s)) {
+                    taskWithKeyword.add(i);
+                    break;
+                }
+            }
+        }
+        printLine();
+        if (taskWithKeyword.isEmpty()) {
+            System.out.println("Oh No!!! There's nothing...");
+            printLine();
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int idx : taskWithKeyword) {
+            System.out.print(idx+1 + ". ");
+            taskList.get(idx).printTask();
+            System.out.println();
+        }
+        printLine();
+    }
+
     public int getIdx(String[] textArray) {
         StringBuilder idx = new StringBuilder();
         for (int i = 1; i < textArray.length; i++) {
@@ -54,6 +87,22 @@ public class TaskList {
             return taskList.get(idx);
         } catch (IndexOutOfBoundsException e) {
             return null;
+        }
+    }
+
+    public void handleAddTask(String[] task, String command) {
+        switch (command) {
+        case "todo":
+            addTodo(task);
+            break;
+        case "deadline":
+            addDeadline(task);
+            break;
+        case "event":
+            addEvent(task);
+            break;
+        default:
+            break;
         }
     }
 
