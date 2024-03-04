@@ -1,9 +1,10 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Sunny {
     public static void main(String[] args) {
         String chatBotName = "Sunny";
-        Task[] tasks = new Task[100]; //Fixed-size array to store tasks
+        Task[] tasks = new Task[100];
         int counter = 0; //Counter to keep track of the number of tasks
 
         //Greets the user
@@ -14,61 +15,73 @@ public class Sunny {
         //Initialises scanner for user input
         Scanner scanner = new Scanner(System.in);
 
-        //Echoes commands after user says bye
+        //Echoes commands and performs actions based on user input
         while (true) {
             //Gets user input
             String command = scanner.nextLine();
 
-            //If the user input is "bye"
-            if (command.equalsIgnoreCase("bye")){
+            //Checks the command and perform the corresponding actions
+            if (command.equalsIgnoreCase("bye")) {
                 //Exit message
-                System.out.println(" ");
                 System.out.println("Bye. Hope to see you again soon!");
-                System.out.println(" ");
                 break;
-            } else if (command.equalsIgnoreCase("list")){
+            } else if (command.equalsIgnoreCase("list")) {
+                System.out.println("Here are the tasks in your list:");
+
                 //Displays the list of tasks
-                System.out.println("Here are the tasks in your list: ");
-                for (int i = 0; i < counter; i ++) {
-                    //
-                    System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "]" + tasks[i].getDescription());
+                for (int i = 0; i < counter; i++) {
+                    System.out.println(i + 1 + ". " + tasks[i]);
                 }
                 System.out.println(" ");
-            } else if (command.startsWith("mark")){
+            } else if (command.startsWith("mark")) {
                 //Mark a task as done
                 int taskIndex = extractTaskIndex(command);
                 if (taskIndex > 0 && taskIndex <= counter) {
                     tasks[taskIndex - 1].markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[" + tasks[taskIndex - 1].getStatusIcon() + "] " + tasks[taskIndex - 1].getDescription());
+                    System.out.println(tasks[taskIndex - 1]);
                 } else {
-                    System.out.println("Invalid task index. Please provide a valid task index.");
-
+                    System.out.println("Invalid task index. Please provide a valid task index." + System.lineSeparator());
                 }
                 System.out.println(" ");
-            } else if (command.startsWith("unmark")){
-                // Mark a task as not done
+            } else if (command.startsWith("unmark")) {
+                //Unmark a task
                 int taskIndex = extractTaskIndex(command);
                 if (taskIndex > 0 && taskIndex <= counter) {
                     tasks[taskIndex - 1].unmarkAsDone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("[" + tasks[taskIndex - 1].getStatusIcon() + "] " + tasks[taskIndex - 1].getDescription());
+                    System.out.println(tasks[taskIndex - 1]);
                 } else {
-                    System.out.println(" Invalid task index. Please provide a valid task index.");
+                    System.out.println("Invalid task index. Please provide a valid task index." + System.lineSeparator());
                 }
                 System.out.println(" ");
-            } else {
+            }
+            else {
                 //Display the added task message
-                System.out.println("added: " + command);
-                System.out.println(" ");
+                System.out.println("Got it. I've added this task: ");
 
-                //Add the command to the tasks array
-                tasks[counter] = new Task(command);
+                //Add the command to the task array
+                //tasks[counter] = new Task(command);
+
+                if (command.startsWith("todo")) {
+                    tasks[counter] = new Todo(command.substring(5));
+                } else if (command.startsWith("deadline")) {
+                    int dividerPosition = command.indexOf("/by ");
+                    tasks[counter] = new Deadline(command.substring(0, dividerPosition - 1), command.substring(dividerPosition + 3)); //needa add the by thing
+                } else if (command.startsWith("event")) {
+                    int from = command.indexOf("/from ");
+                    int to = command.indexOf("/to ");
+                    tasks[counter] = new Event(command.substring(0, from - 1), command.substring(from + 5, to - 1), command.substring(to + 3)); //needa add the from and to thing
+                }
+                System.out.println(tasks[counter]);
                 counter++;
+                if (counter == 1) {
+                    System.out.println("Now you have " + counter + " task in the list." + System.lineSeparator());
+                } else {
+                    System.out.println("Now you have " + counter + " tasks in the list." + System.lineSeparator());
+                }
             }
         }
-        //Close the scanner
-        scanner.close();
     }
 
     // Helper method to extract the task index from commands like "mark 2"
@@ -81,29 +94,3 @@ public class Sunny {
     }
 }
 
-// Task class to represent tasks
-class Task {
-    protected String description;
-    protected boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkAsDone() {
-        this.isDone = false;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-}
