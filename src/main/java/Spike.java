@@ -1,6 +1,4 @@
 import Exceptions.TaskNotFoundException;
-import Tasks.Deadline;
-import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 import Exceptions.ArgumentNotFoundException;
@@ -8,7 +6,6 @@ import Exceptions.CommandNotFoundException;
 
 
 import java.util.ArrayList;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -46,32 +43,32 @@ public class Spike {
                 Ui.displayList(inputList);
                 break;
             case "mark":
-                int indexMark = parser.getIndexMark(inputList, input);
+                int indexMark = Parser.getIndexMark(inputList, input);
                 inputList.get(indexMark).setDone(true);
                 Ui.displayMarkMsg(indexMark, inputList);
                 break;
             case "unmark":
-                int indexUnmark = parser.getIndexUnmark(inputList, input);
+                int indexUnmark = Parser.getIndexUnmark(inputList, input);
                 inputList.get(indexUnmark).setDone(false);
                 Ui.displayUnmarkMsg(indexUnmark, inputList);
                 break;
             case "todo":
-                Task newTodo = new Todo(parser.processTodo(input));
+                Task newTodo = new Todo(Parser.processTodo(input));
                 inputList.add(newTodo);
                 Ui.displayAcknowledgement(newTodo, inputList.size());
                 break;
             case "deadline":
-                Task newDeadline = new Todo(parser.processDeadline(input));
+                Task newDeadline = new Todo(Parser.processDeadline(input));
                 inputList.add(newDeadline);
                 Ui.displayAcknowledgement(newDeadline, inputList.size());
                 break;
             case "event":
-                Task newEvent = new Todo(parser.processEvent(input));
+                Task newEvent = new Todo(Parser.processEvent(input));
                 inputList.add(newEvent);
                 Ui.displayAcknowledgement(newEvent, inputList.size());
                 break;
             case "delete":
-                int indexDelete = parser.getIndexDelete(input);
+                int indexDelete = Parser.getIndexDelete(input);
                 Ui.displayDeleteMsg(inputList.get(indexDelete), inputList.size());
                 inputList.remove(indexDelete);
                 break;

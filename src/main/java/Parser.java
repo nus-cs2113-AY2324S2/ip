@@ -4,7 +4,7 @@ import Tasks.Task;
 
 import java.util.ArrayList;
 
-public class parser {
+public class Parser {
     public static final int MARK_TASK_INDEX = 5;
     public static final int UNMARK_TASK_INDEX = 7;
     public static final int EVENT_TASK_INDEX = 6;
