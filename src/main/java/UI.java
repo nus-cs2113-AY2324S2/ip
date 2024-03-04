@@ -18,12 +18,12 @@ public class UI {
         System.out.println("\tOpen the commands list: commands");
         System.out.println("\tSee your list of tasks: list");
         System.out.println("\tAdd a task to the list: todo <task>");
-        System.out.println("\tAdd a task with deadline to the list: deadline <task> /by <date>");
-        System.out.println("\tAdd an event to the list: event <event name> /from <date> /to <date>");
+        System.out.println("\tAdd a task with deadline to the list: deadline <task> /by <YYYY-MM-DD>T<HH:MM>");
+        System.out.println("\tAdd an event to the list: event <event name> /from <YYYY-MM-DD>T<HH:MM> /to <YYYY-MM-DD>T<HH:MM>");
         System.out.println("\tMark the tasks as done: mark <taskNumber>");
         System.out.println("\tUnmark the tasks as done: unmark <taskNumber>");
         System.out.println("\tDelete the task: delete <taskNumber>");
-        System.out.println("\tFind all the tasks due from now to desired date: find /date <YYYY-MM-DD>");
+        System.out.println("\tFind all the tasks in the list: find /date <YYYY-MM-DD> or find /title <task>");
         System.out.println("\tEnd the chat session: bye");
     }
 

@@ -5,12 +5,12 @@ Here's a list of commands that I take:
 	Open the commands list: commands
 	See your list of tasks: list
 	Add a task to the list: todo <task>
-	Add a task with deadline to the list: deadline <task> /by <date>
-	Add an event to the list: event <event name> /from <date> /to <date>
+	Add a task with deadline to the list: deadline <task> /by <YYYY-MM-DD>T<HH:MM>
+	Add an event to the list: event <event name> /from <YYYY-MM-DD>T<HH:MM> /to <YYYY-MM-DD>T<HH:MM>
 	Mark the tasks as done: mark <taskNumber>
 	Unmark the tasks as done: unmark <taskNumber>
 	Delete the task: delete <taskNumber>
-	Find all the tasks due from now to desired date: find /date <YYYY-MM-DD>
+	Find all the tasks in the list: find /date <YYYY-MM-DD> or find /title <task>
 	End the chat session: bye
 -
 You:
@@ -20,12 +20,12 @@ Here's a list of commands that I take:
 	Open the commands list: commands
 	See your list of tasks: list
 	Add a task to the list: todo <task>
-	Add a task with deadline to the list: deadline <task> /by <date>
-	Add an event to the list: event <event name> /from <date> /to <date>
+	Add a task with deadline to the list: deadline <task> /by <YYYY-MM-DD>T<HH:MM>
+	Add an event to the list: event <event name> /from <YYYY-MM-DD>T<HH:MM> /to <YYYY-MM-DD>T<HH:MM>
 	Mark the tasks as done: mark <taskNumber>
 	Unmark the tasks as done: unmark <taskNumber>
 	Delete the task: delete <taskNumber>
-	Find all the tasks due from now to desired date: find /date <YYYY-MM-DD>
+	Find all the tasks in the list: find /date <YYYY-MM-DD> or find /title <task>
 	End the chat session: bye
 -
 You:
@@ -53,12 +53,22 @@ What task are you trying to add??? Please enter a task
 You:
 -
 Krot:
+Why is the task description blank!
+-
+You:
+-
+Krot:
 Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>
 -
 You:
 -
 Krot:
 Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>
+-
+You:
+-
+Krot:
+Enter a date in the format <YYYY-MM-DD>T<HH-MM>
 -
 You:
 -
@@ -100,6 +110,21 @@ Enter a date in the format <YYYY-MM-DD>T<HH-MM>
 You:
 -
 Krot:
+Please enter the /from date before /to date
+-
+You:
+-
+Krot:
+Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+-
+You:
+-
+Krot:
+Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+-
+You:
+-
+Krot:
 More tasks to do! I've added:
 [E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
 Get to working, you now have 3 tasks in the list!
@@ -107,9 +132,33 @@ Get to working, you now have 3 tasks in the list!
 You:
 -
 Krot:
+More tasks to do! I've added:
+[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+Get to working, you now have 4 tasks in the list!
+-
+You:
+-
+Krot:
+More tasks to do! I've added:
+[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+Get to working, you now have 5 tasks in the list!
+-
+You:
+-
+Krot:
+More tasks to do! I've added:
+[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+Get to working, you now have 6 tasks in the list!
+-
+You:
+-
+Krot:
 1.[T][ ] read book
 2.[D][ ] assignment (by: 06 Jun 24 01:00pm)
 3.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+4.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+5.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+6.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
 -
 You:
 -
@@ -119,7 +168,7 @@ Which task are u referring to
 You:
 -
 Krot:
-Enter a valid task number to mark
+Enter a proper task number to mark
 -
 You:
 -
@@ -141,12 +190,22 @@ Task 1 is already marked done
 You:
 -
 Krot:
+Enter a proper task number to mark
+-
+You:
+-
+Krot:
+That task doesn't exist...
+-
+You:
+-
+Krot:
 Which task are u referring to
 -
 You:
 -
 Krot:
-Enter a valid task number to mark
+Enter a proper task number to mark
 -
 You:
 -
@@ -162,12 +221,22 @@ Task 1 is already unmarked
 You:
 -
 Krot:
+Enter a proper task number to mark
+-
+You:
+-
+Krot:
+That task doesn't exist...
+-
+You:
+-
+Krot:
 Which task you trying to delete?
 -
 You:
 -
 Krot:
-That's not  number, enter a proper task number
+That's not valid number, enter a proper task number
 -
 You:
 -
@@ -177,15 +246,28 @@ I can't delete a task that isn't there...
 You:
 -
 Krot:
+That's not valid number, enter a proper task number
+-
+You:
+-
+Krot:
+That's not valid number, enter a proper task number
+-
+You:
+-
+Krot:
 Deleted task 1 from the list.
 [T][ ] read book
-You now have 2 tasks to complete.
+You now have 5 tasks to complete.
 -
 You:
 -
 Krot:
 1.[D][X] assignment (by: 06 Jun 24 01:00pm)
 2.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+3.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+4.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+5.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
 -
 You:
 -
@@ -217,6 +299,14 @@ You:
 Krot:
 1.[D][X] assignment (by: 06 Jun 24 01:00pm)
 2.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+3.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+4.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+5.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+-
+You:
+-
+Krot:
+1.[D][X] assignment (by: 06 Jun 24 01:00pm)
 -
 You:
 -
@@ -247,6 +337,25 @@ You:
 -
 Krot:
 1.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+2.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+3.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+4.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+-
+You:
+-
+Krot:
+1.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+2.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+3.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+4.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+-
+You:
+-
+Krot:
+1.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+2.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+3.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
+4.[E][ ] birthday party (from: 07 Dec 24 06:00pm to: 07 Dec 24 10:00pm)
 -
 You:
 -

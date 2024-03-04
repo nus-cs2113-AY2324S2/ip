@@ -37,7 +37,7 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException("Which task are u referring to");
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Enter a valid task number to mark");
+            throw new NumberFormatException("Enter a proper task number to mark");
         }
         return index;
     }
@@ -147,8 +147,12 @@ public class Parser {
         if (fromIndex == -1 || toIndex == -1) {
             throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-DD>T<HH-MM> or don't try at all"); // Throws exception if initializers not found
         }
-        start = dateAndTimeParser(line.substring(fromIndex + FROM_PADDING, toIndex).strip());
-        end = dateAndTimeParser(line.substring(line.indexOf("/to") + BY_PADDING).strip());
+        try {
+            start = dateAndTimeParser(line.substring(fromIndex + FROM_PADDING, toIndex).strip());
+            end = dateAndTimeParser(line.substring(line.indexOf("/to") + BY_PADDING).strip());
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new StringIndexOutOfBoundsException("Please enter the /from date before /to date");
+        }
         ArrayList<Object> parsed = new ArrayList<>();
         parsed.add(title);
         parsed.add(start);
@@ -171,7 +175,7 @@ public class Parser {
         try {
             taskNumber = line.split(" ", 2)[1];
             if (!pattern.matcher(taskNumber).matches()) {
-                throw new InvalidInputException("That's not  number, enter a proper task number");
+                throw new InvalidInputException("That's not valid number, enter a proper task number");
             }
             taskIndex = Integer.parseInt(taskNumber);
         } catch (ArrayIndexOutOfBoundsException e) {

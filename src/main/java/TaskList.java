@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -147,6 +148,8 @@ public class TaskList {
      */
     public ArrayList<Task> findFromTitle(String keyword) {
         // Finds the tasks in the list that matches title
-        return (ArrayList<Task>)tasks.stream().filter(task -> task.task.contains(keyword)).collect(Collectors.toList());
+        Pattern pattern = Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE);
+
+        return (ArrayList<Task>)tasks.stream().filter(task -> pattern.matcher(task.task).find()).collect(Collectors.toList());
     }
 }
