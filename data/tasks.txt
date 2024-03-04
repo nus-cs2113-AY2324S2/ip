@@ -1,3 +1,2 @@
-T|helllo|1
-T|homework|0
-D|project|1|tonight
+T|helllo|0
+D|project|0|tonight

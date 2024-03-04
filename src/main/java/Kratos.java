@@ -8,56 +8,9 @@ import java.io.FileNotFoundException;
 
 public class Kratos {
     private static Ui ui = new Ui();
+    private static Storage storage = new Storage();
     static ArrayList<Task> tasksList = new ArrayList<>();
     private static final String FILE_PATH = "./data/tasks.txt";
-
-    // Method to save tasks to a file
-    public static void saveTasks() {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs(); // Create directories if they don't exist
-            }
-            file.createNewFile(); // Create the file if it doesn't exist
-            try (FileWriter writer = new FileWriter(file)) {
-                for (int i = 0; i < tasksList.size(); i++) {
-                    writer.write(tasksList.get(i).toFileString() + "\n");
-                }
-            }
-        } catch (IOException e) {
-            KratosException.handleException(e, "Tasks seek refuge. Stitch the tapestry of storage.\n" + e.getMessage());
-        }
-    }
-
-    // Method to load tasks from a file
-    public static void loadTasks() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.fromString(line);
-                if (task != null) {
-                    tasksList.add(task);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            // Handle the case where the file doesn't exist
-            KratosException.handleException(e, ui.fileNotFound);
-            File file = new File(FILE_PATH);
-            try {
-                if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs(); // Create directories if they don't exist
-                }
-                file.createNewFile();
-            } catch (IOException ioException) {
-
-                KratosException.handleException(ioException, ui.folderNotFound +
-                        ioException.getMessage());
-            }
-        } catch (IOException e) {
-            KratosException.handleException(e,ui.fileReadingError +
-                    e.getMessage());
-        }
-    }
 
     // Method to display marking of tasks
     public static void identifyAndMarkTasks(int taskNumber, String mark) {
@@ -93,7 +46,7 @@ public class Kratos {
     public static void main(String[] args) {
 
         ui.greet();
-        loadTasks(); // Load tasks from file when the program boots up
+        tasksList = storage.loadTasks(); // Load tasks from file when the program boots up
         String userInput;
         try {
             while (true) {
@@ -109,7 +62,7 @@ public class Kratos {
                     handleCommand(userInput);
                     break;
                 }
-                saveTasks();
+                storage.saveTasks(tasksList);
             }
         } finally {
             ui.closeScanner();
