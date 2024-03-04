@@ -52,7 +52,7 @@ public class Kratos {
             } else if (userInput.startsWith("delete")) {
                 listOfTasks.deleteTask(userInput,tasksList);
             } else if (userInput.startsWith("find")) { // Add handling for "find" command
-                String keyword = userInput.substring(5).trim(); // Extract the keyword after "find"
+                String keyword = Parser.parseFindKeyword(userInput); // Extract the keyword after "find"
                 TaskList.findTasks(keyword, tasksList);
             } else {
                 throw new IllegalArgumentException();

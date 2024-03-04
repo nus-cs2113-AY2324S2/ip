@@ -20,4 +20,8 @@ public class Parser {
     public static String[] splitTimeline(String date) {
         return date.split("/to");
     }
+
+    public static String parseFindKeyword(String userInput) {
+        return userInput.substring(5).trim();
+    }
 }
