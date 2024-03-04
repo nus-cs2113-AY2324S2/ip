@@ -1,7 +1,10 @@
 package artemis.processing;
 
-import artemis.tasks.*;
 import artemis.errors.Errors;
+import artemis.tasks.Deadline;
+import artemis.tasks.Event;
+import artemis.tasks.Task;
+import artemis.tasks.ToDo;
 
 import java.util.ArrayList;
 

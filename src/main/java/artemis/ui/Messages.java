@@ -7,7 +7,7 @@ public class Messages {
     public static void printBanner() {
         String logo = "  __ _ _ __| |_ ___ _ __ ___ (_)___" + System.lineSeparator() +
                 " / _` | '__| __/ _ \\ '_ ` _ \\| / __|" + System.lineSeparator() +
-                "| (_| | |  | ||  __/ | | | | | \\__ \\"  + System.lineSeparator() +
+                "| (_| | |  | ||  __/ | | | | | \\__ \\" + System.lineSeparator() +
                 " \\__,_|_|   \\__\\___|_| |_| |_|_|___/" + System.lineSeparator();
         System.out.println("======================================" + System.lineSeparator());
         System.out.println(logo);

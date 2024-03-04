@@ -10,7 +10,7 @@ public class Deadline extends Task {
      * Creates a Deadline task with the given task name and due date.
      *
      * @param taskName The name of the task.
-     * @param dueDate The due date of the task.
+     * @param dueDate  The due date of the task.
      */
     public Deadline(String taskName, String dueDate) {
         super(taskName);

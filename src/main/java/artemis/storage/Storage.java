@@ -73,7 +73,7 @@ public class Storage {
      * Attempts to load the save file given by path
      *
      * @throws Errors.CorruptedSaveException If there was a error while processing the file
-     * @throws FileNotFoundException If the given file does not exist
+     * @throws FileNotFoundException         If the given file does not exist
      */
     public void loadSave() throws Errors.CorruptedSaveException, FileNotFoundException {
         this.taskList = new ArrayList<>();
@@ -135,7 +135,7 @@ public class Storage {
     /**
      * Helper method to format data to be exported into the save file
      *
-     * @param currentTask Current Task that is being formatted
+     * @param currentTask  Current Task that is being formatted
      * @param currentClass Current type of Task (To Do, Deadline, Event)
      * @return Output string to be written into the file
      */

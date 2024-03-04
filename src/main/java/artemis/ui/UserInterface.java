@@ -1,9 +1,10 @@
 package artemis.ui;
 
-import artemis.processing.*;
-import artemis.storage.Storage;
-import artemis.tasks.*;
 import artemis.errors.Errors;
+import artemis.processing.Parser;
+import artemis.processing.TaskHandler;
+import artemis.storage.Storage;
+import artemis.tasks.Task;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -18,9 +19,9 @@ import java.util.stream.Collectors;
  * Represents the user interface for Artemis.
  */
 public class UserInterface {
-    private String username;
     private final Scanner in;
     private final PrintStream out;
+    private String username;
     private TaskHandler taskHandler;
     private Storage storage;
 
@@ -189,7 +190,7 @@ public class UserInterface {
         } else {
             ArrayList<Task> tempList = taskHandler.taskList;
 
-            List<Task> filteredList =  tempList.stream()
+            List<Task> filteredList = tempList.stream()
                     .filter((task -> task.getTaskName().contains(toFind)))
                     .collect(Collectors.toList());
 

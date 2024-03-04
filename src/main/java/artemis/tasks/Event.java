@@ -9,9 +9,10 @@ public class Event extends Task {
 
     /**
      * Creates an Event task with the given task name, start and end date time
-     * @param taskName The name of the task
+     *
+     * @param taskName      The name of the task
      * @param startDateTime The start date time of the event as String
-     * @param endDateTime The end date time of the event as String
+     * @param endDateTime   The end date time of the event as String
      */
     public Event(String taskName, String startDateTime, String endDateTime) {
         super(taskName);
@@ -21,6 +22,7 @@ public class Event extends Task {
 
     /**
      * Returns a formatted string representation of the Event
+     *
      * @return Formatted string of Event
      */
     @Override
@@ -30,6 +32,7 @@ public class Event extends Task {
 
     /**
      * Gets the start date time
+     *
      * @return String of assigned start date time
      */
     public String getStartDateTime() {
@@ -38,6 +41,7 @@ public class Event extends Task {
 
     /**
      * Gets the end date time
+     *
      * @return String of assigned end date time
      */
     public String getEndDateTime() {

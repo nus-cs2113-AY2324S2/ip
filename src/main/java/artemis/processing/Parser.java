@@ -7,10 +7,6 @@ import artemis.tasks.Task;
 import artemis.tasks.ToDo;
 
 public class Parser {
-    public enum Command {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, FIND, UNKNOWN
-    }
-
     /**
      * Parses the input that the user has entered into commands
      *
@@ -141,7 +137,7 @@ public class Parser {
      * Parses the user input to determine if they want to mark or unmark a specified task
      *
      * @param markUnmarkString The input given by the user that either starts with mark or unmark
-     * @param taskListSize The size of the assigned task list
+     * @param taskListSize     The size of the assigned task list
      * @return An object array that contains either {-1, null} if invalid input, or {index of item, true/false (mark or unmark)}
      */
     public static Object[] parseMarkUnmark(String markUnmarkString, int taskListSize) throws Errors.InvalidMarkUnmarkException, Errors.InvalidMarkUnmarkIndexException {
@@ -165,10 +161,10 @@ public class Parser {
      * Parses the deletion of a task in the task list
      *
      * @param deleteString The string of the task to be deleted
-     * @param taskListSize  The size of the assigned task list
+     * @param taskListSize The size of the assigned task list
      * @return An integer of the index of the task to be deleted in the list
      * @throws Errors.InvalidDeleteException If no index was given
-     * @throws Errors.TaskNotFoundException If the index of the task to be deleted exceeds the number of tasks in the list
+     * @throws Errors.TaskNotFoundException  If the index of the task to be deleted exceeds the number of tasks in the list
      */
     public static int parseDelete(String deleteString, int taskListSize) throws Errors.InvalidDeleteException, Errors.TaskNotFoundException {
         String[] deleteList = deleteString.split(" ", 2);
@@ -189,8 +185,8 @@ public class Parser {
      * Parses the data in the save file to be loaded into memory
      *
      * @param currentTaskArray The current array to be parsed
-     * @param taskName The task name to be created
-     * @param isDone Boolean if the task has been completed
+     * @param taskName         The task name to be created
+     * @param isDone           Boolean if the task has been completed
      * @return Task Class that has been parsed
      * @throws Errors.CorruptedSaveException If the format of the data is not recognized
      */
@@ -232,5 +228,9 @@ public class Parser {
         }
 
         return findList[1];
+    }
+
+    public enum Command {
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, BYE, SAVE, DELETE, FIND, UNKNOWN
     }
 }
