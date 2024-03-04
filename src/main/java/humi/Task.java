@@ -1,5 +1,8 @@
 package humi;
 
+/**
+ * Represents the task containing task type, mark, and description
+ */
 public class Task {
     public String description;
     public Boolean isDone;
@@ -10,6 +13,9 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Prints the formatted task type
+     */
     public void printTaskType() {
         switch (taskType) {
         case TODO:
@@ -24,17 +30,26 @@ public class Task {
         }
     }
 
+    /**
+     * Prints the formatted mark
+     */
     public void printMark() {
         String mark = (isDone) ? "[X] " : "[ ] ";
         System.out.print(mark);
     }
 
+    /**
+     * Prints the full format of the task
+     */
     public void print() {
         printTaskType();
         printMark();
         System.out.println(description);
     }
 
+    /**
+     * Mark the task as done and print the message
+     */
     public void mark() {
         isDone = true;
         System.out.println(Ui.LINE);
@@ -45,6 +60,9 @@ public class Task {
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Mark the task as not done and print the message
+     */
     public void unmark() {
         isDone = false;
         System.out.println(Ui.LINE);

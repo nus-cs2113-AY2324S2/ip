@@ -3,26 +3,23 @@ package humi;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Entry point of the Address Book application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Humi {
     private static Ui ui;
     private static TaskManager taskManager;
     private static Storage storage;
 
-    public Humi(String filePath) {
+    public Humi(String folderPath, String filePath) {
         ui = new Ui();
         storage = new Storage();
         taskManager = new TaskManager(storage);
-    }
-
-    public void run() {
-        ui.printWelcome();
-
-        // read stored text file
         try {
-            ArrayList<String> inputFile = storage.readFile("data/list.txt");
+            ArrayList<String> inputFile = storage.readFile(filePath);
             if (!inputFile.isEmpty()) {
                 for (String s : inputFile) {
                     taskManager.loadTask(s);
@@ -31,24 +28,16 @@ public class Humi {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found, attempting to create file.");
-            try {
-                File dataFolder = new File("./data");
-                if (!dataFolder.exists()) {
-                    System.out.println("Folder not found, attempting to create folder.");
-                    if (dataFolder.mkdirs()) {
-                        System.out.println("Data folder has been created successfully.");
-                    } else {
-                        System.err.println("Failed to create data folder.");
-                    }
-                }
-                File textFile = new File("data/list.txt");
-                if (textFile.createNewFile()) {
-                    System.out.println("File has been created.");
-                }
-            } catch (IOException err) {
-                System.out.println("Failed to create file.");
-            }
+            storage.createFile(folderPath, filePath);
         }
+    }
+
+    /**
+     * Read user input and handle command until the program terminates.
+     * Save data in the text file when the user type "bye".
+     */
+    public void run() {
+        ui.printWelcome();
 
         // read user input
         Scanner in = new Scanner(System.in);
@@ -69,6 +58,6 @@ public class Humi {
     }
 
     public static void main(String[] args) {
-        new Humi("data/list.txt").run();
+        new Humi("./data", "data/list.txt").run();
     }
 }

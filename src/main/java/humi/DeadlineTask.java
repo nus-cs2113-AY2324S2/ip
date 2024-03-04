@@ -1,5 +1,9 @@
 package humi;
 
+/**
+ * Represents the deadline task containing task type, mark, description,
+ * and deadline
+ */
 public class DeadlineTask extends Task {
     public String deadline;
     DeadlineTask(String description, String deadline) {
@@ -7,12 +11,7 @@ public class DeadlineTask extends Task {
         this.description = description;
         this.isDone = false;
         this.deadline = deadline;
-
-        System.out.println(Ui.LINE);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       [D][ ] " + description + " by: " + deadline);
-        System.out.println("     Now you have " + (TaskManager.taskCount + 1) + " tasks in the list.");
-        System.out.println(Ui.LINE);
+        Ui.printAddDeadline(description, deadline);
     }
 
     DeadlineTask(String description, String deadline, boolean isDone) {
@@ -22,6 +21,9 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Prints the full format of the deadline task
+     */
     @Override
     public void print() {
         printTaskType();

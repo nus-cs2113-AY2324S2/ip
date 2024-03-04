@@ -1,5 +1,9 @@
 package humi;
 
+/**
+ * Represents the event task containing task type, mark, description,
+ * start date, and end date
+ */
 public class EventTask extends Task{
     public String startDate;
     public String endDate;
@@ -9,12 +13,7 @@ public class EventTask extends Task{
         this.isDone = false;
         this.startDate = startDate;
         this.endDate = endDate;
-
-        System.out.println(Ui.LINE);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       [E][ ] " + description + " from: " + startDate + " to: " + endDate);
-        System.out.println("     Now you have " + (TaskManager.taskCount + 1) + " tasks in the list.");
-        System.out.println(Ui.LINE);
+        Ui.printAddEvent(description, startDate, endDate);
     }
 
     EventTask(String description, String startDate, String endDate, boolean isDone) {
@@ -25,6 +24,9 @@ public class EventTask extends Task{
         this.endDate = endDate;
     }
 
+    /**
+     * Prints the full format of the event task
+     */
     @Override
     public void print() {
         printTaskType();

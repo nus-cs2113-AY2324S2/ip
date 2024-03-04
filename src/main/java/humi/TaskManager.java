@@ -3,6 +3,9 @@ package humi;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Task management to keep track of the task list and number of tasks
+ */
 public class TaskManager {
     ArrayList<Task> taskList;
     public static int taskCount;
@@ -14,32 +17,36 @@ public class TaskManager {
         this.storage = storage;
     }
 
+    /**
+     * Determines the type of the command and passes it to the corresponding
+     * command handler.
+     * @param command Input command received from the user
+     */
     public void handleCommand(String command) {
-        try {
-            if (command.equals("list")) {
-                handleList();
-            } else if (command.startsWith("todo")) {
-                handleTodo(command);
-            } else if (command.startsWith("deadline")) {
-                handleDeadline(command);
-            } else if (command.startsWith("event")) {
-                handleEvent(command);
-            } else if (command.startsWith("mark")) {
-                handleMark(command);
-            } else if (command.startsWith("unmark")) {
-                handleUnmark(command);
-            } else if (command.startsWith("delete")) {
-                handleDelete(command);
-            } else if (command.startsWith("find")) {
-                handleFind(command);
-            } else {
-                System.out.println("Invalid input. What is " + command + "?");
-            }
-        } catch (HumiException e) {
-            System.out.println(e.message);
+        if (command.equals("list")) {
+            handleList();
+        } else if (command.startsWith("todo")) {
+            handleTodo(command);
+        } else if (command.startsWith("deadline")) {
+            handleDeadline(command);
+        } else if (command.startsWith("event")) {
+            handleEvent(command);
+        } else if (command.startsWith("mark")) {
+            handleMark(command);
+        } else if (command.startsWith("unmark")) {
+            handleUnmark(command);
+        } else if (command.startsWith("delete")) {
+            handleDelete(command);
+        } else if (command.startsWith("find")) {
+            handleFind(command);
+        } else {
+            System.out.println("Invalid input. What is " + command + "?");
         }
     }
 
+    /**
+     * Print out all the tasks in the list.
+     */
     private void handleList() {
         System.out.println(Ui.LINE);
         System.out.println("    Here are the tasks in your list");
@@ -50,6 +57,10 @@ public class TaskManager {
         System.out.println(Ui.LINE);
     }
 
+    /**
+     * Get the details from the parser, and add the todo task to the list.
+     * @param command Todo command input from the user
+     */
     private void handleTodo(String command) {
         try {
             Parser.parseCommand(command);
@@ -63,6 +74,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Get the details from the parser, and add the deadline task to the list.
+     * @param command Deadline command input from the user
+     */
     private void handleDeadline(String command) {
         try {
             Parser.parseCommand(command);
@@ -77,7 +92,11 @@ public class TaskManager {
         }
     }
 
-    private void handleEvent(String command) throws HumiException {
+    /**
+     * Get the details from the parser, and add the event task to the list.
+     * @param command Deadline command input from the user
+     */
+    private void handleEvent(String command) {
         try {
             Parser.parseCommand(command);
             String description = Parser.eventDescription;
@@ -92,6 +111,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Prints out tasks containing the given keyword
+     * @param command Find command input from the user
+     */
     private void handleFind(String command) {
         String keyword = command.substring(5).trim().toLowerCase();
         int index = 1;
@@ -107,7 +130,11 @@ public class TaskManager {
         System.out.println(Ui.LINE);
     }
 
-    private void handleMark(String command) throws HumiException {
+    /**
+     * Get the details from the parser, and mark the task on the list.
+     * @param command Mark command input from the user
+     */
+    private void handleMark(String command) {
         try {
             Parser.parseCommand(command);
             int taskIndex = Parser.taskIndex;
@@ -118,7 +145,11 @@ public class TaskManager {
         }
     }
 
-    private void handleUnmark(String command) throws HumiException {
+    /**
+     * Get the details from the parser, and remove the task mark from the list.
+     * @param command Unmark command input from the user
+     */
+    private void handleUnmark(String command) {
         try {
             Parser.parseCommand(command);
             int taskIndex = Parser.taskIndex;
@@ -129,6 +160,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Remove a certain task from the list and prints out the message
+     * @param command Delete command input from the user
+     */
     private void handleDelete(String command) {
         try {
             Parser.parseCommand(command);
@@ -146,8 +181,10 @@ public class TaskManager {
         }
     }
 
-
-    // add task from text file
+    /**
+     * Load each command from the data text file to the task list
+     * @param inputString Text formatted command from the data file
+     */
     public void loadTask(String inputString) {
         String[] taskComponents = inputString.split("/");
         String taskType = taskComponents[0];
