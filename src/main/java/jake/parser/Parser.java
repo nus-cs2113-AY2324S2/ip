@@ -16,6 +16,11 @@ public class Parser {
         this.tasks = tasks;
     }
 
+    /**
+     * Continuously reads user inputs, until specificially told to stop using the command "Bye"
+     * Based on user's input, will handle the command accordingly
+     *
+     */
     public void readInput() {
         Scanner myScanner = new Scanner(System.in);
         String userInput= "";
