@@ -15,7 +15,7 @@ Prerequisites: JDK 11
 2. Copy the file to the folder you want to use as the home folder for your Krot Task Manager.
 3. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Ip.jar command to run the application.<br>
    A GUI similar to the below should appear in a few seconds.<br>
-![Screenshot of Krot GUI](https://raw.githubusercontent.com/tannerlie/ip/master/Screenshot%20of%20Krot%20GUI.png)
+![Screenshot of Krot GUI](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Find.png)
 4. Type the command in the command box and press Enter to execute it. e.g. typing commands and pressing Enter will open the command window.
    Some example commands you can try.
    1. ```list```: Lists all the current tasks.
@@ -76,7 +76,7 @@ Format:```find /title <title>``` ```find /date <YYYY-MM-DD>```<br>
 - Finds the task in the list that corresponds to either the title or date.
 - The search by title is not case-sensitive.<br>
 Examples
-- 
+
 ![Screenshot of find by title](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Find.png)
 ### End the chat session: ```bye```
 Ends the Chatbot and saves your list data.
