@@ -21,15 +21,22 @@ public class DukeFile {
             PrintText.printWithLinebreak("IOExceptions occurred");
         }
     }
+
+
+    /**
+     * Retrieve the index of the last line in a file at file path FILENAME.
+     * Returns 0 if the file is not found.
+     */
     public static int latestIndex() {
         try {
             File fileToLook = new File(FILENAME);
             Scanner s = new Scanner(fileToLook);
             String lastLine = "";
+            int index = 0;
             while (s.hasNext()) {
                 lastLine = s.nextLine();
+                index += 1;
             }
-            int index = Integer.parseInt(lastLine.split("\\.")[0]);
             return index;
         } catch (Exception e) {
             PrintText.printWithLinebreak("return index 0");
@@ -37,10 +44,20 @@ public class DukeFile {
         }
     }
 
+    /**
+     * Returns the private File dukeData.
+     */
     public static File getFileData() {
         return dukeData;
     }
 
+    /**
+     * Read lines from the file and identify tasks written inside.
+     * Add the identified tasks into a list of existing tasks.
+     *
+     * @param fileToRead The file to read from.
+     * @param existTasks Arraylist storing existing tasks.
+     */
     public static void readFromFile(File fileToRead, ArrayList<Task> existTasks) {
         try {
             Scanner scanner = new Scanner(fileToRead);
