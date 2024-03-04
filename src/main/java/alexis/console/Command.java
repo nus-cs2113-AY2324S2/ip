@@ -1,4 +1,4 @@
-package Alexis.console;
+package alexis.console;
 
 /**
  * The Command enum holds all possible commands that Alexis accepts.

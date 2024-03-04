@@ -1,11 +1,11 @@
-package Alexis.console;
+package alexis.console;
 
-import Alexis.task.TaskList;
-import Alexis.task.Task;
-import Alexis.task.ToDo;
-import Alexis.task.Deadline;
-import Alexis.task.Event;
-import Alexis.task.TaskType;
+import alexis.task.TaskList;
+import alexis.task.Task;
+import alexis.task.ToDo;
+import alexis.task.Deadline;
+import alexis.task.Event;
+import alexis.task.TaskType;
 
 import java.io.File;
 import java.io.FileNotFoundException;

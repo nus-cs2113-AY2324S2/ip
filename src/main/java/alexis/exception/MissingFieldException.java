@@ -1,4 +1,4 @@
-package Alexis.exception;
+package alexis.exception;
 
 public class MissingFieldException extends Exception{
 }
