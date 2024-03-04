@@ -112,7 +112,7 @@ public class Parser {
     public void checkFirstCommandWord() {
         System.out.println("Please begin input with the following words: "
                 + System.lineSeparator()
-                + "'list / todo / deadline / event / delete / mark' ");
+                + "'list / todo / deadline / event / delete / mark / find' ");
     }
 
 

@@ -14,7 +14,6 @@ public class ListCommand implements Command {
      * @param tasks is the current list of <code>tasks</code> to save to the file.
      * @param ui is the user interface of that prints texts on program.
      * @param fileSaver is object used to save data into the file.
-     * @throws IOException If there is error in saving data into file.
      */
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) {

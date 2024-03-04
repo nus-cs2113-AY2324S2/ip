@@ -60,6 +60,12 @@ public class Ui {
                 + System.lineSeparator()
                 + "\t Now you have " + taskSize + " tasks in the list.");
     }
+
+    /**
+     * Finds the task that contains the keyword that user input
+     * then list down all matching <code>tasks</code>.
+     * @param findTask is the task description after the find keyword
+     */
     public void findCommand(String[] findTask) {
         String keyword = findTask[1].trim();
         System.out.println("\tHere are the matching tasks in your list:");

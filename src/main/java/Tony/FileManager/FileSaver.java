@@ -37,6 +37,7 @@ public class FileSaver {
                 + SEPARATOR + description + System.lineSeparator();
         return toDoText;
     }
+
     /**
      * Returns formatted text with <code>SEPARATOR</code> to save in the file.
      * @param deadline Task type of Deadline
@@ -51,6 +52,7 @@ public class FileSaver {
                 + SEPARATOR + description + SEPARATOR + by  + System.lineSeparator();
         return deadlineText;
     }
+
     /**
      * Returns formatted text with <code>SEPARATOR</code> to save in the file.
      * @param event Task type of Event

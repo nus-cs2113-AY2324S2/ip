@@ -65,6 +65,7 @@ public class ToDoCommand implements Command{
         String todoLine = fileSaver.saveTodo(todo);
         fileSaver.saveData(todoLine, true);
     }
+
     /**
      * Returns <code>false</code> if command not entered <code>bye</code>
      * @return <code>false</code> and does not exit program.

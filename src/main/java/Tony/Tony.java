@@ -24,6 +24,7 @@ public class Tony {
         this.fileLoader = new FileLoader(this.tasks);
         this.fileSaver = new FileSaver(this.tasks);
     }
+
     /**
      * This method runs the Tony chatbot
      * @throws IOException if there is an error creating a File object
@@ -46,6 +47,7 @@ public class Tony {
         }
         userInput.close();
     }
+
     /**
      * This is the start of Tony the chatbot.
      * @throws IOException if there is an error creating a File object in the run().

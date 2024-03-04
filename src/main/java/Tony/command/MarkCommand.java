@@ -24,6 +24,7 @@ public class MarkCommand implements Command{
         this.USER_INPUT = line;
         this.parser = parser;
     }
+
     /**
      * Executes the <code>markTaskCommand</code> method to mark task when it is done,
      * also checks if user has empty input after mark command
