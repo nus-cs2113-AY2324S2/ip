@@ -10,7 +10,7 @@ import static burger.UI.Utilities.*;
 
 public class Parser {
 
-    static final int COMMANDIDX = 0;
+    public static final int COMMANDIDX = 0;
 
     public static void parseUserInput() {
         TaskList myList = getSaveFile();
@@ -45,7 +45,7 @@ public class Parser {
      * @return true if it's a valid command and false otherwise.
      * @throws ArrayIndexOutOfBoundsException when the description after the command is empty.
      */
-    public static boolean isValidCommand(String[] textArray, TaskList list) { // move to parser
+    public static boolean isValidCommand(String[] textArray, TaskList list) {
         boolean isValid = true;
         int idx;
         try {
@@ -58,17 +58,18 @@ public class Parser {
                 list.markTask(idx, command);
                 break;
             case "todo":
-                list.addTodo(textArray);
-                break;
+                // fallthrough
             case "deadline":
-                list.addDeadline(textArray);
-                break;
+                // fallthrough
             case "event":
-                list.addEvent(textArray);
+                list.handleAddTask(textArray, command);
                 break;
             case "delete":
                 idx = list.getIdx(textArray);
                 list.deleteTask(idx);
+                break;
+            case "find":
+                list.findKeyword(textArray);
                 break;
             default:
                 isValid = false;

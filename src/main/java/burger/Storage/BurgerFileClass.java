@@ -15,7 +15,7 @@ public class BurgerFileClass {
     static final int MARKINDEX = 1;
 
     static final int TASKINDEX = 2;
-    static final String PATHNAME = java.nio.file.Paths.get("data","burger.txt")
+    public static final String PATHNAME = java.nio.file.Paths.get("data","burger.txt")
               .normalize().toString();
 
     public static void readFromFile(String filePath, TaskList list) throws IOException {
@@ -32,11 +32,13 @@ public class BurgerFileClass {
         }
     }
 
-    public static void addFromSaveFile(char tde, char mark, String task, TaskList list) { // move to storage
+    public static void addFromSaveFile(char tde, char mark, String task, TaskList list) {
         Task currTask = new Task(task, tde);
         if (mark == 'X') {
             currTask.markDone();
         }
+        String[] taskArray = task.split(" ");
+
         list.add(currTask);
     }
 
