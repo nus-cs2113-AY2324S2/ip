@@ -20,7 +20,7 @@ Example: `todo Shopping`
 
 ### Add Deadline task: deadline
 
-Adds a deadline task to the task list
+Adds a deadline task to the task list<br/>
 Dates in the format of yyyy-mm-dd hh:mm will be reformatted into MMM-dd-yyyy hh:mm AM/PM
 
 Format: `deadline TASK /by DEADLINE`
@@ -32,7 +32,7 @@ Examples:
 
 ### Adding a Event: event
 
-Adds an event task to the task list
+Adds an event task to the task list<br/>
 Dates in the format of yyyy-mm-dd hh:mm will be reformatted into MMM-dd-yyyy hh:mm AM/PM
 
 Format: `event TASK /from START /to END`
