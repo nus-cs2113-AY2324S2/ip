@@ -1,5 +1,6 @@
 package Alexis.task;
 
+import Alexis.console.Parser;
 import Alexis.console.Ui;
 
 
@@ -42,7 +43,9 @@ public class Event extends Task {
             String description = input.substring(0, keywordFromIndex).trim();
             String taskStart = input.substring(keywordFromIndex + keywordFrom.length(), keywordToIndex).trim();
             String taskEnd = input.substring(keywordToIndex + keywordTo.length()).trim();
-            return new Event(description, taskStart, taskEnd);
+            String formattedTaskStart = Parser.getDateTime(taskStart);
+            String formattedTaskEnd = Parser.getDateTime(taskEnd);
+            return new Event(description, formattedTaskStart, formattedTaskEnd);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Ui.MISSING_EVENT_START_OR_END_DATE_ERROR);
             return null;
