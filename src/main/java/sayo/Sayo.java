@@ -105,6 +105,10 @@ public class Sayo {
                     } catch (NumberFormatException e) {
                         System.out.println("Please enter a valid number after 'delete'.");
                     }
+                } else if (input.startsWith("find")) {
+                    String keyword = input.substring(5).trim();
+                    ArrayList<Task> foundTasks = items.findTasksByKeyword(keyword);
+                    ui.showFoundTasks(foundTasks);
                 } else if (!input.equals("bye")) {
                     throw new SayoException("Oh no! Apologies, but I don't know what that means :-( Please retry.");
                 }

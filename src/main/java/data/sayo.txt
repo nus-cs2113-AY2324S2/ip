@@ -4,3 +4,4 @@ T | 0 | dance away'
 T | 0 | nothing much
 D | 0 | wake up | 8pm
 E | 0 | church | 8pm | 9pm
+E | 1 | dance to the beat | 2pm | 10pm
