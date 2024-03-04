@@ -17,10 +17,24 @@ public class DeadlineCommand implements Command {
     private Ui ui;
     private final Parser parser;
 
+    /**
+     * Represents {@code DeadlineCommand} object to handle deadline task type.
+     * @param line is the String input by user
+     * @param parser to help with processing the String input.
+     */
     public DeadlineCommand(String line, Parser parser) {
         this.USER_INPUT = line;
         this.parser = parser;
     }
+
+    /**
+     * Executes the <code>addDeadlineCommand</code> method to add Deadline task into list.
+     * checks if there are no words after deadline keyword
+     * @param tasks is the current list of <code>tasks</code> to save to the file.
+     * @param ui is the user interface of that prints texts on program.
+     * @param fileSaver is object used to save data into the file.
+     * @throws IOException If there is error in saving data into file.
+     */
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) throws IOException {
         this.tasks = tasks;
@@ -36,6 +50,13 @@ public class DeadlineCommand implements Command {
         }
     }
 
+    /**
+     * Processes the <code>deadlineTask</code> String by splitting the String at '/by'
+     * and saves into current <code>tasks</code> list.
+     * @param deadlineTask array String after deadline keyword.
+     * @throws IOException If there is error in saving data into file.
+     */
+
     private void addDeadlineCommand(String[] deadlineTask) throws IOException {
         String[] description = deadlineTask[1].split("/by");
         Deadline deadline = new Deadline(description[0], description[1]);
@@ -45,6 +66,10 @@ public class DeadlineCommand implements Command {
         fileSaver.saveData(deadlineLine, true);
     }
 
+    /**
+     * Returns <code>false</code> if command not entered <code>bye</code>
+     * @return <code>false</code> and does not exit program.
+     */
     @Override
     public boolean isExit() {
         return false;

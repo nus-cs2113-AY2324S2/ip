@@ -14,10 +14,23 @@ public class MarkCommand implements Command{
     private ArrayList<Task> tasks;
     private FileSaver fileSaver;
     private final Parser parser;
+
+    /**
+     * Represent {@code MarkCommand} object to mark tasks specified by user.
+     * @param line is String input by user.
+     * @param parser to help with processing the String input
+     */
     public MarkCommand(String line, Parser parser) {
         this.USER_INPUT = line;
         this.parser = parser;
     }
+    /**
+     * Executes the <code>markTaskCommand</code> method to mark task when it is done,
+     * also checks if user has empty input after mark command
+     * @param tasks is the current list of <code>tasks</code> to save to the file.
+     * @param ui is the user interface of that prints texts on program.
+     * @param fileSaver is object used to save data into the file.
+     */
     @Override
     public void execute(ArrayList<Task> tasks, Ui ui, FileSaver fileSaver) {
         this.tasks = tasks;
@@ -34,6 +47,13 @@ public class MarkCommand implements Command{
             System.out.println("To mark a task, suggest a number available in the list!");
         }
     }
+
+    /**
+     * Marks a task if it is done
+     * @param subCommand is String array that contains mark/unmark command
+     * @param num is the task index specified by user
+     * @throws IOException If there is error in saving data into file.
+     */
     public void markTaskCommand(String[] subCommand, int num) throws IOException {
 
         if (subCommand[0].equals("mark")) {
@@ -47,6 +67,11 @@ public class MarkCommand implements Command{
         }
         fileSaver.updateFile();
     }
+
+    /**
+     * Returns <code>false</code> if command not entered <code>bye</code>
+     * @return <code>false</code> and does not exit program.
+     */
     @Override
     public boolean isExit() {
         return false;
