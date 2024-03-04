@@ -21,7 +21,7 @@ public class UserInterface {
      * Displays a greeting message to the user.
      */
 
-    public void greetUser() {
+    public static void greetUser() {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Hello I'm " + CHATBOT_NAME);
         System.out.println(TAB_SPACE + "What can I do for you?");
@@ -46,7 +46,7 @@ public class UserInterface {
      * @param totalTasks The total number of tasks after adding the new task.
      */
 
-    public void printTaskAdded(Task task, int totalTasks) {
+    public static void printTaskAdded(Task task, int totalTasks) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Got it. I've added this task:");
         System.out.println(TAB_SPACE + "  " + task);
@@ -61,7 +61,7 @@ public class UserInterface {
      * @param totalTasks The total number of tasks after removing the task.
      */
 
-    public void printTaskRemoved(String task, int totalTasks) {
+    public static void printTaskRemoved(String task, int totalTasks) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Noted. I've removed this task:");
         System.out.println(TAB_SPACE + "  " + task);
@@ -76,7 +76,7 @@ public class UserInterface {
      * @param index The index of the last task in the list.
      */
 
-    public void printTaskList(ArrayList<Task> taskList, int index) {
+    public static void printTaskList(ArrayList<Task> taskList, int index) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Here are the tasks in your list:");
         for (int i = START_INDEX; i < index; i++) {
@@ -91,7 +91,7 @@ public class UserInterface {
      * @param task The task that has been marked.
      */
 
-    public void printTaskMarked(Task task) {
+    public static void printTaskMarked(Task task) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Nice! I've marked this task as done:");
         System.out.println(TAB_SPACE + "  " + task);
@@ -104,7 +104,7 @@ public class UserInterface {
      * @param task The task that has been unmarked.
      */
 
-    public void printTaskUnmarked(Task task) {
+    public static void printTaskUnmarked(Task task) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "OK, I've marked this task as not done yet:");
         System.out.println(TAB_SPACE + "  " + task);
@@ -117,7 +117,7 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printInvalidTaskIndex(IndexOutOfBoundsException e) {
+    public static void printInvalidTaskIndex(IndexOutOfBoundsException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + e.getMessage() + ".\n" + TAB_SPACE + "Please check your input.");
         System.out.println(LINE);
@@ -127,7 +127,7 @@ public class UserInterface {
      * Prints a farewell message.
      */
 
-    public void sayGoodbye() {
+    public static void sayGoodbye() {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Bye. Hope to see you again soon!");
         System.out.println(LINE);
@@ -139,7 +139,7 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printInvalidEventFormat(InvalidEventFormatException e) {
+    public static void printInvalidEventFormat(InvalidEventFormatException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + e.getMessage()
                 + "Please use: event [description] /from [start date/time] /to [end date/time]");
@@ -152,7 +152,7 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printInvalidDeadlineFormat(InvalidDeadlineFormatException e) {
+    public static void printInvalidDeadlineFormat(InvalidDeadlineFormatException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + e.getMessage() + "Please use: deadline [description] /by [date/time]");
         System.out.println(LINE);
@@ -164,7 +164,7 @@ public class UserInterface {
      * @param taskDescription The invalid task description.
      */
 
-    public void printInvalidTaskType(String taskDescription) {
+    public static void printInvalidTaskType(String taskDescription) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Invalid task type: " + taskDescription);
         System.out.println(TAB_SPACE + "Please mention the task type (todo, deadline, or event) or \n"
@@ -178,7 +178,7 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printInvalidTodoFormat(InvalidTodoFormatException e) {
+    public static void printInvalidTodoFormat(InvalidTodoFormatException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + e.getMessage() + "Please dont put empty description");
         System.out.println(LINE);
@@ -190,7 +190,7 @@ public class UserInterface {
      * @param message The message indicating the task is already marked.
      */
 
-    public void printTaskAlreadyMarked(String message) {
+    public static void printTaskAlreadyMarked(String message) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "NOTE: " + message);
         System.out.println(LINE);
@@ -202,7 +202,7 @@ public class UserInterface {
      * @param message The message indicating the task is already unmarked.
      */
 
-    public void printTaskAlreadyUnmarked(String message) {
+    public static void printTaskAlreadyUnmarked(String message) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "NOTE: " + message);
         System.out.println(LINE);
@@ -214,7 +214,7 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printInvalidInputIndex(NumberFormatException e) {
+    public static void printInvalidInputIndex(NumberFormatException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Invalid task index: " + e.getMessage());
         System.out.println(TAB_SPACE + "Please enter a valid task index to mark or unmark.");
@@ -227,7 +227,7 @@ public class UserInterface {
      * @param e The exception containing the error message.
      */
 
-    public void printLoadFileError(LoadFileException e) {
+    public static void printLoadFileError(LoadFileException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Unable to load File. " + e.getMessage());
         System.out.println(TAB_SPACE + "Please Check your File path.");
@@ -242,14 +242,14 @@ public class UserInterface {
      */
 
 
-    public void printUnableToSave(SaveFileException e) {
+    public static void printUnableToSave(SaveFileException e) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Unable to Save File. " + e.getMessage());
         System.out.println(TAB_SPACE + "Please Check your File path");
         System.out.println(LINE);
     }
 
-    public void printFoundTasks(ArrayList<Task> foundTasks, ArrayList<Task> taskList) {
+    public static void printFoundTasks(ArrayList<Task> foundTasks, ArrayList<Task> taskList) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Here are the matching tasks in your list:");
         for (int i = 0; i < foundTasks.size(); i++) {
@@ -259,11 +259,11 @@ public class UserInterface {
         }
         System.out.println(LINE);
     }
-        public void printInvalidDateTimeFormat (InvalidDateTimeFormatException e){
-            System.out.println(LINE);
-            System.out.println(TAB_SPACE + "Invalid format: " + e.getMessage());
-            System.out.println(TAB_SPACE + "Please use valid date and time format DD/MM/YYY HH:MM ");
-            System.out.println(LINE);
-        }
+    public static void printInvalidDateTimeFormat(InvalidDateTimeFormatException e){
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Invalid format: " + e.getMessage());
+        System.out.println(TAB_SPACE + "Please use valid date and time format DD/MM/YYY HH:MM ");
+        System.out.println(LINE);
+    }
 
 }

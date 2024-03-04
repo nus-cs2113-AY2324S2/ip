@@ -30,8 +30,6 @@ public class TaskManager {
     public static final int START_INDEX = 0;
     private ArrayList<Task> taskList = new ArrayList<>();
     private int index = 0;
-    UserInterface userInterface = new UserInterface();
-
 
     /**
      * Adds a deadline task to the task list.
@@ -57,7 +55,7 @@ public class TaskManager {
 
             index += INDEX_OFFSET;
             taskList.add(new Deadline(description, by));
-            userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
+            UserInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidDeadlineFormatException("Invalid deadline format.");
         }
@@ -95,7 +93,7 @@ public class TaskManager {
 
             index += INDEX_OFFSET;
             taskList.add(new Event(description, from, to));
-            userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
+            UserInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidEventFormatException("Invalid event format. ");
         }
@@ -122,7 +120,7 @@ public class TaskManager {
         if (!taskDetails.isEmpty()) {
             index += INDEX_OFFSET;
             taskList.add(new Todo(taskDetails));
-            userInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
+            UserInterface.printTaskAdded(taskList.get(index - INDEX_OFFSET), index);
         } else {
             throw new InvalidTodoFormatException("Invalid todo format. ");
         }
@@ -135,12 +133,12 @@ public class TaskManager {
      * @throws IndexOutOfBoundsException If the task index is out of bounds.
      */
 
-    public void deleteTask(int taskIndex) throws IndexOutOfBoundsException {
+    protected void deleteTask(int taskIndex) throws IndexOutOfBoundsException {
         if (taskIndex < index || taskIndex >= START_INDEX) {
             String taskRemoved = taskList.get(taskIndex).toString();
             taskList.remove(taskIndex);
             index -= INDEX_OFFSET;
-            userInterface.printTaskRemoved(taskRemoved, index);
+            UserInterface.printTaskRemoved(taskRemoved, index);
         } else {
             throw new IndexOutOfBoundsException("Index out of bounds for length " +
                     index);
@@ -154,17 +152,17 @@ public class TaskManager {
      * @throws IndexOutOfBoundsException If the task index is out of bounds.
      */
 
-    public void markTask(int taskIndex) throws IndexOutOfBoundsException {
+    protected void markTask(int taskIndex) throws IndexOutOfBoundsException {
 
         if (taskIndex >= index || taskIndex < START_INDEX) {
             throw new IndexOutOfBoundsException(
                     "Invalid task index for marking: " + (taskIndex + INDEX_OFFSET));
         }
         if (taskList.get(taskIndex).isDone) {
-            userInterface.printTaskAlreadyMarked("Task is already marked as done");
+            UserInterface.printTaskAlreadyMarked("Task is already marked as done");
         } else {
             taskList.get(taskIndex).setAsDone();
-            userInterface.printTaskMarked(taskList.get(taskIndex));
+            UserInterface.printTaskMarked(taskList.get(taskIndex));
         }
 
     }
@@ -176,7 +174,7 @@ public class TaskManager {
      * @throws IndexOutOfBoundsException If the task index is out of bounds.
      */
 
-    public void unmarkTask(int taskIndex) throws IndexOutOfBoundsException {
+    protected void unmarkTask(int taskIndex) throws IndexOutOfBoundsException {
 
         if (taskIndex >= index || taskIndex < START_INDEX) {
             throw new IndexOutOfBoundsException(
@@ -184,10 +182,10 @@ public class TaskManager {
         }
 
         if (!taskList.get(taskIndex).isDone) {
-            userInterface.printTaskAlreadyUnmarked("Task is already marked as undone");
+            UserInterface.printTaskAlreadyUnmarked("Task is already marked as undone");
         } else {
             taskList.get(taskIndex).setAsNotDone();
-            userInterface.printTaskUnmarked(taskList.get(taskIndex));
+            UserInterface.printTaskUnmarked(taskList.get(taskIndex));
         }
     }
 
@@ -196,7 +194,7 @@ public class TaskManager {
      */
 
     public void printTaskList() {
-        userInterface.printTaskList(taskList, index);
+        UserInterface.printTaskList(taskList, index);
     }
 
     /**
@@ -218,7 +216,7 @@ public class TaskManager {
             taskList.addAll(tasks);
             index = tasks.size();
         } catch (LoadFileException e) {
-            userInterface.printLoadFileError(e);
+            UserInterface.printLoadFileError(e);
         }
     }
 
@@ -232,7 +230,7 @@ public class TaskManager {
         try {
             storage.saveTasksToFile(taskList);
         } catch (SaveFileException e) {
-            userInterface.printUnableToSave(e);
+            UserInterface.printUnableToSave(e);
         }
     }
 
@@ -243,7 +241,7 @@ public class TaskManager {
                 matchingTasks.add(task);
             }
         }
-        userInterface.printFoundTasks(matchingTasks, taskList);
+        UserInterface.printFoundTasks(matchingTasks, taskList);
     }
 
 }

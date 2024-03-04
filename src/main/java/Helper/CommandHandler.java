@@ -23,19 +23,17 @@ public class CommandHandler {
     public static final int KEYWORD_BEGIN_INDEX = 5;
     public static final String FIND = "find";
 
-    private TaskManager taskManager;
-    private UserInterface userInterface;
+    private final TaskManager taskManager;
 
     /**
      * Constructs a CommandHandler object with the given TaskManager and UserInterface.
      *
      * @param taskManager   The TaskManager object to handle tasks.
-     * @param userInterface The UserInterface object to interact with the user.
+     *
      */
 
-    public CommandHandler(TaskManager taskManager, UserInterface userInterface) {
+    public CommandHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
-        this.userInterface = userInterface;
     }
 
     public static final int MARK_BEGIN_INDEX = 5;
@@ -54,7 +52,7 @@ public class CommandHandler {
         String inputType = input.split(" ")[COMMAND_START_INDEX];
         switch (inputType.toLowerCase()) {
         case BYE:
-            userInterface.sayGoodbye();
+            UserInterface.sayGoodbye();
             System.exit(0);
             break;
         case MARK:
@@ -102,15 +100,15 @@ public class CommandHandler {
                 throw new NoSuchMethodException();
             }
         } catch (NoSuchMethodException e) {
-            userInterface.printInvalidTaskType(taskDescription);
+            UserInterface.printInvalidTaskType(taskDescription);
         } catch (InvalidDeadlineFormatException e) {
-            userInterface.printInvalidDeadlineFormat(e);
+            UserInterface.printInvalidDeadlineFormat(e);
         } catch (InvalidTodoFormatException e) {
-            userInterface.printInvalidTodoFormat(e);
+            UserInterface.printInvalidTodoFormat(e);
         } catch (InvalidEventFormatException e) {
-            userInterface.printInvalidEventFormat(e);
+            UserInterface.printInvalidEventFormat(e);
         } catch (InvalidDateTimeFormatException e) {
-            userInterface.printInvalidDateTimeFormat(e);
+            UserInterface.printInvalidDateTimeFormat(e);
         }
     }
 
@@ -127,9 +125,9 @@ public class CommandHandler {
             int taskIndex = Integer.parseInt(input.substring(DELETE_BEGIN_INDEX).trim()) - INDEX_OFFSET;
             taskManager.deleteTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
-            userInterface.printInvalidTaskIndex(e);
+            UserInterface.printInvalidTaskIndex(e);
         } catch (NumberFormatException e) {
-            userInterface.printInvalidInputIndex(e);
+            UserInterface.printInvalidInputIndex(e);
         }
     }
 
@@ -146,9 +144,9 @@ public class CommandHandler {
             int taskIndex = Integer.parseInt(input.substring(MARK_BEGIN_INDEX).trim()) - INDEX_OFFSET;
             taskManager.markTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
-            userInterface.printInvalidTaskIndex(e);
+            UserInterface.printInvalidTaskIndex(e);
         } catch (NumberFormatException e) {
-            userInterface.printInvalidInputIndex(e);
+            UserInterface.printInvalidInputIndex(e);
         }
     }
 
@@ -165,9 +163,9 @@ public class CommandHandler {
             int taskIndex = Integer.parseInt(input.substring(UNMARK_BEGIN_INDEX).trim()) - INDEX_OFFSET;
             taskManager.unmarkTask(taskIndex);
         } catch (IndexOutOfBoundsException e) {
-            userInterface.printInvalidTaskIndex(e);
+            UserInterface.printInvalidTaskIndex(e);
         } catch (NumberFormatException e) {
-            userInterface.printInvalidInputIndex(e);
+            UserInterface.printInvalidInputIndex(e);
         }
     }
 

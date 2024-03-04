@@ -11,8 +11,8 @@ import java.util.Locale;
 
 
 public class Event extends Task {
-    private LocalDateTime fromDateTime;
-    private LocalDateTime toDateTime;
+    private final LocalDateTime fromDateTime;
+    private final LocalDateTime toDateTime;
 
     /**
      * Constructs an Event object with the given description and time frame.

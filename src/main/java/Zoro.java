@@ -23,10 +23,9 @@ public class Zoro {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
         Scanner in = new Scanner(System.in);
-        UserInterface userInterface = new UserInterface();
-        userInterface.greetUser();
+        UserInterface.greetUser();
 
-        CommandHandler commandHandler = new CommandHandler(taskManager, userInterface);
+        CommandHandler commandHandler = new CommandHandler(taskManager);
         boolean isRunning = true;
         while (isRunning) {
             String input = UserInterface.getUserInput(in);

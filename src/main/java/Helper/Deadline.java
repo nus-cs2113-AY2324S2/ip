@@ -12,7 +12,7 @@ import java.util.Locale;
 
 
 public class Deadline extends Task {
-    private LocalDateTime byDateTime;
+    private final LocalDateTime byDateTime;
 
     /**
      * Constructs a Deadline object with the given description and deadline.
