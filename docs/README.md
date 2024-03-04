@@ -52,32 +52,31 @@ TaskManager is a simple yet powerful Java application designed to help users man
     list
     ```
 ### Expected output
-    ```
+
     Here are the tasks in your list:
     1. [T][ ] read book
     2. [D][ ] return book (by: Sep 17 2021)
     3. [E][ ] project meeting (from: Sep 17 2021 to: Sep 18 2021)
-    ```
+
 
 ## Deleting a task
 ### prompt
 - delete {task number}
 
-  _e.g. deleting task 3_
+  _e.g. deleting 3_
     ```
     delete 3
     ```
 ### Expected output
-    ```
+
     Noted. I've removed this task: {task number}
-    ```
     this can be verified by listing all tasks:
-    ```
+
     list
     Here are the tasks in your list:
     1. [T][ ] read book
     2. [D][ ] return book (by: Sep 17 2021)
-    ```
+
 
 ## Marking a task as done
 ### Prompt
@@ -88,9 +87,8 @@ TaskManager is a simple yet powerful Java application designed to help users man
     mark read book
     ```
 ### Expected output
-    ```
+
     Nice! I've marked this task as done: {task name}
-    ```
     this can be verified by listing or finding tasks:
   ```
   list
@@ -129,11 +127,18 @@ this can be verified by listing all tasks:
     find book
     ```
 ### Expected output
-    ```
     Here are the matching tasks in your list:
     1. [T][ ] read book
     2. [D][ ] return book (by: Sep 17 2021)
-    ```
+
+## Exit Program
+### prompt
+- bye
+
+### Expected output
+  ```
+  Bye. Hope to see you again soon!
+  ```
 ### Prerequisites
 
 - Java 11 or above.
