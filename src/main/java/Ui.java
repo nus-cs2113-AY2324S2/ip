@@ -4,21 +4,21 @@ import java.util.Scanner;
  * The Ui class handles user interface interactions.
  */
 public class Ui {
-    private static final String LINE = "____________________________________________________________";
+    private static final String LINE = "________________________________________________________________________________";
 
     private Scanner in = new Scanner(System.in);
 
     /**
      * The ASCII art logo displayed when the program starts.
      */
-    private final static String logo =
+    private final static String logo =                                    "\n\n\n" +
                     "     ░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░▒▓███████▓▒░  \n" +
                     "     ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░     \n" +
                     "     ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░     \n" +
                     "     ░▒▓███████▓▒░░▒▓████████▓▒░▒▓███████▓▒░  ░▒▓█▓▒░     \n" +
                     "     ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░     \n" +
                     "     ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░     \n" +
-                    "     ░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░  ";
+                    "     ░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░     \n";
 
     /**
      * Greets the user when the program starts.
@@ -44,7 +44,7 @@ public class Ui {
                 "\n'unmark <#>' unmarks tasks by removing the X" +
                 "\n'todo <task>' creates a to-do" +
                 "\n'deadline <task> /by <time>' creates a task with deadline" +
-                "\n'event <task> /from <time> /to <time>' creates a to-do" +
+                "\n'event <task> /from <time> /to <time>' creates a task at a certain time" +
                 "\n'bye' to quit\n" + LINE);
     }
 

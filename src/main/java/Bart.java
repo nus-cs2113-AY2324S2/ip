@@ -5,7 +5,7 @@ import java.io.IOException;
  * The Bart class manages tasks through various commands provided by the user.
  */
 public class Bart {
-    private static final String LINE = "____________________________________________________________";
+    private static final String LINE = "________________________________________________________________________________";
 
     private static Storage storage;
     private static Ui ui = new Ui();
