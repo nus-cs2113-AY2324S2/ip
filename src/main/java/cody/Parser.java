@@ -28,6 +28,8 @@ public class Parser {
             taskList.deleteTask(input);
         } else if (input.startsWith("mark") || input.startsWith("unmark")) {
             taskList.handleMarking(input);
+        } else if (input.startsWith("find")) {
+            taskList.findTask(input);
         } else if (!input.equals("bye")) {
             taskList.addTask(input);
         }

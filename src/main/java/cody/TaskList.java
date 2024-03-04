@@ -74,6 +74,25 @@ public class TaskList {
                 + " Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    public void findTask(String input) {
+        String keyword = input.substring(5).trim();
+        String listString = " Here are the matching tasks in your list:\n";
+        int count = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                listString += " " + (i + 1) + ". [" + task.getTaskType() + "] "
+                        + "[" + task.getStatusIcon() + "] "
+                        + task.getDescription() + "\n";
+                count++;
+            }
+        }
+        if (count == 0) {
+            listString = " There are no matching tasks in your list";
+        }
+        Ui.printMessage(listString);
+    }
+
     public TaskList() {
         tasks = new ArrayList<>();
         Storage.loadTasksFromFile(tasks);
