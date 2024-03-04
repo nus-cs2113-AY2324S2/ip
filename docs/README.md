@@ -18,56 +18,56 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 ```
 Here are some possibly useful commands:
  --------------------------------------------
- /todo {description} - Add a todo task to your task list.
- /deadline {description} - Add a deadline task to your task list.
- /event {description} - Add an event task to your task list.
- /list - List out all the tasks in your current task list.
- /mark {numerical index} - Mark a specific task as done.
- /unmark {numerical index} - Mark a specific task as undone.
- /find {keyword} - Find tasks containing the specified keyword entered.
- /bye - Terminate the program.
+ todo {description} - Add a todo task to your task list.
+ deadline {description} - Add a deadline task to your task list.
+ event {description} - Add an event task to your task list.
+ list - List out all the tasks in your current task list.
+ mark {numerical index} - Mark a specific task as done.
+ unmark {numerical index} - Mark a specific task as undone.
+ find {keyword} - Find tasks containing the specified keyword entered.
+ bye - Terminate the program.
  --------------------------------------------
 ```
 
 ## User Guide
 Adding Todo Tasks
-Use the `/todo {description}` command to add a new todo task to your task list with a brief description.
+Use the `todo {description}` command to add a new todo task to your task list with a brief description.
 ```
-/todo Read a book
+todo Read a book
 ```
 
 Adding Deadline Tasks
-Use the `/deadline {description} /by {deadline}` command to add a new deadline task to your task list with a description and deadline.
+Use the `deadline {description} /by {deadline}` command to add a new deadline task to your task list with a description and deadline.
 ```
-/deadline Submit report /by 5pm
+deadline Submit report /by 5pm
 ```
 
 Adding Event Tasks
-Use the `/event {description} /from {start} /to {end}` command to add a new event task to your task list with a description and event details.
+Use the `event {description} /from {start} /to {end}` command to add a new event task to your task list with a description and event details.
 ```
-/event Team meeting /from 2pm /to 3pm
+event Team meeting /from 2pm /to 3pm
 ```
 
 Listing Tasks
-Use the `/list` command to list out all the tasks in your task list.
+Use the `list` command to list out all the tasks in your task list.
 
 Marking Tasks as Done
-Use the /mark {numerical index} command to mark a specific task as done using its numerical index.
+Use the `mark {numerical index}` command to mark a specific task as done using its numerical index.
 ```
-/mark 1
+mark 1
 ```
 
 Marking Tasks as Undone
-Use the `/unmark {numerical index}` command to mark a specific task as undone using its numerical index.
+Use the `unmark {numerical index}` command to mark a specific task as undone using its numerical index.
 ```
-/unmark 1
+unmark 1
 ```
 
 Finding Tasks
-Use the `/find {keyword}` command to find tasks in your task list that contain a specific keyword.
+Use the `find {keyword}` command to find tasks in your task list that contain a specific keyword.
 ```
-/find book
+find book
 ```
 
 Exiting the Program
-Use the `/bye` command to terminate the program.
+Use the `bye` command to terminate the program.
