@@ -23,14 +23,17 @@ public class Blue {
     private void run() {
         blueUi.greet();
         blueStorageHandler.restoreState();
-        Input userRequest; 
-        for (userRequest = blueUi.getRequest(); userRequest.isNotExit();
-                userRequest = blueUi.getRequest()) {
-            while (userRequest.isUndefined()) {
+        Input userRequest = new Input();
+        boolean isRunning = true;
+        while (isRunning) {
+            try {
                 userRequest = blueUi.getRequest();
+                blueTaskManager.performRequest(userRequest);
+                blueStorageHandler.saveState();
+            } catch (IllegalInput e) {
+                blueUi.warn(e.getMessage());
             }
-            blueTaskManager.performRequest(userRequest);
-            blueStorageHandler.saveState();
+            isRunning = userRequest.isNotExit();
         }
         blueUi.farewell();
     }

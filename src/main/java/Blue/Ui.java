@@ -32,15 +32,15 @@ public class Ui {
      * Returns a well-formed request parsed from user input.
      *
      * @return A properly instantiated Input object containing some valid request.
+     * @throws IllegalInput If user request is misformed in any way.
      */
-    public Input getRequest() {
+    public Input getRequest() throws IllegalInput {
         String line = in.nextLine();
         try {
             Input userInput = parser.parse(line);
             return userInput;
         } catch (IllegalInput e) {
-            warn(e.getMessage());
-            return new Input(InputCommand.undefined);
+            throw e;
         }
     }
 

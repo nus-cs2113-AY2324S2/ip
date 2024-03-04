@@ -10,8 +10,12 @@ public class Input {
     private Task taskToAdd;
     private String errorMessage;
 
+    public Input() {
+        this(InputCommand.undefined);
+    }
+
     /**
-     * Class level constructor for inputs without an argument.
+     * Constructor for inputs without an argument.
      *
      * @param command User command.
      */
@@ -20,7 +24,7 @@ public class Input {
     }
 
     /**
-     * Class level constructor for task index based inputs.
+     * Constructor for task index based inputs.
      *
      * @param command User command.
      * @param taskIndex Index of task to manage.
@@ -31,7 +35,7 @@ public class Input {
     }
 
     /**
-     * Class level constructor for task query inputs.
+     * Constructor for task query inputs.
      *
      * @param command User command.
      * @param taskQuery String query for task.
@@ -42,7 +46,7 @@ public class Input {
     }
 
     /**
-     * Class level constructor for task adding inputs.
+     * Constructor for task adding inputs.
      *
      * @param command User command.
      * @param taskToAdd Task to add.
@@ -104,14 +108,5 @@ public class Input {
      */
     public boolean isNotExit() {
         return command != InputCommand.bye;
-    }
-
-    /**
-     * Returns whether the input command is an ill-defined request.
-     *
-     * @return True if command is an enum undefined, false otherwise.
-     */
-    public boolean isUndefined() {
-        return command == InputCommand.undefined;
     }
 }

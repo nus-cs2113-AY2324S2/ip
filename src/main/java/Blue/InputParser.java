@@ -6,10 +6,11 @@ package Blue;
 public class InputParser {
 
     /**
-     * Returns a well-formed input regardless of whether user input is well-formed.
+     * Returns a valid request if user text is well-formed, throws an exception otherwise.
      *
-     * @param line The string of user text to parse.
-     * @return A request for Blue parsed from line.
+     * @param line The string of raw text to parse.
+     * @return A valid request for Blue parsed from line.
+     * @throws IllegalInput If input is not well-formed.
      */
     public Input parse(String line) throws IllegalInput {
         try {
@@ -78,56 +79,105 @@ public class InputParser {
      * @throws IllegalInput If parsed index is misformed i.e not an integer.
      */
     private int parseIndex(String line, InputCommand command) throws IllegalInput {
+        int startIndex = 0;
         switch (command) {
         case mark:
-            try {
-                int taskIndex = Integer.parseInt(line.substring(4).trim()) - 1;
-                return taskIndex;
-            } catch (NumberFormatException e) {
-                throw new IllegalInput(InputCommand.mark);
-            }
+            startIndex = 4;
+            break;
         case delete:
-            try {
-                int taskIndex = Integer.parseInt(line.substring(6).trim()) - 1;
-                return taskIndex;
-            } catch (NumberFormatException e) {
-                throw new IllegalInput(InputCommand.mark);
-            }
+            startIndex = 6;
+            break;
         default:
             return -1;
+        }
+        try {
+            int taskIndex = Integer.parseInt(line.substring(startIndex).trim()) - 1;
+            return taskIndex;
+        } catch (NumberFormatException e) {
+            throw new IllegalInput(InputCommand.mark);
         }
     }
 
     /**
-     * Returns a task with details provided by the user.
+     * Returns a task if details provided by the user are well formed, throws an exception otherwise.
      *
      * @param line The string of user input to parse.
      * @param command User command.
      * @return Task of appropriate type and details parsed from line.
-     * @throws IllegalInput If task is misformed.
+     * @throws IllegalInput If task details are misformed.
      */
     private Task parseTask(String line, InputCommand command) throws IllegalInput {
         String taskDescription;
-        String taskDeadline;
-        String taskStart;
+        try {
+            taskDescription = parseTaskDescription(line);
+        } catch (IllegalInput e) {
+            throw e;
+        }
         switch (command) {
         case todo:
-            taskDescription = line.substring(4).trim();
             return new Task(taskDescription);
         case deadline:
-            String[] TaskDetails = line.substring(8).split("/by");
-            taskDescription = TaskDetails[0].trim();
-            taskDeadline = TaskDetails[1].trim();
-            return new Deadline(taskDescription, taskDeadline);
+            try {
+                return new Deadline(taskDescription, parseTaskEnd(line));
+            } catch (IllegalInput e) {
+                throw e;
+            }
         case event:
-            String[] eventDetails = line.substring(5).split("/from|/to");
-            taskDescription = eventDetails[0].trim();
-            taskStart = eventDetails[1].trim();
-            taskDeadline = eventDetails[2].trim();
-            return new Event(taskDescription, taskStart, taskDeadline);
+            try {
+                return new Event(taskDescription, parseTaskStart(line), parseTaskEnd(line));
+            } catch (IllegalInput e) {
+                throw e;
+            }
         default:
-            return new Task();
+            throw new IllegalInput();
         }
+    }
+
+    /**
+     * Returns the description of a task if non-empty, throws an exception otherwise.
+     *
+     * @param line The string of user input to parse.
+     * @return String description of task.
+     * @throws IllegalInput If description is empty.
+     */
+    private String parseTaskDescription(String line) throws IllegalInput {
+        String taskDescription = line.substring(line.indexOf(" "))
+            .split("/by|/from|/to")[0]
+            .trim();
+        if (taskDescription.length() == 0) {
+            throw new IllegalInput();
+        }
+        return taskDescription;
+    }
+
+    /**
+     * Returns the deadline or end time of a deadline or event respectively.
+     *
+     * @param line The string of user input to parse.
+     * @return String description of deadline or end time.
+     * @throws IllegalInput If description is empty.
+     */
+    private String parseTaskEnd(String line) throws IllegalInput {
+        String taskEnd = line.split("/by|/to")[1].trim();
+        if (taskEnd.length() == 0) {
+            throw new IllegalInput();
+        }
+        return taskEnd;
+    }
+
+    /**
+     * Returns the start time of an event.
+     *
+     * @param line The string of user input to parse.
+     * @return String description of start time.
+     * @throws IllegalInput If description is empty.
+     */
+    private String parseTaskStart(String line) throws IllegalInput {
+        String taskStart = line.split("/from|/to")[1].trim();
+        if (taskStart.length() == 0) {
+            throw new IllegalInput();
+        }
+        return taskStart;
     }
 
     /**
