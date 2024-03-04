@@ -1,3 +1,5 @@
 E|1|evento|g|hoy|
 T|0|cosas que hacer|
 D|0|examen|mañana|
+T|0|hacer mas|
+T|0|hhh hacer|
