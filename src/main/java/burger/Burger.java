@@ -4,7 +4,7 @@ import burger.Storage.BurgerFileClass;
 import burger.TaskList.TaskList;
 import burger.UI.Utilities;
 
-import static burger.Parser.Parser.parseUserInput;
+import static burger.Parser.Parser.start;
 import static burger.Storage.BurgerFileClass.DEFAULT_PATHNAME;
 
 
@@ -24,9 +24,9 @@ public class Burger {
 
     public void run() {
         ui.welcomeMessage(CHATBOT_NAME);
-        parseUserInput(tasks, ui);
+        start(tasks, ui);
         storage.setSaveFile(tasks);
-        ui.goodbye();
+        ui.goodbyeMessage();
     }
 
     public static void main(String[] args) {

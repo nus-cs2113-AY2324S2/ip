@@ -14,7 +14,15 @@ public class Parser {
 
     public static final int COMMAND_IDX = 0;
 
-    public static void parseUserInput(TaskList myList, Utilities ui) {
+    /**
+     * Starts the programme. Retrieves any save file and starts polling for user input.
+     * Returns an error message if the bot cannot recognise the input.
+     * Breaks the loop when user exits the program.
+     *
+     * @param myList the list created to store the tasks.
+     * @param ui the ui created to handle user interfaces.
+     */
+    public static void start(TaskList myList, Utilities ui) {
         getSaveFile(myList);
         boolean isPolling = true;
         while (isPolling) {
