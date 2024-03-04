@@ -12,6 +12,7 @@ import BobBot.exceptions.BobBotExceptions;
 import BobBot.exceptions.InvalidDeadlineException;
 import BobBot.exceptions.InvalidEventException;
 import BobBot.exceptions.InvalidTodoException;
+import BobBot.storage.Storage;
 import BobBot.tasks.Deadline;
 import BobBot.tasks.Event;
 import BobBot.tasks.Task;
@@ -22,13 +23,16 @@ public class BobBot {
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private static int numberOfTasks = 0;
 
-    private static final String saveDirPath = "src/storage/";
-    private static final String saveFilePath = saveDirPath + "saveFile.txt";
-    private static final File file = new File(saveFilePath);
-    private static File directory;
-
     private enum TaskStatus {
         MARK, UNMARK, DELETE
+    }
+
+    public static int getNumberOfTasks() {
+        return numberOfTasks;
+    }
+
+    public static ArrayList<Task> getTaskList() {
+        return allTasks;
     }
 
     private static void performTaskOperation(String line, TaskStatus status) {
@@ -68,7 +72,7 @@ public class BobBot {
         drawErrorLine();
     }
 
-    private static void displayList() {
+    public static void displayList() {
         drawLine(true);
         printTaskList();
         drawLine(true);
@@ -199,7 +203,7 @@ public class BobBot {
             } catch (NullPointerException | NumberFormatException e) {
                 printStandardExceptionMessage(e);
             }
-            saveFile();
+            storage.saveFile();
             line = in.nextLine();
         }
     }
@@ -224,98 +228,21 @@ public class BobBot {
         drawErrorLine();
     }
 
-    // rewrite the whole file
-    private static void saveFile() {
-        StringBuilder fileContents = new StringBuilder();
-        String lineToAdd = new String();
-
-        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
-            lineToAdd = createFileLine(taskIndex);
-            fileContents.append(lineToAdd);
-        }
-
-        try {
-            FileWriter fw = new FileWriter(saveFilePath);
-            fw.write(fileContents.toString());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred when writing to the file: " + e);
-        }
-    }
-
-    private static String createFileLine(int taskIndex) {
-        int taskNumberToDisplay = taskIndex;
-        Task taskToSave = allTasks.get(taskIndex);
-        int taskMarkedStatus = (taskToSave.getMarkedStatus()) ? 1 : 0;
-        String taskDescription = taskToSave.getDescription();
-        String textToAdd = String.format("%d|%d|%s\n", taskNumberToDisplay, taskMarkedStatus, taskDescription);
-
-        return textToAdd;
-    }
-
-    private static void loadMarkings(int taskNum, boolean isMarked) {
-        if (isMarked) {
-            allTasks.get(taskNum).markAsDone();
-        }
-    }
-
-    private static void loadToList(String nextLine) {
-        String[] taskItems = nextLine.split("\\|", -1);
-        int taskNum = Integer.parseInt(taskItems[0]);
-        boolean isMarked = (Integer.parseInt(taskItems[1]) == 1) ? true : false;
-        String taskDetails = taskItems[2].toString();
-
-        boolean isLoad = true;
-
-        addTask(taskDetails, isLoad);
-        loadMarkings(taskNum, isMarked);
+    private static Storage storage;
+    
+    public BobBot() {
+        storage = new Storage();
 
     }
 
-    // adapted from
-    // https://nus-cs2113-ay2324s2.github.io/website/schedule/week6/topics.html#w6-3-java-file-access
-    private static void loadFileContents(String filePath) throws FileNotFoundException {
-        Scanner fileScanner = new Scanner(file);
-
-        while (fileScanner.hasNext()) {
-            loadToList(fileScanner.nextLine());
-        }
-
-        displayList();
-    }
-
-    private static void createNewSaveFile(String saveFilePath) {
-        try {
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-        } catch (IOException e) {
-            System.out.println("An Error occurred: " + e);
-        }
-
-        System.out.println("\tReady! Type a command to begin.");
-    }
-
-    private static void loadFileFromStorage() {
-        directory = new File(saveDirPath);
-
-        try {
-            System.out.println("\tLoading from saved file ...");
-            loadFileContents(saveFilePath);
-        } catch (FileNotFoundException e) {
-            System.out.println("\tSaved file not found! Creating new save file ...");
-            createNewSaveFile(saveFilePath);
-        }
+    public void run() {
+        greet();
+        runTaskManager();
+        bidFarewell();
     }
 
     public static void main(String[] args) {
-        greet();
-        loadFileFromStorage();
-        runTaskManager();
-        bidFarewell();
+        new BobBot().run();
     }
 
 }
