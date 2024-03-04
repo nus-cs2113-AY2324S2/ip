@@ -1,0 +1,3 @@
+[T] | 0 | training
+[D] | 0 | training | tmr
+[E] | 0 | training | from: saturday 9am to: 11am
