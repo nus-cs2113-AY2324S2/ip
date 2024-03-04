@@ -11,17 +11,46 @@ import java.util.Scanner;
  * The part of Blue that handles disk write and access.
  */
 public class StorageHandler {
-    public static final String DATA_DIR_PATH = "data";
-    public static final String TASK_FILE_PATH = DATA_DIR_PATH + "/tasks.txt";
+    private static final String DATA_DIR_PATH = "data";
+    private static final String TASK_FILE_PATH = DATA_DIR_PATH + "/tasks.txt";
+    private TaskManager taskManager;
 
     /**
-     * Returns an ArrayList of saved tasks if TASK_FILE_PATH exists, an empty ArrayList otherwise.
-     * Assumes TASK_FILE_PATH is a properly formatted text file.
+     * Public constructor for storage handler.
+     * Note that it need only be called once as it suffices to have one storage handler per program.
      *
-     * @return An ArrayList of tasks.
+     * @param taskManager The task manager of Blue.
      */
-    public ArrayList<Task> restoreTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public StorageHandler(TaskManager taskManager) {
+        this.taskManager = taskManager;
+    }
+
+    /**
+     * Restores the state of the application from a previous run.
+     * Simply restores tasks from disk for now.
+     */
+    public void restoreState() {
+        restoreTasks();
+    }
+
+    /**
+     * Saves the state of the application to disk.
+     * Limited to writing tasks to disk, fails quietely for now.
+     */
+    public void saveState() {
+        try {
+            saveTasks();
+        } catch (IOException e) {
+            //fail quietly
+        }
+    }
+
+    /**
+     * Restores saved tasks if TASK_FILE_PATH exists, does nothing otherwise.
+     * Assumes TASK_FILE_PATH is a properly formatted text file.
+     */
+    public void restoreTasks() {
+        ArrayList<Task> tasks = taskManager.getTasks();
         File taskFile = new File(TASK_FILE_PATH);
         try {
             Scanner s = new Scanner(taskFile);
@@ -31,35 +60,33 @@ public class StorageHandler {
                 tasks.add(savedTask);
             }
         } catch (FileNotFoundException e) {
-            // No saved tasks found, start from scratch
+            return;
         }
-        return tasks;
     }
 
     /**
      * Writes tasks in their text-parsable format to TASK_FILE_PATH.
      *
-     * @param tasks An array list of all tasks to save to disk.
-     * @return True if tasks have been saved to TASK_FILE_PATH successfully, false otherwise.
+     * @throws IOException If fails to write tasks to disk.
      */
-    public boolean hasSavedTasks(ArrayList<Task> tasks) {
+    public void saveTasks() throws IOException {
+        ArrayList<Task> tasks = taskManager.getTasks();
         new File(DATA_DIR_PATH).mkdirs();
         File taskFile = new File(TASK_FILE_PATH);
         try {
             taskFile.createNewFile();
         } catch (IOException e) {
-            return false;
+            throw e;
         }
         boolean isAppend = false;
         for (Task task : tasks) {
             try {
                 writeTaskToFile(task, isAppend);
             } catch (IOException e) {
-                return false;
+                throw e;
             }
             isAppend = true;
         }
-        return true;
     }
 
     private Task restoreTask(String[] savedDetails) {

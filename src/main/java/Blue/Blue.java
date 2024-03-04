@@ -1,41 +1,40 @@
 package Blue;
 
-import java.util.Scanner;
-
 /**
  * The Blue class constitutes the main logic of our chatbot application.
- * It takes a string from the standard input, parses it into a well-formed request and handles appropriately.
+ * Broadly, it takes some request from standard input and handles if well-formed, giving a warning otherwise.
  *
  * @author nkotaa
  */
 public class Blue {
     private Ui blueUi;
     private TaskManager blueTaskManager;
+    private StorageHandler blueStorageHandler;
 
     /**
-     * Class constructor for Blue.
+     * Constructor for Blue, initializing the subcomponents it needs to run.
      */
     public Blue() {
         blueUi = new Ui();
         blueTaskManager = new TaskManager(blueUi);
+        blueStorageHandler = new StorageHandler(blueTaskManager);
     }
 
     private void run() {
         blueUi.greet();
-        Input userRequest = blueUi.getRequest(); 
-        while (userRequest.isNotExit()) {
+        blueStorageHandler.restoreState();
+        Input userRequest; 
+        for (userRequest = blueUi.getRequest(); userRequest.isNotExit();
+                userRequest = blueUi.getRequest()) {
             while (userRequest.isUndefined()) {
                 userRequest = blueUi.getRequest();
             }
             blueTaskManager.performRequest(userRequest);
-            userRequest = blueUi.getRequest();
+            blueStorageHandler.saveState();
         }
         blueUi.farewell();
     }
 
-    /**
-     * The main method of our program
-     */
     public static void main(String[] args) {
         new Blue().run();
     }

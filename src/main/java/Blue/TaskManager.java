@@ -1,10 +1,10 @@
 package Blue;
 
 import java.util.ArrayList;
+import java.io.IOException;
 
 /**
- * A task manager that keeps track of all tasks.
- * Further, it directly acts on this list of tasks as requested by the user.
+ * A task manager that keeps track of all tasks, modifying this list as directed by the user.
  */
 public class TaskManager {
     private static final String TASK_NOT_FOUND_MESSAGE = "Task not found.";
@@ -13,12 +13,20 @@ public class TaskManager {
 
     /**
      * Public constructor for task manager.
+     * Note that it need only be called once as it suffices to have one task manager per program.
      *
      * @param taskManagerUi The UI with which the task manager responds to requests.
      */
     public TaskManager(Ui taskManagerUi) {
-        tasks = new StorageHandler().restoreTasks();
+        tasks = new ArrayList<>();
         this.taskManagerUi = taskManagerUi;
+    }
+
+    /**
+     * Getter for tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     /**
@@ -27,7 +35,7 @@ public class TaskManager {
     public void performRequest(Input request) {
         switch (request.getCommand()) {
         case list:
-            listTasks();
+            listTasks("");
             return;
         case mark:
             markTask(request.getTaskIndex());
@@ -44,10 +52,7 @@ public class TaskManager {
             addTask(request.getTaskToAdd());
             break;
         default:
-        }
-        boolean isSaved = new StorageHandler().hasSavedTasks(tasks);
-        if (!isSaved) {
-            taskManagerUi.warn("Failed to save tasks.");
+            return;
         }
     }
 
@@ -55,32 +60,22 @@ public class TaskManager {
      * Adds a task to the task list.
      *
      * @param task Task to add.
-     * @param isNew Indicates whether this task is one newly received from the user, or restored from disk.
      */
     private void addTask(Task task) {
         tasks.add(task);
         taskManagerUi.talk("added: " + task.getDescription());
     }
 
-    private void listTasks() {
-        int count = 0;
-        for (Task task : tasks) {
-            taskManagerUi.talk((count + 1) + ". " + task);
-            count += 1;
-        }
-    }
-
     private void listTasks(String query) {
-        int count = 0;
-        for (Task task : tasks) {
-            if (task.getDescription().contains(query)) {
-                taskManagerUi.talk((count + 1) + ". " + task);
-                count += 1;
-            }
-        }
-        if (count == 0) {
+        String[] matchingTasks = tasks.stream()
+            .map(Object::toString)
+            .filter((t) -> t.contains(query))
+            .toArray(String[]::new);
+        if (matchingTasks.length == 0) {
             taskManagerUi.talk(TASK_NOT_FOUND_MESSAGE);
+            return;
         }
+        taskManagerUi.talk(matchingTasks, true);
     }
 
     private void markTask(int taskIndex) {
