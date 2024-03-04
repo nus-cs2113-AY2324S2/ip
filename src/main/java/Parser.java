@@ -1,4 +1,15 @@
+/**
+ * Represents a class responsible for parsing user input and executing corresponding commands.
+ */
 public class Parser {
+    /**
+     * Parses the user input and executes the corresponding command.
+     *
+     * @param userInput The user input to parse.
+     * @param taskList  The TaskList object to perform operations on.
+     * @param ui        The Ui object to display to the user.
+     * @throws DukeException If an error occurs during parsing or execution of the command.
+     */
     public static void parseInput(String userInput, TaskList taskList, Ui ui) throws DukeException {
         if (userInput.equalsIgnoreCase("bye")) {
             ui.showByeMessage();
