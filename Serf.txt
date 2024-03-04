@@ -7,3 +7,5 @@ deadline cs2113 /by 3345
 todo homework
 event dinner /from 6pm /to 7pm
 todo sleep
+event sleep /from 10pm /to 6pm
+deadline sleep /by 1am
