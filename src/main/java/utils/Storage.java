@@ -12,8 +12,16 @@ import java.util.Scanner;
 
 import static utils.constants.BREAKLINE;
 
+
 public class Storage {
 
+    /**
+     * Reads the file and populates the task list
+     * @param tasks
+     * @param taskCount
+     * @param currentDir
+     * @return
+     */
     public static int readFile(ArrayList<Task> tasks, int taskCount, String currentDir) {
         //local path of data file
         File f = new File(currentDir + "/local-asuka.txt" );
@@ -58,6 +66,12 @@ public class Storage {
         return taskCount;
     }
 
+    /**
+     * Writes the task list to the file
+     * @param tasks
+     * @param taskCount
+     * @param currentDir
+     */
     public static void writeFile(ArrayList<Task> tasks, int taskCount, String currentDir) {
         //local path of data file
         File f = new File(currentDir + "/local-asuka.txt");

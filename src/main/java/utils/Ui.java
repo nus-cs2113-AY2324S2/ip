@@ -1,5 +1,6 @@
 package utils;
 
+// Class for handling user interface
 public class Ui {
     public static void printWelcomeMessage() {
         System.out.println(constants.BREAKLINE);

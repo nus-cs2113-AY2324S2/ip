@@ -1,5 +1,7 @@
 package classes;
 
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
     public Event(String description, String time) {
