@@ -10,6 +10,13 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
+    /**
+     * Adds a task to the list
+     * @param input
+     * @param tasks
+     * @param taskCount
+     * @return
+     */
     public static int add(String input, ArrayList<Task> tasks, int taskCount) {
         String[] inputs;
         System.out.println(constants.BREAKLINE);
@@ -61,6 +68,13 @@ public class TaskManager {
         System.out.println(constants.BREAKLINE);
     }
 
+    /**
+     * Marks a task as done
+     * @param inputs
+     * @param taskCount
+     * @param tasks
+     * @throws TaskIndexOutOfBoundsException
+     */
     public static void mark(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
         int taskNumber;
         taskNumber = Integer.parseInt(inputs[1]);
@@ -76,6 +90,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks a task as undone
+     * @param inputs
+     * @param taskCount
+     * @param tasks
+     * @throws TaskIndexOutOfBoundsException
+     */
     public static void unmark(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
         int taskNumber;
         taskNumber = Integer.parseInt(inputs[1]);
@@ -92,6 +113,14 @@ public class TaskManager {
         System.out.println(constants.BREAKLINE);
     }
 
+    /**
+     * Deletes a task from the list
+     * @param inputs
+     * @param taskCount
+     * @param tasks
+     * @return
+     * @throws TaskIndexOutOfBoundsException
+     */
     public static int delete(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
         int taskNumber;
         taskNumber = Integer.parseInt(inputs[1]);
@@ -114,6 +143,9 @@ public class TaskManager {
         return taskCount;
     }
 
+    /**
+     * Prints the goodbye message
+     */
     public static void bye() {
         System.out.println(constants.BREAKLINE);
         System.out.println("Bye. Hope to see you again soon!");
