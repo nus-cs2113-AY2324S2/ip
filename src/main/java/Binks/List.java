@@ -117,7 +117,11 @@ public class List {
         Binks.createLineSpacing();
     }
 
-
+    /**
+     * Deletes the corresponding task that is given by the index that is input.
+     *
+     * @param index Index of the task that is being marked as undone
+     */
     public void deleteTask(int index){
         Binks.createLineSpacing();
         if (index > 0 && index <= list.size()) {
@@ -134,6 +138,27 @@ public class List {
         updateFile(list);
     }
 
+    /**
+     * Finds the task that contains the keyword that is placed in the input.
+     *
+     * @param keyword Keyword that we want to find among all the tasks in the list
+     */
+    public void findTask(String keyword) {
+        Binks.createLineSpacing();
+        boolean found = false;
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            if (task.toString().contains(keyword)) {
+                System.out.println((i + 1) + ". " + task);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No matching tasks found for the keyword: " + keyword);
+        }
+        Binks.createLineSpacing();
+    }
     private void updateFile(ArrayList<Task> list) {
         String file = "binkslist.txt";
         //String taskDescription = list.toString();
@@ -145,9 +170,8 @@ public class List {
                 }
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
-
 }

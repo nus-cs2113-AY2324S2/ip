@@ -1,5 +1,4 @@
 package Binks.task;
-
 public class Task {
     private String taskDescription;
     private boolean isDone;
@@ -26,7 +25,6 @@ public class Task {
      * Returns true if the task is done and false if the task is not done
      */
     public boolean isDone(){
-
         return isDone;
     }
 
