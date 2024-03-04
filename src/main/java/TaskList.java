@@ -76,10 +76,10 @@ public class TaskList {
      * @throws HandleException If the specified index is invalid.
      */
     public void deleteTask(int taskIndex) throws HandleException {
-        if (taskIndex < 1 || taskIndex > tasks.size()) {
+        if (taskIndex < 0 || taskIndex > tasks.size()) {
             throw new HandleException("OOPS!!! The task number is invalid.");
         }
-        Task removedTask = tasks.remove(taskIndex - 1);
+        Task removedTask = tasks.remove(taskIndex);
         System.out.println("Noted. I've removed this task:\n  " + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
