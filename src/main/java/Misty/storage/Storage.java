@@ -94,6 +94,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Mark task if needed
+     *
+     * @param taskList TaskList object containing all tasks.
+     * @param parameters String containing all parameters of a task
+     * @param taskCount Number of task currently in the task list
+     * @throws CorruptedFileException
+     */
     private static void loadMarkIfNeeded(TaskList taskList, String[] parameters, int taskCount) throws CorruptedFileException {
         if (parameters[1].contains("1")) {
             taskList.loadMark(taskCount);
