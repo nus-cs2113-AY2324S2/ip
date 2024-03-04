@@ -149,3 +149,21 @@ Here are the tasks in your list:
 5.[T][ ] borrow book
 ____________________________________________________________
 ```
+
+### Exit
+
+Exits the programme.
+
+Usage: `bye`
+
+Example of usage: 
+
+```
+bye
+---------------------------------
+Saving file...
+File successfully saved!
+---------------------------------
+Bye. Hope to see you again soon!
+---------------------------------
+```
