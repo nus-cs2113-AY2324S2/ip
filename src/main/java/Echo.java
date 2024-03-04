@@ -5,11 +5,14 @@ public class Echo {
     static String break_line = "----------------------------------------";
     private static Task[] list = new Task[1];
     private static int count = 0;
+    static final String FILE_PATH = "C:\\Users\\TONY\\Desktop\\CS2113\\MyDukeBot\\docs\\dukebot.txt";
+
 
     public void startEchoing() {
 
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList(list, count);
+        taskList.initTasks(FILE_PATH);
 
         while (true) {
             System.out.println("What can I do for you?");
@@ -26,6 +29,7 @@ public class Echo {
 
             case "list":
                 taskList.listTasks();
+
                 break;
 
             case "mark":

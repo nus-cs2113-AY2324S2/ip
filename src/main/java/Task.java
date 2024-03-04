@@ -43,4 +43,8 @@ public class Task {
     public String toString() {
         return description;
     }
+
+    public String toFileFormat() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }
