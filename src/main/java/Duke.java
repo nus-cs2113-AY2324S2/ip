@@ -1,5 +1,5 @@
 /**
- * Represents the main class of the Duke application.
+ * Represents the main class of the Duke task management application.
  */
 public class Duke {
     private static TaskList taskList;
