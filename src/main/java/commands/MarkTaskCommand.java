@@ -15,10 +15,10 @@ public class MarkTaskCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (taskIndex >= 0 && taskIndex < tasks.getTasks().size()) {
             tasks.markTaskAsDone(taskIndex);
-            ui.showTask("Nice! I've marked this task as done: \n"
+            ui.showTask("Awesomeee! I've marked this task as done: \n"
                     + tasks.getTasks().get(taskIndex));
         } else {
-            ui.errorMessage("Task index out of bounds.");
+            ui.errorMessage("OPPS! Task index out of bounds :<");
         }
     }
 }

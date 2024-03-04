@@ -16,9 +16,9 @@ public class DeleteTaskCommand extends Command {
             Task removedTask = tasks.getTasks().get(taskIndex);
             tasks.deleteTask(taskIndex);
             ui.showTask("Alright, I've removed this task: \n" + removedTask);
-            ui.showTask("Now you have " + tasks.getTasks().size() + " tasks in the list~");
+            ui.showTask("Now you have " + tasks.getTasks().size() + " tasks in the list :>");
         } else {
-            ui.errorMessage("Task index out of bounds.");
+            ui.errorMessage("OOPS! Task index out of bounds :<");
         }
     }
 }

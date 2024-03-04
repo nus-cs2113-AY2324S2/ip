@@ -32,7 +32,7 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No saved tasks found. Starting with an empty list.");
+            System.out.println("OOPS! No saved tasks found, starting with an empty list :>");
             new File(file.getParent()).mkdirs();
         }
 
@@ -54,7 +54,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks.");
+            System.out.println("OOPS! An error occurred while saving tasks :<");
             e.printStackTrace();
         }
     }

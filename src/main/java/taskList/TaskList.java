@@ -42,7 +42,6 @@ public class TaskList {
         return tasks;
     }
 
-    // List tasks for UI
     public void listTasks(Ui ui) {
         for (int i = 0; i < tasks.size(); i++) {
             ui.showTask((i + 1) + ". " + tasks.get(i).toString());
@@ -55,7 +54,7 @@ public class TaskList {
 
     public String getFormattedTasks() {
         if(tasks.isEmpty()) {
-            return "Your task list is empty.";
+            return "OPPS! Your task list is empty :<";
         } else {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < tasks.size(); i++) {
@@ -63,5 +62,15 @@ public class TaskList {
             }
             return sb.toString().trim();
         }
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for(Task task: tasks) {
+            if(task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }
