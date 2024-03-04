@@ -12,6 +12,7 @@ import static jake.common.Messages.MESSAGE_TASK_DOES_NOT_EXIST;
 import static jake.common.Messages.MESSAGE_TASK_ERROR_ENCOUNTERED;
 import static jake.common.Messages.MESSAGE_TASK_MARKED;
 import static jake.common.Messages.MESSAGE_TASK_UNMARKED;
+import static jake.common.Messages.MESSAGE_TASK_FIND_TASK;
 
 
 public class Ui {
@@ -61,5 +62,9 @@ public class Ui {
 
     public void showError() {
         System.out.println(MESSAGE_TASK_ERROR_ENCOUNTERED);
+    }
+
+    public void showFindTask() {
+        System.out.println(MESSAGE_TASK_FIND_TASK);
     }
 }

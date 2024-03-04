@@ -111,4 +111,21 @@ public class TaskList {
             ui.showNonexistentTask();
         }
     }
+
+    public void findTask(String keyword) {
+        boolean isFound = false;
+        ui.showFindTask();
+        for (int i = 0; i < commands.size(); i++){
+            String eachCommand = commands.get(i).toString();
+            if (eachCommand.contains(keyword)){
+                System.out.println(Integer.toString(i+1) + "." + eachCommand);
+                isFound = true;
+            }
+        }
+
+        if (!isFound) {
+            ui.showNonexistentTask();
+        }
+        ui.showLineString();
+    }
 }
