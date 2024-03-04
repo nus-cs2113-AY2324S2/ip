@@ -1,5 +1,6 @@
 # Bart: One of the Chatbots ever
 > I love Bart stuff! - Koh Kai Jie
+
 # User Guide
 Bart is a desktop app for listing out your everyday tasks, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
 
