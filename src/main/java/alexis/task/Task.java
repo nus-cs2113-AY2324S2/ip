@@ -1,4 +1,4 @@
-package Alexis.task;
+package alexis.task;
 
 /**
  * The Task class represents a task with a description and completion status.

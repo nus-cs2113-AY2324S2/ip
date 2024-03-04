@@ -1,8 +1,8 @@
-package Alexis.console;
+package alexis.console;
 
-import Alexis.exception.MissingFieldException;
-import Alexis.task.TaskList;
-import Alexis.task.TaskType;
+import alexis.exception.MissingFieldException;
+import alexis.task.TaskList;
+import alexis.task.TaskType;
 
 import java.util.Scanner;
 

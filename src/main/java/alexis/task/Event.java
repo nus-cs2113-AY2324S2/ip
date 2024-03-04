@@ -1,7 +1,7 @@
-package Alexis.task;
+package alexis.task;
 
-import Alexis.console.Parser;
-import Alexis.console.Ui;
+import alexis.console.Parser;
+import alexis.console.Ui;
 
 
 /**

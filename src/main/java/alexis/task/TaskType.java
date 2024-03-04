@@ -1,4 +1,4 @@
-package Alexis.task;
+package alexis.task;
 
 /**
  * The TaskType enum holds all possible task types.

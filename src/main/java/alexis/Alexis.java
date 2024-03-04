@@ -1,8 +1,8 @@
-package Alexis;
+package alexis;
 
-import Alexis.console.Ui;
-import Alexis.console.Storage;
-import Alexis.task.TaskList;
+import alexis.console.Ui;
+import alexis.console.Storage;
+import alexis.task.TaskList;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;

@@ -1,6 +1,6 @@
-package Alexis.console;
+package alexis.console;
 
-import Alexis.exception.MissingFieldException;
+import alexis.exception.MissingFieldException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
