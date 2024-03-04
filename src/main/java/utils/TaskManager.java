@@ -149,9 +149,18 @@ public class TaskManager {
         return taskCount;
     }
 
-    /**
-     * Prints the goodbye message
-     */
+    public static void find(String[] inputs, int taskCount, ArrayList<Task> tasks) {
+        System.out.println(constants.BREAKLINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int j = 0; j < taskCount; j++) {
+            if (tasks.get(j).getDescription().contains(inputs[1])) {
+                System.out.print(j + 1 + ". ");
+                tasks.get(j).printTask();
+            }
+        }
+        System.out.println(constants.BREAKLINE);
+    }
+
     public static void bye() {
         System.out.println(constants.BREAKLINE);
         System.out.println("Bye. Hope to see you again soon!");
