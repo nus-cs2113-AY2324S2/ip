@@ -1,24 +1,41 @@
-# Duke project template
+# Jake: Your Personal Assistant
+## Introducing Jake! Ever needed help tracking your tasks? Jake is designed to make task management easy and efficient, right from within your CLI
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+# Feature Overview
+1. Add a task: [`toDo`](#todo)
+2. Add a deadline: [`deadline`](#deadline)
+3. Add an event: [`event`](#event)
+4. Mark a task: [`mark`](#mark)
+5. Unmark a task: [`unmark`](#unmark)
+6. List all tasks: [`list`](#list)
+7. Find relevant tasks: [`find`](#find)
+8. Delete a task: [`delete`](#delete)
+9. Exit the program: [`bye`](#bye)
 
-## Setting up in Intellij
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Add a task: `toDo` <a name="todo"></a>
+Adds a task to your task list
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Add a deadline: `deadline` <a name="deadline"></a>
+Adds a deadline to your task list
+
+## Add an event: `event` <a name="event"></a>
+Adds an event to your task list
+
+## Mark a task: `mark` <a name="mark"></a>
+Marks a task as completed
+
+## Unmark a task: `unmark` <a name="unmark"></a>
+Marks a task as uncompleted
+
+## List all tasks: `list` <a name="list"></a>
+List out all the tasks in your task list
+
+## Find relevant tasks: `find` <a name="find"></a>
+Find all tasks in your task list containing a specified keyword
+
+## Delete a task: `delete` <a name="delete"></a>
+Deletes a task from your task list
+
+## Exit the program: `bye` <a name="bye"></a>
+Exits the program
