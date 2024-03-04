@@ -286,6 +286,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Hello! I'm Gandalf, your favorite personal assistant.");
         System.out.println("Please wait while I load your previous To-Do List.");
+        System.out.println("                               ");
         System.out.println("                           /\\");
         System.out.println("                          /  \\");
         System.out.println("                         |    |");
