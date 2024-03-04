@@ -1,8 +1,12 @@
-public class EventTask extends Task{
+package seedu.salmonsan.data.task;
+
+import seedu.salmonsan.data.exception.SalmonMissingArgument;
+
+public class EventTask extends Task {
     protected static String eventStart;
     protected static String eventEnd;
 
-    public EventTask() throws SalmonMissingArgument{
+    public EventTask() throws SalmonMissingArgument {
         this(false, "DEFAULT /from DEFAULT /to DEFAULT");
     }
 

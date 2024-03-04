@@ -1,3 +1,12 @@
+package seedu.salmonsan.ui;
+
+import seedu.salmonsan.data.task.DeadlineTask;
+import seedu.salmonsan.data.task.EventTask;
+import seedu.salmonsan.data.TasksList;
+import seedu.salmonsan.data.exception.SalmonMissingArgument;
+import seedu.salmonsan.data.exception.SalmonNotInListException;
+import seedu.salmonsan.data.task.Task;
+
 public class QueryManager {
     private Query currentQuery;
 
@@ -68,7 +77,7 @@ public class QueryManager {
                     return -1;
             }
         } catch (SalmonNotInListException e) {
-            System.out.println("Gomen! Task is not in your list");
+            System.out.println("Gomen! seedu.salmonsan.data.task.Task is not in your list");
             return -1;
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid number to mark/unmark list!");
