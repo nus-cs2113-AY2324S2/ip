@@ -1,4 +1,4 @@
-# OGFCore.OGF OGFTask.Task Handler
+# OGF Task Manager
 This chatbot helps users keep track of the various todos, deadlines and events they may have.
 ## Getting Started
 1. Run the JAR file
