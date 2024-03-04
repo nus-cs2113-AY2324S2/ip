@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+
 /**
  * Main class for the Floda application.
  */
