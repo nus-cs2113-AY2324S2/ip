@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+//import LoopyExceptions.java
 
 public class Loopy {
-    private static ArrayList<Task> tasks = new ArrayList<>(); // Create task list array
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = " __                \n"
@@ -13,13 +14,14 @@ public class Loopy {
         System.out.println("Hello! I'm Loopy!\n" + logo);
         System.out.println("What can I do for you?\n");
 
-        Scanner taskScanner = new Scanner(System.in);  // Create a Scanner object
+        Scanner taskScanner = new Scanner(System.in);
 
         while (true) {
             String task = taskScanner.nextLine();
             processTask(task);
+//            System.out.println(task);
             if (task.equals("bye")) {
-                System.out.println("Bye! Hope to see you again.\n");
+                System.out.println("Bye! Hope to see you again ♡ \n");
                 break;
             }
         }
@@ -28,44 +30,61 @@ public class Loopy {
     private static void processTask(String task) {
         if (task.equals("list")) {
             displayTaskList();
-        } else if (task.startsWith("mark ")) {
-            markTaskAsDone(task);
-        } else if (task.startsWith("unmark ")) {
-            markTaskAsUndone(task);
-        } else if (task.startsWith("todo")){
-            addTodo(task); // Create Task object and add it to the list
-        } else if (task.startsWith("deadline")){
+        } else if (task.startsWith("mark")) {
+            try {
+                markTaskAsDone(task);
+            } catch (LoopyExceptions exceptions){
+                System.out.println("Warning! " + exceptions.getMessage());
+            }
+        } else if (task.startsWith("unmark")) {
+            try {
+                markTaskAsUndone(task);
+            } catch (LoopyExceptions exceptions){
+                System.out.println("Warning! " + exceptions.getMessage());
+            }
+        } else if (task.startsWith("todo")) {
+            try {
+                addTodo(task); // Create Task object and add it to the list
+            } catch (LoopyExceptions exceptions){
+                System.out.println("Warning! " + exceptions.getMessage());
+            }
+        } else if (task.startsWith("deadline")) {
             addDeadline(task);
-        } else if (task.startsWith("event")){
+        } else if (task.startsWith("event")) {
             addEvent(task);
+        } else {
+            System.out.println("I don't know what you're saying...");
         }
     }
 
-    private static void addTodo(String task) {
-       // if (!task.getDescription().equals("bye")) {
-            //tasks.add(task);
-
+    private static void addTodo(String task) throws LoopyExceptions {
+        if (task.length() <=5) {
+            throw new LoopyExceptions("Todo cannot be empty!");
+        }
+        if (task.length() > 5) {
             String description = task.substring(5, task.length());
             tasks.add(new TodoTask(description));
-
             System.out.println("Got it. I've added this task: ");
             System.out.println(tasks.get(tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        //}
+        } else {
+            throw new LoopyExceptions("Please add a task!");
+        }
     }
+
     private static void addDeadline(String task) {
-       //separate the input into 2 substrings: description and deadline
+        //separate the input into 2 substrings: description and deadline
         int splitPosition = task.indexOf("/");
         String description = task.substring(9, splitPosition);
         String deadline = task.substring(splitPosition + 4, task.length());
 
-        tasks.add(new DeadlineTask(description,deadline));
+        tasks.add(new DeadlineTask(description, deadline));
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void addEvent(String task){
+    private static void addEvent(String task) {
         int fromPosition = task.indexOf("from");
         int toPosition = task.indexOf("to");
         String description = task.substring(6, fromPosition - 1);
@@ -77,6 +96,7 @@ public class Loopy {
         System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
     private static void displayTaskList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -86,19 +106,24 @@ public class Loopy {
         }
     }
 
-    private static void markTaskAsDone(String task) {
-        int taskIndex = Integer.parseInt(task.substring(5)) - 1;
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task currentTask = tasks.get(taskIndex);
-            currentTask.markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(" " + currentTask);
-        } else {
-            System.out.println("Invalid task index. Please provide a valid index.");
+    private static void markTaskAsDone(String task) throws LoopyExceptions {
+            if (task.length() <=5) {
+                throw new LoopyExceptions("Please specify which task to mark.");
+            }
+            int taskIndex = Integer.parseInt(task.substring(5)) - 1;
+            if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                Task currentTask = tasks.get(taskIndex);
+                currentTask.markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(" " + currentTask);
+            } else {
+                //write some other error
+                throw new LoopyExceptions("Please specify which task to mark.");
+            }
         }
-    }
 
-    private static void markTaskAsUndone(String task) {
+
+    private static void markTaskAsUndone(String task) throws LoopyExceptions {
         int taskIndex = Integer.parseInt(task.substring(7)) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task currentTask = tasks.get(taskIndex);
@@ -106,7 +131,7 @@ public class Loopy {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(" " + currentTask);
         } else {
-            System.out.println("Invalid task index. Please provide a valid index.");
+            throw new LoopyExceptions("Please specify which task to unmark.");
         }
     }
 }
