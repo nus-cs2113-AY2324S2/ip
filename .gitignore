@@ -4,6 +4,9 @@
 /*.iml
 /src/main/java/META-INF/
 
+# Vim swap files
+*.swp
+
 # Gradle build files
 /.gradle/
 /build/
