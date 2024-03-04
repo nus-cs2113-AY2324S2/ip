@@ -1,5 +1,6 @@
 package Alexis.task;
 
+import Alexis.console.Parser;
 import Alexis.console.Ui;
 
 public class Deadline extends Task {
@@ -20,7 +21,8 @@ public class Deadline extends Task {
         try {
             String description = input.substring(0, keywordIndex).trim();
             String taskDeadline = input.substring(keywordIndex + keyword.length()).trim();
-            return new Deadline(description, taskDeadline);
+            String formattedTaskDeadline = Parser.getDateTime(taskDeadline);
+            return new Deadline(description, formattedTaskDeadline);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Ui.MISSING_DEADLINE_ERROR);
             return null;
