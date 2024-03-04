@@ -15,6 +15,19 @@ public class Ui {
     static String folderNotFound = "A new file's birth marred by chaos. Restore order.\n";
     static String fileNotFound = "Darkness shrouds the file. Forging its presence......";
     public static String fileReadingError = "Tasks trapped in the void. Break the chains of ignorance.\n";
+
+    static String markTask = "Task vanquished. Another notch on the blade of progress.\n" +
+            "What next, mortal?";
+
+    static String markedTask = "Your task bears the mark of completion.\n" +
+            "Attempting to mark it again is futile.";
+
+    static String unmarkTask = "Task restored from the depths of completion.\n" +
+            "A twist of fate, mortal. What now?\n" +
+            "Reclaim victory or face the abyss once more.";
+
+    static String unmarkedTask = "Foolish mortal.\n" +
+            "Once a task is freed, it shall not be bound again.";
     public static String readCommand() {
         return scanner.nextLine().trim();
     }
@@ -121,5 +134,12 @@ public class Ui {
             x1 =  "What now? Seize control or be swept by its sands?";
         }
         taskAddMessage(x, x1);
+    }
+
+    public static void displayMarking(int taskNumber, ArrayList<Task> tasksList, String displayString) {
+        System.out.println(LINE);
+        System.out.println(displayString);
+        System.out.printf("         %s%n",  tasksList.get(taskNumber).toString());
+        System.out.println(LINE);
     }
 }

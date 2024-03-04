@@ -3,12 +3,8 @@ import java.util.ArrayList;
 public class Kratos {
     private static Ui ui = new Ui();
     private static Storage storage = new Storage();
-
     private static TaskList listOfTasks = new TaskList();
     static ArrayList<Task> tasksList = new ArrayList<>();
-    private static final String FILE_PATH = "./data/tasks.txt";
-
-
 
     // Main method
     public static void main(String[] args) {
@@ -57,7 +53,4 @@ public class Kratos {
             KratosException.handleException(e, userInput);
         }
     }
-
-
-
 }
