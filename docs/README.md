@@ -1,7 +1,7 @@
-# Bart: One of the Chatbots ever
+# <span style="color:cyan;">Bart: One of the Chatbots ever</span>
 > I love Bart stuff! - Koh Kai Jie
 
-# User Guide
+# <span style="color:orange;">User Guide</span>
 Bart is a desktop app for listing out your everyday tasks, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
 
 - [Quick Start](https://jackieneoceg.github.io/ip/#quick-start)
