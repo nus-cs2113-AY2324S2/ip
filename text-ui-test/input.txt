@@ -11,4 +11,8 @@ list
 unmark 3
 unmark 1
 list
+delete 1
+todo clean house
+find house
+list
 bye

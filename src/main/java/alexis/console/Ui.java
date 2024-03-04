@@ -39,7 +39,7 @@ public class Ui {
     public final static String INVALID_TASK_INDEX_MESSAGE = "Sorry, I can't find the task you are referring to.";
     public final static String ADD_MESSAGE = "Got it. I've added this task:";
     public final static String REMOVE_MESSAGE = "Noted. I've removed this task:";
-    public final static String LIST_UPDATE_MESSAGE = "Now you have %d tasks in the list\n";
+    public final static String LIST_UPDATE_MESSAGE = "Now you have %d tasks in the list.\n";
 
     public static void printWelcomeMessage() {
         System.out.println(NAME);

@@ -80,5 +80,29 @@ Here are the tasks in your list:
 5.[E][ ] open house (from: friday to sunday)
 ____________________________________________________________
 ____________________________________________________________
+Noted. I've removed this task:
+	[T][ ] homework
+Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+	[T][ ] clean house
+Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1.[E][ ] open house (from: friday to sunday)
+2.[T][ ] clean house
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] CS2113T assignment (by: Thursday)
+2.[E][ ] Coldplay concert (from: 5pm to 8pm)
+3.[T][X] buy books
+4.[E][ ] open house (from: friday to sunday)
+5.[T][ ] clean house
+____________________________________________________________
+File successfully saved.
+____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
