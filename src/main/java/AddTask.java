@@ -1,8 +1,17 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Represents a command to add new task based on user input.
+ */
 public class AddTask {
+    /**
+     * Check if user input words contains any valid task description.
+     *
+     * @param userInputWords Words user input as an array.
+     * @throws DukeExceptions.NoDescriptionException
+     * If user did not put any valid task description.
+     */
     public static void checkDescription(String[] userInputWords) throws
             DukeExceptions.NoDescriptionException {
         if (userInputWords.length == 1) {
@@ -10,6 +19,14 @@ public class AddTask {
         }
     }
 
+    /**
+     * Returns a new Task that is either of a special type (toDo, event, deadline)
+     * or not.
+     *
+     * @param description Text input by the user.
+     * @return A task with a special type or a task with description
+     * "Not special task" but no special type.
+     */
     public static Task addSpecialTask(String description) {
         String[] userInputWords = description.split(" ");
         try {
@@ -23,6 +40,13 @@ public class AddTask {
         return new Task(description, type);
     }
 
+    /**
+     * Monitoring user input, print and update the list of tasks constantly
+     * according to the keywords identified.
+     * Stop only when user input equals to "bye".
+     *
+     * @param tasks Arraylist of tasks stored.
+     */
     public static void taskListManager(ArrayList<Task> tasks) {
         int index = DukeFile.latestIndex();
         boolean isRunning = true;

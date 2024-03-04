@@ -5,10 +5,25 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents an add command where a new task is added to the existing list of task.
+ * String <code>FILENAME</code> represents the designated relative file path for the file.
+ * File <code>dukeData</code> represents the File object created to be updated.
+ */
 public class DukeFile {
     private static final String FILENAME = "./dukeData.txt";
     private static File dukeData;
 
+    /**
+     * Returns lateral location of the specified position.
+     * If the position is unset, NaN is returned.
+     *
+     * @param filePath File path where the file is located.
+     * @param textToAdd The line of text to write to the file.
+     * @param ifAppend Indicate if append the text at the end of the file (true)
+     *                 or overwrite the file (false).
+     * @throws IOException If file is not found at the indicated file path.
+     */
     private static void writeToFile(String filePath, String textToAdd, boolean ifAppend) throws IOException {
         FileWriter writer = new FileWriter(filePath, ifAppend);
         writer.write(textToAdd);
@@ -21,15 +36,21 @@ public class DukeFile {
             PrintText.printWithLinebreak("IOExceptions occurred");
         }
     }
+
+    /**
+     * Retrieve the index of the last line in a file at file path FILENAME.
+     * Returns 0 if the file is not found.
+     */
     public static int latestIndex() {
         try {
             File fileToLook = new File(FILENAME);
             Scanner s = new Scanner(fileToLook);
             String lastLine = "";
+            int index = 0;
             while (s.hasNext()) {
                 lastLine = s.nextLine();
+                index += 1;
             }
-            int index = Integer.parseInt(lastLine.split("\\.")[0]);
             return index;
         } catch (Exception e) {
             PrintText.printWithLinebreak("return index 0");
@@ -37,10 +58,20 @@ public class DukeFile {
         }
     }
 
+    /**
+     * Returns the private File dukeData.
+     */
     public static File getFileData() {
         return dukeData;
     }
 
+    /**
+     * Read lines from the file and identify tasks written inside.
+     * Add the identified tasks into a list of existing tasks.
+     *
+     * @param fileToRead The file to read from.
+     * @param existTasks Arraylist storing existing tasks.
+     */
     public static void readFromFile(File fileToRead, ArrayList<Task> existTasks) {
         try {
             Scanner scanner = new Scanner(fileToRead);
