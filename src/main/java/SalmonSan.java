@@ -9,7 +9,7 @@ public class SalmonSan {
         TasksList tasksList = null;
         try {
             tasksList = fileManager.getTasksList();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

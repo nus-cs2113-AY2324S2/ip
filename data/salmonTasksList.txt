@@ -1,6 +1,1 @@
-T | false | todo task
-T | true | todo task 2
-D | false | this1 | tomorrow
-D | true | this2 | tomorrow
-E | false | huhh | c | d
-E | true | imma cry | c | d
+E | false | Ian attend CS2113 lecture Friday 23 Feb 2024 | 4 | 6pm
