@@ -16,7 +16,8 @@ public class UserUi {
     }
 
     public static void showGoodbyeMessage() {
-        System.out.println("Bye! Till the next time we meet...");
+        System.out.println("Bye! Till the next time we meet... \n " +
+                "i've saved your list for future use <3");
         displayDividerLine();
     }
 
