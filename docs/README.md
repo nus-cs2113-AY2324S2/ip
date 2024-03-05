@@ -195,7 +195,7 @@ find watch
 ```
 
 ### Exit program: `bye`
-Exits the program and prints a goodbye message.
+A goodbye message is printed on the screen, and the program exits after.
 
 Format: `bye`
 
@@ -209,7 +209,10 @@ Bye. Hope to see you again soon!
 
 ### Save Data
 After each change to the current task list, the program automatically writes the updated tasks onto a file.
-The default location of the saved textfile is a relative file path from 'tony.jar' and is located in a subfolder `./data/tonytask.txt`.
+The default location of the saved textfile is a relative file path from 'tony.jar' 
+and is located in a subfolder `./data/tonytask.txt`.
 
 ## FAQ
-
+**Q:** Will my tasks in the list be wiped when I end the program?
+**A:** No, the program creates a file and saved all the data into that file, and the next time the program is run,
+the data is loaded back from the file.
