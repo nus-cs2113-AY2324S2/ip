@@ -4,11 +4,11 @@ public class Event extends Task {
     protected String to;
     protected String description;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to, String taskType) {
         super(description);
         this.from = from;
         this.to = to;
-        this.taskType = "E";
+        this.taskType = taskType;
     }
 
     @Override
