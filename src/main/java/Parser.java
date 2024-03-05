@@ -15,9 +15,6 @@ public class Parser {
                     userCommand = in.nextLine();
                     break;
                 case "unmark":
-                    TaskList.handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, tasks.size());
-                    userCommand = in.nextLine();
-                    break;
                 case "mark":
                     TaskList.handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, tasks.size());
                     userCommand = in.nextLine();
