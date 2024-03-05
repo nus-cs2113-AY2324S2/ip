@@ -47,4 +47,4 @@ Cody is a CLI (Command Line Interface) chatbot application that helps you manage
 ## FAQ
 
 - **Q:** How do I transfer my data to another computer?
-    - **A:** Install Cody on the other computer and copy the data file from your previous Cody home folder to the new one.
+    - **A:** Install Cody on the other computer and copy the data folder from your previous Cody home folder to the new one.
