@@ -5,8 +5,19 @@ import storagePackage.Storage;
 import taskListPackage.TaskList;
 import ui.Ui;
 
+/**
+ * Parses user commands and executes corresponding actions.
+ */
 public class Parser {
 
+    /**
+     * Processes the user command.
+     *
+     * @param command The user command to process.
+     * @param tasks   The TaskList object containing tasks.
+     * @param storage The Storage object for saving tasks.
+     * @param ui      The Ui object for displaying messages.
+     */
     public void processCommand(String command, TaskList tasks, Storage storage, Ui ui) {
         try {
             command = command.trim();
@@ -62,7 +73,9 @@ public class Parser {
                 }
                 break;
             default:
-                ui.printFormattedMessage("Unknown command. Please enter 'todo', 'event', 'deadline', 'list', 'mark', 'unmark', 'delete', or 'bye'.");
+                ui.printFormattedMessage("Unknown command. " +
+                        "Please enter 'todo', 'event', 'deadline', " +
+                        "'list', 'mark', 'unmark', 'delete', or 'bye'.");
             }
         } catch (ChatBotExceptions e) {
             ui.printFormattedMessage(e.getMessage());

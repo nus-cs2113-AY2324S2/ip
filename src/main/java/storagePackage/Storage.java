@@ -14,12 +14,18 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles loading and saving tasks from/to a file.
+ */
 public class Storage {
     private static final String FILENAME = "text.txt";
     private static final String DIRECTORY = "src/data";
 
-    private List<Task> tasks;
-
+    /**
+     * Loads tasks from the file.
+     *
+     * @return The list of tasks loaded from the text file.
+     */
     public List<Task> loadTasksFromFile() {
         List<Task> tasks = new ArrayList<>();
 
@@ -86,6 +92,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public void saveTasksToFile(TaskList tasks) {
         String currentDirectory = System.getProperty("user.dir");
         String relativeFilePath = Paths.get(currentDirectory, DIRECTORY, FILENAME).toString();
