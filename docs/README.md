@@ -42,9 +42,9 @@ Cody is a CLI (Command Line Interface) chatbot application that helps you manage
 - Description: Exits the program.
 
 ### Saving the Data
-- Cody automatically saves your task data to the hard disk after any command that modifies the data. There is no need to save manually.
+- Cody automatically saves your task data to `tasks.txt` in the `data` folder after the program exits. There is no need to save manually.
 
 ## FAQ
 
 - **Q:** How do I transfer my data to another computer?
-    - **A:** Install Cody on the other computer and copy the data folder from your previous Cody home folder to the new one.
+    - **A:** Install Cody on the other computer and copy the `data` folder from your previous Cody home folder to the new one.
