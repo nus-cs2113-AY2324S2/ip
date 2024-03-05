@@ -1,6 +1,6 @@
 package soot.task;
 
-import soot.manager.CommandManager;
+import soot.parser.Parser;
 
 public class Task {
     public String taskName;
@@ -58,8 +58,8 @@ public class Task {
     }
 
     //TODO: after a task is marked done/undone, the taskCount printed when another task is added is unchanged
-    public void printTaskCount() {
-        int taskCount = CommandManager.listCounter;
+    public static void printTaskCount() {
+        int taskCount = TaskList.listCounter;
         System.out.println("you now have " + taskCount + " tasks left...");
     }
 
