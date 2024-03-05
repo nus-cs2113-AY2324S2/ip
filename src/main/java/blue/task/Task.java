@@ -7,11 +7,8 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    public Task() {
-        this("");
-    }
     /**
-     * Overloaded constructor that creates an undone task.
+     * Constructor for an undone task.
      *
      * @param description A description of the task.
      */

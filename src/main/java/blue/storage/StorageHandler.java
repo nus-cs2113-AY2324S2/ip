@@ -4,6 +4,7 @@ import blue.task.TaskManager;
 import blue.task.Deadline;
 import blue.task.Event;
 import blue.task.Task;
+import blue.exception.StorageException;
 
 import java.util.ArrayList;
 import java.io.File;
@@ -40,13 +41,13 @@ public class StorageHandler {
 
     /**
      * Saves the state of the application to disk.
-     * Limited to writing tasks to disk, fails quietely for now.
+     * Limited to writing tasks to disk for now.
      */
-    public void saveState() {
+    public void saveState() throws StorageException {
         try {
             saveTasks();
-        } catch (IOException e) {
-            //fail quietly
+        } catch (StorageException e) {
+            throw e;
         }
     }
 
@@ -54,7 +55,7 @@ public class StorageHandler {
      * Restores saved tasks if TASK_FILE_PATH exists, does nothing otherwise.
      * Assumes TASK_FILE_PATH is a properly formatted text file.
      */
-    public void restoreTasks() {
+    private void restoreTasks() {
         ArrayList<Task> tasks = taskManager.getTasks();
         File taskFile = new File(TASK_FILE_PATH);
         try {
@@ -69,31 +70,6 @@ public class StorageHandler {
         }
     }
 
-    /**
-     * Writes tasks in their text-parsable format to TASK_FILE_PATH.
-     *
-     * @throws IOException If fails to write tasks to disk.
-     */
-    public void saveTasks() throws IOException {
-        ArrayList<Task> tasks = taskManager.getTasks();
-        new File(DATA_DIR_PATH).mkdirs();
-        File taskFile = new File(TASK_FILE_PATH);
-        try {
-            taskFile.createNewFile();
-        } catch (IOException e) {
-            throw e;
-        }
-        boolean isAppend = false;
-        for (Task task : tasks) {
-            try {
-                writeTaskToFile(task, isAppend);
-            } catch (IOException e) {
-                throw e;
-            }
-            isAppend = true;
-        }
-    }
-
     private Task restoreTask(String[] savedDetails) {
         Task restoredTask;
         switch (savedDetails[0]) {
@@ -104,15 +80,39 @@ public class StorageHandler {
             restoredTask = new Deadline(savedDetails[2], savedDetails[3]);
             break;
         case "E":
+        default:
             restoredTask = new Event(savedDetails[2], savedDetails[4], savedDetails[3]);
             break;
-        default:
-            restoredTask = new Task();
         }
         if (savedDetails[1].equals("1")) {
             restoredTask.setDone();
         }
         return restoredTask;
+    }
+
+    /**
+     * Writes tasks in their text-parsable format to TASK_FILE_PATH.
+     *
+     * @throws StorageException If fails to write tasks to disk.
+     */
+    private void saveTasks() throws StorageException {
+        ArrayList<Task> tasks = taskManager.getTasks();
+        new File(DATA_DIR_PATH).mkdirs();
+        File taskFile = new File(TASK_FILE_PATH);
+        try {
+            taskFile.createNewFile();
+        } catch (IOException e) {
+            throw new StorageException();
+        }
+        boolean isAppend = false;
+        for (Task task : tasks) {
+            try {
+                writeTaskToFile(task, isAppend);
+            } catch (IOException e) {
+                throw new StorageException();
+            }
+            isAppend = true;
+        }
     }
 
     private void writeTaskToFile(Task task, boolean isAppend) throws IOException {

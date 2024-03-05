@@ -1,6 +1,6 @@
 package blue.ui;
 
-import blue.exception.IllegalInput;
+import blue.exception.IllegalInputException;
 import blue.command.Input;
 
 import java.util.Scanner;
@@ -22,7 +22,7 @@ public class Ui {
     private static boolean isUserActive;
 
     /**
-     * Public constructor for Ui.
+     * Constructor for Ui.
      * Note that it need only be called once as it suffices to have one UI per program.
      */
     public Ui() {
@@ -48,16 +48,15 @@ public class Ui {
     }
 
     /**
-     * Returns a well-formed request parsed from user input.
+     * Receives the next user request, parsing it into request if well formed and throwing an exception otherwise.
      *
-     * @return A properly instantiated Input object containing some valid request.
-     * @throws IllegalInput If user request is misformed in any way.
+     * @throws IllegalInputException If user request is misformed in any way.
      */
-    public void nextRequest() throws IllegalInput {
+    public void nextRequest() throws IllegalInputException {
         String line = in.nextLine();
         try {
             request = parser.parse(line);
-        } catch (IllegalInput e) {
+        } catch (IllegalInputException e) {
             throw e;
         }
         isUserActive = request.isNotExit();
@@ -94,7 +93,7 @@ public class Ui {
     /**
      * Prints multiple lines of dialogue to standard output, usually as an explicit response to a request.
      * 
-     * @param line The line of dialogue to print.
+     * @param lines The lines of dialogue to print.
      * @param isNumbered Whether to prefix each line with a line number.
      */
     public void talk(String[] lines, boolean isNumbered) {

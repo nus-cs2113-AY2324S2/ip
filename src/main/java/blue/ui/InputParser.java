@@ -2,7 +2,9 @@ package blue.ui;
 
 import blue.command.Input;
 import blue.command.InputCommand;
-import blue.exception.IllegalInput;
+import blue.exception.IllegalInputException;
+import blue.exception.IllegalIndexException;
+import blue.exception.IllegalTaskException;
 import blue.task.Deadline;
 import blue.task.Event;
 import blue.task.Task;
@@ -17,9 +19,9 @@ public class InputParser {
      *
      * @param line The string of raw text to parse.
      * @return A valid request for Blue parsed from line.
-     * @throws IllegalInput If input is not well-formed.
+     * @throws IllegalInputException If input is not well-formed.
      */
-    public Input parse(String line) throws IllegalInput {
+    public Input parse(String line) throws IllegalInputException {
         try {
             InputCommand command = parseRequest(line);
             switch (command) {
@@ -39,9 +41,9 @@ public class InputParser {
                 Task taskToAdd = parseTask(line, command);
                 return new Input(command, taskToAdd);
             default:
-                throw new IllegalInput();
+                throw new IllegalInputException();
             }
-        } catch (IllegalInput e) {
+        } catch (IllegalInputException e) {
             throw e;
         }
     }
@@ -51,9 +53,9 @@ public class InputParser {
      *
      * @param line The string of user input to parse.
      * @return An enum of InputCommand.
-     * @throws IllegalInput If parsed request does not match an enum of InputCommand.
+     * @throws IllegalInputException If parsed request does not match an enum of InputCommand.
      */
-    private InputCommand parseRequest(String line) throws IllegalInput {
+    private InputCommand parseRequest(String line) throws IllegalInputException {
         String parsedRequest = line.trim().split(" ")[0];
         switch (parsedRequest) {
         case "list":
@@ -73,7 +75,7 @@ public class InputParser {
         case "bye":
             return InputCommand.bye;
         default:
-            throw new IllegalInput();
+            throw new IllegalInputException();
         }
     }
 
@@ -83,9 +85,9 @@ public class InputParser {
      * @param line The string of user input to parse.
      * @param command User command.
      * @return Index of a task if command is appropriate, -1 otherwise.
-     * @throws IllegalInput If parsed index is misformed i.e not an integer.
+     * @throws IllegalIndexException If parsed index is misformed i.e not an integer.
      */
-    private int parseIndex(String line, InputCommand command) throws IllegalInput {
+    private int parseIndex(String line, InputCommand command) throws IllegalIndexException {
         int startIndex = 0;
         switch (command) {
         case mark:
@@ -101,7 +103,7 @@ public class InputParser {
             int taskIndex = Integer.parseInt(line.substring(startIndex).trim()) - 1;
             return taskIndex;
         } catch (NumberFormatException e) {
-            throw new IllegalInput(InputCommand.mark);
+            throw new IllegalIndexException();
         }
     }
 
@@ -109,15 +111,15 @@ public class InputParser {
      * Returns a task if details provided by the user are well formed, throws an exception otherwise.
      *
      * @param line The string of user input to parse.
-     * @param command User command.
+     * @param command User command, in effect task type.
      * @return Task of appropriate type and details parsed from line.
-     * @throws IllegalInput If task details are misformed.
+     * @throws IllegalTaskException If task details are misformed.
      */
-    private Task parseTask(String line, InputCommand command) throws IllegalInput {
+    private Task parseTask(String line, InputCommand command) throws IllegalTaskException {
         String taskDescription;
         try {
             taskDescription = parseTaskDescription(line);
-        } catch (IllegalInput e) {
+        } catch (IllegalTaskException e) {
             throw e;
         }
         switch (command) {
@@ -126,17 +128,16 @@ public class InputParser {
         case deadline:
             try {
                 return new Deadline(taskDescription, parseTaskEnd(line));
-            } catch (IllegalInput e) {
+            } catch (IllegalTaskException e) {
                 throw e;
             }
         case event:
+        default:
             try {
                 return new Event(taskDescription, parseTaskStart(line), parseTaskEnd(line));
-            } catch (IllegalInput e) {
+            } catch (IllegalTaskException e) {
                 throw e;
             }
-        default:
-            throw new IllegalInput();
         }
     }
 
@@ -145,14 +146,14 @@ public class InputParser {
      *
      * @param line The string of user input to parse.
      * @return String description of task.
-     * @throws IllegalInput If description is empty.
+     * @throws IllegalTaskException If description is empty.
      */
-    private String parseTaskDescription(String line) throws IllegalInput {
+    private String parseTaskDescription(String line) throws IllegalTaskException {
         String taskDescription = line.substring(line.indexOf(" "))
             .split("/by|/from|/to")[0]
             .trim();
         if (taskDescription.length() == 0) {
-            throw new IllegalInput();
+            throw new IllegalTaskException("Description cannot be empty.");
         }
         return taskDescription;
     }
@@ -162,12 +163,12 @@ public class InputParser {
      *
      * @param line The string of user input to parse.
      * @return String description of deadline or end time.
-     * @throws IllegalInput If description is empty.
+     * @throws IllegalTaskException If description is empty.
      */
-    private String parseTaskEnd(String line) throws IllegalInput {
+    private String parseTaskEnd(String line) throws IllegalTaskException {
         String taskEnd = line.split("/by|/to")[1].trim();
         if (taskEnd.length() == 0) {
-            throw new IllegalInput();
+            throw new IllegalTaskException("No deadline/ end time specified.");
         }
         return taskEnd;
     }
@@ -177,12 +178,12 @@ public class InputParser {
      *
      * @param line The string of user input to parse.
      * @return String description of start time.
-     * @throws IllegalInput If description is empty.
+     * @throws IllegalTaskException If description is empty.
      */
-    private String parseTaskStart(String line) throws IllegalInput {
+    private String parseTaskStart(String line) throws IllegalTaskException {
         String taskStart = line.split("/from|/to")[1].trim();
         if (taskStart.length() == 0) {
-            throw new IllegalInput();
+            throw new IllegalTaskException("No start time specified.");
         }
         return taskStart;
     }

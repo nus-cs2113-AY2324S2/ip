@@ -1,6 +1,6 @@
 package blue;
 
-import blue.exception.IllegalInput;
+import blue.exception.BlueException;
 import blue.storage.StorageHandler;
 import blue.task.TaskManager;
 import blue.ui.Ui;
@@ -33,7 +33,7 @@ public class Blue {
                 blueUi.nextRequest();
                 blueTaskManager.performRequest();
                 blueStorageHandler.saveState();
-            } catch (IllegalInput e) {
+            } catch (BlueException e) {
                 blueUi.warn(e.getMessage());
             }
         }
