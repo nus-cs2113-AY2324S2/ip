@@ -1,11 +1,9 @@
 # Krot
 
-<hr>
 
 Krot Chatbot is a task tracking app for managing your everyday tasks, optimised for the CLI. Perfect for those who likes to type away. 
 Try it out for yourself and keep your tasks in order.
 
-<hr>
 
 ## Quickstart
 
@@ -25,7 +23,7 @@ Prerequisites: JDK 11
    5. ```bye```: Exits the app.
 5. Refer to the [Features](#Features) below for details of each command.<br>
 
-<hr>
+
 
 ## Features
 
@@ -40,51 +38,49 @@ and the 24hr time e.g. for the 2nd Mar 24, 5pm it will be in the format ```2024-
 the input and initializers e.g ```deadline Assignment /by 2024-03-02T17:00```.
 6. Please follow the commands strictly. The order and format of the commands matters.
 
-### Open the commands list: ```commands```
-Shows a list of all the commands accepted.<b>
+### Open the commands list: ```commands``` <br>
+Shows a list of all the commands accepted.<br>
 Format: ```commands```
-### See your list of tasks: ```list```
+### See your list of tasks: ```list``` <br>
 Shows a list of all the tasks in you list.<br>
 Format: ```list```
-### Add a task to the list: ```todo <task>```
+### Add a task to the list: ```todo <task>```<br>
 Adds a new task to do to the list.<br>
 Format: ```todo <task>```<br>
 - Replace ```<task>``` with your task to do.
 - e.g: ```todo buy groceries```
-### Add a task with deadline to the list: ```deadline```
+### Add a task with deadline to the list: ```deadline```<br>
 Adds a new task with a deadline to the list.<br>
 Format: ```deadline <task> /by <YYYY-MM-DD>T<HH:MM>```<br>
 - Replace ```<task>``` with your task and ```<YYYY-MM-DD>T<HH:MM>``` the date and time of the Task due.
 - e.g: ```deadline Assignment /by <2024-03-26>T<23:59>```
-### Add an event to the list: ```event```
+### Add an event to the list: ```event```<br>
 Adds a new event and its duration to the list.<br>
 Format: ```event <event name> /from <YYYY-MM-DD>T<HH:MM> /to YYYY-MM-DD>T<HH:MM>```<br>
 - Replace ```<event name>``` with your task and ```<YYYY-MM-DD>T<HH:MM>``` the date and time of the event start and end.
 - e.g: ```event CS2113 Lecture /from 2024-03-05T12:00 /to 2024-03-05T14:00```
-### Mark the tasks as done: ```mark```
+### Mark the tasks as done: ```mark```<br>
 Marks the task as done.<br>
-Format: ```mark  <taskNumber>```
-### Unmark the tasks as done: ```unmark```
+Format: ```mark <taskNumber>```
+### Unmark the tasks as done: ```unmark```<br>
 Un-marks the task.<br>
 Format:```unmask <taskNumber>```
-### Delete the task: ```delete```
+### Delete the task: ```delete```<br>
 Deletes the task specified.<br>
-Format:```delete  <taskNumber>```
-### Find all the tasks in the list: ```find```
+Format:```delete <taskNumber>```
+### Find all the tasks in the list: ```find```<br>
 Searches the list for the task by title or date.<br>
-Format:```find /title <title>``` ```find /date <YYYY-MM-DD>```<br>
+Format:```find /title <title>``` or ```find /date <YYYY-MM-DD>```<br>
 - Finds the task in the list that corresponds to either the title or date.
 - The search by title is not case-sensitive.<br>
 Examples
 
 ![Screenshot of find by title](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Find.png)
-### End the chat session: ```bye```
-Ends the Chatbot and saves your list data.
+### End the chat session: ```bye```<br>
+Ends the Chatbot and saves your list data.<br>
 Format:```bye```
-### Saving the tasks data
+### Saving the tasks data <br>
 Saving the date occurs everytime a command is given.
-
-<hr>
 
 ## FAQ
 Q. How is my data saved for future use?<br>
@@ -92,7 +88,6 @@ A. The list of tasks will be saved whenever there is a change in your tasks deta
 Q. How do I transfer my data to another computer? <br>
 A. Install the app on another computer and replace the taskList.txt file in the new computer with the old one.
 
-<hr>
 
 ## Command Summary
 | Action                 | Format                                                                      |
