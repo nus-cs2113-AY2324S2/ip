@@ -2,13 +2,13 @@ package com.arriky.task;
 
 public abstract class Task {
     public String taskName;
-    public boolean completed;
+    public boolean isCompleted;
 
     public char taskType;
 
-    Task(String taskName, char taskType, boolean completed) {
+    Task(String taskName, char taskType, boolean isCompleted) {
         this.taskName = taskName;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
         this.taskType = taskType;
     }
 

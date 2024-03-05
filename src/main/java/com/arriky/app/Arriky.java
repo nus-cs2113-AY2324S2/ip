@@ -3,32 +3,31 @@ package com.arriky.app;
 import com.arriky.exception.ErrorMessage;
 import com.arriky.exception.IncorrectArgumentAmountException;
 import com.arriky.task.TaskList;
-import com.arriky.utilities.FileIO;
-
 import java.util.Scanner;
 
 public class Arriky {
     public static void main(String[] args) {
 
         // initialize
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        ErrorMessage em = new ErrorMessage();
-        TaskList tl = new TaskList();
+        ErrorMessage errMsg = new ErrorMessage();
+        TaskList taskList = new TaskList();
 
         // load saved entries from file
-        tl.importTaskList();
+        taskList.importTaskList();
 
-        boolean running = true;
+        boolean isRunning = true;
         greet();
 
-        while(running) {
+        while(isRunning) {
             String command = "";
-            // for UI testing, to prevent "no line found" exception
-            if (sc.hasNextLine()) {
-                command = sc.nextLine();
+
+            // for automated UI testingz
+            if (scanner.hasNextLine()) {
+                command = scanner.nextLine();
             } else {
-                running = false;
+                isRunning = false;
                 System.exit(0);
             }
 
@@ -43,114 +42,98 @@ public class Arriky {
                         throw new IncorrectArgumentAmountException();
                     }
                     endSession();
-                    running = false;
+                    isRunning = false;
                 } catch (IncorrectArgumentAmountException e) {
-                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_0);
-                    printSeparation();
+                    System.out.println(errMsg.INCORRECT_ARGUMENT_AMOUNT_0);
                 }
-
                 break;
+
             case "list":
                 try {
                     if (arguments.length != 1) {
                         throw new IncorrectArgumentAmountException();
                     }
-                    tl.listTasks();
-                    printSeparation();
+                    taskList.listTasks();
                 } catch (IncorrectArgumentAmountException e) {
-                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_0);
-                    printSeparation();
+                    System.out.println(errMsg.INCORRECT_ARGUMENT_AMOUNT_0);
                 }
-
                 break;
+
             case "mark":
                 try {
                     if (arguments.length != 2) {
                         throw new IncorrectArgumentAmountException();
                     }
-                    tl.markDone(Integer.parseInt(arguments[1]) - 1);
+                    taskList.markDone(Integer.parseInt(arguments[1]) - 1);
                 } catch (NumberFormatException e) {
-                    System.out.println(em.INVALID_ID);
+                    System.out.println(errMsg.INVALID_ID);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(em.ID_NOT_EXIST);
+                    System.out.println(errMsg.ID_NOT_EXIST);
                 } catch (IncorrectArgumentAmountException e) {
-                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_1);
-                } finally {
-                    printSeparation();
+                    System.out.println(errMsg.INCORRECT_ARGUMENT_AMOUNT_1);
                 }
                 break;
+
             case "unmark":
                 try {
                     if (arguments.length != 2) {
                         throw new IncorrectArgumentAmountException();
                     }
-                    tl.unmarkDone(Integer.parseInt(arguments[1]) - 1);
+                    taskList.unmarkDone(Integer.parseInt(arguments[1]) - 1);
                 } catch (NumberFormatException e) {
-                    System.out.println(em.INVALID_ID);
+                    System.out.println(errMsg.INVALID_ID);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(em.ID_NOT_EXIST);
+                    System.out.println(errMsg.ID_NOT_EXIST);
                 } catch (IncorrectArgumentAmountException e) {
-                    System.out.println(em.INCORRECT_ARGUMENT_AMOUNT_1);
-                } finally {
-                    printSeparation();
+                    System.out.println(errMsg.INCORRECT_ARGUMENT_AMOUNT_1);
                 }
                 break;
+
             case "todo":
                 String taskName = command.substring(5);
-                tl.addToDo(taskName, false);
-                printSeparation();
+                taskList.addToDo(taskName, false);
                 break;
-            case "deadline": {
+
+            case "deadline":
                 try {
                     String[] segments = command.split(" /by ");
-                    tl.addDeadline(segments[0].substring(9), segments[1], false);
+                    taskList.addDeadline(segments[0].substring(9), segments[1], false);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(em.INVALID_DEADLINE_FORMAT);
-                } finally {
-                    printSeparation();
+                    System.out.println(errMsg.INVALID_DEADLINE_FORMAT);
                 }
                 break;
-            }
-            case "event": {
+
+            case "event":
                 try {
                     String[] segments = command.split(" /");
-                    tl.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3), false);
+                    taskList.addEvent(segments[0].substring(6), segments[1].substring(5), segments[2].substring(3), false);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(em.INVALID_EVENT_FORMAT);
-                    printSeparation();
+                    System.out.println(errMsg.INVALID_EVENT_FORMAT);
                 }
-
                 break;
-            }
-            case "delete": {
+
+            case "delete":
                 try {
                     if (arguments.length != 2) {
                         throw new IncorrectArgumentAmountException();
                     }
-                    tl.delete(Integer.parseInt(arguments[1]) - 1);
+                    taskList.delete(Integer.parseInt(arguments[1]) - 1);
                 } catch (NumberFormatException e) {
-                    System.out.println(em.INVALID_ID);
+                    System.out.println(errMsg.INVALID_ID);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(em.ID_NOT_EXIST);
+                    System.out.println(errMsg.ID_NOT_EXIST);
                 } catch (IncorrectArgumentAmountException e) {
-                    System.out.println((em.INCORRECT_ARGUMENT_AMOUNT_1));
-                } finally {
-                    printSeparation();
+                    System.out.println((errMsg.INCORRECT_ARGUMENT_AMOUNT_1));
                 }
                 break;
-            }
+
             default:
-                System.out.println(em.INVALID_COMMAND);
-                printSeparation();
+                System.out.println(errMsg.INVALID_COMMAND);
             }
 
-            tl.saveTaskList();
+            printSeparation();
+            taskList.saveTaskList();
         }
-    }
-
-    private static void echo(String cmd) {
-        printSeparation();
-        System.out.println(cmd);
     }
 
     private static void greet() {

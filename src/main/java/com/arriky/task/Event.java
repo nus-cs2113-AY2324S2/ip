@@ -1,18 +1,18 @@
 package com.arriky.task;
 
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private final String startTime;
+    private final String endTime;
 
-    Event(String taskName, String startTime, String endTime, boolean completed) {
-        super(taskName, 'E', completed);
+    Event(String taskName, String startTime, String endTime, boolean isCompleted) {
+        super(taskName, 'E', isCompleted);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
     @Override
     public String getSummary() {
-        if (completed) {
+        if (isCompleted) {
             return "[E][X] " + taskName + " (from: " + startTime + " to: " + endTime + ")";
         } else {
             return "[E][ ] " + taskName + " (from: " + startTime + " to: " + endTime + ")";
@@ -21,6 +21,6 @@ public class Event extends Task {
 
     @Override
     public String getSerializable() {
-        return "D," + completed + "," + taskName + "," + startTime + "," + endTime;
+        return "D," + isCompleted + "," + taskName + "," + startTime + "," + endTime;
     }
 }

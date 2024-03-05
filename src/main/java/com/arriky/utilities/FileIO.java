@@ -9,11 +9,11 @@ import java.util.Scanner;
 
 public class FileIO {
 
-    private static String taskListFilePath = "./data/tasklist.txt";
-
-    private static String dataDirPath = "./data";
+    private static final String taskListFilePath = "./data/tasklist.txt";
+    private static final String dataDirPath = "./data";
 
     public static void writeLineToFile(ArrayList<String> data) throws IOException {
+
         File datDir = new File(dataDirPath);
         if (!datDir.exists()){
             datDir.mkdirs();
@@ -22,7 +22,7 @@ public class FileIO {
         FileWriter fw = new FileWriter(taskListFilePath);
         for (String line : data) {
             fw.write(line);
-            fw.write(System.getProperty( "line.separator" ));
+            fw.write(System.lineSeparator());
         }
 
         fw.close();

@@ -1,16 +1,16 @@
 package com.arriky.task;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
 
-    private String dueTime;
-    Deadline(String taskName, String dueTime, boolean completed) {
-        super(taskName, 'D', completed);
+    private final String dueTime;
+    Deadline(String taskName, String dueTime, boolean isCompleted) {
+        super(taskName, 'D', isCompleted);
         this.dueTime = dueTime;
     }
 
     @Override
     public String getSummary() {
-        if (completed) {
+        if (isCompleted) {
             return "[D][X] " + taskName + " (by: " + dueTime + ")";
         } else {
             return "[D][ ] " + taskName + " (by: " + dueTime + ")";
@@ -19,6 +19,6 @@ public class Deadline extends Task{
 
     @Override
     public String getSerializable() {
-        return "D," + completed + "," + taskName + "," + dueTime;
+        return "D," + isCompleted + "," + taskName + "," + dueTime;
     }
 }

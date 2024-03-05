@@ -1,13 +1,15 @@
 package com.arriky.task;
 
 import com.arriky.utilities.FileIO;
+import com.arriky.exception.ErrorMessage;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasklist = new ArrayList<Task>();
+
+    private ErrorMessage errMsg = new ErrorMessage();
 
     public void listTasks() {
         int i = 1;
@@ -17,18 +19,18 @@ public class TaskList {
         }
     }
 
-    public void addToDo(String taskName, boolean completed) {
-        tasklist.add(new ToDo(taskName, completed));
+    public void addToDo(String taskName, boolean isCompleted) {
+        tasklist.add(new ToDo(taskName, isCompleted));
         printInsertionAcknowledgement();
     }
 
-    public void addEvent(String taskName, String startTime, String endTime, boolean completed) {
-        tasklist.add(new Event(taskName, startTime, endTime, completed));
+    public void addEvent(String taskName, String startTime, String endTime, boolean isCompleted) {
+        tasklist.add(new Event(taskName, startTime, endTime, isCompleted));
         printInsertionAcknowledgement();
     }
 
-    public void addDeadline(String taskName, String dueTime, boolean completed) {
-        tasklist.add(new Deadline(taskName, dueTime, completed));
+    public void addDeadline(String taskName, String dueTime, boolean isCompleted) {
+        tasklist.add(new Deadline(taskName, dueTime, isCompleted));
         printInsertionAcknowledgement();
     }
 
@@ -40,13 +42,13 @@ public class TaskList {
     }
 
     public void markDone(int index) {
-        tasklist.get(index).completed = true;
+        tasklist.get(index).isCompleted = true;
         System.out.println(" Nice! I've marked this task as done:");
         System.out.println(" " + tasklist.get(index).getSummary());
     }
 
     public void unmarkDone(int index) {
-        tasklist.get(index).completed = false;
+        tasklist.get(index).isCompleted = false;
         System.out.println(" OK, I've marked this task as not done yet:");
         System.out.println(" " + tasklist.get(index).getSummary());
     }
@@ -89,17 +91,17 @@ public class TaskList {
                 String[] arguments = temp.split(",");
 
 
-                boolean completed = Boolean.parseBoolean(arguments[1]);
+                boolean isCompleted = Boolean.parseBoolean(arguments[1]);
 
                 switch (arguments[0]) {
                 case "T":
-                    tasklist.add(new ToDo(arguments[2], completed));
+                    tasklist.add(new ToDo(arguments[2], isCompleted));
                     break;
                 case "E":
-                    tasklist.add(new Event(arguments[2], arguments[3], arguments[4], completed));
+                    tasklist.add(new Event(arguments[2], arguments[3], arguments[4], isCompleted));
                     break;
                 case "D":
-                    tasklist.add(new Deadline(arguments[2], arguments[3], completed));
+                    tasklist.add(new Deadline(arguments[2], arguments[3], isCompleted));
                     break;
                 default:
                     break;
@@ -108,10 +110,9 @@ public class TaskList {
 
             System.out.println("Saved entries imported!");
         } catch (FileNotFoundException e) {
-            System.out.println("There is no local record file found");
-            System.out.println("A new file will be created");
+            System.out.println(errMsg.LOCAL_RECORD_NOT_EXIST);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Incomplete import - local record file is corrupted");
+            System.out.println(errMsg.LOCAL_RECORD_CORRUPTED);
         }
 
     }
