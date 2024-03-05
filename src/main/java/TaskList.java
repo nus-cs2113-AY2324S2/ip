@@ -6,6 +6,10 @@ import sam.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 class TaskList {
 	private ArrayList<Task> tasks;
 
@@ -23,7 +27,7 @@ class TaskList {
 
 	public void listTasks() {
 		// Listing tasks
-		if(tasks.isEmpty()){
+		if (tasks.isEmpty()) {
 			System.out.println("Your list is completely empty.");
 			return;
 		}
@@ -70,6 +74,7 @@ class TaskList {
 		if (deadlineParts[1].equals("")) {
 			throw new SamException("You forgot to add a deadline for this task.");
 		}
+		deadlineParts[1] = parseStringToDate(deadlineParts[1]);
 		tasks.add(new Deadline(deadlineParts[0], deadlineParts[1]));
 		System.out.println("Got it. I've added this task:\n" + tasks.get(tasks.size() - 1));
 	}
@@ -91,6 +96,10 @@ class TaskList {
 		if (eventParts[2].equals("")) {
 			throw new SamException("You forgot to add an end date for this task.");
 		}
+
+		eventParts[1] = parseStringToDate(eventParts[1]);
+		eventParts[2] = parseStringToDate(eventParts[2]);
+
 		tasks.add(new Event(eventParts[0], eventParts[1], eventParts[2]));
 		System.out.println("Got it. I've added this task:\n" + tasks.get(tasks.size() - 1));
 	}
@@ -157,4 +166,18 @@ class TaskList {
 			}
 		}
 	}
+
+	public String parseStringToDate(String dateString) throws SamException {
+		String[] parts = dateString.split(" ");
+		for(int i = 0; i < parts.length; i++) {
+			try {
+				LocalDate parsedDate = LocalDate.parse(parts[i]);
+				parts[i] = parsedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+			} catch (DateTimeParseException e) {
+				// If parsing fails, keep the original part as it is
+			}
+		}
+		return String.join(" ", parts);
+	}
+
 }
