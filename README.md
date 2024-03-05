@@ -4,13 +4,18 @@ Welcome to Massimo Boi! This guide will help you effectively manage your tasks u
 ## Adding a Task
 There are 3 main types of tasks you can add. To add a task, use the following command format based on the type of task:
 ### Todo Task:
+Adds a task with only description.
+
 format: **`todo` DESCRIPTION**
+
+- Replace DESCRIPTION with a word or sentence describing your task.
 
 ### Deadline Task:
 Adds a task with a specific deadline date.
 
 format: **`deadline` DESCRIPTION /by DUE_DATE**
 
+- Replace DESCRIPTION with a word or sentence describing your task.
 - For deadline tasks, include **`/by`** at the end of the description followed by the due date.
 
 ### Event Task:
@@ -18,6 +23,7 @@ Adds a task with a specific from date and to date.
 
 format: **`event` DESCRIPTION /from START_DATE /to END_DATE**
 
+- Replace DESCRIPTION with a word or sentence describing your task.
 - For event tasks, include **`/from`** followed by the start date and **`/to`** followed by the end date after the description.
 
 
