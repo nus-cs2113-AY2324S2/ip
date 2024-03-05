@@ -1,5 +1,6 @@
 package Kowalski;
 
+import Kowalski.UI.Ui;
 import Kowalski.commands.KowalskiException;
 import Kowalski.tasks.Deadline;
 import Kowalski.tasks.Event;
@@ -22,7 +23,6 @@ import java.util.InputMismatchException;
 
 public class Kowalski {
 
-    private static final String DIVIDING_LINE = "____________________________________________________________";
     private static final String TEXT_FILE_FOLDER = "data";
     private static final String TEXT_FILE_DIRECTORY = "/Kowalski.txt";
     private static final String FULL_FILE_PATH = TEXT_FILE_FOLDER+TEXT_FILE_DIRECTORY;
@@ -31,31 +31,10 @@ public class Kowalski {
     public static List <Task> currentTask = new ArrayList<>();
     public static Scanner in = new Scanner (System.in);
 
-    /**
-     * Prints out the message introducing the functionalities of Kowalski Bot
-     */
     public static void printIntro(){
-        System.out.println(DIVIDING_LINE);
-        System.out.println("Welcome Skipper! I'm Kowalski, reporting for Duty!"
-                + System.lineSeparator() );
-        printHelpCommands();
-        System.out.println(System.lineSeparator()
-                +"What can I do for you today?" );
-
-        System.out.println(DIVIDING_LINE);
+        Ui.printIntro();
     }
 
-    public static void printHelpCommands(){
-        System.out.println("Enter commands, and I will echo them back to you, as well as add them to your list.");
-        System.out.println("Type 'list' to see your to-do list.");
-        System.out.println("Type 'mark' to mark a task as done.");
-        System.out.println("Type 'unmark' to mark a task as not done.");
-        System.out.println("Type 'todo <description>' to add a task to the list.");
-        System.out.println("Type 'deadline <description> /by <deadline>' to add a task with a deadline to the list.");
-        System.out.println("Type 'event <description> /from <start> /to <end>' to add an event to the list.");
-        System.out.println("Type 'delete <index>' to delete a task from your list.");
-        System.out.println("Type 'bye' to end the conversation.");
-    }
 
     /**
      * Used to check if the user has accurately input the deadline by stating the "/by"
@@ -88,22 +67,6 @@ public class Kowalski {
         return (userInput.trim()).toLowerCase();
     }
 
-    /**
-     * Prints out an accurate message for the number of tasks in the list.
-     * @param numberOfTasks : represents the total current task count
-     */
-    public static void printCurrentTaskMessage(int numberOfTasks){
-        switch (numberOfTasks){
-        case 0:
-            System.out.println("Now you have 0 tasks in the list.");
-            break;
-        case 1:
-            System.out.println("Now you have 1 task in the list.");
-            break;
-        default:
-            System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
-        }
-    }
 
     /**
      * Used in the "list" command to print all the Current Tasks in the proper format
@@ -153,7 +116,6 @@ public class Kowalski {
 
         int taskNumber;
         int lastTaskIndex;
-        String remainingCommand;
 
         switch (UserCommand){
         case "bye":
@@ -161,7 +123,7 @@ public class Kowalski {
 
         case "list":
             printCurrentTaskItems();
-            System.out.println(DIVIDING_LINE);
+            Ui.printDivider();
             break;
 
         case "delete":
@@ -175,13 +137,13 @@ public class Kowalski {
             try {
                 System.out.println( "Damn Skipper, you're got some courage removing this task:");
                 System.out.println("  " + currentTask.get(taskNumber - 1));
-                printCurrentTaskMessage(currentTask.size()-1);
+                Ui.printCurrentTaskMessage(currentTask.size()-1);
                 currentTask.remove(taskNumber-1);
                 writeText();
             } catch (IndexOutOfBoundsException e){
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
             }
-            System.out.println(DIVIDING_LINE);
+            Ui.printDivider();
             break;
 
         case "unmark":
@@ -189,7 +151,7 @@ public class Kowalski {
                 taskNumber = in.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Skipper input a god damn number! I am now gonna add the text which you inputted into our list!");
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
                 break;
             }
 
@@ -200,10 +162,9 @@ public class Kowalski {
                 writeText();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
                 break;
             }
-            //System.out.println(DIVIDING_LINE);
             break;
 
         case "mark":
@@ -211,7 +172,7 @@ public class Kowalski {
                 taskNumber = in.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Skipper input a god damn number! I am now gonna add the text which you inputted into our list!");
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
                 break;
             }
 
@@ -222,10 +183,10 @@ public class Kowalski {
                 writeText();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid Task Number! Skipper stop acting like Private!");
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
                 break;
             }
-            System.out.println(DIVIDING_LINE);
+            Ui.printDivider();
             break;
 
         case "todo":
@@ -237,9 +198,9 @@ public class Kowalski {
 
             System.out.println("Skipper you've got this work to do:");
             System.out.println("  " + currentTask.get( lastTaskIndex));
-            printCurrentTaskMessage(currentTask.size());
+            Ui.printCurrentTaskMessage(currentTask.size());
             writeText();
-            System.out.println(DIVIDING_LINE);
+            Ui.printDivider();
             break;
 
         case "deadline":
@@ -256,12 +217,12 @@ public class Kowalski {
                 //Printing the appropriate information for the User
                 System.out.println("Skipper, I have recorded this deadline:");
                 System.out.println("  " + currentTask.get( lastTaskIndex));
-                printCurrentTaskMessage(currentTask.size());
+                Ui.printCurrentTaskMessage(currentTask.size());
                 writeText();
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
             } catch (KowalskiException e){
                 System.out.println("Skipper your inputs are wrong! Try again!");
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
             }
             break;
 
@@ -279,12 +240,12 @@ public class Kowalski {
                 //Printing the appropriate information for the User
                 System.out.println("Skipper I've noted this event in my calendar:");
                 System.out.println("  " + currentTask.get(lastTaskIndex));
-                printCurrentTaskMessage(currentTask.size());
+                Ui.printCurrentTaskMessage(currentTask.size());
                 writeText();
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
             } catch (KowalskiException e) {
                 System.out.println("Skipper your inputs are wrong! Try again!");
-                System.out.println(DIVIDING_LINE);
+                Ui.printDivider();
             }
             break;
 
@@ -292,8 +253,8 @@ public class Kowalski {
         default:
             System.out.println("Skipper pull up your socks!"
                     + System.lineSeparator());
-            printHelpCommands();
-            System.out.println(DIVIDING_LINE);
+            Ui.printHelpCommands();
+            Ui.printDivider();
             break;
         }
     }
@@ -360,7 +321,7 @@ public class Kowalski {
                 restoreTaskList(line.readLine());
             }
             System.out.println("Kowalski Data Retrieval Complete!");
-            System.out.println(DIVIDING_LINE);
+            Ui.printDivider();
         } catch (IOException e){
             System.out.println("Kowalski Data Retrieval Failed!");
             throw e;
@@ -376,7 +337,7 @@ public class Kowalski {
         for (Task task:currentTask){
             lines.add(task.textFileInputString());
         }
-        System.out.println(DIVIDING_LINE);
+        Ui.printDivider();
         System.out.println("Kowalski analysing inputs...");
         writeTextFile(lines);
     }
@@ -423,7 +384,7 @@ public class Kowalski {
      */
     public static void printEndConversation(){
         System.out.println("Bye Skipper! Hope to serve you again for your next mission!");
-        System.out.println(DIVIDING_LINE);
+        Ui.printDivider();
     }
 
     public static void main(String[] args) throws IOException {
