@@ -10,43 +10,14 @@ import taskList.TaskList;
 
 public class BobBot {
 
-    private enum TaskStatus {
-        MARK, UNMARK, DELETE
-    }
-
-    private static void performTaskOperation(String line, TaskStatus status) {
-        int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
-        ArrayList<Task> allTasks = TaskList.getTaskList();
-        int numberOfTasks = TaskList.getNumberOfTasks();
-        
-        try {
-            Task task = allTasks.get(taskNumber);
-            if (status == TaskStatus.MARK) {
-                task.markAsDone();
-                printTaskOperationMessage(task, "Marking this task as done:");
-            } else if (status == TaskStatus.UNMARK) {
-                task.markAsUndone();
-                printTaskOperationMessage(task, "Unmarking this task:");
-            } else if (status == TaskStatus.DELETE) {
-                allTasks.remove(taskNumber);
-                printTaskOperationMessage(task, "Deleting this task:");
-                numberOfTasks -= 1;
-            } else {
-                System.out.println("Oh no!");
-            }
-        } catch (IndexOutOfBoundsException e) {
-            printNonExistentTaskErrorMessage(taskNumber);
-        }
-    }
-
-    private static void printTaskOperationMessage(Task task, String operationMessage) {
+    public static void printTaskOperationMessage(Task task, String operationMessage) {
         drawLine(true);
         System.out.println("\tGot it! " + operationMessage);
         System.out.println("\t  " + task.toString());
         drawLine(true);
     }
 
-    private static void printNonExistentTaskErrorMessage(int taskNumber) {
+    public static void printNonExistentTaskErrorMessage(int taskNumber) {
         drawErrorLine();
         System.out.println("\tOperation failed.");
         System.out.println("\tTask index " + (taskNumber + 1) + " does not exist! Try another number instead.");
@@ -127,11 +98,11 @@ public class BobBot {
                 } else if (line.equalsIgnoreCase("list")) {
                     TaskList.displayList();
                 } else if (line.startsWith("mark")) {
-                    performTaskOperation(line, TaskStatus.MARK);
+                    TaskList.performTaskOperation(line, TaskList.TaskStatus.MARK);
                 } else if (line.startsWith("unmark")) {
-                    performTaskOperation(line, TaskStatus.UNMARK);
+                    TaskList.performTaskOperation(line, TaskList.TaskStatus.UNMARK);
                 } else if (line.startsWith("delete")) {
-                    performTaskOperation(line, TaskStatus.DELETE);
+                    TaskList.performTaskOperation(line, TaskList.TaskStatus.DELETE);
                 } else {
                     boolean isLoad = false;
                     TaskList.addTask(line, isLoad);

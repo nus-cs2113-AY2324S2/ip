@@ -67,4 +67,32 @@ public class TaskList {
             BobBot.echoCommand(line, newTask);
         }
     }
+
+    public enum TaskStatus {
+        MARK, UNMARK, DELETE
+    }
+
+    public static void performTaskOperation(String line, TaskStatus status) {
+        int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
+        
+        try {
+            Task task = allTasks.get(taskNumber);   
+            if (status == TaskStatus.MARK) {
+                task.markAsDone();
+                BobBot.printTaskOperationMessage(task, "Marking this task as done:");
+            } else if (status == TaskStatus.UNMARK) {
+                task.markAsUndone();
+                BobBot.printTaskOperationMessage(task, "Unmarking this task:");
+            } else if (status == TaskStatus.DELETE) {
+                allTasks.remove(taskNumber);
+                BobBot.printTaskOperationMessage(task, "Deleting this task:");
+                numberOfTasks -= 1;
+            } else {
+                System.out.println("Oh no!");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            BobBot.printNonExistentTaskErrorMessage(taskNumber);
+        }
+    }
+
 }
