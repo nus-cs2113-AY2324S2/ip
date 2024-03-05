@@ -1,4 +1,5 @@
 package tool;
+
 public class ResponseManager {
     private static final String LOGO =
             "███████╗██╗   ██╗██╗  ██╗███████╗\n" +
@@ -45,6 +46,9 @@ public class ResponseManager {
             "It's always nice to see you again!\n";
     public static final String FIND_MESSAGE =
             "Here are the matching tasks in your list:\n";
+    public static final String DATE_FORMAT_ERROR =
+            "Please follow the date format: dd/MM/yyyy HHmm\n";
+
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
         System.out.println(response + INDENTATION_LINE);

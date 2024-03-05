@@ -1,9 +1,10 @@
 package task;
 
 public class Deadline extends Task {
-    private final String dueTime;
     private static final int TASK_NAME_INDEX = 0;
     private static final int DUE_DATE_INDEX = 1;
+    private static final String TASK_TYPE = "[D]";
+    private final String dueTime;
 
     public Deadline(String[] deadlineInfo) {
         this(deadlineInfo[TASK_NAME_INDEX],
@@ -20,8 +21,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String status = isDone ? "X" : " ";
-        return String.format("[D][%s] %s (by: %s)",
-                status, description, dueTime);
+        String status = isDone ? DONE : IN_PROGRESS;
+        return String.format("%s[%s] %s (by: %s)",
+                TASK_TYPE, status, description, dueTime);
     }
 }

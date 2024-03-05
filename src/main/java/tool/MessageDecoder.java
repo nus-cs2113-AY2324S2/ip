@@ -2,6 +2,11 @@ package tool;
 
 import command.CommandType;
 import exception.InputException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class MessageDecoder {
     private static final String DEADLINE_PREFIX = "/by";
     private static final String EVENT_START_PREFIX = "/from";
@@ -19,6 +24,12 @@ public class MessageDecoder {
     private static final int END_DATE_INDEX = 2;
     private static final String NUMERIC = "\\d+";
     private static final String FIND_REGEX = "\\s*(/w|/t)\\s*.+";
+    public static final String TIME_INPUT_PATTERN = "dd/MM/yyyy HHmm";
+    public static final String TIME_OUTPUT_PATTERN = "MMM dd yyyy HH:mm";
+    private static final DateTimeFormatter INPUT_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern(TIME_INPUT_PATTERN);
+    private static final DateTimeFormatter OUTPUT_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
 
     public static String[] separateCommand(String message) {
         int splitLimit = 2;
@@ -75,14 +86,16 @@ public class MessageDecoder {
         int indexOfDeadlinePrefix = message.indexOf(DEADLINE_PREFIX);
         String[] decoded = new String[DEADLINE_INFO_COUNT];
         decoded[TASK_NAME_INDEX] = message.substring(0, indexOfDeadlinePrefix).trim();
-        decoded[DUE_DATE_INDEX] = removePrefixMark(message.substring(indexOfDeadlinePrefix).trim(),
-                DEADLINE_PREFIX).trim();
+        decoded[DUE_DATE_INDEX] =
+                removePrefixMark(message.substring(indexOfDeadlinePrefix).trim(), DEADLINE_PREFIX)
+                .trim();
 
         for (String msg : decoded) {
             if (msg.matches(BLANK)) {
                 throw new InputException(ResponseManager.BLANK_MSG_ERROR);
             }
         }
+        decoded[DUE_DATE_INDEX] = parseDate(decoded[DUE_DATE_INDEX]);
         return decoded;
     }
 
@@ -94,7 +107,10 @@ public class MessageDecoder {
         int indexOfFrom = message.indexOf(EVENT_START_PREFIX);
         int indexOfTo = message.indexOf(EVENT_END_PREFIX);
 
-        return getFromNTo(message, indexOfFrom, indexOfTo);
+        String[] decoded = getFromNTo(message, indexOfFrom, indexOfTo);
+        decoded[START_DATE_INDEX] = parseDate(decoded[START_DATE_INDEX]);
+        decoded[END_DATE_INDEX] = parseDate(decoded[END_DATE_INDEX]);
+        return decoded;
     }
 
     private static String[] getFromNTo(String message,
@@ -148,5 +164,22 @@ public class MessageDecoder {
         }
 
         return typeAndKeyword;
+    }
+    
+    private static String parseDate (String input) throws InputException {
+        int splitLimit = 2;
+        String[] inputTime = input.split("\\s+", splitLimit);
+        if (inputTime.length != splitLimit) {
+            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+        }
+        String formattedTime = inputTime[0] + " " + inputTime[1];
+        LocalDateTime dateTime;
+
+        try {
+            dateTime = LocalDateTime.parse(formattedTime, INPUT_TIME_FORMATTER);
+        } catch (DateTimeParseException error) {
+            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+        }
+        return dateTime.format(OUTPUT_TIME_FORMATTER);
     }
 }

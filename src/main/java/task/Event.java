@@ -1,11 +1,12 @@
 package task;
 
 public class Event extends Task {
-    private final String startTime;
-    private final String dueTime;
     private static final int TASK_NAME_INDEX = 0;
     private static final int START_DATE_INDEX = 1;
     private static final int END_DATE_INDEX = 2;
+    private static final String TASK_TYPE = "[E]";
+    private final String startTime;
+    private final String dueTime;
 
     public Event(String[] eventInfo) {
         this(eventInfo[TASK_NAME_INDEX],
@@ -24,8 +25,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String status = isDone ? "X" : " ";
-        return String.format("[E][%s] %s (from: %s to: %s)",
-                status, description, startTime, dueTime);
+        String status = isDone ? DONE : IN_PROGRESS;
+        return String.format("%s[%s] %s (from: %s to: %s)",
+                TASK_TYPE, status, description, startTime, dueTime);
     }
 }
