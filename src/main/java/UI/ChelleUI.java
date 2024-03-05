@@ -1,3 +1,5 @@
+package UI;
+
 import Common.Messages;
 import java.util.Scanner;
 

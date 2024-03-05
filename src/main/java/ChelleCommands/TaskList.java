@@ -4,13 +4,16 @@ import ChelleExceptions.InvalidCommandFormatException;
 import Common.Messages;
 import java.util.ArrayList;
 
-public class HandleCommand {
+public class TaskList {
     private static final int MARK_COMMAND_LENGTH = 5;
     private static final int UNMARK_COMMAND_LENGTH = 7;
     private static final int TODO_COMMAND_LENGTH = 5;
     private static final int DEADLINE_COMMAND_LENGTH = 9;
     private static final int EVENT_COMMAND_LENGTH = 6;
     private static final int DELETE_COMMAND_LENGTH = 7;
+
+    public static void TaskList(){
+    }
 
     public static void handleCommand(String userInput, ArrayList<Task> tasks, CommandType command) throws InvalidCommandFormatException {
         switch (command) {
