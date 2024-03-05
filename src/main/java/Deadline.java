@@ -10,17 +10,17 @@ public class Deadline extends Task {
     public Deadline(String description) {
         super(description);
         taskType = "D";
-        int indexOfDivider = description.indexOf("by:");
+        int indexOfDivider = description.indexOf("/by:");
 
         if (indexOfDivider == -1) {
             this.description = description;
             setDeadlineDate(null);
         } else {
             String endDate = description.substring(indexOfDivider + 3);
-            String descriptionWithoutDate = description.substring(0, (indexOfDivider)).replace("deadline", "");
+            String descriptionWithoutDate = description.substring(0, (indexOfDivider)).replace("deadline", "").trim();
 
             setDeadlineDate(endDate);
-            this.description = descriptionWithoutDate + " (by: " + getDeadlineDate() + ")";
+            this.description = descriptionWithoutDate + " (by" +getDeadlineDate().trim() + ")";
         }
     }
 
