@@ -1,11 +1,23 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Incy {
 
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
+
+        ensureDataFolderExists();
+        taskManager.loadTasksFromFile();
 
         printWelcomeMessage();
 
@@ -17,8 +29,20 @@ public class Incy {
             processInput(input, taskManager);
         }
 
+        taskManager.saveTasksToFile();
         printGoodbyeMessage();
         scanner.close();
+    }
+
+    private static void ensureDataFolderExists() {
+        Path dataFolderPath = Paths.get(Constants.DATA_FOLDER);
+        if (!Files.exists(dataFolderPath)) {
+            try {
+                Files.createDirectory(dataFolderPath);
+            } catch (IOException e) {
+                System.err.println("Failed to create data folder: " + e.getMessage());
+            }
+        }
     }
 
     private static void printWelcomeMessage() {
@@ -120,6 +144,38 @@ class TaskManager {
                 "You're now juggling " + tasks.size() + " tasks on your list, innit.\n" +
                 Constants.LINE_STRING_BOTTOM);
     }
+
+    void loadTasksFromFile() {
+        Path dataFilePath = Paths.get(Constants.DATA_FOLDER, Constants.DATA_FILE);
+        if (Files.exists(dataFilePath)) {
+            try {
+                Scanner scanner = new Scanner(dataFilePath);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    Task task = TaskFactory.createTaskFromLine(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
+                }
+                scanner.close();
+            } catch (IOException e) {
+                TaskFactory.printFormatError("Failed to load tasks from file: " + e.getMessage());
+            }
+        }
+    }
+
+    void saveTasksToFile() {
+        Path dataFilePath = Paths.get(Constants.DATA_FOLDER, Constants.DATA_FILE);
+        try {
+            FileWriter writer = new FileWriter(dataFilePath.toFile());
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            TaskFactory.printFormatError("Failed to save tasks to file: " + e.getMessage());
+        }
+    }
 }
 
 class IncyException extends Exception {
@@ -149,6 +205,27 @@ class TaskFactory {
         }
     }
 
+    static Task createTaskFromLine(String line) {
+        String[] parts = line.split(" \\| ", 2);
+        if (parts.length < 2) {
+            return null;
+        }
+
+        String typeCode = parts[0];
+        String taskData = parts[1];
+
+        switch (typeCode) {
+            case "T":
+                return new Todo(taskData);
+            case "D":
+                return createDeadlineFromLine(taskData);
+            case "E":
+                return createEventFromLine(taskData);
+            default:
+                return null;
+        }
+    }
+
     private static Task createDeadline(String taskInfo) {
         String[] deadlineParts = taskInfo.split(" /by ", 2);
         if (deadlineParts.length < 2) {
@@ -168,7 +245,23 @@ class TaskFactory {
         return new Event(eventParts[0], eventTime[0], eventTime[1]);
     }
 
-    private static void printFormatError(String errorMessage) {
+    private static Deadline createDeadlineFromLine(String line) {
+        String[] parts = line.split(" \\| ", 3);
+        if (parts.length < 3) {
+            return null;
+        }
+        return new Deadline(parts[1], parts[2]);
+    }
+
+    private static Event createEventFromLine(String line) {
+        String[] parts = line.split(" \\| ", 4);
+        if (parts.length < 4) {
+            return null;
+        }
+        return new Event(parts[1], parts[2], parts[3]);
+    }
+
+    static void printFormatError(String errorMessage) {
         System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_RED + "Error: " + errorMessage + "\n" +
                 Constants.LINE_STRING_BOTTOM);
     }
