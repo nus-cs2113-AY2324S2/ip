@@ -1,6 +1,7 @@
 package ChelleExceptions;
 
 import ChelleCommands.CommandType;
+import Common.Messages;
 
 public class InvalidCommandFormatException extends Exception{
 
@@ -9,26 +10,25 @@ public class InvalidCommandFormatException extends Exception{
         switch (command) {
 
         case MARK:
-            System.out.println("Chelle: Invalid format. Use 'mark ___'.");
+            System.out.println(Messages.MESSAGE_INVALID_MARK_FORMAT);
             break;
         case UNMARK:
-            System.out.println("Chelle: Invalid format. Use 'unmark ___'.");
+            System.out.println(Messages.MESSAGE_INVALID_UNMARK_FORMAT);
             break;
         case TODO:
-            System.out.println("Chelle: Invalid format. Use 'todo ___'.");
+            System.out.println(Messages.MESSAGE_INVALID_TODO_FORMAT);
             break;
         case DEADLINE:
-            System.out.println("Chelle: Invalid format. Use 'deadline ___ /by ___'.");
+            System.out.println(Messages.MESSAGE_INVALID_DEADLINE_FORMAT);
             break;
         case EVENT:
-            System.out.println("Chelle: Invalid format. Use 'event ___ /from ___ /to ___'.");
+            System.out.println(Messages.MESSAGE_INVALID_EVENT_FORMAT);
             break;
         case DELETE:
-        System.out.println("Chelle: Invalid format. Use 'delete ___'.");
+        System.out.println(Messages.MESSAGE_INVALID_DELETE_FORMAT);
         break;
         default:
-            System.out.println("Chelle: Invalid command. Please start your command with one of the following commands: \n" +
-                    "'list', 'mark', 'unmark', 'todo', 'deadline' or 'event'.");
+            System.out.println(Messages.MESSAGE_INVALID_COMMAND);
             break;
         }
 

@@ -1,4 +1,4 @@
-package Chelle;
+package Storage;
 
 import ChelleCommands.Deadline;
 import ChelleCommands.Event;
@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SaveTasks {
+public class ChelleStorage {
 
     private static final String FILE_PATH = "./ChelleTasks.txt";
 
@@ -22,16 +22,18 @@ public class SaveTasks {
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                String[] parts = line.split(" \\| ");
+                String[] savedTextParts = line.split(" \\| ");
 
-                if (parts.length < 3) {
+                if (savedTextParts.length < 3) {
                     // Handle case where there are not enough parts
+                    // three parts are split as such 1 | 2 | 3
+                    // 1 is the task index, 2 is the task type, 3 is the task description
                     continue;
                 }
 
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
+                String type = savedTextParts[0];
+                boolean isDone = savedTextParts[1].equals("1");
+                String description = savedTextParts[2];
 
                 Task task;
                 switch (type) {
