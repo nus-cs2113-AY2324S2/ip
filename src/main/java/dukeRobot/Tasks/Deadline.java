@@ -2,7 +2,10 @@ package dukeRobot.Tasks;
 import java.util.*;
 
 
-
+/**
+ * responds to the implementation of Deadline commands
+ * A <code>Deadline</code> corresponds to an deadline object
+ */
 public class Deadline extends Task {
 
     protected String by;

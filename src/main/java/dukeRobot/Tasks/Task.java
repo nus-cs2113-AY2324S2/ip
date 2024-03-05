@@ -1,5 +1,9 @@
 package dukeRobot.Tasks;
 
+/**
+ * represent the bases of every addition commands(DEADLINE, EVENT, TODO)
+ * A <code>Task</code> represent a dynamic binding of the addition commands.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;

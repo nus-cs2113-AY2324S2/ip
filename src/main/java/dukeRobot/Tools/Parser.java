@@ -3,6 +3,11 @@ package dukeRobot.Tools;
 
 import java.util.InputMismatchException;
 
+/**
+ * represents the parser to parse the commands into dukeRobot understandable contents
+ * data members are the necessary inputs into every commands objects
+ * A <code>Parser</code> corresponds to the parser object that contains parsed commands information.
+ */
 public class Parser {
     private String keyWord = null;
     private String description = null;

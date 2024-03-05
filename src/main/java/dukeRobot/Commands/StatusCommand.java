@@ -4,7 +4,9 @@ import dukeRobot.Tools.*;
 
 import java.io.IOException;
 
-//This class is for function LIST, MARK,UNMARK,DELETE
+/** represent for command LIST, MARK,UNMARK
+ * A <code>StatusCommand</code> corresponds to performing LIST, MARK,UNMARK operations.
+ */
 public class StatusCommand extends Command{
     int index;
     String wordToFind;

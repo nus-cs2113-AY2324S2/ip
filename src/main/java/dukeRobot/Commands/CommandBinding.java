@@ -4,11 +4,23 @@ import dukeRobot.Tasks.*;
 import java.io.*;
 import java.util.InputMismatchException;
 
+/**
+ * represent the allocation of commands given different keywords provided by the parser.
+ * A<code>CommandBinding</code> represent command that is binded and will be executed.
+ */
 public class CommandBinding {
     private Command command;
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
+
+    /**
+     *
+     * @param parser parses the commands, find the keyword of each command
+     * @param tasks record the task up-to-date
+     * @param ui manipulates the user interactions
+     * @param storage manipulates the file loading and updating.
+     */
     public CommandBinding(Parser parser,TaskList tasks, Ui ui, Storage storage) {
         this.ui = ui;
         this.tasks = tasks;

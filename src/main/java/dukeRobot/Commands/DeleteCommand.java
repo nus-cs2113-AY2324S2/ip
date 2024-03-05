@@ -5,6 +5,10 @@ import dukeRobot.Tasks.*;
 
 import java.io.IOException;
 
+/**
+ * represent the command of deletion from the tasklist, A <code>DeleteCommand</code>
+ * corresponds to the deletion from the tasklist.
+ */
 public class DeleteCommand extends Command{
     int index;
     public DeleteCommand(Parser parser) {

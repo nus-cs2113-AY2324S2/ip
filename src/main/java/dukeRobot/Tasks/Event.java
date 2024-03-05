@@ -1,5 +1,9 @@
 package dukeRobot.Tasks;
 
+/**
+ * represents an implementation of manipulation of Event command
+ * A <code>Event</code> represents the Event object
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

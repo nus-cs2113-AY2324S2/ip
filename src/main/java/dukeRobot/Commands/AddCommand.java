@@ -7,7 +7,10 @@ import dukeRobot.Tasks.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * Represent the Add commands, Add commands include deadline, event and todo,
+ * A <code>AddCommand</code> object represents create a new task to the tasklist
+ */
 public class AddCommand extends Command {
     private String description;
     private String by;
@@ -22,6 +25,12 @@ public class AddCommand extends Command {
         this.to = parser.getTo();
     }
 
+    /**
+     *
+     * @param tasks stores in the Duck, represent the list of tasks
+     * @param ui manipulates the user interactions
+     * @param storage manipulates the file loading, updating and saving.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
