@@ -118,18 +118,19 @@ public class TaskList {
 
     public static String formatTaskToSave(int taskIndex) {
         String formattedLine;
-        int taskDone = taskList.get(taskIndex).isDone ? 1 : 0;
+        Task task = taskList.get(taskIndex);
+        int taskDone = task.isDone ? 1 : 0;
 
-        switch (taskList.get(taskIndex).taskType) {
+        switch (task.taskType) {
         case TODO:
-            formattedLine = "T ; " + taskDone + " ; " + taskList.get(taskIndex).taskName;
+            formattedLine = "T ; " + taskDone + " ; " + task.taskName;
             break;
         case DEADLINE:
-            Deadline deadlineTask = (Deadline) taskList.get(taskIndex);
+            Deadline deadlineTask = (Deadline) task;
             formattedLine = "D ; " + taskDone + " ; " + deadlineTask.taskName + " ; " + deadlineTask.dueDate;
             break;
         case EVENT:
-            Event eventTask = (Event) taskList.get(taskIndex);
+            Event eventTask = (Event) task;
             formattedLine = "E ; " + taskDone + " ; " + eventTask.taskName + " ; " + eventTask.startDate + " ; " + eventTask.endDate;
             break;
         default:
