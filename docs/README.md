@@ -1,7 +1,7 @@
-# Floda User Guide
+# <span style="color:Orange">Floda User Guide
 
 Floda is a command-line to-do list application designed to help you manage your tasks efficiently. It allows you to add, delete, mark as done, and list tasks with ease.
-## Quick Start
+## <span style="color:LightBlue">Quick Start
 
 Prerequisites: JDK 11, Intellij.
 
@@ -14,8 +14,8 @@ Prerequisites: JDK 11, Intellij.
 6. A CLI similar to the below should appear.
 ![img.png](img.png)
 
-## Features
-### Adding a Todo: `todo`
+## <span style="color:LightBlue">Features
+### <span style="color:Yellow">Adding a Todo: `todo`
 
 Add a task with description to your to-do list
 
@@ -27,7 +27,7 @@ Example Input: `todo Buy Groceries`
 
 Example Output: `Added: [T] [ ] Buy groceries`
 
-### Adding a Deadline: `deadline`
+### <span style="color:Yellow">Adding a Deadline: `deadline`
 
 Add a task with description and a deadline to your to-do list
 
@@ -39,7 +39,7 @@ Example Input: `deadline Submit report /by 2024-03-10`
 
 Example Output: `Added: [D] [ ] Submit report (by: 2024-03-10)`
 
-### Adding a Event: `event`
+###  <span style="color:Yellow">Adding a Event: `event`
 
 Add a task with description and a start and end time to your to-do list
 
@@ -51,7 +51,7 @@ Example Input: `event Team meeting /from 2024-03-08 14:00 /to 2024-03-08 16:00`
 
 Example Output: `Added: [E] [ ] Team meeting (from: 2024-03-08 14:00 to: 2024-03-08 16:00)`
 
-### Listing Tasks: `list`
+###  <span style="color:Yellow">Listing Tasks: `list`
 
 To view all tasks in your to-do list so far
 
@@ -62,7 +62,7 @@ Example Output: `<task number> [<task type>] [<task status>] <task description> 
 2. [D] [ ] Submit report (by: 2024-03-10)
 3. [E] [ ] Team meeting (from: 2024-03-08 14:00 to: 2024-03-08 16:00)
 
-### Deleting a Task: `delete`
+###  <span style="color:Yellow">Deleting a Task: `delete`
 
 To delete a specific task in your todo list
 
@@ -71,7 +71,7 @@ Format: `delete <task number>`
 Replace `<task number>` with the number corresponding to the task you want to delete.
 > Tip: Use the command `list` to find the `<task number>` of the task you wish you delete
 
-### Marking a Task as Done: `mark`
+###  <span style="color:Yellow">Marking a Task as Done: `mark`
 
 Mark a specific task as done in your to-do list
 
@@ -84,7 +84,7 @@ Example Input: `mark 1`
 
 Example Output: `I have marked this task as done: [T] [X] Buy Groceries`
 
-### Unmarking a Task: `unmark`
+###  <span style="color:Yellow">Unmarking a Task: `unmark`
 
 Remove the completion status of a specific task in your to-do list
 
@@ -98,7 +98,7 @@ Example Input: `unmark 1`
 Example Output: `I have marked this task as not done: [T] [ ] Buy Groceries`
 
 
-### Finding Tasks: `find`
+###  <span style="color:Yellow">Finding Tasks: `find`
 
 Search for tasks containing a specific keyword in your to-do list
 
@@ -111,22 +111,22 @@ Example Input: `find meeting`
 Example Output: `Here are the matching tasks in your list:
 1.[E] [ ] Team meeting (from: 2024-03-08 14:00 to: 2024-03-08 16:00)`
 
-### Exiting the Application: `bye`
+###  <span style="color:Yellow">Exiting the Application: `bye`
 
 Exits the Floda application
 
 Format: `bye`
 
-### Saving tasks
+###  <span style="color:Yellow">Saving tasks
 
 Tasks are automatically saved to the tasks.txt file in the application directory after any command that modifies the task list.
 
-### Editing the Data File
+###  <span style="color:Yellow">Editing the Data File
 
 You can directly edit the tasks.txt file to update tasks. Ensure the file format remains valid to avoid data loss.
 >Caution: If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 
-## Command Summary
+## <span style="color:LightBlue">Command Summary
 
 | Command                                                 | Description                                                | Example Usage                  |
 |---------------------------------------------------------|------------------------------------------------------------|--------------------------------|
