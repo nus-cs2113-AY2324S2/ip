@@ -96,6 +96,30 @@ public class Parser {
     }
 
     /**
+     * Checks if the correct parameters are included in the add event command
+     * @param eventTask is the String array after event keyword
+     * @throws TonyException If the String does not contain '/from' and '/to'
+     */
+
+    public void checkContainsFromTo(String[] eventTask) throws TonyException {
+        if(!eventTask[1].contains("/from") || !eventTask[1].contains("/to")) {
+            throw new TonyException();
+        }
+    }
+
+    /**
+     * Checks if the correct parameters are included in the add deadline command
+     * @param deadlineTask is the String array after event keyword
+     * @throws TonyException If the String does not contain '/by'
+     */
+
+    public void checkContainsByWord(String[] deadlineTask) throws TonyException {
+        if(!deadlineTask[1].contains("/by")) {
+            throw new TonyException();
+        }
+    }
+
+    /**
      * Checks if the number supplied by user to mark/delete is within range of task list.
      * @param num The number supplied by user
      * @throws TonyException If number is not found within the <code>tasks</code> list

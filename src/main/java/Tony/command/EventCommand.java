@@ -58,13 +58,20 @@ public class EventCommand implements Command {
      * @throws IOException If there is error in saving data into file.
      */
 
-    private void addEventCommand(String[] eventTask) throws IOException {
-        String[] description = eventTask[1].split("/from | /to");
-        Event event = new Event(description[0], description[1], description[2]);
-        tasks.add(event);
-        ui.printAddOrDeleteTask(description[0], tasks.indexOf(event));
-        String eventLine = fileSaver.saveEvent(event);
-        fileSaver.saveData(eventLine, true);
+    private void addEventCommand(String[] eventTask) throws IOException, TonyException {
+        try {
+            parser.checkContainsFromTo(eventTask);
+            String[] description = eventTask[1].split("/from | /to");
+            Event event = new Event(description[0], description[1], description[2]);
+            tasks.add(event);
+            ui.printAddOrDeleteTask(description[0], tasks.indexOf(event));
+            String eventLine = fileSaver.saveEvent(event);
+            fileSaver.saveData(eventLine, true);
+        } catch (TonyException e) {
+            System.out.println("Your event command should have '/from' and '/to after task description."
+                    + System.lineSeparator()
+                    + "\tFormat: event <description> /from <DATE> /to <DATE>");
+        }
     }
 
     /**
