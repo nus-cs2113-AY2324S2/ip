@@ -3,7 +3,10 @@ package soot.parser;
 import soot.exceptions.EmptyTaskException;
 import soot.exceptions.UnknownCommandException;
 import soot.task.*;
+
 import soot.ui.UserUi;
+import java.util.ArrayList;
+
 
 /**
  * Class Parser handles the input commands provided by the user,
@@ -54,6 +57,9 @@ public class Parser {
             case "delete":
                 handleDeleteCommand(input);
                 break;
+            case "find":
+                handleFindCommand(input);
+                break;
             case "todo":
                 TaskList.addTask(input, TaskType.TODO);
                 break;
@@ -67,7 +73,7 @@ public class Parser {
                 throw new UnknownCommandException();
             }
         } catch (EmptyTaskException e) {
-            System.out.println("  !! hmmm, no task was specified.");
+            System.out.println("  !! hmmm, no argument was specified.");
             UserUi.displayDividerLine();
         } catch (UnknownCommandException e) {
             System.out.println("  !! this isn't a command i recognise...\n  " +
@@ -114,5 +120,12 @@ public class Parser {
         String inputTask = userInput.substring(7);
         int listIndex = Integer.parseInt(inputTask) - 1;
         TaskList.deleteTask(listIndex);
+    }
+
+    private static void handleFindCommand(String userInput) {
+        ArrayList<Task> foundKeywordList = new ArrayList<>();
+        String toFind = userInput.substring(5);
+        foundKeywordList = TaskList.findKeyword(toFind);
+        UserUi.printKeywordList(foundKeywordList);
     }
 }

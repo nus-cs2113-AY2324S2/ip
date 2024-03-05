@@ -237,4 +237,14 @@ public class TaskList {
         }
         return formattedLine;
     }
+
+    public static ArrayList<Task> findKeyword(String keyword) {
+        ArrayList<Task> compiledList = new ArrayList<>();
+        for (Task taskToCheck : taskList) {
+            if (taskToCheck.taskName.equals(keyword)) {
+                compiledList.add(taskToCheck);
+            }
+        }
+        return compiledList;
+    }
 }

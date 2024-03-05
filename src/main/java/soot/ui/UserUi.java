@@ -1,7 +1,10 @@
 package soot.ui;
 
 import soot.parser.Parser;
+import soot.task.Task;
 import soot.task.TaskList;
+
+import java.util.ArrayList;
 
 /**
  * Class UserUi handles interactions with the user.
@@ -51,5 +54,23 @@ public class UserUi {
      */
     public static void displayIndent() {
         System.out.print(INDENT);
+    }
+
+    public static void showTaskListCount() {
+        int taskCount = TaskList.getSize();
+        System.out.println("you currently have " + taskCount + " tasks on your list :)");
+    }
+
+    public static void printKeywordList(ArrayList<Task> foundKeywordList) {
+        if (foundKeywordList.isEmpty()) {
+            System.out.println("i couldn't find any tasks with this word.");
+        } else {
+            System.out.println("i found your word in these tasks:");
+            for (int i = 0; i < foundKeywordList.size(); i++) {
+                UserUi.displayIndent();
+                foundKeywordList.get(i).printTaskInListFormat(i + 1);
+            }
+        }
+        UserUi.displayDividerLine();
     }
 }
