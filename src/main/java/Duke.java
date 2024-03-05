@@ -1,10 +1,30 @@
+/**
+ * Represents the main class of the Duke task management application.
+ */
 public class Duke {
+    private static TaskList taskList;
+    private static Ui ui;
+
+    /**
+     * The main method of the Duke application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        ui = new Ui();
+        ui.greetUser();
+        taskList = new TaskList();
+
+        // Read user input
+        while (true) {
+            String userInput = ui.getUserInput();
+
+            try {
+                // Parse user input and execute corresponding command
+                Parser.parseInput(userInput, taskList, ui);
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            }
+        }
     }
 }
