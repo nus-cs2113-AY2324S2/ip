@@ -11,6 +11,14 @@ import kvothe.task.Task;
 public class Ui {
 
     private String lastLine;
+
+    private static final String LOGO = "\n" +
+            "\t\t██╗░░██╗██╗░░░██╗░█████╗░████████╗██╗░░██╗███████╗\n" +
+            "\t\t██║░██╔╝██║░░░██║██╔══██╗╚══██╔══╝██║░░██║██╔════╝\n" +
+            "\t\t█████═╝░╚██╗░██╔╝██║░░██║░░░██║░░░███████║█████╗░░\n" +
+            "\t\t██╔═██╗░░╚████╔╝░██║░░██║░░░██║░░░██╔══██║██╔══╝░░\n" +
+            "\t\t██║░╚██╗░░╚██╔╝░░╚█████╔╝░░░██║░░░██║░░██║███████╗\n" +
+            "\t\t╚═╝░░╚═╝░░░╚═╝░░░░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝\n";
     private static final String NAME = "Kvothe";
     private static final String DIVIDER = "\t\t____________________________________________________________";
 
@@ -51,6 +59,7 @@ public class Ui {
      * Prints the welcome message
      */
     public void showWelcome() {
+        System.out.println(LOGO);
         echo("Hello! I'm " + NAME + "\n\t\tWhat can I do for you?", true, false);
     }
 
