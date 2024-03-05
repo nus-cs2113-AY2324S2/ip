@@ -4,10 +4,10 @@ Blue is a command line application to manage and keep track of your tasks.
 
 ## Quick start
 1. Ensure you have Java 11 or above installed.
-2. Download the latest `blue.jar`.
+2. Download the latest `blue.jar` from Releases.
 3. Move the file to a folder where you want to store your tasks.
 4. Open a terminal window and navigate to your previously chosen folder.
-5. Run `java -jar blue.java` <br> Note that a folder `data` containing file `tasks.txt` will be created on first use.
+5. Run `java -jar blue.jar`. <br> Note that a folder `data` containing file `tasks.txt` will be created on first use.
 6. Refer to Features below on how to use the application.
 
 ## Features 
