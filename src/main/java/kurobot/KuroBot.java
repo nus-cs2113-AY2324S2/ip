@@ -7,6 +7,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
 
+/**
+ * A chatbot that can store tasks and perform various operations on the tasks.
+ */
 public class KuroBot {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static Storage storageFile;
@@ -32,6 +35,13 @@ public class KuroBot {
         scanner.close();
     }
 
+    /**
+     * Get the command keyword and perform operations corresponding
+     * to the command keyword.
+     *
+     * @param input Input entered by the user.
+     * @throws InvalidCommandException If no recognised command keyword was entered.
+     */
     private static void manageTasks(String input) throws InvalidCommandException {
         Parser parserInput= new Parser(input);
         String command = parserInput.parserCommand();

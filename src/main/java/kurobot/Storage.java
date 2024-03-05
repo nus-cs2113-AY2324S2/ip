@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Load previous tasks from the file and save any changes to the tasks in the file.
+ */
 public class Storage {
 
     private ArrayList<Task> oldTasks;
@@ -16,6 +19,12 @@ public class Storage {
         oldTasks = new ArrayList<>();
     }
 
+    /**
+     * Read contents from the file and store the previous tasks into a task list.
+     *
+     * @return A task list that contains all previous tasks.
+     * @throws FileNotFoundException If the file could not be found.
+     */
     public ArrayList<Task> readFileContents() throws FileNotFoundException {
         try {
             File file = new File("./data/prevData.txt");
@@ -54,6 +63,12 @@ public class Storage {
         return taskNum;
     }
 
+    /**
+     * Create a todo task with the given task name and marking.
+     *
+     * @param details Task name.
+     * @param mark X for marked data and white space for unmarked.
+     */
     private void addPreviousTodo(String details, char mark) {
         Todo task;
         if (Character.toString(mark).equals("X")) {
@@ -65,6 +80,13 @@ public class Storage {
         taskNum++;
     }
 
+    /**
+     * Extract the task name and deadline.
+     * Create a task type of deadline with the name, deadline and marking.
+     *
+     * @param details Strings containing task name and deadline.
+     * @param mark X for marked data and white space for unmarked.
+     */
     private void addPreviousDeadline(String details, char mark) {
         String[] phrases = details.split("\\(");
         String taskName = phrases[0];
@@ -80,6 +102,13 @@ public class Storage {
         taskNum++;
     }
 
+    /**
+     * Extract the task name and start and end timings.
+     * Create a task type of deadline with the name, timings and marking.
+     *
+     * @param details Strings containing task name, start and end timings.
+     * @param mark X for marked data and white space for unmarked.
+     */
     private void addPreviousEvent(String details, char mark) {
         String[] phrases = details.split("\\(from: ");
         String taskName = phrases[0];
@@ -96,6 +125,12 @@ public class Storage {
         taskNum++;
     }
 
+    /**
+     * Overwrite the file with tasks in the given task list.
+     *
+     * @param newTasks Updated task list.
+     * @throws IOException If failed to write to the file.
+     */
     public void writeToFile(ArrayList<Task> newTasks) throws IOException {
         FileWriter fw = new FileWriter("./data/prevData.txt");
         for (Task task : newTasks){
