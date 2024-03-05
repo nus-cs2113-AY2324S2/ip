@@ -1,0 +1,38 @@
+todo borrow book
+list
+event Go supper /from 12am /to
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+delete 3
+list
+event project meeting /from Mon 2pm /to 4pm
+mark 1
+mark 1b
+list
+mark 3
+list
+unmark 1
+unmark 3
+list
+mark 1
+mark 1
+list
+unmark 1
+unmark 1
+mark 5
+unmark 50
+
+list
+deadline Assingment /by
+delete 100
+find book
+list
+mark 1
+mark 2
+find book
+find
+asdf
+12423
+ded asdf
+bye
