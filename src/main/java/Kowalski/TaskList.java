@@ -7,7 +7,6 @@ import java.util.List;
 
 public class TaskList {
     public static List<Task> currentTask = new ArrayList<>();
-    public static final int ONE = 1;
     public static final String DOT = ".";
 
     /**
@@ -23,8 +22,8 @@ public class TaskList {
      * Used in the "list" command to print all the Current Tasks in the proper format
      */
     public static void printCurrentTaskItems(){
-        for (int i = ONE; i <= currentTask.size(); i++){
-            System.out.println(i + DOT + currentTask.get(i-ONE));
+        for (int i = 1; i <= currentTask.size(); i++){
+            System.out.println(i + DOT + currentTask.get(i-1));
         }
     }
 }
