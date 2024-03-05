@@ -1,4 +1,6 @@
-T | 0 | hw
-T | 0 | hw2
-E | 1 | meet | 2pm | 8pm
-D | 0 | read book | 6pm
+T | 1 | hw2
+D | 1 | read book | 6pm
+E | 0 | meeting | 2pm | 6pm
+D | 0 | hw1 | tmr
+T | 0 | finish cs2113
+T | 0 | homework
