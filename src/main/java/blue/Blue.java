@@ -7,7 +7,6 @@ import blue.ui.Ui;
 
 /**
  * The Blue class constitutes the main logic of our chatbot application.
- * Broadly, it takes some request from standard input and handles if well-formed, warning otherwise.
  *
  * @author nkotaa
  */
@@ -25,6 +24,9 @@ public class Blue {
         blueStorageHandler = new StorageHandler(blueTaskManager);
     }
 
+    /**
+     * Broadly, takes some user request and passes to task manager to handle if well-formed, warning otherwise.
+     */
     private void run() {
         blueUi.greet();
         blueStorageHandler.restoreState();

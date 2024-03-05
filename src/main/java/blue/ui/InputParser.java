@@ -80,31 +80,31 @@ public class InputParser {
     }
 
     /**
-     * Returns the index of a task to handle, -1 if no task to handle.
+     * Returns the index of a task if found, throws an exception otherwise.
      *
      * @param line The string of user input to parse.
      * @param command User command.
-     * @return Index of a task if command is appropriate, -1 otherwise.
-     * @throws IllegalIndexException If parsed index is misformed i.e not an integer.
+     * @return Index of a task if found.
+     * @throws IllegalIndexException If parsed index is not an integer or not found.
      */
     private int parseIndex(String line, InputCommand command) throws IllegalIndexException {
-        int startIndex = 0;
-        switch (command) {
-        case mark:
-            startIndex = 4;
-            break;
-        case delete:
-            startIndex = 6;
-            break;
-        default:
-            return -1;
-        }
         try {
-            int taskIndex = Integer.parseInt(line.substring(startIndex).trim()) - 1;
+            int taskIndex = Integer.parseInt(line.substring(line.indexOf(" ")).trim()) - 1;
             return taskIndex;
         } catch (NumberFormatException e) {
             throw new IllegalIndexException();
         }
+    }
+
+    /**
+     * Returns a string query to tasks.
+     *
+     * @param line The string of user input to parse.
+     * @return A string matching the query parsed from line.
+     */
+    private String parseTaskQuery(String line) {
+        String taskQuery = line.substring(4);
+        return taskQuery;
     }
 
     /**
@@ -116,28 +116,19 @@ public class InputParser {
      * @throws IllegalTaskException If task details are misformed.
      */
     private Task parseTask(String line, InputCommand command) throws IllegalTaskException {
-        String taskDescription;
         try {
-            taskDescription = parseTaskDescription(line);
+            String taskDescription = parseTaskDescription(line);
+            if (command == InputCommand.todo) {
+                return new Task(taskDescription);
+            }
+            String taskEnd = parseTaskEnd(line);
+            if (command == InputCommand.deadline) {
+                return new Deadline(taskDescription, taskEnd);
+            }
+            String taskStart = parseTaskStart(line);
+            return new Event(taskDescription, taskStart, taskEnd);
         } catch (IllegalTaskException e) {
             throw e;
-        }
-        switch (command) {
-        case todo:
-            return new Task(taskDescription);
-        case deadline:
-            try {
-                return new Deadline(taskDescription, parseTaskEnd(line));
-            } catch (IllegalTaskException e) {
-                throw e;
-            }
-        case event:
-        default:
-            try {
-                return new Event(taskDescription, parseTaskStart(line), parseTaskEnd(line));
-            } catch (IllegalTaskException e) {
-                throw e;
-            }
         }
     }
 
@@ -186,16 +177,5 @@ public class InputParser {
             throw new IllegalTaskException("No start time specified.");
         }
         return taskStart;
-    }
-
-    /**
-     * Returns a string query to tasks.
-     *
-     * @param line The string of user input to parse.
-     * @return A string matching the query parsed from line.
-     */
-    private String parseTaskQuery(String line) {
-        String taskQuery = line.substring(4);
-        return taskQuery;
     }
 }

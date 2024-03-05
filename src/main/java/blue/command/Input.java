@@ -10,11 +10,6 @@ public class Input {
     private int taskIndex;
     private String taskQuery;
     private Task taskToAdd;
-    private String errorMessage;
-
-    public Input() {
-        this(InputCommand.undefined);
-    }
 
     /**
      * Constructor for inputs without an argument.
@@ -32,7 +27,7 @@ public class Input {
      * @param taskIndex Index of task to manage.
      */
     public Input(InputCommand command, int taskIndex) {
-        this.command = command;
+        this(command);
         this.taskIndex = taskIndex;
     }
 
@@ -43,7 +38,7 @@ public class Input {
      * @param taskQuery String query for task.
      */
     public Input(InputCommand command, String taskQuery) {
-        this.command = command;
+        this(command);
         this.taskQuery = taskQuery;
     }
 
@@ -54,59 +49,30 @@ public class Input {
      * @param taskToAdd Task to add.
      */
     public Input(InputCommand command, Task taskToAdd) {
-        this.command = command;
+        this(command);
         this.taskToAdd = taskToAdd;
     }
 
-    /**
-     * Class level getter of command.
-     *
-     * @return command.
-     */
     public InputCommand getCommand() {
         return command;
     }
 
-    /**
-     * Class level getter of taskIndex.
-     *
-     * @return taskIndex.
-     */
     public int getTaskIndex() {
         return taskIndex;
     }
 
-    /**
-     * Class level getter of taskToAdd.
-     *
-     * @return taskToAdd.
-     */
     public Task getTaskToAdd() {
         return taskToAdd;
     }
 
-    /**
-     * Class level getter of taskQuery.
-     *
-     * @return taskQuery.
-     */
     public String getTaskQuery() {
         return taskQuery;
     }
 
     /**
-     * Class level getter of errorMessage.
+     * Returns true if command is not an exit request, false otherwise
      *
-     * @return errorMessage.
-     */
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    /**
-     * Returns whether the input command is an exit request.
-     *
-     * @return True if command is an enum bye, false otherwise.
+     * @return True if command is not the enum bye, false otherwise.
      */
     public boolean isNotExit() {
         return command != InputCommand.bye;
