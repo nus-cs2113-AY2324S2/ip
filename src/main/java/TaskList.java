@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class List {
+public class TaskList {
     public static final String DATA_FOLDER = "./data/";
     public static final String DATA_FILE = "tasks.txt";
     public static final String PARAM_SEPARATOR = " | ";

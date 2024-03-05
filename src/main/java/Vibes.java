@@ -24,7 +24,7 @@ public class Vibes {
         }
     }
 
-    private static void executeCommand(String commandToExecute, List taskList, String userInput) throws CommandNotFoundException {
+    private static void executeCommand(String commandToExecute, TaskList taskList, String userInput) throws CommandNotFoundException {
         int taskNumber;
 
         switch (commandToExecute) {
@@ -65,7 +65,7 @@ public class Vibes {
         String userInput;
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
-        List taskList = new List();
+        TaskList taskList = new TaskList();
         try {
             taskList.loadTasks();
         } catch (FileNotFoundException e) {
