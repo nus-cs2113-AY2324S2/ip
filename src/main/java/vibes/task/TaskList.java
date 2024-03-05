@@ -1,3 +1,11 @@
+package vibes.task;
+
+import vibes.exception.InvalidArgumentException;
+import vibes.task.type.Deadline;
+import vibes.task.type.Event;
+import vibes.task.type.Task;
+import vibes.task.type.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

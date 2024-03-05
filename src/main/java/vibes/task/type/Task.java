@@ -1,3 +1,5 @@
+package vibes.task.type;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;

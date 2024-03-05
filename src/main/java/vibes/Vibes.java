@@ -1,3 +1,9 @@
+package vibes;
+
+import vibes.exception.CommandNotFoundException;
+import vibes.exception.InvalidArgumentException;
+import vibes.task.TaskList;
+
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;

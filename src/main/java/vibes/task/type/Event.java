@@ -1,3 +1,5 @@
+package vibes.task.type;
+
 public class Event extends Task{
     private final static char TASK_TYPE = 'E';
     protected String from;

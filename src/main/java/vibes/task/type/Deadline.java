@@ -1,3 +1,5 @@
+package vibes.task.type;
+
 public class Deadline extends Task{
     private final static char TASK_TYPE = 'D';
     protected String by;

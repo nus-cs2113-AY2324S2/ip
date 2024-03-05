@@ -1,3 +1,5 @@
+package vibes.task.type;
+
 public class Todo extends Task{
     private final static char TASK_TYPE = 'T';
 
