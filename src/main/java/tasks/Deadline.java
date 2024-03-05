@@ -41,7 +41,7 @@ public class Deadline extends Task {
     }
 
     public static String appendDeadlineDuckDataFile(Deadline deadline) throws IOException {
-        String lineToAdd = "D | " + deadline.getDescription() + "| by: " + deadline.by + "\n";
+        String lineToAdd = "D | " + deadline.getDescription() + " | by: " + deadline.by + "\n";
         return lineToAdd;
 //        System.out.println(lineToAdd);
 //        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);

@@ -12,7 +12,7 @@ public class Duck {
         int index = 0; //index of where the userInput is stored in texts
         Storage.createNewFile();
         index = Storage.readFile(tasks,index);
-        Ui.handleUserInput(tasks, index);
+        Parser.handleUserInput(tasks, index);
     }
 
 }

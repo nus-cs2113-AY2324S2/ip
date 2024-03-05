@@ -47,7 +47,7 @@ public class Event extends Task{
      * Add Event into duck.txt file in format
      */
     public static String appendEventDuckDataFile(Event event) throws IOException {
-        String lineToAdd = "E | " + event.getDescription() + "| from: " + event.from + "| by: " + event.by + "\n";
+        String lineToAdd = "E | " + event.getDescription() + " | from: " + event.from + "| by: " + event.by + "\n";
         return lineToAdd;
 //        System.out.println(lineToAdd);
 //        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);

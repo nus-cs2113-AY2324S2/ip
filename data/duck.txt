@@ -1,3 +1,4 @@
-D | deadline| by: wed
-E | stuff| from: mon | by: tue
-D | tutorial | by: today
+T | task1
+D | string | by: today
+E | eventspace | from: string | by: efd
+D | deadline  | by: time
