@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Incy {
@@ -21,14 +22,11 @@ public class Incy {
     }
 
     private static void printWelcomeMessage() {
-        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN +
-                "Oi bruv! I'm\n" + Constants.LOGO +
-                "Wotcha need from me today?\n" + Constants.LINE_STRING_BOTTOM);
+        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Oi bruv! I'm\n" + Constants.LOGO + Constants.ANSI_CYAN + "Wotcha need from me today?\n" + Constants.LINE_STRING_BOTTOM);
     }
 
     private static void printGoodbyeMessage() {
-        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN +
-                "Cya later mate!\n" + Constants.LINE_STRING_BOTTOM);
+        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Cya later mate!\n" + Constants.LINE_STRING_BOTTOM);
     }
 
     private static void processInput(String input, TaskManager taskManager) {
@@ -39,6 +37,8 @@ public class Incy {
                 taskManager.handleMarkCommand(input, true);
             } else if (input.startsWith("unmark ")) {
                 taskManager.handleMarkCommand(input, false);
+            } else if (input.startsWith("delete ")) {
+                taskManager.handleDeleteCommand(input);
             } else {
                 taskManager.handleAddTask(input);
             }
@@ -49,53 +49,78 @@ public class Incy {
 }
 
 class TaskManager {
-    private Task[] tasks = new Task[Constants.MAX_TASKS];
-    private int taskCount = 0;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     void handleListCommand() {
         System.out.println(Constants.LINE_STRING_BOTTOM);
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(Constants.ANSI_RED + "Blimey, your list is empty, innit?");
         } else {
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(Constants.ANSI_CYAN + (i + 1) + ". " + tasks[i]);
+            int index = 1;
+            for (Task task : tasks) {
+                System.out.println(Constants.ANSI_CYAN + index++ + ". " + task);
             }
         }
         System.out.println(Constants.LINE_STRING_BOTTOM);
     }
 
-    void handleMarkCommand(String input, boolean markAsDone) {
-        int index = Integer.parseInt(input.substring(markAsDone ? 5 : 7)) - 1;
-        if (isValidIndex(index)) {
-            tasks[index].setDone(markAsDone);
-            System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Smashed it, this one's sorted!:\n  " + tasks[index] + "\n" + Constants.LINE_STRING_BOTTOM);
+    void handleMarkCommand(String input, boolean markAsDone) throws IncyException {
+        if (tasks.isEmpty()) {
+            throw new IncyException("Nah, mate, nothin' to tick off, yer list's empty!");
         }
+
+        int index = Integer.parseInt(input.substring(markAsDone ? 5 : 7)) - 1;
+        if (!isValidIndex(index)) {
+            throw new IncyException("Gimme a legit number, will ya? That one's not on.");
+        }
+
+        tasks.get(index).setDone(markAsDone);
+        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Banging! This one's sorted!:\n  " + tasks.get(index) + "\n" + Constants.LINE_STRING_BOTTOM);
     }
 
     private boolean isValidIndex(int index) {
-        return index >= 0 && index < taskCount;
+        return index >= 0 && index < tasks.size();
     }
 
     void handleAddTask(String input) throws IncyException {
-        if (taskCount >= tasks.length) {
-            System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_RED + "The list chocked a block, mate. Can't shove more stuff in it!\n" + Constants.LINE_STRING_BOTTOM);
-            return;
+        Task newTask = TaskFactory.createTask(input);
+        if (newTask != null) {
+            tasks.add(newTask);
+            printTaskAddedMessage(newTask);
+        }
+    }
+
+    void handleDeleteCommand(String input) throws IncyException {
+        if (tasks.isEmpty()) {
+            throw new IncyException("Oi, nothin' to bin 'ere, yer list's bare!");
         }
 
-        Task newTask = TaskFactory.createTask(input);
-        tasks[taskCount++] = newTask;
-        printTaskAddedMessage(newTask);
+        int index = Integer.parseInt(input.substring(7)) - 1;
+        if (!isValidIndex(index)) {
+            throw new IncyException("That ain't a legit number, try again with a proper one, yeah?");
+        }
+
+        Task deletedTask = tasks.get(index);
+        removeTaskAt(index);
+        System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN +
+                "Safe! I've dashed this task:\n" +
+                "  " + deletedTask + "\n" +
+                "Now you've got " + tasks.size() + " tasks on your plate.\n" +
+                Constants.LINE_STRING_BOTTOM);
+    }
+
+    private void removeTaskAt(int index) {
+        tasks.remove(index);
     }
 
     private void printTaskAddedMessage(Task task) {
         System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN +
                 "Sorted! Your task's in the bag, innit mate:\n" +
                 "  " + task + "\n" +
-                "You're now juggling " + taskCount + " tasks on your list, innit.\n" +
+                "You're now juggling " + tasks.size() + " tasks on your list, innit.\n" +
                 Constants.LINE_STRING_BOTTOM);
     }
 }
-
 
 class IncyException extends Exception {
     public IncyException(String message) {
@@ -120,7 +145,7 @@ class TaskFactory {
             case "event":
                 return createEvent(taskInfo);
             default:
-                throw new IncyException("Hol' up bruv, I dun get what that means...");
+                throw new IncyException("Hol' up bruv, I dun get what that means..., try typin 'todo', 'deadline', or 'event' first, yeah?");
         }
     }
 
