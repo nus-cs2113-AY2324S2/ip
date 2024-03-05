@@ -99,7 +99,7 @@ public class Storage {
         case 'D':
             description = textLine.substring(8, textLine.indexOf('|', 8)).trim();
             String by = textLine.substring(textLine.indexOf('|', 8) + 1).trim();
-            taskList.addDeadline(description, by);
+            taskList.addDeadline(new String[] {description, by});
             if (isMarked) {
                 taskList.tasks.get(taskList.tasks.size() - 1).setDone(true);
             }
@@ -109,7 +109,7 @@ public class Storage {
             String from = textLine.substring(textLine.indexOf('|', 8) + 1, textLine.lastIndexOf('|'))
                     .trim();
             String to = textLine.substring(textLine.lastIndexOf('|') + 1).trim();
-            taskList.addEvent(description, from, to);
+            taskList.addEvent(new String[] {description, from, to});
             if (isMarked) {
                 taskList.tasks.get(taskList.tasks.size() - 1).setDone(true);
             }

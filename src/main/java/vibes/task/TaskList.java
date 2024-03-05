@@ -76,12 +76,12 @@ public class TaskList {
         System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public void addEvent(String description, String from, String to) {
-        tasks.add(new Event(description, from, to));
+    public void addEvent(String[] parsedInput) {
+        tasks.add(new Event(parsedInput[0], parsedInput[1], parsedInput[2]));
     }
 
-    public void addDeadline(String description, String by) {
-        tasks.add(new Deadline(description, by));
+    public void addDeadline(String[] parsedInput) {
+        tasks.add(new Deadline(parsedInput[0], parsedInput[1]));
     }
 
     public void addTodo(String description) {
