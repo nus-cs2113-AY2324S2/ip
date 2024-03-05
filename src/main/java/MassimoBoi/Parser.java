@@ -2,30 +2,36 @@ package MassimoBoi;
 
 import MassimoBoiException.*;
 
-import java.io.IOException;
-import java.util.List;
-import MassimoBoi.Ui;
-import MassimoBoi.TaskList;
-
-import static MassimoBoi.MassimoBoi.*;
-
-/*
- * Takes in user input and processes them according to different preset commands
- * List of user inputs: task type, mark and unmark task, list, bye (to end chat)
+/**
+ * Represents a Parser made to handle user commands.
  */
 public class Parser {
     private String userInput;
     private TaskList tasks;
-    Parser(String userInput, TaskList tasks){
+    private Ui ui;
+
+    /**
+     * Creates a new parser object.
+     *
+     * @param userInput the String entered by the user.
+     * @param tasks an arrayList of tasks the user has entered.
+     * @param ui the Ui object containing the printGreetingMessage and printHorizontalRow methods.
+     */
+    Parser(String userInput, TaskList tasks, Ui ui){
         this.userInput = userInput;
         this.tasks = tasks;
+        this.ui = ui;
     }
 
-
+    /**
+     * Returns a task list that is modified according to user command.
+     * Prints relevant information from tasks to console based on user command.
+     *
+     * @return the modified task list.
+     * @throws MassimoBoiException which handles incorrect and incomplete user input.
+     */
     public TaskList handleInput() throws MassimoBoiException{
-        Ui ui = new Ui();
         try {
-
             if (userInput.startsWith("unmark")) {
                 String[] handleInput = userInput.split(" ");
                 int taskToUnmark = Integer.parseInt(handleInput[1]) - 1;
@@ -81,7 +87,7 @@ public class Parser {
             }
         }catch(UnknownCommandType e){
             e.errorMessage();
-            ui.printGreetingMessage();
+            ui.printUserGuideMessage();
         } catch(EmptyToDo e){
             e.errorMessage();
         } catch(NoDueDate e){

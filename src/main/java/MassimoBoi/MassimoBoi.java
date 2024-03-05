@@ -1,33 +1,30 @@
 package MassimoBoi;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import MassimoBoiException.DeadlineException;
-import MassimoBoiException.EmptyDeadline;
-import MassimoBoiException.EmptyEvent;
-import MassimoBoiException.EmptyToDo;
-import MassimoBoiException.EventException;
 import MassimoBoiException.MassimoBoiException;
-import MassimoBoiException.NoDueDate;
-import MassimoBoiException.NoEventEnd;
-import MassimoBoiException.NoEventStart;
-import MassimoBoiException.UnknownCommandType;
 
+/**
+ * Represents the MassimoBoi chatbot that users can interact with.
+ * Users can interact using specific commands.
+ */
 public class MassimoBoi {
 
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
-    public MassimoBoi() {
+
+    /**
+     * Creates an instance of the Massimo Boi chatbot.
+     *
+     * @param filename String consisting the name of the file containing users past task list.
+     */
+    public MassimoBoi(String filename) {
         this.ui = new Ui();
         //List<Task> taskList = new ArrayList<>();
 
-        this.storage = new Storage();
+        this.storage = new Storage(filename);
         try {
             this.tasks = new TaskList(storage.loadList());
         } catch (FileNotFoundException e) {
@@ -35,12 +32,17 @@ public class MassimoBoi {
             this.tasks = new TaskList();
         }
 
-        ui.initialiseUi();
         ui.printGreetingMessage();
+        ui.printUserGuideMessage();
         ui.makeHorizontalRow();
     }
 
-    public void run() throws IOException {
+    /**
+     * The driver function for the chatbot.
+     *
+     * @throws IOException when the file cannot be written to or does not exist and cannot be created.
+     */
+    private void run() throws IOException {
         String userInput = "";
         Scanner myObj = new Scanner(System.in);
         while (true) {
@@ -54,15 +56,19 @@ public class MassimoBoi {
                 tasks.printList();
             }
             try {
-                Parser parser = new Parser(userInput, tasks);
+                Parser parser = new Parser(userInput, tasks, ui);
                 tasks = parser.handleInput();
             } catch (MassimoBoiException e) {
                 e.errorMessage();
             }
         }
     }
+
+    /**
+     * The function that runs the CLI.
+     */
     public static void main(String[] args) throws IOException {
-        new MassimoBoi().run();
+        new MassimoBoi("./src/main/java/list.txt").run();
     }
 }
 
