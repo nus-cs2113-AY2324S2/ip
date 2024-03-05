@@ -32,6 +32,8 @@ class Parser {
 				taskList.deleteTask(words[1]);
 			}
 			break;
+		case "find":
+			taskList.findTask(line.replace("find", ""));
 			break;
 		default:
 			System.out.println("No valid command detected.");

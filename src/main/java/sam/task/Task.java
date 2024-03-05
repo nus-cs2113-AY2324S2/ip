@@ -27,4 +27,8 @@ public class Task {
     public String saveTask() {
         return description;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
