@@ -13,13 +13,13 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 
-public class SaveManager {
+public class Storage {
     private File dataFile;
 
     public File getDataFile() {
         return dataFile;
     }
-    public SaveManager(String filePath) {
+    public Storage(String filePath) {
         dataFile = new File(filePath);
         verifyFile();
     }
