@@ -15,9 +15,6 @@ public class Parser {
                     userCommand = in.nextLine();
                     break;
                 case "unmark":
-                    TaskList.handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, tasks.size());
-                    userCommand = in.nextLine();
-                    break;
                 case "mark":
                     TaskList.handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, tasks.size());
                     userCommand = in.nextLine();
@@ -34,6 +31,9 @@ public class Parser {
                     System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     userCommand = in.nextLine();
                     break;
+                case "find":
+                    TaskList.findKeyword(tasks, words[1]);
+                    userCommand = in.nextLine();
                 default:
                     System.out.println(Guide.REQUESTS_FORMAT);
                     userCommand = in.nextLine();
