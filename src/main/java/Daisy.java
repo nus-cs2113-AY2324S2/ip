@@ -5,6 +5,7 @@ import daisy.task.Deadline;
 import daisy.task.Event;
 import daisy.task.Task;
 import daisy.task.Todo;
+import daisy.ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,39 +20,31 @@ public class Daisy {
 
     protected static String defaultFileLocation = System.getProperty("user.dir") + "\\src\\main\\java\\daisy\\data\\Daisy.txt";
 
-    protected static String INTRO_PROMPT = "Good day! This is Daisy.\nAny task for today?";
-    protected final static String EXIT_PROMPT = "Ending prompt received. Remember to keep to the deadlines!";
-    protected final static String LINE_BREAK = "____________________________________";
-
     public static void main(String[] args) {
 
         loadData();
 
-        System.out.println(LINE_BREAK);
-        System.out.println(INTRO_PROMPT);
-        System.out.println(LINE_BREAK);
+        Ui ui = new Ui();
+
+        ui.sendIntro();
 
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
 
         while (!command.equals("bye")) {
-            System.out.println(LINE_BREAK);
+            ui.setLineBreak();
             String[] separate_commands = command.split(" ",2);
             switch (separate_commands[0]) {
                 case "list":
-                    for (Task task : tasks) {
-                        System.out.println((tasks.indexOf(task) + 1) + "." + task);
-                    }
+                    ui.listTasks(tasks);
                     break;
                 case "mark":
                     tasks.get(Integer.parseInt(separate_commands[1])-1).setDone();
-                    System.out.println("Congrats on completing the task!");
-                    System.out.println(tasks.get(Integer.parseInt(separate_commands[1])-1));
+                    ui.printMarked(tasks.get(Integer.parseInt(separate_commands[1])-1));
                     break;
                 case "unmark":
                     tasks.get(Integer.parseInt(separate_commands[1])-1).setUndone();
-                    System.out.println("More time needed for the following task? Sure!");
-                    System.out.println(tasks.get(Integer.parseInt(separate_commands[1])-1));
+                    ui.printUnmarked(tasks.get(Integer.parseInt(separate_commands[1])-1));
                     break;
                 case "delete":
                     deleteItem(Integer.parseInt(separate_commands[1])-1);
@@ -60,7 +53,7 @@ public class Daisy {
                     try {
                         createTodo(separate_commands[1], true, false);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Error! No event detected for todo. Try again!");
+                        ui.printTodoMissingError();
                     }
                     break;
                 case "deadline":
@@ -71,9 +64,9 @@ public class Daisy {
                         }
                         createDeadline(separate_deadlines[0],separate_deadlines[1], true, false);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Error! No event detected for deadline. Try again!");
+                        ui.printDeadlineMissingError();
                     } catch (IllegalDeadlineFormatException e) {
-                        System.out.println("Error! Deadline entry is not following format. Try again!");
+                        ui.printDeadlineInputError();
                     }
                     break;
                 case "event":
@@ -86,25 +79,24 @@ public class Daisy {
                         }
                         createEvent(eventLine.substring(0, from),eventLine.substring(from + " /from ".length(), to), eventLine.substring(to+" /to ".length()), true, false);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Error! No event detected for event. Try again!");
+                        ui.printEventMissingError();
                     } catch (IllegalEventFormatException e){
-                        System.out.println("Error! Event entry is not following format. Try again!");
+                        ui.printEventInputError();
                     }
                     break;
                 default:
                     try {
                         throw new IllegalEntryException();
                     } catch (IllegalEntryException e){
-                        System.out.println("Your input does not match any of my programs! Try again!");
+                        ui.printInvalidCommandError();
                     }
                     break;
             }
-            System.out.println(LINE_BREAK);
+            ui.setLineBreak();
             command = in.nextLine();
         }
 
-        System.out.println(EXIT_PROMPT);
-        System.out.println(LINE_BREAK);
+        ui.sendExit();
 
         saveData();
 
