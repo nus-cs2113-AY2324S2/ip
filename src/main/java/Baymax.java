@@ -1,12 +1,10 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Baymax {
     public static void main(String[] args) {
 
         Printer.printWelcomeMessage();
-
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
         // Load Tasks from File

@@ -1,3 +1,7 @@
+import exceptions.InvalidDeadlineSyntaxException;
+import exceptions.InvalidEventSyntaxException;
+import exceptions.InvalidTodoSyntaxException;
+
 import java.util.ArrayList;
 
 public class Printer {
@@ -8,6 +12,8 @@ public class Printer {
     private static final String TAGLINE = "Bala-lala...";
     private static final String ERROR_TAGLINE = "Ohh noo...";
     private static final int LAST_INDEX = 1;
+    public static final String ERROR_MSG = "ERROR: ";
+    public static final String SUGGESTION_MSG = "SUGGESTION: ";
 
 
     public static void printWelcomeMessage() {
@@ -66,5 +72,25 @@ public class Printer {
         System.out.println(INDENT + taskArrayList.get(index));
 
     }
+
+    public static void printUnknownInput() {
+        System.out.println(ERROR_TAGLINE + "I don't know what that means.");
+    }
+
+    public static void handleInvalidTodoSyntaxException (InvalidTodoSyntaxException e) {
+        System.out.println(LINE);
+        System.out.println(ERROR_MSG + e.getMessage());
+    }
+
+    public static void handleInvalidDeadlineSyntaxException (InvalidDeadlineSyntaxException e) {
+        System.out.println(LINE);
+        System.out.println(ERROR_MSG + e.getMessage());
+    }
+
+    public static void handleInvalidEventSyntaxException (InvalidEventSyntaxException e) {
+        System.out.println(LINE);
+        System.out.println(ERROR_MSG + e.getMessage());
+    }
+
 
 }
