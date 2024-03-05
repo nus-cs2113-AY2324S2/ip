@@ -20,7 +20,6 @@ public class TaskList {
     public static final String PARAM_SEPARATOR = " | ";
 
     ArrayList<Task> tasks = new ArrayList<>();
-    private int taskCount = 0;
 
     public void executeCommand(String commandToExecute, String userInput) throws CommandNotFoundException, InvalidArgumentException {
         int taskNumber;
@@ -79,9 +78,8 @@ public class TaskList {
 
     private void showTaskAddedMessage() {
         System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + tasks.get(taskCount));
-        taskCount++;
-        System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+        System.out.println("\t   " + tasks.get(tasks.size() - 1));
+        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void writeToFile() throws IOException {
@@ -136,7 +134,7 @@ public class TaskList {
 
     public void listTasks() {
         System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println("\t " + (i + 1) + "." + tasks.get(i));
         }
     }
@@ -157,8 +155,7 @@ public class TaskList {
         System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t   " + tasks.get(taskNumber));
         tasks.remove(taskNumber);
-        taskCount--;
-        System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public void loadTasks() throws FileNotFoundException {
@@ -199,18 +196,16 @@ public class TaskList {
             description = textLine.substring(8).trim();
             addTodo(description);
             if (isMarked) {
-                tasks.get(taskCount).setDone(true);
+                tasks.get(tasks.size() - 1).setDone(true);
             }
-            taskCount++;
             break;
         case 'D':
             description = textLine.substring(8, textLine.indexOf('|', 8)).trim();
             String by = textLine.substring(textLine.indexOf('|', 8) + 1).trim();
             addDeadline(description, by);
             if (isMarked) {
-                tasks.get(taskCount).setDone(true);
+                tasks.get(tasks.size() - 1).setDone(true);
             }
-            taskCount++;
             break;
         case 'E':
             description = textLine.substring(8, textLine.indexOf('|', 8)).trim();
@@ -219,9 +214,8 @@ public class TaskList {
             String to = textLine.substring(textLine.lastIndexOf('|') + 1).trim();
             addEvent(description, from, to);
             if (isMarked) {
-                tasks.get(taskCount).setDone(true);
+                tasks.get(tasks.size() - 1).setDone(true);
             }
-            taskCount++;
             break;
         }
     }
