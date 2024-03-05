@@ -83,6 +83,14 @@ public class Ui {
     public void showLine() {
         System.out.println(line);
     }
+    public void showFind(TaskList tasks) {
+        showLine();
+        System.out.println("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i+1) + "." + tasks.get(i));
+        }
+        showLine();
+    }
 
     public String readInput() {
         Scanner scanner = new Scanner(System.in);

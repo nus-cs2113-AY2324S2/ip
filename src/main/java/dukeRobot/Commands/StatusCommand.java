@@ -7,9 +7,11 @@ import java.io.IOException;
 //This class is for function LIST, MARK,UNMARK,DELETE
 public class StatusCommand extends Command{
     int index;
+    String wordToFind;
     public StatusCommand(Parser parser) {
         super(parser);
         this.index = parser.getTaskIndex();
+        this.wordToFind = parser.getWord();
     }
 
     @Override
@@ -24,6 +26,15 @@ public class StatusCommand extends Command{
                     break;
                 case "unmark":
                     tasks.get(index-1).markAsUndone();
+                    break;
+                case "find":
+                    TaskList findTasks = new TaskList();
+                    for (Task task: tasks) {
+                        if (task.toString().contains(wordToFind)) {
+                            findTasks.add(task);
+                        }
+                    }
+                    ui.showFind(findTasks);
                     break;
                 default:
                     throw new NoSuchMethodException();
