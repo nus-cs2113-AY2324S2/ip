@@ -2,6 +2,7 @@ package vibes;
 
 import vibes.exception.CommandNotFoundException;
 import vibes.exception.InvalidArgumentException;
+import vibes.storage.Storage;
 import vibes.task.TaskList;
 
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class Vibes {
         Scanner in = new Scanner(System.in);
         TaskList taskList = new TaskList();
         try {
-            taskList.loadTasks();
+            Storage.loadTasks(taskList);
         } catch (FileNotFoundException e) {
             System.out.println("File not Found!");
         }
