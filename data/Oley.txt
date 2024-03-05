@@ -1,8 +1,0 @@
-1todo www
-0todo 1
-0todo cry
-0event uuu /from 2024-03-04-0000 /to 2024-05-04-1234
-1deadline djiej /by 2024-04-02-1223
-0event alsdk /from 2024-11-11-1111 /to 2025-11-11-1111
-0event wert /from 2023-03-09-1111 /to 2024-09-02-1111
-0event ssss /from 2020-10-10-1010 /to 2024-10-10-1010

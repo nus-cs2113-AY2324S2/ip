@@ -281,7 +281,7 @@ public class Command {
             }
             Ui.lineBreaker();
             break;
-        case "time":
+        case "before":
             try {
                 tasksBeforeTime(tasks, message);
             } catch (IndexOutOfBoundsException e) {
