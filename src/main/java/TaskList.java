@@ -22,6 +22,10 @@ class TaskList {
 
 	public void listTasks() {
 		// Listing tasks
+		if(tasks.isEmpty()){
+			System.out.println("Your list is completely empty.");
+			return;
+		}
 		System.out.println("Here are the tasks in your list:");
 		for (int j = 0; j < tasks.size(); j++) {
 			System.out.println((j + 1) + "." + tasks.get(j));
