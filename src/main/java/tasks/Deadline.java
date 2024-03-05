@@ -20,7 +20,7 @@ public class Deadline extends Task {
 
     public static int addDeadline(ArrayList<Task> tasks, String userInput, int index) {
         try {
-            String[] split = userInput.split("/");
+            String[] split = userInput.split(" /");
             if (split.length != 2 || !split[1].startsWith("by ")) { //throws exception if the inputs are not to program specifications
                 throw new DuckInvalidDeadlineDescriptionException();
             }
@@ -43,12 +43,10 @@ public class Deadline extends Task {
     public static String appendDeadlineDuckDataFile(Deadline deadline) throws IOException {
         String lineToAdd = "D | " + deadline.getDescription() + " | by: " + deadline.by + "\n";
         return lineToAdd;
-//        System.out.println(lineToAdd);
-//        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
     }
 
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
 }

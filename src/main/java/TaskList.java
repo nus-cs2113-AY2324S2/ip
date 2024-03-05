@@ -68,4 +68,17 @@ public class TaskList {
             System.out.println("Invalid index. There is only " + totalTasks +  " tasks. Please try again");
         } return totalTasks;
     }
+
+    public static void findTask(ArrayList<Task> tasks, String userInput) {
+        String search = userInput.substring(6);
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task: tasks){
+            if (task.getDescription().equals(search)) {
+                matchingTasks.add(task);
+            }
+        }
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Here are the matching tasks in your list:\n");
+        System.out.println(matchingTasks);
+    }
 }

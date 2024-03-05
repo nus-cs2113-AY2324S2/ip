@@ -22,7 +22,7 @@ public class ToDo extends Task{
 
     public static int addToDo(ArrayList<Task> tasks, String userInput, int index) {
         try {
-            String split = userInput.substring(4);
+            String split = userInput.substring(5);
             if (split.trim().isEmpty()) {
                 throw new DuckInvalidToDoDescriptionException();
             }

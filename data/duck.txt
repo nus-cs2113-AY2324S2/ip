@@ -1,4 +1,8 @@
-T | task1
-D | string | by: today
-E | eventspace | from: string | by: efd
-D | deadline  | by: time
+T | stuff
+T | stuff
+D | string | by: wed
+D | string | by: wed
+D | string | by: asd
+E | string | from: monday | by: friday
+E | anotherone | from: mon | by: fri
+E | anotherone | from: mon | by: fri

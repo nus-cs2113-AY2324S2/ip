@@ -32,6 +32,8 @@ public class Parser {
                     index = Event.addEvent(tasks, userInput, index);
                 } else if (userInput.startsWith("delete ")) {
                     index = TaskList.deleteTask(tasks,userInput,index);
+                } else if (userInput.startsWith("find ")) {
+                    TaskList.findTask(tasks,userInput);
                 } else if (userInput.startsWith("bye")) {
                     Storage.updateFile(tasks);
                     isFinished = Ui.exitMessage();
