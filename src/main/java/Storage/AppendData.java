@@ -17,11 +17,6 @@ public class AppendData {
         fw.close();
     }
 
-    /**
-     * @param input
-     * @param fw
-     * @throws IOException
-     */
     public static void appendDeadline(Deadline input, FileWriter fw) throws IOException {
         String description = input.getDescription();
         String taskType = input.getTaskType();
@@ -32,11 +27,6 @@ public class AppendData {
         fw.close();
     }
 
-    /**
-     * @param input
-     * @param fw
-     * @throws IOException
-     */
     public static void appendEvent(Event input, FileWriter fw) throws IOException {
         String description = input.getDescription();
         String taskType = input.getTaskType();
