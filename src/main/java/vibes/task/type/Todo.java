@@ -1,19 +1,20 @@
 package vibes.task.type;
 
 public class Todo extends Task{
-    private final static char TASK_TYPE = 'T';
+    private final static String TASK_TYPE = "T";
+    public static final String PRINT_FORMAT = "[T]%s";
 
     public Todo (String description){
         super(description);
     }
 
     @Override
-    public char getTaskType(){
+    public String getTaskType(){
         return TASK_TYPE;
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return String.format(PRINT_FORMAT, super.toString());
     }
 }

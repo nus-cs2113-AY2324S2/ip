@@ -1,6 +1,9 @@
 package vibes.task.type;
 
 public abstract class Task {
+    public static final char MARKED = 'X';
+    public static final char UNMARKED = ' ';
+    public static final String PRINT_FORMAT = "[%s] %s";
     protected String description;
     protected boolean isDone;
 
@@ -15,9 +18,9 @@ public abstract class Task {
 
     public char getStatusIcon() {
         if(isDone){
-            return 'X';
+            return MARKED;
         }
-        return ' ';
+        return UNMARKED;
     }
 
     public void setDone(boolean done) {
@@ -32,10 +35,10 @@ public abstract class Task {
         this.description = description;
     }
 
-    public abstract char getTaskType();
+    public abstract String getTaskType();
 
     @Override
     public String toString(){
-        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return String.format(PRINT_FORMAT, this.getStatusIcon(), this.getDescription());
     }
 }

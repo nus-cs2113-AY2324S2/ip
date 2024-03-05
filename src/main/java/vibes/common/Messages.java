@@ -1,6 +1,10 @@
 package vibes.common;
 
 public class Messages {
-    public static final String INVALID_COMMAND_MESSAGE = "\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, delete, and bye";
-    public static final String FILE_NOT_FOUND_MESSAGE = "File not Found!";
+    public static final String BYE_MESSAGE = "\t Bye. Hope to see you again soon!";
+    public static final String TASK_ADDED_MESSAGE = "\t Got it. I've added this task:";
+    public static final String LIST_TASKS_MESSAGE = "\t Here are the tasks in your list:";
+    public static final String MARKED_DONE_MESSAGE = "\t Nice! I've marked this task as done:";
+    public static final String MARKED_UNDONE_MESSAGE = "\t OK, I've marked this task as not done yet:";
+    public static final String TASK_REMOVED_MESSAGE = "\t Noted. I've removed this task:";
 }

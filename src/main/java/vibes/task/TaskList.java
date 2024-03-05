@@ -5,10 +5,14 @@ import vibes.task.type.Event;
 import vibes.task.type.Task;
 import vibes.task.type.Todo;
 import vibes.ui.TextUi;
-
 import java.util.ArrayList;
 
 public class TaskList {
+    public static final int DESCRIPTION_INDEX = 0;
+    public static final int BY_INDEX = 1;
+    public static final int FROM_INDEX = 1;
+    public static final int TO_INDEX = 2;
+
     public ArrayList<Task> tasks;
 
     public TaskList() {
@@ -20,11 +24,11 @@ public class TaskList {
     }
 
     public void addEvent(String[] parsedInput) {
-        tasks.add(new Event(parsedInput[0], parsedInput[1], parsedInput[2]));
+        tasks.add(new Event(parsedInput[DESCRIPTION_INDEX], parsedInput[FROM_INDEX], parsedInput[TO_INDEX]));
     }
 
     public void addDeadline(String[] parsedInput) {
-        tasks.add(new Deadline(parsedInput[0], parsedInput[1]));
+        tasks.add(new Deadline(parsedInput[DESCRIPTION_INDEX], parsedInput[BY_INDEX]));
     }
 
     public void addTodo(String description) {

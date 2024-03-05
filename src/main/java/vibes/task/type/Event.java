@@ -1,7 +1,8 @@
 package vibes.task.type;
 
 public class Event extends Task{
-    private final static char TASK_TYPE = 'E';
+    private final static String TASK_TYPE = "E";
+    public static final String PRINT_FORMAT = "[E]%s (from: %s to: %s)";
     protected String from;
     protected String to;
 
@@ -28,12 +29,12 @@ public class Event extends Task{
     }
 
     @Override
-    public char getTaskType(){
+    public String getTaskType(){
         return TASK_TYPE;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return String.format(PRINT_FORMAT, super.toString(), from, to);
     }
 }

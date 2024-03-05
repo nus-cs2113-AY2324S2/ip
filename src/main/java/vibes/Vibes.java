@@ -1,7 +1,7 @@
 package vibes;
 
 import vibes.common.CommandTypes;
-import vibes.common.Messages;
+import vibes.common.ErrorMessages;
 import vibes.exception.CommandNotFoundException;
 import vibes.exception.InvalidArgumentException;
 import vibes.parser.Parser;
@@ -24,7 +24,7 @@ public class Vibes {
         try{
             this.taskList = new TaskList(storage.load());
         } catch (FileNotFoundException e){
-            ui.showError(Messages.FILE_NOT_FOUND_MESSAGE);
+            ui.showError(ErrorMessages.FILE_NOT_FOUND);
             this.taskList = new TaskList();
         }
     }
@@ -38,7 +38,7 @@ public class Vibes {
                 String commandToExecute = Parser.parseCommand(userInput);
                 executeCommand(commandToExecute, userInput);
             } catch (CommandNotFoundException e) {
-                ui.showError(Messages.INVALID_COMMAND_MESSAGE);
+                ui.showError(ErrorMessages.INVALID_COMMAND);
             } catch (InvalidArgumentException e) {
                 ui.showError(e.getMessage());
             } finally {

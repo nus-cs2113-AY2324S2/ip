@@ -1,7 +1,8 @@
 package vibes.task.type;
 
 public class Deadline extends Task{
-    private final static char TASK_TYPE = 'D';
+    private final static String TASK_TYPE = "D";
+    public static final String PRINT_FORMAT = "[D]%s (by: %s)";
     protected String by;
 
     public Deadline (String description, String by){
@@ -18,12 +19,12 @@ public class Deadline extends Task{
     }
 
     @Override
-    public char getTaskType(){
+    public String getTaskType(){
         return TASK_TYPE;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return String.format(PRINT_FORMAT, super.toString(), by);
     }
 }
