@@ -25,29 +25,29 @@ Kyrene is a java project run on CLI that manages a personal to-do list. Given be
 1. Go to the folder that contains `kyrene.jar` file, or open terminal and `cd` to the target folder.
 2. Launch the `kyrene.jar` file by key in command `java -jar kyrene.jar` in the terminal. If the setup is correct, you should see something like the below as the output:
 
-   ```
-   Loading file ./data/Kyrene.txt ...
-   File ./data/Kyrene.txt is not found. Trying to create file...
-   Folder ./data/ is not found. Trying to create folder...
-   Folder ./data/ is successfully created.
-   File ./data/Kyrene.txt is successfully created.
-   |==========================================================|
-
-   |==========================================================|
-
-   _   _  _    _  ____   ____  _   _  ____
-   | | / /\ \  / /|  _ \ | ___|| \ | || ___|
-   | |/ /  \ \/ / | |_| || ===||  \| || ===|
-   | |\ \   |  |  | |\ / | |__ | |\  || |__
-   |_| \_\  |__|  |_| \_\|____||_| \_||____|   by Zhou Junmin
-
-   |==========================================================|
-
-   Hi, I am Kyrene, your private reminder assistant.
-   What can I do for you?
-
-   |==========================================================|
-   ```
+    ```
+    Loading file ./data/Kyrene.txt ...
+    File ./data/Kyrene.txt is not found. Trying to create file...
+    Folder ./data/ is not found. Trying to create folder...
+    Folder ./data/ is successfully created.
+    File ./data/Kyrene.txt is successfully created.
+    |==========================================================|
+    
+    |==========================================================|
+    
+     _   _  _    _  ____   ____  _   _  ____
+    | | / /\ \  / /|  _ \ | ___|| \ | || ___|
+    | |/ /  \ \/ / | |_| || ===||  \| || ===|
+    | |\ \   |  |  | |\ / | |__ | |\  || |__
+    |_| \_\  |__|  |_| \_\|____||_| \_||____|   by Zhou Junmin
+    
+    |==========================================================|
+    
+    Hi, I am Kyrene, your private reminder assistant.
+    What can I do for you?
+    
+    |==========================================================|
+    ```
 
 3. If you see the above displays on your screen, congrats! Kyrene is now successfully launched!
 
