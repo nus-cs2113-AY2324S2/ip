@@ -6,7 +6,7 @@ import java.util.Scanner;
 import BobBot.exceptions.BobBotExceptions;
 import BobBot.storage.Storage;
 import BobBot.tasks.Task;
-import tasks.TaskList;
+import taskList.TaskList;
 
 public class BobBot {
 
@@ -16,8 +16,8 @@ public class BobBot {
 
     private static void performTaskOperation(String line, TaskStatus status) {
         int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
-        ArrayList<Task> allTasks = tasks.getTaskList();
-        int numberOfTasks = tasks.getNumberOfTasks();
+        ArrayList<Task> allTasks = TaskList.getTaskList();
+        int numberOfTasks = TaskList.getNumberOfTasks();
         
         try {
             Task task = allTasks.get(taskNumber);
@@ -70,7 +70,7 @@ public class BobBot {
     public static void echoCommand(String lineString, Task newTask) {
         drawLine(true);
         System.out.println("\tGot it! I've added this task:\n\t  " + newTask.toString());
-        System.out.printf("\tNow you have %d tasks in the list\n", tasks.getNumberOfTasks());
+        System.out.printf("\tNow you have %d tasks in the list\n", TaskList.getNumberOfTasks());
         drawLine(true);
         System.out.println();
     }
@@ -125,7 +125,7 @@ public class BobBot {
                 if (line.equalsIgnoreCase("help")) {
                     printHelpMessage();
                 } else if (line.equalsIgnoreCase("list")) {
-                    tasks.displayList();
+                    TaskList.displayList();
                 } else if (line.startsWith("mark")) {
                     performTaskOperation(line, TaskStatus.MARK);
                 } else if (line.startsWith("unmark")) {
@@ -134,7 +134,7 @@ public class BobBot {
                     performTaskOperation(line, TaskStatus.DELETE);
                 } else {
                     boolean isLoad = false;
-                    tasks.addTask(line, isLoad);
+                    TaskList.addTask(line, isLoad);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 printStandardExceptionMessage(e);
@@ -155,7 +155,7 @@ public class BobBot {
             System.out.println("There was an error: " + e);
         }
 
-        System.out.printf("\tYour task list currently has %d items!\n\n", tasks.getNumberOfTasks());
+        System.out.printf("\tYour task list currently has %d items!\n\n", TaskList.getNumberOfTasks());
         System.out.println("\tUsage: mark {task number}");
         System.out.println("\tUsage: unmark {task number}");
         System.out.println("\tUsage: delete {task number}");
