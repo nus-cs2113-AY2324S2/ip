@@ -1,6 +1,6 @@
 # KuroBot
 
-This is a is chat bot that can store tasks and perform various operations to the tasks. Given below are instructions on how to use it.
+This is a chat bot that stores tasks and performs various operations to the tasks. Given below are instructions on how to use it.
 
 ## Features
 > [!NOTE]
@@ -81,7 +81,7 @@ Exits the program.
 Format: bye
 
 > [!TIP]
-> Tasks data are saved in the hard disk automatically after any command that changes the data. 
+> Tasks data are saved in the hard disk automatically after any command that changes the data. \
 > There is no need to save manually.
 
 
