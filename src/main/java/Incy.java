@@ -10,8 +10,6 @@ import java.util.Scanner;
 
 public class Incy {
 
-
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
@@ -100,6 +98,7 @@ class TaskManager {
 
         tasks.get(index).setDone(markAsDone);
         System.out.println(Constants.LINE_STRING_TOP + Constants.ANSI_CYAN + "Banging! This one's sorted!:\n  " + tasks.get(index) + "\n" + Constants.LINE_STRING_BOTTOM);
+        saveTasksToFile();
     }
 
     private boolean isValidIndex(int index) {
@@ -111,6 +110,7 @@ class TaskManager {
         if (newTask != null) {
             tasks.add(newTask);
             printTaskAddedMessage(newTask);
+            saveTasksToFile();
         }
     }
 
@@ -131,6 +131,7 @@ class TaskManager {
                 "  " + deletedTask + "\n" +
                 "Now you've got " + tasks.size() + " tasks on your plate.\n" +
                 Constants.LINE_STRING_BOTTOM);
+        saveTasksToFile();
     }
 
     private void removeTaskAt(int index) {
