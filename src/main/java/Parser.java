@@ -34,6 +34,9 @@ public class Parser {
                     System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     userCommand = in.nextLine();
                     break;
+                case "find":
+                    TaskList.findKeyword(tasks, words[1]);
+                    userCommand = in.nextLine();
                 default:
                     System.out.println(Guide.REQUESTS_FORMAT);
                     userCommand = in.nextLine();
