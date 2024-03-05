@@ -1,32 +1,26 @@
 public class Task {
-    protected static String[] tasks = new String[100];
-    protected static boolean[] tasksCompleted = new boolean[100];
-    protected static int taskNumber;
-
+    protected String description;
+    private boolean isDone;
     public Task(String description) {
-        taskNumber = 0;
+        this.description = description;
+        this.isDone = false;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void markDone(int i) {
+        this.isDone = true;
+    }
+    public void markUndone(int i) {
+        this.isDone = false;
+    }
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public static void addTask(String userInput) {
-        tasks[taskNumber] = userInput;
-        tasksCompleted[taskNumber] = false;
-        taskNumber++;
-    }
-    public static void markDone(int taskNumber) {
-        tasksCompleted[taskNumber] = true;
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 
-    public static void markUndone(int taskNumber) {
-        tasksCompleted[taskNumber] = false;
-    }
-    public static String getStatusIcon(int taskNumber) {
-        return (tasksCompleted[taskNumber] ? "X" : " "); // mark done task with X
-    }
-
-    public static void printList() {
-        for(int i = 0; i < taskNumber; i++) {
-            System.out.println(i+1 + ". [" + getStatusIcon(i) + "] " + tasks[i]);
-        }
-        Yoj.printLine();
-    }
 }

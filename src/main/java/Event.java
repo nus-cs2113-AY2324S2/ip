@@ -1,18 +1,16 @@
-import static com.sun.beans.introspect.PropertyInfo.Name.description;
 
-public class Event extends Task{
-    private String at;
+public class Event extends Task {
+    protected String start;
+    protected String end;
 
-    public Event (String description, String at){
-        super();
-        this.at = at;
+    public Event(String description, String start, String end) {
+        super(description);
+        this.start = start;
+        this.end = end;
     }
 
-    public String getAt(){
-        return at;
-    }
-
+    @Override
     public String toString() {
-        return "[E] " + super.toString() + description + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }
