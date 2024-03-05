@@ -45,10 +45,7 @@ public class TaskList {
             description = userInput.substring(userInput.indexOf(" ") + 1);
             addTodo(description);
 
-            System.out.println("\t Got it. I've added this task:");
-            System.out.println("\t   " + tasks.get(taskCount));
-            taskCount++;
-            System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+            showTaskAddedMessage();
             break;
         case "event":
             description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
@@ -56,20 +53,14 @@ public class TaskList {
             String to = userInput.substring(userInput.indexOf("/to") + 4);
             addEvent(description, from, to);
 
-            System.out.println("\t Got it. I've added this task:");
-            System.out.println("\t   " + tasks.get(taskCount));
-            taskCount++;
-            System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+            showTaskAddedMessage();
             break;
         case "deadline":
             description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
             String by = userInput.substring(userInput.indexOf("/by") + 4);
             addDeadline(description, by);
 
-            System.out.println("\t Got it. I've added this task:");
-            System.out.println("\t   " + tasks.get(taskCount));
-            taskCount++;
-            System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+            showTaskAddedMessage();
             break;
         case "delete":
             taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
@@ -84,6 +75,13 @@ public class TaskList {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void showTaskAddedMessage() {
+        System.out.println("\t Got it. I've added this task:");
+        System.out.println("\t   " + tasks.get(taskCount));
+        taskCount++;
+        System.out.println("\t Now you have " + taskCount + " tasks in the list.");
     }
 
     public void writeToFile() throws IOException {
