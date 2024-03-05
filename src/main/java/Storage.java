@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class FileManager {
+public class Storage {
     public static final String FILE_PATH = "data/baymax.txt";
 
     public static void loadTasks(ArrayList<Task> taskArrayList) throws IOException {
