@@ -46,6 +46,8 @@ public class Parser {
             case EVENT:
                 // Fallthrough
             case DELETE:
+                //Fallthrough
+            case FIND:
                 try {
                     taskList.handleCommand(userInput, tasks, userCommand);
                 } catch (InvalidCommandFormatException e) {

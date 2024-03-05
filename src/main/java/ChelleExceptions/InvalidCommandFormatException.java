@@ -25,8 +25,11 @@ public class InvalidCommandFormatException extends Exception{
             System.out.println(Messages.MESSAGE_INVALID_EVENT_FORMAT);
             break;
         case DELETE:
-        System.out.println(Messages.MESSAGE_INVALID_DELETE_FORMAT);
-        break;
+            System.out.println(Messages.MESSAGE_INVALID_DELETE_FORMAT);
+            break;
+        case FIND:
+            System.out.println(Messages.MESSAGE_INVALID_FIND_FORMAT);
+            break;
         default:
             System.out.println(Messages.MESSAGE_INVALID_COMMAND);
             break;

@@ -5,7 +5,6 @@ import Parser.Parser;
 import Storage.ChelleStorage;
 import UI.ChelleUI;
 
-
 public class ChelleMain {
 
     public static void main(String[] args) {

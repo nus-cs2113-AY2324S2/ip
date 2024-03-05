@@ -11,6 +11,7 @@ public class TaskList {
     private static final int DEADLINE_COMMAND_LENGTH = 9;
     private static final int EVENT_COMMAND_LENGTH = 6;
     private static final int DELETE_COMMAND_LENGTH = 7;
+    private static final int FIND_COMMAND_LENGTH = 5;
 
     public static void TaskList(){
     }
@@ -37,6 +38,9 @@ public class TaskList {
             break;
         case DELETE:
             handleDeleteCommand(userInput, tasks);
+            break;
+        case FIND:
+            handleFindCommand(userInput, tasks);
             break;
         default:
             System.out.println(Messages.MESSAGE_COMMAND_ERROR);
@@ -145,4 +149,40 @@ public class TaskList {
     private static boolean isValidTaskIndex(int index, ArrayList<Task> tasks) {
         return index >= 0 && index < tasks.size();
     }
+
+    private static void handleFindCommand(String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
+        if (userInput.length() <= FIND_COMMAND_LENGTH) {
+            throw new InvalidCommandFormatException(CommandType.FIND);
+        } else {
+            String keyword = userInput.substring(CommandType.FIND.name().length()).trim().toLowerCase();
+            ArrayList<Integer> matchingIndices = findTasksByKeyword(tasks, keyword);
+            displayMatchingTasks(tasks, matchingIndices);
+        }
+    }
+
+
+    private static void displayMatchingTasks(ArrayList<Task> tasks, ArrayList<Integer> matchingIndices) {
+        if (matchingIndices.isEmpty()) {
+            System.out.println(Messages.MESSAGE_NO_MATCHING_TASKS);
+        } else {
+            System.out.println(Messages.MESSAGE_MATCHING_TASKS);
+            for (int i : matchingIndices) {
+                Task task = tasks.get(i);
+                System.out.println((i + 1) + ". " + task.toString());
+            }
+        }
+    }
+
+
+    private static ArrayList<Integer> findTasksByKeyword(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Integer> matchingIndices = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getTaskName().toLowerCase().contains(keyword)) {
+                matchingIndices.add(i);
+            }
+        }
+        return matchingIndices;
+    }
+
 }
