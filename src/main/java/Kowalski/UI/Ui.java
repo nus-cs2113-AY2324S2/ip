@@ -19,7 +19,8 @@ public class Ui {
     private static final String ZERO_TASK_MESSAGE = "Now you have 0 tasks in the list.";
     private static final String ONE_TASK_MESSAGE = "Now you have 1 task in the list.";
     private static final String KOWALSKI_BYE_MESSAGE = "Bye Skipper! Hope to serve you again for your next mission!";
-
+    private static final String NOW_YOU_HAVE = "Now you have ";
+    private static final String TASKS_IN_THE_LIST = " tasks in the list.";
     /**
      * Prints out the message introducing the functionalities of Kowalski Bot
      */
@@ -66,7 +67,7 @@ public class Ui {
             System.out.println(ONE_TASK_MESSAGE);
             break;
         default:
-            System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+            System.out.println(NOW_YOU_HAVE + numberOfTasks + TASKS_IN_THE_LIST);
         }
     }
 
