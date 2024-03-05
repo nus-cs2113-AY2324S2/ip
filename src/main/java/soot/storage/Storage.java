@@ -12,7 +12,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class Storage handles the reading and writing of the tasks in the stored data file.
+ * The stored tasks will be loaded and added into an ArrayList.
+ */
 public class Storage {
+    /**
+     * Reads the saved file in the given path line by line using a scanner,
+     * and stores each line as a String in an ArrayList.
+     *
+     * @param path relative path from project source of the saved file.
+     * @return ArrayList of String that contains each line of the saved file.
+     * @throws FileNotFoundException If no file was found at the specified path.
+     */
     public static ArrayList<String> readSavedFile(String path) throws FileNotFoundException {
         ArrayList<String> readFile = new ArrayList<>();
         File savedFile = new File(path);
@@ -26,6 +38,12 @@ public class Storage {
         return readFile;
     }
 
+    /**
+     * Loads the saved task into the required format of an ArrayList of Tasks.
+     * The details of the saved task will be extracted from the given string, depending on the Task Type.
+     *
+     * @param line string that contains only one line of the saved file, and thus one task.
+     */
     // TODO: create a getTaskDescription method
     public static void loadSavedTasks(String line) {
         try {
@@ -48,6 +66,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Save all tasks in the task list into a specified file first when the user indicated to stop the chatbot.
+     * Tasks will be formatted to be stored as one line per task, with all the task details.
+     *
+     * @throws IOException If there was a problem when saving the file.
+     */
     public static void saveFinalFile() throws IOException {
         FileWriter fw = new FileWriter("saved-data/saved.txt");
 

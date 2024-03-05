@@ -5,8 +5,21 @@ import soot.exceptions.UnknownCommandException;
 import soot.task.*;
 import soot.ui.UserUi;
 
+/**
+ * Class Parser handles the input commands provided by the user,
+ * by extracting the command action to ensure that the correct method is executed.
+ */
 public class Parser {
 
+    /**
+     * The command action word, i.e. the first word of the user input, is extracted.
+     * Method handles the case where the user input only contains one word, which should only be "list".
+     * Else, an EmptyTaskException is thrown to indicate to the user that the user input was incomplete.
+     *
+     * @param input command inputted by the user.
+     * @return string of the command action word, is only one word long.
+     * @throws EmptyTaskException If user input only contains one word that is not "list".
+     */
     public static String getCommandAction(String input) throws EmptyTaskException {
         if (input.equals("list")) {
             return input;
@@ -19,6 +32,11 @@ public class Parser {
         return input.substring(0, spaceIndex);
     }
 
+    /**
+     * Given the command action word, the command by the user will be handled.
+     *
+     * @param input command inputted by the user.
+     */
     public static void parseCommand(String input) {
         try {
             String inputCommand = getCommandAction(input);
@@ -58,6 +76,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to handle when user is trying to mark a task done or unmark.
+     * The listIndex of this task is extracted.
+     *
+     * @param userInput command inputted by the user.
+     * @param modifyCommand string that indicates done or unmark to determine how the task will be handled.
+     * @throws IllegalArgumentException If the task specified by the user input is in the wrong format.
+     */
     static void handleModifyDoneCommands(String userInput, String modifyCommand) throws IllegalArgumentException {
         String inputTask;
         int listIndex;
@@ -78,6 +104,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to handle when user is trying to delete a task.
+     * The listIndex of this task is extracted.
+     *
+     * @param userInput command inputted by the user.
+     */
     private static void handleDeleteCommand(String userInput) {
         String inputTask = userInput.substring(7);
         int listIndex = Integer.parseInt(inputTask) - 1;
