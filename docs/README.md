@@ -13,6 +13,7 @@ It can track three different types of tasks, namely: Todos, Deadlines, and Event
   - [Deleting Tasks: `delete`](#delete-task-delete)
   - [Find a Task: `find`](#find-task-find)
   - [Exit: `bye`](#exit-program-bye)
+  - [Save Data](#save-data)
 * [Frequently Asked Questions (FAQ)](#faq)
 
 ## Quick Start
@@ -172,31 +173,43 @@ list
     1.[D][ ] watch lecture (by: tonight)
     2.[E][ ] exercise today (from: 10am to: 12pm)
 -----------------------------------------------
-
 ```
 
 ### Find task: `find`
+
+Finds a task that matches the keyword you typed.
+
+Format: `find <keyword>`
+
+Example:
+* find watch
+* find today
+
+Usage:
+```
+find watch
+-----------------------------------------------
+	Here are the matching tasks in your list:
+	1. [D][ ] watch lecture (by: tonight)
+-----------------------------------------------
+```
+
 ### Exit program: `bye`
+Exits the program and prints a goodbye message.
+
+Format: `bye`
+
+Usage:
+```
+bye
+-----------------------------------------------
+Bye. Hope to see you again soon!
+-----------------------------------------------
+```
+
+### Save Data
+After each change to the current task list, the program automatically writes the updated tasks onto a file.
+The default location of the saved textfile is a relative file path from 'tony.jar' and is located in a subfolder `./data/tonytask.txt`.
 
 ## FAQ
 
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage:
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
