@@ -18,7 +18,7 @@ It can track three different types of tasks, namely: Todos, Deadlines, and Event
 
 ## Quick Start
 1. Ensure you have Java 11 installed on your Computer.
-2. Download the latest `tony.jar` from here [release](linkkk).
+2. Download the latest `tony.jar` from here [release](https://github.com/T0nyLin/ip/releases/tag/A-Release).
 3. Save the file to the folder that you want to load the program from.
 4. Open the command terminal, 'cd' into the folder that contains tony.jar.
 5. Enter the command `java -jar tony.jar` to run the chatbot.
