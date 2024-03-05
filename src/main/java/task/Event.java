@@ -13,16 +13,24 @@ public class Event extends Task {
                 eventInfo[END_DATE_INDEX],
                 eventInfo[START_DATE_INDEX]);
     }
+
     Event(String description, String dueTime, String startTime) {
         super(description);
         this.startTime = startTime;
         this.dueTime = dueTime;
     }
 
+    @Override
     public boolean containsTime(String keyword) {
         return startTime.contains(keyword) || dueTime.contains(keyword);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * This method returns the string representation of the event
+     * @return the string representation of the event
+     */
     @Override
     public String toString() {
         String status = isDone ? DONE : IN_PROGRESS;

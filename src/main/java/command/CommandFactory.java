@@ -4,6 +4,12 @@ import exception.InputException;
 import tool.MessageDecoder;
 
 public class CommandFactory {
+    /**
+     * This method generates the command based on the user input
+     * @param input the user input
+     * @return the command to be executed
+     * @throws InputException if the input is invalid
+     */
     public static Command generate(String input) throws InputException {
         String[] processedMessage = MessageDecoder.separateCommand(input);
         String command = processedMessage[0];

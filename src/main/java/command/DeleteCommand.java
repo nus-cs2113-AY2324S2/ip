@@ -12,6 +12,14 @@ public class DeleteCommand implements Command {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * This method deletes a task from the task list and prints the delete action to the user
+     * @param tasks the task list
+     * @throws InputException if the index is out of range
+     */
+    @Override
     public void run(TaskList tasks) throws InputException {
         String response = tasks.getPosAt(taskIndex).toString();
         tasks.deleteTaskAt(taskIndex);
@@ -19,6 +27,7 @@ public class DeleteCommand implements Command {
         ResponseManager.printActionOnTasks(taskType.getType(), response);
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

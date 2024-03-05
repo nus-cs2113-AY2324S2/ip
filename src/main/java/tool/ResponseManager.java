@@ -53,6 +53,7 @@ public class ResponseManager {
         System.out.println(INDENTATION_LINE);
         System.out.println(response + INDENTATION_LINE);
     }
+    
     public static void greet() {
         System.out.println("Hello from\n" + LOGO);
         indentPrint("Hello! I'm Zuke\n" +
@@ -72,6 +73,11 @@ public class ResponseManager {
                 messageToPrint + END_LINE);
     }
 
+    /**
+     * This method prints the action on the tasks
+     * @param action the action to be performed on the tasks
+     * @param msgTobePrinted the message to be printed
+     */
     public static void printActionOnTasks(String action, String msgTobePrinted) {
         switch(action) {
         case "mark":

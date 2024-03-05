@@ -21,10 +21,20 @@ public abstract class Task implements Serializable {
         this.isDone = false;
     }
 
+    /**
+     * This method checks if the task contains the keyword
+     * @param keyword the keyword to be checked
+     * @return true if the task contains the keyword, false otherwise
+     */
     public boolean containsWord(String keyword) {
         return description.contains(keyword);
     }
 
+    /**
+     * This method checks if the task contains the time keyword
+     * @param keyword the time keyword to be checked
+     * @return true if the task contains the keyword, false otherwise
+     */
     public boolean containsTime(String keyword) {
         return false;
     }

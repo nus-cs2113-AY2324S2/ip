@@ -13,6 +13,14 @@ public class MarkUnmarkCommand implements Command {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * This method marks or unmarks a task in the task list and prints the mark or unmark action to the user
+     * @param tasks the task list
+     * @throws InputException if the index is out of range
+     */
+    @Override
     public void run(TaskList tasks) throws InputException {
         switch (taskType) {
         case MARK:
@@ -30,6 +38,7 @@ public class MarkUnmarkCommand implements Command {
                 tasks.getPosAt(taskIndex).toString());
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
