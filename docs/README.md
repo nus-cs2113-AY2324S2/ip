@@ -149,14 +149,14 @@ The data is saved automatically after any command that modifies the task list (e
 | Command   | Usage                                             |
 |-----------|---------------------------------------------------|
 | `help`    | `help`                                            |
-| `todo`    | `todo [DESCRIPTION]`                              |
-| `deadline`| `deadline [DESCRIPTION] /by [DATE]`               |
-| `event`   | `event [DESCRIPTION] /at [DATE]`                  |
+| `todo`    | `todo DESCRIPTION`                                |
+| `deadline`| `deadline DESCRIPTION /by DATE`                   |
+| `event`   | `event DESCRIPTION /from FROM_DATE /to TO_DATE`   |
 | `list`    | `list`                                            |
-| `find`    | `find [KEYWORD]`                                  |
-| `delete`  | `delete [INDEX]`                                  |
-| `mark`    | `mark [INDEX]`                                    |
-| `unmark`  | `unmark [INDEX]`                                  |
+| `find`    | `find KEYWORD`                                    |
+| `delete`  | `delete INDEX`                                    |
+| `mark`    | `mark INDEX`                                      |
+| `unmark`  | `unmark INDEX`                                    |
 | `bye`     | `bye`                                             |
 
 
