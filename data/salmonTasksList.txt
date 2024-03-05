@@ -1,0 +1,3 @@
+T | false | todo1
+T | false | todo2
+E | true | doing cs2113 | tomorrow | yesterday
