@@ -18,6 +18,8 @@ public class Ui {
 
     private static Scanner in;
     private static InputParser parser;
+    private static Input request;
+    private static boolean isUserActive;
 
     /**
      * Public constructor for Ui.
@@ -26,6 +28,15 @@ public class Ui {
     public Ui() {
         in = new Scanner(System.in);
         parser = new InputParser(); 
+        isUserActive = true;
+    }
+
+    public Input getRequest() {
+        return request;
+    }
+
+    public boolean isUserActive() {
+        return isUserActive;
     }
 
     public void greet() {
@@ -42,14 +53,14 @@ public class Ui {
      * @return A properly instantiated Input object containing some valid request.
      * @throws IllegalInput If user request is misformed in any way.
      */
-    public Input getRequest() throws IllegalInput {
+    public void nextRequest() throws IllegalInput {
         String line = in.nextLine();
         try {
-            Input userInput = parser.parse(line);
-            return userInput;
+            request = parser.parse(line);
         } catch (IllegalInput e) {
             throw e;
         }
+        isUserActive = request.isNotExit();
     }
 
     /**

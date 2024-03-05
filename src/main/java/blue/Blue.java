@@ -1,6 +1,5 @@
 package blue;
 
-import blue.command.Input;
 import blue.exception.IllegalInput;
 import blue.storage.StorageHandler;
 import blue.task.TaskManager;
@@ -29,11 +28,10 @@ public class Blue {
     private void run() {
         blueUi.greet();
         blueStorageHandler.restoreState();
-        Input userRequest = new Input();
-        for (boolean isRunning = true; isRunning; isRunning = userRequest.isNotExit()) {
+        while (blueUi.isUserActive()) {
             try {
-                userRequest = blueUi.getRequest();
-                blueTaskManager.performRequest(userRequest);
+                blueUi.nextRequest();
+                blueTaskManager.performRequest();
                 blueStorageHandler.saveState();
             } catch (IllegalInput e) {
                 blueUi.warn(e.getMessage());

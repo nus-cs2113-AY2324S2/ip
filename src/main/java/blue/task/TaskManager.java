@@ -33,22 +33,21 @@ public class TaskManager {
     }
 
     /**
-     * Performs the request; saving the new task list to disk after doing so.
+     * Performs the request contained in the Ui.
      */
-    public void performRequest(Input request) {
+    public void performRequest() {
+        Input request = taskManagerUi.getRequest();
         switch (request.getCommand()) {
         case list:
-            listTasks("");
-            return;
+        case find:
+            listTasks(request.getTaskQuery());
+            break;
         case mark:
             markTask(request.getTaskIndex());
             break;
         case delete:
             deleteTask(request.getTaskIndex());
             break;
-        case find:
-            listTasks(request.getTaskQuery());
-            return;
         case todo:
         case deadline:
         case event:
@@ -69,6 +68,11 @@ public class TaskManager {
         taskManagerUi.talk("added: " + task.getDescription());
     }
 
+    /**
+     * Graphically lists all tasks that match a given query.
+     *
+     * @param query The string query with which to match tasks. If empty string "", simply list all tasks.
+     */
     private void listTasks(String query) {
         String[] matchingTasks = tasks.stream()
             .map(Object::toString)

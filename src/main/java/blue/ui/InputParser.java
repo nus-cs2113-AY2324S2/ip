@@ -23,9 +23,9 @@ public class InputParser {
         try {
             InputCommand command = parseRequest(line);
             switch (command) {
-            case list:
             case bye:
                 return new Input(command);
+            case list:
             case find:
                 String taskQuery = parseTaskQuery(line);
                 return new Input(command, taskQuery);
