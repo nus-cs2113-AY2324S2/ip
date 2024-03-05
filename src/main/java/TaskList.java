@@ -71,4 +71,14 @@ public class TaskList {
         tasks.get(taskNumber).printTask();
         tasks.remove(taskNumber);
     }
+
+    public static void findKeyword(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        for (Task task: tasks) {
+            if (task.getDescription().contains(keyword)) {
+                tasksWithKeyword.add(task);
+            }
+        }
+        printTasks(tasksWithKeyword);
+    }
 }
