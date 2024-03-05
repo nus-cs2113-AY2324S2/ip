@@ -81,18 +81,100 @@ Examples:
 Usage:
 ```
 -----------------------------------------------
-> event exercise today /from 10am /to 12pm
+event exercise today /from 10am /to 12pm
 	Got it. I've added this task:
-		[E][ ] exercise today  (from: 10am to: 12pm)
+		[E][ ] exercise today (from: 10am to: 12pm)
 	Now you have 3 tasks in the list.
 -----------------------------------------------
-> 
 ```
 
 ### List Tasks: ``list``
+
+Shows a numbered list of all the tasks in the task list.
+
+Format: `list`
+
+Usage:
+```
+-----------------------------------------------
+list
+    Here are the tasks in your list:
+    1.[T][ ] reading
+    2.[D][ ] watch lecture (by: tonight)
+    3.[E][ ] exercise today (from: 10am to: 12pm)
+-----------------------------------------------
+```
+
 ### Mark Task as Done: `mark`
+
+Marks a completed task as done.
+(Ensure that the number supplied after `mark` is a number from the task list.)
+
+Format: `mark <Task_Number>`
+
+Example:
+* `mark 1`
+
+Usage:
+```
+-----------------------------------------------
+mark 1
+    Nice! I've marked this task as done:
+     [T][X] reading
+-----------------------------------------------
+```
+
 ### Mark Task as not Done: `unmark`
+
+Marks a task as NOT done.
+(Ensure that the number supplied after `unmark` is a number from the task list.)
+
+Format: `unmark <Task_Number>`
+
+Example:
+* `unmark 1`
+
+Usage:
+```
+-----------------------------------------------
+unmark 1
+    OK, I've marked this task as not done yet:
+     [T][ ] reading
+-----------------------------------------------
+```
+
 ### Delete task: `delete`
+
+Deletes a task item from the task list.
+(Ensure that the number supplied after `delete` is a number from the task list.)
+
+Format: `delete <Task_Number>`
+
+Example:
+* `delete 1`
+
+Usage (Below shows the **Before** and **After** deletion):
+```
+-----------------------------------------------
+list
+    Here are the tasks in your list:
+    1.[T][ ] reading
+    2.[D][ ] watch lecture (by: tonight)
+    3.[E][ ] exercise today (from: 10am to: 12pm)
+-----------------------------------------------
+delete 1
+	Got it. I've removed this task:
+		[T][ ] reading
+	Now you have 2 tasks in the list.
+-----------------------------------------------
+list
+    Here are the tasks in your list:
+    1.[D][ ] watch lecture (by: tonight)
+    2.[E][ ] exercise today (from: 10am to: 12pm)
+-----------------------------------------------
+
+```
+
 ### Find task: `find`
 ### Exit program: `bye`
 
