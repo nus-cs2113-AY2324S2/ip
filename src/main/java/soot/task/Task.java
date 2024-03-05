@@ -1,11 +1,12 @@
 package soot.task;
 
+import soot.exceptions.SavedFileErrorTypeException;
 import soot.parser.Parser;
 
 public class Task {
     public String taskName;
     public boolean isDone;
-    public taskType taskType;
+    public static taskType taskType;
 
     public Task(String input, Boolean isDone) {
         this.taskName = input;
@@ -65,5 +66,18 @@ public class Task {
 
     public void printTaskType() {
         System.out.print("[NA]");
+    }
+
+    public static taskType identifyTaskType(String input) throws SavedFileErrorTypeException {
+        switch (input) {
+        case "T":
+            return soot.task.taskType.TODO;
+        case "D":
+            return soot.task.taskType.DEADLINE;
+        case "E":
+            return soot.task.taskType.EVENT;
+        default:
+            throw new SavedFileErrorTypeException();
+        }
     }
 }

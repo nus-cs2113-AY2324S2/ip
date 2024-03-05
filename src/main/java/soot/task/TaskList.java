@@ -28,6 +28,7 @@ public class TaskList {
         }
         UserUi.displayDividerLine();
     }
+
     public static void addTask(String userInput, taskType taskType) {
         switch (taskType) {
         case TODO:
@@ -84,6 +85,10 @@ public class TaskList {
         return taskList.size();
     }
 
+    public static Task getTask(int taskIndex) {
+        return taskList.get(taskIndex);
+    }
+
     public static void markTaskDone(int taskIndex) {
         taskList.get(taskIndex).markDone();
         UserUi.displayDividerLine();
@@ -99,5 +104,20 @@ public class TaskList {
         taskList.get(listIndex).printDelete();
         taskList.remove(listIndex);
         UserUi.displayDividerLine();
+    }
+
+    public static void addSavedTodoTask(String taskName, boolean isTaskDone) {
+        taskList.add(new Todo(taskName, isTaskDone));
+        TaskList.listCounter++; //TODO
+    }
+
+    public static void addSavedDeadlineTask(String taskName, boolean isTaskDone, String taskDeadline) {
+        taskList.add(new Deadline(taskName, isTaskDone, taskDeadline));
+        TaskList.listCounter++;
+    }
+
+    public static void addSavedEventTask(String taskName, boolean isTaskDone, String taskStart, String taskEnd) {
+        taskList.add(new Event(taskName, isTaskDone, taskStart, taskEnd));
+        TaskList.listCounter++;
     }
 }
