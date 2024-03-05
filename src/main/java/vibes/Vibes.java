@@ -41,9 +41,9 @@ public class Vibes {
                     taskList.executeCommand(commandToExecute, userInput);
                 } catch (CommandNotFoundException e) {
                     System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
-                            "and bye");
+                            "delete, and bye");
                 } catch (InvalidArgumentException e) {
-                    System.out.println("\t Argument not found! The description of a todo cannot be empty.");
+                    System.out.println(e.getMessage());
                 }
             }
             System.out.println(DASHED_LINE);
