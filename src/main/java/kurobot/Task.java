@@ -37,6 +37,10 @@ public class Task {
         }
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
+
     public String printTask() {
         return "[" + this.taskType+ "][" +markStatus()+ "] " + this.taskName;
     }
