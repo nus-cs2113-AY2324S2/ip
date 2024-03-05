@@ -2,8 +2,8 @@ package BobBot.parser;
 
 import java.util.Scanner;
 
-import BobBot.BobBot;
 import BobBot.storage.Storage;
+import BobBot.ui.Ui;
 import taskList.TaskList;
 
 public class Parser {
@@ -18,7 +18,7 @@ public class Parser {
 
             try {
                 if (line.equalsIgnoreCase("help")) {
-                    BobBot.printHelpMessage();
+                    Ui.printHelpMessage();
                 } else if (line.equalsIgnoreCase("list")) {
                     TaskList.displayList();
                 } else if (line.startsWith("mark")) {
@@ -32,7 +32,7 @@ public class Parser {
                     TaskList.addTask(line, isLoad);
                 }
             } catch (NullPointerException | NumberFormatException e) {
-                BobBot.printStandardExceptionMessage(e);
+                Ui.printStandardExceptionMessage(e);
             }
             Storage.saveFile();
             line = in.nextLine();

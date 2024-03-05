@@ -2,7 +2,6 @@ package taskList;
 
 import java.util.ArrayList;
 
-import BobBot.BobBot;
 import BobBot.exceptions.InvalidDeadlineException;
 import BobBot.exceptions.InvalidEventException;
 import BobBot.exceptions.InvalidTodoException;
@@ -10,6 +9,7 @@ import BobBot.tasks.Deadline;
 import BobBot.tasks.Event;
 import BobBot.tasks.Task;
 import BobBot.tasks.Todo;
+import BobBot.ui.Ui;
 
 public class TaskList {
     private static ArrayList<Task> allTasks = new ArrayList<>();
@@ -24,9 +24,9 @@ public class TaskList {
     }
 
     public static void displayList() {
-        BobBot.drawLine(true);
+        Ui.drawLine(true);
         printTaskList();
-        BobBot.drawLine(true);
+        Ui.drawLine(true);
     }
 
     private static void printTaskList() {
@@ -52,11 +52,11 @@ public class TaskList {
             } else if (line.startsWith("event")) {
                 newTask = new Event(line);
             } else {
-                BobBot.handleInvalidCommand();
+                Ui.handleInvalidCommand();
                 return;
             }
         } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
-            BobBot.printCustomExceptionMessage(e);
+            Ui.printCustomExceptionMessage(e);
             return;
         }
 
@@ -64,7 +64,7 @@ public class TaskList {
         numberOfTasks += 1;
 
         if (!isLoad) {
-            BobBot.echoCommand(line, newTask);
+            Ui.echoCommand(line, newTask);
         }
     }
 
@@ -79,19 +79,19 @@ public class TaskList {
             Task task = allTasks.get(taskNumber);   
             if (status == TaskStatus.MARK) {
                 task.markAsDone();
-                BobBot.printTaskOperationMessage(task, "Marking this task as done:");
+                Ui.printTaskOperationMessage(task, "Marking this task as done:");
             } else if (status == TaskStatus.UNMARK) {
                 task.markAsUndone();
-                BobBot.printTaskOperationMessage(task, "Unmarking this task:");
+                Ui.printTaskOperationMessage(task, "Unmarking this task:");
             } else if (status == TaskStatus.DELETE) {
                 allTasks.remove(taskNumber);
-                BobBot.printTaskOperationMessage(task, "Deleting this task:");
+                Ui.printTaskOperationMessage(task, "Deleting this task:");
                 numberOfTasks -= 1;
             } else {
                 System.out.println("Oh no!");
             }
         } catch (IndexOutOfBoundsException e) {
-            BobBot.printNonExistentTaskErrorMessage(taskNumber);
+            Ui.printNonExistentTaskErrorMessage(taskNumber);
         }
     }
 
