@@ -5,6 +5,11 @@ import kurobot.exceptions.InvalidTimeException;
 
 import java.util.ArrayList;
 
+/**
+ * Make amendments to the current task lists or find tasks
+ * according to the user's command.
+ * and display any errors that occurred during amendments.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
@@ -15,12 +20,25 @@ public class TaskList {
 
     private Parser parserInput;
 
+    /**
+     * Store the given list of tasks, total number of tasks and the input entered.
+     *
+     * @param prevTasks Original list of tasks.
+     * @param taskNum total number of tasks.
+     * @param userInput input entered.
+     */
     public TaskList(ArrayList<Task> prevTasks, int taskNum, String userInput) {
         tasks = prevTasks;
         this.taskNum = taskNum;
         parserInput = new Parser(userInput);
     }
 
+    /**
+     * Add new task of type [todo] to the current task list
+     * and print the newly added task.
+     *
+     * @return Updated task list.
+     */
     public ArrayList<Task> addTodo() {
         try{
             parserInput.parserToDo();
@@ -35,10 +53,20 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Display the task that was added.
+     *
+     * @param task Added task.
+     */
     private void printAddedTask(Task task) {
         display.printGivenTask(task, taskNum, true);
     }
 
+    /**
+     * Display the task that was deleted.
+     *
+     * @param task Deleted task.
+     */
     private void printDeletedTask(Task task) {
         display.printGivenTask(task, taskNum, false);
     }
@@ -47,6 +75,12 @@ public class TaskList {
         return taskNum;
     }
 
+    /**
+     * Add new task of type [deadline] to the current task list
+     * and print the newly added task.
+     *
+     * @return Updated task list.
+     */
     public ArrayList<Task> addDeadline() {
         try{
             parserInput.parserDeadline();
@@ -64,6 +98,12 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Add new task of type [event] to the current task list
+     * and print the newly added task.
+     *
+     * @return Updated task list.
+     */
     public ArrayList<Task> addEvent() {
         try {
             parserInput.parserEvent();
@@ -82,6 +122,12 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Mark or unmark the task at a given index, depending on the status value.
+     *
+     * @param status Mark the task if status is true, unmark if it is false.
+     * @return Updated task list.
+     */
     public ArrayList<Task> markTask(boolean status) {
         try {
             parserInput.parserTaskIndex();
@@ -101,6 +147,11 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Delete a task at a given index from the task list.
+     *
+     * @return Updated task list with the given task deleted.
+     */
     public ArrayList<Task> deleteTask() {
         try {
             parserInput.parserTaskIndex();
