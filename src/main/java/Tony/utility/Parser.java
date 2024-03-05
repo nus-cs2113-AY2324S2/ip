@@ -90,7 +90,7 @@ public class Parser {
      * @throws TonyException If array length does not meet the minimum requirement.
      */
     public void checkArrayLength(String[] taskArrayString) throws TonyException {
-        if (taskArrayString.length != 2) {
+        if ((taskArrayString.length != 2) || (taskArrayString[1].equals(" "))) {
             throw new TonyException();
         }
     }

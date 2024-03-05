@@ -48,7 +48,7 @@ public class ToDoCommand implements Command{
             addTodoCommand(toDoTask);
         } catch (TonyException e) {
             System.out.println("OOPS!! The description of '" + USER_INPUT
-                    + "' cannot be empty." + System.lineSeparator());
+                    + "' cannot be empty.");
         }
 
     }

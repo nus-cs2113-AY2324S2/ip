@@ -46,7 +46,7 @@ public class DeadlineCommand implements Command {
             addDeadlineCommand(deadlineTask);
         } catch (TonyException e) {
             System.out.println("OOPS!! The description of '" + USER_INPUT
-                    + "' cannot be empty." + System.lineSeparator());
+                    + "' cannot be empty.");
         }
     }
 
