@@ -15,8 +15,8 @@ public class UI {
     protected static final String DELETE_USAGE_MESSAGE = "使い方: delete [index]";
     protected static final String LIST_MESSAGE = "今は tasks currently:";
     protected static final String TODO_USAGE_MESSAGE = "使い方: todo [description]";
-    protected static final String DEADLINE_USAGE_MESSAGE = "使い方：deadline [description] /[date]";
-    protected static final String EVENT_USAGE_MESSAGE = "使い方：event [description] /[start] /[end]";
+    protected static final String DEADLINE_USAGE_MESSAGE = "使い方：deadline [description] //[date]";
+    protected static final String EVENT_USAGE_MESSAGE = "使い方：event [description] //[start] //[end]";
     protected static final String BYE_MESSAGE = "じゃー、またね〜！！\nsee you again♡";
     protected static final String GREET_MESSAGE = "お帰りなさいませ、ご主人様。ニャンー♡♡";
     protected static final String HELP_MESSAGE = "use \"help\" for list commands desu";
@@ -30,6 +30,7 @@ public class UI {
     protected static final String IO_EXCEPTION_MESSAGE = "cannot read file nyannnnn";
     protected static final String DIRECTORY_CREATED_MESSAGE = "directory created desu.";
     protected static final String FILE_CREATED_MESSAGE = "data file created desu.";
+    protected static final String INCOMPLETE_INPUT_MESSAGE = "incomplete input. pls use \"help\" command";
 
     public static void printLine() {
         System.out.println(LINE);
@@ -37,8 +38,7 @@ public class UI {
 
     public static String getCommand() {
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        return input;
+        return scanner.nextLine();
     }
 
     public static void printBye() {

@@ -61,6 +61,11 @@ public class TaskList {
 
     public void addTodo(String description) {
         try {
+            if (description.isBlank()) {
+                UI.printMissingDescription();
+                UI.printTodoUsage();
+                return;
+            }
             Todo todo = new Todo(description);
             this.addTask(todo);
         } catch (StringIndexOutOfBoundsException e) {
@@ -72,13 +77,20 @@ public class TaskList {
     public void addDeadline(String input) {
         try {
             String[] splitInputs = input.split("//", 2);
+            if (splitInputs[0].isBlank()) {
+                UI.printMissingDescription();
+                UI.printDeadlineUsage();
+                return;
+            }
+            if (splitInputs[1].isBlank() || splitInputs[2].isBlank()) {
+                UI.printMissingStartEnd();
+                UI.printDeadlineUsage();
+                return;
+            }
             String description = splitInputs[0];
             String date = splitInputs[1];
             Deadline deadline = new Deadline(description, date);
             addTask(deadline);
-        } catch (StringIndexOutOfBoundsException e) {
-            UI.printMissingDescription();
-            UI.printDeadlineUsage();
         } catch (ArrayIndexOutOfBoundsException e) {
             UI.printMissingDate();
             UI.printDeadlineUsage();
@@ -88,14 +100,21 @@ public class TaskList {
     public void addEvent(String input) {
         try {
             String[] splitInputs = input.split("//", 3);
+            if (splitInputs[0].isBlank()) {
+                UI.printMissingDescription();
+                UI.printEventUsage();
+                return;
+            }
+            if (splitInputs[1].isBlank()) {
+                UI.printMissingDate();
+                UI.printEventUsage();
+                return;
+            }
             String description = splitInputs[0];
             String start = splitInputs[1];
             String end = splitInputs[2];
             Event event = new Event(description, start, end);
             addTask(event);
-        } catch (StringIndexOutOfBoundsException e) {
-            UI.printMissingDescription();
-            UI.printEventUsage();
         } catch (ArrayIndexOutOfBoundsException e) {
             UI.printMissingStartEnd();
             UI.printEventUsage();

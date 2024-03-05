@@ -1,5 +1,6 @@
 package nyanbot.tool;
 
+import nyanbot.exception.NyanException;
 import nyanbot.task.Task;
 
 import java.util.ArrayList;
@@ -26,40 +27,52 @@ public class Parser {
         return isRunning;
     }
 
-    public static void processCommand(String input, TaskList tasks) {
-        String[] commands = Parser.parseCommand(input);
-        switch (commands[0]) {
-            case BYE_COMMAND:
-                isRunning = false;
-                break;
-            case DELETE_COMMAND:
-                tasks.deleteTask(commands[1]);
-                break;
-            case LIST_COMMAND:
-                ArrayList<Task> importedTasks = tasks.exportTask();
-                UI.printTasks(importedTasks);
-                break;
-            case MARK_COMMAND:
-                tasks.markTask(commands[1]);
-                break;
-            case UNMARK_COMMAND:
-                tasks.unmarkTask(commands[1]);
-                break;
-            case TODO_COMMAND:
-                tasks.addTodo(commands[1]);
-                break;
-            case DEADLINE_COMMAND:
-                tasks.addDeadline(commands[1]);
-                break;
-            case EVENT_COMMAND:
-                tasks.addEvent(commands[1]);
-                break;
-            case HELP_COMMAND:
-                UI.printSike();
-                break;
-            default:
-                UI.printInvalidInput();
-                break;
+    public static void executeCommand(String input, TaskList tasks) {
+        try {
+            String[] commands = Parser.parseCommand(input);
+            processCommand(tasks, commands);
+        } catch (NyanException e) {
+            UI.printNyanException(e.getMessage());
+        }
+    }
+
+    private static void processCommand(TaskList tasks, String[] commands) throws NyanException {
+        try {
+            switch (commands[0]) {
+                case BYE_COMMAND:
+                    isRunning = false;
+                    return;
+                case LIST_COMMAND:
+                    ArrayList<Task> importedTasks = tasks.exportTask();
+                    UI.printTasks(importedTasks);
+                    return;
+                case HELP_COMMAND:
+                    UI.printSike();
+                    return;
+                case DELETE_COMMAND:
+                    tasks.deleteTask(commands[1]);
+                    break;
+                case MARK_COMMAND:
+                    tasks.markTask(commands[1]);
+                    break;
+                case UNMARK_COMMAND:
+                    tasks.unmarkTask(commands[1]);
+                    break;
+                case TODO_COMMAND:
+                    tasks.addTodo(commands[1]);
+                    break;
+                case DEADLINE_COMMAND:
+                    tasks.addDeadline(commands[1]);
+                    break;
+                case EVENT_COMMAND:
+                    tasks.addEvent(commands[1]);
+                    break;
+                default:
+                    UI.printInvalidInput();
+                    break;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NyanException("not enough arguments");
         }
     }
 }

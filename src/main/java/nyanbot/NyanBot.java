@@ -1,6 +1,5 @@
 package nyanbot;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 import nyanbot.task.Task;
 import nyanbot.tool.TaskList;
@@ -30,7 +29,7 @@ public class NyanBot {
     public void runNyan() {
         while (isRunning) {
             String input = UI.getCommand();
-            Parser.processCommand(input, tasks);
+            Parser.executeCommand(input, tasks);
             isRunning = Parser.getStatus();
             writeNyan();
         }
