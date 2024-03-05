@@ -12,24 +12,6 @@ public class Vibes {
     private static final String CHATBOT_NAME = "Vibes";
     private static final String DASHED_LINE = "\t---------------------------------------------------------------------------------------";
 
-    public static String extractCommand(String userInput) {
-        if (userInput.contentEquals("list")) {
-            return "list";
-        } else if (userInput.contentEquals("bye")) {
-            return "bye";
-        } else if (userInput.startsWith("mark ")) {
-            return "mark";
-        } else if (userInput.startsWith("unmark ")) {
-            return "unmark";
-        } else if (userInput.startsWith("todo") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
-            return "add task";
-        } else if (userInput.startsWith("delete ")) {
-            return "delete";
-        } else {
-            return userInput;
-        }
-    }
-
     private static void executeCommand(String commandToExecute, TaskList taskList, String userInput) throws CommandNotFoundException {
         int taskNumber;
 
@@ -45,7 +27,21 @@ public class Vibes {
             taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
             taskList.setAsNotDone(taskNumber);
             break;
-        case "add task":
+        case "todo":
+            try {
+                taskList.addTask(userInput);
+            } catch (InvalidArgumentException e) {
+                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
+            }
+            break;
+        case "event":
+            try {
+                taskList.addTask(userInput);
+            } catch (InvalidArgumentException e) {
+                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
+            }
+            break;
+        case "deadline":
             try {
                 taskList.addTask(userInput);
             } catch (InvalidArgumentException e) {
@@ -85,7 +81,7 @@ public class Vibes {
 
         while(!isExit){
             userInput = in.nextLine().trim();
-            String commandToExecute = extractCommand(userInput.toLowerCase());
+            String commandToExecute = userInput.split(" ")[0].toLowerCase();
 
             System.out.println(DASHED_LINE);
             if (commandToExecute.equals("bye")) {
