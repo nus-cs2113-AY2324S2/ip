@@ -123,4 +123,35 @@ public class Command {
     }
 
 
+    public void findTask(String line) {
+        try {
+            String keyword = Parser.parseFind(line);
+            if (keyword.isBlank()) {
+                System.out.println("Please type in a keyword to find");
+                return;
+            }
+
+            boolean anyTaskFound = false;
+            int count = 0;
+            ArrayList<Integer> storeTasksFound = new ArrayList<Integer>();
+            for(Task task : tasks.getTasks()) {
+                count += 1;
+                if(!task.getDescription().contains(keyword)){
+                    continue;
+                }
+                anyTaskFound = true;
+                storeTasksFound.add(count);
+            }
+
+            if (!anyTaskFound) {
+                System.out.println("No tasks found. Try a different keyword");
+            } else {
+                for (int c : storeTasksFound) {
+                    System.out.println("\t" + (c) + ". " + tasks.getSpecficTask(c-1).toString());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error encountered while finding tasks");;
+        }
+    }
 }

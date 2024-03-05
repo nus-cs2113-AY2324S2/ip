@@ -10,21 +10,6 @@ public class Allez {
         TODO, DEADLINE, EVENT
     }
 
-//    public static void printList(ArrayList<Task> tasks){
-//        int count = 0;
-//
-//        if(tasks.isEmpty()) {
-//            System.out.println("List is currently empty");
-//            return;
-//        }
-//
-//        System.out.println("Here are the tasks in your list:");
-//        for (Task task : tasks) {
-//            System.out.println("\t" + (count+1) + ". " + task.toString());
-//            count+=1;
-//        }
-//
-//    }
     public static void main(String[] args) {
         startBot();
         runCommandsUntilExit();
@@ -77,6 +62,9 @@ public class Allez {
             break;
         case "delete":
             c.deleteTask(line);
+            break;
+        case "find":
+            c.findTask(line);
             break;
         default:
             System.out.println("Invalid command. Please try again.");
