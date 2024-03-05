@@ -18,6 +18,7 @@ public class Ui {
     private static final String KOWALSKI_BYE_COMMAND = "Type 'bye' to end the conversation.";
     private static final String ZERO_TASK_MESSAGE = "Now you have 0 tasks in the list.";
     private static final String ONE_TASK_MESSAGE = "Now you have 1 task in the list.";
+    private static final String KOWALSKI_BYE_MESSAGE = "Bye Skipper! Hope to serve you again for your next mission!";
 
     /**
      * Prints out the message introducing the functionalities of Kowalski Bot
@@ -67,5 +68,13 @@ public class Ui {
         default:
             System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
         }
+    }
+
+    /**
+     * Prints out the message to end conversation with the user
+     */
+    public static void printEndConversation(){
+        System.out.println(KOWALSKI_BYE_MESSAGE);
+        printDivider();
     }
 }
