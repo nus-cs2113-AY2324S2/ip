@@ -2,6 +2,7 @@ package vibes.task;
 
 import vibes.exception.CommandNotFoundException;
 import vibes.exception.InvalidArgumentException;
+import vibes.parser.Parser;
 import vibes.storage.Storage;
 import vibes.task.type.Deadline;
 import vibes.task.type.Event;
@@ -12,12 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
-
-    public ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public void executeCommand(String commandToExecute, String userInput) throws CommandNotFoundException, InvalidArgumentException {
         int taskNumber;
-        String description;
 
         switch (commandToExecute) {
         case "list":
@@ -32,27 +31,15 @@ public class TaskList {
             setAsNotDone(taskNumber);
             break;
         case "todo":
-            if (5 > userInput.length()) {
-                throw new InvalidArgumentException();
-            }
-            description = userInput.substring(userInput.indexOf(" ") + 1);
-            addTodo(description);
-
+            addTodo(Parser.parseTodo(userInput));
             showTaskAddedMessage();
             break;
         case "event":
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
-            String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
-            String to = userInput.substring(userInput.indexOf("/to") + 4);
-            addEvent(description, from, to);
-
+            addEvent(Parser.parseEvent(userInput));
             showTaskAddedMessage();
             break;
         case "deadline":
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
-            String by = userInput.substring(userInput.indexOf("/by") + 4);
-            addDeadline(description, by);
-
+            addDeadline(Parser.parseDeadline(userInput));
             showTaskAddedMessage();
             break;
         case "delete":
