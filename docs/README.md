@@ -4,16 +4,15 @@ It can track three different types of tasks, namely: Todos, Deadlines, and Event
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-  - [Saving Data](#saving-data)
   - [Add Todo task: `todo`](#add-todo-task-todo)
   - [Add Deadline Task: `deadline`](#add-deadline-task-deadline)
   - [Add Event Task: `event`](#add-event-task-event)
   - [List Tasks: `list`](#list-tasks-list)
   - [Mark Task as Done: `mark`](#mark-task-as-done-mark)
-  - [Mark Task as Undone: `unmark`](#mark-task-as-undone-unmark)
-  - [Deleting Tasks: `delete`](#deleting-tasks-delete)
-  - [Find a Task: `find`](#find-a-task-find)
-  - [Exit and Write Data: `bye`](#exit-and-write-data-bye)
+  - [Mark Task as Undone: `unmark`](#mark-task-as-not-done-unmark)
+  - [Deleting Tasks: `delete`](#delete-task-delete)
+  - [Find a Task: `find`](#find-task-find)
+  - [Exit: `bye`](#exit-program-bye)
 * [Frequently Asked Questions (FAQ)](#faq)
 
 ## Quick Start
@@ -27,11 +26,78 @@ It can track three different types of tasks, namely: Todos, Deadlines, and Event
 
 ## Features
 
-### Feature-ABC
+### Add Todo Task: `todo`
 
-Description of the feature.
+Adds a todo [T] task. Simply enter `todo` followed by the task description.
 
-### Feature-XYZ
+Format: `todo <Description>`
+
+Examples:
+* todo reading
+* todo hanging clothes
+
+Usage:
+```
+-----------------------------------------------
+todo reading
+	Got it. I've added this task:
+		[T][ ] reading
+	Now you have 1 tasks in the list.
+-----------------------------------------------
+```
+
+### Add Deadline Task: `deadline`
+
+Adds a deadline [D] task. Simply enter `deadline` followed by the task description
+and `/by` to specify when to complete the task by.
+
+Format: `deadline <Description> /by <DATE>`
+
+Examples:
+* deadline watch lecture /by tonight
+* deadline do maths quiz /by this Sunday
+
+Usage:
+```
+-----------------------------------------------
+deadline watch lecture /by tonight
+    Got it. I've added this task:
+		[D][ ] watch lecture (by: tonight)
+	Now you have 2 tasks in the list.
+-----------------------------------------------
+```
+
+### Add Event Task: `event`
+
+Adds an event [E] task. Simply enter `event` followed by the task description,
+`/from` to specify start of the event and `/to` to specify end of the event.
+
+Format: `event <Description> /from <DATE> /to <DATE>`
+
+Examples:
+* event exercise today /from 10am /to 12pm
+* event practice dance /from 2pm /to 5pm
+
+Usage:
+```
+-----------------------------------------------
+> event exercise today /from 10am /to 12pm
+	Got it. I've added this task:
+		[E][ ] exercise today  (from: 10am to: 12pm)
+	Now you have 3 tasks in the list.
+-----------------------------------------------
+> 
+```
+
+### List Tasks: ``list``
+### Mark Task as Done: `mark`
+### Mark Task as not Done: `unmark`
+### Delete task: `delete`
+### Find task: `find`
+### Exit program: `bye`
+
+## FAQ
+
 
 Description of the feature.
 
