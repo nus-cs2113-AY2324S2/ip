@@ -114,4 +114,13 @@ public class Ui {
         System.out.println("Now you have " + taskNum + " tasks in the list.");
         System.out.println(LINE);
     }
+
+    public void printFoundTasks() {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public void showLine() {
+        System.out.println(LINE);
+    }
 }

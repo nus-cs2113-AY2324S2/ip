@@ -75,6 +75,9 @@ public class KuroBot {
             tasks = amendTasks.deleteTask();
             taskNum = amendTasks.getTaskNum();
             break;
+        case "find":
+            amendTasks.findTask();
+            break;
         default:
             throw new InvalidCommandException();
         }
