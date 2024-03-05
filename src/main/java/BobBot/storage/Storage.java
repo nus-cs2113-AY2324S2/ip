@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import BobBot.BobBot;
 import BobBot.tasks.Task;
 import taskList.TaskList;
 
@@ -59,6 +60,7 @@ public class Storage {
         }
 
         System.out.println("\tReady! Type a command to begin.");
+        BobBot.drawLine(false);
     }
 
     // rewrite the whole file
