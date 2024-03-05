@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    private static final int MINIMUM_PARTS = 3;
     private String filePath;
 
     public Storage(String filePath) {
@@ -60,7 +61,7 @@ public class Storage {
 
     private Task readFile(String line) throws CodyException {
         String[] parts = line.split(" \\| ");
-        if (parts.length < 3) {
+        if (parts.length < MINIMUM_PARTS) {
             throw new CodyException("Invalid saved task format: " + line);
         }
 

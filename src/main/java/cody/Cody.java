@@ -1,5 +1,6 @@
 package cody;
 
+import cody.parser.Parser;
 import cody.storage.Storage;
 import cody.ui.Ui;
 
@@ -29,7 +30,7 @@ public class Cody {
                 break;
             }
             try {
-                String response = tasks.executeCommand(fullCommand);
+                String response = Parser.parseCommand(fullCommand, tasks);
                 ui.printMessage(response);
             } catch (CodyException e) {
                 ui.printException(e);
