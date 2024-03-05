@@ -1,6 +1,7 @@
 import Exceptions.TaskNotFoundException;
 import Exceptions.ArgumentNotFoundException;
 import Exceptions.CommandNotFoundException;
+import Tasks.Task;
 
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class Spike {
     private static Ui ui;
     private static TaskList Tasks;
+
     public static void main(String[] args) {
         ui = new Ui();
 
@@ -42,6 +44,9 @@ public class Spike {
             switch (input.split(" ")[0]) {
             case "list":
                 Tasks.printList();
+                break;
+            case "find":
+                Tasks.printMatchingList(input);
                 break;
             case "mark":
                 Tasks.processMark(input);

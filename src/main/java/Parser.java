@@ -11,6 +11,8 @@ public class Parser {
     public static final int DEADLINE_TASK_INDEX = 9;
     public static final int TODO_TASK_INDEX = 5;
     public static final int DELETE_TASK_INDEX = 7;
+    public static final int FIND_TASK_INDEX = 5;
+
     protected String parseEvent(String input) throws ArgumentNotFoundException {
         if (EVENT_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
@@ -37,6 +39,9 @@ public class Parser {
         return input.substring(TODO_TASK_INDEX);
     }
 
+    protected String parseFind(String input) throws ArgumentNotFoundException {
+        return input.substring(FIND_TASK_INDEX);
+    }
     protected int getIndexMark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
         if (MARK_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();

@@ -52,7 +52,18 @@ public class TaskList{
     }
 
     public void printList() {
-        ui.displayList(taskArray);
+        ui.displayList(taskArray, false);
+    }
+
+    public void printMatchingList(String input) throws ArgumentNotFoundException {
+        ArrayList<Task> matchingList = new ArrayList<>();
+        String matchString = parser.parseFind(input);
+        for(Task t : taskArray){
+            if(t.description.contains(matchString)){
+                matchingList.add(t);
+            }
+        }
+        ui.displayList(matchingList, true);
     }
 
     public void updateTaskList() throws IOException {
