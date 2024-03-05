@@ -28,7 +28,7 @@ public class TaskManager {
     public static final int PART_1 = 1;
     public static final int PART_2 = 2;
     public static final int START_INDEX = 0;
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> taskList = new ArrayList<>();
     private int index = 0;
 
     /**

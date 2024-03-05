@@ -1,16 +1,14 @@
 package Helper;
 
-/**
- * The Deadline class represents a task with a deadline.
- * It inherits from the Task class and adds functionality specific to Deadline tasks.
- */
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Locale;
 
-
+/**
+ * The Deadline class represents a task with a deadline.
+ * It inherits from the Task class and adds functionality specific to Deadline tasks.
+ */
 public class Deadline extends Task {
     private final LocalDateTime byDateTime;
 

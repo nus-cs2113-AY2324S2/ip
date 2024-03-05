@@ -266,4 +266,12 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
+    public static void printInvalidKeywordFormat(StringIndexOutOfBoundsException e){
+        System.out.println(LINE);
+        System.out.println(TAB_SPACE + "Invalid format: " + e.getMessage());
+        System.out.println(TAB_SPACE + "Please use valid keyword.");
+        System.out.println(LINE);
+    }
+
+
 }

@@ -16,6 +16,7 @@ public class Parser {
     public static final String TASK = "T";
     public static final String DEADLINE = "D";
     public static final String EVENT = "E";
+    public static final int PARTS_LENGTH = 3;
 
     /**
      * Handles the task stored in the file by parsing it and creating appropriate task objects.
@@ -27,7 +28,7 @@ public class Parser {
     public static Task parseTaskFromString(String line) {
         Task task = null;
         String[] parts = line.split(" \\| ");
-        if (parts.length >= 3) {
+        if (parts.length >= PARTS_LENGTH) {
             String taskType = parts[PART_0];
             boolean isDone = parts[PART_1].equals(DONE);
             String description = parts[PART_2];

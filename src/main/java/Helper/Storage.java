@@ -62,7 +62,10 @@ public class Storage {
         File file = new File(filePath);
         File folder = file.getParentFile();
         if (!folder.exists()) {
-            folder.mkdirs();
+            boolean created = folder.mkdirs();
+            if(!created){
+                throw new SaveFileException("Error creating directories for file: " + filePath);
+            }
         }
         try (FileWriter writer = new FileWriter(file)) {
             for (Task task : taskList) {

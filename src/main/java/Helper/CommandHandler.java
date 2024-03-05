@@ -170,8 +170,11 @@ public class CommandHandler {
     }
 
     private void findTasks(String input) {
-        String keyword = input.substring(KEYWORD_BEGIN_INDEX).trim();
-        taskManager.findTasksByKeyword(keyword);
-
+        try {
+            String keyword = input.substring(KEYWORD_BEGIN_INDEX).trim();
+            taskManager.findTasksByKeyword(keyword);
+        } catch (StringIndexOutOfBoundsException e){
+            UserInterface.printInvalidKeywordFormat(e);
+        }
     }
 }

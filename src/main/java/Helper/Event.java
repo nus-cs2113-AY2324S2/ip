@@ -1,14 +1,14 @@
 package Helper;
 
-/**
- * The Event class represents a task that occurs within a specific time frame.
- * It inherits from the Task class and adds functionality specific to Event tasks.
- */
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Locale;
 
+/**
+ * The Event class represents a task that occurs within a specific time frame.
+ * It inherits from the Task class and adds functionality specific to Event tasks.
+ */
 
 public class Event extends Task {
     private final LocalDateTime fromDateTime;
