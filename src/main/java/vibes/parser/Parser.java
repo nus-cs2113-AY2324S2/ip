@@ -44,4 +44,13 @@ public class Parser {
             throw new InvalidArgumentException("\t Argument not found! The event task cannot be empty");
         }
     }
+
+    public static int parseTaskNumber(String userInput) throws InvalidArgumentException{
+        String[] parts = userInput.split(" ", 2);
+        if (parts.length == 2){
+            return Integer.parseInt(parts[1]) - 1;
+        } else {
+            throw new InvalidArgumentException("\t Argument not found! Task number is required");
+        }
+    }
 }

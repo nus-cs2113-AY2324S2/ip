@@ -16,19 +16,15 @@ public class TaskList {
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     public void executeCommand(String commandToExecute, String userInput) throws CommandNotFoundException, InvalidArgumentException {
-        int taskNumber;
-
         switch (commandToExecute) {
         case "list":
             listTasks();
             break;
         case "mark":
-            taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-            setAsDone(taskNumber);
+            setAsDone(Parser.parseTaskNumber(userInput));
             break;
         case "unmark":
-            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-            setAsNotDone(taskNumber);
+            setAsNotDone(Parser.parseTaskNumber(userInput));
             break;
         case "todo":
             addTodo(Parser.parseTodo(userInput));
@@ -43,8 +39,7 @@ public class TaskList {
             showTaskAddedMessage();
             break;
         case "delete":
-            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-            deleteTask(taskNumber);
+            deleteTask(Parser.parseTaskNumber(userInput));
             break;
         default:
             throw new CommandNotFoundException();
