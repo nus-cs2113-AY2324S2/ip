@@ -41,6 +41,7 @@ public class TaskList {
      */
     public ArrayList<Task> addTodo() {
         try{
+            //get the task name
             parserInput.parserToDo();
             String taskName = parserInput.getTaskName();
             Todo task = new Todo(taskName, false);
@@ -125,15 +126,15 @@ public class TaskList {
     /**
      * Mark or unmark the task at a given index, depending on the status value.
      *
-     * @param status Mark the task if status is true, unmark if it is false.
+     * @param isMark Mark the task if status is true, unmark if it is false.
      * @return Updated task list.
      */
-    public ArrayList<Task> markTask(boolean status) {
+    public ArrayList<Task> markTask(boolean isMark) {
         try {
             parserInput.parserTaskIndex();
             int i = parserInput.getIndex();
             try {
-                if (status) {
+                if (isMark) {
                     tasks.get(i - 1).mark();
                 } else {
                     tasks.get(i - 1).unmark();
@@ -170,6 +171,9 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Show the tasks with name related to the given task name.
+     */
     public void findTask() {
         try{
             parserInput.parserToDo();
