@@ -33,6 +33,25 @@ public class Duke {
         }
     }
 
+    public static void printFindList(String line) throws IllegalShapeException {
+        {
+            int counter = 1;
+            if (tasks.isEmpty()) {
+                throw new IllegalShapeException(); //Throws exception for empty list
+            }
+            System.out.println("--------------------------------------");
+            System.out.println("Here are the matching tasks in your lists:");
+            for (Task item : tasks) {
+                if (item.description.contains(line)) {
+                    System.out.print(counter + ".");
+                    System.out.println(item);
+                    counter ++;
+                }
+            }
+            System.out.println("--------------------------------------");
+        }
+    }
+
     public static void markTask(String line) throws IllegalShapeException {
         if (Integer.parseInt(line.substring(5)) >= tasks.size() ) {
             throw new IllegalShapeException(); //Throws exception for marking out of bounds
@@ -165,6 +184,9 @@ public class Duke {
             } catch (IOException e){
                 System.out.println("Something went wrong: " + e.getMessage());
             }
+            break;
+        case "find":
+            printFindList(line.substring(4));
             break;
         default:
             System.out.println("--------------------------------------");
