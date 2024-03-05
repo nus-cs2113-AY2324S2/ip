@@ -1,127 +1,24 @@
 package Storage;
 
-import ChelleCommands.Deadline;
-import ChelleCommands.Event;
 import ChelleCommands.Task;
-import ChelleCommands.ToDo;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ChelleStorage {
 
-    private static final String FILE_PATH = "./ChelleTasks.txt";
+    public String FILE_PATH = "./ChelleTasks.txt";
 
-    public static ArrayList<Task> loadTasksFromFile() {
+    public ChelleStorage(){
+    }
+
+    public ArrayList<Task> loadTasks() {
+        FileDecoder decoder = new FileDecoder(FILE_PATH);
         ArrayList<Task> tasks = new ArrayList<>();
-        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] savedTextParts = line.split(" \\| ");
-
-                if (savedTextParts.length < 3) {
-                    // Handle case where there are not enough parts
-                    // three parts are split as such 1 | 2 | 3
-                    // 1 is the task index, 2 is the task type, 3 is the task description
-                    continue;
-                }
-
-                String type = savedTextParts[0];
-                boolean isDone = savedTextParts[1].equals("1");
-                String description = savedTextParts[2];
-
-                Task task;
-                switch (type) {
-                case "T":
-                    task = new ToDo(description);
-                    break;
-                case "D":
-                    task = new Deadline(description);
-                    break;
-                case "E":
-                    task = new Event(description);
-                    break;
-                default:
-                    // Handle unknown task type
-                    System.out.println("Invalid file type detected.");
-                    continue;
-                }
-
-                if (isDone) {
-                    task.markDone();
-                } else {
-                    task.markUndone();
-                }
-
-                tasks.add(task);
-            }
-        } catch (FileNotFoundException e) {
-            // Handle file not found exception (initial run or file not created yet)
-            System.out.println("Save file not found.");
-        }
+        decoder.loadTasksFromFile(tasks);
         return tasks;
     }
 
-    public static void saveTasksToFile(ArrayList<Task> tasks) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
-            for (Task task : tasks) {
-                String type;
-                if (task instanceof ToDo) {
-                    type = "T";
-                } else if (task instanceof Deadline) {
-                    type = "D";
-                } else if (task instanceof Event) {
-                    type = "E";
-                } else {
-                    // Handle unknown task type
-                    continue;
-                }
-
-                String isDone = task.isDone() ? "1" : "0";
-                String[] description = extractTaskInformation(task);
-
-                // Format the information based on task type
-                String formattedDescription = formatTaskDetails(type, description);
-
-                // Write the task to the file
-                writer.println(type + " | " + isDone + " | " + formattedDescription);
-            }
-        } catch (IOException e) {
-            // Handle IO exception
-            e.printStackTrace();
-        }
-    }
-
-    private static String formatTaskDetails(String type, String[] description) {
-        switch (type) {
-        case "T":
-            return description.length >= 1 ? description[0] : "";
-        case "D":
-            return description.length >= 2 ? description[0] + " /by " + description[1] : "";
-        case "E":
-            return description.length >= 3 ? description[0] + " /from " + description[1] + " /to " + description[2] : "";
-        default:
-            // For unknown types, return an empty string
-            System.out.println("Invalid file type detected.");
-            return "";
-        }
-    }
-
-
-    private static String[] extractTaskInformation(Task task) {
-        if (task instanceof ToDo) {
-            return new String[]{task.getTaskName()};
-        } else if (task instanceof Deadline) {
-            return new String[]{task.getTaskName(), ((Deadline) task).getBy()};
-        } else if (task instanceof Event) {
-            return new String[]{task.getTaskName(), ((Event) task).getFrom(), ((Event) task).getTo()};
-        } else {
-            return new String[]{};
-        }
+    public void saveTasks(ArrayList<Task> tasks) {
+        FileEncoder encoder = new FileEncoder(FILE_PATH);
+        encoder.saveTasksToFile(tasks);
     }
 }

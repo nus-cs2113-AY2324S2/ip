@@ -1,5 +1,4 @@
 import Common.Messages;
-
 import java.util.Scanner;
 
 public class ChelleUI {

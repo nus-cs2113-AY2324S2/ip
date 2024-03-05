@@ -2,10 +2,9 @@ package ChelleCommands;
 
 import ChelleExceptions.InvalidCommandFormatException;
 import Common.Messages;
-
 import java.util.ArrayList;
-public class HandleCommand {
 
+public class HandleCommand {
     private static final int MARK_COMMAND_LENGTH = 5;
     private static final int UNMARK_COMMAND_LENGTH = 7;
     private static final int TODO_COMMAND_LENGTH = 5;

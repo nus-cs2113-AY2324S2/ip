@@ -6,14 +6,14 @@ import ChelleExceptions.InvalidCommandFormatException;
 import Common.Messages;
 import Storage.ChelleStorage;
 
-
 public class ChelleMain {
     public static void main(String[] args) {
 
         ChelleUI ui = new ChelleUI();
+        ChelleStorage storage = new ChelleStorage();
 
-        // Load tasks from the hard disk when the chatbot starts up
-        ArrayList<Task> tasks = ChelleStorage.loadTasksFromFile();
+        // Load tasks from the save file when the chatbot starts up
+        ArrayList<Task> tasks = storage.loadTasks();
 
         while (true) {
             System.out.print(Messages.MESSAGE_INPUT_PREFIX);
@@ -28,7 +28,7 @@ public class ChelleMain {
 
             switch (userCommand) {
             case BYE:
-                ChelleStorage.saveTasksToFile(tasks);
+                storage.saveTasks(tasks);
                 System.out.println(Messages.MESSAGE_BYE);
                 ui.closeScanner();
                 return;
