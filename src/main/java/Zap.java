@@ -8,7 +8,7 @@ public class Zap {
 
     public Zap() {
         tasks = new ArrayList<>();
-        this.ui = new Ui(); // This will automatically print the welcome message from the Ui class
+        this.ui = new Ui();
     }
 
     public void run() {
@@ -234,6 +234,6 @@ public class Zap {
     }
 
     public static void main(String[] args) {
-        new Zap().run(); // Create an instance of Zap and call its run method to start the application
+        new Zap().run();
     }
 }
