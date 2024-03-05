@@ -10,20 +10,38 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public static final String DATA_FOLDER = "./data/";
-    public static final String DATA_FILE = "tasks.txt";
-    public static final String PARAM_SEPARATOR = " | ";
+    private static final String DATA_FOLDER = "./data/";
+    private static final String DATA_FILE = "tasks.txt";
+    private static final String PARAM_SEPARATOR = " , ";
+    private final File file;
 
-    public static void writeToFile(TaskList taskList) throws IOException {
-        // Clear the file content before writing
-        FileWriter fileClearer = new FileWriter(DATA_FOLDER + DATA_FILE);
-        fileClearer.write("");
-        fileClearer.close();
+    public Storage(){
+        File folder = new File(DATA_FOLDER);
+        file = new File(folder, DATA_FILE);
 
-        FileWriter fileWriter = new FileWriter(DATA_FOLDER + DATA_FILE, true);
+        try {
+            if (!file.exists()) {
+                if (!folder.exists() && !folder.mkdirs()) {
+                    throw new IOException("Failed to create data folder.");
+                }
+
+                if (!file.createNewFile()) {
+                    throw new IOException("Failed to create data file.");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+
+    public void writeToFile(TaskList taskList) throws IOException {
+        clearFileContent();
+        FileWriter fileWriter = new FileWriter(file, true);
+
         for (Task task : taskList.tasks) {
             if (task == null) {
                 break;
@@ -32,6 +50,7 @@ public class Storage {
             String textToWrite = "";
             switch (task.getTaskType()) {
             case 'T':
+                assert task instanceof Todo;
                 Todo todoTask = (Todo) task;
                 textToWrite = todoTask.getTaskType() + PARAM_SEPARATOR + (todoTask.isDone() ? 1 : 0) + PARAM_SEPARATOR
                         + todoTask.getDescription();
@@ -55,69 +74,42 @@ public class Storage {
         fileWriter.close();
     }
 
-    public static void loadTasks(TaskList taskList) throws FileNotFoundException {
-        File folder = new File(DATA_FOLDER);
-        if (!folder.exists()) {
-            if (!folder.mkdirs()) {
-                System.err.println("Failed to create data folder.");
-                return;
-            }
-        }
+    private void clearFileContent() throws IOException {
+        FileWriter fileClearer = new FileWriter(file);
+        fileClearer.write("");
+        fileClearer.close();
+    }
 
-        File file = new File(DATA_FOLDER + DATA_FILE);
-        if (!file.exists()) {
-            try {
-                if (!file.createNewFile()) {
-                    System.err.println("Failed to create data file.");
-                    return;
-                }
-            } catch (IOException e) {
-                System.err.println("An error occurred while creating the data file: " + e.getMessage());
-                return;
-            }
-        }
-
+    public ArrayList<Task> load() throws FileNotFoundException {
         Scanner s = new Scanner(file);
+        TaskList taskList = new TaskList();
         while (s.hasNext()) {
             readTask(taskList, s.nextLine());
         }
+        return taskList.tasks;
     }
 
-    private static void readTask(TaskList taskList, String textLine) {
-        char taskType = textLine.charAt(0);
-        boolean isMarked = (textLine.charAt(4) == '1');
-        String description;
+    private void readTask(TaskList taskList, String textLine) {
+        String[] parsedInput = textLine.trim().split(" , ");
+        switch (parsedInput[0]){
+        case "T":
+            taskList.addTodo(parsedInput[2]);
+            break;
+        case "D":
+            String[] deadlineTask = {parsedInput[2], parsedInput[3]};
+            taskList.addDeadline(deadlineTask);
+            break;
+        case "E":
+            String[] eventTask = {parsedInput[2], parsedInput[3], parsedInput[4]};
+            taskList.addEvent(eventTask);
+        }
 
-        switch (taskType) {
-        case 'T':
-            description = textLine.substring(8).trim();
-            taskList.addTodo(description);
-            if (isMarked) {
-                taskList.tasks.get(taskList.tasks.size() - 1).setDone(true);
-            }
-            break;
-        case 'D':
-            description = textLine.substring(8, textLine.indexOf('|', 8)).trim();
-            String by = textLine.substring(textLine.indexOf('|', 8) + 1).trim();
-            taskList.addDeadline(new String[] {description, by});
-            if (isMarked) {
-                taskList.tasks.get(taskList.tasks.size() - 1).setDone(true);
-            }
-            break;
-        case 'E':
-            description = textLine.substring(8, textLine.indexOf('|', 8)).trim();
-            String from = textLine.substring(textLine.indexOf('|', 8) + 1, textLine.lastIndexOf('|'))
-                    .trim();
-            String to = textLine.substring(textLine.lastIndexOf('|') + 1).trim();
-            taskList.addEvent(new String[] {description, from, to});
-            if (isMarked) {
-                taskList.tasks.get(taskList.tasks.size() - 1).setDone(true);
-            }
-            break;
+        if (parsedInput[1].equals("1")) {
+            taskList.tasks.get(taskList.tasks.size() - 1).setDone(true);
         }
     }
 
-    public static void saveTask(TaskList taskList) {
+    public void saveTask(TaskList taskList) {
         try {
             writeToFile(taskList);
         } catch (IOException e) {
