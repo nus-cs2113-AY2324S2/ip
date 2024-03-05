@@ -4,14 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import BobBot.exceptions.BobBotExceptions;
-import BobBot.exceptions.InvalidDeadlineException;
-import BobBot.exceptions.InvalidEventException;
-import BobBot.exceptions.InvalidTodoException;
 import BobBot.storage.Storage;
-import BobBot.tasks.Deadline;
-import BobBot.tasks.Event;
 import BobBot.tasks.Task;
-import BobBot.tasks.Todo;
 import tasks.TaskList;
 
 public class BobBot {
