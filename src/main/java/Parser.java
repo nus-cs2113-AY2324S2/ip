@@ -29,7 +29,7 @@ public class Parser {
                 Ui.printList(numberOfListItems);
             } else if (splitCommand[0].matches("todo|event|deadline")) {
                 addTask();
-            } else if (splitCommand[0].matches("mark|unmark|delete")) {
+            } else if (splitCommand[0].matches("mark|unmark|delete|find")) {
                 editListStatus();
             } else {
                 Ui.invalidInput();
@@ -117,6 +117,16 @@ public class Parser {
                 Ui.emptyList();
             } catch (indexOutOfListBounds e) {
                 Ui.outOfBoundsIndex();
+            }
+            break;
+        case "find":
+            try {
+                Ui.printFindTask();
+                TaskList.findKeyword(newItem);
+            } catch (MikuException e) {
+                Ui.blankFind();
+            } catch (voidNumberOfItems e) {
+                Ui.emptyList();
             }
             break;
         default:
