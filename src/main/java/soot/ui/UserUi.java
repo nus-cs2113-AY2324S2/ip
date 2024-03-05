@@ -1,6 +1,14 @@
 package soot.ui;
 
+import soot.parser.Parser;
+import soot.task.TaskList;
+
 public class UserUi {
+    public static final String INDENT = "  ";
+
+    public UserUi() {
+        
+    }
     public static void showUserGreeting() {
         System.out.println("Hello! I'm Soot, your personal chatbot companion :)");
         System.out.println("What can I help you with?");
@@ -18,5 +26,14 @@ public class UserUi {
             System.out.print("_");
         }
         System.out.println("");
+    }
+
+    public static void displayIndent() {
+        System.out.print(INDENT);
+    }
+
+    public static void showTaskListCount() {
+        int taskCount = TaskList.listCounter;
+        System.out.println("you currently have " + taskCount + " tasks on your list :)");
     }
 }
