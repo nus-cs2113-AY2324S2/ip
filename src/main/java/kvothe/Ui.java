@@ -5,9 +5,12 @@ import kvothe.exception.WrongArgumentsException;
 import java.util.Scanner;
 import kvothe.task.Task;
 
+/**
+ * Represents the user interface of the application
+ */
 public class Ui {
 
-    private String line;
+    private String lastLine;
     private static final String NAME = "Kvothe";
     private static final String DIVIDER = "\t\t____________________________________________________________";
 
@@ -58,23 +61,38 @@ public class Ui {
         echo("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Reads the next command from the user
+     * @return the command as a string
+     */
     public String readCommand() {
         Scanner in = new Scanner(System.in);
-        this.line = in.nextLine();
-        return this.line;
+        this.lastLine = in.nextLine();
+        return this.lastLine;
     }
 
+    /**
+     * Prints the message after deleting a task
+     * @param task task that has been deleted
+     * @param size size of the list after deletion
+     */
     public void showDelete(Task task, int size) {
         echo("Noted. I've removed this task:\n\t\t" + task, true, false);
         echo("Now you have " + size + " tasks in the list.", false, true);
 
     }
 
-    public String getLine() {
-        return line;
+    /**
+     *
+     * @return the last line read
+     */
+    public String geLastLine() {
+        return lastLine;
     }
 
-
+    /**
+     * Show Exit message
+     */
     public void showExit() {
         echo("Bye. Hope to see you again soon!");
     }

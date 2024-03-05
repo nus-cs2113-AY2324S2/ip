@@ -6,10 +6,20 @@ import kvothe.Ui;
 import kvothe.exception.WrongArgumentsException;
 import kvothe.task.Task;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class UnmarkCommand extends Command{
     public UnmarkCommand(String[] args){
         super(args);
     }
+
+    /**
+     * Marks a task as done.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
 
         String index = this.args[0];

@@ -13,9 +13,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents the storage of the application. Handles the
+ * reading and writing of the tasks to the file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a new Storage object with the given file path.
+     * If the file does not exist, it will be created.
+     * @param filePath the file path to the file
+     * @throws KvotheException if there is an error creating the file
+     */
     public Storage(String filePath) throws KvotheException {
         this.filePath = filePath;
 
@@ -31,6 +41,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Write an array of tasks to the file
+     * @param tasks the tasks to dump
+     */
     public void dumpToFile(ArrayList<Task> tasks){
 
         try {
@@ -49,6 +63,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the tasks from the file
+     * @return an array of tasks
+     */
     public ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasks = new ArrayList<Task>();
 

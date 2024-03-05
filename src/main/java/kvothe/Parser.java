@@ -5,9 +5,19 @@ import kvothe.command.*;
 import kvothe.task.Deadline;
 import kvothe.task.Event;
 
+/**
+ * Class with methods to parse the input from the user
+ * and return the corresponding command.
+
+ */
 public class Parser {
 
-
+    /**
+     * Parses the input from the user and returns the corresponding command.
+     * @param line the input from the user
+     * @return the corresponding command
+     * @throws WrongArgumentsException if the input is invalid
+     */
     public static Command parse(String line) throws WrongArgumentsException {
         String[] words = line.split(" ");
         String command = words[0];
@@ -47,8 +57,9 @@ public class Parser {
     }
 
     /**
-     * Parses the line and returns the arguments to create a new task of type DEADLINE.
+     * Extracts the arguments from an input line to create a task
      * @param line the line to parse
+     * @param validArgs expected arguments
      * @return the values for the arguments.
      * @throws WrongArgumentsException if the arguments in the input are invalid
      */

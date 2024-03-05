@@ -12,17 +12,22 @@ import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Main class of the application
+ */
 public class Kvothe {
 
     private static final String FILEPATH = "data/kvothe.txt";
-
-    private static final int MAXTASKS = 100;
 
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a new Kvothe object with the default file path.
+     * @throws KvotheException if there is an error creating the Storage
+     */
     public Kvothe() throws KvotheException{
 
         ui = new Ui();
@@ -30,6 +35,10 @@ public class Kvothe {
         tasks = new TaskList(storage.loadFromFile());
     }
 
+    /**
+     * Runs the application. Shows the welcome message and processes the commands
+     * until the exit command is given. Finally, shows the goodbye message.
+     */
     public void run() {
 
         ui.showWelcome();
@@ -53,6 +62,7 @@ public class Kvothe {
 
 
     }
+
 
     public static void main(String[] args) {
 

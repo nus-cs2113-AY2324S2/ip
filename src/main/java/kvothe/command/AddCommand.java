@@ -8,8 +8,12 @@ import kvothe.task.Event;
 import kvothe.task.Task;
 import kvothe.task.Todo;
 
+/**
+ * Represents a command to add a task to the list
+ */
 public class AddCommand extends Command{
 
+    // The type of task to add: Todo, Event or Deadline
     private String type;
 
     public AddCommand(String type, String[] args){
@@ -18,6 +22,14 @@ public class AddCommand extends Command{
 
     }
 
+    /**
+     * Adds a task to the list and updates the storage file.
+     * Creates a new task based on the type and arguments provided
+     * to the command. Add the task to the list and update the storage file.
+     * @param tasks the list of tasks
+     * @param ui the user interface
+     * @param storage the storage object
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage){
 
         Task newTask = null;
