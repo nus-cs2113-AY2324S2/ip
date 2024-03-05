@@ -24,16 +24,12 @@ import java.util.InputMismatchException;
 public class Kowalski {
 
     private static final String TEXT_FILE_FOLDER = "data";
-    private static final String TEXT_FILE_DIRECTORY = "/Kowalski.txt";
-    private static final String FULL_FILE_PATH = TEXT_FILE_FOLDER+TEXT_FILE_DIRECTORY;
+    private static final String FULL_FILE_PATH = "data/Kowalski.txt";
 
 
     public static List <Task> currentTask = new ArrayList<>();
     public static Scanner in = new Scanner (System.in);
 
-    public static void printIntro(){
-        Ui.printIntro();
-    }
 
 
     /**
@@ -314,7 +310,7 @@ public class Kowalski {
                 System.out.println("Creating new Kowalski.txt file");
                 Files.createFile(filePath);
             }
-            FileReader fileReader = new FileReader(TEXT_FILE_FOLDER + TEXT_FILE_DIRECTORY);
+            FileReader fileReader = new FileReader(FULL_FILE_PATH);
             BufferedReader line = new BufferedReader(fileReader);
             System.out.println("Kowalski retrieving previous data...");
             while (line.ready()) {
@@ -388,7 +384,7 @@ public class Kowalski {
     }
 
     public static void main(String[] args) throws IOException {
-        printIntro();
+        Ui.printIntro();
         readTextFile();
         String userCommand = processInput(in.next());
 
@@ -397,6 +393,6 @@ public class Kowalski {
             userCommand = in.next();
         }
 
-        printEndConversation();
+        Ui.printEndConversation();
     }
 }
