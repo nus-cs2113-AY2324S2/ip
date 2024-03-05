@@ -104,4 +104,15 @@ public class TaskList {
             printTask(taskList.get(i));
         }
     }
+    public void findAndPrint(String query){
+        int index = 1;
+        System.out.println("Here's what I found:");
+        for(int i = 0; i < taskList.size(); i++){
+            if(taskList.get(i).getDescription().contains(query)){
+                System.out.print(index + ". ");
+                printTask(taskList.get(i));
+                index++;
+            }
+        }
+    }
 }

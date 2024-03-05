@@ -34,7 +34,7 @@ public class MassimoBoi {
 
         ui.printGreetingMessage();
         ui.printUserGuideMessage();
-        ui.makeHorizontalRow();
+        ui.printHorizontalRow();
     }
 
     /**
@@ -50,10 +50,8 @@ public class MassimoBoi {
             if (userInput.equals("bye")) {
                 storage.addToFile(tasks);
                 ui.printGoodbyeMessage();
-                ui.makeHorizontalRow();
+                ui.printHorizontalRow();
                 break;
-            } else if (userInput.equals("list")) {
-                tasks.printList();
             }
             try {
                 Parser parser = new Parser(userInput, tasks, ui);

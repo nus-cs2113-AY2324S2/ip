@@ -41,11 +41,8 @@ public class Ui {
                 """);
     }
 
-    /**
-     * Prints a horizontal line.
-     * Used after each reply to the user.
-     */
-    public void makeHorizontalRow() {
+
+    public void printHorizontalRow() {
         for (int i = 0; i < 50; i++) {
             System.out.print("-");
         }
