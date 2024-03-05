@@ -1,29 +1,50 @@
-# User Guide
+# Cody User Guide
 
-## Features 
+Cody is a CLI (Command Line Interface) chatbot application that helps you manage your tasks efficiently. Below are the features available in Cody:
 
-### Feature-ABC
+## Quick Start
 
-Description of the feature.
+1. Ensure you have Java 11 or above installed on your computer.
+2. Download the latest `cody.jar` from the [releases page](https://github.com/your-repo/cody/releases).
+3. Copy the file to the folder you want to use as the home folder for Cody.
+4. Open a command terminal, navigate to the folder containing `cody.jar`, and run the command `java -jar cody.jar` to start the application.
 
-### Feature-XYZ
+## Features
 
-Description of the feature.
+### Adding a Task
+- Commands:
+    - `todo DESCRIPTION` - Adds a todo task.
+    - `deadline DESCRIPTION /by DATE` - Adds a deadline task.
+    - `event DESCRIPTION /from START_DATE /to END_DATE` - Adds an event task.
 
-## Usage
+### Listing All Tasks
+- Command: `list`
+- Description: Lists all tasks.
 
-### `Keyword` - Describe action
+### Locating a Task by Name/Description
+- Command: `find KEYWORD`
+- Description: Locates tasks whose descriptions contain the given keyword.
 
-Describe the action and its outcome.
+### Deleting a Task
+- Command: `delete INDEX`
+- Description: Deletes the task at the specified index.
 
-Example of usage: 
+### Marking a Task as Done
+- Command: `mark INDEX`
+- Description: Marks the task at the specified index as done.
 
-`keyword (optional arguments)`
+### Marking a Task as Not Done
+- Command: `unmark INDEX`
+- Description: Marks the task at the specified index as not done.
 
-Expected outcome:
+### Exiting the Program
+- Command: `bye`
+- Description: Exits the program.
 
-Description of the outcome.
+### Saving the Data
+- Cody automatically saves your task data to the hard disk after any command that modifies the data. There is no need to save manually.
 
-```
-expected output
-```
+## FAQ
+
+- **Q:** How do I transfer my data to another computer?
+    - **A:** Install Cody on the other computer and copy the data file from your previous Cody home folder to the new one.
