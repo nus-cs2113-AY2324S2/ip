@@ -43,6 +43,8 @@ public class ResponseManager {
             "You will start a fresh new journey!\n";
     public static final String RETURN_MESSAGE =
             "It's always nice to see you again!\n";
+    public static final String DATE_FORMAT_ERROR =
+            "Please follow the date format: dd/MM/yyyy HHmm\n";
 
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
