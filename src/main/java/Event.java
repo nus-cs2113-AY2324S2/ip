@@ -7,6 +7,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public static Event addEvent(String task) {
+        String[] taskSplit = task.split("/");
+        String eventStart = taskSplit[1].replace("from", "").trim();
+        String eventEnd = taskSplit[2].replace("to", "").trim();
+        return new Event(taskSplit[0].trim(), eventStart, eventEnd);
+    }
     @Override
     public String toString() {
         return ("[E]" + super.toString() + " from " + this.from + " to " + this.to);
