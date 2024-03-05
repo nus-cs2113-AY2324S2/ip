@@ -104,6 +104,12 @@ public class TaskList {
             printTask(taskList.get(i));
         }
     }
+
+    /**
+     * Finds and Prints details of all tasks that match the query string.
+     *
+     * @param query the String being searched for within each task.
+     */
     public void findAndPrint(String query){
         int index = 1;
         System.out.println("Here's what I found:");

@@ -18,7 +18,7 @@ public class Task {
     }
 
     /**
-     * Returns whether a task is done or not.
+     * Returns status of a task.
      *
      * @return a String [X] when task is done and [] when it is not.
      */

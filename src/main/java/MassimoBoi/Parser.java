@@ -9,17 +9,33 @@ import MassimoBoiException.NoEventStart;
 import MassimoBoiException.NoEventEnd;
 import MassimoBoiException.UnknownCommandType;
 
+/**
+ * Represents a Parser made to handle user commands
+ */
 public class Parser {
     private String userInput;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a new parser object
+     *
+     * @param userInput the String entered by the user
+     * @param tasks an arrayList of tasks the user has entered
+     * @param ui the Ui object containing the printGreetingMessage and printHorizontalRow methods
+     */
     Parser(String userInput, TaskList tasks, Ui ui){
         this.userInput = userInput;
         this.tasks = tasks;
         this.ui = ui;
     }
 
+    /**
+     * Returns a task list that is modified according to user command
+     * Prints relevant information from tasks to console based on user command
+     *
+     * @return the modified task list
+     */
     public TaskList handleInput() throws MassimoBoiException{
         try {
             if (userInput.startsWith("find")){
