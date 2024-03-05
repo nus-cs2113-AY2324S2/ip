@@ -6,7 +6,14 @@ import ui.Constants;
 import utilities.parser.InputParser;
 
 public class CommandExecuter {
-    public static void ExecuteCommand(String userInput, String commandType) {
+
+    /**
+     * Receives the user input and executes the corresponding command.
+     *
+     * @param userInput User input typed on the console containing the task details.
+     * @param commandType The command inputted by user.
+     */
+    public static void executeCommand(String userInput, String commandType) {
 
         try {
             InputParser input = new InputParser(userInput.trim(), commandType);

@@ -43,8 +43,8 @@ public final class Constants {
     public static final String FILEPATH = "./ip/data/AragornList.txt";
     public static final String CURRENTLIST = "    Here are the tasks in your list: ";
     public static final String EMPTYLIST = LINE + "    List is empty. Add tasks to view them here.\n" + LINE;
-    public static final String EMPTYINPUT = LINE + "    Input is empty. Use \"/help\" command to view the list of commands\n" + LINE;
-    public static final String INVALIDINPUT = LINE + "    Your input is invalid. Use the \"/help\" command to view the list of commands.\n" + LINE;
+    public static final String EMPTYINPUT = LINE + "    Input is empty. Use \"help\" command to view the list of commands\n" + LINE;
+    public static final String INVALIDINPUT = LINE + "    Your input is invalid. Use the \"help\" command to view the list of commands.\n" + LINE;
     public static final String HELLOMESSAGE =LINE + GREET + LINE + "\n" + COMMANDLIST + LINE;
     public static final String HELPMESSAGE = LINE + COMMANDLIST + LINE;
     public static final String BYEMESSAGE = LINE + TAB + EXIT + LINE;

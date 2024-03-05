@@ -6,6 +6,12 @@ import utilities.parser.InputParser;
 
 public class UnmarkTask {
 
+    /**
+     * Unmarks a completed task from the task list and prints the number of tasks remaining.
+     *
+     * @param input Parsed input containing index of the task being unmarked.
+     * @param remainingTasks Number of tasks that remain incomplete.
+     */
     protected static void unmarkTask(InputParser input, int remainingTasks) {
         try {
             int index = Integer.parseInt(input.getSplitInput()[0]);

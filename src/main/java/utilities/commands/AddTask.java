@@ -9,6 +9,12 @@ import utilities.parser.InputParser;
 
 public class AddTask {
 
+    /**
+     * Adds an event task into the task list and prints the number of tasks remaining.
+     *
+     * @param input Parsed input containing event description, start condition and end condition.
+     * @param remainingTasks Number of tasks that remain incomplete.
+     */
     protected static void eventCommand(InputParser input, int remainingTasks) {
         try {
             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty() || input.getSplitInput()[2].isEmpty()) {
@@ -24,6 +30,12 @@ public class AddTask {
         }
     }
 
+    /**
+     * Adds a deadline task into the task list and prints the number of tasks remaining.
+     *
+     * @param input Parsed input containing deadline task description and the deadline date.
+     * @param remainingTasks Number of tasks that remain incomplete.
+     */
     protected static void deadlineCommand(InputParser input, int remainingTasks) {
         try {
             if (input.getSplitInput()[0].isEmpty() || input.getSplitInput()[1].isEmpty()) {
@@ -39,6 +51,12 @@ public class AddTask {
         }
     }
 
+    /**
+     * Adds a todo task into the task list and prints the number of tasks remaining.
+     *
+     * @param input Parsed input containing todo task description.
+     * @param remainingTasks Number of tasks that remain incomplete.
+     */
     protected static void todoCommand(InputParser input, int remainingTasks) {
         if (input.getSplitInput()[0].trim().isEmpty()) {
             return;

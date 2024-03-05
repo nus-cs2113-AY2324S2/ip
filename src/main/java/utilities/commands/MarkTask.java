@@ -5,6 +5,13 @@ import ui.Constants;
 import utilities.parser.InputParser;
 
 public class MarkTask {
+
+    /**
+     * Marks a task from the task list as done and prints the number of tasks remaining.
+     *
+     * @param input Parsed input containing index of the task being marked as complete.
+     * @param remainingTasks Number of tasks that remain incomplete.
+     */
     protected static void markTask(InputParser input, int remainingTasks) {
         try {
             int index = Integer.parseInt(input.getSplitInput()[0]);

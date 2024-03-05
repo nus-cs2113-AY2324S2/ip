@@ -5,6 +5,12 @@ import ui.Constants;
 public class InputParser {
     private String[] splitInput = new String[3];
 
+    /**
+     * Parses the input into parts depending on the type of command.
+     *
+     * @param userInput Input from the user containing the details of the command.
+     * @param commandType The type of command inputted.
+     */
     public InputParser(String userInput, String commandType) {
         switch (commandType) {
             case Constants.MARK:

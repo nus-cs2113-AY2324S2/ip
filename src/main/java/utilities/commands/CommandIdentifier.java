@@ -3,6 +3,13 @@ package utilities.commands;
 import ui.Constants;
 
 public class CommandIdentifier {
+
+    /**
+     * Identifies the command inputted from the user input.
+     *
+     * @param userInput Input from the user containing the command and details.
+     * @return commandType
+     */
     public static String commandIdentifier(String userInput) {
         String commandType;
 

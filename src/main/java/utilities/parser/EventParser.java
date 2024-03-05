@@ -6,6 +6,12 @@ import ui.Constants;
 public class EventParser {
 
     private static final String[] splitInput = new String[3];
+
+    /**
+     * Splits the input into the event description and the start condition and end condition.
+     *
+     * @param userInput Input from the user containing the details of the event task.
+     */
     protected EventParser (String userInput) {
         String[] splitEvent;
         String[] splitDeadline;

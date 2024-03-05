@@ -7,6 +7,11 @@ public class DeadlineParser {
 
     private static final String[] splitInput = new String[3];
 
+    /**
+     * Splits the input into the deadline description and the deadline condition.
+     *
+     * @param userInput Input from the user containing the details of the deadline task.
+     */
     protected DeadlineParser (String userInput) {
         String[] splitDeadline;
         try {

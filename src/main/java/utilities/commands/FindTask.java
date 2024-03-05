@@ -7,6 +7,13 @@ import utilities.parser.InputParser;
 import java.util.ArrayList;
 
 public class FindTask {
+
+    /**
+     * Finds tasks matching the keywords inputted and displays them on another list.
+     *
+     * @param input Parsed input containing the keywords for the find function.
+     * @param list Array list with the tasks containing the keyword.
+     */
     public static void findTasks(InputParser input, ArrayList<Task> list) {
 
         String keyword = input.getSplitInput()[0];

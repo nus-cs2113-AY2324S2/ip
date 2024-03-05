@@ -32,7 +32,7 @@ public class Aragorn {
                 FileWriter.writeFile();
                 return;
             }
-            CommandExecuter.ExecuteCommand(userInput, commandType);
+            CommandExecuter.executeCommand(userInput, commandType);
             FileWriter.writeFile();
         }
     }
