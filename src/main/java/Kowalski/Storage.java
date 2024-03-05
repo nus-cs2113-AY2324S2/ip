@@ -25,6 +25,16 @@ public class Storage {
     private static final String EVENT = "E";
     private static final String COMPLETED_TASK_CROSS = "X";
     private static final String FROM_AND_TO_SEPARATOR = " - ";
+    private static final String TEXT_FILE_CORRUPTED_ERROR = "Kowalski Analysis Error: Text File Corrupted!";
+    private static final String CREATE_NEW_TEXT_FILE = "Creating new Kowalski.txt file";
+    private static final String RETRIEVING_PREVIOUS_DATA_MESSAGE = "Kowalski retrieving previous data...";
+    private static final String DATA_RETRIEVAL_SUCCESS_MESSAGE = "Kowalski Data Retrieval Success!";
+    private static final String DATA_RETRIEVAL_FAIL_MESSAGE = "Kowalski Data Retrieval Failed!";
+    private static final String ANALYSING_INPUT_MESSAGE = "Kowalski analysing inputs..." ;
+    private static final String CHANGE_RECORDED_IN_TEXT_FILE = "Change recorded in the Text file!";
+    private static final String ISSUE_WITH_DIRECTORY_OR_TEXT_FILE = "Kowalski Analysis failed - Issue with directory/text file!";
+    private static final String FAILURE_TO_CREATE_DIRECTORY = "Skipper, I am unable to create the data directory for you!" ;
+    private static final String NEWLINE = "\n" ;
 
     /**
      * This function takes in the lines of code from the Kowalski.txt and processes them to
@@ -64,7 +74,7 @@ public class Storage {
             currentTask.add(newEventTask);
             break;
         default:
-            System.out.println("Kowalski Analysis Error: Text File Corrupted!");
+            System.out.println(TEXT_FILE_CORRUPTED_ERROR);
             break;
         }
     }
@@ -78,19 +88,19 @@ public class Storage {
             createTextFileFolder(Paths.get(TEXT_FILE_FOLDER));
             Path filePath = Paths.get(FULL_FILE_PATH);
             if (!Files.exists(filePath)){
-                System.out.println("Creating new Kowalski.txt file");
+                System.out.println(CREATE_NEW_TEXT_FILE);
                 Files.createFile(filePath);
             }
             FileReader fileReader = new FileReader(FULL_FILE_PATH);
             BufferedReader line = new BufferedReader(fileReader);
-            System.out.println("Kowalski retrieving previous data...");
+            System.out.println(RETRIEVING_PREVIOUS_DATA_MESSAGE);
             while (line.ready()) {
                 restoreTaskList(line.readLine(), currentTask);
             }
-            System.out.println("Kowalski Data Retrieval Complete!");
+            System.out.println(DATA_RETRIEVAL_SUCCESS_MESSAGE);
             Ui.printDivider();
         } catch (IOException e){
-            System.out.println("Kowalski Data Retrieval Failed!");
+            System.out.println(DATA_RETRIEVAL_FAIL_MESSAGE);
             throw e;
         }
     }
@@ -105,7 +115,7 @@ public class Storage {
             lines.add(task.textFileInputString());
         }
         Ui.printDivider();
-        System.out.println("Kowalski analysing inputs...");
+        System.out.println(ANALYSING_INPUT_MESSAGE);
         writeTextFile(lines);
     }
 
@@ -120,13 +130,13 @@ public class Storage {
 
             FileWriter writer = new FileWriter(FULL_FILE_PATH);
             for (String line : lines) {
-                writer.write(line + "\n");
+                writer.write(line + NEWLINE);
 
             }
-            System.out.println("Task recorded in the Text file!");
+            System.out.println(CHANGE_RECORDED_IN_TEXT_FILE);
             writer.close();
         } catch (IOException e){
-            System.out.println("Kowalski Analysis failed - Issue with directory/text file!");
+            System.out.println(ISSUE_WITH_DIRECTORY_OR_TEXT_FILE);
         }
     }
 
@@ -141,7 +151,7 @@ public class Storage {
         } catch (FileAlreadyExistsException ignored){
             //Ignore this error if file exists
         } catch (IOException e){
-            System.out.println("Skipper, I am unable to create the data directory for you!");
+            System.out.println(FAILURE_TO_CREATE_DIRECTORY);
             throw e;
         }
     }
