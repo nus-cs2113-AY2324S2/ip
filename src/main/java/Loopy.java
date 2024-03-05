@@ -1,17 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-//import LoopyExceptions.java
+import java.io.*;
 
 public class Loopy {
+    private static final String FILE_PATH = "././Loopy.txt"; // File path
     private static ArrayList<Task> tasks = new ArrayList<>();
-
     public static void main(String[] args) {
-        String logo = " __                \n"
-                + "| |    ____ ____ ____ \n"
-                + "| |   | |-| ||-| | _ \\\n"
-                + "| |___| |_| ||_| | __/\n"
-                + "|____/ \\__/ \\__/_| | \n";
-        System.out.println("Hello! I'm Loopy!\n" + logo);
+
+        System.out.println("Hello! I'm Loopy ₍ᐢ•ﻌ•ᐢ₎");
+
+        loadFile(); //load the previously saved file
+
         System.out.println("What can I do for you?\n");
 
         Scanner taskScanner = new Scanner(System.in);
@@ -19,7 +18,6 @@ public class Loopy {
         while (true) {
             String task = taskScanner.nextLine();
             processTask(task);
-//            System.out.println(task);
             if (task.equals("bye")) {
                 System.out.println("Bye! Hope to see you again ♡ \n");
                 break;
@@ -64,11 +62,57 @@ public class Loopy {
             case "delete":
                 deleteTask(task);
                 break;
+            case "bye":
+                break;
             default:
                 System.out.println("I don't know what you're saying...?");
         }
     }
 
+    private static void loadFile(){
+        try {
+            File file = new File(FILE_PATH);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                switch (parts[0]) {
+                    case "T":
+                        tasks.add(new TodoTask(parts[2]));
+                        break;
+                    case "D":
+                        tasks.add(new DeadlineTask(parts[2], parts[3]));
+                        break;
+                    case "E":
+                        tasks.add(new EventTask(parts[2], parts[3], parts[4]));
+                        break;
+                }
+                if (parts[1].equals("1")) {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+            }
+            scanner.close();
+            displayTaskList();
+        } catch (FileNotFoundException e) {
+            System.out.println("No saved tasks found! Starting a new list\n  ❀•°❀°•❀ ");
+        }
+    }
+    private static void saveFile() {
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs(); // Make the directory if it doesn't exist
+            }
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+            e.printStackTrace();
+        }
+    }
     private static void addTodo(String task) throws LoopyExceptions {
         if (task.length() <= 5) {
             throw new LoopyExceptions("Todo cannot be empty!");
@@ -76,6 +120,7 @@ public class Loopy {
         if (task.length() > 5) {
             String description = task.substring(5, task.length());
             tasks.add(new TodoTask(description));
+            saveFile();
             System.out.println("Got it. I've added this task: ");
             System.out.println(tasks.get(tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -91,6 +136,7 @@ public class Loopy {
         String deadline = task.substring(splitPosition + 4, task.length());
 
         tasks.add(new DeadlineTask(description, deadline));
+        saveFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -104,6 +150,7 @@ public class Loopy {
         String toDate = task.substring(toPosition + 3, task.length());
 
         tasks.add(new EventTask(description, fromDate, toDate));
+        saveFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -126,10 +173,10 @@ public class Loopy {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task currentTask = tasks.get(taskIndex);
             currentTask.markAsDone();
+            saveFile();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(" " + currentTask);
         } else {
-            //write some other error
             throw new LoopyExceptions("Please specify which task to mark.");
         }
     }
@@ -140,6 +187,7 @@ public class Loopy {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task currentTask = tasks.get(taskIndex); //retrieve this current task from tasks
             currentTask.markAsNotDone();
+            saveFile();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(" " + currentTask);
         } else {
@@ -154,42 +202,9 @@ public class Loopy {
             System.out.println("I have deleted the task: ");
             System.out.println(currentTask);
             tasks.remove(taskIndex);
+            saveFile();
             System.out.println("You now have " + tasks.size() + " tasks left");
         }
-    }
-}
-
-class Task {
-    public String description;
-    public boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsNotDone() {
-        this.isDone = false;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getType(){
-        return "";
-    }
-    @Override //converts hexadecimal output to string
-    public String toString() {
-        return "[" + getType() + "]" + "[" + (isDone ? "X" : " ") + "] " + description;
     }
 }
 
@@ -200,6 +215,10 @@ class TodoTask extends Task{
     @Override
     public String getType() {
         return "T";
+    }
+    @Override
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
 }
@@ -218,6 +237,11 @@ class DeadlineTask extends Task{
     public String getType() {
         return "D";
     }
+    @Override
+    public String toFileString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline;
+    }
+
 }
 class EventTask extends Task {
     private String fromDate, toDate;
@@ -234,5 +258,10 @@ class EventTask extends Task {
     public String toString() {
         return "[" + getType() + "]" + "[" + (isDone ? "X" : " ") + "] " + description + " (from: " + fromDate + " to: " + toDate + ")";
     }
+    @Override
+    public String toFileString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + fromDate + " to " + toDate;
+    }
+
 }
 
