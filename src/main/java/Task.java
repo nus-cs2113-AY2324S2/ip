@@ -18,7 +18,9 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
-
+    public String getDescription() {
+        return description;
+    }
     public void markAsDoneOrNotDone(String[] arrayOfCommand) {
         if (arrayOfCommand[0].equals("mark")) {
             this.isDone = true;
