@@ -34,6 +34,9 @@ public class CommandBinding {
                 case "unmark":
                     this.command = new StatusCommand(parser);
                     break;
+                case "find":
+                    this.command = new StatusCommand(parser);
+                    break;
                 case "delete":
                     this.command = new DeleteCommand(parser);
                     break;

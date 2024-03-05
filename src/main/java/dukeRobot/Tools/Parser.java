@@ -76,6 +76,10 @@ public class Parser {
         }
     }
 
+    public String getWord() {
+        return this.taskIndex;
+    }
+
     public String getDescription() {
         return this.description;
     }
