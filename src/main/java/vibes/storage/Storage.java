@@ -116,4 +116,12 @@ public class Storage {
             break;
         }
     }
+
+    public static void saveTask(TaskList taskList) {
+        try {
+            writeToFile(taskList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

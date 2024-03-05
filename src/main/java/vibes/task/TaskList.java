@@ -9,7 +9,6 @@ import vibes.task.type.Event;
 import vibes.task.type.Task;
 import vibes.task.type.Todo;
 import vibes.ui.TextUi;
-
 import java.util.ArrayList;
 
 public class TaskList {
