@@ -99,6 +99,25 @@ public class Ui {
         System.out.println(VERTICAL_LINES + "\n");
     }
 
+    public static void printMarkTaskErrorMessage () {
+        System.out.println(VERTICAL_LINES);
+        System.out.println("     Error");
+        System.out.println("     Sire did you forget to input a digit after mark?");
+        System.out.println(VERTICAL_LINES);
+    }
+    public static void printUnmarkTaskErrorMessage () {
+        System.out.println(VERTICAL_LINES);
+        System.out.println("     Error");
+        System.out.println("     Sire did you forget to input a digit after unmark?");
+        System.out.println(VERTICAL_LINES);
+    }
+    public static void printDeleteTaskErrorMessage () {
+        System.out.println(VERTICAL_LINES);
+        System.out.println("     Error");
+        System.out.println("     Sire did you forget to input a digit after delete?");
+        System.out.println(VERTICAL_LINES);
+    }
+
     public static void invalidTaskTypeMessage() {
         System.out.println(VERTICAL_LINES);
         System.out.println(FIVE_WHITE_SPACES + "Invalid Task Type sire, tasks can only be todo, deadline or event");

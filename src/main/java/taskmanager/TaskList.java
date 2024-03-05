@@ -5,12 +5,11 @@ import java.util.Scanner;
 
 public class TaskList {
 
-    public static void processUserInputIntoTaskList (String receivedMessage, int taskCounter, Scanner requestedMessage,
+    public static ArrayList<Task> processUserInputIntoTaskList (String receivedMessage, int taskCounter, Scanner requestedMessage,
             ArrayList<Task> taskList) {
         if (receivedMessage.trim().equals("list") && taskCounter == 0) { // list is empty
             Ui.listIsEmptyMessage();
             receivedMessage = requestedMessage.nextLine();
-            return;
         } else if (receivedMessage.trim().equals("list") && taskCounter > 0) { // list is not empty
             Parser.listIsNotEmpty(taskList, taskCounter);
         } else if (receivedMessage.contains("mark") && !receivedMessage.contains("unmark")) {
@@ -29,5 +28,6 @@ public class TaskList {
         } else {
             Ui.typoErrorMessage();
         }
+        return taskList;
     }
 }

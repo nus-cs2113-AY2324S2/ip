@@ -28,7 +28,8 @@ public class Serf {
 
         while(!receivedMessage.equals("bye")) {
 
-            TaskList.processUserInputIntoTaskList(receivedMessage, taskCounter, requestedMessage, taskList);
+            taskList = TaskList.processUserInputIntoTaskList(receivedMessage, taskCounter, requestedMessage, taskList);
+            taskCounter = taskList.size();
             if (requestedMessage.hasNextLine()) { //check if user added another line
                 receivedMessage = requestedMessage.nextLine();
             } else {

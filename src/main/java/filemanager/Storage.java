@@ -26,12 +26,21 @@ public class Storage {
                 String store = loadMessage.nextLine();
                 if (store.contains("todo")) {
                     taskCounter = Parser.addTodoTaskToList(store, taskList, taskCounter);
+//                    if (store.contains("mark")) {
+//                        taskList.get(taskCounter - 1).markAsDone();
+//                    }
                     //System.out.println(loadMessage.nextLine());
                 } else if (store.contains("deadline")) {
                     taskCounter = Parser.addDeadlineTaskToList(store, taskList, taskCounter);
+//                    if (store.contains("mark")) {
+//                        taskList.get(taskCounter - 1).markAsDone();
+//                    }
                     //System.out.println(loadMessage.nextLine());
                 } else if (store.contains("event")) {
                     taskCounter = Parser.addEventTaskToList(store, taskList, taskCounter);
+//                    if (store.contains("mark")) {
+//                        taskList.get(taskCounter - 1).markAsDone();
+//                    }
                     //System.out.println(loadMessage.nextLine());
                 } else {
                     break;
@@ -52,14 +61,30 @@ public class Storage {
             loadFile = new FileWriter( "./Serf.txt", true);
             for (int iterator = 0; iterator < taskCounter; iterator += 1) {
                 if (taskList.get(iterator).getTaskType().equals("T")) {
-                    loadFile.write("todo " + taskList.get(iterator).getDescription() + System.lineSeparator());
+                    if (taskList.get(iterator).getStatusIcon().equals("X")) {
+                        loadFile.write("mark " + "todo " + taskList.get(iterator).getDescription()
+                                + System.lineSeparator());
+                    } else {
+                        loadFile.write("todo " + taskList.get(iterator).getDescription() + System.lineSeparator());
+                    }
                 } else if (taskList.get(iterator).getTaskType().equals("D")) {
-                    loadFile.write("deadline " + taskList.get(iterator).getDescription()
-                            + " /by " + taskList.get(iterator).getEndDate() + System.lineSeparator());
+                    if (taskList.get(iterator).getStatusIcon().equals("X")) {
+                        loadFile.write("mark " + "deadline " + taskList.get(iterator).getDescription()
+                                + " /by " + taskList.get(iterator).getEndDate() + System.lineSeparator());
+                    } else {
+                        loadFile.write("deadline " + taskList.get(iterator).getDescription()
+                                + " /by " + taskList.get(iterator).getEndDate() + System.lineSeparator());
+                    }
                 } else if (taskList.get(iterator).getTaskType().equals("E")) {
-                    loadFile.write("event " + taskList.get(iterator).getDescription()
-                            + " /from " + taskList.get(iterator).getStartDate()
-                            + " /to " + taskList.get(iterator).getEndDate() + System.lineSeparator());
+                    if (taskList.get(iterator).getStatusIcon().equals("X")) {
+                        loadFile.write("mark " + "event " + taskList.get(iterator).getDescription()
+                                + " /from " + taskList.get(iterator).getStartDate()
+                                + " /to " + taskList.get(iterator).getEndDate() + System.lineSeparator());
+                    } else {
+                        loadFile.write("event " + taskList.get(iterator).getDescription()
+                                + " /from " + taskList.get(iterator).getStartDate()
+                                + " /to " + taskList.get(iterator).getEndDate() + System.lineSeparator());
+                    }
                 } else {
                     System.out.println("error");
                 }

@@ -1,9 +1,18 @@
 event ChinYanXu attend CS2113 lecture Friday 23 Feb 2024 /from 4 /to 6pm
-todo ee2026 assignment
-event cny gathering /from 11am /to 6pm
-event study /from 10pm /to 12am
-event go run /from 3pm /to 4pm
-deadline cs2113 /by 3345
-todo homework
-event dinner /from 6pm /to 7pm
-todo sleep
+mark todo ee2026 assignment
+mark event dinner /from 6pm /to 7pm
+mark todo sleep
+event sleep /from 2pm /to 3pm
+mark deadline walk to dh /by 6pm
+mark deadline interview /by 6 march
+mark deadline music lesson /by 2 jab
+event rere /from rara /to rtrt
+mark todo asdasd
+mark todo asdarq
+mark todo qqrqwr
+todo never quit
+mark todo never surrender
+todo jump
+todo help out
+deadline hehe /by haha
+event 2030 /from 22 /to 33

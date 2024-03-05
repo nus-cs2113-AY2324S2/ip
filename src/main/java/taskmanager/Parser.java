@@ -40,8 +40,11 @@ public class Parser {
             }
         }
         if (number.isEmpty()) {
-            Ui.errorMessage();
-            System.out.println("     Sire you need to input a digit after mark");
+//            Ui.printVerticalLines();
+//            Ui.errorMessage();
+//            System.out.println("     Sire you need to input a digit after mark");
+//            Ui.printVerticalLines();
+            Ui.printMarkTaskErrorMessage();
             return;
         } else {
             taskList.get(Integer.parseInt(number) - 1).markAsDone();
@@ -58,8 +61,9 @@ public class Parser {
             }
         }
         if (number.isEmpty()) {
-            Ui.errorMessage();
-            System.out.println("     Sire you need to input a digit after unmark");
+//            Ui.errorMessage();
+//            System.out.println("     Sire you need to input a digit after unmark");
+            Ui.printUnmarkTaskErrorMessage();
             return;
         } else {
             taskList.get(Integer.parseInt(number) - 1).markAsUndone();
@@ -71,9 +75,9 @@ public class Parser {
     public static int addTodoTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
             receivedMessage = receivedMessage.trim();
-            if (!receivedMessage.startsWith("todo")) { // input does not start with todo
-                throw new InvalidInputException();
-            }
+            //if (!receivedMessage.startsWith("todo")) { // input does not start with todo
+              //  throw new InvalidInputException();
+            //}
             String[] splittedMessage = receivedMessage.split("todo ");
             for (int i = 0; i < splittedMessage.length; i += 1) {
                 splittedMessage[i] = splittedMessage[i].trim();
@@ -84,6 +88,9 @@ public class Parser {
             }
             taskList.add(taskCounter, new Task(splittedMessage[1]));
             taskList.get(taskCounter).setTaskType("todo");
+            if (receivedMessage.contains("mark")) {
+                taskList.get(taskCounter).markAsDone();
+            }
             taskCounter += 1;
             Ui.addTodoMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
@@ -98,8 +105,8 @@ public class Parser {
         try {
             receivedMessage = receivedMessage.trim();
             // input does not start with deadline or contain /by
-            if (!receivedMessage.startsWith("deadline") ||
-                    !receivedMessage.contains("/by")) {
+            //!receivedMessage.startsWith("deadline") ||
+            if (!receivedMessage.contains("/by")) {
                 throw new InvalidInputException();
             }
             String[] splittedMessage = receivedMessage.split("deadline ");
@@ -121,6 +128,9 @@ public class Parser {
             taskList.add(taskCounter, new Task(doubleSplittedMessage[0]));
             taskList.get(taskCounter).setTaskType("deadline");
             taskList.get(taskCounter).setEndDate(doubleSplittedMessage[1]);
+            if (receivedMessage.contains("mark")) {
+                taskList.get(taskCounter).markAsDone();
+            }
             taskCounter += 1;
             Ui.addDeadlineMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
@@ -134,7 +144,8 @@ public class Parser {
     public static int addEventTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter){
         try {
             receivedMessage = receivedMessage.trim();
-            if (!receivedMessage.startsWith("event") || !receivedMessage.contains("/from")
+            //!receivedMessage.startsWith("event") ||
+            if (!receivedMessage.contains("/from")
                     || !receivedMessage.contains("/to")) { // input does not start with event
                 throw new InvalidInputException();
             }
@@ -165,6 +176,9 @@ public class Parser {
             taskList.get(taskCounter).setTaskType("event");
             taskList.get(taskCounter).setStartDate(tripleSplittedMessage[0]);
             taskList.get(taskCounter).setEndDate(tripleSplittedMessage[1]);
+            if (receivedMessage.contains("mark")) {
+                taskList.get(taskCounter).markAsDone();
+            }
             taskCounter += 1;
             Ui.addEventMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
@@ -186,8 +200,9 @@ public class Parser {
                 }
             }
             if (number.isEmpty()) {
-                Ui.errorMessage();
-                System.out.println("     Sire you need to input a digit after delete");
+//                Ui.errorMessage();
+//                System.out.println("     Sire you need to input a digit after delete");
+                Ui.printDeleteTaskErrorMessage();
                 return taskCounter;
             }
             int taskNumber = Integer.parseInt(number);
