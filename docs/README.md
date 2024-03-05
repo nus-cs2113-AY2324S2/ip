@@ -32,7 +32,7 @@ Mona is a Command Line Interface (CLI) chatbot application designed to streamlin
 
 > :information_source: **Notes about the command format:**
 > 
-> - Words in `UPPER_CASE` are the parameters to be supplied by the user.
+> - Words in `UPPER_CASE` are the parameters that must be supplied by the user. These parameters CANNOT be left empty.
 >   e.g., in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo borrow book`.
 > 
 > - Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, and `bye`) will be ignored.
@@ -53,8 +53,8 @@ Shows a list of all available commands and their usage.
 ### Adding a Task
 
 There are three types of tasks you can add: `todo`, `deadline`, and `event`.
-1. **ToDos**: These are tasks that do not have a specific date or time associated with them. They represent things you need to do but haven't scheduled a time for yet.
-2. **Deadlines**: These tasks have a specific due date and time. They're the things you need to complete by a certain deadline.
+1. **ToDos**: These are tasks that do not have a specific date or time associated with them. They represent tasks that do not have a scheduled time for completion.
+2. **Deadlines**: These tasks have a specific due date and time. They represent tasks that you need to complete by a certain deadline.
 3. **Events**: These are tasks that occur over a range of time, having both a start date/time and an end date/time.
 
 &nbsp;
@@ -66,6 +66,11 @@ Adds a ToDo task to your task list.
 **Format:** `todo DESCRIPTION`
 - `DESCRIPTION`: The description of the todo task.
 
+**Examples:**
+
+- `todo Pick up groceries`
+  Adds a task with the description "Pick up groceries" to your list. There is no specific date or time associated with a ToDo task. It is assumed that you can complete this task at any time.
+
 &nbsp;
 
 #### Adding a Deadline: `deadline`
@@ -76,6 +81,11 @@ Adds a deadline task to your task list.
 - `DESCRIPTION`: The description of the deadline task.
 - `DATE`: The due date of the deadline task.
 
+**Examples:**
+
+- `deadline Submit final project /by 20/12/2024`
+  Adds a task with the description "Submit final project" that has a due date of December 20, 2024. A deadline task specifies when it needs to be completed.
+  
 &nbsp;
 
 #### Adding an Event: `event`
@@ -86,6 +96,11 @@ Adds an event task to your task list.
 - `DESCRIPTION`: The description of the event task.
 - `FROM_DATE`: The date/time of the START of the event.
 - `TO_DATE`: The date/time of the END of the event.
+
+**Examples:**
+
+- `event Sister's wedding /from 12/12/2024 11am /to 12/12/2024 3pm`  
+  Adds an event with the description "Sisters wedding". The event starts at 11 AM and ends at 3 PM on December 12, 2024.
 
 &nbsp;
 
@@ -111,7 +126,15 @@ Finds tasks whose descriptions contain the given keyword.
 Deletes a task from your task list.
 
 **Format:** `delete INDEX`
-- `INDEX`: The index of the task to be deleted, as shown by the `list` command.
+- `INDEX`: The index of the task to be deleted.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer (1, 2, 3, ...).
+- The index must not be out of bounds (not more than the total number of tasks stored).
+
+**Examples:**
+
+- `list` followed by `delete 3`  
+  This will delete the 3rd task in the list displayed by the `list` command.
 
 &nbsp;
 
@@ -121,6 +144,14 @@ Marks a task as done.
 
 **Format:** `mark INDEX`
 - `INDEX`: The index of the task to be marked as done, as shown by the `list` command.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer (1, 2, 3, ...).
+- The index must not be out of bounds (not more than the total number of tasks stored).
+
+**Examples:**
+
+- `list` followed by `mark 2`  
+  This will mark the 2nd task in the task list as done.
 
 &nbsp;
 
@@ -130,6 +161,14 @@ Marks a task as not done.
 
 **Format:** `unmark INDEX`
 - `INDEX`: The index of the task to be marked as not done, as shown by the `list` command.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer (1, 2, 3, ...).
+- The index must not be out of bounds (not more than the total number of tasks stored).
+
+**Examples:**
+
+- `list` followed by `unmark 4`  
+  Marks the 4th task in the task list as not done.
 
 &nbsp;
 
