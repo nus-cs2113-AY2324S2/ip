@@ -7,10 +7,11 @@
 # Vim swap files
 *.swp
 
-# Gradle build files
+# Gradle and general build files
 /.gradle/
 /build/
 src/main/resources/docs/
+*.jar
 
 # MacOS custom attributes files created by Finder
 .DS_Store
