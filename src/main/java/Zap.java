@@ -3,28 +3,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Zap {
-    private static List<Task> tasks = new ArrayList<>();
-    public static void main(String[] args) {
-        String logo = """
-              _____   _   _   ____
-             |__  /  / \\ / | |  _ \\
-               / /  / _ \\| | | |_) |
-              / /_ / ___ \\ | |  __/
-             /____/_/   \\_\\_| |_|
-            """;
+    private static List<Task> tasks;
+    private final Ui ui;
 
-        System.out.println("Hello from\n" + logo);
-        greeting();
-        processCommands();
-        exit();
+    public Zap() {
+        tasks = new ArrayList<>();
+        this.ui = new Ui(); // This will automatically print the welcome message from the Ui class
     }
 
-    private static void greeting() {
-        String chatbotName = "ZAP";
-        System.out.println("____________________________________________________________");
-        System.out.println(" 你好! Hello! Konichiwa! I'm " + chatbotName);
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public void run() {
+        ui.printInstructions();
+        processCommands();
+        ui.printFarewell();
     }
 
     /**
@@ -243,10 +233,7 @@ public class Zap {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }
 
-    //saying bye to chat-bot
-    private static void exit() {
-        System.out.println("Bye! See you again sooooooooon :)");
-        System.out.println("____________________________________________________________");
-
+    public static void main(String[] args) {
+        new Zap().run(); // Create an instance of Zap and call its run method to start the application
     }
 }
