@@ -1,12 +1,11 @@
 package soot.task;
 
 import soot.exceptions.SavedFileErrorTypeException;
-import soot.parser.Parser;
 
 public class Task {
     public String taskName;
     public boolean isDone;
-    public static taskType taskType;
+    public TaskType taskType;
 
     public Task(String input, Boolean isDone) {
         this.taskName = input;
@@ -43,7 +42,7 @@ public class Task {
         System.out.println("  >> " + this.taskName);
     }
 
-    //TODO: index of other elements are not updated
+
     public void printDelete() {
         System.out.println("okay, i will remove this task from your list: ");
         System.out.print("  >> ");
@@ -58,7 +57,6 @@ public class Task {
         printCheckbox();
     }
 
-    //TODO: after a task is marked done/undone, the taskCount printed when another task is added is unchanged
     public static void printTaskCount() {
         int taskCount = TaskList.getSize();
         System.out.println("you now have " + taskCount + " tasks left...");
@@ -68,14 +66,14 @@ public class Task {
         System.out.print("[NA]");
     }
 
-    public static taskType identifyTaskType(String input) throws SavedFileErrorTypeException {
+    public static TaskType identifyTaskType(String input) throws SavedFileErrorTypeException {
         switch (input) {
         case "T":
-            return soot.task.taskType.TODO;
+            return TaskType.TODO;
         case "D":
-            return soot.task.taskType.DEADLINE;
+            return TaskType.DEADLINE;
         case "E":
-            return soot.task.taskType.EVENT;
+            return TaskType.EVENT;
         default:
             throw new SavedFileErrorTypeException();
         }

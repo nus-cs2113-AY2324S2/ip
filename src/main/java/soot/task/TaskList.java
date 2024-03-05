@@ -15,7 +15,7 @@ public class TaskList {
     //TODO: implement stream?
     public static void printList() {
         System.out.println("tasks to be done:");
-        if (taskList.size() == 0) {
+        if (taskList.isEmpty()) {
             System.out.println("  >> nothing so far :)");
         } else {
             for (int i = 0; i < taskList.size(); i++) {
@@ -27,7 +27,7 @@ public class TaskList {
         UserUi.displayDividerLine();
     }
 
-    public static void addTask(String userInput, taskType taskType) {
+    public static void addTask(String userInput, TaskType taskType) {
         switch (taskType) {
         case TODO:
             addTodoTask(userInput);
@@ -75,13 +75,16 @@ public class TaskList {
         UserUi.displayDividerLine();
     }
 
-    // TODO: method is unused
     public static int getSize() {
         return taskList.size();
     }
 
     public static Task getTask(int taskIndex) {
         return taskList.get(taskIndex);
+    }
+
+    public static TaskType getTaskType(int taskIndex) {
+        return taskList.get(taskIndex).taskType;
     }
 
     public static void markTaskDone(int taskIndex) {
@@ -111,5 +114,28 @@ public class TaskList {
 
     public static void addSavedEventTask(String taskName, boolean isTaskDone, String taskStart, String taskEnd) {
         taskList.add(new Event(taskName, isTaskDone, taskStart, taskEnd));
+    }
+
+    public static String formatTaskToSave(int taskIndex) {
+        String formattedLine;
+        int taskDone = taskList.get(taskIndex).isDone ? 1 : 0;
+
+        switch (taskList.get(taskIndex).taskType) {
+        case TODO:
+            formattedLine = "T ; " + taskDone + " ; " + taskList.get(taskIndex).taskName;
+            break;
+        case DEADLINE:
+            Deadline deadlineTask = (Deadline) taskList.get(taskIndex);
+            formattedLine = "D ; " + taskDone + " ; " + deadlineTask.taskName + " ; " + deadlineTask.dueDate;
+            break;
+        case EVENT:
+            Event eventTask = (Event) taskList.get(taskIndex);
+            formattedLine = "E ; " + taskDone + " ; " + eventTask.taskName + " ; " + eventTask.startDate + " ; " + eventTask.endDate;
+            break;
+        default:
+            formattedLine = "i could not read this task";
+            System.out.println("task of unknown type detected");
+        }
+        return formattedLine;
     }
 }

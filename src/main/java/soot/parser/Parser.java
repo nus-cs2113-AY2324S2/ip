@@ -37,13 +37,13 @@ public class Parser {
                 handleDeleteCommand(input);
                 break;
             case "todo":
-                TaskList.addTask(input, taskType.TODO);
+                TaskList.addTask(input, TaskType.TODO);
                 break;
             case "deadline":
-                TaskList.addTask(input, taskType.DEADLINE);
+                TaskList.addTask(input, TaskType.DEADLINE);
                 break;
             case "event":
-                TaskList.addTask(input, taskType.EVENT);
+                TaskList.addTask(input, TaskType.EVENT);
                 break;
             default:
                 throw new UnknownCommandException();

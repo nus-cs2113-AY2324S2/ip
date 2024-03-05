@@ -5,7 +5,7 @@ public class Deadline extends Task {
 
     public Deadline(String taskName, Boolean isDone, String dueDate) {
         super(taskName, isDone);
-        this.taskType = soot.task.taskType.DEADLINE;
+        this.taskType = TaskType.DEADLINE;
         this.dueDate = dueDate;
     }
 
@@ -27,6 +27,7 @@ public class Deadline extends Task {
     public void printTaskType() {
         System.out.print("[D]");
     }
+
     @Override
     public void printTask(int index) {
         super.printTask(index);

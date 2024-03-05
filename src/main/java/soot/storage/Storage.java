@@ -26,24 +26,20 @@ public class Storage {
         return readFile;
     }
 
-    // TODO: make the cases as an enum instead of string
     // TODO: create a getTaskDescription method
     public static void loadSavedTasks(String line) {
         try {
             String[] taskInfo = line.split(" ; ", 0);
             boolean isTaskDone = !taskInfo[1].trim().equals("0");
 
-            taskType savedTaskType = Task.identifyTaskType(taskInfo[0].trim());
-            if (savedTaskType == taskType.TODO) {
+            TaskType savedTaskType = Task.identifyTaskType(taskInfo[0].trim());
+            if (savedTaskType == TaskType.TODO) {
                 TaskList.addSavedTodoTask(taskInfo[2], isTaskDone);
-            } else if (savedTaskType == taskType.DEADLINE) {
+            } else if (savedTaskType == TaskType.DEADLINE) {
                 TaskList.addSavedDeadlineTask(taskInfo[2], isTaskDone, taskInfo[3]);
-            } else if (savedTaskType == taskType.EVENT) {
+            } else if (savedTaskType == TaskType.EVENT) {
                 TaskList.addSavedEventTask(taskInfo[2], isTaskDone, taskInfo[3], taskInfo[4]);
-            } else {
-                System.out.println("something went wrong, perhaps an invalid task type?");
             }
-
         } catch (SavedFileErrorTypeException e) {
             System.out.println("there was an error with the previously saved file, sorry about it :o \n " +
                             "unfortunately, i will have to get rid of the previous data...");
@@ -56,31 +52,9 @@ public class Storage {
         FileWriter fw = new FileWriter("saved-data/saved.txt");
 
         for (int i = 0; i < TaskList.getSize(); i++) {
-            String stringToSave = formatTaskToSave(TaskList.getTask(i));
+            String stringToSave = TaskList.formatTaskToSave(i);
             fw.write(stringToSave + "\n");
         }
         fw.close();
-    }
-
-    public static String formatTaskToSave(Task task) {
-        String formattedLine;
-        int taskDone = task.isDone ? 1 : 0;
-        switch (Task.taskType) {
-        case TODO:
-            formattedLine = "T ; " + taskDone + " ; " + task.taskName;
-            break;
-        case DEADLINE:
-            Deadline deadlineTask = (Deadline) task;
-            formattedLine = "D ; " + taskDone + " ; " + deadlineTask.taskName + " ; " + deadlineTask.dueDate;
-            break;
-        case EVENT:
-            Event eventTask = (Event) task;
-            formattedLine = "E ; " + taskDone + " ; " + eventTask.taskName + " ; " + eventTask.startDate + " ; " + event.endDate;
-            break;
-        default:
-            formattedLine = "i could not read this task";
-            System.out.println("task of unknown type detected");
-        }
-        return formattedLine;
     }
 }

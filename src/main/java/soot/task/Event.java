@@ -6,7 +6,7 @@ public class Event extends Task {
 
     public Event(String taskName, Boolean isDone, String startDate, String endDate) {
         super(taskName, isDone);
-        this.taskType = soot.task.taskType.EVENT;
+        this.taskType = TaskType.EVENT;
         this.startDate = startDate;
         this.endDate = endDate;
     }

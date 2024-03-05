@@ -1,6 +1,6 @@
 package soot.task;
 
-public enum taskType {
+public enum TaskType {
     TODO,
     DEADLINE,
     EVENT
