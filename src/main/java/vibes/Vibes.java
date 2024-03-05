@@ -1,6 +1,7 @@
 package vibes;
 
 import vibes.exception.CommandNotFoundException;
+import vibes.exception.InvalidArgumentException;
 import vibes.task.TaskList;
 
 import java.util.Scanner;
@@ -36,10 +37,12 @@ public class Vibes {
                 isExit = true;
             } else {
                 try {
-                    TaskList.executeCommand(commandToExecute, taskList, userInput);
+                    taskList.executeCommand(commandToExecute, userInput);
                 } catch (CommandNotFoundException e) {
                     System.out.println("\t Invalid Command. Please choose between: todo, deadline, event, mark, unmark, " +
                             "and bye");
+                } catch (InvalidArgumentException e) {
+                    System.out.println("\t Argument not found! The description of a todo cannot be empty.");
                 }
             }
             System.out.println(DASHED_LINE);

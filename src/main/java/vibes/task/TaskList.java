@@ -22,92 +22,68 @@ public class TaskList {
     ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
 
-    public static void executeCommand(String commandToExecute, TaskList taskList, String userInput) throws CommandNotFoundException {
+    public void executeCommand(String commandToExecute, String userInput) throws CommandNotFoundException, InvalidArgumentException {
         int taskNumber;
+        String description;
 
         switch (commandToExecute) {
         case "list":
-            taskList.listTasks();
+            listTasks();
             break;
         case "mark":
             taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-            taskList.setAsDone(taskNumber);
+            setAsDone(taskNumber);
             break;
         case "unmark":
             taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-            taskList.setAsNotDone(taskNumber);
+            setAsNotDone(taskNumber);
             break;
-        case "todo":
-            try {
-                taskList.addTask(userInput);
-            } catch (InvalidArgumentException e) {
-                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
-            }
-            break;
-        case "event":
-            try {
-                taskList.addTask(userInput);
-            } catch (InvalidArgumentException e) {
-                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
-            }
-            break;
-        case "deadline":
-            try {
-                taskList.addTask(userInput);
-            } catch (InvalidArgumentException e) {
-                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
-            }
-            break;
-        case "delete":
-            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-            taskList.deleteTask(taskNumber);
-            break;
-        default:
-            throw new CommandNotFoundException();
-        }
-
-        try {
-            taskList.writeToFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void addTask(String userInput) throws InvalidArgumentException {
-        String taskType = "";
-        if (userInput.startsWith("todo")) {
-            taskType = "todo";
-        } else if (userInput.startsWith("deadline")) {
-            taskType = "deadline";
-        } else if (userInput.startsWith("event")) {
-            taskType = "event";
-        }
-        String description;
-        switch (taskType) {
         case "todo":
             if (5 > userInput.length()) {
                 throw new InvalidArgumentException();
             }
             description = userInput.substring(userInput.indexOf(" ") + 1);
             addTodo(description);
-            break;
-        case "deadline":
-            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
-            String by = userInput.substring(userInput.indexOf("/by") + 4);
-            addDeadline(description, by);
+
+            System.out.println("\t Got it. I've added this task:");
+            System.out.println("\t   " + tasks.get(taskCount));
+            taskCount++;
+            System.out.println("\t Now you have " + taskCount + " tasks in the list.");
             break;
         case "event":
             description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/from") - 1);
             String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
             String to = userInput.substring(userInput.indexOf("/to") + 4);
             addEvent(description, from, to);
+
+            System.out.println("\t Got it. I've added this task:");
+            System.out.println("\t   " + tasks.get(taskCount));
+            taskCount++;
+            System.out.println("\t Now you have " + taskCount + " tasks in the list.");
             break;
+        case "deadline":
+            description = userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by") - 1);
+            String by = userInput.substring(userInput.indexOf("/by") + 4);
+            addDeadline(description, by);
+
+            System.out.println("\t Got it. I've added this task:");
+            System.out.println("\t   " + tasks.get(taskCount));
+            taskCount++;
+            System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+            break;
+        case "delete":
+            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+            deleteTask(taskNumber);
+            break;
+        default:
+            throw new CommandNotFoundException();
         }
 
-        System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + tasks.get(taskCount));
-        taskCount++;
-        System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void writeToFile() throws IOException {
