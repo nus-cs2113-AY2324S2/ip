@@ -10,11 +10,11 @@ Kyrene is a java project run on CLI that manages a personal to-do list. Given be
 >
 > 1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
 > 2. Open the project into Intellij as follows:
-     >    1. Click `Open`.
+>    1. Click `Open`.
 >    2. Select the project directory, and click `OK`.
 >    3. If there are any further prompts, accept the defaults.
 > 3. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-     >    In the same dialog, set the **Project language level** field to the `SDK default` option.
+>    In the same dialog, set the **Project language level** field to the `SDK default` option.
 > 4. After that, locate the `src/main/java/kyrene/Kyrene.java` file, right-click it, and choose `Run Kyrene.main()` (if the code editor is showing compile errors, try restarting the IDE).
 
 ## Quick Guide to Start Kyrene with Executable JAR File
@@ -24,6 +24,7 @@ Kyrene is a java project run on CLI that manages a personal to-do list. Given be
 
 1. Go to the folder that contains `kyrene.jar` file, or open terminal and `cd` to the target folder.
 2. Launch the `kyrene.jar` file by key in command `java -jar kyrene.jar` in the terminal. If the setup is correct, you should see something like the below as the output:
+
    ```
    Loading file ./data/Kyrene.txt ...
    File ./data/Kyrene.txt is not found. Trying to create file...
@@ -47,6 +48,7 @@ Kyrene is a java project run on CLI that manages a personal to-do list. Given be
 
    |==========================================================|
    ```
+
 3. If you see the above displays on your screen, congrats! Kyrene is now successfully launched!
 
 ## Features
