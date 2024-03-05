@@ -10,8 +10,22 @@ import tasks.Todo;
 import tasks.Deadline;
 import tasks.Event;
 
+/**
+ * Parses user input into command objects for execution.
+ * This class supports parsing of different types of commands,
+ * including adding todos, deadlines, events, marking tasks as done or not done,
+ * deleting tasks, finding tasks, and exiting KikuBot.
+ */
 public class Parser {
     private static final String HORIZONTAL = "____________________________________________________________";
+
+    /**
+     * Parses the given user input into a specific command object.
+     *
+     * @param userInput The raw input string from the user.
+     * @return A Command object representing the user's command.
+     * @throws KikuException If the input is invalid or incomplete.
+     */
     public static Command parseCommand(String userInput) throws KikuException {
         if (userInput.trim().isEmpty()) {
             throw new KikuInvalidTaskException("OOPS! Input cannot be empty :< \n" + HORIZONTAL);
@@ -70,6 +84,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles commands that are based on the index of tasks,
+     * including marking, unmarking, and deleting tasks.
+     *
+     * @param commandType The type of command, either mark, unmark or delete.
+     * @param index The index of the task to be operated on.
+     * @return A Command object for the specified operation.
+     */
     private static Command handleIndexBasedCommand(String commandType, int index) {
         switch (commandType) {
         case "mark":
@@ -83,6 +105,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts the textual representation of a task from the storage file into a Task object.
+     * This method is used when loading tasks from the file to ensure each line representing
+     * a task is correctly transformed into a Task object.
+     *
+     * @param line A string from the storage file that represents a single task.
+     * @return A Task object represented by the line, or null if the line cannot be parsed into a Task.
+     */
     public static Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         Task task = null;
