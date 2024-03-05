@@ -1,6 +1,6 @@
 # KuroBot
 
-This is a chat bot that stores tasks and performs various operations to the tasks. Given below are instructions on how to use it.
+This is a chat-bot that stores tasks and performs various operations to the tasks. Given below are instructions on how to use it.
 
 ## Features
 > [!NOTE]
@@ -21,7 +21,7 @@ Example:
 
 Adds a task of type deadline to the task list.
 
-Format: todo TASK_NAME /by DEADLINE
+Format: deadline TASK_NAME /by DEADLINE
 
 Example:
 >deadline return book /by Sunday
@@ -31,7 +31,7 @@ Example:
 
 Adds a task of type event to the task list.
 
-Format: todo TASK_NAME /from START_TIME /to END_TIME
+Format: event TASK_NAME /from START_TIME /to END_TIME
 
 Example:
 >event project meeting /from Mon 2pm /to 4pm
