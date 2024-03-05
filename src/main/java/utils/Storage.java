@@ -17,10 +17,10 @@ public class Storage {
 
     /**
      * Reads the file and populates the task list
-     * @param tasks
-     * @param taskCount
-     * @param currentDir
-     * @return
+     * @param tasks the task list
+     * @param taskCount the number of tasks
+     * @param currentDir the current directory
+     * @return the number of tasks
      */
     public static int readFile(ArrayList<Task> tasks, int taskCount, String currentDir) {
         //local path of data file
@@ -68,9 +68,9 @@ public class Storage {
 
     /**
      * Writes the task list to the file
-     * @param tasks
-     * @param taskCount
-     * @param currentDir
+     * @param tasks the task list
+     * @param taskCount the number of tasks
+     * @param currentDir the current directory
      */
     public static void writeFile(ArrayList<Task> tasks, int taskCount, String currentDir) {
         //local path of data file

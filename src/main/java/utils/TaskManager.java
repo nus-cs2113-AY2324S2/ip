@@ -18,10 +18,10 @@ public class TaskManager {
 
     /**
      * Adds a task to the list
-     * @param input
-     * @param tasks
-     * @param taskCount
-     * @return
+     * @param input the input string
+     * @param tasks the task list
+     * @param taskCount the number of tasks
+     * @return the number of tasks
      */
     public static int add(String input, ArrayList<Task> tasks, int taskCount) {
         String[] inputs;
@@ -60,6 +60,11 @@ public class TaskManager {
         return taskCount;
     }
 
+    /**
+     * Lists all the tasks in the list
+     * @param taskCount the number of tasks
+     * @param tasks the task list
+     */
     public static void list(int taskCount, ArrayList<Task> tasks) {
         System.out.println(constants.BREAKLINE);
         if (taskCount == 0) {
@@ -76,10 +81,10 @@ public class TaskManager {
 
     /**
      * Marks a task as done
-     * @param inputs
-     * @param taskCount
-     * @param tasks
-     * @throws TaskIndexOutOfBoundsException
+     * @param inputs the input string split into an array
+     * @param taskCount the number of tasks
+     * @param tasks the task list
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds
      */
     public static void mark(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
         int taskNumber;
@@ -98,10 +103,10 @@ public class TaskManager {
 
     /**
      * Marks a task as undone
-     * @param inputs
-     * @param taskCount
-     * @param tasks
-     * @throws TaskIndexOutOfBoundsException
+     * @param inputs the input string split into an array
+     * @param taskCount the number of tasks
+     * @param tasks the task list
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds
      */
     public static void unmark(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
         int taskNumber;
@@ -121,11 +126,11 @@ public class TaskManager {
 
     /**
      * Deletes a task from the list
-     * @param inputs
-     * @param taskCount
-     * @param tasks
-     * @return
-     * @throws TaskIndexOutOfBoundsException
+     * @param inputs the input string split into an array
+     * @param taskCount the number of tasks
+     * @param tasks the task list
+     * @return the number of tasks
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds
      */
     public static int delete(String[] inputs, int taskCount, ArrayList<Task> tasks) throws TaskIndexOutOfBoundsException {
         int taskNumber;
@@ -149,6 +154,12 @@ public class TaskManager {
         return taskCount;
     }
 
+    /**
+     * Finds a task in the list
+     * @param inputs the input string split into an array
+     * @param taskCount the number of tasks
+     * @param tasks the task list
+     */
     public static void find(String[] inputs, int taskCount, ArrayList<Task> tasks) {
         System.out.println(constants.BREAKLINE);
         System.out.println("Here are the matching tasks in your list:");
@@ -161,6 +172,9 @@ public class TaskManager {
         System.out.println(constants.BREAKLINE);
     }
 
+    /**
+     * Prints the welcome message
+     */
     public static void bye() {
         System.out.println(constants.BREAKLINE);
         System.out.println("Bye. Hope to see you again soon!");
