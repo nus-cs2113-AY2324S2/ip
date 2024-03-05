@@ -70,8 +70,8 @@ public class TaskList {
     }
 
     public static void findTask(ArrayList<Task> tasks, String userInput) {
-        String search = userInput.substring(6);
-        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        String search = userInput.substring(5);
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task: tasks){
             if (task.getDescription().equals(search)) {
                 matchingTasks.add(task);
@@ -79,6 +79,8 @@ public class TaskList {
         }
         System.out.println(LINE_SEPARATOR);
         System.out.println("Here are the matching tasks in your list:\n");
-        System.out.println(matchingTasks);
+        for (Task match: matchingTasks) {
+            System.out.println(match);
+        }
     }
 }
