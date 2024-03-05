@@ -41,15 +41,16 @@ Make sure you have Java 11 or later installed on your computer.
 3.Navigate to the folder where you extracted the zip file and open a terminal.
 4.Run the following command to start the Zoro application:
 
-      java -jar CS2113.jar
+      java -jar ZORO.jar
 
 If the application started successfully, it will display the following welcome message.
 
-   -----------------------------------------
-      Hello I'm ZORO
-      What can I do for you?
-   -----------------------------------------
-
+        -----------------------------------------
+             Hello I'm ZORO
+             What can I do for you?
+        -----------------------------------------
+   
+>-----------------------------------------
 
 ## Usage
 ### `todo` - Add a To-do Task
@@ -173,3 +174,52 @@ Exits from Zoro program.
       -----------------------------------------
          Bye. Hope to see you again soon!
       -----------------------------------------
+> ----------------------------------------- -----------------------------------------
+### User Commands:
+				
+| Name | Format | Command Example |
+|--|--|--|
+| Todo | todo [name]  | todo Run 10km |
+| Deadline | deadline [name] /by [DD/MM/YYYY HH:MM] | deadline Do 20 Muscle-Ups /by 31/12/2024 11:59 |
+| Event| deadline [name] /from [DD/MM/YYYY HH:MM] /to [DD/MM/YYYY HH:MM] |event Build Core Muscles /from 01/01/2025 12:01 /to 21/06/2025 11:59 |
+| List | list  | list |
+| Mark |mark [task index]  | mark 2 |
+| Unmark | unmark [task index]  | unmark 2 |
+| Delete | delete [task index] | delete 1 |
+| Find | find [keyword] | find muscle |
+| Exit | bye  | bye |
+
+
+
+### Command tips:
+
+ Format | Exception | Taken as |
+|--|--|-  |
+ todo [name] | nil | nil |
+| deadline [name] /by [DD/MM/YYYY **HH:MM**]  | deadline [name] /by [DD/MM/YYYY] | deadline [name] /by [DD/MM/YYYY **00:00**]|
+| event [name] /from [DD/MM/YYYY **HH:MM**] /to [DD/MM/YYYY **HH:MM**]  | event [name] /from [DD/MM/YYYY] /to [DD/MM/YYYY] | event [name] /from [DD/MM/YYYY **00:00**] /to [DD/MM/YYYY **00:00**]|
+
+
+
+
+### Other useful tips:
+
+ 1. Find keyword usage
+
+     When using `find [keyword]` you will get the real index of the tasks shown on the side. By knowing the real index you can use that in `mark, unmark or delete commands`. This make sures that you don't actually change the status or delete the wrong tasks.
+
+      **Example:**
+> 1[E][ ] Build Core Muscles (from: Jan 01 2025 12:01 to: Jun 21 2025 11:59).**(Original Index: 2)**
+
+
+ 2. Missing tasks.txt file or data folder
+    
+     If you don't have data folder or tasks.txt, the program will warn you and it will create a new file at that location if you continue to add tasks.
+	 
+	 **Example:**
+   
+          -----------------------------------------
+               Unable to load File. Error loading tasks from file: .\data\tasks.txt (The system cannot find the file specified)
+               Please Check your File path.
+               Continuing will create a new file in the destination path
+          -----------------------------------------
