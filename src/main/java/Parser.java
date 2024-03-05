@@ -26,7 +26,12 @@ class Parser {
 			taskList.addEventTask(line.replace("event", ""));
 			break;
 		case "delete":
-			taskList.deleteTask(words[1]);
+			if (words[1].equals("all")) {
+				taskList.deleteAllTasks();
+			} else {
+				taskList.deleteTask(words[1]);
+			}
+			break;
 			break;
 		default:
 			System.out.println("No valid command detected.");

@@ -95,11 +95,31 @@ class TaskList {
 	}
 
 	public void deleteTask(String indexStr) throws SamException {
-		int index = Integer.parseInt(indexStr) - 1;
+		int index = 0;
+		try {
+			index = Integer.parseInt(indexStr) - 1;
+		} catch (NumberFormatException e) {
+			throw new SamException("You can only delete a within bounds list index of 'all' to delete the entire list");
+		}
 		indexCheck(index);
 		System.out.println("Noted. I've removed this task:\n" + tasks.get(index));
 		tasks.remove(index);
 		System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ") + "in the list.");
+	}
+
+	public void deleteAllTasks() {
+		System.out.println("You sure you want to completely clear your task list? Enter 'y'/'Y' to confirm");
+		Scanner in = new Scanner(System.in);
+		String confirmation = in.nextLine();
+		confirmation = confirmation.toLowerCase();
+		if (confirmation.equals("y")) {
+			System.out.println("Confirmed, I deleted your entire list.");
+			while (!tasks.isEmpty()) {
+				tasks.remove(0);
+			}
+			return;
+		}
+		System.out.println("Understood, I won't clear your list.");
 	}
 
 	private void indexCheck(int index) throws SamException {
