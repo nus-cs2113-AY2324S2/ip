@@ -1,7 +1,5 @@
 package chris.tasktypes;
 
-import chris.customexceptions.illegalToDoInput;
-
 public class ToDo extends Task {
     public ToDo(String[] description, boolean isDone){
         super(description[0]);

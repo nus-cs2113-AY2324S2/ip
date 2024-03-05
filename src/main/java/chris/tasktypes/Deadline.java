@@ -1,7 +1,5 @@
 package chris.tasktypes;
 
-import chris.customexceptions.illegalDeadlineInput;
-
 public class Deadline extends Task {
     protected String by;
 

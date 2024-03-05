@@ -1,7 +1,5 @@
 package chris.tasktypes;
 
-import chris.customexceptions.illegalEventInput;
-
 public class Event extends Task {
     protected String to;
     protected String from;

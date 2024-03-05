@@ -23,16 +23,6 @@ public class Chris {
         System.out.println("------------------------------------------------");
     }
 
-    public static void printList() {
-        if (tasks.getTaskCount() == 0) {
-            System.out.println("Sorry, there are no tasks currently.");
-            printLine();
-        } else {
-            System.out.println("Here are you current tasks:");
-            tasks.printTaskList();
-        }
-    }
-
     public static void menu() {
         boolean done = false;
         Scanner in = new Scanner(System.in);

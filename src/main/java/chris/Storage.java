@@ -1,8 +1,6 @@
 package chris;
 
-import chris.customexceptions.illegalDeadlineInput;
-import chris.customexceptions.illegalEventInput;
-import chris.customexceptions.illegalToDoInput;
+
 import chris.tasktypes.Deadline;
 import chris.tasktypes.Event;
 import chris.tasktypes.ToDo;

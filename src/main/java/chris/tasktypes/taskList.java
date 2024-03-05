@@ -1,7 +1,5 @@
 package chris.tasktypes;
 
-import chris.customexceptions.illegalTaskNumberInput;
-
 import java.util.ArrayList;
 public class taskList {
     protected static ArrayList<Task> tasks;
