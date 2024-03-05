@@ -37,7 +37,7 @@ public class Ui {
      * Prints out the parting text for when the user closes the chatbot.
      *
      */
-    public static void goodbye() {
+    public static void goodbye() {  
         System.out.println("Bye, hope to see you again soon! :D");
         System.out.println(LINE_BREAK);
     }
