@@ -6,12 +6,10 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static ArrayList<Task> taskList;
-    public static int listCounter;
 
     //TODO: remove listCounter variable, use .size()
     public TaskList() {
         taskList = new ArrayList<>();
-        listCounter = 0;
     }
 
     //TODO: implement stream?
@@ -46,7 +44,6 @@ public class TaskList {
     public static void addTodoTask(String userInput) {
         String inputTask = userInput.substring(5);
         taskList.add(new Todo(inputTask, false));
-        TaskList.listCounter++;
         taskList.get(taskList.size() - 1).printRespond();
         UserUi.displayDividerLine();
     }
@@ -58,7 +55,6 @@ public class TaskList {
         String taskName = inputTask.substring(0, deadlineIndex - 1);
         String dueDate = inputTask.substring(deadlineIndex + 4);
         taskList.add(new Deadline(taskName, false, dueDate));
-        TaskList.listCounter++;
         taskList.get(taskList.size()-1).printRespond();
         UserUi.displayDividerLine();
     }
@@ -75,7 +71,6 @@ public class TaskList {
         String startDate = timeLine.substring(0, endIndex - 1);
         String endDate = timeLine.substring(endIndex + 4);
         taskList.add(new Event(taskName, false, startDate, endDate));
-        TaskList.listCounter++;
         taskList.get(taskList.size()-1).printRespond();
         UserUi.displayDividerLine();
     }
@@ -100,24 +95,21 @@ public class TaskList {
     }
 
     public static void deleteTask(int listIndex) {
-        listCounter--; //TODO: should be unnecessary
-        taskList.get(listIndex).printDelete();
-        taskList.remove(listIndex);
+        Task tempTask = taskList.get(listIndex);
+        taskList.remove(taskList.get(listIndex));
+        tempTask.printDelete();
         UserUi.displayDividerLine();
     }
 
     public static void addSavedTodoTask(String taskName, boolean isTaskDone) {
         taskList.add(new Todo(taskName, isTaskDone));
-        TaskList.listCounter++; //TODO
     }
 
     public static void addSavedDeadlineTask(String taskName, boolean isTaskDone, String taskDeadline) {
         taskList.add(new Deadline(taskName, isTaskDone, taskDeadline));
-        TaskList.listCounter++;
     }
 
     public static void addSavedEventTask(String taskName, boolean isTaskDone, String taskStart, String taskEnd) {
         taskList.add(new Event(taskName, isTaskDone, taskStart, taskEnd));
-        TaskList.listCounter++;
     }
 }

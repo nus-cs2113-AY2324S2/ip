@@ -60,7 +60,7 @@ public class Task {
 
     //TODO: after a task is marked done/undone, the taskCount printed when another task is added is unchanged
     public static void printTaskCount() {
-        int taskCount = TaskList.listCounter;
+        int taskCount = TaskList.getSize();
         System.out.println("you now have " + taskCount + " tasks left...");
     }
 

@@ -34,7 +34,7 @@ public class UserUi {
     }
 
     public static void showTaskListCount() {
-        int taskCount = TaskList.listCounter;
+        int taskCount = TaskList.getSize();
         System.out.println("you currently have " + taskCount + " tasks on your list :)");
     }
 }
