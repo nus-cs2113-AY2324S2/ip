@@ -22,13 +22,11 @@ public class MassimoBoi {
      */
     public MassimoBoi(String filename) {
         this.ui = new Ui();
-        //List<Task> taskList = new ArrayList<>();
 
         this.storage = new Storage(filename);
         try {
             this.tasks = new TaskList(storage.loadList());
         } catch (FileNotFoundException e) {
-            System.out.println("The file does not exist. Please create it.");
             this.tasks = new TaskList();
         }
 
@@ -66,7 +64,7 @@ public class MassimoBoi {
      * The function that runs the CLI.
      */
     public static void main(String[] args) throws IOException {
-        new MassimoBoi("./src/main/java/list.txt").run();
+        new MassimoBoi("list.txt").run();
     }
 }
 

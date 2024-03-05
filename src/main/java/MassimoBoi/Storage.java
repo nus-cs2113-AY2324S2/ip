@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Storage {
 
     private String filename;
+    private File f;
 
     /**
      * Creates a new Storage object.
@@ -22,6 +23,7 @@ public class Storage {
      */
     public Storage(String filename){
         this.filename = filename;
+        this.f = new File(this.filename);
     }
 
     /**
@@ -32,8 +34,7 @@ public class Storage {
      */
     public List<Task> loadList() throws FileNotFoundException {
         List<Task> tasks = new ArrayList<>();
-        File f = new File(this.filename);
-        Scanner s = new Scanner(f);
+        Scanner s = new Scanner(this.f);
         while(s.hasNext()){
             Task newTask;
             String line = s.nextLine();
@@ -72,7 +73,7 @@ public class Storage {
      * @throws IOException when the file cannot be written to or does not exist and cannot be created.
      */
     public void addToFile(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter("./src/main/java/list.txt");
+        FileWriter fw = new FileWriter("list.txt");
         String list = "";
         for(int i = 0; i < tasks.size(); i++){
             if(Objects.equals(tasks.get(i).taskType(), "[D]")){

@@ -1,6 +1,11 @@
 # Massimo Boi User Guide
 Welcome to Massimo Boi! This guide will help you effectively manage your tasks using various commands. Please follow the instructions below:
 
+## Running the file: `java -jar`
+- Right-click the file and copy the file path (For MAC hold option once you right-click).
+- Open command line and navigate to the directory where the jar file is located.
+- Run the file using `java -jar FILEPATH`.
+
 ## Adding a Task
 There are 3 main types of tasks you can add. To add a task, use the following command format based on the type of task:
 ### Todo Task:
