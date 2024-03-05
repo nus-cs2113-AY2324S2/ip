@@ -1,5 +1,7 @@
 package BobBot;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -137,7 +139,7 @@ public class BobBot {
 
     private static Storage storage;
     private static TaskList tasks;
-    
+
     // adapted from https://nus-cs2113-ay2324s2.github.io/website/schedule/week7/project.html
     public BobBot() {
         storage = new Storage();
@@ -146,6 +148,7 @@ public class BobBot {
 
     public void run() {
         greet();
+        Storage.loadFile();
         runTaskManager();
         bidFarewell();
     }

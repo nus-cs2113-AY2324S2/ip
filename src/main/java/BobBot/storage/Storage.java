@@ -15,26 +15,28 @@ public class Storage {
     private static final String SAVE_DIR_PATH = "src/storage/";
     private static final String SAVE_FILE_PATH = "saveFile.txt";
     private static final String FULL_FILE_PATH = SAVE_DIR_PATH + SAVE_FILE_PATH;
-    private static final File file = new File(FULL_FILE_PATH);
-    private static File directory;
+    private static final File FILE = new File(FULL_FILE_PATH);
+    private static File directory = new File(SAVE_DIR_PATH);;
 
     private static ArrayList<Task> allTasks = TaskList.getTaskList();
 
     public Storage() {
-        directory = new File(SAVE_DIR_PATH);
+    
+    }
 
+    public static void loadFile() {
         try {
             System.out.println("\tLoading from saved file ...");
-            loadFileContents(FULL_FILE_PATH);
+            Storage.loadFileContents(FILE);
         } catch (FileNotFoundException e) {
             System.out.println("\tSaved file not found! Creating new save file ...");
-            createNewSaveFile(FULL_FILE_PATH);
+            Storage.createNewSaveFile(FULL_FILE_PATH);
         }
     }
 
     // adapted from
     // https://nus-cs2113-ay2324s2.github.io/website/schedule/week6/topics.html#w6-3-java-file-access
-    private static void loadFileContents(String filePath) throws FileNotFoundException {
+    public static void loadFileContents(File file) throws FileNotFoundException {
         Scanner fileScanner = new Scanner(file);
 
         while (fileScanner.hasNext()) {
@@ -44,13 +46,13 @@ public class Storage {
         TaskList.displayList();
     }
 
-    private static void createNewSaveFile(String saveFilePath) {
+    public static void createNewSaveFile(String saveFilePath) {
         try {
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            if (!file.exists()) {
-                file.createNewFile();
+            if (!FILE.exists()) {
+                FILE.createNewFile();
             }
         } catch (IOException e) {
             System.out.println("An Error occurred: " + e);
