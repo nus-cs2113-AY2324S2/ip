@@ -76,5 +76,8 @@ public class Ui {
                 numbering++;
             }
         }
+        if(numbering == 0) {
+            System.out.println("\t --- No matching tasks found ---");
+        }
     }
 }
