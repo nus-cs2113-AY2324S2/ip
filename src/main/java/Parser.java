@@ -18,6 +18,10 @@ public class Parser {
         Parser.numberOfListItems = TaskList.numberOfListItems;
     }
 
+    /**
+     * Takes in user input and determines what to command to run from the input
+     *
+     */
     public static void decideAction() {
         Scanner in = new Scanner(System.in);
         newItem = in.nextLine();
@@ -42,6 +46,10 @@ public class Parser {
 
     }
 
+    /**
+     * Handles the processes of adding a new task (todo/event/deadline) to the list
+     *
+     */
     public static void addTask() {
         switch (splitCommand[0]) {
         case "todo":
@@ -78,6 +86,11 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Handles the processes of "mark", "unmark", and "delete"
+     *
+     */
     public static void editListStatus() {
         switch (splitCommand[0]) {
         case "mark":
