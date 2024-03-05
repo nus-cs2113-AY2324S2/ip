@@ -50,7 +50,6 @@ public class Storage {
             while (s.hasNext()) {
                 String sentence = s.nextLine();
                 Task task = fileToTask(sentence);
-//                System.out.println(task);
                 tasks.add(task);
                 if (sentence.contains("X")) {
                     task.markAsDone();
@@ -77,7 +76,6 @@ public class Storage {
             String[] secondSentenceParts = sentences[1].split("to:");
             String from = (secondSentenceParts[0].trim()).trim();
             String to = ("to: " + secondSentenceParts[1].trim()).trim();
-//            System.out.println(from);
             return new Event(description, from, to);
         } else if (tag.contains("T")) {
             String description = words[1].split("] ")[1].trim();
