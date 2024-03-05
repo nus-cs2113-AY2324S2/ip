@@ -31,11 +31,12 @@ public class Sam {
                 ui.printLine();
                 Parser.parseCommand(line, taskList);
                 storage.saveTasks(taskList.getTasks());
+                ui.printLine();
                 line = in.nextLine();
             } catch (SamException e) {
+                ui.printLine();
                 line = in.nextLine();
             }
-            ui.printLine();
         }
         ui.printFarewell();
     }
