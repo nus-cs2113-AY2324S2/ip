@@ -134,4 +134,28 @@ public class TaskList {
         Ui.printNumberOfListItems(numberOfListItems);
     }
 
+    public static void findKeyword(String inputKeyword) throws MikuException, voidNumberOfItems {
+        String[] keyword = inputKeyword.split("find");
+
+        if (storedList.isEmpty()) {
+            throw new voidNumberOfItems();
+        }
+
+        if (keyword.length < 1) {
+            throw new MikuException();
+        }
+
+        boolean hasMatchingTask = false;
+        for (int i = 0; i < storedList.size(); i++) {
+            if (storedList.get(i).description.contains(keyword[1])) {
+                Ui.printWholeTask(i);
+                hasMatchingTask = true;
+            }
+        }
+
+        if (!hasMatchingTask) {
+            Ui.blankFind();
+        }
+    }
+
 }
