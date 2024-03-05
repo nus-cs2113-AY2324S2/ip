@@ -1,4 +1,4 @@
-package Tasks;
+package dukeRobot.Tasks;
 
 public class Event extends Task {
     protected String from;
@@ -13,4 +13,5 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + "to: " + to +")";
     }
+
 }

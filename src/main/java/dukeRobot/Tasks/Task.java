@@ -1,6 +1,6 @@
-package Tasks;
+package dukeRobot.Tasks;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     public static int numOfTask = 0;
@@ -32,5 +32,7 @@ public class Task {
         return " [" + this.getStatusIcon() + "] "
                 + this.description ;
     }
+
+
 
 }
