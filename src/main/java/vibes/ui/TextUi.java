@@ -9,6 +9,10 @@ public class TextUi {
     private static final String CHATBOT_NAME = "Vibes";
     public static final String DASHED_LINE = "\t---------------------------------------------------------------------------------------";
 
+    public  void showByeMessage() {
+        System.out.println("\t Bye. Hope to see you again soon!");
+    }
+
     public void showLine() {
         System.out.println(DASHED_LINE);
     }
