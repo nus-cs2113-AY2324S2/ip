@@ -67,3 +67,15 @@ Finds all tasks containing the keyword(s) searched for.
 format: **`find` KEYWORDS**
 
 - Replace KEYWORDS with the words you would like to search for.
+
+## Saving:
+All task details entered are automatically saved when the program terminates. Nothing needs to be done by user.
+
+- To see your saved data, use the `list` command when you first start the app.
+
+## Ending chat: **`bye`**
+Ends the chat with Massimo Boi and terminates the program.
+
+format: **`bye`**
+
+- All task data in task list at time of termination will be saved and available for use next time the program is run.
