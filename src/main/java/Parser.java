@@ -15,7 +15,7 @@ public class Parser {
             tasks.get(number - 1).setDone(true);
             System.out.println(LINE_SEPARATOR);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[X] " + Task.getDescription());
+            System.out.println("[X] " + tasks.get(number - 1).getDescription());
             System.out.println(LINE_SEPARATOR + "\n");
         } else {
             System.out.println("Task does not exist yet!\n" + LINE_SEPARATOR);
@@ -29,7 +29,7 @@ public class Parser {
             tasks.get(number - 1).setDone(false);
             System.out.println(LINE_SEPARATOR);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[ ] " + Task.getDescription());
+            System.out.println("[ ] " + tasks.get(number - 1).getDescription());
             System.out.println(LINE_SEPARATOR + "\n");
         } else {
             System.out.println("Task does not exist yet!\n" + LINE_SEPARATOR);

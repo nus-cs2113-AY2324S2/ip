@@ -1,4 +1,3 @@
 T | task
 D | deadline | by: wed
 E | stuff | from: mon | by: tue
-E | eveent | from: monday | by: wed

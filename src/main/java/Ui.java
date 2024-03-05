@@ -30,7 +30,7 @@ public class Ui {
         return isFinished;
     }
 
-    static void handleUserInput(ArrayList<Task> tasks, int index) throws IOException {
+    public static void handleUserInput(ArrayList<Task> tasks, int index) throws IOException {
         boolean isFinished = false; //isFinished will be true if user types in bye and the program is finished and terminates
 
         while (!isFinished) {

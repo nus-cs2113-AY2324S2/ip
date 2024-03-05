@@ -4,17 +4,17 @@ import java.nio.file.Path;
 
 public class Task{
 
-    protected static String description;
+    protected String description;
     protected boolean isDone;
     public static final Path FILE_PATH = Path.of("./data/duck.txt");
 
     public Task(String description) {
-        Task.description = description;
+        this.description = description;
         this.isDone = false;
     }
 
-    public static String getDescription() {
-        return description;
+    public String getDescription() {
+        return this.description;
     }
 
     public void setDone(boolean done) {

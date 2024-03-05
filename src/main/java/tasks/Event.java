@@ -28,7 +28,7 @@ public class Event extends Task{
             }
             Event newEvent = new Event(split[0].substring(6), split[1].substring(5), split[2].substring(3));
             tasks.add(newEvent);
-            appendEventDuckDataFile(newEvent);
+//            appendEventDuckDataFile(newEvent);
             System.out.println(LINE_SEPARATOR);
             System.out.println(ADDED_MESSAGE + tasks.get(index));
             index++;
@@ -36,8 +36,8 @@ public class Event extends Task{
             System.out.println(LINE_SEPARATOR);
         } catch (DuckInvalidEventDescriptionException e) {
             System.out.println("Invalid Event input. Please type in format: event [string] /from [string] /by [string]");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
         }
 
         return index;
@@ -46,11 +46,11 @@ public class Event extends Task{
     /**
      * Add Event into duck.txt file in format
      */
-    public static void appendEventDuckDataFile(Event event) throws IOException {
-        String lineToAdd = "E | " + getDescription() + "| from: " + event.from + "| by: " + event.by + "\n";
-        System.out.println(lineToAdd);
-        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
-    }
+//    public static void appendEventDuckDataFile(Event event) throws IOException {
+//        String lineToAdd = "E | " + getDescription() + "| from: " + event.from + "| by: " + event.by + "\n";
+//        System.out.println(lineToAdd);
+//        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
+//    }
 
     public String toString() {
         return "[E]" + super.toString() + "(from: " + from + "to: " + this.by + ")";
