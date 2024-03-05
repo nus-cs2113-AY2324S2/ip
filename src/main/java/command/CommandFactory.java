@@ -24,6 +24,9 @@ public class CommandFactory {
         case LIST:
             return new ListCommand();
 
+        case FIND:
+            return new FindCommand(decodedInformation);
+
         case DELETE:
             return new DeleteCommand(Integer.parseInt(decodedInformation[0]));
 

@@ -5,6 +5,7 @@ import tool.ResponseManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList implements Serializable {
     private final List<Task> tasks;
@@ -17,6 +18,10 @@ public class TaskList implements Serializable {
      * This method adds a task to the task list
      * @param task the task to be added
      */
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public void add(Task task) {
         tasks.add(task);
     }
@@ -89,6 +94,20 @@ public class TaskList implements Serializable {
      */
     public Task showNewlyAddedTask() {
         return this.getPosAt(tasks.size());
+    }
+
+    public String findTask(String keyword) {
+        List<Task> eligibleList =
+                tasks.stream().filter(task -> task.containsWord(keyword))
+                .collect(Collectors.toList());
+        return new TaskList(eligibleList).listTasks();
+    }
+
+    public String findTime(String time) {
+        List<Task> eligibleList =
+                tasks.stream().filter(task -> task.containsTime(time))
+                .collect(Collectors.toList());
+        return new TaskList(eligibleList).listTasks();
     }
 
     @Override

@@ -23,6 +23,7 @@ public class MessageDecoder {
     private static final int START_DATE_INDEX = 1;
     private static final int END_DATE_INDEX = 2;
     private static final String NUMERIC = "\\d+";
+    private static final String FIND_REGEX = "\\s*(/w|/t)\\s*.+";
     public static final String TIME_INPUT_PATTERN = "dd/MM/yyyy HHmm";
     public static final String TIME_OUTPUT_PATTERN = "MMM dd yyyy HH:mm";
     private static final DateTimeFormatter INPUT_TIME_FORMATTER =
@@ -62,6 +63,9 @@ public class MessageDecoder {
 
         case EVENT:
             return decodeEvent(message);
+
+        case FIND:
+            return decodeFind(message);
 
         case MARK:
         case UNMARK:
@@ -160,6 +164,20 @@ public class MessageDecoder {
         return rawText.replace(sign, "");
     }
 
+    private static String[] decodeFind(String message) throws InputException {
+        if (!message.matches(FIND_REGEX)) {
+            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE);
+        }
+
+        int splitLimit = 2;
+        String[] typeAndKeyword = message.trim().split("\\s+", splitLimit);
+        if (typeAndKeyword.length != splitLimit) {
+            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE);
+        }
+
+        return typeAndKeyword;
+    }
+    
     private static String parseDate (String input) throws InputException {
         int splitLimit = 2;
         String[] inputTime = input.split("\\s+", splitLimit);

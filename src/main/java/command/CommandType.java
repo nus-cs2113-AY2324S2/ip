@@ -11,7 +11,8 @@ public enum CommandType {
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),
-    DELETE("delete");
+    DELETE("delete"),
+    FIND("find");
 
     private final String type;
     CommandType(String type) {

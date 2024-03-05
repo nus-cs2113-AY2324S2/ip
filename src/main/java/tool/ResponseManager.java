@@ -1,4 +1,5 @@
 package tool;
+
 public class ResponseManager {
     private static final String LOGO =
             "███████╗██╗   ██╗██╗  ██╗███████╗\n" +
@@ -43,6 +44,8 @@ public class ResponseManager {
             "You will start a fresh new journey!\n";
     public static final String RETURN_MESSAGE =
             "It's always nice to see you again!\n";
+    public static final String FIND_MESSAGE =
+            "Here are the matching tasks in your list:\n";
     public static final String DATE_FORMAT_ERROR =
             "Please follow the date format: dd/MM/yyyy HHmm\n";
 
@@ -87,9 +90,11 @@ public class ResponseManager {
         case "delete":
             indentPrint(DELETE_MESSAGE + " " + msgTobePrinted + END_LINE);
 
+        case "find":
+            indentPrint(FIND_MESSAGE + msgTobePrinted + END_LINE);
+
         default:
             break;
         }
-
     }
 }
