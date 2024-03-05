@@ -6,22 +6,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Duke {
-    static boolean ifExit = false; //exits program if true
+
     static ArrayList<Task> tasks = new ArrayList<>(); //List of tasks
     static boolean ifNewWrite = false;
+    private static UI ui;
 
     public static void echoTask() {
         System.out.println("--------------------------------------");
         System.out.println("Got it! I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("--------------------------------------");
-    }
-
-    public static void printBye() {
-        System.out.println("--------------------------------------");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("--------------------------------------");
-        ifExit = true;
     }
 
     public static void printList() throws IllegalShapeException {
@@ -37,21 +31,6 @@ public class Duke {
             }
             System.out.println("--------------------------------------");
         }
-    }
-
-    public static void introStart() {
-        String logo
-                = " _______    ___           _____   _____ ___    ___\n"
-                + "|   ____\\___\\  \\___    __/   __| /   __|\\  \\__/  /\n"
-                + " \\   \\   \\___  ____\\__|__    ___|    ___|\\_   __/\n"
-                + "  \\   \\     |  | /  _  \\|   |    |  |     /  / \n"
-                + " __\\   \\    |  ||    __/|   |    |  |  __/  / \n"
-                + "/_______|   |__| \\_____||___|    |__| |____/ \n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("--------------------------------------");
-        System.out.println("Hello! I'm Steffy");
-        System.out.println("What can I do for you?");
-        System.out.println("--------------------------------------");
     }
 
     public static void markTask(String line) throws IllegalShapeException {
@@ -108,7 +87,7 @@ public class Duke {
 
         switch(line.split(" ")[0].toLowerCase()) {
         case "bye": //Exits program with farewell dialogue
-            printBye();
+            ui.printBye();
             break;
         case "list": //Shows entire list of tasks
             try {
@@ -211,7 +190,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        introStart(); //Prints starting screen
+        ui = new UI();
+        ui.logo();
+        ui.greeting();
 
         try {
             inputFileContents();
@@ -219,7 +200,7 @@ public class Duke {
             System.out.println("File not found");
         }
 
-        while (!ifExit) {
+        while (!ui.ifExit) {
             Scanner in = new Scanner(System.in);
             String line = in.nextLine();
             try {
