@@ -16,6 +16,11 @@ public class AddCommand implements Command {
         this.taskDetails = taskDetails;
     }
 
+    /**
+     * {@inheritDoc}
+     * This method adds a task to the task list and prints the added task to the user
+     * @param tasks the task list
+     */
     @Override
     public void run(TaskList tasks) {
         Task newTask;

@@ -13,10 +13,19 @@ public class TaskList implements Serializable {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * This method adds a task to the task list
+     * @param task the task to be added
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * This method deletes a task from the task list
+     * @param index the index of the task to be deleted
+     * @throws InputException if the index is out of range
+     */
     public void deleteTaskAt(int index) throws InputException {
         if (index > this.getSize()) {
             throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
@@ -28,10 +37,20 @@ public class TaskList implements Serializable {
         return tasks.size();
     }
 
+    /**
+     * This method returns the task at the specified index in the task list
+     * @param index the index of the task to be returned
+     * @return the task at the specified index
+     */
     public Task getPosAt(int index) {
         return tasks.get(index - 1);
     }
 
+    /**
+     * This method marks a task as done
+     * @param taskNum the index of the task to be marked
+     * @throws InputException if the index is out of range
+     */
     public void markTask(int taskNum) throws InputException {
         if (taskNum > this.getSize()) {
             throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
@@ -52,6 +71,10 @@ public class TaskList implements Serializable {
         tasks.set(position, task);
     }
 
+    /**
+     * This method lists all the tasks in the task list
+     * @return a string containing all the tasks in the task list
+     */
     public String listTasks() {
         String tasksToBeListed = "";
         for (int i = 1; i <= tasks.size(); i++) {
@@ -60,6 +83,10 @@ public class TaskList implements Serializable {
         return tasksToBeListed;
     }
 
+    /**
+     * This method returns the task that was most recently added to the task list
+     * @return the task that was most recently added to the task list
+     */
     public Task showNewlyAddedTask() {
         return this.getPosAt(tasks.size());
     }

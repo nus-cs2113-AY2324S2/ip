@@ -67,6 +67,11 @@ public class ResponseManager {
                 messageToPrint + END_LINE);
     }
 
+    /**
+     * This method prints the action on the tasks
+     * @param action the action to be performed on the tasks
+     * @param msgTobePrinted the message to be printed
+     */
     public static void printActionOnTasks(String action, String msgTobePrinted) {
         switch(action) {
         case "mark":

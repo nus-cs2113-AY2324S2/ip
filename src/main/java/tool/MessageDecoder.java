@@ -19,6 +19,11 @@ public class MessageDecoder {
     private static final int END_DATE_INDEX = 2;
     private static final String NUMERIC = "\\d+";
 
+    /**
+     * This method separates the command from the user input message
+     * @param message
+     * @return String[] containing the command and the message
+     */
     public static String[] separateCommand(String message) {
         int splitLimit = 2;
         String[] processedMessage = 
@@ -29,6 +34,13 @@ public class MessageDecoder {
         return processedMessage;
     }
 
+    /**
+     * This method decodes the user input message
+     * @param type the type of the command to be executed
+     * @param message the user input message
+     * @return String[] containing the decoded message
+     * @throws InputException if the message is invalid
+     */
     public static String[] decodeInput(CommandType type, String message) throws InputException {
         switch (type) {
         case TODO:

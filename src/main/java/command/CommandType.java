@@ -21,6 +21,13 @@ public enum CommandType {
     public String getType() {
         return type;
     }
+    
+    /**
+     * This method analyses the type of the command
+     * @param input the user input
+     * @return the type of the command
+     * @throws InputException if the command is not recognised
+     */
     public static CommandType analyseType(String input) throws InputException {
         for (CommandType commandType : CommandType.values()) {
             if (commandType.type.equals(input)) {
