@@ -8,11 +8,31 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Handles the storage and loading of task list.
+ */
 public class Storage {
 
+    private String filename;
+
+    /**
+     * Creates a new Storage object.
+     *
+     * @param filename the name of the file where the task list is stored.
+     */
+    public Storage(String filename){
+        this.filename = filename;
+    }
+
+    /**
+     * Returns the task list previously stored when the program is first loaded.
+     *
+     * @return an arrayList of type Task containing all tasks previously saved by user.
+     * @throws FileNotFoundException when the file is not found in the specified path.
+     */
     public List<Task> loadList() throws FileNotFoundException {
         List<Task> tasks = new ArrayList<>();
-        File f = new File("./src/main/java/list.txt");
+        File f = new File(this.filename);
         Scanner s = new Scanner(f);
         while(s.hasNext()){
             Task newTask;
@@ -44,6 +64,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves all new tasks created by user.
+     * Saves the tasks in a text file so that they can be loaded next time the program runs.
+     *
+     * @param tasks the list of tasks to be saved.
+     * @throws IOException when the file cannot be written to or does not exist and cannot be created.
+     */
     public void addToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter("./src/main/java/list.txt");
         String list = "";

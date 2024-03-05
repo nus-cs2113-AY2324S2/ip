@@ -87,12 +87,18 @@ public class Parser {
             }
         }catch(UnknownCommandType e){
             e.errorMessage();
-            ui.printGreetingMessage();
+            ui.printUserGuideMessage();
         } catch(EmptyToDo e){
             e.errorMessage();
         } catch(NoDueDate e){
             e.errorMessage();
         } catch (EmptyDeadline e){
+            e.errorMessage();
+        } catch (EmptyEvent e){
+            e.errorMessage();
+        } catch (NoEventEnd e){
+            e.errorMessage();
+        } catch (NoEventStart e){
             e.errorMessage();
         } catch(IndexOutOfBoundsException e){
             System.out.println("The task number you have tried to mark, unmark, or delete does not exist");
