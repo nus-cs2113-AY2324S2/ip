@@ -1,3 +1,11 @@
 T | false | todo1
 T | false | todo2
-E | true | doing cs2113 | tomorrow | yesterday
+E | true | doing cs2113 | a | b
+D | false | clean | yesterday
+D | false | write | yesterday
+D | false | cry | yesterday
+D | false | sleep | yesterday
+D | true | bugtest | yesterday
+E | false | doing something a | a | b
+T | false | doing laundry
+T | false | doing something else
