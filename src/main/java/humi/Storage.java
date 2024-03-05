@@ -19,7 +19,7 @@ public class Storage {
 
     /**
      * Append the contents to a single string that will be saved
-     * @param content
+     * @param content String to be appended
      */
     public void appendTextContent(String content) {
         textContent += (content + '\n');
