@@ -4,12 +4,14 @@ public class TaskList {
     public static ArrayList<Task> storedList;
     public static int numberOfListItems;
 
+    /*
+        public TaskList() {
+            storedList = new ArrayList<>();
+            numberOfListItems = 0;
+        }
 
-    public TaskList() {
-        storedList = new ArrayList<>();
-        numberOfListItems = 0;
-    }
 
+     */
     public static void setTaskList(ArrayList<Task> loadList) {
         storedList = loadList;
         numberOfListItems = loadList.size();
@@ -32,6 +34,13 @@ public class TaskList {
         return newItem.split("todo");
     }
 
+    /**
+     * Creates a new todo in the current list
+     *
+     * @param newItem A string of the entire user input
+     * @param storedTask The current list
+     * @throws MikuException If the String array < 1
+     */
     public static void newTodo(String newItem, ArrayList<Task> storedTask) throws MikuException {
         String[] itemString = getTodoArgument(newItem);
         if (itemString.length < 1) {
@@ -42,7 +51,16 @@ public class TaskList {
         numberOfListItems++;
     }
 
-    public static void newDeadline(String newItem, ArrayList<Task> storedTask) throws MikuException, wrongDeadlineArguments {
+    /**
+     * Creates a new deadline in the current list
+     *
+     * @param newItem A string of the entire user input
+     * @param storedTask The current list
+     * @throws MikuException If the String array < 1
+     * @throws wrongDeadlineArguments If the given input is not in the proper format (does not contain "/by")
+     */
+    public static void newDeadline(String newItem, ArrayList<Task> storedTask)
+            throws MikuException, wrongDeadlineArguments {
         String[] itemString = getDeadlineArgument(newItem);
         if (itemString.length < 1) {
             throw new MikuException();
@@ -56,7 +74,16 @@ public class TaskList {
         numberOfListItems++;
     }
 
-    public static void newEvent(String newItem, ArrayList<Task> storedTask) throws MikuException, wrongEventArguments {
+    /**
+     * Creates a new event in the current list
+     *
+     * @param newItem A string of the entire user input
+     * @param storedTask The current list
+     * @throws MikuException If the String array < 3
+     * @throws wrongEventArguments If the given input is not in the proper format (does not contain "/from" or "/to")
+     */
+    public static void newEvent(String newItem, ArrayList<Task> storedTask)
+            throws MikuException, wrongEventArguments {
         String[] itemString = getEventArgument(newItem);
         if (itemString.length < 3) {
             throw new MikuException();
@@ -70,8 +97,14 @@ public class TaskList {
         numberOfListItems++;
     }
 
-
-
+    /**
+     * Marks a task from the current list.
+     *
+     * @param taskToMark An array of Strings that contains the user input of the task to mark
+     * @throws MikuException If the String array length > 2 or = 1
+     * @throws voidNumberOfItems If the current list is empty
+     * @throws indexOutOfListBounds If the inputted index of the task to delete does not exist in the list
+     */
     public static void markTask(String[] taskToMark)
             throws MikuException, voidNumberOfItems, indexOutOfListBounds {
         if (taskToMark.length > 2 || taskToMark.length == 1) {
@@ -92,6 +125,14 @@ public class TaskList {
         Ui.printMark(listNumberIndex);
     }
 
+    /**
+     * Unmarks a given task from the current list.
+     *
+     * @param taskToUnmark An array of Strings that contains the user input of the task to unmark
+     * @throws MikuException If the String array length > 2 or = 1
+     * @throws voidNumberOfItems If the current list is empty
+     * @throws indexOutOfListBounds If the inputted index of the task to delete does not exist in the list
+     */
     public static void unmarkTask(String[] taskToUnmark)
             throws MikuException, voidNumberOfItems, indexOutOfListBounds {
         if (taskToUnmark.length > 2 || taskToUnmark.length == 1) {
@@ -112,6 +153,14 @@ public class TaskList {
         Ui.printUnmark(listNumberIndex);
     }
 
+    /**
+     * Deletes a task from the current list.
+     *
+     * @param taskToDelete An array of Strings that contains the user input of the task to delete
+     * @throws MikuException If the String array length > 2 or = 1
+     * @throws voidNumberOfItems If the current list is empty
+     * @throws indexOutOfListBounds If the inputted index of the task to delete does not exist in the list
+     */
     public static void deleteTask(String[] taskToDelete)
             throws MikuException, voidNumberOfItems, indexOutOfListBounds {
         if (taskToDelete.length > 2 || taskToDelete.length == 1) {
