@@ -29,4 +29,24 @@ public class Ui {
         System.out.println("Type 'bye' to end the conversation.");
     }
 
+    public static void printDivider(){
+        System.out.println(DIVIDING_LINE);
+    }
+
+    /**
+     * Prints out an accurate message for the number of tasks in the list.
+     * @param numberOfTasks : represents the total current task count
+     */
+    public static void printCurrentTaskMessage(int numberOfTasks){
+        switch (numberOfTasks){
+        case 0:
+            System.out.println("Now you have 0 tasks in the list.");
+            break;
+        case 1:
+            System.out.println("Now you have 1 task in the list.");
+            break;
+        default:
+            System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+        }
+    }
 }
