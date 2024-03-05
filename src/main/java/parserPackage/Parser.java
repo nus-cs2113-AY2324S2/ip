@@ -53,6 +53,14 @@ public class Parser {
                     storage.saveTasksToFile(tasks);
                 }
                 break;
+            case "find":
+                if (parts.length > 1) {
+                    String keyword = parts[1];
+                    tasks.findTasksByKeyword(keyword);
+                } else {
+                    ui.printFormattedMessage("Please specify a keyword to search for.");
+                }
+                break;
             default:
                 ui.printFormattedMessage("Unknown command. Please enter 'todo', 'event', 'deadline', 'list', 'mark', 'unmark', 'delete', or 'bye'.");
             }

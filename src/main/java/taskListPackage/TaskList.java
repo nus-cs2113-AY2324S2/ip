@@ -6,6 +6,8 @@ import taskPackage.Task;
 import taskPackage.ToDos;
 import ui.Ui;
 import edithExceptionPackage.ChatBotExceptions;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
@@ -122,4 +124,30 @@ public class TaskList {
             ui.printFormattedMessage("Invalid command. Please enter a valid task number to unmark.");
         }
     }
+
+    public void findTasksByKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        int numberOfMatchingTasks = matchingTasks.size();
+
+        if (numberOfMatchingTasks == 0) {
+            ui.printFormattedMessage("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task task = matchingTasks.get(i);
+                int originalIndex = tasks.indexOf(task) + 1;
+                System.out.println(originalIndex + ". " + task.toString());
+            }
+           ui.printFormattedMessage("There are " + numberOfMatchingTasks + " number of tasks found");
+        }
+    }
+
 }
+

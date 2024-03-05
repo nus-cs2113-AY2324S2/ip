@@ -16,4 +16,10 @@ public class ToDos extends Task {
         return "[T]" + super.getStatusIcon();
     }
 
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + getDescription();
+    }
+
+
 }
