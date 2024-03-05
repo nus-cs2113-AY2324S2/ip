@@ -119,4 +119,22 @@ public class TaskList {
         return tasks;
     }
 
+    public void findTask() {
+        try{
+            parserInput.parserToDo();
+            String taskName = parserInput.getTaskName();
+            int count = 1;
+            display.printFoundTasks();
+            for (Task task : tasks) {
+                if (task.getTaskName().contains(taskName)) {
+                    System.out.println(count+ "." + task.printTask());
+                    count++;
+                }
+            }
+            display.showLine();
+        } catch (InvalidDescriptionException e) {
+            display.showNoTaskGiven();
+        }
+    }
+
 }
