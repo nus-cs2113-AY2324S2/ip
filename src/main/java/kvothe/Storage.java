@@ -29,8 +29,18 @@ public class Storage {
     public Storage(String filePath) throws KvotheException {
         this.filePath = filePath;
 
-        // Create file if it does not exist
         File file = new File(filePath);
+        
+        File directory = file.getParentFile(); // Get the parent directory
+
+        if (!directory.exists()) {
+            if (!directory.mkdirs()) { // Attempt to create the directory
+                System.err.println("Failed to create directory.");
+                return;
+            }
+            System.out.println("Directory created successfully.");
+        }
+        
         if (!file.exists()) {
             try {
                 file.createNewFile();
