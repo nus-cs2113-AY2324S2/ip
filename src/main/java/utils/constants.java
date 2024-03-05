@@ -1,4 +1,8 @@
 package utils;
+
+/**
+ * This class contains the constants used in the program
+ */
 public final class constants {
 
     private constants() {

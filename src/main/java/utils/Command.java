@@ -4,6 +4,10 @@ import exceptions.EmptyIndexException;
 import exceptions.EmptyTaskException;
 import exceptions.InvalidCommandException;
 
+
+/**
+ * This class contains the commands
+ */
 public class Command{
     public enum Commands {
         list, mark, unmark, add, delete, find, bye
