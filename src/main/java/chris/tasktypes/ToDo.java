@@ -3,11 +3,8 @@ package chris.tasktypes;
 import chris.customexceptions.illegalToDoInput;
 
 public class ToDo extends Task {
-    public ToDo(String description, boolean isDone) throws illegalToDoInput {
-        super(description);
-        if (description.isEmpty()) {
-            throw new illegalToDoInput();
-        }
+    public ToDo(String[] description, boolean isDone){
+        super(description[0]);
         this.isDone = isDone;
     }
     public String toString() {

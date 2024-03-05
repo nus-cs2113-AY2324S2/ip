@@ -1,5 +1,7 @@
 package chris.customexceptions;
 
-public class illegalDeadlineInput extends Exception{
-    public illegalDeadlineInput() {}
+public class illegalDeadlineInput extends customExceptions{
+    public illegalDeadlineInput() {
+        super("Incorrect deadline input!");
+    }
 }
