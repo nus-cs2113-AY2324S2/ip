@@ -1,0 +1,9 @@
+T | false | 3
+T | false | 1
+T | false | 2
+T | false | 4
+D | false | 5 |  6pm
+E | false | 6 |  2pm  |  4pm
+E | false | 7 |  3pm  |  8pm
+E | false | 8 |  8pm  |  12am
+D | false | 7 |  2pm

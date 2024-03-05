@@ -1,4 +1,4 @@
 package winter.checkedexceptions;
 
-public class InvalidDeleteException extends Exception{
+public class InvalidDeleteException extends Exception {
 }

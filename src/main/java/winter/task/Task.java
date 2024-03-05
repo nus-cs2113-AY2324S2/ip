@@ -2,9 +2,9 @@ package winter.task;
 public class Task {
     boolean isMarked;
     int order;
-    String taskName;
+    private String taskName;
 
-    public String doneCheckbox ="[ ]";
+    private String doneCheckbox ="[ ]";
 
     Task(int order, boolean marked, String taskName) {
         this.order = order;
@@ -41,14 +41,20 @@ public class Task {
 
     // Getter method for order
     public int getOrder() {
+
         return order;
     }
     // Getter method for taskName
     public String getTaskName() {
+
         return taskName;
     }
+
+    public String getDoneCheckbox() {
+        return doneCheckbox;
+    }
     // Getter method for marked
-    public boolean isMarked() {
+    public boolean getIsMarked() {
         return isMarked;
     }
 
@@ -66,6 +72,11 @@ public class Task {
     }
 
     public String getStartTime() {
+        return "";
+    }
+
+    public String toString() {
+        //To be implemented by child classes
         return "";
     }
 }

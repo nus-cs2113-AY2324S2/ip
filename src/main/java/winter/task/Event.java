@@ -27,6 +27,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         String typeCheckbox = "[E]";
-        return indent + typeCheckbox + " " + this.doneCheckbox + this.taskName + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return indent + typeCheckbox + " " + this.getDoneCheckbox() + this.getTaskName() + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
 }

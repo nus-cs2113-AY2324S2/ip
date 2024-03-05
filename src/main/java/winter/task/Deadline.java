@@ -19,7 +19,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String typeCheckbox = "[D]";
-        return indent + typeCheckbox + " " + this.doneCheckbox + this.taskName + " (by: " + this.deadline + ")";
+        return indent + typeCheckbox + " " + this.getDoneCheckbox() + this.getTaskName() + " (by: " + this.deadline + ")";
     }
 
 }

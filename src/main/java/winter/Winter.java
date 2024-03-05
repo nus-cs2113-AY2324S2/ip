@@ -1,52 +1,51 @@
 package winter;
-import java.io.FileNotFoundException;
+
+import winter.commands.Command;
+
 import java.io.IOException;
-import java.util.Scanner;
-import java.io.File;
+import java.io.UnsupportedEncodingException;
+
+import static winter.Parser.parse;
 
 
 public class Winter {
-    public static void main(String[] args) {
-        String logo = "  __      __.__        __                \n" +
-                "/  \\    /  \\__| _____/  |_  ___________ \n" +
-                "\\   \\/\\/   /  |/    \\   __\\/ __ \\_  __ \\\n" +
-                " \\        /|  |   |  \\  | \\  ___/|  | \\/\n" +
-                "  \\__/\\  / |__|___|  /__|  \\___  >__|   \n" +
-                "       \\/          \\/          \\/    ";
-        System.out.println("Hello from\n" + logo);
-        sayHi();
-        //echo();
+
+    private Storage storage;
+    private TaskList tasks;
+    private UI ui;
+
+    public Winter (String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
         try {
-            File f = new File("data/winter.txt");
-            Scanner s = new Scanner(f);
+            tasks = new TaskList(storage.readFile());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run () {
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                Manager.readFile(s);
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            } /*catch (ArrayIndexOutOfBoundsException e2) {
-                System.out.println("Something went wrong: " + e2.getMessage());
-                Files.delete(Paths.get("data/winter.txt"));
-            }*/
-            try {
-                Manager.acceptInput();
-            } catch(IOException e2) {
-                System.out.println("Cannot add task");
-            }
-        } catch (FileNotFoundException e) {
-            try {
-                Manager.acceptInput();
-            } catch(IOException e2) {
-                System.out.println("Cannot add task");
+                String fullCommand = ui.acceptInput();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (IOException | UnsupportedOperationException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
             }
         }
     }
-    // Method for greeting message
-    private static void sayHi() {
-        String line = "-----------------------------------\n";
-        String greet = "Hello! I'm Winter!\nWhat can I do for you?";
-        System.out.print(line);
-        System.out.println(greet);
-        System.out.print(line);
+
+    public static void main(String[] args) {
+
+        new Winter("data/winter.txt").run();
     }
+
 
 }

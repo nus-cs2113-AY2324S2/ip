@@ -1,3 +1,3 @@
 package winter.checkedexceptions;
-public class InvalidEventException extends Exception{
+public class InvalidEventException extends Exception {
 }
