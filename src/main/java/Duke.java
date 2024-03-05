@@ -88,6 +88,8 @@ public class Duke {
                     addTask(userInput, tasks, "deadline");
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     addTask(userInput, tasks, "event");
+                } else if (userInput.toLowerCase().startsWith("delete")) {
+                    deleteTask(userInput, tasks);
                 } else if (userInput.toLowerCase().startsWith("mark")) {
                     markTask(userInput, tasks, true);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
@@ -149,6 +151,23 @@ public class Duke {
             printLine();
             System.out.println("OK, I've marked this task as " + (isDone ? "done" : "not done yet") + ":");
             System.out.println("  " + task);
+            printLine();
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid task number format.");
+        }
+    }
+
+    private static void deleteTask(String userInput, ArrayList<Task> tasks) throws DukeException {
+        try {
+            int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+            if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                throw new DukeException("Task number is out of bounds.");
+            }
+            Task removedTask = tasks.remove(taskNumber);
+            printLine();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             printLine();
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid task number format.");
