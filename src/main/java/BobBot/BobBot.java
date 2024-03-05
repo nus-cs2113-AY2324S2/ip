@@ -1,8 +1,5 @@
 package BobBot;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import BobBot.exceptions.BobBotExceptions;
@@ -112,7 +109,7 @@ public class BobBot {
             } catch (NullPointerException | NumberFormatException e) {
                 printStandardExceptionMessage(e);
             }
-            storage.saveFile();
+            Storage.saveFile();
             line = in.nextLine();
         }
     }
@@ -137,13 +134,8 @@ public class BobBot {
         drawErrorLine();
     }
 
-    private static Storage storage;
-    private static TaskList tasks;
-
-    // adapted from https://nus-cs2113-ay2324s2.github.io/website/schedule/week7/project.html
     public BobBot() {
-        storage = new Storage();
-        tasks = new TaskList();
+
     }
 
     public void run() {

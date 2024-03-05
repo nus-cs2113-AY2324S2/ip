@@ -62,7 +62,7 @@ public class Storage {
     }
 
     // rewrite the whole file
-    public void saveFile() {
+    public static void saveFile() {
         StringBuilder fileContents = new StringBuilder();
         String lineToAdd = new String();
         int numberOfTasks = TaskList.getNumberOfTasks();
