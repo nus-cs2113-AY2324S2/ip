@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 
+/**
+ * TaskList class contains operation methods to manipulate list.
+ */
 public class TaskList {
-    public ArrayList<Task> taskList;
-    public TaskList() {
-        taskList = new ArrayList<>();
-    }
+    /**
+     * Prints out every task in the list.
+     *
+     * @param tasks The array list containing tasks inputted.
+     */
     public static void printTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -13,6 +17,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Checks if user's command is a "mark" or "unmark" command.
+     *
+     * @param tasks The array list containing tasks inputted.
+     * @param taskNumber An integer representing task number of the task to be marked or unmarked.
+     * @param arrayOfCommand An array storing the command type and task number.
+     */
     public static void markAndUnmarkTask(ArrayList<Task> tasks, int taskNumber, String[] arrayOfCommand) {
         if (arrayOfCommand[0].equals("mark")) {
             System.out.println("Nice! I've marked this task as done:");
@@ -25,6 +36,14 @@ public class TaskList {
         tasks.get(taskNumber).printTask();
     }
 
+    /**
+     * Handles "mark" and "unmark" command by marking task as done or unmarking task as undone.
+     *
+     * @param userCommand A string presenting user's command.
+     * @param arrayOfCommand An array to store the command type and task number.
+     * @param tasks The array list containing tasks inputted.
+     * @param taskCount An integer to keep track of the number of tasks in the list.
+     */
     public static void handleMarkAndUnmarkRequest(String userCommand, String[] arrayOfCommand, ArrayList<Task> tasks, int taskCount) {
         arrayOfCommand = userCommand.split(" ", 2);
         try {
@@ -43,6 +62,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles "todo", "deadline" and "event" command.
+     *
+     * @param userCommand A string presenting user's command.
+     * @param arrayOfCommand An array to store the command type and timings.
+     * @param tasks The array list containing tasks inputted.
+     */
     public static void handleTodoDeadlineAndEvent(String userCommand, String[] arrayOfCommand, ArrayList<Task> tasks) {
         if (userCommand.startsWith("todo")) {
             arrayOfCommand = userCommand.split(" ", 2);
@@ -66,12 +92,23 @@ public class TaskList {
         tasks.get(tasks.size() - 1).printTask();
     }
 
+    /**
+     * Handles "remove" command.
+     *
+     * @param tasks The array list containing tasks inputted.
+     * @param taskNumber An integer representing task number of the task to be removed.
+     */
     public static void removeTask(ArrayList<Task> tasks, int taskNumber) {
-        System.out.println("Sure. I've removed this task: ");
         tasks.get(taskNumber).printTask();
         tasks.remove(taskNumber);
     }
 
+    /**
+     * Handles "find" command.
+     *
+     * @param tasks The array list containing tasks inputted.
+     * @param keyword A string representing the keyword inputted by user.
+     */
     public static void findKeyword(ArrayList<Task> tasks, String keyword) {
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         for (Task task: tasks) {

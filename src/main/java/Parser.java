@@ -1,7 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Parser class to parse and handle user's command appropriately.
+ */
 public class Parser {
+    /**
+     * Processes user's command.
+     *
+     * @param userCommand A string containing user's command.
+     * @param tasks An array list with tasks added by user.
+     */
     public static void handleCommand(String userCommand, ArrayList<Task> tasks) {
         String[] arrayOfCommand = new String[4];
         Scanner in = new Scanner(System.in);
@@ -21,6 +30,7 @@ public class Parser {
                     break;
                 case "delete":
                     TaskList.removeTask(tasks, Integer.parseInt(words[1]) - 1);
+                    System.out.println("Item above has been removed!");
                     System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     userCommand = in.nextLine();
                     break;

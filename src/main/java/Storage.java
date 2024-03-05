@@ -6,23 +6,39 @@ import java.util.ArrayList;
 import java.io.File;
 import java.util.List;
 import java.io.IOException;
+
+/**
+ * Storage class deals with loading tasks from file and saving tasks to file.
+ */
 public class Storage {
     public static final String DIRECTORYPATH = "./data/";
     public static final String FILEPATH = DIRECTORYPATH + "MsChatty:).txt";
 
+    /**
+     * Adds task to file.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     * @param textToAppend A string containing the task to be added.
+     * @throws IOException If an error occurs during appending.
+     */
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         try (FileWriter fw = new FileWriter(filePath, true)) {
             fw.write(textToAppend);
         }
     }
 
+    /**
+     * Saves all tasks to file.
+     *
+     * @param tasks The array list containing tasks inputted.
+     */
     public static void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             File directory = new File(DIRECTORYPATH);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            FileWriter fileWriter = new FileWriter(FILEPATH, false); // Open the file for writing, false to overwrite
+            FileWriter fileWriter = new FileWriter(FILEPATH, false);
             fileWriter.write("");
 
             for (Task task : tasks) {
@@ -33,6 +49,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts all tasks from file format to list format.
+     *
+     * @param tasks The array list containing tasks inputted.
+     * @return The array list containing tasks in list format.
+     */
     public static ArrayList<Task> revertTasksToListFormat(List<String> tasks) {
         ArrayList<Task> revertedTasks = new ArrayList<>();
         try {
@@ -46,6 +68,12 @@ public class Storage {
         return revertedTasks;
     }
 
+    /**
+     * Converts individual task from file format to list format.
+     *
+     * @param line A string representing a task read from file.
+     * @return task in list format.
+     */
     public static Task revertTaskToListFormat(String line) {
         String[] arrayOfTask = line.split(" \\| ", 3);
         boolean isDone = arrayOfTask[1].equals("1");
@@ -72,6 +100,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from file.
+     *
+     * @return The array containing tasks in list format.
+     */
     public static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         Path filePath = Paths.get(FILEPATH);
