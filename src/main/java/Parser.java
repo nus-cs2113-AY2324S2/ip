@@ -11,7 +11,7 @@ public class Parser {
     public static final int DEADLINE_TASK_INDEX = 9;
     public static final int TODO_TASK_INDEX = 5;
     public static final int DELETE_TASK_INDEX = 7;
-    protected static String processEvent(String input) throws ArgumentNotFoundException {
+    protected String processEvent(String input) throws ArgumentNotFoundException {
         if (EVENT_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -21,7 +21,7 @@ public class Parser {
         return parts[0] + " (from: " + time[0] + " to: " + time[1] + ")";
     }
 
-    protected static String processDeadline(String input) throws ArgumentNotFoundException {
+    protected String processDeadline(String input) throws ArgumentNotFoundException {
         if (DEADLINE_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -30,14 +30,14 @@ public class Parser {
         return parts[0] + " (by: " + parts[1] + ")";
     }
 
-    protected static String processTodo(String input) throws ArgumentNotFoundException {
+    protected String processTodo(String input) throws ArgumentNotFoundException {
         if (TODO_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
         return input.substring(TODO_TASK_INDEX);
     }
 
-    protected static int getIndexMark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
+    protected int getIndexMark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
         if (MARK_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -48,7 +48,7 @@ public class Parser {
         return indexMark;
     }
 
-    protected static int getIndexUnmark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
+    protected int getIndexUnmark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
         if (UNMARK_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -59,7 +59,7 @@ public class Parser {
         return indexUnmark;
     }
 
-    protected static int getIndexDelete(String input) {
+    protected int getIndexDelete(String input) {
         return Integer.parseInt(input.substring(DELETE_TASK_INDEX)) - 1;
     }
 }
