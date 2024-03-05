@@ -8,21 +8,21 @@ import allez.task.ToDo;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
 
     public TaskList(Storage storage) {
         tasks = storage.loadSave();
     }
 
-    public int numberOfTasks() {
+    public int getNumberOfTasks() {
         return tasks.size();
     }
+
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public void addToDo(String[] lineSegment) {
-        String description = lineSegment[0];
+    public void addToDo(String description) {
         tasks.add(new ToDo(description));
     }
 
@@ -44,8 +44,11 @@ public class TaskList {
 
     }
 
-    public Task getTask(int taskNumber) {
+    public Task getSpecficTask(int taskNumber) {
         return tasks.get(taskNumber);
     }
-    
+
+    public void markTask(int toMark){
+        tasks.get(toMark).markDone();
+    }
 }

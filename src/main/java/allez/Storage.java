@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 public class Storage {
-    private File dataFile;
+    private final File dataFile;
 
     public File getDataFile() {
         return dataFile;

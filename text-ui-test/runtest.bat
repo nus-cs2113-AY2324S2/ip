@@ -5,6 +5,7 @@ if not exist ..\bin mkdir ..\bin
 
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
+if exist data\data.txt del data\data.txt
 
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\allez\*.java ..\src\main\java\allez\task\*.java
