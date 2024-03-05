@@ -53,4 +53,8 @@ public class Parser {
             throw new InvalidArgumentException("\t Argument not found! Task number is required");
         }
     }
+
+    public static String parseCommand(String userInput) {
+        return userInput.split(" ")[0].toLowerCase();
+    }
 }
