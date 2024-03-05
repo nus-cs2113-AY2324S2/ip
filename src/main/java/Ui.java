@@ -97,8 +97,16 @@ public class Ui {
         }
     }
 
-    public static void fileError(){
+    public static void fileError() {
         System.out.println("file is not found!");
+    }
+
+    public static void printFindTask() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public static void printWholeTask(int i) {
+        System.out.println((i + 1) + ". " + TaskList.storedList.get(i).toString());
     }
 
     public static void invalidInput() {
@@ -157,6 +165,9 @@ public class Ui {
         System.out.println("there's something wrong with the loaded data's arguments");
     }
 
+    public static void blankFind() {
+        System.out.println("There are no tasks that match your keyword :(");
+    }
     public static void generalError(){
         System.out.println("There's an error somewhere D:");
     }
