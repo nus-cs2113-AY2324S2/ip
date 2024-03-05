@@ -1,6 +1,7 @@
 import dukeRobot.Commands.*;
 import dukeRobot.Tools.*;
 import dukeRobot.Tasks.*;
+import java.util.Scanner;
 
 import java.io.*;
 
@@ -46,7 +47,10 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        new Duke("/Users/celinelam/Desktop/nus/course/CS2113/ip/src/main/java/dukeRobot/Output.txt").run();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please input your file path: ");
+        String filePath = scanner.nextLine();
+        new Duke(filePath).run();
     }
 }
 

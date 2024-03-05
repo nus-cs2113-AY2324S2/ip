@@ -19,10 +19,10 @@ public class DeleteCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
+            ui.showRemoveMessage(tasks, this.index);
             this.index = this.index - 1;
             Task.numOfTask -= 1;
             tasks.remove(tasks.get(index));
-            ui.showRemoveMessage(tasks, this.index);
             //Add storage
             //delete all texts
             try {
