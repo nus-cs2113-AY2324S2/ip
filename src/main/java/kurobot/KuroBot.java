@@ -88,7 +88,7 @@ public class KuroBot {
             System.out.println("File not found");
         }
     }
-    
+
     private static void executeCommand() {
         while (isStart) {
             String input = scanner.nextLine();
