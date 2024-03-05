@@ -1,28 +1,23 @@
 import Exceptions.TaskNotFoundException;
-import Tasks.Task;
-import Tasks.Todo;
 import Exceptions.ArgumentNotFoundException;
 import Exceptions.CommandNotFoundException;
 
 
-import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Spike {
     private static Ui ui;
-    private static Parser parser;
-    public static void main(String[] args) throws IOException {
+    private static TaskList Tasks;
+    public static void main(String[] args) {
         ui = new Ui();
-        parser = new Parser();
 
         ui.displayWelcomeMsg();
-        ArrayList<Task> inputList = DataHandler.readFileContents(DataHandler.FILE_PATH);
         Scanner in = new Scanner(System.in);
 
         while (true) {
             try {
-                startChatbot(in, inputList);
+                startChatbot(in);
                 ui.displayByeMsg();
                 break;
             } catch (CommandNotFoundException e) {
@@ -38,51 +33,40 @@ public class Spike {
     }
 
 
-    private static void startChatbot(Scanner in, ArrayList<Task> inputList)
+    private static void startChatbot(Scanner in)
             throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException, IOException {
+        Tasks = new TaskList();
         outerLoop:
         while (true) {
             String input = in.nextLine();
             switch (input.split(" ")[0]) {
             case "list":
-                ui.displayList(inputList);
+                Tasks.printList();
                 break;
             case "mark":
-                int indexMark = parser.getIndexMark(inputList, input);
-                inputList.get(indexMark).setDone(true);
-                ui.displayMarkMsg(indexMark, inputList);
+                Tasks.processMark(input);
                 break;
             case "unmark":
-                int indexUnmark = parser.getIndexUnmark(inputList, input);
-                inputList.get(indexUnmark).setDone(false);
-                ui.displayUnmarkMsg(indexUnmark, inputList);
+                Tasks.processUnmark(input);
                 break;
             case "todo":
-                Task newTodo = new Todo(parser.processTodo(input));
-                inputList.add(newTodo);
-                ui.displayAcknowledgement(newTodo, inputList.size());
+                Tasks.processTodo(input);
                 break;
             case "deadline":
-                Task newDeadline = new Todo(parser.processDeadline(input));
-                inputList.add(newDeadline);
-                ui.displayAcknowledgement(newDeadline, inputList.size());
+                Tasks.processDeadline(input);
                 break;
             case "event":
-                Task newEvent = new Todo(parser.processEvent(input));
-                inputList.add(newEvent);
-                ui.displayAcknowledgement(newEvent, inputList.size());
+                Tasks.processEvent(input);
                 break;
             case "delete":
-                int indexDelete = parser.getIndexDelete(input);
-                ui.displayDeleteMsg(inputList.get(indexDelete), inputList.size());
-                inputList.remove(indexDelete);
+                Tasks.processDelete(input);
                 break;
             case "bye":
                 break outerLoop;
             default:
                 throw new CommandNotFoundException();
             }
-            DataHandler.tasksToFile(inputList);
+            Tasks.updateTaskList();
         }
     }
 }
