@@ -8,8 +8,8 @@ import vibes.task.type.Deadline;
 import vibes.task.type.Event;
 import vibes.task.type.Task;
 import vibes.task.type.Todo;
+import vibes.ui.TextUi;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -18,7 +18,7 @@ public class TaskList {
     public void executeCommand(String commandToExecute, String userInput) throws CommandNotFoundException, InvalidArgumentException {
         switch (commandToExecute) {
         case "list":
-            listTasks();
+            TextUi.listTasks();
             break;
         case "mark":
             setAsDone(Parser.parseTaskNumber(userInput));
@@ -28,15 +28,15 @@ public class TaskList {
             break;
         case "todo":
             addTodo(Parser.parseTodo(userInput));
-            showTaskAddedMessage();
+            TextUi.showTaskAddedMessage();
             break;
         case "event":
             addEvent(Parser.parseEvent(userInput));
-            showTaskAddedMessage();
+            TextUi.showTaskAddedMessage();
             break;
         case "deadline":
             addDeadline(Parser.parseDeadline(userInput));
-            showTaskAddedMessage();
+            TextUi.showTaskAddedMessage();
             break;
         case "delete":
             deleteTask(Parser.parseTaskNumber(userInput));
@@ -44,18 +44,7 @@ public class TaskList {
         default:
             throw new CommandNotFoundException();
         }
-
-        try {
-            Storage.writeToFile(this);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void showTaskAddedMessage() {
-        System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + tasks.get(tasks.size() - 1));
-        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+        Storage.saveTask(this);
     }
 
     public void addEvent(String[] parsedInput) {
@@ -70,30 +59,19 @@ public class TaskList {
         tasks.add(new Todo(description));
     }
 
-    public void listTasks() {
-        System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t " + (i + 1) + "." + tasks.get(i));
-        }
-    }
-
     public void setAsDone(int taskNumber) {
         tasks.get(taskNumber).setDone(true);
-        System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t   " + tasks.get(taskNumber));
+        TextUi.showMarkedMessage(taskNumber);
     }
 
     public void setAsNotDone(int taskNumber) {
         tasks.get(taskNumber).setDone(false);
-        System.out.println("\t OK, I've marked this task as not done yet:");
-        System.out.println("\t   " + tasks.get(taskNumber));
+        TextUi.showUnmarkedMessage(taskNumber);
     }
 
     public void deleteTask(int taskNumber) {
-        System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t   " + tasks.get(taskNumber));
+        Task taskToDelete = tasks.get(taskNumber);
         tasks.remove(taskNumber);
-        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+        TextUi.showDeletedMessage(taskToDelete);
     }
-
 }
