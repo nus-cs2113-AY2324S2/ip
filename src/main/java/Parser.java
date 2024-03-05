@@ -11,7 +11,7 @@ public class Parser {
     public static final int DEADLINE_TASK_INDEX = 9;
     public static final int TODO_TASK_INDEX = 5;
     public static final int DELETE_TASK_INDEX = 7;
-    protected String processEvent(String input) throws ArgumentNotFoundException {
+    protected String parseEvent(String input) throws ArgumentNotFoundException {
         if (EVENT_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -21,7 +21,7 @@ public class Parser {
         return parts[0] + " (from: " + time[0] + " to: " + time[1] + ")";
     }
 
-    protected String processDeadline(String input) throws ArgumentNotFoundException {
+    protected String parseDeadline(String input) throws ArgumentNotFoundException {
         if (DEADLINE_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -30,7 +30,7 @@ public class Parser {
         return parts[0] + " (by: " + parts[1] + ")";
     }
 
-    protected String processTodo(String input) throws ArgumentNotFoundException {
+    protected String parseTodo(String input) throws ArgumentNotFoundException {
         if (TODO_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
