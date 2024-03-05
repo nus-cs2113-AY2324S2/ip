@@ -1,6 +1,6 @@
 # Mona User Guide
 
-Mona is a Command Line Interface (CLI) chatbot application that helps you manage your tasks efficiently. This user guide will help you get started with using Mona and its features.
+Mona is a Command Line Interface (CLI) chatbot application designed to streamline task management with speed and simplicity. Named after the intuitive and resourceful character 'Mona' from the beloved TV series 'Nanalan', our application embodies the efficiency and helpfulness that Mona showcased in her adventures.
 
 - [Quick start](#quick-start)
 - [Features](#features)
@@ -21,7 +21,7 @@ Mona is a Command Line Interface (CLI) chatbot application that helps you manage
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed on your computer.
-2. Download the latest version of Mona from [GitHub](https://github.com/your-repo-link).
+2. Download the latest version of Mona from [GitHub](https://github.com/nur-haziq/ip).
 3. Open a terminal and navigate to the folder where you downloaded Mona.
 4. Run the application by entering `java -jar Mona.jar` in the terminal.
 5. Type `help` to see a list of available commands.
@@ -53,12 +53,15 @@ Shows a list of all available commands and their usage.
 ### Adding a Task
 
 There are three types of tasks you can add: `todo`, `deadline`, and `event`.
+1. **ToDos**: These are tasks that do not have a specific date or time associated with them. They represent things you need to do but haven't scheduled a time for yet.
+2. **Deadlines**: These tasks have a specific due date and time. They're the things you need to complete by a certain deadline.
+3. **Events**: These are tasks that occur over a range of time, having both a start date/time and an end date/time.
 
 &nbsp;
 
-#### Adding a Todo: `todo`
+#### Adding a ToDo: `todo`
 
-Adds a todo task to your task list.
+Adds a ToDo task to your task list.
 
 **Format:** `todo DESCRIPTION`
 - `DESCRIPTION`: The description of the todo task.
