@@ -1,9 +1,15 @@
 package seedu.salmonsan.data.task;
 
 import seedu.salmonsan.data.exception.SalmonMissingArgument;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.UnsupportedTemporalTypeException;
 
 public class DeadlineTask extends Task {
-    protected static String deadline;
+    protected String deadline;
+    protected LocalDate deadlineLocalDate;
 
 
     public DeadlineTask() throws SalmonMissingArgument {
@@ -31,7 +37,32 @@ public class DeadlineTask extends Task {
         // find index of '/'
         int index = argument.indexOf('/');
         deadline = argument.substring(index + 4);
+        // check if deadline is a date
+        deadlineLocalDate = isValidDate(deadline);
         return argument.substring(0, index - 1);
+    }
+
+    /**
+     * check if deadline inputted is a date
+     * if so, store it in deadlineLocalDate
+     * if not, let deadlineLocalDate be null
+     *
+     * @param s
+     * @return LocalDate deadlineLocalDate if valid
+     */
+    public LocalDate isValidDate(String s) {
+        try {
+            LocalDate d1 = LocalDate.parse(s);
+            System.out.println("Date: " + d1);
+            d1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            return d1;
+        } catch (DateTimeParseException e) {
+            System.out.println("Not valid date");
+            return null;
+        } catch (UnsupportedTemporalTypeException e) {
+            System.out.println("Unsupported field");
+            return null;
+        }
     }
 
     /**
@@ -39,7 +70,11 @@ public class DeadlineTask extends Task {
      * @return String containing deadline of task
      */
     public String getDeadline() {
-        return deadline;
+        if (deadlineLocalDate != null) {
+            return deadlineLocalDate.toString();
+        } else {
+            return deadline;
+        }
     }
 
     @Override

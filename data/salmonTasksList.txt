@@ -1,3 +1,6 @@
 T | false | todo1
 T | false | todo2
-E | true | doing cs2113 | tomorrow | yesterday
+E | true | doing cs2113 | 8pm | yesterday
+D | false | this | tomorrow
+D | false | those | tomorrow
+E | false | doing 2026 | 8pm | yesterday
