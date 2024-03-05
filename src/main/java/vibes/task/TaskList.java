@@ -1,5 +1,6 @@
 package vibes.task;
 
+import vibes.exception.CommandNotFoundException;
 import vibes.exception.InvalidArgumentException;
 import vibes.task.type.Deadline;
 import vibes.task.type.Event;
@@ -20,6 +21,57 @@ public class TaskList {
 
     ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
+
+    public static void executeCommand(String commandToExecute, TaskList taskList, String userInput) throws CommandNotFoundException {
+        int taskNumber;
+
+        switch (commandToExecute) {
+        case "list":
+            taskList.listTasks();
+            break;
+        case "mark":
+            taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
+            taskList.setAsDone(taskNumber);
+            break;
+        case "unmark":
+            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+            taskList.setAsNotDone(taskNumber);
+            break;
+        case "todo":
+            try {
+                taskList.addTask(userInput);
+            } catch (InvalidArgumentException e) {
+                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
+            }
+            break;
+        case "event":
+            try {
+                taskList.addTask(userInput);
+            } catch (InvalidArgumentException e) {
+                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
+            }
+            break;
+        case "deadline":
+            try {
+                taskList.addTask(userInput);
+            } catch (InvalidArgumentException e) {
+                System.out.println("\t Argument not found! The description of a todo cannot be empty.");
+            }
+            break;
+        case "delete":
+            taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+            taskList.deleteTask(taskNumber);
+            break;
+        default:
+            throw new CommandNotFoundException();
+        }
+
+        try {
+            taskList.writeToFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void addTask(String userInput) throws InvalidArgumentException {
         String taskType = "";
@@ -96,15 +148,15 @@ public class TaskList {
         fileWriter.close();
     }
 
-    private void addEvent(String description, String from, String to) {
+    public void addEvent(String description, String from, String to) {
         tasks.add(new Event(description, from, to));
     }
 
-    private void addDeadline(String description, String by) {
+    public void addDeadline(String description, String by) {
         tasks.add(new Deadline(description, by));
     }
 
-    private void addTodo(String description) {
+    public void addTodo(String description) {
         tasks.add(new Todo(description));
     }
 
