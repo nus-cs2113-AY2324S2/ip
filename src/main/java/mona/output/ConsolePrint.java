@@ -56,20 +56,19 @@ public class ConsolePrint {
         }
         printHorizontalLine();
     }
-    public static void printFilteredList(ArrayList<Task> tasks, String keyword) {
+    public static void printFilteredList(ArrayList<Task> filteredTasks, ArrayList<Task> tasks, String keyword) {
         printHorizontalLine();
 
-        if (tasks.isEmpty()) {
+        if (filteredTasks.isEmpty()) {
             System.out.println("OOPS!! We couldn't find any tasks that contain" +
                     " '" + keyword + "'");
         } else {
             System.out.println("Here are the matching tasks in your list:");
 
-            int index = 1;
-            for (Task task: tasks) {
+            for (Task task: filteredTasks) {
                 if (task != null) {
+                    int index = tasks.indexOf(task) + 1;
                     System.out.println(Integer.toString(index) + "." + task);
-                    index += 1;
                 }
             }
         }

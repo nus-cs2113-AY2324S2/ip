@@ -82,7 +82,7 @@ public class TaskList {
             ArrayList<Task> filteredTasks = (ArrayList<Task>)tasks.stream()
                     .filter(t -> t.getDescription().contains(keyword))
                     .collect(Collectors.toList());
-            ConsolePrint.printFilteredList(filteredTasks, keyword);
+            ConsolePrint.printFilteredList(filteredTasks, tasks, keyword);
         default:
             //doNothing?
         }
