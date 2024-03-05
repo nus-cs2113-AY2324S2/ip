@@ -1,7 +1,5 @@
 package interactions;
 import customexceptions.UnknownPromptException;
-import interactions.*;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import customexceptions.IncompletePromptException;
@@ -17,7 +15,10 @@ public class TaskList {
     public TaskList() {
         list = new ArrayList<>();
     }
-    protected Task lastActionTask = null; // allows for 'undo' functionality
+    protected Task lastActionTask = null; // Allows for 'undo' functionality
+    public ArrayList<ToDo> getList() {
+        return list;
+    }
 
     public Task getLastActionTask() {
         return lastActionTask;
@@ -36,13 +37,13 @@ public class TaskList {
         String nextWord; // any commands that require a 'next' word
         switch (keyword) {
         case "event":
-            nextWord = " from";
+            nextWord = " from ";
             break;
         case "deadline":
-            nextWord = " by";
+            nextWord = " by ";
             break;
         case "from":
-            nextWord = " to";
+            nextWord = " to ";
             break;
         default:
             nextWord = null;
@@ -52,37 +53,45 @@ public class TaskList {
             if (nextIndex != -1) {
                 return line.substring(index, nextIndex).trim();
             }
-            return "incomplete";
+            return "";
         }
         return line.substring(index).trim();
     }
 
-    public void addNewTask(String line, String type) throws IncompletePromptException {
+    public void addNewTask(String line, String type)
+            throws IncompletePromptException, UnknownPromptException {
         String toDoDescription = extractToDoOrDate(line, type);
+        if (toDoDescription.isEmpty()) {
+            throw new IncompletePromptException();
+        }
         ToDo newToDo = new ToDo(toDoDescription);
-        switch (type) { // only three cases considered
+        switch (type) {
         case "todo":
             newToDo.setHaveToDo(true);
+            newToDo.setTaskType("T");
             break;
         case "deadline":
             String deadline = extractToDoOrDate(line, "by");
-            if (deadline.equals("incomplete")) {
+            if (deadline.isEmpty()) {
                 throw new IncompletePromptException();
-            } else {
-                newToDo.setDeadline(deadline);
             }
+            newToDo.setDeadline(deadline);
+            newToDo.setTaskType("D");
             break;
         case "event":
             String dateFrom = extractToDoOrDate(line, "from");
             String dateTo = extractToDoOrDate(line, "to");
-            if (dateFrom.equals("incomplete") || dateTo.equals("incomplete")) {
+            if (dateFrom.isEmpty() || dateTo.isEmpty()) {
                 throw new IncompletePromptException();
             } else {
                 newToDo.setEventFrom(dateFrom);
                 newToDo.setEventTo(dateTo);
                 newToDo.setEvent(true);
+                newToDo.setTaskType("E");
             }
             break;
+        default:
+            throw new UnknownPromptException();
         }
         list.add(newToDo);
         System.out.println("Got it. I've added this task:");
@@ -127,18 +136,5 @@ public class TaskList {
         } else {
             System.out.println(INDENT + "There's nothing in this list.");
         }
-    }
-    public void saveFile(String filePath) throws IOException {
-        File f = new File(filePath);
-        if (!f.exists()) {
-            throw new FileNotFoundException();
-        }
-        FileWriter fw = new FileWriter(filePath);
-        for (ToDo task : list) {
-            //System.out.println("HELLO");
-            fw.write(task.lineToWrite() + System.lineSeparator());
-            //fw.write("TESTING");
-        }
-        fw.close();
     }
 }
