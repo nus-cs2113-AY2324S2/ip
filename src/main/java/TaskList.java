@@ -105,7 +105,7 @@ public class TaskList {
             int taskNumber = taskScanner.nextInt() - 1;
             if (isValidTaskNumber(taskNumber)) {
                 list.get(taskNumber).setDone(true);
-                System.out.println("I have marked this task as done:\n" + list.get(taskNumber));
+                System.out.println("I have marked this task as done: " + list.get(taskNumber));
             } else {
                 throw new InvalidInputException("Invalid task number! Please check with 'list'.");
             }
@@ -128,7 +128,7 @@ public class TaskList {
             int taskNumber = taskScanner.nextInt() - 1;
             if (isValidTaskNumber(taskNumber)) {
                 list.get(taskNumber).setDone(false);
-                System.out.println("I have marked this task as not done:\n" + list.get(taskNumber));
+                System.out.println("I have marked this task as not done: " + list.get(taskNumber));
             } else {
                 throw new InvalidInputException("Invalid task number! Please check with 'list'.");
             }
