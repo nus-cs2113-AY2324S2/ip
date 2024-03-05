@@ -62,13 +62,17 @@ public class TaskList {
     public void saveTaskList() {
         ArrayList<String> dataToWrite = new ArrayList<String>();
         for (Task t : tasklist) {
-            dataToWrite.add(t.getSerializable());
+            String temp = t.getSerializable();
+
+            // replace all space in the string to save with a special character
+            temp = temp.replace(" ","~");
+            dataToWrite.add(temp);
         }
 
         try {
             FileIO.writeLineToFile(dataToWrite);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("Unable to save data");
         }
 
     }
@@ -79,10 +83,13 @@ public class TaskList {
             ArrayList<String> data = FileIO.readFileByLine();
 
             for (String s : data) {
-                String[] arguments = s.split(",");
+
+                // replace the special character with space
+                String temp = s.replace("~", " ");
+                String[] arguments = temp.split(",");
+
 
                 boolean completed = Boolean.parseBoolean(arguments[1]);
-                ;
 
                 switch (arguments[0]) {
                 case "T":
