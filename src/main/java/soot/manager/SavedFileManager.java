@@ -5,6 +5,7 @@ import soot.task.Deadline;
 import soot.task.Event;
 import soot.task.Task;
 import soot.task.Todo;
+import soot.ui.UserUi;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -25,10 +26,11 @@ public class SavedFileManager {
         }
         s.close();
         System.out.println("a previously saved file was found!\nyour data will be loaded in now :)");
-        Soot.drawLine();
+        UserUi.displayDividerLine();
         return readFile;
     }
-
+    // TODO: make the cases as an enum instead of string
+    // TODO: create a getTaskDescription method
     public static void loadSavedTasks(String line) {
         String[] taskInfo = line.split(" ; ", 0);
         boolean isTaskDone = !taskInfo[1].trim().equals("0");

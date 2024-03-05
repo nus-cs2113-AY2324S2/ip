@@ -1,7 +1,7 @@
 package soot;
 import soot.manager.CommandManager;
 import soot.manager.SavedFileManager;
-import soot.manager.GreetingManager;
+import soot.ui.UserUi;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import java.io.FileNotFoundException;
 
 public class Soot {
     public static void main(String[] args) {
-        drawLine(); //initial greeting
-        GreetingManager.greetUser();
+        UserUi.displayDividerLine(); //initial greeting
+        UserUi.showUserGreeting();
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -25,7 +25,7 @@ public class Soot {
             }
         } catch (FileNotFoundException e) {
             System.out.println("No file was found, i will create one immediately");
-            drawLine();
+            UserUi.displayDividerLine();
             File savedData = new File("saved-data/saved.txt");
         }
 
@@ -33,7 +33,7 @@ public class Soot {
 
         while (!isBye) {
             line = in.nextLine(); //user input
-            drawLine();
+            UserUi.displayDividerLine();
             isBye = commandManager.isInputBye(line);
         }
         try {
@@ -41,14 +41,6 @@ public class Soot {
         } catch (IOException e) {
             System.out.println("there was a problem saving your tasks to the hard disk...");
         }
-        GreetingManager.greetGoodbye();
-    }
-
-    public static void drawLine() {
-        int LINE_LENGTH = 60;
-        for (int i = 0; i < LINE_LENGTH; i++) {
-            System.out.print("_");
-        }
-        System.out.println("");
+        UserUi.showGoodbyeMessage();
     }
 }
