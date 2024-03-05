@@ -15,12 +15,10 @@ class Ui {
 		System.out.println("Hello! I'm SAM\n" + logo + "\n" + "What can I do for you?\n");
 	}
 
-	public void printTasks(ArrayList<Task> tasks) {
+	public void printTasks(TaskList tasks) {
 		// Printing tasks
 		System.out.println("Here's what you got saved:");
-		for (int j = 0; j < tasks.size(); j++) {
-			System.out.println((j + 1) + "." + tasks.get(j));
-		}
+		tasks.listTasks();
 		printLine();
 	}
 

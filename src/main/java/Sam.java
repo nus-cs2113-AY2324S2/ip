@@ -21,7 +21,7 @@ public class Sam {
 
     public void run() {
         ui.printGreeting();
-        ui.printTasks(taskList.getTasks());
+        ui.printTasks(taskList);
 
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
