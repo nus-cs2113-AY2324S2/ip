@@ -2,6 +2,7 @@ package MainRuntime;
 
 import Exceptions.*;
 import Tasks.*;
+import DataHandling.SaveData;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -97,7 +98,7 @@ public class GermaBot {
         }
         toDoList.add(new ToDo(toDoTask));
         counter++;
-        DataHandling.SaveData.addTodoToFile(new ToDo(toDoTask), 'T');
+        SaveData.addTodoToFile(new ToDo(toDoTask), 'T');
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
     }
 
@@ -118,7 +119,7 @@ public class GermaBot {
         }
         toDoList.add(new Deadline(description.substring(0, idxOfEndDate - 1), date));
         counter++;
-        DataHandling.SaveData.addDeadlineToFile(new Deadline(description.substring(0, idxOfEndDate - 1), date), 'D');
+        SaveData.addDeadlineToFile(new Deadline(description.substring(0, idxOfEndDate - 1), date), 'D');
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
                 " You have to finish this by "  + date + ", so be reminded!");
     }
@@ -150,7 +151,7 @@ public class GermaBot {
         }
         toDoList.add(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate));
         counter++;
-        DataHandling.SaveData.addEventToFile(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate), 'E');
+        SaveData.addEventToFile(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate), 'E');
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
                 " This will happen from " + startDate + " to " + endDate + ", so please remember to mark it" +
                 " on your calender! (Or ask me!)");
