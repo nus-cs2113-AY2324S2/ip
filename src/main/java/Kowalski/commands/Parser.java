@@ -1,7 +1,6 @@
-package Kowalski;
+package Kowalski.commands;
 
 import Kowalski.UI.Ui;
-import Kowalski.commands.KowalskiException;
 import Kowalski.tasks.Deadline;
 import Kowalski.tasks.Event;
 import Kowalski.tasks.Task;

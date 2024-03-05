@@ -1,4 +1,4 @@
-package Kowalski;
+package Kowalski.commands;
 
 import Kowalski.tasks.Task;
 

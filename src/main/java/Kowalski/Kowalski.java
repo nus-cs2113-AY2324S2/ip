@@ -1,6 +1,10 @@
 package Kowalski;
 
 import Kowalski.UI.Ui;
+import Kowalski.commands.Parser;
+import Kowalski.commands.Storage;
+import Kowalski.commands.TaskList;
+
 import java.io.IOException;
 import java.util.Scanner;
 

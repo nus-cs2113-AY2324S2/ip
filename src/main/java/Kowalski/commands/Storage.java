@@ -1,4 +1,4 @@
-package Kowalski;
+package Kowalski.commands;
 
 import Kowalski.UI.Ui;
 import Kowalski.tasks.Deadline;
