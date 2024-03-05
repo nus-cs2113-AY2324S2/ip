@@ -1,1 +1,4 @@
-hehe | today         | tom|[E]|[ ]
+h | today           | tom|[E]|[X]
+helloooo | tom|[D]|[ ]
+eggs|[T]|[ ]
+eggs -h|[T]|[ ]

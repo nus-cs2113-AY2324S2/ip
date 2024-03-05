@@ -20,11 +20,17 @@ public class Storage {
 
             String[] lineArray = line.split("\\|");
             if(line.contains("[T]")){
-                newTask = new ToDo(lineArray[0]);
+                String todoDescription = lineArray[0];
+                newTask = new ToDo(todoDescription);
             } else if(line.contains("[D]")){
-                newTask = new Deadline(lineArray[0], lineArray[1]);
+                String deadlineDescription = lineArray[0];
+                String deadlineDueDate = lineArray[1];
+                newTask = new Deadline(deadlineDescription, deadlineDueDate);
             } else if (line.contains("[E]")){
-                newTask = new Event(lineArray[0], lineArray[1], lineArray[2]);
+                String eventDescription = lineArray[0];
+                String from = lineArray[1];
+                String to = lineArray[2];
+                newTask = new Event(eventDescription, from, to);
             } else {
                 continue;
             }
@@ -44,18 +50,18 @@ public class Storage {
         for(int i = 0; i < tasks.size(); i++){
             if(Objects.equals(tasks.get(i).taskType(), "[D]")){
                 String[] deadlineDescription = tasks.get(i).getDescription().split("\\(by:");
-                String[] extractDeadline = deadlineDescription[1].split("\\)");
-                list += Objects.toString(deadlineDescription[0]+ "|" +
-                        extractDeadline[0] + "|" + tasks.get(i).taskType()) + "|" + Objects.toString(tasks.get(i).getStatus())  + "\n";
+                String[] extractDeadlineDate = deadlineDescription[1].split("\\)");
+                list += deadlineDescription[0] + "|" +
+                        extractDeadlineDate[0] + "|" + tasks.get(i).taskType() + "|" + tasks.get(i).getStatus() + "\n";
             } else if (Objects.equals(tasks.get(i).taskType(),"[E]")){
                 String[] eventDescription = tasks.get(i).getDescription().split("\\(from:");
-                String[] extractFrom = eventDescription[1].split("to:");
-                String[] extractTo = extractFrom[1].split("\\)");
-                list += Objects.toString(eventDescription[0]+ "|" + extractFrom[0] + "|" + extractTo[0] + "|"
-                        + tasks.get(i).taskType()) + "|" + Objects.toString(tasks.get(i).getStatus())  + "\n";
+                String[] extractFromDate = eventDescription[1].split("to:");
+                String[] extractToDate = extractFromDate[1].split("\\)");
+                list += eventDescription[0] + "|" + extractFromDate[0] + "|" + extractToDate[0] + "|"
+                        + tasks.get(i).taskType() + "|" + tasks.get(i).getStatus() + "\n";
             }
             else {
-                list += Objects.toString(Objects.toString(tasks.get(i).getDescription())+ "|" + tasks.get(i).taskType()) + "|" + Objects.toString(tasks.get(i).getStatus())  + "\n";
+                list += tasks.get(i).getDescription() + "|" + tasks.get(i).taskType() + "|" + tasks.get(i).getStatus() + "\n";
             }
         }
         fw.write(list);

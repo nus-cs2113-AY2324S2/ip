@@ -28,7 +28,6 @@ public class TaskList {
     public void deleteTask(int task){
         printDeleteTaskMessage(task);
         taskList.remove(task);
-
     }
 
     public void printTask(Task task) {
@@ -52,6 +51,17 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             System.out.print(i + 1 + ". ");
             printTask(taskList.get(i));
+        }
+    }
+    public void findAndPrint(String query){
+        int index = 1;
+        System.out.println("Here's what I found:");
+        for(int i = 0; i < taskList.size(); i++){
+            if(taskList.get(i).getDescription().contains(query)){
+                System.out.print(index + ". ");
+                printTask(taskList.get(i));
+                index++;
+            }
         }
     }
 }
