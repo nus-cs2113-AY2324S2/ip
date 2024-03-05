@@ -1,4 +1,4 @@
-package seedu.salmonsan.ui;
+package seedu.salmonsan.parser;
 
 public class Query {
     // attributes of query
@@ -18,7 +18,7 @@ public class Query {
     }
 
     /**
-     * Parse string s to update attributes of seedu.salmonsan.ui.Query.
+     * Parse string s to update attributes of seedu.salmonsan.parser.Query.
      * @param s
      */
     public void changeInput(String s) {

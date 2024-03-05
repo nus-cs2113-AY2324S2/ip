@@ -1,4 +1,4 @@
-package seedu.salmonsan.ui;
+package seedu.salmonsan.parser;
 
 import seedu.salmonsan.data.task.DeadlineTask;
 import seedu.salmonsan.data.task.EventTask;
