@@ -9,7 +9,7 @@ import cody.ui.Ui;
  * and handling the main loop for user input and command execution.
  */
 public class Cody {
-
+    private static final String EXIT_COMMAND = "bye";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -36,19 +36,28 @@ public class Cody {
      */
     public void run() {
         ui.greet();
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             String fullCommand = ui.readCommand();
-            if (fullCommand.equals("bye")) {
-                ui.exit();
-                break;
-            }
-            try {
-                String response = Parser.parseCommand(fullCommand, tasks);
-                ui.printMessage(response);
-            } catch (CodyException e) {
-                ui.printException(e);
+            isRunning = !fullCommand.equals(EXIT_COMMAND);
+            if (isRunning) {
+                executeCommand(fullCommand);
             }
         }
+        saveTasks();
+        ui.exit();
+    }
+
+    private void executeCommand(String command) {
+        try {
+            String response = Parser.parseCommand(command, tasks);
+            ui.printMessage(response);
+        } catch (CodyException e) {
+            ui.printException(e);
+        }
+    }
+
+    private void saveTasks() {
         try {
             storage.save(tasks.getTasks());
         } catch (CodyException e) {

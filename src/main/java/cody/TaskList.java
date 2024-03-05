@@ -59,9 +59,10 @@ public class TaskList {
      */
     public String handleMarking(String command, int index) throws IndexOutOfBoundsException {
         boolean isDone = command.equals("mark");
-        tasks.get(index - 1).markTask(isDone);
-        return "Good job! I've marked this task as " + (isDone ? "done" : "not done") + ":\n"
-                + "[" + tasks.get(index - 1).getStatusIcon() + "] " + tasks.get(index - 1).getDescription();
+        Task task = tasks.get(index - 1);
+        task.markTask(isDone);
+        return "Noted. I've marked this task as " + (isDone ? "done" : "not done") + ":\n"
+                + "[" + task.getStatusIcon() + "] " + task.getDescription();
     }
 
     /**
@@ -164,10 +165,11 @@ public class TaskList {
      */
     public String findTask(String keyword) {
         String listString = "Here are the matching tasks in your list:\n";
+        String keywordLowerCase = keyword.toLowerCase();
         int count = 0;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase().contains(keywordLowerCase)) {
                 listString += " " + (i + 1) + ". [" + task.getTaskType() + "] "
                         + "[" + task.getStatusIcon() + "] "
                         + task.getDescription() + "\n";
