@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<Task>();
@@ -29,7 +30,7 @@ public class TaskList {
     // Add a string type task to the list
     public void addTask (String taskType, String description) throws ChandlerException{
         // Error when no task has been specified
-        if (description == "") {
+        if (Objects.equals(description, "")) {
             throw new ChandlerException("You need to specify if it's a todo, deadline or event.");
         }
 
@@ -60,7 +61,7 @@ public class TaskList {
     // Add a deadline to the taskList
     public void addDeadline (String description) {
         int indexBy = description.indexOf("/by");
-        String task = description.substring(0, indexBy);
+        String task = description.substring(0, indexBy).trim();
         String by = description.substring(indexBy + 4);
         Deadline taskDeadline = new Deadline(task, by);
         addTask(taskDeadline);
@@ -74,14 +75,14 @@ public class TaskList {
     public void addEvent (String description) {
         int indexFrom = description.indexOf("/from");
         int indexTo = description.indexOf("/to");
-        String task = description.substring(0, indexFrom);
-        String from = description.substring(indexFrom + 6, indexTo);
-        String to = description.substring(indexTo + 4);
+        String task = description.substring(0, indexFrom).trim();
+        String from = description.substring(indexFrom + 6, indexTo).trim();
+        String to = description.substring(indexTo + 4).trim();
         Event taskEvent = new Event(task, from, to);
         addTask(taskEvent);
         System.out.println(
-                OUTPUT_INDENTATION + "Event... yeay.\n" +
-                        OUTPUT_INDENTATION + "  " + taskEvent + ")\n" +
+                OUTPUT_INDENTATION + "Event... yay.\n" +
+                        OUTPUT_INDENTATION + "  " + taskEvent + "\n" +
                         OUTPUT_INDENTATION + "Can it BE any more fun?");
     }
 
@@ -115,6 +116,19 @@ public class TaskList {
         System.out.println(OUTPUT_INDENTATION + "Ok, I've marked this task as not done yet:");
         taskList.get(task_number).markAsUndone();
         System.out.println(OUTPUT_INDENTATION + taskList.get(task_number));
+    }
+
+    public void findMatchingTasks(String keyword) {
+        System.out.println("I'm hopeless and awkward and desperate for love!");
+        System.out.println("I mean... here are the matching tasks in your list.");
+        int matchingTasks = 0;
+        for (int index = 0; index < listSize; index++) {
+            if (taskList.get(index).getDescription().contains(keyword)) {
+                matchingTasks++;
+                System.out.println(OUTPUT_INDENTATION + matchingTasks + "." + taskList.get(index));
+            }
+        }
+        System.out.println("You have " + matchingTasks + " matching tasks in the list.");
     }
 
     // List all the tasks in the list

@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Chandler {
 
-    public static final String LINE_DIVIDER = "____________________________________________________________";
+    public static final String LINE_DIVIDER = "------------------------------------------";
     public static final String OUTPUT_INDENTATION = "    ";
     private TaskList taskList;
 
@@ -55,6 +55,9 @@ public class Chandler {
                         break;
                     case "EVENT":
                         taskList.addEvent(input.replace("event ", ""));
+                        break;
+                    case "FIND":
+                        taskList.findMatchingTasks(input.replace("find ", ""));
                         break;
                     case "BYE":
                         break;

@@ -8,9 +8,13 @@ public class Deadline extends Task {
         this.taskType = "D";
     }
 
+    public String getTaskType() {
+        return this.taskType;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
 
