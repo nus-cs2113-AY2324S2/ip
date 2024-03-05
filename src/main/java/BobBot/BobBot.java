@@ -1,8 +1,7 @@
 package BobBot;
 
-import java.util.Scanner;
-
 import BobBot.exceptions.BobBotExceptions;
+import BobBot.parser.Parser;
 import BobBot.storage.Storage;
 import BobBot.tasks.Task;
 import taskList.TaskList;
@@ -65,7 +64,7 @@ public class BobBot {
         drawLine(false);
     }
 
-    private static void printHelpMessage() {
+    public static void printHelpMessage() {
         drawLine(true);
         System.out.println("\tI see you require some help. Fear not, I shall come to your assistance.\n");
         System.out.println("\tHere are the options available to you:");
@@ -83,38 +82,7 @@ public class BobBot {
         drawLine(true);
     }
 
-    private static void runTaskManager() {
-        String line;
-        Scanner in = new Scanner(System.in);
-
-        line = in.nextLine();
-
-        while (!line.equalsIgnoreCase("bye")) {
-
-            try {
-                if (line.equalsIgnoreCase("help")) {
-                    printHelpMessage();
-                } else if (line.equalsIgnoreCase("list")) {
-                    TaskList.displayList();
-                } else if (line.startsWith("mark")) {
-                    TaskList.performTaskOperation(line, TaskList.TaskStatus.MARK);
-                } else if (line.startsWith("unmark")) {
-                    TaskList.performTaskOperation(line, TaskList.TaskStatus.UNMARK);
-                } else if (line.startsWith("delete")) {
-                    TaskList.performTaskOperation(line, TaskList.TaskStatus.DELETE);
-                } else {
-                    boolean isLoad = false;
-                    TaskList.addTask(line, isLoad);
-                }
-            } catch (NullPointerException | NumberFormatException e) {
-                printStandardExceptionMessage(e);
-            }
-            Storage.saveFile();
-            line = in.nextLine();
-        }
-    }
-
-    private static void printStandardExceptionMessage(Exception e) {
+    public static void printStandardExceptionMessage(Exception e) {
         drawErrorLine();
 
         if (e instanceof NullPointerException) {
@@ -141,7 +109,7 @@ public class BobBot {
     public void run() {
         greet();
         Storage.loadFile();
-        runTaskManager();
+        Parser.runTaskManager();
         bidFarewell();
     }
 
