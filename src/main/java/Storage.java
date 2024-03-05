@@ -6,8 +6,13 @@ import tasks.Event;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+
+import static tasks.Deadline.appendDeadlineDuckDataFile;
+import static tasks.Event.appendEventDuckDataFile;
+import static tasks.ToDo.appendToDoDuckDataFile;
 
 public class Storage {
 
@@ -50,6 +55,22 @@ public class Storage {
             index++;
         }
         return index;
+    }
+
+    public static void updateFile (ArrayList<Task> tasks) throws IOException {
+        Files.newBufferedWriter(FILE_PATH, StandardOpenOption.TRUNCATE_EXISTING);
+        String lineToAdd = "";
+        for (Task task: tasks) {
+            if (task instanceof ToDo) {
+                lineToAdd += appendToDoDuckDataFile((ToDo) task);
+            } else if (task instanceof Deadline) {
+                lineToAdd += appendDeadlineDuckDataFile((Deadline) task);
+            } else if (task instanceof Event) {
+                lineToAdd += appendEventDuckDataFile((Event) task);
+            }
+        }
+
+        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
     }
 
 

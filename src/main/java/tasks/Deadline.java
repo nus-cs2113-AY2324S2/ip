@@ -25,7 +25,7 @@ public class Deadline extends Task {
                 throw new DuckInvalidDeadlineDescriptionException();
             }
             Deadline newDeadline = new Deadline(split[0].substring(9), split[1].substring(3));
-            appendDeadlineDuckDataFile(newDeadline);
+//            appendDeadlineDuckDataFile(newDeadline);
             tasks.add(newDeadline);
             System.out.println(LINE_SEPARATOR);
             System.out.println(ADDED_MESSAGE + tasks.get(index));
@@ -34,16 +34,17 @@ public class Deadline extends Task {
             System.out.println(LINE_SEPARATOR);
         } catch (DuckInvalidDeadlineDescriptionException e) {
             System.out.println("Invalid Event input. Please type in format: deadline [string] /by [string]");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
         }
         return index;
     }
 
-    public static void appendDeadlineDuckDataFile(Deadline deadline) throws IOException {
+    public static String appendDeadlineDuckDataFile(Deadline deadline) throws IOException {
         String lineToAdd = "D | " + deadline.getDescription() + "| by: " + deadline.by + "\n";
-        System.out.println(lineToAdd);
-        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
+        return lineToAdd;
+//        System.out.println(lineToAdd);
+//        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
     }
 
     public String toString() {

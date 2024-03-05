@@ -53,6 +53,7 @@ public class Ui {
                 } else if (userInput.startsWith("delete ")) {
                     index = Parser.deleteTask(tasks,userInput,index);
                 } else if (userInput.startsWith("bye")) {
+                    Storage.updateFile(tasks);
                     isFinished = exitMessage();
                 } else {
                     throw new IllegalArgumentException();

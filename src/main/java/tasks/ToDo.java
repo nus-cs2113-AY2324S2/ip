@@ -47,8 +47,9 @@ public class ToDo extends Task{
     /**
      * Add todo into duck.txt file in format
      */
-    public static void appendToDoDuckDataFile(ToDo toDo) throws IOException {
+    public static String appendToDoDuckDataFile(ToDo toDo) throws IOException {
         String lineToAdd = "T |" + toDo.getDescription() + "\n";
-        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
+        return lineToAdd;
+//        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
     }
 }

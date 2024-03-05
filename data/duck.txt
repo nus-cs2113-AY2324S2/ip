@@ -1,3 +1,3 @@
-T | task
-D | deadline | by: wed
-E | stuff | from: mon | by: tue
+D | deadline| by: wed
+E | stuff| from: mon | by: tue
+D | tutorial | by: today
