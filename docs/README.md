@@ -114,10 +114,17 @@ Shows a list of all tasks in your task list.
 
 ### Locating a Task by description: `find`
 
-Finds tasks whose descriptions contain the given keyword.
+Finds tasks whose descriptions contain the given keyword as a substring.
 
 **Format:** `find KEYWORD`
-- `KEYWORD`: The keyword to search for in the task descriptions.
+- `KEYWORD`: The keyword to search for within the task descriptions.
+- The search is case-sensitive and will find any tasks where the keyword is a valid substring of the task's description. For instance, `find meet` will return "meeting" and "meetings", but not "Meet" or "Meetings".
+- The indexes of the tasks found are not sequential as they correspond to their positions in the original complete list of tasks. For example, if three tasks contain the keyword, they might be indexed as 2, 4, 6 (instead of 1, 2, 3) reflecting their original order in the full list. This is to aid the user in identifying the correct index for other operations, such as `delete`, `mark`, or `unmark`, where the exact index of the task must be specified.
+
+**Examples:**
+
+- `find budget`  
+  This will return tasks with descriptions containing "budget", such as "budget reports" or "budgeting". It will not return tasks with descriptions containing "Budget" or "Budgeting" due to case sensitivity.
 
 &nbsp;
 
