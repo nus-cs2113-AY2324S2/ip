@@ -4,6 +4,7 @@ public abstract class Command {
         return false;
     }
 }
+
 class EventCommand extends Command {
     private String content;
 

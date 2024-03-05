@@ -11,6 +11,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
     }
@@ -21,7 +25,4 @@ public class TaskList {
         }
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
 }

@@ -9,7 +9,9 @@ public class Storage {
     }
 
     public ArrayList<Task> load() throws DukeException {
+
         ArrayList<Task> tasks = new ArrayList<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -23,6 +25,7 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error loading tasks from file.");
         }
+
         return tasks;
     }
 

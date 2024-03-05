@@ -1,6 +1,7 @@
 public class Duke {
-    private Storage storage;
+
     private TaskList tasks;
+    private Storage storage;
     private Ui ui;
 
     public Duke(String filePath) {
