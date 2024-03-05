@@ -1,6 +1,12 @@
-T|1|cosas que hacer|
 T|0|hhh hacer|
 T|0|fff|
 T|0|pr|
 D|0|hh|hoy|
 T|0|pruebaaa|
+T|0|study for the exam|
+T|0|buy fruit|
+D|0|r|122|
+E|0|project meeting|Sep 30 2021|Oct 1 2021|
+T|0|f|
+E|0|ff|t|d|
+T|0|ff|

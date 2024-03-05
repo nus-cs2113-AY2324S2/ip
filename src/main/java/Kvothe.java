@@ -58,9 +58,6 @@ public class Kvothe {
             }
         }
 
-        ui.showGoodbye();
-
-
     }
 
 

@@ -130,7 +130,7 @@ public class Parser {
         for (int i = 1; i < args.length; i++) {
             String word = args[i];
             if (word.startsWith("/")) {
-                throw new WrongArgumentsException("kvothe.task.Todo does not accept arguments.");
+                throw new WrongArgumentsException("Todo does not accept arguments.");
             } else {
                 aux += word + " ";
             }
