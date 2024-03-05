@@ -1,3 +1,8 @@
 T | false | todo1
 T | false | todo2
-E | true | doing cs2113 | tomorrow | yesterday
+E | true | doing cs2113 | 8pm | yesterday
+D | false | clean | 2003/12/2
+D | false | write | 2003-12-2
+D | false | cry | 2020-07-05
+D | false | sleep | 2069-08-22
+D | true | bugtest | yesterday
