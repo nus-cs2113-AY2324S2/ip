@@ -8,9 +8,8 @@ public class eventCommand extends Command{
         super(description);
     }
 
-    public void execute(taskList tasks) {
+    public String execute(taskList tasks) {
         tasks.addTask(new Event(description, false));
-        System.out.println("New event added!");
-        tasks.printTaskList();
+        return "New event added!\n" + tasks.printTaskList();
     }
 }

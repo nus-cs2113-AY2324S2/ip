@@ -4,39 +4,37 @@ import chris.commands.Command;
 import chris.customexceptions.*;
 import chris.tasktypes.taskList;
 
-import java.util.Scanner;
-
 public class Chris {
     protected static Storage storage;
     protected static taskList tasks;
-    public static void main(String[] args) {
-        storage = new Storage("data.txt");
+    protected static UI ui;
+    protected static Parser parser;
+
+    public Chris(String filePath) {
+        storage = new Storage(filePath);
         tasks = storage.loadTasks();
-        printLine();
-        System.out.println("Hello, I am Chris");
-        menu();
-        storage.saveTasks(tasks);
-        printLine();
+        ui = new UI();
+        parser = new Parser();
+
+    }
+    public static void main(String[] args) {
+        new Chris("data.txt").run();
     }
 
-    public static void printLine() {
-        System.out.println("------------------------------------------------");
-    }
-
-    public static void menu() {
+    public void run() {
+        ui.printWelcome();
         boolean done = false;
-        Scanner in = new Scanner(System.in);
         while (!done) {
-            System.out.println("What can I do for you?");
-            printLine();
-            String input = in.nextLine();
+            String input = ui.readInput();
             try {
-                Command command = Parser.parse(input);
-                command.execute(tasks);
+                Command command = parser.parse(input);
+                String result = command.execute(tasks);
+                ui.printMessage(result);
                 done = command.quit();
             } catch (customExceptions e) {
-                System.out.println(e.getMessage());
+                ui.printException(e);
             }
         }
+        storage.saveTasks(tasks);
     }
 }

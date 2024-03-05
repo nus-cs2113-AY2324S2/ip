@@ -8,9 +8,8 @@ public class deadlineCommand extends Command{
         super(description);
     }
 
-    public void execute(taskList tasks) {
+    public String execute(taskList tasks) {
         tasks.addTask(new Deadline(description, false));
-        System.out.println("New deadline added!");
-        tasks.printTaskList();
+        return "New deadline added!\n" + tasks.printTaskList();
     }
 }

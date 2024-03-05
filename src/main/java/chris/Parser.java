@@ -4,13 +4,14 @@ import chris.commands.*;
 import chris.customexceptions.*;
 
 public class Parser {
-    public static Command parse(String input) throws customExceptions{
+    public Parser() {}
+    public Command parse(String input) throws customExceptions{
         String commandString = getCommandString(input);
         String[] description = getDescription(input, commandString);
         return getCommand(commandString, description);
     }
 
-    public static Command getCommand(String commandString, String[] description) {
+    public Command getCommand(String commandString, String[] description) {
         switch (commandString) {
             case "quit":
                 return new quitCommand(description);
@@ -31,11 +32,11 @@ public class Parser {
         }
     }
 
-    public static String getCommandString(String input) {
+    public String getCommandString(String input) {
         return input.split(" ")[0];
     }
 
-    public static String[] getDescription(String input, String commandString) throws customExceptions{
+    public String[] getDescription(String input, String commandString) throws customExceptions{
         String[] description;
         input = input.trim();
         switch (commandString) {
@@ -79,7 +80,7 @@ public class Parser {
         }
     }
 
-    public static void checkDescription(String[] description, String commandString) throws customExceptions {
+    public void checkDescription(String[] description, String commandString) throws customExceptions {
         switch(commandString) {
             case "delete":
             case "mark":

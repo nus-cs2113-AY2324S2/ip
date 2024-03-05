@@ -8,10 +8,9 @@ public class toDoCommand extends Command{
         super(description);
     }
 
-    public void execute(taskList tasks) {
+    public String execute(taskList tasks) {
         tasks.addTask(new ToDo(description, false));
-        System.out.println("New to do added!");
-        tasks.printTaskList();
+        return "New to do added!\n" + tasks.printTaskList();
     }
 
 }

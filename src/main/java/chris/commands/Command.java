@@ -9,8 +9,8 @@ public class Command {
         this.description = description;
     }
 
-    public void execute(taskList tasks) throws customExceptions {
-        System.out.println("Sorry, I do not recognise this command!");
+    public String execute(taskList tasks) throws customExceptions {
+        return "Sorry, I do not recognise this command!";
     }
 
     public boolean quit() {

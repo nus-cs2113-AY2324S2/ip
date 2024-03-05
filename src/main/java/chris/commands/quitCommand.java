@@ -7,7 +7,8 @@ public class quitCommand extends Command{
         super(description);
     }
 
-    public void execute(taskList tasks) {
+    public String execute(taskList tasks) {
         super.isQuit = true;
+        return "Goodbye and see you soon!";
     }
 }

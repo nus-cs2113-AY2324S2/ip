@@ -17,12 +17,12 @@ public class taskList {
         return tasks.get(index);
     }
 
-    public void markTask(String taskNumber){
+    public String markTask(String taskNumber){
         int index = Integer.parseInt(taskNumber);
         if (tasks.get(index - 1).markTask()) {
-            System.out.println("Task marked!");
+            return "Task marked!";
         } else {
-            System.out.println("Task unmarked!");
+            return "Task unmarked!";
         }
     }
 
@@ -37,9 +37,17 @@ public class taskList {
         return taskCount;
     }
 
-    public void printTaskList() {
-        for (Task i : tasks) {
-            System.out.println(i);
+    public String printTaskList() {
+        StringBuilder string = new StringBuilder();
+        if (taskCount == 0) {
+            return "You currently have no tasks!";
         }
+        string.append("Here are your current tasks!");
+        for (Task i : tasks) {
+            string.append("\n");
+            string.append(i.toString());
+
+        }
+        return string.toString();
     }
 }

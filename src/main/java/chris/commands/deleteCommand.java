@@ -9,11 +9,10 @@ public class deleteCommand extends Command{
         super(description);
     }
 
-    public void execute(taskList tasks) throws illegalTaskNumberInput{
+    public String execute(taskList tasks) throws illegalTaskNumberInput{
         try {
             Task deletedTask = tasks.deleteTask(description[0]);
-            System.out.println("The following task was deleted!");
-            System.out.println(deletedTask);
+            return "The following task was deleted!\n" + deletedTask.toString();
         } catch (Exception e) {
             throw new illegalTaskNumberInput();
         }

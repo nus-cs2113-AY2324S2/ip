@@ -8,10 +8,9 @@ public class markCommand extends Command{
         super(description);
     }
 
-    public void execute(taskList tasks) throws illegalTaskNumberInput{
+    public String execute(taskList tasks) throws illegalTaskNumberInput{
         try {
-            tasks.markTask(description[0]);
-            tasks.printTaskList();
+            return tasks.markTask(description[0]);
         } catch (Exception e) {
             throw new illegalTaskNumberInput();
         }

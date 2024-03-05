@@ -7,8 +7,7 @@ public class listCommand extends Command{
         super(description);
     }
 
-    public void execute(taskList tasks) {
-        System.out.println("Here are your current tasks!");
-        tasks.printTaskList();
+    public String execute(taskList tasks) {
+        return tasks.printTaskList();
     }
 }
