@@ -55,11 +55,24 @@ public class TasksList {
      * list out the Tasks in the TaskList
      */
     public void show() {
-        System.out.println("Osu! Your task is as follows:");
+        System.out.println("Osu! Your tasks are as follows:");
         for(int i = 0; i < this.noOfTasks; i++) {
             System.out.print("  ");
             System.out.print((i + 1) + ".");
             this.list.get(i).printTask();
+        }
+    }
+
+    /**
+     * print the tasks which indices are in tasksIndex array
+     * @param tasksIndex
+     */
+    public void show(ArrayList<Integer> tasksIndex) {
+        System.out.println("Osu! Your tasks are as follows:");
+        for(int i = 0; i < tasksIndex.size(); i++) {
+            System.out.print("  ");
+            System.out.print((i + 1) + ".");
+            this.list.get(tasksIndex.get(i)).printTask();
         }
     }
 
@@ -141,12 +154,31 @@ public class TasksList {
      * @return Integer index
      */
     public Integer findIndexWithDesc(String s) {
-        for (int i = 0; i < this.noOfTasks; i++){
+        for (int i = 0; i < this.noOfTasks; i++) {
             if (this.list.get(i).getDescription().equals(s)){
                 return i;
             }
         }
         return -1;
+    }
+
+    /**
+     * Find tasks that has inputted keyword
+     * @param keyword
+     * @return ArrayList<Integer> containing index of tasks with keyword
+     */
+    public ArrayList<Integer> findWordInDesc(String keyword) {
+        ArrayList<Integer> tasksWithWord = new ArrayList<Integer>();
+        for (int i = 0; i < this.noOfTasks; i++) {
+            String sentence = this.list.get(i).getDescription();
+            String[] wordsOfSentence = sentence.split(" ", -1);
+            for (String word : wordsOfSentence) {
+                if (keyword.equals(word)) {
+                    tasksWithWord.add(i);
+                }
+            }
+        }
+        return tasksWithWord;
     }
 
     /**
