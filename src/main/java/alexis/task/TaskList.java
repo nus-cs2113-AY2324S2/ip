@@ -139,7 +139,7 @@ public class TaskList {
     public TaskList filterByString(String filterString) {
         TaskList filteredList = new TaskList();
         filteredList.tasks = (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.getDescription().contains(filterString))
+                .filter((t) -> t.getDescription().toLowerCase().contains(filterString.toLowerCase()))
                 .collect(toList());
         return filteredList;
     }
