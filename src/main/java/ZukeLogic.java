@@ -36,6 +36,7 @@ public class ZukeLogic {
                 ResponseManager.indentPrint(error.getMessage());
             }
         }
+        userInput.close();
     }
 
     private void loadData() {

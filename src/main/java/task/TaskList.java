@@ -14,14 +14,14 @@ public class TaskList implements Serializable {
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * This method adds a task to the task list
-     * @param task the task to be added
-     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * This method adds a task to the task list
+     * @param task the task to be added
+     */
     public void add(Task task) {
         tasks.add(task);
     }
@@ -38,6 +38,10 @@ public class TaskList implements Serializable {
         tasks.remove(index - 1);
     }
 
+    /**
+     * This method returns the number of tasks in the task list
+     * @return the number of tasks in the task list
+     */
     public int getSize() {
         return tasks.size();
     }
@@ -66,6 +70,11 @@ public class TaskList implements Serializable {
         tasks.set(position, task);
     }
 
+    /**
+     * This method unmarks a task as not done
+     * @param taskNum the index of the task to be unmarked
+     * @throws InputException if the index is out of range
+     */
     public void unmarkTask(int taskNum) throws InputException {
         if (taskNum > this.getSize()) {
             throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
@@ -96,6 +105,11 @@ public class TaskList implements Serializable {
         return this.getPosAt(tasks.size());
     }
 
+    /**
+     * This method finds a task in the task list based on a keyword
+     * @param keyword the keyword to be searched for
+     * @return a string containing the tasks that contain the keyword
+     */
     public String findTask(String keyword) {
         List<Task> eligibleList =
                 tasks.stream().filter(task -> task.containsWord(keyword))
@@ -103,6 +117,11 @@ public class TaskList implements Serializable {
         return new TaskList(eligibleList).listTasks();
     }
 
+    /**
+     * This method finds a task in the task list based on a date
+     * @param date the date to be searched for
+     * @return a string containing the tasks that contain the date
+     */
     public String findTime(String time) {
         List<Task> eligibleList =
                 tasks.stream().filter(task -> task.containsTime(time))

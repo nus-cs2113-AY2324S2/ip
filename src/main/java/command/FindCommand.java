@@ -22,6 +22,12 @@ public class FindCommand implements Command {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * This method finds tasks in the task list based on the keyword and prints the tasks to the user
+     * @param tasks the task list
+     */
     public void run(TaskList tasks) {
         switch (type) {
         case FIND_TIME:

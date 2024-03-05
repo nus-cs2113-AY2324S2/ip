@@ -19,6 +19,10 @@ public enum CommandType {
         this.type = type;
     }
 
+    /**
+     * This method returns the type of the command
+     * @return String containing the type of the command
+     */
     public String getType() {
         return type;
     }

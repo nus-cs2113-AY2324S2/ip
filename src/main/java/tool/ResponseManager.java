@@ -53,6 +53,7 @@ public class ResponseManager {
         System.out.println(INDENTATION_LINE);
         System.out.println(response + INDENTATION_LINE);
     }
+    
     public static void greet() {
         System.out.println("Hello from\n" + LOGO);
         indentPrint("Hello! I'm Zuke\n" +

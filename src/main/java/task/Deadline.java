@@ -10,15 +10,23 @@ public class Deadline extends Task {
         this(deadlineInfo[TASK_NAME_INDEX],
                 deadlineInfo[DUE_DATE_INDEX]);
     }
+
     Deadline(String description, String dueTime) {
         super(description);
         this.dueTime = dueTime;
     }
 
+    @Override
     public boolean containsTime(String keyword) {
         return dueTime.contains(keyword);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * This method returns the string representation of the deadline
+     * @return the string representation of the deadline
+     */
     @Override
     public String toString() {
         String status = isDone ? DONE : IN_PROGRESS;
