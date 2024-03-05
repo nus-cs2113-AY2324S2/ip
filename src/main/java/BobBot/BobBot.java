@@ -12,27 +12,19 @@ import BobBot.tasks.Deadline;
 import BobBot.tasks.Event;
 import BobBot.tasks.Task;
 import BobBot.tasks.Todo;
+import tasks.TaskList;
 
 public class BobBot {
-
-    private static ArrayList<Task> allTasks = new ArrayList<>();
-    private static int numberOfTasks = 0;
 
     private enum TaskStatus {
         MARK, UNMARK, DELETE
     }
 
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
-    }
-
-    public static ArrayList<Task> getTaskList() {
-        return allTasks;
-    }
-
     private static void performTaskOperation(String line, TaskStatus status) {
         int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
-
+        ArrayList<Task> allTasks = tasks.getTaskList();
+        int numberOfTasks = tasks.getNumberOfTasks();
+        
         try {
             Task task = allTasks.get(taskNumber);
             if (status == TaskStatus.MARK) {
@@ -67,58 +59,13 @@ public class BobBot {
         drawErrorLine();
     }
 
-    public static void displayList() {
-        drawLine(true);
-        printTaskList();
-        drawLine(true);
-    }
-
-    private static void printTaskList() {
-
-        System.out.printf("\tYour task list currently has %d items!\n\n", numberOfTasks);
-        int taskNumberToDisplay;
-
-        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
-            taskNumberToDisplay = taskIndex + 1;
-            System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks.get(taskIndex).toString());
-        }
-    }
-
-    public static void addTask(String line, boolean isLoad) {
-
-        Task newTask = null;
-
-        try {
-            if (line.startsWith("todo")) {
-                newTask = new Todo(line);
-            } else if (line.startsWith("deadline")) {
-                newTask = new Deadline(line);
-            } else if (line.startsWith("event")) {
-                newTask = new Event(line);
-            } else {
-                handleInvalidCommand();
-                return;
-            }
-        } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
-            printCustomExceptionMessage(e);
-            return;
-        }
-
-        allTasks.add(newTask);
-        numberOfTasks += 1;
-
-        if (!isLoad) {
-            echoCommand(line, newTask);
-        }
-    }
-
-    private static void printCustomExceptionMessage(BobBotExceptions e) {
+    public static void printCustomExceptionMessage(BobBotExceptions e) {
         drawErrorLine();
         e.displayExceptionMessage();
         drawErrorLine();
     }
 
-    private static void handleInvalidCommand() {
+    public static void handleInvalidCommand() {
         drawErrorLine();
         System.out.println(
                 "\tI did not understand that. Refer to the help manual for information on \n\tkeying in the right commands!");
@@ -129,7 +76,7 @@ public class BobBot {
     public static void echoCommand(String lineString, Task newTask) {
         drawLine(true);
         System.out.println("\tGot it! I've added this task:\n\t  " + newTask.toString());
-        System.out.printf("\tNow you have %d tasks in the list\n", numberOfTasks);
+        System.out.printf("\tNow you have %d tasks in the list\n", tasks.getNumberOfTasks());
         drawLine(true);
         System.out.println();
     }
@@ -184,7 +131,7 @@ public class BobBot {
                 if (line.equalsIgnoreCase("help")) {
                     printHelpMessage();
                 } else if (line.equalsIgnoreCase("list")) {
-                    displayList();
+                    tasks.displayList();
                 } else if (line.startsWith("mark")) {
                     performTaskOperation(line, TaskStatus.MARK);
                 } else if (line.startsWith("unmark")) {
@@ -193,7 +140,7 @@ public class BobBot {
                     performTaskOperation(line, TaskStatus.DELETE);
                 } else {
                     boolean isLoad = false;
-                    addTask(line, isLoad);
+                    tasks.addTask(line, isLoad);
                 }
             } catch (NullPointerException | NumberFormatException e) {
                 printStandardExceptionMessage(e);
@@ -214,7 +161,7 @@ public class BobBot {
             System.out.println("There was an error: " + e);
         }
 
-        System.out.printf("\tYour task list currently has %d items!\n\n", numberOfTasks);
+        System.out.printf("\tYour task list currently has %d items!\n\n", tasks.getNumberOfTasks());
         System.out.println("\tUsage: mark {task number}");
         System.out.println("\tUsage: unmark {task number}");
         System.out.println("\tUsage: delete {task number}");
@@ -224,10 +171,12 @@ public class BobBot {
     }
 
     private static Storage storage;
+    private static TaskList tasks;
     
+    // adapted from https://nus-cs2113-ay2324s2.github.io/website/schedule/week7/project.html
     public BobBot() {
         storage = new Storage();
-
+        tasks = new TaskList();
     }
 
     public void run() {

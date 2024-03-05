@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import BobBot.BobBot;
 import BobBot.tasks.Task;
+import tasks.TaskList;
 
 public class Storage {
 
@@ -18,7 +18,7 @@ public class Storage {
     private static final File file = new File(FULL_FILE_PATH);
     private static File directory;
 
-    private static ArrayList<Task> allTasks = BobBot.getTaskList();
+    private static ArrayList<Task> allTasks = TaskList.getTaskList();
 
     public Storage() {
         directory = new File(SAVE_DIR_PATH);
@@ -41,7 +41,7 @@ public class Storage {
             loadToList(fileScanner.nextLine());
         }
 
-        BobBot.displayList();
+        TaskList.displayList();
     }
 
     private static void createNewSaveFile(String saveFilePath) {
@@ -63,7 +63,7 @@ public class Storage {
     public void saveFile() {
         StringBuilder fileContents = new StringBuilder();
         String lineToAdd = new String();
-        int numberOfTasks = BobBot.getNumberOfTasks();
+        int numberOfTasks = TaskList.getNumberOfTasks();
 
         for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
             lineToAdd = createFileLine(taskIndex);
@@ -103,7 +103,7 @@ public class Storage {
 
         boolean isLoad = true;
 
-        BobBot.addTask(taskDetails, isLoad);
+        TaskList.addTask(taskDetails, isLoad);
         loadMarkings(taskNum, isMarked);
 
     }
