@@ -6,7 +6,7 @@ package edithExceptionPackage;
 public class ChatBotExceptions extends Exception{
 
     /**
-     * Constructor for the BobException class.
+     * Constructor for the edithException class.
      * @param message The error message.
      */
     public ChatBotExceptions(String message){
