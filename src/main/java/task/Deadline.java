@@ -15,6 +15,10 @@ public class Deadline extends Task {
         this.dueTime = dueTime;
     }
 
+    public boolean containsTime(String keyword) {
+        return dueTime.contains(keyword);
+    }
+
     @Override
     public String toString() {
         String status = isDone ? DONE : IN_PROGRESS;

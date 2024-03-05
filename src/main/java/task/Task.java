@@ -21,6 +21,14 @@ public abstract class Task implements Serializable {
         this.isDone = false;
     }
 
+    public boolean containsWord(String keyword) {
+        return description.contains(keyword);
+    }
+
+    public boolean containsTime(String keyword) {
+        return false;
+    }
+
     @Override
     public String toString() {
         String status = isDone ? DONE : IN_PROGRESS;
