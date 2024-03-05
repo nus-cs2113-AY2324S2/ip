@@ -3,8 +3,8 @@ package seedu.salmonsan.data.task;
 import seedu.salmonsan.data.exception.SalmonMissingArgument;
 
 public class EventTask extends Task {
-    protected static String eventStart;
-    protected static String eventEnd;
+    protected String eventStart;
+    protected String eventEnd;
 
     public EventTask() throws SalmonMissingArgument {
         this(false, "DEFAULT /from DEFAULT /to DEFAULT");
