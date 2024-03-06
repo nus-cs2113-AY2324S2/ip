@@ -24,21 +24,24 @@ public class Duke {
         while(s.hasNext()) {
             String currentLine = s.nextLine();
             if(currentLine.contains("[T]")){
-                int descriptionPosition = currentLine.indexOf("[T]") + 7;
-                tasks.add(new Todo(currentLine.substring(descriptionPosition)));
+                int descriptionStart = currentLine.indexOf("[T]") + 7;
+                tasks.add(new Todo(currentLine.substring(descriptionStart)));
                 taskCount++;
             }
             else if (currentLine.contains("[D]")){
-                int descriptionPosition = currentLine.indexOf("[D]") + 7;
-                int byPosition = currentLine.indexOf("(by:");
-                tasks.add(new Deadline(currentLine.substring(descriptionPosition, byPosition - 1), currentLine.substring(byPosition + 5)));
+                int descriptionStart = currentLine.indexOf("[D]") + 7;
+                int descriptionEnd = currentLine.indexOf("(by:") - 1;
+                int byStart = currentLine.indexOf("(by:") + 5;
+                tasks.add(new Deadline(currentLine.substring(descriptionStart, descriptionEnd), currentLine.substring(byStart)));
                 taskCount++;
             }
             else if (currentLine.contains("[E]")){
-                int descriptionPosition = currentLine.indexOf("[E]") + 7;
-                int fromPosition = currentLine.indexOf("(from:");
-                int toPosition = currentLine.indexOf("to:");
-                tasks.add(new Event(currentLine.substring(descriptionPosition, fromPosition - 1), currentLine.substring(fromPosition + 7, toPosition - 1), currentLine.substring(toPosition + 4)));
+                int descriptionStart = currentLine.indexOf("[E]") + 7;
+                int descriptionEnd = currentLine.indexOf("(from:") - 1;
+                int fromStart = currentLine.indexOf("(from:") + 7;
+                int fromEnd = currentLine.indexOf("to:") - 1;
+                int toStart = currentLine.indexOf("to:") + 4;
+                tasks.add(new Event(currentLine.substring(descriptionStart, descriptionEnd), currentLine.substring(fromStart, fromEnd), currentLine.substring(toStart)));
                 taskCount++;
             }
         }
@@ -120,7 +123,8 @@ public class Duke {
                         throw new EkudException();
                     }
                     else {
-                        tasks.add(new Todo(userInput.substring(dividerPosition + 1)));
+                        int descriptionStart = dividerPosition + 1;
+                        tasks.add(new Todo(userInput.substring(descriptionStart)));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(taskCount));
                         taskCount++;
@@ -144,7 +148,10 @@ public class Duke {
                     }
                     else {
                         int slashPosition = userInput.indexOf("/by");
-                        tasks.add(new Deadline(userInput.substring(dividerPosition + 1, slashPosition - 1), userInput.substring(slashPosition + 4)));
+                        int descriptionStart = dividerPosition + 1;
+                        int descriptionEnd = slashPosition - 1;
+                        int byStart = slashPosition + 4;
+                        tasks.add(new Deadline(userInput.substring(descriptionStart, descriptionEnd), userInput.substring(byStart)));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(taskCount));
                         taskCount++;
@@ -167,10 +174,13 @@ public class Duke {
                         throw new EkudException();
                     }
                     else {
-                        int fromPosition = userInput.indexOf("/from");
-                        int toPosition = userInput.indexOf("/to");
+                        int descriptionStart = dividerPosition + 1;
+                        int descriptionEnd = userInput.indexOf("/from") - 1;
+                        int fromStart = userInput.indexOf("/from") + 6;
+                        int fromEnd = userInput.indexOf("/to") - 1;
+                        int toStart = userInput.indexOf("/to") + 4;
 
-                        tasks.add(new Event(userInput.substring(dividerPosition + 1, fromPosition - 1), userInput.substring(fromPosition + 6, toPosition - 1), userInput.substring(toPosition + 4)));
+                        tasks.add(new Event(userInput.substring(descriptionStart, descriptionEnd), userInput.substring(fromStart, fromEnd), userInput.substring(toStart)));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(taskCount));
                         taskCount++;
