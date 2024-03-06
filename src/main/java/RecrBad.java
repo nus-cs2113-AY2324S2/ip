@@ -13,6 +13,25 @@ import java.util.Scanner;
 
 public class RecrBad { //TODO more OOP
 
+    // private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public RecrBad() { // String FILE_PATH
+        ui = new Ui();
+        // storage = new Storage(FILE_PATH);
+        try {
+            tasks = new TaskList();
+        } catch (InvalidParamsException e) {
+            ui.showLoadingError(e.getMessage());
+            // tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.readInput(tasks);
+    }
+
     /**
      * Input
      * [any text]           to addToList,
@@ -20,36 +39,13 @@ public class RecrBad { //TODO more OOP
      * mark/unmark [index]  to mark item
      */
     public static void main(String[] args) {
-        String FILE_PATH = "saveFile.txt";
+        // String FILE_PATH = "saveFile.txt";
+        new RecrBad().run();
 
-        Scanner in = new Scanner(System.in);
-
-        Ui.sayHi();
-
-        ArrayList<Task> tasks = new ArrayList<>();
-        boolean isReadMode = true; // in reading mode
-
-
-        try {
-            Storage.readFile(FILE_PATH, tasks, isReadMode);
-        } catch (InvalidParamsException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-
-        isReadMode = false; // switch to writing mode
-        boolean isRun = true;
-        while (isRun) {
-            Ui.printLine();
-            String line = in.nextLine(); // reads input
-
-            try {
-                isRun = Parser.processUserInput(tasks, line, FILE_PATH, isReadMode);
-            } catch (InvalidParamsException e) {
-                System.out.println(e.getMessage()); // prints out error message
-            }
-        }
+        // ui
+        // parser
+        // taskList
+        // storage (add filepath to RecrBad())
     }
-
 }
 

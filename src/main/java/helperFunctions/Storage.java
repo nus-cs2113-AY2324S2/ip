@@ -33,7 +33,7 @@ public class Storage {
     /**
      * convert each line in textFile to a Task
      **/
-    public static void readFile(String FILE_PATH, ArrayList<Task> tasks, boolean isReadMode) throws InvalidParamsException {
+    public static void readFile(String FILE_PATH, TaskList tasks, boolean isReadMode) throws InvalidParamsException {
         // get absoluteFilePath
         String currentDirectory = System.getProperty("user.dir");
         java.nio.file.Path path = java.nio.file.Paths.get(currentDirectory);

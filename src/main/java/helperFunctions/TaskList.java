@@ -8,16 +8,21 @@ import tasks.Todo;
 import java.util.ArrayList;
 
 public class TaskList {
+    private ArrayList<Task> tasks;
 
-    public TaskList() {
-
+    public TaskList() throws InvalidParamsException {
+        if (true) {
+            this.tasks = new ArrayList<>();
+            System.out.println("arraylist is " + tasks.toString());
+        } else {
+            throw new InvalidParamsException("error in tasklist");
+        }
     }
+
     /**
      * Prints each Task in Task array
-     *
-     * @param tasks Existing Task array
      */
-    protected static String displayList(ArrayList<Task> tasks) {
+    protected String displayList() {
         if (tasks.isEmpty()) {
             return "List is empty!" + System.lineSeparator()
                     + Ui.printCommandsList() + System.lineSeparator();
@@ -25,7 +30,7 @@ public class TaskList {
         int count = 0;
         StringBuilder fullList = new StringBuilder();
         while (count != tasks.size()) {
-            fullList.append(displayListItem(tasks, count));
+            fullList.append(displayListItem(count));
             count += 1;
         }
         return fullList.toString();
@@ -34,17 +39,16 @@ public class TaskList {
     /**
      * Returns a task in String format
      *
-     * @param tasks existing Task array
      * @param index index of specific task
      */
-    private static String displayListItem(ArrayList<Task> tasks, int index) { // change from void to string
+    private String displayListItem(int index) { // change from void to string
         return ((index + 1) + ". [" + tasks.get(index).getType() + "]["
                 + tasks.get(index).getStatus() + "] "
                 + tasks.get(index).getDescription()
                 + System.lineSeparator());
     }
 
-    protected static void addEventTask(String[] req, String line, ArrayList<Task> tasks, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
+    protected void addEventTask(String[] req, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
         final int startIndexOfDescription = req[0].length() + 1; // req[0].equals(event)
 
         int indexTo = line.lastIndexOf('/');
@@ -66,13 +70,13 @@ public class TaskList {
         if (isReadMode) {
             return; // no need execute code below (for writing only)
         }
-        Storage.appendToFile(FILE_PATH, displayListItem(tasks, tasks.indexOf(newTask)));
+        Storage.appendToFile(FILE_PATH, displayListItem(tasks.indexOf(newTask)));
         System.out.println("Event added!");
-        System.out.println(displayListItem(tasks, tasks.size() - 1));
+        System.out.println(displayListItem(tasks.size() - 1));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
-    protected static void addDeadlineTask(String[] req, String line, ArrayList<Task> tasks, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
+    protected void addDeadlineTask(String[] req, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
         final int startIndexOfDescription = req[0].length() + 1; // req[0].equals(deadline);
 
         int indexDeadline = line.lastIndexOf('/');
@@ -93,13 +97,13 @@ public class TaskList {
         if (isReadMode) {
             return; // no need execute code below (for writing only)
         }
-        Storage.appendToFile(FILE_PATH, displayListItem(tasks, tasks.indexOf(newTask)));
+        Storage.appendToFile(FILE_PATH, displayListItem(tasks.indexOf(newTask)));
         System.out.println("Deadline added!");
-        System.out.println(displayListItem(tasks, tasks.size() - 1));
+        System.out.println(displayListItem(tasks.size() - 1));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
-    protected static void addTodoTask(String[] req, String line, ArrayList<Task> tasks, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
+    protected void addTodoTask(String[] req, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
         final int startIndexOfDescription = req[0].length() + 1; // req[0].equals(TODO);
 
         // checks for invalid input
@@ -115,14 +119,14 @@ public class TaskList {
             // no need execute code below (for writing only)
             return;
         }
-        Storage.appendToFile(FILE_PATH, displayListItem(tasks, tasks.indexOf(newTask)));
+        Storage.appendToFile(FILE_PATH, displayListItem(tasks.indexOf(newTask)));
 
         System.out.println("Todo added!");
-        System.out.println(displayListItem(tasks, tasks.size() - 1));
+        System.out.println(displayListItem(tasks.size() - 1));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
-    protected static void deleteOperation(ArrayList<Task> tasks, String[] req, String FILE_PATH) throws InvalidParamsException {
+    protected void deleteOperation(String[] req, String FILE_PATH) throws InvalidParamsException {
         // check for input validity
         if (req.length < 2) {
             throw new InvalidParamsException("Invalid delete operation");
@@ -139,9 +143,9 @@ public class TaskList {
         }
         // delete Task
         System.out.println("Good riddance, task deleted!");
-        System.out.println(displayListItem(tasks, taskIndex - 1));
+        System.out.println(displayListItem(taskIndex - 1));
         tasks.remove(taskIndex - 1);
-        Storage.writeToFile(FILE_PATH, displayList(tasks));
+        Storage.writeToFile(FILE_PATH, displayList());
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
@@ -149,11 +153,10 @@ public class TaskList {
     /**
      * Marks Task as done or not done
      *
-     * @param tasks  existing Tasks array
      * @param req    String[] input from user
      * @param isMark type of operation: mark or unmark
      */
-    protected static void markOperation(ArrayList<Task> tasks, String[] req, boolean isMark, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
+    protected void markOperation( String[] req, boolean isMark, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
         // check for input validity
         if (req.length < 2) {
             throw new InvalidParamsException("invalid mark/ unmark operation");
@@ -179,9 +182,9 @@ public class TaskList {
             return;
         }
         // mark tasks
-        Storage.writeToFile(FILE_PATH, displayList(tasks));
+        Storage.writeToFile(FILE_PATH, displayList());
         String mark = isMark ? "marked" : "unmarked";
         System.out.println("Has " + mark + " task" + taskNum + ":");
-        System.out.print(displayListItem(tasks, taskNum - 1));
+        System.out.print(displayListItem(taskNum - 1));
     }
 }
