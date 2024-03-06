@@ -2,6 +2,22 @@
 
 Lotes is a command line interface (CLI) application where you can use to **manage your tasks** with just commands through the interface.
 
+## Requirements
+1. Ensure that you have `Java 11` installed in your Windows computer.
+2. Download the latest `lotes.jar` from [here](https://github.com/e0958902/ip/releases).
+3. Copy `lotes.jar` to a directory you want to your main folder to run Lotes, your task manager.
+4. `Press and hold down shift` then `right-click` the directory and click `Open in Terminal`.
+5. Type `java -jar lotes.jar` and press `Enter`.<br>
+   If your program is running correctly, you should see an output like this:
+   ```
+   Hello! I'm  #        ####  ##### ######  ####
+               #       #    #   #   #      #
+               #       #    #   #   #####   ####
+               #       #    #   #   #           #
+               #######  ####    #   ######  ####
+   What can I do for you?
+   ```
+
 ## Commands Usage Overview
 Type the following commands and press `Enter` to run it:
 e.g `list` and press `Enter` will list all the tasks.<br>
@@ -25,29 +41,13 @@ e.g `event GDP2021 OJT Baiting Challenge /from Friday 1pm /to 6pm`.
 e.g `list 123`, `bye abc`,`exit xyz`.
 * Lotes automatically saves your tasks to a local storage and reads it on the next run.
 
-## Requirements
-1. Ensure that you have `Java 11` installed in your Windows computer.
-2. Download the latest `lotes.jar` from [here](https://github.com/e0958902/ip/releases).
-3. Copy `lotes.jar` to a directory you want to your main folder to run Lotes, your task manager.
-4. `Press and hold down shift` then `right-click` the directory and click `Open in Terminal`.
-5. Type `java -jar lotes.jar` and press `Enter`.<br>
-   If your program is running correctly, you should see an output like this:
-   ```
-   Hello! I'm  #        ####  ##### ######  ####
-               #       #    #   #   #      #
-               #       #    #   #   #####   ####
-               #       #    #   #   #           #
-               #######  ####    #   ######  ####
-   What can I do for you?
-   ```
-[Back to Commands Usage Overview](#commands-usage-overview)
 ## Features and Usage
+
 ### 1. Add To do to task list: `todo`
 Adds a new task to do to your task list.<br>
 * Format: `todo DESCRIPTION`.<br>
 Example of usage: `todo Merida: Answer GDP2021 questions`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
      Got it. I've added this task: 
        [T][ ] Merida: Answer GDP2021 questions
@@ -57,9 +57,8 @@ Expected outcome:
 ### 2. Add deadline to task list: `deadline`
 Adds a new deadline task with `/by` to your task list..<br>
 * Format: `deadline DESCRIPTION /by BY_DATE_TIME`.<br>
-Example of usage: `deadline Weekly GDP2021 Routine Dog Bath /by Monday 11:59pm`.<br> 
-
-Expected outcome:
+Example of usage: `deadline Weekly GDP2021 Routine Dog Bath /by Monday 11:59pm`.<br>
+* Expected outcome:
    ```
      Got it. I've added this task: 
        [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
@@ -70,8 +69,7 @@ Expected outcome:
 Adds a new event task with `/from` and `/to` to your task list..<br>
 * Format: `event DESCRIPTION /from FROM_DATE_TIME /to BY_DATE_TIME`.<br>
   Example of usage: `event GDP2021 OJT Baiting Challenge /from Friday 1pm /to 6pm`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
      Got it. I've added this task: 
        [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
@@ -82,8 +80,7 @@ Expected outcome:
 Lists all tasks your task list.<br>
 * Format: `list`.<br>
   Example of usage: `list`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
     ____________________________________________________
      Here are the tasks in your list:
@@ -97,8 +94,7 @@ Expected outcome:
 Marks the selected task shown in the current task list.<br>
 * Format: `mark NUMBER`.<br>
   Example of usage: `mark 1`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
     ____________________________________________________
      Nice! I've marked this task as done:
@@ -110,8 +106,7 @@ Expected outcome:
 Unmarks the selected task shown in the current task list.<br>
 * Format: `unmark NUMBER`.<br>
   Example of usage: `unmark 2`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
     ____________________________________________________
      OK, I've marked this task as not done yet:
@@ -123,8 +118,7 @@ Expected outcome:
 Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
   Example of usage: `find GDP2021`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
     ____________________________________________________
      Here are the matching tasks in your list:
@@ -137,8 +131,7 @@ Expected outcome:
 Deletes the selected task shown in the current task list.<br>
 * Format: `delete NUMBER`.<br>
   Example of usage: `delete 1`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
     ____________________________________________________
      Noted. I've removed this task:
@@ -150,8 +143,7 @@ Expected outcome:
 Exits your program.<br>
 * Format: `bye` or `exit`.<br>
   Example of usage: `bye` or `exit`.<br>
-
-Expected outcome:
+* Expected outcome:
    ```
     ____________________________________________________
     Bye. Hope to see you again soon!
