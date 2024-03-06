@@ -2,8 +2,15 @@ package helperFunctions;
 
 import java.util.Random;
 
-public class PrintHelper {
+public class Ui {
 
+    public Ui() {
+
+    }
+
+    public void showLoadingError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
     private static String commandsList =
             "## Possible user commands: \n" +
             "1. todo <task>                            : Add todo task \n" +
