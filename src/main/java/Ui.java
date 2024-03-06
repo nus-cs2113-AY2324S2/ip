@@ -7,7 +7,7 @@
                      - Todos: todo <taskDescription>
                      - Deadlines: deadline <taskDescription> /by <date> <time>
                      - Events: event <taskDescription> /from <date> /to <date>
-                     -  Plus point if you can spell my name right!
+                     - Plus point if you can spell my name right!
                      - MORE plus points if you can pronounce it correctly :)
                      --------------------------------------------------
             """;

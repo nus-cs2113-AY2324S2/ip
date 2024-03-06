@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Parser {
     private final Scanner scanner;
 
-    public Parser(Zap zap) {
-        scanner = new Scanner(System.in);
+    public Parser() {
+        this.scanner = new Scanner(System.in);
     }
 
     public void parseCommands() {
@@ -30,19 +30,19 @@ public class Parser {
         } else if (userCommand.equalsIgnoreCase("bye")) {
             System.out.println("You should say thank you, then say bye.");
         } else if (userCommand.equalsIgnoreCase("list")) {
-            Zap.displayTasks();
+            TaskList.displayTasks();
         } else if (userCommand.startsWith("mark")) {
-            Zap.markTask(userCommand);
+            TaskList.markTask(userCommand);
         } else if (userCommand.startsWith("unmark")) {
-            Zap.unmarkTask(userCommand);
+            TaskList.unmarkTask(userCommand);
         } else if (userCommand.startsWith("todo")) {
-            Zap.addTodoTask(userCommand);
+            TaskList.addTodoTask(userCommand);
         } else if (userCommand.startsWith("deadline")) {
-            Zap.addDeadline(userCommand);
+            TaskList.addDeadline(userCommand);
         } else if (userCommand.startsWith("event")) {
-            Zap.addEvent(userCommand);
+            TaskList.addEvent(userCommand);
         } else if (userCommand.startsWith("delete")) {
-            Zap.deleteTask(userCommand);
+            TaskList.deleteTask(userCommand);
         } else {
             System.out.println("proper english pls. don't waste time already >:(");
         }
