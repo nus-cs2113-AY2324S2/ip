@@ -5,7 +5,7 @@ import exceptions.InvalidTodoSyntaxException;
 import java.util.ArrayList;
 
 /**
- * Deals with printing out the replies to user
+ * Handles the printing of the replies to the user
  */
 
 

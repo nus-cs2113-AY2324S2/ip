@@ -4,10 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Loads and saves the tasks in the taskArrayList.
+ */
 
 public class Storage {
     public static final String FILE_PATH = "data/baymax.txt";
 
+    /**
+     * Loads the tasks from the baymax.txt file into the taskArrayList.
+     *
+     * @param taskArrayList the ArrayList containing the Task objects.
+     * @throws IOException If an I/O error occurred.
+     */
     public static void loadTasks(ArrayList<Task> taskArrayList) throws IOException {
 
         File folder = new File("data");
@@ -33,18 +42,28 @@ public class Storage {
         }
     }
 
-    public static void saveTasks(ArrayList<Task> taskArrayList, int taskCount) throws IOException {
+    /**
+     * Saves the tasks from the taskArrayList into the baymax.txt file.
+     *
+     * @param taskArrayList the ArrayList containing the Task objects.
+     * @throws IOException If an I/O error occurred.
+     */
+    public static void saveTasks(ArrayList<Task> taskArrayList) throws IOException {
 
         FileWriter fileWriter = new FileWriter(FILE_PATH);
-        for (int i = 0; i < taskCount; i++) {
-            fileWriter.write(taskArrayList.get(i).toFileString() + System.lineSeparator());
+        for (Task task : taskArrayList) {
+            fileWriter.write(task.toFileString() + System.lineSeparator());
 
         }
         fileWriter.close();
     }
 
-
-    // Obtains Task from text
+    /**
+     * Returns a Task object that is extracted from the baymax.txt file.
+     *
+     * @param line the String of the data in the baymax.txt file.
+     * @return a Task object.
+     */
     public static Task getTask(String line) {
         Task task = null;
         String[] details = line.split(" \\| ");
