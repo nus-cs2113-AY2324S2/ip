@@ -5,4 +5,8 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.getStatusIcon() + " " + super.getDescription();
     }
+
+    public String toFileString() {
+        return "[T]" + super.getStatusIcon() + " " + super.getDescription();
+    }
 }

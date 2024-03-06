@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -21,5 +22,16 @@ public class TaskList {
 
     public void removeTask(int index) {
         tasks.remove(index);
+    }
+
+    public List<Task> searchTasks(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            // Implement search logic to check for keyword in task description and other relevant fields
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
     }
 }
