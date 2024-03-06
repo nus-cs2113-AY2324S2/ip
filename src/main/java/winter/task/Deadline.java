@@ -1,18 +1,23 @@
 package winter.task;
 
+
 /**
  * Represents the <code>Deadline</code> object which contains information about a Deadline task
  * that can be modified
  */
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
 public class Deadline extends Task {
     private static final String indent = "   ";
-    protected String deadline;
-    public Deadline (int order,boolean isMarked, String deadlineName, String deadline) {
+    protected LocalDateTime deadline;
+    public Deadline (int order,boolean isMarked, String deadlineName, LocalDateTime deadline) {
         super(order,isMarked,deadlineName);
         this.deadline = deadline;
     }
-    @Override
-    public String getEndTime(){
+    public LocalDateTime getDeadline(){
         return deadline;
     }
 
@@ -24,7 +29,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String typeCheckbox = "[D]";
-        return indent + typeCheckbox + " " + this.getDoneCheckbox() + this.getTaskName() + " (by: " + this.deadline + ")";
+        return indent + typeCheckbox + " " + this.getDoneCheckbox() + this.getTaskName() +
+                    " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
 }

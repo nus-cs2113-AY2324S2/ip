@@ -30,7 +30,8 @@ public class ListCommand extends Command {
     private void displayList(ArrayList<Task> tasks, UI ui) {
         for (Task task : tasks) {
             ui.showIndent();
-            switch (task.getType()) {
+            System.out.println((task.getOrder() + 1) + "." + task);
+            /*switch (task.getType()) {
             case "D":
                 System.out.println((task.getOrder() + 1)  + ". [D] " + task.getDoneCheckbox() + " "
                         + task.getTaskName() + " (by: " + task.getEndTime() + ")");
@@ -43,7 +44,7 @@ public class ListCommand extends Command {
             default:
                 System.out.println((task.getOrder() + 1) + ". [T]" + task.getDoneCheckbox() + " "
                         + task.getTaskName());
-            }
+            }*/
         }
         //ui.showLine();
     }

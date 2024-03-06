@@ -7,6 +7,7 @@ import winter.task.Deadline;
 import winter.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * Represents the command given by the user to add a Deadline task
@@ -16,9 +17,9 @@ public class DeadlineCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Great! New Deadline added: ";
 
     private String deadlineName;
-    private  String deadlineTime;
+    private LocalDateTime deadlineTime;
 
-    public DeadlineCommand(String deadlineName, String deadlineTime) {
+    public DeadlineCommand(String deadlineName, LocalDateTime deadlineTime) {
         this.deadlineName = deadlineName;
         this.deadlineTime = deadlineTime;
     }
@@ -42,15 +43,18 @@ public class DeadlineCommand extends Command {
         }
     }
 
+
     /**
      * Format the Deadline object into a string that can be written to the storage file
      * @param newDeadline The new deadline object that was created
      * @return String in the format that can be written to storage and read later
      */
+
     private String formatDeadlineForStorage(Task newDeadline) {
 
         return "D" + " | " + newDeadline.getIsMarked() + " | " +
-                newDeadline.getTaskName() + " | " + newDeadline.getEndTime() + System.lineSeparator();
+                    newDeadline.getTaskName() + " | " + newDeadline.getDeadline() + System.lineSeparator();
+
     }
 
 }

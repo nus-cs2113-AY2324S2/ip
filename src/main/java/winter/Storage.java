@@ -8,6 +8,7 @@ import winter.task.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,13 +54,12 @@ public class Storage {
                 break;
             case "D":
                 taskArrayList.add(new Deadline(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),
-                            inputArray[taskNameIndex],inputArray[firstTimeIndex]));
+                            inputArray[taskNameIndex], LocalDateTime.parse(inputArray[firstTimeIndex])));
                 break;
             case "T":
                 taskArrayList.add(new Todo(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),inputArray[taskNameIndex]));
                 break;
             default:
-                System.out.println("Error retrieving task from file.");
             }
             taskIndex++;
         }

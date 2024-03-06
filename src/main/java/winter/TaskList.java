@@ -2,6 +2,7 @@ package winter;
 
 import winter.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -39,7 +40,11 @@ public class TaskList {
      * @return The updated list after deletion
      */
     public ArrayList<Task> deleteTask(int taskNumber) {
-        taskList.remove(taskNumber-1);
+        try {
+            taskList.remove(taskNumber-1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("The task you are trying to delete doesn't exist!");
+        }
         for (int i = 0; i < taskList.size(); i++) {
             taskList.get(i).setOrder(i);
         }
@@ -61,8 +66,8 @@ public class TaskList {
         taskList.get(taskNumber-1).unmark();
     }
 
-    public Task getTask(int taskNumber) {
-        return taskList.get(taskNumber-1);
+    public Task getTask(int taskNumber) throws IndexOutOfBoundsException {
+        return taskList.get(taskNumber - 1);
     }
 
     public void increaseLastTaskIndex() {

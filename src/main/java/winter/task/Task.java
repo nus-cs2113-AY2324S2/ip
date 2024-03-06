@@ -1,12 +1,17 @@
 package winter.task;
 
+
 /**
  * Represents a task. A <code>Task</code> object can be inherited by its child classes,
  * <code>Todo</code>, <code>Deadline</code> and <code>Event</code>
  */
+
+import java.time.LocalDateTime;
+
+
 public class Task {
-    boolean isMarked;
-    int order;
+    private boolean isMarked;
+    private int order;
     private String taskName;
 
     private String doneCheckbox ="[ ]";
@@ -107,5 +112,9 @@ public class Task {
     public String toString() {
         //To be implemented by child classes
         return "";
+    }
+    public LocalDateTime getDeadline() {
+        //To be implemented by Deadline subclass
+        return null;
     }
 }
