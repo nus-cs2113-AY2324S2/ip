@@ -45,14 +45,14 @@ public class Parser {
             String[] deadlineParts = arguments.split(" /by ", 2);
             if (deadlineParts.length < 2) {
                 throw new KikuInvalidTaskException("OOPS! Please specify the deadline with \n" +
-                        "<task_description> /by <due_Date> \n" + HORIZONTAL);
+                        "deadline <task_description> /by <due_date> \n" + HORIZONTAL);
             }
             return new AddDeadlineCommand(deadlineParts[0], deadlineParts[1]);
         case "event":
             String[] eventParts = arguments.split(" /from ", 2);
             if (eventParts.length < 2 || !eventParts[1].contains(" /to ")) {
                 throw new KikuInvalidTaskException("OOPS! Please specify the event with \n" +
-                        "<task_description> /from <start_date_time> /to" +
+                        "event <task_description> /from <start_date_time> /to" +
                         " <end_date_time> \n" + HORIZONTAL);
             }
             String[] times = eventParts[1].split(" /to ", 2);
@@ -81,7 +81,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            throw new KikuInvalidTaskException("OOPS! Please specify a todo, deadline, or event! " +
+            throw new KikuInvalidTaskException("OOPS! Please specify a todo, deadline, or event! \n" +
                     "Make sure all spellings are correct ~ \n" + HORIZONTAL);
         }
     }
