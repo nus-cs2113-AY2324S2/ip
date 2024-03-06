@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
     public boolean isExit() {
@@ -158,5 +160,28 @@ class TodoCommand extends Command {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + newTodo);
         System.out.println("Now you have " + tasks.getTasks().size() + " tasks in the list.");
+    }
+}
+
+class FindCommand extends Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ArrayList<Task> match_input = tasks.find_input(keyword);
+        if (match_input.isEmpty()) {
+            ui.error("There are no tasks found that match the keyword: " + keyword);
+        } else {
+            ui.line();
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < match_input.size(); i++) {
+                System.out.println((i + 1) + "." + match_input.get(i));
+            }
+            ui.line();
+        }
     }
 }
