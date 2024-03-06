@@ -21,12 +21,6 @@ public class Deadline extends Task {
         return dueTime.contains(keyword);
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * This method returns the string representation of the deadline
-     * @return the string representation of the deadline
-     */
     @Override
     public String toString() {
         String status = isDone ? DONE : IN_PROGRESS;

@@ -74,8 +74,8 @@ public class ResponseManager {
     }
 
     /**
-     * This method prints the action on the tasks
-     * @param action the action to be performed on the tasks
+     * Prints the action on done by the Zukebot to the user bases on the action
+     * @param action the action that has performed on the tasks
      * @param msgTobePrinted the message to be printed
      */
     public static void printActionOnTasks(String action, String msgTobePrinted) {

@@ -25,12 +25,6 @@ public class Event extends Task {
         return startTime.contains(keyword) || dueTime.contains(keyword);
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * This method returns the string representation of the event
-     * @return the string representation of the event
-     */
     @Override
     public String toString() {
         String status = isDone ? DONE : IN_PROGRESS;

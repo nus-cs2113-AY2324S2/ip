@@ -18,7 +18,7 @@ public class AddCommand implements Command {
 
     /**
      * {@inheritDoc}
-     * This method adds a task to the task list and prints the added task to the user
+     * Adds a task to the task list and prints the added task to the user
      * @param tasks the task list
      */
     @Override

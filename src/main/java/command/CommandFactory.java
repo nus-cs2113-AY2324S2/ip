@@ -5,7 +5,7 @@ import tool.MessageDecoder;
 
 public class CommandFactory {
     /**
-     * This method generates the command based on the user input
+     * Generates the command based on the user input
      * @param input the user input
      * @return the command to be executed
      * @throws InputException if the input is invalid

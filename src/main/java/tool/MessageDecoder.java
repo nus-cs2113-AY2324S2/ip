@@ -32,8 +32,8 @@ public class MessageDecoder {
             DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
 
     /**
-     * This method separates the command from the user input message
-     * @param message
+     * Separates the command from the user input message
+     * @param message typed message from the user input
      * @return String[] containing the command and the message
      */
     public static String[] separateCommand(String message) {
@@ -47,11 +47,11 @@ public class MessageDecoder {
     }
 
     /**
-     * This method decodes the user input message
-     * @param type the type of the command to be executed
-     * @param message the user input message
+     * Decodes the user input message and returns the decoded message
+     * @param type type of command received
+     * @param message user input information about the command
      * @return String[] containing the decoded message
-     * @throws InputException if the message is invalid
+     * @throws InputException 
      */
     public static String[] decodeInput(CommandType type, String message) throws InputException {
         switch (type) {
@@ -78,6 +78,12 @@ public class MessageDecoder {
         }
     }
 
+    /**
+     * Decodes the user input information for the todo command
+     * @param message user input information about the todo command
+     * @return String[] containing the decoded message for the todo command
+     * @throws InputException exception thrown when the user input is blank or does not match the format
+     */
     private static String[] decodeTodo(String message) throws InputException {
         if (message.matches(BLANK)) {
             throw new InputException(ResponseManager.BLANK_MSG_ERROR);
@@ -90,6 +96,12 @@ public class MessageDecoder {
         return new String[] {message};
     }
 
+    /**
+     * Decodes the user input information for the deadline command
+     * @param message user input information about the deadline command
+     * @return String[] containing the decoded message for the deadline command
+     * @throws InputException exception thrown when the user input does not match the format
+     */
     private static String[] decodeDeadline(String message) throws InputException {
         if (!message.matches(DEADLINE_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
@@ -111,6 +123,12 @@ public class MessageDecoder {
         return decoded;
     }
 
+    /**
+     * Decodes the user input information for the event command
+     * @param message user input information about the event command
+     * @return String[] containing the decoded message for the event command
+     * @throws InputException exception thrown when the user input does not match the format
+     */
     private static String[] decodeEvent(String message) throws InputException {
         if (!message.matches(EVENT_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
@@ -124,7 +142,15 @@ public class MessageDecoder {
         decoded[END_DATE_INDEX] = parseDate(decoded[END_DATE_INDEX]);
         return decoded;
     }
-
+    
+    /**
+     * Decodes the user input information for start time and end time of the event
+     * @param message user input information about the event command
+     * @param indexOfFrom index of the start time prefix
+     * @param indexOfTo index of the end time prefix
+     * @return String[] containing the decoded start time and end time for the event command
+     * @throws InputException exception thrown when the user input does not match the format
+     */
     private static String[] getFromNTo(String message,
             int indexOfFrom, int indexOfTo) throws InputException {
         String[] decoded = new String[EVENT_INFO_COUNT];
@@ -150,6 +176,12 @@ public class MessageDecoder {
         return decoded;
     }
 
+    /**
+     * Decodes the user input command for the index of the target task
+     * @param message user input information about the index of the target task
+     * @return String[] containing the decoded index of the target task
+     * @throws InputException exception thrown when the user input is blank or does not match the format
+     */
     private static String[] decodeIndex(String message) throws InputException {
         if (message.matches(BLANK)) {
             throw new InputException(ResponseManager.BLANK_MSG_ERROR);
@@ -160,10 +192,22 @@ public class MessageDecoder {
         return new String[] {message};
     }
 
+    /**
+     * Removes the prefix mark from the user input message
+     * @param rawText user input message
+     * @param sign prefix mark to be removed
+     * @return String containing the user input message without the prefix mark
+     */
     private static String removePrefixMark(String rawText, String sign) {
         return rawText.replace(sign, "");
     }
 
+    /**
+     * Decodes the user input message for the find command
+     * @param message user input information about the find command
+     * @return String[] containing the decoded message for the find command
+     * @throws InputException exception thrown when the user input does not match the format
+     */
     private static String[] decodeFind(String message) throws InputException {
         if (!message.matches(FIND_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE);
@@ -177,7 +221,13 @@ public class MessageDecoder {
 
         return typeAndKeyword;
     }
-    
+
+    /**
+     * Parses the date and time from the user input message and converts it to a readable format
+     * @param input user input message containing the date and time
+     * @return String containing the parsed date and time
+     * @throws InputException exception thrown when the user input does not match the format
+     */    
     private static String parseDate (String input) throws InputException {
         int splitLimit = 2;
         String[] inputTime = input.split("\\s+", splitLimit);

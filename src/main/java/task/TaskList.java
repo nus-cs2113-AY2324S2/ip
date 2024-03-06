@@ -98,7 +98,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method returns the task that was most recently added to the task list
+     * Shows the task that was most recently added to the task list
      * @return the task that was most recently added to the task list
      */
     public Task showNewlyAddedTask() {
@@ -106,7 +106,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method finds a task in the task list based on a keyword
+     * Finds a task constains the stated keyword in the task list
      * @param keyword the keyword to be searched for
      * @return a string containing the tasks that contain the keyword
      */
@@ -118,8 +118,8 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method finds a task in the task list based on a date
-     * @param date the date to be searched for
+     * Finds a task contains the stated time in the task list
+     * @param time the date or time to be searched for
      * @return a string containing the tasks that contain the date
      */
     public String findTime(String time) {

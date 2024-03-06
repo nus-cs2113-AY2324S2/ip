@@ -7,7 +7,7 @@ public class ListCommand implements Command {
     /**
      * {@inheritDoc}
      * 
-     * This method lists all the tasks in the task list
+     * Lists all the tasks in the task list to the user
      * @param tasks the task list
      */
     @Override

@@ -22,7 +22,7 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * This method checks if the task contains the keyword
+     * Checks if the description of the task contains the keyword
      * @param keyword the keyword to be checked
      * @return true if the task contains the keyword, false otherwise
      */

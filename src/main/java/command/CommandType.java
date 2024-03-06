@@ -20,7 +20,7 @@ public enum CommandType {
     }
 
     /**
-     * This method returns the type of the command
+     * Outputs the type of the command as a string
      * @return String containing the type of the command
      */
     public String getType() {
@@ -28,10 +28,10 @@ public enum CommandType {
     }
     
     /**
-     * This method analyses the type of the command
+     * Analyzes the type of the command
      * @param input the user input
      * @return the type of the command
-     * @throws InputException if the command is not recognised
+     * @throws InputException if the command is not recognized
      */
     public static CommandType analyseType(String input) throws InputException {
         for (CommandType commandType : CommandType.values()) {

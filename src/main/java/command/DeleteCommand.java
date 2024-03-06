@@ -15,7 +15,7 @@ public class DeleteCommand implements Command {
     /**
      * {@inheritDoc}
      * 
-     * This method deletes a task from the task list and prints the delete action to the user
+     * Deletes a task from the task list and prints the delete action to the user
      * @param tasks the task list
      * @throws InputException if the index is out of range
      */
