@@ -1,9 +1,22 @@
+/**
+ * Parser class handles the parsing of user commands for the Duke application.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param fullCommand Full user input command.
+     * @return Command object based on the parsed input.
+     * @throws DukeException If an error occurs during parsing or if the command is unknown.
+     */
     public static Command parse(String fullCommand) throws DukeException {
 
+        // Split the full command into parts
         String[] parts = fullCommand.split(" ");
         String command = parts[0].toLowerCase();
 
+        // Determine the type of command and create the appropriate Command object
         switch (command) {
         case "list":
             return new ListCommand();

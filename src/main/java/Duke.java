@@ -1,9 +1,17 @@
+/**
+ * Duke class represents the main application that manages tasks using a command-line interface.
+ */
 public class Duke {
 
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Constructor for Duke class.
+     *
+     * @param filePath File path for storing and loading tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -15,6 +23,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application, processing user commands until the exit command is given.
+     */
     public void run() {
         ui.greeting();
         boolean isExit = false;
@@ -35,10 +46,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to start the Duke application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("out/tasks.txt").run();
     }
 }
-
-
-
