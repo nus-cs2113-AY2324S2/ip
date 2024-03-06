@@ -5,54 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c203ce57-81bc-4b7c-b337-08a27c5340fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Command.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Deadline.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/DeadlineCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/DeleteCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Duke.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/DukeException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Event.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/EventCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/ExitCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/FindCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/ListCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/MarkCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Parser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Storage.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Task.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/TaskList.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Todo.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/TodoCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/Ui.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/UnmarkCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/tasks.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/Deadline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/Duke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DukeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/DukeException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Storage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TaskList.java" beforeDir="false" afterPath="$PROJECT_DIR$/TaskList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Todo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +28,7 @@
     "Application.Duke.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging master",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/nikhi/OneDrive/Desktop/untitled/src"
   }

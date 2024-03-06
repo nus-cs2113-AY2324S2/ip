@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1247f2cb-c5a4-42d6-8a2f-7c9048e178c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/Duke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TaskList.java" beforeDir="false" afterPath="$PROJECT_DIR$/TaskList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ui.java" afterDir="false" />
+    <list default="true" id="c203ce57-81bc-4b7c-b337-08a27c5340fe" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +30,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/nikhi/OneDrive/Documents/tp"
+    "last_opened_file_path": "C:/Users/nikhi/OneDrive/Desktop/untitled/src"
   }
 }]]></component>
   <component name="SharedIndexes">
