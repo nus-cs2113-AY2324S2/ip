@@ -32,7 +32,7 @@ public class HandleCommand {
                 createLine();
                 return true;
             case "list":
-                displayList(taskList);
+                displayList(taskList, false);
                 createLine();
                 return false;
             case "todo", "deadline", "event":
@@ -46,6 +46,9 @@ public class HandleCommand {
                 EditCommand(splitString[0], taskNum);
                 createLine();
                 return false;
+            case "find":
+                findCommand(userInput);
+                return false;
             default:
                 throw new RoleyPoleyParseException("defaultError");
             }
@@ -55,6 +58,22 @@ public class HandleCommand {
 
         }
 
+    }
+
+    private static void findCommand(String userInput) throws RoleyPoleyParseException {
+        ArrayList<Task> searchList = new ArrayList<>();
+        String[] splitString = userInput.split(" ");
+        if (splitString.length == 2) {
+            for (Task task : taskList) {
+                if (task.getDescription().toLowerCase().contains(splitString[1])) {
+                    searchList.add(task);
+                }
+            }
+            displayList(searchList, true);
+            createLine();
+        } else {
+            throw new RoleyPoleyParseException("defaultError");
+        }
     }
 
     private static void ExitCommand() {
