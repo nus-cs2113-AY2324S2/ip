@@ -33,6 +33,7 @@ public class TaskList{
     }
 
     public void listTasks() {
+        ui.showLine();
         if (tasks.isEmpty()) {
             System.out.println("No tasks added yet.");
         } else {
@@ -41,6 +42,7 @@ public class TaskList{
                 System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
+        ui.showLine();
     }
 
     public void markTaskAsDone(int taskNumber, boolean markDone) {
@@ -69,8 +71,28 @@ public class TaskList{
     }
 
     public void findTasks(String keywords) {
-
-        
+        // TaskList results = new TaskList();
+        int matches = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keywords)) {
+                // results.addTask(tasks.get(i));
+                if (matches == 0) {
+                    ui.showLine();
+                    System.out.println("Here are the matching tasks in your list:");
+                }
+                System.out.println((matches + 1) + "." + tasks.get(i));
+                matches++;
+            }
+        }
+        if (matches == 0) {
+            System.out.println("No matching tasks found.");
+        }
+        ui.showLine();
+        // if (results.tasks.isEmpty()) {
+        //     System.out.println("No matching tasks found.");
+            // return;
+        // }
+        // results.listTasks();
     }
 
 }
