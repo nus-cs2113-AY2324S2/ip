@@ -1,6 +1,6 @@
 # Chat Bot Adam - User Guide
-This is a user guide for Chat Bot Adam, a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).<br>
-It contains all the information you need to get started with Adam the Chat Bot.
+This is a user guide for Chat Bot Adam, a desktop app for managing tasks, optimized for usage on a Command Line Interface (CLI).<br>
+If you can type fast, Adam can get your tasks managed faster than some GUI apps.<br>
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -16,15 +16,17 @@ It contains all the information you need to get started with Adam the Chat Bot.
 - [Appendix](#Date-and-Time-Format)
 
 ## Introduction
-Adam the Chat Bot is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
-If you can type fast, Adam can get your tasks managed faster than traditional GUI apps.
+Adam the Chat Bot is a versatile task management application designed to simplify your daily workflow.<br>
+Whether you're organizing personal tasks, planning projects, or managing deadlines, Adam is here to help.<br>
+With its intuitive Command Line Interface (CLI), Adam offers a seamless and efficient task management experience.<br>
+This user guide provides a comprehensive overview of Adam's features and commands, as well as a quick start guide to get you up and running in no time.
 
 ## Quick Start
-1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `adam.jar` from [here](https://github.com/adamzzq/ip/releases/download/A-UserGuide/adam.jar)
-3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
-4. Start a terminal and navigate to the folder where `adam.jar` is located.
-5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
+> 1. Ensure you have Java `11` or above installed in your Computer.
+> 2. Download the latest `adam.jar` from [here](https://github.com/adamzzq/ip/releases/download/A-UserGuide/adam.jar)
+> 3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
+> 4. Start a terminal and navigate to the folder where `adam.jar` is located.
+> 5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
    ```
    Hello from
                  _
@@ -35,17 +37,18 @@ If you can type fast, Adam can get your tasks managed faster than traditional GU
     /_/    \_\__,_|\__,_|_| |_| |_|
    
    ```
-6. Type the command in the command box and press Enter to execute it. Refer to the [Features](#features) section for available commands.
-7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
-8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
-9. Please do not edit the `tasks.dat` file manually as it may result in the **loss of all data**.
-10. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.<br>
+> 6. Type the command in the command box and press Enter to execute it. Refer to the [Features](#features) section for available commands.
+> 7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
+> 8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
+> 9. Please do not edit the `tasks.dat` file manually as it may result in the **loss of all data**.
+> 10. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.<br>
 If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
 
-- Notes:
-    - All the spaces in the commands are for clarity and are **optional** to include in the actual command.
-    - Commands are **case-insensitive**.
-    - The `<angle-brackets>` are used to denote the parameters that should be replaced with the **actual user input**.
+
+> ![NOTE]
+> All the spaces in the commands are for clarity and are **optional** to include in the actual command.
+> Commands are **case-insensitive**.
+> The `<angle-brackets>` are used to denote the parameters that should be replaced with the **actual user input**.
 
 
 ## Features
@@ -54,14 +57,14 @@ Adds a task to the list of tasks. The task can be a todo, deadline, or event tas
 The task descriptions are **case-sensitive** and are displayed as entered.
 
 #### Usage
-`todo <description>`<br>
--Adds a todo task with the given description.
+> `todo <description>`<br>
+>  Adds a todo task with the given description.
 
-`deadline <description> /by <date>`<br>
--Adds a deadline task with the given description and date.
+> `deadline <description> /by <date>`<br>
+>  Adds a deadline task with the given description and date.
 
-`event <description> /from <start date> /to <end date>`<br>
--Adds an event task with the given description and start and end dates.
+> `event <description> /from <start date> /to <end date>`<br>
+>  Adds an event task with the given description and start and end dates.
 
 * The date and time format is specified in the [Appendix](#Date-and-Time-Format).
 
@@ -98,7 +101,7 @@ You now have a whopping 3 tasks in the list. Keep 'em coming!
 Lists all the tasks in the list of tasks.
 
 #### Usage
-`list` or `ls` - Lists all the tasks in the list of tasks.
+> `list` or `ls` - Lists all the tasks in the list of tasks.
 
 #### Example of usage
 `list` - Display all the tasks in the list of tasks.
@@ -116,9 +119,8 @@ Here are the tasks in your list:
 Marks a task as done in the list of tasks.
 
 #### Usage
-`mark <index>` - Marks the task at the given index as done.
-
-`unmark <index>` - Marks the task at the given index as not done.
+> `mark <index>` - Marks the task at the given index as done.
+> `unmark <index>` - Marks the task at the given index as not done.
 
 #### Example of usage
 `mark 1` - Marks the 1st task in the list as done.
@@ -140,7 +142,7 @@ Whoopsie-daisy! This task is back in action:
 Deletes a task from the list of tasks.
 
 #### Usage
-`delete <index>` - Deletes the task at the given index from the list of tasks.
+> `delete <index>` - Deletes the task at the given index from the list of tasks.
 
 #### Example of usage
 `delete 3` - Deletes the 3rd task from the list of tasks.
@@ -157,7 +159,7 @@ Now down to 1 tasks in the list.
 Finds a task from the list of tasks that contains the given keyword.
 
 #### Usage
-`find <keyword>` - Finds a task from the list of tasks that contains the given keyword.
+> `find <keyword>` - Finds a task from the list of tasks that contains the given keyword.
 
 #### Example of usage
 `find book` - Finds a task from the list of tasks that contains the keyword "book".
@@ -174,7 +176,7 @@ Behold! Your tasks surface:
 Exits the program.
 
 #### Usage
-`bye` or `ex` or `q` - Exits the program.
+> `bye` or `ex` or `q` - Exits the program.
 
 #### Example of usage
 `bye` - Exits the program.
@@ -189,7 +191,7 @@ Farewell, adventurer! Until our paths cross again!
 Displays the help message.
 
 #### Usage
-`help` or `h` - Displays the help message.
+> `help` or `h` - Displays the help message.
 
 #### Example of usage
 `help` - Displays the help message.
@@ -217,8 +219,8 @@ Enjoy chatting with Adam!
 
 ## Appendix
 ### Date and Time Format
-* The date and time format is **case-insensitive**.
-* `deadline` and `event` commands accept dates and times in the following format:
+> The date and time format is **case-insensitive**.
+> `deadline` and `event` commands accept dates and times in the following format:
 - Date:
 - `YYYYMMDD` (4-digit year, 2-digit month, 2-digit day,<br>seperated by any symbols of: `-` `/` `.` or a space character)
 - `DDMMYYYY` (2-digit day, 2-digit month, 4-digit year,<br>seperated by any symbols of: `-` `/` `.` or a space character)
