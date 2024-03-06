@@ -4,7 +4,6 @@ public class UI {
     public static final String LINE_SEPARATOR = "--------------------------------------";
 
     public static void welcome () {
-        Task.loadFromDisk();
         String name = "Stella";
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
@@ -16,11 +15,11 @@ public class UI {
         System.out.println(message);
         System.out.println(UI.LINE_SEPARATOR);
     }
-    public static void takeResponse () {
+    public static void takeResponse (TaskList tasks) {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while (!line.equals("bye")) {
-            Task.responseToCommand(line);
+            Parser.responseToCommand(line, tasks);
             line = in.nextLine();
         }
     }

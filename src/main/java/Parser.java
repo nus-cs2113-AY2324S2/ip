@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 public class Parser {
     private static void checkValidDeadline (String command) throws WrongInputFormat, MissingEntries, MissingTaskName {
         String[] commandWords = command.split("/");
@@ -136,5 +138,37 @@ public class Parser {
             return parseEvent(command);
         }
         return parseTodo(command);
+    }
+
+    private static boolean isValidTask (String command) {
+        return command.equals("todo") || command.equals("deadline") || command.equals("event");
+    }
+
+    private static boolean isValidCommand (String command) {
+        return command.equals("list") || command.equals("mark") || command.equals("unmark") || command.equals("delete")
+                || command.equals("save") || isValidTask(command);
+    }
+
+    public static void responseToCommand (String command, TaskList tasks) {
+        String[] commandWords = command.split(" ");
+        if (!isValidCommand(commandWords[0])) {
+            UI.printMessage("Command not recognized");
+            return;
+        }
+        if (commandWords[0].equals("list")) {
+            tasks.listTasks();
+        } else if (commandWords[0].equals("mark")) {
+            tasks.mark(Integer.parseInt(commandWords[1]));
+        } else if (commandWords[0].equals("unmark")) {
+            tasks.unmark(Integer.parseInt(commandWords[1]));
+        } else if (commandWords[0].equals("delete")) {
+            tasks.delete(Integer.parseInt(commandWords[1]));
+        } else {
+            if (Parser.isValidTaskCommand(command, commandWords)) {
+                Task newTask;
+                newTask = Parser.parseCommand(command);
+                tasks.addTask(newTask);
+            }
+        }
     }
 }
