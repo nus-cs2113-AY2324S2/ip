@@ -155,6 +155,7 @@ public class Parser {
                 Ui.printDivider();
                 break;
             }
+            Ui.printDivider();
             break;
 
         case MARK:
