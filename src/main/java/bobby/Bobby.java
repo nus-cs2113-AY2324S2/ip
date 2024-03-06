@@ -1,6 +1,5 @@
 package bobby;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,12 +12,12 @@ public class Bobby {
         Storage storage = new Storage(FILE_PATH);
         Parser parser = new Parser();
         boolean isExit = false;
-        ArrayList<Task> tasks = new ArrayList<>(); // Using ArrayList instead of array
+        TaskList tasks = new TaskList();
         Scanner in = new Scanner(System.in);
         ui.showWelcomeMessage();
         storage.createFile();
         try {
-           storage.loadFile(tasks);
+           storage.loadFile(tasks.list);
         } catch (FileNotFoundException e) {
             ui.showLoadingError();
         }
@@ -38,12 +37,11 @@ public class Bobby {
                 break;
             case "mark":
                 entry = Integer.parseInt(input.substring(5));
-                if (entry > 0 && entry <= tasks.size()) {
-                    tasks.get(entry - 1).setDone(true);
-                    ui.showMarkMessage();
-                    System.out.println(entry + "." + tasks.get(entry - 1));
+                if (entry > 0 && entry <= tasks.list.size()) {
+                    tasks.markTask(entry);
+                    ui.showMarkMessage(tasks.list, entry);
                     try {
-                        storage.writeToFile(tasks);
+                        storage.writeToFile(tasks.list);
                     } catch (IOException e) {
                         ui.showSavingError();
                     }
@@ -51,19 +49,18 @@ public class Bobby {
                 break;
             case "unmark":
                 entry = Integer.parseInt(input.substring(7));
-                if (entry > 0 && entry <= tasks.size()) {
-                    tasks.get(entry - 1).setDone(false);
-                    ui.showUnmarkMessage();
-                    System.out.println(entry + "." + tasks.get(entry - 1));
+                if (entry > 0 && entry <= tasks.list.size()) {
+                    tasks.unmarkTask(entry);
+                    ui.showUnmarkMessage(tasks.list, entry);
                     try {
-                        storage.writeToFile(tasks);
+                        storage.writeToFile(tasks.list);
                     } catch (IOException e) {
                         ui.showSavingError();
                     }
                 }
                 break;
             case "list":
-                ui.showList(tasks);
+                ui.showList(tasks.list);
                 break;
             case "todo":
                 try {
@@ -72,10 +69,10 @@ public class Bobby {
                     ui.showInvalidTodoMessage();
                     break;
                 }
-                tasks.add(new Todo(description, false));
-                ui.showValidTodoMessage(tasks);
+                tasks.addTodo(description);
+                ui.showValidTodoMessage(tasks.list);
                 try {
-                    storage.writeToFile(tasks);
+                    storage.writeToFile(tasks.list);
                 } catch (IOException e) {
                     ui.showSavingError();
                 }
@@ -88,10 +85,10 @@ public class Bobby {
                     ui.showInvalidDeadlineMessage();
                     break;
                 }
-                tasks.add(new Deadline(description, false, by));
-                ui.showValidDeadlineMessage(tasks);
+                tasks.addDeadline(description, by);
+                ui.showValidDeadlineMessage(tasks.list);
                 try {
-                    storage.writeToFile(tasks);
+                    storage.writeToFile(tasks.list);
                 } catch (IOException e) {
                     ui.showSavingError();
                 }
@@ -105,20 +102,21 @@ public class Bobby {
                     ui.showInvalidEventMessage();
                     break;
                 }
-                tasks.add(new Event(description, false, by, from));
-                ui.showValidEventMessage(tasks);
+                tasks.addEvent(description, by, from);
+                ui.showValidEventMessage(tasks.list);
                 try {
-                    storage.writeToFile(tasks);
+                    storage.writeToFile(tasks.list);
                 } catch (IOException e) {
                    ui.showSavingError();
                 }
                 break;
             case "delete":
                 entry = Integer.parseInt(input.substring(7));
-                if (entry > 0 && entry <= tasks.size()) {
-                    ui.showDeleteMessage(tasks, entry);
+                if (entry > 0 && entry <= tasks.list.size()) {
+                    ui.showDeleteMessage(tasks.list, entry);
+                    tasks.deleteTask(entry);
                     try {
-                        storage.writeToFile(tasks);
+                        storage.writeToFile(tasks.list);
                     } catch (IOException e) {
                         ui.showSavingError();
                     }

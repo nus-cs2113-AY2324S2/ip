@@ -19,12 +19,14 @@ public class Ui {
         System.out.println("Sorry, I didn't quite understand that.\nPlease enter a valid command.");
     }
 
-    public void showMarkMessage() {
+    public void showMarkMessage(ArrayList<Task> list, int entry) {
         System.out.println("Marked as done");
+        System.out.println(entry + "." + list.get(entry - 1));
     }
 
-    public void showUnmarkMessage() {
+    public void showUnmarkMessage(ArrayList<Task> list, int entry) {
         System.out.println("Unmarked");
+        System.out.println(entry + "." + list.get(entry - 1));
     }
 
     public void showList(ArrayList<Task> tasks) {
@@ -65,8 +67,7 @@ public class Ui {
 
     public void showDeleteMessage(ArrayList<Task> tasks, int entry) {
         System.out.println("Noted, I've removed this task:\n" + tasks.get(entry - 1));
-        tasks.remove(entry - 1);
-        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        System.out.println("Now you have " + (tasks.size() - 1) + " task(s) in the list.");
     }
 
     public void showLoadingError() {
