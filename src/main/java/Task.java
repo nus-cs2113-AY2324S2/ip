@@ -21,21 +21,21 @@ public class Task {
     }
 
     /**
-     * Returns the status icon of the task.
-     *
-     * @return A string representing the status icon ("[X]" for done, "[ ]" for not done).
-     */
-    public String getStatusIcon() {
-        return (isDone ? "[X] " : "[ ] "); // mark done task with X
-    }
-
-    /**
      * Retrieves the description of the task.
      *
      * @return The description of the task.
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Checks if the task is marked as done.
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
@@ -48,13 +48,14 @@ public class Task {
     }
 
     /**
-     * Checks if the task is marked as done.
+     * Returns the status icon of the task.
      *
-     * @return True if the task is done, false otherwise.
+     * @return A string representing the status icon ("[X]" for done, "[ ]" for not done).
      */
-    public boolean isDone() {
-        return isDone;
+    public String getStatusIcon() {
+        return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
+
 
     /**
      * Generates a string representation of the task, including its status icon and description.

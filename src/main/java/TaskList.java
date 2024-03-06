@@ -25,15 +25,6 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the TaskList.
-     *
-     * @param task The task to be added to the list.
-     */
-    public void addTask(Task task) {
-        this.list.add(task);
-    }
-
-    /**
      * Retrieves the count of tasks in the TaskList.
      *
      * @return The count of tasks in the list.
@@ -43,22 +34,21 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of tasks with their respective sequence numbers.
-     */
-    public void printList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < getCount(); i++) {
-            System.out.println(i+1 + "." + this.list.get(i));
-        }
-    }
-
-    /**
      * Retrieves the list of tasks.
      *
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
         return list;
+    }
+
+    /**
+     * Adds a task to the TaskList.
+     *
+     * @param task The task to be added to the list.
+     */
+    public void addTask(Task task) {
+        this.list.add(task);
     }
 
     /**
@@ -75,5 +65,15 @@ public class TaskList {
                 + "Now you have "
                 + getCount()
                 + " tasks in the list.");
+    }
+
+    /**
+     * Prints the list of tasks with their respective sequence numbers.
+     */
+    public void printList() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < getCount(); i++) {
+            System.out.println(i+1 + "." + this.list.get(i));
+        }
     }
 }

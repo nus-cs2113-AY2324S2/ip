@@ -22,13 +22,6 @@ public class Ui {
     }
 
     /**
-     * Reads the next line of user input and updates the input field.
-     */
-    public void nextInput() {
-        this.input = in.nextLine();
-    }
-
-    /**
      * Processes the user input, delegating the command to the appropriate parser.
      *
      * @param input The user's input.
@@ -83,5 +76,12 @@ public class Ui {
         } catch (JaneException e) {
             throw new JaneException(e.getMessage());
         }
+    }
+
+    /**
+     * Reads the next line of user input and updates the input field.
+     */
+    public void nextInput() {
+        this.input = in.nextLine();
     }
 }
