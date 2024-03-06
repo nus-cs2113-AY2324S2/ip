@@ -1,5 +1,7 @@
 package huan.main;
 
+import huan.task.Task;
+
 public class UI {
     private static String botName = "Huan";
 
@@ -53,5 +55,16 @@ public class UI {
 
     public static void displayByeMessage() {
         System.out.println("Bye! See ya!");
+    }
+
+    public static void displayMatchingTasks(String keyword) {
+        int cnt = 0;
+        for (Task task : TaskList.tasks) {
+            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                cnt += 1;
+                task.printTask();
+            }
+        }
+        System.out.println("Found " + cnt + " matching tasks.");
     }
 }

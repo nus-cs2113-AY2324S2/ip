@@ -125,6 +125,13 @@ public class Parser {
                     UI.displayFormatError("'delete *n', where n is the index of the task you wish to delete.");
                 }
                 break;
+            case ("find"):
+                if(!suffixWord.isEmpty()) {
+                    UI.displayMatchingTasks(suffixWord);
+                } else {
+                    UI.displayFormatError("'find *keyword'");
+                }
+                break;
             default:
                 UI.displayUnrecognizedMessage();
                 break;
