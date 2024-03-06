@@ -73,6 +73,22 @@ public class TaskManager {
     }
 
     /**
+     * Finds and list tasks that matches the keyword or keyphrase.
+     *
+     * @param keyphrase A non-empty keyword or keyphrase to search through the task list.
+     */
+    public static void printTasksUsingKeyphrase(String keyphrase) {
+        System.out.println("Here are the available tasks found using the keyword:");
+        for (Task t:taskList) {
+            String taskDescription = t.getTaskDescription();
+            if (taskDescription.toLowerCase().contains(keyphrase.toLowerCase())) {
+                t.printTask();
+            }
+        }
+    }
+
+
+    /**
      * Retrieves the task associated by its task number.
      *
      * @param taskNumber The task number to retrieve.
