@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class Ui {
     private static final Scanner scanner = new Scanner(System.in);
     public static final String LINE = "----------------------------------------------------------------";
+    public static final String LIST = "full";
+    public static final String FIND = "find";
     static String deadlineMissing = "Your intentions for a 'deadline' task are as unclear as the shifting sands of time.\n" +
             "Specify a task after 'deadline' or face the consequences.";
     static String todoMissing = "Your intentions for a 'todo' task are as vague as the mists of Hades.\n" +
@@ -15,20 +17,19 @@ public class Ui {
     static String folderNotFound = "A new file's birth marred by chaos. Restore order.\n";
     static String fileNotFound = "Darkness shrouds the file. Forging its presence......";
     public static String fileReadingError = "Tasks trapped in the void. Break the chains of ignorance.\n";
-
     static String markTask = "Task vanquished. Another notch on the blade of progress.\n" +
             "What next, mortal?";
-
     static String markedTask = "Your task bears the mark of completion.\n" +
             "Attempting to mark it again is futile.";
-
     static String unmarkTask = "Task restored from the depths of completion.\n" +
             "A twist of fate, mortal. What now?\n" +
             "Reclaim victory or face the abyss once more.";
-
     static String unmarkedTask = "Foolish mortal.\n" +
             "Once a task is freed, it shall not be bound again.";
 
+    
+    static String fullListOfTasks = "    Your list of Tasks";
+    static String matchedTasks = "Behold, the deeds that align with your purpose.";
     /**
      * Prompt the user to enter a command and return the input.
      *
@@ -74,9 +75,10 @@ public class Ui {
      *
      * @param tasksList The list of tasks.
      */
-    public static void displayTasks(ArrayList<Task> tasksList) {
+    public static void displayTasks(String purpose,ArrayList<Task> tasksList) {
         System.out.println(Ui.LINE);
-        System.out.println("    Your list of Tasks");
+        String display = purpose.equalsIgnoreCase("find") ? matchedTasks : fullListOfTasks;
+        System.out.println(display);
         for (int i = 0; i < tasksList.size(); i++) {
             System.out.printf("     %d. %s%n", i + 1, tasksList.get(i).toString());
         }

@@ -54,4 +54,7 @@ public class Parser {
         return date.split("/to");
     }
 
+    public static String parseFindKeyword(String userInput) {
+        return userInput.substring(5).trim();
+    }
 }

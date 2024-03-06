@@ -27,7 +27,12 @@ public class Kratos {
                     ui.end();
                     return;
                 case "list":
-                    ui.displayTasks(tasksList);
+                    ui.displayTasks(ui.LIST,tasksList);
+                    break;
+                case "find":
+                    String[] inputParts = userInput.split(" ", 2); // Split input at the first space
+                    String argument = inputParts.length > 1 ? inputParts[1] : "";
+                    TaskList.findTasks(argument, tasksList);
                     break;
                 default:
                     handleCommand(userInput);
@@ -58,6 +63,9 @@ public class Kratos {
                 listOfTasks.addEvent(userInput,tasksList);
             } else if (userInput.startsWith("delete")) {
                 listOfTasks.deleteTask(userInput,tasksList);
+            } else if (userInput.startsWith("find")) { // Add handling for "find" command
+                String keyword = Parser.parseFindKeyword(userInput); // Extract the keyword after "find"
+                TaskList.findTasks(keyword, tasksList);
             } else {
                 throw new IllegalArgumentException();
             }
