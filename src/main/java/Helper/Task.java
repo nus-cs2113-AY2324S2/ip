@@ -31,17 +31,9 @@ public class Task {
         return (isDone ? "[X] " : "[ ] ");
     }
 
-    /**
-     * Marks the task as done.
-     */
-
     public void setAsDone() {
         this.isDone = true;
     }
-
-    /**
-     * Marks the task as not done.
-     */
 
     public void setAsNotDone() {
         this.isDone = false;

@@ -1,4 +1,6 @@
-package Helper;
+package Helper.TaskType;
+
+import Helper.Task;
 
 /**
  * The Todo class represents a task without any timeframe or deadline.
@@ -18,24 +20,25 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a string representation of the Todo object.
-     * The representation includes the task type identifier and description.
+     * {@inheritDoc}
      *
-     * @return A string representation of the todo object.
+     * Overrides the parent method to include an identifier for Todo tasks.
+     *
+     * @return A string representation of the Todo object.
      */
-
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
     /**
-     * Returns a string representation of the Todo object in a format suitable for file storage.
+     *{@inheritDoc}
+     *
+     * Overrides the parent method to include a custom file representation for Todo tasks.
      * The representation includes the task type identifier, status, and description.
      *
      * @return A string representation of the Todo object for file storage.
      */
-
     @Override
     public String toFileString() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;

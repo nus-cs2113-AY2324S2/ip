@@ -1,5 +1,7 @@
 package Helper;
 
+import Helper.TaskType.*;
+
 /**
  * The Parser class is responsible for parsing tasks fetched from the file.
  * It handles saved tasks and creates appropriate task objects based on the identifier.

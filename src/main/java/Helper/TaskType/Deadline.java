@@ -1,4 +1,6 @@
-package Helper;
+package Helper.TaskType;
+
+import Helper.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,8 +31,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline object.
-     * The representation includes the task type identifier, description, and deadline.
+     * {@inheritDoc}
+     *
+     * Overrides the parent method to include a custom date format for Deadline tasks and an identifier.
      *
      * @return A string representation of the Deadline object.
      */
@@ -47,7 +50,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline object in a format suitable for file storage.
+     * {@inheritDoc}
+     *
+     * Overrides the parent method to include a custom file representation for Deadline tasks.
      * The representation includes the task type identifier, status, description, and deadline.
      *
      * @return A string representation of the Deadline object for file storage.

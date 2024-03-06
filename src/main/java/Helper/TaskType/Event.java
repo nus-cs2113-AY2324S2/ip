@@ -1,4 +1,6 @@
-package Helper;
+package Helper.TaskType;
+
+import Helper.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,8 +35,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event object.
-     * The representation includes the task type identifier, description, and timeframe.
+     * {@inheritDoc}
+     *
+     * Overrides the parent method to include a custom date format for Event tasks and an identifier.
      *
      * @return A string representation of the Event object.
      */
@@ -55,8 +58,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event object in a format suitable for file storage.
-     * The representation includes the task type identifier, status, description, and timeframe.
+     * {@inheritDoc}
+     *
+     * Overrides the parent method to include a custom file representation for Event tasks.
+     * The representation includes the task type identifier, status, description, and a timeframe.
      *
      * @return A string representation of the Event object for file storage.
      */
