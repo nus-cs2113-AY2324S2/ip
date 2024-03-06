@@ -254,7 +254,7 @@ Change recorded in the Text file!
 ____________________________________________________________
 ```
 
-### Bye:```bye``` : Exit the program
+### Bye: ```bye``` : Exit the program
 
 **Format**: ```bye```
 
