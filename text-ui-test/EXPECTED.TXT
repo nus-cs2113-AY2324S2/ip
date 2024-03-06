@@ -36,3 +36,13 @@
      2. [D][ ] Weekly CS2113T quiz (by: Monday 9pm)
      3. [E][ ] CS2113T lecture (from: Friday 4pm to: 6pm)
     ____________________________________________________
+    ____________________________________________________
+     OK, I've marked this task as not done yet:
+     [T][ ] Eric Sim Chong Li: Answer CS2113T tutorial questions
+    ____________________________________________________
+    ____________________________________________________
+     Here are the tasks in your list:
+     1. [T][ ] Eric Sim Chong Li: Answer CS2113T tutorial questions
+     2. [D][ ] Weekly CS2113T quiz (by: Monday 9pm)
+     3. [E][ ] CS2113T lecture (from: Friday 4pm to: 6pm)
+    ____________________________________________________

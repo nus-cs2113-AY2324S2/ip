@@ -4,61 +4,87 @@ import java.util.Scanner;
 
 import lotes.storage.Storage;
 import lotes.task.TaskList;
+import lotes.ui.UserInterface;
+import lotes.commands.AddDeadlineCommand;
+import lotes.commands.AddEventCommand;
+import lotes.commands.AddToDoCommand;
+import lotes.commands.ListCommand;
+import lotes.commands.MarkCommand;
+import lotes.commands.UnMarkCommand;
+import lotes.commands.DeleteCommand;
+import lotes.commands.FindCommand;
+import lotes.commands.ExitCommand;
 
 public class Parser {
 
     // Parses the user input to get the command to perform.
 
-    public static String[] parseInputCommand(String userInput) {
-        String[] words = userInput.split(" ", 2);
+    public static String parseInputCommand(String userInput) {
+        String[] userInputArray = userInput.split(" ", 2);
 
-        return words;
+        String command = userInputArray[0];
+
+        return command;
     }
 
     // Reads and parse the user input to perform its respective actions.
 
-    public static boolean performUserInput(String userInput, TaskList taskList) throws LotesException {
+    public static boolean performUserInput(String userInput, TaskList taskList) {
         boolean isExit = false;
-        String[] command = parseInputCommand(userInput);
+        String command = parseInputCommand(userInput);
 
-        switch (command[0]) {
-        case "bye":
-            System.out.println(TaskList.goodbyeMessage);
+        switch (command) {
+        case ExitCommand.EXIT_COMMAND_WORD:
+        case ExitCommand.BYE_COMMAND_WORD:
+            ExitCommand exitCommand = new ExitCommand();
+            exitCommand.run();
             isExit = true;
             break;
-        case "list":
-            taskList.printTasksList();
+
+        case ListCommand.COMMAND_WORD:
+            ListCommand listCommand = new ListCommand();
+            listCommand.execute();
             break;
-        case "mark":
-            taskList.markTask(userInput);
+
+        case MarkCommand.COMMAND_WORD:
+            MarkCommand markCommand = new MarkCommand();
+            markCommand.run(userInput);
             break;
-        case "unmark":
-            taskList.unMarkTask(userInput);
+
+        case UnMarkCommand.COMMAND_WORD:
+            UnMarkCommand unMarkCommand = new UnMarkCommand();
+            unMarkCommand.run(userInput);
             break;
-        case "todo":
-            taskList.addToDo(userInput);
+
+        case AddToDoCommand.COMMAND_WORD:
+            AddToDoCommand addToDoCommand = new AddToDoCommand();
+            addToDoCommand.run(userInput);
             break;
-        case "deadline":
-            taskList.addDeadline(userInput);
+
+        case AddDeadlineCommand.COMMAND_WORD:
+            AddDeadlineCommand addDeadlineCommand = new AddDeadlineCommand();
+            addDeadlineCommand.run(userInput);
             break;
-        case "event":
-            taskList.addEvent(userInput);
+
+        case AddEventCommand.COMMAND_WORD:
+            AddEventCommand addEventCommand = new AddEventCommand();
+            addEventCommand.run(userInput);
             break;
-        case "delete":
-            taskList.deleteTask(userInput);
+
+        case DeleteCommand.COMMAND_WORD:
+            DeleteCommand deleteCommand = new DeleteCommand();
+            deleteCommand.run(userInput);
             break;
-        case "add":
-            taskList.addNewTask(userInput);
+
+        case FindCommand.COMMAND_WORD:
+            taskList.findTask(userInput);
             break;
+
         default:
-            if(command.length < 2) {
-                throw new LotesException();
-            } else {
-                System.out.println("I do not understand!");
-            }
+            System.out.println("Please enter a command I can understand :(");
         }
 
-        if (!command[0].equals("list")) {
+        if (!command.equals("list")) {
             Storage.updateFile();
         }
 
@@ -67,26 +93,25 @@ public class Parser {
 
     // Handle errors by catching exceptions.
 
-    public static boolean isException(String userInput, TaskList taskList) {
+    public static boolean catchExceptionOnExecution(String userInput, TaskList taskList) {
+        boolean isExit = false;
         try {
-            if (Parser.performUserInput(userInput, taskList)) { // if ixExit returns true
-                return true;
+            if (performUserInput(userInput, taskList)) { // if ixExit returns true
+                isExit = true;
+                return isExit;
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("Please enter enter a number without other characters.");
+            UserInterface.showNumberFormatException();
 
         } catch (NullPointerException e) {
-            System.out.println("Please enter enter a number within the list.");
+            UserInterface.showNullPointerException();
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Please enter at least 2 arguments and within bounds.");
-
-        } catch (LotesException e) {
-            System.out.println("Please enter a command I can understand :(");
+            UserInterface.showIndexOutOfBoundsException();
 
         }
-        return false;
+        return isExit;
     }
 
     //  Continuously Interpreting the user input
@@ -96,7 +121,7 @@ public class Parser {
         while (inputCommand.hasNextLine()) { // Prompt for continuous user input
             String userInput = inputCommand.nextLine();
 
-            if (isException(userInput, taskList)) {
+            if (catchExceptionOnExecution(userInput, taskList)) {
                 break; // Exit reading and interpreting next line
             }
         }
