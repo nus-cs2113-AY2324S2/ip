@@ -27,6 +27,8 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
+
+
     /**
      * Marks the task as done.
      */
@@ -49,5 +51,9 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
