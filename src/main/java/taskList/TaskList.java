@@ -20,20 +20,10 @@ public class TaskList {
 
     public static void displayList() {
         Ui.drawLine(true);
-        printTaskList();
+        Ui.printTaskList();
         Ui.drawLine(true);
     }
-
-    private static void printTaskList() {
-        
-        System.out.printf("\tYour task list currently has %d items!\n\n", numberOfTasks);
-        int taskNumberToDisplay;
-
-        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
-            taskNumberToDisplay = taskIndex + 1;
-            System.out.printf("\t%d. %s\n", taskNumberToDisplay, allTasks.get(taskIndex).toString());
-        }
-    }
+    
 
     public static void addTask(String line, boolean isLoad) {
 
