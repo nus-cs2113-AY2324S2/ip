@@ -50,6 +50,9 @@ public class EventTask extends Task {
     }
 
 
+    /**
+     * print the task in proper format
+     */
     @Override
     public void printTask() {
         if (isDone) {
@@ -59,6 +62,10 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * convert task into a string and returns it
+     * @return
+     */
     @Override
     public String toString() {
         String answer;
@@ -66,6 +73,12 @@ public class EventTask extends Task {
         return answer;
     }
 
+    /**
+     * parse string from .txt file into a task
+     * @param s
+     * @throws SalmonMissingArgument
+     * @throws StringIndexOutOfBoundsException
+     */
     @Override
     public void parse(String s) throws SalmonMissingArgument, StringIndexOutOfBoundsException {
         // format T | true | description

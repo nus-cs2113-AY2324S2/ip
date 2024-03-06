@@ -11,6 +11,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class TasksListReader implements FileInterface {
+    /**
+     * parse the .txt file found into a TasksList object and returns it
+     * @param currentFile
+     * @return TasksList object containing tasks in .txt file
+     * @throws FileNotFoundException
+     */
     public static TasksList parse(File currentFile) throws FileNotFoundException {
                 TasksList tasksList = new TasksList();
         Scanner scanner = new Scanner(currentFile);

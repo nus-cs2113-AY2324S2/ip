@@ -77,6 +77,10 @@ public class TasksList {
         }
     }
 
+    /**
+     * convert all the tasks in TasksList into string 
+     * @return
+     */
     public String toString() {
         String result = "";
         for(int i = 0; i < this.noOfTasks; i++) {

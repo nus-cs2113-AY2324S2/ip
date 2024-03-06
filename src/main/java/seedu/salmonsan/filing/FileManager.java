@@ -7,6 +7,12 @@ import java.io.IOException;
 
 public class FileManager implements FileInterface {
     public FileManager() {}
+
+    /**
+     * find existing file to import TasksList
+     * @return
+     * @throws IOException
+     */
     public static TasksList getTasksList() throws IOException {
         File f = new File(TASK_LIST_FILE);
         System.out.println("full path: " + f.getAbsolutePath());

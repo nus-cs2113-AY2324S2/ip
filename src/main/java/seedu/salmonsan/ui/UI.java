@@ -6,18 +6,30 @@ public class UI {
     final String DIVIDER = "--------------------------------";
     public UI() {}
 
+    /**
+     * print welcome string
+     */
     public void welcome() {
         System.out.println(WELCOME);
     }
 
+    /**
+     * print query string
+     */
     public void askQuery() {
         System.out.println(QUERY);
     }
 
+    /**
+     * print a divider
+     */
     public void printDivider() {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * print all commands available
+     */
     public void printHelp() {
         System.out.println("- `todo TASK`: to add a todo task" + System.lineSeparator() +
                            "- `event TASK /from START_TIME /to END_TIME`: to add an event task" + System.lineSeparator() +

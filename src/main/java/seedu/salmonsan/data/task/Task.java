@@ -52,6 +52,9 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * print the task in proper format
+     */
     public void printTask() {
         if (isDone) {
             System.out.println("[" + this.type + "][X] " + this.getDescription());
@@ -60,12 +63,22 @@ public class Task {
         }
     }
 
+    /**
+     * convert task into a string and returns it
+     * @return
+     */
     public String toString() {
         String answer;
         answer = this.type + " | " + this.isDone + " | " + this.description;
         return answer;
     }
 
+    /**
+     * parse string from .txt file into a task
+     * @param s
+     * @throws SalmonMissingArgument
+     * @throws StringIndexOutOfBoundsException
+     */
     public void parse(String s) throws SalmonMissingArgument, StringIndexOutOfBoundsException {
         // format T | true | description
         int firstSlash = s.indexOf('|');
