@@ -1,0 +1,3 @@
+[T][ ] do homework
+[D][ ] do cs2113 (by: Mar 08 2024)
+[E][ ] cs2113 project (from: now to: end of semester)

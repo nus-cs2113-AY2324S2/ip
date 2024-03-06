@@ -1,0 +1,6 @@
+make list
+todo do Math homework
+deadline eat breakfast /by 10 am
+event CS2113 Finals /from 2 pm /to 4 pm
+list
+bye
