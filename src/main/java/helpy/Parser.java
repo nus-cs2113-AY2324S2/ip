@@ -2,7 +2,16 @@ package helpy;
 
 import helpy.command.*;
 
+/**
+ * A class responsible for parsing user input commands and creating corresponding Command objects.
+ */
 public class Parser {
+    /**
+     * Parses the given command string and creates the corresponding Command object.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return The Command object corresponding to the parsed command.
+     */
     public Command parse(String fullCommand) {
         if (fullCommand.trim().equals("bye")) {
             return new ExitCommand();
