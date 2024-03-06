@@ -36,6 +36,7 @@ public class Spike {
     private static void startChatbot(Scanner in)
             throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException, IOException {
         Tasks = new TaskList();
+
         outerLoop:
         while (true) {
             String input = in.nextLine();

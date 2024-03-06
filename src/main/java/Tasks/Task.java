@@ -1,9 +1,15 @@
 package Tasks;
 
+/**
+ * The Task class represents a task with a description and completion status.
+ * It serves as a base class for different subtasks such as Todo, Deadline, and Event.
+ */
 public class Task {
     public String description;
     protected boolean isDone;
-    private char Badge = 'X';
+
+    /** BADGE is the symbol representing each type of subtask */
+    private final static char BADGE = 'X';
 
     public Task(String description) {
         this.description = description;
@@ -19,6 +25,6 @@ public class Task {
     }
 
     public char getBadge() {
-        return Badge;
+        return BADGE;
     }
 }

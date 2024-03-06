@@ -5,10 +5,17 @@ import Tasks.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * The Ui class handles user interface-related operations for the chatbot.
+ */
 public class Ui {
     private static final String CHATBOT = "Spike";
     public static final String DIVIDER = "_________________________________________________";
 
+    /**
+     *  Prints the task list in the order with the Badge, Status
+     *  and the Description for each task.
+     */
     protected void displayList(ArrayList<Task> inputList) {
         System.out.println(DIVIDER);
         System.out.println("Here are the tasks in your list:");
@@ -24,7 +31,7 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    protected char getBadge(Task value) {
+    private char getBadge(Task value) {
         char Badge = ' ';
         if (value instanceof Todo) {
             Badge = ((Todo) value).getBadge();
@@ -35,6 +42,11 @@ public class Ui {
         }
         return Badge;
     }
+
+    /**
+     *  Prints a message stating that the intended task has been unmarked.
+     *  It also prints the structure of the updated task.
+     */
     protected void displayUnmarkMsg(int index, ArrayList<Task> inputList) {
         char Badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
@@ -44,6 +56,10 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     *  Prints a message stating that the intended task has been marked.
+     *  It also prints the structure of the updated task.
+     */
     protected void displayMarkMsg(int index, ArrayList<Task> inputList) {
         char Badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
@@ -66,15 +82,24 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     *  Prints a message stating that the intended task has been deleted.
+     *  It also prints the deleted task.
+     */
     protected void displayDeleteMsg(Task inputObj, int arrayLength){
         char Badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("I've removed this task:");
-        System.out.println(" [" + Badge + "]" + "["+ inputObj.getStatusIcon() +"] " + inputObj.description);
+        System.out.println(" [" + Badge + "]" + "["+ inputObj.getStatusIcon()
+                + "] " + inputObj.description);
         System.out.println("Now you have " + (arrayLength - 1) + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 
+    /**
+     *  Prints acknowledgement stating that the intended task has been added to the list.
+     *  It also prints the structure of the latest task.
+     */
     protected void displayAcknowledgement(Task inputObj, int arrayLength) {
         char Badge = getBadge(inputObj);
         System.out.println(DIVIDER);
