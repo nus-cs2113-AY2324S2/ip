@@ -4,6 +4,9 @@ import nyanbot.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/***
+ * contains methods to prompts user for input or provide feedback messages
+ */
 public class UI {
     protected static final String LINE = "____________________";
     protected static final String SIKE_MESSAGE = "lmao u got siked wwwwwwwwww";
@@ -36,17 +39,27 @@ public class UI {
         System.out.println(LINE);
     }
 
+    /***
+     * receives user input in CLI and returns input as string
+     * @return string of user input
+     */
     public static String getCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
+    /***
+     * print bye message when exiting program
+     */
     public static void printBye() {
         System.out.println(LINE);
         System.out.println(BYE_MESSAGE);
         System.out.println(LINE);
     }
 
+    /***
+     * print greet message when starting program
+     */
     public static void printGreet() {
         System.out.println(LINE);
         System.out.println(GREET_MESSAGE);
