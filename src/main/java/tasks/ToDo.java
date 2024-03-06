@@ -8,6 +8,10 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
+/**
+ * Represents a Todo task which only contains description
+ * subclass of Task
+ */
 public class ToDo extends Task{
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
@@ -16,10 +20,22 @@ public class ToDo extends Task{
         super(description);
     }
 
+    /**
+     * Overrides toStrong such that it prints out Todo in formatted style
+     * @return
+     */
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Add ToDo it arraylist tasks and updates number of tasks
+     * @param tasks arraylist of tasks
+     * @param userInput unformatted user input
+     * @param index number of tasks in arraylist
+     * @return updated number of tasks
+     */
     public static int addToDo(ArrayList<Task> tasks, String userInput, int index) {
         try {
             String split = userInput.substring(5);
@@ -46,10 +62,9 @@ public class ToDo extends Task{
 
     /**
      * Add todo into duck.txt file in format
+     * @return line to append into data file
      */
     public static String appendToDoDuckDataFile(ToDo toDo) throws IOException {
-        String lineToAdd = "T | " + toDo.getDescription() + "\n";
-        return lineToAdd;
-//        Files.write(FILE_PATH, lineToAdd.getBytes(), StandardOpenOption.APPEND);
+        return "T | " + toDo.getDescription() + "\n";
     }
 }
