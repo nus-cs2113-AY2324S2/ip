@@ -200,7 +200,7 @@ public class JunBot {
     }
 
 
-    public static void findTasks(String command) throws IOException {
+    public static void findTasks(String command) {
         String keyword = parser.removeCommandIndicator(command, "find");
         tasks.printMatchingTasks(keyword);
     }
@@ -276,9 +276,8 @@ public class JunBot {
      *
      * @param args The command-line arguments (not used).
      * @throws IOException If an I/O error occurs while handling user input.
-     * @throws InvalidInputException If the user input is invalid from the relevant function
      */
-    public static void main(String[] args) throws IOException, InvalidInputException {
+    public static void main(String[] args) throws IOException {
         String FILEPATH = "./data/tasks.txt";
         new JunBot(FILEPATH);
         ui.printWelcomeMessage();
