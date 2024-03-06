@@ -2,13 +2,8 @@ package taskList;
 
 import java.util.ArrayList;
 
-import BobBot.exceptions.InvalidDeadlineException;
-import BobBot.exceptions.InvalidEventException;
-import BobBot.exceptions.InvalidTodoException;
-import BobBot.tasks.Deadline;
-import BobBot.tasks.Event;
+import BobBot.parser.Parser;
 import BobBot.tasks.Task;
-import BobBot.tasks.Todo;
 import BobBot.ui.Ui;
 
 public class TaskList {
@@ -43,20 +38,9 @@ public class TaskList {
     public static void addTask(String line, boolean isLoad) {
 
         Task newTask = null;
-
-        try {
-            if (line.startsWith("todo")) {
-                newTask = new Todo(line);
-            } else if (line.startsWith("deadline")) {
-                newTask = new Deadline(line);
-            } else if (line.startsWith("event")) {
-                newTask = new Event(line);
-            } else {
-                Ui.handleInvalidCommand();
-                return;
-            }
-        } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
-            Ui.printCustomExceptionMessage(e);
+        newTask = Parser.parseTaskCommands(line, newTask);
+        
+        if (newTask == null) {
             return;
         }
 
