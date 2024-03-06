@@ -4,6 +4,7 @@ import sam.task.Task;
 import sam.task.Todo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -114,6 +115,31 @@ class TaskList {
 		System.out.println("Noted. I've removed this task:\n" + tasks.get(index));
 		tasks.remove(index);
 		System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ") + "in the list.");
+	}
+
+	public void findTask(String findTerm) throws SamException {
+		findTerm = findTerm.trim();
+		if (findTerm.isEmpty()) {
+			throw new SamException("You forgot to enter a search term.");
+		}
+		ArrayList<Task> findList = new ArrayList<>();
+		ArrayList<Integer> indexList = new ArrayList<>();
+		for (int i = 0; i < tasks.size(); i++) {
+			String description = tasks.get(i).getDescription();
+			if (description.toLowerCase().contains(findTerm.toLowerCase())) {
+				findList.add(tasks.get(i));
+				indexList.add(i + 1);
+			}
+		}
+		if (findList.isEmpty()) {
+			System.out.println("Sorry, I couldn't find any tasks matching your search.");
+		} else {
+			System.out.println("Here are the tasks matching your search:");
+			for (int j = 0; j < findList.size(); j++) {
+				System.out.println(indexList.get(j) + "." + findList.get(j));
+			}
+			System.out.println("Now you have " + findList.size() + (findList.size() == 1 ? " task " : " tasks ") + "in the search list.");
+		}
 	}
 
 	public void deleteAllTasks() {
