@@ -73,7 +73,7 @@ Searches the list for the task by title or date.<br>
 Format:```find /title <title>``` or ```find /date <YYYY-MM-DD>```<br>
 - Finds the task in the list that corresponds to either the title or date.
 - The search by title is not case-sensitive.<br>
-Examples
+Examples<br>
 
 ![Screenshot of find by title](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Find.png)
 ### End the chat session: ```bye```<br>
