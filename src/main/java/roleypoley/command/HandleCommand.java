@@ -57,12 +57,13 @@ public class HandleCommand {
                 findCommand(userInput);
                 return false;
             default:
-                throw new RoleyPoleyParseException("defaultError");
+                break;
             }
         } catch (RoleyPoleyParseException e) {
             createLine();
             return false;
         }
+        return false;
     }
 
     /**
