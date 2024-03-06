@@ -5,7 +5,7 @@ Lotes is a command line interface (CLI) application where you can use to **manag
 ## Requirements
 1. Ensure that you have `Java 11` installed in your Windows computer.
 2. Download the latest `lotes.jar` from [here](https://github.com/e0958902/ip/releases).
-3. Copy `lotes.jar` to a directory you want to your main folder to run Lotes, your task manager.
+3. Copy `lotes.jar` to a directory you want Lotes to run.
 4. `Press and hold down shift` then `right-click` the directory and click `Open in Terminal`.
 5. Type `java -jar lotes.jar` and press `Enter`.<br>
    If your program is running correctly, you should see an output like this:
@@ -39,7 +39,7 @@ e.g For `todo DESCRIPTION`, `DESCRIPTION` can be used as `todo Merida: Answer GD
 e.g `event GDP2021 OJT Baiting Challenge /from Friday 1pm /to 6pm`.
 * Additional parameters for commands that are not requires will be ignored.<br>
 e.g `list 123`, `bye abc`,`exit xyz`.
-* Lotes automatically saves your tasks to a local storage and reads it on the next run.
+* Lotes automatically saves your tasks to a local storage `/data/storage.txt` and reads from it on the next run.
 
 ## Features and Usage
 
