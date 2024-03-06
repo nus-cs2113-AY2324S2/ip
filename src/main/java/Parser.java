@@ -15,7 +15,7 @@ public class Parser {
             userCommand = scanner.nextLine().trim();
 
             if (userCommand.equalsIgnoreCase("thank you and bye")) {
-                break; // Exit the loop, signaling to end the program
+                break;
             }
 
             processCommand(userCommand);
@@ -44,7 +44,7 @@ public class Parser {
         } else if (userCommand.startsWith("delete")) {
             TaskList.deleteTask(userCommand);
         } else {
-            System.out.println("proper english pls. don't waste time already >:(");
+            System.out.println("read instructions. type properly.");
         }
     }
 }

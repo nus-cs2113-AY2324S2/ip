@@ -1,4 +1,7 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class TaskList {
 
@@ -16,12 +19,12 @@ public class TaskList {
 
         String taskDescription = userCommand.substring(4).trim();
         if (taskDescription.isEmpty()) {
-            System.out.println("Woi. You think I robot then can waste my time. Gimme description >:(");
+            System.out.println("use english pls. type properly.");
         } else {
             tasks.add(new TodoTask(taskDescription));
 
             System.out.println("____________________________________________________________");
-            System.out.println(" Got it. Avril added this task:");
+            System.out.println(" Got it. Avril the Bot added this task:");
             System.out.println("   [T][ ]  " + taskDescription);
             if (tasks.size() == 1) {
                 System.out.println(" Now you have 1 task in the list.");
@@ -42,12 +45,21 @@ public class TaskList {
         }
 
         String description = deadlineParts[0];
-        String deadline = deadlineParts[1].trim();
+        String deadlineString = deadlineParts[1].trim();
+
+        LocalDateTime deadline;
+        try {
+            deadline = LocalDateTime.parse(deadlineString, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid deadline date format. Please use the format 'DD-MM-YYYY HHmm'.");
+            return;
+        }
 
         tasks.add(new DeadlineTask(description, deadline));
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Avril added this task:");
-        System.out.println("   [D][ ] " + description + " (By: " + deadline + ")");
+        System.out.println(" Got it. Avril the Bot added this task:");
+        System.out.println("   [D][ ] " + description + " (By: " + deadline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + ")");
+
         if (tasks.size() == 1) {
             System.out.println(" Now you have 1 task in the list.");
         } else {
@@ -55,6 +67,7 @@ public class TaskList {
         }
         System.out.println("____________________________________________________________");
     }
+
 
     static void addEvent(String userCommand) {
 
@@ -74,13 +87,27 @@ public class TaskList {
             return;
         }
 
-        String startTime = timeParts[0].trim();
-        String endTime = timeParts[1].trim();
+        String startTimeString = timeParts[0].trim();
+        String endTimeString = timeParts[1].trim();
+
+        LocalDateTime startTime, endTime;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+            startTime = LocalDateTime.parse(startTimeString, formatter);
+            endTime = LocalDateTime.parse(endTimeString, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date-time format. Please use the format 'DD-MM-YYYY HHmm'.");
+            return;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formattedStartTime = startTime.format(formatter);
+        String formattedEndTime = endTime.format(formatter);
         tasks.add(new EventTask(description, startTime, endTime));
 
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Avril added this task:");
-        System.out.println("   [E][ ] " + description + " (From: " + startTime + " To: " + endTime + ")");
+        System.out.println(" Got it. Avril the Bot added this task:");
+        System.out.println("   [E][ ] " + description + " (From: " + formattedStartTime + " To: " + formattedEndTime + ")");
         if (tasks.size() == 1) {
             System.out.println(" Now you have 1 task in the list.");
         } else {

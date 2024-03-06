@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Storage {
 
@@ -52,12 +55,33 @@ public class Storage {
                     todoTask.markAsDone();
                 }
                 return todoTask;
+
             case "D":
-                String deadline = parts[3].trim();
-                return new DeadlineTask(description, deadline);
+                String deadlineStr = parts[3].trim();
+                try {
+                    LocalDateTime deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+                    return new DeadlineTask(description, deadline);
+                } catch (DateTimeParseException e) {
+                    System.err.println("Error parsing deadline datetime for task: " + description + ". Please ensure it's in the correct format 'DD-MM-YYYY HHmm'.");
+                    return null;
+                }
+
             case "E":
-                String startTime = parts[3].trim();
-                String endTime = parts[4].trim();
+
+                String startTimeStr = parts[3].trim();
+                String endTimeStr = parts[4].trim();
+
+                LocalDateTime startTime, endTime;
+
+                try {
+                    startTime = LocalDateTime.parse(startTimeStr, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+                    endTime = LocalDateTime.parse(endTimeStr, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+
+                } catch (DateTimeParseException e) {
+                    System.err.println("Invalid event time format. Please use the format 'DD-MM-YYYY HHmm'.");
+                    return null;
+                }
+
                 return new EventTask(description, startTime, endTime);
 
             default:
