@@ -301,11 +301,33 @@ public class Parser {
             taskList.remove(taskCounter - 1);
             taskCounter = taskCounter - 1;
             return taskCounter;
-        }
-        catch (InvalidDeleteIndexException e) {
-            Ui.printTypoErrorMessage();
-            Ui.printInvalidDeleteIndexMessage();
+        } catch (InvalidDeleteIndexException e) {
+            Ui.typoErrorMessage();
+            Ui.invalidDeleteIndexMessage();
             return taskCounter;
+        }
+    }
+
+    public static void findDescription (String receivedMessage, ArrayList<Task> taskList) {
+        try {
+            receivedMessage = receivedMessage.trim();
+            String[] splittedMessage = receivedMessage.split("find ");
+            String stringToBefound = splittedMessage[1];
+            if (stringToBefound.isEmpty() || stringToBefound.equals("find")) {
+                throw new InvalidInputException();
+            }
+            ArrayList<Task> temporaryArray = new ArrayList<Task>();
+            int temporaryArrayCounter = 0;
+            for (int iterator = 0; iterator < taskList.size(); iterator += 1) {
+                if (taskList.get(iterator).getDescription().contains(stringToBefound)) {
+                    temporaryArray.add(temporaryArrayCounter, taskList.get(iterator));
+                    temporaryArrayCounter += 1;
+                }
+            }
+            Ui.printFindMessage(temporaryArray, temporaryArrayCounter);
+
+        } catch (InvalidInputException e){
+            Ui.typoErrorMessage();
         }
     }
 

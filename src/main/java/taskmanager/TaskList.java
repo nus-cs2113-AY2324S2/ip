@@ -38,6 +38,8 @@ public class TaskList {
             taskCounter = Parser.addEventTaskToList(receivedMessage, taskList, taskCounter);
         } else if (receivedMessage.contains("delete")) { //user keys in event
             taskCounter = Parser.deleteTask(receivedMessage, taskList, taskCounter);
+        } else if (receivedMessage.startsWith("find")) {
+            Parser.findDescription(receivedMessage, taskList);
         } else {
             Ui.printTypoErrorMessage();
         }

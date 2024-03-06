@@ -1,8 +1,10 @@
 package taskmanager;
+import java.util.ArrayList;
 
 /**
  * Collection of methods to print messages
  */
+
 public class Ui {
     protected final static String VERTICAL_LINES = "    ____________________________________________________________";
     protected final static String FIVE_WHITE_SPACES = "     ";
@@ -206,6 +208,7 @@ public class Ui {
         System.out.println(FIVE_WHITE_SPACES + "3) Event: 'event (Task) /from (start date) /to (end date)'");
         System.out.println(FIVE_WHITE_SPACES + "4) List: 'list'");
         System.out.println(FIVE_WHITE_SPACES + "5) Delete: 'delete (task)'");
+        System.out.println(FIVE_WHITE_SPACES + "6) Find: 'find (task)'");
         System.out.println(VERTICAL_LINES + "\n");
     }
 
@@ -303,6 +306,29 @@ public class Ui {
                 " (from: " + startDate + " to: " + endDate +
                 ")");
         System.out.println(FIVE_WHITE_SPACES + "Now you have " + Integer.toString(taskCounter) + " tasks in the list.");
+        System.out.println(VERTICAL_LINES + "\n");
+    }
+    public static void printFindMessage(ArrayList<Task> temporaryArray, int temporaryArrayCounter) {
+        System.out.println(VERTICAL_LINES);
+        System.out.println(FIVE_WHITE_SPACES + "Sire here are the task I have found as per thy request");
+        for(int iterator = 0; iterator < temporaryArrayCounter; iterator += 1) {
+            if (temporaryArray.get(iterator).getTaskType().equals("T")) {
+                todoListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
+                        temporaryArray.get(iterator).getStatusIcon(),
+                        temporaryArray.get(iterator).getDescription());
+            } else if (temporaryArray.get(iterator).getTaskType().equals("D")) {
+                deadlineListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
+                        temporaryArray.get(iterator).getStatusIcon(),
+                        temporaryArray.get(iterator).getDescription(),
+                        temporaryArray.get(iterator).getEndDate());
+            } else {
+                eventListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
+                        temporaryArray.get(iterator).getStatusIcon(),
+                        temporaryArray.get(iterator).getDescription(),
+                        temporaryArray.get(iterator).getStartDate(),
+                        temporaryArray.get(iterator).getEndDate());
+            }
+        }
         System.out.println(VERTICAL_LINES + "\n");
     }
 
