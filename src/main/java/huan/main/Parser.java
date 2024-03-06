@@ -4,6 +4,9 @@ import huan.task.*;
 import java.util.Objects;
 import java.util.Scanner;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Parser {
     public static void parseCommands() {
 
@@ -36,7 +39,7 @@ public class Parser {
                     UI.displayFormatError("'list'");
                     break;
                 }
-                TaskList.listTasks();
+                UI.listTasks();
                 break;
             case ("mark"):
                 try {
@@ -123,6 +126,17 @@ public class Parser {
                     }
                 } catch (Exception e) {
                     UI.displayFormatError("'delete *n', where n is the index of the task you wish to delete.");
+                }
+                break;
+            case ("list_deadline"):
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                    LocalDateTime dateTime = LocalDateTime.parse(suffixWord, formatter);
+
+                    UI.listTaskBeforeDateTime(dateTime);
+                } catch(DateTimeParseException e) {
+                    UI.displayFormatError("'list_deadline yyyy-MM-dd HH:mm:ss'");
                 }
                 break;
             default:

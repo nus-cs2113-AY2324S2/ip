@@ -18,14 +18,4 @@ public class TaskList {
         tasks.clear();
     }
 
-    public static void listTasks() {
-        int cnt = 0;
-        System.out.println("You have a total of " + tasks.size() + " tasks.");
-        for (Task task : tasks) {
-            cnt += 1;
-            System.out.printf(cnt + ". ");
-
-            task.printTask();
-        }
-    }
 }
