@@ -64,21 +64,19 @@ public static final String FILE_PATH = "./data/jane.txt";
             storage = new Storage(FILE_PATH);
             storage.ensureDataFileExists();
             TaskList taskList = storage.loadTasksToFile();
+            Ui ui = new Ui();
 
-            Scanner in = new Scanner(System.in);
-            String input = in.nextLine();
-
-            while (!input.equals("bye")) {
+            while (!ui.input.equals("bye")) {
                 try {
                     System.out.print(SEPARATOR);
-                    processInput(input, taskList);
+                    processInput(ui.input, taskList);
                     System.out.print(SEPARATOR);
                     storage.saveTasksToFile(taskList);
                 } catch (JaneException e) {
                     System.out.println(e.getMessage());
                     System.out.print(SEPARATOR);
                 }
-                input = in.nextLine();
+                ui.nextInput();
             }
 
             try {
