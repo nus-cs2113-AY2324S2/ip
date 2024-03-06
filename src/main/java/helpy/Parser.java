@@ -46,6 +46,10 @@ public class Parser {
             String commandBody = fullCommand.replace("delete", "").trim();
             return new DeleteCommand(commandBody);
         }
+        if (fullCommand.startsWith("find")) {
+            String commandBody = fullCommand.replace("find", "").trim();
+            return new FindCommand(commandBody);
+        }
         return new UnknownCommand(fullCommand);
     }
 }
