@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     }
 
     // Method for displaying list
-    private void displayList(ArrayList<Task> tasks, UI ui) {
+    public void displayList(ArrayList<Task> tasks, UI ui) {
         for (Task task : tasks) {
             ui.showIndent();
             switch (task.getType()) {

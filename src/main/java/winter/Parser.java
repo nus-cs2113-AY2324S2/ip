@@ -40,7 +40,8 @@ public class Parser {
 
             case UnmarkCommand.COMMAND_WORD:
                 return prepareUnmark(commandArgs);
-
+            case FindCommand.COMMAND_WORD:
+                return prepareFind(commandWordArray,commandArgs);
             case "":
                 handleEmptyString();
                 return new HelpCommand();
@@ -60,8 +61,26 @@ public class Parser {
             UI.handleCheckedExceptions(INVALIDDELETE);
         } catch (InvalidCommandException e) {
             UI.handleCheckedExceptions(INVALIDCOMMAND);
+        } catch (InvalidFindException e) {
+            UI.handleCheckedExceptions(INVALIDFIND);
         }
         return new HelpCommand();
+    }
+
+    private static Command prepareFind(String[] commandWordArray, String commandArgs) throws InvalidFindException {
+        boolean isValidFind = verifyFind(commandWordArray);
+        if (isValidFind) {
+            return new FindCommand(commandArgs);
+        }
+        return new HelpCommand();
+    }
+
+    private static boolean verifyFind(String[] commandWordArray) throws InvalidFindException {
+        boolean isValidFind = true;
+        if (commandWordArray.length < 2) {
+            throw new InvalidFindException();
+        }
+        return isValidFind;
     }
 
     private static Command prepareUnmark(String commandArgs) {
