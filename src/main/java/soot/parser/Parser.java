@@ -1,8 +1,11 @@
 package soot.parser;
 
+import soot.Soot;
+
 import soot.exceptions.EmptyTaskException;
 import soot.exceptions.UnknownCommandException;
 
+import soot.storage.Storage;
 import soot.task.Task;
 import soot.task.TaskType;
 import soot.task.TaskList;
@@ -50,6 +53,9 @@ public class Parser {
             case "event":
                 TaskList.addTask(userInput, TaskType.EVENT);
                 break;
+            case "bye":
+                handleByeCommand();
+                break;
             default:
                 throw new UnknownCommandException();
             }
@@ -63,7 +69,7 @@ public class Parser {
 
     /**
      * Returns the command action word, i.e. the first word of the user input.
-     * Method first handles the case where the user input only contains one word, which should only be "list".
+     * Method first handles the cases where the user input only contains one word.
      * Else, an EmptyTaskException is thrown to indicate to the user that the user input was incomplete.
      *
      * @param userInput command inputted by the user.
@@ -71,7 +77,7 @@ public class Parser {
      * @throws EmptyTaskException If user input only contains one word that is not "list".
      */
     private static String getCommandAction(String userInput) throws EmptyTaskException {
-        if (userInput.equals("list")) {
+        if (userInput.equals("list") || userInput.equals("bye")) {
             return userInput;
         }
 
@@ -128,10 +134,24 @@ public class Parser {
         TaskList.deleteTask(taskIndexInArrayList);
     }
 
+    /**
+     * Handles when user is trying to find the tasks that contains a keyword.
+     * A list of these found tasks will be printed for the user.
+     *
+     * @param userInput command inputted by the user.
+     */
     private static void handleFindCommand(String userInput) {
         ArrayList<Task> foundKeywordList = new ArrayList<Task>();
-        String toFind = userInput.substring(5);
-        foundKeywordList = TaskList.findKeyword(toFind);
+
+        String keywordToFind = userInput.substring(5);
+        foundKeywordList = TaskList.findKeyword(keywordToFind);
         UserUi.printKeywordList(foundKeywordList);
+    }
+
+
+    private static void handleByeCommand() {
+        Soot.hasEnd = true;
+        Storage.tryToSaveFile();
+        UserUi.showGoodbyeMessage();
     }
 }

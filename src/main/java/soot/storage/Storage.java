@@ -19,6 +19,24 @@ import java.util.Scanner;
  * The stored tasks will be loaded and added into an ArrayList.
  */
 public class Storage {
+    private static final String FILE_PATH = "saved-data/saved.txt";
+
+    public Storage(TaskList taskList) {
+        loadSavedFile(taskList);
+    }
+
+    public static void loadSavedFile(TaskList taskList) {
+        try {
+            ArrayList<String> savedFile = Storage.readSavedFile(FILE_PATH);
+            for (String s : savedFile) {
+                Storage.loadOneSavedTask(s);
+            }
+        } catch (FileNotFoundException e) {
+            UserUi.printMessageWithDivider("No file was found, i will create one immediately");
+            File savedData = new File(FILE_PATH);
+        }
+    }
+
     /**
      * Returns an ArrayList of Strings.
      * Each string is a line read from the saved file in the given path.
@@ -50,7 +68,7 @@ public class Storage {
      * @param line string that contains only one line of the saved file, and thus one task.
      */
     // TODO: create a getTaskDescription method
-    public static void loadSavedTasks(String line) {
+    public static void loadOneSavedTask(String line) {
         try {
             String[] savedTaskInfo = line.split(" ; ", 0);
 
@@ -73,6 +91,14 @@ public class Storage {
                     "sorry about it :o \nunfortunately, i will have to get rid of the previous data...");
             TaskList.clearTaskList();
             File savedData = new File("saved-data/saved.txt");
+        }
+    }
+
+    public static void tryToSaveFile() {
+        try {
+            Storage.saveFinalFile();
+        } catch (IOException e) {
+            System.out.println("there was a problem saving your tasks to the hard disk...");
         }
     }
 
