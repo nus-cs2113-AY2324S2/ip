@@ -26,14 +26,14 @@ public class Time {
     };
 
     private static final String[] TIME_PATTERNS = {
-        "HH:mm",    // 24-hour format with leading zeros (e.g., 13:45)
-        "hh:mma",   // 12-hour format with leading zeros and AM/PM indicator (e.g., 01:45pm)
-        "HHmm",     // 24-hour format without separators (e.g., 1345)
-        "hhmma",    // 12-hour format without separators and AM/PM indicator (e.g., 0145pm)
-        "H:mm",     // 24-hour format without leading zeros (e.g., 9:45)
-        "h:mma",    // 12-hour format without leading zeros and AM/PM indicator (e.g., 1:45pm)
-        "Hmm",      // 24-hour format without separators and leading zeros (e.g., 945)
-        "hmma"      // 12-hour format without separators, leading zeros, and AM/PM indicator (e.g., 145pm)
+        "HH:mm",    // 24-hour format with leading zeros (e.g. 13:45)
+        "hh:mma",   // 12-hour format with leading zeros and AM/PM indicator (e.g. 01:45pm)
+        "HHmm",     // 24-hour format without separators (e.g. 1345)
+        "hhmma",    // 12-hour format without separators, with AM/PM indicator (e.g. 0145pm)
+        "H:mm",     // 24-hour format without leading zeros (e.g. 9:45)
+        "h:mma",    // 12-hour format without leading zeros, with AM/PM indicator (e.g. 1:45pm)
+        "Hmm",      // 24-hour format without separators and leading zeros (e.g. 945)
+        "hmma"      // 12-hour format without separators, leading zeros, with AM/PM indicator (e.g. 145pm)
     };
 
     /**
