@@ -181,11 +181,4 @@ public class TaskList {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }
 
-    private void printTaskAddedMessage(String taskDescription, String taskType) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Avril added this task:");
-        System.out.println("   [" + taskType + "][ ]  " + taskDescription);
-        System.out.println(" Now you have " + tasks.size() + " task" + (tasks.size() == 1 ? "" : "s") + " in the list.");
-        System.out.println("____________________________________________________________");
-    }
 }
