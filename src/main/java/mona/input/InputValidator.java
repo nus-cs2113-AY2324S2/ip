@@ -9,6 +9,7 @@ import mona.manager.TaskList;
  * Ensures that the commands adhere to the expected format and constraints of each command type.
  */
 public class InputValidator {
+
     public InputValidator() {
     }
     /**
@@ -17,12 +18,14 @@ public class InputValidator {
      * @param commandTypeAndParams String array containing the command type and its parameters.
      * @throws MonaException If the description is empty.
      */
+
     public void checkTodoCommand(String[] commandTypeAndParams) throws MonaException {
         // Checking if description field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
             throw new MonaException("OOPS!!! The description of a todo cannot be empty");
         }
     }
+
     /**
      * Checks if the 'mark', 'unmark', or 'delete' command has a non-empty & valid task number.
      *
@@ -51,6 +54,7 @@ public class InputValidator {
             throw new MonaException("OOPS! Number doesn't correspond to a stored task. Try again!");
         }
     }
+
     /**
      * Checks if the 'deadline' command has a non-empty description and deadline.
      *
@@ -64,6 +68,7 @@ public class InputValidator {
             throw new MonaException("OOPS!!! Missing fields detected. Try again!");
         }
     }
+
     /**
      * Checks if the 'event' command has a non-empty description, start value, and end value.
      *
@@ -78,6 +83,7 @@ public class InputValidator {
             throw new MonaException("OOPS!! Missing fields detected. Try again!");
         }
     }
+
     public void checkFindCommand(String[] commandTypeAndParams) throws MonaException {
         // Checking if description field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {

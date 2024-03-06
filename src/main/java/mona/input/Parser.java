@@ -9,6 +9,7 @@ import mona.util.Constants;
  * Elements of this array can be accessed via indexing.
  */
 public class Parser {
+
     protected String[] commandTypeAndParams;
     protected String line;
     protected boolean isValidInput;
@@ -36,6 +37,7 @@ public class Parser {
     public boolean isValidInput() {
         return isValidInput;
     }
+
     /**
      * Extracts the command type from the input line. The command type is the first word of the input line.
      *
@@ -58,6 +60,7 @@ public class Parser {
             isValidInput = false;
         }
     }
+
     /**
      * Extracts details for 'mark', 'unmark', or 'delete' commands from the input line.
      * The detail to be extracted is a number, which corresponds to a specific task in the TaskList.
@@ -79,6 +82,7 @@ public class Parser {
             isValidInput = false;
         }
     }
+
     /**
      * Extracts details for 'todo' commands from the input line. The detail to be extracted
      * is the description of the 'todo' command.
@@ -97,6 +101,7 @@ public class Parser {
             isValidInput = false;
         }
     }
+
     /**
      * Extracts details for 'deadline' commands from the input line. The details to be extracted are
      * 1) the description of the deadline task, and
@@ -105,7 +110,6 @@ public class Parser {
      * @param line The input line from which the details are to be extracted.
      */
     public void extractDetailsFromDeadlineString(String line) {
-
         try {
             int descriptionIndex = line.indexOf(" ");
             int deadlineIndex = line.indexOf(Constants.BY_PREFIX);
@@ -123,6 +127,7 @@ public class Parser {
             isValidInput = false;
         }
     }
+
     /**
      * Extracts details for 'event' commands from the input line. The details to be extracted are
      * 1) the description of the event task,
@@ -152,6 +157,7 @@ public class Parser {
             isValidInput = false;
         }
     }
+
     /**
      * Extracts details for 'find' commands from the input line. The detail to be extracted
      * is the keyword or phrase to be searched for.
@@ -170,6 +176,7 @@ public class Parser {
             isValidInput = false;
         }
     }
+
     /**
      * Parses the input line and extracts the command type and details.
      *
@@ -212,6 +219,5 @@ public class Parser {
             isValidInput = false;
             System.out.println("Invalid command detected!");
         }
-
     }
 }

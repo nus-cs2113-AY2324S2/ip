@@ -3,7 +3,6 @@ import mona.input.Ui;
 import mona.output.ConsolePrint;
 import mona.manager.TaskList;
 import mona.util.Constants;
-
 import mona.storage.Storage;
 
 /**
@@ -24,6 +23,7 @@ public class Mona {
         this.storage = new Storage(Constants.DATA_FILE_PATH);
         this.taskList = new TaskList((this.storage).loadData());
     }
+
     /**
      * Runs the Mona application, accepting user commands, parsing and
      * executing them until the "bye" command is received.
@@ -43,6 +43,7 @@ public class Mona {
         }
         ConsolePrint.exit();
     }
+
     /**
      * The main entry point of the Mona application.
      *

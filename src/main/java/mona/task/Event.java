@@ -5,8 +5,10 @@ package mona.task;
  * is a subclass of the Task class.
  */
 public class Event extends Task {
+
     protected String from;
     protected String to;
+
     /**
      * Constructor for Event. Initializes the task with a description, start date/time, and end date/time.
      *
@@ -19,6 +21,7 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
+
     /**
      * Returns a string representation of the event task, including its type, status, description,
      *  start date/time, and end date/time.
@@ -29,6 +32,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " " +  "(from: " + this.from + " to: " + this.to + ")";
     }
+
     /**
      * Returns the full description of the event task, including its description, start date/time, and end date/time.
      *

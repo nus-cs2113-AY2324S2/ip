@@ -1,6 +1,7 @@
 package mona.task;
 
 import mona.util.Constants;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeParseException;
  * which can possibly be stored as a LocalDateTime object.
  */
 public class Deadline extends Task {
+
     protected String by;
     protected LocalDateTime dateTime;
     protected boolean isLocalDateTimeStored;
@@ -36,6 +38,7 @@ public class Deadline extends Task {
             this.isLocalDateTimeStored = false;
         }
     }
+
     /**
      * Returns a string representation of the deadline task, including its type, status, description, and due date.
      * If the due date is stored as a LocalDateTime object, it is formatted according
@@ -55,6 +58,7 @@ public class Deadline extends Task {
 
         return output;
     }
+
     /**
      * Returns the full description of the deadline task, including its description and due date.
      *

@@ -7,7 +7,6 @@ import mona.task.Task;
 import mona.task.Todo;
 import mona.util.Constants;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -16,6 +15,7 @@ import java.util.stream.Collectors;
  * user commands.
  */
 public class TaskList {
+
     public static int noOfTasks;
     protected ArrayList<Task> tasks;
 
@@ -27,6 +27,7 @@ public class TaskList {
         this.tasks = tasks;
         noOfTasks = tasks.size();
     }
+
     /**
      * Executes the given command to update the task list accordingly.
      *

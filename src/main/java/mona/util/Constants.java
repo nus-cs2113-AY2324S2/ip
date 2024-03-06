@@ -14,7 +14,6 @@ public final class Constants {
     public static final String EVENT_PREFIX = "event";
     public static final String LIST_PREFIX = "list";
 
-
     public static final String BY_PREFIX = "/by";
     public static final String FROM_PREFIX = "/from";
     public static final String TO_PREFIX = "/to";

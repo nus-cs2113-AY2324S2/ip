@@ -19,6 +19,7 @@ import mona.util.Constants;
  * Handles storage operations, such as saving and loading tasks to and from a .txt file.
  */
 public class Storage {
+
     protected String filePath;
 
     /**
@@ -29,6 +30,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
     /**
      * Saves the list of tasks to the storage (.txt) file.
      *
@@ -46,6 +48,7 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
+
     /**
      * Generates a string representation of the list of tasks for storage. It does so by
      * calling the 'generateSavedTaskFormat' method for each task in the list of tasks.
@@ -92,6 +95,7 @@ public class Storage {
 
         return output;
     }
+
     /**
      * Loads tasks from the storage file into a list.
      *
@@ -107,6 +111,7 @@ public class Storage {
         }
         return taskList;
     }
+
     /**
      * Reads the storage file and returns its contents as a list of strings, where each line is
      * treated as a String object.
@@ -143,6 +148,7 @@ public class Storage {
                 Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
         return dataItems;
     }
+
     /**
      * Parses a list of strings (obtained from the 'readFile' method) into a list of tasks.
      *
@@ -190,6 +196,7 @@ public class Storage {
         }
         return tasks;
     }
+
     /**
      * Determines the completion status of a task from its string representation (the representation
      * in the .txt file)
@@ -206,6 +213,7 @@ public class Storage {
             return false;
         }
     }
+
     /**
      * Extracts the command type and parameters from the string representation of a task (the representation
      * in the .txt file)

@@ -6,12 +6,14 @@ import mona.util.Constants;
 import java.util.ArrayList;
 
 public class ConsolePrint {
+
     public static void printHorizontalLine() {
         for (int i = 0; i < 59; i++) {
             System.out.print("_");
         }
         System.out.println("_");
     }
+
     public static void printUnmarkStatement(Task task) {
         printHorizontalLine();
 
@@ -20,6 +22,7 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
+
     public static void printMarkStatement(Task task) {
         printHorizontalLine();
 
@@ -28,6 +31,7 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
+
     public static void printAddTaskStatement(Task task, int noOfTasks) {
         printHorizontalLine();
 
@@ -36,6 +40,7 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
+
     public static void printDeleteTaskStatement(Task task, int noOfTasks) {
         printHorizontalLine();
 
@@ -44,6 +49,7 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
+
     public static void printList(ArrayList<Task> tasks) {
         printHorizontalLine();
 
@@ -56,6 +62,7 @@ public class ConsolePrint {
         }
         printHorizontalLine();
     }
+
     public static void printFilteredList(ArrayList<Task> filteredTasks, ArrayList<Task> tasks, String keyword) {
         printHorizontalLine();
 
@@ -74,6 +81,7 @@ public class ConsolePrint {
         }
         printHorizontalLine();
     }
+
     public static void greet() {
         System.out.println("Hello from\n" + Constants.ASCII_LOGO);
 
@@ -84,6 +92,7 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
+
     public static void exit() {
         printHorizontalLine();
 
