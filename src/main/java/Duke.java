@@ -10,29 +10,27 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.loading_error();
             tasks = new TaskList();
         }
     }
 
     public void run() {
-        ui.showWelcome();
+        ui.greeting();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
+                String fullCommand = ui.read_input();
+                ui.line();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-
-
                 storage.save(tasks.getTasks());
 
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                ui.error(e.getMessage());
             } finally {
-                ui.showLine();
+                ui.line();
             }
         }
     }

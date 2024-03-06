@@ -1,5 +1,6 @@
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
+
         String[] parts = fullCommand.split(" ");
         String command = parts[0].toLowerCase();
 
