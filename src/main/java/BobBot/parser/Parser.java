@@ -34,6 +34,8 @@ public class Parser {
                     TaskList.performTaskOperation(line, TaskList.TaskStatus.UNMARK);
                 } else if (line.startsWith("delete")) {
                     TaskList.performTaskOperation(line, TaskList.TaskStatus.DELETE);
+                } else if (line.startsWith("find")) {
+                    TaskList.findTasksFromKeyword(line);
                 } else {
                     boolean isLoad = false;
                     TaskList.addTask(line, isLoad);
