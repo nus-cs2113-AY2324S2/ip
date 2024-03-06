@@ -4,6 +4,7 @@ import Kowalski.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     public static List<Task> currentTask = new ArrayList<>();
@@ -24,6 +25,15 @@ public class TaskList {
     public static void printCurrentTaskItems(){
         for (int i = 1; i <= currentTask.size(); i++){
             System.out.println(i + DOT + currentTask.get(i-1));
+        }
+    }
+
+    /**
+     * Used in the "find" command to print all the matching Tasks in the proper format
+     */
+    public static void printMatchingTasks(List<Task> matchList){
+        for (int i = 1; i <= matchList.size(); i++){
+            System.out.println(i + DOT + matchList.get(i-1));
         }
     }
 
