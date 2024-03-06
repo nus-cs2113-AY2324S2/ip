@@ -27,7 +27,7 @@ public class Parser {
                 if (line.equalsIgnoreCase("help")) {
                     Ui.printHelpMessage();
                 } else if (line.equalsIgnoreCase("list")) {
-                    TaskList.displayList();
+                    Ui.displayList();
                 } else if (line.startsWith("mark")) {
                     TaskList.performTaskOperation(line, TaskList.TaskStatus.MARK);
                 } else if (line.startsWith("unmark")) {

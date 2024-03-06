@@ -44,7 +44,7 @@ public class Storage {
             loadToList(fileScanner.nextLine());
         }
 
-        TaskList.displayList();
+        Ui.displayList();
     }
 
     public static void createNewSaveFile(String saveFilePath) {

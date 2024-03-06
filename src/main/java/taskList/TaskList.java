@@ -18,13 +18,6 @@ public class TaskList {
         return allTasks;
     }
 
-    public static void displayList() {
-        Ui.drawLine(true);
-        Ui.printTaskList();
-        Ui.drawLine(true);
-    }
-    
-
     public static void addTask(String line, boolean isLoad) {
 
         Task newTask = null;

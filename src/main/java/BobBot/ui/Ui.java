@@ -110,4 +110,10 @@ public class Ui {
             System.out.printf("\t%d. %s\n", taskNumberToDisplay, TaskList.getTaskList().get(taskIndex).toString());
         }
     }
+
+    public static void displayList() {
+        drawLine(true);
+        printTaskList();
+        drawLine(true);
+    }
 }
