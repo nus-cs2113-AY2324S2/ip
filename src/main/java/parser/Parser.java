@@ -103,11 +103,6 @@ public class Parser {
         tasks.deleteTask(taskNumber);
     }
 
-    // private static void deleteCommand(int taskNumber, TaskList tasks) {
-        // Perform the logic for deleting a task
-    //     tasks.deleteTask(taskNumber);
-    // }
-
     private static void listCommand(TaskList tasks) {
         tasks.listTasks();
     }

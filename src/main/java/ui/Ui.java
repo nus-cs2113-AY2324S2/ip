@@ -18,35 +18,8 @@ public class Ui {
 
     public String readCommand() {
         String command = scanner.nextLine().trim();
-        // scanner.close();
         return command;
     }
-
-    /*
-    public void echoCommands() {
-        String command = readCommand();
-
-        do {
-            command = readCommand();
-            if (command.equals("list")) {
-                listTasks();
-            } else if (command.startsWith("mark ")) {
-                markTaskAsDone(command.substring(5));
-            } else if (command.startsWith("unmark ")) {
-                unmarkTaskAsDone(command.substring(7));
-            } else if (command.startsWith("delete")) {
-                int index = Integer.parseInt(command.substring(7));
-                deleteTask(index);
-            } else if (!command.startsWith("bye")) {
-                try {
-                    add(command);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        } while (!command.equals("bye"));
-    }
-    */
 
     public void showLine() {
         System.out.println("=========================");
