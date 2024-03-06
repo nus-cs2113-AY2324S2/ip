@@ -24,6 +24,9 @@ public class CommandGenerator{
         case DELETE:
             return new DeleteCommand(Parser.splitInput(token, input));
 
+        case FIND:
+            return new FindCommand(Parser.splitInput(token, input));
+
         default:
             return new AddTaskCommand(token, Parser.splitInput(token, input));
         }

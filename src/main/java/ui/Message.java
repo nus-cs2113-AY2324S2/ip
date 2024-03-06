@@ -95,4 +95,8 @@ public class Message {
 
     public static final String FILE_LOAD_ERROR_MESSAGE = DELIMITER + "Oops! List data lost in the digital Bermuda Triangle!"
             + "\nStarting fresh with an empty list...\n" + DELIMITER;
+
+    public static final String FIND_MESSAGE = "Behold! Your tasks surface:\n";
+
+    public static String FIND_FAIL_MESSAGE = "No tasks found with the keyword :(";
 }
