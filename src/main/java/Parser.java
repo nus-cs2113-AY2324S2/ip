@@ -7,9 +7,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Contains the methods that handles user input
+ * It interacts with the TaskList, ToDo, Deadline, Storage, and Ui classes to perform various operations
+ * such as listing tasks, marking tasks as done, adding tasks, deleting tasks, finding tasks, and exiting the program.
+ *
+ */
 public class Parser {
 
     private static final String LINE_SEPARATOR = "____________________________________________________________";
+
+    /**
+     *
+     * @param tasks arraylist of tasks
+     * @param index number of tasks in arraylist tasks
+     * @throws IOException If an I/O exception occurs during file handling.
+     */
     public static void handleUserInput(ArrayList<Task> tasks, int index) throws IOException {
         boolean isFinished = false; //isFinished will be true if user types in bye and the program is finished and terminates
 
