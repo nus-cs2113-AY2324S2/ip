@@ -14,7 +14,7 @@ public class Deadline extends Task {
      * @param isMarked Whether the task is marked or not.
      */
     public Deadline (String taskName, String by, boolean isMarked) {
-        super("D",taskName, isMarked);
+        super("D", taskName, isMarked);
         this.by = by;
     }
 

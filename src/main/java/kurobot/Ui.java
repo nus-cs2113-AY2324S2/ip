@@ -58,7 +58,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
         for (Task task : tasks){
-            System.out.println(tasks.indexOf(task)+1 + "." + task.printTask());
+            System.out.println(tasks.indexOf(task) + 1 + "." + task.printTask());
         }
         System.out.println(LINE);
     }

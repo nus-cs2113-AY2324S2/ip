@@ -182,7 +182,7 @@ public class TaskList {
             display.printFoundTasks();
             for (Task task : tasks) {
                 if (task.getTaskName().contains(taskName)) {
-                    System.out.println(count+ "." + task.printTask());
+                    System.out.println(count + "." + task.printTask());
                     count++;
                 }
             }

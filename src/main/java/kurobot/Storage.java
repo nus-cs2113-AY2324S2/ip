@@ -14,6 +14,9 @@ public class Storage {
 
     private ArrayList<Task> oldTasks;
     private int taskNum = 0;
+    private final int START_OF_TASK_TYPE = 3;
+    private final int START_OF_MARKING = 6;
+    private final int START_OF_CONTENT = 9;
 
     public Storage() {
         oldTasks = new ArrayList<>();
@@ -35,9 +38,9 @@ public class Storage {
                 Scanner scan = new Scanner(file); // create a Scanner using the File as the source
                 while (scan.hasNext()) {
                     String content = scan.nextLine();
-                    char taskType = content.charAt(3);
-                    char markStatus = content.charAt(6);
-                    String taskDetails = content.substring(9);
+                    char taskType = content.charAt(START_OF_TASK_TYPE);
+                    char markStatus = content.charAt(START_OF_MARKING);
+                    String taskDetails = content.substring(START_OF_CONTENT);
                     switch (Character.toString(taskType)){
                     case "T":
                         addPreviousTodo(taskDetails, markStatus);
@@ -91,7 +94,7 @@ public class Storage {
         String[] phrases = details.split("\\(");
         String taskName = phrases[0];
         String by = phrases[1];
-        String deadline = by.substring(by.indexOf(" ")+1, by.indexOf(")"));
+        String deadline = by.substring(by.indexOf(" ") + 1, by.indexOf(")"));
         Deadline task;
         if (Character.toString(mark).equals("X")) {
             task = new Deadline(taskName, deadline, true);
@@ -114,7 +117,7 @@ public class Storage {
         String taskName = phrases[0];
         String[] periods = phrases[1].split(" to: ");
         String from = periods[0];
-        String to = periods[1].substring(0,periods[1].length()-1);
+        String to = periods[1].substring(0,periods[1].length() - 1);
         Event task;
         if (Character.toString(mark).equals("X")) {
             task = new Event(taskName, from, to, true);
@@ -134,7 +137,7 @@ public class Storage {
     public void writeToFile(ArrayList<Task> newTasks) throws IOException {
         FileWriter fw = new FileWriter("./data/prevData.txt");
         for (Task task : newTasks){
-            fw.write(newTasks.indexOf(task)+1 + "." + task.printTask() + System.lineSeparator());
+            fw.write(newTasks.indexOf(task) + 1 + "." + task.printTask() + System.lineSeparator());
         }
         fw.close();
     }

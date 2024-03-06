@@ -65,6 +65,6 @@ public class Task {
     }
 
     public String printTask() {
-        return "[" + this.taskType+ "][" +markStatus()+ "] " + this.taskName;
+        return "[" + this.taskType + "][" + markStatus() + "] " + this.taskName;
     }
 }
