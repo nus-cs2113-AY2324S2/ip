@@ -1,0 +1,14 @@
+task1
+todo task2
+list
+mark 2
+list
+unmark 2
+list
+deadline assignment1 /by sunday
+list
+event party /from 2pm /to 6pm
+list
+mark 4
+list
+bye
