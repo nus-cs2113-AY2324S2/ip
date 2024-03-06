@@ -27,15 +27,9 @@ public class Ui {
     }
 
     public void showTaskList(TaskList taskList) {
-        int label = 1;
-
         System.out.print(HORIZONTAL_LINE);
         System.out.println("These are the tasks in your list:");
-        for (Task task : taskList.getTasks()) {
-            System.out.print(label + ".");
-            System.out.println(task);
-            label++;
-        }
+        taskList.printTasks();
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -68,6 +62,17 @@ public class Ui {
                 "\t" + removedTask + "\n" + remainingTasks);
     }
 
+    public void showFindResult(TaskList taskList, String query) {
+        System.out.print(HORIZONTAL_LINE);
+        if (taskList.getListLength() >= 1) {
+            System.out.println("I found these tasks that match the keyword \"" + query + "\"");
+            taskList.printTasks();
+        } else {
+            System.out.println("No tasks were found with the keyword \"" + query + "\"");
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public void sayGoodbye() {
         printMessage("Goodbye, see you next time! (◠‿◠)");
     }
@@ -78,7 +83,7 @@ public class Ui {
     }
 
     public void showIllegalDescriptionErr() {
-        printMessage("Hey your task description is empty (ಠ_ಠ)");
+        printMessage("Hey your description is empty (ಠ_ಠ)");
     }
 
     public void showIOExceptionErr() {
