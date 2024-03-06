@@ -32,6 +32,22 @@ public class List {
         printLine();
     }
 
+    public static void deleteTask(String userInput) {
+        String taskNum = userInput.substring("delete ".length()).trim();
+        int num = Integer.parseInt(taskNum);
+        Task deletedTask = tasks.get(num - 1);
+        tasks.remove(num - 1);
+        if (tasks.size() == 0) {
+            System.out.println("okie task removed!!");
+            System.out.println(deletedTask);
+            System.out.println("there's no more tasks in the list.. please add new tasks below :)");
+        } else {
+            System.out.println("okie task removed!!");
+            System.out.println(deletedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        }
+
+    }
     public static void manageToDo(String userInput) throws YojException{
         String description = userInput.substring("todo".length()).trim();
         if (description.isEmpty()) {
@@ -76,14 +92,21 @@ public class List {
             System.out.println("  [ ] " + tasks.get(index - 1).getDescription());
         } else if(userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
             addTask(userInput);
-        } else if (userInput.equals("bye")){
+        } else if(userInput.startsWith("delete")) {
+            deleteTask(userInput);
+        } else if(userInput.equals("bye")){
             System.out.println("bye bye!! hope to see u soon :)");
         } else throw new InvalidCommandException("command not recognised :<");
     }
 
     public static void printList() {
-        for(int i = 0; i < tasks.size(); i++) {
-            System.out.println(i+1 + ". " + tasks.get(i).toString());
+        if (tasks.size() == 0) {
+            System.out.println("the list is currently empty...");
+            System.out.println("add your tasks below :)");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + ". " + tasks.get(i).toString());
+            }
         }
     }
 }
