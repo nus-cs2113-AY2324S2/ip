@@ -34,9 +34,9 @@ public class Parser {
             }
         } else if (userInput.startsWith("delete")) {
             return new RemoveTaskCommand(Integer.parseInt(userInput.split(" ")[1]) - 1);
-        } else if (userInput.startsWith("search")) {
-            if (userInput.trim().length() > 7) {
-                String keyword = userInput.substring(7).trim();
+        } else if (userInput.startsWith("find")) {
+            if (userInput.trim().length() > 5) {
+                String keyword = userInput.substring(5).trim();
                 return new SearchCommand(keyword);
             }
         }
