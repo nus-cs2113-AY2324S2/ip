@@ -2,6 +2,7 @@ package cody.parser;
 
 import cody.TaskList;
 import cody.CodyException;
+import cody.ui.Ui;
 
 /**
  * The Parser class is responsible for parsing user input and executing the corresponding commands.
@@ -32,6 +33,8 @@ public class Parser {
                 return taskList.handleMarking(command, Integer.parseInt(argument));
             case "find":
                 return taskList.findTask(argument);
+            case "help":
+                return Ui.HELP_MESSAGE;
             default:
                 return taskList.addTask(input);
             }

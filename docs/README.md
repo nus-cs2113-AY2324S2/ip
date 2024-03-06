@@ -5,9 +5,9 @@ Cody is a CLI (Command Line Interface) chatbot application that helps you manage
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed on your computer.
-2. Download the latest `cody.jar` from the [releases page](https://github.com/hafizuddin-a/ip/releases).
+2. Download the latest `ip.jar` from the [releases page](https://github.com/hafizuddin-a/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for Cody.
-4. Open a command terminal, navigate to the folder containing `cody.jar`, and run the command `java -jar cody.jar` to start the application.
+4. Open a command terminal, navigate to the folder containing `ip.jar`, and run the command `java -jar ip.jar` to start the application.
 
 ## Features
 
