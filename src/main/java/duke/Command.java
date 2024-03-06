@@ -74,4 +74,18 @@ public class Command {
         list.remove(list.get(indexToRemove));
         stringList.remove(stringList.get(indexToRemove));
     }
+
+    public static void find(String input, ArrayList<Task> list) {
+        boolean isFound = false;
+        String[] splitInput = input.split(" ");
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getDescription().contains(splitInput[1])) {
+                isFound = true;
+                System.out.println(list.get(i));
+            }
+        }
+        if (!isFound) {
+            System.out.println("No such keyword exists");
+        }
+    }
 }

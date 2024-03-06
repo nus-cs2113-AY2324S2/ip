@@ -15,7 +15,6 @@ public class Duke {
     public static void main(String[] args) {
         String input = "Start";
         Scanner in = new Scanner(System.in);
-        //System.out.println("Working Directory = " + System.getProperty("user.dir") + "\n");
         System.out.println(MoodSprite.getIdle() + "Hello, Im Pythia, how may I help you today?\n"+ MoodSprite.getLineBreak());
         parser.tryRetrieveList();
         while (!input.equals("bye")) {
