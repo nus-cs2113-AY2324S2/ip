@@ -39,6 +39,7 @@ public class DeadlineTask extends Task {
         deadline = argument.substring(index + 4);
         // check if deadline is a date
         deadlineLocalDate = isValidDate(deadline);
+        System.out.println("After assign: " + this.deadlineLocalDate);
         return argument.substring(0, index - 1);
     }
 
@@ -53,8 +54,6 @@ public class DeadlineTask extends Task {
     public LocalDate isValidDate(String s) {
         try {
             LocalDate d1 = LocalDate.parse(s);
-            System.out.println("Date: " + d1);
-            d1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             return d1;
         } catch (DateTimeParseException e) {
             System.out.println("Not valid date");
@@ -71,7 +70,7 @@ public class DeadlineTask extends Task {
      */
     public String getDeadline() {
         if (deadlineLocalDate != null) {
-            return deadlineLocalDate.toString();
+            return deadlineLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
             return deadline;
         }

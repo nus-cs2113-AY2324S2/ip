@@ -21,7 +21,7 @@ public class TasksList {
     public void addTask(Task t) {
         this.noOfTasks++;
         this.list.add(t);
-        System.out.println("Hai ~ your todo have been added successfully");
+        System.out.println("Hai ~ your task have been added successfully");
         System.out.print("    ");
         t.printTask();
         System.out.println("You have " + this.noOfTasks + " tasks remaining");
