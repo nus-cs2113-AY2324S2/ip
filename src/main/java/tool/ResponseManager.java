@@ -1,5 +1,7 @@
 package tool;
 
+import command.CommandType;
+
 public class ResponseManager {
     private static final String LOGO =
             "███████╗██╗   ██╗██╗  ██╗███████╗\n" +
@@ -48,6 +50,24 @@ public class ResponseManager {
             "Here are the matching tasks in your list:\n";
     public static final String DATE_FORMAT_ERROR =
             "Please follow the date format: dd/MM/yyyy HHmm\n";
+    public static final String HELP_MESSAGE =
+            "\n======================ZUKE   MANUAL====================\n" +
+            "ADD TODO TASK:                         todo <task name>\n" +
+            "ADD DEADLINE TASK:      deadline <task name> /by <date>\n" +
+            "ADD EVENT TASK:            event <task name> /at <date>\n" +
+            "LIST ALL TASKS:                                    list\n" +
+            "MARK/UNMARK A TASKS:          mark/unmark <task number>\n" +
+            "DELETE A TASK:                     delete <task number>\n" +
+            "FIND WITH WORD:                       find /w <keyword>\n" +
+            "FIND WITH TIME:                          find /t <date>\n" +
+            "EXIT:                                               bye\n" +
+            "=======================================================\n";
+    public static final String EMPTY_LIST_MSG =
+            "OOPS your task list is still empty, pls add some tasks\n";
+    public static final String DELETE_EMPTY_LIST_MSG =
+            "OOPS seems like there's nothing to delete\n";
+    public static final String MARKED_TASK_MSG = "This task is already marked\n";
+    public static final String UNMARKED_TASK_MSG = "This task is already unmarked\n";
 
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
@@ -73,26 +93,36 @@ public class ResponseManager {
                 messageToPrint + END_LINE);
     }
 
+    public static void sendHelpMessage() {
+        indentPrint(HELP_MESSAGE);
+    }
+
+    public static void sendEmptyListMsg() {
+        indentPrint(EMPTY_LIST_MSG);
+    }
+
     /**
-     * Prints the action on done by the Zukebot to the user bases on the action
+     * Prints the action on done by the Zuke chatbot to the user bases on the action
      * @param action the action that has performed on the tasks
      * @param msgTobePrinted the message to be printed
      */
-    public static void printActionOnTasks(String action, String msgTobePrinted) {
+    public static void printActionOnTasks(CommandType action, String msgTobePrinted) {
         switch(action) {
-        case "mark":
+        case MARK:
             indentPrint(MARKED_MESSAGE + " " + msgTobePrinted + END_LINE);
             break;
 
-        case "unmark":
+        case UNMARK:
             indentPrint(UNMARKED_MESSAGE + " " + msgTobePrinted + END_LINE);
             break;
 
-        case "delete":
+        case DELETE:
             indentPrint(DELETE_MESSAGE + " " + msgTobePrinted + END_LINE);
+            break;
 
-        case "find":
+        case FIND:
             indentPrint(FIND_MESSAGE + msgTobePrinted + END_LINE);
+            break;
 
         default:
             break;

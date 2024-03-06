@@ -30,6 +30,9 @@ public class CommandFactory {
         case DELETE:
             return new DeleteCommand(Integer.parseInt(decodedInformation[0]));
 
+        case HELP:
+            return new HelpCommand();
+
         case MARK:
         case UNMARK:
             return new MarkUnmarkCommand(type,

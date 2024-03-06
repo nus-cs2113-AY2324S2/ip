@@ -7,12 +7,17 @@ public class ListCommand implements Command {
     /**
      * {@inheritDoc}
      * 
-     * Lists all the tasks in the task list to the user
+     * Lists all the tasks in the task list to the user,
+     * or sends an empty list message if the task list is empty.
      * @param tasks the task list
      */
     @Override
     public void run(TaskList tasks) {
-        ResponseManager.listTaskToUser(tasks.listTasks());
+        if (tasks.getSize() == 0) {
+            ResponseManager.sendEmptyListMsg();
+        } else {
+            ResponseManager.listTaskToUser(tasks.listTasks());
+        }
     }
 
     @Override

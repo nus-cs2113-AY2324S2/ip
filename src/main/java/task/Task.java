@@ -40,6 +40,10 @@ public abstract class Task implements Serializable {
     }
 
     public abstract String toSave();
+
+    public boolean isMarked() {
+        return isDone;
+    }
     @Override
     public String toString() {
         String status = isDone ? DONE : IN_PROGRESS;

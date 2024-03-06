@@ -21,10 +21,13 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void run(TaskList tasks) throws InputException {
+        if (tasks.getSize() == 0) {
+            throw new InputException(ResponseManager.DELETE_EMPTY_LIST_MSG);
+        }
         String response = tasks.getPosAt(taskIndex).toString();
         tasks.deleteTaskAt(taskIndex);
         response = response + "\n" + tasks;
-        ResponseManager.printActionOnTasks(taskType.getType(), response);
+        ResponseManager.printActionOnTasks(taskType, response);
     }
 
     @Override

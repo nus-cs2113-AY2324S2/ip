@@ -24,17 +24,23 @@ public class MarkUnmarkCommand implements Command {
     public void run(TaskList tasks) throws InputException {
         switch (taskType) {
         case MARK:
+            if (tasks.getPosAt(taskIndex).isMarked()) {
+                throw new InputException(ResponseManager.MARKED_TASK_MSG);
+            }
             tasks.markTask(taskIndex);
             break;
 
         case UNMARK:
+            if (tasks.getPosAt(taskIndex).isMarked()) {
+                throw new InputException(ResponseManager.UNMARKED_TASK_MSG);
+            }
             tasks.unmarkTask(taskIndex);
             break;
 
         default:
             break;
         }
-        ResponseManager.printActionOnTasks(taskType.getType(),
+        ResponseManager.printActionOnTasks(taskType,
                 tasks.getPosAt(taskIndex).toString());
     }
 

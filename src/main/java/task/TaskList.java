@@ -110,7 +110,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Finds a task constains the stated keyword in the task list
+     * Finds a task contains the stated keyword in the task list
      * @param keyword the keyword to be searched for
      * @return a string containing the tasks that contain the keyword
      */

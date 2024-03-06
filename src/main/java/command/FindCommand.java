@@ -29,13 +29,17 @@ public class FindCommand implements Command {
      * @param tasks the task list
      */
     public void run(TaskList tasks) {
+        if (tasks.getSize() == 0) {
+            ResponseManager.sendEmptyListMsg();
+            return;
+        }
         switch (type) {
         case FIND_TIME:
-            ResponseManager.printActionOnTasks("find", tasks.findTime(keyword));
+            ResponseManager.printActionOnTasks(CommandType.FIND, tasks.findTime(keyword));
             break;
 
         case FIND_WORD:
-            ResponseManager.printActionOnTasks("find", tasks.findTask(keyword));
+            ResponseManager.printActionOnTasks(CommandType.FIND, tasks.findTask(keyword));
             break;
 
         default:
