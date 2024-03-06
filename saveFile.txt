@@ -1,4 +1,6 @@
 1. [T][1] item2
-2. [T][0] item4
-3. [T][1] item5
-4. [D][0] item6 (by: sfadsfs)
+2. [T][0] item5
+3. [D][1] item6 (by: sfadsfs)
+4. [T][0] item2
+5. [T][1] item6
+6. [D][0] item7 (by: efs)

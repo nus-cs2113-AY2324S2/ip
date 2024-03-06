@@ -4,27 +4,20 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Ui {
-    ;
+
+    /**
+     * Reads user input
+     */
     public static void readInput(TaskList tasks, String FILE_PATH) {
         Scanner in = new Scanner(System.in);
-
-        boolean isReadMode = true; // in reading mode
-
-        try {
-            Storage.readFile(FILE_PATH, tasks, isReadMode);
-        } catch (InvalidParamsException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-
-
-        isReadMode = false; // switch to writing mode
         boolean isRun = true;
+
         while (isRun) {
             printLine();
             String line = in.nextLine(); // reads input
             // process input
             try {
+                boolean isReadMode = false;
                 isRun = Parser.processUserInput(tasks, line, FILE_PATH, isReadMode);
             } catch (InvalidParamsException e) {
                 showLoadingError(e.getMessage()); // prints out error message

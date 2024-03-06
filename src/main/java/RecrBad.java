@@ -1,3 +1,5 @@
+import helperFunctions.InvalidParamsException;
+import helperFunctions.Storage;
 import helperFunctions.TaskList;
 import helperFunctions.Ui;
 
@@ -6,6 +8,14 @@ public class RecrBad { //TODO more OOP
     public RecrBad(String FILE_PATH) {
         tasks = new TaskList();
         Ui.sayHi();
+
+        try {
+            Storage.readFile(FILE_PATH, tasks);
+        } catch (InvalidParamsException e) {
+            Ui.showLoadingError(e.getMessage());
+            return;
+        }
+
         Ui.readInput(tasks, FILE_PATH);
     }
 
