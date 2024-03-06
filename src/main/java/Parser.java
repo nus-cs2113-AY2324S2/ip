@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Parser {
     public static boolean parseCommand(String command, boolean isRestore) throws IOException {
@@ -17,7 +18,7 @@ public class Parser {
             TaskList.deleteTask(splitCommand[1]);
             break;
         case "list":
-            TaskList.printAllTasks();
+            Ui.printTasks(TaskList.tasks);
             break;
         case "todo":
             //fallthrough
@@ -31,6 +32,10 @@ public class Parser {
             if (!isRestore) {
                 Storage.writeToFile(command);
             }
+            break;
+        case "find":
+            ArrayList<Task> tasks = TaskList.findTasks(splitCommand[1]);
+            Ui.printTasks(tasks);
             break;
         default:
             System.out.println("Invalid command, please try again: ");

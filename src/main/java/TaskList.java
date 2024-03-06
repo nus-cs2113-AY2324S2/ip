@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
+    private static int OFFSET = -1; //converts from 1-indexing to 0-indexing
     protected static final ArrayList<Task> tasks = new ArrayList<>();
 
     public int getTaskListSize() {
@@ -26,12 +27,8 @@ public class TaskList {
     }
 
 
-    public Task getTask(int index) {
-        return tasks.get(index);
-    }
-
     public static void deleteTask(String ind) throws IOException {
-        int index = Integer.parseInt(ind);
+        int index = Integer.parseInt(ind) + OFFSET;
         System.out.println("Task Deleted: " + tasks.get(index));
         tasks.remove(index);
         Storage.overwriteFile();
@@ -39,12 +36,12 @@ public class TaskList {
 
 
     public static void markTask(String ind) {
-        int index = Integer.parseInt(ind);
+        int index = Integer.parseInt(ind) + OFFSET;
         tasks.get(index).setDone(true);
     }
 
     public static void unmarkTask(String ind) {
-        int index = Integer.parseInt(ind);
+        int index = Integer.parseInt(ind) + OFFSET;
         tasks.get(index).setDone(false);
     }
 
@@ -52,6 +49,18 @@ public class TaskList {
         for (Task t: tasks) {
             t.printTask();
         }
+    }
+
+    public static ArrayList<Task> findTasks(String query) {
+        ArrayList<Task> results = new ArrayList<>();
+
+       for (Task t: tasks) {
+           if (t.description.contains(query)) {
+               results.add(t);
+           }
+       }
+
+       return results;
     }
 
 }

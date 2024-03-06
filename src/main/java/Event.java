@@ -9,8 +9,8 @@ public class Event extends Task {
 
     public static Event addEvent(String task) {
         String[] taskSplit = task.split("/");
-        String eventStart = taskSplit[1].replace("from", "").trim();
-        String eventEnd = taskSplit[2].replace("to", "").trim();
+        String eventStart = taskSplit[1].replaceFirst("from", "").trim();
+        String eventEnd = taskSplit[2].replaceFirst("to", "").trim();
         return new Event(taskSplit[0].trim(), eventStart, eventEnd);
     }
     @Override
