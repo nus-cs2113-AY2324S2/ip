@@ -6,25 +6,30 @@ public class Deadline extends Task {
     /** The deadline associated of the task. */
     protected String by;
 
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
     /**
      * Constructs a Deadline object with the specified description and deadline.
      *
      * @param description The description of the deadline task.
      * @param by The deadline information associated with the task.
      */
-    public String getBy() {
-        return by;
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
     }
 
     /**
      * Retrieves the deadline information associated with the task.
      *
      * @return The deadline information.
+     */
+    public String getBy() {
+        return by;
+    }
+
+    /**
+     * Generates a string representation of the Deadline task, including its specialized status icon and deadline information.
+     *
+     * @return A formatted string representing the Deadline task.
      */
     @Override
     public String toString() {
