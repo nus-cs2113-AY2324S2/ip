@@ -8,11 +8,8 @@ import exception.AdamException;
 import task.TaskList;
 import ui.Message;
 
-/*
- * Storage class is responsible for saving and loading tasks from the local data file.
- */
 /**
- * The Storage class handles the saving and loading of tasks to/from a file.
+ * The Storage class handles the saving and loading of tasks to/from a local data file.
  */
 public class Storage {
     private static final String TASKS_FILE_PATH = "tasks.dat";
@@ -32,7 +29,9 @@ public class Storage {
     }
 
     /**
-     * Loads the TaskList from a file.
+     * Loads the TaskList from a file.<br>
+     * If the file does not exist, a new TaskList is returned.<br>
+     * If the file exists but is corrupted, an empty TaskList is returned.
      *
      * @return The loaded TaskList.
      * @throws AdamException If there is an error loading the file.

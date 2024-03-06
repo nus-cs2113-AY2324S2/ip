@@ -23,7 +23,7 @@ With its intuitive Command Line Interface (CLI), Adam offers a seamless and effi
 This user guide provides a comprehensive overview of Adam's features and commands, as well as a quick start guide to get you up and running in no time.
 
 ## Quick Start
-> 1. Ensure you have Java `11` or above installed in your Computer.
+> 1. Ensure you have `Java 11` or above installed in your Computer.
 > 2. Download the latest `adam.jar` from [here](https://github.com/adamzzq/ip/releases/download/A-UserGuide/adam.jar)
 > 3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
 > 4. Start a terminal and navigate to the folder where `adam.jar` is located.
