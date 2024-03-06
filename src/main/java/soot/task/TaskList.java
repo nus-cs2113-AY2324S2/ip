@@ -19,7 +19,6 @@ public class TaskList {
      * Print all tasks stored in the list in a list format,
      * if the list is empty, user will be informed.
      */
-    //TODO: implement stream?
     public static void printList() {
         System.out.println("tasks to be done:");
         if (taskList.isEmpty()) {
@@ -30,17 +29,9 @@ public class TaskList {
                 Task currentTask = TaskList.taskList.get(i);
                 currentTask.printTaskInListFormat(i + 1);
             }
-            printTaskListCount();
+            UserUi.printTaskCount();
         }
         UserUi.displayDividerLine();
-    }
-
-    /**
-     * Prints to the terminal the number of tasks the user currently has in the task list.
-     */
-    public static void printTaskListCount() {
-        int taskCount = TaskList.getSize();
-        System.out.println("you currently have " + taskCount + " tasks on your list :)");
     }
 
     /**
@@ -72,7 +63,6 @@ public class TaskList {
      *
      * @param userInput details of the todo task as given by the user.
      */
-    //TODO: clean up add task methods
     public static void addTodoTask(String userInput) {
         String todoTaskName = userInput.substring(5);
         taskList.add(new Todo(todoTaskName, false));

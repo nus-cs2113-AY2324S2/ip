@@ -53,11 +53,12 @@ public class UserUi {
     }
 
     /**
-     * Display the count of the task list in the terminal for the user.
+     * Prints the size of the TaskList to indicate the number of tasks in the list,
+     * in the required format.
      */
-    public static void showTaskListCount() {
+    public static void printTaskCount() {
         int taskCount = TaskList.getSize();
-        System.out.println("you currently have " + taskCount + " tasks on your list :)");
+        System.out.println("you currently have a total of " + taskCount + " tasks in your list :)");
     }
 
     /**

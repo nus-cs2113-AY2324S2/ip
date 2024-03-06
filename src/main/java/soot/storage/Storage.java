@@ -67,7 +67,6 @@ public class Storage {
      *
      * @param line string that contains only one line of the saved file, and thus one task.
      */
-    // TODO: create a getTaskDescription method
     public static void loadOneSavedTask(String line) {
         try {
             String[] savedTaskInfo = line.split(" ; ", 0);

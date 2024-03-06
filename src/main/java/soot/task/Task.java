@@ -5,7 +5,6 @@ import soot.exceptions.SavedFileErrorTypeException;
 /**
  * Class Task has 3 members: taskName, isDone and taskType.
  */
-// TODO: make class abstract
 public class Task {
     public String taskName;
     public boolean isDone;
@@ -94,15 +93,6 @@ public class Task {
         System.out.print(" >> ");
         printTaskType();
         printCheckbox();
-    }
-
-    /**
-     * Prints the size of the TaskList to indicate the number of tasks in the list,
-     * in the required format.
-     */
-    public void printTaskCount() {
-        int taskCount = TaskList.getSize();
-        System.out.println("you now have " + taskCount + " tasks left...");
     }
 
     public void printTaskType() {

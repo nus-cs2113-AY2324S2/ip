@@ -1,5 +1,7 @@
 package soot.task;
 
+import soot.ui.UserUi;
+
 /**
  * Class Deadline is an inherited class of Class Task.
  * It is a type of task with 4 members: taskName, isDone, taskType and dueDate.
@@ -29,7 +31,7 @@ public class Deadline extends Task {
     public void printRespondWhenDeleteTask() {
         super.printRespondWhenDeleteTask();
         System.out.println(" " + this.taskName + " (by: " + dueDate + "!)");
-        super.printTaskCount();
+        UserUi.printTaskCount();
     }
 
     /**
@@ -40,7 +42,7 @@ public class Deadline extends Task {
     public void printRespondWhenAddTask() {
         super.printRespondWhenAddTask();
         System.out.println(" " + this.taskName + " (by: " + dueDate + "!)");
-        super.printTaskCount();
+        UserUi.printTaskCount();
     }
 
     /**

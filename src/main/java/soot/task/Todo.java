@@ -1,5 +1,7 @@
 package soot.task;
 
+import soot.ui.UserUi;
+
 /**
  * Class Todo is an inherited class of Class Task.
  * It is a type of task with 3 members: taskName, isDone and taskType.
@@ -25,7 +27,7 @@ public class Todo extends Task {
     public void printRespondWhenDeleteTask() {
         super.printRespondWhenDeleteTask();
         System.out.println(" " + this.taskName);
-        printTaskCount();
+        UserUi.printTaskCount();
     }
 
     /**
@@ -36,7 +38,7 @@ public class Todo extends Task {
     public void printRespondWhenAddTask() {
         super.printRespondWhenAddTask();
         System.out.println(" " + this.taskName);
-        printTaskCount();
+        UserUi.printTaskCount();
     }
 
     /**

@@ -1,5 +1,7 @@
 package soot.task;
 
+import soot.ui.UserUi;
+
 /**
  * Class Event is an inherited class of Class Task.
  * It is a type of task with 5 members: taskName, isDone, taskType, startDate and endDate.
@@ -32,7 +34,7 @@ public class Event extends Task {
     public void printRespondWhenDeleteTask() {
         super.printRespondWhenDeleteTask();
         System.out.println(" " + this.taskName + " (from: " + startDate + " ~~ to: " + endDate + "!)");
-        super.printTaskCount();
+        UserUi.printTaskCount();
     }
 
     /**
@@ -43,7 +45,7 @@ public class Event extends Task {
     public void printRespondWhenAddTask() {
         super.printRespondWhenAddTask();
         System.out.println(" " + this.taskName + " (from: " + startDate + " ~~ to: " + endDate + "!)");
-        super.printTaskCount();
+        UserUi.printTaskCount();
     }
 
     /**
