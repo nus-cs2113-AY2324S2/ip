@@ -50,6 +50,11 @@ public class Command {
                 deleteTask(tasks.getAllTasks(), args);
                 Storage.saveTasks(tasks.getSize(), tasks.getAllTasks());
                 break;
+            case FIND:
+                if (args.length < 1) {
+                    throw new StringIndexOutOfBoundsException();
+                }
+                findTask(tasks.getAllTasks(), args);
             case BYE:
                 break;
             default:
@@ -59,6 +64,24 @@ public class Command {
             MavisException.handleException(e, type.name());
         }
     }
+
+    private static void findTask(ArrayList<Task> listOfTasks, String[] args) {
+        String joinedArgs = String.join(" ", args);
+        boolean taskFound = false;
+        Ui.showDividerLine();
+        System.out.println("Searching the annals of time for tasks matching your query...");
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            if (listOfTasks.get(i).description.startsWith(joinedArgs)) {
+                taskFound = true;
+                Ui.listTask(i, listOfTasks.get(i));
+            }
+        }
+        if (!taskFound) {
+            System.out.println("No tasks found matching your query. The sands of time remain undisturbed.");
+        }
+        Ui.showDividerLine();
+    }
+
 
     public boolean isExit() {
         return type == CommandType.BYE;
