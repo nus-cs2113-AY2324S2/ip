@@ -47,7 +47,7 @@ public class Winter {
 
     public static void main(String[] args) {
 
-        new Winter("data/winter.txt").run();
+        new Winter("winter.txt").run();
     }
 
 

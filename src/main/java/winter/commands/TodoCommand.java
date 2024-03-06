@@ -32,7 +32,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        Task newTodo = new Todo(tasks.getCurrentTaskIndex() + 1,false, todo);
+        Task newTodo = new Todo(tasks.getCurrentTaskIndex(),false, todo);
         tasks.addNewTask(newTodo);
         //tasks.increaseLastTaskIndex();
         ui.showTaskAddedConfirm(tasks,newTodo);

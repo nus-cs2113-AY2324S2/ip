@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        Task newDeadline = new Deadline(tasks.getCurrentTaskIndex() + 1, false, deadlineName,deadlineTime);
+        Task newDeadline = new Deadline(tasks.getCurrentTaskIndex(), false, deadlineName,deadlineTime);
         tasks.addNewTask(newDeadline);
         //tasks.increaseLastTaskIndex();
         ui.showTaskAddedConfirm(tasks,newDeadline);

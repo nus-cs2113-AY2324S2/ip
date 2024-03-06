@@ -33,20 +33,7 @@ public class ListCommand extends Command {
         for (Task task : tasks) {
             ui.showIndent();
             System.out.println((task.getOrder() + 1) + "." + task);
-            /*switch (task.getType()) {
-            case "D":
-                System.out.println((task.getOrder() + 1)  + ". [D] " + task.getDoneCheckbox() + " "
-                        + task.getTaskName() + " (by: " + task.getEndTime() + ")");
-                break;
-            case "E":
-                System.out.println((task.getOrder() + 1) + ". [E] " + task.getDoneCheckbox() + " "
-                        + task.getTaskName() + " (from: " + task.getStartTime()
-                        + " to: " + task.getEndTime() + ")");
-                break;
-            default:
-                System.out.println((task.getOrder() + 1) + ". [T]" + task.getDoneCheckbox() + " "
-                        + task.getTaskName());
-            }*/
+
         }
         //ui.showLine();
     }

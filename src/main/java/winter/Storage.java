@@ -25,6 +25,8 @@ public class Storage {
 
         } catch (IOException e) {
             System.out.println("There's no file in storage!");
+            File winterFile = new File("winter.txt");
+            filePath = winterFile.getPath();
         }
     }
 
@@ -66,6 +68,7 @@ public class Storage {
 
                 break;
             default:
+                break;
             }
 
         }

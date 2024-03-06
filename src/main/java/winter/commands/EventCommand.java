@@ -35,7 +35,7 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
-        Task newEvent = new Event(tasks.getCurrentTaskIndex()+1, false, eventName, startTime,endTime);
+        Task newEvent = new Event(tasks.getCurrentTaskIndex(), false, eventName, startTime,endTime);
         tasks.addNewTask(newEvent);
         //tasks.increaseLastTaskIndex();
         ui.showTaskAddedConfirm(tasks,newEvent);

@@ -13,12 +13,12 @@ public class TaskList {
     private static int currentTaskIndex;
     private static ArrayList<Task> taskList;
     public TaskList() {
-        currentTaskIndex = 0;
         taskList = new ArrayList<>();
+        currentTaskIndex = 0;
     }
 
     public TaskList(ArrayList<Task> taskArrayList) {
-        currentTaskIndex = taskArrayList.size()-1;
+        currentTaskIndex = taskArrayList.size();
         taskList = taskArrayList;
     }
 

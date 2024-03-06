@@ -88,7 +88,7 @@ public class UI {
         System.out.println("Awesome! I've added this task!");
         System.out.println(newTask);
         showIndent();
-        System.out.println("Now, you have " + (tasks.getCurrentTaskIndex() + 1) + " tasks in your list.");
+        System.out.println("Now, you have " + (tasks.getCurrentTaskIndex() + " tasks in your list."));
         showLine();
     }
 
