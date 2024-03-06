@@ -6,6 +6,7 @@ public enum CommandType {
     MARK,
     UNMARK,
     DELETE,
+    FIND,
     BYE;
 
     public static CommandType fromString(String str) {
@@ -25,6 +26,8 @@ public enum CommandType {
                 return UNMARK;
             case "delete":
                 return DELETE;
+            case "find":
+                return FIND;
             case "bye":
                 return BYE;
             default:
