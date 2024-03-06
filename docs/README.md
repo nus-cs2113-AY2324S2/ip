@@ -106,7 +106,7 @@ Expected outcome:
     ____________________________________________________
    ```
 
-### 6. Unmark a task in task list: `mark`
+### 6. Unmark a task in task list: `unmark`
 Unmarks the selected task shown in the current task list.<br>
 * Format: `unmark NUMBER`.<br>
   Example of usage: `unmark 2`.<br>
@@ -119,20 +119,7 @@ Expected outcome:
     ____________________________________________________
    ```
 
-### 7. Find a task in task list: `mark`
-Unmarks the selected task shown in the current task list.<br>
-* Format: `unmark NUMBER`.<br>
-  Example of usage: `unmark 2`.<br>
-
-Expected outcome:
-   ```
-    ____________________________________________________
-     OK, I've marked this task as not done yet:
-     [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
-    ____________________________________________________
-   ```
-
-### 8. Find a task in task list: `find`
+### 7. Find a task in task list: `find`
 Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
   Example of usage: `find GDP2021`.<br>
@@ -146,7 +133,7 @@ Expected outcome:
     ____________________________________________________
    ```
 
-### 9. Delete a task in task list: `delete`
+### 8. Delete a task in task list: `delete`
 Deletes the selected task shown in the current task list.<br>
 * Format: `delete NUMBER`.<br>
   Example of usage: `delete 1`.<br>
@@ -159,7 +146,7 @@ Expected outcome:
     ____________________________________________________
    ```
 
-### 10. Find a task in task list: `bye` or `exit`
+### 9. Find a task in task list: `bye` or `exit`
 Exits your program.<br>
 * Format: `bye` or `exit`.<br>
   Example of usage: `bye` or `exit`.<br>
