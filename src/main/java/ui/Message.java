@@ -82,6 +82,7 @@ public class Message {
             + "- mark [task number]: Mark a task as completed.\n"
             + "- unmark [task number]: Mark a completed task as incomplete.\n"
             + "- delete [task number]: Delete a task from the list. (Watch out, it's permanent!)\n"
+            + "- find [keyword]: Search for tasks containing the specified keyword.\n"
             + "- help (or h): Display this help menu.\n\n"
             + "To use a command, simply type it followed by any necessary parameters\n"
             + "(e.g. \"deadline Hand in assignments /by 4th June\").\n"
