@@ -5,6 +5,8 @@ import com.arriky.exception.ErrorMessage;
 import com.arriky.exception.IncorrectArgumentAmountException;
 import com.arriky.task.TaskList;
 
+import java.util.ArrayList;
+
 public class Parser {
     public static boolean parseCommand(String rawCommand, TaskList taskList) throws ArrikyRuntimeException {
         String[] arguments = rawCommand.split(" ");
@@ -26,7 +28,8 @@ public class Parser {
                 if (arguments.length != 1) {
                     throw new IncorrectArgumentAmountException();
                 }
-                UI.listAllTasks(taskList);
+                ArrayList<String> entries = taskList.find("");
+                UI.listAllTasks(entries);
             } catch (IncorrectArgumentAmountException e) {
                 throw new ArrikyRuntimeException(ErrorMessage.INCORRECT_ARGUMENT_AMOUNT_0);
             }
@@ -104,6 +107,19 @@ public class Parser {
                 throw new ArrikyRuntimeException(ErrorMessage.ID_NOT_EXIST);
             } catch (IncorrectArgumentAmountException e) {
                 throw new ArrikyRuntimeException(ErrorMessage.INCORRECT_ARGUMENT_AMOUNT_1);
+            }
+            break;
+
+        case "find":
+            try {
+                if (arguments.length == 1) {
+                    throw new IncorrectArgumentAmountException();
+                }
+                String keywords = rawCommand.substring(5);
+                ArrayList<String> entries = taskList.find(keywords);
+                UI.displayFindResults(entries);
+            } catch (IncorrectArgumentAmountException e) {
+                throw new ArrikyRuntimeException(ErrorMessage.INCORRECT_FIND_ARGUMENT);
             }
             break;
 

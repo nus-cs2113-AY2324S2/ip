@@ -2,6 +2,7 @@ package com.arriky.task;
 import com.arriky.exception.ArrikyRuntimeException;
 import com.arriky.exception.ErrorMessage;
 
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.util.ArrayList;
 public class TaskList {
@@ -19,6 +20,16 @@ public class TaskList {
 
     public String getSummaryByIndex(int index) {
         return tasklist.get(index).getSummary();
+    }
+
+    public ArrayList<String> find(String keywords) {
+        ArrayList<String> results = new ArrayList<String>();
+        for (Task t : tasklist) {
+            if (t.taskName.indexOf(keywords) != -1) {
+                results.add(t.getSummary());
+            }
+        }
+        return results;
     }
 
     public void addToDo(String taskName, boolean isCompleted) {
