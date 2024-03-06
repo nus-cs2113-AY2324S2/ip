@@ -7,3 +7,6 @@ deadline cs2113 /by 3345
 todo homework
 event dinner /from 6pm /to 7pm
 todo sleep
+todo asdadasd
+event safsadw /from asswsas /to ggeas
+deadline fwwsas /by 6

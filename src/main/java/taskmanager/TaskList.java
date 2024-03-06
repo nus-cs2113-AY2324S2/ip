@@ -3,14 +3,26 @@ package taskmanager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handle the conversion of user commands into tasks in the task list
+ */
+
 public class TaskList {
 
-    public static void processUserInputIntoTaskList (String receivedMessage, int taskCounter, Scanner requestedMessage,
+    /**
+     * Detects keywords in the user commands and execute the relevant commands
+     *
+     * @param receivedMessage User command
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     * @param requestedMessage Scanner to take in User Command
+     * @param taskList List to store tasks for the program to use
+     */
+
+    public static ArrayList<Task> processUserInputIntoTaskList (String receivedMessage, int taskCounter, Scanner requestedMessage,
             ArrayList<Task> taskList) {
         if (receivedMessage.trim().equals("list") && taskCounter == 0) { // list is empty
-            Ui.listIsEmptyMessage();
+            Ui.printListIsEmptyMessage();
             receivedMessage = requestedMessage.nextLine();
-            return;
         } else if (receivedMessage.trim().equals("list") && taskCounter > 0) { // list is not empty
             Parser.listIsNotEmpty(taskList, taskCounter);
         } else if (receivedMessage.contains("mark") && !receivedMessage.contains("unmark")) {
@@ -27,7 +39,8 @@ public class TaskList {
         } else if (receivedMessage.contains("delete")) { //user keys in event
             taskCounter = Parser.deleteTask(receivedMessage, taskList, taskCounter);
         } else {
-            Ui.typoErrorMessage();
+            Ui.printTypoErrorMessage();
         }
+        return taskList;
     }
 }
