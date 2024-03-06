@@ -192,4 +192,19 @@ public class Ui {
         System.out.printf("         %s%n",  tasksList.get(taskNumber).toString());
         System.out.println(LINE);
     }
+    public static void displayCommands() {
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║           Available Commands           ║");
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║ 1. list            - Display all tasks ║");
+        System.out.println("║ 2. mark <num>      - Mark task as done ║");
+        System.out.println("║ 3. unmark <num>    - Unmark task       ║");
+        System.out.println("║ 4. deadline <desc> - Add a deadline    ║");
+        System.out.println("║ 5. todo <desc>     - Add a todo        ║");
+        System.out.println("║ 6. event <desc>    - Add an event      ║");
+        System.out.println("║ 7. delete <num>    - Delete a task     ║");
+        System.out.println("║ 8. find <keyword>  - Find tasks        ║");
+        System.out.println("║ 9. bye             - Exit program      ║");
+        System.out.println("╚════════════════════════════════════════╝");
+    }
 }
