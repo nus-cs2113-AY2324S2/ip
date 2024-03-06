@@ -1,6 +1,6 @@
 package Parser;
 
-import Storage.BattchFile;
+import Storage.DukeFile;
 import TaskList.DeleteTask;
 import TaskList.Task;
 import Ui.PrintTask;
@@ -20,7 +20,7 @@ public class Manager {
      * @param tasks Arraylist of tasks stored.
      */
     public static void taskListManager(ArrayList<Task> tasks) {
-        int index = BattchFile.latestIndex();
+        int index = DukeFile.latestIndex();
         boolean isRunning = true;
         while (isRunning) {
             Scanner userInput = new Scanner(System.in);

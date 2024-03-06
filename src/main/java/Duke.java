@@ -3,13 +3,13 @@ import Storage.Storage;
 import TaskList.TaskList;
 import Ui.Ui;
 
-public class Battch {
+public class Duke {
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Battch() {
+    public Duke() {
         parser = new Parser();
         storage = new Storage();
         tasks = new TaskList();
@@ -27,7 +27,7 @@ public class Battch {
     public static void main(String[] args) {
         String botName = "Battch";
 
-        Battch battchBot = new Battch();
-        battchBot.run(args, botName);
+        Duke dukeBot = new Duke();
+        dukeBot.run(args, botName);
     }
 }

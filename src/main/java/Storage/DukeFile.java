@@ -13,11 +13,11 @@ import java.io.IOException;
 /**
  * Represents an add command where a new task is added to the existing list of task.
  * String <code>FILENAME</code> represents the designated relative file path for the file.
- * File <code>battchData</code> represents the File object created to be updated.
+ * File <code>dukeData</code> represents the File object created to be updated.
  */
-public class BattchFile {
-    private static final String FILENAME = "./battchData.txt";
-    private static File battchData;
+public class DukeFile {
+    private static final String FILENAME = "./dukeData.txt";
+    private static File dukeData;
 
     /**
      * Returns lateral location of the specified position.
@@ -64,10 +64,10 @@ public class BattchFile {
     }
 
     /**
-     * Returns the private File battchData.
+     * Returns the private File dukeData.
      */
     public static File getFileData() {
-        return battchData;
+        return dukeData;
     }
 
     /**
@@ -110,9 +110,9 @@ public class BattchFile {
     }
 
     public static void main(String[] args) {
-        battchData = new File(FILENAME);
+        dukeData = new File(FILENAME);
         try {
-            writeToFile(battchData.getPath(), "", true);
+            writeToFile(dukeData.getPath(), "", true);
         } catch (IOException e) {
             PrintText.printWithLinebreak("File does not exist.");
         }

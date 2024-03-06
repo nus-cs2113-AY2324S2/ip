@@ -16,17 +16,17 @@ public class MarkTask {
      *
      * @param userInputWords User input as an array of words.
      * @param tasks Arraylist of tasks stored.
-     * @throws BattchExceptions.InvalidItemException If the index to mark is not
+     * @throws DukeExceptions.InvalidItemException If the index to mark is not
      * a valid index/cannot be converted to an integer.
      * @throws ArrayIndexOutOfBoundsException If the index input is out of the
      * Arraylist's bound.
      */
     public static int findIndexToMark(String[] userInputWords, ArrayList<Task> tasks) throws
-            BattchExceptions.InvalidItemException, ArrayIndexOutOfBoundsException {
+            DukeExceptions.InvalidItemException, ArrayIndexOutOfBoundsException {
         try {
             int testIndex = Integer.parseInt(userInputWords[1]);
         } catch(Exception e) {
-            BattchExceptions.throwInvalidItemException();
+            DukeExceptions.throwInvalidItemException();
         }
         int indexFound = Integer.parseInt(userInputWords[1]);
         if (indexFound > tasks.size() || indexFound < 1) {
@@ -49,7 +49,7 @@ public class MarkTask {
         } catch(ArrayIndexOutOfBoundsException e) {
             PrintText.printWithLinebreak("Index out of range");
             return;
-        } catch(BattchExceptions.InvalidItemException e) {
+        } catch(DukeExceptions.InvalidItemException e) {
             PrintText.printWithLinebreak("Please enter a valid item to mark/unmark.");
             return;
         }

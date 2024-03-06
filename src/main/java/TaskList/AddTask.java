@@ -1,6 +1,6 @@
 package TaskList;
 
-import Parser.BattchExceptions;
+import Parser.DukeExceptions;
 import Ui.PrintText;
 
 /**
@@ -11,13 +11,13 @@ public class AddTask {
      * Check if user input words contains any valid task description.
      *
      * @param userInputWords Words user input as an array.
-     * @throws BattchExceptions.NoDescriptionException
+     * @throws DukeExceptions.NoDescriptionException
      * If user did not put any valid task description.
      */
     public static void checkDescription(String[] userInputWords) throws
-            BattchExceptions.NoDescriptionException {
+            DukeExceptions.NoDescriptionException {
         if (userInputWords.length == 1) {
-            BattchExceptions.throwNoDescriptionException();
+            DukeExceptions.throwNoDescriptionException();
         }
     }
 
@@ -33,7 +33,7 @@ public class AddTask {
         String[] userInputWords = description.split(" ");
         try {
             checkDescription(userInputWords);
-        } catch (BattchExceptions.NoDescriptionException e) {
+        } catch (DukeExceptions.NoDescriptionException e) {
             String taskType = userInputWords[0];
             PrintText.printWithLinebreak(taskType + " must have a description.");
             return new Task("Not special task");
