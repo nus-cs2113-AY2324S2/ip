@@ -70,11 +70,11 @@ public class Storage {
     /**
      * Saves tasks to the file.
      */
-    public void saveTasks() {
+    public void saveTasks(TaskList tasks) {
         File file = new File("./data/Bart.txt");
 
         try (FileWriter writer = new FileWriter(file)) {
-            for (Task task: Task.getAllTasks()) {
+            for (Task task: tasks.getAllTasks()) {
                 if (task != null) {
                     String description = task.description;
                     String mark = task.isDone ? "1" : "0";

@@ -27,7 +27,7 @@ public class Bart {
         }
         storage.loadTasks(tasksList);
         manageTask();
-        storage.saveTasks();
+        storage.saveTasks(tasksList);
         ui.byeUser();
     }
 

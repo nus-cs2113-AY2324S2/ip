@@ -48,6 +48,10 @@ public class TaskList {
         tasks.remove(index);
     }
 
+
+    public ArrayList<Task> getAllTasks() {
+        return tasks;
+    }
     /**
      * Retrieves a task from the TaskList based on its index.
      * @param index Index of the task to be retrieved.

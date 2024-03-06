@@ -1,8 +1,7 @@
-D | 0 | deadline SEP by 6th March | null
-D | 0 | SEP | 6th March
+D | 0 | deadline SEP | by 6th March
+D | 1 | SEP | 6th March
 D | 1 | PS3215 class | 4th March
 D | 0 | draft assignment | 4th March
-E | 1 | PS3215 presentation group call | 9pm | 10pm 4th March
 D | 0 | Christy bday planning | 10th March
-D | 0 | HSI midterm | 8th March
-T | 0 | Liza Birthday (7th March)
+T | 1 | Liza Birthday (7th March)
+T | 1 | siuu
