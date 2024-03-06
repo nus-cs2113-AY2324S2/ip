@@ -1,2 +1,3 @@
-E | X | go for swimming | Sat 6pm - 7pm
-T | 0 | code 2113
+T | X | Code for CS1010 Assignment
+D | 0 | Write up your analysis report for Skipper | Friday 2359
+E | 0 | Attend Snowball Olympics | Tomorrow 9am - Friday 6pm
