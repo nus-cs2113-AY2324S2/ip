@@ -7,7 +7,10 @@ import java.io.UnsupportedEncodingException;
 
 import static winter.Parser.parse;
 
-
+/**
+ * The main class of the program and it coordinates how the different parts of the program
+ * come together
+ */
 public class Winter {
 
     private Storage storage;

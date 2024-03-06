@@ -4,6 +4,9 @@ import winter.Storage;
 import winter.TaskList;
 import winter.UI;
 
+/**
+ * Represents the command given by the user to exit the program
+ */
 public class ExitCommand extends Command {
     //private static boolean isExit;
     public static final String COMMAND_WORD = "bye";

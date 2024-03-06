@@ -9,6 +9,10 @@ import winter.checkedexceptions.Exceptions;
 import winter.commands.ListCommand;
 import winter.task.Task;
 
+/**
+ * The user interface which the user interacts with.
+ * Contains methods that allow the user to enter inputs and allow the chatbot to respond to the user
+ */
 public class UI {
     private static final UI ui = new UI();
     public UI()
@@ -60,6 +64,11 @@ public class UI {
         System.out.print(indent);
     }
 
+    /**
+     * Allows the user to enter input
+     * @return The string that was entered by the user
+     * @throws IOException If there was an error when the Scanner was reading input
+     */
     protected String acceptInput () throws IOException {
         Scanner input = new Scanner(System.in);
         String inputString;
@@ -68,6 +77,11 @@ public class UI {
         return inputString;
     }
 
+    /**
+     * Show confirmation that a new task has been added
+     * @param tasks The task list containing all the tasks
+     * @param newTask The new task that was added
+     */
     public void showTaskAddedConfirm(TaskList tasks, Task newTask) {
         showLine();
         showIndent();
@@ -78,6 +92,11 @@ public class UI {
         showLine();
     }
 
+    /**
+     * Show confirmation of the task that was removed
+     * @param tasks The task list containing all the tasks
+     * @param removedTaskNumber The number corresponding to the task that was deleted
+     */
     public void showTaskRemovedConfirm(TaskList tasks, int removedTaskNumber) {
         showLine();
         showIndent();
@@ -89,16 +108,10 @@ public class UI {
         showLine();
     }
 
-    public void showTaskMarked(Task markedTask) {
-        showLine();
-        showIndent();
-        System.out.println("Woohoo! I've marked this task as done:");
-        showIndent();
-        System.out.println(markedTask.getDoneCheckbox() + markedTask.getTaskName());
-        showLine();
-    }
-
-
+    /**
+     * Provides error messages for all the exceptions that could arise from entering the commands incorrectly
+     * @param exception The exception that was thrown when some form of invalid command was entered
+     */
     public static void handleCheckedExceptions(Exceptions exception) {
         switch (exception) {
         case INVALIDTODO:

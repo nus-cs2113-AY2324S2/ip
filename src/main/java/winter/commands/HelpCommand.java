@@ -1,5 +1,8 @@
 package winter.commands;
 
+/**
+ * Displays a help message showing all the possible commands
+ */
 public class HelpCommand extends Command {
     public HelpCommand() {
         System.out.println("Valid commands are <todo>, <deadline>, <event>, <list>,<delete>");

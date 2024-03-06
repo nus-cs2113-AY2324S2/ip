@@ -4,6 +4,9 @@ import winter.Storage;
 import winter.TaskList;
 import winter.UI;
 
+/**
+ * Represents the command given by the user to mark a task as incomplete
+ */
 public class UnmarkCommand extends Command {
     private int unmarkTaskNum;
     public UnmarkCommand(int unmarkTaskNum) {
