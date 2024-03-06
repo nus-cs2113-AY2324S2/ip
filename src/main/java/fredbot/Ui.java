@@ -5,6 +5,9 @@ import fredbot.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
     private static final String MESSAGE_ADD = "Are you sure you'll ever get to it? Fine, I've added this task:";
     private static final String MESSAGE_DATE_FORMAT = "I don't understand the date, please input it as yyyy-MM-dd.";
@@ -23,65 +26,109 @@ public class Ui {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
+    /**
+     * Constructs the Ui object.
+     */
     public Ui() {
 
     }
 
-    public static void showWelcomeMessage() {
+    /**
+     * Prints the welcome message.
+     */
+    public void showWelcomeMessage() {
         System.out.println(MESSAGE_WELCOME);
     }
 
-    public static String readUserInput() {
+    /**
+     * Reads the line input by the user.
+     *
+     * @return User input.
+     */
+    public String readUserInput() {
         return SCANNER.nextLine();
     }
 
-    public static void showEmptyDescription() {
+    /**
+     * Prints an empty description error message.
+     */
+    public void showEmptyDescription() {
         System.out.println(MESSAGE_EMPTY_DESCRIPTION);
     }
 
-    public static void showErrorMessage() {
+    /**
+     * Prints a generic error message.
+     */
+    public void showErrorMessage() {
         System.out.println(MESSAGE_ERROR);
     }
 
-    public static void showUnknownCommandMessage() {
+    /**
+     * Prints an unknown command error message.
+     */
+    public void showUnknownCommandMessage() {
         System.out.println(MESSAGE_UNKNOWN_COMMAND);
     }
 
-    public static void showMessageAdd(TaskList tasks) {
+    /**
+     * Prints a task added message as well as the task that was just added.
+     */
+    public void showMessageAdd(TaskList tasks) {
         System.out.println(MESSAGE_ADD);
         System.out.println(tasks.getTask(tasks.getCount()).toString());
     }
 
-    public static void showNumberOfTasks(int count, String task) {
+    /**
+     * Tells the user the number of tasks in the task list.
+     */
+    public void showNumberOfTasks(int count, String task) {
         System.out.println("You now have " + count + task + "in the list.");
     }
 
-    public static void showEmptyListMessage() {
+    /**
+     * Prints an empty list error message.
+     */
+    public void showEmptyListMessage() {
         System.out.println(MESSAGE_EMPTY_LIST);
     }
 
-    public static void showList(ArrayList<Task> allTasks, int count) {
+    /**
+     * Prints the task list for the user.
+     */
+    public void showList(ArrayList<Task> allTasks, int count) {
         System.out.println(MESSAGE_LIST_HEADER);
         for (int i = 0; i < count; i++) {
             System.out.println((i + 1) + ". " + allTasks.get(i).toString());
         }
     }
 
-    public static void showGoodbyeMessage() {
+    /**
+     * Prints a exit message.
+     */
+    public void showGoodbyeMessage() {
         System.out.println(MESSAGE_GOODBYE);
     }
 
-    public static void showDeleteMessage(ArrayList<Task> allTasks, int index) {
+    /**
+     * Prints a task deleted message as well as the task that was just deleted.
+     */
+    public void showDeleteMessage(ArrayList<Task> allTasks, int index) {
         System.out.println(MESSAGE_DELETE);
         System.out.println(allTasks.remove(index).toString());
     }
 
-    public static void showUnmarkMessage(ArrayList<Task> allTasks, int index) {
+    /**
+     * Prints a task unmarked message.
+     */
+    public void showUnmarkMessage(ArrayList<Task> allTasks, int index) {
         System.out.println(MESSAGE_UNMARK);
         System.out.println(allTasks.get(index).toString());
     }
 
-    public static void showMarkMessage(ArrayList<Task> allTasks, int index) {
+    /**
+     * Prints a task marked message.
+     */
+    public void showMarkMessage(ArrayList<Task> allTasks, int index) {
         System.out.println(MESSAGE_MARK);
         System.out.println(allTasks.get(index).toString());
     }
