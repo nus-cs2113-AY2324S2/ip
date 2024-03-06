@@ -64,4 +64,15 @@ public class Parser {
         task.setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" + task);
     }
+
+    public void findWord(String word) {
+        String description;
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : this.taskList.list) {
+            description = task.getDescription();
+            if (description.contains(word)) {
+                System.out.println(task);
+            }
+        }
+    }
 }
