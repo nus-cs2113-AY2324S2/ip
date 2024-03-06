@@ -34,7 +34,7 @@ public class Query {
         } else {
             // There is an Argument
             this.command = s.substring(0,index).toLowerCase();
-            this.argument = s.substring(index + 1);
+            this.argument = s.substring(index + 1).trim();
         }
     }
 

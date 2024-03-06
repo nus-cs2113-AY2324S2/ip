@@ -143,7 +143,12 @@ Input: `find book`
 
 Output:
 ```
-
+Osu! Your tasks are as follows:
+  1. (index: 1) |  [T][ ] buy the book `Rain from Heaven, River of Hell`
+  2. (index: 2) |  [E][ ] book club (from: Monday 6PM to: 7.30PM)
+  3. (index: 4) |  [D][ ] return John's book (by: Sunday)
+--------------------------------
+How can I assist you today?
 ```
 
 ### Quitting the program: `bye`

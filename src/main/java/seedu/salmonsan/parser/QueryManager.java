@@ -6,6 +6,7 @@ import seedu.salmonsan.data.TasksList;
 import seedu.salmonsan.data.exception.SalmonMissingArgument;
 import seedu.salmonsan.data.exception.SalmonNotInListException;
 import seedu.salmonsan.data.task.Task;
+import seedu.salmonsan.ui.UI;
 
 import java.util.ArrayList;
 
@@ -77,6 +78,10 @@ public class QueryManager {
                     ArrayList<Integer> tasksWithWords = new ArrayList<Integer>();
                     tasksWithWords = list.findWordInDesc(argument);
                     list.show(tasksWithWords);
+                    return -1;
+                case "help":
+                    UI temp = new UI();
+                    temp.printHelp();
                     return -1;
                 case "delete":
                     list.deleteTask(argument);
