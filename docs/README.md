@@ -87,7 +87,7 @@ Example: bye
 ### Sample program and output
 Here is a run through of the commands and their expected output when using the program. Initially the program contains 3 tasks
 
-'''
+`
     ____________________________________________________________
      Good day my lord! I'm Serf
      How shall I serve thee?
@@ -201,4 +201,4 @@ bye
      Farewell, my lord.
     ____________________________________________________________
 
-'''
+`
