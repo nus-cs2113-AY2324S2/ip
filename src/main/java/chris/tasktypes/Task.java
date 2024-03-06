@@ -23,4 +23,9 @@ public class Task {
         isDone = !isDone;
         return isDone;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
 }
