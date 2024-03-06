@@ -1,2 +1,2 @@
-[T][ ] poop
-[D][X] eat (by: 3)
+[T][ ] eat
+[D][ ] eat (by: noon)

@@ -25,7 +25,7 @@ public class Events extends Task {
         }
         String description = data.substring(6, fromIndex).trim();
         int toIndex = data.indexOf(" to: ", fromIndex);
-        if (toIndex == -1) { //replace this with throw statements
+        if (toIndex == -1) {
             return null;
         }
         String from = data.substring(fromIndex + 7, toIndex).trim();
