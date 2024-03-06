@@ -40,8 +40,8 @@ public class Parser {
         try {
             if (userInput.startsWith("find")){
                 String[] handleInput = userInput.split(" ",2);
-                tasks.findAndPrint(handleInput[1]);
-            } else if (userInput.startsWith("list")){
+                tasks.findAndPrint(handleInput[1].toLowerCase());
+            } else if (userInput.equals("list")){
                 tasks.printList();
             } else if (userInput.startsWith("unmark")) {
                 String[] handleInput = userInput.split(" ");
@@ -101,12 +101,12 @@ public class Parser {
             } else {
                 throw new UnknownCommandType();
             }
-        }catch(UnknownCommandType e){
+        }catch (UnknownCommandType e){
             e.errorMessage();
             ui.printUserGuideMessage();
-        } catch(EmptyToDo e){
+        } catch (EmptyToDo e){
             e.errorMessage();
-        } catch(NoDueDate e){
+        } catch (NoDueDate e){
             e.errorMessage();
         } catch (EmptyDeadline e){
             e.errorMessage();
@@ -116,8 +116,10 @@ public class Parser {
             e.errorMessage();
         } catch (NoEventStart e){
             e.errorMessage();
-        } catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e){
             System.out.println("The task number you have tried to mark, unmark, or delete does not exist");
+        } catch (NumberFormatException e) {
+            System.out.println("Type in a number.");
         } finally {
             ui.printHorizontalRow();
         }

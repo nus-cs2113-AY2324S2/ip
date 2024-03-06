@@ -30,17 +30,15 @@ public class Ui {
      */
     public void printUserGuideMessage(){
 
-        System.out.println("""
-                To add task, enter the task type (todo,deadline,event) followed by description with following rules:
-                    1. For deadline add {/by} at end of description followed by due date
-                    2. For events add {/from} followed by start date and {/to} followed by end date
-                To check list of tasks, type list.
-                To mark a task as done, type mark {list index}.
-                To unmark a task, type unmark {list index}.
-                To delete a task, type delete {list index}.
-                To find a task, type find {key words}.
-                To end chat, type bye.
-                """);
+        System.out.println("To add task, enter the task type (todo,deadline,event) followed by description with following rules:");
+        System.out.println("\t1. For deadline add {/by} at end of description followed by due date");
+        System.out.println("\t2. For events add {/from} followed by start date and {/to} followed by end date");
+        System.out.println("To check list of tasks, type list.");
+        System.out.println("To mark a task as done, type mark {list index}.");
+        System.out.println("To unmark a task, type unmark {list index}.");
+        System.out.println("To delete a task, type delete {list index}.");
+        System.out.println("To find a task, type find {key words}.");
+        System.out.println("To end chat, type bye.");
     }
 
 

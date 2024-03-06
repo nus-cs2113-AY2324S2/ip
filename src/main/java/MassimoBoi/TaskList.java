@@ -67,9 +67,8 @@ public class TaskList {
      * @param task the task to be printed.
      */
     public void printTask(Task task) {
-        System.out.printf("""
-                %s%s %s
-                """, task.taskType(), task.getStatus(), task.getDescription());
+        System.out.printf("%s %s %s\n"
+                , task.taskType(), task.getStatus(), task.getDescription());
     }
 
     /**
@@ -111,13 +110,11 @@ public class TaskList {
      * @param query the String being searched for within each task.
      */
     public void findAndPrint(String query){
-        int index = 1;
         System.out.println("Here's what I found:");
         for(int i = 0; i < taskList.size(); i++){
             if(taskList.get(i).getDescription().contains(query)){
-                System.out.print(index + ". ");
+                System.out.print(i+1 + ". ");
                 printTask(taskList.get(i));
-                index++;
             }
         }
     }
