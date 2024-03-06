@@ -16,7 +16,7 @@ Here is a list of command in their respective format you can use with Serf
 10) Load from save file: executed automatically at the start of the program
 11) Save to save file: executed automatically at the end of the program
 
-Dont worry if you get your commands wrong Serf will remind you of the appropriate formats when you make a typo
+Don't worry if you get your commands wrong Serf will remind you of the appropriate formats when you make a typo
 
 ### Feature-Todo
 
