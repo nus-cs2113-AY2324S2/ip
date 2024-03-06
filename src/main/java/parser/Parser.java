@@ -2,12 +2,11 @@ package parser;
 
 import task.*;
 import ui.Ui;
-import data.Storage;
 import exception.DukeException;
 
 public class Parser {
 
-    public static void parse(String command, TaskList tasks, Ui ui, Storage storage) {
+    public static void parse(String command, TaskList tasks, Ui ui) {
         
         /* 
          * Example of commands:
@@ -37,45 +36,35 @@ public class Parser {
                 break;
             case "mark":
                 // int taskNumber = Integer.parseInt(parts[1]); // Convert string to int
-                markTaskAsDone(Integer.parseInt(parts[1]), tasks, ui, true);
+                markTaskAsDone(Integer.parseInt(parts[1]), tasks, true);
                 break;
             case "unmark":
-                markTaskAsDone(Integer.parseInt(parts[1]), tasks, ui, false);
+                markTaskAsDone(Integer.parseInt(parts[1]), tasks, false);
                 break;
             case "delete":
                 deleteCommand(parts, tasks, ui);
                 break;
             case "list":
-                listCommand(tasks, ui);
+                listCommand(tasks);
                 break;
             // Duke.java will handle the "bye" command
-            // case "bye":
-            //     exitCommand(parts, tasks, ui);
-            //     break;
             default:
                 ui.invalidCommand();
                 break;
         }
     }
 
-    private static boolean isCommandValid(String[] parts, Ui ui) {
-        if (parts.length < 2) {
-            return false;
-        }
-        return true;
+    private static boolean isCommandValid(String[] parts) {
+        return parts.length >= 2;
     }
 
     private static void addCommand(String[] parts, TaskList tasks, Ui ui) {
         String taskType = parts[0]; // .split(" ", 2)[0];
-        if (!isCommandValid(parts, ui)) {
+        if (!isCommandValid(parts)) {
             ui.invalidTaskFormat(parts[0]); // return corresponding error task msg
             return;
         }
-        // String taskDescription = parts[1].substring(taskType.length()).trim();
         String taskDescription = parts[1];
-
-        // System.out.println("Task type: " + taskType);
-        // System.out.println("Task description: " + taskDescription);
 
         switch (taskType) {
             case "todo":
@@ -94,16 +83,16 @@ public class Parser {
     }
 
     private static void deleteCommand(String[] parts, TaskList tasks, Ui ui) {
-        if (!isCommandValid(parts, ui)) {
+        if (!isCommandValid(parts)) {
             ui.invalidIndex();
             return;
         }
 
         int taskNumber = Integer.parseInt(parts[1]);
-        deleteTask(taskNumber, tasks, ui);
+        deleteTask(taskNumber, tasks);
     }
 
-    private static void listCommand(TaskList tasks, Ui ui) {
+    private static void listCommand(TaskList tasks) {
         tasks.listTasks();
     }
 
@@ -127,13 +116,13 @@ public class Parser {
             return;
         }
         String[] eventParts = taskDescription.split(" /from ", 3);
-        if (eventParts.length < 2 || eventParts == null) {
+        if (eventParts.length < 2) {
             ui.invalidTaskFormat("event");
             return;
         }
         String eventDescription = eventParts[0];
         String[] timeParts = eventParts[1].split(" /to ", 2);
-        if (timeParts.length < 2 || timeParts == null) {
+        if (timeParts.length < 2) {
             ui.invalidTaskFormat("event");
             return;
         }
@@ -156,12 +145,12 @@ public class Parser {
         tasks.addTask(task);
     }
 
-    private static void markTaskAsDone(int taskNumber, TaskList tasks, Ui ui, boolean markDone) {
+    private static void markTaskAsDone(int taskNumber, TaskList tasks, boolean markDone) {
         // Perform the logic for marking a task as done
         tasks.markTaskAsDone(taskNumber, markDone);
     }
 
-    private static void deleteTask(int taskNumber, TaskList tasks, Ui ui) {
+    private static void deleteTask(int taskNumber, TaskList tasks) {
         // Perform the logic for deleting a task
         tasks.deleteTask(taskNumber);
     }

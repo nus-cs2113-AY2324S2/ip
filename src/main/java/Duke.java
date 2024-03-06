@@ -28,7 +28,7 @@ public class Duke {
 
         String command = ui.readCommand();
         while (!command.equals("bye")) {
-            Parser.parse(command, tasks, ui, storage);
+            Parser.parse(command, tasks, ui);
             command = ui.readCommand();
         }
 
