@@ -1,3 +1,6 @@
+/**
+ * Enum representing different types of commands that Mavis can process.
+ */
 public enum CommandType {
     TODO,
     DEADLINE,
@@ -9,6 +12,13 @@ public enum CommandType {
     FIND,
     BYE;
 
+    /**
+     * Converts a string representation of a command type to the corresponding enum value.
+     *
+     * @param str The string representation of the command type.
+     * @return The corresponding CommandType enum value.
+     * @throws IllegalArgumentException If the input string does not match any known command type.
+     */
     public static CommandType fromString(String str) {
         try {
             switch (str.toLowerCase()) {

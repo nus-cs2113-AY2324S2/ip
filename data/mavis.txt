@@ -1,0 +1,2 @@
+D|finish javadocs (by:today)|0|:today
+E|study session cg2023 (from: 2pm to: 4pm)|0|2pm|4pm
