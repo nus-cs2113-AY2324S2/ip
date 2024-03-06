@@ -1,47 +1,74 @@
 package cody.parser;
 
-import cody.TaskList;
 import cody.CodyException;
+import cody.TaskList;
 import cody.ui.Ui;
 
-/**
- * The Parser class is responsible for parsing user input and executing the corresponding commands.
- */
 public class Parser {
 
-    /**
-     * Parses and executes a command based on the user input.
-     *
-     * @param input    The user input string containing the command and any arguments.
-     * @param taskList The TaskList object on which the command will be executed.
-     * @return A string representing the result of the command execution.
-     * @throws CodyException If an error occurs during command parsing or execution.
-     */
-    public static String parseCommand(String input, TaskList taskList) throws CodyException {
+    private final TaskList taskList;
+
+    public Parser(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
+    public String parseCommand(String input) throws CodyException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         String argument = parts.length > 1 ? parts[1] : "";
 
+        switch (command) {
+        case "list":
+            return handleListCommand(argument);
+        case "delete":
+            return handleDeleteCommand(argument);
+        case "mark":
+            return handleMarkCommand(argument);
+        case "unmark":
+            return handleUnmarkCommand(argument);
+        case "find":
+            return handleFindCommand(argument);
+        case "help":
+            return Ui.HELP_MESSAGE;
+        default:
+            return taskList.addTask(input);
+        }
+    }
+
+    private String handleListCommand(String argument) throws CodyException {
+        if (!argument.isEmpty()) {
+            throw new CodyException("The 'list' command does not take any arguments.");
+        }
+        return taskList.printList();
+    }
+
+    private String handleDeleteCommand(String argument) throws CodyException {
+        int taskNumber = parseTaskNumber(argument);
+        return taskList.deleteTask(taskNumber);
+    }
+
+    private String handleMarkCommand(String argument) throws CodyException {
+        int taskNumber = parseTaskNumber(argument);
+        return taskList.handleMarking("mark", taskNumber);
+    }
+
+    private String handleUnmarkCommand(String argument) throws CodyException {
+        int taskNumber = parseTaskNumber(argument);
+        return taskList.handleMarking("unmark", taskNumber);
+    }
+
+    private String handleFindCommand(String argument) throws CodyException {
+        if (argument.isEmpty()) {
+            throw new CodyException("The 'find' command requires a keyword to search for.");
+        }
+        return taskList.findTask(argument);
+    }
+
+    private int parseTaskNumber(String argument) throws CodyException {
         try {
-            switch (command) {
-            case "list":
-                return taskList.printList();
-            case "delete":
-                return taskList.deleteTask(Integer.parseInt(argument));
-            case "mark":
-            case "unmark":
-                return taskList.handleMarking(command, Integer.parseInt(argument));
-            case "find":
-                return taskList.findTask(argument);
-            case "help":
-                return Ui.HELP_MESSAGE;
-            default:
-                return taskList.addTask(input);
-            }
+            return Integer.parseInt(argument);
         } catch (NumberFormatException e) {
             throw new CodyException("Invalid task number. Please use a number.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new CodyException("Task number out of bounds. Please choose a number within the list.");
         }
     }
 }

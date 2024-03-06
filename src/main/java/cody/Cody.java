@@ -10,6 +10,7 @@ import cody.ui.Ui;
  */
 public class Cody {
     private static final String EXIT_COMMAND = "bye";
+    private final Parser parser;
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -28,6 +29,7 @@ public class Cody {
             ui.printException(e);
             tasks = new TaskList();
         }
+        parser = new Parser(tasks);
     }
 
     /**
@@ -50,7 +52,7 @@ public class Cody {
 
     private void executeCommand(String command) {
         try {
-            String response = Parser.parseCommand(command, tasks);
+            String response = parser.parseCommand(command);
             ui.printMessage(response);
         } catch (CodyException e) {
             ui.printException(e);
