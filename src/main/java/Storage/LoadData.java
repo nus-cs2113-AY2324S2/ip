@@ -9,13 +9,27 @@ import exceptions.MissingDeadlineException;
 import exceptions.MissingStartException;
 import tasks.*;
 
+/**
+ * Represents a utility class used to load tasks from a file.
+ * This class extends the Storage class and provides methods to load tasks from a specified file.
+ */
 public class LoadData extends Storage {
     public static ArrayList<Task> savedTasks = new ArrayList<>(100);
 
+    /**
+     * Constructs a LoadData object with the specified file path.
+     * @param filepath The path to the file from which tasks will be loaded
+     */
     public LoadData(String filepath) {
         super(filepath);
     }
 
+    /**
+     * Loads tasks from the specified file.
+     * @param filepath The path to the file from which tasks will be loaded
+     * @return The ArrayList of tasks loaded from the file
+     * @throws FileNotFoundException If the specified file is not found
+     */
     public static ArrayList<Task> loadData(String filepath) throws FileNotFoundException {
         File data = new File(filepath);
         Scanner input = new Scanner(data);
