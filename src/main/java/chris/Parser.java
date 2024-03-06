@@ -27,11 +27,7 @@ public class Parser {
                 return new listCommand(description);
             case "mark":
                 return new markCommand(description);
-            case "find":
-                System.out.println("LOL");
-                return new findCommand(description);
             default:
-                System.out.println("LOL2");
                 return new Command(description);
         }
     }
@@ -77,12 +73,6 @@ public class Parser {
                 }
                 description = new String[] {input.substring(5)};
                 checkDescription(description, commandString);
-                return description;
-            case "find":
-                if (input.length() < 6) {
-                    throw new illegalFindInput();
-                }
-                description = new String[] {input.substring(5)};
                 return description;
             default:
                 description = new String[] {""};

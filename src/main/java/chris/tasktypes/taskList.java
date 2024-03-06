@@ -2,8 +2,8 @@ package chris.tasktypes;
 
 import java.util.ArrayList;
 public class taskList {
-    protected ArrayList<Task> tasks;
-    protected int taskCount = 0;
+    protected static ArrayList<Task> tasks;
+    protected static int taskCount = 0;
     public taskList() {
         tasks = new ArrayList<>();
     }
@@ -43,24 +43,11 @@ public class taskList {
             return "You currently have no tasks!";
         }
         string.append("Here are your current tasks!");
-        int count = 1;
         for (Task i : tasks) {
             string.append("\n");
-            string.append(count);
-            string.append(". ");
             string.append(i.toString());
-            count++;
+
         }
         return string.toString();
-    }
-
-    public taskList find(String keyword) {
-        taskList foundTasks = new taskList();
-        for (Task i : tasks) {
-            if (i.getDescription().contains(keyword)) {
-                foundTasks.addTask(i);
-            }
-        }
-        return foundTasks;
     }
 }
