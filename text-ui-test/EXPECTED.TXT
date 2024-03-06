@@ -1,7 +1,155 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ___     _   ___   ___   __
+|   \   | | |   | |   | |  |
+| |\ \  | | | | | | | | |  |__
+| | \ \_| | | | | | | | | ___ |
+|_|  \____| |___| |___| |_____|
 
+	__________________________________________________
+	Hi!, I'm 'Noob'
+	What can I do for you?
+	__________________________________________________
+	I have the following features:
+		1. Echo and store three types of tasks: 'todo', 'deadline' and 'event'.
+		2. Type "todo" + "taskContent" to record a 'todo' task.
+		3. Type "deadline" + "taskContent" + "/by" + "dates/times" to record a 'deadline' task.
+		4. Type "event" + "taskContent" + "/from" + "dates/times" + "/to" + "dates/times" to record a 'event' task.
+		5. Type "list" to see what I have recorded.
+		6. Type "mark" + "number" to mark tasks as done.
+		7. Type "unmark" + "number" to mark tasks as not done.
+		8. Type "bye" to say goodbye to me.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[T][ ] read book
+	Now you have 1 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[T][ ] borrow book
+	Now you have 2 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[T][ ] watch TV
+	Now you have 3 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[T][ ] running
+	Now you have 4 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[D][ ] return book  (by: Sunday)
+	Now you have 5 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[D][ ] eat apple  (by: tonight)
+	Now you have 6 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Got it. I've added this task:
+		[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	Now you have 7 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Unknown Command!
+	__________________________________________________
+	__________________________________________________
+	Nice! I've marked this task as done:
+		[T][ ] read book
+	__________________________________________________
+	__________________________________________________
+	Please type 'mark' + 'NUMBER'!
+	__________________________________________________
+	__________________________________________________
+	Unknown Command!
+	__________________________________________________
+	__________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[T][ ] borrow book
+	3.[T][ ] watch TV
+	4.[T][ ] running
+	5.[D][ ] return book  (by: Sunday)
+	6.[D][ ] eat apple  (by: tonight)
+	7.[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	__________________________________________________
+	__________________________________________________
+	Please add a spacing between 'mark' and 'number'
+	__________________________________________________
+	__________________________________________________
+	Nice! I've marked this task as done:
+		[T][ ] borrow book
+	__________________________________________________
+	__________________________________________________
+	Nice! I've marked this task as done:
+		[T][ ] watch TV
+	__________________________________________________
+	__________________________________________________
+	Nice! I've marked this task as done:
+		[T][ ] running
+	__________________________________________________
+	__________________________________________________
+	Nice! I've marked this task as done:
+		[D][ ] eat apple  (by: tonight)
+	__________________________________________________
+	__________________________________________________
+	OK, I've marked this task as not done yet:
+		[D][X] eat apple  (by: tonight)
+	__________________________________________________
+	__________________________________________________
+	Oops, you do not have this task
+	__________________________________________________
+	__________________________________________________
+	Oops, you do not have this task
+	__________________________________________________
+	__________________________________________________
+	OK, I've marked this task as not done yet:
+		[T][X] borrow book
+	__________________________________________________
+	__________________________________________________
+	Please type 'unmark' + 'NUMBER'!
+	__________________________________________________
+	__________________________________________________
+	OK, I've marked this task as not done yet:
+		[T][ ] borrow book
+	__________________________________________________
+	__________________________________________________
+	Please add a spacing between 'unmark' and 'number'
+	__________________________________________________
+	__________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[T][ ] borrow book
+	3.[T][X] watch TV
+	4.[T][X] running
+	5.[D][ ] return book  (by: Sunday)
+	6.[D][ ] eat apple  (by: tonight)
+	7.[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	__________________________________________________
+	__________________________________________________
+	Noted. I've removed this task:
+		[T][X] watch TV
+	Now you have 6 tasks in the list.
+	__________________________________________________
+	__________________________________________________
+	Please add a spacing between 'delete' and 'number'
+	__________________________________________________
+	__________________________________________________
+	Please type 'delete' + 'NUMBER'!
+	__________________________________________________
+	__________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] read book
+	2.[T][ ] borrow book
+	3.[T][X] running
+	4.[D][ ] return book  (by: Sunday)
+	5.[D][ ] eat apple  (by: tonight)
+	6.[E][ ] project meeting  (from: Mon 2pm to: 4pm)
+	__________________________________________________
+	__________________________________________________
+	Bye. Hope to see you again soon!
+	__________________________________________________

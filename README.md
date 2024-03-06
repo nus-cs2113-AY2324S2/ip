@@ -1,24 +1,76 @@
-# Duke project template
+# User guide of chatbot **Noob**
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Hi, this chatbot is still a Noob. He can store and save tasks for you.
 
-## Setting up in Intellij
+***Need upgrade.........................***
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+He has the following features:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
+
+### !!!!! **Notes about the command format** !!!!!
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user
+* Accepted `DATES/TIMES` format. **Note: 24-hour and 12-hour time formats are supported** for `hour:minute`
+    * `year-month-day hour:minute[AM/PM]`
+    * `month/day/year hour:minute[AM/PM]`
+    * `year.month.day hour:minute[AM/PM]`  
+      ***See command examples for more details***
+
+### Viewing help: `help`
+
+* Shows the list of available commands
+
+### Store three types of tasks: `todo` / `deadline` / `event`
+
+* Type `todo` + `TASKCONTENT` to record a **todo** task
+* Type `deadline` + `TASKCONTENT` + `/by` + `DATES + TIMES` to record a **deadline** task
+* Type `event` + `TASKCONTENT` + `/from` + `DATES + TIMES` + `/to` + `DATES/TIMES` to record a **event** task
+
+Examples:
+
+* `todo eat bread`
+* `deadline Assignment /by 2024-8-17 5:30PM`
+* `event exercise /from 2/28/2024 22:36 /to 3/10/2024 9:30`
+
+### List all tasks: `list`
+
+* Type `list` to list what he has stored for you
+
+### Mark / Unmark tasks: `mark` / `unmark`
+
+* Type `mark` + `NUMBER` to mark tasks as done
+* Type `unmark` + `NUMBER` to mark tasks as not done
+
+Examples:
+
+* `mark 1`
+* `unmark 3`
+
+### Delete tasks: `delete`
+
+* Type `delete` + `NUMBER` to delete tasks
+
+Examples:
+
+* `delete 1`
+
+### Find tasks: `find`
+
+* Type `find` + `TASKCONTENT` to find tasks
+* Type `find` + `/at` + `DATE` to find tasks
+
+Examples:
+
+* `find read book`
+* `find /at 2023.10.23`
+
+### Saving the tasks
+
+* Task data are saved in the hard disk automatically after any command that changes the data.
+
+### Exit the chatbot: `bye`
+
+* Type `bye` to say goodbye to him
+
+# Hope you have fun with Noob!
