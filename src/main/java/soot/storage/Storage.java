@@ -35,7 +35,7 @@ public class Storage {
             readFile.add(s.nextLine());
         }
         s.close();
-        UserUi.printMessageForUser("a previously saved file was found!\n" +
+        UserUi.printMessageWithDivider("a previously saved file was found!\n" +
                 "your data will be loaded in now :)");
         return readFile;
     }
@@ -69,7 +69,7 @@ public class Storage {
                 TaskList.addSavedEventTask(taskName, isTaskDone, eventStartDate, eventEndDate);
             }
         } catch (SavedFileErrorTypeException e) {
-            UserUi.printMessageForUser("!! there was an error with the previously saved file, " +
+            UserUi.printMessageWithDivider("!! there was an error with the previously saved file, " +
                     "sorry about it :o \nunfortunately, i will have to get rid of the previous data...");
             TaskList.clearTaskList();
             File savedData = new File("saved-data/saved.txt");

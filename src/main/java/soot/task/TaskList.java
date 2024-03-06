@@ -27,7 +27,8 @@ public class TaskList {
         } else {
             for (int i = 0; i < taskList.size(); i++) {
                 UserUi.displayIndent();
-                TaskList.taskList.get(i).printTaskInListFormat(i + 1);
+                Task currentTask = TaskList.taskList.get(i);
+                currentTask.printTaskInListFormat(i + 1);
             }
             printTaskListCount();
         }
@@ -58,61 +59,70 @@ public class TaskList {
             break;
         case EVENT:
             addEventTask(userInput);
+            break;
+        default:
+            System.out.println("there was an error when adding the task.");
         }
     }
 
     /**
-     * Method to add specifically a Todo task.
+     * Add specifically a new Todo task to the task list.
+     * Task has not been completed when added, thus isDone is false.
      * Details of this task will be printed to the terminal for the user to view.
      *
      * @param userInput details of the todo task as given by the user.
      */
     //TODO: clean up add task methods
     public static void addTodoTask(String userInput) {
-        String inputTask = userInput.substring(5);
-        taskList.add(new Todo(inputTask, false));
-        taskList.get(taskList.size() - 1).printRespondWhenAddTask();
+        String todoTaskName = userInput.substring(5);
+        taskList.add(new Todo(todoTaskName, false));
+
+        int taskIndexInArrayList = taskList.size() - 1;
+        taskList.get(taskIndexInArrayList).printRespondWhenAddTask();
         UserUi.displayDividerLine();
     }
 
     /**
-     * Method to add specifically a Deadline task, where the details of the Deadline task
+     * Add specifically a Deadline task to the task list, where the details of the Deadline task
      * such as taskName etc. will be extracted.
      * Details of this task will be printed to the terminal for the user to view.
      *
      * @param userInput details of the deadline task as given by the user.
      */
     public static void addDeadlineTask(String userInput) {
-        String inputTask = userInput.substring(9);
-        //split taskName and dueDate
-        int deadlineIndex = inputTask.indexOf('/');
-        String taskName = inputTask.substring(0, deadlineIndex - 1);
-        String dueDate = inputTask.substring(deadlineIndex + 4);
+        String inputTaskDetails = userInput.substring(9);
+
+        int slashIndex = inputTaskDetails.indexOf('/'); //slash splits the taskName and dueDate
+        String taskName = inputTaskDetails.substring(0, slashIndex - 1);
+        String dueDate = inputTaskDetails.substring(slashIndex + 4);
+
         taskList.add(new Deadline(taskName, false, dueDate));
-        taskList.get(taskList.size()-1).printRespondWhenAddTask();
+        int taskIndexInArrayList = taskList.size() - 1;
+        taskList.get(taskIndexInArrayList).printRespondWhenAddTask();
         UserUi.displayDividerLine();
     }
 
     /**
-     * Method to add specifically an Event task, where the details of the Event task
+     * Add specifically an Event task to the task list, where the details of the Event task
      * such as endDate etc. will be extracted.
      * Details of this task will be printed to the terminal for the user to view.
      *
      * @param userInput details of the event task as given by the user.
      */
     public static void addEventTask(String userInput) {
-        String inputTask = userInput.substring(6);
-        //split taskName and time frames
-        int startIndex = inputTask.indexOf('/');
-        String taskName = inputTask.substring(0, startIndex - 1);
+        String inputTaskDetails = userInput.substring(6);
 
-        String timeLine = inputTask.substring(startIndex + 6);
-        int endIndex = timeLine.indexOf('/');
+        int firstSlashIndex = inputTaskDetails.indexOf('/');
+        String taskName = inputTaskDetails.substring(0, firstSlashIndex - 1);
+        String eventTimelineDetails = inputTaskDetails.substring(firstSlashIndex + 6);
 
-        String startDate = timeLine.substring(0, endIndex - 1);
-        String endDate = timeLine.substring(endIndex + 4);
+        int secondSlashIndex = eventTimelineDetails.indexOf('/');
+        String startDate = eventTimelineDetails.substring(0, secondSlashIndex - 1);
+        String endDate = eventTimelineDetails.substring(secondSlashIndex + 4);
+
         taskList.add(new Event(taskName, false, startDate, endDate));
-        taskList.get(taskList.size()-1).printRespondWhenAddTask();
+        int taskIndexInArrayList = taskList.size() - 1;
+        taskList.get(taskIndexInArrayList).printRespondWhenAddTask();
         UserUi.displayDividerLine();
     }
 
@@ -125,37 +135,28 @@ public class TaskList {
         return taskList.size();
     }
 
-    //TODO: methods are unused
-    public static Task getTask(int taskIndex) {
-        return taskList.get(taskIndex);
-    }
-
-    public static TaskType getTaskType(int taskIndex) {
-        return taskList.get(taskIndex).taskType;
-    }
-
     /**
-     * For a task at the specified index, call method to mark it completed.
+     * Mark the task at the specified index completed.
      *
      * @param taskIndex index of task in the task list.
      */
     public static void markTaskDone(int taskIndex) {
-        taskList.get(taskIndex).markDone();
+        taskList.get(taskIndex).markTaskDone();
         UserUi.displayDividerLine();
     }
 
     /**
-     * For a task at the specified index, call method to mark it uncompleted.
+     * Mark the task at the specified index uncompleted.
      *
      * @param taskIndex index of task in the task list.
      */
     public static void markTaskUndone(int taskIndex) {
-        taskList.get(taskIndex).markUndone();
+        taskList.get(taskIndex).markTaskUndone();
         UserUi.displayDividerLine();
     }
 
     /**
-     * For a task at the specified index, remove the task from the list.
+     * Remove the task at the specified index from the list.
      * Details of this task will be printed to the terminal for the user to view.
      *
      * A tempTask is used to temporarily store the task when printing the details of the deleted task, so that the
@@ -171,8 +172,8 @@ public class TaskList {
     }
 
     /**
-     * Given details of a todo task that was previously saved in the data file,
-     * add this task to the task list.
+     * Add a saved todo task to the task list,
+     * where the details of the task that was previously saved in the data file is provided.
      *
      * @param taskName name of the todo task to be added.
      * @param isTaskDone state of the todo task whether it has been completed or not.
@@ -182,8 +183,8 @@ public class TaskList {
     }
 
     /**
-     * Given details of a deadline task that was previously saved in the data file,
-     * add this task to the task list.
+     * Add a saved deadline task to the task list,
+     * where the details of the task that was previously saved in the data file is provided.
      *
      * @param taskName name of the deadline task to be added.
      * @param isTaskDone state of the deadline task whether it has been completed or not.
@@ -194,8 +195,8 @@ public class TaskList {
     }
 
     /**
-     * Given details of an event task that was previously saved in the data file,
-     * add this task to the task list.
+     * Add an event deadline task to the task list,
+     * where the details of the task that was previously saved in the data file is provided.
      *
      * @param taskName name of the event task to be added.
      * @param isTaskDone state of the event task whether it has been completed or not.
@@ -217,19 +218,21 @@ public class TaskList {
     public static String formatTaskToSave(int taskIndex) {
         String formattedLine;
         Task task = taskList.get(taskIndex);
-        int taskDone = task.isDone ? 1 : 0;
+
+        int taskDoneState = formatTaskDoneState(task.isDone);
 
         switch (task.taskType) {
         case TODO:
-            formattedLine = "T ; " + taskDone + " ; " + task.taskName;
+            formattedLine = "T ; " + taskDoneState + " ; " + task.taskName;
             break;
         case DEADLINE:
             Deadline deadlineTask = (Deadline) task;
-            formattedLine = "D ; " + taskDone + " ; " + deadlineTask.taskName + " ; " + deadlineTask.dueDate;
+            formattedLine = "D ; " + taskDoneState + " ; " + deadlineTask.taskName + " ; " + deadlineTask.dueDate;
             break;
         case EVENT:
             Event eventTask = (Event) task;
-            formattedLine = "E ; " + taskDone + " ; " + eventTask.taskName + " ; " + eventTask.startDate + " ; " + eventTask.endDate;
+            formattedLine = "E ; " + taskDoneState + " ; " + eventTask.taskName + " ; "
+                    + eventTask.startDate + " ; " + eventTask.endDate;
             break;
         default:
             formattedLine = "i could not read this task";
@@ -238,6 +241,23 @@ public class TaskList {
         return formattedLine;
     }
 
+    /**
+     * Returns an integer value of 1 is the state of the task is done, else return 0.
+     *
+     * @param isDone boolean value of whether a task is done.
+     * @return integer representation of the task's done state.
+     */
+    private static int formatTaskDoneState(boolean isDone) {
+        if (isDone) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Removes all tasks in the task list.
+     * Task list will now have 0 tasks.
+     */
     public static void clearTaskList() {
         taskList.clear();
     }

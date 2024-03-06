@@ -5,12 +5,11 @@ package soot.task;
  * It is a type of task with 5 members: taskName, isDone, taskType, startDate and endDate.
  */
 public class Event extends Task {
-    public String startDate;
-    public String endDate;
+    protected String startDate;
+    protected String endDate;
 
     /**
-     * Constructor for Event class, will return a reference to the
-     * created Event object by default.
+     * Constructor for Event class, will return a reference to the created Event object by default.
      * Task Type for this Task will be EVENT.
      *
      * @param taskName name of the Event task to be created.
@@ -59,13 +58,13 @@ public class Event extends Task {
     /**
      * Prints all task details for the Event task with the specified index in the list,
      * in the required format.
-     * Note: This index is not the index in the ArrayList.
+     * Note: This index is different from the index of this task in the Array List.
      *
-     * @param index numbering for task in the task list, smallest value being 1.
+     * @param taskIndexInList numbering for task in the task list, it can be a value from 1.
      */
     @Override
-    public void printTaskInListFormat(int index) {
-        super.printTaskInListFormat(index);
+    public void printTaskInListFormat(int taskIndexInList) {
+        super.printTaskInListFormat(taskIndexInList);
         System.out.println("    >> from: " + startDate + " ~~ to: " + endDate);
     }
 }

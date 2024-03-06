@@ -5,11 +5,10 @@ package soot.task;
  * It is a type of task with 4 members: taskName, isDone, taskType and dueDate.
  */
 public class Deadline extends Task {
-    public String dueDate;
+    protected String dueDate;
 
     /**
-     * Constructor for Deadline class, will return a reference to the
-     * created Deadline object by default.
+     * Constructor for Deadline class, will return a reference to the created Deadline object by default.
      * Task Type for this Task will be DEADLINE.
      *
      * @param taskName name of the Deadline task to be created.
@@ -56,13 +55,13 @@ public class Deadline extends Task {
     /**
      * Prints all task details for the Deadline task with the specified index in the list,
      * in the required format.
-     * Note: This index is not the index in the ArrayList.
+     * Note: This index is different from the index of this task in the Array List.
      *
-     * @param index numbering for task in the task list, smallest value being 1.
+     * @param taskIndexInList numbering for task in the task list, it can be a value from 1.
      */
     @Override
-    public void printTaskInListFormat(int index) {
-        super.printTaskInListFormat(index);
+    public void printTaskInListFormat(int taskIndexInList) {
+        super.printTaskInListFormat(taskIndexInList);
         System.out.println("    >> by: " + dueDate + "!!");
     }
 }

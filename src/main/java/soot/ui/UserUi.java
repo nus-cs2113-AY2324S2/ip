@@ -51,7 +51,7 @@ public class UserUi {
     }
 
     //TODO: javadoc
-    public static void printMessageForUser(String messageToPrint) {
+    public static void printMessageWithDivider(String messageToPrint) {
         System.out.println(messageToPrint);
         UserUi.displayDividerLine();
     }

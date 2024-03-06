@@ -46,9 +46,9 @@ public class Parser {
                 throw new UnknownCommandException();
             }
         } catch (EmptyTaskException e) {
-            UserUi.printMessageForUser("  !! hmmm, no task was specified.");
+            UserUi.printMessageWithDivider("  !! hmmm, no task was specified.");
         } catch (UnknownCommandException e) {
-            UserUi.printMessageForUser("  !! this isn't a command i recognise...\n"
+            UserUi.printMessageWithDivider("  !! this isn't a command i recognise...\n"
                     + "sorry, pls try again");
         }
     }
@@ -101,7 +101,7 @@ public class Parser {
                 System.out.println("unknown modify command type. Should only be done or unmark.");
             }
         } catch (IllegalArgumentException e) {
-            UserUi.printMessageForUser("the task specified should be a integer task number! \n" +
+            UserUi.printMessageWithDivider("the task specified should be a integer task number! \n" +
                     "you can type command 'list' to verify this number :)");
         }
     }
