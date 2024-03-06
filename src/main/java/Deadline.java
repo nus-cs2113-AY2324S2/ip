@@ -3,7 +3,6 @@
  */
 public class Deadline extends Task {
 
-    /** Deadline of the task. */
     protected String by;
 
     /**

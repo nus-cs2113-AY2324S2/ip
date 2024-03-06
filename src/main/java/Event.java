@@ -2,11 +2,7 @@
  * Event class represents a task with a specific event duration, extending the Task class.
  */
 public class Event extends Task {
-
-    /** Start time of the event. */
     protected String from;
-
-    /** End time of the event. */
     protected String to;
 
     /**
