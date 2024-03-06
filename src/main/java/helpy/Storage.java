@@ -1,5 +1,6 @@
 package helpy;
 
+import helpy.exceptions.EventDateSequenceException;
 import helpy.exceptions.IllegalDescriptionException;
 import helpy.task.*;
 
@@ -7,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -58,20 +61,21 @@ public class Storage {
             } catch (IllegalDescriptionException ignored) {} // Ignore corrupted lines
         } else if (details[0].equals("E")) {
             try {
-                Event newEvent = new Event("event " + details[2]);
+                Event newEvent = new Event(details[2]);
                 if (details[1].equals("1")) {
                     newEvent.setDone(true);
                 }
                 taskList.addTask(newEvent);
-            } catch (ArrayIndexOutOfBoundsException ignored) {} // Ignore corrupted lines
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException |
+                     EventDateSequenceException ignored) {} // Ignore corrupted lines
         } else if (details[0].equals("D")) {
             try {
-                Deadline newDeadline = new Deadline("deadline " + details[2]);
+                Deadline newDeadline = new Deadline(details[2]);
                 if (details[1].equals("1")) {
                     newDeadline.setDone(true);
                 }
                 taskList.addTask(newDeadline);
-            } catch (ArrayIndexOutOfBoundsException ignored) {} // Ignore corrupted lines
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException ignored) {} // Ignore corrupted lines
         }
     }
 
