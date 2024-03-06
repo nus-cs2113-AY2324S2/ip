@@ -1,4 +1,4 @@
-package Yoj.command;
+package Yoj.tasks;
 public class Task {
     protected String description;
     private boolean isDone;

@@ -1,6 +1,6 @@
 package Yoj;
 
-import Yoj.command.*;
+import Yoj.tasks.*;
 import Yoj.exception.*;
 import java.util.Scanner;
 //so scanner class can be used
