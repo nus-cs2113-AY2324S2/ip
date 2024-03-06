@@ -12,7 +12,9 @@ import java.util.ArrayList;
 
 import static roleypoley.ui.TextUi.*;
 
-
+/**
+ *  Handles the various commands provided by the user
+ */
 public class HandleCommand {
 
     protected static ArrayList<Task> taskList = new ArrayList<>();
@@ -22,9 +24,14 @@ public class HandleCommand {
         return taskList;
     }
 
+    /**
+     * Determines the command and execute it
+     *
+     * @param userInput full user input string
+     * @return true if userInputs "bye", otherwise return false
+     */
     public static boolean executeCommand(String userInput) {
         String[] splitString = userInput.split(" ");
-
         try {
             switch (splitString[0]) {
             case "bye":
@@ -50,16 +57,22 @@ public class HandleCommand {
                 findCommand(userInput);
                 return false;
             default:
-                throw new RoleyPoleyParseException("defaultError");
+                break;
             }
         } catch (RoleyPoleyParseException e) {
             createLine();
             return false;
 
         }
-
+        return false;
     }
 
+    /**
+     * Find tasks that contains the specified keyword
+     *
+     * @param userInput full user input string
+     * @throws RoleyPoleyParseException if user inputs an empty keyword
+     */
     private static void findCommand(String userInput) throws RoleyPoleyParseException {
         ArrayList<Task> searchList = new ArrayList<>();
         String[] splitString = userInput.split(" ");
@@ -76,6 +89,10 @@ public class HandleCommand {
         }
     }
 
+    /**
+     * Saves the data and store it in a text file
+     * Print Goodbye message
+     */
     private static void ExitCommand() {
         try {
             WriteFile.writeToFile(myPath, taskList);
@@ -85,7 +102,13 @@ public class HandleCommand {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void EditCommand(String command, int taskNum) throws RoleyPoleyParseException {
+    /**
+     * Perform operations that involves editing existing task
+     *
+     * @param command operation to perform
+     * @param taskNum task number to perform edit operation on
+     */
+    private static void EditCommand(String command, int taskNum) {
         switch(command) {
         case "delete":
             TextUi.printDelReply(taskList, taskNum - 1);
@@ -98,8 +121,7 @@ public class HandleCommand {
             taskList.get(taskNum - 1).markAsDone();
             break;
         default:
-            throw new RoleyPoleyParseException("defaultError");
-
+            break;
         }
     }
 }

@@ -1,8 +1,10 @@
 package roleypoley.task;
 
+/**
+ * Represents Deadline tasks to be completed
+ */
 public class Deadline extends Task {
     protected String by;
-
     public Deadline(String description, boolean isDone) {
         super(getTask(description), isDone);
         this.by = getDueDate(description);
@@ -21,10 +23,12 @@ public class Deadline extends Task {
         }
         return split[1].substring(0, endIndex );
     }
+
     @Override
     public String getDescription() {
         return super.getDescription() + "(by:" + by + ")";
     }
+
     @Override
     public String getTaskTypeIcon() {
         return "D";
