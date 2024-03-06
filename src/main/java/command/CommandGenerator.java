@@ -3,7 +3,18 @@ package command;
 import exception.AdamException;
 import ui.Parser;
 
+/**
+ * The CommandGenerator class generates a command based on the user input.
+ */
 public class CommandGenerator{
+
+    /**
+     * Generates a command based on the user input.
+     *
+     * @param input The user input.
+     * @return The command to be executed.
+     * @throws AdamException If an error occurs during the generation of the command.
+     */
     public static Command generate(String input) throws AdamException {
         // match input to corresponding enum (also handles invalid input)
         Parser token = Parser.analyzeInput(input);

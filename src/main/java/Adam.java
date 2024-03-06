@@ -5,7 +5,15 @@ import command.CommandGenerator;
 import task.TaskList;
 import ui.Message;
 
+/**
+ * The Adam class is the main class of the Adam chatbot program.
+ */
 public class Adam {
+    /**
+     * The main method of the Adam chatbot program.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList tasks = new TaskList();

@@ -28,6 +28,11 @@ public abstract class Task implements Serializable {
         this.isDone = newStatus;
     }
 
+    /**
+     * Returns whether the task is marked as done.
+     * 
+     * @return True if the task is marked as done, false otherwise. 
+     */
     public boolean isDone() {
         return this.isDone;
     }

@@ -7,6 +7,9 @@ import java.util.stream.IntStream;
 
 import exception.AdamException;
 
+/**
+ * The Parser class is responsible for analyzing and splitting user input.
+ */
 public enum Parser {
     // token list
     // accept any number of space using \s*
@@ -30,6 +33,13 @@ public enum Parser {
         return this.commandRegex;
     }
 
+    /**
+     * Analyzes the given input and returns the corresponding token.
+     *
+     * @param input The input to be analyzed.
+     * @return The corresponding token.
+     * @throws AdamException If the input does not match any token.
+     */
     public static Parser analyzeInput(String input) throws AdamException {
         return Arrays.stream(Parser.values())
                 .filter(token -> input.matches(token.getCommandRegex()))
@@ -37,6 +47,13 @@ public enum Parser {
                 .orElseThrow(() -> new AdamException(Message.INVALID_INPUT_MESSAGE));
     }
 
+    /**
+     * Splits the given input based on the given token.
+     *
+     * @param token The token to be used for splitting the input.
+     * @param input The input to be split.
+     * @return The split input.
+     */
     public static String[] splitInput(Parser token, String input) {
         Pattern matchedPattern = Pattern.compile(token.getCommandRegex());
         Matcher matcher = matchedPattern.matcher(input);
