@@ -7,7 +7,20 @@ import com.arriky.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * A class to inteprete user's input and execute the parsed commands.
+ * @author Songyue Wang
+ * @version 1.0
+ */
 public class Parser {
+
+    /**
+     * Parse and execute user's command.
+     * @param rawCommand Single line the user typed in CLI.
+     * @param taskList Instance of the tasklist used in the main programme.
+     * @return <code>false</code> when the user has commanded to exit the app, <code>true</code> when the next command is expected to be received from the user.
+     * @throws ArrikyRuntimeException If any runtime exceptino in parsing or executing the command is thrown.
+     */
     public static boolean parseCommand(String rawCommand, TaskList taskList) throws ArrikyRuntimeException {
         String[] arguments = rawCommand.split(" ");
 
@@ -123,6 +136,7 @@ public class Parser {
             }
             break;
 
+        // if the user's command cannot be interpreted as any valid operation, notify the user
         default:
             throw new ArrikyRuntimeException(ErrorMessage.INVALID_COMMAND);
         }

@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 
+/**
+ * Class to store, parse and display date and timestamp used in the app.
+ * @author Songyue Wang
+ */
 public class ArrikyDateTime {
     private boolean isTimeStamp;
     private final LocalDateTime dateTime;
@@ -18,6 +22,12 @@ public class ArrikyDateTime {
     private final DateTimeFormatter serializeFormatterDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final DateTimeFormatter serializeFormatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Constructor for ArrikyDateTime.
+     * Given a datetime string, instantiate ArrikyDateTime representing a date or timestamp (with both date and time).
+     * @param dateTimeString The input datetime string.
+     * @throws ArrikyRuntimeException If the given datetime string cannot be parsed to a date or timestamp object properly.
+     */
     public ArrikyDateTime(String dateTimeString) throws ArrikyRuntimeException {
         try {
             String[] parsedInputString = dateTimeString.split(" ");
@@ -33,6 +43,10 @@ public class ArrikyDateTime {
         }
     }
 
+    /**
+     * Get datetime string to be displayed in the screen.
+     * @return Formatted date or timestamp (e.g. <code>6 Mar 2024</code> or <code>6 Mar 2024 18:00</code>).
+     */
     public String getDisplayDateTime() {
         String output;
         if (isTimeStamp) {
@@ -43,6 +57,10 @@ public class ArrikyDateTime {
         return output;
     }
 
+    /**
+     * Get datetime string to be saved to local file.
+     * @return Formatted date or timestamp (e.g. <code>2024-03-06</code> or <code>2024-03-06 18:00</code>)
+     */
     public String getSerializeDateTime() {
         String output;
         if (isTimeStamp) {

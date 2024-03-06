@@ -10,10 +10,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to save and import operations of task list from/to local file.
+ * @author Songyue Wang
+ */
 public class Storage {
     private static final String taskListFilePath = "./data/tasklist.txt";
     private static final String dataDirPath = "./data";
 
+    /**
+     * Save tasklist entries to a local file.
+     * @param data The arraylist containing all formatted string representations of tasks in the tasklist to save.
+     * @throws ArrikyRuntimeException If there is error in saving to local file.
+     */
     public static void writeLinesToFile(ArrayList<String> data) throws ArrikyRuntimeException {
         try {
             File dataDir = new File(dataDirPath);
@@ -34,6 +43,11 @@ public class Storage {
 
     }
 
+    /**
+     * Read the local record file line by line, and store the lines in an arraylist.
+     * @return An arraylist containing
+     * @throws ArrikyRuntimeException If the local record file cannot be found.
+     */
     public static ArrayList<String> loadAllLines() throws ArrikyRuntimeException {
         ArrayList<String> savedData = new ArrayList<String>();
 
@@ -46,7 +60,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new ArrikyRuntimeException(ErrorMessage.LOCAL_RECORD_NOT_EXIST);
         }
-
 
         return savedData;
     }

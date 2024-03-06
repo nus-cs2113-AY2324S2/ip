@@ -1,5 +1,9 @@
 package com.arriky.exception;
 
+/**
+ * Error prompt messages that will be used in the app to notify the user.
+ * @author Songyue Wang
+ */
 public class ErrorMessage {
     public static String INVALID_ID = "Task ID should be an integer. Please try again.";
     public static String INVALID_COMMAND = "Command does not exist. Please try again.";

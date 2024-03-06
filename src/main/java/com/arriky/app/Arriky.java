@@ -5,6 +5,11 @@ import com.arriky.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * A CLI chatbot to assist the user manage daily tasks, including to-dos, deadlines, and events.
+ * @author Songyue Wang
+ * @version 1.0
+ */
 public class Arriky {
     private TaskList taskList;
 
@@ -30,6 +35,7 @@ public class Arriky {
     }
 
     public Arriky() {
+        // attempt to load tasklist from file. If failed, instantiate an empty one.
         try {
             ArrayList<String> savedLines = Storage.loadAllLines();
             taskList = new TaskList(savedLines);
@@ -41,6 +47,7 @@ public class Arriky {
     }
 
     public static void main(String[] args) {
+        // entry point of the app.
         new Arriky().run();
     }
 }
