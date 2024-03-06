@@ -209,25 +209,31 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for and displays tasks that contain the keyword in the user input.
+     * If one or more matches are found, it lists those tasks along with their indices.
+     * If no matches are found, it displays an error message.
+     *
+     * @param keyword The keyword to search for within the tasks
+     */
     public static void findTask(String keyword) {
         StringBuilder results = new StringBuilder("Here are the matching tasks in your list:\n");
 
-        boolean found = false;
+        boolean isFound = false;
         for (int i = 0; i < tasks.size(); ++i) {
             Task task = tasks.get(i);
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) { // Case-insensitive search
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
                 results.append(String.format("%d. %s%n", (i + 1), task));
-                found = true;
+                isFound = true;
             }
         }
 
-        if (!found) {
+        if (!isFound) {
             results.append("No matching tasks found.\n");
         }
 
         System.out.println(results);
     }
-
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }
