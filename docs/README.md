@@ -15,7 +15,6 @@ Mark the specified task as done or undone.
 Remove the specified task from the list.
 
 ## Usage
-> [!NOTE]
 > Words in UPPER_CASE are the parameters to be supplied by the user.
 
 
@@ -44,11 +43,11 @@ Expected outcome:
 Adds a task of type deadline to the task list.
 
 Format:
-`todo borrow book`
+`deadline TASK_NAME /by DEADLINE`
 
 Example of usage:
 
-`deadline TASK_NAME /by DEADLINE`
+`deadline return book /by Sunday`
 
 Expected outcome:
 
@@ -129,11 +128,11 @@ Expected outcome:
 Marks the specified task as uncompleted.
 
 Format:
-`mark TASK_INDEX`
+`unmark TASK_INDEX`
 
 Example of usage:
 
-`mark 2`
+`unmark 2`
 
 Expected outcome:
 
@@ -176,7 +175,7 @@ Format:
 
 Example of usage:
 
-`delete 3`
+`bye`
 
 Expected outcome:
 
@@ -193,6 +192,6 @@ Bye. Hope to see you again soon!
 ```
 
 
-> [!TIP]
+
 > Tasks data are saved in the hard disk automatically after any command that changes the data. \
 > There is no need to save manually.
