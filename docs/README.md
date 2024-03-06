@@ -36,14 +36,14 @@ If you can type fast, Adam can get your tasks managed faster than traditional GU
    
    ```
 6. Type the command in the command box and press Enter to execute it.
-   - Refer to the [Features](#features) section for the list of commands available.
 7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
 8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
 9. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.
 If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
 
--Notes:
+- Notes:
     - All the spaces in the commands are for clarity and are optional to include in the actual command.
+    - Refer to the [Features](#features) section for the list of commands available.
 
 ## Features
 ### Adding a task
@@ -225,11 +225,11 @@ Enjoy chatting with Adam!
 * The date and time format is case-insensitive.
 * `deadline` and `event` commands accept dates and times in the following format:
 - Date:
-- `YYYYMMDD` (4-digit year, 2-digit month, 2-digit day,<br>seperated by any symbols of: `-` `/` `.` or a whitespace ` `)
-- `DDMMYYYY` (2-digit day, 2-digit month, 4-digit year,<br>seperated by any symbols of: `-` `/` `.` or a whitespace ` `)
-- `ddMMMyyyy` (2-digit day, 3-letter month, 4-digit year,<br>seperated by any symbols of:  `-` `/` or a whitespace ` `)
-- `MMMddyyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace ` `)
-- `MMM dd, yyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace ` ` with a comma `,` after the day)
+- `YYYYMMDD` (4-digit year, 2-digit month, 2-digit day,<br>seperated by any symbols of: `-` `/` `.` or a whitespace)
+- `DDMMYYYY` (2-digit day, 2-digit month, 4-digit year,<br>seperated by any symbols of: `-` `/` `.` or a whitespace)
+- `ddMMMyyyy` (2-digit day, 3-letter month, 4-digit year,<br>seperated by any symbols of:  `-` `/` or a whitespace)
+- `MMMddyyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace)
+- `MMM dd, yyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace with a comma `,` after the day)
 - Time:
 - 24-hour or 12-hour format with an optional leading zero,<br>and optional colon `:` as the seperator between hours and minutes.
 - For 12-hour format, the time should be followed by `am` or `pm`.
