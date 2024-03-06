@@ -11,4 +11,45 @@ public class Ui {
     public void nextInput() {
         input = in.nextLine();
     }
+
+    public void processInput(String input, TaskList taskList) throws JaneException {
+        try {
+            String[] inputPart = input.split(" ", 2);
+            if (inputPart.length < 2 || inputPart[1] == null) {
+                switch (inputPart[0]) {
+                case "todo" :
+                case "deadline" :
+                case "event" :
+                    throw new JaneException("Description for a " + inputPart[0] + " cannot be empty");
+                }
+            }
+            switch (inputPart[0]) {
+            case "todo":
+                taskList.processTodo(inputPart[1]);
+                break;
+            case "deadline":
+                taskList.processDeadline(inputPart[1]);
+                break;
+            case "event":
+                taskList.processEvent(inputPart[1]);
+                break;
+            case "list":
+                taskList.printList();
+                break;
+            case "mark":
+                taskList.markAsDone(Integer.parseInt(inputPart[1]) - 1);
+                break;
+            case "unmark":
+                taskList.markAsUndone(Integer.parseInt(inputPart[1]) - 1);
+                break;
+            case "delete" :
+                taskList.removeTask(Integer.parseInt(inputPart[1]) - 1);
+                break;
+            default:
+                throw new JaneException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (JaneException e) {
+            throw new JaneException(e.getMessage());
+        }
+    }
 }
