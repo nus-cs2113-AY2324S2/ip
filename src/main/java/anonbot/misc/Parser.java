@@ -5,6 +5,12 @@ public class Parser {
         return userInput.split(" ", 2)[0];
     }
 
+    /**
+     * Extracts the argument string that comes right after the command, if any.
+     *
+     * @param userInput The original input by the user, including the command.
+     * @return The argument associated with the command. Returns an empty string if only the command is present.
+     */
     public static String getCommandArgument(String userInput) {
         try {
             return userInput.split(" ", 2)[1];
