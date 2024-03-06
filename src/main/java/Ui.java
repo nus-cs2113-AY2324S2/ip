@@ -45,7 +45,7 @@ public class Ui {
             case "unmark":
                 parser.markAsUndone(Integer.parseInt(inputPart[1]) - 1);
                 break;
-            case "delete" :
+            case "delete":
                 taskList.removeTask(Integer.parseInt(inputPart[1]) - 1);
                 break;
             default:
