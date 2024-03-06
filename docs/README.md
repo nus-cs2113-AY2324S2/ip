@@ -27,7 +27,8 @@ This user guide provides a comprehensive overview of Adam's features and command
 > 3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
 > 4. Start a terminal and navigate to the folder where `adam.jar` is located.
 > 5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
-   ```
+
+```
    Hello from
                  _
         /\      | |
@@ -36,7 +37,8 @@ This user guide provides a comprehensive overview of Adam's features and command
      / ____ \ (_| | (_| | | | | | |
     /_/    \_\__,_|\__,_|_| |_| |_|
    
-   ```
+```
+
 > 6. Type the command in the command box and press Enter to execute it. Refer to the [Features](#features) section for available commands.
 > 7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
 > 8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
@@ -45,10 +47,10 @@ This user guide provides a comprehensive overview of Adam's features and command
 If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
 
 
-> ![NOTE]
-> All the spaces in the commands are for clarity and are **optional** to include in the actual command.
-> Commands are **case-insensitive**.
-> The `<angle-brackets>` are used to denote the parameters that should be replaced with the **actual user input**.
+> [!NOTE]
+> * All the spaces in the commands are for clarity and are **optional** to include in the actual command.<br>
+> * Commands are **case-insensitive**.<br>
+> * The `<angle-brackets>` are used to denote the parameters that should be replaced with the **actual user input**.
 
 
 ## Features
