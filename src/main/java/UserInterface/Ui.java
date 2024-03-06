@@ -78,13 +78,13 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    protected void displayByeMsg() {
+    public void displayByeMsg() {
         System.out.println(DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
     }
 
-    protected void displayWelcomeMsg() {
+    public void displayWelcomeMsg() {
         System.out.println(DIVIDER);
         System.out.println("Hello! I'm " + CHATBOT);
         System.out.println("What can I do for you?\n");

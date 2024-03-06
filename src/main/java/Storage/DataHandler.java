@@ -7,6 +7,7 @@ import Tasks.Todo;
 
 import javax.swing.table.TableRowSorter;
 import java.io.*;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,17 +15,16 @@ import java.util.Scanner;
  * The Storage.DataHandler class provides methods for reading and writing task data to a file.
  */
 public class DataHandler {
-    public static final String FILE_PATH = "src/main/java/data/data.txt";
+    public static final String FILE_PATH = "./data/data.txt";
 
     /**
      * Appends the specified text to the file at the given path.
      *
-     * @param filePath  the path of the file to write to
      * @param textToAdd the text to add to the file
      * @throws IOException if an I/O error occurs while writing to the file
      */
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+    private static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH, true);
         fw.write(textToAdd);
         fw.close();
     }
@@ -42,7 +42,14 @@ public class DataHandler {
             if (task == null) break;
             String stringToWrite = task.getBadge() + "," + (task.getStatusIcon().equals("X") ? 1 : 0)
                     + "," + task.description + "\n";
-            writeToFile(FILE_PATH, stringToWrite);
+            writeToFile(stringToWrite);
+        }
+    }
+
+    private static void createDataFolderIfNotExists() throws IOException {
+        Path dataFolderPath = Paths.get("./data");
+        if (!Files.exists(dataFolderPath)) {
+            Files.createDirectories(dataFolderPath);
         }
     }
 
@@ -54,6 +61,7 @@ public class DataHandler {
      * @throws IOException if an I/O error occurs while reading the file
      */
     public static ArrayList<Task> readFileContents(String filePath) throws IOException {
+        createDataFolderIfNotExists();
         File f = new File(filePath);
         if (!f.exists()) {
             f.createNewFile();
