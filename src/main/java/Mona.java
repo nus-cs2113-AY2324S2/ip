@@ -30,16 +30,15 @@ public class Mona {
      */
     public void run() {
         String userCommand = ui.getUserInput();
+        Parser inputParser = new Parser(userCommand);
 
-        while (!userCommand.equals("bye")) {
-            Parser inputParser = new Parser(userCommand);
-
+        while (inputParser.isNotByeCommand()) {
             if (inputParser.isValidInput()) {
                 taskList.executeCommand(inputParser.getCommandTypeAndParams());
                 storage.saveToStorage(taskList.getTasks());
             }
-
             userCommand = ui.getUserInput();
+            inputParser = new Parser(userCommand);
         }
         ConsolePrint.exit();
     }

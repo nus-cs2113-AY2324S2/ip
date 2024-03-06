@@ -15,6 +15,7 @@ public class Parser {
     protected String line;
     protected boolean isValidInput;
     protected InputValidator inputValidator;
+    protected boolean isNotByeCommand;
 
     /**
      * Constructor for Parser. Initializes the 'commandTypeAndParams' String array, input line,
@@ -26,6 +27,7 @@ public class Parser {
         this.commandTypeAndParams = new String[4];
         this.line = line;
         this.isValidInput = true; // set to true initially, any error caught will set it to false
+        this.isNotByeCommand = true; // set to true initially
         this.inputValidator = new InputValidator();
 
         this.parseInput(line);
@@ -33,6 +35,10 @@ public class Parser {
 
     public String[] getCommandTypeAndParams() {
         return commandTypeAndParams;
+    }
+
+    public boolean isNotByeCommand() {
+        return isNotByeCommand;
     }
 
     public boolean isValidInput() {
@@ -220,6 +226,7 @@ public class Parser {
         case("help"):
             break;
         case("bye"):
+            this.isNotByeCommand = false;
             break;
         // default case is for invalid commands
         default:

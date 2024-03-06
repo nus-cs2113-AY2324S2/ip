@@ -52,11 +52,21 @@ ____________________________________________________________
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
-Invalid command detected!
-Invalid command detected!
-Invalid command detected!
-Invalid command detected!
-Invalid command detected!
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
