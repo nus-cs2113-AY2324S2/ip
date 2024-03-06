@@ -32,7 +32,7 @@ public class MarkTaskCommand extends Command {
             ui.showTask("Awesomeee! I've marked this task as done: \n"
                     + tasks.getTasks().get(taskIndex));
         } else {
-            ui.errorMessage("OPPS! Task index out of bounds :<");
+            ui.errorMessage("OPPS! Task index out of bounds.");
         }
     }
 }

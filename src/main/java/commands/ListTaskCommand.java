@@ -20,7 +20,7 @@ public class ListTaskCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
-            ui.showTask("OOPS! The list is currently empty :<");
+            ui.showTask("OOPS! The list is currently empty, start adding new tasks!");
         } else {
             ui.listTasks(tasks);
         }

@@ -28,7 +28,7 @@ public class Parser {
      */
     public static Command parseCommand(String userInput) throws KikuException {
         if (userInput.trim().isEmpty()) {
-            throw new KikuInvalidTaskException("OOPS! Input cannot be empty :< \n" + HORIZONTAL);
+            throw new KikuInvalidTaskException("OOPS! Input cannot be empty! \n" + HORIZONTAL);
         }
 
         String commandType = userInput.split(" ")[0];
@@ -80,7 +80,7 @@ public class Parser {
             return new ExitCommand();
         default:
             throw new KikuInvalidTaskException("OOPS! Please specify a todo, deadline, or event! " +
-                    "Make sure all spellings are correct :> \n" + HORIZONTAL);
+                    "Make sure all spellings are correct ~ \n" + HORIZONTAL);
         }
     }
 
@@ -101,7 +101,7 @@ public class Parser {
         case "delete":
             return new DeleteTaskCommand(index);
         default:
-            throw new IllegalArgumentException("OOPS! Unhandled command type \n" + HORIZONTAL);
+            throw new IllegalArgumentException("OOPS! Unhandled command type! \n" + HORIZONTAL);
         }
     }
 
