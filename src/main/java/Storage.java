@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 
 public class Storage {
-    public static final String FILE_PATH = "data/baymax.txt";
+    public static final String FILE_PATH = "./data/baymax.txt";
 
     /**
      * Loads the tasks from the baymax.txt file into the taskArrayList.
