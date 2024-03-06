@@ -31,7 +31,7 @@ public class Ui {
      * Prints the greeting message to the user.
      */
     public void greet() {
-        printMessage(GREET_MESSAGE + "\n" + HELP_MESSAGE);
+        printMessage(GREET_MESSAGE + "\n" + BORDER + HELP_MESSAGE);
     }
 
     /**

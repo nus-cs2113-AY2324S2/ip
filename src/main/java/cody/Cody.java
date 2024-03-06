@@ -71,6 +71,6 @@ public class Cody {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args)  {
-        new Cody("../data/tasks.txt").run();
+        new Cody("./data/tasks.txt").run();
     }
 }
