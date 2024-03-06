@@ -32,7 +32,7 @@ public class UnmarkTaskCommand extends Command {
             ui.showTask("OK! I've marked this task as not done yet: \n"
                     + tasks.getTasks().get(taskIndex));
         } else {
-            ui.errorMessage("OOPS! Task index out of bounds :<");
+            ui.errorMessage("OOPS! Task index out of bounds.");
         }
     }
 }

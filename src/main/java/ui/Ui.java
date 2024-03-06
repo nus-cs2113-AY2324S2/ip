@@ -85,7 +85,7 @@ public class Ui {
      */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println("OOPS! No matching tasks found :<");
+            System.out.println("OOPS! No matching tasks found.");
         } else {
             System.out.println("Alright! Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {

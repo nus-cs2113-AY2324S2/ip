@@ -32,6 +32,6 @@ public class AddDeadlineCommand extends Command {
         Deadline deadline = new Deadline(description, by);
         tasks.addTask(deadline);
         ui.showTask("Alright, I've added this task: \n" + deadline);
-        ui.showTask("Now you have " + tasks.getTasks().size() + " tasks in the list :>");
+        ui.showTask("Now you have " + tasks.getTasks().size() + " tasks in the list!");
     }
 }

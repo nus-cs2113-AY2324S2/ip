@@ -34,6 +34,6 @@ public class AddEventCommand extends Command {
         Event event = new Event(description, start, end);
         tasks.addTask(event);
         ui.showTask("Got it. I've added this task: \n" + event);
-        ui.showTask("Now you have " + tasks.getTasks().size() + " tasks in the list :>");
+        ui.showTask("Now you have " + tasks.getTasks().size() + " tasks in the list!");
     }
 }

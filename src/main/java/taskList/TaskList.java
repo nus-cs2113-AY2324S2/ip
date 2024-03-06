@@ -96,7 +96,7 @@ public class TaskList {
      */
     public String getFormattedTasks() {
         if(tasks.isEmpty()) {
-            return "OPPS! Your task list is empty :<";
+            return "OPPS! Your task list is empty, start adding new tasks!";
         } else {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < tasks.size(); i++) {
