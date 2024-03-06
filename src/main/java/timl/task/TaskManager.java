@@ -11,7 +11,11 @@ import java.util.ArrayList;
  * Manages and executes all commands related to the Array List
  */
 public class TaskManager {
-    public static ArrayList<Task> list = new ArrayList<>();
+    private static final ArrayList<Task> list = new ArrayList<>();
+
+    public static ArrayList<Task> getList() {
+        return list;
+    }
     public void addTask(Task t) {
         list.add(t);
     }
@@ -20,15 +24,8 @@ public class TaskManager {
         return words.substring(0, 3);
     }
 
-    /**
-     * List all tasks that is currently in the Array List
-     */
-    public static void printList(){
+    public static void printList() {
         Printer.printList();
-        for (Task i : list) {
-            System.out.println("    " + (list.indexOf(i) + 1) + ": " + i.getStatus());
-        }
-        Printer.printLine();
     }
 
     /**
@@ -42,9 +39,7 @@ public class TaskManager {
             throw new TimException();
         }
         list.get(taskIndex).isMarked = true;
-        Printer.printMarkedOpening();
-        System.out.println("    [X] " + list.get(taskIndex).getDescription());
-        Printer.printLine();
+        Printer.printMarkedMessage(taskIndex);
     }
 
     /**
@@ -58,9 +53,7 @@ public class TaskManager {
             throw new TimException();
         }
         list.get(taskIndex).isMarked = false;
-        Printer.printUnMarkedOpening();
-        System.out.println("    [ ] " + list.get(taskIndex).getDescription());
-        Printer.printLine();
+        Printer.printUnMarkedOpening(taskIndex);
     }
 
     /**
@@ -75,10 +68,7 @@ public class TaskManager {
         }
         Todo task = new Todo(message);
         list.add(task);
-        Printer.printAddedTaskOpening();
-        System.out.println("    " + task.getStatus());
-        System.out.println("    Now you have " + list.size() + " task in the list.");
-        Printer.printLine();
+        Printer.printAddedTaskMessage(task.getStatus(), list.size());
     }
 
     /**
@@ -87,7 +77,7 @@ public class TaskManager {
      * @param message the description and deadline (marked by "/by") of the deadline task that is being added
      * @throws EmptyException if the message is a blank message
      */
-    public static void addDeadline(String message) throws EmptyException{
+    public static void addDeadline(String message) throws EmptyException {
         if(message.isEmpty()){
             throw new EmptyException();
         }
@@ -95,10 +85,7 @@ public class TaskManager {
         String finishBy = TextParser.extractDeadlineTime(message);
         Deadline newDeadline = new Deadline(taskName, finishBy);
         list.add(newDeadline);
-        Printer.printLine();
-        System.out.println("    " + newDeadline.getStatus());
-        System.out.println("    Now you have " + list.size() + " task in the list.");
-        Printer.printLine();
+        Printer.printAddedTaskMessage(newDeadline.getStatus(), list.size());
     }
 
     /**
@@ -115,10 +102,7 @@ public class TaskManager {
         String taskName = TextParser.extractTaskName(message);
         Events newEvent = new Events(taskName, eventDurations[0], eventDurations[1]);
         list.add(newEvent);
-        Printer.printLine();
-        System.out.println("   " + newEvent.getStatus());
-        System.out.println("   Now you have " + list.size() + " task in the list.");
-        Printer.printLine();
+        Printer.printAddedTaskMessage(newEvent.getStatus(), list.size());
     }
 
     /**
@@ -131,12 +115,10 @@ public class TaskManager {
         if ((taskIndex < 0) |(list.size() <= taskIndex)){
             throw new TimException();
         }
-        Printer.printDeleteOpening();
-        System.out.println("     " + list.get(taskIndex).getStatus());
+        Printer.printDeleteTaskMessage(list.get(taskIndex).getStatus(), list.size());
         list.remove(taskIndex);
-        System.out.println("     Now you have " + list.size() + " task in the list.");
-        Printer.printLine();
     }
+
     public static void find(String keyword){
         ArrayList<Integer> indexes = new ArrayList<>();
         for (Task i : list){

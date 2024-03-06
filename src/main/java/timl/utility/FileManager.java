@@ -65,7 +65,7 @@ public class FileManager {
 
         FileWriter fw = new FileWriter(saveFile);
         BufferedWriter writer = new BufferedWriter(fw);
-        for (Task t : TaskManager.list) {
+        for (Task t : TaskManager.getList()) {
             String data = null;
             switch (TaskManager.getTaskType(t)) {
                 case "[T]":
