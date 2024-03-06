@@ -21,7 +21,7 @@ public class TaskList {
         list.add(userTask);
         if (!isInitMode) {
             // Used for normal task adding, printing not needed when initialising
-            System.out.println(" Got it. mark I've added this task:");
+            System.out.println(" Got it. I've added this task:");
             System.out.println(" " + userTask);
             System.out.println(" Now you have " + list.size() + " tasks in the list.");
             Davvy.writeData(userTask);
