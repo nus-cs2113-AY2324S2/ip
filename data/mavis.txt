@@ -1,2 +1,5 @@
-D|finish javadocs (by:today)|0|:today
-E|study session cg2023 (from: 2pm to: 4pm)|0|2pm|4pm
+D|finish javadocs (by:today)|0|null
+E|study session cg2023 (from: 2pm to: 4pm))|0|2pm|4pm)
+T|hello|1
+E|taylor swift concert (from: 2pm to: 4pm)|0|2pm|4pm
+D|finish studying for 2023 (by:Saturday)|1|:Saturday

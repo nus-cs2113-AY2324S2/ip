@@ -88,8 +88,9 @@ public class Ui {
         System.out.println("│  4. mark <task number>                        │");
         System.out.println("│  5. unmark <task number>                      │");
         System.out.println("│  6. list                                      │");
-        System.out.println("│  7. delete <task number>                      │");
-        System.out.println("│  8. bye                                       │");
+        System.out.println("│  7. find <description keywords>               │");
+        System.out.println("│  8. delete <task number>                      │");
+        System.out.println("│  9. bye                                       │");
         System.out.println("└───────────────────────────────────────────────┘");
     }
 
