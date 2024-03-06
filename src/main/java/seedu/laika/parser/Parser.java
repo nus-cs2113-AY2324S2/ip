@@ -1,59 +1,77 @@
 package seedu.laika.parser;
 
 import seedu.laika.LaikaException;
-import seedu.laika.storage.Storage;
+import seedu.laika.task.Deadline;
+import seedu.laika.task.Event;
+import seedu.laika.task.Task;
+import seedu.laika.task.Todo;
 import seedu.laika.tasklist.TaskList;
 import seedu.laika.ui.TextUi;
 
+import java.util.Objects;
+
 public class Parser {
 
-    public boolean parse(String line, TaskList tasks){
+    public static Task commandtoTask(String[] command) {
+        Task task = null;
+        if(command[1].startsWith("todo")){
+            task = new Todo(command[1].replaceFirst("todo ",""));
+        }
+        else if (command[1].startsWith("deadline")) {
+            String[] words = command[1].split("/");
+            task = new Deadline(words[0].replaceFirst("deadline ",""),
+                    words[1].replaceFirst("by ",""));
+        }
+        else if (command[1].startsWith("event")) {
+            String[] words = command[1].split("/");
+            task = new Event(words[0].replaceFirst("event ",""),
+                    words[1].replaceFirst("from ",""),
+                    words[2].replaceFirst("to ",""));
+        }
+        if (Objects.equals(command[0], "1")) {
+            assert task != null;
+            task.setDone();
+        }
+        return task;
+    }
+
+    public boolean parse(String line, TaskList taskList){
         String[] words = line.split(" ", 2);
 
         switch(words[0]){
             case "mark":
             case "unmark":
                 try {
-                    tasks.modifyTask(words);
+                    taskList.modifyTask(words);
                 }
                 catch (IndexOutOfBoundsException e) {
-                    System.out.println("Laika: You dont have so many tasks!");
+                    TextUi.showErrorMessage(TextUi.MESSAGE_INDEX_OUT_OF_BOUNDS);
                 }
                 return true;
             case "list":
-                tasks.displayTasks();
+                taskList.displayTasks();
                 return true;
             case "bye":
                 return false;
             case "delete":
                 try {
-                    tasks.deleteTask(words);
+                    taskList.deleteTask(words);
                 }
                 catch (IndexOutOfBoundsException e) {
-                    System.out.println("Laika: You dont have so many tasks!");
+                    TextUi.showErrorMessage(TextUi.MESSAGE_INDEX_OUT_OF_BOUNDS);
                 }
-
-                System.out.println("Laika: You have " + (tasks.getSize() - 1) + " tasks left!");
+                TextUi.showNumberOfTasksLeft(taskList);
                 return true;
             default:
 
                 try{
-                    tasks.addTask(line);
+                    taskList.addTask(line);
                 }
                 catch(LaikaException e) {
-                    System.out.println("Laika: Hmmmm, I dont understand you?");
                     break;
                 }
-
-
-                System.out.println("Laika: Gotcha! I've added the task for you\n  "
-                        + tasks.getTask(tasks.getSize() - 1) + System.lineSeparator()
-                        + "You have " + (tasks.getSize()) + " tasks in your list. :P");
-
+                TextUi.showTaskAdded(taskList);
                 return true;
-
-
-
         }
         return true;
     }

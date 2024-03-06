@@ -11,31 +11,28 @@ public class Laika {
 
 
     private Storage storage;
-    private TaskList tasks;
-    private TextUi ui;
+    private TaskList taskList;
     private Parser parser;
     private boolean isConvoOngoing;
     public Laika(String fileName){
-        ui = new TextUi();
         storage = new Storage(fileName);
         parser = new Parser();
-        tasks = storage.load();
+        taskList = storage.load();
         isConvoOngoing = true;
     }
 
     public void run(){
-        ui.startMessage();
+        TextUi.startMessage();
         while (isConvoOngoing) {
-            String line = ui.getUserCommand();
-            isConvoOngoing = parser.parse(line, tasks);
-
+            String line = TextUi.getUserCommand();
+            isConvoOngoing = parser.parse(line, taskList);
         }
         try {
-            storage.save(tasks);
+            storage.save(taskList);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        ui.endMessage();
+        TextUi.endMessage();
     }
 
     public static void main(String[] args) throws IOException {

@@ -1,49 +1,46 @@
 package seedu.laika.storage;
 
-import seedu.laika.LaikaException;
+import seedu.laika.task.Task;
 import seedu.laika.tasklist.TaskList;
+import seedu.laika.ui.TextUi;
+import seedu.laika.parser.Parser;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
 
     protected File f;
-    protected ArrayList<String> lines;
-    protected int count = 0;
 
     public Storage(String filename){
         this.f = new File(filename);
     }
 
     public TaskList load() {
-        TaskList tasks = new TaskList();
+        TaskList taskList = new TaskList();
         try {
             Scanner reader = new Scanner(f);
             while (reader.hasNext()){
-                String command = reader.nextLine();
-                tasks.addTask(command);
-                tasks.addLines(command);
+                String[] command = reader.nextLine().split(" ",2);
+                Task task = Parser.commandtoTask(command);
+                taskList.addTaskToTasks(task);
+                taskList.addLines(command[1]);
             }
         }
-        catch (FileNotFoundException e){
-            System.out.println("Laika: Error while reading save data.");
-            tasks = new TaskList();
-        } catch (LaikaException e) {
-            throw new RuntimeException(e);
+        catch (FileNotFoundException e) {
+            TextUi.showErrorMessage(TextUi.MESSAGE_NO_SAVE_DATA);
+            taskList = new TaskList();
         }
-        return tasks;
+        return taskList;
     }
 
-    public void save(TaskList tasks) throws IOException {
+    public void save(TaskList taskList) throws IOException {
         FileWriter myWriter = new FileWriter("laika.txt");
-        for (int i = 0; i< tasks.getSize();i++){
-            myWriter.write(tasks.getLine(i) + System.lineSeparator());
-
+        for (int i = 0; i < taskList.getSize(); i++) {
+            myWriter.write(taskList.getTasks(i).getIsDoneValue() + " " + taskList.getLine(i) + System.lineSeparator());
         }
         myWriter.close();
     }
