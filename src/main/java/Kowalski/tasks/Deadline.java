@@ -9,6 +9,10 @@ public class Deadline extends Task {
         this.deadline = by;
     }
 
+    /**
+     * This function returns the deadline of the "deadline" event
+     * @return String of the Deadline
+     */
     public String getDeadline() {
         return deadline;
     }
