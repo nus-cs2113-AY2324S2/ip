@@ -7,12 +7,6 @@ package Exceptions;
 
 public class InvalidDeadlineFormatException extends Exception {
 
-    /**
-     * Constructs a new InvalidDeadlineFormatException with the specified detail message.
-     *
-     * @param message The detail message explaining the reason for the exception.
-     */
-
     public InvalidDeadlineFormatException(String message) {
         super(message);
     }

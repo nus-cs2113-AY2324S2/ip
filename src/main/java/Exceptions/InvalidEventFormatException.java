@@ -7,12 +7,6 @@ package Exceptions;
 
 public class InvalidEventFormatException extends Exception {
 
-    /**
-     * Constructs a new InvalidEventFormatException with the specified detail message.
-     *
-     * @param message The detail message explaining the reason for the exception.
-     */
-
     public InvalidEventFormatException(String message) {
         super(message);
     }
