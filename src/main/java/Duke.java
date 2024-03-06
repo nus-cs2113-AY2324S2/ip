@@ -2,6 +2,16 @@ import java.util.Scanner;
 
 public class Duke {
 
+    /**
+     * Adds a task to the task list based on the input line.
+     * This method determines the type of task (event, deadline, or todo) by parsing the input line,
+     * creates the task, and then adds it to the task list. It handles missing parameters by catching
+     * {@code MissingParameterException} and printing an error message.
+     * After successfully adding the task, it prints a confirmation along with the task's details
+     * and the total number of tasks in the list.
+     *
+     * @param line The input line containing the task description and any required parameters.
+     */
     public static void addTask(String line) {
         Ui ui = new Ui();
         Task task;
@@ -25,6 +35,12 @@ public class Duke {
         ui.printFormat();
     }
 
+    /**
+     * Validates the given description for errors.
+     * This method checks for invalid commands or empty descriptions and prints an error message if any issues are found.
+     *
+     * @param description The task description to validate.
+     */
     public static void validate(String description) {
         Ui ui = new Ui();
         try {
@@ -34,6 +50,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks the given description for any errors that would make it invalid.
+     * This method throws a {@code DukeException} if the description is either an invalid command or empty.
+     *
+     * @param description The task description to check.
+     * @throws DukeException If the description is invalid due to being an unrecognized command or empty.
+     */
     private static void checkForError(String description) throws DukeException {
         if(Parser.isInvalidCommand(description)) {
             throw new DukeException("Hey, the description is invalid!");
