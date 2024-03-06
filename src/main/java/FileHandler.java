@@ -55,7 +55,8 @@ public class FileHandler {
             for (Task t : Tickles.list) {
                 switch (t.type()) {
                 case "[D]":
-                    fileWriter.write(t.type() + "|" + t.getStatusIcon() + "|" + t.getDescription() + "|" + ((Deadline)t).by);
+                    fileWriter.write(t.type() + "|" + t.getStatusIcon() + "|" + t.getDescription() + "|" +
+                            ((Deadline)t).by);
                     break;
                 case "[T]":
                     fileWriter.write(t.type() + "|" + t.getStatusIcon() + "|" + t.getDescription());
