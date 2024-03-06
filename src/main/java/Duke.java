@@ -1,30 +1,33 @@
-import Storage.DukeFile;
-import TaskList.AddTask;
-import TaskList.Task;
-import Ui.PrintText;
-
-import java.io.File;
-import java.util.ArrayList;
+import Parser.Parser;
+import Storage.Storage;
+import TaskList.TaskList;
+import Ui.Ui;
 
 public class Duke {
+    private Parser parser;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke() {
+        parser = new Parser();
+        storage = new Storage();
+        tasks = new TaskList();
+        ui = new Ui();
+    }
+
+    public void run(String[] args, String botName) {
+        ui.greet(botName);
+        tasks.newTasks();
+        storage.newFile(args);
+        parser.taskManager();
+        ui.bye();
+    }
 
     public static void main(String[] args) {
         String botName = "Battch";
 
-        PrintText.printWithLinebreak("Hello! I'm " + botName + "\n" +
-                "What can I do for you?");
-
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        DukeFile.main(args);
-
-        File newData = DukeFile.getFileData();
-
-        DukeFile.readFromFile(newData, tasks);
-
-        AddTask.taskListManager(tasks);
-
-        PrintText.printWithLinebreak("Bye. Hope to see you again soon!");
-
+        Duke dukeBot = new Duke();
+        dukeBot.run(args, botName);
     }
 }
