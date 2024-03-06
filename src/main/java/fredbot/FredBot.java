@@ -2,7 +2,6 @@ package fredbot;
 
 import fredbot.exception.EmptyDescriptionException;
 import fredbot.exception.UnknownCommandException;
-import fredbot.exception.NoMatchesException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +16,6 @@ public class FredBot {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_EXIT = "bye";
-    private static final String COMMAND_FIND = "find";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_TODO = "todo";
@@ -86,9 +84,6 @@ public class FredBot {
         case COMMAND_EVENT:
             executeAddEvent(commandArgs);
             break;
-        case COMMAND_FIND:
-            executeFind(commandArgs);
-            break;
         case COMMAND_LIST:
             executeList();
             break;
@@ -106,14 +101,6 @@ public class FredBot {
             break;
         default:
             throw new UnknownCommandException();
-        }
-    }
-
-    private static void executeFind(String keyword) {
-        try {
-            tasks.findTask(keyword, ui);
-        } catch (NoMatchesException e) {
-            ui.showNoMatches();
         }
     }
 
