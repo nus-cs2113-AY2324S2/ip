@@ -1,22 +1,28 @@
 # Mona User Guide
 
+&nbsp;
+
 Mona is a Command Line Interface (CLI) chatbot application designed to streamline task management with speed and simplicity. Named after the intuitive and resourceful character 'Mona' from the beloved TV series 'Nanalan', our application embodies the efficiency and helpfulness that Mona showcased in her adventures.
+
+&nbsp;
 
 - [Quick start](#quick-start)
 - [Features](#features)
-  - [Viewing help](#viewing-help-help)
+  - [Viewing help: `help`](#viewing-help-help)
   - [Adding a task](#adding-a-task)
-  - [Adding a todo](#adding-a-todo-todo)
-  - [Adding a deadline](#adding-a-deadline-deadline)
-  - [Adding an event](#adding-an-event-event)
-  - [Listing all tasks](#listing-all-tasks-list)
-  - [Locating a task by description](#locating-a-task-by-description-find)
-  - [Deleting a Task](#deleting-a-task-delete)
-  - [Marking a Task as Done](#marking-a-task-as-done-mark)
-  - [Marking a Task as Not Done](#marking-a-task-as-not-done-unmark)
-  - [Exiting the program](#exiting-the-program-bye)
+    - [Adding a todo: `todo`](#adding-a-todo-todo)
+    - [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
+    - [Adding an event: `event`](#adding-an-event-event)
+  - [Listing all tasks: `list`](#listing-all-tasks-list)
+  - [Locating a task by description: `find`](#locating-a-task-by-description-find)
+  - [Deleting a Task: `delete`](#deleting-a-task-delete)
+  - [Marking a Task as Done: `mark`](#marking-a-task-as-done-mark)
+  - [Marking a Task as Not Done: `unmark`](#marking-a-task-as-not-done-unmark)
+  - [Exiting the program: `bye`](#exiting-the-program-bye)
   - [Saving the data](#saving-the-data)
 - [Command summary](#command-summary)
+
+&nbsp;
 
 ## Quick Start
 
@@ -30,7 +36,7 @@ Mona is a Command Line Interface (CLI) chatbot application designed to streamlin
 
 ## Features
 
-> :information_source: **Notes about the command format:**
+> **Notes about the command format:**
 > 
 > - Words in `UPPER_CASE` are the parameters that must be supplied by the user. These parameters CANNOT be left empty.
 >   e.g., in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo borrow book`.
@@ -85,6 +91,8 @@ Adds a deadline task to your task list.
 
 - `deadline Submit final project /by 20/12/2024`
   Adds a task with the description "Submit final project" that has a due date of December 20, 2024. A deadline task specifies when it needs to be completed.
+
+> **Pro tip:** If you enter the date in the `yyyy-MM-dd HHmm` format (e.g., `2024-12-31 1830`), the due date will be stored as a `LocalDateTime` object, allowing for precise date and time tracking.
   
 &nbsp;
 
@@ -96,6 +104,7 @@ Adds an event task to your task list.
 - `DESCRIPTION`: The description of the event task.
 - `FROM_DATE`: The date/time of the START of the event.
 - `TO_DATE`: The date/time of the END of the event.
+- The `event`, `/from`, and `/to` flags must be in the correct order.
 
 **Examples:**
 
@@ -118,13 +127,14 @@ Finds tasks whose descriptions contain the given keyword as a substring.
 
 **Format:** `find KEYWORD`
 - `KEYWORD`: The keyword to search for within the task descriptions.
-- The search is case-sensitive and will find any tasks where the keyword is a valid substring of the task's description. For instance, `find meet` will return "meeting" and "meetings", but not "Meet" or "Meetings".
-- The indexes of the tasks found are not sequential as they correspond to their positions in the original complete list of tasks. For example, if three tasks contain the keyword, they might be indexed as 2, 4, 6 (instead of 1, 2, 3) reflecting their original order in the full list. This is to aid the user in identifying the correct index for other operations, such as `delete`, `mark`, or `unmark`, where the exact index of the task must be specified.
+- The search is not case-sensitive, meaning it will find tasks regardless of whether the keyword is in uppercase or lowercase. For example, `find meet` will return "meeting", "Meet", "meetings", and "Meetings".
+> **Note:** The indexes of the tasks found may not be sequential as they correspond to their positions in the original complete list of tasks. For example, if three tasks contain a given keyword, they might be indexed as 2, 4, 6, (instead of 1, 2, 3) to reflect their original order. This helps you identify the correct index for other commands like `delete`, `mark`, or `unmark`.
+
 
 **Examples:**
 
 - `find budget`  
-  This will return tasks with descriptions containing "budget", such as "budget reports" or "budgeting". It will not return tasks with descriptions containing "Budget" or "Budgeting" due to case sensitivity.
+  This will return tasks with descriptions containing "budget", "Budget", "budgeting", or "Budgeting".
 
 &nbsp;
 
