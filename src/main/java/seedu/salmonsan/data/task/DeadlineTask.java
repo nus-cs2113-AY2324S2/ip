@@ -39,7 +39,6 @@ public class DeadlineTask extends Task {
         deadline = argument.substring(index + 4);
         // check if deadline is a date
         deadlineLocalDate = isValidDate(deadline);
-        System.out.println("After assign: " + this.deadlineLocalDate);
         return argument.substring(0, index - 1);
     }
 
@@ -56,7 +55,6 @@ public class DeadlineTask extends Task {
             LocalDate d1 = LocalDate.parse(s);
             return d1;
         } catch (DateTimeParseException e) {
-            System.out.println("Not valid date");
             return null;
         } catch (UnsupportedTemporalTypeException e) {
             System.out.println("Unsupported field");
