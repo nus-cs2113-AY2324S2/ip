@@ -148,8 +148,15 @@ public class Parser {
             throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-DD>T<HH-MM> or don't try at all"); // Throws exception if initializers not found
         }
         try {
-            start = dateAndTimeParser(line.substring(fromIndex + FROM_PADDING, toIndex).strip());
-            end = dateAndTimeParser(line.substring(line.indexOf("/to") + BY_PADDING).strip());
+            String startString = line.substring(fromIndex + FROM_PADDING, toIndex).strip();
+            String endString = line.substring(line.indexOf("/to") + BY_PADDING).strip();
+            if (startString.isBlank()) {
+                throw new EmptyInputException("Please fill in the start date");
+            } else if (endString.isBlank()) {
+                throw new EmptyInputException("Please fill in the end date");
+            }
+            start = dateAndTimeParser(startString);
+            end = dateAndTimeParser(endString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new StringIndexOutOfBoundsException("Please enter the /from date before /to date");
         }

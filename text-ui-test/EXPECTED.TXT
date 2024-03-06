@@ -100,12 +100,12 @@ Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-
 You:
 -
 Krot:
-Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+Please fill in the start date
 -
 You:
 -
 Krot:
-Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+Please fill in the end date
 -
 You:
 -

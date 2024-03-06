@@ -9,12 +9,12 @@ Try it out for yourself and keep your tasks in order.
 
 Prerequisites: JDK 11
 
-1. Download the latest Ip.jar from [here](https://github.com/tannerlie/ip/releases).
+1. Download the latest Krot.jar from [here](https://github.com/tannerlie/ip/releases).
 2. Copy the file to the folder you want to use as the home folder for your Krot Task Manager.
-3. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Ip.jar command to run the application.<br>
+3. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Krot.jar command to run the application.<br>
    A GUI similar to the below should appear in a few seconds.<br>
-![Screenshot of Krot GUI](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Find.png)
-4. Type the command in the command box and press Enter to execute it. e.g. typing commands and pressing Enter will open the command window.
+![Screenshot of Krot GUI](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Krot%20GUI.png)
+4. Type the command in the command box and press Enter to execute it. e.g. typing ```commands``` and pressing Enter will open the command window.
    Some example commands you can try.
    1. ```list```: Lists all the current tasks.
    2. ```todo <task>```: Creates a task to do.
@@ -32,7 +32,7 @@ Prerequisites: JDK 11
 3. The data that the user has to input are in the form ```<text>``` where the whole
 thing has to be replaced
 4. For commands with dates like ``<YYYY-MM-DD>T<HH:MM>`` it has the format of 
-the year in 4 digits, the month with 2 digits and day in 2 digits, followed by a capital T
+the year in 4 digits, the month in 2 digits and day in 2 digits, followed by a capital T
 and the 24hr time e.g. for the 2nd Mar 24, 5pm it will be in the format ```2024-03-02T17:00```.
 5. Many commands may also have initializers such as ```/intitializers```. Do include a space between 
 the input and initializers e.g ```deadline Assignment /by 2024-03-02T17:00```.
