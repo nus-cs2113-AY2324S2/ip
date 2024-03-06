@@ -99,21 +99,20 @@ find homework
 Saves current task list and exits program. <br>
 - Format: ```bye```
 <br>
+
 > [!WARNING]
-> Tasks are not saved automatically and will not be saved 
-> unless this command is run.
+> Tasks are not saved automatically and will not be saved unless this command is run.
 
 
 ## Command Summary
-| **Command** | **Format, Examples**                                                                                    |
-|-------------|---------------------------------------------------------------------------------------------------------|
-| list        | ```list```                                                                                              |
-| todo        | ```todo [TASK]```<br> _e.g.,_ ```todo Math Homework```                                                  |
-| deadline    | ```deadline [TASK] /by [DD/MM/YYYY hhmm]```<br> _e.g.,_ ```deadline English essay /by 12/3/2024 2359``` |
-| event       | ```event [TASK] /from [DATE] /to [DATE]```<br> _e.g.,_ ```event Concert /from 6pm /to 9pm```            |
-| mark        | ```mark [TASK_NUMBER]```<br> _e.g.,_ ```mark 1```                                                       |
-| unmark      | ```unmark [TASK_NUMBER]```<br> _e.g.,_ ```unmark 2```                                                   |
-| delete      | ```delete [TASK_NUMBER]```<br> _e.g.,_ ```delete 1```                                                   |
-| find        | ```find [KEYWORD]```<br> _e.g.,_ ```find homework```                                                    |
-| bye         | ```bye```                                                                                               |
-
+| **Command** | **Format, Examples**                               |
+|-------------|----------------------------------------------------|
+| list        | `list`                                             |
+| todo        | `todo [TASK]`<br> _e.g.,_ `todo Math Homework`     |
+| deadline    | `deadline [TASK] /by [DD/MM/YYYY hhmm]`<br> _e.g.,_ `deadline English essay /by 12/3/2024 2359` |
+| event       | `event [TASK] /from [DATE] /to [DATE]`<br> _e.g.,_ `event Concert /from 6pm /to 9pm` |
+| mark        | `mark [TASK_NUMBER]`<br> _e.g.,_ `mark 1`          |
+| unmark      | `unmark [TASK_NUMBER]`<br> _e.g.,_ `unmark 2`      |
+| delete      | `delete [TASK_NUMBER]`<br> _e.g.,_ `delete 1`      |
+| find        | `find [KEYWORD]`<br> _e.g.,_ `find homework`       |
+| bye         | `bye`                                              |
