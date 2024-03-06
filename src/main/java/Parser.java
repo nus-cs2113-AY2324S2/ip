@@ -13,6 +13,7 @@ public class Parser {
     private static final int INDEX_OFFSET = 1;
     private static final int UNMARK_START_INDEX = 7;
     private static final int DELETE_START_INDEX = 7;
+    private static final int FIND_START_INDEX = 5;
 
     public static String obtainTodoDescription(String userInput) {
         return userInput.substring(TODO_START_INDEX);
@@ -20,7 +21,7 @@ public class Parser {
 
     public static String obtainDeadlineDescription(String userInput) {
         return userInput.substring(DEADLINE_START_INDEX, userInput.indexOf("/by")) +
-                "(by: " + userInput.substring(userInput.indexOf("/by") + BY_INDEX ) + ")";
+                "(by: " + userInput.substring(userInput.indexOf("/by") + BY_INDEX) + ")";
     }
 
     public static String obtainEventDescription(String userInput) {
@@ -39,6 +40,14 @@ public class Parser {
 
     public static int obtainDeleteIndex(String userInput) {
         return Integer.parseInt(userInput.substring(DELETE_START_INDEX)) - INDEX_OFFSET;
+    }
+
+    public static String obtainFindKeyword(String userInput) {
+        if (userInput.length() < FIND_START_INDEX) {
+            return null;
+        } else {
+            return userInput.substring(FIND_START_INDEX);
+        }
     }
 
 }

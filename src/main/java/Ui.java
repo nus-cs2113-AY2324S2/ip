@@ -1,5 +1,6 @@
 import exceptions.InvalidDeadlineSyntaxException;
 import exceptions.InvalidEventSyntaxException;
+import exceptions.InvalidFindTaskException;
 import exceptions.InvalidTodoSyntaxException;
 
 import java.util.ArrayList;
@@ -43,6 +44,9 @@ public class Ui {
                  } else if (userInput.startsWith("delete")) {
                      Printer.printDelete(taskArrayList, Parser.obtainDeleteIndex(userInput));
                      TaskList.deleteTask(Parser.obtainDeleteIndex(userInput), taskArrayList);
+                 } else if (userInput.startsWith("find")) {
+                     ArrayList<Task> findTaskList = TaskList.findTask(taskArrayList, Parser.obtainFindKeyword(userInput));
+                     Printer.printFindList(findTaskList);
                  } else {
                      Printer.printUnknownInput();
                  }
@@ -52,6 +56,8 @@ public class Ui {
                  Printer.handleInvalidDeadlineSyntaxException(e);
              } catch (InvalidEventSyntaxException e) {
                  Printer.handleInvalidEventSyntaxException(e);
+             } catch (InvalidFindTaskException e) {
+                 Printer.handleInvalidFindTaskException(e);
              }
 
 
