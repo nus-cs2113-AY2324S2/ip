@@ -45,18 +45,24 @@ public class Parser {
      * @param line The input line from which the command type is to be extracted.
      */
     public void extractCommandTypeFromString(String line) {
-        // checking specifically for "list", as it is a single word command
-        if (line.equals("list")) {
+        switch(line) {
+        case("list"):
             commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = "list";
             return;
-        }
-
-        try {
-            int endIndex = line.indexOf(" ");
-            this.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = line.substring(0, endIndex).trim();
-        } catch (StringIndexOutOfBoundsException e) {
-            ConsolePrint.printErrorMessage(Constants.INVALID_COMMAND_ERROR_MESSAGE);
-            isValidInput = false;
+        case("bye"):
+            commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = "bye";
+            return;
+        case("help"):
+            commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = "help";
+            return;
+        default:
+            try {
+                int endIndex = line.indexOf(" ");
+                this.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = line.substring(0, endIndex).trim();
+            } catch (StringIndexOutOfBoundsException e) {
+                ConsolePrint.printErrorMessage(Constants.INVALID_COMMAND_ERROR_MESSAGE);
+                isValidInput = false;
+            }
         }
     }
 
@@ -206,15 +212,19 @@ public class Parser {
         case ("event"):
             extractDetailsFromEventString(line);
             break;
-        case("list"):
-            break;
         case("find"):
             extractDetailsFromFindString(line);
+            break;
+        case("list"):
+            break;
+        case("help"):
+            break;
+        case("bye"):
             break;
         // default case is for invalid commands
         default:
             isValidInput = false;
-            System.out.println("Invalid command detected!");
+            ConsolePrint.printErrorMessage(Constants.INVALID_COMMAND_ERROR_MESSAGE);
         }
     }
 }

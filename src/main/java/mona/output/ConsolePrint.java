@@ -108,4 +108,12 @@ public class ConsolePrint {
 
         printHorizontalLine();
     }
+
+    public static void printHelpMessage() {
+        printHorizontalLine();
+
+        System.out.println(Constants.HELP_MESSAGE);
+
+        printHorizontalLine();
+    }
 }

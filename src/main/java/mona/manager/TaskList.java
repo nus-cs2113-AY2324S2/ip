@@ -84,6 +84,10 @@ public class TaskList {
                     .filter(t -> t.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                     .collect(Collectors.toList());
             ConsolePrint.printFilteredList(filteredTasks, tasks, keyword);
+            break;
+        case("help"):
+            ConsolePrint.printHelpMessage();
+            break;
         default:
             //doNothing?
         }
