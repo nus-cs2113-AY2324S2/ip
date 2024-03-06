@@ -128,6 +128,13 @@ public class Parser {
                     UI.displayFormatError("'delete *n', where n is the index of the task you wish to delete.");
                 }
                 break;
+            case ("find"):
+                if(!suffixWord.isEmpty()) {
+                    UI.displayMatchingTasks(suffixWord);
+                } else {
+                    UI.displayFormatError("'find *keyword'");
+                }
+                break;   
             case ("list_deadline"):
                 try {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
