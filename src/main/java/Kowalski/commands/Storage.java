@@ -40,6 +40,7 @@ public class Storage {
      * This function takes in the lines of code from the Kowalski.txt and processes them to
      * list out all the previous tasks which we had saved.
      * @param fileInput: String containing each line of input from Kowalski.txt
+     * @param currentTask ArrayList containing the current tasks
      */
     public static void restoreTaskList(String fileInput, List<Task> currentTask){
         String [] inputArray = fileInput.split("\\s*\\|\\s*");
@@ -81,6 +82,7 @@ public class Storage {
 
     /**
      * Read text file accesses Kowalski.txt and calls the restoreTaskList function
+     * @param currentTask ArrayList containing the current tasks
      * @throws IOException when unable to get the Kowalski file or has any input errors
      */
     public static void readTextFile(List<Task> currentTask) throws IOException{
@@ -108,6 +110,7 @@ public class Storage {
     /**
      * Function which is called to generate an arrayList "lines" which updates according to the users' inputs.
      * Calls the writeTextFile function to update Kowalski.txt
+     * @param currentTask ArrayList containing the current tasks
      */
     public static void writeText(List<Task> currentTask){
         List<String> lines = new ArrayList<>();
