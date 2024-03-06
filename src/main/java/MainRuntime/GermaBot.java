@@ -2,7 +2,8 @@ package MainRuntime;
 
 import Exceptions.*;
 import Tasks.*;
-import DataHandling.SaveData;
+import DataHandling.*;
+import GermaBot.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -227,11 +228,15 @@ public class GermaBot {
         }
     }
 
+    public void run() {
+        UiOutputs.printWelcomeMessage();
+    }
+
     public static void main(String[] args) {
         System.out.println(LINE);
         System.out.println(WELCOME_MESSAGE);
         try {
-            loadFile();
+            ArrayList<Task> toDoList = LoadData.loadFile();
             System.out.println("Loading complete!");
         } catch (FileNotFoundException e) {
             System.out.println("Uh oh, there is no saved file yet! Please create a GermaBotsData.txt " +
