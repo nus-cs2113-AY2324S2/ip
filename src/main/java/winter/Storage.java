@@ -44,17 +44,21 @@ public class Storage {
             case "E":
                 taskArrayList.add(new Event(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),
                             inputArray[taskNameIndex],inputArray[firstTimeIndex],inputArray[endTimeIndex]));
+                taskIndex++;
                 break;
             case "D":
                 taskArrayList.add(new Deadline(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),
-                            inputArray[taskNameIndex], LocalDateTime.parse(inputArray[firstTimeIndex])));
+
+                inputArray[taskNameIndex], LocalDateTime.parse(inputArray[firstTimeIndex])));
+                taskIndex++;
                 break;
             case "T":
                 taskArrayList.add(new ToDo(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),inputArray[taskNameIndex]));
+                taskIndex++;
                 break;
             default:
             }
-            taskIndex++;
+
         }
         return taskArrayList;
     }
