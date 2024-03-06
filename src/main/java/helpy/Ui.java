@@ -35,7 +35,7 @@ public class Ui {
 
     public void showMarkMessage(Task task) {
         if (task.isDone()) {
-            printMessage("Good job! I've marked this task as done:\n\t" + task);
+            printMessage("Good job! \\(^o^)/ I've marked this task as done:\n\t" + task);
         } else {
             printMessage("Ok, this task has been marked as not done yet:\n\t" + task);
         }
@@ -74,7 +74,7 @@ public class Ui {
     }
 
     public void sayGoodbye() {
-        printMessage("Goodbye, see you next time!");
+        printMessage("Goodbye, see you next time! (◠‿◠)");
     }
 
     public void showUnknownCommandErr(String fullCommand) {
@@ -83,7 +83,7 @@ public class Ui {
     }
 
     public void showIllegalDescriptionErr() {
-        printMessage("Hey your description is empty!");
+        printMessage("Hey your description is empty (ಠ_ಠ)");
     }
 
     public void showIOExceptionErr() {
@@ -91,13 +91,19 @@ public class Ui {
     }
 
     public void showEventDescErr() {
-        printMessage("Invalid format for event! Make sure it's in this format: " +
-                "event <description> /from <start date> /to <end date>");
+        printMessage("Invalid format for event! Make sure it's in this format:\n" +
+                "event <description> /from <d/m/yyyy HHmm> /to <d/m/yyyy HHmm>\n" +
+                "e.g. event Overseas trip /from 4/12/2023 0900 /to 11/12/2023 1900");
+    }
+
+    public void showEventSeqErr() {
+        printMessage("Are you a time traveller (°□°) 'from' date cannot be later than the 'to' date");
     }
 
     public void showDeadlineDescErr() {
         printMessage("Invalid format for deadline! Make sure it follows: " +
-                "deadline <description> /by <date>");
+                "deadline <description> /by <d/m/yyyy HHmm>\n" +
+                "e.g. deadline read book /by 5/2/2024 1500");
     }
 
     public void showInvalidTaskNumErr() {
