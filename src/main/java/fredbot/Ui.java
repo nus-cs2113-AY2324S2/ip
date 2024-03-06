@@ -15,6 +15,8 @@ public class Ui {
     private static final String MESSAGE_GOODBYE = "Finally... goodbye.";
     private static final String MESSAGE_LIST_HEADER = "Mr Busy over here has these tasks in his list:";
     private static final String MESSAGE_MARK = "Ok and do you want a medal for that? I've marked this as done:";
+    private static final String MESSAGE_MATCHES_HEADER = "Are these what you're looking for? I found these:";
+    private static final String MESSAGE_NO_MATCHES = "I don't know what to tell you... There are no such tasks.";
     private static final String MESSAGE_UNMARK = "Why am I not surprised... I've marked this task as not done yet:";
     private static final String MESSAGE_WELCOME = "Yo I'm FredBot. What do you want with me?";
 
@@ -81,5 +83,18 @@ public class Ui {
     public static void showMarkMessage(ArrayList<Task> allTasks, int index) {
         System.out.println(MESSAGE_MARK);
         System.out.println(allTasks.get(index).toString());
+    }
+
+    public static void showMatches(ArrayList<Task> matches) {
+        System.out.println(MESSAGE_MATCHES_HEADER);
+        int i = 1;
+        for (Task t : matches) {
+            System.out.println((i) + ". " + t.toString());
+            i++;
+        }
+    }
+
+    public static void showNoMatches() {
+        System.out.println(MESSAGE_NO_MATCHES);
     }
 }

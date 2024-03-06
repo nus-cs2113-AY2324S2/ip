@@ -1,6 +1,7 @@
 package fredbot;
 
 import fredbot.exception.EmptyDescriptionException;
+import fredbot.exception.NoMatchesException;
 import fredbot.task.Deadline;
 import fredbot.task.Event;
 import fredbot.task.Task;
@@ -80,5 +81,19 @@ public class TaskList {
 
     public static ArrayList<Task> getTaskList() {
         return allTasks;
+    }
+
+    public static void findTask(String keyword, Ui ui) throws NoMatchesException {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Task task = allTasks.get(i);
+            if (task.toString().contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        if (matches.isEmpty()) {
+            throw new NoMatchesException();
+        }
+        ui.showMatches(matches);
     }
 }
