@@ -216,7 +216,7 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); ++i) {
             Task task = tasks.get(i);
             if (task.toString().toLowerCase().contains(keyword.toLowerCase())) { // Case-insensitive search
-                results.append(String.format("%d. %s%n", (i + 1), task.toString()));
+                results.append(String.format("%d. %s%n", (i + 1), task));
                 found = true;
             }
         }
