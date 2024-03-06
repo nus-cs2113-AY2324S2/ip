@@ -18,7 +18,7 @@ public class Baymax {
 
         // SAVE THE FILE
         try {
-            Storage.saveTasks(taskArrayList, taskArrayList.size());
+            Storage.saveTasks(taskArrayList);
         } catch (IOException e) {
             System.out.println("ERROR SAVING FILE.");
         }
