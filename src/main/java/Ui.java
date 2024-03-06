@@ -1,21 +1,44 @@
 import java.util.Scanner;
+
+/**
+ * Represents user input processing.
+ */
 public class Ui {
+    /** User input string. */
     public String input;
+    /** Scanner object for reading user input. */
     public Scanner in;
+    /** Expected length of user input. One keyword and subsequent description. */
     public final int EXPECTED_LENGTH = 2;
 
+    /**
+     * Constructs a Ui object and initializes the Scanner to read user input.
+     */
     public Ui() {
         this.in = new Scanner(System.in);
         this.input = in.nextLine();
     }
 
+    /**
+     * Reads the next line of user input and updates the input field.
+     */
     public void nextInput() {
         this.input = in.nextLine();
     }
 
+    /**
+     * Processes the user input, delegating the command to the appropriate parser.
+     *
+     * @param input The user's input.
+     * @param taskList The TaskList object to be manipulated.
+     * @throws JaneException If an error occurs during command processing.
+     */
     public void processInput(String input, TaskList taskList) throws JaneException {
         try {
+            // Splitting the input into two parts for command processing
             String[] inputPart = input.split(" ", 2);
+
+            // Checking if the input has the expected length and is not null for certain commands
             if (inputPart.length < EXPECTED_LENGTH || inputPart[1] == null) {
                 switch (inputPart[0]) {
                 case "todo" :
@@ -25,6 +48,7 @@ public class Ui {
                 }
             }
 
+            // Creating a parser and executing the appropriate command based on user input
             Parser parser = new Parser(taskList);
             switch (inputPart[0]) {
             case "todo":

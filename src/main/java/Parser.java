@@ -1,10 +1,26 @@
+/**
+ * Responsible for interpreting user input and executing corresponding actions
+ * on the TaskList in the Jane task management application.
+ */
 public class Parser {
+    /** The TaskList instance to which the parsed tasks will be added or manipulated. */
     public TaskList taskList;
 
+    /**
+     * Constructs a Parser object with the specified TaskList.
+     *
+     * @param taskList The TaskList to be manipulated by the parser.
+     */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Processes a "todo" command and adds a new Todo task to the TaskList.
+     *
+     * @param input The user's input for the "todo" command.
+     * @throws JaneException If the description of the todo task is empty.
+     */
     public void processTodo(String input) throws JaneException {
         if (input.isEmpty()) {
             throw new JaneException("OOPS!!! The description of a todo cannot be empty.");
@@ -19,6 +35,12 @@ public class Parser {
                 + " tasks in the list.");
     }
 
+    /**
+     * Processes a "deadline" command and adds a new Deadline task to the TaskList.
+     *
+     * @param input The user's input for the "deadline" command.
+     * @throws JaneException If the description or deadline information is empty.
+     */
     public void processDeadline(String input) throws JaneException {
         if (input.isEmpty()) {
             throw new JaneException("OOPS!!! The description of a deadline cannot be empty.");
@@ -35,6 +57,12 @@ public class Parser {
                 + " tasks in the list.");
     }
 
+    /**
+     * Processes an "event" command and adds a new Event task to the TaskList.
+     *
+     * @param input The user's input for the "event" command.
+     * @throws JaneException If the description or event information is empty.
+     */
     public void processEvent(String input) throws JaneException {
         if (input.isEmpty()) {
             throw new JaneException("OOPS!!! The description of a event cannot be empty.");
@@ -52,6 +80,11 @@ public class Parser {
                 + " tasks in the list.");
     }
 
+    /**
+     * Marks a task as done in the TaskList based on the provided sequence number.
+     *
+     * @param sequence The sequence number of the task to be marked as done.
+     */
     public void markAsDone(int sequence) {
         Task task = this.taskList.list.get(sequence);
         task.setDone(true);
@@ -59,12 +92,22 @@ public class Parser {
 
     }
 
+    /**
+     * Marks a task as undone in the TaskList based on the provided sequence number.
+     *
+     * @param sequence The sequence number of the task to be marked as undone.
+     */
     public void markAsUndone(int sequence) {
         Task task = this.taskList.list.get(sequence);
         task.setDone(false);
         System.out.println("OK, I've marked this task as not done yet:\n" + task);
     }
 
+    /**
+     * Searches for tasks in the TaskList containing a specific word in their descriptions.
+     *
+     * @param word The word to be searched for in task descriptions.
+     */
     public void findWord(String word) {
         String description;
         System.out.println("Here are the matching tasks in your list:");
