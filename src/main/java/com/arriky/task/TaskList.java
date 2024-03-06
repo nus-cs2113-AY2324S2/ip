@@ -25,11 +25,11 @@ public class TaskList {
         tasklist.add(new ToDo(taskName, isCompleted));
     }
 
-    public void addEvent(String taskName, String startTime, String endTime, boolean isCompleted) {
+    public void addEvent(String taskName, String startTime, String endTime, boolean isCompleted) throws ArrikyRuntimeException {
         tasklist.add(new Event(taskName, startTime, endTime, isCompleted));
     }
 
-    public void addDeadline(String taskName, String dueTime, boolean isCompleted) {
+    public void addDeadline(String taskName, String dueTime, boolean isCompleted) throws ArrikyRuntimeException {
         tasklist.add(new Deadline(taskName, dueTime, isCompleted));
     }
 
