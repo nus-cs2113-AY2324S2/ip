@@ -43,4 +43,20 @@ public final class Constants {
 
     public static final String DATE_TIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final String DATE_TIME_OUTPUT_FORMAT = "MMM dd YYYY, hh:mm a";
+
+    public static final String INVALID_COMMAND_ERROR_MESSAGE = "Hmm, Mona didn't quite catch that. " +
+            "Could you try again? Or type 'help' to see what Mona can do!";
+    public static final String EMPTY_FIELDS_ERROR_MESSAGE = "Oh no, looks like something's missing. " +
+            "Mona needs all the pieces to help you out!";
+    public static final String MISSING_BY_PREFIX_IN_DEADLINE_ERROR_MESSAGE = "Mona needs to know when! " +
+            "Please add '/by' followed by the deadline so Mona can remind you in time!";
+    public static final String IMPROPER_FLAGS_IN_EVENT_ERROR = "Hmm, Mona's a bit confused. " +
+            "Make sure to include both '/from' and '/to' flags " +
+            "in the right order to tell Mona when the event starts and ends!";
+    public static final String INVALID_NUMBER_ERROR_MESSAGE = "Whoops! Mona's looking for a number. " +
+            "Mind giving it another go?";
+    public static final String INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Mona's scratching her head. " +
+            "She can't find a task with that number! " +
+            "Perhaps you could double-check the task index using the 'list' command and try again?";
+
 }

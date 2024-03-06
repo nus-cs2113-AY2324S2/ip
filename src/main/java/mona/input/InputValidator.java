@@ -12,22 +12,21 @@ public class InputValidator {
 
     public InputValidator() {
     }
+
     /**
      * Checks if the 'todo' command has a non-empty description.
      *
      * @param commandTypeAndParams String array containing the command type and its parameters.
      * @throws MonaException If the description is empty.
      */
-
     public void checkTodoCommand(String[] commandTypeAndParams) throws MonaException {
-        // Checking if description field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
-            throw new MonaException("OOPS!!! The description of a todo cannot be empty");
+            throw new MonaException(Constants.EMPTY_FIELDS_ERROR_MESSAGE);
         }
     }
 
     /**
-     * Checks if the 'mark', 'unmark', or 'delete' command has a non-empty & valid task number.
+     * Checks if the 'mark', 'unmark', or 'delete' command has a valid task number.
      *
      * @param commandTypeAndParams String array containing the command type and its parameters.
      * @throws MonaException If the task number is out of bounds. (eg. if there are 3 tasks in TaskList,
@@ -36,22 +35,18 @@ public class InputValidator {
      */
     public void checkMarkUnmarkDeleteCommand(String[] commandTypeAndParams) throws
             MonaException, NumberFormatException {
-        // Checking if description (number) field is empty
-        if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
-            throw new MonaException("OOPS!!! The description of this command cannot be empty");
-        }
 
         // Checking if number provided can be converted to an integer
         try {
             Integer.parseInt(commandTypeAndParams[Constants.INDEX_DESCRIPTION]);
         } catch (NumberFormatException e) {
-            throw new MonaException("No number detected! Try again!");
+            throw new MonaException(Constants.INVALID_NUMBER_ERROR_MESSAGE);
         }
 
         // Checking if number provided is out of bounds (negative or more than the number of tasks stored)
         int markUnmarkIndex = Integer.parseInt(commandTypeAndParams[Constants.INDEX_DESCRIPTION]) - 1;
         if (markUnmarkIndex < 0 || markUnmarkIndex >= TaskList.noOfTasks) {
-            throw new MonaException("OOPS! Number doesn't correspond to a stored task. Try again!");
+            throw new MonaException(Constants.INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE);
         }
     }
 
@@ -62,10 +57,9 @@ public class InputValidator {
      * @throws MonaException If any of the required fields are empty.
      */
     public void checkDeadlineCommand(String[] commandTypeAndParams) throws MonaException {
-        // Checking if description field OR if deadline field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()
                 || commandTypeAndParams[Constants.INDEX_DEADLINE].isEmpty()) {
-            throw new MonaException("OOPS!!! Missing fields detected. Try again!");
+            throw new MonaException(Constants.EMPTY_FIELDS_ERROR_MESSAGE);
         }
     }
 
@@ -76,18 +70,22 @@ public class InputValidator {
      * @throws MonaException If any of the required fields are empty.
      */
     public void checkEventCommand(String[] commandTypeAndParams) throws MonaException {
-        //Checking if description field OR /to field OR /from field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()
                 || commandTypeAndParams[Constants.INDEX_FROM_DATE].isEmpty()
                 || commandTypeAndParams[Constants.INDEX_TO_DATE].isEmpty()) {
-            throw new MonaException("OOPS!! Missing fields detected. Try again!");
+            throw new MonaException(Constants.EMPTY_FIELDS_ERROR_MESSAGE);
         }
     }
 
+    /**
+     * Checks if the 'find' command has a non-empty description.
+     *
+     * @param commandTypeAndParams String array containing the command type and its parameters.
+     * @throws MonaException If the description is empty.
+     */
     public void checkFindCommand(String[] commandTypeAndParams) throws MonaException {
-        // Checking if description field is empty
         if (commandTypeAndParams[Constants.INDEX_DESCRIPTION].isEmpty()) {
-            throw new MonaException("OOPS!!! What do you want me to find?");
+            throw new MonaException(Constants.EMPTY_FIELDS_ERROR_MESSAGE);
         }
     }
 }

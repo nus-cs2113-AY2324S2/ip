@@ -82,6 +82,14 @@ public class ConsolePrint {
         printHorizontalLine();
     }
 
+    public static void printErrorMessage(String errorMessage) {
+        printHorizontalLine();
+
+        System.out.println(errorMessage);
+
+        printHorizontalLine();
+    }
+
     public static void greet() {
         System.out.println("Hello from\n" + Constants.ASCII_LOGO);
 

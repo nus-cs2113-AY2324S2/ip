@@ -1,4 +1,4 @@
-E | 1 | work /from 2pm /to 4pm
+E | 0 | work /from 2pm /to 4pm
 T | 0 | hi
 D | 0 | run24k /by 2024-12-05 1830
 D | 0 | run12k /by Sunday 2359

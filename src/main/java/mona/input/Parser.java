@@ -1,6 +1,7 @@
 package mona.input;
 
 import mona.exception.MonaException;
+import mona.output.ConsolePrint;
 import mona.util.Constants;
 
 /**
@@ -52,11 +53,9 @@ public class Parser {
 
         try {
             int endIndex = line.indexOf(" ");
-
             this.commandTypeAndParams[Constants.INDEX_COMMAND_TYPE] = line.substring(0, endIndex).trim();
-
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Invalid command detected!");
+            ConsolePrint.printErrorMessage(Constants.INVALID_COMMAND_ERROR_MESSAGE);
             isValidInput = false;
         }
     }
@@ -74,11 +73,8 @@ public class Parser {
             this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex).trim();
 
             inputValidator.checkMarkUnmarkDeleteCommand(commandTypeAndParams);
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! This description of a mark/unmark command cannot be empty");
-            isValidInput = false;
         } catch (MonaException e) {
-            System.out.println(e.getMessage());
+            ConsolePrint.printErrorMessage(e.getMessage());
             isValidInput = false;
         }
     }
@@ -97,7 +93,7 @@ public class Parser {
 
             inputValidator.checkTodoCommand(commandTypeAndParams);
         } catch (MonaException e) {
-            System.out.println(e.getMessage());
+            ConsolePrint.printErrorMessage(e.getMessage());
             isValidInput = false;
         }
     }
@@ -114,16 +110,17 @@ public class Parser {
             int descriptionIndex = line.indexOf(" ");
             int deadlineIndex = line.indexOf(Constants.BY_PREFIX);
 
-            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] = line.substring(descriptionIndex, deadlineIndex).trim();
-            this.commandTypeAndParams[Constants.INDEX_DEADLINE] = line.substring(deadlineIndex
-                    + Constants.BY_PREFIX.length()).trim();
+            this.commandTypeAndParams[Constants.INDEX_DESCRIPTION] =
+                    line.substring(descriptionIndex, deadlineIndex).trim();
+            this.commandTypeAndParams[Constants.INDEX_DEADLINE] =
+                    line.substring(deadlineIndex + Constants.BY_PREFIX.length()).trim();
 
             inputValidator.checkDeadlineCommand(commandTypeAndParams);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! Remember to key in /by to let me know when the deadline is!");
+            ConsolePrint.printErrorMessage(Constants.MISSING_BY_PREFIX_IN_DEADLINE_ERROR_MESSAGE);
             isValidInput = false;
         } catch (MonaException e) {
-            System.out.println(e.getMessage());
+            ConsolePrint.printErrorMessage(e.getMessage());
             isValidInput = false;
         }
     }
@@ -150,10 +147,10 @@ public class Parser {
 
             inputValidator.checkEventCommand(commandTypeAndParams);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Invalid input format detected!");
+            ConsolePrint.printErrorMessage(Constants.IMPROPER_FLAGS_IN_EVENT_ERROR);
             isValidInput = false;
         } catch (MonaException e) {
-            System.out.println(e.getMessage());
+            ConsolePrint.printErrorMessage(e.getMessage());
             isValidInput = false;
         }
     }
@@ -172,7 +169,7 @@ public class Parser {
 
             inputValidator.checkFindCommand(commandTypeAndParams);
         } catch (MonaException e) {
-            System.out.println(e.getMessage());
+            ConsolePrint.printErrorMessage(e.getMessage());
             isValidInput = false;
         }
     }
