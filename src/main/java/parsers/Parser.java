@@ -32,7 +32,8 @@ public class Parser {
         }
 
         String commandType = userInput.split(" ")[0];
-        String arguments = userInput.substring(userInput.indexOf(" ") + 1);
+        //String arguments = userInput.substring(userInput.indexOf(" ") + 1);
+        String arguments = userInput.contains(" ") ? userInput.substring(userInput.indexOf(" ") + 1) : "";
 
         switch (commandType) {
         case "todo":
@@ -43,15 +44,16 @@ public class Parser {
         case "deadline":
             String[] deadlineParts = arguments.split(" /by ", 2);
             if (deadlineParts.length < 2) {
-                throw new KikuInvalidTaskException("OOPS! Please specify the deadline with '/by' \n" +
-                        HORIZONTAL);
+                throw new KikuInvalidTaskException("OOPS! Please specify the deadline with \n" +
+                        "<task_description> /by <due_Date> \n" + HORIZONTAL);
             }
             return new AddDeadlineCommand(deadlineParts[0], deadlineParts[1]);
         case "event":
             String[] eventParts = arguments.split(" /from ", 2);
             if (eventParts.length < 2 || !eventParts[1].contains(" /to ")) {
-                throw new KikuInvalidTaskException("OOPS! Please specify the event times " +
-                        "with '/from' and '/to' \n" + HORIZONTAL);
+                throw new KikuInvalidTaskException("OOPS! Please specify the event with \n" +
+                        "<task_description> /from <start_date_time> /to" +
+                        " <end_date_time> \n" + HORIZONTAL);
             }
             String[] times = eventParts[1].split(" /to ", 2);
             return new AddEventCommand(eventParts[0], times[0], times[1]);
