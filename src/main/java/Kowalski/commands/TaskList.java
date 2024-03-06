@@ -34,4 +34,17 @@ public class TaskList {
     public static void removeTask(int index){
         currentTask.remove(index);
     }
+
+    public static void findMatch(String input){
+        List<Task>matchList = currentTask.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(input))
+                .collect(Collectors.toList());
+
+        if (matchList.isEmpty()){
+            System.out.println("My analysis shows no matches Skipper!");
+        } else {
+            System.out.println("Skipper here are the matching tasks:");
+            printMatchingTasks(matchList);
+        }
+    }
 }
