@@ -30,6 +30,7 @@ public class MessageDecoder {
             DateTimeFormatter.ofPattern(TIME_INPUT_PATTERN);
     private static final DateTimeFormatter OUTPUT_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
+    public static final String TIME_PREFIX = "/t";
 
     /**
      * Separates the command from the user input message
@@ -219,6 +220,9 @@ public class MessageDecoder {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE);
         }
 
+        if (typeAndKeyword[0].equals(TIME_PREFIX)) {
+            typeAndKeyword[1] = parseDate(typeAndKeyword[1]);
+        }
         return typeAndKeyword;
     }
 

@@ -9,7 +9,7 @@ public class FindCommand implements Command {
     private final String keyword;
     private final String type;
 
-    public FindCommand(String keyword, String type) {
+    private FindCommand(String keyword, String type) {
         this.keyword = keyword;
         this.type = type;
     }
