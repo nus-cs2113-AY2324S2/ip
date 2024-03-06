@@ -1,24 +1,26 @@
 package com.arriky.task;
 
+import com.arriky.exception.ArrikyRuntimeException;
+
 public class Deadline extends Task {
 
-    private final String dueTime;
-    Deadline(String taskName, String dueTime, boolean isCompleted) {
+    private final ArrikyDateTime dueTime;
+    Deadline(String taskName, String dueTime, boolean isCompleted) throws ArrikyRuntimeException {
         super(taskName, 'D', isCompleted);
-        this.dueTime = dueTime;
+        this.dueTime = new ArrikyDateTime(dueTime);
     }
 
     @Override
     public String getSummary() {
         if (isCompleted) {
-            return "[D][X] " + taskName + " (by: " + dueTime + ")";
+            return "[D][X] " + taskName + " (by: " + dueTime.getDisplayDateTime() + ")";
         } else {
-            return "[D][ ] " + taskName + " (by: " + dueTime + ")";
+            return "[D][ ] " + taskName + " (by: " + dueTime.getDisplayDateTime() + ")";
         }
     }
 
     @Override
     public String getSerializable() {
-        return "D," + isCompleted + "," + taskName + "," + dueTime;
+        return "D," + isCompleted + "," + taskName + "," + dueTime.getSerializeDateTime();
     }
 }

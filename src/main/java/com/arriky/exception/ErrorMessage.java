@@ -11,4 +11,5 @@ public class ErrorMessage {
     public static String LOCAL_RECORD_CORRUPTED = "Local record file is corrupted, import is incomplete.";
     public static String LOCAL_RECORD_NOT_EXIST = "There is no local record file found, a new file will be created";
     public static String SAVING_ERROR = "An error occurred when saving to record file.";
+    public static String INVALID_DATETIME_FORMAT = "Invalid datetime format. Please follow 'YYYY-MM-DD HH:MM' or 'YYYY-MM-DD' format";
 }
