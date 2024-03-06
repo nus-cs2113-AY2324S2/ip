@@ -1,5 +1,6 @@
 package roleypoley.data;
 
+import roleypoley.command.HandleCommand;
 import roleypoley.exception.RoleyPoleyFileException;
 import roleypoley.task.Deadline;
 import roleypoley.task.Event;
@@ -40,20 +41,20 @@ public class ReadFile {
 
         switch (identifyTaskType[0]) {
         case "T":
-                RoleyPoley.taskList.add(new Todo(description, isDone));
+                HandleCommand.getTaskList().add(new Todo(description, isDone));
             break;
         case "D":
             if (!description.contains("(by:")) {
                 throw new RoleyPoleyFileException("DeadLineFormatError");
             } else {
-                RoleyPoley.taskList.add(new Deadline(description, isDone));
+                HandleCommand.getTaskList().add(new Deadline(description, isDone));
             }
             break;
         case "E":
             if (!description.contains("(from:") || !description.contains("to:")) {
                 throw new RoleyPoleyFileException("EventFormatError");
             } else {
-                RoleyPoley.taskList.add(new Event(description, isDone));
+                HandleCommand.getTaskList().add(new Event(description, isDone));
             }
             break;
         default:

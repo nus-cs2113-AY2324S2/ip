@@ -2,7 +2,7 @@ package roleypoley.exception;
 public class RoleyPoleyParseException extends Exception {
     public RoleyPoleyParseException(String errorMessage) {
         switch (errorMessage) {
-        case "markError","unmarkError", "deleteError":
+        case "taskNotFoundError":
             System.out.println("\tTask cannot be found. Enter command 'list' to view task list.");
             break;
         case "toDoError":
