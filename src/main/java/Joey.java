@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class Joey {
     private static final String DASHED_LINE = "____________________________________________________________";
+    private static Storage storage;
 
     private static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -61,6 +62,7 @@ public class Joey {
                 throw new JoeyException("Unknown task type: " + parts[0]);
         }
     }
+
 
     public static void main(String[] args) {
         ArrayList<Task> tasks = loadTasksFromFile();

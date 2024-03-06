@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Parser {
     public static void parseUserCommand(String userCommand, TaskList taskList, Ui ui) {
@@ -30,6 +30,9 @@ public class Parser {
                     break;
                 case "delete":
                     parseDeleteCommand(parts, taskList, ui);
+                    break;
+                case "find":
+                    parseFindCommand(parts, taskList, ui);
                     break;
                 default:
                     ui.showError("Invalid command. Please enter a valid command.");
@@ -127,4 +130,23 @@ public class Parser {
             throw new JoeyException("Please enter a valid task number to delete.");
         }
     }
+
+    private static void parseFindCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        if (parts.length < 2) {
+            throw new JoeyException("Please provide a keyword to search for.");
+        }
+
+        String keyword = parts[1].toLowerCase();
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : taskList.getTasks()) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        ui.showMatchingTasks(matchingTasks);
+    }
+
+
 }
