@@ -15,6 +15,10 @@ import java.util.Scanner;
 public class Storage {
     protected String filePath;
     protected File savedTasks;
+
+    /**
+     * Represents a storage system for tasks.
+     */
     public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
         savedTasks = new File(filePath);
@@ -39,6 +43,12 @@ public class Storage {
 
     }
 
+    /**
+     * Loads a task from a string representation and adds it to the task list.
+     *
+     * @param taskInfo The string representation of the task.
+     * @param taskList The task list object to add the loaded task to.
+     */
     public void loadTask(String taskInfo, TaskList taskList) {
         String[] details = taskInfo.split(" \\| ");
         if (details[0].equals("T")) {
@@ -69,6 +79,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the storage file with the current state of the task list.
+     *
+     * @param taskList The task list to be written to the storage file.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void update(TaskList taskList) throws IOException {
         FileWriter helpyWriter = new FileWriter(filePath);
         for (Task task : taskList.getTasks()) {
