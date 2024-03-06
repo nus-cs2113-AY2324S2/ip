@@ -9,11 +9,12 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+import task.TaskList;
 
 public class Duke {
 
-    private static int taskCount = 0;
 
+    /*
     private static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException{
         FileWriter fw = new FileWriter(filePath);
         for(int i = 0; i < taskCount; i++){
@@ -21,7 +22,9 @@ public class Duke {
         }
         fw.close();
     }
+    */
 
+    /*
     private static void readFromFile(String filePath, ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -49,7 +52,7 @@ public class Duke {
                 taskCount++;
             }
         }
-    }
+    }*/
 
     public static void main(String[] args) {
         /*
@@ -62,20 +65,20 @@ public class Duke {
         */
         System.out.println("I'm Ekud! What can I do for you?");
 
-        String filePath = "tasks.txt";
+        // String filePath = "tasks.txt";
 
         String userInput;
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-        // task.Task[] tasks = new task.Task[100];
-        // int taskCount = 0;
+        TaskList tasks = new TaskList();
 
+        /*
         try {
             readFromFile(filePath, tasks);
         }
         catch (FileNotFoundException error){
             System.out.println("The file cannot be found.");
         }
+        */
 
         userInput = in.nextLine();
 
@@ -83,140 +86,25 @@ public class Duke {
             String[] userInputWords = userInput.split(" ");
 
             if(userInput.equals("list")){
-                System.out.println("Here are the tasks in your list:");
-                for(int i = 0; i < taskCount; i++){
-                    System.out.println((i + 1) + "." + tasks.get(i));
-                }
+                tasks.list();
             }
             else if(userInputWords[0].equals("mark")){
-                try {
-                    if (userInputWords.length == 1 || Integer.parseInt(userInputWords[1]) > taskCount){
-                        throw new EkudException();
-                    }
-                    else {
-                        int taskIndex = Integer.parseInt(userInputWords[1]) - 1;
-                        tasks.get(taskIndex).markAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(tasks.get(taskIndex));
-                    }
-                }
-                catch (EkudException error) {
-                    System.out.println("The task number is not valid or not provided.");
-                }
+                tasks.mark(userInput);
             }
             else if(userInputWords[0].equals("unmark")){
-                try {
-                    if (userInputWords.length == 1 || Integer.parseInt(userInputWords[1]) > taskCount){
-                        throw new EkudException();
-                    }
-                    else {
-                        int taskIndex = Integer.parseInt(userInputWords[1]) - 1;
-                        tasks.get(taskIndex).markAsNotDone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(tasks.get(taskIndex));
-                    }
-                }
-                catch (EkudException error) {
-                    System.out.println("The task number is not valid or not provided.");
-                }
+                tasks.unmark(userInput);
             }
             else if(userInputWords[0].equals("todo")){
-                int dividerPosition = userInput.indexOf(" ");
-                try {
-                    if (dividerPosition == -1) {
-                        throw new EkudException();
-                    }
-                    else {
-                        int descriptionStart = dividerPosition + 1;
-                        tasks.add(new Todo(userInput.substring(descriptionStart)));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks.get(taskCount));
-                        taskCount++;
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
-
-                        writeToFile(filePath, tasks);
-                    }
-                }
-                catch (EkudException error) {
-                    System.out.println("The description of a todo cannot be empty.");
-                }
-                catch (IOException error) {
-                    System.out.println("Something went wrong: " + error.getMessage());
-                }
+                tasks.addTodo(userInput);
             }
             else if(userInputWords[0].equals("deadline")){
-                int dividerPosition = userInput.indexOf(" ");
-                try {
-                    if (dividerPosition == -1) {
-                        throw new EkudException();
-                    }
-                    else {
-                        int slashPosition = userInput.indexOf("/by");
-                        int descriptionStart = dividerPosition + 1;
-                        int descriptionEnd = slashPosition - 1;
-                        int byStart = slashPosition + 4;
-                        tasks.add(new Deadline(userInput.substring(descriptionStart, descriptionEnd), userInput.substring(byStart)));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks.get(taskCount));
-                        taskCount++;
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
-
-                        writeToFile(filePath, tasks);
-                    }
-                }
-                catch (EkudException error) {
-                    System.out.println("The description of a deadline cannot be empty.");
-                }
-                catch (IOException error) {
-                    System.out.println("Something went wrong: " + error.getMessage());
-                }
+                tasks.addDeadline(userInput);
             }
             else if(userInputWords[0].equals("event")){
-                int dividerPosition = userInput.indexOf(" ");
-                try {
-                    if (dividerPosition == -1) {
-                        throw new EkudException();
-                    }
-                    else {
-                        int descriptionStart = dividerPosition + 1;
-                        int descriptionEnd = userInput.indexOf("/from") - 1;
-                        int fromStart = userInput.indexOf("/from") + 6;
-                        int fromEnd = userInput.indexOf("/to") - 1;
-                        int toStart = userInput.indexOf("/to") + 4;
-
-                        tasks.add(new Event(userInput.substring(descriptionStart, descriptionEnd), userInput.substring(fromStart, fromEnd), userInput.substring(toStart)));
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks.get(taskCount));
-                        taskCount++;
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
-
-                        writeToFile(filePath, tasks);
-                    }
-                }
-                catch (EkudException error) {
-                    System.out.println("The description of an event cannot be empty.");
-                }
-                catch (IOException error) {
-                    System.out.println("Something went wrong: " + error.getMessage());
-                }
+                tasks.addEvent(userInput);
             }
             else if(userInputWords[0].equals("delete")){
-                try {
-                    if(userInputWords.length == 1 || Integer.parseInt(userInputWords[1]) > taskCount){
-                        throw new EkudException();
-                    }
-                    else{
-                        int taskIndex = Integer.parseInt(userInputWords[1]) - 1;
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(tasks.get(taskIndex));
-                        tasks.remove(taskIndex);
-                        taskCount--;
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
-                    }
-                }
-                catch(EkudException error){
-                    System.out.println("The task number is not valid or not provided.");
-                }
+                tasks.delete(userInput);
             }
             else{
                 try {
