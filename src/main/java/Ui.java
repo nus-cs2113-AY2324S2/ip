@@ -8,6 +8,7 @@ public class Ui {
                 "    },_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
     }
+
     public void printFormat() {
         for(int i = 0; i < 50; i++) {
             System.out.print("-");
@@ -40,26 +41,6 @@ public class Ui {
         printFormat();
         System.out.println(message);
         printFormat();
-    }
-
-    public void printInvalidDescription() {
-        printFormat();
-        System.out.println("Hey, the description is invalid!");
-        printFormat();
-    }
-
-    public boolean isWithinBounds(int currentIndex, int index) {
-        if(index < currentIndex && currentIndex > 0) {
-            return true;
-        }
-        printFormat();
-        if(currentIndex == 0) {
-            System.out.println("Hey, you have no tasks added yet!");
-        } else {
-            System.out.println("Hey, you don't have that many tasks!");
-        }
-        printFormat();
-        return false;
     }
 
 }

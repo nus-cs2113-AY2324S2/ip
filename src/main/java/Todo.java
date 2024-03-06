@@ -5,6 +5,7 @@ public class Todo extends Task{
     }
 
     public String toFileString() {
+
         return "T|" + (isDone ? 1 : 0) + "|" + description;
     }
 
@@ -19,6 +20,7 @@ public class Todo extends Task{
 
     @Override
     public String toString() {
+
         return "[T]" + super.toString();
     }
 }

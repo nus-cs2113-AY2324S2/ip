@@ -9,6 +9,7 @@ public class Event extends Task {
     }
 
     public String toFileString() {
+
         return "E|" + (isDone ? 1 : 0) + "|" + description + "|" + from + "|" + to;
     }
 
@@ -21,9 +22,9 @@ public class Event extends Task {
         return event;
     }
 
-
     @Override
     public String toString() {
+
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
