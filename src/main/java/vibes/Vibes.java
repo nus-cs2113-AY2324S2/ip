@@ -77,6 +77,9 @@ public class Vibes {
         case CommandTypes.COMMAND_DELETE:
             taskList.deleteTask(Parser.parseTaskNumber(userInput), ui);
             break;
+        case CommandTypes.COMMAND_FIND:
+            ui.listMatchedTasks(Parser.parseKeyword(userInput), taskList.tasks);
+            break;
         default:
             throw new CommandNotFoundException();
         }
