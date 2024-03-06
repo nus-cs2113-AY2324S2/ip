@@ -1,3 +1,10 @@
+package Parser;
+
+import Parser.DukeExceptions;
+import TaskList.Task;
+import Ui.PrintTask;
+import Ui.PrintText;
+
 import java.util.ArrayList;
 
 /**
@@ -50,15 +57,15 @@ public class MarkTask {
 
         int indexInList = indexToMark - 1;
         if (isMarked.equals("mark")) {
-            tasks.get(indexInList).isDone = true;
+            tasks.get(indexInList).setIsDone(true);
             String statusMark = "[" + tasks.get(indexInList).getStatusIcon() + "] ";
             PrintText.printWithLinebreak("Nice! I've marked this task as done:\n" +
-                    statusMark + tasks.get(indexInList).description);
+                    statusMark + tasks.get(indexInList).getDescription());
         } else if (isMarked.equals("unmark")) {
-            tasks.get(indexInList).isDone = false;
+            tasks.get(indexInList).setIsDone(false);
             String statusMark = "[" + tasks.get(indexInList).getStatusIcon() + "] ";
             PrintText.printWithLinebreak("OK, I've marked this task as not done yet:\n" +
-                    statusMark + tasks.get(indexInList).description);
+                    statusMark + tasks.get(indexInList).getDescription());
         } else {
             PrintText.printWithLinebreak("unknown instruction");
         }

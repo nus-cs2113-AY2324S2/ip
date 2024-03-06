@@ -1,3 +1,8 @@
+package Parser;
+
+import TaskList.Task;
+import Ui.PrintText;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -6,7 +11,7 @@ public class SearchTasks {
         ArrayList<Task> outputList = new ArrayList<>();
         ArrayList<String> toFindWords = new ArrayList<>(Arrays.asList(toFind.split(" ")));
         for (Task task : allTasks) {
-            ArrayList<String> descriptionWords = new ArrayList<>(Arrays.asList(task.description.split(" ")));
+            ArrayList<String> descriptionWords = new ArrayList<>(Arrays.asList(task.getDescription().split(" ")));
             boolean isOneWordMatched = false;
             for (String word : toFindWords) {
                 if (descriptionWords.contains(word)) {
@@ -14,7 +19,7 @@ public class SearchTasks {
                     break;
                 }
             }
-            if (isOneWordMatched && task.description.contains(toFind)) {
+            if (isOneWordMatched && task.getDescription().contains(toFind)) {
                 outputList.add(task);
             }
         }
@@ -42,7 +47,7 @@ public class SearchTasks {
             char type = task.getTypeIcon();
             String typeMark = "[" + type + "]";
             String statusMark = "[" + task.getStatusIcon() + "] ";
-            PrintText.print(indexPrinted + typeMark + statusMark + task.description);
+            PrintText.print(indexPrinted + typeMark + statusMark + task.getDescription());
             index++;
         }
         PrintText.print(PrintText.LINEBREAK + "\n");

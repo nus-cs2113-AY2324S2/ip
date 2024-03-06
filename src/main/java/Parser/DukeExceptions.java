@@ -1,3 +1,5 @@
+package Parser;
+
 /**
  * Represents a collection of custom exception types for Duke.
  * These exceptions are used to handle specific errors in Duke's functionality.

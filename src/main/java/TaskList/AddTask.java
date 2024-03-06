@@ -1,3 +1,12 @@
+package TaskList;
+
+import Parser.DukeExceptions;
+import Parser.MarkTask;
+import Parser.SearchTasks;
+import Storage.DukeFile;
+import Ui.PrintTask;
+import Ui.PrintText;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +29,7 @@ public class AddTask {
     }
 
     /**
-     * Returns a new Task that is either of a special type (toDo, event, deadline)
+     * Returns a new TaskList.Task that is either of a special type (toDo, event, deadline)
      * or not.
      *
      * @param description Text input by the user.

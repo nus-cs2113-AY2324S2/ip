@@ -1,3 +1,5 @@
+package TaskList;
+
 /**
  * Represents a task.
  * String <code>description</code> represents the textual description given to the task.
@@ -25,13 +27,33 @@ public class Task {
      * Construct a new task with the specified description, type and isDone status.
      *
      * @param description Description of the task.
-     * @param type Task type toDo, event, deadline or none of them.
+     * @param type TaskList.Task type toDo, event, deadline or none of them.
      * @param isDone Indicate if the task is marked as done.
      * @throws IllegalArgumentException If zone is <= 0.
      */
     public Task(String description, char type, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(boolean done) {
+        isDone = done;
+    }
+
+    public char getType() {
+        return type;
+    }
+
+    public void setType(char type) {
         this.type = type;
     }
 

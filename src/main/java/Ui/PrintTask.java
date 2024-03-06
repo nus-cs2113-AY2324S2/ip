@@ -1,3 +1,9 @@
+package Ui;
+
+import Storage.DukeFile;
+import TaskList.Task;
+import Ui.PrintText;
+
 import java.util.ArrayList;
 
 /**
@@ -17,7 +23,7 @@ public class PrintTask {
             char type = task.getTypeIcon();
             String typeMark = "[" + type + "]";
             String statusMark = "[" + task.getStatusIcon() + "] ";
-            PrintText.print(indexPrinted + typeMark + statusMark + task.description);
+            PrintText.print(indexPrinted + typeMark + statusMark + task.getDescription());
             index++;
         }
     }
@@ -36,7 +42,7 @@ public class PrintTask {
         char type = input.getTypeIcon();
         String typeMark = "[" + type + "]";
         String statusMark = "[" + input.getStatusIcon() + "] ";
-        output += indexPrinted + typeMark + statusMark + input.description + "\n";
+        output += indexPrinted + typeMark + statusMark + input.getDescription() + "\n";
         DukeFile.updateFile(output, ifAppend);
     }
 
@@ -55,7 +61,7 @@ public class PrintTask {
             char type = task.getTypeIcon();
             String typeMark = "[" + type + "]";
             String statusMark = "[" + task.getStatusIcon() + "] ";
-            output += indexPrinted + typeMark + statusMark + task.description + "\n";
+            output += indexPrinted + typeMark + statusMark + task.getDescription() + "\n";
             index++;
         }
         DukeFile.updateFile(output, ifAppend);
@@ -63,7 +69,7 @@ public class PrintTask {
 
     /**
      * Print out the task with special type, toDo, event, or deadline.
-     * Task description is updated to the proper format.
+     * TaskList.Task description is updated to the proper format.
      *
      * @param newTask The task to be printed.
      * @param taskNum Total number of tasks in the list.
@@ -72,20 +78,20 @@ public class PrintTask {
         String intro = "Got it. I've added this task: \n";
         char type = newTask.getTypeIcon();
         String taskDisplayed;
-        String[] descriptionWords = newTask.description.split(" ");
+        String[] descriptionWords = newTask.getDescription().split(" ");
         switch(descriptionWords[0]) {
         case "todo":
-            taskDisplayed = newTask.description.replace("todo ", "");
+            taskDisplayed = newTask.getDescription().replace("todo ", "");
             break;
         case "deadline":
-            taskDisplayed = newTask.description.replace("deadline ", "");
+            taskDisplayed = newTask.getDescription().replace("deadline ", "");
             if (taskDisplayed.contains("/by ")) {
                 taskDisplayed = taskDisplayed.replaceFirst("/by ", "(by: ");
                 taskDisplayed += ")";
             }
             break;
         case "event":
-            taskDisplayed = newTask.description.replace("event ", "");
+            taskDisplayed = newTask.getDescription().replace("event ", "");
             if (taskDisplayed.contains("/from ") && taskDisplayed.contains("/to ")) {
                 taskDisplayed = taskDisplayed.replaceFirst("/from ", "(from: ");
                 taskDisplayed = taskDisplayed.replaceFirst("/to ", "to: ");
@@ -93,7 +99,7 @@ public class PrintTask {
             }
             break;
         default:
-            taskDisplayed = newTask.description;
+            taskDisplayed = newTask.getDescription();
         }
         String typeMark = "[" + type + "]";
         String statusMark = "[" + newTask.getStatusIcon() + "] ";
@@ -111,6 +117,6 @@ public class PrintTask {
      */
     public static void normalTask(Task newTask, int taskNum) {
         String taskCount = String.format("Now you have %d tasks in the list.", taskNum);
-        PrintText.printWithLinebreak("added: " + newTask.description + "\n" + taskCount);
+        PrintText.printWithLinebreak("added: " + newTask.getDescription() + "\n" + taskCount);
     }
 }

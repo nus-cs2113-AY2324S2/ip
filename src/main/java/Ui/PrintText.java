@@ -1,3 +1,5 @@
+package Ui;
+
 /**
  * Represents a command to print a line of text to the screen.
  * String <code>LINEBREAK</code> represents line break to be printed when required.
