@@ -47,7 +47,7 @@ public class UI {
                 " to make sure it follows the format...");
     }
 
-    public static void printPostLoadingMessage() {
+    public void printPostLoadingMessage() {
         System.out.println("What may I do for you this fine day?");
         System.out.println(LINE);
     }

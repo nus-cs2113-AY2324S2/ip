@@ -24,7 +24,7 @@ public class Logic {
         }
         toDoList.add(new ToDo(toDoTask));
         Task.setNoOfTask(Task.getNoOfTask() + 1);
-        SaveData.addTodoToFile(new ToDo(toDoTask), 'T');
+        Storage.saveTodo(new ToDo(toDoTask), 'T');
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
     }
 
@@ -45,7 +45,7 @@ public class Logic {
         }
         toDoList.add(new Deadline(description.substring(0, idxOfEndDate - 1), date));
         Task.setNoOfTask(Task.getNoOfTask() + 1);
-        SaveData.addDeadlineToFile(new Deadline(description.substring(0, idxOfEndDate - 1), date), 'D');
+        Storage.saveDeadline(new Deadline(description.substring(0, idxOfEndDate - 1), date), 'D');
         UI.printCreateDeadlineMessage(toDoTask, date);
     }
 
@@ -76,7 +76,7 @@ public class Logic {
         }
         toDoList.add(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate));
         Task.setNoOfTask(Task.getNoOfTask() + 1);
-        SaveData.addEventToFile(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate), 'E');
+        Storage.saveEvent(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate), 'E');
         UI.printCreateEventMessage(toDoTask, startDate, endDate);
     }
 

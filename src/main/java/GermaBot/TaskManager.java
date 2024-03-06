@@ -14,7 +14,6 @@ public class TaskManager {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskManager() {
-
     }
 
 }

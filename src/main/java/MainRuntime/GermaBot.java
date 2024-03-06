@@ -11,16 +11,14 @@ import java.util.ArrayList;
 public class GermaBot {
     static ArrayList<Task> toDoList = new ArrayList<>();
     private static UI ui;
+    private static Storage storage;
 
-    public void run() {
-        ui.printWelcomeMessage();
-    }
-
-    public static void main(String[] args) {
+    public GermaBot() {
+        storage = new Storage();
         ui = new UI();
         ui.printWelcomeMessage();
         try {
-            toDoList = LoadData.loadFile();
+            toDoList = storage.loadFile();
             Task.setNoOfTask(LoadData.getCounter());
             ui.printLoadComplete();
         } catch (FileNotFoundException e) {
@@ -28,7 +26,10 @@ public class GermaBot {
         } catch (FileReadException e) {
             ui.printFileReadException();
         }
-        UI.printPostLoadingMessage();
+        ui.printPostLoadingMessage();
+    }
+
+    public void run() {
         while (true) {
             String input = ui.getInput();
             if (input.equals("bye")) {
@@ -41,5 +42,9 @@ public class GermaBot {
             }
         }
         ui.printByeMessage();
+    }
+
+    public static void main(String[] args) {
+        new GermaBot().run();
     }
 }
