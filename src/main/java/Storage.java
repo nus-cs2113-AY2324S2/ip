@@ -1,13 +1,26 @@
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles the reading and writing of tasks to and from a file.
+ */
 public class Storage {
     private static String filePath;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath The file path of the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -38,6 +51,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the storage file.
+     *
+     * @param listOfTasksSize The number of tasks in the list.
+     * @param listOfTasks     The ArrayList of tasks to be saved.
+     */
     public static void saveTasks(int listOfTasksSize, ArrayList<Task> listOfTasks) {
         try {
             File file = new File(filePath);

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The UI class handles interaction with the user, including displaying messages,
+ * reading user input, and showing the list of available commands.
+ */
 public class Ui {
     private static final String LINE = "____________________________________________________________";
 
@@ -31,7 +35,9 @@ public class Ui {
             "    \\  \\:\\        \\  \\:\\       \\__\\::::/      \\__\\/       /__/:/   \n" +
             "     \\__\\/         \\__\\/           ~~~~                   \\__\\/    ";
 
-
+    /**
+     * Displays a greeting message when the program starts.
+     */
     public void greetUser() {
         System.out.println("Greetings.\n" + LOGO);
         showDividerLine();
@@ -40,19 +46,37 @@ public class Ui {
         listOptions();
     }
 
+    /**
+     * Reads user input from the console.
+     *
+     * @return The user input as a string.
+     */
     public String readUserInput() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param errorMessage The error message to display.
+     */
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
 
+    /**
+     * Displays an error message related to loading tasks from a file.
+     *
+     * @param e The exception that occurred.
+     */
     public void showLoadingError(Exception e) {
         System.err.println("Error saving tasks to file: " + e.getMessage());
     }
 
+    /**
+     * Displays the list of available commands, and how to use them.
+     */
     static void listOptions() {
         System.out.println("┌───────────────────────────────────────────────┐");
         System.out.println("│ Please enter a recognized command from the    │");
@@ -69,6 +93,12 @@ public class Ui {
         System.out.println("└───────────────────────────────────────────────┘");
     }
 
+    /**
+     * Displays the current total list of tasks.
+     *
+     * @param listOfTasks The ArrayList containing the tasks to display.
+     * @param size        The total number of tasks in the list.
+     */
     static void printTasks(ArrayList<Task> listOfTasks, int size) {
         showDividerLine();
         System.out.println("Herein lies the catalog of your labors: ");
@@ -78,10 +108,22 @@ public class Ui {
         showDividerLine();
     }
 
+    /**
+     * Displays a single task.
+     *
+     * @param currentTaskIndex The index of the task.
+     * @param currentTask      The task to display.
+     */
     public static void listTask(int currentTaskIndex, Task currentTask) {
         System.out.println("[" + currentTask.taskType + "]" + "[" + currentTask.getStatusIcon() + "] " + (currentTaskIndex + 1) + ". " + currentTask.description);
     }
 
+    /**
+     * Displays a newly added task.
+     *
+     * @param newTask               The task that was added.
+     * @param currentNumberOfTasks  The current number of tasks.
+     */
     static void showNewlyAddedTask(Task newTask, int currentNumberOfTasks) {
         showDividerLine();
         System.out.println("A new task is etched upon the sands of time:");
@@ -90,6 +132,9 @@ public class Ui {
         showDividerLine();
     }
 
+    /**
+     * Displays a divider line in the terminal.
+     */
     public static void showDividerLine() {
         System.out.println(LINE);
     }

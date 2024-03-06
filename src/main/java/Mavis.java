@@ -25,7 +25,7 @@ public class Mavis {
     }
 
     /**
-     * Runs the Mavis application, allowing users to interact with the assistant and manage their tasks.
+     * Function that mainly runs the Mavis application, allowing users to interact with the assistant and manage their tasks.
      */
     public void run() {
         ui.greetUser();
