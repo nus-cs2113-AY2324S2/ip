@@ -9,9 +9,13 @@ public class Ui {
     private static final String CHATBOT = "Spike";
     public static final String DIVIDER = "_________________________________________________";
 
-    protected void displayList(ArrayList<Task> inputList) {
+    protected void displayList(ArrayList<Task> inputList, boolean matching) {
         System.out.println(DIVIDER);
-        System.out.println("Here are the tasks in your list:");
+        if (matching) {
+            System.out.println("Here are the matching tasks in your list:");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+        }
         for (int i = 0; i < inputList.size(); i++) {
             Task value = inputList.get(i);
             if (value == null) {
@@ -35,6 +39,7 @@ public class Ui {
         }
         return Badge;
     }
+
     protected void displayUnmarkMsg(int index, ArrayList<Task> inputList) {
         char Badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
@@ -66,11 +71,11 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    protected void displayDeleteMsg(Task inputObj, int arrayLength){
+    protected void displayDeleteMsg(Task inputObj, int arrayLength) {
         char Badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("I've removed this task:");
-        System.out.println(" [" + Badge + "]" + "["+ inputObj.getStatusIcon() +"] " + inputObj.description);
+        System.out.println(" [" + Badge + "]" + "[" + inputObj.getStatusIcon() + "] " + inputObj.description);
         System.out.println("Now you have " + (arrayLength - 1) + " tasks in the list.");
         System.out.println(DIVIDER);
     }
