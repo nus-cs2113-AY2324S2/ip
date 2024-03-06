@@ -2,6 +2,9 @@ package roleypoley.task;
 
 import roleypoley.task.Task;
 
+/**
+ * Represents Todo tasks to be completed
+ */
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {

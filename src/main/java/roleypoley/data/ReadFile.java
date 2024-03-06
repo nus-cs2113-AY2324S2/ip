@@ -14,6 +14,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Read data from RoleyPoleyData.txt
+ * If File does not exists, a new file will be created
+ */
 public class ReadFile {
     public static void readFileToArrayList() throws RoleyPoleyFileException {
         try {
@@ -29,7 +33,12 @@ public class ReadFile {
         }
     }
 
-
+    /**
+     * Convert tasks in text file into an ArrayList
+     *
+     * @param line a line of string read in from the text file
+     * @throws RoleyPoleyFileException if task has not been indicated as '1' or '0'
+     */
     public static void convertTask(String line) throws RoleyPoleyFileException {
         String[] identifyTaskType = line.split(" ");
         String description = line.substring("X | Y | ".length());
@@ -38,7 +47,6 @@ public class ReadFile {
             case "0" -> false;
             default -> throw new RoleyPoleyFileException("FileContentError");
         };
-
         switch (identifyTaskType[0]) {
         case "T":
                 HandleCommand.getTaskList().add(new Todo(description, isDone));
