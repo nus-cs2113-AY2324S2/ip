@@ -35,19 +35,23 @@ If you can type fast, Adam can get your tasks managed faster than traditional GU
     /_/    \_\__,_|\__,_|_| |_| |_|
    
    ```
-6. Type the command in the command box and press Enter to execute it.
+6. Type the command in the command box and press Enter to execute it. Refer to the [Features](#features) section for available commands.
 7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
 8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
-9. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.
+9. Please do not edit the `tasks.dat` file manually as it may result in the **loss of all data**.
+10. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.<br>
 If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
 
 - Notes:
-    - All the spaces in the commands are for clarity and are optional to include in the actual command.
-    - Refer to the [Features](#features) section for the list of commands available.
+    - All the spaces in the commands are for clarity and are **optional** to include in the actual command.
+    - Commands are **case-insensitive**.
+    - The `<angle-brackets>` are used to denote the parameters that should be replaced with the **actual user input**.
+
 
 ## Features
 ### Adding a task
-Adds a task to the list of tasks.
+Adds a task to the list of tasks. The task can be a todo, deadline, or event task.<br>
+The task descriptions are **case-sensitive** and are displayed as entered.
 
 #### Usage
 `todo <description>`<br>
@@ -131,7 +135,6 @@ Ta-da! Task conquered! I've marked this task as done:
 ```
 Whoopsie-daisy! This task is back in action:
    [D][ ] return book (by: Mar 30 2024)
-
 ```
 
 
@@ -231,7 +234,7 @@ Enjoy chatting with Adam!
 - `MMMddyyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace)
 - `MMM dd, yyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace with a comma `,` after the day)
 - Time:
-- 24-hour or 12-hour format with an optional leading zero,<br>and optional colon `:` as the seperator between hours and minutes.
+- 24-hour or 12-hour format with an optional leading zero,<br>and optional colon `:` as the separator between hours and minutes.
 - For 12-hour format, the time should be followed by `am` or `pm`.
 
 #### Format Examples

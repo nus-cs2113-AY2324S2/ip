@@ -15,13 +15,6 @@ public class Message {
             + "  / ____ \\ (_| | (_| | | | | | |\n"
             + " /_/    \\_\\__,_|\\__,_|_| |_| |_|\n";
 
-    private static final String LOGO_BOLD = " █████╗ ██████╗  █████╗ ███╗   ███╗\n"
-            + "██╔══██╗██╔══██╗██╔══██╗████╗ ████║\n"
-            + "███████║██║  ██║███████║██╔████╔██║\n"
-            + "██╔══██║██║  ██║██╔══██║██║╚██╔╝██║\n"
-            + "██║  ██║██████╔╝██║  ██║██║ ╚═╝ ██║\n"
-            + "╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝\n";
-
     private static final String LOGO_3D = " ________  ________  ________  _____ ______      \n"
             + "|\\   __  \\|\\   ___ \\|\\   __  \\|\\   _ \\  _   \\    \n"
             + "\\ \\  \\|\\  \\ \\  \\_|\\ \\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\   \n"
@@ -37,7 +30,7 @@ public class Message {
             + ">>> Type 'help' or 'h' to view the available commands."
             + DELIMITER;
 
-    private static final String[] LOGOS = {LOGO_DEFAULT, LOGO_BOLD, LOGO_3D};
+    private static final String[] LOGOS = {LOGO_DEFAULT, LOGO_3D};
 
     // Random logo display at app start
     public static final String GREETING_MESSAGE = "Hello from\n" + LOGOS[new Random().nextInt(LOGOS.length)]
@@ -97,7 +90,7 @@ public class Message {
     public static final String FILE_SAVE_ERROR_MESSAGE = "\nOops! Looks like your tasks will vanish after this session!"
             + "\nRestart the app and let's see if they're back to their normal selves!";
 
-    public static final String FILE_LOAD_ERROR_MESSAGE = DELIMITER + "Oops! List data lost in the digital Bermuda Triangle!"
+    public static final String FILE_LOAD_ERROR_MESSAGE = DELIMITER + "I can't seem to find your previous tasks! :("
             + "\nStarting fresh with an empty list...\n" + DELIMITER;
 
     public static final String FIND_MESSAGE = "Behold! Your tasks surface:\n";
