@@ -8,6 +8,12 @@ import lotes.ui.UserInterface;
 public class AddEventCommand extends Command {
     public static final String COMMAND_WORD = "event";
 
+    /**
+     * Adds a new Event task to the task list,
+     * tasks that start at a specific date/time (from),
+     * and ends at a specific date/time (/to).
+     * @param description
+     */
     public void run(String description) {
         String deadlineDescription = description.substring(6);
 

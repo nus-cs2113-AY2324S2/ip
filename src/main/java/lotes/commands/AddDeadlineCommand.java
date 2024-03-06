@@ -8,9 +8,11 @@ import lotes.ui.UserInterface;
 public class AddDeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
 
-    // Adds a new Deadline task to the task list,
-    // tasks that need to be done before a specific date/time (/by).
-
+    /**
+     * Adds a new Deadline task to the task list,
+     * tasks that need to be done before a specific date/time (/by).
+     * @param description
+     */
     public void run(String description) {
         String deadlineDescription = description.substring(9);
 

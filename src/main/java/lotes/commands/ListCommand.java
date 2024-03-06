@@ -7,7 +7,9 @@ import lotes.task.TaskList;
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
-    // Prints out the list of tasks to the user.
+    /**
+     * Prints out the list of tasks to the user.
+     */
     @Override
     public void execute() {
         System.out.println(UserInterface.line);

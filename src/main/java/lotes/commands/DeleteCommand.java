@@ -6,8 +6,10 @@ import lotes.ui.UserInterface;
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
-    // Deletes the user task accordingly
-
+    /**
+     * Deletes the user task accordingly
+     * @param userInput
+     */
     public void run(String userInput) {
         String inputString = userInput.substring(7);
         int taskListIndex = (Integer.parseInt(inputString) - 1);
@@ -19,6 +21,7 @@ public class DeleteCommand extends Command {
 
         TaskList.taskList.remove(taskListIndex);
     }
+
     @Override
     public void execute() {
 

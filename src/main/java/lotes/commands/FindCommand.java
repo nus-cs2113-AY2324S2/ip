@@ -7,6 +7,10 @@ import lotes.ui.UserInterface;
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
+    /**
+     * Finds the user input keywords in the task list.
+     * @param userInput
+     */
     public void run(String userInput) {
         System.out.println(UserInterface.line);
         String inputString = userInput.substring(5);

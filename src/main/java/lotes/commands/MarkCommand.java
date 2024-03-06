@@ -6,8 +6,10 @@ import lotes.ui.UserInterface;
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
-    // Mark the task number in the task list.
-
+    /**
+     * Mark the task number in the task list.
+     * @param userInput
+     */
     public void run(String userInput) {
         String inputString = userInput.substring(5);
         int taskListIndex = (Integer.parseInt(inputString) - 1);

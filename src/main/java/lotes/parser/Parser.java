@@ -17,8 +17,11 @@ import lotes.commands.ExitCommand;
 
 public class Parser {
 
-    // Parses the user input to get the command to perform.
-
+    /**
+     * Parses the user input to get the command to perform.
+     * @param userInput
+     * @return command
+     */
     public static String parseInputCommand(String userInput) {
         String[] userInputArray = userInput.split(" ", 2);
 
@@ -27,8 +30,12 @@ public class Parser {
         return command;
     }
 
-    // Reads and parse the user input to perform its respective actions.
-
+    /**
+     * Reads and parse the user input to perform its respective actions.
+     * @param userInput
+     * @param taskList
+     * @return ixExit
+     */
     public static boolean performUserInput(String userInput, TaskList taskList) {
         boolean isExit = false;
         String command = parseInputCommand(userInput);
@@ -92,8 +99,12 @@ public class Parser {
         return isExit;
     }
 
-    // Handle errors by catching exceptions.
-
+    /**
+     * Handle errors by catching exceptions.
+     * @param userInput
+     * @param taskList
+     * @return isExit
+     */
     public static boolean catchExceptionOnExecution(String userInput, TaskList taskList) {
         boolean isExit = false;
         try {
@@ -115,15 +126,18 @@ public class Parser {
         return isExit;
     }
 
-    //  Continuously Interpreting the user input
-
+    /**
+     * Continuously prompting and interpreting user input and Exit when user input is exit or bye.
+     * @param inputCommand
+     * @param taskList
+     */
     public static void interpretUserInput(Scanner inputCommand, TaskList taskList) {
 
-        while (inputCommand.hasNextLine()) { // Prompt for continuous user input
+        while (inputCommand.hasNextLine()) {
             String userInput = inputCommand.nextLine();
 
             if (catchExceptionOnExecution(userInput, taskList)) {
-                break; // Exit reading and interpreting next line
+                break;
             }
         }
     }

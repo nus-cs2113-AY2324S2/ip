@@ -59,8 +59,6 @@ public class Storage {
         }
     }
 
-
-
     /**
      * Signals that the given file path does not fulfill the storage filepath constraints.
      */
@@ -80,7 +78,9 @@ public class Storage {
         }
     }
 
-    // Creates the directory and file to store the tasks
+    /**
+     * Creates the directory and file to store the tasks
+     */
     public static void createFile() {
         try {
             Path dirPath = Paths.get(directoryName);
@@ -96,8 +96,10 @@ public class Storage {
         }
     }
 
-    // Reads the file containing the tasks and storing them into the array
-
+    /**
+     * Reads the file containing the tasks and storing them into the array
+     * @throws FileNotFoundException
+     */
     public static void readFile() throws FileNotFoundException {
         try {
             File f = new File(filename);
@@ -112,8 +114,9 @@ public class Storage {
         }
     }
 
-    // Update the current file with the updated task list
-
+    /**
+     * Update the current file with the updated task list
+     */
     public static void updateFile(){
         try {
             FileWriter fw = new FileWriter(filename);
@@ -172,6 +175,5 @@ public class Storage {
             }
         }
     }
-
 
 }
