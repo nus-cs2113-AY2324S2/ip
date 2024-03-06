@@ -98,4 +98,16 @@ public class Ui {
 
         drawErrorLine();
     }
+
+    public static void printTaskList() {
+        
+        int numberOfTasks = TaskList.getNumberOfTasks();
+        System.out.printf("\tYour task list currently has %d items!\n\n", numberOfTasks);
+        int taskNumberToDisplay;
+
+        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
+            taskNumberToDisplay = taskIndex + 1;
+            System.out.printf("\t%d. %s\n", taskNumberToDisplay, TaskList.getTaskList().get(taskIndex).toString());
+        }
+    }
 }
