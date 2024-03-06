@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,7 +48,8 @@ public class Storage {
                 break;
             case "D":
                 taskArrayList.add(new Deadline(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),
-                            inputArray[taskNameIndex],inputArray[firstTimeIndex]));
+
+                inputArray[taskNameIndex], LocalDateTime.parse(inputArray[firstTimeIndex])));
                 taskIndex++;
                 break;
             case "T":
@@ -55,7 +57,6 @@ public class Storage {
                 taskIndex++;
                 break;
             default:
-
             }
 
         }

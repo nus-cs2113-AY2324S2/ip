@@ -3,6 +3,10 @@ package winter;
 import winter.checkedexceptions.*;
 import winter.commands.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static winter.checkedexceptions.Exceptions.*;
 
 
@@ -113,11 +117,20 @@ public class Parser {
     private static Command prepareDeadline(String[] commandWordArray, String commandArgs) throws InvalidDeadlineException {
         boolean isValidDeadline = verifyDeadline(commandWordArray);
         if (isValidDeadline) {
-            int slashIndex = commandArgs.indexOf("/");
-            int numCharsToKeyword = 3;
-            String deadline = commandArgs.substring(slashIndex + numCharsToKeyword);
-            String deadlineName = commandWordArray[1];
-            return new DeadlineCommand(deadlineName,deadline);
+            int byKeywordIndex = commandArgs.indexOf("/by ");
+            int deadlineIndex = 1;
+            String deadline = (commandArgs.split("/by "))[deadlineIndex];
+            System.out.println(deadline);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime deadlineTimeObj = null;
+            try {
+                deadlineTimeObj = LocalDateTime.parse(deadline, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Oh no! There is a problem with your deadline. It should be in the format of (yyyy-mm-dd HH:mm)");
+                return new HelpCommand();
+            }
+            String deadlineName = commandArgs.substring(0,byKeywordIndex);
+            return new DeadlineCommand(deadlineName,deadlineTimeObj);
         }
         return new HelpCommand();
     }
@@ -155,12 +168,15 @@ public class Parser {
                 break;
             }
         }
-        int numValidDeadlineArgs = 4;
+
+        int numValidDeadlineArgs = 5;
         if (commandWords.length < numValidDeadlineArgs || !isValidDeadline) {
             throw new InvalidDeadlineException();
         }
         return isValidDeadline;
     }
+
+
 
     public static boolean verifyEvent(String[] commandWords) throws InvalidEventException {
         boolean isValidEvent = false;
