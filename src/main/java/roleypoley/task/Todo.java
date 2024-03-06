@@ -1,3 +1,7 @@
+package roleypoley.task;
+
+import roleypoley.task.Task;
+
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {

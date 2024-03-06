@@ -1,3 +1,4 @@
+package roleypoley.exception;
 public class RoleyPoleyParseException extends Exception {
     public RoleyPoleyParseException(String errorMessage) {
         switch (errorMessage) {

@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package roleypoley.task;
+
+public class Deadline extends Task {
     protected String by;
 
     public Deadline(String description, boolean isDone) {

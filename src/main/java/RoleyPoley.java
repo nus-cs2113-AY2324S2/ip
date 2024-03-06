@@ -1,3 +1,12 @@
+import roleypoley.data.ReadFile;
+import roleypoley.data.WriteFile;
+import roleypoley.exception.RoleyPoleyFileException;
+import roleypoley.exception.RoleyPoleyParseException;
+import roleypoley.task.Deadline;
+import roleypoley.task.Event;
+import roleypoley.task.Task;
+import roleypoley.task.Todo;
+
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -66,12 +75,7 @@ public class RoleyPoley {
 
             switch (splitString[0]) {
             case "bye":
-                   try {
-                       WriteFile.writeToFile(myPath, taskList);
-                   } catch (IOException ex) {
-                       System.out.println("File Error!");
-                   }
-                System.out.println("Bye. Hope to see you again soon!");
+                ExitCommand();
                 createLine();
                 return true;
             case "list":
@@ -79,70 +83,123 @@ public class RoleyPoley {
                 createLine();
                 break;
             case "mark":
-                words = line.split(" ");
-                if (words.length == 2) {
-                    int taskNum = Integer.parseInt(words[1]);
-                    if (taskList.size() < taskNum) {
-                        throw new RoleyPoleyParseException("markError");
-                    }
-                    taskList.get(taskNum - 1).markAsDone();
-                    createLine();
-                }
+                MarkCommand(line);
                 break;
             case "unmark":
-                words = line.split(" ");
-                if (words.length == 2) {
-                    int taskNum = Integer.parseInt(words[1]);
-                    if (taskList.size() < taskNum) {
-                        throw new RoleyPoleyParseException("unmarkError");
-                    }
-                    taskList.get(taskNum - 1).markAsUndone();
-                    createLine();
-                }
+                UnmarkCommand(line);
                 break;
             case "todo":
-                if (line.length() < 5) {
-                    throw new RoleyPoleyParseException("toDoError");
-                } else {
-                    taskList.add(new Todo(line.substring("todo".length()), false));
-                    printAddReply(taskList);
-                    createLine();
-                }
+                AddCommand("T", line);
                 break;
             case "deadline":
-                if (!line.contains("/by")) {
-                    throw new RoleyPoleyParseException("deadlineError");
-                } else {
-                    taskList.add(new Deadline(line.substring("deadline".length()), false));
-                    printAddReply(taskList);
-                    createLine();
-                }
+                AddCommand("D", line);
                 break;
             case "event":
-                if (!line.contains("/from") || !line.contains("/to")) {
-                    throw new RoleyPoleyParseException("eventError");
-                } else {
-                    taskList.add(new Event(line.substring("event".length()), false));
-                    printAddReply(taskList);
-                    createLine();
-                }
+                AddCommand("E", line);
                 break;
             case "delete":
-                words = line.split(" ");
-                if (words.length == 2) {
-                    int taskNum = Integer.parseInt(words[1]);
-                    if (taskList.size() < taskNum) {
-                        throw new RoleyPoleyParseException("deleteError");
-                    }
-                    printDelReply(taskList, taskNum - 1);
-                    taskList.remove(taskNum - 1);
-                    createLine();
-                }
+                DeleteCommand(line);
                 break;
             default:
                 throw new RoleyPoleyParseException("defaultError");
             }
         }
+    }
+
+    private static void MarkCommand(String line) throws RoleyPoleyParseException {
+        String[] words;
+        words = line.split(" ");
+        if (words.length == 2) {
+            int taskNum = Integer.parseInt(words[1]);
+            if (taskList.size() < taskNum) {
+                throw new RoleyPoleyParseException("markError");
+            }
+            taskList.get(taskNum - 1).markAsDone();
+            createLine();
+        }
+    }
+
+    private static void UnmarkCommand(String line) throws RoleyPoleyParseException {
+        String[] words;
+        words = line.split(" ");
+        if (words.length == 2) {
+            int taskNum = Integer.parseInt(words[1]);
+            if (taskList.size() < taskNum) {
+                throw new RoleyPoleyParseException("unmarkError");
+            }
+            taskList.get(taskNum - 1).markAsUndone();
+            createLine();
+        }
+    }
+
+
+    private static void AddCommand(String taskType,String line) throws RoleyPoleyParseException {
+        switch (taskType) {
+        case "T":
+            AddToDoCommand(line);
+            break;
+        case "D":
+            AddDeadlineCommand(line);
+            break;
+        case "E":
+            AddEventCommand(line);
+            break;
+        default:
+            throw new RoleyPoleyParseException("defaultError");
+        }
+    }
+
+    private static void AddToDoCommand(String line) throws RoleyPoleyParseException {
+        if (line.length() < 5) {
+            throw new RoleyPoleyParseException("toDoError");
+        } else {
+            taskList.add(new Todo(line.substring("todo".length()), false));
+            printAddReply(taskList);
+            createLine();
+        }
+    }
+
+    private static void AddDeadlineCommand(String line) throws RoleyPoleyParseException {
+        if (!line.contains("/by")) {
+            throw new RoleyPoleyParseException("deadlineError");
+        } else {
+            taskList.add(new Deadline(line.substring("deadline".length()), false));
+            printAddReply(taskList);
+            createLine();
+        }
+    }
+
+    private static void AddEventCommand(String line) throws RoleyPoleyParseException {
+        if (!line.contains("/from") || !line.contains("/to")) {
+            throw new RoleyPoleyParseException("eventError");
+        } else {
+            taskList.add(new Event(line.substring("event".length()), false));
+            printAddReply(taskList);
+            createLine();
+        }
+    }
+
+    private static void DeleteCommand(String line) throws RoleyPoleyParseException {
+        String[] words;
+        words = line.split(" ");
+        if (words.length == 2) {
+            int taskNum = Integer.parseInt(words[1]);
+            if (taskList.size() < taskNum) {
+                throw new RoleyPoleyParseException("deleteError");
+            }
+            printDelReply(taskList, taskNum - 1);
+            taskList.remove(taskNum - 1);
+            createLine();
+        }
+    }
+
+    private static void ExitCommand() {
+        try {
+            WriteFile.writeToFile(myPath, taskList);
+        } catch (IOException ex) {
+            System.out.println("File Error!");
+        }
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
 

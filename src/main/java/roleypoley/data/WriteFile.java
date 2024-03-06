@@ -1,9 +1,13 @@
+package roleypoley.data;
+
+import roleypoley.task.Task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class WriteFile {
-    static void writeToFile(String filePath, ArrayList<Task> taskList) throws IOException {
+    public static void writeToFile(String filePath, ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         taskList.forEach(task -> {
             int markDoneOrUndone = 0;

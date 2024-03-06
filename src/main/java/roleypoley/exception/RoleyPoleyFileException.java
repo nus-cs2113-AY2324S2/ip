@@ -1,3 +1,5 @@
+package roleypoley.exception;
+
 public class RoleyPoleyFileException extends Exception {
     public RoleyPoleyFileException(String errorMessage) {
         switch (errorMessage) {
