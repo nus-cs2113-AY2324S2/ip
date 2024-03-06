@@ -1,8 +1,7 @@
 package Ui;
 
-import Storage.DukeFile;
+import Storage.BattchFile;
 import TaskList.Task;
-import Ui.PrintText;
 
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ public class PrintTask {
         String typeMark = "[" + type + "]";
         String statusMark = "[" + input.getStatusIcon() + "] ";
         output += indexPrinted + typeMark + statusMark + input.getDescription() + "\n";
-        DukeFile.updateFile(output, ifAppend);
+        BattchFile.updateFile(output, ifAppend);
     }
 
     /**
@@ -64,7 +63,7 @@ public class PrintTask {
             output += indexPrinted + typeMark + statusMark + task.getDescription() + "\n";
             index++;
         }
-        DukeFile.updateFile(output, ifAppend);
+        BattchFile.updateFile(output, ifAppend);
     }
 
     /**

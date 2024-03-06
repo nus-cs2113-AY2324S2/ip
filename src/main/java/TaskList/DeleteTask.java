@@ -1,6 +1,6 @@
 package TaskList;
 
-import Parser.DukeExceptions;
+import Parser.BattchExceptions;
 import Parser.MarkTask;
 import Ui.PrintText;
 
@@ -23,7 +23,7 @@ public class DeleteTask {
         } catch(ArrayIndexOutOfBoundsException e) {
             PrintText.printWithLinebreak("Index out of range");
             return;
-        } catch(DukeExceptions.InvalidItemException e) {
+        } catch(BattchExceptions.InvalidItemException e) {
             PrintText.printWithLinebreak("Please enter a valid item to delete.");
             return;
         }

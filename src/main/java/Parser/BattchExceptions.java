@@ -1,10 +1,10 @@
 package Parser;
 
 /**
- * Represents a collection of custom exception types for Duke.
- * These exceptions are used to handle specific errors in Duke's functionality.
+ * Represents a collection of custom exception types for Battch.
+ * These exceptions are used to handle specific errors in Battch's functionality.
  */
-public class DukeExceptions {
+public class BattchExceptions {
     public static class InvalidItemException extends Exception {
     }
 
