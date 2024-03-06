@@ -1,4 +1,4 @@
-remote_theme: pages-themes/leap-day@v0.2.0
 title: Adam
 description: User Guide for Adam - Your Personal Task Management ChatBot
-show_downloads: ["true" or "false" (unquoted) to indicate whether to provide a download URL]
+show_downloads: true
+remote_theme: pages-themes/leap-day@v0.2.0
