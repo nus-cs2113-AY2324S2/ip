@@ -15,12 +15,11 @@ public class Duke {
         }
     }
 
+    private static Ui ui;
     public static void main(String[] args) throws UnexpectedCommandException, EmptyLineException, IOException, FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<Task>();
-
-        //greeting
-        System.out.println("Hello! I'm Apple");
-        System.out.println("What can I do for you?");
+        ui = new Ui();
+        ui.sayHi();
         try {
             System.out.println("Here are the items in your task list: ");
             printFileContents("TaskList.txt");
@@ -46,6 +45,6 @@ public class Duke {
             System.out.println("File already exists: " + f.getAbsolutePath());
         }
 
-        new ManageInputs(tasks, index, line);
+        new Parser(tasks, index, line);
     }
 }
