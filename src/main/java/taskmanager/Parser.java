@@ -266,7 +266,7 @@ public class Parser {
                 }
             }
             if (number.isEmpty()) {
-                Ui.printDeleteTaskErrorMessage();
+                Ui.printInvalidDeleteIndexMessage();
                 return taskCounter;
             }
             int taskNumber = Integer.parseInt(number);

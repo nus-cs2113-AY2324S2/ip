@@ -209,7 +209,6 @@ public class Ui {
         System.out.println(VERTICAL_LINES + "\n");
     }
 
-    public static void invalidTaskTypeMessage() {
     /**
      * Tells the user that they have made a typo when inputting the task type and how they can rectify their mistake
      */
