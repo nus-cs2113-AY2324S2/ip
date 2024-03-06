@@ -6,10 +6,17 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles saving and loading tasks from a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/tasks.txt";
 
-    // Method to save tasks to a file
+    /**
+     * Saves tasks to a file.
+     *
+     * @param tasksList The list of tasks to save.
+     */
     public void saveTasks(ArrayList<Task> tasksList) {
         try {
             File file = new File(FILE_PATH);
@@ -27,7 +34,11 @@ public class Storage {
         }
     }
 
-    // Method to load tasks from a file
+    /**
+     * Loads tasks from a file.
+     *
+     * @return The list of tasks loaded from the file.
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasksList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -48,7 +59,6 @@ public class Storage {
                 }
                 file.createNewFile();
             } catch (IOException ioException) {
-
                 KratosException.handleException(ioException, Ui.folderNotFound +
                         ioException.getMessage());
             }
@@ -59,4 +69,3 @@ public class Storage {
         return tasksList;
     }
 }
-

@@ -1,7 +1,18 @@
 import java.util.ArrayList;
+
+/**
+ * The TaskList class handles various operations on a list of tasks.
+ */
 public class TaskList {
     private static Ui ui = new Ui();
 
+    /**
+     * Deletes a task from the list of tasks.
+     *
+     * @param userInput The user input specifying the task to be deleted.
+     * @param tasksList The list of tasks.
+     * @throws IndexOutOfBoundsException If the task number specified is out of bounds.
+     */
     public static void deleteTask(String userInput, ArrayList<Task> tasksList) {
         String[] deleteCommand = Parser.splitTaskNumber(userInput);
         int taskNumber = Integer.parseInt(deleteCommand[1].trim()) - 1;
@@ -13,6 +24,12 @@ public class TaskList {
         ui.taskRemainderDisplay(tasksList);
     }
 
+    /**
+     * Adds an event task to the list of tasks.
+     *
+     * @param userInput The user input specifying the event task.
+     * @param tasksList The list of tasks.
+     */
     public static void addEvent(String userInput, ArrayList<Task> tasksList) {
         String[] eventParts = Parser.splitEvent(userInput);
         String[] events = Parser.splitTodo(eventParts[0]);
@@ -22,12 +39,24 @@ public class TaskList {
         ui.displayMessageSelector(events[0]);
     }
 
+    /**
+     * Adds a todo task to the list of tasks.
+     *
+     * @param userInput The user input specifying the todo task.
+     * @param tasksList The list of tasks.
+     */
     public static void addTodo(String userInput, ArrayList<Task> tasksList) {
         String[] todoParts = Parser.splitTodo(userInput);
         tasksList.add(new Todo(todoParts[1]));
         ui.displayMessageSelector(todoParts[0]);
     }
 
+    /**
+     * Adds a deadline task to the list of tasks.
+     *
+     * @param userInput The user input specifying the deadline task.
+     * @param tasksList The list of tasks.
+     */
     public static void addDeadline(String userInput, ArrayList<Task> tasksList) {
         String[] deadlineParts = Parser.splitDeadline(userInput);
         String[] timelineParts = Parser.splitTodo(deadlineParts[0]);
@@ -36,6 +65,13 @@ public class TaskList {
         ui.displayMessageSelector(timelineParts[0]);
     }
 
+    /**
+     * Identifies and marks tasks in the list of tasks.
+     *
+     * @param taskNumber The number of the task to be marked.
+     * @param mark       The mark indicating whether to mark or unmark the task.
+     * @param tasksList  The list of tasks.
+     */
     public static void identifyAndMarkTasks(int taskNumber, String mark, ArrayList<Task> tasksList) {
         String displayString;
         if (mark.equals("mark")) {
