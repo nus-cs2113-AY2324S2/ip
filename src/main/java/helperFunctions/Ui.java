@@ -4,23 +4,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Ui {
-
-    public Ui() {
-        sayHi();
-    }
-
-    public void readInput(TaskList tasks) {
+    ;
+    public static void readInput(TaskList tasks, String FILE_PATH) {
         Scanner in = new Scanner(System.in);
 
         boolean isReadMode = true; // in reading mode
-        /*
+
         try {
             Storage.readFile(FILE_PATH, tasks, isReadMode);
         } catch (InvalidParamsException e) {
             System.out.println(e.getMessage());
             return;
         }
-        */
+
 
         isReadMode = false; // switch to writing mode
         boolean isRun = true;
@@ -29,26 +25,25 @@ public class Ui {
             String line = in.nextLine(); // reads input
             // process input
             try {
-                String FILE_PATH = "saveFile.txt"; // dummy
                 isRun = Parser.processUserInput(tasks, line, FILE_PATH, isReadMode);
             } catch (InvalidParamsException e) {
                 showLoadingError(e.getMessage()); // prints out error message
             }
         }
+        sayBye();
     }
-    public void showLoadingError(String errorMessage) {
+    public static void showLoadingError(String errorMessage) {
         System.out.println(errorMessage);
     }
-    private static String commandsList =
-            "## Possible user commands: \n" +
-            "1. todo <task>                            : Add todo task \n" +
-            "2. deadline <task> /<deadline>            : Add deadline\n" +
-            "3. event <task> /<startTime> /<endTime>   : Add event \n" +
-            "4. list                                   : List all tasks\n" +
-            "5. mark/unmark <taskIndex>                : Mark task <index> as done/ undone\n" +
-            "6. bye                                    : Exit Program";
+
     public static String printCommandsList() {
-        return commandsList;
+        return "## Possible user commands: \n" +
+                "1. todo <task>                            : Add todo task \n" +
+                "2. deadline <task> /<deadline>            : Add deadline\n" +
+                "3. event <task> /<startTime> /<endTime>   : Add event \n" +
+                "4. list                                   : List all tasks\n" +
+                "5. mark/unmark <taskIndex>                : Mark task <index> as done/ undone\n" +
+                "6. bye                                    : Exit Program";
     }
 
     /**

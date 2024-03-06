@@ -10,13 +10,8 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    public TaskList() throws InvalidParamsException {
-        if (true) {
-            this.tasks = new ArrayList<>();
-            System.out.println("arraylist is " + tasks.toString());
-        } else {
-            throw new InvalidParamsException("error in tasklist");
-        }
+    public TaskList() {
+        this.tasks = new ArrayList<>();
     }
 
     /**

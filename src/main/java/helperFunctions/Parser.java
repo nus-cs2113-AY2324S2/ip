@@ -5,7 +5,6 @@ public class Parser {
         String[] req = line.split(" ");
 
         if (req[0].equalsIgnoreCase("BYE")) {
-            Ui.sayBye();
             return false; // EXITS loop
         }
         if (req[0].equalsIgnoreCase("LIST")) {
