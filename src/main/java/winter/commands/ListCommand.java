@@ -7,6 +7,9 @@ import winter.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the command given by the user to display the task list
+ */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
@@ -19,7 +22,11 @@ public class ListCommand extends Command {
         displayList(tasks.getTaskArrayList(),ui);
     }
 
-    // Method for displaying list
+    /**
+     * Displays the tasks in the task list in the correct format and with the correct numbering in the list
+     * @param tasks The ArrayList containing the tasks
+     * @param ui The user interface
+     */
     private void displayList(ArrayList<Task> tasks, UI ui) {
         for (Task task : tasks) {
             ui.showIndent();

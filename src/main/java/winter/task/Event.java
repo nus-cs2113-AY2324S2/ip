@@ -1,5 +1,9 @@
 package winter.task;
 
+/**
+ * Represents the <code>Event</code> object which contains information about an Event task
+ * that can be modified
+ */
 public class Event extends Task {
     private static final String indent = "   ";
     protected String startTime;

@@ -1,7 +1,12 @@
 package winter.task;
-public class ToDo extends Task {
+
+/**
+ * Represents a <code>Todo</code> object which contains information about a Todo task
+ * that can be modified
+ */
+public class Todo extends Task {
     private static final String indent = "   ";
-    public ToDo (int order,boolean marked, String toDoName) {
+    public Todo(int order, boolean marked, String toDoName) {
         super(order,marked,toDoName);
     }
 

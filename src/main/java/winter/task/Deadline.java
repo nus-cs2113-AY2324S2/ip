@@ -1,4 +1,9 @@
 package winter.task;
+
+/**
+ * Represents the <code>Deadline</code> object which contains information about a Deadline task
+ * that can be modified
+ */
 public class Deadline extends Task {
     private static final String indent = "   ";
     protected String deadline;

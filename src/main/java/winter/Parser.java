@@ -5,8 +5,18 @@ import winter.commands.*;
 
 import static winter.checkedexceptions.Exceptions.*;
 
-
+/**
+ * Process the input from the user and checks for the validity of different
+ * commands from the user before relaying the information to other parts of
+ * the program through Command objects
+ */
 public class Parser {
+    /**
+     * Returns the command object after parsing the string input from the command line
+     * Initializes various command objects based on the type of command
+     * @param fullCommand The input String command from the user
+     * @return Subclass of command class depending on the input
+     */
     public static Command parse(String fullCommand) {
         switch (fullCommand) {
         // Cases include farewell and list commands
@@ -119,7 +129,7 @@ public class Parser {
         return new HelpCommand();
     }
 
-    public static boolean verifyTodo(String[] commandWords) throws InvalidTodoException {
+    private static boolean verifyTodo(String[] commandWords) throws InvalidTodoException {
         int numValidTodoArgs = 2;
         if (commandWords.length < numValidTodoArgs) {
             throw new InvalidTodoException();
@@ -127,7 +137,7 @@ public class Parser {
         return true;
     }
 
-    public static boolean verifyDeadline(String[] commandWords) throws InvalidDeadlineException {
+    private static boolean verifyDeadline(String[] commandWords) throws InvalidDeadlineException {
         boolean isValidDeadline = false;
 
         for (String commandWord : commandWords) {
@@ -143,7 +153,7 @@ public class Parser {
         return isValidDeadline;
     }
 
-    public static boolean verifyEvent(String[] commandWords) throws InvalidEventException {
+    private static boolean verifyEvent(String[] commandWords) throws InvalidEventException {
         boolean isValidEvent = false;
         boolean hasValidStart = false;
         boolean hasValidEnd = false;
@@ -165,14 +175,14 @@ public class Parser {
         return isValidEvent;
     }
 
-    public static boolean verifyDelete(String[] commandWords) throws InvalidDeleteException {
+    private static boolean verifyDelete(String[] commandWords) throws InvalidDeleteException {
         if (commandWords.length < 2 || !isInteger(commandWords[1])) {
             throw new InvalidDeleteException();
         }
         return true;
     }
 
-    public static boolean isInteger (String strNum) {
+    private static boolean isInteger (String strNum) {
         if (strNum == null) {
             return false;
         }
@@ -184,11 +194,11 @@ public class Parser {
         return true;
     }
 
-    public static void handleEmptyString () throws EmptyCommandException {
+    private static void handleEmptyString () throws EmptyCommandException {
         throw new EmptyCommandException();
     }
 
-    public static void handleInvalidCommand () throws InvalidCommandException {
+    private static void handleInvalidCommand () throws InvalidCommandException {
         throw new InvalidCommandException();
     }
 

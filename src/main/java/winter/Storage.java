@@ -1,18 +1,19 @@
 package winter;
 
-import winter.checkedexceptions.WinterException;
 import winter.task.Deadline;
 import winter.task.Event;
 import winter.task.Task;
-import winter.task.ToDo;
+import winter.task.Todo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Responsible for reading and writing to a file to be stored in memory
+ */
 public class Storage {
     private static String filePath;
 
@@ -26,6 +27,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an ArrayList representing a list of all the tasks that are stored
+     * within the stored file
+     * @return List of the tasks stored in memory
+     * @throws IOException If the file cannot be read using the Scanner
+     */
     protected ArrayList<Task> readFile () throws IOException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -49,7 +56,7 @@ public class Storage {
                             inputArray[taskNameIndex],inputArray[firstTimeIndex]));
                 break;
             case "T":
-                taskArrayList.add(new ToDo(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),inputArray[taskNameIndex]));
+                taskArrayList.add(new Todo(taskIndex,Boolean.parseBoolean(inputArray[isMarkedIndex]),inputArray[taskNameIndex]));
                 break;
             default:
                 System.out.println("Error retrieving task from file.");
@@ -59,6 +66,12 @@ public class Storage {
         return taskArrayList;
     }
 
+    /**
+     * Write to the file to be stored in memory if any changes to the list was made
+     * @param textToAdd The text to be written to the file
+     * @param appendFlag true if appending to the file in storage, false if overwriting the file
+     * @throws IOException If there was an error writing to the file using the Filewriter
+     */
     public void writeToFile(String textToAdd, boolean appendFlag) throws IOException {
         FileWriter fw = new FileWriter(filePath, appendFlag);
         fw.write(textToAdd);
