@@ -23,7 +23,7 @@ Phoebe is a Java-based personal assistant designed to help you manage your tasks
 
 To get started with Phoebe, 
 
-1. Download the latest `ip.jar` from (https://github.com/iscyng/ip/releases).
+1. Download the latest `ip.jar` from [here](https://github.com/iscyng/ip/releases).
 2. Copy the file into an empty folder to run Phoebe.
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ip.jar` command to run the application.
 
