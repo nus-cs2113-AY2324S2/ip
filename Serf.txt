@@ -1,7 +1,14 @@
-mark event ChinYanXu attend CS2113 lecture Friday 23 Feb 2024 /from 4 /to 6pm
+event ChinYanXu attend CS2113 lecture Friday 23 Feb 2024 /from 4 /to 6pm
 mark todo hee hee
 mark event haha /from he /to ha
 deadline haha asd /by sadwwdas
 event sleep /from sadsa /to asfsda
 todo asfasfas
 deadline asfasfsa /by asdasd
+todo aahaha
+event john /from wahs /to sadasd
+deadline sadasffsas /by wdsads
+mark todo asdasawdws
+mark todo fasfsfs
+event safasfsa /from awdas /to afsfsa
+deadline sfsaf /by sfasf

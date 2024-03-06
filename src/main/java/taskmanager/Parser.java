@@ -59,15 +59,13 @@ public class Parser {
                     number += receivedMessage.charAt(j);
                 }
             }
-            if (Integer.parseInt(number) >= taskList.size() || number.isEmpty()) {
+            if (Integer.parseInt(number) > taskList.size() || number.isEmpty()) {
                 throw new InvalidInputException();
             }
             else {
                 taskList.get(Integer.parseInt(number) - 1).markAsDone();
             }
-            Ui.printMarkOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
-                    taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
-                    taskList.get(Integer.parseInt(number) - 1).getDescription(), "complete");
+            Ui.printMarkOrUnmarkTaskMessage(taskList, Integer.parseInt(number), "complete");
         } catch (InvalidInputException e) {
             Ui.printMarkOrUnmarkTaskErrorMessage();
         }
@@ -83,20 +81,19 @@ public class Parser {
     public static void unmarkTask(String receivedMessage, ArrayList<Task> taskList){
         try {
             String number = "";
-            for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
+            for (int j = 0; j < receivedMessage.length(); j += 1) {
+                // reads number from input and store it in String number
                 if (Character.isDigit(receivedMessage.charAt(j))) {
                     number += receivedMessage.charAt(j);
                 }
             }
-            if (Integer.parseInt(number) >= taskList.size() || number.isEmpty()) {
+            if (Integer.parseInt(number) > taskList.size() || number.isEmpty()) {
                 throw new InvalidInputException();
             }
             else {
                 taskList.get(Integer.parseInt(number) - 1).markAsUndone();
             }
-            Ui.printMarkOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
-                    taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
-                    taskList.get(Integer.parseInt(number) - 1).getDescription(), "incomplete");
+            Ui.printMarkOrUnmarkTaskMessage(taskList, Integer.parseInt(number), "incomplete");
         } catch (InvalidInputException e) {
             Ui.printMarkOrUnmarkTaskErrorMessage();
         }
@@ -302,11 +299,18 @@ public class Parser {
             taskCounter = taskCounter - 1;
             return taskCounter;
         } catch (InvalidDeleteIndexException e) {
-            Ui.typoErrorMessage();
-            Ui.invalidDeleteIndexMessage();
+            Ui.printTypoErrorMessage();
+            Ui.printInvalidDeleteIndexMessage();
             return taskCounter;
         }
     }
+
+    /**
+     * Look through the task list to find tasks related to the keyword indicated in the user's command
+     *
+     * @param receivedMessage User command
+     * @param taskList List to store tasks for the program to use
+     */
 
     public static void findDescription (String receivedMessage, ArrayList<Task> taskList) {
         try {
@@ -327,7 +331,7 @@ public class Parser {
             Ui.printFindMessage(temporaryArray, temporaryArrayCounter);
 
         } catch (InvalidInputException e){
-            Ui.typoErrorMessage();
+            Ui.printTypoErrorMessage();
         }
     }
 

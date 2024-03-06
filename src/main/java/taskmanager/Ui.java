@@ -117,20 +117,31 @@ public class Ui {
     /**
      * Tells the user that the task has been marked as completed or incomplete
      *
-     * @param type Whether the task is a todo, deadline or event
-     * @param status Whether the task is completed or not
-     * @param description What the task is about
+     * @param taskList List to store tasks for the program to use
+     * @param taskCounter Counter to keep track of the number of task in the task list
      * @param markedStatus Whether the task is completed or incomplete
      */
 
-    public static void printMarkOrUnmarkTaskMessage(String type, String status, String description,
-            String markedStatus) {
+    public static void printMarkOrUnmarkTaskMessage(ArrayList<Task> taskList, int taskCounter, String markedStatus) {
         System.out.println(VERTICAL_LINES);
         System.out.println(FIVE_WHITE_SPACES + "Acknowledged sire, I've marked this task as " + markedStatus + ":");
-        System.out.println(FIVE_WHITE_SPACES
-                + "  " + "[" + type + "]"
-                + "[" + status + "] "
-                + description);
+        if (taskList.get(taskCounter - 1).getTaskType().equals("T")) {
+            System.out.println(FIVE_WHITE_SPACES + "  " + "[" + taskList.get(taskCounter - 1).getTaskType() + "]" +
+                    "[" + taskList.get(taskCounter - 1).getStatusIcon() + "] " +
+                    taskList.get(taskCounter - 1).getDescription());
+        } else if (taskList.get(taskCounter - 1).getTaskType().equals("D")) {
+            System.out.println(FIVE_WHITE_SPACES + "  " + "[" + taskList.get(taskCounter - 1).getTaskType() + "]" +
+                    "[" + taskList.get(taskCounter - 1).getStatusIcon() + "] " +
+                    taskList.get(taskCounter - 1).getDescription() +
+                    " (by: " + taskList.get(taskCounter - 1).getEndDate() + ")");
+        } else {
+            System.out.println(FIVE_WHITE_SPACES + "  " + "[" + taskList.get(taskCounter - 1).getTaskType() + "]" +
+                    "[" + taskList.get(taskCounter - 1).getStatusIcon() + "] " +
+                    taskList.get(taskCounter - 1).getDescription() +
+                    " (from: " + taskList.get(taskCounter - 1).getStartDate() +
+                    " to: " + taskList.get(taskCounter - 1).getEndDate() +
+                    ")");
+        }
         System.out.println(VERTICAL_LINES + "\n");
     }
 
@@ -209,6 +220,7 @@ public class Ui {
         System.out.println(FIVE_WHITE_SPACES + "4) List: 'list'");
         System.out.println(FIVE_WHITE_SPACES + "5) Delete: 'delete (task)'");
         System.out.println(FIVE_WHITE_SPACES + "6) Find: 'find (task)'");
+        System.out.println(FIVE_WHITE_SPACES + "7) Bye: 'bye'");
         System.out.println(VERTICAL_LINES + "\n");
     }
 
@@ -308,21 +320,28 @@ public class Ui {
         System.out.println(FIVE_WHITE_SPACES + "Now you have " + Integer.toString(taskCounter) + " tasks in the list.");
         System.out.println(VERTICAL_LINES + "\n");
     }
+
+    /**
+     * Tells the user the result of their search
+     *
+     * @param temporaryArray An array that store the tasks found during the search
+     * @param temporaryArrayCounter A counter to keep track of the number of tasks stored in the temporaryArray
+     */
     public static void printFindMessage(ArrayList<Task> temporaryArray, int temporaryArrayCounter) {
         System.out.println(VERTICAL_LINES);
         System.out.println(FIVE_WHITE_SPACES + "Sire here are the task I have found as per thy request");
         for(int iterator = 0; iterator < temporaryArrayCounter; iterator += 1) {
             if (temporaryArray.get(iterator).getTaskType().equals("T")) {
-                todoListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
+                printTodoListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
                         temporaryArray.get(iterator).getStatusIcon(),
                         temporaryArray.get(iterator).getDescription());
             } else if (temporaryArray.get(iterator).getTaskType().equals("D")) {
-                deadlineListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
+                printDeadlineListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
                         temporaryArray.get(iterator).getStatusIcon(),
                         temporaryArray.get(iterator).getDescription(),
                         temporaryArray.get(iterator).getEndDate());
             } else {
-                eventListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
+                printEventListMessage(iterator, temporaryArray.get(iterator).getTaskType(),
                         temporaryArray.get(iterator).getStatusIcon(),
                         temporaryArray.get(iterator).getDescription(),
                         temporaryArray.get(iterator).getStartDate(),
