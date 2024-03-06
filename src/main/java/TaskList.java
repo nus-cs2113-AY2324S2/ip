@@ -7,9 +7,7 @@ import java.util.ArrayList;
 public class TaskList {
     /** The list containing tasks. */
     protected ArrayList<Task> list;
-    /** The count of tasks in the list. */
-    protected int count;
-
+    
     /**
      * Constructs an empty TaskList.
      */
