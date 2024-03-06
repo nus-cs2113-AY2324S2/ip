@@ -17,7 +17,7 @@ public class ConsolePrint {
     public static void printUnmarkStatement(Task task) {
         printHorizontalLine();
 
-        System.out.println("OK, I've marked this as not done yet:");
+        System.out.println(Constants.UNMARK_TASK_MESSAGE);
         System.out.println(task);
 
         printHorizontalLine();
@@ -26,7 +26,7 @@ public class ConsolePrint {
     public static void printMarkStatement(Task task) {
         printHorizontalLine();
 
-        System.out.println("Nice! I've marked this as done:");
+        System.out.println(Constants.MARK_TASK_MESSAGE);
         System.out.println(task);
 
         printHorizontalLine();
@@ -35,7 +35,7 @@ public class ConsolePrint {
     public static void printAddTaskStatement(Task task, int noOfTasks) {
         printHorizontalLine();
 
-        System.out.println("Got it. I've added this task: " + System.lineSeparator() + task);
+        System.out.println(Constants.ADD_TASK_MESSAGE + System.lineSeparator() + task);
         System.out.println("Now you have " + Integer.toString(noOfTasks) + " tasks in the list.");
 
         printHorizontalLine();
@@ -44,7 +44,7 @@ public class ConsolePrint {
     public static void printDeleteTaskStatement(Task task, int noOfTasks) {
         printHorizontalLine();
 
-        System.out.println("Noted. I've removed this task: " + System.lineSeparator() + task);
+        System.out.println(Constants.DELETE_TASK_MESSAGE + System.lineSeparator() + task);
         System.out.println("Now you have " + Integer.toString(noOfTasks) + " tasks in the list.");
 
         printHorizontalLine();
@@ -52,6 +52,8 @@ public class ConsolePrint {
 
     public static void printList(ArrayList<Task> tasks) {
         printHorizontalLine();
+
+        System.out.println(Constants.LIST_TASKS_MESSAGE);
 
         int index = 1;
         for (Task task: tasks) {
@@ -67,10 +69,10 @@ public class ConsolePrint {
         printHorizontalLine();
 
         if (filteredTasks.isEmpty()) {
-            System.out.println("OOPS!! We couldn't find any tasks that contain" +
-                    " '" + keyword + "'");
+            System.out.printf(Constants.NO_TASKS_FOUND_MESSAGE, keyword);
+            System.out.println();
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(Constants.TASKS_FOUND_MESSAGE);
 
             for (Task task: filteredTasks) {
                 if (task != null) {
@@ -104,7 +106,7 @@ public class ConsolePrint {
     public static void exit() {
         printHorizontalLine();
 
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(Constants.EXIT_MESSAGE);
 
         printHorizontalLine();
     }

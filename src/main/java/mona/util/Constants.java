@@ -78,4 +78,14 @@ public final class Constants {
 
             "Use the commands exactly as shown. Words in ALL CAPS are for you to fill in with your details. " +
             "Let's get things done together!";
+    public static final String ADD_TASK_MESSAGE = "Got it! I've added that task for you.";
+    public static final String DELETE_TASK_MESSAGE = "Consider it gone! That task is deleted.";
+    public static final String MARK_TASK_MESSAGE = "Woohoo! That task is now marked as done.";
+    public static final String UNMARK_TASK_MESSAGE = "No worries! Mona has marked that task as not done. " +
+            "There's always next time!";
+    public static final String LIST_TASKS_MESSAGE = "Here's all the tasks you've got lined up:";
+    public static final String TASKS_FOUND_MESSAGE = "Here's what I found! Ready to take a look?";
+    public static final String NO_TASKS_FOUND_MESSAGE = "Hmm, I couldn't find any tasks that match the keyword '%s'. " +
+            "Maybe try a different word?";
+    public static final String EXIT_MESSAGE = "Bye-bye! Mona will miss you. Come back soon!";
 }
