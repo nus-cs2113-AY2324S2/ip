@@ -4,12 +4,12 @@ public class Ui {
     public Scanner in;
 
     public Ui() {
-        in = new Scanner(System.in);
-        input = in.nextLine();
+        this.in = new Scanner(System.in);
+        this.input = in.nextLine();
     }
 
     public void nextInput() {
-        input = in.nextLine();
+        this.input = in.nextLine();
     }
 
     public void processInput(String input, TaskList taskList) throws JaneException {
@@ -23,24 +23,25 @@ public class Ui {
                     throw new JaneException("Description for a " + inputPart[0] + " cannot be empty");
                 }
             }
+            Parser parser = new Parser(taskList);
             switch (inputPart[0]) {
             case "todo":
-                taskList.processTodo(inputPart[1]);
+                parser.processTodo(inputPart[1]);
                 break;
             case "deadline":
-                taskList.processDeadline(inputPart[1]);
+                parser.processDeadline(inputPart[1]);
                 break;
             case "event":
-                taskList.processEvent(inputPart[1]);
+                parser.processEvent(inputPart[1]);
                 break;
             case "list":
                 taskList.printList();
                 break;
             case "mark":
-                taskList.markAsDone(Integer.parseInt(inputPart[1]) - 1);
+                parser.markAsDone(Integer.parseInt(inputPart[1]) - 1);
                 break;
             case "unmark":
-                taskList.markAsUndone(Integer.parseInt(inputPart[1]) - 1);
+                parser.markAsUndone(Integer.parseInt(inputPart[1]) - 1);
                 break;
             case "delete" :
                 taskList.removeTask(Integer.parseInt(inputPart[1]) - 1);
