@@ -11,6 +11,10 @@ public class Event extends Task {
         this.taskType = "E";
     }
 
+    public String getTaskType() {
+        return this.taskType;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
