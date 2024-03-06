@@ -1,5 +1,14 @@
 # Winter User Guide
 
+Winter is a chatbot that helps the user keep track of tasks which can take the form ot todos, deadlines or events.
+
+## Quick Start
+1. Ensure you have Java 11 or later installed on your computer.
+2. Download the latest release Winter.jar from [Latest release](https://github.com/Zhengwinter/ip/releases/tag/A-Release)
+3. Copy the file to a folder where you wish to launch Winter
+4. Open a command prompt from the folder or navigate to the folder with te JAR file using `cd`
+5. Enter `java -jar Winter.jar` into the terminal to run the program
+
 ## Features 
 
 ### Feature-Add task
