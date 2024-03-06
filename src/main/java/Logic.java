@@ -45,11 +45,16 @@ public class Logic {
      * @param userInput Raw input of the user to be parsed by this method.
      */
     public void deadlineLogic(String userInput){
-        String description = Parser.extractDescription(userInput);
-        String deadLine = Parser.extractStartTime(userInput);
-        list.insertTask(new Deadline(description, deadLine, false));
-        saveInstance.setSavedList(list.getTasks());
-        saveInstance.uploadTasks();
+        String description = null;
+        try {
+            description = Parser.extractDescription(userInput);
+            String deadLine = Parser.extractStartTime(userInput);
+            list.insertTask(new Deadline(description, deadLine, false));
+            saveInstance.setSavedList(list.getTasks());
+            saveInstance.uploadTasks();
+        } catch (JeffException.InvalidInputException e) {
+            System.out.println("INVALID INPUT");
+        }
     }
 
 
@@ -60,12 +65,17 @@ public class Logic {
      * @param userInput Raw input of the user to be parsed by this method.
      */
     public void eventLogic(String userInput){
-        String description = Parser.extractDescription(userInput);
-        String start = Parser.extractStartTime(userInput);
-        String end = Parser.extractEndTime(userInput);
-        list.insertTask(new Event(description, start, end, false));
-        saveInstance.setSavedList(list.getTasks());
-        saveInstance.uploadTasks();
+        String description = null;
+        try {
+            description = Parser.extractDescription(userInput);
+            String start = Parser.extractStartTime(userInput);
+            String end = Parser.extractEndTime(userInput);
+            list.insertTask(new Event(description, start, end, false));
+            saveInstance.setSavedList(list.getTasks());
+            saveInstance.uploadTasks();
+        } catch (JeffException.InvalidInputException e) {
+            System.out.println("INVALID INPUT");
+        }
     }
 
     /**
@@ -75,9 +85,13 @@ public class Logic {
      * @param userInput Raw input of the user to be parsed by this method.
      */
     public void todoLogic(String userInput){
-        list.insertTask(new Todo(Parser.extractDescription(userInput), false));
-        saveInstance.setSavedList(list.getTasks());
-        saveInstance.uploadTasks();
+        try {
+            list.insertTask(new Todo(Parser.extractDescription(userInput), false));
+            saveInstance.setSavedList(list.getTasks());
+            saveInstance.uploadTasks();
+        } catch (JeffException.InvalidInputException e) {
+            System.out.println("INVALID INPUT");
+        }
     }
 
 
@@ -100,7 +114,12 @@ public class Logic {
      * @param userInput Raw user input containing a keyword.
      */
     public void findLogic(String userInput) {
-        String keyword = Parser.extractDescription(userInput);
-        list.findKeyword(keyword);
+        String keyword = null;
+        try {
+            keyword = Parser.extractDescription(userInput);
+            list.findKeyword(keyword);
+        } catch (JeffException.InvalidInputException e) {
+            System.out.println("INVALID INPUT");
+        }
     }
 }

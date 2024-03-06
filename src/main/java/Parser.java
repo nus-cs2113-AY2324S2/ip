@@ -46,20 +46,22 @@ public class Parser {
      *
      * @param userInput Raw user input.
      * @return String with task description.
+     * @throws JeffException.InvalidInputException if there is no description.
      */
-    public static String extractDescription(String userInput){
-        try {
-            int start = userInput.indexOf(" ") + 1;
-            int end = userInput.indexOf("/") - 1;
-            if (start > 0 && (end > start)) {
-                return userInput.substring(start, end);
-            } else if (start > 0) {
-                return userInput.substring(start);
-            } else {
-                throw new JeffException.InvalidInputException("YOU NEED A DESCRIPTION");
-            }
-        } catch (JeffException.InvalidInputException e) {
-            throw new IllegalArgumentException("ERROR IN THE INPUT STRING");
+    public static String extractDescription(String userInput) throws JeffException.InvalidInputException {
+        int start = userInput.indexOf(" ") + 1;
+        int end = userInput.indexOf("/") - 1;
+
+        if (start <= 0) {
+            throw new JeffException.InvalidInputException("YOU NEED A DESCRIPTION");
+        }
+
+        if (end > start) {
+            return userInput.substring(start, end);
+        } else if (end == -2) { // '/' was not found in the userInput
+            return userInput.substring(start);
+        } else {
+            throw new JeffException.InvalidInputException("INVALID INPUT FORMAT");
         }
     }
 

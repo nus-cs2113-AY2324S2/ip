@@ -55,7 +55,7 @@ public class Jeff {
                         throw new JeffException.InvalidKeywordException("");
                 }
             } catch (JeffException.InvalidKeywordException e) {
-                    throw new JeffException.InvalidKeywordException("SORRY I DONT UNDERSTAND THAT KEYWORD");
+                    System.out.println("SORRY I DON'T KNOW WHAT THAT KEYWORD MEANS");
             }
         }
             userInterface.goodbyeMessage();
