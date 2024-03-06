@@ -110,7 +110,7 @@ public class Parser {
                 System.out.println(TASK_DELETE_MESSAGE);
                 System.out.println(TWO_SPACE_GAP + currentTask.get(taskNumber - 1));
                 Ui.printCurrentTaskMessage(currentTask.size()-1);
-                currentTask.remove(taskNumber-1);
+                TaskList.removeTask(taskNumber-1);
                 Storage.writeText(currentTask);
             } catch (IndexOutOfBoundsException e){
                 System.out.println(INDEX_OUT_OF_BOUNDS_EXCEPTION_MESSAGE);
@@ -165,7 +165,7 @@ public class Parser {
             String toDoDetails = in.nextLine();
 
             Task newToDoTask = new Todo(toDoDetails.trim());
-            currentTask.add(newToDoTask);
+            TaskList.addTask(newToDoTask);
             lastTaskIndex = currentTask.size() - 1;
 
             System.out.println(TODO_MESSAGE);
@@ -183,7 +183,7 @@ public class Parser {
 
                 //Adding the new deadline task into currentTask List after processing and cleaning inputs
                 Task newDeadlineTask = getNewDeadlineTask(deadlineDetails);
-                currentTask.add(newDeadlineTask);
+                TaskList.addTask(newDeadlineTask);
                 lastTaskIndex = currentTask.size() - 1;
 
                 //Printing the appropriate information for the User
@@ -206,7 +206,7 @@ public class Parser {
 
                 //Adding the new event task into currentTask List after processing and cleaning inputs
                 Task newEventTask = getNewEventTask(eventDetails);
-                currentTask.add(newEventTask);
+                TaskList.addTask(newEventTask);
                 lastTaskIndex = currentTask.size() - 1;
 
                 //Printing the appropriate information for the User

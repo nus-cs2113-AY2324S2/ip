@@ -26,4 +26,12 @@ public class TaskList {
             System.out.println(i + DOT + currentTask.get(i-1));
         }
     }
+
+    public static void addTask(Task task) {
+        currentTask.add(task);;
+    }
+
+    public static void removeTask(int index){
+        currentTask.remove(index);
+    }
 }
