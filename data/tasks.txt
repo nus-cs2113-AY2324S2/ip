@@ -1,0 +1,4 @@
+T | 0 | walk the dog
+D | 0 | WALK the cat | 4 November
+E | 0 | Walk the turtle | 6pm-8pm
+E | 0 | project meeting | 9pm-11pm
