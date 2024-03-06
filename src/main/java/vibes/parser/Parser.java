@@ -3,6 +3,9 @@ package vibes.parser;
 import vibes.common.ErrorMessages;
 import vibes.exception.InvalidArgumentException;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
     public static final String SPACE_CHAR = " ";
@@ -23,6 +26,13 @@ public class Parser {
     public static final int EVENT_FROM_INDEX = 1;
     public static final int EVENT_TO_INDEX = 2;
 
+    /**
+     * Parses the full user input for a "Todo" task.
+     *
+     * @param userInput the full user input to be parsed
+     * @return the description of the "Todo" task extracted from the user input
+     * @throws InvalidArgumentException if the full user input does not contain the description
+     */
     public static String parseTodo(String userInput) throws InvalidArgumentException {
         String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
         if (parts.length == SPLIT_TO_TWO_LENGTH) {
@@ -32,6 +42,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the full user input for a "Deadline" task.
+     *
+     * @param userInput the full user input to be parsed
+     * @return an array containing the description and deadline of the "Deadline" task extracted from the user input
+     * @throws InvalidArgumentException if the full user input does not contain the expected format or is empty
+     */
     public static String[] parseDeadline(String userInput) throws InvalidArgumentException {
         String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
         if (parts.length == SPLIT_TO_TWO_LENGTH) {
@@ -48,6 +65,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the full user input for an "Event" task.
+     *
+     * @param userInput the full user input to be parsed
+     * @return an array containing the description, starting date, and ending date of the "Event" task extracted from the user input
+     * @throws InvalidArgumentException if the user input does not contain the expected format or is empty
+     */
     public static String[] parseEvent(String userInput) throws InvalidArgumentException {
         String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
         if (parts.length == SPLIT_TO_TWO_LENGTH) {
@@ -65,6 +89,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the full user input into a task number.
+     *
+     * @param userInput the full user input to be parsed
+     * @return the parsed task number
+     * @throws InvalidArgumentException if the user input does not contain the task number
+     */
     public static int parseTaskNumber(String userInput) throws InvalidArgumentException{
         String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
         if (parts.length == SPLIT_TO_TWO_LENGTH){
@@ -74,6 +105,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input to extract the command.
+     *
+     * @param userInput the user input to be parsed
+     * @return the extracted command in lowercase
+     */
     public static String parseCommand(String userInput) {
         return userInput.split(SPACE_CHAR)[COMMAND_INDEX].toLowerCase();
     }
