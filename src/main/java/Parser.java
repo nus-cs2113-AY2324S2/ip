@@ -110,7 +110,7 @@ public class Parser {
             try {
                 TaskList.unmarkTask(splitCommand);
             } catch (MikuException e) {
-                Ui.blankUnark();
+                Ui.blankUnmark();
             } catch (NumberFormatException e) {
                 Ui.notProperIndex();
             } catch (voidNumberOfItems e) {
@@ -137,7 +137,7 @@ public class Parser {
                 Ui.printFindTask();
                 TaskList.findKeyword(newItem);
             } catch (MikuException e) {
-                Ui.blankFind();
+                Ui.noMatchingFind();
             } catch (voidNumberOfItems e) {
                 Ui.emptyList();
             }

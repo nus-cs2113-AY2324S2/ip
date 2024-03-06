@@ -203,7 +203,7 @@ public class TaskList {
         }
 
         if (!hasMatchingTask) {
-            Ui.blankFind();
+            Ui.noMatchingFind();
         }
     }
 
