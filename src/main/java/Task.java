@@ -19,11 +19,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public int taskIndex(String description) {
-        String indexToMark = description.substring(description.lastIndexOf(" ") + 1);
-        return Integer.parseInt(indexToMark) - 1;
-    }
-
     public String toFileString() {
         return null;
     }

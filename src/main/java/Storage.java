@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-public class TaskFile {
+public class Storage {
 
     public static void save(ArrayList<Task> tasks) {
-        Greet greet = new Greet();
+        Ui greet = new Ui();
         File folder = new File("./data");
         if(!folder.exists()) {
             boolean ret = folder.mkdir();
@@ -28,7 +28,7 @@ public class TaskFile {
     }
 
     public static ArrayList<Task> load() {
-        Greet greet = new Greet();
+        Ui greet = new Ui();
         File f = new File("./data/duke.txt");
         ArrayList<Task> tasks = new ArrayList<>();
         if(!f.exists()) {

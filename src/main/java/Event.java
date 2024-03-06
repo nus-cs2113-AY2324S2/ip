@@ -8,28 +8,6 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static Task fromString(String line) throws MissingParameterException {
-        String event = line.replace("event", "");
-        String[] segments = event.split("/from");
-        if(segments.length < 2) {
-            throw new MissingParameterException("event");
-        }
-        String eventName = segments[0].trim();
-        if(eventName.isEmpty()) {
-            throw new MissingParameterException("event");
-        }
-        segments = segments[1].split("/to");
-        if(segments.length < 2) {
-            throw new MissingParameterException("event");
-        }
-        String from = segments[0].trim();
-        String to = segments[1].trim();
-        if(from.isEmpty() || to.isEmpty()) {
-            throw new MissingParameterException("event");
-        }
-        return new Event(eventName, from, to);
-    }
-
     public String toFileString() {
         return "E|" + (isDone ? 1 : 0) + "|" + description + "|" + from + "|" + to;
     }

@@ -1,63 +1,40 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final ArrayList<Task> tasks = TaskFile.load();
     public static void addTask(String line) {
-        Greet greet = new Greet();
+        Ui ui = new Ui();
         Task task;
         try {
-            if(line.startsWith("event")) {
-                task = Event.fromString(line);
-            } else if(line.startsWith("deadline")) {
-                task = Deadline.fromString(line);
+            if(Parser.getCommand(line).equals("event")) { //event
+                task = Parser.getEvent(line);
+            } else if(Parser.getCommand(line).equals("deadline")) {
+                task = Parser.getDeadline(line);
             } else {
-                task = Todo.fromString(line);
+                task = Parser.getTodo(line);
             }
         } catch(MissingParameterException e) {
-            greet.printError(e.getMessage());
+            ui.printError(e.getMessage());
             return;
         }
-        tasks.add(task);
-        TaskFile.save(tasks);
-        greet.printFormat();
+        TaskList.addTask(task);
+        ui.printFormat();
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        greet.printNumTasks(tasks.size());
-        greet.printFormat();
-    }
-
-    public static void deleteTask(int indexToDelete) {
-        tasks.remove(indexToDelete);
-        TaskFile.save(tasks);
-
-    }
-
-    public static void printList() {
-        int count = 0;
-        for(Task t:tasks) {
-            if(t == null) {
-                return;
-            }
-            count++;
-            System.out.print(count + ".");
-            System.out.println(t);
-        }
+        ui.printNumTasks(TaskList.getSize());
+        ui.printFormat();
     }
 
     public static void validate(String description) {
-        Greet greet = new Greet();
+        Ui ui = new Ui();
         try {
             checkForError(description);
         } catch (DukeException e) {
-            greet.printInvalidDescription();
+            ui.printInvalidDescription();
         }
     }
 
     private static void checkForError(String description) throws DukeException {
-        if(!description.contains("list") && !description.contains("event") && !description.contains("deadline")
-                && !description.contains("todo") && !description.contains("mark")
-                && !description.contains("delete")) {
+        if(Parser.isInvalidCommand(description)) {
             throw new DukeException();
         }
         if(description.trim().isEmpty()) {
@@ -67,81 +44,67 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__\n" +
-                "    },_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        Greet greet = new Greet();
-        greet.sayHello();
+        Ui ui = new Ui();
+        ui.printLogo();
+        ui.sayHello();
 
         String line;
         Scanner in = new Scanner(System.in);
         while(true) {
             line = in.nextLine();
-            if(line.equals("bye")) {
+            if (line.equals("bye")) {
                 break;
             }
             validate(line);
-            if(line.startsWith("list")) {
-                greet.printFormat();
-                printList();
-                greet.printFormat();
+            if (Parser.getCommand(line).equals("list")) {
+                ui.printFormat();
+                TaskList.printList();
+                ui.printFormat();
                 continue;
             }
-            Task t = new Task(line);
-            if(line.startsWith("mark")) {
-                int indexToMark = t.taskIndex(line);
-                if (greet.isWithinBounds(tasks.size(), indexToMark)) {
-                    Task taskToMark = tasks.get(indexToMark);
-                    greet.printFormat();
+            if (Parser.getCommand(line).equals("mark")) {
+                int indexToMark = Parser.getTaskIndex(line);
+                if (ui.isWithinBounds(TaskList.getSize(), indexToMark)) {
+                    Task taskToMark = TaskList.getTask(indexToMark);
+                    ui.printFormat();
                     taskToMark.setIsDone();
-                    TaskFile.save(tasks);
+                    Storage.save(TaskList.tasks);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(taskToMark);
-                    greet.printFormat();
+                    ui.printFormat();
                 }
                 continue;
             }
-            if(line.startsWith("unmark")) {
-                int indexToUnmark = t.taskIndex(line);
-                if (greet.isWithinBounds(tasks.size(), indexToUnmark)) {
-                    Task taskToUnmark = tasks.get(indexToUnmark);
-                    greet.printFormat();
+            if (Parser.getCommand(line).equals("unmark")) {
+                int indexToUnmark = Parser.getTaskIndex(line);
+                if (ui.isWithinBounds(TaskList.getSize(), indexToUnmark)) {
+                    Task taskToUnmark = TaskList.getTask(indexToUnmark);
+                    ui.printFormat();
                     taskToUnmark.setIsNotDone();
-                    TaskFile.save(tasks);
+                    Storage.save(TaskList.tasks);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(taskToUnmark);
-                    greet.printFormat();
+                    ui.printFormat();
                 }
                 continue;
             }
-            if(line.startsWith("delete")) {
-                int indexToDelete = t.taskIndex(line);
-                if (greet.isWithinBounds(tasks.size(), indexToDelete)) {
-                    Task taskToDelete = tasks.get(indexToDelete);
-                    greet.printFormat();
-                    deleteTask(indexToDelete);
+            if (Parser.getCommand(line).equals("delete")) {
+                int indexToDelete = Parser.getTaskIndex(line);
+                if (ui.isWithinBounds(TaskList.getSize(), indexToDelete)) {
+                    Task taskToDelete = TaskList.getTask(indexToDelete);
+                    ui.printFormat();
+                    TaskList.deleteTask(indexToDelete);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(taskToDelete);
-                    greet.printNumTasks(tasks.size());
-                    greet.printFormat();
+                    ui.printNumTasks(TaskList.getSize());
+                    ui.printFormat();
                 }
-            }
-            if(line.startsWith("todo")) {
-                addTask(line);
                 continue;
             }
-            if(line.startsWith("deadline")) {
-                addTask(line);
-                continue;
-            }
-            if(line.startsWith("event")) {
+            if (Parser.isTask(line)) {
                 addTask(line);
             }
         }
-        greet.sayBye();
+        ui.sayBye();
     }
 }

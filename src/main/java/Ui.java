@@ -1,4 +1,13 @@
-public class Greet {
+public class Ui {
+    public void printLogo() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__\n" +
+                "    },_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+    }
     public void printFormat() {
         for(int i = 0; i < 50; i++) {
             System.out.print("-");
@@ -8,7 +17,7 @@ public class Greet {
 
     public void sayHello() {
         printFormat();
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm Atlas");
         System.out.println("What can I do for you?");
         printFormat();
     }
