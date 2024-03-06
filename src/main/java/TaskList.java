@@ -81,7 +81,7 @@ public class TaskList {
         addTask(taskEvent);
         System.out.println(
                 OUTPUT_INDENTATION + "Event... yeay.\n" +
-                        OUTPUT_INDENTATION + "  " + taskEvent + ")\n" +
+                        OUTPUT_INDENTATION + "  " + taskEvent + "\n" +
                         OUTPUT_INDENTATION + "Can it BE any more fun?");
     }
 
