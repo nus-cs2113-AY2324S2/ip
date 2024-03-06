@@ -7,4 +7,8 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.getStatusIcon() + " " + super.getDescription() + " (by: " + by + ")";
     }
+
+    public String toFileString() {
+        return "[D]" + super.getStatusIcon() + " " + super.getDescription() + " (by: " + by + ")";
+    }
 }

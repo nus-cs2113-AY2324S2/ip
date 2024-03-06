@@ -23,4 +23,8 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
+    public String toFileString() {
+        return null;
+    }
 }
