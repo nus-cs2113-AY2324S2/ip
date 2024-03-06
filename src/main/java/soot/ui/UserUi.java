@@ -13,10 +13,6 @@ import java.util.ArrayList;
 public class UserUi {
     public static final String INDENT = "  ";
 
-    public UserUi() {
-        
-    }
-
     /**
      * Prints a greeting to the user when the chatbot is first run.
      * Chatbot will introduce itself and question for a user input.
@@ -31,7 +27,7 @@ public class UserUi {
      * Prints a goodbye greeting to the user when the user stops the chatbot.
      */
     public static void showGoodbyeMessage() {
-        System.out.println("Bye! Till the next time we meet... \n " +
+        System.out.println("Bye! Till the next time we meet... \n" +
                 "i've saved your list for future use <3");
         displayDividerLine();
     }
@@ -56,6 +52,7 @@ public class UserUi {
         System.out.print(INDENT);
     }
 
+    //TODO: javadoc
     public static void showTaskListCount() {
         int taskCount = TaskList.getSize();
         System.out.println("you currently have " + taskCount + " tasks on your list :)");
@@ -71,6 +68,16 @@ public class UserUi {
                 foundKeywordList.get(i).printTaskInListFormat(i + 1);
             }
         }
+        UserUi.displayDividerLine();
+    }
+
+    /**
+     * Prints a provided message to the terminal for the user, followed by a divider line.
+     *
+     * @param messageToPrint string containing the message to be printed to terminal.
+     */
+    public static void printMessageWithDivider(String messageToPrint) {
+        System.out.println(messageToPrint);
         UserUi.displayDividerLine();
     }
 }

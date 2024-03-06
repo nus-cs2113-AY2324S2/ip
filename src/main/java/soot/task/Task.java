@@ -24,8 +24,8 @@ public class Task {
     }
 
     /**
-     * Prints the checkbox for the task.
-     * If task has been completed, checkbox will contain a "/", else will be an empty space.
+     * Prints a checkbox for the task.
+     * If the task has been completed, the checkbox will contain a "/", else will be an empty space.
      */
     public void printCheckbox() {
         if (isDone) {
@@ -38,36 +38,35 @@ public class Task {
     /**
      * Prints all task details for the task with the specified index in the list,
      * in the required format.
-     * Note: This index is not the index in the ArrayList.
+     * Note: This index is different from the index of this task in the Array List.
      *
-     * @param index numbering for task in the task list, smallest value being 1.
+     * @param taskIndexInList numbering for task in the task list, it can be a value from 1.
      */
-    public void printTaskInListFormat(int index) {
-        System.out.print(index + ".");
+    public void printTaskInListFormat(int taskIndexInList) {
+        System.out.print(taskIndexInList + ".");
         printTaskType();
         printCheckbox();
         System.out.println(" " + taskName);
     }
 
     /**
-     * Task has been completed by user and class member isDone will become true.
+     * Mark task as completed by user and class member isDone will become true.
      * Chatbot to print out the name of this completed task.
      */
-    public void markDone() {
+    public void markTaskDone() {
         this.isDone = true;
         System.out.println("good job! this task is marked as done now: ");
         System.out.println(" >> " + this.taskName);
     }
 
     /**
+     * Mark task as not completed and class member isDone for this task is false when method finishes.
      * Either task has not been completed by user but was marked done,
      * or if an uncompleted task was accidentally called, chatbot will inform user.
      *
-     * Class member isDone for this task is false when method finishes.
      * Chatbot to print out the name of the identified task.
      */
-    //TODO: removed printTaskType and printCheckbox due to error: 'void' type not allowed here
-    public void markUndone() {
+    public void markTaskUndone() {
         if (!isDone) {
             System.out.println("hm, this task (" + this.taskName + ") had not been done yet. wrong one?");
             return;
@@ -111,15 +110,15 @@ public class Task {
     }
 
     /**
-     * Given a string that contains the letter representing the task type,
-     * return the defined enum TaskType type.
+     * Returns the defined enum TaskType of a given string that contains the letter representing the task type.
      *
-     * @param input string that contains one letter representing the task type.
+     *
+     * @param inputAlphabet string that contains one letter representing the task type.
      * @return TaskType of enum TaskType.
      * @throws SavedFileErrorTypeException If input string is not 'T', 'D' or 'E', then it is not a known task type.
      */
-    public static TaskType identifyTaskType(String input) throws SavedFileErrorTypeException {
-        switch (input) {
+    public static TaskType identifyTaskType(String inputAlphabet) throws SavedFileErrorTypeException {
+        switch (inputAlphabet) {
         case "T":
             return TaskType.TODO;
         case "D":

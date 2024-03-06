@@ -6,8 +6,7 @@ package soot.task;
  */
 public class Todo extends Task {
     /**
-     * Constructor for Todo class, will return a reference to the
-     * created Todo object by default.
+     * Constructor for Todo class, will return a reference to the created Todo object by default.
      * Task Type for this Task will be TODO.
      *
      * @param input name of the todo task to be created.
