@@ -64,7 +64,9 @@ Example of usage: `deadline Weekly GDP2021 Routine Dog Bath /by Monday 11:59pm`.
        [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
      Now you have 6 tasks in the list
    ```
+  
 [Back to Commands Usage Overview](#commands-usage-overview)
+
 ### 3. Add event to task list: `event`
 Adds a new event task with `/from` and `/to` to your task list..<br>
 * Format: `event DESCRIPTION /from FROM_DATE_TIME /to BY_DATE_TIME`.<br>
@@ -89,7 +91,9 @@ Lists all tasks your task list.<br>
      3. [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
     ____________________________________________________
    ```
+
 [Back to Commands Usage Overview](#commands-usage-overview)
+
 ### 5. Mark a task in task list: `mark`
 Marks the selected task shown in the current task list.<br>
 * Format: `mark NUMBER`.<br>
@@ -113,7 +117,9 @@ Unmarks the selected task shown in the current task list.<br>
      [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
     ____________________________________________________
    ```
+  
 [Back to Commands Usage Overview](#commands-usage-overview)
+
 ### 7. Find a task in task list: `find`
 Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
@@ -138,7 +144,9 @@ Deletes the selected task shown in the current task list.<br>
      [T][ ] Merida: Answer GDP2021 questions
     ____________________________________________________
    ```
+  
 [Back to Commands Usage Overview](#commands-usage-overview)
+
 ### 9. Exit program: `bye` or `exit`
 Exits your program.<br>
 * Format: `bye` or `exit`.<br>
