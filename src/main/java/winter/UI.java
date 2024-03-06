@@ -1,10 +1,12 @@
 package winter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 import winter.checkedexceptions.Exceptions;
+import winter.commands.ListCommand;
 import winter.task.Task;
 
 /**
@@ -144,10 +146,44 @@ public class UI {
             System.out.println("The correct format should be 'delete (task number)'\nThanks!");
             ui.showLine();
             break;
+        case INVALIDFIND:
+            System.out.println("I can search with the find command you gave!");
+            System.out.println("The correct format should be 'find (keyword)'\nThanks!");
+            ui.showLine();
+            break;
         }
     }
 
     protected void showError(String errormessage) {
         System.out.println("Oh no! We have an error!\n" + errormessage);
+    }
+
+    public void showTaskFound(ArrayList<Task> foundList) {
+        if (foundList.isEmpty()) {
+            ui.showIndent();
+            System.out.println("Sorry! There were no task that matches your keyword, try another keyword?");
+            ui.showLine();
+            return;
+        }
+        System.out.println("Hola! These are the matching tasks in your list:");
+        int foundListTaskNum = 1;
+        for (Task task : foundList) {
+            ui.showIndent();
+            switch (task.getType()) {
+            case "D":
+                System.out.println((foundListTaskNum)  + ". [D] " + task.getDoneCheckbox() + " "
+                        + task.getTaskName() + " (by: " + task.getEndTime() + ")");
+                break;
+            case "E":
+                System.out.println((foundListTaskNum) + ". [E] " + task.getDoneCheckbox() + " "
+                        + task.getTaskName() + " (from: " + task.getStartTime()
+                        + " to: " + task.getEndTime() + ")");
+                break;
+            default:
+                System.out.println((foundListTaskNum) + ". [T]" + task.getDoneCheckbox() + " "
+                        + task.getTaskName());
+            }
+            foundListTaskNum++;
+        }
     }
 }

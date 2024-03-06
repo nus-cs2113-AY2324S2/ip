@@ -22,12 +22,14 @@ public class ListCommand extends Command {
         displayList(tasks.getTaskArrayList(),ui);
     }
 
+
     /**
      * Displays the tasks in the task list in the correct format and with the correct numbering in the list
      * @param tasks The ArrayList containing the tasks
      * @param ui The user interface
      */
     private void displayList(ArrayList<Task> tasks, UI ui) {
+
         for (Task task : tasks) {
             ui.showIndent();
             System.out.println((task.getOrder() + 1) + "." + task);
