@@ -14,7 +14,7 @@ import winter.task.Task;
  * Contains methods that allow the user to enter inputs and allow the chatbot to respond to the user
  */
 public class UI {
-    private static final UI ui = new UI();
+
     public UI()
     {
         showWelcome();
@@ -54,7 +54,7 @@ public class UI {
         showLine();
     }
 
-    public void showLine() {
+    public static void showLine() {
         String line = "-----------------------------------\n";
         System.out.print(line);
     }
@@ -117,39 +117,39 @@ public class UI {
         case INVALIDTODO:
             System.out.println("Oh no! You did not enter a ToDo task after the todo command!");
             System.out.println("The correct format should be 'todo (task)'");
-            ui.showLine();
+            showLine();
             break;
         case INVALIDDEADLINE:
             System.out.println("Oh no! You did not enter a Deadline task / specify the deadline correctly " +
                     "after the deadline command!");
             System.out.println("The correct format should be 'deadline (task) by/ (deadline)'");
-            ui.showLine();
+            showLine();
             break;
         case INVALIDEVENT:
             System.out.println("Oh no! You did not enter a Event task / specify the event correctly " +
                     "after the event command!");
             System.out.println("The correct format should be 'event (task) /from (start time) /to (end time)'");
-            ui.showLine();
+            showLine();
             break;
         case EMPTYCOMMAND:
             System.out.println("Oh no! You did not enter anything! What can one do with nothing? I wonder...");
             System.out.println("Valid commands are todo, deadline, event\nThanks!");
-            ui.showLine();
+            showLine();
             break;
         case INVALIDCOMMAND:
             System.out.println("Thank you for your input but you did not enter any command! :(");
             System.out.println("Valid commands are todo, deadline, event\nThanks!");
-            ui.showLine();
+            showLine();
             break;
         case INVALIDDELETE:
             System.out.println("Haishhh, I don't know what to remove! Please specify accordingly! :(");
             System.out.println("The correct format should be 'delete (task number)'\nThanks!");
-            ui.showLine();
+            showLine();
             break;
         case INVALIDFIND:
             System.out.println("I can search with the find command you gave!");
             System.out.println("The correct format should be 'find (keyword)'\nThanks!");
-            ui.showLine();
+            showLine();
             break;
         }
     }
@@ -160,15 +160,15 @@ public class UI {
 
     public void showTaskFound(ArrayList<Task> foundList) {
         if (foundList.isEmpty()) {
-            ui.showIndent();
+            showIndent();
             System.out.println("Sorry! There were no task that matches your keyword, try another keyword?");
-            ui.showLine();
+            showLine();
             return;
         }
         System.out.println("Hola! These are the matching tasks in your list:");
         int foundListTaskNum = 1;
         for (Task task : foundList) {
-            ui.showIndent();
+            showIndent();
             switch (task.getType()) {
             case "D":
                 System.out.println((foundListTaskNum)  + ". [D] " + task.getDoneCheckbox() + " "
