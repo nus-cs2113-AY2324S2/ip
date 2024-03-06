@@ -15,6 +15,10 @@ mark -1
 mark 0
 mark 5
 delete 4
+delete 3
 find book
+find meeting
+find
+list all
 help
 bye

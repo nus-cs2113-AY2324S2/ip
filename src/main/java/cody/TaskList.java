@@ -57,7 +57,7 @@ public class TaskList {
      * @return A message indicating the result of the operation.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public String handleMarking(String command, int index) throws IndexOutOfBoundsException {
+    public String handleMarking(String command, int index) {
         boolean isDone = command.equals("mark");
         Task task = tasks.get(index - 1);
         task.markTask(isDone);
@@ -95,8 +95,7 @@ public class TaskList {
         } else if (input.startsWith("event")) {
             return createEventTask(input);
         } else {
-            throw new CodyException("I'm not sure what you mean. "
-                    + "Please use 'todo', 'deadline', or 'event' to add tasks");
+            throw new CodyException("Unknown command: " + input + ". Type 'help' to see the list of commands.");
         }
     }
 
@@ -150,7 +149,7 @@ public class TaskList {
      * @return A message indicating that the task has been removed.
      * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public String deleteTask(int index) throws IndexOutOfBoundsException {
+    public String deleteTask(int index) {
         Task task = tasks.remove(index - 1);
         return "Noted. I've removed this task:\n"
                 + "[" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
