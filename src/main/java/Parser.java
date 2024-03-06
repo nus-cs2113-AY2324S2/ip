@@ -72,10 +72,9 @@ public class Parser {
                 break;
             case "E":
                 if (parts.length < 5) return null;
-                String times = parts[3].trim();
-                String[] timeParts = times.split(" to ", 2);
-                if (timeParts.length < 2) return null;
-                task = new Event(description, timeParts[0], timeParts[1]);
+                String from = parts[3].trim();
+                String to = parts[4].trim();
+                task = new Event(description, from, to);
                 break;
         }
 
